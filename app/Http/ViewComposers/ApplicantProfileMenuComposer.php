@@ -25,32 +25,32 @@ class ApplicantProfileMenuComposer
         $profileMenu['references']['link'] = route('profile.references.edit', $view->getData()['applicant']);
         $profileMenu['portfolio']['link'] = route('profile.work_samples.edit', $view->getData()['applicant']);
 
-        //Set active on the proper item
-        switch(Route::currentRouteName()) {
-            case('profile.about'):
-            case('profile.about.edit'):
-            case('profile.about.update'):
+        // Set active on the proper item
+        switch (Route::currentRouteName()) {
+            case ('profile.about'):
+            case ('profile.about.edit'):
+            case ('profile.about.update'):
                 $profileMenu['about']['active'] = true;
                 break;
-            case('profile.experience'):
-            case('profile.experience.edit'):
-            case('profile.experience.update'):
+            case ('profile.experience'):
+            case ('profile.experience.edit'):
+            case ('profile.experience.update'):
                 $profileMenu['experience']['active'] = true;
                 break;
-            case('profile.skills'):
-            case('profile.skills.edit'):
+            case ('profile.skills'):
+            case ('profile.skills.edit'):
                 $profileMenu['skills']['active'] = true;
                 break;
-            case('profile.references'):
-            case('profile.references.edit'):
+            case ('profile.references'):
+            case ('profile.references.edit'):
                 $profileMenu['references']['active'] = true;
                 break;
-            case('profile.portfolio'):
-            case('profile.work_samples.edit'):
+            case ('profile.portfolio'):
+            case ('profile.work_samples.edit'):
                 $profileMenu['portfolio']['active'] = true;
                 break;
             default:
-                //No active menu item
+                // No active menu item
                 break;
         }
 

@@ -26,13 +26,13 @@ class SkillDeclarationValidator
         $this->skill_ids = Skill::all()->pluck('id');
         $this->skill_status_ids = SkillStatus::all()->pluck('id');
         $this->skill_level_ids = SkillLevel::all()->pluck('id');
-
     }
 
-    public function validator(SkillDeclaration $skillDeclaration) {
+    public function validator(SkillDeclaration $skillDeclaration)
+    {
         $uniqueSkillRule = new UniqueApplicantSkillRule($this->applicant, $skillDeclaration->id);
 
-        //Validate basic data is filled in
+        // Validate basic data is filled in
         $validator = Validator::make($skillDeclaration->getAttributes(), [
             'skill_id' => [
                 'required',
@@ -60,6 +60,4 @@ class SkillDeclarationValidator
     {
         return $this->validator($skillDeclaration)->validate();
     }
-
-
 }

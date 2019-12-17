@@ -15,12 +15,13 @@ use App\Models\BaseModel;
  * @property \Illuminate\Database\Eloquent\Collection $job_applications
  *
  */
-class VeteranStatus extends BaseModel {
+class VeteranStatus extends BaseModel
+{
 
     protected $fillable = [];
 
-    public function job_applications() {
+    public function job_applications()
+    {
         return $this->hasMany(\App\Models\JobApplication::class);
     }
-
 }

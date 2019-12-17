@@ -6,6 +6,7 @@
  */
 
 namespace App\Models;
+
 use App\Models\Lookup\VeteranStatus;
 use App\Models\Lookup\PreferredLanguage;
 use App\Models\Lookup\CitizenshipDeclaration;
@@ -46,7 +47,8 @@ use App\Services\Validation\ApplicationValidator;
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
  * @property \App\Models\ApplicationReview $application_review
  */
-class JobApplication extends BaseModel {
+class JobApplication extends BaseModel
+{
 
     use Notifiable;
 
@@ -85,51 +87,61 @@ class JobApplication extends BaseModel {
      */
     protected $appends = ['meets_essential_criteria'];
 
-    protected function createApplicantSnapshot($applicant_id) {
+    protected function createApplicantSnapshot($applicant_id)
+    {
         $applicant = Applicant::where('id', $applicant_id)->firstOrFail();
 
         $snapshot = $applicant->replicate();
-
     }
 
-    public function applicant() {
+    public function applicant()
+    {
         return $this->belongsTo(\App\Models\Applicant::class);
     }
 
-    public function applicant_snapshot() {
+    public function applicant_snapshot()
+    {
         return $this->belongsTo(\App\Models\Applicant::class, 'applicant_snapshot_id');
     }
 
-    public function application_status() {
+    public function application_status()
+    {
         return $this->belongsTo(\App\Models\Lookup\ApplicationStatus::class);
     }
 
-    public function citizenship_declaration() {
+    public function citizenship_declaration()
+    {
         return $this->belongsTo(\App\Models\Lookup\CitizenshipDeclaration::class);
     }
 
-    public function veteran_status() {
+    public function veteran_status()
+    {
         return $this->belongsTo(\App\Models\Lookup\VeteranStatus::class);
     }
 
-    public function preferred_language() {
+    public function preferred_language()
+    {
         return $this->belongsTo(\App\Models\Lookup\PreferredLanguage::class);
     }
 
-    public function job_poster() {
+    public function job_poster()
+    {
         return $this->belongsTo(\App\Models\JobPoster::class);
     }
 
-    public function job_application_answers() {
+    public function job_application_answers()
+    {
         return $this->hasMany(\App\Models\JobApplicationAnswer::class);
     }
 
-    public function skill_declarations() {
+    public function skill_declarations()
+    {
         return $this->applicant->skill_declarations()
             ->whereIn('skill_id', $this->job_poster->criteria->pluck('skill_id'));
     }
 
-    public function application_review() {
+    public function application_review()
+    {
         return $this->hasOne(ApplicationReview::class);
     }
 
@@ -146,11 +158,12 @@ class JobApplication extends BaseModel {
      *
      * @return string $status   'complete', 'incomplete' or 'error'
      */
-    public function getSectionStatus(string $section) {
-        //TODO: determine whether sections are complete or invalid
+    public function getSectionStatus(string $section)
+    {
+        // TODO: determine whether sections are complete or invalid
         $validator = new ApplicationValidator();
         $status = 'incomplete';
-        switch($section) {
+        switch ($section) {
             case 'basics':
                 if ($validator->basicsComplete($this)) {
                     $status = 'complete';
@@ -206,7 +219,7 @@ class JobApplication extends BaseModel {
             }
         );
         foreach ($essentialCriteria as $criterion) {
-            $skillDeclaration = $this->skill_declarations->where("skill_id", $criterion->skill_id)->first();
+            $skillDeclaration = $this->skill_declarations->where('skill_id', $criterion->skill_id)->first();
             if ($skillDeclaration === null ||
                 $skillDeclaration->skill_level_id < $criterion->skill_level_id) {
                 return false;
