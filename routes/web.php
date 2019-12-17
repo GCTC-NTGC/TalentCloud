@@ -494,7 +494,7 @@ Route::group(['prefix' => 'api'], function (): void {
         ->name('api.jobs.submit');
     Route::resource('jobs', 'Api\JobApiController')->only([
         'show', 'store', 'update'
-    ])->names([ // Specify custom names because default names collied with existing routes.
+    ])->names([// Specify custom names because default names collied with existing routes.
         'show' => 'api.jobs.show',
         'store' => 'api.jobs.store',
         'update' => 'api.jobs.update'
@@ -502,7 +502,7 @@ Route::group(['prefix' => 'api'], function (): void {
 
     Route::resource('managers', 'Api\ManagerApiController')->only([
         'show', 'update'
-    ])->names([ // Specify custom names because default names collied with existing routes
+    ])->names([// Specify custom names because default names collied with existing routes
         'show' => 'api.managers.show',
         'update' => 'api.managers.update'
     ]);

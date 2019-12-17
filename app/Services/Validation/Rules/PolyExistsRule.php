@@ -41,11 +41,11 @@ class PolyExistsRule implements Rule
             $type = Relation::getMorphedModel($type);
         }
 
-        if (! class_exists($type)) {
+        if (!class_exists($type)) {
             return false;
         }
 
-        return ! empty(resolve($type)->find($value));
+        return !empty(resolve($type)->find($value));
     }
 
     /**

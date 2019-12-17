@@ -50,8 +50,7 @@ class ApplicationController extends Controller
 
         // Display slightly different views on different portals.
         $view = WhichPortal::isManagerPortal() ?
-            'manager/application_post' :
-            'applicant/application_preview';
+            'manager/application_post' : 'applicant/application_preview';
 
         if (WhichPortal::isManagerPortal()) {
             // Load things required for review component.

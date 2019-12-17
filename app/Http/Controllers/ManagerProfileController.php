@@ -139,7 +139,7 @@ class ManagerProfileController extends Controller
         // redirect to error messages element if validation fails
         if (isset($request->validator) && $request->validator->fails()) {
             $hash = '#managerProfileFormErrors';
-            return redirect(route('manager.profile.edit', $manager).$hash)
+            return redirect(route('manager.profile.edit', $manager) . $hash)
                         ->withErrors($request->validator)
                         ->withInput();
         }
@@ -172,7 +172,7 @@ class ManagerProfileController extends Controller
                 break;
         }
 
-        return redirect(route('manager.profile.edit', $manager).$hash);
+        return redirect(route('manager.profile.edit', $manager) . $hash);
     }
 
     public function faq(Request $request)
