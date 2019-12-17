@@ -9,7 +9,7 @@ namespace App\Models;
 
 /**
  * Class JobPosterQuestionTranslation
- * 
+ *
  * @property int $id
  * @property int $job_poster_question_id
  * @property string $locale
@@ -17,10 +17,11 @@ namespace App\Models;
  * @property string $description
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- * 
+ *
  * @property \App\Models\JobPosterQuestion $job_poster_question
  */
-class JobPosterQuestionTranslation extends BaseModel {
+class JobPosterQuestionTranslation extends BaseModel
+{
 
     protected $casts = [
         'job_poster_question_id' => 'int'
@@ -30,8 +31,8 @@ class JobPosterQuestionTranslation extends BaseModel {
         'description'
     ];
 
-    public function job_poster_question() {
+    public function job_poster_question()
+    {
         return $this->belongsTo(\App\Models\JobPosterQuestion::class);
     }
-
 }
