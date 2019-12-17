@@ -35,7 +35,7 @@ class RememberDeviceTraitTest extends TestCase
 
     public function testCycleTokenSavesNewToken()
     {
-        $user = new User;
+        $user = factory(User::class)->make();
         $user->cycleRememberDeviceToken();
         $this->assertNotEmpty($user->getRememberDeviceToken());
         $this->assertSame(60, strlen($user->getRememberDeviceToken()));
@@ -43,7 +43,7 @@ class RememberDeviceTraitTest extends TestCase
 
     public function testCylcleTokenSavesDifferentEveryTime()
     {
-        $user = new User;
+        $user = factory(User::class)->create();
         $user->cycleRememberDeviceToken();
         $token1 = $user->getRememberDeviceToken();
         $user->cycleRememberDeviceToken();

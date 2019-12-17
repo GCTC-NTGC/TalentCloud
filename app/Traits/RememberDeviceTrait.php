@@ -34,12 +34,7 @@ trait RememberDeviceTrait
     public function setRememberDeviceToken($value)
     {
         if (! empty($this->getRememberDeviceTokenName())) {
-            // Make sure new value is immediately saved to db, as well as to model object.
             $this->{$this->getRememberDeviceTokenName()} = $value;
-            $timestamps = $this->timestamps;
-            $this->timestamps = false;
-            $this->save();
-            $this->timestamps = $timestamps;
         }
     }
 
@@ -61,6 +56,10 @@ trait RememberDeviceTrait
     public function cycleRememberDeviceToken()
     {
         $this->setRememberDeviceToken(Str::random(60));
+        $timestamps = $this->timestamps;
+        $this->timestamps = false;
+        $this->save();
+        $this->timestamps = $timestamps;
     }
 
     /**
