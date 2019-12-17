@@ -214,7 +214,7 @@ class JobApplication extends BaseModel
     public function meetsEssentialCriteria(): bool
     {
         $essentialCriteria = $this->job_poster->criteria->filter(
-            function($value, $key){
+            function ($value, $key) {
                 return $value->criteria_type->name == 'essential';
             }
         );

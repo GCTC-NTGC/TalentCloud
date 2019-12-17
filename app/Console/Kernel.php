@@ -58,7 +58,7 @@ class Kernel extends ConsoleKernel
         // search $needle in process status
         $result = array_filter(
             $process_status,
-            function($var) use ($needle) {
+            function ($var) use ($needle) {
                 return strpos($var, $needle);
             }
         );

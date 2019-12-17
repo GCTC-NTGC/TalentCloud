@@ -81,7 +81,7 @@ class ApplicationValidator
     protected function addNestedValidatorRules($nestedAttribute, $validatorRules, $rules = [])
     {
         // prepend the attribute name of each validator rule with the nested attribute name
-        $newRules = $this->arrayMapKeys(function($key) use ($nestedAttribute) {
+        $newRules = $this->arrayMapKeys(function ($key) use ($nestedAttribute) {
                 return implode('.', [$nestedAttribute, $key]);
         },
             $validatorRules);
