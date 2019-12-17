@@ -7,7 +7,7 @@
   {
     "id": "managerSurveyModal.explanation",
     "description": "Explanation of how to get to manager survey.",
-    "defaultMessage": "Your feedback helps us improve our tools! Please take a few minutes to complete this <a>survey</a>."
+    "defaultMessage": "Your feedback helps us improve our tools! Please take a few minutes to complete a survey."
   },
   {
     "id": "managerSurveyModal.managerSurveyLinkTitle",
@@ -15,8 +15,18 @@
     "defaultMessage": "Link to manager survey."
   },
   {
-    "id": "managerSurveyModal.cancel",
-    "description": "Cancel button of Demo Submit Job modal.",
-    "defaultMessage": "Go back to My Job Posters"
+    "id": "managerSurveyModal.link",
+    "description": "Link to manager survey.",
+    "defaultMessage": "Take me to the survey"
+  },
+  {
+    "id": "managerSurveyModal.jobPosterLink",
+    "description": "Link to job poster index.",
+    "defaultMessage": "Go back to <a>My Job Posters</>."
+  },
+  {
+    "id": "managerSurveyModal.jobPosterLinkTitle",
+    "description": "Title for link to job poster index.",
+    "defaultMessage": "Visit My Job Posters."
   }
 ]

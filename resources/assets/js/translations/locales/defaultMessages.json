@@ -1986,7 +1986,7 @@
         "id": "managerSurveyModal.title"
       },
       {
-        "defaultMessage": "Your feedback helps us improve our tools! Please take a few minutes to complete this <a>survey</a>.",
+        "defaultMessage": "Your feedback helps us improve our tools! Please take a few minutes to complete a survey.",
         "description": "Explanation of how to get to manager survey.",
         "id": "managerSurveyModal.explanation"
       },
@@ -1996,9 +1996,19 @@
         "id": "managerSurveyModal.managerSurveyLinkTitle"
       },
       {
-        "defaultMessage": "Go back to My Job Posters",
-        "description": "Cancel button of Demo Submit Job modal.",
-        "id": "managerSurveyModal.cancel"
+        "defaultMessage": "Take me to the survey",
+        "description": "Link to manager survey.",
+        "id": "managerSurveyModal.link"
+      },
+      {
+        "defaultMessage": "Go back to <a>My Job Posters</>.",
+        "description": "Link to job poster index.",
+        "id": "managerSurveyModal.jobPosterLink"
+      },
+      {
+        "defaultMessage": "Visit My Job Posters.",
+        "description": "Title for link to job poster index.",
+        "id": "managerSurveyModal.jobPosterLinkTitle"
       }
     ],
     "path": "resources/assets/js/components/JobBuilder/Review/ManagerSurveyModal.json"
