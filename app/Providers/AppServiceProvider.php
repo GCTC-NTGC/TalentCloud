@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\Resource;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
@@ -19,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
         // Prevent resource responses from being wrapped in a top
         // level 'data' key.
         // https://laravel.com/docs/eloquent-resources#data-wrapping.
+        JsonResource::withoutWrapping();
         Resource::withoutWrapping();
 
         // A lower default string length for migrations is required for

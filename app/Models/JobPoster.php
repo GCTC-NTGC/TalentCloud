@@ -279,6 +279,16 @@ class JobPoster extends BaseModel
     ];
 
     /**
+     * Eager loaded relationships by default.
+     *
+     * @var string[] $with
+     */
+    protected $with = [
+        'criteria',
+        'manager'
+    ];
+
+    /**
      * @var mixed[] $dispatchesEvents
      */
     protected $dispatchesEvents = [

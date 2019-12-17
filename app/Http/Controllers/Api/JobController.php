@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreJobPoster;
 use App\Http\Requests\UpdateJobPoster;
+use App\Http\Resources\JobPoster as JobPosterResource;
 use App\Mail\JobPosterReviewRequested;
 use App\Models\JobPoster;
 use App\Models\Lookup\JobTerm;
-use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -50,8 +50,7 @@ class JobController extends Controller
         $job->job_term_id = JobTerm::where('name', 'month')->value('id');
         $job->fill($data);
         $job->save();
-        $job->load('criteria');
-        return new JsonResource($job);
+        return new JobPosterResource($job);
     }
 
     /**
@@ -62,8 +61,7 @@ class JobController extends Controller
      */
     public function show(JobPoster $job)
     {
-        $job->load('criteria');
-        return new JsonResource($job);
+        return new JobPosterResource($job);
     }
 
     /**
@@ -83,8 +81,7 @@ class JobController extends Controller
         $job->job_term_id = JobTerm::where('name', 'month')->value('id');
         $job->save();
         $job->fresh();
-        $job->load('criteria');
-        return new JsonResource($job);
+        return new JobPosterResource($job);
     }
 
     /**
@@ -120,8 +117,7 @@ class JobController extends Controller
                 Log::error('The reviewer email environment variable is not set.');
             }
         }
-        $job->load('criteria');
 
-        return new JsonResource($job);
+        return new JobPosterResource($job);
     }
 }
