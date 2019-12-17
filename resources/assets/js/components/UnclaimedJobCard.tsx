@@ -4,18 +4,22 @@ import { JobStatus } from "../models/lookupConstants";
 
 export interface UnclaimedJobCardProps {
   title: string;
+  url: string;
   createdAt: string;
   status: JobStatus;
   hiringManagers: string[];
   hrAdvisors: string[];
+  claimJob: () => void;
 }
 
 const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
   title,
+  url,
   createdAt,
   status,
   hiringManagers,
   hrAdvisors,
+  claimJob,
 }) => {
   return (
     <div
@@ -23,7 +27,7 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
       className="tc-hr-job-card"
     >
       <div data-c-card data-c-radius="rounded" data-c-background="white(100)">
-        <a href="" title="" style={{ textDecoration: "none" }}>
+        <a href={url} title="" style={{ textDecoration: "none" }}>
           <div data-c-background="black(100)" data-c-padding="all(normal)">
             <div data-c-grid="gutter middle">
               <div data-c-grid-item="base(1of1)">
@@ -101,10 +105,17 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
               </p>
             )}
           </div>
-          <div
-            data-c-padding="all(normal)"
-            data-c-border="top(thin, solid, black)"
-            data-c-align="base(right)"
+        </a>
+        <div
+          data-c-padding="all(normal)"
+          data-c-border="top(thin, solid, black)"
+          data-c-align="base(right)"
+        >
+          <button
+            data-c-button="solid(c2)"
+            data-c-radius="rounded"
+            type="button"
+            onClick={claimJob}
           >
             <span data-c-color="black">
               +{" "}
@@ -116,8 +127,8 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
                 />
               </span>
             </span>
-          </div>
-        </a>
+          </button>
+        </div>
       </div>
     </div>
   );

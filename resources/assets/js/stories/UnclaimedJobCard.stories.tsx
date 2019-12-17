@@ -2,6 +2,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { text, select, array } from "@storybook/addon-knobs";
 import { withIntl } from "storybook-addon-intl";
+import { action } from "@storybook/addon-actions";
 import UnclaimedJobCard from "../components/UnclaimedJobCard";
 import { JobStatus } from "../models/lookupConstants";
 import { unclaimedJobs } from "../components/HRPortal/fixtures";
@@ -26,6 +27,7 @@ stories
       <div data-c-container="large" data-c-padding="tb(triple)">
         <UnclaimedJobCard
           title={text("Title", "CS01 - Front-end Developer", "Props")}
+          url={text("Url", "", "Props")}
           createdAt={text("Created At", "Created: 2019-MAY-02", "Props")}
           status={select("Status", statusOptions, JobStatus.Draft, "Props")}
           hiringManagers={array(
@@ -35,6 +37,7 @@ stories
             "Props",
           )}
           hrAdvisors={[]}
+          claimJob={action("Claim Job")}
         />
       </div>
     ),
@@ -45,6 +48,7 @@ stories
       <div data-c-container="large" data-c-padding="tb(triple)">
         <UnclaimedJobCard
           title={text("Title", "AS02 - Executive Assisstant", "Props")}
+          url={text("Url", "", "Props")}
           createdAt={text("Created At", "Created: 2019-MAY-02", "Props")}
           status={select("Status", statusOptions, JobStatus.Draft, "Props")}
           hiringManagers={array(
@@ -59,6 +63,7 @@ stories
             ",",
             "Props",
           )}
+          claimJob={action("Claim Job")}
         />
       </div>
     ),
@@ -71,6 +76,7 @@ stories
           {unclaimedJobs.map(
             ({
               title,
+              url,
               createdAt,
               status,
               hiringManagers,
@@ -80,10 +86,12 @@ stories
                 <UnclaimedJobCard
                   key={title}
                   title={title}
+                  url={url}
                   createdAt={createdAt}
                   status={status}
                   hiringManagers={hiringManagers}
                   hrAdvisors={hrAdvisors}
+                  claimJob={action("Claim Job")}
                 />
               );
             },

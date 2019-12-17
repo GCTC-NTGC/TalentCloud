@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import ReactDOM from "react-dom";
 import { FormattedMessage } from "react-intl";
-import { JobAction, UnclaimedJob } from "../../models/types";
-import JobCard from "../JobCard";
-import UnclaimedJobCard from "../UnclaimedJobCard";
-import { JobStatus } from "../../models/lookupConstants";
+import JobCard, { JobCardProps } from "../JobCard";
+import UnclaimedJobCard, { UnclaimedJobCardProps } from "../UnclaimedJobCard";
 import RootContainer from "../RootContainer";
+import { JobStatus } from "../../models/lookupConstants";
 import { jobActions, unclaimedJobs } from "./fixtures";
 
 interface CompletedJobsAccordionProps {
-  completedJobActions: JobAction[];
+  completedJobActions: JobCardProps[];
 }
 
 const CompletedJobsAccordion: React.FC<CompletedJobsAccordionProps> = ({
@@ -96,8 +95,8 @@ const CompletedJobsAccordion: React.FC<CompletedJobsAccordionProps> = ({
 };
 
 interface JobIndexPageProps {
-  jobActions: JobAction[];
-  unclaimedJobs: UnclaimedJob[];
+  jobActions: JobCardProps[];
+  unclaimedJobs: UnclaimedJobCardProps[];
   departmentName: string;
 }
 
@@ -106,12 +105,16 @@ const JobIndexPage: React.FunctionComponent<JobIndexPageProps> = ({
   unclaimedJobs,
   departmentName,
 }) => {
-  const notCompletedJobActions: JobAction[] = jobActions.filter(
-    jobAction => jobAction.status !== JobStatus.Complete,
+  const notCompletedJobActions: JobCardProps[] = useMemo(
+    () =>
+      jobActions.filter(jobAction => jobAction.status !== JobStatus.Complete),
+    [jobActions],
   );
 
-  const completedJobActions: JobAction[] = jobActions.filter(
-    jobAction => jobAction.status === JobStatus.Complete,
+  const completedJobActions: JobCardProps[] = useMemo(
+    () =>
+      jobActions.filter(jobAction => jobAction.status === JobStatus.Complete),
+    [jobActions],
   );
 
   return (

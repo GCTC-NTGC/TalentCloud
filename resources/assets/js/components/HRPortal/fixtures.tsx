@@ -1,8 +1,7 @@
-import { text, boolean, number } from "@storybook/addon-knobs";
-import { JobAction } from "../../models/types";
 import { JobStatus } from "../../models/lookupConstants";
+import { JobCardProps } from "../JobCard";
 
-export const jobActions: JobAction[] = [
+export const jobActions: JobCardProps[] = [
   {
     activity: {
       count: 3,
@@ -119,37 +118,47 @@ export const jobActions: JobAction[] = [
 export const unclaimedJobs = [
   {
     title: "CS01 - Front-end Developer",
+    url: "",
     createdAt: "2019-MAY-02",
     status: JobStatus.Draft,
     hiringManagers: ["Rebecca Appleby"],
     hrAdvisors: [],
+    claimJob: (): void => {},
   },
   {
     title: "AS02 - Executive Assisstant",
+    url: "",
     createdAt: "2019-MAR-12",
     status: JobStatus.Draft,
     hiringManagers: ["Rebecca Appleby"],
     hrAdvisors: ["Rebecca Appleby", "Jack Little"],
+    claimJob: (): void => {},
   },
   {
     title: "ET03 - Business Analyst",
+    url: "",
     createdAt: "2019-DEC-02",
     status: JobStatus.Review,
     hiringManagers: ["Robin Browne"],
     hrAdvisors: [],
+    claimJob: (): void => {},
   },
   {
     title: "FG05 - Long-term Care Specialist",
+    url: "",
     createdAt: "2019-MAY-14",
     status: JobStatus.Draft,
     hiringManagers: ["Braeden McDoogal"],
     hrAdvisors: ["Caitlyn Summers", "Jack Little"],
+    claimJob: (): void => {},
   },
   {
     title: "CS03 - Digital Product Designer",
+    url: "",
     createdAt: "2019-JUL-24",
     status: JobStatus.Review,
     hiringManagers: ["Amelie Lachance"],
     hrAdvisors: [],
+    claimJob: (): void => {},
   },
 ];

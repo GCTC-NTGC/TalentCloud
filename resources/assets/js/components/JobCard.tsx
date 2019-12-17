@@ -62,7 +62,7 @@ const StatusPill: React.FC<StatusPillProps> = ({ text, status }) => (
   </span>
 );
 
-interface JobCardProps {
+export interface JobCardProps {
   activity: Activity;
   applicants: number;
   classification: string;
