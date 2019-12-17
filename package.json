@@ -74,7 +74,7 @@
     "fetch-mock": "^8.1.0",
     "jest": "^24.9.0",
     "jest-junit": "^10.0.0",
-    "laravel-mix": "^5.0.0",
+    "laravel-mix": "^5.0.1",
     "nanoid": "^2.1.8",
     "node-sass": "^4.13.0",
     "prettier": "^1.19.1",
