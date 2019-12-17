@@ -20,5 +20,5 @@ return [
     'recover_link_title' => 'Utiliser un code de récupération',
     'recover_link' => 'Vous avez perdu votre dispositif d\'authentification? Ouvrir une session avec un code de récupération.',
     'cancel' => 'Annuler',
-    'remember_device' => ''
+    'remember_device' => 'Ne demandez plus de mot de passe à usage unique sur cet appareil pendant 30 jours.'
 ];
