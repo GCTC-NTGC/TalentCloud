@@ -5,7 +5,7 @@ use App\Models\Manager;
 use App\Models\Applicant;
 use App\Models\HrAdvisor;
 
-class UsersSeeder extends Seeder
+class UsersSeeder extends Seeder // phpcs:ignore
 {
 
     /**
