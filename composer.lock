@@ -2870,16 +2870,16 @@
         },
         {
             "name": "slevomat/coding-standard",
-            "version": "6.0.2",
+            "version": "6.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/slevomat/coding-standard.git",
-                "reference": "beea16e33a97884ddfcc5d310b78e0a394538505"
+                "reference": "3cb058711ddd65444aa2a5991eb387ca868fc2cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/beea16e33a97884ddfcc5d310b78e0a394538505",
-                "reference": "beea16e33a97884ddfcc5d310b78e0a394538505",
+                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/3cb058711ddd65444aa2a5991eb387ca868fc2cf",
+                "reference": "3cb058711ddd65444aa2a5991eb387ca868fc2cf",
                 "shasum": ""
             },
             "require": {
@@ -2907,7 +2907,7 @@
                 "MIT"
             ],
             "description": "Slevomat Coding Standard for PHP_CodeSniffer complements Consistence Coding Standard by providing sniffs with additional checks.",
-            "time": "2019-12-09T17:24:48+00:00"
+            "time": "2019-12-13T07:23:38+00:00"
         },
         {
             "name": "spatie/laravel-translatable",
