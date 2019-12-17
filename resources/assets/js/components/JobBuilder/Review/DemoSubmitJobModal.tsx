@@ -2,6 +2,7 @@ import React from "react";
 import { FormattedMessage, defineMessages, useIntl } from "react-intl";
 import Modal from "../../Modal";
 import { managerFaq } from "../../../helpers/routes";
+import { managerSurveyMessages } from "./ManagerSurveyModal";
 
 interface DemoSubmitJobModalProps {
   isVisible: boolean;
@@ -78,6 +79,25 @@ export const DemoSubmitJobModal: React.FC<DemoSubmitJobModalProps> = ({
                   ),
                 }}
               />
+            </p>
+            <p data-c-margin="top(normal)">
+              {intl.formatMessage(
+                managerSurveyMessages.managerSurveyExplanation,
+                {
+                  a: msg => (
+                    <a
+                      href="https://talentcloud1.typeform.com/to/MrOkgK"
+                      title={intl.formatMessage(
+                        managerSurveyMessages.managerSurveyLinkTitle,
+                      )}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                    >
+                      {msg}
+                    </a>
+                  ),
+                },
+              )}
             </p>
           </div>
         </div>
