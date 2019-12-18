@@ -72,17 +72,14 @@ const updateJobWithValues = (
   deptImpacts: { en: string; fr: string },
 ): Job => ({
   ...initialJob,
-  dept_impact: {
-    ...initialJob.dept_impact,
-    en: deptImpacts.en,
-    ...initialJob.dept_impact,
-    fr: deptImpacts.fr,
+  dept_impact: deptImpacts,
+  team_impact: {
+    ...initialJob.team_impact,
+    [locale]: teamImpact,
   },
-  [locale]: {
-    ...initialJob,
-    dept_impact: deptImpacts[locale],
-    team_impact: teamImpact[locale],
-    hire_impact: hireImpact[locale],
+  hire_impact: {
+    ...initialJob.hire_impact,
+    [locale]: hireImpact,
   },
 });
 
@@ -169,11 +166,11 @@ const JobBuilderImpact: React.FunctionComponent<JobBuilderImpactProps &
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
   }
+  const initialTeamImpact = job ? job.team_impact[locale] : null;
+  const initialHireImpact = job ? job.hire_impact[locale] : null;
   const initialValues: ImpactFormValues = {
-    teamImpact:
-      job && job.team_impact[intl.locale] ? job.team_impact[intl.locale] : "",
-    hireImpact:
-      job && job.hire_impact[intl.locale] ? job.hire_impact[intl.locale] : "",
+    teamImpact: initialTeamImpact || "",
+    hireImpact: initialHireImpact || "",
   };
   const validationSchema = Yup.object().shape({
     teamImpact: Yup.string().required(
