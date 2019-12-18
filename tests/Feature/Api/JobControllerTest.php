@@ -107,7 +107,7 @@ class JobControllerTest extends TestCase
         $job = factory(JobPoster::class)->state('published')->create();
         $response = $this->json('get', "api/jobs/$job->id");
         $response->assertOk();
-        $expected = $job->toApiArray();
+        $expected = array_merge($job->toArray(), $job->getTranslations());
         $response->assertJson($expected);
     }
 

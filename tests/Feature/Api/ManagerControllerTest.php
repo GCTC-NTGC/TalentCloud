@@ -81,8 +81,7 @@ class ManagerControllerTest extends TestCase
         $applicantUser = factory(User::class)->state('applicant')->create();
         $response = $this->actingAs($applicantUser)->json('get', "api/managers/$manager->id");
         $response->assertOk();
-
-        $response->assertJsonFragment($manager->toApiArray());
+        $response->assertJsonFragment(array_merge($manager->toArray(), $manager->getTranslations()));
     }
 
     public function testCurrentManagerAsGuest()
@@ -96,7 +95,7 @@ class ManagerControllerTest extends TestCase
         $manager = factory(Manager::class)->create();
         $response = $this->actingAs($manager->user)->json('get', 'api/currentuser/manager');
         $response->assertOk();
-        $response->assertJsonFragment($manager->fresh()->toApiArray());
+        $response->assertJsonFragment($manager->fresh()->toArray());
     }
 
     public function testUpdateAsManager()
