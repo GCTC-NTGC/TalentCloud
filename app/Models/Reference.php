@@ -25,7 +25,7 @@ use App\Models\SkillDeclaration;
  * @property \Illuminate\Database\Eloquent\Collection $projects
  * @property \Illuminate\Database\Eloquent\Collection $skill_declaractions
  */
-class Reference extends BaseModel {
+class Reference extends BaseModel{
 
     protected $casts = [
         'name' => 'string',

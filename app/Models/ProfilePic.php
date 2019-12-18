@@ -20,7 +20,7 @@ namespace App\Models;
  *
  * @property \App\Models\User $user
  */
-class ProfilePic extends BaseModel {
+class ProfilePic extends BaseModel{
 
     protected $casts = [
         'user_id' => 'int',

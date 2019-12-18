@@ -14,7 +14,7 @@ use App\Models\BaseModel;
  *
  * @property \Illuminate\Database\Eloquent\Collection $skills
  */
-class SkillType extends BaseModel {
+class SkillType extends BaseModel{
 
     protected $fillable = [
         'name'

@@ -25,7 +25,7 @@ namespace App\Models;
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
  * @property \App\Models\Applicant $applicant
  */
-class WorkSample extends BaseModel {
+class WorkSample extends BaseModel{
 
     protected $casts = [
         'name' => 'string',

@@ -21,7 +21,7 @@ use App\Models\BaseModel;
  * 
  * @property \App\Models\Lookup\SkillLevel $skill_level
  */
-class SkillLevelTranslation extends BaseModel {
+class SkillLevelTranslation extends BaseModel{
 
     protected $casts = [
         'skill_level_id' => 'int'

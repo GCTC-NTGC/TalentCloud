@@ -15,7 +15,7 @@ use App\Models\BaseModel;
  * @property \Illuminate\Database\Eloquent\Collection $job_applications
  *
  */
-class PreferredLanguage extends BaseModel {
+class PreferredLanguage extends BaseModel{
 
     protected $fillable = [];
 

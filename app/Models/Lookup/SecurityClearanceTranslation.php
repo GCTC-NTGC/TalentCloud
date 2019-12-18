@@ -21,7 +21,7 @@ use App\Models\BaseModel;
  * 
  * @property \App\Models\Lookup\SecurityClearance $security_clearance
  */
-class SecurityClearanceTranslation extends BaseModel {
+class SecurityClearanceTranslation extends BaseModel{
 
     protected $casts = [
         'security_clearance_id' => 'int'

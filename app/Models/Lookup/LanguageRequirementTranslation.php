@@ -21,7 +21,7 @@ use App\Models\BaseModel;
  * 
  * @property \App\Models\Lookup\LanguageRequirement $language_requirement
  */
-class LanguageRequirementTranslation extends BaseModel {
+class LanguageRequirementTranslation extends BaseModel{
 
     protected $casts = [
         'language_requirement_id' => 'int'

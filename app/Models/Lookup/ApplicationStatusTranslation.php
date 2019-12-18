@@ -21,7 +21,7 @@ use App\Models\BaseModel;
  * 
  * @property \App\Models\Lookup\ApplicationStatus $application_status
  */
-class ApplicationStatusTranslation extends BaseModel {
+class ApplicationStatusTranslation extends BaseModel{
 
     protected $casts = [
         'application_status_id' => 'int'

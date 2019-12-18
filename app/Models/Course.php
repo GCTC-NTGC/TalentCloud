@@ -25,7 +25,7 @@ use App\Models\Applicant;
  * @property \App\Models\Lookup\CourseStatus $course_status
  * @property \App\Models\Applicant $applicant
  */
-class Course extends BaseModel {
+class Course extends BaseModel{
 
     protected $casts = [
         'name' => 'string',

@@ -15,7 +15,7 @@ use App\Models\BaseModel;
  * @property \Illuminate\Database\Eloquent\Collection $job_applications
  *
  */
-class VeteranStatus extends BaseModel {
+class VeteranStatus extends BaseModel{
 
     protected $fillable = [];
 

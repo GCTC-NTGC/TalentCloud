@@ -21,7 +21,7 @@ use App\Models\BaseModel;
  * 
  * @property \App\Models\Lookup\FileType $file_type
  */
-class FileTypeTranslation extends BaseModel {
+class FileTypeTranslation extends BaseModel{
 
     protected $casts = [
         'file_type_id' => 'int'

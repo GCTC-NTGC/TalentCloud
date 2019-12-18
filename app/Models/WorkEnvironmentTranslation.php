@@ -20,7 +20,7 @@ use App\Models\WorkEnvironment;
  *
  * @property \App\Models\WorkEnvironment $work_environment
  */
-class WorkEnvironmentTranslation extends BaseModel {
+class WorkEnvironmentTranslation extends BaseModel{
 
     protected $fillable = [
         'things_to_know'

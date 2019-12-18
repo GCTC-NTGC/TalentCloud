@@ -25,13 +25,13 @@ class CourseValidator
         //Validate basic data is filled in
         Validator::make($courseValidator->getAttributes(), [ 
             'applicant_id' => [
-             'required',
+                'required',
                 Rule::in($applicant_ids->toArray()),
-       ],
-             'course_status_id' => [
-             'required',
+        ],
+                'course_status_id' => [
+                'required',
                 Rule::in($this->course_status_ids->toArray()),    
-     ]
+        ]
          
         ])->validate();
     }

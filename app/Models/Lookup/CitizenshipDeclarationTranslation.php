@@ -21,7 +21,7 @@ use App\Models\BaseModel;
  * 
  * @property \App\Models\Lookup\CitizenshipDeclaration $citizenship_declaration
  */
-class CitizenshipDeclarationTranslation extends BaseModel {
+class CitizenshipDeclarationTranslation extends BaseModel{
 
     protected $casts = [
         'citizenship_declaration_id' => 'int'

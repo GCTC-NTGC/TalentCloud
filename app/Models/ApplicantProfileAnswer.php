@@ -20,7 +20,7 @@ namespace App\Models;
  * @property \App\Models\Applicant $applicant
  * @property \App\Models\Lookup\ApplicantProfileQuestion $applicant_profile_question
  */
-class ApplicantProfileAnswer extends BaseModel {
+class ApplicantProfileAnswer extends BaseModel{
 
     protected $casts = [
         'applicant_id' => 'int',

@@ -21,7 +21,7 @@ namespace App\Models;
  * @property \App\Models\WorkEnvironment $work_environment
  * @property \App\Models\WorkplacePhoto $workplace_photo
  */
-class WorkplacePhotoCaption extends BaseModel {
+class WorkplacePhotoCaption extends BaseModel{
 
     protected $casts = [
         'work_environment_id' => 'int',

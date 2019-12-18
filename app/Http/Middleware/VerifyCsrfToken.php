@@ -50,6 +50,6 @@ class VerifyCsrfToken extends Middleware
                 )
             );
         }
-         return $response;
+            return $response;
     }
 }

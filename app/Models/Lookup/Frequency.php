@@ -12,7 +12,7 @@ use App\Models\BaseModel;
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  */
-class Frequency extends BaseModel {
+class Frequency extends BaseModel{
 
     protected $fillable = [];
 

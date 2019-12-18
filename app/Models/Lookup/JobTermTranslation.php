@@ -21,7 +21,7 @@ use App\Models\BaseModel;
  * 
  * @property \App\Models\Lookup\JobTerm $job_term
  */
-class JobTermTranslation extends BaseModel {
+class JobTermTranslation extends BaseModel{
 
     protected $casts = [
         'job_term_id' => 'int'

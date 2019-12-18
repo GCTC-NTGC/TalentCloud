@@ -21,7 +21,7 @@ use App\Models\BaseModel;
  *
  * @property \App\Models\Lookup\AssessmentType $assessment_type
  */
-class AssessmentTypeTranslation extends BaseModel {
+class AssessmentTypeTranslation extends BaseModel{
 
     protected $casts = [
         'id' => 'int',

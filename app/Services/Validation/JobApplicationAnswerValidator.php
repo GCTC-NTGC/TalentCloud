@@ -7,7 +7,7 @@ use App\Models\JobApplicationAnswer;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class JobApplicationAnswerValidator {
+class JobApplicationAnswerValidator{
 
     protected $application;
     protected $questionIds;

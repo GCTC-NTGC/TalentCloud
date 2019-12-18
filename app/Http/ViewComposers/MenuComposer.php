@@ -238,12 +238,12 @@ class MenuComposer
                 'logout_link' => route('hr_advisor.logout'),
             ];
         } elseif (WhichPortal::isAdminPortal()) {
-             $loginModals = [
+                $loginModals = [
                 'modals' => Lang::get('common/login_modals'),
                 'register_link' => route('register'),
                 'login_link' => backpack_url('login'),
                 'logout_link' => backpack_url('logout'),
-             ];
+                ];
         } else {
             $loginModals = [
                 'modals' => Lang::get('common/login_modals'),

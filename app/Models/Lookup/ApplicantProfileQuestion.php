@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Lang;
  * @property string $question
  * @property string $description
  */
-class ApplicantProfileQuestion extends BaseModel {
+class ApplicantProfileQuestion extends BaseModel{
 
     protected $fillable = [];
 

@@ -28,7 +28,7 @@ namespace App\Models;
  *
  * @property \App\Models\Manager $manager
  */
-class ManagerTranslation extends BaseModel {
+class ManagerTranslation extends BaseModel{
 
     protected $casts = [
         'manager_id' => 'int'

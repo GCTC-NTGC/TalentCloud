@@ -20,7 +20,7 @@ namespace App\Models;
  * 
  * @property \App\Models\JobPosterQuestion $job_poster_question
  */
-class JobPosterQuestionTranslation extends BaseModel {
+class JobPosterQuestionTranslation extends BaseModel{
 
     protected $casts = [
         'job_poster_question_id' => 'int'

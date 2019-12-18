@@ -21,7 +21,7 @@ use App\Models\BaseModel;
  * 
  * @property \App\Models\CriteriaType $criteria_type
  */
-class CriteriaTypeTranslation extends BaseModel {
+class CriteriaTypeTranslation extends BaseModel{
 
     protected $fillable = [];
 

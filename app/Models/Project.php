@@ -21,7 +21,7 @@ namespace App\Models;
  *
  * @property \Illuminate\Database\Eloquent\Collection $references
  */
-class Project extends BaseModel {
+class Project extends BaseModel{
 
     protected $casts = [
         'name' => 'string',

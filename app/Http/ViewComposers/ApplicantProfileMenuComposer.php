@@ -26,7 +26,7 @@ class ApplicantProfileMenuComposer
         $profileMenu['portfolio']['link'] = route('profile.work_samples.edit', $view->getData()['applicant']);
 
         //Set active on the proper item
-        switch(Route::currentRouteName()) {
+        switch (Route::currentRouteName()) {
             case('profile.about'):
             case('profile.about.edit'):
             case('profile.about.update'):

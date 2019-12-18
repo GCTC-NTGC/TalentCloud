@@ -46,7 +46,7 @@ use App\Services\Validation\ApplicationValidator;
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
  * @property \App\Models\ApplicationReview $application_review
  */
-class JobApplication extends BaseModel {
+class JobApplication extends BaseModel{
 
     use Notifiable;
 
@@ -150,7 +150,7 @@ class JobApplication extends BaseModel {
         //TODO: determine whether sections are complete or invalid
         $validator = new ApplicationValidator();
         $status = 'incomplete';
-        switch($section) {
+        switch ($section) {
             case 'basics':
                 if ($validator->basicsComplete($this)) {
                     $status = 'complete';

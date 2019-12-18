@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Lang;
  *
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
  */
-class SkillStatus extends BaseModel {
+class SkillStatus extends BaseModel{
 
     protected $fillable = [
         'name'

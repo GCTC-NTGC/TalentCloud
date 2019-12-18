@@ -21,7 +21,7 @@ use App\Models\BaseModel;
  * 
  * @property \App\Models\Lookup\Relationship $relationship
  */
-class RelationshipTranslation extends BaseModel {
+class RelationshipTranslation extends BaseModel{
 
     protected $casts = [
         'relationship_id' => 'int'

@@ -21,7 +21,7 @@ use App\Models\BaseModel;
  * 
  * @property \App\Models\Lookup\Province $province
  */
-class ProvinceTranslation extends BaseModel {
+class ProvinceTranslation extends BaseModel{
 
     protected $casts = [
         'province_id' => 'int'

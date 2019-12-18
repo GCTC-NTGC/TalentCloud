@@ -13,7 +13,7 @@ use App\Models\Lookup\PreferredLanguage;
 use App\Services\Validation\Rules\ContainsObjectWithAttributeRule;
 use App\Services\Validation\JobApplicationAnswerValidator;
 
-class ApplicationValidator {
+class ApplicationValidator{
 
     protected $citizenship_ids;
     protected $veteran_status_ids;
@@ -77,7 +77,7 @@ class ApplicationValidator {
 
     protected function addNestedValidatorRules($nestedAttribute, $validatorRules, $rules = []) {
         // prepend the attribute name of each validator rule with the nested attribute name
-        $newRules = $this->arrayMapKeys(function($key) use ($nestedAttribute) {
+        $newRules = $this->arrayMapKeys(function ($key) use ($nestedAttribute) {
                 return implode('.', [$nestedAttribute, $key]);
             },
             $validatorRules);
@@ -100,14 +100,14 @@ class ApplicationValidator {
 
         // Validate that each question has been answered
         $jobPosterQuestionRules = [];
-        foreach($application->job_poster->job_poster_questions as $question) {
+        foreach ($application->job_poster->job_poster_questions as $question) {
             $jobPosterQuestionRules[] = new ContainsObjectWithAttributeRule('job_poster_question_id', $question->id);
         }
         $rules['job_application_answers'] = $jobPosterQuestionRules;
         $answerValidatorFactory = new JobApplicationAnswerValidator($application);
 
         //Validate that each answer is complete
-        foreach($application->job_application_answers as $key=>$answer) {
+        foreach ($application->job_application_answers as $key=>$answer) {
             $attribute = implode('.', ['job_application_answers', $key]);
             $rules = $this->addNestedValidatorRules($attribute, $answerValidatorFactory->rules(), $rules);
         }
@@ -135,7 +135,7 @@ class ApplicationValidator {
 
         $skillDeclarationRules = [];
         $criteriaTypeId = CriteriaType::where('name', $criteria_type)->firstOrFail()->id;
-        foreach($application->job_poster->criteria->where('criteria_type_id', $criteriaTypeId) as $criteria) {
+        foreach ($application->job_poster->criteria->where('criteria_type_id', $criteriaTypeId) as $criteria) {
             //Validate that every essential skill has a corresponding declaration
             $skillDeclarationRules[] = new ContainsObjectWithAttributeRule('skill_id', $criteria->skill_id);
         }
@@ -145,7 +145,7 @@ class ApplicationValidator {
         //Validate that those declarations are complete
         $skilDeclarationValidatorFactory = new SkillDeclarationValidator($application->applicant);
         $relevantSkillIds = $application->job_poster->criteria->where('criteria_type_id', $criteriaTypeId)->pluck('skill_id');
-        foreach( $application->skill_declarations as $key=>$declaration) {
+        foreach ($application->skill_declarations as $key=>$declaration) {
             if ($relevantSkillIds->contains($declaration->skill_id)) {
                 $attribute = implode('.', ['skill_declarations', $key]);
                 $skillDeclarationValidator = $skilDeclarationValidatorFactory->validator($declaration);

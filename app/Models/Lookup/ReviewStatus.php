@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Lang;
  * Acessors:
  * @property string $translation
  */
-class ReviewStatus extends BaseModel {
+class ReviewStatus extends BaseModel{
 
     protected $fillable = [];
 

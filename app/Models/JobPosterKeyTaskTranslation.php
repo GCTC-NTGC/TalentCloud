@@ -19,7 +19,7 @@ namespace App\Models;
  * 
  * @property \App\Models\JobPosterKeyTask $job_poster_key_task
  */
-class JobPosterKeyTaskTranslation extends BaseModel {
+class JobPosterKeyTaskTranslation extends BaseModel{
 
     protected $casts = [
         'job_poster_key_task_id' => 'int'

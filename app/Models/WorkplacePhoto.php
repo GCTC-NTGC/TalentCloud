@@ -19,7 +19,7 @@ namespace App\Models;
  * 
  * @property \App\Models\WorkplacePhotoCaption $workplace_photo_caption
  */
-class WorkplacePhoto extends BaseModel {
+class WorkplacePhoto extends BaseModel{
 
     protected $casts = [
         'image' => 'boolean',

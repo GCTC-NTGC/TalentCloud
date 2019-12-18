@@ -21,7 +21,7 @@ use App\Models\BaseModel;
  * 
  * @property \App\Models\Lookup\ExperienceLevel $experience_level
  */
-class ExperienceLevelTranslation extends BaseModel {
+class ExperienceLevelTranslation extends BaseModel{
 
     protected $casts = [
         'experience_level_id' => 'int'
