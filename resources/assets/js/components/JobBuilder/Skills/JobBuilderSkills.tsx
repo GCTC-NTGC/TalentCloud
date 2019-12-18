@@ -278,8 +278,8 @@ export const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps &
   };
 
   const sortAlphabetically = (a: Skill, b: Skill): number => {
-    const skillA: string = a[locale].name.toUpperCase();
-    const skillB: string = b[locale].name.toUpperCase();
+    const skillA: string = a.name[locale].toUpperCase();
+    const skillB: string = b.name[locale].toUpperCase();
 
     return skillA.localeCompare(skillB, locale, { sensitivity: "base" });
   };
