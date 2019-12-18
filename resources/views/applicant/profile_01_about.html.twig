@@ -7,41 +7,43 @@
 
 {% extends "layouts/base" %}
 
-{% block title %}{{ profile.about_section.profile_title }}{% endblock %}
+{% block title %}
+    {{ profile.about_section.profile_title }}
+{% endblock %}
 
 {% block body %}
 
-	{% include "common/goc" %}
-{% include "common/alert" %}
+    {% include "common/goc" %}
+    {% include "common/alert" %}
 
     {% include "common/header" with {"header":profile} %}
 
     <a id="skipLink"></a>
 
-    {# Menu #}
+        {# Menu #}
 
         {% include "applicant/profile/menu" %}
 
+        {# Form containing all about_me editable elements #}
 
-    {# Form containing all about_me editable elements #}
+  <form
+    action="{{ form_submit_action }}" method="post">
 
-        <form action="{{ form_submit_action }}" method="post">
+    {# Builds an input field for CSRF token validation #}
+    {{ csrf_field() }}
 
-            {# Builds an input field for CSRF token validation #}
-            {{ csrf_field() }}
+    {# About #}
 
-            {# About #}
+    {% include "applicant/profile/about/about" %}
 
-                {% include "applicant/profile/about/about" %}
+    {# Questions #}
 
-            {# Questions #}
+    {% include "applicant/profile/about/questions" %}
 
-                {% include "applicant/profile/about/questions" %}
+  </form>
 
-        </form>
+  {# Modals #}
 
-    {# Modals #}
-
-        {% include "common/modal" with {"page":profile} %}
+  {% include "common/modal" with {"page": profile} %}
 
 {% endblock %}

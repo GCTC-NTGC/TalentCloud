@@ -180,8 +180,8 @@ class JobPosterCrudController extends CrudController
             'type' => 'date_picker',
             'label' => 'Letter of Offer Issuance Date',
             'date_picker_options' => [
-               'todayBtn' => 'linked',
-               'format' => 'yyyy-mm-dd',
+                'todayBtn' => 'linked',
+                'format' => 'yyyy-mm-dd',
             ],
         ]);
         if ($this->crud->getCurrentEntry() &&

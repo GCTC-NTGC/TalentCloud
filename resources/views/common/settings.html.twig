@@ -1,0 +1,312 @@
+{# =============================================================================
+
+    Talent Cloud
+    Account Settings
+
+============================================================================= #}
+{% extends "layouts/base" %}
+{% block title %}
+	{{ settings.title }}
+{% endblock %}
+{% block body %}
+	{# FIP Banner #}
+	{% include "common/goc" %}
+	{# BETA Alert Banner #}
+	{% include "common/alert" %}
+
+	{# Page Header #}
+	<header data-clone>
+		<div data-c-overlay="black(80)" data-c-padding="bottom(triple)" style="background-image: url('/images/sean-pollock.jpg');">
+			{% include "common/menu" %}
+			<div data-c-container="large" data-c-padding="tb(triple)">
+				<h1 class="logotype" data-c-font-size="h1" data-c-font-weight="600" data-c-color="white" data-c-margin="bottom(double)">
+					{{ settings.title }}
+				</h1>
+				<div
+					data-c-color="white">
+					{# DEV: replace with breadcrumb component #}
+					<nav aria-label="breadcrumb" data-c-breadcrumbs>
+						<ol>
+							<li>
+								<a href="/" title="{{ settings.home_title }}">{{ settings.home_text }}</a>
+								<i class="fas fa-caret-right"></i>
+							</li>
+							<li>
+								<span aria-current="page">{{ settings.title }}</span>
+								<i class="fas fa-caret-right"></i>
+							</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</header>
+	<div
+		data-clone>
+		{# Error alert #}
+		{% if session_has('errors') %}
+			<div data-c-container="medium" data-c-margin="top(1)">
+				{% include "errors/form_errors" %}
+			</div>
+		{% endif %}
+
+		{# Success alert #}
+		{% if session_has('success') %}
+			<div data-c-alert="information" data-c-container="medium" data-c-radius="rounded" role="alert" data-c-margin="top(1)">
+				<div data-c-padding="half">
+					<p data-c-font-weight="bold" data-c-heading="h6">
+						<i aria-hidden="true" class="fa fa-check-circle"></i>
+						{{ settings.success_title }}
+					</p>
+					<p data-c-margin="top(quarter)">
+						{{ session_get('success') }}
+					</p>
+				</div>
+			</div>
+		{% endif %}
+
+		{# Page Container #}
+		<div data-c-container="large">
+			<div
+				data-c-grid="gutter">
+				{# Sidebar #}
+				<div data-c-grid-item="tl(1of4) ds(1of5)" class="sidebar-wrapper">
+					<div class="clone-sidebar" data-c-padding="tb(triple)">
+						<span data-c-font-weight="bold" data-c-font-size="h4">{{ settings.sidebar_title }}</span>
+						<nav data-c-margin="top(normal)">
+							<ul>
+								<li>
+									<a href="#personal" title="">{{ settings.heading.personal }}</a>
+								</li>
+								{% if user.gov_email %}
+									<li>
+										<a href="#government" title="">{{ settings.heading.government }}</a>
+									</li>
+								{% endif %}
+								<li>
+									<a href="#password" title="">{{ settings.heading.password }}</a>
+								</li>
+								<li>
+									<a href="#auth" title="">{{ settings.heading.two_factor }}</a>
+								</li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+				{# Page Content #}
+				<a id="skipLink"></a>
+				<div data-c-grid-item="tl(3of4) ds(4of5)">
+					<div class="clone-sidebar-content" data-c-padding="bottom(triple)">
+						<form action="{{ submit_personal }}" method="POST">
+							{{ csrf_field() }}
+							<h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="personal">{{ settings.heading.personal }}</h2>
+							<p data-c-margin="bottom(double)">{{ settings.personal_copy }}</p>
+							<div data-c-grid="gutter">
+								<div data-c-grid-item="tp(1of2)" data-c-input="text">
+									<label for="first_name">{{ settings.first_name_label }}</label>
+									<span>{{ settings.required }}</span>
+									<div>
+										<input id="first_name" name="first_name" placeholder="e.g. Clark" required type="text" value="{{ user.first_name }}"/>
+									</div>
+									<span>{{ settings.error }}</span>
+								</div>
+								<div data-c-grid-item="tp(1of2)" data-c-input="text">
+									<label for="last_name">{{ settings.last_name_label }}</label>
+									<span>{{ settings.required }}</span>
+									<div>
+										<input id="last_name" name="last_name" placeholder="e.g. Kent" required type="text" value="{{ user.last_name }}"/>
+									</div>
+									<span>{{ settings.error }}</span>
+								</div>
+								<div data-c-grid-item="base(1of1)" data-c-input="email">
+									<label for="email">{{ settings.email_label }}</label>
+									<span>{{ settings.required }}</span>
+									<div>
+										<input id="email" name="email" placeholder="e.g. name@website.com" required type="email" value="{{ user.email }}"/>
+									</div>
+									<span>{{ settings.error }}</span>
+								</div>
+								<div data-c-grid-item="base(1of1)" data-c-align="base(center) tp(right)">
+									<button data-c-button="outline(c1)" data-c-radius="rounded" type="submit" name="personal">
+										{{ settings.personal_save }}
+									</button>
+								</div>
+							</div>
+						</form>
+						<hr data-c-margin="top(triple)">
+						{% if user.gov_email %}
+							{# GoC Account Info #}
+							{# DEV: this section should only appear for users who have visited the manager portal and completed the extra registration steps #}
+								<form action="{{ submit_government }}" method="POST"> {{ csrf_field() }}
+								<h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="government">
+									{{ settings.heading.government }}</h2>
+								<p data-c-margin="bottom(normal)">{{ settings.government_copy }}</p>
+								<div data-c-grid="gutter">
+									<div data-c-grid-item="base(1of1)">
+										<div data-c-alert="information" data-c-radius="rounded" role="alert" data-c-margin="bottom(normal)">
+											<div data-c-padding="half">
+												<p data-c-margin="bottom(half)" data-c-heading="h6" data-c-font-weight="bold">
+													<i class="fas fa-exclamation-circle"></i>
+													{{ settings.government_dept }}
+													{% if user.manager.department %}
+														{{ user.manager.department.name }}
+													{% else %}
+														{{ settings.no_department }}
+													{% endif %}
+												</p>
+												<p data-c-margin="bottom(half)">{{ settings.dept_change_copy.one }}
+													<a href="{{ settings.dept_change_copy.two }}" title="{{ settings.dept_change_copy.three }}">{{ settings.dept_change_copy.four }}</a>
+												</p>
+												<p>{{ settings.dept_change_copy.five }}</p>
+											</div>
+										</div>
+										<div data-c-grid-item="base(1of1)" data-c-input="email">
+											<label for="gov_email">{{ settings.gov_email_label }}</label>
+											<span>{{ settings.required }}</span>
+											<div>
+												<input id="gov_email" name="gov_email" placeholder="e.g. clark.kent@canada.ca" required type="email" value="{{ user.gov_email }}"/>
+											</div>
+											<span>{{ settings.error }}</span>
+										</div>
+										<div data-c-grid-item="base(1of1)" data-c-align="base(center) tp(right)">
+											<button data-c-button="outline(c1)" data-c-radius="rounded" type="submit" name="goc">
+												{{ settings.government_save }}
+											</button>
+										</div>
+									</form>
+								</div>
+							</div>
+							<hr data-c-margin="top(triple)">
+						{% endif %}
+
+						{# Password Reset #}
+						<form action="{{ submit_password }}" method="POST">
+							{{ csrf_field() }}
+							<h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="password">{{ settings.heading.password }}</h2>
+							<p data-c-margin="bottom(normal)">{{ settings.password_copy.one }}</p>
+							<ul data-c-margin="bottom(double)">
+								<li>{{ settings.password_copy.two }}</li>
+								<li>{{ settings.password_copy.three }}</li>
+								<li>{{ settings.password_copy.four }}</li>
+								<li>{{ settings.password_copy.five }}</li>
+							</ul>
+							<div data-c-grid="gutter">
+								<div data-c-grid-item="base(1of1)" data-c-input="password">
+									<label for="current_password">{{ settings.password_label }}</label>
+									<span>{{ settings.required }}</span>
+									<div>
+										<input id="current_password" name="current_password" required type="password" value="" autocomplete="off"/>
+										<button type="button">
+											<i class="fas fa-eye"></i>
+											<i class="fas fa-eye-slash"></i>
+										</button>
+									</div>
+									<span>{{ settings.error }}</span>
+								</div>
+								<div data-c-grid-item="tp(1of2)" data-c-input="password">
+									<label for="new_password">{{ settings.new_password_label }}</label>
+									<span>{{ settings.required }}</span>
+									<div>
+										<input id="new_password" name="new_password" required type="password" autocomplete="off"/>
+										<button type="button">
+											<i class="fas fa-eye"></i>
+											<i class="fas fa-eye-slash"></i>
+										</button>
+									</div>
+									<span>{{ settings.error }}</span>
+								</div>
+								<div data-c-grid-item="tp(1of2)" data-c-input="password">
+									<label for="new_confirm_password">{{ settings.confirm_password_label }}</label>
+									<span>{{ settings.required }}</span>
+									<div>
+										<input id="new_confirm_password" name="new_confirm_password" required type="password" autocomplete="off"/>
+										<button type="button">
+											<i class="fas fa-eye"></i>
+											<i class="fas fa-eye-slash"></i>
+										</button>
+									</div>
+									<span>{{ settings.error }}</span>
+								</div>
+								<div data-c-grid-item="base(1of1)" data-c-align="base(center) tp(right)">
+									<button data-c-button="outline(c1)" data-c-radius="rounded" type="submit" name="password">
+										{{ settings.password_save }}
+									</button>
+								</div>
+							</div>
+						</form>
+
+						{# 2FA #}
+						<hr data-c-margin="top(triple)">
+						<h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="auth">{{ settings.heading.two_factor }}</h2>
+						{% if user.google2fa_secret %}
+							<p data-c-margin="bottom(normal)">
+								{{ settings.two_factor_active }}
+							</p>
+							{# 2FA Recovery #}
+							<p data-c-margin="bottom(normal)">
+								{{ settings.two_factor_recovery_text }}
+								<a href="{{ generate_recovery_codes }}">{{ settings.view_recovery_codes }}</a>.
+							</p>
+						{% else %}
+							<p data-c-margin="bottom(normal)">
+								{{ settings.two_factor_inactive.one }}
+							</p>
+							<p data-c-margin="bottom(normal)">
+								{{ settings.two_factor_inactive.two }}
+							</p>
+							<ul data-c-margin="bottom(normal)">
+								<li>{{ settings.two_factor_inactive.three }}</li>
+								<li>{{ settings.two_factor_inactive.four }}</li>
+								<li>{{ settings.two_factor_inactive.five }}</li>
+								<li>{{ settings.two_factor_inactive.six }}</li>
+								<li>{{ settings.two_factor_inactive.seven }}</li>
+								<li>{{ settings.two_factor_inactive.eight }}</li>
+								<li>{{ settings.two_factor_inactive.nine }}</li>
+								<li>{{ settings.two_factor_inactive.ten }}</li>
+							</ul>
+							<p data-c-margin="bottom(double)">
+								{{ settings.two_factor_inactive.eleven }}
+							</p>
+						{% endif %}
+						<div data-c-grid="gutter middle">
+							{% if not user.google2fa_secret %}
+								<div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">
+									<p data-c-font-size="h4" data-c-font-weight="bold">{{ settings.two_factor_status }}
+										<span data-c-color="stop">{{ settings.two_factor_off }}</span>
+									</p>
+								</div>
+								<div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(right)">
+									<a href="{{ activate_two_factor }}" data-c-button="outline(c1)" data-c-radius="rounded" data-c-dialog-action="open">
+										{{ settings.two_factor_button_text }}
+									</a>
+								</div>
+							{% else %}
+								<div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">
+									<p data-c-font-size="h4" data-c-font-weight="bold">{{ settings.two_factor_status }}
+										<span data-c-color="go">{{ settings.two_factor_on }}</span>
+									</p>
+								</div>
+								<div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(right)">
+									<form action="{{ deactivate_two_factor }}" method="POST">
+										{{ csrf_field() }}
+										<button data-c-button="outline(c3)" data-c-radius="rounded" data-c-dialog-action="open" type="submit">
+											{{ settings.two_factor_deactivate }}
+										</button>
+									</form>
+								</div>
+								<div data-c-grid-item="tp(1of1)" data-c-align="base(center) tp(right)">
+									<form action="{{ forget_remembered_devices }}" method="POST">
+										{{ csrf_field() }}
+										<button data-c-button="outline(c3)" data-c-radius="rounded" data-c-dialog-action="open" type="submit">
+											{{ settings.forget_remembered_devices }}
+										</button>
+									</form>
+								</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
