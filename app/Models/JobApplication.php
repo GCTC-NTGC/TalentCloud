@@ -7,11 +7,7 @@
 
 namespace App\Models;
 
-use App\Models\Lookup\VeteranStatus;
-use App\Models\Lookup\PreferredLanguage;
-use App\Models\Lookup\CitizenshipDeclaration;
 use App\Models\Applicant;
-use App\Models\SkillDeclaration;
 use App\Models\ApplicationReview;
 use Illuminate\Notifications\Notifiable;
 use App\Events\ApplicationSaved;
@@ -33,6 +29,8 @@ use App\Services\Validation\ApplicationValidator;
  * @property string $submission_date
  * @property boolean $experience_saved
  * @property boolean $language_requirement_confirmed
+ * @property string $user_name
+ * @property string $user_email
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -46,6 +44,12 @@ use App\Services\Validation\ApplicationValidator;
  * @property \Illuminate\Database\Eloquent\Collection $job_application_answers
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
  * @property \App\Models\ApplicationReview $application_review
+ * @property \Illuminate\Database\Eloquent\Collection $degrees
+ * @property \Illuminate\Database\Eloquent\Collection $courses
+ * @property \Illuminate\Database\Eloquent\Collection $work_experiences
+ * @property \Illuminate\Database\Eloquent\Collection $references
+ * @property \Illuminate\Database\Eloquent\Collection $work_samples
+ * @property \Illuminate\Database\Eloquent\Collection $projects
  */
 class JobApplication extends BaseModel
 {
@@ -136,13 +140,42 @@ class JobApplication extends BaseModel
 
     public function skill_declarations()
     {
-        return $this->applicant->skill_declarations()
-            ->whereIn('skill_id', $this->job_poster->criteria->pluck('skill_id'));
+        return $this->morphMany(\App\Models\SkillDeclaration::class, 'skillable');
     }
 
     public function application_review()
     {
         return $this->hasOne(ApplicationReview::class);
+    }
+
+    public function degrees()
+    {
+        return $this->morphMany(\App\Models\Degree::class, 'degreeable')->orderBy('end_date', 'desc');
+    }
+
+    public function courses()
+    {
+        return $this->morphMany(\App\Models\Course::class, 'courseable')->orderBy('end_date', 'desc');
+    }
+
+    public function work_experiences()
+    {
+        return $this->morphMany(\App\Models\WorkExperience::class, 'experienceable')->orderBy('end_date', 'desc');
+    }
+
+    public function references()
+    {
+        return $this->morphMany(\App\Models\Reference::class, 'referenceable');
+    }
+
+    public function projects()
+    {
+        return $this->morphMany(\App\Models\Project::class, 'projectable');
+    }
+
+    public function work_samples()
+    {
+        return $this->morphMany(\App\Models\WorkSample::class, 'work_sampleable');
     }
 
     /**
@@ -185,10 +218,12 @@ class JobApplication extends BaseModel
                 }
                 break;
             case 'preview':
-                if ($validator->basicsComplete($this) &&
+                if (
+                    $validator->basicsComplete($this) &&
                     $validator->experienceComplete($this) &&
                     $validator->essentialSkillsComplete($this) &&
-                    $validator->assetSkillsComplete($this)) {
+                    $validator->assetSkillsComplete($this)
+                ) {
                     $status = 'complete';
                 }
                 break;
@@ -205,9 +240,21 @@ class JobApplication extends BaseModel
     }
 
     /**
-     * Returns true if this application meets all the essential criteria.
+     * Check if the status of the application is 'draft'
+     *
+     * @return boolean
+     */
+    public function isDraft(): bool
+    {
+        return $this->application_status->name === 'draft';
+    }
+
+    /**
+     * Returns true if this meets all the essential criteria.
      * That means it has attached an SkillDeclaration for each essential criterion,
      * with a level at least as high as the required level.
+     * NOTE: If this application is in draft status, it will use
+     *  SkillDeclarations from the the applicants profile for this check.
      *
      * @return boolean
      */
@@ -218,10 +265,13 @@ class JobApplication extends BaseModel
                 return $value->criteria_type->name == 'essential';
             }
         );
+        $source = $this->isDraft() ? $this->applicant : $this;
         foreach ($essentialCriteria as $criterion) {
-            $skillDeclaration = $this->skill_declarations->where('skill_id', $criterion->skill_id)->first();
-            if ($skillDeclaration === null ||
-                $skillDeclaration->skill_level_id < $criterion->skill_level_id) {
+            $skillDeclaration = $source->skill_declarations->where('skill_id', $criterion->skill_id)->first();
+            if (
+                $skillDeclaration === null ||
+                $skillDeclaration->skill_level_id < $criterion->skill_level_id
+            ) {
                 return false;
             }
         }
@@ -234,8 +284,95 @@ class JobApplication extends BaseModel
      *
      * @return boolean
      */
-    public function getMeetsEssentialCriteriaAttribute():bool
+    public function getMeetsEssentialCriteriaAttribute(): bool
     {
         return $this->meetsEssentialCriteria();
+    }
+
+    /**
+     * Save copies of all relevant profile data to this application.
+     *
+     *
+     * @return void
+     */
+    public function saveProfileSnapshot(): void
+    {
+        $applicant = $this->applicant->fresh();
+
+        $this->user_name = $applicant->user->full_name;
+        $this->user_email = $applicant->user->email;
+        $this->save();
+
+        // Delete previous snapshot.
+        $this->degrees()->delete();
+        $this->courses()->delete();
+        $this->work_experiences()->delete();
+        $this->projects()->delete();
+        $this->references()->delete();
+        $this->work_samples()->delete();
+        $this->skill_declarations()->delete();
+
+        $this->degrees()->saveMany($applicant->degrees->map->replicate());
+        $this->courses()->saveMany($applicant->courses->map->replicate());
+        $this->work_experiences()->saveMany($applicant->work_experiences->map->replicate());
+
+        $copyWithHistory = function ($model) {
+            return [
+                'old' => $model,
+                'new' => $model->replicate()
+            ];
+        };
+
+
+        $projectMap = $applicant->projects->map($copyWithHistory);
+        $referenceMap = $applicant->references->map($copyWithHistory);
+        $workSampleMap = $applicant->work_samples->map($copyWithHistory);
+        $skillDeclarationMap = $applicant->skill_declarations->map($copyWithHistory);
+
+        // First link new projects, references, work samples and skill declarations to this application.
+        $this->projects()->saveMany($projectMap->pluck('new'));
+        $this->references()->saveMany($referenceMap->pluck('new'));
+        $this->work_samples()->saveMany($workSampleMap->pluck('new'));
+        $this->skill_declarations()->saveMany($skillDeclarationMap->pluck('new'));
+
+        $findNewFromOld = function ($mapping, $old) {
+            $matchingItem = $mapping->first(function ($value) use ($old) {
+                return $value['old']->id === $old->id;
+            });
+            return $matchingItem['new'];
+        };
+
+        // Replicate copies shallow attributes, but not relationships. We have to copy those ourselves.
+        $findNewReferenceFromOld = function ($old) use ($findNewFromOld, $referenceMap) {
+            return $findNewFromOld($referenceMap, $old);
+        };
+
+        $findNewSkillDeclarationFromOld = function ($old) use ($findNewFromOld, $skillDeclarationMap) {
+            return $findNewFromOld($skillDeclarationMap, $old);
+        };
+
+        // Link projects and references.
+        foreach ($projectMap as $item) {
+            $old = $item['old'];
+            $newProj = $item['new'];
+            $newReferences = $old->references->map($findNewReferenceFromOld);
+            $newProj->references()->sync($newReferences);
+        }
+
+        // Link references and skills.
+        foreach ($referenceMap as $item) {
+            $old = $item['old'];
+            $newRef = $item['new'];
+            $newSkillDecs = $old->skill_declarations->map($findNewSkillDeclarationFromOld);
+            $newRef->skill_declarations()->sync($newSkillDecs);
+        }
+
+        // Link work samples and skills.
+        foreach ($workSampleMap as $item) {
+            $old = $item['old'];
+            $newSample = $item['new'];
+            $newSkillDecs = $old->skill_declarations->map($findNewSkillDeclarationFromOld);
+            $newSample->skill_declarations()->sync($newSkillDecs);
+        }
     }
 }
