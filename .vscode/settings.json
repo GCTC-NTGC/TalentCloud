@@ -37,5 +37,9 @@
     "editor.formatOnSave": false,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "workbench.settings.useSplitJSON": true
+  "workbench.settings.useSplitJSON": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }

@@ -155,12 +155,12 @@ if (document.getElementById("application-review-container")) {
     container.hasAttribute("data-application") &&
     container.hasAttribute("data-review-statuses")
   ) {
-    const applications = JSON.parse(container.getAttribute(
-      "data-application",
-    ) as string);
-    const reviewStatuses = JSON.parse(container.getAttribute(
-      "data-review-statuses",
-    ) as string);
+    const applications = JSON.parse(
+      container.getAttribute("data-application") as string,
+    );
+    const reviewStatuses = JSON.parse(
+      container.getAttribute("data-review-statuses") as string,
+    );
     const language = container.getAttribute("data-locale") as string;
     const IntlApplicationReviewRoot = injectIntl(ApplicationReviewRoot);
     ReactDOM.render(

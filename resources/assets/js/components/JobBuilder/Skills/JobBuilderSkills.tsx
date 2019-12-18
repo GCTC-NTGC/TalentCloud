@@ -339,7 +339,8 @@ export const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps &
 
   const errorMessage = useRef<HTMLAnchorElement>(null); // React.createRef<HTMLAnchorElement>();
   const focusOnError = (): void => {
-    errorMessage.current && errorMessage.current.focus();
+    // eslint-disable-next-line no-unused-expressions
+    errorMessage?.current?.focus();
   };
 
   const saveAndPreview = (): void => {

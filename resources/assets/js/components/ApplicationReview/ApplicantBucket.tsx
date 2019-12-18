@@ -25,9 +25,8 @@ interface ApplicantBucketProps {
   prioritizeVeterans: boolean;
 }
 
-const ApplicantBucket: React.StatelessComponent<
-  ApplicantBucketProps & WrappedComponentProps
-> = ({
+const ApplicantBucket: React.StatelessComponent<ApplicantBucketProps &
+  WrappedComponentProps> = ({
   title,
   description,
   applications,

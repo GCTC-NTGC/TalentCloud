@@ -9,8 +9,9 @@ use DateTimeInterface;
 use Jenssegers\Date\Date;
 use DateTime;
 
-abstract class BaseModel extends Eloquent {
-    //Override date functions to return Jenssegers Data instead of Carbon
+abstract class BaseModel extends Eloquent
+{
+    // Override date functions to return Jenssegers Data instead of Carbon
 
     /**
      * Get a fresh timestamp for the model.
@@ -46,8 +47,9 @@ abstract class BaseModel extends Eloquent {
         // when checking the field. We will just return the DateTime right away.
         if ($value instanceof DateTimeInterface) {
             return new Date(
-                //$value->format('Y-m-d H:i:s.u'), $value->getTimeZone()
-                $value->format('Y-m-d H:i:s.u'), $timezone
+                // $value->format('Y-m-d H:i:s.u'), $value->getTimeZone()
+                $value->format('Y-m-d H:i:s.u'),
+                $timezone
             );
         }
         // If this value is an integer, we will assume it is a UNIX timestamp's value

@@ -29,9 +29,7 @@ interface RatingGuideQuestionWithAnswersProps {
   createAnswer: (ratingGuideQuestionId: number) => void;
 }
 
-export const RatingGuideQuestionWithAnswers: React.FunctionComponent<
-  RatingGuideQuestionWithAnswersProps
-> = ({
+export const RatingGuideQuestionWithAnswers: React.FunctionComponent<RatingGuideQuestionWithAnswersProps> = ({
   questionId,
   questionIndex,
   temp,

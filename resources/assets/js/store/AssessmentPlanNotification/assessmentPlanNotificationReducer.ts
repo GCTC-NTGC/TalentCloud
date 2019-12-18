@@ -145,11 +145,11 @@ const uiReducer = (
   }
 };
 
-export const assessmentPlanNotificationReducer: Reducer<
-  AssessmentPlanNotificationState
-> = combineReducers({
-  entities: entityReducer,
-  ui: uiReducer,
-});
+export const assessmentPlanNotificationReducer: Reducer<AssessmentPlanNotificationState> = combineReducers(
+  {
+    entities: entityReducer,
+    ui: uiReducer,
+  },
+);
 
 export default assessmentPlanNotificationReducer;

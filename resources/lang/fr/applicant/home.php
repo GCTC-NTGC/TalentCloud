@@ -31,6 +31,12 @@ return [
         ],
         'null' => 'D’autres emplois seront bientôt affichés!'
     ],
+    'holiday' => [
+        'title' => 'Fermeture du temps des Fêtes',
+        'main_message' => 'Nous n’afficherons aucun poste au cours de la période des fêtes, mais nous sommes impatients de lier des personnes talentueuses avec des postes super qui feront un impact lors de la nouvelle année. D’ici là, restez au chaud et amusez-vous!',
+        'sign_off' => 'Au plaisir de vous voir en 2020!',
+        'signature' => 'L’équipe du Nuage de talents'
+    ],
     'hiw' => [
         'title' => 'Comment fonctionne le Nuage de talents',
         'steps' => [

@@ -30,9 +30,8 @@ interface JobBuilderSkillsPageProps {
   ) => Promise<Criteria[]>;
 }
 
-const JobBuilderSkillsPage: React.FunctionComponent<
-  JobBuilderSkillsPageProps & WrappedComponentProps
-> = ({
+const JobBuilderSkillsPage: React.FunctionComponent<JobBuilderSkillsPageProps &
+  WrappedComponentProps> = ({
   jobId,
   job,
   skills,

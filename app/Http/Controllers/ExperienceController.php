@@ -26,12 +26,12 @@ class ExperienceController extends Controller
     }
 
     /**
-    * Show the form for editing the applicant's experience
-    *
-    * @param  \Illuminate\Http\Request $request   Incoming request object.
-    * @param  \App\Models\Applicant    $applicant Incoming applicant object.
-    * @return \Illuminate\Http\Response
-    */
+     * Show the form for editing the applicant's experience
+     *
+     * @param  \Illuminate\Http\Request $request   Incoming request object.
+     * @param  \App\Models\Applicant    $applicant Incoming applicant object.
+     * @return \Illuminate\Http\Response
+     */
     public function edit(Request $request, Applicant $applicant)
     {
         return view('applicant/profile_02_experience', [
@@ -80,7 +80,6 @@ class ExperienceController extends Controller
         if (isset($degrees['new'])) {
             foreach ($degrees['new'] as $degreeInput) {
                 $degree = new Degree();
-                $degree->applicant_id = $applicant->id;
                 $degree->fill([
                     'degree_type_id' => $degreeInput['degree_type_id'],
                     'area_of_study' => $degreeInput['area_of_study'],
@@ -90,7 +89,7 @@ class ExperienceController extends Controller
                     'end_date' => $degreeInput['end_date'],
                     'blockcert_url' => $degreeInput['blockcert_url'],
                 ]);
-                $degree->save();
+                $applicant->degrees()->save($degree);
             }
         }
 
@@ -141,7 +140,6 @@ class ExperienceController extends Controller
         if (isset($courses['new'])) {
             foreach ($courses['new'] as $courseInput) {
                 $course = new Course();
-                $course->applicant_id = $applicant->id;
                 $course->fill([
                     'name' => $courseInput['name'],
                     'institution' => $courseInput['institution'],
@@ -149,7 +147,7 @@ class ExperienceController extends Controller
                     'start_date' => $courseInput['start_date'],
                     'end_date' => $courseInput['end_date']
                 ]);
-                $course->save();
+                $applicant->courses()->save($course);
             }
         }
 
@@ -198,7 +196,6 @@ class ExperienceController extends Controller
         if (isset($work_experiences['new'])) {
             foreach ($work_experiences['new'] as $workExperienceInput) {
                 $workExperience = new WorkExperience();
-                $workExperience->applicant_id = $applicant->id;
                 $workExperience->fill([
                     'role' => $workExperienceInput['role'],
                     'company' => $workExperienceInput['company'],
@@ -206,7 +203,7 @@ class ExperienceController extends Controller
                     'start_date' => $workExperienceInput['start_date'],
                     'end_date' => $workExperienceInput['end_date']
                 ]);
-                $workExperience->save();
+                $applicant->work_experiences()->save($workExperience);
             }
         }
 

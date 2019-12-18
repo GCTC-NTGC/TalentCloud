@@ -11,22 +11,23 @@ use App\Models\BaseModel;
 
 /**
  * Class CriteriaTypeTranslation
- * 
+ *
  * @property int $id
  * @property string $value
  * @property string $description
  * @property string $locale
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- * 
+ *
  * @property \App\Models\CriteriaType $criteria_type
  */
-class CriteriaTypeTranslation extends BaseModel {
+class CriteriaTypeTranslation extends BaseModel
+{
 
     protected $fillable = [];
 
-    public function criteria_type() {
+    public function criteria_type()
+    {
         return $this->belongsTo(\App\Models\CriteriaType::class);
     }
-
 }

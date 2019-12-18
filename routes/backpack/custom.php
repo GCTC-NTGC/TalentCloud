@@ -17,4 +17,5 @@ Route::group([
     Route::crud('manager', 'ManagerCrudController');
     Route::crud('department', 'DepartmentCrudController');
     Route::crud('classification', 'ClassificationCrudController');
+    Route::crud('2fa', 'TwoFactorCrudController');
 });
