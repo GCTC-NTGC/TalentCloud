@@ -4,31 +4,22 @@
     Applicant: Browse
 
 ============================================================================= #}
-
 {% extends "layouts/base" %}
-
-{% block title %}{{ job_index.job_index_title }}{% endblock %}
-
-{% block socialMeta %}
-    {% set socialTitle = job_index.job_index_title %}
-    {% set socialDescription = job_index.job_index_description %}
-    {# Pass in images if you need custom ones! #}
-    {# {% set socialImageOpenGraphEn = "sample.png" %}
-    {% set socialImageOpenGraphFr = "sample.png" %}
-    {% set socialImageTwitterEn = "sample.png" %} 
-    {% set socialImageTwitterFr = "sample.png" %} #}
-    {% include "layouts/social" %}
+{% block title %}
+	{{ job_index.job_index_title }}
 {% endblock %}
-
-{% block body %}
-
+{% block socialMeta %}
+	{% set socialTitle = job_index.job_index_title %}
+	{% set socialDescription = job_index.job_index_description %}
+	{# Pass in images if you need custom ones! #}
+	{# {% set socialImageOpenGraphEn = "sample.png" %}
+    {% set socialImageOpenGraphFr = "sample.png" %}
+    {% set socialImageTwitterEn = "sample.png" %}
+    {% set socialImageTwitterFr = "sample.png" %} #}
+{% include "layouts/social" %}
+{% endblock %}
+	{% block body %}
 	{% include "common/goc" %}
-{% include "common/alert" %}
-
-    {% include "common/header" with {'header':job_index} %}
-
-    <a id="skipLink"></a>
-
-    {% include "applicant/job_index/index" %}
-
+	{% include "common/alert" %}{% include "common/header" with {'header': job_index} %}<a id="skipLink"> </a>
+	{% include "applicant/job_index/index" %}
 {% endblock %}

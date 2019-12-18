@@ -4,18 +4,13 @@
     Applicant: Home
 
 ============================================================================= #}
-
 {% extends "layouts/base" %}
-
 {% block title %}
 	{{ faq.faq_title }}
 {% endblock %}
-
 {% block body %}
-
 	{% include "common/goc" %}
 	{% include "common/alert" %}
-
 	<header data-clone>
 		<div data-c-overlay="black(80)" style="background-image: url('/images/sean-pollock.jpg');">
 			{% include "common/menu" %}
@@ -39,15 +34,10 @@
 			</div>
 		</div>
 	</header>
-
 	{% if show_notification %}
 		{% include "manager/notification" %}
 	{% endif %}
-
 	<a id="skipLink"></a>
-
 	{# FAQ Sections #}
-
 	{% include "applicant/static/credentialing_layout" %}
-
 {% endblock %}

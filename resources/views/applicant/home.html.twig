@@ -113,11 +113,11 @@
                                                             <p data-c-colour="c2" data-c-font-weight="bold" data-c-margin="bottom(quarter)">
                                                                 {{ job_post.impact.title }}
                                                             </p>
-                                                            <p>{{handleNullState(
+                                                            <p>{{ handleNullState(
                                                                 jobs[i].hire_impact,
                                                                 jobs[i].hire_impact|nl2br,
                                                                 job_post.no_info
-                                                            )}}</p>
+                                                            ) }}</p>
                                                         </div>
                                                         <div data-c-align="base(right)" data-c-grid-item="base(1of1)">
                                                             <a href="{{ route('jobs.show', jobs[i].id) }}" title="{{ jobs[i].title }}">
