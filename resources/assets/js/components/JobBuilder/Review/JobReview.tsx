@@ -293,25 +293,24 @@ const renderManagerSection = (
       </p>
     );
   }
-  const managerTranslation = manager[locale];
-  if (managerTranslation) {
+  const aboutMe = manager.about_me[locale];
+  const position = manager.about_me[locale];
+  if (aboutMe !== null && position !== null) {
     return (
       <>
         <p data-c-margin="bottom(normal)">{manager.full_name}</p>
-        <p
-          data-c-margin={`${managerTranslation.about_me && "{bottom(normal)"}`}
-        >
+        <p data-c-margin={`${aboutMe && "{bottom(normal)"}`}>
           <FormattedMessage
             id="jobBuilder.review.managerPosition"
             defaultMessage="{position} at {department}"
             description="Description of the Manager's position & department."
             values={{
-              position: managerTranslation.position,
+              position,
               department: managerDeptName,
             }}
           />
         </p>
-        {managerTranslation.about_me && <p>{managerTranslation.about_me}</p>}
+        {aboutMe && <p>{aboutMe}</p>}
       </>
     );
   }
