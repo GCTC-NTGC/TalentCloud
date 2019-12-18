@@ -129,8 +129,9 @@ const JobTasks: React.FunctionComponent<JobTasksProps &
           if (keyTask) {
             return {
               ...keyTask,
-              [locale]: {
-                description: task.description,
+              description: {
+                en: locale === "en" ? task.description : "",
+                fr: locale === "fr" ? task.description : "",
               },
             };
           }
@@ -145,11 +146,11 @@ const JobTasks: React.FunctionComponent<JobTasksProps &
         },
       )
       .filter((task: JobPosterKeyTask) => {
-        const { description } = task[locale];
+        const { description } = task;
         return (
           description !== undefined &&
           description !== null &&
-          description !== ""
+          description[locale] !== ""
         );
       });
   };
