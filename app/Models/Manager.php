@@ -7,7 +7,7 @@
 
 namespace App\Models;
 
-use App\CRUD\TalentCloudCrudTrait as CrudTrait;
+use App\Traits\TalentCloudCrudTrait as CrudTrait;
 use Spatie\Translatable\HasTranslations;
 
 /**
