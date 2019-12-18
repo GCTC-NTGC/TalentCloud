@@ -31,7 +31,8 @@ export const JobBasicInfo: React.FunctionComponent<JobBasicInfoProps &
   if (locale !== "en" && locale !== "fr") {
     throw new Error("Unknown intl.locale");
   }
-  const { title, city } = job[locale];
+  const title = job.title[locale];
+  const city = job.city[locale];
   const termLength = job.term_qty || 0;
   const securityLevel = job.security_clearance_id
     ? intl.formatMessage(securityClearance(job.security_clearance_id))
