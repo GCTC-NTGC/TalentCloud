@@ -100,6 +100,23 @@ table thead a:visited {
     box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
 }
 
+.clone-sidebar-wrapper {
+    position: relative;
+  }
+  .clone-sidebar {
+      position: sticky;
+      top: 0;
+      ul {
+          list-style: none;
+          padding: 0;
+      }
+  }
+  .clone-sidebar-content {
+    @media #{$clone-tablet-landscape} {
+      max-width: $clone-medium-layout;
+    }
+  }
+
 // Core Elements ===============================================================
 
 @import "./brands";

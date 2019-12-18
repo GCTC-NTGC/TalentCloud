@@ -28,6 +28,6 @@ class CriteriaTypeTranslation extends BaseModel
 
     public function criteria_type()
     {
-        return $this->belongsTo(\App\Models\Lookup\CriteriaType::class);
+        return $this->belongsTo(\App\Models\CriteriaType::class);
     }
 }

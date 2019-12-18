@@ -43,7 +43,7 @@ class ApplicantPolicy extends BasePolicy
      */
     public function view(User $user, Applicant $applicant)
     {
-        $authApplicant =  $user->isApplicant() &&
+        $authApplicant = $user->isApplicant() &&
             $applicant->user->is($user);
         $authManager = $user->isManager() && $this->ownsJobApplicantAppliedTo($user, $applicant);
         return $authApplicant || $authManager;

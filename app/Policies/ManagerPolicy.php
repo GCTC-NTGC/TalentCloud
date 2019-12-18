@@ -18,7 +18,7 @@ class ManagerPolicy extends BasePolicy
      */
     public function view(User $user, Manager $manager)
     {
-        //Manager profiles are viewable by any logged-in user
+        // Manager profiles are viewable by any logged-in user
         return $user != null;
     }
 
@@ -42,7 +42,7 @@ class ManagerPolicy extends BasePolicy
      */
     public function update(User $user, Manager $manager)
     {
-        //Mangers can only update their own profiles
+        // Mangers can only update their own profiles
         return $user->isManager() &&
             $manager->user_id == $user->id;
     }

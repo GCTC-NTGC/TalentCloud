@@ -1,0 +1,58 @@
+{# =============================================================================
+
+    Talent Cloud
+    Auth: Login
+
+============================================================================= #}
+
+{% extends "layouts/base" %}
+
+{% block title %}
+	{{ recovery_codes.title }}
+{% endblock %}
+
+{% block body %}
+	{% include "common/goc" %}
+	<div data-clone>
+		<section class="tc-auth" data-c-padding="tb(triple)" data-c-overlay="black(80)" style="background-image: url('/images/bg_crowd.jpg');">
+			<div
+				class="tc-auth-wrapper" data-c-padding="tb(triple)" data-c-container="small">
+				{# Return to the homepage link. #}
+				<a data-c-color="white" href="{{ settings_url }}" title="{{ recovery_codes.return_title }}">
+					<i class="fas fa-chevron-left" data-c-margin="right(quarter)"></i>{{ recovery_codes.return }}
+				</a>
+				<div data-c-radius="rounded" data-c-margin="top(normal)">
+					<div class="tc-auth-header gradient-left-right" data-c-padding="all(double)" data-c-align="base(center)">
+						<h1 data-c-font-size="h2" data-c-color="white">{{ recovery_codes.header }}</h1>
+					</div>
+					<div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)">
+						<p data-c-margin="bottom(normal)">{{ recovery_codes.instructions }}</p>
+						<p data-c-margin="bottom(normal)">{{ recovery_codes.description }}</p>
+						{% for code in codes %}
+                        <pre {% if loop.last %}data-c-margin="bottom(normal)"{% endif %}>{{ code }}</pre>
+						{% endfor %}
+						<div data-c-grid="middle">
+							<div data-c-grid-item="base(1of1)" data-c-align="base(right)">
+								<a href="{{ settings_url }}" data-c-button="solid(c1)" data-c-radius="rounded" title="{{ recovery_codes.profile_link_title }}">
+									{{ recovery_codes.profile_link_text }}
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+{% endblock %}
+{#
+If we're regenerating codes every time you view them, there's no reason to have an extra button doing the same thing.
+<div data-c-grid-item="base(1of2)">
+    <form action="{{ route('recovery_codes.generate') }}" method="POST" >
+        {{ csrf_field() }}
+        <p>{{ recovery_codes.generate_label }}</p>
+        <button data-c-button="solid(c1)" data-c-radius="rounded" type="submit">
+            {{ recovery_codes.generate_button }}
+        </button>
+    </form>
+</div>
+#}

@@ -125,7 +125,7 @@ return [
     'user_skill_unique' => 'You may only add each skill once',
     'password_correct' => 'Current password isn\'t correct',
     'user_owns_skill_declaration' => ':attribute must specify a Skill Declaration that belongs to the current user.',
-    'invalid_id' => ":attribute is not a valid id.",
+    'invalid_id' => ':attribute is not a valid id.',
 
     /*
     |--------------------------------------------------------------------------
@@ -172,7 +172,7 @@ return [
         'submission_date'       => 'date',
         'skill_declaration_id'  => 'skill declaration',
         'name'                  => 'name',
-        'username'              => "username",
+        'username'              => 'username',
         'email'                 => 'email address',
         'first_name'            => 'first name',
         'last_name'             => 'last name',
