@@ -57,7 +57,7 @@ Route::group(
             Route::post('two-factor/use-recovery-code', 'Auth\RecoveryCodeController@authenticate')->name('recovery_codes.authenticate');
 
             /* Require being logged in */
-            Route::middleware(['auth'])->group(function () : void {
+            Route::middleware(['auth'])->group(function (): void {
 
                 /* Managers */
                 Route::get('managers/{manager}', 'ManagerProfileController@show')

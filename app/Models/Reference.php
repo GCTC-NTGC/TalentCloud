@@ -7,8 +7,6 @@
 
 namespace App\Models;
 
-use App\Models\SkillDeclaration;
-
 /**
  * Class Reference
  *
@@ -16,15 +14,16 @@ use App\Models\SkillDeclaration;
  * @property string $name
  * @property string $email
  * @property int $relationship_id
- * @property int $applicant_id
+ * @property int $referenceable_id
+ * @property string $referenceable_type
  * @property string $description
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\Lookup\Relationship $relationship
- * @property \App\Models\Applicant $applicant
  * @property \Illuminate\Database\Eloquent\Collection $projects
  * @property \Illuminate\Database\Eloquent\Collection $skill_declaractions
+ * @property \App\Models\Applicant|\App\Models\JobApplication $referenceable
  */
 class Reference extends BaseModel
 {
@@ -34,7 +33,6 @@ class Reference extends BaseModel
         'email' => 'string',
         'description' => 'string',
         'relationship_id' => 'int',
-        'applicant_id' => 'int',
     ];
     protected $fillable = [
         'name',
@@ -48,9 +46,9 @@ class Reference extends BaseModel
         return $this->belongsTo(\App\Models\Lookup\Relationship::class);
     }
 
-    public function applicant()
+    public function referenceable()
     {
-        return $this->belongsTo(\App\Models\Applicant::class);
+        return $this->morphTo();
     }
 
     public function projects()
