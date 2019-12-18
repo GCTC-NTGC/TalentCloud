@@ -628,7 +628,8 @@ return [
                             '7' => 'Health Canada',
                             '8' => 'National Research Council',
                             '9' => 'Employment and Social Development Canada',
-                            '10' => 'The Royal Canadian Mounted Police'
+                            '10' => 'The Royal Canadian Mounted Police',
+                            '11' => 'Public Services and Procurement Canada'
                         ]
                     ]
                 ]

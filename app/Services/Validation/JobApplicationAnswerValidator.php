@@ -7,17 +7,20 @@ use App\Models\JobApplicationAnswer;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class JobApplicationAnswerValidator {
+class JobApplicationAnswerValidator
+{
 
     protected $application;
     protected $questionIds;
 
-    public function __construct(JobApplication $application) {
+    public function __construct(JobApplication $application)
+    {
         $this->application = $application;
         $this->questionIds = $application->job_poster->job_poster_questions->pluck('id')->toArray();
     }
 
-    public function rules() {
+    public function rules()
+    {
         $rules = [
             'answer' => 'required|string',
             'job_poster_question_id' => [
@@ -32,17 +35,18 @@ class JobApplicationAnswerValidator {
         return $rules;
     }
 
-    public function validator(JobApplicationAnswer $answer) {
-
-
+    public function validator(JobApplicationAnswer $answer)
+    {
         return Validator::make($answer->toArray(), $this->rules());
     }
 
-    public function validate(JobApplicationAnswer $answer) {
+    public function validate(JobApplicationAnswer $answer)
+    {
         return $this->validator($answer)->validate();
     }
 
-    public function isComplete(JobApplicationAnswer $answer) {
+    public function isComplete(JobApplicationAnswer $answer)
+    {
         return $this->validator($answer)->passes();
     }
 }

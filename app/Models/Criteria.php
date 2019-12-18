@@ -34,8 +34,8 @@ use Astrotomic\Translatable\Translatable as Translatable;
  * @property string $level_description The localized description of the skill level (accounts for skill type).
  *
  *  Localized Properties:
-  * @property string $description
-  * @property string $specificity
+ * @property string $description
+ * @property string $specificity
  */
 class Criteria extends BaseModel
 {
@@ -85,7 +85,7 @@ class Criteria extends BaseModel
 
     public function criteria_translations() //phpcs:ignore
     {
-        return $this->hasMany(\App\Models\Lookup\CriteriaTypeTranslation::class);
+        return $this->hasMany(\App\Models\CriteriaTranslation::class);
     }
 
     /**

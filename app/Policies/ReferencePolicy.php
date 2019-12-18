@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Applicant;
 use App\Models\User;
 use App\Models\Reference;
 use App\Policies\BasePolicy;
@@ -18,7 +19,9 @@ class ReferencePolicy extends BasePolicy
      */
     public function view(User $user, Reference $reference)
     {
-        return $user->isApplicant() && $reference->applicant->user->is($user);
+        return $user->isApplicant()
+            && $reference->referenceable instanceof Applicant
+            && $reference->referenceable->user->is($user);
     }
 
     /**
@@ -41,7 +44,9 @@ class ReferencePolicy extends BasePolicy
      */
     public function update(User $user, Reference $reference)
     {
-        return $user->isApplicant() && $reference->applicant->user->is($user);
+        return $user->isApplicant()
+            && $reference->referenceable instanceof Applicant
+            && $reference->referenceable->user->is($user);
     }
 
     /**
@@ -53,6 +58,8 @@ class ReferencePolicy extends BasePolicy
      */
     public function delete(User $user, Reference $reference)
     {
-        return $user->isApplicant() && $reference->applicant->user->is($user);
+        return $user->isApplicant()
+            && $reference->referenceable instanceof Applicant
+            && $reference->referenceable->user->is($user);
     }
 }

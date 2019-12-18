@@ -27,5 +27,4 @@ class JobPosterValidator
             ]
         )->validate();
     }
-
 }
