@@ -3,12 +3,12 @@ import { IntlProvider } from "react-intl";
 import messagesFr from "./translations/locales/fr.json";
 
 const messages = {
-  en: {}, // default
+  en: null, // default
   fr: messagesFr,
 };
 
 interface IntlContainerProps {
-  locale: "en"|"fr";
+  locale: string;
 }
 
 const IntlContainer: React.FunctionComponent<IntlContainerProps> = ({

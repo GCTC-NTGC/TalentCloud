@@ -15,7 +15,7 @@ export interface ErrorAction<T extends string, M = {}>
 const createAction: ActionCreator<ReduxAction> = <T extends string, P>(
   type: T,
   payload: P,
-  error:boolean = false,
+  error = false,
 ): Action<T, P> => {
   return {
     type,
