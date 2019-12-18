@@ -27,8 +27,9 @@
     "translations": "npm run translations:extract && npm run translations:check"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.5",
     "@babel/cli": "^7.7.5",
+    "@babel/core": "^7.7.5",
+    "@babel/plugin-proposal-optional-chaining": "^7.7.5",
     "@babel/preset-react": "^7.7.4",
     "@babel/preset-typescript": "^7.7.4",
     "@fortawesome/fontawesome-free": "^5.12.0",
