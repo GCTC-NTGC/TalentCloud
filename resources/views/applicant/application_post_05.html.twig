@@ -6,50 +6,28 @@
 ============================================================================= #}
 
 <!DOCTYPE html>
-
 <html
     lang="en">
-
     <head>
         <title>{{ application_template.step_05_title }}</title>
-
         {% include "common/head" %}
-
         {# Note that the </head> and <body> tags are located inside the common/head file due to Google Tag Manager being required on all pages. #}
+        {# /head #}
 
-    {# /head #}
-
-    {# body #}
-
-        {% include "common/alert" %}
-
-        {% include "common/goc" %}
-
-        {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title':application_template.title, ':job':job.title})}} %}
-
-        {% include "applicant/application_post/common/tracker-ajax" %}
-
-        <section
-            class="application__view-layout">
-
+        {# body #}
+            {% include "common/alert" %}
+            {% include "common/goc" %}
+            {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title': application_template.title, ':job': job.title})}} %}
+            {% include "applicant/application_post/common/tracker-ajax" %}
+        <section class="application__view-layout">
             {% include "common/application/view/view_layout" %}
-
             {% include "applicant/application_post/step_05/view_05_actions" %}
-
         </section>
-
-        {# Login Modals #}
-
-            {% include "common/modal" with {"page":login_modals} %}
-
-        {# Footer #}
-
+            {# Login Modals #}
+            {% include "common/modal" with {"page": login_modals} %}
+            {# Footer #}
             {% include "common/footer" %}
-
-        {# Scripts #}
-
+            {# Scripts #}
             {% include "common/scripts" %}
-
     </body>
-
 </html>
