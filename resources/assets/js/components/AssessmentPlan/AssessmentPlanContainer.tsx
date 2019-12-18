@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { StandardAction, ErrorAction } from "redux-api-middleware";
 import AssessmentPlan from "./AssessmentPlan";
-import { Job, AssessmentPlanNotification } from "../../models/types";
+import { Job, AssessmentPlanNotification, Skill } from "../../models/types";
 import { RootState } from "../../store/store";
 import { getJob } from "../../store/Job/jobSelector";
 import { fetchJob } from "../../store/Job/jobActions";
@@ -40,7 +41,10 @@ const mapDispatchToProps = (
   },
   dispatchFetchAssessmentPlan: (): void =>
     dispatch(fetchAssessmentPlan(ownProps.jobId)),
-  dispatchFetchSkills: (): void => dispatch(fetchSkills()),
+  dispatchFetchSkills: (): Promise<
+    | StandardAction<"FETCH_SKILLS_SUCCEEDED", PromiseLike<Skill[]>, {}>
+    | ErrorAction<"FETCH_SKILLS_FAILED", Error, {}>
+  > => dispatch(fetchSkills()),
   dispatchFetchNotifications: (): void =>
     dispatch(fetchAssessmentPlanNotifications(ownProps.jobId)),
 });
