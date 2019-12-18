@@ -370,7 +370,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
   const getDeptName = (departmentId: number | null): string => {
     const department =
       departmentId !== null ? find(departments, departmentId) : null;
-    return department !== null ? department[locale].name : "MISSING DEPARTMENT";
+    return department !== null ? department.name[locale] : "MISSING DEPARTMENT";
   };
   const departmentName = getDeptName(job.department_id);
   const managerDeptName = manager ? getDeptName(manager.department_id) : "";

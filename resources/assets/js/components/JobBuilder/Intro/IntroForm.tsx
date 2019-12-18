@@ -349,7 +349,7 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
                       label: string;
                     } => ({
                       value: dept.id,
-                      label: dept[locale].name,
+                      label: dept.name[locale],
                     }))}
                   />
                   <Field

@@ -1,30 +1,15 @@
 {% extends "layouts/base" %}
-
-{% block title %}{{ title }}{% endblock %}
-
-{% block body %}
-
-    {% include "common/goc" %}
-    {% include "common/alert" %}
-
-    {% include "common/header" with { 'header': { 'title': title } } %}
-
-    {% include "manager/notification" %}
-
-    <a id="skipLink"></a>
-
-    <div
-        data-clone=""
-        id="job-builder-root"
-    >
-    </div>
-
+{% block title %}
+	{{ title }}
 {% endblock %}
-
+{% block body %}
+	{% include "common/goc" %}
+	{% include "common/alert" %}
+	{% include "common/header" with { 'header': { 'title': title } } %}
+	{% include "manager/notification" %}
+	<a id="skipLink"></a>
+	<div data-clone="" id="job-builder-root"></div>
+{% endblock %}
 {% block scripts %}
-
-    <script async defer
-        src="{{ mix('/js/JobBuilderRoot.js') }}">
-    </script>
-
+	<script async defer src="{{ mix('/js/JobBuilderRoot.js') }}"></script>
 {% endblock %}
