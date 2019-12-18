@@ -17,7 +17,8 @@ use Illuminate\Notifications\Notifiable;
 use App\Events\UserCreated;
 use App\Events\UserUpdated;
 use App\Notifications\ResetPasswordNotification;
-use App\CRUD\TalentCloudCrudTrait as CrudTrait;
+use App\Traits\TalentCloudCrudTrait as CrudTrait;
+use App\Traits\RememberDeviceTrait;
 
 /**
  * Class User
@@ -32,6 +33,9 @@ use App\CRUD\TalentCloudCrudTrait as CrudTrait;
  * @property int $user_role_id
  * @property string $gov_email
  * @property boolean $not_in_gov
+ * @property string $google2fa_secret
+ * @property array $recovery_codes
+ * @property \Jenssegers\Date\Date $recovery_codes_generation_date
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -59,6 +63,8 @@ class User extends BaseModel implements
     use Notifiable;
     // Trait for Backpack.
     use CrudTrait;
+    // Trait for 2FA device memory.
+    use RememberDeviceTrait;
 
     protected $casts = [
         'is_confirmed' => 'boolean',
@@ -69,14 +75,31 @@ class User extends BaseModel implements
         'not_in_gov' => 'boolean',
     ];
 
+    /**
+     * @var string[] $dates
+     */
+    protected $dates = [
+        'recovery_codes_generation_date',
+    ];
+
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password', 'is_priority', 'gov_email', 'not_in_gov'
+        'first_name',
+        'last_name',
+        'email',
+        'password',
+        'is_priority',
+        'gov_email',
+        'not_in_gov',
+        'google2fa_secret'
     ];
 
     protected $with = ['user_role'];
 
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
+        'google2fa_secret',
+        'recovery_codes',
     ];
 
     /**
@@ -117,7 +140,57 @@ class User extends BaseModel implements
         $this->attributes['is_priority'] = $value;
     }
 
-    // Role related functions.
+    /**
+     * Ecrypt the user's google_2fa secret.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function setGoogle2faSecretAttribute($value)
+    {
+        $this->attributes['google2fa_secret'] = encrypt($value);
+    }
+
+    /**
+     * Decrypt the user's google_2fa secret.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getGoogle2faSecretAttribute($value)
+    {
+        if (!empty($value)) {
+            return decrypt($value);
+        }
+        return null;
+    }
+
+    /**
+     * Ecrypt and serialize the user's recovery codes.
+     *
+     * @param  string[]  $value
+     * @return void
+     */
+    public function setRecoveryCodesAttribute($value)
+    {
+        $this->attributes['recovery_codes'] = encrypt($value);
+    }
+
+    /**
+     * Decrypt and deserialize the user's recovery codes.
+     *
+     * @param  string  $value
+     * @return string[]
+     */
+    public function getRecoveryCodesAttribute($value)
+    {
+        if (!empty($value)) {
+            return decrypt($value);
+        }
+        return null;
+    }
+
+    // Role related functions
 
     /**
      * Returns true if this user has the Applicant role.

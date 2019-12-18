@@ -1,6 +1,6 @@
 <?php
 
-namespace App\CRUD;
+namespace App\Traits;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Support\Facades\DB;

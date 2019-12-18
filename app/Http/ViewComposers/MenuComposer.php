@@ -76,6 +76,9 @@ class MenuComposer
                 case 'itp':
                     $menu['items']['itp']['active'] = true;
                     break;
+                case 'settings.edit':
+                    $menu['items']['settings']['active'] = true;
+                    break;
                 default:
                     // No menu item will be active.
                     break;
@@ -88,6 +91,7 @@ class MenuComposer
             $menu['items']['profile']['link'] = route('profile');
             $menu['items']['faq']['link'] = route('faq');
             $menu['items']['itp']['link'] = route('itp');
+            $menu['items']['settings']['link'] = route('settings.edit');
 
             // Check if use is logged in, and remove invalid menu items.
             if (Auth::check()) {
@@ -98,6 +102,7 @@ class MenuComposer
                 unset($menu['items']['logout']);
                 unset($menu['items']['applications']);
                 unset($menu['items']['profile']);
+                unset($menu['items']['settings']);
             }
         } elseif (WhichPortal::isManagerPortal()) {
             $menu = Lang::get('manager/menu');
@@ -138,6 +143,9 @@ class MenuComposer
                 case 'manager.faq':
                     $menu['items']['faq']['active'] = true;
                     break;
+                case 'manager.settings.edit':
+                    $menu['items']['settings']['active'] = true;
+                    break;
                 default:
                     // No menu item will be active.
                     break;
@@ -150,6 +158,7 @@ class MenuComposer
             // $menu['items']['create_job']['link'] = route('manager.jobs.create');
             $menu['items']['profile']['link'] = route('manager.profile');
             $menu['items']['faq']['link'] = route('manager.faq.section');
+            $menu['items']['settings']['link'] = route('manager.settings.edit');
 
             // Check if use is logged in, and remove invalid menu items.
             if (Auth::check()) {
@@ -161,11 +170,11 @@ class MenuComposer
                 unset($menu['items']['jobs']);
                 unset($menu['items']['create_job']);
                 unset($menu['items']['profile']);
+                unset($menu['items']['settings']);
             }
         } elseif (WhichPortal::isAdminPortal()) {
             // Use the manager menu, keeping only.
             $menu = Lang::get('admin/menu');
-
 
             // Set active on the proper item.
             switch (Route::currentRouteName()) {
@@ -184,9 +193,10 @@ class MenuComposer
             if (Auth::check()) {
                 unset($menu['items']['login']);
                 unset($menu['items']['register']);
-                // TODO: set profile like using user slug.
+                // TODO: set profile link using user slug.
             } else {
                 unset($menu['items']['logout']);
+                unset($menu['items']['settings']);
             }
         }
         // Set login modals data.
@@ -196,6 +206,7 @@ class MenuComposer
                 'register_link' => route('manager.register'),
                 'login_link' => route('manager.login'),
                 'logout_link' => route('manager.logout'),
+                'settings_link' => route('manager.settings.edit'),
             ];
         } elseif (WhichPortal::isAdminPortal()) {
             $loginModals = [
@@ -210,6 +221,7 @@ class MenuComposer
                 'register_link' => route('register'),
                 'login_link' => route('login'),
                 'logout_link' => route('logout'),
+                'settings_link' => route('settings.edit'),
             ];
         }
 

@@ -242,6 +242,7 @@ test("Applicant Profile - My Work Samples", async t => {
     .ok();
 });
 
+/*
 test("Applicant Profile - About Me", async t => {
   await t
     // Logged in as applicant.
@@ -294,6 +295,7 @@ test("Applicant Profile - About Me", async t => {
     .expect(Selector("a").withText("My Applications").visible)
     .ok();
 });
+*/
 
 // Returns an integer between min/max.
 function spinTheWheel() {
