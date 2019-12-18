@@ -16,8 +16,6 @@
 					class="form__wrapper" action="{{ route('manager.profile.update', manager.id) }}" method="post">
 					{# Builds an input field for CSRF token validation #}
 					{{ csrf_field() }}
-					{# Include Account Settings #}
-					{% include "manager/profile/account" with {'account_l10n': layout_l10n.account} %}
 					{# Include About Me #}
 					{% include "manager/profile/about" with {'about_l10n': layout_l10n.about} %}
 					{# Include My Leadership Style #}
