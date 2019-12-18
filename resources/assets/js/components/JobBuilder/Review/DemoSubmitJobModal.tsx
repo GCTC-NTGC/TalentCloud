@@ -66,7 +66,7 @@ export const DemoSubmitJobModal: React.FC<DemoSubmitJobModalProps> = ({
             <p>
               <FormattedMessage
                 id="demoSubmitJobModal.link"
-                defaultMessage="To find out if you can access these features, <a>click here</a>."
+                defaultMessage="<a>Find out if you can access these features</a>."
                 description="Explanation of where to find more information."
                 values={{
                   a: msg => (

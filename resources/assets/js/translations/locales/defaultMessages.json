@@ -1716,7 +1716,7 @@
         "id": "demoSubmitJobModal.explanation"
       },
       {
-        "defaultMessage": "To find out if you can access these features, <a>click here</a>.",
+        "defaultMessage": "<a>Find out if you can access these features</a>.",
         "description": "Explanation of where to find more information.",
         "id": "demoSubmitJobModal.link"
       },
