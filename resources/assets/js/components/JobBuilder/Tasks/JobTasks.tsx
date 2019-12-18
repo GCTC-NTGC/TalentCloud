@@ -145,7 +145,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps &
         },
       )
       .filter((task: JobPosterKeyTask) => {
-        const { description } = task[locale];
+        const description = task.description[locale];
         return (
           description !== undefined &&
           description !== null &&

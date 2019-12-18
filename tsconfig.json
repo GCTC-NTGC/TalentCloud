@@ -4,6 +4,7 @@
     "esModuleInterop": true,
     "target": "es5",
     "strictNullChecks": true,
+    "noImplicitAny": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "rootDir": "resources/assets/js",

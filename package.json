@@ -27,8 +27,8 @@
     "translations": "npm run translations:extract && npm run translations:check"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.5",
     "@babel/cli": "^7.7.5",
+    "@babel/core": "^7.7.5",
     "@babel/preset-react": "^7.7.4",
     "@babel/preset-typescript": "^7.7.4",
     "@fortawesome/fontawesome-free": "^5.12.0",
@@ -46,6 +46,7 @@
     "@types/lodash": "^4.14.149",
     "@types/nanoid": "^2.1.0",
     "@types/node": "^12.12.20",
+    "@types/nprogress": "^0.2.0",
     "@types/react": "^16.9.16",
     "@types/react-dom": "^16.9.4",
     "@types/react-redux": "^7.1.5",

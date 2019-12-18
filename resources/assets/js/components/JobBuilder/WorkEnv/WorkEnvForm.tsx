@@ -566,7 +566,7 @@ const jobToValues = (
   }: Job,
   locale: "en" | "fr",
 ): WorkEnvFormValues => {
-  const isTrueInEnvFeatures = (option): boolean =>
+  const isTrueInEnvFeatures = (option: string): boolean =>
     work_env_features !== null &&
     hasKey(work_env_features, option) &&
     work_env_features[option];
@@ -667,16 +667,16 @@ const updateJobWithValues = (
     ),
     work_env_features: workEnvFeatures,
     work_env_description: {
-      ...job[locale],
-      work_env_description: envDescription || null,
+      ...job.work_env_description,
+      [locale]: envDescription || null,
     },
     culture_summary: {
-      ...job[locale],
-      culture_summary: cultureSummary || null,
+      ...job.culture_summary,
+      [locale]: cultureSummary || null,
     },
     culture_special: {
-      ...job[locale],
-      culture_special: moreCultureSummary || null,
+      ...job.culture_special,
+      [locale]: moreCultureSummary || null,
     },
   };
 };
@@ -826,7 +826,7 @@ const WorkEnvForm = ({
   });
 
   /** Compiles and returns all the active radio buttons corresponding context box values within the culture section  */
-  const buildCultureSummary = (values): string => {
+  const buildCultureSummary = (values: WorkEnvFormValues): string => {
     const pace = culturePaceList.find(
       ({ id }): boolean => id === values.culturePace,
     );
