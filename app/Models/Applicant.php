@@ -73,36 +73,36 @@ class Applicant extends BaseModel
 
     public function degrees()
     {
-        return $this->hasMany(\App\Models\Degree::class)->orderBy('end_date', 'desc');
+        return $this->morphMany(\App\Models\Degree::class, 'degreeable')->orderBy('end_date', 'desc');
     }
 
     public function courses()
     {
-        return $this->hasMany(\App\Models\Course::class)->orderBy('end_date', 'desc');
+        return $this->morphMany(\App\Models\Course::class, 'courseable')->orderBy('end_date', 'desc');
     }
 
     public function work_experiences()
     {
-        return $this->hasMany(\App\Models\WorkExperience::class)->orderBy('end_date', 'desc');
+        return $this->morphMany(\App\Models\WorkExperience::class, 'experienceable')->orderBy('end_date', 'desc');
     }
 
     public function skill_declarations()
     {
-        return $this->hasMany(\App\Models\SkillDeclaration::class);
+        return $this->morphMany(\App\Models\SkillDeclaration::class, 'skillable');
     }
 
     public function references()
     {
-        return $this->hasMany(\App\Models\Reference::class);
+        return $this->morphMany(\App\Models\Reference::class, 'referenceable');
     }
 
     public function work_samples()
     {
-        return $this->hasMany(\App\Models\WorkSample::class);
+        return $this->morphMany(\App\Models\WorkSample::class, 'work_sampleable');
     }
 
     public function projects()
     {
-        return $this->hasMany(\App\Models\Project::class);
+        return $this->morphMany(\App\Models\Project::class, 'projectable');
     }
 }

@@ -6,20 +6,11 @@
 ============================================================================= #}
 {% extends "layouts/base" %}
 {% block title %}
-	{% if (app.getLocale() == "en") %}
-		{{ job_post.job_post_title|replace({':title': job.title.en, ':id': job.id}) }}
-	{% else %}
-		{{ job_post.job_post_title|replace({':title': job.title.fr, ':id': job.id}) }}
-	{% endif %}
+	{{ job_post.job_post_title|replace({':title': job.title, ':id': job.id}) }}
 {% endblock %}
 {% block socialMeta %}
-	{% if (app.getLocale() == "en") %}
-		{% set socialTitle = job_post.job_post_title|replace({':title': job.title.en, ':id': job.id}) %}
-		{% set socialDescription = job.hire_impact.en ? job.hire_impact.en|nl2br : noInfo %}
-	{% else %}
-		{% set socialTitle = job_post.job_post_title|replace({':title': job.title.fr, ':id': job.id}) %}
-		{% set socialDescription = job.hire_impact.fr ? job.hire_impact.fr|nl2br : noInfo %}
-	{% endif %}
+	{% set socialTitle = job_post.job_post_title|replace({':title': job.title, ':id': job.id}) %}
+	{% set socialDescription = job.hire_impact ? job.hire_impact|nl2br : noInfo %}
 	{# Pass in images if you need custom ones! #}
 	{% set socialImageOpenGraphEn = "social-card-job-en.png" %}
 	{% set socialImageOpenGraphFr = "social-card-job-fr.png" %}

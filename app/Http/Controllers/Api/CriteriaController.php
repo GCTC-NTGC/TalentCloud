@@ -95,7 +95,8 @@ class CriteriaController extends Controller
     protected function updateCriteria(Criteria $oldCriteria, $newData): void
     {
         // We only need to create a notification when the non-descriptive fields change.
-        if ($oldCriteria->skill_level_id != $newData['skill_level_id']
+        if (
+            $oldCriteria->skill_level_id != $newData['skill_level_id']
             || $oldCriteria->skill_id != $newData['skill_id']
         ) {
             $notification = $this->makeAssessmentPlanNotification(

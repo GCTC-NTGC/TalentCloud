@@ -7,10 +7,8 @@
 
 namespace App\Models;
 
-use App\Models\Applicant;
-
 /**
- * Class Degree
+ * Class Course
  *
  * @property int $id
  * @property string $name
@@ -18,13 +16,14 @@ use App\Models\Applicant;
  * @property int $course_status_id
  * @property \Jenssegers\Date\Date $start_date
  * @property \Jenssegers\Date\Date $end_date
- * @property int $applicant_id
+ * @property int $courseable_id
+ * @property string $courseable_type
  *
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\Lookup\CourseStatus $course_status
- * @property \App\Models\Applicant $applicant
+ * @property \App\Models\Applicant|\App\Models\JobApplication $courseable
  */
 class Course extends BaseModel
 {
@@ -35,7 +34,6 @@ class Course extends BaseModel
         'course_status_id' => 'int',
         'start_date' => 'date',
         'end_date' => 'date',
-        'appliant_id' => 'int'
     ];
     protected $fillable = [
         'name',
@@ -50,8 +48,8 @@ class Course extends BaseModel
         return $this->belongsTo(\App\Models\Lookup\CourseStatus::class);
     }
 
-    public function applicant()
+    public function courseable()
     {
-        return $this->belongsTo(\App\Models\Applicant::class);
+        return $this->morphTo();
     }
 }

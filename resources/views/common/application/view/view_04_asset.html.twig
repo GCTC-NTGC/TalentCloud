@@ -31,7 +31,7 @@
 
                     {% set skill_declaration = false %}
 
-                    {% for skillDeclaration in applicant.skill_declarations %}
+                    {% for skillDeclaration in skill_declarations %}
 
                         {% if criterion.skill.id == skillDeclaration.skill_id %}
 

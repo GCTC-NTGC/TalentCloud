@@ -49,7 +49,6 @@ export const AssessmentPlanAlert: React.FunctionComponent<AssessmentPlanAlertPro
       >
         <p
           data-c-margin="bottom(quarter)"
-          data-c-heading="h5"
           data-c-font-weight="bold"
         >
           <i aria-hidden="true" className="fa fa-spinner fa-spin" />
@@ -122,7 +121,6 @@ export const AssessmentPlanAlert: React.FunctionComponent<AssessmentPlanAlertPro
       <div data-c-grid-item="base(2of3) tl(4of5)">
         <p
           data-c-margin="bottom(quarter)"
-          data-c-heading="h5"
           data-c-font-weight="bold"
         >
           <i aria-hidden="true" className="fa fa-exclamation-circle" />

@@ -14,7 +14,8 @@ namespace App\Models;
  * @property int $skill_id
  * @property int $skill_status_id
  * @property int $skill_level_id
- * @property int $applicant_id
+ * @property int $skillable_id
+ * @property string $skillable_type
  * @property string $description
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
@@ -22,7 +23,7 @@ namespace App\Models;
  * @property \App\Models\Skill $skill
  * @property \App\Models\Lookup\SkillStatus $skill_status
  * @property \App\Models\Lookup\SkillLevel $skill_level
- * @property \App\Models\Applicant $applicant
+ * @property \App\Models\Applicant $skillable
  * @property \Illuminate\Database\Eloquent\Collection $references
  * @property \Illuminate\Database\Eloquent\Collection $work_samples
  */
@@ -36,7 +37,6 @@ class SkillDeclaration extends BaseModel
         'skill_id' => 'int',
         'skill_status_id' => 'int',
         'skill_level_id' => 'int',
-        'applicant_id' => 'int',
         'description' => 'string'
     ];
 
@@ -63,9 +63,9 @@ class SkillDeclaration extends BaseModel
         return $this->belongsTo(\App\Models\Lookup\SkillLevel::class);
     }
 
-    public function applicant()// phpcs:ignore
+    public function skillable()// phpcs:ignore
     {
-        return $this->belongsTo(\App\Models\Applicant::class);
+        return $this->morphTo();
     }
 
     public function references()// phpcs:ignore

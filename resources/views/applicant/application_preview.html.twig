@@ -1,19 +1,11 @@
 {% extends "layouts/base" %}
 {% block title %}
-	{% if (app.getLocale() == "en") %}
-		{{ ":title: :job"|replace({':title': application_template.view_title, ':job': job.title.en}) }}
-	{% else %}
-		{{ ":title: :job"|replace({':title': application_template.view_title, ':job': job.title.fr}) }}
-	{% endif %}
+	{{ ":title: :job"|replace({':title': application_template.view_title, ':job': job.title}) }}
 {% endblock %}
 {% block body %}
 	{% include "common/goc" %}
 	{% include "common/alert" %}
-	{% if (app.getLocale() == "en") %}
-		{% include "common/header" with {'header': {'title': ":title: :job"|replace({':title': application_template.view_title, ':job': job.title.en})}} %}
-	{% else %}
-		{% include "common/header" with {'header': {'title': ":title: :job"|replace({':title': application_template.view_title, ':job': job.title.fr})}} %}
-	{% endif %}
+	{% include "common/header" with {'header': {'title': ":title: :job"|replace({':title': application_template.view_title, ':job': job.title})}} %}
 	<a id="skipLink"></a>
 	<section class="application__view-layout submitted">
 		{% include "common/application/view/view_layout" %}

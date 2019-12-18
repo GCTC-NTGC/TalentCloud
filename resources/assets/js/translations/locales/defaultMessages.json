@@ -1042,71 +1042,6 @@
         "id": "jobBuilder.details.educationRequirementPlaceholder"
       },
       {
-        "defaultMessage": "AS - Administrative Services",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.AS"
-      },
-      {
-        "defaultMessage": "BI - Biological Sciences",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.BI"
-      },
-      {
-        "defaultMessage": "CO - Commerce",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.CO"
-      },
-      {
-        "defaultMessage": "CR - Clerical and Regulatory",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.CR"
-      },
-      {
-        "defaultMessage": "CS - Computer Systems",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.CS"
-      },
-      {
-        "defaultMessage": "EC - Economics and Social Science Services",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.EC"
-      },
-      {
-        "defaultMessage": "EX - Executive",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.EX"
-      },
-      {
-        "defaultMessage": "FO - Forestry",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.FO"
-      },
-      {
-        "defaultMessage": "IS - Information Services",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.IS"
-      },
-      {
-        "defaultMessage": "PC - Physical Sciences",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.PC"
-      },
-      {
-        "defaultMessage": "PE - Personnel Administration",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.PE"
-      },
-      {
-        "defaultMessage": "PM - Programme Administration",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.PM"
-      },
-      {
-        "defaultMessage": "AD - Administrative Services",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.AD"
-      },
-      {
         "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.\n    ",
         "description": "Job Classification message from list of Classifications",
         "id": "jobBuilder.details.educationMessages.AS"
@@ -1306,7 +1241,7 @@
     "descriptors": [
       {
         "defaultMessage": "confirm that your personal information below is correct.",
-        "description": "Bolded text portion of the JPB Intro explanation.",
+        "description": "Bold text portion of the JPB Intro explanation.",
         "id": "jobBuilder.intro.explanation.boldText"
       },
       {
@@ -1331,7 +1266,7 @@
       },
       {
         "defaultMessage": "{name}'s Position (Français)",
-        "description": "The label displayed on the MKanager Position input.",
+        "description": "The label displayed on the Manager Position input.",
         "id": "jobBuilder.intro.jobTitleLabelFR"
       },
       {
@@ -1391,7 +1326,7 @@
       },
       {
         "defaultMessage": "Complete the job poster in the language of your choice. We will\r\n                  handle translation.",
-        "description": "Intstructions at bottom of form on language choice for job poster builder.",
+        "description": "Instructions at bottom of form on language choice for job poster builder.",
         "id": "jobBuilder.intro.completeInLanguage"
       },
       {
@@ -1781,7 +1716,7 @@
         "id": "demoSubmitJobModal.explanation"
       },
       {
-        "defaultMessage": "To find out if you can access these features, <a>click here</a>.",
+        "defaultMessage": "<a>Find out if you can access these features</a>.",
         "description": "Explanation of where to find more information.",
         "id": "demoSubmitJobModal.link"
       },
@@ -2042,6 +1977,41 @@
       }
     ],
     "path": "resources/assets/js/components/JobBuilder/Review/JobReview.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Your job poster has been submitted!",
+        "description": "Title of modal explaining managers job has been submitted.",
+        "id": "managerSurveyModal.title"
+      },
+      {
+        "defaultMessage": "Your feedback helps us improve our tools! Please take a few minutes to complete a survey.",
+        "description": "Explanation of how to get to manager survey.",
+        "id": "managerSurveyModal.explanation"
+      },
+      {
+        "defaultMessage": "Link to manager survey.",
+        "description": "Title of link to further information.",
+        "id": "managerSurveyModal.managerSurveyLinkTitle"
+      },
+      {
+        "defaultMessage": "Take me to the survey",
+        "description": "Link to manager survey.",
+        "id": "managerSurveyModal.link"
+      },
+      {
+        "defaultMessage": "Go back to <a>My Job Posters</>.",
+        "description": "Link to job poster index.",
+        "id": "managerSurveyModal.jobPosterLink"
+      },
+      {
+        "defaultMessage": "Visit My Job Posters.",
+        "description": "Title for link to job poster index.",
+        "id": "managerSurveyModal.jobPosterLinkTitle"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilder/Review/ManagerSurveyModal.json"
   },
   {
     "descriptors": [
@@ -3456,6 +3426,71 @@
         "defaultMessage": "No, travel is not required for the position.",
         "description": "The form label displayed on 'no travel required' travel options",
         "id": "jobBuilder.details.travelNoneRequiredLabel"
+      },
+      {
+        "defaultMessage": "AS - Administrative Services",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.AS"
+      },
+      {
+        "defaultMessage": "BI - Biological Sciences",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.BI"
+      },
+      {
+        "defaultMessage": "CO - Commerce",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.CO"
+      },
+      {
+        "defaultMessage": "CR - Clerical and Regulatory",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.CR"
+      },
+      {
+        "defaultMessage": "CS - Computer Systems",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.CS"
+      },
+      {
+        "defaultMessage": "EC - Economics and Social Science Services",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.EC"
+      },
+      {
+        "defaultMessage": "EX - Executive",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.EX"
+      },
+      {
+        "defaultMessage": "FO - Forestry",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.FO"
+      },
+      {
+        "defaultMessage": "IS - Information Services",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.IS"
+      },
+      {
+        "defaultMessage": "PC - Physical Sciences",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.PC"
+      },
+      {
+        "defaultMessage": "PE - Personnel Administration",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.PE"
+      },
+      {
+        "defaultMessage": "PM - Programme Administration",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.PM"
+      },
+      {
+        "defaultMessage": "AD - Administrative Services",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.AD"
       }
     ],
     "path": "resources/assets/js/models/localizedConstants.json"

@@ -1,7 +1,7 @@
 [
   {
     "id": "jobBuilder.intro.explanation.boldText",
-    "description": "Bolded text portion of the JPB Intro explanation.",
+    "description": "Bold text portion of the JPB Intro explanation.",
     "defaultMessage": "confirm that your personal information below is correct."
   },
   {
@@ -26,7 +26,7 @@
   },
   {
     "id": "jobBuilder.intro.jobTitleLabelFR",
-    "description": "The label displayed on the MKanager Position input.",
+    "description": "The label displayed on the Manager Position input.",
     "defaultMessage": "{name}'s Position (Français)"
   },
   {
@@ -86,7 +86,7 @@
   },
   {
     "id": "jobBuilder.intro.completeInLanguage",
-    "description": "Intstructions at bottom of form on language choice for job poster builder.",
+    "description": "Instructions at bottom of form on language choice for job poster builder.",
     "defaultMessage": "Complete the job poster in the language of your choice. We will\r\n                  handle translation."
   },
   {
