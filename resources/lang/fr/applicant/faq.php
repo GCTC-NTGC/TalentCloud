@@ -88,15 +88,6 @@ return [
     /* UI Content */
     'title' => "Nuage de talents : mode d'emploi",
     'faq_title' => 'Nuage de talents FAQ',
-    'breadcrumbs' => [
-        'home' => [
-            'title' => "Retour à la page d'accueil.",
-            'text' => 'Accueil'
-        ],
-        'faq' => [
-            'text' => 'FAQ'
-        ]
-    ],
     'sidebar' => [
         'users' => [
             'applicants' => 'Pour les candidats',
