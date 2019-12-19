@@ -127,7 +127,8 @@ class JobPolicy extends BasePolicy
      */
     public function storeComment(User $user, JobPoster $jobPoster) : bool
     {
-        // Any manager or HR adviser can create a new comment.
+        // Only the manager that created a comment can view the comment.
+        // Only Hr advisors who have claimed a job can view the comments.
         return $user->isManager() && $jobPoster->manager->user->id == $user->id ||
         $user->isHrAdvisor() && $jobPoster->getHrAdvisorByUserId($user->id);
     }
