@@ -77,41 +77,41 @@ class CommentApiControllerTest extends TestCase
         $response->assertStatus(403);
     }
 
-    // public function testStoreCommentAsManager(): void
-    // {
-    //     $job = factory(JobPoster::class)->states(['byUpgradedManager', 'draft'])->create();
-    //     $newComment = factory(Comment::class)->make(['job_poster_id' => $job->id])->toArray();
+    public function testStoreCommentAsManager(): void
+    {
+        $job = factory(JobPoster::class)->states(['byUpgradedManager', 'draft'])->create();
+        $newComment = factory(Comment::class)->make(['job_poster_id' => $job->id])->toArray();
 
-    //     Log::debug($job->manager->user);
+        Log::debug($job->manager->user);
 
-    //     $response = $this->actingAs($job->manager->user)
-    //         ->json('post', "api/jobs/$job->id/comments", []);
-    //     $response->assertOk();
-    //     $this->assertDatabaseHas('comments', $newComment);
-    // }
+        $response = $this->actingAs($job->manager->user)
+            ->json('post', "api/jobs/$job->id/comments", $newComment);
+        $response->assertOk();
+        $this->assertDatabaseHas('comments', $newComment);
+    }
 
-    // public function testStoreCommentAsAdvisor(): void
-    // {
-    //     $job = factory(JobPoster::class)->create();
-    //     $newComment = factory(Comment::class)->make(['job_poster_id' => $job->id])->toArray();
-    //     $job->hr_advisors()->saveMany(factory(HrAdvisor::class, 3)->make()->each(function ($hr_advisor) use ($job) {
-    //         $hr_advisor->claimed_jobs()->attach($job->id);
-    //     }));
+    public function testStoreCommentAsAdvisor(): void
+    {
+        $job = factory(JobPoster::class)->create();
+        $newComment = factory(Comment::class)->make(['job_poster_id' => $job->id])->toArray();
+        $job->hr_advisors()->saveMany(factory(HrAdvisor::class, 3)->make()->each(function ($hr_advisor) use ($job) {
+            $hr_advisor->claimed_jobs()->attach($job->id);
+        }));
 
-    //     $response = $this->actingAs($job->hr_advisors->first()->user)
-    //         ->json('post', "api/jobs/$job->id/comments", $newComment);
-    //     $response->assertOk();
-    //     $this->assertDatabaseHas('comments', $newComment);
-    // }
+        $response = $this->actingAs($job->hr_advisors->first()->user)
+            ->json('post', "api/jobs/$job->id/comments", $newComment);
+        $response->assertOk();
+        $this->assertDatabaseHas('comments', $newComment);
+    }
 
-    // public function testStoreCommentFailsForUnauthorizedUser(): void
-    // {
-    //     // Factories.
-    //     $job = factory(JobPoster::class)->create();
-    //     $newComment = factory(Comment::class)->make(['job_poster_id' => $job->id])->toArray();
+    public function testStoreCommentFailsForUnauthorizedUser(): void
+    {
+        // Factories.
+        $job = factory(JobPoster::class)->create();
+        $newComment = factory(Comment::class)->make(['job_poster_id' => $job->id])->toArray();
 
-    //     // Store comment in db with unauthorized user
-    //     $response = $this->json('post', "api/jobs/$job->id/comments", $newComment);
-    //     $response->assertStatus(403);
-    // }
+        // Store comment in db with unauthorized user
+        $response = $this->json('post', "api/jobs/$job->id/comments", $newComment);
+        $response->assertStatus(403);
+    }
 }
