@@ -7,6 +7,7 @@
         "astrotomic/laravel-translatable": "^11.1",
         "backpack/crud": "^4.0",
         "barryvdh/laravel-debugbar": "^3.2",
+        "barryvdh/laravel-ide-helper": "^2.6",
         "calebporzio/parental": "^0.9.0",
         "codezero/laravel-unique-translation": "^2.0",
         "doctrine/dbal": "^2.9",
@@ -22,7 +23,6 @@
     },
     "require-dev": {
         "backpack/generators": "^2.0",
-        "barryvdh/laravel-ide-helper": "^2.6",
         "filp/whoops": "^2.3",
         "friendsofphp/php-cs-fixer": "^2.15",
         "fzaninotto/faker": "^1.8",
