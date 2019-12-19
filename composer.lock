@@ -72,16 +72,16 @@
         },
         {
             "name": "backpack/crud",
-            "version": "4.0.27",
+            "version": "4.0.29",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/CRUD.git",
-                "reference": "560c6ce2912be8da7580ea82cf815e85eee68826"
+                "reference": "942f101e77209b4cc556b8d900ddeb65c48d58a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/560c6ce2912be8da7580ea82cf815e85eee68826",
-                "reference": "560c6ce2912be8da7580ea82cf815e85eee68826",
+                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/942f101e77209b4cc556b8d900ddeb65c48d58a0",
+                "reference": "942f101e77209b4cc556b8d900ddeb65c48d58a0",
                 "shasum": ""
             },
             "require": {
@@ -89,7 +89,7 @@
                 "doctrine/dbal": "^2.5",
                 "guzzlehttp/guzzle": "^6.3",
                 "intervention/image": "^2.3",
-                "laravel/framework": "5.8.*|^6.0",
+                "laravel/framework": "^6.0|5.8.*",
                 "laravel/helpers": "^1.1",
                 "nesbot/carbon": "^2.14.0",
                 "ocramius/package-versions": "^1.4",
@@ -155,7 +155,7 @@
                 "read",
                 "update"
             ],
-            "time": "2019-12-17T08:21:08+00:00"
+            "time": "2019-12-19T12:26:50+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -2047,16 +2047,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.27.0",
+            "version": "2.28.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "13b8485a8690f103bf19cba64879c218b102b726"
+                "reference": "e2bcbcd43e67ee6101d321d5de916251d2870ca8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/13b8485a8690f103bf19cba64879c218b102b726",
-                "reference": "13b8485a8690f103bf19cba64879c218b102b726",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/e2bcbcd43e67ee6101d321d5de916251d2870ca8",
+                "reference": "e2bcbcd43e67ee6101d321d5de916251d2870ca8",
                 "shasum": ""
             },
             "require": {
@@ -2113,7 +2113,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2019-11-20T06:59:06+00:00"
+            "time": "2019-12-16T16:30:25+00:00"
         },
         {
             "name": "nikic/php-parser",
