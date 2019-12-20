@@ -21,7 +21,8 @@ use App\Models\BaseModel;
  *
  * @property \App\Models\Lookup\AssessmentType $assessment_type
  */
-class AssessmentTypeTranslation extends BaseModel {
+class AssessmentTypeTranslation extends BaseModel
+{
 
     protected $casts = [
         'id' => 'int',
@@ -33,8 +34,8 @@ class AssessmentTypeTranslation extends BaseModel {
         'name',
     ];
 
-    public function assessment_type() {
+    public function assessment_type()
+    {
         return $this->belongsTo(\App\Models\Lookup\AssessmentType::class);
     }
-
 }

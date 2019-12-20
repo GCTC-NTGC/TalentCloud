@@ -44,7 +44,7 @@
                 {% if auth_guest() %}
 
                     <a
-                        class="job-post__culture-manager-profile-link"
+                        class="job-post__culture-manager-profile-link gtag-applicant-job-poster-to-manager-profile"
                         href="{{ route('managers.show',{'manager':manager.id}) }}"
                         title="{{ job_post.manager.link_title|replace({":name":manager.user.first_name}) }}">
                         {{ job_post.culture.guest_manager_link_label|replace({":name":manager.user.first_name}) }}
@@ -53,7 +53,7 @@
                 {% else %}
 
                     <a
-                        class="job-post__culture-manager-profile-link"
+                        class="job-post__culture-manager-profile-link gtag-applicant-job-poster-to-manager-profile"
                         href="{{ route('managers.show',{'manager':manager.id}) }}"
                         title="{{ job_post.manager.link_title|replace({":name":manager.user.first_name}) }}">
                         {{ job_post.culture.manager_link_label|replace({":name":manager.user.first_name}) }}
@@ -151,6 +151,7 @@
 
             <div class="box full" data-clone>
                 <button
+                    class="gtag-applicant-job-poster-to-work-environment"
                     data-c-button="solid(c1)"
                     data-c-radius="rounded"
                     data-c-dialog-id="applicant-work-culture"

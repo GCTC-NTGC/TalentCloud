@@ -12,12 +12,15 @@ return [
 
     'hr' => [
         'home' => 'Accueil',
+        'faq' => 'FAQ',
         'job-index' => 'Index des emplois'
     ],
     'manager' => [
         'home' => 'Accueil',
+        'faq' => 'FAQ',
     ],
     'applicant' => [
         'home' => 'Accueil',
+        'faq' => 'FAQ',
     ],
 ];

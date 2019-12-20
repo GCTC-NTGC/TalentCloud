@@ -4,28 +4,18 @@
     Applicant Profile - Portfolio
 
 ============================================================================= #}
-
 {% extends "layouts/base" %}
-
-{% block title %}{{ profile.sample_section.sample_title }}{% endblock %}
-
+{% block title %}
+	{{ profile.sample_section.sample_title }}
+{% endblock %}
 {% block body %}
-
 	{% include "common/goc" %}
-{% include "common/alert" %}
-
-    {% include "common/header" with {"header":profile} %}
-
-    <a id="skipLink"></a>
-
-    {# Menu #}
-
-    {% include "applicant/profile/menu" %}
-
-    {% include "applicant/profile/portfolio/index" %}
-
-    {# Modals #}
-
-    {% include "common/modal" with {"page":profile} %}
-
+	{% include "common/alert" %}
+	{% include "common/header" with {"header": profile} %}
+	<a id="skipLink"></a>
+	{# Menu #}
+	{% include "applicant/profile/menu" %}
+	{% include "applicant/profile/portfolio/index" %}
+	{# Modals #}
+	{% include "common/modal" with {"page": profile} %}
 {% endblock %}

@@ -37,6 +37,7 @@
         "peerDependencies": false
       }
     ],
+    "import/extensions": ["warn", "never"],
     "react/prop-types": "off",
     "react/jsx-filename-extension": [
       1,
@@ -54,7 +55,20 @@
         "assert": "either",
         "depth": 3
       }
-    ]
+    ],
+    "no-param-reassign": "warn",
+    "@typescript-eslint/ban-ts-ignore": "warn",
+    "jsx-a11y/no-noninteractive-element-to-interactive-role": [
+      "error",
+      {
+        "ul": ["listbox", "menu", "menubar", "radiogroup", "tablist", "tree", "treegrid"],
+        "ol": ["listbox", "menu", "menubar", "radiogroup", "tablist", "tree", "treegrid", "progressbar"],
+        "li": ["menuitem", "option", "row", "tab", "treeitem"],
+        "table": ["grid"],
+        "td": ["gridcell"]
+      }
+    ],
+    "@typescript-eslint/no-empty-function": "warn"
   },
   "settings": {
     "react": {

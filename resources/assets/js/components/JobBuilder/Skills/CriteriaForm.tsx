@@ -149,9 +149,8 @@ const newCriteria = (jobPosterId: number, skillId: number): Criteria => ({
 });
 /* eslint-enable @typescript-eslint/camelcase */
 
-export const CriteriaForm: React.FunctionComponent<
-  CriteriaFormProps & WrappedComponentProps
-> = ({
+export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
+  WrappedComponentProps> = ({
   jobPosterId,
   criteria,
   skill,

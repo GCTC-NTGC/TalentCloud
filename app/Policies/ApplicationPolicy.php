@@ -25,7 +25,7 @@ class ApplicationPolicy extends BasePolicy
         $authManager = ($user->isManager() &&
             $jobApplication->job_poster->manager->user->is($user));
 
-        return $authApplicant||$authManager;
+        return $authApplicant || $authManager;
     }
 
     /**

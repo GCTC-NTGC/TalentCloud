@@ -8,6 +8,9 @@ use App\Models\Applicant;
 use App\Models\JobApplication;
 use App\Models\Reference;
 use App\Models\Assessment;
+use App\Models\Course;
+use App\Models\Degree;
+use App\Models\WorkExperience;
 
 class DevSeeder extends Seeder // phpcs:ignore
 {
@@ -127,9 +130,28 @@ class DevSeeder extends Seeder // phpcs:ignore
             ]));
         }
 
+        $newApplicantUser = User::where('email', $this->newApplicantEmail)->first();
+        if ($newApplicantUser === null) {
+            $newApplicantUser = factory(User::class)->state('applicant')->create([
+                'email' => $this->newApplicantEmail
+            ]);
+            $newApplicantUser->applicant()->save(factory(Applicant::class)->create([
+                'user_id' => $newApplicantUser->id
+            ]));
+        }
+
         // Add to application profile.
         $applicantUser->applicant->references()->saveMany(factory(Reference::class, 3)->create([
-            'applicant_id' => $applicantUser->applicant->id
+            'referenceable_id' => $applicantUser->applicant->id
+        ]));
+        $applicantUser->applicant->degrees()->saveMany(factory(Degree::class, 2)->create([
+            'degreeable_id' => $applicantUser->applicant->id
+        ]));
+        $applicantUser->applicant->courses()->saveMany(factory(Course::class, 3)->create([
+            'courseable_id' => $applicantUser->applicant->id
+        ]));
+        $applicantUser->applicant->work_experiences()->saveMany(factory(WorkExperience::class, 3)->create([
+            'experienceable_id' => $applicantUser->applicant->id
         ]));
 
         // Create several applications for test user.

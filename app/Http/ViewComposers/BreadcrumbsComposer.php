@@ -6,7 +6,6 @@ use Facades\App\Services\WhichPortal;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Log;
 
 class BreadcrumbsComposer
 {

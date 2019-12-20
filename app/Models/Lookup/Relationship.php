@@ -34,7 +34,7 @@ class Relationship extends BaseModel
 
     public function references()
     {
-        return $this->hasMany(\App\Models\References::class);
+        return $this->hasMany(\App\Models\Reference::class);
     }
 
     public function relationship_translations() //phpcs:ignore
