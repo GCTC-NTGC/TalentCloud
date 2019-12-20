@@ -19,6 +19,8 @@ use App\Models\Assessment;
 use App\Models\RatingGuideQuestion;
 use App\Models\RatingGuideAnswer;
 use App\Models\AssessmentPlanNotification;
+use App\Models\User;
+use App\Policies\UserPolicy;
 use App\Policies\JobPolicy;
 use App\Policies\CoursePolicy;
 use App\Policies\DegreePolicy;
@@ -42,6 +44,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
+        User::class => UserPolicy::class,
         Applicant::class => ApplicantPolicy::class,
         Manager::class => ManagerPolicy::class,
         JobPoster::class => JobPolicy::class,

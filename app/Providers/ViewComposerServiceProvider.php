@@ -64,7 +64,7 @@ class ViewComposerServiceProvider extends ServiceProvider
 
         View::composer(
             ['common/relatives','common/reference','common/relatives-projects',
-             'common/sample', 'common/skill', 'common/modals/create_reference'],
+                'common/sample', 'common/skill', 'common/modals/create_reference'],
             'App\Http\ViewComposers\RelativeComposer'
         );
 
@@ -96,6 +96,16 @@ class ViewComposerServiceProvider extends ServiceProvider
         View::composer(
             'manager/notification',
             'App\Http\ViewComposers\DemoNotificationComposer'
+        );
+
+        View::composer(
+            'auth/two_factor',
+            'App\Http\ViewComposers\TwoFactorComposer'
+        );
+
+        View::composer(
+            'auth/one_time_password',
+            'App\Http\ViewComposers\OneTimePasswordComposer'
         );
 
         View::composer(

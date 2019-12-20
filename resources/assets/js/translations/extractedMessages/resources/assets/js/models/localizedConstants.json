@@ -481,5 +481,70 @@
     "id": "jobBuilder.details.travelNoneRequiredLabel",
     "description": "The form label displayed on 'no travel required' travel options",
     "defaultMessage": "No, travel is not required for the position."
+  },
+  {
+    "id": "jobBuilder.details.classificationOptions.AS",
+    "description": "Job Classification from list of Classifications",
+    "defaultMessage": "AS - Administrative Services"
+  },
+  {
+    "id": "jobBuilder.details.classificationOptions.BI",
+    "description": "Job Classification from list of Classifications",
+    "defaultMessage": "BI - Biological Sciences"
+  },
+  {
+    "id": "jobBuilder.details.classificationOptions.CO",
+    "description": "Job Classification from list of Classifications",
+    "defaultMessage": "CO - Commerce"
+  },
+  {
+    "id": "jobBuilder.details.classificationOptions.CR",
+    "description": "Job Classification from list of Classifications",
+    "defaultMessage": "CR - Clerical and Regulatory"
+  },
+  {
+    "id": "jobBuilder.details.classificationOptions.CS",
+    "description": "Job Classification from list of Classifications",
+    "defaultMessage": "CS - Computer Systems"
+  },
+  {
+    "id": "jobBuilder.details.classificationOptions.EC",
+    "description": "Job Classification from list of Classifications",
+    "defaultMessage": "EC - Economics and Social Science Services"
+  },
+  {
+    "id": "jobBuilder.details.classificationOptions.EX",
+    "description": "Job Classification from list of Classifications",
+    "defaultMessage": "EX - Executive"
+  },
+  {
+    "id": "jobBuilder.details.classificationOptions.FO",
+    "description": "Job Classification from list of Classifications",
+    "defaultMessage": "FO - Forestry"
+  },
+  {
+    "id": "jobBuilder.details.classificationOptions.IS",
+    "description": "Job Classification from list of Classifications",
+    "defaultMessage": "IS - Information Services"
+  },
+  {
+    "id": "jobBuilder.details.classificationOptions.PC",
+    "description": "Job Classification from list of Classifications",
+    "defaultMessage": "PC - Physical Sciences"
+  },
+  {
+    "id": "jobBuilder.details.classificationOptions.PE",
+    "description": "Job Classification from list of Classifications",
+    "defaultMessage": "PE - Personnel Administration"
+  },
+  {
+    "id": "jobBuilder.details.classificationOptions.PM",
+    "description": "Job Classification from list of Classifications",
+    "defaultMessage": "PM - Programme Administration"
+  },
+  {
+    "id": "jobBuilder.details.classificationOptions.AD",
+    "description": "Job Classification from list of Classifications",
+    "defaultMessage": "AD - Administrative Services"
   }
 ]

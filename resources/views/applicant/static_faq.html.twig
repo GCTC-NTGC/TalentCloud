@@ -4,56 +4,40 @@
     Applicant: Home
 
 ============================================================================= #}
-
 {% extends "layouts/base" %}
-
 {% block title %}
 	{{ faq.faq_title }}
 {% endblock %}
-
 {% block body %}
-
-    {% include "common/goc" %}
-    {% include "common/alert" %}
-
-    <header data-clone>
-        <div data-c-overlay="black(80)" data-c-padding="bottom(triple)" style="background-image: url('/images/sean-pollock.jpg');">
-            {% include "common/menu" %}
-            <div data-c-container="large" data-c-margin="top(triple)">
-                <h1 data-c-color="white" data-c-font-weight="bold" data-c-font-size="h2">{{ faq.faq_title }}</h1>
-                <div data-c-alignment="left" data-c-margin="top(double)">
-                    <nav
-                        aria-label="breadcrumb"
-                        data-c-breadcrumbs>
-                        <ol>
-                            <li>
-                                <a
-                                    href="{{ breadcrumb_home }}"
-                                    title="{{ faq.breadcrumbs.home.title }}">
-                                    {{ faq.breadcrumbs.home.text }}</a>
-                                <i class="fa fa-caret-right"></i>
-                            </li>
-                            <li>
-                                <p>
-                                    {{ faq.breadcrumbs.faq.text }}
-                                </p>
-                                <i class="fa fa-caret-right"></i>
-                            </li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    {% if show_demo_notification %}
-        {% include "manager/notification" %}
-    {% endif %}
-
-    <a id="skipLink"></a>
-
-    {# FAQ Sections #}
-
-        {% include "applicant/static/credentialing_layout" %}
-
+	{% include "common/goc" %}
+	{% include "common/alert" %}
+	<header data-clone>
+		<div data-c-overlay="black(80)" style="background-image: url('/images/sean-pollock.jpg');">
+			{% include "common/menu" %}
+			<div data-c-container="large" data-c-padding="tb(triple)">
+				<h1 class="logotype" data-c-font-size="h1" data-c-font-weight="600" data-c-color="white" data-c-margin="bottom(double)">{{ faq.faq_title }}</h1>
+				<div data-c-alignment="left" data-c-margin="top(double)">
+					<nav aria-label="breadcrumb" data-c-breadcrumbs>
+						<ol>
+							<li>
+								<a href="{{ breadcrumb_home }}" title="{{ faq.breadcrumbs.home.title }}">
+									{{ faq.breadcrumbs.home.text }}</a>
+								<i class="fa fa-caret-right"></i>
+							</li>
+							<li>
+								<span aria-current="page">{{ faq.breadcrumbs.faq.text }}</span>
+								<i class="fa fa-caret-right"></i>
+							</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</header>
+	{% if show_notification %}
+		{% include "manager/notification" %}
+	{% endif %}
+	<a id="skipLink"></a>
+	{# FAQ Sections #}
+	{% include "applicant/static/credentialing_layout" %}
 {% endblock %}

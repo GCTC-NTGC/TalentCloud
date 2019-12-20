@@ -47,7 +47,6 @@ const ErrorToast: React.FC<ErrorToastProps & WrappedComponentProps> = ({
           <div data-c-padding="half">
             <span
               data-c-margin="bottom(quarter)"
-              data-c-heading="h5"
               data-c-font-weight="bold"
             >
               <FormattedMessage

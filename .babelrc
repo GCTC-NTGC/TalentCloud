@@ -6,6 +6,7 @@
       {
         "messagesDir": "./resources/assets/js/translations/extractedMessages"
       }
-    ]
+    ],
+    "@babel/plugin-proposal-optional-chaining"
   ]
 }
