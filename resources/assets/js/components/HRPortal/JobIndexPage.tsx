@@ -11,7 +11,7 @@ interface CompletedJobsAccordionProps {
 const CompletedJobsAccordion: React.FC<CompletedJobsAccordionProps> = ({
   completedJobActions,
 }) => {
-  const [isExpanded, toggleAccordion] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <section data-c-accordion-group data-c-margin="top(triple)">
@@ -22,7 +22,7 @@ const CompletedJobsAccordion: React.FC<CompletedJobsAccordionProps> = ({
           tabIndex={0}
           type="button"
           onClick={() => {
-            toggleAccordion(!isExpanded);
+            setIsExpanded(!isExpanded);
           }}
         >
           <div>
