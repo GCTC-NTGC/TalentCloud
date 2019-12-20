@@ -1,12 +1,7 @@
 import React from "react";
 import { useIntl, defineMessages, FormattedMessage } from "react-intl";
 import { JobStatus } from "../models/lookupConstants";
-
-interface Link {
-  url: string | null;
-  text: string;
-  title: string;
-}
+import { Link } from "../models/app";
 
 interface Activity {
   count: number;
@@ -115,7 +110,7 @@ const JobCard: React.FC<JobCardProps> = ({
           </h2>
 
           <p data-c-font-size="small" data-c-margin="top(normal)">
-            {draft.url !== null ? (
+            {draft.url.length === 0 ? (
               <a
                 href={draft.url}
                 title={draft.title}

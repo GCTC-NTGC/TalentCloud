@@ -1,5 +1,6 @@
 import { JobStatus } from "../../models/lookupConstants";
 import { JobCardProps } from "../JobCard";
+import { UnclaimedJobCardProps } from "../UnclaimedJobCard";
 
 export const jobActions: JobCardProps[] = [
   {
@@ -51,7 +52,7 @@ export const jobActions: JobCardProps[] = [
     applicants: 12,
     classification: "BK01",
     draft: {
-      url: null,
+      url: "",
       text: "View Draft",
       title: "View this draft Job Poster.",
     },
@@ -88,7 +89,7 @@ export const jobActions: JobCardProps[] = [
     applicants: 5,
     classification: "BS01",
     draft: {
-      url: null,
+      url: "",
       text: "View Draft",
       title: "View this draft Job Poster.",
     },
@@ -115,10 +116,13 @@ export const jobActions: JobCardProps[] = [
   },
 ];
 
-export const unclaimedJobs = [
+export const unclaimedJobs: UnclaimedJobCardProps[] = [
   {
-    title: "CS01 - Front-end Developer",
-    url: "",
+    jobLink: {
+      text: "CS01 - Front-end Developer",
+      url: "",
+      title: "",
+    },
     createdAt: "2019-MAY-02",
     status: JobStatus.Draft,
     hiringManagers: ["Rebecca Appleby"],
@@ -126,8 +130,11 @@ export const unclaimedJobs = [
     claimJob: (): void => {},
   },
   {
-    title: "AS02 - Executive Assisstant",
-    url: "",
+    jobLink: {
+      text: "AS02 - Executive Assisstant",
+      url: "",
+      title: "",
+    },
     createdAt: "2019-MAR-12",
     status: JobStatus.Draft,
     hiringManagers: ["Rebecca Appleby"],
@@ -135,8 +142,11 @@ export const unclaimedJobs = [
     claimJob: (): void => {},
   },
   {
-    title: "ET03 - Business Analyst",
-    url: "",
+    jobLink: {
+      text: "ET03 - Business Analyst",
+      url: "",
+      title: "",
+    },
     createdAt: "2019-DEC-02",
     status: JobStatus.Review,
     hiringManagers: ["Robin Browne"],
@@ -144,8 +154,11 @@ export const unclaimedJobs = [
     claimJob: (): void => {},
   },
   {
-    title: "FG05 - Long-term Care Specialist",
-    url: "",
+    jobLink: {
+      text: "FG05 - Long-term Care Specialist",
+      url: "",
+      title: "",
+    },
     createdAt: "2019-MAY-14",
     status: JobStatus.Draft,
     hiringManagers: ["Braeden McDoogal"],
@@ -153,8 +166,11 @@ export const unclaimedJobs = [
     claimJob: (): void => {},
   },
   {
-    title: "CS03 - Digital Product Designer",
-    url: "",
+    jobLink: {
+      text: "CS03 - Digital Product Designer",
+      url: "",
+      title: "",
+    },
     createdAt: "2019-JUL-24",
     status: JobStatus.Review,
     hiringManagers: ["Amelie Lachance"],

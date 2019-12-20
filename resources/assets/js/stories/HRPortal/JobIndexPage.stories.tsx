@@ -18,7 +18,7 @@ stories
         jobActions={jobActions}
         unclaimedJobs={unclaimedJobs.map(unclaimed => ({
           ...unclaimed,
-          claimJob: action(`Claim Job ${unclaimed.title}`),
+          claimJob: action(`Claim Job ${unclaimed.jobLink.text}`),
         }))}
         departmentName={text(
           "Department",

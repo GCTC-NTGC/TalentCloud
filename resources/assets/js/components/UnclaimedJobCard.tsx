@@ -1,10 +1,10 @@
 import React from "react";
 import { FormattedMessage } from "react-intl";
 import { JobStatus } from "../models/lookupConstants";
+import { Link } from "../models/app";
 
 export interface UnclaimedJobCardProps {
-  title: string;
-  url: string;
+  jobLink: Link;
   createdAt: string;
   status: JobStatus;
   hiringManagers: string[];
@@ -13,8 +13,7 @@ export interface UnclaimedJobCardProps {
 }
 
 const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
-  title,
-  url,
+  jobLink,
   createdAt,
   status,
   hiringManagers,
@@ -27,7 +26,11 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
       className="tc-hr-job-card"
     >
       <div data-c-card data-c-radius="rounded" data-c-background="white(100)">
-        <a href={url} title="" style={{ textDecoration: "none" }}>
+        <a
+          href={jobLink.url}
+          title={jobLink.title}
+          style={{ textDecoration: "none" }}
+        >
           <div data-c-background="black(100)" data-c-padding="all(normal)">
             <div data-c-grid="gutter middle">
               <div data-c-grid-item="base(1of1)">
@@ -36,7 +39,7 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
                   data-c-colour="white"
                   data-c-font-style="underline"
                 >
-                  {title}
+                  {jobLink.text}
                 </p>
               </div>
               <div data-c-grid-item="base(1of2)">
