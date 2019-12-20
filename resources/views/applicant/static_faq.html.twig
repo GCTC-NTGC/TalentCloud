@@ -17,19 +17,7 @@
 			<div data-c-container="large" data-c-padding="tb(triple)">
 				<h1 class="logotype" data-c-font-size="h1" data-c-font-weight="600" data-c-color="white" data-c-margin="bottom(double)">{{ faq.faq_title }}</h1>
 				<div data-c-alignment="left" data-c-margin="top(double)">
-					<nav aria-label="breadcrumb" data-c-breadcrumbs>
-						<ol>
-							<li>
-								<a href="{{ breadcrumb_home }}" title="{{ faq.breadcrumbs.home.title }}">
-									{{ faq.breadcrumbs.home.text }}</a>
-								<i class="fa fa-caret-right"></i>
-							</li>
-							<li>
-								<span aria-current="page">{{ faq.breadcrumbs.faq.text }}</span>
-								<i class="fa fa-caret-right"></i>
-							</li>
-						</ol>
-					</nav>
+					{% include "common/breadcrumbs" %}
 				</div>
 			</div>
 		</div>
