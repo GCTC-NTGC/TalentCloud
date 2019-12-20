@@ -68,7 +68,7 @@ stories
           applicants={number("Number of Applicants", 5)}
           classification={text("Classification", "CS01")}
           draft={{
-            url: null,
+            url: "",
             text: text("Draft Text", "View Draft"),
             title: "View this draft Job Poster.",
           }}

@@ -542,14 +542,15 @@ Route::group(
             Route::middleware(['finishHrRegistration'])->group(function (): void {
 
                 Route::get('/', 'HomepageController@hr_advisor')->name('hr_advisor.home');
+                Route::get('job-index', 'JobController@hrIndex')->name('hr_advisor.jobs.index');
             });
 
             // These routes must be excluded from the finishHrAdvisorRegistration middleware to avoid an infinite loop of redirects
             Route::middleware(['auth', 'role:hr_advisor'])->group(function (): void {
                 Route::get('first-visit', 'Auth\FirstVisitController@showFirstVisitHrForm')
-                    ->name('hr_advisor.first_visit');
+                ->name('hr_advisor.first_visit');
                 Route::post('finish_registration', 'Auth\FirstVisitController@finishHrRegistration')
-                    ->name('hr_advisor.finish_registration');
+                ->name('hr_advisor.finish_registration');
             });
 
             // Laravel default login, logout, register, and reset routes

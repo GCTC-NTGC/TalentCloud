@@ -1,5 +1,5 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
-import { ReviewStatusId, ReviewStatusName } from "./lookupConstants";
+import { ReviewStatusId, ReviewStatusName, JobStatus } from "./lookupConstants";
 
 export interface JobTranslation {
   city: string | null;

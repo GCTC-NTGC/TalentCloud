@@ -2,8 +2,10 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { text, select, array } from "@storybook/addon-knobs";
 import { withIntl } from "storybook-addon-intl";
+import { action } from "@storybook/addon-actions";
 import UnclaimedJobCard from "../components/UnclaimedJobCard";
 import { JobStatus } from "../models/lookupConstants";
+import { unclaimedJobs } from "../components/HRPortal/fixtures";
 
 const stories = storiesOf("Components|Unclaimed Job Card", module).addDecorator(
   withIntl,
@@ -18,51 +20,17 @@ const statusOptions = {
   Review: JobStatus.Review,
 };
 
-const unclaimedJobs = [
-  {
-    title: "CS01 - Front-end Developer",
-    createdAt: "2019-MAY-02",
-    status: JobStatus.Draft,
-    hiringManagers: ["Rebecca Appleby"],
-    hrAdvisors: [],
-  },
-  {
-    title: "AS02 - Executive Assisstant",
-    createdAt: "2019-MAR-12",
-    status: JobStatus.Draft,
-    hiringManagers: ["Rebecca Appleby"],
-    hrAdvisors: ["Rebecca Appleby", "Jack Little"],
-  },
-  {
-    title: "ET03 - Business Analyst",
-    createdAt: "2019-DEC-02",
-    status: JobStatus.Review,
-    hiringManagers: ["Robin Browne"],
-    hrAdvisors: [],
-  },
-  {
-    title: "FG05 - Long-term Care Specialist",
-    createdAt: "2019-MAY-14",
-    status: JobStatus.Draft,
-    hiringManagers: ["Braeden McDoogal"],
-    hrAdvisors: ["Caitlyn Summers", "Jack Little"],
-  },
-  {
-    title: "CS03 - Digital Product Designer",
-    createdAt: "2019-JUL-24",
-    status: JobStatus.Review,
-    hiringManagers: ["Amelie Lachance"],
-    hrAdvisors: [],
-  },
-];
-
 stories
   .add(
     "Unclaimed",
     (): React.ReactElement => (
       <div data-c-container="large" data-c-padding="tb(triple)">
         <UnclaimedJobCard
-          title={text("Title", "CS01 - Front-end Developer", "Props")}
+          jobLink={{
+            url: text("Url", "", "Props"),
+            title: "",
+            text: text("Title", "CS01 - Front-end Developer", "Props"),
+          }}
           createdAt={text("Created At", "Created: 2019-MAY-02", "Props")}
           status={select("Status", statusOptions, JobStatus.Draft, "Props")}
           hiringManagers={array(
@@ -72,6 +40,7 @@ stories
             "Props",
           )}
           hrAdvisors={[]}
+          claimJob={action("Claim Job")}
         />
       </div>
     ),
@@ -81,7 +50,11 @@ stories
     (): React.ReactElement => (
       <div data-c-container="large" data-c-padding="tb(triple)">
         <UnclaimedJobCard
-          title={text("Title", "AS02 - Executive Assisstant", "Props")}
+          jobLink={{
+            url: text("Url", "", "Props"),
+            title: "",
+            text: text("Title", "AS02 - Executive Assisstant", "Props"),
+          }}
           createdAt={text("Created At", "Created: 2019-MAY-02", "Props")}
           status={select("Status", statusOptions, JobStatus.Draft, "Props")}
           hiringManagers={array(
@@ -96,6 +69,7 @@ stories
             ",",
             "Props",
           )}
+          claimJob={action("Claim Job")}
         />
       </div>
     ),
@@ -107,7 +81,7 @@ stories
         <div data-c-grid="gutter">
           {unclaimedJobs.map(
             ({
-              title,
+              jobLink,
               createdAt,
               status,
               hiringManagers,
@@ -115,12 +89,13 @@ stories
             }): React.ReactElement => {
               return (
                 <UnclaimedJobCard
-                  key={title}
-                  title={title}
+                  key={jobLink.text}
+                  jobLink={jobLink}
                   createdAt={createdAt}
                   status={status}
                   hiringManagers={hiringManagers}
                   hrAdvisors={hrAdvisors}
+                  claimJob={action("Claim Job")}
                 />
               );
             },
