@@ -263,10 +263,10 @@ class User extends BaseModel implements
     }
 
     /**
-     * Check if the user has the specified role.
-     * @param string $role This may be either 'applicant', 'manager' or 'admin'.
-     * @return boolean
-     */
+    * Check if the user has the specified role.
+    * @param string $role This may be either 'applicant', 'manager', 'hr_advisor' or 'admin'.
+    * @return boolean
+    */
     public function hasRole($role)
     {
         switch ($role) {
@@ -286,9 +286,9 @@ class User extends BaseModel implements
     /**
      * Set this user to the specified role.
      *
-     * @param string $role Must be either 'applicant', 'manager' or 'admin.
-     * @return void
-     */
+     * @param string $role Must be either 'applicant', 'manager', 'hr_advisor' or 'admin'.
+    * @return void
+    */
     public function setRole(string $role): void
     {
         $this->user_role()->associate(UserRole::where('name', $role)->firstOrFail());

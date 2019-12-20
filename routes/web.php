@@ -669,4 +669,13 @@ Route::group(['prefix' => 'api'], function (): void {
 
     Route::get('hr-advisors/{hrAdvisor}', 'Api\HrAdvisorController@show')
         ->middleware('can:view,hrAdvisor');
+
+    Route::put('hr-advisors/{hrAdvisor}/claims/{job}', 'Api\ClaimJobApiController@claimJob')
+        ->middleware('can:update,hrAdvisor')
+        ->where('hrAdvisor', '[0-9]+')
+        ->where('job', '[0-9]+');
+    Route::delete('hr-advisors/{hrAdvisor}/claims/{job}', 'Api\ClaimJobApiController@unclaimJob')
+        ->middleware('can:update,hrAdvisor')
+        ->where('hrAdvisor', '[0-9]+')
+        ->where('job', '[0-9]+');
 });

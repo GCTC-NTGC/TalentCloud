@@ -46,6 +46,15 @@ class DevSeeder extends Seeder // phpcs:ignore
      */
     protected $hrAdvisorEmail = 'hr_advisor@test.com';
 
+    /**
+     * Note: all seeded users have 'password' for a password.
+     *
+     * @var string
+     */
+    protected $newApplicantEmail = 'newApplicant@test.com';
+
+
+
 
 
     /**
