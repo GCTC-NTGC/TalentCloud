@@ -36,7 +36,7 @@ class InitializeUser
             // If no profile exists yet create one.
             // Admins should be given an applicant and manager profile
             if ($user->isApplicant() ||
-                    $user->isAdmin() ) {
+                    $user->isAdmin()) {
                 $applicantProfile = $user->applicant;
                 if ($applicantProfile === null) {
                     $applicantProfile = new Applicant();

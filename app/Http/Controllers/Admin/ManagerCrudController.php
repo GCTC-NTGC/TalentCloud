@@ -36,7 +36,7 @@ class ManagerCrudController extends CrudController
             'label' => 'ID'
         ]);
         $this->crud->addColumn([
-            'name' => 'manager.name',
+            'name' => 'full_name',
             'key' => 'manager_name',
             'type' => 'text',
             'label' => 'Name'

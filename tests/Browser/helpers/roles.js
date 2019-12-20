@@ -8,6 +8,13 @@ export const applicantUser = Role("https://talent.test/login", async t => {
     .click(Selector("button").withText("Login"));
 });
 
+export const emptyApplicantUser = Role("https://talent.test/login", async t => {
+  await t
+    .typeText(Selector("#email"), "newApplicant@test.com")
+    .typeText(Selector("#password"), "password")
+    .click(Selector("button").withText("Login"));
+});
+
 export const managerUser = Role(
   "https://talent.test/manager/login",
   async t => {

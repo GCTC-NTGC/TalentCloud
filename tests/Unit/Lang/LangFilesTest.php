@@ -15,7 +15,7 @@ class LangFilesTest extends BaseTranslationTest
     public function testAllLangFilesWellFormatted() : void
     {
         foreach ($this->getAllLangFilenames() as $langFile) {
-            if (! empty($langFile)) {
+            if (!empty($langFile)) {
                 $this->assertIsArray(Lang::get($langFile));
             }
         }
@@ -23,7 +23,7 @@ class LangFilesTest extends BaseTranslationTest
 
     /**
      * Tests for lang entries that are empty strings.
-     * If tests are run with --verbose, displays wich keys have empty values.
+     * If tests are run with --verbose, displays which keys have empty values.
      *
      * @return void
      */
@@ -40,7 +40,7 @@ class LangFilesTest extends BaseTranslationTest
                 }
             }
         }
-        if (! empty($emptyEntries)) {
+        if (!empty($emptyEntries)) {
             print_r("\n");
             print_r("The following lang entries are empty strings:\n");
             print_r($emptyEntries);
@@ -52,7 +52,7 @@ class LangFilesTest extends BaseTranslationTest
     /**
      * Tests for lang entries that are set to values that obviously indicate
      * a missing translation, like 'TRANSLATION NEEDED'.
-     * If tests are run with --verbose, displays wich keys have these values.
+     * If tests are run with --verbose, displays which keys have these values.
      *
      * @return void
      */
@@ -70,7 +70,7 @@ class LangFilesTest extends BaseTranslationTest
                 }
             }
         }
-        if (! empty($translationNeeded)) {
+        if (!empty($translationNeeded)) {
             print_r("\n");
             print_r("Translation needed for the following keys:\n");
             print_r($translationNeeded);
@@ -114,7 +114,8 @@ class LangFilesTest extends BaseTranslationTest
             'manager/home.features.table.rows.5.demo',
             'manager/home.features.table.rows.5.partner',
             'manager/home.features.table.rows.6.demo',
-            'manager/home.features.table.rows.6.partner'
+            'manager/home.features.table.rows.6.partner',
+            'applicant'
         ],
         'fr' => [
             'validation.attributes.courses.new.*.name',
@@ -145,7 +146,8 @@ class LangFilesTest extends BaseTranslationTest
             'manager/home.features.table.rows.5.demo',
             'manager/home.features.table.rows.5.partner',
             'manager/home.features.table.rows.6.demo',
-            'manager/home.features.table.rows.6.partner'
+            'manager/home.features.table.rows.6.partner',
+            'applicant'
         ]
     ];
 
@@ -154,7 +156,7 @@ class LangFilesTest extends BaseTranslationTest
      * or that are present in one language but not another. Ignores keys
      * in $this->permittedMissing.
      *
-     * If tests are run with --verbose, displays wich keys are missing.
+     * If tests are run with --verbose, displays which keys are missing.
      *
      * @return void
      */
@@ -167,14 +169,14 @@ class LangFilesTest extends BaseTranslationTest
         foreach ($this->getAllLangPaths() as $path) {
             foreach ($this->locales as $locale) {
                 App::setLocale($locale);
-                if (! Lang::has($path) && ! in_array($path, $this->permittedMissing[$locale])) {
+                if (!Lang::has($path) &&!in_array($path, $this->permittedMissing[$locale])) {
                     array_push($missingEntries[$locale], $path);
                 }
             }
         }
         $allMissingEntries = [];
         foreach ($this->locales as $locale) {
-            if (! empty($missingEntries[$locale])) {
+            if (!empty($missingEntries[$locale])) {
                 print_r("\n");
                 print_r("The following lang entries are missing in $locale\n");
                 print_r($missingEntries[$locale]);
@@ -188,7 +190,7 @@ class LangFilesTest extends BaseTranslationTest
 
     /**
      * The list of keys that are expected to have identical values in multiple languages.
-     * If tests are run with --verbose, displays wich keys have identical values.
+     * If tests are run with --verbose, displays which keys have identical values.
      *
      * @var mixed[]
      */
@@ -316,7 +318,7 @@ class LangFilesTest extends BaseTranslationTest
 
     /**
      * Tests lang files for identical values in multiple languages.
-     * If tests are run with --verbose, displays wich keys have identical values.
+     * If tests are run with --verbose, displays which keys have identical values.
      *
      * @return void
      */
@@ -339,7 +341,7 @@ class LangFilesTest extends BaseTranslationTest
             }
         }
         $identicalEntries = array_unique($identicalEntries);
-        if (! empty($identicalEntries)) {
+        if (!empty($identicalEntries)) {
             print_r("\n");
             print_r("The following lang entries are identical in multiple languages:\n");
             print_r($identicalEntries);
