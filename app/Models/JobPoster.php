@@ -90,14 +90,14 @@ use App\Events\JobSaved;
  * @property string $culture_summary
  * @property string $culture_special
  *
- * Computed Properties
- * @property string $classification
- * @property string $classification_code
- *
  * Methods
  * @method boolean isOpen()
  * @method string timeRemaining()
  * @method mixed[] toApiArray()
+ *
+ * Computed Properties
+ * @property string|null $classification_code
+ * @property string|null $classification_message
  */
 class JobPoster extends BaseModel
 {
@@ -188,9 +188,6 @@ class JobPoster extends BaseModel
         'salary_min',
         'salary_max',
         'noc',
-        'classification',
-        'classification_code',
-        'classification_level',
         'security_clearance_id',
         'language_requirement_id',
         'remote_work_allowed',
@@ -208,7 +205,9 @@ class JobPoster extends BaseModel
         'overtime_requirement_id',
         'process_number',
         'priority_clearance_number',
-        'loo_issuance_date'
+        'loo_issuance_date',
+        'classification_id',
+        'classification_level',
     ];
 
     /**
@@ -230,8 +229,6 @@ class JobPoster extends BaseModel
         'salary_min',
         'salary_max',
         'noc',
-        'classification_code',
-        'classification_level',
         'security_clearance_id',
         'language_requirement_id',
         'remote_work_allowed',
@@ -251,15 +248,20 @@ class JobPoster extends BaseModel
         'overtime_requirement_id',
         'process_number',
         'priority_clearance_number',
-        'loo_issuance_date'
+        'loo_issuance_date',
+        'classification_id',
+        'classification_level'
     ];
 
     /**
      * The accessors to append to the model's array form.
      *
-     * @var mixed[] $appends
+     * @var string[] $appends
      */
-    protected $appends = ['classification_code'];
+    protected $appends = [
+        'classification_code',
+        'classification_message'
+    ];
 
     /**
      * @var mixed[] $dispatchesEvents
@@ -352,7 +354,12 @@ class JobPoster extends BaseModel
         return $this->belongsTo(\App\Models\Lookup\OvertimeRequirement::class);
     }
 
-    // Artificial Relations
+    public function classification() // phpcs:ignore
+    {
+        return $this->belongsTo(\App\Models\Classification::class);
+    }
+    // @codeCoverageIgnoreEnd
+    /* Artificial Relations */
 
     /**
      * Get all of the Job Applications submitted to this
@@ -362,12 +369,12 @@ class JobPoster extends BaseModel
      */
     public function submitted_applications() // phpcs:ignore
     {
-        return $this->hasMany(\App\Models\JobApplication::class)->whereDoesntHave('application_status', function ($query) : void {
+        return $this->hasMany(\App\Models\JobApplication::class)->whereDoesntHave('application_status', function ($query): void {
             $query->where('name', 'draft');
         });
     }
 
-    // Overrides
+    /* Overrides */
 
     /**
      * Retrieve the model for a bound value.
@@ -385,62 +392,6 @@ class JobPoster extends BaseModel
         return $this->withCount('submitted_applications')->where('id', $value)->first() ?? abort(404);
     }
 
-    // @codeCoverageIgnoreEnd
-    // Accessors.
-
-    /**
-     * The database model stores a foreign id to the classification table,
-     * but to simplify the API, this model simply returns the key as classification_code.
-     *
-     * @return void
-     */
-    public function getClassificationCodeAttribute()
-    {
-        if ($this->classification_id !== null) {
-            $classification = Classification::find($this->classification_id);
-            return $classification->key;
-        }
-        return null;
-    }
-
-    /**
-     * The classification property is deprecated. To ensure
-     * Twig template consistency, check for populated
-     * classification_code and classification_level and return
-     * the combination of those instead.
-     *
-     * @param mixed $value Incoming attribute value.
-     *
-     * @return string|null
-     */
-    public function getClassificationAttribute($value)
-    {
-        if (!empty($this->classification_code) && !empty($this->classification_level)) {
-            return "$this->classification_code-$this->classification_level";
-        } else {
-            return $value;
-        }
-    }
-
-    // Mutators.
-
-    /**
-     * This model exposes the classification_code attribute, but it is determined
-     * by the classification_id column in the database, so set that value instead.
-     *
-     * @param string $value
-     * @return void
-     */
-    public function setClassificationCodeAttribute($value): void
-    {
-        $classification = Classification::where('key', $value)->first();
-        if ($classification !== null) {
-            $this->attributes['classification_id'] = $classification->id;
-        } else {
-            $this->attributes['classification_id'] = null;
-        }
-    }
-
     /**
      * Intercept setting the "published" attribute, and set the
      * "published_at" timestamp if true.
@@ -449,7 +400,7 @@ class JobPoster extends BaseModel
      *
      * @return void
      */
-    public function setPublishedAttribute($value) : void
+    public function setPublishedAttribute($value): void
     {
         if ($value) {
             $this->attributes['published_at'] = new Date();
@@ -462,7 +413,8 @@ class JobPoster extends BaseModel
         $this->attributes['published'] = $value;
     }
 
-    // Methods
+    /* Methods */
+
     public function submitted_applications_count() //phpcs:ignore
     {
         return $this->submitted_applications()->count();
@@ -473,10 +425,10 @@ class JobPoster extends BaseModel
      *
      * @return string[]
      */
-    public function applyBy() : array
+    public function applyBy(): array
     {
-        $localCloseDate = new Date($this->close_date_time); // This initializes the date object in UTC time
-        $localCloseDate->setTimezone(new \DateTimeZone(self::TIMEZONE)); // Then set the time zone for display
+        $localCloseDate = new Date($this->close_date_time); // This initializes the date object in UTC time.
+        $localCloseDate->setTimezone(new \DateTimeZone(self::TIMEZONE)); // Then set the time zone for display.
         $displayDate = [
             'date' => $localCloseDate->format(self::DATE_FORMAT[App::getLocale()]),
             'time' => $localCloseDate->format(self::TIME_FORMAT[App::getLocale()])
@@ -495,7 +447,7 @@ class JobPoster extends BaseModel
      *
      * @return string
      */
-    public function displayStatus() : string
+    public function displayStatus(): string
     {
         return $this->isOpen() ? 'Open' : 'Closed';
     }
@@ -505,7 +457,7 @@ class JobPoster extends BaseModel
      *
      * @return boolean
      */
-    public function isOpen() : bool
+    public function isOpen(): bool
     {
         return $this->published
             && $this->open_date_time !== null
@@ -519,7 +471,7 @@ class JobPoster extends BaseModel
      *
      * @return boolean
      */
-    public function isClosed() : bool
+    public function isClosed(): bool
     {
         return $this->published
             && $this->open_date_time !== null
@@ -533,7 +485,7 @@ class JobPoster extends BaseModel
      *
      * @return string
      */
-    public function timeRemaining() : string
+    public function timeRemaining(): string
     {
         $interval = $this->close_date_time->diff(Date::now());
 
@@ -567,7 +519,7 @@ class JobPoster extends BaseModel
      *
      * @return string
      */
-    public function status() : string
+    public function status(): string
     {
         $status = 'draft';
         if ($this->isOpen()) {
@@ -581,6 +533,34 @@ class JobPoster extends BaseModel
         }
 
         return $status;
+    }
+
+    /**
+     * The database model stores a foreign id to the classification table,
+     * but to simplify the API, this model simply returns the key as classification_code.
+     *
+     * @return string|null
+     */
+    public function getClassificationCodeAttribute()
+    {
+        if ($this->classification_id !== null) {
+            return $this->classification->key;
+        }
+        return null;
+    }
+
+    /**
+     *
+     * Get the full government classification message.
+     *
+     * @return string|null
+     */
+    public function getClassificationMessageAttribute()
+    {
+        if ($this->classification_id !== null && $this->classification_level !== null) {
+            return $this->classification->key . '-0' . $this->classification_level;
+        }
+        return null;
     }
 
     /**

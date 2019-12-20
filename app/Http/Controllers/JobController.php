@@ -57,21 +57,20 @@ class JobController extends Controller
         $manager = Auth::user()->manager;
 
         $jobs = JobPoster::where('manager_id', $manager->id)
+            ->with('classification')
             ->withCount('submitted_applications')
             ->get();
-
-
 
         foreach ($jobs as &$job) {
             $chosen_lang = $job->chosen_lang;
 
-            // Show chosen lang title if current title is empty
+            // Show chosen lang title if current title is empty.
             if (empty($job->title)) {
                 $job->title = $job->translate($chosen_lang)->title;
                 $job->trans_required = true;
             }
 
-            // Always preview and edit in the chosen language
+            // Always preview and edit in the chosen language.
             $job->preview_link = LaravelLocalization::getLocalizedURL($chosen_lang, route('manager.jobs.show', $job));
             $job->edit_link = LaravelLocalization::getLocalizedURL($chosen_lang, route('manager.jobs.edit', $job));
         }
@@ -84,6 +83,19 @@ class JobController extends Controller
             'jobs' => $jobs,
         ]);
     }
+
+    /**
+     * Display a listing of a hr adviser's JobPosters.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function hrIndex()
+    {
+        return view('hr_advisor/job_index', []);
+    }
+
+
+
 
     /**
      * Delete a draft Job Poster.
