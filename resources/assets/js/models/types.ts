@@ -257,3 +257,8 @@ export interface JobPosterKeyTask {
     description: string;
   };
 }
+
+export interface Comment {
+  comment: string;
+  type: number;
+}
