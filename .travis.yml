@@ -2,12 +2,37 @@ language: php
 
 php:
   - '7.2'
+  # check next php version (testing)
+  - '7.3'
+  # try nightly builds (testing)
+  - nightly
 
-branches:
-  only:
-    - dev
-    - master
-    - /^v\d+\.\d+(\.\d+)?(-\S*)?$/ # Tagged releases, i.e. v1.0.4
+env:
+  global:
+    # set concurrent Makefile jobs (testing)
+    - MAKEFLAGS='-j 2'
+    # separate environments for test suites (testing)
+    - TEST_SUITE=browser
+    - TEST_SUITE=unit
+    # set Firefox to headless mode (testing)
+    - MOZ_HEADLESS=1
+
+
+# build matrix (testing)
+jobs:
+  include:
+  - php: '7.2'
+    env: TEST_SUITE=browser
+    env: TEST_SUITE=unit
+  allow_failures:
+  - php: '7.3'
+
+# unsure if necessary (testing without)
+#branches:
+  #only:
+    # dev
+    # master
+    # /^v\d+\.\d+(\.\d+)?(-\S*)?$/ # Tagged releases, i.e. v1.0.4
 
 dist: trusty
 
@@ -21,11 +46,13 @@ cache:
 
 # following required for Test Cafe
 addons:
-  chrome: stable
+  firefox: latest
   hosts:
     - talent.test
 
 before_install:
+  # remove xdebug
+  - phpenv config-rm xdebug.ini
   # free port 5432
   - sudo service postgresql stop
   # latest composer version
@@ -41,14 +68,14 @@ install:
   - travis_retry npm install
 
 before_script:
-  # setup headless browser for tests
-  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
   # start web server port 8000
-  - php artisan serve &
+  # php artisan serve &
   # required for Test Cafe
   - 'export DISPLAY=:99.0'
-  - 'sh -e /etc/init.d/xvfb start'
-  - sleep 3
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
+  - rackup  # start a Web server
+  - sleep 3 # give Web server some time to bind to sockets, etc
   - fluxbox >/dev/null 2>&1 &
 
 script:
@@ -60,22 +87,23 @@ script:
   # laravel mix
   - npm run dev
   # browser tests
-  - npm run testcafe-ci
+  - env browser npm run testcafe-ci
   # prepare code coverage
-  - mkdir -p ./report/
-  - ci_env=`bash <(curl -s https://codecov.io/env)`
-  - docker run $ci_env gctcntgc/talentcloud sh
-  # Jest tests
-  - npm run test
-  # send Jest report to codecov.io
-  - bash <(curl -s https://codecov.io/bash) -cF javascript
+  - env unit mkdir -p ./report/
+  - env unit ci_env=`bash <(curl -s https://codecov.io/env)`
+  - env unit docker run $ci_env gctcntgc/talentcloud sh
   # PHPUnit tests
-  - make phpunit
+  - env unit make phpunit
   # send PHPUnit report to codecov.io
-  - bash <(curl -s https://codecov.io/bash) -cF php
+  # bash <(curl -s https://codecov.io/bash) -cF php
+  # Jest tests
+  - env unit npm run test
+  # send Jest report to codecov.io
+  # bash <(curl -s https://codecov.io/bash) -cF javascript
+  # upload all reports at once (testing)
+  - bash <(curl -s https://codecov.io/bash)
 
 after_script:
-  # tear down
   - make docker-stop
 
 # Slack notifications / do not send emails

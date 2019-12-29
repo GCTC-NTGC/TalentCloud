@@ -38,7 +38,8 @@ phpmd:
 	html codesize,naming,unusedcode --reportfile report/phpmd.html --ignore-violations-on-exit"
 
 phpunit:
-	@docker exec talentcloud sh -c "vendor/bin/phpunit --coverage-clover=coverage.xml"
+    # uses phpdbg to generate code coverage (instead of xdebug)
+	@docker exec talentcloud sh -c "phpdbg -qrr ./vendor/bin/phpunit -dmemory_limit=4G --coverage-clover=report/coverage.xml"
 
 test:
 	@docker exec talentcloud sh -c "vendor/bin/phpunit --no-coverage"
