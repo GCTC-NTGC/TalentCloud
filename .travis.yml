@@ -23,6 +23,7 @@ jobs:
   include:
   - php: '7.2'
     env: TEST_SUITE=browser
+  - php: '7.2'
     env: TEST_SUITE=unit
   allow_failures:
   - php: '7.3'
