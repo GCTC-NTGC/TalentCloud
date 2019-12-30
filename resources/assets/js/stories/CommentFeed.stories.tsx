@@ -11,8 +11,12 @@ const stories = storiesOf("Components|Comment Form", module).addDecorator(
 );
 
 const fakeComment = (): Comment => ({
+  id: 1,
+  job_poster_id: 2,
+  user_id: 3,
   comment: "Why did you do this?",
-  type: 1
+  location: "jpb_3",
+  type: 1,
 });
 
 const handleSubmit = async (): Promise<Comment> => {
@@ -22,8 +26,18 @@ const handleSubmit = async (): Promise<Comment> => {
 
 stories
   .add(
-    "Empty",
+    "Manager",
     (): React.ReactElement => (
-      <CommentForm handleSubmit={handleSubmit} />
+      <section data-c-padding="all(3)">
+        <CommentForm handleSubmit={handleSubmit} isHrAdviser={false} />
+      </section>
     ),
   )
+  .add(
+    "HrAdviser",
+    (): React.ReactElement => (
+      <section data-c-padding="all(3)">
+        <CommentForm handleSubmit={handleSubmit} isHrAdviser />
+      </section>
+    ),
+  );
