@@ -50,7 +50,7 @@ const commentTypeMessages = defineMessages({
 });
 
 interface CommentFormProps {
-  // It must return true if the submission was successful, false otherwise.
+  isHrAdviser: boolean;
   handleSubmit: (newComment: Comment) => Promise<Comment>;
 }
 
@@ -61,6 +61,7 @@ interface CommentFormValues {
 
 const CommentForm: React.FunctionComponent<CommentFormProps> = ({
   handleSubmit,
+  isHrAdviser,
 }: CommentFormProps): React.ReactElement => {
   const intl = useIntl();
   const initialValues: CommentFormValues = {
@@ -85,8 +86,8 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
       <Formik
         initialValues={initialValues}
         validationSchema={commentSchema}
-        onSubmit={(values, actions): void => {
-          console.log("submit button clicked!!!!");
+        onSubmit={(values): void => {
+          console.log(values);
         }}
         render={({ isSubmitting }): React.ReactElement => (
           <Form data-c-grid="gutter(all, 1)">
@@ -100,38 +101,47 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
               label={intl.formatMessage(formMessages.commentLabel)}
               placeholder={intl.formatMessage(formMessages.commentPlaceholder)}
             />
-            <Field
-              id="comment_form_type"
-              name="commentType"
-              component={SelectInput}
-              required
-              grid="tl(1of3)"
-              label={intl.formatMessage(formMessages.commentTypeLabel)}
-              nullSelection={intl.formatMessage(
-                formMessages.commentTypeNullSelection,
-              )}
-              options={[
-                {
-                  value: 1,
-                  label: intl.formatMessage(commentTypeMessages.question),
-                },
-                {
-                  value: 2,
-                  label: intl.formatMessage(commentTypeMessages.recommendation),
-                },
-                {
-                  value: 3,
-                  label: intl.formatMessage(commentTypeMessages.requiredAction),
-                },
-              ]}
-            />
+            {isHrAdviser && (
+              <Field
+                id="comment_form_type"
+                name="commentType"
+                component={SelectInput}
+                required
+                grid="tl(1of3)"
+                label={intl.formatMessage(formMessages.commentTypeLabel)}
+                nullSelection={intl.formatMessage(
+                  formMessages.commentTypeNullSelection,
+                )}
+                options={[
+                  {
+                    value: 1,
+                    label: intl.formatMessage(commentTypeMessages.question),
+                  },
+                  {
+                    value: 2,
+                    label: intl.formatMessage(
+                      commentTypeMessages.recommendation,
+                    ),
+                  },
+                  {
+                    value: 3,
+                    label: intl.formatMessage(
+                      commentTypeMessages.requiredAction,
+                    ),
+                  },
+                ]}
+              />
+            )}
             <div
-              data-c-grid-item="base(1of1)"
+              data-c-grid-item={isHrAdviser ? "base(1of1)" : "tl(1of3)"}
               data-c-align="base(center) tl(right)"
+              style={
+                isHrAdviser ? {} : { display: "flex", alignItems: "center" }
+              }
             >
               <button
                 type="submit"
-                // disabled={isSubmitting}
+                disabled={isSubmitting}
                 data-c-button="solid(c1)"
                 data-c-radius="rounded"
               >
