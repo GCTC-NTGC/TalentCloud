@@ -1,0 +1,51 @@
+{# =============================================================================
+
+    Talent Cloud
+    HR Portal: Home
+
+============================================================================= #}
+
+{% extends "layouts/base" %}
+
+{% block title %}
+    {{ menu.home_title }}
+{% endblock %}
+
+{% block body %}
+
+    {% include "common/goc" %}
+    {% include "common/alert" %}
+
+    {# {% include "common/home/hero" %} #}
+
+    <div data-clone>
+
+        <div data-c-background="white(100)">
+
+            <header data-c-overlay="black(80)" data-c-padding="bottom(triple)" style="background-image: url('/images/sean-pollock.jpg');">
+                {% include "common/menu" %}
+                <div data-c-align="base(center)" data-c-container="medium" data-c-padding="top(double)">
+                    <h1 data-c-colour="white" data-c-font-size="h1" data-c-font-weight="700" data-c-margin="top(triple) bottom(normal)">{{ hr_home.hero.heading }}<img alt="{{ hr_home.hero.heading_alt }}" class="hero-icon" src="/images/maple-leaf.svg"></h1>
+                    <p data-c-colour="white" data-c-margin="bottom(triple)">{{ hr_home.hero.subheading }}</p>
+                </div>
+            </header>
+
+            <div data-c-padding="tb(normal)" class="tc-gradient-lr">
+                <div data-c-container="medium" data-c-align="base(center)" data-c-color="white">
+                    <p data-c-padding="tb(half)">
+                        {{ trans('hr_advisor/home.banner.content', {open: '<span data-c-font-weight="bold">', close: '</span>'})|raw }}
+                        <a href="{{ route('home') }}" title="{{ hr_home.banner.anchor.title }}">{{ hr_home.banner.anchor.text }}</a>
+
+                    </p>
+                </div>
+            </div>
+
+            <a id="skipLink"></a>
+
+            <br><br><br>
+
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -1,5 +1,5 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
-import { ReviewStatusId, ReviewStatusName } from "./lookupConstants";
+import { ReviewStatusId, ReviewStatusName, JobStatus } from "./lookupConstants";
 
 export interface JobTranslation {
   city: string | null;
@@ -72,6 +72,15 @@ export interface Manager {
   is_demo_manager: boolean;
   en: ManagerTranslation;
   fr: ManagerTranslation;
+}
+
+export interface HrAdvisor {
+  id: number;
+  user_id: number;
+  first_name: string;
+  last_name: string;
+  department_id: number;
+  claimed_job_ids: number[];
 }
 
 export interface Application {

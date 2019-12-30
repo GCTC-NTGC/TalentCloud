@@ -74,6 +74,7 @@ use App\Events\JobSaved;
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_questions
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_translations
  * @property \Illuminate\Database\Eloquent\Collection $submitted_applications
+ * @property \Illuminate\Database\Eloquent\Collection $hr_advisors
  * @property \App\Models\Lookup\Frequency $telework_allowed_frequency
  * @property \App\Models\Lookup\Frequency $flexible_hours_frequency
  *
@@ -303,6 +304,14 @@ class JobPoster extends BaseModel
     public function criteria() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\Criteria::class);
+    }
+
+    public function hr_advisors() // phpcs:ignore
+    {
+        return $this->belongsToMany(
+            \App\Models\HrAdvisor::class,
+            'claimed_jobs'
+        );
     }
 
     public function job_applications() // phpcs:ignore

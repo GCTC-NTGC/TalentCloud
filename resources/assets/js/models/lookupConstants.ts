@@ -117,6 +117,15 @@ export const ClassificationId = {
   AD: 13,
 };
 
+export enum JobStatus {
+  Approved = "Approved",
+  Closed = "Closed",
+  Complete = "Complete",
+  Draft = "Draft",
+  Published = "Published",
+  Review = "Review",
+}
+
 export function getKeyByValue(object, value): string {
   return (
     Object.keys(object).find(key => object[key] === parseInt(value, 10)) || ""

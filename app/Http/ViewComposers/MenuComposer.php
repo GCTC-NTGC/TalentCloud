@@ -172,6 +172,39 @@ class MenuComposer
                 unset($menu['items']['profile']);
                 unset($menu['items']['settings']);
             }
+        } elseif (WhichPortal::isHrPortal()) {
+            $menu = Lang::get('hr_advisor/menu');
+
+            // Set active on the proper item
+            switch (Route::currentRouteName()) {
+                case 'hr_advisor.home':
+                    $menu['items']['home']['active'] = true;
+                    break;
+                case 'register':
+                    $menu['items']['register']['active'] = true;
+                    break;
+                case 'login':
+                    $menu['items']['login']['active'] = true;
+                    break;
+                case 'logout':
+                    $menu['items']['logout']['active'] = true;
+                    break;
+                default:
+                    // No menu item will be active
+                    break;
+            }
+
+            // Set route links
+            $menu['items']['home']['link'] = route('hr_advisor.home');
+
+            // Check if use is logged in, and remove invalid menu items
+            if (Auth::check()) {
+                unset($menu['items']['login']);
+                unset($menu['items']['register']);
+                // TODO set profile like using user slug
+            } else {
+                unset($menu['items']['logout']);
+            }
         } elseif (WhichPortal::isAdminPortal()) {
             // Use the manager menu, keeping only.
             $menu = Lang::get('admin/menu');
@@ -207,6 +240,13 @@ class MenuComposer
                 'login_link' => route('manager.login'),
                 'logout_link' => route('manager.logout'),
                 'settings_link' => route('manager.settings.edit'),
+            ];
+        } elseif (WhichPortal::isHrPortal()) {
+            $loginModals = [
+                'modals' => Lang::get('common/login_modals'),
+                'register_link' => route('hr_advisor.register'),
+                'login_link' => route('hr_advisor.login'),
+                'logout_link' => route('hr_advisor.logout'),
             ];
         } elseif (WhichPortal::isAdminPortal()) {
             $loginModals = [

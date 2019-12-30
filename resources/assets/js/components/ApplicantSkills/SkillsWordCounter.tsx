@@ -100,8 +100,6 @@ const updateWordCounters = (): void => {
   if (document.querySelectorAll("div[data-word-counter-id]")) {
     const wordCounters = document.querySelectorAll("div[data-word-counter-id]");
 
-    console.dir(wordCounters);
-
     wordCounters.forEach((wordCounter): void => {
       if (
         wordCounter !== null &&
