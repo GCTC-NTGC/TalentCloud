@@ -543,6 +543,10 @@ Route::group(
 
                 Route::get('/', 'HomepageController@hr_advisor')->name('hr_advisor.home');
                 Route::get('job-index', 'JobController@hrIndex')->name('hr_advisor.jobs.index');
+
+                Route::get('jobs/{jobPoster}/summary', 'JobSummaryController@show')
+                    ->name('hr_advisor.jobs.summary')
+                    ->where('jobPoster', '[0-9]+');
             });
 
             // These routes must be excluded from the finishHrAdvisorRegistration middleware to avoid an infinite loop of redirects

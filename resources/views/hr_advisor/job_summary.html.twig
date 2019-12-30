@@ -1,7 +1,7 @@
 {# =============================================================================
 
     Talent Cloud
-    HR Portal: Job Index Page
+    HR Portal: Job Summary Page
 
 ============================================================================= #}
 {% extends "layouts/base" %}
@@ -11,15 +11,11 @@
 	<section data-clone>
 		<section data-c-overlay="black(90)" data-c-padding="tb(triple)" style="background-image: url('https://images.unsplash.com/photo-1556742400-b5b7c5121f99?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;=format&amp;fit=crop&amp;w=634&amp;q=80');">
 			<div data-c-container="large" data-c-align="base(center) tl(left)">
-				<h1 data-c-font-size="h2" data-c-color="white">Job Index</h1>
+				<h1 data-c-font-size="h2" data-c-color="white">Job Summary</h1>
 				<div data-c-color="white" data-c-margin="top(double)">
 					{% include "common/breadcrumbs" %}
 				</div>
 			</div>
 		</section>
-		<div id="hr-job-index-root"></div>
 	</section>
-{% endblock %}
-{% block scripts %}
-	<script async defer src="{{ mix('/js/JobIndexPage.js') }}"></script>
 {% endblock %}
