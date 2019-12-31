@@ -2,28 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Http\Request;
-use App\Models\Lookup\ApplicationStatus;
-use App\Models\Lookup\VeteranStatus;
-use App\Models\Lookup\PreferredLanguage;
-use App\Models\Lookup\CitizenshipDeclaration;
-use App\Models\JobPoster;
+use App\Models\Course;
+use App\Models\Criteria;
+use App\Models\Degree;
 use App\Models\JobApplication;
 use App\Models\JobApplicationAnswer;
-use App\Models\SkillDeclaration;
-use App\Models\Skill;
+use App\Models\JobPoster;
+use App\Models\Lookup\ApplicationStatus;
+use App\Models\Lookup\CitizenshipDeclaration;
+use App\Models\Lookup\PreferredLanguage;
+use App\Models\Lookup\ReviewStatus;
 use App\Models\Lookup\SkillStatus;
-use App\Models\Degree;
-use App\Models\Criteria;
-use App\Models\Course;
+use App\Models\Lookup\VeteranStatus;
+use App\Models\Skill;
+use App\Models\SkillDeclaration;
 use App\Models\WorkExperience;
 use App\Services\Validation\ApplicationValidator;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
-use App\Models\Lookup\ReviewStatus;
-use Facades\App\Services\WhichPortal;
 
 class ApplicationByJobController extends Controller
 {
@@ -588,7 +586,7 @@ class ApplicationByJobController extends Controller
         $skillDeclarations = $request->input('skill_declarations');
         $claimedStatusId = SkillStatus::where('name', 'claimed')->firstOrFail()->id;
 
-        // Save new skill declarartions.
+        // Save new skill declarations.
         if (isset($skillDeclarations['new'])) {
             foreach ($skillDeclarations['new'] as $skillType => $typeInput) {
                 foreach ($typeInput as $criterion_id => $skillDeclarationInput) {
@@ -671,7 +669,7 @@ class ApplicationByJobController extends Controller
         $skillDeclarations = $request->input('skill_declarations');
         $claimedStatusId = SkillStatus::where('name', 'claimed')->firstOrFail()->id;
 
-        // Save new skill declarartions.
+        // Save new skill declarations.
         if (isset($skillDeclarations['new'])) {
             foreach ($skillDeclarations['new'] as $skillType => $typeInput) {
                 foreach ($typeInput as $criterion_id => $skillDeclarationInput) {
