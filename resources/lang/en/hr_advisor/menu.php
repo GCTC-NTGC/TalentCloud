@@ -18,6 +18,7 @@ return [
     'logout' => 'Logout',
     /* <title> tag content */
     'home_title' => 'Talent Cloud | HR Advisor Portal: Home',
+    'summary_title' => 'Talent Cloud | HR Advisor Portal: Job Summary',
     // Button labels.
     'mobile_trigger_label' => 'Mobile Menu',
     'modal_cancel_label' => 'Cancel',

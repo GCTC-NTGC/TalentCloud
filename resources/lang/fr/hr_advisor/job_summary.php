@@ -8,5 +8,26 @@
 |
 */
 return [
-    'foo' => 'bar'
+    'menu_title' => '',
+    'summary_title' => '',
+    'tools_title' => '',
+    'activity_title' => '',
+    'status_label' => '',
+    'under_review' => '',
+    'manager_label' => '',
+    'applicants_label' => '',
+    'not_applicable' => 'S/O',
+    'other_title' => '',
+    'other_text' => '',
+    'expand_hidden' => '',
+    'managers_label' => '',
+    'process_label' => '',
+    'priority_label' => '',
+    'created_label' => '',
+    'published_label' => '',
+    'closed_label' => '',
+    'send_manager_button' => '',
+    'send_translation_button' => '',
+    'approve_button' => '',
+    'relinquish_button' => ''
 ];

@@ -18,6 +18,7 @@ return [
     'logout' => 'Déconnexion',
     /* <title> tag content */
     'home_title' => 'Nuage de talents | Portail de conseillers en RH : Accueil',
+    'summary_title' => '',
     // Button labels.
     'mobile_trigger_label' => 'Menu mobile',
     'modal_cancel_label' => 'Annuler',
