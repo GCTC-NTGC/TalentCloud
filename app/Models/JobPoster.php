@@ -579,4 +579,15 @@ class JobPoster extends BaseModel
         $jobWithTranslations = array_merge($this->toArray(), $this->getTranslationsArray());
         return $jobWithTranslations;
     }
+
+    /**
+     * Find hr adviser from list
+     *
+     * @param integer $user_id
+     * @return \App\Models\HrAdvisor
+     */
+    public function getHrAdvisorByUserId(int $user_id): bool
+    {
+        return $this->hr_advisors->where('user_id', $user_id) !== null;
+    }
 }
