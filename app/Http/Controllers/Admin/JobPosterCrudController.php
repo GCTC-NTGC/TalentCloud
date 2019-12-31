@@ -74,9 +74,14 @@ class JobPosterCrudController extends CrudController
         ]);
         $this->crud->addColumn([
             'name' => 'submitted_applications_count',
-            'label' => 'Total Applications',
-            'type' => 'model_function',
-            'function_name' => 'submitted_applications_count'
+            'label' => 'Applications',
+            'type' => 'closure',
+            'function' =>
+                function ($entry) {
+                    return $entry->submitted_applications_count() > 0 ?
+                        '<a target="_blank" href="' . route('manager.jobs.applications', $entry->id) . '">' . $entry->submitted_applications_count() . ' (View <i class="fa fa-external-link"></i>)</a>' :
+                        $entry->submitted_applications_count();
+                }
         ]);
 
         // Filters.
