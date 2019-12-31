@@ -358,6 +358,11 @@ class JobPoster extends BaseModel
     {
         return $this->belongsTo(\App\Models\Classification::class);
     }
+
+    public function comments() // phpcs:ignore
+    {
+        return $this->hasMany(\App\Models\Comment::class);
+    }
     // @codeCoverageIgnoreEnd
     /* Artificial Relations */
 
