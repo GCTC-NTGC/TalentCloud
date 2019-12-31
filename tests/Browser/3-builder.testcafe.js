@@ -254,7 +254,7 @@ test("Job Poster Builder - New Job", async t => {
     .click(Selector("button").withText("Add Skill"))
     .expect(Selector("h3").withText("Skills").visible)
     .ok()
-    .wait(200)
+    .wait(500)
     .click(Selector("button").withText("Save & Preview Skills"))
     // Skills review.
     .expect(Selector("h5").withText("Keep it up!").visible)

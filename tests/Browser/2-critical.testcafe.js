@@ -42,7 +42,7 @@ test("Applicant Profile - My Skills", async t => {
     .expect(Selector("h3").withText("Writing my application").visible)
     .ok()
     .click(Selector("button").withText("Got it!"))
-    .wait(200)
+    .wait(300)
     .click(Selector("button").withText("Save Skill"))
     // Add hard skill (Docker).
     .click(Selector("button").withText("Add hard skill"))
@@ -62,19 +62,6 @@ test("Applicant Profile - My Skills", async t => {
       "Sailing the high seas.",
     )
     .pressKey("tab tab enter")
-    /* Delete a skill.
-    Issues with selectors, so lots of keyboard commands
-    Failing in Firefox
-    .setNativeDialogHandler(() => null)
-    .click(Selector("span").withText("Passion"))
-    .pressKey("tab tab tab tab tab enter")
-    .expect(Selector("h1").withText("Delete this Skill?"))
-    .ok()
-    .pressKey("tab tab tab enter")
-    .expect(Selector("h1").withText("My Skills").visible)
-    .ok()
-    .expect(Selector("span").withText("Passion").exists)
-    .notOk(); */
     // Save and refresh.
     .navigateTo("/profile/skills")
     .expect(Selector("span").withText("Passion").visible)
@@ -283,8 +270,7 @@ test("Registration - Applicant", async t => {
 test("Registration - Manager", async t => {
   await t
     .useRole(Role.anonymous())
-    .navigateTo("/manager")
-    .click(Selector("a").withText("Register"))
+    .navigateTo("/manager/register")
     .typeText(Selector("#first_name"), "Test")
     .typeText(Selector("#last_name"), "Cafe")
     .typeText(Selector("#email"), randomEmail())
@@ -294,6 +280,8 @@ test("Registration - Manager", async t => {
         .find("option")
         .withText("Treasury Board of Canada Secretariat"),
     )
+    .expect(Selector("#gov_email").visible)
+    .ok()
     .typeText(Selector("#gov_email"), randomEmail())
     .typeText(Selector("#password"), "Password123!@#")
     .typeText(Selector("#password-confirm"), "Password123!@#")

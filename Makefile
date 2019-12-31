@@ -39,7 +39,7 @@ phpmd:
 
 phpunit:
     # uses phpdbg to generate code coverage (instead of xdebug)
-	@docker exec talentcloud sh -c "phpdbg -qrr ./vendor/bin/phpunit -dmemory_limit=4G --coverage-clover=report/coverage.xml"
+	@docker exec talentcloud sh -c "phpdbg -qrr ./vendor/bin/phpunit -dmemory_limit=4G --coverage-clover=report/phpunit/coverage.xml"
 
 test:
 	@docker exec talentcloud sh -c "vendor/bin/phpunit --no-coverage"
