@@ -21,13 +21,17 @@ class JobSummaryController extends Controller
     {
         $user = Auth::user();
 
+        $applications = $jobPoster->submitted_applications()->get();
+
         $data = [
             // Localized strings.
             'summary' => Lang::get('hr_advisor/job_summary'),
-            // Applicant data.
+            // User data.
             'user' => $user,
             // Job Poster data.
             'job' => $jobPoster,
+            // Application data.
+            'applications' => $applications,
             // Routes.
         ];
 
