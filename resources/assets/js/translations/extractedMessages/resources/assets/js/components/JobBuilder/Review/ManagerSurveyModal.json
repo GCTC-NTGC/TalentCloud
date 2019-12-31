@@ -1,0 +1,32 @@
+[
+  {
+    "id": "managerSurveyModal.title",
+    "description": "Title of modal explaining managers job has been submitted.",
+    "defaultMessage": "Your job poster has been submitted!"
+  },
+  {
+    "id": "managerSurveyModal.explanation",
+    "description": "Explanation of how to get to manager survey.",
+    "defaultMessage": "Your feedback helps us improve our tools! Please take a few minutes to complete a survey."
+  },
+  {
+    "id": "managerSurveyModal.managerSurveyLinkTitle",
+    "description": "Title of link to further information.",
+    "defaultMessage": "Link to manager survey."
+  },
+  {
+    "id": "managerSurveyModal.link",
+    "description": "Link to manager survey.",
+    "defaultMessage": "Take me to the survey"
+  },
+  {
+    "id": "managerSurveyModal.jobPosterLink",
+    "description": "Link to job poster index.",
+    "defaultMessage": "Go back to <a>My Job Posters</>."
+  },
+  {
+    "id": "managerSurveyModal.jobPosterLinkTitle",
+    "description": "Title for link to job poster index.",
+    "defaultMessage": "Visit My Job Posters."
+  }
+]

@@ -18,7 +18,8 @@ class DegreeType extends BaseModel
 {
     protected $fillable = [];
 
-    public function degrees() {
+    public function degrees()
+    {
         return $this->hasMany(\App\Models\Degree::class);
     }
 }

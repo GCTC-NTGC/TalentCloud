@@ -4,41 +4,25 @@
     Applicant Profile - Experience
 
 ============================================================================= #}
-
 {% extends "layouts/base" %}
-
-{% block title %}{{ profile.experience_section.experience_title }}{% endblock %}
-
+{% block title %}
+	{{ profile.experience_section.experience_title }}
+{% endblock %}
 {% block body %}
-
 	{% include "common/goc" %}
-{% include "common/alert" %}
-
-    {% include "common/header" with {"header":profile} %}
-
-    <a id="skipLink"></a>
-
-    {# Menu #}
-
-        {% include "applicant/profile/menu" %}
-
-    {# Form containing all about_me editable elements #}
-
-        <form action="{{ form_submit_action }}" method="post">
-
-			{% include "errors/form_errors" %}
-
-            {# Builds an input field for CSRF token validation #}
-            {{ csrf_field() }}
-
-            {# Experience #}
-
-                {% include "applicant/profile/experience/index" %}
-
-        </form>
-
-    {# Modals #}
-
-        {% include "common/modal" with {"page":profile} %}
-
+	{% include "common/alert" %}
+	{% include "common/header" with {"header": profile} %}
+	<a id="skipLink"></a>
+	{# Menu #}
+	{% include "applicant/profile/menu" %}
+	{# Form containing all about_me editable elements #}
+	<form action="{{ form_submit_action }}" method="post">
+		{% include "errors/form_errors" %}
+		{# Builds an input field for CSRF token validation #}
+		{{ csrf_field() }}
+		{# Experience #}
+		{% include "applicant/profile/experience/index" %}
+	</form>
+	{# Modals #}
+	{% include "common/modal" with {"page": profile} %}
 {% endblock %}

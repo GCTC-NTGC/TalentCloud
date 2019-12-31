@@ -4,135 +4,67 @@
     Applicant: Application Step 06
 
 ============================================================================= #}
-
 {% extends "layouts/base" %}
-
-{% block title %}Apply Now: Step 06{% endblock %}
-
+{% block title %}
+	{{ application_template.complete.step_06_title }}
+{% endblock %}
 {% block body %}
-
-    {# Standard Alert #}
-
-	    {% include "common/alert" %}
-
-    {# Government of Canada Banner #}
-
-        {% include "common/goc" %}
-
-    {# Page Header #}
-
-        {# {% include "common/header" %} #}
-
-        {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title':application_template.title, ':job':job.title})}} %}
-
-    {# Skip to Content Link #}
-
-        <a id="skipLink"></a>
-
-    {# Application Tracker #}
-
-        {% include "applicant/application_post/common/tracker-ajax" %}
-
-    {# Body #}
-
-        <form action="{{ form_submit_action }}" method="post">
-
-            {# Builds an input field for CSRF token validation #}
-
-                {{ csrf_field() }}
-
-            {# Sections #}
-
-                <section class="application-06__wrapper">
-
-                    <div class="container--copy">
-
-                        <h3>{{ application_template.integrity.title }}</h3>
-
-                        <p>{{ application_template.integrity.confirmation_copy }}</p>
-
-                        <ul>
-                            <li>{{ application_template.integrity.confirmation_01 }}</li>
-                            <li>{{ application_template.integrity.confirmation_02 }}</li>
-                            <li>{{ application_template.integrity.confirmation_03 }}</li>
-                        </ul>
-
-                        {% include "errors/form_errors" %}
-
-                        <div class="flex-grid gutter">
-
-                            <div class="box med-1of2">
-
-                                    <div class="form__input-wrapper--signature">
-                                        <label
-                                            class="form__label"
-                                            for="applicationReviewSignature">
-                                            {{ application_template.integrity.signature_label }}
-                                        </label>
-                                        <input
-                                            class="form__input"
-                                            id="applicationReviewSignature"
-                                            name="submission_signature"
-                                            required
-                                            type="text" />
-                                    </div>
-
-                                </div>
-
-                                <div class="box med-1of2">
-
-                                    <div class="form__input-wrapper--date">
-                                        <label
-                                            class="form__label"
-                                            for="applicationReviewDate">
-                                            {{ application_template.integrity.date_label }}
-                                        </label>
-                                        <input
-                                            class="form__input"
-                                            id="applicationReviewDate"
-                                            name="submission_date"
-                                            required
-                                            type="date" />
-                                    </div>
-
-                                </div>
-
-                        </div>
-
-                        {# <p>{{ application_template.integrity.review }}</p> #}
-
-                        <div class="flex-grid middle application-post__action-wrapper">
-
-                            <div class="box med-1of2">
-
-                                <button
-                                    class="button--blue light-bg"
-                                    type="submit"
-                                    name="submit"
-                                    value="save_and_quit">
-                                    {{ application_template.integrity.save_label }}
-                                </button>
-
-                            </div>
-
-                            <div class="box med-1of2">
-
-                                <button
-                                    class="button--blue light-bg"
-                                    type="submit"
-                                    name="submit"
-                                    value="submit">
-                                    {{ application_template.integrity.submit_label }}
-                                </button>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </section>
-
-        </form>
-
+	{# Government of Canada Banner #}
+	{% include "common/goc" %}
+	{# Standard Alert #}
+	{% include "common/alert" %}{# Page Header #}
+	{# {% include "common/header" %} #}{% include "common/header" with {'header': {'title': ":title: :job"|replace({':title': application_template.title, ':job': job.title})}} %}
+	{# Skip to Content Link #}<a id="skipLink"> </a>
+	{# Application Tracker #}
+	{% include "applicant/application_post/common/tracker-ajax" %}
+	{# Body #}
+	<form
+		action="{{ form_submit_action }}" method="post">
+		{# Builds an input field for CSRF token validation #}
+		{{ csrf_field() }}
+		{# Sections #}
+		<section class="application-06__wrapper">
+			<div class="container--copy">
+				<h3>{{ application_template.integrity.title }}</h3>
+				<p>{{ application_template.integrity.confirmation_copy }}</p>
+				<ul>
+					<li>{{ application_template.integrity.confirmation_01 }}</li>
+					<li>{{ application_template.integrity.confirmation_02 }}</li>
+					<li>{{ application_template.integrity.confirmation_03 }}</li>
+				</ul>
+				{% include "errors/form_errors" %}
+				<div class="flex-grid gutter">
+					<div class="box med-1of2">
+						<div class="form__input-wrapper--signature">
+							<label class="form__label" for="applicationReviewSignature">
+								{{ application_template.integrity.signature_label }}
+							</label>
+							<input class="form__input" id="applicationReviewSignature" name="submission_signature" required type="text"/>
+						</div>
+					</div>
+					<div class="box med-1of2">
+						<div class="form__input-wrapper--date">
+							<label class="form__label" for="applicationReviewDate">
+								{{ application_template.integrity.date_label }}
+							</label>
+							<input class="form__input" id="applicationReviewDate" name="submission_date" required type="date"/>
+						</div>
+					</div>
+				</div>
+				{# <p>{{ application_template.integrity.review }}</p> #}
+				<div class="flex-grid middle application-post__action-wrapper">
+					<div class="box med-1of2">
+						<button class="button--blue light-bg" type="submit" name="submit" value="save_and_quit">
+							{{ application_template.integrity.save_label }}
+						</button>
+					</div>
+					<div class="box med-1of2">
+						<button class="button--blue light-bg" type="submit" name="submit" value="submit">
+							{{ application_template.integrity.submit_label }}
+						</button>
+					</div>
+				</div>
+			</div>
+		</section>
+	</form>
 {% endblock %}

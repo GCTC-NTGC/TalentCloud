@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class CriteriaController extends Controller
 {
-/**
+    /**
      * Converts a Criteria to the shape sent and recieved by the api.
      *
      * @param Criteria $model

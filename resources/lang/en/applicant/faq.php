@@ -88,15 +88,6 @@ return [
     /* UI Content */
     'title' => 'Talent Cloud User Guide',
     'faq_title' => 'Talent Cloud FAQ',
-    'breadcrumbs' => [
-        'home' => [
-            'title' => 'Return to the homepage.',
-            'text' => 'Home'
-        ],
-        'faq' => [
-            'text' => 'FAQ'
-        ]
-    ],
     'sidebar' => [
         'users' => [
             'applicants' => 'For Applicants',
@@ -628,7 +619,8 @@ return [
                             '7' => 'Health Canada',
                             '8' => 'National Research Council',
                             '9' => 'Employment and Social Development Canada',
-                            '10' => 'The Royal Canadian Mounted Police'
+                            '10' => 'The Royal Canadian Mounted Police',
+                            '11' => 'Public Services and Procurement Canada'
                         ]
                     ]
                 ]

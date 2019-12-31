@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Applicant;
 use App\Models\User;
 use App\Models\WorkSample;
 use App\Policies\BasePolicy;
@@ -18,7 +19,9 @@ class WorkSamplePolicy extends BasePolicy
      */
     public function view(User $user, WorkSample $workSample)
     {
-        return $user->isApplicant() && $workSample->applicant->user->is($user);
+        return $user->isApplicant()
+            && $workSample->work_sampleable instanceof Applicant
+            && $workSample->work_sampleable->user->is($user);
     }
 
     /**
@@ -41,7 +44,9 @@ class WorkSamplePolicy extends BasePolicy
      */
     public function update(User $user, WorkSample $workSample)
     {
-        return $user->isApplicant() && $workSample->applicant->user->is($user);
+        return $user->isApplicant()
+            && $workSample->work_sampleable instanceof Applicant
+            && $workSample->work_sampleable->user->is($user);
     }
 
     /**
@@ -53,6 +58,8 @@ class WorkSamplePolicy extends BasePolicy
      */
     public function delete(User $user, WorkSample $workSample)
     {
-        return $user->isApplicant() && $workSample->applicant->user->is($user);
+        return $user->isApplicant()
+            && $workSample->work_sampleable instanceof Applicant
+            && $workSample->work_sampleable->user->is($user);
     }
 }

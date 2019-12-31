@@ -1,0 +1,22 @@
+<nav aria-label="breadcrumb" data-c-breadcrumbs data-c-colour="white" data-c-margin="bottom(normal)">
+	<ol>
+		{% for key, url in breadcrumbs %}
+			{% if loop.first %}
+				<li>
+					<a href="{{ url(url) }}">{{ breadcrumbs_lang.home }}</a>
+					<i class="fas fa-caret-right"></i>
+				</li>
+			{% elseif loop.last %}
+				<li>
+					<span aria-current="page">{{ breadcrumbs_lang[key] ?: key }}</span>
+					<i class="fas fa-caret-right"></i>
+				</li>
+			{% else %}
+				<li>
+					<a href="{{ url(url) }}">{{ breadcrumbs_lang[key] ?: key }}</a>
+					<i class="fas fa-caret-right"></i>
+				</li>
+			{% endif %}
+		{% endfor %}
+	</ol>
+</nav>
