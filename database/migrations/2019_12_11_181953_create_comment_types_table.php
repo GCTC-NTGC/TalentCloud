@@ -20,9 +20,9 @@ class CreateCommentTypesTable extends Migration
         });
 
         DB::table('comment_types')->insert([
-            ['id' => 1, 'name' => 'question'],
-            ['id' => 2, 'name' => 'recommendation'],
-            ['id' => 3, 'name' => 'required_action'],
+            ['name' => 'question'],
+            ['name' => 'recommendation'],
+            ['name' => 'required_action'],
 
         ]);
     }
@@ -34,7 +34,7 @@ class CreateCommentTypesTable extends Migration
      */
     public function down()
     {
-        DB::table('comment_types')->whereIn('id', [1, 2, 3])->delete();
+        DB::table('comment_types')->whereIn('name', ['question', 'recommendation', 'required_action'])->delete();
         Schema::dropIfExists('comment_types');
     }
 }
