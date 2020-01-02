@@ -11,9 +11,16 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
+ *
+ * @property \Illuminate\Database\Eloquent\Collection $comments
  */
 
 class CommentType extends Model
 {
     protected $fillable = [];
+
+    public function comments() // phpcs:ignore
+    {
+        return $this->hasMany(\App\Models\Comment::class, 'type_id');
+    }
 }
