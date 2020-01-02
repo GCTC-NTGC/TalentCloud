@@ -41,6 +41,7 @@ stories
           time={new Date()}
           type="Recommendation"
           userRole="HR"
+          link={{ url: "/", title: "", text: "" }}
         />
       </section>
     ),

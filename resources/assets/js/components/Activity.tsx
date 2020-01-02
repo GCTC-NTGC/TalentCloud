@@ -1,5 +1,6 @@
 import * as React from "react";
 import { FormattedMessage } from "react-intl";
+import { Link } from "../models/app";
 
 export interface Activity {
   name: string;
@@ -8,6 +9,7 @@ export interface Activity {
   type: string;
   comment: string;
   location: string;
+  link: Link;
 }
 
 type ActivityProps = Activity;
@@ -19,11 +21,13 @@ const Activity: React.FunctionComponent<ActivityProps> = ({
   type,
   comment,
   location,
+  link,
 }) => {
   return (
     <div>
       <a
-        href="https:/google.ca"
+        href={link.url}
+        title={link.title}
         className="tc-job-activity-comment"
         data-c-card
         data-c-background="white(100)"
@@ -54,8 +58,7 @@ const Activity: React.FunctionComponent<ActivityProps> = ({
           />
         </p>
         <p data-c-margin="bottom(.5)" data-c-color="black">
-          <span data-c-font-weight="bold">{type}:</span>
-          {comment}
+          <span data-c-font-weight="bold">{type}:</span> {comment}
         </p>
         <div data-c-grid="gutter(all, 1)">
           <div data-c-grid-item="tp(1of2) ds(2of3)">
@@ -65,7 +68,7 @@ const Activity: React.FunctionComponent<ActivityProps> = ({
                 defaultMessage="Comment Located"
                 description="The label used before the comment location."
               />
-              : {location}
+              {": "} {location}
             </p>
           </div>
           <div

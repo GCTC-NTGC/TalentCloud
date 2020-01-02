@@ -57,6 +57,7 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
               location={comment.location}
               time={comment.created_at}
               type={commentType(comment.type_id)}
+              link={{ url: "/", title: "", text: "" }}
             />
           ),
         )}
