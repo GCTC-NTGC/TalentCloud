@@ -6,6 +6,8 @@ import UnclaimedJobCard, { UnclaimedJobCardProps } from "../UnclaimedJobCard";
 import RootContainer from "../RootContainer";
 import { JobStatus } from "../../models/lookupConstants";
 import { jobActions, unclaimedJobs } from "./fixtures";
+import CommentForm from "../CommentForm";
+import ActivityFeed from "../ActivityFeed";
 
 interface CompletedJobsAccordionProps {
   completedJobActions: JobCardProps[];
@@ -212,6 +214,9 @@ const JobIndexPage: React.FunctionComponent<JobIndexPageProps> = ({
           )}
         </div>
       </div>
+      {/* CommentFeed Test */}
+      <CommentForm jobId={1} userId={1} isHrAdviser />
+      <ActivityFeed jobId={1} />
     </section>
   );
 };
