@@ -64,7 +64,7 @@ class JobPosterCrudController extends CrudController
             'label' => 'Manager',
             'orderable' => false,
             'function' => function ($entry) {
-                return '<a href="' . route('manager.profile.edit', $entry->manager->user->id) . '" target="_blank">' . $entry->manager->user->full_name . '</a>';
+                return '<a href="' . route('manager.profile.edit', $entry->manager->id) . '" target="_blank">' . $entry->manager->user->full_name . '</a>';
             }
         ]);
         $this->crud->addColumn([
