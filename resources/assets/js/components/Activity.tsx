@@ -4,7 +4,7 @@ import { FormattedMessage } from "react-intl";
 export interface Activity {
   name: string;
   userRole: string;
-  time: string;
+  time: Date;
   type: string;
   comment: string;
   location: string;
@@ -49,7 +49,7 @@ const Activity: React.FunctionComponent<ActivityProps> = ({
             values={{
               name,
               userRole,
-              time,
+              time: time.toString(), // TODO: Fix date format
             }}
           />
         </p>
