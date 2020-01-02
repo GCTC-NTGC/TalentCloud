@@ -38,7 +38,7 @@ stories
           comment="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem quia sequi dignissimos, fugit molestias, quibusdam hic maxime sunt libero, ea deserunt numquam consectetur doloribus tempora sapiente? Corporis perspiciatis dolores deserunt."
           location="Job Poster Builder Step 3: Work Env."
           name="Kelly Plummmer"
-          time="5:45PM"
+          time={new Date()}
           type="Recommendation"
           userRole="HR"
         />
@@ -49,7 +49,7 @@ stories
     "Feed",
     (): React.ReactElement => (
       <section data-c-padding="all(3)">
-        <ActivityFeed activities={activities} />
+        <ActivityFeed jobId={1} />
       </section>
     ),
   );
