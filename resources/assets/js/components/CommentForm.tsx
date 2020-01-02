@@ -1,4 +1,5 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { useIntl, defineMessages, FormattedMessage } from "react-intl";
@@ -7,6 +8,8 @@ import { CommentTypeId } from "../models/lookupConstants";
 import TextInput from "./Form/TextInput";
 import SelectInput from "./Form/SelectInput";
 import { Comment } from "../models/types";
+import { DispatchType } from "../configureStore";
+import { createComment } from "../store/Job/jobActions";
 
 const formMessages = defineMessages({
   commentLabel: {
@@ -31,7 +34,7 @@ const formMessages = defineMessages({
   },
 });
 
-const commentTypeMessages = defineMessages({
+export const commentTypeMessages = defineMessages({
   question: {
     id: "commentType.question",
     defaultMessage: "Question",
@@ -50,23 +53,27 @@ const commentTypeMessages = defineMessages({
 });
 
 interface CommentFormProps {
+  jobId: number;
+  userId: number;
   isHrAdviser: boolean;
-  handleSubmit: (newComment: Comment) => Promise<Comment>;
+  handleCreateComment: (jobId: number, newComment: Comment) => Promise<Comment>;
 }
 
 interface CommentFormValues {
   comment: string;
-  commentType: number | "";
+  commentType: number;
 }
 
 const CommentForm: React.FunctionComponent<CommentFormProps> = ({
-  handleSubmit,
   isHrAdviser,
+  userId,
+  handleCreateComment,
+  jobId,
 }: CommentFormProps): React.ReactElement => {
   const intl = useIntl();
   const initialValues: CommentFormValues = {
     comment: "",
-    commentType: "",
+    commentType: 0,
   };
 
   const commentSchema = Yup.object().shape({
@@ -86,8 +93,21 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
       <Formik
         initialValues={initialValues}
         validationSchema={commentSchema}
-        onSubmit={(values): void => {
-          console.log(values);
+        onSubmit={(values, { setSubmitting, resetForm }): void => {
+          const location = "location_of_comment"; // TODO: How are we getting location?
+          const newComment: Comment = {
+            id: 0,
+            job_poster_id: jobId,
+            user_id: userId,
+            location,
+            comment: values.comment,
+            type_id: Number(values.commentType),
+            created_at: new Date(),
+          };
+          handleCreateComment(jobId, newComment).finally((): void => {
+            setSubmitting(false); // Required by Formik to finish the submission cycle
+            resetForm();
+          });
         }}
         render={({ isSubmitting }): React.ReactElement => (
           <Form data-c-grid="gutter(all, 1)">
@@ -109,10 +129,13 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
                 required
                 grid="tl(1of3)"
                 label={intl.formatMessage(formMessages.commentTypeLabel)}
-                nullSelection={intl.formatMessage(
-                  formMessages.commentTypeNullSelection,
-                )}
                 options={[
+                  {
+                    value: "",
+                    label: intl.formatMessage(
+                      formMessages.commentTypeNullSelection,
+                    ),
+                  },
                   {
                     value: 1,
                     label: intl.formatMessage(commentTypeMessages.question),
@@ -159,4 +182,22 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
   );
 };
 
-export default CommentForm;
+const mapDispatchToProps = (
+  dispatch: DispatchType,
+): {
+  handleCreateComment: (jobId: number, newComment: Comment) => Promise<Comment>;
+} => ({
+  handleCreateComment: async (
+    jobId: number,
+    newComment: Comment,
+  ): Promise<Comment> => {
+    const result = await dispatch(createComment(jobId, newComment));
+    if (!result.error) {
+      const resultComment = await result.payload;
+      return resultComment;
+    }
+    return Promise.reject(result.payload);
+  },
+});
+
+export default connect(() => {}, mapDispatchToProps)(CommentForm);
