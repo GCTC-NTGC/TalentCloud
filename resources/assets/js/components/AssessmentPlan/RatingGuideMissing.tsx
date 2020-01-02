@@ -19,9 +19,8 @@ interface RatingGuideMissingProps {
   criteriaToSkills: { [criteriaId: number]: Skill | null };
 }
 
-export const RatingGuideMissing: React.FunctionComponent<
-  RatingGuideMissingProps & WrappedComponentProps
-> = ({
+export const RatingGuideMissing: React.FunctionComponent<RatingGuideMissingProps &
+  WrappedComponentProps> = ({
   missingCriteria,
   criteriaToSkills,
   intl,

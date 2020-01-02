@@ -14,13 +14,15 @@ use App\Models\BaseModel;
  *
  * @property \Illuminate\Database\Eloquent\Collection $skills
  */
-class SkillType extends BaseModel {
+class SkillType extends BaseModel
+{
 
     protected $fillable = [
         'name'
     ];
 
-    public function skills() {
+    public function skills()
+    {
         return $this->hasMany(\App\Models\Skill::class);
     }
 }

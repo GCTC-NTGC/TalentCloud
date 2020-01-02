@@ -61,11 +61,6 @@ class Department extends BaseModel
         return $this->hasMany(\App\Models\Manager::class);
     }
 
-    public function department_translations() // phpcs:ignore
-    {
-        return $this->hasMany(\App\Models\Lookup\DepartmentTranslation::class);
-    }
-
     public function job_posters() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\JobPoster::class);

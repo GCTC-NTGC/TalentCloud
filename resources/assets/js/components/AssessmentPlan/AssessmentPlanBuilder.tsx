@@ -11,9 +11,10 @@ interface AssessmentPlanBuilderProps {
   assetCriteriaIds: number[];
 }
 
-export const AssessmentPlanBuilder: React.FunctionComponent<
-  AssessmentPlanBuilderProps
-> = ({ essentialCriteriaIds, assetCriteriaIds }): React.ReactElement => {
+export const AssessmentPlanBuilder: React.FunctionComponent<AssessmentPlanBuilderProps> = ({
+  essentialCriteriaIds,
+  assetCriteriaIds,
+}): React.ReactElement => {
   return (
     <div>
       <h3

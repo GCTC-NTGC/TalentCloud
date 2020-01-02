@@ -59,6 +59,8 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
+        '2fa' => \App\Http\Middleware\Google2FA::class, // If a user has activated 2FA, require it after logging in
+        '2fa.required' => \App\Http\Middleware\Require2FA::class, // Require 2fa to be activated to access this route.
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,

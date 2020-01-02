@@ -1,44 +1,47 @@
 build:
-  nodes:
-    analysis:
-      services:
-        postgres: 9.6
-      environment:
-        php:
-          version: "7.2"
-          ini:
-            memory_limit: "-1"
-        node: v10.14.2
-        variables:
-          DB_DATABASE: scrutinizer
-          DB_USERNAME: scrutinizer
-          DB_PASSWORD: scrutinizer
-      tests:
-        stop_on_failure: true
-        override:
-          - php-scrutinizer-run
-          - phpcs-run --standard=ruleset.xml
-          - js-scrutinizer-run
+  environment:
+    php: 7.2
+    node: v12.13.1
+  dependencies:
+    override:
+      - composer selfupdate
+      - composer install --no-interaction --prefer-dist --no-suggest
+      - npm install
+  project_setup:
+    override: true
+  tests:
+    stop_on_failure: true
+    override:
+      - php-scrutinizer-run
+      - phpcs-run app/ database/factories/ database/seeds/ routes/ --standard=ruleset.xml
+      - js-scrutinizer-run
+      - eslint-run "resources/assets/js/**"
 filter:
-  paths: ["app/*", "database/factories/*", "database/seeds/*", "resources/assets/js"]
+  paths:
+    - app/
+    - database/factories/
+    - database/seeds/
+    - routes/
+    - resources/assets/js/
   dependency_paths:
     - bootstrap/
     - config/
     - node_modules/
-    - resources/
-    - routes/
+    - resources/lang/
+    - resources/views/
     - vendor/
   excluded_paths:
-    - "public/"
-    - "tests/"
-    - "resources/assets/js/stories/"
-    - "resources/assets/js/translations/"
-    - "resources/assets/js/jquery-ui.min.js"
-    - "resources/assets/js/modernizr.js"
-    - "resources/assets/js/getpdf.js"
-    - "resources/assets/js/bootstrap.js"
-    - "resources/assets/js/autocomplete.js"
-
+    - etc/
+    - public/
+    - report/
+    - tests/
+    - resources/assets/js/stories/
+    - resources/assets/js/translations/
+    - resources/assets/js/jquery-ui.min.js
+    - resources/assets/js/modernizr.js
+    - resources/assets/js/getpdf.js
+    - resources/assets/js/bootstrap.js
+    - resources/assets/js/autocomplete.js
 checks:
   php: true
-
+  javascript: true

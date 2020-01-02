@@ -72,9 +72,8 @@ const localizations = defineMessages({
   },
 });
 
-export const AssessmentPlanSkill: React.FunctionComponent<
-  AssessmentPlanSkillProps & WrappedComponentProps
-> = ({
+export const AssessmentPlanSkill: React.FunctionComponent<AssessmentPlanSkillProps &
+  WrappedComponentProps> = ({
   criterion,
   skill,
   assessments,

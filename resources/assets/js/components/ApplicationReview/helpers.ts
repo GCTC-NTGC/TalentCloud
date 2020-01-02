@@ -25,6 +25,9 @@ export function isScreenedOut(application: Application): boolean {
  */
 export function applicationBucket(application: Application): Bucket {
   if (!application.meets_essential_criteria) {
+    if (application.citizenship_declaration.name !== "citizen") {
+      return "non-citizen";
+    }
     return "unqualified";
   }
 

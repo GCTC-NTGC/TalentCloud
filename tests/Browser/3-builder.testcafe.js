@@ -74,7 +74,7 @@ test("Job Poster Builder - New Job", async t => {
       Selector("select")
         .withAttribute("id", "builder02Classification")
         .find("option")
-        .withAttribute("value", "CS"),
+        .withAttribute("value", "1"),
     )
     .click(Selector("select").withAttribute("id", "builder02Level"))
     .click(
@@ -121,7 +121,7 @@ test("Job Poster Builder - New Job", async t => {
     .ok()
     .expect(Selector("p").withText("Ontario").visible)
     .ok()
-    .expect(Selector("p").withText("CS").visible)
+    .expect(Selector("p").withText("AS").visible)
     .ok()
     .expect(Selector("p").withText("3").visible)
     .ok()
@@ -270,7 +270,7 @@ test("Job Poster Builder - New Job", async t => {
     .ok()
     .expect(Selector("p").withText("Design Manager").visible)
     .ok()
-    .click(Selector("button").withText("Send to HR for Review"))
+    .click(Selector("button").withText("Looks good!"))
     // Review confirmation.
     .expect(
       Selector("h5").withText("Congrats! Are You Ready to Submit?").visible,
@@ -278,6 +278,8 @@ test("Job Poster Builder - New Job", async t => {
     .ok()
     .wait(3000)
     .click(Selector("button").withText("Yes, Submit"))
+    .wait(3000)
+    .click(Selector("a").withText("My Job Posters."))
     // Taken back to the Job index page
     .expect(Selector("h1").withText("My Job Posters").visible)
     .ok()

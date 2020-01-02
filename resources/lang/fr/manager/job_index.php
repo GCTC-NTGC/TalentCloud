@@ -18,6 +18,8 @@ return [
     'active_posters' => 'Mes affiches actives',
     'no_active_posters' => "Vous n'avez actuellement aucune affiche active! Créez-en un nouveau en utilisant le bouton ci-dessus.",
     'preview' => '(Aperçu)',
+    'empty_title' => 'Titre manquant',
+    'trans_title_placeholder' => 'Traduction requise',
     'created_on' => 'Créé :',
     'submitted_on' => 'Soumis :',
     'published_on' => 'Publié :',
@@ -68,11 +70,9 @@ return [
         'title' => 'Il semble que vous utilisez un compte de démonstration.',
         'description' => [
             'first' => 'Seuls les ministères partenaires de Nuage des talents ont accès à l\'examen et à la publication des avis d\'emploi.',
-            'second' => ':link pour savoir si vous avez accès à ces fonctions.',
             'link' => [
-                'text' => 'Cliquez ici',
+                'text' => 'Découvrez comment accéder aux fonctions d\'examen et de publication des avis d\'emploi',
                 'title' => 'Découvrez comment accéder aux fonctions d\'examen et de publication des avis d\'emploi.',
-                'href' => '#upgrade'
             ]
         ],
         'cancel' => 'Retourner'

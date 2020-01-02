@@ -248,9 +248,8 @@ interface TableProps {
   narrativeReview?: Assessment[];
 }
 
-const RatingGuideClipboard: React.FunctionComponent<
-  TableProps & WrappedComponentProps
-> = ({
+const RatingGuideClipboard: React.FunctionComponent<TableProps &
+  WrappedComponentProps> = ({
   assessments,
   criteria,
   skills,

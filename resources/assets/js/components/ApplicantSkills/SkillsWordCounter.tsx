@@ -47,9 +47,8 @@ interface SkillsWordCounterProps {
   elementId: string;
 }
 
-const SkillsWordCounter: React.FunctionComponent<
-  SkillsWordCounterProps & WrappedComponentProps
-> = ({ elementId, intl }): React.ReactElement => {
+const SkillsWordCounter: React.FunctionComponent<SkillsWordCounterProps &
+  WrappedComponentProps> = ({ elementId, intl }): React.ReactElement => {
   const placeholder = intl.formatMessage(wordCounterMessages.skillsPlaceholder);
   const messages = [
     {
@@ -89,25 +88,59 @@ const SkillsWordCounter: React.FunctionComponent<
   );
 };
 
-// Find all skills textarea elements
-if (document.querySelectorAll("div[data-word-counter-id]")) {
-  const elements = document.querySelectorAll("div[data-word-counter-id]");
+const addSoftSkillButton: HTMLElement | null = document.getElementById(
+  "add-soft-skill",
+);
+const addHardSkillButton: HTMLElement | null = document.getElementById(
+  "add-hard-skill",
+);
 
-  elements.forEach((container): void => {
-    if (container !== null && container.hasAttribute("data-word-counter-id")) {
-      const elementId = JSON.parse(container.getAttribute(
-        "data-word-counter-id",
-      ) as string);
-      const SkillsWordCounterIntl = injectIntl(SkillsWordCounter);
-      const locale = document.documentElement.lang;
-      ReactDOM.render(
-        <IntlContainer locale={locale}>
-          <SkillsWordCounterIntl elementId={elementId} />
-        </IntlContainer>,
-        container,
-      );
-    }
-  });
+const updateWordCounters = (): void => {
+  // Find all skills textarea elements
+  if (document.querySelectorAll("div[data-word-counter-id]")) {
+    const wordCounters = document.querySelectorAll("div[data-word-counter-id]");
+
+    console.dir(wordCounters);
+
+    wordCounters.forEach((wordCounter): void => {
+      if (
+        wordCounter !== null &&
+        wordCounter.hasAttribute("data-word-counter-id")
+      ) {
+        const { previousElementSibling } = wordCounter;
+
+        const textarea =
+          previousElementSibling && previousElementSibling.lastElementChild;
+        const elementId: string = textarea
+          ? textarea.id
+          : "error element is null";
+
+        const SkillsWordCounterIntl = injectIntl(SkillsWordCounter);
+        const locale = document.documentElement.lang;
+        ReactDOM.render(
+          <IntlContainer locale={locale}>
+            <SkillsWordCounterIntl elementId={elementId} />
+          </IntlContainer>,
+          wordCounter,
+        );
+      }
+    });
+  }
+};
+
+// TODO: Find better solution then firing this event listener last by using setTimeout.
+if (addSoftSkillButton) {
+  setTimeout(() => {
+    addSoftSkillButton.addEventListener("click", updateWordCounters);
+  }, 1000);
 }
+
+if (addHardSkillButton) {
+  setTimeout(() => {
+    addHardSkillButton.addEventListener("click", updateWordCounters);
+  }, 1000);
+}
+
+updateWordCounters();
 
 export default injectIntl(SkillsWordCounter);

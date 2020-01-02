@@ -28,7 +28,8 @@ namespace App\Models;
  *
  * @property \App\Models\Manager $manager
  */
-class ManagerTranslation extends BaseModel {
+class ManagerTranslation extends BaseModel
+{
 
     protected $casts = [
         'manager_id' => 'int'
@@ -46,8 +47,8 @@ class ManagerTranslation extends BaseModel {
         'learning_path'
     ];
 
-    public function manager() {
+    public function manager()
+    {
         return $this->belongsTo(\App\Models\Manager::class);
     }
-
 }

@@ -1,0 +1,27 @@
+[
+  {
+    "id": "demoSubmitJobModal.link.title",
+    "description": "Title of link to further information.",
+    "defaultMessage": "Find out how to access Job Poster review and publishing features."
+  },
+  {
+    "id": "demoSubmitJobModal.title",
+    "description": "Title of modal explaining that demo managers cannot submit jobs.",
+    "defaultMessage": "Looks like you're using a demo account!"
+  },
+  {
+    "id": "demoSubmitJobModal.explanation",
+    "description": "Summary explanation of why user cannot submit job.",
+    "defaultMessage": "Job Poster review and publishing is only available to Talent Cloud's partner departments."
+  },
+  {
+    "id": "demoSubmitJobModal.link",
+    "description": "Explanation of where to find more information.",
+    "defaultMessage": "<a>Find out if you can access these features</a>.",
+  },
+  {
+    "id": "demoSubmitJobModal.cancel",
+    "description": "Cancel button of Demo Submit Job modal.",
+    "defaultMessage": "Go back"
+  }
+]

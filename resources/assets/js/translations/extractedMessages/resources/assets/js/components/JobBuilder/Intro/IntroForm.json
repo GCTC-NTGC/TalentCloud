@@ -1,0 +1,107 @@
+[
+  {
+    "id": "jobBuilder.intro.explanation.boldText",
+    "description": "Bold text portion of the JPB Intro explanation.",
+    "defaultMessage": "confirm that your personal information below is correct."
+  },
+  {
+    "id": "jobBuilder.intro.emailLinkTitle",
+    "description": "Title of the Talent Cloud email link.",
+    "defaultMessage": "Email Talent Cloud"
+  },
+  {
+    "id": "jobBuilder.intro.emailLinkText",
+    "description": "Visible text of the Talent Cloud email link.",
+    "defaultMessage": "Talent Cloud"
+  },
+  {
+    "id": "jobBuilder.intro.jobTitleLabelEN",
+    "description": "The label displayed on the manager position input.",
+    "defaultMessage": "{name}'s Position (English)"
+  },
+  {
+    "id": "jobBuilder.intro.jobTitlePlaceholderEN",
+    "description": "The placeholder displayed on the Manager Position input.",
+    "defaultMessage": "e.g. Design Manager"
+  },
+  {
+    "id": "jobBuilder.intro.jobTitleLabelFR",
+    "description": "The label displayed on the Manager Position input.",
+    "defaultMessage": "{name}'s Position (Français)"
+  },
+  {
+    "id": "jobBuilder.intro.jobTitlePlaceholderFR",
+    "description": "The placeholder displayed on the Manager Position input.",
+    "defaultMessage": "e.g. Gestionnaire de la conception"
+  },
+  {
+    "id": "jobBuilder.intro.departmentLabel",
+    "description": "The label displayed on the department select box.",
+    "defaultMessage": "{name}'s Department"
+  },
+  {
+    "id": "jobBuilder.intro.departmentNullSelection",
+    "description": "The default selection option displayed on the department select box.",
+    "defaultMessage": "Select a department..."
+  },
+  {
+    "id": "jobBuilder.intro.divisionLabelEN",
+    "description": "The label displayed on the division input.",
+    "defaultMessage": "{name}'s Division (English)"
+  },
+  {
+    "id": "jobBuilder.intro.divisionPlaceholderEN",
+    "description": "The placeholder displayed on the division input.",
+    "defaultMessage": "e.g. Digital Change"
+  },
+  {
+    "id": "jobBuilder.intro.divisionLabelFR",
+    "description": "The label displayed on the division input.",
+    "defaultMessage": "{name}'s Division (Français)"
+  },
+  {
+    "id": "jobBuilder.intro.divisionPlaceholderFR",
+    "description": "The placeholder displayed on the division input.",
+    "defaultMessage": "e.g. Changement numérique"
+  },
+  {
+    "id": "jobBuilder.intro.welcome",
+    "description": "Header of Job Poster Builder Intro Step",
+    "defaultMessage": "Welcome to the Job Poster Builder"
+  },
+  {
+    "id": "jobBuilder.intro.explanation",
+    "description": "Explanation of Job Poster Builder Intro Step",
+    "defaultMessage": "This tool will help you create a job poster that attracts the right talent. Before we get started on your job poster, take some time to {boldText}"
+  },
+  {
+    "id": "jobBuilder.intro.formTitle",
+    "description": "The title of the profile information form.",
+    "defaultMessage": "{name}'s Profile Information"
+  },
+  {
+    "id": "jobBuilder.intro.formDescription",
+    "description": "Explanation of why the profile information is collected.",
+    "defaultMessage": "This information is used on the Job Poster to help applicants learn more about who they'll be working with."
+  },
+  {
+    "id": "jobBuilder.intro.completeInLanguage",
+    "description": "Instructions at bottom of form on language choice for job poster builder.",
+    "defaultMessage": "Complete the job poster in the language of your choice. We will\r\n                  handle translation."
+  },
+  {
+    "id": "jobBuilder.intro.contactUs",
+    "description": "Subtitle 2 of Job Poster Builder Intro Step",
+    "defaultMessage": "We’ve also provided instructions and examples to help guide you through the process but if you still have questions, contact {link}."
+  },
+  {
+    "id": "jobBuilder.intro.continueButtonLabelEN",
+    "description": "Label displayed on submit button for continuation of job builder in english.",
+    "defaultMessage": "Continue in English"
+  },
+  {
+    "id": "jobBuilder.intro.continueButtonLabelFR",
+    "description": "Label displayed on submit button for continuation of job builder in french.",
+    "defaultMessage": "Continuer en Français"
+  }
+]

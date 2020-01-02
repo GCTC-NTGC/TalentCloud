@@ -17,7 +17,7 @@ class JobPosterReviewRequested extends Mailable implements ShouldQueue
     /**
      * The number of times the job may be attempted.
      *
-     * @var int
+     * @var integer
      */
     public $tries = 5;
 

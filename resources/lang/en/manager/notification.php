@@ -13,8 +13,7 @@ return [
     */
     'first' => 'This is a Demo Account.',
     'link' => [
-        'text' => 'Click here',
+        'text' => 'Find out how to publish a job on Talent Cloud',
         'title' => 'Click here to find out how to publish a job on Talent Cloud',
     ],
-    'second' => 'to find out how to publish a job on Talent Cloud.'
 ];

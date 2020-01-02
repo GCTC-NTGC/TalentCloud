@@ -3,15 +3,14 @@
   "assessmentPlan.skillDescriptionLabel",
   "ratingGuideBuilder.questionHeading",
   "ratingGuideBuilder.criteriaName",
-  "jobBuilder.preview.province",
   "jobBuilder.impactPreview.title",
   "jobBuilder.intro.continueButtonLabelEN",
   "jobBuilder.intro.continueButtonLabelFR",
+  "jobBuilder.preview.province",
+  "jobBuilder.review.impactHeading",
   "jobBuilder.skills.statusSmiley.essential.acceptable",
   "jobBuilder.skills.statusSmiley.acceptable",
-  "jobBuilder.details.classificationOptions.CO",
   "jobBuilder.preview.classification",
-  "jobBuilder.review.impactHeading",
   "province.ab",
   "province.mb",
   "province.nu",
@@ -21,5 +20,6 @@
   "province.mb.abreviation",
   "province.on.abreviation",
   "province.sk.abreviation",
-  "securityClearance.secret"
+  "securityClearance.secret",
+  "jobBuilder.details.classificationOptions.CO"
 ]

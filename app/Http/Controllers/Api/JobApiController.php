@@ -9,6 +9,7 @@ use App\Mail\JobPosterReviewRequested;
 use App\Http\Controllers\Controller;
 use App\Models\JobPoster;
 use App\Models\Criteria;
+use App\Models\Lookup\JobTerm;
 use Jenssegers\Date\Date;
 use App\Http\Requests\UpdateJobPoster;
 use App\Http\Requests\StoreJobPoster;
@@ -28,7 +29,7 @@ class JobApiController extends Controller
      * Convert a job poster to the array expected by API requests,
      * with all criteria,
      * and with translation arrays in both languages.
-    *
+     *
      * @param  \App\Models\JobPoster $job Incoming Job Poster object.
      * @return mixed[]
      */
@@ -65,6 +66,8 @@ class JobApiController extends Controller
         $data = $request->validated();
         $job = new JobPoster();
         $job->manager_id = $request->user()->manager->id;
+        // Defaulting JPB created Jobs to monthly terms for now.
+        $job->job_term_id = JobTerm::where('name', 'month')->value('id');
         $job->fill($data);
         $job->save();
         return response()->json($this->jobToArray($job));
@@ -94,6 +97,8 @@ class JobApiController extends Controller
         // Only values both in the JobPoster->fillable array,
         // and returned by UpdateJobPoster->validatedData(), will be set.
         $job->fill($data);
+        // Defaulting JPB updated jobs to monthly for now.
+        $job->job_term_id = JobTerm::where('name', 'month')->value('id');
         $job->save();
         return response()->json($this->jobToArray($job->fresh()));
     }

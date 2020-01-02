@@ -15,7 +15,8 @@ export default function withPropsChecker<P>(
   WrappedComponent: React.ComponentType<P>,
 ): React.ComponentClass<Props<P>> {
   return class PropsChecker extends React.Component<Props<P>> {
-    public componentWillReceiveProps(nextProps: Props<P>): void {
+    // eslint-disable-next-line camelcase
+    public UNSAFE_componentWillReceiveProps(nextProps: Props<P>): void {
       if (process.env.NODE_ENV === "development") {
         this.logChanges(nextProps);
       }
@@ -26,6 +27,7 @@ export default function withPropsChecker<P>(
         // eslint-disable-next-line react/destructuring-assignment
         .filter((key): boolean => nextProps[key] !== this.props[key])
         .forEach((key): void => {
+          // eslint-disable-next-line no-console
           console.log(
             WrappedComponent.name,
             "changed property:",

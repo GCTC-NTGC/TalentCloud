@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Lookup\Department;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 
 class JobPosterCrudController extends CrudController
@@ -33,6 +34,8 @@ class JobPosterCrudController extends CrudController
         $this->crud->addButtonFromView('line', 'job_admin_edit', 'job_admin_edit', 'end');
         $this->crud->addButtonFromView('line', 'spb_link', 'spb_link', 'end');
         $this->crud->addButtonFromView('line', 'jpb_link', 'jpb_link', 'end');
+        $this->crud->addButtonFromView('line', 'job_poster_link', 'job_poster_link', 'end');
+
 
         $this->crud->addColumn([
             'name' => 'id',
@@ -43,16 +46,6 @@ class JobPosterCrudController extends CrudController
             'name' => 'title',
             'type' => 'text',
             'label' => 'Title'
-        ]);
-        $this->crud->addColumn([
-            'name' => 'open_date_time',
-            'type' => 'datetime',
-            'label' => 'Open Date'
-        ]);
-        $this->crud->addColumn([
-            'name' => 'close_date_time',
-            'type' => 'datetime',
-            'label' => 'Close Date'
         ]);
         $this->crud->addColumn([
             'name' => 'status',
@@ -66,22 +59,44 @@ class JobPosterCrudController extends CrudController
             'type' => 'check',
         ]);
         $this->crud->addColumn([
-            'name' => 'manager.user.full_name',
-            'key' => 'manager_user_name',
-            'type' => 'text',
+            'name' => 'manager_user_name',
+            'type' => 'closure',
             'label' => 'Manager',
-            'orderable' => false
+            'orderable' => false,
+            'function' => function ($entry) {
+                return '<a href="' . route('manager.profile.edit', $entry->manager->user->id) . '" target="_blank">' . $entry->manager->user->full_name . '</a>';
+            }
+        ]);
+        $this->crud->addColumn([
+            'name' => 'department.name',
+            'label' => 'Department',
+            'type' => 'text'
         ]);
         $this->crud->addColumn([
             'name' => 'submitted_applications_count',
-            'label' => 'Applications',
-            'type' => 'closure',
-            'function' => function ($entry) {
-                return $entry->submitted_applications_count() > 0 ?
-                        '<a href="' . route('manager.jobs.applications', $entry->id) . '" target="_blank">' . $entry->submitted_applications_count() . ' (View <i class="fa fa-external-link"></i>)</a>' :
-                        $entry->submitted_applications_count();
-            }
+            'label' => 'Total Applications',
+            'type' => 'model_function',
+            'function_name' => 'submitted_applications_count'
         ]);
+
+        // Filters.
+        $this->crud->addFilter([
+            'name' => 'departments',
+            'type' => 'select2_multiple',
+            'label' => 'Departments'
+        ], function () {
+            return Department::all()->pluck('name', 'id')->toArray();
+        }, function ($values) {
+            $this->crud->addClause('WhereHas', 'department', function ($query) use ($values) {
+                foreach (json_decode($values) as $key => $value) {
+                    if ($key === 0) {
+                        $query->where('id', $value);
+                    } else {
+                        $query->orWhere('id', $value);
+                    }
+                }
+            });
+        });
     }
 
     public function setupUpdateOperation()
@@ -151,8 +166,8 @@ class JobPosterCrudController extends CrudController
             'type' => 'date_picker',
             'label' => 'Letter of Offer Issuance Date',
             'date_picker_options' => [
-               'todayBtn' => 'linked',
-               'format' => 'yyyy-mm-dd',
+                'todayBtn' => 'linked',
+                'format' => 'yyyy-mm-dd',
             ],
         ]);
         if ($this->crud->getCurrentEntry() &&

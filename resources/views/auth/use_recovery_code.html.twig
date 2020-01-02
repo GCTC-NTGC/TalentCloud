@@ -1,0 +1,56 @@
+{# =============================================================================
+
+    Talent Cloud
+    Auth: Login
+
+============================================================================= #}
+
+{% extends "layouts/base" %}
+
+{% block title %}{{ recover.title }}{% endblock %}
+
+{% block body %}
+    {% include "common/goc" %}
+    <div data-clone>
+        <section class="tc-auth" data-c-padding="tb(triple)" data-c-overlay="black(80)" style="background-image: url('/images/bg_crowd.jpg');">
+            <div class="tc-auth-wrapper" data-c-padding="tb(triple)" data-c-container="small">
+                {# Return to the OTP link. #}
+                <a data-c-color="white" href="{{ return_url }}" title="{{ recover.return_title }}">
+                    <i class="fas fa-chevron-left" data-c-margin="right(quarter)"></i>{{ recover.return }}
+                </a>
+                <div data-c-radius="rounded" data-c-margin="top(normal)">
+                    <div class="tc-auth-header gradient-left-right" data-c-padding="all(double)" data-c-align="base(center)">
+                        <h1 data-c-font-size="h2" data-c-color="white">{{ recover.header }}</h1>
+                    </div>
+                    <form action="{{ route('recovery_codes.authenticate') }}" method="POST">
+                        {{ csrf_field() }}
+                        <div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)">
+                            <div data-c-padding="tb(half)">
+                                {% include "errors/form_errors" %}
+                                {# recover Field #}
+                                <p>{{ recover.instructions }}</p>
+                                <div data-c-input="number">
+                                    <label for="recovery_code">{{ recover.form_label }}</label>
+                                    <span>{{ trans("forms.required") }}</span>
+                                    <div>
+                                        <input id="recovery_code" name="recovery_code" placeholder="{{ recover.placeholder }}" required autofocus type="text" value="{{ old('recovery_code') }}"/>
+                                    </div>
+                                    <span>{{ trans("forms.error") }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)" data-c-border="top(thin, solid, grey)">
+                            <div data-c-grid="middle">
+                                <div data-c-grid-item="base(1of1)" data-c-align="base(right)">
+                                    <button data-c-button="solid(c1)" data-c-radius="rounded" type="submit">
+                                        {{ recover.submit }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

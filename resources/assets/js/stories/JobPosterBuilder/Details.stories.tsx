@@ -3,7 +3,7 @@ import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
 import { boolean } from "@storybook/addon-knobs";
-import { JobDetailsIntl as JobDetails } from "../../components/JobDetails/JobDetails";
+import { JobDetailsIntl as JobDetails } from "../../components/JobBuilder/Details/JobDetails";
 import fakeJob from "../../fakeData/fakeJob";
 
 const stories = storiesOf("Job Poster Builder|Details", module).addDecorator(
@@ -28,7 +28,7 @@ stories
         handleReturn={action("Save and Return")}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
-        jobIsComplete={boolean("Job is Commplete", false)}
+        jobIsComplete={boolean("Job is Complete", false)}
         handleSkipToReview={handleSkipToReview}
       />
     ),
@@ -42,7 +42,7 @@ stories
         handleReturn={action("Save and Return")}
         handleModalCancel={action("Modal Cancelled")}
         handleModalConfirm={action("Modal Confirmed")}
-        jobIsComplete={boolean("Job is Commplete", false)}
+        jobIsComplete={boolean("Job is Complete", false)}
         handleSkipToReview={handleSkipToReview}
       />
     ),

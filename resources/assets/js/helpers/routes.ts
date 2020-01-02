@@ -65,3 +65,13 @@ export function jobBuilderSkills(locale: string, jobId: number): string {
 export function jobBuilderReview(locale: string, jobId: number): string {
   return `/${locale}/manager/jobs/${jobId}/builder/review`;
 }
+
+type FaqSection = "manager-who";
+
+export function managerFaq(locale: string, faqSection?: FaqSection): string {
+  const base = `/${locale}/manager/faq`;
+  if (faqSection) {
+    return `${base}#${faqSection}`;
+  }
+  return base;
+}

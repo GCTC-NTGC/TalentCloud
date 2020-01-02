@@ -322,9 +322,9 @@
 
       $(".form__radio-group").each(function(e) {
         $(this).addClass("required");
-        //Find labels that haven't had the asterisk added yet
+        // Find labels that haven't had the asterisk added yet
         $(this)
-          // .children()
+          .children(":not(:has(.fa-asterisk))")
           .find(".form__label")
           .append(
             "<span class='form__required'><i class='fa fa-asterisk' aria-label='Asterisk'></i></span>"

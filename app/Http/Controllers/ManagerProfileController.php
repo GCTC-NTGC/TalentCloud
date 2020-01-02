@@ -103,8 +103,6 @@ class ManagerProfileController extends Controller
         $linkedInUrlPattern = LinkedInUrlRule::PATTERN;
         $twitterHandlePattern = TwitterHandleRule::PATTERN;
 
-        $show_notification = Auth::user()->isDemoManager();
-
         return view('manager/profile', [
             // Localization.
             'profile_l10n' => Lang::get('manager/profile'),
@@ -122,7 +120,6 @@ class ManagerProfileController extends Controller
             'managerFR' => $manager->translate('fr'),
             'linkedInUrlPattern' => $linkedInUrlPattern,
             'twitterHandlePattern' => $twitterHandlePattern,
-            'show_notification' => $show_notification
         ]);
     }
 
@@ -142,7 +139,7 @@ class ManagerProfileController extends Controller
         // redirect to error messages element if validation fails
         if (isset($request->validator) && $request->validator->fails()) {
             $hash = '#managerProfileFormErrors';
-            return redirect(route('manager.profile.edit', $manager).$hash)
+            return redirect(route('manager.profile.edit', $manager) . $hash)
                         ->withErrors($request->validator)
                         ->withInput();
         }
@@ -175,12 +172,12 @@ class ManagerProfileController extends Controller
                 break;
         }
 
-        return redirect(route('manager.profile.edit', $manager).$hash);
+        return redirect(route('manager.profile.edit', $manager) . $hash);
     }
 
     public function faq(Request $request)
     {
-        $show_notification = $request->user() && $request->user()->isDemoManager();
+        $show_demo_notification = $request->user() && $request->user()->isDemoManager();
 
         return view(
             'applicant/static_faq',
@@ -188,7 +185,7 @@ class ManagerProfileController extends Controller
                 'breadcrumb_home' => route('manager.home'),
                 'faq' => Lang::get('applicant/faq'),
                 'manager_sidebar_active' => 'active',
-                'show_notification' => $show_notification
+                'show_demo_notification' => $show_demo_notification,
             ]
         );
     }
