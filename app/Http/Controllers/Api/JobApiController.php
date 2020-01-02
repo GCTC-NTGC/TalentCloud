@@ -29,7 +29,7 @@ class JobApiController extends Controller
      * Convert a job poster to the array expected by API requests,
      * with all criteria,
      * and with translation arrays in both languages.
-    *
+     *
      * @param  \App\Models\JobPoster $job Incoming Job Poster object.
      * @return mixed[]
      */

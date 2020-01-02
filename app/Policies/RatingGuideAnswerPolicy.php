@@ -31,7 +31,7 @@ class RatingGuideAnswerPolicy extends BasePolicy
      */
     public function create(User $user): bool
     {
-        //Any manager can create a new RatingGuideAnswer, but only for questions they own.
+        // Any manager can create a new RatingGuideAnswer, but only for questions they own.
         return $user->isManager();
     }
 

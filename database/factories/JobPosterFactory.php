@@ -99,7 +99,15 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
 });
 
 $factory->afterCreating(JobPoster::class, function ($jp) : void {
-    $jp->criteria()->saveMany(factory(Criteria::class, 5)->make([
+    // Save at least one of each kind of criteria.
+    $jp->criteria()->save(factory(Criteria::class)->state('essential')->make([
+        'job_poster_id' => $jp->id
+    ]));
+    $jp->criteria()->save(factory(Criteria::class)->state('asset')->make([
+        'job_poster_id' => $jp->id
+    ]));
+    // Other criteria divided randomly between essential and asset.
+    $jp->criteria()->saveMany(factory(Criteria::class, 4)->make([
         'job_poster_id' => $jp->id
     ]));
     $jp->job_poster_key_tasks()->saveMany(factory(JobPosterKeyTask::class, 5)->make([

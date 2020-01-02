@@ -31,7 +31,7 @@ class AssessmentPlanNotificationPolicy extends BasePolicy
      */
     public function create(User $user): bool
     {
-        //Any manager can create a new AssessmentPlanNotification, but only for job posters they own.
+        // Any manager can create a new AssessmentPlanNotification, but only for job posters they own.
         return $user->isManager();
     }
 
