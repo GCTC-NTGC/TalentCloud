@@ -31,7 +31,7 @@ $factory->define(User::class, function (Faker\Generator $faker) {
         'first_name' => $faker->firstName(),
         'last_name' => $faker->lastName(),
         'email' => $faker->unique()->safeEmail(),
-        'password' => $password ? : $password = Hash::make('password'),
+        'password' => $password ?: $password = Hash::make('password'),
         'is_confirmed' => 1,
         'user_role_id' => UserRole::where('name', 'basic')->first()->id, // Users should default to basic user role.
         'remember_token' => str_random(10),
@@ -83,7 +83,7 @@ $factory->define(HrAdvisor::class, function () {
     return [
         'department_id' => null,
         'user_id' => function () {
-            return factory(User::class)->create()->id;
+            return factory(User::class)->state('hr_advisor')->create()->id;
         },
     ];
 });

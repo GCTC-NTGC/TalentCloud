@@ -2,6 +2,7 @@ import React from "react";
 import { FormattedMessage, defineMessages, useIntl } from "react-intl";
 import Modal from "../../Modal";
 import { managerFaq } from "../../../helpers/routes";
+import { managerSurveyMessages } from "./ManagerSurveyModal";
 
 interface DemoSubmitJobModalProps {
   isVisible: boolean;
@@ -65,7 +66,7 @@ export const DemoSubmitJobModal: React.FC<DemoSubmitJobModalProps> = ({
             <p>
               <FormattedMessage
                 id="demoSubmitJobModal.link"
-                defaultMessage="To find out if you can access these features, <a>click here</a>."
+                defaultMessage="<a>Find out if you can access these features</a>."
                 description="Explanation of where to find more information."
                 values={{
                   a: msg => (
@@ -79,6 +80,25 @@ export const DemoSubmitJobModal: React.FC<DemoSubmitJobModalProps> = ({
                 }}
               />
             </p>
+            <p data-c-margin="top(normal)">
+              {intl.formatMessage(
+                managerSurveyMessages.managerSurveyExplanation,
+                {
+                  a: msg => (
+                    <a
+                      href="https://talentcloud1.typeform.com/to/MrOkgK"
+                      title={intl.formatMessage(
+                        managerSurveyMessages.managerSurveyLinkTitle,
+                      )}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                    >
+                      {msg}
+                    </a>
+                  ),
+                },
+              )}
+            </p>
           </div>
         </div>
       </Modal.Body>
@@ -90,6 +110,22 @@ export const DemoSubmitJobModal: React.FC<DemoSubmitJobModalProps> = ({
             description="Cancel button of Demo Submit Job modal."
           />
         </Modal.FooterCancelBtn>
+        <div data-c-alignment="base(right)">
+          <a
+            data-c-button="solid(c1)"
+            data-c-dialog-action="close"
+            data-c-radius="rounded"
+            style={{ textDecoration: "none" }}
+            href="https://talentcloud1.typeform.com/to/MrOkgK"
+            title={intl.formatMessage(
+              managerSurveyMessages.managerSurveyLinkTitle,
+            )}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            {intl.formatMessage(managerSurveyMessages.managerSurveyLink)}
+          </a>
+        </div>
       </Modal.Footer>
     </Modal>
   );

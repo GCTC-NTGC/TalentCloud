@@ -4,37 +4,23 @@
     Applicant: Apply - Step 02
 
 ============================================================================= #}
-
 {% extends "layouts/base" %}
-
-{% block title %}{{ application_template.step_02_title }}{% endblock %}
-
+{% block title %}
+	{{ application_template.step_02_title }}
+{% endblock %}
 {% block body %}
-
 	{% include "common/goc" %}
-{% include "common/alert" %}
-
-    {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title':application_template.title, ':job':job.title})}} %}
-
-    <a id="skipLink"></a>
-
-    {# Form containing all about_me editable elements #}
-
-        <form action="{{ form_submit_action }}" method="post">
-
-            {% include "applicant/application_post/common/tracker" %}
-
-			{% include "errors/form_errors" %}
-
-            {# Builds an input field for CSRF token validation #}
-            {{ csrf_field() }}
-
-            {% include "applicant/application_post/step_02/experience" %}
-
-        </form>
-
-    {# Modals #}
-
-        {% include "common/modal" with {"page":application} %}
-
+	{% include "common/alert" %}
+	{% include "common/header" with {'header': {'title': ":title: :job"|replace({':title': application_template.title, ':job': job.title})}} %}
+	<a id="skipLink"></a>
+	{# Form containing all about_me editable elements #}
+	<form action="{{ form_submit_action }}" method="post">
+		{% include "applicant/application_post/common/tracker" %}
+		{% include "errors/form_errors" %}
+		{# Builds an input field for CSRF token validation #}
+		{{ csrf_field() }}
+		{% include "applicant/application_post/step_02/experience" %}
+	</form>
+	{# Modals #}
+	{% include "common/modal" with {"page": application} %}
 {% endblock %}

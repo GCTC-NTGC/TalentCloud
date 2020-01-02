@@ -1,12 +1,14 @@
 <?php
+/*
+|--------------------------------------------------------------------------
+| Error Language Lines
+|--------------------------------------------------------------------------
+|
+| The following language lines are used by exception messages.
+|
+*/
 return [
-    /*
-    |--------------------------------------------------------------------------
-    | Error Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used by exception messages.
-    |
-    */
-    'refresh_page' => 'Veuillez rafraîchir la page.',
+    'title' => 'Erreur',
+    'refresh_page' => 'Veuillez actualiser la page.',
+    'two_factor_required' => 'Vous devez activer l\'authentification à deux facteurs pour accéder à cette ressource.'
 ];

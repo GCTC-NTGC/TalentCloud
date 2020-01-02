@@ -1,0 +1,25 @@
+{% include "errors/form_errors" %}
+{# OTP Field #}
+<div data-c-input="number">
+    <label for="one_time_password">{{ otp.otp_label }}</label>
+    <span>{{ trans("forms.required") }}</span>
+    <div>
+        <input id="one_time_password" name="one_time_password" placeholder="{{ otp.otp_placeholder }}" required autofocus type="number" value="{{ old('one_time_password') }}"/>
+    </div>
+    <span>{{ trans("forms.error") }}</span>
+</div>
+<div data-c-input="checkbox(single)">
+    <span>{{ trans("forms.required") }}</span>
+    <div>
+        <label for="remember_device">
+            <input
+                id="remember_device"
+                type="checkbox"
+                {{ old('remember_device') ? 'checked' : '' }}
+                name="remember_device"
+                />
+            <span>{{ otp.remember_device }}</span>
+        </label>
+    </div>
+    <span>{{ trans("forms.error") }}</span>
+</div>

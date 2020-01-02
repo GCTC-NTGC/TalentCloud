@@ -19,14 +19,15 @@ use App\Models\Applicant;
  * @property string $thesis
  * @property \Jenssegers\Date\Date $start_date
  * @property \Jenssegers\Date\Date $end_date
- * @property int $applicant_id
+ * @property int $degreeable_id
+ * @property string $degreeable_type
  * @property string $blockcert_url
  *
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\Lookup\DegreeType $degree_type
- * @property \App\Models\Applicant $applicant
+ * @property \App\Models\Applicant|\App\Models\JobApplication $degreeable
  */
 class Degree extends BaseModel
 {
@@ -38,7 +39,6 @@ class Degree extends BaseModel
         'thesis' => 'string',
         'start_date' => 'date',
         'end_date' => 'date',
-        'appliant_id' => 'int',
         'blockcert_url' => 'string',
     ];
     protected $fillable = [
@@ -56,8 +56,8 @@ class Degree extends BaseModel
         return $this->belongsTo(\App\Models\Lookup\DegreeType::class);
     }
 
-    public function applicant()
+    public function degreeable()
     {
-        return $this->belongsTo(\App\Models\Applicant::class);
+        return $this->morphTo();
     }
 }

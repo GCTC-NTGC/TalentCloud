@@ -90,7 +90,7 @@ const csrfToken: string =
     ? (csrfElement.getAttribute("content") as string)
     : "";
 
-function jsonDateReplacer(key, value) {
+function jsonDateReplacer(key, value): string | any {
   if (this[key] instanceof Date) {
     return dayjs(value).format("YYYY-MM-DDTHH:mm:ssZ");
   }
@@ -240,6 +240,31 @@ export const asyncPost = <
     endpoint,
     "POST",
     body,
+    startedType,
+    succeededType,
+    failedType,
+    parseResponse,
+    metaData,
+  );
+
+export const asyncDelete = <
+  TStarted extends string,
+  TSuccess extends string,
+  TFailed extends string,
+  TPayload,
+  TMeta
+>(
+  endpoint: string,
+  startedType: TStarted,
+  succeededType: TSuccess,
+  failedType: TFailed,
+  parseResponse: (response: any) => TPayload,
+  metaData: TMeta,
+): RSAActionTemplate<TStarted, TSuccess, TFailed, TPayload, TMeta> =>
+  asyncAction(
+    endpoint,
+    "DELETE",
+    null,
     startedType,
     succeededType,
     failedType,

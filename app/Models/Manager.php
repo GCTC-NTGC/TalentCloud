@@ -7,7 +7,7 @@
 
 namespace App\Models;
 
-use App\CRUD\TalentCloudCrudTrait as CrudTrait;
+use App\Traits\TalentCloudCrudTrait as CrudTrait;
 use Astrotomic\Translatable\Translatable as Translatable;
 
 /**
@@ -62,7 +62,7 @@ use Astrotomic\Translatable\Translatable as Translatable;
 class Manager extends BaseModel
 {
     use Translatable;
-    // Trait for Backpack
+    // Trait for Backpack.
     use CrudTrait;
 
     public $translatedAttributes = [

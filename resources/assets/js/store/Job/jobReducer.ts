@@ -242,7 +242,7 @@ export const uiReducer = (state = initUi(), action: JobAction): UiState => {
         tasksUpdatingByJob: {
           ...state.tasksUpdatingByJob,
           [action.meta.jobId]: true,
-        }
+        },
       };
     case FETCH_JOB_TASKS_FAILED:
     case FETCH_JOB_TASKS_SUCCEEDED:
@@ -253,7 +253,7 @@ export const uiReducer = (state = initUi(), action: JobAction): UiState => {
         tasksUpdatingByJob: {
           ...state.tasksUpdatingByJob,
           [action.meta.jobId]: false,
-        }
+        },
       };
     case FETCH_CRITERIA_STARTED:
     case BATCH_UPDATE_CRITERIA_STARTED:
@@ -262,7 +262,7 @@ export const uiReducer = (state = initUi(), action: JobAction): UiState => {
         criteriaUpdatingByJob: {
           ...state.criteriaUpdatingByJob,
           [action.meta.jobId]: true,
-        }
+        },
       };
     case FETCH_CRITERIA_FAILED:
     case FETCH_CRITERIA_SUCCEEDED:
@@ -273,7 +273,7 @@ export const uiReducer = (state = initUi(), action: JobAction): UiState => {
         criteriaUpdatingByJob: {
           ...state.criteriaUpdatingByJob,
           [action.meta.jobId]: false,
-        }
+        },
       };
     default:
       return state;

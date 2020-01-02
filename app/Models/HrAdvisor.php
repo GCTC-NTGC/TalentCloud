@@ -17,6 +17,7 @@ namespace App\Models;
  *
  * Computed Properties
  * @property string $name
+ * @property int[] $claimed_job_ids
  */
 class HrAdvisor extends BaseModel
 {
@@ -29,9 +30,25 @@ class HrAdvisor extends BaseModel
     ];
 
     /**
+     * The attributes that should be visible in arrays.
+     *
+     * @var array
+     */
+    protected $visible = ['id', 'department_id', 'user_id', 'name', 'claimed_job_ids'];
+
+    /**
      * @var string[] $fillable
      */
     protected $fillable = ['department_id'];
+
+
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['name', 'claimed_job_ids'];
 
     public function user()
     {
@@ -43,7 +60,7 @@ class HrAdvisor extends BaseModel
         return $this->belongsTo(\App\Models\Lookup\Department::class);
     }
 
-    public function claimed_jobs() //phpcs:ignore
+    public function claimed_jobs()
     {
         return $this->belongsToMany(
             \App\Models\JobPoster::class,
@@ -62,5 +79,15 @@ class HrAdvisor extends BaseModel
             return $this->user->first_name . ' ' . $this->user->last_name;
         }
         return '';
+    }
+
+    /**
+     * Return an array of ids of claimed jobs.
+     *
+     * @return array
+     */
+    public function getClaimedJobIdsAttribute()
+    {
+        return $this->claimed_jobs()->allRelatedIds()->toArray();
     }
 }

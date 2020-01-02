@@ -1,0 +1,426 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Job Index Page should render JobIndexPage correctly 1`] = `
+<section>
+  <div
+    data-c-background="gray(10)"
+  >
+    <div
+      data-c-container="large"
+      data-c-padding="tb(triple)"
+    >
+      <p>
+        <FormattedMessage
+          defaultMessage="Welcome! Introductory copy that explains how this page works, and
+                what an HR adviser needs to do to claim a job action as their own.
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium
+                ducimus laboriosam sequi, quis autem minima esse quasi aspernatur
+                vero provident quos eligendi, ea officia exercitationem. Obcaecati
+                impedit quae veritatis corrupti!"
+          description="Welcome message at beginning of page."
+          id="hrPortal.jobPageIndex.welcomeMessage"
+          values={Object {}}
+        />
+      </p>
+      <h2
+        data-c-font-size="h2"
+        data-c-margin="top(triple) bottom(normal)"
+      >
+        <FormattedMessage
+          defaultMessage="My Job Actions"
+          description="Header for my job actions section."
+          id="hrPortal.jobPageIndex.jobActionsHeader"
+          values={Object {}}
+        />
+      </h2>
+      <p
+        data-c-margin="bottom(double)"
+      >
+        <FormattedMessage
+          defaultMessage="This is a list of all job actions you are currently participating
+                in. Looking for an older job? Check the 'My Completed Job Actions'
+                section below your active jobs."
+          description="Message before list of users job actions."
+          id="hrPortal.jobPageIndex.jobActionsMessage"
+          values={Object {}}
+        />
+      </p>
+      <JobCard
+        activity={
+          Object {
+            "count": 3,
+            "new": Object {
+              "text": "New Activity",
+              "title": "Click here to see new activity on this posting.",
+              "url": "https://google.ca",
+            },
+          }
+        }
+        applicants={5}
+        classification="CS01"
+        draft={
+          Object {
+            "text": "View Draft",
+            "title": "View this draft Job Poster.",
+            "url": "https://google.ca",
+          }
+        }
+        managerTime={8}
+        owned={true}
+        preview={
+          Object {
+            "text": "Preview Poster",
+            "title": "Preview what this Job Poster will look like.",
+            "url": "https://google.ca",
+          }
+        }
+        screeningPlan={
+          Object {
+            "text": "View Screening Plan",
+            "title": "View the screening plan for this Job Poster.",
+            "url": "https://google.ca",
+          }
+        }
+        status="Draft"
+        summary={
+          Object {
+            "text": "Visit Job Summary",
+            "title": "View the Job Summary for this Job Poster.",
+            "url": "https://google.ca",
+          }
+        }
+        title="Front-end Developer"
+        userTime={2}
+      />
+      <JobCard
+        activity={
+          Object {
+            "count": 0,
+            "new": Object {
+              "text": "New Activity",
+              "title": "Click here to see new activity on this posting.",
+              "url": "https://google.ca",
+            },
+          }
+        }
+        applicants={12}
+        classification="BK01"
+        draft={
+          Object {
+            "text": "View Draft",
+            "title": "View this draft Job Poster.",
+            "url": "",
+          }
+        }
+        managerTime={8}
+        owned={false}
+        preview={
+          Object {
+            "text": "View Poster",
+            "title": "View the published Job Poster.",
+            "url": "https://google.ca",
+          }
+        }
+        screeningPlan={
+          Object {
+            "text": "View Screening Plan",
+            "title": "View the screening plan for this Job Poster.",
+            "url": "https://google.ca",
+          }
+        }
+        status="Published"
+        summary={
+          Object {
+            "text": "Visit Job Summary",
+            "title": "View the Job Summary for this Job Poster.",
+            "url": "https://google.ca",
+          }
+        }
+        title="Cupcake Baker"
+        userTime={2}
+      />
+      <CompletedJobsAccordion
+        completedJobActions={
+          Array [
+            Object {
+              "activity": Object {
+                "count": 0,
+                "new": Object {
+                  "text": "New Activity",
+                  "title": "Click here to see new activity on this posting.",
+                  "url": "https://google.ca",
+                },
+              },
+              "applicants": 5,
+              "classification": "BS01",
+              "draft": Object {
+                "text": "View Draft",
+                "title": "View this draft Job Poster.",
+                "url": "",
+              },
+              "managerTime": 8,
+              "owned": false,
+              "preview": Object {
+                "text": "View Poster",
+                "title": "View the published Job Poster.",
+                "url": "https://google.ca",
+              },
+              "screeningPlan": Object {
+                "text": "View Screening Plan",
+                "title": "View the screening plan for this Job Poster.",
+                "url": "https://google.ca",
+              },
+              "status": "Complete",
+              "summary": Object {
+                "text": "Visit Job Summary",
+                "title": "View the Job Summary for this Job Poster.",
+                "url": "https://google.ca",
+              },
+              "title": "Underwater Basket Weaver",
+              "userTime": 2,
+            },
+          ]
+        }
+      />
+      <hr
+        data-c-hr="gray"
+        data-c-margin="tb(triple)"
+      />
+      <h2
+        data-c-font-size="h2"
+        data-c-margin="top(triple) bottom(double)"
+      >
+        <FormattedMessage
+          defaultMessage="All Jobs in"
+          description="Message before department name."
+          id="hrPortal.jobPageIndex.preDepartmentName"
+          values={Object {}}
+        />
+         Treasury Board of Canada Secretariat
+      </h2>
+      <p
+        data-c-margin="bottom(double)"
+      >
+        <FormattedMessage
+          defaultMessage="This is the list of all active job actions in your department. From
+                here you can 'claim' a job, which will move it into your jobs list
+                above and allow you to begin working with the hiring manager on
+                finding the best talent possible. If you claim a job by accident, no
+                fear, for you can click into the job summary and remove yourself
+                using the 'Remove Myself From This Job' button."
+          description="Message before list of unclaimed jobs."
+          id="hrPortal.jobPageIndex.unclaimedJobsMessage"
+          values={Object {}}
+        />
+      </p>
+      <section
+        data-c-grid="gutter"
+      >
+        <UnclaimedJobCard
+          claimJob={[Function]}
+          createdAt="2019-MAY-02"
+          hiringManagers={
+            Array [
+              "Rebecca Appleby",
+            ]
+          }
+          hrAdvisors={Array []}
+          jobLink={
+            Object {
+              "text": "CS01 - Front-end Developer",
+              "title": "",
+              "url": "",
+            }
+          }
+          status="Draft"
+        />
+        <UnclaimedJobCard
+          claimJob={[Function]}
+          createdAt="2019-MAR-12"
+          hiringManagers={
+            Array [
+              "Rebecca Appleby",
+            ]
+          }
+          hrAdvisors={
+            Array [
+              "Rebecca Appleby",
+              "Jack Little",
+            ]
+          }
+          jobLink={
+            Object {
+              "text": "AS02 - Executive Assisstant",
+              "title": "",
+              "url": "",
+            }
+          }
+          status="Draft"
+        />
+        <UnclaimedJobCard
+          claimJob={[Function]}
+          createdAt="2019-DEC-02"
+          hiringManagers={
+            Array [
+              "Robin Browne",
+            ]
+          }
+          hrAdvisors={Array []}
+          jobLink={
+            Object {
+              "text": "ET03 - Business Analyst",
+              "title": "",
+              "url": "",
+            }
+          }
+          status="Review"
+        />
+        <UnclaimedJobCard
+          claimJob={[Function]}
+          createdAt="2019-MAY-14"
+          hiringManagers={
+            Array [
+              "Braeden McDoogal",
+            ]
+          }
+          hrAdvisors={
+            Array [
+              "Caitlyn Summers",
+              "Jack Little",
+            ]
+          }
+          jobLink={
+            Object {
+              "text": "FG05 - Long-term Care Specialist",
+              "title": "",
+              "url": "",
+            }
+          }
+          status="Draft"
+        />
+        <UnclaimedJobCard
+          claimJob={[Function]}
+          createdAt="2019-JUL-24"
+          hiringManagers={
+            Array [
+              "Amelie Lachance",
+            ]
+          }
+          hrAdvisors={Array []}
+          jobLink={
+            Object {
+              "text": "CS03 - Digital Product Designer",
+              "title": "",
+              "url": "",
+            }
+          }
+          status="Review"
+        />
+      </section>
+    </div>
+  </div>
+</section>
+`;
+
+exports[`Job Index Page should render JobIndexPage without any items 1`] = `
+<section>
+  <div
+    data-c-background="gray(10)"
+  >
+    <div
+      data-c-container="large"
+      data-c-padding="tb(triple)"
+    >
+      <p>
+        <FormattedMessage
+          defaultMessage="Welcome! Introductory copy that explains how this page works, and
+                what an HR adviser needs to do to claim a job action as their own.
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium
+                ducimus laboriosam sequi, quis autem minima esse quasi aspernatur
+                vero provident quos eligendi, ea officia exercitationem. Obcaecati
+                impedit quae veritatis corrupti!"
+          description="Welcome message at beginning of page."
+          id="hrPortal.jobPageIndex.welcomeMessage"
+          values={Object {}}
+        />
+      </p>
+      <h2
+        data-c-font-size="h2"
+        data-c-margin="top(triple) bottom(normal)"
+      >
+        <FormattedMessage
+          defaultMessage="My Job Actions"
+          description="Header for my job actions section."
+          id="hrPortal.jobPageIndex.jobActionsHeader"
+          values={Object {}}
+        />
+      </h2>
+      <p
+        data-c-margin="bottom(double)"
+      >
+        <FormattedMessage
+          defaultMessage="This is a list of all job actions you are currently participating
+                in. Looking for an older job? Check the 'My Completed Job Actions'
+                section below your active jobs."
+          description="Message before list of users job actions."
+          id="hrPortal.jobPageIndex.jobActionsMessage"
+          values={Object {}}
+        />
+      </p>
+      <p>
+        <FormattedMessage
+          defaultMessage="Claim a job below!"
+          description="Message displayed if the jobs actions list is empty."
+          id="hrPortal.jobPageIndex.jobActionsEmpty"
+          values={Object {}}
+        />
+      </p>
+      <CompletedJobsAccordion
+        completedJobActions={Array []}
+      />
+      <hr
+        data-c-hr="gray"
+        data-c-margin="tb(triple)"
+      />
+      <h2
+        data-c-font-size="h2"
+        data-c-margin="top(triple) bottom(double)"
+      >
+        <FormattedMessage
+          defaultMessage="All Jobs in"
+          description="Message before department name."
+          id="hrPortal.jobPageIndex.preDepartmentName"
+          values={Object {}}
+        />
+         Treasury Board of Canada Secretariat
+      </h2>
+      <p
+        data-c-margin="bottom(double)"
+      >
+        <FormattedMessage
+          defaultMessage="This is the list of all active job actions in your department. From
+                here you can 'claim' a job, which will move it into your jobs list
+                above and allow you to begin working with the hiring manager on
+                finding the best talent possible. If you claim a job by accident, no
+                fear, for you can click into the job summary and remove yourself
+                using the 'Remove Myself From This Job' button."
+          description="Message before list of unclaimed jobs."
+          id="hrPortal.jobPageIndex.unclaimedJobsMessage"
+          values={Object {}}
+        />
+      </p>
+      <section
+        data-c-grid="gutter"
+      />
+      <p>
+        <FormattedMessage
+          defaultMessage="There are currently no active jobs available."
+          description="Message displayed if the unclaimed jobs list is empty."
+          id="hrPortal.jobPageIndex.unclaimedJobsEmpty"
+          values={Object {}}
+        />
+      </p>
+    </div>
+  </div>
+</section>
+`;
