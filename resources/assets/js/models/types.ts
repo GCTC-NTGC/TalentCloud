@@ -264,5 +264,6 @@ export interface Comment {
   user_id: number;
   comment: string;
   location: string;
-  type: number;
+  type_id: number;
+  created_at: Date;
 }
