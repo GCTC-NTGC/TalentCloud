@@ -3,9 +3,7 @@ import { managerUser } from "./helpers/roles";
 
 const HOMEPAGE = "https://talent.test";
 
-fixture(`Critical - Job Poster Builder`)
-  .page(HOMEPAGE)
-  .meta("travis", "run");
+fixture(`Critical - Job Poster Builder`).page(HOMEPAGE);
 
 // Skip when writing new tests
 // fixture.skip(`Critical - Job Poster Builder`);
@@ -256,14 +254,14 @@ test("Job Poster Builder - New Job", async t => {
     .click(Selector("button").withText("Add Skill"))
     .expect(Selector("h3").withText("Skills").visible)
     .ok()
-    .wait(3000)
+    .wait(500)
     .click(Selector("button").withText("Save & Preview Skills"))
     // Skills review.
     .expect(Selector("h5").withText("Keep it up!").visible)
     .ok()
     .expect(Selector(".criterion-item").exists)
     .ok()
-    .wait(3000)
+    .wait(200)
     .click(Selector("button").withText("Next Step"))
     // Review page.
     .expect(Selector("p").withText("Product Designer").visible)
@@ -276,9 +274,9 @@ test("Job Poster Builder - New Job", async t => {
       Selector("h5").withText("Congrats! Are You Ready to Submit?").visible,
     )
     .ok()
-    .wait(3000)
+    .wait(200)
     .click(Selector("button").withText("Yes, Submit"))
-    .wait(3000)
+    .wait(200)
     .click(Selector("a").withText("My Job Posters."))
     // Taken back to the Job index page
     .expect(Selector("h1").withText("My Job Posters").visible)
