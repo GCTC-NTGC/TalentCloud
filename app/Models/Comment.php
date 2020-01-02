@@ -15,6 +15,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property \App\Models\Lookup\CommentType $type_id
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
+ *
+ * @property \App\Models\JobPoster $job_poster
+ * @property \App\Models\User $user
+ * @property \App\Models\Lookup\CommentType $comment_type
  */
 
 class Comment extends Model
@@ -34,5 +38,10 @@ class Comment extends Model
     public function user() // phpcs:ignore
     {
         return $this->belongsTo(\App\Models\User::class);
+    }
+
+    public function comment_type() // phpcs:ignore
+    {
+        return $this->belongsTo(\App\Models\Lookup\CommentType::class, 'type_id');
     }
 }
