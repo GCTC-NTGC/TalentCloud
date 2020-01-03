@@ -21,7 +21,7 @@ class CreateCommentsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('CASCADE')->onDelete('NO ACTION');
             $table->text('comment');
             $table->text('location');
-            $table->integer('type_id');
+            $table->integer('type_id')->nullable();
             $table->foreign('type_id')->references('id')->on('comment_types')->onUpdate('CASCADE')->onDelete('NO ACTION');
             $table->timestamps();
         });
