@@ -26,7 +26,7 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
   const intl = useIntl();
   const userName = (userId: number) => "getUserName()";
   const userRole = (userId: number) => "getUserRole()";
-  const commentType = (type: number): string => {
+  const commentType = (type: number | null): string => {
     switch (type) {
       case 1:
         return intl.formatMessage(commentTypeMessages.question);
@@ -35,7 +35,7 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
       case 3:
         return intl.formatMessage(commentTypeMessages.requiredAction);
       default:
-        return "Error";
+        return intl.formatMessage(commentTypeMessages.comment);
     }
   };
   return (
