@@ -26,7 +26,7 @@ class CommentApiControllerTest extends TestCase
     {
         // Factories.
         $job = factory(JobPoster::class)->create();
-        $job->comments()->saveMany(factory(Comment::class, 3)->make());
+        $job->comments()->saveMany(factory(Comment::class, 3)->make(['job_poster_id' => $job->id, 'user_id' => $job->manager->user->id]));
 
         // Get comments from job poster.
         $response = $this->followingRedirects()
@@ -46,10 +46,10 @@ class CommentApiControllerTest extends TestCase
     {
         // Factories.
         $job = factory(JobPoster::class)->create();
-        $job->comments()->saveMany(factory(Comment::class, 3)->make());
         $job->hr_advisors()->saveMany(factory(HrAdvisor::class, 3)->make()->each(function ($hr_advisor) use ($job) {
             $hr_advisor->claimed_jobs()->attach($job->id);
         }));
+        $job->comments()->saveMany(factory(Comment::class, 3)->make(['job_poster_id' => $job->id, 'user_id' => $job->hr_advisors->first()->user->id]));
 
         // Get comments from job poster.
         $response = $this->followingRedirects()
@@ -69,7 +69,7 @@ class CommentApiControllerTest extends TestCase
     {
         // Factories.
         $job = factory(JobPoster::class)->create();
-        $job->comments()->saveMany(factory(Comment::class, 3)->make());
+        $job->comments()->saveMany(factory(Comment::class, 3)->make(['job_poster_id' => $job->id, 'user_id' => $job->manager->user->id]));
 
         // Get comments from job poster.
         $response = $this->followingRedirects()
@@ -80,9 +80,7 @@ class CommentApiControllerTest extends TestCase
     public function testStoreCommentAsManager(): void
     {
         $job = factory(JobPoster::class)->states(['byUpgradedManager', 'draft'])->create();
-        $newComment = factory(Comment::class)->make(['job_poster_id' => $job->id])->toArray();
-
-        Log::debug($job->manager->user);
+        $newComment = factory(Comment::class)->make()->toArray();
 
         $response = $this->actingAs($job->manager->user)
             ->json('post', "api/jobs/$job->id/comments", $newComment);
@@ -93,10 +91,10 @@ class CommentApiControllerTest extends TestCase
     public function testStoreCommentAsAdvisor(): void
     {
         $job = factory(JobPoster::class)->create();
-        $newComment = factory(Comment::class)->make(['job_poster_id' => $job->id])->toArray();
         $job->hr_advisors()->saveMany(factory(HrAdvisor::class, 3)->make()->each(function ($hr_advisor) use ($job) {
             $hr_advisor->claimed_jobs()->attach($job->id);
         }));
+        $newComment = factory(Comment::class)->make()->toArray();
 
         $response = $this->actingAs($job->hr_advisors->first()->user)
             ->json('post', "api/jobs/$job->id/comments", $newComment);
@@ -108,7 +106,7 @@ class CommentApiControllerTest extends TestCase
     {
         // Factories.
         $job = factory(JobPoster::class)->create();
-        $newComment = factory(Comment::class)->make(['job_poster_id' => $job->id])->toArray();
+        $newComment = factory(Comment::class)->make(['job_poster_id' => $job->id, 'user_id' => $job->manager->user->id])->toArray();
 
         // Store comment in db with unauthorized user
         $response = $this->json('post', "api/jobs/$job->id/comments", $newComment);
