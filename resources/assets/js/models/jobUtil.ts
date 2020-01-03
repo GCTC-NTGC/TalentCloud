@@ -6,6 +6,7 @@ import {
   JobPosterKeyTask,
   Criteria,
   Skill,
+  Comment,
 } from "./types";
 import {
   CriteriaTypeId,
@@ -99,3 +100,13 @@ export const getSkillLevelName = (
   }
   return skillLevelName(skill_level_id, skill_type_id);
 };
+
+export const emptyComment = (): Comment => ({
+  id: 0,
+  job_poster_id: 0,
+  user_id: 0,
+  comment: "",
+  location: "",
+  type_id: null,
+  created_at: new Date(),
+});

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase, camelcase */
 import * as React from "react";
 import { connect } from "react-redux";
 import { Formik, Form, Field } from "formik";
@@ -10,6 +11,7 @@ import SelectInput from "./Form/SelectInput";
 import { Comment } from "../models/types";
 import { DispatchType } from "../configureStore";
 import { createComment } from "../store/Job/jobActions";
+import { emptyComment } from "../models/jobUtil";
 
 const formMessages = defineMessages({
   commentLabel: {
@@ -50,33 +52,38 @@ export const commentTypeMessages = defineMessages({
     defaultMessage: "Required Action",
     description: "Comment type from list of comment types",
   },
+  comment: {
+    id: "commentType.comment",
+    defaultMessage: "Comment",
+    description: "Comment type from list of comment types",
+  },
 });
 
 interface CommentFormProps {
   jobId: number;
-  userId: number;
   isHrAdviser: boolean;
+  location: string;
   handleCreateComment: (jobId: number, newComment: Comment) => Promise<Comment>;
 }
 
 interface CommentFormValues {
   comment: string;
-  commentType: number;
+  commentType: number | null;
 }
 
 const CommentForm: React.FunctionComponent<CommentFormProps> = ({
   isHrAdviser,
-  userId,
   handleCreateComment,
   jobId,
+  location,
 }: CommentFormProps): React.ReactElement => {
   const intl = useIntl();
   const initialValues: CommentFormValues = {
     comment: "",
-    commentType: 0,
+    commentType: 0 || null,
   };
 
-  const commentSchema = Yup.object().shape({
+  const hrCommentSchema = Yup.object().shape({
     comment: Yup.string().required(
       intl.formatMessage(validationMessages.required),
     ),
@@ -88,21 +95,23 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
       .required(intl.formatMessage(validationMessages.required)),
   });
 
+  const managerCommentSchema = Yup.object().shape({
+    comment: Yup.string().required(
+      intl.formatMessage(validationMessages.required),
+    ),
+  });
+
   return (
     <section>
       <Formik
         initialValues={initialValues}
-        validationSchema={commentSchema}
+        validationSchema={isHrAdviser ? hrCommentSchema : managerCommentSchema}
         onSubmit={(values, { setSubmitting, resetForm }): void => {
-          const location = "location_of_comment"; // TODO: How are we getting location?
           const newComment: Comment = {
-            id: 0,
-            job_poster_id: jobId,
-            user_id: userId,
+            ...emptyComment(),
             location,
             comment: values.comment,
-            type_id: Number(values.commentType),
-            created_at: new Date(),
+            type_id: isHrAdviser ? Number(values.commentType) : null,
           };
           handleCreateComment(jobId, newComment).finally((): void => {
             setSubmitting(false); // Required by Formik to finish the submission cycle
