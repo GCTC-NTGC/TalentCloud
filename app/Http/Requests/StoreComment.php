@@ -2,11 +2,13 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Comment;
 use App\Models\JobPoster;
 use App\Models\Lookup\CommentType;
 use App\Models\User;
 use App\Services\Validation\Rules\ValidIdRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
 
 class StoreComment extends FormRequest
 {
@@ -28,8 +30,6 @@ class StoreComment extends FormRequest
     public function rules()
     {
         return [
-            'job_poster_id' => ['nullable', new ValidIdRule(JobPoster::class)],
-            'user_id' => ['nullable', new ValidIdRule(User::class)],
             'comment' => 'nullable|string',
             'location' => 'nullable|string',
             'type_id' => ['nullable', new ValidIdRule(CommentType::class)]
