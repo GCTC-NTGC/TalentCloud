@@ -1,10 +1,8 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { text, select, array } from "@storybook/addon-knobs";
+import { text } from "@storybook/addon-knobs";
 import { withIntl } from "storybook-addon-intl";
-import { action } from "@storybook/addon-actions";
 import CommentForm from "../components/CommentForm";
-import { Comment } from "../models/types";
 
 const stories = storiesOf("Components|Comment Form", module).addDecorator(
   withIntl,
@@ -15,7 +13,11 @@ stories
     "Manager",
     (): React.ReactElement => (
       <section data-c-padding="all(3)">
-        <CommentForm jobId={1} userId={1} isHrAdviser={false} />
+        <CommentForm
+          jobId={1}
+          location={text("Location", "Job Poster Builder > Step 3: Tasks")}
+          isHrAdviser={false}
+        />
       </section>
     ),
   )
@@ -23,7 +25,11 @@ stories
     "HrAdviser",
     (): React.ReactElement => (
       <section data-c-padding="all(3)">
-        <CommentForm jobId={1} userId={1} isHrAdviser />
+        <CommentForm
+          jobId={1}
+          location={text("Location", "Job Poster Builder > Step 2: Details")}
+          isHrAdviser
+        />
       </section>
     ),
   );

@@ -215,7 +215,11 @@ const JobIndexPage: React.FunctionComponent<JobIndexPageProps> = ({
         </div>
       </div>
       {/* CommentFeed Test */}
-      <CommentForm jobId={1} userId={1} isHrAdviser />
+      <CommentForm
+        jobId={1}
+        location="Job Poster Builder > Step 3: Work Env"
+        isHrAdviser
+      />
       <ActivityFeed jobId={1} />
     </section>
   );
