@@ -109,7 +109,7 @@ exports[`Job Index Page should render JobIndexPage correctly 1`] = `
           Object {
             "text": "View Draft",
             "title": "View this draft Job Poster.",
-            "url": null,
+            "url": "",
           }
         }
         managerTime={8}
@@ -156,7 +156,7 @@ exports[`Job Index Page should render JobIndexPage correctly 1`] = `
               "draft": Object {
                 "text": "View Draft",
                 "title": "View this draft Job Poster.",
-                "url": null,
+                "url": "",
               },
               "managerTime": 8,
               "owned": false,
@@ -217,6 +217,7 @@ exports[`Job Index Page should render JobIndexPage correctly 1`] = `
         data-c-grid="gutter"
       >
         <UnclaimedJobCard
+          claimJob={[Function]}
           createdAt="2019-MAY-02"
           hiringManagers={
             Array [
@@ -224,10 +225,17 @@ exports[`Job Index Page should render JobIndexPage correctly 1`] = `
             ]
           }
           hrAdvisors={Array []}
+          jobLink={
+            Object {
+              "text": "CS01 - Front-end Developer",
+              "title": "",
+              "url": "",
+            }
+          }
           status="Draft"
-          title="CS01 - Front-end Developer"
         />
         <UnclaimedJobCard
+          claimJob={[Function]}
           createdAt="2019-MAR-12"
           hiringManagers={
             Array [
@@ -240,10 +248,17 @@ exports[`Job Index Page should render JobIndexPage correctly 1`] = `
               "Jack Little",
             ]
           }
+          jobLink={
+            Object {
+              "text": "AS02 - Executive Assisstant",
+              "title": "",
+              "url": "",
+            }
+          }
           status="Draft"
-          title="AS02 - Executive Assisstant"
         />
         <UnclaimedJobCard
+          claimJob={[Function]}
           createdAt="2019-DEC-02"
           hiringManagers={
             Array [
@@ -251,10 +266,17 @@ exports[`Job Index Page should render JobIndexPage correctly 1`] = `
             ]
           }
           hrAdvisors={Array []}
+          jobLink={
+            Object {
+              "text": "ET03 - Business Analyst",
+              "title": "",
+              "url": "",
+            }
+          }
           status="Review"
-          title="ET03 - Business Analyst"
         />
         <UnclaimedJobCard
+          claimJob={[Function]}
           createdAt="2019-MAY-14"
           hiringManagers={
             Array [
@@ -267,10 +289,17 @@ exports[`Job Index Page should render JobIndexPage correctly 1`] = `
               "Jack Little",
             ]
           }
+          jobLink={
+            Object {
+              "text": "FG05 - Long-term Care Specialist",
+              "title": "",
+              "url": "",
+            }
+          }
           status="Draft"
-          title="FG05 - Long-term Care Specialist"
         />
         <UnclaimedJobCard
+          claimJob={[Function]}
           createdAt="2019-JUL-24"
           hiringManagers={
             Array [
@@ -278,8 +307,14 @@ exports[`Job Index Page should render JobIndexPage correctly 1`] = `
             ]
           }
           hrAdvisors={Array []}
+          jobLink={
+            Object {
+              "text": "CS03 - Digital Product Designer",
+              "title": "",
+              "url": "",
+            }
+          }
           status="Review"
-          title="CS03 - Digital Product Designer"
         />
       </section>
     </div>
