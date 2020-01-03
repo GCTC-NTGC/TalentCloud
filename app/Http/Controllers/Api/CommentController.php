@@ -36,6 +36,8 @@ class CommentController extends Controller
     {
           $data = $request->validated();
           $comment = new Comment();
+          $comment->user_id = $request->user()->id;
+          $comment->job_poster_id = $jobPoster->id;
           $comment->fill($data);
           $comment->save();
           return response()->json(new JsonResource($comment));
