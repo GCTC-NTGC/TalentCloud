@@ -30,6 +30,17 @@ class JobPolicy extends BasePolicy
     }
 
     /**
+     * Any user is permitted to request a list of jobs,
+     * but only the jobs they are permitted to *view* should be returned.
+     *
+     * @return void
+     */
+    public function viewAny(?User $user)
+    {
+        return true;
+    }
+
+    /**
      * Determine whether the user can create job posters.
      *
      * @param  \App\Models\User $user User to test against.
