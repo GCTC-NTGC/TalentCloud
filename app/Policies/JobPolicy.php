@@ -115,7 +115,7 @@ class JobPolicy extends BasePolicy
         // Only the manager that created the job can view the comment.
         // Only Hr advisors who have claimed a job can view the comments.
         return $user->isManager() && $jobPoster->manager->user->id == $user->id ||
-            $user->isHrAdvisor() && $jobPoster->hr_advisors->where('user_id', $user->id) !== null;
+        $user->isHrAdvisor() && $jobPoster->hr_advisors->where('user_id', $user->id)->isNotEmpty();
     }
 
     /**
@@ -130,7 +130,7 @@ class JobPolicy extends BasePolicy
         // Only the manager that created the job can view the comment.
         // Only Hr advisors who have claimed a job can view the comments.
         return $user->isManager() && $jobPoster->manager->user->id == $user->id ||
-        $user->isHrAdvisor() && $jobPoster->hr_advisors->where('user_id', $user->id) !== null;
+        $user->isHrAdvisor() && $jobPoster->hr_advisors->where('user_id', $user->id)->isNotEmpty();
     }
 
     /**
