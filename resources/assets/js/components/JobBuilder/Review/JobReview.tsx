@@ -295,7 +295,7 @@ const renderManagerSection = (
     );
   }
   const aboutMe = manager.about_me[locale];
-  const position = manager.about_me[locale];
+  const position = manager.position[locale];
   if (aboutMe !== null && position !== null) {
     return (
       <>
@@ -351,7 +351,6 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
   departments,
   validForSubmission,
   handleSubmit,
-  handleContinue,
   handleReturn,
   intl,
 }): React.ReactElement => {
