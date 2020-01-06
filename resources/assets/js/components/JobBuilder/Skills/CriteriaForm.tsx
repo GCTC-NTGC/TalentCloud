@@ -110,7 +110,6 @@ const updateCriteriaWithValues = (
   criteria: Criteria,
   skill: Skill,
   values: FormValues,
-  locale: "en" | "fr",
 ): Criteria => {
   return {
     ...criteria,
@@ -119,10 +118,13 @@ const updateCriteriaWithValues = (
         ? CriteriaTypeId.Asset
         : CriteriaTypeId.Essential,
     skill_level_id: essentialKeyToId(values.level),
-    [locale]: {
-      ...criteria,
-      description: skill.description[locale],
-      specificity: criteria.specificity[locale],
+    description: {
+      en: skill.description.en,
+      fr: skill.description.fr,
+    },
+    specificity: {
+      en: criteria.specificity.en,
+      fr: criteria.specificity.fr,
     },
   };
 };
@@ -194,7 +196,6 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
           oldCriteria,
           skill,
           values,
-          locale,
         );
         handleSubmit(updatedCriteria);
         setSubmitting(false);

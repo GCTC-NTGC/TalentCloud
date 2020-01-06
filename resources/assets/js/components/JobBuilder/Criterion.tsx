@@ -38,7 +38,7 @@ export const Criterion: React.FunctionComponent<CriterionProps &
           {intl.formatMessage(getSkillLevelName(criterion, skill))}
         </p>
       )}
-      <p>{criterion.description[locale]}</p>
+      {criterion.description[locale] && <p>{criterion.description[locale]}</p>}
       {criterion.specificity[locale] && <p>{criterion.specificity[locale]}</p>}
     </div>
   );
