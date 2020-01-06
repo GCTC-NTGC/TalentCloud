@@ -34,6 +34,9 @@ const getTasksForJobUpdatingState = (
   state: RootState,
 ): { [id: number]: boolean } => ui(state).tasksUpdatingByJob;
 
+export const getAllJobs = (state: RootState): Job[] =>
+  Object.values(entities(state).jobs.byId);
+
 export const getJob = createCachedSelector(
   getJobState,
   (state: RootState, ownProps: { jobId: number }): number => ownProps.jobId,
@@ -53,9 +56,16 @@ export const getEditJob = createCachedSelector(
     hasKey(jobState, jobId) ? jobState[jobId] : null,
 )((state, ownProps): number => ownProps.jobId);
 
+export const getJobIndexIsUpdating = (state: RootState): boolean => {
+  return ui(state).jobIndexUpdating;
+};
+
 export const getJobIsUpdating = (state: RootState, id: number): boolean => {
   const updating = getJobUpdatingState(state);
-  return hasKey(updating, id) ? updating[id] : false;
+  return (
+    getJobIndexIsUpdating(state) ||
+    (hasKey(updating, id) ? updating[id] : false)
+  );
 };
 
 export const getJobIsEdited = createCachedSelector(
