@@ -32,7 +32,12 @@ return [
             'position_french' => 'Poste (Français)',
             'departmental_information' => 'Renseignements ministériels',
             'department' => 'Ministère',
-            'department_default_option' => 'Choisir votre ministère...',
+            'change_department_info' => 'Pour changer de département, veuillez contacter',
+            'talent_cloud_email' => [
+                'href' => 'mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca',
+                'text' => 'le Nuage de talents.',
+                'title' => 'Envoyer un courriel au Nuage de talents.'
+            ],
             'division_english' => 'Division (English)',
             'division_french' => 'Division (Français)',
             'personal_information' => 'Renseignements personnels',

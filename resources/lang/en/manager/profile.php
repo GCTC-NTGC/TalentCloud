@@ -32,7 +32,12 @@ return [
             'position_french' => 'Position (Français)',
             'departmental_information' => 'Departmental Information',
             'department' => 'Department',
-            'department_default_option' => 'Select your department...',
+            'change_department_info' => 'To change your department, please contact',
+            'talent_cloud_email' => [
+                'href' => 'mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca',
+                'text' => 'Talent Cloud.',
+                'title' => 'Send an email to Talent Cloud.'
+            ],
             'division_english' => 'Division (English)',
             'division_french' => 'Division (Français)',
             'personal_information' => 'Personal Information',
