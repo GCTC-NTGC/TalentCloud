@@ -30,6 +30,8 @@ export interface SelectProps {
   errorText?: string;
   /** The data-clone-grid-item value (refer to clone-framework docs for details) */
   grid?: string;
+  /** Disables the element */
+  disabled?: boolean;
   /** Event listener which fires when a change event occurs (varies on input type) */
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   /** Event listener which fires when a input loses focus */
@@ -49,6 +51,7 @@ const Select: React.FunctionComponent<SelectProps> = ({
   onBlur,
   errorText,
   grid,
+  disabled,
   children,
 }): React.ReactElement => (
   <div
@@ -70,6 +73,8 @@ const Select: React.FunctionComponent<SelectProps> = ({
         onChange={onChange}
         onBlur={onBlur}
         required={required}
+        disabled={disabled}
+        style={disabled ? { cursor: "not-allowed" } : {}}
       >
         {nullSelection && (
           <option value="" disabled>
