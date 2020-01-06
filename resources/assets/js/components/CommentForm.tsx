@@ -209,4 +209,4 @@ const mapDispatchToProps = (
   },
 });
 
-export default connect(() => {}, mapDispatchToProps)(CommentForm);
+export default connect(() => ({}), mapDispatchToProps)(CommentForm);
