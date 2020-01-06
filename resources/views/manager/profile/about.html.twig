@@ -4,382 +4,186 @@
     Manager: Profile - About Me
 
 ============================================================================= #}
-
-<section
-    id="managerProfileSectionAbout"
-    class="manager-profile__section">
-
-    <h3
-        class="manager-profile__section-title">
-        {{ about_l10n.about_me }}
-    </h3>
-
-    <fieldset
-        class="form__fieldset">
-
-        <legend
-            class="form__legend">
-            {{ about_l10n.position }}
-        </legend>
-
-        <div
-            class="flex-grid">
-
-            <div
-                class="box med-1of2">
-
-                <div class="form__input-wrapper--float {% if managerEN.position %}active{% endif %}">
-                    <label class="form__label" for="managerProfileTitleEN">
-                        {{ about_l10n.position_english }}
-                    </label>
-                    <input
-                        required
-                        class="form__input"
-                        id="managerProfileTitleEN"
-                        type="text"
-                        name="en[position]"
-                        value="{{ old('en.position', managerEN.position) }}" />
-                </div>
-
-            </div>
-
-            <div
-                class="box med-1of2">
-
-                <div class="form__input-wrapper--float {% if managerFR.position %}active{% endif %}">
-                    <label class="form__label" for="managerProfileTitleFR">
-                        {{ about_l10n.position_french }}
-                    </label>
-                    <input
-                        required
-                        class="form__input"
-                        id="managerProfileTitleFR"
-                        type="text"
-                        name="fr[position]"
-                        value="{{ old('fr.position', managerFR.position) }}" />
-                </div>
-
-            </div>
-
-        </div>
-
-    </fieldset>
-
-    <fieldset
-        class="form__fieldset">
-
-        <legend
-            class="form__legend">
-            {{ about_l10n.departmental_information }}
-        </legend>
-
-        <div
-            class="flex-grid">
-
-            <div
-                class="box full">
-
-                <div
-                    class="form__input-wrapper--select">
-                    <label
-                        class="form__label"
-                        for="managerProfileDepartment">
-                        {{ about_l10n.department }}
-                    </label>
-                    <div
-                        class="form__select-wrapper fas fa-chevron-down"
-                        >
-                        <select
-                            required
-                            class="form__input form__input__select"
-                            id="managerProfileDepartment"
-                            name="department_id">
-
-                            {% set chosen_name = manager.department.name %}
-                            <option value="" disabled {% if not chosen_name %}selected{% endif %}>
-                                {{ about_l10n.department_default_option }}
-                            </option>
-
-                            {% for department in departments %}
-                                {% set department_name = department.name %}
-                                    <option
-                                        value="{{ department.id }}"
-                                        {% if old('department_id') %}
-                                            {% if old('department_id') == department.id %}
-                                                selected="selected"
-                                            {% endif %}
-                                        {% else %}
-                                            {% if department_name == chosen_name %}
-                                                selected="selected"
-                                            {% endif %}
-                                        {% endif %}
-                                    >
-                                            {{ department.name }}
-                                    </option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-
-            </div>
-
-            <div
-                class="box med-1of2">
-
-                <div class="form__input-wrapper--float {% if managerEN.division %}active{% endif %}">
-                    <label class="form__label" for="managerProfileDivision">
-                        {{ about_l10n.division_english }}
-                    </label>
-                    <input
-                        class="form__input"
-                        id="managerProfileDivision"
-                        type="text"
-                        name="en[division]"
-                        value="{{ old('en.division',  managerEN.division) }}" />
-                </div>
-
-            </div>
-
-            <div
-                class="box med-1of2">
-
-                <div class="form__input-wrapper--float {% if managerFR.division %}active{% endif %}">
-                    <label class="form__label" for="managerProfileDivisionFr">
-                        {{ about_l10n.division_french }}
-                    </label>
-                    <input
-                        class="form__input"
-                        id="managerProfileDivisionFr"
-                        type="text"
-                        name="fr[division]"
-                        value="{{ old('fr.division',  managerFR.division) }}" />
-                </div>
-
-            </div>
-
-        </div>
-
-    </fieldset>
-
-    <fieldset
-        class="form__fieldset">
-
-        <legend
-            class="form__legend">
-            {{ about_l10n.personal_information }}
-        </legend>
-
-        <div
-            class="flex-grid">
-
-            <div
-                class="box med-1of2">
-
-                <div class="form__input-wrapper--float {% if managerEN.education %}active{% endif %}">
-                    <label class="form__label" for="managerProfileEducationEN">
-                        {{ about_l10n.education_english }}
-                    </label>
-                    <textarea
-                        class="form__textarea"
-                        id="managerProfileEducationEN"
-                        name="en[education]">{{ old('en.education',  managerEN.education) }}
-                    </textarea>
-                </div>
-
-            </div>
-
-            <div
-                class="box med-1of2">
-
-                <div class="form__input-wrapper--float {% if managerFR.education %}active{% endif %}">
-                    <label class="form__label" for="managerProfileEducationFR">
-                        {{ about_l10n.education_french }}
-                    </label>
-                    <textarea
-                        class="form__textarea"
-                        id="managerProfileEducationFR"
-                        name="fr[education]">{{ old('fr.education',  managerFR.education) }}
-                    </textarea>
-                </div>
-
-            </div>
-
-            <div
-                class="box full">
-
-                <div class="form__input-wrapper--float {% if manager.years_experience %}active{% endif %}">
-                    <label class="form__label" for="managerProfileExperience">
-                        {{ about_l10n.years_of_experience }}
-                    </label>
-                    <input
-                        class="form__input"
-                        id="managerProfileExperience"
-                        type="number"
-                        min="0"
-                        name="years_experience"
-                        value="{{ old('years_experience', manager.years_experience) }}" />
-                </div>
-
-            </div>
-
-            <div
-                class="box med-1of2">
-
-                <div class="form__input-wrapper--float {% if managerEN.career_journey %}active{% endif %}">
-                    <label class="form__label" for="managerProfileCareerJourneyEN">
-                        {{ about_l10n.career_journey_english }}
-                    </label>
-                    <textarea
-                        class="form__textarea"
-                        id="managerProfileCareerJourneyEN"
-                        name="en[career_journey]">{{ old('en.career_journey',  managerEN.career_journey) }}</textarea>
-                </div>
-
-            </div>
-
-            <div
-                class="box med-1of2">
-
-                <div class="form__input-wrapper--float {% if managerFR.career_journey %}active{% endif %}">
-                    <label class="form__label" for="managerProfileCareerJourneyFR">
-                        {{ about_l10n.career_journey_french }}
-                    </label>
-                    <textarea
-                        class="form__textarea"
-                        id="managerProfileCareerJourneyFR"
-                        name="fr[career_journey]">{{ old('fr.career_journey',  managerFR.career_journey) }}</textarea>
-                </div>
-
-            </div>
-
-            <div
-                class="box med-1of2">
-
-                <div class="form__input-wrapper--float {% if managerEN.learning_path %}active{% endif %}">
-                    <label class="form__label" for="managerProfileLearningPathEN">
-                        {{ about_l10n.learning_path_english }}
-                    </label>
-                    <textarea
-                        class="form__textarea"
-                        id="managerProfileLearningPathEN"
-                        name="en[learning_path]">{{ old('en.learning_path',  managerEN.learning_path) }}</textarea>
-                </div>
-
-            </div>
-
-            <div
-                class="box med-1of2">
-
-                <div class="form__input-wrapper--float {% if managerFR.learning_path %}active{% endif %}">
-                    <label class="form__label" for="managerProfileLearningPathFR">
-                        {{ about_l10n.learning_path_french }}
-                    </label>
-                    <textarea
-                        class="form__textarea"
-                        id="managerProfileLearningPathFR"
-                        name="fr[learning_path]">{{ old('fr.learning_path',  managerFR.learning_path) }}</textarea>
-                </div>
-
-            </div>
-
-            <div
-                class="box med-1of2">
-
-                <div class="form__input-wrapper--float {% if managerEN.about_me %}active{% endif %}">
-                    <label class="form__label" for="managerProfileBiographyEN">
-                        {{ about_l10n.biography_english }}
-                    </label>
-                    <textarea
-                        class="form__textarea"
-                        id="managerProfileBiographyEN"
-                        name="en[about_me]">{{ old('en.about_me', managerEN.about_me) }}</textarea>
-                </div>
-
-            </div>
-
-            <div
-                class="box med-1of2">
-
-                <div class="form__input-wrapper--float {% if managerFR.about_me %}active{% endif %}">
-                    <label class="form__label" for="managerProfileBiographyFR">
-                        {{ about_l10n.biography_french }}
-                    </label>
-                    <textarea
-                        class="form__textarea"
-                        id="managerProfileBiographyFR"
-                        name="fr[about_me]">{{ old('fr.about_me', managerFR.about_me) }}</textarea>
-                </div>
-
-            </div>
-
-        </div>
-
-    </fieldset>
-
-    <fieldset
-        class="form__fieldset">
-
-        <legend
-            class="form__legend">
-            {{ about_l10n.social_media }}
-        </legend>
-
-        <div
-            class="flex-grid">
-
-            <div
-                class="box med-1of2">
-
-                <div class="form__input-wrapper--float {% if manager.twitter_username %}active{% endif %}">
-                    <label class="form__label" for="managerProfileTwitter">
-                        {{ about_l10n.twitter_username }}
-                    </label>
-                    <input
-                        class="form__input"
-                        id="managerProfileTwitter"
-                        type="text"
-                        name="twitter_username"
-                        pattern="{{ twitterHandlePattern }}"
-                        value="{{ old('twitter_username', manager.twitter_username) }}"
-                        autocomplete="off" />
-                </div>
-
-            </div>
-
-            <div
-                class="box med-1of2">
-
-                <div class="form__input-wrapper--float {% if manager.linkedin_url %}active{% endif %}">
-                    <label class="form__label" for="managerProfileLinkedin">
-                        {{ about_l10n.linkedin_url }}
-                    </label>
-                    <input
-                        class="form__input"
-                        id="managerProfileLinkedin"
-                        type="url"
-                        name="linkedin_url"
-                        pattern="{{ linkedInUrlPattern }}"
-                        value="{{ old('linkedin_url', manager.linkedin_url) }}"
-                        autocomplete="off" />
-                </div>
-            </div>
-
-        </div>
-
-    </fieldset>
-
-    <div class="flex-grid manager-profile-action">
-
-        <div class="box full">
-            <button
-                class="button--blue light-bg"
-                type="submit"
-                name="submit"
-                value="about_me">
-                {{ about_l10n.save_about_me }}
-            </button>
-        </div>
-
-    </div>
-
+<section id="managerProfileSectionAbout" class="manager-profile__section">
+	<h3 class="manager-profile__section-title">
+		{{ about_l10n.about_me }}
+	</h3>
+	<fieldset class="form__fieldset">
+		<legend class="form__legend">
+			{{ about_l10n.position }}
+		</legend>
+		<div class="flex-grid">
+			<div class="box med-1of2">
+				<div class="form__input-wrapper--float {% if managerEN.position %}active{% endif %}">
+					<label class="form__label" for="managerProfileTitleEN">
+						{{ about_l10n.position_english }}
+					</label>
+					<input required class="form__input" id="managerProfileTitleEN" type="text" name="en[position]" value="{{ old('en.position', managerEN.position) }}"/>
+				</div>
+			</div>
+			<div class="box med-1of2">
+				<div class="form__input-wrapper--float {% if managerFR.position %}active{% endif %}">
+					<label class="form__label" for="managerProfileTitleFR">
+						{{ about_l10n.position_french }}
+					</label>
+					<input required class="form__input" id="managerProfileTitleFR" type="text" name="fr[position]" value="{{ old('fr.position', managerFR.position) }}"/>
+				</div>
+			</div>
+		</div>
+	</fieldset>
+	<fieldset class="form__fieldset">
+		<legend class="form__legend">
+			{{ about_l10n.departmental_information }}
+		</legend>
+		<div class="flex-grid">
+			<div class="box full">
+				<div class="form__input-wrapper--select">
+					<label class="form__label" for="managerProfileDepartment">
+						{{ about_l10n.department }}
+					</label>
+					<div class="form__select-wrapper fas fa-chevron-down">
+						<select disabled class="form__input form__input__select" id="managerProfileDepartment" name="department_id">
+							{% set chosen_name = manager.department.name %}
+							{% for department in departments %}
+								{% set department_name = department.name %}
+								<option value="{{ department.id }}" {% if old('department_id') %} {% if old('department_id') == department.id %} selected="selected" {% endif %} {% else %} {% if department_name == chosen_name %} selected="selected" {% endif %} {% endif %}>
+									{{ department.name }}
+								</option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+				<p>{{ about_l10n.change_department_info}}
+					<a href="{{about_l10n.talent_cloud_email.href}}" title="{{about_l10n.talent_cloud_email.title}}">{{ about_l10n.talent_cloud_email.text }}</a>
+				</p>
+			</div>
+			<div class="box med-1of2">
+				<div class="form__input-wrapper--float {% if managerEN.division %}active{% endif %}">
+					<label class="form__label" for="managerProfileDivision">
+						{{ about_l10n.division_english }}
+					</label>
+					<input class="form__input" id="managerProfileDivision" type="text" name="en[division]" value="{{ old('en.division', managerEN.division) }}"/>
+				</div>
+			</div>
+			<div class="box med-1of2">
+				<div class="form__input-wrapper--float {% if managerFR.division %}active{% endif %}">
+					<label class="form__label" for="managerProfileDivisionFr">
+						{{ about_l10n.division_french }}
+					</label>
+					<input class="form__input" id="managerProfileDivisionFr" type="text" name="fr[division]" value="{{ old('fr.division', managerFR.division) }}"/>
+				</div>
+			</div>
+		</div>
+	</fieldset>
+	<fieldset class="form__fieldset">
+		<legend class="form__legend">
+			{{ about_l10n.personal_information }}
+		</legend>
+		<div class="flex-grid">
+			<div class="box med-1of2">
+				<div class="form__input-wrapper--float {% if managerEN.education %}active{% endif %}">
+					<label class="form__label" for="managerProfileEducationEN">
+						{{ about_l10n.education_english }}
+					</label>
+					<textarea class="form__textarea" id="managerProfileEducationEN" name="en[education]">{{ old('en.education',  managerEN.education) }}
+					</textarea>
+				</div>
+			</div>
+			<div class="box med-1of2">
+				<div class="form__input-wrapper--float {% if managerFR.education %}active{% endif %}">
+					<label class="form__label" for="managerProfileEducationFR">
+						{{ about_l10n.education_french }}
+					</label>
+					<textarea class="form__textarea" id="managerProfileEducationFR" name="fr[education]">{{ old('fr.education',  managerFR.education) }}
+					</textarea>
+				</div>
+			</div>
+			<div class="box full">
+				<div class="form__input-wrapper--float {% if manager.years_experience %}active{% endif %}">
+					<label class="form__label" for="managerProfileExperience">
+						{{ about_l10n.years_of_experience }}
+					</label>
+					<input class="form__input" id="managerProfileExperience" type="number" min="0" name="years_experience" value="{{ old('years_experience', manager.years_experience) }}"/>
+				</div>
+			</div>
+			<div class="box med-1of2">
+				<div class="form__input-wrapper--float {% if managerEN.career_journey %}active{% endif %}">
+					<label class="form__label" for="managerProfileCareerJourneyEN">
+						{{ about_l10n.career_journey_english }}
+					</label>
+					<textarea class="form__textarea" id="managerProfileCareerJourneyEN" name="en[career_journey]">{{ old('en.career_journey',  managerEN.career_journey) }}</textarea>
+				</div>
+			</div>
+			<div class="box med-1of2">
+				<div class="form__input-wrapper--float {% if managerFR.career_journey %}active{% endif %}">
+					<label class="form__label" for="managerProfileCareerJourneyFR">
+						{{ about_l10n.career_journey_french }}
+					</label>
+					<textarea class="form__textarea" id="managerProfileCareerJourneyFR" name="fr[career_journey]">{{ old('fr.career_journey',  managerFR.career_journey) }}</textarea>
+				</div>
+			</div>
+			<div class="box med-1of2">
+				<div class="form__input-wrapper--float {% if managerEN.learning_path %}active{% endif %}">
+					<label class="form__label" for="managerProfileLearningPathEN">
+						{{ about_l10n.learning_path_english }}
+					</label>
+					<textarea class="form__textarea" id="managerProfileLearningPathEN" name="en[learning_path]">{{ old('en.learning_path',  managerEN.learning_path) }}</textarea>
+				</div>
+			</div>
+			<div class="box med-1of2">
+				<div class="form__input-wrapper--float {% if managerFR.learning_path %}active{% endif %}">
+					<label class="form__label" for="managerProfileLearningPathFR">
+						{{ about_l10n.learning_path_french }}
+					</label>
+					<textarea class="form__textarea" id="managerProfileLearningPathFR" name="fr[learning_path]">{{ old('fr.learning_path',  managerFR.learning_path) }}</textarea>
+				</div>
+			</div>
+			<div class="box med-1of2">
+				<div class="form__input-wrapper--float {% if managerEN.about_me %}active{% endif %}">
+					<label class="form__label" for="managerProfileBiographyEN">
+						{{ about_l10n.biography_english }}
+					</label>
+					<textarea class="form__textarea" id="managerProfileBiographyEN" name="en[about_me]">{{ old('en.about_me', managerEN.about_me) }}</textarea>
+				</div>
+			</div>
+			<div class="box med-1of2">
+				<div class="form__input-wrapper--float {% if managerFR.about_me %}active{% endif %}">
+					<label class="form__label" for="managerProfileBiographyFR">
+						{{ about_l10n.biography_french }}
+					</label>
+					<textarea class="form__textarea" id="managerProfileBiographyFR" name="fr[about_me]">{{ old('fr.about_me', managerFR.about_me) }}</textarea>
+				</div>
+			</div>
+		</div>
+	</fieldset>
+	<fieldset class="form__fieldset">
+		<legend class="form__legend">
+			{{ about_l10n.social_media }}
+		</legend>
+		<div class="flex-grid">
+			<div class="box med-1of2">
+				<div class="form__input-wrapper--float {% if manager.twitter_username %}active{% endif %}">
+					<label class="form__label" for="managerProfileTwitter">
+						{{ about_l10n.twitter_username }}
+					</label>
+					<input class="form__input" id="managerProfileTwitter" type="text" name="twitter_username" pattern="{{ twitterHandlePattern }}" value="{{ old('twitter_username', manager.twitter_username) }}" autocomplete="off"/>
+				</div>
+			</div>
+			<div class="box med-1of2">
+				<div class="form__input-wrapper--float {% if manager.linkedin_url %}active{% endif %}">
+					<label class="form__label" for="managerProfileLinkedin">
+						{{ about_l10n.linkedin_url }}
+					</label>
+					<input class="form__input" id="managerProfileLinkedin" type="url" name="linkedin_url" pattern="{{ linkedInUrlPattern }}" value="{{ old('linkedin_url', manager.linkedin_url) }}" autocomplete="off"/>
+				</div>
+			</div>
+		</div>
+	</fieldset>
+	<div class="flex-grid manager-profile-action">
+		<div class="box full">
+			<button class="button--blue light-bg" type="submit" name="submit" value="about_me">
+				{{ about_l10n.save_about_me }}
+			</button>
+		</div>
+	</div>
 </section>
