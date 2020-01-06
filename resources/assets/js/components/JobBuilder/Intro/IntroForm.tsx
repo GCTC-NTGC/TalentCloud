@@ -334,6 +334,24 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
                     grid="tl(1of2)"
                     component={TextInput}
                   />
+                  <p data-c-grid-item="base(1of1)">
+                    <FormattedMessage
+                      id="jobBuilder.intro.changeDepartment"
+                      defaultMessage="To change your department, please contact {link}."
+                      values={{
+                        link: (
+                          <a
+                            href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca"
+                            title={intl.formatMessage(
+                              pageMessages.emailLinkTitle,
+                            )}
+                          >
+                            {intl.formatMessage(pageMessages.emailLinkText)}
+                          </a>
+                        ),
+                      }}
+                    />
+                  </p>
                   <Field
                     name="department"
                     id="builder01ManagerDepartment"
@@ -343,6 +361,7 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
                     grid="base(1of1)"
                     component={SelectInput}
                     required
+                    disabled
                     selected={values.department}
                     nullSelection={intl.formatMessage(
                       formMessages.departmentNullSelection,
