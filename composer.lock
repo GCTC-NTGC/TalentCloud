@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "backpack/crud",
-            "version": "4.0.30",
+            "version": "4.0.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/CRUD.git",
-                "reference": "c5d667225628fbad973b925c95f6209b11f43a2d"
+                "reference": "27c5d9dd2d01b8b3ada5ba29cc587c5e546f5959"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/c5d667225628fbad973b925c95f6209b11f43a2d",
-                "reference": "c5d667225628fbad973b925c95f6209b11f43a2d",
+                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/27c5d9dd2d01b8b3ada5ba29cc587c5e546f5959",
+                "reference": "27c5d9dd2d01b8b3ada5ba29cc587c5e546f5959",
                 "shasum": ""
             },
             "require": {
@@ -91,7 +91,7 @@
                 "read",
                 "update"
             ],
-            "time": "2019-12-20T09:10:48+00:00"
+            "time": "2020-01-03T08:22:05+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -935,16 +935,16 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "v2.10.0",
+            "version": "v2.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "0c9a646775ef549eb0a213a4f9bd4381d9b4d934"
+                "reference": "c2b8e6e82732a64ecde1cddf9e1e06cb8556e3d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/0c9a646775ef549eb0a213a4f9bd4381d9b4d934",
-                "reference": "0c9a646775ef549eb0a213a4f9bd4381d9b4d934",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/c2b8e6e82732a64ecde1cddf9e1e06cb8556e3d8",
+                "reference": "c2b8e6e82732a64ecde1cddf9e1e06cb8556e3d8",
                 "shasum": ""
             },
             "require": {
@@ -1023,7 +1023,7 @@
                 "sqlserver",
                 "sqlsrv"
             ],
-            "time": "2019-11-03T16:50:43+00:00"
+            "time": "2020-01-04T12:56:21+00:00"
         },
         {
             "name": "doctrine/event-manager",
@@ -2183,16 +2183,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.62",
+            "version": "1.0.63",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "14dd5d7dff5fbc29ca9a2a53ff109760e40d91a0"
+                "reference": "8132daec326565036bc8e8d1876f77ec183a7bd6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/14dd5d7dff5fbc29ca9a2a53ff109760e40d91a0",
-                "reference": "14dd5d7dff5fbc29ca9a2a53ff109760e40d91a0",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/8132daec326565036bc8e8d1876f77ec183a7bd6",
+                "reference": "8132daec326565036bc8e8d1876f77ec183a7bd6",
                 "shasum": ""
             },
             "require": {
@@ -2263,7 +2263,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2019-12-29T14:46:55+00:00"
+            "time": "2020-01-04T16:30:31+00:00"
         },
         {
             "name": "maximebf/debugbar",
@@ -2328,16 +2328,16 @@
         },
         {
             "name": "mcamara/laravel-localization",
-            "version": "1.4.7",
+            "version": "1.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mcamara/laravel-localization.git",
-                "reference": "1497c94e92f7b211bd9ea090ab627dac36a75a88"
+                "reference": "046a3d48286a41b4f6656c6c5606450e6bf657b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mcamara/laravel-localization/zipball/1497c94e92f7b211bd9ea090ab627dac36a75a88",
-                "reference": "1497c94e92f7b211bd9ea090ab627dac36a75a88",
+                "url": "https://api.github.com/repos/mcamara/laravel-localization/zipball/046a3d48286a41b4f6656c6c5606450e6bf657b6",
+                "reference": "046a3d48286a41b4f6656c6c5606450e6bf657b6",
                 "shasum": ""
             },
             "require": {
@@ -2386,7 +2386,7 @@
                 "localization",
                 "php"
             ],
-            "time": "2019-11-04T23:33:01+00:00"
+            "time": "2020-01-03T16:27:15+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -5831,16 +5831,16 @@
     "packages-dev": [
         {
             "name": "backpack/generators",
-            "version": "2.0.5",
+            "version": "2.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/Generators.git",
-                "reference": "a25518c22533939c8739789d3fc496bbf30b8904"
+                "reference": "18df6d3c375c64535c25a76fb5dfc46c803ceaff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/Generators/zipball/a25518c22533939c8739789d3fc496bbf30b8904",
-                "reference": "a25518c22533939c8739789d3fc496bbf30b8904",
+                "url": "https://api.github.com/repos/Laravel-Backpack/Generators/zipball/18df6d3c375c64535c25a76fb5dfc46c803ceaff",
+                "reference": "18df6d3c375c64535c25a76fb5dfc46c803ceaff",
                 "shasum": ""
             },
             "require": {
@@ -5887,7 +5887,7 @@
                 "request",
                 "view"
             ],
-            "time": "2019-11-11T06:00:02+00:00"
+            "time": "2020-01-06T07:16:36+00:00"
         },
         {
             "name": "doctrine/annotations",
