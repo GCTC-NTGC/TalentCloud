@@ -1325,6 +1325,10 @@
         "id": "jobBuilder.intro.formDescription"
       },
       {
+        "defaultMessage": "To change your department, please contact {link}.",
+        "id": "jobBuilder.intro.changeDepartment"
+      },
+      {
         "defaultMessage": "Complete the job poster in the language of your choice. We will\r\n                  handle translation.",
         "description": "Instructions at bottom of form on language choice for job poster builder.",
         "id": "jobBuilder.intro.completeInLanguage"

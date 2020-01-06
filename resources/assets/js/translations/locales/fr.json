@@ -264,6 +264,7 @@
   "jobBuilder.impact.title": "Rédiger votre énoncé des impacts",
   "jobBuilder.impact.unknownDepartment": "Erreur : Choisissez un ministère inconnu.",
   "jobBuilder.impactPreview.title": "Impact",
+  "jobBuilder.intro.changeDepartment": "Pour changer de département, veuillez contacter {link}.",
   "jobBuilder.intro.completeInLanguage": "Répondez à l’offre d’emploi dans la langue de votre choix. Nous nous occuperons de la traduction.",
   "jobBuilder.intro.contactUs": "Nous avons également fourni des instructions et des exemples pour vous guider tout au long du processus, mais si vous avez encore des questions, contactez {link}",
   "jobBuilder.intro.continueButtonLabelEN": "Continue in English",
