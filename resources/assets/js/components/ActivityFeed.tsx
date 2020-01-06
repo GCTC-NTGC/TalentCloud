@@ -47,7 +47,8 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
           description="Title of activity feed."
         />
       </h3>
-      {comments.length !== 0 &&
+
+      {comments.length !== 0 ? (
         comments.map(
           (comment): React.ReactElement => (
             <Activity
@@ -61,7 +62,29 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
               link={{ url: "/", title: "", text: "" }}
             />
           ),
-        )}
+        )
+      ) : (
+        <div
+          data-c-container="form"
+          data-c-padding="top(triple) bottom(triple)"
+        >
+          <div
+            data-c-background="white(100)"
+            data-c-card
+            data-c-padding="all(double)"
+            data-c-radius="rounded"
+            data-c-align="base(centre)"
+          >
+            <p>
+              <FormattedMessage
+                id="activityfeed.loading"
+                defaultMessage="Your activities are loading..."
+                description="Message indicating that the activity feed is still being loaded."
+              />
+            </p>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
