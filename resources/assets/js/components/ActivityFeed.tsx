@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { FormattedMessage, useIntl } from "react-intl";
-import ActivityComponent, { Activity } from "./Activity";
+import Activity from "./Activity";
 import { RootState } from "../store/store";
 import { Comment } from "../models/types";
 import { DispatchType } from "../configureStore";
@@ -50,7 +50,8 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
       {comments.length !== 0 &&
         comments.map(
           (comment): React.ReactElement => (
-            <ActivityComponent
+            <Activity
+              key={comment.id}
               name={userName(comment.user_id)}
               userRole={userRole(comment.user_id)}
               comment={comment.comment}
