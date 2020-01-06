@@ -273,4 +273,79 @@ class JobApiControllerTest extends TestCase
             ->json('post', "api/jobs/$job->id/submit");
         $response->assertForbidden();
     }
+
+    /**
+     * Index should only return any published jobs for a guest user.
+     *
+     * @return void
+     */
+    public function testIndexAsGuest(): void
+    {
+        $draft = factory(JobPoster::class)->state('draft')->create();
+        $pub1 = factory(JobPoster::class)->state('published')->create();
+        $pub2 = factory(JobPoster::class)->state('published')->create();
+        $response = $this->json('get', 'api/jobs');
+        $response->assertJsonCount(2);
+        $response->assertJsonFragment($pub1->toApiArray());
+        $response->assertJsonFragment($pub2->toApiArray());
+    }
+
+    /**
+     * For a published manager, Index should return published jobs, and drafts created by the manager.
+     *
+     * @return void
+     */
+    public function testIndexAsManager(): void
+    {
+        $manager = factory(Manager::class)->state('upgraded')->create();
+        $draft = factory(JobPoster::class)->state('draft')->create();
+        $ownDraft = factory(JobPoster::class)->state('draft')->create([
+            'manager_id' => $manager->id
+        ]);
+        $pub1 = factory(JobPoster::class)->state('published')->create();
+        $pub2 = factory(JobPoster::class)->state('published')->create();
+        $response = $this->actingAs($manager->user)->json('get', 'api/jobs');
+        $response->assertJsonCount(3);
+        $response->assertJsonFragment($pub1->toApiArray());
+        $response->assertJsonFragment($pub2->toApiArray());
+        $response->assertJsonFragment($ownDraft->toApiArray());
+    }
+
+    /**
+     * Index should return all jobs, including drafts, for hr user.
+     *
+     * @return void
+     */
+    public function testIndexAsHr(): void
+    {
+        $hrAdvisor = factory(User::class)->state('hr_advisor')->create();
+        $draft = factory(JobPoster::class)->state('draft')->create();
+        $pub1 = factory(JobPoster::class)->state('published')->create();
+        $pub2 = factory(JobPoster::class)->state('published')->create();
+        $response = $this->actingAs($hrAdvisor)->json('get', 'api/jobs');
+        $response->assertJsonCount(3);
+        $response->assertJsonFragment($pub1->toApiArray());
+        $response->assertJsonFragment($pub2->toApiArray());
+        $response->assertJsonFragment($draft->toApiArray());
+    }
+
+    public function testIndexFilter(): void
+    {
+        $hrAdvisor = factory(User::class)->state('hr_advisor')->create();
+        $dep1= factory(JobPoster::class)->create([
+            'classification_id' => 3,
+            'department_id' => 1
+        ]);
+        $dep2= factory(JobPoster::class)->create([
+            'classification_id' => 4,
+            'department_id' => 2
+        ]);
+        $response = $this->actingAs($hrAdvisor)->json('get', 'api/jobs?department_id=2');
+        $expected = [$dep2->toApiArray()];
+        $response->assertJson($expected);
+
+        $responseClassification = $this->actingAs($hrAdvisor)->json('get', 'api/jobs?classification_id=3');
+        $expectedClassification = [$dep1->toApiArray()];
+        $responseClassification->assertJson($expectedClassification);
+    }
 }
