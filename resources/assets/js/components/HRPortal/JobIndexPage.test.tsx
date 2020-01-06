@@ -1,14 +1,14 @@
 import React from "react";
 import { shallow } from "enzyme";
 import JobIndexPage from "./JobIndexPage";
-import { jobActions, unclaimedJobs } from "./fixtures";
+import { fakeJobActions, fakeUnclaimedJobs } from "./fixtures";
 
 describe("Job Index Page", (): void => {
   it("should render JobIndexPage correctly", (): void => {
     const wrapper = shallow(
       <JobIndexPage
-        jobActions={jobActions}
-        unclaimedJobs={unclaimedJobs}
+        jobActions={fakeJobActions}
+        unclaimedJobs={fakeUnclaimedJobs}
         departmentName="Treasury Board of Canada Secretariat"
       />,
     );

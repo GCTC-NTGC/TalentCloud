@@ -2,7 +2,7 @@ import { JobStatus } from "../../models/lookupConstants";
 import { JobCardProps } from "../JobCard";
 import { UnclaimedJobCardProps } from "../UnclaimedJobCard";
 
-export const jobActions: JobCardProps[] = [
+export const fakeJobActions: JobCardProps[] = [
   {
     activity: {
       count: 3,
@@ -116,7 +116,7 @@ export const jobActions: JobCardProps[] = [
   },
 ];
 
-export const unclaimedJobs: UnclaimedJobCardProps[] = [
+export const fakeUnclaimedJobs: UnclaimedJobCardProps[] = [
   {
     jobLink: {
       text: "CS01 - Front-end Developer",

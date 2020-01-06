@@ -5,7 +5,7 @@ import JobCard, { JobCardProps } from "../JobCard";
 import UnclaimedJobCard, { UnclaimedJobCardProps } from "../UnclaimedJobCard";
 import RootContainer from "../RootContainer";
 import { JobStatus } from "../../models/lookupConstants";
-import { jobActions, unclaimedJobs } from "./fixtures";
+import { fakeJobActions, fakeUnclaimedJobs } from "./fixtures";
 import CommentForm from "../CommentForm";
 import ActivityFeed from "../ActivityFeed";
 
@@ -26,7 +26,7 @@ const CompletedJobsAccordion: React.FC<CompletedJobsAccordionProps> = ({
           data-c-accordion-trigger
           tabIndex={0}
           type="button"
-          onClick={() => {
+          onClick={(): void => {
             setIsExpanded(!isExpanded);
           }}
         >
@@ -231,8 +231,8 @@ const JobIndexPageRoot: React.FunctionComponent | null = () => {
   return (
     <RootContainer>
       <JobIndexPage
-        jobActions={jobActions}
-        unclaimedJobs={unclaimedJobs}
+        jobActions={fakeJobActions}
+        unclaimedJobs={fakeUnclaimedJobs}
         departmentName="Treasury Board of Canada Secretariat"
       />
     </RootContainer>
