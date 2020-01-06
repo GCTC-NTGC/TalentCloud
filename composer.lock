@@ -5895,16 +5895,16 @@
     "packages-dev": [
         {
             "name": "backpack/generators",
-            "version": "2.0.5",
+            "version": "2.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/Generators.git",
-                "reference": "a25518c22533939c8739789d3fc496bbf30b8904"
+                "reference": "18df6d3c375c64535c25a76fb5dfc46c803ceaff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/Generators/zipball/a25518c22533939c8739789d3fc496bbf30b8904",
-                "reference": "a25518c22533939c8739789d3fc496bbf30b8904",
+                "url": "https://api.github.com/repos/Laravel-Backpack/Generators/zipball/18df6d3c375c64535c25a76fb5dfc46c803ceaff",
+                "reference": "18df6d3c375c64535c25a76fb5dfc46c803ceaff",
                 "shasum": ""
             },
             "require": {
@@ -5951,7 +5951,7 @@
                 "request",
                 "view"
             ],
-            "time": "2019-11-11T06:00:02+00:00"
+            "time": "2020-01-06T07:16:36+00:00"
         },
         {
             "name": "doctrine/annotations",
