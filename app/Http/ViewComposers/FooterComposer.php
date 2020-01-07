@@ -13,7 +13,7 @@ class FooterComposer
     /**
      * @var string Shown in the footer as the date the site was last modified.
      */
-    const DATE_MODIFIED = '2019-09-12';
+    const DATE_MODIFIED = '2019-12-19';
 
     /**
      * Bind data to the view.
