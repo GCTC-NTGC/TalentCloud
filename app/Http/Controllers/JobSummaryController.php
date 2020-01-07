@@ -32,7 +32,11 @@ class JobSummaryController extends Controller
             'job' => $jobPoster,
             // Application data.
             'applications' => $applications,
-            // Routes.
+            // TODO: Add Routes.
+            // 'send_manager' => ,
+            // 'send_translation' => ,
+            // 'approve_publishing' => ,
+            // 'relinquish_job' => ,
         ];
 
         return view(
