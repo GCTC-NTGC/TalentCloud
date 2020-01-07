@@ -1,6 +1,5 @@
 import dayjs from "dayjs";
 import rootAxios from "axios";
-import { string } from "yup";
 
 export interface ResponseData {
   [key: string]: string & ResponseData & [ResponseData];
