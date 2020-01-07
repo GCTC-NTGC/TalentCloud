@@ -75,7 +75,7 @@
     "jest": "^24.9.0",
     "jest-junit": "^10.0.0",
     "laravel-mix": "^5.0.1",
-    "nanoid": "^2.1.8",
+    "nanoid": "^2.1.9",
     "node-sass": "^4.13.0",
     "prettier": "^1.19.1",
     "react-docgen-typescript-loader": "^3.6.0",
