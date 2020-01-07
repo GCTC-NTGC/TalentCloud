@@ -11,8 +11,10 @@ import {
   CriteriaTypeId,
   getKeyByValue,
   ClassificationId,
+  JobStatus,
 } from "./lookupConstants";
 import { assetSkillName, skillLevelName } from "./localizedConstants";
+import { JobState } from "../store/Job/jobReducer";
 
 const pad = (n: number, width: number, z = "0"): string => {
   return (String(z).repeat(width) + String(n)).slice(String(n).length);
@@ -98,4 +100,23 @@ export const getSkillLevelName = (
     return assetSkillName();
   }
   return skillLevelName(skill_level_id, skill_type_id);
+};
+
+// TODO: allow for Complete status.
+export const jobStatus = (job: Job): JobStatus => {
+  if (job.review_requested_at === null) {
+    return JobStatus.Draft;
+  } else if (job.published_at === null) {
+    // Review request but not passed
+    return JobStatus.Review;
+  } else if (job.open_date_time === null || job.open_date_time > new Date()) {
+    // Ready to publish, but not open yet
+    return JobStatus.Approved;
+  } else if (job.close_date_time === null || job.close_date_time > new Date()) {
+    // Approved and currently open
+    return JobStatus.Published;
+  } else {
+    // Published and close date has passed
+    return JobStatus.Closed;
+  }
 };
