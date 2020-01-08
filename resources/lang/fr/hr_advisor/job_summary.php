@@ -29,5 +29,9 @@ return [
     'send_manager_button' => '',
     'send_translation_button' => '',
     'approve_button' => '',
-    'relinquish_button' => ''
+    'relinquish_button' => '',
+    'edit_poster_button' => '',
+    'view_poster_button' => '',
+    'screening_plan_button' => '',
+    'view_applicants_button' => ''
 ];

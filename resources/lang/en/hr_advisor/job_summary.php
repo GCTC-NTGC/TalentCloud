@@ -29,5 +29,9 @@ return [
     'send_manager_button' => 'Send to Manager',
     'send_translation_button' => 'Send for Translation',
     'approve_button' => 'Approve for Publishing',
-    'relinquish_button' => 'Relinquish'
+    'relinquish_button' => 'Relinquish',
+    'edit_poster_button' => 'Edit Poster',
+    'view_poster_button' => 'View Live Poster',
+    'screening_plan_button' => 'View Screening Plan',
+    'view_applicants_button' => 'View Applicants'
 ];

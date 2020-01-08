@@ -544,9 +544,14 @@ Route::group(
                 Route::get('/', 'HomepageController@hr_advisor')->name('hr_advisor.home');
                 Route::get('job-index', 'JobController@hrIndex')->name('hr_advisor.jobs.index');
 
-                Route::get('jobs/{jobPoster}/summary', 'JobSummaryController@show')
+                Route::get('jobs/{job}/summary', 'JobSummaryController@show')
                     ->name('hr_advisor.jobs.summary')
                     ->where('jobPoster', '[0-9]+');
+
+                Route::post('jobs/{job}/unclaim', 'JobSummaryController@unclaimJob')
+                    ->name('hr_advisor.jobs.unclaim')
+                    // ->middleware('can:unClaim,job')
+                    ->where('job', '[0-9]+');
             });
 
             // These routes must be excluded from the finishHrAdvisorRegistration middleware to avoid an infinite loop of redirects
