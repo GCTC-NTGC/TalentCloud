@@ -686,7 +686,7 @@ const departments = defineMessages({
   },
   [DepartmentId.nationalDefence]: {
     id: "department.nationalDefence",
-    defaultMessage: "Deparmtnet of National Defence",
+    defaultMessage: "Department of National Defence",
   },
 });
 

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useMemo } from "react";
+import ReactDOM from "react-dom";
 import JobIndexHr from "./JobIndexHr";
 import { JobCardProps } from "../JobCard";
 import { Job, HrAdvisor, Manager } from "../../models/types";
@@ -14,14 +15,17 @@ import { defineMessages, IntlShape, useIntl } from "react-intl";
 import { UnclaimedJobCardProps } from "../UnclaimedJobCard";
 import { readableDateTime } from "../../helpers/dates";
 import { find, stringNotEmpty } from "../../helpers/queries";
-
-interface JobIndexHrPageProps {
-  claimedJobIds: number[];
-  department: string;
-  jobs: Job[];
-  managers: Manager[];
-  claimJob: (jobId: number) => void;
-}
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getHrAdvisor as fetchHrAdvisor,
+  claimJob,
+} from "../../store/HrAdvisor/hrAdivsorActions";
+import { getHrAdvisor } from "../../store/HrAdvisor/hrAdvisorSelector";
+import { RootState } from "../../store/store";
+import { fetchJobIndex } from "../../store/Job/jobActions";
+import { getAllJobs } from "../../store/Job/jobSelector";
+import { departmentName } from "../../models/localizedConstants";
+import RootContainer from "../RootContainer";
 
 const buttonMessages = defineMessages({
   reviewDraft: {
@@ -60,8 +64,8 @@ const messages = defineMessages({
   titleMissing: {
     id: "hrJobIndex.jobTitleMissing",
     defaultMessage: "Title Missing",
-    description: "Placeholder text for a missing Job title."
-  }
+    description: "Placeholder text for a missing Job title.",
+  },
 });
 
 const makeJobAction = (
@@ -77,7 +81,9 @@ const makeJobAction = (
     managerTime: 0, // TODO: This isn't recorded yet.
     userTime: 0, // TODO: This isn't recorded yet.
     owned: true,
-    title: stringNotEmpty(jobTitle) ? jobTitle : intl.formatMessage(messages.titleMissing),
+    title: stringNotEmpty(jobTitle)
+      ? jobTitle
+      : intl.formatMessage(messages.titleMissing),
     status: jobStatus(job),
     activity: {
       count: 0, // TODO: requires tracking which comments are "new"
@@ -138,6 +144,14 @@ const makeUnclaimedJob = (
   };
 };
 
+interface JobIndexHrPageProps {
+  claimedJobIds: number[];
+  department: string;
+  jobs: Job[];
+  managers: Manager[];
+  claimJob: (jobId: number) => void;
+}
+
 const JobIndexHrPage: React.FC<JobIndexHrPageProps> = ({
   claimedJobIds,
   department,
@@ -176,3 +190,73 @@ const JobIndexHrPage: React.FC<JobIndexHrPageProps> = ({
     />
   );
 };
+
+interface JobIndexHrDataFetcherProps {
+  hrAdvisorId: number;
+}
+
+const JobIndexHrDataFetcher: React.FC<JobIndexHrDataFetcherProps> = ({
+  hrAdvisorId,
+}) => {
+  const intl = useIntl();
+  const dispatch = useDispatch();
+
+  // Request and select hrAdvisor
+  useEffect(() => {
+    dispatch(fetchHrAdvisor(hrAdvisorId));
+  }, [hrAdvisorId]);
+  const hrAdvisor = useSelector((state: RootState) =>
+    getHrAdvisor(state, { hrAdvisorId }),
+  );
+
+  // Request and select all jobs in department
+  useEffect(() => {
+    if (hrAdvisor !== null) {
+      const filters = new Map();
+      filters.set("department_id", hrAdvisor.department_id);
+      dispatch(fetchJobIndex(filters));
+    }
+  }, [hrAdvisor]);
+  const allJobs = useSelector(getAllJobs);
+  const deptJobs = useMemo(
+    () =>
+      hrAdvisor !== null
+        ? allJobs.filter(
+            (job: Job): boolean =>
+              job.department_id === hrAdvisor.department_id,
+          )
+        : [],
+    [allJobs, hrAdvisor],
+  );
+
+  // Make claim job function
+  const claimJobForAdvisor = (jobId: number) =>
+    dispatch(claimJob(hrAdvisorId, jobId));
+
+  if (hrAdvisor === null) {
+    return <h3>Advisor data loading...</h3>; // TODO: Localize, check with Josh
+  } else {
+    return (
+      <JobIndexHrPage
+        claimedJobIds={hrAdvisor.claimed_job_ids}
+        department={intl.formatMessage(departmentName(hrAdvisor.department_id))}
+        jobs={deptJobs}
+        managers={[]} // FIXME: complete
+        claimJob={claimJobForAdvisor}
+      />
+    );
+  }
+};
+
+const container = document.getElementById("job-index-hr");
+if (container !== null) {
+  if ("hrAdvisorId" in container.dataset) {
+    const hrAdvisorId = Number(container.dataset.hrAdvisorId as string);
+    ReactDOM.render(
+      <RootContainer>
+        <JobIndexHrDataFetcher hrAdvisorId={hrAdvisorId} />
+      </RootContainer>,
+      container,
+    );
+  }
+}
