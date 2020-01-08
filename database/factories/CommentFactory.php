@@ -8,6 +8,12 @@ use Faker\Generator as Faker;
 
 $factory->define(Comment::class, function (Faker $faker) {
     return [
+        'job_poster_id' => function () {
+            return factory(JobPoster::class)->create()->id;
+        },
+        'user_id' => function () {
+            return factory(User::class)->state('hr_advisor')->create()->id;
+        },
         'comment' => $faker->sentence(),
         'location' => $faker->word(), // TODO: Using a real location would be more useful here.
         'type_id' => CommentType::inRandomOrder()->first()->id,
