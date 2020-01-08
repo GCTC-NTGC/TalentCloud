@@ -641,11 +641,12 @@ Route::group(['prefix' => 'api'], function (): void {
         ->middleware('can:submitForReview,job')
         ->name('api.jobs.submit');
     Route::resource('jobs', 'Api\JobApiController')->only([
-        'show', 'store', 'update'
+        'show', 'store', 'update', 'index'
     ])->names([// Specify custom names because default names collied with existing routes.
         'show' => 'api.jobs.show',
         'store' => 'api.jobs.store',
-        'update' => 'api.jobs.update'
+        'update' => 'api.jobs.update',
+        'index' => 'api.jobs.index'
     ]);
 
     Route::resource('managers', 'Api\ManagerApiController')->only([
