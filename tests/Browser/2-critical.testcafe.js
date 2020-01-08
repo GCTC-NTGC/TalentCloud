@@ -42,7 +42,7 @@ test("Applicant Profile - My Skills", async t => {
     .expect(Selector("h3").withText("Writing my application").visible)
     .ok()
     .click(Selector("button").withText("Got it!"))
-    .wait(300)
+    .wait(500)
     .click(Selector("button").withText("Save Skill"))
     // Add hard skill (Docker).
     .click(Selector("button").withText("Add hard skill"))
