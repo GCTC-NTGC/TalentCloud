@@ -35,14 +35,19 @@
     "defaultMessage": "e.g. Gestionnaire de la conception"
   },
   {
-    "id": "jobBuilder.intro.departmentLabel",
-    "description": "The label displayed on the department select box.",
-    "defaultMessage": "{name}'s Department"
-  },
-  {
     "id": "jobBuilder.intro.departmentNullSelection",
     "description": "The default selection option displayed on the department select box.",
     "defaultMessage": "Select a department..."
+  },
+  {
+    "id": "jobBuilder.intro.accountSettingsLinkTitle",
+    "description": "Title of the account settings page link.",
+    "defaultMessage": "Visit Account Settings page."
+  },
+  {
+    "id": "jobBuilder.intro.accountSettingsLinkText",
+    "description": "Visible text of the account settings link.",
+    "defaultMessage": "account settings"
   },
   {
     "id": "jobBuilder.intro.divisionLabelEN",
@@ -85,8 +90,18 @@
     "defaultMessage": "This information is used on the Job Poster to help applicants learn more about who they'll be working with."
   },
   {
+    "id": "jobBuilder.intro.departmentHeader",
+    "description": "The label displayed on the department select box.",
+    "defaultMessage": "{name}'s Department Information"
+  },
+  {
+    "id": "jobBuilder.intro.departmentLabel",
+    "description": "The label displayed on the department select box.",
+    "defaultMessage": "Department"
+  },
+  {
     "id": "jobBuilder.intro.changeDepartment",
-    "defaultMessage": "To change your department, please contact {link}."
+    "defaultMessage": "To change your department, please contact {email}. To learn more visit your {accountSettings}."
   },
   {
     "id": "jobBuilder.intro.completeInLanguage",
