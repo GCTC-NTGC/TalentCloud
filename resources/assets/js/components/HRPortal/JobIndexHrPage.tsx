@@ -26,6 +26,11 @@ import { fetchJobIndex } from "../../store/Job/jobActions";
 import { getAllJobs } from "../../store/Job/jobSelector";
 import { departmentName } from "../../models/localizedConstants";
 import RootContainer from "../RootContainer";
+import {
+  getManagers,
+  getManagerIsUpdatingById,
+} from "../../store/Manager/managerSelector";
+import { fetchManager } from "../../store/Manager/managerActions";
 
 const buttonMessages = defineMessages({
   reviewDraft: {
@@ -235,6 +240,18 @@ const JobIndexHrDataFetcher: React.FC<JobIndexHrDataFetcherProps> = ({
     [allJobs, hrAdvisor],
   );
 
+  // Request and select all managers belonging to the dept jobs
+  const managers = useSelector(getManagers);
+  const managersUpdating = useSelector(getManagerIsUpdatingById);
+  deptJobs.forEach((job: Job): void => {
+    if (
+      find(managers, job.manager_id) === null &&
+      managersUpdating[job.manager_id] !== true
+    ) {
+      dispatch(fetchManager(job.manager_id));
+    }
+  });
+
   // Make claim job function
   const claimJobForAdvisor = (jobId: number) =>
     dispatch(claimJob(hrAdvisorId, jobId));
@@ -249,7 +266,7 @@ const JobIndexHrDataFetcher: React.FC<JobIndexHrDataFetcherProps> = ({
       claimedJobIds={hrAdvisor !== null ? hrAdvisor.claimed_job_ids : []}
       department={department}
       jobs={deptJobs}
-      managers={[]} // FIXME: complete
+      managers={managers}
       claimJob={claimJobForAdvisor}
     />
   );
