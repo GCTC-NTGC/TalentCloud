@@ -660,10 +660,10 @@ Route::group(['prefix' => 'api'], function (): void {
         ->middleware('auth');
 
     // Comment model routes
-    Route::get('jobs/{jobPoster}/comments', 'Api\CommentController@indexByJob')
+    Route::get('jobs/{jobPoster}/comments', 'Api\CommentApiController@indexByJob')
         ->where('jobPoster', '[0-9]+')
         ->middleware('can:viewComments,jobPoster');
-    Route::post('jobs/{jobPoster}/comments', 'Api\CommentController@store')
+    Route::post('jobs/{jobPoster}/comments', 'Api\CommentApiController@store')
         ->where('jobPoster', '[0-9]+')
         ->middleware('can:storeComment,jobPoster');
 
