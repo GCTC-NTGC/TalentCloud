@@ -13,7 +13,7 @@ import {
 import { defineMessages, IntlShape, useIntl } from "react-intl";
 import { UnclaimedJobCardProps } from "../UnclaimedJobCard";
 import { readableDateTime } from "../../helpers/dates";
-import { find } from "../../helpers/queries";
+import { find, stringNotEmpty } from "../../helpers/queries";
 
 interface JobIndexHrPageProps {
   claimedJobIds: number[];
@@ -51,12 +51,17 @@ const buttonMessages = defineMessages({
   },
 });
 
-const loadingMessages = defineMessages({
+const messages = defineMessages({
   loadingManager: {
     id: "hrJobIndex.managerLoading",
     defaultMessage: "Loading...",
     description: "Placehold text for a manager's name, while data is loading.",
   },
+  titleMissing: {
+    id: "hrJobIndex.jobTitleMissing",
+    defaultMessage: "Title Missing",
+    description: "Placeholder text for a missing Job title."
+  }
 });
 
 const makeJobAction = (
@@ -64,6 +69,7 @@ const makeJobAction = (
   locale: Locales,
   job: Job,
 ): JobCardProps => {
+  const jobTitle = localizeField(locale, job, "title");
   return {
     applicants: 0, // TODO: find real number of applicants.
     // TODO: is this intended to be a link as well, like activity?
@@ -71,7 +77,7 @@ const makeJobAction = (
     managerTime: 0, // TODO: This isn't recorded yet.
     userTime: 0, // TODO: This isn't recorded yet.
     owned: true,
-    title: localizeField(locale, job, "title") || "TITLE MISSING", // TODO: How did we deal with missing titles elsewhere?
+    title: stringNotEmpty(jobTitle) ? jobTitle : intl.formatMessage(messages.titleMissing),
     status: jobStatus(job),
     activity: {
       count: 0, // TODO: requires tracking which comments are "new"
@@ -111,10 +117,13 @@ const makeUnclaimedJob = (
   manager: Manager | null,
   job: Job,
 ): UnclaimedJobCardProps => {
+  const jobTitle = localizeField(locale, job, "title");
   return {
     jobLink: {
       url: hrJobPreview(locale, job.id),
-      text: localizeField(locale, job, "title") || "TITLE MISSING", // TODO: How did we deal with missing titles elsewhere?
+      text: stringNotEmpty(jobTitle)
+        ? jobTitle
+        : intl.formatMessage(messages.titleMissing),
       title: "",
     },
     createdAt: readableDateTime(locale, job.created_at),
@@ -122,7 +131,7 @@ const makeUnclaimedJob = (
     hiringManagers: [
       manager !== null
         ? manager.full_name
-        : intl.formatMessage(loadingMessages.loadingManager),
+        : intl.formatMessage(messages.loadingManager),
     ],
     hrAdvisors: [], // TODO: We can get all claims of an advisor, but don't have an api route for gettings advisors for a job!
     claimJob,
