@@ -89,9 +89,13 @@ class JobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function hrIndex()
+    public function hrIndex(Request $request)
     {
-        return view('hr_advisor/job_index', []);
+        $hrAdvisor = $request->user()->hr_advisor;
+        return view('hr_advisor/job_index', [
+            'title' => Lang::get('hr_advisor/job_index.title'),
+            'hr_advisor_id' => $hrAdvisor->id
+        ]);
     }
 
 

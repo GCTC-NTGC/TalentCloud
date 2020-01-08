@@ -66,6 +66,11 @@ const messages = defineMessages({
     defaultMessage: "Title Missing",
     description: "Placeholder text for a missing Job title.",
   },
+  departmentPlaceholder: {
+    id: "hrJobIndex.departmentPlaceholder",
+    defaultMessage: "[Department loading]",
+    description: "Placeholder for department name while it hasn't been loaded.",
+  },
 });
 
 const makeJobAction = (
@@ -210,13 +215,14 @@ const JobIndexHrDataFetcher: React.FC<JobIndexHrDataFetcherProps> = ({
   );
 
   // Request and select all jobs in department
+  const departmentId = hrAdvisor?.department_id;
   useEffect(() => {
-    if (hrAdvisor !== null) {
+    if (departmentId) {
       const filters = new Map();
-      filters.set("department_id", hrAdvisor.department_id);
+      filters.set("department_id", departmentId);
       dispatch(fetchJobIndex(filters));
     }
-  }, [hrAdvisor]);
+  }, [departmentId]);
   const allJobs = useSelector(getAllJobs);
   const deptJobs = useMemo(
     () =>
@@ -233,19 +239,20 @@ const JobIndexHrDataFetcher: React.FC<JobIndexHrDataFetcherProps> = ({
   const claimJobForAdvisor = (jobId: number) =>
     dispatch(claimJob(hrAdvisorId, jobId));
 
-  if (hrAdvisor === null) {
-    return <h3>Advisor data loading...</h3>; // TODO: Localize, check with Josh
-  } else {
-    return (
-      <JobIndexHrPage
-        claimedJobIds={hrAdvisor.claimed_job_ids}
-        department={intl.formatMessage(departmentName(hrAdvisor.department_id))}
-        jobs={deptJobs}
-        managers={[]} // FIXME: complete
-        claimJob={claimJobForAdvisor}
-      />
-    );
-  }
+  const department =
+    hrAdvisor !== null
+      ? intl.formatMessage(departmentName(hrAdvisor.department_id))
+      : intl.formatMessage(messages.departmentPlaceholder);
+
+  return (
+    <JobIndexHrPage
+      claimedJobIds={hrAdvisor !== null ? hrAdvisor.claimed_job_ids : []}
+      department={department}
+      jobs={deptJobs}
+      managers={[]} // FIXME: complete
+      claimJob={claimJobForAdvisor}
+    />
+  );
 };
 
 const container = document.getElementById("job-index-hr");

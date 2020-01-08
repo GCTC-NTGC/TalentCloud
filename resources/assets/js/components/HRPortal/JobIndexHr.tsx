@@ -218,19 +218,3 @@ const JobIndexHr: React.FunctionComponent<JobIndexHrProps> = ({
 
 export default JobIndexHr;
 
-const JobIndexHrRoot: React.FunctionComponent | null = () => {
-  return (
-    <RootContainer>
-      <JobIndexHr
-        jobActions={jobActions}
-        unclaimedJobs={unclaimedJobs}
-        departmentName="Treasury Board of Canada Secretariat"
-      />
-    </RootContainer>
-  );
-};
-
-if (document.getElementById("hr-job-index-root")) {
-  const root = document.getElementById("hr-job-index-root");
-  ReactDOM.render(<JobIndexHrRoot />, root);
-}
