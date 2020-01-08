@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Job Index Page should render JobIndexPage correctly 1`] = `
+exports[`Job Index Page should render JobIndexHr correctly 1`] = `
 <section>
   <div
     data-c-background="gray(10)"
@@ -322,7 +322,7 @@ exports[`Job Index Page should render JobIndexPage correctly 1`] = `
 </section>
 `;
 
-exports[`Job Index Page should render JobIndexPage without any items 1`] = `
+exports[`Job Index Page should render JobIndexHr without any items 1`] = `
 <section>
   <div
     data-c-background="gray(10)"

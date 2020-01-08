@@ -7,6 +7,7 @@ import {
   getCriteriaEndpoint,
   parseCriteriaResponse,
   getSubmitJobEndpoint,
+  parseJobIndexResponse,
 } from "../../api/job";
 import { Job, Criteria, JobPosterKeyTask } from "../../models/types";
 import {
@@ -17,6 +18,7 @@ import {
   asyncPost,
 } from "../asyncAction";
 import { Action } from "../createAction";
+import { addQueryParameters } from "../../api/base";
 
 export const FETCH_JOB_STARTED = "JOB: GET STARTED";
 export const FETCH_JOB_SUCCEEDED = "JOB: GET SUCCEEDED";
@@ -46,6 +48,36 @@ export const fetchJob = (
     FETCH_JOB_FAILED,
     parseJobResponse,
     { id },
+  );
+
+export const FETCH_JOB_INDEX_STARTED = "JOB: GET INDEX STARTED";
+export const FETCH_JOB_INDEX_SUCCEEDED = "JOB: GET INDEX SUCCEEDED";
+export const FETCH_JOB_INDEX_FAILED = "JOB: GET INDEX FAILED";
+
+export type FetchJobIndexAction = AsyncFsaActions<
+  typeof FETCH_JOB_INDEX_STARTED,
+  typeof FETCH_JOB_INDEX_SUCCEEDED,
+  typeof FETCH_JOB_INDEX_FAILED,
+  { jobs: Job[] },
+  { filters: Map<string, string> }
+>;
+
+export const fetchJobIndex = (
+  filters: Map<string, string>,
+): RSAActionTemplate<
+  typeof FETCH_JOB_INDEX_STARTED,
+  typeof FETCH_JOB_INDEX_SUCCEEDED,
+  typeof FETCH_JOB_INDEX_FAILED,
+  { jobs: Job[] },
+  { filters: Map<string, string> }
+> =>
+  asyncGet(
+    addQueryParameters(getJobEndpoint(null), filters),
+    FETCH_JOB_INDEX_STARTED,
+    FETCH_JOB_INDEX_SUCCEEDED,
+    FETCH_JOB_INDEX_FAILED,
+    parseJobIndexResponse,
+    { filters },
   );
 
 export const CREATE_JOB_STARTED = "JOB: CREATE STARTED";
@@ -292,6 +324,7 @@ export const submitJobForReview = (
 
 export type JobAction =
   | FetchJobAction
+  | FetchJobIndexAction
   | CreateJobAction
   | UpdateJobAction
   | EditJobAction
