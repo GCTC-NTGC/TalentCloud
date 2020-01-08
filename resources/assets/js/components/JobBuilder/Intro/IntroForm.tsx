@@ -346,7 +346,11 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
                       description="The label displayed on the department select box."
                     />
                     :{" "}
-                    <span data-c-font-weight="bold">{getDepartmentName()}</span>
+                    {null && (
+                      <span id="department" data-c-font-weight="bold">
+                        {getDepartmentName()}
+                      </span>
+                    )}
                     <span
                       data-c-margin="top(quarter)"
                       data-c-font-size="small"
@@ -372,6 +376,8 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
                               title={intl.formatMessage(
                                 formMessages.accountSettingsLinkTitle,
                               )}
+                              target="_blank"
+                              rel="noopener noreferrer"
                             >
                               {intl.formatMessage(
                                 formMessages.accountSettingsLinkText,
