@@ -35,8 +35,14 @@ return [
             'change_department_info' => 'To change your department, please contact',
             'talent_cloud_email' => [
                 'href' => 'mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca',
-                'text' => 'Talent Cloud.',
+                'text' => 'Talent Cloud',
                 'title' => 'Send an email to Talent Cloud.'
+            ],
+            'account_settings' => 'To learn more, visit your',
+            'account_settings_link' => [
+                'href' => '/settings',
+                'text' => 'account settings',
+                'title' => 'Visit Account Settings page'
             ],
             'division_english' => 'Division (English)',
             'division_french' => 'Division (Français)',
