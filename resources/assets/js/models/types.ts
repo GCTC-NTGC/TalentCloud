@@ -45,6 +45,7 @@ export interface Job {
   flexible_hours_frequency_id: number | null;
   travel_requirement_id: number | null;
   overtime_requirement_id: number | null;
+  created_at: Date;
   en: JobTranslation;
   fr: JobTranslation;
 }

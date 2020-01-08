@@ -74,6 +74,7 @@ export const emptyJob = (): Job => {
     flexible_hours_frequency_id: null,
     travel_requirement_id: null,
     overtime_requirement_id: null,
+    created_at: new Date(),
     en: emptyJobTranslation(),
     fr: emptyJobTranslation(),
   };
