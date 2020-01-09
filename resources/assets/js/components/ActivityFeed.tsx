@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { FormattedMessage, useIntl } from "react-intl";
 import Activity from "./Activity";
 import { RootState } from "../store/store";
-import { Comment } from "../models/types";
+import { Comment, Job } from "../models/types";
 import { DispatchType } from "../configureStore";
 import { fetchComments } from "../store/Job/jobActions";
 import { getComments, sortComments } from "../store/Job/jobSelector";
@@ -20,10 +20,25 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
   comments,
   handleFetchComments,
 }) => {
-  useEffect((): void => {
-    handleFetchComments(jobId);
-  }, [handleFetchComments, jobId]);
   const intl = useIntl();
+  const [activities, setActivities] = useState<Comment[] | null>([]);
+  const [activitiesLoading, setActivitiesLoading] = useState(true);
+
+  useEffect((): void => {
+    handleFetchComments(jobId).finally(() => {
+      setActivitiesLoading(false);
+    });
+  }, [handleFetchComments, jobId]);
+
+  useEffect((): void => {
+    // build activities list (sorting, filtering)
+    if (comments !== null) {
+      setActivities([...sortComments(comments)]);
+    } else {
+      setActivities(null);
+    }
+  }, [comments]);
+
   const userName = (userId: number) => "getUserName()";
   const userRole = (userId: number) => "getUserRole()";
   const commentType = (type: number | null): string => {
@@ -38,32 +53,10 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
         return intl.formatMessage(commentTypeMessages.comment);
     }
   };
-  return (
-    <section data-c-padding="top(1)">
-      <h3 data-c-font-size="h3" data-c-color="stop" data-c-margin="bottom(1)">
-        <FormattedMessage
-          id="activityfeed.title"
-          defaultMessage="Previous Activity"
-          description="Title of activity feed."
-        />
-      </h3>
 
-      {comments.length !== 0 ? (
-        comments.map(
-          (comment): React.ReactElement => (
-            <Activity
-              key={comment.id}
-              name={userName(comment.user_id)}
-              userRole={userRole(comment.user_id)}
-              comment={comment.comment}
-              location={comment.location}
-              time={comment.created_at}
-              type={commentType(comment.type_id)}
-              link={{ url: "/", title: "", text: "" }}
-            />
-          ),
-        )
-      ) : (
+  const activityFeed = (): React.ReactElement => {
+    if (activitiesLoading) {
+      return (
         <div
           data-c-container="form"
           data-c-padding="top(triple) bottom(triple)"
@@ -84,7 +77,49 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
             </p>
           </div>
         </div>
-      )}
+      );
+    }
+    if (activities && activities.length !== 0) {
+      return (
+        <>
+          {activities.map(
+            (activity): React.ReactElement => (
+              <Activity
+                key={activity.id}
+                name={userName(activity.user_id)}
+                userRole={userRole(activity.user_id)}
+                comment={activity.comment}
+                location={activity.location}
+                time={activity.created_at}
+                type={commentType(activity.type_id)}
+                link={{ url: "/", title: "", text: "" }}
+              />
+            ),
+          )}
+        </>
+      );
+    }
+    return (
+      <p>
+        <FormattedMessage
+          id="activityfeed.noActivities"
+          defaultMessage="No activities."
+          description="Message displayed when activities is empty."
+        />
+      </p>
+    );
+  };
+
+  return (
+    <section data-c-padding="top(1)">
+      <h3 data-c-font-size="h3" data-c-color="stop" data-c-margin="bottom(1)">
+        <FormattedMessage
+          id="activityfeed.title"
+          defaultMessage="Previous Activity"
+          description="Title of activity feed."
+        />
+      </h3>
+      {activityFeed()}
     </section>
   );
 };
@@ -94,7 +129,7 @@ const mapStateToProps = (
 ): {
   comments: Comment[];
 } => ({
-  comments: sortComments(getComments(state)),
+  comments: getComments(state),
 });
 
 const mapDispatchToProps = (
