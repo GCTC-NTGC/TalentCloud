@@ -127,7 +127,7 @@ export const unclaimedJobs: UnclaimedJobCardProps[] = [
     status: JobStatus.Draft,
     hiringManagers: ["Rebecca Appleby"],
     hrAdvisors: [],
-    claimJob: (): void => {},
+    handleClaimJob: (): void => {},
   },
   {
     jobLink: {
@@ -139,7 +139,7 @@ export const unclaimedJobs: UnclaimedJobCardProps[] = [
     status: JobStatus.Draft,
     hiringManagers: ["Rebecca Appleby"],
     hrAdvisors: ["Rebecca Appleby", "Jack Little"],
-    claimJob: (): void => {},
+    handleClaimJob: (): void => {},
   },
   {
     jobLink: {
@@ -151,7 +151,7 @@ export const unclaimedJobs: UnclaimedJobCardProps[] = [
     status: JobStatus.Review,
     hiringManagers: ["Robin Browne"],
     hrAdvisors: [],
-    claimJob: (): void => {},
+    handleClaimJob: (): void => {},
   },
   {
     jobLink: {
@@ -163,7 +163,7 @@ export const unclaimedJobs: UnclaimedJobCardProps[] = [
     status: JobStatus.Draft,
     hiringManagers: ["Braeden McDoogal"],
     hrAdvisors: ["Caitlyn Summers", "Jack Little"],
-    claimJob: (): void => {},
+    handleClaimJob: (): void => {},
   },
   {
     jobLink: {
@@ -175,6 +175,6 @@ export const unclaimedJobs: UnclaimedJobCardProps[] = [
     status: JobStatus.Review,
     hiringManagers: ["Amelie Lachance"],
     hrAdvisors: [],
-    claimJob: (): void => {},
+    handleClaimJob: (): void => {},
   },
 ];

@@ -9,7 +9,7 @@ export interface UnclaimedJobCardProps {
   status: JobStatus;
   hiringManagers: string[];
   hrAdvisors: string[];
-  claimJob: () => void;
+  handleClaimJob: () => void;
 }
 
 const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
@@ -18,7 +18,7 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
   status,
   hiringManagers,
   hrAdvisors,
-  claimJob,
+  handleClaimJob,
 }) => {
   return (
     <div
@@ -118,7 +118,7 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
             data-c-button="solid(c2)"
             data-c-radius="rounded"
             type="button"
-            onClick={claimJob}
+            onClick={handleClaimJob}
           >
             <span data-c-color="black">
               +{" "}

@@ -1,8 +1,11 @@
+/* eslint-disable camelcase */
 import React, { useEffect, useMemo } from "react";
 import ReactDOM from "react-dom";
+import { defineMessages, IntlShape, useIntl } from "react-intl";
+import { useDispatch, useSelector } from "react-redux";
 import JobIndexHr from "./JobIndexHr";
 import { JobCardProps } from "../JobCard";
-import { Job, HrAdvisor, Manager } from "../../models/types";
+import { Job, Manager } from "../../models/types";
 import { classificationString, jobStatus } from "../../models/jobUtil";
 import { localizeField, Locales } from "../../helpers/localize";
 import {
@@ -11,11 +14,9 @@ import {
   hrJobPreview,
   hrScreeningPlan,
 } from "../../helpers/routes";
-import { defineMessages, IntlShape, useIntl } from "react-intl";
 import { UnclaimedJobCardProps } from "../UnclaimedJobCard";
 import { readableDateTime } from "../../helpers/dates";
 import { find, stringNotEmpty } from "../../helpers/queries";
-import { useDispatch, useSelector } from "react-redux";
 import {
   getHrAdvisor as fetchHrAdvisor,
   claimJob,
@@ -129,7 +130,7 @@ const makeJobAction = (
 const makeUnclaimedJob = (
   intl: IntlShape,
   locale: Locales,
-  claimJob: () => void,
+  handleClaimJob: () => void,
   manager: Manager | null,
   job: Job,
 ): UnclaimedJobCardProps => {
@@ -150,7 +151,7 @@ const makeUnclaimedJob = (
         : intl.formatMessage(messages.loadingManager),
     ],
     hrAdvisors: [], // TODO: We can get all claims of an advisor, but don't have an api route for gettings advisors for a job!
-    claimJob,
+    handleClaimJob,
   };
 };
 
@@ -159,7 +160,7 @@ interface JobIndexHrPageProps {
   department: string;
   jobs: Job[];
   managers: Manager[];
-  claimJob: (jobId: number) => void;
+  handleClaimJob: (jobId: number) => void;
 }
 
 const JobIndexHrPage: React.FC<JobIndexHrPageProps> = ({
@@ -167,7 +168,7 @@ const JobIndexHrPage: React.FC<JobIndexHrPageProps> = ({
   department,
   jobs,
   managers,
-  claimJob,
+  handleClaimJob,
 }) => {
   const intl = useIntl();
   const { locale } = intl;
@@ -175,16 +176,17 @@ const JobIndexHrPage: React.FC<JobIndexHrPageProps> = ({
     throw new Error("Unknown intl.locale");
   }
 
-  const isClaimed = (job: Job) => claimedJobIds.includes(job.id);
-  const isUnclaimed = (job: Job) => !isClaimed(job);
+  const isClaimed = (job: Job): boolean => claimedJobIds.includes(job.id);
+  const isUnclaimed = (job: Job): boolean => !isClaimed(job);
 
-  const jobToAction = (job: Job) => makeJobAction(intl, locale, job);
+  const jobToAction = (job: Job): JobCardProps =>
+    makeJobAction(intl, locale, job);
 
-  const jobToUnclaimed = (job: Job) =>
+  const jobToUnclaimed = (job: Job): UnclaimedJobCardProps =>
     makeUnclaimedJob(
       intl,
       locale,
-      () => claimJob(job.id),
+      () => handleClaimJob(job.id),
       find(managers, job.manager_id),
       job,
     );
@@ -214,7 +216,7 @@ const JobIndexHrDataFetcher: React.FC<JobIndexHrDataFetcherProps> = ({
   // Request and select hrAdvisor
   useEffect(() => {
     dispatch(fetchHrAdvisor(hrAdvisorId));
-  }, [hrAdvisorId]);
+  }, [dispatch, hrAdvisorId]);
   const hrAdvisor = useSelector((state: RootState) =>
     getHrAdvisor(state, { hrAdvisorId }),
   );
@@ -227,7 +229,7 @@ const JobIndexHrDataFetcher: React.FC<JobIndexHrDataFetcherProps> = ({
       filters.set("department_id", departmentId);
       dispatch(fetchJobIndex(filters));
     }
-  }, [departmentId]);
+  }, [departmentId, dispatch]);
   const allJobs = useSelector(getAllJobs);
   const deptJobs = useMemo(
     () =>
@@ -253,7 +255,7 @@ const JobIndexHrDataFetcher: React.FC<JobIndexHrDataFetcherProps> = ({
   });
 
   // Make claim job function
-  const claimJobForAdvisor = (jobId: number) =>
+  const claimJobForAdvisor = (jobId: number): any =>
     dispatch(claimJob(hrAdvisorId, jobId));
 
   const department =
@@ -267,7 +269,7 @@ const JobIndexHrDataFetcher: React.FC<JobIndexHrDataFetcherProps> = ({
       department={department}
       jobs={deptJobs}
       managers={managers}
-      claimJob={claimJobForAdvisor}
+      handleClaimJob={claimJobForAdvisor}
     />
   );
 };
