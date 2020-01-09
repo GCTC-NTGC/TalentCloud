@@ -12,7 +12,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
       <p>
         <FormattedMessage
           defaultMessage="Welcome! Introductory copy that explains how this page works, and
-                what an HR adviser needs to do to claim a job action as their own.
+                what an HR advisor needs to do to claim a job action as their own.
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium
                 ducimus laboriosam sequi, quis autem minima esse quasi aspernatur
                 vero provident quos eligendi, ea officia exercitationem. Obcaecati
@@ -334,7 +334,7 @@ exports[`Job Index Page should render JobIndexHr without any items 1`] = `
       <p>
         <FormattedMessage
           defaultMessage="Welcome! Introductory copy that explains how this page works, and
-                what an HR adviser needs to do to claim a job action as their own.
+                what an HR advisor needs to do to claim a job action as their own.
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium
                 ducimus laboriosam sequi, quis autem minima esse quasi aspernatur
                 vero provident quos eligendi, ea officia exercitationem. Obcaecati

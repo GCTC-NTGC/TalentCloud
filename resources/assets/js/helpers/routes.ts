@@ -77,7 +77,7 @@ export function managerFaq(locale: string, faqSection?: FaqSection): string {
 }
 
 export function hrJobIndex(locale: string): string {
-  return `/${locale}/hr-adviser/jobs`;
+  return `/${locale}/hr-advisor/jobs`;
 }
 export function hrJobSummary(locale: string, jobId: number): string {
   return `/${locale}/hr-advisor/jobs/${jobId}`;

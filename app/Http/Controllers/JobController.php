@@ -85,7 +85,7 @@ class JobController extends Controller
     }
 
     /**
-     * Display a listing of a hr adviser's JobPosters.
+     * Display a listing of a hr advisor's JobPosters.
      *
      * @return \Illuminate\Http\Response
      */
