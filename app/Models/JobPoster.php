@@ -262,7 +262,8 @@ class JobPoster extends BaseModel
      */
     protected $appends = [
         'classification_code',
-        'classification_message'
+        'classification_message',
+        'job_status_id',
     ];
 
     /**
