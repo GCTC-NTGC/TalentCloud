@@ -45,7 +45,7 @@
     "@types/jest": "^24.0.25",
     "@types/lodash": "^4.14.149",
     "@types/nanoid": "^2.1.0",
-    "@types/node": "^13.1.4",
+    "@types/node": "^13.1.5",
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",
     "@types/react-redux": "^7.1.5",
@@ -92,10 +92,10 @@
     "webpack": "^4.41.5"
   },
   "dependencies": {
-    "@formatjs/intl-pluralrules": "^1.4.2",
-    "@formatjs/intl-relativetimeformat": "^4.5.5",
+    "@formatjs/intl-pluralrules": "^1.5.0",
+    "@formatjs/intl-relativetimeformat": "^4.5.7",
     "axios": "^0.19.1",
-    "babel-plugin-react-intl": "^5.1.14",
+    "babel-plugin-react-intl": "^5.1.16",
     "classnames": "^2.2.6",
     "clone-framework": "^2.4.12",
     "core-js": "^3",
