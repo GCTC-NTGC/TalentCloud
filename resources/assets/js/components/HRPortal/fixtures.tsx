@@ -68,7 +68,7 @@ export const jobActions: JobCardProps[] = [
       text: "View Screening Plan",
       title: "View the screening plan for this Job Poster.",
     },
-    status: JobStatus.Published,
+    status: JobStatus.Open,
     summary: {
       url: "https://google.ca",
       text: "Visit Job Summary",

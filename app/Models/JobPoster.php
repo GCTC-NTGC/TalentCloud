@@ -98,6 +98,7 @@ use App\Events\JobSaved;
  * Computed Properties
  * @property string|null $classification_code
  * @property string|null $classification_message
+ * @property int $job_status_id
  */
 class JobPoster extends BaseModel
 {
@@ -250,7 +251,8 @@ class JobPoster extends BaseModel
         'priority_clearance_number',
         'loo_issuance_date',
         'classification_id',
-        'classification_level'
+        'classification_level',
+        'job_status_id'
     ];
 
     /**
@@ -538,6 +540,40 @@ class JobPoster extends BaseModel
         }
 
         return $status;
+    }
+
+    /**
+     * FIXME:
+     * Return a calculated job status id.
+     * For now these ids represent the following:
+     *    1 = Draft
+     *    2 = Review requested
+     *    3 = Approved
+     *    4 = Open
+     *    5 = Closed
+     * These statuses needs an immenent refactoring, so I'm not going to create
+     * a lookup table for them yet.
+     * TODO: When this is rebuilt, make sure to change matching JobStatus code in
+     *    resources\assets\js\models\lookupConstants.ts
+     *
+     * @return integer
+     */
+    public function getJobStatusIdAttribute()
+    {
+        $now = new Date();
+        if ($this->review_requested_at === null) {
+            return 1; // Draft.
+        } elseif ($this->published_at === null) {
+            return 2; // Review requested, but not approved.
+        } elseif ($this->open_date_time === null || $this->open_date_time >$now) {
+            return 3; // Approved, but not open.
+        } elseif ($this->close_date_time === null || $this->close_date_time > $now) {
+            // Approved and currently open.
+            return 4; // Open.
+        } else {
+            // Published and close date has passed.
+            return 5; // Closed.
+        }
     }
 
     /**

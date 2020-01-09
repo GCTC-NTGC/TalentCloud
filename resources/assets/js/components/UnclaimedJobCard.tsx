@@ -1,7 +1,8 @@
 import React from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { JobStatus } from "../models/lookupConstants";
 import { Link } from "../models/app";
+import { jobStatus } from "../models/localizedConstants";
 
 export interface UnclaimedJobCardProps {
   jobLink: Link;
@@ -20,6 +21,7 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
   hrAdvisors,
   handleClaimJob,
 }) => {
+  const intl = useIntl();
   return (
     <div
       data-c-grid-item="tp(1of2) tl(1of3) equal-col"
@@ -60,7 +62,7 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
                   data-c-font-size="small"
                   data-c-radius="pill"
                 >
-                  {status}
+                  {intl.formatMessage(jobStatus(status))}
                 </span>
               </div>
             </div>

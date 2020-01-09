@@ -16,7 +16,7 @@ const statusOptions = {
   Closed: JobStatus.Closed,
   Complete: JobStatus.Complete,
   Draft: JobStatus.Draft,
-  Published: JobStatus.Published,
+  Open: JobStatus.Open,
   Review: JobStatus.Review,
 };
 

@@ -12,6 +12,7 @@ import {
   getKeyByValue,
   ClassificationId,
   JobStatus,
+  enumToIds,
 } from "./lookupConstants";
 import { assetSkillName, skillLevelName } from "./localizedConstants";
 import { JobState } from "../store/Job/jobReducer";
@@ -52,6 +53,7 @@ export const emptyJob = (): Job => {
     close_date_time: null,
     start_date_time: null,
     department_id: null,
+    job_status_id: JobStatus.Draft,
     province_id: null,
     salary_min: null,
     salary_max: null,
@@ -105,19 +107,9 @@ export const getSkillLevelName = (
 
 // TODO: allow for Complete status.
 export const jobStatus = (job: Job): JobStatus => {
-  if (job.review_requested_at === null) {
-    return JobStatus.Draft;
-  } else if (job.published_at === null) {
-    // Review request but not passed
-    return JobStatus.Review;
-  } else if (job.open_date_time === null || job.open_date_time > new Date()) {
-    // Ready to publish, but not open yet
-    return JobStatus.Approved;
-  } else if (job.close_date_time === null || job.close_date_time > new Date()) {
-    // Approved and currently open
-    return JobStatus.Published;
+  if (enumToIds(JobStatus).includes(job.job_status_id)) {
+    return job.job_status_id;
   } else {
-    // Published and close date has passed
-    return JobStatus.Closed;
+    return JobStatus.Draft;
   }
 };

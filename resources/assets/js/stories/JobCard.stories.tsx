@@ -84,7 +84,7 @@ stories
             text: text("Screening Plan Text", "View Screening Plan"),
             title: "View the screening plan for this Job Poster.",
           }}
-          status={JobStatus.Published}
+          status={JobStatus.Open}
           summary={{
             url: text("Summary Link", "https://google.ca"),
             text: text("Summary Text", "Visit Job Summary"),
