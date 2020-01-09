@@ -34,12 +34,6 @@ const Activity: React.FunctionComponent<ActivityProps> = ({
         data-c-radius="rounded"
         data-c-padding="all(1)"
         data-c-margin="bottom(.5)"
-        style={{
-          cursor: "pointer",
-          display: "block",
-          textDecoration: "none",
-          transition: "all .2s ease",
-        }}
       >
         <p
           data-c-margin="bottom(.5)"

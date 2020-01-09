@@ -271,15 +271,16 @@ select:-webkit-autofill:active {
 
 // Site Elements
 
-@import "components/common/sidebar";
-@import "components/common/modal";
-@import "components/common/buttons";
-@import "components/common/forms";
 @import "components/common/accordions";
+@import "components/common/activity";
+@import "components/common/buttons";
 @import "components/common/error";
-@import "components/common/progressbar";
-@import "components/common/nprogress";
+@import "components/common/forms";
+@import "components/common/modal";
 @import "components/common/notification";
+@import "components/common/nprogress";
+@import "components/common/progressbar";
+@import "components/common/sidebar";
 
 // Authentication
 
