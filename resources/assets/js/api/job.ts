@@ -58,4 +58,4 @@ export const getCriteriaEndpoint = (jobId: number): string =>
   `${getJobEndpoint(jobId)}/criteria`;
 
 export const getCommentEndpoint = (jobId: number): string =>
-  `${baseUrl()}/jobs/${jobId}/comments`;
+  `${getJobEndpoint(jobId)}/comments`;
