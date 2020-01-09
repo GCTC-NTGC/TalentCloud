@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\CommentApiController;
 use App\Models\Comment;
 use App\Models\HrAdvisor;
 use App\Models\JobPoster;
@@ -80,7 +80,7 @@ class CommentApiControllerTest extends TestCase
     public function testStoreCommentAsManager(): void
     {
         $job = factory(JobPoster::class)->states(['byUpgradedManager', 'draft'])->create();
-        $newComment = factory(Comment::class)->make()->toArray();
+        $newComment = factory(Comment::class)->make(['job_poster_id' => $job->id, 'user_id' => $job->manager->user->id])->toArray();
 
         $response = $this->actingAs($job->manager->user)
             ->json('post', "api/jobs/$job->id/comments", $newComment);
@@ -94,7 +94,7 @@ class CommentApiControllerTest extends TestCase
         $job->hr_advisors()->saveMany(factory(HrAdvisor::class, 3)->make()->each(function ($hr_advisor) use ($job) {
             $hr_advisor->claimed_jobs()->attach($job->id);
         }));
-        $newComment = factory(Comment::class)->make()->toArray();
+        $newComment = factory(Comment::class)->make(['job_poster_id' => $job->id, 'user_id' => $job->hr_advisors->first()->user])->toArray();
 
         $response = $this->actingAs($job->hr_advisors->first()->user)
             ->json('post', "api/jobs/$job->id/comments", $newComment);
