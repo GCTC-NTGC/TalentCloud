@@ -98,6 +98,8 @@ class User extends BaseModel implements
     protected $hidden = [
         'password',
         'remember_token',
+        'remember_device_token',
+        'recovery_codes_generation_date',
         'google2fa_secret',
         'recovery_codes',
     ];
