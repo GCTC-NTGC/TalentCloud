@@ -81,7 +81,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
             "url": "https://google.ca",
           }
         }
-        status="Draft"
+        status={1}
         summary={
           Object {
             "text": "Visit Job Summary",
@@ -128,7 +128,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
             "url": "https://google.ca",
           }
         }
-        status="Published"
+        status={4}
         summary={
           Object {
             "text": "Visit Job Summary",
@@ -170,7 +170,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
                 "title": "View the screening plan for this Job Poster.",
                 "url": "https://google.ca",
               },
-              "status": "Complete",
+              "status": 6,
               "summary": Object {
                 "text": "Visit Job Summary",
                 "title": "View the Job Summary for this Job Poster.",
@@ -217,8 +217,8 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
         data-c-grid="gutter"
       >
         <UnclaimedJobCard
-          claimJob={[Function]}
           createdAt="2019-MAY-02"
+          handleClaimJob={[Function]}
           hiringManagers={
             Array [
               "Rebecca Appleby",
@@ -232,11 +232,11 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
               "url": "",
             }
           }
-          status="Draft"
+          status={1}
         />
         <UnclaimedJobCard
-          claimJob={[Function]}
           createdAt="2019-MAR-12"
+          handleClaimJob={[Function]}
           hiringManagers={
             Array [
               "Rebecca Appleby",
@@ -255,11 +255,11 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
               "url": "",
             }
           }
-          status="Draft"
+          status={1}
         />
         <UnclaimedJobCard
-          claimJob={[Function]}
           createdAt="2019-DEC-02"
+          handleClaimJob={[Function]}
           hiringManagers={
             Array [
               "Robin Browne",
@@ -273,11 +273,11 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
               "url": "",
             }
           }
-          status="Review"
+          status={2}
         />
         <UnclaimedJobCard
-          claimJob={[Function]}
           createdAt="2019-MAY-14"
+          handleClaimJob={[Function]}
           hiringManagers={
             Array [
               "Braeden McDoogal",
@@ -296,11 +296,11 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
               "url": "",
             }
           }
-          status="Draft"
+          status={1}
         />
         <UnclaimedJobCard
-          claimJob={[Function]}
           createdAt="2019-JUL-24"
+          handleClaimJob={[Function]}
           hiringManagers={
             Array [
               "Amelie Lachance",
@@ -314,7 +314,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
               "url": "",
             }
           }
-          status="Review"
+          status={2}
         />
       </section>
     </div>
