@@ -3,11 +3,13 @@ import { connect } from "react-redux";
 import { FormattedMessage, useIntl } from "react-intl";
 import Activity from "./Activity";
 import { RootState } from "../store/store";
-import { Comment, Job } from "../models/types";
+import { Comment } from "../models/types";
 import { DispatchType } from "../configureStore";
 import { fetchComments } from "../store/Job/jobActions";
 import { getComments, sortComments } from "../store/Job/jobSelector";
 import { commentTypeMessages } from "./CommentForm";
+import { activityLocationOption } from "../models/localizedConstants";
+import { LocationId } from "../models/lookupConstants";
 
 interface ActivityFeedProps {
   jobId: number;
@@ -39,8 +41,6 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
     }
   }, [comments]);
 
-  const userName = (userId: number) => "getUserName()";
-  const userRole = (userId: number) => "getUserRole()";
   const commentType = (type: number | null): string => {
     switch (type) {
       case 1:
@@ -86,13 +86,15 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
             (activity): React.ReactElement => (
               <Activity
                 key={activity.id}
-                name={userName(activity.user_id)}
-                userRole={userRole(activity.user_id)}
+                name="Replace with Manager Name!" // TODO: Replace with user.name after User api is setup.
+                userRole="Replace with Manager Role!" // TODO: Replace with user.name after User api is setup.
                 comment={activity.comment}
-                location={activity.location}
+                location={intl.formatMessage(
+                  activityLocationOption(LocationId.intro), // TODO: Replace with 'activity.location' when list of locations is established.
+                )}
                 time={activity.created_at}
                 type={commentType(activity.type_id)}
-                link={{ url: "/", title: "", text: "" }}
+                link={{ url: "/", title: "", text: "" }} // TODO: Get url from location value
               />
             ),
           )}

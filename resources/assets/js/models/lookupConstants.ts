@@ -123,6 +123,10 @@ export const CommentTypeId = {
   requiredAction: 3,
 };
 
+export const LocationId = {
+  intro: "job/intro",
+};
+
 export enum JobStatus {
   Approved = "Approved",
   Closed = "Closed",

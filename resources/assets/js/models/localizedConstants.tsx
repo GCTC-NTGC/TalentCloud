@@ -16,6 +16,7 @@ import {
   OvertimeRequirementId,
   TravelRequirementId,
   ClassificationId,
+  LocationId,
 } from "./lookupConstants";
 import { getOrThrowError } from "../helpers/queries";
 
@@ -867,3 +868,14 @@ export const classificationCodeOption = (
     classificationId,
     "invalid ClassificationId",
   );
+
+export const activityLocations = defineMessages({
+  [LocationId.intro]: {
+    id: "activityfeed.locations.jpb.intro",
+    defaultMessage: "Job Poster Builder > Step 1: Intro",
+    description: "Location where the activity is located.",
+  },
+});
+
+export const activityLocationOption = (locationId: string): MessageDescriptor =>
+  getOrThrowError(activityLocations, locationId, "Invalid LocationId");
