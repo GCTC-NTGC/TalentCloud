@@ -161,6 +161,9 @@ test("Job Poster Builder - New Job", async t => {
     // Impact page.
     .expect(Selector("h3").withText("Create an Impact Statement").visible)
     .ok()
+    .wait(2000)
+    .expect(Selector("p").withAttribute("id", "deptImpactStatement").visible)
+    .ok()
     .typeText(
       Selector("textarea").withAttribute("id", "TeamImpact"),
       "Blah de blah blah.",
@@ -173,11 +176,7 @@ test("Job Poster Builder - New Job", async t => {
     // Impact review.
     .expect(Selector("h5").withText("Awesome work!").visible)
     .ok()
-    .expect(
-      Selector("p").withText(
-        "Global Affairs Canada manages Canada's diplomatic relations, provides consular services to Canadians, promotes the country's international trade, and leads Canada's international development and humanitarian assistance.",
-      ).visible,
-    )
+    .expect(Selector("p").withAttribute("id", "deptImpactPreview").visible)
     .ok()
     .expect(Selector("p").withText("Blah de blah blah.").visible)
     .ok()
