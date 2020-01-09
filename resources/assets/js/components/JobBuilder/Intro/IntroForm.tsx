@@ -346,7 +346,7 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
                       description="The label displayed on the department select box."
                     />
                     :{" "}
-                    {null && (
+                    {getDepartmentName && (
                       <span id="department" data-c-font-weight="bold">
                         {getDepartmentName()}
                       </span>

@@ -18,8 +18,6 @@ test("Job Poster Builder - New Job", async t => {
       Selector("h3").withText("Welcome to the Job Poster Builder").visible,
     )
     .ok()
-    .expect(Selector("span").withAttribute("id", "department").visible)
-    .ok()
     // Welcome page.
     .selectText(
       Selector("input").withAttribute("id", "builder01ManagerPositionEn"),
@@ -37,6 +35,8 @@ test("Job Poster Builder - New Job", async t => {
       Selector("input").withAttribute("id", "builder01ManagerPositionFr"),
       "Gestionnaire de la conception",
     )
+    .expect(Selector("span").withAttribute("id", "department").visible)
+    .ok()
     .selectText(
       Selector("input").withAttribute("id", "builder01ManagerDivisionEN"),
     )
