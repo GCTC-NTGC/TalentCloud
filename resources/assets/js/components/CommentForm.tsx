@@ -113,10 +113,14 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
             comment: values.comment,
             type_id: isHrAdviser ? Number(values.commentType) : null,
           };
-          handleCreateComment(jobId, newComment).finally((): void => {
-            setSubmitting(false); // Required by Formik to finish the submission cycle
-            resetForm();
-          });
+          handleCreateComment(jobId, newComment)
+            .then(() => {
+              setSubmitting(false);
+              resetForm();
+            })
+            .catch(() => {
+              setSubmitting(false);
+            });
         }}
         render={({ isSubmitting }): React.ReactElement => (
           <Form data-c-grid="gutter(all, 1)">
@@ -146,17 +150,17 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
                     ),
                   },
                   {
-                    value: 1,
+                    value: CommentTypeId.question,
                     label: intl.formatMessage(commentTypeMessages.question),
                   },
                   {
-                    value: 2,
+                    value: CommentTypeId.recommendation,
                     label: intl.formatMessage(
                       commentTypeMessages.recommendation,
                     ),
                   },
                   {
-                    value: 3,
+                    value: CommentTypeId.requiredAction,
                     label: intl.formatMessage(
                       commentTypeMessages.requiredAction,
                     ),
