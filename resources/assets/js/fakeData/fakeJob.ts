@@ -93,78 +93,78 @@ export const fakeJob = (id = 1): Job => ({
 });
 
 export const fakeJob2 = (id = 1): Job => ({
-         id,
-         manager_id: 1,
-         chosen_lang: "fr",
-         term_qty: 18,
-         open_date_time: new Date("2019-05-01T07:00:00"),
-         close_date_time: new Date("2019-05-15T06:59:59"),
-         start_date_time: new Date("2019-08-01T07:00:00"),
-         created_at: new Date("2019-04-25T07:00:00"),
-         department_id: 2,
-         province_id: 1,
-         salary_min: 95000,
-         salary_max: 110000,
-         noc: 1234,
-         classification_id: 4,
-         classification_level: 3,
-         security_clearance_id: 1,
-         language_requirement_id: 1,
-         remote_work_allowed: true,
-         published_at: null,
-         review_requested_at: null,
-         team_size: 40,
-         work_env_features: {
-           env_open_concept: false,
-           env_windows: true,
-           amenities_near_transit: false,
-           amenities_cafeteria: true,
-         },
-         fast_vs_steady: 3,
-         horizontal_vs_vertical: 4,
-         experimental_vs_ongoing: 2,
-         citizen_facing_vs_back_office: 1,
-         collaborative_vs_independent: 2,
-         telework_allowed_frequency_id: 3,
-         flexible_hours_frequency_id: 1,
-         travel_requirement_id: 1,
-         overtime_requirement_id: 1,
-         en: {
-           city: "Ottawa",
-           title: "UX Designer",
-           dept_impact:
-             "This is a statement about all the great things you will do in this department.",
-           team_impact:
-             "A in excepturi dolorem impedit. Expedita et nihil provident quo soluta neque. Odio et ut nostrum aut. Tenetur odit expedita molestias asperiores qui repudiandae eveniet.",
-           hire_impact:
-             "Aliquam aspernatur possimus est harum in explicabo et ut. Sint iure quaerat impedit et et. Ut dolorum assumenda repellat ducimus itaque.",
-           division: "",
-           education:
-             "A secondary school diploma; or \n \n Equivalent Experience: \n If you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum education requirement stated above.",
-           work_env_description:
-             "You may be able to pick your own office, if you work remotely.",
-           culture_summary:
-             "Our work is ongoing so there aren’t very many deadlines. We don’t usually have to balance tasks and our priorities change rarely. We thrive on routine.",
-           culture_special: null,
-         },
-         fr: {
-           city: "Ottawa",
-           title: "UX Designer",
-           dept_impact:
-             "FRENCH: This is a statement about all the great things you will do in this department.",
-           team_impact:
-             "At iste inventore tempora est. Aspernatur odio autem sapiente est aut. Commodi eius eligendi corrupti repellendus. Enim ad placeat voluptas qui et eum.\n\nEos commodi reprehenderit officiis vero repudiandae. Nisi voluptatem officiis aut molestias incidunt. Doloribus autem est sed non reprehenderit dolores. Et similique et doloribus ea est nam facere.",
-           hire_impact:
-             "Nulla enim dignissimos ea saepe totam. Deserunt quod deserunt et sed qui nesciunt illo eaque.\n\nVeniam laudantium ab illo. In in et et voluptatem excepturi. Nesciunt deleniti qui vero magni sunt earum rerum.",
-           division: "",
-           education: "Ut odit inventore incidunt.",
-           work_env_description:
-             "FR You may be able to pick your own office, if you work remotely.",
-           culture_summary:
-             "FR Our work is ongoing so there aren’t very many deadlines. We don’t usually have to balance tasks and our priorities change rarely. We thrive on routine.",
-           culture_special: null,
-         },
-       });
+  id,
+  manager_id: 1,
+  chosen_lang: "fr",
+  term_qty: 18,
+  open_date_time: new Date("2019-05-01T07:00:00"),
+  close_date_time: new Date("2019-05-15T06:59:59"),
+  start_date_time: new Date("2019-08-01T07:00:00"),
+  created_at: new Date("2019-04-25T07:00:00"),
+  department_id: 2,
+  province_id: 1,
+  salary_min: 95000,
+  salary_max: 110000,
+  noc: 1234,
+  classification_id: 4,
+  classification_level: 3,
+  security_clearance_id: 1,
+  language_requirement_id: 1,
+  remote_work_allowed: true,
+  published_at: null,
+  review_requested_at: null,
+  team_size: 40,
+  work_env_features: {
+    env_open_concept: false,
+    env_windows: true,
+    amenities_near_transit: false,
+    amenities_cafeteria: true,
+  },
+  fast_vs_steady: 3,
+  horizontal_vs_vertical: 4,
+  experimental_vs_ongoing: 2,
+  citizen_facing_vs_back_office: 1,
+  collaborative_vs_independent: 2,
+  telework_allowed_frequency_id: 3,
+  flexible_hours_frequency_id: 1,
+  travel_requirement_id: 1,
+  overtime_requirement_id: 1,
+  en: {
+    city: "Ottawa",
+    title: "UX Designer",
+    dept_impact:
+      "This is a statement about all the great things you will do in this department.",
+    team_impact:
+      "A in excepturi dolorem impedit. Expedita et nihil provident quo soluta neque. Odio et ut nostrum aut. Tenetur odit expedita molestias asperiores qui repudiandae eveniet.",
+    hire_impact:
+      "Aliquam aspernatur possimus est harum in explicabo et ut. Sint iure quaerat impedit et et. Ut dolorum assumenda repellat ducimus itaque.",
+    division: "",
+    education:
+      "A secondary school diploma; or \n \n Equivalent Experience: \n If you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum education requirement stated above.",
+    work_env_description:
+      "You may be able to pick your own office, if you work remotely.",
+    culture_summary:
+      "Our work is ongoing so there aren’t very many deadlines. We don’t usually have to balance tasks and our priorities change rarely. We thrive on routine.",
+    culture_special: null,
+  },
+  fr: {
+    city: "Ottawa",
+    title: "UX Designer",
+    dept_impact:
+      "FRENCH: This is a statement about all the great things you will do in this department.",
+    team_impact:
+      "At iste inventore tempora est. Aspernatur odio autem sapiente est aut. Commodi eius eligendi corrupti repellendus. Enim ad placeat voluptas qui et eum.\n\nEos commodi reprehenderit officiis vero repudiandae. Nisi voluptatem officiis aut molestias incidunt. Doloribus autem est sed non reprehenderit dolores. Et similique et doloribus ea est nam facere.",
+    hire_impact:
+      "Nulla enim dignissimos ea saepe totam. Deserunt quod deserunt et sed qui nesciunt illo eaque.\n\nVeniam laudantium ab illo. In in et et voluptatem excepturi. Nesciunt deleniti qui vero magni sunt earum rerum.",
+    division: "",
+    education: "Ut odit inventore incidunt.",
+    work_env_description:
+      "FR You may be able to pick your own office, if you work remotely.",
+    culture_summary:
+      "FR Our work is ongoing so there aren’t very many deadlines. We don’t usually have to balance tasks and our priorities change rarely. We thrive on routine.",
+    culture_special: null,
+  },
+});
 
 export const fakeCriterion = (id = 1, jobId = 1): Criteria => ({
   id,
