@@ -33,12 +33,12 @@ export const parseCriteriaResponse = (data: any): Criteria[] => data;
 
 export const parseCommentResponse = (data: any): Comment => ({
   ...data,
-  id: Number(data.id),
-  job_poster_id: Number(data.job_poster_id),
-  user_id: Number(data.user_id),
-  comment: String(data.comment),
-  location: String(data.location),
-  type_id: Number(data.type_id),
+  id: data.id,
+  job_poster_id: data.job_poster_id,
+  user_id: data.user_id,
+  comment: data.comment,
+  location: data.location,
+  type_id: data.type_id,
   created_at: parseDate(data.created_at),
 });
 
