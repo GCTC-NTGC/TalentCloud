@@ -34,7 +34,7 @@ class CommentTest extends TestCase
     public function testCommentBelongsToAUser()
     {
         $user = factory(User::class)->create();
-        $comment = factory(Comment::class)->make(['job_poster_id' => $user->id]);
+        $comment = factory(Comment::class)->make(['user_id' => $user->id]);
 
         $this->assertInstanceOf(User::class, $comment->user);
     }
