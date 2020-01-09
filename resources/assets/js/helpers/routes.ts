@@ -75,3 +75,7 @@ export function managerFaq(locale: string, faqSection?: FaqSection): string {
   }
   return base;
 }
+
+export function accountSettings(locale: string): string {
+  return `/${locale}/settings`;
+}

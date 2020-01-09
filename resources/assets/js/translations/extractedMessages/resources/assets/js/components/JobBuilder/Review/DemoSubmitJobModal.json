@@ -17,7 +17,7 @@
   {
     "id": "demoSubmitJobModal.link",
     "description": "Explanation of where to find more information.",
-    "defaultMessage": "<a>Find out if you can access these features</a>.",
+    "defaultMessage": "<a>Find out if you can access these features</a>."
   },
   {
     "id": "demoSubmitJobModal.cancel",
