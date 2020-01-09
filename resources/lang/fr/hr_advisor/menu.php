@@ -12,6 +12,9 @@ return [
         'home' => [
             'name' => 'Accueil',
         ],
+        'jobs' => [
+            'name' => 'Les emplois',
+        ]
     ],
     'register' => 'Inscription',
     'login' => 'Ouvrir une session',

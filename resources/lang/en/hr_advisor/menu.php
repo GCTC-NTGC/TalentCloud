@@ -12,6 +12,9 @@ return [
         'home' => [
             'name' => 'Home',
         ],
+        'jobs' => [
+            'name' => 'Jobs',
+        ]
     ],
     'register' => 'Register',
     'login' => 'Login',
