@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+/* eslint-disable @typescript-eslint/camelcase */
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -8,41 +10,49 @@ import { DispatchType } from "../configureStore";
 import { fetchComments } from "../store/Job/jobActions";
 import { getComments, sortComments } from "../store/Job/jobSelector";
 import { commentTypeMessages } from "./CommentForm";
-import { activityLocationOption } from "../models/localizedConstants";
+import {
+  activityLocationOption,
+  locationUrlOption,
+} from "../models/localizedConstants";
 import { LocationId } from "../models/lookupConstants";
 
 interface ActivityFeedProps {
   jobId: number;
   comments: Comment[];
   handleFetchComments: (jobId: number) => Promise<void>;
-  filterComments?: (comment: Comment) => void;
+  filterComments?: (comment: Comment) => boolean;
 }
 
 const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
   jobId,
   comments,
   handleFetchComments,
-  filterComments = (): boolean => true,
 }) => {
   const intl = useIntl();
+  const { locale } = intl;
   const [activities, setActivities] = useState<Comment[] | null>([]);
-  const [activitiesLoading, setActivitiesLoading] = useState(true);
+  const [isActivitiesLoading, setIsActivitiesLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   useEffect((): void => {
-    handleFetchComments(jobId).finally(() => {
-      setActivitiesLoading(false);
-    });
+    setIsActivitiesLoading(true);
+    handleFetchComments(jobId)
+      .then(() => {
+        setIsActivitiesLoading(false);
+      })
+      .catch(() => {
+        setIsActivitiesLoading(false);
+        setIsError(true);
+      });
   }, [handleFetchComments, jobId]);
 
   useEffect((): void => {
-    // build activities list (sorting, filtering)
-    const filteredComments: Comment[] = comments.filter(filterComments);
     if (comments !== null) {
-      setActivities([...sortComments(filteredComments)]);
+      setActivities([...comments]);
     } else {
       setActivities(null);
     }
-  }, [comments, filterComments]);
+  }, [comments]);
 
   const activityType = (type: number | null): string => {
     switch (type) {
@@ -57,9 +67,25 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
     }
   };
 
-  const activityFeed = (): React.ReactElement => {
-    if (activitiesLoading) {
-      return (
+  return (
+    <section data-c-padding="top(1)">
+      <h3 data-c-font-size="h3" data-c-color="stop" data-c-margin="bottom(1)">
+        <FormattedMessage
+          id="activityfeed.title"
+          defaultMessage="Previous Activity"
+          description="Title of activity feed."
+        />
+      </h3>
+      {isError && (
+        <p>
+          <FormattedMessage
+            id="activityfeed.error"
+            defaultMessage="Something went wrong..."
+            description="Error fetching activities."
+          />
+        </p>
+      )}
+      {isActivitiesLoading ? (
         <div
           data-c-container="form"
           data-c-padding="top(triple) bottom(triple)"
@@ -80,61 +106,55 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
             </p>
           </div>
         </div>
-      );
-    }
-    if (activities && activities.length !== 0) {
-      return (
+      ) : (
         <>
-          {activities.map(
-            (activity): React.ReactElement => (
-              <Activity
-                key={activity.id}
-                name="Replace with Manager Name!" // TODO: Replace with user.name after User api is setup.
-                userRole="Replace with Manager Role!" // TODO: Replace with user.name after User api is setup.
-                comment={activity.comment}
-                location={intl.formatMessage(
-                  activityLocationOption(LocationId.intro), // TODO: Replace with 'activity.location' when list of locations is established.
-                )}
-                time={activity.created_at}
-                type={activityType(activity.type_id)}
-                link={{ url: "/", title: "", text: "" }} // TODO: Get url from location value
-              />
-            ),
-          )}
+          {activities && activities.length !== 0
+            ? activities.map(
+                ({
+                  id,
+                  comment,
+                  location,
+                  created_at,
+                  type_id,
+                }: Comment): React.ReactElement => (
+                  <Activity
+                    key={id}
+                    name="Replace with Manager Name!" // TODO: Replace with user.name after User api is setup.
+                    userRole="Replace with Manager Role!" // TODO: Replace with user.name after User api is setup.
+                    comment={comment}
+                    location={intl.formatMessage(
+                      activityLocationOption(LocationId.intro), // TODO: Replace with 'activity.location' when list of locations is established.
+                    )}
+                    time={created_at}
+                    type={activityType(type_id)}
+                    link={locationUrlOption(location, locale, jobId)}
+                  />
+                ),
+              )
+            : !isError && (
+                <p>
+                  <FormattedMessage
+                    id="activityfeed.noActivities"
+                    defaultMessage="No activities."
+                    description="Message displayed when activities is empty."
+                  />
+                </p>
+              )}
         </>
-      );
-    }
-    return (
-      <p>
-        <FormattedMessage
-          id="activityfeed.noActivities"
-          defaultMessage="No activities."
-          description="Message displayed when activities is empty."
-        />
-      </p>
-    );
-  };
-
-  return (
-    <section data-c-padding="top(1)">
-      <h3 data-c-font-size="h3" data-c-color="stop" data-c-margin="bottom(1)">
-        <FormattedMessage
-          id="activityfeed.title"
-          defaultMessage="Previous Activity"
-          description="Title of activity feed."
-        />
-      </h3>
-      {activityFeed()}
+      )}
     </section>
   );
 };
 
 const mapStateToProps = (
   state: RootState,
+  {
+    filterComments = (): boolean => true,
+  }: { filterComments?: (comment: Comment) => boolean },
 ): {
   comments: Comment[];
 } => ({
-  comments: getComments(state),
+  comments: sortComments(getComments(state).filter(filterComments)),
 });
 
 const mapDispatchToProps = (
@@ -143,7 +163,11 @@ const mapDispatchToProps = (
   handleFetchComments: (jobId: number) => Promise<void>;
 } => ({
   handleFetchComments: async (jobId: number): Promise<void> => {
-    await dispatch(fetchComments(jobId));
+    const result = await dispatch(fetchComments(jobId));
+    if (!result.error) {
+      return Promise.resolve();
+    }
+    return Promise.reject(result.error);
   },
 });
 
