@@ -19,7 +19,7 @@ class CommentSeeder extends Seeder // phpcs:ignore
         foreach ($job_posters as $job_poster) {
             $job_poster->comments()->saveMany(factory(Comment::class, 3)->make([
                 'job_poster_id' => $job_poster->id,
-                'user_id' => $job_poster->manager_id
+                'user_id' => $job_poster->manager->user_id,
             ]));
         }
     }

@@ -1,13 +1,12 @@
 <?php
-
+/*
+| --------------------------------------------------------------------------
+| HR Portal Home Localization
+| --------------------------------------------------------------------------
+| Route: /hr/
+| View: views/hr_advisor/home.html.twig
+*/
 return [
-    /*
-     * --------------------------------------------------------------------------
-     * HR Portal Home Localization
-     * --------------------------------------------------------------------------
-     * Route: /hr/
-     * View: views/hr_advisor/home.html.twig
-     */
     'hero' => [
         'heading' => 'Nuage de talents',
         'heading_alt' => 'Feuille d\'érable canadienne.',

@@ -545,57 +545,67 @@ Route::group(
 
                 Route::middleware(['auth', 'role:hr_advisor'])->group(function (): void {
                     Route::get('jobs', 'JobController@hrIndex')->name('hr_advisor.jobs.index');
+
+                    Route::get('jobs/{job}/summary', 'JobSummaryController@show')
+                        ->middleware('can:view,job')
+                        ->name('hr_advisor.jobs.summary')
+                        ->where('jobPoster', '[0-9]+');
+
+                    Route::post('jobs/{job}/unclaim', 'JobSummaryController@unclaimJob')
+                        ->name('hr_advisor.jobs.unclaim')
+                        ->middleware('can:unClaim,job')
+                        ->where('job', '[0-9]+');
                 });
+
+                // These routes must be excluded from the finishHrAdvisorRegistration middleware to avoid an infinite loop of redirects
+                Route::middleware(['auth', 'role:hr_advisor'])->group(function (): void {
+                    Route::get('first-visit', 'Auth\FirstVisitController@showFirstVisitHrForm')
+                        ->name('hr_advisor.first_visit');
+                    Route::post('finish_registration', 'Auth\FirstVisitController@finishHrRegistration')
+                        ->name('hr_advisor.finish_registration');
+                });
+
+                // Laravel default login, logout, register, and reset routes
+                Route::get('login', 'Auth\LoginController@showLoginForm')->name('hr_advisor.login');
+                Route::post('login', 'Auth\LoginController@login')->name('hr_advisor.login.post');
+                Route::post('logout', 'Auth\LoginController@logout')->name('hr_advisor.logout');
+
+                // Registration Routes...
+                Route::get('register', 'Auth\RegisterController@showHrRegistrationForm')->name('hr_advisor.register');
+                Route::post('register', 'Auth\RegisterController@registerHrAdvisor')->name('hr_advisor.register.post');
+
+                // Password Reset Routes...
+                Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('hr_advisor.password.request');
+                Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('hr_advisor.password.email');
+                Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('hr_advisor.password.reset');
+                Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('hr_advisor.password.reset.post');
             });
-
-            // These routes must be excluded from the finishHrAdvisorRegistration middleware to avoid an infinite loop of redirects
-            Route::middleware(['auth', 'role:hr_advisor'])->group(function (): void {
-                Route::get('first-visit', 'Auth\FirstVisitController@showFirstVisitHrForm')
-                ->name('hr_advisor.first_visit');
-                Route::post('finish_registration', 'Auth\FirstVisitController@finishHrRegistration')
-                ->name('hr_advisor.finish_registration');
-            });
-
-            // Laravel default login, logout, register, and reset routes
-            Route::get('login', 'Auth\LoginController@showLoginForm')->name('hr_advisor.login');
-            Route::post('login', 'Auth\LoginController@login')->name('hr_advisor.login.post');
-            Route::post('logout', 'Auth\LoginController@logout')->name('hr_advisor.logout');
-
-            // Registration Routes...
-            Route::get('register', 'Auth\RegisterController@showHrRegistrationForm')->name('hr_advisor.register');
-            Route::post('register', 'Auth\RegisterController@registerHrAdvisor')->name('hr_advisor.register.post');
-
-            // Password Reset Routes...
-            Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('hr_advisor.password.request');
-            Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('hr_advisor.password.email');
-            Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('hr_advisor.password.reset');
-            Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('hr_advisor.password.reset.post');
         });
-    }
-);
 
-/* Non-Backpack Admin Portal (non-localized pages) =========================================================== */
-Route::group(
-    [
-    'prefix' => 'admin',
-    'middleware' => ['auth', 'role:admin']
-    ],
-    function (): void {
-        // This page is non-localized, because the middleware that redirects to localized
-        // pages changes POSTs to GETs and messes up the request.
-        Route::post('jobs/create/as-manager/{manager}', 'JobController@createAsManager')
-            ->middleware('can:create,App\Models\JobPoster')
-            ->name('admin.jobs.create_as_manager');
+        /* Non-Backpack Admin Portal (non-localized pages) =========================================================== */
+        Route::group(
+            [
+                'prefix' => 'admin',
+                'middleware' => ['auth', 'role:admin']
+            ],
+            function (): void {
+                // This page is non-localized, because the middleware that redirects to localized
+                // pages changes POSTs to GETs and messes up the request.
+                Route::post('jobs/create/as-manager/{manager}', 'JobController@createAsManager')
+                    ->middleware('can:create,App\Models\JobPoster')
+                    ->name('admin.jobs.create_as_manager');
 
-        Route::post('/2fa', 'Auth\TwoFactorController@redirectToExpected')->name('admin.2fa');
+                Route::post('/2fa', 'Auth\TwoFactorController@redirectToExpected')->name('admin.2fa');
 
-        Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('admin.two_factor.activate');
-        Route::post('two-factor/deactivate', 'Auth\TwoFactorController@deactivate')->name('admin.two_factor.deactivate');
-        Route::post('two-factor/forget', 'Auth\TwoFactorController@forget')->name('admin.two_factor.forget');
-        Route::post('two-factor/confirm', 'Auth\TwoFactorController@confirm')->name('admin.two_factor.confirm');
+                Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('admin.two_factor.activate');
+                Route::post('two-factor/deactivate', 'Auth\TwoFactorController@deactivate')->name('admin.two_factor.deactivate');
+                Route::post('two-factor/forget', 'Auth\TwoFactorController@forget')->name('admin.two_factor.forget');
+                Route::post('two-factor/confirm', 'Auth\TwoFactorController@confirm')->name('admin.two_factor.confirm');
 
-        Route::post('two-factor/generate-recovery-codes', 'Auth\RecoveryCodeController@generate')->name('admin.recovery_codes.generate');
-        Route::get('two-factor/recovery-codes', 'Auth\RecoveryCodeController@show')->name('admin.recovery_codes.show');
+                Route::post('two-factor/generate-recovery-codes', 'Auth\RecoveryCodeController@generate')->name('admin.recovery_codes.generate');
+                Route::get('two-factor/recovery-codes', 'Auth\RecoveryCodeController@show')->name('admin.recovery_codes.show');
+            }
+        );
     }
 );
 
@@ -645,7 +655,7 @@ Route::group(['prefix' => 'api'], function (): void {
         ->name('api.jobs.submit');
     Route::resource('jobs', 'Api\JobApiController')->only([
         'show', 'store', 'update', 'index'
-    ])->names([// Specify custom names because default names collied with existing routes.
+    ])->names([ // Specify custom names because default names collied with existing routes.
         'show' => 'api.jobs.show',
         'store' => 'api.jobs.store',
         'update' => 'api.jobs.update',
@@ -654,7 +664,7 @@ Route::group(['prefix' => 'api'], function (): void {
 
     Route::resource('managers', 'Api\ManagerApiController')->only([
         'show', 'update'
-    ])->names([// Specify custom names because default names collied with existing routes.
+    ])->names([ // Specify custom names because default names collied with existing routes.
         'show' => 'api.managers.show',
         'update' => 'api.managers.update'
     ]);
