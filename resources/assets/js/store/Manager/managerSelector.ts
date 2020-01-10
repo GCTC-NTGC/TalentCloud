@@ -28,3 +28,7 @@ export const getSelectedManager = (state: RootState): Manager | null => {
     ? getManagerById(state, { managerId: selectedId })
     : null;
 };
+
+export const getManagerIsUpdatingById = (
+  state: RootState,
+): { [id: number]: boolean } => state.manager.managerUpdating;

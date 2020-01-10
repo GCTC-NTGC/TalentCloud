@@ -12,6 +12,8 @@ import {
   CriteriaTypeId,
   getKeyByValue,
   ClassificationId,
+  JobStatus,
+  enumToIds,
 } from "./lookupConstants";
 import { assetSkillName, skillLevelName } from "./localizedConstants";
 
@@ -51,6 +53,7 @@ export const emptyJob = (): Job => {
     close_date_time: null,
     start_date_time: null,
     department_id: null,
+    job_status_id: JobStatus.Draft,
     province_id: null,
     salary_min: null,
     salary_max: null,
@@ -73,6 +76,7 @@ export const emptyJob = (): Job => {
     flexible_hours_frequency_id: null,
     travel_requirement_id: null,
     overtime_requirement_id: null,
+    created_at: new Date(),
     en: emptyJobTranslation(),
     fr: emptyJobTranslation(),
   };
@@ -110,3 +114,10 @@ export const emptyComment = (): Comment => ({
   type_id: null,
   created_at: new Date(),
 });
+// TODO: allow for Complete status.
+export const jobStatus = (job: Job): JobStatus => {
+  if (enumToIds(JobStatus).includes(job.job_status_id)) {
+    return job.job_status_id;
+  }
+  return JobStatus.Draft;
+};

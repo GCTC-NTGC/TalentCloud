@@ -32,7 +32,7 @@ return [
         'two' => 'mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca',
         'three' => 'contact Talent Cloud directly',
         'four' => 'contact Talent Cloud directly', // repeats in title attribute
-        'five' => 'We require you to get in touch because your department determines how you interact with job posters, applicants, and HR advisers. In order to have this information changed, we need to verify your department independently of the platform.',
+        'five' => 'We require you to get in touch because your department determines how you interact with job posters, applicants, and HR advisors. In order to have this information changed, we need to verify your department independently of the platform.',
 
      ],
      'gov_email_label' => 'Government Email',

@@ -34,8 +34,9 @@ const getTasksForJobUpdatingState = (
   state: RootState,
 ): { [id: number]: boolean } => ui(state).tasksUpdatingByJob;
 
-export const getAllJobs = (state: RootState): Job[] =>
-  Object.values(entities(state).jobs.byId);
+export const getAllJobs = createSelector(getJobState, (jobState): Job[] =>
+  Object.values(jobState),
+);
 
 export const getJob = createCachedSelector(
   getJobState,

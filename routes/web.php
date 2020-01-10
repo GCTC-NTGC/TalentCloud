@@ -542,7 +542,10 @@ Route::group(
             Route::middleware(['finishHrRegistration'])->group(function (): void {
 
                 Route::get('/', 'HomepageController@hr_advisor')->name('hr_advisor.home');
-                Route::get('job-index', 'JobController@hrIndex')->name('hr_advisor.jobs.index');
+
+                Route::middleware(['auth', 'role:hr_advisor'])->group(function (): void {
+                    Route::get('jobs', 'JobController@hrIndex')->name('hr_advisor.jobs.index');
+                });
             });
 
             // These routes must be excluded from the finishHrAdvisorRegistration middleware to avoid an infinite loop of redirects

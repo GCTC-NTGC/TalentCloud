@@ -27,9 +27,7 @@ class ClaimJobApiController extends Controller
      */
     public function store(Request $request, JobPoster $job)
     {
-        $this->claimJob($request->user()->hr_advisor, $job);
-
-        return response()->json(['status' => 'ok']);
+        return $this->claimJob($request->user()->hr_advisor, $job);
     }
 
     /**
@@ -62,9 +60,7 @@ class ClaimJobApiController extends Controller
      */
     public function destroy(Request $request, JobPoster $job)
     {
-        $this->unclaimJob($request->user()->hr_advisor, $job);
-
-        return response()->json(['status' => 'ok']);
+        return $this->unclaimJob($request->user()->hr_advisor, $job);
     }
 
     /**
@@ -77,6 +73,7 @@ class ClaimJobApiController extends Controller
     public function claimJob(HrAdvisor $hrAdvisor, JobPoster $job)
     {
         $hrAdvisor->claimed_jobs()->attach($job);
+        return response()->json(['status' => 'ok']);
     }
 
     /**
@@ -89,5 +86,6 @@ class ClaimJobApiController extends Controller
     public function unclaimJob(HrAdvisor $hrAdvisor, JobPoster $job)
     {
         $hrAdvisor->claimed_jobs()->detach($job);
+        return response()->json(['status' => 'ok']);
     }
 }

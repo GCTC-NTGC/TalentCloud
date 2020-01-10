@@ -128,7 +128,7 @@ const JobIndexHr: React.FunctionComponent<JobIndexHrProps> = ({
               id="hrPortal.jobPageIndex.welcomeMessage"
               description="Welcome message at beginning of page."
               defaultMessage="Welcome! Introductory copy that explains how this page works, and
-                what an HR adviser needs to do to claim a job action as their own.
+                what an HR advisor needs to do to claim a job action as their own.
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium
                 ducimus laboriosam sequi, quis autem minima esse quasi aspernatur
                 vero provident quos eligendi, ea officia exercitationem. Obcaecati
@@ -223,19 +223,3 @@ const JobIndexHr: React.FunctionComponent<JobIndexHrProps> = ({
 
 export default JobIndexHr;
 
-const JobIndexHrRoot: React.FunctionComponent | null = () => {
-  return (
-    <RootContainer>
-      <JobIndexHr
-        jobActions={jobActions}
-        unclaimedJobs={unclaimedJobs}
-        departmentName="Treasury Board of Canada Secretariat"
-      />
-    </RootContainer>
-  );
-};
-
-if (document.getElementById("hr-job-index-root")) {
-  const root = document.getElementById("hr-job-index-root");
-  ReactDOM.render(<JobIndexHrRoot />, root);
-}
