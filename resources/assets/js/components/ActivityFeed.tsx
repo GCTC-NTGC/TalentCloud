@@ -29,7 +29,7 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
 }) => {
   const intl = useIntl();
   const { locale } = intl;
-  const [activities, setActivities] = useState<Comment[] | null>([]);
+  const activities: Comment[] = [...comments];
   const [isActivitiesLoading, setIsActivitiesLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -44,14 +44,6 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
         setIsError(true);
       });
   }, [handleFetchComments, jobId]);
-
-  useEffect((): void => {
-    if (comments !== null) {
-      setActivities([...comments]);
-    } else {
-      setActivities(null);
-    }
-  }, [comments]);
 
   const activityType = (type: number | null): string => {
     switch (type) {
