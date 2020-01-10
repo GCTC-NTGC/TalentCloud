@@ -19,6 +19,10 @@ export function notEmpty<T>(value: T | null | undefined): value is T {
   return value !== null && value !== undefined;
 }
 
+export function stringNotEmpty(value: string | null): value is string {
+  return notEmpty(value) && value.length > 0;
+}
+
 /**
  * From an array of objects, return the first object with a specific id value.
  * @param objs

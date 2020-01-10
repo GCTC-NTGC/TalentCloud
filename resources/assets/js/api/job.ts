@@ -12,6 +12,7 @@ export const parseJob = (data: any): Job => ({
   start_date_time: parseDate(data.start_date_time),
   published_at: parseDate(data.published_at),
   review_requested_at: parseDate(data.published_at),
+  created_at: parseDate(data.created_at),
 });
 
 export const parseJobResponse = (

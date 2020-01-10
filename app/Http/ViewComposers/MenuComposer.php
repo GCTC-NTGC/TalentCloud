@@ -180,6 +180,8 @@ class MenuComposer
                 case 'hr_advisor.home':
                     $menu['items']['home']['active'] = true;
                     break;
+                case 'hr_advisor.jobs.index':
+                    $menu['items']['jobs']['active'] = true;
                 case 'register':
                     $menu['items']['register']['active'] = true;
                     break;
@@ -196,14 +198,15 @@ class MenuComposer
 
             // Set route links
             $menu['items']['home']['link'] = route('hr_advisor.home');
+            $menu['items']['jobs']['link'] = route('hr_advisor.jobs.index');
 
             // Check if use is logged in, and remove invalid menu items
             if (Auth::check()) {
                 unset($menu['items']['login']);
                 unset($menu['items']['register']);
-                // TODO set profile like using user slug
             } else {
                 unset($menu['items']['logout']);
+                unset($menu['items']['jobs']);
             }
         } elseif (WhichPortal::isAdminPortal()) {
             // Use the manager menu, keeping only.

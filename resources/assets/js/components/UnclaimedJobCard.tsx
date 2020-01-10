@@ -1,7 +1,8 @@
 import React from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { JobStatus } from "../models/lookupConstants";
 import { Link } from "../models/app";
+import { jobStatus } from "../models/localizedConstants";
 
 export interface UnclaimedJobCardProps {
   jobLink: Link;
@@ -9,7 +10,7 @@ export interface UnclaimedJobCardProps {
   status: JobStatus;
   hiringManagers: string[];
   hrAdvisors: string[];
-  claimJob: () => void;
+  handleClaimJob: () => void;
 }
 
 const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
@@ -18,8 +19,9 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
   status,
   hiringManagers,
   hrAdvisors,
-  claimJob,
+  handleClaimJob,
 }) => {
+  const intl = useIntl();
   return (
     <div
       data-c-grid-item="tp(1of2) tl(1of3) equal-col"
@@ -60,7 +62,7 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
                   data-c-font-size="small"
                   data-c-radius="pill"
                 >
-                  {status}
+                  {intl.formatMessage(jobStatus(status))}
                 </span>
               </div>
             </div>
@@ -118,7 +120,7 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
             data-c-button="solid(c2)"
             data-c-radius="rounded"
             type="button"
-            onClick={claimJob}
+            onClick={handleClaimJob}
           >
             <span data-c-color="black">
               +{" "}
