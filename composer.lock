@@ -4007,16 +4007,16 @@
         },
         {
             "name": "slevomat/coding-standard",
-            "version": "6.0.5",
+            "version": "6.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/slevomat/coding-standard.git",
-                "reference": "eaa0c35c6b88d146e7dfd3580c4d5fa9c49c7a23"
+                "reference": "3cc9f2fd62bf68447a9979a9d11cdba94e35c530"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/eaa0c35c6b88d146e7dfd3580c4d5fa9c49c7a23",
-                "reference": "eaa0c35c6b88d146e7dfd3580c4d5fa9c49c7a23",
+                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/3cc9f2fd62bf68447a9979a9d11cdba94e35c530",
+                "reference": "3cc9f2fd62bf68447a9979a9d11cdba94e35c530",
                 "shasum": ""
             },
             "require": {
@@ -4027,11 +4027,11 @@
             "require-dev": {
                 "dealerdirect/phpcodesniffer-composer-installer": "0.5.0",
                 "jakub-onderka/php-parallel-lint": "1.0.0",
-                "phing/phing": "2.16.1",
-                "phpstan/phpstan": "0.11.19|0.12",
-                "phpstan/phpstan-phpunit": "0.11.2|0.12",
-                "phpstan/phpstan-strict-rules": "0.11.1|0.12",
-                "phpunit/phpunit": "7.5.18|8.5.0"
+                "phing/phing": "2.16.2",
+                "phpstan/phpstan": "0.11.19|0.12.4",
+                "phpstan/phpstan-phpunit": "0.11.2|0.12.5",
+                "phpstan/phpstan-strict-rules": "0.11.1|0.12.1",
+                "phpunit/phpunit": "7.5.18|8.5.2"
             },
             "type": "phpcodesniffer-standard",
             "autoload": {
@@ -4044,7 +4044,7 @@
                 "MIT"
             ],
             "description": "Slevomat Coding Standard for PHP_CodeSniffer complements Consistence Coding Standard by providing sniffs with additional checks.",
-            "time": "2019-12-19T16:04:26+00:00"
+            "time": "2020-01-09T19:52:44+00:00"
         },
         {
             "name": "spatie/laravel-translatable",
