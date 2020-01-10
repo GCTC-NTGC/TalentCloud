@@ -28,6 +28,8 @@ const Activity: React.FunctionComponent<ActivityProps> = ({
       <a
         href={link.url}
         title={link.title}
+        target="_blank"
+        rel="noopener noreferrer"
         className="tc-job-activity-comment"
         data-c-card
         data-c-background="white(100)"
