@@ -33,5 +33,9 @@ return [
     'edit_poster_button' => '',
     'view_poster_button' => '',
     'screening_plan_button' => '',
-    'view_applicants_button' => ''
+    'view_applicants_button' => '',
+    'edit_poster_icon' => '',
+    'view_poster_icon' => '',
+    'screening_plan_icon' => '',
+    'view_applicants_icon' => '',
 ];
