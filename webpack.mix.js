@@ -46,7 +46,7 @@ mix
   )
   .sass("resources/assets/sass/app.scss", "public/css", {
     implementation: sass,
-    includePaths: ["node_modules/@fortawesome/fontawesome-free/scss"],
+    sassOptions: ["node_modules/@fortawesome/fontawesome-free/scss"],
   })
   .options({
     processCssUrls: false,
@@ -65,7 +65,7 @@ mix
   })
   .sass("resources/assets/sass/reliability.scss", "public/css", {
     implementation: sass,
-    includePaths: ["node_modules/@fortawesome/fontawesome-free/scss"],
+    sassOptions: ["node_modules/@fortawesome/fontawesome-free/scss"],
   })
   .options({
     processCssUrls: false,
