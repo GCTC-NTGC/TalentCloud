@@ -2,44 +2,12 @@ import React from "react";
 import { useIntl, defineMessages, FormattedMessage } from "react-intl";
 import { JobStatus } from "../models/lookupConstants";
 import { Link } from "../models/app";
+import { jobStatus } from "../models/localizedConstants";
 
 interface Activity {
   count: number;
   new: Link;
 }
-
-const statuses = defineMessages({
-  Approved: {
-    id: "jobCard.status.approved",
-    description: "Text displayed for a Job Status of Approved.",
-    defaultMessage: "Approved",
-  },
-  Closed: {
-    id: "jobCard.status.closed",
-    description: "Text displayed for a Job Status of Closed.",
-    defaultMessage: "Closed",
-  },
-  Complete: {
-    id: "jobCard.status.complete",
-    description: "Text displayed for a Job Status of Complete.",
-    defaultMessage: "Complete",
-  },
-  Draft: {
-    id: "jobCard.status.draft",
-    description: "Text displayed for a Job Status of Draft.",
-    defaultMessage: "Draft",
-  },
-  Published: {
-    id: "jobCard.status.published",
-    description: "Text displayed for a Job Status of Published.",
-    defaultMessage: "Published",
-  },
-  Review: {
-    id: "jobCard.status.review",
-    description: "Text displayed for a Job Status of In Review.",
-    defaultMessage: "In Review",
-  },
-});
 
 interface StatusPillProps {
   status: JobStatus;
@@ -48,7 +16,7 @@ interface StatusPillProps {
 
 const StatusPill: React.FC<StatusPillProps> = ({ text, status }) => (
   <span
-    data-c-tag={status === JobStatus.Published ? "go" : "c1"}
+    data-c-tag={status === JobStatus.Complete ? "go" : "c1"}
     data-c-font-size="small"
     data-c-radius="pill"
     data-c-margin="right(half)"
@@ -104,7 +72,7 @@ const JobCard: React.FC<JobCardProps> = ({
               {title}
             </span>
             <StatusPill
-              text={intl.formatMessage(statuses[status])}
+              text={intl.formatMessage(jobStatus(status))}
               status={status}
             />
           </h2>

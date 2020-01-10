@@ -75,3 +75,19 @@ export function managerFaq(locale: string, faqSection?: FaqSection): string {
   }
   return base;
 }
+
+export function hrJobIndex(locale: string): string {
+  return `/${locale}/hr-advisor/jobs`;
+}
+export function hrJobSummary(locale: string, jobId: number): string {
+  return `/${locale}/hr-advisor/jobs/${jobId}`;
+}
+export function hrJobReview(locale: string, jobId: number): string {
+  return `/${locale}/hr-advisor/jobs/${jobId}/review`;
+}
+export function hrJobPreview(locale: string, jobId: number): string {
+  return `/${locale}/hr-advisor/jobs/${jobId}/preview`;
+}
+export function hrScreeningPlan(locale: string, jobId: number): string {
+  return `/${locale}/hr-advisor/jobs/${jobId}/assessment-plan`;
+}

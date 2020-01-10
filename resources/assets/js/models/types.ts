@@ -1,5 +1,5 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
-import { ReviewStatusId, ReviewStatusName, JobStatus } from "./lookupConstants";
+import { ReviewStatusId, ReviewStatusName } from "./lookupConstants";
 
 export interface JobTranslation {
   city: string | null;
@@ -27,6 +27,7 @@ export interface Job {
   salary_min: number | null;
   salary_max: number | null;
   noc: number | null;
+  job_status_id: number;
   classification_id: number | null;
   classification_level: number | null;
   security_clearance_id: number | null;
@@ -45,6 +46,7 @@ export interface Job {
   flexible_hours_frequency_id: number | null;
   travel_requirement_id: number | null;
   overtime_requirement_id: number | null;
+  created_at: Date;
   en: JobTranslation;
   fr: JobTranslation;
 }

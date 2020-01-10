@@ -16,7 +16,7 @@ const statusOptions = {
   Closed: JobStatus.Closed,
   Complete: JobStatus.Complete,
   Draft: JobStatus.Draft,
-  Published: JobStatus.Published,
+  Open: JobStatus.Open,
   Review: JobStatus.Review,
 };
 
@@ -40,7 +40,7 @@ stories
             "Props",
           )}
           hrAdvisors={[]}
-          claimJob={action("Claim Job")}
+          handleClaimJob={action("Claim Job")}
         />
       </div>
     ),
@@ -69,7 +69,7 @@ stories
             ",",
             "Props",
           )}
-          claimJob={action("Claim Job")}
+          handleClaimJob={action("Claim Job")}
         />
       </div>
     ),
@@ -95,7 +95,7 @@ stories
                   status={status}
                   hiringManagers={hiringManagers}
                   hrAdvisors={hrAdvisors}
-                  claimJob={action("Claim Job")}
+                  handleClaimJob={action("Claim Job")}
                 />
               );
             },

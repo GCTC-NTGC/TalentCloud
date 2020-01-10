@@ -118,12 +118,12 @@ export const ClassificationId = {
 };
 
 export enum JobStatus {
-  Approved = "Approved",
-  Closed = "Closed",
-  Complete = "Complete",
-  Draft = "Draft",
-  Published = "Published",
-  Review = "Review",
+  Draft = 1,
+  Review = 2,
+  Approved = 3,
+  Open = 4,
+  Closed = 5,
+  Complete = 6,
 }
 
 export function getKeyByValue(object, value): string {
