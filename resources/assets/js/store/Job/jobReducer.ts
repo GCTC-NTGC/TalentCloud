@@ -31,6 +31,9 @@ import {
   BATCH_UPDATE_JOB_TASKS_FAILED,
   CREATE_COMMENT_SUCCEEDED,
   FETCH_COMMENTS_SUCCEEDED,
+  FETCH_JOB_INDEX_SUCCEEDED,
+  FETCH_JOB_INDEX_STARTED,
+  FETCH_JOB_INDEX_FAILED,
 } from "./jobActions";
 import {
   mapToObject,
@@ -69,6 +72,7 @@ export interface UiState {
   jobUpdating: {
     [id: number]: boolean;
   };
+  jobIndexUpdating: boolean;
   criteriaUpdating: {
     [id: number]: boolean;
   };
@@ -97,6 +101,7 @@ export const initEntities = (): EntityState => ({
 
 export const initUi = (): UiState => ({
   jobUpdating: {},
+  jobIndexUpdating: false,
   criteriaUpdating: {},
   criteriaUpdatingByJob: {},
   tasksUpdatingByJob: {},
@@ -130,6 +135,16 @@ export const entitiesReducer = (
               (criteria): boolean => criteria.job_poster_id !== action.meta.id,
             ),
             ...mapToObject(action.payload.criteria, getId),
+          },
+        },
+      };
+    case FETCH_JOB_INDEX_SUCCEEDED:
+      return {
+        ...state,
+        jobs: {
+          byId: {
+            ...state.jobs.byId,
+            ...mapToObject(action.payload.jobs, getId),
           },
         },
       };
@@ -245,6 +260,11 @@ export const uiReducer = (state = initUi(), action: JobAction): UiState => {
           [action.meta.id]: true,
         },
       };
+    case FETCH_JOB_INDEX_STARTED:
+      return {
+        ...state,
+        jobIndexUpdating: true,
+      };
     case FETCH_JOB_SUCCEEDED:
     case FETCH_JOB_FAILED:
     case UPDATE_JOB_FAILED:
@@ -257,6 +277,12 @@ export const uiReducer = (state = initUi(), action: JobAction): UiState => {
           ...state.jobUpdating,
           [action.meta.id]: false,
         },
+      };
+    case FETCH_JOB_INDEX_SUCCEEDED:
+    case FETCH_JOB_INDEX_FAILED:
+      return {
+        ...state,
+        jobIndexUpdating: false,
       };
     case SET_SELECTED_JOB:
       return {

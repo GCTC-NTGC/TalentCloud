@@ -3,13 +3,10 @@ import { storiesOf } from "@storybook/react";
 import { text } from "@storybook/addon-knobs";
 import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
-import JobIndexPage from "../../components/HRPortal/JobIndexPage";
-import {
-  fakeJobActions,
-  fakeUnclaimedJobs,
-} from "../../components/HRPortal/fixtures";
+import JobIndexHr from "../../components/HRPortal/JobIndexHr";
+import { jobActions, unclaimedJobs } from "../../components/HRPortal/fixtures";
 
-const stories = storiesOf("HR Portal|Job Index Page", module).addDecorator(
+const stories = storiesOf("HR Portal|Job Index", module).addDecorator(
   withIntl,
 );
 
@@ -17,9 +14,9 @@ stories
   .add(
     "Jobs",
     (): React.ReactElement => (
-      <JobIndexPage
-        jobActions={fakeJobActions}
-        unclaimedJobs={fakeUnclaimedJobs.map(unclaimed => ({
+      <JobIndexHr
+        jobActions={jobActions}
+        unclaimedJobs={unclaimedJobs.map(unclaimed => ({
           ...unclaimed,
           claimJob: action(`Claim Job ${unclaimed.jobLink.text}`),
         }))}
@@ -33,7 +30,7 @@ stories
   .add(
     "No Jobs",
     (): React.ReactElement => (
-      <JobIndexPage
+      <JobIndexHr
         jobActions={[]}
         unclaimedJobs={[]}
         departmentName={text(

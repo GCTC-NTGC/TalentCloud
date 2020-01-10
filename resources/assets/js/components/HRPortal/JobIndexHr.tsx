@@ -5,7 +5,7 @@ import JobCard, { JobCardProps } from "../JobCard";
 import UnclaimedJobCard, { UnclaimedJobCardProps } from "../UnclaimedJobCard";
 import RootContainer from "../RootContainer";
 import { JobStatus } from "../../models/lookupConstants";
-import { fakeJobActions, fakeUnclaimedJobs } from "./fixtures";
+import { jobActions, unclaimedJobs } from "./fixtures";
 import CommentForm from "../CommentForm";
 import ActivityFeed from "../ActivityFeed";
 
@@ -96,13 +96,13 @@ const CompletedJobsAccordion: React.FC<CompletedJobsAccordionProps> = ({
   );
 };
 
-interface JobIndexPageProps {
+interface JobIndexHrProps {
   jobActions: JobCardProps[];
   unclaimedJobs: UnclaimedJobCardProps[];
   departmentName: string;
 }
 
-const JobIndexPage: React.FunctionComponent<JobIndexPageProps> = ({
+const JobIndexHr: React.FunctionComponent<JobIndexHrProps> = ({
   jobActions,
   unclaimedJobs,
   departmentName,
@@ -221,14 +221,14 @@ const JobIndexPage: React.FunctionComponent<JobIndexPageProps> = ({
   );
 };
 
-export default JobIndexPage;
+export default JobIndexHr;
 
-const JobIndexPageRoot: React.FunctionComponent | null = () => {
+const JobIndexHrRoot: React.FunctionComponent | null = () => {
   return (
     <RootContainer>
-      <JobIndexPage
-        jobActions={fakeJobActions}
-        unclaimedJobs={fakeUnclaimedJobs}
+      <JobIndexHr
+        jobActions={jobActions}
+        unclaimedJobs={unclaimedJobs}
         departmentName="Treasury Board of Canada Secretariat"
       />
     </RootContainer>
@@ -237,5 +237,5 @@ const JobIndexPageRoot: React.FunctionComponent | null = () => {
 
 if (document.getElementById("hr-job-index-root")) {
   const root = document.getElementById("hr-job-index-root");
-  ReactDOM.render(<JobIndexPageRoot />, root);
+  ReactDOM.render(<JobIndexHrRoot />, root);
 }
