@@ -18,7 +18,7 @@ import {
   UNCLAIM_JOB_STARTED,
   CLAIM_JOB_FAILED,
   UNCLAIM_JOB_FAILED,
-} from "./hrAdivsorActions";
+} from "./hrAdvisorActions";
 
 describe("HrAdvisor Reducer tests", (): void => {
   describe("EntitiesReducer", (): void => {

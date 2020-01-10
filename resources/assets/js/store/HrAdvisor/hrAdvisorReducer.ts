@@ -12,9 +12,9 @@ import {
   GET_HR_ADVISOR_FAILED,
   UNCLAIM_JOB_SUCCEEDED,
   UNCLAIM_JOB_FAILED,
-} from "./hrAdivsorActions";
+} from "./hrAdvisorActions";
 
-import uniq = require("lodash/uniq");
+import uniq from "lodash/uniq";
 
 export interface EntityState {
   hrAdvisors: {
