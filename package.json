@@ -82,7 +82,7 @@
     "react-intl-translations-manager": "^5.0.3",
     "redux-mock-store": "^1.5.4",
     "resolve-url-loader": "^3.1.1",
-    "sass-loader": "^7.3.1",
+    "sass-loader": "^8.0.1",
     "storybook-addon-intl": "^2.4.1",
     "testcafe": "^1.7.1",
     "ts-jest": "^24.3.0",
