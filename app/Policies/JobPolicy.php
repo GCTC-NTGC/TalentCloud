@@ -119,6 +119,36 @@ class JobPolicy extends BasePolicy
             $jobPoster->isClosed();
     }
 
+     /**
+     * Determine whether the user can view the comments.
+     *
+     * @param \App\Models\User $user
+     * @param \App\Models\JobPoster $jobPoster
+     * @return bool
+     */
+    public function viewComments(User $user, JobPoster $jobPoster) : bool
+    {
+        // Only the manager that created the job can view the comment.
+        // Only Hr advisors who have claimed a job can view the comments.
+        return $user->isManager() && $jobPoster->manager->user->id == $user->id ||
+        $user->isHrAdvisor() && $jobPoster->hr_advisors->where('user_id', $user->id)->isNotEmpty();
+    }
+
+    /**
+     * Determine whether the user can create a comment
+     *
+     * @param \App\Models\User $user User to test against
+     * @param \App\Models\JobPoster $jobPoster
+     * @return bool
+     */
+    public function storeComment(User $user, JobPoster $jobPoster) : bool
+    {
+        // Only the manager that created the job can view the comment.
+        // Only Hr advisors who have claimed a job can view the comments.
+        return $user->isManager() && $jobPoster->manager->user->id == $user->id ||
+        $user->isHrAdvisor() && $jobPoster->hr_advisors->where('user_id', $user->id)->isNotEmpty();
+    }
+
     /**
      * Determine whether the user can 'claim' this job.
      *

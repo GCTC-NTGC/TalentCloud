@@ -669,6 +669,14 @@ Route::group(['prefix' => 'api'], function (): void {
     Route::get('currentuser/manager', 'Api\ManagerApiController@showAuthenticated')
         ->middleware('auth');
 
+    // Comment model routes
+    Route::get('jobs/{jobPoster}/comments', 'Api\CommentApiController@indexByJob')
+        ->where('jobPoster', '[0-9]+')
+        ->middleware('can:viewComments,jobPoster');
+    Route::post('jobs/{jobPoster}/comments', 'Api\CommentApiController@store')
+        ->where('jobPoster', '[0-9]+')
+        ->middleware('can:storeComment,jobPoster');
+
     // Claim / unclaim job routes, HR portal
     Route::put('jobs/{job}/claim', 'Api\ClaimJobApiController@store')
         ->middleware('can:claim,job')
