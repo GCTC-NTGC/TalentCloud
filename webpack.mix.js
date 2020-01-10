@@ -46,9 +46,11 @@ mix
   )
   .sass("resources/assets/sass/app.scss", "public/css", {
     implementation: sass,
-    sassOptions: ["node_modules/@fortawesome/fontawesome-free/scss"],
   })
   .options({
+    sassOptions: {
+      includePaths: "node_modules/@fortawesome/fontawesome-free/scss",
+    },
     processCssUrls: false,
     postCss: [
       cssnano({
@@ -65,9 +67,11 @@ mix
   })
   .sass("resources/assets/sass/reliability.scss", "public/css", {
     implementation: sass,
-    sassOptions: ["node_modules/@fortawesome/fontawesome-free/scss"],
   })
   .options({
+    sassOptions: {
+      includePaths: "node_modules/@fortawesome/fontawesome-free/scss",
+    },
     processCssUrls: false,
     postCss: [
       cssnano({
