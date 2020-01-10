@@ -1,0 +1,246 @@
+{# =============================================================================
+
+    Talent Cloud
+    HR Portal: Job Summary Page
+
+============================================================================= #}
+{% extends "layouts/base" %}
+{% block title %}
+	{{ menu.summary_title }}
+{% endblock %}
+{% block body %}
+	{% include "common/goc" %}
+	{% include "common/alert" %}
+	<div data-clone>
+		<header data-c-overlay="black(90)" data-c-padding="bottom(triple)" style="background-image: url('https://images.unsplash.com/photo-1556742400-b5b7c5121f99?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=634&amp;q=80');">
+			{% include "common/menu" %}
+			<div data-c-align="base(left)" data-c-container="large" data-c-padding="top(double)">
+				<h1 data-c-font-size="h2" data-c-color="white">
+					{{ job.classification_code }}-{{ job.classification_level }}
+					-
+					{{ job.title }}
+				</h1>
+				<div data-c-color="white" data-c-margin="top(double)">
+					{% include "common/breadcrumbs" %}
+				</div>
+			</div>
+		</header>
+		<div data-c-background="gray(10)">
+			<div data-c-container="large" data-c-padding="bottom(3)">
+				<div data-c-grid="gutter(all, 2)">
+					<div data-c-grid-item="tl(1of4) ds(1of5)" class="sidebar-wrapper">
+						<div class="sidebar" data-c-padding="tb(triple)">
+							<span data-c-font-weight="bold" data-c-font-size="h4">{{ summary.menu_title }}</span>
+							<nav data-c-margin="top(normal)">
+								<ul>
+									<li>
+										<a href="#summary">{{ summary.summary_title }}</a>
+									</li>
+									<li>
+										<a href="#tools">{{ summary.tools_title }}</a>
+									</li>
+									<li>
+										{# Add counter for new activity #}
+										<a href="#activity">{{ summary.activity_title }}</a>
+									</li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+					<div data-c-grid-item="tl(3of4) ds(4of5)">
+						<h2 id="summary" data-c-font-size="h2" data-c-padding="top(2) bottom(1)">{{ summary.summary_title }}</h2>
+						{# Add activity labels here #}
+						<div
+							class="summary" data-c-grid="gutter(all, 1)">
+							{# Add timers here #}
+							<div data-c-grid-item="tl(2of3)">
+								<div data-c-card data-c-background="white(100)" data-c-padding="all(1)" data-c-radius="rounded" data-c-margin="bottom(1)">
+									<p data-c-margin="bottom(.5)">
+										<span data-c-font-weight="600" data-c-color="c2">{{ summary.status_label }}</span>
+										{{ job.status()|capitalize }}
+									</p>
+									{% if job.status() == 'submitted' %}
+										<p data-c-margin="bottom(.5)">{{ summary.under_review }}</p>
+									{% endif %}
+									<p data-c-margin="bottom(.5)">
+										<span data-c-font-weight="600" data-c-color="c2">{{ summary.manager_label }}</span>
+										{{ job.manager.user.first_name }}
+										{{ job.manager.user.last_name }}
+									</p>
+									<p data-c-margin="bottom(.5)">
+										<span data-c-font-weight="600" data-c-color="c2">{{ summary.applicants_label }}</span>
+										{% if applications.count() == 0 %}
+											{{ summary.not_applicable }}
+										{% endif %}
+									</p>
+									{% if applications.count() != 0 %}
+										<ul>
+											{% for applicant in applications %}
+												{% if applicant.user_name %}
+													<li>{{ applicant.user_name }}</li>
+												{% else %}
+													<li>{{ applicant.submission_signature }}</li>
+												{% endif %}
+											{% endfor %}
+										</ul>
+									{% endif %}
+								</div>
+								<div data-c-accordion-group>
+									<div data-c-accordion data-c-background="white(100)" data-c-card data-c-radius="rounded">
+										<button aria-expanded="false" data-c-accordion-trigger tabindex="0" type="button">
+											<div data-c-padding="top(normal) right bottom(normal) left(normal)">
+												<p data-c-heading="h4" data-c-colour="black">
+													{{ summary.other_title }}
+												</p>
+												<p data-c-margin="top(quarter)" data-c-colour="c1">
+													{{ summary.other_text }}
+												</p>
+											</div>
+											<span data-c-visibility="invisible">
+												{{ summary.expand_hidden }}
+											</span>
+											<i aria-hidden="true" class="fas fa-plus-circle" data-c-accordion-add data-c-colour="black"></i>
+											<i aria-hidden="true" class="fas fa-minus-circle" data-c-accordion-remove data-c-colour="black"></i>
+										</button>
+										<div aria-hidden="true" data-c-accordion-content data-c-padding="right(normal) left(normal)">
+											<div data-c-padding="bottom(normal)">
+												<p data-c-margin="top(.5)">
+													<span data-c-color="c2" data-c-font-weight="600">{{ summary.managers_label }}</span>
+													{# Add list of job claimants #}
+													You, Steven Sherman
+												</p>
+												<p data-c-margin="top(.5)">
+													<span data-c-color="c2" data-c-font-weight="600">{{ summary.process_label }}</span>
+													{% if job.process_number %}
+														{{ job.process_number }}
+													{% else %}
+														{{ summary.not_applicable }}
+													{% endif %}
+												</p>
+												<p>
+													<span data-c-color="c2" data-c-font-weight="600">{{ summary.priority_label }}</span>
+													{% if job.priority_clearance_number %}
+														{{ job.priority_clearance_number }}
+													{% else %}
+														{{ summary.not_applicable }}
+													{% endif %}
+												</p>
+												<p data-c-margin="top(.5)">
+													<span data-c-color="c2" data-c-font-weight="600">{{ summary.created_label }}</span>
+													{% if job.created_at %}
+														{{ humanizeDate(job.created_at) }}
+													{% else %}
+														{{ summary.not_applicable }}
+													{% endif %}
+												</p>
+												<p>
+													<span data-c-color="c2" data-c-font-weight="600">{{ summary.published_label }}</span>
+													{% if job.published_at %}
+														{{ humanizeDate(job.published_at) }}
+													{% else %}
+														{{ summary.not_applicable }}
+													{% endif %}
+												</p>
+												<p>
+													<span data-c-color="c2" data-c-font-weight="600">{{ summary.closed_label }}</span>
+													{% if job.close_date_time %}
+														{{ humanizeDate(job.close_date_time) }}
+													{% else %}
+														{{ summary.not_applicable }}
+													{% endif %}
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div
+								data-c-grid-item="tl(1of3)" data-c-align="base(center)">
+								{#
+                                    <div data-c-card data-c-background="white(100)" data-c-padding="all(1)" data-c-radius="rounded" data-c-margin="bottom(1)">
+                                        <form action="{{ send_manager }}" method="POST">
+                                            {{ csrf_field() }}
+                                            <button data-c-button="solid(c1)" data-c-radius="rounded">{{ summary.send_manager_button }}</button>
+                                        </form>
+                                    </div>
+                                    <div data-c-card data-c-background="white(100)" data-c-padding="all(1)" data-c-radius="rounded">
+                                        <form action="{{ send_translation }}" method="POST">
+                                            {{ csrf_field() }}
+                                            <button data-c-button="solid(c1)" data-c-radius="rounded" data-c-margin="bottom(1)">{{ summary.send_translation_button }}</button>
+                                        </form>
+                                        <form action="{{ approve_publishing }}" method="POST">
+                                            {{ csrf_field() }}
+                                            <button data-c-button="solid(go)" data-c-radius="rounded">{{ summary.approve_button }}</button>
+                                        </form>
+                                    </div>
+                                #}
+								<div data-c-card data-c-background="white(100)" data-c-padding="all(1)" data-c-radius="rounded">
+									<form action="{{ relinquish_job }}" method="POST">
+										{{ csrf_field() }}
+										<button
+                                            {% if not is_claimed %}
+                                                disabled
+                                            {% endif %}
+                                            data-c-button="outline(stop)"
+                                            data-c-radius="rounded">
+                                            {{ summary.relinquish_button }}
+                                        </button>
+									</form>
+								</div>
+							</div>
+						</div>
+						<h2 id="tools" data-c-font-size="h2" data-c-padding="top(3) bottom(1)">{{ summary.tools_title }}</h2>
+						{# Add routes to JPB Review, SPB, etc #}
+						<div data-c-grid="gutter(all, 1)">
+							<div data-c-grid-item="tp(1of2) tl(1of4)">
+								<a class="tc-summary-action" href="" title="" data-c-card data-c-background="white(100)" data-c-radius="rounded">
+									<div data-c-padding="tb(2) rl(1)" data-c-align="base(center)">
+										<img src="/images/job-process-summary-tool-edit.svg" alt="{{ summary.edit_poster_icon }} {{ summary.flat_icons }}">
+									</div>
+									<div data-c-background="c2(100)" data-c-padding="tb(.5) rl(1)" data-c-align="base(center)">
+										<span data-c-color="white" data-c-font-style="underline">{{ summary.edit_poster_button }}</span>
+									</div>
+								</a>
+							</div>
+							<div data-c-grid-item="tp(1of2) tl(1of4)">
+								<a class="tc-summary-action" href="" title="" data-c-card data-c-background="white(100)" data-c-radius="rounded">
+									<div data-c-padding="tb(2) rl(1)" data-c-align="base(center)">
+										<img src="/images/job-process-summary-tool-view.svg" alt="{{ summary.view_poster_icon }} {{ summary.flat_icons }}">
+									</div>
+									<div data-c-background="c2(100)" data-c-padding="tb(.5) rl(1)" data-c-align="base(center)">
+										<span data-c-color="white" data-c-font-style="underline">{{ summary.view_poster_button }}</span>
+									</div>
+								</a>
+							</div>
+							<div data-c-grid-item="tp(1of2) tl(1of4)">
+								<a class="tc-summary-action" href="" title="" data-c-card data-c-background="white(100)" data-c-radius="rounded">
+									<div data-c-padding="tb(2) rl(1)" data-c-align="base(center)">
+										<img src="/images/job-process-summary-tool-screen.svg" alt="{{ summary.screening_plan_icon }} {{ summary.flat_icons }}">
+									</div>
+									<div data-c-background="c2(100)" data-c-padding="tb(.5) rl(1)" data-c-align="base(center)">
+										<span data-c-color="white" data-c-font-style="underline">{{ summary.screening_plan_button }}</span>
+									</div>
+								</a>
+							</div>
+							<div data-c-grid-item="tp(1of2) tl(1of4)">
+								<a class="tc-summary-action" href="" title="" data-c-card data-c-background="white(100)" data-c-radius="rounded">
+									<div data-c-padding="tb(2) rl(1)" data-c-align="base(center)">
+										<img src="/images/job-process-summary-tool-applicants.svg" alt="{{ summary.view_applicants_icon }} {{ summary.flat_icons }}">
+									</div>
+									<div data-c-background="c2(100)" data-c-padding="tb(.5) rl(1)" data-c-align="base(center)">
+										<span data-c-color="white" data-c-font-style="underline">{{ summary.view_applicants_button }}</span>
+									</div>
+								</a>
+							</div>
+						</div>
+						<h2 id="activity" data-c-font-size="h2" data-c-padding="top(3) bottom(1)">{{ summary.activity_title }}</h2>
+						{# Add comments here #}
+						<p>
+							<a href="https://joshbeveridge.ca/tc-job-summary#activity">https://joshbeveridge.ca/tc-job-summary#activity</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

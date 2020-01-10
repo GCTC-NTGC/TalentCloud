@@ -1,13 +1,13 @@
 <?php
+/*
+| --------------------------------------------------------------------------
+| Menu Language Lines
+| --------------------------------------------------------------------------
+|
+| The following language lines are used in the nav menu.
+|
+*/
 return [
-    /*
-     * --------------------------------------------------------------------------
-     * Menu Language Lines
-     * --------------------------------------------------------------------------
-     *
-     * The following language lines are used in the nav menu.
-     *
-     */
     'items' => [
         'home' => [
             'name' => 'Home',
@@ -21,6 +21,7 @@ return [
     'logout' => 'Logout',
     /* <title> tag content */
     'home_title' => 'Talent Cloud | HR Advisor Portal: Home',
+    'summary_title' => 'Talent Cloud | HR Advisor Portal: Job Summary',
     'job_index_title' => 'Talent Cloud | HR Advisor Portal: My Job Posters',
     // Button labels.
     'mobile_trigger_label' => 'Mobile Menu',
