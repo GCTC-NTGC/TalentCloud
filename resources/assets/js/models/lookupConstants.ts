@@ -125,6 +125,11 @@ export const CommentTypeId = {
 
 export const LocationId = {
   intro: "job/intro",
+  details: "job/details",
+  environment: "job/environment",
+  impact: "job/impact",
+  tasks: "job/tasks",
+  skills: "job/skills",
 };
 
 export enum JobStatus {
