@@ -19,6 +19,8 @@ import {
   LocationId,
 } from "./lookupConstants";
 import { getOrThrowError } from "../helpers/queries";
+import { Link } from "./app";
+import { jobBuilderIntro } from "../helpers/routes";
 
 const skillLevelDescriptions = defineMessages({
   hardBasic: {
@@ -879,3 +881,21 @@ export const activityLocations = defineMessages({
 
 export const activityLocationOption = (locationId: string): MessageDescriptor =>
   getOrThrowError(activityLocations, locationId, "Invalid LocationId");
+
+export const locationUrls = (
+  locale: string,
+  jobId: number,
+): { [x: string]: Link } => ({
+  [LocationId.intro]: {
+    url: jobBuilderIntro(locale, jobId),
+    title: "",
+    text: "",
+  },
+});
+
+export const locationUrlOption = (
+  locationId: string,
+  locale: string,
+  jobId: number,
+): Link =>
+  getOrThrowError(locationUrls(locale, jobId), locationId, "Invalid URL");
