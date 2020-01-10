@@ -15,12 +15,14 @@ interface ActivityFeedProps {
   jobId: number;
   comments: Comment[];
   handleFetchComments: (jobId: number) => Promise<void>;
+  filterComments?: (comment: Comment) => void;
 }
 
 const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
   jobId,
   comments,
   handleFetchComments,
+  filterComments = (): boolean => true,
 }) => {
   const intl = useIntl();
   const [activities, setActivities] = useState<Comment[] | null>([]);
@@ -34,14 +36,15 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
 
   useEffect((): void => {
     // build activities list (sorting, filtering)
+    const filteredComments: Comment[] = comments.filter(filterComments);
     if (comments !== null) {
-      setActivities([...sortComments(comments)]);
+      setActivities([...sortComments(filteredComments)]);
     } else {
       setActivities(null);
     }
-  }, [comments]);
+  }, [comments, filterComments]);
 
-  const commentType = (type: number | null): string => {
+  const activityType = (type: number | null): string => {
     switch (type) {
       case 1:
         return intl.formatMessage(commentTypeMessages.question);
@@ -93,7 +96,7 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
                   activityLocationOption(LocationId.intro), // TODO: Replace with 'activity.location' when list of locations is established.
                 )}
                 time={activity.created_at}
-                type={commentType(activity.type_id)}
+                type={activityType(activity.type_id)}
                 link={{ url: "/", title: "", text: "" }} // TODO: Get url from location value
               />
             ),
