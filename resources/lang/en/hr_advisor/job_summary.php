@@ -34,8 +34,9 @@ return [
     'view_poster_button' => 'View Live Poster',
     'screening_plan_button' => 'View Screening Plan',
     'view_applicants_button' => 'View Applicants',
-    'edit_poster_icon' => 'An icon depicting a paper form with a pencil, indicating that it is being edited. Icon supplied by Flat Icons.',
-    'view_poster_icon' => 'An icon depicting a completed document, representing viewing a completed job poster. Icon supplied by Flat Icons.',
-    'screening_plan_icon' => 'An icon depicting a hand making a selection from four different options, representing a manager screening through applicants. Icon supplied by Flat Icons.',
-    'view_applicants_icon' => 'An icon depicting four users placed in a pie chart, representing the ability to view the applicants who have applied to this job process. Icon supplied by Flat Icons.'
+    'edit_poster_icon' => 'An icon depicting a paper form with a pencil, indicating that it is being edited.',
+    'view_poster_icon' => 'An icon depicting a completed document, representing viewing a completed job poster.',
+    'screening_plan_icon' => 'An icon depicting a hand making a selection from four different options, representing a manager screening through applicants.',
+    'view_applicants_icon' => 'An icon depicting four users placed in a pie chart, representing the ability to view the applicants who have applied to this job process.',
+    'flat_icons' => 'Icon supplied by Flat Icons.'
 ];
