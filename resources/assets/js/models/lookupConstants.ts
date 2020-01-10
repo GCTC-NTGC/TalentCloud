@@ -130,6 +130,11 @@ export const LocationId = {
   impact: "job/impact",
   tasks: "job/tasks",
   skills: "job/skills",
+  review: "job/review",
+  index: "hr/index",
+  summary: "hr/summary",
+  preview: "hr/preview",
+  screeningPlan: "screeningPlan",
 };
 
 export enum JobStatus {
