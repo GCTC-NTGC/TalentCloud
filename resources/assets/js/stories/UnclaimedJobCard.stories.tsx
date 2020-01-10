@@ -5,7 +5,7 @@ import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
 import UnclaimedJobCard from "../components/UnclaimedJobCard";
 import { JobStatus } from "../models/lookupConstants";
-import { fakeUnclaimedJobs } from "../components/HRPortal/fixtures";
+import { unclaimedJobs } from "../components/HRPortal/fixtures";
 
 const stories = storiesOf("Components|Unclaimed Job Card", module).addDecorator(
   withIntl,
@@ -79,7 +79,7 @@ stories
     (): React.ReactElement => (
       <div data-c-container="large" data-c-padding="tb(triple)">
         <div data-c-grid="gutter">
-          {fakeUnclaimedJobs.map(
+          {unclaimedJobs.map(
             ({
               jobLink,
               createdAt,
