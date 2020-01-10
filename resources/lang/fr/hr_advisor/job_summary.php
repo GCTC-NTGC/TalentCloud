@@ -38,4 +38,5 @@ return [
     'view_poster_icon' => '',
     'screening_plan_icon' => '',
     'view_applicants_icon' => '',
+    'flat_icons' => ''
 ];
