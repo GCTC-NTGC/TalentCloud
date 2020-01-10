@@ -10,14 +10,12 @@ import { DispatchType } from "../configureStore";
 import { fetchComments } from "../store/Job/jobActions";
 import { getComments, sortComments } from "../store/Job/jobSelector";
 import { commentTypeMessages } from "./CommentForm";
-import {
-  activityLocationOption,
-  locationUrlOption,
-} from "../models/localizedConstants";
-import { LocationId } from "../models/lookupConstants";
+import { activityLocationOption } from "../models/localizedConstants";
+import { activityLocationUrl } from "../models/jobUtil";
 
 interface ActivityFeedProps {
   jobId: number;
+  isHrAdvisor: boolean;
   comments: Comment[];
   handleFetchComments: (jobId: number) => Promise<void>;
   filterComments?: (comment: Comment) => boolean;
@@ -27,6 +25,7 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
   jobId,
   comments,
   handleFetchComments,
+  isHrAdvisor,
 }) => {
   const intl = useIntl();
   const { locale } = intl;
@@ -123,11 +122,20 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
                     userRole="Replace with Manager Role!" // TODO: Replace with user.name after User api is setup.
                     comment={comment}
                     location={intl.formatMessage(
-                      activityLocationOption(LocationId.intro), // TODO: Replace with 'activity.location' when list of locations is established.
+                      activityLocationOption(location),
                     )}
                     time={created_at}
                     type={activityType(type_id)}
-                    link={locationUrlOption(location, locale, jobId)}
+                    link={{
+                      url: activityLocationUrl(
+                        isHrAdvisor,
+                        location,
+                        jobId,
+                        locale,
+                      ),
+                      text: "",
+                      title: "",
+                    }}
                   />
                 ),
               )
