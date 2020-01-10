@@ -47,10 +47,18 @@ stories
     ),
   )
   .add(
-    "Feed",
+    "HR Feed",
     (): React.ReactElement => (
       <section data-c-padding="all(3)">
-        <ActivityFeed jobId={1} />
+        <ActivityFeed jobId={1} isHrAdvisor />
+      </section>
+    ),
+  )
+  .add(
+    "Manager Feed",
+    (): React.ReactElement => (
+      <section data-c-padding="all(3)">
+        <ActivityFeed jobId={1} isHrAdvisor={false} />
       </section>
     ),
   );
