@@ -9,10 +9,8 @@ services:
   - docker
 
 branches:
-  only:
-    - dev
-    - master
-    - /^v\d+\.\d+(\.\d+)?(-\S*)?$/ # tagged releases, i.e. v1.0.4
+  except:
+    - dependabot/*
 
 jobs: # run browser and unit tests simultaneously
   include:

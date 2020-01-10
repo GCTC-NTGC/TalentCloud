@@ -1,18 +1,18 @@
-coverage:
-  precision: 1
-  range: 0..60
-  round: up
+# TalentCloud codecov.io config
+# .codecov.yml
 
+coverage:
+  range: 25..75
+  round: up
   status:
     project:
       default:
-        target: auto # coverage ratio required for success
-        threshold: 2% # coverage drop allowed for success
-        branches: null # reports for all branches
-        only_pulls: false # reports for every CI build
-    patch: no
+        base: auto
+        target: auto
+        threshold: null
+        branches: null
+      patch: no
 
 comment:
-  layout: "reach, files, diff"
+  layout: "header, diff, tree, changes"
   behavior: default
-  branches: null
