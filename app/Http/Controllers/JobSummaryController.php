@@ -22,7 +22,7 @@ class JobSummaryController extends Controller
     {
         $user = Auth::user();
 
-        $applications = $job->submitted_applications()->get();
+        $applications = $job->submitted_applications;
 
         $data = [
             // Localized strings.
