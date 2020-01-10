@@ -23,10 +23,14 @@ class JobSummaryController extends Controller
         $user = Auth::user();
 
         $applications = $job->submitted_applications;
+        $advisor = $user->hr_advisor;
+        $jobIsClaimed = ($advisor !== null) &&
+            $advisor->claimed_jobs->pluck('id')->contains($job->id);
 
         $data = [
             // Localized strings.
             'summary' => Lang::get('hr_advisor/job_summary'),
+            'is_claimed' => $jobIsClaimed,
             // User data.
             'user' => $user,
             // Job Poster data.
