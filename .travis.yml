@@ -12,16 +12,18 @@ branches:
   except:
     - dependabot/*
 
-jobs: # run browser and unit tests simultaneously
+jobs: # run test suites simultaneously
   include:
     - php: '7.2'
-      env: TEST_SUITE=unit # phpunit / jest
+      env: TEST_SUITE=jest
     - php: '7.2'
-      env: TEST_SUITE=browser # testcafe
+      env: TEST_SUITE=phpunit
+    - php: '7.2'
+      env: TEST_SUITE=browser
 
-env:
+env: # allow parallel makefile tasks
   global:
-    - MAKEFLAGS="-j 2" # allow parallel makefile tasks
+    - MAKEFLAGS="-j 2"
 
 addons: # for browser tests
   chrome: stable
@@ -61,25 +63,41 @@ before_script:
     fi
 
 script:
+  # code coverage setup
+  - ci_env=`bash <(curl -s https://codecov.io/env)`
+  - docker run $ci_env gctcntgc/talentcloud sh
+  - mkdir -p report/
   # run browser tests
   - if [ $TEST_SUITE = "browser" ]; then
       npm run testcafe-ci;
     fi
-  # run unit tests, upload coverage reports
-  - ci_env=`bash <(curl -s https://codecov.io/env)`
-  - if [ $TEST_SUITE = "unit" ]; then
-      docker run $ci_env gctcntgc/talentcloud sh;
-      mkdir -p ./report/;
-      make phpunit;
+  # run phpunit and jest as separate jobs
+  - if [ $TEST_SUITE = "jest" ]; then
       npm run test;
-      bash <(curl -s https://codecov.io/bash);
+    fi
+  # test fails will cause the job to fail (after separating)
+  - if [ $TEST_SUITE = "phpunit" ]; then
+      make phpunit;
     fi
 
 after_script:
-  - travis_retry make docker-stop # tear down
+  # tear down containers
+  - travis_retry make docker-stop
+
+after_success:
+  # upload coverage reports (with flags)
+  - if [ $TEST_SUITE = "jest" ]; then
+      bash <(curl -s https://codecov.io/bash) -f report/jest/coverage-final.json -F jest;
+    fi
+  # test fails will cause the job to fail (after separating)
+  - if [ $TEST_SUITE = "phpunit" ]; then
+      bash <(curl -s https://codecov.io/bash) -f report/phpunit/coverage.xml -F phpunit;
+    fi
 
 notifications:
+  # only slack notifications
   email:
     - never
   slack:
     secure: Vlequ88MkHcyvhoqMzJp0ZJsQVpsdH3YVuVUfzCrzA0u24N8yvK/O5DuNn6QYgfPRmyS9Jgd2+LCjAJUmGFIkrLIVt7NXKtcvyatZMhy5+J7S9+sGLMjas+Jzw12shEenuCPuPAAn2a0tk/mJc3aK4X0cHKGHMkzU+BXPgdhUFUS+2omcktPsp0jauNMkS8lExPk8p8zW1r0SyFsAYUZYTJ2XvvmhFkfnmrahxAPoASndLVT1RFIXO5fsU7HFinmw+7EjObP/IwgbbBZRYwy8V1IW3I3njGPhDXUGTPYWs15w+UzNaf8QCgEhNIbweAslgcERItrFFyy3+IIrHUrmdW556OxKB05+NcdzoTG3BPqYqycdAb6Rrka5cd5A8ohRRXSiJHKJQqjSBH00FvnGbsqqE4EH4AlL8pFc/quisn/4atTS++DZhIGSmIJW8SS9bsvAgND9Z+fbsU261iAJwl173pU1lLhdKbIWIG1s9MP/Mudu3MjKn913J6md01t6h2gxvOKsvZ06UJTMI2Zct5HTpfwilWdKQ/ujQkTlssbKCgQkBpvflJVlhB49Ja9BlFCwn3d1cHHVVDwR0AoZx1s5wamkKa/ZQE3zEBW5UDzaSpCuHF0SBAa4pts3/+6qtf9LYrATcTZjikHCSpBWX0MVyf0J+82ybpHJeW83xM=
+

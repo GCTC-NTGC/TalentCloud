@@ -23,9 +23,9 @@
         <env name="HIDE_LOCALE_IN_URL" value="true"/>
     </php>
     <logging>
-        <log type="junit" target="./report/phpunit/junit.phpunit.xml"/>
-        <log type="coverage-html" target="./report/phpunit"/>
-        <log type="coverage-clover" target="./report/phpunit/coverage.xml"/>
+        <log type="coverage-html" target="report/phpunit"/>
+        <log type="coverage-clover" target="report/phpunit/coverage.xml"/>
         <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
+        <log type="junit" target="report/phpunit/junit.phpunit.xml"/>
     </logging>
 </phpunit>

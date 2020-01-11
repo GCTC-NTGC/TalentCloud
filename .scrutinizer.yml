@@ -2,26 +2,30 @@
 # .scrutinizer.yml
 
 build:
+  environment:
+    php: "7.2"
+    ruby: "2.6.4"
+    node: "v12.13.1"
+  dependencies:
+    override: true
+  project_setup:
+    override: true
   nodes:
-    analysis:
-      environment:
-        php: 7.2
-        node: v12.13.1
-      dependencies:
-        override: true
-      project_setup:
-        override: true
+    scans:
       tests:
         override:
-        - php-scrutinizer-run
-        - js-scrutinizer-run
+          - php-scrutinizer-run
+          - js-scrutinizer-run
+          - scss-lint-run
+          - command: phpcs-run app/ database/ routes/
+            use_website_config: true
 filter:
   paths:
     - app/
-    - database/factories/
-    - database/seeds/
+    - database/
     - routes/
     - resources/assets/js/
+    - resources/assets/sass/
   excluded_paths:
     - database/migrations/
     - resources/assets/js/stories/

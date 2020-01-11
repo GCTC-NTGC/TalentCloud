@@ -2,7 +2,7 @@
 # .codecov.yml
 
 coverage:
-  range: 25..75
+  range: 30..70
   round: up
   status:
     project:
@@ -13,6 +13,19 @@ coverage:
         branches: null
       patch: no
 
+  parsers:
+    javascript:
+      enable_partials: yes
+
+flags:
+  phpunit:
+    paths:
+      - app/
+  jest:
+    paths:
+      - resources/assets/js/
+
 comment:
   layout: "header, diff, tree, changes"
-  behavior: default
+  branches: null
+
