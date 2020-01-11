@@ -4,93 +4,51 @@
     Manager: Job Index
 
 ============================================================================= #}
-
 {% extends "layouts/base" %}
-
-{% block title %}{{ menu.job_index_title }}{% endblock %}
-
-{% block body %}
-
-	{% include "common/goc" %}
-{% include "common/alert" %}
-
-    {% include "common/header" with {"header":jobs_l10n} %}
-
-    {% include "manager/notification" %}
-
-    <a id="skipLink"></a>
-
-    {% include "manager/job_index/layout" %}
-
-    {% if show_demo_notification %}
-    <div data-clone>
-
-        <div data-c-dialog-overlay></div>
-
-        <div
-            aria-hidden="true"
-            aria-describedby="upgrade-modal-description"
-            aria-labelledby="upgrade-modal-title"
-            data-c-dialog
-            data-c-dialog-id="upgrade-modal"
-            data-c-padding="top(double) bottom(double)"
-            role="dialog">
-            <div
-                data-c-background="white(100)"
-                data-c-radius="rounded">
-                <div
-                    data-c-background="c1(100)"
-                    data-c-padding="tb(normal) right(triple) left(normal)"
-                    data-c-border="bottom(thin, solid, black)">
-                    <h5
-                        data-c-colour="white"
-                        data-c-font-size="h4"
-                        id="upgrade-modal-title"
-                        data-c-dialog-focus>
-                        {{ jobs_l10n.notification_modal.title }}
-                    </h5>
-                    <button
-                        data-c-colour="white"
-                        data-c-font-size="h3"
-                        data-c-dialog-action="close"
-                        data-c-dialog-id="upgrade-modal"
-                        type="button">
-                        <i class="fa fa-times-circle"></i>
-                    </button>
-                </div>
-                <div
-                    data-c-border="bottom(thin, solid, black)"
-                    data-c-padding="normal">
-                    <div id="upgrade-modal-description">
-                        <p>{{ jobs_l10n.notification_modal.description.first }}</p>
-                        <p><a href="{{ route('manager.faq.section') }}" title="{{ jobs_l10n.notification_modal.description.link.title }}">{{ jobs_l10n.notification_modal.description.link.text }}</a>.</p>
-                    </div>
-                </div>
-                <div data-c-padding="normal">
-                    <div data-c-grid="gutter middle">
-                        <div data-c-grid-item="base(1of2)">
-                            <button
-                                data-c-button="solid(c2)"
-                                data-c-radius="rounded"
-                                data-c-dialog-action="close"
-                                data-c-dialog-id="upgrade-modal">
-                                {{ jobs_l10n.notification_modal.cancel }}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    {% endif %}
-
+{% block title %}
+	{{ menu.job_index_title }}
 {% endblock %}
-
+{% block body %}
+	{% include "common/goc" %}
+	{% include "common/alert" %}
+	{% include "common/header" with {"header": jobs_l10n} %}
+	{% include "manager/notification" %}
+	<a id="skipLink"></a>
+	{% include "manager/job_index/layout" %}
+	{% if show_demo_notification %}
+		<div data-clone>
+			<div data-c-dialog-overlay></div>
+			<div aria-hidden="true" aria-describedby="upgrade-modal-description" aria-labelledby="upgrade-modal-title" data-c-dialog data-c-dialog-id="upgrade-modal" data-c-padding="top(double) bottom(double)" role="dialog">
+				<div data-c-background="white(100)" data-c-radius="rounded">
+					<div data-c-background="c1(100)" data-c-padding="tb(normal) right(triple) left(normal)" data-c-border="bottom(thin, solid, black)">
+						<h5 data-c-colour="white" data-c-font-size="h4" id="upgrade-modal-title" data-c-dialog-focus>
+							{{ jobs_l10n.notification_modal.title }}
+						</h5>
+						<button data-c-colour="white" data-c-font-size="h3" data-c-dialog-action="close" data-c-dialog-id="upgrade-modal" type="button">
+							<i class="fa fa-times-circle"></i>
+						</button>
+					</div>
+					<div data-c-border="bottom(thin, solid, black)" data-c-padding="normal">
+						<div id="upgrade-modal-description">
+							<p>{{ jobs_l10n.notification_modal.description.first }}</p>
+							<p>
+								<a href="{{ route('manager.faq.section') }}" title="{{ jobs_l10n.notification_modal.description.link.title }}">{{ jobs_l10n.notification_modal.description.link.text }}</a>.</p>
+						</div>
+					</div>
+					<div data-c-padding="normal">
+						<div data-c-grid="gutter middle">
+							<div data-c-grid-item="base(1of2)">
+								<button data-c-button="solid(c2)" data-c-radius="rounded" data-c-dialog-action="close" data-c-dialog-id="upgrade-modal">
+									{{ jobs_l10n.notification_modal.cancel }}
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endif %}
+{% endblock %}
 {% block scripts %}
-
-    <script
-        src="{{ mix('/js/alerts.js') }}">
-    </script>
-
+	<script src="{{ mix('/js/alerts.js') }}"></script>
 {% endblock %}

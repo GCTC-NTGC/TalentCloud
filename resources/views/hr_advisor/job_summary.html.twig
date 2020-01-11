@@ -177,14 +177,9 @@
 								<div data-c-card data-c-background="white(100)" data-c-padding="all(1)" data-c-radius="rounded">
 									<form action="{{ relinquish_job }}" method="POST">
 										{{ csrf_field() }}
-										<button
-                                            {% if not is_claimed %}
-                                                disabled
-                                            {% endif %}
-                                            data-c-button="outline(stop)"
-                                            data-c-radius="rounded">
-                                            {{ summary.relinquish_button }}
-                                        </button>
+										<button {% if not is_claimed %} disabled {% endif %} data-c-button="outline(stop)" data-c-radius="rounded">
+											{{ summary.relinquish_button }}
+										</button>
 									</form>
 								</div>
 							</div>
