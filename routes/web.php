@@ -322,6 +322,12 @@ Route::group(
                             ->middleware('can:view,jobPoster')
                             ->name('manager.jobs.show');
 
+                        /* Job Summary */
+                        Route::get('jobs/{jobPoster}/summary', 'JobSummaryController@show')
+                            ->where('jobPoster', '[0-9]+')
+                            ->middleware('can:view,jobPoster')
+                            ->name('manager.jobs.summary');
+
                         /* Job Builder */
                         Route::get(
                             'jobs/builder',
@@ -533,54 +539,54 @@ Route::group(
             }
         );
 
-         /* HR Advisor Portal =========================================================== */
+        /* HR Advisor Portal =========================================================== */
 
-         Route::group([
-                'prefix' => config('app.hr_prefix'),
-            ], function (): void {
+        Route::group([
+            'prefix' => config('app.hr_prefix'),
+        ], function (): void {
 
-                Route::middleware(['finishHrRegistration'])->group(function (): void {
+            Route::middleware(['finishHrRegistration'])->group(function (): void {
 
-                    Route::get('/', 'HomepageController@hr_advisor')->name('hr_advisor.home');
+                Route::get('/', 'HomepageController@hr_advisor')->name('hr_advisor.home');
 
-                    Route::middleware(['auth', 'role:hr_advisor'])->group(function (): void {
-                        Route::get('jobs', 'JobController@hrIndex')->name('hr_advisor.jobs.index');
-
-                        Route::get('jobs/{job}/summary', 'JobSummaryController@show')
-                            ->middleware('can:view,job')
-                            ->name('hr_advisor.jobs.summary')
-                            ->where('jobPoster', '[0-9]+');
-
-                        Route::post('jobs/{job}/unclaim', 'JobSummaryController@unclaimJob')
-                            ->name('hr_advisor.jobs.unclaim')
-                            ->middleware('can:unClaim,job')
-                            ->where('job', '[0-9]+');
-                    });
-                });
-
-                // These routes must be excluded from the finishHrAdvisorRegistration middleware to avoid an infinite loop of redirects
                 Route::middleware(['auth', 'role:hr_advisor'])->group(function (): void {
-                    Route::get('first-visit', 'Auth\FirstVisitController@showFirstVisitHrForm')
-                        ->name('hr_advisor.first_visit');
-                    Route::post('finish_registration', 'Auth\FirstVisitController@finishHrRegistration')
-                        ->name('hr_advisor.finish_registration');
+                    Route::get('jobs', 'JobController@hrIndex')->name('hr_advisor.jobs.index');
+
+                    Route::get('jobs/{jobPoster}/summary', 'JobSummaryController@show')
+                        ->middleware('can:view,jobPoster')
+                        ->name('hr_advisor.jobs.summary')
+                        ->where('jobPoster', '[0-9]+');
+
+                    Route::post('jobs/{jobPoster}/unclaim', 'JobSummaryController@unclaimJob')
+                        ->name('hr_advisor.jobs.unclaim')
+                        ->middleware('can:unClaim,jobPoster')
+                        ->where('jobPoster', '[0-9]+');
                 });
-
-                // Laravel default login, logout, register, and reset routes
-                Route::get('login', 'Auth\LoginController@showLoginForm')->name('hr_advisor.login');
-                Route::post('login', 'Auth\LoginController@login')->name('hr_advisor.login.post');
-                Route::post('logout', 'Auth\LoginController@logout')->name('hr_advisor.logout');
-
-                // Registration Routes...
-                Route::get('register', 'Auth\RegisterController@showHrRegistrationForm')->name('hr_advisor.register');
-                Route::post('register', 'Auth\RegisterController@registerHrAdvisor')->name('hr_advisor.register.post');
-
-                // Password Reset Routes...
-                Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('hr_advisor.password.request');
-                Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('hr_advisor.password.email');
-                Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('hr_advisor.password.reset');
-                Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('hr_advisor.password.reset.post');
             });
+
+            // These routes must be excluded from the finishHrAdvisorRegistration middleware to avoid an infinite loop of redirects
+            Route::middleware(['auth', 'role:hr_advisor'])->group(function (): void {
+                Route::get('first-visit', 'Auth\FirstVisitController@showFirstVisitHrForm')
+                    ->name('hr_advisor.first_visit');
+                Route::post('finish_registration', 'Auth\FirstVisitController@finishHrRegistration')
+                    ->name('hr_advisor.finish_registration');
+            });
+
+            // Laravel default login, logout, register, and reset routes
+            Route::get('login', 'Auth\LoginController@showLoginForm')->name('hr_advisor.login');
+            Route::post('login', 'Auth\LoginController@login')->name('hr_advisor.login.post');
+            Route::post('logout', 'Auth\LoginController@logout')->name('hr_advisor.logout');
+
+            // Registration Routes...
+            Route::get('register', 'Auth\RegisterController@showHrRegistrationForm')->name('hr_advisor.register');
+            Route::post('register', 'Auth\RegisterController@registerHrAdvisor')->name('hr_advisor.register.post');
+
+            // Password Reset Routes...
+            Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('hr_advisor.password.request');
+            Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('hr_advisor.password.email');
+            Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('hr_advisor.password.reset');
+            Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('hr_advisor.password.reset.post');
+        });
 
         /* Non-Backpack Admin Portal (non-localized pages) =========================================================== */
         Route::group(
