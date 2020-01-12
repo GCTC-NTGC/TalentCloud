@@ -533,28 +533,29 @@ Route::group(
             }
         );
 
-        /* HR Advisor Portal =========================================================== */
+         /* HR Advisor Portal =========================================================== */
 
-        Route::group([
-            'prefix' => config('app.hr_prefix'),
-        ], function (): void {
+         Route::group([
+                'prefix' => config('app.hr_prefix'),
+            ], function (): void {
 
-            Route::middleware(['finishHrRegistration'])->group(function (): void {
+                Route::middleware(['finishHrRegistration'])->group(function (): void {
 
-                Route::get('/', 'HomepageController@hr_advisor')->name('hr_advisor.home');
+                    Route::get('/', 'HomepageController@hr_advisor')->name('hr_advisor.home');
 
-                Route::middleware(['auth', 'role:hr_advisor'])->group(function (): void {
-                    Route::get('jobs', 'JobController@hrIndex')->name('hr_advisor.jobs.index');
+                    Route::middleware(['auth', 'role:hr_advisor'])->group(function (): void {
+                        Route::get('jobs', 'JobController@hrIndex')->name('hr_advisor.jobs.index');
 
-                    Route::get('jobs/{job}/summary', 'JobSummaryController@show')
-                        ->middleware('can:view,job')
-                        ->name('hr_advisor.jobs.summary')
-                        ->where('jobPoster', '[0-9]+');
+                        Route::get('jobs/{job}/summary', 'JobSummaryController@show')
+                            ->middleware('can:view,job')
+                            ->name('hr_advisor.jobs.summary')
+                            ->where('jobPoster', '[0-9]+');
 
-                    Route::post('jobs/{job}/unclaim', 'JobSummaryController@unclaimJob')
-                        ->name('hr_advisor.jobs.unclaim')
-                        ->middleware('can:unClaim,job')
-                        ->where('job', '[0-9]+');
+                        Route::post('jobs/{job}/unclaim', 'JobSummaryController@unclaimJob')
+                            ->name('hr_advisor.jobs.unclaim')
+                            ->middleware('can:unClaim,job')
+                            ->where('job', '[0-9]+');
+                    });
                 });
 
                 // These routes must be excluded from the finishHrAdvisorRegistration middleware to avoid an infinite loop of redirects
@@ -580,7 +581,6 @@ Route::group(
                 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('hr_advisor.password.reset');
                 Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('hr_advisor.password.reset.post');
             });
-        });
 
         /* Non-Backpack Admin Portal (non-localized pages) =========================================================== */
         Route::group(
