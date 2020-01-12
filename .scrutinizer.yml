@@ -4,7 +4,6 @@
 build:
   environment:
     php: "7.2"
-    ruby: "2.6.4"
     node: "v12.13.1"
   dependencies:
     override: true
@@ -16,16 +15,13 @@ build:
         override:
           - php-scrutinizer-run
           - js-scrutinizer-run
-          - scss-lint-run
-          - command: phpcs-run app/ database/ routes/
-            use_website_config: true
+
 filter:
   paths:
     - app/
     - database/
     - routes/
     - resources/assets/js/
-    - resources/assets/sass/
   excluded_paths:
     - database/migrations/
     - resources/assets/js/stories/
@@ -35,5 +31,3 @@ filter:
     - resources/assets/js/getpdf.js
     - resources/assets/js/jquery-ui.min.js
     - resources/assets/js/modernizr.js
-  dependency_paths:
-    - vendor/

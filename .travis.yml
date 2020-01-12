@@ -1,12 +1,19 @@
 # TalentCloud CI build
 # .travis.yml
 
+os: linux
+dist: trusty
+
 language: php
+
 php:
   - '7.2'
-dist: trusty
+
 services:
   - docker
+
+# beta opt-in (build config validation)
+version: ~> 1.0
 
 branches:
   except:
@@ -64,12 +71,10 @@ before_script:
 
 script:
   # code coverage setup
-  - ci_env=`bash <(curl -s https://codecov.io/env)`
-  - docker run $ci_env gctcntgc/talentcloud sh
-  - mkdir -p report/
-  # run browser tests
-  - if [ $TEST_SUITE = "browser" ]; then
-      npm run testcafe-ci;
+  - if [ $TEST_SUITE != "browser" ]; then
+      mkdir -p report/;
+      ci_env=`bash <(curl -s https://codecov.io/env)`;
+      docker run $ci_env gctcntgc/talentcloud sh;
     fi
   # run phpunit and jest as separate jobs
   - if [ $TEST_SUITE = "jest" ]; then
@@ -79,20 +84,15 @@ script:
   - if [ $TEST_SUITE = "phpunit" ]; then
       make phpunit;
     fi
+  # run browser tests
+  - if [ $TEST_SUITE = "browser" ]; then
+      npm run testcafe-ci;
+    fi
 
 after_script:
-  # tear down containers
+  # upload coverage reports, tear down
+  - bash <(curl -s https://codecov.io/bash)
   - travis_retry make docker-stop
-
-after_success:
-  # upload coverage reports (with flags)
-  - if [ $TEST_SUITE = "jest" ]; then
-      bash <(curl -s https://codecov.io/bash) -f report/jest/coverage-final.json -F jest;
-    fi
-  # test fails will cause the job to fail (after separating)
-  - if [ $TEST_SUITE = "phpunit" ]; then
-      bash <(curl -s https://codecov.io/bash) -f report/phpunit/coverage.xml -F phpunit;
-    fi
 
 notifications:
   # only slack notifications
