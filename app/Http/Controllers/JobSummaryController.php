@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\JobPoster;
 use App\Models\HrAdvisor;
+use App\Models\JobPoster;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
@@ -15,14 +15,14 @@ class JobSummaryController extends Controller
      * Display the specified job summary.
      *
      * @param  \Illuminate\Http\Request $request Incoming request object.
-     * @param  \App\Models\JobPoster $job Job Poster object.
+     * @param  \App\Models\JobPoster $jobPoster Job Poster object.
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, JobPoster $job)
+    public function show(Request $request, JobPoster $jobPoster)
     {
         $user = Auth::user();
 
-        $applications = $job->submitted_applications;
+        $applications = $jobPoster->submitted_applications;
         $advisor = $user->hr_advisor;
         $jobIsClaimed = ($advisor !== null) &&
             $advisor->claimed_job_ids->contains($job->id);
@@ -97,7 +97,7 @@ class JobSummaryController extends Controller
             // User data.
             'user' => $user,
             // Job Poster data.
-            'job' => $job,
+            'job' => $jobPoster,
             // Application data.
             'applications' => $applications,
             // TODO: Add Routes.

@@ -322,6 +322,12 @@ Route::group(
                             ->middleware('can:view,jobPoster')
                             ->name('manager.jobs.show');
 
+                        /* Job Summary */
+                        Route::get('jobs/{jobPoster}/summary', 'JobSummaryController@show')
+                            ->where('jobPoster', '[0-9]+')
+                            ->middleware('can:view,jobPoster')
+                            ->name('manager.jobs.summary');
+
                         /* Job Builder */
                         Route::get(
                             'jobs/builder',
