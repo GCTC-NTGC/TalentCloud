@@ -33,6 +33,8 @@ return [
     'edit_screening_plans' => 'Edit Screening Plans',
     'send_for_review' => 'Send for Review',
     'send_this_review' => 'Send this job poster for submission review..',
+    'view_summary_title' => 'View a summary of this job poster.',
+    'view_summary_button' => 'View Job Summary',
     'review_applicants' => 'Review Applicants',
     'review_this_applicants' => 'Review the applicants who applied to this job.',
     'delete_this_poster' => 'Delete this job poster draft.',
