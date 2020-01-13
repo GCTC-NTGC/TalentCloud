@@ -17,4 +17,15 @@ class UserController extends Controller
         $users = User::with(['applicant', 'manager'])->get();
         return $users->toJson();
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\User $user Incoming User.
+     * @return \Illuminate\Http\Response
+     */
+    public function show(User $user)
+    {
+        return $user->toJson();
+    }
 }

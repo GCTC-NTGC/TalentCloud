@@ -569,6 +569,8 @@ Route::group(['prefix' => 'api'], function (): void {
     // Public, not protected by policy or gate.
     Route::get('skills', 'Api\SkillController@index');
     Route::get('users', 'Api\UserController@index');
+    Route::get('users/{user}', 'Api\UserController@show')
+        ->where('user', '[0-9]+');
     Route::get('departments', 'Api\DepartmentController@index');
 
     // Resource Routes are protected by policies in controllers instead of middleware.
