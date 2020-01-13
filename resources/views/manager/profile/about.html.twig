@@ -37,24 +37,15 @@
 		</legend>
 		<div class="flex-grid">
 			<div class="box full">
-				<div class="form__input-wrapper--select">
-					<label class="form__label" for="managerProfileDepartment">
-						{{ about_l10n.department }}
-					</label>
-					<div class="form__select-wrapper fas fa-chevron-down">
-						<select required class="form__input form__input__select" id="managerProfileDepartment" name="department_id">
-							{% set chosen_name = manager.department.name %}
-							<option value="" disabled {% if not chosen_name %} selected {% endif %}>
-								{{ about_l10n.department_default_option }}
-							</option>
-							{% for department in departments %}
-								{% set department_name = department.name %}
-								<option value="{{ department.id }}" {% if old('department_id') %} {% if old('department_id') == department.id %} selected="selected" {% endif %} {% else %} {% if department_name == chosen_name %} selected="selected" {% endif %} {% endif %}>
-									{{ department.name }}
-								</option>
-							{% endfor %}
-						</select>
-					</div>
+				<div data-clone>
+					<p data-c-margin="top(normal)">{{ about_l10n.department }}:
+						<span data-c-font-weight="bold">{{ manager.department.name }}</span>
+					</p>
+					<p data-c-margin="top(quarter) bottom(half)" data-c-font-size="small">{{ about_l10n.change_department_info}}
+						<a href="{{about_l10n.talent_cloud_email.href}}" title="{{about_l10n.talent_cloud_email.title}}" target="_blank" rel="noopener noreferrer">{{ about_l10n.talent_cloud_email.text }}</a>.
+						{{ about_l10n.account_settings }}
+						<a href="{{about_l10n.account_settings_link.href}}" title="{{about_l10n.account_settings_link.title}}">{{ about_l10n.account_settings_link.text }}</a>.
+					</p>
 				</div>
 			</div>
 			<div class="box med-1of2">
@@ -85,7 +76,7 @@
 					<label class="form__label" for="managerProfileEducationEN">
 						{{ about_l10n.education_english }}
 					</label>
-					<textarea class="form__textarea" id="managerProfileEducationEN" name="education[en]">{{ old('education.en',  translations.education.en) }}
+					<textarea class="form__textarea" id="managerProfileEducationEN" name="education[en]">{{ old('education.en', translations.education.en) }}
 					</textarea>
 				</div>
 			</div>
@@ -94,7 +85,7 @@
 					<label class="form__label" for="managerProfileEducationFR">
 						{{ about_l10n.education_french }}
 					</label>
-					<textarea class="form__textarea" id="managerProfileEducationFR" name="education[fr]">{{ old('education.fr',  translations.education.fr) }}
+					<textarea class="form__textarea" id="managerProfileEducationFR" name="education[fr]">{{ old('education.fr', translations.education.fr) }}
 					</textarea>
 				</div>
 			</div>
@@ -111,7 +102,7 @@
 					<label class="form__label" for="managerProfileCareerJourneyEN">
 						{{ about_l10n.career_journey_english }}
 					</label>
-					<textarea class="form__textarea" id="managerProfileCareerJourneyEN" name="career_journey[en]">{{ old('career_journey.en',  translations.career_journey.en) }}</textarea>
+					<textarea class="form__textarea" id="managerProfileCareerJourneyEN" name="career_journey[en]">{{ old('career_journey.en', translations.career_journey.en) }}</textarea>
 				</div>
 			</div>
 			<div class="box med-1of2">
@@ -119,7 +110,7 @@
 					<label class="form__label" for="managerProfileCareerJourneyFR">
 						{{ about_l10n.career_journey_french }}
 					</label>
-					<textarea class="form__textarea" id="managerProfileCareerJourneyFR" name="career_journey[fr]">{{ old('career_journey.fr',  translations.career_journey.fr) }}</textarea>
+					<textarea class="form__textarea" id="managerProfileCareerJourneyFR" name="career_journey[fr]">{{ old('career_journey.fr', translations.career_journey.fr) }}</textarea>
 				</div>
 			</div>
 			<div class="box med-1of2">
@@ -127,7 +118,7 @@
 					<label class="form__label" for="managerProfileLearningPathEN">
 						{{ about_l10n.learning_path_english }}
 					</label>
-					<textarea class="form__textarea" id="managerProfileLearningPathEN" name="learning_path[en]">{{ old('learning_path.en',  translations.learning_path.en) }}</textarea>
+					<textarea class="form__textarea" id="managerProfileLearningPathEN" name="learning_path[en]">{{ old('learning_path.en', translations.learning_path.en) }}</textarea>
 				</div>
 			</div>
 			<div class="box med-1of2">
@@ -135,7 +126,7 @@
 					<label class="form__label" for="managerProfileLearningPathFR">
 						{{ about_l10n.learning_path_french }}
 					</label>
-					<textarea class="form__textarea" id="managerProfileLearningPathFR" name="learning_path[fr]">{{ old('learning_path.fr',  translations.learning_path.fr) }}</textarea>
+					<textarea class="form__textarea" id="managerProfileLearningPathFR" name="learning_path[fr]">{{ old('learning_path.fr', translations.learning_path.fr) }}</textarea>
 				</div>
 			</div>
 			<div class="box med-1of2">
@@ -166,7 +157,7 @@
 					<label class="form__label" for="managerProfileTwitter">
 						{{ about_l10n.twitter_username }}
 					</label>
-					<input class="form__input" id="managerProfileTwitter" type="text" name="twitter_username" pattern="{{ twitterHandlePattern }}" value="{{ old('twitter_username', manager.twitter_username) }}"/>
+					<input class="form__input" id="managerProfileTwitter" type="text" name="twitter_username" pattern="{{ twitterHandlePattern }}" value="{{ old('twitter_username', manager.twitter_username) }}" autocomplete="off"/>
 				</div>
 			</div>
 			<div class="box med-1of2">
@@ -174,7 +165,7 @@
 					<label class="form__label" for="managerProfileLinkedin">
 						{{ about_l10n.linkedin_url }}
 					</label>
-					<input class="form__input" id="managerProfileLinkedin" type="url" name="linkedin_url" pattern="{{ linkedInUrlPattern }}" value="{{ old('linkedin_url', manager.linkedin_url) }}"/>
+					<input class="form__input" id="managerProfileLinkedin" type="url" name="linkedin_url" pattern="{{ linkedInUrlPattern }}" value="{{ old('linkedin_url', manager.linkedin_url) }}" autocomplete="off"/>
 				</div>
 			</div>
 		</div>

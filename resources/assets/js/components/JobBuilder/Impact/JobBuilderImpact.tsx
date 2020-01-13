@@ -144,7 +144,11 @@ const deptImpactStatement = (
       </p>
     );
   }
-  return <p data-c-margin="bottom(double)">{deptImpacts[locale]}</p>;
+  return (
+    <p id="deptImpactStatement" data-c-margin="bottom(double)">
+      {deptImpacts[locale]}
+    </p>
+  );
 };
 
 const JobBuilderImpact: React.FunctionComponent<JobBuilderImpactProps &
@@ -242,7 +246,8 @@ const JobBuilderImpact: React.FunctionComponent<JobBuilderImpactProps &
             description="Header of Department Impact Section on Job Poster Builder Impact Step"
           />
         </p>
-        {deptImpactStatement(departments, job, deptImpacts, locale)}
+        {deptImpactStatement &&
+          deptImpactStatement(departments, job, deptImpacts, locale)}
         <Formik
           enableReinitialize
           initialValues={initialValues}

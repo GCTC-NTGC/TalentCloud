@@ -12,9 +12,8 @@ import get from "lodash/get";
 import { validationMessages } from "../../Form/Messages";
 import { Job, Department, Manager } from "../../../models/types";
 import { emptyJob } from "../../../models/jobUtil";
-import SelectInput from "../../Form/SelectInput";
 import TextInput from "../../Form/TextInput";
-import { getId } from "../../../helpers/queries";
+import { accountSettings } from "../../../helpers/routes";
 
 const pageMessages = defineMessages({
   explanationBoldText: {
@@ -55,16 +54,21 @@ const formMessages = defineMessages({
     defaultMessage: "e.g. Gestionnaire de la conception",
     description: "The placeholder displayed on the Manager Position input.",
   },
-  departmentLabel: {
-    id: "jobBuilder.intro.departmentLabel",
-    defaultMessage: "{name}'s Department",
-    description: "The label displayed on the department select box.",
-  },
   departmentNullSelection: {
     id: "jobBuilder.intro.departmentNullSelection",
     defaultMessage: "Select a department...",
     description:
       "The default selection option displayed on the department select box.",
+  },
+  accountSettingsLinkTitle: {
+    id: "jobBuilder.intro.accountSettingsLinkTitle",
+    defaultMessage: "Visit Account Settings page.",
+    description: "Title of the account settings page link.",
+  },
+  accountSettingsLinkText: {
+    id: "jobBuilder.intro.accountSettingsLinkText",
+    defaultMessage: "account settings",
+    description: "Visible text of the account settings link.",
   },
   divisionLabelEN: {
     id: "jobBuilder.intro.divisionLabelEN",
@@ -118,9 +122,7 @@ const initializeValues = (
   manager: Manager,
 ): IntroFormValues => {
   let department: number | "" = "";
-  if (job !== null && job.department_id !== null) {
-    department = job.department_id;
-  } else if (manager.department_id !== null) {
+  if (manager.department_id !== null) {
     department = manager.department_id;
   }
 
@@ -203,6 +205,12 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
   }
   const initialValues: IntroFormValues = initializeValues(job, manager);
   const [languageSelection, setLanguageSelection] = useState(locale);
+  const getDepartmentName = (): string | undefined => {
+    // eslint-disable-next-line camelcase
+    return departments.find(
+      department => department.id === manager.department_id,
+    )?.name[locale];
+  };
 
   const introSchema = Yup.object().shape({
     managerPositionEn: Yup.string().required(
@@ -217,12 +225,6 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
     divisionFR: Yup.string().required(
       intl.formatMessage(validationMessages.required),
     ),
-    department: Yup.number()
-      .oneOf(
-        departments.map(getId),
-        intl.formatMessage(validationMessages.invalidSelection),
-      )
-      .required(intl.formatMessage(validationMessages.required)),
   });
 
   return (
@@ -253,23 +255,6 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
             }}
           />
         </p>
-        <h4 data-c-font-size="h4" data-c-margin="bottom(normal)">
-          <FormattedMessage
-            id="jobBuilder.intro.formTitle"
-            defaultMessage="{name}'s Profile Information"
-            description="The title of the profile information form."
-            values={{
-              name: manager.first_name,
-            }}
-          />
-        </h4>
-        <p data-c-margin="bottom(double)">
-          <FormattedMessage
-            id="jobBuilder.intro.formDescription"
-            defaultMessage="This information is used on the Job Poster to help applicants learn more about who they'll be working with."
-            description="Explanation of why the profile information is collected."
-          />
-        </p>
         <Formik
           enableReinitialize
           initialValues={initialValues}
@@ -295,14 +280,27 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
                 setSubmitting(false); // Required by Formik to finish the submission cycle
               });
           }}
-          render={({
-            isSubmitting,
-            values,
-            submitForm,
-          }): React.ReactElement => (
+          render={({ isSubmitting, submitForm }): React.ReactElement => (
             <>
               <Form id="form" data-c-margin="bottom(normal)">
                 <div data-c-grid="gutter">
+                  <h4 data-c-font-size="h4" data-c-grid-item="base(1of1)">
+                    <FormattedMessage
+                      id="jobBuilder.intro.formTitle"
+                      defaultMessage="{name}'s Profile Information"
+                      description="The title of the profile information form."
+                      values={{
+                        name: manager.first_name,
+                      }}
+                    />
+                  </h4>
+                  <p data-c-grid-item="base(1of1)">
+                    <FormattedMessage
+                      id="jobBuilder.intro.formDescription"
+                      defaultMessage="This information is used on the Job Poster to help applicants learn more about who they'll be working with."
+                      description="Explanation of why the profile information is collected."
+                    />
+                  </p>
                   <Field
                     type="text"
                     id="builder01ManagerPositionEn"
@@ -331,27 +329,63 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
                     grid="tl(1of2)"
                     component={TextInput}
                   />
-                  <Field
-                    name="department"
-                    id="builder01ManagerDepartment"
-                    label={intl.formatMessage(formMessages.departmentLabel, {
-                      name: manager.first_name,
-                    })}
-                    grid="base(1of1)"
-                    component={SelectInput}
-                    required
-                    selected={values.department}
-                    nullSelection={intl.formatMessage(
-                      formMessages.departmentNullSelection,
+                  <h4 data-c-font-size="h4" data-c-grid-item="base(1of1)">
+                    <FormattedMessage
+                      id="jobBuilder.intro.departmentHeader"
+                      defaultMessage="{name}'s Department Information"
+                      description="The label displayed on the department select box."
+                      values={{ name: manager.first_name }}
+                    />
+                  </h4>
+                  <p data-c-grid-item="base(1of1)">
+                    <FormattedMessage
+                      id="jobBuilder.intro.departmentLabel"
+                      defaultMessage="Department"
+                      description="The label displayed on the department select box."
+                    />
+                    :{" "}
+                    {getDepartmentName && (
+                      <span id="department" data-c-font-weight="bold">
+                        {getDepartmentName()}
+                      </span>
                     )}
-                    options={departments.map((dept: Department): {
-                      value: number;
-                      label: string;
-                    } => ({
-                      value: dept.id,
-                      label: dept.name[locale],
-                    }))}
-                  />
+                    <span
+                      data-c-margin="top(quarter)"
+                      data-c-font-size="small"
+                      style={{ display: "block" }}
+                    >
+                      <FormattedMessage
+                        id="jobBuilder.intro.changeDepartment"
+                        defaultMessage="To change your department, please contact {email}. To learn more visit your {accountSettings}."
+                        values={{
+                          email: (
+                            <a
+                              href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca"
+                              title={intl.formatMessage(
+                                pageMessages.emailLinkTitle,
+                              )}
+                            >
+                              {intl.formatMessage(pageMessages.emailLinkText)}
+                            </a>
+                          ),
+                          accountSettings: (
+                            <a
+                              href={accountSettings(locale)}
+                              title={intl.formatMessage(
+                                formMessages.accountSettingsLinkTitle,
+                              )}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {intl.formatMessage(
+                                formMessages.accountSettingsLinkText,
+                              )}
+                            </a>
+                          ),
+                        }}
+                      />
+                    </span>
+                  </p>
                   <Field
                     type="text"
                     id="builder01ManagerDivisionEN"
