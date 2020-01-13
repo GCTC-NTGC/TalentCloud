@@ -130,8 +130,8 @@ const JobTasks: React.FunctionComponent<JobTasksProps &
             return {
               ...keyTask,
               description: {
-                en: locale === "en" ? task.description : "",
-                fr: locale === "fr" ? task.description : "",
+                en: locale === "en" ? task.description : keyTask.description.en,
+                fr: locale === "fr" ? task.description : keyTask.description.fr,
               },
             };
           }
