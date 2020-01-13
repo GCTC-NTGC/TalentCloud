@@ -1275,14 +1275,19 @@
         "id": "jobBuilder.intro.jobTitlePlaceholderFR"
       },
       {
-        "defaultMessage": "{name}'s Department",
-        "description": "The label displayed on the department select box.",
-        "id": "jobBuilder.intro.departmentLabel"
-      },
-      {
         "defaultMessage": "Select a department...",
         "description": "The default selection option displayed on the department select box.",
         "id": "jobBuilder.intro.departmentNullSelection"
+      },
+      {
+        "defaultMessage": "Visit Account Settings page.",
+        "description": "Title of the account settings page link.",
+        "id": "jobBuilder.intro.accountSettingsLinkTitle"
+      },
+      {
+        "defaultMessage": "account settings",
+        "description": "Visible text of the account settings link.",
+        "id": "jobBuilder.intro.accountSettingsLinkText"
       },
       {
         "defaultMessage": "{name}'s Division (English)",
@@ -1323,6 +1328,20 @@
         "defaultMessage": "This information is used on the Job Poster to help applicants learn more about who they'll be working with.",
         "description": "Explanation of why the profile information is collected.",
         "id": "jobBuilder.intro.formDescription"
+      },
+      {
+        "defaultMessage": "{name}'s Department Information",
+        "description": "The label displayed on the department select box.",
+        "id": "jobBuilder.intro.departmentHeader"
+      },
+      {
+        "defaultMessage": "Department",
+        "description": "The label displayed on the department select box.",
+        "id": "jobBuilder.intro.departmentLabel"
+      },
+      {
+        "defaultMessage": "To change your department, please contact {email}. To learn more visit your {accountSettings}.",
+        "id": "jobBuilder.intro.changeDepartment"
       },
       {
         "defaultMessage": "Complete the job poster in the language of your choice. We will\r\n                  handle translation.",
