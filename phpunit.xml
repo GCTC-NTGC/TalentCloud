@@ -21,6 +21,7 @@
         <env name="QUEUE_DRIVER" value="database" />
         <env name="MAIL_DRIVER" value="smtp"/>
         <env name="HIDE_LOCALE_IN_URL" value="true"/>
+        <env name="DB_DATABASE" value="testing"/>
     </php>
     <logging>
         <log type="coverage-html" target="report/phpunit"/>
