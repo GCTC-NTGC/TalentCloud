@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
-import { WrappedComponentProps, injectIntl, useIntl } from "react-intl";
-import nprogress from "nprogress";
-import { connect, useDispatch, useSelector } from "react-redux";
+import {
+  useIntl,
+  FormattedMessage,
+} from "react-intl";
+import { useDispatch, useSelector } from "react-redux";
 import ReactDOM from "react-dom";
 import RootContainer from "../RootContainer";
 import {
@@ -13,8 +15,6 @@ import {
   Department,
 } from "../../models/types";
 import {
-  managerJobIndex,
-  jobBuilderSkills,
   hrJobSummary,
 } from "../../helpers/routes";
 import { RootState } from "../../store/store";
@@ -24,9 +24,7 @@ import {
   getCriteriaByJob,
 } from "../../store/Job/jobSelector";
 import { getSkills } from "../../store/Skill/skillSelector";
-import { DispatchType } from "../../configureStore";
 import {
-  submitJobForReview,
   fetchJob,
   fetchJobTasks,
   fetchCriteria,
@@ -34,16 +32,12 @@ import {
 import { getDepartments as fetchDepartments } from "../../store/Department/deptActions";
 import { getDepartments } from "../../store/Department/deptSelector";
 import {
-  getSelectedManager,
   getManagerById,
 } from "../../store/Manager/managerSelector";
 import {
   fetchManager,
-  setSelectedManager,
 } from "../../store/Manager/managerActions";
-import { navigate } from "../../helpers/router";
-import { isJobBuilderComplete } from "../JobBuilder/jobBuilderHelpers";
-import JobReview from "../JobBuilder/Review/JobReview";
+import { JobReviewDisplay } from "../JobBuilder/Review/JobReview";
 import { fetchSkills } from "../../store/Skill/skillActions";
 
 interface JobReviewHrPageProps {
@@ -69,35 +63,41 @@ const JobReviewHrPage: React.FunctionComponent<JobReviewHrPageProps> = ({
   if (locale !== "en" && locale !== "fr") {
     throw new Error("Unexpected locale");
   }
-
-  const handleReturn = (): void => {
-    // Go to Previous page
-    navigate(hrJobSummary(locale, jobId));
-  };
-  const handleContinue = (): void => {
-    // do nothing
-  };
-  const handleSubmitJob = async (): Promise<void> => {
-    // do nothing
-  };
-  const jobIsComplete =
-    job !== null && isJobBuilderComplete(job, keyTasks, criteria, locale);
-
-  return job !== null ? (
-    <JobReview
-      job={job}
-      manager={manager}
-      tasks={keyTasks}
-      criteria={criteria}
-      skills={skills}
-      departments={departments}
-      validForSubmission={jobIsComplete}
-      handleSubmit={handleSubmitJob}
-      handleReturn={handleReturn}
-      handleContinue={handleContinue}
-    />
-  ) : (
-    <h3>Data is loading</h3> // TODO:
+  return (
+    <div data-c-container="form" data-c-padding="top(triple) bottom(triple)">
+      {job !== null ? (
+        <JobReviewDisplay
+          job={job}
+          manager={manager}
+          tasks={keyTasks}
+          criteria={criteria}
+          skills={skills}
+          departments={departments}
+          hideBuilderLinks={true}
+        />
+      ) : (
+        <div data-c-alignment="base(centre)">
+          <i className="fa fa-spinner fa-spin" />
+        </div>
+      )}
+      <div data-c-grid="gutter">
+        <div data-c-grid-item="base(1of1)">
+          <hr data-c-margin="top(normal) bottom(normal)" />
+        </div>
+        <div
+          data-c-alignment="base(centre) tp(left)"
+          data-c-grid-item="tp(1of2)"
+        >
+          <a href={hrJobSummary(locale, jobId)} title="">
+            <FormattedMessage
+              id="jobReviewHr.summaryLink"
+              defaultMessage="Return to Summary"
+              description="Text for the Return to Summary link."
+            />
+          </a>
+        </div>
+      </div>
+    </div>
   );
 };
 
