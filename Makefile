@@ -1,8 +1,8 @@
 # Makefile for Docker Nginx PHP Composer
 
 build-db:
-	@docker exec talentcloud sh -c "php artisan migrate"
-	@docker exec talentcloud sh -c "php artisan db:seed"
+	@docker exec postgres sh -c "psql -c 'create database testing with owner talentcloud;' -U talentcloud"
+	@docker exec talentcloud sh -c "php artisan migrate && php artisan db:seed"
 
 clean:
 	@rm -Rf composer.lock package-lock.json etc/ssl/ node_modules/ report/ vendor/
