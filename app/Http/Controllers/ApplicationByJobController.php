@@ -254,6 +254,18 @@ class ApplicationByJobController extends Controller
                 return $value->criteria_type->name == 'asset';
             }),
         ];
+        $skillDeclarations = $application->isDraft()
+            ? $applicant->skill_declarations
+            : $application->skill_declarations;
+        $degrees = $application->isDraft()
+            ? $applicant->degrees
+            : $application->degrees;
+        $courses = $application->isDraft()
+            ? $applicant->courses
+            : $application->courses;
+        $work_experiences = $application->isDraft()
+            ? $applicant->work_experiences
+            : $application->work_experiences;
 
         return view(
             'applicant/application_post_05',
@@ -273,6 +285,10 @@ class ApplicationByJobController extends Controller
                 // Applicant Data.
                 'applicant' => $applicant,
                 'job_application' => $application,
+                'skill_declarations' => $skillDeclarations,
+                'degrees' => $degrees,
+                'courses' => $courses,
+                'work_experiences' => $work_experiences,
                 'is_manager_view' => WhichPortal::isManagerPortal(),
             ]
         );
