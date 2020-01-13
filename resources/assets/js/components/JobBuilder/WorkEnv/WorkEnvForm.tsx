@@ -671,11 +671,11 @@ const updateJobWithValues = (
       [locale]: envDescription || null,
     },
     culture_summary: {
-      ...job.work_env_description,
+      ...job.culture_summary,
       [locale]: cultureSummary || null,
     },
     culture_special: {
-      ...job.work_env_description,
+      ...job.culture_special,
       [locale]: moreCultureSummary || null,
     },
   };
