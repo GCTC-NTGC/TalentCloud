@@ -556,30 +556,29 @@ Route::group(
                         ->middleware('can:unClaim,job')
                         ->where('job', '[0-9]+');
                 });
-
-                // These routes must be excluded from the finishHrAdvisorRegistration middleware to avoid an infinite loop of redirects
-                Route::middleware(['auth', 'role:hr_advisor'])->group(function (): void {
-                    Route::get('first-visit', 'Auth\FirstVisitController@showFirstVisitHrForm')
-                        ->name('hr_advisor.first_visit');
-                    Route::post('finish_registration', 'Auth\FirstVisitController@finishHrRegistration')
-                        ->name('hr_advisor.finish_registration');
-                });
-
-                // Laravel default login, logout, register, and reset routes
-                Route::get('login', 'Auth\LoginController@showLoginForm')->name('hr_advisor.login');
-                Route::post('login', 'Auth\LoginController@login')->name('hr_advisor.login.post');
-                Route::post('logout', 'Auth\LoginController@logout')->name('hr_advisor.logout');
-
-                // Registration Routes...
-                Route::get('register', 'Auth\RegisterController@showHrRegistrationForm')->name('hr_advisor.register');
-                Route::post('register', 'Auth\RegisterController@registerHrAdvisor')->name('hr_advisor.register.post');
-
-                // Password Reset Routes...
-                Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('hr_advisor.password.request');
-                Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('hr_advisor.password.email');
-                Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('hr_advisor.password.reset');
-                Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('hr_advisor.password.reset.post');
             });
+            // These routes must be excluded from the finishHrAdvisorRegistration middleware to avoid an infinite loop of redirects
+            Route::middleware(['auth', 'role:hr_advisor'])->group(function (): void {
+                Route::get('first-visit', 'Auth\FirstVisitController@showFirstVisitHrForm')
+                    ->name('hr_advisor.first_visit');
+                Route::post('finish_registration', 'Auth\FirstVisitController@finishHrRegistration')
+                    ->name('hr_advisor.finish_registration');
+            });
+
+            // Laravel default login, logout, register, and reset routes
+            Route::get('login', 'Auth\LoginController@showLoginForm')->name('hr_advisor.login');
+            Route::post('login', 'Auth\LoginController@login')->name('hr_advisor.login.post');
+            Route::post('logout', 'Auth\LoginController@logout')->name('hr_advisor.logout');
+
+            // Registration Routes...
+            Route::get('register', 'Auth\RegisterController@showHrRegistrationForm')->name('hr_advisor.register');
+            Route::post('register', 'Auth\RegisterController@registerHrAdvisor')->name('hr_advisor.register.post');
+
+            // Password Reset Routes...
+            Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('hr_advisor.password.request');
+            Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('hr_advisor.password.email');
+            Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('hr_advisor.password.reset');
+            Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('hr_advisor.password.reset.post');
         });
 
         /* Non-Backpack Admin Portal (non-localized pages) =========================================================== */
