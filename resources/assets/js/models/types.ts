@@ -242,6 +242,8 @@ export interface User {
   created_at: Date;
   updated_at: Date;
   is_priority: boolean;
+  not_in_gov: boolean;
+  gov_email: string;
 }
 
 type VeteranStatusName = "none" | "current" | "past";
