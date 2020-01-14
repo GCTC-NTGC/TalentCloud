@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { useIntl, defineMessages, FormattedMessage } from "react-intl";
 import { validationMessages } from "./Form/Messages";
 import { CommentTypeId, LocationId } from "../models/lookupConstants";
-import TextInput from "./Form/TextInput";
+import TextAreaInput from "./Form/TextAreaInput";
 import SelectInput from "./Form/SelectInput";
 import { Comment } from "../models/types";
 import { DispatchType } from "../configureStore";
@@ -26,7 +26,7 @@ const formMessages = defineMessages({
   },
   commentTypeLabel: {
     id: "commentForm.commentType.label",
-    defaultMessage: "Type",
+    defaultMessage: "Type of Comment",
     description: "The label displayed for the comment type select box.",
   },
   commentTypeNullSelection: {
@@ -36,7 +36,7 @@ const formMessages = defineMessages({
   },
   commentLocationLabel: {
     id: "commentForm.commentLocation.label",
-    defaultMessage: "Location",
+    defaultMessage: "Location of Comment",
     description: "The label displayed for the location select box.",
   },
   commentLocationNullSelection: {
@@ -144,12 +144,22 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
         }}
         render={({ isSubmitting }): React.ReactElement => (
           <Form data-c-grid="gutter(all, 1)">
+            <Field
+              id="comment_form_input"
+              type="text"
+              name="comment"
+              component={TextAreaInput}
+              required
+              grid={locationOptions && isHrAdviser ? "tl(1of1)" : "tl(2of3)"}
+              label={intl.formatMessage(formMessages.commentLabel)}
+              placeholder={intl.formatMessage(formMessages.commentPlaceholder)}
+            />
             {locationOptions && (
               <Field
                 name="commentLocation"
                 id="comment_form_location"
                 label={intl.formatMessage(formMessages.commentLocationLabel)}
-                grid="tl(1of4)"
+                grid={locationOptions && isHrAdviser ? "tl(1of2)" : "tl(1of3)"}
                 component={SelectInput}
                 required
                 nullSelection={intl.formatMessage(
@@ -161,23 +171,13 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
                 }))}
               />
             )}
-            <Field
-              id="comment_form_input"
-              type="text"
-              name="comment"
-              component={TextInput}
-              required
-              grid="tl(2of4)"
-              label={intl.formatMessage(formMessages.commentLabel)}
-              placeholder={intl.formatMessage(formMessages.commentPlaceholder)}
-            />
             {isHrAdviser && (
               <Field
                 id="comment_form_type"
                 name="commentType"
                 component={SelectInput}
                 required
-                grid="tl(1of4)"
+                grid={locationOptions && isHrAdviser ? "tl(1of2)" : "tl(1of3)"}
                 nullSelection={intl.formatMessage(
                   formMessages.commentTypeNullSelection,
                 )}
