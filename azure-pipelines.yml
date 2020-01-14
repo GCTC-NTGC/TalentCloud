@@ -1,7 +1,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/php
 
 trigger:
-- feature/the-pipeline-cometh
+- feature/azure-webapp-pipeline-cometh
 
 pool:
   #vm|Image: 'windows'
