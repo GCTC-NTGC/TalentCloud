@@ -30,6 +30,8 @@ import {
   hrJobIndex,
   hrJobSummary,
   hrJobPreview,
+  managerJobIndex,
+  managerJobShow,
 } from "../helpers/routes";
 import { ValuesOf } from "./app";
 import { Locales } from "../helpers/localize";
@@ -165,6 +167,9 @@ export const activityLocationUrl = (
     [LocationId.skills]: jobBuilderSkills(locale, jobId),
     [LocationId.review]: jobBuilderReview(locale, jobId),
     [LocationId.screeningPlan]: managerScreeningPlan(locale, jobId),
+    [LocationId.index]: managerJobIndex(locale),
+    [LocationId.summary]: jobBuilderReview(locale, jobId), // TODO: change to summary page, once managers have it
+    [LocationId.preview]: managerJobShow(locale, jobId),
   };
 
   return isHrAdvisor ? hrAdvisorUrls[location] : managerUrls[location];
