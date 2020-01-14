@@ -5,7 +5,7 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { useIntl, defineMessages, FormattedMessage } from "react-intl";
 import { validationMessages } from "./Form/Messages";
-import { CommentTypeId } from "../models/lookupConstants";
+import { CommentTypeId, LocationId } from "../models/lookupConstants";
 import TextInput from "./Form/TextInput";
 import SelectInput from "./Form/SelectInput";
 import { Comment } from "../models/types";
@@ -26,13 +26,23 @@ const formMessages = defineMessages({
   },
   commentTypeLabel: {
     id: "commentForm.commentType.label",
-    defaultMessage: "Type of Comment",
+    defaultMessage: "Type",
     description: "The label displayed for the comment type select box.",
   },
   commentTypeNullSelection: {
     id: "commentForm.commentType.nullSelection",
     defaultMessage: "Select a comment type...",
-    description: "Comment type from list of comment types",
+    description: "Null selection from list of comment types",
+  },
+  commentLocationLabel: {
+    id: "commentForm.commentLocation.label",
+    defaultMessage: "Location",
+    description: "The label displayed for the location select box.",
+  },
+  commentLocationNullSelection: {
+    id: "commentForm.commentLocation.nullSelection",
+    defaultMessage: "Select a location...",
+    description: "Null selection from list of comment locations",
   },
 });
 
@@ -63,12 +73,14 @@ interface CommentFormProps {
   jobId: number;
   isHrAdviser: boolean;
   location: string;
+  locationOptions?: { value: string; label: string }[];
   handleCreateComment: (jobId: number, newComment: Comment) => Promise<Comment>;
 }
 
 interface CommentFormValues {
   comment: string;
-  commentType: number | null;
+  commentType: number | "";
+  commentLocation?: string | "";
 }
 
 const CommentForm: React.FunctionComponent<CommentFormProps> = ({
@@ -76,11 +88,13 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
   handleCreateComment,
   jobId,
   location,
+  locationOptions,
 }: CommentFormProps): React.ReactElement => {
   const intl = useIntl();
   const initialValues: CommentFormValues = {
     comment: "",
-    commentType: 0 || null,
+    commentType: "",
+    commentLocation: "",
   };
 
   const hrCommentSchema = Yup.object().shape({
@@ -93,12 +107,28 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
         intl.formatMessage(validationMessages.invalidSelection),
       )
       .required(intl.formatMessage(validationMessages.required)),
+    ...(locationOptions && {
+      commentLocation: Yup.string()
+        .oneOf(
+          Object.values(LocationId),
+          intl.formatMessage(validationMessages.invalidSelection),
+        )
+        .required(intl.formatMessage(validationMessages.required)),
+    }),
   });
 
   const managerCommentSchema = Yup.object().shape({
     comment: Yup.string().required(
       intl.formatMessage(validationMessages.required),
     ),
+    ...(locationOptions && {
+      commentLocation: Yup.string()
+        .oneOf(
+          Object.values(LocationId),
+          intl.formatMessage(validationMessages.invalidSelection),
+        )
+        .required(intl.formatMessage(validationMessages.required)),
+    }),
   });
 
   return (
@@ -109,7 +139,9 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
         onSubmit={(values, { setSubmitting, resetForm }): void => {
           const newComment: Comment = {
             ...emptyComment(),
-            location,
+            location: values.commentLocation
+              ? values.commentLocation
+              : location,
             comment: values.comment,
             type_id: isHrAdviser ? Number(values.commentType) : null,
           };
@@ -124,13 +156,30 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
         }}
         render={({ isSubmitting }): React.ReactElement => (
           <Form data-c-grid="gutter(all, 1)">
+            {locationOptions && (
+              <Field
+                name="commentLocation"
+                id="comment_form_location"
+                label={intl.formatMessage(formMessages.commentLocationLabel)}
+                grid="tl(1of4)"
+                component={SelectInput}
+                required
+                nullSelection={intl.formatMessage(
+                  formMessages.commentLocationNullSelection,
+                )}
+                options={locationOptions.map(({ value, label }) => ({
+                  value,
+                  label,
+                }))}
+              />
+            )}
             <Field
               id="comment_form_input"
               type="text"
               name="comment"
               component={TextInput}
               required
-              grid="tl(2of3)"
+              grid="tl(2of4)"
               label={intl.formatMessage(formMessages.commentLabel)}
               placeholder={intl.formatMessage(formMessages.commentPlaceholder)}
             />
@@ -140,15 +189,12 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
                 name="commentType"
                 component={SelectInput}
                 required
-                grid="tl(1of3)"
+                grid="tl(1of4)"
+                nullSelection={intl.formatMessage(
+                  formMessages.commentTypeNullSelection,
+                )}
                 label={intl.formatMessage(formMessages.commentTypeLabel)}
                 options={[
-                  {
-                    value: "",
-                    label: intl.formatMessage(
-                      formMessages.commentTypeNullSelection,
-                    ),
-                  },
                   {
                     value: CommentTypeId.question,
                     label: intl.formatMessage(commentTypeMessages.question),
@@ -169,11 +215,8 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
               />
             )}
             <div
-              data-c-grid-item={isHrAdviser ? "base(1of1)" : "tl(1of3)"}
+              data-c-grid-item="base(1of1)"
               data-c-align="base(center) tl(right)"
-              style={
-                isHrAdviser ? {} : { display: "flex", alignItems: "center" }
-              }
             >
               <button
                 type="submit"
