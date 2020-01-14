@@ -29,6 +29,9 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
 }) => {
   const intl = useIntl();
   const { locale } = intl;
+  if (locale !== "en" && locale !== "fr") {
+    throw new Error("Unknown intl.locale");
+  }
   const activities: Comment[] = [...comments];
   const [isActivitiesLoading, setIsActivitiesLoading] = useState(false);
   const [isError, setIsError] = useState(false);

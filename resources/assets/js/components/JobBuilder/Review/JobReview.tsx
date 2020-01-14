@@ -4,6 +4,7 @@ import {
   WrappedComponentProps,
   FormattedMessage,
   defineMessages,
+  useIntl,
 } from "react-intl";
 import {
   JobPosterKeyTask,
@@ -56,6 +57,7 @@ interface JobReviewSectionProps {
   link: string;
   linkLabel: string;
   description?: string;
+  hideLink: boolean;
 }
 
 const messages = defineMessages({
@@ -179,6 +181,7 @@ const JobReviewSection: React.FunctionComponent<JobReviewSectionProps> = ({
   linkLabel,
   description,
   children,
+  hideLink,
 }): React.ReactElement => {
   return (
     <>
@@ -202,15 +205,17 @@ const JobReviewSection: React.FunctionComponent<JobReviewSectionProps> = ({
               </h4>
             )}
           </div>
-          <div
-            data-c-grid-item="tp(1of2)"
-            data-c-alignment="base(centre) tp(right)"
-          >
-            <Link href={link} title={linkLabel}>
-              <i data-c-colour="c2" className="fas fa-edit" />
-              {linkLabel}
-            </Link>
-          </div>
+          {!hideLink && (
+            <div
+              data-c-grid-item="tp(1of2)"
+              data-c-alignment="base(centre) tp(right)"
+            >
+              <Link href={link} title={linkLabel}>
+                <i data-c-colour="c2" className="fas fa-edit" />
+                {linkLabel}
+              </Link>
+            </div>
+          )}
         </div>
       </div>
       {description && <p data-c-margin="bottom(normal)">{description}</p>}
@@ -328,7 +333,7 @@ const renderManagerSection = (
   );
 };
 
-interface JobReviewProps {
+interface JobReviewDisplayProps {
   job: Job;
   manager: Manager | null;
   tasks: JobPosterKeyTask[];
@@ -337,34 +342,20 @@ interface JobReviewProps {
   skills: Skill[];
   // List of all possible departments.
   departments: Department[];
-  validForSubmission?: boolean;
-  handleSubmit: (job: Job) => Promise<void>;
-  handleContinue: () => void;
-  handleReturn: () => void;
+  hideBuilderLinks: boolean;
 }
-
-export const JobReview: React.FunctionComponent<JobReviewProps &
-  WrappedComponentProps> = ({
+export const JobReviewDisplay: React.FC<JobReviewDisplayProps> = ({
   job,
   manager,
   tasks,
   criteria,
   skills,
   departments,
-  validForSubmission,
-  handleSubmit,
-  handleContinue,
-  handleReturn,
-  intl,
-}): React.ReactElement => {
+  hideBuilderLinks = false,
+}) => {
   // Scroll to element specified in the url hash, if possible
   useUrlHash();
-
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [isSurveyModalVisible, setIsSurveyModalVisible] = useState(false);
-  const modalId = "job-review-modal";
-  const modalParentRef = useRef<HTMLDivElement>(null);
-
+  const intl = useIntl();
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw new Error("Unknown intl.locale");
@@ -403,335 +394,395 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
 
   return (
     <>
+      <h3
+        data-c-font-size="h3"
+        data-c-font-weight="bold"
+        data-c-margin="bottom(double)"
+      >
+        <FormattedMessage
+          id="jobBuilder.review.reviewYourPoster"
+          defaultMessage="Review Your Job Poster for:"
+          description="Title for Review Job Poster section."
+        />{" "}
+        <span data-c-colour="c2">{job[locale].title}</span>
+      </h3>
+      <p>
+        <FormattedMessage
+          id="jobBuilder.review.headsUp"
+          defaultMessage="Just a heads up! We've rearranged some of your information to help you
+            understand how an applicant will see it once published."
+          description="Description under primary title of review section"
+        />
+      </p>
+      <JobReviewSection
+        title={intl.formatMessage(messages.titleHeading)}
+        linkLabel={intl.formatMessage(messages.infoEditLink)}
+        link={jobBuilderDetails(locale, job.id)}
+        hideLink={hideBuilderLinks}
+      >
+        <p data-c-font-weight="bold" data-c-margin="bottom(half)">
+          {job[locale].title}
+        </p>
+        <p data-c-margin="bottom(normal)">{departmentName}</p>
+        <p data-c-margin="bottom(half)">
+          <i
+            data-c-colour="c2"
+            className="fas fa-map-marker-alt"
+            title="Location Icon."
+          >
+            &nbsp;&nbsp;
+          </i>
+          {job[locale].city},{" "}
+          {job.province_id !== null
+            ? intl.formatMessage(provinceName(job.province_id))
+            : intl.formatMessage(messages.nullProvince)}
+        </p>
+        <p>
+          <i
+            data-c-colour="c2"
+            className="fas fa-home"
+            title="Remote Work Icon."
+          >
+            &nbsp;&nbsp;
+          </i>
+          {job.remote_work_allowed ? (
+            <FormattedMessage
+              id="jobBuilder.review.remoteAllowed"
+              defaultMessage="Remote Work Allowed"
+              description="Text displayed when remote work is allowed."
+            />
+          ) : (
+            <FormattedMessage
+              id="jobBuilder.review.remoteNotAllowed"
+              defaultMessage="Remote Work Not Allowed"
+              description="Text displayed when remote work is not allowed."
+            />
+          )}
+        </p>
+      </JobReviewSection>
+      <JobReviewSection
+        title={intl.formatMessage(messages.basicHeading)}
+        linkLabel={intl.formatMessage(messages.infoEditLink)}
+        link={jobBuilderDetails(locale, job.id)}
+        hideLink={hideBuilderLinks}
+      >
+        <div data-c-grid="gutter">
+          <div data-c-grid-item="tp(1of2)">
+            <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
+              <FormattedMessage
+                id="jobBuilder.review.averageAnnualSalary"
+                defaultMessage="Annual Salary Range"
+                description="Label for salary information."
+              />
+            </p>
+            <p>
+              <FormattedMessage
+                id="jobBuilder.review.tCAdds"
+                defaultMessage="Talent Cloud will add this."
+                description="Information will be added placeholder."
+              />
+            </p>
+          </div>
+          <div data-c-grid-item="tp(1of2)">
+            <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
+              <FormattedMessage
+                id="jobBuilder.review.languageProfile"
+                defaultMessage="Language Profile"
+                description="Information will be added placeholder."
+              />
+            </p>
+            <p>
+              {job.language_requirement_id
+                ? intl.formatMessage(
+                    languageRequirement(job.language_requirement_id),
+                  )
+                : ""}
+            </p>
+          </div>
+          <div data-c-grid-item="tp(1of2)">
+            <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
+              <FormattedMessage
+                id="jobBuilder.review.duration"
+                defaultMessage="Duration"
+                description="Label for duration of Term"
+              />
+            </p>
+            <p>
+              <FormattedMessage
+                id="jobBuilder.review.months"
+                defaultMessage="{termMonths, plural, =0 {No Months} one {# Month} other {# Months}}"
+                description="Length of term in months"
+                values={{ termMonths: job.term_qty }}
+              />
+            </p>
+          </div>
+          <div data-c-grid-item="tp(1of2)">
+            <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
+              <FormattedMessage
+                id="jobBuilder.review.securityClearance"
+                defaultMessage="Security Clearance"
+                description="Label for Security Clearance info"
+              />
+            </p>
+            <p>
+              {job.security_clearance_id
+                ? intl.formatMessage(
+                    securityClearance(job.security_clearance_id),
+                  )
+                : ""}
+            </p>
+          </div>
+          <div data-c-grid-item="tp(1of2)">
+            <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
+              <FormattedMessage
+                id="jobBuilder.review.targetStartDate"
+                defaultMessage="Target Start Date"
+                description="Label for start date info"
+              />
+            </p>
+            <p>
+              <FormattedMessage
+                id="jobBuilder.review.comesLater"
+                defaultMessage="This comes later."
+                description="Placeholder for information that comes later"
+              />
+            </p>
+          </div>
+          <div data-c-grid-item="tp(1of2)">
+            <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
+              <FormattedMessage
+                id="jobBuilder.review.GovernmentClass"
+                defaultMessage="Government Classification"
+                description="Placeholder for information that comes later"
+              />
+            </p>
+            <p>{classificationString(job)}</p>
+          </div>
+        </div>
+      </JobReviewSection>
+      <JobReviewSection
+        title={intl.formatMessage(messages.impactHeading)}
+        linkLabel={intl.formatMessage(messages.impactEditLink)}
+        link={jobBuilderImpact(locale, job.id)}
+        hideLink={hideBuilderLinks}
+      >
+        <p data-c-margin="bottom(normal)">{job[locale].dept_impact}</p>
+        <p data-c-margin="bottom(normal)">{job[locale].team_impact}</p>
+        <p>{job[locale].hire_impact}</p>
+      </JobReviewSection>
+      <JobReviewSection
+        title={intl.formatMessage(messages.tasksHeading)}
+        linkLabel={intl.formatMessage(messages.tasksEditLink)}
+        link={jobBuilderTasks(locale, job.id)}
+        hideLink={hideBuilderLinks}
+      >
+        <ul>
+          {tasks.map(
+            (task: JobPosterKeyTask): React.ReactElement => (
+              <li key={task.id}>{task[locale].description}</li>
+            ),
+          )}
+        </ul>
+      </JobReviewSection>
+      {sectionTitle(intl.formatMessage(messages.criteriaSection))}
+      <JobReviewSection
+        title={intl.formatMessage(messages.educationalHeading)}
+        isSubsection
+        linkLabel={intl.formatMessage(messages.infoEditLink)}
+        link={jobBuilderDetails(locale, job.id)}
+        hideLink={hideBuilderLinks}
+      >
+        {textToParagraphs(job[locale].education || "")}
+      </JobReviewSection>
+      <JobReviewSection
+        title={intl.formatMessage(messages.skillsHeading)}
+        isSubsection
+        linkLabel={intl.formatMessage(messages.skillsEditLink)}
+        link={jobBuilderSkills(locale, job.id)}
+        hideLink={hideBuilderLinks}
+      >
+        {essentialCriteria.length === 0 ? (
+          <p>
+            <FormattedMessage
+              id="jobBuilder.review.skills.nullState"
+              defaultMessage="You haven't added any Nice to Have skills to this poster."
+              description="The text displayed for skills when you haven't added any skills."
+            />
+          </p>
+        ) : (
+          essentialCriteria.map((criterion): React.ReactElement | null => {
+            const skill = getSkillOfCriteria(criterion);
+            if (skill === null) {
+              return null;
+            }
+            return (
+              <Criterion
+                criterion={criterion}
+                skill={skill}
+                key={criterion.id}
+              />
+            );
+          })
+        )}
+      </JobReviewSection>
+      <JobReviewSection
+        title={intl.formatMessage(messages.assetHeading)}
+        isSubsection
+        linkLabel={intl.formatMessage(messages.skillsEditLink)}
+        link={jobBuilderSkills(locale, job.id)}
+        hideLink={hideBuilderLinks}
+      >
+        {assetCriteria.length === 0 ? (
+          <p>
+            <FormattedMessage
+              id="jobBuilder.review.skills.nullState"
+              defaultMessage="You haven't added any Nice to Have skills to this poster."
+              description="The text displayed for skills when you haven't added any skills."
+            />
+          </p>
+        ) : (
+          assetCriteria.map((criterion): React.ReactElement | null => {
+            const skill = getSkillOfCriteria(criterion);
+            if (skill === null) {
+              return null;
+            }
+            return (
+              <Criterion
+                criterion={criterion}
+                skill={skill}
+                key={criterion.id}
+              />
+            );
+          })
+        )}
+      </JobReviewSection>
+      <JobReviewSection
+        title={intl.formatMessage(messages.languageHeading)}
+        linkLabel={intl.formatMessage(messages.infoEditLink)}
+        link={jobBuilderDetails(locale, job.id)}
+        hideLink={hideBuilderLinks}
+      >
+        {/** TODO: get lang data from job */}
+        {job.language_requirement_id && (
+          <>
+            <p
+              className="job-builder-review-language"
+              data-c-margin="bottom(normal)"
+            >
+              {languageRequirementIcons(job.language_requirement_id)}
+              {intl.formatMessage(
+                languageRequirement(job.language_requirement_id),
+              )}
+            </p>
+            <p data-c-margin="bottom(normal)">
+              {intl.formatMessage(
+                languageRequirementDescription(job.language_requirement_id),
+              )}
+            </p>
+            <p data-c-margin="top(normal)">
+              {intl.formatMessage(
+                languageRequirementContext(job.language_requirement_id),
+              )}
+            </p>
+          </>
+        )}
+      </JobReviewSection>
+      {sectionTitle(intl.formatMessage(messages.cultureSection))}
+      <JobReviewSection
+        title={intl.formatMessage(messages.managerHeading)}
+        isSubsection
+        linkLabel={intl.formatMessage(messages.managerProfileLink)}
+        link={managerEditProfile(locale)}
+        hideLink={hideBuilderLinks}
+      >
+        {renderManagerSection(manager, managerDeptName, locale)}
+      </JobReviewSection>
+      <JobReviewSection
+        title={intl.formatMessage(messages.workCultureHeading)}
+        isSubsection
+        linkLabel={intl.formatMessage(messages.workEnvEditLink)}
+        link={jobBuilderEnv(locale, job.id)}
+        hideLink={hideBuilderLinks}
+      >
+        {job[locale].culture_summary && <p>{job[locale].culture_summary}</p>}
+        {job[locale].culture_special && <p>{job[locale].culture_special}</p>}
+      </JobReviewSection>
+      <JobReviewSection
+        title={intl.formatMessage(messages.workEnvHeading)}
+        isSubsection
+        linkLabel={intl.formatMessage(messages.workEnvEditLink)}
+        link={jobBuilderEnv(locale, job.id)}
+        description={intl.formatMessage(messages.workEnvDescription)}
+        hideLink={hideBuilderLinks}
+      >
+        <JobWorkEnv
+          teamSize={job.team_size || 0}
+          selectedEnvOptions={selectedEnvOptions}
+        />
+      </JobReviewSection>
+      <JobReviewSection
+        title={intl.formatMessage(messages.otherInfoHeading)}
+        isSubsection
+        linkLabel={intl.formatMessage(messages.infoEditLink)}
+        link={jobBuilderDetails(locale, job.id)}
+        hideLink={hideBuilderLinks}
+      >
+        <JobWorkCulture job={job} />
+      </JobReviewSection>
+    </>
+  );
+};
+
+interface JobReviewProps {
+  job: Job;
+  manager: Manager | null;
+  tasks: JobPosterKeyTask[];
+  criteria: Criteria[];
+  // List of all possible skills.
+  skills: Skill[];
+  // List of all possible departments.
+  departments: Department[];
+  validForSubmission?: boolean;
+  handleSubmit: (job: Job) => Promise<void>;
+  handleContinue: () => void;
+  handleReturn: () => void;
+}
+
+export const JobReview: React.FunctionComponent<JobReviewProps &
+  WrappedComponentProps> = ({
+  job,
+  manager,
+  tasks,
+  criteria,
+  skills,
+  departments,
+  validForSubmission = false,
+  handleSubmit,
+  handleContinue,
+  handleReturn,
+  intl,
+}): React.ReactElement => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isSurveyModalVisible, setIsSurveyModalVisible] = useState(false);
+  const modalId = "job-review-modal";
+  const modalParentRef = useRef<HTMLDivElement>(null);
+
+  return (
+    <>
       <div
         data-c-container="form"
         data-c-padding="top(triple) bottom(triple)"
         ref={modalParentRef}
       >
-        <h3
-          data-c-font-size="h3"
-          data-c-font-weight="bold"
-          data-c-margin="bottom(double)"
-        >
-          <FormattedMessage
-            id="jobBuilder.review.reviewYourPoster"
-            defaultMessage="Review Your Job Poster for:"
-            description="Title for Review Job Poster section."
-          />{" "}
-          <span data-c-colour="c2">{job[locale].title}</span>
-        </h3>
-        <p>
-          <FormattedMessage
-            id="jobBuilder.review.headsUp"
-            defaultMessage="Just a heads up! We've rearranged some of your information to help you
-            understand how an applicant will see it once published."
-            description="Description under primary title of review section"
-          />
-        </p>
-        <ReviewActivityFeed jobId={job.id} isHrAdvisor />
-        <JobReviewSection
-          title={intl.formatMessage(messages.titleHeading)}
-          linkLabel={intl.formatMessage(messages.infoEditLink)}
-          link={jobBuilderDetails(locale, job.id)}
-        >
-          <p data-c-font-weight="bold" data-c-margin="bottom(half)">
-            {job[locale].title}
-          </p>
-          <p data-c-margin="bottom(normal)">{departmentName}</p>
-          <p data-c-margin="bottom(half)">
-            <i
-              data-c-colour="c2"
-              className="fas fa-map-marker-alt"
-              title="Location Icon."
-            >
-              &nbsp;&nbsp;
-            </i>
-            {job[locale].city},{" "}
-            {job.province_id !== null
-              ? intl.formatMessage(provinceName(job.province_id))
-              : intl.formatMessage(messages.nullProvince)}
-          </p>
-          <p>
-            <i
-              data-c-colour="c2"
-              className="fas fa-home"
-              title="Remote Work Icon."
-            >
-              &nbsp;&nbsp;
-            </i>
-            {job.remote_work_allowed ? (
-              <FormattedMessage
-                id="jobBuilder.review.remoteAllowed"
-                defaultMessage="Remote Work Allowed"
-                description="Text displayed when remote work is allowed."
-              />
-            ) : (
-              <FormattedMessage
-                id="jobBuilder.review.remoteNotAllowed"
-                defaultMessage="Remote Work Not Allowed"
-                description="Text displayed when remote work is not allowed."
-              />
-            )}
-          </p>
-        </JobReviewSection>
-        <JobReviewSection
-          title={intl.formatMessage(messages.basicHeading)}
-          linkLabel={intl.formatMessage(messages.infoEditLink)}
-          link={jobBuilderDetails(locale, job.id)}
-        >
-          <div data-c-grid="gutter">
-            <div data-c-grid-item="tp(1of2)">
-              <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
-                <FormattedMessage
-                  id="jobBuilder.review.averageAnnualSalary"
-                  defaultMessage="Annual Salary Range"
-                  description="Label for salary information."
-                />
-              </p>
-              <p>
-                <FormattedMessage
-                  id="jobBuilder.review.tCAdds"
-                  defaultMessage="Talent Cloud will add this."
-                  description="Information will be added placeholder."
-                />
-              </p>
-            </div>
-            <div data-c-grid-item="tp(1of2)">
-              <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
-                <FormattedMessage
-                  id="jobBuilder.review.languageProfile"
-                  defaultMessage="Language Profile"
-                  description="Information will be added placeholder."
-                />
-              </p>
-              <p>
-                {job.language_requirement_id
-                  ? intl.formatMessage(
-                      languageRequirement(job.language_requirement_id),
-                    )
-                  : ""}
-              </p>
-            </div>
-            <div data-c-grid-item="tp(1of2)">
-              <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
-                <FormattedMessage
-                  id="jobBuilder.review.duration"
-                  defaultMessage="Duration"
-                  description="Label for duration of Term"
-                />
-              </p>
-              <p>
-                <FormattedMessage
-                  id="jobBuilder.review.months"
-                  defaultMessage="{termMonths, plural, =0 {No Months} one {# Month} other {# Months}}"
-                  description="Length of term in months"
-                  values={{ termMonths: job.term_qty }}
-                />
-              </p>
-            </div>
-            <div data-c-grid-item="tp(1of2)">
-              <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
-                <FormattedMessage
-                  id="jobBuilder.review.securityClearance"
-                  defaultMessage="Security Clearance"
-                  description="Label for Security Clearance info"
-                />
-              </p>
-              <p>
-                {job.security_clearance_id
-                  ? intl.formatMessage(
-                      securityClearance(job.security_clearance_id),
-                    )
-                  : ""}
-              </p>
-            </div>
-            <div data-c-grid-item="tp(1of2)">
-              <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
-                <FormattedMessage
-                  id="jobBuilder.review.targetStartDate"
-                  defaultMessage="Target Start Date"
-                  description="Label for start date info"
-                />
-              </p>
-              <p>
-                <FormattedMessage
-                  id="jobBuilder.review.comesLater"
-                  defaultMessage="This comes later."
-                  description="Placeholder for information that comes later"
-                />
-              </p>
-            </div>
-            <div data-c-grid-item="tp(1of2)">
-              <p data-c-font-weight="bold" data-c-margin="bottom(quarter)">
-                <FormattedMessage
-                  id="jobBuilder.review.GovernmentClass"
-                  defaultMessage="Government Classification"
-                  description="Placeholder for information that comes later"
-                />
-              </p>
-              <p>{classificationString(job)}</p>
-            </div>
-          </div>
-        </JobReviewSection>
-        <JobReviewSection
-          title={intl.formatMessage(messages.impactHeading)}
-          linkLabel={intl.formatMessage(messages.impactEditLink)}
-          link={jobBuilderImpact(locale, job.id)}
-        >
-          <p data-c-margin="bottom(normal)">{job[locale].dept_impact}</p>
-          <p data-c-margin="bottom(normal)">{job[locale].team_impact}</p>
-          <p>{job[locale].hire_impact}</p>
-        </JobReviewSection>
-        <JobReviewSection
-          title={intl.formatMessage(messages.tasksHeading)}
-          linkLabel={intl.formatMessage(messages.tasksEditLink)}
-          link={jobBuilderTasks(locale, job.id)}
-        >
-          <ul>
-            {tasks.map(
-              (task: JobPosterKeyTask): React.ReactElement => (
-                <li key={task.id}>{task[locale].description}</li>
-              ),
-            )}
-          </ul>
-        </JobReviewSection>
-        {sectionTitle(intl.formatMessage(messages.criteriaSection))}
-        <JobReviewSection
-          title={intl.formatMessage(messages.educationalHeading)}
-          isSubsection
-          linkLabel={intl.formatMessage(messages.infoEditLink)}
-          link={jobBuilderDetails(locale, job.id)}
-        >
-          {textToParagraphs(job[locale].education || "")}
-        </JobReviewSection>
-        <JobReviewSection
-          title={intl.formatMessage(messages.skillsHeading)}
-          isSubsection
-          linkLabel={intl.formatMessage(messages.skillsEditLink)}
-          link={jobBuilderSkills(locale, job.id)}
-        >
-          {essentialCriteria.length === 0 ? (
-            <p>
-              <FormattedMessage
-                id="jobBuilder.review.skills.nullState"
-                defaultMessage="You haven't added any Nice to Have skills to this poster."
-                description="The text displayed for skills when you haven't added any skills."
-              />
-            </p>
-          ) : (
-            essentialCriteria.map((criterion): React.ReactElement | null => {
-              const skill = getSkillOfCriteria(criterion);
-              if (skill === null) {
-                return null;
-              }
-              return (
-                <Criterion
-                  criterion={criterion}
-                  skill={skill}
-                  key={criterion.id}
-                />
-              );
-            })
-          )}
-        </JobReviewSection>
-        <JobReviewSection
-          title={intl.formatMessage(messages.assetHeading)}
-          isSubsection
-          linkLabel={intl.formatMessage(messages.skillsEditLink)}
-          link={jobBuilderSkills(locale, job.id)}
-        >
-          {assetCriteria.length === 0 ? (
-            <p>
-              <FormattedMessage
-                id="jobBuilder.review.skills.nullState"
-                defaultMessage="You haven't added any Nice to Have skills to this poster."
-                description="The text displayed for skills when you haven't added any skills."
-              />
-            </p>
-          ) : (
-            assetCriteria.map((criterion): React.ReactElement | null => {
-              const skill = getSkillOfCriteria(criterion);
-              if (skill === null) {
-                return null;
-              }
-              return (
-                <Criterion
-                  criterion={criterion}
-                  skill={skill}
-                  key={criterion.id}
-                />
-              );
-            })
-          )}
-        </JobReviewSection>
-        <JobReviewSection
-          title={intl.formatMessage(messages.languageHeading)}
-          linkLabel={intl.formatMessage(messages.infoEditLink)}
-          link={jobBuilderDetails(locale, job.id)}
-        >
-          {/** TODO: get lang data from job */}
-          {job.language_requirement_id && (
-            <>
-              <p
-                className="job-builder-review-language"
-                data-c-margin="bottom(normal)"
-              >
-                {languageRequirementIcons(job.language_requirement_id)}
-                {intl.formatMessage(
-                  languageRequirement(job.language_requirement_id),
-                )}
-              </p>
-              <p data-c-margin="bottom(normal)">
-                {intl.formatMessage(
-                  languageRequirementDescription(job.language_requirement_id),
-                )}
-              </p>
-              <p data-c-margin="top(normal)">
-                {intl.formatMessage(
-                  languageRequirementContext(job.language_requirement_id),
-                )}
-              </p>
-            </>
-          )}
-        </JobReviewSection>
-        {sectionTitle(intl.formatMessage(messages.cultureSection))}
-        <JobReviewSection
-          title={intl.formatMessage(messages.managerHeading)}
-          isSubsection
-          linkLabel={intl.formatMessage(messages.managerProfileLink)}
-          link={managerEditProfile(locale)}
-        >
-          {renderManagerSection(manager, managerDeptName, locale)}
-        </JobReviewSection>
-        <JobReviewSection
-          title={intl.formatMessage(messages.workCultureHeading)}
-          isSubsection
-          linkLabel={intl.formatMessage(messages.workEnvEditLink)}
-          link={jobBuilderEnv(locale, job.id)}
-        >
-          {job[locale].culture_summary && <p>{job[locale].culture_summary}</p>}
-          {job[locale].culture_special && <p>{job[locale].culture_special}</p>}
-        </JobReviewSection>
-        <JobReviewSection
-          title={intl.formatMessage(messages.workEnvHeading)}
-          isSubsection
-          linkLabel={intl.formatMessage(messages.workEnvEditLink)}
-          link={jobBuilderEnv(locale, job.id)}
-          description={intl.formatMessage(messages.workEnvDescription)}
-        >
-          <JobWorkEnv
-            teamSize={job.team_size || 0}
-            selectedEnvOptions={selectedEnvOptions}
-          />
-        </JobReviewSection>
-        <JobReviewSection
-          title={intl.formatMessage(messages.otherInfoHeading)}
-          isSubsection
-          linkLabel={intl.formatMessage(messages.infoEditLink)}
-          link={jobBuilderDetails(locale, job.id)}
-        >
-          <JobWorkCulture job={job} />
-        </JobReviewSection>
+        <JobReviewDisplay
+          job={job}
+          manager={manager}
+          tasks={tasks}
+          criteria={criteria}
+          skills={skills}
+          departments={departments}
+          hideBuilderLinks={false}
+        />
         <div data-c-grid="gutter">
           <div data-c-grid-item="base(1of1)">
             <hr data-c-margin="top(normal) bottom(normal)" />
@@ -834,7 +885,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
                 <FormattedMessage
                   id="jobBuilder.review.whatHappens"
                   defaultMessage="What happens next?"
-                  description="Rhtorical question"
+                  description="Rhetorical question"
                 />
               </p>
               <p data-c-margin="bottom(normal)">

@@ -84,7 +84,7 @@ export function hrJobIndex(locale: string): string {
   return `/${locale}/hr/jobs`;
 }
 export function hrJobSummary(locale: string, jobId: number): string {
-  return `/${locale}/hr/jobs/${jobId}`;
+  return `/${locale}/hr/jobs/${jobId}/summary`;
 }
 export function hrJobReview(locale: string, jobId: number): string {
   return `/${locale}/hr/jobs/${jobId}/review`;

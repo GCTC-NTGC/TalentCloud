@@ -1,0 +1,29 @@
+{% extends "layouts/base" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+
+    {% include "common/goc" %}
+    {% include "common/alert" %}
+
+    {% include "common/header" with { 'header': { 'title': title } } %}
+
+    <a id="skipLink"></a>
+
+    <div
+        data-clone=""
+        id="job-review-hr"
+        data-job-id="{{ job.id }}"
+    >
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script async defer
+        src="{{ mix('/js/JobReviewHrPage.js') }}">
+    </script>
+
+{% endblock %}

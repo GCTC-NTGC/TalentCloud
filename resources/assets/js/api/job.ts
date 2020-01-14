@@ -28,13 +28,11 @@ export const parseJobResponse = (
   };
 };
 
-export const parseJobIndexResponse = (
-  data: any,
-): {jobs: Job[]} => {
+export const parseJobIndexResponse = (data: any): { jobs: Job[] } => {
   return {
-    jobs: data.map(parseJob)
-  }
-}
+    jobs: data.map(parseJob),
+  };
+};
 
 export const parseTasksResponse = (data: any): JobPosterKeyTask[] => data;
 
@@ -42,12 +40,6 @@ export const parseCriteriaResponse = (data: any): Criteria[] => data;
 
 export const parseCommentResponse = (data: any): Comment => ({
   ...data,
-  id: data.id,
-  job_poster_id: data.job_poster_id,
-  user_id: data.user_id,
-  comment: data.comment,
-  location: data.location,
-  type_id: data.type_id,
   created_at: parseDate(data.created_at),
 });
 

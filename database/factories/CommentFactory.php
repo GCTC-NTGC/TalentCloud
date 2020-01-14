@@ -15,7 +15,7 @@ $factory->define(Comment::class, function (Faker $faker) {
             return factory(User::class)->state('hr_advisor')->create()->id;
         },
         'comment' => $faker->sentence(),
-        'location' => 'job/generic', // TODO: Refactor when location types are established
+        'location' => 'job/generic',
         'type_id' => CommentType::inRandomOrder()->first()->id,
     ];
 });

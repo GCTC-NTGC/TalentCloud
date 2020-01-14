@@ -30,7 +30,10 @@ import {
   hrJobSummary,
   hrJobPreview,
   jobBuilderTasks,
+  managerJobIndex,
+  managerJobShow,
 } from "../helpers/routes";
+import { Locales } from "../helpers/localize";
 
 const pad = (n: number, width: number, z = "0"): string => {
   return (String(z).repeat(width) + String(n)).slice(String(n).length);
@@ -167,6 +170,9 @@ export const activityLocationUrl = (
     [LocationId.langRequirements]: jobBuilderDetails(locale, jobId),
     [LocationId.environment]: jobBuilderEnv(locale, jobId),
     [LocationId.screeningPlan]: managerScreeningPlan(locale, jobId),
+    [LocationId.index]: managerJobIndex(locale),
+    [LocationId.summary]: jobBuilderReview(locale, jobId), // TODO: change to summary page, once managers have it
+    [LocationId.preview]: managerJobShow(locale, jobId),
   };
 
   return isHrAdvisor ? hrAdvisorUrls[location] : managerUrls[location];
