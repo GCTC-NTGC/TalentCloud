@@ -14,6 +14,7 @@
         "hot": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
         "prod": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "test": "jest --verbose --coverage --coverageDirectory=./report/jest/",
+        "test-azure": "jest --verbose --coverage --coverageDirectory=./report/jest/ --coverageReporters=cobertura",
         "test-watch": "jest --watchAll --updateSnapshot",
         "storybook": "start-storybook -s ./public -p 1234",
         "testcafe": "testcafe chrome,firefox tests/Browser/*.js -S -s tests/Browser/screenshots -u -e",
