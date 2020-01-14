@@ -77,10 +77,7 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
         </p>
       )}
       {isActivitiesLoading ? (
-        <div
-          data-c-container="form"
-          data-c-padding="top(triple) bottom(triple)"
-        >
+        <div data-c-container="form" data-c-padding="top(1) bottom(1)">
           <div
             data-c-background="white(100)"
             data-c-card
