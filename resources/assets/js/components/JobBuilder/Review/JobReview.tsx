@@ -49,7 +49,7 @@ import { useUrlHash, Link } from "../../../helpers/router";
 import { classificationString } from "../../../models/jobUtil";
 import DemoSubmitJobModal from "./DemoSubmitJobModal";
 import ManagerSurveyModal from "./ManagerSurveyModal";
-import ReviewActivityFeed from "./ReviewActivityFeed";
+import JobReviewActivityFeed from "./JobReviewActivityFeed";
 
 interface JobReviewSectionProps {
   title: string;
@@ -343,6 +343,7 @@ interface JobReviewDisplayProps {
   // List of all possible departments.
   departments: Department[];
   hideBuilderLinks: boolean;
+  isHrAdvisor: boolean;
 }
 export const JobReviewDisplay: React.FC<JobReviewDisplayProps> = ({
   job,
@@ -352,6 +353,7 @@ export const JobReviewDisplay: React.FC<JobReviewDisplayProps> = ({
   skills,
   departments,
   hideBuilderLinks = false,
+  isHrAdvisor = false,
 }) => {
   // Scroll to element specified in the url hash, if possible
   useUrlHash();
@@ -414,6 +416,7 @@ export const JobReviewDisplay: React.FC<JobReviewDisplayProps> = ({
           description="Description under primary title of review section"
         />
       </p>
+      <JobReviewActivityFeed jobId={job.id} isHrAdvisor={isHrAdvisor} />
       <JobReviewSection
         title={intl.formatMessage(messages.titleHeading)}
         linkLabel={intl.formatMessage(messages.infoEditLink)}
@@ -782,6 +785,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
           skills={skills}
           departments={departments}
           hideBuilderLinks={false}
+          isHrAdvisor={false}
         />
         <div data-c-grid="gutter">
           <div data-c-grid-item="base(1of1)">

@@ -1,8 +1,12 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import { defineMessages, useIntl, FormattedMessage } from "react-intl";
 import CommentForm from "../../CommentForm";
 import ActivityFeed from "../../ActivityFeed";
 import { LocationId } from "../../../models/lookupConstants";
+import { RootState } from "../../../store/store";
+import { getComments } from "../../../store/Job/jobSelector";
+import Icon from "../../Icon";
 
 export const reviewLocations = defineMessages({
   [LocationId.generic]: {
@@ -47,14 +51,16 @@ export const reviewLocations = defineMessages({
   },
 });
 
-interface ReviewActivityFeedProps {
+interface JobReviewActivityFeedProps {
   jobId: number;
   isHrAdvisor: boolean;
+  totalActivities: number;
 }
 
-const ReviewActivityFeed: React.FunctionComponent<ReviewActivityFeedProps> = ({
+const JobReviewActivityFeed: React.FunctionComponent<JobReviewActivityFeedProps> = ({
   jobId,
   isHrAdvisor,
+  totalActivities,
 }) => {
   const intl = useIntl();
   const locationOptions = Object.values(LocationId)
@@ -67,7 +73,7 @@ const ReviewActivityFeed: React.FunctionComponent<ReviewActivityFeedProps> = ({
   return (
     <section data-c-padding="top(double)">
       <div data-c-accordion-group>
-        <div data-c-accordion="" className="active">
+        <div data-c-accordion="" className="">
           <button
             aria-expanded="false"
             data-c-accordion-trigger
@@ -80,8 +86,20 @@ const ReviewActivityFeed: React.FunctionComponent<ReviewActivityFeedProps> = ({
               <h3 data-c-font-size="h3" data-c-color="white">
                 <FormattedMessage
                   id="activityfeed.review.header"
-                  defaultMessage="Activity Feed"
-                  description="The activity feed header"
+                  defaultMessage="Review Your Job Poster {totalActivities}"
+                  description="The activity feed header."
+                  values={{
+                    totalActivities:
+                      totalActivities === 0 ? (
+                        <Icon
+                          icon="fa fa-spinner fa-spin"
+                          accessibleText="Number of activities is loading..."
+                          sematicIcon
+                        />
+                      ) : (
+                        `(${totalActivities})`
+                      ),
+                  }}
                 />
               </h3>
             </div>
@@ -131,4 +149,12 @@ const ReviewActivityFeed: React.FunctionComponent<ReviewActivityFeedProps> = ({
   );
 };
 
-export default ReviewActivityFeed;
+const mapStateToProps = (
+  state: RootState,
+): {
+  totalActivities: number;
+} => ({
+  totalActivities: getComments(state).length,
+});
+
+export default connect(mapStateToProps, () => ({}))(JobReviewActivityFeed);
