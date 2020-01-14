@@ -111,10 +111,29 @@ class JobPolicy extends BasePolicy
      */
     public function reviewApplicationsFor(User $user, JobPoster $jobPoster)
     {
-        // Only managers can review applications, and only for their own jobs.
-        return $user->isManager() &&
-            $jobPoster->manager->user->id == $user->id &&
-            $jobPoster->isClosed();
+        // Managers can only review applications their own jobs.
+        // HR Advisors can review applications for jobs they manage.
+        // The job must always be closed.
+        $authManager = $user->isManager() && $jobPoster->manager->user->id == $user->id;
+        $authHr = $user->isHrAdvisor() && $this->manage($user, $jobPoster);
+
+        return $jobPoster->isClosed() && ($authManager || $authHr);
+    }
+
+    /**
+     * Determin whether the user is an HR Advisor with permission to manage this job.
+     *
+     * @param User $user
+     * @param JobPoster $jobPoster
+     * @return void
+     */
+    public function manage(User $user, JobPoster $jobPoster)
+    {
+        return ($user->isManager() &&
+            $jobPoster->manager->user->id == $user->id) ||
+            ($user->isHrAdvisor()
+                && $this->view($user, $jobPoster)
+                && $user->hr_advisor->claimed_job_ids->includes($jobPoster->id));
     }
 
     /**
@@ -129,9 +148,7 @@ class JobPolicy extends BasePolicy
         // Only the manager that created the job can view the comment.
         // Only Hr advisors who have claimed a job can view the comments.
         return ($user->isManager() && $jobPoster->manager->user->id == $user->id) ||
-            ($user->isHrAdvisor()
-                && $this->view($user, $jobPoster)
-                && $user->hr_advisor->claimed_job_ids->includes($jobPoster->id));
+            $this->manage($user, $jobPoster);
     }
 
     /**

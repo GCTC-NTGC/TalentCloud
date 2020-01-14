@@ -4,7 +4,9 @@ namespace App\Policies;
 
 use App\Models\User;
 use App\Models\Applicant;
+use App\Models\JobApplication;
 use App\Models\JobPoster;
+use App\Models\Lookup\ApplicationStatus;
 use App\Policies\BasePolicy;
 
 class ApplicantPolicy extends BasePolicy
@@ -29,9 +31,30 @@ class ApplicantPolicy extends BasePolicy
         )->whereHas(
             'submitted_applications',
             function ($q) use ($applicant_id) {
-                    $q->where('applicant_id', $applicant_id);
+                $q->where('applicant_id', $applicant_id);
             }
         )->get()->isNotEmpty();
+    }
+
+    /**
+     * Returns true the $user is an hr_advisor which has claimed a job the applicant has applied to, where the job is closed.
+     *
+     * @param User $user
+     * @param Applicant $applicant
+     * @return void
+     */
+    protected function claimsJobApplicantAppliedTo(User $user, Applicant $applicant)
+    {
+        if ($user->isHrAdvisor()) {
+            $submittedApplications = JobApplication::where([
+                'applicant_id' => $applicant->id,
+                'application_status_id' => ApplicationStatus::where('name', 'draft')->id
+            ]);
+            return $submittedApplications->some(function ($application) use ($user) {
+                return $user->can('manage', $application->job_poster) && $application->job_poster->isClosed();
+            });
+        }
+        return false;
     }
 
     /**
@@ -46,7 +69,8 @@ class ApplicantPolicy extends BasePolicy
         $authApplicant = $user->isApplicant() &&
             $applicant->user->is($user);
         $authManager = $user->isManager() && $this->ownsJobApplicantAppliedTo($user, $applicant);
-        return $authApplicant || $authManager;
+        $authHr = $user->isHrAdvisor() && $this->claimsJobApplicantAppliedTo($user, $applicant);
+        return $authApplicant || $authManager || $authHr;
     }
 
     /**

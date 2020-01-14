@@ -22,10 +22,14 @@ class ApplicationPolicy extends BasePolicy
     {
         $authApplicant = ($user->isApplicant() &&
             $user->applicant->id === $jobApplication->applicant_id);
-        $authManager = ($user->isManager() &&
-            $jobApplication->job_poster->manager->user->is($user));
+        $authManager = ($user->isManager()
+            && $jobApplication->job_poster->manager->user->is($user))
+            && $jobApplication->job_poster->isClosed();
+        $authHr = $user->isHrAdvisor()
+            && $user->can('manage', $jobApplication->job_poster)
+            && $jobApplication->job_poster->isClosed();
 
-        return $authApplicant || $authManager;
+        return $authApplicant || $authManager || $authHr;
     }
 
     /**
