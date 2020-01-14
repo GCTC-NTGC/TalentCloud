@@ -1,12 +1,10 @@
-# PHP
-# Test and package your PHP project.
-# Add steps that run tests, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/php
 
 trigger:
 - feature/the-pipeline-cometh
 
 pool:
+  #vm|Image: 'windows'
   vmImage: 'ubuntu-latest'
 
 variables:
@@ -24,50 +22,50 @@ steps:
 
 # FIXME testing
 - script: cp .env.azure .env
-  displayName: 'cp env'
+  displayName: 'Copy environment variables'
 
 - task: CmdLine@2
   inputs:
     script: |
-      echo DB_HOST=$(DB_HOST) >> .env
-      echo  DB_DATABASE=$(DB_DATABASE) >> .env
-      echo  DB_USERNAME=$(DB_USERNAME) >> .env
-      echo  DB_PASSWORD=$(DB_PASSWORD) >> .env
-
+      echo DB_DATABASE=$(DB_DATABASE) >> .env
+      echo DB_USERNAME=$(DB_USERNAME) >> .env
+      echo DB_PASSWORD=$(DB_PASSWORD) >> .env
 - script: composer install --no-interaction --prefer-dist # --no-dev
-  displayName: 'composer install'
+  displayName: 'Install PHP dependencies'
 
-- task: Npm@1
-  inputs:
-    command: 'install'
+- script: npm install
+  displayName: "Install NPM dependencies"
 
-- task: Npm@1
-  inputs:
-    command: 'custom'
-    customCommand: 'run prod'
+- script: npm run dev
+  displayName: "Compile assets"
 
 #- script: php artisan migrate:fresh
-#  displayName: "php artisan migrate:fresh"
+#  displayName: "Database migrations"
 
 #- script: php artisan db:seed
-#  displayName: "php artisan db:seed"
+#  displayName: "Seed database"
 
 # end FIXME
 
+- script: mkdir -p report/
+  displayName: "Create test report directory"
 
-- script: mkdir -p report
-  displayName: create test report directory
+- script: npm run test-azure
+  displayName: "Jest tests"
 
-- script: npm run test
-  displayName: 'Run jest tests'
+#- script: ./vendor/bin/phpunit --log-junit report/phpunit
+#  displayName: 'PHPUnit tests'
+#  continueOnError: true
 
-- script: ./vendor/bin/phpunit --log-junit report/phpunit
-  displayName: 'Run tests with phpunit'
-  continueOnError: true
+# Publish code coverage results
+# Publish Cobertura or JaCoCo code coverage results from a build
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: $(System.DefaultWorkingDirectory)/report/jest/cobertura-coverage.xml
 
 - task: ArchiveFiles@2
   inputs:
     rootFolderOrFile: '$(system.defaultWorkingDirectory)'
     includeRootFolder: false
 - task: PublishBuildArtifacts@1
-
