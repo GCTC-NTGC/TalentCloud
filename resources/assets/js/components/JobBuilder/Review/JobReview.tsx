@@ -48,6 +48,7 @@ import { useUrlHash, Link } from "../../../helpers/router";
 import { classificationString } from "../../../models/jobUtil";
 import DemoSubmitJobModal from "./DemoSubmitJobModal";
 import ManagerSurveyModal from "./ManagerSurveyModal";
+import ReviewActivityFeed from "./ReviewActivityFeed";
 
 interface JobReviewSectionProps {
   title: string;
@@ -427,6 +428,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
             description="Description under primary title of review section"
           />
         </p>
+        <ReviewActivityFeed jobId={job.id} isHrAdvisor />
         <JobReviewSection
           title={intl.formatMessage(messages.titleHeading)}
           linkLabel={intl.formatMessage(messages.infoEditLink)}
