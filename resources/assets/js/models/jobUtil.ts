@@ -18,7 +18,6 @@ import {
 } from "./lookupConstants";
 import { assetSkillName, skillLevelName } from "./localizedConstants";
 import {
-  jobBuilderIntro,
   jobBuilderDetails,
   jobBuilderEnv,
   jobBuilderImpact,
@@ -30,6 +29,7 @@ import {
   hrJobIndex,
   hrJobSummary,
   hrJobPreview,
+  jobBuilderTasks,
 } from "../helpers/routes";
 
 const pad = (n: number, width: number, z = "0"): string => {
@@ -144,24 +144,28 @@ export const activityLocationUrl = (
   locale: string,
 ): string => {
   const hrAdvisorUrls = {
-    [LocationId.intro]: hrJobReview(locale, jobId),
-    [LocationId.details]: hrJobReview(locale, jobId),
-    [LocationId.environment]: hrJobReview(locale, jobId),
+    [LocationId.generic]: hrJobReview(locale, jobId),
+    [LocationId.heading]: hrJobReview(locale, jobId),
+    [LocationId.basicInfo]: hrJobReview(locale, jobId),
     [LocationId.impact]: hrJobReview(locale, jobId),
+    [LocationId.tasks]: hrJobReview(locale, jobId),
     [LocationId.skills]: hrJobReview(locale, jobId),
-    [LocationId.review]: hrJobReview(locale, jobId),
+    [LocationId.langRequirements]: hrJobReview(locale, jobId),
+    [LocationId.environment]: hrJobReview(locale, jobId),
     [LocationId.screeningPlan]: hrScreeningPlan(locale, jobId),
     [LocationId.index]: hrJobIndex(locale),
     [LocationId.summary]: hrJobSummary(locale, jobId),
     [LocationId.preview]: hrJobPreview(locale, jobId),
   };
   const managerUrls = {
-    [LocationId.intro]: jobBuilderIntro(locale, jobId),
-    [LocationId.details]: jobBuilderDetails(locale, jobId),
-    [LocationId.environment]: jobBuilderEnv(locale, jobId),
+    [LocationId.generic]: jobBuilderReview(locale, jobId),
+    [LocationId.heading]: jobBuilderDetails(locale, jobId),
+    [LocationId.basicInfo]: jobBuilderDetails(locale, jobId),
     [LocationId.impact]: jobBuilderImpact(locale, jobId),
+    [LocationId.tasks]: jobBuilderTasks(locale, jobId),
     [LocationId.skills]: jobBuilderSkills(locale, jobId),
-    [LocationId.review]: jobBuilderReview(locale, jobId),
+    [LocationId.langRequirements]: jobBuilderDetails(locale, jobId),
+    [LocationId.environment]: jobBuilderEnv(locale, jobId),
     [LocationId.screeningPlan]: managerScreeningPlan(locale, jobId),
   };
 

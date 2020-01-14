@@ -124,13 +124,14 @@ export const CommentTypeId = {
 };
 
 export const LocationId = {
-  intro: "job/intro",
-  details: "job/details",
-  environment: "job/environment",
+  generic: "job/generic",
+  heading: "job/heading",
+  basicInfo: "job/basicInfo",
   impact: "job/impact",
   tasks: "job/tasks",
   skills: "job/skills",
-  review: "job/review",
+  langRequirements: "job/langRequirements",
+  environment: "job/environment",
   index: "hr/index",
   summary: "hr/summary",
   preview: "hr/preview",
