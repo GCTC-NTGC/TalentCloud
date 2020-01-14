@@ -7,9 +7,12 @@ import {
   getCriteriaEndpoint,
   parseCriteriaResponse,
   getSubmitJobEndpoint,
+  getCommentEndpoint,
+  parseCommentResponse,
+  parseCommentsResponse,
   parseJobIndexResponse,
 } from "../../api/job";
-import { Job, Criteria, JobPosterKeyTask } from "../../models/types";
+import { Job, Criteria, JobPosterKeyTask, Comment } from "../../models/types";
 import {
   AsyncFsaActions,
   RSAActionTemplate,
@@ -322,6 +325,68 @@ export const submitJobForReview = (
     { id: jobId },
   );
 
+export const CREATE_COMMENT_STARTED = "CREATE_COMMENT_STARTED";
+export const CREATE_COMMENT_SUCCEEDED = "CREATE_COMMENT_SUCCEEDED";
+export const CREATE_COMMENT_FAILED = "CREATE_COMMENT_FAILED";
+
+export type CreateCommentAction = AsyncFsaActions<
+  typeof CREATE_COMMENT_STARTED,
+  typeof CREATE_COMMENT_SUCCEEDED,
+  typeof CREATE_COMMENT_FAILED,
+  Comment,
+  { jobId: number }
+>;
+
+export const createComment = (
+  jobId: number,
+  comment: Comment,
+): RSAActionTemplate<
+  typeof CREATE_COMMENT_STARTED,
+  typeof CREATE_COMMENT_SUCCEEDED,
+  typeof CREATE_COMMENT_FAILED,
+  Comment,
+  { jobId: number }
+> =>
+  asyncPost(
+    getCommentEndpoint(jobId),
+    comment,
+    CREATE_COMMENT_STARTED,
+    CREATE_COMMENT_SUCCEEDED,
+    CREATE_COMMENT_FAILED,
+    parseCommentResponse,
+    { jobId },
+  );
+
+export const FETCH_COMMENTS_STARTED = "FETCH_COMMENTS_STARTED";
+export const FETCH_COMMENTS_SUCCEEDED = "FETCH_COMMENTS_SUCCEEDED";
+export const FETCH_COMMENTS_FAILED = "FETCH_COMMENTS_FAILED";
+
+export type FetchCommentsAction = AsyncFsaActions<
+  typeof FETCH_COMMENTS_STARTED,
+  typeof FETCH_COMMENTS_SUCCEEDED,
+  typeof FETCH_COMMENTS_FAILED,
+  Comment[],
+  { jobId: number }
+>;
+
+export const fetchComments = (
+  jobId: number,
+): RSAActionTemplate<
+  typeof FETCH_COMMENTS_STARTED,
+  typeof FETCH_COMMENTS_SUCCEEDED,
+  typeof FETCH_COMMENTS_FAILED,
+  Comment[],
+  { jobId: number }
+> =>
+  asyncGet(
+    getCommentEndpoint(jobId),
+    FETCH_COMMENTS_STARTED,
+    FETCH_COMMENTS_SUCCEEDED,
+    FETCH_COMMENTS_FAILED,
+    parseCommentsResponse,
+    { jobId },
+  );
+
 export type JobAction =
   | FetchJobAction
   | FetchJobIndexAction
@@ -334,6 +399,8 @@ export type JobAction =
   | BatchUpdateJobTasksAction
   | FetchCriteriaAction
   | BatchUpdateCriteriaAction
-  | SubmitJobForReviewAction;
+  | SubmitJobForReviewAction
+  | CreateCommentAction
+  | FetchCommentsAction;
 
 export default { fetchJob };

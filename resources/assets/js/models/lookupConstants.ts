@@ -117,6 +117,26 @@ export const ClassificationId = {
   AD: 13,
 };
 
+export const CommentTypeId = {
+  question: 1,
+  recommendation: 2,
+  requiredAction: 3,
+};
+
+export const LocationId = {
+  intro: "job/intro",
+  details: "job/details",
+  environment: "job/environment",
+  impact: "job/impact",
+  tasks: "job/tasks",
+  skills: "job/skills",
+  review: "job/review",
+  index: "hr/index",
+  summary: "hr/summary",
+  preview: "hr/preview",
+  screeningPlan: "screeningPlan",
+} as const;
+
 export enum JobStatus {
   Draft = 1,
   Review = 2,

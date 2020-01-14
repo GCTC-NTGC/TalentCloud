@@ -16,6 +16,7 @@ import {
   OvertimeRequirementId,
   TravelRequirementId,
   ClassificationId,
+  LocationId,
   JobStatus,
 } from "./lookupConstants";
 import { getOrThrowError } from "../helpers/queries";
@@ -868,6 +869,57 @@ export const classificationCodeOption = (
     classificationId,
     "invalid ClassificationId",
   );
+
+export const activityLocations = defineMessages({
+  [LocationId.intro]: {
+    id: "activityfeed.locations.jpb.intro",
+    defaultMessage: "Job Poster Builder > Step 1: Intro",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.details]: {
+    id: "activityfeed.locations.jpb.details",
+    defaultMessage: "Job Poster Builder > Step 2: Details",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.environment]: {
+    id: "activityfeed.locations.jpb.environment",
+    defaultMessage: "Job Poster Builder > Step 1: Work Environment",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.impact]: {
+    id: "activityfeed.locations.jpb.impact",
+    defaultMessage: "Job Poster Builder > Step 1: Impact",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.skills]: {
+    id: "activityfeed.locations.jpb.skills",
+    defaultMessage: "Job Poster Builder > Step 1: Skills",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.review]: {
+    id: "activityfeed.locations.jpb.review",
+    defaultMessage: "Job Poster Builder > Step 1: Review",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.index]: {
+    id: "activityfeed.locations.hr.index",
+    defaultMessage: "HR Index Page",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.summary]: {
+    id: "activityfeed.locations.hr.summary",
+    defaultMessage: "HR Summary Page",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.preview]: {
+    id: "activityfeed.locations.hr.preview",
+    defaultMessage: "HR Preview Page",
+    description: "Location where the activity is located.",
+  },
+});
+
+export const activityLocationOption = (locationId: string): MessageDescriptor =>
+  getOrThrowError(activityLocations, locationId, "Invalid LocationId");
 
 const jobStatusMessages = defineMessages({
   [JobStatus.Draft]: {

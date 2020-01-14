@@ -28,6 +28,10 @@ export function managerJobApplications(locale: string, jobId: number): string {
   return `/${locale}/manager/jobs/${jobId}/applications`;
 }
 
+export function managerScreeningPlan(locale: string, jobId: number): string {
+  return `/${locale}/manager/jobs/${jobId}/assessment-plan`;
+}
+
 export function applicationReviewUpdate(
   locale: string,
   applicationId: number,
