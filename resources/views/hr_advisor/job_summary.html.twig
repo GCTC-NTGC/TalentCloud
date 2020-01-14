@@ -157,34 +157,29 @@
 							<div
 								data-c-grid-item="tl(1of3)" data-c-align="base(center)">
 								{#
-                                    <div data-c-card data-c-background="white(100)" data-c-padding="all(1)" data-c-radius="rounded" data-c-margin="bottom(1)">
-                                        <form action="{{ send_manager }}" method="POST">
-                                            {{ csrf_field() }}
-                                            <button data-c-button="solid(c1)" data-c-radius="rounded">{{ summary.send_manager_button }}</button>
-                                        </form>
-                                    </div>
-                                    <div data-c-card data-c-background="white(100)" data-c-padding="all(1)" data-c-radius="rounded">
-                                        <form action="{{ send_translation }}" method="POST">
-                                            {{ csrf_field() }}
-                                            <button data-c-button="solid(c1)" data-c-radius="rounded" data-c-margin="bottom(1)">{{ summary.send_translation_button }}</button>
-                                        </form>
-                                        <form action="{{ approve_publishing }}" method="POST">
-                                            {{ csrf_field() }}
-                                            <button data-c-button="solid(go)" data-c-radius="rounded">{{ summary.approve_button }}</button>
-                                        </form>
-                                    </div>
-                                #}
+																																                                    <div data-c-card data-c-background="white(100)" data-c-padding="all(1)" data-c-radius="rounded" data-c-margin="bottom(1)">
+																																                                        <form action="{{ send_manager }}" method="POST">
+																																                                            {{ csrf_field() }}
+																																                                            <button data-c-button="solid(c1)" data-c-radius="rounded">{{ summary.send_manager_button }}</button>
+																																                                        </form>
+																																                                    </div>
+																																                                    <div data-c-card data-c-background="white(100)" data-c-padding="all(1)" data-c-radius="rounded">
+																																                                        <form action="{{ send_translation }}" method="POST">
+																																                                            {{ csrf_field() }}
+																																                                            <button data-c-button="solid(c1)" data-c-radius="rounded" data-c-margin="bottom(1)">{{ summary.send_translation_button }}</button>
+																																                                        </form>
+																																                                        <form action="{{ approve_publishing }}" method="POST">
+																																                                            {{ csrf_field() }}
+																																                                            <button data-c-button="solid(go)" data-c-radius="rounded">{{ summary.approve_button }}</button>
+																																                                        </form>
+																																                                    </div>
+																																                                #}
 								<div data-c-card data-c-background="white(100)" data-c-padding="all(1)" data-c-radius="rounded">
 									<form action="{{ relinquish_job }}" method="POST">
 										{{ csrf_field() }}
-										<button
-                                            {% if not is_claimed %}
-                                                disabled
-                                            {% endif %}
-                                            data-c-button="outline(stop)"
-                                            data-c-radius="rounded">
-                                            {{ summary.relinquish_button }}
-                                        </button>
+										<button {% if not is_claimed %} disabled {% endif %} data-c-button="outline(stop)" data-c-radius="rounded">
+											{{ summary.relinquish_button }}
+										</button>
 									</form>
 								</div>
 							</div>
@@ -203,7 +198,7 @@
 								</a>
 							</div>
 							<div data-c-grid-item="tp(1of2) tl(1of4)">
-								<a class="tc-summary-action" href={{ job_preview_url }}  title="" data-c-card data-c-background="white(100)" data-c-radius="rounded">
+								<a class="tc-summary-action" href={{ job_preview_url }} title="" data-c-card data-c-background="white(100)" data-c-radius="rounded">
 									<div data-c-padding="tb(2) rl(1)" data-c-align="base(center)">
 										<img src="/images/job-process-summary-tool-view.svg" alt="{{ summary.view_poster_icon }} {{ summary.flat_icons }}">
 									</div>
@@ -213,7 +208,7 @@
 								</a>
 							</div>
 							<div data-c-grid-item="tp(1of2) tl(1of4)">
-								<a class="tc-summary-action" href={{ screening_plan_url }}  title="" data-c-card data-c-background="white(100)" data-c-radius="rounded">
+								<a class="tc-summary-action" href={{ screening_plan_url }} title="" data-c-card data-c-background="white(100)" data-c-radius="rounded">
 									<div data-c-padding="tb(2) rl(1)" data-c-align="base(center)">
 										<img src="/images/job-process-summary-tool-screen.svg" alt="{{ summary.screening_plan_icon }} {{ summary.flat_icons }}">
 									</div>
@@ -223,7 +218,7 @@
 								</a>
 							</div>
 							<div data-c-grid-item="tp(1of2) tl(1of4)">
-								<a class="tc-summary-action" href={{ view_applicants_url }}  title="" data-c-card data-c-background="white(100)" data-c-radius="rounded">
+								<a class="tc-summary-action" href={{ view_applicants_url }} title="" data-c-card data-c-background="white(100)" data-c-radius="rounded">
 									<div data-c-padding="tb(2) rl(1)" data-c-align="base(center)">
 										<img src="/images/job-process-summary-tool-applicants.svg" alt="{{ summary.view_applicants_icon }} {{ summary.flat_icons }}">
 									</div>
@@ -235,12 +230,13 @@
 						</div>
 						<h2 id="activity" data-c-font-size="h2" data-c-padding="top(3) bottom(1)">{{ summary.activity_title }}</h2>
 						{# Add comments here #}
-						<p>
-							<a href="https://joshbeveridge.ca/tc-job-summary#activity">https://joshbeveridge.ca/tc-job-summary#activity</a>
-						</p>
+						<div data-clone="" id="summary-hr-activity-feed" data-job-id="{{ job.id }}"></div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+{% endblock %}
+{% block scripts %}
+	<script async defer src="{{ mix('/js/SummaryHrActivityFeed.js') }}"></script>
 {% endblock %}
