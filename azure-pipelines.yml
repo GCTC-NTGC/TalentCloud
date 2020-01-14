@@ -1,0 +1,73 @@
+# PHP
+# Test and package your PHP project.
+# Add steps that run tests, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/php
+
+trigger:
+- feature/the-pipeline-cometh
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  phpVersion: 7.2
+
+steps:
+- script: |
+    sudo update-alternatives --set php /usr/bin/php$(phpVersion)
+    sudo update-alternatives --set phar /usr/bin/phar$(phpVersion)
+    sudo update-alternatives --set phpdbg /usr/bin/phpdbg$(phpVersion)
+    sudo update-alternatives --set php-cgi /usr/bin/php-cgi$(phpVersion)
+    sudo update-alternatives --set phar.phar /usr/bin/phar.phar$(phpVersion)
+    php -version
+  displayName: 'Use PHP version $(phpVersion)'
+
+# FIXME testing
+- script: cp .env.azure .env
+  displayName: 'cp env'
+
+- task: CmdLine@2
+  inputs:
+    script: |
+      echo DB_HOST=$(DB_HOST) >> .env
+      echo  DB_DATABASE=$(DB_DATABASE) >> .env
+      echo  DB_USERNAME=$(DB_USERNAME) >> .env
+      echo  DB_PASSWORD=$(DB_PASSWORD) >> .env
+
+- script: composer install --no-interaction --prefer-dist # --no-dev
+  displayName: 'composer install'
+
+- task: Npm@1
+  inputs:
+    command: 'install'
+
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    customCommand: 'run prod'
+
+#- script: php artisan migrate:fresh
+#  displayName: "php artisan migrate:fresh"
+
+#- script: php artisan db:seed
+#  displayName: "php artisan db:seed"
+
+# end FIXME
+
+
+- script: mkdir -p report
+  displayName: create test report directory
+
+- script: npm run test
+  displayName: 'Run jest tests'
+
+- script: ./vendor/bin/phpunit --log-junit report/phpunit
+  displayName: 'Run tests with phpunit'
+  continueOnError: true
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(system.defaultWorkingDirectory)'
+    includeRootFolder: false
+- task: PublishBuildArtifacts@1
+
