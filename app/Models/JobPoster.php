@@ -94,6 +94,7 @@ use App\Events\JobSaved;
  * @method boolean isOpen()
  * @method string timeRemaining()
  * @method mixed[] toApiArray()
+ * @method boolean isVisibleToHr()
  *
  * Computed Properties
  * @property string|null $classification_code
@@ -575,6 +576,17 @@ class JobPoster extends BaseModel
             // Published and close date has passed.
             return 5; // Closed.
         }
+    }
+
+    /**
+     * Return true if this job should be visible to hr advisors.
+     * It should become visible after Manager has requested a review.
+     *
+     * @return boolean
+     */
+    public function isVisibleToHr()
+    {
+        return $this->job_status_id !== 1;
     }
 
     /**

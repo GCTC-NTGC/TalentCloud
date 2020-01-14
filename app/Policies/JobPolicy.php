@@ -23,15 +23,13 @@ class JobPolicy extends BasePolicy
         // Only the manager that created it can view an unpublished job
         // Hr Advisors can view all jobs.
         return $jobPoster->status() == 'published' || $jobPoster->status() == 'closed' ||
-        (
-            $user &&
-            $user->isManager() &&
-            $jobPoster->manager->user_id == $user->id
-        ) ||
-        (
-            $user &&
-            $user->isHrAdvisor()
-        );
+            ($user &&
+                $user->isManager() &&
+                $jobPoster->manager->user_id == $user->id) ||
+            ($user &&
+                $user->isHrAdvisor() &&
+                $user->hr_advisor->department_id === $jobPoster->department_id &&
+                $jobPoster->isVisibleToHr());
     }
 
     /**
@@ -68,8 +66,8 @@ class JobPolicy extends BasePolicy
     {
         // Only managers can edit jobs, and only their own, managers can't publish jobs or edit published jobs
         return $user->isManager() &&
-        $jobPoster->manager->user->id == $user->id &&
-        !$jobPoster->published;
+            $jobPoster->manager->user->id == $user->id &&
+            !$jobPoster->published;
     }
 
     /**
@@ -80,13 +78,13 @@ class JobPolicy extends BasePolicy
      *
      * @return boolean
      */
-    public function delete(User $user, JobPoster $jobPoster) : bool
+    public function delete(User $user, JobPoster $jobPoster): bool
     {
         // Jobs can only be deleted when they're in the 'draft'
         // state, and only by managers that created them.
         return $user->isManager() &&
-        $jobPoster->manager->user->id == $user->id &&
-        !$jobPoster->published;
+            $jobPoster->manager->user->id == $user->id &&
+            !$jobPoster->published;
     }
 
     /**
@@ -119,19 +117,21 @@ class JobPolicy extends BasePolicy
             $jobPoster->isClosed();
     }
 
-     /**
+    /**
      * Determine whether the user can view the comments.
      *
      * @param \App\Models\User $user
      * @param \App\Models\JobPoster $jobPoster
      * @return bool
      */
-    public function viewComments(User $user, JobPoster $jobPoster) : bool
+    public function viewComments(User $user, JobPoster $jobPoster): bool
     {
         // Only the manager that created the job can view the comment.
         // Only Hr advisors who have claimed a job can view the comments.
-        return $user->isManager() && $jobPoster->manager->user->id == $user->id ||
-        $user->isHrAdvisor() && $jobPoster->hr_advisors->where('user_id', $user->id)->isNotEmpty();
+        return ($user->isManager() && $jobPoster->manager->user->id == $user->id) ||
+            ($user->isHrAdvisor()
+                && $this->view($user, $jobPoster)
+                && $user->hr_advisor->claimed_job_ids->includes($jobPoster->id));
     }
 
     /**
@@ -141,12 +141,11 @@ class JobPolicy extends BasePolicy
      * @param \App\Models\JobPoster $jobPoster
      * @return bool
      */
-    public function storeComment(User $user, JobPoster $jobPoster) : bool
+    public function storeComment(User $user, JobPoster $jobPoster): bool
     {
         // Only the manager that created the job can view the comment.
         // Only Hr advisors who have claimed a job can view the comments.
-        return $user->isManager() && $jobPoster->manager->user->id == $user->id ||
-        $user->isHrAdvisor() && $jobPoster->hr_advisors->where('user_id', $user->id)->isNotEmpty();
+        return $this->viewComments($user, $jobPoster);
     }
 
     /**
@@ -156,9 +155,9 @@ class JobPolicy extends BasePolicy
      * @param JobPoster $jobPoster
      * @return boolean
      */
-    public function claim(User $user, JobPoster $jobPoster) : bool
+    public function claim(User $user, JobPoster $jobPoster): bool
     {
-        return $user->isHrAdvisor();
+        return $user->isHrAdvisor() && $this->view($user, $jobPoster);
     }
 
     /**
@@ -168,7 +167,7 @@ class JobPolicy extends BasePolicy
      * @param JobPoster $jobPoster
      * @return boolean
      */
-    public function unClaim(User $user, JobPoster $jobPoster) : bool
+    public function unClaim(User $user, JobPoster $jobPoster): bool
     {
         return $this->claim($user, $jobPoster);
     }
