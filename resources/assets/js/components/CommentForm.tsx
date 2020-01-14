@@ -97,30 +97,18 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
     commentLocation: "",
   };
 
-  const hrCommentSchema = Yup.object().shape({
+  const commentSchema = Yup.object().shape({
     comment: Yup.string().required(
       intl.formatMessage(validationMessages.required),
     ),
-    commentType: Yup.number()
-      .oneOf(
-        Object.values(CommentTypeId),
-        intl.formatMessage(validationMessages.invalidSelection),
-      )
-      .required(intl.formatMessage(validationMessages.required)),
-    ...(locationOptions && {
-      commentLocation: Yup.string()
+    ...(isHrAdviser && {
+      commentType: Yup.number()
         .oneOf(
-          Object.values(LocationId),
+          Object.values(CommentTypeId),
           intl.formatMessage(validationMessages.invalidSelection),
         )
         .required(intl.formatMessage(validationMessages.required)),
     }),
-  });
-
-  const managerCommentSchema = Yup.object().shape({
-    comment: Yup.string().required(
-      intl.formatMessage(validationMessages.required),
-    ),
     ...(locationOptions && {
       commentLocation: Yup.string()
         .oneOf(
@@ -135,7 +123,7 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
     <section>
       <Formik
         initialValues={initialValues}
-        validationSchema={isHrAdviser ? hrCommentSchema : managerCommentSchema}
+        validationSchema={commentSchema}
         onSubmit={(values, { setSubmitting, resetForm }): void => {
           const newComment: Comment = {
             ...emptyComment(),
