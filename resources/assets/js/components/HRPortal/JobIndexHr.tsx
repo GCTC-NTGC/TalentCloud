@@ -214,9 +214,6 @@ const JobIndexHr: React.FunctionComponent<JobIndexHrProps> = ({
           )}
         </div>
       </div>
-      {/* CommentFeed Test */}
-      <CommentForm jobId={1} location="hr/index" isHrAdviser />
-      <ActivityFeed jobId={1} isHrAdvisor />
     </section>
   );
 };
