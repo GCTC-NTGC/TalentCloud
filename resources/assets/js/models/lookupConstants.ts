@@ -135,7 +135,7 @@ export const LocationId = {
   summary: "hr/summary",
   preview: "hr/preview",
   screeningPlan: "screeningPlan",
-};
+} as const;
 
 export enum JobStatus {
   Draft = 1,

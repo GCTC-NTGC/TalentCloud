@@ -31,6 +31,8 @@ import {
   hrJobSummary,
   hrJobPreview,
 } from "../helpers/routes";
+import { ValuesOf } from "./app";
+import { Locales } from "../helpers/localize";
 
 const pad = (n: number, width: number, z = "0"): string => {
   return (String(z).repeat(width) + String(n)).slice(String(n).length);
@@ -139,9 +141,9 @@ export const jobStatus = (job: Job): JobStatus => {
 
 export const activityLocationUrl = (
   isHrAdvisor: boolean,
-  location: string,
+  location: ValuesOf<typeof LocationId>,
   jobId: number,
-  locale: string,
+  locale: Locales,
 ): string => {
   const hrAdvisorUrls = {
     [LocationId.intro]: hrJobReview(locale, jobId),
