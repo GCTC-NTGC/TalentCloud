@@ -30,7 +30,7 @@ return [
     'send_translation_button' => 'Send for Translation',
     'approve_button' => 'Approve for Publishing',
     'relinquish_button' => 'Relinquish',
-    'edit_poster_button' => 'Edit Poster',
+    'edit_poster_button' => 'Review Poster',
     'view_poster_button' => 'View Live Poster',
     'screening_plan_button' => 'View Screening Plan',
     'view_applicants_button' => 'View Applicants',
