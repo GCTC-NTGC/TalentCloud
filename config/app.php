@@ -218,16 +218,9 @@ return [
         TwigBridge\ServiceProvider::class,
 
         /*
-         * Debug Service Providers...
-         */
-        Barryvdh\Debugbar\ServiceProvider::class,
-
-        /*
          * Localization Service Provider
          */
         Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
-
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
     ],
 
@@ -280,8 +273,6 @@ return [
 
         'Twig' => TwigBridge\Facade\Twig::class,
         'Date' => Jenssegers\Date\Date::class,
-
-        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
         'LaravelLocalization' => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
     ],

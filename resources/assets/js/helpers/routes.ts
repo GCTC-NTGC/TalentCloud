@@ -95,3 +95,7 @@ export function hrJobPreview(locale: string, jobId: number): string {
 export function hrScreeningPlan(locale: string, jobId: number): string {
   return `/${locale}/hr/jobs/${jobId}/assessment-plan`;
 }
+
+export function accountSettings(locale: string): string {
+  return `/${locale}/settings`;
+}
