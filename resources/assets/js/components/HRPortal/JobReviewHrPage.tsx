@@ -1,8 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  useIntl,
-  FormattedMessage,
-} from "react-intl";
+import { useIntl, FormattedMessage, defineMessages } from "react-intl";
 import { useDispatch, useSelector } from "react-redux";
 import ReactDOM from "react-dom";
 import RootContainer from "../RootContainer";
@@ -14,9 +11,7 @@ import {
   Manager,
   Department,
 } from "../../models/types";
-import {
-  hrJobSummary,
-} from "../../helpers/routes";
+import { hrJobSummary } from "../../helpers/routes";
 import { RootState } from "../../store/store";
 import {
   getJob,
@@ -31,14 +26,18 @@ import {
 } from "../../store/Job/jobActions";
 import { getDepartments as fetchDepartments } from "../../store/Department/deptActions";
 import { getDepartments } from "../../store/Department/deptSelector";
-import {
-  getManagerById,
-} from "../../store/Manager/managerSelector";
-import {
-  fetchManager,
-} from "../../store/Manager/managerActions";
+import { getManagerById } from "../../store/Manager/managerSelector";
+import { fetchManager } from "../../store/Manager/managerActions";
 import { JobReviewDisplay } from "../JobBuilder/Review/JobReview";
 import { fetchSkills } from "../../store/Skill/skillActions";
+
+const jobReviewMessages = defineMessages({
+  dataIsLoading: {
+    id: "hrReviewPage.dataLoading",
+    defaultMessage: "Data is loading...",
+    description: "Placeholder text as job data is loading.",
+  },
+});
 
 interface JobReviewHrPageProps {
   jobId: number;
@@ -59,7 +58,7 @@ const JobReviewHrPage: React.FunctionComponent<JobReviewHrPageProps> = ({
   departments,
   manager,
 }): React.ReactElement => {
-  const { locale } = useIntl();
+  const { locale, formatMessage } = useIntl();
   if (locale !== "en" && locale !== "fr") {
     throw new Error("Unexpected locale");
   }
@@ -73,11 +72,18 @@ const JobReviewHrPage: React.FunctionComponent<JobReviewHrPageProps> = ({
           criteria={criteria}
           skills={skills}
           departments={departments}
-          hideBuilderLinks={true}
+          hideBuilderLinks
         />
       ) : (
         <div data-c-alignment="base(centre)">
-          <i className="fa fa-spinner fa-spin" />
+          <i
+            aria-hidden="true"
+            className="fa fa-spinner fa-spin"
+            title={formatMessage(jobReviewMessages.dataIsLoading)}
+          />
+          <span data-c-visibility="invisible">
+            {formatMessage(jobReviewMessages.dataIsLoading)}
+          </span>
         </div>
       )}
       <div data-c-grid="gutter">
@@ -158,7 +164,7 @@ const JobReviewHrDataFetcher: React.FC<{ jobId: number }> = ({ jobId }) => {
       criteria={criteria}
       skills={skills}
       departments={departments}
-    ></JobReviewHrPage>
+    />
   );
 };
 
