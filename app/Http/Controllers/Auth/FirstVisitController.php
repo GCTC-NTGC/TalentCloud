@@ -88,7 +88,6 @@ class FirstVisitController extends AuthController
             'routes' => $routes,
             'first_visit' => Lang::get('common/auth/first_hr_visit'),
             'departments' => Department::all(),
-            'not_in_gov_option' => ['value' => 0, 'name' => Lang::get('common/auth/register.not_in_gov')],
         ]);
     }
 
@@ -109,7 +108,6 @@ class FirstVisitController extends AuthController
         // Save manager specific fields to user
         $hrDepartment = Department::find($data['department']);
         $inGovernment = ($hrDepartment !== null);
-        $user->not_in_gov = !$inGovernment;
         $user->gov_email = $inGovernment ? $data['gov_email'] : null;
 
         $user->save();
