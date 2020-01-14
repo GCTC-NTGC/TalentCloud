@@ -63,10 +63,10 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
 
   return (
     <section data-c-padding="top(1)">
-      <h3 data-c-font-size="h3" data-c-color="stop" data-c-margin="bottom(1)">
+      <h3 data-c-font-size="h3" data-c-color="c2" data-c-margin="bottom(1)">
         <FormattedMessage
           id="activityfeed.title"
-          defaultMessage="Previous Activity"
+          defaultMessage="Activities"
           description="Title of activity feed."
         />
       </h3>
