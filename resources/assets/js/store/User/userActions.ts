@@ -1,6 +1,10 @@
 import { AsyncFsaActions, RSAActionTemplate, asyncGet } from "../asyncAction";
 import { User } from "../../models/types";
-import { getUserEndpoint, getAllUsersEndpoint } from "../../api/user";
+import {
+  getUserEndpoint,
+  getAllUsersEndpoint,
+  parseAllUsersResponse,
+} from "../../api/user";
 
 export const FETCH_USER_STARTED = "USER: GET STARTED";
 export const FETCH_USER_SUCCEEDED = "USER: GET SUCCEEDED";
@@ -41,7 +45,7 @@ export type FetchAllUsersAction = AsyncFsaActions<
   typeof FETCH_ALL_USERS_SUCCEEDED,
   typeof FETCH_ALL_USERS_FAILED,
   User[],
-  null
+  {}
 >;
 
 export const fetchAllUsers = (): RSAActionTemplate<
@@ -49,15 +53,15 @@ export const fetchAllUsers = (): RSAActionTemplate<
   typeof FETCH_ALL_USERS_SUCCEEDED,
   typeof FETCH_ALL_USERS_FAILED,
   User[],
-  null
+  {}
 > =>
   asyncGet(
     getAllUsersEndpoint(),
     FETCH_ALL_USERS_STARTED,
     FETCH_ALL_USERS_SUCCEEDED,
     FETCH_ALL_USERS_FAILED,
-    (response): User[] => response,
-    null,
+    parseAllUsersResponse,
+    {},
   );
 
 export type UserAction = FetchUserAction | FetchAllUsersAction;
