@@ -259,3 +259,13 @@ export interface JobPosterKeyTask {
     description: string;
   };
 }
+
+export interface Comment {
+  id: number;
+  job_poster_id: number;
+  user_id: number;
+  comment: string;
+  location: string;
+  type_id: number | null;
+  created_at: Date;
+}

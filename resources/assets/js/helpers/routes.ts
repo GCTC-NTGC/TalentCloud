@@ -28,6 +28,10 @@ export function managerJobApplications(locale: string, jobId: number): string {
   return `/${locale}/manager/jobs/${jobId}/applications`;
 }
 
+export function managerScreeningPlan(locale: string, jobId: number): string {
+  return `/${locale}/manager/jobs/${jobId}/assessment-plan`;
+}
+
 export function applicationReviewUpdate(
   locale: string,
   applicationId: number,
@@ -77,17 +81,17 @@ export function managerFaq(locale: string, faqSection?: FaqSection): string {
 }
 
 export function hrJobIndex(locale: string): string {
-  return `/${locale}/hr-advisor/jobs`;
+  return `/${locale}/hr/jobs`;
 }
 export function hrJobSummary(locale: string, jobId: number): string {
-  return `/${locale}/hr-advisor/jobs/${jobId}`;
+  return `/${locale}/hr/jobs/${jobId}`;
 }
 export function hrJobReview(locale: string, jobId: number): string {
-  return `/${locale}/hr-advisor/jobs/${jobId}/review`;
+  return `/${locale}/hr/jobs/${jobId}/review`;
 }
 export function hrJobPreview(locale: string, jobId: number): string {
-  return `/${locale}/hr-advisor/jobs/${jobId}/preview`;
+  return `/${locale}/hr/jobs/${jobId}/preview`;
 }
 export function hrScreeningPlan(locale: string, jobId: number): string {
-  return `/${locale}/hr-advisor/jobs/${jobId}/assessment-plan`;
+  return `/${locale}/hr/jobs/${jobId}/assessment-plan`;
 }
