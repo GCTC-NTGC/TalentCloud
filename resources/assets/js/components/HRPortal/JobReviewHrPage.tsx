@@ -31,6 +31,7 @@ import { fetchManager } from "../../store/Manager/managerActions";
 import { JobReviewDisplay } from "../JobBuilder/Review/JobReview";
 import { fetchSkills } from "../../store/Skill/skillActions";
 import Icon from "../Icon";
+import JobReviewActivityFeed from "../JobBuilder/Review/JobReviewActivityFeed";
 
 interface JobReviewHrPageProps {
   jobId: number;
@@ -58,16 +59,18 @@ const JobReviewHrPage: React.FunctionComponent<JobReviewHrPageProps> = ({
   return (
     <div data-c-container="form" data-c-padding="top(triple) bottom(triple)">
       {job !== null ? (
-        <JobReviewDisplay
-          job={job}
-          manager={manager}
-          tasks={keyTasks}
-          criteria={criteria}
-          skills={skills}
-          departments={departments}
-          hideBuilderLinks
-          isHrAdvisor
-        />
+        <>
+          <JobReviewActivityFeed jobId={job.id} isHrAdvisor />
+          <JobReviewDisplay
+            job={job}
+            manager={manager}
+            tasks={keyTasks}
+            criteria={criteria}
+            skills={skills}
+            departments={departments}
+            hideBuilderLinks
+          />
+        </>
       ) : (
         <div data-c-alignment="base(centre)">
           <Icon
