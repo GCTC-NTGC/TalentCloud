@@ -44,7 +44,6 @@ class ApplicantPolicy extends BasePolicy
     protected function claimsJobApplicantAppliedTo(User $user, Applicant $applicant)
     {
         if ($user->isHrAdvisor()) {
-            $submittedApplications = $applicant->submitted_applications;
             return $applicant->submitted_applications->some(function ($application) use ($user) {
                 return $user->can('manage', $application->job_poster) && $application->job_poster->isClosed();
             });
