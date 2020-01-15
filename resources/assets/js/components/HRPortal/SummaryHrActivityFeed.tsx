@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import RootContainer from "../RootContainer";
 import CommentForm from "../CommentForm";
 import ActivityFeed from "../ActivityFeed";
+import { LocationId } from "../../models/lookupConstants";
 
 interface SummaryHrActivityFeedProps {
   jobId: number;
@@ -13,7 +14,7 @@ const SummaryHrActivityFeed: React.FunctionComponent<SummaryHrActivityFeedProps>
 }) => {
   return (
     <>
-      <CommentForm jobId={jobId} isHrAdviser location="job/review" />
+      <CommentForm jobId={jobId} isHrAdviser location={LocationId.generic} />
       <hr data-c-hr="thin(black)" data-c-margin="top(1) left(2) right(2)" />
       <ActivityFeed jobId={jobId} isHrAdvisor />
     </>

@@ -135,7 +135,7 @@ const JobReviewActivityFeed: React.FunctionComponent<JobReviewActivityFeedProps>
             <CommentForm
               jobId={jobId}
               isHrAdviser={isHrAdvisor}
-              location="job/review"
+              location={LocationId.generic}
               locationOptions={...locationOptions}
             />
             <hr
