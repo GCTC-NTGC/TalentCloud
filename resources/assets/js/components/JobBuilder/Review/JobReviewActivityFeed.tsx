@@ -7,6 +7,7 @@ import { LocationId } from "../../../models/lookupConstants";
 import { RootState } from "../../../store/store";
 import { getComments } from "../../../store/Job/jobSelector";
 import Icon from "../../Icon";
+import { hasKey } from "../../../helpers/queries";
 
 export const reviewLocations = defineMessages({
   [LocationId.generic]: {
@@ -64,7 +65,7 @@ const JobReviewActivityFeed: React.FunctionComponent<JobReviewActivityFeedProps>
 }) => {
   const intl = useIntl();
   const locationOptions = Object.values(LocationId)
-    .filter(location => reviewLocations[location])
+    .filter(location => hasKey(reviewLocations, location))
     .map(location => ({
       value: location,
       label: intl.formatMessage(reviewLocations[location]),
