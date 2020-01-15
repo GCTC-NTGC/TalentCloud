@@ -37,11 +37,11 @@ class ApplicantPolicy extends BasePolicy
     }
 
     /**
-     * Returns true the $user is an hr_advisor which has claimed a job the applicant has applied to, where the job is closed.
+     * Returns true if the $user is an hr_advisor which has claimed a job the applicant has applied to, where the job is closed.
      *
-     * @param User $user
-     * @param Applicant $applicant
-     * @return void
+     * @param  \App\Models\User      $user      HR advisor relationship to Job Poster.
+     * @param  \App\Models\Applicant $applicant Applicant object used within applications submitted to Job Poster.
+     * @return boolean
      */
     protected function claimsJobApplicantAppliedTo(User $user, Applicant $applicant)
     {
