@@ -148,8 +148,7 @@ class JobPolicy extends BasePolicy
     {
         // Only the manager that created the job can view the comment.
         // Only Hr advisors who have claimed a job can view the comments.
-        return ($user->isManager() && $jobPoster->manager->user->id == $user->id) ||
-            $this->manage($user, $jobPoster);
+        return $this->manage($user, $jobPoster);
     }
 
     /**
