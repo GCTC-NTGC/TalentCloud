@@ -1,0 +1,25 @@
+{# =============================================================================
+
+    Talent Cloud
+    HR Portal: Summary Page Link
+
+============================================================================= #}
+{% if data.disabled %}
+	<a class="tc-summary-action" href={{ data.url }} title="" data-c-card data-c-background="white(20)" data-c-radius="rounded">
+		<div data-c-padding="tb(2) rl(1)" data-c-align="base(center)">
+			<img src={{ data.imgSrc }} alt="{{ data.imgAlt }}">
+		</div>
+		<div data-c-background="c2(100)" data-c-padding="tb(.5) rl(1)" data-c-align="base(center)">
+			<span data-c-color="white" data-c-font-style="underline">{{ data.text }}</span>
+		</div>
+	</a>
+{% else %}
+	<div class="tc-summary-action" data-c-card data-c-background="grey(20)" data-c-radius="rounded">
+		<div data-c-padding="tb(2) rl(1)" data-c-align="base(center)">
+			<img src={{ data.imgSrc }} alt="{{ data.imgAlt }}">
+		</div>
+		<div data-c-background="grey(100)" data-c-padding="tb(.5) rl(1)" data-c-align="base(center)">
+			<span data-c-color="white" data-c-font-style="underline">{{ data.text }}</span>
+		</div>
+	</div>
+{% endif %}
