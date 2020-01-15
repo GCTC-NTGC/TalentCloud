@@ -871,39 +871,44 @@ export const classificationCodeOption = (
   );
 
 export const activityLocations = defineMessages({
-  [LocationId.intro]: {
-    id: "activityfeed.locations.jpb.intro",
-    defaultMessage: "Job Poster Builder > Step 1: Intro",
+  [LocationId.generic]: {
+    id: "activityfeed.locations.review.details",
+    defaultMessage: "Job Poster Builder > General",
     description: "Location where the activity is located.",
   },
-  [LocationId.details]: {
-    id: "activityfeed.locations.jpb.details",
-    defaultMessage: "Job Poster Builder > Step 2: Details",
+  [LocationId.heading]: {
+    id: "activityfeed.locations.review.heading",
+    defaultMessage: "Job Poster Builder > Job Page Heading",
     description: "Location where the activity is located.",
   },
-  [LocationId.environment]: {
-    id: "activityfeed.locations.jpb.environment",
-    defaultMessage: "Job Poster Builder > Step 1: Work Environment",
+  [LocationId.basicInfo]: {
+    id: "activityfeed.locations.review.basicInfo",
+    defaultMessage: "Job Poster Builder > Basic Information",
     description: "Location where the activity is located.",
   },
   [LocationId.impact]: {
-    id: "activityfeed.locations.jpb.impact",
-    defaultMessage: "Job Poster Builder > Step 1: Impact",
+    id: "activityfeed.locations.review.impact",
+    defaultMessage: "Job Poster Builder > Impact",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.tasks]: {
+    id: "activityfeed.locations.review.tasks",
+    defaultMessage: "Job Poster Builder > Tasks",
     description: "Location where the activity is located.",
   },
   [LocationId.skills]: {
-    id: "activityfeed.locations.jpb.skills",
-    defaultMessage: "Job Poster Builder > Step 1: Skills",
+    id: "activityfeed.locations.review.skills",
+    defaultMessage: "Job Poster Builder > Skills",
     description: "Location where the activity is located.",
   },
-  [LocationId.review]: {
-    id: "activityfeed.locations.jpb.review",
-    defaultMessage: "Job Poster Builder > Step 1: Review",
+  [LocationId.langRequirements]: {
+    id: "activityfeed.locations.review.langRequirements",
+    defaultMessage: "Job Poster Builder > Language Requirements",
     description: "Location where the activity is located.",
   },
-  [LocationId.index]: {
-    id: "activityfeed.locations.hr.index",
-    defaultMessage: "HR Index Page",
+  [LocationId.environment]: {
+    id: "activityfeed.locations.review.environment",
+    defaultMessage: "Job Poster Builder > Environment",
     description: "Location where the activity is located.",
   },
   [LocationId.summary]: {

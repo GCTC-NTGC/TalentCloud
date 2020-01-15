@@ -28,13 +28,11 @@ export const parseJobResponse = (
   };
 };
 
-export const parseJobIndexResponse = (
-  data: any,
-): {jobs: Job[]} => {
+export const parseJobIndexResponse = (data: any): { jobs: Job[] } => {
   return {
-    jobs: data.map(parseJob)
-  }
-}
+    jobs: data.map(parseJob),
+  };
+};
 
 export const parseTasksResponse = (data: any): JobPosterKeyTask[] => data;
 
