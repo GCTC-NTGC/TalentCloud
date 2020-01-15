@@ -45,11 +45,11 @@ class CommentApiControllerTest extends TestCase
     public function testIndexByJobForAdvisor(): void
     {
         // Factories.
-        $job = factory(JobPoster::class)->create();
-        $job->hr_advisors()->saveMany(factory(HrAdvisor::class, 3)->make()->each(function ($hr_advisor) use ($job) {
-            $hr_advisor->claimed_jobs()->attach($job->id);
+        $job = factory(JobPoster::class)->make();
+        $job->hr_advisors()->saveMany(factory(HrAdvisor::class, 3)->make([ 'department_id' => $job->department_id])->each(function ($hr_advisor) use ($job) {
+            $hr_advisor->claimed_jobs()->save($job);
         }));
-        $job->comments()->saveMany(factory(Comment::class, 3)->make(['job_poster_id' => $job->id, 'user_id' => $job->hr_advisors->first()->user->id]));
+        $job->comments()->saveMany(factory(Comment::class, 3)->make(['job_poster_id' => $job->id, 'user_id' => $job->hr_advisors()->first()->user->id]));
 
         // Get comments from job poster.
         $response = $this->followingRedirects()
@@ -91,7 +91,7 @@ class CommentApiControllerTest extends TestCase
     public function testStoreCommentAsAdvisor(): void
     {
         $job = factory(JobPoster::class)->create();
-        $job->hr_advisors()->saveMany(factory(HrAdvisor::class, 3)->make()->each(function ($hr_advisor) use ($job) {
+        $job->hr_advisors()->saveMany(factory(HrAdvisor::class, 3)->make([ 'department_id' => $job->department_id])->each(function ($hr_advisor) use ($job) {
             $hr_advisor->claimed_jobs()->attach($job->id);
         }));
         $newComment = factory(Comment::class)->make(['job_poster_id' => $job->id, 'user_id' => $job->hr_advisors->first()->user])->toArray();
