@@ -10,3 +10,5 @@ export interface Link {
   text: string;
   title: string;
 }
+
+export type ValuesOf<T> = T[keyof T];

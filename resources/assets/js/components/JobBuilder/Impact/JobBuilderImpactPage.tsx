@@ -74,7 +74,7 @@ const JobBuilderImpactPage: React.FunctionComponent<JobBuilderImpactPageProps &
     job !== null && isJobBuilderComplete(job, keyTasks, criteria, locale);
   return (
     <JobBuilderStepContainer jobId={jobId} currentPage="impact">
-      {job !== null && departments.length > 0 && (
+      {job !== null && (
         <JobBuilderImpact
           job={job}
           departments={departments}

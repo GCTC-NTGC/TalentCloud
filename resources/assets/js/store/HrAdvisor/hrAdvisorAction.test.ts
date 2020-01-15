@@ -1,7 +1,7 @@
 import thunk from "redux-thunk";
 import configureMockStore from "redux-mock-store";
 import { apiMiddleware } from "redux-api-middleware";
-import fetchMock = require("fetch-mock");
+import fetchMock from "fetch-mock";
 import { initState } from "../store";
 import { getHrAdvisorEndpoint, getClaimJobEndpoint } from "../../api/hrAdvisor";
 import {
@@ -17,7 +17,7 @@ import {
   UNCLAIM_JOB_SUCCEEDED,
   unclaimJob,
   UNCLAIM_JOB_FAILED,
-} from "./hrAdivsorActions";
+} from "./hrAdvisorActions";
 
 describe("async hrAdvisor actions", (): void => {
   const middlewares = [thunk, apiMiddleware];

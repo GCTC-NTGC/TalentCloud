@@ -45,6 +45,14 @@ mix
     "public/js",
   )
   .ts("resources/assets/js/components/HRPortal/JobIndexHrPage.tsx", "public/js")
+  .ts(
+    "resources/assets/js/components/HRPortal/JobReviewHrPage.tsx",
+    "public/js",
+  )
+  .ts(
+    "resources/assets/js/components/HRPortal/SummaryHrActivityFeed.tsx",
+    "public/js",
+  )
   .sass("resources/assets/sass/app.scss", "public/css", {
     implementation: sass,
     includePaths: ["node_modules/@fortawesome/fontawesome-free/scss"],

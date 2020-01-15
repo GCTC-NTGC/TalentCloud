@@ -6,6 +6,8 @@ import UnclaimedJobCard, { UnclaimedJobCardProps } from "../UnclaimedJobCard";
 import RootContainer from "../RootContainer";
 import { JobStatus } from "../../models/lookupConstants";
 import { jobActions, unclaimedJobs } from "./fixtures";
+import CommentForm from "../CommentForm";
+import ActivityFeed from "../ActivityFeed";
 
 interface CompletedJobsAccordionProps {
   completedJobActions: JobCardProps[];
@@ -24,7 +26,7 @@ const CompletedJobsAccordion: React.FC<CompletedJobsAccordionProps> = ({
           data-c-accordion-trigger
           tabIndex={0}
           type="button"
-          onClick={() => {
+          onClick={(): void => {
             setIsExpanded(!isExpanded);
           }}
         >
@@ -217,4 +219,3 @@ const JobIndexHr: React.FunctionComponent<JobIndexHrProps> = ({
 };
 
 export default JobIndexHr;
-

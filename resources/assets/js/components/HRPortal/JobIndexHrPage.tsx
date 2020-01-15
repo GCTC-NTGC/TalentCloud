@@ -20,7 +20,7 @@ import { find, stringNotEmpty } from "../../helpers/queries";
 import {
   getHrAdvisor as fetchHrAdvisor,
   claimJob,
-} from "../../store/HrAdvisor/hrAdivsorActions";
+} from "../../store/HrAdvisor/hrAdvisorActions";
 import { getHrAdvisor } from "../../store/HrAdvisor/hrAdvisorSelector";
 import { RootState } from "../../store/store";
 import { fetchJobIndex } from "../../store/Job/jobActions";

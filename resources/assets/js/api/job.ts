@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/camelcase */
-import { Job, Criteria, JobPosterKeyTask } from "../models/types";
+import { Job, Criteria, JobPosterKeyTask, Comment } from "../models/types";
 import { baseUrl, parseDate } from "./base";
 
 const parseCriterion = (data: any): Criteria => data;
@@ -28,17 +28,23 @@ export const parseJobResponse = (
   };
 };
 
-export const parseJobIndexResponse = (
-  data: any,
-): {jobs: Job[]} => {
+export const parseJobIndexResponse = (data: any): { jobs: Job[] } => {
   return {
-    jobs: data.map(parseJob)
-  }
-}
+    jobs: data.map(parseJob),
+  };
+};
 
 export const parseTasksResponse = (data: any): JobPosterKeyTask[] => data;
 
 export const parseCriteriaResponse = (data: any): Criteria[] => data;
+
+export const parseCommentResponse = (data: any): Comment => ({
+  ...data,
+  created_at: parseDate(data.created_at),
+});
+
+export const parseCommentsResponse = (data: any): Comment[] =>
+  data.map((commentData: any): Comment => parseCommentResponse(commentData));
 
 export const getJobEndpoint = (id: number | null): string =>
   id ? `${baseUrl()}/jobs/${id}` : `${baseUrl()}/jobs`;
@@ -51,3 +57,6 @@ export const getTasksEndpoint = (jobId: number): string =>
 
 export const getCriteriaEndpoint = (jobId: number): string =>
   `${getJobEndpoint(jobId)}/criteria`;
+
+export const getCommentEndpoint = (jobId: number): string =>
+  `${getJobEndpoint(jobId)}/comments`;
