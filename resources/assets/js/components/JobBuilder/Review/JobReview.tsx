@@ -394,26 +394,6 @@ export const JobReviewDisplay: React.FC<JobReviewDisplayProps> = ({
 
   return (
     <>
-      <h3
-        data-c-font-size="h3"
-        data-c-font-weight="bold"
-        data-c-margin="bottom(double)"
-      >
-        <FormattedMessage
-          id="jobBuilder.review.reviewYourPoster"
-          defaultMessage="Review Your Job Poster for:"
-          description="Title for Review Job Poster section."
-        />{" "}
-        <span data-c-colour="c2">{job[locale].title}</span>
-      </h3>
-      <p>
-        <FormattedMessage
-          id="jobBuilder.review.headsUp"
-          defaultMessage="Just a heads up! We've rearranged some of your information to help you
-            understand how an applicant will see it once published."
-          description="Description under primary title of review section"
-        />
-      </p>
       <JobReviewSection
         title={intl.formatMessage(messages.titleHeading)}
         linkLabel={intl.formatMessage(messages.infoEditLink)}
@@ -762,6 +742,10 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
   handleReturn,
   intl,
 }): React.ReactElement => {
+  const { locale } = intl;
+  if (locale !== "en" && locale !== "fr") {
+    throw new Error("Unknown intl.locale");
+  }
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isSurveyModalVisible, setIsSurveyModalVisible] = useState(false);
   const modalId = "job-review-modal";
@@ -774,6 +758,26 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
         data-c-padding="top(triple) bottom(triple)"
         ref={modalParentRef}
       >
+        <h3
+          data-c-font-size="h3"
+          data-c-font-weight="bold"
+          data-c-margin="bottom(double)"
+        >
+          <FormattedMessage
+            id="jobBuilder.review.reviewYourPoster"
+            defaultMessage="Review Your Job Poster for:"
+            description="Title for Review Job Poster section."
+          />{" "}
+          <span data-c-colour="c2">{job[locale].title}</span>
+        </h3>
+        <p>
+          <FormattedMessage
+            id="jobBuilder.review.headsUp"
+            defaultMessage="Just a heads up! We've rearranged some of your information to help you
+            understand how an applicant will see it once published."
+            description="Description under primary title of review section"
+          />
+        </p>
         <JobReviewActivityFeed jobId={job.id} isHrAdvisor={false} />
         <JobReviewDisplay
           job={job}
