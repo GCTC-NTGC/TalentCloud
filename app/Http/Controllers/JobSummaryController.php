@@ -27,9 +27,19 @@ class JobSummaryController extends Controller
         $jobIsClaimed = ($advisor !== null) &&
             $advisor->claimed_job_ids->contains($job->id);
 
+        $summaryLang = Lang::get('hr_advisor/job_summary');
+
+        $view_applicants_data = [
+            'imgSrc' => '/images/job-process-summary-tool-applicants.svg',
+            'imgAlt' => "{$summaryLang['view_applicants_icon']} {$summaryLang['flat_icons']}",
+            'text' => $summaryLang['view_applicants_button'],
+            'url' => route('hr_advisor.jobs.applications', $job),
+            'disabled' => $job->isClosed(),
+        ];
+
         $data = [
             // Localized strings.
-            'summary' => Lang::get('hr_advisor/job_summary'),
+            'summary' => $summaryLang,
             'is_claimed' => $jobIsClaimed,
             // User data.
             'user' => $user,
@@ -44,7 +54,7 @@ class JobSummaryController extends Controller
             'job_review_url' => route('hr_advisor.jobs.review', $job),
             'job_preview_url' => '/',
             'screening_plan_url' => '/',
-            'view_applicants_url' => '/',
+            'view_applicants_data' => $view_applicants_data,
             'relinquish_job' => route('hr_advisor.jobs.unclaim', $job),
         ];
 

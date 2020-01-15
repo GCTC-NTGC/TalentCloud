@@ -508,10 +508,6 @@ Route::group(
             Route::delete('applications/{application}', 'ApplicationController@destroy')
                 ->middleware('can:delete,application')
                 ->name('applications.destroy');
-
-            Route::put('applications/{application}/review', 'ApplicationReviewController@updateForApplication')
-                ->middleware('can:review,application')
-                ->name('application_reviews.update');
         });
 
         /* Non-Backpack Admin Portal (localized pages) =========================================================== */
@@ -544,7 +540,24 @@ Route::group(
                 Route::get('/', 'HomepageController@hr_advisor')->name('hr_advisor.home');
 
                 Route::middleware(['auth', 'role:hr_advisor'])->group(function (): void {
+
                     Route::get('jobs', 'JobController@hrIndex')->name('hr_advisor.jobs.index');
+
+                    /* Application Index */
+                    Route::get('jobs/{jobPoster}/applications', 'ApplicationByJobController@index')
+                        ->where('jobPoster', '[0-9]+')
+                        ->middleware('can:reviewApplicationsFor,jobPoster')
+                        ->name('hr_advisor.jobs.applications');
+
+                    /* View Application */
+                    Route::get('applications/{application}', 'ApplicationController@show')
+                        ->middleware('can:view,application')
+                        ->name('hr_advisor.applications.show');
+
+                    /* View Applicant Profile */
+                    Route::get('applicants/{applicant}', 'ApplicantProfileController@show')
+                        ->middleware('can:view,applicant')
+                        ->name('hr_advisor.applicants.show');
 
                     Route::get('jobs/{job}/summary', 'JobSummaryController@show')
                         ->middleware('can:manage,job')
@@ -668,6 +681,10 @@ Route::group(['prefix' => 'api'], function (): void {
         'update' => 'api.jobs.update',
         'index' => 'api.jobs.index'
     ]);
+
+    Route::put('applications/{application}/review', 'ApplicationReviewController@updateForApplication')
+        ->middleware('can:review,application')
+        ->name('api.application_reviews.update');
 
     Route::resource('managers', 'Api\ManagerApiController')->only([
         'show', 'update'

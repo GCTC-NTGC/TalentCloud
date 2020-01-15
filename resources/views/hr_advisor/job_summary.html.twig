@@ -218,14 +218,7 @@
 								</a>
 							</div>
 							<div data-c-grid-item="tp(1of2) tl(1of4)">
-								<a class="tc-summary-action" href={{ view_applicants_url }} title="" data-c-card data-c-background="white(100)" data-c-radius="rounded">
-									<div data-c-padding="tb(2) rl(1)" data-c-align="base(center)">
-										<img src="/images/job-process-summary-tool-applicants.svg" alt="{{ summary.view_applicants_icon }} {{ summary.flat_icons }}">
-									</div>
-									<div data-c-background="c2(100)" data-c-padding="tb(.5) rl(1)" data-c-align="base(center)">
-										<span data-c-color="white" data-c-font-style="underline">{{ summary.view_applicants_button }}</span>
-									</div>
-								</a>
+								{% include "hr_advisor/summary_action_card" with {'data': view_applicants_data} %}
 							</div>
 						</div>
 						<h2 id="activity" data-c-font-size="h2" data-c-padding="top(3) bottom(1)">{{ summary.activity_title }}</h2>

@@ -4,9 +4,7 @@ namespace App\Policies;
 
 use App\Models\User;
 use App\Models\Applicant;
-use App\Models\JobApplication;
 use App\Models\JobPoster;
-use App\Models\Lookup\ApplicationStatus;
 use App\Policies\BasePolicy;
 
 class ApplicantPolicy extends BasePolicy
@@ -46,11 +44,7 @@ class ApplicantPolicy extends BasePolicy
     protected function claimsJobApplicantAppliedTo(User $user, Applicant $applicant)
     {
         if ($user->isHrAdvisor()) {
-            $submittedApplications = JobApplication::where([
-                'applicant_id' => $applicant->id,
-                'application_status_id' => ApplicationStatus::where('name', 'draft')->id
-            ]);
-            return $submittedApplications->some(function ($application) use ($user) {
+            return $applicant->submitted_applications->some(function ($application) use ($user) {
                 return $user->can('manage', $application->job_poster) && $application->job_poster->isClosed();
             });
         }
