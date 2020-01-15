@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\HrAdvisor;
 use App\Models\JobPoster;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ClaimJobApiController extends Controller
 {
@@ -72,6 +73,7 @@ class ClaimJobApiController extends Controller
      */
     public function claimJob(HrAdvisor $hrAdvisor, JobPoster $job)
     {
+        Gate::forUser($hrAdvisor->user)->authorize('claim', $job);
         $hrAdvisor->claimed_jobs()->attach($job);
         return response()->json(['status' => 'ok']);
     }
@@ -85,6 +87,7 @@ class ClaimJobApiController extends Controller
      */
     public function unclaimJob(HrAdvisor $hrAdvisor, JobPoster $job)
     {
+        Gate::forUser($hrAdvisor->user)->authorize('unClaim', $job);
         $hrAdvisor->claimed_jobs()->detach($job);
         return response()->json(['status' => 'ok']);
     }

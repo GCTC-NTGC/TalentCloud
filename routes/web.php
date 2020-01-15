@@ -547,7 +547,7 @@ Route::group(
                     Route::get('jobs', 'JobController@hrIndex')->name('hr_advisor.jobs.index');
 
                     Route::get('jobs/{job}/summary', 'JobSummaryController@show')
-                        ->middleware('can:view,job')
+                        ->middleware('can:manage,job')
                         ->name('hr_advisor.jobs.summary')
                         ->where('jobPoster', '[0-9]+');
 
@@ -560,7 +560,7 @@ Route::group(
                         'jobs/{job}/review',
                         'JobBuilderController@hrReview'
                     )
-                        ->middleware('can:view,job')
+                        ->middleware('can:manage,job')
                         ->where('job', '[0-9]+')
                         ->name('hr_advisor.jobs.review');
                 });

@@ -15,9 +15,12 @@ class ClaimJobApiControllerTest extends TestCase
     public function testClaimAndUnclaim(): void
     {
         // Factories.
-        $hrAdvisor = factory(HrAdvisor::class)->create();
-        $job = factory(JobPoster::class)->states(['draft'])->create();
-        $this->assertEquals('draft', $job->status());
+        $hrAdvisor = factory(HrAdvisor::class)->create([
+            'department_id' => 1,
+        ]);
+        $job = factory(JobPoster::class)->states(['review_requested'])->create([
+            'department_id' => 1,
+        ]);
 
         // Claim job poster.
         $response = $this->followingRedirects()
@@ -40,8 +43,12 @@ class ClaimJobApiControllerTest extends TestCase
 
     public function testClaimUnclaimForAdvisor(): void
     {
-        $hrAdvisor = factory(HrAdvisor::class)->create();
-        $job = factory(JobPoster::class)->states(['draft'])->create();
+        $hrAdvisor = factory(HrAdvisor::class)->create([
+            'department_id' => 1,
+        ]);
+        $job = factory(JobPoster::class)->states(['review_requested'])->create([
+            'department_id' => 1,
+        ]);
 
         // Claim job poster.
         $response = $this->followingRedirects()
@@ -62,11 +69,38 @@ class ClaimJobApiControllerTest extends TestCase
         $this->assertDatabaseMissing('claimed_jobs', $expectedIds);
     }
 
+    public function testAdvisorInWrongDeptCannotClaim(): void
+    {
+        $hrAdvisor = factory(HrAdvisor::class)->create([
+            'department_id' => 1,
+        ]);
+        $job = factory(JobPoster::class)->states(['review_requested'])->create([
+            'department_id' => 2,
+        ]);
+
+        // Claim job poster.
+        $response = $this->followingRedirects()
+            ->actingAs($hrAdvisor->user)
+            ->json('put', "api/jobs/$job->id/claim");
+        $response->assertStatus(403);
+
+        $advisorSpecificResponse = $this->followingRedirects()
+            ->actingAs($hrAdvisor->user)
+            ->json('put', "api/hr-advisors/$hrAdvisor->id/claims/$job->id");
+        $advisorSpecificResponse->assertStatus(403);
+    }
+
     public function testClaimUnclaimForAdvisorFailsForOtherUsers(): void
     {
-        $hrAdvisor = factory(HrAdvisor::class)->create();
-        $job = factory(JobPoster::class)->states(['draft'])->create();
-        $otherUser = factory(HrAdvisor::class)->create()->user;
+        $hrAdvisor = factory(HrAdvisor::class)->create([
+            'department_id' => 1,
+        ]);
+        $job = factory(JobPoster::class)->states(['review_requested'])->create([
+            'department_id' => 1,
+        ]);
+        $otherUser = factory(HrAdvisor::class)->create([
+            'department_id' => 1,
+        ])->user;
 
         // Claim job poster, logged in as different user.
         $response = $this->followingRedirects()

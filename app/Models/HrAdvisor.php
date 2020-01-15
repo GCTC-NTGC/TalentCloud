@@ -88,6 +88,6 @@ class HrAdvisor extends BaseModel
      */
     public function getClaimedJobIdsAttribute()
     {
-        return $this->claimed_jobs()->allRelatedIds()->toArray();
+        return $this->claimed_jobs()->allRelatedIds();
     }
 }
