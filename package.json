@@ -94,7 +94,7 @@
         "axios": "^0.19.1",
         "babel-plugin-react-intl": "^5.1.16",
         "classnames": "^2.2.6",
-        "clone-framework": "^2.4.12",
+        "clone-framework": "^2.4.13",
         "core-js": "^3.6.4",
         "formik": "^1.5.8",
         "history": "^4.10.1",
