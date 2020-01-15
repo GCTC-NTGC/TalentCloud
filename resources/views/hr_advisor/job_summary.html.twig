@@ -157,23 +157,23 @@
 							<div
 								data-c-grid-item="tl(1of3)" data-c-align="base(center)">
 								{#
-																																																																								                                    <div data-c-card data-c-background="white(100)" data-c-padding="all(1)" data-c-radius="rounded" data-c-margin="bottom(1)">
-																																																																								                                        <form action="{{ send_manager }}" method="POST">
-																																																																								                                            {{ csrf_field() }}
-																																																																								                                            <button data-c-button="solid(c1)" data-c-radius="rounded">{{ summary.send_manager_button }}</button>
-																																																																								                                        </form>
-																																																																								                                    </div>
-																																																																								                                    <div data-c-card data-c-background="white(100)" data-c-padding="all(1)" data-c-radius="rounded">
-																																																																								                                        <form action="{{ send_translation }}" method="POST">
-																																																																								                                            {{ csrf_field() }}
-																																																																								                                            <button data-c-button="solid(c1)" data-c-radius="rounded" data-c-margin="bottom(1)">{{ summary.send_translation_button }}</button>
-																																																																								                                        </form>
-																																																																								                                        <form action="{{ approve_publishing }}" method="POST">
-																																																																								                                            {{ csrf_field() }}
-																																																																								                                            <button data-c-button="solid(go)" data-c-radius="rounded">{{ summary.approve_button }}</button>
-																																																																								                                        </form>
-																																																																								                                    </div>
-																																																																								                                #}
+																																																																																                                    <div data-c-card data-c-background="white(100)" data-c-padding="all(1)" data-c-radius="rounded" data-c-margin="bottom(1)">
+																																																																																                                        <form action="{{ send_manager }}" method="POST">
+																																																																																                                            {{ csrf_field() }}
+																																																																																                                            <button data-c-button="solid(c1)" data-c-radius="rounded">{{ summary.send_manager_button }}</button>
+																																																																																                                        </form>
+																																																																																                                    </div>
+																																																																																                                    <div data-c-card data-c-background="white(100)" data-c-padding="all(1)" data-c-radius="rounded">
+																																																																																                                        <form action="{{ send_translation }}" method="POST">
+																																																																																                                            {{ csrf_field() }}
+																																																																																                                            <button data-c-button="solid(c1)" data-c-radius="rounded" data-c-margin="bottom(1)">{{ summary.send_translation_button }}</button>
+																																																																																                                        </form>
+																																																																																                                        <form action="{{ approve_publishing }}" method="POST">
+																																																																																                                            {{ csrf_field() }}
+																																																																																                                            <button data-c-button="solid(go)" data-c-radius="rounded">{{ summary.approve_button }}</button>
+																																																																																                                        </form>
+																																																																																                                    </div>
+																																																																																                                #}
 								<div data-c-card data-c-background="white(100)" data-c-padding="all(1)" data-c-radius="rounded">
 									<form action="{{ relinquish_job }}" method="POST">
 										{{ csrf_field() }}
@@ -218,7 +218,7 @@
 								</a>
 							</div>
 							<div data-c-grid-item="tp(1of2) tl(1of4)">
-								{% include "hr_advisor/summary_action" with {'data': view_applicants_data} %}
+								{% include "hr_advisor/summary_action_card" with {'data': view_applicants_data} %}
 							</div>
 						</div>
 						<h2 id="activity" data-c-font-size="h2" data-c-padding="top(3) bottom(1)">{{ summary.activity_title }}</h2>
