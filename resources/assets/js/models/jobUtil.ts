@@ -156,7 +156,6 @@ export const activityLocationUrl = (
     [LocationId.langRequirements]: hrJobReview(locale, jobId),
     [LocationId.environment]: hrJobReview(locale, jobId),
     [LocationId.screeningPlan]: hrScreeningPlan(locale, jobId),
-    [LocationId.index]: hrJobIndex(locale),
     [LocationId.summary]: hrJobSummary(locale, jobId),
     [LocationId.preview]: hrJobPreview(locale, jobId),
   };
@@ -170,7 +169,6 @@ export const activityLocationUrl = (
     [LocationId.langRequirements]: jobBuilderDetails(locale, jobId),
     [LocationId.environment]: jobBuilderEnv(locale, jobId),
     [LocationId.screeningPlan]: managerScreeningPlan(locale, jobId),
-    [LocationId.index]: managerJobIndex(locale),
     [LocationId.summary]: jobBuilderReview(locale, jobId), // TODO: change to summary page, once managers have it
     [LocationId.preview]: managerJobShow(locale, jobId),
   };

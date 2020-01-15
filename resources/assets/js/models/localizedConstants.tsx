@@ -911,11 +911,6 @@ export const activityLocations = defineMessages({
     defaultMessage: "Job Poster Builder > Environment",
     description: "Location where the activity is located.",
   },
-  [LocationId.index]: {
-    id: "activityfeed.locations.hr.index",
-    defaultMessage: "HR Index Page",
-    description: "Location where the activity is located.",
-  },
   [LocationId.summary]: {
     id: "activityfeed.locations.hr.summary",
     defaultMessage: "HR Summary Page",

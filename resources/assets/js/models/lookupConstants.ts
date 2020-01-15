@@ -132,8 +132,7 @@ export const LocationId = {
   skills: "job/skills",
   langRequirements: "job/langRequirements",
   environment: "job/environment",
-  index: "hr/index",
-  summary: "hr/summary",
+  summary: "summary",
   preview: "hr/preview",
   screeningPlan: "screeningPlan",
 } as const;
