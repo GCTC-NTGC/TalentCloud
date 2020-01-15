@@ -36,7 +36,7 @@ export function applicationReviewUpdate(
   locale: string,
   applicationId: number,
 ): string {
-  return `/${locale}/api/applications/${applicationId}/review`;
+  return `/api/applications/${applicationId}/review`;
 }
 
 export function jobBuilderIntro(locale: string, jobId?: number): string {
