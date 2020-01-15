@@ -15,7 +15,7 @@ const SummaryHrActivityFeed: React.FunctionComponent<SummaryHrActivityFeedProps>
   return (
     <>
       <CommentForm jobId={jobId} isHrAdviser location={LocationId.summary} />
-      <hr data-c-hr="thin(black)" data-c-margin="top(1) left(2) right(2)" />
+      <hr data-c-hr="thin(black)" data-c-margin="top(1)" />
       <ActivityFeed jobId={jobId} isHrAdvisor />
     </>
   );
