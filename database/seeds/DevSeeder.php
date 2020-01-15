@@ -10,6 +10,8 @@ use App\Models\Reference;
 use App\Models\Assessment;
 use App\Models\Course;
 use App\Models\Degree;
+use App\Models\HrAdvisor;
+use App\Models\Lookup\Department;
 use App\Models\WorkExperience;
 
 class DevSeeder extends Seeder // phpcs:ignore
@@ -54,9 +56,6 @@ class DevSeeder extends Seeder // phpcs:ignore
     protected $newApplicantEmail = 'newApplicant@test.com';
 
 
-
-
-
     /**
      * Run the database seeds.
      *
@@ -71,7 +70,12 @@ class DevSeeder extends Seeder // phpcs:ignore
 
         $hrUser = User::where('email', $this->hrAdvisorEmail)->first();
         if ($hrUser === null) {
-            $hrUser = factory(User::class)->state('hr_advisor')->create(['email' => $this->hrAdvisorEmail]);
+            $hrUser = factory(User::class)->state('hr_advisor')->create([
+                'email' => $this->hrAdvisorEmail,
+            ]);
+            $hrUser->hr_advisor()->save(factory(HrAdvisor::class)->create([
+                'user_id' => $hrUser->id,
+            ]));
         }
 
         $managerUser = User::where('email', $this->managerEmail)->first();
@@ -170,5 +174,23 @@ class DevSeeder extends Seeder // phpcs:ignore
         $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 2)->state('draft')->create([
             'applicant_id' => $applicantUser->applicant->id,
         ]));
+
+        // Ensure there are several jobs the hr advisor can claim.
+        $hrDepartment = $hrUser->hr_advisor->department_id;
+        factory(JobPoster::class)->states(['byUpgradedManager', 'draft'])
+            ->create(['department_id' => $hrDepartment]);
+        factory(JobPoster::class)->states(['byUpgradedManager', 'review_requested'])
+            ->create(['department_id' => $hrDepartment]);
+        $hrOpenJob = factory(JobPoster::class)->states(['byUpgradedManager', 'published'])
+            ->create(['department_id' => $hrDepartment]);
+        $hrClosedJob = factory(JobPoster::class)->states(['byUpgradedManager', 'closed'])
+            ->create(['department_id' => $hrDepartment]);
+
+        $hrOpenJob->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
+            'job_poster_id' => $hrOpenJob->id
+        ]);
+        $hrClosedJob->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
+            'job_poster_id' => $hrClosedJob->id
+        ]);
     }
 }

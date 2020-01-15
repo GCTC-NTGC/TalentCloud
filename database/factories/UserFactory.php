@@ -46,16 +46,15 @@ $factory->state(User::class, 'upgradedManager', function (Faker\Generator $faker
     ];
 });
 
-$factory->state(User::class, 'hr_advisor', [
-    'user_role_id' => UserRole::where('name', 'hr_advisor')->first()->id
-]);
+$factory->state(User::class, 'hr_advisor', function (Faker\Generator $faker) {
+    return [
+        'user_role_id' => UserRole::where('name', 'hr_advisor')->first()->id,
+        'gov_email' => $faker->unique()->safeEmail(),
+    ];
+});
 
 $factory->state(User::class, 'applicant', [
     'user_role_id' => UserRole::where('name', 'basic')->first()->id
-]);
-
-$factory->state(User::class, 'hr_advisor', [
-    'user_role_id' => UserRole::where('name', 'hr_advisor')->first()->id
 ]);
 
 $factory->state(User::class, 'admin', [
@@ -81,7 +80,7 @@ $factory->define(Applicant::class, function (Faker\Generator $faker) {
 
 $factory->define(HrAdvisor::class, function () {
     return [
-        'department_id' => null,
+        'department_id' => Department::inRandomOrder()->first()->id,
         'user_id' => function () {
             return factory(User::class)->state('hr_advisor')->create()->id;
         },
