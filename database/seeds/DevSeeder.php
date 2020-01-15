@@ -11,7 +11,6 @@ use App\Models\Assessment;
 use App\Models\Course;
 use App\Models\Degree;
 use App\Models\HrAdvisor;
-use App\Models\Lookup\Department;
 use App\Models\WorkExperience;
 
 class DevSeeder extends Seeder // phpcs:ignore
