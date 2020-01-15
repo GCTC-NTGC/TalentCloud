@@ -45,7 +45,6 @@ class ApplicantPolicy extends BasePolicy
     {
         if ($user->isHrAdvisor()) {
             $submittedApplications = $applicant->submitted_applications;
-            Log::debug($submittedApplications);
             return $applicant->submitted_applications->some(function ($application) use ($user) {
                 return $user->can('manage', $application->job_poster) && $application->job_poster->isClosed();
             });
