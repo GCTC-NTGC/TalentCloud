@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useIntl, FormattedMessage, defineMessages } from "react-intl";
+import { useIntl, FormattedMessage } from "react-intl";
 import { useDispatch, useSelector } from "react-redux";
 import ReactDOM from "react-dom";
 import RootContainer from "../RootContainer";
@@ -52,7 +52,7 @@ const JobReviewHrPage: React.FunctionComponent<JobReviewHrPageProps> = ({
   departments,
   manager,
 }): React.ReactElement => {
-  const { locale, formatMessage } = useIntl();
+  const { locale } = useIntl();
   if (locale !== "en" && locale !== "fr") {
     throw new Error("Unexpected locale");
   }
@@ -60,6 +60,26 @@ const JobReviewHrPage: React.FunctionComponent<JobReviewHrPageProps> = ({
     <div data-c-container="form" data-c-padding="top(triple) bottom(triple)">
       {job !== null ? (
         <>
+          <h3
+            data-c-font-size="h3"
+            data-c-font-weight="bold"
+            data-c-margin="bottom(double)"
+          >
+            <FormattedMessage
+              id="jobReviewHr.reviewYourPoster"
+              defaultMessage="Review Your Job Poster for:"
+              description="Title for Review Job Poster section."
+            />{" "}
+            <span data-c-colour="c2">{job[locale].title}</span>
+          </h3>
+          <p>
+            <FormattedMessage
+              id="jobReviewHr.headsUp"
+              defaultMessage="Just a heads up! We've rearranged some of your information to help you
+            understand how an applicant will see it once published."
+              description="Description under primary title of review section"
+            />
+          </p>
           <JobReviewActivityFeed jobId={job.id} isHrAdvisor />
           <JobReviewDisplay
             job={job}
@@ -139,6 +159,7 @@ const JobReviewHrDataFetcher: React.FC<{ jobId: number }> = ({ jobId }) => {
   const departments = useSelector(getDepartments);
 
   // Load manager after Job has loaded
+  // eslint-disable-next-line camelcase
   const managerId = job?.manager_id;
   useEffect(() => {
     if (managerId) {

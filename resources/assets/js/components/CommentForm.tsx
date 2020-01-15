@@ -143,14 +143,14 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
             });
         }}
         render={({ isSubmitting }): React.ReactElement => (
-          <Form data-c-grid="gutter(all, 1)">
+          <Form data-c-grid="gutter(all, 1) middle">
             <Field
               id="comment_form_input"
               type="text"
               name="comment"
               component={TextAreaInput}
               required
-              grid={locationOptions && isHrAdviser ? "tl(1of1)" : "tl(2of3)"}
+              grid="tl(1of1)"
               label={intl.formatMessage(formMessages.commentLabel)}
               placeholder={intl.formatMessage(formMessages.commentPlaceholder)}
             />
@@ -177,7 +177,7 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
                 name="commentType"
                 component={SelectInput}
                 required
-                grid={locationOptions && isHrAdviser ? "tl(1of2)" : "tl(1of3)"}
+                grid={locationOptions && isHrAdviser ? "tl(1of2)" : "tl(2of3)"}
                 nullSelection={intl.formatMessage(
                   formMessages.commentTypeNullSelection,
                 )}
@@ -203,7 +203,9 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
               />
             )}
             <div
-              data-c-grid-item="base(1of1)"
+              data-c-grid-item={
+                locationOptions && isHrAdviser ? "tl(1of1)" : "tl(1of3)"
+              }
               data-c-align="base(center) tl(right)"
             >
               <button
