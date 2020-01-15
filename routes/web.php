@@ -508,10 +508,6 @@ Route::group(
             Route::delete('applications/{application}', 'ApplicationController@destroy')
                 ->middleware('can:delete,application')
                 ->name('applications.destroy');
-
-            Route::put('applications/{application}/review', 'ApplicationReviewController@updateForApplication')
-                ->middleware('can:review,application')
-                ->name('application_reviews.update');
         });
 
         /* Non-Backpack Admin Portal (localized pages) =========================================================== */
@@ -685,6 +681,10 @@ Route::group(['prefix' => 'api'], function (): void {
         'update' => 'api.jobs.update',
         'index' => 'api.jobs.index'
     ]);
+
+    Route::put('applications/{application}/review', 'ApplicationReviewController@updateForApplication')
+        ->middleware('can:review,application')
+        ->name('api.application_reviews.update');
 
     Route::resource('managers', 'Api\ManagerApiController')->only([
         'show', 'update'
