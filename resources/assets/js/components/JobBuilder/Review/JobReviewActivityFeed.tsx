@@ -47,7 +47,7 @@ export const reviewLocations = defineMessages({
   },
   [LocationId.environment]: {
     id: "reviewLocations.jpb.environment",
-    defaultMessage: "Language Requirements",
+    defaultMessage: "Work Environment",
     description: "Location where the activity is located.",
   },
 });
