@@ -134,7 +134,7 @@ class JobPolicy extends BasePolicy
             $jobPoster->manager->user->id == $user->id) ||
             ($user->isHrAdvisor()
                 && $this->view($user, $jobPoster)
-                && in_array($jobPoster->id, $user->hr_advisor->claimed_job_ids));
+                && $user->hr_advisor->claimed_job_ids->contains($jobPoster->id));
     }
 
     /**
