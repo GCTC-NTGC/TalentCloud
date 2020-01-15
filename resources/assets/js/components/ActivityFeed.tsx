@@ -12,6 +12,7 @@ import { getComments, sortComments } from "../store/Job/jobSelector";
 import { commentTypeMessages } from "./CommentForm";
 import { activityLocationOption } from "../models/localizedConstants";
 import { activityLocationUrl } from "../models/jobUtil";
+import { LocationId } from "../models/lookupConstants";
 
 interface ActivityFeedProps {
   jobId: number;
@@ -61,12 +62,17 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
     }
   };
 
+  const isValidLocation = (locationStr: string): boolean => {
+    const validLocations = Object.values(LocationId) as ReadonlyArray<string>;
+    return validLocations.includes(locationStr);
+  };
+
   return (
     <section data-c-padding="top(1)">
-      <h3 data-c-font-size="h3" data-c-color="stop" data-c-margin="bottom(1)">
+      <h3 data-c-font-size="h3" data-c-color="c2" data-c-margin="bottom(1)">
         <FormattedMessage
           id="activityfeed.title"
-          defaultMessage="Previous Activity"
+          defaultMessage="Activities"
           description="Title of activity feed."
         />
       </h3>
@@ -80,10 +86,7 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
         </p>
       )}
       {isActivitiesLoading ? (
-        <div
-          data-c-container="form"
-          data-c-padding="top(triple) bottom(triple)"
-        >
+        <div data-c-container="form" data-c-padding="top(1) bottom(1)">
           <div
             data-c-background="white(100)"
             data-c-card
@@ -116,9 +119,11 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
                     name="Replace with Manager Name!" // TODO: Replace with user.name after User api is setup.
                     userRole="Replace with Manager Role!" // TODO: Replace with user.name after User api is setup.
                     comment={comment}
-                    location={intl.formatMessage(
-                      activityLocationOption(location),
-                    )}
+                    location={
+                      isValidLocation(location)
+                        ? intl.formatMessage(activityLocationOption(location))
+                        : ""
+                    }
                     time={created_at}
                     type={activityType(type_id)}
                     link={{

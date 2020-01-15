@@ -30,14 +30,8 @@ import { getManagerById } from "../../store/Manager/managerSelector";
 import { fetchManager } from "../../store/Manager/managerActions";
 import { JobReviewDisplay } from "../JobBuilder/Review/JobReview";
 import { fetchSkills } from "../../store/Skill/skillActions";
-
-const jobReviewMessages = defineMessages({
-  dataIsLoading: {
-    id: "hrReviewPage.dataLoading",
-    defaultMessage: "Data is loading...",
-    description: "Placeholder text as job data is loading.",
-  },
-});
+import Icon from "../Icon";
+import JobReviewActivityFeed from "../JobBuilder/Review/JobReviewActivityFeed";
 
 interface JobReviewHrPageProps {
   jobId: number;
@@ -65,25 +59,25 @@ const JobReviewHrPage: React.FunctionComponent<JobReviewHrPageProps> = ({
   return (
     <div data-c-container="form" data-c-padding="top(triple) bottom(triple)">
       {job !== null ? (
-        <JobReviewDisplay
-          job={job}
-          manager={manager}
-          tasks={keyTasks}
-          criteria={criteria}
-          skills={skills}
-          departments={departments}
-          hideBuilderLinks
-        />
+        <>
+          <JobReviewActivityFeed jobId={job.id} isHrAdvisor />
+          <JobReviewDisplay
+            job={job}
+            manager={manager}
+            tasks={keyTasks}
+            criteria={criteria}
+            skills={skills}
+            departments={departments}
+            hideBuilderLinks
+          />
+        </>
       ) : (
         <div data-c-alignment="base(centre)">
-          <i
-            aria-hidden="true"
-            className="fa fa-spinner fa-spin"
-            title={formatMessage(jobReviewMessages.dataIsLoading)}
+          <Icon
+            icon="fa fa-spinner fa-spin"
+            accessibleText="Data is loading..."
+            sematicIcon
           />
-          <span data-c-visibility="invisible">
-            {formatMessage(jobReviewMessages.dataIsLoading)}
-          </span>
         </div>
       )}
       <div data-c-grid="gutter">

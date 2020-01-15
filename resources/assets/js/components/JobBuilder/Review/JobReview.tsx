@@ -49,6 +49,7 @@ import { useUrlHash, Link } from "../../../helpers/router";
 import { classificationString } from "../../../models/jobUtil";
 import DemoSubmitJobModal from "./DemoSubmitJobModal";
 import ManagerSurveyModal from "./ManagerSurveyModal";
+import JobReviewActivityFeed from "./JobReviewActivityFeed";
 
 interface JobReviewSectionProps {
   title: string;
@@ -773,6 +774,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
         data-c-padding="top(triple) bottom(triple)"
         ref={modalParentRef}
       >
+        <JobReviewActivityFeed jobId={job.id} isHrAdvisor={false} />
         <JobReviewDisplay
           job={job}
           manager={manager}
@@ -884,7 +886,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
                 <FormattedMessage
                   id="jobBuilder.review.whatHappens"
                   defaultMessage="What happens next?"
-                  description="Rhtorical question"
+                  description="Rhetorical question"
                 />
               </p>
               <p data-c-margin="bottom(normal)">
