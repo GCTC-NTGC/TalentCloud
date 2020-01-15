@@ -188,7 +188,7 @@
                             {% if skill_declaration == false %}
                                 <span>{{ skill_template.skill_status_null_label }}</span>
                             {% else %}
-                                <span>{{ skill_template.skill_status_label }}{{ skill_template.status[skill_declaration.skill_status.name] }}</span>
+                                <span>{{ skill_template.skill_status_label }} {{ skill_template.status[skill_declaration.skill_status.name] }}</span>
                             {% endif %}
 
                         </div>
@@ -232,67 +232,6 @@
                             </p>
 
                         </div>
-
-                        {# References #}
-
-                            {% if skill_declaration == true %}
-
-                                {% if skill_declaration.references is empty %}
-
-                                {% else %}
-
-                                    <div
-                                        class="box full">
-
-                                        <span
-                                            class="profile-relative-list__label">
-                                            <i class="fas fa-users"></i> {{ relative_template.reference.title }}
-                                        </span>
-
-                                        {% for relative in skill_declaration.references %}
-
-                                            <div
-                                                class="profile-relative__reference">
-
-                                                <p
-                                                    class="profile-relative__reference-name">{{ relative.name }}</p>
-
-                                                <p>{{ relative.email }}</p>
-
-                                                <p>{{ relative.relationship.name|title }}</p>
-
-                                                <p>{{ relative.description|nl2br }}</p>
-
-                                                <div
-                                                    class="flex-grid">
-
-                                                    {% for project in relative.projects %}
-
-                                                        <div class="box small-1of2">
-                                                            <p>{{ project.name }}</p>
-                                                        </div>
-
-                                                        <div class="box small-1of4">
-                                                            <p>{{ project.start_date }}</p>
-                                                        </div>
-
-                                                        <div class="box small-1of4">
-                                                            <p>{{ project.end_date }}</p>
-                                                        </div>
-
-                                                    {% endfor %}
-
-                                                </div>
-
-                                            </div>
-
-                                        {% endfor %}
-
-                                    </div>
-
-                                {% endif %}
-
-                            {% endif %}
 
                         {# Work Samples #}
 
@@ -578,93 +517,6 @@
                                 </div>
 
                         </div>
-
-                        {# Relatives (References) #}
-
-                            <div
-                                class="profile-relative-list">
-
-                                {# Relative List Title & Creation Trigger #}
-
-                                    <div
-                                        class="profile-relative-list__header flex-grid middle">
-
-                                        <div
-                                            class="box small-1of2">
-
-                                            <span
-                                                class="profile-relative-list__label">
-                                                <i class="fas fa-users"></i> {{ relative_template.reference.title }}
-                                            </span>
-
-                                        </div>
-
-                                        <div
-                                            class="box small-1of2">
-
-                                        {# Create Reference Modals not ready yet
-                                        <button
-                                            class="modal-trigger"
-                                            data-modal-id="createReference"
-                                            title="{{ relative_template.reference.create_title }}"
-                                            type="button">
-
-                                            {{ relative_template.reference.create_label }}
-                                        </button>
-                                        #}
-
-                                        </div>
-
-                                    </div>
-
-                                {# Relative Template #}
-
-                                {# no-prefix marks that partials in this div aren't passed an id prefix. #}
-                                {# This is used in app.js individualizeFormIdsAndNames() to avoid overwriting :id in template id. #}
-                                <div class="no-prefix">
-                                    {% set relativeToken = "references" %}
-
-                                    {% include "common/relatives" with {"template":true, "prefix": id_prefix } %}
-                                </div>
-
-                                {# Relative List #}
-
-                                    {% set relativeCounter = 0 %}
-
-                                    <div
-                                        class="profile-relative-list__wrapper">
-
-                                        {% for relative in skill_declaration.references %}
-
-                                            {% set relativeCounter = relativeCounter + 1 %}
-
-                                            {% include "common/relatives" %}
-
-                                        {% endfor %}
-
-                                    </div>
-
-                                {# Add Relative Trigger #}
-
-                                    <div
-                                        class="profile-relative__add-trigger-wrapper">
-
-                                        {% if applicant.references|length > 0 %}
-                                            <button
-                                                class="profile-relative__add-trigger"
-                                                type="button">
-                                                {{ relative_template.reference.add_label }}
-                                            </button>
-                                        {% else %}
-                                            <p
-                                                class="profile-relative__null">
-                                                {{ relative_template.reference.null_copy }}
-                                            </p>
-                                        {% endif %}
-
-                                    </div>
-
-                            </div>
 
                         {# Relatives (Work Samples) #}
 

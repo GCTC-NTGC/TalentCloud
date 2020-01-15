@@ -41,6 +41,10 @@ class JobSummaryController extends Controller
             // 'send_manager' => ,
             // 'send_translation' => ,
             // 'approve_publishing' => ,
+            'job_review_url' => route('hr_advisor.jobs.review', $jobPoster),
+            'job_preview_url' => '/',
+            'screening_plan_url' => '/',
+            'view_applicants_url' => '/',
             'relinquish_job' => route('hr_advisor.jobs.unclaim', $jobPoster),
         ];
 

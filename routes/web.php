@@ -561,9 +561,16 @@ Route::group(
                         ->name('hr_advisor.jobs.unclaim')
                         ->middleware('can:unClaim,jobPoster')
                         ->where('jobPoster', '[0-9]+');
+
+                    Route::get(
+                        'jobs/{job}/review',
+                        'JobBuilderController@hrReview'
+                    )
+                        ->middleware('can:view,job')
+                        ->where('job', '[0-9]+')
+                        ->name('hr_advisor.jobs.review');
                 });
             });
-
             // These routes must be excluded from the finishHrAdvisorRegistration middleware to avoid an infinite loop of redirects
             Route::middleware(['auth', 'role:hr_advisor'])->group(function (): void {
                 Route::get('first-visit', 'Auth\FirstVisitController@showFirstVisitHrForm')

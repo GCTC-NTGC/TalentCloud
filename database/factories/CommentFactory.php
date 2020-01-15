@@ -15,7 +15,7 @@ $factory->define(Comment::class, function (Faker $faker) {
             return factory(User::class)->state('hr_advisor')->create()->id;
         },
         'comment' => $faker->sentence(),
-        'location' => $faker->word(), // TODO: Using a real location would be more useful here.
+        'location' => 'job/generic',
         'type_id' => CommentType::inRandomOrder()->first()->id,
     ];
 });

@@ -6,9 +6,7 @@ import { action } from "@storybook/addon-actions";
 import JobIndexHr from "../../components/HRPortal/JobIndexHr";
 import { jobActions, unclaimedJobs } from "../../components/HRPortal/fixtures";
 
-const stories = storiesOf("HR Portal|Job Index", module).addDecorator(
-  withIntl,
-);
+const stories = storiesOf("HR Portal|Job Index", module).addDecorator(withIntl);
 
 stories
   .add(

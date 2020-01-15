@@ -188,7 +188,7 @@
 						{# Add routes to JPB Review, SPB, etc #}
 						<div data-c-grid="gutter(all, 1)">
 							<div data-c-grid-item="tp(1of2) tl(1of4)">
-								<a class="tc-summary-action" href="" title="" data-c-card data-c-background="white(100)" data-c-radius="rounded">
+								<a class="tc-summary-action" href={{ job_review_url }} title="" data-c-card data-c-background="white(100)" data-c-radius="rounded">
 									<div data-c-padding="tb(2) rl(1)" data-c-align="base(center)">
 										<img src="/images/job-process-summary-tool-edit.svg" alt="{{ summary.edit_poster_icon }} {{ summary.flat_icons }}">
 									</div>
@@ -198,7 +198,7 @@
 								</a>
 							</div>
 							<div data-c-grid-item="tp(1of2) tl(1of4)">
-								<a class="tc-summary-action" href="" title="" data-c-card data-c-background="white(100)" data-c-radius="rounded">
+								<a class="tc-summary-action" href={{ job_preview_url }} title="" data-c-card data-c-background="white(100)" data-c-radius="rounded">
 									<div data-c-padding="tb(2) rl(1)" data-c-align="base(center)">
 										<img src="/images/job-process-summary-tool-view.svg" alt="{{ summary.view_poster_icon }} {{ summary.flat_icons }}">
 									</div>
@@ -208,7 +208,7 @@
 								</a>
 							</div>
 							<div data-c-grid-item="tp(1of2) tl(1of4)">
-								<a class="tc-summary-action" href="" title="" data-c-card data-c-background="white(100)" data-c-radius="rounded">
+								<a class="tc-summary-action" href={{ screening_plan_url }} title="" data-c-card data-c-background="white(100)" data-c-radius="rounded">
 									<div data-c-padding="tb(2) rl(1)" data-c-align="base(center)">
 										<img src="/images/job-process-summary-tool-screen.svg" alt="{{ summary.screening_plan_icon }} {{ summary.flat_icons }}">
 									</div>
@@ -218,7 +218,7 @@
 								</a>
 							</div>
 							<div data-c-grid-item="tp(1of2) tl(1of4)">
-								<a class="tc-summary-action" href="" title="" data-c-card data-c-background="white(100)" data-c-radius="rounded">
+								<a class="tc-summary-action" href={{ view_applicants_url }} title="" data-c-card data-c-background="white(100)" data-c-radius="rounded">
 									<div data-c-padding="tb(2) rl(1)" data-c-align="base(center)">
 										<img src="/images/job-process-summary-tool-applicants.svg" alt="{{ summary.view_applicants_icon }} {{ summary.flat_icons }}">
 									</div>
@@ -230,12 +230,13 @@
 						</div>
 						<h2 id="activity" data-c-font-size="h2" data-c-padding="top(3) bottom(1)">{{ summary.activity_title }}</h2>
 						{# Add comments here #}
-						<p>
-							<a href="https://joshbeveridge.ca/tc-job-summary#activity">https://joshbeveridge.ca/tc-job-summary#activity</a>
-						</p>
+						<div data-clone="" id="summary-hr-activity-feed" data-job-id="{{ job.id }}"></div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+{% endblock %}
+{% block scripts %}
+	<script async defer src="{{ mix('/js/SummaryHrActivityFeed.js') }}"></script>
 {% endblock %}
