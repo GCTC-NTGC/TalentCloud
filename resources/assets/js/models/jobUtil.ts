@@ -33,7 +33,7 @@ import {
   managerJobIndex,
   managerJobShow,
 } from "../helpers/routes";
-import { Locales } from "../helpers/localize";
+import { hasKey } from "../helpers/queries";
 
 const pad = (n: number, width: number, z = "0"): string => {
   return (String(z).repeat(width) + String(n)).slice(String(n).length);
@@ -174,6 +174,7 @@ export const activityLocationUrl = (
     [LocationId.summary]: jobBuilderReview(locale, jobId), // TODO: change to summary page, once managers have it
     [LocationId.preview]: managerJobShow(locale, jobId),
   };
-
-  return isHrAdvisor ? hrAdvisorUrls[location] : managerUrls[location];
+  const urlMap = isHrAdvisor ? hrAdvisorUrls : managerUrls;
+  const backupUrl = "/";
+  return hasKey(urlMap, location) ? urlMap[location] : backupUrl;
 };

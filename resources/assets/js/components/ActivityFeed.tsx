@@ -12,6 +12,7 @@ import { getComments, sortComments } from "../store/Job/jobSelector";
 import { commentTypeMessages } from "./CommentForm";
 import { activityLocationOption } from "../models/localizedConstants";
 import { activityLocationUrl } from "../models/jobUtil";
+import { LocationId } from "../models/lookupConstants";
 
 interface ActivityFeedProps {
   jobId: number;
@@ -59,6 +60,11 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
       default:
         return intl.formatMessage(commentTypeMessages.comment);
     }
+  };
+
+  const isValidLocation = (locationStr: string): boolean => {
+    const validLocations = Object.values(LocationId) as ReadonlyArray<string>;
+    return validLocations.includes(locationStr);
   };
 
   return (
@@ -113,9 +119,11 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
                     name="Replace with Manager Name!" // TODO: Replace with user.name after User api is setup.
                     userRole="Replace with Manager Role!" // TODO: Replace with user.name after User api is setup.
                     comment={comment}
-                    location={intl.formatMessage(
-                      activityLocationOption(location),
-                    )}
+                    location={
+                      isValidLocation(location)
+                        ? intl.formatMessage(activityLocationOption(location))
+                        : ""
+                    }
                     time={created_at}
                     type={activityType(type_id)}
                     link={{
