@@ -159,7 +159,7 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
                 name="commentLocation"
                 id="comment_form_location"
                 label={intl.formatMessage(formMessages.commentLocationLabel)}
-                grid={locationOptions && isHrAdviser ? "tl(1of2)" : "tl(1of3)"}
+                grid={locationOptions && isHrAdviser ? "tl(1of2)" : "tl(2of3)"}
                 component={SelectInput}
                 required
                 nullSelection={intl.formatMessage(
