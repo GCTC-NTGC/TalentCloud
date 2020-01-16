@@ -52,6 +52,14 @@ export const reviewLocations = defineMessages({
   },
 });
 
+const messages = defineMessages({
+  loadingIcon: {
+    id: "activityfeed.review.loadingIconText",
+    defaultMessage: "Data is loading...",
+    description: "Accessible text for the loading icon",
+  },
+});
+
 interface JobReviewActivityFeedProps {
   jobId: number;
   isHrAdvisor: boolean;
@@ -64,7 +72,9 @@ const JobReviewActivityFeed: React.FunctionComponent<JobReviewActivityFeedProps>
   totalActivities,
 }) => {
   const intl = useIntl();
-  const locationOptions = Object.values(LocationId)
+  const locationOptions = Object.values(
+    LocationId,
+  )
     .filter(location => hasKey(reviewLocations, location))
     .map(location => ({
       value: location,
@@ -94,7 +104,7 @@ const JobReviewActivityFeed: React.FunctionComponent<JobReviewActivityFeedProps>
                       totalActivities === 0 ? (
                         <Icon
                           icon="fa fa-spinner fa-spin"
-                          accessibleText="Number of activities is loading..."
+                          accessibleText={intl.formatMessage(messages.loadingIcon)}
                           sematicIcon
                         />
                       ) : (
@@ -136,7 +146,7 @@ const JobReviewActivityFeed: React.FunctionComponent<JobReviewActivityFeedProps>
               jobId={jobId}
               isHrAdviser={isHrAdvisor}
               location={LocationId.generic}
-              locationOptions={...locationOptions}
+              locationOptions={locationOptions}
             />
             <hr data-c-hr="thin(black)" data-c-margin="top(1)" />
             <ActivityFeed jobId={jobId} isHrAdvisor={isHrAdvisor} />
