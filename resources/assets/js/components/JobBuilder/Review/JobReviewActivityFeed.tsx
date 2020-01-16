@@ -94,7 +94,8 @@ const JobReviewActivityFeed: React.FunctionComponent<JobReviewActivityFeedProps>
                       totalActivities === 0 ? (
                         <Icon
                           icon="fa fa-spinner fa-spin"
-                          accessibleText="Number of activities is loading..."
+                          messageId="activitiesLoading"
+                          accessibleText="Number of activities are loading..."
                           sematicIcon
                         />
                       ) : (
