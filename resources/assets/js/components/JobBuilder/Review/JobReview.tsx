@@ -698,6 +698,7 @@ export const JobReviewDisplay: React.FC<JobReviewDisplayProps> = ({
         <JobWorkEnv
           teamSize={job.team_size || 0}
           selectedEnvOptions={selectedEnvOptions}
+          envDescription={job[locale].work_env_description || ""}
         />
       </JobReviewSection>
       <JobReviewSection

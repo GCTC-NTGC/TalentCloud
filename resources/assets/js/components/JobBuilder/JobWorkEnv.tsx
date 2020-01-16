@@ -165,12 +165,14 @@ export const amenitiesDescriptions = (
 interface JobWorkEnv {
   teamSize: number;
   selectedEnvOptions: string[];
+  envDescription: string;
 }
 
 export const JobWorkEnv: React.FunctionComponent<JobWorkEnv &
   WrappedComponentProps> = ({
   teamSize,
   selectedEnvOptions,
+  envDescription,
   intl,
 }): React.ReactElement => {
   const phyEnvData: { name: string; label: string }[] = phyEnvDescriptions(
@@ -299,6 +301,20 @@ export const JobWorkEnv: React.FunctionComponent<JobWorkEnv &
             )}
           </div>
         </div>
+      </div>
+      <div data-c-grid-item="base(1of1)">
+        <p
+          data-c-margin="bottom(normal) top(half)"
+          data-c-colour="c1"
+          data-c-font-weight="bold"
+        >
+          <FormattedMessage
+            id="jobBuilder.workEnv.moreOnWorkEnv"
+            defaultMessage="More about your Environment"
+            description="The title for the more about your environment textbox."
+          />
+        </p>
+        <p>{envDescription}</p>
       </div>
     </div>
   );

@@ -97,6 +97,7 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
                   ...values.physicalEnv,
                   ...values.technology,
                 ]}
+                envDescription={values.envDescription}
               />
               <h4
                 data-c-border="bottom(thin, solid, black)"
