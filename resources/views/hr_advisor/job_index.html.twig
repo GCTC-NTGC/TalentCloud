@@ -1,0 +1,35 @@
+{# =============================================================================
+
+    Talent Cloud
+    HR Portal: Job Index Page
+
+============================================================================= #}
+{% extends "layouts/base" %}
+
+{% block title %}{{ menu.job_index_title }}{% endblock %}
+
+{% block body %}
+
+    {% include "common/goc" %}
+    {% include "common/alert" %}
+    {% include "common/menu" %}
+    <section data-clone>
+        <section data-c-overlay="black(90)" data-c-padding="tb(triple)" style="background-image: url('https://images.unsplash.com/photo-1556742400-b5b7c5121f99?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80');">
+            <div data-c-container="large" data-c-align="base(center) tl(left)">
+                <h1 data-c-font-size="h2" data-c-color="white">{{ title }}</h1>
+                <div data-c-color="white" data-c-margin="top(double)">
+                    {% include "common/breadcrumbs" %}
+                </div>
+            </div>
+        </section>
+        <div id="job-index-hr" data-hr-advisor-id="{{ hr_advisor_id }}"></div>
+    </section>
+
+{% endblock %}
+{% block scripts %}
+
+    <script async defer
+        src="{{ mix('/js/JobIndexHrPage.js') }}">
+    </script>
+
+{% endblock %}

@@ -85,6 +85,23 @@ class JobController extends Controller
     }
 
     /**
+     * Display a listing of a hr advisor's JobPosters.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function hrIndex(Request $request)
+    {
+        $hrAdvisor = $request->user()->hr_advisor;
+        return view('hr_advisor/job_index', [
+            'title' => Lang::get('hr_advisor/job_index.title'),
+            'hr_advisor_id' => $hrAdvisor->id
+        ]);
+    }
+
+
+
+
+    /**
      * Delete a draft Job Poster.
      *
      * @param  \Illuminate\Http\Request $request   Incoming request object.

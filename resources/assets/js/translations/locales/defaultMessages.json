@@ -317,7 +317,7 @@
         "id": "apl.indexPageTitle"
       },
       {
-        "defaultMessage": "{dayCount, plural,\r\n              =0 {No Days}\r\n            one {# Day}\r\n          other {# Days}\r\n        } Since Close",
+        "defaultMessage": "{dayCount, plural,\n              =0 {No Days}\n            one {# Day}\n          other {# Days}\n        } Since Close",
         "description": "Welcome header on app main page",
         "id": "job.daysSinceClosed"
       }
@@ -577,7 +577,7 @@
         "id": "assessmentPlan.summary.title"
       },
       {
-        "defaultMessage": "This is a summary of the work you've done above. You'll find\r\n      each assessment accompanied by a consolidated list of the essential and\r\n      asset skills attached to it.",
+        "defaultMessage": "This is a summary of the work you've done above. You'll find\n      each assessment accompanied by a consolidated list of the essential and\n      asset skills attached to it.",
         "description": "Description of Assessment Plan Summary Section",
         "id": "assessmentPlan.summary.description"
       },
@@ -587,12 +587,12 @@
         "id": "assessmentPlan.summary.assessmentSummary.title"
       },
       {
-        "defaultMessage": "Your plan uses {toolCount, plural, =0 {no tools} one {# tool} other {# tools}}\r\n            to assess {skillCount, plural, =0 {no skills} one {# skill} other {# skills}}.",
+        "defaultMessage": "Your plan uses {toolCount, plural, =0 {no tools} one {# tool} other {# tools}}\n            to assess {skillCount, plural, =0 {no skills} one {# skill} other {# skills}}.",
         "description": "Describes how many tools and skills your assessment plan involves.",
         "id": "assessmentPlan.summary.assessmentSummary.toolSkillCount"
       },
       {
-        "defaultMessage": "You have no assessments selected for this job poster. Add them\r\n              above.",
+        "defaultMessage": "You have no assessments selected for this job poster. Add them\n              above.",
         "description": "Place holder text for when there are no assessment summary details",
         "id": "assessmentPlan.summary.assessmentSummary.noAssessments"
       }
@@ -783,6 +783,116 @@
       }
     ],
     "path": "resources/assets/js/components/Form/Messages.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "My Completed Job Actions",
+        "description": "Header for completed jobs accordion section.",
+        "id": "hrPortal.jobPageIndex.completedJobsHeader"
+      },
+      {
+        "defaultMessage": "Click to view...",
+        "description": "Accordion trigger message for screen readers.",
+        "id": "hrPortal.jobPageIndex.clickToView"
+      },
+      {
+        "defaultMessage": "Show",
+        "description": "Accordion trigger message to show items.",
+        "id": "hrPortal.jobPageIndex.showAccordion"
+      },
+      {
+        "defaultMessage": "Hide",
+        "description": "Accordion trigger message to hide items.",
+        "id": "hrPortal.jobPageIndex.hideAccordion"
+      },
+      {
+        "defaultMessage": "No jobs completed yet!",
+        "description": "Message displayed if the completed jobs list is empty.",
+        "id": "hrPortal.jobPageIndex.noJobsCompleted"
+      },
+      {
+        "defaultMessage": "Welcome! Introductory copy that explains how this page works, and\n                what an HR advisor needs to do to claim a job action as their own.\n                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium\n                ducimus laboriosam sequi, quis autem minima esse quasi aspernatur\n                vero provident quos eligendi, ea officia exercitationem. Obcaecati\n                impedit quae veritatis corrupti!",
+        "description": "Welcome message at beginning of page.",
+        "id": "hrPortal.jobPageIndex.welcomeMessage"
+      },
+      {
+        "defaultMessage": "My Job Actions",
+        "description": "Header for my job actions section.",
+        "id": "hrPortal.jobPageIndex.jobActionsHeader"
+      },
+      {
+        "defaultMessage": "This is a list of all job actions you are currently participating\n                in. Looking for an older job? Check the 'My Completed Job Actions'\n                section below your active jobs.",
+        "description": "Message before list of users job actions.",
+        "id": "hrPortal.jobPageIndex.jobActionsMessage"
+      },
+      {
+        "defaultMessage": "Claim a job below!",
+        "description": "Message displayed if the jobs actions list is empty.",
+        "id": "hrPortal.jobPageIndex.jobActionsEmpty"
+      },
+      {
+        "defaultMessage": "All Jobs in",
+        "description": "Message before department name.",
+        "id": "hrPortal.jobPageIndex.preDepartmentName"
+      },
+      {
+        "defaultMessage": "This is the list of all active job actions in your department. From\n                here you can 'claim' a job, which will move it into your jobs list\n                above and allow you to begin working with the hiring manager on\n                finding the best talent possible. If you claim a job by accident, no\n                fear, for you can click into the job summary and remove yourself\n                using the 'Remove Myself From This Job' button.",
+        "description": "Message before list of unclaimed jobs.",
+        "id": "hrPortal.jobPageIndex.unclaimedJobsMessage"
+      },
+      {
+        "defaultMessage": "There are currently no active jobs available.",
+        "description": "Message displayed if the unclaimed jobs list is empty.",
+        "id": "hrPortal.jobPageIndex.unclaimedJobsEmpty"
+      }
+    ],
+    "path": "resources/assets/js/components/HRPortal/JobIndexHr.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Review Draft",
+        "description": "Text for the link to review job draft.",
+        "id": "hrJobIndex.reviewDraft"
+      },
+      {
+        "defaultMessage": "Preview Poster",
+        "description": "Text for the link to preview the job poster.",
+        "id": "hrJobIndex.preview"
+      },
+      {
+        "defaultMessage": "View Assessment Plan",
+        "description": "Text for the link to view the Screening Plan.",
+        "id": "hrJobIndex.viewScreeningPlan"
+      },
+      {
+        "defaultMessage": "View Activity",
+        "description": "Text for the link to view new entries in the activity feed.",
+        "id": "hrJobIndex.viewActivity"
+      },
+      {
+        "defaultMessage": "View Summary",
+        "description": "Text for the link to the Job Summary page.",
+        "id": "hrJobIndex.viewSummary"
+      },
+      {
+        "defaultMessage": "Loading...",
+        "description": "Placehold text for a manager's name, while data is loading.",
+        "id": "hrJobIndex.managerLoading"
+      },
+      {
+        "defaultMessage": "Title Missing",
+        "description": "Placeholder text for a missing Job title.",
+        "id": "hrJobIndex.jobTitleMissing"
+      },
+      {
+        "defaultMessage": "[Department loading]",
+        "description": "Placeholder for department name while it hasn't been loaded.",
+        "id": "hrJobIndex.departmentPlaceholder"
+      }
+    ],
+    "path": "resources/assets/js/components/HRPortal/JobIndexHrPage.json"
   },
   {
     "descriptors": [
@@ -1175,7 +1285,7 @@
         "id": "jobBuilder.impact.teamHeader"
       },
       {
-        "defaultMessage": "Describe the value your team/service/initiative brings to Canadians.\r\n              It doesn’t matter if your work is direct to citizens or back office,\r\n              innovative or maintenance, top priority or ongoing. Describe how it\r\n              contributes to making Canada better the way you would to someone who\r\n              knows nothing about your work.",
+        "defaultMessage": "Describe the value your team/service/initiative brings to Canadians.\n              It doesn’t matter if your work is direct to citizens or back office,\n              innovative or maintenance, top priority or ongoing. Describe how it\n              contributes to making Canada better the way you would to someone who\n              knows nothing about your work.",
         "description": "Body of Job Poster Builder Team Impact Section",
         "id": "jobBuilder.impact.teamBody"
       },
@@ -1185,7 +1295,7 @@
         "id": "jobBuilder.impact.hireHeader"
       },
       {
-        "defaultMessage": "Describe how the new hire will contribute in this role. Focus on the\r\n              value they’ll bring, not on specific tasks (you’ll provide these\r\n              later on). For example “In this role, you’ll contribute to…” or, “As\r\n              a member of this team, you’ll be responsible for helping us…”",
+        "defaultMessage": "Describe how the new hire will contribute in this role. Focus on the\n              value they’ll bring, not on specific tasks (you’ll provide these\n              later on). For example “In this role, you’ll contribute to…” or, “As\n              a member of this team, you’ll be responsible for helping us…”",
         "description": "Body of Job Poster Builder Hire Impact Section",
         "id": "jobBuilder.impact.hireBody"
       },
@@ -1205,7 +1315,7 @@
         "id": "jobBuilder.impact.modalTitle"
       },
       {
-        "defaultMessage": "Here's a preview of the Impact Statement you just\r\n                        entered. Feel free to go back and edit things or move to\r\n                        the next step if you're happy with it.",
+        "defaultMessage": "Here's a preview of the Impact Statement you just\n                        entered. Feel free to go back and edit things or move to\n                        the next step if you're happy with it.",
         "description": "Description of modal dialog for Impact review.",
         "id": "jobBuilder.impact.modalDescription"
       },
@@ -1885,7 +1995,7 @@
         "id": "jobBuilder.review.reviewYourPoster"
       },
       {
-        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\r\n            understand how an applicant will see it once published.",
+        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\n            understand how an applicant will see it once published.",
         "description": "Description under primary title of review section",
         "id": "jobBuilder.review.headsUp"
       },
@@ -2045,7 +2155,7 @@
         "id": "jobBuilder.criteriaForm.removeSpecificity"
       },
       {
-        "defaultMessage": "I'd like to add specificity to this definition. This will\r\n                          only apply to my job poster.",
+        "defaultMessage": "I'd like to add specificity to this definition. This will\n                          only apply to my job poster.",
         "description": "Label for 'Add additional specificity' button on Add Skill modal.",
         "id": "jobBuilder.criteriaForm.addSpecificity"
       },
@@ -2155,7 +2265,7 @@
         "id": "jobBuilder.skills.title"
       },
       {
-        "defaultMessage": "This is where you'll select the criteria that are required to do\r\n            this job effectively. Below are two bars that indicate a measurement\r\n            of your current skill selection.",
+        "defaultMessage": "This is where you'll select the criteria that are required to do\n            this job effectively. Below are two bars that indicate a measurement\n            of your current skill selection.",
         "description": "section description under title",
         "id": "jobBuilder.skills.description"
       },
@@ -2285,7 +2395,7 @@
         "id": "jobBuilder.skills.title.missingSkill"
       },
       {
-        "defaultMessage": "Building a skills list is a huge endeavour, and it's not\r\n  surprising that Talent Cloud's list doesn't have the skill\r\n  you're looking for. To help us expand our skill list, please {link}. Provide the skill's name, as well as a short description to\r\n  kick-off the discussion.",
+        "defaultMessage": "Building a skills list is a huge endeavour, and it's not\n  surprising that Talent Cloud's list doesn't have the skill\n  you're looking for. To help us expand our skill list, please {link}. Provide the skill's name, as well as a short description to\n  kick-off the discussion.",
         "id": "jobBuilder.skills.instructions.missingSkills"
       },
       {
@@ -2334,7 +2444,7 @@
         "id": "jobBuilder.skills.title.keepItUp"
       },
       {
-        "defaultMessage": "Here's a preview of the Skills you just entered. Feel free to\r\n                go back and edit things or move to the next step if you're\r\n                happy with it.",
+        "defaultMessage": "Here's a preview of the Skills you just entered. Feel free to\n                go back and edit things or move to the next step if you're\n                happy with it.",
         "description": "Body text of Keep it up! Modal",
         "id": "jobBuilder.skills.description.keepItUp"
       },
@@ -2419,7 +2529,7 @@
         "id": "jobBuilder.tasks.intro.fourth"
       },
       {
-        "defaultMessage": "You have {taskCount, plural,\r\n                      one {# task}\r\n                      other {# tasks}\r\n                    } added.",
+        "defaultMessage": "You have {taskCount, plural,\n                      one {# task}\n                      other {# tasks}\n                    } added.",
         "description": "Indicates how many tasks are present on the page.",
         "id": "jobBuilder.tasks.taskCount.some"
       },
@@ -2824,7 +2934,7 @@
         "id": "jobBuilder.workEnv.greatStart"
       },
       {
-        "defaultMessage": "Here's a preview of the Job Information you just entered. Feel\r\n                free to go back and edit things or move to the next step if\r\n                you're happy with it.",
+        "defaultMessage": "Here's a preview of the Job Information you just entered. Feel\n                free to go back and edit things or move to the next step if\n                you're happy with it.",
         "description": "Opening sentence for modal.",
         "id": "jobBuilder.workEnv.openingSentence"
       },
@@ -2855,6 +2965,31 @@
       }
     ],
     "path": "resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvModal.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "{applicants, plural,\n                  =0 {No Applicants}\n                  one {# Applicant}\n                  other {# Applicants}\n                }",
+        "description": "Text displaying how many applicants have applied to this Job.",
+        "id": "jobCard.applicants"
+      },
+      {
+        "defaultMessage": "Time with Manager: {managerTime, plural,\n                    one {# day}\n                    other {# days}\n                  }",
+        "description": "Text displaying how long a job post has been claimed by a manager.",
+        "id": "jobCard.managerTime"
+      },
+      {
+        "defaultMessage": "Time with you: <s>{userTime, plural,\n                    one {# day}\n                    other {# days}\n                  }</s>",
+        "description": "Text displaying how long a job has been claimed by the current user.",
+        "id": "jobCard.userTime"
+      },
+      {
+        "defaultMessage": "No New Activity",
+        "description": "Fallback text for no new activity on a Job.",
+        "id": "jobCard.noActivity"
+      }
+    ],
+    "path": "resources/assets/js/components/JobCard.json"
   },
   {
     "descriptors": [
@@ -2960,6 +3095,36 @@
       }
     ],
     "path": "resources/assets/js/components/ProgressTracker/ProgressTrackerItem.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Created: ",
+        "description": "Header for when Job Poster was created.",
+        "id": "openJobCard.createdAt"
+      },
+      {
+        "defaultMessage": "Hiring Managers: ",
+        "description": "Header before list of hiring managers.",
+        "id": "openJobCard.hiringManager"
+      },
+      {
+        "defaultMessage": "HR Advisors: ",
+        "description": "Header before list of HR advisors.",
+        "id": "openJobCard.hrAdvisors"
+      },
+      {
+        "defaultMessage": "Unclaimed",
+        "description": "Message displayed if not HR managers have claimed a job.",
+        "id": "openJobCard.unclaimed"
+      },
+      {
+        "defaultMessage": "Claim This Job",
+        "description": "Message indicating the event of clicking on the job card.",
+        "id": "openJobCard.claimJob"
+      }
+    ],
+    "path": "resources/assets/js/components/UnclaimedJobCard.json"
   },
   {
     "descriptors": [
@@ -3388,7 +3553,7 @@
         "id": "department.publicServiceAndProcurement"
       },
       {
-        "defaultMessage": "Deparmtnet of National Defence",
+        "defaultMessage": "Department of National Defence",
         "id": "department.nationalDefence"
       },
       {
@@ -3510,6 +3675,30 @@
         "defaultMessage": "AD - Administrative Services",
         "description": "Job Classification from list of Classifications",
         "id": "jobBuilder.details.classificationOptions.AD"
+      },
+      {
+        "defaultMessage": "Draft",
+        "id": "jobStatus.draft"
+      },
+      {
+        "defaultMessage": "In Review",
+        "id": "jobStatus.review"
+      },
+      {
+        "defaultMessage": "Approved",
+        "id": "jobStatus.approved"
+      },
+      {
+        "defaultMessage": "Open",
+        "id": "jobStatus.open"
+      },
+      {
+        "defaultMessage": "Closed",
+        "id": "jobStatus.closed"
+      },
+      {
+        "defaultMessage": "Complete",
+        "id": "jobStatus.complete"
       }
     ],
     "path": "resources/assets/js/models/localizedConstants.json"

@@ -1,0 +1,22 @@
+[
+  {
+    "id": "jobCard.applicants",
+    "description": "Text displaying how many applicants have applied to this Job.",
+    "defaultMessage": "{applicants, plural,\n                  =0 {No Applicants}\n                  one {# Applicant}\n                  other {# Applicants}\n                }"
+  },
+  {
+    "id": "jobCard.managerTime",
+    "description": "Text displaying how long a job post has been claimed by a manager.",
+    "defaultMessage": "Time with Manager: {managerTime, plural,\n                    one {# day}\n                    other {# days}\n                  }"
+  },
+  {
+    "id": "jobCard.userTime",
+    "description": "Text displaying how long a job has been claimed by the current user.",
+    "defaultMessage": "Time with you: <s>{userTime, plural,\n                    one {# day}\n                    other {# days}\n                  }</s>"
+  },
+  {
+    "id": "jobCard.noActivity",
+    "description": "Fallback text for no new activity on a Job.",
+    "defaultMessage": "No New Activity"
+  }
+]

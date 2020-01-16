@@ -16,6 +16,8 @@ class Authenticate extends Middleware
     {
         if (WhichPortal::isManagerPortal()) {
             return route('manager.login');
+        } elseif (WhichPortal::isHrPortal()) {
+            return route('hr_advisor.login');
         } else {
             return route('login');
         }

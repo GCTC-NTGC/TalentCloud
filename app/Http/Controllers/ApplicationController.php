@@ -49,10 +49,10 @@ class ApplicationController extends Controller
         ];
 
         // Display slightly different views on different portals.
-        $view = WhichPortal::isManagerPortal() ?
+        $view = WhichPortal::isManagerPortal() || WhichPortal::isHrPortal() ?
             'manager/application_post' : 'applicant/application_preview';
 
-        if (WhichPortal::isManagerPortal()) {
+        if (WhichPortal::isManagerPortal() || WhichPortal::isHrPortal()) {
             // Load things required for review component.
             $application->load(['veteran_status', 'citizenship_declaration', 'application_review', 'applicant.user']);
         }

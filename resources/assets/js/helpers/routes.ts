@@ -28,11 +28,15 @@ export function managerJobApplications(locale: string, jobId: number): string {
   return `/${locale}/manager/jobs/${jobId}/applications`;
 }
 
+export function managerScreeningPlan(locale: string, jobId: number): string {
+  return `/${locale}/manager/jobs/${jobId}/assessment-plan`;
+}
+
 export function applicationReviewUpdate(
   locale: string,
   applicationId: number,
 ): string {
-  return `/${locale}/applications/${applicationId}/review`;
+  return `/api/applications/${applicationId}/review`;
 }
 
 export function jobBuilderIntro(locale: string, jobId?: number): string {
@@ -74,6 +78,22 @@ export function managerFaq(locale: string, faqSection?: FaqSection): string {
     return `${base}#${faqSection}`;
   }
   return base;
+}
+
+export function hrJobIndex(locale: string): string {
+  return `/${locale}/hr/jobs`;
+}
+export function hrJobSummary(locale: string, jobId: number): string {
+  return `/${locale}/hr/jobs/${jobId}/summary`;
+}
+export function hrJobReview(locale: string, jobId: number): string {
+  return `/${locale}/hr/jobs/${jobId}/review`;
+}
+export function hrJobPreview(locale: string, jobId: number): string {
+  return `/${locale}/hr/jobs/${jobId}/preview`;
+}
+export function hrScreeningPlan(locale: string, jobId: number): string {
+  return `/${locale}/hr/jobs/${jobId}/assessment-plan`;
 }
 
 export function accountSettings(locale: string): string {
