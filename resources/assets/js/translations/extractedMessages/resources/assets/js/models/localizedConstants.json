@@ -588,14 +588,14 @@
     "defaultMessage": "Job Poster Builder > Environment"
   },
   {
-    "id": "activityfeed.locations.hr.summary",
+    "id": "activityfeed.locations.summary",
     "description": "Location where the activity is located.",
-    "defaultMessage": "HR Summary Page"
+    "defaultMessage": "Summary Page"
   },
   {
-    "id": "activityfeed.locations.hr.preview",
+    "id": "activityfeed.locations.preview",
     "description": "Location where the activity is located.",
-    "defaultMessage": "HR Preview Page"
+    "defaultMessage": "Preview Page"
   },
   {
     "id": "jobStatus.draft",
