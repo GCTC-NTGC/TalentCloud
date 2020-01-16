@@ -16,6 +16,8 @@ import {
   OvertimeRequirementId,
   TravelRequirementId,
   ClassificationId,
+  LocationId,
+  JobStatus,
 } from "./lookupConstants";
 import { getOrThrowError } from "../helpers/queries";
 
@@ -686,7 +688,7 @@ const departments = defineMessages({
   },
   [DepartmentId.nationalDefence]: {
     id: "department.nationalDefence",
-    defaultMessage: "Deparmtnet of National Defence",
+    defaultMessage: "Department of National Defence",
   },
 });
 
@@ -867,3 +869,89 @@ export const classificationCodeOption = (
     classificationId,
     "invalid ClassificationId",
   );
+
+export const activityLocations = defineMessages({
+  [LocationId.generic]: {
+    id: "activityfeed.locations.review.details",
+    defaultMessage: "Job Poster Builder > General",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.heading]: {
+    id: "activityfeed.locations.review.heading",
+    defaultMessage: "Job Poster Builder > Job Page Heading",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.basicInfo]: {
+    id: "activityfeed.locations.review.basicInfo",
+    defaultMessage: "Job Poster Builder > Basic Information",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.impact]: {
+    id: "activityfeed.locations.review.impact",
+    defaultMessage: "Job Poster Builder > Impact",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.tasks]: {
+    id: "activityfeed.locations.review.tasks",
+    defaultMessage: "Job Poster Builder > Tasks",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.skills]: {
+    id: "activityfeed.locations.review.skills",
+    defaultMessage: "Job Poster Builder > Skills",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.langRequirements]: {
+    id: "activityfeed.locations.review.langRequirements",
+    defaultMessage: "Job Poster Builder > Language Requirements",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.environment]: {
+    id: "activityfeed.locations.review.environment",
+    defaultMessage: "Job Poster Builder > Environment",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.summary]: {
+    id: "activityfeed.locations.hr.summary",
+    defaultMessage: "HR Summary Page",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.preview]: {
+    id: "activityfeed.locations.hr.preview",
+    defaultMessage: "HR Preview Page",
+    description: "Location where the activity is located.",
+  },
+});
+
+export const activityLocationOption = (locationId: string): MessageDescriptor =>
+  getOrThrowError(activityLocations, locationId, "Invalid LocationId");
+
+const jobStatusMessages = defineMessages({
+  [JobStatus.Draft]: {
+    id: "jobStatus.draft",
+    defaultMessage: "Draft",
+  },
+  [JobStatus.Review]: {
+    id: "jobStatus.review",
+    defaultMessage: "In Review",
+  },
+  [JobStatus.Approved]: {
+    id: "jobStatus.approved",
+    defaultMessage: "Approved",
+  },
+  [JobStatus.Open]: {
+    id: "jobStatus.open",
+    defaultMessage: "Open",
+  },
+  [JobStatus.Closed]: {
+    id: "jobStatus.closed",
+    defaultMessage: "Closed",
+  },
+  [JobStatus.Complete]: {
+    id: "jobStatus.complete",
+    defaultMessage: "Complete",
+  },
+});
+
+export const jobStatus = (jobStatus: JobStatus): MessageDescriptor =>
+  getOrThrowError(jobStatusMessages, jobStatus, "Invalid Job Status");

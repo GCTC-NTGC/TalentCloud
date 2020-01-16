@@ -425,7 +425,7 @@
   },
   {
     "id": "department.nationalDefence",
-    "defaultMessage": "Deparmtnet of National Defence"
+    "defaultMessage": "Department of National Defence"
   },
   {
     "id": "jobBuilder.details.frequencyAlwaysLabel",
@@ -546,5 +546,29 @@
     "id": "jobBuilder.details.classificationOptions.AD",
     "description": "Job Classification from list of Classifications",
     "defaultMessage": "AD - Administrative Services"
+  },
+  {
+    "id": "jobStatus.draft",
+    "defaultMessage": "Draft"
+  },
+  {
+    "id": "jobStatus.review",
+    "defaultMessage": "In Review"
+  },
+  {
+    "id": "jobStatus.approved",
+    "defaultMessage": "Approved"
+  },
+  {
+    "id": "jobStatus.open",
+    "defaultMessage": "Open"
+  },
+  {
+    "id": "jobStatus.closed",
+    "defaultMessage": "Closed"
+  },
+  {
+    "id": "jobStatus.complete",
+    "defaultMessage": "Complete"
   }
 ]

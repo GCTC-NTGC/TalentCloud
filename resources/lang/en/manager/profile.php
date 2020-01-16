@@ -68,7 +68,7 @@ return [
             'answer_english' => 'Answer (English)',
             'answer_french' => 'Answer (Français)',
             'expect_from_employees' => 'What I Expect from My Employees',
-            'approach_learning_development' => 'My Approach to Employee Learning and Developmment',
+            'approach_learning_development' => 'My Approach to Employee Learning and Development',
             'save_leadership_style' => 'Save My Leadership Style'
         ],
         'environment' => [
