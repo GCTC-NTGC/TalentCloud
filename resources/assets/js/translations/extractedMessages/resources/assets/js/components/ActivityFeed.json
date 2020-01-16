@@ -1,0 +1,22 @@
+[
+  {
+    "id": "activityfeed.title",
+    "description": "Title of activity feed.",
+    "defaultMessage": "Activities"
+  },
+  {
+    "id": "activityfeed.error",
+    "description": "Error fetching activities.",
+    "defaultMessage": "Something went wrong..."
+  },
+  {
+    "id": "activityfeed.loading",
+    "description": "Message indicating that the activity feed is still being loaded.",
+    "defaultMessage": "Your activities are loading..."
+  },
+  {
+    "id": "activityfeed.noActivities",
+    "description": "Message displayed when activities is empty.",
+    "defaultMessage": "No activities."
+  }
+]

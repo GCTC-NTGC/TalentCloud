@@ -548,6 +548,56 @@
     "defaultMessage": "AD - Administrative Services"
   },
   {
+    "id": "activityfeed.locations.review.details",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Job Poster Builder > General"
+  },
+  {
+    "id": "activityfeed.locations.review.heading",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Job Poster Builder > Job Page Heading"
+  },
+  {
+    "id": "activityfeed.locations.review.basicInfo",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Job Poster Builder > Basic Information"
+  },
+  {
+    "id": "activityfeed.locations.review.impact",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Job Poster Builder > Impact"
+  },
+  {
+    "id": "activityfeed.locations.review.tasks",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Job Poster Builder > Tasks"
+  },
+  {
+    "id": "activityfeed.locations.review.skills",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Job Poster Builder > Skills"
+  },
+  {
+    "id": "activityfeed.locations.review.langRequirements",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Job Poster Builder > Language Requirements"
+  },
+  {
+    "id": "activityfeed.locations.review.environment",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Job Poster Builder > Environment"
+  },
+  {
+    "id": "activityfeed.locations.hr.summary",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "HR Summary Page"
+  },
+  {
+    "id": "activityfeed.locations.hr.preview",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "HR Preview Page"
+  },
+  {
     "id": "jobStatus.draft",
     "defaultMessage": "Draft"
   },

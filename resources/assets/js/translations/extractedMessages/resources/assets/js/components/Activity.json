@@ -1,0 +1,17 @@
+[
+  {
+    "id": "activity.commentMetadata",
+    "description": "Text with additional information on comment.",
+    "defaultMessage": "{name} ({userRole}) commented at {time}."
+  },
+  {
+    "id": "activity.commentLocation.label",
+    "description": "The label used before the comment location.",
+    "defaultMessage": "Comment Located"
+  },
+  {
+    "id": "activity.viewComment.label",
+    "description": "The text displayed on the activity link to view comment.",
+    "defaultMessage": "View Comment"
+  }
+]

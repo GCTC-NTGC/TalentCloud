@@ -1,0 +1,22 @@
+[
+  {
+    "id": "jobReviewHr.loadingIconText",
+    "description": "Accessible text for the loading icon",
+    "defaultMessage": "Data is loading..."
+  },
+  {
+    "id": "jobReviewHr.reviewYourPoster",
+    "description": "Title for Review Job Poster section.",
+    "defaultMessage": "Review Your Job Poster for:"
+  },
+  {
+    "id": "jobReviewHr.headsUp",
+    "description": "Description under primary title of review section",
+    "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\n            understand how an applicant will see it once published."
+  },
+  {
+    "id": "jobReviewHr.summaryLink",
+    "description": "Text for the Return to Summary link.",
+    "defaultMessage": "Return to Summary"
+  }
+]

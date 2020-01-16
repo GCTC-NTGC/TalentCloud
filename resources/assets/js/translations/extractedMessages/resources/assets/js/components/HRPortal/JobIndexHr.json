@@ -27,7 +27,7 @@
   {
     "id": "hrPortal.jobPageIndex.welcomeMessage",
     "description": "Welcome message at beginning of page.",
-    "defaultMessage": "Welcome! Introductory copy that explains how this page works, and\n                what an HR advisor needs to do to claim a job action as their own.\n                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium\n                ducimus laboriosam sequi, quis autem minima esse quasi aspernatur\n                vero provident quos eligendi, ea officia exercitationem. Obcaecati\n                impedit quae veritatis corrupti!"
+    "defaultMessage": "Welcome! Introductory copy that explains how this page works, and\r\n                what an HR advisor needs to do to claim a job action as their own.\r\n                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium\r\n                ducimus laboriosam sequi, quis autem minima esse quasi aspernatur\r\n                vero provident quos eligendi, ea officia exercitationem. Obcaecati\r\n                impedit quae veritatis corrupti!"
   },
   {
     "id": "hrPortal.jobPageIndex.jobActionsHeader",
@@ -37,7 +37,7 @@
   {
     "id": "hrPortal.jobPageIndex.jobActionsMessage",
     "description": "Message before list of users job actions.",
-    "defaultMessage": "This is a list of all job actions you are currently participating\n                in. Looking for an older job? Check the 'My Completed Job Actions'\n                section below your active jobs."
+    "defaultMessage": "This is a list of all job actions you are currently participating\r\n                in. Looking for an older job? Check the 'My Completed Job Actions'\r\n                section below your active jobs."
   },
   {
     "id": "hrPortal.jobPageIndex.jobActionsEmpty",
@@ -52,7 +52,7 @@
   {
     "id": "hrPortal.jobPageIndex.unclaimedJobsMessage",
     "description": "Message before list of unclaimed jobs.",
-    "defaultMessage": "This is the list of all active job actions in your department. From\n                here you can 'claim' a job, which will move it into your jobs list\n                above and allow you to begin working with the hiring manager on\n                finding the best talent possible. If you claim a job by accident, no\n                fear, for you can click into the job summary and remove yourself\n                using the 'Remove Myself From This Job' button."
+    "defaultMessage": "This is the list of all active job actions in your department. From\r\n                here you can 'claim' a job, which will move it into your jobs list\r\n                above and allow you to begin working with the hiring manager on\r\n                finding the best talent possible. If you claim a job by accident, no\r\n                fear, for you can click into the job summary and remove yourself\r\n                using the 'Remove Myself From This Job' button."
   },
   {
     "id": "hrPortal.jobPageIndex.unclaimedJobsEmpty",
