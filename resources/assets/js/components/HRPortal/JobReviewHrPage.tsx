@@ -84,8 +84,7 @@ const JobReviewHrPage: React.FunctionComponent<JobReviewHrPageProps> = ({
           <p>
             <FormattedMessage
               id="jobReviewHr.headsUp"
-              defaultMessage="Just a heads up! We've rearranged some of your information to help you
-            understand how an applicant will see it once published."
+              defaultMessage="Just a heads up! We've rearranged some of your information to help you understand how an applicant will see it once published."
               description="Description under primary title of review section"
             />
           </p>

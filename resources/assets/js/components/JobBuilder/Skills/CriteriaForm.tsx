@@ -266,8 +266,7 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
                       <i className="fas fa-plus-circle" data-c-colour="c1" />
                       <FormattedMessage
                         id="jobBuilder.criteriaForm.addSpecificity"
-                        defaultMessage="I'd like to add specificity to this definition. This will
-                          only apply to my job poster."
+                        defaultMessage="I'd like to add specificity to this definition. This will only apply to my job poster."
                         description="Label for 'Add additional specificity' button on Add Skill modal."
                       />
                     </span>

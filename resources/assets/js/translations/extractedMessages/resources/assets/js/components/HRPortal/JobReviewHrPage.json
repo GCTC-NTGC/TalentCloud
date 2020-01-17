@@ -12,7 +12,7 @@
   {
     "id": "jobReviewHr.headsUp",
     "description": "Description under primary title of review section",
-    "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\n            understand how an applicant will see it once published."
+    "defaultMessage": "Just a heads up! We've rearranged some of your information to help you understand how an applicant will see it once published."
   },
   {
     "id": "jobReviewHr.summaryLink",

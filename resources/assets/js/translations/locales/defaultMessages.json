@@ -917,7 +917,7 @@
         "id": "hrPortal.jobPageIndex.noJobsCompleted"
       },
       {
-        "defaultMessage": "Welcome! Introductory copy that explains how this page works, and\r\n                what an HR advisor needs to do to claim a job action as their own.\r\n                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium\r\n                ducimus laboriosam sequi, quis autem minima esse quasi aspernatur\r\n                vero provident quos eligendi, ea officia exercitationem. Obcaecati\r\n                impedit quae veritatis corrupti!",
+        "defaultMessage": "Welcome! Introductory copy that explains how this page works, and what an HR advisor needs to do to claim a job action as their own. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium ducimus laboriosam sequi, quis autem minima esse quasi aspernatur vero provident quos eligendi, ea officia exercitationem. Obcaecati impedit quae veritatis corrupti!",
         "description": "Welcome message at beginning of page.",
         "id": "hrPortal.jobPageIndex.welcomeMessage"
       },
@@ -927,7 +927,7 @@
         "id": "hrPortal.jobPageIndex.jobActionsHeader"
       },
       {
-        "defaultMessage": "This is a list of all job actions you are currently participating\r\n                in. Looking for an older job? Check the 'My Completed Job Actions'\r\n                section below your active jobs.",
+        "defaultMessage": "This is a list of all job actions you are currently participating\n                in. Looking for an older job? Check the 'My Completed Job Actions'\n                section below your active jobs.",
         "description": "Message before list of users job actions.",
         "id": "hrPortal.jobPageIndex.jobActionsMessage"
       },
@@ -942,7 +942,7 @@
         "id": "hrPortal.jobPageIndex.preDepartmentName"
       },
       {
-        "defaultMessage": "This is the list of all active job actions in your department. From\r\n                here you can 'claim' a job, which will move it into your jobs list\r\n                above and allow you to begin working with the hiring manager on\r\n                finding the best talent possible. If you claim a job by accident, no\r\n                fear, for you can click into the job summary and remove yourself\r\n                using the 'Remove Myself From This Job' button.",
+        "defaultMessage": "This is the list of all active job actions in your department. From\n                here you can 'claim' a job, which will move it into your jobs list\n                above and allow you to begin working with the hiring manager on\n                finding the best talent possible. If you claim a job by accident, no\n                fear, for you can click into the job summary and remove yourself\n                using the 'Remove Myself From This Job' button.",
         "description": "Message before list of unclaimed jobs.",
         "id": "hrPortal.jobPageIndex.unclaimedJobsMessage"
       },
@@ -1012,7 +1012,7 @@
         "id": "jobReviewHr.reviewYourPoster"
       },
       {
-        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\n            understand how an applicant will see it once published.",
+        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you understand how an applicant will see it once published.",
         "description": "Description under primary title of review section",
         "id": "jobReviewHr.headsUp"
       },
@@ -2345,7 +2345,7 @@
         "id": "jobBuilder.criteriaForm.removeSpecificity"
       },
       {
-        "defaultMessage": "I'd like to add specificity to this definition. This will\r\n                          only apply to my job poster.",
+        "defaultMessage": "I'd like to add specificity to this definition. This will only apply to my job poster.",
         "description": "Label for 'Add additional specificity' button on Add Skill modal.",
         "id": "jobBuilder.criteriaForm.addSpecificity"
       },
@@ -3164,12 +3164,12 @@
         "id": "jobCard.applicants"
       },
       {
-        "defaultMessage": "Time with Manager: {managerTime, plural,\n                    one {# day}\n                    other {# days}\n                  }",
+        "defaultMessage": "Time with Manager: {managerTime, plural, one {# day} other {# days}}",
         "description": "Text displaying how long a job post has been claimed by a manager.",
         "id": "jobCard.managerTime"
       },
       {
-        "defaultMessage": "Time with you: <s>{userTime, plural,\n                    one {# day}\n                    other {# days}\n                  }</s>",
+        "defaultMessage": "Time with you: <s>{userTime, plural, one {# day} other {# days}}</s>",
         "description": "Text displaying how long a job has been claimed by the current user.",
         "id": "jobCard.userTime"
       },
