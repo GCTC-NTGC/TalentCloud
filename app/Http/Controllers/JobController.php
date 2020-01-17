@@ -195,6 +195,7 @@ class JobController extends Controller
                 'applicant/jpb_job_post',
                 [
                     'job_post' => $jobLang,
+                    'frequencies' => Lang::get('common/lookup/frequency'),
                     'skill_template' => Lang::get('common/skills'),
                     'job' => $jobPoster,
                     'manager' => $jobPoster->manager,
@@ -208,6 +209,7 @@ class JobController extends Controller
                 'applicant/job_post',
                 [
                     'job_post' => $jobLang,
+                    'frequencies' => Lang::get('common/lookup/frequency'),
                     'manager' => $jobPoster->manager,
                     'manager_profile_photo_url' => '/images/user.png', // TODO get real photo.
                     'team_culture' => $jobPoster->manager->team_culture,
