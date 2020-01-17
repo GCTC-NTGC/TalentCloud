@@ -2,7 +2,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import RootContainer from "../RootContainer";
 import CommentForm from "../CommentForm";
-import ActivityFeed from "../ActivityFeed";
+import ActivityList from "../ActivityList";
 import { LocationId } from "../../models/lookupConstants";
 
 interface SummaryHrActivityFeedProps {
@@ -16,7 +16,7 @@ const SummaryHrActivityFeed: React.FunctionComponent<SummaryHrActivityFeedProps>
     <>
       <CommentForm jobId={jobId} isHrAdviser location={LocationId.summary} />
       <hr data-c-hr="thin(black)" data-c-margin="top(1)" />
-      <ActivityFeed jobId={jobId} isHrAdvisor />
+      <ActivityList jobId={jobId} isHrAdvisor />
     </>
   );
 };

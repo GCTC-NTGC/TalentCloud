@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { defineMessages, useIntl, FormattedMessage } from "react-intl";
 import CommentForm from "../../CommentForm";
-import ActivityFeed from "../../ActivityFeed";
+import ActivityList from "../../ActivityList";
 import { LocationId } from "../../../models/lookupConstants";
 import { RootState } from "../../../store/store";
 import { getComments } from "../../../store/Job/jobSelector";
@@ -139,7 +139,7 @@ const JobReviewActivityFeed: React.FunctionComponent<JobReviewActivityFeedProps>
               locationOptions={...locationOptions}
             />
             <hr data-c-hr="thin(black)" data-c-margin="top(1)" />
-            <ActivityFeed jobId={jobId} isHrAdvisor={isHrAdvisor} />
+            <ActivityList jobId={jobId} isHrAdvisor={isHrAdvisor} />
           </div>
         </div>
       </div>

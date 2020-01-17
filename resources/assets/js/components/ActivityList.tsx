@@ -14,7 +14,7 @@ import { activityLocationOption } from "../models/localizedConstants";
 import { activityLocationUrl } from "../models/jobUtil";
 import { LocationId } from "../models/lookupConstants";
 
-interface ActivityFeedProps {
+interface ActivityListProps {
   jobId: number;
   isHrAdvisor: boolean;
   comments: Comment[];
@@ -22,7 +22,7 @@ interface ActivityFeedProps {
   filterComments?: (comment: Comment) => boolean;
 }
 
-const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
+const ActivityList: React.FunctionComponent<ActivityListProps> = ({
   jobId,
   comments,
   handleFetchComments,
@@ -179,4 +179,4 @@ const mapDispatchToProps = (
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ActivityFeed);
+export default connect(mapStateToProps, mapDispatchToProps)(ActivityList);
