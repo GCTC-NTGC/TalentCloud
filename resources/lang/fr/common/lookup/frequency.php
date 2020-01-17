@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'never' => 'Presque jamais',
+    'never' => 'Jamais',
     'rarely' => 'Rarement',
     'sometimes' => 'Parfois',
     'often' => 'Habituellement',

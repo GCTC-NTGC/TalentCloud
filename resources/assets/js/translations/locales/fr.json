@@ -201,7 +201,7 @@
   "jobBuilder.details.flexHoursGroupLabel": "Choisissez les horaires souples :",
   "jobBuilder.details.frequencyAlwaysLabel": "Presque toujours",
   "jobBuilder.details.frequencyFrequentlyLabel": "Habituellement",
-  "jobBuilder.details.frequencyNeverLabel": "Presque jamais",
+  "jobBuilder.details.frequencyNeverLabel": "Jamais",
   "jobBuilder.details.frequencyOccasionallyLabel": "Rarement",
   "jobBuilder.details.frequencySometimesLabel": "Parfois",
   "jobBuilder.details.heading": "Détails sur l’emploi",
