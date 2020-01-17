@@ -107,6 +107,15 @@ export interface DepartmentTranslation {
   impact: string;
 }
 
+export interface HrAdvisor {
+  id: number;
+  user_id: number;
+  first_name: string;
+  last_name: string;
+  department_id: number;
+  claimed_job_ids: number[];
+}
+
 export interface Job {
   id: number;
   manager_id: number;
@@ -120,6 +129,7 @@ export interface Job {
   salary_min: number | null;
   salary_max: number | null;
   noc: number | null;
+  job_status_id: number;
   classification_id: number | null;
   classification_level: number | null;
   security_clearance_id: number | null;
@@ -138,6 +148,7 @@ export interface Job {
   flexible_hours_frequency_id: number | null;
   travel_requirement_id: number | null;
   overtime_requirement_id: number | null;
+  created_at: Date;
   en: JobTranslation;
   fr: JobTranslation;
 }
@@ -251,4 +262,14 @@ type VeteranStatusName = "none" | "current" | "past";
 export interface VeteranStatus {
   id: number;
   name: VeteranStatusName;
+}
+
+export interface Comment {
+  id: number;
+  job_poster_id: number;
+  user_id: number;
+  comment: string;
+  location: string;
+  type_id: number | null;
+  created_at: Date;
 }

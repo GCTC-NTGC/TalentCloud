@@ -106,7 +106,7 @@
   {
     "id": "jobBuilder.intro.completeInLanguage",
     "description": "Instructions at bottom of form on language choice for job poster builder.",
-    "defaultMessage": "Complete the job poster in the language of your choice. We will\r\n                  handle translation."
+    "defaultMessage": "Complete the job poster in the language of your choice. We will\n                  handle translation."
   },
   {
     "id": "jobBuilder.intro.contactUs",

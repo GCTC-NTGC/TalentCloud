@@ -1,0 +1,152 @@
+[data-clone] {
+    // Your custom CSS goes here.
+    .sidebar-wrapper {
+        position: relative;
+    }
+    .sidebar {
+        position: sticky;
+        top: 0;
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+    }
+    .summary {
+        [data-c-button] {
+            width: 100% !important;
+        }
+    }
+    .tc-timer {
+        i {
+            color: $clone-gray;
+            margin-top: -.15rem;
+            margin-right: .3rem;
+            vertical-align: middle;
+        }
+        &.active {
+            color: $clone-c2;
+            i {
+                color: $clone-c2;
+                animation: pulse 1s ease infinite;
+            }
+        }
+    }
+    .tc-summary-action {
+        color: white;
+        display: block;
+        text-decoration: none;
+        transition: all .2s ease;
+        &:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .3);
+            transform: scale(1.05);
+            transition: all .2s ease;
+        }
+        svg,
+        img {
+            max-width: 6rem;
+        }
+    }
+    .tc-job-activity+[class*="tc-activity-divider"],
+    .tc-job-activity-comment+[class*="tc-activity-divider"]{
+        margin-top: -1rem;
+    }
+    [class*="tc-activity-divider"] {
+        position: relative;
+        &::before {
+            content: " ";
+            display: block;
+            height: 1px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 75%;
+            z-index: 1;
+        }
+        span {
+            background: #f4f4f4;
+            padding: 0 1rem;
+            position: relative;
+            z-index: 2;
+        }
+        &[class*="--new"] {
+            &::before {
+                background: $clone-stop;
+            }
+            span {
+                color: $clone-stop;
+            }
+        }
+        &[class*="--old"] {
+            &::before {
+                background: $clone-c1;
+            }
+            span {
+                color: $clone-c1;
+            }
+        }
+    }
+    .tc-job-activity {
+        border: none;
+        cursor: pointer;
+        font-size: $clone-default-font-size;
+        outline: none;
+        text-align: left;
+        transition: all .2s ease;
+        width: 100%;
+        &:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .3);
+            transform: scale(1.05);
+            transition: all .2s ease;
+        }
+        i {
+            display: inline-block;
+            height: 100%;
+            margin-right: 1rem;
+            vertical-align: middle;
+        }
+        span {
+            display: inline-block;
+            transform: translate(0, .1rem);
+        }
+    }
+    .tc-job-activity-comment {
+        cursor: pointer;
+        display: block;
+        text-decoration: none;
+        transition: all .2s ease;
+        &:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .3);
+            transform: scale(1.05);
+            transition: all .2s ease;
+        }
+    }
+    @keyframes pulse {
+        0%   {opacity: 1}
+        50%  {opacity: .3}
+        100% {opacity: 1}
+    }
+}
+
+/* Whitespace (Margins & Padding)
+/* These variables assign a default value to margins and padding (in a mobile first perspective), as well as how those values scale. */
+:root {
+    --gc-margin-default: 1rem;
+    --gc-padding-default: 1rem;
+    /* The multiplier that is used in our media query calculations to ensure consistency in scale as the device's screen grows. */
+    --gc-whitespace-multiplier: 1.4;
+    /* Now we set the values for usage. */
+    --gc-margin-value: var(--gd-margin-default, var(--gc-margin-default));
+    --gc-padding-value: var(--gd-margin-default, var(--gc-margin-default));
+}
+/* Example: */
+/* First, we set how we want the margin value to change in each of our media queries. To do this, we use the default value in a calc function to multiple or divide it by our whitespace multiplier, which then sets the value variable to our new value for that media query. */
+@media screen and (min-width: 40rem) {
+    :root {
+        --gc-margin-value: calc(var(--gd-margin-default, var(--gc-margin-default)) * var(--gd-whitespace-multiplier, var(--gc-whitespace-multiplier)));
+    }
+}
+/* This value is now 1rem until the device is 40rem wide, at which point is becomes 1*1.4. */
+.margin-left {
+    margin-left: var(--gd-margin-value, var(--gc-margin-value));
+}

@@ -44,6 +44,10 @@ import {
   managerReducer,
 } from "./Manager/managerReducer";
 import { UserState, initUserState, userReducer } from "./User/userReducer";
+import hrAdvisorReducer, {
+  HrAdvisorState,
+  initState as initHrAdvisorState,
+} from "./HrAdvisor/hrAdvisorReducer";
 
 export type AppAction =
   | JobAction
@@ -68,6 +72,7 @@ export interface RootState {
   department: DeptState;
   manager: ManagerState;
   user: UserState;
+  hrAdvisor: HrAdvisorState;
 }
 
 export const initState = (): RootState => ({
@@ -81,6 +86,7 @@ export const initState = (): RootState => ({
   department: initDeptState(),
   manager: initManagerState(),
   user: initUserState(),
+  hrAdvisor: initHrAdvisorState(),
 });
 
 export const rootReducer = (): Reducer<RootState> =>
@@ -95,6 +101,7 @@ export const rootReducer = (): Reducer<RootState> =>
     department: deptReducer,
     manager: managerReducer,
     user: userReducer,
+    hrAdvisor: hrAdvisorReducer,
   });
 
 export default rootReducer;

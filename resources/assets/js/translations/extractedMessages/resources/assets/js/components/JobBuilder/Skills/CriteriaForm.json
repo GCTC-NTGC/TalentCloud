@@ -12,7 +12,7 @@
   {
     "id": "jobBuilder.criteriaForm.addSpecificity",
     "description": "Label for 'Add additional specificity' button on Add Skill modal.",
-    "defaultMessage": "I'd like to add specificity to this definition. This will\r\n                          only apply to my job poster."
+    "defaultMessage": "I'd like to add specificity to this definition. This will\n                          only apply to my job poster."
   },
   {
     "id": "jobBuilder.criteriaForm.chooseSkillLevel",

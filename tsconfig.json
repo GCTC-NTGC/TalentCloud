@@ -1,22 +1,25 @@
 {
-  "compilerOptions": {
-    "jsx": "react",
-    "esModuleInterop": true,
-    "target": "es5",
-    "strictNullChecks": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "rootDir": "resources/assets/js",
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "lib": ["dom", "esnext", "esnext.intl", "es2017.intl", "es2018.intl"]
-  },
-  // "include": [
-  //     "resources/assets/js/**/*"
-  // ],
-  "exclude": [
-    "node_modules",
-    "!node_modules/@types",
-    "vendor"
-  ]
+    "compilerOptions": {
+        "jsx": "react",
+        "esModuleInterop": true,
+        "target": "es5",
+        "strictNullChecks": true,
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "rootDir": "resources/assets/js",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "lib": [
+            "dom",
+            "esnext",
+            "esnext.intl",
+            "es2017.intl",
+            "es2018.intl"
+        ]
+    },
+    "exclude": [
+        "node_modules",
+        "!node_modules/@types",
+        "vendor"
+    ]
 }
