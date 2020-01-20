@@ -36,11 +36,15 @@
         display: block;
         text-decoration: none;
         transition: all .2s ease;
-        &:hover {
-            box-shadow: 0 10px 25px rgba(0, 0, 0, .3);
-            transform: scale(1.05);
-            transition: all .2s ease;
+
+        &:not(.disabled) {
+            &:hover {
+                box-shadow: 0 10px 25px rgba(0, 0, 0, .3);
+                transform: scale(1.05);
+                transition: all .2s ease;
+            }
         }
+
         svg,
         img {
             max-width: 6rem;
