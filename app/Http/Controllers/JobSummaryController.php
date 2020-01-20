@@ -37,9 +37,13 @@ class JobSummaryController extends Controller
             'disabled' => $job->isClosed(),
         ];
 
+        // TODO: This should change based on the current status.
+        $status_description = $summaryLang['under_review'];
+
         $data = [
             // Localized strings.
             'summary' => $summaryLang,
+            'job_status_description' => $status_description,
             'is_claimed' => $jobIsClaimed,
             // User data.
             'user' => $user,
