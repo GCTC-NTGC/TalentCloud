@@ -41,7 +41,7 @@ import {
   LanguageRequirementId,
 } from "../../../models/lookupConstants";
 import Criterion from "../Criterion";
-import JobWorkEnv from "../JobWorkEnv";
+import JobWorkEnv from "../WorkEnv/JobWorkEnv";
 import JobWorkCulture from "../JobWorkCulture";
 import Modal from "../../Modal";
 import { textToParagraphs } from "../../../helpers/textToParagraphs";

@@ -1,6 +1,6 @@
 import * as React from "react";
 import ReactDOM from "react-dom";
-import JobWorkEnv from "./JobBuilder/JobWorkEnv";
+import JobWorkEnv from "./JobBuilder/WorkEnv/JobWorkEnv";
 import IntlContainer from "../IntlContainer";
 
 interface WorkEnvOptions {

@@ -136,7 +136,7 @@ const JobReviewActivityFeed: React.FunctionComponent<JobReviewActivityFeedProps>
               jobId={jobId}
               isHrAdviser={isHrAdvisor}
               location={LocationId.generic}
-              locationOptions={...locationOptions}
+              locationOptions={locationOptions}
             />
             <hr data-c-hr="thin(black)" data-c-margin="top(1)" />
             <ActivityFeed jobId={jobId} isHrAdvisor={isHrAdvisor} />

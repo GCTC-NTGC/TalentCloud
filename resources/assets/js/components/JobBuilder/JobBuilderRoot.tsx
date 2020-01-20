@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import React, { FunctionComponent } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import { Routes } from "universal-router";
 import { defineMessages, useIntl } from "react-intl";
@@ -7,7 +7,7 @@ import { useRouter, RouterResult } from "../../helpers/router";
 import JobBuilderIntroPageContainer from "./Intro/JobBuilderIntro";
 import RootContainer from "../RootContainer";
 import JobDetailsPage from "./Details/JobDetailsPage";
-import JobBuilderWorkEnvPage from "./WorkEnv/JobBuilderWorkEnv";
+import JobBuilderWorkEnvPage from "./WorkEnv/WorkEnvPage";
 import JobBuilderImpactPage from "./Impact/JobBuilderImpactPage";
 import JobTasksPage from "./Tasks/JobTasksPage";
 import JobSkillsPage from "./Skills/JobBuilderSkillsPage";

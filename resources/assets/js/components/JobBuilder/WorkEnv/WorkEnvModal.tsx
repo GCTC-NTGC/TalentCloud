@@ -2,7 +2,7 @@ import React from "react";
 import { FormattedMessage } from "react-intl";
 import { WorkEnvFormValues } from "./WorkEnvForm";
 import Modal from "../../Modal";
-import JobWorkEnv from "../JobWorkEnv";
+import JobWorkEnv from "./JobWorkEnv";
 
 interface WorkEnvModalProps {
   modalConfirm: (values) => void;
