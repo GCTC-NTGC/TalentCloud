@@ -71,7 +71,7 @@ export const commentTypeMessages = defineMessages({
 
 interface CommentFormProps {
   jobId: number;
-  isHrAdviser: boolean;
+  isHrAdvisor: boolean;
   location: string;
   locationOptions?: { value: string; label: string }[];
   handleCreateComment: (jobId: number, newComment: Comment) => Promise<Comment>;
@@ -84,7 +84,7 @@ interface CommentFormValues {
 }
 
 const CommentForm: React.FunctionComponent<CommentFormProps> = ({
-  isHrAdviser,
+  isHrAdvisor,
   handleCreateComment,
   jobId,
   location,
@@ -101,7 +101,7 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
     comment: Yup.string().required(
       intl.formatMessage(validationMessages.required),
     ),
-    ...(isHrAdviser && {
+    ...(isHrAdvisor && {
       commentType: Yup.number()
         .oneOf(
           Object.values(CommentTypeId),
@@ -131,7 +131,7 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
               ? values.commentLocation
               : location,
             comment: values.comment,
-            type_id: isHrAdviser ? Number(values.commentType) : null,
+            type_id: isHrAdvisor ? Number(values.commentType) : null,
           };
           handleCreateComment(jobId, newComment)
             .then(() => {
@@ -159,7 +159,7 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
                 name="commentLocation"
                 id="comment_form_location"
                 label={intl.formatMessage(formMessages.commentLocationLabel)}
-                grid={locationOptions && isHrAdviser ? "tl(1of2)" : "tl(2of3)"}
+                grid={locationOptions && isHrAdvisor ? "tl(1of2)" : "tl(2of3)"}
                 component={SelectInput}
                 required
                 nullSelection={intl.formatMessage(
@@ -171,13 +171,13 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
                 }))}
               />
             )}
-            {isHrAdviser && (
+            {isHrAdvisor && (
               <Field
                 id="comment_form_type"
                 name="commentType"
                 component={SelectInput}
                 required
-                grid={locationOptions && isHrAdviser ? "tl(1of2)" : "tl(2of3)"}
+                grid={locationOptions && isHrAdvisor ? "tl(1of2)" : "tl(2of3)"}
                 nullSelection={intl.formatMessage(
                   formMessages.commentTypeNullSelection,
                 )}
@@ -204,7 +204,7 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
             )}
             <div
               data-c-grid-item={
-                locationOptions && isHrAdviser ? "tl(1of1)" : "tl(1of3)"
+                locationOptions && isHrAdvisor ? "tl(1of1)" : "tl(1of3)"
               }
               data-c-align="base(center) tl(right)"
             >
