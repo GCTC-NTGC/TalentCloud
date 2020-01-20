@@ -59,9 +59,7 @@
 										<span data-c-font-weight="600" data-c-color="c2">{{ summary.status_label }}</span>
 										{{ job.status()|capitalize }}
 									</p>
-									{% if job.status() == 'submitted' %}
-										<p data-c-margin="bottom(.5)">{{ summary.under_review }}</p>
-									{% endif %}
+									<p data-c-margin="bottom(.5)">{{ job_status_description }}</p>
 									<p data-c-margin="bottom(.5)">
 										<span data-c-font-weight="600" data-c-color="c2">{{ summary.manager_label }}</span>
 										{{ job.manager.user.first_name }}
