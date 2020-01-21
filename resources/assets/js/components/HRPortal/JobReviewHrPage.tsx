@@ -102,6 +102,7 @@ const JobReviewHrPage: React.FunctionComponent<JobReviewHrPageProps> = ({
         <div data-c-alignment="base(centre)">
           <Icon
             icon="fa fa-spinner fa-spin"
+            messageId="dataIsLoading"
             accessibleText="Data is loading..."
             sematicIcon
           />

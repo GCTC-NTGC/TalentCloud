@@ -3,12 +3,14 @@ import { useIntl, defineMessages } from "react-intl";
 
 interface IconProps {
   icon: string;
+  messageId: string;
   accessibleText: string;
   sematicIcon: boolean;
 }
 
 const Icon: React.FunctionComponent<IconProps> = ({
   icon,
+  messageId,
   accessibleText,
   sematicIcon,
 }) => {
@@ -16,12 +18,9 @@ const Icon: React.FunctionComponent<IconProps> = ({
 
   const iconMessages = defineMessages({
     accessibleText: {
-      id: "icon.accessibleText",
-      defaultMessage: "{accessibleText}",
+      id: `icon.${messageId}`,
+      defaultMessage: `${accessibleText}`,
       description: "Accessible text for icon.",
-      values: {
-        accessibleText,
-      },
     },
   });
 

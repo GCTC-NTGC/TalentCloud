@@ -53,6 +53,7 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
                     totalActivities:
                       totalActivities === 0 ? (
                         <Icon
+                          messageId="activitiesLoading"
                           icon="fa fa-spinner fa-spin"
                           accessibleText="Number of activities is loading..."
                           sematicIcon
