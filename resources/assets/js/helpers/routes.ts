@@ -106,7 +106,7 @@ export function hrJobReview(locale: string, jobId: number): string {
   return `/${locale}/hr/jobs/${jobId}/review`;
 }
 export function hrJobPreview(locale: string, jobId: number): string {
-  return `/${locale}/hr/jobs/${jobId}/preview`;
+  return `/${locale}/hr/jobs/${jobId}`;
 }
 export function hrScreeningPlan(locale: string, jobId: number): string {
   return `/${locale}/hr/jobs/${jobId}/assessment-plan`;

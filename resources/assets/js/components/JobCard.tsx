@@ -78,7 +78,7 @@ const JobCard: React.FC<JobCardProps> = ({
           </h2>
 
           <p data-c-font-size="small" data-c-margin="top(normal)">
-            {draft.url.length === 0 ? (
+            {draft.url.length > 0 ? (
               <a
                 href={draft.url}
                 title={draft.title}
@@ -91,7 +91,7 @@ const JobCard: React.FC<JobCardProps> = ({
                 {draft.text}
               </span>
             )}
-            {preview.url !== null ? (
+            {preview.url.length > 0 ? (
               <a
                 href={preview.url}
                 title={preview.title}
@@ -104,7 +104,7 @@ const JobCard: React.FC<JobCardProps> = ({
                 {preview.text}
               </span>
             )}
-            {screeningPlan.url !== null ? (
+            {screeningPlan.url.length > 0 ? (
               <a
                 href={screeningPlan.url}
                 title={screeningPlan.title}
