@@ -16,20 +16,23 @@
 		<div data-c-background="white(100)">
 			<header data-c-overlay="black(80)" style="background-image: url('/images/sean-pollock.jpg');">
 				{% include "common/menu" %}
-				<div data-c-container="large" data-c-align="base(center)">
-					<h1 class="logotype" data-c-font-size="h1" data-c-font-weight="600" data-c-color="white" data-c-margin="top(3)">
+				<div data-c-container="large" data-c-align="base(center)" data-c-padding="bottom(3)">
+					<h1 class="tc-hr-home-logotype" data-c-font-size="h1" data-c-font-weight="600" data-c-color="white" data-c-padding="top(3)">
 						{{ hr_home.hero.heading }}
-						<img src="$ROOT/img/maple-leaf.svg" alt="{{ hr_home.hero.heading_alt }}">
+						<img src="/images/maple-leaf.svg" alt="{{ hr_home.hero.heading_alt }}">
 					</h1>
-					<button data-c-button="outline(white)" data-c-margin="tb(triple)" data-c-radius="rounded">
-						{{ hr_home.hero.sign_up_button }}
-					</button>
+					{% if auth_guest() %}
+						<button data-c-button="outline(white)" data-c-radius="rounded" data-c-margin="top(3)">
+							{{ hr_home.hero.sign_up_button }}
+						</button>
+					{% endif %}
 				</div>
 			</header>
 			<div class="tc-hr-home-cta" data-c-padding="tb(normal)">
 				<div data-c-container="large" data-c-align="base(center)">
 					<p data-c-color="white" data-c-margin="tb(half)">{{ hr_home.banner.content }}
-						<a href="/" title="{{ hr_home.banner.anchor.title }}">{{ hr_home.banner.anchor.text }}</a>.</p>
+						<a href="/" title="{{ hr_home.banner.anchor.title }}">{{ hr_home.banner.anchor.text }}</a>
+					</p>
 				</div>
 			</div>
 			<a id="skipLink"></a>
@@ -41,13 +44,13 @@
 								<h2 data-c-font-size="h2" data-c-margin="bottom(normal)">{{ hr_home.heading.about }}</h2>
 								<p data-c-margin="bottom(1)">{{ hr_home.about.p1 }}</p>
 								<ul>
-									<li>{{ hr_home.about.l11 }}</li>
-									<li>{{ hr_home.about.l12 }}</li>
-									<li>{{ hr_home.about.l13 }}</li>
-									<li>{{ hr_home.about.l14 }}</li>
-									<li>{{ hr_home.about.l15 }}</li>
-									<li>{{ hr_home.about.l16 }}</li>
-									<li>{{ hr_home.about.l17 }}</li>
+									<li>{{ hr_home.about.li1 }}</li>
+									<li>{{ hr_home.about.li2 }}</li>
+									<li>{{ hr_home.about.li3 }}</li>
+									<li>{{ hr_home.about.li4 }}</li>
+									<li>{{ hr_home.about.li5 }}</li>
+									<li>{{ hr_home.about.li6 }}</li>
+									<li>{{ hr_home.about.li7 }}</li>
 								</ul>
 							</div>
 						</div>
@@ -67,7 +70,7 @@
 					<div data-c-grid="gutter(all, 1)">
 						<div data-c-grid-item="tl(2of5) equal-col">
 							<div data-c-card data-c-color="white" data-c-background="c2(100)" data-c-radius="rounded" data-c-padding="all(double)">
-								<h2 data-c-font-size="h2" data-c-margin="bottom(normal)">{{ hr_home.heading.blog }}</h2>
+								<h2 data-c-font-size="h2" data-c-margin="bottom(normal)">From Our Blog</h2>
 								<h3 data-c-font-size-"h3" data-c-margin="bottom(.5)">
 									<a href="https://gccollab.ca/blog/view/876781/entalent-cloud-assumptions-time-to-stafffrspu00e9culation-de-lu2019u00e9quipe-nuage-de-talents-u2013-duru00e9e-du-processus-de-dotation" title="{{ hr_home.blog.link.title }}" target="_blank">{{ hr_home.blog.link.text }}</a>
 								</h3>

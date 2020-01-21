@@ -10,16 +10,16 @@
 .tc-hr-home-contained-background {
     overflow: hidden;
     @media #{$clone-tablet-landscape} {
-        .left-background {
+        .tc-hr-home-left-background {
             padding-right: calc((#{$clone-padding} * 3) * #{$clone-whitespace-multiplier});
         }
-        .left-background+div {
+        .tc-hr-home-left-background+div {
             padding-left: calc((#{$clone-padding} * 3) * #{$clone-whitespace-multiplier});
         }
-        >div>div>[data-c-grid-item]:not(.left-background):first-child {
+        >div>div>[data-c-grid-item]:not(.tc-hr-home-left-background):first-child {
             padding-right: calc((#{$clone-padding} * 3) * #{$clone-whitespace-multiplier});
         }
-        >div>div>[data-c-grid-item]+.right-background {
+        >div>div>[data-c-grid-item]+.tc-hr-home-right-background {
             padding-left: calc((#{$clone-padding} * 3) * #{$clone-whitespace-multiplier});
         }
     }
