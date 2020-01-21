@@ -24,13 +24,15 @@
 
             <header data-c-overlay="black(80)" style="background-image: url('/images/sean-pollock.jpg');">
                 {% include "common/menu" %}
-                <div data-c-container="large" data-c-align="base(center)">
-                    <h1 class="logotype" data-c-font-size="h1" data-c-font-weight="600" data-c-color="white" data-c-margin="top(3)">
-                        Talent Cloud <img src="$ROOT/img/maple-leaf.svg" alt="The Canadian maple leaf.">
+                <div data-c-container="large" data-c-align="base(center)" data-c-padding="bottom(3)">
+                    <h1 class="tc-hr-home-logotype" data-c-font-size="h1" data-c-font-weight="600" data-c-color="white" data-c-padding="top(3)">
+                        Talent Cloud <img src="/images/maple-leaf.svg" alt="The Canadian maple leaf.">
                     </h1>
-                    <button data-c-button="outline(white)" data-c-margin="tb(triple)" data-c-radius="rounded">
-                        Sign Up
-                    </button>
+                    {% if auth_guest() %}
+                        <button data-c-button="outline(white)" data-c-radius="rounded" data-c-margin="top(3)">
+                            Sign Up
+                        </button>
+                    {% endif %}
                 </div>
             </header>
 
