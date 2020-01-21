@@ -18,12 +18,13 @@ import { find } from "../../helpers/queries";
 import * as routes from "../../helpers/routes";
 import { classificationString } from "../../models/jobUtil";
 import { axios } from "../../api/base";
-import IntlContainer from "../../IntlContainer";
+import RootContainer from "../RootContainer";
 
 interface ReviewApplicationsProps {
   job: Job;
   initApplications: Application[];
   reviewStatuses: ReviewStatus[];
+  isHrAdvisor: boolean;
 }
 
 interface ReviewApplicationsState {
@@ -202,7 +203,7 @@ class ReviewApplicationsRoot extends React.Component<
 
   public render(): React.ReactElement {
     const { applications, savingStatuses } = this.state;
-    const { reviewStatuses, job } = this.props;
+    const { reviewStatuses, job, isHrAdvisor } = this.props;
     const { intl } = this.props;
 
     const reviewStatusOptions = reviewStatuses.map(status => ({
@@ -212,6 +213,7 @@ class ReviewApplicationsRoot extends React.Component<
 
     return (
       <ReviewApplications
+        jobId={job.id}
         title={job[intl.locale].title}
         classification={classificationString(job)}
         closeDateTime={job.close_date_time}
@@ -221,6 +223,7 @@ class ReviewApplicationsRoot extends React.Component<
         onBulkStatusChange={this.handleBulkStatusChange}
         onNotesChange={this.handleNotesChange}
         savingStatuses={savingStatuses}
+        isHrAdvisor={isHrAdvisor}
       />
     );
   }
@@ -243,16 +246,19 @@ if (document.getElementById("review-applications-container")) {
     const reviewStatuses = JSON.parse(
       container.getAttribute("data-review-statuses") as string,
     );
-    const language = container.getAttribute("data-locale") as string;
+    const isHrAdvisor = JSON.parse(
+      container.getAttribute("data-is-hr-advisor") as string,
+    );
     const IntlReviewApplicationsRoot = injectIntl(ReviewApplicationsRoot);
     ReactDOM.render(
-      <IntlContainer locale={language}>
+      <RootContainer>
         <IntlReviewApplicationsRoot
           job={job}
           initApplications={applications}
           reviewStatuses={reviewStatuses}
+          isHrAdvisor={!!isHrAdvisor}
         />
-      </IntlContainer>,
+      </RootContainer>,
       container,
     );
   }

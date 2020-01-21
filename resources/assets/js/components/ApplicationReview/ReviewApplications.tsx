@@ -5,8 +5,12 @@ import { Application } from "../../models/types";
 import { SelectOption } from "../Select";
 import { applicationCategory } from "./helpers";
 import ReviewCategory from "./ReviewCategory";
+import ActivityFeed from "../ActivityFeed";
+import { applicantReviewLocations } from "../../models/localizedConstants";
+import { LocationId } from "../../models/lookupConstants";
 
 interface ReviewApplicationsProps {
+  jobId: number;
   title: string;
   classification: string;
   closeDateTime: Date | null;
@@ -19,9 +23,11 @@ interface ReviewApplicationsProps {
   ) => void;
   onNotesChange: (applicationId: number, notes: string | null) => void;
   savingStatuses: { applicationId: number; isSaving: boolean }[];
+  isHrAdvisor: boolean;
 }
 
 const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
+  jobId,
   title,
   classification,
   closeDateTime,
@@ -31,6 +37,7 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
   onBulkStatusChange,
   onNotesChange,
   savingStatuses,
+  isHrAdvisor,
 }: ReviewApplicationsProps): React.ReactElement => {
   const categories = [
     {
@@ -125,6 +132,16 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
                 "day",
               ),
             }}
+          />
+        </div>
+      </div>
+      <div data-clone>
+        <div data-c-margin="bottom(1)">
+          <ActivityFeed
+            jobId={jobId}
+            isHrAdvisor={isHrAdvisor}
+            generalLocation={LocationId.applicantsGeneric}
+            locationMessages={applicantReviewLocations}
           />
         </div>
       </div>
