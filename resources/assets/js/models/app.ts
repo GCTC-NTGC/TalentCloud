@@ -12,3 +12,5 @@ export interface Link {
 }
 
 export type ValuesOf<T> = T[keyof T];
+
+export type Portal = "manager" | "hr";

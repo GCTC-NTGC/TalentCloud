@@ -5,6 +5,7 @@ import { Application } from "../../models/types";
 import { SelectOption } from "../Select";
 import { applicationCategory } from "./helpers";
 import ReviewCategory from "./ReviewCategory";
+import { Portal } from "../../models/app";
 
 interface ReviewApplicationsProps {
   title: string;
@@ -19,6 +20,7 @@ interface ReviewApplicationsProps {
   ) => void;
   onNotesChange: (applicationId: number, notes: string | null) => void;
   savingStatuses: { applicationId: number; isSaving: boolean }[];
+  portal: Portal;
 }
 
 const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
@@ -31,6 +33,7 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
   onBulkStatusChange,
   onNotesChange,
   savingStatuses,
+  portal,
 }: ReviewApplicationsProps): React.ReactElement => {
   const categories = [
     {
@@ -138,6 +141,7 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
             onNotesChange={onNotesChange}
             savingStatuses={savingStatuses}
             onBulkStatusChange={onBulkStatusChange}
+            portal={portal}
           />
         ),
       )}
