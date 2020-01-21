@@ -927,7 +927,7 @@
         "id": "hrPortal.jobPageIndex.jobActionsHeader"
       },
       {
-        "defaultMessage": "This is a list of all job actions you are currently participating\r\n                in. Looking for an older job? Check the 'My Completed Job Actions'\r\n                section below your active jobs.",
+        "defaultMessage": "This is a list of all job actions you are currently participating in. Looking for an older job? Check the 'My Completed Job Actions' section below your active jobs.",
         "description": "Message before list of users job actions.",
         "id": "hrPortal.jobPageIndex.jobActionsMessage"
       },
@@ -942,7 +942,7 @@
         "id": "hrPortal.jobPageIndex.preDepartmentName"
       },
       {
-        "defaultMessage": "This is the list of all active job actions in your department. From\r\n                here you can 'claim' a job, which will move it into your jobs list\r\n                above and allow you to begin working with the hiring manager on\r\n                finding the best talent possible. If you claim a job by accident, no\r\n                fear, for you can click into the job summary and remove yourself\r\n                using the 'Remove Myself From This Job' button.",
+        "defaultMessage": "This is the list of all active job actions in your department. From here you can 'claim' a job, which will move it into your jobs list above and allow you to begin working with the hiring manager on finding the best talent possible. If you claim a job by accident, no fear, for you can click into the job summary and remove yourself using the 'Remove Myself From This Job' button.",
         "description": "Message before list of unclaimed jobs.",
         "id": "hrPortal.jobPageIndex.unclaimedJobsMessage"
       },
@@ -1415,7 +1415,7 @@
         "id": "jobBuilder.impact.teamHeader"
       },
       {
-        "defaultMessage": "Describe the value your team/service/initiative brings to Canadians.\r\n              It doesn’t matter if your work is direct to citizens or back office,\r\n              innovative or maintenance, top priority or ongoing. Describe how it\r\n              contributes to making Canada better the way you would to someone who\r\n              knows nothing about your work.",
+        "defaultMessage": "Describe the value your team/service/initiative brings to Canadians. It doesn’t matter if your work is direct to citizens or back office, innovative or maintenance, top priority or ongoing. Describe how it contributes to making Canada better the way you would to someone who knows nothing about your work.",
         "description": "Body of Job Poster Builder Team Impact Section",
         "id": "jobBuilder.impact.teamBody"
       },
@@ -1425,7 +1425,7 @@
         "id": "jobBuilder.impact.hireHeader"
       },
       {
-        "defaultMessage": "Describe how the new hire will contribute in this role. Focus on the\r\n              value they’ll bring, not on specific tasks (you’ll provide these\r\n              later on). For example “In this role, you’ll contribute to…” or, “As\r\n              a member of this team, you’ll be responsible for helping us…”",
+        "defaultMessage": "Describe how the new hire will contribute in this role. Focus on the value they’ll bring, not on specific tasks (you’ll provide these later on). For example “In this role, you’ll contribute to…” or, “As a member of this team, you’ll be responsible for helping us…”",
         "description": "Body of Job Poster Builder Hire Impact Section",
         "id": "jobBuilder.impact.hireBody"
       },
@@ -1445,7 +1445,7 @@
         "id": "jobBuilder.impact.modalTitle"
       },
       {
-        "defaultMessage": "Here's a preview of the Impact Statement you just\r\n                        entered. Feel free to go back and edit things or move to\r\n                        the next step if you're happy with it.",
+        "defaultMessage": "Here's a preview of the Impact Statement you just entered. Feel free to go back and edit things or move to the next step if you're happy with it.",
         "description": "Description of modal dialog for Impact review.",
         "id": "jobBuilder.impact.modalDescription"
       },
@@ -1584,7 +1584,7 @@
         "id": "jobBuilder.intro.changeDepartment"
       },
       {
-        "defaultMessage": "Complete the job poster in the language of your choice. We will\r\n                  handle translation.",
+        "defaultMessage": "Complete the job poster in the language of your choice. We will handle translation.",
         "description": "Instructions at bottom of form on language choice for job poster builder.",
         "id": "jobBuilder.intro.completeInLanguage"
       },
@@ -2455,7 +2455,7 @@
         "id": "jobBuilder.skills.title"
       },
       {
-        "defaultMessage": "This is where you'll select the criteria that are required to do\r\n            this job effectively. Below are two bars that indicate a measurement\r\n            of your current skill selection.",
+        "defaultMessage": "This is where you'll select the criteria that are required to do this job effectively. Below are two bars that indicate a measurement of your current skill selection.",
         "description": "section description under title",
         "id": "jobBuilder.skills.description"
       },
@@ -2585,7 +2585,7 @@
         "id": "jobBuilder.skills.title.missingSkill"
       },
       {
-        "defaultMessage": "Building a skills list is a huge endeavour, and it's not\r\n  surprising that Talent Cloud's list doesn't have the skill\r\n  you're looking for. To help us expand our skill list, please {link}. Provide the skill's name, as well as a short description to\r\n  kick-off the discussion.",
+        "defaultMessage": "Building a skills list is a huge endeavour, and it's not surprising that Talent Cloud's list doesn't have the skill you're looking for. To help us expand our skill list, please {link}. Provide the skill's name, as well as a short description to kick-off the discussion.",
         "id": "jobBuilder.skills.instructions.missingSkills"
       },
       {
@@ -2634,7 +2634,7 @@
         "id": "jobBuilder.skills.title.keepItUp"
       },
       {
-        "defaultMessage": "Here's a preview of the Skills you just entered. Feel free to\r\n                go back and edit things or move to the next step if you're\r\n                happy with it.",
+        "defaultMessage": "Here's a preview of the Skills you just entered. Feel free to go back and edit things or move to the next step if you're happy with it.",
         "description": "Body text of Keep it up! Modal",
         "id": "jobBuilder.skills.description.keepItUp"
       },
@@ -2719,7 +2719,7 @@
         "id": "jobBuilder.tasks.intro.fourth"
       },
       {
-        "defaultMessage": "You have {taskCount, plural,\r\n                      one {# task}\r\n                      other {# tasks}\r\n                    } added.",
+        "defaultMessage": "You have {taskCount, plural, one {# task} other {# tasks}} added.",
         "description": "Indicates how many tasks are present on the page.",
         "id": "jobBuilder.tasks.taskCount.some"
       },
@@ -3124,7 +3124,7 @@
         "id": "jobBuilder.workEnv.greatStart"
       },
       {
-        "defaultMessage": "Here's a preview of the Job Information you just entered. Feel\r\n                free to go back and edit things or move to the next step if\r\n                you're happy with it.",
+        "defaultMessage": "Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it.",
         "description": "Opening sentence for modal.",
         "id": "jobBuilder.workEnv.openingSentence"
       },
@@ -3767,7 +3767,7 @@
         "id": "jobBuilder.details.frequencyOccasionallyLabel"
       },
       {
-        "defaultMessage": "Almost Never",
+        "defaultMessage": "Never",
         "description": "The form label displayed on 'never' frequency options.",
         "id": "jobBuilder.details.frequencyNeverLabel"
       },

@@ -450,7 +450,7 @@
   {
     "id": "jobBuilder.details.frequencyNeverLabel",
     "description": "The form label displayed on 'never' frequency options.",
-    "defaultMessage": "Almost Never"
+    "defaultMessage": "Never"
   },
   {
     "id": "jobBuilder.details.overtimeFrequentlyLabel",
