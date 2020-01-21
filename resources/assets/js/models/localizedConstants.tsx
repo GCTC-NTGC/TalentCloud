@@ -912,13 +912,13 @@ export const activityLocations = defineMessages({
     description: "Location where the activity is located.",
   },
   [LocationId.summary]: {
-    id: "activityfeed.locations.hr.summary",
-    defaultMessage: "HR Summary Page",
+    id: "activityfeed.locations.summary",
+    defaultMessage: "Summary Page",
     description: "Location where the activity is located.",
   },
   [LocationId.preview]: {
-    id: "activityfeed.locations.hr.preview",
-    defaultMessage: "HR Preview Page",
+    id: "activityfeed.locations.preview",
+    defaultMessage: "Preview Page",
     description: "Location where the activity is located.",
   },
 });

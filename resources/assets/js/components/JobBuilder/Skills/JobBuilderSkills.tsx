@@ -624,9 +624,7 @@ export const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps &
         <p data-c-margin="bottom(triple)">
           <FormattedMessage
             id="jobBuilder.skills.description"
-            defaultMessage="This is where you'll select the criteria that are required to do
-            this job effectively. Below are two bars that indicate a measurement
-            of your current skill selection."
+            defaultMessage="This is where you'll select the criteria that are required to do this job effectively. Below are two bars that indicate a measurement of your current skill selection."
             description="section description under title"
           />
         </p>
@@ -1432,10 +1430,7 @@ export const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps &
           /> */}
           <FormattedMessage
             id="jobBuilder.skills.instructions.missingSkills"
-            defaultMessage="Building a skills list is a huge endeavour, and it's not
-  surprising that Talent Cloud's list doesn't have the skill
-  you're looking for. To help us expand our skill list, please {link}. Provide the skill's name, as well as a short description to
-  kick-off the discussion."
+            defaultMessage="Building a skills list is a huge endeavour, and it's not surprising that Talent Cloud's list doesn't have the skill you're looking for. To help us expand our skill list, please {link}. Provide the skill's name, as well as a short description to kick-off the discussion."
             values={{
               link: (
                 <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca">
@@ -1760,9 +1755,7 @@ export const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps &
               <p>
                 <FormattedMessage
                   id="jobBuilder.skills.description.keepItUp"
-                  defaultMessage="Here's a preview of the Skills you just entered. Feel free to
-                go back and edit things or move to the next step if you're
-                happy with it."
+                  defaultMessage="Here's a preview of the Skills you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
                   description="Body text of Keep it up! Modal"
                 />
               </p>

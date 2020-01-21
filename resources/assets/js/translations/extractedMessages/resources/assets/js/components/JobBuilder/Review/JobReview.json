@@ -130,16 +130,6 @@
     "defaultMessage": "Please complete your manager profile."
   },
   {
-    "id": "jobBuilder.review.reviewYourPoster",
-    "description": "Title for Review Job Poster section.",
-    "defaultMessage": "Review Your Job Poster for:"
-  },
-  {
-    "id": "jobBuilder.review.headsUp",
-    "description": "Description under primary title of review section",
-    "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\n            understand how an applicant will see it once published."
-  },
-  {
     "id": "jobBuilder.review.remoteAllowed",
     "description": "Text displayed when remote work is allowed.",
     "defaultMessage": "Remote Work Allowed"
@@ -200,6 +190,16 @@
     "defaultMessage": "You haven't added any Nice to Have skills to this poster."
   },
   {
+    "id": "jobBuilder.review.reviewYourPoster",
+    "description": "Title for Review Job Poster section.",
+    "defaultMessage": "Review Your Job Poster for:"
+  },
+  {
+    "id": "jobBuilder.review.headsUp",
+    "description": "Description under primary title of review section",
+    "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\r\n            understand how an applicant will see it once published."
+  },
+  {
     "id": "jobBuilder.review.button.return",
     "description": "Label of 'Previous Step' button.",
     "defaultMessage": "Save & Return to Skills"
@@ -221,7 +221,7 @@
   },
   {
     "id": "jobBuilder.review.whatHappens",
-    "description": "Rhtorical question",
+    "description": "Rhetorical question",
     "defaultMessage": "What happens next?"
   },
   {
