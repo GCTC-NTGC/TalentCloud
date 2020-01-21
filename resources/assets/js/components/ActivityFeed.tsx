@@ -95,7 +95,7 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
           >
             <CommentForm
               jobId={jobId}
-              isHrAdviser={isHrAdvisor}
+              isHrAdvisor={isHrAdvisor}
               location={generalLocation}
               locationOptions={...locationOptions}
             />
