@@ -173,34 +173,13 @@
 						{# Add routes to JPB Review, SPB, etc #}
 						<div data-c-grid="gutter(all, 1)">
 							<div data-c-grid-item="tp(1of2) tl(1of4)">
-								<a class="tc-summary-action" href={{ job_review_url }} title="" data-c-card data-c-background="white(100)" data-c-radius="rounded">
-									<div data-c-padding="tb(2) rl(1)" data-c-align="base(center)">
-										<img src="/images/job-process-summary-tool-edit.svg" alt="{{ summary.edit_poster_icon }} {{ summary.flat_icons }}">
-									</div>
-									<div data-c-background="c2(100)" data-c-padding="tb(.5) rl(1)" data-c-align="base(center)">
-										<span data-c-color="white" data-c-font-style="underline">{{ summary.edit_poster_button }}</span>
-									</div>
-								</a>
+								{% include "hr_advisor/summary_action_card" with {'data': job_review_data} %}
 							</div>
 							<div data-c-grid-item="tp(1of2) tl(1of4)">
-								<a class="tc-summary-action" href={{ job_preview_url }} title="" data-c-card data-c-background="white(100)" data-c-radius="rounded">
-									<div data-c-padding="tb(2) rl(1)" data-c-align="base(center)">
-										<img src="/images/job-process-summary-tool-view.svg" alt="{{ summary.view_poster_icon }} {{ summary.flat_icons }}">
-									</div>
-									<div data-c-background="c2(100)" data-c-padding="tb(.5) rl(1)" data-c-align="base(center)">
-										<span data-c-color="white" data-c-font-style="underline">{{ summary.view_poster_button }}</span>
-									</div>
-								</a>
+								{% include "hr_advisor/summary_action_card" with {'data': job_preview_data} %}
 							</div>
 							<div data-c-grid-item="tp(1of2) tl(1of4)">
-								<a class="tc-summary-action" href={{ screening_plan_url }} title="" data-c-card data-c-background="white(100)" data-c-radius="rounded">
-									<div data-c-padding="tb(2) rl(1)" data-c-align="base(center)">
-										<img src="/images/job-process-summary-tool-screen.svg" alt="{{ summary.screening_plan_icon }} {{ summary.flat_icons }}">
-									</div>
-									<div data-c-background="c2(100)" data-c-padding="tb(.5) rl(1)" data-c-align="base(center)">
-										<span data-c-color="white" data-c-font-style="underline">{{ summary.screening_plan_button }}</span>
-									</div>
-								</a>
+								{% include "hr_advisor/summary_action_card" with {'data': screening_plan_data} %}
 							</div>
 							<div data-c-grid-item="tp(1of2) tl(1of4)">
 								{% include "hr_advisor/summary_action_card" with {'data': view_applicants_data} %}
