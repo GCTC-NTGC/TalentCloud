@@ -10,7 +10,7 @@ return [
     'hero' => [
         'heading' => 'Talent Cloud',
         'heading_alt' => 'The Canadian maple leaf.',
-        'subheading' => 'An experimental platform. Hiring made easier.',
+        // 'subheading' => '',
         'sign_up_button' => 'Sign Up',
     ],
     'banner' => [
@@ -86,6 +86,7 @@ return [
         'link' => [
             'text' => 'Request an Event',
             'title' => 'Click this link to email Talent Cloud about requesting an event.',
+            'href' => 'mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca',
         ],
     ],
     'design' => [
