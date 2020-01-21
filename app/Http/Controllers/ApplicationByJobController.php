@@ -49,7 +49,8 @@ class ApplicationByJobController extends Controller
             // Data.
             'job' => $jobPoster->toApiArray(),
             'applications' => $applications,
-            'review_statuses' => ReviewStatus::all()
+            'review_statuses' => ReviewStatus::all(),
+            'isHrAdvisor' => Auth::user()->isHrAdvisor(),
         ]);
     }
 
