@@ -763,7 +763,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
         <h3
           data-c-font-size="h3"
           data-c-font-weight="bold"
-          data-c-margin="bottom(double)"
+          data-c-margin="bottom(normal)"
         >
           <FormattedMessage
             id="jobBuilder.review.reviewYourPoster"
@@ -772,7 +772,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
           />{" "}
           <span data-c-colour="c2">{job[locale].title}</span>
         </h3>
-        <p>
+        <p data-c-margin="bottom(double)">
           <FormattedMessage
             id="jobBuilder.review.headsUp"
             defaultMessage="Just a heads up! We've rearranged some of your information to help you
