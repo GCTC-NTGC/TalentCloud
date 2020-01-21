@@ -3,6 +3,8 @@ import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import ActivityList from "../components/ActivityList";
 import Activity from "../components/Activity";
+import { jobReviewLocations } from "../models/localizedConstants";
+import { LocationId } from "../models/lookupConstants";
 
 const stories = storiesOf("Components|Activity Feed", module).addDecorator(
   withIntl,
