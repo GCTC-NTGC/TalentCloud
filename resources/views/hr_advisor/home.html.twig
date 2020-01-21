@@ -4,158 +4,144 @@
     HR Portal: Home
 
 ============================================================================= #}
-
 {% extends "layouts/base" %}
-
 {% block title %}
-    {{ menu.home_title }}
+	{{ menu.home_title }}
 {% endblock %}
-
 {% block body %}
-
-    {% include "common/goc" %}
-    {% include "common/alert" %}
-
-    {# {% include "common/home/hero" %} #}
-
-    <div data-clone>
-
-        <div data-c-background="white(100)">
-
-            <header data-c-overlay="black(80)" style="background-image: url('/images/sean-pollock.jpg');">
-                {% include "common/menu" %}
-                <div data-c-container="large" data-c-align="base(center)">
-                    <h1 class="logotype" data-c-font-size="h1" data-c-font-weight="600" data-c-color="white" data-c-margin="top(3)">
-                        Talent Cloud <img src="$ROOT/img/maple-leaf.svg" alt="The Canadian maple leaf.">
-                    </h1>
-                    <button data-c-button="outline(white)" data-c-margin="tb(triple)" data-c-radius="rounded">
-                        Sign Up
-                    </button>
-                </div>
-            </header>
-
-            <div class="tc-hr-home-cta" data-c-padding="tb(normal)">
-                <div data-c-container="large" data-c-align="base(center)">
-                    <p data-c-color="white" data-c-margin="tb(half)">You're visiting the HR Portal. Looking for the Applicant portal? <a href="/" title="Click this link to visit the applicant portal.">Head on over</a>.</p>
-                </div>
-            </div>
-
-            <a id="skipLink"></a>
-
-            <div class="tc-hr-home-contained-background">
-                <div data-c-container="large">
-                    <div data-c-grid>
-                        <div data-c-grid-item="tl(3of5) equal-col">
-                            <div data-c-padding="tb(triple)">
-                                <h2 data-c-font-size="h2" data-c-margin="bottom(normal)">As an HR Advisor on Talent Cloud...</h2>
-                                <p data-c-margin="bottom(1)">In the HR Advisor Portal, you can currently:</p>
-                                <ul>
-                                    <li>See all the Talent Cloud jobs submitted for your department</li>
-                                    <li>Find critical information easily, such as the current number of applications, the Priority Clearance Number and the link to a live jobs “alternate posting” on the GC Jobs site</li>
-                                    <li>See which HR advisors in your department are working on specific jobs</li>
-                                    <li>Claim all the jobs you’re advising on, and “return” them if your role changes</li>
-                                    <li>Review and comment on hiring managers’ draft job posters</li>
-                                    <li>Build, review and comment on the screening plan for each job</li>
-                                    <li>Review the applications submitted by candidates</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div data-c-grid-item="tl(2of5) equal-col" class="tc-hr-home-right-background">
-                            <div data-c-padding="tb(triple)">
-                                <h2 data-c-font-size="h2" data-c-margin="bottom(normal)">Welcome!</h2>
-                                <p>This is a beta site, which means it’s still under development and testing. Expect new features and updates over the coming year, as well as requests for your ideas and input on ways to improve your experience.</p>
-                                <hr data-c-margin="tb(normal)">
-                                <p>The Talent Cloud team relies on input and advice from users to improve products and serve you better. If you have any comments, find any bugs or just want to help us test some of the features currently in development, please get in touch!</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div data-c-overlay="black(90)" style="background-image: url('/images/sean-pollock.jpg');" data-c-padding="tb(triple)">
-                <div data-c-container="large">
-                    <div data-c-grid="gutter(all, 1)">
-                        <div data-c-grid-item="tl(2of5) equal-col">
-                            <div data-c-card data-c-color="white" data-c-background="c2(100)" data-c-radius="rounded" data-c-padding="all(double)">
-                                <h2 data-c-font-size="h2" data-c-margin="bottom(normal)">From Our Blog</h2>
-                                <h3 data-c-font-size-"h3" data-c-margin="bottom(.5)"><a href="https://gccollab.ca/blog/view/876781/entalent-cloud-assumptions-time-to-stafffrspu00e9culation-de-lu2019u00e9quipe-nuage-de-talents-u2013-duru00e9e-du-processus-de-dotation" title="Click this link to open 'Talent Cloud Assumptions - Time to Staff in a new tab or window." target="_blank">Talent Cloud Assumptions - Time to Staff</a></h3>
-                                <p data-c-margin="bottom(1)">Authored by: Gray O'Byrne</p>
-                                <p data-c-margin="bottom(1)">At Talent Cloud, we’re trying to reduce time-to-staff. Early on, based on user testing, Talent Cloud identified 20 potential factors in decreasing the total length of time it takes to hire someone into government. The platform has already built features that address many of these assumptions and early results are promising. This foundational document still drives our work, so let us know what you think!</p>
-                                <a href="https://gccollab.ca/blog/view/876781/entalent-cloud-assumptions-time-to-stafffrspu00e9culation-de-lu2019u00e9quipe-nuage-de-talents-u2013-duru00e9e-du-processus-de-dotation" title="" data-c-button="outline(white)" data-c-radius="rounded">Read on GC Collab</a>
-                            </div>
-                        </div>
-                        <div data-c-grid-item="tl(3of5) equal-col">
-                            <div data-c-card data-c-background="white(100)" data-c-radius="rounded" data-c-padding="all(double)">
-                                <h2 data-c-font-size="h2" data-c-margin="bottom(normal)">What's Next for HR &amp; Talent Cloud</h2>
-                                <p data-c-margin="bottom(1)">Features for the HR Portal currently in development include:</p>
-                                <ul>
-                                    <li>A “chess timer” clock that shows how long managers and HR advisors are spending on each task</li>
-                                    <li>A Notification Record showing any new activity on a job poster by managers or HR advisors</li>
-                                    <li>An upgrade to the Assessment Planning tool (which is currently only a rough beta)</li>
-                                    <li>An Interview Ratings Guide tool</li>
-                                    <li>Supporting tools for Applicant Communications (e.g. emails and platform notifications)</li>
-                                    <li>A Record of Decision tool (showing how managers evaluate each candidate against each selection criteria for each assessment method used, as well the rationales for final candidate selection)</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tc-hr-home-contained-background" data-c-border="bottom(thin, solid, black)">
-                <div data-c-container="large">
-                    <div data-c-grid>
-                        <div data-c-grid-item="tl(2of5) equal-col" class="tc-hr-home-left-background">
-                            <div data-c-padding="tb(triple)">
-                                <h2 data-c-font-size="h2" data-c-margin="bottom(normal)">Talent Cloud’s Policy Compliance Commitment</h2>
-                                <p data-c-margin="bottom(1)">Talent Cloud works with HR teams and policy experts to ensure policy compliance while focusing on improving the experience for all parties involved.</p>
-                                <p data-c-margin="bottom(1)">This includes (but is not limited to) the following:</p>
-                                <ul>
-                                    <li>All content bilingual and accessible</li>
-                                    <li>All jobs classified by HR authorities in partner departments</li>
-                                    <li>All jobs also posted to GCjobs (with link attached to job record in this portal)</li>
-                                    <li>Integrated priority screening (with clearance number attached to job record in this portal)</li>
-                                    <li>Privacy Impact Assessment</li>
-                                    <li>IT Security review</li>
-                                    <li>Authority to Operate</li>
-                                    <li>TBS-approved online content</li>
-                                    <li>PCO-approved social media account</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div data-c-grid-item="tl(3of5) equal-col">
-                            <div data-c-padding="tb(triple)">
-                                <h2 data-c-font-size="h2" data-c-margin="bottom(normal)">Events &amp; Engagement</h2>
-                                <p data-c-margin="bottom(double)">Think your team could benefit from some one-on-one time with Talent Cloud? We offer unique engagement workshops and events to help both your HR team and your hiring managers learn more about Talent Cloud and how it can benefit them.</p>
-                                <div data-c-grid="gutter">
-                                    <div data-c-grid-item="tl(1of2) equal-col">
-                                        <div data-c-border="all(thin, solid, c1)" data-c-radius="rounded" data-c-padding="normal"
-                                        data-c-color="c1">
-                                            <h3 data-c-font-weight="bold" data-c-font-size="h4" data-c-margin="bottom(normal)">HR Super User Meetings</h3>
-                                            <p>Talent Cloud collaborates with HR users in each of our partner departments to help identify pain points and iterate on possible solutions to enhance the HR experience. These HR super users participate in regular meetings with our team to coordinate and discuss these features to ensure that they can test and provide feedback on a regular schedule.</p>
-                                        </div>
-                                    </div>
-                                    <div data-c-grid-item="tl(1of2) equal-col">
-                                        <div data-c-border="all(thin, solid, c1)" data-c-radius="rounded" data-c-padding="normal"
-                                        data-c-color="c1">
-                                            <h3 data-c-font-weight="bold" data-c-font-size="h4" data-c-margin="bottom(normal)">Talent Cloud Workshops</h3>
-                                            <p>Talent Cloud also offers a variety of workshops to help colleagues in the HR space better understand the problems Talent Cloud tries to address. These workshops vary from demos of the platform to discussing specific HR pain points and ideating on potential solutions through the Talent Cloud platform.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div data-c-align="base(center) tl(right)">
-                                    <p data-c-margin="top(double)">
-                                        <a href="/" title="" data-c-button="solid(c1)" data-c-radius="rounded">Request an Event</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
+	{% include "common/goc" %}
+	{% include "common/alert" %}
+	{# {% include "common/home/hero" %} #}
+	<div data-clone>
+		<div data-c-background="white(100)">
+			<header data-c-overlay="black(80)" style="background-image: url('/images/sean-pollock.jpg');">
+				{% include "common/menu" %}
+				<div data-c-container="large" data-c-align="base(center)">
+					<h1 class="logotype" data-c-font-size="h1" data-c-font-weight="600" data-c-color="white" data-c-margin="top(3)">
+						{{ hr_home.hero.heading }}
+						<img src="$ROOT/img/maple-leaf.svg" alt="{{ hr_home.hero.heading_alt }}">
+					</h1>
+					<button data-c-button="outline(white)" data-c-margin="tb(triple)" data-c-radius="rounded">
+						{{ hr_home.hero.sign_up_button }}
+					</button>
+				</div>
+			</header>
+			<div class="tc-hr-home-cta" data-c-padding="tb(normal)">
+				<div data-c-container="large" data-c-align="base(center)">
+					<p data-c-color="white" data-c-margin="tb(half)">{{ hr_home.banner.content }}
+						<a href="/" title="{{ hr_home.banner.anchor.title }}">{{ hr_home.banner.anchor.text }}</a>.</p>
+				</div>
+			</div>
+			<a id="skipLink"></a>
+			<div class="tc-hr-home-contained-background">
+				<div data-c-container="large">
+					<div data-c-grid>
+						<div data-c-grid-item="tl(3of5) equal-col">
+							<div data-c-padding="tb(triple)">
+								<h2 data-c-font-size="h2" data-c-margin="bottom(normal)">{{ hr_home.heading.about }}</h2>
+								<p data-c-margin="bottom(1)">{{ hr_home.about.p1 }}</p>
+								<ul>
+									<li>{{ hr_home.about.l11 }}</li>
+									<li>{{ hr_home.about.l12 }}</li>
+									<li>{{ hr_home.about.l13 }}</li>
+									<li>{{ hr_home.about.l14 }}</li>
+									<li>{{ hr_home.about.l15 }}</li>
+									<li>{{ hr_home.about.l16 }}</li>
+									<li>{{ hr_home.about.l17 }}</li>
+								</ul>
+							</div>
+						</div>
+						<div data-c-grid-item="tl(2of5) equal-col" class="tc-hr-home-right-background">
+							<div data-c-padding="tb(triple)">
+								<h2 data-c-font-size="h2" data-c-margin="bottom(normal)">{{ hr_home.heading.welcome }}</h2>
+								<p>{{ hr_home.welcome.p1 }}</p>
+								<hr data-c-margin="tb(normal)">
+								<p>{{ hr_home.welcome.p2 }}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div data-c-overlay="black(90)" style="background-image: url('/images/sean-pollock.jpg');" data-c-padding="tb(triple)">
+				<div data-c-container="large">
+					<div data-c-grid="gutter(all, 1)">
+						<div data-c-grid-item="tl(2of5) equal-col">
+							<div data-c-card data-c-color="white" data-c-background="c2(100)" data-c-radius="rounded" data-c-padding="all(double)">
+								<h2 data-c-font-size="h2" data-c-margin="bottom(normal)">{{ hr_home.heading.blog }}</h2>
+								<h3 data-c-font-size-"h3" data-c-margin="bottom(.5)">
+									<a href="https://gccollab.ca/blog/view/876781/entalent-cloud-assumptions-time-to-stafffrspu00e9culation-de-lu2019u00e9quipe-nuage-de-talents-u2013-duru00e9e-du-processus-de-dotation" title="{{ hr_home.blog.link.title }}" target="_blank">{{ hr_home.blog.link.text }}</a>
+								</h3>
+								<p data-c-margin="bottom(1)">{{ hr_home.blog.author }}</p>
+								<p data-c-margin="bottom(1)">{{ hr_home.blog.teaser }}</p>
+								<a href="https://gccollab.ca/blog/view/876781/entalent-cloud-assumptions-time-to-stafffrspu00e9culation-de-lu2019u00e9quipe-nuage-de-talents-u2013-duru00e9e-du-processus-de-dotation" title="{{ hr_home.blog.link_gc.title }}" data-c-button="outline(white)" data-c-radius="rounded">{{ hr_home.blog.link_gc.text }}</a>
+							</div>
+						</div>
+						<div data-c-grid-item="tl(3of5) equal-col">
+							<div data-c-card data-c-background="white(100)" data-c-radius="rounded" data-c-padding="all(double)">
+								<h2 data-c-font-size="h2" data-c-margin="bottom(normal)">{{ hr_home.heading.next }}</h2>
+								<p data-c-margin="bottom(1)">{{ hr_home.next.p1 }}</p>
+								<ul>
+									<li>{{ hr_home.next.li1 }}</li>
+									<li>{{ hr_home.next.li2 }}</li>
+									<li>{{ hr_home.next.li3 }}</li>
+									<li>{{ hr_home.next.li4 }}</li>
+									<li>{{ hr_home.next.li5 }}</li>
+									<li>{{ hr_home.next.li6 }}</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tc-hr-home-contained-background" data-c-border="bottom(thin, solid, black)">
+				<div data-c-container="large">
+					<div data-c-grid>
+						<div data-c-grid-item="tl(2of5) equal-col" class="tc-hr-home-left-background">
+							<div data-c-padding="tb(triple)">
+								<h2 data-c-font-size="h2" data-c-margin="bottom(normal)">{{ hr_home.heading.policy }}</h2>
+								<p data-c-margin="bottom(1)">{{ hr_home.policy.p1 }}</p>
+								<p data-c-margin="bottom(1)">{{ hr_home.policy.p2 }}</p>
+								<ul>
+									<li>{{ hr_home.policy.li1 }}</li>
+									<li>{{ hr_home.policy.li2 }}</li>
+									<li>{{ hr_home.policy.li3 }}</li>
+									<li>{{ hr_home.policy.li4 }}</li>
+									<li>{{ hr_home.policy.li5 }}</li>
+									<li>{{ hr_home.policy.li6 }}</li>
+									<li>{{ hr_home.policy.li7 }}</li>
+									<li>{{ hr_home.policy.li8 }}</li>
+									<li>{{ hr_home.policy.li9 }}</li>
+								</ul>
+							</div>
+						</div>
+						<div data-c-grid-item="tl(3of5) equal-col">
+							<div data-c-padding="tb(triple)">
+								<h2 data-c-font-size="h2" data-c-margin="bottom(normal)">{{ hr_home.heading.events }}</h2>
+								<p data-c-margin="bottom(double)">{{ hr_home.events.p1 }}</p>
+								<div data-c-grid="gutter">
+									<div data-c-grid-item="tl(1of2) equal-col">
+										<div data-c-border="all(thin, solid, c1)" data-c-radius="rounded" data-c-padding="normal" data-c-color="c1">
+											<h3 data-c-font-weight="bold" data-c-font-size="h4" data-c-margin="bottom(normal)">{{ hr_home.events.h1 }}</h3>
+											<p>{{ hr_home.events.p2 }}</p>
+										</div>
+									</div>
+									<div data-c-grid-item="tl(1of2) equal-col">
+										<div data-c-border="all(thin, solid, c1)" data-c-radius="rounded" data-c-padding="normal" data-c-color="c1">
+											<h3 data-c-font-weight="bold" data-c-font-size="h4" data-c-margin="bottom(normal)">{{ hr_home.events.h2 }}</h3>
+											<p>{{ hr_home.events.p3 }}</p>
+										</div>
+									</div>
+								</div>
+								<div data-c-align="base(center) tl(right)">
+									<p data-c-margin="top(double)">
+										<a href="/" title="{{ hr_home.events.link.title }}" data-c-button="solid(c1)" data-c-radius="rounded">{{ hr_home.events.link.text }}</a>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

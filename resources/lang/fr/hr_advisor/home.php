@@ -9,14 +9,90 @@
 return [
     'hero' => [
         'heading' => 'Nuage de talents',
-        'heading_alt' => 'Feuille d\'érable canadienne.',
-        'subheading' => 'Une plateforme expérimentale. L’embauche facilitée.',
+        'heading_alt' => '',
+        'subheading' => '',
+        'sign_up_button' => '',
     ],
     'banner' => [
-        'content' => 'Bienvenue au portail de :open conseillers en RH :close du Nuage de talents.',
+        'content' => '',
         'anchor' => [
-            'text' => 'Cliquez ici pour revenir au portail des candidats.',
-            'title' => 'Revenir au portail des candidats.'
-        ]
-    ]
+            'text' => '',
+            'title' => '',
+        ],
+    ],
+    'heading' => [
+        'about' => '',
+        'welcome' => '',
+        'blog' => '',
+        'next' => '',
+        'policy' => '',
+        'events' => '',
+        'design' => '',
+    ],
+    'about' => [
+        'p1' => '',
+        'li1' => '',
+        'li2' => '',
+        'li3' => '',
+        'li4' => '',
+        'li5' => '',
+        'li6' => '',
+        'li7' => '',
+    ],
+    'welcome' => [
+        'p1' => '',
+        'p2' => '',
+    ],
+    'blog' => [
+        'link' => [
+            'text' => '',
+            'title' => '',
+        ],
+        'link_gc' => [
+            'text' => '',
+            'title' => '',
+        ],
+        'author' => '',
+        'teaser' => '',
+    ],
+    'next' => [
+        'p1' => '',
+        'li1' => '',
+        'li2' => '',
+        'li3' => '',
+        'li4' => '',
+        'li5' => '',
+        'li6' => '',
+    ],
+    'policy' => [
+        'p1' => '',
+        'p2' => '',
+        'li1' => '',
+        'li2' => '',
+        'li3' => '',
+        'li4' => '',
+        'li5' => '',
+        'li6' => '',
+        'li7' => '',
+        'li8' => '',
+        'li9' => '',
+    ],
+    'events' => [
+        'p1' => '',
+        'h1' => '',
+        'p2' => '',
+        'h2' => '',
+        'p3' => '',
+        'link' => [
+            'text' => '',
+            'title' => '',
+        ],
+    ],
+    'design' => [
+        'p1' => '',
+        'link' => [
+            'text' => '',
+            'title' => '',
+        ],
+    ],
 ];
