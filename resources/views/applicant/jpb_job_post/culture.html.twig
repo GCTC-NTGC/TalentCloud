@@ -69,7 +69,7 @@
 				</p>
 			</div>
 			<p class="job-post__culture-copy">
-				{{ job_post.work_environment.telework_allowed[job.telework_allowed_frequency.name] ?: noInfo }}
+				{{ frequencies[job.telework_allowed_frequency.name] ?: noInfo }}
 			</p>
 		</div>
 		<div class="job-post__culture-wrapper box med-1of2">
@@ -82,7 +82,7 @@
 				</p>
 			</div>
 			<p class="job-post__culture-copy">
-				{{ job_post.work_environment.time_flexibility_allowed[job.flexible_hours_frequency.name] ?: noInfo }}
+				{{ frequencies[job.flexible_hours_frequency.name] ?: noInfo }}
 			</p>
 		</div>
 		<div class="job-post__culture-wrapper box med-1of2">
