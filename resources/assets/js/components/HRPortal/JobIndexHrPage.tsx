@@ -212,6 +212,10 @@ const JobIndexHrDataFetcher: React.FC<JobIndexHrDataFetcherProps> = ({
   hrAdvisorId,
 }) => {
   const intl = useIntl();
+  const { locale } = intl;
+  if (locale !== "en" && locale !== "fr") {
+    throw new Error("Unknown intl.locale");
+  }
   const dispatch = useDispatch();
 
   // Request and select hrAdvisor
@@ -265,7 +269,8 @@ const JobIndexHrDataFetcher: React.FC<JobIndexHrDataFetcherProps> = ({
       : null,
   );
   const departmentName =
-    department?.en.name || intl.formatMessage(messages.departmentPlaceholder);
+    department?.[locale].name ||
+    intl.formatMessage(messages.departmentPlaceholder);
 
   // Make claim job function
   const claimJobForAdvisor = (jobId: number): any =>
