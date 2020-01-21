@@ -17,7 +17,8 @@
         {# body #}
             {% include "common/goc" %}
             {% include "common/alert" %}
-            {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title': application_template.title, ':job': job.title})}} %}
+            {# {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title': application_template.title, ':job': job.title})}} %} #}
+            {% include "applicant/application_post/common/header" %}
             {% include "applicant/application_post/common/tracker-ajax" %}
         <section class="application__view-layout">
             {% include "common/application/view/view_layout" %}

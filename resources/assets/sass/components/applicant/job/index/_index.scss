@@ -151,6 +151,13 @@
                 margin: calc(#{$unit} * -1) 0 0;
                 padding: calc(#{$unit} * 1.5);
 
+                .applied {
+                    color: $palette--green !important;
+                    i {
+                        color: $palette--green !important;
+                    }
+                }
+
                 .box {
                     color: $palette--font-black;
                     font-family: $font--sans;

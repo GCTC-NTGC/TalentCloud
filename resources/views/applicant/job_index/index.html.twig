@@ -102,6 +102,9 @@
 
                             <div class="box small-1of2">
                                 <span>{{ job_index.index.apply_by_label|trans }}</span>
+                                {# If you've already applied, show this #}
+                                <p class="applied"><i class="fas fa-check"></i> You've applied to this job.</p>
+                                {# else #}
                                 {% if job.close_date_time.isFuture() %}
                                     <p><i class="fas fa-calendar"></i> {{ humanizeLastDay(job.close_date_time) }}</p>
                                 {% else %}

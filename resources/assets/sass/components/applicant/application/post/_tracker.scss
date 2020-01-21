@@ -100,11 +100,16 @@
     }
   }
 
+  [data-clone] {
+      position: relative;
+      z-index: 5;
+  }
+
   .application-post__step-wrapper {
     display: block;
-    padding: 1rem 0;
+    // padding: 1rem 0;
     position: relative;
-    text-align: center;
+    // text-align: center;
     width: 100%;
     z-index: 5;
   }
@@ -199,7 +204,7 @@
         display: none;
       }
       .fa-circle {
-        color: $clone-c1;
+        color: $clone-white;
         display: block;
       }
       .fa-check-circle {

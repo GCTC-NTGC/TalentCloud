@@ -13,7 +13,8 @@
 	{% include "common/goc" %}
 	{# Standard Alert #}
 	{% include "common/alert" %}{# Page Header #}
-	{# {% include "common/header" %} #}{% include "common/header" with {'header': {'title': ":title: :job"|replace({':title': application_template.title, ':job': job.title})}} %}
+	{# {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title': application_template.title, ':job': job.title})}} %} #}
+    {% include "applicant/application_post/common/header" %}
 	{# Skip to Content Link #}<a id="skipLink"> </a>
 	{# Application Tracker #}
 	{% include "applicant/application_post/common/tracker-ajax" %}
