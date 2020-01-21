@@ -16,19 +16,19 @@ stories
         <CommentForm
           jobId={1}
           location={text("Location", "Job Poster Builder > Step 3: Tasks")}
-          isHrAdviser={false}
+          isHrAdvisor={false}
         />
       </section>
     ),
   )
   .add(
-    "HrAdviser",
+    "HrAdvisor",
     (): React.ReactElement => (
       <section data-c-padding="all(3)">
         <CommentForm
           jobId={1}
           location={text("Location", "Job Poster Builder > Step 2: Details")}
-          isHrAdviser
+          isHrAdvisor
         />
       </section>
     ),

@@ -725,7 +725,7 @@ const frequencyMessages = defineMessages({
   },
   [FrequencyId.never]: {
     id: "jobBuilder.details.frequencyNeverLabel",
-    defaultMessage: "Almost Never",
+    defaultMessage: "Never",
     description: "The form label displayed on 'never' frequency options.",
   },
 });

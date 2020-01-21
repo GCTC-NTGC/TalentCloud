@@ -37,12 +37,35 @@ class JobSummaryController extends Controller
             'disabled' => $job->isClosed(),
         ];
 
+        switch ($job->job_status_id) {
+            case 1:
+                $status = Lang::get('common/lookup/job_status.draft');
+                break;
+            case 2:
+                $status = Lang::get('common/lookup/job_status.in_review');
+                break;
+            case 3:
+                $status = Lang::get('common/lookup/job_status.approved');
+                break;
+            case 4:
+                $status = Lang::get('common/lookup/job_status.open');
+                break;
+            case 5:
+                $status = Lang::get('common/lookup/job_status.closed');
+                break;
+            case 6:
+                $status = Lang::get('common/lookup/job_status.complete');
+                break;
+        }
         // TODO: This should change based on the current status.
-        $status_description = $summaryLang['under_review'];
+        $status_description = $job->job_status_id == 2
+            ? $summaryLang['under_review']
+            : '';
 
         $data = [
             // Localized strings.
             'summary' => $summaryLang,
+            'job_status' => $status,
             'job_status_description' => $status_description,
             'is_claimed' => $jobIsClaimed,
             // User data.
