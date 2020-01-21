@@ -13,6 +13,7 @@ import {
   applicationCompare,
   applicationComparePrioritizeVeterans,
 } from "./helpers";
+import { Portal } from "../../models/app";
 
 interface ApplicantBucketProps {
   title: MessageDescriptor;
@@ -23,6 +24,7 @@ interface ApplicantBucketProps {
   onNotesChange: (applicationId: number, notes: string | null) => void;
   savingStatuses: { applicationId: number; isSaving: boolean }[];
   prioritizeVeterans: boolean;
+  portal: Portal;
 }
 
 const ApplicantBucket: React.StatelessComponent<ApplicantBucketProps &
@@ -35,6 +37,7 @@ const ApplicantBucket: React.StatelessComponent<ApplicantBucketProps &
   onNotesChange,
   savingStatuses,
   prioritizeVeterans,
+  portal,
   intl,
 }: ApplicantBucketProps & WrappedComponentProps): React.ReactElement | null => {
   if (applications.length === 0) {
@@ -84,6 +87,7 @@ const ApplicantBucket: React.StatelessComponent<ApplicantBucketProps &
                 whereFirst(savingStatuses, "applicationId", application.id)
                   .isSaving
               }
+              portal={portal}
             />
           ),
         )}
