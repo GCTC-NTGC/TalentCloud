@@ -11,6 +11,7 @@ import * as routes from "../../helpers/routes";
 import Select, { SelectOption } from "../Select";
 import { Application } from "../../models/types";
 import { ReviewStatusId } from "../../models/lookupConstants";
+import { Portal } from "../../models/app";
 
 const messages = defineMessages({
   veteranLogo: {
@@ -114,6 +115,7 @@ interface ApplicationReviewWithNavProps {
   ) => Promise<void>;
   onNotesChange: (applicationId: number, notes: string | null) => void;
   isSaving: boolean;
+  portal: Portal;
 }
 
 interface ApplicationReviewWithNavState {
@@ -254,7 +256,13 @@ class ApplicationReviewWithNav extends React.Component<
   }
 
   public render(): React.ReactElement {
-    const { application, reviewStatusOptions, isSaving, intl } = this.props;
+    const {
+      application,
+      reviewStatusOptions,
+      isSaving,
+      intl,
+      portal,
+    } = this.props;
     const l10nReviewStatusOptions = reviewStatusOptions.map(status => ({
       value: status.value,
       label: intl.formatMessage(messages[status.label]),
@@ -271,6 +279,16 @@ class ApplicationReviewWithNav extends React.Component<
       "fa-check-circle": reviewStatus === "still_in",
       "fa-exclamation-circle": reviewStatus === null,
     });
+    const applicantUrlMap: { [key in typeof portal]: string } = {
+      hr: routes.hrApplicantShow(intl.locale, application.id),
+      manager: routes.managerApplicantShow(intl.locale, application.id),
+    };
+    const applicationUrlMap: { [key in typeof portal]: string } = {
+      hr: routes.hrApplicationShow(intl.locale, application.id),
+      manager: routes.managerApplicationShow(intl.locale, application.id),
+    };
+    const applicantUrl = applicantUrlMap[portal];
+    const applicationUrl = applicationUrlMap[portal];
 
     const getSaveButtonText = (): string => {
       if (isSaving) {
@@ -393,10 +411,7 @@ class ApplicationReviewWithNav extends React.Component<
             <div className="box lg-2of11 applicant-links">
               <a
                 title={intl.formatMessage(messages.viewApplicationTitle)}
-                href={routes.managerApplicationShow(
-                  intl.locale,
-                  application.id,
-                )}
+                href={applicationUrl}
               >
                 <i className="fas fa-file-alt" />
                 <FormattedMessage
@@ -407,10 +422,7 @@ class ApplicationReviewWithNav extends React.Component<
               </a>
               <a
                 title={intl.formatMessage(messages.viewProfileTitle)}
-                href={routes.managerApplicantShow(
-                  intl.locale,
-                  application.applicant_id,
-                )}
+                href={applicantUrl}
               >
                 <i className="fas fa-user" />
                 <FormattedMessage

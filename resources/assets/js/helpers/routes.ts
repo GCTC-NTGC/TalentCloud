@@ -1,15 +1,31 @@
+function applicationShow(
+  locale: string,
+  prefix: string,
+  applicationId: number,
+): string {
+  return `/${locale}/${prefix}/applications/${applicationId}`;
+}
+
+function applicantShow(
+  locale: string,
+  prefix: string,
+  applicantId: number,
+): string {
+  return `/${locale}/${prefix}/applicants/${applicantId}`;
+}
+
 export function managerApplicationShow(
   locale: string,
   applicationId: number,
 ): string {
-  return `/${locale}/manager/applications/${applicationId}`;
+  return applicationShow(locale, "manager", applicationId);
 }
 
 export function managerApplicantShow(
   locale: string,
   applicantId: number,
 ): string {
-  return `/${locale}/manager/applicants/${applicantId}`;
+  return applicantShow(locale, "manager", applicantId);
 }
 
 export function managerEditProfile(locale: string): string {
@@ -95,6 +111,12 @@ export function hrJobPreview(locale: string, jobId: number): string {
 export function hrScreeningPlan(locale: string, jobId: number): string {
   return `/${locale}/hr/jobs/${jobId}/assessment-plan`;
 }
+export const hrApplicationShow = (
+  locale: string,
+  applicationId: number,
+): string => applicationShow(locale, "hr", applicationId);
+export const hrApplicantShow = (locale: string, applicantId: number): string =>
+  applicantShow(locale, "hr", applicantId);
 
 export function accountSettings(locale: string): string {
   return `/${locale}/settings`;
