@@ -39,6 +39,8 @@ $clone-font-scale: 1.250;
 @import "components/manager/homepage";
 @import "components/manager/builder";
 
+@import "components/hr/home";
+
 // Post-Clone Utilities (move these to their own import later Josh!
 
 .button-trash {
