@@ -287,8 +287,21 @@ class ApplicationReviewWithNav extends React.Component<
       hr: routes.hrApplicationShow(intl.locale, application.id),
       manager: routes.managerApplicationShow(intl.locale, application.id),
     };
+    const jobUrlMap: { [key in typeof portal]: string } = {
+      hr: routes.hrJobPreview(intl.locale, application.job_poster_id),
+      manager: routes.managerJobShow(intl.locale, application.job_poster_id),
+    };
+    const jobApplicationsUrlMap: { [key in typeof portal]: string } = {
+      hr: routes.hrJobApplications(intl.locale, application.job_poster_id),
+      manager: routes.managerJobApplications(
+        intl.locale,
+        application.job_poster_id,
+      ),
+    };
     const applicantUrl = applicantUrlMap[portal];
     const applicationUrl = applicationUrlMap[portal];
+    const jobUrl = jobUrlMap[portal];
+    const jobApplicationsUrl = jobApplicationsUrlMap[portal];
 
     const getSaveButtonText = (): string => {
       if (isSaving) {
@@ -312,14 +325,7 @@ class ApplicationReviewWithNav extends React.Component<
               <button
                 className="button--blue light-bg"
                 type="button"
-                onClick={() =>
-                  this.handleLinkClicked(
-                    routes.managerJobApplications(
-                      intl.locale,
-                      application.job_poster_id,
-                    ),
-                  )
-                }
+                onClick={() => this.handleLinkClicked(jobApplicationsUrl)}
               >
                 <FormattedMessage
                   id="apl.backToApplicantList"
@@ -332,14 +338,7 @@ class ApplicationReviewWithNav extends React.Component<
               <button
                 className="button--blue light-bg"
                 type="button"
-                onClick={() =>
-                  this.handleLinkClicked(
-                    routes.managerJobShow(
-                      intl.locale,
-                      application.job_poster_id,
-                    ),
-                  )
-                }
+                onClick={() => this.handleLinkClicked(jobUrl)}
               >
                 <FormattedMessage
                   id="button.viewJobPoster"

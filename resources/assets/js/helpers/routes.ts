@@ -111,6 +111,9 @@ export function hrJobPreview(locale: string, jobId: number): string {
 export function hrScreeningPlan(locale: string, jobId: number): string {
   return `/${locale}/hr/jobs/${jobId}/assessment-plan`;
 }
+export function hrJobApplications(locale: string, jobId: number): string {
+  return `/${locale}/hr/jobs/${jobId}/applications`;
+}
 export const hrApplicationShow = (
   locale: string,
   applicationId: number,
