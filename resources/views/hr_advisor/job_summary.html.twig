@@ -68,22 +68,9 @@
 										{{ job.manager.user.last_name }}
 									</p>
 									<p data-c-margin="bottom(.5)">
-										<span data-c-font-weight="600" data-c-color="c2">{{ summary.applicants_label }}</span>
-										{% if applications.count() == 0 %}
-											{{ summary.not_applicable }}
-										{% endif %}
+										<span data-c-font-weight="600" data-c-color="c2">{{ applications|length }}
+											{{ summary.applicants_label }}</span>
 									</p>
-									{% if applications.count() != 0 %}
-										<ul>
-											{% for applicant in applications %}
-												{% if applicant.user_name %}
-													<li>{{ applicant.user_name }}</li>
-												{% else %}
-													<li>{{ applicant.submission_signature }}</li>
-												{% endif %}
-											{% endfor %}
-										</ul>
-									{% endif %}
 								</div>
 								<div data-c-accordion-group>
 									<div data-c-accordion data-c-background="white(100)" data-c-card data-c-radius="rounded">
