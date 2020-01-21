@@ -35,10 +35,12 @@ import {
   languageRequirement,
   languageRequirementDescription,
   languageRequirementContext,
+  jobReviewLocations,
 } from "../../../models/localizedConstants";
 import {
   CriteriaTypeId,
   LanguageRequirementId,
+  LocationId,
 } from "../../../models/lookupConstants";
 import Criterion from "../Criterion";
 import JobWorkEnv from "../JobWorkEnv";
@@ -49,7 +51,7 @@ import { useUrlHash, Link } from "../../../helpers/router";
 import { classificationString } from "../../../models/jobUtil";
 import DemoSubmitJobModal from "./DemoSubmitJobModal";
 import ManagerSurveyModal from "./ManagerSurveyModal";
-import JobReviewActivityFeed from "./JobReviewActivityFeed";
+import ActivityFeed from "../../ActivityFeed";
 
 interface JobReviewSectionProps {
   title: string;
@@ -778,7 +780,12 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
             description="Description under primary title of review section"
           />
         </p>
-        <JobReviewActivityFeed jobId={job.id} isHrAdvisor={false} />
+        <ActivityFeed
+          jobId={job.id}
+          isHrAdvisor={false}
+          generalLocation={LocationId.jobGeneric}
+          locationMessages={jobReviewLocations}
+        />
         <JobReviewDisplay
           job={job}
           manager={manager}

@@ -31,7 +31,9 @@ import { fetchManager } from "../../store/Manager/managerActions";
 import { JobReviewDisplay } from "../JobBuilder/Review/JobReview";
 import { fetchSkills } from "../../store/Skill/skillActions";
 import Icon from "../Icon";
-import JobReviewActivityFeed from "../JobBuilder/Review/JobReviewActivityFeed";
+import ActivityFeed from "../ActivityFeed";
+import { jobReviewLocations } from "../../models/localizedConstants";
+import { LocationId } from "../../models/lookupConstants";
 
 interface JobReviewHrPageProps {
   jobId: number;
@@ -80,7 +82,12 @@ const JobReviewHrPage: React.FunctionComponent<JobReviewHrPageProps> = ({
               description="Description under primary title of review section"
             />
           </p>
-          <JobReviewActivityFeed jobId={job.id} isHrAdvisor />
+          <ActivityFeed
+            jobId={job.id}
+            isHrAdvisor
+            generalLocation={LocationId.jobGeneric}
+            locationMessages={jobReviewLocations}
+          />
           <JobReviewDisplay
             job={job}
             manager={manager}
