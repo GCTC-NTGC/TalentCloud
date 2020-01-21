@@ -41,8 +41,8 @@ class JobSummaryController extends Controller
             'imgSrc' => '/images/job-process-summary-tool-view.svg',
             'imgAlt' => "{$summaryLang['view_poster_icon']} {$summaryLang['flat_icons']}",
             'text' => $summaryLang['view_poster_button'],
-            'url' => '/',
-            'disabled' => true,
+            'url' => route('hr_advisor.jobs.preview', $job),
+            'disabled' => false,
         ];
 
         $screening_plan_data = [
