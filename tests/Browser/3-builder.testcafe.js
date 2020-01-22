@@ -271,7 +271,7 @@ test("Job Poster Builder - New Job", async t => {
     .wait(200)
     .click(Selector("button").withText("Yes, Submit"))
     .wait(200)
-    .click(Selector("a").withText("My Job Posters."))
+    .click(Selector("a").withText("Go back to My Job Posters"))
     // Taken back to the Job index page
     .expect(Selector("h1").withText("My Job Posters").visible)
     .ok()
