@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f3dbe1c97d4c421c9b60d8dad4492eb8",
+    "content-hash": "a592bc0f0b964c8a3002ed788f657bc5",
     "packages": [
         {
             "name": "astrotomic/laravel-translatable",
@@ -249,24 +249,22 @@
         },
         {
             "name": "codezero/laravel-unique-translation",
-            "version": "2.0.0",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codezero-be/laravel-unique-translation.git",
-                "reference": "189485f30cbdf20f9c72ff04f246adcd8ac14190"
+                "reference": "1eb3d56b1f4af36b4985730619838bb124436b81"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codezero-be/laravel-unique-translation/zipball/189485f30cbdf20f9c72ff04f246adcd8ac14190",
-                "reference": "189485f30cbdf20f9c72ff04f246adcd8ac14190",
+                "url": "https://api.github.com/repos/codezero-be/laravel-unique-translation/zipball/1eb3d56b1f4af36b4985730619838bb124436b81",
+                "reference": "1eb3d56b1f4af36b4985730619838bb124436b81",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.2"
             },
             "require-dev": {
-                "fzaninotto/faker": "~1.4",
-                "mockery/mockery": "1.2.*",
                 "orchestra/testbench": "~4.0",
                 "phpunit/phpunit": "~8.0",
                 "spatie/laravel-translatable": "^4.2"
@@ -294,7 +292,21 @@
                     "email": "ivan@codezero.be"
                 }
             ],
-            "time": "2019-10-11T16:56:28+00:00"
+            "description": "Check if a translated value in a JSON column is unique in the database.",
+            "keywords": [
+                "database",
+                "json",
+                "language",
+                "laravel",
+                "mysql",
+                "php",
+                "rule",
+                "translation",
+                "unique",
+                "validation",
+                "validator"
+            ],
+            "time": "2020-01-22T10:59:59+00:00"
         },
         {
             "name": "creativeorange/gravatar",
