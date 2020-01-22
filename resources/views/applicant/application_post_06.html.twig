@@ -26,6 +26,20 @@
 		{# Sections #}
 		<section class="application-06__wrapper">
 			<div class="container--copy">
+                <div data-clone>
+                    <div data-c-alert="error" data-c-radius="rounded" role="alert" data-c-margin="bottom(2)">
+                        <div data-c-padding="half">
+                            <!-- This title/icon is optional. -->
+                            <p data-c-margin="bottom(quarter)" data-c-font-weight="bold">
+                                <i aria-hidden="true" class="fas fa-exclamation-triangle"></i>
+                                This Job Competition Has Closed
+                            </p>
+                            <p>
+                                Unfortunately this job is no longer accepting applications.<br>This job closed on January 3rd, 2020, at 23:59.
+                            </p>
+                        </div>
+                    </div>
+                </div>
 				<h3>{{ application_template.integrity.title }}</h3>
 				<p>{{ application_template.integrity.confirmation_copy }}</p>
 				<ul>
@@ -62,6 +76,9 @@
 					<div class="box med-1of2">
 						<button class="button--blue light-bg" type="submit" name="submit" value="submit">
 							{{ application_template.integrity.submit_label }}
+						</button>
+                        <button class="button--gray light-bg" disabled>
+							Applications Can No Longer Be Submitted
 						</button>
 					</div>
 				</div>
