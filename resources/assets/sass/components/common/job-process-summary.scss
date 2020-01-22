@@ -37,6 +37,13 @@
         text-decoration: none;
         transition: all .2s ease;
 
+        &.disabled {
+            svg,
+            img {
+                filter: grayscale(100%);
+            }
+        }
+
         &:not(.disabled) {
             &:hover {
                 box-shadow: 0 10px 25px rgba(0, 0, 0, .3);

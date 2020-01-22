@@ -121,7 +121,7 @@ const JobIndexHr: React.FunctionComponent<JobIndexHrProps> = ({
 
   return (
     <section>
-      <div data-c-background="gray(10)">
+      <div data-c-background="gray(10)" data-c-border="bottom(thin, solid, black)">
         <div data-c-container="large" data-c-padding="tb(triple)">
           <p>
             <FormattedMessage
@@ -178,7 +178,7 @@ const JobIndexHr: React.FunctionComponent<JobIndexHrProps> = ({
             <FormattedMessage
               id="hrPortal.jobPageIndex.unclaimedJobsMessage"
               description="Message before list of unclaimed jobs."
-              defaultMessage="This is the list of all active job actions in your department. From here you can 'claim' a job, which will move it into your jobs list above and allow you to begin working with the hiring manager on finding the best talent possible. If you claim a job by accident, no fear, for you can click into the job summary and remove yourself using the 'Remove Myself From This Job' button."
+              defaultMessage="This is the list of all active job actions in your department. From here you can 'claim' a job, which will move it into your jobs list above and allow you to begin working with the hiring manager on finding the best talent possible. If you claim a job by accident, no fear, for you can click into the job summary and remove yourself using the 'Relinquish This Job' button."
             />
           </p>
 
