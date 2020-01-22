@@ -6,21 +6,20 @@ use Facades\App\Services\WhichPortal;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Log;
 
 class BreadcrumbsComposer
 {
     /**
      * The request instance.
      *
-     * @var Request
+     * @var \Illuminate\Http\Request
      */
     protected $request;
 
     /**
      * Initialize a new composer instance.
      *
-     * @param Request $request Request being made.
+     * @param  \Illuminate\Http\Request  $request
      * @return void
      */
     public function __construct(Request $request)
@@ -31,8 +30,7 @@ class BreadcrumbsComposer
     /**
      * Bind data to the view.
      *
-     * @param View $view View being rendered.
-     *
+     * @param  \Illuminate\View\View  $view
      * @return void
      */
     public function compose(View $view)
@@ -43,6 +41,9 @@ class BreadcrumbsComposer
         if (WhichPortal::isManagerPortal()) {
             $segments = $segments->slice(1);
             $breadcrumbs_lang = Lang::get('common/breadcrumbs')['manager'];
+        } elseif (WhichPortal::isHrPortal()) {
+            $segments = $segments->slice(1);
+            $breadcrumbs_lang = Lang::get('common/breadcrumbs')['hr'];
         }
 
         $view->with('breadcrumbs', $segments);
@@ -52,7 +53,7 @@ class BreadcrumbsComposer
     /**
      * Parse the request route segments.
      *
-     * @return Collection
+     * @return \Illuminate\Support\Collection
      */
     protected function parseSegments()
     {

@@ -13,6 +13,7 @@ use App\Models\JobPosterQuestion;
 use App\Models\Manager;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Services\Validation\JobPosterValidator;
+use Facades\App\Services\WhichPortal;
 
 class JobController extends Controller
 {
@@ -85,6 +86,23 @@ class JobController extends Controller
     }
 
     /**
+     * Display a listing of a hr advisor's JobPosters.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function hrIndex(Request $request)
+    {
+        $hrAdvisor = $request->user()->hr_advisor;
+        return view('hr_advisor/job_index', [
+            'title' => Lang::get('hr_advisor/job_index.title'),
+            'hr_advisor_id' => $hrAdvisor->id
+        ]);
+    }
+
+
+
+
+    /**
      * Delete a draft Job Poster.
      *
      * @param  \Illuminate\Http\Request $request   Incoming request object.
@@ -140,11 +158,17 @@ class JobController extends Controller
         $jobLang = Lang::get('applicant/job_post');
 
         $applyButton = [];
-        if (!$jobPoster->published && $this->authorize('update', $jobPoster)) {
+        if (WhichPortal::isManagerPortal()) {
             $applyButton = [
                 'href' => route('manager.jobs.edit', $jobPoster->id),
                 'title' => $jobLang['apply']['edit_link_title'],
                 'text' => $jobLang['apply']['edit_link_label'],
+            ];
+        } elseif (WhichPortal::isHrPortal()) {
+            $applyButton = [
+                'href' => route('hr_advisor.jobs.summary', $jobPoster->id),
+                'title' => null,
+                'text' => Lang::get('hr_advisor/job_summary.summary_title'),
             ];
         } elseif (Auth::check() && $jobPoster->isOpen()) {
             $applyButton = [
@@ -178,6 +202,7 @@ class JobController extends Controller
                 'applicant/jpb_job_post',
                 [
                     'job_post' => $jobLang,
+                    'frequencies' => Lang::get('common/lookup/frequency'),
                     'skill_template' => Lang::get('common/skills'),
                     'job' => $jobPoster,
                     'manager' => $jobPoster->manager,
@@ -191,6 +216,7 @@ class JobController extends Controller
                 'applicant/job_post',
                 [
                     'job_post' => $jobLang,
+                    'frequencies' => Lang::get('common/lookup/frequency'),
                     'manager' => $jobPoster->manager,
                     'manager_profile_photo_url' => '/images/user.png', // TODO get real photo.
                     'team_culture' => $jobPoster->manager->team_culture,

@@ -16,8 +16,10 @@ services:
 version: ~> 1.0
 
 branches:
-  except:
-    - dependabot/*
+  only:
+    - dev
+    - master
+    - /^v\d+\.\d+(\.\d+)?(-\S*)?$/ # Tagged releases, i.e. v1.0.4
 
 jobs: # run test suites simultaneously
   include:

@@ -421,8 +421,7 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
               <p data-c-margin="bottom(double)">
                 <FormattedMessage
                   id="jobBuilder.intro.completeInLanguage"
-                  defaultMessage="Complete the job poster in the language of your choice. We will
-                  handle translation."
+                  defaultMessage="Complete the job poster in the language of your choice. We will handle translation."
                   description="Instructions at bottom of form on language choice for job poster builder."
                 />{" "}
                 <FormattedMessage

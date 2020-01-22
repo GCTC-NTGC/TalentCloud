@@ -79,7 +79,7 @@ describe("async job actions", (): void => {
       });
     });
 
-    it("should dispatch FFETCH_JOB_FAILED when request returns non-200 status.", (): Promise<
+    it("should dispatch FETCH_JOB_FAILED when request returns non-200 status.", (): Promise<
       void
     > => {
       const store = mockStore(initState());

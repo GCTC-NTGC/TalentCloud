@@ -19,6 +19,7 @@ use App\Models\Assessment;
 use App\Models\RatingGuideQuestion;
 use App\Models\RatingGuideAnswer;
 use App\Models\AssessmentPlanNotification;
+use App\Models\HrAdvisor;
 use App\Models\User;
 use App\Policies\UserPolicy;
 use App\Policies\JobPolicy;
@@ -35,6 +36,7 @@ use App\Policies\AssessmentPolicy;
 use App\Policies\RatingGuideQuestionPolicy;
 use App\Policies\RatingGuideAnswerPolicy;
 use App\Policies\AssessmentPlanNotificationPolicy;
+use App\Policies\HrAdvisorPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -59,6 +61,7 @@ class AuthServiceProvider extends ServiceProvider
         RatingGuideQuestion::class => RatingGuideQuestionPolicy::class,
         RatingGuideAnswer::class => RatingGuideAnswerPolicy::class,
         AssessmentPlanNotification::class =>  AssessmentPlanNotificationPolicy::class,
+        HrAdvisor::class => HrAdvisorPolicy::class,
     ];
 
     /**

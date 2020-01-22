@@ -49,10 +49,10 @@ class ApplicationController extends Controller
         ];
 
         // Display slightly different views on different portals.
-        $view = WhichPortal::isManagerPortal() ?
+        $view = WhichPortal::isManagerPortal() || WhichPortal::isHrPortal() ?
             'manager/application_post' : 'applicant/application_preview';
 
-        if (WhichPortal::isManagerPortal()) {
+        if (WhichPortal::isManagerPortal() || WhichPortal::isHrPortal()) {
             // Load things required for review component.
             $application->load(['veteran_status', 'citizenship_declaration', 'application_review', 'applicant.user']);
         }
@@ -78,6 +78,7 @@ class ApplicationController extends Controller
                 // Localized strings.
                 'post' => Lang::get('manager/application_post'), // Change text
                 'is_manager_view' => WhichPortal::isManagerPortal(),
+                'is_hr_portal' => WhichPortal::isHrPortal(),
                 // Application Template Data.
                 'application_template' => Lang::get('applicant/application_template'),
                 'citizenship_declaration_template' => Lang::get('common/citizenship_declaration'),
