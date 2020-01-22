@@ -4,6 +4,7 @@ import {
   injectIntl,
   MessageDescriptor,
   FormattedMessage,
+  defineMessages,
 } from "react-intl";
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
@@ -32,6 +33,24 @@ interface CriteriaFormProps {
   handleSubmit: (criteria: Criteria) => void;
   handleCancel: () => void;
 }
+
+const criteriaFormMessages = defineMessages({
+  skillSpecificityLabel: {
+    id: "criteriaForm.skillSpecificity",
+    defaultMessage: "Additional skill details",
+    description: "Label for the skill specificity textarea."
+  },
+  skillSpecificityPlaceholder: {
+    id: "criteriaForm.skillSpecificityPlaceholder",
+    defaultMessage: "Add context or specifics to the definition of this skill that will only appear on your job poster. This will be reviewed by your human resources advisor.",
+    description: "Placeholder for the skill specificity textarea."
+  },
+  skillLevelSelectionLabel: {
+    id: "criteriaForm.skillLevelSelectionLabel",
+    defaultMessage: "Select a skill level:",
+    description: "Placeholder for the skill specificity textarea."
+  }
+})
 
 const essentialSkillLevels = (
   skillTypeId: number,
@@ -233,8 +252,8 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
                       id="skillSpecificity"
                       type="textarea"
                       name="specificity"
-                      label="Additional skill details"
-                      placeholder="Add context or specifics to the definition of this skill that will only appear on your job poster. This will be reviewed by your human resources advisor."
+                      label={intl.formatMessage(criteriaFormMessages.skillSpecificityLabel)}
+                      placeholder={intl.formatMessage(criteriaFormMessages.skillSpecificityPlaceholder)}
                       component={TextAreaInput}
                     />
                     <button
@@ -287,7 +306,7 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
                 <div data-c-grid="gutter">
                   <RadioGroup
                     id="skillLevelSelection"
-                    label="Select a skill level:"
+                    label={intl.formatMessage(criteriaFormMessages.skillLevelSelectionLabel)}
                     required
                     touched={touched.level}
                     error={errors.level}

@@ -1,5 +1,20 @@
 [
   {
+    "id": "criteriaForm.skillSpecificity",
+    "description": "Label for the skill specificity textarea.",
+    "defaultMessage": "Additional skill details"
+  },
+  {
+    "id": "criteriaForm.skillSpecificityPlaceholder",
+    "description": "Placeholder for the skill specificity textarea.",
+    "defaultMessage": "Add context or specifics to the definition of this skill that will only appear on your job poster. This will be reviewed by your human resources advisor."
+  },
+  {
+    "id": "criteriaForm.skillLevelSelectionLabel",
+    "description": "Placeholder for the skill specificity textarea.",
+    "defaultMessage": "Select a skill level:"
+  },
+  {
     "id": "jobBuilder.criteriaForm.skillDefinition",
     "description": "Label for Skill Definition heading on Add Skill modal.",
     "defaultMessage": "Skill Definition"
@@ -12,7 +27,7 @@
   {
     "id": "jobBuilder.criteriaForm.addSpecificity",
     "description": "Label for 'Add additional specificity' button on Add Skill modal.",
-    "defaultMessage": "I would like to add details to this definition that are specific this position."
+    "defaultMessage": "I would like to add details to this definition that are specific to this position."
   },
   {
     "id": "jobBuilder.criteriaForm.chooseSkillLevel",

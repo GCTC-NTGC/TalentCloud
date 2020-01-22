@@ -2070,7 +2070,7 @@
         "id": "jobBuilder.review.reviewYourPoster"
       },
       {
-        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\r\n            understand how an applicant will see it once published.",
+        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\n            understand how an applicant will see it once published.",
         "description": "Description under primary title of review section",
         "id": "jobBuilder.review.headsUp"
       },
@@ -2220,6 +2220,21 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Additional skill details",
+        "description": "Label for the skill specificity textarea.",
+        "id": "criteriaForm.skillSpecificity"
+      },
+      {
+        "defaultMessage": "Add context or specifics to the definition of this skill that will only appear on your job poster. This will be reviewed by your human resources advisor.",
+        "description": "Placeholder for the skill specificity textarea.",
+        "id": "criteriaForm.skillSpecificityPlaceholder"
+      },
+      {
+        "defaultMessage": "Select a skill level:",
+        "description": "Placeholder for the skill specificity textarea.",
+        "id": "criteriaForm.skillLevelSelectionLabel"
+      },
+      {
         "defaultMessage": "Skill Definition",
         "description": "Label for Skill Definition heading on Add Skill modal.",
         "id": "jobBuilder.criteriaForm.skillDefinition"
@@ -2230,7 +2245,7 @@
         "id": "jobBuilder.criteriaForm.removeSpecificity"
       },
       {
-        "defaultMessage": "I would like to add details to this definition that are specific this position.",
+        "defaultMessage": "I would like to add details to this definition that are specific to this position.",
         "description": "Label for 'Add additional specificity' button on Add Skill modal.",
         "id": "jobBuilder.criteriaForm.addSpecificity"
       },
