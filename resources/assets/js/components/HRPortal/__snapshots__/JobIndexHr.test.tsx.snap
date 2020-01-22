@@ -196,7 +196,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
         data-c-margin="bottom(double)"
       >
         <FormattedMessage
-          defaultMessage="This is the list of all active job actions in your department. From here you can 'claim' a job, which will move it into your jobs list above and allow you to begin working with the hiring manager on finding the best talent possible. If you claim a job by accident, no fear, for you can click into the job summary and remove yourself using the 'Remove Myself From This Job' button."
+          defaultMessage="This is the list of all active job actions in your department. From here you can 'claim' a job, which will move it into your jobs list above and allow you to begin working with the hiring manager on finding the best talent possible. If you claim a job by accident, no fear, for you can click into the job summary and remove yourself using the 'Relinquish This Job' button."
           description="Message before list of unclaimed jobs."
           id="hrPortal.jobPageIndex.unclaimedJobsMessage"
           values={Object {}}
@@ -381,7 +381,7 @@ exports[`Job Index Page should render JobIndexHr without any items 1`] = `
         data-c-margin="bottom(double)"
       >
         <FormattedMessage
-          defaultMessage="This is the list of all active job actions in your department. From here you can 'claim' a job, which will move it into your jobs list above and allow you to begin working with the hiring manager on finding the best talent possible. If you claim a job by accident, no fear, for you can click into the job summary and remove yourself using the 'Remove Myself From This Job' button."
+          defaultMessage="This is the list of all active job actions in your department. From here you can 'claim' a job, which will move it into your jobs list above and allow you to begin working with the hiring manager on finding the best talent possible. If you claim a job by accident, no fear, for you can click into the job summary and remove yourself using the 'Relinquish This Job' button."
           description="Message before list of unclaimed jobs."
           id="hrPortal.jobPageIndex.unclaimedJobsMessage"
           values={Object {}}
