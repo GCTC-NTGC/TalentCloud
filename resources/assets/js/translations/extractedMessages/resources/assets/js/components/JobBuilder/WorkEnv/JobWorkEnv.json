@@ -88,25 +88,5 @@
     "id": "jobBuilder.workEnv.amenities.parking",
     "description": "Amenities checkbox group 'parking' option.",
     "defaultMessage": "Easy Access to Parking"
-  },
-  {
-    "id": "jobBuilder.workEnvModal.teamSize",
-    "description": "Title for Team size section.",
-    "defaultMessage": "Team Size"
-  },
-  {
-    "id": "jobBuilder.workEnvModal.physicalEnvLabel",
-    "description": "The label displayed on the physical environment checkbox group.",
-    "defaultMessage": "Our Physical Environment"
-  },
-  {
-    "id": "jobBuilder.workEnvModal.technologyLabel",
-    "description": "The label displayed on the technology checkbox group.",
-    "defaultMessage": "Technology"
-  },
-  {
-    "id": "jobBuilder.workEnvModal.amenitiesLabel",
-    "description": "The label displayed on the amenities checkbox group.",
-    "defaultMessage": "Amenities"
   }
 ]
