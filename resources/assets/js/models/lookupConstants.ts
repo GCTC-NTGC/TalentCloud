@@ -67,20 +67,6 @@ export const LanguageRequirementId = {
   englishOrFrench: 5,
 };
 
-export const DepartmentId = {
-  treasuryBoard: 1,
-  naturalResources: 2,
-  transport: 3,
-  environmentAndClimateChange: 4,
-  employmentAndSocialDevelopment: 5,
-  globalAffairs: 6,
-  borderServices: 7,
-  fisheriesAndOceans: 8,
-  innovationScience: 9,
-  publicServiceAndProcurement: 10,
-  nationalDefence: 11,
-};
-
 export const FrequencyId = {
   never: 1,
   rarely: 2,

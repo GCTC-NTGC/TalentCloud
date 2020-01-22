@@ -3703,50 +3703,6 @@
         "id": "languageRequirement.context.expanded"
       },
       {
-        "defaultMessage": "Treasury Board of Canada Secretariat",
-        "id": "department.treasuryBoard"
-      },
-      {
-        "defaultMessage": "Natural Resources Canada",
-        "id": "department.naturalResources"
-      },
-      {
-        "defaultMessage": "Transport Canada",
-        "id": "department.transport"
-      },
-      {
-        "defaultMessage": "Environment and Climate Change Canada",
-        "id": "department.environmentAndClimateChange"
-      },
-      {
-        "defaultMessage": "Employment and Social Development Canada",
-        "id": "department.employmentAndSocialDevelopment"
-      },
-      {
-        "defaultMessage": "Global Affairs Canada",
-        "id": "department.globalAffairs"
-      },
-      {
-        "defaultMessage": "Canada Border Services Agency",
-        "id": "department.borderServices"
-      },
-      {
-        "defaultMessage": "Fisheries and Oceans Canada",
-        "id": "department.fisheriesAndOceans"
-      },
-      {
-        "defaultMessage": "Innovation, Science and Economic Development Canada",
-        "id": "department.innovationScience"
-      },
-      {
-        "defaultMessage": "Public Services and Procurement Canada",
-        "id": "department.publicServiceAndProcurement"
-      },
-      {
-        "defaultMessage": "Department of National Defence",
-        "id": "department.nationalDefence"
-      },
-      {
         "defaultMessage": "Almost Always",
         "description": "The form label displayed on 'always' frequency options.",
         "id": "jobBuilder.details.frequencyAlwaysLabel"

@@ -25,13 +25,14 @@ import { getHrAdvisor } from "../../store/HrAdvisor/hrAdvisorSelector";
 import { RootState } from "../../store/store";
 import { fetchJobIndex } from "../../store/Job/jobActions";
 import { getAllJobs } from "../../store/Job/jobSelector";
-import { departmentName } from "../../models/localizedConstants";
 import RootContainer from "../RootContainer";
 import {
   getManagers,
   getManagerIsUpdatingById,
 } from "../../store/Manager/managerSelector";
 import { fetchManager } from "../../store/Manager/managerActions";
+import { getDepartmentById } from "../../store/Department/deptSelector";
+import { getDepartments } from "../../store/Department/deptActions";
 
 const buttonMessages = defineMessages({
   reviewDraft: {
@@ -211,6 +212,10 @@ const JobIndexHrDataFetcher: React.FC<JobIndexHrDataFetcherProps> = ({
   hrAdvisorId,
 }) => {
   const intl = useIntl();
+  const { locale } = intl;
+  if (locale !== "en" && locale !== "fr") {
+    throw new Error("Unknown intl.locale");
+  }
   const dispatch = useDispatch();
 
   // Request and select hrAdvisor
@@ -254,19 +259,27 @@ const JobIndexHrDataFetcher: React.FC<JobIndexHrDataFetcherProps> = ({
     }
   });
 
+  // Load department names
+  useEffect(() => {
+    dispatch(getDepartments());
+  }, []);
+  const department = useSelector((state: RootState) =>
+    hrAdvisor !== null
+      ? getDepartmentById(state, hrAdvisor.department_id)
+      : null,
+  );
+  const departmentName =
+    department?.[locale].name ||
+    intl.formatMessage(messages.departmentPlaceholder);
+
   // Make claim job function
   const claimJobForAdvisor = (jobId: number): any =>
     dispatch(claimJob(hrAdvisorId, jobId));
 
-  const department =
-    hrAdvisor !== null
-      ? intl.formatMessage(departmentName(hrAdvisor.department_id))
-      : intl.formatMessage(messages.departmentPlaceholder);
-
   return (
     <JobIndexHrPage
       claimedJobIds={hrAdvisor !== null ? hrAdvisor.claimed_job_ids : []}
-      department={department}
+      department={departmentName}
       jobs={deptJobs}
       managers={managers}
       handleClaimJob={claimJobForAdvisor}

@@ -384,50 +384,6 @@
     "defaultMessage": "You can complete all other steps of this assessment process in the official language of your choice, including the initial application, interview, exam and any other evaluation components."
   },
   {
-    "id": "department.treasuryBoard",
-    "defaultMessage": "Treasury Board of Canada Secretariat"
-  },
-  {
-    "id": "department.naturalResources",
-    "defaultMessage": "Natural Resources Canada"
-  },
-  {
-    "id": "department.transport",
-    "defaultMessage": "Transport Canada"
-  },
-  {
-    "id": "department.environmentAndClimateChange",
-    "defaultMessage": "Environment and Climate Change Canada"
-  },
-  {
-    "id": "department.employmentAndSocialDevelopment",
-    "defaultMessage": "Employment and Social Development Canada"
-  },
-  {
-    "id": "department.globalAffairs",
-    "defaultMessage": "Global Affairs Canada"
-  },
-  {
-    "id": "department.borderServices",
-    "defaultMessage": "Canada Border Services Agency"
-  },
-  {
-    "id": "department.fisheriesAndOceans",
-    "defaultMessage": "Fisheries and Oceans Canada"
-  },
-  {
-    "id": "department.innovationScience",
-    "defaultMessage": "Innovation, Science and Economic Development Canada"
-  },
-  {
-    "id": "department.publicServiceAndProcurement",
-    "defaultMessage": "Public Services and Procurement Canada"
-  },
-  {
-    "id": "department.nationalDefence",
-    "defaultMessage": "Department of National Defence"
-  },
-  {
     "id": "jobBuilder.details.frequencyAlwaysLabel",
     "description": "The form label displayed on 'always' frequency options.",
     "defaultMessage": "Almost Always"
@@ -588,14 +544,14 @@
     "defaultMessage": "Job Poster Builder > Environment"
   },
   {
-    "id": "activityfeed.locations.summary",
+    "id": "activityfeed.locations.hr.summary",
     "description": "Location where the activity is located.",
-    "defaultMessage": "Summary Page"
+    "defaultMessage": "HR Summary Page"
   },
   {
-    "id": "activityfeed.locations.preview",
+    "id": "activityfeed.locations.hr.preview",
     "description": "Location where the activity is located.",
-    "defaultMessage": "Preview Page"
+    "defaultMessage": "HR Preview Page"
   },
   {
     "id": "jobStatus.draft",
