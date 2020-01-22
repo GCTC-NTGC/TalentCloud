@@ -2285,7 +2285,7 @@
         "id": "activityfeed.review.loadingIconText"
       },
       {
-        "defaultMessage": "Review Your Job Poster {totalActivities}",
+        "defaultMessage": "Click to View Comments {totalActivities}",
         "description": "The activity feed header.",
         "id": "activityfeed.review.header"
       },
