@@ -8,7 +8,7 @@ return [
      *
      */
     'title' => 'Constructeur d\'Affiches',
-    'intro_title' => 'Constructeur d\'Affiches: Intro',
+    'intro_title' => 'Constructeur d\'affiches : Intro',
     'details_title' => 'Constructeur d\'Affiches: Détails',
     'environment_title' => 'Constructeur d\'Affiches: Environnement de travail',
     'impact_title' => 'Constructeur d\'Affiches: Impact',

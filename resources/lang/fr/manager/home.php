@@ -11,28 +11,28 @@ return [
     'hero' => [
         'heading' => 'Nuage de talents',
         'heading_alt' => 'Feuille d\'érable canadienne.',
-        'subheading' => 'Embaucher pour le gouvernement est maintenant plus facile.',
+        'subheading' => 'Il est maintenant plus facile d’embaucher pour le gouvernement.',
         'button' => [
             'text' => 'Inscrivez-vous',
             'title' => 'Inscrivez-vous à titre de gestionnaire pour faire l’essai du portail des gestionnaires du Nuage de talents.'
         ]
     ],
     'banner' => [
-        'content' => 'Bienvenue au portail des :open gestionnaires :close du Nuage de talents.',
+        'content' => 'Bienvenue au Portail des :open gestionnaires :close du Nuage de talents.',
         'anchor' => [
-            'text' => 'Cliquez ici pour revenir au portail des candidats.',
+            'text' => 'Cliquez ici pour revenir au Portail des candidats.',
             'title' => 'Revenir au portail des candidats.'
         ]
     ],
     'info' => [
-        'heading' => 'Quel genre d’emplois puis-je afficher?',
-        'content_first' => 'Le Nuage de talents vise les postes de durée déterminée classifiés annoncés à l’externe, plutôt que les emplois contractuels ou occasionnels (qui ne sont habituellement pas assortis d’avantages sociaux our de représentation syndicale). Grâce aux processus comportementaux et à l’ingénierie opérationnelle, les travailleurs temporaires peuvent être embauchés rapidement et facilement à l’aide du Nuage de talents, en mettant l’accent sur un jumelage optimal.',
+        'heading' => 'Quel genre d’emploi puis-je afficher?',
+        'content_first' => 'Le Nuage de talents vise les postes de durée déterminée classifiés qui sont annoncés à l’externe, plutôt que les emplois contractuels ou occasionnels (qui ne sont habituellement pas assortis d’avantages sociaux ou de représentation syndicale). Grâce aux processus comportementaux et à l’ingénierie opérationnelle, les travailleurs temporaires peuvent être embauchés rapidement et facilement à l’aide du Nuage de talents, en mettant l’accent sur un jumelage optimal.',
         'content_second' => 'La plateforme peut être utilisée pour des emplois de TOUTE classification et de TOUT niveau.',
-        'list_heading' => 'L’embauche pour une période déterminée convient parfaitement dans les cas suivants :',
+        'list_heading' => 'L’embauche pour une période déterminée convient parfaitement aux cas suivants :',
         'list' => [
             'Remplacement des employés en congé.',
-            'Programmes arrivant à échéance ou cas où le budget de l’année prochaine n’est pas clair.',
-            'Les projets spéciaux (p. ex., équipes de travail du SM, projets d’innovation).',
+            'Programmes arrivant à échéance ou cas où le budget du prochain exercice n’est pas clair.',
+            'Les projets spéciaux (p. ex., équipes de travail des SM, projets d’innovation).',
             'Embauche d’un spécialiste pour une phase particulière de projet.'
         ]
     ],
@@ -79,15 +79,15 @@ return [
                         ],
                         [
                             'heading' => 'Affichage d’un emploi',
-                            'content' => 'Affichez le poste que vous dotez sur le site Web du Nuage de talents et voyez des candidats de grande qualité apparaître sur votre tableau de bord de gestionnaire.'
+                            'content' => 'Affichez le poste que vous dotez à partir du site Web du Nuage de talents et voyez des candidats de grande qualité apparaître sur votre tableau de bord de gestionnaire.'
                         ],
                         [
                             'heading' => 'Suivi des candidats',
-                            'content' => 'Le Nuage de talents filtre les candidats dans des catégories comme les anciens combattants, les priorités, les Canadiens et les non-Canadiens. Triez les candidats selon vos critères et faites une sélection préliminaire directement sur la plateforme.'
+                            'content' => 'Triez automatiquement les candidats selon vos critères, et sélectionnez-les directement à partir de la plateforme.'
                         ],
                         [
                             'heading' => 'Soutien personnalisé',
-                            'content' => 'Communiquez avec notre équipe en tout temps pour obtenir de l’aide ou des suggestions pendant le processus de dotation.'
+                            'content' => 'Communiquez avec notre équipe en tout temps pour obtenir de l’aide ou des suggestions tout au long du processus de dotation'
                         ],
                         [
                             'heading' => [
@@ -147,19 +147,19 @@ return [
                 ],
                 [
                     'heading' => 'Affichage d’un emploi',
-                    'content' => 'Affichez le poste que vous dotez sur le site Web du Nuage de talents et voyez des candidats de grande qualité apparaître sur votre tableau de bord de gestionnaire.',
+                    'content' => 'Affichez le poste que vous dotez à partir du site Web du Nuage de talents et voyez des candidats de grande qualité apparaître sur votre tableau de bord de gestionnaire.',
                     'demo' => false,
                     'partner' => true
                 ],
                 [
                     'heading' => 'Suivi des candidats',
-                    'content' => 'Triez automatiquement les candidats selon vos critères et sélectionnez-les directement sur la plateforme.',
+                    'content' => 'Triez automatiquement les candidats selon vos critères, et sélectionnez-les directement à partir de la plateforme.',
                     'demo' => false,
                     'partner' => true
                 ],
                 [
                     'heading' => 'Soutien personnalisé',
-                    'content' => 'Communiquez avec notre équipe en tout temps pour obtenir de l’aide ou des suggestions pendant le processus de dotation.',
+                    'content' => 'Communiquez avec notre équipe en tout temps pour obtenir de l’aide ou des suggestions tout au long du processus de dotation.',
                     'demo' => false,
                     'partner' => true
                 ],
@@ -179,14 +179,14 @@ return [
         'heading' => 'Comment puis-je afficher un emploi?',
         'content_first' => [
             'heading' => [
-                'content' => 'Êtes-vous membre d\'un de ces',
+                'content' => 'Êtes-vous membre de l’un de ces',
                 'anchor' => [
                     'title' => 'Voir les ministères associés au Nuage de talents.',
                     'text' => 'ministères partenaires'
                 ]
             ],
             'content_before' => 'Si vous êtes membre,',
-            'content_after' => 'pour nous faire savoir que nous devrions mettre votre compte à niveau. Cela vous permettra d’afficher des emplois sur le Nuage de talents, ainsi que de vous procurer toutes les fonctionnalités associées à un compte de ministère partenaire. Pour pouvoir afficher un emploi, vous devrez confirmer que vous avez une case classifiée.',
+            'content_after' => 'pour nous faire savoir que nous devrions mettre votre compte à niveau. Cela vous permettra d’afficher des emplois dans le Nuage de talents, ainsi que de vous procurer toutes les fonctionnalités associées à un compte de ministère partenaire. Pour pouvoir afficher un emploi, vous devrez confirmer que vous avez une case classifiée.',
             'anchor' => [
                 'href' => 'mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca',
                 'text' => 'communiquer avec le Nuage de talents',
@@ -194,8 +194,8 @@ return [
             ]
         ],
         'content_second' => [
-            'heading' => 'Pas un membre? Vous pouvez quand même utiliser le Nuage de talents!',
-            'content' => 'Si vous n’êtes pas membre d’un ministère partenaire, vous pouvez utiliser le Nuage de talents avec un compte de démonstration pour créer une offre d’emploi et un plan d’évaluation, mais vous ne pourrez pas l’afficher sur le site en direct. Votre offre d’emploi et votre plan d’évaluation devront être intégrés aux processus de RH. Si ce que vous voyez vous plaît, communiquez avec votre conseiller en RH pour savoir comment vous pouvez vous joindre au projet pilote.'
+            'heading' => 'Vous n’êtes pas membre? Vous pouvez quand même utiliser le Nuage de talents!',
+            'content' => 'Si vous n’êtes pas membre d’un ministère partenaire, vous pouvez utiliser le Nuage de talents avec un compte de démonstration pour créer une offre d’emploi et un plan d’évaluation, mais vous ne pourrez pas l’afficher à partir du site en direct. Votre offre d’emploi et votre plan d’évaluation devront être intégrés aux processus des RH. Si vous aimez ce que vous voyez, veuillez communiquer avec votre conseiller en RH pour savoir comment vous pouvez vous joindre au projet-pilote.'
         ]
     ],
     'steps' => [
@@ -203,8 +203,8 @@ return [
             'button' => '1 : Ébauche de l’offre d’emploi',
             'heading' => 'Étape 1 : Rédiger une offre d’emploi',
             'content' => [
-                'Utilisez le générateur d’offres d’emploi pour préparer une offre qui informe les candidats de l’impact que leur travail aura sur les Canadiens. Faites-leur connaître qui vous êtes, votre équipe et votre culture de travail afin que vous trouviez quelqu’un qui s’intègre bien à votre équipe. Faites un remue-méninges sur les tâches que votre nouvel employé doit accomplir, puis énumérez les compétences nécessaires pour les accomplir.',
-                'Une fois que vous aurez terminé votre offre d’emploi, nous nous occuperons des traductions, nous les enverrons à votre conseiller en RH pour qu’il vous donne des conseils, et nous communiquerons avec le signataire autorisé.',
+                'Utilisez le générateur d’offres d’emploi pour préparer une offre qui informera les candidats de l’incidence que leur travail aura sur les Canadiens. Laissez-leur savoir qui vous êtes, de même que votre équipe et votre culture de travail, afin que vous puissiez trouvez quelqu’un qui s’intègrera bien à votre équipe. Faites un remue-méninges sur les tâches que votre nouvel employé devra accomplir, puis énumérez les compétences nécessaires pour y parvenir.',
+                'Une fois que vous aurez terminé votre offre d’emploi, nous nous occuperons de la faire traduire, puis nous l’enverrons à votre conseiller en RH pour qu’il vous donne des conseils, et nous communiquerons avec le signataire autorisé.',
                 'Cette étape est disponible pour les comptes de démonstration.'
             ]
         ],
@@ -212,7 +212,7 @@ return [
             'button' => '2 : Plan de présélection',
             'heading' => 'Étape 2 : Créer un plan de présélection',
             'content' => [
-                'Élaborez un plan de présélection que vous utiliserez pour évaluer toutes les compétences que vous avez demandées dans votre offre d’emploi. Créez un guide de notation avec les réponses attendues que vous utiliserez pour déterminer si les connaissances d’un candidat correspondent à une compétence particulière. Partagez-le ensuite avec votre conseiller en RH pour qu’il puisse examiner votre plan et suggérer des changements.',
+                'Élaborez un plan de présélection que vous utiliserez pour évaluer toutes les compétences que vous avez demandées dans le cadre de votre offre d’emploi. Créez un guide de notation avec les réponses escomptées que vous utiliserez pour déterminer si les connaissances d’un candidat correspondent à une compétence en particulier. Partagez-le ensuite avec votre conseiller en RH pour qu’il puisse examiner votre plan et proposer des changements.',
                 'Cette étape est disponible pour les comptes de démonstration.'
             ]
         ],
@@ -220,7 +220,7 @@ return [
             'button' => '3 : Publication de l’offre d’emploi',
             'heading' => 'Étape 3 : Publication de l’offre d’emploi',
             'content' => [
-                'Votre emploi sera affiché dans le Nuage de talents ainsi que dans <a href="https://emploisfp-psjobs.cfp-psc.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=en" title="Pour en savoir plus, visitez Emplois GC." target="_blank">Emplois GC</a>. À mesure que les gens postulent, vous pouvez voir le nombre de postulants augmenter sur votre tableau de bord. Nous traiterons également les autorisations en matière de priorité afin qu’elles soient clairement indiquées dans votre liste de candidats après la clôture de l’offre.',
+                'Votre emploi sera affiché dans le Nuage de talents ainsi que dans <a href="https://emploisfp-psjobs.cfp-psc.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=en" title="Pour en savoir plus, visitez Emplois GC." target="_blank">Emplois GC</a>. À mesure que les gens postulent, vous pouvez voir le nombre de postulants augmenter à partir de votre tableau de bord. Nous traiterons également les autorisations en matière de priorité afin qu’elles soient clairement indiquées dans votre liste de candidats après la date de clôture de l’offre.',
                 'Cette étape n’est disponible que pour les comptes des ministères partenaires.'
             ]
         ],
@@ -228,15 +228,15 @@ return [
             'button' => '4: Évaluer les candidats',
             'heading' => 'Étape 4: Évaluer les candidats',
             'content' => [
-                'Examinez chaque application directement sur la plateforme du Nuage de talents. Suivez votre plan de présélection et évaluez vos candidats. Utilisez l’outil de tri des candidats pour faire le suivi de ceux qui sont encore en processus. Coordonnez-vous avec votre conseiller en RH pour obtenir l’autorisation de sécurité et les tests linguistiques de votre candidat.',
+                'Examinez chaque application directement à partir de la plateforme du Nuage de talents. Suivez votre plan de présélection et évaluez vos candidats. Utilisez l’outil de tri des candidats pour effectuer un suivi de ceux qui figurent toujours dans le cadre du processus. Veuillez communiquer avec votre conseiller en RH pour obtenir une copie de l’autorisation de sécurité et les tests linguistiques de votre candidat.',
                 'Cette étape n’est disponible que pour les comptes des ministères partenaires.'
             ]
         ],
         [
             'button' => '5: Finaliser',
-            'heading' => 'Étape 5 : Sélection du candidat final',
+            'heading' => 'Étape 5 : Sélection finale du candidat',
             'content' => [
-                'Vous avez trouvé le candidat idéal pour votre poste? Il est maintenant temps de travailler avec votre conseiller en RH et le candidat retenu pour recueillir tout ce dont vous avez besoin pour conclure l’embauche. L’outil de compte rendu des décisions qui sera offert bientôt vous permettra de consigner vos justifications au fur et à mesure et de soumettre facilement vos documents aux RH.',
+                'Vous avez trouvé le candidat idéal pour votre poste? Il est maintenant temps de travailler avec votre conseiller en RH et le candidat retenu pour recueillir tout ce dont vous aurez besoin pour conclure le processus d’embauche. L’outil de compte rendu des décisions qui sera bientôt offert vous permettra de consigner vos justifications au fur et à mesure, et de soumettre facilement vos documents aux RH.',
                 'Il est temps de leur envoyer une lettre d’offre!',
                 'Cette étape n’est disponible que pour les comptes des ministères partenaires.'
             ]
@@ -244,14 +244,14 @@ return [
     ],
     'footer' => [
         'heading' => 'Communiquez avec nous',
-        'subheading' => 'Nous aimerions recevoir vos commentaires! Vous voulez nous aider à améliorer la plateforme? Nous sommes toujours à la recherche de commentaires sur la plateforme et de personnes pour tester les nouveaux outils!',
+        'subheading' => 'Nous aimerions que vous nous fassiez part de vos commentaires! Vous aimeriez nous aider à améliorer la plateforme? Nous sommes toujours à la recherche de commentaires sur la plateforme et de personnes pour tester les nouveaux outils!',
         'email' => [
             'href' => 'mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca',
             'text' => 'Envoyez-nous un courriel.'
         ],
         'gccollab' => [
             'href' => 'https://gccollab.ca/groups/profile/19750/talent-cloud-nuage-de-talent',
-            'text' => 'GC Collab'
+            'text' => ' GCcollab'
         ],
         'twitter' => [
             'href' => 'https://twitter.com/gc_talent?lang=fr',

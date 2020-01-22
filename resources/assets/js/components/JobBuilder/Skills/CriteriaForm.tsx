@@ -233,8 +233,8 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
                       id="skillSpecificity"
                       type="textarea"
                       name="specificity"
-                      label="Skill Specificity"
-                      placeholder="Add specificity to the definition of this skill that will only appear on my job poster but note that this will have be approved prior to posting..."
+                      label="Additional skill details"
+                      placeholder="Add context or specifics to the definition of this skill that will only appear on your job poster. This will be reviewed by your human resources advisor."
                       component={TextAreaInput}
                     />
                     <button
@@ -266,8 +266,7 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
                       <i className="fas fa-plus-circle" data-c-colour="c1" />
                       <FormattedMessage
                         id="jobBuilder.criteriaForm.addSpecificity"
-                        defaultMessage="I'd like to add specificity to this definition. This will
-                          only apply to my job poster."
+                        defaultMessage="I would like to add details to this definition that are specific this position."
                         description="Label for 'Add additional specificity' button on Add Skill modal."
                       />
                     </span>
