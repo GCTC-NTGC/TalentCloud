@@ -16,7 +16,7 @@
   "activityfeed.locations.summary": "Résumé de l'emploi",
   "activityfeed.noActivities": "Aucune activité.",
   "activityfeed.review.accordionAccessibleLabel": "Cliquer pour afficher...",
-  "activityfeed.review.header": "Examiner votre offre d'emploi {totalActivities}",
+  "activityfeed.review.header": "Cliquez pour voir les commentaires {totalActivities}",
   "activityfeed.review.loadingIconText": "Les données sont en cours de chargement...",
   "activityfeed.title": "Activités",
   "alert.oops": "Oops...",
