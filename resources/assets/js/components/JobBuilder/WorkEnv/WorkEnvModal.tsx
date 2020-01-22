@@ -2,7 +2,7 @@ import React from "react";
 import { FormattedMessage } from "react-intl";
 import { WorkEnvFormValues } from "./WorkEnvForm";
 import Modal from "../../Modal";
-import JobWorkEnv from "../JobWorkEnv";
+import JobWorkEnv from "./JobWorkEnv";
 
 interface WorkEnvModalProps {
   modalConfirm: (values) => void;
@@ -95,6 +95,7 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
                   ...values.physicalEnv,
                   ...values.technology,
                 ]}
+                envDescription={values.envDescription}
               />
               <h4
                 data-c-border="bottom(thin, solid, black)"

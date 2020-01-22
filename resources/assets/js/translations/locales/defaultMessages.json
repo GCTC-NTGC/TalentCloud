@@ -1845,121 +1845,6 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Open Concept",
-        "description": "Physical Environment checkbox group 'open concept' option.",
-        "id": "jobBuilder.workEnv.physEnv.openConcept"
-      },
-      {
-        "defaultMessage": "Private",
-        "description": "Physical Environment checkbox group 'private' option.",
-        "id": "jobBuilder.workEnv.physEnv.private"
-      },
-      {
-        "defaultMessage": "Assigned Seating",
-        "description": "Physical Environment checkbox group 'assigned seating' option.",
-        "id": "jobBuilder.workEnv.physEnv.assignedSeating"
-      },
-      {
-        "defaultMessage": "Lots of Windows",
-        "description": "Physical Environment checkbox group 'windows' option.",
-        "id": "jobBuilder.workEnv.physEnv.windows"
-      },
-      {
-        "defaultMessage": "Natural Light",
-        "description": "Physical Environment checkbox group 'natural light' option.",
-        "id": "jobBuilder.workEnv.physEnv.naturalLight"
-      },
-      {
-        "defaultMessage": "Suitable for Smudging",
-        "description": "Physical Environment checkbox group 'suitable for smudging' option.",
-        "id": "jobBuilder.workEnv.physEnv.smudging"
-      },
-      {
-        "defaultMessage": "Video Conferencing (e.g. Skype, Zoom)",
-        "description": "Technology checkbox group 'video conferencing' option.",
-        "id": "jobBuilder.workEnv.technology.videoConferencing"
-      },
-      {
-        "defaultMessage": "Collaboration (e.g. Slack, Hangouts)",
-        "description": "Technology checkbox group 'collaboration' option.",
-        "id": "jobBuilder.workEnv.technology.collaboration"
-      },
-      {
-        "defaultMessage": "File Sharing (e.g. Google Drive, Dropbox)",
-        "description": "Technology checkbox group 'file sharing' option.",
-        "id": "jobBuilder.workEnv.technology.fileSharing"
-      },
-      {
-        "defaultMessage": "Task Management (e.g. Trello, Asana)",
-        "description": "Technology checkbox group 'task management' option.",
-        "id": "jobBuilder.workEnv.technology.taskManagement"
-      },
-      {
-        "defaultMessage": "Version Control (e.g. Github, Gitlab)",
-        "description": "Technology checkbox group 'version control' option.",
-        "id": "jobBuilder.workEnv.technology.versionControl"
-      },
-      {
-        "defaultMessage": "Access to external, unfiltered Wi-Fi.",
-        "description": "Technology checkbox group 'access to external' option.",
-        "id": "jobBuilder.workEnv.technology.accessToExternal"
-      },
-      {
-        "defaultMessage": "Cafeteria On-site",
-        "description": "Amenities checkbox group 'cafeteria' option.",
-        "id": "jobBuilder.workEnv.amenities.cafeteria"
-      },
-      {
-        "defaultMessage": "Close to Transit",
-        "description": "Amenities checkbox group 'close to transit' option.",
-        "id": "jobBuilder.workEnv.amenities.closeToTransit"
-      },
-      {
-        "defaultMessage": "Walking Distance to Restaurants/Malls",
-        "description": "Amenities checkbox group 'restaurants' option.",
-        "id": "jobBuilder.workEnv.amenities.restaurants"
-      },
-      {
-        "defaultMessage": "Downtown",
-        "description": "Amenities checkbox group 'downtown' option.",
-        "id": "jobBuilder.workEnv.amenities.downtown"
-      },
-      {
-        "defaultMessage": "Nearby Fitness Centre",
-        "description": "Amenities checkbox group 'nearby fitness centre' option.",
-        "id": "jobBuilder.workEnv.amenities.fitnessCenter"
-      },
-      {
-        "defaultMessage": "Easy Access to Parking",
-        "description": "Amenities checkbox group 'parking' option.",
-        "id": "jobBuilder.workEnv.amenities.parking"
-      },
-      {
-        "defaultMessage": "Team Size",
-        "description": "Title for Team size section.",
-        "id": "jobBuilder.workEnvModal.teamSize"
-      },
-      {
-        "defaultMessage": "Our Physical Environment",
-        "description": "The label displayed on the physical environment checkbox group.",
-        "id": "jobBuilder.workEnvModal.physicalEnvLabel"
-      },
-      {
-        "defaultMessage": "Technology",
-        "description": "The label displayed on the technology checkbox group.",
-        "id": "jobBuilder.workEnvModal.technologyLabel"
-      },
-      {
-        "defaultMessage": "Amenities",
-        "description": "The label displayed on the amenities checkbox group.",
-        "id": "jobBuilder.workEnvModal.amenitiesLabel"
-      }
-    ],
-    "path": "resources/assets/js/components/JobBuilder/JobWorkEnv.json"
-  },
-  {
-    "descriptors": [
-      {
         "defaultMessage": "Find out how to access Job Poster review and publishing features.",
         "description": "Title of link to further information.",
         "id": "demoSubmitJobModal.link.title"
@@ -2785,6 +2670,101 @@
       }
     ],
     "path": "resources/assets/js/components/JobBuilder/Tasks/JobTasks.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Open Concept",
+        "description": "Physical Environment checkbox group 'open concept' option.",
+        "id": "jobBuilder.workEnv.physEnv.openConcept"
+      },
+      {
+        "defaultMessage": "Private",
+        "description": "Physical Environment checkbox group 'private' option.",
+        "id": "jobBuilder.workEnv.physEnv.private"
+      },
+      {
+        "defaultMessage": "Assigned Seating",
+        "description": "Physical Environment checkbox group 'assigned seating' option.",
+        "id": "jobBuilder.workEnv.physEnv.assignedSeating"
+      },
+      {
+        "defaultMessage": "Lots of Windows",
+        "description": "Physical Environment checkbox group 'windows' option.",
+        "id": "jobBuilder.workEnv.physEnv.windows"
+      },
+      {
+        "defaultMessage": "Natural Light",
+        "description": "Physical Environment checkbox group 'natural light' option.",
+        "id": "jobBuilder.workEnv.physEnv.naturalLight"
+      },
+      {
+        "defaultMessage": "Suitable for Smudging",
+        "description": "Physical Environment checkbox group 'suitable for smudging' option.",
+        "id": "jobBuilder.workEnv.physEnv.smudging"
+      },
+      {
+        "defaultMessage": "Video Conferencing (e.g. Skype, Zoom)",
+        "description": "Technology checkbox group 'video conferencing' option.",
+        "id": "jobBuilder.workEnv.technology.videoConferencing"
+      },
+      {
+        "defaultMessage": "Collaboration (e.g. Slack, Hangouts)",
+        "description": "Technology checkbox group 'collaboration' option.",
+        "id": "jobBuilder.workEnv.technology.collaboration"
+      },
+      {
+        "defaultMessage": "File Sharing (e.g. Google Drive, Dropbox)",
+        "description": "Technology checkbox group 'file sharing' option.",
+        "id": "jobBuilder.workEnv.technology.fileSharing"
+      },
+      {
+        "defaultMessage": "Task Management (e.g. Trello, Asana)",
+        "description": "Technology checkbox group 'task management' option.",
+        "id": "jobBuilder.workEnv.technology.taskManagement"
+      },
+      {
+        "defaultMessage": "Version Control (e.g. Github, Gitlab)",
+        "description": "Technology checkbox group 'version control' option.",
+        "id": "jobBuilder.workEnv.technology.versionControl"
+      },
+      {
+        "defaultMessage": "Access to external, unfiltered Wi-Fi.",
+        "description": "Technology checkbox group 'access to external' option.",
+        "id": "jobBuilder.workEnv.technology.accessToExternal"
+      },
+      {
+        "defaultMessage": "Cafeteria On-site",
+        "description": "Amenities checkbox group 'cafeteria' option.",
+        "id": "jobBuilder.workEnv.amenities.cafeteria"
+      },
+      {
+        "defaultMessage": "Close to Transit",
+        "description": "Amenities checkbox group 'close to transit' option.",
+        "id": "jobBuilder.workEnv.amenities.closeToTransit"
+      },
+      {
+        "defaultMessage": "Walking Distance to Restaurants/Malls",
+        "description": "Amenities checkbox group 'restaurants' option.",
+        "id": "jobBuilder.workEnv.amenities.restaurants"
+      },
+      {
+        "defaultMessage": "Downtown",
+        "description": "Amenities checkbox group 'downtown' option.",
+        "id": "jobBuilder.workEnv.amenities.downtown"
+      },
+      {
+        "defaultMessage": "Nearby Fitness Centre",
+        "description": "Amenities checkbox group 'nearby fitness centre' option.",
+        "id": "jobBuilder.workEnv.amenities.fitnessCenter"
+      },
+      {
+        "defaultMessage": "Easy Access to Parking",
+        "description": "Amenities checkbox group 'parking' option.",
+        "id": "jobBuilder.workEnv.amenities.parking"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnv.json"
   },
   {
     "descriptors": [
