@@ -213,13 +213,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
             ]
           }
           hrAdvisors={Array []}
-          jobLink={
-            Object {
-              "text": "CS01 - Front-end Developer",
-              "title": "",
-              "url": "",
-            }
-          }
+          jobTitle="CS01 - Front-end Developer"
           status={1}
         />
         <UnclaimedJobCard
@@ -236,13 +230,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
               "Jack Little",
             ]
           }
-          jobLink={
-            Object {
-              "text": "AS02 - Executive Assisstant",
-              "title": "",
-              "url": "",
-            }
-          }
+          jobTitle="AS02 - Executive Assisstant"
           status={1}
         />
         <UnclaimedJobCard
@@ -254,13 +242,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
             ]
           }
           hrAdvisors={Array []}
-          jobLink={
-            Object {
-              "text": "ET03 - Business Analyst",
-              "title": "",
-              "url": "",
-            }
-          }
+          jobTitle="ET03 - Business Analyst"
           status={2}
         />
         <UnclaimedJobCard
@@ -277,13 +259,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
               "Jack Little",
             ]
           }
-          jobLink={
-            Object {
-              "text": "FG05 - Long-term Care Specialist",
-              "title": "",
-              "url": "",
-            }
-          }
+          jobTitle="FG05 - Long-term Care Specialist"
           status={1}
         />
         <UnclaimedJobCard
@@ -295,13 +271,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
             ]
           }
           hrAdvisors={Array []}
-          jobLink={
-            Object {
-              "text": "CS03 - Digital Product Designer",
-              "title": "",
-              "url": "",
-            }
-          }
+          jobTitle="CS03 - Digital Product Designer"
           status={2}
         />
       </section>
