@@ -97,7 +97,7 @@ const JobReviewActivityFeed: React.FunctionComponent<JobReviewActivityFeedProps>
               <h3 data-c-font-size="h3" data-c-color="white">
                 <FormattedMessage
                   id="activityfeed.review.header"
-                  defaultMessage="Review Your Job Poster {totalActivities}"
+                  defaultMessage="Click to View Comments {totalActivities}"
                   description="The activity feed header."
                   values={{
                     totalActivities:
@@ -126,14 +126,14 @@ const JobReviewActivityFeed: React.FunctionComponent<JobReviewActivityFeedProps>
               data-c-font-style="underline"
               data-c-color="white"
             >
-              <i className="fas fa-caret-up" />
+              <i className="fas fa-caret-down" />
             </p>
             <p
               data-c-accordion-remove=""
               data-c-font-style="underline"
               data-c-color="white"
             >
-              <i className="fas fa-caret-down" />
+              <i className="fas fa-caret-up" />
             </p>
           </button>
           <div
