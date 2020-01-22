@@ -116,7 +116,7 @@ const makeJobAction = (
       title: "",
     },
     screeningPlan: {
-      url: hrScreeningPlan(locale, job.id),
+      url: "", // TODO: replace when working withhrScreeningPlan(locale, job.id),
       text: intl.formatMessage(buttonMessages.screeningPlan),
       title: "",
     },
