@@ -26,11 +26,7 @@ stories
     (): React.ReactElement => (
       <div data-c-container="large" data-c-padding="tb(triple)">
         <UnclaimedJobCard
-          jobLink={{
-            url: text("Url", "", "Props"),
-            title: "",
-            text: text("Title", "CS01 - Front-end Developer", "Props"),
-          }}
+          jobTitle={text("Title", "CS01 - Front-end Developer", "Props")}
           createdAt={text("Created At", "Created: 2019-MAY-02", "Props")}
           status={select("Status", statusOptions, JobStatus.Draft, "Props")}
           hiringManagers={array(
@@ -50,11 +46,7 @@ stories
     (): React.ReactElement => (
       <div data-c-container="large" data-c-padding="tb(triple)">
         <UnclaimedJobCard
-          jobLink={{
-            url: text("Url", "", "Props"),
-            title: "",
-            text: text("Title", "AS02 - Executive Assisstant", "Props"),
-          }}
+          jobTitle={text("Title", "AS02 - Executive Assisstant", "Props")}
           createdAt={text("Created At", "Created: 2019-MAY-02", "Props")}
           status={select("Status", statusOptions, JobStatus.Draft, "Props")}
           hiringManagers={array(
@@ -81,7 +73,7 @@ stories
         <div data-c-grid="gutter">
           {unclaimedJobs.map(
             ({
-              jobLink,
+              jobTitle,
               createdAt,
               status,
               hiringManagers,
@@ -89,8 +81,8 @@ stories
             }): React.ReactElement => {
               return (
                 <UnclaimedJobCard
-                  key={jobLink.text}
-                  jobLink={jobLink}
+                  key={jobTitle}
+                  jobTitle={jobTitle}
                   createdAt={createdAt}
                   status={status}
                   hiringManagers={hiringManagers}

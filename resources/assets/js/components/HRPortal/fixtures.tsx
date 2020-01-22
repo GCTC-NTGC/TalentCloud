@@ -118,11 +118,7 @@ export const jobActions: JobCardProps[] = [
 
 export const unclaimedJobs: UnclaimedJobCardProps[] = [
   {
-    jobLink: {
-      text: "CS01 - Front-end Developer",
-      url: "",
-      title: "",
-    },
+    jobTitle: "CS01 - Front-end Developer",
     createdAt: "2019-MAY-02",
     status: JobStatus.Draft,
     hiringManagers: ["Rebecca Appleby"],
@@ -130,11 +126,7 @@ export const unclaimedJobs: UnclaimedJobCardProps[] = [
     handleClaimJob: (): void => {},
   },
   {
-    jobLink: {
-      text: "AS02 - Executive Assisstant",
-      url: "",
-      title: "",
-    },
+    jobTitle: "AS02 - Executive Assisstant",
     createdAt: "2019-MAR-12",
     status: JobStatus.Draft,
     hiringManagers: ["Rebecca Appleby"],
@@ -142,11 +134,7 @@ export const unclaimedJobs: UnclaimedJobCardProps[] = [
     handleClaimJob: (): void => {},
   },
   {
-    jobLink: {
-      text: "ET03 - Business Analyst",
-      url: "",
-      title: "",
-    },
+    jobTitle: "ET03 - Business Analyst",
     createdAt: "2019-DEC-02",
     status: JobStatus.Review,
     hiringManagers: ["Robin Browne"],
@@ -154,11 +142,7 @@ export const unclaimedJobs: UnclaimedJobCardProps[] = [
     handleClaimJob: (): void => {},
   },
   {
-    jobLink: {
-      text: "FG05 - Long-term Care Specialist",
-      url: "",
-      title: "",
-    },
+    jobTitle: "FG05 - Long-term Care Specialist",
     createdAt: "2019-MAY-14",
     status: JobStatus.Draft,
     hiringManagers: ["Braeden McDoogal"],
@@ -166,11 +150,7 @@ export const unclaimedJobs: UnclaimedJobCardProps[] = [
     handleClaimJob: (): void => {},
   },
   {
-    jobLink: {
-      text: "CS03 - Digital Product Designer",
-      url: "",
-      title: "",
-    },
+    jobTitle: "CS03 - Digital Product Designer",
     createdAt: "2019-JUL-24",
     status: JobStatus.Review,
     hiringManagers: ["Amelie Lachance"],

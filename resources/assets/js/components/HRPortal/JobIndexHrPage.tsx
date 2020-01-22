@@ -137,13 +137,9 @@ const makeUnclaimedJob = (
 ): UnclaimedJobCardProps => {
   const jobTitle = localizeField(locale, job, "title");
   return {
-    jobLink: {
-      url: hrJobPreview(locale, job.id),
-      text: stringNotEmpty(jobTitle)
-        ? jobTitle
-        : intl.formatMessage(messages.titleMissing),
-      title: "",
-    },
+    jobTitle: stringNotEmpty(jobTitle)
+      ? jobTitle
+      : intl.formatMessage(messages.titleMissing),
     createdAt: readableDateTime(locale, job.created_at),
     status: jobStatus(job),
     hiringManagers: [
@@ -262,7 +258,7 @@ const JobIndexHrDataFetcher: React.FC<JobIndexHrDataFetcherProps> = ({
   // Load department names
   useEffect(() => {
     dispatch(getDepartments());
-  }, []);
+  }, [dispatch]);
   const department = useSelector((state: RootState) =>
     hrAdvisor !== null
       ? getDepartmentById(state, hrAdvisor.department_id)
