@@ -1,0 +1,57 @@
+[
+  {
+    "id": "reviewLocations.jpb.generic",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Generic"
+  },
+  {
+    "id": "reviewLocations.jpb.heading",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Job Page Heading"
+  },
+  {
+    "id": "reviewLocations.jpb.basicInfo",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Basic Information"
+  },
+  {
+    "id": "reviewLocations.jpb.impact",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Impact"
+  },
+  {
+    "id": "reviewLocations.jpb.tasks",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Tasks"
+  },
+  {
+    "id": "reviewLocations.jpb.skills",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Criteria"
+  },
+  {
+    "id": "reviewLocations.jpb.langRequirements",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Language Requirements"
+  },
+  {
+    "id": "reviewLocations.jpb.environment",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Work Environment"
+  },
+  {
+    "id": "activityfeed.review.loadingIconText",
+    "description": "Accessible text for the loading icon",
+    "defaultMessage": "Data is loading..."
+  },
+  {
+    "id": "activityfeed.review.header",
+    "description": "The activity feed header.",
+    "defaultMessage": "Review Your Job Poster {totalActivities}"
+  },
+  {
+    "id": "activityfeed.review.accordionAccessibleLabel",
+    "description": "The accessibility text displayed on the activity feed accordion button.",
+    "defaultMessage": "Click to view..."
+  }
+]

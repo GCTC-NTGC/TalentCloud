@@ -117,7 +117,7 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
                   <Activity
                     key={id}
                     name="Replace with Manager Name!" // TODO: Replace with user.name after User api is setup.
-                    userRole="Replace with Manager Role!" // TODO: Replace with user.name after User api is setup.
+                    userRole="Replace with Manager Role!" // TODO: Replace with user.role after User api is setup.
                     comment={comment}
                     location={
                       isValidLocation(location)

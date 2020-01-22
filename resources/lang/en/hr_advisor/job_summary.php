@@ -15,7 +15,7 @@ return [
     'status_label' => 'Current Status:',
     'under_review' => 'This job action is currently in the review process. This means that the poster is being edited and discussed by the manager and HR advisors to get it to a point where it can be published. When it\'s ready, the next step is translation.',
     'manager_label' => 'Hiring Manager:',
-    'applicants_label' => 'Applicants:',
+    'applicants_label' => 'Applicants',
     'not_applicable' => 'N/A',
     'other_title' => 'Other Details',
     'other_text' => 'View information like Priority Clearance #, HR Advisors, etc.',

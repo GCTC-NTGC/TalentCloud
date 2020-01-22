@@ -15,7 +15,7 @@ return [
     'status_label' => 'Statut actuel :',
     'under_review' => 'La présente mesure d\'emploi en est au stade du processus d\'examen. L\'avis d\'emploi est donc en cours de révision et fait l\'objet de discussions entre le gestionnaire et les conseillers en RH pour faire en sorte que l\'avis puisse être publié. Une fois prêt, l\'avis passe à l\'étape suivante, soit la traduction.',
     'manager_label' => 'Gestionnaire d\'embauche :',
-    'applicants_label' => 'Candidats :',
+    'applicants_label' => 'Candidats',
     'not_applicable' => 'S.O.',
     'other_title' => 'Autres détails',
     'other_text' => 'Afficher les autres renseignements comme le numéro d\'autorisation en matière de priorité, les conseillers en RH et autres.',

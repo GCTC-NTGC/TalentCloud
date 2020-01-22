@@ -63,9 +63,7 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
             <p>
               <FormattedMessage
                 id="jobBuilder.workEnv.openingSentence"
-                defaultMessage="Here's a preview of the Job Information you just entered. Feel
-                free to go back and edit things or move to the next step if
-                you're happy with it."
+                defaultMessage="Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
                 description="Opening sentence for modal."
               />
             </p>
