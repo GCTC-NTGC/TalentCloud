@@ -208,71 +208,81 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
         <UnclaimedJobCard
           createdAt="2019-MAY-02"
           handleClaimJob={[Function]}
-          hiringManagers={
-            Array [
-              "Rebecca Appleby",
-            ]
-          }
+          hiringManager="Rebecca Appleby"
           hrAdvisors={Array []}
-          jobTitle="CS01 - Front-end Developer"
+          jobLink={
+            Object {
+              "text": "CS01 - Front-end Developer",
+              "title": "",
+              "url": "",
+            }
+          }
           status={1}
         />
         <UnclaimedJobCard
           createdAt="2019-MAR-12"
           handleClaimJob={[Function]}
-          hiringManagers={
-            Array [
-              "Rebecca Appleby",
-            ]
-          }
+          hiringManager="Rebecca Appleby"
           hrAdvisors={
             Array [
               "Rebecca Appleby",
               "Jack Little",
             ]
           }
-          jobTitle="AS02 - Executive Assisstant"
+          jobLink={
+            Object {
+              "text": "AS02 - Executive Assisstant",
+              "title": "",
+              "url": "",
+            }
+          }
           status={1}
         />
         <UnclaimedJobCard
           createdAt="2019-DEC-02"
           handleClaimJob={[Function]}
-          hiringManagers={
-            Array [
-              "Robin Browne",
-            ]
-          }
+          hiringManager="Robin Browne"
           hrAdvisors={Array []}
-          jobTitle="ET03 - Business Analyst"
+          jobLink={
+            Object {
+              "text": "ET03 - Business Analyst",
+              "title": "",
+              "url": "",
+            }
+          }
           status={2}
         />
         <UnclaimedJobCard
           createdAt="2019-MAY-14"
           handleClaimJob={[Function]}
-          hiringManagers={
-            Array [
-              "Braeden McDoogal",
-            ]
-          }
+          hiringManager="Braeden McDoogal"
           hrAdvisors={
             Array [
               "Caitlyn Summers",
               "Jack Little",
             ]
           }
-          jobTitle="FG05 - Long-term Care Specialist"
+          jobLink={
+            Object {
+              "text": "FG05 - Long-term Care Specialist",
+              "title": "",
+              "url": "",
+            }
+          }
           status={1}
         />
         <UnclaimedJobCard
           createdAt="2019-JUL-24"
           handleClaimJob={[Function]}
-          hiringManagers={
-            Array [
-              "Amelie Lachance",
-            ]
-          }
+          hiringManager="Amelie Lachance"
           hrAdvisors={Array []}
-          jobTitle="CS03 - Digital Product Designer"
+          jobLink={
+            Object {
+              "text": "CS03 - Digital Product Designer",
+              "title": "",
+              "url": "",
+            }
+          }
           status={2}
         />
       </section>
