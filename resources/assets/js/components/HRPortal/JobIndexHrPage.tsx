@@ -146,11 +146,10 @@ const makeUnclaimedJob = (
     },
     createdAt: readableDateTime(locale, job.created_at),
     status: jobStatus(job),
-    hiringManagers: [
+    hiringManager:
       manager !== null
         ? manager.full_name
         : intl.formatMessage(messages.loadingManager),
-    ],
     hrAdvisors: [], // TODO: We can get all claims of an advisor, but don't have an api route for gettings advisors for a job!
     handleClaimJob,
   };
@@ -262,7 +261,7 @@ const JobIndexHrDataFetcher: React.FC<JobIndexHrDataFetcherProps> = ({
   // Load department names
   useEffect(() => {
     dispatch(getDepartments());
-  }, []);
+  }, [dispatch]);
   const department = useSelector((state: RootState) =>
     hrAdvisor !== null
       ? getDepartmentById(state, hrAdvisor.department_id)
