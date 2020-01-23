@@ -165,11 +165,19 @@ class JobController extends Controller
                 'text' => $jobLang['apply']['edit_link_label'],
             ];
         } elseif (WhichPortal::isHrPortal()) {
-            $applyButton = [
-                'href' => route('hr_advisor.jobs.summary', $jobPoster->id),
-                'title' => null,
-                'text' => Lang::get('hr_advisor/job_summary.summary_title'),
-            ];
+            if ($jobPoster->hr_advisors->get($user->id)) {
+                $applyButton = [
+                    'href' => route('hr_advisor.jobs.summary', $jobPoster->id),
+                    'title' => null,
+                    'text' => Lang::get('hr_advisor/job_summary.summary_title'),
+                ];
+            } else {
+                $applyButton = [
+                    'href' => route('hr_advisor.jobs.index'),
+                    'title' => null,
+                    'text' => Lang::get('hr_advisor/job_index.title'),
+                ];
+            }
         } elseif (Auth::check() && $jobPoster->isOpen()) {
             $applyButton = [
                 'href' => route('job.application.edit.1', $jobPoster->id),
