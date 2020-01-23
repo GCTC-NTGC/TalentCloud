@@ -84,7 +84,7 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
                   description="Header before list of HR advisors."
                   defaultMessage="HR Advisors: "
                 />
-                {hrAdvisors.join(",")}
+                {hrAdvisors.join(", ")}
               </p>
             ) : (
               <p data-c-color="stop" data-c-margin="bottom(normal)">
