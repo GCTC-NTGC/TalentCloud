@@ -1,13 +1,8 @@
 import React, { useState, useMemo } from "react";
-import ReactDOM from "react-dom";
 import { FormattedMessage } from "react-intl";
 import JobCard, { JobCardProps } from "../JobCard";
 import UnclaimedJobCard, { UnclaimedJobCardProps } from "../UnclaimedJobCard";
-import RootContainer from "../RootContainer";
 import { JobStatus } from "../../models/lookupConstants";
-import { jobActions, unclaimedJobs } from "./fixtures";
-import CommentForm from "../CommentForm";
-import ActivityFeed from "../ActivityFeed";
 
 interface CompletedJobsAccordionProps {
   completedJobActions: JobCardProps[];
@@ -121,7 +116,10 @@ const JobIndexHr: React.FunctionComponent<JobIndexHrProps> = ({
 
   return (
     <section>
-      <div data-c-background="gray(10)" data-c-border="bottom(thin, solid, black)">
+      <div
+        data-c-background="gray(10)"
+        data-c-border="bottom(thin, solid, black)"
+      >
         <div data-c-container="large" data-c-padding="tb(triple)">
           <p>
             <FormattedMessage

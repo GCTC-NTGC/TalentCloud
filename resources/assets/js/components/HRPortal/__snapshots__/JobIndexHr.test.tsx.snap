@@ -208,11 +208,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
         <UnclaimedJobCard
           createdAt="2019-MAY-02"
           handleClaimJob={[Function]}
-          hiringManagers={
-            Array [
-              "Rebecca Appleby",
-            ]
-          }
+          hiringManager="Rebecca Appleby"
           hrAdvisors={Array []}
           jobLink={
             Object {
@@ -226,11 +222,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
         <UnclaimedJobCard
           createdAt="2019-MAR-12"
           handleClaimJob={[Function]}
-          hiringManagers={
-            Array [
-              "Rebecca Appleby",
-            ]
-          }
+          hiringManager="Rebecca Appleby"
           hrAdvisors={
             Array [
               "Rebecca Appleby",
@@ -249,11 +241,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
         <UnclaimedJobCard
           createdAt="2019-DEC-02"
           handleClaimJob={[Function]}
-          hiringManagers={
-            Array [
-              "Robin Browne",
-            ]
-          }
+          hiringManager="Robin Browne"
           hrAdvisors={Array []}
           jobLink={
             Object {
@@ -267,11 +255,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
         <UnclaimedJobCard
           createdAt="2019-MAY-14"
           handleClaimJob={[Function]}
-          hiringManagers={
-            Array [
-              "Braeden McDoogal",
-            ]
-          }
+          hiringManager="Braeden McDoogal"
           hrAdvisors={
             Array [
               "Caitlyn Summers",
@@ -290,11 +274,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
         <UnclaimedJobCard
           createdAt="2019-JUL-24"
           handleClaimJob={[Function]}
-          hiringManagers={
-            Array [
-              "Amelie Lachance",
-            ]
-          }
+          hiringManager="Amelie Lachance"
           hrAdvisors={Array []}
           jobLink={
             Object {
