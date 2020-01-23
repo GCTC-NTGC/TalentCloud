@@ -1,5 +1,7 @@
 import * as React from "react";
-import { FormattedMessage } from "react-intl";
+import dayjs from "dayjs";
+import "dayjs/locale/fr-ca";
+import { FormattedMessage, useIntl } from "react-intl";
 import { Link } from "../models/app";
 
 export interface Activity {
@@ -23,6 +25,10 @@ const Activity: React.FunctionComponent<ActivityProps> = ({
   location,
   link,
 }) => {
+  const intl = useIntl();
+  const locale = intl.locale === "fr" ? "fr-ca" : "en";
+  const commentDate = dayjs(time, { locale }).format("dddd, MMMM d, YYYY");
+  const commentTime = dayjs(time, { locale }).format("HH:mm");
   return (
     <div>
       <a
@@ -49,7 +55,7 @@ const Activity: React.FunctionComponent<ActivityProps> = ({
             values={{
               name,
               userRole,
-              time: time.toString(), // TODO: Fix date format
+              time: `${commentDate} at ${commentTime} EST`,
             }}
           />
         </p>
