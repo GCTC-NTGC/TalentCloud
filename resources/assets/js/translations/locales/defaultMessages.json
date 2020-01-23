@@ -2200,12 +2200,12 @@
         "id": "managerSurveyModal.managerSurveyLinkTitle"
       },
       {
-        "defaultMessage": "Take me to the survey",
+        "defaultMessage": "<a>Take me to the survey</>.",
         "description": "Link to manager survey.",
         "id": "managerSurveyModal.link"
       },
       {
-        "defaultMessage": "Go back to <a>My Job Posters</>.",
+        "defaultMessage": "Go back to My Job Posters",
         "description": "Link to job poster index.",
         "id": "managerSurveyModal.jobPosterLink"
       },
