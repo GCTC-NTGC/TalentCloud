@@ -137,9 +137,13 @@ const makeUnclaimedJob = (
 ): UnclaimedJobCardProps => {
   const jobTitle = localizeField(locale, job, "title");
   return {
-    jobTitle: stringNotEmpty(jobTitle)
-      ? jobTitle
-      : intl.formatMessage(messages.titleMissing),
+    jobLink: {
+      url: hrJobPreview(locale, job.id),
+      text: stringNotEmpty(jobTitle)
+        ? jobTitle
+        : intl.formatMessage(messages.titleMissing),
+      title: "",
+    },
     createdAt: readableDateTime(locale, job.created_at),
     status: jobStatus(job),
     hiringManagers: [
