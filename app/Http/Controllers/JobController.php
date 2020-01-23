@@ -165,7 +165,7 @@ class JobController extends Controller
                 'text' => $jobLang['apply']['edit_link_label'],
             ];
         } elseif (WhichPortal::isHrPortal()) {
-            if ($jobPoster->hr_advisors->get($user->id)) {
+            if ($jobPoster->hr_advisors->contains('user_id', $user->id)) {
                 $applyButton = [
                     'href' => route('hr_advisor.jobs.summary', $jobPoster->id),
                     'title' => null,
