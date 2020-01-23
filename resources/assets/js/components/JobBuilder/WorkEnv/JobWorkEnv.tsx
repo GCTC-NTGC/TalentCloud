@@ -7,6 +7,7 @@ import {
   IntlShape,
   MessageDescriptor,
 } from "react-intl";
+import { formMessages } from "./WorkEnvForm";
 
 export const physEnvMessages = defineMessages({
   openConcept: {
@@ -165,12 +166,14 @@ export const amenitiesDescriptions = (
 interface JobWorkEnv {
   teamSize: number;
   selectedEnvOptions: string[];
+  envDescription: string;
 }
 
 export const JobWorkEnv: React.FunctionComponent<JobWorkEnv &
   WrappedComponentProps> = ({
   teamSize,
   selectedEnvOptions,
+  envDescription,
   intl,
 }): React.ReactElement => {
   const phyEnvData: { name: string; label: string }[] = phyEnvDescriptions(
@@ -190,11 +193,7 @@ export const JobWorkEnv: React.FunctionComponent<JobWorkEnv &
           data-c-margin="top(half) bottom(half)"
           data-c-font-weight="bold"
         >
-          <FormattedMessage
-            id="jobBuilder.workEnvModal.teamSize"
-            defaultMessage="Team Size"
-            description="Title for Team size section."
-          />
+          <FormattedMessage {...formMessages.teamSizeLabel} />
         </span>
         <span data-c-margin="left(normal)">{teamSize}</span>
       </div>
@@ -204,11 +203,7 @@ export const JobWorkEnv: React.FunctionComponent<JobWorkEnv &
           data-c-margin="top(half) bottom(half)"
           data-c-font-weight="bold"
         >
-          <FormattedMessage
-            id="jobBuilder.workEnvModal.physicalEnvLabel"
-            defaultMessage="Our Physical Environment"
-            description="The label displayed on the physical environment checkbox group."
-          />
+          <FormattedMessage {...formMessages.physicalEnvLabel} />
         </p>
         <div data-c-margin="left(quarter)">
           <div data-c-grid="gutter">
@@ -238,11 +233,7 @@ export const JobWorkEnv: React.FunctionComponent<JobWorkEnv &
           data-c-padding="top(half) bottom(half)"
           data-c-font-weight="bold"
         >
-          <FormattedMessage
-            id="jobBuilder.workEnvModal.technologyLabel"
-            defaultMessage="Technology"
-            description="The label displayed on the technology checkbox group."
-          />
+          <FormattedMessage {...formMessages.technologyLabel} />
         </p>
         <div data-c-margin="left(quarter)">
           <div data-c-grid="gutter">
@@ -272,11 +263,7 @@ export const JobWorkEnv: React.FunctionComponent<JobWorkEnv &
           data-c-margin="top(half) bottom(half)"
           data-c-font-weight="bold"
         >
-          <FormattedMessage
-            id="jobBuilder.workEnvModal.amenitiesLabel"
-            defaultMessage="Amenities"
-            description="The label displayed on the amenities checkbox group."
-          />
+          <FormattedMessage {...formMessages.amenitiesLabel} />
         </p>
         <div data-c-margin="left(quarter)">
           <div data-c-grid="gutter">
@@ -299,6 +286,16 @@ export const JobWorkEnv: React.FunctionComponent<JobWorkEnv &
             )}
           </div>
         </div>
+      </div>
+      <div data-c-grid-item="base(1of1)">
+        <p
+          data-c-margin="bottom(normal) top(half)"
+          data-c-colour="c1"
+          data-c-font-weight="bold"
+        >
+          <FormattedMessage {...formMessages.moreOnWorkEnv} />
+        </p>
+        <p>{envDescription}</p>
       </div>
     </div>
   );

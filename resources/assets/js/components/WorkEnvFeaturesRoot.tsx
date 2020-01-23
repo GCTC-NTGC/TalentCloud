@@ -1,6 +1,6 @@
 import * as React from "react";
 import ReactDOM from "react-dom";
-import JobWorkEnv from "./JobBuilder/JobWorkEnv";
+import JobWorkEnv from "./JobBuilder/WorkEnv/JobWorkEnv";
 import IntlContainer from "../IntlContainer";
 
 interface WorkEnvOptions {
@@ -20,12 +20,15 @@ if (document.getElementById("work-env-features-section")) {
     );
     const selectedEnvOptions = extractSelectedEnvOptions(workEnvOptions);
     const teamSize = JSON.parse(container.dataset.teamSize as string);
+    const envDescription = container.dataset.workEnvDescription;
+
     const locale = document.documentElement.lang;
     ReactDOM.render(
       <IntlContainer locale={locale}>
         <JobWorkEnv
           teamSize={teamSize}
           selectedEnvOptions={selectedEnvOptions}
+          envDescription={envDescription || ""}
         />
       </IntlContainer>,
       container,

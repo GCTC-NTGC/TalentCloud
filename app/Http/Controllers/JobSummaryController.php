@@ -29,17 +29,70 @@ class JobSummaryController extends Controller
 
         $summaryLang = Lang::get('hr_advisor/job_summary');
 
+        $job_review_data = [
+            'imgSrc' => '/images/job-process-summary-tool-edit.svg',
+            'imgAlt' => "{$summaryLang['edit_poster_icon']} {$summaryLang['flat_icons']}",
+            'text' => $summaryLang['edit_poster_button'],
+            'url' => route('hr_advisor.jobs.review', $job),
+            'disabled' => false,
+        ];
+
+        $job_preview_data = [
+            'imgSrc' => '/images/job-process-summary-tool-view.svg',
+            'imgAlt' => "{$summaryLang['view_poster_icon']} {$summaryLang['flat_icons']}",
+            'text' => $summaryLang['view_poster_button'],
+            'url' => route('hr_advisor.jobs.preview', $job),
+            'disabled' => false,
+        ];
+
+        $screening_plan_data = [
+            'imgSrc' => '/images/job-process-summary-tool-screen.svg',
+            'imgAlt' => "{$summaryLang['screening_plan_icon']} {$summaryLang['flat_icons']}",
+            'text' => $summaryLang['screening_plan_button'],
+            'url' => '/',
+            'disabled' => true, // TODO: Update when screening plan for HR is ready
+        ];
+
         $view_applicants_data = [
             'imgSrc' => '/images/job-process-summary-tool-applicants.svg',
             'imgAlt' => "{$summaryLang['view_applicants_icon']} {$summaryLang['flat_icons']}",
             'text' => $summaryLang['view_applicants_button'],
             'url' => route('hr_advisor.jobs.applications', $job),
-            'disabled' => $job->isClosed(),
+            'disabled' => !$job->isClosed(),
         ];
+
+
+
+        switch ($job->job_status_id) {
+            case 1:
+                $status = Lang::get('common/lookup/job_status.draft');
+                break;
+            case 2:
+                $status = Lang::get('common/lookup/job_status.in_review');
+                break;
+            case 3:
+                $status = Lang::get('common/lookup/job_status.approved');
+                break;
+            case 4:
+                $status = Lang::get('common/lookup/job_status.open');
+                break;
+            case 5:
+                $status = Lang::get('common/lookup/job_status.closed');
+                break;
+            case 6:
+                $status = Lang::get('common/lookup/job_status.complete');
+                break;
+        }
+        // TODO: This should change based on the current status.
+        $status_description = $job->job_status_id == 2
+            ? $summaryLang['under_review']
+            : '';
 
         $data = [
             // Localized strings.
             'summary' => $summaryLang,
+            'job_status' => $status,
+            'job_status_description' => $status_description,
             'is_claimed' => $jobIsClaimed,
             // User data.
             'user' => $user,
@@ -51,9 +104,9 @@ class JobSummaryController extends Controller
             // 'send_manager' => ,
             // 'send_translation' => ,
             // 'approve_publishing' => ,
-            'job_review_url' => route('hr_advisor.jobs.review', $job),
-            'job_preview_url' => '/',
-            'screening_plan_url' => '/',
+            'job_review_data' => $job_review_data,
+            'job_preview_data' => $job_preview_data,
+            'screening_plan_data' => $screening_plan_data,
             'view_applicants_data' => $view_applicants_data,
             'relinquish_job' => route('hr_advisor.jobs.unclaim', $job),
         ];

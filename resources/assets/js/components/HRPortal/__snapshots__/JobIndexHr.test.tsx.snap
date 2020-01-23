@@ -4,6 +4,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
 <section>
   <div
     data-c-background="gray(10)"
+    data-c-border="bottom(thin, solid, black)"
   >
     <div
       data-c-container="large"
@@ -11,12 +12,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
     >
       <p>
         <FormattedMessage
-          defaultMessage="Welcome! Introductory copy that explains how this page works, and
-                what an HR advisor needs to do to claim a job action as their own.
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium
-                ducimus laboriosam sequi, quis autem minima esse quasi aspernatur
-                vero provident quos eligendi, ea officia exercitationem. Obcaecati
-                impedit quae veritatis corrupti!"
+          defaultMessage="Welcome! Introductory copy that explains how this page works, and what an HR advisor needs to do to claim a job action as their own. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium ducimus laboriosam sequi, quis autem minima esse quasi aspernatur vero provident quos eligendi, ea officia exercitationem. Obcaecati impedit quae veritatis corrupti!"
           description="Welcome message at beginning of page."
           id="hrPortal.jobPageIndex.welcomeMessage"
           values={Object {}}
@@ -37,9 +33,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
         data-c-margin="bottom(double)"
       >
         <FormattedMessage
-          defaultMessage="This is a list of all job actions you are currently participating
-                in. Looking for an older job? Check the 'My Completed Job Actions'
-                section below your active jobs."
+          defaultMessage="This is a list of all job actions you are currently participating in. Looking for an older job? Check the 'My Completed Job Actions' section below your active jobs."
           description="Message before list of users job actions."
           id="hrPortal.jobPageIndex.jobActionsMessage"
           values={Object {}}
@@ -202,12 +196,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
         data-c-margin="bottom(double)"
       >
         <FormattedMessage
-          defaultMessage="This is the list of all active job actions in your department. From
-                here you can 'claim' a job, which will move it into your jobs list
-                above and allow you to begin working with the hiring manager on
-                finding the best talent possible. If you claim a job by accident, no
-                fear, for you can click into the job summary and remove yourself
-                using the 'Remove Myself From This Job' button."
+          defaultMessage="This is the list of all active job actions in your department. From here you can 'claim' a job, which will move it into your jobs list above and allow you to begin working with the hiring manager on finding the best talent possible. If you claim a job by accident, no fear, for you can click into the job summary and remove yourself using the 'Relinquish This Job' button."
           description="Message before list of unclaimed jobs."
           id="hrPortal.jobPageIndex.unclaimedJobsMessage"
           values={Object {}}
@@ -326,6 +315,7 @@ exports[`Job Index Page should render JobIndexHr without any items 1`] = `
 <section>
   <div
     data-c-background="gray(10)"
+    data-c-border="bottom(thin, solid, black)"
   >
     <div
       data-c-container="large"
@@ -333,12 +323,7 @@ exports[`Job Index Page should render JobIndexHr without any items 1`] = `
     >
       <p>
         <FormattedMessage
-          defaultMessage="Welcome! Introductory copy that explains how this page works, and
-                what an HR advisor needs to do to claim a job action as their own.
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium
-                ducimus laboriosam sequi, quis autem minima esse quasi aspernatur
-                vero provident quos eligendi, ea officia exercitationem. Obcaecati
-                impedit quae veritatis corrupti!"
+          defaultMessage="Welcome! Introductory copy that explains how this page works, and what an HR advisor needs to do to claim a job action as their own. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium ducimus laboriosam sequi, quis autem minima esse quasi aspernatur vero provident quos eligendi, ea officia exercitationem. Obcaecati impedit quae veritatis corrupti!"
           description="Welcome message at beginning of page."
           id="hrPortal.jobPageIndex.welcomeMessage"
           values={Object {}}
@@ -359,9 +344,7 @@ exports[`Job Index Page should render JobIndexHr without any items 1`] = `
         data-c-margin="bottom(double)"
       >
         <FormattedMessage
-          defaultMessage="This is a list of all job actions you are currently participating
-                in. Looking for an older job? Check the 'My Completed Job Actions'
-                section below your active jobs."
+          defaultMessage="This is a list of all job actions you are currently participating in. Looking for an older job? Check the 'My Completed Job Actions' section below your active jobs."
           description="Message before list of users job actions."
           id="hrPortal.jobPageIndex.jobActionsMessage"
           values={Object {}}
@@ -398,12 +381,7 @@ exports[`Job Index Page should render JobIndexHr without any items 1`] = `
         data-c-margin="bottom(double)"
       >
         <FormattedMessage
-          defaultMessage="This is the list of all active job actions in your department. From
-                here you can 'claim' a job, which will move it into your jobs list
-                above and allow you to begin working with the hiring manager on
-                finding the best talent possible. If you claim a job by accident, no
-                fear, for you can click into the job summary and remove yourself
-                using the 'Remove Myself From This Job' button."
+          defaultMessage="This is the list of all active job actions in your department. From here you can 'claim' a job, which will move it into your jobs list above and allow you to begin working with the hiring manager on finding the best talent possible. If you claim a job by accident, no fear, for you can click into the job summary and remove yourself using the 'Relinquish This Job' button."
           description="Message before list of unclaimed jobs."
           id="hrPortal.jobPageIndex.unclaimedJobsMessage"
           values={Object {}}

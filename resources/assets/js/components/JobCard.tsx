@@ -78,7 +78,7 @@ const JobCard: React.FC<JobCardProps> = ({
           </h2>
 
           <p data-c-font-size="small" data-c-margin="top(normal)">
-            {draft.url.length === 0 ? (
+            {draft.url.length > 0 ? (
               <a
                 href={draft.url}
                 title={draft.title}
@@ -91,7 +91,7 @@ const JobCard: React.FC<JobCardProps> = ({
                 {draft.text}
               </span>
             )}
-            {preview.url !== null ? (
+            {preview.url.length > 0 ? (
               <a
                 href={preview.url}
                 title={preview.title}
@@ -104,7 +104,7 @@ const JobCard: React.FC<JobCardProps> = ({
                 {preview.text}
               </span>
             )}
-            {screeningPlan.url !== null ? (
+            {screeningPlan.url.length > 0 ? (
               <a
                 href={screeningPlan.url}
                 title={screeningPlan.title}
@@ -139,10 +139,7 @@ const JobCard: React.FC<JobCardProps> = ({
               <p data-c-font-size="small">
                 <FormattedMessage
                   id="jobCard.managerTime"
-                  defaultMessage={`Time with Manager: {managerTime, plural,
-                    one {# day}
-                    other {# days}
-                  }`}
+                  defaultMessage={`Time with Manager: {managerTime, plural, one {# day} other {# days}}`}
                   description="Text displaying how long a job post has been claimed by a manager."
                   values={{
                     managerTime,
@@ -152,10 +149,7 @@ const JobCard: React.FC<JobCardProps> = ({
               <p data-c-font-size="small" className={owned ? "pulse" : ""}>
                 <FormattedMessage
                   id="jobCard.userTime"
-                  defaultMessage={`Time with you: <s>{userTime, plural,
-                    one {# day}
-                    other {# days}
-                  }</s>`}
+                  defaultMessage={`Time with you: <s>{userTime, plural, one {# day} other {# days}}</s>`}
                   description="Text displaying how long a job has been claimed by the current user."
                   values={{
                     s: (msg): JSX.Element => <span>{msg}</span>,

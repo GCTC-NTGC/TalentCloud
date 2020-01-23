@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useIntl, defineMessages } from "react-intl";
 
 interface IconProps {
   icon: string;
@@ -12,19 +11,6 @@ const Icon: React.FunctionComponent<IconProps> = ({
   accessibleText,
   sematicIcon,
 }) => {
-  const intl = useIntl();
-
-  const iconMessages = defineMessages({
-    accessibleText: {
-      id: "icon.accessibleText",
-      defaultMessage: "{accessibleText}",
-      description: "Accessible text for icon.",
-      values: {
-        accessibleText,
-      },
-    },
-  });
-
   return (
     <>
       {sematicIcon ? (
@@ -32,10 +18,10 @@ const Icon: React.FunctionComponent<IconProps> = ({
           <i
             aria-hidden="true"
             className={icon}
-            title={intl.formatMessage(iconMessages.accessibleText)}
+            title={accessibleText}
           />
           <span data-c-visibility="invisible">
-            {intl.formatMessage(iconMessages.accessibleText)}
+            {accessibleText}
           </span>
         </>
       ) : (

@@ -21,7 +21,7 @@ return [
     'logout' => 'Déconnexion',
     /* <title> tag content */
     'home_title' => 'Nuage de talents | Portail de conseillers en RH : Accueil',
-    'summary_title' => '',
+    'summary_title' => 'Nuage de talents | Portail de conseillers en RH : Résumé de l\'emploi',
     'job_index_title' => 'Nuage de talents | Portail de conseillers en RH : Mes affiches d\'emploi',
     // Button labels.
     'mobile_trigger_label' => 'Menu mobile',

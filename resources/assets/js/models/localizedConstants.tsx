@@ -11,7 +11,6 @@ import {
   ProvinceId,
   SecurityClearanceId,
   LanguageRequirementId,
-  DepartmentId,
   FrequencyId,
   OvertimeRequirementId,
   TravelRequirementId,
@@ -645,56 +644,6 @@ export const languageRequirementContext = (
   }
 };
 
-const departments = defineMessages({
-  [DepartmentId.treasuryBoard]: {
-    id: "department.treasuryBoard",
-    defaultMessage: "Treasury Board of Canada Secretariat",
-  },
-  [DepartmentId.naturalResources]: {
-    id: "department.naturalResources",
-    defaultMessage: "Natural Resources Canada",
-  },
-  [DepartmentId.transport]: {
-    id: "department.transport",
-    defaultMessage: "Transport Canada",
-  },
-  [DepartmentId.environmentAndClimateChange]: {
-    id: "department.environmentAndClimateChange",
-    defaultMessage: "Environment and Climate Change Canada",
-  },
-  [DepartmentId.employmentAndSocialDevelopment]: {
-    id: "department.employmentAndSocialDevelopment",
-    defaultMessage: "Employment and Social Development Canada",
-  },
-  [DepartmentId.globalAffairs]: {
-    id: "department.globalAffairs",
-    defaultMessage: "Global Affairs Canada",
-  },
-  [DepartmentId.borderServices]: {
-    id: "department.borderServices",
-    defaultMessage: "Canada Border Services Agency",
-  },
-  [DepartmentId.fisheriesAndOceans]: {
-    id: "department.fisheriesAndOceans",
-    defaultMessage: "Fisheries and Oceans Canada",
-  },
-  [DepartmentId.innovationScience]: {
-    id: "department.innovationScience",
-    defaultMessage: "Innovation, Science and Economic Development Canada",
-  },
-  [DepartmentId.publicServiceAndProcurement]: {
-    id: "department.publicServiceAndProcurement",
-    defaultMessage: "Public Services and Procurement Canada",
-  },
-  [DepartmentId.nationalDefence]: {
-    id: "department.nationalDefence",
-    defaultMessage: "Department of National Defence",
-  },
-});
-
-export const departmentName = (departmentId: number): MessageDescriptor =>
-  getOrThrowError(departments, departmentId, "invalid DepartmentId");
-
 export const narrativeReviewStandardQuestion = (): MessageDescriptor =>
   standardAssessmentText.narrativeReviewQuestion;
 
@@ -725,7 +674,7 @@ const frequencyMessages = defineMessages({
   },
   [FrequencyId.never]: {
     id: "jobBuilder.details.frequencyNeverLabel",
-    defaultMessage: "Almost Never",
+    defaultMessage: "Never",
     description: "The form label displayed on 'never' frequency options.",
   },
 });
@@ -912,13 +861,13 @@ export const activityLocations = defineMessages({
     description: "Location where the activity is located.",
   },
   [LocationId.summary]: {
-    id: "activityfeed.locations.hr.summary",
-    defaultMessage: "HR Summary Page",
+    id: "activityfeed.locations.summary",
+    defaultMessage: "Summary Page",
     description: "Location where the activity is located.",
   },
   [LocationId.preview]: {
-    id: "activityfeed.locations.hr.preview",
-    defaultMessage: "HR Preview Page",
+    id: "activityfeed.locations.preview",
+    defaultMessage: "Preview Page",
     description: "Location where the activity is located.",
   },
 });
