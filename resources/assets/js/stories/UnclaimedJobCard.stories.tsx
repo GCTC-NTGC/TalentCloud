@@ -33,12 +33,7 @@ stories
           }}
           createdAt={text("Created At", "Created: 2019-MAY-02", "Props")}
           status={select("Status", statusOptions, JobStatus.Draft, "Props")}
-          hiringManagers={array(
-            "Hiring Managers",
-            ["Rebecca Appleby"],
-            ",",
-            "Props",
-          )}
+          hiringManager={text("Hiring Manager", "Rebecca Appleby")}
           hrAdvisors={[]}
           handleClaimJob={action("Claim Job")}
         />
@@ -57,12 +52,7 @@ stories
           }}
           createdAt={text("Created At", "Created: 2019-MAY-02", "Props")}
           status={select("Status", statusOptions, JobStatus.Draft, "Props")}
-          hiringManagers={array(
-            "Hiring Managers",
-            ["Rebecca Appleby"],
-            ",",
-            "Props",
-          )}
+          hiringManager={text("Hiring Managers", "Rebecca Appleby")}
           hrAdvisors={array(
             "HR Managers",
             ["Rebecca Appleby", "Jack Little"],
@@ -84,7 +74,7 @@ stories
               jobLink,
               createdAt,
               status,
-              hiringManagers,
+              hiringManager,
               hrAdvisors,
             }): React.ReactElement => {
               return (
@@ -93,7 +83,7 @@ stories
                   jobLink={jobLink}
                   createdAt={createdAt}
                   status={status}
-                  hiringManagers={hiringManagers}
+                  hiringManager={hiringManager}
                   hrAdvisors={hrAdvisors}
                   handleClaimJob={action("Claim Job")}
                 />

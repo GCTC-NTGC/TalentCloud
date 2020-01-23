@@ -8,7 +8,7 @@ export interface UnclaimedJobCardProps {
   jobLink: Link;
   createdAt: string;
   status: JobStatus;
-  hiringManagers: string[];
+  hiringManager: string;
   hrAdvisors: string[];
   handleClaimJob: () => void;
 }
@@ -17,7 +17,7 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
   jobLink,
   createdAt,
   status,
-  hiringManagers,
+  hiringManager,
   hrAdvisors,
   handleClaimJob,
 }) => {
@@ -74,15 +74,7 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
                 description="Header before list of hiring managers."
                 defaultMessage="Hiring Managers: "
               />
-
-              {hiringManagers.map((manager, index): string => {
-                const comma =
-                  hiringManagers.length !== 1 &&
-                  index + 1 !== hiringManagers.length
-                    ? ","
-                    : " ";
-                return `${manager}${comma} `;
-              })}
+              {hiringManager}
             </p>
 
             {hrAdvisors.length > 0 ? (
@@ -92,13 +84,7 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
                   description="Header before list of HR advisors."
                   defaultMessage="HR Advisors: "
                 />
-                {hrAdvisors.map((advisor, index): string => {
-                  const comma =
-                    hrAdvisors.length !== 1 && index + 1 !== hrAdvisors.length
-                      ? ","
-                      : " ";
-                  return `${advisor}${comma} `;
-                })}
+                {hrAdvisors.join(",")}
               </p>
             ) : (
               <p data-c-color="stop" data-c-margin="bottom(normal)">

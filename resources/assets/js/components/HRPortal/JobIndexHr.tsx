@@ -116,7 +116,10 @@ const JobIndexHr: React.FunctionComponent<JobIndexHrProps> = ({
 
   return (
     <section>
-      <div data-c-background="gray(10)" data-c-border="bottom(thin, solid, black)">
+      <div
+        data-c-background="gray(10)"
+        data-c-border="bottom(thin, solid, black)"
+      >
         <div data-c-container="large" data-c-padding="tb(triple)">
           <p>
             <FormattedMessage
