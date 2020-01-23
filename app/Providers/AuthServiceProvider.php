@@ -75,6 +75,44 @@ class AuthServiceProvider extends ServiceProvider
             return $user->isAdmin() ||
                 $user->isManager() && $jobPoster->manager->user_id === $user->id;
         });
+
+        /* Logged-in Users can view themselves. Admins can view themselves,
+         * Managers/HR Advisors and Applicants but not other Admins. Managers can view
+         * Applicants of their Job Posters. HR Advisors can view Managers
+         * within their department, and any Applicants of Job Posters created
+         * by those managers.
+         */
+
+        /* TODO: User roles/permissions are getting a little unruly. I needed to add an
+         * additional check alongside isUpgradedManager() because we have an isAdmin()
+         * passthrough on that method, which was causing issues on the hr_advisor/manager
+         * reference.
+         */
+        Gate::define('view-user', function ($user, $userProfile) {
+            return (
+                    $user->id === $userProfile->id
+                ) ||
+                (
+                    $user->isAdmin() &&
+                    !$userProfile->isAdmin()
+                ) ||
+                (
+                    ($user->isHrAdvisor() && !$userProfile->isAdmin() && $userProfile->isUpgradedManager()) &&
+                        ($user->hr_advisor->department_id === $userProfile->manager->department_id)
+                ) ||
+                (
+                    ($user->isHrAdvisor() && $userProfile->isApplicant()) &&
+                    $user->can('claimsJobApplicantAppliedTo', $userProfile->applicant)
+                ) ||
+                (
+                    (!$user->isAdmin() && $user->isUpgradedManager() && $userProfile->isApplicant()) &&
+                    $user->can('ownsJobApplicantAppliedTo', $userProfile->applicant)
+                ) ||
+                (
+                    ($user->isApplicant() && !$userProfile->isAdmin() && $userProfile->isUpgradedManager()) &&
+                    $userProfile->can('ownsJobApplicantAppliedTo', $user->applicant)
+                );
+        });
     }
 
     public function register(): void
