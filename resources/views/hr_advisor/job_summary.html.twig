@@ -25,7 +25,7 @@
 				</div>
 			</div>
 		</header>
-		<div data-c-background="gray(10)">
+		<div data-c-background="gray(10)" data-c-border="bottom(thin, solid, black)">
 			<div data-c-container="large" data-c-padding="bottom(3)">
 				<div data-c-grid="gutter(all, 2)">
 					<div data-c-grid-item="tl(1of4) ds(1of5)" class="sidebar-wrapper">
@@ -66,8 +66,8 @@
 										{{ job.manager.user.last_name }}
 									</p>
 									<p data-c-margin="bottom(.5)">
-										<span data-c-font-weight="600" data-c-color="c2">{{ applications|length }}
-											{{ summary.applicants_label }}</span>
+										<span data-c-font-weight="600" data-c-color="c2">
+											{{ summary.applicants_label }}:</span> {{ applications|length }}
 									</p>
 								</div>
 								<div data-c-accordion-group>

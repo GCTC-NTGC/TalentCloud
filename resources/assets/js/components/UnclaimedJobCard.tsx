@@ -122,7 +122,7 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
             type="button"
             onClick={handleClaimJob}
           >
-            <span data-c-color="black">
+            <span>
               +{" "}
               <span data-c-font-style="underline">
                 <FormattedMessage
