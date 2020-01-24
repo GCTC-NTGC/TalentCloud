@@ -248,8 +248,7 @@ class User extends BaseModel implements
      */
     public function isHrAdvisor(): bool
     {
-        // Currently, every user can use the Manager portal as a demoManager.
-        return $this->user_role->name === 'hr_advisor';
+        return $this->user_role->name === 'hr_advisor' || $this->isAdmin();
     }
 
     /**
