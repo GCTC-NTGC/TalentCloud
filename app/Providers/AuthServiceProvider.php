@@ -76,6 +76,38 @@ class AuthServiceProvider extends ServiceProvider
                 $user->isManager() && $jobPoster->manager->user_id === $user->id;
         });
 
+        /*
+         * Returns true if $user owns a job to which $applicant has applied.
+         */
+        Gate::define('owns-job-applicant-applied-to', function ($user, $applicant) {
+            $applicant_id = $applicant->id;
+            $user_id = $user->id;
+            return JobPoster::whereHas(
+                'manager',
+                function ($q) use ($user_id): void {
+                    $q->where('user_id', $user_id);
+                }
+            )->whereHas(
+                'submitted_applications',
+                function ($q) use ($applicant_id): void {
+                    $q->where('applicant_id', $applicant_id);
+                }
+            )->get()->isNotEmpty();
+        });
+
+        /*
+         * Returns true if the $user is an hr_advisor which has claimed a job the applicant has applied to,
+         * where the job is closed.
+         */
+        Gate::define('claims-job-applicant-applied-to', function ($user, $applicant) {
+            if ($user->isHrAdvisor()) {
+                return $applicant->submitted_applications->some(function ($application) use ($user) {
+                    return $user->can('manage', $application->job_poster) && $application->job_poster->isClosed();
+                });
+            }
+            return false;
+        });
+
         /* Logged-in Users can view themselves. Admins can view themselves,
          * Managers/HR Advisors and Applicants but not other Admins. Managers can view
          * Applicants of their Job Posters. HR Advisors can view Managers
@@ -101,16 +133,16 @@ class AuthServiceProvider extends ServiceProvider
                         ($user->hr_advisor->department_id === $userProfile->manager->department_id)
                 ) ||
                 (
-                    ($user->isHrAdvisor() && $userProfile->isApplicant()) &&
-                    $user->can('claimsJobApplicantAppliedTo', $userProfile->applicant)
+                    ($user->isHrAdvisor() && $userProfile->applicant !== null) &&
+                    Gate::forUser($user)->allows('claims-job-applicant-applied-to', $userProfile->applicant)
                 ) ||
                 (
-                    (!$user->isAdmin() && $user->isUpgradedManager() && $userProfile->isApplicant()) &&
-                    $user->can('ownsJobApplicantAppliedTo', $userProfile->applicant)
+                    (!$user->isAdmin() && $user->isUpgradedManager() && $userProfile->applicant !== null) &&
+                    Gate::forUser($user)->allows('ownsJobApplicantAppliedTo', $userProfile->applicant)
                 ) ||
                 (
-                    ($user->isApplicant() && !$userProfile->isAdmin() && $userProfile->isUpgradedManager()) &&
-                    $userProfile->can('ownsJobApplicantAppliedTo', $user->applicant)
+                    ($user->applicant !== null && !$userProfile->isAdmin() && $userProfile->isUpgradedManager()) &&
+                    Gate::forUser($userProfile)->allows('ownsJobApplicantAppliedTo', $user->applicant)
                 );
         });
     }
