@@ -80,4 +80,76 @@ class UserApiControllerTest extends TestCase
             $response->assertJsonFragment($user->user->toArray());
         }
     }
+
+    /**
+     * HrAdvisor Users can view Managers within their department
+     * and Applicants who have applied to Jobs posted by Managers
+     * within their department.
+     *
+     * @return void
+     */
+    public function testHrAdvisorAccess(): void
+    {
+        $transportCanada = Department::find(3); // Transport Canada.
+        $healthCanada = Department::find(4); // Health Canada.
+
+        // Generate some useful testing data:
+        // Users unrelated to the current Manager/HR Advisor,
+        // a Job Poster with Applicants, etc.
+        $randomUsers = factory(Applicant::class, 5)->create();
+        $otherUsers = factory(Applicant::class, 3)->create();
+
+        $deptManager = factory(Manager::class)->state('upgraded')->create([
+            'department_id' => $transportCanada->id
+        ]);
+
+        $otherDeptManager = factory(Manager::class)->state('upgraded')->create([
+            'department_id' => $healthCanada->id
+        ]);
+
+        $job = factory(JobPoster::class)->state('closed')->create(['manager_id' => $deptManager->id]);
+        $job->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
+            'job_poster_id' => $job->id
+        ])->each(function ($application, $key) use ($randomUsers): void {
+            $application->applicant_id = $randomUsers[$key]->id;
+        });
+
+        $otherJob = factory(JobPoster::class)->state('closed')->create(['manager_id' => $otherDeptManager->id]);
+        $otherJob->job_applications()->saveMany(factory(JobApplication::class, 3))->create([
+            'job_poster_id' => $job->id
+        ])->each(function ($application, $key) use ($otherUsers): void {
+            $application->applicant_id = $otherUsers[$key]->id;
+        });
+
+        $hrManager = factory(HrAdvisor::class)->create([
+            'department_id' => $transportCanada->id
+        ]);
+        $hrManager->claimed_jobs()->attach($job);
+
+        $response = $this->followingRedirects()
+            ->actingAs($hrManager->user)
+            ->json('get', 'api/users');
+        $response->assertOk();
+
+        $unexpected = [
+            'first_name' => $otherDeptManager->user->first_name,
+            'last_name' => $otherDeptManager->user->last_name,
+            'email' => $otherDeptManager->user->email,
+        ];
+        $response->assertJsonMissing($unexpected);
+
+        foreach ($otherUsers as $otherUser) {
+            $response->assertJsonMissing([
+                'first_name' => $otherUser->user->first_name,
+                'last_name' => $otherUser->user->last_name,
+                'email' => $otherUser->user->email
+            ]);
+        }
+
+        $response->assertJsonFragment($hrManager->user->toArray());
+        $response->assertJsonFragment($deptManager->user->toArray());
+        foreach ($randomUsers as $randomUser) {
+            $response->assertJsonFragment($randomUser->user->toArray());
+        }
+    }
 }
