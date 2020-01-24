@@ -1,5 +1,6 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
 import { ReviewStatusId, ReviewStatusName } from "./lookupConstants";
+import { localizedField, localizedFieldNonNull } from "./app";
 
 export interface Job {
   id: number;
@@ -34,46 +35,16 @@ export interface Job {
   travel_requirement_id: number | null;
   overtime_requirement_id: number | null;
   created_at: Date;
-  city: {
-    en: string | null;
-    fr: string | null;
-  };
-  title: {
-    en: string | null;
-    fr: string | null;
-  };
-  dept_impact: {
-    en: string | null;
-    fr: string | null;
-  };
-  team_impact: {
-    en: string | null;
-    fr: string | null;
-  };
-  hire_impact: {
-    en: string | null;
-    fr: string | null;
-  };
-  division: {
-    en: string | null;
-    fr: string | null;
-  };
-  education: {
-    en: string | null;
-    fr: string | null;
-  };
-  work_env_description: {
-    en: string | null;
-    fr: string | null;
-  };
-  culture_summary: {
-    en: string | null;
-    fr: string | null;
-  };
-  culture_special: {
-    en: string | null;
-    fr: string | null;
-  };
+  city: localizedField;
+  title: localizedField;
+  dept_impact: localizedField;
+  team_impact: localizedField;
+  hire_impact: localizedField;
+  division: localizedField;
+  education: localizedField;
+  work_env_description: localizedField;
+  culture_summary: localizedField;
+  culture_special: localizedField;
 }
 
 export interface Manager {
@@ -86,38 +57,14 @@ export interface Manager {
   twitter_username: string | null;
   linkedin_url: string | null;
   is_demo_manager: boolean;
-  division: {
-    en: string | null;
-    fr: string | null;
-  };
-  position: {
-    en: string | null;
-    fr: string | null;
-  };
-  leadership_style: {
-    en: string | null;
-    fr: string | null;
-  };
-  expectations: {
-    en: string | null;
-    fr: string | null;
-  };
-  employee_learning: {
-    en: string | null;
-    fr: string | null;
-  };
-  career_journey: {
-    en: string | null;
-    fr: string | null;
-  };
-  learning_path: {
-    en: string | null;
-    fr: string | null;
-  };
-  about_me: {
-    en: string | null;
-    fr: string | null;
-  };
+  division: localizedField;
+  position: localizedField;
+  leadership_style: localizedField;
+  expectations: localizedField;
+  employee_learning: localizedField;
+  career_journey: localizedField;
+  learning_path: localizedField;
+  about_me: localizedField;
 }
 
 export interface HrAdvisor {
@@ -208,14 +155,8 @@ export interface ReviewStatus {
 export interface Skill {
   id: number;
   skill_type_id: number;
-  name: {
-    en: string;
-    fr: string;
-  };
-  description: {
-    en: string;
-    fr: string;
-  };
+  name: localizedFieldNonNull;
+  description: localizedFieldNonNull;
   is_culture_skill: boolean;
   is_future_skill: boolean;
   classifications: Classification[];
@@ -231,14 +172,8 @@ export interface Criteria {
   job_poster_id: number;
   skill_id: number;
   skill_level_id: number;
-  description: {
-    en: string | null;
-    fr: string | null;
-  };
-  specificity: {
-    en: string | null;
-    fr: string | null;
-  };
+  description: localizedField;
+  specificity: localizedField;
 }
 
 export interface Assessment {
@@ -285,23 +220,14 @@ export interface AssessmentPlanNotification {
 
 export interface Department {
   id: number;
-  name: {
-    en: string;
-    fr: string;
-  };
-  impact: {
-    en: string;
-    fr: string;
-  };
+  name: localizedFieldNonNull;
+  impact: localizedFieldNonNull;
 }
 
 export interface JobPosterKeyTask {
   id: number;
   job_poster_id: number;
-  description: {
-    en: string;
-    fr: string;
-  };
+  description: localizedFieldNonNull;
 }
 
 export interface Comment {

@@ -1,13 +1,22 @@
+import { localizedField } from "../models/app";
+
 export type Locales = "en" | "fr";
-type LocalizeableModel<T> = Record<Locales, T>;
-type StringFields<T> = {
-  [K in keyof T]: T[K] extends string | null ? K : never;
+type LocalizedFields<T> = {
+  [K in keyof T]: T[K] extends localizedField ? K : never;
 }[keyof T];
 
 export function localizeField<T>(
   locale: Locales,
-  model: LocalizeableModel<T>,
-  field: StringFields<T>,
+  model: T,
+  field: LocalizedFields<T>,
 ) {
-  return model[locale][field];
+  return model[field][locale];
+}
+
+export function getLocale(locale: string): Locales {
+  if (locale === "en" || locale === "fr") {
+    return locale;
+  }
+  console.log("Warning: unknown locale. Defaulting to en.");
+  return "en";
 }
