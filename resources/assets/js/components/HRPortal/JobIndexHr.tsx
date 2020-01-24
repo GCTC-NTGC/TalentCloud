@@ -73,7 +73,7 @@ const CompletedJobsAccordion: React.FC<CompletedJobsAccordionProps> = ({
             {(completedJobActions.length !== 0 &&
               completedJobActions.map(
                 (jobAction): React.ReactElement => {
-                  return <JobCard {...jobAction} />;
+                  return <JobCard key={jobAction.id} {...jobAction} />;
                 },
               )) || (
               <p>
@@ -150,7 +150,7 @@ const JobIndexHr: React.FunctionComponent<JobIndexHrProps> = ({
           {(notCompletedJobActions.length !== 0 &&
             notCompletedJobActions.map(
               (jobAction): React.ReactElement => {
-                return <JobCard {...jobAction} />;
+                return <JobCard key={jobAction.id} {...jobAction} />;
               },
             )) || (
             <p>
@@ -187,7 +187,9 @@ const JobIndexHr: React.FunctionComponent<JobIndexHrProps> = ({
             {unclaimedJobs.length !== 0 &&
               unclaimedJobs.map(
                 (unclaimedJob): React.ReactElement => {
-                  return <UnclaimedJobCard {...unclaimedJob} />;
+                  return (
+                    <UnclaimedJobCard key={unclaimedJob.id} {...unclaimedJob} />
+                  );
                 },
               )}
           </section>
