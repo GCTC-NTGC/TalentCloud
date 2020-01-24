@@ -8,12 +8,7 @@ import { JobCardProps } from "../JobCard";
 import { Job, Manager } from "../../models/types";
 import { classificationString, jobStatus } from "../../models/jobUtil";
 import { localizeField, Locales } from "../../helpers/localize";
-import {
-  hrJobSummary,
-  hrJobReview,
-  hrJobPreview,
-  hrScreeningPlan,
-} from "../../helpers/routes";
+import { hrJobSummary, hrJobReview, hrJobPreview } from "../../helpers/routes";
 import { UnclaimedJobCardProps } from "../UnclaimedJobCard";
 import { readableDateTime } from "../../helpers/dates";
 import { find, stringNotEmpty } from "../../helpers/queries";
@@ -87,6 +82,7 @@ const makeJobAction = (
 ): JobCardProps => {
   const jobTitle = localizeField(locale, job, "title");
   return {
+    id: job.id,
     applicants: 0, // TODO: find real number of applicants.
     // TODO: is this intended to be a link as well, like activity?
     classification: classificationString(job),
@@ -137,6 +133,7 @@ const makeUnclaimedJob = (
 ): UnclaimedJobCardProps => {
   const jobTitle = localizeField(locale, job, "title");
   return {
+    id: job.id,
     jobLink: {
       url: hrJobPreview(locale, job.id),
       text: stringNotEmpty(jobTitle)

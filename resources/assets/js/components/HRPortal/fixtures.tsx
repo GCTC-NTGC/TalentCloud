@@ -4,6 +4,7 @@ import { UnclaimedJobCardProps } from "../UnclaimedJobCard";
 
 export const jobActions: JobCardProps[] = [
   {
+    id: 1,
     activity: {
       count: 3,
       new: {
@@ -41,6 +42,7 @@ export const jobActions: JobCardProps[] = [
     userTime: 2,
   },
   {
+    id: 2,
     activity: {
       count: 0,
       new: {
@@ -78,6 +80,7 @@ export const jobActions: JobCardProps[] = [
     userTime: 2,
   },
   {
+    id: 3,
     activity: {
       count: 0,
       new: {
@@ -118,6 +121,7 @@ export const jobActions: JobCardProps[] = [
 
 export const unclaimedJobs: UnclaimedJobCardProps[] = [
   {
+    id: 4,
     jobLink: {
       text: "CS01 - Front-end Developer",
       url: "",
@@ -130,6 +134,7 @@ export const unclaimedJobs: UnclaimedJobCardProps[] = [
     handleClaimJob: (): void => {},
   },
   {
+    id: 5,
     jobLink: {
       text: "AS02 - Executive Assisstant",
       url: "",
@@ -142,6 +147,7 @@ export const unclaimedJobs: UnclaimedJobCardProps[] = [
     handleClaimJob: (): void => {},
   },
   {
+    id: 6,
     jobLink: {
       text: "ET03 - Business Analyst",
       url: "",
@@ -154,6 +160,7 @@ export const unclaimedJobs: UnclaimedJobCardProps[] = [
     handleClaimJob: (): void => {},
   },
   {
+    id: 7,
     jobLink: {
       text: "FG05 - Long-term Care Specialist",
       url: "",
@@ -166,6 +173,7 @@ export const unclaimedJobs: UnclaimedJobCardProps[] = [
     handleClaimJob: (): void => {},
   },
   {
+    id: 8,
     jobLink: {
       text: "CS03 - Digital Product Designer",
       url: "",
