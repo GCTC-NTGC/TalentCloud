@@ -1,5 +1,5 @@
 import React from "react";
-import { useIntl, defineMessages, FormattedMessage } from "react-intl";
+import { useIntl, FormattedMessage } from "react-intl";
 import { JobStatus } from "../models/lookupConstants";
 import { Link } from "../models/app";
 import { jobStatus } from "../models/localizedConstants";
@@ -26,6 +26,7 @@ const StatusPill: React.FC<StatusPillProps> = ({ text, status }) => (
 );
 
 export interface JobCardProps {
+  id: number;
   activity: Activity;
   applicants: number;
   classification: string;
