@@ -287,11 +287,7 @@ const JobBuilderImpact: React.FunctionComponent<JobBuilderImpactProps &
                   <p data-c-margin="bottom(normal)">
                     <FormattedMessage
                       id="jobBuilder.impact.teamBody"
-                      defaultMessage="Describe the value your team/service/initiative brings to Canadians.
-              It doesn’t matter if your work is direct to citizens or back office,
-              innovative or maintenance, top priority or ongoing. Describe how it
-              contributes to making Canada better the way you would to someone who
-              knows nothing about your work."
+                      defaultMessage="Describe the value your team/service/initiative brings to Canadians. It doesn’t matter if your work is direct to citizens or back office, innovative or maintenance, top priority or ongoing. Describe how it contributes to making Canada better the way you would to someone who knows nothing about your work."
                       description="Body of Job Poster Builder Team Impact Section"
                     />
                   </p>
@@ -317,10 +313,7 @@ const JobBuilderImpact: React.FunctionComponent<JobBuilderImpactProps &
                   <p data-c-margin="bottom(normal)">
                     <FormattedMessage
                       id="jobBuilder.impact.hireBody"
-                      defaultMessage="Describe how the new hire will contribute in this role. Focus on the
-              value they’ll bring, not on specific tasks (you’ll provide these
-              later on). For example “In this role, you’ll contribute to…” or, “As
-              a member of this team, you’ll be responsible for helping us…”"
+                      defaultMessage="Describe how the new hire will contribute in this role. Focus on the value they’ll bring, not on specific tasks (you’ll provide these later on). For example “In this role, you’ll contribute to…” or, “As a member of this team, you’ll be responsible for helping us…”"
                       description="Body of Job Poster Builder Hire Impact Section"
                     />
                   </p>
@@ -424,9 +417,7 @@ const JobBuilderImpact: React.FunctionComponent<JobBuilderImpactProps &
                     <p>
                       <FormattedMessage
                         id="jobBuilder.impact.modalDescription"
-                        defaultMessage="Here's a preview of the Impact Statement you just
-                        entered. Feel free to go back and edit things or move to
-                        the next step if you're happy with it."
+                        defaultMessage="Here's a preview of the Impact Statement you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
                         description="Description of modal dialog for Impact review."
                       />
                     </p>

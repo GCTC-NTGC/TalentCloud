@@ -7,7 +7,7 @@ import { useRouter, RouterResult } from "../../helpers/router";
 import JobBuilderIntroPageContainer from "./Intro/JobBuilderIntro";
 import RootContainer from "../RootContainer";
 import JobDetailsPage from "./Details/JobDetailsPage";
-import JobBuilderWorkEnvPage from "./WorkEnv/JobBuilderWorkEnv";
+import JobBuilderWorkEnvPage from "./WorkEnv/WorkEnvPage";
 import JobBuilderImpactPage from "./Impact/JobBuilderImpactPage";
 import JobTasksPage from "./Tasks/JobTasksPage";
 import JobSkillsPage from "./Skills/JobBuilderSkillsPage";

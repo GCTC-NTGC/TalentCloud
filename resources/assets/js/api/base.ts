@@ -18,6 +18,18 @@ export const parseDate = (date: string | null): Date | null => {
   return date !== null ? parseDateStrict(date) : null;
 };
 
+export const addQueryParameters = (
+  url: string,
+  parameters: Map<string, string>,
+): string => {
+  const toKeyValuePairs = ([key, value]: string[]): string =>
+    `${encodeURI(key)}=${encodeURI(value)}`;
+  const parameterString = Array.from(parameters.entries())
+    .map(toKeyValuePairs)
+    .join("&");
+  return `${url}?${parameterString}`;
+};
+
 /**
  * Get the page's CSRF token, which laravel uses to validate requests.
  */

@@ -13,6 +13,7 @@ import { applicationBucket } from "./helpers";
 import ApplicantBucket from "./ApplicantBucket";
 import { ReviewStatusId } from "../../models/lookupConstants";
 import { copyToClipboard } from "../../helpers/clipboard";
+import { Portal } from "../../models/app";
 
 interface ReviewCategoryProps {
   title: MessageDescriptor;
@@ -28,6 +29,7 @@ interface ReviewCategoryProps {
   onNotesChange: (applicationId: number, notes: string | null) => void;
   savingStatuses: { applicationId: number; isSaving: boolean }[];
   prioritizeVeterans: boolean;
+  portal: Portal;
 }
 
 const localizations = defineMessages({
@@ -57,6 +59,7 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps &
   onNotesChange,
   savingStatuses,
   prioritizeVeterans,
+  portal,
   intl,
 }: ReviewCategoryProps & WrappedComponentProps): React.ReactElement | null => {
   const [justCopied, setJustCopied] = useState(false);
@@ -219,6 +222,7 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps &
           onNotesChange={onNotesChange}
           savingStatuses={savingStatuses}
           prioritizeVeterans={prioritizeVeterans}
+          portal={portal}
         />
       ))}
     </div>

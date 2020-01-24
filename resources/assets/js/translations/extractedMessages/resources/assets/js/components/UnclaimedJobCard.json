@@ -1,0 +1,27 @@
+[
+  {
+    "id": "openJobCard.createdAt",
+    "description": "Header for when Job Poster was created.",
+    "defaultMessage": "Created: "
+  },
+  {
+    "id": "openJobCard.hiringManager",
+    "description": "Header before list of hiring managers.",
+    "defaultMessage": "Hiring Managers: "
+  },
+  {
+    "id": "openJobCard.hrAdvisors",
+    "description": "Header before list of HR advisors.",
+    "defaultMessage": "HR Advisors: "
+  },
+  {
+    "id": "openJobCard.unclaimed",
+    "description": "Message displayed if not HR managers have claimed a job.",
+    "defaultMessage": "Unclaimed"
+  },
+  {
+    "id": "openJobCard.claimJob",
+    "description": "Message indicating the event of clicking on the job card.",
+    "defaultMessage": "Claim This Job"
+  }
+]

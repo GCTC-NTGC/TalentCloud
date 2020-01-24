@@ -49,6 +49,7 @@ class ApplicationByJobController extends Controller
             'jobs_l10n' => Lang::get('manager/job_index'),
             // Data.
             'job' => new JsonResource($jobPoster),
+            'is_hr_portal' => WhichPortal::isHrPortal(),
             'applications' => $applications,
             'review_statuses' => ReviewStatus::all()
         ]);

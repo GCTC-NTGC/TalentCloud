@@ -114,8 +114,7 @@ class LangFilesTest extends BaseTranslationTest
             'manager/home.features.table.rows.5.demo',
             'manager/home.features.table.rows.5.partner',
             'manager/home.features.table.rows.6.demo',
-            'manager/home.features.table.rows.6.partner',
-            'applicant'
+            'manager/home.features.table.rows.6.partner'
         ],
         'fr' => [
             'validation.attributes.courses.new.*.name',
@@ -146,8 +145,7 @@ class LangFilesTest extends BaseTranslationTest
             'manager/home.features.table.rows.5.demo',
             'manager/home.features.table.rows.5.partner',
             'manager/home.features.table.rows.6.demo',
-            'manager/home.features.table.rows.6.partner',
-            'applicant'
+            'manager/home.features.table.rows.6.partner'
         ]
     ];
 
@@ -313,7 +311,8 @@ class LangFilesTest extends BaseTranslationTest
         'manager-assessment',
         'manager-others',
         'hr',
-        'hr-coming-soon'
+        'hr-coming-soon',
+        '/settings'
     ];
 
     /**

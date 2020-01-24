@@ -57,8 +57,10 @@ return [
 
     'applicant_domain' => env('APPLICANT_DOMAIN', 'localhost'),
     'manager_domain' => env('MANAGER_DOMAIN', 'localhost'),
+    'hr_domain' => env('HR_DOMAIN', 'localhost'),
     'applicant_prefix' => env('APPLICANT_PREFIX', ''),
-    'manager_prefix' => env('MANAGER_PREFIX', ''),
+    'manager_prefix' => env('MANAGER_PREFIX', 'manager'),
+    'hr_prefix' => env('HR_PREFIX', 'hr'),
 
     /*
     | Should all app routes use https:// instead of http://
@@ -216,16 +218,9 @@ return [
         TwigBridge\ServiceProvider::class,
 
         /*
-         * Debug Service Providers...
-         */
-        Barryvdh\Debugbar\ServiceProvider::class,
-
-        /*
          * Localization Service Provider
          */
         Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
-
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
     ],
 
@@ -278,8 +273,6 @@ return [
 
         'Twig' => TwigBridge\Facade\Twig::class,
         'Date' => Jenssegers\Date\Date::class,
-
-        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
         'LaravelLocalization' => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
     ],

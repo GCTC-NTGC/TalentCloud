@@ -118,8 +118,8 @@
                 <p
                     class="job-post__culture-copy">
                      {{ handleNullState(
-                        job_post.work_environment.telework_allowed[work_environment.telework_allowed_frequency.name],
-                        job_post.work_environment.telework_allowed[work_environment.telework_allowed_frequency.name],
+                        frequencies[work_environment.telework_allowed_frequency.name],
+                        frequencies[work_environment.telework_allowed_frequency.name],
                         noInfo
                     )}}
                 </p>
@@ -134,8 +134,8 @@
                 <p
                     class="job-post__culture-copy">
                     {{ handleNullState(
-                        job_post.work_environment.time_flexibility_allowed[work_environment.flexible_hours_frequency.name],
-                        job_post.work_environment.time_flexibility_allowed[work_environment.flexible_hours_frequency.name],
+                        frequencies[work_environment.flexible_hours_frequency.name],
+                        frequencies[work_environment.flexible_hours_frequency.name],
                         noInfo
                     )}}
                 </p>

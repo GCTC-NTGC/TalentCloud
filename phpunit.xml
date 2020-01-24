@@ -21,10 +21,12 @@
         <env name="QUEUE_DRIVER" value="database" />
         <env name="MAIL_DRIVER" value="smtp"/>
         <env name="HIDE_LOCALE_IN_URL" value="true"/>
+        <env name="DB_DATABASE" value="testing"/>
     </php>
     <logging>
-        <log type="junit" target="./report/phpunit/junit.phpunit.xml" />
-        <log type="coverage-html" target="./report/phpunit"/>
+        <log type="coverage-html" target="report/phpunit"/>
+        <log type="coverage-clover" target="report/phpunit/coverage.xml"/>
         <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
+        <log type="junit" target="report/phpunit/junit.phpunit.xml"/>
     </logging>
 </phpunit>

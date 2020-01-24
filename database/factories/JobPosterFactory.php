@@ -152,7 +152,9 @@ $factory->state(
     function (Faker\Generator $faker) {
         return [
             'published' => true,
-            'published_at' => $faker->dateTimeBetween('-1 months', '-3 weeks')
+            'published_at' => $faker->dateTimeBetween('-1 months', '-3 weeks'),
+            'open_date_time' => ptDayEndToUtcTime($faker->dateTimeBetween('-5 days', '-3 days')->format('Y-m-d')),
+            'close_date_time' => ptDayEndToUtcTime($faker->dateTimeBetween('20 days', '30 days')->format('Y-m-d')),
         ];
     }
 );
@@ -164,6 +166,7 @@ $factory->state(
         return [
             'published' => true,
             'published_at' => $faker->dateTimeBetween('-1 months', '-3 weeks'),
+            'open_date_time' => ptDayEndToUtcTime($faker->dateTimeBetween('-20 days', '-7 days')->format('Y-m-d')),
             'close_date_time' => ptDayEndToUtcTime($faker->dateTimeBetween('-5 days', '-3 days')->format('Y-m-d')),
         ];
     }

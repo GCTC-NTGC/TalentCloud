@@ -161,9 +161,7 @@ const AssessmentPlanTable: React.FunctionComponent<AssessmentPlanTableProps &
       <p data-c-margin="bottom(normal)">
         <FormattedMessage
           id="assessmentPlan.summary.description"
-          defaultMessage="This is a summary of the work you've done above. You'll find
-      each assessment accompanied by a consolidated list of the essential and
-      asset skills attached to it."
+          defaultMessage="This is a summary of the work you've done above. You'll find each assessment accompanied by a consolidated list of the essential and asset skills attached to it."
           description="Description of Assessment Plan Summary Section"
         />
       </p>
@@ -188,8 +186,7 @@ const AssessmentPlanTable: React.FunctionComponent<AssessmentPlanTableProps &
         <p data-c-margin="bottom(normal)">
           <FormattedMessage
             id="assessmentPlan.summary.assessmentSummary.toolSkillCount"
-            defaultMessage="Your plan uses {toolCount, plural, =0 {no tools} one {# tool} other {# tools}}
-            to assess {skillCount, plural, =0 {no skills} one {# skill} other {# skills}}."
+            defaultMessage="Your plan uses {toolCount, plural, =0 {no tools} one {# tool} other {# tools}} to assess {skillCount, plural, =0 {no skills} one {# skill} other {# skills}}."
             description="Describes how many tools and skills your assessment plan involves."
             values={{
               toolCount: uniqueAssessmentTypes.length,
@@ -210,8 +207,7 @@ const AssessmentPlanTable: React.FunctionComponent<AssessmentPlanTableProps &
             <span data-c-colour="black">
               <FormattedMessage
                 id="assessmentPlan.summary.assessmentSummary.noAssessments"
-                defaultMessage="You have no assessments selected for this job poster. Add them
-              above."
+                defaultMessage="You have no assessments selected for this job poster. Add them above."
                 description="Place holder text for when there are no assessment summary details"
               />
             </span>

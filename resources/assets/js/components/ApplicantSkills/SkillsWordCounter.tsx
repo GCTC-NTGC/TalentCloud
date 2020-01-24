@@ -96,11 +96,16 @@ const addHardSkillButton: HTMLElement | null = document.getElementById(
 );
 
 const updateWordCounters = (): void => {
+  if (addSoftSkillButton) {
+    addSoftSkillButton.addEventListener("click", updateWordCounters);
+  }
+
+  if (addHardSkillButton) {
+    addHardSkillButton.addEventListener("click", updateWordCounters);
+  }
   // Find all skills textarea elements
   if (document.querySelectorAll("div[data-word-counter-id]")) {
     const wordCounters = document.querySelectorAll("div[data-word-counter-id]");
-
-    console.dir(wordCounters);
 
     wordCounters.forEach((wordCounter): void => {
       if (
@@ -127,19 +132,6 @@ const updateWordCounters = (): void => {
     });
   }
 };
-
-// TODO: Find better solution then firing this event listener last by using setTimeout.
-if (addSoftSkillButton) {
-  setTimeout(() => {
-    addSoftSkillButton.addEventListener("click", updateWordCounters);
-  }, 1000);
-}
-
-if (addHardSkillButton) {
-  setTimeout(() => {
-    addHardSkillButton.addEventListener("click", updateWordCounters);
-  }, 1000);
-}
 
 updateWordCounters();
 

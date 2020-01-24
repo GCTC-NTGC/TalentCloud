@@ -1,47 +1,33 @@
+# TalentCloud code analysis (Scrutinizer) config
+# .scrutinizer.yml
+
 build:
   environment:
-    php: 7.2
-    node: v12.13.1
+    php: "7.2"
+    node: "v12.13.1"
   dependencies:
-    override:
-      - composer selfupdate
-      - composer install --no-interaction --prefer-dist --no-suggest
-      - npm install
+    override: true
   project_setup:
     override: true
-  tests:
-    stop_on_failure: true
-    override:
-      - php-scrutinizer-run
-      - phpcs-run app/ database/factories/ database/seeds/ routes/ --standard=ruleset.xml
-      - js-scrutinizer-run
-      - eslint-run "resources/assets/js/**"
+  nodes:
+    scans:
+      tests:
+        override:
+          - php-scrutinizer-run
+          - js-scrutinizer-run
+
 filter:
   paths:
     - app/
-    - database/factories/
-    - database/seeds/
+    - database/
     - routes/
     - resources/assets/js/
-  dependency_paths:
-    - bootstrap/
-    - config/
-    - node_modules/
-    - resources/lang/
-    - resources/views/
-    - vendor/
   excluded_paths:
-    - etc/
-    - public/
-    - report/
-    - tests/
+    - database/migrations/
     - resources/assets/js/stories/
     - resources/assets/js/translations/
+    - resources/assets/js/autocomplete.js
+    - resources/assets/js/bootstrap.js
+    - resources/assets/js/getpdf.js
     - resources/assets/js/jquery-ui.min.js
     - resources/assets/js/modernizr.js
-    - resources/assets/js/getpdf.js
-    - resources/assets/js/bootstrap.js
-    - resources/assets/js/autocomplete.js
-checks:
-  php: true
-  javascript: true

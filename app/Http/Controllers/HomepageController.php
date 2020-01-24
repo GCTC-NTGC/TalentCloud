@@ -49,4 +49,15 @@ class HomepageController extends Controller
             'home_l10n' => Lang::get('manager/home'),
         ]);
     }
+
+    /**
+     * Show the hr_advisor home page.
+     * @return \Illuminate\Http\Response
+     */
+    public function hr_advisor() //phpcs:ignore
+    {
+        return view('hr_advisor/home', [
+            'hr_home' => Lang::get('hr_advisor/home'),
+        ]);
+    }
 }

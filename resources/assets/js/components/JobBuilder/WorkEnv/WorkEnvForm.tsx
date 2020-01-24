@@ -37,9 +37,9 @@ import {
   phyEnvDescriptions,
   techDescriptions,
   amenitiesDescriptions,
-} from "../JobWorkEnv";
+} from "./JobWorkEnv";
 
-const formMessages = defineMessages({
+export const formMessages = defineMessages({
   ourWorkEnvDesc: {
     id: "jobBuilder.workEnv.ourWorkEnvDesc",
     defaultMessage:

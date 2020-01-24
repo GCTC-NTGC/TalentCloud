@@ -13,7 +13,7 @@ const ScrollToTop: React.FunctionComponent<ScrollToTopProps> = ({
   scrollBehaviorAuto,
   children,
 }): React.ReactElement => {
-  const [prevPathname, setPrevPathName] = useState("");
+  const [prevPathname, setPrevPathName] = useState(window.location.pathname);
 
   const setScrollBehaviour = (scrollBehavior): void => {
     const body: HTMLElement | null = document.querySelector("html");
@@ -26,9 +26,10 @@ const ScrollToTop: React.FunctionComponent<ScrollToTopProps> = ({
       // switch to auto scroll transition
       if (scrollBehaviorAuto) setScrollBehaviour("auto");
 
-      window.scrollTo(0, 0);
       if (offsetTop) {
         window.scrollTo(0, offsetTop);
+      } else {
+        window.scrollTo(0, 0);
       }
 
       // switch back to smooth scrool transition
@@ -36,7 +37,7 @@ const ScrollToTop: React.FunctionComponent<ScrollToTopProps> = ({
     }
 
     setPrevPathName(window.location.pathname);
-  }, [prevPathname, scrollBehaviorAuto, offsetTop]);
+  }, [prevPathname, scrollBehaviorAuto, children, offsetTop]);
   return <>{children}</>;
 };
 

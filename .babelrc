@@ -1,12 +1,15 @@
 {
-  "presets": ["@babel/preset-react", "@babel/preset-typescript"],
-  "plugins": [
-    [
-      "react-intl",
-      {
-        "messagesDir": "./resources/assets/js/translations/extractedMessages"
-      }
+    "presets": [
+        "@babel/preset-react",
+        "@babel/preset-typescript"
     ],
-    "@babel/plugin-proposal-optional-chaining"
-  ]
+    "plugins": [
+        [
+            "react-intl",
+            {
+                "messagesDir": "./resources/assets/js/translations/extractedMessages"
+            }
+        ],
+        "@babel/plugin-proposal-optional-chaining"
+    ]
 }

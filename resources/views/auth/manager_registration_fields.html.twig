@@ -6,40 +6,38 @@
     It requires the /js/managerRegistration.js script in order to function properly.
 
 ============================================================================= #}
+{% set visibility = "hidden" %}
 
-<div
-    data-c-grid-item="base(1of1)"
-    data-c-input="select"
->
-    <label for="department">
-        {{ copy.department }}
-    </label>
-    <span>{{ trans('forms.required') }}</span>
-    <div>
-        <i class="fa fa-caret-down"></i>
-        <select
-            id="department"
-            name="department"
-            required
-            value="{{ old('department') }}">
-            <option selected value="" disabled>{{ copy.department_null_selection }}</option>
-            <option value="{{ not_in_gov_option.value }}">{{ not_in_gov_option.name }}</option>
-            {% for dept in departments %}
-                <option
-                    value="{{ dept.id }}">{{ dept.name }}</option>
-            {% endfor %}
-        </select>
-    </div>
-    <span>{{ trans('forms.error') }}</span>
+<div data-c-grid-item="base(1of1)" data-c-input="select">
+	<label for="department">
+		{{ copy.department }}
+	</label>
+	<span>{{ trans('forms.required') }}</span>
+	<div>
+		<i class="fa fa-caret-down"></i>
+		<select id="department" name="department" required>
+			<option selected value="" disabled>{{ copy.department_null_selection }}</option>
+			{% if not '/hr/' in url %}
+				<option value="{{ not_in_gov_option.value }}">{{ not_in_gov_option.name }}</option>
+			{% endif %}
+			{% for dept in departments %}
+				{% if old('department') == dept.id %}
+				{% set visibility = "visible" %}
+					<option selected value="{{ dept.id }}">{{ dept.name }}</option>
+				{% else %}
+					<option value="{{ dept.id }}">{{ dept.name }}</option>
+				{% endif %}
+			{% endfor %}
+		</select>
+	</div>
+	<span>{{ trans('forms.error') }}</span>
 </div>
-
 {# gov_email is hidden and not-required, until the managerRegistration script unhides it. #}
-<div id="gov_email_wrapper" data-c-visibility="hidden" data-c-grid-item="base(1of1)" data-c-input="email">
-    <label for="gov_email">{{ copy.gov_email }}</label>
-    <span>{{ trans('forms.required') }}</span>
-    <div>
-        <input id="gov_email"
-        name="gov_email" type="email" value="{{ old('gov_email') }}" />
-    </div>
-    <span>{{ trans('forms.error') }}</span>
+<div id="gov_email_wrapper" data-c-visibility={{visibility}} data-c-grid-item="base(1of1)" data-c-input="email">
+	<label for="gov_email">{{ copy.gov_email }}</label>
+	<span>{{ trans('forms.required') }}</span>
+	<div>
+		<input id="gov_email" name="gov_email" type="email" value="{{ old('gov_email') }}"/>
+	</div>
+	<span>{{ trans('forms.error') }}</span>
 </div>

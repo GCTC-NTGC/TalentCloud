@@ -107,8 +107,8 @@ const flexHourMessages: {
 } = {
   flexHoursNever: frequencyName(FrequencyId.never),
   flexHoursOccasionally: frequencyName(FrequencyId.sometimes),
-  flexHoursFrequently: frequencyName(FrequencyId.rarely),
-  flexHoursSometimes: frequencyName(FrequencyId.often),
+  flexHoursSometimes: frequencyName(FrequencyId.rarely),
+  flexHoursFrequently: frequencyName(FrequencyId.often),
   flexHoursAlways: frequencyName(FrequencyId.always),
 };
 const flexHourFrequencies: FlexHourOptionType[] = Object.keys(

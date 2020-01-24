@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreJobPoster;
-use App\Http\Requests\UpdateJobPoster;
 use App\Http\Resources\JobPoster as JobPosterResource;
 use App\Mail\JobPosterReviewRequested;
 use App\Models\JobPoster;
@@ -13,6 +12,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Jenssegers\Date\Date;
+use App\Http\Requests\UpdateJobPoster;
+use App\Http\Requests\StoreJobPoster;
+use Illuminate\Support\Facades\Gate;
+use App\Models\Criteria;
 
 class JobController extends Controller
 {
@@ -26,13 +29,42 @@ class JobController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Convert a job poster to the array expected by API requests,
+     * with all criteria,
+     * and with translation arrays in both languages.
      *
+     * @param  \App\Models\JobPoster $job Incoming Job Poster object.
+     * @return mixed[]
+     */
+    private function jobToArray(JobPoster $job)
+    {
+        $criteria = Criteria::where('job_poster_id', $job->id)->get();
+
+        $toApiArray = function ($model) {
+            return array_merge($model->toArray(), $model->getTranslationsArray());
+        };
+        $criteriaTranslated = $criteria->map($toApiArray);
+
+        $jobArray = array_merge($job->toApiArray(), ['criteria' => $criteriaTranslated]);
+        return $jobArray;
+    }
+
+    /**
+     * Return the list of all jobs the user is authorized to view,
+     * using all query parameters as search filters.
+     *
+     * @param Request $request
      * @return void
      */
-    public function index()
+    public function index(Request $request)
     {
-        // TODO: complete.
+        $jobs = JobPoster::where($request->query())->get();
+        $viewableJobs = $jobs->filter(function ($job) {
+            return Gate::allows('view', $job);
+        })->values();
+        return response()->json($viewableJobs->map(function ($job) {
+            return $this->jobToArray($job);
+        }));
     }
 
     /**

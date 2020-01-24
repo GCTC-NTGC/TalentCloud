@@ -40,8 +40,7 @@ class Kernel extends HttpKernel
 
             InitializeUser::class,
 
-            // Route Tranlslation middleware
-            // 'localize' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
+            // Route Translation middleware
             \App\Http\Middleware\DateLocale::class,
         ],
 
@@ -72,6 +71,7 @@ class Kernel extends HttpKernel
         'role' => \App\Http\Middleware\CheckRole::class,
         'localOnly' => \App\Http\Middleware\LocalOnly::class,
         'finishManagerRegistration' => \App\Http\Middleware\FinishManagerRegistration::class,
+        'finishHrRegistration' => \App\Http\Middleware\FinishHrRegistration::class,
 
         // Localization Middleware
         'localizationRedirect' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
