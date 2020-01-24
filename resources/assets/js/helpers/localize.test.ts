@@ -5,15 +5,15 @@ describe("localize", (): void => {
   describe("localizeField()", (): void => {
     it("correctly gets english title from fakeJob", (): void => {
       const job = fakeJob();
-      expect(localizeField("en", job, "city")).toEqual(job.city.en);
+      expect(localizeField("en", job, "title")).toEqual(job.title.en);
     });
     it("correctly gets french title from fakeJob", (): void => {
       const job = fakeJob();
-      expect(localizeField("fr", job, "city")).toEqual(job.city.fr);
+      expect(localizeField("fr", job, "title")).toEqual(job.title.fr);
     });
     it("Sanity check that fakeJob has different title in en and fr", (): void => {
       const job = fakeJob();
-      expect(job.city.en === job.city.fr).toEqual(false);
+      expect(job.title.en === job.title.fr).toEqual(false);
     });
     it("works on a non-typed object", (): void => {
       const newObj = {
