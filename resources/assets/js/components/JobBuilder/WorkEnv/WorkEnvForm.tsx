@@ -38,6 +38,7 @@ import {
   techDescriptions,
   amenitiesDescriptions,
 } from "./JobWorkEnv";
+import { localizeField } from "../../../helpers/localize";
 
 export const formMessages = defineMessages({
   ourWorkEnvDesc: {
@@ -597,9 +598,9 @@ const jobToValues = (
       collaborativenessList,
       collaborative_vs_independent,
     ),
-    envDescription: job.work_env_description[locale] || "",
-    cultureSummary: job.culture_summary[locale] || "",
-    moreCultureSummary: job.culture_special[locale] || "",
+    envDescription: localizeField(locale, job, "work_env_description") || "",
+    cultureSummary: localizeField(locale, job, "culture_summary") || "",
+    moreCultureSummary: localizeField(locale, job, "culture_special") || "",
   };
 };
 

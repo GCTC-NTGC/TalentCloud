@@ -21,6 +21,7 @@ import {
 } from "../../../models/localizedConstants";
 import ContextBlockItem from "../../ContextBlock/ContextBlockItem";
 import ContextBlock from "../../ContextBlock/ContextBlock";
+import { localizeField, getLocale } from "../../../helpers/localize";
 
 interface CriteriaFormProps {
   // The Job Poster this criteria will belong to.
@@ -98,7 +99,7 @@ export const criteriaToValues = (
   criteria: Criteria,
   locale: "en" | "fr",
 ): FormValues => ({
-  specificity: criteria.specificity[locale] || "",
+  specificity: localizeField(locale, criteria, "specificity") || "",
   level:
     criteria.criteria_type_id === CriteriaTypeId.Asset
       ? "asset"
@@ -155,14 +156,12 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
   handleCancel,
   intl,
 }): React.ReactElement => {
-  const { locale } = intl;
-  if (locale !== "en" && locale !== "fr") {
-    throw new Error("Unknown intl.locale");
-  }
+  const locale = getLocale(intl.locale);
   const stringNotEmpty = (value: string | null): boolean =>
     value !== null && (value as string).length !== 0;
   const [showSpecificity, setShowSpecificity] = useState(
-    criteria !== undefined && stringNotEmpty(criteria.specificity[locale]),
+    criteria !== undefined &&
+      stringNotEmpty(localizeField(locale, criteria, "specificity")),
   );
 
   const initialValues: FormValues =
@@ -219,9 +218,11 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
                 />
               </p>
               <div>
-                <p data-c-margin="bottom(normal)">{skill.name[locale]}</p>
                 <p data-c-margin="bottom(normal)">
-                  {skill.description[locale]}
+                  {localizeField(locale, skill, "name")}
+                </p>
+                <p data-c-margin="bottom(normal)">
+                  {localizeField(locale, skill, "description")}
                 </p>
                 {showSpecificity ? (
                   <>
