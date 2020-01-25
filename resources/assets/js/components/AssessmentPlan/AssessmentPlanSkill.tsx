@@ -40,6 +40,7 @@ import {
 import { getCriteriaById } from "../../store/Job/jobSelector";
 import { getSkillById } from "../../store/Skill/skillSelector";
 import { notEmpty } from "../../helpers/queries";
+import { getLocale, localizeField } from "../../helpers/localize";
 
 interface AssessmentPlanSkillProps {
   criterion: Criteria | null;
@@ -91,6 +92,7 @@ export const AssessmentPlanSkill: React.FunctionComponent<AssessmentPlanSkillPro
   intl,
 }: AssessmentPlanSkillProps &
   WrappedComponentProps): React.ReactElement | null => {
+  const locale = getLocale(intl.locale);
   useEffect((): void => {
     if (criterion === null || skill === null) {
       return;
@@ -136,9 +138,9 @@ export const AssessmentPlanSkill: React.FunctionComponent<AssessmentPlanSkillPro
   const skillLevelDescription = intl.formatMessage(
     SkillLevelDescriptionMessage(criterion.skill_level_id, skill.skill_type_id),
   );
-  const skillDescription = criterion.description[intl.locale]
-    ? criterion.description[intl.locale]
-    : skill.description[intl.locale];
+  const skillDescription = localizeField(locale, criterion, "description")
+    ? localizeField(locale, criterion, "description")
+    : localizeField(locale, skill, "description");
   const assessmentTypeOptions = enumToIds(AssessmentTypeId).map(
     (typeId): SelectOption => {
       return {
@@ -230,7 +232,7 @@ export const AssessmentPlanSkill: React.FunctionComponent<AssessmentPlanSkillPro
               defaultMessage="{skillName} - {skillLevel}"
               description="Title of a skill section in the Assessment Plan Builder."
               values={{
-                skillName: skill.name[intl.locale],
+                skillName: localizeField(locale, skill, "name"),
                 skillLevel,
               }}
             />
