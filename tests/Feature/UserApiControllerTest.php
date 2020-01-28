@@ -131,25 +131,33 @@ class UserApiControllerTest extends TestCase
             ->json('get', 'api/users');
         $response->assertOk();
 
-        $unexpected = [
-            'first_name' => $otherDeptManager->user->first_name,
-            'last_name' => $otherDeptManager->user->last_name,
-            'email' => $otherDeptManager->user->email,
-        ];
-        $response->assertJsonMissing($unexpected);
+        $unexpected = $this->makeFragment($otherDeptManager->user);
+        $response->assertJsonMissingExact($unexpected);
 
         foreach ($otherUsers as $otherUser) {
-            $response->assertJsonMissing([
-                'first_name' => $otherUser->user->first_name,
-                'last_name' => $otherUser->user->last_name,
-                'email' => $otherUser->user->email
-            ]);
+            $response->assertJsonMissingExact($this->makeFragment($otherUser->user));
         }
 
-        $response->assertJsonFragment($hrManager->user->toArray());
-        $response->assertJsonFragment($deptManager->user->toArray());
+        $hrManagerArray = $this->makeFragment($hrManager->user);
+        $deptManagerArray = $this->makeFragment($deptManager->user);
+
+        $response->assertJsonFragment($hrManagerArray);
+        $response->assertJsonFragment($deptManagerArray);
         foreach ($randomUsers as $randomUser) {
-            $response->assertJsonFragment($randomUser->user->toArray());
+            $response->assertJsonFragment($this->makeFragment($randomUser->user));
         }
+    }
+
+    private function makeFragment(User $user): array
+    {
+        return [
+            'email' => $user->email,
+            'first_name' => $user->first_name,
+            'gov_email' => $user->gov_email,
+            'id' => $user->id,
+            'is_confirmed' => $user->is_confirmed,
+            'is_priority' => $user->is_priority,
+            'last_name' => $user->last_name,
+        ];
     }
 }
