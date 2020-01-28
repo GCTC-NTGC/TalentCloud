@@ -182,8 +182,8 @@ class JobController extends Controller
         } elseif (Auth::check() && $jobPoster->isOpen()) {
             $application = JobApplication::where('applicant_id', Auth::user()->applicant->id)
             ->where('job_poster_id', $jobPoster->id)->first();
-            if ($this->authorize('view', $application) && $application->application_status->name != 'draft') {
-                Log::debug('Applicant has already applied!');
+            // If applicants job application is not draft anymore then link to application preview page.
+            if ($application != null && $application->application_status->name != 'draft') {
                 $applyButton = [
                     'href' => route('applications.show', $application->id),
                     'title' => $jobLang['apply']['view_link_title'],
