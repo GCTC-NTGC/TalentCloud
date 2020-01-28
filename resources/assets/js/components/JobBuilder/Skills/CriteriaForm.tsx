@@ -107,6 +107,7 @@ export const criteriaToValues = (
 
 /* eslint-disable @typescript-eslint/camelcase */
 const updateCriteriaWithValues = (
+  locale: "en" | "fr",
   criteria: Criteria,
   skill: Skill,
   values: FormValues,
@@ -123,8 +124,8 @@ const updateCriteriaWithValues = (
       fr: skill.description.fr,
     },
     specificity: {
-      en: criteria.specificity.en,
-      fr: criteria.specificity.fr,
+      ...criteria.specificity,
+      [locale]: values.specificity,
     },
   };
 };
@@ -193,6 +194,7 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
             ? criteria
             : newCriteria(jobPosterId, skill.id);
         const updatedCriteria = updateCriteriaWithValues(
+          locale,
           oldCriteria,
           skill,
           values,
