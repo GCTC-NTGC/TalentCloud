@@ -26,6 +26,7 @@ stories
     (): React.ReactElement => (
       <div data-c-container="large" data-c-padding="tb(triple)">
         <UnclaimedJobCard
+          id={1}
           jobLink={{
             url: text("Url", "", "Props"),
             title: "",
@@ -45,6 +46,7 @@ stories
     (): React.ReactElement => (
       <div data-c-container="large" data-c-padding="tb(triple)">
         <UnclaimedJobCard
+          id={2}
           jobLink={{
             url: text("Url", "", "Props"),
             title: "",
@@ -71,6 +73,7 @@ stories
         <div data-c-grid="gutter">
           {unclaimedJobs.map(
             ({
+              id,
               jobLink,
               createdAt,
               status,
@@ -79,6 +82,7 @@ stories
             }): React.ReactElement => {
               return (
                 <UnclaimedJobCard
+                  id={id}
                   key={jobLink.text}
                   jobLink={jobLink}
                   createdAt={createdAt}

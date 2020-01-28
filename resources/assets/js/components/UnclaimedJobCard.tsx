@@ -5,6 +5,7 @@ import { jobStatus } from "../models/localizedConstants";
 import { Link } from "../models/app";
 
 export interface UnclaimedJobCardProps {
+  id: number;
   jobLink: Link;
   createdAt: string;
   status: JobStatus;

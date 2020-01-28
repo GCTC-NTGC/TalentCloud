@@ -13,6 +13,7 @@ stories
     (): React.ReactElement => (
       <div data-c-container="large" data-c-padding="tb(triple)">
         <JobCard
+          id={1}
           activity={{
             count: number("Activity Count", 3),
             new: {
@@ -57,6 +58,7 @@ stories
     (): React.ReactElement => (
       <div data-c-container="large" data-c-padding="tb(triple)">
         <JobCard
+          id={2}
           activity={{
             count: number("Activity Count", 0),
             new: {

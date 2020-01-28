@@ -73,7 +73,7 @@ const CompletedJobsAccordion: React.FC<CompletedJobsAccordionProps> = ({
             {(completedJobActions.length !== 0 &&
               completedJobActions.map(
                 (jobAction): React.ReactElement => {
-                  return <JobCard {...jobAction} />;
+                  return <JobCard key={jobAction.id} {...jobAction} />;
                 },
               )) || (
               <p>
@@ -121,6 +121,7 @@ const JobIndexHr: React.FunctionComponent<JobIndexHrProps> = ({
         data-c-border="bottom(thin, solid, black)"
       >
         <div data-c-container="large" data-c-padding="tb(triple)">
+          {/*
           <p>
             <FormattedMessage
               id="hrPortal.jobPageIndex.welcomeMessage"
@@ -128,7 +129,8 @@ const JobIndexHr: React.FunctionComponent<JobIndexHrProps> = ({
               defaultMessage="Welcome! Introductory copy that explains how this page works, and what an HR advisor needs to do to claim a job action as their own. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium ducimus laboriosam sequi, quis autem minima esse quasi aspernatur vero provident quos eligendi, ea officia exercitationem. Obcaecati impedit quae veritatis corrupti!"
             />
           </p>
-          <h2 data-c-font-size="h2" data-c-margin="top(triple) bottom(normal)">
+          */}
+          <h2 data-c-font-size="h2" data-c-margin="bottom(normal)">
             <FormattedMessage
               id="hrPortal.jobPageIndex.jobActionsHeader"
               description="Header for my job actions section."
@@ -148,7 +150,7 @@ const JobIndexHr: React.FunctionComponent<JobIndexHrProps> = ({
           {(notCompletedJobActions.length !== 0 &&
             notCompletedJobActions.map(
               (jobAction): React.ReactElement => {
-                return <JobCard {...jobAction} />;
+                return <JobCard key={jobAction.id} {...jobAction} />;
               },
             )) || (
             <p>
@@ -185,7 +187,9 @@ const JobIndexHr: React.FunctionComponent<JobIndexHrProps> = ({
             {unclaimedJobs.length !== 0 &&
               unclaimedJobs.map(
                 (unclaimedJob): React.ReactElement => {
-                  return <UnclaimedJobCard {...unclaimedJob} />;
+                  return (
+                    <UnclaimedJobCard key={unclaimedJob.id} {...unclaimedJob} />
+                  );
                 },
               )}
           </section>

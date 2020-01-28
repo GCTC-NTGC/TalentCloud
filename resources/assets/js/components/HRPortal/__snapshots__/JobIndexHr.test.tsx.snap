@@ -10,17 +10,9 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
       data-c-container="large"
       data-c-padding="tb(triple)"
     >
-      <p>
-        <FormattedMessage
-          defaultMessage="Welcome! Introductory copy that explains how this page works, and what an HR advisor needs to do to claim a job action as their own. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium ducimus laboriosam sequi, quis autem minima esse quasi aspernatur vero provident quos eligendi, ea officia exercitationem. Obcaecati impedit quae veritatis corrupti!"
-          description="Welcome message at beginning of page."
-          id="hrPortal.jobPageIndex.welcomeMessage"
-          values={Object {}}
-        />
-      </p>
       <h2
         data-c-font-size="h2"
-        data-c-margin="top(triple) bottom(normal)"
+        data-c-margin="bottom(normal)"
       >
         <FormattedMessage
           defaultMessage="My Job Actions"
@@ -59,6 +51,8 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
             "url": "https://google.ca",
           }
         }
+        id={1}
+        key="1"
         managerTime={8}
         owned={true}
         preview={
@@ -106,6 +100,8 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
             "url": "",
           }
         }
+        id={2}
+        key="2"
         managerTime={8}
         owned={false}
         preview={
@@ -152,6 +148,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
                 "title": "View this draft Job Poster.",
                 "url": "",
               },
+              "id": 3,
               "managerTime": 8,
               "owned": false,
               "preview": Object {
@@ -210,6 +207,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
           handleClaimJob={[Function]}
           hiringManager="Rebecca Appleby"
           hrAdvisors={Array []}
+          id={4}
           jobLink={
             Object {
               "text": "CS01 - Front-end Developer",
@@ -217,6 +215,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
               "url": "",
             }
           }
+          key="4"
           status={1}
         />
         <UnclaimedJobCard
@@ -229,6 +228,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
               "Jack Little",
             ]
           }
+          id={5}
           jobLink={
             Object {
               "text": "AS02 - Executive Assisstant",
@@ -236,6 +236,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
               "url": "",
             }
           }
+          key="5"
           status={1}
         />
         <UnclaimedJobCard
@@ -243,6 +244,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
           handleClaimJob={[Function]}
           hiringManager="Robin Browne"
           hrAdvisors={Array []}
+          id={6}
           jobLink={
             Object {
               "text": "ET03 - Business Analyst",
@@ -250,6 +252,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
               "url": "",
             }
           }
+          key="6"
           status={2}
         />
         <UnclaimedJobCard
@@ -262,6 +265,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
               "Jack Little",
             ]
           }
+          id={7}
           jobLink={
             Object {
               "text": "FG05 - Long-term Care Specialist",
@@ -269,6 +273,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
               "url": "",
             }
           }
+          key="7"
           status={1}
         />
         <UnclaimedJobCard
@@ -276,6 +281,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
           handleClaimJob={[Function]}
           hiringManager="Amelie Lachance"
           hrAdvisors={Array []}
+          id={8}
           jobLink={
             Object {
               "text": "CS03 - Digital Product Designer",
@@ -283,6 +289,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
               "url": "",
             }
           }
+          key="8"
           status={2}
         />
       </section>
@@ -301,17 +308,9 @@ exports[`Job Index Page should render JobIndexHr without any items 1`] = `
       data-c-container="large"
       data-c-padding="tb(triple)"
     >
-      <p>
-        <FormattedMessage
-          defaultMessage="Welcome! Introductory copy that explains how this page works, and what an HR advisor needs to do to claim a job action as their own. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium ducimus laboriosam sequi, quis autem minima esse quasi aspernatur vero provident quos eligendi, ea officia exercitationem. Obcaecati impedit quae veritatis corrupti!"
-          description="Welcome message at beginning of page."
-          id="hrPortal.jobPageIndex.welcomeMessage"
-          values={Object {}}
-        />
-      </p>
       <h2
         data-c-font-size="h2"
-        data-c-margin="top(triple) bottom(normal)"
+        data-c-margin="bottom(normal)"
       >
         <FormattedMessage
           defaultMessage="My Job Actions"
