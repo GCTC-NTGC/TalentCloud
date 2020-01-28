@@ -290,6 +290,7 @@ class ApplicationByJobController extends Controller
                 'courses' => $courses,
                 'work_experiences' => $work_experiences,
                 'is_manager_view' => WhichPortal::isManagerPortal(),
+                'is_draft' => $application->application_status->name == 'draft',
             ]
         );
     }
