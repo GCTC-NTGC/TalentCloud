@@ -107,19 +107,25 @@ class UserApiControllerTest extends TestCase
             'department_id' => $healthCanada->id
         ]);
 
-        $job = factory(JobPoster::class)->state('closed')->create(['manager_id' => $deptManager->id]);
-        $job->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
+        $job = factory(JobPoster::class)->state('closed')->create([
+            'manager_id' => $deptManager->id,
+            'department_id' => $transportCanada->id,
+        ]);
+        $job->job_applications()->saveMany(factory(JobApplication::class, 5)->create([
             'job_poster_id' => $job->id
         ])->each(function ($application, $key) use ($randomUsers): void {
             $application->applicant_id = $randomUsers[$key]->id;
-        });
+        }));
 
-        $otherJob = factory(JobPoster::class)->state('closed')->create(['manager_id' => $otherDeptManager->id]);
-        $otherJob->job_applications()->saveMany(factory(JobApplication::class, 3))->create([
+        $otherJob = factory(JobPoster::class)->state('closed')->create([
+            'manager_id' => $otherDeptManager->id,
+            'department_id' => $healthCanada->id,
+        ]);
+        $otherJob->job_applications()->saveMany(factory(JobApplication::class, 3)->create([
             'job_poster_id' => $job->id
         ])->each(function ($application, $key) use ($otherUsers): void {
             $application->applicant_id = $otherUsers[$key]->id;
-        });
+        }));
 
         $hrManager = factory(HrAdvisor::class)->create([
             'department_id' => $transportCanada->id
