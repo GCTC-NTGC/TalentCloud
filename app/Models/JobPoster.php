@@ -260,7 +260,17 @@ class JobPoster extends BaseModel
         'loo_issuance_date',
         'classification_id',
         'classification_level',
-        'job_status_id'
+        'job_status_id',
+        'city',
+        'title',
+        'dept_impact',
+        'team_impact',
+        'hire_impact',
+        'division',
+        'education',
+        'work_env_description',
+        'culture_summary',
+        'culture_special',
     ];
 
     /**
