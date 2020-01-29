@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "astrotomic/laravel-translatable",
-            "version": "v11.6.1",
+            "version": "v11.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Astrotomic/laravel-translatable.git",
-                "reference": "f7b294cb7b2a853cb11b0e51bc60d9170f2b11a0"
+                "reference": "889f8b91f28a8a72873099cf452945adbd03dc9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Astrotomic/laravel-translatable/zipball/f7b294cb7b2a853cb11b0e51bc60d9170f2b11a0",
-                "reference": "f7b294cb7b2a853cb11b0e51bc60d9170f2b11a0",
+                "url": "https://api.github.com/repos/Astrotomic/laravel-translatable/zipball/889f8b91f28a8a72873099cf452945adbd03dc9f",
+                "reference": "889f8b91f28a8a72873099cf452945adbd03dc9f",
                 "shasum": ""
             },
             "require": {
@@ -68,7 +68,7 @@
                 "laravel",
                 "translation"
             ],
-            "time": "2019-11-06T09:12:49+00:00"
+            "time": "2020-01-28T11:49:28+00:00"
         },
         {
             "name": "backpack/crud",
