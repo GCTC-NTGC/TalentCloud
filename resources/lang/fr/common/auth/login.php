@@ -14,6 +14,7 @@ return [
     'header' => 'Ouverture de séance',
     'return' => "Retour à la page d'accueil",
     'email' => 'Courriel',
+    'email_placeholder' => 'p. ex., courriel@siteweb.com',
     'password' => 'Mot de passe',
     'register' => 'Inscription',
     'remember_me' => 'Se rappeler de moi',

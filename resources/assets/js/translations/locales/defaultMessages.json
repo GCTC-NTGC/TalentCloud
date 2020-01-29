@@ -782,6 +782,21 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Interview Question",
+        "description": "Label for the rating guide question.",
+        "id": "ratingGuideQuestion.questionLabel"
+      },
+      {
+        "defaultMessage": "Write your interview question here...",
+        "description": "Placeholder for the rating guide question.",
+        "id": "ratingGuideQuestion.questionPlaceholder"
+      }
+    ],
+    "path": "resources/assets/js/components/AssessmentPlan/RatingGuideQuestion.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Add a Comment",
         "description": "The label displayed for the comment input field.",
         "id": "commentForm.comment.label"
@@ -915,11 +930,6 @@
         "defaultMessage": "No jobs completed yet!",
         "description": "Message displayed if the completed jobs list is empty.",
         "id": "hrPortal.jobPageIndex.noJobsCompleted"
-      },
-      {
-        "defaultMessage": "Welcome! Introductory copy that explains how this page works, and what an HR advisor needs to do to claim a job action as their own. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium ducimus laboriosam sequi, quis autem minima esse quasi aspernatur vero provident quos eligendi, ea officia exercitationem. Obcaecati impedit quae veritatis corrupti!",
-        "description": "Welcome message at beginning of page.",
-        "id": "hrPortal.jobPageIndex.welcomeMessage"
       },
       {
         "defaultMessage": "My Job Actions",
