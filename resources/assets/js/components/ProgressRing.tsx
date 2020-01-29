@@ -40,9 +40,9 @@ class ProgressRing extends React.Component<
     return (
       <svg height={radius * 2} width={radius * 2}>
         <circle
-          stroke="grey"
+          stroke="lightgrey"
           fill="transparent"
-          strokeWidth={stroke}
+          strokeWidth={1}
           strokeDasharray={`${circumference} ${circumference}`}
           style={{ strokeDashoffset: 0 }}
           r={normalizedRadius}
