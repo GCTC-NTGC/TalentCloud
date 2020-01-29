@@ -40,7 +40,7 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
       aria-valuemin={minWords}
       aria-valuemax={maxWords}
     >
-      <div>
+      <div className="word-counter__content">
         <ProgressRing
           radius={ringRadius}
           stroke={ringStroke}
@@ -48,6 +48,8 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
           strokeColor={strokeColor}
           max={minWords}
         />
+        <span className="word-counter__progress">{`${minWords -
+          numOfWords}`}</span>
       </div>
       <span
         className="word-counter__message"

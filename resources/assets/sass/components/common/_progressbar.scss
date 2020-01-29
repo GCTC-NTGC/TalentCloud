@@ -11,32 +11,38 @@
     flex-wrap: nowrap;
   }
 
-  span {
-    color: $palette--font-black;
-    font-family: $font--sans;
-    font-size: 0.9rem;
-    font-weight: 400;
-    line-height: 1.5;
-  }
+  .word-counter__content {
+    display: flex;
+    align-items: center;
 
-  .word-counter__progress {
-    color: $palette--gray;
-    font-size: 0.8rem;
-    margin-bottom: 0.2rem;
+    .word-counter__progress {
+      color: $palette--font-black;
+      font-family: $font--sans;
+      font-size: 0.9rem;
+      font-weight: 400;
+      line-height: 1.5;
+      margin: 0;
 
-    @media #{$p-tablet} {
-      width: 7rem;
+      @media #{$p-tablet} {
+        width: 7rem;
+      }
     }
   }
 
-  .word-counter__message {
-    flex-basis: 100%;
-    text-align: center;
-    @media #{$p-tablet} {
-      flex-basis: 90%;
-      text-align: left;
+    .word-counter__message {
+      flex-basis: 100%;
+      text-align: center;
+      color: $palette--font-black;
+      font-family: $font--sans;
+      font-size: 0.9rem;
+      font-weight: 400;
+      line-height: 1.5;
+      margin: 0;
+      @media #{$p-tablet} {
+        flex-basis: 90%;
+        text-align: left;
+      }
     }
-  }
 }
 
 circle {
