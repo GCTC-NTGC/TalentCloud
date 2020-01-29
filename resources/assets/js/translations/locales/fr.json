@@ -563,6 +563,7 @@
   "jobBuilder.workEnv.stepDescription": "Les candidats accordent beaucoup d’importance à l’équipe au sein de laquelle ils travailleront et à leur espace de travail physique. Le fait de communiquer de l’information à ce sujet aide les candidats à déterminer s’ils correspondent bien au profil de l’emploi, et peut réduire le nombre de demandes « illusoires » qui ralentissent le processus de présélection.",
   "jobBuilder.workEnv.submitButtonLabel": "Aperçu de l’environnement de travail",
   "jobBuilder.workEnv.teamSizeLabel": "Taille de l’équipe",
+  "jobBuilder.workEnv.teamSizePlaceholder": "Par exemple 10",
   "jobBuilder.workEnv.technology.accessToExternal": "Accès à un réseau sans fil externe et non filtré",
   "jobBuilder.workEnv.technology.collaboration": "Collaboration (p. ex., Slack, Hangouts)",
   "jobBuilder.workEnv.technology.fileSharing": "Partage des dossiers (p. ex., Google Drive, Dropbox)",

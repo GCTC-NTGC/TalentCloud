@@ -52,6 +52,11 @@ export const formMessages = defineMessages({
     defaultMessage: "Team Size",
     description: "The label displayed on the team size input.",
   },
+  teamSizePlaceholder: {
+    id: "jobBuilder.workEnv.teamSizePlaceholder",
+    defaultMessage: "e.g. 10",
+    description: "The placeholder displayed on the team size input.",
+  },
   physicalEnvLabel: {
     id: "jobBuilder.workEnv.physicalEnvLabel",
     defaultMessage: "Our Physical Environment",
@@ -943,7 +948,7 @@ const WorkEnvForm = ({
                 grid="tl(1of2)"
                 id="teamSize"
                 label={intl.formatMessage(formMessages.teamSizeLabel)}
-                placeholder="e.g. 10"
+                placeholder={intl.formatMessage(formMessages.teamSizePlaceholder)}
               />
               <CheckboxGroup
                 id="physicalEnv"

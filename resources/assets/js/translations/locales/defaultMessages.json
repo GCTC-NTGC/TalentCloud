@@ -2804,6 +2804,11 @@
         "id": "jobBuilder.workEnv.teamSizeLabel"
       },
       {
+        "defaultMessage": "e.g. 10",
+        "description": "The placeholder displayed on the team size input.",
+        "id": "jobBuilder.workEnv.teamSizePlaceholder"
+      },
+      {
         "defaultMessage": "Our Physical Environment",
         "description": "The label displayed on the physical environment checkbox group.",
         "id": "jobBuilder.workEnv.physicalEnvLabel"
