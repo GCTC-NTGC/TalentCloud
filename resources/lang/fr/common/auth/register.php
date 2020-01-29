@@ -18,7 +18,7 @@ return [
     'email' => 'Courriel',
     'password_copy' => 'Créez un mot de passe contenant au moins un caractère de chacune des catégories suivantes: caractères minuscules (az), majuscules (AZ), chiffres (0-9) et symboles non alphanumériques (%, $,!!). , etc.).',
     'password' => 'Mot de passe',
-    'confirm_password' => 'Confirmez le mot de passe',
+    'confirm_password' => 'Confirmez votre mot de passe',
     'department' => 'Ministère',
     'department_null_selection' => 'Sélectionner un ministère',
     'not_in_gov' => 'Non-fonctionnaire',

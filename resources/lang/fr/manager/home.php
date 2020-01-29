@@ -186,7 +186,7 @@ return [
                 ]
             ],
             'content_before' => 'Si vous êtes membre,',
-            'content_after' => 'pour nous faire savoir que nous devrions mettre votre compte à niveau. Cela vous permettra d’afficher des emplois dans le Nuage de talents, ainsi que de vous procurer toutes les fonctionnalités associées à un compte de ministère partenaire. Pour pouvoir afficher un emploi, vous devrez confirmer que vous avez une case classifiée.',
+            'content_after' => 'pour nous faire savoir que nous devrions mettre votre compte à niveau. Cela vous permettra d’afficher des emplois dans le Nuage de talents, ainsi que de vous procurer toutes les fonctionnalités associées à un compte de ministère partenaire. Pour pouvoir afficher un emploi, vous devrez confirmer que vous avez un poste classifié dans votre organisation (par exemple un poste EC-04 vacant).',
             'anchor' => [
                 'href' => 'mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca',
                 'text' => 'communiquer avec le Nuage de talents',
