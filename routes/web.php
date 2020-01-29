@@ -581,7 +581,7 @@ Route::group(
                         'jobs/{jobPoster}',
                         'JobController@show'
                     )
-                        ->middleware('can:manage,jobPoster')
+                        ->middleware('can:view,jobPoster')
                         ->where('jobPoster', '[0-9]+')
                         ->name('hr_advisor.jobs.preview');
                 });

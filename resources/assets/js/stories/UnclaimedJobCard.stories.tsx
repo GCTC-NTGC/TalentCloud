@@ -26,6 +26,7 @@ stories
     (): React.ReactElement => (
       <div data-c-container="large" data-c-padding="tb(triple)">
         <UnclaimedJobCard
+          id={1}
           jobLink={{
             url: text("Url", "", "Props"),
             title: "",
@@ -33,12 +34,7 @@ stories
           }}
           createdAt={text("Created At", "Created: 2019-MAY-02", "Props")}
           status={select("Status", statusOptions, JobStatus.Draft, "Props")}
-          hiringManagers={array(
-            "Hiring Managers",
-            ["Rebecca Appleby"],
-            ",",
-            "Props",
-          )}
+          hiringManager={text("Hiring Manager", "Rebecca Appleby")}
           hrAdvisors={[]}
           handleClaimJob={action("Claim Job")}
         />
@@ -50,6 +46,7 @@ stories
     (): React.ReactElement => (
       <div data-c-container="large" data-c-padding="tb(triple)">
         <UnclaimedJobCard
+          id={2}
           jobLink={{
             url: text("Url", "", "Props"),
             title: "",
@@ -57,12 +54,7 @@ stories
           }}
           createdAt={text("Created At", "Created: 2019-MAY-02", "Props")}
           status={select("Status", statusOptions, JobStatus.Draft, "Props")}
-          hiringManagers={array(
-            "Hiring Managers",
-            ["Rebecca Appleby"],
-            ",",
-            "Props",
-          )}
+          hiringManager={text("Hiring Managers", "Rebecca Appleby")}
           hrAdvisors={array(
             "HR Managers",
             ["Rebecca Appleby", "Jack Little"],
@@ -81,19 +73,21 @@ stories
         <div data-c-grid="gutter">
           {unclaimedJobs.map(
             ({
+              id,
               jobLink,
               createdAt,
               status,
-              hiringManagers,
+              hiringManager,
               hrAdvisors,
             }): React.ReactElement => {
               return (
                 <UnclaimedJobCard
+                  id={id}
                   key={jobLink.text}
                   jobLink={jobLink}
                   createdAt={createdAt}
                   status={status}
-                  hiringManagers={hiringManagers}
+                  hiringManager={hiringManager}
                   hrAdvisors={hrAdvisors}
                   handleClaimJob={action("Claim Job")}
                 />

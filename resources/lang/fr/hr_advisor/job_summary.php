@@ -29,7 +29,7 @@ return [
     'send_manager_button' => 'Envoyer au gestionnaire',
     'send_translation_button' => 'Envoyer aux fins de traduction',
     'approve_button' => 'Approuver aux fins de publication',
-    'relinquish_button' => 'Renoncer',
+    'relinquish_button' => 'Renoncer à cet emploi',
     'edit_poster_button' => 'Modifier l\'avis d\'emploi',
     'view_poster_button' => 'Afficher l\'avis d\'emploi en ligne ',
     'screening_plan_button' => 'Afficher le plan de présélection ',

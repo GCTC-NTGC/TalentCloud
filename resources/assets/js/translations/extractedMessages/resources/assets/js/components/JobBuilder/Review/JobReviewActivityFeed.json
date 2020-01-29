@@ -47,7 +47,7 @@
   {
     "id": "activityfeed.review.header",
     "description": "The activity feed header.",
-    "defaultMessage": "Review Your Job Poster {totalActivities}"
+    "defaultMessage": "Click to View Comments {totalActivities}"
   },
   {
     "id": "activityfeed.review.accordionAccessibleLabel",

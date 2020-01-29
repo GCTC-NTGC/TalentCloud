@@ -92,7 +92,7 @@ class FirstVisitController extends AuthController
     }
 
     /**
-     * Process the final data required for Managers.
+     * Process the final data required for HR.
      *
      * @param Request $request
      * @return void

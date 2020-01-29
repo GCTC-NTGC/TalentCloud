@@ -197,9 +197,9 @@ class JobPosterCrudController extends CrudController
         // Manipulates the input fields to save the "end of day" timestamp for
         // open/close/start dates.
         $this->crud->request->request->add([
-            'open_date_time' => ptDayStartToUtcTime($open_date),
-            'close_date_time' => ptDayEndToUtcTime($close_date),
-            'start_date_time' => ptDayStartToUtcTime($start_date),
+            'open_date_time' => $open_date !== null ? ptDayStartToUtcTime($open_date) : null,
+            'close_date_time' => $close_date !== null ? ptDayEndToUtcTime($close_date) : null,
+            'start_date_time' => $start_date !== null ? ptDayStartToUtcTime($start_date) : null,
         ]);
         $response = $this->traitUpdate();
 
