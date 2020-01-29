@@ -15,20 +15,20 @@ const messages = [
     message: "This seems too short.",
   },
   {
-    count: number("Msg Threshold Low", 10),
+    count: number("Msg Threshold Low", 100),
     message: "This seems a bit short.",
   },
-  { count: number("Msg Threshold Mid", 20), message: "" },
+  { count: number("Msg Threshold Mid", 200), message: "" },
   {
-    count: number("Msg Threshold High", 80),
+    count: number("Msg Threshold High", 350),
     message: "This is starting to get a bit long.",
   },
   {
-    count: number("Msg Threshold Very High", 100),
+    count: number("Msg Threshold Very High", 425),
     message: "This looks too long.",
   },
   {
-    count: number("Msg Threshold Max", 130),
+    count: number("Msg Threshold Max", 500),
     message: "This is way too long.",
   },
 ];
@@ -42,10 +42,12 @@ stories
         <WordCounterWrapper
           elementId="word-counter"
           messages={messages}
-          wordLimit={number("Word Limit", 150)}
-          minWords={number("Min Words", 20)}
-          maxWords={number("Max Words", 80)}
+          wordLimit={number("Word Limit", 500)}
+          minWords={number("Min Words", 200)}
+          maxWords={number("Max Words", 350)}
           placeholder={text("Placeholder", "Start typing your answer above.")}
+          ringRadius={20}
+          ringStroke={5}
         />
       </div>
     ),

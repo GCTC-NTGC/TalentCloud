@@ -16,6 +16,10 @@ export interface WordCounterProps {
   placeholder?: string;
   /** The hue of the progress ring. Corresponds to the current number of words */
   strokeColor: string;
+  /** Radius of the progress ring */
+  ringRadius: number;
+  /** Width of progress ring */
+  ringStroke: number;
 }
 
 const WordCounter: React.FunctionComponent<WordCounterProps> = ({
@@ -25,6 +29,8 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
   message,
   placeholder,
   strokeColor,
+  ringRadius,
+  ringStroke,
 }): React.ReactElement => {
   return (
     <div
@@ -36,14 +42,13 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
     >
       <div>
         <ProgressRing
-          radius={15}
-          stroke={3}
+          radius={ringRadius}
+          stroke={ringStroke}
           progress={numOfWords}
           strokeColor={strokeColor}
           max={minWords}
         />
       </div>
-      {/* <span className="word-counter__progress">{`(${numOfWords} / ${wordLimit})`}</span> */}
       <span
         className="word-counter__message"
         style={numOfWords === 0 ? { color: "grey" } : {}}

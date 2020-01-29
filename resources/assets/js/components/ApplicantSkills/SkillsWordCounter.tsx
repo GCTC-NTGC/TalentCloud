@@ -84,6 +84,8 @@ const SkillsWordCounter: React.FunctionComponent<SkillsWordCounterProps &
       minWords={minWords}
       maxWords={maxWords}
       placeholder={placeholder}
+      ringRadius={20}
+      ringStroke={5}
     />
   );
 };

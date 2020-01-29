@@ -22,6 +22,8 @@ const WordCounterWrapper: React.FunctionComponent<WordCounterWrapperProps> = ({
   maxWords,
   messages,
   placeholder,
+  ringRadius,
+  ringStroke,
 }): React.ReactElement => {
   const [currentNumberOfWords, setCurrentNumberOfWords] = useState(0);
 
@@ -91,7 +93,7 @@ const WordCounterWrapper: React.FunctionComponent<WordCounterWrapperProps> = ({
       }
     }
 
-    return `hsl(${hue}, 80%, 50%)`;
+    return `hsl(${hue}, 60%, 50%)`;
   };
 
   return (
@@ -103,6 +105,8 @@ const WordCounterWrapper: React.FunctionComponent<WordCounterWrapperProps> = ({
       message={handleMessage()}
       placeholder={placeholder}
       strokeColor={strokeColor()}
+      ringRadius={ringRadius}
+      ringStroke={ringStroke}
     />
   );
 };
