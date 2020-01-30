@@ -4,32 +4,15 @@
     Assessment Plan View
 
 ============================================================================= #}
-
 {% extends "layouts/base" %}
-
 {% block body %}
-
-    {% include "common/goc" %}
-{% include "common/alert" %}
-
-    {% include "common/header" with { 'header': { 'title': title } } %}
-
-    {% include "manager/notification" %}
-
-    <a id="skipLink"></a>
-
-    <div
-        data-clone
-        id="assessment-plan-root"
-    >
-    </div>
-
+	{% include "common/goc" %}
+	{% include "common/alert" %}
+	{% include "common/header" with { 'header': { 'title': title } } %}
+	{% include "manager/notification" %}
+	<a id="skipLink"></a>
+	<div data-clone id="assessment-plan-root"></div>
 {% endblock %}
-
 {% block scripts %}
-
-    <script async defer
-        src="{{ mix('/js/AssessmentPlanRoot.js') }}">
-    </script>
-
+	<script async defer src="{{ mix('/js/AssessmentPlanRoot.js') }}"></script>
 {% endblock %}
