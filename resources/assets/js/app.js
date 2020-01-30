@@ -1329,4 +1329,15 @@
       }
     });
   });
+
+  // Disable application form submit buttons
+  function formPreventMultipleSubmit() {
+      $(".form-prevent-multiple-submit").submit(function (e) {
+          //disable the submit button
+          $(".button-prevent-multiple-submit").addClass("disabled");
+          return true;
+      });
+  }
+
+  formPreventMultipleSubmit();
 })(jQuery);
