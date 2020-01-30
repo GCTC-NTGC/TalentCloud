@@ -379,9 +379,9 @@ Route::group(
                             ->name('manager.jobs.destroy');
 
                         /* Screening Plan Builder */
-                        Route::view(
+                        Route::get(
                             'jobs/{jobPoster}/assessment-plan',
-                            'manager/assessment_plan'
+                            'AssessmentPlanController@show'
                         )
                             ->where('jobPoster', '[0-9]+')
                             ->name('manager.jobs.screening_plan');
@@ -584,6 +584,14 @@ Route::group(
                         ->middleware('can:view,jobPoster')
                         ->where('jobPoster', '[0-9]+')
                         ->name('hr_advisor.jobs.preview');
+
+                    Route::get(
+                        'jobs/{jobPoster}/assessment-plan',
+                        'AssessmentPlanController@show'
+                    )
+                        ->middleware('can:manage,jobPoster')
+                        ->where('jobPoster', '[0-9]+')
+                        ->name('hr_advisor.jobs.screening_plan');
                 });
             });
             // These routes must be excluded from the finishHrAdvisorRegistration middleware to avoid an infinite loop of redirects
