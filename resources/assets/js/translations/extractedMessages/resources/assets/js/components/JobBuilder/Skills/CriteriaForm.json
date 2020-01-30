@@ -1,6 +1,6 @@
 [
   {
-    "id": "criteriaForm.skillSpecificity",
+    "id": "criteriaForm.skillSpecificityLabel",
     "description": "Label for the skill specificity textarea.",
     "defaultMessage": "Additional skill details"
   },

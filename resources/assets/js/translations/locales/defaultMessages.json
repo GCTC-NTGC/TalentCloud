@@ -2232,7 +2232,7 @@
       {
         "defaultMessage": "Additional skill details",
         "description": "Label for the skill specificity textarea.",
-        "id": "criteriaForm.skillSpecificity"
+        "id": "criteriaForm.skillSpecificityLabel"
       },
       {
         "defaultMessage": "Add context or specifics to the definition of this skill that will only appear on your job poster. This will be reviewed by your human resources advisor.",
