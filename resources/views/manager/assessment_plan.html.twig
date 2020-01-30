@@ -14,7 +14,9 @@
 
     {% include "common/header" with { 'header': { 'title': title } } %}
 
-    {% include "manager/notification" %}
+    {% if hide_demo_notification %}
+        {% include "manager/notification" %}
+    {% endif %}
 
     <a id="skipLink"></a>
 
