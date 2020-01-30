@@ -17,14 +17,31 @@ const titles = defineMessages({
 
 const routes: Routes<{}, RouterResult> = [
   {
-    path: "/:locale/manager/jobs",
+    path: "/:locale",
     children: [
       {
-        path: "/:id/assessment-plan",
-        action: ({ params }) => ({
-          title: titles.assessmentPlanTitle,
-          component: <AssessmentPlanContainer jobId={Number(params.id)} />,
-        }),
+        path: "/manager/jobs",
+        children: [
+          {
+            path: "/:id/assessment-plan",
+            action: ({ params }) => ({
+              title: titles.assessmentPlanTitle,
+              component: <AssessmentPlanContainer jobId={Number(params.id)} />,
+            }),
+          },
+        ],
+      },
+      {
+        path: "/hr/jobs",
+        children: [
+          {
+            path: "/:id/assessment-plan",
+            action: ({ params }) => ({
+              title: titles.assessmentPlanTitle,
+              component: <AssessmentPlanContainer jobId={Number(params.id)} />,
+            }),
+          },
+        ],
       },
     ],
   },
