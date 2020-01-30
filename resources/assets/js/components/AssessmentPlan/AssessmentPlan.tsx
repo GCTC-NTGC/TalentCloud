@@ -23,7 +23,7 @@ const AssessmentPlan: React.FunctionComponent<AssessmentPlanProps &
 }): React.ReactElement => {
   const jobTitle = (
     <span data-c-colour="c5" data-c-font-size="h3">
-      {job && ` ${job[intl.locale].title}`}
+      {job && ` ${job.title[intl.locale]}`}
     </span>
   );
   return (

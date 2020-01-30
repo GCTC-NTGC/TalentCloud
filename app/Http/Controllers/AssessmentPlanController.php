@@ -30,7 +30,7 @@ class AssessmentPlanController extends Controller
         $criteriaTranslated = [];
         foreach ($criteria as $criterion) {
             // TODO: getTranslationsArray probably makes DB calls every loop. Find a way to profile & optimize.
-            $criteriaTranslated[] = array_merge($criterion->toArray(), $criterion->getTranslationsArray());
+            $criteriaTranslated[] = array_merge($criterion->toArray(), $criterion->getTranslations());
         }
         $criteriaIds = $criteria->pluck('id');
         $assessments = Assessment::whereIn('criterion_id', $criteriaIds)->get();

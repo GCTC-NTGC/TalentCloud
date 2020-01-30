@@ -174,7 +174,7 @@ interface DetailsFormValues {
   overtime: OvertimeOptionType;
 }
 
-const classificationCode = (classification: number | string) =>
+const classificationCode = (classification: number | string): string =>
   getKeyByValue(ClassificationId, classification);
 
 const isClassificationSet = (values: DetailsFormValues): boolean => {
@@ -192,19 +192,19 @@ const getEducationMsgForClassification = (
 
 const jobToValues = (
   job: Job | null,
-  locale: string,
+  locale: "en" | "fr",
   intl: IntlShape,
 ): DetailsFormValues => {
   const values: DetailsFormValues = job
     ? {
-        title: job[locale].title ? String(job[locale].title) : "", // TODO: use utility method
+        title: job.title[locale] || "", // TODO: use utility method
         termLength: job.term_qty || "",
         classification: job.classification_id || "",
         level: job.classification_level || "",
-        educationRequirements: job[locale].education || "",
+        educationRequirements: job.education[locale] || "",
         securityLevel: job.security_clearance_id || "",
         language: job.language_requirement_id || "",
-        city: job[locale].city || "",
+        city: job.city[locale] || "",
         province: job.province_id || "",
         remoteWork: job.remote_work_allowed
           ? "remoteWorkCanada"
@@ -285,11 +285,17 @@ const updateJobWithValues = (
   flexible_hours_frequency_id: flexHourFrequencies.indexOf(flexHours) + 1,
   travel_requirement_id: travelRequirements.indexOf(travel) + 1,
   overtime_requirement_id: overtimeRequirements.indexOf(overtime) + 1,
-  [locale]: {
-    ...initialJob[locale],
-    title,
-    city,
-    education: educationRequirements,
+  title: {
+    ...initialJob.title,
+    [locale]: title,
+  },
+  city: {
+    ...initialJob.city,
+    [locale]: city,
+  },
+  education: {
+    ...initialJob.education,
+    [locale]: educationRequirements,
   },
 });
 

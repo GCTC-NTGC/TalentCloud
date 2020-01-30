@@ -213,7 +213,7 @@ class ReviewApplicationsRoot extends React.Component<
 
     return (
       <ReviewApplications
-        title={job[intl.locale].title}
+        title={job.title[intl.locale]}
         classification={classificationString(job)}
         closeDateTime={job.close_date_time}
         applications={applications}

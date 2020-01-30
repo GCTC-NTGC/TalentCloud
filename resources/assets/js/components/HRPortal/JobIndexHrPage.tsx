@@ -265,7 +265,9 @@ const JobIndexHrDataFetcher: React.FC<JobIndexHrDataFetcherProps> = ({
       : null,
   );
   const departmentName =
-    department?.[locale].name ||
+    (department !== null
+      ? localizeField(locale, department, "name")
+      : null) ||
     intl.formatMessage(messages.departmentPlaceholder);
 
   // Make claim job function

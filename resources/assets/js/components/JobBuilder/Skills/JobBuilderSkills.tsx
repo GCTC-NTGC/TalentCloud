@@ -278,8 +278,8 @@ export const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps &
   };
 
   const sortAlphabetically = (a: Skill, b: Skill): number => {
-    const skillA: string = a[locale].name.toUpperCase();
-    const skillB: string = b[locale].name.toUpperCase();
+    const skillA: string = a.name[locale].toUpperCase();
+    const skillB: string = b.name[locale].toUpperCase();
 
     return skillA.localeCompare(skillB, locale, { sensitivity: "base" });
   };
@@ -504,7 +504,7 @@ export const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps &
                   <i className="fas fa-book" />
                 </span> */}
                 {/* The skill name. */}
-                <span>{skill[locale].name}</span>
+                <span>{skill.name[locale]}</span>
               </div>
               <div data-c-grid-item="base(1of1) tl(1of3)">
                 <span
@@ -582,7 +582,7 @@ export const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps &
             <i className="fas fa-plus-circle" />
             <i className="fas fa-minus-circle" />
           </span>
-          {skill[locale].name}
+          {skill.name[locale]}
         </button>
       </li>
     );
@@ -1480,7 +1480,7 @@ export const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps &
                 options={unselectedOtherSkills.map(
                   (skill): SelectOption => ({
                     value: skill.id,
-                    label: skill[locale].name,
+                    label: skill.name[locale],
                   }),
                 )}
                 onChange={(event): void => {
@@ -1602,7 +1602,7 @@ export const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps &
               <ul>
                 {keyTasks.map(
                   (task): React.ReactElement => (
-                    <li key={task.id}>{task[locale].description}</li>
+                    <li key={task.id}>{task.description[locale]}</li>
                   ),
                 )}
               </ul>

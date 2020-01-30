@@ -64,7 +64,7 @@ export const AssessmentPlanAlert: React.FunctionComponent<AssessmentPlanAlertPro
   const skillsById = mapToObject(skills, getId);
   const skillName = (skillId: number): string =>
     hasKey(skillsById, skillId)
-      ? skillsById[skillId][intl.locale].name
+      ? skillsById[skillId].name[intl.locale]
       : "UNKNOWN SKILL";
   const createNotifications = notifications.filter(
     (notification): boolean => notification.type === "CREATE",
