@@ -108,8 +108,7 @@ class AuthServiceProvider extends ServiceProvider
             return false;
         });
 
-        /* Logged-in Users can view themselves. Admins can view themselves,
-         * Managers/HR Advisors and Applicants but not other Admins. Managers can view
+        /* Logged-in Users can view themselves. Admins can view everyone. Managers can view
          * Applicants of their Job Posters. HR Advisors can view Managers
          * within their department, and any Applicants of Job Posters created
          * by those managers.
@@ -125,12 +124,15 @@ class AuthServiceProvider extends ServiceProvider
                     $user->id === $userProfile->id
                 ) ||
                 (
-                    $user->isAdmin() &&
-                    !$userProfile->isAdmin()
+                    $user->isAdmin()
                 ) ||
                 (
                     ($user->isHrAdvisor() && !$userProfile->isAdmin() && $userProfile->isUpgradedManager()) &&
                         ($user->hr_advisor->department_id === $userProfile->manager->department_id)
+                ) ||
+                (
+                    ($user->isUpgradedManager() && $userProfile->isHrAdvisor()) &&
+                        ($user->manager->department_id === $userProfile->hr_advisor->department_id)
                 ) ||
                 (
                     ($user->isHrAdvisor() && $userProfile->applicant !== null) &&
@@ -138,11 +140,10 @@ class AuthServiceProvider extends ServiceProvider
                 ) ||
                 (
                     (!$user->isAdmin() && $user->isUpgradedManager() && $userProfile->applicant !== null) &&
-                    Gate::forUser($user)->allows('ownsJobApplicantAppliedTo', $userProfile->applicant)
+                    Gate::forUser($user)->allows('owns-job-applicant-applied-to', $userProfile->applicant)
                 ) ||
                 (
-                    ($user->applicant !== null && !$userProfile->isAdmin() && $userProfile->isUpgradedManager()) &&
-                    Gate::forUser($userProfile)->allows('ownsJobApplicantAppliedTo', $user->applicant)
+                    $user !== null && !$userProfile->isAdmin() && $userProfile->isUpgradedManager()
                 );
         });
     }
