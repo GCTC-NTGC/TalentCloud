@@ -13,6 +13,7 @@ use App\Models\JobPosterQuestion;
 use App\Models\Manager;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Services\Validation\JobPosterValidator;
+use Facades\App\Services\WhichPortal;
 
 class JobController extends Controller
 {
@@ -157,12 +158,26 @@ class JobController extends Controller
         $jobLang = Lang::get('applicant/job_post');
 
         $applyButton = [];
-        if (!$jobPoster->published && $this->authorize('update', $jobPoster)) {
+        if (WhichPortal::isManagerPortal()) {
             $applyButton = [
                 'href' => route('manager.jobs.edit', $jobPoster->id),
                 'title' => $jobLang['apply']['edit_link_title'],
                 'text' => $jobLang['apply']['edit_link_label'],
             ];
+        } elseif (WhichPortal::isHrPortal()) {
+            if ($jobPoster->hr_advisors->contains('user_id', $user->id)) {
+                $applyButton = [
+                    'href' => route('hr_advisor.jobs.summary', $jobPoster->id),
+                    'title' => null,
+                    'text' => Lang::get('hr_advisor/job_summary.summary_title'),
+                ];
+            } else {
+                $applyButton = [
+                    'href' => route('hr_advisor.jobs.index'),
+                    'title' => null,
+                    'text' => Lang::get('hr_advisor/job_index.title'),
+                ];
+            }
         } elseif (Auth::check() && $jobPoster->isOpen()) {
             $applyButton = [
                 'href' => route('job.application.edit.1', $jobPoster->id),

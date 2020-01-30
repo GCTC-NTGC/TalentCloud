@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useIntl, FormattedMessage } from "react-intl";
+import { useIntl, FormattedMessage, defineMessages } from "react-intl";
 import { useDispatch, useSelector } from "react-redux";
 import ReactDOM from "react-dom";
 import RootContainer from "../RootContainer";
@@ -45,6 +45,14 @@ interface JobReviewHrPageProps {
   manager: Manager | null;
 }
 
+const messages = defineMessages({
+  loadingIcon: {
+    id: "jobReviewHr.loadingIconText",
+    defaultMessage: "Data is loading...",
+    description: "Accessible text for the loading icon",
+  },
+});
+
 const JobReviewHrPage: React.FunctionComponent<JobReviewHrPageProps> = ({
   jobId,
   job,
@@ -54,7 +62,8 @@ const JobReviewHrPage: React.FunctionComponent<JobReviewHrPageProps> = ({
   departments,
   manager,
 }): React.ReactElement => {
-  const { locale } = useIntl();
+  const intl = useIntl();
+  const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw new Error("Unexpected locale");
   }
@@ -77,8 +86,7 @@ const JobReviewHrPage: React.FunctionComponent<JobReviewHrPageProps> = ({
           <p data-c-margin="bottom(double)">
             <FormattedMessage
               id="jobReviewHr.headsUp"
-              defaultMessage="Just a heads up! We've rearranged some of your information to help you
-            understand how an applicant will see it once published."
+              defaultMessage="Just a heads up! We've rearranged some of your information to help you understand how an applicant will see it once published."
               description="Description under primary title of review section"
             />
           </p>
@@ -102,8 +110,7 @@ const JobReviewHrPage: React.FunctionComponent<JobReviewHrPageProps> = ({
         <div data-c-alignment="base(centre)">
           <Icon
             icon="fa fa-spinner fa-spin"
-            messageId="dataIsLoading"
-            accessibleText="Data is loading..."
+            accessibleText={intl.formatMessage(messages.loadingIcon)}
             sematicIcon
           />
         </div>

@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f3dbe1c97d4c421c9b60d8dad4492eb8",
+    "content-hash": "a592bc0f0b964c8a3002ed788f657bc5",
     "packages": [
         {
             "name": "astrotomic/laravel-translatable",
-            "version": "v11.6.1",
+            "version": "v11.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Astrotomic/laravel-translatable.git",
-                "reference": "f7b294cb7b2a853cb11b0e51bc60d9170f2b11a0"
+                "reference": "889f8b91f28a8a72873099cf452945adbd03dc9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Astrotomic/laravel-translatable/zipball/f7b294cb7b2a853cb11b0e51bc60d9170f2b11a0",
-                "reference": "f7b294cb7b2a853cb11b0e51bc60d9170f2b11a0",
+                "url": "https://api.github.com/repos/Astrotomic/laravel-translatable/zipball/889f8b91f28a8a72873099cf452945adbd03dc9f",
+                "reference": "889f8b91f28a8a72873099cf452945adbd03dc9f",
                 "shasum": ""
             },
             "require": {
@@ -68,20 +68,20 @@
                 "laravel",
                 "translation"
             ],
-            "time": "2019-11-06T09:12:49+00:00"
+            "time": "2020-01-28T11:49:28+00:00"
         },
         {
             "name": "backpack/crud",
-            "version": "4.0.34",
+            "version": "4.0.36",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/CRUD.git",
-                "reference": "7eefd2d60798dd903becd82b38c6267fb7d938c0"
+                "reference": "fc29b4237a96e547882cceed24fc99b62700ff64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/7eefd2d60798dd903becd82b38c6267fb7d938c0",
-                "reference": "7eefd2d60798dd903becd82b38c6267fb7d938c0",
+                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/fc29b4237a96e547882cceed24fc99b62700ff64",
+                "reference": "fc29b4237a96e547882cceed24fc99b62700ff64",
                 "shasum": ""
             },
             "require": {
@@ -155,7 +155,7 @@
                 "read",
                 "update"
             ],
-            "time": "2020-01-20T08:27:30+00:00"
+            "time": "2020-01-28T08:22:05+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -249,24 +249,22 @@
         },
         {
             "name": "codezero/laravel-unique-translation",
-            "version": "2.0.0",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codezero-be/laravel-unique-translation.git",
-                "reference": "189485f30cbdf20f9c72ff04f246adcd8ac14190"
+                "reference": "1eb3d56b1f4af36b4985730619838bb124436b81"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codezero-be/laravel-unique-translation/zipball/189485f30cbdf20f9c72ff04f246adcd8ac14190",
-                "reference": "189485f30cbdf20f9c72ff04f246adcd8ac14190",
+                "url": "https://api.github.com/repos/codezero-be/laravel-unique-translation/zipball/1eb3d56b1f4af36b4985730619838bb124436b81",
+                "reference": "1eb3d56b1f4af36b4985730619838bb124436b81",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.2"
             },
             "require-dev": {
-                "fzaninotto/faker": "~1.4",
-                "mockery/mockery": "1.2.*",
                 "orchestra/testbench": "~4.0",
                 "phpunit/phpunit": "~8.0",
                 "spatie/laravel-translatable": "^4.2"
@@ -294,7 +292,21 @@
                     "email": "ivan@codezero.be"
                 }
             ],
-            "time": "2019-10-11T16:56:28+00:00"
+            "description": "Check if a translated value in a JSON column is unique in the database.",
+            "keywords": [
+                "database",
+                "json",
+                "language",
+                "laravel",
+                "mysql",
+                "php",
+                "rule",
+                "translation",
+                "unique",
+                "validation",
+                "validator"
+            ],
+            "time": "2020-01-22T10:59:59+00:00"
         },
         {
             "name": "creativeorange/gravatar",
@@ -1384,16 +1396,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v6.12.0",
+            "version": "v6.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "8e189a8dee7ff76bf50acb7e80aa1a36afaf54d4"
+                "reference": "f0059760814b76fb5f98bb80628607c7560ebe58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/8e189a8dee7ff76bf50acb7e80aa1a36afaf54d4",
-                "reference": "8e189a8dee7ff76bf50acb7e80aa1a36afaf54d4",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/f0059760814b76fb5f98bb80628607c7560ebe58",
+                "reference": "f0059760814b76fb5f98bb80628607c7560ebe58",
                 "shasum": ""
             },
             "require": {
@@ -1527,7 +1539,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2020-01-21T15:10:03+00:00"
+            "time": "2020-01-28T21:44:01+00:00"
         },
         {
             "name": "laravel/helpers",
@@ -2461,16 +2473,16 @@
         },
         {
             "name": "pragmarx/google2fa-laravel",
-            "version": "v1.3.0",
+            "version": "v1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/antonioribeiro/google2fa-laravel.git",
-                "reference": "4ccc17dbf5ab5f752113cb6088a5afce5191309e"
+                "reference": "876cd52ddef2f39e029441ea2b8c1b9aa4549e58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/antonioribeiro/google2fa-laravel/zipball/4ccc17dbf5ab5f752113cb6088a5afce5191309e",
-                "reference": "4ccc17dbf5ab5f752113cb6088a5afce5191309e",
+                "url": "https://api.github.com/repos/antonioribeiro/google2fa-laravel/zipball/876cd52ddef2f39e029441ea2b8c1b9aa4549e58",
+                "reference": "876cd52ddef2f39e029441ea2b8c1b9aa4549e58",
                 "shasum": ""
             },
             "require": {
@@ -2528,7 +2540,7 @@
                 "google2fa",
                 "laravel"
             ],
-            "time": "2019-10-21T18:34:37+00:00"
+            "time": "2020-01-26T00:46:00+00:00"
         },
         {
             "name": "pragmarx/google2fa-qrcode",
@@ -7550,16 +7562,16 @@
         },
         {
             "name": "slevomat/coding-standard",
-            "version": "6.1.0",
+            "version": "6.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/slevomat/coding-standard.git",
-                "reference": "2f5e0101c2a4df5559a7a2b1a10fc3cfa134ca03"
+                "reference": "0a7934d7ecdfe402079027513daa3b7e881f315d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/2f5e0101c2a4df5559a7a2b1a10fc3cfa134ca03",
-                "reference": "2f5e0101c2a4df5559a7a2b1a10fc3cfa134ca03",
+                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/0a7934d7ecdfe402079027513daa3b7e881f315d",
+                "reference": "0a7934d7ecdfe402079027513daa3b7e881f315d",
                 "shasum": ""
             },
             "require": {
@@ -7587,7 +7599,7 @@
                 "MIT"
             ],
             "description": "Slevomat Coding Standard for PHP_CodeSniffer complements Consistence Coding Standard by providing sniffs with additional checks.",
-            "time": "2020-01-19T07:51:51+00:00"
+            "time": "2020-01-23T15:37:30+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -7642,16 +7654,16 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v4.4.2",
+            "version": "v4.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "40c2606131d56eff6f193b6e2ceb92414653b591"
+                "reference": "266c9540b475f26122b61ef8b23dd9198f5d1cfd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/40c2606131d56eff6f193b6e2ceb92414653b591",
-                "reference": "40c2606131d56eff6f193b6e2ceb92414653b591",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/266c9540b475f26122b61ef8b23dd9198f5d1cfd",
+                "reference": "266c9540b475f26122b61ef8b23dd9198f5d1cfd",
                 "shasum": ""
             },
             "require": {
@@ -7688,7 +7700,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2019-11-26T23:16:41+00:00"
+            "time": "2020-01-21T08:20:44+00:00"
         },
         {
             "name": "theseer/tokenizer",

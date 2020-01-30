@@ -19,12 +19,13 @@
     <a id="skipLink"></a>
 
     <div
-        id="review-applications-container"
+        id="{{ is_hr_portal
+            ? "review-applications-container-hr"
+            : "review-applications-container" }}"
         data-job="{{ job|json_encode() }}"
         data-applications="{{ applications|json_encode() }}"
         data-review-statuses="{{ review_statuses|json_encode() }}"
         data-locale="{{App.getLocale()}}"
-        data-is-hr-advisor="{{ isHrAdvisor|json_encode() }}"
     >
     </div>
 

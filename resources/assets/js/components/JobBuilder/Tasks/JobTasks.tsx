@@ -269,10 +269,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps &
               <p data-c-alignment="tl(right)" data-c-margin="bottom(double)">
                 <FormattedMessage
                   id="jobBuilder.tasks.taskCount.some"
-                  defaultMessage="You have {taskCount, plural,
-                      one {# task}
-                      other {# tasks}
-                    } added."
+                  defaultMessage="You have {taskCount, plural, one {# task} other {# tasks}} added."
                   description="Indicates how many tasks are present on the page."
                   values={{
                     taskCount: values.tasks.length,

@@ -576,6 +576,14 @@ Route::group(
                         ->middleware('can:manage,job')
                         ->where('job', '[0-9]+')
                         ->name('hr_advisor.jobs.review');
+
+                    Route::get(
+                        'jobs/{jobPoster}',
+                        'JobController@show'
+                    )
+                        ->middleware('can:view,jobPoster')
+                        ->where('jobPoster', '[0-9]+')
+                        ->name('hr_advisor.jobs.preview');
                 });
             });
             // These routes must be excluded from the finishHrAdvisorRegistration middleware to avoid an infinite loop of redirects

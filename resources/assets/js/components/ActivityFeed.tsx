@@ -1,6 +1,11 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { useIntl, FormattedMessage, MessageDescriptor } from "react-intl";
+import {
+  useIntl,
+  FormattedMessage,
+  MessageDescriptor,
+  defineMessages,
+} from "react-intl";
 import { RootState } from "../store/store";
 import { getComments } from "../store/Job/jobSelector";
 import { hasKey } from "../helpers/queries";
@@ -8,6 +13,14 @@ import { LocationId } from "../models/lookupConstants";
 import CommentForm from "./CommentForm";
 import ActivityList from "./ActivityList";
 import Icon from "./Icon";
+
+const messages = defineMessages({
+  loadingIcon: {
+    id: "activityfeed.loadingIconText",
+    defaultMessage: "Number of activities is loading...",
+    description: "Accessible text for the loading icon",
+  },
+});
 
 interface ActivityFeedProps {
   jobId: number;
@@ -46,16 +59,17 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
             <div>
               <h3 data-c-font-size="h3" data-c-color="white">
                 <FormattedMessage
-                  id="activityfeed.review.header"
-                  defaultMessage="Review Your Job Poster {totalActivities}"
+                  id="activityfeed.header"
+                  defaultMessage="Click to View Comments {totalActivities}"
                   description="The activity feed header."
                   values={{
                     totalActivities:
                       totalActivities === 0 ? (
                         <Icon
-                          messageId="activitiesLoading"
                           icon="fa fa-spinner fa-spin"
-                          accessibleText="Number of activities is loading..."
+                          accessibleText={intl.formatMessage(
+                            messages.loadingIcon,
+                          )}
                           sematicIcon
                         />
                       ) : (
@@ -67,7 +81,7 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
             </div>
             <span data-c-visibility="invisible">
               <FormattedMessage
-                id="activityfeed.review.accordionAccessibleLabel"
+                id="activityfeed.accordionAccessibleLabel"
                 defaultMessage="Click to view..."
                 description="The accessibility text displayed on the activity feed accordion button."
               />

@@ -2,7 +2,7 @@ import React from "react";
 import { FormattedMessage } from "react-intl";
 import { WorkEnvFormValues } from "./WorkEnvForm";
 import Modal from "../../Modal";
-import JobWorkEnv from "../JobWorkEnv";
+import JobWorkEnv from "./JobWorkEnv";
 
 interface WorkEnvModalProps {
   modalConfirm: (values) => void;
@@ -63,9 +63,7 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
             <p>
               <FormattedMessage
                 id="jobBuilder.workEnv.openingSentence"
-                defaultMessage="Here's a preview of the Job Information you just entered. Feel
-                free to go back and edit things or move to the next step if
-                you're happy with it."
+                defaultMessage="Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
                 description="Opening sentence for modal."
               />
             </p>
@@ -97,6 +95,7 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
                   ...values.physicalEnv,
                   ...values.technology,
                 ]}
+                envDescription={values.envDescription}
               />
               <h4
                 data-c-border="bottom(thin, solid, black)"

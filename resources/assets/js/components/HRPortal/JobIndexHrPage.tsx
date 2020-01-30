@@ -8,12 +8,7 @@ import { JobCardProps } from "../JobCard";
 import { Job, Manager } from "../../models/types";
 import { classificationString, jobStatus } from "../../models/jobUtil";
 import { localizeField, Locales } from "../../helpers/localize";
-import {
-  hrJobSummary,
-  hrJobReview,
-  hrJobPreview,
-  hrScreeningPlan,
-} from "../../helpers/routes";
+import { hrJobSummary, hrJobReview, hrJobPreview } from "../../helpers/routes";
 import { UnclaimedJobCardProps } from "../UnclaimedJobCard";
 import { readableDateTime } from "../../helpers/dates";
 import { find, stringNotEmpty } from "../../helpers/queries";
@@ -25,13 +20,14 @@ import { getHrAdvisor } from "../../store/HrAdvisor/hrAdvisorSelector";
 import { RootState } from "../../store/store";
 import { fetchJobIndex } from "../../store/Job/jobActions";
 import { getAllJobs } from "../../store/Job/jobSelector";
-import { departmentName } from "../../models/localizedConstants";
 import RootContainer from "../RootContainer";
 import {
   getManagers,
   getManagerIsUpdatingById,
 } from "../../store/Manager/managerSelector";
 import { fetchManager } from "../../store/Manager/managerActions";
+import { getDepartmentById } from "../../store/Department/deptSelector";
+import { getDepartments } from "../../store/Department/deptActions";
 
 const buttonMessages = defineMessages({
   reviewDraft: {
@@ -86,6 +82,7 @@ const makeJobAction = (
 ): JobCardProps => {
   const jobTitle = localizeField(locale, job, "title");
   return {
+    id: job.id,
     applicants: 0, // TODO: find real number of applicants.
     // TODO: is this intended to be a link as well, like activity?
     classification: classificationString(job),
@@ -115,7 +112,7 @@ const makeJobAction = (
       title: "",
     },
     screeningPlan: {
-      url: hrScreeningPlan(locale, job.id),
+      url: "", // TODO: replace when working withhrScreeningPlan(locale, job.id),
       text: intl.formatMessage(buttonMessages.screeningPlan),
       title: "",
     },
@@ -136,6 +133,7 @@ const makeUnclaimedJob = (
 ): UnclaimedJobCardProps => {
   const jobTitle = localizeField(locale, job, "title");
   return {
+    id: job.id,
     jobLink: {
       url: hrJobPreview(locale, job.id),
       text: stringNotEmpty(jobTitle)
@@ -145,11 +143,10 @@ const makeUnclaimedJob = (
     },
     createdAt: readableDateTime(locale, job.created_at),
     status: jobStatus(job),
-    hiringManagers: [
+    hiringManager:
       manager !== null
         ? manager.full_name
         : intl.formatMessage(messages.loadingManager),
-    ],
     hrAdvisors: [], // TODO: We can get all claims of an advisor, but don't have an api route for gettings advisors for a job!
     handleClaimJob,
   };
@@ -211,6 +208,10 @@ const JobIndexHrDataFetcher: React.FC<JobIndexHrDataFetcherProps> = ({
   hrAdvisorId,
 }) => {
   const intl = useIntl();
+  const { locale } = intl;
+  if (locale !== "en" && locale !== "fr") {
+    throw new Error("Unknown intl.locale");
+  }
   const dispatch = useDispatch();
 
   // Request and select hrAdvisor
@@ -254,19 +255,27 @@ const JobIndexHrDataFetcher: React.FC<JobIndexHrDataFetcherProps> = ({
     }
   });
 
+  // Load department names
+  useEffect(() => {
+    dispatch(getDepartments());
+  }, [dispatch]);
+  const department = useSelector((state: RootState) =>
+    hrAdvisor !== null
+      ? getDepartmentById(state, hrAdvisor.department_id)
+      : null,
+  );
+  const departmentName =
+    department?.[locale].name ||
+    intl.formatMessage(messages.departmentPlaceholder);
+
   // Make claim job function
   const claimJobForAdvisor = (jobId: number): any =>
     dispatch(claimJob(hrAdvisorId, jobId));
 
-  const department =
-    hrAdvisor !== null
-      ? intl.formatMessage(departmentName(hrAdvisor.department_id))
-      : intl.formatMessage(messages.departmentPlaceholder);
-
   return (
     <JobIndexHrPage
       claimedJobIds={hrAdvisor !== null ? hrAdvisor.claimed_job_ids : []}
-      department={department}
+      department={departmentName}
       jobs={deptJobs}
       managers={managers}
       handleClaimJob={claimJobForAdvisor}

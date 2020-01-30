@@ -7,12 +7,12 @@
   {
     "id": "jobCard.managerTime",
     "description": "Text displaying how long a job post has been claimed by a manager.",
-    "defaultMessage": "Time with Manager: {managerTime, plural,\n                    one {# day}\n                    other {# days}\n                  }"
+    "defaultMessage": "Time with Manager: {managerTime, plural, one {# day} other {# days}}"
   },
   {
     "id": "jobCard.userTime",
     "description": "Text displaying how long a job has been claimed by the current user.",
-    "defaultMessage": "Time with you: <s>{userTime, plural,\n                    one {# day}\n                    other {# days}\n                  }</s>"
+    "defaultMessage": "Time with you: <s>{userTime, plural, one {# day} other {# days}}</s>"
   },
   {
     "id": "jobCard.noActivity",

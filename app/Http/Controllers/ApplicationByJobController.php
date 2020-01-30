@@ -47,6 +47,7 @@ class ApplicationByJobController extends Controller
             // Localization Strings.
             'jobs_l10n' => Lang::get('manager/job_index'),
             // Data.
+            'is_hr_portal' => WhichPortal::isHrPortal(),
             'job' => $jobPoster->toApiArray(),
             'applications' => $applications,
             'review_statuses' => ReviewStatus::all(),
@@ -761,14 +762,12 @@ class ApplicationByJobController extends Controller
      */
     public function submit(Request $request, JobPoster $jobPoster)
     {
-        $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
 
-        // Ensure user has permissions to update this application.
-        $this->authorize('update', $application);
-
         // Only complete submission if submit button was pressed.
-        if ($request->input('submit') == 'submit') {
+        if ($request->input('submit') == 'submit' && $application->application_status->name == 'draft') {
+            // Ensure user has permissions to update this application.
+            $this->authorize('update', $application);
             $request->validate([
                 'submission_signature' => [
                     'required',

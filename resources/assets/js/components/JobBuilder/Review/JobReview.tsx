@@ -43,7 +43,7 @@ import {
   LocationId,
 } from "../../../models/lookupConstants";
 import Criterion from "../Criterion";
-import JobWorkEnv from "../JobWorkEnv";
+import JobWorkEnv from "../WorkEnv/JobWorkEnv";
 import JobWorkCulture from "../JobWorkCulture";
 import Modal from "../../Modal";
 import { textToParagraphs } from "../../../helpers/textToParagraphs";
@@ -700,6 +700,7 @@ export const JobReviewDisplay: React.FC<JobReviewDisplayProps> = ({
         <JobWorkEnv
           teamSize={job.team_size || 0}
           selectedEnvOptions={selectedEnvOptions}
+          envDescription={job[locale].work_env_description || ""}
         />
       </JobReviewSection>
       <JobReviewSection

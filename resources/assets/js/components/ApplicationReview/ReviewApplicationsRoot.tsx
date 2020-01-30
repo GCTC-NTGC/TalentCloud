@@ -19,12 +19,13 @@ import * as routes from "../../helpers/routes";
 import { classificationString } from "../../models/jobUtil";
 import { axios } from "../../api/base";
 import RootContainer from "../RootContainer";
+import { Portal } from "../../models/app";
 
 interface ReviewApplicationsProps {
   job: Job;
   initApplications: Application[];
   reviewStatuses: ReviewStatus[];
-  isHrAdvisor: boolean;
+  portal: Portal;
 }
 
 interface ReviewApplicationsState {
@@ -203,8 +204,7 @@ class ReviewApplicationsRoot extends React.Component<
 
   public render(): React.ReactElement {
     const { applications, savingStatuses } = this.state;
-    const { reviewStatuses, job, isHrAdvisor } = this.props;
-    const { intl } = this.props;
+    const { reviewStatuses, job, portal, intl } = this.props;
 
     const reviewStatusOptions = reviewStatuses.map(status => ({
       value: status.id,
@@ -223,16 +223,16 @@ class ReviewApplicationsRoot extends React.Component<
         onBulkStatusChange={this.handleBulkStatusChange}
         onNotesChange={this.handleNotesChange}
         savingStatuses={savingStatuses}
-        isHrAdvisor={isHrAdvisor}
+        portal={portal}
       />
     );
   }
 }
 
-if (document.getElementById("review-applications-container")) {
-  const container = document.getElementById(
-    "review-applications-container",
-  ) as HTMLElement;
+const renderReviewApplications = (
+  container: HTMLElement,
+  portal: Portal,
+): void => {
   if (
     container.hasAttribute("data-job") &&
     container.hasAttribute("data-applications") &&
@@ -246,9 +246,6 @@ if (document.getElementById("review-applications-container")) {
     const reviewStatuses = JSON.parse(
       container.getAttribute("data-review-statuses") as string,
     );
-    const isHrAdvisor = JSON.parse(
-      container.getAttribute("data-is-hr-advisor") as string,
-    );
     const IntlReviewApplicationsRoot = injectIntl(ReviewApplicationsRoot);
     ReactDOM.render(
       <RootContainer>
@@ -256,12 +253,26 @@ if (document.getElementById("review-applications-container")) {
           job={job}
           initApplications={applications}
           reviewStatuses={reviewStatuses}
-          isHrAdvisor={!!isHrAdvisor}
+          portal={portal}
         />
       </RootContainer>,
       container,
     );
   }
+};
+
+if (document.getElementById("review-applications-container")) {
+  const container = document.getElementById(
+    "review-applications-container",
+  ) as HTMLElement;
+  renderReviewApplications(container, "manager");
+}
+
+if (document.getElementById("review-applications-container-hr")) {
+  const hrContainer = document.getElementById(
+    "review-applications-container-hr",
+  ) as HTMLElement;
+  renderReviewApplications(hrContainer, "hr");
 }
 
 export default injectIntl(ReviewApplicationsRoot);

@@ -8,6 +8,7 @@ import ReviewCategory from "./ReviewCategory";
 import ActivityFeed from "../ActivityFeed";
 import { applicantReviewLocations } from "../../models/localizedConstants";
 import { LocationId } from "../../models/lookupConstants";
+import { Portal } from "../../models/app";
 
 interface ReviewApplicationsProps {
   jobId: number;
@@ -23,7 +24,7 @@ interface ReviewApplicationsProps {
   ) => void;
   onNotesChange: (applicationId: number, notes: string | null) => void;
   savingStatuses: { applicationId: number; isSaving: boolean }[];
-  isHrAdvisor: boolean;
+  portal: Portal;
 }
 
 const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
@@ -37,7 +38,7 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
   onBulkStatusChange,
   onNotesChange,
   savingStatuses,
-  isHrAdvisor,
+  portal,
 }: ReviewApplicationsProps): React.ReactElement => {
   const categories = [
     {
@@ -139,7 +140,7 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
         <div data-c-margin="bottom(1)">
           <ActivityFeed
             jobId={jobId}
-            isHrAdvisor={isHrAdvisor}
+            isHrAdvisor={portal === "hr"}
             generalLocation={LocationId.applicantsGeneric}
             locationMessages={applicantReviewLocations}
           />
@@ -155,6 +156,7 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
             onNotesChange={onNotesChange}
             savingStatuses={savingStatuses}
             onBulkStatusChange={onBulkStatusChange}
+            portal={portal}
           />
         ),
       )}
