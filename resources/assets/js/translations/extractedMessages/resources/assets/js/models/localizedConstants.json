@@ -384,50 +384,6 @@
     "defaultMessage": "You can complete all other steps of this assessment process in the official language of your choice, including the initial application, interview, exam and any other evaluation components."
   },
   {
-    "id": "department.treasuryBoard",
-    "defaultMessage": "Treasury Board of Canada Secretariat"
-  },
-  {
-    "id": "department.naturalResources",
-    "defaultMessage": "Natural Resources Canada"
-  },
-  {
-    "id": "department.transport",
-    "defaultMessage": "Transport Canada"
-  },
-  {
-    "id": "department.environmentAndClimateChange",
-    "defaultMessage": "Environment and Climate Change Canada"
-  },
-  {
-    "id": "department.employmentAndSocialDevelopment",
-    "defaultMessage": "Employment and Social Development Canada"
-  },
-  {
-    "id": "department.globalAffairs",
-    "defaultMessage": "Global Affairs Canada"
-  },
-  {
-    "id": "department.borderServices",
-    "defaultMessage": "Canada Border Services Agency"
-  },
-  {
-    "id": "department.fisheriesAndOceans",
-    "defaultMessage": "Fisheries and Oceans Canada"
-  },
-  {
-    "id": "department.innovationScience",
-    "defaultMessage": "Innovation, Science and Economic Development Canada"
-  },
-  {
-    "id": "department.publicServiceAndProcurement",
-    "defaultMessage": "Public Services and Procurement Canada"
-  },
-  {
-    "id": "department.nationalDefence",
-    "defaultMessage": "Department of National Defence"
-  },
-  {
     "id": "jobBuilder.details.frequencyAlwaysLabel",
     "description": "The form label displayed on 'always' frequency options.",
     "defaultMessage": "Almost Always"
@@ -450,7 +406,7 @@
   {
     "id": "jobBuilder.details.frequencyNeverLabel",
     "description": "The form label displayed on 'never' frequency options.",
-    "defaultMessage": "Almost Never"
+    "defaultMessage": "Never"
   },
   {
     "id": "jobBuilder.details.overtimeFrequentlyLabel",
@@ -546,6 +502,56 @@
     "id": "jobBuilder.details.classificationOptions.AD",
     "description": "Job Classification from list of Classifications",
     "defaultMessage": "AD - Administrative Services"
+  },
+  {
+    "id": "activityfeed.locations.review.details",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Job Poster Builder > General"
+  },
+  {
+    "id": "activityfeed.locations.review.heading",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Job Poster Builder > Job Page Heading"
+  },
+  {
+    "id": "activityfeed.locations.review.basicInfo",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Job Poster Builder > Basic Information"
+  },
+  {
+    "id": "activityfeed.locations.review.impact",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Job Poster Builder > Impact"
+  },
+  {
+    "id": "activityfeed.locations.review.tasks",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Job Poster Builder > Tasks"
+  },
+  {
+    "id": "activityfeed.locations.review.skills",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Job Poster Builder > Skills"
+  },
+  {
+    "id": "activityfeed.locations.review.langRequirements",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Job Poster Builder > Language Requirements"
+  },
+  {
+    "id": "activityfeed.locations.review.environment",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Job Poster Builder > Environment"
+  },
+  {
+    "id": "activityfeed.locations.hr.summary",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "HR Summary Page"
+  },
+  {
+    "id": "activityfeed.locations.hr.preview",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "HR Preview Page"
   },
   {
     "id": "jobStatus.draft",

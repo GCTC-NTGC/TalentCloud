@@ -9,11 +9,10 @@
 	{{ application_template.complete.step_06_title }}
 {% endblock %}
 {% block body %}
-	# Government of Canada Block #}
+	{# Government of Canada Block #}
 	{% include "common/goc" %}
 	{# Alert #}
 	{% include "common/alert" %}
-	{
 	{# Page Header #}
 	{% include "common/header" with {'header': {'title': ":title: :job"|replace({':title': application_template.title, ':job': job.title})}} %}
 	<a id="skipLink"></a>

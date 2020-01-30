@@ -1,6 +1,7 @@
 import * as React from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { Link } from "../models/app";
+import { readableDateTime } from "../helpers/dates";
 
 export interface Activity {
   name: string;
@@ -23,6 +24,10 @@ const Activity: React.FunctionComponent<ActivityProps> = ({
   location,
   link,
 }) => {
+  const { locale } = useIntl();
+  if (locale !== "en" && locale !== "fr") {
+    throw new Error("Unexpected locale");
+  }
   return (
     <div>
       <a
@@ -49,7 +54,7 @@ const Activity: React.FunctionComponent<ActivityProps> = ({
             values={{
               name,
               userRole,
-              time: time.toString(), // TODO: Fix date format
+              time: readableDateTime(locale, time),
             }}
           />
         </p>

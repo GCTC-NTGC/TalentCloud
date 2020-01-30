@@ -52,10 +52,18 @@ export const reviewLocations = defineMessages({
   },
 });
 
+const messages = defineMessages({
+  loadingIcon: {
+    id: "activityfeed.review.loadingIconText",
+    defaultMessage: "Data is loading...",
+    description: "Accessible text for the loading icon",
+  },
+});
+
 interface JobReviewActivityFeedProps {
   jobId: number;
   isHrAdvisor: boolean;
-  totalActivities: number;
+  totalActivities: number | null;
 }
 
 const JobReviewActivityFeed: React.FunctionComponent<JobReviewActivityFeedProps> = ({
@@ -87,15 +95,16 @@ const JobReviewActivityFeed: React.FunctionComponent<JobReviewActivityFeedProps>
               <h3 data-c-font-size="h3" data-c-color="white">
                 <FormattedMessage
                   id="activityfeed.review.header"
-                  defaultMessage="Review Your Job Poster {totalActivities}"
+                  defaultMessage="Click to View Comments {totalActivities}"
                   description="The activity feed header."
                   values={{
                     totalActivities:
-                      totalActivities === 0 ? (
+                      totalActivities === null ? (
                         <Icon
                           icon="fa fa-spinner fa-spin"
-                          messageId="activitiesLoading"
-                          accessibleText="Number of activities are loading..."
+                          accessibleText={intl.formatMessage(
+                            messages.loadingIcon,
+                          )}
                           sematicIcon
                         />
                       ) : (
@@ -117,14 +126,14 @@ const JobReviewActivityFeed: React.FunctionComponent<JobReviewActivityFeedProps>
               data-c-font-style="underline"
               data-c-color="white"
             >
-              <i className="fas fa-caret-up" />
+              <i className="fas fa-caret-down" />
             </p>
             <p
               data-c-accordion-remove=""
               data-c-font-style="underline"
               data-c-color="white"
             >
-              <i className="fas fa-caret-down" />
+              <i className="fas fa-caret-up" />
             </p>
           </button>
           <div
@@ -137,7 +146,7 @@ const JobReviewActivityFeed: React.FunctionComponent<JobReviewActivityFeedProps>
               jobId={jobId}
               isHrAdvisor={isHrAdvisor}
               location={LocationId.generic}
-              locationOptions={...locationOptions}
+              locationOptions={locationOptions}
             />
             <hr data-c-hr="thin(black)" data-c-margin="top(1)" />
             <ActivityFeed jobId={jobId} isHrAdvisor={isHrAdvisor} />
@@ -151,9 +160,9 @@ const JobReviewActivityFeed: React.FunctionComponent<JobReviewActivityFeedProps>
 const mapStateToProps = (
   state: RootState,
 ): {
-  totalActivities: number;
+  totalActivities: number | null;
 } => ({
-  totalActivities: getComments(state).length,
+  totalActivities: getComments(state) ? getComments(state).length : null,
 });
 
 export default connect(mapStateToProps, () => ({}))(JobReviewActivityFeed);

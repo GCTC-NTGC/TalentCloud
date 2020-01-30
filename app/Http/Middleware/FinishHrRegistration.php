@@ -16,7 +16,8 @@ class FinishHrRegistration
     {
         $user = $request->user();
 
-        if ($user !== null && $user->isHrAdvisor() && !$user->isGovIdentityConfirmed()) {
+        if ($user !== null && $user->isHrAdvisor()
+            && ($user->gov_email === null || $user->hr_advisor->department_id === null)) {
             return redirect(route('hr_advisor.first_visit'));
         }
 

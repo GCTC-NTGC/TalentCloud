@@ -1,14 +1,15 @@
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { JobStatus } from "../models/lookupConstants";
-import { Link } from "../models/app";
 import { jobStatus } from "../models/localizedConstants";
+import { Link } from "../models/app";
 
 export interface UnclaimedJobCardProps {
+  id: number;
   jobLink: Link;
   createdAt: string;
   status: JobStatus;
-  hiringManagers: string[];
+  hiringManager: string;
   hrAdvisors: string[];
   handleClaimJob: () => void;
 }
@@ -17,7 +18,7 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
   jobLink,
   createdAt,
   status,
-  hiringManagers,
+  hiringManager,
   hrAdvisors,
   handleClaimJob,
 }) => {
@@ -74,15 +75,7 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
                 description="Header before list of hiring managers."
                 defaultMessage="Hiring Managers: "
               />
-
-              {hiringManagers.map((manager, index): string => {
-                const comma =
-                  hiringManagers.length !== 1 &&
-                  index + 1 !== hiringManagers.length
-                    ? ","
-                    : " ";
-                return `${manager}${comma} `;
-              })}
+              {hiringManager}
             </p>
 
             {hrAdvisors.length > 0 ? (
@@ -92,13 +85,7 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
                   description="Header before list of HR advisors."
                   defaultMessage="HR Advisors: "
                 />
-                {hrAdvisors.map((advisor, index): string => {
-                  const comma =
-                    hrAdvisors.length !== 1 && index + 1 !== hrAdvisors.length
-                      ? ","
-                      : " ";
-                  return `${advisor}${comma} `;
-                })}
+                {hrAdvisors.join(", ")}
               </p>
             ) : (
               <p data-c-color="stop" data-c-margin="bottom(normal)">
@@ -122,7 +109,7 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
             type="button"
             onClick={handleClaimJob}
           >
-            <span data-c-color="black">
+            <span>
               +{" "}
               <span data-c-font-style="underline">
                 <FormattedMessage
