@@ -9,6 +9,7 @@ use App\Models\Assessment;
 use App\Models\RatingGuideQuestion;
 use App\Models\RatingGuideAnswer;
 use App\Models\Lookup\AssessmentType;
+use Illuminate\Support\Facades\Auth;
 
 class AssessmentPlanController extends Controller
 {
@@ -57,4 +58,16 @@ class AssessmentPlanController extends Controller
             'rating_guide_answers' => $answers->toArray()
         ];
     }
+
+    public function show(JobPoster $jobPoster)
+    {
+        // Show demo notification if the user is a demoManager and is not an hr-advisor that has claimed the job.
+        $hide_demo_notification = Auth::user() !== null && Auth::user()->isDemoManager() && !$jobPoster->hr_advisors->contains('user_id', Auth::user()->id);
+
+        return view('manager/assessment_plan', [
+            'hide_demo_notification' => $hide_demo_notification,
+        ]);
+    }
 }
+
+
