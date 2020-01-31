@@ -116,8 +116,7 @@ class ManagerProfileController extends Controller
             'telework_options' => $frequencies,
             'flex_hour_options' => $frequencies,
             'radio_options' => $frequencies,
-            'managerEN' => $manager->translate('en'),
-            'managerFR' => $manager->translate('fr'),
+            'translations' => $manager->getTranslations(),
             'linkedInUrlPattern' => $linkedInUrlPattern,
             'twitterHandlePattern' => $twitterHandlePattern,
         ]);

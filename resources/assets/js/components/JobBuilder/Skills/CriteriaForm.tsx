@@ -98,7 +98,7 @@ export const criteriaToValues = (
   criteria: Criteria,
   locale: "en" | "fr",
 ): FormValues => ({
-  specificity: criteria[locale].specificity || "",
+  specificity: criteria.specificity[locale] || "",
   level:
     criteria.criteria_type_id === CriteriaTypeId.Asset
       ? "asset"
@@ -107,10 +107,10 @@ export const criteriaToValues = (
 
 /* eslint-disable @typescript-eslint/camelcase */
 const updateCriteriaWithValues = (
+  locale: "en" | "fr",
   criteria: Criteria,
   skill: Skill,
   values: FormValues,
-  locale: "en" | "fr",
 ): Criteria => {
   return {
     ...criteria,
@@ -119,15 +119,13 @@ const updateCriteriaWithValues = (
         ? CriteriaTypeId.Asset
         : CriteriaTypeId.Essential,
     skill_level_id: essentialKeyToId(values.level),
-    en: {
-      description: skill.en.description,
-      specificity:
-        locale === "en" ? values.specificity : criteria.en.specificity,
+    description: {
+      en: skill.description.en,
+      fr: skill.description.fr,
     },
-    fr: {
-      description: skill.fr.description,
-      specificity:
-        locale === "fr" ? values.specificity : criteria.fr.specificity,
+    specificity: {
+      ...criteria.specificity,
+      [locale]: values.specificity,
     },
   };
 };
@@ -138,13 +136,13 @@ const newCriteria = (jobPosterId: number, skillId: number): Criteria => ({
   job_poster_id: jobPosterId,
   skill_id: skillId,
   skill_level_id: SkillLevelId.Basic,
-  en: {
-    description: null,
-    specificity: null,
+  description: {
+    en: null,
+    fr: null,
   },
-  fr: {
-    description: null,
-    specificity: null,
+  specificity: {
+    en: null,
+    fr: null,
   },
 });
 /* eslint-enable @typescript-eslint/camelcase */
@@ -165,7 +163,7 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
   const stringNotEmpty = (value: string | null): boolean =>
     value !== null && (value as string).length !== 0;
   const [showSpecificity, setShowSpecificity] = useState(
-    criteria !== undefined && stringNotEmpty(criteria[locale].specificity),
+    criteria !== undefined && stringNotEmpty(criteria.specificity[locale]),
   );
 
   const initialValues: FormValues =
@@ -196,10 +194,10 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
             ? criteria
             : newCriteria(jobPosterId, skill.id);
         const updatedCriteria = updateCriteriaWithValues(
+          locale,
           oldCriteria,
           skill,
           values,
-          locale,
         );
         handleSubmit(updatedCriteria);
         setSubmitting(false);
@@ -223,9 +221,9 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
                 />
               </p>
               <div>
-                <p data-c-margin="bottom(normal)">{skill[locale].name}</p>
+                <p data-c-margin="bottom(normal)">{skill.name[locale]}</p>
                 <p data-c-margin="bottom(normal)">
-                  {skill[locale].description}
+                  {skill.description[locale]}
                 </p>
                 {showSpecificity ? (
                   <>

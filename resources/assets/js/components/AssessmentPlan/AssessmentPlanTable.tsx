@@ -96,7 +96,7 @@ const renderAssessmentTypeBlock = (
                 <li
                   key={`assessmentSummary_type${assessmentTypeId}_essential_skill${skill.id}`}
                 >
-                  {skill[locale].name}
+                  {skill.name[locale]}
                 </li>
               ),
             )}
@@ -125,7 +125,7 @@ const renderAssessmentTypeBlock = (
                 <li
                   key={`assessmentSummary_type${assessmentTypeId}_asset_skill${skill.id}`}
                 >
-                  {skill[locale].name}
+                  {skill.name[locale]}
                 </li>
               ),
             )}

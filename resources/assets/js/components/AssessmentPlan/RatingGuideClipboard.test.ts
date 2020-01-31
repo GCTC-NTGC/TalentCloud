@@ -94,8 +94,8 @@ const expectedOutput: ClipboardTableRowProps[] = [
     criteriaTypeName: formatMessage(
       criteriaType(someCriteria[1].criteria_type_id),
     ),
-    skillName: someSkills[1].en.name,
-    skillDescription: someSkills[1].en.description,
+    skillName: someSkills[1].name.en,
+    skillDescription: someSkills[1].description.en,
     modelAnswer: someRatingGuideAnswers[1].expected_answer,
   },
   {
@@ -111,8 +111,8 @@ const expectedOutput: ClipboardTableRowProps[] = [
     criteriaTypeName: formatMessage(
       criteriaType(someCriteria[3].criteria_type_id),
     ),
-    skillName: someSkills[3].en.name,
-    skillDescription: someSkills[3].en.description,
+    skillName: someSkills[3].name.en,
+    skillDescription: someSkills[3].description.en,
     modelAnswer: someRatingGuideAnswers[3].expected_answer,
   },
   {
@@ -128,8 +128,8 @@ const expectedOutput: ClipboardTableRowProps[] = [
     criteriaTypeName: formatMessage(
       criteriaType(someCriteria[2].criteria_type_id),
     ),
-    skillName: someSkills[2].en.name,
-    skillDescription: someSkills[2].en.description,
+    skillName: someSkills[2].name.en,
+    skillDescription: someSkills[2].description.en,
     modelAnswer: someRatingGuideAnswers[2].expected_answer,
   },
   {
@@ -145,8 +145,8 @@ const expectedOutput: ClipboardTableRowProps[] = [
     criteriaTypeName: formatMessage(
       criteriaType(someCriteria[0].criteria_type_id),
     ),
-    skillName: someSkills[0].en.name,
-    skillDescription: someSkills[0].en.description,
+    skillName: someSkills[0].name.en,
+    skillDescription: someSkills[0].description.en,
     modelAnswer: someRatingGuideAnswers[0].expected_answer,
   },
 ];

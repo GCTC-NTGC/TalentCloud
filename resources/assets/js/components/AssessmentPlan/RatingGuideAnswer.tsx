@@ -116,7 +116,7 @@ const RatingGuideAnswer: React.FunctionComponent<RatingGuideAnswerProps &
         : null;
       return {
         value: criterion.id,
-        label: skill ? skill[intl.locale].name : "",
+        label: skill ? skill.name[intl.locale] : "",
       };
     },
   );

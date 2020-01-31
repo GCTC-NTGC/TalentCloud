@@ -665,11 +665,11 @@ Route::group(['prefix' => 'api'], function (): void {
     Route::resource('assessment-plan-notifications', 'AssessmentPlanNotificationController')->except([
         'store', 'create', 'edit'
     ]);
-    // TODO: add policy middleware.
-    Route::get('jobs/{jobPoster}/tasks', 'Api\JobTaskController@indexByJob')
+    // TODO: add policy middleware
+    Route::get('jobs/{jobPoster}/tasks', 'Api\JobPosterKeyTaskController@indexByJob')
         ->where('jobPoster', '[0-9]+')
         ->middleware('can:view,jobPoster');
-    Route::put('jobs/{jobPoster}/tasks', 'Api\JobTaskController@batchUpdate')
+    Route::put('jobs/{jobPoster}/tasks', 'Api\JobPosterKeyTaskController@batchUpdate')
         ->where('jobPoster', '[0-9]+')
         ->middleware('can:update,jobPoster');
 
@@ -680,11 +680,12 @@ Route::group(['prefix' => 'api'], function (): void {
         ->where('jobPoster', '[0-9]+')
         ->middleware('can:update,jobPoster');
 
-    Route::post('jobs/{job}/submit', 'Api\JobApiController@submitForReview')
+
+    Route::post('jobs/{job}/submit', 'Api\JobController@submitForReview')
         ->where('job', '[0-9]+')
         ->middleware('can:submitForReview,job')
         ->name('api.jobs.submit');
-    Route::resource('jobs', 'Api\JobApiController')->only([
+    Route::resource('jobs', 'Api\JobController')->only([
         'show', 'store', 'update', 'index'
     ])->names([ // Specify custom names because default names collied with existing routes.
         'show' => 'api.jobs.show',
@@ -697,15 +698,15 @@ Route::group(['prefix' => 'api'], function (): void {
         ->middleware('can:review,application')
         ->name('api.application_reviews.update');
 
-    Route::resource('managers', 'Api\ManagerApiController')->only([
+    Route::resource('managers', 'Api\ManagerController')->only([
         'show', 'update'
     ])->names([ // Specify custom names because default names collied with existing routes.
         'show' => 'api.managers.show',
         'update' => 'api.managers.update'
     ]);
 
-    // User must be logged in to user currentuser routes.
-    Route::get('currentuser/manager', 'Api\ManagerApiController@showAuthenticated')
+    // User must be logged in to user currentuser routes
+    Route::get('currentuser/manager', 'Api\ManagerController@showAuthenticated')
         ->middleware('auth');
 
     // Comment model routes

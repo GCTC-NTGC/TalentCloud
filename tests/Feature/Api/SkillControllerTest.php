@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Api;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -17,15 +17,13 @@ class SkillControllerTest extends TestCase
         $exampleSkill = [
             'id' => 1,
             'skill_type_id' => 2,
-            'name' => 'Front-end development',
-            'description' =>'Defined as: Developing web applications using HTML5, CSS3, Javascript',
-            'en' => [
-                'name' =>'Front-end development',
-                'description' =>'Defined as: Developing web applications using HTML5, CSS3, Javascript',
+            'name' => [
+                'en' => 'Front-end development',
+                'fr' => 'Développement frontal'
             ],
-            'fr' => [
-                'name' => 'Développement frontal',
-                'description' => 'Se définissant comme suit : Développement d\'applications Web à l\'aide de HTML5, CSS3 et JavaScript.'
+            'description' => [
+                'en' => 'Defined as: Developing web applications using HTML5, CSS3, Javascript',
+                'fr' => 'Se définissant comme suit : Développement d\'applications Web à l\'aide de HTML5, CSS3 et JavaScript.',
             ],
             'is_culture_skill' => false,
             'is_future_skill' => false,

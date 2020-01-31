@@ -32,6 +32,7 @@ import { JobReviewDisplay } from "../JobBuilder/Review/JobReview";
 import { fetchSkills } from "../../store/Skill/skillActions";
 import Icon from "../Icon";
 import JobReviewActivityFeed from "../JobBuilder/Review/JobReviewActivityFeed";
+import { localizeField } from "../../helpers/localize";
 
 interface JobReviewHrPageProps {
   jobId: number;
@@ -79,7 +80,7 @@ const JobReviewHrPage: React.FunctionComponent<JobReviewHrPageProps> = ({
               defaultMessage="Review Your Job Poster for:"
               description="Title for Review Job Poster section."
             />{" "}
-            <span data-c-colour="c2">{job[locale].title}</span>
+            <span data-c-colour="c2">{localizeField(locale, job, "title")}</span>
           </h3>
           <p>
             <FormattedMessage

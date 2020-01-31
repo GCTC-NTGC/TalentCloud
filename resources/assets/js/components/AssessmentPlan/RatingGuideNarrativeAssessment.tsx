@@ -47,7 +47,7 @@ export const RatingGuideNarrativeAssessment: React.FunctionComponent<RatingGuide
   };
   const getCriteriaSkillName = (criterionId: number): string => {
     const skill = criteriaToSkill[criterionId];
-    return skill ? skill[intl.locale].name : "";
+    return skill ? skill.name[intl.locale] : "";
   };
   return (
     <div>
