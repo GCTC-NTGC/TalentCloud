@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature\Api;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -13,7 +13,7 @@ use App\Models\Lookup\Department;
 use App\Models\Manager;
 use App\Models\User;
 
-class UserApiControllerTest extends TestCase
+class UserControllerTest extends TestCase
 {
     use RefreshDatabase;
 
