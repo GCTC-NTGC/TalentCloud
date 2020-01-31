@@ -71,11 +71,6 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected function defineGates(): void
     {
-        Gate::define('view-assessment-plan', function ($user, $jobPoster) {
-            return $user->isAdmin() ||
-                $user->isManager() && $jobPoster->manager->user_id === $user->id ||
-                $user->isHrAdvisor() && $jobPoster->hr_advisors->contains('user_id', $user->id);
-        });
     }
 
     public function register(): void
