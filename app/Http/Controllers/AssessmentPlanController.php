@@ -23,10 +23,6 @@ class AssessmentPlanController extends Controller
      */
     public function getForJob(JobPoster $jobPoster)
     {
-        if (Gate::denies('view-assessment-plan', $jobPoster)) {
-            abort(403);
-        }
-
         $criteria = Criteria::where('job_poster_id', $jobPoster->id)->get();
         $criteriaTranslated = [];
         foreach ($criteria as $criterion) {
@@ -62,10 +58,13 @@ class AssessmentPlanController extends Controller
     public function show(JobPoster $jobPoster)
     {
         // Show demo notification if the user is a demoManager and is not an hr-advisor that has claimed the job.
-        $hide_demo_notification = Auth::user() !== null && Auth::user()->isDemoManager() && !$jobPoster->hr_advisors->contains('user_id', Auth::user()->id);
+        $display_demo_notification = Auth::user() !== null &&
+                                  Auth::user()->isDemoManager() &&
+                                  (!$jobPoster->hr_advisors->contains('user_id', Auth::user()->id) &&
+                                  Auth::user()->isHrAdvisor());
 
         return view('manager/assessment_plan', [
-            'hide_demo_notification' => $hide_demo_notification,
+            'display_demo_notification' => $display_demo_notification,
         ]);
     }
 }

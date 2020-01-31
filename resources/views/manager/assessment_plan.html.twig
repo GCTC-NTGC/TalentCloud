@@ -14,7 +14,7 @@
 
     {% include "common/header" with { 'header': { 'title': title } } %}
 
-    {% if hide_demo_notification %}
+    {% if display_demo_notification %}
         {% include "manager/notification" %}
     {% endif %}
 
