@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\HrAdvisor;
 use App\Models\JobPoster;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +24,7 @@ class JobSummaryController extends Controller
         $applications = $jobPoster->submitted_applications;
         $advisor = $user->hr_advisor;
         $jobIsClaimed = ($advisor !== null) &&
-            $advisor->claimed_job_ids->contains($job->id);
+            $advisor->claimed_job_ids->contains($jobPoster->id);
 
         $summaryLang = Lang::get('hr_advisor/job_summary');
 
@@ -33,7 +32,7 @@ class JobSummaryController extends Controller
             'imgSrc' => '/images/job-process-summary-tool-edit.svg',
             'imgAlt' => "{$summaryLang['edit_poster_icon']} {$summaryLang['flat_icons']}",
             'text' => $summaryLang['edit_poster_button'],
-            'url' => route('hr_advisor.jobs.review', $job),
+            'url' => route('hr_advisor.jobs.review', $jobPoster),
             'disabled' => false,
         ];
 
@@ -41,7 +40,7 @@ class JobSummaryController extends Controller
             'imgSrc' => '/images/job-process-summary-tool-view.svg',
             'imgAlt' => "{$summaryLang['view_poster_icon']} {$summaryLang['flat_icons']}",
             'text' => $summaryLang['view_poster_button'],
-            'url' => route('hr_advisor.jobs.preview', $job),
+            'url' => route('hr_advisor.jobs.preview', $jobPoster),
             'disabled' => false,
         ];
 
@@ -57,13 +56,13 @@ class JobSummaryController extends Controller
             'imgSrc' => '/images/job-process-summary-tool-applicants.svg',
             'imgAlt' => "{$summaryLang['view_applicants_icon']} {$summaryLang['flat_icons']}",
             'text' => $summaryLang['view_applicants_button'],
-            'url' => route('hr_advisor.jobs.applications', $job),
-            'disabled' => !$job->isClosed(),
+            'url' => route('hr_advisor.jobs.applications', $jobPoster),
+            'disabled' => !$jobPoster->isClosed(),
         ];
 
 
 
-        switch ($job->job_status_id) {
+        switch ($jobPoster->job_status_id) {
             case 1:
                 $status = Lang::get('common/lookup/job_status.draft');
                 break;
@@ -84,7 +83,7 @@ class JobSummaryController extends Controller
                 break;
         }
         // TODO: This should change based on the current status.
-        $status_description = $job->job_status_id == 2
+        $status_description = $jobPoster->job_status_id == 2
             ? $summaryLang['under_review']
             : '';
 
@@ -108,7 +107,7 @@ class JobSummaryController extends Controller
             'job_preview_data' => $job_preview_data,
             'screening_plan_data' => $screening_plan_data,
             'view_applicants_data' => $view_applicants_data,
-            'relinquish_job' => route('hr_advisor.jobs.unclaim', $job),
+            'relinquish_job' => route('hr_advisor.jobs.unclaim', $jobPoster),
         ];
 
         return view(
@@ -121,13 +120,13 @@ class JobSummaryController extends Controller
      * Unclaim a Job Poster.
      *
      * @param  \Illuminate\Http\Request $request Incoming request object.
-     * @param  \App\Models\JobPoster  $job
+     * @param  \App\Models\JobPoster  $jobPoster
      * @return \Illuminate\Http\Response
      */
-    public function unclaimJob(Request $request, JobPoster $job)
+    public function unclaimJob(Request $request, JobPoster $jobPoster)
     {
         $hrAdvisor = $request->user()->hr_advisor;
-        $hrAdvisor->claimed_jobs()->detach($job);
+        $hrAdvisor->claimed_jobs()->detach($jobPoster);
 
         return redirect()->route('hr_advisor.jobs.index');
     }
