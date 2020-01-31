@@ -51,9 +51,6 @@ class InitializeUser
                 if ($managerProfile === null) {
                     $managerProfile = new Manager();
                     $managerProfile->user_id = $user->id;
-                    if ($user->isHrAdvisor() && $user->hr_advisor->department_id !== null) {
-                        $managerProfile->department_id = $user->hr_advisor->department_id;
-                    }
                     $managerProfile->save();
                     $user->refresh();
                 }
