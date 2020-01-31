@@ -131,7 +131,7 @@ class AuthServiceProvider extends ServiceProvider
                         ($user->hr_advisor->department_id === $userProfile->manager->department_id)
                 ) ||
                 (
-                    ($user->isUpgradedManager() && $userProfile->isHrAdvisor()) &&
+                    ($user->isUpgradedManager() && !$user->isAdmin() && $userProfile->isHrAdvisor() && !$userProfile->isAdmin()) &&
                         ($user->manager->department_id === $userProfile->hr_advisor->department_id)
                 ) ||
                 (
