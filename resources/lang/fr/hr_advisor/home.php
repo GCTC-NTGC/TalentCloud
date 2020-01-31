@@ -11,7 +11,10 @@ return [
         'heading' => 'Nuage de talents',
         'heading_alt' => 'La feuille d\'érable canadienne.',
         // 'subheading' => '',
-        'sign_up_button' => 'Inscrivez-vous.',
+        'button' => [
+            'text' => 'Inscrivez-vous',
+            'title' => 'Inscrivez-vous à titre de gestionnaire pour faire l’essai du portail des gestionnaires du Nuage de talents.'
+        ]
     ],
     'banner' => [
         'content' => 'Vous visitez le portail des RH. Êtes-vous à la recherche du portail des demandeurs?',
