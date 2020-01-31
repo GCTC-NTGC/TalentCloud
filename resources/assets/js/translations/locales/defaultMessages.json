@@ -362,7 +362,7 @@
         "id": "apl.indexPageTitle"
       },
       {
-        "defaultMessage": "{dayCount, plural,\r\n              =0 {No Days}\r\n            one {# Day}\r\n          other {# Days}\r\n        } Since Close",
+        "defaultMessage": "{dayCount, plural,\n              =0 {No Days}\n            one {# Day}\n          other {# Days}\n        } Since Close",
         "description": "Welcome header on app main page",
         "id": "job.daysSinceClosed"
       }
@@ -782,6 +782,21 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Interview Question",
+        "description": "Label for the rating guide question.",
+        "id": "ratingGuideQuestion.questionLabel"
+      },
+      {
+        "defaultMessage": "Write your interview question here...",
+        "description": "Placeholder for the rating guide question.",
+        "id": "ratingGuideQuestion.questionPlaceholder"
+      }
+    ],
+    "path": "resources/assets/js/components/AssessmentPlan/RatingGuideQuestion.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Add a Comment",
         "description": "The label displayed for the comment input field.",
         "id": "commentForm.comment.label"
@@ -915,11 +930,6 @@
         "defaultMessage": "No jobs completed yet!",
         "description": "Message displayed if the completed jobs list is empty.",
         "id": "hrPortal.jobPageIndex.noJobsCompleted"
-      },
-      {
-        "defaultMessage": "Welcome! Introductory copy that explains how this page works, and what an HR advisor needs to do to claim a job action as their own. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium ducimus laboriosam sequi, quis autem minima esse quasi aspernatur vero provident quos eligendi, ea officia exercitationem. Obcaecati impedit quae veritatis corrupti!",
-        "description": "Welcome message at beginning of page.",
-        "id": "hrPortal.jobPageIndex.welcomeMessage"
       },
       {
         "defaultMessage": "My Job Actions",
@@ -2070,7 +2080,7 @@
         "id": "jobBuilder.review.reviewYourPoster"
       },
       {
-        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\r\n            understand how an applicant will see it once published.",
+        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\n            understand how an applicant will see it once published.",
         "description": "Description under primary title of review section",
         "id": "jobBuilder.review.headsUp"
       },
@@ -2220,6 +2230,21 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Additional skill details",
+        "description": "Label for the skill specificity textarea.",
+        "id": "criteriaForm.skillSpecificityLabel"
+      },
+      {
+        "defaultMessage": "Add context or specifics to the definition of this skill that will only appear on your job poster. This will be reviewed by your human resources advisor.",
+        "description": "Placeholder for the skill specificity textarea.",
+        "id": "criteriaForm.skillSpecificityPlaceholder"
+      },
+      {
+        "defaultMessage": "Select a skill level:",
+        "description": "Placeholder for the skill specificity textarea.",
+        "id": "criteriaForm.skillLevelSelectionLabel"
+      },
+      {
         "defaultMessage": "Skill Definition",
         "description": "Label for Skill Definition heading on Add Skill modal.",
         "id": "jobBuilder.criteriaForm.skillDefinition"
@@ -2230,7 +2255,7 @@
         "id": "jobBuilder.criteriaForm.removeSpecificity"
       },
       {
-        "defaultMessage": "I'd like to add specificity to this definition. This will only apply to my job poster.",
+        "defaultMessage": "I would like to add details to this definition that are specific to this position.",
         "description": "Label for 'Add additional specificity' button on Add Skill modal.",
         "id": "jobBuilder.criteriaForm.addSpecificity"
       },
@@ -2777,6 +2802,11 @@
         "defaultMessage": "Team Size",
         "description": "The label displayed on the team size input.",
         "id": "jobBuilder.workEnv.teamSizeLabel"
+      },
+      {
+        "defaultMessage": "e.g. 10",
+        "description": "The placeholder displayed on the team size input.",
+        "id": "jobBuilder.workEnv.teamSizePlaceholder"
       },
       {
         "defaultMessage": "Our Physical Environment",

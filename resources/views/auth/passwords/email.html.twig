@@ -41,7 +41,7 @@
                                     <label for="email">{{ forgot_password.email }}</label>
                                     <span>Required</span>
                                     <div>
-                                        <input id="email" placeholder="e.g. email@website.com" required type="email"
+                                        <input id="email" placeholder="{{ forgot_password.email_placeholder }}" required type="email"
                                         name="email"
                                         value="{{ old('email') }}" />
                                     </div>
