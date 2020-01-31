@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\JobApplication;
 use Carbon\Carbon;
 use App\Models\JobPoster;
 use App\Models\JobPosterQuestion;
@@ -179,11 +180,22 @@ class JobController extends Controller
                 ];
             }
         } elseif (Auth::check() && $jobPoster->isOpen()) {
-            $applyButton = [
-                'href' => route('job.application.edit.1', $jobPoster->id),
-                'title' => $jobLang['apply']['apply_link_title'],
-                'text' => $jobLang['apply']['apply_link_label'],
-            ];
+            $application = JobApplication::where('applicant_id', Auth::user()->applicant->id)
+            ->where('job_poster_id', $jobPoster->id)->first();
+            // If applicants job application is not draft anymore then link to application preview page.
+            if ($application != null && $application->application_status->name != 'draft') {
+                $applyButton = [
+                    'href' => route('applications.show', $application->id),
+                    'title' => $jobLang['apply']['view_link_title'],
+                    'text' => $jobLang['apply']['view_link_label'],
+                ];
+            } else {
+                $applyButton = [
+                    'href' => route('job.application.edit.1', $jobPoster->id),
+                    'title' => $jobLang['apply']['apply_link_title'],
+                    'text' => $jobLang['apply']['apply_link_label'],
+                ];
+            }
         } elseif (Auth::guest() && $jobPoster->isOpen()) {
             $applyButton = [
                 'href' => route('job.application.edit.1', $jobPoster->id),
