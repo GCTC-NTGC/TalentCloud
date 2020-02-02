@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "backpack/crud",
-            "version": "4.0.36",
+            "version": "4.0.37",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/CRUD.git",
-                "reference": "fc29b4237a96e547882cceed24fc99b62700ff64"
+                "reference": "3da3ab91b52e3cf1fb9e2a498e36c945721557f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/fc29b4237a96e547882cceed24fc99b62700ff64",
-                "reference": "fc29b4237a96e547882cceed24fc99b62700ff64",
+                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/3da3ab91b52e3cf1fb9e2a498e36c945721557f5",
+                "reference": "3da3ab91b52e3cf1fb9e2a498e36c945721557f5",
                 "shasum": ""
             },
             "require": {
@@ -91,7 +91,7 @@
                 "read",
                 "update"
             ],
-            "time": "2020-01-28T08:22:05+00:00"
+            "time": "2020-02-02T06:47:30+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -4600,7 +4600,7 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v4.4.3",
+            "version": "v4.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
