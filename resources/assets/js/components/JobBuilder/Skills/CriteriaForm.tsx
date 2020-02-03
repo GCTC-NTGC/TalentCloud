@@ -4,6 +4,7 @@ import {
   injectIntl,
   MessageDescriptor,
   FormattedMessage,
+  defineMessages,
 } from "react-intl";
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
@@ -32,6 +33,25 @@ interface CriteriaFormProps {
   handleSubmit: (criteria: Criteria) => void;
   handleCancel: () => void;
 }
+
+const criteriaFormMessages = defineMessages({
+  skillSpecificityLabel: {
+    id: "criteriaForm.skillSpecificityLabel",
+    defaultMessage: "Additional skill details",
+    description: "Label for the skill specificity textarea.",
+  },
+  skillSpecificityPlaceholder: {
+    id: "criteriaForm.skillSpecificityPlaceholder",
+    defaultMessage:
+      "Add context or specifics to the definition of this skill that will only appear on your job poster. This will be reviewed by your human resources advisor.",
+    description: "Placeholder for the skill specificity textarea.",
+  },
+  skillLevelSelectionLabel: {
+    id: "criteriaForm.skillLevelSelectionLabel",
+    defaultMessage: "Select a skill level:",
+    description: "Placeholder for the skill specificity textarea.",
+  },
+});
 
 const essentialSkillLevels = (
   skillTypeId: number,
@@ -231,8 +251,12 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
                       id="skillSpecificity"
                       type="textarea"
                       name="specificity"
-                      label="Skill Specificity"
-                      placeholder="Add specificity to the definition of this skill that will only appear on my job poster but note that this will have be approved prior to posting..."
+                      label={intl.formatMessage(
+                        criteriaFormMessages.skillSpecificityLabel,
+                      )}
+                      placeholder={intl.formatMessage(
+                        criteriaFormMessages.skillSpecificityPlaceholder,
+                      )}
                       component={TextAreaInput}
                     />
                     <button
@@ -264,7 +288,7 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
                       <i className="fas fa-plus-circle" data-c-colour="c1" />
                       <FormattedMessage
                         id="jobBuilder.criteriaForm.addSpecificity"
-                        defaultMessage="I'd like to add specificity to this definition. This will only apply to my job poster."
+                        defaultMessage="I would like to add details to this definition that are specific to this position."
                         description="Label for 'Add additional specificity' button on Add Skill modal."
                       />
                     </span>
@@ -285,7 +309,9 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
                 <div data-c-grid="gutter">
                   <RadioGroup
                     id="skillLevelSelection"
-                    label="Select a skill level:"
+                    label={intl.formatMessage(
+                      criteriaFormMessages.skillLevelSelectionLabel,
+                    )}
                     required
                     touched={touched.level}
                     error={errors.level}

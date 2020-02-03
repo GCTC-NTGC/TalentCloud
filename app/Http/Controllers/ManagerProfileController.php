@@ -135,14 +135,6 @@ class ManagerProfileController extends Controller
         // TODO: remove control of name in production.
         $input = $request->input();
 
-        // redirect to error messages element if validation fails
-        if (isset($request->validator) && $request->validator->fails()) {
-            $hash = '#managerProfileFormErrors';
-            return redirect(route('manager.profile.edit', $manager) . $hash)
-                        ->withErrors($request->validator)
-                        ->withInput();
-        }
-
         $validated = $request->validated();
 
         $user = $manager->user;
@@ -157,9 +149,6 @@ class ManagerProfileController extends Controller
 
         // Use the button that was clicked to decide which element to redirect to.
         switch ($input['submit']) {
-            case 'account_settings':
-                $hash = '#managerProfileSectionAccount';
-                break;
             case 'about_me':
                 $hash = '#managerProfileSectionAbout';
                 break;
