@@ -166,19 +166,6 @@ export interface JobPosterKeyTask {
   description: localizedFieldNonNull;
 }
 
-export interface JobTranslation {
-  city: string | null;
-  title: string | null;
-  dept_impact: string | null;
-  team_impact: string | null;
-  hire_impact: string | null;
-  division: string | null;
-  education: string | null;
-  work_env_description: string | null;
-  culture_summary: string | null;
-  culture_special: string | null;
-}
-
 export interface Manager {
   id: number;
   user_id: number;
@@ -197,17 +184,6 @@ export interface Manager {
   career_journey: localizedField;
   learning_path: localizedField;
   about_me: localizedField;
-}
-
-export interface ManagerTranslation {
-  division: string | null;
-  position: string | null;
-  leadership_style: string | null;
-  expectations: string | null;
-  employee_learning: string | null;
-  career_journey: string | null;
-  learning_path: string | null;
-  about_me: string | null;
 }
 
 export interface RatingGuideAnswer {
@@ -237,11 +213,6 @@ export interface Skill {
   is_culture_skill: boolean;
   is_future_skill: boolean;
   classifications: Classification[];
-}
-
-export interface SkillTranslation {
-  name: string;
-  description: string;
 }
 
 // Version of Assessment that hasn't been saved to server yet
