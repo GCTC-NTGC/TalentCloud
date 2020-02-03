@@ -24,7 +24,7 @@ class AddTranslationsToJobPosterQuestionsAsJson extends Migration
             $questionTranslationsEnglish = DB::table('job_poster_question_translations')->where('job_poster_question_id', $question->id)->where('locale', 'en')->first();
             $questionTranslationsFrench = DB::table('job_poster_question_translations')->where('job_poster_question_id', $question->id)->where('locale', 'fr')->first();
 
-            $question->question = collect([$questionTranslationsEnglish->locale => $questionTranslationsEnglish->question, $questionTranslationsFrench->question => $questionTranslationsFrench->value])->toJson();
+            $question->question = collect([$questionTranslationsEnglish->locale => $questionTranslationsEnglish->question, $questionTranslationsFrench->locale => $questionTranslationsFrench->question])->toJson();
 
             $question->description = collect([$questionTranslationsEnglish->locale => $questionTranslationsEnglish->description, $questionTranslationsFrench->locale => $questionTranslationsFrench->description])->toJson();
 
