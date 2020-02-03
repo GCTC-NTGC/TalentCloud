@@ -67,6 +67,7 @@ class JobPosterCrudController extends CrudController
             'type' => 'model_function',
             'function_name' => 'status'
         ]);
+
         $this->crud->addColumn([
             'name' => 'published',
             'label' => 'Published',
@@ -189,9 +190,16 @@ class JobPosterCrudController extends CrudController
                 'format' => 'yyyy-mm-dd',
             ],
         ]);
+
         if ($this->crud->getCurrentEntry() &&
             !$this->crud->getCurrentEntry()->published
         ) {
+            $this->crud->addField([
+                'name' => 'soft_published',
+                'type' => 'checkbox',
+                'label' => 'Soft Publish',
+            ]);
+
             $this->crud->addField([
                 'name' => 'published',
                 'label' => 'Publish',
@@ -215,6 +223,7 @@ class JobPosterCrudController extends CrudController
             'close_date_time' => $close_date !== null ? ptDayEndToUtcTime($close_date) : null,
             'start_date_time' => $start_date !== null ? ptDayStartToUtcTime($start_date) : null,
         ]);
+
         $response = $this->traitUpdate();
 
         return $response;
