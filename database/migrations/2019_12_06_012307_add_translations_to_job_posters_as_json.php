@@ -32,25 +32,25 @@ class AddTranslationsToJobPostersAsJson extends Migration
             $jobTranslationsEnglish = DB::table('job_poster_translations')->where('job_poster_id', $job->id)->where('locale', 'en')->first();
             $jobTranslationsFrench = DB::table('job_poster_translations')->where('job_poster_id', $job->id)->where('locale', 'fr')->first();
 
-            $job->city = collect([$jobTranslationsEnglish->locale => $jobTranslationsEnglish->value, $jobTranslationsFrench->locale => $jobTranslationsFrench->value])->toJson();
+            $job->city = collect([$jobTranslationsEnglish->locale => $jobTranslationsEnglish->city, $jobTranslationsFrench->locale => $jobTranslationsFrench->city])->toJson();
 
-            $job->title = collect([$jobTranslationsEnglish->locale => $jobTranslationsEnglish->value, $jobTranslationsFrench->locale => $jobTranslationsFrench->value])->toJson();
+            $job->title = collect([$jobTranslationsEnglish->locale => $jobTranslationsEnglish->title, $jobTranslationsFrench->locale => $jobTranslationsFrench->title])->toJson();
 
-            $job->dept_impact = collect([$jobTranslationsEnglish->locale => $jobTranslationsEnglish->value, $jobTranslationsFrench->locale => $jobTranslationsFrench->value])->toJson();
+            $job->dept_impact = collect([$jobTranslationsEnglish->locale => $jobTranslationsEnglish->dept_impact, $jobTranslationsFrench->locale => $jobTranslationsFrench->dept_impact])->toJson();
 
-            $job->team_impact = collect([$jobTranslationsEnglish->locale => $jobTranslationsEnglish->value, $jobTranslationsFrench->locale => $jobTranslationsFrench->value])->toJson();
+            $job->team_impact = collect([$jobTranslationsEnglish->locale => $jobTranslationsEnglish->team_impact, $jobTranslationsFrench->locale => $jobTranslationsFrench->team_impact])->toJson();
 
-            $job->hire_impact = collect([$jobTranslationsEnglish->locale => $jobTranslationsEnglish->value, $jobTranslationsFrench->locale => $jobTranslationsFrench->value])->toJson();
+            $job->hire_impact = collect([$jobTranslationsEnglish->locale => $jobTranslationsEnglish->hire_impact, $jobTranslationsFrench->locale => $jobTranslationsFrench->hire_impact])->toJson();
 
-            $job->division = collect([$jobTranslationsEnglish->locale => $jobTranslationsEnglish->value, $jobTranslationsFrench->locale => $jobTranslationsFrench->value])->toJson();
+            $job->division = collect([$jobTranslationsEnglish->locale => $jobTranslationsEnglish->division, $jobTranslationsFrench->locale => $jobTranslationsFrench->division])->toJson();
 
-            $job->education = collect([$jobTranslationsEnglish->locale => $jobTranslationsEnglish->value, $jobTranslationsFrench->locale => $jobTranslationsFrench->value])->toJson();
+            $job->education = collect([$jobTranslationsEnglish->locale => $jobTranslationsEnglish->education, $jobTranslationsFrench->locale => $jobTranslationsFrench->education])->toJson();
 
-            $job->work_env_description = collect([$jobTranslationsEnglish->locale => $jobTranslationsEnglish->value, $jobTranslationsFrench->locale => $jobTranslationsFrench->value])->toJson();
+            $job->work_env_description = collect([$jobTranslationsEnglish->locale => $jobTranslationsEnglish->work_env_description, $jobTranslationsFrench->locale => $jobTranslationsFrench->work_env_description])->toJson();
 
-            $job->culture_summary = collect([$jobTranslationsEnglish->locale => $jobTranslationsEnglish->value, $jobTranslationsFrench->locale => $jobTranslationsFrench->value])->toJson();
+            $job->culture_summary = collect([$jobTranslationsEnglish->locale => $jobTranslationsEnglish->culture_summary, $jobTranslationsFrench->locale => $jobTranslationsFrench->culture_summary])->toJson();
 
-            $job->culture_special = collect([$jobTranslationsEnglish->locale => $jobTranslationsEnglish->value, $jobTranslationsFrench->locale => $jobTranslationsFrench->value])->toJson();
+            $job->culture_special = collect([$jobTranslationsEnglish->locale => $jobTranslationsEnglish->culture_special, $jobTranslationsFrench->locale => $jobTranslationsFrench->culture_special])->toJson();
 
             DB::table('job_posters')->where('id', $job->id)->update([
                 'city' => $job->city,
