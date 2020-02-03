@@ -620,7 +620,8 @@ return [
                             '8' => 'Conseil national de recherches Canada',
                             '9' => 'Emploi et Développement social Canada',
                             '10' => 'Gendarmerie royale du Canada',
-                            '11' => 'Services publics et Approvisionnement Canada'
+                            '11' => 'Services publics et Approvisionnement Canada',
+                            '12' => 'Ministère de la Justice'
                         ]
                     ]
                 ]
