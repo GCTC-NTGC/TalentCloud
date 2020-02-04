@@ -27,10 +27,10 @@ class UserControllerTest extends TestCase
         $applicant = factory(Applicant::class)->create();
         $response = $this->json('get', 'api/users');
         $response->assertStatus(403);
-        $response->assertJson(['status' => 'unauthorized']);
+        $response->assertJsonFragment(['message' => 'This action is unauthorized.']);
         $response = $this->json('get', 'api/users/' . $applicant->user->id);
         $response->assertStatus(403);
-        $response->assertJson(['status' => 'unauthorized']);
+        $response->assertJsonFragment(['message' => 'This action is unauthorized.']);
     }
 
     /**
@@ -48,7 +48,10 @@ class UserControllerTest extends TestCase
             'department_id' => $transportCanada->id
         ]);
 
-        $job = factory(JobPoster::class)->state('closed')->create(['manager_id' => $deptManager->id]);
+        $job = factory(JobPoster::class)->state('closed')->create([
+            'manager_id' => $deptManager->id,
+            'department_id' => $transportCanada->id
+        ]);
         $job->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
             'job_poster_id' => $job->id
         ])->each(function ($application, $key) use ($randomUsers): void {
@@ -187,13 +190,13 @@ class UserControllerTest extends TestCase
             ->actingAs($hrManager->user)
             ->json('get', 'api/users/' . $admin->id);
         $response->assertStatus(403);
-        $response->assertJson(['status' => 'unauthorized']);
+        $response->assertJsonFragment(['message' => 'This action is unauthorized.']);
 
         $response = $this->followingRedirects()
             ->actingAs($hrManager->user)
             ->json('get', 'api/users/' . $otherHrManager->user->id);
         $response->assertStatus(403);
-        $response->assertJson(['status' => 'unauthorized']);
+        $response->assertJsonFragment(['message' => 'This action is unauthorized.']);
 
         $response = $this->followingRedirects()
             ->actingAs($hrManager->user)
@@ -209,7 +212,7 @@ class UserControllerTest extends TestCase
             ->actingAs($hrManager->user)
             ->json('get', 'api/users/' . $otherUsers[0]->user->id);
         $response->assertStatus(403);
-        $response->assertJson(['status' => 'unauthorized']);
+        $response->assertJsonFragment(['message' => 'This action is unauthorized.']);
 
         $response = $this->followingRedirects()
             ->actingAs($hrManager->user)
@@ -222,7 +225,7 @@ class UserControllerTest extends TestCase
         ->actingAs($hrManager->user)
         ->json('get', 'api/users/' . $randomUsers[0]->user->id);
         $response->assertStatus(403);
-        $response->assertJson(['status' => 'unauthorized']);
+        $response->assertJsonFragment(['message' => 'This action is unauthorized.']);
     }
 
     /**
@@ -303,7 +306,7 @@ class UserControllerTest extends TestCase
             ->actingAs($deptManager->user)
             ->json('get', 'api/users/' . $otherUsers[0]->user->id);
         $response->assertStatus(403);
-        $response->assertJson(['status' => 'unauthorized']);
+        $response->assertJsonFragment(['message' => 'This action is unauthorized.']);
 
         $response = $this->followingRedirects()
             ->actingAs($deptManager->user)
@@ -316,7 +319,7 @@ class UserControllerTest extends TestCase
             ->actingAs($deptManager->user)
             ->json('get', 'api/users/' . $admin->id);
         $response->assertStatus(403);
-        $response->assertJson(['status' => 'unauthorized']);
+        $response->assertJsonFragment(['message' => 'This action is unauthorized.']);
 
         $hrManager = factory(HrAdvisor::class)->create([
             'department_id' => $transportCanada->id
@@ -350,13 +353,13 @@ class UserControllerTest extends TestCase
             ->actingAs($applicant->user)
             ->json('get', 'api/users/' . $admin->id);
         $response->assertStatus(403);
-        $response->assertJson(['status' => 'unauthorized']);
+        $response->assertJsonFragment(['message' => 'This action is unauthorized.']);
 
         $response = $this->followingRedirects()
             ->actingAs($applicant->user)
             ->json('get', 'api/users/' . $otherApplicant->user->id);
         $response->assertStatus(403);
-        $response->assertJson(['status' => 'unauthorized']);
+        $response->assertJsonFragment(['message' => 'This action is unauthorized.']);
 
         $response = $this->followingRedirects()
             ->actingAs($applicant->user)
@@ -367,7 +370,7 @@ class UserControllerTest extends TestCase
             ->actingAs($applicant->user)
             ->json('get', 'api/users/' . $hrAdvisor->user->id);
         $response->assertStatus(403);
-        $response->assertJson(['status' => 'unauthorized']);
+        $response->assertJsonFragment(['message' => 'This action is unauthorized.']);
     }
 
     /**

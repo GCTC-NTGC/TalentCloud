@@ -4,27 +4,22 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\Response;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
     /**
-     * @var Response
-     */
-    protected $unauthorized;
-
-    /**
-     * Class constructor
+     * Class constructor.
+     *
+     * @throws AuthorizationException Handled by App\Exceptions\Handler.php.
      */
     public function __construct()
     {
-        $this->unauthorized = response()->json(['status' => 'unauthorized'], 403);
-
         // Only accept logged in Users.
         $this->middleware(function ($request, $next) {
             if ($request->user() === null) {
-                return $this->unauthorized;
+                throw new AuthorizationException();
             }
             return $next($request);
         });
@@ -32,6 +27,8 @@ class UserController extends Controller
 
     /**
      * Return all users as an array
+     *
+     * @throws AuthorizationException Handled by App\Exceptions\Handler.php.
      *
      * @return mixed
      */
@@ -42,7 +39,7 @@ class UserController extends Controller
             return Gate::allows('view-user', $user);
         })->values();
         if (empty($viewableUsers)) {
-            return $this->unauthorized;
+            throw new AuthorizationException();
         }
         return $viewableUsers->toJson();
     }
@@ -55,9 +52,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        if (Gate::allows('view-user', $user)) {
-            return $user->toJson();
-        }
-        return $this->unauthorized;
+        $this->authorize('view-user', $user);
+        return $user->toJson();
     }
 }
