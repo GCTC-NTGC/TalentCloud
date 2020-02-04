@@ -34,6 +34,7 @@ import Icon from "../Icon";
 import ActivityFeed from "../ActivityFeed";
 import { jobReviewLocations } from "../../models/localizedConstants";
 import { LocationId } from "../../models/lookupConstants";
+import { localizeField } from "../../helpers/localize";
 
 interface JobReviewHrPageProps {
   jobId: number;
@@ -81,7 +82,9 @@ const JobReviewHrPage: React.FunctionComponent<JobReviewHrPageProps> = ({
               defaultMessage="Review Your Job Poster for:"
               description="Title for Review Job Poster section."
             />{" "}
-            <span data-c-colour="c2">{job[locale].title}</span>
+            <span data-c-colour="c2">
+              {localizeField(locale, job, "title")}
+            </span>
           </h3>
           <p data-c-margin="bottom(double)">
             <FormattedMessage

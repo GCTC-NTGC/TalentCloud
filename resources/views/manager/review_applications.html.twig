@@ -4,13 +4,16 @@
     Review Applicants
 
 ============================================================================= #}
-
 {% extends "layouts/base" %}
-
-{% block title %}{{ jobs_l10n.review_applicants }}: {{ job.title }}{% endblock %}
-
+{% block title %}
+	{{ jobs_l10n.review_applicants }}:
+	{% if (App.getLocale()) == 'en' %}
+		{{ job.title.en }}
+	{% else %}
+		{{ job.title.fr}}
+	{% endif %}
+{% endblock %}
 {% block body %}
-
 	{% include "common/goc" %}
     {% include "common/alert" %}
 
@@ -30,11 +33,6 @@
     </div>
 
 {% endblock %}
-
 {% block scripts %}
-
-    <script async defer
-        src="{{ mix('/js/ReviewApplicationsRoot.js') }}">
-    </script>
-
+	<script async defer src="{{ mix('/js/ReviewApplicationsRoot.js') }}"></script>
 {% endblock %}

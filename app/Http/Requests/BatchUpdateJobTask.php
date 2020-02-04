@@ -25,8 +25,8 @@ class BatchUpdateJobTask extends FormRequest
     {
         return [
             '*.id' => 'present',
-            '*.en.description' => 'nullable|string',
-            '*.fr.description' => 'nullable|string',
+            '*.description.en' => 'nullable|string',
+            '*.description.fr' => 'nullable|string',
         ];
     }
 }

@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature\Api;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Models\User;
 use App\Models\Manager;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
-class ManagerApiControllerTest extends TestCase
+class ManagerControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -81,8 +81,7 @@ class ManagerApiControllerTest extends TestCase
         $applicantUser = factory(User::class)->state('applicant')->create();
         $response = $this->actingAs($applicantUser)->json('get', "api/managers/$manager->id");
         $response->assertOk();
-
-        $response->assertJsonFragment($manager->toApiArray());
+        $response->assertJsonFragment(array_merge($manager->toArray(), $manager->getTranslations()));
     }
 
     public function testCurrentManagerAsGuest()
@@ -96,7 +95,7 @@ class ManagerApiControllerTest extends TestCase
         $manager = factory(Manager::class)->create();
         $response = $this->actingAs($manager->user)->json('get', 'api/currentuser/manager');
         $response->assertOk();
-        $response->assertJsonFragment($manager->fresh()->toApiArray());
+        $response->assertJsonFragment($manager->fresh()->toArray());
     }
 
     public function testUpdateAsManager()
@@ -114,9 +113,7 @@ class ManagerApiControllerTest extends TestCase
         $this->assertDatabaseHas('managers', $expectedDb);
 
         $newManager = $manager->fresh();
-        $translations = $newManager->getTranslationsArray();
-        $this->assertArraySubset($managerUpdate['en'], $translations['en']);
-        $this->assertArraySubset($managerUpdate['fr'], $translations['fr']);
+        $response->assertJsonFragment($newManager->getTranslations());
     }
 
     public function testUpdateAsWrongManager()

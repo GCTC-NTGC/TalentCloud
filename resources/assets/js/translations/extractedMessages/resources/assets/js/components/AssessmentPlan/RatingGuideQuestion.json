@@ -1,0 +1,12 @@
+[
+  {
+    "id": "ratingGuideQuestion.questionLabel",
+    "description": "Label for the rating guide question.",
+    "defaultMessage": "Interview Question"
+  },
+  {
+    "id": "ratingGuideQuestion.questionPlaceholder",
+    "description": "Placeholder for the rating guide question.",
+    "defaultMessage": "Write your interview question here..."
+  }
+]
