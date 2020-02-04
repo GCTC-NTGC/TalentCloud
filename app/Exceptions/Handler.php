@@ -131,11 +131,9 @@ class Handler extends ExceptionHandler
         if ($request->expectsJson()) {
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
-        if (WhichPortal::isManagerPortal()) {
-            $loginRoute = route('manager.login');
-        } else {
-            $loginRoute = route('login');
-        }
+        $loginRoute = ($exception->redirectTo() !== null && $exception->redirectTo() !== '')
+            ? $exception->redirectTo()
+            : route('login');
         return redirect()->guest($loginRoute);
     }
 

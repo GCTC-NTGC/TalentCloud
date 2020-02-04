@@ -5,15 +5,16 @@
 
 ============================================================================= #}
 
-<section class="application-post__skills-layout">
+<section class="{% if is_draft %} application-post__skills-layout {% endif %}">
+    {% if is_draft %}
+        <div class="container--copy">
 
-    <div class="container--copy">
+            <h3>{{ application_template.preview.title }}</h3>
 
-        <h3>{{ application_template.preview.title }}</h3>
+            <p>{{ application_template.integrity.review }}</p>
 
-        <p>{{ application_template.integrity.review }}</p>
-
-    </div>
+        </div>
+    {% endif %}
 
     <div
         class="container--layout">

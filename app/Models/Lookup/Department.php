@@ -29,9 +29,6 @@ use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
  * @property string $name
  * @property string $impact
  * @property string $preference
- *
- * Methods
- * @method mixed[] toApiArray()
  */
 class Department extends BaseModel
 {
@@ -64,22 +61,5 @@ class Department extends BaseModel
     public function job_posters() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\JobPoster::class);
-    }
-
-    /**
-     * Return the array of values used to represent this object in an api response.
-     *
-     * @return mixed[]
-     */
-    public function toApiArray()
-    {
-        $deptArray = ['id' => $this->id];
-        foreach (['en', 'fr'] as $locale) {
-            $deptArray[$locale] = [
-                'name' => $this->getTranslation('name', $locale),
-                'impact' => $this->getTranslation('impact', $locale),
-            ];
-        }
-        return $deptArray;
     }
 }

@@ -9,14 +9,14 @@ return [
     * View: views/manager/profile.html.twig
     */
 
-    'title' => 'Mon profile',
+    'title' => 'Mon profil',
     'profile_header' => [
         'twitter' => 'Voir le profile twitter de :name.',
         'linkedin' => 'Voir le profile LinkedIn de :name.'
     ],
     'layout' => [
         'sidebar' => [
-            'profile_sections' => 'Sections du profile',
+            'profile_sections' => 'Sections du profil',
             'my_account' => 'Mon compte',
             'about_me' => 'À propos de moi',
             'leadership_style' => 'Mon style de leadership',
@@ -68,7 +68,7 @@ return [
             'answer_english' => 'Réponse (English)',
             'answer_french' => 'Réponse (Français)',
             'expect_from_employees' => "Ce que j'attends de mes employés",
-            'approach_learning_development' => "Mon approche à l'apprentissage et au développement de mes employés",
+            'approach_learning_development' => "Mon approche à l'apprentissage et au perfectionnement de mes employés",
             'save_leadership_style' => 'Enregistrer Mon style de leadership'
         ],
     ]

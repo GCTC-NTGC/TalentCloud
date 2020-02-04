@@ -1,14 +1,9 @@
 <?php
 
-/**
- * Created by Reliese Model.
- * Date: Thu, 12 Jul 2018 22:39:27 +0000.
- */
-
 namespace App\Models\Lookup;
 
 use App\Models\BaseModel;
-use Astrotomic\Translatable\Translatable as Translatable;
+use Spatie\Translatable\HasTranslations;
 
 /**
  * Class Relationship
@@ -19,26 +14,19 @@ use Astrotomic\Translatable\Translatable as Translatable;
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \Illuminate\Database\Eloquent\Collection $references
- * @property \Illuminate\Database\Eloquent\Collection $relationship_translations
  *
  * Localized Properties:
  * @property string $value
  */
 class Relationship extends BaseModel
 {
+    use HasTranslations;
 
-    use Translatable;
-
-    public $translatedAttributes = ['value'];
+    public $translatable = ['value'];
     protected $fillable = [];
 
     public function references()
     {
         return $this->hasMany(\App\Models\Reference::class);
-    }
-
-    public function relationship_translations() //phpcs:ignore
-    {
-        return $this->hasMany(\App\Models\Lookup\RelationshipTranslation::class);
     }
 }

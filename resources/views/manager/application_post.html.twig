@@ -1,8 +1,9 @@
 {% extends "layouts/base" %}
-
-{% block title %}{{ application_template.view_title }}: {{ applicant.user.first_name}} {{ applicant.user.last_name }}{% endblock %}
-
-
+{% block title %}
+	{{ application_template.view_title }}:
+	{{ applicant.user.first_name }}
+	{{ applicant.user.last_name }}
+{% endblock %}
 {% block body %}
 
     {% include "common/goc" %}
@@ -30,11 +31,6 @@
     </section>
 
 {% endblock %}
-
 {% block scripts %}
-
-    <script async defer
-        src="{{ mix('/js/ApplicationReviewRoot.js') }}">
-    </script>
-
+	<script async defer src="{{ mix('/js/ApplicationReviewRoot.js') }}"></script>
 {% endblock %}

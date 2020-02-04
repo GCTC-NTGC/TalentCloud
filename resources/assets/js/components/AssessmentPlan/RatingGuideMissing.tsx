@@ -52,10 +52,10 @@ export const RatingGuideMissing: React.FunctionComponent<RatingGuideMissingProps
     return null;
   }
   const essentialSkillNames = missingEssentialSkills.map(
-    (skill: Skill): string => skill[intl.locale].name,
+    (skill: Skill): string => skill.name[intl.locale],
   );
   const assetSkillNames = missingAssetSkills.map(
-    (skill: Skill): string => skill[intl.locale].name,
+    (skill: Skill): string => skill.name[intl.locale],
   );
 
   return (

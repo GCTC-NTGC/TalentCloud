@@ -2,29 +2,24 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\JobPosterKeyTask;
-use App\Models\JobPoster;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BatchUpdateJobTask;
+use App\Models\JobPoster;
+use App\Models\JobPosterKeyTask;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class JobTaskController extends Controller
+class JobPosterKeyTaskController extends Controller
 {
     /**
-     * Converts a JobPosterKeyTask to an array appropriate for the api.
+     * Returns all Tasks by JobPoster ID.
      *
-     * @param  JobPosterKeyTask $model Incoming Job Poster Key Task object.
-     * @return array
+     * @param  \App\Models\JobPoster $jobPoster Incoming Job Poster object.
+     * @return \Illuminate\Http\Response
      */
-    public function toApiArray(JobPosterKeyTask $model)
-    {
-        return array_merge($model->toArray(), $model->getTranslationsArray());
-    }
-
     public function indexByJob(JobPoster $jobPoster)
     {
-        $toApiArray = array($this, 'toApiArray');
-        $taskArray = JobPosterKeyTask::where('job_poster_id', $jobPoster->id)->get()->map($toApiArray);
-        return response()->json($taskArray);
+        $tasksByJob = JobPosterKeyTask::where('job_poster_id', $jobPoster->id)->get();
+        return JsonResource::collection($tasksByJob);
     }
 
     /**
@@ -36,8 +31,6 @@ class JobTaskController extends Controller
      */
     public function batchUpdate(BatchUpdateJobTask $request, JobPoster $jobPoster)
     {
-        $toApiArray = array($this, 'toApiArray');
-
         $newTasks = collect($request->validated()); // Collection of JobPosterKeyTasks.
         $oldTasks = $jobPoster->job_poster_key_tasks;
 
@@ -48,7 +41,7 @@ class JobTaskController extends Controller
             $newTask = $newTasks->firstWhere('id', $task['id']);
             if ($newTask) {
                 $savedNewTaskIds[] = $newTask['id'];
-                $task->fill(collect($newTask)->only(['en', 'fr'])->toArray());
+                $task->fill(collect($newTask)->toArray());
                 $task->save();
             } else {
                 $task->delete();
@@ -60,13 +53,12 @@ class JobTaskController extends Controller
             if ($this->isUnsaved($task, $savedNewTaskIds)) {
                 $jobPosterTask = new JobPosterKeyTask();
                 $jobPosterTask->job_poster_id = $jobPoster->id;
-                $jobPosterTask->fill(collect($task)->only(['en', 'fr'])->toArray());
+                $jobPosterTask->fill(collect($task)->toArray());
                 $jobPosterTask->save();
             }
         }
 
-        $taskArray = $jobPoster->fresh()->job_poster_key_tasks->map($toApiArray);
-        return response()->json($taskArray);
+        return JsonResource::collection($jobPoster->fresh()->job_poster_key_tasks);
     }
 
     /**

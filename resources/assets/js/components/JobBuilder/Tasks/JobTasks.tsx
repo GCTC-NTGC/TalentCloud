@@ -110,7 +110,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps &
       (task: JobPosterKeyTask): TaskFormValues => ({
         id: task.id,
         jobPosterId: task.job_poster_id,
-        description: task[locale].description,
+        description: task.description[locale],
       }),
     ),
   });
@@ -129,29 +129,28 @@ const JobTasks: React.FunctionComponent<JobTasksProps &
           if (keyTask) {
             return {
               ...keyTask,
-              [locale]: {
-                description: task.description,
+              description: {
+                en: locale === "en" ? task.description : keyTask.description.en,
+                fr: locale === "fr" ? task.description : keyTask.description.fr,
               },
             };
           }
           return {
             id: 0,
             job_poster_id: task.jobPosterId,
-            en: {
-              description: locale === "en" ? task.description : "",
-            },
-            fr: {
-              description: locale === "fr" ? task.description : "",
+            description: {
+              en: locale === "en" ? task.description : "",
+              fr: locale === "fr" ? task.description : "",
             },
           };
         },
       )
       .filter((task: JobPosterKeyTask) => {
-        const { description } = task[locale];
+        const { description } = task;
         return (
           description !== undefined &&
           description !== null &&
-          description !== ""
+          description[locale] !== ""
         );
       });
   };

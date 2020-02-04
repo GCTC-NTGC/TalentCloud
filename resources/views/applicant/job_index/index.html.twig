@@ -4,132 +4,97 @@
     Applicant: Browse - Index
 
 ============================================================================= #}
-<section
-    class="browse__index">
-
-    <div
-        class="container--layout-xl">
-
-        {% if jobs is empty %}
-
-            <div class="container--copy browse__index-job-null">
-                <div class="null-alert">
-                    <h2>{{ job_index.index.null_alert.title }}</h2>
-                    <p>{{ job_index.index.null_alert.copy_01 }}</p>
-                    <hr>
-                    <p>{{ job_index.index.null_alert.copy_02|replace({'%link%': '<a href="' ~ job_index.index.null_alert.link ~ '"> ' ~ job_index.index.null_alert.link_title ~'</a>'})|raw }}</p>
-                </div>
-            </div>
-
-        {% endif %}
-
-        <div id="react-jobs" class="flex-grid">
-
-            {% for job in jobs %}
-
-                <a
-                    class="browse__index-job box med-1of2 lg-1of3"
-                    href="{{ route('jobs.show', job.id) }}"
-                    title="{{ job_index.index.view_title }} {{ job.title }}.">
-
-                    <div
-                        class="browse__index-job-card">
-
-                        <div
-                            class="browse__index-job-card-title">
-                            <h2
-                                class="heading--03">
-                                {{ job.title }}
-                            </h2>
-                            <span>
-                                {{ job.department.name }}
-                            </span>
-                        </div>
-
-                        <div
-                            class="browse__index-job-card-content flex-grid">
-
-                            <div
-                                class="box small-1of2">
-                                <span>
-                                    {{ job_index.index.location_label }}
-                                </span>
-                                <p>
-                                    {{ job.city }}, {{ job.province.value }}
-                                </p>
-                            </div>
-
-                            <div
-                                class="box small-1of2">
-                                <span>
-                                    {{ job_index.index.salary_label }}
-                                </span>
-                                {% if (app.getLocale() == "en") %}
-                                    <p>
-                                        ${{ job.salary_min|number_format }} - ${{ job.salary_max|number_format }}
-                                    </p>
-                                {% else %}
-                                    <p>
-                                        {{ job.salary_min|number_format('0',' ',' ') }}&nbsp;$ - {{ job.salary_max|number_format('0',' ',' ') }}&nbsp;$
-                                    </p>
-                                {% endif %}
-                            </div>
-
-                            <div
-                                class="box small-1of2">
-                                <span>
-                                    {{ job_index.index.duration_label }}
-                                </span>
-                                <p>
-                                    {{ job_index.index.duration[job.job_term.name]|trans_choice(job.term_qty) }}
-                                </p>
-                            </div>
-
-                            <div
-                                class="box small-1of2">
-                                <span>
-                                    {{ job_index.index.remote_label }}
-                                </span>
-                                <p>
-                                    {{ job_index.index.remote_work_allowed[job.remote_work_allowed] }}
-                                </p>
-                            </div>
-
-                        </div>
-
-                        <div
-                            class="browse__index-job-card-metadata flex-grid">
-
-                            <div class="box small-1of2">
-                                <span>{{ job_index.index.apply_by_label|trans }}</span>
-                                {% if job.close_date_time.isFuture() %}
-                                    <p><i class="fas fa-calendar"></i> {{ humanizeLastDay(job.close_date_time) }}</p>
-                                {% else %}
-                                    {{ job_index.index.job_closed }}
-                                {% endif %}
-                            </div>
-                            <div class="box small-1of2">
-                                <span>
-                                    {{ job_index.index.applicants_label|trans_choice(job.submitted_applications_count) }}
-                                </span>
-                                <p>{{ job.submitted_applications_count }}</p>
-                            </div>
-
-                        </div>
-
-                        <div
-                            class="browse__index-job-card-cta">
-                            {{ job_index.index.button_label }}
-                        </div>
-
-                    </div>
-
-                </a>
-
-            {% endfor %}
-
-        </div>
-
-    </div>
-
+<section class="browse__index">
+	<div class="container--layout-xl">
+		{% if jobs is empty %}
+			<div class="container--copy browse__index-job-null">
+				<div class="null-alert">
+					<h2>{{ job_index.index.null_alert.title }}</h2>
+					<p>{{ job_index.index.null_alert.copy_01 }}</p>
+					<hr>
+					<p>{{ job_index.index.null_alert.copy_02|replace({'%link%': '<a href="' ~ job_index.index.null_alert.link ~ '"> ' ~ job_index.index.null_alert.link_title ~'</a>'})|raw }}</p>
+				</div>
+			</div>
+		{% endif %}
+		<div id="react-jobs" class="flex-grid">
+			{% for job in jobs %}
+				<a class="browse__index-job box med-1of2 lg-1of3" href="{{ route('jobs.show', job.id) }}" title="{{ job_index.index.view_title }} {{ job.title }}.">
+					<div class="browse__index-job-card">
+						<div class="browse__index-job-card-title">
+							<h2 class="heading--03">
+								{{ job.title }}
+							</h2>
+							<span>
+								{{ job.department.name }}
+							</span>
+						</div>
+						<div class="browse__index-job-card-content flex-grid">
+							<div class="box small-1of2">
+								<span>
+									{{ job_index.index.location_label }}
+								</span>
+								<p>
+									{{ job.city }},
+									{{ job.province.value }}
+								</p>
+							</div>
+							<div class="box small-1of2">
+								<span>
+									{{ job_index.index.salary_label }}
+								</span>
+								{% if (app.getLocale() == "en") %}
+									<p>
+										${{ job.salary_min|number_format }}
+										- ${{ job.salary_max|number_format }}
+									</p>
+								{% else %}
+									<p>
+										{{ job.salary_min|number_format('0',' ',' ') }}&nbsp;$ -
+										{{ job.salary_max|number_format('0',' ',' ') }}&nbsp;$
+									</p>
+								{% endif %}
+							</div>
+							<div class="box small-1of2">
+								<span>
+									{{ job_index.index.duration_label }}
+								</span>
+								<p>
+									{{ job_index.index.duration[job.job_term.name]|trans_choice(job.term_qty) }}
+								</p>
+							</div>
+							<div class="box small-1of2">
+								<span>
+									{{ job_index.index.remote_label }}
+								</span>
+								<p>
+									{{ job_index.index.remote_work_allowed[job.remote_work_allowed] }}
+								</p>
+							</div>
+						</div>
+						<div class="browse__index-job-card-metadata flex-grid">
+							<div class="box small-1of2">
+								<span>{{ job_index.index.apply_by_label|trans }}</span>
+								{% if job.close_date_time.isFuture() %}
+									<p>
+										<i class="fas fa-calendar"></i>
+										{{ humanizeLastDay(job.close_date_time) }}</p>
+								{% else %}
+									{{ job_index.index.job_closed }}
+								{% endif %}
+							</div>
+							<div class="box small-1of2">
+								<span>
+									{{ job_index.index.applicants_label|trans_choice(job.submitted_applications_count) }}
+								</span>
+								<p>{{ job.submitted_applications_count }}</p>
+							</div>
+						</div>
+						<div class="browse__index-job-card-cta">
+							{{ job_index.index.button_label }}
+						</div>
+					</div>
+				</a>
+			{% endfor %}
+		</div>
+	</div>
 </section>
