@@ -31,7 +31,8 @@ class AddTranslationsToJobPostersAsJson extends Migration
         foreach ($job_posters as $job) {
             $jobTranslationsEnglish = DB::table('job_poster_translations')->where('job_poster_id', $job->id)->where('locale', 'en')->first();
 
-            if (!$jobTranslationsEnglish) {
+            if ($jobTranslationsEnglish === null) {
+                $jobTranslationsEnglish = new stdClass();
                 $jobTranslationsEnglish->locale = 'en';
                 $jobTranslationsEnglish->city = '';
                 $jobTranslationsEnglish->title = '';
@@ -47,7 +48,8 @@ class AddTranslationsToJobPostersAsJson extends Migration
 
             $jobTranslationsFrench = DB::table('job_poster_translations')->where('job_poster_id', $job->id)->where('locale', 'fr')->first();
 
-            if (!$jobTranslationsFrench) {
+            if ($jobTranslationsFrench === null) {
+                $jobTranslationsFrench = new stdClass();
                 $jobTranslationsFrench->locale = 'fr';
                 $jobTranslationsFrench->city = '';
                 $jobTranslationsFrench->title = '';
