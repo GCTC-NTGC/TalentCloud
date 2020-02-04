@@ -10,10 +10,8 @@ return [
     'hero' => [
         'heading' => 'Nuage de talents',
         'heading_alt' => 'La feuille d\'érable canadienne.',
-        // 'subheading' => '',
         'button' => [
             'text' => 'Inscrivez-vous',
-            'title' => ''
         ]
     ],
     'banner' => [

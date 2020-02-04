@@ -22,7 +22,7 @@
 						<img src="/images/maple-leaf.svg" alt="{{ hr_home.hero.heading_alt }}">
 					</h1>
 					{% if auth_guest() %}
-						<a data-c-button="outline(white)" data-c-radius="rounded" data-c-margin="top(3)" href="{{ route('hr_advisor.register') }}" title="{{ hr_home.hero.button.title }}" data-c-button="outline(white)" data-c-radius="rounded">
+						<a data-c-button="outline(white)" data-c-radius="rounded" data-c-margin="top(3)" href="{{ route('hr_advisor.register') }}" title="" data-c-button="outline(white)" data-c-radius="rounded">
 							{{ hr_home.hero.button.text }}
 						</a>
 					{% endif %}

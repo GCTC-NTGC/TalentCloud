@@ -10,10 +10,8 @@ return [
     'hero' => [
         'heading' => 'Talent Cloud',
         'heading_alt' => 'The Canadian maple leaf.',
-        // 'subheading' => '',
         'button' => [
             'text' => 'Sign Up',
-            'title' => ''
         ]
     ],
     'banner' => [
