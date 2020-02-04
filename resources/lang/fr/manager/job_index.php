@@ -33,6 +33,8 @@ return [
     'edit_screening_plans' => 'Modifier le plan d\'évaluation',
     'send_for_review' => 'Envoyer à des fins de révision',
     'send_this_review' => 'Envoyez cette affiche pour révision.',
+    'view_job_summary' => '',
+    'view_summary_title' => '',
     'review_applicants' => 'Réviser les candidats',
     'review_this_applicants' => 'Révisez les candidats qui ont postulé à cet emploi.',
     'delete_this_poster' => 'Supprimer cet affiche ébauche',
