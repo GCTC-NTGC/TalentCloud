@@ -30,7 +30,36 @@ class AddTranslationsToManagersAsJson extends Migration
 
         foreach ($managers as $manager) {
             $managerTranslationsEnglish = DB::table('manager_translations')->where('manager_id', $manager->id)->where('locale', 'en')->first();
+
+            if (!$managerTranslationsEnglish) {
+                $managerTranslationsEnglish->locale = 'en';
+                $managerTranslationsEnglish->about_me = '';
+                $managerTranslationsEnglish->greatest_accomplishment = '';
+                $managerTranslationsEnglish->division = '';
+                $managerTranslationsEnglish->position = '';
+                $managerTranslationsEnglish->leadership_style = '';
+                $managerTranslationsEnglish->employee_learning = '';
+                $managerTranslationsEnglish->expectations = '';
+                $managerTranslationsEnglish->education = '';
+                $managerTranslationsEnglish->career_journey = '';
+                $managerTranslationsEnglish->learning_path = '';
+            }
+
             $managerTranslationsFrench = DB::table('manager_translations')->where('manager_id', $manager->id)->where('locale', 'fr')->first();
+
+            if (!$managerTranslationsFrench) {
+                $managerTranslationsFrench->locale = 'fr';
+                $managerTranslationsFrench->about_me = '';
+                $managerTranslationsFrench->greatest_accomplishment = '';
+                $managerTranslationsFrench->division = '';
+                $managerTranslationsFrench->position = '';
+                $managerTranslationsFrench->leadership_style = '';
+                $managerTranslationsFrench->employee_learning = '';
+                $managerTranslationsFrench->expectations = '';
+                $managerTranslationsFrench->education = '';
+                $managerTranslationsFrench->career_journey = '';
+                $managerTranslationsFrench->learning_path = '';
+            }
 
             $manager->about_me = collect([$managerTranslationsEnglish->locale => $managerTranslationsEnglish->about_me, $managerTranslationsFrench->locale => $managerTranslationsFrench->about_me])->toJson();
 
