@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
+
 /**
  * Class HrAdvisor
  *
@@ -21,6 +23,8 @@ namespace App\Models;
  */
 class HrAdvisor extends BaseModel
 {
+    use CrudTrait;
+
     /**
      * @var string[] $casts
      */
