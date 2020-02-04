@@ -23,11 +23,11 @@ class AddTranslationsToWorkEnvironmentAsJson extends Migration
             $envTranslationsEnglish = DB::table('work_environment_translations')->where('work_environment_id', $env->id)->where('locale', 'en')->first();
             $envTranslationsFrench = DB::table('work_environment_translations')->where('work_environment_id', $env->id)->where('locale', 'fr')->first();
 
-            $env->narrative_text = collect([$envTranslationsEnglish->locale => $envTranslationsEnglish->value, $envTranslationsFrench->locale => $envTranslationsFrench->value])->toJson();
+            $env->things_to_know = collect([$envTranslationsEnglish->locale => $envTranslationsEnglish->things_to_know, $envTranslationsFrench->locale => $envTranslationsFrench->things_to_know])->toJson();
 
             DB::table('work_environments')->where('id', $env->id)->update([
                 'id' => $env->id,
-                'things_to_know' => $env->narrative_text,
+                'things_to_know' => $env->things_to_know,
             ]);
         }
 

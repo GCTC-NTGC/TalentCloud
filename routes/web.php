@@ -682,7 +682,7 @@ Route::group(['prefix' => 'api'], function (): void {
         ->where('job', '[0-9]+')
         ->middleware('can:submitForReview,job')
         ->name('api.jobs.submit');
-    Route::resource('jobs', 'Api\JobApiController')->only([
+    Route::resource('jobs', 'Api\JobController')->only([
         'show', 'store', 'update', 'index'
     ])->names([ // Specify custom names because default names collied with existing routes.
         'show' => 'api.jobs.show',
@@ -695,7 +695,7 @@ Route::group(['prefix' => 'api'], function (): void {
         ->middleware('can:review,application')
         ->name('api.application_reviews.update');
 
-    Route::resource('managers', 'Api\ManagerApiController')->only([
+    Route::resource('managers', 'Api\ManagerController')->only([
         'show', 'update'
     ])->names([ // Specify custom names because default names collied with existing routes.
         'show' => 'api.managers.show',

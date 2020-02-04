@@ -9,6 +9,7 @@ use App\Models\Manager;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
+use App\Models\HrAdvisor;
 use Tests\TestCase;
 
 class JobControllerTest extends TestCase
@@ -25,6 +26,20 @@ class JobControllerTest extends TestCase
         parent::setUp();
 
         $this->faker = \Faker\Factory::create();
+    }
+
+    protected function jobToArray(JobPoster $job)
+    {
+        // $criteria = $job->criteria;
+        // $toApiArray = function ($model) {
+        // return array_merge($model->toArray(), $model->getTranslations());
+        // };
+        // $criteriaTranslated = $criteria->map($toApiArray);
+        $jobArray = array_merge($job->toArray(), [
+            'criteria' => $job->criteria->map->toArray(),
+            'manager' => $job->manager->toArray()
+        ]);
+        return $job->toArray();
     }
 
     /**
@@ -270,5 +285,129 @@ class JobControllerTest extends TestCase
             ->actingAs($otherManager)
             ->json('post', "api/jobs/$job->id/submit");
         $response->assertForbidden();
+    }
+
+    /**
+     * Tests the job index response for all user roles except Hr Advisor
+     *
+     * @return void
+     */
+    public function testIndex(): void
+    {
+        $demoJob = factory(JobPoster::class)->states(['draft', 'byDemoManager'])->create();
+        $otherDemoJob = factory(JobPoster::class)->states(['draft', 'byDemoManager'])->create();
+        $draftJob = factory(JobPoster::class)->states(['draft', 'byUpgradedManager'])->create();
+        $reviewJob = factory(JobPoster::class)->states(['review_requested', 'byUpgradedManager'])->create();
+        $openJob = factory(JobPoster::class)->states(['published', 'byUpgradedManager'])->create();
+        $closedJob = factory(JobPoster::class)->states(['closed', 'byUpgradedManager'])->create();
+
+        $demoJson = $this->jobToArray($demoJob);
+        $draftJson = $this->jobToArray($draftJob);
+        $reviewJson = $this->jobToArray($reviewJob);
+        $openJson = $this->jobToArray($openJob);
+        $closedJson = $this->jobToArray($closedJob);
+
+        // A guest recieves open and closed jobs
+        $guestResponse = $this->json('get', route('api.jobs.index'));
+        $guestResponse->assertJsonCount(2);
+        $guestResponse->assertJsonFragment($openJson);
+        $guestResponse->assertJsonFragment($closedJson);
+
+        // An demo manager (ie applicant) can see open/closed jobs, and its own demo jobs
+        $applicantResponse = $this->actingAs($demoJob->manager->user)->json('get', route('api.jobs.index'));
+        $applicantResponse->assertJsonCount(3);
+        $applicantResponse->assertJsonFragment($demoJson);
+        $applicantResponse->assertJsonFragment($openJson);
+        $applicantResponse->assertJsonFragment($closedJson);
+
+        // A manager can view its own draft job, and open/closed jobs
+        $draftManagerResponse = $this->actingAs($draftJob->manager->user)->json('get', route('api.jobs.index'));
+        $draftManagerResponse->assertJsonCount(3);
+        $draftManagerResponse->assertJsonFragment($draftJson);
+        $draftManagerResponse->assertJsonFragment($openJson);
+        $draftManagerResponse->assertJsonFragment($closedJson);
+
+        // A manager can also view its on job in review
+        $reviewManagerResponse = $this->actingAs($reviewJob->manager->user)->json('get', route('api.jobs.index'));
+        $reviewManagerResponse->assertJsonCount(3);
+        $reviewManagerResponse->assertJsonFragment($reviewJson);
+        $reviewManagerResponse->assertJsonFragment($openJson);
+        $reviewManagerResponse->assertJsonFragment($closedJson);
+
+        // An admin can view all jobs
+        $adminUser = factory(User::class)->state('admin')->create();
+        $adminResponse = $this->actingAs($adminUser)->json('get', route('api.jobs.index'));
+        $adminResponse->assertJsonCount(6);
+    }
+
+    public function testIndexForHr()
+    {
+        // An HR manager can view open/closed jobs, and in-review (but not draft) jobs in its own department
+        $deptId = 1;
+        $otherDeptId = 2;
+        $hrAdvisor = factory(HrAdvisor::class)->create([
+            'department_id' => $deptId,
+        ]);
+        $managerInDept = factory(Manager::class)->state('upgraded')->create([
+            'department_id' => $deptId,
+        ]);
+        $managerOtherDept = factory(Manager::class)->state('upgraded')->create([
+            'department_id' => $otherDeptId,
+        ]);
+
+        $draftInDept = factory(JobPoster::class)->state('draft')->create([
+            'department_id' => $deptId,
+            'manager_id' => $managerInDept->id,
+        ]);
+        $draftOtherDept = factory(JobPoster::class)->state('draft')->create([
+            'department_id' => $otherDeptId,
+            'manager_id' => $managerOtherDept->id,
+        ]);
+
+        $reviewInDept = factory(JobPoster::class)->state('review_requested')->create([
+            'department_id' => $deptId,
+            'manager_id' => $managerInDept->id,
+        ]);
+        $reviewOtherDept = factory(JobPoster::class)->state('review_requested')->create([
+            'department_id' => $otherDeptId,
+            'manager_id' => $managerOtherDept->id,
+        ]);
+
+        $openJob = factory(JobPoster::class)->states(['published', 'byUpgradedManager'])->create();
+        $closedJob = factory(JobPoster::class)->states(['closed', 'byUpgradedManager'])->create();
+
+        $hrResponse = $this->actingAs($hrAdvisor->user)->json('get', route('api.jobs.index'));
+
+        $hrResponse->assertJsonMissingExact($this->jobToArray($draftInDept));
+        $hrResponse->assertJsonMissingExact($this->jobToArray($draftOtherDept));
+        $hrResponse->assertJsonMissingExact($this->jobToArray($reviewOtherDept));
+        $hrResponse->assertJsonFragment($this->jobToArray($reviewInDept));
+        $hrResponse->assertJsonFragment($this->jobToArray($openJob));
+        $hrResponse->assertJsonFragment($this->jobToArray($closedJob));
+    }
+
+    public function testIndexDeptFilter(): void
+    {
+        $deptId = 1;
+        $otherDeptId = 2;
+        $managerInDept = factory(Manager::class)->state('upgraded')->create([
+            'department_id' => $deptId,
+        ]);
+        $managerOtherDept = factory(Manager::class)->state('upgraded')->create([
+            'department_id' => $otherDeptId,
+        ]);
+
+        $inDept = factory(JobPoster::class)->state('published')->create([
+            'department_id' => $deptId,
+            'manager_id' => $managerInDept->id,
+        ]);
+        $otherDept = factory(JobPoster::class)->state('published')->create([
+            'department_id' => $otherDeptId,
+            'manager_id' => $managerOtherDept->id,
+        ]);
+
+        $response = $this->json('get', route('api.jobs.index', ['department_id' => $deptId]));
+        $response->assertJsonFragment($this->jobToArray($inDept));
+        $response->assertJsonMissingExact($this->jobToArray($otherDept));
     }
 }

@@ -34,7 +34,7 @@
                                     <label for="email">{{ login.email }}</label>
                                     <span>{{ trans("forms.required") }}</span>
                                     <div>
-                                        <input id="email" name="email" placeholder="e.g. email@website.com" required type="email" value="{{ old('email') }}"/>
+                                        <input id="email" name="email" placeholder="{{ login.email_placeholder }}" required type="email" value="{{ old('email') }}"/>
                                     </div>
                                     <span>{{ trans("forms.error") }}</span>
                                 </div>

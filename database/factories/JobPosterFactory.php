@@ -145,6 +145,13 @@ $factory->state(
             return factory(Manager::class)->state('upgraded')->create()->id;
     }]
 );
+$factory->state(
+    JobPoster::class,
+    'byDemoManager',
+    ['manager_id' => function () {
+            return factory(Manager::class)->state('demo')->create()->id;
+    }]
+);
 
 $factory->state(
     JobPoster::class,

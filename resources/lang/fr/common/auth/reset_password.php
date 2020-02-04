@@ -14,6 +14,7 @@ return [
     'header' => 'Réinitialiser le mot de passe',
     'return' => "Retour à la page d'accueil",
     'email' => 'Courriel',
+    'email_placeholder' => 'p. ex., courriel@siteweb.com',
     'password' => 'Mot de passe',
     'confirm_password' => 'Confirmez le mot de passe',
     'submit' => 'Réinitialiser le mot de passe',

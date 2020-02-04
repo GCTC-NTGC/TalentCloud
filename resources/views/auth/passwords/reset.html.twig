@@ -36,7 +36,7 @@
                                         <label for="email">{{ reset_password.email }}</label>
                                         <span>Required</span>
                                         <div>
-                                            <input id="email" placeholder="e.g. email@website.com" required
+                                            <input id="email" placeholder="{{ reset_password.email_placeholder }}" required
                                             name="email" type="email" value="{{ old('email') }}" />
                                         </div>
                                         <span>This input has an error.</span>

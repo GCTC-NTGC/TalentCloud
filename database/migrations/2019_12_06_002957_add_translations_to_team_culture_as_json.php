@@ -26,13 +26,13 @@ class AddTranslationsToTeamCultureAsJson extends Migration
             $cultureTranslationsEnglish = DB::table('team_culture_translations')->where('team_culture_id', $culture->id)->where('locale', 'en')->first();
             $cultureTranslationsFrench = DB::table('team_culture_translations')->where('team_culture_id', $culture->id)->where('locale', 'fr')->first();
 
-            $culture->narrative_text = collect([$cultureTranslationsEnglish->locale => $cultureTranslationsEnglish->value, $cultureTranslationsFrench->locale => $cultureTranslationsFrench->value])->toJson();
+            $culture->narrative_text = collect([$cultureTranslationsEnglish->locale => $cultureTranslationsEnglish->narrative_text, $cultureTranslationsFrench->locale => $cultureTranslationsFrench->narrative_text])->toJson();
 
-            $culture->operating_context = collect([$cultureTranslationsEnglish->locale => $cultureTranslationsEnglish->value, $cultureTranslationsFrench->locale => $cultureTranslationsFrench->value])->toJson();
+            $culture->operating_context = collect([$cultureTranslationsEnglish->locale => $cultureTranslationsEnglish->operating_context, $cultureTranslationsFrench->locale => $cultureTranslationsFrench->operating_context])->toJson();
 
-            $culture->narrative_text = collect([$cultureTranslationsEnglish->locale => $cultureTranslationsEnglish->value, $cultureTranslationsFrench->locale => $cultureTranslationsFrench->value])->toJson();
+            $culture->what_we_value = collect([$cultureTranslationsEnglish->locale => $cultureTranslationsEnglish->what_we_value, $cultureTranslationsFrench->locale => $cultureTranslationsFrench->what_we_value])->toJson();
 
-            $culture->narrative_text = collect([$cultureTranslationsEnglish->locale => $cultureTranslationsEnglish->value, $cultureTranslationsFrench->locale => $cultureTranslationsFrench->value])->toJson();
+            $culture->how_we_work = collect([$cultureTranslationsEnglish->locale => $cultureTranslationsEnglish->how_we_work, $cultureTranslationsFrench->locale => $cultureTranslationsFrench->how_we_work])->toJson();
 
             DB::table('team_cultures')->where('id', $culture->id)->update([
                 'id' => $culture->id,

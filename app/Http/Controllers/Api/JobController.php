@@ -29,27 +29,6 @@ class JobController extends Controller
     }
 
     /**
-     * Convert a job poster to the array expected by API requests,
-     * with all criteria,
-     * and with translation arrays in both languages.
-     *
-     * @param  \App\Models\JobPoster $job Incoming Job Poster object.
-     * @return mixed[]
-     */
-    private function jobToArray(JobPoster $job)
-    {
-        $criteria = Criteria::where('job_poster_id', $job->id)->get();
-
-        $toApiArray = function ($model) {
-            return array_merge($model->toArray(), $model->getTranslationsArray());
-        };
-        $criteriaTranslated = $criteria->map($toApiArray);
-
-        $jobArray = array_merge($job->toApiArray(), ['criteria' => $criteriaTranslated]);
-        return $jobArray;
-    }
-
-    /**
      * Return the list of all jobs the user is authorized to view,
      * using all query parameters as search filters.
      *
@@ -63,7 +42,7 @@ class JobController extends Controller
             return Gate::allows('view', $job);
         })->values();
         return response()->json($viewableJobs->map(function ($job) {
-            return $this->jobToArray($job);
+            return new JobPosterResource($job);
         }));
     }
 

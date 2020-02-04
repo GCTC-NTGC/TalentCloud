@@ -151,6 +151,11 @@ $factory->state(Manager::class, 'upgraded', [
         return factory(User::class)->state('upgradedManager')->create()->id;
     },
 ]);
+$factory->state(Manager::class, 'demo', [
+    'user_id' => function () {
+        return factory(User::class)->state('applicant')->create()->id;
+    },
+]);
 
 $factory->afterCreating(Manager::class, function ($manager) : void {
     $manager->team_culture()->save(factory(TeamCulture::class)->create([
