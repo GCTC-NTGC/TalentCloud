@@ -69,10 +69,17 @@ class JobPosterCrudController extends CrudController
         ]);
 
         $this->crud->addColumn([
+            'name' => 'soft_published',
+            'label' => 'Soft Published',
+            'type' => 'check',
+        ]);
+
+        $this->crud->addColumn([
             'name' => 'published',
             'label' => 'Published',
             'type' => 'check',
         ]);
+
         $this->crud->addColumn([
             'name' => 'manager_user_name',
             'type' => 'closure',
@@ -197,7 +204,7 @@ class JobPosterCrudController extends CrudController
             $this->crud->addField([
                 'name' => 'soft_published',
                 'type' => 'checkbox',
-                'label' => 'Soft Publish',
+                'label' => 'Soft Publish (Do not list this poster on the Browse Jobs page. You must access it with the direct URL)',
             ]);
 
             $this->crud->addField([
