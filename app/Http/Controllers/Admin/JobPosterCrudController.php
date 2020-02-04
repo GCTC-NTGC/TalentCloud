@@ -204,7 +204,7 @@ class JobPosterCrudController extends CrudController
             $this->crud->addField([
                 'name' => 'soft_published',
                 'type' => 'checkbox',
-                'label' => 'Soft Publish (Do not list this poster on the Browse Jobs page. You must access it with the direct URL)',
+                'label' => 'Soft Publish (Do not list this poster on the Browse Jobs page. You must access it with the direct URL.)',
             ]);
 
             $this->crud->addField([
