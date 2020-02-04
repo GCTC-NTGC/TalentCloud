@@ -16,6 +16,16 @@ export function isScreenedOut(application: Application): boolean {
 }
 
 /**
+ * Returns true if application has been screened in.
+ */
+export function isStillIn(application: Application): boolean {
+  return application.application_review &&
+    application.application_review.review_status
+    ? application.application_review.review_status.name === "still_in"
+    : false; // non-reviewed applications have not been screened-out yet
+}
+
+/**
  * Return the bucket this application belongs to. Either:
  *  priority
  *  citizen
@@ -53,7 +63,11 @@ export function applicationCategory(application: Application): Category {
   if (isScreenedOut(application)) {
     return "screened-out";
   }
+  if (isStillIn(application)) {
+    return "primary";
+  }
   const bucket = applicationBucket(application);
+
   switch (bucket) {
     case "priority":
     case "citizen":
