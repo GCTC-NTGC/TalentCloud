@@ -23,7 +23,7 @@ class AddTranslationsToJobPosterKeyTasksAsJson extends Migration
             $taskTranslationsEnglish = DB::table('job_poster_key_task_translations')->where('job_poster_key_task_id', $task->id)->where('locale', 'en')->first();
             $taskTranslationsFrench = DB::table('job_poster_key_task_translations')->where('job_poster_key_task_id', $task->id)->where('locale', 'fr')->first();
 
-            $task->description = collect([$taskTranslationsEnglish->locale => $taskTranslationsEnglish->value, $taskTranslationsFrench->locale => $taskTranslationsFrench->value])->toJson();
+            $task->description = collect([$taskTranslationsEnglish->locale => $taskTranslationsEnglish->description, $taskTranslationsFrench->locale => $taskTranslationsFrench->description])->toJson();
 
             DB::table('job_poster_key_tasks')->where('id', $task->id)->update([
                 'id' => $task->id,
