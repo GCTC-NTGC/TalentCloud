@@ -13,7 +13,7 @@ return [
         // 'subheading' => '',
         'button' => [
             'text' => 'Sign Up',
-            'title' => 'Sign up as a manager to demo Talent Cloud\'s manager portal.'
+            'title' => ''
         ]
     ],
     'banner' => [

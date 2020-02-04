@@ -13,7 +13,7 @@ return [
         // 'subheading' => '',
         'button' => [
             'text' => 'Inscrivez-vous',
-            'title' => 'Inscrivez-vous à titre de gestionnaire pour faire l’essai du portail des gestionnaires du Nuage de talents.'
+            'title' => ''
         ]
     ],
     'banner' => [
