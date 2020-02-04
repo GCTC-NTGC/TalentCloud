@@ -31,7 +31,8 @@ class AddTranslationsToManagersAsJson extends Migration
         foreach ($managers as $manager) {
             $managerTranslationsEnglish = DB::table('manager_translations')->where('manager_id', $manager->id)->where('locale', 'en')->first();
 
-            if (!$managerTranslationsEnglish) {
+            if ($managerTranslationsEnglish === null) {
+                $managerTranslationsEnglish = new stdClass();
                 $managerTranslationsEnglish->locale = 'en';
                 $managerTranslationsEnglish->about_me = '';
                 $managerTranslationsEnglish->greatest_accomplishment = '';
@@ -47,7 +48,8 @@ class AddTranslationsToManagersAsJson extends Migration
 
             $managerTranslationsFrench = DB::table('manager_translations')->where('manager_id', $manager->id)->where('locale', 'fr')->first();
 
-            if (!$managerTranslationsFrench) {
+            if ($managerTranslationsFrench === null) {
+                $managerTranslationsFrench = new stdClass();
                 $managerTranslationsFrench->locale = 'fr';
                 $managerTranslationsFrench->about_me = '';
                 $managerTranslationsFrench->greatest_accomplishment = '';
