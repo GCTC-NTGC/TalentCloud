@@ -322,6 +322,12 @@ Route::group(
                             ->middleware('can:view,jobPoster')
                             ->name('manager.jobs.show');
 
+                        /* View Job Summary */
+                        Route::get('jobs/{job}/summary', 'JobSummaryController@show')
+                        ->middleware('can:manage,job')
+                        ->name('manager.jobs.summary')
+                        ->where('jobPoster', '[0-9]+');
+
                         /* Job Builder */
                         Route::get(
                             'jobs/builder',
@@ -371,6 +377,15 @@ Route::group(
                         )
                             ->where('jobPoster', '[0-9]+')
                             ->name('manager.jobs.review');
+
+                        /* Job Preview */
+                        Route::get(
+                            'jobs/{jobPoster}',
+                            'JobController@show'
+                        )
+                            ->middleware('can:view,jobPoster')
+                            ->where('jobPoster', '[0-9]+')
+                            ->name('manager.jobs.preview');
 
                         /* Delete Job */
                         Route::delete('jobs/{jobPoster}', 'JobController@destroy')

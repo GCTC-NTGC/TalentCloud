@@ -72,6 +72,8 @@ class WhichPortal
             return 'manager.' . $routeName;
         } elseif (WhichPortal::isAdminPortal()) {
             return 'admin.' . $routeName;
+        } elseif (WhichPortal::isHrPortal()) {
+            return 'hr_advisor.' . $routeName;
         }
         return $routeName;
     }
