@@ -13,7 +13,6 @@ export function localizeField<T>(
   model: T,
   field: TranslatableKeys<T>,
 ): string | null {
-  const a = model[field];
   return model[field][locale];
 }
 export function localizeFieldNonNull<T>(
@@ -21,7 +20,6 @@ export function localizeFieldNonNull<T>(
   model: T,
   field: TranslatableKeysNonNull<T>,
 ): string {
-  const a = model[field];
   return model[field][locale];
 }
 
