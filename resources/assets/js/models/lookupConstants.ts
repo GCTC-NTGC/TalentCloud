@@ -110,7 +110,7 @@ export const CommentTypeId = {
 };
 
 export const LocationId = {
-  generic: "job/generic",
+  jobGeneric: "job/generic",
   heading: "job/heading",
   basicInfo: "job/basicInfo",
   impact: "job/impact",
@@ -121,6 +121,10 @@ export const LocationId = {
   summary: "summary",
   preview: "hr/preview",
   screeningPlan: "screeningPlan",
+  applicantsGeneric: "applicants/generic",
+  underConsideration: "applicants/underConsideration",
+  optionalConsideration: "applicants/optionalConsideration",
+  notUnderConsideration: "applicants/notUnderConsideration",
 } as const;
 
 export enum JobStatus {

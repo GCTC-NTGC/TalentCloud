@@ -51,7 +51,8 @@ class ApplicationByJobController extends Controller
             'job' => new JsonResource($jobPoster),
             'is_hr_portal' => WhichPortal::isHrPortal(),
             'applications' => $applications,
-            'review_statuses' => ReviewStatus::all()
+            'review_statuses' => ReviewStatus::all(),
+            'isHrAdvisor' => Auth::user()->isHrAdvisor(),
         ]);
     }
 

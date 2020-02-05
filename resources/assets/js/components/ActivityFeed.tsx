@@ -1,182 +1,133 @@
-/* eslint-disable camelcase */
-/* eslint-disable @typescript-eslint/camelcase */
-import React, { useEffect, useState } from "react";
+import * as React from "react";
 import { connect } from "react-redux";
-import { FormattedMessage, useIntl } from "react-intl";
-import Activity from "./Activity";
+import {
+  useIntl,
+  FormattedMessage,
+  MessageDescriptor,
+  defineMessages,
+} from "react-intl";
 import { RootState } from "../store/store";
-import { Comment } from "../models/types";
-import { DispatchType } from "../configureStore";
-import { fetchComments } from "../store/Job/jobActions";
-import { getComments, sortComments } from "../store/Job/jobSelector";
-import { commentTypeMessages } from "./CommentForm";
-import { activityLocationOption } from "../models/localizedConstants";
-import { activityLocationUrl } from "../models/jobUtil";
+import { getComments } from "../store/Job/jobSelector";
+import { hasKey } from "../helpers/queries";
 import { LocationId } from "../models/lookupConstants";
+import CommentForm from "./CommentForm";
+import ActivityList from "./ActivityList";
+import Icon from "./Icon";
+
+const messages = defineMessages({
+  loadingIcon: {
+    id: "activityfeed.loadingIconText",
+    defaultMessage: "Number of activities is loading...",
+    description: "Accessible text for the loading icon",
+  },
+});
 
 interface ActivityFeedProps {
   jobId: number;
   isHrAdvisor: boolean;
-  comments: Comment[];
-  handleFetchComments: (jobId: number) => Promise<void>;
-  filterComments?: (comment: Comment) => boolean;
+  generalLocation: string;
+  locationMessages: { [LocationId: string]: MessageDescriptor };
+  totalActivities: number;
 }
 
 const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
   jobId,
-  comments,
-  handleFetchComments,
   isHrAdvisor,
+  generalLocation,
+  totalActivities,
+  locationMessages,
 }) => {
   const intl = useIntl();
-  const { locale } = intl;
-  if (locale !== "en" && locale !== "fr") {
-    throw new Error("Unknown intl.locale");
-  }
-  const activities: Comment[] = [...comments];
-  const [isActivitiesLoading, setIsActivitiesLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-
-  useEffect((): void => {
-    setIsActivitiesLoading(true);
-    handleFetchComments(jobId)
-      .then(() => {
-        setIsActivitiesLoading(false);
-      })
-      .catch(() => {
-        setIsActivitiesLoading(false);
-        setIsError(true);
-      });
-  }, [handleFetchComments, jobId]);
-
-  const activityType = (type: number | null): string => {
-    switch (type) {
-      case 1:
-        return intl.formatMessage(commentTypeMessages.question);
-      case 2:
-        return intl.formatMessage(commentTypeMessages.recommendation);
-      case 3:
-        return intl.formatMessage(commentTypeMessages.requiredAction);
-      default:
-        return intl.formatMessage(commentTypeMessages.comment);
-    }
-  };
-
-  const isValidLocation = (locationStr: string): boolean => {
-    const validLocations = Object.values(LocationId) as ReadonlyArray<string>;
-    return validLocations.includes(locationStr);
-  };
-
+  const locationOptions = Object.values(LocationId)
+    .filter(location => hasKey(locationMessages, location))
+    .map(location => ({
+      value: location,
+      label: intl.formatMessage(locationMessages[location]),
+    }));
   return (
-    <section data-c-padding="top(1)">
-      <h3 data-c-font-size="h3" data-c-color="c2" data-c-margin="bottom(1)">
-        <FormattedMessage
-          id="activityfeed.title"
-          defaultMessage="Activities"
-          description="Title of activity feed."
-        />
-      </h3>
-      {isError && (
-        <p>
-          <FormattedMessage
-            id="activityfeed.error"
-            defaultMessage="Something went wrong..."
-            description="Error fetching activities."
-          />
-        </p>
-      )}
-      {isActivitiesLoading ? (
-        <div data-c-container="form" data-c-padding="top(1) bottom(1)">
-          <div
-            data-c-background="white(100)"
-            data-c-card
-            data-c-padding="all(double)"
-            data-c-radius="rounded"
-            data-c-align="base(centre)"
+    <section>
+      <div data-c-accordion-group>
+        <div data-c-accordion="" className="">
+          <button
+            aria-expanded="false"
+            data-c-accordion-trigger
+            tabIndex={0}
+            type="button"
+            data-c-background="c1(100)"
+            data-c-padding="all(1)"
           >
-            <p>
+            <div>
+              <h3 data-c-font-size="h3" data-c-color="white">
+                <FormattedMessage
+                  id="activityfeed.header"
+                  defaultMessage="Click to View Comments {totalActivities}"
+                  description="The activity feed header."
+                  values={{
+                    totalActivities:
+                      totalActivities === 0 ? (
+                        <Icon
+                          icon="fa fa-spinner fa-spin"
+                          accessibleText={intl.formatMessage(
+                            messages.loadingIcon,
+                          )}
+                          sematicIcon
+                        />
+                      ) : (
+                        `(${totalActivities})`
+                      ),
+                  }}
+                />
+              </h3>
+            </div>
+            <span data-c-visibility="invisible">
               <FormattedMessage
-                id="activityfeed.loading"
-                defaultMessage="Your activities are loading..."
-                description="Message indicating that the activity feed is still being loaded."
+                id="activityfeed.accordionAccessibleLabel"
+                defaultMessage="Click to view..."
+                description="The accessibility text displayed on the activity feed accordion button."
               />
+            </span>
+            <p
+              data-c-accordion-add=""
+              data-c-font-style="underline"
+              data-c-color="white"
+            >
+              <i className="fas fa-caret-up" />
             </p>
+            <p
+              data-c-accordion-remove=""
+              data-c-font-style="underline"
+              data-c-color="white"
+            >
+              <i className="fas fa-caret-down" />
+            </p>
+          </button>
+          <div
+            aria-hidden="false"
+            data-c-accordion-content
+            data-c-background="grey(20)"
+            data-c-padding="all(1)"
+          >
+            <CommentForm
+              jobId={jobId}
+              isHrAdvisor={isHrAdvisor}
+              location={generalLocation}
+              locationOptions={...locationOptions}
+            />
+            <hr data-c-hr="thin(black)" data-c-margin="top(1)" />
+            <ActivityList jobId={jobId} isHrAdvisor={isHrAdvisor} />
           </div>
         </div>
-      ) : (
-        <>
-          {activities && activities.length !== 0
-            ? activities.map(
-                ({
-                  id,
-                  comment,
-                  location,
-                  created_at,
-                  type_id,
-                }: Comment): React.ReactElement => (
-                  <Activity
-                    key={id}
-                    name="Replace with Manager Name!" // TODO: Replace with user.name after User api is setup.
-                    userRole="Replace with Manager Role!" // TODO: Replace with user.role after User api is setup.
-                    comment={comment}
-                    location={
-                      isValidLocation(location)
-                        ? intl.formatMessage(activityLocationOption(location))
-                        : ""
-                    }
-                    time={created_at}
-                    type={activityType(type_id)}
-                    link={{
-                      url: activityLocationUrl(
-                        isHrAdvisor,
-                        location,
-                        jobId,
-                        locale,
-                      ),
-                      text: "",
-                      title: "",
-                    }}
-                  />
-                ),
-              )
-            : !isError && (
-                <p>
-                  <FormattedMessage
-                    id="activityfeed.noActivities"
-                    defaultMessage="No activities."
-                    description="Message displayed when activities is empty."
-                  />
-                </p>
-              )}
-        </>
-      )}
+      </div>
     </section>
   );
 };
 
 const mapStateToProps = (
   state: RootState,
-  {
-    filterComments = (): boolean => true,
-  }: { filterComments?: (comment: Comment) => boolean },
 ): {
-  comments: Comment[];
+  totalActivities: number;
 } => ({
-  comments: sortComments(getComments(state).filter(filterComments)),
+  totalActivities: getComments(state).length,
 });
 
-const mapDispatchToProps = (
-  dispatch: DispatchType,
-): {
-  handleFetchComments: (jobId: number) => Promise<void>;
-} => ({
-  handleFetchComments: async (jobId: number): Promise<void> => {
-    const result = await dispatch(fetchComments(jobId));
-    if (!result.error) {
-      return Promise.resolve();
-    }
-    return Promise.reject(result.error);
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ActivityFeed);
+export default connect(mapStateToProps, () => ({}))(ActivityFeed);
