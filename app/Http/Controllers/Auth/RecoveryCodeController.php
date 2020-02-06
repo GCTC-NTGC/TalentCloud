@@ -22,6 +22,8 @@ class RecoveryCodeController extends AuthController
             $settings_url = backpack_url('2fa');
         } elseif (WhichPortal::isManagerPortal()) {
             $settings_url = route('manager.settings.edit');
+        } elseif (WhichPortal::isHrPortal()) {
+            $settings_url = route('hr_advisor.settings.edit');
         } elseif (WhichPortal::isApplicantPortal()) {
             $settings_url = route('settings.edit');
         }
@@ -43,6 +45,8 @@ class RecoveryCodeController extends AuthController
             $recovery_codes_url = route('recovery_codes.show');
         } elseif (WhichPortal::isManagerPortal()) {
             $recovery_codes_url = route('manager.recovery_codes.show');
+        } elseif (WhichPortal::isHrPortal()) {
+            $recovery_codes_url = route('hr_advisor.recovery_codes.show');
         } elseif (WhichPortal::isAdminPortal()) {
             $recovery_codes_url = route('admin.recovery_codes.show');
         }

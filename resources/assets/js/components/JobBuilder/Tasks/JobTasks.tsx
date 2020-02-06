@@ -24,6 +24,7 @@ import TextAreaInput from "../../Form/TextAreaInput";
 import { JobPosterKeyTask } from "../../../models/types";
 import { find } from "../../../helpers/queries";
 import { emptyTasks } from "../../../models/jobUtil";
+import { localizeFieldNonNull } from "../../../helpers/localize";
 
 interface JobTasksProps {
   /** Job ID to pass to tasks. */
@@ -110,7 +111,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps &
       (task: JobPosterKeyTask): TaskFormValues => ({
         id: task.id,
         jobPosterId: task.job_poster_id,
-        description: task.description[locale],
+        description: localizeFieldNonNull(locale, task, "description"),
       }),
     ),
   });
