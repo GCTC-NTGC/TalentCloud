@@ -14,6 +14,7 @@ import { RootState } from "../../store/store";
 import { getCriteriaByJob } from "../../store/Job/jobSelector";
 import { getSkills } from "../../store/Skill/skillSelector";
 import { getAssessmentsByJob } from "../../store/Assessment/assessmentSelectorComplex";
+import { localizeField, Locales, getLocale } from "../../helpers/localize";
 
 interface AssessmentPlanTableProps {
   /** All assessments to be displayed in this table */
@@ -29,7 +30,7 @@ const renderAssessmentTypeBlock = (
   assessmentTypeName: string,
   criteria: Criteria[],
   skills: Skill[],
-  locale: string,
+  locale: Locales,
 ): React.ReactElement => {
   const essentialSkills: Skill[] = criteria
     .filter(
@@ -96,7 +97,7 @@ const renderAssessmentTypeBlock = (
                 <li
                   key={`assessmentSummary_type${assessmentTypeId}_essential_skill${skill.id}`}
                 >
-                  {skill.name[locale]}
+                  {localizeField(locale, skill, "name")}
                 </li>
               ),
             )}
@@ -125,7 +126,7 @@ const renderAssessmentTypeBlock = (
                 <li
                   key={`assessmentSummary_type${assessmentTypeId}_asset_skill${skill.id}`}
                 >
-                  {skill.name[locale]}
+                  {localizeField(locale, skill, "name")}
                 </li>
               ),
             )}
@@ -230,7 +231,7 @@ const AssessmentPlanTable: React.FunctionComponent<AssessmentPlanTableProps &
               intl.formatMessage(assessmentType(assessmentTypeId)),
               associatedCriteria,
               skills,
-              intl.locale,
+              getLocale(intl.locale),
             );
           },
         )}
