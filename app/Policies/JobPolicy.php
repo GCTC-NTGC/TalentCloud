@@ -189,4 +189,18 @@ class JobPolicy extends BasePolicy
     {
         return $this->claim($user, $jobPoster);
     }
+
+    /**
+     * Determine whether the user can view assessment plan.
+     *
+     * @param \App\Models\User      $user      User object making the request.
+     * @param \App\Models\JobPoster $jobPoster Job Poster object being acted upon.
+     * @return boolean
+     */
+    public function viewAssessmentPlan(User $user, JobPoster $jobPoster): bool
+    {
+        return $user->isAdmin() ||
+        $user->isManager() && $jobPoster->manager->user_id === $user->id ||
+        $user->isHrAdvisor() && $jobPoster->hr_advisors->contains('user_id', $user->id);
+    }
 }

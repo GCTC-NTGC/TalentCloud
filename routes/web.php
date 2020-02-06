@@ -379,10 +379,11 @@ Route::group(
                             ->name('manager.jobs.destroy');
 
                         /* Screening Plan Builder */
-                        Route::view(
+                        Route::get(
                             'jobs/{jobPoster}/assessment-plan',
-                            'manager/assessment_plan'
+                            'AssessmentPlanController@show'
                         )
+                            ->middleware('can:viewAssessmentPlan,jobPoster')
                             ->where('jobPoster', '[0-9]+')
                             ->name('manager.jobs.screening_plan');
 
@@ -581,6 +582,14 @@ Route::group(
                             ->where('job', '[0-9]+');
 
                         Route::get(
+                            'jobs/{jobPoster}/assessment-plan',
+                            'AssessmentPlanController@show'
+                        )
+                            ->middleware('can:viewAssessmentPlan,jobPoster')
+                            ->where('jobPoster', '[0-9]+')
+                            ->name('hr_advisor.jobs.screening_plan');
+
+                        Route::get(
                             'jobs/{job}/review',
                             'JobBuilderController@hrReview'
                         )
@@ -692,7 +701,10 @@ Route::group(
 /* API routes - currently using same default http auth, but not localized */
 Route::group(['prefix' => 'api'], function (): void {
     // Protected by a gate in the controller, instead of policy middleware.
-    Route::get('jobs/{jobPoster}/assessment-plan', 'AssessmentPlanController@getForJob');
+    Route::get('jobs/{jobPoster}/assessment-plan', 'AssessmentPlanController@getForJob')
+        ->middleware('can:viewAssessmentPlan,jobPoster')
+        ->where('jobPoster', '[0-9]+');
+
     // Public, not protected by policy or gate.
     Route::get('skills', 'Api\SkillController@index');
     Route::get('departments', 'Api\DepartmentController@index');
