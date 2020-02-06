@@ -53,7 +53,7 @@
                     <div class="box full">
 
                         <div
-                            class="form__input-wrapper--float {% if question.translate('en').question != false %}active{% endif %}"
+                            class="form__input-wrapper--float {% if question.getTranslation('question', 'en') != false %}active{% endif %}"
                             data-form-id="question-title-english">
 
                             <label
@@ -68,7 +68,7 @@
                                 id="{{ id_question }}createJobQuestionEN"
                                 type="text"
                                 name="question[{{ question ? question.id : ':id' }}][question][en]"
-                                value="{{ question.translate('en').question }}">
+                                value="{{ question.getTranslation('question', 'en') }}">
 
                         </div>
 
@@ -77,7 +77,7 @@
                     <div class="box full">
 
                         <div
-                            class="form__input-wrapper--float {% if question.translate('en').description != false %}active{% endif %}"
+                            class="form__input-wrapper--float {% if question.getTranslation('description', 'en') != false %}active{% endif %}"
                             data-form-id="question-description-english">
 
                             <label
@@ -89,7 +89,7 @@
                             <textarea
                                 class="form__textarea"
                                 id="{{ id_description }}createJobQuestionDescriptionEN"
-                                name="question[{{ question ? question.id : ':id' }}][description][en]">{{ question.translate('en').description }}</textarea>
+                                name="question[{{ question ? question.id : ':id' }}][description][en]">{{ question.getTranslation('description', 'en') }}</textarea>
 
                         </div>
 
@@ -108,7 +108,7 @@
                     <div class="box full">
 
                         <div
-                            class="form__input-wrapper--float {% if question.translate('fr').question != false %}active{% endif %}"
+                            class="form__input-wrapper--float {% if question.getTranslation('question', 'fr') != false %}active{% endif %}"
                             data-form-id="question-title-french">
 
                             <label
@@ -123,7 +123,7 @@
                                 id="{{ id_question }}createJobQuestionFR"
                                 type="text"
                                 name="question[{{ question ? question.id : ':id' }}][question][fr]"
-                                value="{{ question.translate('fr').question }}">
+                                value="{{ question.getTranslation('question', 'fr') }}">
 
                         </div>
 
@@ -132,7 +132,7 @@
                     <div class="box full">
 
                         <div
-                            class="form__input-wrapper--float {% if question.translate('fr').description != false %}active{% endif %}"
+                            class="form__input-wrapper--float {% if question.getTranslation('description', 'fr') != false %}active{% endif %}"
                             data-form-id="question-description-french">
 
                             <label
@@ -144,7 +144,7 @@
                             <textarea
                                 class="form__textarea"
                                 id="{{ id_description }}createJobQuestionDescriptionFR"
-                                name="question[{{ question ? question.id : ':id' }}][description][fr]">{{ question.translate('fr').description }}</textarea>
+                                name="question[{{ question ? question.id : ':id' }}][description][fr]">{{ question.getTranslation('description', 'fr') }}</textarea>
 
                         </div>
 
