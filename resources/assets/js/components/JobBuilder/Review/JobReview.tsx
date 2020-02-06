@@ -52,7 +52,7 @@ import { classificationString } from "../../../models/jobUtil";
 import DemoSubmitJobModal from "./DemoSubmitJobModal";
 import ManagerSurveyModal from "./ManagerSurveyModal";
 import ActivityFeed from "../../ActivityFeed";
-import { localizeField } from "../../../helpers/localize";
+import { localizeFieldNonNull, localizeField } from "../../../helpers/localize";
 
 interface JobReviewSectionProps {
   title: string;
@@ -367,7 +367,7 @@ export const JobReviewDisplay: React.FC<JobReviewDisplayProps> = ({
     const department =
       departmentId !== null ? find(departments, departmentId) : null;
     return department !== null
-      ? localizeField(locale, department, "name")
+      ? localizeFieldNonNull(locale, department, "name")
       : "MISSING DEPARTMENT";
   };
   const departmentName = getDeptName(job.department_id);

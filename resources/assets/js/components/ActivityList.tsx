@@ -25,7 +25,7 @@ interface ActivityListProps {
   filterComments?: (comment: Comment) => boolean;
 }
 
-const ActivityList: React.FunctionComponent<ActivityListProps> = ({
+export const ActivityList: React.FunctionComponent<ActivityListProps> = ({
   jobId,
   comments,
   handleFetchComments,
