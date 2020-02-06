@@ -35,6 +35,7 @@ use App\Traits\RememberDeviceTrait;
  * @property boolean $not_in_gov
  * @property string $google2fa_secret
  * @property array $recovery_codes
+ * @property int $department_id
  * @property \Jenssegers\Date\Date $recovery_codes_generation_date
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
@@ -44,6 +45,7 @@ use App\Traits\RememberDeviceTrait;
  * @property \App\Models\HrAdvisor $hr_advisor
  * @property \App\Models\ProfilePic $profile_pic
  * @property \App\Models\UserRole $user_role
+ * @property \App\Models\Lookup\Department $department
  */
 class User extends BaseModel implements
     // Laravel contracts for native login.
@@ -74,6 +76,7 @@ class User extends BaseModel implements
         'email' => 'string',
         'gov_email' => 'string',
         'not_in_gov' => 'boolean',
+        'department_id' => 'int'
     ];
 
     /**
@@ -91,7 +94,8 @@ class User extends BaseModel implements
         'is_priority',
         'gov_email',
         'not_in_gov',
-        'google2fa_secret'
+        'google2fa_secret',
+        'department_id'
     ];
 
     protected $with = ['user_role'];
@@ -138,6 +142,11 @@ class User extends BaseModel implements
         return $this->belongsTo(\App\Models\UserRole::class);
     }
 
+    public function department()
+    {
+        return $this->belongsTo(\App\Models\Lookup\Department::class);
+    }
+
     public function setIsPriorityAttribute($value)
     {
         if ($value === null) {
@@ -147,7 +156,7 @@ class User extends BaseModel implements
     }
 
     /**
-     * Ecrypt the user's google_2fa secret.
+     * Encrypt the user's google_2fa secret.
      *
      * @param  string  $value
      * @return string
@@ -172,7 +181,7 @@ class User extends BaseModel implements
     }
 
     /**
-     * Ecrypt and serialize the user's recovery codes.
+     * Encrypt and serialize the user's recovery codes.
      *
      * @param  string[]  $value
      * @return void
