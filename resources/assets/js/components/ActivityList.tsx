@@ -16,6 +16,7 @@ import {
 } from "../models/localizedConstants";
 import { activityLocationUrl } from "../models/jobUtil";
 import { LocationId } from "../models/lookupConstants";
+import { getLocale } from "../helpers/localize";
 
 interface ActivityListProps {
   jobId: number;
@@ -32,10 +33,7 @@ export const ActivityList: React.FunctionComponent<ActivityListProps> = ({
   isHrAdvisor,
 }) => {
   const intl = useIntl();
-  const { locale } = intl;
-  if (locale !== "en" && locale !== "fr") {
-    throw new Error("Unknown intl.locale");
-  }
+  const locale = getLocale(intl.locale);
   const activities: Comment[] = [...comments];
   const [isActivitiesLoading, setIsActivitiesLoading] = useState(false);
   const [isError, setIsError] = useState(false);
