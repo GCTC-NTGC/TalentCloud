@@ -870,6 +870,11 @@ export const generalLocations = defineMessages({
     defaultMessage: "Applicant Review Page",
     description: "Location where the activity is located.",
   },
+  [LocationId.screeningPlan]: {
+    id: "activityfeed.locations.screeningPlan.generic",
+    defaultMessage: "Assessment Plan Builder",
+    description: "Location where the activity is located.",
+  },
   notFound: {
     id: "activityfeed.locations.notFound",
     defaultMessage: "Error location not found.",
@@ -891,14 +896,18 @@ export const generalLocationOption = (
     case LocationId.langRequirements:
     case LocationId.environment:
       return generalLocations[LocationId.jobGeneric];
-
     /* Applicant Review Page */
     case LocationId.applicantsGeneric:
     case LocationId.underConsideration:
     case LocationId.optionalConsideration:
     case LocationId.notUnderConsideration:
       return generalLocations[LocationId.applicantsGeneric];
-
+    /* Assessment Plan */
+    case LocationId.screeningPlan:
+    case LocationId.screeningPlanBuilder:
+    case LocationId.screeningPlanSummary:
+    case LocationId.screeningPlanRatings:
+      return generalLocations[LocationId.screeningPlan];
     /* Hr Portal */
     case LocationId.summary:
       return generalLocations[LocationId.summary];
@@ -992,12 +1001,36 @@ export const applicantReviewLocations = defineMessages({
   },
 });
 
+export const screeningPlanLocations = defineMessages({
+  [LocationId.screeningPlan]: {
+    id: "locations.screeningPlan.generic",
+    defaultMessage: "Generic",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.screeningPlanBuilder]: {
+    id: "locations.screeningPlan.builder",
+    defaultMessage: "Assessment Plan Builder",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.screeningPlanSummary]: {
+    id: "locations.screeningPlan.summary",
+    defaultMessage: "Assessment Plan Summary",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.screeningPlanRatings]: {
+    id: "locations.screeningPlan.ratings",
+    defaultMessage: "Ratings Guide Builder",
+    description: "Location where the activity is located.",
+  },
+});
+
 export const specificLocationOption = (locationId: string): MessageDescriptor =>
   getOrThrowError(
     {
       ...jobReviewLocations,
       ...applicantReviewLocations,
       ...hrPortalLocations,
+      ...screeningPlanLocations,
     },
     locationId,
     "Invalid LocationId",
