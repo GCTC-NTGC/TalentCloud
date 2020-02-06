@@ -83,7 +83,7 @@ interface CommentFormValues {
   commentLocation?: string | "";
 }
 
-const CommentForm: React.FunctionComponent<CommentFormProps> = ({
+export const CommentForm: React.FunctionComponent<CommentFormProps> = ({
   isHrAdvisor,
   handleCreateComment,
   jobId,

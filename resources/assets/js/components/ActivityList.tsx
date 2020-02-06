@@ -10,10 +10,7 @@ import { DispatchType } from "../configureStore";
 import { fetchComments } from "../store/Job/jobActions";
 import { getComments, sortComments } from "../store/Job/jobSelector";
 import { commentTypeMessages } from "./CommentForm";
-import {
-  generalLocationOption,
-  specificLocationOption,
-} from "../models/localizedConstants";
+import { activityLocationOption } from "../models/localizedConstants";
 import { activityLocationUrl } from "../models/jobUtil";
 import { LocationId } from "../models/lookupConstants";
 
@@ -25,7 +22,7 @@ interface ActivityListProps {
   filterComments?: (comment: Comment) => boolean;
 }
 
-const ActivityList: React.FunctionComponent<ActivityListProps> = ({
+export const ActivityList: React.FunctionComponent<ActivityListProps> = ({
   jobId,
   comments,
   handleFetchComments,
@@ -72,9 +69,7 @@ const ActivityList: React.FunctionComponent<ActivityListProps> = ({
 
   const getLocation = (locationStr: string): string =>
     isValidLocation(locationStr)
-      ? `${intl.formatMessage(
-          generalLocationOption(locationStr),
-        )} > ${intl.formatMessage(specificLocationOption(locationStr))}`
+      ? `${intl.formatMessage(activityLocationOption(locationStr))}`
       : "";
 
   return (

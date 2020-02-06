@@ -1,14 +1,51 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
-import ActivityList from "../components/ActivityList";
+import { ActivityList } from "../components/ActivityList";
 import Activity from "../components/Activity";
-import { jobReviewLocations } from "../models/localizedConstants";
-import { LocationId } from "../models/lookupConstants";
+import RootContainer from "../components/RootContainer";
+import { Comment } from "../models/types";
 
-const stories = storiesOf("Components|Activity Feed", module).addDecorator(
-  withIntl,
+const withRootContainer = (story): React.ReactElement => (
+  <RootContainer>{story()}</RootContainer>
 );
+
+const comments: Comment[] = [
+  {
+    id: 1,
+    job_poster_id: 2,
+    user_id: 3,
+    comment: "Great Work",
+    location: "job/heading",
+    type_id: 1,
+    created_at: new Date(),
+  },
+  {
+    id: 2,
+    job_poster_id: 2,
+    user_id: 3,
+    comment: "Please change this",
+    location: "job/skills",
+    type_id: 2,
+    created_at: new Date(),
+  },
+  {
+    id: 2,
+    job_poster_id: 2,
+    user_id: 3,
+    comment: "Redo everything",
+    location: "job/tasks",
+    type_id: 3,
+    created_at: new Date(),
+  },
+];
+
+const handleFetchComments = (jobId: number): Promise<void> => Promise.resolve();
+
+const stories = storiesOf("Components|Activity Feed", module)
+  .addDecorator(withIntl)
+  .addDecorator(withRootContainer);
 
 stories
   .add(
@@ -28,18 +65,15 @@ stories
     ),
   )
   .add(
-    "HR Feed",
+    "List",
     (): React.ReactElement => (
       <section data-c-padding="all(3)">
-        <ActivityList jobId={1} isHrAdvisor />
-      </section>
-    ),
-  )
-  .add(
-    "Manager Feed",
-    (): React.ReactElement => (
-      <section data-c-padding="all(3)">
-        <ActivityList jobId={1} isHrAdvisor={false} />
+        <ActivityList
+          jobId={1}
+          isHrAdvisor
+          comments={comments}
+          handleFetchComments={handleFetchComments}
+        />
       </section>
     ),
   );
