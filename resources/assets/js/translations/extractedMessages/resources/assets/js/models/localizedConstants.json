@@ -151,7 +151,7 @@
   },
   {
     "id": "criteriaType.essential",
-    "description": "Title of an esential criteria type.",
+    "description": "Title of an essential criteria type.",
     "defaultMessage": "Essential"
   },
   {
@@ -504,56 +504,6 @@
     "defaultMessage": "AD - Administrative Services"
   },
   {
-    "id": "activityfeed.locations.review.details",
-    "description": "Location where the activity is located.",
-    "defaultMessage": "Job Poster Builder > General"
-  },
-  {
-    "id": "activityfeed.locations.review.heading",
-    "description": "Location where the activity is located.",
-    "defaultMessage": "Job Poster Builder > Job Page Heading"
-  },
-  {
-    "id": "activityfeed.locations.review.basicInfo",
-    "description": "Location where the activity is located.",
-    "defaultMessage": "Job Poster Builder > Basic Information"
-  },
-  {
-    "id": "activityfeed.locations.review.impact",
-    "description": "Location where the activity is located.",
-    "defaultMessage": "Job Poster Builder > Impact"
-  },
-  {
-    "id": "activityfeed.locations.review.tasks",
-    "description": "Location where the activity is located.",
-    "defaultMessage": "Job Poster Builder > Tasks"
-  },
-  {
-    "id": "activityfeed.locations.review.skills",
-    "description": "Location where the activity is located.",
-    "defaultMessage": "Job Poster Builder > Skills"
-  },
-  {
-    "id": "activityfeed.locations.review.langRequirements",
-    "description": "Location where the activity is located.",
-    "defaultMessage": "Job Poster Builder > Language Requirements"
-  },
-  {
-    "id": "activityfeed.locations.review.environment",
-    "description": "Location where the activity is located.",
-    "defaultMessage": "Job Poster Builder > Environment"
-  },
-  {
-    "id": "activityfeed.locations.summary",
-    "description": "Location where the activity is located.",
-    "defaultMessage": "Summary Page"
-  },
-  {
-    "id": "activityfeed.locations.preview",
-    "description": "Location where the activity is located.",
-    "defaultMessage": "Preview Page"
-  },
-  {
     "id": "jobStatus.draft",
     "defaultMessage": "Draft"
   },
@@ -576,5 +526,90 @@
   {
     "id": "jobStatus.complete",
     "defaultMessage": "Complete"
+  },
+  {
+    "id": "activityfeed.locations.review",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Job Poster Builder"
+  },
+  {
+    "id": "activityfeed.locations.hr.summary",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "HR Summary Page"
+  },
+  {
+    "id": "activityfeed.locations.hr.preview",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "HR Preview Page"
+  },
+  {
+    "id": "activityfeed.locations.applications.generic",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Applicant Review Page"
+  },
+  {
+    "id": "activityfeed.locations.notFound",
+    "description": "Error message if location id is not recognized",
+    "defaultMessage": "Error location not found."
+  },
+  {
+    "id": "activityfeed.locations.review.details",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "General"
+  },
+  {
+    "id": "activityfeed.locations.review.heading",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Job Page Heading"
+  },
+  {
+    "id": "activityfeed.locations.review.basicInfo",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Basic Information"
+  },
+  {
+    "id": "activityfeed.locations.review.impact",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Impact"
+  },
+  {
+    "id": "activityfeed.locations.review.tasks",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Tasks"
+  },
+  {
+    "id": "activityfeed.locations.review.skills",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Skills"
+  },
+  {
+    "id": "activityfeed.locations.review.langRequirements",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Language Requirements"
+  },
+  {
+    "id": "activityfeed.locations.review.environment",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Environment"
+  },
+  {
+    "id": "activityfeed.locations.applicantReview.generic",
+    "description": "Location of the activity.",
+    "defaultMessage": "Generic"
+  },
+  {
+    "id": "activityfeed.locations.applicantReview.underConsideration",
+    "description": "Location of the activity.",
+    "defaultMessage": "Under Consideration"
+  },
+  {
+    "id": "activityfeed.locations.applicantReview.optionalConsideration",
+    "description": "Location of the activity.",
+    "defaultMessage": "Optional Consideration"
+  },
+  {
+    "id": "activityfeed.locations.applicantReview.notUnderConsideration",
+    "description": "Location of the activity.",
+    "defaultMessage": "No Longer Under Consideration"
   }
 ]

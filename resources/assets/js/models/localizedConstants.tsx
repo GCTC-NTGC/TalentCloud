@@ -956,7 +956,7 @@ export const jobReviewLocations = defineMessages({
 export const applicantReviewLocations = defineMessages({
   [LocationId.applicantsGeneric]: {
     id: "activityfeed.locations.applicantReview.generic",
-    defaultMessage: "Generic",
+    defaultMessage: "General",
     description: "Location of the activity.",
   },
   [LocationId.underConsideration]: {
