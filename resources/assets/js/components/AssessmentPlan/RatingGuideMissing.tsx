@@ -13,6 +13,7 @@ import {
   getCriteriaToSkills,
 } from "../../store/Job/jobSelectorComplex";
 import { notEmpty } from "../../helpers/queries";
+import { getLocale, localizeFieldNonNull } from "../../helpers/localize";
 
 interface RatingGuideMissingProps {
   missingCriteria: Criteria[];
@@ -25,6 +26,7 @@ export const RatingGuideMissing: React.FunctionComponent<RatingGuideMissingProps
   criteriaToSkills,
   intl,
 }): React.ReactElement | null => {
+  const locale = getLocale(intl.locale);
   const getSkillsForCriteria: (criteria: Criteria[]) => Skill[] = (
     criteria,
   ): Skill[] =>
@@ -52,10 +54,10 @@ export const RatingGuideMissing: React.FunctionComponent<RatingGuideMissingProps
     return null;
   }
   const essentialSkillNames = missingEssentialSkills.map(
-    (skill: Skill): string => skill.name[intl.locale],
+    (skill: Skill): string => localizeFieldNonNull(locale, skill, "name"),
   );
-  const assetSkillNames = missingAssetSkills.map(
-    (skill: Skill): string => skill.name[intl.locale],
+  const assetSkillNames = missingAssetSkills.map((skill: Skill): string =>
+    localizeFieldNonNull(locale, skill, "name"),
   );
 
   return (

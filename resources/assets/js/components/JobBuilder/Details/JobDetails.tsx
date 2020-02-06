@@ -49,6 +49,7 @@ import CopyToClipboardButton from "../../CopyToClipboardButton";
 import TextAreaInput from "../../Form/TextAreaInput";
 import { formMessages, educationMessages } from "./JobDetailsMessages";
 import { hasKey } from "../../../helpers/queries";
+import { localizeField } from "../../../helpers/localize";
 
 interface JobDetailsProps {
   // Optional Job to prepopulate form values from.
@@ -197,14 +198,14 @@ const jobToValues = (
 ): DetailsFormValues => {
   const values: DetailsFormValues = job
     ? {
-        title: job.title[locale] || "", // TODO: use utility method
+        title: localizeField(locale, job, "title") || "", // TODO: use utility method
         termLength: job.term_qty || "",
         classification: job.classification_id || "",
         level: job.classification_level || "",
-        educationRequirements: job.education[locale] || "",
+        educationRequirements: localizeField(locale, job, "education") || "",
         securityLevel: job.security_clearance_id || "",
         language: job.language_requirement_id || "",
-        city: job.city[locale] || "",
+        city: localizeField(locale, job, "city") || "",
         province: job.province_id || "",
         remoteWork: job.remote_work_allowed
           ? "remoteWorkCanada"

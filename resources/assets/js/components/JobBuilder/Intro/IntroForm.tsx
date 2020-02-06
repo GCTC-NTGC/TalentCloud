@@ -14,6 +14,7 @@ import { Job, Department, Manager } from "../../../models/types";
 import { emptyJob } from "../../../models/jobUtil";
 import TextInput from "../../Form/TextInput";
 import { accountSettings } from "../../../helpers/routes";
+import { localizeFieldNonNull } from "../../../helpers/localize";
 
 const pageMessages = defineMessages({
   explanationBoldText: {
@@ -207,9 +208,12 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
   const [languageSelection, setLanguageSelection] = useState(locale);
   const getDepartmentName = (): string | undefined => {
     // eslint-disable-next-line camelcase
-    return departments.find(
+    const department = departments.find(
       department => department.id === manager.department_id,
-    )?.name[locale];
+    );
+    return department
+      ? localizeFieldNonNull(locale, department, "name")
+      : undefined;
   };
 
   const introSchema = Yup.object().shape({
