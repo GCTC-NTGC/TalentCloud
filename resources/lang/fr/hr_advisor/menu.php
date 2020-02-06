@@ -14,6 +14,9 @@ return [
         ],
         'jobs' => [
             'name' => 'Les emplois',
+        ],
+        'settings' => [
+            'name' => 'Paramètres'
         ]
     ],
     'register' => 'Inscription',

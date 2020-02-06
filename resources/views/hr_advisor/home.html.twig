@@ -22,9 +22,9 @@
 						<img src="/images/maple-leaf.svg" alt="{{ hr_home.hero.heading_alt }}">
 					</h1>
 					{% if auth_guest() %}
-						<button data-c-button="outline(white)" data-c-radius="rounded" data-c-margin="top(3)">
-							{{ hr_home.hero.sign_up_button }}
-						</button>
+						<a data-c-button="outline(white)" data-c-radius="rounded" data-c-margin="top(3)" href="{{ route('hr_advisor.register') }}" title="" data-c-button="outline(white)" data-c-radius="rounded">
+							{{ hr_home.hero.button.text }}
+						</a>
 					{% endif %}
 				</div>
 			</header>

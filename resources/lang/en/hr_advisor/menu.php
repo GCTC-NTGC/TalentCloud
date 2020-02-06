@@ -14,6 +14,9 @@ return [
         ],
         'jobs' => [
             'name' => 'Jobs',
+        ],
+        'settings' => [
+            'name' => 'Settings'
         ]
     ],
     'register' => 'Register',

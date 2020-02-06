@@ -30,7 +30,38 @@ class AddTranslationsToJobPostersAsJson extends Migration
 
         foreach ($job_posters as $job) {
             $jobTranslationsEnglish = DB::table('job_poster_translations')->where('job_poster_id', $job->id)->where('locale', 'en')->first();
+
+            if ($jobTranslationsEnglish === null) {
+                $jobTranslationsEnglish = new stdClass();
+                $jobTranslationsEnglish->locale = 'en';
+                $jobTranslationsEnglish->city = '';
+                $jobTranslationsEnglish->title = '';
+                $jobTranslationsEnglish->dept_impact = '';
+                $jobTranslationsEnglish->team_impact = '';
+                $jobTranslationsEnglish->hire_impact = '';
+                $jobTranslationsEnglish->division = '';
+                $jobTranslationsEnglish->education = '';
+                $jobTranslationsEnglish->work_env_description = '';
+                $jobTranslationsEnglish->culture_summary = '';
+                $jobTranslationsEnglish->culture_special = '';
+            }
+
             $jobTranslationsFrench = DB::table('job_poster_translations')->where('job_poster_id', $job->id)->where('locale', 'fr')->first();
+
+            if ($jobTranslationsFrench === null) {
+                $jobTranslationsFrench = new stdClass();
+                $jobTranslationsFrench->locale = 'fr';
+                $jobTranslationsFrench->city = '';
+                $jobTranslationsFrench->title = '';
+                $jobTranslationsFrench->dept_impact = '';
+                $jobTranslationsFrench->team_impact = '';
+                $jobTranslationsFrench->hire_impact = '';
+                $jobTranslationsFrench->division = '';
+                $jobTranslationsFrench->education = '';
+                $jobTranslationsFrench->work_env_description = '';
+                $jobTranslationsFrench->culture_summary = '';
+                $jobTranslationsFrench->culture_special = '';
+            }
 
             $job->city = collect([$jobTranslationsEnglish->locale => $jobTranslationsEnglish->city, $jobTranslationsFrench->locale => $jobTranslationsFrench->city])->toJson();
 

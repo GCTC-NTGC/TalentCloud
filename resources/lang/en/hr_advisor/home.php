@@ -10,8 +10,9 @@ return [
     'hero' => [
         'heading' => 'Talent Cloud',
         'heading_alt' => 'The Canadian maple leaf.',
-        // 'subheading' => '',
-        'sign_up_button' => 'Sign Up',
+        'button' => [
+            'text' => 'Sign Up',
+        ]
     ],
     'banner' => [
         'content' => 'You\'re visiting the HR Portal. Looking for the Applicant portal?',
