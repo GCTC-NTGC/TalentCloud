@@ -11,6 +11,7 @@ import {
   languageRequirement,
   provinceName,
 } from "../../models/localizedConstants";
+import { localizeField, getLocale } from "../../helpers/localize";
 
 interface JobBasicInfoProps {
   job: Job;
@@ -27,11 +28,9 @@ const messages = defineMessages({
 
 export const JobBasicInfo: React.FunctionComponent<JobBasicInfoProps &
   WrappedComponentProps> = ({ job, intl }): React.ReactElement => {
-  const { locale } = intl;
-  if (locale !== "en" && locale !== "fr") {
-    throw new Error("Unknown intl.locale");
-  }
-  const { title, city } = job[locale];
+  const locale = getLocale(intl.locale);
+  const title = localizeField(locale, job, "title");
+  const city = localizeField(locale, job, "city");
   const termLength = job.term_qty || 0;
   const securityLevel = job.security_clearance_id
     ? intl.formatMessage(securityClearance(job.security_clearance_id))

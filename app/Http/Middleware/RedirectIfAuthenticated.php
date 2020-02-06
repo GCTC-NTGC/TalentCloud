@@ -23,6 +23,8 @@ class RedirectIfAuthenticated
                 return redirect(backpack_url(''));
             } elseif (WhichPortal::isManagerPortal()) {
                 return redirect(route('manager.home'));
+            } elseif (WhichPortal::isHrPortal()) {
+                return route('hr_advisor.home');
             } else {
                 return redirect(route('home'));
             }

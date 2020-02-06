@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 
 class WhichPortal
@@ -20,13 +19,19 @@ class WhichPortal
 
     public function isApplicantPortal()
     {
-        return !$this->isManagerPortal() && !$this->isAdminPortal();
+        return !$this->isManagerPortal() && !$this->isHrPortal() && !$this->isAdminPortal();
     }
 
     public function isManagerPortal()
     {
         $url = URL::current();
         return $this->urlIsManagerPortal($url);
+    }
+
+    public function isHrPortal()
+    {
+        $url = URL::current();
+        return $this->urlIsHrPortal($url);
     }
 
     public function isAdminPortal()
@@ -43,6 +48,14 @@ class WhichPortal
         return preg_match($managerPattern, $url);
     }
 
+    public function urlIsHrPortal($url): bool
+    {
+        $baseUrl = config('app.url');
+        $hrPrefix = config('app.hr_prefix');
+        $hrPattern = "#^$baseUrl/(\w+/)?$hrPrefix(/.*)?$#";
+        return preg_match($hrPattern, $url);
+    }
+
     public function urlIsAdminPortal($url): bool
     {
         $baseUrl = config('app.url');
@@ -57,6 +70,8 @@ class WhichPortal
             return $routeName;
         } elseif (WhichPortal::isManagerPortal()) {
             return 'manager.' . $routeName;
+        } elseif (WhichPortal::isHrPortal()) {
+            return 'hr_advisor.' . $routeName;
         } elseif (WhichPortal::isAdminPortal()) {
             return 'admin.' . $routeName;
         }

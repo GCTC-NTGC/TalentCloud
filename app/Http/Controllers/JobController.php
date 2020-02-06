@@ -7,12 +7,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\JobApplication;
 use Carbon\Carbon;
 use App\Models\JobPoster;
 use App\Models\JobPosterQuestion;
 use App\Models\Manager;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Services\Validation\JobPosterValidator;
+use Facades\App\Services\WhichPortal;
 
 class JobController extends Controller
 {
@@ -66,7 +68,7 @@ class JobController extends Controller
 
             // Show chosen lang title if current title is empty.
             if (empty($job->title)) {
-                $job->title = $job->translate($chosen_lang)->title;
+                $job->title = $job->getTranslation('title', $chosen_lang);
                 $job->trans_required = true;
             }
 
@@ -83,6 +85,23 @@ class JobController extends Controller
             'jobs' => $jobs,
         ]);
     }
+
+    /**
+     * Display a listing of a hr advisor's JobPosters.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function hrIndex(Request $request)
+    {
+        $hrAdvisor = $request->user()->hr_advisor;
+        return view('hr_advisor/job_index', [
+            'title' => Lang::get('hr_advisor/job_index.title'),
+            'hr_advisor_id' => $hrAdvisor->id
+        ]);
+    }
+
+
+
 
     /**
      * Delete a draft Job Poster.
@@ -140,18 +159,43 @@ class JobController extends Controller
         $jobLang = Lang::get('applicant/job_post');
 
         $applyButton = [];
-        if (!$jobPoster->published && $this->authorize('update', $jobPoster)) {
+        if (WhichPortal::isManagerPortal()) {
             $applyButton = [
                 'href' => route('manager.jobs.edit', $jobPoster->id),
                 'title' => $jobLang['apply']['edit_link_title'],
                 'text' => $jobLang['apply']['edit_link_label'],
             ];
+        } elseif (WhichPortal::isHrPortal()) {
+            if ($jobPoster->hr_advisors->contains('user_id', $user->id)) {
+                $applyButton = [
+                    'href' => route('hr_advisor.jobs.summary', $jobPoster->id),
+                    'title' => null,
+                    'text' => Lang::get('hr_advisor/job_summary.summary_title'),
+                ];
+            } else {
+                $applyButton = [
+                    'href' => route('hr_advisor.jobs.index'),
+                    'title' => null,
+                    'text' => Lang::get('hr_advisor/job_index.title'),
+                ];
+            }
         } elseif (Auth::check() && $jobPoster->isOpen()) {
-            $applyButton = [
-                'href' => route('job.application.edit.1', $jobPoster->id),
-                'title' => $jobLang['apply']['apply_link_title'],
-                'text' => $jobLang['apply']['apply_link_label'],
-            ];
+            $application = JobApplication::where('applicant_id', Auth::user()->applicant->id)
+            ->where('job_poster_id', $jobPoster->id)->first();
+            // If applicants job application is not draft anymore then link to application preview page.
+            if ($application != null && $application->application_status->name != 'draft') {
+                $applyButton = [
+                    'href' => route('applications.show', $application->id),
+                    'title' => $jobLang['apply']['view_link_title'],
+                    'text' => $jobLang['apply']['view_link_label'],
+                ];
+            } else {
+                $applyButton = [
+                    'href' => route('job.application.edit.1', $jobPoster->id),
+                    'title' => $jobLang['apply']['apply_link_title'],
+                    'text' => $jobLang['apply']['apply_link_label'],
+                ];
+            }
         } elseif (Auth::guest() && $jobPoster->isOpen()) {
             $applyButton = [
                 'href' => route('job.application.edit.1', $jobPoster->id),
@@ -178,6 +222,7 @@ class JobController extends Controller
                 'applicant/jpb_job_post',
                 [
                     'job_post' => $jobLang,
+                    'frequencies' => Lang::get('common/lookup/frequency'),
                     'skill_template' => Lang::get('common/skills'),
                     'job' => $jobPoster,
                     'manager' => $jobPoster->manager,
@@ -191,6 +236,7 @@ class JobController extends Controller
                 'applicant/job_post',
                 [
                     'job_post' => $jobLang,
+                    'frequencies' => Lang::get('common/lookup/frequency'),
                     'manager' => $jobPoster->manager,
                     'manager_profile_photo_url' => '/images/user.png', // TODO get real photo.
                     'team_culture' => $jobPoster->manager->team_culture,
@@ -247,12 +293,12 @@ class JobController extends Controller
         $jobPoster->manager_id = $manager->id;
 
         // Save manager-specific info to the job poster - equivalent to the intro step of the JPB
-        $divisionEn = $manager->translate('en') !== null ? $manager->translate('en')->division : null;
-        $divisionFr = $manager->translate('fr') !== null ? $manager->translate('fr')->division : null;
+        $divisionEn = $manager->getTranslation('division', 'en');
+        $divisionFr = $manager->getTranslation('division', 'fr');
         $jobPoster->fill([
             'department_id' => $manager->department_id,
-            'en' => ['division' => $divisionEn],
-            'fr' => ['division' => $divisionFr],
+            'division' => ['en' => $divisionEn],
+            'division' => ['fr' => $divisionFr],
         ]);
 
         $jobPoster->save();
@@ -310,13 +356,14 @@ class JobController extends Controller
             $jobQuestion->job_poster_id = $jobPoster->id;
             $jobQuestion->fill(
                 [
-                    'en' => [
-                        'question' => $question['question']['en'],
-                        'description' => $question['description']['en']
+                    'question' => [
+                        'en' => $question['question']['en'],
+                        'fr' => $question['question']['fr']
+
                     ],
-                    'fr' => [
-                        'question' => $question['question']['fr'],
-                        'description' => $question['description']['fr']
+                    'description' => [
+                        'en' => $question['description']['en'],
+                        'fr' => $question['description']['fr']
                     ]
                 ]
             );
@@ -348,11 +395,9 @@ class JobController extends Controller
             $jobQuestion = new JobPosterQuestion();
             $jobQuestion->fill(
                 [
-                    'en' => [
-                        'question' => $defaultQuestions['en'][$i],
-                    ],
-                    'fr' => [
-                        'question' => $defaultQuestions['fr'][$i],
+                    'question' => [
+                        'en' => $defaultQuestions['en'][$i],
+                        'fr' => $defaultQuestions['fr'][$i],
                     ]
                 ]
             );

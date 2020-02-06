@@ -115,22 +115,8 @@ return [
         ],
         'telework_label' => 'Telework',
         'telework_desc' => 'Work from home some days (within driving distance of the office).',
-        'telework_allowed' => [
-            'never' => 'Never',
-            'rarely' => 'Occasionally',
-            'sometimes' => 'Sometimes',
-            'often' => 'Frequently',
-            'always' => 'Almost always',
-        ],
         'time_flexibility_label' => 'Flex Hours',
         'time_flexibility_desc' => 'Set your own start and end times.',
-        'time_flexibility_allowed' => [
-            'never' => 'Never',
-            'rarely' => 'Occasionally',
-            'sometimes' => 'Sometimes',
-            'often' => 'Frequently',
-            'always' => 'Almost always',
-        ],
         'travel_label' => 'Travel',
         'travel_desc' => 'See more of Canada or the world.',
         'travel' => [
@@ -162,7 +148,9 @@ return [
         'job_closed_title' => 'Competition closed',
         'job_closed_label' => 'Competition closed',
         'edit_link_title'  => 'Edit this job poster.',
-        'edit_link_label'  => 'Edit'
+        'edit_link_label'  => 'Edit',
+        'view_link_title'  => 'View your application.',
+        'view_link_label'  => 'View Application',
     ],
     'no_info' => 'No information provided.'
 ];

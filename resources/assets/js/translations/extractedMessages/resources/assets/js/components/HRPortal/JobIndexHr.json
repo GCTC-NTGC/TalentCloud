@@ -1,0 +1,57 @@
+[
+  {
+    "id": "hrPortal.jobPageIndex.completedJobsHeader",
+    "description": "Header for completed jobs accordion section.",
+    "defaultMessage": "My Completed Job Actions"
+  },
+  {
+    "id": "hrPortal.jobPageIndex.clickToView",
+    "description": "Accordion trigger message for screen readers.",
+    "defaultMessage": "Click to view..."
+  },
+  {
+    "id": "hrPortal.jobPageIndex.showAccordion",
+    "description": "Accordion trigger message to show items.",
+    "defaultMessage": "Show"
+  },
+  {
+    "id": "hrPortal.jobPageIndex.hideAccordion",
+    "description": "Accordion trigger message to hide items.",
+    "defaultMessage": "Hide"
+  },
+  {
+    "id": "hrPortal.jobPageIndex.noJobsCompleted",
+    "description": "Message displayed if the completed jobs list is empty.",
+    "defaultMessage": "No jobs completed yet!"
+  },
+  {
+    "id": "hrPortal.jobPageIndex.jobActionsHeader",
+    "description": "Header for my job actions section.",
+    "defaultMessage": "My Job Actions"
+  },
+  {
+    "id": "hrPortal.jobPageIndex.jobActionsMessage",
+    "description": "Message before list of users job actions.",
+    "defaultMessage": "This is a list of all job actions you are currently participating in. Looking for an older job? Check the 'My Completed Job Actions' section below your active jobs."
+  },
+  {
+    "id": "hrPortal.jobPageIndex.jobActionsEmpty",
+    "description": "Message displayed if the jobs actions list is empty.",
+    "defaultMessage": "Claim a job below!"
+  },
+  {
+    "id": "hrPortal.jobPageIndex.preDepartmentName",
+    "description": "Message before department name.",
+    "defaultMessage": "All Jobs in"
+  },
+  {
+    "id": "hrPortal.jobPageIndex.unclaimedJobsMessage",
+    "description": "Message before list of unclaimed jobs.",
+    "defaultMessage": "This is the list of all active job actions in your department. From here you can 'claim' a job, which will move it into your jobs list above and allow you to begin working with the hiring manager on finding the best talent possible. If you claim a job by accident, no fear, for you can click into the job summary and remove yourself using the 'Relinquish This Job' button."
+  },
+  {
+    "id": "hrPortal.jobPageIndex.unclaimedJobsEmpty",
+    "description": "Message displayed if the unclaimed jobs list is empty.",
+    "defaultMessage": "There are currently no active jobs available."
+  }
+]

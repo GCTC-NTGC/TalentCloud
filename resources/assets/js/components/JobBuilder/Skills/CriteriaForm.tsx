@@ -4,6 +4,7 @@ import {
   injectIntl,
   MessageDescriptor,
   FormattedMessage,
+  defineMessages,
 } from "react-intl";
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
@@ -21,6 +22,7 @@ import {
 } from "../../../models/localizedConstants";
 import ContextBlockItem from "../../ContextBlock/ContextBlockItem";
 import ContextBlock from "../../ContextBlock/ContextBlock";
+import { localizeField, getLocale } from "../../../helpers/localize";
 
 interface CriteriaFormProps {
   // The Job Poster this criteria will belong to.
@@ -32,6 +34,25 @@ interface CriteriaFormProps {
   handleSubmit: (criteria: Criteria) => void;
   handleCancel: () => void;
 }
+
+const criteriaFormMessages = defineMessages({
+  skillSpecificityLabel: {
+    id: "criteriaForm.skillSpecificityLabel",
+    defaultMessage: "Additional skill details",
+    description: "Label for the skill specificity textarea.",
+  },
+  skillSpecificityPlaceholder: {
+    id: "criteriaForm.skillSpecificityPlaceholder",
+    defaultMessage:
+      "Add context or specifics to the definition of this skill that will only appear on your job poster. This will be reviewed by your human resources advisor.",
+    description: "Placeholder for the skill specificity textarea.",
+  },
+  skillLevelSelectionLabel: {
+    id: "criteriaForm.skillLevelSelectionLabel",
+    defaultMessage: "Select a skill level:",
+    description: "Placeholder for the skill specificity textarea.",
+  },
+});
 
 const essentialSkillLevels = (
   skillTypeId: number,
@@ -98,7 +119,7 @@ export const criteriaToValues = (
   criteria: Criteria,
   locale: "en" | "fr",
 ): FormValues => ({
-  specificity: criteria[locale].specificity || "",
+  specificity: localizeField(locale, criteria, "specificity") || "",
   level:
     criteria.criteria_type_id === CriteriaTypeId.Asset
       ? "asset"
@@ -107,10 +128,10 @@ export const criteriaToValues = (
 
 /* eslint-disable @typescript-eslint/camelcase */
 const updateCriteriaWithValues = (
+  locale: "en" | "fr",
   criteria: Criteria,
   skill: Skill,
   values: FormValues,
-  locale: "en" | "fr",
 ): Criteria => {
   return {
     ...criteria,
@@ -119,15 +140,13 @@ const updateCriteriaWithValues = (
         ? CriteriaTypeId.Asset
         : CriteriaTypeId.Essential,
     skill_level_id: essentialKeyToId(values.level),
-    en: {
-      description: skill.en.description,
-      specificity:
-        locale === "en" ? values.specificity : criteria.en.specificity,
+    description: {
+      en: skill.description.en,
+      fr: skill.description.fr,
     },
-    fr: {
-      description: skill.fr.description,
-      specificity:
-        locale === "fr" ? values.specificity : criteria.fr.specificity,
+    specificity: {
+      ...criteria.specificity,
+      [locale]: values.specificity,
     },
   };
 };
@@ -138,13 +157,13 @@ const newCriteria = (jobPosterId: number, skillId: number): Criteria => ({
   job_poster_id: jobPosterId,
   skill_id: skillId,
   skill_level_id: SkillLevelId.Basic,
-  en: {
-    description: null,
-    specificity: null,
+  description: {
+    en: null,
+    fr: null,
   },
-  fr: {
-    description: null,
-    specificity: null,
+  specificity: {
+    en: null,
+    fr: null,
   },
 });
 /* eslint-enable @typescript-eslint/camelcase */
@@ -158,14 +177,12 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
   handleCancel,
   intl,
 }): React.ReactElement => {
-  const { locale } = intl;
-  if (locale !== "en" && locale !== "fr") {
-    throw new Error("Unknown intl.locale");
-  }
+  const locale = getLocale(intl.locale);
   const stringNotEmpty = (value: string | null): boolean =>
     value !== null && (value as string).length !== 0;
   const [showSpecificity, setShowSpecificity] = useState(
-    criteria !== undefined && stringNotEmpty(criteria[locale].specificity),
+    criteria !== undefined &&
+      stringNotEmpty(localizeField(locale, criteria, "specificity")),
   );
 
   const initialValues: FormValues =
@@ -196,10 +213,10 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
             ? criteria
             : newCriteria(jobPosterId, skill.id);
         const updatedCriteria = updateCriteriaWithValues(
+          locale,
           oldCriteria,
           skill,
           values,
-          locale,
         );
         handleSubmit(updatedCriteria);
         setSubmitting(false);
@@ -223,9 +240,11 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
                 />
               </p>
               <div>
-                <p data-c-margin="bottom(normal)">{skill[locale].name}</p>
                 <p data-c-margin="bottom(normal)">
-                  {skill[locale].description}
+                  {localizeField(locale, skill, "name")}
+                </p>
+                <p data-c-margin="bottom(normal)">
+                  {localizeField(locale, skill, "description")}
                 </p>
                 {showSpecificity ? (
                   <>
@@ -233,8 +252,12 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
                       id="skillSpecificity"
                       type="textarea"
                       name="specificity"
-                      label="Skill Specificity"
-                      placeholder="Add specificity to the definition of this skill that will only appear on my job poster but note that this will have be approved prior to posting..."
+                      label={intl.formatMessage(
+                        criteriaFormMessages.skillSpecificityLabel,
+                      )}
+                      placeholder={intl.formatMessage(
+                        criteriaFormMessages.skillSpecificityPlaceholder,
+                      )}
                       component={TextAreaInput}
                     />
                     <button
@@ -266,8 +289,7 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
                       <i className="fas fa-plus-circle" data-c-colour="c1" />
                       <FormattedMessage
                         id="jobBuilder.criteriaForm.addSpecificity"
-                        defaultMessage="I'd like to add specificity to this definition. This will
-                          only apply to my job poster."
+                        defaultMessage="I would like to add details to this definition that are specific to this position."
                         description="Label for 'Add additional specificity' button on Add Skill modal."
                       />
                     </span>
@@ -288,7 +310,9 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
                 <div data-c-grid="gutter">
                   <RadioGroup
                     id="skillLevelSelection"
-                    label="Select a skill level:"
+                    label={intl.formatMessage(
+                      criteriaFormMessages.skillLevelSelectionLabel,
+                    )}
                     required
                     touched={touched.level}
                     error={errors.level}

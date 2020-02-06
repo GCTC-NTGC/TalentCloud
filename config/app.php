@@ -57,8 +57,10 @@ return [
 
     'applicant_domain' => env('APPLICANT_DOMAIN', 'localhost'),
     'manager_domain' => env('MANAGER_DOMAIN', 'localhost'),
+    'hr_domain' => env('HR_DOMAIN', 'localhost'),
     'applicant_prefix' => env('APPLICANT_PREFIX', ''),
-    'manager_prefix' => env('MANAGER_PREFIX', ''),
+    'manager_prefix' => env('MANAGER_PREFIX', 'manager'),
+    'hr_prefix' => env('HR_PREFIX', 'hr'),
 
     /*
     | Should all app routes use https:// instead of http://

@@ -7,12 +7,9 @@
 
 namespace App\Models;
 
-use Astrotomic\Translatable\Translatable;
-
+use Spatie\Translatable\HasTranslations;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
-
 use Jenssegers\Date\Date;
-
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
@@ -74,6 +71,7 @@ use App\Events\JobSaved;
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_questions
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_translations
  * @property \Illuminate\Database\Eloquent\Collection $submitted_applications
+ * @property \Illuminate\Database\Eloquent\Collection $hr_advisors
  * @property \App\Models\Lookup\Frequency $telework_allowed_frequency
  * @property \App\Models\Lookup\Frequency $flexible_hours_frequency
  *
@@ -93,15 +91,17 @@ use App\Events\JobSaved;
  * @method boolean isOpen()
  * @method string timeRemaining()
  * @method mixed[] toApiArray()
+ * @method boolean isVisibleToHr()
  *
  * Computed Properties
  * @property string|null $classification_code
  * @property string|null $classification_message
+ * @property int $job_status_id
  */
 class JobPoster extends BaseModel
 {
     use CrudTrait;
-    use Translatable;
+    use HasTranslations;
     use Notifiable;
 
     const DATE_FORMAT = [
@@ -115,9 +115,9 @@ class JobPoster extends BaseModel
     const TIMEZONE = 'America/Toronto';
 
     /**
-     * @var string[] $translatedAttributes
+     * @var string[] $translatable
      */
-    public $translatedAttributes = [
+    public $translatable = [
         'city',
         'title',
         'dept_impact',
@@ -207,6 +207,16 @@ class JobPoster extends BaseModel
         'loo_issuance_date',
         'classification_id',
         'classification_level',
+        'city',
+        'title',
+        'dept_impact',
+        'team_impact',
+        'hire_impact',
+        'division',
+        'education',
+        'work_env_description',
+        'culture_summary',
+        'culture_special',
     ];
 
     /**
@@ -249,7 +259,18 @@ class JobPoster extends BaseModel
         'priority_clearance_number',
         'loo_issuance_date',
         'classification_id',
-        'classification_level'
+        'classification_level',
+        'job_status_id',
+        'city',
+        'title',
+        'dept_impact',
+        'team_impact',
+        'hire_impact',
+        'division',
+        'education',
+        'work_env_description',
+        'culture_summary',
+        'culture_special',
     ];
 
     /**
@@ -259,7 +280,18 @@ class JobPoster extends BaseModel
      */
     protected $appends = [
         'classification_code',
-        'classification_message'
+        'classification_message',
+        'job_status_id',
+    ];
+
+    /**
+     * Eager loaded relationships by default.
+     *
+     * @var string[] $with
+     */
+    protected $with = [
+        'criteria',
+        'manager'
     ];
 
     /**
@@ -305,6 +337,14 @@ class JobPoster extends BaseModel
         return $this->hasMany(\App\Models\Criteria::class);
     }
 
+    public function hr_advisors() // phpcs:ignore
+    {
+        return $this->belongsToMany(
+            \App\Models\HrAdvisor::class,
+            'claimed_jobs'
+        );
+    }
+
     public function job_applications() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\JobApplication::class);
@@ -318,11 +358,6 @@ class JobPoster extends BaseModel
     public function job_poster_questions() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\JobPosterQuestion::class);
-    }
-
-    public function job_poster_translations() // phpcs:ignore
-    {
-        return $this->hasMany(\App\Models\JobPosterTranslation::class);
     }
 
     public function telework_allowed_frequency() // phpcs:ignore
@@ -348,6 +383,11 @@ class JobPoster extends BaseModel
     public function classification() // phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Classification::class);
+    }
+
+    public function comments() // phpcs:ignore
+    {
+        return $this->hasMany(\App\Models\Comment::class);
     }
     // @codeCoverageIgnoreEnd
     /* Artificial Relations */
@@ -527,6 +567,51 @@ class JobPoster extends BaseModel
     }
 
     /**
+     * FIXME:
+     * Return a calculated job status id.
+     * For now these ids represent the following:
+     *    1 = Draft
+     *    2 = Review requested
+     *    3 = Approved
+     *    4 = Open
+     *    5 = Closed
+     * These statuses needs an immenent refactoring, so I'm not going to create
+     * a lookup table for them yet.
+     * TODO: When this is rebuilt, make sure to change matching JobStatus code in
+     *    resources\assets\js\models\lookupConstants.ts
+     *
+     * @return integer
+     */
+    public function getJobStatusIdAttribute()
+    {
+        $now = new Date();
+        if ($this->review_requested_at === null) {
+            return 1; // Draft.
+        } elseif ($this->published_at === null) {
+            return 2; // Review requested, but not approved.
+        } elseif ($this->open_date_time === null || $this->open_date_time >$now) {
+            return 3; // Approved, but not open.
+        } elseif ($this->close_date_time === null || $this->close_date_time > $now) {
+            // Approved and currently open.
+            return 4; // Open.
+        } else {
+            // Published and close date has passed.
+            return 5; // Closed.
+        }
+    }
+
+    /**
+     * Return true if this job should be visible to hr advisors.
+     * It should become visible after Manager has requested a review.
+     *
+     * @return boolean
+     */
+    public function isVisibleToHr()
+    {
+        return $this->job_status_id !== 1;
+    }
+
+    /**
      * The database model stores a foreign id to the classification table,
      * but to simplify the API, this model simply returns the key as classification_code.
      *
@@ -552,17 +637,5 @@ class JobPoster extends BaseModel
             return $this->classification->key . '-0' . $this->classification_level;
         }
         return null;
-    }
-
-    /**
-     * Return the array of values used to represent this object in an api response.
-     * This array should contain no nested objects (besides translations).
-     *
-     * @return mixed[]
-     */
-    public function toApiArray(): array
-    {
-        $jobWithTranslations = array_merge($this->toArray(), $this->getTranslationsArray());
-        return $jobWithTranslations;
     }
 }

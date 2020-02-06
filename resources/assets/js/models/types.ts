@@ -1,18 +1,6 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
 import { ReviewStatusId, ReviewStatusName } from "./lookupConstants";
-
-export interface JobTranslation {
-  city: string | null;
-  title: string | null;
-  dept_impact: string | null;
-  team_impact: string | null;
-  hire_impact: string | null;
-  division: string | null;
-  education: string | null;
-  work_env_description: string | null;
-  culture_summary: string | null;
-  culture_special: string | null;
-}
+import { localizedField, localizedFieldNonNull } from "./app";
 
 export interface Job {
   id: number;
@@ -27,6 +15,7 @@ export interface Job {
   salary_min: number | null;
   salary_max: number | null;
   noc: number | null;
+  job_status_id: number;
   classification_id: number | null;
   classification_level: number | null;
   security_clearance_id: number | null;
@@ -45,19 +34,17 @@ export interface Job {
   flexible_hours_frequency_id: number | null;
   travel_requirement_id: number | null;
   overtime_requirement_id: number | null;
-  en: JobTranslation;
-  fr: JobTranslation;
-}
-
-export interface ManagerTranslation {
-  division: string | null;
-  position: string | null;
-  leadership_style: string | null;
-  expectations: string | null;
-  employee_learning: string | null;
-  career_journey: string | null;
-  learning_path: string | null;
-  about_me: string | null;
+  created_at: Date;
+  city: localizedField;
+  title: localizedField;
+  dept_impact: localizedField;
+  team_impact: localizedField;
+  hire_impact: localizedField;
+  division: localizedField;
+  education: localizedField;
+  work_env_description: localizedField;
+  culture_summary: localizedField;
+  culture_special: localizedField;
 }
 
 export interface Manager {
@@ -70,8 +57,23 @@ export interface Manager {
   twitter_username: string | null;
   linkedin_url: string | null;
   is_demo_manager: boolean;
-  en: ManagerTranslation;
-  fr: ManagerTranslation;
+  division: localizedField;
+  position: localizedField;
+  leadership_style: localizedField;
+  expectations: localizedField;
+  employee_learning: localizedField;
+  career_journey: localizedField;
+  learning_path: localizedField;
+  about_me: localizedField;
+}
+
+export interface HrAdvisor {
+  id: number;
+  user_id: number;
+  first_name: string;
+  last_name: string;
+  department_id: number;
+  claimed_job_ids: number[];
 }
 
 export interface Application {
@@ -150,16 +152,11 @@ export interface ReviewStatus {
   name: ReviewStatusName;
 }
 
-export interface SkillTranslation {
-  name: string;
-  description: string;
-}
-
 export interface Skill {
   id: number;
   skill_type_id: number;
-  en: SkillTranslation;
-  fr: SkillTranslation;
+  name: localizedFieldNonNull;
+  description: localizedFieldNonNull;
   is_culture_skill: boolean;
   is_future_skill: boolean;
   classifications: Classification[];
@@ -175,14 +172,8 @@ export interface Criteria {
   job_poster_id: number;
   skill_id: number;
   skill_level_id: number;
-  en: {
-    description: string | null;
-    specificity: string | null;
-  };
-  fr: {
-    description: string | null;
-    specificity: string | null;
-  };
+  description: localizedField;
+  specificity: localizedField;
 }
 
 export interface Assessment {
@@ -227,24 +218,24 @@ export interface AssessmentPlanNotification {
   created_at: Date;
 }
 
-export interface DepartmentTranslation {
-  name: string;
-  impact: string;
-}
-
 export interface Department {
   id: number;
-  en: DepartmentTranslation;
-  fr: DepartmentTranslation;
+  name: localizedFieldNonNull;
+  impact: localizedFieldNonNull;
 }
 
 export interface JobPosterKeyTask {
   id: number;
   job_poster_id: number;
-  en: {
-    description: string;
-  };
-  fr: {
-    description: string;
-  };
+  description: localizedFieldNonNull;
+}
+
+export interface Comment {
+  id: number;
+  job_poster_id: number;
+  user_id: number;
+  comment: string;
+  location: string;
+  type_id: number | null;
+  created_at: Date;
 }

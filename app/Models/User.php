@@ -41,6 +41,7 @@ use App\Traits\RememberDeviceTrait;
  *
  * @property \App\Models\Applicant $applicant
  * @property \App\Models\Manager $manager
+ * @property \App\Models\HrAdvisor $hr_advisor
  * @property \App\Models\ProfilePic $profile_pic
  * @property \App\Models\UserRole $user_role
  */
@@ -120,6 +121,11 @@ class User extends BaseModel implements
     public function manager() //phpcs:ignore
     {
         return $this->hasOne(\App\Models\Manager::class);
+    }
+
+    public function hr_advisor() //phpcs:ignore
+    {
+        return $this->hasOne(\App\Models\HrAdvisor::class);
     }
 
     public function profile_pic() //phpcs:ignore
@@ -236,6 +242,16 @@ class User extends BaseModel implements
     }
 
     /**
+     * Returns true if this user has the hr_advisor role.
+     *
+     * @return boolean
+     */
+    public function isHrAdvisor(): bool
+    {
+        return $this->user_role->name === 'hr_advisor' || $this->isAdmin();
+    }
+
+    /**
      * Returns true if this user has the Admin role.
      *
      * @return boolean
@@ -246,10 +262,10 @@ class User extends BaseModel implements
     }
 
     /**
-     * Check if the user has the specified role.
-     * @param string $role This may be either 'applicant', 'manager' or 'admin'.
-     * @return boolean
-     */
+    * Check if the user has the specified role.
+    * @param string $role This may be either 'applicant', 'manager', 'hr_advisor' or 'admin'.
+    * @return boolean
+    */
     public function hasRole($role)
     {
         switch ($role) {
@@ -257,6 +273,8 @@ class User extends BaseModel implements
                 return $this->isApplicant();
             case 'manager':
                 return $this->isManager();
+            case 'hr_advisor':
+                return $this->isHrAdvisor();
             case 'admin':
                 return $this->isAdmin();
             default:
@@ -267,9 +285,9 @@ class User extends BaseModel implements
     /**
      * Set this user to the specified role.
      *
-     * @param string $role Must be either 'applicant', 'manager' or 'admin.
-     * @return void
-     */
+     * @param string $role Must be either 'applicant', 'manager', 'hr_advisor' or 'admin'.
+    * @return void
+    */
     public function setRole(string $role): void
     {
         $this->user_role()->associate(UserRole::where('name', $role)->firstOrFail());

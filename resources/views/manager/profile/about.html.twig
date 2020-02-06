@@ -14,19 +14,19 @@
 		</legend>
 		<div class="flex-grid">
 			<div class="box med-1of2">
-				<div class="form__input-wrapper--float {% if managerEN.position %}active{% endif %}">
+				<div class="form__input-wrapper--float {% if translations.position.en %}active{% endif %}">
 					<label class="form__label" for="managerProfileTitleEN">
 						{{ about_l10n.position_english }}
 					</label>
-					<input required class="form__input" id="managerProfileTitleEN" type="text" name="en[position]" value="{{ old('en.position', managerEN.position) }}"/>
+					<input required class="form__input" id="managerProfileTitleEN" type="text" name="position[en]" value="{{ old('position.en', translations.position.en) }}"/>
 				</div>
 			</div>
 			<div class="box med-1of2">
-				<div class="form__input-wrapper--float {% if managerFR.position %}active{% endif %}">
+				<div class="form__input-wrapper--float {% if translations.position.fr %}active{% endif %}">
 					<label class="form__label" for="managerProfileTitleFR">
 						{{ about_l10n.position_french }}
 					</label>
-					<input required class="form__input" id="managerProfileTitleFR" type="text" name="fr[position]" value="{{ old('fr.position', managerFR.position) }}"/>
+					<input required class="form__input" id="managerProfileTitleFR" type="text" name="position[fr]" value="{{ old('position.fr', translations.position.fr) }}"/>
 				</div>
 			</div>
 		</div>
@@ -49,19 +49,19 @@
 				</div>
 			</div>
 			<div class="box med-1of2">
-				<div class="form__input-wrapper--float {% if managerEN.division %}active{% endif %}">
+				<div class="form__input-wrapper--float {% if translations.division.en %}active{% endif %}">
 					<label class="form__label" for="managerProfileDivision">
 						{{ about_l10n.division_english }}
 					</label>
-					<input class="form__input" id="managerProfileDivision" type="text" name="en[division]" value="{{ old('en.division', managerEN.division) }}"/>
+					<input class="form__input" id="managerProfileDivision" type="text" name="division[en]" value="{{ old('division.en', translations.division.en) }}"/>
 				</div>
 			</div>
 			<div class="box med-1of2">
-				<div class="form__input-wrapper--float {% if managerFR.division %}active{% endif %}">
+				<div class="form__input-wrapper--float {% if translations.division.fr %}active{% endif %}">
 					<label class="form__label" for="managerProfileDivisionFr">
 						{{ about_l10n.division_french }}
 					</label>
-					<input class="form__input" id="managerProfileDivisionFr" type="text" name="fr[division]" value="{{ old('fr.division', managerFR.division) }}"/>
+					<input class="form__input" id="managerProfileDivisionFr" type="text" name="division[fr]" value="{{ old('division.fr', translations.division.fr) }}"/>
 				</div>
 			</div>
 		</div>
@@ -72,20 +72,20 @@
 		</legend>
 		<div class="flex-grid">
 			<div class="box med-1of2">
-				<div class="form__input-wrapper--float {% if managerEN.education %}active{% endif %}">
+				<div class="form__input-wrapper--float {% if translations.education.en %}active{% endif %}">
 					<label class="form__label" for="managerProfileEducationEN">
 						{{ about_l10n.education_english }}
 					</label>
-					<textarea class="form__textarea" id="managerProfileEducationEN" name="en[education]">{{ old('en.education',  managerEN.education) }}
+					<textarea class="form__textarea" id="managerProfileEducationEN" name="education[en]">{{ old('education.en', translations.education.en) }}
 					</textarea>
 				</div>
 			</div>
 			<div class="box med-1of2">
-				<div class="form__input-wrapper--float {% if managerFR.education %}active{% endif %}">
+				<div class="form__input-wrapper--float {% if translations.education.fr %}active{% endif %}">
 					<label class="form__label" for="managerProfileEducationFR">
 						{{ about_l10n.education_french }}
 					</label>
-					<textarea class="form__textarea" id="managerProfileEducationFR" name="fr[education]">{{ old('fr.education',  managerFR.education) }}
+					<textarea class="form__textarea" id="managerProfileEducationFR" name="education[fr]">{{ old('education.fr', translations.education.fr) }}
 					</textarea>
 				</div>
 			</div>
@@ -98,51 +98,51 @@
 				</div>
 			</div>
 			<div class="box med-1of2">
-				<div class="form__input-wrapper--float {% if managerEN.career_journey %}active{% endif %}">
+				<div class="form__input-wrapper--float {% if translations.career_journey.en %}active{% endif %}">
 					<label class="form__label" for="managerProfileCareerJourneyEN">
 						{{ about_l10n.career_journey_english }}
 					</label>
-					<textarea class="form__textarea" id="managerProfileCareerJourneyEN" name="en[career_journey]">{{ old('en.career_journey',  managerEN.career_journey) }}</textarea>
+					<textarea class="form__textarea" id="managerProfileCareerJourneyEN" name="career_journey[en]">{{ old('career_journey.en', translations.career_journey.en) }}</textarea>
 				</div>
 			</div>
 			<div class="box med-1of2">
-				<div class="form__input-wrapper--float {% if managerFR.career_journey %}active{% endif %}">
+				<div class="form__input-wrapper--float {% if translations.career_journey.fr %}active{% endif %}">
 					<label class="form__label" for="managerProfileCareerJourneyFR">
 						{{ about_l10n.career_journey_french }}
 					</label>
-					<textarea class="form__textarea" id="managerProfileCareerJourneyFR" name="fr[career_journey]">{{ old('fr.career_journey',  managerFR.career_journey) }}</textarea>
+					<textarea class="form__textarea" id="managerProfileCareerJourneyFR" name="career_journey[fr]">{{ old('career_journey.fr', translations.career_journey.fr) }}</textarea>
 				</div>
 			</div>
 			<div class="box med-1of2">
-				<div class="form__input-wrapper--float {% if managerEN.learning_path %}active{% endif %}">
+				<div class="form__input-wrapper--float {% if translations.learning_path.en %}active{% endif %}">
 					<label class="form__label" for="managerProfileLearningPathEN">
 						{{ about_l10n.learning_path_english }}
 					</label>
-					<textarea class="form__textarea" id="managerProfileLearningPathEN" name="en[learning_path]">{{ old('en.learning_path',  managerEN.learning_path) }}</textarea>
+					<textarea class="form__textarea" id="managerProfileLearningPathEN" name="learning_path[en]">{{ old('learning_path.en', translations.learning_path.en) }}</textarea>
 				</div>
 			</div>
 			<div class="box med-1of2">
-				<div class="form__input-wrapper--float {% if managerFR.learning_path %}active{% endif %}">
+				<div class="form__input-wrapper--float {% if translations.learning_path.fr %}active{% endif %}">
 					<label class="form__label" for="managerProfileLearningPathFR">
 						{{ about_l10n.learning_path_french }}
 					</label>
-					<textarea class="form__textarea" id="managerProfileLearningPathFR" name="fr[learning_path]">{{ old('fr.learning_path',  managerFR.learning_path) }}</textarea>
+					<textarea class="form__textarea" id="managerProfileLearningPathFR" name="learning_path[fr]">{{ old('learning_path.fr', translations.learning_path.fr) }}</textarea>
 				</div>
 			</div>
 			<div class="box med-1of2">
-				<div class="form__input-wrapper--float {% if managerEN.about_me %}active{% endif %}">
+				<div class="form__input-wrapper--float {% if translations.about_me.en %}active{% endif %}">
 					<label class="form__label" for="managerProfileBiographyEN">
 						{{ about_l10n.biography_english }}
 					</label>
-					<textarea class="form__textarea" id="managerProfileBiographyEN" name="en[about_me]">{{ old('en.about_me', managerEN.about_me) }}</textarea>
+					<textarea class="form__textarea" id="managerProfileBiographyEN" name="about_me[en]">{{ old('about_me.en', translations.about_me.en) }}</textarea>
 				</div>
 			</div>
 			<div class="box med-1of2">
-				<div class="form__input-wrapper--float {% if managerFR.about_me %}active{% endif %}">
+				<div class="form__input-wrapper--float {% if translations.about_me.fr %}active{% endif %}">
 					<label class="form__label" for="managerProfileBiographyFR">
 						{{ about_l10n.biography_french }}
 					</label>
-					<textarea class="form__textarea" id="managerProfileBiographyFR" name="fr[about_me]">{{ old('fr.about_me', managerFR.about_me) }}</textarea>
+					<textarea class="form__textarea" id="managerProfileBiographyFR" name="about_me[fr]">{{ old('about_me.fr', translations.about_me.fr) }}</textarea>
 				</div>
 			</div>
 		</div>

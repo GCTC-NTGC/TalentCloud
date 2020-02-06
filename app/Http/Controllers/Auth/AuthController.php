@@ -12,7 +12,7 @@ class AuthController extends Controller
      *
      * @return mixed[]
      */
-    protected function auth_routes()
+    protected function auth_routes() //phpcs:ignore
     {
         if (WhichPortal::isManagerPortal()) {
             $routes = [
@@ -24,6 +24,17 @@ class AuthController extends Controller
                     'request' => route('manager.password.request'),
                 ],
                 // 'passwords.reset' => route('manager.password.reset'),
+            ];
+        } elseif (WhichPortal::isHrPortal()) {
+            $routes = [
+                'home' => route('hr_advisor.home'),
+                'login' => route('hr_advisor.login'),
+                'register' => route('hr_advisor.register'),
+                'password' => [
+                    'email' => route('hr_advisor.password.email'),
+                    'request' => route('hr_advisor.password.request'),
+                ],
+                // 'passwords.reset' => route('hr_advisor.password.reset'),
             ];
         } else {
             $routes = [

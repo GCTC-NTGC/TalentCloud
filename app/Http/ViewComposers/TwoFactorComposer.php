@@ -24,6 +24,9 @@ class TwoFactorComposer
         } elseif (WhichPortal::isManagerPortal()) {
             $confirm_url = route('manager.two_factor.confirm');
             $profile_url = route('manager.settings.edit');
+        } elseif (WhichPortal::isHrPortal()) {
+            $confirm_url = route('hr_advisor.two_factor.confirm');
+            $profile_url = route('hr_advisor.settings.edit');
         } elseif (WhichPortal::isAdminPortal()) {
             $confirm_url = route('admin.two_factor.confirm');
             $profile_url = backpack_url('2fa');

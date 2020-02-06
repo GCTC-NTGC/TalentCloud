@@ -13,8 +13,8 @@ import { validationMessages } from "../../Form/Messages";
 import { Job, Department, Manager } from "../../../models/types";
 import { emptyJob } from "../../../models/jobUtil";
 import TextInput from "../../Form/TextInput";
-import { getId } from "../../../helpers/queries";
 import { accountSettings } from "../../../helpers/routes";
+import { localizeFieldNonNull } from "../../../helpers/localize";
 
 const pageMessages = defineMessages({
   explanationBoldText: {
@@ -128,27 +128,27 @@ const initializeValues = (
   }
 
   const managerDivision = {
-    en: get(manager, "en.division", ""),
-    fr: get(manager, "fr.division", ""),
+    en: get(manager, "division.en", ""),
+    fr: get(manager, "division.fr", ""),
   };
 
   let divisionEN = "";
-  if (job !== null && job.en.division) {
-    divisionEN = job.en.division;
+  if (job !== null && job.division.en) {
+    divisionEN = job.division.en;
   } else if (managerDivision.en) {
     divisionEN = managerDivision.en;
   }
 
   let divisionFR = "";
-  if (job !== null && job.fr.division) {
-    divisionFR = job.fr.division;
+  if (job !== null && job.division.fr) {
+    divisionFR = job.division.fr;
   } else if (managerDivision.fr) {
     divisionFR = managerDivision.fr;
   }
 
   return {
-    managerPositionEn: get(manager, "en.position", ""),
-    managerPositionFr: get(manager, "fr.position", ""),
+    managerPositionEn: get(manager, "position.en", ""),
+    managerPositionFr: get(manager, "position.fr", ""),
     department,
     divisionEN,
     divisionFR,
@@ -165,13 +165,10 @@ const updateJobWithValues = (
   chosen_lang: locale,
   // eslint-disable-next-line @typescript-eslint/camelcase
   department_id: values.department || null,
-  en: {
-    ...job.en,
-    division: values.divisionEN || null,
-  },
-  fr: {
-    ...job.fr,
-    division: values.divisionFR || null,
+  division: {
+    ...job.division,
+    en: values.divisionEN || null,
+    fr: values.divisionFR || null,
   },
 });
 
@@ -180,15 +177,17 @@ const updateManagerWithValues = (
   values: IntroFormValues,
 ): Manager => ({
   ...manager,
-  en: {
-    ...manager.en,
-    position: values.managerPositionEn || null,
-    division: values.divisionEN || null,
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  department_id: values.department || null,
+  division: {
+    ...manager.division,
+    en: values.divisionEN || null,
+    fr: values.divisionFR || null,
   },
-  fr: {
-    ...manager.fr,
-    position: values.managerPositionFr || null,
-    division: values.divisionFR || null,
+  position: {
+    ...manager.position,
+    en: values.managerPositionEn || null,
+    fr: values.managerPositionFr || null,
   },
 });
 
@@ -209,9 +208,12 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
   const [languageSelection, setLanguageSelection] = useState(locale);
   const getDepartmentName = (): string | undefined => {
     // eslint-disable-next-line camelcase
-    return departments.find(
+    const department = departments.find(
       department => department.id === manager.department_id,
-    )?.en.name;
+    );
+    return department
+      ? localizeFieldNonNull(locale, department, "name")
+      : undefined;
   };
 
   const introSchema = Yup.object().shape({
@@ -421,8 +423,7 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
               <p data-c-margin="bottom(double)">
                 <FormattedMessage
                   id="jobBuilder.intro.completeInLanguage"
-                  defaultMessage="Complete the job poster in the language of your choice. We will
-                  handle translation."
+                  defaultMessage="Complete the job poster in the language of your choice. We will handle translation."
                   description="Instructions at bottom of form on language choice for job poster builder."
                 />{" "}
                 <FormattedMessage

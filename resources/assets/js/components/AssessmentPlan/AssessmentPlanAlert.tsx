@@ -16,6 +16,7 @@ import { DispatchType } from "../../configureStore";
 import { updateAssessmentPlanNotification } from "../../store/AssessmentPlanNotification/assessmentPlanNotificationActions";
 import { getSkills } from "../../store/Skill/skillSelector";
 import { mapToObject, getId, hasKey } from "../../helpers/queries";
+import { getLocale, localizeFieldNonNull } from "../../helpers/localize";
 
 interface AssessmentPlanAlertProps {
   notifications: AssessmentPlanNotification[];
@@ -34,6 +35,7 @@ export const AssessmentPlanAlert: React.FunctionComponent<AssessmentPlanAlertPro
   handleDismiss,
   intl,
 }): React.ReactElement | null => {
+  const locale = getLocale(intl.locale);
   if ((notifications.length === 0 && !isFetching) || isUpdating) {
     return null;
   }
@@ -64,7 +66,7 @@ export const AssessmentPlanAlert: React.FunctionComponent<AssessmentPlanAlertPro
   const skillsById = mapToObject(skills, getId);
   const skillName = (skillId: number): string =>
     hasKey(skillsById, skillId)
-      ? skillsById[skillId][intl.locale].name
+      ? localizeFieldNonNull(locale, skillsById[skillId], "name")
       : "UNKNOWN SKILL";
   const createNotifications = notifications.filter(
     (notification): boolean => notification.type === "CREATE",

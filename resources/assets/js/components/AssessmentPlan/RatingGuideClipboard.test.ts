@@ -19,6 +19,7 @@ import {
   criteriaType,
 } from "../../models/localizedConstants";
 import { clipboardData, ClipboardTableRowProps } from "./RatingGuideClipboard";
+import { localizeFieldNonNull } from "../../helpers/localize";
 
 const jediSkill: Skill = fakeSkill();
 
@@ -94,8 +95,8 @@ const expectedOutput: ClipboardTableRowProps[] = [
     criteriaTypeName: formatMessage(
       criteriaType(someCriteria[1].criteria_type_id),
     ),
-    skillName: someSkills[1].en.name,
-    skillDescription: someSkills[1].en.description,
+    skillName: localizeFieldNonNull("en", someSkills[1], "name"),
+    skillDescription: localizeFieldNonNull("en", someSkills[1], "description"),
     modelAnswer: someRatingGuideAnswers[1].expected_answer,
   },
   {
@@ -111,8 +112,8 @@ const expectedOutput: ClipboardTableRowProps[] = [
     criteriaTypeName: formatMessage(
       criteriaType(someCriteria[3].criteria_type_id),
     ),
-    skillName: someSkills[3].en.name,
-    skillDescription: someSkills[3].en.description,
+    skillName: localizeFieldNonNull("en", someSkills[3], "name"),
+    skillDescription: localizeFieldNonNull("en", someSkills[3], "description"),
     modelAnswer: someRatingGuideAnswers[3].expected_answer,
   },
   {
@@ -128,8 +129,8 @@ const expectedOutput: ClipboardTableRowProps[] = [
     criteriaTypeName: formatMessage(
       criteriaType(someCriteria[2].criteria_type_id),
     ),
-    skillName: someSkills[2].en.name,
-    skillDescription: someSkills[2].en.description,
+    skillName: localizeFieldNonNull("en", someSkills[2], "name"),
+    skillDescription: localizeFieldNonNull("en", someSkills[2], "description"),
     modelAnswer: someRatingGuideAnswers[2].expected_answer,
   },
   {
@@ -145,8 +146,8 @@ const expectedOutput: ClipboardTableRowProps[] = [
     criteriaTypeName: formatMessage(
       criteriaType(someCriteria[0].criteria_type_id),
     ),
-    skillName: someSkills[0].en.name,
-    skillDescription: someSkills[0].en.description,
+    skillName: localizeFieldNonNull("en", someSkills[0], "name"),
+    skillDescription: localizeFieldNonNull("en", someSkills[0], "description"),
     modelAnswer: someRatingGuideAnswers[0].expected_answer,
   },
 ];

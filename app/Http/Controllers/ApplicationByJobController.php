@@ -20,6 +20,7 @@ use App\Models\WorkExperience;
 use App\Services\Validation\ApplicationValidator;
 use Facades\App\Services\WhichPortal;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
@@ -47,7 +48,8 @@ class ApplicationByJobController extends Controller
             // Localization Strings.
             'jobs_l10n' => Lang::get('manager/job_index'),
             // Data.
-            'job' => $jobPoster->toApiArray(),
+            'job' => new JsonResource($jobPoster),
+            'is_hr_portal' => WhichPortal::isHrPortal(),
             'applications' => $applications,
             'review_statuses' => ReviewStatus::all()
         ]);
@@ -289,6 +291,7 @@ class ApplicationByJobController extends Controller
                 'courses' => $courses,
                 'work_experiences' => $work_experiences,
                 'is_manager_view' => WhichPortal::isManagerPortal(),
+                'is_draft' => $application->application_status->name == 'draft',
             ]
         );
     }
@@ -760,14 +763,12 @@ class ApplicationByJobController extends Controller
      */
     public function submit(Request $request, JobPoster $jobPoster)
     {
-        $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
 
-        // Ensure user has permissions to update this application.
-        $this->authorize('update', $application);
-
         // Only complete submission if submit button was pressed.
-        if ($request->input('submit') == 'submit') {
+        if ($request->input('submit') == 'submit' && $application->application_status->name == 'draft') {
+            // Ensure user has permissions to update this application.
+            $this->authorize('update', $application);
             $request->validate([
                 'submission_signature' => [
                     'required',

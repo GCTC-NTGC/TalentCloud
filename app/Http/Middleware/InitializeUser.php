@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Models\Applicant;
+use App\Models\HrAdvisor;
 use App\Models\Manager;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
@@ -45,12 +46,22 @@ class InitializeUser
                 }
             }
             if ($user->isManager() ||
-            $user->isAdmin()) {
+                    $user->isAdmin()) {
                 $managerProfile = $user->manager;
                 if ($managerProfile === null) {
                     $managerProfile = new Manager();
                     $managerProfile->user_id = $user->id;
                     $managerProfile->save();
+                    $user->refresh();
+                }
+            }
+            if ($user->isHrAdvisor() ||
+                    $user->isAdmin()) {
+                $hrAdvisorProfile = $user->hr_advisor;
+                if ($hrAdvisorProfile === null) {
+                    $hrAdvisorProfile = new HrAdvisor();
+                    $hrAdvisorProfile->user_id = $user->id;
+                    $hrAdvisorProfile->save();
                     $user->refresh();
                 }
             }

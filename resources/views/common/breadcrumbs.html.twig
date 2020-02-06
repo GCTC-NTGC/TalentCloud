@@ -8,12 +8,12 @@
 				</li>
 			{% elseif loop.last %}
 				<li>
-					<span aria-current="page">{{ breadcrumbs_lang[key] ?: key }}</span>
+					<span aria-current="page">{{ breadcrumbs_lang[key] ?: key|capitalize }}</span>
 					<i class="fas fa-caret-right"></i>
 				</li>
 			{% else %}
 				<li>
-					<a href="{{ url(url) }}">{{ breadcrumbs_lang[key] ?: key }}</a>
+					<a href="{{ url(url) }}">{{ breadcrumbs_lang[key] ?: key|capitalize }}</a>
 					<i class="fas fa-caret-right"></i>
 				</li>
 			{% endif %}
