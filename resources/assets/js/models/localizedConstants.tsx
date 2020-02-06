@@ -849,45 +849,106 @@ const jobStatusMessages = defineMessages({
 export const jobStatus = (jobStatusId: JobStatus): MessageDescriptor =>
   getOrThrowError(jobStatusMessages, jobStatusId, "Invalid Job Status");
 
+export const generalLocations = defineMessages({
+  [LocationId.jobGeneric]: {
+    id: "activityfeed.locations.review",
+    defaultMessage: "Job Poster Builder",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.summary]: {
+    id: "activityfeed.locations.hr.summary",
+    defaultMessage: "HR Summary Page",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.preview]: {
+    id: "activityfeed.locations.hr.preview",
+    defaultMessage: "HR Preview Page",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.applicantsGeneric]: {
+    id: "activityfeed.locations.applications.generic",
+    defaultMessage: "Applicant Review Page",
+    description: "Location where the activity is located.",
+  },
+  notFound: {
+    id: "activityfeed.locations.notFound",
+    defaultMessage: "Error location not found.",
+    description: "Error message if location id is not recognized",
+  },
+});
+
+export const generalLocationOption = (
+  locationId: string,
+): MessageDescriptor => {
+  switch (locationId) {
+    /* Job Poster Review Page */
+    case LocationId.jobGeneric:
+    case LocationId.heading:
+    case LocationId.basicInfo:
+    case LocationId.impact:
+    case LocationId.tasks:
+    case LocationId.skills:
+    case LocationId.langRequirements:
+    case LocationId.environment:
+      return generalLocations[LocationId.jobGeneric];
+
+    /* Applicant Review Page */
+    case LocationId.applicantsGeneric:
+    case LocationId.underConsideration:
+    case LocationId.optionalConsideration:
+    case LocationId.notUnderConsideration:
+      return generalLocations[LocationId.applicantsGeneric];
+
+    /* Hr Portal */
+    case LocationId.summary:
+      return generalLocations[LocationId.summary];
+    case LocationId.preview:
+      return generalLocations[LocationId.preview];
+
+    default:
+      return generalLocations.notFound;
+  }
+};
+
 export const jobReviewLocations = defineMessages({
   [LocationId.jobGeneric]: {
     id: "activityfeed.locations.review.details",
-    defaultMessage: "Job Poster Builder > General",
+    defaultMessage: "General",
     description: "Location where the activity is located.",
   },
   [LocationId.heading]: {
     id: "activityfeed.locations.review.heading",
-    defaultMessage: "Job Poster Builder > Job Page Heading",
+    defaultMessage: "Job Page Heading",
     description: "Location where the activity is located.",
   },
   [LocationId.basicInfo]: {
     id: "activityfeed.locations.review.basicInfo",
-    defaultMessage: "Job Poster Builder > Basic Information",
+    defaultMessage: "Basic Information",
     description: "Location where the activity is located.",
   },
   [LocationId.impact]: {
     id: "activityfeed.locations.review.impact",
-    defaultMessage: "Job Poster Builder > Impact",
+    defaultMessage: "Impact",
     description: "Location where the activity is located.",
   },
   [LocationId.tasks]: {
     id: "activityfeed.locations.review.tasks",
-    defaultMessage: "Job Poster Builder > Tasks",
+    defaultMessage: "Tasks",
     description: "Location where the activity is located.",
   },
   [LocationId.skills]: {
     id: "activityfeed.locations.review.skills",
-    defaultMessage: "Job Poster Builder > Skills",
+    defaultMessage: "Skills",
     description: "Location where the activity is located.",
   },
   [LocationId.langRequirements]: {
     id: "activityfeed.locations.review.langRequirements",
-    defaultMessage: "Job Poster Builder > Language Requirements",
+    defaultMessage: "Language Requirements",
     description: "Location where the activity is located.",
   },
   [LocationId.environment]: {
     id: "activityfeed.locations.review.environment",
-    defaultMessage: "Job Poster Builder > Environment",
+    defaultMessage: "Environment",
     description: "Location where the activity is located.",
   },
 });
@@ -916,19 +977,11 @@ export const applicantReviewLocations = defineMessages({
 });
 
 export const hrPortalLocations = defineMessages({
-  [LocationId.summary]: {
-    id: "activityfeed.locations.hr.summary",
-    defaultMessage: "HR Summary Page",
-    description: "Location where the activity is located.",
-  },
-  [LocationId.preview]: {
-    id: "activityfeed.locations.hr.preview",
-    defaultMessage: "HR Preview Page",
-    description: "Location where the activity is located.",
-  },
+  [LocationId.summary]: jobReviewLocations[LocationId.jobGeneric],
+  [LocationId.preview]: jobReviewLocations[LocationId.jobGeneric],
 });
 
-export const activityLocationOption = (locationId: string): MessageDescriptor =>
+export const specificLocationOption = (locationId: string): MessageDescriptor =>
   getOrThrowError(
     {
       ...jobReviewLocations,

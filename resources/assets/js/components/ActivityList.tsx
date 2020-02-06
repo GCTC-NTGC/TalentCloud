@@ -10,7 +10,10 @@ import { DispatchType } from "../configureStore";
 import { fetchComments } from "../store/Job/jobActions";
 import { getComments, sortComments } from "../store/Job/jobSelector";
 import { commentTypeMessages } from "./CommentForm";
-import { activityLocationOption } from "../models/localizedConstants";
+import {
+  generalLocationOption,
+  specificLocationOption,
+} from "../models/localizedConstants";
 import { activityLocationUrl } from "../models/jobUtil";
 import { LocationId } from "../models/lookupConstants";
 
@@ -69,7 +72,9 @@ export const ActivityList: React.FunctionComponent<ActivityListProps> = ({
 
   const getLocation = (locationStr: string): string =>
     isValidLocation(locationStr)
-      ? `${intl.formatMessage(activityLocationOption(locationStr))}`
+      ? `${intl.formatMessage(
+          generalLocationOption(locationStr),
+        )} > ${intl.formatMessage(specificLocationOption(locationStr))}`
       : "";
 
   return (
