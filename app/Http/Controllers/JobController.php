@@ -296,7 +296,7 @@ class JobController extends Controller
         $divisionEn = $manager->getTranslation('division', 'en');
         $divisionFr = $manager->getTranslation('division', 'fr');
         $jobPoster->fill([
-            'department_id' => $manager->department_id,
+            'department_id' => $manager->user->department_id,
             'division' => ['en' => $divisionEn],
             'division' => ['fr' => $divisionFr],
         ]);

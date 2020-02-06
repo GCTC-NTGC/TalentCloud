@@ -23,15 +23,15 @@
 			<div class="job-post__culture-manager-meta">
 				<span>{{ manager.position }}</span>
 				<span>{{ job_post.culture.manager_department_bridge }}</span>
-				<span>{{ manager.department.name }}</span>
+				<span>{{ manager.user.department.name }}</span>
 			</div>
 			{% if auth_guest() %}
-				<a class="job-post__culture-manager-profile-link gtag-applicant-job-poster-to-manager-profile" href="{{ route('managers.show',{'manager':manager.id}) }}" title="{{ job_post.manager.link_title|replace({":name":manager.user.first_name}) }}">
-					{{ job_post.culture.guest_manager_link_label|replace({":name":manager.user.first_name}) }}
+				<a class="job-post__culture-manager-profile-link gtag-applicant-job-poster-to-manager-profile" href="{{ route('managers.show',{'manager': manager.id}) }}" title="{{ job_post.manager.link_title|replace({":name": manager.user.first_name}) }}">
+					{{ job_post.culture.guest_manager_link_label|replace({":name": manager.user.first_name}) }}
 				</a>
 			{% else %}
-				<a class="job-post__culture-manager-profile-link gtag-applicant-job-poster-to-manager-profile" href="{{ route('managers.show',{'manager':manager.id}) }}" title="{{ job_post.manager.link_title|replace({":name":manager.user.first_name}) }}">
-					{{ job_post.culture.manager_link_label|replace({":name":manager.user.first_name}) }}
+				<a class="job-post__culture-manager-profile-link gtag-applicant-job-poster-to-manager-profile" href="{{ route('managers.show',{'manager': manager.id}) }}" title="{{ job_post.manager.link_title|replace({":name": manager.user.first_name}) }}">
+					{{ job_post.culture.manager_link_label|replace({":name": manager.user.first_name}) }}
 				</a>
 			{% endif %}
 		</div>
@@ -113,7 +113,7 @@
 		</div>
 		<div class="box full" data-clone>
 			<button class="gtag-applicant-job-poster-to-work-environment" data-c-button="solid(c1)" data-c-radius="rounded" data-c-dialog-id="applicant-work-culture" data-c-dialog-action="open" data-c-margin="top(double)" type="button">
-				{{ job_post.work_environment.view_more_button}}
+				{{ job_post.work_environment.view_more_button }}
 			</button>
 			<div data-c-dialog-overlay></div>
 			<div aria-hidden="true" aria-describedby="applicant-work-culture-description" aria-labelledby="applicant-work-culture-title" data-c-dialog data-c-dialog-id="applicant-work-culture" data-c-padding="top(double) bottom(double)" role="dialog">
@@ -135,7 +135,7 @@
 									<p data-c-margin="bottom(double)">{{ job.culture_special }}</p>
 									<h4 data-c-border="bottom(thin, solid, black)" data-c-font-size="h4" data-c-font-weight="600" data-c-margin="bottom(normal)" data-c-padding="bottom(normal)">{{ job_post.culture.work_environment_label }}</h4>
 									{# Below is a React container for the work environment features. This is being done to not duplicate JobWorkEnv component, and its translations, on the react side.  #}
-									<div id="work-env-features-section" data-work-env-options={{ job.work_env_features|json_encode() }} data-team-size={{ job.team_size|json_encode() }} data-work-env-description="{{job.work_env_description }}"></div>
+									<div id="work-env-features-section" data-work-env-options={{ job.work_env_features|json_encode() }} data-team-size={{ job.team_size|json_encode() }} data-work-env-description="{{ job.work_env_description }}"></div>
 									{# End of Component #}
 								</div>
 							</div>
