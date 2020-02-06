@@ -118,7 +118,7 @@ export const LocationId = {
   skills: "job/skills",
   langRequirements: "job/langRequirements",
   environment: "job/environment",
-  summary: "summary",
+  summary: "hr/summary",
   preview: "hr/preview",
   screeningPlan: "screeningPlan",
   applicantsGeneric: "applicants/generic",
