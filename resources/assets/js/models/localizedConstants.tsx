@@ -955,31 +955,31 @@ export const jobReviewLocations = defineMessages({
 
 export const applicantReviewLocations = defineMessages({
   [LocationId.applicantsGeneric]: {
-    id: "locations.applicantReview.generic",
-    defaultMessage: "Applicant Review Page > Generic",
+    id: "activityfeed.locations.applicantReview.generic",
+    defaultMessage: "Generic",
     description: "Location of the activity.",
   },
   [LocationId.underConsideration]: {
-    id: "locations.applicantReview.underConsideration",
-    defaultMessage: "Applicant Review Page > Under Consideration",
+    id: "activityfeed.locations.applicantReview.underConsideration",
+    defaultMessage: "Under Consideration",
     description: "Location of the activity.",
   },
   [LocationId.optionalConsideration]: {
-    id: "locations.applicantReview.optionalConsideration",
-    defaultMessage: "Applicant Review Page > Optional Consideration",
+    id: "activityfeed.locations.applicantReview.optionalConsideration",
+    defaultMessage: "Optional Consideration",
     description: "Location of the activity.",
   },
   [LocationId.notUnderConsideration]: {
-    id: "locations.applicantReview.notUnderConsideration",
-    defaultMessage: "Applicant Review Page > No Longer Under Consideration",
+    id: "activityfeed.locations.applicantReview.notUnderConsideration",
+    defaultMessage: "No Longer Under Consideration",
     description: "Location of the activity.",
   },
 });
 
-export const hrPortalLocations = defineMessages({
+export const hrPortalLocations = {
   [LocationId.summary]: jobReviewLocations[LocationId.jobGeneric],
   [LocationId.preview]: jobReviewLocations[LocationId.jobGeneric],
-});
+};
 
 export const specificLocationOption = (locationId: string): MessageDescriptor =>
   getOrThrowError(
