@@ -33,6 +33,7 @@ class JobController extends Controller
         // from being actually loaded and firing off events.
         $jobs = JobPoster::where('open_date_time', '<=', $now)
             ->where('close_date_time', '>=', $now)
+            ->where('internal_only', false)
             ->where('published', true)
             ->with([
                 'department',
@@ -212,6 +213,8 @@ class JobController extends Controller
 
         $jpb_release_date = strtotime('2019-08-21 16:18:17');
         $job_created_at = strtotime($jobPoster->created_at);
+
+        Log::debug($jobPoster->job_poster_questions);
 
         // If the job poster is created after the release of the JPB.
         // Then, render with updated poster template.
