@@ -27,6 +27,7 @@ class ManagerCrudController extends CrudController
 
     public function setupListOperation()
     {
+        $this->crud->removeButton('update');
 
         $this->crud->addColumn([
             'name' => 'manager.id',
@@ -59,7 +60,7 @@ class ManagerCrudController extends CrudController
             'label' => 'Government Email'
         ]);
         $this->crud->addColumn([
-            'name' => 'manager.department.name',
+            'name' => 'department.name',
             'key' => 'manager_department',
             'type' => 'text',
             'label' => 'Department',
@@ -69,25 +70,5 @@ class ManagerCrudController extends CrudController
         // Add the custom blade button found in resources/views/vendor/backpack/crud/buttons/profile_edit.blade.php.
         $this->crud->addButtonFromView('line', 'create_job_poster', 'create_job_poster', 'beginning');
         $this->crud->addButtonFromView('line', 'profile_edit', 'profile_edit', 'end');
-    }
-
-    public function setupUpdateOperation()
-    {
-        $this->crud->addField([
-            'name' => 'full_name',
-            'label' => 'Name',
-            'type' => 'text',
-            'attributes' => [
-                'readonly'=>'readonly'
-            ]
-        ]);
-        $this->crud->addField([
-            'label' => 'Department',
-            'type' => 'select2',
-            'name' => 'department_id', // The db column for the foreign key.
-            'entity' => 'manager.department', // The method that defines the relationship in your Model.
-            'attribute' => 'name', // Foreign key attribute that is shown to user.
-            'model' => 'App\Models\Lookup\Department' // Foreign key model.
-        ]);
     }
 }

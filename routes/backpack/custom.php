@@ -15,7 +15,6 @@ Route::group([
     Route::crud('job-poster', 'JobPosterCrudController');
     Route::crud('user', 'UserCrudController');
     Route::crud('manager', 'ManagerCrudController');
-    Route::crud('hr', 'HrAdvisorCrudController');
     Route::crud('department', 'DepartmentCrudController');
     Route::crud('classification', 'ClassificationCrudController');
     Route::crud('2fa', 'TwoFactorCrudController');

@@ -80,7 +80,7 @@ class UserCrudController extends CrudController
     public function setupUpdateOperation()
     {
         $this->crud->addField([
-            'name' => 'name',
+            'name' => 'full_name',
             'label' => 'Name',
             'type' => 'text',
             'attributes' => [
@@ -94,6 +94,14 @@ class UserCrudController extends CrudController
             'entity' => 'user_role', // The method that defines the relationship in your Model.
             'attribute' => 'name', // Foreign key attribute that is shown to user.
             'model' => 'App\Models\UserRole' // Foreign key model.
+        ]);
+        $this->crud->addField([
+            'label' => 'Department',
+            'type' => 'select',
+            'name' => 'department_id', // The db column for the foreign key.
+            'entity' => 'department', // The method that defines the relationship in your Model.
+            'attribute' => 'name', // Foreign key attribute that is shown to user.
+            'model' => 'App\Models\Lookup\Department' // Foreign key model.
         ]);
         $this->crud->addField([
             'name' => 'is_priority',
