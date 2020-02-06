@@ -14,6 +14,7 @@ use App\Models\JobPoster;
 use App\Models\Manager;
 use App\Models\User;
 use App\Mail\JobPosterReviewRequested;
+use App\Models\HrAdvisor;
 
 class JobControllerTest extends TestCase
 {
@@ -176,5 +177,23 @@ class JobControllerTest extends TestCase
         $this->assertEquals($expectedOpenDate, humanizeDate($savedJob->open_date_time));
         $this->assertEquals($expectedCloseDate, humanizeDate($savedJob->close_date_time));
         $this->assertEquals($expectedCloseTime, humanizeTime($savedJob->close_date_time));
+    }
+
+    public function testHrIndexAuth(): void
+    {
+        $guestResponse = $this->get(route('hr_advisor.jobs.index'));
+        $guestResponse->assertRedirect(route('hr_advisor.login'));
+
+        $manager = factory(Manager::class)->create();
+        $managerResponse = $this->actingAs($manager->user)->get(route('hr_advisor.jobs.index'));
+        $managerResponse->assertRedirect(route('hr_advisor.home'));
+
+        $hrAdvisor = factory(HrAdvisor::class)->create();
+        $hrResponse = $this->actingAs($hrAdvisor->user)->get(route('hr_advisor.jobs.index'));
+        $hrResponse->assertStatus(200);
+
+        $adminUser = factory(User::class)->state('admin')->create();
+        $adminResponse = $this->actingAs($adminUser)->get(route('hr_advisor.jobs.index'));
+        $adminResponse->assertRedirect(route('hr_advisor.first_visit'));
     }
 }

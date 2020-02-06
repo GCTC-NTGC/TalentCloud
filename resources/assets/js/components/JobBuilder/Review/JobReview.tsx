@@ -50,6 +50,7 @@ import { classificationString } from "../../../models/jobUtil";
 import DemoSubmitJobModal from "./DemoSubmitJobModal";
 import ManagerSurveyModal from "./ManagerSurveyModal";
 import JobReviewActivityFeed from "./JobReviewActivityFeed";
+import { localizeFieldNonNull, localizeField } from "../../../helpers/localize";
 
 interface JobReviewSectionProps {
   title: string;
@@ -300,25 +301,24 @@ const renderManagerSection = (
       </p>
     );
   }
-  const managerTranslation = manager[locale];
-  if (managerTranslation) {
+  const aboutMe = localizeField(locale, manager, "about_me");
+  const position = localizeField(locale, manager, "position");
+  if (aboutMe !== null && position !== null) {
     return (
       <>
         <p data-c-margin="bottom(normal)">{manager.full_name}</p>
-        <p
-          data-c-margin={`${managerTranslation.about_me && "{bottom(normal)"}`}
-        >
+        <p data-c-margin={`${aboutMe && "{bottom(normal)"}`}>
           <FormattedMessage
             id="jobBuilder.review.managerPosition"
             defaultMessage="{position} at {department}"
             description="Description of the Manager's position & department."
             values={{
-              position: managerTranslation.position,
+              position,
               department: managerDeptName,
             }}
           />
         </p>
-        {managerTranslation.about_me && <p>{managerTranslation.about_me}</p>}
+        {aboutMe && <p>{aboutMe}</p>}
       </>
     );
   }
@@ -352,7 +352,7 @@ export const JobReviewDisplay: React.FC<JobReviewDisplayProps> = ({
   skills,
   departments,
   hideBuilderLinks = false,
-}) => {
+}): React.ReactElement => {
   // Scroll to element specified in the url hash, if possible
   useUrlHash();
   const intl = useIntl();
@@ -364,7 +364,9 @@ export const JobReviewDisplay: React.FC<JobReviewDisplayProps> = ({
   const getDeptName = (departmentId: number | null): string => {
     const department =
       departmentId !== null ? find(departments, departmentId) : null;
-    return department !== null ? department[locale].name : "MISSING DEPARTMENT";
+    return department !== null
+      ? localizeFieldNonNull(locale, department, "name")
+      : "MISSING DEPARTMENT";
   };
   const departmentName = getDeptName(job.department_id);
   const managerDeptName = manager ? getDeptName(manager.department_id) : "";
@@ -401,7 +403,7 @@ export const JobReviewDisplay: React.FC<JobReviewDisplayProps> = ({
         hideLink={hideBuilderLinks}
       >
         <p data-c-font-weight="bold" data-c-margin="bottom(half)">
-          {job[locale].title}
+          {localizeField(locale, job, "title")}
         </p>
         <p data-c-margin="bottom(normal)">{departmentName}</p>
         <p data-c-margin="bottom(half)">
@@ -412,7 +414,7 @@ export const JobReviewDisplay: React.FC<JobReviewDisplayProps> = ({
           >
             &nbsp;&nbsp;
           </i>
-          {job[locale].city},{" "}
+          {localizeField(locale, job, "city")},{" "}
           {job.province_id !== null
             ? intl.formatMessage(provinceName(job.province_id))
             : intl.formatMessage(messages.nullProvince)}
@@ -546,9 +548,13 @@ export const JobReviewDisplay: React.FC<JobReviewDisplayProps> = ({
         link={jobBuilderImpact(locale, job.id)}
         hideLink={hideBuilderLinks}
       >
-        <p data-c-margin="bottom(normal)">{job[locale].dept_impact}</p>
-        <p data-c-margin="bottom(normal)">{job[locale].team_impact}</p>
-        <p>{job[locale].hire_impact}</p>
+        <p data-c-margin="bottom(normal)">
+          {localizeField(locale, job, "dept_impact")}
+        </p>
+        <p data-c-margin="bottom(normal)">
+          {localizeField(locale, job, "team_impact")}
+        </p>
+        <p>{localizeField(locale, job, "hire_impact")}</p>
       </JobReviewSection>
       <JobReviewSection
         title={intl.formatMessage(messages.tasksHeading)}
@@ -559,7 +565,9 @@ export const JobReviewDisplay: React.FC<JobReviewDisplayProps> = ({
         <ul>
           {tasks.map(
             (task: JobPosterKeyTask): React.ReactElement => (
-              <li key={task.id}>{task[locale].description}</li>
+              <li key={task.id}>
+                {localizeField(locale, task, "description")}
+              </li>
             ),
           )}
         </ul>
@@ -572,7 +580,7 @@ export const JobReviewDisplay: React.FC<JobReviewDisplayProps> = ({
         link={jobBuilderDetails(locale, job.id)}
         hideLink={hideBuilderLinks}
       >
-        {textToParagraphs(job[locale].education || "")}
+        {textToParagraphs(localizeField(locale, job, "education") || "")}
       </JobReviewSection>
       <JobReviewSection
         title={intl.formatMessage(messages.skillsHeading)}
@@ -684,8 +692,12 @@ export const JobReviewDisplay: React.FC<JobReviewDisplayProps> = ({
         link={jobBuilderEnv(locale, job.id)}
         hideLink={hideBuilderLinks}
       >
-        {job[locale].culture_summary && <p>{job[locale].culture_summary}</p>}
-        {job[locale].culture_special && <p>{job[locale].culture_special}</p>}
+        {localizeField(locale, job, "culture_summary") && (
+          <p>{localizeField(locale, job, "culture_summary")}</p>
+        )}
+        {localizeField(locale, job, "culture_special") && (
+          <p>{localizeField(locale, job, "culture_special")}</p>
+        )}
       </JobReviewSection>
       <JobReviewSection
         title={intl.formatMessage(messages.workEnvHeading)}
@@ -698,7 +710,9 @@ export const JobReviewDisplay: React.FC<JobReviewDisplayProps> = ({
         <JobWorkEnv
           teamSize={job.team_size || 0}
           selectedEnvOptions={selectedEnvOptions}
-          envDescription={job[locale].work_env_description || ""}
+          envDescription={
+            localizeField(locale, job, "work_env_description") || ""
+          }
         />
       </JobReviewSection>
       <JobReviewSection
@@ -739,7 +753,6 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
   departments,
   validForSubmission = false,
   handleSubmit,
-  handleContinue,
   handleReturn,
   intl,
 }): React.ReactElement => {
@@ -769,7 +782,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
             defaultMessage="Review Your Job Poster for:"
             description="Title for Review Job Poster section."
           />{" "}
-          <span data-c-colour="c2">{job[locale].title}</span>
+          <span data-c-colour="c2">{localizeField(locale, job, "title")}</span>
         </h3>
         <p>
           <FormattedMessage

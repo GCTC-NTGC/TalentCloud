@@ -7,7 +7,9 @@ import {
 
 const HOMEPAGE = "https://talent.test";
 
-fixture(`Critical - Applicant Profile`).page(HOMEPAGE);
+fixture(`Critical - Applicant Profile`)
+  .page(HOMEPAGE)
+  .meta("travis", "run");
 
 // Skip when writing new tests
 // fixture.skip(`Critical - Applicant Profile`);
@@ -250,7 +252,9 @@ function randomEmail() {
   return email;
 }
 
-fixture(`Critical - Registration`).page(HOMEPAGE);
+fixture(`Critical - Registration`)
+  .page(HOMEPAGE)
+  .meta("travis", "run");
 // Skip when writing new tests
 // fixture.skip(`Critical - Registration`);
 

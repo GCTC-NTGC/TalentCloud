@@ -38,6 +38,7 @@ import {
   techDescriptions,
   amenitiesDescriptions,
 } from "./JobWorkEnv";
+import { localizeField } from "../../../helpers/localize";
 
 export const formMessages = defineMessages({
   ourWorkEnvDesc: {
@@ -51,6 +52,11 @@ export const formMessages = defineMessages({
     id: "jobBuilder.workEnv.teamSizeLabel",
     defaultMessage: "Team Size",
     description: "The label displayed on the team size input.",
+  },
+  teamSizePlaceholder: {
+    id: "jobBuilder.workEnv.teamSizePlaceholder",
+    defaultMessage: "e.g. 10",
+    description: "The placeholder displayed on the team size input.",
   },
   physicalEnvLabel: {
     id: "jobBuilder.workEnv.physicalEnvLabel",
@@ -566,7 +572,7 @@ const jobToValues = (
   }: Job,
   locale: "en" | "fr",
 ): WorkEnvFormValues => {
-  const isTrueInEnvFeatures = (option): boolean =>
+  const isTrueInEnvFeatures = (option: string): boolean =>
     work_env_features !== null &&
     hasKey(work_env_features, option) &&
     work_env_features[option];
@@ -597,9 +603,9 @@ const jobToValues = (
       collaborativenessList,
       collaborative_vs_independent,
     ),
-    envDescription: job[locale].work_env_description || "",
-    cultureSummary: job[locale].culture_summary || "",
-    moreCultureSummary: job[locale].culture_special || "",
+    envDescription: localizeField(locale, job, "work_env_description") || "",
+    cultureSummary: localizeField(locale, job, "culture_summary") || "",
+    moreCultureSummary: localizeField(locale, job, "culture_special") || "",
   };
 };
 
@@ -666,11 +672,17 @@ const updateJobWithValues = (
       collaborativeness,
     ),
     work_env_features: workEnvFeatures,
-    [locale]: {
-      ...job[locale],
-      work_env_description: envDescription || null,
-      culture_summary: cultureSummary || null,
-      culture_special: moreCultureSummary || null,
+    work_env_description: {
+      ...job.work_env_description,
+      [locale]: envDescription || null,
+    },
+    culture_summary: {
+      ...job.culture_summary,
+      [locale]: cultureSummary || null,
+    },
+    culture_special: {
+      ...job.culture_special,
+      [locale]: moreCultureSummary || null,
     },
   };
 };
@@ -820,7 +832,7 @@ const WorkEnvForm = ({
   });
 
   /** Compiles and returns all the active radio buttons corresponding context box values within the culture section  */
-  const buildCultureSummary = (values): string => {
+  const buildCultureSummary = (values: WorkEnvFormValues): string => {
     const pace = culturePaceList.find(
       ({ id }): boolean => id === values.culturePace,
     );
@@ -943,7 +955,7 @@ const WorkEnvForm = ({
                 grid="tl(1of2)"
                 id="teamSize"
                 label={intl.formatMessage(formMessages.teamSizeLabel)}
-                placeholder="e.g. 10"
+                placeholder={intl.formatMessage(formMessages.teamSizePlaceholder)}
               />
               <CheckboxGroup
                 id="physicalEnv"

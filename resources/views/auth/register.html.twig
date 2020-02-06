@@ -56,7 +56,7 @@
 										<label for="email">{{ register.email }}</label>
 										<span>{{ trans('forms.required') }}</span>
 										<div>
-											<input id="email" placeholder="e.g. email@website.com" required name="email" type="email" value="{{ old('email') }}"/>
+											<input id="email" placeholder="{{ register.email_placeholder }}" required name="email" type="email" value="{{ old('email') }}"/>
 										</div>
 										<span>{{ trans('forms.error') }}</span>
 									</div>

@@ -12,8 +12,10 @@
   };
 
   // Root
-
   var $root = $("html, body");
+
+  // Document Locale
+  const docLocale = document.documentElement.lang;
 
   // Add has attribute Function
   $.fn.hasAttr = function(name) {
@@ -668,10 +670,10 @@
           .prop("outerHTML") || "";
       $(object)
         .find(".accordion-title")
-        .html(response.data.skill.name + levelRequirement);
+        .html(response.data.skill.name[docLocale] + levelRequirement);
       $(object)
         .find(".skill__description")
-        .text(response.data.skill.description);
+        .text(response.data.skill.description[docLocale]);
       $(object)
         .find(".skill__status--level")
         .text(" " + response.data.skill_status.status);

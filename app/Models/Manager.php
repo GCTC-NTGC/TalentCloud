@@ -8,7 +8,7 @@
 namespace App\Models;
 
 use App\Traits\TalentCloudCrudTrait as CrudTrait;
-use Astrotomic\Translatable\Translatable as Translatable;
+use Spatie\Translatable\HasTranslations;
 
 /**
  * Class Manager
@@ -55,17 +55,13 @@ use Astrotomic\Translatable\Translatable as Translatable;
  * @property string $first_name
  * @property string $last_name
  * @property boolean $is_demo_manager
- *
- * Methods
- * @method   string toApiArray()
  */
 class Manager extends BaseModel
 {
-    use Translatable;
-    // Trait for Backpack.
+    use HasTranslations;
     use CrudTrait;
 
-    public $translatedAttributes = [
+    public $translatable = [
         'about_me',
         'greatest_accomplishment',
         'division',
@@ -90,7 +86,17 @@ class Manager extends BaseModel
         'engage_team_frequency_id',
         'development_opportunity_frequency_id',
         'refuse_low_value_work_frequency_id',
-        'years_experience'
+        'years_experience',
+        'about_me',
+        'greatest_accomplishment',
+        'division',
+        'position',
+        'leadership_style',
+        'employee_learning',
+        'expectations',
+        'education',
+        'career_journey',
+        'learning_path'
     ];
 
     /**
@@ -114,7 +120,17 @@ class Manager extends BaseModel
         'department_id',
         'twitter_username',
         'linkedin_url',
-        'is_demo_manager'
+        'is_demo_manager',
+        'about_me',
+        'greatest_accomplishment',
+        'division',
+        'position',
+        'leadership_style',
+        'employee_learning',
+        'expectations',
+        'education',
+        'career_journey',
+        'learning_path'
     ];
 
     public function user()
@@ -141,19 +157,7 @@ class Manager extends BaseModel
     {
         return $this->hasOne(\App\Models\TeamCulture::class)->withDefault();
     }
-    /*
-    * @property \App\Models\Lookup\Frequency $review_options
-    * @property \App\Models\Lookup\Frequency $staylate
-    * @property \App\Models\Lookup\Frequency $engage
-    * @property \App\Models\Lookup\Frequency $opportunities
-    * @property \App\Models\Lookup\Frequency $low_value_work_requests
-    *
-    * work_review_frequency
-    * stay_late_frequency
-    * engage_team_frequency
-    * development_opportunity_frequency
-    * refuse_low_value_work_frequency
-    */
+
     public function work_review_frequency() //phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\Frequency::class);
@@ -229,17 +233,5 @@ class Manager extends BaseModel
             return $this->user->isDemoManager();
         }
         return true;
-    }
-
-    /**
-     * Return the array of values used to represent this object in an api response.
-     * This array should contain no nested objects (besides translations).
-     *
-     * @return mixed[]
-     */
-    public function toApiArray()
-    {
-        $withTranslations = array_merge($this->toArray(), $this->getTranslationsArray());
-        return $withTranslations;
     }
 }

@@ -32,6 +32,7 @@ import {
   getCriteriaToSkills,
   getCachedCriteriaUnansweredForQuestion,
 } from "../../store/Job/jobSelectorComplex";
+import { getLocale, localizeFieldNonNull } from "../../helpers/localize";
 
 interface RatingGuideAnswerProps {
   answer: RatingGuideAnswerModel | null;
@@ -102,6 +103,7 @@ const RatingGuideAnswer: React.FunctionComponent<RatingGuideAnswerProps &
   if (answer === null) {
     return null;
   }
+  const locale = getLocale(intl.locale);
   const availableCriteria = getAvailableCriteria(
     unansweredCriteria,
     answerCriterion,
@@ -116,7 +118,7 @@ const RatingGuideAnswer: React.FunctionComponent<RatingGuideAnswerProps &
         : null;
       return {
         value: criterion.id,
-        label: skill ? skill[intl.locale].name : "",
+        label: skill ? localizeFieldNonNull(locale, skill, "name") : "",
       };
     },
   );

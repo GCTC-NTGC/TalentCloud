@@ -3,55 +3,42 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Assessment;
+use App\Models\AssessmentPlanNotification;
 use App\Models\Criteria;
 use App\Models\JobPoster;
-use App\Models\AssessmentPlanNotification;
-use App\Models\Assessment;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class CriteriaController extends Controller
 {
     /**
-     * Converts a Criteria to the shape sent and recieved by the api.
+     * Returns all criteria by JobPoster ID.
      *
-     * @param Criteria $model
-     * @return void
-     */
-    public function toApiArray(Criteria $model)
-    {
-        return array_merge($model->toArray(), $model->getTranslationsArray());
-    }
-
-    /**
-     * Get the set of criteria associated with a Job.
-     *
-     * @param JobPoster $jobPoster
+     * @param  \App\Models\JobPoster $jobPoster Incoming Job Poster object.
      * @return \Illuminate\Http\Response
      */
     public function indexByJob(JobPoster $jobPoster)
     {
-        $toApiArray = array($this, 'toApiArray');
-        $criteriaAray = Criteria::where('job_poster_id', $jobPoster->id)->get()->map($toApiArray);
-        return response()->json($criteriaAray);
+        $criteriaByJob = Criteria::where('job_poster_id', $jobPoster->id)->get();
+        return JsonResource::collection($criteriaByJob);
     }
 
     /**
      * Update the set of criteria associated with a Job.
      *
-     * @param Request $request
-     * @param JobPoster $jobPoster
+     * @param  Request $request
+     * @param  JobPoster $jobPoster
      * @return \Illuminate\Http\Response
      */
     public function batchUpdate(Request $request, JobPoster $jobPoster)
     {
-        $toApiArray = array($this, 'toApiArray');
-
-        $newCriteria = collect($request->input()); // TODO: switch to validated
+        $newCriteria = collect($request->input()); // TODO: switch to validated.
         $oldCriteria = $jobPoster->criteria;
 
         $updatedIds = [];
 
-        // First, delete old criteria that weren't resubmitted, and update those that were
+        // First, delete old criteria that weren't resubmitted, and update those that were.
         foreach ($oldCriteria as $criteria) {
             $newData = $newCriteria->firstWhere('id', $criteria['id']);
             if ($newData) {
@@ -66,7 +53,7 @@ class CriteriaController extends Controller
             return !array_key_exists('id', $criteria) || !in_array($criteria['id'], $savedIds);
         };
 
-        // Now, save any new criteria that remain
+        // Now, save any new criteria that remain.
         foreach ($newCriteria as $criteriaData) {
             if ($isUnsaved($criteriaData, $updatedIds)) {
                 $criteria = new Criteria();
@@ -77,8 +64,7 @@ class CriteriaController extends Controller
             }
         }
 
-        $criteriaAray = Criteria::where('job_poster_id', $jobPoster->id)->get()->map($toApiArray);
-        return response()->json($criteriaAray);
+        return JsonResource::collection($jobPoster->fresh()->criteria);
     }
 
     /**
@@ -90,7 +76,6 @@ class CriteriaController extends Controller
     protected function createCriteria(Criteria $criteria)
     {
         $criteria->save();
-
         $notification = $this->makeAssessmentPlanNotification(
             'CREATE',
             $criteria
@@ -103,14 +88,15 @@ class CriteriaController extends Controller
     /**
      * Update an existing Job Criteria and create a notification if necessary.
      *
-     * @param  \App\Models\Criteria $oldCriteria Existing Critera.
-     * @param  mixed[] $newData Updated version of the Critera.
+     * @param  \App\Models\Criteria $oldCriteria Existing Criteria.
+     * @param  mixed[] $newData Updated version of the Criteria.
      * @return void
      */
     protected function updateCriteria(Criteria $oldCriteria, $newData): void
     {
-        // We only need to create a notification when the non-descriptive fields change
-        if ($oldCriteria->skill_level_id != $newData['skill_level_id']
+        // We only need to create a notification when the non-descriptive fields change.
+        if (
+            $oldCriteria->skill_level_id != $newData['skill_level_id']
             || $oldCriteria->skill_id != $newData['skill_id']
         ) {
             $notification = $this->makeAssessmentPlanNotification(
@@ -122,7 +108,7 @@ class CriteriaController extends Controller
             );
             $notification->save();
         }
-        // Get just the data that can be changed
+        // Get just the data that can be changed.
         $fillableData = collect($newData)->except(['id', 'job_poster_id'])->toArray();
         $oldCriteria->fill($fillableData);
         $oldCriteria->save();

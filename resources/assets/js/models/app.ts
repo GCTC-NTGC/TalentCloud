@@ -14,3 +14,12 @@ export interface Link {
 export type ValuesOf<T> = T[keyof T];
 
 export type Portal = "manager" | "hr";
+
+export interface localizedField {
+  en: string | null;
+  fr: string | null;
+}
+export interface localizedFieldNonNull {
+  en: string;
+  fr: string;
+}

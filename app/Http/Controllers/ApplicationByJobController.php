@@ -20,6 +20,7 @@ use App\Models\WorkExperience;
 use App\Services\Validation\ApplicationValidator;
 use Facades\App\Services\WhichPortal;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
@@ -47,8 +48,8 @@ class ApplicationByJobController extends Controller
             // Localization Strings.
             'jobs_l10n' => Lang::get('manager/job_index'),
             // Data.
+            'job' => new JsonResource($jobPoster),
             'is_hr_portal' => WhichPortal::isHrPortal(),
-            'job' => $jobPoster->toApiArray(),
             'applications' => $applications,
             'review_statuses' => ReviewStatus::all()
         ]);
@@ -290,6 +291,7 @@ class ApplicationByJobController extends Controller
                 'courses' => $courses,
                 'work_experiences' => $work_experiences,
                 'is_manager_view' => WhichPortal::isManagerPortal(),
+                'is_draft' => $application->application_status->name == 'draft',
             ]
         );
     }

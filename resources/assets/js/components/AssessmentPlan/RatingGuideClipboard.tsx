@@ -26,6 +26,7 @@ import { getSkills } from "../../store/Skill/skillSelector";
 import { getRatingGuideQuestionsByJob } from "../../store/RatingGuideQuestion/ratingGuideQuestionSelectors";
 import { getRatingGuideAnswersByJob } from "../../store/RatingGuideAnswer/ratingGuideAnswerSelectors";
 import { copyElementContents } from "../../helpers/clipboard";
+import { Locales, getLocale, localizeFieldNonNull } from "../../helpers/localize";
 
 export interface ClipboardTableRowProps {
   id: string;
@@ -44,7 +45,7 @@ export const clipboardData = (
   skills: Skill[],
   ratingGuideQuestions: RatingGuideQuestion[],
   ratingGuideAnswers: RatingGuideAnswer[],
-  locale: string,
+  locale: Locales,
   formatMessage: (message: MessageDescriptor) => string,
   narrativeReview?: Assessment[],
 ): ClipboardTableRowProps[] => {
@@ -79,11 +80,11 @@ export const clipboardData = (
                   criteriaType(narrativeCriterion.criteria_type_id),
                 ),
           skillName:
-            narrativeSkill === undefined ? "" : narrativeSkill[locale].name,
+            narrativeSkill === undefined ? "" : localizeFieldNonNull(locale, narrativeSkill, "name"),
           skillDescription:
             narrativeSkill === undefined
               ? ""
-              : narrativeSkill[locale].description,
+              : localizeFieldNonNull(locale, narrativeSkill, "description"),
           modelAnswer: "",
           id:
             narrativeCriterion === undefined
@@ -149,11 +150,11 @@ export const clipboardData = (
             ? ""
             : formatMessage(criteriaType(criterionByAnswer.criteria_type_id)),
         skillName:
-          skillByCriterion === undefined ? "" : skillByCriterion[locale].name,
+          skillByCriterion === undefined ? "" : localizeFieldNonNull(locale, skillByCriterion, "name"),
         skillDescription:
           skillByCriterion === undefined
             ? ""
-            : skillByCriterion[locale].description,
+            : localizeFieldNonNull(locale, skillByCriterion, "description"),
         modelAnswer: answer.expected_answer ? answer.expected_answer : "",
         id:
           questionByAnswer === undefined || criterionByAnswer === undefined
@@ -265,7 +266,7 @@ const RatingGuideClipboard: React.FunctionComponent<TableProps &
       skills,
       ratingGuideQuestions,
       ratingGuideAnswers,
-      intl.locale,
+      getLocale(intl.locale),
       intl.formatMessage,
       narrativeReview,
     ),

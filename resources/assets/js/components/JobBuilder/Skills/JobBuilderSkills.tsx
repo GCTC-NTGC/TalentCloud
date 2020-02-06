@@ -19,6 +19,7 @@ import {
 import Select, { SelectOption } from "../../Select";
 import { getSkillLevelName } from "../../../models/jobUtil";
 import Criterion from "../Criterion";
+import { localizeField, getLocale, localizeFieldNonNull } from "../../../helpers/localize";
 
 interface JobBuilderSkillsProps {
   // The job being built
@@ -214,10 +215,7 @@ export const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps &
   handleSkipToReview,
   intl,
 }): React.ReactElement => {
-  const { locale } = intl;
-  if (locale !== "en" && locale !== "fr") {
-    throw new Error("Unknown intl.locale");
-  }
+  const locale = getLocale(intl.locale);
 
   // The ideal number of skills for each category
   const minOccupational = 3;
@@ -278,8 +276,8 @@ export const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps &
   };
 
   const sortAlphabetically = (a: Skill, b: Skill): number => {
-    const skillA: string = a[locale].name.toUpperCase();
-    const skillB: string = b[locale].name.toUpperCase();
+    const skillA: string = localizeFieldNonNull(locale, a, "name").toUpperCase();
+    const skillB: string = localizeFieldNonNull(locale, b, "name").toUpperCase();
 
     return skillA.localeCompare(skillB, locale, { sensitivity: "base" });
   };
@@ -504,7 +502,7 @@ export const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps &
                   <i className="fas fa-book" />
                 </span> */}
                 {/* The skill name. */}
-                <span>{skill[locale].name}</span>
+                <span>{localizeField(locale, skill, "name")}</span>
               </div>
               <div data-c-grid-item="base(1of1) tl(1of3)">
                 <span
@@ -582,7 +580,7 @@ export const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps &
             <i className="fas fa-plus-circle" />
             <i className="fas fa-minus-circle" />
           </span>
-          {skill[locale].name}
+          {localizeField(locale, skill, "name")}
         </button>
       </li>
     );
@@ -1480,7 +1478,7 @@ export const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps &
                 options={unselectedOtherSkills.map(
                   (skill): SelectOption => ({
                     value: skill.id,
-                    label: skill[locale].name,
+                    label: localizeFieldNonNull(locale, skill, "name"),
                   }),
                 )}
                 onChange={(event): void => {
@@ -1602,7 +1600,7 @@ export const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps &
               <ul>
                 {keyTasks.map(
                   (task): React.ReactElement => (
-                    <li key={task.id}>{task[locale].description}</li>
+                    <li key={task.id}>{localizeField(locale, task, "description")}</li>
                   ),
                 )}
               </ul>

@@ -7,6 +7,6 @@
   {
     "id": "job.daysSinceClosed",
     "description": "Welcome header on app main page",
-    "defaultMessage": "{dayCount, plural,\r\n              =0 {No Days}\r\n            one {# Day}\r\n          other {# Days}\r\n        } Since Close"
+    "defaultMessage": "{dayCount, plural,\n              =0 {No Days}\n            one {# Day}\n          other {# Days}\n        } Since Close"
   }
 ]
