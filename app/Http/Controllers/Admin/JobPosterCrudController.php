@@ -69,8 +69,8 @@ class JobPosterCrudController extends CrudController
         ]);
 
         $this->crud->addColumn([
-            'name' => 'soft_published',
-            'label' => 'Soft Published',
+            'name' => 'internal_only',
+            'label' => 'Internal Only',
             'type' => 'check',
         ]);
 
@@ -198,15 +198,15 @@ class JobPosterCrudController extends CrudController
             ],
         ]);
 
+        $this->crud->addField([
+            'name' => 'internal_only',
+            'type' => 'checkbox',
+            'label' => 'Internal Only (Do not list this poster on the Browse Jobs page. You must access it with the direct URL.)',
+        ]);
+
         if ($this->crud->getCurrentEntry() &&
             !$this->crud->getCurrentEntry()->published
         ) {
-            $this->crud->addField([
-                'name' => 'soft_published',
-                'type' => 'checkbox',
-                'label' => 'Soft Publish (Do not list this poster on the Browse Jobs page. You must access it with the direct URL.)',
-            ]);
-
             $this->crud->addField([
                 'name' => 'published',
                 'label' => 'Publish',

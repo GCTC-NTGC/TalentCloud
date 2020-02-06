@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSoftPublishToJobPostersTable extends Migration
+class AddInternalOnlyToJobPostersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddSoftPublishToJobPostersTable extends Migration
     public function up()
     {
         Schema::table('job_posters', function (Blueprint $table) {
-            $table->boolean('soft_published')->default(false);
+            $table->boolean('internal_only')->default(false);
         });
     }
 
@@ -26,7 +26,7 @@ class AddSoftPublishToJobPostersTable extends Migration
     public function down()
     {
         Schema::table('job_posters', function (Blueprint $table) {
-            $table->dropColumn('soft_published');
+            $table->dropColumn('internal_only');
         });
     }
 }
