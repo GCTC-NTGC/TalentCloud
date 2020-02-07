@@ -22,7 +22,8 @@ class JobPolicy extends BasePolicy
         // Anyone can view a published job
         // Only the manager that created it can view an unpublished job
         // Hr Advisors can view all jobs.
-        return $jobPoster->status() == 'published' || $jobPoster->status() == 'closed' ||
+        return $jobPoster->status() == 'published' ||
+            $jobPoster->status() == 'closed' ||
             ($user &&
                 $user->isManager() &&
                 $jobPoster->manager->user_id == $user->id) ||
