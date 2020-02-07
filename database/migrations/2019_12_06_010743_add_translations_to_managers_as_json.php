@@ -30,27 +30,58 @@ class AddTranslationsToManagersAsJson extends Migration
 
         foreach ($managers as $manager) {
             $managerTranslationsEnglish = DB::table('manager_translations')->where('manager_id', $manager->id)->where('locale', 'en')->first();
+
+            if ($managerTranslationsEnglish === null) {
+                $managerTranslationsEnglish = new stdClass();
+                $managerTranslationsEnglish->locale = 'en';
+                $managerTranslationsEnglish->about_me = '';
+                $managerTranslationsEnglish->greatest_accomplishment = '';
+                $managerTranslationsEnglish->division = '';
+                $managerTranslationsEnglish->position = '';
+                $managerTranslationsEnglish->leadership_style = '';
+                $managerTranslationsEnglish->employee_learning = '';
+                $managerTranslationsEnglish->expectations = '';
+                $managerTranslationsEnglish->education = '';
+                $managerTranslationsEnglish->career_journey = '';
+                $managerTranslationsEnglish->learning_path = '';
+            }
+
             $managerTranslationsFrench = DB::table('manager_translations')->where('manager_id', $manager->id)->where('locale', 'fr')->first();
 
-            $manager->about_me = collect([$managerTranslationsEnglish->locale => $managerTranslationsEnglish->value, $managerTranslationsFrench->locale => $managerTranslationsFrench->value])->toJson();
+            if ($managerTranslationsFrench === null) {
+                $managerTranslationsFrench = new stdClass();
+                $managerTranslationsFrench->locale = 'fr';
+                $managerTranslationsFrench->about_me = '';
+                $managerTranslationsFrench->greatest_accomplishment = '';
+                $managerTranslationsFrench->division = '';
+                $managerTranslationsFrench->position = '';
+                $managerTranslationsFrench->leadership_style = '';
+                $managerTranslationsFrench->employee_learning = '';
+                $managerTranslationsFrench->expectations = '';
+                $managerTranslationsFrench->education = '';
+                $managerTranslationsFrench->career_journey = '';
+                $managerTranslationsFrench->learning_path = '';
+            }
 
-            $manager->greatest_accomplishment = collect([$managerTranslationsEnglish->locale => $managerTranslationsEnglish->value, $managerTranslationsFrench->locale => $managerTranslationsFrench->value])->toJson();
+            $manager->about_me = collect([$managerTranslationsEnglish->locale => $managerTranslationsEnglish->about_me, $managerTranslationsFrench->locale => $managerTranslationsFrench->about_me])->toJson();
 
-            $manager->division = collect([$managerTranslationsEnglish->locale => $managerTranslationsEnglish->value, $managerTranslationsFrench->locale => $managerTranslationsFrench->value])->toJson();
+            $manager->greatest_accomplishment = collect([$managerTranslationsEnglish->locale => $managerTranslationsEnglish->greatest_accomplishment, $managerTranslationsFrench->locale => $managerTranslationsFrench->greatest_accomplishment])->toJson();
 
-            $manager->position = collect([$managerTranslationsEnglish->locale => $managerTranslationsEnglish->value, $managerTranslationsFrench->locale => $managerTranslationsFrench->value])->toJson();
+            $manager->division = collect([$managerTranslationsEnglish->locale => $managerTranslationsEnglish->division, $managerTranslationsFrench->locale => $managerTranslationsFrench->division])->toJson();
 
-            $manager->leadership_style = collect([$managerTranslationsEnglish->locale => $managerTranslationsEnglish->value, $managerTranslationsFrench->locale => $managerTranslationsFrench->value])->toJson();
+            $manager->position = collect([$managerTranslationsEnglish->locale => $managerTranslationsEnglish->position, $managerTranslationsFrench->locale => $managerTranslationsFrench->position])->toJson();
 
-            $manager->employee_learning = collect([$managerTranslationsEnglish->locale => $managerTranslationsEnglish->value, $managerTranslationsFrench->locale => $managerTranslationsFrench->value])->toJson();
+            $manager->leadership_style = collect([$managerTranslationsEnglish->locale => $managerTranslationsEnglish->leadership_style, $managerTranslationsFrench->locale => $managerTranslationsFrench->leadership_style])->toJson();
 
-            $manager->expectations = collect([$managerTranslationsEnglish->locale => $managerTranslationsEnglish->value, $managerTranslationsFrench->locale => $managerTranslationsFrench->value])->toJson();
+            $manager->employee_learning = collect([$managerTranslationsEnglish->locale => $managerTranslationsEnglish->employee_learning, $managerTranslationsFrench->locale => $managerTranslationsFrench->employee_learning])->toJson();
 
-            $manager->education = collect([$managerTranslationsEnglish->locale => $managerTranslationsEnglish->value, $managerTranslationsFrench->locale => $managerTranslationsFrench->value])->toJson();
+            $manager->expectations = collect([$managerTranslationsEnglish->locale => $managerTranslationsEnglish->expectations, $managerTranslationsFrench->locale => $managerTranslationsFrench->expectations])->toJson();
 
-            $manager->career_journey = collect([$managerTranslationsEnglish->locale => $managerTranslationsEnglish->value, $managerTranslationsFrench->locale => $managerTranslationsFrench->value])->toJson();
+            $manager->education = collect([$managerTranslationsEnglish->locale => $managerTranslationsEnglish->education, $managerTranslationsFrench->locale => $managerTranslationsFrench->education])->toJson();
 
-            $manager->learning_path = collect([$managerTranslationsEnglish->locale => $managerTranslationsEnglish->value, $managerTranslationsFrench->locale => $managerTranslationsFrench->value])->toJson();
+            $manager->career_journey = collect([$managerTranslationsEnglish->locale => $managerTranslationsEnglish->career_journey, $managerTranslationsFrench->locale => $managerTranslationsFrench->career_journey])->toJson();
+
+            $manager->learning_path = collect([$managerTranslationsEnglish->locale => $managerTranslationsEnglish->learning_path, $managerTranslationsFrench->locale => $managerTranslationsFrench->learning_path])->toJson();
 
             DB::table('managers')->where('id', $manager->id)->update([
                 'id' => $manager->id,

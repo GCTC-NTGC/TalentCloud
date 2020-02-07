@@ -40,6 +40,7 @@ use App\Events\JobSaved;
  * @property boolean $remote_work_allowed
  * @property int $manager_id
  * @property boolean $published
+ * @property boolean $internal_only
  * @property int $team_size
  * @property array $work_env_features This should be an array of boolean flags for features, ie json of shape {[feature: string]: boolean}
  * @property int $fast_vs_steady
@@ -147,6 +148,7 @@ class JobPoster extends BaseModel
         'remote_work_allowed' => 'boolean',
         'manager_id' => 'int',
         'published' => 'boolean',
+        'internal_only' => 'boolean',
         'team_size' => 'int',
         'work_env_features' => 'array',
         'fast_vs_steady' => 'int',
@@ -191,6 +193,7 @@ class JobPoster extends BaseModel
         'language_requirement_id',
         'remote_work_allowed',
         'published',
+        'internal_only',
         'team_size',
         'work_env_features',
         'fast_vs_steady',
@@ -638,4 +641,5 @@ class JobPoster extends BaseModel
         }
         return null;
     }
+
 }

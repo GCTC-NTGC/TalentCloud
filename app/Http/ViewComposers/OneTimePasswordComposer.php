@@ -18,6 +18,8 @@ class OneTimePasswordComposer
     {
         if (WhichPortal::isManagerPortal()) {
             $logout_link = route('manager.logout');
+        } elseif (WhichPortal::isHrPortal()) {
+            $logout_link = route('hr_advisor.logout');
         } elseif (WhichPortal::isAdminPortal()) {
             $logout_link = backpack_url('logout');
         } else {

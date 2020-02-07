@@ -24,9 +24,9 @@ class AddTranslationsToCriteriaAsJson extends Migration
             $criteriaTranslationsEnglish = DB::table('criteria_translations')->where('criteria_id', $criterion->id)->where('locale', 'en')->first();
             $criteriaTranslationsFrench = DB::table('criteria_translations')->where('criteria_id', $criterion->id)->where('locale', 'fr')->first();
 
-            $criterion->description = collect([$criteriaTranslationsEnglish->locale => $criteriaTranslationsEnglish->value, $criteriaTranslationsFrench->locale => $criteriaTranslationsFrench->value])->toJson();
+            $criterion->description = collect([$criteriaTranslationsEnglish->locale => $criteriaTranslationsEnglish->description, $criteriaTranslationsFrench->locale => $criteriaTranslationsFrench->description])->toJson();
 
-            $criterion->specificity = collect([$criteriaTranslationsEnglish->locale => $criteriaTranslationsEnglish->impact, $criteriaTranslationsFrench->locale => $criteriaTranslationsFrench->impact])->toJson();
+            $criterion->specificity = collect([$criteriaTranslationsEnglish->locale => $criteriaTranslationsEnglish->specificity, $criteriaTranslationsFrench->locale => $criteriaTranslationsFrench->specificity])->toJson();
 
             DB::table('criteria')->where('id', $criterion->id)->update([
                 'id' => $criterion->id,
