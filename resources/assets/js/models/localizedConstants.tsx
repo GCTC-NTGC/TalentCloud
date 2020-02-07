@@ -866,13 +866,13 @@ export const generalLocations = defineMessages({
     description: "Location where the activity is located.",
   },
   [LocationId.applicantsGeneric]: {
-    id: "activityfeed.locations.applications.generic",
+    id: "activityfeed.locations.applications",
     defaultMessage: "Applicant Review Page",
     description: "Location where the activity is located.",
   },
   [LocationId.screeningPlan]: {
-    id: "activityfeed.locations.screeningPlan.generic",
-    defaultMessage: "Assessment Plan Builder",
+    id: "activityfeed.locations.screeningPlan",
+    defaultMessage: "Assessment Plan",
     description: "Location where the activity is located.",
   },
   notFound: {
@@ -921,50 +921,50 @@ export const generalLocationOption = (
 
 export const jobReviewLocations = defineMessages({
   [LocationId.jobGeneric]: {
-    id: "activityfeed.locations.review.details",
+    id: "activityfeed.locations.review.general",
     defaultMessage: "General",
-    description: "Location where the activity is located.",
+    description: "Location of the activity.",
   },
   [LocationId.heading]: {
     id: "activityfeed.locations.review.heading",
     defaultMessage: "Job Page Heading",
-    description: "Location where the activity is located.",
+    description: "Location of the activity.",
   },
   [LocationId.basicInfo]: {
     id: "activityfeed.locations.review.basicInfo",
     defaultMessage: "Basic Information",
-    description: "Location where the activity is located.",
+    description: "Location of the activity.",
   },
   [LocationId.impact]: {
     id: "activityfeed.locations.review.impact",
     defaultMessage: "Impact",
-    description: "Location where the activity is located.",
+    description: "Location of the activity.",
   },
   [LocationId.tasks]: {
     id: "activityfeed.locations.review.tasks",
     defaultMessage: "Tasks",
-    description: "Location where the activity is located.",
+    description: "Location of the activity.",
   },
   [LocationId.skills]: {
     id: "activityfeed.locations.review.skills",
     defaultMessage: "Skills",
-    description: "Location where the activity is located.",
+    description: "Location of the activity.",
   },
   [LocationId.langRequirements]: {
     id: "activityfeed.locations.review.langRequirements",
     defaultMessage: "Language Requirements",
-    description: "Location where the activity is located.",
+    description: "Location of the activity.",
   },
   [LocationId.environment]: {
     id: "activityfeed.locations.review.environment",
     defaultMessage: "Environment",
-    description: "Location where the activity is located.",
+    description: "Location of the activity.",
   },
 });
 
 export const applicantReviewLocations = defineMessages({
   [LocationId.applicantsGeneric]: {
-    id: "activityfeed.locations.applicantReview.generic",
+    id: "activityfeed.locations.applicantReview.general",
     defaultMessage: "General",
     description: "Location of the activity.",
   },
@@ -987,24 +987,24 @@ export const applicantReviewLocations = defineMessages({
 
 export const screeningPlanLocations = defineMessages({
   [LocationId.screeningPlan]: {
-    id: "locations.screeningPlan.generic",
-    defaultMessage: "Generic",
-    description: "Location where the activity is located.",
+    id: "locations.screeningPlan.general",
+    defaultMessage: "General",
+    description: "Location of the activity.",
   },
   [LocationId.screeningPlanBuilder]: {
     id: "locations.screeningPlan.builder",
     defaultMessage: "Assessment Plan Builder",
-    description: "Location where the activity is located.",
+    description: "Location of the activity.",
   },
   [LocationId.screeningPlanSummary]: {
     id: "locations.screeningPlan.summary",
     defaultMessage: "Assessment Plan Summary",
-    description: "Location where the activity is located.",
+    description: "Location of the activity.",
   },
   [LocationId.screeningPlanRatings]: {
     id: "locations.screeningPlan.ratings",
     defaultMessage: "Ratings Guide Builder",
-    description: "Location where the activity is located.",
+    description: "Location of the activity.",
   },
 });
 export const hrPortalLocations = {
