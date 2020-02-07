@@ -64,12 +64,19 @@ return [
         'nine' => 'LastPass Authenticator pour iOS, Android, OS X',
         'ten' => 'Microsoft Authenticator de Windows pour Windows Phone',
         'eleven' => 'Pour activer l\'A2F, vous devez lier votre téléphone (ou un autre appareil) à votre compte de Nuage de talents en balayant un code QR. Ainsi, vous serez en mesure de générer un mot de passe à usage unique sur demande lorsque vous ouvrez une session. Une fois que vous utilisez l\'A2F, vous n\'aurez plus à l\'utiliser pendant 30 jours sur cet appareil. (Vous devrez quand même entrer votre nom d\'utilisateur et votre mot de passe.)'
-     ],
+    ],
     'two_factor_active' => 'Vous recevez actuellement des codes de vérification au moyen d\'une application d\'authentification sur votre téléphone intelligent.',
     'two_factor_deactivate' => 'Désactivez l\'authentification à deux facteurs',
     'two_factor_status' => 'Statut :',
     'two_factor_on' => 'Activée',
     'two_factor_off' => 'Désactivées',
     'forget_remembered_devices' => 'Oubliez tous les appareils de confiance.',
-    'success_title' => 'Tout va bien.'
+    'success_title' => 'Tout va bien.',
+    'danger_zone' => '',
+    'delete_copy' => '',
+    'delete_alert_prefix' => '',
+    'delete_alert_suffix' => '',
+    'confirm_delete_label' => '',
+    'delete_placeholder' =>  '',
+    'delete_button' => '',
 ];

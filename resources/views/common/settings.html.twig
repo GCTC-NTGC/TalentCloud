@@ -13,7 +13,6 @@
 	{% include "common/goc" %}
 	{# BETA Alert Banner #}
 	{% include "common/alert" %}
-
 	{# Page Header #}
 	<header data-clone>
 		<div data-c-overlay="black(80)" data-c-padding="bottom(triple)" style="background-image: url('/images/sean-pollock.jpg');">
@@ -49,7 +48,6 @@
 				{% include "errors/form_errors" %}
 			</div>
 		{% endif %}
-
 		{# Success alert #}
 		{% if session_has('success') %}
 			<div data-c-alert="information" data-c-container="medium" data-c-radius="rounded" role="alert" data-c-margin="top(1)">
@@ -64,7 +62,6 @@
 				</div>
 			</div>
 		{% endif %}
-
 		{# Page Container #}
 		<div data-c-container="large">
 			<div
@@ -88,6 +85,9 @@
 								</li>
 								<li>
 									<a href="#auth" title="">{{ settings.heading.two_factor }}</a>
+								</li>
+								<li>
+									<a href="#delete" title="">{{ settings.heading.delete }}</a>
 								</li>
 							</ul>
 						</nav>
@@ -141,44 +141,41 @@
 								<h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="government">
 									{{ settings.heading.government }}</h2>
 								<p data-c-margin="bottom(normal)">{{ settings.government_copy }}</p>
-								<div data-c-grid="gutter">
-									<div data-c-grid-item="base(1of1)">
-										<div data-c-alert="information" data-c-radius="rounded" role="alert" data-c-margin="bottom(normal)">
-											<div data-c-padding="half">
-												<p data-c-margin="bottom(half)" data-c-heading="h6" data-c-font-weight="bold">
-													<i class="fas fa-exclamation-circle"></i>
-													{{ settings.government_dept }}
-													{% if user.manager.department %}
-														{{ user.manager.department.name }}
-													{% else %}
-														{{ settings.no_department }}
-													{% endif %}
-												</p>
-												<p data-c-margin="bottom(half)">{{ settings.dept_change_copy.one }}
-													<a href="{{ settings.dept_change_copy.two }}" title="{{ settings.dept_change_copy.three }}">{{ settings.dept_change_copy.four }}</a>
-												</p>
-												<p>{{ settings.dept_change_copy.five }}</p>
-											</div>
+								<div data-c-grid-item="base(1of1)">
+									<div data-c-alert="information" data-c-radius="rounded" role="alert" data-c-margin="bottom(normal)">
+										<div data-c-padding="half">
+											<p data-c-margin="bottom(half)" data-c-heading="h6" data-c-font-weight="bold">
+												<i class="fas fa-exclamation-circle"></i>
+												{{ settings.government_dept }}
+												{% if user.manager.department %}
+													{{ user.manager.department.name }}
+												{% else %}
+													{{ settings.no_department }}
+												{% endif %}
+											</p>
+											<p data-c-margin="bottom(half)">{{ settings.dept_change_copy.one }}
+												<a href="{{ settings.dept_change_copy.two }}" title="{{ settings.dept_change_copy.three }}">{{ settings.dept_change_copy.four }}</a>
+											</p>
+											<p>{{ settings.dept_change_copy.five }}</p>
 										</div>
-										<div data-c-grid-item="base(1of1)" data-c-input="email">
-											<label for="gov_email">{{ settings.gov_email_label }}</label>
-											<span>{{ settings.required }}</span>
-											<div>
-												<input id="gov_email" name="gov_email" placeholder="e.g. clark.kent@canada.ca" required type="email" value="{{ user.gov_email }}"/>
-											</div>
-											<span>{{ settings.error }}</span>
+									</div>
+									<div data-c-grid-item="base(1of1)" data-c-input="email">
+										<label for="gov_email">{{ settings.gov_email_label }}</label>
+										<span>{{ settings.required }}</span>
+										<div>
+											<input id="gov_email" name="gov_email" placeholder="e.g. clark.kent@canada.ca" required type="email" value="{{ user.gov_email }}"/>
 										</div>
-										<div data-c-grid-item="base(1of1)" data-c-align="base(center) tp(right)">
-											<button data-c-button="outline(c1)" data-c-radius="rounded" type="submit" name="goc">
-												{{ settings.government_save }}
-											</button>
-										</div>
-									</form>
-								</div>
+										<span>{{ settings.error }}</span>
+									</div>
+									<div data-c-grid-item="base(1of1)" data-c-align="base(center) tp(right)">
+										<button data-c-button="outline(c1)" data-c-radius="rounded" type="submit" name="goc">
+											{{ settings.government_save }}
+										</button>
+									</div>
+								</form>
 							</div>
 							<hr data-c-margin="top(triple)">
 						{% endif %}
-
 						{# Password Reset #}
 						<form action="{{ submit_password }}" method="POST">
 							{{ csrf_field() }}
@@ -234,7 +231,6 @@
 								</div>
 							</div>
 						</form>
-
 						{# 2FA #}
 						<hr data-c-margin="top(triple)">
 						<h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="auth">{{ settings.heading.two_factor }}</h2>
@@ -303,10 +299,49 @@
 									</form>
 								</div>
 							{% endif %}
-						</div>
+							{# Account Deletion #}
+							{% if user.user_role_id == 1 %}
+								<form action="{{ submit_delete }}" method="POST">
+									{{ csrf_field() }}
+									<hr data-c-margin="top(triple)">
+									<h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="delete">
+										{{ settings.heading.delete }}</h2>
+									<div data-c-grid-item="base(1of1)">
+										<div data-c-alert="error" data-c-radius="rounded" role="alert" data-c-margin="bottom(normal)">
+											<div data-c-padding="half">
+												<p data-c-margin="bottom(half)" data-c-heading="h6" data-c-font-weight="bold">
+													<i class="fas fa-exclamation-circle"></i>
+													{{ settings.danger_zone }}
+												</p>
+												<p data-c-margin="bottom(half)">{{ settings.delete_copy }}</p>
+											</div>
+										</div>
+										<p data-c-margin="bottom(half)">{{ settings.delete_alert_prefix }}
+											(<span data-c-font-weight="bold">{{ user.email }}</span>)
+											{{ settings.delete_alert_suffix }}</p>
+										<div data-c-grid-item="base(1of)" data-c-input="email">
+											<label for="confirm_delete">{{ settings.confirm_delete_label }}</label>
+											<span>{{ settings.required }}</span>
+											<div>
+												<input id="confirm_delete" name="confirm_delete" placeholder="{{ settings.delete_placeholder }}" required type="email" value="{{ deleteInput.value }}" autocomplete="off"/>
+											</div>
+											<span>{{ settings.error }}</span>
+										</div>
+										<div data-c-grid-item="base(1of1)" data-c-align="base(center) tp(right)">
+											<button id="delete_account" name="delete_account" data-c-button="outline(stop)" data-c-radius="rounded" type="submit" disabled>
+												{{ settings.delete_button }}
+											</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						{% endif %}
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+{% endblock %}
+{% block scripts %}
+	<script async defer src="{{ mix('/js/typeToDelete.js') }}"></script>
 {% endblock %}
