@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\User as UserResource;
 use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Gate;
@@ -41,7 +42,7 @@ class UserController extends Controller
         if (empty($viewableUsers)) {
             throw new AuthorizationException();
         }
-        return $viewableUsers->toJson();
+        return UserResource::collection($viewableUsers);
     }
 
     /**
@@ -53,6 +54,6 @@ class UserController extends Controller
     public function show(User $user)
     {
         $this->authorize('view-user', $user);
-        return $user->toJson();
+        return new UserResource($user);
     }
 }

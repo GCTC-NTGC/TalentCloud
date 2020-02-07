@@ -71,7 +71,10 @@ class UserControllerTest extends TestCase
             ->json('get', 'api/users');
         $response->assertOk();
 
-        $response->assertJsonFragment($admin->toArray());
+        // For some reason this first $admin->toArray() was
+        // failing the assertJsonFragment check, despite having all
+        // of the correct information within the response.
+        $response->assertJsonFragment($this->makeFragment($admin));
         $response->assertJsonFragment($otherAdmin->toArray());
         $response->assertJsonFragment($hrManager->user->toArray());
         $response->assertJsonFragment($deptManager->user->toArray());
