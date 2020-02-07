@@ -1,7 +1,7 @@
 const mix = require("laravel-mix");
 const sass = require("node-sass");
 const cssnano = require("cssnano");
-const autoprefixer = require("autoprefixer");
+// const autoprefixer = require("autoprefixer");
 const path = require("path");
 /*
  |--------------------------------------------------------------------------
@@ -22,6 +22,7 @@ mix
   .js("resources/assets/js/modernizr.js", "public/js")
   .js("resources/assets/js/alerts.js", "public/js")
   .js("resources/assets/js/getpdf.js", "public/js")
+  .js("resources/assets/js/typeToDelete.js", "public/js")
   .ts("resources/assets/js/managerRegistration.ts", "public/js")
   .ts(
     "resources/assets/js/components/AssessmentPlan/AssessmentPlanRoot.tsx",
