@@ -137,7 +137,6 @@ const makeUnclaimedJob = (
   job: Job,
 ): UnclaimedJobCardProps => {
   const jobTitle = localizeField(locale, job, "title");
-  console.log(job);
   return {
     id: job.id,
     jobLink: {
