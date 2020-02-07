@@ -7,8 +7,7 @@
 
 namespace App\Models;
 
-use App\Models\WorkSample;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Applicant
@@ -38,6 +37,7 @@ use Illuminate\Database\Eloquent\Collection;
  */
 class Applicant extends BaseModel
 {
+    use SoftDeletes;
 
     protected $casts = [
         'user_id' => 'int',
@@ -59,12 +59,12 @@ class Applicant extends BaseModel
         return $this->belongsTo(\App\Models\User::class);
     }
 
-    public function applicant_profile_answers()
+    public function applicant_profile_answers() //phpcs:ignore
     {
         return $this->hasMany(\App\Models\ApplicantProfileAnswer::class);
     }
 
-    public function job_applications()
+    public function job_applications() //phpcs:ignore
     {
         if ($this->is_snapshot) {
             return $this->hasMany(\App\Models\JobApplication::class, 'applicant_snapshot_id');
@@ -94,12 +94,12 @@ class Applicant extends BaseModel
         return $this->morphMany(\App\Models\Course::class, 'courseable')->orderBy('end_date', 'desc');
     }
 
-    public function work_experiences()
+    public function work_experiences() //phpcs:ignore
     {
         return $this->morphMany(\App\Models\WorkExperience::class, 'experienceable')->orderBy('end_date', 'desc');
     }
 
-    public function skill_declarations()
+    public function skill_declarations() //phpcs:ignore
     {
         return $this->morphMany(\App\Models\SkillDeclaration::class, 'skillable');
     }
@@ -109,7 +109,7 @@ class Applicant extends BaseModel
         return $this->morphMany(\App\Models\Reference::class, 'referenceable');
     }
 
-    public function work_samples()
+    public function work_samples() //phpcs:ignore
     {
         return $this->morphMany(\App\Models\WorkSample::class, 'work_sampleable');
     }
