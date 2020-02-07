@@ -24,6 +24,13 @@ class JobPosterStatus extends BaseModel
 {
     use HasTranslations;
 
+     /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'job_poster_status';
+
     public $translatable = ['value'];
     protected $fillable = [];
 

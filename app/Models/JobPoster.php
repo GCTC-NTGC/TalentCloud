@@ -53,6 +53,7 @@ use App\Events\JobSaved;
  * @property int $overtime_requirement_id
  * @property int $process_number
  * @property int $priority_clearance_number
+ * @property int $job_poster_status_id
  * @property \Jenssegers\Date\Date $loo_issuance_date
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
@@ -74,6 +75,7 @@ use App\Events\JobSaved;
  * @property \Illuminate\Database\Eloquent\Collection $hr_advisors
  * @property \App\Models\Lookup\Frequency $telework_allowed_frequency
  * @property \App\Models\Lookup\Frequency $flexible_hours_frequency
+ * @property \App\Models\Lookup\JobPosterStatus $job_poster_status
  *
  * Localized Properties:
  * @property string $city
@@ -389,6 +391,12 @@ class JobPoster extends BaseModel
     {
         return $this->hasMany(\App\Models\Comment::class);
     }
+
+    public function job_poster_status() // phpcs:ignore
+    {
+        return $this->belongsTo(\App\Models\Lookup\JobPosterStatus::class);
+    }
+
     // @codeCoverageIgnoreEnd
     /* Artificial Relations */
 
