@@ -29,7 +29,7 @@
 							<label class="form__label" for="{{ id_question }}createJobQuestionEN">
 								{{ question_l10n.question_english }}
 							</label>
-							<input {# required #} class="form__input" id="{{ id_question }}createJobQuestionEN" type="text" name="question[{{ question ? question.id : ':id' }}][question][en]" value="{{ question.getTranslation('question', 'en') }}">
+							<input required class="form__input" id="{{ id_question }}createJobQuestionEN" type="text" name="question[{{ question ? question.id : ':id' }}][question][en]" value="{{ question.getTranslation('question', 'en') }}">
 						</div>
 					</div>
 					<div class="box full">
@@ -37,7 +37,7 @@
 							<label class="form__label" for="{{ id_description }}createJobQuestionDescriptionEN">
 								{{ question_l10n.description_english }}
 							</label>
-							<textarea class="form__textarea" id="{{ id_description }}createJobQuestionDescriptionEN" name="question[{{ question ? question.id : ':id' }}][description][en]">{{ question.getTranslation('description', 'en') }}</textarea>
+							<textarea required class="form__textarea" id="{{ id_description }}createJobQuestionDescriptionEN" name="question[{{ question ? question.id : ':id' }}][description][en]">{{ question.getTranslation('description', 'en') }}</textarea>
 						</div>
 					</div>
 				</div>
@@ -49,7 +49,7 @@
 							<label class="form__label" for="{{ id_question }}createJobQuestionFR">
 								{{ question_l10n.question_french }}
 							</label>
-							<input {# required #} class="form__input" id="{{ id_question }}createJobQuestionFR" type="text" name="question[{{ question ? question.id : ':id' }}][question][fr]" value="{{ question.getTranslation('question', 'fr') }}">
+							<input required class="form__input" id="{{ id_question }}createJobQuestionFR" type="text" name="question[{{ question ? question.id : ':id' }}][question][fr]" value="{{ question.getTranslation('question', 'fr') }}">
 						</div>
 					</div>
 					<div class="box full">
@@ -57,7 +57,7 @@
 							<label class="form__label" for="{{ id_description }}createJobQuestionDescriptionFR">
 								{{ question_l10n.description_french }}
 							</label>
-							<textarea class="form__textarea" id="{{ id_description }}createJobQuestionDescriptionFR" name="question[{{ question ? question.id : ':id' }}][description][fr]">{{ question.getTranslation('description', 'fr') }}</textarea>
+							<textarea required class="form__textarea" id="{{ id_description }}createJobQuestionDescriptionFR" name="question[{{ question ? question.id : ':id' }}][description][fr]">{{ question.getTranslation('description', 'fr') }}</textarea>
 						</div>
 					</div>
 				</div>
