@@ -397,6 +397,11 @@ class JobPoster extends BaseModel
         return $this->belongsTo(\App\Models\Lookup\JobPosterStatus::class);
     }
 
+    public function job_poster_status_histories() // phpcs:ignore
+    {
+        return $this->hasMany(\App\Models\JobPosterStatusHistory::class);
+    }
+
     // @codeCoverageIgnoreEnd
     /* Artificial Relations */
 
