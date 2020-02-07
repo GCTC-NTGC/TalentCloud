@@ -7,7 +7,7 @@ import { Link } from "../models/app";
 export interface UnclaimedJobCardProps {
   id: number;
   jobLink: Link;
-  createdAt: string;
+  reviewRequested?: string;
   status: JobStatus;
   hiringManager: string;
   hrAdvisors: string[];
@@ -16,7 +16,7 @@ export interface UnclaimedJobCardProps {
 
 const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
   jobLink,
-  createdAt,
+  reviewRequested,
   status,
   hiringManager,
   hrAdvisors,
@@ -38,7 +38,7 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
             <div data-c-grid="gutter middle">
               <div data-c-grid-item="base(1of1)">
                 <p
-                  data-c-font-size="h4"
+                  data-c-font-size="h3"
                   data-c-colour="white"
                   data-c-font-style="underline"
                 >
@@ -48,11 +48,17 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
               <div data-c-grid-item="base(1of2)">
                 <p data-c-colour="white" data-c-font-size="small">
                   <FormattedMessage
-                    id="openJobCard.createdAt"
+                    id="openJobCard.reviewRequested"
                     description="Header for when Job Poster was created."
-                    defaultMessage="Created: "
+                    defaultMessage="Received: "
                   />
-                  {createdAt}
+                  {reviewRequested || (
+                    <FormattedMessage
+                      id="openJobCard.error"
+                      description="Error getting time review was requested."
+                      defaultMessage="Error"
+                    />
+                  )}
                 </p>
               </div>
               <div data-c-grid-item="base(1of2)" data-c-align="base(right)">

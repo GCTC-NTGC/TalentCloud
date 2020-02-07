@@ -32,7 +32,7 @@ stories
             title: "",
             text: text("Title", "CS01 - Front-end Developer", "Props"),
           }}
-          createdAt={text("Created At", "Created: 2019-MAY-02", "Props")}
+          reviewRequested={text("Created At", "Created: 2019-MAY-02", "Props")}
           status={select("Status", statusOptions, JobStatus.Draft, "Props")}
           hiringManager={text("Hiring Manager", "Rebecca Appleby")}
           hrAdvisors={[]}
@@ -52,7 +52,7 @@ stories
             title: "",
             text: text("Title", "AS02 - Executive Assisstant", "Props"),
           }}
-          createdAt={text("Created At", "Created: 2019-MAY-02", "Props")}
+          reviewRequested={text("Created At", "Created: 2019-MAY-02", "Props")}
           status={select("Status", statusOptions, JobStatus.Draft, "Props")}
           hiringManager={text("Hiring Managers", "Rebecca Appleby")}
           hrAdvisors={array(
@@ -75,7 +75,7 @@ stories
             ({
               id,
               jobLink,
-              createdAt,
+              reviewRequested,
               status,
               hiringManager,
               hrAdvisors,
@@ -85,7 +85,7 @@ stories
                   id={id}
                   key={jobLink.text}
                   jobLink={jobLink}
-                  createdAt={createdAt}
+                  reviewRequested={reviewRequested}
                   status={status}
                   hiringManager={hiringManager}
                   hrAdvisors={hrAdvisors}

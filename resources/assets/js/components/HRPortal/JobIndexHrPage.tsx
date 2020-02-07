@@ -7,7 +7,7 @@ import JobIndexHr from "./JobIndexHr";
 import { JobCardProps } from "../JobCard";
 import { Job, Manager } from "../../models/types";
 import { classificationString, jobStatus } from "../../models/jobUtil";
-import { localizeField, Locales } from "../../helpers/localize";
+import { localizeField, Locales, getLocale } from "../../helpers/localize";
 import {
   hrJobSummary,
   hrJobReview,
@@ -137,6 +137,7 @@ const makeUnclaimedJob = (
   job: Job,
 ): UnclaimedJobCardProps => {
   const jobTitle = localizeField(locale, job, "title");
+  console.log(job);
   return {
     id: job.id,
     jobLink: {
@@ -146,7 +147,9 @@ const makeUnclaimedJob = (
         : intl.formatMessage(messages.titleMissing),
       title: "",
     },
-    createdAt: readableDateTime(locale, job.created_at),
+    reviewRequested: job.review_requested_at
+      ? readableDateTime(locale, job.review_requested_at)
+      : undefined,
     status: jobStatus(job),
     hiringManager:
       manager !== null
@@ -173,10 +176,7 @@ const JobIndexHrPage: React.FC<JobIndexHrPageProps> = ({
   handleClaimJob,
 }) => {
   const intl = useIntl();
-  const { locale } = intl;
-  if (locale !== "en" && locale !== "fr") {
-    throw new Error("Unknown intl.locale");
-  }
+  const locale = getLocale(intl.locale);
 
   const isClaimed = (job: Job): boolean => claimedJobIds.includes(job.id);
   const isUnclaimed = (job: Job): boolean => !isClaimed(job);
@@ -193,8 +193,19 @@ const JobIndexHrPage: React.FC<JobIndexHrPageProps> = ({
       job,
     );
 
+  const sortByCurrentDate = (a: Job, b: Job): number => {
+    if (b.review_requested_at && a.review_requested_at) {
+      return b.review_requested_at.getTime() - a.review_requested_at.getTime();
+    }
+    return 0;
+  };
+
   const jobActions = jobs.filter(isClaimed).map(jobToAction);
-  const unclaimedJobs = jobs.filter(isUnclaimed).map(jobToUnclaimed);
+
+  const unclaimedJobs = jobs
+    .filter(isUnclaimed)
+    .sort(sortByCurrentDate)
+    .map(jobToUnclaimed);
 
   return (
     <JobIndexHr
@@ -213,10 +224,7 @@ const JobIndexHrDataFetcher: React.FC<JobIndexHrDataFetcherProps> = ({
   hrAdvisorId,
 }) => {
   const intl = useIntl();
-  const { locale } = intl;
-  if (locale !== "en" && locale !== "fr") {
-    throw new Error("Unknown intl.locale");
-  }
+  const locale = getLocale(intl.locale);
   const dispatch = useDispatch();
 
   // Request and select hrAdvisor
@@ -270,9 +278,7 @@ const JobIndexHrDataFetcher: React.FC<JobIndexHrDataFetcherProps> = ({
       : null,
   );
   const departmentName =
-    (department !== null
-      ? localizeField(locale, department, "name")
-      : null) ||
+    (department !== null ? localizeField(locale, department, "name") : null) ||
     intl.formatMessage(messages.departmentPlaceholder);
 
   // Make claim job function
