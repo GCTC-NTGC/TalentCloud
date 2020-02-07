@@ -987,22 +987,22 @@ export const applicantReviewLocations = defineMessages({
 
 export const screeningPlanLocations = defineMessages({
   [LocationId.screeningPlan]: {
-    id: "locations.screeningPlan.general",
+    id: "activityfeed.locations.screeningPlan.general",
     defaultMessage: "General",
     description: "Location of the activity.",
   },
   [LocationId.screeningPlanBuilder]: {
-    id: "locations.screeningPlan.builder",
+    id: "activityfeed.locations.screeningPlan.builder",
     defaultMessage: "Assessment Plan Builder",
     description: "Location of the activity.",
   },
   [LocationId.screeningPlanSummary]: {
-    id: "locations.screeningPlan.summary",
+    id: "activityfeed.locations.screeningPlan.summary",
     defaultMessage: "Assessment Plan Summary",
     description: "Location of the activity.",
   },
   [LocationId.screeningPlanRatings]: {
-    id: "locations.screeningPlan.ratings",
+    id: "activityfeed.locations.screeningPlan.ratings",
     defaultMessage: "Ratings Guide Builder",
     description: "Location of the activity.",
   },
