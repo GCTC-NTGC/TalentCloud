@@ -35,7 +35,8 @@
 			</div>
 			{# Browse Jobs ================================================== #}
 			<div class="home-browse" data-c-background="white(100)" data-c-padding="top(triple) bottom(triple)" data-c-border="bottom(thin, solid, grey)">
-				{% if job_count == 0 %}
+				{% set christmas_time = false %}
+				{% if christmas_time %}
 					{# Holiday Message #}
 					<div data-c-container="medium">
 						<div data-c-border="all(thick, solid, c5)" data-c-padding="all(2)" data-c-radius="rounded" data-c-align="base(center) tl(left)" style="background: #e6f0f8; position: relative;">
@@ -155,10 +156,10 @@
 					</h2>
 					<div class="home-hiw" data-c-grid="gutter">
 						<div data-c-grid-item="tl(1of3)">
-							{% set stepCounter = 0 %}
+							{% set step_counter = 0 %}
 							{% for button in home.hiw.steps %}
-								{% set stepCounter = stepCounter + 1 %}
-								<button {% if stepCounter == 1 %} class="active" {% else %} data-c-margin="top(normal)" {% endif %} data-c-align="centre" data-c-button="solid(c2)" data-c-radius="rounded" data-tc-hiw-id="{{ stepCounter }}" data-tc-hiw-trigger>
+								{% set step_counter = step_counter + 1 %}
+								<button {% if step_counter == 1 %} class="active" {% else %} data-c-margin="top(normal)" {% endif %} data-c-align="centre" data-c-button="solid(c2)" data-c-radius="rounded" data-tc-hiw-id="{{ step_counter }}" data-tc-hiw-trigger>
 									<span data-c-colour="white" data-c-font-size="h4" data-c-font-weight="bold">
 										{{ button }}
 									</span>
@@ -166,10 +167,10 @@
 							{% endfor %}
 						</div>
 						<div data-c-grid-item="tl(2of3)">
-							{% set stepContentCounter = 0 %}
+							{% set step_content_counter = 0 %}
 							{% for item in home.hiw.step_content %}
-								{% set stepContentCounter = stepContentCounter + 1 %}
-								<div class="home-hiw-content {% if stepContentCounter == 1 %}active{% endif %}" data-c-align="left" data-c-background="c1(100)" data-c-padding="double" data-c-radius="rounded" data-tc-hiw-id="{{ stepContentCounter }}">
+								{% set step_content_counter = step_content_counter + 1 %}
+								<div class="home-hiw-content {% if step_content_counter == 1 %}active{% endif %}" data-c-align="left" data-c-background="c1(100)" data-c-padding="double" data-c-radius="rounded" data-tc-hiw-id="{{ step_content_counter }}">
 									<span data-c-colour="white" data-c-font-size="h4" data-c-font-weight="bold" data-c-margin="bottom(normal)">
 										{{ item.title }}
 									</span>
@@ -215,9 +216,7 @@
 							</h2>
 						</div>
 						<div
-							data-c-align="tp(right)" data-c-grid-item="tp(1of2)">{# <a data-c-colour="c3" data-c-font-size="h4" data-c-font-weight="bold" href="" title="">
-																								                                View More Posts
-																								                            </a> #}
+							data-c-align="tp(right)" data-c-grid-item="tp(1of2)">{# <a data-c-colour="c3" data-c-font-size="h4" data-c-font-weight="bold" href="" title="">View More Posts</a> #}
 						</div>
 					</div>
 					<div data-c-margin="top(double)">
