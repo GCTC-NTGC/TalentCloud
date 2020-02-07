@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Lang;
  */
 
 /* ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP */
+
 Route::group(
     [
         'prefix' => LaravelLocalization::setLocale(),
@@ -209,6 +210,14 @@ Route::group(
                         ->middleware('can:view,user')
                         ->middleware('can:update,user')
                         ->name('settings.government.update');
+
+                    Route::post(
+                        'settings/{user}/account/delete',
+                        'SettingsController@deleteAccount'
+                    )
+                        ->middleware('can:view,applicant')
+                        ->middleware('can:update,applicant')
+                        ->name('settings.account.delete');
 
                     /* 2FA Settings */
                     Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('two_factor.activate');
@@ -607,8 +616,8 @@ Route::group(
 
                         /* Account Settings */
                         Route::get('settings', 'SettingsController@editAuthenticated')
-                        // Permissions are checked in Controller.
-                        ->name('hr_advisor.settings.edit');
+                            // Permissions are checked in Controller.
+                            ->name('hr_advisor.settings.edit');
 
                         Route::post(
                             'settings/{user}/personal/update',

@@ -49,10 +49,12 @@ class SettingsController extends Controller
             'submit_personal' => route(WhichPortal::prefixRoute('settings.personal.update'), $user),
             'submit_password' => route(WhichPortal::prefixRoute('settings.password.update'), $user),
             'submit_government' => route(WhichPortal::prefixRoute('settings.government.update'), $user),
+            'submit_delete' => route(WhichPortal::prefixRoute('settings.account.delete'), $user),
             'activate_two_factor' => route(WhichPortal::prefixRoute('two_factor.activate')),
             'deactivate_two_factor' => route(WhichPortal::prefixRoute('two_factor.deactivate')),
             'forget_remembered_devices' => route(WhichPortal::prefixRoute('two_factor.forget')),
             'generate_recovery_codes' => route(WhichPortal::prefixRoute('recovery_codes.show'))
+
         ];
 
         return view(
@@ -109,7 +111,7 @@ class SettingsController extends Controller
         ]);
 
         if ($validData) {
-            $user->update(['password'=> Hash::make($validData['new_password'])]);
+            $user->update(['password' => Hash::make($validData['new_password'])]);
         }
 
         return redirect()->route(WhichPortal::prefixRoute('settings.edit'))->withSuccess(Lang::get('success.update_password'));
@@ -126,7 +128,7 @@ class SettingsController extends Controller
     {
         $validData = $request->validate([
             'gov_email' => 'nullable|required_unless:department,0|email:rfc|max:191',
-                            Rule::unique('users', 'gov_email')->ignore($user->id)
+            Rule::unique('users', 'gov_email')->ignore($user->id)
         ]);
 
         if ($validData) {
@@ -134,5 +136,25 @@ class SettingsController extends Controller
         }
 
         return redirect()->route(WhichPortal::prefixRoute('settings.edit'))->withSuccess(Lang::get('success.update_government'));
+    }
+
+    /**
+     * Delete (soft) applicant account.
+     *
+     * @param  \Illuminate\Http\Request $request   Incoming request.
+     * @param  \App\Models\User    $user Incoming User.
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteAccount(Request $request, User $user)
+    {
+        $validData = $request->validate([
+            'confirm_delete' => ['required', 'same:email']
+        ]);
+
+        if ($validData) {
+            Applicant::where('user_id', $user->id)->delete();
+        }
+
+        return redirect()->route(WhichPortal::prefixRoute('settings.edit'))->withSuccess(Lang::get('success.delete_account'));
     }
 }
