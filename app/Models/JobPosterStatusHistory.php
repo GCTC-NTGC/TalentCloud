@@ -21,7 +21,7 @@ namespace App\Models;
  */
 class JobPosterStatusHistory extends BaseModel
 {
-    protected $table = 'job_poster_status_history';
+    protected $table = 'job_poster_status_histories';
 
     protected $fillable = [];
 

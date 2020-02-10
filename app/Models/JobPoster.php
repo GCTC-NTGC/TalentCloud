@@ -606,7 +606,7 @@ class JobPoster extends BaseModel
             return 1; // Draft.
         } elseif ($this->published_at === null) {
             return 2; // Review requested, but not approved.
-        } elseif ($this->open_date_time === null || $this->open_date_time >$now) {
+        } elseif ($this->open_date_time === null || $this->open_date_time > $now) {
             return 3; // Approved, but not open.
         } elseif ($this->close_date_time === null || $this->close_date_time > $now) {
             // Approved and currently open.
@@ -655,5 +655,4 @@ class JobPoster extends BaseModel
         }
         return null;
     }
-
 }

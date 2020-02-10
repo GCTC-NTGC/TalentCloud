@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Lang;
  */
 
 /* ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP */
+
 Route::group(
     [
         'prefix' => LaravelLocalization::setLocale(),
@@ -377,6 +378,13 @@ Route::group(
                             ->where('jobPoster', '[0-9]+')
                             ->middleware('can:delete,jobPoster')
                             ->name('manager.jobs.destroy');
+                        Route::post(
+                            'jobs/{jobPoster}/setJobStatus/{status}',
+                            'JobStatusController@setJobStatus'
+                        )
+                            ->middleware('can:manage,jobPoster')
+                            ->where('jobPoster', '[0-9]+')
+                            ->name('manager.jobs.setJobStatus');
 
                         /* Screening Plan Builder */
                         Route::get(
@@ -615,8 +623,8 @@ Route::group(
 
                         /* Account Settings */
                         Route::get('settings', 'SettingsController@editAuthenticated')
-                        // Permissions are checked in Controller.
-                        ->name('hr_advisor.settings.edit');
+                            // Permissions are checked in Controller.
+                            ->name('hr_advisor.settings.edit');
 
                         Route::post(
                             'settings/{user}/personal/update',
@@ -749,7 +757,6 @@ Route::group(['prefix' => 'api'], function (): void {
     Route::put('jobs/{jobPoster}/criteria', 'Api\CriteriaController@batchUpdate')
         ->where('jobPoster', '[0-9]+')
         ->middleware('can:update,jobPoster');
-
 
     Route::post('jobs/{job}/submit', 'Api\JobController@submitForReview')
         ->where('job', '[0-9]+')

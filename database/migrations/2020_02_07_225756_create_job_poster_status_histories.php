@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateJobStatusHistory extends Migration
+class CreateJobPosterStatusHistories extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateJobStatusHistory extends Migration
      */
     public function up()
     {
-        Schema::create('job_poster_status_history', function (Blueprint $table) {
+        Schema::create('job_poster_status_histories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('job_poster_id');
             $table->integer('user_id');
@@ -35,6 +35,6 @@ class CreateJobStatusHistory extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('job_status_history');
+        Schema::dropIfExists('job_poster_status_histories');
     }
 }
