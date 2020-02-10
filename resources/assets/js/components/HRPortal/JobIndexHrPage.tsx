@@ -15,7 +15,6 @@ import {
   hrScreeningPlan,
 } from "../../helpers/routes";
 import { UnclaimedJobCardProps } from "../UnclaimedJobCard";
-import { readableDateTime } from "../../helpers/dates";
 import { find, stringNotEmpty } from "../../helpers/queries";
 import {
   getHrAdvisor as fetchHrAdvisor,
@@ -146,9 +145,7 @@ const makeUnclaimedJob = (
         : intl.formatMessage(messages.titleMissing),
       title: "",
     },
-    reviewRequested: job.review_requested_at
-      ? readableDateTime(locale, job.review_requested_at)
-      : undefined,
+    reviewRequested: job.review_requested_at || undefined,
     status: jobStatus(job),
     hiringManager:
       manager !== null
@@ -192,19 +189,9 @@ const JobIndexHrPage: React.FC<JobIndexHrPageProps> = ({
       job,
     );
 
-  const sortByCurrentDate = (a: Job, b: Job): number => {
-    if (b.review_requested_at && a.review_requested_at) {
-      return b.review_requested_at.getTime() - a.review_requested_at.getTime();
-    }
-    return 0;
-  };
-
   const jobActions = jobs.filter(isClaimed).map(jobToAction);
 
-  const unclaimedJobs = jobs
-    .filter(isUnclaimed)
-    .sort(sortByCurrentDate)
-    .map(jobToUnclaimed);
+  const unclaimedJobs = jobs.filter(isUnclaimed).map(jobToUnclaimed);
 
   return (
     <JobIndexHr
@@ -307,3 +294,5 @@ if (container !== null) {
     );
   }
 }
+
+export default JobIndexHrPage;
