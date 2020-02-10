@@ -33,6 +33,7 @@ class JobController extends Controller
         // from being actually loaded and firing off events.
         $jobs = JobPoster::where('open_date_time', '<=', $now)
             ->where('close_date_time', '>=', $now)
+            ->where('internal_only', false)
             ->where('published', true)
             ->with([
                 'department',
