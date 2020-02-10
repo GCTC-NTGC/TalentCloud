@@ -7,7 +7,7 @@
   {
     "id": "openJobCard.error",
     "description": "Error getting time review was requested.",
-    "defaultMessage": "Error"
+    "defaultMessage": "Date Unavailable."
   },
   {
     "id": "openJobCard.hiringManager",

@@ -612,7 +612,7 @@
   "managerSurveyModal.managerSurveyLinkTitle": "Lien vers le sondage auprès des gestionnaires.",
   "managerSurveyModal.title": "Votre offre d'emploi a été soumise!",
   "openJobCard.claimJob": "Réclamer cet emploi",
-  "openJobCard.error": "Erreur",
+  "openJobCard.error": "Date non disponible.",
   "openJobCard.hiringManager": "Gestionnaires d’embauche :",
   "openJobCard.hrAdvisors": "Conseillers en RH :",
   "openJobCard.reviewRequested": "Récupérée: ",

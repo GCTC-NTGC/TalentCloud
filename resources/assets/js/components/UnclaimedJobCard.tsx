@@ -61,7 +61,7 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
                     <FormattedMessage
                       id="openJobCard.error"
                       description="Error getting time review was requested."
-                      defaultMessage="Error"
+                      defaultMessage="Date Unavailable."
                     />
                   )}
                 </p>
