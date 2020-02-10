@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Collection;
  * @property \App\Models\User $user
  * @property \Illuminate\Database\Eloquent\Collection $applicant_profile_answers
  * @property \Illuminate\Database\Eloquent\Collection $job_applications
+ * @property \Illuminate\Database\Eloquent\Collection $submitted_applications
  * @property \Illuminate\Database\Eloquent\Collection $degrees
  * @property \Illuminate\Database\Eloquent\Collection $courses
  * @property \Illuminate\Database\Eloquent\Collection $work_experiences
@@ -69,6 +70,18 @@ class Applicant extends BaseModel
             return $this->hasMany(\App\Models\JobApplication::class, 'applicant_snapshot_id');
         }
         return $this->hasMany(\App\Models\JobApplication::class);
+    }
+
+    /**
+     * Get all of the Job Applications submitted by this applicant
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function submitted_applications() // phpcs:ignore
+    {
+        return $this->hasMany(\App\Models\JobApplication::class)->whereDoesntHave('application_status', function ($query): void {
+            $query->where('name', 'draft');
+        });
     }
 
     public function degrees()

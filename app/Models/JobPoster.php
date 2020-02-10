@@ -74,6 +74,7 @@ use App\Events\JobSaved;
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_questions
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_translations
  * @property \Illuminate\Database\Eloquent\Collection $submitted_applications
+ * @property \Illuminate\Database\Eloquent\Collection $hr_advisors
  * @property \App\Models\Lookup\Frequency $telework_allowed_frequency
  * @property \App\Models\Lookup\Frequency $flexible_hours_frequency
  *
@@ -93,10 +94,12 @@ use App\Events\JobSaved;
  * @method boolean isOpen()
  * @method string timeRemaining()
  * @method mixed[] toApiArray()
+ * @method boolean isVisibleToHr()
  *
  * Computed Properties
  * @property string|null $classification_code
  * @property string|null $classification_message
+ * @property int $job_status_id
  */
 class JobPoster extends BaseModel
 {
@@ -249,7 +252,8 @@ class JobPoster extends BaseModel
         'priority_clearance_number',
         'loo_issuance_date',
         'classification_id',
-        'classification_level'
+        'classification_level',
+        'job_status_id'
     ];
 
     /**
@@ -259,7 +263,8 @@ class JobPoster extends BaseModel
      */
     protected $appends = [
         'classification_code',
-        'classification_message'
+        'classification_message',
+        'job_status_id',
     ];
 
     /**
@@ -305,6 +310,14 @@ class JobPoster extends BaseModel
         return $this->hasMany(\App\Models\Criteria::class);
     }
 
+    public function hr_advisors() // phpcs:ignore
+    {
+        return $this->belongsToMany(
+            \App\Models\HrAdvisor::class,
+            'claimed_jobs'
+        );
+    }
+
     public function job_applications() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\JobApplication::class);
@@ -348,6 +361,11 @@ class JobPoster extends BaseModel
     public function classification() // phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Classification::class);
+    }
+
+    public function comments() // phpcs:ignore
+    {
+        return $this->hasMany(\App\Models\Comment::class);
     }
     // @codeCoverageIgnoreEnd
     /* Artificial Relations */
@@ -524,6 +542,51 @@ class JobPoster extends BaseModel
         }
 
         return $status;
+    }
+
+    /**
+     * FIXME:
+     * Return a calculated job status id.
+     * For now these ids represent the following:
+     *    1 = Draft
+     *    2 = Review requested
+     *    3 = Approved
+     *    4 = Open
+     *    5 = Closed
+     * These statuses needs an immenent refactoring, so I'm not going to create
+     * a lookup table for them yet.
+     * TODO: When this is rebuilt, make sure to change matching JobStatus code in
+     *    resources\assets\js\models\lookupConstants.ts
+     *
+     * @return integer
+     */
+    public function getJobStatusIdAttribute()
+    {
+        $now = new Date();
+        if ($this->review_requested_at === null) {
+            return 1; // Draft.
+        } elseif ($this->published_at === null) {
+            return 2; // Review requested, but not approved.
+        } elseif ($this->open_date_time === null || $this->open_date_time >$now) {
+            return 3; // Approved, but not open.
+        } elseif ($this->close_date_time === null || $this->close_date_time > $now) {
+            // Approved and currently open.
+            return 4; // Open.
+        } else {
+            // Published and close date has passed.
+            return 5; // Closed.
+        }
+    }
+
+    /**
+     * Return true if this job should be visible to hr advisors.
+     * It should become visible after Manager has requested a review.
+     *
+     * @return boolean
+     */
+    public function isVisibleToHr()
+    {
+        return $this->job_status_id !== 1;
     }
 
     /**

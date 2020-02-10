@@ -64,7 +64,7 @@ class JobPosterCrudController extends CrudController
             'label' => 'Manager',
             'orderable' => false,
             'function' => function ($entry) {
-                return '<a href="' . route('manager.profile.edit', $entry->manager->user->id) . '" target="_blank">' . $entry->manager->user->full_name . '</a>';
+                return '<a href="' . route('manager.profile.edit', $entry->manager->id) . '" target="_blank">' . $entry->manager->user->full_name . '</a>';
             }
         ]);
         $this->crud->addColumn([
@@ -74,9 +74,14 @@ class JobPosterCrudController extends CrudController
         ]);
         $this->crud->addColumn([
             'name' => 'submitted_applications_count',
-            'label' => 'Total Applications',
-            'type' => 'model_function',
-            'function_name' => 'submitted_applications_count'
+            'label' => 'Applications',
+            'type' => 'closure',
+            'function' =>
+                function ($entry) {
+                    return $entry->submitted_applications_count() > 0 ?
+                        '<a target="_blank" href="' . route('manager.jobs.applications', $entry->id) . '">' . $entry->submitted_applications_count() . ' (View <i class="fa fa-external-link"></i>)</a>' :
+                        $entry->submitted_applications_count();
+                }
         ]);
 
         // Filters.
@@ -192,9 +197,9 @@ class JobPosterCrudController extends CrudController
         // Manipulates the input fields to save the "end of day" timestamp for
         // open/close/start dates.
         $this->crud->request->request->add([
-            'open_date_time' => ptDayStartToUtcTime($open_date),
-            'close_date_time' => ptDayEndToUtcTime($close_date),
-            'start_date_time' => ptDayStartToUtcTime($start_date),
+            'open_date_time' => $open_date !== null ? ptDayStartToUtcTime($open_date) : null,
+            'close_date_time' => $close_date !== null ? ptDayEndToUtcTime($close_date) : null,
+            'start_date_time' => $start_date !== null ? ptDayStartToUtcTime($start_date) : null,
         ]);
         $response = $this->traitUpdate();
 

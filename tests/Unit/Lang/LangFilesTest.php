@@ -313,7 +313,8 @@ class LangFilesTest extends BaseTranslationTest
         'manager-assessment',
         'manager-others',
         'hr',
-        'hr-coming-soon'
+        'hr-coming-soon',
+        '/settings'
     ];
 
     /**

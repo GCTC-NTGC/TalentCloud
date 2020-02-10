@@ -2,13 +2,13 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
+use App\Models\Applicant;
+use App\Models\Manager;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
-use App\Models\User;
-use App\Models\Applicant;
-use App\Models\Manager;
+use Tests\TestCase;
 
 class SettingsControllerTest extends TestCase
 {
@@ -369,11 +369,9 @@ class SettingsControllerTest extends TestCase
             'last_name' => 'Jones',
             'email' => 'sallyjones@test.com'
         ];
-        print_r($this->manager->user->toArray());
         $response = $this->followingRedirects()
             ->actingAs($this->manager->user)
             ->post(route('manager.settings.personal.update', $this->manager->user), $data);
-        print_r($response->baseResponse->status());
         $response->assertOk();
         // Success notification visible.
         $response->assertSee(e(Lang::get('success.update_personal')));

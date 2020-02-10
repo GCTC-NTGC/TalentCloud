@@ -2,27 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Http\Request;
-use App\Models\Lookup\ApplicationStatus;
-use App\Models\Lookup\VeteranStatus;
-use App\Models\Lookup\PreferredLanguage;
-use App\Models\Lookup\CitizenshipDeclaration;
-use App\Models\JobPoster;
+use App\Models\Course;
+use App\Models\Criteria;
+use App\Models\Degree;
 use App\Models\JobApplication;
 use App\Models\JobApplicationAnswer;
-use App\Models\SkillDeclaration;
-use App\Models\Skill;
+use App\Models\JobPoster;
+use App\Models\Lookup\ApplicationStatus;
+use App\Models\Lookup\CitizenshipDeclaration;
+use App\Models\Lookup\PreferredLanguage;
+use App\Models\Lookup\ReviewStatus;
 use App\Models\Lookup\SkillStatus;
-use App\Models\Degree;
-use App\Models\Criteria;
-use App\Models\Course;
+use App\Models\Lookup\VeteranStatus;
+use App\Models\Skill;
+use App\Models\SkillDeclaration;
 use App\Models\WorkExperience;
 use App\Services\Validation\ApplicationValidator;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
-use App\Models\Lookup\ReviewStatus;
 use Facades\App\Services\WhichPortal;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Log;
 
 class ApplicationByJobController extends Controller
 {
@@ -47,6 +47,7 @@ class ApplicationByJobController extends Controller
             // Localization Strings.
             'jobs_l10n' => Lang::get('manager/job_index'),
             // Data.
+            'is_hr_portal' => WhichPortal::isHrPortal(),
             'job' => $jobPoster->toApiArray(),
             'applications' => $applications,
             'review_statuses' => ReviewStatus::all()
@@ -253,6 +254,18 @@ class ApplicationByJobController extends Controller
                 return $value->criteria_type->name == 'asset';
             }),
         ];
+        $skillDeclarations = $application->isDraft()
+            ? $applicant->skill_declarations
+            : $application->skill_declarations;
+        $degrees = $application->isDraft()
+            ? $applicant->degrees
+            : $application->degrees;
+        $courses = $application->isDraft()
+            ? $applicant->courses
+            : $application->courses;
+        $work_experiences = $application->isDraft()
+            ? $applicant->work_experiences
+            : $application->work_experiences;
 
         return view(
             'applicant/application_post_05',
@@ -272,6 +285,10 @@ class ApplicationByJobController extends Controller
                 // Applicant Data.
                 'applicant' => $applicant,
                 'job_application' => $application,
+                'skill_declarations' => $skillDeclarations,
+                'degrees' => $degrees,
+                'courses' => $courses,
+                'work_experiences' => $work_experiences,
                 'is_manager_view' => WhichPortal::isManagerPortal(),
             ]
         );
@@ -587,7 +604,7 @@ class ApplicationByJobController extends Controller
         $skillDeclarations = $request->input('skill_declarations');
         $claimedStatusId = SkillStatus::where('name', 'claimed')->firstOrFail()->id;
 
-        // Save new skill declarartions.
+        // Save new skill declarations.
         if (isset($skillDeclarations['new'])) {
             foreach ($skillDeclarations['new'] as $skillType => $typeInput) {
                 foreach ($typeInput as $criterion_id => $skillDeclarationInput) {
@@ -670,7 +687,7 @@ class ApplicationByJobController extends Controller
         $skillDeclarations = $request->input('skill_declarations');
         $claimedStatusId = SkillStatus::where('name', 'claimed')->firstOrFail()->id;
 
-        // Save new skill declarartions.
+        // Save new skill declarations.
         if (isset($skillDeclarations['new'])) {
             foreach ($skillDeclarations['new'] as $skillType => $typeInput) {
                 foreach ($typeInput as $criterion_id => $skillDeclarationInput) {

@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\Comment;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -137,5 +138,18 @@ class JobPosterTest extends TestCase
         $jobPoster->refresh();
 
         $this->assertInstanceOf(Date::class, $jobPoster->published_at);
+    }
+
+    /**
+     * Test one-to-many relationship between Job Poster and comments
+     *
+     * @return void
+     */
+    public function testJobPosterHasManyComments()
+    {
+        $job_poster = factory(JobPoster::class)->create();
+        $comment = factory(Comment::class)->make(['job_poster_id' => $job_poster->id]);
+
+        $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $job_poster->comments);
     }
 }

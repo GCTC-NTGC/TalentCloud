@@ -16,6 +16,7 @@ const SelectInput: React.FunctionComponent<SelectInputProps> = ({
   grid,
   required,
   options,
+  disabled,
   nullSelection,
   field: { name, value, onChange, onBlur },
   form: { errors, touched },
@@ -33,6 +34,7 @@ const SelectInput: React.FunctionComponent<SelectInputProps> = ({
       nullSelection={nullSelection}
       options={options}
       grid={grid}
+      disabled={disabled}
       selected={value}
       onChange={onChange}
       onBlur={onBlur}

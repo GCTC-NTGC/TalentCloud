@@ -1,8 +1,15 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { getJob, getCriteria, getJobIsEdited } from "./jobSelector";
+import {
+  getJob,
+  getCriteria,
+  getJobIsEdited,
+  getAllJobs,
+  getJobIsUpdating,
+  getJobIndexIsUpdating,
+} from "./jobSelector";
 import { getCriteriaUnansweredForQuestion } from "./jobSelectorComplex";
 import { RootState, initState } from "../store";
-import { initState as initJobs, initEntities } from "./jobReducer";
+import { initState as initJobs, initEntities, initUi } from "./jobReducer";
 import {
   Job,
   Criteria,
@@ -13,6 +20,32 @@ import { fakeJob, fakeJob2, fakeCriterion } from "../../fakeData/fakeJob";
 import { fakeQuestion } from "../../fakeData/fakeRatingGuideQuestion";
 
 describe("Job Selectors", (): void => {
+  describe("getAllJobs", (): void => {
+    it("Returns all the jobs and no more", (): void => {
+      const job1: Job = fakeJob(1);
+      const job2: Job = fakeJob(2);
+      const state: RootState = {
+        ...initState(),
+        jobs: {
+          ...initJobs(),
+          entities: {
+            ...initEntities(),
+            jobs: {
+              byId: {
+                1: job1,
+                2: job2,
+              },
+            },
+          },
+        },
+      };
+      const result = getAllJobs(state);
+      expect(result.length).toBe(2);
+      expect(result.includes(job1)).toBe(true);
+      expect(result.includes(job2)).toBe(true);
+    });
+  });
+
   describe("getJob", (): void => {
     it("Returns the correct job", (): void => {
       const job: Job = fakeJob(12);
@@ -124,6 +157,88 @@ describe("Job Selectors", (): void => {
         },
       };
       expect(getJobIsEdited(state, { jobId: 1 })).toEqual(false);
+    });
+  });
+
+  describe("getJobIndexIsUpdating", (): void => {
+    it("Simply returns the boolean constant jobIndexUpdating", (): void => {
+      const stateInit: RootState = initState();
+      expect(getJobIndexIsUpdating(stateInit)).toEqual(false);
+      const stateFalse: RootState = {
+        ...initState(),
+        jobs: {
+          ...initJobs(),
+          ui: {
+            ...initUi(),
+            jobIndexUpdating: false,
+          },
+        },
+      };
+      expect(getJobIndexIsUpdating(stateFalse)).toEqual(false);
+      const stateTrue: RootState = {
+        ...initState(),
+        jobs: {
+          ...initJobs(),
+          ui: {
+            ...initUi(),
+            jobIndexUpdating: true,
+          },
+        },
+      };
+      expect(getJobIndexIsUpdating(stateTrue)).toEqual(true);
+    });
+  });
+
+  describe("getJobIsUpdating", (): void => {
+    it("returns false if nothing is recorded for that id", (): void => {
+      const state: RootState = initState();
+      expect(getJobIsUpdating(state, 12)).toEqual(false);
+    });
+    it("returns false if false is recorded for that id", (): void => {
+      const state: RootState = {
+        ...initState(),
+        jobs: {
+          ...initJobs(),
+          ui: {
+            ...initUi(),
+            jobUpdating: {
+              [12]: false,
+            },
+          },
+        },
+      };
+      expect(getJobIsUpdating(state, 12)).toEqual(false);
+    });
+    it("returns true if true is recorded for that id", (): void => {
+      const state: RootState = {
+        ...initState(),
+        jobs: {
+          ...initJobs(),
+          ui: {
+            ...initUi(),
+            jobUpdating: {
+              [12]: true,
+            },
+          },
+        },
+      };
+      expect(getJobIsUpdating(state, 12)).toEqual(true);
+    });
+    it("returns true if false is recorded for that id BUT jobIndexUpdating is set to true", (): void => {
+      const state: RootState = {
+        ...initState(),
+        jobs: {
+          ...initJobs(),
+          ui: {
+            ...initUi(),
+            jobIndexUpdating: true,
+            jobUpdating: {
+              [12]: false,
+            },
+          },
+        },
+      };
+      expect(getJobIsUpdating(state, 12)).toEqual(true);
     });
   });
 

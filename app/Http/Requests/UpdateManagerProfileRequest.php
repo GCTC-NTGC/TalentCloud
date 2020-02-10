@@ -79,8 +79,6 @@ class UpdateManagerProfileRequest extends FormRequest
                 'confirmed'
             ],
 
-            'department_id' => ['required', new ValidIdRule(Department::class)],
-
             'years_experience' => 'nullable|numeric|min:0',
             'gc_directory_url' => 'nullable|url',
 

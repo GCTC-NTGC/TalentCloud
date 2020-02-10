@@ -1,15 +1,31 @@
+function applicationShow(
+  locale: string,
+  prefix: string,
+  applicationId: number,
+): string {
+  return `/${locale}/${prefix}/applications/${applicationId}`;
+}
+
+function applicantShow(
+  locale: string,
+  prefix: string,
+  applicantId: number,
+): string {
+  return `/${locale}/${prefix}/applicants/${applicantId}`;
+}
+
 export function managerApplicationShow(
   locale: string,
   applicationId: number,
 ): string {
-  return `/${locale}/manager/applications/${applicationId}`;
+  return applicationShow(locale, "manager", applicationId);
 }
 
 export function managerApplicantShow(
   locale: string,
   applicantId: number,
 ): string {
-  return `/${locale}/manager/applicants/${applicantId}`;
+  return applicantShow(locale, "manager", applicantId);
 }
 
 export function managerEditProfile(locale: string): string {
@@ -28,11 +44,15 @@ export function managerJobApplications(locale: string, jobId: number): string {
   return `/${locale}/manager/jobs/${jobId}/applications`;
 }
 
+export function managerScreeningPlan(locale: string, jobId: number): string {
+  return `/${locale}/manager/jobs/${jobId}/assessment-plan`;
+}
+
 export function applicationReviewUpdate(
   locale: string,
   applicationId: number,
 ): string {
-  return `/${locale}/applications/${applicationId}/review`;
+  return `/api/applications/${applicationId}/review`;
 }
 
 export function jobBuilderIntro(locale: string, jobId?: number): string {
@@ -74,4 +94,33 @@ export function managerFaq(locale: string, faqSection?: FaqSection): string {
     return `${base}#${faqSection}`;
   }
   return base;
+}
+
+export function hrJobIndex(locale: string): string {
+  return `/${locale}/hr/jobs`;
+}
+export function hrJobSummary(locale: string, jobId: number): string {
+  return `/${locale}/hr/jobs/${jobId}/summary`;
+}
+export function hrJobReview(locale: string, jobId: number): string {
+  return `/${locale}/hr/jobs/${jobId}/review`;
+}
+export function hrJobPreview(locale: string, jobId: number): string {
+  return `/${locale}/hr/jobs/${jobId}`;
+}
+export function hrScreeningPlan(locale: string, jobId: number): string {
+  return `/${locale}/hr/jobs/${jobId}/assessment-plan`;
+}
+export function hrJobApplications(locale: string, jobId: number): string {
+  return `/${locale}/hr/jobs/${jobId}/applications`;
+}
+export const hrApplicationShow = (
+  locale: string,
+  applicationId: number,
+): string => applicationShow(locale, "hr", applicationId);
+export const hrApplicantShow = (locale: string, applicantId: number): string =>
+  applicantShow(locale, "hr", applicantId);
+
+export function accountSettings(locale: string): string {
+  return `/${locale}/settings`;
 }

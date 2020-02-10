@@ -67,20 +67,6 @@ export const LanguageRequirementId = {
   englishOrFrench: 5,
 };
 
-export const DepartmentId = {
-  treasuryBoard: 1,
-  naturalResources: 2,
-  transport: 3,
-  environmentAndClimateChange: 4,
-  employmentAndSocialDevelopment: 5,
-  globalAffairs: 6,
-  borderServices: 7,
-  fisheriesAndOceans: 8,
-  innovationScience: 9,
-  publicServiceAndProcurement: 10,
-  nationalDefence: 11,
-};
-
 export const FrequencyId = {
   never: 1,
   rarely: 2,
@@ -116,6 +102,35 @@ export const ClassificationId = {
   PM: 12,
   AD: 13,
 };
+
+export const CommentTypeId = {
+  question: 1,
+  recommendation: 2,
+  requiredAction: 3,
+};
+
+export const LocationId = {
+  generic: "job/generic",
+  heading: "job/heading",
+  basicInfo: "job/basicInfo",
+  impact: "job/impact",
+  tasks: "job/tasks",
+  skills: "job/skills",
+  langRequirements: "job/langRequirements",
+  environment: "job/environment",
+  summary: "summary",
+  preview: "hr/preview",
+  screeningPlan: "screeningPlan",
+} as const;
+
+export enum JobStatus {
+  Draft = 1,
+  Review = 2,
+  Approved = 3,
+  Open = 4,
+  Closed = 5,
+  Complete = 6,
+}
 
 export function getKeyByValue(object, value): string {
   return (

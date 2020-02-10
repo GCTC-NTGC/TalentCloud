@@ -4,118 +4,115 @@
     Auth: Register
 
 ============================================================================= #}
-
 {% extends "layouts/base" %}
-
-{% block title %}{{ register.title }}{% endblock %}
-
+{% block title %}
+	{{ register.title }}
+{% endblock %}
 {% block body %}
-    {% include "common/goc" %}
-    <div data-clone>
-        <section class="tc-auth" data-c-padding="tb(triple)" data-c-overlay="black(80)" style="background-image: url('/images/bg_crowd.jpg');">
-            <div class="tc-auth-wrapper" data-c-padding="tb(triple)" data-c-container="small">
-                {# Return to the homepage link. #}
-                <a data-c-color="white" href="{{ home_url }}" title="Return Home">
-                    <i class="fas fa-chevron-left" data-c-margin="right(quarter)"></i>{{ register.return }}
-                </a>
-                <div data-c-radius="rounded" data-c-margin="top(normal)">
-                    {# Auth UI Title Area #}
-                    <div class="tc-auth-header gradient-left-right" data-c-padding="all(double)" data-c-align="base(center)">
-                        <h1 data-c-font-size="h2" data-c-color="white">{{ register.header }}</h1>
-                    </div>
-                    {# Registration Form #}
-                    <form action="{{ routes.register }}" method="POST">
-                        {{ csrf_field() }}
-                        <div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)">
-                            <div data-c-padding="top(normal)">
-                                {% include "errors/form_errors" %}
-                                {# Form Inputs #}
-                                <div data-c-grid="gutter middle">
-                                    {# New First & Last Name Inputs #}
-                                    <div data-c-grid-item="tp(1of2)" data-c-input="text">
-                                        <label for="first_name">{{ register.first_name }}</label>
-                                        <span>{{ trans('forms.required') }}</span>
-                                        <div>
-                                            <input id="first_name" name="first_name" placeholder="" required type="text" />
-                                        </div>
-                                        <span>{{ trans('forms.error') }}</span>
-                                    </div>
-                                    <div data-c-grid-item="tp(1of2)" data-c-input="text">
-                                        <label for="last_name">{{ register.last_name }}</label>
-                                        <span>{{ trans('forms.required') }}</span>
-                                        <div>
-                                            <input id="last_name" name="last_name" placeholder="" required type="text" />
-                                        </div>
-                                        <span>{{ trans('forms.error') }}</span>
-                                    </div>
-                                    {# Email #}
-                                    <div data-c-grid-item="base(1of1)" data-c-input="email">
-                                        <label for="email">{{ register.email }}</label>
-                                        <span>{{ trans('forms.required') }}</span>
-                                        <div>
-                                            <input id="email" placeholder="e.g. email@website.com" required
-                                            name="email" type="email" value="{{ old('email') }}" />
-                                        </div>
-                                        <span>{{ trans('forms.error') }}</span>
-                                    </div>
-
-                                    {# A block that other registration layouts can extend to add extra fields #}
-                                    {% block extra_fields %}
-                                    {% endblock %}
-
-                                    {# Password Requirements #}
-                                    <div data-c-grid-item="base(1of1)">
-                                        <p data-c-margin="bottom(normal)">{{ register.password_copy }}</p>
-                                    </div>
-                                    {# Password #}
-                                    <div data-c-grid-item="base(1of2)" data-c-input="password">
-                                        <label for="password">{{ register.password }}</label>
-                                        <span>{{ trans('forms.required') }}</span>
-                                        <div>
-                                            <input id="password" required type="password" name="password"
-                                            autocomplete="off" />
-                                            <button type="button">
-                                                <i class="fas fa-eye"></i>
-                                                <i class="fas fa-eye-slash"></i>
-                                            </button>
-                                        </div>
-                                        <span>{{ trans('forms.error') }}</span>
-                                    </div>
-                                    {# Password Confirmation #}
-                                    <div data-c-grid-item="base(1of2)" data-c-input="password">
-                                        <label for="password-confirm">{{ register.confirm_password }}</label>
-                                        <span>{{ trans('forms.required') }}</span>
-                                        <div>
-                                            <input id="password-confirm" required type="password" name="password_confirmation"
-                                            autocomplete="off" />
-                                            <button type="button">
-                                                <i class="fas fa-eye"></i>
-                                                <i class="fas fa-eye-slash"></i>
-                                            </button>
-                                        </div>
-                                        <span>{{ trans('forms.error') }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {# UI Actions #}
-                        <div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)" data-c-border="top(thin, solid, grey)">
-                            <div data-c-grid="middle">
-                                <div data-c-grid-item="base(1of2)">
-                                    <a href="{{ routes.login }}" title="Login to Talent Cloud">
-                                        {{ register.already_have_account }}
-                                    </a>
-                                </div>
-                                <div data-c-grid-item="base(1of2)" data-c-align="base(right)">
-                                    <button data-c-button="solid(c1)" data-c-radius="rounded" type="submit">
-                                        {{ register.register }}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </section>
-    </div>
+	{% include "common/goc" %}
+	<div data-clone>
+		<section class="tc-auth" data-c-padding="tb(triple)" data-c-overlay="black(80)" style="background-image: url('/images/bg_crowd.jpg');">
+			<div
+				class="tc-auth-wrapper" data-c-padding="tb(triple)" data-c-container="small">
+				{# Return to the homepage link. #}
+				<a data-c-color="white" href="{{ home_url }}" title="Return Home">
+					<i class="fas fa-chevron-left" data-c-margin="right(quarter)"></i>
+					{{ register.return }}
+				</a>
+				<div
+					data-c-radius="rounded" data-c-margin="top(normal)">
+					{# Auth UI Title Area #}
+					<div class="tc-auth-header gradient-left-right" data-c-padding="all(double)" data-c-align="base(center)">
+						<h1 data-c-font-size="h2" data-c-color="white">{{ register.header }}</h1>
+					</div>
+					{# Registration Form #}
+					<form action="{{ routes.register }}" method="POST">
+						{{ csrf_field() }}
+						<div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)">
+							<div data-c-padding="top(normal)">
+								{% include "errors/form_errors" %}
+								{# Form Inputs #}
+								<div
+									data-c-grid="gutter middle">
+									{# New First & Last Name Inputs #}
+									<div data-c-grid-item="tp(1of2)" data-c-input="text">
+										<label for="first_name">{{ register.first_name }}</label>
+										<span>{{ trans('forms.required') }}</span>
+										<div>
+											<input id="first_name" name="first_name" placeholder="" required type="text"/>
+										</div>
+										<span>{{ trans('forms.error') }}</span>
+									</div>
+									<div data-c-grid-item="tp(1of2)" data-c-input="text">
+										<label for="last_name">{{ register.last_name }}</label>
+										<span>{{ trans('forms.required') }}</span>
+										<div>
+											<input id="last_name" name="last_name" placeholder="" required type="text"/>
+										</div>
+										<span>{{ trans('forms.error') }}</span>
+									</div>
+									{# Email #}
+									<div data-c-grid-item="base(1of1)" data-c-input="email">
+										<label for="email">{{ register.email }}</label>
+										<span>{{ trans('forms.required') }}</span>
+										<div>
+											<input id="email" placeholder="e.g. email@website.com" required name="email" type="email" value="{{ old('email') }}"/>
+										</div>
+										<span>{{ trans('forms.error') }}</span>
+									</div>
+									{# A block that other registration layouts can extend to add extra fields #}
+									{% block extra_fields %}{% endblock %}
+									{# Password Requirements #}
+									<div data-c-grid-item="base(1of1)">
+										<p data-c-margin="bottom(normal)">{{ register.password_copy }}</p>
+									</div>
+									{# Password #}
+									<div data-c-grid-item="tp(1of2)" data-c-input="password">
+										<label for="password">{{ register.password }}</label>
+										<span>{{ trans('forms.required') }}</span>
+										<div>
+											<input id="password" required type="password" name="password" autocomplete="off"/>
+											<button type="button">
+												<i class="fas fa-eye"></i>
+												<i class="fas fa-eye-slash"></i>
+											</button>
+										</div>
+										<span>{{ trans('forms.error') }}</span>
+									</div>
+									{# Password Confirmation #}
+									<div data-c-grid-item="tp(1of2)" data-c-input="password">
+										<label for="password-confirm">{{ register.confirm_password }}</label>
+										<span>{{ trans('forms.required') }}</span>
+										<div>
+											<input id="password-confirm" required type="password" name="password_confirmation" autocomplete="off"/>
+											<button type="button">
+												<i class="fas fa-eye"></i>
+												<i class="fas fa-eye-slash"></i>
+											</button>
+										</div>
+										<span>{{ trans('forms.error') }}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						{# UI Actions #}
+						<div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)" data-c-border="top(thin, solid, grey)">
+							<div data-c-grid="middle">
+								<div data-c-grid-item="base(1of2)">
+									<a href="{{ routes.login }}" title="Login to Talent Cloud">
+										{{ register.already_have_account }}
+									</a>
+								</div>
+								<div data-c-grid-item="base(1of2)" data-c-align="base(right)">
+									<button data-c-button="solid(c1)" data-c-radius="rounded" type="submit">
+										{{ register.register }}
+									</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</section>
+	</div>
 {% endblock %}

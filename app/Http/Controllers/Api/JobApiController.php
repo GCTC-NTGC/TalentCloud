@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +14,7 @@ use App\Models\Lookup\JobTerm;
 use Jenssegers\Date\Date;
 use App\Http\Requests\UpdateJobPoster;
 use App\Http\Requests\StoreJobPoster;
+use Illuminate\Support\Facades\Gate;
 
 class JobApiController extends Controller
 {
@@ -45,14 +47,23 @@ class JobApiController extends Controller
         $jobArray = array_merge($job->toApiArray(), ['criteria' => $criteriaTranslated]);
         return $jobArray;
     }
+
     /**
-     * Display a listing of the resource.
+     * Return the list of all jobs the user is authorized to view,
+     * using all query parameters as search filters.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return void
      */
-    public function index()
+    public function index(Request $request)
     {
-        // TODO: complete.
+        $jobs = JobPoster::where($request->query())->get();
+        $viewableJobs = $jobs->filter(function ($job) {
+            return Gate::allows('view', $job);
+        })->values();
+        return response()->json($viewableJobs->map(function ($job) {
+            return $this->jobToArray($job);
+        }));
     }
 
     /**

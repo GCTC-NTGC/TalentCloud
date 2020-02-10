@@ -1,4 +1,43 @@
-# Global
+## Dependencies / Compiled Assets
+/node_modules
+/vendor
+/etc/ssl/
+!/etc/ssl/.gitkeep
+/report
+/public/css
+/public/js
+/public/mix-manifest.json
+.env
+
+## Laravel
+/public/hot
+/public/storage
+/storage/*.key
+/.idea
+/.vagrant
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+
+## Visual Studio Code
+.vs/*
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+## IDE helper
+_ide_helper_models.php
+_ide_helper.php
+.phpstorm.meta.php
+
+## tc-docker
+.setup
+
+## IDE/hidden/testing/cache
+*~
 .*.swp
 .DS_Store
 applet
@@ -7,8 +46,6 @@ application.linux64
 application.windows32
 application.windows64
 application.macosx
-
-## IDE/hidden/testing/cache
 /nbproject
 /nb-configuration.xml
 Session.vim
@@ -19,55 +56,5 @@ tmtags
 Thumbs.db
 Desktop.ini
 npm-debug.log
-.tags
-*~
-
-## TalentCloud
-/etc/ssl/
-!/etc/ssl/.gitkeep
-/report
-
-## Laravel
-/node_modules
-/public/hot
-/public/storage
-/storage/*.key
-/vendor
-/.idea
-/.vscode
-/.vagrant
-Homestead.json
-Homestead.yaml
-npm-debug.log
-yarn-error.log
-.env
 .phpunit.result.cache
-
-## Composer
-# composer.lock
-/vendor
-
-## node.js
-# package-lock.json
-/node_modules
-
-## Visual Studio Code
-.vs/*
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-
-## Compiled Assets
-/public/css
-/public/js
-/public/mix-manifest.json
-
-## tc-docker
-.setup
-
-## IDE helper
-_ide_helper_models.php
-_ide_helper.php
-.phpstorm.meta.php
+.tags

@@ -2,7 +2,7 @@ import isEqual from "lodash/isEqual";
 import { createSelector } from "reselect";
 import createCachedSelector from "re-reselect";
 import { RootState } from "../store";
-import { Job, Criteria, JobPosterKeyTask } from "../../models/types";
+import { Job, Criteria, JobPosterKeyTask, Comment } from "../../models/types";
 import { hasKey, getId } from "../../helpers/queries";
 import { EntityState, UiState } from "./jobReducer";
 
@@ -34,6 +34,10 @@ const getTasksForJobUpdatingState = (
   state: RootState,
 ): { [id: number]: boolean } => ui(state).tasksUpdatingByJob;
 
+export const getAllJobs = createSelector(getJobState, (jobState): Job[] =>
+  Object.values(jobState),
+);
+
 export const getJob = createCachedSelector(
   getJobState,
   (state: RootState, ownProps: { jobId: number }): number => ownProps.jobId,
@@ -53,9 +57,16 @@ export const getEditJob = createCachedSelector(
     hasKey(jobState, jobId) ? jobState[jobId] : null,
 )((state, ownProps): number => ownProps.jobId);
 
+export const getJobIndexIsUpdating = (state: RootState): boolean => {
+  return ui(state).jobIndexUpdating;
+};
+
 export const getJobIsUpdating = (state: RootState, id: number): boolean => {
   const updating = getJobUpdatingState(state);
-  return hasKey(updating, id) ? updating[id] : false;
+  return (
+    getJobIndexIsUpdating(state) ||
+    (hasKey(updating, id) ? updating[id] : false)
+  );
 };
 
 export const getJobIsEdited = createCachedSelector(
@@ -130,3 +141,18 @@ export const getTasksByJob = createCachedSelector(
   (tasksByJob, jobId): JobPosterKeyTask[] =>
     hasKey(tasksByJob, jobId) ? tasksByJob[jobId] : [],
 )((state, ownProps): number => ownProps.jobId);
+
+export const getCommentsState = (state: RootState): { [id: number]: Comment } =>
+  state.jobs.entities.comments.byJobId;
+
+export const getComments = createSelector(
+  getCommentsState,
+  (commentsState): Comment[] => Object.values(commentsState),
+);
+
+export const sortComments = (comments: Comment[]): Comment[] => {
+  const comparator = (a: Comment, b: Comment): number => {
+    return b.created_at.getTime() - a.created_at.getTime();
+  };
+  return comments.sort(comparator);
+};

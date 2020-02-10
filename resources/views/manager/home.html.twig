@@ -4,171 +4,153 @@
     Manager: Home
 
 ============================================================================= #}
-
 {% extends "layouts/base" %}
-
 {% block title %}
-    {{ menu.home_title }}
+	{{ menu.home_title }}
 {% endblock %}
-
 {% block body %}
-
-    {% include "common/goc" %}
-    {% include "common/alert" %}
-
-    {# {% include "common/home/hero" %} #}
-
-    <div data-clone>
-
-        <div data-c-background="white(100)">
-
-            <header data-c-overlay="black(80)" data-c-padding="bottom(triple)" style="background-image: url('/images/sean-pollock.jpg');">
-                {% include "common/menu" %}
-                <div data-c-align="base(center)" data-c-container="medium" data-c-padding="top(double)">
-                    <h1 data-c-colour="white" data-c-font-size="h1" data-c-font-weight="700" data-c-margin="top(triple) bottom(normal)">{{ home_l10n.hero.heading }}<img alt="{{ home_l10n.hero.heading_alt }}" class="hero-icon" src="/images/maple-leaf.svg"></h1>
-                    <p data-c-colour="white" data-c-margin="bottom(triple)">{{ home_l10n.hero.subheading }}</p>
-                    {% if auth_guest() %}
-                        <a href="{{ route('manager.register') }}" title="{{ home_l10n.hero.button.title }}" data-c-button="outline(white)" data-c-radius="rounded">
-                            {{ home_l10n.hero.button.text }}
-                        </a>
-                    {% endif %}
-                </div>
-            </header>
-
-            <div data-c-padding="tb(normal)" class="tc-gradient-lr">
-                <div data-c-container="medium" data-c-align="base(center)" data-c-color="white">
-                    <p data-c-padding="tb(half)">
-                        {{ trans('manager/home.banner.content', {open: '<span data-c-font-weight="bold">', close: '</span>'})|raw }}
-                        <a href="{{ route('home') }}" title="{{ home_l10n.banner.anchor.title }}">{{ home_l10n.banner.anchor.text }}</a>
-                    </p>
-                </div>
-            </div>
-
-            <a id="skipLink"></a>
-
-            <div data-c-container="medium" data-c-padding="bottom(triple)">
-                <h2 data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="top(triple) bottom(normal)">{{ home_l10n.info.heading }}</h2>
-                <p data-c-margin="bottom(normal)">{{ home_l10n.info.content_first }}</p>
-                <p data-c-margin="bottom(normal)">{{ home_l10n.info.content_second }}</p>
-                <p data-c-margin="bottom(normal)" data-c-font-weight="bold">{{ home_l10n.info.list_heading }}</p>
-                <ul>
-                    {% for item in home_l10n.info.list %}
-                        <li>{{ item }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-
-            <div data-c-background="grey(10)" data-c-padding="tb(triple)">
-                <div data-c-container="large">
-                    <h2 data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(normal)">{{ home_l10n.features.heading }}</h2>
-                    <div class="tc-manager-feature-mobile">
-                        {% for key, feature in home_l10n.features.mobile_table.columns %}
-                            <h3 data-c-font-size="h4" data-c-margin="top(triple) bottom(normal)">{{ feature.heading }}</h3>
-                            <p data-c-font-size="small" data-c-font-weight="400" data-c-margin="tb(normal)">{{ trans('manager/home.features.mobile_table.columns.' ~ key ~ '.subheading.content', {open: '<span data-c-font-weight="bold">', close: '</span>', link: '<a href="' ~ route('manager.faq') ~ '#partners" title="' ~ feature.subheading.anchor.title ~ '" target="_blank">' ~ feature.subheading.anchor.text ~ '</a>'})|raw }}</p>
-                            <div data-c-padding="normal" data-c-border="all(thin, solid, black)" data-c-radius="rounded">
-                                {% for row in feature.rows %}
-                                    {% if row.heading is iterable %}
-                                        <p data-c-margin="bottom(half)" data-c-font-weight="bold">{{ row.heading.content }}&nbsp;&nbsp;&nbsp;<span data-c-color="c2" data-c-border="all(thin, solid, c2)" data-c-padding="tb(quarter) lr(half)" data-c-font-size="small" data-c-font-weight="400" data-c-radius="pill">{{ row.heading.tag }}</span>
-                                        </p>
-                                    {% else %}
-                                        <p data-c-margin="bottom(half)" data-c-font-weight="bold">{{ row.heading }}</p>
-                                    {% endif %}
-                                    <p data-c-font-weight="400" data-c-margin="top(quarter)">{{ row.content }}</p>
-                                {% endfor %}
-                            </div>
-                        {% endfor %}
-                    </div>
-                    <div class="tc-manager-feature-table" data-c-table>
-                        <table>
-                            <thead>
-                                <tr>
-                                    {% for key,column in home_l10n.features.table.columns %}
-                                        <th scope="col">
-                                            <p data-c-font-weight="bold">{{ column.heading }}</p>
-                                            {% if column.subheading %}
-                                                <p data-c-font-size="small" data-c-font-weight="400" data-c-margin="top(quarter)">
-                                                    {{ trans('manager/home.features.table.columns.' ~ key ~ '.subheading.content', {open: '<span data-c-font-weight="bold">', close: '</span>', link: '<a href="' ~ route('manager.faq') ~ '#partners" title="' ~ column.subheading.anchor.title ~ '" target="_blank">' ~ column.subheading.anchor.text ~ '</a>'})|raw }}
-                                                </p>
-                                            {% endif %}
-                                        </th>
-                                    {% endfor %}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for row in home_l10n.features.table.rows %}
-                                    <tr>
-                                        <th scope="row">
-                                            {% if row.heading is iterable %}
-                                                <p data-c-font-weight="bold">{{ row.heading.content }}&nbsp;&nbsp;&nbsp;<span data-c-color="c2" data-c-border="all(thin, solid, c2)" data-c-padding="tb(quarter) lr(half)" data-c-font-size="small" data-c-font-weight="400" data-c-radius="pill">{{ row.heading.tag }}</span>
-                                                </p>
-                                            {% else %}
-                                                <p data-c-font-weight="bold">{{ row.heading }}</p>
-                                            {% endif %}
-                                            <p data-c-font-weight="400" data-c-margin="top(quarter)">{{ row.content }}</p>
-                                        </th>
-                                        <td data-c-align="base(center)">
-                                            <i class="fa fa-{{ row.demo ? 'check' : 'times' }}" data-c-color="{{ row.demo ? 'go' : 'stop' }}"></i>
-                                        </td>
-                                        <td data-c-align="base(center)">
-                                            <i class="fa fa-{{ row.partner ? 'check' : 'times' }}" data-c-color="{{ row.partner ? 'go' : 'stop' }}"></i>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <div data-c-container="medium">
-                <h2 data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="top(triple) bottom(normal)">{{ home_l10n.lower_info.heading }}</h2>
-                <p data-c-margin="bottom(normal)" data-c-font-weight="bold">{{ home_l10n.lower_info.content_first.heading.content }}
-                    <a href="{{ route('manager.faq') }}#partners" title="{{ home_l10n.lower_info.content_first.heading.anchor.title }}" target="_blank">{{ home_l10n.lower_info.content_first.heading.anchor.text }}</a>?</p>
-                <p data-c-margin="bottom(normal)">{{ home_l10n.lower_info.content_first.content_before }}
-                    <a href="{{ home_l10n.lower_info.content_first.anchor.href }}" title="{{ home_l10n.lower_info.content_first.anchor.title }}">{{ home_l10n.lower_info.content_first.anchor.text }}</a>
-                    {{ home_l10n.lower_info.content_first.content_after }}</p>
-                <p data-c-margin="bottom(normal)" data-c-font-weight="bold">{{ home_l10n.lower_info.content_second.heading }}</p>
-                <p data-c-margin="bottom(triple)">{{ home_l10n.lower_info.content_second.content }}</p>
-            </div>
-            <div data-c-container="large" data-c-padding="bottom(triple)">
-                <div class="home-hiw" data-c-grid="gutter">
-                    <div data-c-grid-item="tl(1of3)">
-                        {% for step in home_l10n.steps %}
-                            <button class="{{ loop.first ? 'active' : '' }}" {{ loop.first ? '' : 'data-c-margin="top(normal)"' }} data-c-alignment="centre" data-c-button="solid(c2)" data-c-radius="rounded" data-tc-hiw-id="{{ loop.index }}" data-tc-hiw-trigger>
-                                <span data-c-colour="white" data-c-font-size="h4" data-c-font-weight="bold">
-                                    {{ step.button }}
-                                </span>
-                            </button>
-                        {% endfor %}
-                    </div>
-                    <div data-c-grid-item="tl(2of3)">
-                        {% for step in home_l10n.steps %}
-                            <div class="home-hiw-content{{ loop.first ? ' active' : '' }}" data-c-alignment="left" data-c-background="c1(100)" data-c-padding="double" data-c-radius="rounded" data-tc-hiw-id="{{ loop.index }}">
-                                <p data-c-colour="white" data-c-font-size="h4" data-c-font-weight="bold" data-c-margin="bottom(normal)">
-                                    {{ step.heading }}
-                                </p>
-                                {% for item in step.content %}
-                                    <p data-c-colour="white" data-c-margin="top(normal)">{{ item|raw }}</p>
-                                {% endfor %}
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-
-            </div>
-
-            <div data-c-overlay="black(80)" data-c-padding="tb(triple)" style="background-image: url('/images/patrick-hendry.jpg');" data-c-align="center">
-                <div data-c-container="medium">
-                    <h2 data-c-font-size="h3" data-c-color="white" data-c-font-weight="bold" data-c-margin="bottom(normal)">{{ home_l10n.footer.heading }}</h2>
-                    <p data-c-color="white" data-c-margin="bottom(double)">{{ home_l10n.footer.subheading }}</p>
-                    <a href="{{ home_l10n.footer.email.href }}" title="" data-c-button="outline(white)" data-c-radius="rounded">{{ home_l10n.footer.email.text }}</a>&nbsp;&nbsp;&nbsp;
-                    <a href="{{ home_l10n.footer.gccollab.href }}" title="" data-c-button="outline(white)" data-c-radius="rounded">{{ home_l10n.footer.gccollab.text }}</a>&nbsp;&nbsp;&nbsp;
-                    <a href="{{ home_l10n.footer.twitter.href }}" title="" data-c-button="outline(white)" data-c-radius="rounded">{{ home_l10n.footer.twitter.text }}</a>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
+	{% include "common/goc" %}
+	{% include "common/alert" %}
+	{# {% include "common/home/hero" %} #}
+	<div data-clone>
+		<div data-c-background="white(100)">
+			<header data-c-overlay="black(80)" data-c-padding="bottom(triple)" style="background-image: url('/images/sean-pollock.jpg');">
+				{% include "common/menu" %}
+				<div data-c-align="base(center)" data-c-container="medium" data-c-padding="top(double)">
+					<h1 data-c-colour="white" data-c-font-size="h1" data-c-font-weight="700" data-c-margin="top(triple) bottom(normal)">{{ home_l10n.hero.heading }}<img alt="{{ home_l10n.hero.heading_alt }}" class="hero-icon" src="/images/maple-leaf.svg"></h1>
+					<p data-c-colour="white" data-c-margin="bottom(triple)">{{ home_l10n.hero.subheading }}</p>
+					{% if auth_guest() %}
+						<a href="{{ route('manager.register') }}" title="{{ home_l10n.hero.button.title }}" data-c-button="outline(white)" data-c-radius="rounded">
+							{{ home_l10n.hero.button.text }}
+						</a>
+					{% endif %}
+				</div>
+			</header>
+			<div data-c-padding="tb(normal)" class="tc-gradient-lr">
+				<div data-c-container="medium" data-c-align="base(center)" data-c-color="white">
+					<p data-c-padding="tb(half)">
+						{{ trans('manager/home.banner.content', {open: '<span data-c-font-weight="bold">', close: '</span>'})|raw }}
+						<a href="{{ route('home') }}" title="{{ home_l10n.banner.anchor.title }}">{{ home_l10n.banner.anchor.text }}</a>
+					</p>
+				</div>
+			</div>
+			<a id="skipLink"></a>
+			<div data-c-container="medium" data-c-padding="bottom(triple)">
+				<h2 data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="top(triple) bottom(normal)">{{ home_l10n.info.heading }}</h2>
+				<p data-c-margin="bottom(normal)">{{ home_l10n.info.content_first }}</p>
+				<p data-c-margin="bottom(normal)">{{ home_l10n.info.content_second }}</p>
+				<p data-c-margin="bottom(normal)" data-c-font-weight="bold">{{ home_l10n.info.list_heading }}</p>
+				<ul>
+					{% for item in home_l10n.info.list %}
+						<li>{{ item }}</li>
+					{% endfor %}
+				</ul>
+			</div>
+			<div data-c-background="grey(10)" data-c-padding="tb(triple)">
+				<div data-c-container="large">
+					<h2 data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(normal)">{{ home_l10n.features.heading }}</h2>
+					<div class="tc-manager-feature-mobile">
+						{% for key, feature in home_l10n.features.mobile_table.columns %}
+							<h3 data-c-font-size="h4" data-c-margin="top(triple) bottom(normal)">{{ feature.heading }}</h3>
+							<p data-c-font-size="small" data-c-font-weight="400" data-c-margin="tb(normal)">{{ trans('manager/home.features.mobile_table.columns.' ~ key ~ '.subheading.content', {open: '<span data-c-font-weight="bold">', close: '</span>', link: '<a href="' ~ route('manager.faq') ~ '#partners" title="' ~ feature.subheading.anchor.title ~ '" target="_blank">' ~ feature.subheading.anchor.text ~ '</a>'})|raw }}</p>
+							<div data-c-padding="normal" data-c-border="all(thin, solid, black)" data-c-radius="rounded">
+								{% for row in feature.rows %}
+									{% if row.heading is iterable %}
+										<p data-c-margin="bottom(half)" data-c-font-weight="bold">{{ row.heading.content }}&nbsp;&nbsp;&nbsp;<span data-c-color="c2" data-c-border="all(thin, solid, c2)" data-c-padding="tb(quarter) lr(half)" data-c-font-size="small" data-c-font-weight="400" data-c-radius="pill">{{ row.heading.tag }}</span>
+										</p>
+									{% else %}
+										<p data-c-margin="bottom(half)" data-c-font-weight="bold">{{ row.heading }}</p>
+									{% endif %}
+									<p data-c-font-weight="400" data-c-margin="bottom(normal) top(quarter)">{{ row.content }}</p>
+								{% endfor %}
+							</div>
+						{% endfor %}
+					</div>
+					<div class="tc-manager-feature-table" data-c-table>
+						<table>
+							<thead>
+								<tr>
+									{% for key,column in home_l10n.features.table.columns %}
+										<th scope="col">
+											<p data-c-font-weight="bold">{{ column.heading }}</p>
+											{% if column.subheading %}
+												<p data-c-font-size="small" data-c-font-weight="400" data-c-margin="top(quarter)">
+													{{ trans('manager/home.features.table.columns.' ~ key ~ '.subheading.content', {open: '<span data-c-font-weight="bold">', close: '</span>', link: '<a href="' ~ route('manager.faq') ~ '#partners" title="' ~ column.subheading.anchor.title ~ '" target="_blank">' ~ column.subheading.anchor.text ~ '</a>'})|raw }}
+												</p>
+											{% endif %}
+										</th>
+									{% endfor %}
+								</tr>
+							</thead>
+							<tbody>
+								{% for row in home_l10n.features.table.rows %}
+									<tr>
+										<th scope="row">
+											{% if row.heading is iterable %}
+												<p data-c-font-weight="bold">{{ row.heading.content }}&nbsp;&nbsp;&nbsp;<span data-c-color="c2" data-c-border="all(thin, solid, c2)" data-c-padding="tb(quarter) lr(half)" data-c-font-size="small" data-c-font-weight="400" data-c-radius="pill">{{ row.heading.tag }}</span>
+												</p>
+											{% else %}
+												<p data-c-font-weight="bold">{{ row.heading }}</p>
+											{% endif %}
+											<p data-c-font-weight="400" data-c-margin="top(quarter)">{{ row.content }}</p>
+										</th>
+										<td data-c-align="base(center)">
+											<i class="fa fa-{{ row.demo ? 'check' : 'times' }}" data-c-color="{{ row.demo ? 'go' : 'stop' }}"></i>
+										</td>
+										<td data-c-align="base(center)">
+											<i class="fa fa-{{ row.partner ? 'check' : 'times' }}" data-c-color="{{ row.partner ? 'go' : 'stop' }}"></i>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div data-c-container="medium">
+				<h2 data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="top(triple) bottom(normal)">{{ home_l10n.lower_info.heading }}</h2>
+				<p data-c-margin="bottom(normal)" data-c-font-weight="bold">{{ home_l10n.lower_info.content_first.heading.content }}
+					<a href="{{ route('manager.faq') }}#partners" title="{{ home_l10n.lower_info.content_first.heading.anchor.title }}" target="_blank">{{ home_l10n.lower_info.content_first.heading.anchor.text }}</a>?</p>
+				<p data-c-margin="bottom(normal)">{{ home_l10n.lower_info.content_first.content_before }}
+					<a href="{{ home_l10n.lower_info.content_first.anchor.href }}" title="{{ home_l10n.lower_info.content_first.anchor.title }}">{{ home_l10n.lower_info.content_first.anchor.text }}</a>
+					{{ home_l10n.lower_info.content_first.content_after }}</p>
+				<p data-c-margin="bottom(normal)" data-c-font-weight="bold">{{ home_l10n.lower_info.content_second.heading }}</p>
+				<p data-c-margin="bottom(triple)">{{ home_l10n.lower_info.content_second.content }}</p>
+			</div>
+			<div data-c-container="large" data-c-padding="bottom(triple)">
+				<div class="home-hiw" data-c-grid="gutter">
+					<div data-c-grid-item="tl(1of3)">
+						{% for step in home_l10n.steps %}
+							<button class="{{ loop.first ? 'active' : '' }}" {{ loop.first ? '' : 'data-c-margin="top(normal)"' }} data-c-alignment="centre" data-c-button="solid(c2)" data-c-radius="rounded" data-tc-hiw-id="{{ loop.index }}" data-tc-hiw-trigger>
+								<span data-c-colour="white" data-c-font-size="h4" data-c-font-weight="bold">
+									{{ step.button }}
+								</span>
+							</button>
+						{% endfor %}
+					</div>
+					<div data-c-grid-item="tl(2of3)">
+						{% for step in home_l10n.steps %}
+							<div class="home-hiw-content{{ loop.first ? ' active' : '' }}" data-c-alignment="left" data-c-background="c1(100)" data-c-padding="double" data-c-radius="rounded" data-tc-hiw-id="{{ loop.index }}">
+								<p data-c-colour="white" data-c-font-size="h4" data-c-font-weight="bold" data-c-margin="bottom(normal)">
+									{{ step.heading }}
+								</p>
+								{% for item in step.content %}
+									<p data-c-colour="white" data-c-margin="top(normal)">{{ item|raw }}</p>
+								{% endfor %}
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+			<div data-c-overlay="black(80)" data-c-padding="tb(triple)" style="background-image: url('/images/patrick-hendry.jpg');" data-c-align="center">
+				<div data-c-container="medium">
+					<h2 data-c-font-size="h3" data-c-color="white" data-c-font-weight="bold" data-c-margin="bottom(normal)">{{ home_l10n.footer.heading }}</h2>
+					<p data-c-color="white" data-c-margin="bottom(double)">{{ home_l10n.footer.subheading }}</p>
+					<a href="{{ home_l10n.footer.email.href }}" title="" data-c-button="outline(white)" data-c-radius="rounded">{{ home_l10n.footer.email.text }}</a>&nbsp;&nbsp;&nbsp;
+					<a href="{{ home_l10n.footer.gccollab.href }}" title="" data-c-button="outline(white)" data-c-radius="rounded">{{ home_l10n.footer.gccollab.text }}</a>&nbsp;&nbsp;&nbsp;
+					<a href="{{ home_l10n.footer.twitter.href }}" title="" data-c-button="outline(white)" data-c-radius="rounded">{{ home_l10n.footer.twitter.text }}</a>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

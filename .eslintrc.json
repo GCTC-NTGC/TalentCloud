@@ -1,83 +1,128 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "env": {
-    "browser": true,
-    "es6": true,
-    "jest": true
-  },
-  "extends": [
-    "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "airbnb",
-    "plugin:prettier/recommended",
-    "prettier",
-    "prettier/@typescript-eslint",
-    "prettier/react",
-    "plugin:testcafe/recommended"
-  ],
-  "globals": {
-    "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
-  },
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
+    "parser": "@typescript-eslint/parser",
+    "env": {
+        "browser": true,
+        "es6": true,
+        "jest": true
     },
-    "ecmaVersion": 2018,
-    "sourceType": "module",
-    "project": "./tsconfig.json"
-  },
-  "plugins": ["react", "@typescript-eslint", "react-hooks", "testcafe"],
-  "rules": {
-    "import/no-extraneous-dependencies": [
-      "error",
-      {
-        "devDependencies": true,
-        "optionalDependencies": false,
-        "peerDependencies": false
-      }
+    "extends": [
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "airbnb",
+        "plugin:prettier/recommended",
+        "prettier",
+        "prettier/@typescript-eslint",
+        "prettier/react",
+        "plugin:testcafe/recommended"
     ],
-    "import/extensions": ["warn", "never"],
-    "react/prop-types": "off",
-    "react/jsx-filename-extension": [
-      1,
-      {
-        "extensions": [".jsx", ".tsx"]
-      }
-    ],
-    "react/jsx-props-no-spreading": "off",
-    "jsx-a11y/label-has-for": "off",
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
-    "jsx-a11y/label-has-associated-control": [
-      2,
-      {
-        "assert": "either",
-        "depth": 3
-      }
-    ],
-    "no-param-reassign": "warn",
-    "@typescript-eslint/ban-ts-ignore": "warn",
-    "jsx-a11y/no-noninteractive-element-to-interactive-role": [
-      "error",
-      {
-        "ul": ["listbox", "menu", "menubar", "radiogroup", "tablist", "tree", "treegrid"],
-        "ol": ["listbox", "menu", "menubar", "radiogroup", "tablist", "tree", "treegrid", "progressbar"],
-        "li": ["menuitem", "option", "row", "tab", "treeitem"],
-        "table": ["grid"],
-        "td": ["gridcell"]
-      }
-    ],
-    "@typescript-eslint/no-empty-function": "warn"
-  },
-  "settings": {
-    "react": {
-      "version": "detect"
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
     },
-    "import/resolver": {
-      "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx", ".test.ts", ".test.tsx"]
-      }
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 2018,
+        "sourceType": "module",
+        "project": "./tsconfig.json"
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint",
+        "react-hooks",
+        "testcafe"
+    ],
+    "rules": {
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+                "devDependencies": true,
+                "optionalDependencies": false,
+                "peerDependencies": false
+            }
+        ],
+        "import/extensions": [
+            "warn",
+            "never"
+        ],
+        "react/prop-types": "off",
+        "react/jsx-filename-extension": [
+            1,
+            {
+                "extensions": [
+                    ".jsx",
+                    ".tsx"
+                ]
+            }
+        ],
+        "react/jsx-props-no-spreading": "off",
+        "jsx-a11y/label-has-for": "off",
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        "jsx-a11y/label-has-associated-control": [
+            2,
+            {
+                "assert": "either",
+                "depth": 3
+            }
+        ],
+        "no-param-reassign": "warn",
+        "@typescript-eslint/ban-ts-ignore": "warn",
+        "jsx-a11y/no-noninteractive-element-to-interactive-role": [
+            "error",
+            {
+                "ul": [
+                    "listbox",
+                    "menu",
+                    "menubar",
+                    "radiogroup",
+                    "tablist",
+                    "tree",
+                    "treegrid"
+                ],
+                "ol": [
+                    "listbox",
+                    "menu",
+                    "menubar",
+                    "radiogroup",
+                    "tablist",
+                    "tree",
+                    "treegrid",
+                    "progressbar"
+                ],
+                "li": [
+                    "menuitem",
+                    "option",
+                    "row",
+                    "tab",
+                    "treeitem"
+                ],
+                "table": [
+                    "grid"
+                ],
+                "td": [
+                    "gridcell"
+                ]
+            }
+        ],
+        "@typescript-eslint/no-empty-function": "warn"
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        },
+        "import/resolver": {
+            "node": {
+                "extensions": [
+                    ".js",
+                    ".jsx",
+                    ".ts",
+                    ".tsx",
+                    ".test.ts",
+                    ".test.tsx"
+                ]
+            }
+        }
     }
-  }
 }

@@ -1,0 +1,71 @@
+.tc-hr-home-logotype {
+    vertical-align: middle;
+    img {
+        margin-top: -.3rem;
+        margin-left: .5rem;
+        width: 2.3rem;
+        vertical-align: middle;
+    }
+}
+.tc-hr-home-contained-background {
+    overflow: hidden;
+    @media #{$clone-tablet-landscape} {
+        .tc-hr-home-left-background {
+            padding-right: calc((#{$clone-padding} * 3) * #{$clone-whitespace-multiplier});
+        }
+        .tc-hr-home-left-background+div {
+            padding-left: calc((#{$clone-padding} * 3) * #{$clone-whitespace-multiplier});
+        }
+        >div>div>[data-c-grid-item]:not(.tc-hr-home-left-background):first-child {
+            padding-right: calc((#{$clone-padding} * 3) * #{$clone-whitespace-multiplier});
+        }
+        >div>div>[data-c-grid-item]+.tc-hr-home-right-background {
+            padding-left: calc((#{$clone-padding} * 3) * #{$clone-whitespace-multiplier});
+        }
+    }
+}
+.tc-hr-home-right-background {
+    position: relative;
+    &:before {
+        background: rgba($clone-gray, .1);
+        content: " ";
+        display: block;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: -50vw;
+        width: 200vw;
+        @media #{$clone-tablet-landscape} {
+            left: 0;
+            width: 100vw;
+        }
+    }
+}
+.tc-hr-home-left-background {
+    position: relative;
+    &:before {
+        background: rgba($clone-gray, .1);
+        content: " ";
+        display: block;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: -50vw;
+        width: 200vw;
+        @media #{$clone-tablet-landscape} {
+            left: auto;
+            right: 0;
+            width: 100vw;
+        }
+    }
+}
+.tc-hr-home-cta {
+    background: #5b1647;
+    background: -moz-linear-gradient(-45deg, #5b1647 0%, #c90035 100%);
+    background: -webkit-linear-gradient(-45deg, #5b1647 0%,#c90035 100%);
+    background: linear-gradient(135deg, #5b1647 0%,#c90035 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5b1647', endColorstr='#c90035',GradientType=1 );
+    a:visited {
+        color: $clone-white !important;
+    }
+}

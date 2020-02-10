@@ -3,9 +3,7 @@ import { managerUser, adminUser } from "./helpers/roles";
 
 const HOMEPAGE = "https://talent.test";
 
-fixture(`Smoke`)
-  .page(HOMEPAGE)
-  .meta("travis", "run");
+fixture(`Smoke`).page(HOMEPAGE);
 
 // Skip when writing new tests
 // fixture.skip(`Smoke`);

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "hrJobIndex.reviewDraft",
+    "description": "Text for the link to review job draft.",
+    "defaultMessage": "Review Draft"
+  },
+  {
+    "id": "hrJobIndex.preview",
+    "description": "Text for the link to preview the job poster.",
+    "defaultMessage": "Preview Poster"
+  },
+  {
+    "id": "hrJobIndex.viewScreeningPlan",
+    "description": "Text for the link to view the Screening Plan.",
+    "defaultMessage": "View Assessment Plan"
+  },
+  {
+    "id": "hrJobIndex.viewActivity",
+    "description": "Text for the link to view new entries in the activity feed.",
+    "defaultMessage": "View Activity"
+  },
+  {
+    "id": "hrJobIndex.viewSummary",
+    "description": "Text for the link to the Job Summary page.",
+    "defaultMessage": "View Summary"
+  },
+  {
+    "id": "hrJobIndex.managerLoading",
+    "description": "Placehold text for a manager's name, while data is loading.",
+    "defaultMessage": "Loading..."
+  },
+  {
+    "id": "hrJobIndex.jobTitleMissing",
+    "description": "Placeholder text for a missing Job title.",
+    "defaultMessage": "Title Missing"
+  },
+  {
+    "id": "hrJobIndex.departmentPlaceholder",
+    "description": "Placeholder for department name while it hasn't been loaded.",
+    "defaultMessage": "[Department loading]"
+  }
+]

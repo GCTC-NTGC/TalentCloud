@@ -606,6 +606,10 @@
                 transition: border-color .2s ease;
             }
 
+            &:disabled {
+                cursor: not-allowed;
+            }
+
         }
 
     }

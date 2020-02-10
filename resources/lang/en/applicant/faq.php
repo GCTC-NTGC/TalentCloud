@@ -88,15 +88,6 @@ return [
     /* UI Content */
     'title' => 'Talent Cloud User Guide',
     'faq_title' => 'Talent Cloud FAQ',
-    'breadcrumbs' => [
-        'home' => [
-            'title' => 'Return to the homepage.',
-            'text' => 'Home'
-        ],
-        'faq' => [
-            'text' => 'FAQ'
-        ]
-    ],
     'sidebar' => [
         'users' => [
             'applicants' => 'For Applicants',

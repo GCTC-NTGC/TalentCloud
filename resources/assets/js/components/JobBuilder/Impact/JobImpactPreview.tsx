@@ -32,7 +32,9 @@ const JobImpactPreview = ({
           description="Heading for Impact preview on modal dialog."
         />
       </h4>
-      <p data-c-margin="bottom(normal)">{deptImpact}</p>
+      <p id="deptImpactPreview" data-c-margin="bottom(normal)">
+        {deptImpact}
+      </p>
       <p data-c-margin="bottom(normal)">{teamImpact}</p>
       <p>{hireImpact}</p>
     </div>

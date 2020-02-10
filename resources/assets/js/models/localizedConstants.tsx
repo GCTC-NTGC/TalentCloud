@@ -11,11 +11,12 @@ import {
   ProvinceId,
   SecurityClearanceId,
   LanguageRequirementId,
-  DepartmentId,
   FrequencyId,
   OvertimeRequirementId,
   TravelRequirementId,
   ClassificationId,
+  LocationId,
+  JobStatus,
 } from "./lookupConstants";
 import { getOrThrowError } from "../helpers/queries";
 
@@ -643,56 +644,6 @@ export const languageRequirementContext = (
   }
 };
 
-const departments = defineMessages({
-  [DepartmentId.treasuryBoard]: {
-    id: "department.treasuryBoard",
-    defaultMessage: "Treasury Board of Canada Secretariat",
-  },
-  [DepartmentId.naturalResources]: {
-    id: "department.naturalResources",
-    defaultMessage: "Natural Resources Canada",
-  },
-  [DepartmentId.transport]: {
-    id: "department.transport",
-    defaultMessage: "Transport Canada",
-  },
-  [DepartmentId.environmentAndClimateChange]: {
-    id: "department.environmentAndClimateChange",
-    defaultMessage: "Environment and Climate Change Canada",
-  },
-  [DepartmentId.employmentAndSocialDevelopment]: {
-    id: "department.employmentAndSocialDevelopment",
-    defaultMessage: "Employment and Social Development Canada",
-  },
-  [DepartmentId.globalAffairs]: {
-    id: "department.globalAffairs",
-    defaultMessage: "Global Affairs Canada",
-  },
-  [DepartmentId.borderServices]: {
-    id: "department.borderServices",
-    defaultMessage: "Canada Border Services Agency",
-  },
-  [DepartmentId.fisheriesAndOceans]: {
-    id: "department.fisheriesAndOceans",
-    defaultMessage: "Fisheries and Oceans Canada",
-  },
-  [DepartmentId.innovationScience]: {
-    id: "department.innovationScience",
-    defaultMessage: "Innovation, Science and Economic Development Canada",
-  },
-  [DepartmentId.publicServiceAndProcurement]: {
-    id: "department.publicServiceAndProcurement",
-    defaultMessage: "Public Services and Procurement Canada",
-  },
-  [DepartmentId.nationalDefence]: {
-    id: "department.nationalDefence",
-    defaultMessage: "Deparmtnet of National Defence",
-  },
-});
-
-export const departmentName = (departmentId: number): MessageDescriptor =>
-  getOrThrowError(departments, departmentId, "invalid DepartmentId");
-
 export const narrativeReviewStandardQuestion = (): MessageDescriptor =>
   standardAssessmentText.narrativeReviewQuestion;
 
@@ -723,7 +674,7 @@ const frequencyMessages = defineMessages({
   },
   [FrequencyId.never]: {
     id: "jobBuilder.details.frequencyNeverLabel",
-    defaultMessage: "Almost Never",
+    defaultMessage: "Never",
     description: "The form label displayed on 'never' frequency options.",
   },
 });
@@ -867,3 +818,89 @@ export const classificationCodeOption = (
     classificationId,
     "invalid ClassificationId",
   );
+
+export const activityLocations = defineMessages({
+  [LocationId.generic]: {
+    id: "activityfeed.locations.review.details",
+    defaultMessage: "Job Poster Builder > General",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.heading]: {
+    id: "activityfeed.locations.review.heading",
+    defaultMessage: "Job Poster Builder > Job Page Heading",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.basicInfo]: {
+    id: "activityfeed.locations.review.basicInfo",
+    defaultMessage: "Job Poster Builder > Basic Information",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.impact]: {
+    id: "activityfeed.locations.review.impact",
+    defaultMessage: "Job Poster Builder > Impact",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.tasks]: {
+    id: "activityfeed.locations.review.tasks",
+    defaultMessage: "Job Poster Builder > Tasks",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.skills]: {
+    id: "activityfeed.locations.review.skills",
+    defaultMessage: "Job Poster Builder > Skills",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.langRequirements]: {
+    id: "activityfeed.locations.review.langRequirements",
+    defaultMessage: "Job Poster Builder > Language Requirements",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.environment]: {
+    id: "activityfeed.locations.review.environment",
+    defaultMessage: "Job Poster Builder > Environment",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.summary]: {
+    id: "activityfeed.locations.summary",
+    defaultMessage: "Summary Page",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.preview]: {
+    id: "activityfeed.locations.preview",
+    defaultMessage: "Preview Page",
+    description: "Location where the activity is located.",
+  },
+});
+
+export const activityLocationOption = (locationId: string): MessageDescriptor =>
+  getOrThrowError(activityLocations, locationId, "Invalid LocationId");
+
+const jobStatusMessages = defineMessages({
+  [JobStatus.Draft]: {
+    id: "jobStatus.draft",
+    defaultMessage: "Draft",
+  },
+  [JobStatus.Review]: {
+    id: "jobStatus.review",
+    defaultMessage: "In Review",
+  },
+  [JobStatus.Approved]: {
+    id: "jobStatus.approved",
+    defaultMessage: "Approved",
+  },
+  [JobStatus.Open]: {
+    id: "jobStatus.open",
+    defaultMessage: "Open",
+  },
+  [JobStatus.Closed]: {
+    id: "jobStatus.closed",
+    defaultMessage: "Closed",
+  },
+  [JobStatus.Complete]: {
+    id: "jobStatus.complete",
+    defaultMessage: "Complete",
+  },
+});
+
+export const jobStatus = (jobStatus: JobStatus): MessageDescriptor =>
+  getOrThrowError(jobStatusMessages, jobStatus, "Invalid Job Status");
