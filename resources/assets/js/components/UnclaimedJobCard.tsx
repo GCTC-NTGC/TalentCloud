@@ -3,11 +3,13 @@ import { FormattedMessage, useIntl } from "react-intl";
 import { JobStatus } from "../models/lookupConstants";
 import { jobStatus } from "../models/localizedConstants";
 import { Link } from "../models/app";
+import { readableDateTime } from "../helpers/dates";
+import { getLocale } from "../helpers/localize";
 
 export interface UnclaimedJobCardProps {
   id: number;
   jobLink: Link;
-  reviewRequested?: string;
+  reviewRequested?: Date;
   status: JobStatus;
   hiringManager: string;
   hrAdvisors: string[];
@@ -23,6 +25,7 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
   handleClaimJob,
 }) => {
   const intl = useIntl();
+  const locale = getLocale(intl.locale);
   return (
     <div
       data-c-grid-item="tp(1of2) tl(1of3) equal-col"
@@ -52,7 +55,9 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
                     description="Header for when Job Poster was created."
                     defaultMessage="Received: "
                   />
-                  {reviewRequested || (
+                  {reviewRequested ? (
+                    readableDateTime(locale, reviewRequested)
+                  ) : (
                     <FormattedMessage
                       id="openJobCard.error"
                       description="Error getting time review was requested."
