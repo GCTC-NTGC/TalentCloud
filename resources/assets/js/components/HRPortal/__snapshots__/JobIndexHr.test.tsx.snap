@@ -203,7 +203,6 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
         data-c-grid="gutter"
       >
         <UnclaimedJobCard
-          createdAt="2019-MAY-02"
           handleClaimJob={[Function]}
           hiringManager="Rebecca Appleby"
           hrAdvisors={Array []}
@@ -216,10 +215,10 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
             }
           }
           key="4"
+          reviewRequested="2019-MAY-02"
           status={1}
         />
         <UnclaimedJobCard
-          createdAt="2019-MAR-12"
           handleClaimJob={[Function]}
           hiringManager="Rebecca Appleby"
           hrAdvisors={
@@ -237,10 +236,10 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
             }
           }
           key="5"
+          reviewRequested="2019-MAR-12"
           status={1}
         />
         <UnclaimedJobCard
-          createdAt="2019-DEC-02"
           handleClaimJob={[Function]}
           hiringManager="Robin Browne"
           hrAdvisors={Array []}
@@ -253,10 +252,10 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
             }
           }
           key="6"
+          reviewRequested="2019-DEC-02"
           status={2}
         />
         <UnclaimedJobCard
-          createdAt="2019-MAY-14"
           handleClaimJob={[Function]}
           hiringManager="Braeden McDoogal"
           hrAdvisors={
@@ -274,10 +273,10 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
             }
           }
           key="7"
+          reviewRequested="2019-MAY-14"
           status={1}
         />
         <UnclaimedJobCard
-          createdAt="2019-JUL-24"
           handleClaimJob={[Function]}
           hiringManager="Amelie Lachance"
           hrAdvisors={Array []}
@@ -290,6 +289,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
             }
           }
           key="8"
+          reviewRequested="2019-JUL-24"
           status={2}
         />
       </section>
