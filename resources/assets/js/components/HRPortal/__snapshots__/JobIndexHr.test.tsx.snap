@@ -203,60 +203,22 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
         data-c-grid="gutter"
       >
         <UnclaimedJobCard
-          createdAt="2019-MAY-02"
           handleClaimJob={[Function]}
-          hiringManager="Rebecca Appleby"
+          hiringManager="Amelie Lachance"
           hrAdvisors={Array []}
-          id={4}
+          id={8}
           jobLink={
             Object {
-              "text": "CS01 - Front-end Developer",
+              "text": "CS03 - Digital Product Designer",
               "title": "",
               "url": "",
             }
           }
-          key="4"
-          status={1}
-        />
-        <UnclaimedJobCard
-          createdAt="2019-MAR-12"
-          handleClaimJob={[Function]}
-          hiringManager="Rebecca Appleby"
-          hrAdvisors={
-            Array [
-              "Rebecca Appleby",
-              "Jack Little",
-            ]
-          }
-          id={5}
-          jobLink={
-            Object {
-              "text": "AS02 - Executive Assisstant",
-              "title": "",
-              "url": "",
-            }
-          }
-          key="5"
-          status={1}
-        />
-        <UnclaimedJobCard
-          createdAt="2019-DEC-02"
-          handleClaimJob={[Function]}
-          hiringManager="Robin Browne"
-          hrAdvisors={Array []}
-          id={6}
-          jobLink={
-            Object {
-              "text": "ET03 - Business Analyst",
-              "title": "",
-              "url": "",
-            }
-          }
-          key="6"
+          key="8"
+          reviewRequested={2020-02-11T06:24:00.000Z}
           status={2}
         />
         <UnclaimedJobCard
-          createdAt="2019-MAY-14"
           handleClaimJob={[Function]}
           hiringManager="Braeden McDoogal"
           hrAdvisors={
@@ -274,23 +236,61 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
             }
           }
           key="7"
+          reviewRequested={2020-02-10T09:24:00.000Z}
           status={1}
         />
         <UnclaimedJobCard
-          createdAt="2019-JUL-24"
           handleClaimJob={[Function]}
-          hiringManager="Amelie Lachance"
+          hiringManager="Robin Browne"
           hrAdvisors={Array []}
-          id={8}
+          id={6}
           jobLink={
             Object {
-              "text": "CS03 - Digital Product Designer",
+              "text": "ET03 - Business Analyst",
               "title": "",
               "url": "",
             }
           }
-          key="8"
+          key="6"
+          reviewRequested={2020-02-08T08:24:00.000Z}
           status={2}
+        />
+        <UnclaimedJobCard
+          handleClaimJob={[Function]}
+          hiringManager="Rebecca Appleby"
+          hrAdvisors={
+            Array [
+              "Rebecca Appleby",
+              "Jack Little",
+            ]
+          }
+          id={5}
+          jobLink={
+            Object {
+              "text": "AS02 - Executive Assisstant",
+              "title": "",
+              "url": "",
+            }
+          }
+          key="5"
+          reviewRequested={1995-01-17T10:54:00.000Z}
+          status={1}
+        />
+        <UnclaimedJobCard
+          handleClaimJob={[Function]}
+          hiringManager="Rebecca Appleby"
+          hrAdvisors={Array []}
+          id={4}
+          jobLink={
+            Object {
+              "text": "CS01 - Front-end Developer",
+              "title": "",
+              "url": "",
+            }
+          }
+          key="4"
+          reviewRequested={1990-12-17T08:24:00.000Z}
+          status={1}
         />
       </section>
     </div>
