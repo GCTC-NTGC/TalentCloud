@@ -155,9 +155,9 @@ class JobStatusController extends Controller
             : back();
     }
 
-    public function setJobStatus(Request $request, JobPoster $jobPoster)
+    public function setJobStatus(Request $request, JobPoster $jobPoster, string $status)
     {
-        $status = $request->input('status');
+        // $status = $request->input('status');
         return $this->transitionJobStatus($request, $jobPoster, $status);
     }
 }

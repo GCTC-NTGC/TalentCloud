@@ -605,6 +605,14 @@ Route::group(
                             ->where('jobPoster', '[0-9]+')
                             ->name('hr_advisor.jobs.preview');
 
+                        Route::post(
+                            'jobs/{jobPoster}/setJobStatus/{status}',
+                            'JobStatusController@setJobStatus'
+                        )
+                            ->middleware('can:manage,jobPoster')
+                            ->where('jobPoster', '[0-9]+')
+                            ->name('hr_advisor.jobs.setJobStatus');
+
                         /* Account Settings */
                         Route::get('settings', 'SettingsController@editAuthenticated')
                         // Permissions are checked in Controller.

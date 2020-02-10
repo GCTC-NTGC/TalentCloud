@@ -13,9 +13,9 @@ class AddJobPosterStatusIdToJobPosters extends Migration
      */
     public function up()
     {
-        $draftId = DB::table('job_poster_status')->where('name', 'draft')->firstOrFail()->id;
+        $draftId = DB::table('job_poster_status')->where('name', 'draft')->first()->id;
 
-        Schema::table('job_posters', function (Blueprint $table) use ($draftId){
+        Schema::table('job_posters', function (Blueprint $table) use ($draftId) {
             $table->integer('job_poster_status_id')->default($draftId);
             $table->foreign('job_poster_status_id')->references('id')->on('job_poster_status')->onUpdate('CASCADE')->onDelete('NO ACTION');
         });

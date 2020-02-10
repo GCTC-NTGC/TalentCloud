@@ -11,7 +11,7 @@ namespace App\Models;
  *
  * @property \App\Models\User $user
  * @property \App\Models\Lookup\Department $department
- * @property \Illuminate\Database\Eloquent\Collection $job_posters
+ * @property \Illuminate\Database\Eloquent\Collection $claimed_jobs
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
