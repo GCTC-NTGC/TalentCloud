@@ -32,7 +32,7 @@ stories
             title: "",
             text: text("Title", "CS01 - Front-end Developer", "Props"),
           }}
-          reviewRequested={text("Created At", "Created: 2019-MAY-02", "Props")}
+          reviewRequested={new Date()}
           status={select("Status", statusOptions, JobStatus.Draft, "Props")}
           hiringManager={text("Hiring Manager", "Rebecca Appleby")}
           hrAdvisors={[]}
@@ -52,7 +52,7 @@ stories
             title: "",
             text: text("Title", "AS02 - Executive Assisstant", "Props"),
           }}
-          reviewRequested={text("Created At", "Created: 2019-MAY-02", "Props")}
+          reviewRequested={new Date()}
           status={select("Status", statusOptions, JobStatus.Draft, "Props")}
           hiringManager={text("Hiring Managers", "Rebecca Appleby")}
           hrAdvisors={array(
