@@ -5,34 +5,39 @@ import { connect } from "react-redux";
 import { FormattedMessage, useIntl } from "react-intl";
 import Activity from "./Activity";
 import { RootState } from "../store/store";
-import { Comment } from "../models/types";
+import { Comment, User } from "../models/types";
 import { DispatchType } from "../configureStore";
 import { fetchComments } from "../store/Job/jobActions";
+import { fetchAllUsers } from "../store/User/userActions";
 import { getComments, sortComments } from "../store/Job/jobSelector";
 import { commentTypeMessages } from "./CommentForm";
 import { activityLocationOption } from "../models/localizedConstants";
 import { activityLocationUrl } from "../models/jobUtil";
 import { LocationId } from "../models/lookupConstants";
+import { getLocale } from "../helpers/localize";
+import { find } from "../helpers/queries";
+import { getUsers } from "../store/User/userSelector";
 
 interface ActivityFeedProps {
   jobId: number;
   isHrAdvisor: boolean;
   comments: Comment[];
+  users: User[];
   handleFetchComments: (jobId: number) => Promise<void>;
+  handleFetchUsers: () => Promise<void>;
   filterComments?: (comment: Comment) => boolean;
 }
 
 const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
   jobId,
   comments,
+  users,
   handleFetchComments,
+  handleFetchUsers,
   isHrAdvisor,
 }) => {
   const intl = useIntl();
-  const { locale } = intl;
-  if (locale !== "en" && locale !== "fr") {
-    throw new Error("Unknown intl.locale");
-  }
+  const locale = getLocale(intl.locale);
   const activities: Comment[] = [...comments];
   const [isActivitiesLoading, setIsActivitiesLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -48,6 +53,18 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
         setIsError(true);
       });
   }, [handleFetchComments, jobId]);
+
+  useEffect((): void => {
+    setIsActivitiesLoading(true);
+    handleFetchUsers()
+      .then(() => {
+        setIsActivitiesLoading(false);
+      })
+      .catch(() => {
+        setIsActivitiesLoading(false);
+        setIsError(true);
+      });
+  }, [handleFetchUsers]);
 
   const activityType = (type: number | null): string => {
     switch (type) {
@@ -113,31 +130,38 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
                   location,
                   created_at,
                   type_id,
-                }: Comment): React.ReactElement => (
-                  <Activity
-                    key={id}
-                    name="Replace with Manager Name!" // TODO: Replace with user.name after User api is setup.
-                    userRole="Replace with Manager Role!" // TODO: Replace with user.role after User api is setup.
-                    comment={comment}
-                    location={
-                      isValidLocation(location)
-                        ? intl.formatMessage(activityLocationOption(location))
-                        : ""
-                    }
-                    time={created_at}
-                    type={activityType(type_id)}
-                    link={{
-                      url: activityLocationUrl(
-                        isHrAdvisor,
-                        location,
-                        jobId,
-                        locale,
-                      ),
-                      text: "",
-                      title: "",
-                    }}
-                  />
-                ),
+                  user_id,
+                }: Comment): React.ReactElement => {
+                  const user = find(users, user_id);
+                  const fullName = `${user?.first_name ??
+                    ""} ${user?.last_name ?? ""}`.trim();
+
+                  return (
+                    <Activity
+                      key={id}
+                      name={fullName}
+                      userRole="Replace with Manager Role!" // TODO: Replace with user.role after User api is setup.
+                      comment={comment}
+                      location={
+                        isValidLocation(location)
+                          ? intl.formatMessage(activityLocationOption(location))
+                          : ""
+                      }
+                      time={created_at}
+                      type={activityType(type_id)}
+                      link={{
+                        url: activityLocationUrl(
+                          isHrAdvisor,
+                          location,
+                          jobId,
+                          locale,
+                        ),
+                        text: "",
+                        title: "",
+                      }}
+                    />
+                  );
+                },
               )
             : !isError && (
                 <p>
@@ -161,17 +185,27 @@ const mapStateToProps = (
   }: { filterComments?: (comment: Comment) => boolean },
 ): {
   comments: Comment[];
+  users: User[];
 } => ({
   comments: sortComments(getComments(state).filter(filterComments)),
+  users: getUsers(state),
 });
 
 const mapDispatchToProps = (
   dispatch: DispatchType,
 ): {
   handleFetchComments: (jobId: number) => Promise<void>;
+  handleFetchUsers: () => Promise<void>;
 } => ({
   handleFetchComments: async (jobId: number): Promise<void> => {
     const result = await dispatch(fetchComments(jobId));
+    if (!result.error) {
+      return Promise.resolve();
+    }
+    return Promise.reject(result.error);
+  },
+  handleFetchUsers: async (): Promise<void> => {
+    const result = await dispatch(fetchAllUsers());
     if (!result.error) {
       return Promise.resolve();
     }
