@@ -49,6 +49,10 @@ Route::group(
             Route::view('builder-07', 'manager/builder-07')->middleware('localOnly')->name('jpb7');
             /* Temp Builder 08 (Review) */
             Route::view('builder-08', 'manager/builder-08')->middleware('localOnly')->name('jpb8');
+
+            /* Temp Resources */
+            Route::view('resources', 'common/resources')->middleware('localOnly')->name('resources');
+
         });
 
         Route::group(['prefix' => config('app.applicant_prefix')], function (): void {
