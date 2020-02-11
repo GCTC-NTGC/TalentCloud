@@ -24,6 +24,7 @@ interface ActivityListProps {
   comments: Comment[];
   handleFetchComments: (jobId: number) => Promise<void>;
   filterComments?: (comment: Comment) => boolean;
+  setTotalActivities?: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const ActivityList: React.FunctionComponent<ActivityListProps> = ({
@@ -31,24 +32,28 @@ export const ActivityList: React.FunctionComponent<ActivityListProps> = ({
   comments,
   handleFetchComments,
   isHrAdvisor,
+  setTotalActivities,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
   const activities: Comment[] = [...comments];
-  const [isActivitiesLoading, setIsActivitiesLoading] = useState(false);
+  const [loadingActivities, setLoadingActivities] = useState(false);
   const [isError, setIsError] = useState(false);
 
   useEffect((): void => {
-    setIsActivitiesLoading(true);
+    setLoadingActivities(true);
     handleFetchComments(jobId)
       .then(() => {
-        setIsActivitiesLoading(false);
+        setLoadingActivities(false);
+        if (setTotalActivities) {
+          setTotalActivities(activities.length);
+        }
       })
       .catch(() => {
-        setIsActivitiesLoading(false);
+        setLoadingActivities(false);
         setIsError(true);
       });
-  }, [handleFetchComments, jobId]);
+  }, [activities.length, handleFetchComments, jobId, setTotalActivities]);
 
   const activityType = (type: number | null): string => {
     switch (type) {
@@ -93,7 +98,7 @@ export const ActivityList: React.FunctionComponent<ActivityListProps> = ({
           />
         </p>
       )}
-      {isActivitiesLoading ? (
+      {loadingActivities ? (
         <div data-c-container="form" data-c-padding="top(1) bottom(1)">
           <div
             data-c-background="white(100)"

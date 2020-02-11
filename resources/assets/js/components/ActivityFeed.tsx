@@ -1,18 +1,16 @@
 import * as React from "react";
-import { connect } from "react-redux";
 import {
   useIntl,
   FormattedMessage,
   MessageDescriptor,
   defineMessages,
 } from "react-intl";
-import { RootState } from "../store/store";
-import { getComments } from "../store/Job/jobSelector";
 import { hasKey } from "../helpers/queries";
 import { LocationId } from "../models/lookupConstants";
 import CommentForm from "./CommentForm";
 import ActivityList from "./ActivityList";
 import Icon from "./Icon";
+import { Comment } from "../models/types";
 
 const messages = defineMessages({
   loadingIcon: {
@@ -27,17 +25,18 @@ interface ActivityFeedProps {
   isHrAdvisor: boolean;
   generalLocation: string;
   locationMessages: { [LocationId: string]: MessageDescriptor };
-  totalActivities: number;
+  filterComments?: (comment: Comment) => boolean;
 }
 
 const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
   jobId,
   isHrAdvisor,
   generalLocation,
-  totalActivities,
   locationMessages,
+  filterComments,
 }) => {
   const intl = useIntl();
+  const [totalActivities, setTotalActivities] = React.useState(-1);
   const locationOptions = Object.values(LocationId)
     .filter(location => hasKey(locationMessages, location))
     .map(location => ({
@@ -64,7 +63,7 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
                   description="The activity feed header."
                   values={{
                     totalActivities:
-                      totalActivities === 0 ? (
+                      totalActivities === -1 ? (
                         <Icon
                           icon="fa fa-spinner fa-spin"
                           accessibleText={intl.formatMessage(
@@ -114,7 +113,12 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
               locationOptions={locationOptions}
             />
             <hr data-c-hr="thin(black)" data-c-margin="top(1)" />
-            <ActivityList jobId={jobId} isHrAdvisor={isHrAdvisor} />
+            <ActivityList
+              jobId={jobId}
+              isHrAdvisor={isHrAdvisor}
+              filterComments={filterComments}
+              setTotalActivities={setTotalActivities}
+            />
           </div>
         </div>
       </div>
@@ -122,12 +126,4 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
   );
 };
 
-const mapStateToProps = (
-  state: RootState,
-): {
-  totalActivities: number;
-} => ({
-  totalActivities: getComments(state).length,
-});
-
-export default connect(mapStateToProps, () => ({}))(ActivityFeed);
+export default ActivityFeed;
