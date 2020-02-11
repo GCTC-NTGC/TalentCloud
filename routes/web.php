@@ -318,16 +318,16 @@ Route::group(
                         Route::get('jobs', 'JobController@managerIndex')->name('manager.jobs.index');
 
                         /* View Job Poster */
-                        Route::get('jobs/{job}', 'JobController@show')
-                            ->where('job', '[0-9]+')
-                            ->middleware('can:view,job')
+                        Route::get('jobs/{jobPoster}', 'JobController@show')
+                            ->where('jobPoster', '[0-9]+')
+                            ->middleware('can:view,jobPoster')
                             ->name('manager.jobs.show');
 
                         /* View Job Summary */
                         Route::get('jobs/{job}/summary', 'JobSummaryController@show')
                             ->middleware('can:manage,job')
                             ->name('manager.jobs.summary')
-                            ->where('job', '[0-9]+');
+                            ->where('jobPoster', '[0-9]+');
 
                         /* Job Builder */
                         Route::get(
@@ -381,10 +381,10 @@ Route::group(
 
                         /* Job Preview */
                         Route::get(
-                            'jobs/{jobPoster}',
+                            'jobs/{job}',
                             'JobController@show'
                         )
-                            ->middleware('can:view,jobPoster')
+                            ->middleware('can:view,job')
                             ->where('jobPoster', '[0-9]+')
                             ->name('manager.jobs.preview');
 
