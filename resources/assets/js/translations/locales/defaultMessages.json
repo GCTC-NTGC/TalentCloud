@@ -362,7 +362,7 @@
         "id": "apl.indexPageTitle"
       },
       {
-        "defaultMessage": "{dayCount, plural,\n              =0 {No Days}\n            one {# Day}\n          other {# Days}\n        } Since Close",
+        "defaultMessage": "{dayCount, plural,\r\n              =0 {No Days}\r\n            one {# Day}\r\n          other {# Days}\r\n        } Since Close",
         "description": "Welcome header on app main page",
         "id": "job.daysSinceClosed"
       }
@@ -2080,7 +2080,7 @@
         "id": "jobBuilder.review.reviewYourPoster"
       },
       {
-        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\n            understand how an applicant will see it once published.",
+        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\r\n            understand how an applicant will see it once published.",
         "description": "Description under primary title of review section",
         "id": "jobBuilder.review.headsUp"
       },
@@ -3299,9 +3299,14 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Created: ",
+        "defaultMessage": "Received: ",
         "description": "Header for when Job Poster was created.",
-        "id": "openJobCard.createdAt"
+        "id": "openJobCard.reviewRequested"
+      },
+      {
+        "defaultMessage": "Date Unavailable.",
+        "description": "Error getting time review was requested.",
+        "id": "openJobCard.error"
       },
       {
         "defaultMessage": "Hiring Managers: ",
@@ -3480,7 +3485,7 @@
       },
       {
         "defaultMessage": "Essential",
-        "description": "Title of an esential criteria type.",
+        "description": "Title of an essential criteria type.",
         "id": "criteriaType.essential"
       },
       {
@@ -3883,24 +3888,28 @@
         "id": "activityfeed.locations.preview"
       },
       {
+        "defaultMessage": "In Review",
+        "id": "jobStatus.review"
+      },
+      {
+        "defaultMessage": "Final Review",
+        "id": "jobStatus.finalReview"
+      },
+      {
         "defaultMessage": "Draft",
         "id": "jobStatus.draft"
       },
       {
-        "defaultMessage": "In Review",
-        "id": "jobStatus.review"
+        "defaultMessage": "In Translation",
+        "id": "jobStatus.translation"
       },
       {
         "defaultMessage": "Approved",
         "id": "jobStatus.approved"
       },
       {
-        "defaultMessage": "Open",
-        "id": "jobStatus.open"
-      },
-      {
-        "defaultMessage": "Closed",
-        "id": "jobStatus.closed"
+        "defaultMessage": "Published",
+        "id": "jobStatus.published"
       },
       {
         "defaultMessage": "Complete",

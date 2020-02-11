@@ -92,14 +92,16 @@ use App\Events\JobSaved;
  *
  * Methods
  * @method boolean isOpen()
+ * @method boolean isClosed()
+ * @method boolean isVisibleToHr()
+ * @method boolean isPublic()
+ * @method boolean isEditable()
  * @method string timeRemaining()
  * @method mixed[] toApiArray()
- * @method boolean isVisibleToHr()
  *
  * Computed Properties
  * @property string|null $classification_code
  * @property string|null $classification_message
- * @property int $job_status_id
  */
 class JobPoster extends BaseModel
 {
@@ -265,7 +267,6 @@ class JobPoster extends BaseModel
         'loo_issuance_date',
         'classification_id',
         'classification_level',
-        'job_status_id',
         'city',
         'title',
         'dept_impact',
@@ -276,6 +277,7 @@ class JobPoster extends BaseModel
         'work_env_description',
         'culture_summary',
         'culture_special',
+        'job_poster_status_id',
         'created_at',
     ];
 
@@ -287,7 +289,6 @@ class JobPoster extends BaseModel
     protected $appends = [
         'classification_code',
         'classification_message',
-        'job_status_id',
     ];
 
     /**
@@ -507,7 +508,7 @@ class JobPoster extends BaseModel
      */
     public function isOpen(): bool
     {
-        return $this->published
+        return $this->job_poster_status->name === 'published'
             && $this->open_date_time !== null
             && $this->close_date_time !== null
             && $this->open_date_time->isPast()
@@ -521,11 +522,49 @@ class JobPoster extends BaseModel
      */
     public function isClosed(): bool
     {
-        return $this->published
+        return ($this->job_poster_status->name === 'published'
+            || $this->job_poster_status->name === 'completed')
             && $this->open_date_time !== null
             && $this->close_date_time !== null
             && $this->open_date_time->isPast()
             && $this->close_date_time->isPast();
+    }
+
+    /**
+     * Return true if this job should be visible to hr advisors.
+     * It should become visible after Manager has requested a review.
+     *
+     * @return boolean
+     */
+    public function isVisibleToHr()
+    {
+        return $this->job_poster_status->name !== 'draft';
+    }
+
+    /**
+     * Check if a Job Poster is open to public view.
+     *
+     * @return boolean
+     */
+    public function isPublic(): bool
+    {
+        return (
+            $this->job_poster_status->name == 'published'
+            || $this->job_poster_status_name == 'closed'
+        )
+        && $this->open_date_time !== null
+        && $this->open_date_time->isPast();
+    }
+
+    /**
+     * Check if a Job Poster is theoretically editable.
+     *
+     * @return boolean
+     */
+    public function isEditable(): bool
+    {
+        // Admins, at least, should be able to edit the job up until the public can see it.
+        return !$this->isPublic();
     }
 
     /**
@@ -561,72 +600,6 @@ class JobPoster extends BaseModel
         return Lang::choice($key, $count);
     }
 
-    /**
-     * Return the current status for the Job Poster.
-     * Possible values are "draft", "submitted", "published" and "closed".
-     *
-     * @return string
-     */
-    public function status(): string
-    {
-        $status = 'draft';
-        if ($this->isOpen()) {
-            $status = 'published';
-        } elseif ($this->isClosed()) {
-            $status = 'closed';
-        } elseif ($this->review_requested_at !== null) {
-            $status = 'submitted';
-        } else {
-            $status = 'draft';
-        }
-
-        return $status;
-    }
-
-    /**
-     * FIXME:
-     * Return a calculated job status id.
-     * For now these ids represent the following:
-     *    1 = Draft
-     *    2 = Review requested
-     *    3 = Approved
-     *    4 = Open
-     *    5 = Closed
-     * These statuses needs an immenent refactoring, so I'm not going to create
-     * a lookup table for them yet.
-     * TODO: When this is rebuilt, make sure to change matching JobStatus code in
-     *    resources\assets\js\models\lookupConstants.ts
-     *
-     * @return integer
-     */
-    public function getJobStatusIdAttribute()
-    {
-        $now = new Date();
-        if ($this->review_requested_at === null) {
-            return 1; // Draft.
-        } elseif ($this->published_at === null) {
-            return 2; // Review requested, but not approved.
-        } elseif ($this->open_date_time === null || $this->open_date_time > $now) {
-            return 3; // Approved, but not open.
-        } elseif ($this->close_date_time === null || $this->close_date_time > $now) {
-            // Approved and currently open.
-            return 4; // Open.
-        } else {
-            // Published and close date has passed.
-            return 5; // Closed.
-        }
-    }
-
-    /**
-     * Return true if this job should be visible to hr advisors.
-     * It should become visible after Manager has requested a review.
-     *
-     * @return boolean
-     */
-    public function isVisibleToHr()
-    {
-        return $this->job_status_id !== 1;
-    }
 
     /**
      * The database model stores a foreign id to the classification table,

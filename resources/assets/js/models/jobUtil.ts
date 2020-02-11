@@ -57,7 +57,7 @@ export const emptyJob = (): Job => {
     close_date_time: null,
     start_date_time: null,
     department_id: null,
-    job_status_id: JobStatus.Draft,
+    job_poster_status_id: JobStatus.Draft,
     province_id: null,
     salary_min: null,
     salary_max: null,
@@ -156,8 +156,8 @@ export const emptyComment = (): Comment => ({
 });
 // TODO: allow for Complete status.
 export const jobStatus = (job: Job): JobStatus => {
-  if (enumToIds(JobStatus).includes(job.job_status_id)) {
-    return job.job_status_id;
+  if (enumToIds(JobStatus).includes(job.job_poster_status_id)) {
+    return job.job_poster_status_id;
   }
   return JobStatus.Draft;
 };

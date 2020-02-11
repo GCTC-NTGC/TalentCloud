@@ -63,28 +63,45 @@ class JobSummaryController extends Controller
 
 
 
-        switch ($job->job_status_id) {
-            case 1:
+        switch ($job->job_poster_status->name) {
+            case 'draft':
                 $status = Lang::get('common/lookup/job_status.draft');
                 break;
-            case 2:
+            case 'review_hr':
+            case 'review_manager':
                 $status = Lang::get('common/lookup/job_status.in_review');
                 break;
-            case 3:
+            case 'translation':
+                $status = Lang::get('common/lookup/job_status.in_translation');
+                break;
+            case 'final_review_manager':
+            case 'final_review_hr':
+                $status = Lang::get('common/lookup/job_status.final_review');
+                break;
+            case 'approved':
                 $status = Lang::get('common/lookup/job_status.approved');
                 break;
-            case 4:
-                $status = Lang::get('common/lookup/job_status.open');
+            case 'published':
+                if ($job->isOpen()) {
+                    $status = Lang::get('common/lookup/job_status.open');
+                } elseif ($job->isClosed()) {
+                    $status = Lang::get('common/lookup/job_status.closed');
+                } else {
+                    $status = Lang::get('common/lookup/job_status.published');
+                }
                 break;
-            case 5:
-                $status = Lang::get('common/lookup/job_status.closed');
-                break;
-            case 6:
+            case 'completed':
                 $status = Lang::get('common/lookup/job_status.complete');
                 break;
         }
-        // TODO: This should change based on the current status.
-        $status_description = $job->job_status_id == 2
+        // TODO: Need to add more descriptions for different statuses
+        $status_description =
+            (
+                $job->job_poster_status->name === 'review_hr'
+                || $job->job_poster_status->name === 'review_manager'
+                || $job->job_poster_status->name === 'final_review_manager'
+                || $job->job_poster_status->name === 'final_review_hr'
+            )
             ? $summaryLang['under_review']
             : '';
 
@@ -101,9 +118,10 @@ class JobSummaryController extends Controller
             // Application data.
             'applications' => $applications,
             // TODO: Add Routes.
-            // 'send_manager' => ,
-            // 'send_translation' => ,
-            // 'approve_publishing' => ,
+            'send_manager' => '', //route('hr_advisor.jobs.setJobStatus', ['jobPoster'=> $job, 'status' => 'review_manager']),
+            'send_translation' => '', //route('hr_advisor.jobs.setJobStatus', ['jobPoster'=> $job, 'status' => 'translation']),
+            'approve_publishing' => '', //route('hr_advisor.jobs.setJobStatus', ['jobPoster'=> $job, 'status' => 'approved']),
+
             'job_review_data' => $job_review_data,
             'job_preview_data' => $job_preview_data,
             'screening_plan_data' => $screening_plan_data,

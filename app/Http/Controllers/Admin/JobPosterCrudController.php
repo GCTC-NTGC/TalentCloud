@@ -62,21 +62,26 @@ class JobPosterCrudController extends CrudController
             }
         ]);
         $this->crud->addColumn([
-            'name' => 'status',
+            'name' => 'job_poster_status.name',
             'label' => 'Status',
+            'type' => 'text',
+        ]);
+        $this->crud->addColumn([
+            'name' => 'isOpen',
+            'label' => 'isOpen',
             'type' => 'model_function',
-            'function_name' => 'status'
+            'function_name' => 'isOpen'
+        ]);
+        $this->crud->addColumn([
+            'name' => 'isClosed',
+            'label' => 'isClosed',
+            'type' => 'model_function',
+            'function_name' => 'isClosed'
         ]);
 
         $this->crud->addColumn([
             'name' => 'internal_only',
             'label' => 'Internal Only',
-            'type' => 'check',
-        ]);
-
-        $this->crud->addColumn([
-            'name' => 'published',
-            'label' => 'Published',
             'type' => 'check',
         ]);
 

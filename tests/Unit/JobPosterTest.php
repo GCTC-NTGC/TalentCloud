@@ -51,27 +51,6 @@ class JobPosterTest extends TestCase
     }
 
     /**
-     * Test that JobPoster->status() behaves properly
-     *
-     * @return void
-     */
-    public function testJobPosterStatus() : void
-    {
-        $jobPoster = factory(JobPoster::class)->states('draft')->make();
-        $this->assertEquals('draft', $jobPoster->status());
-
-        $jobPoster = factory(JobPoster::class)->states('published')->make();
-        $this->assertEquals('published', $jobPoster->status());
-
-        $jobPoster = factory(JobPoster::class)->states('closed')->make();
-        $this->assertEquals('closed', $jobPoster->status());
-
-        $jobPoster = factory(JobPoster::class)->states('review_requested')->make();
-        $this->assertEquals('submitted', $jobPoster->status());
-    }
-
-
-    /**
      * Test that JobPoster->timeRemaining() behaves properly
      *
      * @return void

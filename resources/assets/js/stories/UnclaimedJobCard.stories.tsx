@@ -12,12 +12,13 @@ const stories = storiesOf("Components|Unclaimed Job Card", module).addDecorator(
 );
 
 const statusOptions = {
-  Approved: JobStatus.Approved,
-  Closed: JobStatus.Closed,
-  Complete: JobStatus.Complete,
   Draft: JobStatus.Draft,
-  Open: JobStatus.Open,
-  Review: JobStatus.Review,
+  Review: JobStatus.ReviewHr,
+  Translation: JobStatus.Translation,
+  FinalReview: JobStatus.FinalReviewManager,
+  Approved: JobStatus.Approved,
+  Complete: JobStatus.Completed,
+  Published: JobStatus.Published,
 };
 
 stories

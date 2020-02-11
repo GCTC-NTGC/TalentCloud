@@ -256,20 +256,20 @@ class JobControllerTest extends TestCase
     public function testSubmitForReview(): void
     {
         $job = factory(JobPoster::class)->states(['byUpgradedManager', 'draft'])->create();
-        $this->assertEquals('draft', $job->status());
+        $this->assertEquals('draft', $job->job_poster_status->name);
         $response = $this
             ->actingAs($job->manager->user)
             ->json('post', "api/jobs/$job->id/submit");
         $response->assertOk();
         $newJob = $job->fresh();
-        $this->assertEquals('submitted', $newJob->status());
+        $this->assertEquals('review_hr', $newJob->job_poster_status->name);
     }
 
     public function testSubmitForReviewFailsWithDemoManager(): void
     {
         // Job has a demoManager by default
         $job = factory(JobPoster::class)->state('draft')->create();
-        $this->assertEquals('draft', $job->status());
+        $this->assertEquals('draft', $job->job_poster_status->name);
         $response = $this
             ->actingAs($job->manager->user)
             ->json('post', "api/jobs/$job->id/submit");
@@ -280,7 +280,7 @@ class JobControllerTest extends TestCase
     {
         $job = factory(JobPoster::class)->state('draft')->create();
         $otherManager = factory(User::class)->state('upgradedManager')->create();
-        $this->assertEquals('draft', $job->status());
+        $this->assertEquals('draft', $job->job_poster_status->name);
         $response = $this
             ->actingAs($otherManager)
             ->json('post', "api/jobs/$job->id/submit");

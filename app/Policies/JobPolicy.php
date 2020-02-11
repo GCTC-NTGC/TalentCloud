@@ -19,11 +19,10 @@ class JobPolicy extends BasePolicy
      */
     public function view(?User $user, JobPoster $jobPoster)
     {
-        // Anyone can view a published job
-        // Only the manager that created it can view an unpublished job
-        // Hr Advisors can view all jobs.
-        return $jobPoster->status() == 'published' ||
-            $jobPoster->status() == 'closed' ||
+        // Anyone can view a published job past the open date
+        // Managers can always view jobs they created.
+        // Hr Advisors can view all jobs in their department.
+        return $jobPoster->isPublic() ||
             ($user &&
                 $user->isManager() &&
                 $jobPoster->manager->user_id == $user->id) ||
@@ -102,7 +101,7 @@ class JobPolicy extends BasePolicy
         // NOTE: this is one of the only permissions to require an upgradedManager, as opposed to a demoManager.
         return $user->isUpgradedManager() &&
             $jobPoster->manager->user->id == $user->id &&
-            $jobPoster->status() === 'draft';
+            $jobPoster->job_poster_status->name === 'draft';
     }
     /**
      * Determine whether the user can review applications to the job poster.

@@ -16,7 +16,7 @@ interface StatusPillProps {
 
 const StatusPill: React.FC<StatusPillProps> = ({ text, status }) => (
   <span
-    data-c-tag={status === JobStatus.Complete ? "go" : "c1"}
+    data-c-tag={status === JobStatus.Completed ? "go" : "c1"}
     data-c-font-size="small"
     data-c-radius="pill"
     data-c-margin="right(half)"

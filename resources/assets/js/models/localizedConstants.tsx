@@ -876,31 +876,49 @@ export const activityLocationOption = (locationId: string): MessageDescriptor =>
   getOrThrowError(activityLocations, locationId, "Invalid LocationId");
 
 const jobStatusMessages = defineMessages({
+  // The hr and manager review statuses can be grouped together.
+  review: {
+    id: "jobStatus.review",
+    defaultMessage: "In Review",
+  },
+  finalReview: {
+    id: "jobStatus.finalReview",
+    defaultMessage: "Final Review",
+  },
   [JobStatus.Draft]: {
     id: "jobStatus.draft",
     defaultMessage: "Draft",
   },
-  [JobStatus.Review]: {
-    id: "jobStatus.review",
-    defaultMessage: "In Review",
+  [JobStatus.Translation]: {
+    id: "jobStatus.translation",
+    defaultMessage: "In Translation",
   },
   [JobStatus.Approved]: {
     id: "jobStatus.approved",
     defaultMessage: "Approved",
   },
-  [JobStatus.Open]: {
-    id: "jobStatus.open",
-    defaultMessage: "Open",
+  [JobStatus.Published]: {
+    id: "jobStatus.published",
+    defaultMessage: "Published",
   },
-  [JobStatus.Closed]: {
-    id: "jobStatus.closed",
-    defaultMessage: "Closed",
-  },
-  [JobStatus.Complete]: {
+  [JobStatus.Completed]: {
     id: "jobStatus.complete",
     defaultMessage: "Complete",
   },
 });
 
-export const jobStatus = (jobStatus: JobStatus): MessageDescriptor =>
-  getOrThrowError(jobStatusMessages, jobStatus, "Invalid Job Status");
+export const jobStatus = (jobStatus: JobStatus): MessageDescriptor => {
+  const groupReviewStatus = (jobStatus: JobStatus): JobStatus | "review" | "finalReview" => {
+    switch (jobStatus) {
+      case JobStatus.ReviewHr:
+      case JobStatus.ReviewManager:
+        return "review";
+      case JobStatus.FinalReviewHr:
+      case JobStatus.FinalReviewManager:
+        return "finalReview";
+      default:
+        return jobStatus;
+    }
+  }
+  return getOrThrowError(jobStatusMessages, groupReviewStatus(jobStatus), "Invalid Job Status");
+}
