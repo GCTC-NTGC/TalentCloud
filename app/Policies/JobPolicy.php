@@ -22,7 +22,8 @@ class JobPolicy extends BasePolicy
         // Anyone can view a published job
         // Only the manager that created it can view an unpublished job
         // Hr Advisors can view all jobs.
-        return $jobPoster->status() == 'published' || $jobPoster->status() == 'closed' ||
+        return $jobPoster->status() == 'published' ||
+            $jobPoster->status() == 'closed' ||
             ($user &&
                 $user->isManager() &&
                 $jobPoster->manager->user_id == $user->id) ||
@@ -187,5 +188,19 @@ class JobPolicy extends BasePolicy
     public function unClaim(User $user, JobPoster $jobPoster): bool
     {
         return $this->claim($user, $jobPoster);
+    }
+
+    /**
+     * Determine whether the user can view assessment plan.
+     *
+     * @param \App\Models\User      $user      User object making the request.
+     * @param \App\Models\JobPoster $jobPoster Job Poster object being acted upon.
+     * @return boolean
+     */
+    public function viewAssessmentPlan(User $user, JobPoster $jobPoster): bool
+    {
+        return $user->isAdmin() ||
+        $user->isManager() && $jobPoster->manager->user_id === $user->id ||
+        $user->isHrAdvisor() && $jobPoster->hr_advisors->contains('user_id', $user->id);
     }
 }

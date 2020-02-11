@@ -23,6 +23,8 @@ class TwoFactorController extends AuthController
             $profile_url = '';
         if (WhichPortal::isApplicantPortal()) {
             $profile_url = route('settings.edit');
+        } elseif (WhichPortal::isHrPortal()) {
+            $profile_url = route('hr_advisor.settings.edit');
         } elseif (WhichPortal::isManagerPortal()) {
             $profile_url = route('manager.settings.edit');
         } elseif (WhichPortal::isAdminPortal()) {
@@ -49,6 +51,8 @@ class TwoFactorController extends AuthController
             $profile_url = route('settings.edit');
         } elseif (WhichPortal::isManagerPortal()) {
             $profile_url = route('manager.settings.edit');
+        } elseif (WhichPortal::isHrPortal()) {
+            $profile_url = route('hr_advisor.settings.edit');
         } elseif (WhichPortal::isAdminPortal()) {
             $profile_url = backpack_url('2fa');
         }
@@ -89,6 +93,8 @@ class TwoFactorController extends AuthController
                 $recovery_codes_url = route('recovery_codes.show');
             } elseif (WhichPortal::isManagerPortal()) {
                 $recovery_codes_url = route('manager.recovery_codes.show');
+            } elseif (WhichPortal::isHrPortal()) {
+                $recovery_codes_url = route('hr_advisor.recovery_codes.show');
             } elseif (WhichPortal::isAdminPortal()) {
                 $recovery_codes_url = route('admin.recovery_codes.show');
             }
@@ -100,6 +106,8 @@ class TwoFactorController extends AuthController
                 $activation_url = route('two_factor.activate');
             } elseif (WhichPortal::isManagerPortal()) {
                 $activation_url = route('manager.two_factor.activate');
+            } elseif (WhichPortal::isHrPortal()) {
+                $activation_url = route('hr_advisor.two_factor.activate');
             } elseif (WhichPortal::isAdminPortal()) {
                 $activation_url = backpack_url('admin.two_factor.activate');
             }

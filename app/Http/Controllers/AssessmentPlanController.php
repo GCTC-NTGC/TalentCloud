@@ -9,6 +9,8 @@ use App\Models\Assessment;
 use App\Models\RatingGuideQuestion;
 use App\Models\RatingGuideAnswer;
 use App\Models\Lookup\AssessmentType;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
 
 class AssessmentPlanController extends Controller
 {
@@ -22,10 +24,6 @@ class AssessmentPlanController extends Controller
      */
     public function getForJob(JobPoster $jobPoster)
     {
-        if (Gate::denies('view-assessment-plan', $jobPoster)) {
-            abort(403);
-        }
-
         $criteria = Criteria::where('job_poster_id', $jobPoster->id)->get();
         $criteriaTranslated = [];
         foreach ($criteria as $criterion) {
@@ -57,4 +55,21 @@ class AssessmentPlanController extends Controller
             'rating_guide_answers' => $answers->toArray()
         ];
     }
+
+    public function show(JobPoster $jobPoster)
+    {
+        // Show demo notification if the user is a demoManager and is not an hr-advisor that has claimed the job.
+        $display_demo_notification = Auth::user() !== null &&
+                                  Auth::user()->isDemoManager() &&
+                                  (!$jobPoster->hr_advisors->contains('user_id', Auth::user()->id) &&
+                                  Auth::user()->isHrAdvisor());
+
+        return view('manager/assessment_plan', [
+            'title' => Lang::get('manager/assessment_plan.title'),
+            'job_id' => $jobPoster->id,
+            'display_demo_notification' => $display_demo_notification,
+        ]);
+    }
 }
+
+

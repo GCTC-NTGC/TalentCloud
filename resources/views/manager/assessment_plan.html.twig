@@ -14,13 +14,16 @@
 
     {% include "common/header" with { 'header': { 'title': title } } %}
 
-    {% include "manager/notification" %}
+    {% if display_demo_notification %}
+        {% include "manager/notification" %}
+    {% endif %}
 
     <a id="skipLink"></a>
 
     <div
         data-clone
         id="assessment-plan-root"
+        data-job-id="{{job_id|json_encode()}}"
     >
     </div>
 

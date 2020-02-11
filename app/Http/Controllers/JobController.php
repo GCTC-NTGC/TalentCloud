@@ -15,6 +15,7 @@ use App\Models\Manager;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Services\Validation\JobPosterValidator;
 use Facades\App\Services\WhichPortal;
+use Illuminate\Support\Facades\Validator;
 
 class JobController extends Controller
 {
@@ -33,6 +34,7 @@ class JobController extends Controller
         // from being actually loaded and firing off events.
         $jobs = JobPoster::where('open_date_time', '<=', $now)
             ->where('close_date_time', '>=', $now)
+            ->where('internal_only', false)
             ->where('published', true)
             ->with([
                 'department',
@@ -326,6 +328,15 @@ class JobController extends Controller
         if ($jobPoster->manager_id == null) {
             $jobPoster->manager_id = $request->user()->manager->id;
             $jobPoster->save();
+        }
+
+        $validator = Validator::make($request->input('question'), [
+            '*.question.*' => 'required|string',
+            '*.description.*' => 'required|string'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect(route('admin.jobs.edit', $jobPoster->id));
         }
 
         $this->fillAndSaveJobPosterQuestions($input, $jobPoster, true);

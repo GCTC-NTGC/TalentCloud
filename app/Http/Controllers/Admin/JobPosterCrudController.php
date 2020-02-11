@@ -67,11 +67,19 @@ class JobPosterCrudController extends CrudController
             'type' => 'model_function',
             'function_name' => 'status'
         ]);
+
+        $this->crud->addColumn([
+            'name' => 'internal_only',
+            'label' => 'Internal Only',
+            'type' => 'check',
+        ]);
+
         $this->crud->addColumn([
             'name' => 'published',
             'label' => 'Published',
             'type' => 'check',
         ]);
+
         $this->crud->addColumn([
             'name' => 'manager_user_name',
             'type' => 'closure',
@@ -189,6 +197,13 @@ class JobPosterCrudController extends CrudController
                 'format' => 'yyyy-mm-dd',
             ],
         ]);
+
+        $this->crud->addField([
+            'name' => 'internal_only',
+            'type' => 'checkbox',
+            'label' => 'Internal Only (Do not list this poster on the Browse Jobs page. You must access it with the direct URL.)',
+        ]);
+
         if ($this->crud->getCurrentEntry() &&
             !$this->crud->getCurrentEntry()->published
         ) {
@@ -215,6 +230,7 @@ class JobPosterCrudController extends CrudController
             'close_date_time' => $close_date !== null ? ptDayEndToUtcTime($close_date) : null,
             'start_date_time' => $start_date !== null ? ptDayStartToUtcTime($start_date) : null,
         ]);
+
         $response = $this->traitUpdate();
 
         return $response;
