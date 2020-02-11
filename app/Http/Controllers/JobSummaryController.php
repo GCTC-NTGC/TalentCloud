@@ -50,7 +50,7 @@ class JobSummaryController extends Controller
             'imgSrc' => '/images/job-process-summary-tool-screen.svg',
             'imgAlt' => "{$summaryLang['screening_plan_icon']} {$summaryLang['flat_icons']}",
             'text' => $summaryLang['screening_plan_button'],
-            'url' => route('hr_advisor.jobs.screening_plan', $job),
+            'url' => route(WhichPortal::prefixRoute('jobs.screening_plan'), $job),
             'disabled' => false
         ];
 
