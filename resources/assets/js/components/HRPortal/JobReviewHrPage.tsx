@@ -10,6 +10,7 @@ import {
   Skill,
   Manager,
   Department,
+  Comment,
 } from "../../models/types";
 import { hrJobSummary } from "../../helpers/routes";
 import { RootState } from "../../store/store";
@@ -35,6 +36,7 @@ import ActivityFeed from "../ActivityFeed";
 import { jobReviewLocations } from "../../models/localizedConstants";
 import { LocationId } from "../../models/lookupConstants";
 import { localizeField } from "../../helpers/localize";
+import { hasKey } from "../../helpers/queries";
 
 interface JobReviewHrPageProps {
   jobId: number;
@@ -98,6 +100,9 @@ const JobReviewHrPage: React.FunctionComponent<JobReviewHrPageProps> = ({
             isHrAdvisor
             generalLocation={LocationId.jobGeneric}
             locationMessages={jobReviewLocations}
+            filterComments={(comment: Comment): boolean =>
+              hasKey(jobReviewLocations, comment.location)
+            }
           />
           <JobReviewDisplay
             job={job}

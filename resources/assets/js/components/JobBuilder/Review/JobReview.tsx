@@ -13,6 +13,7 @@ import {
   Skill,
   Department,
   Manager,
+  Comment,
 } from "../../../models/types";
 import {
   jobBuilderDetails,
@@ -799,6 +800,9 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
           isHrAdvisor={false}
           generalLocation={LocationId.jobGeneric}
           locationMessages={jobReviewLocations}
+          filterComments={(comment: Comment): boolean =>
+            hasKey(jobReviewLocations, comment.location)
+          }
         />
         <JobReviewDisplay
           job={job}
