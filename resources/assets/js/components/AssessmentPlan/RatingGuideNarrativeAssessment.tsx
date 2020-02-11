@@ -19,6 +19,7 @@ import {
   getCriteriaByJobAndAssessmentType,
   getCriteriaToSkills,
 } from "../../store/Job/jobSelectorComplex";
+import { getLocale, localizeFieldNonNull } from "../../helpers/localize";
 
 interface RatingGuideNarrativeAssessmentProps {
   /** The id of the job Job Poster this is part of */
@@ -38,6 +39,7 @@ export const RatingGuideNarrativeAssessment: React.FunctionComponent<RatingGuide
   criteriaToSkill,
   intl,
 }): React.ReactElement | null => {
+  const locale = getLocale(intl.locale);
   if (jobId === null) {
     return null;
   }
@@ -47,7 +49,7 @@ export const RatingGuideNarrativeAssessment: React.FunctionComponent<RatingGuide
   };
   const getCriteriaSkillName = (criterionId: number): string => {
     const skill = criteriaToSkill[criterionId];
-    return skill ? skill.name[intl.locale] : "";
+    return skill ? localizeFieldNonNull(locale, skill, "name") : "";
   };
   return (
     <div>
