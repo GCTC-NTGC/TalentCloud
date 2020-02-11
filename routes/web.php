@@ -215,8 +215,8 @@ Route::group(
                         'settings/{user}/account/delete',
                         'SettingsController@deleteAccount'
                     )
-                        ->middleware('can:view,applicant')
-                        ->middleware('can:update,applicant')
+                        ->middleware('can:view,user')
+                        ->middleware('can:update,user')
                         ->name('settings.account.delete');
 
                     /* 2FA Settings */

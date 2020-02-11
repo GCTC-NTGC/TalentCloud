@@ -100,6 +100,8 @@ class ApplicantPolicy extends BasePolicy
      */
     public function delete(User $user, Applicant $applicant)
     {
+        return $user->isApplicant() &&
+            $applicant->user_id === $user->id;
     }
 
     /**

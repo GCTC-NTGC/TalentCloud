@@ -26,7 +26,7 @@ class AddSoftDeleteToApplicant extends Migration
     public function down()
     {
         Schema::table('applicants', function (Blueprint $table) {
-            $table->dropColumn('deleted_at');
+            $table->dropSoftDeletes();
         });
     }
 }

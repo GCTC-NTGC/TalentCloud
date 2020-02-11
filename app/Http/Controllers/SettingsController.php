@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Applicant;
 use App\Models\User;
-use App\Services\Validation\Rules\PasswordCorrectRule;
-use App\Services\Validation\Rules\PasswordFormatRule;
-use Facades\App\Services\WhichPortal;
+use App\Models\Applicant;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Lang;
+use Facades\App\Services\WhichPortal;
+use App\Services\Validation\Rules\PasswordFormatRule;
+use App\Services\Validation\Rules\PasswordCorrectRule;
 
 class SettingsController extends Controller
 {
@@ -54,7 +55,6 @@ class SettingsController extends Controller
             'deactivate_two_factor' => route(WhichPortal::prefixRoute('two_factor.deactivate')),
             'forget_remembered_devices' => route(WhichPortal::prefixRoute('two_factor.forget')),
             'generate_recovery_codes' => route(WhichPortal::prefixRoute('recovery_codes.show'))
-
         ];
 
         return view(
@@ -148,13 +148,13 @@ class SettingsController extends Controller
     public function deleteAccount(Request $request, User $user)
     {
         $validData = $request->validate([
-            'confirm_delete' => ['required', 'same:email']
+            'confirm_delete' => ['required']
         ]);
 
         if ($validData) {
             Applicant::where('user_id', $user->id)->delete();
         }
 
-        return redirect()->route(WhichPortal::prefixRoute('settings.edit'))->withSuccess(Lang::get('success.delete_account'));
+        return redirect()->post(route('logout'))->withSuccess(Lang::get('success.delete_account'));
     }
 }
