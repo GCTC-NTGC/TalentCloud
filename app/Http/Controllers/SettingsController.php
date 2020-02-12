@@ -147,14 +147,17 @@ class SettingsController extends Controller
      */
     public function deleteAccount(Request $request, User $user)
     {
+        $user = Auth::user();
+
         $validData = $request->validate([
             'confirm_delete' => ['required']
         ]);
 
         if ($validData) {
+            Auth::logout();
             Applicant::where('user_id', $user->id)->delete();
         }
 
-        return redirect()->post(route('logout'))->withSuccess(Lang::get('success.delete_account'));
+        return redirect()->route('home')->withSuccess(Lang::get('success.delete_account'));
     }
 }
