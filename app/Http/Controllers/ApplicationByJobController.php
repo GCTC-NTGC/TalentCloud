@@ -792,8 +792,6 @@ class ApplicationByJobController extends Controller
             $validator = new ApplicationValidator();
             $validatorInstance = $validator->validator($application);
             if (!$validatorInstance->passes()) {
-                // $msg = implode(', ', $validator->errors()->all());
-                // $msg = implode('; ', $validator->getMessageBag()->getMessages());
                 $userId = $application->applicant->user_id;
                 $msg = "Application $application->id for user $userId is invalid for submission: " .
                     implode('; ', $validator->detailedValidatorErrors($application));
