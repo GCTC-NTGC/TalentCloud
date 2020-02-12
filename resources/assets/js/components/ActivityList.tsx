@@ -24,7 +24,6 @@ interface ActivityListProps {
   comments: Comment[];
   handleFetchComments: (jobId: number) => Promise<void>;
   filterComments?: (comment: Comment) => boolean;
-  setTotalActivities?: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const ActivityList: React.FunctionComponent<ActivityListProps> = ({
@@ -32,7 +31,6 @@ export const ActivityList: React.FunctionComponent<ActivityListProps> = ({
   comments,
   handleFetchComments,
   isHrAdvisor,
-  setTotalActivities,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -45,15 +43,12 @@ export const ActivityList: React.FunctionComponent<ActivityListProps> = ({
     handleFetchComments(jobId)
       .then(() => {
         setLoadingActivities(false);
-        if (setTotalActivities) {
-          setTotalActivities(activities.length);
-        }
       })
       .catch(() => {
         setLoadingActivities(false);
         setIsError(true);
       });
-  }, [activities.length, handleFetchComments, jobId, setTotalActivities]);
+  }, [handleFetchComments, jobId]);
 
   const activityType = (type: number | null): string => {
     switch (type) {
