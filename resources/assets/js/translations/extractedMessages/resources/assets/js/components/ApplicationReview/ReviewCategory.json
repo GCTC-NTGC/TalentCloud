@@ -1,5 +1,45 @@
 [
   {
+    "id": "apl.priorityApplicants.title",
+    "description": "title of list of priority applicants",
+    "defaultMessage": "Priority Applicants"
+  },
+  {
+    "id": "apl.priorityApplicants.description",
+    "description": "description of list of priority applicants",
+    "defaultMessage": "These are priority applicants for this position. They must be reviewed and considered first."
+  },
+  {
+    "id": "apl.veteransAndCitizens.title",
+    "description": "title of list of Veterans and Canadian citizens",
+    "defaultMessage": "Veterans and Canadian Citizens"
+  },
+  {
+    "id": "apl.veteransAndCitizens.description",
+    "description": "description of list of Veterans and Canadian citizens",
+    "defaultMessage": " "
+  },
+  {
+    "id": "apl.nonCitizens.title",
+    "description": "title of list of non-citizen applicants",
+    "defaultMessage": "Non-Canadian Citizens"
+  },
+  {
+    "id": "apl.nonCitizens.description",
+    "description": "description of list of non-citizen applicants",
+    "defaultMessage": " "
+  },
+  {
+    "id": "apl.unqualified.title",
+    "description": "title of list of applicants who do not meet the essential criteria",
+    "defaultMessage": "Don't Meet Essential Criteria"
+  },
+  {
+    "id": "apl.unqualified.description",
+    "description": "description of list of applicants who do not meet the essential criteria",
+    "defaultMessage": " "
+  },
+  {
     "id": "button.confirm",
     "description": "Confirm button for modal dialogue boxes",
     "defaultMessage": "Confirm"

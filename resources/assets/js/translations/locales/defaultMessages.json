@@ -357,12 +357,42 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Under Consideration",
+        "description": "Under consideration category title",
+        "id": "apl.underConsideration.title"
+      },
+      {
+        "defaultMessage": "Review the applicants in the Veterans and Canadian Citizens section. If none or very few of these applicants meet the requirements, you can still consider non-Canadian Citizen applications in the Optional Consideration section",
+        "description": "Under consideration category description",
+        "id": "apl.underConsideration.description"
+      },
+      {
+        "defaultMessage": "Optional Consideration",
+        "description": "Optional consideration category title",
+        "id": "apl.optionalConsideration.title"
+      },
+      {
+        "defaultMessage": "In this group you will find the applicants who are not Canadian Citizens or do not claim to meet the essential criteria.",
+        "description": "Optional consideration category description",
+        "id": "apl.optionalConsideration.description"
+      },
+      {
+        "defaultMessage": "No Longer Under Consideration",
+        "description": "Screened out category title",
+        "id": "apl.screenedOut.title"
+      },
+      {
+        "defaultMessage": "These applications have already been screened out.",
+        "description": "Screened out category description",
+        "id": "apl.screenedOut.description"
+      },
+      {
         "defaultMessage": "Applications for: {jobTitle} {jobClassification}",
         "description": "Welcome header on Job Applications index page",
         "id": "apl.indexPageTitle"
       },
       {
-        "defaultMessage": "{dayCount, plural,\n              =0 {No Days}\n            one {# Day}\n          other {# Days}\n        } Since Close",
+        "defaultMessage": "{dayCount, plural,\r\n              =0 {No Days}\r\n            one {# Day}\r\n          other {# Days}\r\n        } Since Close",
         "description": "Welcome header on app main page",
         "id": "job.daysSinceClosed"
       }
@@ -386,6 +416,46 @@
   },
   {
     "descriptors": [
+      {
+        "defaultMessage": "Priority Applicants",
+        "description": "title of list of priority applicants",
+        "id": "apl.priorityApplicants.title"
+      },
+      {
+        "defaultMessage": "These are priority applicants for this position. They must be reviewed and considered first.",
+        "description": "description of list of priority applicants",
+        "id": "apl.priorityApplicants.description"
+      },
+      {
+        "defaultMessage": "Veterans and Canadian Citizens",
+        "description": "title of list of Veterans and Canadian citizens",
+        "id": "apl.veteransAndCitizens.title"
+      },
+      {
+        "defaultMessage": " ",
+        "description": "description of list of Veterans and Canadian citizens",
+        "id": "apl.veteransAndCitizens.description"
+      },
+      {
+        "defaultMessage": "Non-Canadian Citizens",
+        "description": "title of list of non-citizen applicants",
+        "id": "apl.nonCitizens.title"
+      },
+      {
+        "defaultMessage": " ",
+        "description": "description of list of non-citizen applicants",
+        "id": "apl.nonCitizens.description"
+      },
+      {
+        "defaultMessage": "Don't Meet Essential Criteria",
+        "description": "title of list of applicants who do not meet the essential criteria",
+        "id": "apl.unqualified.title"
+      },
+      {
+        "defaultMessage": " ",
+        "description": "description of list of applicants who do not meet the essential criteria",
+        "id": "apl.unqualified.description"
+      },
       {
         "defaultMessage": "Confirm",
         "description": "Confirm button for modal dialogue boxes",
@@ -2080,7 +2150,7 @@
         "id": "jobBuilder.review.reviewYourPoster"
       },
       {
-        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\n            understand how an applicant will see it once published.",
+        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\r\n            understand how an applicant will see it once published.",
         "description": "Description under primary title of review section",
         "id": "jobBuilder.review.headsUp"
       },
@@ -3299,9 +3369,14 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Created: ",
+        "defaultMessage": "Received: ",
         "description": "Header for when Job Poster was created.",
-        "id": "openJobCard.createdAt"
+        "id": "openJobCard.reviewRequested"
+      },
+      {
+        "defaultMessage": "Date Unavailable.",
+        "description": "Error getting time review was requested.",
+        "id": "openJobCard.error"
       },
       {
         "defaultMessage": "Hiring Managers: ",
@@ -3480,7 +3555,7 @@
       },
       {
         "defaultMessage": "Essential",
-        "description": "Title of an esential criteria type.",
+        "description": "Title of an essential criteria type.",
         "id": "criteriaType.essential"
       },
       {

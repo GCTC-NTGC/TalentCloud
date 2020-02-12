@@ -1,11 +1,46 @@
 import React from "react";
 import dayjs from "dayjs";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, defineMessages, useIntl } from "react-intl";
 import { Application } from "../../models/types";
 import { SelectOption } from "../Select";
 import { applicationCategory } from "./helpers";
 import ReviewCategory from "./ReviewCategory";
 import { Portal } from "../../models/app";
+
+const messages = defineMessages({
+  underConsiderationTitle: {
+    id: "apl.underConsideration.title",
+    defaultMessage: "Under Consideration",
+    description: "Under consideration category title",
+  },
+  underConsiderationDescription: {
+    id: "apl.underConsideration.description",
+    defaultMessage:
+      "Review the applicants in the Veterans and Canadian Citizens section. If none or very few of these applicants meet the requirements, you can still consider non-Canadian Citizen applications in the Optional Consideration section",
+    description: "Under consideration category description",
+  },
+  optionalConsiderationTitle: {
+    id: "apl.optionalConsideration.title",
+    defaultMessage: "Optional Consideration",
+    description: "Optional consideration category title",
+  },
+  optionalConsiderationDescription: {
+    id: "apl.optionalConsideration.description",
+    defaultMessage:
+      "In this group you will find the applicants who are not Canadian Citizens or do not claim to meet the essential criteria.",
+    description: "Optional consideration category description",
+  },
+  screenedOutTitle: {
+    id: "apl.screenedOut.title",
+    defaultMessage: "No Longer Under Consideration",
+    description: "Screened out category title",
+  },
+  screenedOutDescription: {
+    id: "apl.screenedOut.description",
+    defaultMessage: "These applications have already been screened out.",
+    description: "Screened out category description",
+  },
+});
 
 interface ReviewApplicationsProps {
   title: string;
@@ -35,19 +70,12 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
   savingStatuses,
   portal,
 }: ReviewApplicationsProps): React.ReactElement => {
+  const intl = useIntl();
   const categories = [
     {
-      title: {
-        id: "apl.underConsideration.title",
-        defaultMessage: "Under Consideration",
-        description: "Under consideration category title",
-      },
-      description: {
-        id: "apl.underConsideration.description",
-        defaultMessage:
-          "Review the applicants in the Veterans and Canadian Citizens section. If none or very few of these applicants meet the requirements, you can still consider non-Canadian Citizen applications in the Optional Consideration section",
-        description: "Under consideration category description",
-      },
+      id: messages.underConsiderationTitle.id,
+      title: intl.formatMessage(messages.underConsiderationTitle),
+      description: intl.formatMessage(messages.underConsiderationDescription),
       showScreenOutAll: false,
       applications: applications.filter(
         application => applicationCategory(application) === "primary",
@@ -55,17 +83,11 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
       prioritizeVeterans: false,
     },
     {
-      title: {
-        id: "apl.optionalConsideration.title",
-        defaultMessage: "Optional Consideration",
-        description: "Optional consideration category title",
-      },
-      description: {
-        id: "apl.optionalConsideration.description",
-        defaultMessage:
-          "In this group you will find the applicants who are not Canadian Citizens or do not claim to meet the essential criteria.",
-        description: "Optional consideration category description",
-      },
+      id: messages.optionalConsiderationTitle.id,
+      title: intl.formatMessage(messages.optionalConsiderationTitle),
+      description: intl.formatMessage(
+        messages.optionalConsiderationDescription,
+      ),
       showScreenOutAll: true,
       applications: applications.filter(
         (application): boolean =>
@@ -74,16 +96,9 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
       prioritizeVeterans: true,
     },
     {
-      title: {
-        id: "apl.screenedOut.title",
-        defaultMessage: "No Longer Under Consideration",
-        description: "Screened out category title",
-      },
-      description: {
-        id: "apl.screenedOut.description",
-        defaultMessage: "These applications have already been screened out.",
-        description: "Screened out category description",
-      },
+      id: messages.screenedOutTitle.id,
+      title: intl.formatMessage(messages.screenedOutTitle),
+      description: intl.formatMessage(messages.screenedOutDescription),
       showScreenOutAll: false,
       applications: applications.filter(
         (application): boolean =>
@@ -134,7 +149,7 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
       {categories.map(
         (category): React.ReactElement => (
           <ReviewCategory
-            key={category.title.id}
+            key={category.id}
             {...category}
             reviewStatusOptions={reviewStatusOptions}
             onStatusChange={onStatusChange}
