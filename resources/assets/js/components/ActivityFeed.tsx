@@ -14,7 +14,7 @@ import { commentTypeMessages } from "./CommentForm";
 import { activityLocationOption } from "../models/localizedConstants";
 import { activityLocationUrl } from "../models/jobUtil";
 import { LocationId } from "../models/lookupConstants";
-import { getLocale } from "../helpers/localize";
+import { getLocale, localizeFieldNonNull } from "../helpers/localize";
 import { find } from "../helpers/queries";
 import { getUsers } from "../store/User/userSelector";
 
@@ -133,14 +133,22 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
                   user_id,
                 }: Comment): React.ReactElement => {
                   const user = find(users, user_id);
-                  const fullName = `${user?.first_name ??
-                    ""} ${user?.last_name ?? ""}`.trim();
+                  const fullName = user?.full_name ?? "";
+                  const userRole = user?.user_role;
+                  let displayRole = "";
+                  if (userRole !== undefined) {
+                    displayRole = localizeFieldNonNull(
+                      locale,
+                      userRole,
+                      "name",
+                    );
+                  }
 
                   return (
                     <Activity
                       key={id}
                       name={fullName}
-                      userRole="Replace with Manager Role!" // TODO: Replace with user.role after User api is setup.
+                      userRole={displayRole}
                       comment={comment}
                       location={
                         isValidLocation(location)
