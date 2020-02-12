@@ -9,34 +9,34 @@ import { Portal } from "../../models/app";
 
 const messages = defineMessages({
   underConsiderationTitle: {
-    id: "apl.underConsideration.title",
+    id: "review.applications.underConsideration.title",
     defaultMessage: "Under Consideration",
     description: "Under consideration category title",
   },
   underConsiderationDescription: {
-    id: "apl.underConsideration.description",
+    id: "review.applications.underConsideration.description",
     defaultMessage:
       "Review the applicants in the Veterans and Canadian Citizens section. If none or very few of these applicants meet the requirements, you can still consider non-Canadian Citizen applications in the Optional Consideration section",
     description: "Under consideration category description",
   },
   optionalConsiderationTitle: {
-    id: "apl.optionalConsideration.title",
+    id: "review.applications.optionalConsideration.title",
     defaultMessage: "Optional Consideration",
     description: "Optional consideration category title",
   },
   optionalConsiderationDescription: {
-    id: "apl.optionalConsideration.description",
+    id: "review.applications.optionalConsideration.description",
     defaultMessage:
       "In this group you will find the applicants who are not Canadian Citizens or do not claim to meet the essential criteria.",
     description: "Optional consideration category description",
   },
   screenedOutTitle: {
-    id: "apl.screenedOut.title",
+    id: "review.applications.screenedOut.title",
     defaultMessage: "No Longer Under Consideration",
     description: "Screened out category title",
   },
   screenedOutDescription: {
-    id: "apl.screenedOut.description",
+    id: "review.applications.screenedOut.description",
     defaultMessage: "These applications have already been screened out.",
     description: "Screened out category description",
   },
@@ -114,7 +114,7 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
         <div className="box med-1of2 job-title-wrapper">
           <span>
             <FormattedMessage
-              id="apl.indexPageTitle"
+              id="review.applications.indexPageTitle"
               defaultMessage="Applications for: {jobTitle} {jobClassification}"
               description="Welcome header on Job Applications index page"
               values={{

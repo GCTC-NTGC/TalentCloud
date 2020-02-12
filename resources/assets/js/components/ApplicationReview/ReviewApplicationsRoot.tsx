@@ -40,12 +40,12 @@ interface ReviewSubmitForm {
 
 const localizations = defineMessages({
   oops: {
-    id: "alert.oops",
+    id: "review.applications.alert.oops",
     defaultMessage: "Save",
     description: "Dynamic Save button label",
   },
   somethingWrong: {
-    id: "apl.reviewSaveFailed",
+    id: "review.applications.reviewSaveFailed",
     defaultMessage:
       "Something went wrong while saving a review. Try again later.",
     description: "Dynamic Save button label",

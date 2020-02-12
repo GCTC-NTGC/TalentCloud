@@ -28,55 +28,55 @@ interface ReviewCategoryProps {
 
 const messages = defineMessages({
   priorityApplicantsTitle: {
-    id: "apl.priorityApplicants.title",
+    id: "review.applications.priorityApplicants.title",
     defaultMessage: "Priority Applicants",
     description: "title of list of priority applicants",
   },
   priorityApplicantsDescription: {
-    id: "apl.priorityApplicants.description",
+    id: "review.applications.priorityApplicants.description",
     defaultMessage:
       "These are priority applicants for this position. They must be reviewed and considered first.",
     description: "description of list of priority applicants",
   },
   veteransAndCitizensTitle: {
-    id: "apl.veteransAndCitizens.title",
+    id: "review.applications.veteransAndCitizens.title",
     defaultMessage: "Veterans and Canadian Citizens",
     description: "title of list of Veterans and Canadian citizens",
   },
   veteransAndCitizensDescriptions: {
-    id: "apl.veteransAndCitizens.description",
+    id: "review.applications.veteransAndCitizens.description",
     defaultMessage: " ",
     description: "description of list of Veterans and Canadian citizens",
   },
   nonCitizensTitle: {
-    id: "apl.nonCitizens.title",
+    id: "review.applications.nonCitizens.title",
     defaultMessage: "Non-Canadian Citizens",
     description: "title of list of non-citizen applicants",
   },
   nonCitizensDescription: {
-    id: "apl.nonCitizens.description",
+    id: "review.applications.nonCitizens.description",
     defaultMessage: " ",
     description: "description of list of non-citizen applicants",
   },
   unqualifiedTitle: {
-    id: "apl.unqualified.title",
+    id: "review.applications.unqualified.title",
     defaultMessage: "Don't Meet Essential Criteria",
     description:
       "title of list of applicants who do not meet the essential criteria",
   },
   unqualifiedDescription: {
-    id: "apl.unqualified.description",
+    id: "review.applications.unqualified.description",
     defaultMessage: " ",
     description:
       "description of list of applicants who do not meet the essential criteria",
   },
   confirmButton: {
-    id: "button.confirm",
+    id: "review.applications.button.confirm",
     defaultMessage: "Confirm",
     description: "Confirm button for modal dialogue boxes",
   },
   screenOutAllConfirm: {
-    id: "apl.screenOutAll.confirm",
+    id: "review.applications.screenOutAll.confirm",
     defaultMessage:
       "Are you sure you want to screen out all Optional candidates?",
     description:
@@ -209,7 +209,7 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = ({
               <i className="fas fa-ban" />
               &nbsp;
               <FormattedMessage
-                id="apl.screenOutAll"
+                id="review.applications.screenOutAll"
                 defaultMessage="Screen All Optional Candidates Out"
                 description="Button to screen out all optional candidates from competition with one click"
               />
