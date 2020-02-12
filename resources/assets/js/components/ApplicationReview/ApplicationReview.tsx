@@ -102,7 +102,7 @@ const messages = defineMessages({
   screenOutConfirm: {
     id: "apl.screenOutConfirm",
     defaultMessage: "Screen out the candidate?",
-    description: "Are you sure you want to screen out the candidate worning",
+    description: "Are you sure you want to screen out the candidate warning",
   },
   screenInConfirm: {
     id: "apl.screenInConfirm",
