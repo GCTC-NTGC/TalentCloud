@@ -73,7 +73,7 @@ before_script:
 
 script:
   # check dependencies for security vulnerabilities
-  - npm run snyk
+  # npm run snyk
   # code coverage setup
   - if [ $TEST_SUITE != "browser" ]; then
       mkdir -p report/;
