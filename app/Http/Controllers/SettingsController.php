@@ -156,6 +156,7 @@ class SettingsController extends Controller
         if ($validData) {
             Auth::logout();
             Applicant::where('user_id', $user->id)->delete();
+            User::where('id', $user->id)->delete();
         }
 
         return redirect()->route('home')->withSuccess(Lang::get('success.delete_account'));

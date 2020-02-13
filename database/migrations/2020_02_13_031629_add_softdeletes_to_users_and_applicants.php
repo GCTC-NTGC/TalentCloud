@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSoftDeleteToApplicant extends Migration
+class AddSoftdeletesToUsersAndApplicants extends Migration
 {
     /**
      * Run the migrations.
@@ -13,6 +13,10 @@ class AddSoftDeleteToApplicant extends Migration
      */
     public function up()
     {
+        Schema::table('users', function (Blueprint $table) {
+            $table->softDeletes();
+        });
+
         Schema::table('applicants', function (Blueprint $table) {
             $table->softDeletes();
         });
@@ -25,6 +29,10 @@ class AddSoftDeleteToApplicant extends Migration
      */
     public function down()
     {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
+
         Schema::table('applicants', function (Blueprint $table) {
             $table->dropSoftDeletes();
         });

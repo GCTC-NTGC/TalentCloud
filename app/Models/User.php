@@ -19,6 +19,7 @@ use App\Events\UserUpdated;
 use App\Notifications\ResetPasswordNotification;
 use App\Traits\TalentCloudCrudTrait as CrudTrait;
 use App\Traits\RememberDeviceTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class User
@@ -64,6 +65,8 @@ class User extends BaseModel implements
     use CrudTrait;
     // Trait for 2FA device memory.
     use RememberDeviceTrait;
+    // Trait for deleted_at column.
+    use SoftDeletes;
 
     protected $casts = [
         'is_confirmed' => 'boolean',

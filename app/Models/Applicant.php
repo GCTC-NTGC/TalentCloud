@@ -37,6 +37,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Applicant extends BaseModel
 {
+    // Trait for deleted_at column.
     use SoftDeletes;
 
     protected $casts = [

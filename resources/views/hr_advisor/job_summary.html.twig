@@ -67,7 +67,8 @@
 									</p>
 									<p data-c-margin="bottom(.5)">
 										<span data-c-font-weight="600" data-c-color="c2">
-											{{ summary.applicants_label }}:</span> {{ applications|length }}
+											{{ summary.applicants_label }}:</span>
+										{{ applications|length }}
 									</p>
 								</div>
 								<div data-c-accordion-group>
@@ -91,8 +92,16 @@
 											<div data-c-padding="bottom(normal)">
 												<p data-c-margin="top(.5)">
 													<span data-c-color="c2" data-c-font-weight="600">{{ summary.managers_label }}</span>
-													{# Add list of job claimants #}
-													You, Steven Sherman
+													{% if is_claimed %}
+														<ul data-c-margin="top(.25)">
+															{% for hr_advisor in hr_advisors %}
+																<li>{{ hr_advisor.user.first_name }}
+																	{{ hr_advisor.user.last_name }}</li>
+															{% endfor %}
+														</ul>
+													{% else %}
+														{{ summary.not_applicable }}
+													{% endif %}
 												</p>
 												<p data-c-margin="top(.5)">
 													<span data-c-color="c2" data-c-font-weight="600">{{ summary.process_label }}</span>
