@@ -18,7 +18,7 @@ import { find } from "../../helpers/queries";
 import * as routes from "../../helpers/routes";
 import { classificationString } from "../../models/jobUtil";
 import { axios } from "../../api/base";
-import IntlContainer from "../../IntlContainer";
+import RootContainer from "../RootContainer";
 import { Portal } from "../../models/app";
 
 interface ReviewApplicationsProps {
@@ -213,6 +213,7 @@ class ReviewApplicationsRoot extends React.Component<
 
     return (
       <ReviewApplications
+        jobId={job.id}
         title={job.title[intl.locale]}
         classification={classificationString(job)}
         closeDateTime={job.close_date_time}
@@ -245,17 +246,16 @@ const renderReviewApplications = (
     const reviewStatuses = JSON.parse(
       container.getAttribute("data-review-statuses") as string,
     );
-    const language = container.getAttribute("data-locale") as string;
     const IntlReviewApplicationsRoot = injectIntl(ReviewApplicationsRoot);
     ReactDOM.render(
-      <IntlContainer locale={language}>
+      <RootContainer>
         <IntlReviewApplicationsRoot
           job={job}
           initApplications={applications}
           reviewStatuses={reviewStatuses}
           portal={portal}
         />
-      </IntlContainer>,
+      </RootContainer>,
       container,
     );
   }
