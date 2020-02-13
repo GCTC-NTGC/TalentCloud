@@ -274,6 +274,7 @@ class JobPoster extends BaseModel
         'work_env_description',
         'culture_summary',
         'culture_special',
+        'created_at',
     ];
 
     /**

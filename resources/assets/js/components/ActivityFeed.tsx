@@ -1,18 +1,19 @@
 import * as React from "react";
-import { connect } from "react-redux";
 import {
   useIntl,
   FormattedMessage,
   MessageDescriptor,
   defineMessages,
 } from "react-intl";
-import { RootState } from "../store/store";
-import { getComments } from "../store/Job/jobSelector";
+import { connect } from "react-redux";
 import { hasKey } from "../helpers/queries";
 import { LocationId } from "../models/lookupConstants";
 import CommentForm from "./CommentForm";
 import ActivityList from "./ActivityList";
 import Icon from "./Icon";
+import { Comment } from "../models/types";
+import { fetchingComments, getComments } from "../store/Job/jobSelector";
+import { RootState } from "../store/store";
 
 const messages = defineMessages({
   loadingIcon: {
@@ -23,19 +24,23 @@ const messages = defineMessages({
 });
 
 interface ActivityFeedProps {
-  jobId: number;
-  isHrAdvisor: boolean;
+  commentsLoading: boolean;
   generalLocation: string;
+  isHrAdvisor: boolean;
+  jobId: number;
   locationMessages: { [LocationId: string]: MessageDescriptor };
   totalActivities: number;
+  filterComments?: (comment: Comment) => boolean;
 }
 
 const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
-  jobId,
-  isHrAdvisor,
+  commentsLoading,
   generalLocation,
-  totalActivities,
+  isHrAdvisor,
+  jobId,
   locationMessages,
+  totalActivities,
+  filterComments,
 }) => {
   const intl = useIntl();
   const locationOptions = Object.values(LocationId)
@@ -63,18 +68,17 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
                   defaultMessage="Click to View Comments {totalActivities}"
                   description="The activity feed header."
                   values={{
-                    totalActivities:
-                      totalActivities === 0 ? (
-                        <Icon
-                          icon="fa fa-spinner fa-spin"
-                          accessibleText={intl.formatMessage(
-                            messages.loadingIcon,
-                          )}
-                          sematicIcon
-                        />
-                      ) : (
-                        `(${totalActivities})`
-                      ),
+                    totalActivities: commentsLoading ? (
+                      <Icon
+                        icon="fa fa-spinner fa-spin"
+                        accessibleText={intl.formatMessage(
+                          messages.loadingIcon,
+                        )}
+                        sematicIcon
+                      />
+                    ) : (
+                      `(${totalActivities})`
+                    ),
                   }}
                 />
               </h3>
@@ -114,7 +118,11 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
               locationOptions={locationOptions}
             />
             <hr data-c-hr="thin(black)" data-c-margin="top(1)" />
-            <ActivityList jobId={jobId} isHrAdvisor={isHrAdvisor} />
+            <ActivityList
+              jobId={jobId}
+              isHrAdvisor={isHrAdvisor}
+              filterComments={filterComments}
+            />
           </div>
         </div>
       </div>
@@ -124,10 +132,15 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
 
 const mapStateToProps = (
   state: RootState,
+  {
+    filterComments = (): boolean => true,
+  }: { filterComments?: (comment: Comment) => boolean },
 ): {
+  commentsLoading: boolean;
   totalActivities: number;
 } => ({
-  totalActivities: getComments(state).length,
+  commentsLoading: fetchingComments(state),
+  totalActivities: getComments(state).filter(filterComments).length,
 });
 
 export default connect(mapStateToProps, () => ({}))(ActivityFeed);

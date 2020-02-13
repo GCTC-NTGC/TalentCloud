@@ -7,7 +7,7 @@ import JobIndexHr from "./JobIndexHr";
 import { JobCardProps } from "../JobCard";
 import { Job, Manager } from "../../models/types";
 import { classificationString, jobStatus } from "../../models/jobUtil";
-import { localizeField, Locales } from "../../helpers/localize";
+import { localizeField, Locales, getLocale } from "../../helpers/localize";
 import {
   hrJobSummary,
   hrJobReview,
@@ -15,7 +15,6 @@ import {
   hrScreeningPlan,
 } from "../../helpers/routes";
 import { UnclaimedJobCardProps } from "../UnclaimedJobCard";
-import { readableDateTime } from "../../helpers/dates";
 import { find, stringNotEmpty } from "../../helpers/queries";
 import {
   getHrAdvisor as fetchHrAdvisor,
@@ -146,7 +145,7 @@ const makeUnclaimedJob = (
         : intl.formatMessage(messages.titleMissing),
       title: "",
     },
-    createdAt: readableDateTime(locale, job.created_at),
+    reviewRequested: job.review_requested_at || undefined,
     status: jobStatus(job),
     hiringManager:
       manager !== null
@@ -173,10 +172,7 @@ const JobIndexHrPage: React.FC<JobIndexHrPageProps> = ({
   handleClaimJob,
 }) => {
   const intl = useIntl();
-  const { locale } = intl;
-  if (locale !== "en" && locale !== "fr") {
-    throw new Error("Unknown intl.locale");
-  }
+  const locale = getLocale(intl.locale);
 
   const isClaimed = (job: Job): boolean => claimedJobIds.includes(job.id);
   const isUnclaimed = (job: Job): boolean => !isClaimed(job);
@@ -194,6 +190,7 @@ const JobIndexHrPage: React.FC<JobIndexHrPageProps> = ({
     );
 
   const jobActions = jobs.filter(isClaimed).map(jobToAction);
+
   const unclaimedJobs = jobs.filter(isUnclaimed).map(jobToUnclaimed);
 
   return (
@@ -213,10 +210,7 @@ const JobIndexHrDataFetcher: React.FC<JobIndexHrDataFetcherProps> = ({
   hrAdvisorId,
 }) => {
   const intl = useIntl();
-  const { locale } = intl;
-  if (locale !== "en" && locale !== "fr") {
-    throw new Error("Unknown intl.locale");
-  }
+  const locale = getLocale(intl.locale);
   const dispatch = useDispatch();
 
   // Request and select hrAdvisor
@@ -270,9 +264,7 @@ const JobIndexHrDataFetcher: React.FC<JobIndexHrDataFetcherProps> = ({
       : null,
   );
   const departmentName =
-    (department !== null
-      ? localizeField(locale, department, "name")
-      : null) ||
+    (department !== null ? localizeField(locale, department, "name") : null) ||
     intl.formatMessage(messages.departmentPlaceholder);
 
   // Make claim job function
@@ -302,3 +294,5 @@ if (container !== null) {
     );
   }
 }
+
+export default JobIndexHrPage;

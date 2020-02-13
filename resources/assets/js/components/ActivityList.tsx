@@ -35,17 +35,17 @@ export const ActivityList: React.FunctionComponent<ActivityListProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl.locale);
   const activities: Comment[] = [...comments];
-  const [isActivitiesLoading, setIsActivitiesLoading] = useState(false);
+  const [loadingActivities, setLoadingActivities] = useState(false);
   const [isError, setIsError] = useState(false);
 
   useEffect((): void => {
-    setIsActivitiesLoading(true);
+    setLoadingActivities(true);
     handleFetchComments(jobId)
       .then(() => {
-        setIsActivitiesLoading(false);
+        setLoadingActivities(false);
       })
       .catch(() => {
-        setIsActivitiesLoading(false);
+        setLoadingActivities(false);
         setIsError(true);
       });
   }, [handleFetchComments, jobId]);
@@ -93,7 +93,7 @@ export const ActivityList: React.FunctionComponent<ActivityListProps> = ({
           />
         </p>
       )}
-      {isActivitiesLoading ? (
+      {loadingActivities ? (
         <div data-c-container="form" data-c-padding="top(1) bottom(1)">
           <div
             data-c-background="white(100)"
