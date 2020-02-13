@@ -37,11 +37,13 @@ import deptReducer, {
   initDeptState,
 } from "./Department/deptReducer";
 import { ManagerAction } from "./Manager/managerActions";
+import { UserAction } from "./User/userActions";
 import {
   ManagerState,
   initManagerState,
   managerReducer,
 } from "./Manager/managerReducer";
+import { UserState, initUserState, userReducer } from "./User/userReducer";
 import hrAdvisorReducer, {
   HrAdvisorState,
   initState as initHrAdvisorState,
@@ -56,7 +58,8 @@ export type AppAction =
   | AssessmentPlanNotificationAction
   | AppErrorAction
   | DeptAction
-  | ManagerAction;
+  | ManagerAction
+  | UserAction;
 
 export interface RootState {
   jobs: JobState;
@@ -68,6 +71,7 @@ export interface RootState {
   error: ErrorState;
   department: DeptState;
   manager: ManagerState;
+  user: UserState;
   hrAdvisor: HrAdvisorState;
 }
 
@@ -81,6 +85,7 @@ export const initState = (): RootState => ({
   error: initErrors(),
   department: initDeptState(),
   manager: initManagerState(),
+  user: initUserState(),
   hrAdvisor: initHrAdvisorState(),
 });
 
@@ -95,6 +100,7 @@ export const rootReducer = (): Reducer<RootState> =>
     error: errorReducer,
     department: deptReducer,
     manager: managerReducer,
+    user: userReducer,
     hrAdvisor: hrAdvisorReducer,
   });
 
