@@ -86,9 +86,11 @@
 								<li>
 									<a href="#auth" title="">{{ settings.heading.two_factor }}</a>
 								</li>
-								<li>
-									<a href="#delete" title="">{{ settings.heading.delete }}</a>
-								</li>
+								{% if user.user_role_id == 1 %}
+									<li>
+										<a href="#delete" title="">{{ settings.heading.delete }}</a>
+									</li>
+								{% endif %}
 							</ul>
 						</nav>
 					</div>
