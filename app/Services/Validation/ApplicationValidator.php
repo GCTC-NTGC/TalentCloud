@@ -7,21 +7,22 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Lookup\CriteriaType;
 use App\Services\Validation\Rules\ContainsObjectWithAttributeRule;
 use App\Services\Validation\JobApplicationAnswerValidator;
+use Illuminate\Support\Facades\Log;
 
 class ApplicationValidator
 {
 
-    public function validator(JobApplication $application)
-    {
-        $backendRules = [
+    public $backendRules =  [
             'job_poster_id' => 'required',
             'application_status_id' => 'required',
             'applicant_id' => 'required',
         ];
+    public function validator(JobApplication $application)
+    {
         $data = $application->toArray();
 
         $rules = array_merge(
-            $backendRules,
+            $this->backendRules,
             $this->experienceRules,
             $this->affirmationRules
         );
@@ -47,9 +48,20 @@ class ApplicationValidator
         $this->validator($application)->validate();
     }
 
-    public function validateComplete(JobApplication $application): bool
+    public function validateComplete(JobApplication $application)
     {
         return $this->validator($application)->passes();
+    }
+
+    public function detailedValidatorErrors(JobApplication $application)
+    {
+        return array_merge(
+            Validator::make($application->toArray(), $this->backendRules)->errors()->all(),
+            $this->basicsValidator($application)->errors()->all(),
+            $this->experienceValidator($application)->errors()->all(),
+            $this->essentialSkillsValidator($application)->errors()->all(),
+            $this->affirmationValidator($application)->errors()->all()
+        );
     }
 
     /**
