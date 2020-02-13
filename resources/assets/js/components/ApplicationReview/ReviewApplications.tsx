@@ -1,13 +1,18 @@
 import React from "react";
 import dayjs from "dayjs";
 import { FormattedMessage } from "react-intl";
-import { Application } from "../../models/types";
+import { Application, Comment } from "../../models/types";
 import { SelectOption } from "../Select";
 import { applicationCategory } from "./helpers";
 import ReviewCategory from "./ReviewCategory";
+import ActivityFeed from "../ActivityFeed";
+import { applicantReviewLocations } from "../../models/localizedConstants";
+import { LocationId } from "../../models/lookupConstants";
 import { Portal } from "../../models/app";
+import { hasKey } from "../../helpers/queries";
 
 interface ReviewApplicationsProps {
+  jobId: number;
   title: string;
   classification: string;
   closeDateTime: Date | null;
@@ -24,6 +29,7 @@ interface ReviewApplicationsProps {
 }
 
 const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
+  jobId,
   title,
   classification,
   closeDateTime,
@@ -128,6 +134,19 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
                 "day",
               ),
             }}
+          />
+        </div>
+      </div>
+      <div data-clone>
+        <div data-c-margin="bottom(1)">
+          <ActivityFeed
+            jobId={jobId}
+            isHrAdvisor={portal === "hr"}
+            generalLocation={LocationId.applicantsGeneric}
+            locationMessages={applicantReviewLocations}
+            filterComments={(comment: Comment): boolean =>
+              hasKey(applicantReviewLocations, comment.location)
+            }
           />
         </div>
       </div>

@@ -14,6 +14,7 @@ import {
   Department,
   Manager,
   User,
+  Comment,
 } from "../../../models/types";
 import {
   jobBuilderDetails,
@@ -36,10 +37,12 @@ import {
   languageRequirement,
   languageRequirementDescription,
   languageRequirementContext,
+  jobReviewLocations,
 } from "../../../models/localizedConstants";
 import {
   CriteriaTypeId,
   LanguageRequirementId,
+  LocationId,
 } from "../../../models/lookupConstants";
 import Criterion from "../Criterion";
 import JobWorkEnv from "../WorkEnv/JobWorkEnv";
@@ -50,7 +53,7 @@ import { useUrlHash, Link } from "../../../helpers/router";
 import { classificationString } from "../../../models/jobUtil";
 import DemoSubmitJobModal from "./DemoSubmitJobModal";
 import ManagerSurveyModal from "./ManagerSurveyModal";
-import JobReviewActivityFeed from "./JobReviewActivityFeed";
+import ActivityFeed from "../../ActivityFeed";
 import { localizeFieldNonNull, localizeField } from "../../../helpers/localize";
 
 interface JobReviewSectionProps {
@@ -780,7 +783,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
         <h3
           data-c-font-size="h3"
           data-c-font-weight="bold"
-          data-c-margin="bottom(double)"
+          data-c-margin="bottom(normal)"
         >
           <FormattedMessage
             id="jobBuilder.review.reviewYourPoster"
@@ -789,7 +792,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
           />{" "}
           <span data-c-colour="c2">{localizeField(locale, job, "title")}</span>
         </h3>
-        <p>
+        <p data-c-margin="bottom(double)">
           <FormattedMessage
             id="jobBuilder.review.headsUp"
             defaultMessage="Just a heads up! We've rearranged some of your information to help you
@@ -797,7 +800,15 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
             description="Description under primary title of review section"
           />
         </p>
-        <JobReviewActivityFeed jobId={job.id} isHrAdvisor={false} />
+        <ActivityFeed
+          jobId={job.id}
+          isHrAdvisor={false}
+          generalLocation={LocationId.jobGeneric}
+          locationMessages={jobReviewLocations}
+          filterComments={(comment: Comment): boolean =>
+            hasKey(jobReviewLocations, comment.location)
+          }
+        />
         <JobReviewDisplay
           job={job}
           manager={manager}
