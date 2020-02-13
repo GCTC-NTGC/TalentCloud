@@ -7,6 +7,7 @@ export const fakeUser = (
   last_name = "Bode",
   email = "manager@test.com",
   user_role_id = 2,
+  department_id = 7,
 ): User => ({
   id,
   first_name,
@@ -14,6 +15,7 @@ export const fakeUser = (
   email,
   is_confirmed: true,
   user_role_id,
+  department_id,
   created_at: new Date("2020-01-01T01:01:00"),
   updated_at: new Date("2020-01-01T01:01:00"),
   is_priority: true,
@@ -23,8 +25,8 @@ export const fakeUser = (
 
 export const fakeUsers = (): User[] => [
   fakeUser(),
-  fakeUser(2, "Margarete", "Kuvalis", "mkuvalis@example.net", 1),
-  fakeUser(3, "Deanna", "Altenwerth", "daltenwerth@example.net", 3),
+  fakeUser(2, "Margarete", "Kuvalis", "mkuvalis@example.net", 1, 8),
+  fakeUser(3, "Deanna", "Altenwerth", "daltenwerth@example.net", 3, 9),
 ];
 
 export default { fakeUser, fakeUsers };

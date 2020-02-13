@@ -11,6 +11,7 @@ import {
   Skill,
   Manager,
   Department,
+  User,
 } from "../../../models/types";
 import { managerJobIndex, jobBuilderSkills } from "../../../helpers/routes";
 import { RootState } from "../../../store/store";
@@ -32,6 +33,8 @@ import {
   setSelectedManager,
 } from "../../../store/Manager/managerActions";
 import { navigate } from "../../../helpers/router";
+import { getUserById } from "../../../store/User/userSelector";
+import { fetchUser } from "../../../store/User/userActions";
 
 interface JobBuilderReviewPageProps {
   jobId: number;
@@ -41,8 +44,10 @@ interface JobBuilderReviewPageProps {
   criteria: Criteria[];
   departments: Department[];
   manager: Manager | null;
+  user: User | null;
   handleSubmitJob: (job: Job) => Promise<void>;
   loadManager: (managerId: number) => Promise<void>;
+  handleFetchUser: (userId: number) => Promise<void>;
 }
 
 const JobBuilderReviewPage: React.FunctionComponent<JobBuilderReviewPageProps &
@@ -54,8 +59,10 @@ const JobBuilderReviewPage: React.FunctionComponent<JobBuilderReviewPageProps &
   criteria,
   departments,
   manager,
+  user,
   handleSubmitJob,
   loadManager,
+  handleFetchUser,
   intl,
 }): React.ReactElement => {
   const { locale } = intl;
@@ -69,6 +76,15 @@ const JobBuilderReviewPage: React.FunctionComponent<JobBuilderReviewPageProps &
     }
   }, [job, loadManager]);
 
+  // Load user after Manager has loaded
+  // eslint-disable-next-line camelcase
+  const userId = manager?.user_id;
+  useEffect((): void => {
+    if (userId) {
+      handleFetchUser(userId);
+    }
+  }, [handleFetchUser, userId]);
+
   const handleReturn = (): void => {
     // Go to Previous page
     navigate(jobBuilderSkills(locale, jobId));
@@ -79,6 +95,7 @@ const JobBuilderReviewPage: React.FunctionComponent<JobBuilderReviewPageProps &
     window.location.href = managerJobIndex(locale);
     nprogress.start();
   };
+
   const jobIsComplete =
     job !== null && isJobBuilderComplete(job, keyTasks, criteria, locale);
 
@@ -88,6 +105,7 @@ const JobBuilderReviewPage: React.FunctionComponent<JobBuilderReviewPageProps &
         <JobReview
           job={job}
           manager={manager}
+          user={user}
           tasks={keyTasks}
           criteria={criteria}
           skills={skills}
@@ -112,6 +130,7 @@ const mapStateToProps = (
   criteria: Criteria[];
   departments: Department[];
   manager: Manager | null;
+  user: User | null;
 } => ({
   job: getJob(state, ownProps),
   skills: getSkills(state),
@@ -119,6 +138,10 @@ const mapStateToProps = (
   criteria: getCriteriaByJob(state, ownProps),
   departments: getDepartments(state),
   manager: getSelectedManager(state),
+  user: getUserById(state, {
+    // eslint-disable-next-line camelcase, @typescript-eslint/camelcase
+    userId: getSelectedManager(state)?.user_id || 0,
+  }),
 });
 
 const mapDispatchToProps = (
@@ -126,6 +149,7 @@ const mapDispatchToProps = (
 ): {
   handleSubmitJob: (job: Job) => Promise<void>;
   loadManager: (managerId: number) => Promise<void>;
+  handleFetchUser: (userId: number) => Promise<void>;
 } => ({
   handleSubmitJob: async (job: Job): Promise<void> => {
     const result = await dispatch(submitJobForReview(job.id));
@@ -142,6 +166,13 @@ const mapDispatchToProps = (
     const resultManager = await result.payload;
     dispatch(setSelectedManager(resultManager.id));
     return Promise.resolve();
+  },
+  handleFetchUser: async (userId: number): Promise<void> => {
+    const result = await dispatch(fetchUser(userId));
+    if (!result.error) {
+      return Promise.resolve();
+    }
+    return Promise.reject(result.error);
   },
 });
 
