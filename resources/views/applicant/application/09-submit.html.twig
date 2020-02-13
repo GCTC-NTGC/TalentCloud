@@ -1,0 +1,30 @@
+{# =============================================================================
+
+    Talent Cloud / Application Submission
+
+    The purpose of this UI is to have the applicant sign off on their final
+    application and submit it for review by the manager.
+
+============================================================================= #}
+{# Default Page Layout #}
+{% extends "layouts/base-test" %}
+{# HTML Page Title #}
+{% block title %}
+	Apply Now: Welcome
+{% endblock %}
+{# Page Header #}
+{% block header %}
+    {% include "applicant/application/application-header" with {"step": 9} %}
+{% endblock %}
+{# Page Contents #}
+{% block body %}
+	<div data-clone>
+        {# Application Progress Bar #}
+        {% include "applicant/application/progress-bar" with {"step": 9} %}
+        <div data-c-container="large" data-c-padding="bottom(3)">
+            YO
+        </div>
+        {# Application Action Buttons #}
+        {% include "applicant/application/action-buttons" with {"step": 9} %}
+    </div>
+{% endblock %}

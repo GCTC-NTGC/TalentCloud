@@ -41,6 +41,10 @@ $clone-font-scale: 1.250;
 
 @import "components/hr/home";
 
+@import "components/applicant/application/progress-bar.scss";
+@import "components/applicant/application/experience-trigger.scss";
+@import "components/applicant/application/experience-timeline.scss";
+
 // Post-Clone Utilities (move these to their own import later Josh!
 
 .button-trash {

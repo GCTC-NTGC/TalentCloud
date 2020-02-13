@@ -1,0 +1,38 @@
+{# =============================================================================
+
+    Talent Cloud / Application Welcome Mat
+
+    The purpose of this UI is to help first-time applicants better understand
+    how Talent Cloud works and why applications function they way they do.
+
+============================================================================= #}
+{# Default Page Layout #}
+{% extends "layouts/base-test" %}
+{# HTML Page Title #}
+{% block title %}
+	Apply Now: Welcome
+{% endblock %}
+{# Page Header #}
+{% block header %}
+    {% include "applicant/application/application-header" with {"step": 1} %}
+{% endblock %}
+{# Page Contents #}
+{% block body %}
+    <div data-clone>
+        {# Application Progress Bar #}
+        {% include "applicant/application/progress-bar" with {"step": 1} %}
+        <div data-c-container="medium">
+            <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">Welcome to Talent Cloud's Application Process</h2>
+            <p data-c-margin="bottom(1)">Before you begin your application, we'd like to provide you with some information about how the Government of Canada hires, as well as what you can expect from our application process.</p>
+            <p data-c-margin="bottom(1)">Most hiring platforms will ask you to supply your resume, a cover letter, and ask you to answer a few questions specific to the job you're applying to. In the government, this process is slightly more complicated because we need to know not just where you've worked, but whether or not you meet the skills outlined for the job.</p>
+            <p data-c-margin="bottom(1)">Talent Cloud tries to collect this information in two key steps during our application:</p>
+            <ul data-c-margin="bottom(1)">
+                <li>First, we begin by asking you about your experiences, varying across academic, work, community, etc.</li>
+                <li>Once we know the where and when, we ask you to explain how these experiences help you meet the skills required for the job you're applying to.</li>
+            </ul>
+            <p>This is Talent Cloud's core difference. Our application asks for a bit more information than other job boards, but our goal is to <span data-c-font-weight="bold">understand not just where you've worked in the past, but how that work has helped your skills grow to meet the requirements set out in the job you're applying to</span>.</p>
+        </div>
+        {# Application Action Buttons #}
+        {% include "applicant/application/action-buttons" with {"step": 1} %}
+    </div>
+{% endblock %}

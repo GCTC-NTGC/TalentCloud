@@ -1,0 +1,31 @@
+{# =============================================================================
+
+    Talent Cloud / Application Long Form Questions
+
+    The purpose of this UI is to have the applicant answer long form skill
+    testing questions that will better identify their fit for the job.
+
+============================================================================= #}
+{# Default Page Layout #}
+{% extends "layouts/base-test" %}
+{# HTML Page Title #}
+{% block title %}
+	Apply Now: Welcome
+{% endblock %}
+{# Page Header #}
+{% block header %}
+    {% include "applicant/application/application-header" with {"step": 7} %}
+{% endblock %}
+{# Page Contents #}
+{% block body %}
+	<div data-clone>
+        {# Application Progress Bar #}
+        {% include "applicant/application/progress-bar" with {"step": 7} %}
+        <div data-c-container="medium">
+            <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">TITLE</h2>
+            CONTENT
+        </div>
+        {# Application Action Buttons #}
+        {% include "applicant/application/action-buttons" with {"step": 7} %}
+    </div>
+{% endblock %}

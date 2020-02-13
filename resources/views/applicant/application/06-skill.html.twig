@@ -1,0 +1,30 @@
+{# =============================================================================
+
+    Talent Cloud / Application Skill Instructions
+
+    The purpose of this UI is to have the applicant describe how they used each
+    of the skills required for this job in each of their defined experiences.
+
+============================================================================= #}
+{# Default Page Layout #}
+{% extends "layouts/base-test" %}
+{# HTML Page Title #}
+{% block title %}
+	Apply Now: Welcome
+{% endblock %}
+{# Page Header #}
+{% block header %}
+    {% include "applicant/application/application-header" with {"step": 6} %}
+{% endblock %}
+{# Page Contents #}
+{% block body %}
+	<div data-clone>
+        {# Application Progress Bar #}
+        {% include "applicant/application/progress-bar" with {"step": 6} %}
+        <div data-c-container="large" data-c-padding="bottom(3)">
+            YO
+        </div>
+        {# Application Action Buttons #}
+        {% include "applicant/application/action-buttons" with {"step": 6} %}
+    </div>
+{% endblock %}

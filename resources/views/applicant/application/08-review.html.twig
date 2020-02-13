@@ -1,0 +1,31 @@
+{# =============================================================================
+
+    Talent Cloud / Application Review
+
+    The purpose of this UI is to have the applicant review all of the
+    information they have entered so far to ensure everything meets the
+    requirements for the application.
+
+============================================================================= #}
+{# Default Page Layout #}
+{% extends "layouts/base-test" %}
+{# HTML Page Title #}
+{% block title %}
+	Apply Now: Welcome
+{% endblock %}
+{# Page Header #}
+{% block header %}
+    {% include "applicant/application/application-header" with {"step": 8} %}
+{% endblock %}
+{# Page Contents #}
+{% block body %}
+	<div data-clone>
+        {# Application Progress Bar #}
+        {% include "applicant/application/progress-bar" with {"step": 8} %}
+        <div data-c-container="large" data-c-padding="bottom(3)">
+            YO
+        </div>
+        {# Application Action Buttons #}
+        {% include "applicant/application/action-buttons" with {"step": 8} %}
+    </div>
+{% endblock %}

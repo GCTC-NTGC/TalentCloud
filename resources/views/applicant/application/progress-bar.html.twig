@@ -1,0 +1,121 @@
+{# =============================================================================
+
+    Talent Cloud / Application Progress Bar
+
+    The purpose of this UI is to identify the current step the applicant is on,
+    as well as let them know how much time is remaining to apply.
+
+============================================================================= #}
+
+{% if step == 1 %}
+    {% set stepName = "Welcome" %}
+{% elseif step == 2 %}
+    {% set stepName = "Step 1/6" %}
+{% elseif step == 3 %}
+    {% set stepName = "Step 2/6" %}
+{% elseif step == 4 %}
+    {% set stepName = "Step 2/6" %}
+{% elseif step == 5 %}
+    {% set stepName = "Step 3/6" %}
+{% elseif step == 6 %}
+    {% set stepName = "Step 3/6" %}
+{% elseif step == 7 %}
+    {% set stepName = "Step 4/6" %}
+{% elseif step == 8 %}
+    {% set stepName = "Step 5/6" %}
+{% elseif step == 9 %}
+    {% set stepName = "Step 6/6" %}
+{% endif %}
+
+<div data-c-background="black(100)" data-c-padding="tb(1)">
+    <div data-c-container="large">
+        <div data-c-grid="gutter(all, 1)">
+            <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(left)">
+                <span data-c-color="white">{{ stepName }}</span>
+                <ul class="applicant-application-progress-bar">
+                    <li>
+                        <a href="/demo/application-02" title="">
+                            {% if step == 2 %}
+                                <i class="far fa-circle" data-c-color="white"></i>
+                            {% else %}
+                                {% if step > 2 %}
+                                    <i class="fas fa-check-circle" data-c-color="go"></i>
+                                {% else %}
+                                    <i class="fas fa-circle" data-c-color="grey"></i>
+                                {% endif %}
+                            {% endif %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/demo/application-04" title="">
+                            {% if step == 3 or step == 4 %}
+                                <i class="far fa-circle" data-c-color="white"></i>
+                            {% else %}
+                                {% if step > 4 %}
+                                    <i class="fas fa-check-circle" data-c-color="go"></i>
+                                {% else %}
+                                    <i class="fas fa-circle" data-c-color="grey"></i>
+                                {% endif %}
+                            {% endif %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/demo/application-06" title="">
+                            {% if step == 5 or step == 6 %}
+                                <i class="far fa-circle" data-c-color="white"></i>
+                            {% else %}
+                                {% if step > 6 %}
+                                    <i class="fas fa-check-circle" data-c-color="go"></i>
+                                {% else %}
+                                    <i class="fas fa-circle" data-c-color="grey"></i>
+                                {% endif %}
+                            {% endif %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/demo/application-07" title="">
+                            {% if step == 7 %}
+                                <i class="far fa-circle" data-c-color="white"></i>
+                            {% else %}
+                                {% if step > 7 %}
+                                    <i class="fas fa-check-circle" data-c-color="go"></i>
+                                {% else %}
+                                    <i class="fas fa-circle" data-c-color="grey"></i>
+                                {% endif %}
+                            {% endif %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/demo/application-08" title="">
+                            {% if step == 8 %}
+                                <i class="far fa-circle" data-c-color="white"></i>
+                            {% else %}
+                                {% if step > 8 %}
+                                    <i class="fas fa-check-circle" data-c-color="go"></i>
+                                {% else %}
+                                    <i class="fas fa-circle" data-c-color="grey"></i>
+                                {% endif %}
+                            {% endif %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/demo/application-09" title="">
+                            {% if step == 9 %}
+                                <i class="far fa-circle" data-c-color="white"></i>
+                            {% else %}
+                                {% if step > 9 %}
+                                    <i class="fas fa-check-circle" data-c-color="go"></i>
+                                {% else %}
+                                    <i class="fas fa-circle" data-c-color="grey"></i>
+                                {% endif %}
+                            {% endif %}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(right)">
+                <span data-c-color="white">Application Deadline: 15hrs</span>
+            </div>
+        </div>
+    </div>
+</div>

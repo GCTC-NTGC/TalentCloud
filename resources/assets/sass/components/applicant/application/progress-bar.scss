@@ -1,0 +1,17 @@
+.applicant-application-progress-bar {
+    display: inline;
+    list-style: none;
+    padding: 0 0 0 1rem !important;
+    >li {
+        display: inline;
+        margin: 0 .5rem;
+        >a {
+            text-decoration: none !important;
+            i {
+                &:hover {
+                    color: $clone-white !important;
+                }
+            }
+        }
+    }
+}
