@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { WrappedComponentProps, injectIntl } from "react-intl";
+import { WrappedComponentProps, injectIntl, useIntl } from "react-intl";
 import nprogress from "nprogress";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
@@ -63,8 +63,8 @@ const JobBuilderReviewPage: React.FunctionComponent<JobBuilderReviewPageProps &
   handleSubmitJob,
   loadManager,
   handleFetchUser,
-  intl,
 }): React.ReactElement => {
+  const intl = useIntl();
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw new Error("Unexpected locale");
