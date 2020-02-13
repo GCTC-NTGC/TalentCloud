@@ -22,6 +22,26 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Number of activities is loading...",
+        "description": "Accessible text for the loading icon",
+        "id": "activityfeed.loadingIconText"
+      },
+      {
+        "defaultMessage": "Click to View Comments {totalActivities}",
+        "description": "The activity feed header.",
+        "id": "activityfeed.header"
+      },
+      {
+        "defaultMessage": "Click to view...",
+        "description": "The accessibility text displayed on the activity feed accordion button.",
+        "id": "activityfeed.accordionAccessibleLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/ActivityFeed.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Activities",
         "description": "Title of activity feed.",
         "id": "activityfeed.title"
@@ -42,7 +62,7 @@
         "id": "activityfeed.noActivities"
       }
     ],
-    "path": "resources/assets/js/components/ActivityFeed.json"
+    "path": "resources/assets/js/components/ActivityList.json"
   },
   {
     "descriptors": [
@@ -3803,56 +3823,6 @@
         "id": "jobBuilder.details.classificationOptions.AD"
       },
       {
-        "defaultMessage": "Job Poster Builder > General",
-        "description": "Location where the activity is located.",
-        "id": "activityfeed.locations.review.details"
-      },
-      {
-        "defaultMessage": "Job Poster Builder > Job Page Heading",
-        "description": "Location where the activity is located.",
-        "id": "activityfeed.locations.review.heading"
-      },
-      {
-        "defaultMessage": "Job Poster Builder > Basic Information",
-        "description": "Location where the activity is located.",
-        "id": "activityfeed.locations.review.basicInfo"
-      },
-      {
-        "defaultMessage": "Job Poster Builder > Impact",
-        "description": "Location where the activity is located.",
-        "id": "activityfeed.locations.review.impact"
-      },
-      {
-        "defaultMessage": "Job Poster Builder > Tasks",
-        "description": "Location where the activity is located.",
-        "id": "activityfeed.locations.review.tasks"
-      },
-      {
-        "defaultMessage": "Job Poster Builder > Skills",
-        "description": "Location where the activity is located.",
-        "id": "activityfeed.locations.review.skills"
-      },
-      {
-        "defaultMessage": "Job Poster Builder > Language Requirements",
-        "description": "Location where the activity is located.",
-        "id": "activityfeed.locations.review.langRequirements"
-      },
-      {
-        "defaultMessage": "Job Poster Builder > Environment",
-        "description": "Location where the activity is located.",
-        "id": "activityfeed.locations.review.environment"
-      },
-      {
-        "defaultMessage": "Summary Page",
-        "description": "Location where the activity is located.",
-        "id": "activityfeed.locations.summary"
-      },
-      {
-        "defaultMessage": "Preview Page",
-        "description": "Location where the activity is located.",
-        "id": "activityfeed.locations.preview"
-      },
-      {
         "defaultMessage": "Draft",
         "id": "jobStatus.draft"
       },
@@ -3875,6 +3845,91 @@
       {
         "defaultMessage": "Complete",
         "id": "jobStatus.complete"
+      },
+      {
+        "defaultMessage": "Job Poster Builder",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.review"
+      },
+      {
+        "defaultMessage": "HR Summary Page",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.hr.summary"
+      },
+      {
+        "defaultMessage": "HR Preview Page",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.hr.preview"
+      },
+      {
+        "defaultMessage": "Applicant Review Page",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.applications.generic"
+      },
+      {
+        "defaultMessage": "Location not found",
+        "description": "Error message if location id is not recognized",
+        "id": "activityfeed.locations.notFound"
+      },
+      {
+        "defaultMessage": "General",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.review.details"
+      },
+      {
+        "defaultMessage": "Job Page Heading",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.review.heading"
+      },
+      {
+        "defaultMessage": "Basic Information",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.review.basicInfo"
+      },
+      {
+        "defaultMessage": "Impact",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.review.impact"
+      },
+      {
+        "defaultMessage": "Tasks",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.review.tasks"
+      },
+      {
+        "defaultMessage": "Skills",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.review.skills"
+      },
+      {
+        "defaultMessage": "Language Requirements",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.review.langRequirements"
+      },
+      {
+        "defaultMessage": "Environment",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.review.environment"
+      },
+      {
+        "defaultMessage": "General",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.applicantReview.generic"
+      },
+      {
+        "defaultMessage": "Under Consideration",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.applicantReview.underConsideration"
+      },
+      {
+        "defaultMessage": "Optional Consideration",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.applicantReview.optionalConsideration"
+      },
+      {
+        "defaultMessage": "No Longer Under Consideration",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.applicantReview.notUnderConsideration"
       }
     ],
     "path": "resources/assets/js/models/localizedConstants.json"

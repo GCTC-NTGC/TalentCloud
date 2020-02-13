@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  injectIntl,
-  WrappedComponentProps,
-  FormattedMessage,
-  defineMessages,
-} from "react-intl";
+import { injectIntl, WrappedComponentProps, defineMessages } from "react-intl";
 import className from "classnames";
 import Swal from "sweetalert2";
 import * as routes from "../../helpers/routes";
@@ -128,6 +123,11 @@ export const messages = defineMessages({
     id: "application.review.screenInConfirm",
     defaultMessage: "Screen the candidate back in?",
     description: "Are you sure you want to screen in the candidate warning",
+  },
+  viewProfile: {
+    id: "application.review.viewProfile",
+    defaultMessage: "View Profile",
+    description: "Button text View Profile",
   },
 });
 
@@ -367,11 +367,7 @@ class ApplicationReview extends React.Component<
               href={applicantUrl}
             >
               <i className="fas fa-user" />
-              <FormattedMessage
-                id="application.review.viewProfile"
-                defaultMessage="View Profile"
-                description="Button text View Profile"
-              />
+              {intl.formatMessage(messages.viewProfile)}
             </a>
           </div>
 
