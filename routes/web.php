@@ -693,6 +693,7 @@ Route::group(
                 Route::get('two-factor/recovery-codes', 'Auth\RecoveryCodeController@show')->name('admin.recovery_codes.show');
 
                 Route::get('{jobPoster}/download-applicants', 'JobController@downloadApplicants')
+                    ->middleware('can:downloadApplicants,jobPoster')
                     ->name('admin.jobs.download.applicants');
             }
         );
