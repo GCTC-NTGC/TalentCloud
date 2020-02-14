@@ -474,6 +474,7 @@ class JobController extends Controller
 
         $headers = [
             'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename=' . $filename,
         ];
 
         return Response::download($filename, $filename, $headers);
