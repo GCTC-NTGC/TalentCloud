@@ -4,7 +4,7 @@ import {
   WrappedComponentProps,
   FormattedMessage,
 } from "react-intl";
-import { Job, AssessmentPlanNotification } from "../../models/types";
+import { Job, AssessmentPlanNotification, Comment } from "../../models/types";
 import AssessmentPlanTable from "./AssessmentPlanTable";
 import RatingGuideBuilder from "./RatingGuideBuilder";
 import AssessmentPlanAlert from "./AssessmentPlanAlert";
@@ -13,6 +13,7 @@ import ActivityFeed from "../ActivityFeed";
 import { screeningPlanLocations } from "../../models/localizedConstants";
 import { LocationId } from "../../models/lookupConstants";
 import { Portal } from "../../models/app";
+import { hasKey } from "../../helpers/queries";
 
 interface AssessmentPlanProps {
   job: Job | null;
@@ -117,6 +118,9 @@ const AssessmentPlan: React.FunctionComponent<AssessmentPlanProps &
               isHrAdvisor={portal === "hr"}
               locationMessages={screeningPlanLocations}
               generalLocation={LocationId.screeningPlan}
+              filterComments={(comment: Comment): boolean =>
+                hasKey(screeningPlanLocations, comment.location)
+              }
             />
             <AssessmentPlanBuilder jobId={job.id} />
             <AssessmentPlanTable jobId={job.id} />
