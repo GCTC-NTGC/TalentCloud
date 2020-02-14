@@ -9,5 +9,5 @@ return [
     'published' => 'Published - Waiting to Open',
     'open' => 'Open',
     'closed' => 'Closed',
-    'complete' => 'Complete'
+    'completed' => 'Completed'
 ];

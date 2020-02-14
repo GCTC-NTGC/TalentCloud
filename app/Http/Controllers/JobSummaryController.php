@@ -91,17 +91,15 @@ class JobSummaryController extends Controller
                 }
                 break;
             case 'completed':
-                $status = Lang::get('common/lookup/job_status.complete');
+                $status = Lang::get('common/lookup/job_status.completed');
                 break;
         }
         // TODO: Need to add more descriptions for different statuses
         $status_description =
-            (
-                $job->job_poster_status->name === 'review_hr'
+            ($job->job_poster_status->name === 'review_hr'
                 || $job->job_poster_status->name === 'review_manager'
                 || $job->job_poster_status->name === 'final_review_manager'
-                || $job->job_poster_status->name === 'final_review_hr'
-            )
+                || $job->job_poster_status->name === 'final_review_hr')
             ? $summaryLang['under_review']
             : '';
 

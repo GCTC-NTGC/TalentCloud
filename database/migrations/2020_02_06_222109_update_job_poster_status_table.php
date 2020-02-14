@@ -50,8 +50,8 @@ class UpdateJobPosterStatusTable extends Migration
                 'en' => 'Published',
                 'fr' => 'Publié'
             ]),
-            'complete' => json_encode([
-                'en' => 'Complete',
+            'completed' => json_encode([
+                'en' => 'Completed',
                 'fr' => 'Terminé'
             ])
         ];
@@ -59,7 +59,7 @@ class UpdateJobPosterStatusTable extends Migration
         DB::table('job_poster_status')->truncate();
         foreach ($statuses as $name => $value) {
             DB::table('job_poster_status')->insert([
-               'name' => $name, 'value' => $value
+                'name' => $name, 'value' => $value
             ]);
         }
     }
@@ -97,7 +97,7 @@ class UpdateJobPosterStatusTable extends Migration
                 'fr' => 'Fermée'
             ]),
             'complete' => json_encode([
-                'en' => 'Complete',
+                'en' => 'Completed',
                 'fr' => 'Terminé'
             ])
         ];
