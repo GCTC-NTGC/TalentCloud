@@ -40,7 +40,13 @@ class JobStatusControllerTest extends TestCase
         $responseTranslation->assertStatus(302);
         $this->assertEquals('translation', $job->fresh()->job_poster_status->name);
 
-        $admin = factory(User::class)->state('admin')->create();
+        $admin = factory(User::class)->state('admin')->create([
+            'gov_email' => 'admin@test.gov'
+        ]);
+        $admin->hr_advisor()->save(factory(HrAdvisor::class)->create([
+            'department_id' => $job->department_id,
+            'user_id' => $admin->id,
+        ]));
         $responseFinalReview = $this->actingAs($admin)->post(
             route('hr_advisor.jobs.setJobStatus', ['jobPoster', $job, 'status' => 'final_review_manager'])
         );
