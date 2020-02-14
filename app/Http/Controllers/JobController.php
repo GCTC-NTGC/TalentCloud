@@ -430,6 +430,7 @@ class JobController extends Controller
      */
     protected function downloadApplicants(JobPoster $jobPoster)
     {
+        $tables = [];
         // The first row in the array represents the names of the columns in the spreadsheet.
         $tables[0] = ['Status', 'Applicant Name', 'Email', 'Language'];
 
