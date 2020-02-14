@@ -877,7 +877,7 @@ export const generalLocations = defineMessages({
   },
   notFound: {
     id: "activityfeed.locations.notFound",
-    defaultMessage: "Error location not found.",
+    defaultMessage: "Location not found",
     description: "Error message if location id is not recognized",
   },
 });

@@ -6,6 +6,7 @@ import { ActivityList } from "../components/ActivityList";
 import Activity from "../components/Activity";
 import RootContainer from "../components/RootContainer";
 import { Comment } from "../models/types";
+import { fakeUsers } from "../fakeData/fakeUsers";
 
 const withRootContainer = (story): React.ReactElement => (
   <RootContainer>{story()}</RootContainer>
@@ -41,7 +42,11 @@ const comments: Comment[] = [
   },
 ];
 
+const users = [fakeUsers()[2]];
+
+// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
 const handleFetchComments = (jobId: number): Promise<void> => Promise.resolve();
+const handleFetchUsers = (): Promise<void> => Promise.resolve();
 
 const stories = storiesOf("Components|Activity Feed", module)
   .addDecorator(withIntl)
@@ -72,7 +77,9 @@ stories
           jobId={1}
           isHrAdvisor
           comments={comments}
+          users={users}
           handleFetchComments={handleFetchComments}
+          handleFetchUsers={handleFetchUsers}
         />
       </section>
     ),
