@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\HrAdvisor;
 use App\Models\JobPoster;
 use App\Models\Lookup\JobPosterStatus;
+use App\Models\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
