@@ -36,12 +36,12 @@ interface ReviewSubmitForm {
 
 const localizations = defineMessages({
   oops: {
-    id: "alert.oops",
+    id: "application.review.alert.oops",
     defaultMessage: "Oops...",
     description: "Modal notification text indicating something went wrong.",
   },
   somethingWrong: {
-    id: "apl.reviewSaveFailed",
+    id: "application.review.reviewSaveFailed",
     defaultMessage:
       "Something went wrong while saving a review. Try again later.",
     description: "Error message for error while saving an application review.",
@@ -179,7 +179,9 @@ const renderApplicationReviewRoot = (
   }
 };
 
-const managerContainer = document.getElementById("application-review-container");
+const managerContainer = document.getElementById(
+  "application-review-container",
+);
 if (managerContainer !== null) {
   renderApplicationReviewRoot(managerContainer, "manager");
 }

@@ -4,7 +4,7 @@ import { User } from "../../models/types";
 import { hasKey } from "../../helpers/queries";
 
 const getUsersById = (state: RootState): { [id: number]: User } =>
-  state.user.usersById;
+  state.users.usersById;
 
 export const getUsers = createSelector(getUsersById, (usersById): User[] =>
   Object.values(usersById),
