@@ -19,6 +19,10 @@ class User extends JsonResource
         unset($userArray['manager']);
         unset($userArray['hr_advisor']);
 
+        $userArray = array_merge($userArray, [
+            'full_name' => $this->full_name
+        ]);
+
         return $userArray;
     }
 }

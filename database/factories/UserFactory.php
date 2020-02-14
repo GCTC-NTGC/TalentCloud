@@ -33,7 +33,7 @@ $factory->define(User::class, function (Faker\Generator $faker) {
         'email' => $faker->unique()->safeEmail(),
         'password' => $password ?: $password = Hash::make('password'),
         'is_confirmed' => 1,
-        'user_role_id' => UserRole::where('name', 'basic')->first()->id, // Users should default to basic user role.
+        'user_role_id' => UserRole::where('key', 'basic')->first()->id, // Users should default to basic user role.
         'remember_token' => str_random(10),
         'is_priority' => $faker->boolean(10), // 10% chance of true
     ];
@@ -41,24 +41,24 @@ $factory->define(User::class, function (Faker\Generator $faker) {
 
 $factory->state(User::class, 'upgradedManager', function (Faker\Generator $faker) {
     return [
-        'user_role_id' => UserRole::where('name', 'upgradedManager')->first()->id,
+        'user_role_id' => UserRole::where('key', 'upgradedManager')->first()->id,
         'gov_email' => $faker->unique()->safeEmail(),
     ];
 });
 
 $factory->state(User::class, 'hr_advisor', function (Faker\Generator $faker) {
     return [
-        'user_role_id' => UserRole::where('name', 'hr_advisor')->first()->id,
+        'user_role_id' => UserRole::where('key', 'hr_advisor')->first()->id,
         'gov_email' => $faker->unique()->safeEmail(),
     ];
 });
 
 $factory->state(User::class, 'applicant', [
-    'user_role_id' => UserRole::where('name', 'basic')->first()->id
+    'user_role_id' => UserRole::where('key', 'basic')->first()->id
 ]);
 
 $factory->state(User::class, 'admin', [
-    'user_role_id' => UserRole::where('name', 'admin')->first()->id
+    'user_role_id' => UserRole::where('key', 'admin')->first()->id
 ]);
 
 $factory->state(User::class, 'priority', [

@@ -71,7 +71,7 @@ export interface RootState {
   error: ErrorState;
   department: DeptState;
   manager: ManagerState;
-  user: UserState;
+  users: UserState;
   hrAdvisor: HrAdvisorState;
 }
 
@@ -85,7 +85,7 @@ export const initState = (): RootState => ({
   error: initErrors(),
   department: initDeptState(),
   manager: initManagerState(),
-  user: initUserState(),
+  users: initUserState(),
   hrAdvisor: initHrAdvisorState(),
 });
 
@@ -100,7 +100,7 @@ export const rootReducer = (): Reducer<RootState> =>
     error: errorReducer,
     department: deptReducer,
     manager: managerReducer,
-    user: userReducer,
+    users: userReducer,
     hrAdvisor: hrAdvisorReducer,
   });
 
