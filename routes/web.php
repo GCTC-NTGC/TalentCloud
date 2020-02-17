@@ -708,6 +708,9 @@ Route::group(['prefix' => 'api'], function (): void {
     Route::get('jobs/{jobPoster}/assessment-plan', 'AssessmentPlanController@getForJob')
         ->middleware('can:viewAssessmentPlan,jobPoster')
         ->where('jobPoster', '[0-9]+');
+    Route::get('users', 'Api\UserController@index');
+    Route::get('users/{user}', 'Api\UserController@show')
+        ->where('user', '[0-9]+');
 
     // Public, not protected by policy or gate.
     Route::get('skills', 'Api\SkillController@index');
