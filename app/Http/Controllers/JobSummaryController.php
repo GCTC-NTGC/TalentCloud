@@ -87,6 +87,14 @@ class JobSummaryController extends Controller
             ? $summaryLang['under_review']
             : '';
 
+        $portal = '';
+
+        if (WhichPortal::isHrPortal()) {
+            $portal = 'hr';
+        } elseif (WhichPortal::isManagerPortal()) {
+            $portal = 'manager';
+        }
+
         $data = [
             // Localized strings.
             'summary' => $summaryLang,
@@ -110,7 +118,7 @@ class JobSummaryController extends Controller
             'screening_plan_data' => $screening_plan_data,
             'view_applicants_data' => $view_applicants_data,
             'relinquish_job' => route('hr_advisor.jobs.unclaim', $job),
-            'is_hr_view' => WhichPortal::isHrPortal(),
+            'portal' => $portal,
         ];
 
         return view(

@@ -147,7 +147,7 @@
 									</div>
 								</div>
 							</div>
-							{% if is_hr_view %}
+							{% if portal == 'hr' %}
 								<div
 									data-c-grid-item="tl(1of3)" data-c-align="base(center)">
 									{#
@@ -197,7 +197,7 @@
 						</div>
 						<h2 id="activity" data-c-font-size="h2" data-c-padding="top(3) bottom(1)">{{ summary.activity_title }}</h2>
 						{# Activity Feed Component #}
-						<div data-clone="" id="summary-hr-activity-feed" data-job-id="{{ job.id }}"></div>
+						<div data-clone="" id="summary-hr-activity-feed" data-job-id="{{ job.id }}" data-portal="{{ portal }}"></div>
 					</div>
 				</div>
 			</div>
@@ -205,5 +205,5 @@
 	</div>
 {% endblock %}
 {% block scripts %}
-	<script async defer src="{{ mix('/js/SummaryHrActivityFeed.js') }}"></script>
+	<script async defer src="{{ mix('/js/JobSummaryActivityFeed.js') }}"></script>
 {% endblock %}
