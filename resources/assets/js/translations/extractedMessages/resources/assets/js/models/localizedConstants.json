@@ -550,7 +550,7 @@
   {
     "id": "activityfeed.locations.notFound",
     "description": "Error message if location id is not recognized",
-    "defaultMessage": "Error location not found."
+    "defaultMessage": "Location not found"
   },
   {
     "id": "activityfeed.locations.review.details",
@@ -595,7 +595,7 @@
   {
     "id": "activityfeed.locations.applicantReview.generic",
     "description": "Location of the activity.",
-    "defaultMessage": "Generic"
+    "defaultMessage": "General"
   },
   {
     "id": "activityfeed.locations.applicantReview.underConsideration",
