@@ -48,16 +48,16 @@ class JobStatusControllerTest extends TestCase
             'user_id' => $admin->id,
         ]));
         $responseFinalReview = $this->actingAs($admin)->post(
-            route('hr_advisor.jobs.setJobStatus', ['jobPoster', $job, 'status' => 'final_review_manager'])
+            route('hr_advisor.jobs.setJobStatus', ['jobPoster' => $job, 'status' => 'final_review_manager'])
         );
         $responseFinalReview->assertStatus(302);
-        $this->assertEquals('final_review_manager', $job->fresh()->job_poaster_status->name);
+        $this->assertEquals('final_review_manager', $job->fresh()->job_poster_status->name);
 
         $responsePending = $this->actingAs($job->manager->user)->post(
             route('manager.jobs.setJobStatus', ['jobPoster' => $job, 'status' => 'pending_approval'])
         );
         $responsePending->assertStatus(302);
-        $this->assertEquals('pendingApproval', $job->fresh()->job_poster_status->name);
+        $this->assertEquals('pending_approval', $job->fresh()->job_poster_status->name);
 
         $responseApproved = $this->actingAs($hrAdvisor->fresh()->user)->post(
             route('hr_advisor.jobs.setJobStatus', ['jobPoster' => $job, 'status' => 'approved'])
@@ -66,10 +66,10 @@ class JobStatusControllerTest extends TestCase
         $this->assertEquals('approved', $job->fresh()->job_poster_status->name);
 
         $responsePublished = $this->actingAs($admin)->post(
-            route('hr_advisor.jobs.setJobStatus', ['jobPoster', $job, 'status' => 'published'])
+            route('hr_advisor.jobs.setJobStatus', ['jobPoster' => $job, 'status' => 'published'])
         );
         $responsePublished->assertStatus(302);
-        $this->assertEquals('published', $job->fresh()->job_poaster_status->name);
+        $this->assertEquals('published', $job->fresh()->job_poster_status->name);
     }
 
     /**
@@ -88,7 +88,8 @@ class JobStatusControllerTest extends TestCase
         $response->assertStatus(400);
         $this->assertEquals('draft', $job->fresh()->job_poster_status->name);
 
-        $job->job_poster_status()->save(JobPosterStatus::where('name', 'review_hr')->first());
+        $job->job_poster_status_id = JobPosterStatus::where('name', 'review_hr')->first()->id;
+        $job->save();
 
         $hrAdvisor = factory(HrAdvisor::class)->create([
             'department_id' => $job->department_id
