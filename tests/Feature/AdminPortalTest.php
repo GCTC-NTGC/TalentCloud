@@ -96,7 +96,7 @@ class AdminPortalTest extends TestCase
         $response->assertStatus(200);
     }
 
-        /**
+    /**
      * Ensure an admin user can view a create page for a department.
      *
      * @return void
@@ -106,5 +106,20 @@ class AdminPortalTest extends TestCase
         $response = $this->actingAs($this->admin)
             ->get('admin/department/create');
         $response->assertStatus(200);
+    }
+
+    /**
+     * Ensure an admin user can download CSV file of applicants that applied to a job poster.
+     *
+     * @return void
+     */
+    public function testDownloadApplicants() : void
+    {
+        $expected_filename = $this->jobPoster->id . '-' . 'applicants-data.csv';
+        $response = $this->actingAs($this->admin)
+            ->get('admin/' . $this->jobPoster->id . '/download-applicants');
+        $response->assertStatus(200);
+        $this->assertTrue($response->headers->get('Content-Type') == 'text/csv');
+        $this->assertTrue($response->headers->get('Content-Disposition') == 'attachment; filename=' . $expected_filename);
     }
 }
