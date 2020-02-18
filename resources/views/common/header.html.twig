@@ -4,19 +4,10 @@
     Header
 
 ============================================================================= #}
-<header
-    class="header"
-    style="background-image: url('/images/bg_crowd.jpg');">
-
-    {% include "common/menu" %}
-
-    {# Header Content #}
-
-        <div
-            class="header__content">
-
-            <h1 class="heading--01">{{ header.title }}</h1>
-
-        </div>
-
+<header class="header" style="background-image: url('/images/bg_crowd.jpg');">
+	{% include "common/menu" %}
+	{# Header Content #}
+	<div class="header__content">
+		<h1 class="heading--01">{{ header.title }}</h1>
+	</div>
 </header>
