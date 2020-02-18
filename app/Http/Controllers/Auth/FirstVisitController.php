@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Auth\AuthController;
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Http\Request;
-use App\Models\Manager;
 use App\Models\HrAdvisor;
 use App\Models\Lookup\Department;
+use App\Models\Manager;
 use App\Services\Validation\RegistrationValidator;
+use Facades\App\Services\WhichPortal;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
 
 class FirstVisitController extends AuthController
 {
@@ -21,8 +22,8 @@ class FirstVisitController extends AuthController
     public function showFirstVisitManagerForm()
     {
         $routes = [
-            'return' => route('home'),
-            'continue' => route('manager.finish_registration'),
+            'return' => route(WhichPortal::prefixRoute('home')),
+            'continue' => route(WhichPortal::prefixRoute('finish_registration')),
         ];
 
         return view('auth.first_visit_manager', [
@@ -30,6 +31,7 @@ class FirstVisitController extends AuthController
             'first_visit' => Lang::get('common/auth/first_manager_visit'),
             'departments' => Department::all(),
             'not_in_gov_option' => ['value' => 0, 'name' => Lang::get('common/auth/register.not_in_gov')],
+            'is_manager_view' => WhichPortal::isManagerPortal(),
         ]);
     }
 
@@ -67,9 +69,7 @@ class FirstVisitController extends AuthController
         $user->manager->save();
 
         $user->refresh();
-        $expectedUrl = session()->remove('url.expected');
-        session()->remove('url.expected');
-        return redirect($expectedUrl);
+        return redirect(route(WhichPortal::prefixRoute('home')));
     }
 
     /**
@@ -80,14 +80,15 @@ class FirstVisitController extends AuthController
     public function showFirstVisitHrForm()
     {
         $routes = [
-            'return' => route('hr_advisor.home'),
-            'continue' => route('hr_advisor.finish_registration'),
+            'return' => route(WhichPortal::prefixRoute('home')),
+            'continue' => route(WhichPortal::prefixRoute('finish_registration')),
         ];
 
         return view('auth.first_visit_manager', [
             'routes' => $routes,
             'first_visit' => Lang::get('common/auth/first_hr_visit'),
             'departments' => Department::all(),
+            'is_manager_view' => WhichPortal::isManagerPortal(),
         ]);
     }
 
@@ -123,6 +124,6 @@ class FirstVisitController extends AuthController
         $user->hr_advisor->save();
 
         $user->refresh();
-        return redirect(route('hr_advisor.home'));
+        return redirect(route(WhichPortal::prefixRoute('home')));
     }
 }

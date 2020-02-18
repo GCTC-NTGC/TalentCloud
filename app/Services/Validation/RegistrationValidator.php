@@ -2,8 +2,8 @@
 
 namespace App\Services\Validation;
 
-use Illuminate\Support\Facades\Validator;
 use App\Services\Validation\Rules\PasswordFormatRule;
+use Illuminate\Support\Facades\Validator;
 
 class RegistrationValidator
 {
@@ -26,7 +26,8 @@ class RegistrationValidator
     {
         return [
             'department' => 'required|integer',
-            'gov_email' => 'nullable|required_unless:department,0|string|email|unique:users', // gov_email is required unless department is set to 0 (Not in Goverment)
+            'gov_email' => 'nullable|required_unless:department,0|string|email',
+            // gov_email is required unless department is set to 0 (Not in Government)
         ];
     }
 
