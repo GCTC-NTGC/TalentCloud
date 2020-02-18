@@ -356,7 +356,7 @@ class JobPoster extends BaseModel
 
     public function job_poster_key_tasks() // phpcs:ignore
     {
-        return $this->hasMany(\App\Models\JobPosterKeyTask::class);
+        return $this->hasMany(\App\Models\JobPosterKeyTask::class)->orderBy('order', 'asc');
     }
 
     public function job_poster_questions() // phpcs:ignore
@@ -642,5 +642,4 @@ class JobPoster extends BaseModel
         }
         return null;
     }
-
 }
