@@ -15,12 +15,12 @@
 	<div>
 		<i class="fa fa-caret-down"></i>
 		<select id="department" name="department" required>
-			<option selected value="" disabled>{{ copy.department_null_selection }}</option>
+			<option {% if user.department_id == null %} selected {% endif %} value="" disabled>{{ copy.department_null_selection }}</option>
 			{% if not_in_gov_option %}
 				<option value="{{ not_in_gov_option.value }}">{{ not_in_gov_option.name }}</option>
 			{% endif %}
 			{% for dept in departments %}
-				{% if old('department') == dept.id %}
+				{% if user.department_id == dept.id %}
 					{% set visibility = "visible" %}
 					<option selected value="{{ dept.id }}">{{ dept.name }}</option>
 				{% else %}
@@ -36,7 +36,7 @@
 	<label for="gov_email">{{ copy.gov_email }}</label>
 	<span>{{ trans('forms.required') }}</span>
 	<div>
-		<input id="gov_email" name="gov_email" type="email" value="{{ old('gov_email') }}"/>
+		<input id="gov_email" name="gov_email" type="email" value="{% if user.gov_email %}{{ user.gov_email }}{% endif %}"/>
 	</div>
 	<span>{{ trans('forms.error') }}</span>
 </div>

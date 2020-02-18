@@ -6,10 +6,11 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Models\HrAdvisor;
 use App\Models\Lookup\Department;
 use App\Models\Manager;
-use App\Services\Validation\RegistrationValidator;
 use Facades\App\Services\WhichPortal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Validation\Rule;
 
 class FirstVisitController extends AuthController
 {
@@ -19,7 +20,7 @@ class FirstVisitController extends AuthController
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function showFirstVisitManagerForm()
+    public function showFirstVisitManagerForm(Request $request)
     {
         $routes = [
             'return' => route(WhichPortal::prefixRoute('home')),
@@ -32,6 +33,7 @@ class FirstVisitController extends AuthController
             'departments' => Department::all(),
             'not_in_gov_option' => ['value' => 0, 'name' => Lang::get('common/auth/register.not_in_gov')],
             'is_manager_view' => WhichPortal::isManagerPortal(),
+            'user' => $request->user(),
         ]);
     }
 
@@ -43,9 +45,18 @@ class FirstVisitController extends AuthController
      */
     public function finishManagerRegistration(Request $request)
     {
-        $data = $request->all();
-        $validator = RegistrationValidator::finalizeManagerValidator($data);
-        $validator->validate();
+        $data = $request->validate([
+            'department' => 'required|integer',
+            'gov_email' => [
+                'nullable',
+                // gov_email is required unless department is set to 0 (Not in Government)
+                'required_unless:department,0',
+                'email:rfc',
+                'max:191',
+                // gov_email may match existing email for this user, must be unique if changed.
+                Rule::unique('users', 'email')->ignore($request->user()->id)
+            ]
+        ]);
 
         $user = $request->user();
 
@@ -75,9 +86,10 @@ class FirstVisitController extends AuthController
     /**
      * Show the form for completing HR Advisor registration on first visit.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function showFirstVisitHrForm()
+    public function showFirstVisitHrForm(Request $request)
     {
         $routes = [
             'return' => route(WhichPortal::prefixRoute('home')),
@@ -89,6 +101,7 @@ class FirstVisitController extends AuthController
             'first_visit' => Lang::get('common/auth/first_hr_visit'),
             'departments' => Department::all(),
             'is_manager_view' => WhichPortal::isManagerPortal(),
+            'user' => $request->user(),
         ]);
     }
 
@@ -100,9 +113,18 @@ class FirstVisitController extends AuthController
      */
     public function finishHrRegistration(Request $request)
     {
-        $data = $request->all();
-        $validator = RegistrationValidator::finalizeManagerValidator($data);
-        $validator->validate();
+        $data = $request->validate([
+            'department' => 'required|integer',
+            'gov_email' => [
+                'nullable',
+                // gov_email is required unless department is set to 0 (Not in Government)
+                'required_unless:department,0',
+                'email:rfc',
+                'max:191',
+                // gov_email may match existing email for this user, must be unique if changed.
+                Rule::unique('users', 'email')->ignore($request->user()->id)
+            ]
+        ]);
 
         $user = $request->user();
 
