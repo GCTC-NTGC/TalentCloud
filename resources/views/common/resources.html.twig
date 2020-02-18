@@ -1,26 +1,19 @@
 {% extends "layouts/base" %}
 {% block title %}
-    Manager &amp; HR Resources
+    {{ resources_template.title }}
 {% endblock %}
 {% block body %}
     {% include "common/goc" %}
     {% include "common/alert" %}
     <div data-clone>
         {# Header #}
-        <div data-c-overlay="black(80)" style="background-image: url('/images/bg_crowd.jpg');" data-c-padding="bottom(3)">
+        <div data-c-overlay="black(80)" style="background-image: url('/images/bg_crowd.jpg');">
             {% include "common/menu" %}
-            <div data-c-container="large">
-                <h1 data-c-heading="h1" data-c-margin="tb(3)">Manager &amp; HR Resources</h1>
-                <nav aria-label="breadcrumb" data-c-breadcrumbs data-c-color="white">
-                    <ol>
-                        <li>
-                            <a href="#link-to-page" title="This is the title of the page link.">Talent Cloud</a><i>/</i>
-                        </li>
-                        <li>
-                            <span aria-current="page">Manager &amp; HR Resources</span><i>/</i>
-                        </li>
-                    </ol>
-                </nav>
+            <div data-c-container="large" data-c-padding="tb(triple)">
+                <h1 class="logotype" data-c-font-size="h1" data-c-font-weight="600" data-c-color="white" data-c-margin="bottom(double)">
+					{{ resources_template.title }}
+				</h1>
+                {% include "common/breadcrumbs" %}
             </div>
         </div>
         {# Sidebar Layout #}
@@ -31,10 +24,10 @@
                         {# Include Sidebar #}
                         <div data-c-grid-item="tl(1of4)">
                             <nav class="clone-sidebar" data-c-padding="tb(3)">
-                                <p data-c-font-size="h4" data-c-font-weight="bold" data-c-margin="bottom(1)">On This Page</p>
+                                <p data-c-font-size="h4" data-c-font-weight="bold" data-c-margin="bottom(1)">{{ resources_template.resources }}</p>
                                 <ul>
                                     <li>
-                                        <a href="#emailTemplates" title="View email template resources.">Email Templates</a>
+                                        <a href="#emailTemplates" title="View email template resources.">{{ resources_template.email_templates }}</a>
                                     </li>
                                 </ul>
                             </nav>
@@ -42,14 +35,17 @@
                         {# Content #}
                         <div data-c-grid-item="tl(3of4)">
                             <div data-c-padding="tb(3)" data-c-container="small" data-c-margin="left(.25)">
-                                <h2 data-c-heading="h2" data-c-margin="bottom(1)">Available Resources</h2>
-                                <p>Here you can find a list of ever-growing resources for you to download that will help you leverage Talent Cloud more effectively.</p>
-                                <h3 id="emailTemplates" data-c-heading="h3" data-c-margin="bottom(1)" data-c-padding="top(3) bottom(1)">Email Templates</h3>
+                                <h2 data-c-heading="h2" data-c-margin="bottom(1)">{{ resources_template.resources }}</h2>
+                                <p>{{ resources_template.resources_text }}</p>
+                                <h3 id="emailTemplates" data-c-heading="h3" data-c-margin="bottom(1)" data-c-padding="top(3) bottom(1)">{{ resources_template.email_templates }}</h3>
                                 {# Resources can be found in the Github issue. These should be click to download, and will be .doc or text files of some sort. Eventually this are will expand to include various resource types. #}
                                 <ul>
                                     <li><a href="" title="">Resource 1</a></li>
                                     <li><a href="" title="">Resource 2</a></li>
                                     <li><a href="" title="">Resource 3</a></li>
+                                    {# {% for resource in resources_list %}
+                                        <li><a href={{ resource.link }} title={{ resource.title }} download>Resource 1</a></li>
+                                    {% endfor %} #}
                                 </ul>
                             </div>
                         </div>
