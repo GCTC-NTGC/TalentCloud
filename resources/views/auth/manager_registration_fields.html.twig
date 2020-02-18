@@ -16,7 +16,7 @@
 		<i class="fa fa-caret-down"></i>
 		<select id="department" name="department" required>
 			<option selected value="" disabled>{{ copy.department_null_selection }}</option>
-			{% if is_manager_view == true %}
+			{% if not_in_gov_option %}
 				<option value="{{ not_in_gov_option.value }}">{{ not_in_gov_option.name }}</option>
 			{% endif %}
 			{% for dept in departments %}

@@ -307,7 +307,7 @@ class JobControllerTest extends TestCase
         $openJson = $this->jobToArray($openJob);
         $closedJson = $this->jobToArray($closedJob);
 
-        // A guest recieves open and closed jobs
+        // A guest receives open and closed jobs
         $guestResponse = $this->json('get', route('api.jobs.index'));
         $guestResponse->assertJsonCount(2);
         $guestResponse->assertJsonFragment($openJson);
@@ -345,14 +345,26 @@ class JobControllerTest extends TestCase
         // An HR manager can view open/closed jobs, and in-review (but not draft) jobs in its own department
         $deptId = 1;
         $otherDeptId = 2;
-        $hrAdvisor = factory(HrAdvisor::class)->create([
+        $userHrAdvisor = factory(User::class)->create([
             'department_id' => $deptId,
+            'user_role_id' => 4
+        ]);
+        $hrAdvisor = factory(HrAdvisor::class)->create([
+            'user_id' => $userHrAdvisor->id
+        ]);
+        $userManagerInDept = factory(User::class)->create([
+            'department_id' => $deptId,
+            'user_role_id' => 2
         ]);
         $managerInDept = factory(Manager::class)->state('upgraded')->create([
-            'department_id' => $deptId,
+            'user_id' => $userManagerInDept->id
+        ]);
+        $userManagerOtherDept = factory(User::class)->create([
+            'department_id' => $otherDeptId,
+            'user_role_id' => 2
         ]);
         $managerOtherDept = factory(Manager::class)->state('upgraded')->create([
-            'department_id' => $otherDeptId,
+            'user_id' => $userManagerOtherDept->id
         ]);
 
         $draftInDept = factory(JobPoster::class)->state('draft')->create([
@@ -390,11 +402,19 @@ class JobControllerTest extends TestCase
     {
         $deptId = 1;
         $otherDeptId = 2;
-        $managerInDept = factory(Manager::class)->state('upgraded')->create([
+        $userManagerInDept = factory(User::class)->create([
             'department_id' => $deptId,
+            'user_role_id' => 2
+        ]);
+        $managerInDept = factory(Manager::class)->state('upgraded')->create([
+            'user_id' => $userManagerInDept->id
+        ]);
+        $userManagerOtherDept = factory(User::class)->create([
+            'department_id' => $otherDeptId,
+            'user_role_id' => 2
         ]);
         $managerOtherDept = factory(Manager::class)->state('upgraded')->create([
-            'department_id' => $otherDeptId,
+            'user_id' => $userManagerOtherDept->id
         ]);
 
         $inDept = factory(JobPoster::class)->state('published')->create([

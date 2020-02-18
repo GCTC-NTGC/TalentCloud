@@ -32,6 +32,8 @@ import {
 import { fetchManager } from "../../store/Manager/managerActions";
 import { getDepartmentById } from "../../store/Department/deptSelector";
 import { getDepartments } from "../../store/Department/deptActions";
+import { getUserById } from "../../store/User/userSelector";
+import { fetchUser } from "../../store/User/userActions";
 
 const buttonMessages = defineMessages({
   reviewDraft: {
@@ -151,7 +153,7 @@ const makeUnclaimedJob = (
       manager !== null
         ? manager.full_name
         : intl.formatMessage(messages.loadingManager),
-    hrAdvisors: [], // TODO: We can get all claims of an advisor, but don't have an api route for gettings advisors for a job!
+    hrAdvisors: [], // TODO: We can get all claims of an advisor, but don't have an api route for getting advisors for a job!
     handleClaimJob,
   };
 };
@@ -161,6 +163,7 @@ interface JobIndexHrPageProps {
   department: string;
   jobs: Job[];
   managers: Manager[];
+  // user: User | null;
   handleClaimJob: (jobId: number) => void;
 }
 
@@ -221,8 +224,18 @@ const JobIndexHrDataFetcher: React.FC<JobIndexHrDataFetcherProps> = ({
     getHrAdvisor(state, { hrAdvisorId }),
   );
 
+  const userId = hrAdvisor?.user_id;
+  useEffect(() => {
+    if (userId) {
+      dispatch(fetchUser(userId));
+    }
+  }, [dispatch, userId]);
+  const user = useSelector((state: RootState) =>
+    userId ? getUserById(state, { userId }) : null,
+  );
+
   // Request and select all jobs in department
-  const departmentId = hrAdvisor?.department_id;
+  const departmentId = user?.department_id;
   useEffect(() => {
     if (departmentId) {
       const filters = new Map();
@@ -235,11 +248,10 @@ const JobIndexHrDataFetcher: React.FC<JobIndexHrDataFetcherProps> = ({
     () =>
       hrAdvisor !== null
         ? allJobs.filter(
-            (job: Job): boolean =>
-              job.department_id === hrAdvisor.department_id,
+            (job: Job): boolean => job.department_id === user?.department_id,
           )
         : [],
-    [allJobs, hrAdvisor],
+    [allJobs, hrAdvisor, user],
   );
 
   // Request and select all managers belonging to the dept jobs
@@ -259,16 +271,14 @@ const JobIndexHrDataFetcher: React.FC<JobIndexHrDataFetcherProps> = ({
     dispatch(getDepartments());
   }, [dispatch]);
   const department = useSelector((state: RootState) =>
-    hrAdvisor !== null
-      ? getDepartmentById(state, hrAdvisor.department_id)
-      : null,
+    user !== null ? getDepartmentById(state, user?.department_id || 0) : null,
   );
   const departmentName =
     (department !== null ? localizeField(locale, department, "name") : null) ||
     intl.formatMessage(messages.departmentPlaceholder);
 
   // Make claim job function
-  const claimJobForAdvisor = (jobId: number): any =>
+  const claimJobForAdvisor = (jobId: number): boolean =>
     dispatch(claimJob(hrAdvisorId, jobId));
 
   return (

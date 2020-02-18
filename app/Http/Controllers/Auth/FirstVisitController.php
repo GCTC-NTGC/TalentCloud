@@ -65,8 +65,8 @@ class FirstVisitController extends AuthController
             $user->applicant()->save(new Manager());
             $user->refresh();
         }
-        $user->manager->department_id = $department_id;
-        $user->manager->save();
+        $user->department_id = $department_id;
+        $user->save();
 
         $user->refresh();
         return redirect(route(WhichPortal::prefixRoute('home')));
@@ -119,7 +119,8 @@ class FirstVisitController extends AuthController
             $user->hr_advisor()->save(new HrAdvisor());
             $user->refresh();
         }
-        $user->hr_advisor->department_id = $department_id;
+        $user->department_id = $department_id;
+        $user->save();
         $user->hr_advisor->user_id === $user->id;
         $user->hr_advisor->save();
 

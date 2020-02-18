@@ -111,7 +111,6 @@ export interface HrAdvisor {
   user_id: number;
   first_name: string;
   last_name: string;
-  department_id: number;
   claimed_job_ids: number[];
 }
 
@@ -172,7 +171,6 @@ export interface Manager {
   full_name: string;
   first_name: string;
   last_name: string;
-  department_id: number | null;
   twitter_username: string | null;
   linkedin_url: string | null;
   is_demo_manager: boolean;
@@ -242,6 +240,7 @@ export interface User {
     updated_at: Date;
     name: localizedFieldNonNull;
   };
+  department_id: number | null;
 }
 
 type VeteranStatusName = "none" | "current" | "past";

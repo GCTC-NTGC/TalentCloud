@@ -422,7 +422,7 @@
   "jobBuilder.review.nullProvince": "PROVINCE MANQUANTE",
   "jobBuilder.review.or": "ou",
   "jobBuilder.review.otherInfoHeading": "Autres renseignements au sujet de l’équipe",
-  "jobBuilder.review.readyTosubmit": "Si vous êtes prêt à soumettre votre offre, cliquez sur le bouton Soumettre ci-dessous.",
+  "jobBuilder.review.readyToSubmit": "Si vous êtes prêt à soumettre votre offre, cliquez sur le bouton Soumettre ci-dessous.",
   "jobBuilder.review.remoteAllowed": "Travail à distance autorisé",
   "jobBuilder.review.remoteNotAllowed": "Travail à distance non autorisé",
   "jobBuilder.review.reviewYourPoster": "Examiner votre offre d’emploi pour :",

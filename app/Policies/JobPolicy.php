@@ -29,7 +29,7 @@ class JobPolicy extends BasePolicy
                 $jobPoster->manager->user_id == $user->id) ||
             ($user &&
                 $user->isHrAdvisor() &&
-                $user->hr_advisor->department_id === $jobPoster->department_id &&
+                $user->department_id === $jobPoster->department_id &&
                 $jobPoster->isVisibleToHr());
     }
 
