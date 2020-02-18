@@ -17,6 +17,9 @@ return [
         ],
         'settings' => [
             'name' => 'Paramètres'
+        ],
+        'resources' => [
+            'name' => 'Resources'
         ]
     ],
     'register' => 'Inscription',
