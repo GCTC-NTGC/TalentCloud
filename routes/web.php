@@ -420,6 +420,9 @@ Route::group(
                             ->middleware('can:update,user')
                             ->name('manager.settings.government.update');
 
+                        Route::get('resources', 'ResourcesController@show')
+                            ->name('manager.resources');
+
                         /* Two-factor Authentication */
                         Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('manager.two_factor.activate');
                         Route::post('two-factor/deactivate', 'Auth\TwoFactorController@deactivate')->name('manager.two_factor.deactivate');
@@ -637,6 +640,9 @@ Route::group(
                             ->middleware('can:view,user')
                             ->middleware('can:update,user')
                             ->name('hr_advisor.settings.government.update');
+
+                        Route::get('resources', 'ResourcesController@show')
+                            ->name('hr_advisor.resources');
 
                         /* Two-factor Authentication */
                         Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('hr_advisor.two_factor.activate');
