@@ -32,8 +32,8 @@ class ResourcesController extends Controller
         }
 
         // Sort the list alphabetically.
-        usort($resources, function ($a, $b) {
-            return strcmp($a['text'], $b['text']);
+        usort($resources, function ($filenameA, $filenameB) {
+            return strcmp($filenameA['text'], $filenameB['text']);
         });
 
         return view('common/resources', [
