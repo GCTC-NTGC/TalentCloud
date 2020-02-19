@@ -79,9 +79,6 @@ test("Hello World - Manager Portal", async t => {
     .expect(
       Selector("p").withText("Hiring for government just got easier.").visible,
     )
-    .ok()
-    .wait(200)
-    .expect(Selector("span").withText("My Job Posters").visible)
     .ok();
 });
 

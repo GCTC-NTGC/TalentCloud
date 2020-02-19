@@ -320,9 +320,7 @@ test("Registration - HR Advisor", async t => {
 // Returns the URL of the current web page
 const getPageUrl = ClientFunction(() => window.location.href);
 
-fixture(`Critical - First Visit`)
-  .page(HOMEPAGE)
-  .meta("travis", "run");
+fixture(`Critical - First Visit`).page(HOMEPAGE);
 
 test("First Visit - Manager", async t => {
   await t
@@ -336,7 +334,7 @@ test("First Visit - Manager", async t => {
     .click(Selector("button").withText("Register"));
   await assertIsLoggedIn(t);
   await t
-    .navigateTo("/manager")
+    .navigateTo("/manager/first-visit")
     .expect(Selector("#department").visible)
     .ok()
     .click(Selector("#department"))
@@ -358,10 +356,8 @@ test("First Visit - HR Advisor", async t => {
   await t
     .useRole(hrUser)
     .navigateTo("/hr/first-visit")
-    .expect(
-      Selector("h1").withText("Welcome to Talent Cloud's HR Advisor Area")
-        .visible,
-    )
+    .wait(200)
+    .expect(Selector("h1").withText("HR Advisor Area").visible)
     .ok()
     .click(Selector("#department"))
     .click(
