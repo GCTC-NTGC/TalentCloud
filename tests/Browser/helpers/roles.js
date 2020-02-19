@@ -25,6 +25,13 @@ export const managerUser = Role(
   },
 );
 
+export const hrUser = Role("https://talent.test/hr/login", async t => {
+  await t
+    .typeText(Selector("#email"), "hr_advisor@test.com")
+    .typeText(Selector("#password"), "password")
+    .click(Selector("button").withText("Login"));
+});
+
 export const adminUser = Role("https://talent.test/admin/login", async t => {
   await t
     .typeText(
