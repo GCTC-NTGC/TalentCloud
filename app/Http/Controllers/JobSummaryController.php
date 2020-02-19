@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\JobPoster;
+use App\Services\JobStatusTransitions;
 use Facades\App\Services\WhichPortal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -62,8 +63,7 @@ class JobSummaryController extends Controller
             'disabled' => !$job->isClosed(),
         ];
 
-
-
+        # Determine translated job status label
         switch ($job->job_poster_status->name) {
             case 'draft':
                 $status = Lang::get('common/lookup/job_status.draft');
@@ -105,11 +105,77 @@ class JobSummaryController extends Controller
             : '';
 
         $portal = '';
-
         if (WhichPortal::isHrPortal()) {
             $portal = 'hr';
         } elseif (WhichPortal::isManagerPortal()) {
             $portal = 'manager';
+        }
+
+        // Determine available job-transition buttons
+        $statusRoute = WhichPortal::prefixRoute('jobs.setJobStatus');
+        $transitions = new JobStatusTransitions();
+        $buttonPerDestination = [
+            // 'draft' => [],
+            'review_hr' => [
+                'text' => 'Send to HR',
+                'url' => route($statusRoute, ['job' => $job, 'status' => 'review_hr']),
+                'style' => 'default'
+            ],
+            'review_manager' => [
+                'text' => 'Send to Manager',
+                'url' => route($statusRoute, ['job' => $job, 'status' => 'review_manager']),
+                'style' => 'default'
+            ],
+            'translation' => [
+                'text' => 'Send to Translation',
+                'url' => route($statusRoute, ['job' => $job, 'status' => 'translation']),
+                'style' => 'go'
+            ],
+            'final_review_manager' => [
+                'text' => 'Send to Manager for Final Review',
+                'url' => route($statusRoute, ['job' => $job, 'status' => 'final_review_manager']),
+                'style' => 'default'
+            ],
+            'final_review_hr' => [
+                'text' => 'Send to HR',
+                'url' => route($statusRoute, ['job' => $job, 'status' => 'final_review_manager']),
+                'style' => 'default'
+            ],
+            'pending_approval' => [
+                'text' => 'Submit for Approval',
+                'url' => route($statusRoute, ['job' => $job, 'status' => 'pending_approval']),
+                'style' => 'go'
+            ],
+            'approved' => [
+                'text' => 'Approve',
+                'url' => route($statusRoute, ['job' => $job, 'status' => 'approved']),
+                'style' => 'go'
+            ],
+            'published' => [
+                'text' => 'Publish',
+                'url' => route($statusRoute, ['job' => $job, 'status' => 'published']),
+                'style' => 'go'
+            ],
+            'completed' => [
+                'text' => 'Complete',
+                'url' => route($statusRoute, ['job' => $job, 'status' => 'completed']),
+                'style' => 'go'
+            ],
+        ];
+        $unclaimButton = [
+            'unclaim_job' => [
+                'text' => Lang::get('hr_advisor/job_summary.relinquish_button'),
+                'url' => route('hr_advisor.jobs.unclaim', $job),
+                'style' => 'stop',
+                'disabled' => $jobIsClaimed,
+            ]
+        ];
+
+        $destinations = $transitions->legalDestinations($job->job_poster_status->name);
+        $transitionButtons = collect($buttonPerDestination)->only($destinations);
+        $buttonGroups = array_push([], $transitionButtons);
+        if (WhichPortal::isHrPortal()) {
+            array_push($buttonGroups, $unclaimButton);
         }
 
         $data = [
@@ -126,21 +192,16 @@ class JobSummaryController extends Controller
             'job' => $job,
             // Application data.
             'applications' => $applications,
-            // TODO: Add Routes.
-            'send_manager' => '', //route('hr_advisor.jobs.setJobStatus', ['jobPoster'=> $job, 'status' => 'review_manager']),
-            'send_translation' => '', //route('hr_advisor.jobs.setJobStatus', ['jobPoster'=> $job, 'status' => 'translation']),
-            'approve_publishing' => '', //route('hr_advisor.jobs.setJobStatus', ['jobPoster'=> $job, 'status' => 'approved']),
-
+            'side_button_groups' => $buttonGroups,
             'job_review_data' => $job_review_data,
             'job_preview_data' => $job_preview_data,
             'screening_plan_data' => $screening_plan_data,
             'view_applicants_data' => $view_applicants_data,
-            'relinquish_job' => route('hr_advisor.jobs.unclaim', $job),
             'portal' => $portal,
         ];
 
         return view(
-            'hr_advisor/job_summary',
+            'common/job_summary/job_summary',
             $data
         );
     }
