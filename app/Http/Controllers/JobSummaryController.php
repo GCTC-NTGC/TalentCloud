@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\JobPoster;
-use App\Models\HrAdvisor;
+use Facades\App\Services\WhichPortal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
@@ -26,6 +26,7 @@ class JobSummaryController extends Controller
         $advisor = $user->hr_advisor;
         $jobIsClaimed = ($advisor !== null) &&
             $advisor->claimed_job_ids->contains($job->id);
+        $hr_advisors = $job->hr_advisors;
 
         $summaryLang = Lang::get('hr_advisor/job_summary');
 
@@ -33,7 +34,7 @@ class JobSummaryController extends Controller
             'imgSrc' => '/images/job-process-summary-tool-edit.svg',
             'imgAlt' => "{$summaryLang['edit_poster_icon']} {$summaryLang['flat_icons']}",
             'text' => $summaryLang['edit_poster_button'],
-            'url' => route('hr_advisor.jobs.review', $job),
+            'url' => route(WhichPortal::prefixRoute('jobs.review'), $job),
             'disabled' => false,
         ];
 
@@ -41,7 +42,7 @@ class JobSummaryController extends Controller
             'imgSrc' => '/images/job-process-summary-tool-view.svg',
             'imgAlt' => "{$summaryLang['view_poster_icon']} {$summaryLang['flat_icons']}",
             'text' => $summaryLang['view_poster_button'],
-            'url' => route('hr_advisor.jobs.preview', $job),
+            'url' => route(WhichPortal::prefixRoute('jobs.preview'), $job),
             'disabled' => false,
         ];
 
@@ -49,7 +50,7 @@ class JobSummaryController extends Controller
             'imgSrc' => '/images/job-process-summary-tool-screen.svg',
             'imgAlt' => "{$summaryLang['screening_plan_icon']} {$summaryLang['flat_icons']}",
             'text' => $summaryLang['screening_plan_button'],
-            'url' => route('hr_advisor.jobs.screening_plan', $job),
+            'url' => route(WhichPortal::prefixRoute('jobs.screening_plan'), $job),
             'disabled' => false
         ];
 
@@ -57,7 +58,7 @@ class JobSummaryController extends Controller
             'imgSrc' => '/images/job-process-summary-tool-applicants.svg',
             'imgAlt' => "{$summaryLang['view_applicants_icon']} {$summaryLang['flat_icons']}",
             'text' => $summaryLang['view_applicants_button'],
-            'url' => route('hr_advisor.jobs.applications', $job),
+            'url' => route(WhichPortal::prefixRoute('jobs.applications'), $job),
             'disabled' => !$job->isClosed(),
         ];
 
@@ -103,6 +104,14 @@ class JobSummaryController extends Controller
             ? $summaryLang['under_review']
             : '';
 
+        $portal = '';
+
+        if (WhichPortal::isHrPortal()) {
+            $portal = 'hr';
+        } elseif (WhichPortal::isManagerPortal()) {
+            $portal = 'manager';
+        }
+
         $data = [
             // Localized strings.
             'summary' => $summaryLang,
@@ -111,6 +120,8 @@ class JobSummaryController extends Controller
             'is_claimed' => $jobIsClaimed,
             // User data.
             'user' => $user,
+            // HR Advisor data.
+            'hr_advisors' => $hr_advisors,
             // Job Poster data.
             'job' => $job,
             // Application data.
@@ -125,6 +136,7 @@ class JobSummaryController extends Controller
             'screening_plan_data' => $screening_plan_data,
             'view_applicants_data' => $view_applicants_data,
             'relinquish_job' => route('hr_advisor.jobs.unclaim', $job),
+            'portal' => $portal,
         ];
 
         return view(

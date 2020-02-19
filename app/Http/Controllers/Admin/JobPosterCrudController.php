@@ -43,7 +43,7 @@ class JobPosterCrudController extends CrudController
         $this->crud->addButtonFromView('line', 'spb_link', 'spb_link', 'end');
         $this->crud->addButtonFromView('line', 'jpb_link', 'jpb_link', 'end');
         $this->crud->addButtonFromView('line', 'job_poster_link', 'job_poster_link', 'end');
-
+        $this->crud->addButtonFromView('line', 'applicants_download', 'applicants_download', 'end');
 
         $this->crud->addColumn([
             'name' => 'id',

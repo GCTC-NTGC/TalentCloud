@@ -1,8 +1,28 @@
-import messagesEn from "./localizations/en.json";
-import messagesFr from "./localizations/fr.json";
 import { axios } from "./api/base";
 
 const Swal = require("sweetalert2");
+
+const messagesEn = {
+  "alert.text.deleted": "The draft has been successfully removed.",
+  "alert.text.error": "Something went wrong, please try again later.",
+  "alert.text.irreversible": "This action cannot be undone.",
+  "alert.title.delete": "Delete this draft Job Poster?",
+  "alert.title.deleted": "Deleted",
+  "alert.title.error": "Error",
+  "button.cancel": "Cancel",
+  "button.delete": "Delete"
+};
+
+const messagesFr = {
+  "alert.text.deleted": "Ébauche supprimé avec succès.",
+  "alert.text.error": "Quelque chose c'est mal passé. S'il vous plait d'essayer de nouveau.",
+  "alert.text.irreversible": "Cette action ne peut être annulée.",
+  "alert.title.delete": "Supprimer cet ébauche?",
+  "alert.title.deleted": "Supprimé",
+  "alert.title.error": "Erreur",
+  "button.cancel": "Annuler",
+  "button.delete": "Supprimer",
+}
 
 const localizations = {
   en: messagesEn,
@@ -28,14 +48,6 @@ function handleClick(e) {
       success: {
         title: localize(locale, "alert.title.deleted"),
         text: localize(locale, "alert.text.deleted"),
-      },
-    },
-    review: {
-      title: localize(locale, "alert.title.review"),
-      confirmButtonText: localize(locale, "button.sendToTalentCloud"),
-      success: {
-        title: localize(locale, "alert.title.sent"),
-        text: localize(locale, "alert.text.sent"),
       },
     },
   };
@@ -86,16 +98,9 @@ function handleClick(e) {
 
 const indexWrapper = document.querySelector(".manager-poster-index");
 // Double check we're on the manager index page, grab all the
-// 'Send for Review' and 'Delete' buttons, and register the click event handler
+// 'Delete' buttons, and register the click event handler
 // defined above.
 if (typeof indexWrapper !== "undefined" && indexWrapper != null) {
-  const reviewButtons = Array.from(
-    indexWrapper.querySelectorAll('a[data-action="review"]'),
-  );
-  reviewButtons.forEach(button =>
-    button.addEventListener("click", handleClick),
-  );
-
   const deleteButtons = Array.from(
     indexWrapper.querySelectorAll('button[data-action="delete"]'),
   );
