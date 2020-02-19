@@ -46,13 +46,10 @@ export const AssessmentPlanAlert: React.FunctionComponent<AssessmentPlanAlertPro
         data-c-radius="rounded"
         data-c-padding="half"
         role="alert"
-        data-c-margin="top(double)"
+        data-c-margin="top(normal) bottom(normal)"
         data-c-grid="middle"
       >
-        <p
-          data-c-margin="bottom(quarter)"
-          data-c-font-weight="bold"
-        >
+        <p data-c-margin="bottom(quarter)" data-c-font-weight="bold">
           <i aria-hidden="true" className="fa fa-spinner fa-spin" />
           <FormattedMessage
             id="assessmentPlan.alert.checking"
@@ -121,10 +118,7 @@ export const AssessmentPlanAlert: React.FunctionComponent<AssessmentPlanAlertPro
       data-c-grid="middle"
     >
       <div data-c-grid-item="base(2of3) tl(4of5)">
-        <p
-          data-c-margin="bottom(quarter)"
-          data-c-font-weight="bold"
-        >
+        <p data-c-margin="bottom(quarter)" data-c-font-weight="bold">
           <i aria-hidden="true" className="fa fa-exclamation-circle" />
           <FormattedMessage
             id="assessmentPlan.alert.title"
