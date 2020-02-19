@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Selector, Role, ClientFunction } from "testcafe";
 import {
   emptyApplicantUser,
@@ -306,9 +307,10 @@ test("Registration - First Manager Visit", async t => {
     .typeText(Selector("#password"), "Password123!@#")
     .typeText(Selector("#password-confirm"), "Password123!@#")
     .click(Selector("button").withText("Register"));
-  await assertIsLoggedIn(t);
-  await t
+  await assertIsLoggedIn(t)
     .navigateTo("/manager")
+    .expect(Selector("#department").visible)
+    .ok()
     .click(Selector("#department"))
     .click(
       Selector("#department")

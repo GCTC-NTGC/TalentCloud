@@ -38,6 +38,7 @@ export const adminUser = Role("https://talent.test/admin/login", async t => {
     .pressKey("enter");
 });
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const assertIsLoggedIn = async t => {
   return t.expect(Selector("a").withText("Logout").visible).ok();
 };
