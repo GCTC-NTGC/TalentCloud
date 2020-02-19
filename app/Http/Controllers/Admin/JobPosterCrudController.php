@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Lookup\Department;
+use App\Models\Lookup\JobPosterStatus;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Illuminate\Support\Facades\App;
 
 class JobPosterCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation { update as traitUpdate;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation {
+        update as traitUpdate;
     }
 
     /**
@@ -18,7 +20,7 @@ class JobPosterCrudController extends CrudController
      *
      * @return void
      */
-    public function setup() : void
+    public function setup(): void
     {
         $this->crud->setModel('App\Models\JobPoster');
         $this->crud->setRoute('admin/job-poster');
@@ -54,7 +56,7 @@ class JobPosterCrudController extends CrudController
             'name' => 'title',
             'type' => 'text',
             'label' => 'Title',
-            'searchLogic' => function ($query, $column, $searchTerm) use ($locale) : void {
+            'searchLogic' => function ($query, $column, $searchTerm) use ($locale): void {
                 $query->orWhere('title->' . $locale, 'ilike', "%$searchTerm%");
             },
             'orderLogic' => function ($query, $column, $columnDirection) use ($locale) {
@@ -104,22 +106,41 @@ class JobPosterCrudController extends CrudController
             'label' => 'Applications',
             'type' => 'closure',
             'function' =>
-                function ($entry) {
-                    return $entry->submitted_applications_count() > 0 ?
-                        '<a target="_blank" href="' . route('manager.jobs.applications', $entry->id) . '">' . $entry->submitted_applications_count() . ' (View <i class="fa fa-external-link"></i>)</a>' :
-                        $entry->submitted_applications_count();
-                }
+            function ($entry) {
+                return $entry->submitted_applications_count() > 0 ?
+                    '<a target="_blank" href="' . route('manager.jobs.applications', $entry->id) . '">' . $entry->submitted_applications_count() . ' (View <i class="fa fa-external-link"></i>)</a>' :
+                    $entry->submitted_applications_count();
+            }
         ]);
 
         // Filters.
         $this->crud->addFilter([
             'name' => 'departments',
             'type' => 'select2_multiple',
-            'label' => 'Departments'
+            'label' => 'Filter by department'
         ], function () {
             return Department::all()->pluck('name', 'id')->toArray();
         }, function ($values) {
             $this->crud->addClause('WhereHas', 'department', function ($query) use ($values) {
+                foreach (json_decode($values) as $key => $value) {
+                    if ($key === 0) {
+                        $query->where('id', $value);
+                    } else {
+                        $query->orWhere('id', $value);
+                    }
+                }
+            });
+        });
+
+        $this->crud->addFilter([
+            'name' => 'statuses',
+            'type' => 'select2_multiple',
+            'label' => 'Filter by status'
+        ], function () {
+            // Using name because some of the job status values are the same.
+            return JobPosterStatus::all()->pluck('name', 'id')->toArray();
+        }, function ($values) {
+            $this->crud->addClause('WhereHas', 'job_poster_status', function ($query) use ($values) {
                 foreach (json_decode($values) as $key => $value) {
                     if ($key === 0) {
                         $query->where('id', $value);
