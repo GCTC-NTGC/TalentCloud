@@ -2,17 +2,16 @@
 # .codecov.yml
 
 coverage:
-  range: 30..70
+  range: 25..75
   round: up
   status:
     patch: no
     project:
       default:
-        base: auto
-        target: auto
-        threshold: 5%
-        branches: null
-        only_pulls: false
+        target: auto # coverage ratio required for success
+        threshold: 2.5% # coverage drop allowed for success
+        branches: null # reports for all branches
+        only_pulls: false # reports for every CI build
 
 comment:
-  layout: "reach, files, diff"
+  layout: "reach, files, diff, tree"

@@ -67,7 +67,8 @@
 									</p>
 									<p data-c-margin="bottom(.5)">
 										<span data-c-font-weight="600" data-c-color="c2">
-											{{ summary.applicants_label }}:</span> {{ applications|length }}
+											{{ summary.applicants_label }}:</span>
+										{{ applications|length }}
 									</p>
 								</div>
 								<div data-c-accordion-group>
@@ -91,8 +92,15 @@
 											<div data-c-padding="bottom(normal)">
 												<p data-c-margin="top(.5)">
 													<span data-c-color="c2" data-c-font-weight="600">{{ summary.managers_label }}</span>
-													{# Add list of job claimants #}
-													You, Steven Sherman
+                                                    {% if is_claimed %}
+                                                        <ul data-c-margin="top(.25)">
+                                                        {% for hr_advisor in hr_advisors %}
+                                                            <li>{{ hr_advisor.user.first_name }} {{ hr_advisor.user.last_name }}</li>
+                                                        {% endfor %}
+                                                        </ul>
+                                                    {% else %}
+                                                        {{ summary.not_applicable }}
+                                                    {% endif %}
 												</p>
 												<p data-c-margin="top(.5)">
 													<span data-c-color="c2" data-c-font-weight="600">{{ summary.process_label }}</span>
@@ -139,35 +147,37 @@
 									</div>
 								</div>
 							</div>
-							<div
-								data-c-grid-item="tl(1of3)" data-c-align="base(center)">
-								{#
-                                    <div data-c-card data-c-background="white(100)" data-c-padding="all(1)" data-c-radius="rounded" data-c-margin="bottom(1)">
-                                        <form action="{{ send_manager }}" method="POST">
-                                            {{ csrf_field() }}
-                                            <button data-c-button="solid(c1)" data-c-radius="rounded">{{ summary.send_manager_button }}</button>
-                                        </form>
-                                    </div>
-                                    <div data-c-card data-c-background="white(100)" data-c-padding="all(1)" data-c-radius="rounded">
-                                        <form action="{{ send_translation }}" method="POST">
-                                            {{ csrf_field() }}
-                                            <button data-c-button="solid(c1)" data-c-radius="rounded" data-c-margin="bottom(1)">{{ summary.send_translation_button }}</button>
-                                        </form>
-                                        <form action="{{ approve_publishing }}" method="POST">
-                                            {{ csrf_field() }}
-                                            <button data-c-button="solid(go)" data-c-radius="rounded">{{ summary.approve_button }}</button>
-                                        </form>
-                                    </div>
-                                #}
-								<div data-c-card data-c-background="white(100)" data-c-padding="all(1)" data-c-radius="rounded">
-									<form action="{{ relinquish_job }}" method="POST">
-										{{ csrf_field() }}
-										<button {% if not is_claimed %} disabled {% endif %} data-c-button="outline(stop)" data-c-radius="rounded">
-											{{ summary.relinquish_button }}
-										</button>
-									</form>
+							{% if portal == 'hr' %}
+								<div
+									data-c-grid-item="tl(1of3)" data-c-align="base(center)">
+									{#
+                                        <div data-c-card data-c-background="white(100)" data-c-padding="all(1)" data-c-radius="rounded" data-c-margin="bottom(1)">
+                                            <form action="{{ send_manager }}" method="POST">
+                                                {{ csrf_field() }}
+                                                <button data-c-button="solid(c1)" data-c-radius="rounded">{{ summary.send_manager_button }}</button>
+                                            </form>
+                                        </div>
+                                        <div data-c-card data-c-background="white(100)" data-c-padding="all(1)" data-c-radius="rounded">
+                                            <form action="{{ send_translation }}" method="POST">
+                                                {{ csrf_field() }}
+                                                <button data-c-button="solid(c1)" data-c-radius="rounded" data-c-margin="bottom(1)">{{ summary.send_translation_button }}</button>
+                                            </form>
+                                            <form action="{{ approve_publishing }}" method="POST">
+                                                {{ csrf_field() }}
+                                                <button data-c-button="solid(go)" data-c-radius="rounded">{{ summary.approve_button }}</button>
+                                            </form>
+                                        </div>
+                                    #}
+									<div data-c-card data-c-background="white(100)" data-c-padding="all(1)" data-c-radius="rounded">
+										<form action="{{ relinquish_job }}" method="POST">
+											{{ csrf_field() }}
+											<button {% if not is_claimed %} disabled {% endif %} data-c-button="outline(stop)" data-c-radius="rounded">
+												{{ summary.relinquish_button }}
+											</button>
+										</form>
+									</div>
 								</div>
-							</div>
+							{% endif %}
 						</div>
 						<h2 id="tools" data-c-font-size="h2" data-c-padding="top(3) bottom(1)">{{ summary.tools_title }}</h2>
 						{# Add routes to JPB Review, SPB, etc #}
@@ -187,7 +197,7 @@
 						</div>
 						<h2 id="activity" data-c-font-size="h2" data-c-padding="top(3) bottom(1)">{{ summary.activity_title }}</h2>
 						{# Activity Feed Component #}
-						<div data-clone="" id="summary-hr-activity-feed" data-job-id="{{ job.id }}"></div>
+						<div data-clone="" id="summary-hr-activity-feed" data-job-id="{{ job.id }}" data-portal="{{ portal }}"></div>
 					</div>
 				</div>
 			</div>
@@ -195,5 +205,5 @@
 	</div>
 {% endblock %}
 {% block scripts %}
-	<script async defer src="{{ mix('/js/SummaryHrActivityFeed.js') }}"></script>
+	<script async defer src="{{ mix('/js/JobSummaryActivityFeed.js') }}"></script>
 {% endblock %}

@@ -11,10 +11,14 @@ use App\Models\JobApplication;
 use Carbon\Carbon;
 use App\Models\JobPoster;
 use App\Models\JobPosterQuestion;
+use App\Models\Lookup\ApplicationStatus;
+use App\Models\Lookup\CitizenshipDeclaration;
+use App\Models\Lookup\VeteranStatus;
 use App\Models\Manager;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Services\Validation\JobPosterValidator;
 use Facades\App\Services\WhichPortal;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 
 class JobController extends Controller
@@ -416,5 +420,64 @@ class JobController extends Controller
         }
 
         return $jobQuestions;
+    }
+
+    /**
+     * Downloads a CSV file with the applicants who have applied to the job poster.
+     *
+     * @param  \App\Models\JobPoster $jobPoster Job Poster object.
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    protected function downloadApplicants(JobPoster $jobPoster)
+    {
+        $tables = [];
+        // The first row in the array represents the names of the columns in the spreadsheet.
+        $tables[0] = ['Status', 'Applicant Name', 'Email', 'Language'];
+
+        $application_status_id = ApplicationStatus::where('name', 'submitted')->first()->id;
+        $applications = JobApplication::where('job_poster_id', $jobPoster->id)
+            ->where('application_status_id', $application_status_id)
+            ->get();
+
+        $index = 1;
+        foreach ($applications as $application) {
+            $status = '';
+            $username = $application->user_name;
+            $user_email = $application->user_email;
+            $language = strtoupper($application->preferred_language->name);
+            // If the applicants veteran status name is NOT 'none' then set status to veteran.
+            $non_veteran = VeteranStatus::where('name', 'none')->first()->id;
+            if ($application->veteran_status_id != $non_veteran) {
+                $status = 'Veteran';
+            } else {
+                // Check if the applicant is a canadian citizen.
+                $canadian_citizen = CitizenshipDeclaration::where('name', 'citizen')->first()->id;
+                if ($application->citizenship_declaration->id == $canadian_citizen) {
+                    $status = 'Citizen';
+                } else {
+                    $status = 'Non-citizen';
+                }
+            }
+            $tables[$index] = [$status, $username, $user_email, $language];
+            $index++;
+        }
+
+        $filename = $jobPoster->id . '-' . 'applicants-data.csv';
+
+        // Open file.
+        $file = fopen($filename, 'w');
+        // Iterate through tables and add each line to csv file.
+        foreach ($tables as $line) {
+            fputcsv($file, $line);
+        }
+        // Close open file.
+        fclose($file);
+
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename=' . $filename,
+        ];
+
+        return Response::download($filename, $filename, $headers);
     }
 }
