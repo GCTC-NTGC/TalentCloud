@@ -362,7 +362,7 @@
         "id": "apl.indexPageTitle"
       },
       {
-        "defaultMessage": "{dayCount, plural,\r\n              =0 {No Days}\r\n            one {# Day}\r\n          other {# Days}\r\n        } Since Close",
+        "defaultMessage": "{dayCount, plural,\n              =0 {No Days}\n            one {# Day}\n          other {# Days}\n        } Since Close",
         "description": "Welcome header on app main page",
         "id": "job.daysSinceClosed"
       }
@@ -782,6 +782,21 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Interview Question",
+        "description": "Label for the rating guide question.",
+        "id": "ratingGuideQuestion.questionLabel"
+      },
+      {
+        "defaultMessage": "Write your interview question here...",
+        "description": "Placeholder for the rating guide question.",
+        "id": "ratingGuideQuestion.questionPlaceholder"
+      }
+    ],
+    "path": "resources/assets/js/components/AssessmentPlan/RatingGuideQuestion.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Add a Comment",
         "description": "The label displayed for the comment input field.",
         "id": "commentForm.comment.label"
@@ -915,11 +930,6 @@
         "defaultMessage": "No jobs completed yet!",
         "description": "Message displayed if the completed jobs list is empty.",
         "id": "hrPortal.jobPageIndex.noJobsCompleted"
-      },
-      {
-        "defaultMessage": "Welcome! Introductory copy that explains how this page works, and what an HR advisor needs to do to claim a job action as their own. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium ducimus laboriosam sequi, quis autem minima esse quasi aspernatur vero provident quos eligendi, ea officia exercitationem. Obcaecati impedit quae veritatis corrupti!",
-        "description": "Welcome message at beginning of page.",
-        "id": "hrPortal.jobPageIndex.welcomeMessage"
       },
       {
         "defaultMessage": "My Job Actions",
@@ -1352,79 +1362,69 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Find out how to access Job Poster review and publishing features.",
-        "description": "Title of link to further information.",
-        "id": "demoSubmitJobModal.link.title"
+        "defaultMessage": "Hire Impact Statement",
+        "description": "Label for hire impact statement text area",
+        "id": "jobBuilder.impact.hireLabel"
       },
       {
-        "defaultMessage": "Looks like you're using a demo account!",
-        "description": "Title of modal explaining that demo managers cannot submit jobs.",
-        "id": "demoSubmitJobModal.title"
+        "defaultMessage": "Manager Information",
+        "description": "Heading for Manager section",
+        "id": "jobBuilder.review.managerHeading"
       },
       {
-        "defaultMessage": "Job Poster review and publishing is only available to Talent Cloud's partner departments.",
-        "description": "Summary explanation of why user cannot submit job.",
-        "id": "demoSubmitJobModal.explanation"
+        "defaultMessage": "Work Culture",
+        "description": "Heading for Work Culture section",
+        "id": "jobBuilder.review.workCultureHeading"
       },
       {
-        "defaultMessage": "<a>Find out if you can access these features</a>.",
-        "description": "Explanation of where to find more information.",
-        "id": "demoSubmitJobModal.link"
+        "defaultMessage": "Work Environment",
+        "description": "Heading for Work Environment section",
+        "id": "jobBuilder.review.workEnvHeading"
       },
       {
-        "defaultMessage": "Go back",
-        "description": "Cancel button of Demo Submit Job modal.",
-        "id": "demoSubmitJobModal.cancel"
-      }
-    ],
-    "path": "resources/assets/js/components/JobBuilder/Review/DemoSubmitJobModal.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "Job Page Heading",
-        "description": "Section title.",
-        "id": "jobBuilder.review.jobPageHeading"
+        "defaultMessage": "Please note that some Work Environment information is only presented to the applicant after they've clicked the \"View the team's work environment and culture\" button that appears on the job poster.",
+        "description": "A note about the information in the work description section",
+        "id": "jobBuilder.review.workDescription"
       },
       {
-        "defaultMessage": "Edit This in Step 01: Job Info",
-        "description": "Link to edit job details.",
-        "id": "jobBuilder.review.infoEditLink"
+        "defaultMessage": "Other Team Information",
+        "description": "Heading for other info section",
+        "id": "jobBuilder.review.otherInfoHeading"
       },
       {
-        "defaultMessage": "Edit This in Step 03: Impact",
-        "description": "Link to edit impact statements.",
-        "id": "jobBuilder.review.impactEditLink"
+        "defaultMessage": "or",
+        "description": "Displayed between language icons for the English Or French option.",
+        "id": "jobBuilder.review.or"
       },
       {
-        "defaultMessage": "Edit This in Step 04: Tasks",
-        "description": "Link to edit tasks.",
-        "id": "jobBuilder.review.tasksEditLink"
+        "defaultMessage": "Manager data is loading...",
+        "description": "Placeholder text as Manager data loads.",
+        "id": "jobBuilder.review.managerDataLoading"
       },
       {
-        "defaultMessage": "Edit This in Step 05: Skills",
-        "description": "Link to edit skills.",
-        "id": "jobBuilder.review.skillsEditLink"
+        "defaultMessage": "{position} at {department}",
+        "description": "Description of the Manager's position & department.",
+        "id": "jobBuilder.review.managerPosition"
       },
       {
-        "defaultMessage": "Edit This in Step 02: Work Environment",
-        "description": "Link to edit work environment.",
-        "id": "jobBuilder.review.workEnvEditLink"
+        "defaultMessage": "Please complete your manager profile.",
+        "description": "Note that the Manager's profile is incomplete and should be edited before continuing.",
+        "id": "jobBuilder.review.managerIncomplete"
       },
       {
-        "defaultMessage": "Edit This in Your Profile",
-        "description": "Link to edit a manager's profile.",
-        "id": "jobBuilder.review.managerProfileLink"
+        "defaultMessage": "Remote Work Allowed",
+        "description": "Text displayed when remote work is allowed.",
+        "id": "jobBuilder.review.remoteAllowed"
       },
       {
-        "defaultMessage": "MISSING PROVINCE",
-        "description": "Error text for missing province information.",
-        "id": "jobBuilder.review.nullProvince"
+        "defaultMessage": "Remote Work Not Allowed",
+        "description": "Text displayed when remote work is not allowed.",
+        "id": "jobBuilder.review.remoteNotAllowed"
       },
       {
-        "defaultMessage": "Basic Information",
-        "description": "Heading for Basic Information section",
-        "id": "jobBuilder.review.basicInformationHeading"
+        "defaultMessage": "Annual Salary Range",
+        "description": "Label for salary information.",
+        "id": "jobBuilder.review.averageAnnualSalary"
       },
       {
         "defaultMessage": "Describe the value your team/service/initiative brings to Canadians. It doesn’t matter if your work is direct to citizens or back office, innovative or maintenance, top priority or ongoing. Describe how it contributes to making Canada better the way you would to someone who knows nothing about your work.",
@@ -1432,9 +1432,9 @@
         "id": "jobBuilder.impact.teamBody"
       },
       {
-        "defaultMessage": "Tasks",
-        "description": "Heading for Tasks section",
-        "id": "jobBuilder.review.tasksHeading"
+        "defaultMessage": "Language Profile",
+        "description": "Information will be added placeholder.",
+        "id": "jobBuilder.review.languageProfile"
       },
       {
         "defaultMessage": "Describe how the new hire will contribute in this role. Focus on the value they’ll bring, not on specific tasks (you’ll provide these later on). For example “In this role, you’ll contribute to…” or, “As a member of this team, you’ll be responsible for helping us…”",
@@ -1442,19 +1442,19 @@
         "id": "jobBuilder.impact.hireBody"
       },
       {
-        "defaultMessage": "Education Requirements",
-        "description": "Heading for Educational section",
-        "id": "jobBuilder.review.educationalHeading"
+        "defaultMessage": "{termMonths, plural, =0 {No Months} one {# Month} other {# Months}}",
+        "description": "Length of term in months",
+        "id": "jobBuilder.review.months"
       },
       {
-        "defaultMessage": "Skills You Need to Have",
-        "description": "Heading for Skills section",
-        "id": "jobBuilder.review.skillsHeading"
+        "defaultMessage": "Security Clearance",
+        "description": "Label for Security Clearance info",
+        "id": "jobBuilder.review.securityClearance"
       },
       {
-        "defaultMessage": "Skills That Are Nice to Have",
-        "description": "Heading for Asset Skills section",
-        "id": "jobBuilder.review.assetHeading"
+        "defaultMessage": "Target Start Date",
+        "description": "Label for start date info",
+        "id": "jobBuilder.review.targetStartDate"
       },
       {
         "defaultMessage": "Here's a preview of the Impact Statement you just entered. Feel free to go back and edit things or move to the next step if you're happy with it.",
@@ -1462,14 +1462,14 @@
         "id": "jobBuilder.impact.modalDescription"
       },
       {
-        "defaultMessage": "Environment & Culture",
-        "description": "Title for culture section",
-        "id": "jobBuilder.review.cultureSection"
+        "defaultMessage": "Government Classification",
+        "description": "Placeholder for information that comes later",
+        "id": "jobBuilder.review.GovernmentClass"
       },
       {
-        "defaultMessage": "Manager Information",
-        "description": "Heading for Manager section",
-        "id": "jobBuilder.review.managerHeading"
+        "defaultMessage": "You haven't added any Nice to Have skills to this poster.",
+        "description": "The text displayed for skills when you haven't added any skills.",
+        "id": "jobBuilder.review.skills.nullState"
       },
       {
         "defaultMessage": "Next Step",
@@ -1497,24 +1497,24 @@
         "id": "jobBuilder.intro.explanation.boldText"
       },
       {
-        "defaultMessage": "Other Team Information",
-        "description": "Heading for other info section",
-        "id": "jobBuilder.review.otherInfoHeading"
+        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\r\n            understand how an applicant will see it once published.",
+        "description": "Description under primary title of review section",
+        "id": "jobBuilder.review.headsUp"
       },
       {
-        "defaultMessage": "or",
-        "description": "Displayed between language icons for the English Or French option.",
-        "id": "jobBuilder.review.or"
+        "defaultMessage": "Save & Return to Skills",
+        "description": "Label of 'Previous Step' button.",
+        "id": "jobBuilder.review.button.return"
       },
       {
-        "defaultMessage": "Manager data is loading...",
-        "description": "Placeholder text as Manager data loads.",
-        "id": "jobBuilder.review.managerDataLoading"
+        "defaultMessage": "Looks good!",
+        "description": "Label of Job Review Submission Button",
+        "id": "jobBuilder.review.button.submit"
       },
       {
-        "defaultMessage": "{position} at {department}",
-        "description": "Description of the Manager's position & department.",
-        "id": "jobBuilder.review.managerPosition"
+        "defaultMessage": "Congrats! Are You Ready to Submit?",
+        "description": "Title of Submit Confirmation modal.",
+        "id": "jobBuilder.review.confirm.title"
       },
       {
         "defaultMessage": "{name}'s Position (Français)",
@@ -1522,9 +1522,9 @@
         "id": "jobBuilder.intro.jobTitleLabelFR"
       },
       {
-        "defaultMessage": "Review Your Job Poster for:",
-        "description": "Title for Review Job Poster section.",
-        "id": "jobBuilder.review.reviewYourPoster"
+        "defaultMessage": "What happens next?",
+        "description": "Rhetorical question",
+        "id": "jobBuilder.review.whatHappens"
       },
       {
         "defaultMessage": "Select a department...",
@@ -1547,39 +1547,49 @@
         "id": "jobBuilder.intro.divisionLabelEN"
       },
       {
-        "defaultMessage": "Annual Salary Range",
-        "description": "Label for salary information.",
-        "id": "jobBuilder.review.averageAnnualSalary"
+        "defaultMessage": "Yes, Submit",
+        "description": "Submit button of Job Review confirmation modal.",
+        "id": "jobBuilder.review.confirm.submit"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilder/Review/JobReview.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Generic",
+        "description": "Location where the activity is located.",
+        "id": "reviewLocations.jpb.generic"
       },
       {
-        "defaultMessage": "Talent Cloud will add this.",
-        "description": "Information will be added placeholder.",
-        "id": "jobBuilder.review.tCAdds"
+        "defaultMessage": "Job Page Heading",
+        "description": "Location where the activity is located.",
+        "id": "reviewLocations.jpb.heading"
       },
       {
-        "defaultMessage": "Language Profile",
-        "description": "Information will be added placeholder.",
-        "id": "jobBuilder.review.languageProfile"
+        "defaultMessage": "Basic Information",
+        "description": "Location where the activity is located.",
+        "id": "reviewLocations.jpb.basicInfo"
       },
       {
-        "defaultMessage": "Duration",
-        "description": "Label for duration of Term",
-        "id": "jobBuilder.review.duration"
+        "defaultMessage": "Impact",
+        "description": "Location where the activity is located.",
+        "id": "reviewLocations.jpb.impact"
       },
       {
-        "defaultMessage": "{termMonths, plural, =0 {No Months} one {# Month} other {# Months}}",
-        "description": "Length of term in months",
-        "id": "jobBuilder.review.months"
+        "defaultMessage": "Tasks",
+        "description": "Location where the activity is located.",
+        "id": "reviewLocations.jpb.tasks"
       },
       {
-        "defaultMessage": "Security Clearance",
-        "description": "Label for Security Clearance info",
-        "id": "jobBuilder.review.securityClearance"
+        "defaultMessage": "Criteria",
+        "description": "Location where the activity is located.",
+        "id": "reviewLocations.jpb.skills"
       },
       {
-        "defaultMessage": "Target Start Date",
-        "description": "Label for start date info",
-        "id": "jobBuilder.review.targetStartDate"
+        "defaultMessage": "Language Requirements",
+        "description": "Location where the activity is located.",
+        "id": "reviewLocations.jpb.langRequirements"
       },
       {
         "defaultMessage": "{name}'s Department Information",
@@ -1601,59 +1611,19 @@
         "id": "jobBuilder.intro.completeInLanguage"
       },
       {
-        "defaultMessage": "Government Classification",
-        "description": "Placeholder for information that comes later",
-        "id": "jobBuilder.review.GovernmentClass"
+        "defaultMessage": "Data is loading...",
+        "description": "Accessible text for the loading icon",
+        "id": "activityfeed.review.loadingIconText"
       },
       {
-        "defaultMessage": "You haven't added any Nice to Have skills to this poster.",
-        "description": "The text displayed for skills when you haven't added any skills.",
-        "id": "jobBuilder.review.skills.nullState"
+        "defaultMessage": "Click to View Comments {totalActivities}",
+        "description": "The activity feed header.",
+        "id": "activityfeed.review.header"
       },
       {
-        "defaultMessage": "Save & Return to Skills",
-        "description": "Label of 'Previous Step' button.",
-        "id": "jobBuilder.review.button.return"
-      },
-      {
-        "defaultMessage": "Looks good!",
-        "description": "Label of Job Review Submission Button",
-        "id": "jobBuilder.review.button.submit"
-      },
-      {
-        "defaultMessage": "Congrats! Are You Ready to Submit?",
-        "description": "Title of Submit Confirmation modal.",
-        "id": "jobBuilder.review.confirm.title"
-      },
-      {
-        "defaultMessage": "If you're ready to submit your poster, click the Submit button below.",
-        "description": "Instructions on how to submit",
-        "id": "jobBuilder.review.readyTosubmit"
-      },
-      {
-        "defaultMessage": "What happens next?",
-        "description": "Rhtorical question",
-        "id": "jobBuilder.review.whatHappens"
-      },
-      {
-        "defaultMessage": "Talent Cloud will send your draft to your department's HR advisor who will notify you with comments.",
-        "description": "Information about next steps",
-        "id": "jobBuilder.review.sendYourDraft"
-      },
-      {
-        "defaultMessage": "In the meantime, feel free to go ahead and create a screening plan for your selection process. Alternatively, you can wait for comments to come back from HR before you take the next step.",
-        "description": "Suggestion on what to do while you wait.",
-        "id": "jobBuilder.review.meantime"
-      },
-      {
-        "defaultMessage": "Cancel",
-        "description": "Cancel button of Job Review confirmation modal.",
-        "id": "jobBuilder.review.confirm.cancel"
-      },
-      {
-        "defaultMessage": "Yes, Submit",
-        "description": "Submit button of Job Review confirmation modal.",
-        "id": "jobBuilder.review.confirm.submit"
+        "defaultMessage": "Click to view...",
+        "description": "The accessibility text displayed on the activity feed accordion button.",
+        "id": "activityfeed.review.accordionAccessibleLabel"
       }
     ],
     "path": "resources/assets/js/components/JobBuilder/Intro/IntroForm.json"
@@ -1676,12 +1646,12 @@
         "id": "managerSurveyModal.managerSurveyLinkTitle"
       },
       {
-        "defaultMessage": "Take me to the survey",
+        "defaultMessage": "<a>Take me to the survey</>.",
         "description": "Link to manager survey.",
         "id": "managerSurveyModal.link"
       },
       {
-        "defaultMessage": "Go back to <a>My Job Posters</>.",
+        "defaultMessage": "Go back to My Job Posters",
         "description": "Link to job poster index.",
         "id": "managerSurveyModal.jobPosterLink"
       },
@@ -2147,7 +2117,7 @@
         "id": "jobBuilder.review.reviewYourPoster"
       },
       {
-        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\r\n            understand how an applicant will see it once published.",
+        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\n            understand how an applicant will see it once published.",
         "description": "Description under primary title of review section",
         "id": "jobBuilder.review.headsUp"
       },
@@ -2297,6 +2267,21 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Additional skill details",
+        "description": "Label for the skill specificity textarea.",
+        "id": "criteriaForm.skillSpecificityLabel"
+      },
+      {
+        "defaultMessage": "Add context or specifics to the definition of this skill that will only appear on your job poster. This will be reviewed by your human resources advisor.",
+        "description": "Placeholder for the skill specificity textarea.",
+        "id": "criteriaForm.skillSpecificityPlaceholder"
+      },
+      {
+        "defaultMessage": "Select a skill level:",
+        "description": "Placeholder for the skill specificity textarea.",
+        "id": "criteriaForm.skillLevelSelectionLabel"
+      },
+      {
         "defaultMessage": "Skill Definition",
         "description": "Label for Skill Definition heading on Add Skill modal.",
         "id": "jobBuilder.criteriaForm.skillDefinition"
@@ -2307,7 +2292,7 @@
         "id": "jobBuilder.criteriaForm.removeSpecificity"
       },
       {
-        "defaultMessage": "I'd like to add specificity to this definition. This will only apply to my job poster.",
+        "defaultMessage": "I would like to add details to this definition that are specific to this position.",
         "description": "Label for 'Add additional specificity' button on Add Skill modal.",
         "id": "jobBuilder.criteriaForm.addSpecificity"
       },
@@ -2854,6 +2839,11 @@
         "defaultMessage": "Team Size",
         "description": "The label displayed on the team size input.",
         "id": "jobBuilder.workEnv.teamSizeLabel"
+      },
+      {
+        "defaultMessage": "e.g. 10",
+        "description": "The placeholder displayed on the team size input.",
+        "id": "jobBuilder.workEnv.teamSizePlaceholder"
       },
       {
         "defaultMessage": "Our Physical Environment",

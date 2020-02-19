@@ -19,7 +19,7 @@
 	{% include "applicant/application_post/common/tracker-ajax" %}
 	{# Body #}
 	<form
-		action="{{ form_submit_action }}" method="post">
+		class="form-prevent-multiple-submit" action="{{ form_submit_action }}" method="post">
 		{# Builds an input field for CSRF token validation #}
 		{{ csrf_field() }}
 		{# Sections #}
@@ -54,12 +54,12 @@
 				{# <p>{{ application_template.integrity.review }}</p> #}
 				<div class="flex-grid middle application-post__action-wrapper">
 					<div class="box med-1of2">
-						<button class="button--blue light-bg" type="submit" name="submit" value="save_and_quit">
+						<button id="save_and_quit" class="button--blue light-bg button-prevent-multiple-submit" type="submit" name="submit" value="save_and_quit">
 							{{ application_template.integrity.save_label }}
 						</button>
 					</div>
 					<div class="box med-1of2">
-						<button class="button--blue light-bg" type="submit" name="submit" value="submit">
+						<button class="button--blue light-bg button-prevent-multiple-submit" type="submit" name="submit" value="submit">
 							{{ application_template.integrity.submit_label }}
 						</button>
 					</div>

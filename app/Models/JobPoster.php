@@ -7,12 +7,9 @@
 
 namespace App\Models;
 
-use Astrotomic\Translatable\Translatable;
-
+use Spatie\Translatable\HasTranslations;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
-
 use Jenssegers\Date\Date;
-
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
@@ -104,7 +101,7 @@ use App\Events\JobSaved;
 class JobPoster extends BaseModel
 {
     use CrudTrait;
-    use Translatable;
+    use HasTranslations;
     use Notifiable;
 
     const DATE_FORMAT = [
@@ -118,9 +115,9 @@ class JobPoster extends BaseModel
     const TIMEZONE = 'America/Toronto';
 
     /**
-     * @var string[] $translatedAttributes
+     * @var string[] $translatable
      */
-    public $translatedAttributes = [
+    public $translatable = [
         'city',
         'title',
         'dept_impact',
@@ -210,6 +207,16 @@ class JobPoster extends BaseModel
         'loo_issuance_date',
         'classification_id',
         'classification_level',
+        'city',
+        'title',
+        'dept_impact',
+        'team_impact',
+        'hire_impact',
+        'division',
+        'education',
+        'work_env_description',
+        'culture_summary',
+        'culture_special',
     ];
 
     /**
@@ -253,7 +260,17 @@ class JobPoster extends BaseModel
         'loo_issuance_date',
         'classification_id',
         'classification_level',
-        'job_status_id'
+        'job_status_id',
+        'city',
+        'title',
+        'dept_impact',
+        'team_impact',
+        'hire_impact',
+        'division',
+        'education',
+        'work_env_description',
+        'culture_summary',
+        'culture_special',
     ];
 
     /**
@@ -265,6 +282,16 @@ class JobPoster extends BaseModel
         'classification_code',
         'classification_message',
         'job_status_id',
+    ];
+
+    /**
+     * Eager loaded relationships by default.
+     *
+     * @var string[] $with
+     */
+    protected $with = [
+        'criteria',
+        'manager'
     ];
 
     /**
@@ -331,11 +358,6 @@ class JobPoster extends BaseModel
     public function job_poster_questions() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\JobPosterQuestion::class);
-    }
-
-    public function job_poster_translations() // phpcs:ignore
-    {
-        return $this->hasMany(\App\Models\JobPosterTranslation::class);
     }
 
     public function telework_allowed_frequency() // phpcs:ignore
@@ -615,17 +637,5 @@ class JobPoster extends BaseModel
             return $this->classification->key . '-0' . $this->classification_level;
         }
         return null;
-    }
-
-    /**
-     * Return the array of values used to represent this object in an api response.
-     * This array should contain no nested objects (besides translations).
-     *
-     * @return mixed[]
-     */
-    public function toApiArray(): array
-    {
-        $jobWithTranslations = array_merge($this->toArray(), $this->getTranslationsArray());
-        return $jobWithTranslations;
     }
 }

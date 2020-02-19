@@ -1,21 +1,21 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Api;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\JobPoster;
 use App\Models\JobPosterKeyTask;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
-class JobTaskControllerTest extends TestCase
+class JobPosterKeyTaskControllerTest extends TestCase
 {
     use RefreshDatabase;
 
     /**
      *  Converts a JobPosterKeyTask to shape sent and received through the api.
-    *
-    * @var callable
-    */
+     *
+     * @var callable
+     */
     protected $toApiArray;
 
     /**
@@ -28,7 +28,7 @@ class JobTaskControllerTest extends TestCase
         parent::setUp();
 
         $this->toApiArray = function (JobPosterKeyTask $model) {
-            return array_merge($model->toArray(), $model->getTranslationsArray());
+            return array_merge($model->toArray(), $model->getTranslations());
         };
     }
 
@@ -54,19 +54,12 @@ class JobTaskControllerTest extends TestCase
             ->json('put', "api/jobs/$job->id/tasks", $newTaskArray->toArray());
         $response->assertOk();
 
-        foreach ($newTaskArray as $task) {
+        foreach ($newTasks as $task) {
             $this->assertDatabaseHas(
-                'job_poster_key_task_translations',
+                'job_poster_key_tasks',
                 [
-                    'locale' => 'en',
-                    'description' => $task['en']['description'],
-                ]
-            );
-            $this->assertDatabaseHas(
-                'job_poster_key_task_translations',
-                [
-                    'locale' => 'fr',
-                    'description' => $task['fr']['description'],
+                    'description->en' => $task->getTranslation('description', 'en'),
+                    'description->fr' => $task->getTranslation('description', 'fr')
                 ]
             );
         }
@@ -91,23 +84,21 @@ class JobTaskControllerTest extends TestCase
         // Task1 should be present, unchanged.
         $this->assertTrue($task1->is(JobPosterKeyTask::find($task1->id)));
         $this->assertDatabaseHas(
-            'job_poster_key_task_translations',
-            ['locale' => 'en', 'description' => $task1->translate('en')->description]
-        );
-        $this->assertDatabaseHas(
-            'job_poster_key_task_translations',
-            ['locale' => 'fr', 'description' => $task1->translate('fr')->description]
+            'job_poster_key_tasks',
+            [
+                'description->en' => $task1->getTranslation('description', 'en'),
+                'description->fr' => $task1->getTranslation('description', 'fr')
+            ]
         );
 
         // Task0 should be deleted.
         $this->assertNull(JobPosterKeyTask::find($task0->id));
         $this->assertDatabaseMissing(
-            'job_poster_key_task_translations',
-            ['locale' => 'en', 'description' => $task0->translate('en')->description]
-        );
-        $this->assertDatabaseMissing(
-            'job_poster_key_task_translations',
-            ['locale' => 'fr', 'description' => $task0->translate('fr')->description]
+            'job_poster_key_tasks',
+            [
+                'description->en' => $task0->getTranslation('description', 'en'),
+                'description->fr' => $task0->getTranslation('description', 'fr')
+            ]
         );
     }
 
@@ -124,9 +115,11 @@ class JobTaskControllerTest extends TestCase
             [
                 'id' => $task0->id,
                 'job_poster_id' => $job->id,
-                'en' => ['description' => $enDescription],
-                'fr' => ['description' => $frDescription],
-            ],
+                'description' => [
+                    'en' => $enDescription,
+                    'fr' => $frDescription
+                ]
+            ]
         ];
         $response = $this->actingAs($job->manager->user)
             ->json('put', "api/jobs/$job->id/tasks", $newTaskArray);
@@ -135,19 +128,11 @@ class JobTaskControllerTest extends TestCase
         // Task1 should be present, but with updated description.
         $this->assertNotNull(JobPosterKeyTask::find($task0->id));
         $this->assertDatabaseHas(
-            'job_poster_key_task_translations',
+            'job_poster_key_tasks',
             [
-                'job_poster_key_task_id' => $task0->id,
-                'locale' => 'en',
-                'description' => $enDescription,
-            ]
-        );
-        $this->assertDatabaseHas(
-            'job_poster_key_task_translations',
-            [
-                'job_poster_key_task_id' => $task0->id,
-                'locale' => 'fr',
-                'description' => $frDescription,
+                'id' => $task0->id,
+                'description->en' => $enDescription,
+                'description->fr' => $frDescription
             ]
         );
     }
@@ -159,49 +144,36 @@ class JobTaskControllerTest extends TestCase
 
         $task0 = [
             'id' => null,
-            'en' => ['description' => 'Description 0'],
-            'fr' => ['description' => 'FR Description 0'],
+            'job_poster_id' => $job->id,
+            'description' => [
+                'en' => 'Description 0',
+                'fr' => 'FR Description 0'
+            ]
         ];
         $task1 = [
             'id' => 'temp-1',
-            'en' => ['description' => 'Description 1'],
-            'fr' => ['description' => 'FR Description 1'],
+            'job_poster_id' => $job->id,
+            'description' => [
+                'en' => 'Description 1',
+                'fr' => 'FR Description 1'
+            ]
         ];
 
-
         $newTaskArray = [$task0, $task1];
+
         $response = $this->actingAs($job->manager->user)
             ->json('put', "api/jobs/$job->id/tasks", $newTaskArray);
         $response->assertOk();
 
-        // Task0 and Task1 should both be added.
-        $this->assertDatabaseHas(
-            'job_poster_key_task_translations',
-            [
-                'locale' => 'en',
-                'description' => $task0['en']['description'],
-            ]
-        );
-        $this->assertDatabaseHas(
-            'job_poster_key_task_translations',
-            [
-                'locale' => 'fr',
-                'description' => $task0['fr']['description'],
-            ]
-        );
-        $this->assertDatabaseHas(
-            'job_poster_key_task_translations',
-            [
-                'locale' => 'en',
-                'description' => $task1['en']['description'],
-            ]
-        );
-        $this->assertDatabaseHas(
-            'job_poster_key_task_translations',
-            [
-                'locale' => 'fr',
-                'description' => $task1['fr']['description'],
-            ]
-        );
+        foreach ($newTaskArray as $task) {
+            $this->assertDatabaseHas(
+                'job_poster_key_tasks',
+                [
+                    'job_poster_id' => $job->id,
+                    'description->en' => $task['description']['en'],
+                    'description->fr' => $task['description']['fr'],
+                ]
+            );
+        }
     }
 }

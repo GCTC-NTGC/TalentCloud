@@ -1,15 +1,10 @@
 <?php
 
-/**
- * Created by Reliese Model.
- * Date: Thu, 12 Jul 2018 22:39:27 +0000.
- */
-
 namespace App\Models;
 
 use App\Models\BaseModel;
 use Illuminate\Support\Facades\Lang;
-use Astrotomic\Translatable\Translatable as Translatable;
+use Spatie\Translatable\HasTranslations;
 
 /**
  * Class Criteria
@@ -26,7 +21,6 @@ use Astrotomic\Translatable\Translatable as Translatable;
  * @property \App\Models\JobPoster $job_poster
  * @property \App\Models\Skill $skill
  * @property \App\Models\Lookup\SkillLevel $skill_level
- * @property \Illuminate\Database\Eloquent\Collection $criteria_translations
  * @property \Illuminate\Database\Eloquent\Collection[Assessment] $assessments
  *
  *  Accessors
@@ -40,9 +34,12 @@ use Astrotomic\Translatable\Translatable as Translatable;
 class Criteria extends BaseModel
 {
 
-    use Translatable;
+    use HasTranslations;
 
-    public $translatedAttributes = ['description', 'specificity'];
+    public $translatable = [
+        'description',
+        'specificity'
+    ];
 
     protected $table = 'criteria';
 
@@ -56,6 +53,8 @@ class Criteria extends BaseModel
         'skill_id',
         'criteria_type_id',
         'skill_level_id',
+        'description',
+        'specificity'
     ];
     protected $with = [
         'criteria_type',
@@ -81,11 +80,6 @@ class Criteria extends BaseModel
     public function skill_level() //phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\SkillLevel::class);
-    }
-
-    public function criteria_translations() //phpcs:ignore
-    {
-        return $this->hasMany(\App\Models\CriteriaTranslation::class);
     }
 
     /**

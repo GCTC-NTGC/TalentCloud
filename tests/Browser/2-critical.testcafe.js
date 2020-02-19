@@ -250,7 +250,9 @@ function randomEmail() {
   return email;
 }
 
-fixture(`Critical - Registration`).page(HOMEPAGE);
+fixture(`Critical - Registration`)
+  .page(HOMEPAGE)
+  .meta("travis", "run");
 // Skip when writing new tests
 // fixture.skip(`Critical - Registration`);
 

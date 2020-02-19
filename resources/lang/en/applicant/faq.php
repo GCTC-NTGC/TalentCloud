@@ -589,7 +589,7 @@ return [
                 ],
                 'links' => [
                     '0' => "<a href=\"#partners\" title=\"See Talent Cloud's partner departments.\">check out the FAQ section of the Talent Cloud website</a>",
-                    '1' => "<a href=\"talent.canada.ca/manager\" title=\"Visit Talent Cloud's manager portal.\">Talent Cloud's manager portal</a>",
+                    '1' => "<a href=\"manager\" title=\"Visit Talent Cloud's manager portal.\">Talent Cloud's manager portal</a>",
                     '2' => '<a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Send an email to Talent Cloud.">talent.cloud-nuage.de.talents@tbs-sct.gc.ca</a>'
                 ]
             ],
@@ -620,7 +620,8 @@ return [
                             '8' => 'National Research Council',
                             '9' => 'Employment and Social Development Canada',
                             '10' => 'The Royal Canadian Mounted Police',
-                            '11' => 'Public Services and Procurement Canada'
+                            '11' => 'Public Services and Procurement Canada',
+                            '12' => 'Department of Justice'
                         ]
                     ]
                 ]

@@ -204,7 +204,6 @@ class MenuComposer
             if (Auth::check()) {
                 unset($menu['items']['login']);
                 unset($menu['items']['register']);
-                // TODO: set profile link using user slug.
             } else {
                 unset($menu['items']['logout']);
                 unset($menu['items']['jobs']);

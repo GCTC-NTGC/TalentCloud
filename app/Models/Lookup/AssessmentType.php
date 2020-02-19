@@ -4,25 +4,23 @@ namespace App\Models\Lookup;
 
 use App\Models\Assessment;
 use App\Models\BaseModel;
+use Spatie\Translatable\HasTranslations;
 
 /**
  * Class AssessmentType
- * Database columns:
+ *
  * @property int $id
  * @property string $key
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
- * Relations:
- * @property Collection[Assessment] $assessments
- * @property Collection[AssessmentTypeTranslation] $assessment_type_translations
+ *
+ * @property \Illuminate\Database\Eloquent\Collection $assessments
  */
 class AssessmentType extends BaseModel
 {
-    /**
-     * The columns that can be filled with mass-assignment
-     *
-     * @var string[]
-     */
+    use HasTranslations;
+
+    public $translatable = ['value'];
     protected $fillable = [];
 
     /**
