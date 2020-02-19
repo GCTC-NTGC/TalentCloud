@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Lang;
  */
 
 /* ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP */
+
 Route::group(
     [
         'prefix' => LaravelLocalization::setLocale(),
@@ -326,6 +327,12 @@ Route::group(
                             ->middleware('can:view,jobPoster')
                             ->name('manager.jobs.show');
 
+                        /* View Job Summary */
+                        Route::get('jobs/{job}/summary', 'JobSummaryController@show')
+                            ->middleware('can:manage,job')
+                            ->name('manager.jobs.summary')
+                            ->where('jobPoster', '[0-9]+');
+
                         /* Job Builder */
                         Route::get(
                             'jobs/builder',
@@ -375,6 +382,15 @@ Route::group(
                         )
                             ->where('jobPoster', '[0-9]+')
                             ->name('manager.jobs.review');
+
+                        /* Job Preview */
+                        Route::get(
+                            'jobs/{job}',
+                            'JobController@show'
+                        )
+                            ->middleware('can:view,job')
+                            ->where('jobPoster', '[0-9]+')
+                            ->name('manager.jobs.preview');
 
                         /* Delete Job */
                         Route::delete('jobs/{jobPoster}', 'JobController@destroy')
@@ -614,8 +630,8 @@ Route::group(
 
                         /* Account Settings */
                         Route::get('settings', 'SettingsController@editAuthenticated')
-                        // Permissions are checked in Controller.
-                        ->name('hr_advisor.settings.edit');
+                            // Permissions are checked in Controller.
+                            ->name('hr_advisor.settings.edit');
 
                         Route::post(
                             'settings/{user}/personal/update',

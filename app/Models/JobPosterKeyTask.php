@@ -10,6 +10,7 @@ use Spatie\Translatable\HasTranslations;
  *
  * @property int $id
  * @property int $job_poster_id
+ * @property int $order
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -27,10 +28,12 @@ class JobPosterKeyTask extends BaseModel
         'description'
     ];
     protected $fillable = [
-        'description'
+        'description',
+        'order'
     ];
     protected $casts = [
-        'job_poster_id' => 'int'
+        'job_poster_id' => 'int',
+        'order' => 'int'
     ];
 
     public function job_poster() //phpcs:ignore

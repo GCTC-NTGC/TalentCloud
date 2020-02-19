@@ -543,9 +543,14 @@
     "defaultMessage": "HR Preview Page"
   },
   {
-    "id": "activityfeed.locations.applications.generic",
+    "id": "activityfeed.locations.applications",
     "description": "Location where the activity is located.",
     "defaultMessage": "Applicant Review Page"
+  },
+  {
+    "id": "activityfeed.locations.screeningPlan",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Assessment Plan"
   },
   {
     "id": "activityfeed.locations.notFound",
@@ -553,47 +558,47 @@
     "defaultMessage": "Location not found"
   },
   {
-    "id": "activityfeed.locations.review.details",
-    "description": "Location where the activity is located.",
+    "id": "activityfeed.locations.review.general",
+    "description": "Location of the activity.",
     "defaultMessage": "General"
   },
   {
     "id": "activityfeed.locations.review.heading",
-    "description": "Location where the activity is located.",
+    "description": "Location of the activity.",
     "defaultMessage": "Job Page Heading"
   },
   {
     "id": "activityfeed.locations.review.basicInfo",
-    "description": "Location where the activity is located.",
+    "description": "Location of the activity.",
     "defaultMessage": "Basic Information"
   },
   {
     "id": "activityfeed.locations.review.impact",
-    "description": "Location where the activity is located.",
+    "description": "Location of the activity.",
     "defaultMessage": "Impact"
   },
   {
     "id": "activityfeed.locations.review.tasks",
-    "description": "Location where the activity is located.",
+    "description": "Location of the activity.",
     "defaultMessage": "Tasks"
   },
   {
     "id": "activityfeed.locations.review.skills",
-    "description": "Location where the activity is located.",
+    "description": "Location of the activity.",
     "defaultMessage": "Skills"
   },
   {
     "id": "activityfeed.locations.review.langRequirements",
-    "description": "Location where the activity is located.",
+    "description": "Location of the activity.",
     "defaultMessage": "Language Requirements"
   },
   {
     "id": "activityfeed.locations.review.environment",
-    "description": "Location where the activity is located.",
+    "description": "Location of the activity.",
     "defaultMessage": "Environment"
   },
   {
-    "id": "activityfeed.locations.applicantReview.generic",
+    "id": "activityfeed.locations.applicantReview.general",
     "description": "Location of the activity.",
     "defaultMessage": "General"
   },
@@ -611,5 +616,25 @@
     "id": "activityfeed.locations.applicantReview.notUnderConsideration",
     "description": "Location of the activity.",
     "defaultMessage": "No Longer Under Consideration"
+  },
+  {
+    "id": "activityfeed.locations.screeningPlan.general",
+    "description": "Location of the activity.",
+    "defaultMessage": "General"
+  },
+  {
+    "id": "activityfeed.locations.screeningPlan.builder",
+    "description": "Location of the activity.",
+    "defaultMessage": "Assessment Plan Builder"
+  },
+  {
+    "id": "activityfeed.locations.screeningPlan.summary",
+    "description": "Location of the activity.",
+    "defaultMessage": "Assessment Plan Summary"
+  },
+  {
+    "id": "activityfeed.locations.screeningPlan.ratings",
+    "description": "Location of the activity.",
+    "defaultMessage": "Ratings Guide Builder"
   }
 ]
