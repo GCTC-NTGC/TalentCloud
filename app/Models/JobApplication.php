@@ -75,7 +75,7 @@ class JobApplication extends BaseModel
         'submission_date' => 'string',
         'experience_saved' => 'boolean',
         'language_requirement_confirmed' => 'boolean',
-        'version_id'
+        'version_id' => 'int',
     ];
     protected $fillable = [
         'citizenship_declaration_id',
