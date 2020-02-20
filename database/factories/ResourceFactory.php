@@ -1,12 +1,36 @@
 <?php
 
 use App\Models\Resource;
-use Faker\Generator as Faker;
 use Illuminate\Support\Facades\Log;
 
-$factory->define(Resource::class, function (Faker $faker) {
+$faker_fr = Faker\Factory::create('fr');
+
+$resources_dir = storage_path('app/public/resources');
+
+// Get a list of all of the file names in the folder.
+$files = glob(storage_path('app/public/resources') . '/*');
+
+// Loop through the file list.
+foreach ($files as $file) {
+    // Make sure that this is a file and not a directory.
+    if (is_file($file)) {
+        // Use the unlink function to delete the file.
+        unlink($file);
+    }
+}
+
+$factory->define(Resource::class, function (Faker\Generator $faker) use ($faker_fr, $resources_dir) {
+
+    // Add test file to test resources folder.
+    $resource = $faker->md5 . '.txt';
+    $file = fopen($resources_dir . '/' . $resource, 'w');
+    fclose($file);
+
     return [
-        'name' => $faker->unique()->realText(27, 1),
-        // 'file' =>
+        'name' => [
+            'en' => $faker->unique()->realText(27, 1),
+            'fr' => $faker_fr->unique()->realText(27, 1)
+        ],
+        'file' =>  'resources/' . $resource,
     ];
 });
