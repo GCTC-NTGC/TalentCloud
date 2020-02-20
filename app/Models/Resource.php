@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class Resource
@@ -18,6 +19,18 @@ class Resource extends Model
 {
     use CrudTrait;
     use HasTranslations;
+
+    /**
+     * Delete file in resources folder
+     *
+     */
+    public static function boot(): void
+    {
+        parent::boot();
+        static::deleting(function ($obj): void {
+            Storage::disk('public')->delete($obj->file);
+        });
+    }
 
     /**
      * The model's attibutes that admin cannot change.
@@ -43,9 +56,17 @@ class Resource extends Model
     /**
      * Set the value of file name attribute in DB and upload file to disk.
      *
+     * @param string $value Incoming value for 'file' attribute.
      */
-    public function setFileAttribute($value)
+    public function setFileAttribute(string $value): void
     {
-        $this->uploadFileToDisk($value, 'file', 'public', 'resources');
+        $request = \Illuminate\Http\Request::instance();
+
+        // Check if a new file has been uploaded if not then save value to file attribute
+        if ($request->hasFile('file')) {
+            $this->uploadFileToDisk($value, 'file', 'public', 'resources');
+        } else {
+            $this->attributes['file'] = $value;
+        }
     }
 }
