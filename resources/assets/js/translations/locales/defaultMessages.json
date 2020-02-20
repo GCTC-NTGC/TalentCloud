@@ -3934,7 +3934,27 @@
       {
         "defaultMessage": "General",
         "description": "Location of the activity.",
-        "id": "activityfeed.locations.applicantReview.generic"
+        "id": "activityfeed.locations.screeningPlan.general"
+      },
+      {
+        "defaultMessage": "Assessment Plan Builder",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.screeningPlan.builder"
+      },
+      {
+        "defaultMessage": "Assessment Plan Summary",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.screeningPlan.summary"
+      },
+      {
+        "defaultMessage": "Ratings Guide Builder",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.screeningPlan.ratings"
+      },
+      {
+        "defaultMessage": "General",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.applicantReview.general"
       },
       {
         "defaultMessage": "Under Consideration",

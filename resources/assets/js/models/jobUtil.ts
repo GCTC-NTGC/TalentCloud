@@ -178,13 +178,18 @@ export const activityLocationUrl = (
     [LocationId.skills]: hrJobReview(locale, jobId),
     [LocationId.langRequirements]: hrJobReview(locale, jobId),
     [LocationId.environment]: hrJobReview(locale, jobId),
-    [LocationId.screeningPlan]: hrScreeningPlan(locale, jobId),
 
     /* Applicant Review Page */
     [LocationId.applicantsGeneric]: hrJobApplications(locale, jobId),
     [LocationId.underConsideration]: hrJobApplications(locale, jobId),
     [LocationId.optionalConsideration]: hrJobApplications(locale, jobId),
     [LocationId.notUnderConsideration]: hrJobApplications(locale, jobId),
+
+    /* Screening Plan Builder */
+    [LocationId.screeningPlan]: hrScreeningPlan(locale, jobId),
+    [LocationId.screeningPlanBuilder]: hrScreeningPlan(locale, jobId),
+    [LocationId.screeningPlanSummary]: hrScreeningPlan(locale, jobId),
+    [LocationId.screeningPlanRatings]: hrScreeningPlan(locale, jobId),
 
     [LocationId.summary]: hrJobSummary(locale, jobId),
     [LocationId.preview]: hrJobPreview(locale, jobId),
@@ -206,7 +211,12 @@ export const activityLocationUrl = (
     [LocationId.optionalConsideration]: managerJobApplications(locale, jobId),
     [LocationId.notUnderConsideration]: managerJobApplications(locale, jobId),
 
+    /* Screening Plan Builder */
     [LocationId.screeningPlan]: managerScreeningPlan(locale, jobId),
+    [LocationId.screeningPlanBuilder]: managerScreeningPlan(locale, jobId),
+    [LocationId.screeningPlanSummary]: managerScreeningPlan(locale, jobId),
+    [LocationId.screeningPlanRatings]: managerScreeningPlan(locale, jobId),
+
     [LocationId.summary]: jobBuilderReview(locale, jobId), // TODO: change to summary page, once managers have it
     [LocationId.preview]: managerJobShow(locale, jobId),
   };
