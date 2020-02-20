@@ -135,7 +135,7 @@ class UserControllerTest extends TestCase
         ]);
 
         $job = factory(JobPoster::class)->state('closed')->create([
-            'department_id'=> $transportCanada->id,
+            'department_id' => $transportCanada->id,
             'manager_id' => $deptManager->id
         ]);
         $job->job_applications()->saveMany(factory(JobApplication::class, 5)->create([
@@ -225,8 +225,8 @@ class UserControllerTest extends TestCase
         $hrManager->claimed_jobs()->detach($job);
 
         $response = $this->followingRedirects()
-        ->actingAs($hrManager->user)
-        ->json('get', 'api/users/' . $randomUsers[0]->user->id);
+            ->actingAs($hrManager->user)
+            ->json('get', 'api/users/' . $randomUsers[0]->user->id);
         $response->assertStatus(403);
         $response->assertJsonFragment(['message' => 'This action is unauthorized.']);
     }
@@ -257,7 +257,7 @@ class UserControllerTest extends TestCase
         ]);
 
         $job = factory(JobPoster::class)->state('closed')->create([
-            'department_id'=> $transportCanada->id,
+            'department_id' => $transportCanada->id,
             'manager_id' => $deptManager->id
         ]);
         $job->job_applications()->saveMany(factory(JobApplication::class, 5)->create([

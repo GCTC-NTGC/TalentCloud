@@ -69,15 +69,22 @@ class JobSummaryController extends Controller
                 $status = Lang::get('common/lookup/job_status.draft');
                 break;
             case 'review_hr':
+                $status = Lang::get('common/lookup/job_status.review_hr');
+                break;
             case 'review_manager':
-                $status = Lang::get('common/lookup/job_status.in_review');
+                $status = Lang::get('common/lookup/job_status.review_manager');
                 break;
             case 'translation':
                 $status = Lang::get('common/lookup/job_status.in_translation');
                 break;
             case 'final_review_manager':
+                $status = Lang::get('common/lookup/job_status.final_review_manager');
+                break;
             case 'final_review_hr':
-                $status = Lang::get('common/lookup/job_status.final_review');
+                $status = Lang::get('common/lookup/job_status.final_review_hr');
+                break;
+            case 'pending_approval':
+                $status = Lang::get('common/lookup/job_status.pending_approval');
                 break;
             case 'approved':
                 $status = Lang::get('common/lookup/job_status.approved');
@@ -114,52 +121,62 @@ class JobSummaryController extends Controller
         // Determine available job-transition buttons
         $statusRoute = WhichPortal::prefixRoute('jobs.setJobStatus');
         $transitions = new JobStatusTransitions();
+        $userOwnsState = $transitions->userOwnsState($user, $job->job_poster_status->name);
         $buttonPerDestination = [
             // 'draft' => [],
             'review_hr' => [
                 'text' => 'Send to HR',
                 'url' => route($statusRoute, ['jobPoster' => $job, 'status' => 'review_hr']),
-                'style' => 'default'
+                'style' => 'default',
+                'disabled' => !$userOwnsState,
             ],
             'review_manager' => [
                 'text' => 'Send to Manager',
                 'url' => route($statusRoute, ['jobPoster' => $job, 'status' => 'review_manager']),
-                'style' => 'default'
+                'style' => 'default',
+                'disabled' => !$userOwnsState,
             ],
             'translation' => [
                 'text' => 'Send to Translation',
                 'url' => route($statusRoute, ['jobPoster' => $job, 'status' => 'translation']),
-                'style' => 'go'
+                'style' => 'go',
+                'disabled' => !$userOwnsState,
             ],
             'final_review_manager' => [
                 'text' => 'Send to Manager for Final Review',
                 'url' => route($statusRoute, ['jobPoster' => $job, 'status' => 'final_review_manager']),
-                'style' => 'default'
+                'style' => 'default',
+                'disabled' => !$userOwnsState,
             ],
             'final_review_hr' => [
                 'text' => 'Send to HR',
-                'url' => route($statusRoute, ['jobPoster' => $job, 'status' => 'final_review_manager']),
-                'style' => 'default'
+                'url' => route($statusRoute, ['jobPoster' => $job, 'status' => 'final_review_hr']),
+                'style' => 'default',
+                'disabled' => !$userOwnsState,
             ],
             'pending_approval' => [
                 'text' => 'Submit for Approval',
                 'url' => route($statusRoute, ['jobPoster' => $job, 'status' => 'pending_approval']),
-                'style' => 'go'
+                'style' => 'go',
+                'disabled' => !$userOwnsState,
             ],
             'approved' => [
                 'text' => 'Approve',
                 'url' => route($statusRoute, ['jobPoster' => $job, 'status' => 'approved']),
-                'style' => 'go'
+                'style' => 'go',
+                'disabled' => !$userOwnsState,
             ],
             'published' => [
                 'text' => 'Publish',
                 'url' => route($statusRoute, ['jobPoster' => $job, 'status' => 'published']),
-                'style' => 'go'
+                'style' => 'go',
+                'disabled' => !$userOwnsState,
             ],
             'completed' => [
                 'text' => 'Complete',
                 'url' => route($statusRoute, ['jobPoster' => $job, 'status' => 'completed']),
-                'style' => 'go'
+                'style' => 'go',
+                'disabled' => !$userOwnsState,
             ],
         ];
         $unclaimButton = [
@@ -167,14 +184,16 @@ class JobSummaryController extends Controller
                 'text' => Lang::get('hr_advisor/job_summary.relinquish_button'),
                 'url' => route('hr_advisor.jobs.unclaim', $job),
                 'style' => 'stop',
-                'disabled' => $jobIsClaimed,
+                'disabled' => !$jobIsClaimed,
             ]
         ];
 
+        $buttonGroups = [];
+
         $destinations = $transitions->legalDestinations($job->job_poster_status->name);
         $transitionButtons = collect($buttonPerDestination)->only($destinations);
-        $buttonGroups = [];
         array_push($buttonGroups, $transitionButtons);
+
         if (WhichPortal::isHrPortal()) {
             array_push($buttonGroups, $unclaimButton);
         }
