@@ -39,11 +39,15 @@
                                 <p>{{ resources_template.resources_text }}</p>
                                 <h3 id="emailTemplates" data-c-heading="h3" data-c-margin="bottom(1)" data-c-padding="top(3) bottom(1)">{{ resources_template.email_templates }}</h3>
                                 {# Resources can be found in the Github issue. These should be click to download, and will be .doc or text files of some sort. Eventually this are will expand to include various resource types. #}
-                                <ul>
-                                    {% for resource in resources %}
-                                        <li><a href="{{ resource.link }}" title="" download>{{ resource.text }}</a></li>
-                                    {% endfor %}
-                                </ul>
+                                {% if resources %}
+                                    <ul>
+                                        {% for resource in resources %}
+                                            <li><a href="{{ resource.link }}" title="" download>{{ resource.text }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    <p>{{ resources_template.empty_list }}</p>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
