@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\StateMachineException;
 use App\Models\JobPoster;
+use App\Http\Resources\JobPoster as JobPosterResource;
 use App\Models\JobPosterStatusHistory;
 use App\Models\Lookup\JobPosterStatus;
 use App\Services\JobStatusTransitions;
@@ -38,7 +39,7 @@ class JobStatusController extends Controller
         $transition->save();
 
         return $request->ajax()
-            ? response()->json(['status' => 'ok'])
+            ? new JobPosterResource($job->fresh())
             : back();
     }
 
