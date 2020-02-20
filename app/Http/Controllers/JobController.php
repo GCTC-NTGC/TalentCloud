@@ -337,9 +337,13 @@ class JobController extends Controller
         if ($request->input('question')) {
             $validator = Validator::make($request->input('question'), [
                 '*.question.*' => 'required|string',
+            ], [
+                'required' => Lang::get('validation.custom.job_poster_question.required'),
+                'string' => Lang::get('validation.custom.job_poster_question.string')
             ]);
 
             if ($validator->fails()) {
+                $request->session()->flash('errors', $validator->errors());
                 return redirect(route('admin.jobs.edit', $jobPoster->id));
             }
         }
