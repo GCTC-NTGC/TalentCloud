@@ -118,47 +118,47 @@ class JobSummaryController extends Controller
             // 'draft' => [],
             'review_hr' => [
                 'text' => 'Send to HR',
-                'url' => route($statusRoute, ['job' => $job, 'status' => 'review_hr']),
+                'url' => route($statusRoute, ['jobPoster' => $job, 'status' => 'review_hr']),
                 'style' => 'default'
             ],
             'review_manager' => [
                 'text' => 'Send to Manager',
-                'url' => route($statusRoute, ['job' => $job, 'status' => 'review_manager']),
+                'url' => route($statusRoute, ['jobPoster' => $job, 'status' => 'review_manager']),
                 'style' => 'default'
             ],
             'translation' => [
                 'text' => 'Send to Translation',
-                'url' => route($statusRoute, ['job' => $job, 'status' => 'translation']),
+                'url' => route($statusRoute, ['jobPoster' => $job, 'status' => 'translation']),
                 'style' => 'go'
             ],
             'final_review_manager' => [
                 'text' => 'Send to Manager for Final Review',
-                'url' => route($statusRoute, ['job' => $job, 'status' => 'final_review_manager']),
+                'url' => route($statusRoute, ['jobPoster' => $job, 'status' => 'final_review_manager']),
                 'style' => 'default'
             ],
             'final_review_hr' => [
                 'text' => 'Send to HR',
-                'url' => route($statusRoute, ['job' => $job, 'status' => 'final_review_manager']),
+                'url' => route($statusRoute, ['jobPoster' => $job, 'status' => 'final_review_manager']),
                 'style' => 'default'
             ],
             'pending_approval' => [
                 'text' => 'Submit for Approval',
-                'url' => route($statusRoute, ['job' => $job, 'status' => 'pending_approval']),
+                'url' => route($statusRoute, ['jobPoster' => $job, 'status' => 'pending_approval']),
                 'style' => 'go'
             ],
             'approved' => [
                 'text' => 'Approve',
-                'url' => route($statusRoute, ['job' => $job, 'status' => 'approved']),
+                'url' => route($statusRoute, ['jobPoster' => $job, 'status' => 'approved']),
                 'style' => 'go'
             ],
             'published' => [
                 'text' => 'Publish',
-                'url' => route($statusRoute, ['job' => $job, 'status' => 'published']),
+                'url' => route($statusRoute, ['jobPoster' => $job, 'status' => 'published']),
                 'style' => 'go'
             ],
             'completed' => [
                 'text' => 'Complete',
-                'url' => route($statusRoute, ['job' => $job, 'status' => 'completed']),
+                'url' => route($statusRoute, ['jobPoster' => $job, 'status' => 'completed']),
                 'style' => 'go'
             ],
         ];
@@ -173,7 +173,8 @@ class JobSummaryController extends Controller
 
         $destinations = $transitions->legalDestinations($job->job_poster_status->name);
         $transitionButtons = collect($buttonPerDestination)->only($destinations);
-        $buttonGroups = array_push([], $transitionButtons);
+        $buttonGroups = [];
+        array_push($buttonGroups, $transitionButtons);
         if (WhichPortal::isHrPortal()) {
             array_push($buttonGroups, $unclaimButton);
         }

@@ -153,7 +153,7 @@
                                 {% for button_group in side_button_groups %}
                                     <div data-c-card data-c-background="white(100)" data-c-padding="all(1)" data-c-radius="rounded">
                                         {% for button in button_group %}
-                                            {% include "common/job_summary/side_button" with {button} %}
+                                            {% include "common/job_summary/side_button" with button %}
                                         {% endfor %}
                                     </div>
                                 {% endfor %}
