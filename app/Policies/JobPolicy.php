@@ -89,21 +89,6 @@ class JobPolicy extends BasePolicy
     }
 
     /**
-     * Determine whether the user can submit a job poster for review.
-     *
-     * @param \App\Models\User      $user      User object making the request.
-     * @param \App\Models\JobPoster $jobPoster Job Poster object being acted upon.
-     * @return mixed
-     */
-    public function submitForReview(User $user, JobPoster $jobPoster)
-    {
-        // Only upgradedManagers can submit jobs for review, only their own jobs, and only if they're still drafts.
-        // NOTE: this is one of the only permissions to require an upgradedManager, as opposed to a demoManager.
-        return $user->isUpgradedManager() &&
-            $jobPoster->manager->user->id == $user->id &&
-            $jobPoster->job_poster_status->name === 'draft';
-    }
-    /**
      * Determine whether the user can review applications to the job poster.
      *
      * @param \App\Models\User      $user      User object making the request.

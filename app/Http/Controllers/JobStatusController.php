@@ -38,7 +38,7 @@ class JobStatusController extends Controller
         $transition->to_job_poster_status_id = $toStatus->id;
         $transition->save();
 
-        return $request->ajax()
+        return ($request->ajax() || $request->wantsJson())
             ? new JobPosterResource($job->fresh())
             : back();
     }

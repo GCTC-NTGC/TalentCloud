@@ -394,7 +394,7 @@ Route::group(
                             ->middleware('can:delete,jobPoster')
                             ->name('manager.jobs.destroy');
                         Route::post(
-                            'jobs/{jobPoster}/setJobStatus/{status}',
+                            'jobs/{jobPoster}/set-status/{status}',
                             'JobStatusController@setJobStatus'
                         )
                             ->middleware('can:manage,jobPoster')
@@ -629,7 +629,7 @@ Route::group(
                             ->name('hr_advisor.jobs.preview');
 
                         Route::post(
-                            'jobs/{jobPoster}/setJobStatus/{status}',
+                            'jobs/{jobPoster}/set-status/{status}',
                             'JobStatusController@setJobStatus'
                         )
                             ->middleware('can:manage,jobPoster')
@@ -777,10 +777,13 @@ Route::group(['prefix' => 'api'], function (): void {
         ->where('jobPoster', '[0-9]+')
         ->middleware('can:update,jobPoster');
 
-    Route::post('jobs/{job}/submit', 'Api\JobController@submitForReview')
-        ->where('job', '[0-9]+')
-        ->middleware('can:submitForReview,job')
-        ->name('api.jobs.submit');
+    Route::post(
+        'jobs/{jobPoster}/set-status/{status}',
+        'JobStatusController@setJobStatus'
+    )
+        ->middleware('can:manage,jobPoster')
+        ->where('jobPoster', '[0-9]+')
+        ->name('api.jobs.setJobStatus');
     Route::resource('jobs', 'Api\JobController')->only([
         'show', 'store', 'update', 'index'
     ])->names([ // Specify custom names because default names collied with existing routes.
