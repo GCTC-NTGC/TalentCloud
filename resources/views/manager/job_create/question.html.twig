@@ -37,7 +37,7 @@
 							<label class="form__label" for="{{ id_description }}createJobQuestionDescriptionEN">
 								{{ question_l10n.description_english }}
 							</label>
-							<textarea required class="form__textarea" id="{{ id_description }}createJobQuestionDescriptionEN" name="question[{{ question ? question.id : ':id' }}][description][en]">{{ question.getTranslation('description', 'en') }}</textarea>
+							<textarea class="form__textarea" id="{{ id_description }}createJobQuestionDescriptionEN" name="question[{{ question ? question.id : ':id' }}][description][en]">{{ question.getTranslation('description', 'en') }}</textarea>
 						</div>
 					</div>
 				</div>
@@ -57,7 +57,7 @@
 							<label class="form__label" for="{{ id_description }}createJobQuestionDescriptionFR">
 								{{ question_l10n.description_french }}
 							</label>
-							<textarea required class="form__textarea" id="{{ id_description }}createJobQuestionDescriptionFR" name="question[{{ question ? question.id : ':id' }}][description][fr]">{{ question.getTranslation('description', 'fr') }}</textarea>
+							<textarea class="form__textarea" id="{{ id_description }}createJobQuestionDescriptionFR" name="question[{{ question ? question.id : ':id' }}][description][fr]">{{ question.getTranslation('description', 'fr') }}</textarea>
 						</div>
 					</div>
 				</div>
