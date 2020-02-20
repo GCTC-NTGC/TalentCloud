@@ -57,16 +57,16 @@ class JobStatusTransitionsTest extends TestCase
 
     public function testLegalDestinations(): void
     {
-        $this->assertEqualsCanonicalizing(['review_hr'], $this->transitions->testLegalDestinations('draft'));
-        $this->assertEqualsCanonicalizing(['review_manager', 'translation'], $this->transitions->testLegalDestinations('review_hr'));
-        $this->assertEqualsCanonicalizing(['review_hr'], $this->transitions->testLegalDestinations('review_manager'));
-        $this->assertEqualsCanonicalizing(['final_review_manager'], $this->transitions->testLegalDestinations('translation'));
-        $this->assertEqualsCanonicalizing(['final_review_hr', 'pending_approval'], $this->transitions->testLegalDestinations('final_review_manager'));
-        $this->assertEqualsCanonicalizing(['translation', 'final_review_hr'], $this->transitions->testLegalDestinations('final_review_hr'));
-        $this->assertEqualsCanonicalizing(['translation', 'final_review_manager', 'approved'], $this->transitions->testLegalDestinations('pending_approval'));
-        $this->assertEqualsCanonicalizing(['published'], $this->transitions->testLegalDestinations('approved'));
-        $this->assertEqualsCanonicalizing(['completed'], $this->transitions->testLegalDestinations('published'));
-        $this->assertEqualsCanonicalizing([], $this->transitions->testLegalDestinations('completed'));
+        $this->assertEqualsCanonicalizing(['review_hr'], $this->transitions->legalDestinations('draft'));
+        $this->assertEqualsCanonicalizing(['review_manager', 'translation'], $this->transitions->legalDestinations('review_hr'));
+        $this->assertEqualsCanonicalizing(['review_hr'], $this->transitions->legalDestinations('review_manager'));
+        $this->assertEqualsCanonicalizing(['final_review_manager'], $this->transitions->legalDestinations('translation'));
+        $this->assertEqualsCanonicalizing(['final_review_hr', 'pending_approval'], $this->transitions->legalDestinations('final_review_manager'));
+        $this->assertEqualsCanonicalizing(['translation', 'final_review_manager'], $this->transitions->legalDestinations('final_review_hr'));
+        $this->assertEqualsCanonicalizing(['translation', 'final_review_manager', 'approved'], $this->transitions->legalDestinations('pending_approval'));
+        $this->assertEqualsCanonicalizing(['published'], $this->transitions->legalDestinations('approved'));
+        $this->assertEqualsCanonicalizing(['completed'], $this->transitions->legalDestinations('published'));
+        $this->assertEqualsCanonicalizing([], $this->transitions->legalDestinations('completed'));
     }
 
     public function testUserOwnsState(): void
@@ -75,17 +75,17 @@ class JobStatusTransitionsTest extends TestCase
         $hrAdvisor = factory(User::class)->state('hr_advisor')->create();
         $admin = factory(User::class)->state('admin')->create();
 
-        $this->assertTrue($this->transitions->testUserOwnsState($manager, 'draft'));
-        $this->assertFalse($this->transitions->testUserOwnsState($hrAdvisor, 'draft'));
-        $this->assertTrue($this->transitions->testUserOwnsState($admin, 'draft'));
+        $this->assertTrue($this->transitions->userOwnsState($manager, 'draft'));
+        $this->assertFalse($this->transitions->userOwnsState($hrAdvisor, 'draft'));
+        $this->assertTrue($this->transitions->userOwnsState($admin, 'draft'));
 
-        $this->assertFalse($this->transitions->testUserOwnsState($manager, 'pending_approval'));
-        $this->assertTrue($this->transitions->testUserOwnsState($hrAdvisor, 'pending_approval'));
-        $this->assertTrue($this->transitions->testUserOwnsState($admin, 'pending_approval'));
+        $this->assertFalse($this->transitions->userOwnsState($manager, 'pending_approval'));
+        $this->assertTrue($this->transitions->userOwnsState($hrAdvisor, 'pending_approval'));
+        $this->assertTrue($this->transitions->userOwnsState($admin, 'pending_approval'));
 
-        $this->assertFalse($this->transitions->testUserOwnsState($manager, 'approved'));
-        $this->assertFalse($this->transitions->testUserOwnsState($hrAdvisor, 'approved'));
-        $this->assertTrue($this->transitions->testUserOwnsState($admin, 'approved'));
+        $this->assertFalse($this->transitions->userOwnsState($manager, 'approved'));
+        $this->assertFalse($this->transitions->userOwnsState($hrAdvisor, 'approved'));
+        $this->assertTrue($this->transitions->userOwnsState($admin, 'approved'));
     }
 
     public function testCanTransition(): void
