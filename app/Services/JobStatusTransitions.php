@@ -127,7 +127,7 @@ class JobStatusTransitions
     {
         $owner = $this->stateMetadata($state)['owner'];
         return $user->isAdmin()
-            || $owner === 'manager' && $user->isManager()
+            || $owner === 'manager' && $user->isUpgradedManager()
             || $owner === 'hr' && $user->isHrAdvisor()
             || $owner === 'admin' && $user->isAdmin();
     }
