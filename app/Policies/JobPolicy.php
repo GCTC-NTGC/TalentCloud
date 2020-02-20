@@ -199,8 +199,8 @@ class JobPolicy extends BasePolicy
     public function viewAssessmentPlan(User $user, JobPoster $jobPoster): bool
     {
         return $user->isAdmin() ||
-        $user->isManager() && $jobPoster->manager->user_id === $user->id ||
-        $user->isHrAdvisor() && $jobPoster->hr_advisors->contains('user_id', $user->id);
+            $user->isManager() && $jobPoster->manager->user_id === $user->id ||
+            $user->isHrAdvisor() && $jobPoster->hr_advisors->contains('user_id', $user->id);
     }
 
     /**
@@ -212,7 +212,6 @@ class JobPolicy extends BasePolicy
      */
     public function downloadApplicants(User $user, JobPoster $jobPoster): bool
     {
-        return $user->isAdmin() && ( $jobPoster->status() == 'published' || $jobPoster->status() == 'closed' );
+        return $user->isAdmin() && $jobPoster->isPublic();
     }
-
 }

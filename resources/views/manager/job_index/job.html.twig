@@ -4,7 +4,13 @@
     Manager - Job Index Item
 
 ============================================================================= #}
-<div data-jobid="{{ job.id }}" class="poster {{ job.status() }}">
+<div data-jobid="{{ job.id }}" class="poster {{
+    job.isClosed() ? "closed"
+    : (job.isOpen() ? "published"
+    : (job.isVisibleToHr() ? "submitted"
+    : "draft"
+    ))
+    }}">
 	<div class="flex-grid middle gutter">
 		<div class="box med-1of12 poster-status">
 			<i class="fas fa-pencil-alt"></i>
@@ -12,7 +18,7 @@
 			<i class="fas fa-exclamation-circle action-required"></i>
 		</div>
 		<div class="box med-4of12">
-			{% if job.status() == 'draft' or job.status() == 'submitted' %}
+			{% if not job.isPublic() %}
 				<h3 class="heading--04 poster-title--preview">
 					<a href="{{ job.preview_link }}" title="{{ jobs_l10n.view_preview_job_poster }}">
 						{{ job.trans_required ? jobs_l10n.trans_title_placeholder ~ ' - ' }}
@@ -22,7 +28,7 @@
 					</a>
 				</h3>
 			{% endif %}
-			{% if job.status() == 'published' or job.status() == 'closed' %}
+			{% if job.isPublic() %}
 				<h3 class="heading--04 poster-title--link">
 					<a href="{{ route('manager.jobs.show', job) }}" title="{{ jobs_l10n.view_this_job_poster }}">
 						{{ job.title }}
@@ -92,7 +98,7 @@
 			{# This needs to trigger a confirmation modal and then delete the draft job poster via an AJAX call. #}
 			{# This button is only visible when the job poster has the "draft" class on it. #}
 			{# This button should be disabled server side if the job is not in a draft state. #}
-				{% if job.status() == 'draft' %}
+				{% if job.isEditable() %}
 					<button data-action="delete" data-locale="{{ App.getLocale() }}" data-jobid="{{ job.id }}" data-href="{{ route('manager.jobs.destroy', job) }}" title="{{ jobs_l10n.delete_this_poster }}" type="button"> <i class="fas fa-trash-alt"></i>
 				</button>
 			{% endif %}
