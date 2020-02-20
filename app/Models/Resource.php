@@ -60,13 +60,6 @@ class Resource extends Model
      */
     public function setFileAttribute(string $value): void
     {
-        $request = \Illuminate\Http\Request::instance();
-
-        // Check if a new file has been uploaded if not then save value to file attribute
-        if ($request->hasFile('file')) {
-            $this->uploadFileToDisk($value, 'file', 'public', 'resources');
-        } else {
-            $this->attributes['file'] = $value;
-        }
+        $this->uploadFileToDisk($value, 'file', 'public', 'resources');
     }
 }
