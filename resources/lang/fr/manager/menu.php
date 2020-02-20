@@ -25,7 +25,7 @@ return [
             'name' => 'Paramètres'
         ],
         'resources' => [
-            'name' => 'Resources'
+            'name' => 'Ressources'
         ]
     ],
     'register' => 'Inscription',
