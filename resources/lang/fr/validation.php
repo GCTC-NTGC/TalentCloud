@@ -154,8 +154,8 @@ return [
         'twitter_handle' => 'Ce n\'est pas une poignée Twitter valide.',
         'linkedin_url' => 'Ce n\'est pas une url linkedIn valide.',
         'job_poster_question' => [
-            'required' => 'The Question field must be filled out.',
-            'string' => 'The Question field must be text.'
+            'required' => 'Le champ de la question doit être rempli.',
+            'string' => 'Le champ question doit être du texte.'
         ]
     ],
     /*
