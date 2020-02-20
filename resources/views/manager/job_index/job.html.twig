@@ -87,11 +87,6 @@
 			<a class="button--blue submit-button" href="{{ route('manager.jobs.summary', job) }}" title="{{ jobs_l10n.view_summary_title }}">
 				{{ jobs_l10n.view_job_summary }}
 			</a>
-			{% if job.status() != 'draft' %}
-				<a class="button--blue review-button" href="{{ route('manager.jobs.summary', job) }}" title="{{ jobs_l10n.view_summary_title }}">
-					{{ jobs_l10n.view_job_summary }}
-				</a>
-			{% endif %}
 		</div>
 		<div class="box med-1of12 poster-deletion">
 			{# This needs to trigger a confirmation modal and then delete the draft job poster via an AJAX call. #}
