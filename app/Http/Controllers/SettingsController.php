@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\Applicant;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use App\Models\Applicant;
+use App\Models\User;
+use App\Services\Validation\Rules\PasswordCorrectRule;
+use App\Services\Validation\Rules\PasswordFormatRule;
+use Facades\App\Services\WhichPortal;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
-use Facades\App\Services\WhichPortal;
-use App\Services\Validation\Rules\PasswordFormatRule;
-use App\Services\Validation\Rules\PasswordCorrectRule;
+use Illuminate\Validation\Rule;
 
 class SettingsController extends Controller
 {
@@ -50,7 +50,7 @@ class SettingsController extends Controller
             'submit_personal' => route(WhichPortal::prefixRoute('settings.personal.update'), $user),
             'submit_password' => route(WhichPortal::prefixRoute('settings.password.update'), $user),
             'submit_government' => route(WhichPortal::prefixRoute('settings.government.update'), $user),
-            'submit_delete' => route(WhichPortal::prefixRoute('settings.account.delete'), $user),
+            'submit_delete' => route('settings.account.delete', $user),
             'activate_two_factor' => route(WhichPortal::prefixRoute('two_factor.activate')),
             'deactivate_two_factor' => route(WhichPortal::prefixRoute('two_factor.deactivate')),
             'forget_remembered_devices' => route(WhichPortal::prefixRoute('two_factor.forget')),
