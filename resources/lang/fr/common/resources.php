@@ -10,8 +10,7 @@ return [
      *
      */
 
-    'title' => 'Manager & HR Resources',
-    'resources' => 'Resources',
-    'email_templates' => 'Email Templates',
-    'resources_text' => 'Here you can find a list of ever-growing resources for you to download that will help you leverage Talent Cloud more effectively.',
+    'resources' => 'Ressources',
+    'email_templates' => 'Modèles de courriel',
+    'resources_text' => 'Vous trouverez ici une liste des ressources que vous pouvez télécharger afin de vous aider à miser sur le Nuage de talents de façon plus efficace.',
 ];
