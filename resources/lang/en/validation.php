@@ -154,6 +154,10 @@ return [
         ],
         'twitter_handle' => 'This is not a valid twitter handle.',
         'linkedin_url' => 'This is not a valid linkedIn url.',
+        'job_poster_question' => [
+            'required' => 'The Question field must be filled out.',
+            'string' => 'The Question field must be text.'
+        ]
     ],
 
     /*

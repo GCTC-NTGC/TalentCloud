@@ -18,7 +18,11 @@
 
                 <div class="manager-job-index__content-wrapper box lg-3of4">
 
-                    {% include "errors/form_errors" %}
+                    <section data-clone>
+                        <div data-c-margin="top(2)">
+                            {% include "errors/form_errors" %}
+                        </div>
+                    </section>
 
                     {% include "manager/job_create/form" with {'form_l10n': layout_l10n.form } %}
 
