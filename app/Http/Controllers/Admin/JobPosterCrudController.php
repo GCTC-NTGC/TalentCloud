@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Lookup\Department;
 use App\Models\Lookup\JobPosterStatus;
+use App\Services\JobStatusTransitions;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Illuminate\Support\Facades\App;
 
@@ -230,16 +231,23 @@ class JobPosterCrudController extends CrudController
             'label' => 'Internal Only (Do not list this poster on the Browse Jobs page. You must access it with the direct URL.)',
         ]);
 
-        if (
-            $this->crud->getCurrentEntry() &&
-            !$this->crud->getCurrentEntry()->published
-        ) {
-            $this->crud->addField([
-                'name' => 'published',
-                'label' => 'Publish',
-                'type' => 'checkbox'
-            ]);
-        }
+        $transitions = new JobStatusTransitions();
+        $job = $this->crud->getCurrentEntry();
+        $legalDestinations = $transitions->legalDestinations($job->job_poster_status->key);
+        $validStatuses = JobPosterStatus::all()->filter(function ($status) use ($job, $legalDestinations) {
+            return in_array($status->key, $legalDestinations) || $status->id === $job->job_poster_status_id;
+        });
+        $statusOptions = $validStatuses->mapWithKeys(function ($status) {
+            return [$status->id => $status->key];
+        });
+        $this->crud->addField([
+            'name' => 'job_poster_status_id',
+            'label' => 'Status',
+            'type' => 'select_from_array',
+            'options' => $statusOptions,
+            'allows_null' => false,
+            'default' => $job->job_poster_status_id,
+        ]);
     }
 
     public function update()

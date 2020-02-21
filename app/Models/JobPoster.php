@@ -224,6 +224,7 @@ class JobPoster extends BaseModel
         'work_env_description',
         'culture_summary',
         'culture_special',
+        'job_poster_status_id', // This really shouldn't be mass-editable, but its necesary for the admin crud portal to set it.
     ];
 
     /**

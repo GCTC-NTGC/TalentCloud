@@ -112,6 +112,12 @@ class JobStatusTransitions
         });
     }
 
+    /**
+     * Return an array of the keys of all the possible legal destination states.
+     *
+     * @param string $from
+     * @return string[]
+     */
     public function legalDestinations(string $from)
     {
         return collect($this->transition_graph['transitions'])
