@@ -9,7 +9,7 @@ use Spatie\Translatable\HasTranslations;
  * Class JobPosterStatus
  *
  * @property int $id
- * @property string $name
+ * @property string $key
  * @property string $value
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
@@ -24,7 +24,7 @@ class JobPosterStatus extends BaseModel
 {
     use HasTranslations;
 
-     /**
+    /**
      * The table associated with the model.
      *
      * @var string

@@ -21,13 +21,13 @@ class JobStatusControllerTest extends TestCase
     public function testLegalTransitions(): void
     {
         $job = factory(JobPoster::class)->states(['draft', 'byUpgradedManager'])->create();
-        $this->assertEquals('draft', $job->fresh()->job_poster_status->name);
+        $this->assertEquals('draft', $job->fresh()->job_poster_status->key);
 
         $responseReview = $this->actingAs($job->manager->user)->post(
             route('manager.jobs.setJobStatus', ['jobPoster' => $job, 'status' => 'review_hr'])
         );
         $responseReview->assertStatus(302);
-        $this->assertEquals('review_hr', $job->fresh()->job_poster_status->name);
+        $this->assertEquals('review_hr', $job->fresh()->job_poster_status->key);
 
         $hrAdvisor = factory(HrAdvisor::class)->create([
             'department_id' => $job->department_id
@@ -38,7 +38,7 @@ class JobStatusControllerTest extends TestCase
             route('hr_advisor.jobs.setJobStatus', ['jobPoster' => $job, 'status' => 'translation'])
         );
         $responseTranslation->assertStatus(302);
-        $this->assertEquals('translation', $job->fresh()->job_poster_status->name);
+        $this->assertEquals('translation', $job->fresh()->job_poster_status->key);
 
         $admin = factory(User::class)->state('admin')->create([
             'gov_email' => 'admin@test.gov'
@@ -51,25 +51,25 @@ class JobStatusControllerTest extends TestCase
             route('hr_advisor.jobs.setJobStatus', ['jobPoster' => $job, 'status' => 'final_review_manager'])
         );
         $responseFinalReview->assertStatus(302);
-        $this->assertEquals('final_review_manager', $job->fresh()->job_poster_status->name);
+        $this->assertEquals('final_review_manager', $job->fresh()->job_poster_status->key);
 
         $responsePending = $this->actingAs($job->manager->user)->post(
             route('manager.jobs.setJobStatus', ['jobPoster' => $job, 'status' => 'pending_approval'])
         );
         $responsePending->assertStatus(302);
-        $this->assertEquals('pending_approval', $job->fresh()->job_poster_status->name);
+        $this->assertEquals('pending_approval', $job->fresh()->job_poster_status->key);
 
         $responseApproved = $this->actingAs($hrAdvisor->fresh()->user)->post(
             route('hr_advisor.jobs.setJobStatus', ['jobPoster' => $job, 'status' => 'approved'])
         );
         $responseApproved->assertStatus(302);
-        $this->assertEquals('approved', $job->fresh()->job_poster_status->name);
+        $this->assertEquals('approved', $job->fresh()->job_poster_status->key);
 
         $responsePublished = $this->actingAs($admin)->post(
             route('hr_advisor.jobs.setJobStatus', ['jobPoster' => $job, 'status' => 'published'])
         );
         $responsePublished->assertStatus(302);
-        $this->assertEquals('published', $job->fresh()->job_poster_status->name);
+        $this->assertEquals('published', $job->fresh()->job_poster_status->key);
     }
 
     /**
@@ -80,15 +80,15 @@ class JobStatusControllerTest extends TestCase
     public function testIllegalTransitions(): void
     {
         $job = factory(JobPoster::class)->states(['draft', 'byUpgradedManager'])->create();
-        $this->assertEquals('draft', $job->fresh()->job_poster_status->name);
+        $this->assertEquals('draft', $job->fresh()->job_poster_status->key);
 
         $response = $this->actingAs($job->manager->user)->post(
             route('manager.jobs.setJobStatus', ['jobPoster' => $job, 'status' => 'published'])
         );
         $response->assertStatus(400);
-        $this->assertEquals('draft', $job->fresh()->job_poster_status->name);
+        $this->assertEquals('draft', $job->fresh()->job_poster_status->key);
 
-        $job->job_poster_status_id = JobPosterStatus::where('name', 'review_hr')->first()->id;
+        $job->job_poster_status_id = JobPosterStatus::where('key', 'review_hr')->first()->id;
         $job->save();
 
         $hrAdvisor = factory(HrAdvisor::class)->create([
@@ -100,7 +100,7 @@ class JobStatusControllerTest extends TestCase
             route('hr_advisor.jobs.setJobStatus', ['jobPoster' => $job, 'status' => 'draft'])
         );
         $responseHr->assertStatus(400);
-        $this->assertEquals('review_hr', $job->fresh()->job_poster_status->name);
+        $this->assertEquals('review_hr', $job->fresh()->job_poster_status->key);
     }
 
     /**
@@ -111,10 +111,10 @@ class JobStatusControllerTest extends TestCase
     public function testTransitionByWrongUser(): void
     {
         $job = factory(JobPoster::class)->states(['draft', 'byUpgradedManager'])->create();
-        $job->job_poster_status_id = JobPosterStatus::where('name', 'review_hr')->first()->id;
+        $job->job_poster_status_id = JobPosterStatus::where('key', 'review_hr')->first()->id;
         $job->save();
 
-        $this->assertEquals('review_hr', $job->fresh()->job_poster_status->name);
+        $this->assertEquals('review_hr', $job->fresh()->job_poster_status->key);
 
         $hrAdvisor = factory(HrAdvisor::class)->create([
             'department_id' => $job->department_id
@@ -125,13 +125,13 @@ class JobStatusControllerTest extends TestCase
             route('manager.jobs.setJobStatus', ['jobPoster' => $job, 'status' => 'review_manager'])
         );
         $response->assertStatus(400);
-        $this->assertEquals('review_hr', $job->fresh()->job_poster_status->name);
+        $this->assertEquals('review_hr', $job->fresh()->job_poster_status->key);
     }
 
     public function testTransitionHistory(): void
     {
         $job = factory(JobPoster::class)->states(['draft', 'byUpgradedManager'])->create();
-        $this->assertEquals('draft', $job->fresh()->job_poster_status->name);
+        $this->assertEquals('draft', $job->fresh()->job_poster_status->key);
         $this->assertEmpty($job->fresh()->job_poster_status_histories);
 
         $responseReview = $this->actingAs($job->manager->user)->post(
@@ -142,8 +142,8 @@ class JobStatusControllerTest extends TestCase
         $this->assertDatabaseHas('job_poster_status_histories', [
             'job_poster_id' => $job->id,
             'user_id' => $job->manager->user->id,
-            'from_job_poster_status_id' => JobPosterStatus::where('name', 'draft')->first()->id,
-            'to_job_poster_status_id' => JobPosterStatus::where('name', 'review_hr')->first()->id,
+            'from_job_poster_status_id' => JobPosterStatus::where('key', 'draft')->first()->id,
+            'to_job_poster_status_id' => JobPosterStatus::where('key', 'review_hr')->first()->id,
         ]);
     }
 }

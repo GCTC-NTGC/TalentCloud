@@ -18,7 +18,7 @@ class JobStatusController extends Controller
 
         $user = $request->user();
         $fromStatus = $job->job_poster_status;
-        $from = $fromStatus->name;
+        $from = $fromStatus->key;
 
         // Ensure state transition is legal.
         if (!$transitions->canTransition($user, $from, $to)) {
@@ -26,7 +26,7 @@ class JobStatusController extends Controller
         }
 
         // Save new status on job.
-        $toStatus = JobPosterStatus::where('name', $to)->first();
+        $toStatus = JobPosterStatus::where('key', $to)->first();
         $job->job_poster_status_id = $toStatus->id;
         $job->save();
 

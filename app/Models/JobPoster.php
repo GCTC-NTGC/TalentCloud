@@ -508,7 +508,7 @@ class JobPoster extends BaseModel
      */
     public function isOpen(): bool
     {
-        return $this->job_poster_status->name === 'published'
+        return $this->job_poster_status->key === 'published'
             && $this->open_date_time !== null
             && $this->close_date_time !== null
             && $this->open_date_time->isPast()
@@ -522,8 +522,8 @@ class JobPoster extends BaseModel
      */
     public function isClosed(): bool
     {
-        return ($this->job_poster_status->name === 'published'
-            || $this->job_poster_status->name === 'completed')
+        return ($this->job_poster_status->key === 'published'
+            || $this->job_poster_status->key === 'completed')
             && $this->open_date_time !== null
             && $this->close_date_time !== null
             && $this->open_date_time->isPast()
@@ -538,7 +538,7 @@ class JobPoster extends BaseModel
      */
     public function isVisibleToHr()
     {
-        return $this->job_poster_status->name !== 'draft';
+        return $this->job_poster_status->key !== 'draft';
     }
 
     /**
@@ -548,12 +548,10 @@ class JobPoster extends BaseModel
      */
     public function isPublic(): bool
     {
-        return (
-            $this->job_poster_status->name == 'published'
-            || $this->job_poster_status_name == 'closed'
-        )
-        && $this->open_date_time !== null
-        && $this->open_date_time->isPast();
+        return ($this->job_poster_status->key == 'published'
+            || $this->job_poster_status_name == 'closed')
+            && $this->open_date_time !== null
+            && $this->open_date_time->isPast();
     }
 
     /**

@@ -25,7 +25,7 @@ class JobStatusTransitionsTest extends TestCase
 
     public function testStates(): void
     {
-        $states = JobPosterStatus::all()->pluck('name')->all();
+        $states = JobPosterStatus::all()->pluck('key')->all();
         $this->assertEqualsCanonicalizing($states, $this->transitions->states());
     }
 

@@ -64,7 +64,7 @@ class JobPosterCrudController extends CrudController
             }
         ]);
         $this->crud->addColumn([
-            'name' => 'job_poster_status.name',
+            'name' => 'job_poster_status.key',
             'label' => 'Status',
             'type' => 'text',
         ]);
@@ -138,7 +138,7 @@ class JobPosterCrudController extends CrudController
             'label' => 'Filter by status'
         ], function () {
             // Using name because some of the job status values are the same.
-            return JobPosterStatus::all()->pluck('name', 'id')->toArray();
+            return JobPosterStatus::all()->pluck('key', 'id')->toArray();
         }, function ($values) {
             $this->crud->addClause('WhereHas', 'job_poster_status', function ($query) use ($values) {
                 foreach (json_decode($values) as $key => $value) {
@@ -230,7 +230,8 @@ class JobPosterCrudController extends CrudController
             'label' => 'Internal Only (Do not list this poster on the Browse Jobs page. You must access it with the direct URL.)',
         ]);
 
-        if ($this->crud->getCurrentEntry() &&
+        if (
+            $this->crud->getCurrentEntry() &&
             !$this->crud->getCurrentEntry()->published
         ) {
             $this->crud->addField([

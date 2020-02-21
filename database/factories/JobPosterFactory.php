@@ -50,7 +50,7 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'close_date_time' => ptDayEndToUtcTime($closeDate),
         'start_date_time' => ptDayStartToUtcTime($startDate),
         'review_requested_at' => $faker->dateTimeBetween('-2 months', '-1 months'),
-        'job_poster_status_id' => JobPosterStatus::where('name', 'draft')->first()->id,
+        'job_poster_status_id' => JobPosterStatus::where('key', 'draft')->first()->id,
         'published_at' => null,
         'department_id' => Department::inRandomOrder()->first()->id,
         'province_id' => Province::inRandomOrder()->first()->id,
@@ -120,7 +120,7 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
     ];
 });
 
-$factory->afterCreating(JobPoster::class, function ($jp) : void {
+$factory->afterCreating(JobPoster::class, function ($jp): void {
     // Save at least one of each kind of criteria.
     $jp->criteria()->save(factory(Criteria::class)->state('essential')->make([
         'job_poster_id' => $jp->id
@@ -150,14 +150,14 @@ $factory->state(
     JobPoster::class,
     'byUpgradedManager',
     ['manager_id' => function () {
-            return factory(Manager::class)->state('upgraded')->create()->id;
+        return factory(Manager::class)->state('upgraded')->create()->id;
     }]
 );
 $factory->state(
     JobPoster::class,
     'byDemoManager',
     ['manager_id' => function () {
-            return factory(Manager::class)->state('demo')->create()->id;
+        return factory(Manager::class)->state('demo')->create()->id;
     }]
 );
 
@@ -168,7 +168,7 @@ $factory->state(
         return [
             'published' => true,
             'published_at' => $faker->dateTimeBetween('-1 months', '-3 weeks'),
-            'job_poster_status_id' => JobPosterStatus::where('name', 'published')->first()->id,
+            'job_poster_status_id' => JobPosterStatus::where('key', 'published')->first()->id,
             'open_date_time' => ptDayEndToUtcTime($faker->dateTimeBetween('-5 days', '-3 days')->format('Y-m-d')),
             'close_date_time' => ptDayEndToUtcTime($faker->dateTimeBetween('20 days', '30 days')->format('Y-m-d')),
         ];
@@ -182,7 +182,7 @@ $factory->state(
         return [
             'published' => true,
             'published_at' => $faker->dateTimeBetween('-1 months', '-3 weeks'),
-            'job_poster_status_id' => JobPosterStatus::where('name', 'published')->first()->id,
+            'job_poster_status_id' => JobPosterStatus::where('key', 'published')->first()->id,
             'open_date_time' => ptDayEndToUtcTime($faker->dateTimeBetween('-20 days', '-7 days')->format('Y-m-d')),
             'close_date_time' => ptDayEndToUtcTime($faker->dateTimeBetween('-5 days', '-3 days')->format('Y-m-d')),
         ];
@@ -195,7 +195,7 @@ $factory->state(
     function (Faker\Generator $faker) {
         return [
             'published' => false,
-            'job_poster_status_id' => JobPosterStatus::where('name', 'draft')->first()->id,
+            'job_poster_status_id' => JobPosterStatus::where('key', 'draft')->first()->id,
             'open_date_time' => ptDayStartToUtcTime($faker->dateTimeBetween('5 days', '10 days')->format('Y-m-d')),
             'close_date_time' => ptDayEndToUtcTime($faker->dateTimeBetween('3 weeks', '5 weeks')->format('Y-m-d')),
             'review_requested_at' => null,
@@ -210,7 +210,7 @@ $factory->state(
     function (Faker\Generator $faker) {
         return [
             'published' => false,
-            'job_poster_status_id' => JobPosterStatus::where('name', 'review_hr')->first()->id,
+            'job_poster_status_id' => JobPosterStatus::where('key', 'review_hr')->first()->id,
             'open_date_time' => ptDayStartToUtcTime($faker->dateTimeBetween('5 days', '10 days')->format('Y-m-d')),
             'close_date_time' => ptDayEndToUtcTime($faker->dateTimeBetween('3 weeks', '5 weeks')->format('Y-m-d')),
             'review_requested_at' => $faker->dateTimeBetween('-2 days', '-1 days')
