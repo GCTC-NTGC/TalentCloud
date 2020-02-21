@@ -1,14 +1,6 @@
 <?php
 
-/**
- * Created by Reliese Model.
- * Date: Thu, 12 Jul 2018 22:39:27 +0000.
- */
-
 namespace App\Models;
-
-use App\Models\WorkSample;
-use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class Applicant
@@ -35,6 +27,13 @@ use Illuminate\Database\Eloquent\Collection;
  * @property \Illuminate\Database\Eloquent\Collection $references
  * @property \Illuminate\Database\Eloquent\Collection $work_samples
  * @property \Illuminate\Database\Eloquent\Collection $projects
+ *
+ * New experience models:
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_work
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_personal
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_education
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_awards
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_community
  */
 class Applicant extends BaseModel
 {
@@ -59,12 +58,12 @@ class Applicant extends BaseModel
         return $this->belongsTo(\App\Models\User::class);
     }
 
-    public function applicant_profile_answers()
+    public function applicant_profile_answers() //phpcs:ignore
     {
         return $this->hasMany(\App\Models\ApplicantProfileAnswer::class);
     }
 
-    public function job_applications()
+    public function job_applications() //phpcs:ignore
     {
         if ($this->is_snapshot) {
             return $this->hasMany(\App\Models\JobApplication::class, 'applicant_snapshot_id');
@@ -94,12 +93,12 @@ class Applicant extends BaseModel
         return $this->morphMany(\App\Models\Course::class, 'courseable')->orderBy('end_date', 'desc');
     }
 
-    public function work_experiences()
+    public function work_experiences() //phpcs:ignore
     {
         return $this->morphMany(\App\Models\WorkExperience::class, 'experienceable')->orderBy('end_date', 'desc');
     }
 
-    public function skill_declarations()
+    public function skill_declarations() //phpcs:ignore
     {
         return $this->morphMany(\App\Models\SkillDeclaration::class, 'skillable');
     }
@@ -109,7 +108,7 @@ class Applicant extends BaseModel
         return $this->morphMany(\App\Models\Reference::class, 'referenceable');
     }
 
-    public function work_samples()
+    public function work_samples() //phpcs:ignore
     {
         return $this->morphMany(\App\Models\WorkSample::class, 'work_sampleable');
     }
@@ -117,5 +116,30 @@ class Applicant extends BaseModel
     public function projects()
     {
         return $this->morphMany(\App\Models\Project::class, 'projectable');
+    }
+
+    public function experiences_work() //phpcs:ignore
+    {
+        return $this->morphOne(\App\Models\ExperienceWork::class, 'work_experienceable')->orderBy('end_date', 'desc');
+    }
+
+    public function experiences_personal() //phpcs:ignore
+    {
+        return $this->morphOne(\App\Models\ExperiencePersonal::class, 'personal_experienceable')->orderBy('end_date', 'desc');
+    }
+
+    public function experiences_education() //phpcs:ignore
+    {
+        return $this->morphOne(\App\Models\ExperienceEducation::class, 'education_experienceable')->orderBy('end_date', 'desc');
+    }
+
+    public function experiences_awards() //phpcs:ignore
+    {
+        return $this->morphOne(\App\Models\ExperienceAwards::class, 'awards_experienceable');
+    }
+
+    public function experiences_community() //phpcs:ignore
+    {
+        return $this->morphOne(\App\Models\ExperienceCommunity::class, 'community_experienceable')->orderBy('end_date', 'desc');
     }
 }
