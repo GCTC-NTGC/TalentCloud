@@ -24,7 +24,6 @@ describe("api/job", (): void => {
       created_at: "2019-05-08T14:15:04+00:00",
       updated_at: "2019-05-08T14:15:04+00:00",
       remote_work_allowed: true,
-      review_requested_at: null,
       submitted_applications_count: 0,
       city: "East Liashire",
       title: "I hadn't quite dull.",

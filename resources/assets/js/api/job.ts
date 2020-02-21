@@ -10,7 +10,6 @@ export const parseJob = (data: any): Job => ({
   open_date_time: parseDate(data.open_date_time),
   close_date_time: parseDate(data.close_date_time),
   start_date_time: parseDate(data.start_date_time),
-  review_requested_at: parseDate(data.review_requested_at),
   created_at: parseDate(data.created_at),
 });
 

@@ -49,7 +49,6 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'open_date_time' => ptDayStartToUtcTime($openDate),
         'close_date_time' => ptDayEndToUtcTime($closeDate),
         'start_date_time' => ptDayStartToUtcTime($startDate),
-        'review_requested_at' => $faker->dateTimeBetween('-2 months', '-1 months'),
         'job_poster_status_id' => JobPosterStatus::where('key', 'draft')->first()->id,
         'department_id' => Department::inRandomOrder()->first()->id,
         'province_id' => Province::inRandomOrder()->first()->id,
@@ -191,7 +190,6 @@ $factory->state(
             'job_poster_status_id' => JobPosterStatus::where('key', 'draft')->first()->id,
             'open_date_time' => ptDayStartToUtcTime($faker->dateTimeBetween('5 days', '10 days')->format('Y-m-d')),
             'close_date_time' => ptDayEndToUtcTime($faker->dateTimeBetween('3 weeks', '5 weeks')->format('Y-m-d')),
-            'review_requested_at' => null,
         ];
     }
 );
@@ -204,7 +202,6 @@ $factory->state(
             'job_poster_status_id' => JobPosterStatus::where('key', 'review_hr')->first()->id,
             'open_date_time' => ptDayStartToUtcTime($faker->dateTimeBetween('5 days', '10 days')->format('Y-m-d')),
             'close_date_time' => ptDayEndToUtcTime($faker->dateTimeBetween('3 weeks', '5 weeks')->format('Y-m-d')),
-            'review_requested_at' => $faker->dateTimeBetween('-2 days', '-1 days')
         ];
     }
 );

@@ -26,7 +26,6 @@ use App\Events\JobSaved;
  * @property \Jenssegers\Date\Date $open_date_time
  * @property \Jenssegers\Date\Date $close_date_time
  * @property \Jenssegers\Date\Date $start_date_time
- * @property \Jenssegers\Date\Date $review_requested_at
  * @property int $department_id
  * @property int $province_id
  * @property int $salary_min
@@ -170,7 +169,6 @@ class JobPoster extends BaseModel
         'open_date_time',
         'close_date_time',
         'start_date_time',
-        'review_requested_at',
         'loo_issuance_date',
     ];
 
@@ -244,7 +242,6 @@ class JobPoster extends BaseModel
         'security_clearance_id',
         'language_requirement_id',
         'remote_work_allowed',
-        'review_requested_at',
         'team_size',
         'work_env_features',
         'fast_vs_steady',

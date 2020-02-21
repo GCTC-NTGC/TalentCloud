@@ -145,7 +145,7 @@ const makeUnclaimedJob = (
         : intl.formatMessage(messages.titleMissing),
       title: "",
     },
-    reviewRequested: job.review_requested_at || undefined,
+    reviewRequested: undefined, // TODO: use job_poster_status_histories to determine when this left draft status
     status: jobStatus(job),
     hiringManager:
       manager !== null

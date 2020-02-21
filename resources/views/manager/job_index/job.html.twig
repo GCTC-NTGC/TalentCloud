@@ -41,12 +41,6 @@
 					{{ jobs_l10n.created_on }}
 					{{ humanizeDate(job.created_at) }}</span>
 			{% endif %}
-			{% if job.review_requested_at %}
-				<span class="poster-date-time--submitted">{{ job.classification_message }}
-					-
-					{{ jobs_l10n.submitted_on }}
-					{{ humanizeDate(job.review_requested_at) }}</span>
-			{% endif %}
 			{% if job.close_date_time %}
 				<span class="poster-date-time--closed">{{ job.classification_message }}
 					-
@@ -60,11 +54,6 @@
 			{# <i class="fas fa-comments"></i> #}
 			{# <span>3 Comments</span> #}
 			{# </div> #}
-				{% if job.review_requested_at %}
-					<div class="measurement--timer"> <i class="fas fa-stopwatch"></i>
-					<span>{{ jobs_l10n.in_review_for }}
-						{{ humanizeDateDiff(job.review_requested_at) }}</span>
-				</div>
 			{% endif %}
 			{% if job.close_date_time %}
 				<div class="measurement--countdown">
