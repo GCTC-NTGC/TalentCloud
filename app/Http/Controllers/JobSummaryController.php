@@ -64,7 +64,7 @@ class JobSummaryController extends Controller
         ];
 
         # Determine translated job status label
-        switch ($job->job_poster_status->name) {
+        switch ($job->job_poster_status->key) {
             case 'draft':
                 $status = Lang::get('common/lookup/job_status.draft');
                 break;
@@ -104,10 +104,10 @@ class JobSummaryController extends Controller
         }
         // TODO: Need to add more descriptions for different statuses
         $status_description =
-            ($job->job_poster_status->name === 'review_hr'
-                || $job->job_poster_status->name === 'review_manager'
-                || $job->job_poster_status->name === 'final_review_manager'
-                || $job->job_poster_status->name === 'final_review_hr')
+            ($job->job_poster_status->key === 'review_hr'
+                || $job->job_poster_status->key === 'review_manager'
+                || $job->job_poster_status->key === 'final_review_manager'
+                || $job->job_poster_status->key === 'final_review_hr')
             ? $summaryLang['under_review']
             : '';
 
@@ -121,7 +121,7 @@ class JobSummaryController extends Controller
         // Determine available job-transition buttons
         $statusRoute = WhichPortal::prefixRoute('jobs.setJobStatus');
         $transitions = new JobStatusTransitions();
-        $userOwnsState = $transitions->userOwnsState($user, $job->job_poster_status->name);
+        $userOwnsState = $transitions->userOwnsState($user, $job->job_poster_status->key);
         $buttonPerDestination = [
             // 'draft' => [],
             'review_hr' => [
@@ -190,7 +190,7 @@ class JobSummaryController extends Controller
 
         $buttonGroups = [];
 
-        $destinations = $transitions->legalDestinations($job->job_poster_status->name);
+        $destinations = $transitions->legalDestinations($job->job_poster_status->key);
         $transitionButtons = collect($buttonPerDestination)->only($destinations);
         array_push($buttonGroups, $transitionButtons);
 

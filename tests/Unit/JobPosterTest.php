@@ -21,7 +21,7 @@ class JobPosterTest extends TestCase
      *
      * @return void
      */
-    public function testJobPosterIsOpen() : void
+    public function testJobPosterIsOpen(): void
     {
         $jobPoster = factory(JobPoster::class)->states('published')->make();
         $this->assertTrue($jobPoster->isOpen());
@@ -38,7 +38,7 @@ class JobPosterTest extends TestCase
      *
      * @return void
      */
-    public function testJobPosterIsClosed() : void
+    public function testJobPosterIsClosed(): void
     {
         $jobPoster = factory(JobPoster::class)->states('published')->make();
         $this->assertFalse($jobPoster->isClosed());
@@ -55,7 +55,7 @@ class JobPosterTest extends TestCase
      *
      * @return void
      */
-    public function testJobPosterTimeRemaining() : void
+    public function testJobPosterTimeRemaining(): void
     {
         $jobPoster = factory(JobPoster::class)->make(
             [
@@ -78,7 +78,7 @@ class JobPosterTest extends TestCase
      *
      * @return void
      */
-    public function testJobPosterApplyBy() : void
+    public function testJobPosterApplyBy(): void
     {
         $jobPoster = factory(JobPoster::class)->make();
         $date = new Date($jobPoster->close_date_time);
@@ -88,37 +88,6 @@ class JobPosterTest extends TestCase
             $jobPoster->applyBy()['date'] . $jobPoster->applyBy()['time']
         );
     }
-
-    /**
-     * Ensure the published mutator functions correctly.
-     *
-     * @return void
-     */
-    public function testJobPosterPublishedMutator() : void
-    {
-        // Open but not yet published.
-        $jobPoster = factory(JobPoster::class)->make();
-        $this->assertEquals(null, $jobPoster->published_at);
-
-        $jobPoster->published = true;
-        $jobPoster->save();
-        $jobPoster->refresh();
-
-        $this->assertInstanceOf(Date::class, $jobPoster->published_at);
-
-        $this->assertNotEquals($jobPoster->open_date_time, $jobPoster->published_at);
-
-        // Not yet open and not yet published.
-        $jobPoster = factory(JobPoster::class)->states('review_requested')->make();
-        $this->assertEquals(null, $jobPoster->published_at);
-
-        $jobPoster->published = true;
-        $jobPoster->save();
-        $jobPoster->refresh();
-
-        $this->assertInstanceOf(Date::class, $jobPoster->published_at);
-    }
-
     /**
      * Test one-to-many relationship between Job Poster and comments
      *

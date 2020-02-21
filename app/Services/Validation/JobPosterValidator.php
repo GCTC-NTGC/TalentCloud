@@ -5,6 +5,7 @@ namespace App\Services\Validation;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\Models\JobPoster;
+use App\Models\Lookup\JobPosterStatus;
 
 class JobPosterValidator
 {
@@ -20,9 +21,9 @@ class JobPosterValidator
         Validator::make(
             $jobPoster->toArray(),
             [
-                'published' => [
+                'job_poster_status_id' => [
                     'required',
-                    Rule::in([false])
+                    Rule::notIn([JobPosterStatus::where('key', 'published')->first()->id])
                 ]
             ]
         )->validate();

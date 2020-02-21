@@ -22,7 +22,6 @@ export const fakeJob = (id = 1): Job => ({
   security_clearance_id: 1,
   language_requirement_id: 1,
   remote_work_allowed: true,
-  published_at: null,
   review_requested_at: null,
   team_size: 15,
   work_env_features: {
@@ -129,7 +128,6 @@ export const fakeJob2 = (id = 1): Job => ({
   security_clearance_id: 1,
   language_requirement_id: 1,
   remote_work_allowed: true,
-  published_at: null,
   review_requested_at: null,
   team_size: 40,
   work_env_features: {

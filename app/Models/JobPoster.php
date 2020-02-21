@@ -27,7 +27,6 @@ use App\Events\JobSaved;
  * @property \Jenssegers\Date\Date $close_date_time
  * @property \Jenssegers\Date\Date $start_date_time
  * @property \Jenssegers\Date\Date $review_requested_at
- * @property \Jenssegers\Date\Date $published_at
  * @property int $department_id
  * @property int $province_id
  * @property int $salary_min
@@ -39,7 +38,6 @@ use App\Events\JobSaved;
  * @property int $language_requirement_id
  * @property boolean $remote_work_allowed
  * @property int $manager_id
- * @property boolean $published
  * @property boolean $internal_only
  * @property int $team_size
  * @property array $work_env_features This should be an array of boolean flags for features, ie json of shape {[feature: string]: boolean}
@@ -151,7 +149,6 @@ class JobPoster extends BaseModel
         'language_requirement_id' => 'int',
         'remote_work_allowed' => 'boolean',
         'manager_id' => 'int',
-        'published' => 'boolean',
         'internal_only' => 'boolean',
         'team_size' => 'int',
         'work_env_features' => 'array',
@@ -174,7 +171,6 @@ class JobPoster extends BaseModel
         'close_date_time',
         'start_date_time',
         'review_requested_at',
-        'published_at',
         'loo_issuance_date',
     ];
 
@@ -196,7 +192,6 @@ class JobPoster extends BaseModel
         'security_clearance_id',
         'language_requirement_id',
         'remote_work_allowed',
-        'published',
         'internal_only',
         'team_size',
         'work_env_features',
@@ -249,8 +244,6 @@ class JobPoster extends BaseModel
         'security_clearance_id',
         'language_requirement_id',
         'remote_work_allowed',
-        'published_at',
-        'published',
         'review_requested_at',
         'team_size',
         'work_env_features',
@@ -440,27 +433,6 @@ class JobPoster extends BaseModel
     public function resolveRouteBinding($value) // phpcs:ignore
     {
         return $this->withCount('submitted_applications')->where('id', $value)->first() ?? abort(404);
-    }
-
-    /**
-     * Intercept setting the "published" attribute, and set the
-     * "published_at" timestamp if true.
-     *
-     * @param mixed $value Incoming value for the 'published' attribute.
-     *
-     * @return void
-     */
-    public function setPublishedAttribute($value): void
-    {
-        if ($value) {
-            $this->attributes['published_at'] = new Date();
-        } else {
-            $this->attributes['published_at'] = null;
-        }
-        if ($value === null) {
-            $value = false;
-        }
-        $this->attributes['published'] = $value;
     }
 
     /* Methods */

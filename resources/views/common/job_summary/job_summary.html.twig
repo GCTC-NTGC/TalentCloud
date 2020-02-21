@@ -127,14 +127,6 @@
 													{% endif %}
 												</p>
 												<p>
-													<span data-c-color="c2" data-c-font-weight="600">{{ summary.published_label }}</span>
-													{% if job.published_at %}
-														{{ humanizeDate(job.published_at) }}
-													{% else %}
-														{{ summary.not_applicable }}
-													{% endif %}
-												</p>
-												<p>
 													<span data-c-color="c2" data-c-font-weight="600">{{ summary.closed_label }}</span>
 													{% if job.close_date_time %}
 														{{ humanizeDate(job.close_date_time) }}

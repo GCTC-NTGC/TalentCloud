@@ -134,7 +134,6 @@ export interface Job {
   security_clearance_id: number | null;
   language_requirement_id: number | null;
   remote_work_allowed: boolean;
-  published_at: Date | null;
   review_requested_at: Date | null;
   team_size: number | null;
   work_env_features: { [feature: string]: boolean } | null;

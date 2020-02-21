@@ -24,7 +24,6 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\LogUserUpdated',
         ],
         'App\Events\JobSaved' => [
-            'App\Listeners\JobPublished',
             'App\Listeners\RecordJobStatusTransition',
         ],
         'App\Events\ApplicationRetrieved' => [

@@ -68,7 +68,7 @@ class JobPolicy extends BasePolicy
         // Only managers can edit jobs, and only their own, managers can't publish jobs or edit published jobs.
         return $user->isManager() &&
             $jobPoster->manager->user->id == $user->id &&
-            !$jobPoster->published;
+            $jobPoster->isEditable();
     }
 
     /**
@@ -85,7 +85,7 @@ class JobPolicy extends BasePolicy
         // state, and only by managers that created them.
         return $user->isManager() &&
             $jobPoster->manager->user->id == $user->id &&
-            !$jobPoster->published;
+            $jobPoster->isEditable();
     }
 
     /**

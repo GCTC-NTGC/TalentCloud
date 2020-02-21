@@ -13,6 +13,7 @@ use App\Models\JobPoster;
 use App\Models\JobPosterQuestion;
 use App\Models\Lookup\ApplicationStatus;
 use App\Models\Lookup\CitizenshipDeclaration;
+use App\Models\Lookup\JobPosterStatus;
 use App\Models\Lookup\VeteranStatus;
 use App\Models\Manager;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -39,7 +40,7 @@ class JobController extends Controller
         $jobs = JobPoster::where('open_date_time', '<=', $now)
             ->where('close_date_time', '>=', $now)
             ->where('internal_only', false)
-            ->where('published', true)
+            ->where('job_poster_status_id', JobPosterStatus::where('key', 'published')->first()->id)
             ->with([
                 'department',
                 'province',
@@ -187,7 +188,7 @@ class JobController extends Controller
             }
         } elseif (Auth::check() && $jobPoster->isOpen()) {
             $application = JobApplication::where('applicant_id', Auth::user()->applicant->id)
-            ->where('job_poster_id', $jobPoster->id)->first();
+                ->where('job_poster_id', $jobPoster->id)->first();
             // If applicants job application is not draft anymore then link to application preview page.
             if ($application != null && $application->application_status->name != 'draft') {
                 $applyButton = [
@@ -361,7 +362,7 @@ class JobController extends Controller
      * @param  boolean               $replace   Remove existing relationships.
      * @return void
      */
-    protected function fillAndSaveJobPosterQuestions(array $input, JobPoster $jobPoster, bool $replace) : void
+    protected function fillAndSaveJobPosterQuestions(array $input, JobPoster $jobPoster, bool $replace): void
     {
         if ($replace) {
             $jobPoster->job_poster_questions()->delete();

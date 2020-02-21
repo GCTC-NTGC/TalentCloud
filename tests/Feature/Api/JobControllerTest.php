@@ -207,23 +207,22 @@ class JobControllerTest extends TestCase
     }
 
     /**
-     * Even while job.published is 'fillable', it shouldn't be
-     * possible to modify published or published_at through an update request.
+     * Even while job.job_poster_status_id is 'fillable', it shouldn't be
+     * possible to modify job_poster_status_id through an update request.
      *
      * @return void
      */
-    public function testCannotUpdatePublished(): void
+    public function testCannotUpdateJobPosterStatus(): void
     {
         $job = factory(JobPoster::class)->state('draft')->create();
         $jobUpdate = $this->generateFrontendJob($job->manager_id, false);
-        $jobUpdate['published'] = true;
+        $jobUpdate['job_poster_status_id'] = $job->job_poster_status_id + 1;
         $response = $this->followingRedirects()
             ->actingAs($job->manager->user)
             ->json('put', "api/jobs/$job->id", $jobUpdate);
         $response->assertOk();
         $newJob = $job->fresh();
-        $this->assertFalse($newJob->published);
-        $this->assertNull($newJob->published_at);
+        $this->assertEquals($job->job_poster_status_id, $newJob->job_poster_status_id);
     }
 
     /**

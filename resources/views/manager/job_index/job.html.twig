@@ -47,12 +47,6 @@
 					{{ jobs_l10n.submitted_on }}
 					{{ humanizeDate(job.review_requested_at) }}</span>
 			{% endif %}
-			{% if job.published_at %}
-				<span class="poster-date-time--published">{{ job.classification_message }}
-					-
-					{{ jobs_l10n.published_on }}
-					{{ humanizeDate(job.published_at) }}</span>
-			{% endif %}
 			{% if job.close_date_time %}
 				<span class="poster-date-time--closed">{{ job.classification_message }}
 					-

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Lang;
 use App\Http\Controllers\Controller;
 use App\Models\JobPoster;
+use App\Models\Lookup\JobPosterStatus;
 use Carbon\Carbon;
 
 class HomepageController extends Controller
@@ -21,7 +22,7 @@ class HomepageController extends Controller
         // Eager load required relationships: Department, Province, JobTerm.
         $jobs = JobPoster::where('open_date_time', '<=', $now)
             ->where('close_date_time', '>=', $now)
-            ->where('published', true)
+            ->where('job_poster_status_id', JobPosterStatus::where('key', 'published')->first()->id)
             ->with([
                 'department',
                 'province',

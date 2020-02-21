@@ -26,7 +26,7 @@ class UpdateJobPoster extends FormRequest
     {
         $job = $this->route('job');
         // Published jobs cannot be updated.
-        return $job && $job->published_at === null;
+        return $job && $job->isEditable();
     }
 
     /**
@@ -42,9 +42,9 @@ class UpdateJobPoster extends FormRequest
         return [
             'chosen_lang' => ['nullable', Rule::in(['en', 'fr'])],
             'term_qty' => 'nullable|numeric',
-            'open_date_time' =>['nullable', $dateFormatRule],
+            'open_date_time' => ['nullable', $dateFormatRule],
             'close_date_time' => ['nullable', $dateFormatRule],
-            'start_date_time' =>['nullable', $dateFormatRule],
+            'start_date_time' => ['nullable', $dateFormatRule],
             'department_id' => ['nullable', new ValidIdRule(Department::class)],
             'province_id' => ['nullable', new ValidIdRule(Province::class)],
             'security_clearance_id' => ['nullable', new ValidIdRule(SecurityClearance::class)],
