@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\Models\UserRole;
+use Backpack\CRUD\app\Http\Controllers\CrudController;
 
 class UserCrudController extends CrudController
 {
@@ -80,7 +80,7 @@ class UserCrudController extends CrudController
     public function setupUpdateOperation()
     {
         $this->crud->addField([
-            'name' => 'name',
+            'name' => 'full_name',
             'label' => 'Name',
             'type' => 'text',
             'attributes' => [
