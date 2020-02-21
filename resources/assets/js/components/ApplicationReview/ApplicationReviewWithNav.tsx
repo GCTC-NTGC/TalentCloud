@@ -3,7 +3,6 @@ import {
   injectIntl,
   WrappedComponentProps,
   FormattedMessage,
-  defineMessages,
 } from "react-intl";
 import className from "classnames";
 import Swal from "sweetalert2";
@@ -12,99 +11,7 @@ import Select, { SelectOption } from "../Select";
 import { Application } from "../../models/types";
 import { ReviewStatusId } from "../../models/lookupConstants";
 import { Portal } from "../../models/app";
-
-const messages = defineMessages({
-  veteranLogo: {
-    id: "veteranStatus.veteranLogoAlt",
-    defaultMessage: "Talent cloud veteran logo",
-    description: "Alt Text for Veteran Logo Img",
-  },
-  emailCandidate: {
-    id: "apl.emailCandidateLinkTitle",
-    defaultMessage: "Email this candidate.",
-    description: "Title, hover text, for email link.",
-  },
-  viewApplicationTitle: {
-    id: "apl.viewApplicationLinkTitle",
-    defaultMessage: "View this applicant's application.",
-    description: "Title, hover text, for View Application Link",
-  },
-  viewProfileTitle: {
-    id: "apl.viewProfileLinkTitle",
-    defaultMessage: "View this applicant's profile.",
-    description: "Title, hover text, for View Profile Link",
-  },
-  decision: {
-    id: "apl.decision",
-    defaultMessage: "Decision",
-    description: "Decision dropdown label",
-  },
-  notReviewed: {
-    id: "reviewStatus.notReviewed",
-    defaultMessage: "Not Reviewed",
-    description: "Decision dropdown label",
-  },
-  saving: {
-    id: "button.saving",
-    defaultMessage: "Saving...",
-    description: "Dynamic Save button label",
-  },
-  save: {
-    id: "button.save",
-    defaultMessage: "Save",
-    description: "Dynamic Save button label",
-  },
-  saved: {
-    id: "button.saved",
-    defaultMessage: "Saved",
-    description: "Dynamic Save button label",
-  },
-  addNote: {
-    id: "apl.addNote",
-    defaultMessage: "+ Add a Note",
-    description: "Dynamic Note button label",
-  },
-  editNote: {
-    id: "apl.editNote",
-    defaultMessage: "Edit Note",
-    description: "Dynamic Note button label",
-  },
-  screenedOut: {
-    id: "reviewStatus.screenedOut",
-    defaultMessage: "Screened Out",
-    description: "Dynamic Note button label",
-  },
-  cancelButton: {
-    id: "button.cancel",
-    defaultMessage: "Cancel",
-    description: "Cancel button label",
-  },
-  stillThinking: {
-    id: "reviewStatus.stillThinking",
-    defaultMessage: "Still Thinking",
-    description: "Dynamic Note button label",
-  },
-  stillIn: {
-    id: "reviewStatus.stillIn",
-    defaultMessage: "Still In",
-    description: "Dynamic Note button label",
-  },
-  confirmButton: {
-    id: "button.confirm",
-    defaultMessage: "Confirm",
-    description: "Confirm button for modal dialogue boxes",
-  },
-  screenOutConfirm: {
-    id: "apl.screenOutConfirm",
-    defaultMessage: "Screen out the candidate?",
-    description: "Are you sure you want to screen out the candidate warning",
-  },
-  screenInConfirm: {
-    id: "apl.screenInConfirm",
-    defaultMessage: "Screen the candidate back in?",
-    description: "Are you sure you want to screen in the candidate warning",
-  },
-});
+import { messages } from "./ApplicationReview";
 
 interface ApplicationReviewWithNavProps {
   application: Application;
@@ -328,7 +235,7 @@ class ApplicationReviewWithNav extends React.Component<
                 onClick={() => this.handleLinkClicked(jobApplicationsUrl)}
               >
                 <FormattedMessage
-                  id="apl.backToApplicantList"
+                  id="application.review.backToApplicantList"
                   defaultMessage="< Save and Go Back to Applicant List"
                   description="Back Button text"
                 />
@@ -341,7 +248,7 @@ class ApplicationReviewWithNav extends React.Component<
                 onClick={() => this.handleLinkClicked(jobUrl)}
               >
                 <FormattedMessage
-                  id="button.viewJobPoster"
+                  id="application.review.button.viewJobPoster"
                   defaultMessage="View Job Poster"
                   description="View Job Poster Button text"
                 />
@@ -355,7 +262,7 @@ class ApplicationReviewWithNav extends React.Component<
                 <span className="expand">
                   {" "}
                   <FormattedMessage
-                    id="apl.expandAllSkills"
+                    id="application.review.expandAllSkills"
                     defaultMessage="Expand All Skills"
                     description="Expand All Skills Button text"
                   />
@@ -363,7 +270,7 @@ class ApplicationReviewWithNav extends React.Component<
                 <span className="collapse">
                   {" "}
                   <FormattedMessage
-                    id="apl.collapseAllSkills"
+                    id="application.review.collapseAllSkills"
                     defaultMessage="Collapse All Skills"
                     description="Collapse All Skills Button text"
                   />
@@ -398,11 +305,7 @@ class ApplicationReviewWithNav extends React.Component<
                     alt={intl.formatMessage(messages.viewApplicationTitle)}
                     src="/images/icon_veteran.svg"
                   />{" "}
-                  <FormattedMessage
-                    id="veteranStatus.veteran"
-                    defaultMessage="Veteran"
-                    description="Veteran"
-                  />
+                  {intl.formatMessage(messages.veteranStatus)}
                 </span>
               )}
             </div>
@@ -413,22 +316,14 @@ class ApplicationReviewWithNav extends React.Component<
                 href={applicationUrl}
               >
                 <i className="fas fa-file-alt" />
-                <FormattedMessage
-                  id="apl.viewApplication"
-                  defaultMessage="View Application"
-                  description="Button text View Application"
-                />
+                {intl.formatMessage(messages.viewApplicationText)}
               </a>
               <a
                 title={intl.formatMessage(messages.viewProfileTitle)}
                 href={applicantUrl}
               >
                 <i className="fas fa-user" />
-                <FormattedMessage
-                  id="apl.viewProfile"
-                  defaultMessage="View Profile"
-                  description="Button text View Profile"
-                />
+                {intl.formatMessage(messages.viewProfileText)}
               </a>
             </div>
 

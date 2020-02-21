@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\Models\UserRole;
+use Backpack\CRUD\app\Http\Controllers\CrudController;
 
 class UserCrudController extends CrudController
 {

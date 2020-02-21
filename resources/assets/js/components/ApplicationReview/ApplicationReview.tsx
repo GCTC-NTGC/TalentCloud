@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  injectIntl,
-  WrappedComponentProps,
-  FormattedMessage,
-  defineMessages,
-} from "react-intl";
+import { injectIntl, WrappedComponentProps, defineMessages } from "react-intl";
 import className from "classnames";
 import Swal from "sweetalert2";
 import * as routes from "../../helpers/routes";
@@ -13,101 +8,126 @@ import { Application } from "../../models/types";
 import { ReviewStatusId } from "../../models/lookupConstants";
 import { Portal } from "../../models/app";
 
-const messages = defineMessages({
+export const messages = defineMessages({
   priorityLogo: {
-    id: "priorityStatus.priorityLogoTitle",
+    id: "application.review.priorityStatus.priorityLogoTitle",
     defaultMessage: "Talent cloud priority logo",
     description: "Title for Priority Logo Img",
   },
+  priorityStatus: {
+    id: "application.review.priorityStatus.priority",
+    defaultMessage: "Priority",
+    description: "Priority",
+  },
   veteranLogo: {
-    id: "veteranStatus.veteranLogoAlt",
+    id: "application.review.veteranStatus.veteranLogoAlt",
     defaultMessage: "Talent cloud veteran logo",
     description: "Alt Text for Veteran Logo Img",
   },
+  veteranStatus: {
+    id: "application.review.veteranStatus.veteran",
+    defaultMessage: "Veteran",
+    description: "Veteran",
+  },
   emailCandidate: {
-    id: "apl.emailCandidateLinkTitle",
+    id: "application.review.emailCandidateLinkTitle",
     defaultMessage: "Email this candidate.",
     description: "Title, hover text, for email link.",
   },
+  viewApplicationText: {
+    id: "application.review.viewApplication",
+    defaultMessage: "View Application",
+    description: "Button text View Application",
+  },
   viewApplicationTitle: {
-    id: "apl.viewApplicationLinkTitle",
+    id: "application.review.viewApplicationLinkTitle",
     defaultMessage: "View this applicant's application.",
     description: "Title, hover text, for View Application Link",
   },
+  viewProfileText: {
+    id: "application.review.viewProfile",
+    defaultMessage: "View Profile",
+    description: "Button text View Profile",
+  },
   viewProfileTitle: {
-    id: "apl.viewProfileLinkTitle",
+    id: "application.review.viewProfileLinkTitle",
     defaultMessage: "View this applicant's profile.",
     description: "Title, hover text, for View Profile Link",
   },
   decision: {
-    id: "apl.decision",
+    id: "application.review.decision",
     defaultMessage: "Decision",
     description: "Decision dropdown label",
   },
   notReviewed: {
-    id: "reviewStatus.notReviewed",
+    id: "application.review.reviewStatus.notReviewed",
     defaultMessage: "Not Reviewed",
     description: "Decision dropdown label",
   },
   saving: {
-    id: "button.saving",
+    id: "application.review.button.saving",
     defaultMessage: "Saving...",
     description: "Dynamic Save button label",
   },
   save: {
-    id: "button.save",
+    id: "application.review.button.save",
     defaultMessage: "Save",
     description: "Dynamic Save button label",
   },
   saved: {
-    id: "button.saved",
+    id: "application.review.button.saved",
     defaultMessage: "Saved",
     description: "Dynamic Save button label",
   },
   addNote: {
-    id: "apl.addNote",
+    id: "application.review.addNote",
     defaultMessage: "+ Add a Note",
     description: "Dynamic Note button label",
   },
   editNote: {
-    id: "apl.editNote",
+    id: "application.review.editNote",
     defaultMessage: "Edit Note",
     description: "Dynamic Note button label",
   },
   screenedOut: {
-    id: "reviewStatus.screenedOut",
+    id: "application.review.reviewStatus.screenedOut",
     defaultMessage: "Screened Out",
     description: "Dynamic Note button label",
   },
   stillThinking: {
-    id: "reviewStatus.stillThinking",
+    id: "application.review.reviewStatus.stillThinking",
     defaultMessage: "Still Thinking",
     description: "Dynamic Note button label",
   },
   stillIn: {
-    id: "reviewStatus.stillIn",
+    id: "application.review.reviewStatus.stillIn",
     defaultMessage: "Still In",
     description: "Dynamic Note button label",
   },
   cancelButton: {
-    id: "button.cancel",
+    id: "application.review.button.cancel",
     defaultMessage: "Cancel",
     description: "Cancel button label",
   },
   confirmButton: {
-    id: "button.confirm",
+    id: "application.review.button.confirm",
     defaultMessage: "Confirm",
     description: "Confirm button for modal dialogue boxes",
   },
   screenOutConfirm: {
-    id: "apl.screenOutConfirm",
+    id: "application.review.screenOutConfirm",
     defaultMessage: "Screen out the candidate?",
     description: "Are you sure you want to screen out the candidate warning",
   },
   screenInConfirm: {
-    id: "apl.screenInConfirm",
+    id: "application.review.screenInConfirm",
     defaultMessage: "Screen the candidate back in?",
     description: "Are you sure you want to screen in the candidate warning",
+  },
+  viewProfile: {
+    id: "application.review.viewProfile",
+    defaultMessage: "View Profile",
+    description: "Button text View Profile",
   },
 });
 
@@ -318,11 +338,7 @@ class ApplicationReview extends React.Component<
                   className="fab fa-product-hunt"
                   title={intl.formatMessage(messages.priorityLogo)}
                 />
-                <FormattedMessage
-                  id="priorityStatus.priority"
-                  defaultMessage="Priority"
-                  description="Priority"
-                />
+                {intl.formatMessage(messages.priorityStatus)}
               </span>
             )}
             {/* This span only shown for veterans */}
@@ -333,11 +349,7 @@ class ApplicationReview extends React.Component<
                   alt={intl.formatMessage(messages.veteranLogo)}
                   src="/images/icon_veteran.svg"
                 />{" "}
-                <FormattedMessage
-                  id="veteranStatus.veteran"
-                  defaultMessage="Veteran"
-                  description="Veteran"
-                />
+                {intl.formatMessage(messages.veteranStatus)}
               </span>
             )}
           </div>
@@ -348,22 +360,14 @@ class ApplicationReview extends React.Component<
               href={applicationUrl}
             >
               <i className="fas fa-file-alt" />
-              <FormattedMessage
-                id="apl.viewApplication"
-                defaultMessage="View Application"
-                description="Button text View Application"
-              />
+              {intl.formatMessage(messages.viewApplicationText)}
             </a>
             <a
               title={intl.formatMessage(messages.viewProfileTitle)}
               href={applicantUrl}
             >
               <i className="fas fa-user" />
-              <FormattedMessage
-                id="apl.viewProfile"
-                defaultMessage="View Profile"
-                description="Button text View Profile"
-              />
+              {intl.formatMessage(messages.viewProfile)}
             </a>
           </div>
 

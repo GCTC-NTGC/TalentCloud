@@ -22,6 +22,26 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Number of activities is loading...",
+        "description": "Accessible text for the loading icon",
+        "id": "activityfeed.loadingIconText"
+      },
+      {
+        "defaultMessage": "Click to View Comments {totalActivities}",
+        "description": "The activity feed header.",
+        "id": "activityfeed.header"
+      },
+      {
+        "defaultMessage": "Click to view...",
+        "description": "The accessibility text displayed on the activity feed accordion button.",
+        "id": "activityfeed.accordionAccessibleLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/ActivityFeed.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Activities",
         "description": "Title of activity feed.",
         "id": "activityfeed.title"
@@ -42,7 +62,7 @@
         "id": "activityfeed.noActivities"
       }
     ],
-    "path": "resources/assets/js/components/ActivityFeed.json"
+    "path": "resources/assets/js/components/ActivityList.json"
   },
   {
     "descriptors": [
@@ -94,117 +114,117 @@
       {
         "defaultMessage": "Talent cloud priority logo",
         "description": "Title for Priority Logo Img",
-        "id": "priorityStatus.priorityLogoTitle"
-      },
-      {
-        "defaultMessage": "Talent cloud veteran logo",
-        "description": "Alt Text for Veteran Logo Img",
-        "id": "veteranStatus.veteranLogoAlt"
-      },
-      {
-        "defaultMessage": "Email this candidate.",
-        "description": "Title, hover text, for email link.",
-        "id": "apl.emailCandidateLinkTitle"
-      },
-      {
-        "defaultMessage": "View this applicant's application.",
-        "description": "Title, hover text, for View Application Link",
-        "id": "apl.viewApplicationLinkTitle"
-      },
-      {
-        "defaultMessage": "View this applicant's profile.",
-        "description": "Title, hover text, for View Profile Link",
-        "id": "apl.viewProfileLinkTitle"
-      },
-      {
-        "defaultMessage": "Decision",
-        "description": "Decision dropdown label",
-        "id": "apl.decision"
-      },
-      {
-        "defaultMessage": "Not Reviewed",
-        "description": "Decision dropdown label",
-        "id": "reviewStatus.notReviewed"
-      },
-      {
-        "defaultMessage": "Saving...",
-        "description": "Dynamic Save button label",
-        "id": "button.saving"
-      },
-      {
-        "defaultMessage": "Save",
-        "description": "Dynamic Save button label",
-        "id": "button.save"
-      },
-      {
-        "defaultMessage": "Saved",
-        "description": "Dynamic Save button label",
-        "id": "button.saved"
-      },
-      {
-        "defaultMessage": "+ Add a Note",
-        "description": "Dynamic Note button label",
-        "id": "apl.addNote"
-      },
-      {
-        "defaultMessage": "Edit Note",
-        "description": "Dynamic Note button label",
-        "id": "apl.editNote"
-      },
-      {
-        "defaultMessage": "Screened Out",
-        "description": "Dynamic Note button label",
-        "id": "reviewStatus.screenedOut"
-      },
-      {
-        "defaultMessage": "Still Thinking",
-        "description": "Dynamic Note button label",
-        "id": "reviewStatus.stillThinking"
-      },
-      {
-        "defaultMessage": "Still In",
-        "description": "Dynamic Note button label",
-        "id": "reviewStatus.stillIn"
-      },
-      {
-        "defaultMessage": "Cancel",
-        "description": "Cancel button label",
-        "id": "button.cancel"
-      },
-      {
-        "defaultMessage": "Confirm",
-        "description": "Confirm button for modal dialogue boxes",
-        "id": "button.confirm"
-      },
-      {
-        "defaultMessage": "Screen out the candidate?",
-        "description": "Are you sure you want to screen out the candidate worning",
-        "id": "apl.screenOutConfirm"
-      },
-      {
-        "defaultMessage": "Screen the candidate back in?",
-        "description": "Are you sure you want to screen in the candidate warning",
-        "id": "apl.screenInConfirm"
+        "id": "application.review.priorityStatus.priorityLogoTitle"
       },
       {
         "defaultMessage": "Priority",
         "description": "Priority",
-        "id": "priorityStatus.priority"
+        "id": "application.review.priorityStatus.priority"
+      },
+      {
+        "defaultMessage": "Talent cloud veteran logo",
+        "description": "Alt Text for Veteran Logo Img",
+        "id": "application.review.veteranStatus.veteranLogoAlt"
       },
       {
         "defaultMessage": "Veteran",
         "description": "Veteran",
-        "id": "veteranStatus.veteran"
+        "id": "application.review.veteranStatus.veteran"
+      },
+      {
+        "defaultMessage": "Email this candidate.",
+        "description": "Title, hover text, for email link.",
+        "id": "application.review.emailCandidateLinkTitle"
       },
       {
         "defaultMessage": "View Application",
         "description": "Button text View Application",
-        "id": "apl.viewApplication"
+        "id": "application.review.viewApplication"
+      },
+      {
+        "defaultMessage": "View this applicant's application.",
+        "description": "Title, hover text, for View Application Link",
+        "id": "application.review.viewApplicationLinkTitle"
       },
       {
         "defaultMessage": "View Profile",
         "description": "Button text View Profile",
-        "id": "apl.viewProfile"
+        "id": "application.review.viewProfile"
+      },
+      {
+        "defaultMessage": "View this applicant's profile.",
+        "description": "Title, hover text, for View Profile Link",
+        "id": "application.review.viewProfileLinkTitle"
+      },
+      {
+        "defaultMessage": "Decision",
+        "description": "Decision dropdown label",
+        "id": "application.review.decision"
+      },
+      {
+        "defaultMessage": "Not Reviewed",
+        "description": "Decision dropdown label",
+        "id": "application.review.reviewStatus.notReviewed"
+      },
+      {
+        "defaultMessage": "Saving...",
+        "description": "Dynamic Save button label",
+        "id": "application.review.button.saving"
+      },
+      {
+        "defaultMessage": "Save",
+        "description": "Dynamic Save button label",
+        "id": "application.review.button.save"
+      },
+      {
+        "defaultMessage": "Saved",
+        "description": "Dynamic Save button label",
+        "id": "application.review.button.saved"
+      },
+      {
+        "defaultMessage": "+ Add a Note",
+        "description": "Dynamic Note button label",
+        "id": "application.review.addNote"
+      },
+      {
+        "defaultMessage": "Edit Note",
+        "description": "Dynamic Note button label",
+        "id": "application.review.editNote"
+      },
+      {
+        "defaultMessage": "Screened Out",
+        "description": "Dynamic Note button label",
+        "id": "application.review.reviewStatus.screenedOut"
+      },
+      {
+        "defaultMessage": "Still Thinking",
+        "description": "Dynamic Note button label",
+        "id": "application.review.reviewStatus.stillThinking"
+      },
+      {
+        "defaultMessage": "Still In",
+        "description": "Dynamic Note button label",
+        "id": "application.review.reviewStatus.stillIn"
+      },
+      {
+        "defaultMessage": "Cancel",
+        "description": "Cancel button label",
+        "id": "application.review.button.cancel"
+      },
+      {
+        "defaultMessage": "Confirm",
+        "description": "Confirm button for modal dialogue boxes",
+        "id": "application.review.button.confirm"
+      },
+      {
+        "defaultMessage": "Screen out the candidate?",
+        "description": "Are you sure you want to screen out the candidate worning",
+        "id": "application.review.screenOutConfirm"
+      },
+      {
+        "defaultMessage": "Screen the candidate back in?",
+        "description": "Are you sure you want to screen in the candidate warning",
+        "id": "application.review.screenInConfirm"
       }
     ],
     "path": "resources/assets/js/components/ApplicationReview/ApplicationReview.json"
@@ -214,12 +234,12 @@
       {
         "defaultMessage": "Oops...",
         "description": "Modal notification text indicating something went wrong.",
-        "id": "alert.oops"
+        "id": "application.review.alert.oops"
       },
       {
         "defaultMessage": "Something went wrong while saving a review. Try again later.",
         "description": "Error message for error while saving an application review.",
-        "id": "apl.reviewSaveFailed"
+        "id": "application.review.reviewSaveFailed"
       }
     ],
     "path": "resources/assets/js/components/ApplicationReview/ApplicationReviewRoot.json"
@@ -227,129 +247,24 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Talent cloud veteran logo",
-        "description": "Alt Text for Veteran Logo Img",
-        "id": "veteranStatus.veteranLogoAlt"
-      },
-      {
-        "defaultMessage": "Email this candidate.",
-        "description": "Title, hover text, for email link.",
-        "id": "apl.emailCandidateLinkTitle"
-      },
-      {
-        "defaultMessage": "View this applicant's application.",
-        "description": "Title, hover text, for View Application Link",
-        "id": "apl.viewApplicationLinkTitle"
-      },
-      {
-        "defaultMessage": "View this applicant's profile.",
-        "description": "Title, hover text, for View Profile Link",
-        "id": "apl.viewProfileLinkTitle"
-      },
-      {
-        "defaultMessage": "Decision",
-        "description": "Decision dropdown label",
-        "id": "apl.decision"
-      },
-      {
-        "defaultMessage": "Not Reviewed",
-        "description": "Decision dropdown label",
-        "id": "reviewStatus.notReviewed"
-      },
-      {
-        "defaultMessage": "Saving...",
-        "description": "Dynamic Save button label",
-        "id": "button.saving"
-      },
-      {
-        "defaultMessage": "Save",
-        "description": "Dynamic Save button label",
-        "id": "button.save"
-      },
-      {
-        "defaultMessage": "Saved",
-        "description": "Dynamic Save button label",
-        "id": "button.saved"
-      },
-      {
-        "defaultMessage": "+ Add a Note",
-        "description": "Dynamic Note button label",
-        "id": "apl.addNote"
-      },
-      {
-        "defaultMessage": "Edit Note",
-        "description": "Dynamic Note button label",
-        "id": "apl.editNote"
-      },
-      {
-        "defaultMessage": "Screened Out",
-        "description": "Dynamic Note button label",
-        "id": "reviewStatus.screenedOut"
-      },
-      {
-        "defaultMessage": "Cancel",
-        "description": "Cancel button label",
-        "id": "button.cancel"
-      },
-      {
-        "defaultMessage": "Still Thinking",
-        "description": "Dynamic Note button label",
-        "id": "reviewStatus.stillThinking"
-      },
-      {
-        "defaultMessage": "Still In",
-        "description": "Dynamic Note button label",
-        "id": "reviewStatus.stillIn"
-      },
-      {
-        "defaultMessage": "Confirm",
-        "description": "Confirm button for modal dialogue boxes",
-        "id": "button.confirm"
-      },
-      {
-        "defaultMessage": "Screen out the candidate?",
-        "description": "Are you sure you want to screen out the candidate warning",
-        "id": "apl.screenOutConfirm"
-      },
-      {
-        "defaultMessage": "Screen the candidate back in?",
-        "description": "Are you sure you want to screen in the candidate warning",
-        "id": "apl.screenInConfirm"
-      },
-      {
         "defaultMessage": "< Save and Go Back to Applicant List",
         "description": "Back Button text",
-        "id": "apl.backToApplicantList"
+        "id": "application.review.backToApplicantList"
       },
       {
         "defaultMessage": "View Job Poster",
         "description": "View Job Poster Button text",
-        "id": "button.viewJobPoster"
+        "id": "application.review.button.viewJobPoster"
       },
       {
         "defaultMessage": "Expand All Skills",
         "description": "Expand All Skills Button text",
-        "id": "apl.expandAllSkills"
+        "id": "application.review.expandAllSkills"
       },
       {
         "defaultMessage": "Collapse All Skills",
         "description": "Collapse All Skills Button text",
-        "id": "apl.collapseAllSkills"
-      },
-      {
-        "defaultMessage": "Veteran",
-        "description": "Veteran",
-        "id": "veteranStatus.veteran"
-      },
-      {
-        "defaultMessage": "View Application",
-        "description": "Button text View Application",
-        "id": "apl.viewApplication"
-      },
-      {
-        "defaultMessage": "View Profile",
-        "description": "Button text View Profile",
-        "id": "apl.viewProfile"
+        "id": "application.review.collapseAllSkills"
       }
     ],
     "path": "resources/assets/js/components/ApplicationReview/ApplicationReviewWithNav.json"
@@ -357,12 +272,42 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Applications for: {jobTitle} {jobClassification}",
-        "description": "Welcome header on Job Applications index page",
-        "id": "apl.indexPageTitle"
+        "defaultMessage": "Under Consideration",
+        "description": "Under consideration category title",
+        "id": "review.applications.underConsideration.title"
       },
       {
-        "defaultMessage": "{dayCount, plural,\n              =0 {No Days}\n            one {# Day}\n          other {# Days}\n        } Since Close",
+        "defaultMessage": "Review the applicants in the Veterans and Canadian Citizens section. If none or very few of these applicants meet the requirements, you can still consider non-Canadian Citizen applications in the Optional Consideration section",
+        "description": "Under consideration category description",
+        "id": "review.applications.underConsideration.description"
+      },
+      {
+        "defaultMessage": "Optional Consideration",
+        "description": "Optional consideration category title",
+        "id": "review.applications.optionalConsideration.title"
+      },
+      {
+        "defaultMessage": "In this group you will find the applicants who are not Canadian Citizens or do not claim to meet the essential criteria.",
+        "description": "Optional consideration category description",
+        "id": "review.applications.optionalConsideration.description"
+      },
+      {
+        "defaultMessage": "No Longer Under Consideration",
+        "description": "Screened out category title",
+        "id": "review.applications.screenedOut.title"
+      },
+      {
+        "defaultMessage": "These applications have already been screened out.",
+        "description": "Screened out category description",
+        "id": "review.applications.screenedOut.description"
+      },
+      {
+        "defaultMessage": "Applications for: {jobTitle} {jobClassification}",
+        "description": "Welcome header on Job Applications index page",
+        "id": "review.applications.indexPageTitle"
+      },
+      {
+        "defaultMessage": "{dayCount, plural,\r\n              =0 {No Days}\r\n            one {# Day}\r\n          other {# Days}\r\n        } Since Close",
         "description": "Welcome header on app main page",
         "id": "job.daysSinceClosed"
       }
@@ -374,12 +319,12 @@
       {
         "defaultMessage": "Save",
         "description": "Dynamic Save button label",
-        "id": "alert.oops"
+        "id": "review.applications.alert.oops"
       },
       {
         "defaultMessage": "Something went wrong while saving a review. Try again later.",
         "description": "Dynamic Save button label",
-        "id": "apl.reviewSaveFailed"
+        "id": "review.applications.reviewSaveFailed"
       }
     ],
     "path": "resources/assets/js/components/ApplicationReview/ReviewApplicationsRoot.json"
@@ -387,14 +332,54 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Priority Applicants",
+        "description": "title of list of priority applicants",
+        "id": "review.applications.priorityApplicants.title"
+      },
+      {
+        "defaultMessage": "These are priority applicants for this position. They must be reviewed and considered first.",
+        "description": "description of list of priority applicants",
+        "id": "review.applications.priorityApplicants.description"
+      },
+      {
+        "defaultMessage": "Veterans and Canadian Citizens",
+        "description": "title of list of Veterans and Canadian citizens",
+        "id": "review.applications.veteransAndCitizens.title"
+      },
+      {
+        "defaultMessage": " ",
+        "description": "description of list of Veterans and Canadian citizens",
+        "id": "review.applications.veteransAndCitizens.description"
+      },
+      {
+        "defaultMessage": "Non-Canadian Citizens",
+        "description": "title of list of non-citizen applicants",
+        "id": "review.applications.nonCitizens.title"
+      },
+      {
+        "defaultMessage": " ",
+        "description": "description of list of non-citizen applicants",
+        "id": "review.applications.nonCitizens.description"
+      },
+      {
+        "defaultMessage": "Don't Meet Essential Criteria",
+        "description": "title of list of applicants who do not meet the essential criteria",
+        "id": "review.applications.unqualified.title"
+      },
+      {
+        "defaultMessage": " ",
+        "description": "description of list of applicants who do not meet the essential criteria",
+        "id": "review.applications.unqualified.description"
+      },
+      {
         "defaultMessage": "Confirm",
         "description": "Confirm button for modal dialogue boxes",
-        "id": "button.confirm"
+        "id": "review.applications.button.confirm"
       },
       {
         "defaultMessage": "Are you sure you want to screen out all Optional candidates?",
         "description": "Confirm dialogue text for screening out all optional candidates.",
-        "id": "apl.screenOutAll.confirm"
+        "id": "review.applications.screenOutAll.confirm"
       },
       {
         "defaultMessage": "Copied!",
@@ -409,7 +394,7 @@
       {
         "defaultMessage": "Screen All Optional Candidates Out",
         "description": "Button to screen out all optional candidates from competition with one click",
-        "id": "apl.screenOutAll"
+        "id": "review.applications.screenOutAll"
       }
     ],
     "path": "resources/assets/js/components/ApplicationReview/ReviewCategory.json"
@@ -2080,7 +2065,7 @@
         "id": "jobBuilder.review.reviewYourPoster"
       },
       {
-        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\n            understand how an applicant will see it once published.",
+        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\r\n            understand how an applicant will see it once published.",
         "description": "Description under primary title of review section",
         "id": "jobBuilder.review.headsUp"
       },
@@ -3299,9 +3284,14 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Created: ",
+        "defaultMessage": "Received: ",
         "description": "Header for when Job Poster was created.",
-        "id": "openJobCard.createdAt"
+        "id": "openJobCard.reviewRequested"
+      },
+      {
+        "defaultMessage": "Date Unavailable.",
+        "description": "Error getting time review was requested.",
+        "id": "openJobCard.error"
       },
       {
         "defaultMessage": "Hiring Managers: ",
@@ -3480,7 +3470,7 @@
       },
       {
         "defaultMessage": "Essential",
-        "description": "Title of an esential criteria type.",
+        "description": "Title of an essential criteria type.",
         "id": "criteriaType.essential"
       },
       {
@@ -3833,56 +3823,6 @@
         "id": "jobBuilder.details.classificationOptions.AD"
       },
       {
-        "defaultMessage": "Job Poster Builder > General",
-        "description": "Location where the activity is located.",
-        "id": "activityfeed.locations.review.details"
-      },
-      {
-        "defaultMessage": "Job Poster Builder > Job Page Heading",
-        "description": "Location where the activity is located.",
-        "id": "activityfeed.locations.review.heading"
-      },
-      {
-        "defaultMessage": "Job Poster Builder > Basic Information",
-        "description": "Location where the activity is located.",
-        "id": "activityfeed.locations.review.basicInfo"
-      },
-      {
-        "defaultMessage": "Job Poster Builder > Impact",
-        "description": "Location where the activity is located.",
-        "id": "activityfeed.locations.review.impact"
-      },
-      {
-        "defaultMessage": "Job Poster Builder > Tasks",
-        "description": "Location where the activity is located.",
-        "id": "activityfeed.locations.review.tasks"
-      },
-      {
-        "defaultMessage": "Job Poster Builder > Skills",
-        "description": "Location where the activity is located.",
-        "id": "activityfeed.locations.review.skills"
-      },
-      {
-        "defaultMessage": "Job Poster Builder > Language Requirements",
-        "description": "Location where the activity is located.",
-        "id": "activityfeed.locations.review.langRequirements"
-      },
-      {
-        "defaultMessage": "Job Poster Builder > Environment",
-        "description": "Location where the activity is located.",
-        "id": "activityfeed.locations.review.environment"
-      },
-      {
-        "defaultMessage": "Summary Page",
-        "description": "Location where the activity is located.",
-        "id": "activityfeed.locations.summary"
-      },
-      {
-        "defaultMessage": "Preview Page",
-        "description": "Location where the activity is located.",
-        "id": "activityfeed.locations.preview"
-      },
-      {
         "defaultMessage": "Draft",
         "id": "jobStatus.draft"
       },
@@ -3905,6 +3845,111 @@
       {
         "defaultMessage": "Complete",
         "id": "jobStatus.complete"
+      },
+      {
+        "defaultMessage": "Job Poster Builder",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.review"
+      },
+      {
+        "defaultMessage": "HR Summary Page",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.hr.summary"
+      },
+      {
+        "defaultMessage": "HR Preview Page",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.hr.preview"
+      },
+      {
+        "defaultMessage": "Applicant Review Page",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.applications.generic"
+      },
+      {
+        "defaultMessage": "Location not found",
+        "description": "Error message if location id is not recognized",
+        "id": "activityfeed.locations.notFound"
+      },
+      {
+        "defaultMessage": "General",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.review.details"
+      },
+      {
+        "defaultMessage": "Job Page Heading",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.review.heading"
+      },
+      {
+        "defaultMessage": "Basic Information",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.review.basicInfo"
+      },
+      {
+        "defaultMessage": "Impact",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.review.impact"
+      },
+      {
+        "defaultMessage": "Tasks",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.review.tasks"
+      },
+      {
+        "defaultMessage": "Skills",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.review.skills"
+      },
+      {
+        "defaultMessage": "Language Requirements",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.review.langRequirements"
+      },
+      {
+        "defaultMessage": "Environment",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.review.environment"
+      },
+      {
+        "defaultMessage": "General",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.screeningPlan.general"
+      },
+      {
+        "defaultMessage": "Assessment Plan Builder",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.screeningPlan.builder"
+      },
+      {
+        "defaultMessage": "Assessment Plan Summary",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.screeningPlan.summary"
+      },
+      {
+        "defaultMessage": "Ratings Guide Builder",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.screeningPlan.ratings"
+      },
+      {
+        "defaultMessage": "General",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.applicantReview.general"
+      },
+      {
+        "defaultMessage": "Under Consideration",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.applicantReview.underConsideration"
+      },
+      {
+        "defaultMessage": "Optional Consideration",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.applicantReview.optionalConsideration"
+      },
+      {
+        "defaultMessage": "No Longer Under Consideration",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.applicantReview.notUnderConsideration"
       }
     ],
     "path": "resources/assets/js/models/localizedConstants.json"

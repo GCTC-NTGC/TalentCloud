@@ -11,6 +11,7 @@ import { fetchSkills } from "../../store/Skill/skillActions";
 import { getUnreadNotificationsByJob } from "../../store/AssessmentPlanNotification/assessmentPlanNotificationSelectors";
 import { fetchAssessmentPlanNotifications } from "../../store/AssessmentPlanNotification/assessmentPlanNotificationActions";
 import { DispatchType } from "../../configureStore";
+import { Portal } from "../../models/app";
 
 interface AssessmentPlanContainerProps {
   jobId: number;
@@ -53,6 +54,7 @@ interface AssessmentPlanFetchContainerProps {
   jobId: number;
   job: Job | null;
   notifications: AssessmentPlanNotification[];
+  portal: Portal;
   dispatchFetchJob: () => void;
   dispatchFetchAssessmentPlan: () => void;
   dispatchFetchSkills: () => void;
@@ -63,6 +65,7 @@ const AssessmentPlanFetchContainer: React.FunctionComponent<AssessmentPlanFetchC
   jobId,
   job,
   notifications,
+  portal,
   dispatchFetchJob,
   dispatchFetchAssessmentPlan,
   dispatchFetchSkills,
@@ -81,7 +84,9 @@ const AssessmentPlanFetchContainer: React.FunctionComponent<AssessmentPlanFetchC
   useEffect((): void => {
     dispatchFetchNotifications();
   }, [dispatchFetchNotifications]);
-  return <AssessmentPlan job={job} notifications={notifications} />;
+  return (
+    <AssessmentPlan job={job} notifications={notifications} portal={portal} />
+  );
 };
 const AssessmentPlanContainer = connect(
   mapStateToProps,
