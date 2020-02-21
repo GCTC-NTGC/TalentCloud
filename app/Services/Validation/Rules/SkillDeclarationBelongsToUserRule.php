@@ -19,7 +19,7 @@ class SkillDeclarationBelongsToUserRule implements Rule
     public function passes($attribute, $value)
     {
         return SkillDeclaration::find($value) &&
-            SkillDeclaration::find($value)->applicant->user->id == Auth::user()->id;
+            SkillDeclaration::find($value)->skillable->user->id == Auth::user()->id;
     }
 
     public function message()

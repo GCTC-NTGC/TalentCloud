@@ -3,9 +3,7 @@ import { managerUser } from "./helpers/roles";
 
 const HOMEPAGE = "https://talent.test";
 
-fixture(`Critical - Job Poster Builder`)
-  .page(HOMEPAGE)
-  .meta("travis", "run");
+fixture(`Critical - Job Poster Builder`).page(HOMEPAGE);
 
 // Skip when writing new tests
 // fixture.skip(`Critical - Job Poster Builder`);
@@ -37,13 +35,8 @@ test("Job Poster Builder - New Job", async t => {
       Selector("input").withAttribute("id", "builder01ManagerPositionFr"),
       "Gestionnaire de la conception",
     )
-    .click(Selector("select").withAttribute("id", "builder01ManagerDepartment"))
-    .click(
-      Selector("select")
-        .withAttribute("id", "builder01ManagerDepartment")
-        .find("option")
-        .withAttribute("value", "7"),
-    )
+    .expect(Selector("span").withAttribute("id", "department").visible)
+    .ok()
     .selectText(
       Selector("input").withAttribute("id", "builder01ManagerDivisionEN"),
     )
@@ -74,7 +67,7 @@ test("Job Poster Builder - New Job", async t => {
       Selector("select")
         .withAttribute("id", "builder02Classification")
         .find("option")
-        .withAttribute("value", "CS"),
+        .withAttribute("value", "1"),
     )
     .click(Selector("select").withAttribute("id", "builder02Level"))
     .click(
@@ -121,7 +114,7 @@ test("Job Poster Builder - New Job", async t => {
     .ok()
     .expect(Selector("p").withText("Ontario").visible)
     .ok()
-    .expect(Selector("p").withText("CS").visible)
+    .expect(Selector("p").withText("AS").visible)
     .ok()
     .expect(Selector("p").withText("3").visible)
     .ok()
@@ -168,6 +161,9 @@ test("Job Poster Builder - New Job", async t => {
     // Impact page.
     .expect(Selector("h3").withText("Create an Impact Statement").visible)
     .ok()
+    .wait(2000)
+    .expect(Selector("p").withAttribute("id", "deptImpactStatement").visible)
+    .ok()
     .typeText(
       Selector("textarea").withAttribute("id", "TeamImpact"),
       "Blah de blah blah.",
@@ -180,11 +176,7 @@ test("Job Poster Builder - New Job", async t => {
     // Impact review.
     .expect(Selector("h5").withText("Awesome work!").visible)
     .ok()
-    .expect(
-      Selector("p").withText(
-        "Global Affairs Canada manages Canada's diplomatic relations, provides consular services to Canadians, promotes the country's international trade, and leads Canada's international development and humanitarian assistance.",
-      ).visible,
-    )
+    .expect(Selector("p").withAttribute("id", "deptImpactPreview").visible)
     .ok()
     .expect(Selector("p").withText("Blah de blah blah.").visible)
     .ok()
@@ -256,28 +248,30 @@ test("Job Poster Builder - New Job", async t => {
     .click(Selector("button").withText("Add Skill"))
     .expect(Selector("h3").withText("Skills").visible)
     .ok()
-    .wait(3000)
+    .wait(500)
     .click(Selector("button").withText("Save & Preview Skills"))
     // Skills review.
     .expect(Selector("h5").withText("Keep it up!").visible)
     .ok()
     .expect(Selector(".criterion-item").exists)
     .ok()
-    .wait(3000)
+    .wait(200)
     .click(Selector("button").withText("Next Step"))
     // Review page.
     .expect(Selector("p").withText("Product Designer").visible)
     .ok()
     .expect(Selector("p").withText("Design Manager").visible)
     .ok()
-    .click(Selector("button").withText("Send to HR for Review"))
+    .click(Selector("button").withText("Looks good!"))
     // Review confirmation.
     .expect(
       Selector("h5").withText("Congrats! Are You Ready to Submit?").visible,
     )
     .ok()
-    .wait(3000)
+    .wait(200)
     .click(Selector("button").withText("Yes, Submit"))
+    .wait(200)
+    .click(Selector("a").withText("Go back to My Job Posters"))
     // Taken back to the Job index page
     .expect(Selector("h1").withText("My Job Posters").visible)
     .ok()

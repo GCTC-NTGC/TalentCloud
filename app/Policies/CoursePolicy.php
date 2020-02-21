@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Applicant;
 use App\Models\User;
 use App\Models\Course;
 use App\Policies\BasePolicy;
@@ -18,7 +19,9 @@ class CoursePolicy extends BasePolicy
      */
     public function view(User $user, Course $course)
     {
-        return $user->isApplicant() && $course->applicant->user->is($user);
+        return $user->isApplicant()
+            && $course->courseable instanceof Applicant
+            && $course->courseable->user->id === $user->id;
     }
 
     /**
@@ -41,7 +44,9 @@ class CoursePolicy extends BasePolicy
      */
     public function update(User $user, Course $course)
     {
-        return $user->isApplicant() && $course->applicant->user->is($user);
+        return $user->isApplicant()
+            && $course->courseable instanceof Applicant
+            && $course->courseable->user->id === $user->id;
     }
 
     /**
@@ -53,6 +58,8 @@ class CoursePolicy extends BasePolicy
      */
     public function delete(User $user, Course $course)
     {
-        return $user->isApplicant() && $course->applicant->user->is($user);
+        return $user->isApplicant()
+            && $course->courseable instanceof Applicant
+            && $course->courseable->user->id === $user->id;
     }
 }

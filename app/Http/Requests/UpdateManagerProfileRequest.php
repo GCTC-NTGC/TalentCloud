@@ -32,16 +32,6 @@ class UpdateManagerProfileRequest extends FormRequest
     }
 
     /**
-     * Override Handle a failed validation attempt.
-     *
-     * @return void
-     */
-    protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
-    {
-        $this->validator = $validator;
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -49,51 +39,16 @@ class UpdateManagerProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required|string|max:191',
-            'last_name' => 'required|string|max:191',
-            'email' => [
-                'required',
-                'string',
-                'max:191',
-                'email',
-                // Email may match existing email for this user,
-                // but must be unique if changed.
-                Rule::unique('users', 'email')->ignore($this->manager->user->id)
-            ],
-            'gov_email' => [
-                'nullable',
-                'string',
-                'max:191',
-                'email',
-            ],
-            // Password validation
-            'current_password' => [
-                'nullable',
-                'required_with:new_password',
-                new PasswordCorrectRule
-            ],
-            'new_password' => [
-                'nullable',
-                'min:8',
-                new PasswordFormatRule,
-                'confirmed'
-            ],
+            'position.*' => 'nullable|string',
+            'division.*' => 'nullable|string',
 
-            'department_id' => ['required', new ValidIdRule(Department::class)],
-
+            'education.*' => 'nullable|string',
             'years_experience' => 'nullable|numeric|min:0',
-            'gc_directory_url' => 'nullable|url',
 
-            '*.about_me' => 'nullable|string',
-            '*.career_journey' => 'nullable|string',
-            '*.division' => 'nullable|string',
-            '*.education' => 'nullable|string',
-            '*.employee_learning' => 'nullable|string',
-            '*.expectations' => 'nullable|string',
-            '*.greatest_accomplishment' => 'nullable|string',
-            '*.leadership_style' => 'nullable|string',
-            '*.learning_path' => 'nullable|string',
-            '*.position' => 'nullable|string',
+
+            'career_journey.*' => 'nullable|string',
+            'learning_path.*' => 'nullable|string',
+            'about_me.*' => 'nullable|string',
 
             'twitter_username' => [
                 'nullable', // Some people may not have a handle.
@@ -103,6 +58,10 @@ class UpdateManagerProfileRequest extends FormRequest
                 'nullable', // Some people may not be on LinkedIn.
                 new LinkedInUrlRule,
             ],
+
+            'leadership_style.*' => 'nullable|string',
+            'expectations.*' => 'nullable|string',
+            'employee_learning.*' => 'nullable|string',
         ];
     }
 }

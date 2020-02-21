@@ -16,8 +16,7 @@ class UpdateRatingGuideAnswer extends FormRequest
     public function authorize()
     {
         // originalParameter avoids type hinting that automagically transforms the id into the RatingGuideAnswer object
-        //$answer = RatingGuideAnswer::find($this->route()->originalParameter('ratingGuideAnswer'));
-
+        // $answer = RatingGuideAnswer::find($this->route()->originalParameter('ratingGuideAnswer'));
         // The id parameter in the route is typehinted to magically become a RatingGuideAnswer object.
         $answer = $this->route('ratingGuideAnswer');
         return $answer && $this->user()->can('update', $answer);
@@ -32,7 +31,7 @@ class UpdateRatingGuideAnswer extends FormRequest
     {
         return [
             // RatingGuideQUestionId shouldn't be updated after creation
-            //'rating_guide_question_id' => ['required', new RatingGuideQuestionRule()],
+            // 'rating_guide_question_id' => ['required', new RatingGuideQuestionRule()],
             'criterion_id' => ['nullable', new ValidIdRule(Criteria::class)],
             'expected_answer' => 'nullable|string',
         ];

@@ -31,6 +31,12 @@ return [
         ],
         'null' => 'More Jobs Coming Soon!'
     ],
+    'holiday' => [
+        'title' => 'Closed for the Holidays',
+        'main_message' => 'We aren’t posting jobs over the holidays but we’re looking forward to connecting talented people with awesome and impactful jobs in the New Year! Until then stay warm and have some fun!',
+        'sign_off' => 'See you in 2020!',
+        'signature' => 'The Talent Cloud Team'
+    ],
     'hiw' => [
         'title' => 'How Talent Cloud Works',
         'steps' => [

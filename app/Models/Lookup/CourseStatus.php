@@ -19,7 +19,8 @@ class CourseStatus extends BaseModel
     protected $table = 'course_status';
     protected $fillable = [];
 
-    public function courses() {
+    public function courses()
+    {
         return $this->hasMany(\App\Models\Course::class);
     }
 }

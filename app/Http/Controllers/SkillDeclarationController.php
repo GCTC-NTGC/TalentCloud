@@ -66,9 +66,10 @@ class SkillDeclarationController extends Controller
         // Create a new Skill Declaration
         // But don't save, as it hasn't been validated yet.
         $skillDeclaration = new SkillDeclaration();
-        $skillDeclaration->applicant_id = $applicant->id;
         $skillDeclaration->skill_id = $request->input('skill_id');
         $skillDeclaration->skill_status_id = $claimedStatusId;
+
+        $applicant->skill_declarations()->save($skillDeclaration);
 
         // Update variable fields in skill declaration.
         return $this->updateSkillDeclaration($request, $skillDeclaration);
@@ -104,7 +105,7 @@ class SkillDeclarationController extends Controller
         ]);
 
         // Validate before saving.
-        $validator = new SkillDeclarationValidator($request->user()->applicant);
+        $validator = new SkillDeclarationValidator();
         $validator->validate($skillDeclaration);
 
         // Save this skill declaration.

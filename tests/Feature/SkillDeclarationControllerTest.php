@@ -32,7 +32,7 @@ class SkillDeclarationControllerTest extends TestCase
         $oldDeclaration = clone $this->skillDeclaration;
         $expected = 'This is a new sample skill declaration description';
         $this->skillDeclaration->description = $expected;
-        $response = $this->actingAs($this->skillDeclaration->applicant->user)
+        $response = $this->actingAs($this->skillDeclaration->skillable->user)
                             ->followingRedirects()
                             ->json(
                                 'PUT',

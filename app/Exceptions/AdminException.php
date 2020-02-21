@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
 
 class AdminException extends Exception
@@ -41,7 +42,7 @@ class AdminException extends Exception
             [
                 'exception' => $this,
                 'error' => [
-                    "title" => "Error"
+                    'title' => Lang::get('errors.title'),
                 ],
                 'links' => $this->links
             ],

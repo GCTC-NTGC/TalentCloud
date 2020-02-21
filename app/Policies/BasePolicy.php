@@ -12,8 +12,8 @@ class BasePolicy
     public function before($user, $ability)
     {
         if ($user->isAdmin()) {
-            $userText = '{id='.$user->id.'}';
-            Log::notice('User '.$userText.' has bypassed policy as an Admin');
+            $userText = '{id=' . $user->id . '}';
+            Log::notice('User ' . $userText . ' has bypassed policy as an Admin');
             return true;
         }
     }

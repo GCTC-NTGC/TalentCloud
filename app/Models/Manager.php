@@ -7,8 +7,8 @@
 
 namespace App\Models;
 
-use App\CRUD\TalentCloudCrudTrait as CrudTrait;
-use Astrotomic\Translatable\Translatable as Translatable;
+use App\Traits\TalentCloudCrudTrait as CrudTrait;
+use Spatie\Translatable\HasTranslations;
 
 /**
  * Class Manager
@@ -51,18 +51,17 @@ use Astrotomic\Translatable\Translatable as Translatable;
  * @property string $learning_path
  *
  * Computed Properties
- * @property string $name
- *
- * Methods
- * @method   string toApiArray()
+ * @property string $full_name
+ * @property string $first_name
+ * @property string $last_name
+ * @property boolean $is_demo_manager
  */
 class Manager extends BaseModel
 {
-    use Translatable;
-    // Trait for Backpack
+    use HasTranslations;
     use CrudTrait;
 
-    public $translatedAttributes = [
+    public $translatable = [
         'about_me',
         'greatest_accomplishment',
         'division',
@@ -87,7 +86,17 @@ class Manager extends BaseModel
         'engage_team_frequency_id',
         'development_opportunity_frequency_id',
         'refuse_low_value_work_frequency_id',
-        'years_experience'
+        'years_experience',
+        'about_me',
+        'greatest_accomplishment',
+        'division',
+        'position',
+        'leadership_style',
+        'employee_learning',
+        'expectations',
+        'education',
+        'career_journey',
+        'learning_path'
     ];
 
     /**
@@ -95,7 +104,34 @@ class Manager extends BaseModel
      *
      * @var array
      */
-    protected $appends = ['name'];
+    protected $appends = ['first_name', 'last_name', 'full_name', 'is_demo_manager'];
+
+    /**
+     * The attributes that should be visible in arrays.
+     *
+     * @var array
+     */
+    protected $visible = [
+        'id',
+        'user_id',
+        'first_name',
+        'last_name',
+        'full_name',
+        'department_id',
+        'twitter_username',
+        'linkedin_url',
+        'is_demo_manager',
+        'about_me',
+        'greatest_accomplishment',
+        'division',
+        'position',
+        'leadership_style',
+        'employee_learning',
+        'expectations',
+        'education',
+        'career_journey',
+        'learning_path'
+    ];
 
     public function user()
     {
@@ -121,19 +157,7 @@ class Manager extends BaseModel
     {
         return $this->hasOne(\App\Models\TeamCulture::class)->withDefault();
     }
-    /*
-    * @property \App\Models\Lookup\Frequency $review_options
-    * @property \App\Models\Lookup\Frequency $staylate
-    * @property \App\Models\Lookup\Frequency $engage
-    * @property \App\Models\Lookup\Frequency $opportunities
-    * @property \App\Models\Lookup\Frequency $low_value_work_requests
-    *
-    * work_review_frequency
-    * stay_late_frequency
-    * engage_team_frequency
-    * development_opportunity_frequency
-    * refuse_low_value_work_frequency
-    */
+
     public function work_review_frequency() //phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\Frequency::class);
@@ -164,7 +188,7 @@ class Manager extends BaseModel
      *
      * @return string
      */
-    public function getNameAttribute(): string
+    public function getFullNameAttribute(): string
     {
         if ($this->user !== null) {
             return $this->user->first_name . ' ' . $this->user->last_name;
@@ -173,14 +197,41 @@ class Manager extends BaseModel
     }
 
     /**
-     * Return the array of values used to represent this object in an api response.
-     * This array should contain no nested objects (besides translations).
+     * Return the first name of the User associated with this Manager.
      *
-     * @return mixed[]
+     * @return string
      */
-    public function toApiArray()
+    public function getFirstNameAttribute(): string
     {
-        $withTranslations = array_merge($this->toArray(), $this->getTranslationsArray());
-        return $withTranslations;
+        if ($this->user !== null) {
+            return $this->user->first_name;
+        }
+        return '';
+    }
+
+    /**
+     * Return the last name of the User associated with this Manager.
+     *
+     * @return string
+     */
+    public function getLastNameAttribute(): string
+    {
+        if ($this->user !== null) {
+            return $this->user->last_name;
+        }
+        return '';
+    }
+
+    /**
+     * Return whether this is a Demo Manager.
+     *
+     * @return boolean
+     */
+    public function getIsDemoManagerAttribute(): bool
+    {
+        if ($this->user !== null) {
+            return $this->user->isDemoManager();
+        }
+        return true;
     }
 }

@@ -1,7 +1,4 @@
-export async function copyToClipboard(
-  event,
-  text: string,
-): Promise<void> {
+export async function copyToClipboard(event, text: string): Promise<void> {
   if (event.clipboardData && event.clipboardData.setData) {
     // IE specific code path to prevent textarea being shown while dialog is visible.
     return event.clipboardData.setData("Text", text);

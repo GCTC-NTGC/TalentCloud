@@ -33,7 +33,6 @@ interface JobBuilderProgressTrackerProps {
   job: Job | null;
   jobId: number | null;
   tasks: JobPosterKeyTask[];
-  maxTasksCount: number;
   criteria: Criteria[];
   dataIsLoading: boolean;
   currentPage: JobBuilderPage | null;
@@ -59,13 +58,11 @@ const stepComesBefore = (
   return comesBefore;
 };
 
-export const JobBuilderProgressTracker: React.FunctionComponent<
-  JobBuilderProgressTrackerProps & WrappedComponentProps
-> = ({
+export const JobBuilderProgressTracker: React.FunctionComponent<JobBuilderProgressTrackerProps &
+  WrappedComponentProps> = ({
   job,
   jobId,
   tasks,
-  maxTasksCount,
   dataIsLoading,
   criteria,
   currentPage,
@@ -107,7 +104,6 @@ export const JobBuilderProgressTracker: React.FunctionComponent<
       ? "null"
       : jobTasksProgressState(
           tasks,
-          maxTasksCount,
           locale,
           stepComesBefore(currentPage, "tasks"),
         ),

@@ -18,7 +18,7 @@ class LangMenuComposer
     {
         $locale = LaravelLocalization::getCurrentLocale();
 
-        switch($locale) {
+        switch ($locale) {
             case 'en':
                 $linkLocale = 'fr';
                 break;

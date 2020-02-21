@@ -360,7 +360,8 @@
                 color: red;
                 content: "\f06a";
                 display: block;
-                font: "Font Awesome 5 Free";
+                font-family: "Font Awesome 5 Free";
+                font-weight: 900;
                 font-size: $font-scale--regular;
                 position: absolute;
                 top: 50%;
@@ -604,6 +605,10 @@
             &:focus {
                 border: 1px solid $palette--blue !important;
                 transition: border-color .2s ease;
+            }
+
+            &:disabled {
+                cursor: not-allowed;
             }
 
         }

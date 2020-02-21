@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\Comment;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -140,29 +141,15 @@ class JobPosterTest extends TestCase
     }
 
     /**
-     * Ensure the classification mutator functions correctly.
+     * Test one-to-many relationship between Job Poster and comments
      *
      * @return void
      */
-    public function testJobPosterClassificationAccessor() : void
+    public function testJobPosterHasManyComments()
     {
-        $jobPoster = factory(JobPoster::class)->make();
+        $job_poster = factory(JobPoster::class)->create();
+        $comment = factory(Comment::class)->make(['job_poster_id' => $job_poster->id]);
 
-        $jobPoster->classification = null;
-        $this->assertEquals(
-            "$jobPoster->classification_code-$jobPoster->classification_level",
-            $jobPoster->classification
-        );
-
-        $jobPoster->classification = 'CS-03';
-        $jobPoster->classification_level = null;
-        $this->assertEquals('CS-03', $jobPoster->classification);
-
-        $jobPoster->classification_level = 5;
-        $jobPoster->classification_code = null;
-        $this->assertEquals('CS-03', $jobPoster->classification);
-
-        $jobPoster->classification_level = null;
-        $this->assertEquals('CS-03', $jobPoster->classification);
+        $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $job_poster->comments);
     }
 }

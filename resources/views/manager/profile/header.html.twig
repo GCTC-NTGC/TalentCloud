@@ -4,79 +4,54 @@
     Applicant: Profile - Header
 
 ============================================================================= #}
-<div
-    class="applicant-profile__header">
-
-    <div
-        class="container--copy">
-
-        {# Profile Photo #}
-
-            {# <button
-                class="applicant-profile__header-photo"
-                onclick=""
-                aria-label="{{ user.first_name }} {{ user.last_name }}"
-                >
-                <div
-                    style="background-image:url('{{ manager_profile_photo_url }}')">
-                </div>
-                <span class="hidden">{{ user.first_name }} {{ user.last_name }}</span>
-            </button> #}
-
-        {# Name #}
-
-            <h2>
-                {{ user.first_name }} {{ user.last_name }}
-            </h2>
-
-        {# Title & Department #}
-
-            <span>
-                {{ manager.position }} {% if manager.department %}{{ profile.department_bridge }} {{ user.department.name }}{% endif %}
-            </span>
-
-        {# Social Accounts #}
-
-            {% if manager.twitter_username or manager.linkedin_url %}
-
-                <ul
-                    class="applicant-profile__social-links">
-
-                    <li>
-                        <a
-                            href="{{ urls.twitter|replace({':username':manager.twitter_username}) }}"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title="{{ header_l10n.twitter|replace({':name':manager.user.first_name}) }}">
-                            <i class="fab fa-twitter"></i>
-                            <span class="hidden">{{ header_l10n.twitter|replace({':name':manager.user.nafirst_nameme}) }}</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a
-                            href="{{ manager.linkedin_url }}"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title="{{ header_l10n.linkedin|replace({':name':manager.user.first_name}) }}">
-                            <i class="fab fa-linkedin"></i>
-                            <span class="hidden">{{ header_l10n.linkedin|replace({':name':manager.user.first_name}) }}</span>
-                        </a>
-                    </li>
-
-                </ul>
-
-            {% endif %}
-
-        {# Edit Profile Trigger #}
-
-            {#<div class="applicant-profile__header-edit-wrapper">
-                <a href="javascript:void(0)" class="profileBasicInfoEdit" onclick="JobSeekerAPI.showJobSeekerProfileBasicInfoEdit()" title="Edit my profile.">
-                    <span class="hidden">Edit your profile</span>
-                    <i class="fa fa-pencil-square"></i>
-                </a>
-            </div>#}
-
-    </div>
-
+<div class="applicant-profile__header">
+	<div class="container--copy">
+		{# Profile Photo #}
+		{# <button
+            class="applicant-profile__header-photo"
+            onclick=""
+            aria-label="{{ user.first_name }} {{ user.last_name }}"
+            >
+            <div
+                style="background-image:url('{{ manager_profile_photo_url }}')">
+            </div>
+            <span class="hidden">{{ user.first_name }} {{ user.last_name }}</span>
+        </button> #}
+		{# Name #}
+			<h2>
+			{{ user.first_name }}
+		{{ user.last_name }}
+		</h2>
+		{# Title & Department #}
+			<span>
+			{{ manager.position }}
+				{% if manager.department %}
+				{{ profile.department_bridge }}
+			{{ user.department.name }}
+		{% endif %}
+		</span>
+		{# Social Accounts #}
+			{% if manager.twitter_username or manager.linkedin_url %}
+				<ul class="applicant-profile__social-links"> <li>
+					<a href="{{ urls.twitter|replace({':username': manager.twitter_username}) }}" target="_blank" rel="noopener noreferrer" title="{{ header_l10n.twitter|replace({':name': manager.user.first_name}) }}">
+						<i class="fab fa-twitter"></i>
+						<span class="hidden">{{ header_l10n.twitter|replace({':name': manager.user.nafirst_nameme}) }}</span>
+					</a>
+				</li>
+				<li>
+					<a href="{{ manager.linkedin_url }}" target="_blank" rel="noopener noreferrer" title="{{ header_l10n.linkedin|replace({':name': manager.user.first_name}) }}">
+						<i class="fab fa-linkedin"></i>
+						<span class="hidden">{{ header_l10n.linkedin|replace({':name': manager.user.first_name}) }}</span>
+					</a>
+				</li>
+			</ul>
+		{% endif %}
+		{# Edit Profile Trigger #}
+		{#<div class="applicant-profile__header-edit-wrapper">
+            <a href="javascript:void(0)" class="profileBasicInfoEdit" onclick="JobSeekerAPI.showJobSeekerProfileBasicInfoEdit()" title="Edit my profile.">
+                <span class="hidden">Edit your profile</span>
+                <i class="fa fa-pencil-square"></i>
+            </a>
+        </div>#}
+	</div>
 </div>

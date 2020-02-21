@@ -33,6 +33,8 @@ return [
     'edit_screening_plans' => 'Edit Screening Plans',
     'send_for_review' => 'Send for Review',
     'send_this_review' => 'Send this job poster for submission review..',
+    'view_job_summary' => 'View Job Summary',
+    'view_summary_title' => 'View a summary of this job poster.',
     'review_applicants' => 'Review Applicants',
     'review_this_applicants' => 'Review the applicants who applied to this job.',
     'delete_this_poster' => 'Delete this job poster draft.',
@@ -70,11 +72,9 @@ return [
         'title' => 'Looks like you\'re using a demo account!',
         'description' => [
             'first' => 'Job Poster review and publishing is only available to Talent Cloud\'s partner departments.',
-            'second' => 'To find out if you can access these features, :link.',
             'link' => [
-                'text' => 'click here',
+                'text' => 'Find out how you can access these features',
                 'title' => 'Find out how to access Job Poster review and publishing features.',
-                'href' => '#upgrade'
             ]
         ],
         'cancel' => 'Go back'

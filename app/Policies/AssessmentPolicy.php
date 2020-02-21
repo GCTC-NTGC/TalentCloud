@@ -31,7 +31,7 @@ class AssessmentPolicy extends BasePolicy
      */
     public function create(User $user): bool
     {
-        //Any manager can create a new Assessment, but only for criteria they own.
+        // Any manager can create a new Assessment, but only for criteria they own.
         return $user->isManager();
     }
 

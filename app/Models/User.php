@@ -17,7 +17,8 @@ use Illuminate\Notifications\Notifiable;
 use App\Events\UserCreated;
 use App\Events\UserUpdated;
 use App\Notifications\ResetPasswordNotification;
-use App\CRUD\TalentCloudCrudTrait as CrudTrait;
+use App\Traits\TalentCloudCrudTrait as CrudTrait;
+use App\Traits\RememberDeviceTrait;
 
 /**
  * Class User
@@ -32,11 +33,15 @@ use App\CRUD\TalentCloudCrudTrait as CrudTrait;
  * @property int $user_role_id
  * @property string $gov_email
  * @property boolean $not_in_gov
+ * @property string $google2fa_secret
+ * @property array $recovery_codes
+ * @property \Jenssegers\Date\Date $recovery_codes_generation_date
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\Applicant $applicant
  * @property \App\Models\Manager $manager
+ * @property \App\Models\HrAdvisor $hr_advisor
  * @property \App\Models\ProfilePic $profile_pic
  * @property \App\Models\UserRole $user_role
  */
@@ -59,6 +64,8 @@ class User extends BaseModel implements
     use Notifiable;
     // Trait for Backpack.
     use CrudTrait;
+    // Trait for 2FA device memory.
+    use RememberDeviceTrait;
 
     protected $casts = [
         'is_confirmed' => 'boolean',
@@ -69,14 +76,33 @@ class User extends BaseModel implements
         'not_in_gov' => 'boolean',
     ];
 
+    /**
+     * @var string[] $dates
+     */
+    protected $dates = [
+        'recovery_codes_generation_date',
+    ];
+
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password', 'is_priority', 'gov_email', 'not_in_gov'
+        'first_name',
+        'last_name',
+        'email',
+        'password',
+        'is_priority',
+        'gov_email',
+        'not_in_gov',
+        'google2fa_secret'
     ];
 
     protected $with = ['user_role'];
 
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
+        'remember_device_token',
+        'recovery_codes_generation_date',
+        'google2fa_secret',
+        'recovery_codes',
     ];
 
     /**
@@ -99,6 +125,11 @@ class User extends BaseModel implements
         return $this->hasOne(\App\Models\Manager::class);
     }
 
+    public function hr_advisor() //phpcs:ignore
+    {
+        return $this->hasOne(\App\Models\HrAdvisor::class);
+    }
+
     public function profile_pic() //phpcs:ignore
     {
         return $this->hasOne(\App\Models\ProfilePic::class);
@@ -117,7 +148,57 @@ class User extends BaseModel implements
         $this->attributes['is_priority'] = $value;
     }
 
-    // Role related functions.
+    /**
+     * Ecrypt the user's google_2fa secret.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function setGoogle2faSecretAttribute($value)
+    {
+        $this->attributes['google2fa_secret'] = encrypt($value);
+    }
+
+    /**
+     * Decrypt the user's google_2fa secret.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getGoogle2faSecretAttribute($value)
+    {
+        if (!empty($value)) {
+            return decrypt($value);
+        }
+        return null;
+    }
+
+    /**
+     * Ecrypt and serialize the user's recovery codes.
+     *
+     * @param  string[]  $value
+     * @return void
+     */
+    public function setRecoveryCodesAttribute($value)
+    {
+        $this->attributes['recovery_codes'] = encrypt($value);
+    }
+
+    /**
+     * Decrypt and deserialize the user's recovery codes.
+     *
+     * @param  string  $value
+     * @return string[]
+     */
+    public function getRecoveryCodesAttribute($value)
+    {
+        if (!empty($value)) {
+            return decrypt($value);
+        }
+        return null;
+    }
+
+    // Role related functions
 
     /**
      * Returns true if this user has the Applicant role.
@@ -137,7 +218,7 @@ class User extends BaseModel implements
      */
     public function isUpgradedManager(): bool
     {
-        return $this->isAdmin() || $this->user_role->name === 'upgradedManager';
+        return $this->isAdmin() || $this->user_role->key === 'upgradedManager';
     }
 
     /**
@@ -163,18 +244,28 @@ class User extends BaseModel implements
     }
 
     /**
+     * Returns true if this user has the hr_advisor role.
+     *
+     * @return boolean
+     */
+    public function isHrAdvisor(): bool
+    {
+        return $this->user_role->key === 'hr_advisor' || $this->isAdmin();
+    }
+
+    /**
      * Returns true if this user has the Admin role.
      *
      * @return boolean
      */
     public function isAdmin(): bool
     {
-        return $this->user_role->name === 'admin';
+        return $this->user_role->key === 'admin';
     }
 
     /**
     * Check if the user has the specified role.
-    * @param string $role This may be either 'applicant', 'manager' or 'admin'.
+    * @param string $role This may be either 'applicant', 'manager', 'hr_advisor' or 'admin'.
     * @return boolean
     */
     public function hasRole($role)
@@ -184,6 +275,8 @@ class User extends BaseModel implements
                 return $this->isApplicant();
             case 'manager':
                 return $this->isManager();
+            case 'hr_advisor':
+                return $this->isHrAdvisor();
             case 'admin':
                 return $this->isAdmin();
             default:
@@ -194,12 +287,12 @@ class User extends BaseModel implements
     /**
      * Set this user to the specified role.
      *
-     * @param string $role Must be either 'applicant', 'manager' or 'admin.
+     * @param string $role Must be either 'applicant', 'manager', 'hr_advisor' or 'admin'.
     * @return void
     */
     public function setRole(string $role): void
     {
-        $this->user_role()->associate(UserRole::where('name', $role)->firstOrFail());
+        $this->user_role()->associate(UserRole::where('key', $role)->firstOrFail());
     }
 
     /**
@@ -231,7 +324,7 @@ class User extends BaseModel implements
      * Returns a user's full name.
      *
      * @return string
-    */
+     */
     public function getFullNameAttribute(): string
     {
         return $this->first_name . ' ' . $this->last_name;

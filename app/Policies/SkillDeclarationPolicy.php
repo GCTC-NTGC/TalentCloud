@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Applicant;
 use App\Models\User;
 use App\Models\SkillDeclaration;
 use App\Policies\BasePolicy;
@@ -18,7 +19,9 @@ class SkillDeclarationPolicy extends BasePolicy
      */
     public function view(User $user, SkillDeclaration $skillDeclaration)
     {
-        return ($user->isApplicant() && $skillDeclaration->applicant->user->is($user));
+        return $user->isApplicant()
+            && $skillDeclaration->skillable instanceof Applicant
+            && $skillDeclaration->skillable->user->is($user);
     }
 
     /**
@@ -41,7 +44,9 @@ class SkillDeclarationPolicy extends BasePolicy
      */
     public function update(User $user, SkillDeclaration $skillDeclaration)
     {
-        return ($user->isApplicant() && $skillDeclaration->applicant->user->is($user));
+        return $user->isApplicant()
+            && $skillDeclaration->skillable instanceof Applicant
+            && $skillDeclaration->skillable->user->is($user);
     }
 
     /**
@@ -53,6 +58,8 @@ class SkillDeclarationPolicy extends BasePolicy
      */
     public function delete(User $user, SkillDeclaration $skillDeclaration)
     {
-        return ($user->isApplicant() && $skillDeclaration->applicant->user->is($user));
+        return $user->isApplicant()
+            && $skillDeclaration->skillable instanceof Applicant
+            && $skillDeclaration->skillable->user->is($user);
     }
 }

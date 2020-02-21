@@ -1,8 +1,9 @@
 {% extends "layouts/base" %}
-
-{% block title %}{{ application_template.view_title }}: {{ applicant.user.first_name}} {{ applicant.user.last_name }}{% endblock %}
-
-
+{% block title %}
+	{{ application_template.view_title }}:
+	{{ applicant.user.first_name }}
+	{{ applicant.user.last_name }}
+{% endblock %}
 {% block body %}
 
     {% include "common/goc" %}
@@ -15,7 +16,9 @@
     <section
         class="application__view-layout submitted">
 
-        <div id="application-review-container"
+        <div id="{{ is_hr_portal
+                ? "application-review-container-hr"
+                : "application-review-container" }}"
             data-application="{{ job_application|json_encode() }}"
             data-review-statuses="{{ review_statuses|json_encode() }}"
             data-locale="{{App.getLocale()}}"
@@ -28,11 +31,6 @@
     </section>
 
 {% endblock %}
-
 {% block scripts %}
-
-    <script async defer
-        src="{{ mix('/js/ApplicationReviewRoot.js') }}">
-    </script>
-
+	<script async defer src="{{ mix('/js/ApplicationReviewRoot.js') }}"></script>
 {% endblock %}

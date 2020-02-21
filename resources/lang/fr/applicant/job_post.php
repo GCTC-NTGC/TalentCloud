@@ -115,22 +115,8 @@ return [
         ],
         'telework_label' => 'Télétravail',
         'telework_desc' => 'Travaillez à la maison certains jours (à distance de route du bureau).',
-        'telework_allowed' => [
-            'never' => 'Jamais',
-            'rarely' => 'Rarement',
-            'sometimes' => 'Parfois',
-            'often' => 'Habituellement',
-            'always' => 'Presque toujours',
-        ],
         'time_flexibility_label' => 'Horaire flexible',
         'time_flexibility_desc' => 'Choisissez vos heures de début et de fin.',
-        'time_flexibility_allowed' => [
-            'never' => 'Jamais',
-            'rarely' => 'Rarement',
-            'sometimes' => 'Parfois',
-            'often' => 'Habituellement',
-            'always' => 'Presque toujours',
-        ],
         'travel_label' => 'Voyage',
         'travel_desc' => 'Voir plus du Canada ou du monde.',
         'travel' => [
@@ -163,7 +149,9 @@ return [
         'job_closed_title' => 'Compétition fermée',
         'job_closed_label' => 'Compétition fermée',
         'edit_link_title' => 'Modifier cette affiche d\'emploi.',
-        'edit_link_label' => 'Modifier'
+        'edit_link_label' => 'Modifier',
+        'view_link_title'  => "Voir votre l'application.",
+        'view_link_label'  => "Voir votre l'application",
     ],
     'no_info' => 'Aucune information fournie.'
 ];

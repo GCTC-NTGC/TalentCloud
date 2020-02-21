@@ -1,14 +1,13 @@
 <?php
-
+/*
+| --------------------------------------------------------------------------
+| Applicant Profile Language Lines
+| --------------------------------------------------------------------------
+|
+| The following language lines are used in the applicant profile.
+|
+*/
 return [
-    /*
-    * --------------------------------------------------------------------------
-    * Applicant Profile Language Lines
-    * --------------------------------------------------------------------------
-    *
-    * The following language lines are used in the applicant profile.
-    *
-    */
     'title' => 'À propos de moi',
     'about_section' => [
         'about_title' => 'Mes renseignements',
@@ -36,6 +35,6 @@ return [
         'linkedin_link_title' => 'Visiter mon profil LinkedIn',
         'questions_title' => 'Choses à savoir de moi',
         'applicant_profile_question_section_title' => 'Votre histoire',
-        'applicant_profile_question_context' => 'Ne pas inclure d\'informations personnelles sensibles.',
-    ],
+        'applicant_profile_question_context' => 'Ne pas inclure d\'informations personnelles sensibles.'
+    ]
 ];

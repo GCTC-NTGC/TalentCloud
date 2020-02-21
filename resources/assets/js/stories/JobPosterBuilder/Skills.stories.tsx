@@ -5,21 +5,21 @@ import { withIntl } from "storybook-addon-intl";
 import { select, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import { SelectTypeOptionsProp } from "@storybook/addon-knobs/dist/components/types";
-import JobBuilderSkills from "../../components/JobBuilderSkills/JobBuilderSkills";
+import JobBuilderSkills from "../../components/JobBuilder/Skills/JobBuilderSkills";
 import fakeJob, { fakeCriterion, fakeJobTasks } from "../../fakeData/fakeJob";
 import { fakeSkills } from "../../fakeData/fakeSkills";
-import CriteriaForm from "../../components/JobBuilderSkills/CriteriaForm";
+import CriteriaForm from "../../components/JobBuilder/Skills/CriteriaForm";
 import { mapToObject } from "../../helpers/queries";
 import { SkillLevelId, CriteriaTypeId } from "../../models/lookupConstants";
 import { Criteria } from "../../models/types";
+import { localizeFieldNonNull } from "../../helpers/localize";
 
 const stories = storiesOf("Job Poster Builder|Skills", module).addDecorator(
   withIntl,
 );
 
-const skillOptions = mapToObject(
-  fakeSkills(),
-  (skill): string => skill.en.name,
+const skillOptions = mapToObject(fakeSkills(), (skill): string =>
+  localizeFieldNonNull("en", skill, "name"),
 ) as SelectTypeOptionsProp;
 
 const skillLevelOptions = {
@@ -35,9 +35,9 @@ const criteriaTypeOptions = {
 };
 
 const classificationOptions = {
-  CS: "CS",
-  EX: "EX",
-  None: null,
+  CS: 1,
+  EX: 2,
+  3: null,
 };
 
 function sleep(ms): Promise<void> {
@@ -60,11 +60,7 @@ stories
       <JobBuilderSkills
         job={{
           ...fakeJob(),
-          classification_code: select(
-            "Classification",
-            classificationOptions,
-            "CS",
-          ),
+          classification_id: select("Classification", classificationOptions, 1),
         }}
         keyTasks={fakeJobTasks()}
         initialCriteria={[]}

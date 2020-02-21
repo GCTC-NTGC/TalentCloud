@@ -2,27 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Http\Request;
-use App\Models\Lookup\ApplicationStatus;
-use App\Models\Lookup\VeteranStatus;
-use App\Models\Lookup\PreferredLanguage;
-use App\Models\Lookup\CitizenshipDeclaration;
-use App\Models\JobPoster;
+use App\Models\Course;
+use App\Models\Criteria;
+use App\Models\Degree;
 use App\Models\JobApplication;
 use App\Models\JobApplicationAnswer;
-use App\Models\SkillDeclaration;
-use App\Models\Skill;
+use App\Models\JobPoster;
+use App\Models\Lookup\ApplicationStatus;
+use App\Models\Lookup\CitizenshipDeclaration;
+use App\Models\Lookup\PreferredLanguage;
+use App\Models\Lookup\ReviewStatus;
 use App\Models\Lookup\SkillStatus;
-use App\Models\Degree;
-use App\Models\Criteria;
-use App\Models\Course;
+use App\Models\Lookup\VeteranStatus;
+use App\Models\Skill;
+use App\Models\SkillDeclaration;
 use App\Models\WorkExperience;
 use App\Services\Validation\ApplicationValidator;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
-use App\Models\Lookup\ReviewStatus;
 use Facades\App\Services\WhichPortal;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Log;
 
 class ApplicationByJobController extends Controller
 {
@@ -47,9 +48,11 @@ class ApplicationByJobController extends Controller
             // Localization Strings.
             'jobs_l10n' => Lang::get('manager/job_index'),
             // Data.
-            'job' => $jobPoster->toApiArray(),
+            'job' => new JsonResource($jobPoster),
+            'is_hr_portal' => WhichPortal::isHrPortal(),
             'applications' => $applications,
-            'review_statuses' => ReviewStatus::all()
+            'review_statuses' => ReviewStatus::all(),
+            'isHrAdvisor' => Auth::user()->isHrAdvisor(),
         ]);
     }
 
@@ -253,6 +256,18 @@ class ApplicationByJobController extends Controller
                 return $value->criteria_type->name == 'asset';
             }),
         ];
+        $skillDeclarations = $application->isDraft()
+            ? $applicant->skill_declarations
+            : $application->skill_declarations;
+        $degrees = $application->isDraft()
+            ? $applicant->degrees
+            : $application->degrees;
+        $courses = $application->isDraft()
+            ? $applicant->courses
+            : $application->courses;
+        $work_experiences = $application->isDraft()
+            ? $applicant->work_experiences
+            : $application->work_experiences;
 
         return view(
             'applicant/application_post_05',
@@ -272,7 +287,12 @@ class ApplicationByJobController extends Controller
                 // Applicant Data.
                 'applicant' => $applicant,
                 'job_application' => $application,
+                'skill_declarations' => $skillDeclarations,
+                'degrees' => $degrees,
+                'courses' => $courses,
+                'work_experiences' => $work_experiences,
                 'is_manager_view' => WhichPortal::isManagerPortal(),
+                'is_draft' => $application->application_status->name == 'draft',
             ]
         );
     }
@@ -427,7 +447,6 @@ class ApplicationByJobController extends Controller
         if (isset($degrees['new'])) {
             foreach ($degrees['new'] as $degreeInput) {
                 $degree = new Degree();
-                $degree->applicant_id = $applicant->id;
                 $degree->fill([
                     'degree_type_id' => $degreeInput['degree_type_id'],
                     'area_of_study' => $degreeInput['area_of_study'],
@@ -437,7 +456,7 @@ class ApplicationByJobController extends Controller
                     'end_date' => $degreeInput['end_date'],
                     'blockcert_url' => $degreeInput['blockcert_url'],
                 ]);
-                $degree->save();
+                $applicant->degrees()->save($degree);
             }
         }
 
@@ -477,7 +496,6 @@ class ApplicationByJobController extends Controller
         if (isset($courses['new'])) {
             foreach ($courses['new'] as $courseInput) {
                 $course = new Course();
-                $course->applicant_id = $applicant->id;
                 $course->fill([
                     'name' => $courseInput['name'],
                     'institution' => $courseInput['institution'],
@@ -485,7 +503,7 @@ class ApplicationByJobController extends Controller
                     'start_date' => $courseInput['start_date'],
                     'end_date' => $courseInput['end_date']
                 ]);
-                $course->save();
+                $applicant->courses()->save($course);
             }
         }
 
@@ -523,7 +541,6 @@ class ApplicationByJobController extends Controller
         if (isset($work_experiences['new'])) {
             foreach ($work_experiences['new'] as $workExperienceInput) {
                 $workExperience = new WorkExperience();
-                $workExperience->applicant_id = $applicant->id;
                 $workExperience->fill([
                     'role' => $workExperienceInput['role'],
                     'company' => $workExperienceInput['company'],
@@ -531,7 +548,7 @@ class ApplicationByJobController extends Controller
                     'start_date' => $workExperienceInput['start_date'],
                     'end_date' => $workExperienceInput['end_date']
                 ]);
-                $workExperience->save();
+                $applicant->work_experiences()->save($workExperience);
             }
         }
 
@@ -590,19 +607,18 @@ class ApplicationByJobController extends Controller
         $skillDeclarations = $request->input('skill_declarations');
         $claimedStatusId = SkillStatus::where('name', 'claimed')->firstOrFail()->id;
 
-        // Save new skill declarartions.
+        // Save new skill declarations.
         if (isset($skillDeclarations['new'])) {
             foreach ($skillDeclarations['new'] as $skillType => $typeInput) {
                 foreach ($typeInput as $criterion_id => $skillDeclarationInput) {
                     $skillDeclaration = new SkillDeclaration();
-                    $skillDeclaration->applicant_id = $applicant->id;
                     $skillDeclaration->skill_id = Criteria::find($criterion_id)->skill->id;
                     $skillDeclaration->skill_status_id = $claimedStatusId;
                     $skillDeclaration->fill([
                         'description' => $skillDeclarationInput['description'],
                         'skill_level_id' => isset($skillDeclarationInput['skill_level_id']) ? $skillDeclarationInput['skill_level_id'] : null,
                     ]);
-                    $skillDeclaration->save();
+                    $applicant->skill_declarations()->save($skillDeclaration);
 
                     $referenceIds = $this->getRelativeIds($skillDeclarationInput, 'references');
                     $skillDeclaration->references()->sync($referenceIds);
@@ -674,19 +690,18 @@ class ApplicationByJobController extends Controller
         $skillDeclarations = $request->input('skill_declarations');
         $claimedStatusId = SkillStatus::where('name', 'claimed')->firstOrFail()->id;
 
-        // Save new skill declarartions.
+        // Save new skill declarations.
         if (isset($skillDeclarations['new'])) {
             foreach ($skillDeclarations['new'] as $skillType => $typeInput) {
                 foreach ($typeInput as $criterion_id => $skillDeclarationInput) {
                     $skillDeclaration = new SkillDeclaration();
-                    $skillDeclaration->applicant_id = $applicant->id;
                     $skillDeclaration->skill_id = Criteria::find($criterion_id)->skill->id;
                     $skillDeclaration->skill_status_id = $claimedStatusId;
                     $skillDeclaration->fill([
                         'description' => $skillDeclarationInput['description'],
                         'skill_level_id' => isset($skillDeclarationInput['skill_level_id']) ? $skillDeclarationInput['skill_level_id'] : null,
                     ]);
-                    $skillDeclaration->save();
+                    $applicant->skill_declarations()->save($skillDeclaration);
 
                     $referenceIds = $this->getRelativeIds($skillDeclarationInput, 'references');
                     $skillDeclaration->references()->sync($referenceIds);
@@ -749,14 +764,12 @@ class ApplicationByJobController extends Controller
      */
     public function submit(Request $request, JobPoster $jobPoster)
     {
-        $applicant = Auth::user()->applicant;
         $application = $this->getApplicationFromJob($jobPoster);
 
-        // Ensure user has permissions to update this application.
-        $this->authorize('update', $application);
-
         // Only complete submission if submit button was pressed.
-        if ($request->input('submit') == 'submit') {
+        if ($request->input('submit') == 'submit' && $application->application_status->name == 'draft') {
+            // Ensure user has permissions to update this application.
+            $this->authorize('update', $application);
             $request->validate([
                 'submission_signature' => [
                     'required',
@@ -776,11 +789,20 @@ class ApplicationByJobController extends Controller
                 'submission_date' => $request->input('submission_date'),
             ]);
 
+            // Error out of this process now if application is not complete.
             $validator = new ApplicationValidator();
+            $validatorInstance = $validator->validator($application);
+            if (!$validatorInstance->passes()) {
+                $userId = $application->applicant->user_id;
+                $msg = "Application $application->id for user $userId is invalid for submission: " .
+                    implode('; ', $validator->detailedValidatorErrors($application));
+                Log::info($msg);
+            }
             $validator->validate($application);
 
             // Change status to 'submitted'.
             $application->application_status_id = ApplicationStatus::where('name', 'submitted')->firstOrFail()->id;
+            $application->saveProfileSnapshot();
         }
 
         $application->save();

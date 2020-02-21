@@ -9,5 +9,5 @@ const getUniqueAssessmentTypes = (assessments: Assessment[]): number[] => {
   });
   return uniqueIds;
 };
-
+// eslint-disable-next-line import/prefer-default-export
 export { getUniqueAssessmentTypes };

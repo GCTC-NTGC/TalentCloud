@@ -7,12 +7,19 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\JobApplication;
 use Carbon\Carbon;
 use App\Models\JobPoster;
 use App\Models\JobPosterQuestion;
+use App\Models\Lookup\ApplicationStatus;
+use App\Models\Lookup\CitizenshipDeclaration;
+use App\Models\Lookup\VeteranStatus;
 use App\Models\Manager;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Services\Validation\JobPosterValidator;
+use Facades\App\Services\WhichPortal;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Validator;
 
 class JobController extends Controller
 {
@@ -31,6 +38,7 @@ class JobController extends Controller
         // from being actually loaded and firing off events.
         $jobs = JobPoster::where('open_date_time', '<=', $now)
             ->where('close_date_time', '>=', $now)
+            ->where('internal_only', false)
             ->where('published', true)
             ->with([
                 'department',
@@ -55,24 +63,22 @@ class JobController extends Controller
     public function managerIndex()
     {
         $manager = Auth::user()->manager;
-        $show_notification = Auth::user()->isDemoManager();
 
         $jobs = JobPoster::where('manager_id', $manager->id)
+            ->with('classification')
             ->withCount('submitted_applications')
             ->get();
-
-
 
         foreach ($jobs as &$job) {
             $chosen_lang = $job->chosen_lang;
 
-            // Show chosen lang title if current title is empty
+            // Show chosen lang title if current title is empty.
             if (empty($job->title)) {
-                $job->title = $job->translate($chosen_lang)->title;
+                $job->title = $job->getTranslation('title', $chosen_lang);
                 $job->trans_required = true;
             }
 
-            // Always preview and edit in the chosen language
+            // Always preview and edit in the chosen language.
             $job->preview_link = LaravelLocalization::getLocalizedURL($chosen_lang, route('manager.jobs.show', $job));
             $job->edit_link = LaravelLocalization::getLocalizedURL($chosen_lang, route('manager.jobs.edit', $job));
         }
@@ -83,9 +89,25 @@ class JobController extends Controller
             'jobs_l10n' => Lang::get('manager/job_index'),
             // Data.
             'jobs' => $jobs,
-            'show_notification' => $show_notification,
         ]);
     }
+
+    /**
+     * Display a listing of a hr advisor's JobPosters.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function hrIndex(Request $request)
+    {
+        $hrAdvisor = $request->user()->hr_advisor;
+        return view('hr_advisor/job_index', [
+            'title' => Lang::get('hr_advisor/job_index.title'),
+            'hr_advisor_id' => $hrAdvisor->id
+        ]);
+    }
+
+
+
 
     /**
      * Delete a draft Job Poster.
@@ -143,18 +165,43 @@ class JobController extends Controller
         $jobLang = Lang::get('applicant/job_post');
 
         $applyButton = [];
-        if (!$jobPoster->published && $this->authorize('update', $jobPoster)) {
+        if (WhichPortal::isManagerPortal()) {
             $applyButton = [
                 'href' => route('manager.jobs.edit', $jobPoster->id),
                 'title' => $jobLang['apply']['edit_link_title'],
                 'text' => $jobLang['apply']['edit_link_label'],
             ];
+        } elseif (WhichPortal::isHrPortal()) {
+            if ($jobPoster->hr_advisors->contains('user_id', $user->id)) {
+                $applyButton = [
+                    'href' => route('hr_advisor.jobs.summary', $jobPoster->id),
+                    'title' => null,
+                    'text' => Lang::get('hr_advisor/job_summary.summary_title'),
+                ];
+            } else {
+                $applyButton = [
+                    'href' => route('hr_advisor.jobs.index'),
+                    'title' => null,
+                    'text' => Lang::get('hr_advisor/job_index.title'),
+                ];
+            }
         } elseif (Auth::check() && $jobPoster->isOpen()) {
-            $applyButton = [
-                'href' => route('job.application.edit.1', $jobPoster->id),
-                'title' => $jobLang['apply']['apply_link_title'],
-                'text' => $jobLang['apply']['apply_link_label'],
-            ];
+            $application = JobApplication::where('applicant_id', Auth::user()->applicant->id)
+            ->where('job_poster_id', $jobPoster->id)->first();
+            // If applicants job application is not draft anymore then link to application preview page.
+            if ($application != null && $application->application_status->name != 'draft') {
+                $applyButton = [
+                    'href' => route('applications.show', $application->id),
+                    'title' => $jobLang['apply']['view_link_title'],
+                    'text' => $jobLang['apply']['view_link_label'],
+                ];
+            } else {
+                $applyButton = [
+                    'href' => route('job.application.edit.1', $jobPoster->id),
+                    'title' => $jobLang['apply']['apply_link_title'],
+                    'text' => $jobLang['apply']['apply_link_label'],
+                ];
+            }
         } elseif (Auth::guest() && $jobPoster->isOpen()) {
             $applyButton = [
                 'href' => route('job.application.edit.1', $jobPoster->id),
@@ -181,6 +228,7 @@ class JobController extends Controller
                 'applicant/jpb_job_post',
                 [
                     'job_post' => $jobLang,
+                    'frequencies' => Lang::get('common/lookup/frequency'),
                     'skill_template' => Lang::get('common/skills'),
                     'job' => $jobPoster,
                     'manager' => $jobPoster->manager,
@@ -194,6 +242,7 @@ class JobController extends Controller
                 'applicant/job_post',
                 [
                     'job_post' => $jobLang,
+                    'frequencies' => Lang::get('common/lookup/frequency'),
                     'manager' => $jobPoster->manager,
                     'manager_profile_photo_url' => '/images/user.png', // TODO get real photo.
                     'team_culture' => $jobPoster->manager->team_culture,
@@ -250,12 +299,12 @@ class JobController extends Controller
         $jobPoster->manager_id = $manager->id;
 
         // Save manager-specific info to the job poster - equivalent to the intro step of the JPB
-        $divisionEn = $manager->translate('en') !== null ? $manager->translate('en')->division : null;
-        $divisionFr = $manager->translate('fr') !== null ? $manager->translate('fr')->division : null;
+        $divisionEn = $manager->getTranslation('division', 'en');
+        $divisionFr = $manager->getTranslation('division', 'fr');
         $jobPoster->fill([
             'department_id' => $manager->department_id,
-            'en' => ['division' => $divisionEn],
-            'fr' => ['division' => $divisionFr],
+            'division' => ['en' => $divisionEn],
+            'division' => ['fr' => $divisionFr],
         ]);
 
         $jobPoster->save();
@@ -283,6 +332,20 @@ class JobController extends Controller
         if ($jobPoster->manager_id == null) {
             $jobPoster->manager_id = $request->user()->manager->id;
             $jobPoster->save();
+        }
+
+        if ($request->input('question')) {
+            $validator = Validator::make($request->input('question'), [
+                '*.question.*' => 'required|string',
+            ], [
+                'required' => Lang::get('validation.custom.job_poster_question.required'),
+                'string' => Lang::get('validation.custom.job_poster_question.string')
+            ]);
+
+            if ($validator->fails()) {
+                $request->session()->flash('errors', $validator->errors());
+                return redirect(route('admin.jobs.edit', $jobPoster->id));
+            }
         }
 
         $this->fillAndSaveJobPosterQuestions($input, $jobPoster, true);
@@ -313,13 +376,14 @@ class JobController extends Controller
             $jobQuestion->job_poster_id = $jobPoster->id;
             $jobQuestion->fill(
                 [
-                    'en' => [
-                        'question' => $question['question']['en'],
-                        'description' => $question['description']['en']
+                    'question' => [
+                        'en' => $question['question']['en'],
+                        'fr' => $question['question']['fr']
+
                     ],
-                    'fr' => [
-                        'question' => $question['question']['fr'],
-                        'description' => $question['description']['fr']
+                    'description' => [
+                        'en' => $question['description']['en'],
+                        'fr' => $question['description']['fr']
                     ]
                 ]
             );
@@ -351,11 +415,9 @@ class JobController extends Controller
             $jobQuestion = new JobPosterQuestion();
             $jobQuestion->fill(
                 [
-                    'en' => [
-                        'question' => $defaultQuestions['en'][$i],
-                    ],
-                    'fr' => [
-                        'question' => $defaultQuestions['fr'][$i],
+                    'question' => [
+                        'en' => $defaultQuestions['en'][$i],
+                        'fr' => $defaultQuestions['fr'][$i],
                     ]
                 ]
             );
@@ -363,5 +425,64 @@ class JobController extends Controller
         }
 
         return $jobQuestions;
+    }
+
+    /**
+     * Downloads a CSV file with the applicants who have applied to the job poster.
+     *
+     * @param  \App\Models\JobPoster $jobPoster Job Poster object.
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    protected function downloadApplicants(JobPoster $jobPoster)
+    {
+        $tables = [];
+        // The first row in the array represents the names of the columns in the spreadsheet.
+        $tables[0] = ['Status', 'Applicant Name', 'Email', 'Language'];
+
+        $application_status_id = ApplicationStatus::where('name', 'submitted')->first()->id;
+        $applications = JobApplication::where('job_poster_id', $jobPoster->id)
+            ->where('application_status_id', $application_status_id)
+            ->get();
+
+        $index = 1;
+        foreach ($applications as $application) {
+            $status = '';
+            $username = $application->user_name;
+            $user_email = $application->user_email;
+            $language = strtoupper($application->preferred_language->name);
+            // If the applicants veteran status name is NOT 'none' then set status to veteran.
+            $non_veteran = VeteranStatus::where('name', 'none')->first()->id;
+            if ($application->veteran_status_id != $non_veteran) {
+                $status = 'Veteran';
+            } else {
+                // Check if the applicant is a canadian citizen.
+                $canadian_citizen = CitizenshipDeclaration::where('name', 'citizen')->first()->id;
+                if ($application->citizenship_declaration->id == $canadian_citizen) {
+                    $status = 'Citizen';
+                } else {
+                    $status = 'Non-citizen';
+                }
+            }
+            $tables[$index] = [$status, $username, $user_email, $language];
+            $index++;
+        }
+
+        $filename = $jobPoster->id . '-' . 'applicants-data.csv';
+
+        // Open file.
+        $file = fopen($filename, 'w');
+        // Iterate through tables and add each line to csv file.
+        foreach ($tables as $line) {
+            fputcsv($file, $line);
+        }
+        // Close open file.
+        fclose($file);
+
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename=' . $filename,
+        ];
+
+        return Response::download($filename, $filename, $headers);
     }
 }

@@ -20,5 +20,4 @@ class ApplicationSaved
     {
         $this->application = $application;
     }
-
 }

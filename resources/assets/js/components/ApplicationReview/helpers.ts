@@ -1,19 +1,10 @@
+/* eslint-disable camelcase */
 import { Application } from "../../models/types";
 import { ReviewStatusId } from "../../models/lookupConstants";
 
 type Bucket = "priority" | "citizen" | "non-citizen" | "unqualified";
 
 type Category = "primary" | "optional" | "screened-out";
-
-/**
- * Returns true if application has been screened out.
- */
-export function isScreenedOut(application: Application): boolean {
-  return application.application_review &&
-    application.application_review.review_status
-    ? application.application_review.review_status.name === "screened_out"
-    : false; // non-reviewed applications have not been screened-out yet
-}
 
 /**
  * Return the bucket this application belongs to. Either:
@@ -25,6 +16,9 @@ export function isScreenedOut(application: Application): boolean {
  */
 export function applicationBucket(application: Application): Bucket {
   if (!application.meets_essential_criteria) {
+    if (application.citizenship_declaration.name !== "citizen") {
+      return "non-citizen";
+    }
     return "unqualified";
   }
 
@@ -47,10 +41,14 @@ export function applicationBucket(application: Application): Bucket {
  * @param {Application} application
  */
 export function applicationCategory(application: Application): Category {
-  if (isScreenedOut(application)) {
+  if (application?.application_review?.review_status?.name === "screened_out") {
     return "screened-out";
   }
+  if (application?.application_review?.review_status?.name === "still_in") {
+    return "primary";
+  }
   const bucket = applicationBucket(application);
+
   switch (bucket) {
     case "priority":
     case "citizen":

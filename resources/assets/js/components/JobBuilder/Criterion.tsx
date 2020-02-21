@@ -7,19 +7,17 @@ import {
 import { Criteria, Skill } from "../../models/types";
 import { getSkillLevelName } from "../../models/jobUtil";
 import { CriteriaTypeId } from "../../models/lookupConstants";
+import { getLocale, localizeField } from "../../helpers/localize";
 
 interface CriterionProps {
   criterion: Criteria;
   skill: Skill;
 }
 
-export const Criterion: React.FunctionComponent<
-  CriterionProps & WrappedComponentProps
-> = ({ criterion, skill, intl }): React.ReactElement => {
-  const { locale } = intl;
-  if (locale !== "en" && locale !== "fr") {
-    throw new Error("Unknown intl.locale");
-  }
+export const Criterion: React.FunctionComponent<CriterionProps &
+  WrappedComponentProps> = ({ criterion, skill, intl }): React.ReactElement => {
+  const locale = getLocale(intl.locale);
+
   return (
     <div
       key={skill.id}
@@ -27,7 +25,7 @@ export const Criterion: React.FunctionComponent<
       data-c-margin="top(normal) bottom(double)"
     >
       <p data-c-font-weight="bold" data-c-margin="bottom(half)">
-        {skill[locale].name}
+        {localizeField(locale, skill, "name")}
       </p>
       {criterion.criteria_type_id === CriteriaTypeId.Essential && (
         <p data-c-margin="bottom(half)">
@@ -39,8 +37,12 @@ export const Criterion: React.FunctionComponent<
           {intl.formatMessage(getSkillLevelName(criterion, skill))}
         </p>
       )}
-      <p>{criterion[locale].description}</p>
-      {criterion[locale].specificity && <p>{criterion[locale].specificity}</p>}
+      {localizeField(locale, criterion, "description") && (
+        <p>{localizeField(locale, criterion, "description")}</p>
+      )}
+      {localizeField(locale, criterion, "specificity") && (
+        <p>{localizeField(locale, criterion, "specificity")}</p>
+      )}
     </div>
   );
 };

@@ -10,8 +10,8 @@ return [
     */
     'title' => 'Mes affiches d\'emploi',
     'legend' => 'Légende:',
-    'draft_poster' => 'Affiche ébauche',
-    'submitted_published' => 'Soumis / publié',
+    'draft_poster' => 'Ébauche de l’affiche',
+    'submitted_published' => 'Soumise/publiée',
     'action_required' => 'Action requise',
     'create_poster' => 'Créer une nouvelle affiche',
     'create_job_poster' => 'Créer une nouvelle affiche d\'emploi',
@@ -20,7 +20,7 @@ return [
     'preview' => '(Aperçu)',
     'empty_title' => 'Titre manquant',
     'trans_title_placeholder' => 'Traduction requise',
-    'created_on' => 'Créé :',
+    'created_on' => 'Créée :',
     'submitted_on' => 'Soumis :',
     'published_on' => 'Publié :',
     'closed_on' => 'Fermé :',
@@ -31,8 +31,10 @@ return [
     'edit_job_poster' => 'Modifier cette affiche d\'emploi.',
     'edit_this_plans' => 'Modifier le plan d\'évaluation pour ce travail.',
     'edit_screening_plans' => 'Modifier le plan d\'évaluation',
-    'send_for_review' => 'Envoyer pour révision',
+    'send_for_review' => 'Envoyer à des fins de révision',
     'send_this_review' => 'Envoyez cette affiche pour révision.',
+    'view_job_summary' => 'Voir le sommaire de l\'emploi',
+    'view_summary_title' => 'Voir le sommaire de cette affiche d\'emploi.',
     'review_applicants' => 'Réviser les candidats',
     'review_this_applicants' => 'Révisez les candidats qui ont postulé à cet emploi.',
     'delete_this_poster' => 'Supprimer cet affiche ébauche',
@@ -70,11 +72,9 @@ return [
         'title' => 'Il semble que vous utilisez un compte de démonstration.',
         'description' => [
             'first' => 'Seuls les ministères partenaires de Nuage des talents ont accès à l\'examen et à la publication des avis d\'emploi.',
-            'second' => ':link pour savoir si vous avez accès à ces fonctions.',
             'link' => [
-                'text' => 'Cliquez ici',
+                'text' => 'Découvrez comment accéder aux fonctions d\'examen et de publication des avis d\'emploi',
                 'title' => 'Découvrez comment accéder aux fonctions d\'examen et de publication des avis d\'emploi.',
-                'href' => '#upgrade'
             ]
         ],
         'cancel' => 'Retourner'

@@ -31,6 +31,12 @@ return [
         ],
         'null' => 'D’autres emplois seront bientôt affichés!'
     ],
+    'holiday' => [
+        'title' => 'Fermeture du temps des Fêtes',
+        'main_message' => 'Nous n’afficherons aucun poste au cours de la période des fêtes, mais nous sommes impatients de lier des personnes talentueuses avec des postes super qui feront un impact lors de la nouvelle année. D’ici là, restez au chaud et amusez-vous!',
+        'sign_off' => 'Au plaisir de vous voir en 2020!',
+        'signature' => 'L’équipe du Nuage de talents'
+    ],
     'hiw' => [
         'title' => 'Comment fonctionne le Nuage de talents',
         'steps' => [
@@ -46,9 +52,9 @@ return [
             ],
             '2' => [
                 'title' => 'Étape 2 : Présentez une demande',
-                'copy' => "Vous constaterez qu’il n’y a aucun endroit où télécharger votre curriculum vitæ ou votre lettre de présentation dans le cadre de notre processus de demande. Ce n’est pas un pépin, nous l’avons fait intentionnellement! Au lieu de nous parler de votre expérience, nous voulons que vous nous parliez de vous-même et que vous nous disiez en quoi vous démontrez les compétences nécessaires pour le poste. Nous croyons que cela donnera aux candidats ayant un parcours de vie ou de carrière non conventionnel l’occasion de démontrer en quoi ils sont qualifiés, plutôt que d’être systématiquement éliminés parce qu’ils n’ont pas suivi le chemin le plus emprunté.\n\nCette façon de faire est probablement très différente des autres formulaires de demande d’emploi que vous avez remplis, alors veuillez consulter notre page FAQ pour en savoir plus sur la %levels%.",
+                'copy' => "Vous constaterez qu’il n’y a aucun endroit où télécharger votre curriculum vitæ ou votre lettre de présentation dans le cadre de notre processus de demande. Ce n’est pas un pépin, nous l’avons fait intentionnellement! Au lieu de nous parler de votre expérience, nous voulons que vous nous parliez de vous-même et que vous nous disiez en quoi vous démontrez les compétences nécessaires pour le poste. Nous croyons que cela donnera aux candidats ayant un parcours de vie ou de carrière non conventionnel l’occasion de démontrer en quoi ils sont qualifiés, plutôt que d’être systématiquement éliminés parce qu’ils n’ont pas suivi le chemin le plus emprunté.\n\nCette façon de faire est probablement très différente des autres formulaires de demande d’emploi que vous avez remplis, alors veuillez consulter notre page FAQ pour en savoir plus sur la %levels%.", // TODO: fix
                 'links' => [
-                    'levels' => '<a href="' . route('faq') . ' title="Apprenez-en davantage sur les niveaux de compétences dans le Nuage de talents." target="_blank">façon de trouver votre niveau de compétence</a>'
+                    'levels' => '<a href="' . route('faq') . '#levels" title="Apprenez-en davantage sur les niveaux de compétences dans le Nuage de talents." target="_blank">façon de trouver votre niveau de compétence</a>'
                 ]
             ],
             '3' => [

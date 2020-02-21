@@ -107,7 +107,7 @@ class Controller extends BaseController
     {
         $rotatedArray = [];
         foreach ($expandedArray as $item) {
-            for ($i=0; $i<$steps; $i++) {
+            for ($i = 0; $i < $steps; $i++) {
                 array_push($item['keys'], array_shift($item['keys']));
             }
             $rotatedArray[] = $item;

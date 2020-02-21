@@ -21,8 +21,6 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
     $closeDate = $faker->dateTimeBetween('now', '1 months')->format('Y-m-d');
     $openDate = $faker->dateTimeBetween('-1 months', 'now')->format('Y-m-d');
     $startDate = $faker->dateTimeBetween('1 months', '2 months')->format('Y-m-d');
-    $classificationCode = Classification::inRandomOrder()->first()->key;
-    $classificationLevel = $faker->numberBetween(1, 6);
     $work_env_features = [
         'accessToExternal' => $faker->boolean(),
         'assignedSeating' => $faker->boolean(),
@@ -57,9 +55,8 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'salary_min' => $faker->numberBetween(60000, 80000),
         'salary_max' => $faker->numberBetween(80000, 100000),
         'noc' => $faker->numberBetween(1, 9999),
-        'classification_code' => $classificationCode,
-        'classification_level' => $classificationLevel,
-        'classification' => "$classificationCode-$classificationLevel",
+        'classification_id' => Classification::inRandomOrder()->first()->id,
+        'classification_level' => $faker->numberBetween(1, 6),
         'security_clearance_id' => SecurityClearance::inRandomOrder()->first()->id,
         'language_requirement_id' => LanguageRequirement::inRandomOrder()->first()->id,
         'remote_work_allowed' => $faker->boolean(50),
@@ -78,36 +75,70 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'travel_requirement_id' => TravelRequirement::inRandomOrder()->first()->id,
         'overtime_requirement_id' => OvertimeRequirement::inRandomOrder()->first()->id,
         'published' => false,
-        'city:en' => $faker->city,
-        'title:en' => $faker->unique()->realText(27, 1),
-        'dept_impact:en' => $faker->paragraph(),
-        'team_impact:en' => $faker->paragraph(),
-        'hire_impact:en' => $faker->paragraph(),
-        'division:en' => $faker->word,
-        'education:en' => $faker->sentence(),
-        'work_env_description:en' => $faker->paragraph(),
-        'culture_summary:en' => $faker->paragraph(),
-        'culture_special:en' => $faker->paragraph(),
-        'city:fr' => $faker_fr->city,
-        'title:fr' => $faker_fr->unique()->realText(27, 1),
-        'dept_impact:fr' => $faker->paragraph(),
-        'team_impact:fr' => $faker->paragraph(),
-        'hire_impact:fr' => $faker->paragraph(),
-        'division:fr' => $faker_fr->word,
-        'education:fr' => $faker_fr->sentence(),
-        'work_env_description:fr' => $faker->paragraph(),
-        'culture_summary:fr' => $faker->paragraph(),
-        'culture_special:fr' => $faker->paragraph(),
+        'city' => [
+            'en' => $faker->city(),
+            'fr' => $faker_fr->city()
+        ],
+        'title' => [
+            'en' => $faker->unique()->realText(27, 1),
+            'fr' => $faker_fr->unique()->realText(27, 1)
+        ],
+        'dept_impact' => [
+            'en' => $faker->paragraph(),
+            'fr' => $faker_fr->paragraph()
+        ],
+        'team_impact' => [
+            'en' => $faker->paragraph(),
+            'fr' => $faker_fr->paragraph()
+        ],
+        'hire_impact' => [
+            'en' => $faker->paragraph(),
+            'fr' => $faker_fr->paragraph()
+        ],
+        'division' => [
+            'en' => $faker->word(),
+            'fr' => $faker_fr->word()
+        ],
+        'education' => [
+            'en' => $faker->sentence(),
+            'fr' => $faker_fr->sentence()
+        ],
+        'work_env_description' => [
+            'en' => $faker->paragraph(),
+            'fr' => $faker_fr->paragraph()
+        ],
+        'culture_summary' => [
+            'en' => $faker->paragraph(),
+            'fr' => $faker_fr->paragraph()
+        ],
+        'culture_special' => [
+            'en' => $faker->paragraph(),
+            'fr' => $faker_fr->paragraph()
+        ]
     ];
 });
 
 $factory->afterCreating(JobPoster::class, function ($jp) : void {
-    $jp->criteria()->saveMany(factory(Criteria::class, 5)->make([
+    // Save at least one of each kind of criteria.
+    $jp->criteria()->save(factory(Criteria::class)->state('essential')->make([
         'job_poster_id' => $jp->id
     ]));
-    $jp->job_poster_key_tasks()->saveMany(factory(JobPosterKeyTask::class, 5)->make([
+    $jp->criteria()->save(factory(Criteria::class)->state('asset')->make([
         'job_poster_id' => $jp->id
     ]));
+    // Other criteria divided randomly between essential and asset.
+    $jp->criteria()->saveMany(factory(Criteria::class, 4)->make([
+        'job_poster_id' => $jp->id
+    ]));
+    $order = 1;
+    $jp->job_poster_key_tasks()->saveMany(factory(JobPosterKeyTask::class, 5)
+        ->make([
+            'job_poster_id' => $jp->id,
+        ])
+        ->each(function ($task) use (&$order): void {
+            $task->order = $order;
+            $order++;
+        }));
     $jp->job_poster_questions()->saveMany(factory(JobPosterQuestion::class, 2)->make([
         'job_poster_id' => $jp->id
     ]));
@@ -120,6 +151,13 @@ $factory->state(
             return factory(Manager::class)->state('upgraded')->create()->id;
     }]
 );
+$factory->state(
+    JobPoster::class,
+    'byDemoManager',
+    ['manager_id' => function () {
+            return factory(Manager::class)->state('demo')->create()->id;
+    }]
+);
 
 $factory->state(
     JobPoster::class,
@@ -127,7 +165,9 @@ $factory->state(
     function (Faker\Generator $faker) {
         return [
             'published' => true,
-            'published_at' => $faker->dateTimeBetween('-1 months', '-3 weeks')
+            'published_at' => $faker->dateTimeBetween('-1 months', '-3 weeks'),
+            'open_date_time' => ptDayEndToUtcTime($faker->dateTimeBetween('-5 days', '-3 days')->format('Y-m-d')),
+            'close_date_time' => ptDayEndToUtcTime($faker->dateTimeBetween('20 days', '30 days')->format('Y-m-d')),
         ];
     }
 );
@@ -139,6 +179,7 @@ $factory->state(
         return [
             'published' => true,
             'published_at' => $faker->dateTimeBetween('-1 months', '-3 weeks'),
+            'open_date_time' => ptDayEndToUtcTime($faker->dateTimeBetween('-20 days', '-7 days')->format('Y-m-d')),
             'close_date_time' => ptDayEndToUtcTime($faker->dateTimeBetween('-5 days', '-3 days')->format('Y-m-d')),
         ];
     }

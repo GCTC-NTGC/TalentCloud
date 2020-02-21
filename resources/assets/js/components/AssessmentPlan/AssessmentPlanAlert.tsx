@@ -16,6 +16,7 @@ import { DispatchType } from "../../configureStore";
 import { updateAssessmentPlanNotification } from "../../store/AssessmentPlanNotification/assessmentPlanNotificationActions";
 import { getSkills } from "../../store/Skill/skillSelector";
 import { mapToObject, getId, hasKey } from "../../helpers/queries";
+import { getLocale, localizeFieldNonNull } from "../../helpers/localize";
 
 interface AssessmentPlanAlertProps {
   notifications: AssessmentPlanNotification[];
@@ -25,9 +26,8 @@ interface AssessmentPlanAlertProps {
   handleDismiss: () => void;
 }
 
-export const AssessmentPlanAlert: React.FunctionComponent<
-  AssessmentPlanAlertProps & WrappedComponentProps
-> = ({
+export const AssessmentPlanAlert: React.FunctionComponent<AssessmentPlanAlertProps &
+  WrappedComponentProps> = ({
   notifications,
   skills,
   isFetching,
@@ -35,6 +35,7 @@ export const AssessmentPlanAlert: React.FunctionComponent<
   handleDismiss,
   intl,
 }): React.ReactElement | null => {
+  const locale = getLocale(intl.locale);
   if ((notifications.length === 0 && !isFetching) || isUpdating) {
     return null;
   }
@@ -45,14 +46,10 @@ export const AssessmentPlanAlert: React.FunctionComponent<
         data-c-radius="rounded"
         data-c-padding="half"
         role="alert"
-        data-c-margin="top(double)"
+        data-c-margin="top(normal) bottom(normal)"
         data-c-grid="middle"
       >
-        <p
-          data-c-margin="bottom(quarter)"
-          data-c-heading="h5"
-          data-c-font-weight="bold"
-        >
+        <p data-c-margin="bottom(quarter)" data-c-font-weight="bold">
           <i aria-hidden="true" className="fa fa-spinner fa-spin" />
           <FormattedMessage
             id="assessmentPlan.alert.checking"
@@ -66,7 +63,7 @@ export const AssessmentPlanAlert: React.FunctionComponent<
   const skillsById = mapToObject(skills, getId);
   const skillName = (skillId: number): string =>
     hasKey(skillsById, skillId)
-      ? skillsById[skillId][intl.locale].name
+      ? localizeFieldNonNull(locale, skillsById[skillId], "name")
       : "UNKNOWN SKILL";
   const createNotifications = notifications.filter(
     (notification): boolean => notification.type === "CREATE",
@@ -121,11 +118,7 @@ export const AssessmentPlanAlert: React.FunctionComponent<
       data-c-grid="middle"
     >
       <div data-c-grid-item="base(2of3) tl(4of5)">
-        <p
-          data-c-margin="bottom(quarter)"
-          data-c-heading="h5"
-          data-c-font-weight="bold"
-        >
+        <p data-c-margin="bottom(quarter)" data-c-font-weight="bold">
           <i aria-hidden="true" className="fa fa-exclamation-circle" />
           <FormattedMessage
             id="assessmentPlan.alert.title"

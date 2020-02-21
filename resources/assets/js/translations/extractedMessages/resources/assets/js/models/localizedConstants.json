@@ -151,7 +151,7 @@
   },
   {
     "id": "criteriaType.essential",
-    "description": "Title of an esential criteria type.",
+    "description": "Title of an essential criteria type.",
     "defaultMessage": "Essential"
   },
   {
@@ -384,50 +384,6 @@
     "defaultMessage": "You can complete all other steps of this assessment process in the official language of your choice, including the initial application, interview, exam and any other evaluation components."
   },
   {
-    "id": "department.treasuryBoard",
-    "defaultMessage": "Treasury Board of Canada Secretariat"
-  },
-  {
-    "id": "department.naturalResources",
-    "defaultMessage": "Natural Resources Canada"
-  },
-  {
-    "id": "department.transport",
-    "defaultMessage": "Transport Canada"
-  },
-  {
-    "id": "department.environmentAndClimateChange",
-    "defaultMessage": "Environment and Climate Change Canada"
-  },
-  {
-    "id": "department.employmentAndSocialDevelopment",
-    "defaultMessage": "Employment and Social Development Canada"
-  },
-  {
-    "id": "department.globalAffairs",
-    "defaultMessage": "Global Affairs Canada"
-  },
-  {
-    "id": "department.borderServices",
-    "defaultMessage": "Canada Border Services Agency"
-  },
-  {
-    "id": "department.fisheriesAndOceans",
-    "defaultMessage": "Fisheries and Oceans Canada"
-  },
-  {
-    "id": "department.innovationScience",
-    "defaultMessage": "Innovation, Science and Economic Development Canada"
-  },
-  {
-    "id": "department.publicServiceAndProcurement",
-    "defaultMessage": "Public Services and Procurement Canada"
-  },
-  {
-    "id": "department.nationalDefence",
-    "defaultMessage": "Deparmtnet of National Defence"
-  },
-  {
     "id": "jobBuilder.details.frequencyAlwaysLabel",
     "description": "The form label displayed on 'always' frequency options.",
     "defaultMessage": "Almost Always"
@@ -450,7 +406,7 @@
   {
     "id": "jobBuilder.details.frequencyNeverLabel",
     "description": "The form label displayed on 'never' frequency options.",
-    "defaultMessage": "Almost Never"
+    "defaultMessage": "Never"
   },
   {
     "id": "jobBuilder.details.overtimeFrequentlyLabel",
@@ -481,5 +437,204 @@
     "id": "jobBuilder.details.travelNoneRequiredLabel",
     "description": "The form label displayed on 'no travel required' travel options",
     "defaultMessage": "No, travel is not required for the position."
+  },
+  {
+    "id": "jobBuilder.details.classificationOptions.AS",
+    "description": "Job Classification from list of Classifications",
+    "defaultMessage": "AS - Administrative Services"
+  },
+  {
+    "id": "jobBuilder.details.classificationOptions.BI",
+    "description": "Job Classification from list of Classifications",
+    "defaultMessage": "BI - Biological Sciences"
+  },
+  {
+    "id": "jobBuilder.details.classificationOptions.CO",
+    "description": "Job Classification from list of Classifications",
+    "defaultMessage": "CO - Commerce"
+  },
+  {
+    "id": "jobBuilder.details.classificationOptions.CR",
+    "description": "Job Classification from list of Classifications",
+    "defaultMessage": "CR - Clerical and Regulatory"
+  },
+  {
+    "id": "jobBuilder.details.classificationOptions.CS",
+    "description": "Job Classification from list of Classifications",
+    "defaultMessage": "CS - Computer Systems"
+  },
+  {
+    "id": "jobBuilder.details.classificationOptions.EC",
+    "description": "Job Classification from list of Classifications",
+    "defaultMessage": "EC - Economics and Social Science Services"
+  },
+  {
+    "id": "jobBuilder.details.classificationOptions.EX",
+    "description": "Job Classification from list of Classifications",
+    "defaultMessage": "EX - Executive"
+  },
+  {
+    "id": "jobBuilder.details.classificationOptions.FO",
+    "description": "Job Classification from list of Classifications",
+    "defaultMessage": "FO - Forestry"
+  },
+  {
+    "id": "jobBuilder.details.classificationOptions.IS",
+    "description": "Job Classification from list of Classifications",
+    "defaultMessage": "IS - Information Services"
+  },
+  {
+    "id": "jobBuilder.details.classificationOptions.PC",
+    "description": "Job Classification from list of Classifications",
+    "defaultMessage": "PC - Physical Sciences"
+  },
+  {
+    "id": "jobBuilder.details.classificationOptions.PE",
+    "description": "Job Classification from list of Classifications",
+    "defaultMessage": "PE - Personnel Administration"
+  },
+  {
+    "id": "jobBuilder.details.classificationOptions.PM",
+    "description": "Job Classification from list of Classifications",
+    "defaultMessage": "PM - Programme Administration"
+  },
+  {
+    "id": "jobBuilder.details.classificationOptions.AD",
+    "description": "Job Classification from list of Classifications",
+    "defaultMessage": "AD - Administrative Services"
+  },
+  {
+    "id": "jobStatus.draft",
+    "defaultMessage": "Draft"
+  },
+  {
+    "id": "jobStatus.review",
+    "defaultMessage": "In Review"
+  },
+  {
+    "id": "jobStatus.approved",
+    "defaultMessage": "Approved"
+  },
+  {
+    "id": "jobStatus.open",
+    "defaultMessage": "Open"
+  },
+  {
+    "id": "jobStatus.closed",
+    "defaultMessage": "Closed"
+  },
+  {
+    "id": "jobStatus.complete",
+    "defaultMessage": "Complete"
+  },
+  {
+    "id": "activityfeed.locations.review",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Job Poster Builder"
+  },
+  {
+    "id": "activityfeed.locations.hr.summary",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "HR Summary Page"
+  },
+  {
+    "id": "activityfeed.locations.hr.preview",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "HR Preview Page"
+  },
+  {
+    "id": "activityfeed.locations.applications",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Applicant Review Page"
+  },
+  {
+    "id": "activityfeed.locations.screeningPlan",
+    "description": "Location where the activity is located.",
+    "defaultMessage": "Assessment Plan"
+  },
+  {
+    "id": "activityfeed.locations.notFound",
+    "description": "Error message if location id is not recognized",
+    "defaultMessage": "Location not found"
+  },
+  {
+    "id": "activityfeed.locations.review.general",
+    "description": "Location of the activity.",
+    "defaultMessage": "General"
+  },
+  {
+    "id": "activityfeed.locations.review.heading",
+    "description": "Location of the activity.",
+    "defaultMessage": "Job Page Heading"
+  },
+  {
+    "id": "activityfeed.locations.review.basicInfo",
+    "description": "Location of the activity.",
+    "defaultMessage": "Basic Information"
+  },
+  {
+    "id": "activityfeed.locations.review.impact",
+    "description": "Location of the activity.",
+    "defaultMessage": "Impact"
+  },
+  {
+    "id": "activityfeed.locations.review.tasks",
+    "description": "Location of the activity.",
+    "defaultMessage": "Tasks"
+  },
+  {
+    "id": "activityfeed.locations.review.skills",
+    "description": "Location of the activity.",
+    "defaultMessage": "Skills"
+  },
+  {
+    "id": "activityfeed.locations.review.langRequirements",
+    "description": "Location of the activity.",
+    "defaultMessage": "Language Requirements"
+  },
+  {
+    "id": "activityfeed.locations.review.environment",
+    "description": "Location of the activity.",
+    "defaultMessage": "Environment"
+  },
+  {
+    "id": "activityfeed.locations.applicantReview.general",
+    "description": "Location of the activity.",
+    "defaultMessage": "General"
+  },
+  {
+    "id": "activityfeed.locations.applicantReview.underConsideration",
+    "description": "Location of the activity.",
+    "defaultMessage": "Under Consideration"
+  },
+  {
+    "id": "activityfeed.locations.applicantReview.optionalConsideration",
+    "description": "Location of the activity.",
+    "defaultMessage": "Optional Consideration"
+  },
+  {
+    "id": "activityfeed.locations.applicantReview.notUnderConsideration",
+    "description": "Location of the activity.",
+    "defaultMessage": "No Longer Under Consideration"
+  },
+  {
+    "id": "activityfeed.locations.screeningPlan.general",
+    "description": "Location of the activity.",
+    "defaultMessage": "General"
+  },
+  {
+    "id": "activityfeed.locations.screeningPlan.builder",
+    "description": "Location of the activity.",
+    "defaultMessage": "Assessment Plan Builder"
+  },
+  {
+    "id": "activityfeed.locations.screeningPlan.summary",
+    "description": "Location of the activity.",
+    "defaultMessage": "Assessment Plan Summary"
+  },
+  {
+    "id": "activityfeed.locations.screeningPlan.ratings",
+    "description": "Location of the activity.",
+    "defaultMessage": "Ratings Guide Builder"
   }
 ]

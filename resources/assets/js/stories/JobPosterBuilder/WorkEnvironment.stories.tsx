@@ -5,7 +5,7 @@ import { action } from "@storybook/addon-actions";
 import { boolean } from "@storybook/addon-knobs";
 import fakeJob from "../../fakeData/fakeJob";
 import { Job } from "../../models/types";
-import WorkEnvForm from "../../components/JobBuilderWorkEnv/WorkEnvForm";
+import WorkEnvForm from "../../components/JobBuilder/WorkEnv/WorkEnvForm";
 
 const stories = storiesOf(
   "Job Poster Builder|Work Environment",

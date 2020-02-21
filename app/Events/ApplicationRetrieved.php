@@ -20,5 +20,4 @@ class ApplicationRetrieved
     {
         $this->application = $application;
     }
-
 }

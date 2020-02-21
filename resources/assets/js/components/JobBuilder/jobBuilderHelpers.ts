@@ -9,9 +9,14 @@ import {
   jobBuilderSkills,
   jobBuilderReview,
 } from "../../helpers/routes";
+import {
+  localizeField,
+  localizeFieldNonNull,
+  Locales,
+} from "../../helpers/localize";
 
 /** Job Builder Constants */
-export const VALID_COUNT = 8;
+export const NUM_OF_TASKS = 6;
 
 const isFilled = (value: any | null | undefined): boolean => {
   return value !== null && value !== undefined && value !== "";
@@ -21,10 +26,10 @@ const isEmpty = (value: any | null | undefined): boolean => {
   return value === null || value === undefined;
 };
 
-const jobIntroValues = (job: Job): (string | number | null)[] => [
+const jobIntroValues = (job: Job) => [
   job.department_id,
-  job.en.division,
-  job.fr.division,
+  localizeField("en", job, "division"),
+  localizeField("fr", job, "division"),
 ];
 const isJobBuilderIntroComplete = (job: Job): boolean => {
   return jobIntroValues(job).every(isFilled);
@@ -49,10 +54,10 @@ export const jobBuilderIntroProgressState = (
 
 const jobDetailsValues = (
   job: Job,
-  locale: string,
-): (string | number | null | boolean)[] => [
+  locale: Locales,
+) => [
   job.term_qty,
-  job.classification_code,
+  job.classification_id,
   job.classification_level,
   job.security_clearance_id,
   job.language_requirement_id,
@@ -60,20 +65,20 @@ const jobDetailsValues = (
   job.remote_work_allowed,
   job.telework_allowed_frequency_id,
   job.flexible_hours_frequency_id,
-  job[locale].title,
-  job[locale].city,
+  localizeField(locale, job, "title"),
+  localizeField(locale, job, "city"),
 ];
 
 export const isJobBuilderDetailsComplete = (
   job: Job,
-  locale: string,
+  locale: Locales,
 ): boolean => {
   return jobDetailsValues(job, locale).every(isFilled);
 };
 
 export const isJobBuilderDetailsUntouched = (
   job: Job,
-  locale: string,
+  locale: Locales,
 ): boolean => {
   const nullableValues = jobDetailsValues(job, locale).filter(
     (item): boolean => typeof item !== "boolean",
@@ -89,7 +94,7 @@ export const isJobBuilderDetailsUntouched = (
  */
 export const jobBuilderDetailsProgressState = (
   job: Job | null,
-  locale: string,
+  locale: Locales,
   allowUntouched = false,
 ): ProgressTrackerState => {
   if (
@@ -101,7 +106,10 @@ export const jobBuilderDetailsProgressState = (
   return job && isJobBuilderDetailsComplete(job, locale) ? "complete" : "error";
 };
 
-const jobEnvValues = (job: Job, locale: string): (string | number | null)[] => [
+const jobEnvValues = (
+  job: Job,
+  locale: Locales,
+) => [
   job.team_size,
   job.fast_vs_steady,
   job.horizontal_vs_vertical,
@@ -109,20 +117,17 @@ const jobEnvValues = (job: Job, locale: string): (string | number | null)[] => [
   job.citizen_facing_vs_back_office,
   job.collaborative_vs_independent,
   job.work_env_features,
-  job[locale].culture_summary,
+  localizeField(locale, job, "culture_summary"),
 ];
-const jobEnvValuesOptional = (
-  job: Job,
-  locale: string,
-): (string | number | null)[] => [
-  job[locale].work_env_description,
-  job[locale].culture_special,
+const jobEnvValuesOptional = (job: Job, locale: Locales): (string | null)[] => [
+  localizeField(locale, job, "work_env_description"),
+  localizeField(locale, job, "culture_special"),
 ];
 
-const isJobBuilderEnvComplete = (job: Job, locale: string): boolean => {
+const isJobBuilderEnvComplete = (job: Job, locale: Locales): boolean => {
   return jobEnvValues(job, locale).every(isFilled);
 };
-const isJobBuilderEnvUntouched = (job: Job, locale: string): boolean => {
+const isJobBuilderEnvUntouched = (job: Job, locale: Locales): boolean => {
   const allJobValues = [
     ...jobEnvValues(job, locale),
     ...jobEnvValuesOptional(job, locale),
@@ -134,7 +139,7 @@ const isJobBuilderEnvUntouched = (job: Job, locale: string): boolean => {
 };
 export const jobBuilderEnvProgressState = (
   job: Job | null,
-  locale: string,
+  locale: Locales,
   allowUntouched = false,
 ): ProgressTrackerState => {
   if (
@@ -147,9 +152,9 @@ export const jobBuilderEnvProgressState = (
 };
 
 const jobImpactValues = (job: Job, locale: "en" | "fr"): (string | null)[] => [
-  job[locale].dept_impact,
-  job[locale].team_impact,
-  job[locale].hire_impact,
+  localizeField(locale, job, "dept_impact"),
+  localizeField(locale, job, "team_impact"),
+  localizeField(locale, job, "hire_impact"),
 ];
 const isJobImpactComplete = (job: Job, locale: "en" | "fr"): boolean => {
   return jobImpactValues(job, locale).every(isFilled);
@@ -171,15 +176,14 @@ export const jobImpactProgressState = (
 const isKeyTaskComplete = (
   task: JobPosterKeyTask,
   locale: "en" | "fr",
-): boolean => isFilled(task[locale].description);
+): boolean => isFilled(localizeFieldNonNull(locale, task, "description"));
 const isJobTasksComplete = (
   tasks: JobPosterKeyTask[],
-  maxCount: number,
   locale: "en" | "fr",
 ): boolean => {
   return (
     tasks.length > 0 &&
-    tasks.length <= maxCount &&
+    tasks.length <= NUM_OF_TASKS &&
     tasks.every((task): boolean => isKeyTaskComplete(task, locale))
   );
 };
@@ -188,23 +192,19 @@ const isJobTasksUntouched = (tasks: JobPosterKeyTask[]): boolean =>
   tasks.length === 0;
 export const jobTasksProgressState = (
   tasks: JobPosterKeyTask[],
-  maxCount: number,
   locale: "en" | "fr",
   allowUntouched = false,
 ): ProgressTrackerState => {
   if (allowUntouched && isJobTasksUntouched(tasks)) {
     return "null";
   }
-  return isJobTasksComplete(tasks, maxCount, locale) ? "complete" : "error";
+  return isJobTasksComplete(tasks, locale) ? "complete" : "error";
 };
 
 const isCriterionComplete = (
   criterion: Criteria,
   locale: "en" | "fr",
-): boolean => {
-  const { description } = criterion[locale];
-  return description !== null && description.length > 0;
-};
+): boolean => isFilled(localizeField(locale, criterion, "description"));
 // FIXME: There is currently no way to know the difference between an untouched list, and one where criteria have been added then removed
 const isCriteriaUntouched = (criteria: Criteria[]): boolean =>
   criteria.length === 0;
@@ -233,7 +233,6 @@ export const criteriaProgressState = (
 export const isJobBuilderComplete = (
   job: Job,
   tasks: JobPosterKeyTask[],
-  maxTasksCount: number,
   criteria: Criteria[],
   locale: "en" | "fr",
 ): boolean => {
@@ -242,7 +241,7 @@ export const isJobBuilderComplete = (
     isJobBuilderDetailsComplete(job, locale) &&
     isJobBuilderEnvComplete(job, locale) &&
     isJobImpactComplete(job, locale) &&
-    isJobTasksComplete(tasks, maxTasksCount, locale) &&
+    isJobTasksComplete(tasks, locale) &&
     isCriteriaComplete(criteria, locale)
   );
 };

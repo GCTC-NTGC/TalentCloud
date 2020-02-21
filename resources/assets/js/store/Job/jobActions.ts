@@ -7,8 +7,12 @@ import {
   getCriteriaEndpoint,
   parseCriteriaResponse,
   getSubmitJobEndpoint,
+  getCommentEndpoint,
+  parseCommentResponse,
+  parseCommentsResponse,
+  parseJobIndexResponse,
 } from "../../api/job";
-import { Job, Criteria, JobPosterKeyTask } from "../../models/types";
+import { Job, Criteria, JobPosterKeyTask, Comment } from "../../models/types";
 import {
   AsyncFsaActions,
   RSAActionTemplate,
@@ -17,6 +21,7 @@ import {
   asyncPost,
 } from "../asyncAction";
 import { Action } from "../createAction";
+import { addQueryParameters } from "../../api/base";
 
 export const FETCH_JOB_STARTED = "JOB: GET STARTED";
 export const FETCH_JOB_SUCCEEDED = "JOB: GET SUCCEEDED";
@@ -46,6 +51,36 @@ export const fetchJob = (
     FETCH_JOB_FAILED,
     parseJobResponse,
     { id },
+  );
+
+export const FETCH_JOB_INDEX_STARTED = "JOB: GET INDEX STARTED";
+export const FETCH_JOB_INDEX_SUCCEEDED = "JOB: GET INDEX SUCCEEDED";
+export const FETCH_JOB_INDEX_FAILED = "JOB: GET INDEX FAILED";
+
+export type FetchJobIndexAction = AsyncFsaActions<
+  typeof FETCH_JOB_INDEX_STARTED,
+  typeof FETCH_JOB_INDEX_SUCCEEDED,
+  typeof FETCH_JOB_INDEX_FAILED,
+  { jobs: Job[] },
+  { filters: Map<string, string> }
+>;
+
+export const fetchJobIndex = (
+  filters: Map<string, string>,
+): RSAActionTemplate<
+  typeof FETCH_JOB_INDEX_STARTED,
+  typeof FETCH_JOB_INDEX_SUCCEEDED,
+  typeof FETCH_JOB_INDEX_FAILED,
+  { jobs: Job[] },
+  { filters: Map<string, string> }
+> =>
+  asyncGet(
+    addQueryParameters(getJobEndpoint(null), filters),
+    FETCH_JOB_INDEX_STARTED,
+    FETCH_JOB_INDEX_SUCCEEDED,
+    FETCH_JOB_INDEX_FAILED,
+    parseJobIndexResponse,
+    { filters },
   );
 
 export const CREATE_JOB_STARTED = "JOB: CREATE STARTED";
@@ -290,8 +325,71 @@ export const submitJobForReview = (
     { id: jobId },
   );
 
+export const CREATE_COMMENT_STARTED = "CREATE_COMMENT_STARTED";
+export const CREATE_COMMENT_SUCCEEDED = "CREATE_COMMENT_SUCCEEDED";
+export const CREATE_COMMENT_FAILED = "CREATE_COMMENT_FAILED";
+
+export type CreateCommentAction = AsyncFsaActions<
+  typeof CREATE_COMMENT_STARTED,
+  typeof CREATE_COMMENT_SUCCEEDED,
+  typeof CREATE_COMMENT_FAILED,
+  Comment,
+  { jobId: number }
+>;
+
+export const createComment = (
+  jobId: number,
+  comment: Comment,
+): RSAActionTemplate<
+  typeof CREATE_COMMENT_STARTED,
+  typeof CREATE_COMMENT_SUCCEEDED,
+  typeof CREATE_COMMENT_FAILED,
+  Comment,
+  { jobId: number }
+> =>
+  asyncPost(
+    getCommentEndpoint(jobId),
+    comment,
+    CREATE_COMMENT_STARTED,
+    CREATE_COMMENT_SUCCEEDED,
+    CREATE_COMMENT_FAILED,
+    parseCommentResponse,
+    { jobId },
+  );
+
+export const FETCH_COMMENTS_STARTED = "FETCH_COMMENTS_STARTED";
+export const FETCH_COMMENTS_SUCCEEDED = "FETCH_COMMENTS_SUCCEEDED";
+export const FETCH_COMMENTS_FAILED = "FETCH_COMMENTS_FAILED";
+
+export type FetchCommentsAction = AsyncFsaActions<
+  typeof FETCH_COMMENTS_STARTED,
+  typeof FETCH_COMMENTS_SUCCEEDED,
+  typeof FETCH_COMMENTS_FAILED,
+  Comment[],
+  { jobId: number }
+>;
+
+export const fetchComments = (
+  jobId: number,
+): RSAActionTemplate<
+  typeof FETCH_COMMENTS_STARTED,
+  typeof FETCH_COMMENTS_SUCCEEDED,
+  typeof FETCH_COMMENTS_FAILED,
+  Comment[],
+  { jobId: number }
+> =>
+  asyncGet(
+    getCommentEndpoint(jobId),
+    FETCH_COMMENTS_STARTED,
+    FETCH_COMMENTS_SUCCEEDED,
+    FETCH_COMMENTS_FAILED,
+    parseCommentsResponse,
+    { jobId },
+  );
+
 export type JobAction =
   | FetchJobAction
+  | FetchJobIndexAction
   | CreateJobAction
   | UpdateJobAction
   | EditJobAction
@@ -301,6 +399,8 @@ export type JobAction =
   | BatchUpdateJobTasksAction
   | FetchCriteriaAction
   | BatchUpdateCriteriaAction
-  | SubmitJobForReviewAction;
+  | SubmitJobForReviewAction
+  | CreateCommentAction
+  | FetchCommentsAction;
 
 export default { fetchJob };

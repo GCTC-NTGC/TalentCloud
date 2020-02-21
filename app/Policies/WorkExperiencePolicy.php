@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Applicant;
 use App\Models\User;
 use App\Models\WorkExperience;
 use App\Policies\BasePolicy;
@@ -18,7 +19,9 @@ class WorkExperiencePolicy extends BasePolicy
      */
     public function view(User $user, WorkExperience $workExperience)
     {
-        return $user->isApplicant() && $workExperience->applicant->user->is($user);
+        return $user->isApplicant()
+            && $workExperience->experienceable instanceof Applicant
+            && $workExperience->experienceable->user->is($user);
     }
 
     /**
@@ -41,7 +44,9 @@ class WorkExperiencePolicy extends BasePolicy
      */
     public function update(User $user, WorkExperience $workExperience)
     {
-        return $user->isApplicant() && $workExperience->applicant->user->is($user);
+        return $user->isApplicant()
+            && $workExperience->experienceable instanceof Applicant
+            && $workExperience->experienceable->user->is($user);
     }
 
     /**
@@ -53,6 +58,8 @@ class WorkExperiencePolicy extends BasePolicy
      */
     public function delete(User $user, WorkExperience $workExperience)
     {
-        return $user->isApplicant() && $workExperience->applicant->user->is($user);
+        return $user->isApplicant()
+            && $workExperience->experienceable instanceof Applicant
+            && $workExperience->experienceable->user->is($user);
     }
 }

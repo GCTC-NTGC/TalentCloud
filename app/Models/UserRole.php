@@ -7,10 +7,14 @@
 
 namespace App\Models;
 
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
+
 /**
  * Class UserRole
  *
  * @property int $id
+ * @property string $key
  * @property string $name
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
@@ -18,10 +22,24 @@ namespace App\Models;
  */
 class UserRole extends BaseModel
 {
+    use CrudTrait;
+    use HasTranslations;
 
-    protected $fillable = [];
+    /**
+     * @var $fillable string[]
+     */
+    protected $fillable = [
+        'name'
+    ];
 
-    public function users()
+    /**
+     * @var $translatable string[]
+     */
+    public $translatable = [
+        'name'
+    ];
+
+    public function users() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\User::class);
     }

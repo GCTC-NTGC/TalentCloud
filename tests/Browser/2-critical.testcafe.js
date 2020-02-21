@@ -1,5 +1,9 @@
 import { Selector, Role, ClientFunction } from "testcafe";
-import { applicantUser, adminUser, assertIsLoggedIn } from "./helpers/roles";
+import {
+  emptyApplicantUser,
+  adminUser,
+  assertIsLoggedIn,
+} from "./helpers/roles";
 
 const HOMEPAGE = "https://talent.test";
 
@@ -40,7 +44,7 @@ test("Applicant Profile - My Skills", async t => {
     .expect(Selector("h3").withText("Writing my application").visible)
     .ok()
     .click(Selector("button").withText("Got it!"))
-    .wait(1234)
+    .wait(500)
     .click(Selector("button").withText("Save Skill"))
     // Add hard skill (Docker).
     .click(Selector("button").withText("Add hard skill"))
@@ -60,19 +64,6 @@ test("Applicant Profile - My Skills", async t => {
       "Sailing the high seas.",
     )
     .pressKey("tab tab enter")
-    /* Delete a skill.
-    Issues with selectors, so lots of keyboard commands
-    Failing in Firefox
-    .setNativeDialogHandler(() => null)
-    .click(Selector("span").withText("Passion"))
-    .pressKey("tab tab tab tab tab enter")
-    .expect(Selector("h1").withText("Delete this Skill?"))
-    .ok()
-    .pressKey("tab tab tab enter")
-    .expect(Selector("h1").withText("My Skills").visible)
-    .ok()
-    .expect(Selector("span").withText("Passion").exists)
-    .notOk(); */
     // Save and refresh.
     .navigateTo("/profile/skills")
     .expect(Selector("span").withText("Passion").visible)
@@ -84,7 +75,7 @@ test("Applicant Profile - My Skills", async t => {
 test("Applicant Profile - My Experience", async t => {
   await t
     // Logged in as applicant.
-    .useRole(applicantUser)
+    .useRole(emptyApplicantUser)
     // Go to My Experience page.
     .navigateTo("/profile/experience")
     .expect(Selector("h1").withText("My Experience").visible)
@@ -161,7 +152,7 @@ test("Applicant Profile - My Experience", async t => {
 test("Applicant Profile - My References", async t => {
   await t
     // Logged in as applicant.
-    .useRole(adminUser)
+    .useRole(emptyApplicantUser)
     // Go to My References page.
     .navigateTo("/profile/references")
     .expect(Selector("h1").withText("My References").visible)
@@ -203,7 +194,7 @@ test("Applicant Profile - My References", async t => {
 test("Applicant Profile - My Work Samples", async t => {
   await t
     // Logged in as applicant.
-    .useRole(applicantUser)
+    .useRole(emptyApplicantUser)
     // Go to My Work Samples page.
     .navigateTo("/profile/portfolio")
     .expect(Selector("h1").withText("My Work Samples").visible)
@@ -238,59 +229,6 @@ test("Applicant Profile - My Work Samples", async t => {
     .ok();
 });
 
-test("Applicant Profile - About Me", async t => {
-  await t
-    // Logged in as applicant.
-    .useRole(applicantUser)
-    // Go to About Me page.
-    .navigateTo("/profile/about")
-    .expect(Selector("h1").withText("About Me").visible)
-    .ok()
-    // Change password.
-    .typeText(
-      Selector(".form__input").withAttribute("name", "current_password"),
-      "password",
-    )
-    .typeText(
-      Selector(".form__input").withAttribute("name", "new_password"),
-      "Password123!@#",
-    )
-    .typeText(
-      Selector(".form__input").withAttribute(
-        "name",
-        "new_password_confirmation",
-      ),
-      "Password123!@#",
-    )
-    // Edit social media / tagline.
-    .selectText(
-      Selector(".form__input").withAttribute("name", "twitter_username"),
-    )
-    .typeText(
-      Selector(".form__input").withAttribute("name", "twitter_username"),
-      "realDonaldTrump",
-    )
-    .selectText(Selector(".form__input").withAttribute("name", "linkedin_url"))
-    .typeText(
-      Selector(".form__input").withAttribute("name", "linkedin_url"),
-      "https://www.linkedin.com/in/tristanwiseman/",
-    )
-    .selectText(Selector(".form__input").withAttribute("name", "tagline"))
-    .typeText(
-      Selector(".form__input").withAttribute("name", "tagline"),
-      "I didn't do it.",
-    )
-    .click(Selector("button").withText("Save Changes"))
-    // Relog to check password change.
-    .click(Selector("a").withText("Logout"))
-    .click(Selector("a").withText("Login"))
-    .typeText(Selector("#email"), "applicant@test.com")
-    .typeText(Selector("#password"), "Password123!@#")
-    .click(Selector("button").withText("Login"))
-    .expect(Selector("a").withText("My Applications").visible)
-    .ok();
-});
-
 // Returns an integer between min/max.
 function spinTheWheel() {
   const min = 777;
@@ -314,7 +252,9 @@ function randomEmail() {
   return email;
 }
 
-fixture(`Critical - Registration`).page(HOMEPAGE);
+fixture(`Critical - Registration`)
+  .page(HOMEPAGE)
+  .meta("travis", "run");
 // Skip when writing new tests
 // fixture.skip(`Critical - Registration`);
 
@@ -322,7 +262,8 @@ test("Registration - Applicant", async t => {
   await t
     .useRole(Role.anonymous())
     .click(Selector("a").withText("Register"))
-    .typeText(Selector("#name"), "Test Cafe")
+    .typeText(Selector("#first_name"), "Test")
+    .typeText(Selector("#last_name"), "Cafe")
     .typeText(Selector("#email"), randomEmail())
     .typeText(Selector("#password"), "Password123!@#")
     .typeText(Selector("#password-confirm"), "Password123!@#")
@@ -333,9 +274,9 @@ test("Registration - Applicant", async t => {
 test("Registration - Manager", async t => {
   await t
     .useRole(Role.anonymous())
-    .navigateTo("/manager")
-    .click(Selector("a").withText("Register"))
-    .typeText(Selector("#name"), "Test Cafe")
+    .navigateTo("/manager/register")
+    .typeText(Selector("#first_name"), "Test")
+    .typeText(Selector("#last_name"), "Cafe")
     .typeText(Selector("#email"), randomEmail())
     .click(Selector("#department"))
     .click(
@@ -343,6 +284,8 @@ test("Registration - Manager", async t => {
         .find("option")
         .withText("Treasury Board of Canada Secretariat"),
     )
+    .expect(Selector("#gov_email").visible)
+    .ok()
     .typeText(Selector("#gov_email"), randomEmail())
     .typeText(Selector("#password"), "Password123!@#")
     .typeText(Selector("#password-confirm"), "Password123!@#")
@@ -357,7 +300,8 @@ test("Registration - First Manager Visit", async t => {
   await t
     .useRole(Role.anonymous())
     .click(Selector("a").withText("Register"))
-    .typeText(Selector("#name"), "Test Cafe")
+    .typeText(Selector("#first_name"), "Test")
+    .typeText(Selector("#last_name"), "Cafe")
     .typeText(Selector("#email"), randomEmail())
     .typeText(Selector("#password"), "Password123!@#")
     .typeText(Selector("#password-confirm"), "Password123!@#")

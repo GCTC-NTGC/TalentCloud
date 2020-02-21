@@ -16,10 +16,12 @@ import * as route from "../../helpers/routes";
 import ApplicationReviewWithNav from "./ApplicationReviewWithNav";
 import { axios } from "../../api/base";
 import IntlContainer from "../../IntlContainer";
+import { Portal } from "../../models/app";
 
 interface ApplicationReviewRootProps {
   initApplication: Application;
   reviewStatuses: ReviewStatus[];
+  portal: Portal;
 }
 
 interface ApplicationReviewRootState {
@@ -34,12 +36,12 @@ interface ReviewSubmitForm {
 
 const localizations = defineMessages({
   oops: {
-    id: "alert.oops",
+    id: "application.review.alert.oops",
     defaultMessage: "Oops...",
     description: "Modal notification text indicating something went wrong.",
   },
   somethingWrong: {
-    id: "apl.reviewSaveFailed",
+    id: "application.review.reviewSaveFailed",
     defaultMessage:
       "Something went wrong while saving a review. Try again later.",
     description: "Error message for error while saving an application review.",
@@ -126,7 +128,7 @@ class ApplicationReviewRoot extends React.Component<
   }
 
   public render(): React.ReactElement {
-    const { reviewStatuses } = this.props;
+    const { reviewStatuses, portal } = this.props;
     const { application, isSaving } = this.state;
     const reviewStatusOptions = reviewStatuses.map(status => ({
       value: status.id,
@@ -141,26 +143,27 @@ class ApplicationReviewRoot extends React.Component<
           onStatusChange={this.handleStatusChange}
           onNotesChange={this.handleNotesChange}
           isSaving={isSaving}
+          portal={portal}
         />
       </div>
     );
   }
 }
 
-if (document.getElementById("application-review-container")) {
-  const container = document.getElementById(
-    "application-review-container",
-  ) as HTMLElement;
+const renderApplicationReviewRoot = (
+  container: HTMLElement,
+  portal: Portal,
+) => {
   if (
     container.hasAttribute("data-application") &&
     container.hasAttribute("data-review-statuses")
   ) {
-    const applications = JSON.parse(container.getAttribute(
-      "data-application",
-    ) as string);
-    const reviewStatuses = JSON.parse(container.getAttribute(
-      "data-review-statuses",
-    ) as string);
+    const applications = JSON.parse(
+      container.getAttribute("data-application") as string,
+    );
+    const reviewStatuses = JSON.parse(
+      container.getAttribute("data-review-statuses") as string,
+    );
     const language = container.getAttribute("data-locale") as string;
     const IntlApplicationReviewRoot = injectIntl(ApplicationReviewRoot);
     ReactDOM.render(
@@ -168,11 +171,24 @@ if (document.getElementById("application-review-container")) {
         <IntlApplicationReviewRoot
           initApplication={applications}
           reviewStatuses={reviewStatuses}
+          portal={portal}
         />
       </IntlContainer>,
       container,
     );
   }
+};
+
+const managerContainer = document.getElementById(
+  "application-review-container",
+);
+if (managerContainer !== null) {
+  renderApplicationReviewRoot(managerContainer, "manager");
+}
+
+const hrContainer = document.getElementById("application-review-container-hr");
+if (hrContainer !== null) {
+  renderApplicationReviewRoot(hrContainer, "hr");
 }
 
 export default injectIntl(ApplicationReviewRoot);

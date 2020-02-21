@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import UpdatingInput from "../UpdatingInput";
 import { RatingGuideQuestion as RatingGuideQuestionModel } from "../../models/types";
 import { RootState } from "../../store/store";
+import { defineMessages, useIntl } from "react-intl";
 import {
   ratingGuideQuestionIsEdited,
   ratingGuideQuestionIsUpdating,
@@ -19,6 +20,22 @@ import {
   storeNewRatingGuideQuestion,
 } from "../../store/RatingGuideQuestion/ratingGuideQuestionActions";
 import { DispatchType } from "../../configureStore";
+
+const messages = defineMessages({
+  questionLabel: {
+    id: "ratingGuideQuestion.questionLabel",
+    defaultMessage: "Interview Question",
+    description:
+      "Label for the rating guide question.",
+  },
+  questionPlaceholder: {
+    id: "ratingGuideQuestion.questionPlaceholder",
+    defaultMessage: "Write your interview question here...",
+    description:
+      "Placeholder for the rating guide question.",
+  },
+
+});
 
 interface RatingGuideQuestionProps {
   /** Question Model */
@@ -37,9 +54,7 @@ interface RatingGuideQuestionProps {
   updateQuestion: (question: RatingGuideQuestionModel) => void;
 }
 
-const RatingGuideQuestion: React.FunctionComponent<
-  RatingGuideQuestionProps
-> = ({
+const RatingGuideQuestion: React.FunctionComponent<RatingGuideQuestionProps> = ({
   question,
   questionIndex,
   isUpdating,
@@ -48,6 +63,7 @@ const RatingGuideQuestion: React.FunctionComponent<
   removeQuestion,
   updateQuestion,
 }): React.ReactElement | null => {
+  const intl =  useIntl();
   if (question === null) {
     return null;
   }
@@ -65,9 +81,9 @@ const RatingGuideQuestion: React.FunctionComponent<
           <UpdatingInput
             id={`ratingGuideQuestion${question.assessment_type_id}`}
             name="ratingGuideQuestion"
-            label="Interview Question"
+            label={intl.formatMessage(messages.questionLabel)}
             required
-            placeholder="Write your interview question here..."
+            placeholder={intl.formatMessage(messages.questionPlaceholder)}
             value={question.question || ""}
             updateDelay={temp ? null : 500}
             onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {

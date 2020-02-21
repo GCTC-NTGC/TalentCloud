@@ -4,8 +4,8 @@ import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
 import { select, text, boolean } from "@storybook/addon-knobs";
-import JobBuilderImpact from "../../components/JobBuilderImpact/JobBuilderImpact";
-import JobImpactPreview from "../../components/JobBuilderImpact/JobImpactPreview";
+import JobBuilderImpact from "../../components/JobBuilder/Impact/JobBuilderImpact";
+import JobImpactPreview from "../../components/JobBuilder/Impact/JobImpactPreview";
 import fakeDepartments from "../../fakeData/fakeDepartments";
 import fakeJob from "../../fakeData/fakeJob";
 

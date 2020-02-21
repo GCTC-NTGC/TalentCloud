@@ -12,7 +12,7 @@ class LinkedInUrlRule implements Rule
      *
      * @var string
      */
-    const PATTERN = '^https:\/\/[a-z]{2,3}\.linkedin\.com\/.*$';
+    const PATTERN = '^https?:\/\/[a-z]{2,3}\.linkedin\.com\/.*$';
 
     /**
      * Determine if the validation rule passes.

@@ -98,9 +98,9 @@ if (document.querySelectorAll("div[data-skills-info-modal]")) {
       const title = container.getAttribute("data-title") as string;
       const openText = container.getAttribute("data-open-text") as string;
       const confirmText = container.getAttribute("data-confirm-text") as string;
-      const modalInfo = JSON.parse(container.getAttribute(
-        "data-modal-info",
-      ) as string);
+      const modalInfo = JSON.parse(
+        container.getAttribute("data-modal-info") as string,
+      );
 
       ReactDOM.render(
         <SkillsInfoModal

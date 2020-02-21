@@ -88,15 +88,6 @@ return [
     /* UI Content */
     'title' => 'Talent Cloud User Guide',
     'faq_title' => 'Talent Cloud FAQ',
-    'breadcrumbs' => [
-        'home' => [
-            'title' => 'Return to the homepage.',
-            'text' => 'Home'
-        ],
-        'faq' => [
-            'text' => 'FAQ'
-        ]
-    ],
     'sidebar' => [
         'users' => [
             'applicants' => 'For Applicants',
@@ -597,8 +588,8 @@ return [
                     ]
                 ],
                 'links' => [
-                    '0' => "<a href=\"https://talent.canada.ca/en/faq/#partners\" title=\"See Talent Cloud's partner departments.\">check out the FAQ section of the Talent Cloud website</a>",
-                    '1' => "<a href=\"talent.canada.ca/manager\" title=\"Visit Talent Cloud's manager portal.\">Talent Cloud's manager portal</a>",
+                    '0' => "<a href=\"#partners\" title=\"See Talent Cloud's partner departments.\">check out the FAQ section of the Talent Cloud website</a>",
+                    '1' => "<a href=\"manager\" title=\"Visit Talent Cloud's manager portal.\">Talent Cloud's manager portal</a>",
                     '2' => '<a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Send an email to Talent Cloud.">talent.cloud-nuage.de.talents@tbs-sct.gc.ca</a>'
                 ]
             ],
@@ -627,6 +618,10 @@ return [
                             '6' => 'Shared Services Canada',
                             '7' => 'Health Canada',
                             '8' => 'National Research Council',
+                            '9' => 'Employment and Social Development Canada',
+                            '10' => 'The Royal Canadian Mounted Police',
+                            '11' => 'Public Services and Procurement Canada',
+                            '12' => 'Department of Justice'
                         ]
                     ]
                 ]

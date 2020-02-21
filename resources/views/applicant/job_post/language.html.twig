@@ -19,9 +19,9 @@
     {# This new UI is strictly displaying information. #}
 
     {% if job.language_requirement.id == 1 %}
-        <span><img src="/images/icon_english_requirement.svg" alt=""> {{ job.language_requirement.value|title }}</span>
+        <span><img src="/images/icon_english_requirement.svg" alt="">{{ job.language_requirement.value|title }}</span>
     {% elseif job.language_requirement.id == 2 %}
-        <span><img src="/images/icon_french_requirement.svg" alt=""> {{ job.language_requirement.value|title }}</span>
+        <span><img src="/images/icon_french_requirement.svg" alt="">{{ job.language_requirement.value|title }}</span>
 
     {# Added aria-hidden and empty alt attributes to ensure decorative images and punctuation are ignored by screen readers. #}
 

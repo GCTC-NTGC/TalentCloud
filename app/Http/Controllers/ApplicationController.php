@@ -49,14 +49,28 @@ class ApplicationController extends Controller
         ];
 
         // Display slightly different views on different portals.
-        $view = WhichPortal::isManagerPortal() ?
-            'manager/application_post' :
-            'applicant/application_preview';
+        $view = WhichPortal::isManagerPortal() || WhichPortal::isHrPortal() ?
+            'manager/application_post' : 'applicant/application_preview';
 
-        if (WhichPortal::isManagerPortal()) {
+        if (WhichPortal::isManagerPortal() || WhichPortal::isHrPortal()) {
             // Load things required for review component.
             $application->load(['veteran_status', 'citizenship_declaration', 'application_review', 'applicant.user']);
         }
+
+
+        // If the application status is draft then get data through the applicant model. Else, grab the data from the application itself.
+        if ($application->isDraft()) {
+            $source = $application->applicant;
+        } else {
+            $source = $application;
+        }
+
+        $degrees = $source->degrees;
+        $courses = $source->courses;
+        $work_experience = $source->work_experience;
+        $skill_declarations = $source->skill_declarations;
+        $references = $source->references;
+        $work_samples = $source->work_samples;
 
         return view(
             $view,
@@ -64,10 +78,9 @@ class ApplicationController extends Controller
                 // Localized strings.
                 'post' => Lang::get('manager/application_post'), // Change text
                 'is_manager_view' => WhichPortal::isManagerPortal(),
+                'is_hr_portal' => WhichPortal::isHrPortal(),
                 // Application Template Data.
                 'application_template' => Lang::get('applicant/application_template'),
-                'application_preview' => true,
-                'preferred_language_template' => Lang::get('common/preferred_language'),
                 'citizenship_declaration_template' => Lang::get('common/citizenship_declaration'),
                 'veteran_status_template' => Lang::get('common/veteran_status'),
                 // Job Data.
@@ -81,6 +94,12 @@ class ApplicationController extends Controller
                 // Applicant Data.
                 'applicant' => $application->applicant,
                 'job_application' => $application,
+                'degrees' => $degrees,
+                'courses' => $courses,
+                'work_experience' => $work_experience,
+                'skill_declarations' => $skill_declarations,
+                'references' => $references,
+                'work_samples' => $work_samples,
                 'review_statuses' => ReviewStatus::all(),
             ]
         );

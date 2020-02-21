@@ -12,8 +12,10 @@
   };
 
   // Root
-
   var $root = $("html, body");
+
+  // Document Locale
+  const docLocale = document.documentElement.lang;
 
   // Add has attribute Function
   $.fn.hasAttr = function(name) {
@@ -322,9 +324,9 @@
 
       $(".form__radio-group").each(function(e) {
         $(this).addClass("required");
-        //Find labels that haven't had the asterisk added yet
+        // Find labels that haven't had the asterisk added yet
         $(this)
-          // .children()
+          .children(":not(:has(.fa-asterisk))")
           .find(".form__label")
           .append(
             "<span class='form__required'><i class='fa fa-asterisk' aria-label='Asterisk'></i></span>"
@@ -668,10 +670,10 @@
           .prop("outerHTML") || "";
       $(object)
         .find(".accordion-title")
-        .html(response.data.skill.name + levelRequirement);
+        .html(response.data.skill.name[docLocale] + levelRequirement);
       $(object)
         .find(".skill__description")
-        .text(response.data.skill.description);
+        .text(response.data.skill.description[docLocale]);
       $(object)
         .find(".skill__status--level")
         .text(" " + response.data.skill_status.status);
@@ -1327,4 +1329,15 @@
       }
     });
   });
+
+  // Disable application form submit buttons
+  function formPreventMultipleSubmit() {
+      $(".form-prevent-multiple-submit").submit(function (e) {
+          //disable the submit button
+          $(".button-prevent-multiple-submit").addClass("disabled");
+          return true;
+      });
+  }
+
+  formPreventMultipleSubmit();
 })(jQuery);

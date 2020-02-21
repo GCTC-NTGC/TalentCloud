@@ -19,6 +19,7 @@ import {
   getCriteriaByJobAndAssessmentType,
   getCriteriaToSkills,
 } from "../../store/Job/jobSelectorComplex";
+import { getLocale, localizeFieldNonNull } from "../../helpers/localize";
 
 interface RatingGuideNarrativeAssessmentProps {
   /** The id of the job Job Poster this is part of */
@@ -30,15 +31,15 @@ interface RatingGuideNarrativeAssessmentProps {
   criteriaToSkill: { [criteriaId: number]: Skill | null };
 }
 
-export const RatingGuideNarrativeAssessment: React.FunctionComponent<
-  RatingGuideNarrativeAssessmentProps & WrappedComponentProps
-> = ({
+export const RatingGuideNarrativeAssessment: React.FunctionComponent<RatingGuideNarrativeAssessmentProps &
+  WrappedComponentProps> = ({
   jobId,
   assessmentIndex,
   assessedCriteria,
   criteriaToSkill,
   intl,
 }): React.ReactElement | null => {
+  const locale = getLocale(intl.locale);
   if (jobId === null) {
     return null;
   }
@@ -48,7 +49,7 @@ export const RatingGuideNarrativeAssessment: React.FunctionComponent<
   };
   const getCriteriaSkillName = (criterionId: number): string => {
     const skill = criteriaToSkill[criterionId];
-    return skill ? skill[intl.locale].name : "";
+    return skill ? localizeFieldNonNull(locale, skill, "name") : "";
   };
   return (
     <div>

@@ -57,7 +57,8 @@ class WorkSamplesController extends Controller
 
         if ($workSample === null) {
             $workSample = new WorkSample();
-            $workSample->applicant_id = $request->user()->applicant->id;
+            $request->user()->applicant->work_samples()->save($workSample);
+            $workSample->refresh();
         }
         $workSample->fill([
             'name' => $request->input('name'),

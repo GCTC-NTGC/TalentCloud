@@ -21,6 +21,9 @@ return [
         'faq' => [
             'name' => 'FAQ'
         ],
+        'settings' => [
+            'name' => 'Settings'
+        ]
     ],
     'register' => 'Register',
     'login' => 'Login',

@@ -20,8 +20,7 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
-    ];
+            ];
 
     /**
      * OVERRIDE to make adding XSRF-TOKEN cookie optional
@@ -50,6 +49,6 @@ class VerifyCsrfToken extends Middleware
                 )
             );
         }
-         return $response;
+            return $response;
     }
 }

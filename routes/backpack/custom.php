@@ -14,7 +14,9 @@ Route::group([
     Route::crud('skill', 'SkillCrudController');
     Route::crud('job-poster', 'JobPosterCrudController');
     Route::crud('user', 'UserCrudController');
+    Route::crud('user-role', 'UserRoleCrudController');
     Route::crud('manager', 'ManagerCrudController');
     Route::crud('department', 'DepartmentCrudController');
     Route::crud('classification', 'ClassificationCrudController');
+    Route::crud('2fa', 'TwoFactorCrudController');
 });

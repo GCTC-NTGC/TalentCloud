@@ -13,7 +13,7 @@ class HandleNullState extends Twig_Extension
     public function getFunctions(): array
     {
         return [
-          new Twig_SimpleFunction('handleNullState', [$this, 'handleNullState']),
+            new Twig_SimpleFunction('handleNullState', [$this, 'handleNullState']),
         ];
     }
 

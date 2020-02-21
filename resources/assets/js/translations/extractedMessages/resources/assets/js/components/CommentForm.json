@@ -1,0 +1,57 @@
+[
+  {
+    "id": "commentForm.comment.label",
+    "description": "The label displayed for the comment input field.",
+    "defaultMessage": "Add a Comment"
+  },
+  {
+    "id": "commentForm.comment.placeholder",
+    "description": "The placeholder displayed for the comment input field.",
+    "defaultMessage": "eg. Enter your question, recommendation, etc."
+  },
+  {
+    "id": "commentForm.commentType.label",
+    "description": "The label displayed for the comment type select box.",
+    "defaultMessage": "Type of Comment"
+  },
+  {
+    "id": "commentForm.commentType.nullSelection",
+    "description": "Null selection from list of comment types",
+    "defaultMessage": "Select a comment type..."
+  },
+  {
+    "id": "commentForm.commentLocation.label",
+    "description": "The label displayed for the location select box.",
+    "defaultMessage": "Location of Comment"
+  },
+  {
+    "id": "commentForm.commentLocation.nullSelection",
+    "description": "Null selection from list of comment locations",
+    "defaultMessage": "Select a location..."
+  },
+  {
+    "id": "commentType.question",
+    "description": "Comment type from list of comment types",
+    "defaultMessage": "Question"
+  },
+  {
+    "id": "commentType.recommendation",
+    "description": "Comment type from list of comment types",
+    "defaultMessage": "Recommendation"
+  },
+  {
+    "id": "commentType.requiredAction",
+    "description": "Comment type from list of comment types",
+    "defaultMessage": "Required Action"
+  },
+  {
+    "id": "commentType.comment",
+    "description": "Comment type from list of comment types",
+    "defaultMessage": "Comment"
+  },
+  {
+    "id": "commentForm.submitButton.label",
+    "description": "The text displayed on the submit button in the comment form.",
+    "defaultMessage": "Submit Comment"
+  }
+]

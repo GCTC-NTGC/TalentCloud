@@ -6,7 +6,6 @@ import { boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import fakeJob, { fakeCriterion, fakeJobTasks } from "../../fakeData/fakeJob";
 import { RedirectToLastIncompleteStep } from "../../components/JobBuilder/RedirectToLastIncompleteStep";
-import { VALID_COUNT } from "../../components/JobBuilder/jobBuilderHelpers";
 
 const stories = storiesOf(
   "Job Poster Builder|Redirect To Last Incomplete Step",
@@ -21,7 +20,6 @@ stories.add(
       job={boolean("Job is complete", false) ? fakeJob(1) : null}
       jobIsLoading={boolean("Job is loading", true)}
       tasks={boolean("Tasks are complete", false) ? fakeJobTasks(1) : []}
-      maxTasksCount={VALID_COUNT}
       tasksIsLoading={boolean("Tasks are loading", true)}
       criteria={
         boolean("Criteria are complete", false) ? [fakeCriterion(2, 1)] : []

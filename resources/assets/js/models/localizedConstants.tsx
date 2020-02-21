@@ -11,23 +11,14 @@ import {
   ProvinceId,
   SecurityClearanceId,
   LanguageRequirementId,
-  DepartmentId,
   FrequencyId,
   OvertimeRequirementId,
   TravelRequirementId,
+  ClassificationId,
+  LocationId,
+  JobStatus,
 } from "./lookupConstants";
 import { getOrThrowError } from "../helpers/queries";
-
-interface SkillLevel {
-  hardBasic: MessageDescriptor;
-  hardIntermediate: MessageDescriptor;
-  hardAdvanced: MessageDescriptor;
-  hardExpert: MessageDescriptor;
-  softBasic: MessageDescriptor;
-  softIntermediate: MessageDescriptor;
-  softAdvanced: MessageDescriptor;
-  softExpert: MessageDescriptor;
-}
 
 const skillLevelDescriptions = defineMessages({
   hardBasic: {
@@ -137,7 +128,14 @@ const skillLevelNames = defineMessages({
 const skillLevelL10n = (
   skillLevelId: number,
   skillTypeId: number,
-  l10nObj: SkillLevel,
+  l10nObj: Record<
+    string,
+    {
+      id: string;
+      defaultMessage: string;
+      description: string;
+    }
+  >,
 ): MessageDescriptor => {
   if (!SkillLevelIdValues.includes(skillLevelId)) {
     throw new Error("invalid SkillLevelIdValue");
@@ -269,7 +267,7 @@ const criteriaTypes = defineMessages({
   essential: {
     id: "criteriaType.essential",
     defaultMessage: "Essential",
-    description: "Title of an esential criteria type.",
+    description: "Title of an essential criteria type.",
   },
 });
 
@@ -646,56 +644,6 @@ export const languageRequirementContext = (
   }
 };
 
-const departments = defineMessages({
-  [DepartmentId.treasuryBoard]: {
-    id: "department.treasuryBoard",
-    defaultMessage: "Treasury Board of Canada Secretariat",
-  },
-  [DepartmentId.naturalResources]: {
-    id: "department.naturalResources",
-    defaultMessage: "Natural Resources Canada",
-  },
-  [DepartmentId.transport]: {
-    id: "department.transport",
-    defaultMessage: "Transport Canada",
-  },
-  [DepartmentId.environmentAndClimateChange]: {
-    id: "department.environmentAndClimateChange",
-    defaultMessage: "Environment and Climate Change Canada",
-  },
-  [DepartmentId.employmentAndSocialDevelopment]: {
-    id: "department.employmentAndSocialDevelopment",
-    defaultMessage: "Employment and Social Development Canada",
-  },
-  [DepartmentId.globalAffairs]: {
-    id: "department.globalAffairs",
-    defaultMessage: "Global Affairs Canada",
-  },
-  [DepartmentId.borderServices]: {
-    id: "department.borderServices",
-    defaultMessage: "Canada Border Services Agency",
-  },
-  [DepartmentId.fisheriesAndOceans]: {
-    id: "department.fisheriesAndOceans",
-    defaultMessage: "Fisheries and Oceans Canada",
-  },
-  [DepartmentId.innovationScience]: {
-    id: "department.innovationScience",
-    defaultMessage: "Innovation, Science and Economic Development Canada",
-  },
-  [DepartmentId.publicServiceAndProcurement]: {
-    id: "department.publicServiceAndProcurement",
-    defaultMessage: "Public Services and Procurement Canada",
-  },
-  [DepartmentId.nationalDefence]: {
-    id: "department.nationalDefence",
-    defaultMessage: "Deparmtnet of National Defence",
-  },
-});
-
-export const departmentName = (departmentId: number): MessageDescriptor =>
-  getOrThrowError(departments, departmentId, "invalid DepartmentId");
-
 export const narrativeReviewStandardQuestion = (): MessageDescriptor =>
   standardAssessmentText.narrativeReviewQuestion;
 
@@ -726,7 +674,7 @@ const frequencyMessages = defineMessages({
   },
   [FrequencyId.never]: {
     id: "jobBuilder.details.frequencyNeverLabel",
-    defaultMessage: "Almost Never",
+    defaultMessage: "Never",
     description: "The form label displayed on 'never' frequency options.",
   },
 });
@@ -792,4 +740,286 @@ export const travelRequirementDescription = (
     travelRequirementDescriptions,
     travelRequirementId,
     "invalid TravelRequirementId",
+  );
+
+export const classificationCodes = defineMessages({
+  [ClassificationId.AS]: {
+    id: "jobBuilder.details.classificationOptions.AS",
+    defaultMessage: "AS - Administrative Services",
+    description: "Job Classification from list of Classifications",
+  },
+  [ClassificationId.BI]: {
+    id: "jobBuilder.details.classificationOptions.BI",
+    defaultMessage: "BI - Biological Sciences",
+    description: "Job Classification from list of Classifications",
+  },
+  [ClassificationId.CO]: {
+    id: "jobBuilder.details.classificationOptions.CO",
+    defaultMessage: "CO - Commerce",
+    description: "Job Classification from list of Classifications",
+  },
+  [ClassificationId.CR]: {
+    id: "jobBuilder.details.classificationOptions.CR",
+    defaultMessage: "CR - Clerical and Regulatory",
+    description: "Job Classification from list of Classifications",
+  },
+  [ClassificationId.CS]: {
+    id: "jobBuilder.details.classificationOptions.CS",
+    defaultMessage: "CS - Computer Systems",
+    description: "Job Classification from list of Classifications",
+  },
+  [ClassificationId.EC]: {
+    id: "jobBuilder.details.classificationOptions.EC",
+    defaultMessage: "EC - Economics and Social Science Services",
+    description: "Job Classification from list of Classifications",
+  },
+  [ClassificationId.EX]: {
+    id: "jobBuilder.details.classificationOptions.EX",
+    defaultMessage: "EX - Executive",
+    description: "Job Classification from list of Classifications",
+  },
+  [ClassificationId.FO]: {
+    id: "jobBuilder.details.classificationOptions.FO",
+    defaultMessage: "FO - Forestry",
+    description: "Job Classification from list of Classifications",
+  },
+  [ClassificationId.IS]: {
+    id: "jobBuilder.details.classificationOptions.IS",
+    defaultMessage: "IS - Information Services",
+    description: "Job Classification from list of Classifications",
+  },
+  [ClassificationId.PC]: {
+    id: "jobBuilder.details.classificationOptions.PC",
+    defaultMessage: "PC - Physical Sciences",
+    description: "Job Classification from list of Classifications",
+  },
+  [ClassificationId.PE]: {
+    id: "jobBuilder.details.classificationOptions.PE",
+    defaultMessage: "PE - Personnel Administration",
+    description: "Job Classification from list of Classifications",
+  },
+  [ClassificationId.PM]: {
+    id: "jobBuilder.details.classificationOptions.PM",
+    defaultMessage: "PM - Programme Administration",
+    description: "Job Classification from list of Classifications",
+  },
+  [ClassificationId.AD]: {
+    id: "jobBuilder.details.classificationOptions.AD",
+    defaultMessage: "AD - Administrative Services",
+    description: "Job Classification from list of Classifications",
+  },
+});
+
+export const classificationCodeOption = (
+  classificationId: number,
+): MessageDescriptor =>
+  getOrThrowError(
+    classificationCodes,
+    classificationId,
+    "invalid ClassificationId",
+  );
+
+const jobStatusMessages = defineMessages({
+  [JobStatus.Draft]: {
+    id: "jobStatus.draft",
+    defaultMessage: "Draft",
+  },
+  [JobStatus.Review]: {
+    id: "jobStatus.review",
+    defaultMessage: "In Review",
+  },
+  [JobStatus.Approved]: {
+    id: "jobStatus.approved",
+    defaultMessage: "Approved",
+  },
+  [JobStatus.Open]: {
+    id: "jobStatus.open",
+    defaultMessage: "Open",
+  },
+  [JobStatus.Closed]: {
+    id: "jobStatus.closed",
+    defaultMessage: "Closed",
+  },
+  [JobStatus.Complete]: {
+    id: "jobStatus.complete",
+    defaultMessage: "Complete",
+  },
+});
+
+export const jobStatus = (jobStatusId: JobStatus): MessageDescriptor =>
+  getOrThrowError(jobStatusMessages, jobStatusId, "Invalid Job Status");
+
+export const generalLocations = defineMessages({
+  [LocationId.jobGeneric]: {
+    id: "activityfeed.locations.review",
+    defaultMessage: "Job Poster Builder",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.summary]: {
+    id: "activityfeed.locations.hr.summary",
+    defaultMessage: "HR Summary Page",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.preview]: {
+    id: "activityfeed.locations.hr.preview",
+    defaultMessage: "HR Preview Page",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.applicantsGeneric]: {
+    id: "activityfeed.locations.applications",
+    defaultMessage: "Applicant Review Page",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.screeningPlan]: {
+    id: "activityfeed.locations.screeningPlan",
+    defaultMessage: "Assessment Plan",
+    description: "Location where the activity is located.",
+  },
+  notFound: {
+    id: "activityfeed.locations.notFound",
+    defaultMessage: "Location not found",
+    description: "Error message if location id is not recognized",
+  },
+});
+
+export const generalLocationOption = (
+  locationId: string,
+): MessageDescriptor => {
+  switch (locationId) {
+    /* Job Poster Review Page */
+    case LocationId.jobGeneric:
+    case LocationId.heading:
+    case LocationId.basicInfo:
+    case LocationId.impact:
+    case LocationId.tasks:
+    case LocationId.skills:
+    case LocationId.langRequirements:
+    case LocationId.environment:
+      return generalLocations[LocationId.jobGeneric];
+    /* Applicant Review Page */
+    case LocationId.applicantsGeneric:
+    case LocationId.underConsideration:
+    case LocationId.optionalConsideration:
+    case LocationId.notUnderConsideration:
+      return generalLocations[LocationId.applicantsGeneric];
+    /* Assessment Plan */
+    case LocationId.screeningPlan:
+    case LocationId.screeningPlanBuilder:
+    case LocationId.screeningPlanSummary:
+    case LocationId.screeningPlanRatings:
+      return generalLocations[LocationId.screeningPlan];
+    /* Hr Portal */
+    case LocationId.summary:
+      return generalLocations[LocationId.summary];
+    case LocationId.preview:
+      return generalLocations[LocationId.preview];
+
+    default:
+      return generalLocations.notFound;
+  }
+};
+
+export const jobReviewLocations = defineMessages({
+  [LocationId.jobGeneric]: {
+    id: "activityfeed.locations.review.general",
+    defaultMessage: "General",
+    description: "Location of the activity.",
+  },
+  [LocationId.heading]: {
+    id: "activityfeed.locations.review.heading",
+    defaultMessage: "Job Page Heading",
+    description: "Location of the activity.",
+  },
+  [LocationId.basicInfo]: {
+    id: "activityfeed.locations.review.basicInfo",
+    defaultMessage: "Basic Information",
+    description: "Location of the activity.",
+  },
+  [LocationId.impact]: {
+    id: "activityfeed.locations.review.impact",
+    defaultMessage: "Impact",
+    description: "Location of the activity.",
+  },
+  [LocationId.tasks]: {
+    id: "activityfeed.locations.review.tasks",
+    defaultMessage: "Tasks",
+    description: "Location of the activity.",
+  },
+  [LocationId.skills]: {
+    id: "activityfeed.locations.review.skills",
+    defaultMessage: "Skills",
+    description: "Location of the activity.",
+  },
+  [LocationId.langRequirements]: {
+    id: "activityfeed.locations.review.langRequirements",
+    defaultMessage: "Language Requirements",
+    description: "Location of the activity.",
+  },
+  [LocationId.environment]: {
+    id: "activityfeed.locations.review.environment",
+    defaultMessage: "Environment",
+    description: "Location of the activity.",
+  },
+});
+
+export const applicantReviewLocations = defineMessages({
+  [LocationId.applicantsGeneric]: {
+    id: "activityfeed.locations.applicantReview.general",
+    defaultMessage: "General",
+    description: "Location of the activity.",
+  },
+  [LocationId.underConsideration]: {
+    id: "activityfeed.locations.applicantReview.underConsideration",
+    defaultMessage: "Under Consideration",
+    description: "Location of the activity.",
+  },
+  [LocationId.optionalConsideration]: {
+    id: "activityfeed.locations.applicantReview.optionalConsideration",
+    defaultMessage: "Optional Consideration",
+    description: "Location of the activity.",
+  },
+  [LocationId.notUnderConsideration]: {
+    id: "activityfeed.locations.applicantReview.notUnderConsideration",
+    defaultMessage: "No Longer Under Consideration",
+    description: "Location of the activity.",
+  },
+});
+
+export const screeningPlanLocations = defineMessages({
+  [LocationId.screeningPlan]: {
+    id: "activityfeed.locations.screeningPlan.general",
+    defaultMessage: "General",
+    description: "Location of the activity.",
+  },
+  [LocationId.screeningPlanBuilder]: {
+    id: "activityfeed.locations.screeningPlan.builder",
+    defaultMessage: "Assessment Plan Builder",
+    description: "Location of the activity.",
+  },
+  [LocationId.screeningPlanSummary]: {
+    id: "activityfeed.locations.screeningPlan.summary",
+    defaultMessage: "Assessment Plan Summary",
+    description: "Location of the activity.",
+  },
+  [LocationId.screeningPlanRatings]: {
+    id: "activityfeed.locations.screeningPlan.ratings",
+    defaultMessage: "Ratings Guide Builder",
+    description: "Location of the activity.",
+  },
+});
+export const hrPortalLocations = {
+  [LocationId.summary]: jobReviewLocations[LocationId.jobGeneric],
+  [LocationId.preview]: jobReviewLocations[LocationId.jobGeneric],
+};
+
+export const specificLocationOption = (locationId: string): MessageDescriptor =>
+  getOrThrowError(
+    {
+      ...jobReviewLocations,
+      ...applicantReviewLocations,
+      ...hrPortalLocations,
+      ...screeningPlanLocations,
+    },
+    locationId,
+    "Invalid LocationId",
   );
