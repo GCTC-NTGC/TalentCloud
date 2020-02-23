@@ -29,9 +29,9 @@ yarn-error.log
 !.vscode/extensions.json
 
 ## IDE helper
-_ide_helper_models.php
-_ide_helper.php
-.phpstorm.meta.php
+etc/php/.ide_helper.meta.php
+etc/php/ide_helper_models.php
+etc/php/ide_helper.php
 
 ## tc-docker
 .setup
