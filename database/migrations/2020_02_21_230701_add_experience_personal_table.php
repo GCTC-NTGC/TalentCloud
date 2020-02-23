@@ -15,7 +15,6 @@ class AddExperiencePersonalTable extends Migration
     {
         Schema::create('experience_personal', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('experience_type_id')->unsigned();
             $table->integer('personal_experienceable_id')->unsigned();
             $table->string('personal_experienceable_type')->nullable();
             $table->string('title');
@@ -25,8 +24,6 @@ class AddExperiencePersonalTable extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->timestamps();
-
-            $table->foreign('experience_type_id')->references('id')->on('experience_types')->onUpdate('CASCADE')->onDelete('NO ACTION');
         });
     }
 

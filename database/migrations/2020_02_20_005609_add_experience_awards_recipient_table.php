@@ -1,0 +1,59 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
+
+class AddExperienceAwardsRecipientTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        $types = [
+            'team' => json_encode([
+                'en' => 'My team',
+                'fr' => ''
+            ]),
+            'project' => json_encode([
+                'en' => 'My project',
+                'fr' => ''
+            ]),
+            'organization' => json_encode([
+                'en' => 'My organization',
+                'fr' => ''
+            ]),
+            'self' => json_encode([
+                'en' => 'Myself',
+                'fr' => ''
+            ])
+        ];
+
+        Schema::create('award_recipient_types', function (Blueprint $table) {
+            $table->tinyIncrements('id');
+            $table->string('name');
+            $table->json('value');
+            $table->timestamps();
+        });
+
+        foreach ($types as $name => $value) {
+            DB::table('award_recipient_types')->insert([
+                'name' => $name, 'value' => $value
+            ]);
+        }
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('award_recipient_types');
+    }
+}

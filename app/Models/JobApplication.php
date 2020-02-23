@@ -52,6 +52,13 @@ use Illuminate\Notifications\Notifiable;
  * @property \Illuminate\Database\Eloquent\Collection $work_samples
  * @property \Illuminate\Database\Eloquent\Collection $projects
  * @property \App\Models\JobApplicationVersion $job_application_version
+ *
+ * Version 2 application models.
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_work
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_personal
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_education
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_awards
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_community
  */
 class JobApplication extends BaseModel
 {
@@ -184,6 +191,36 @@ class JobApplication extends BaseModel
     public function job_application_version() //phpcs:ignore
     {
         return $this->hasOne(\App\Models\JobApplicationVersion::class);
+    }
+
+    // Version 2 application models.
+    public function experiences_work() //phpcs:ignore
+    {
+        return $this->morphMany(\App\Models\ExperienceWork::class, 'work_experienceable')
+            ->orderBy('end_date', 'desc');
+    }
+
+    public function experiences_personal() //phpcs:ignore
+    {
+        return $this->morphMany(\App\Models\ExperiencePersonal::class, 'personal_experienceable')
+            ->orderBy('end_date', 'desc');
+    }
+
+    public function experiences_education() //phpcs:ignore
+    {
+        return $this->morphMany(\App\Models\ExperienceEducation::class, 'education_experienceable')
+            ->orderBy('end_date', 'desc');
+    }
+
+    public function experiences_awards() //phpcs:ignore
+    {
+        return $this->morphMany(\App\Models\ExperienceAwards::class, 'awards_experienceable');
+    }
+
+    public function experiences_community() //phpcs:ignore
+    {
+        return $this->morphMany(\App\Models\ExperienceCommunity::class, 'community_experienceable')
+            ->orderBy('end_date', 'desc');
     }
 
     /**

@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class AddExperienceTypeTable extends Migration
+class AddExperienceEducationStatusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,39 +14,38 @@ class AddExperienceTypeTable extends Migration
      */
     public function up()
     {
-        $experience_types = [
-            'work' => json_encode([
-                'en' => 'Work',
+        $statuses = [
+            'complete_credited' => json_encode([
+                'en' => 'Complete (credential awarded)',
                 'fr' => ''
             ]),
-            'personal' => json_encode([
-                'en' => 'Personal',
+            'complete_uncredited' => json_encode([
+                'en' => 'Complete (no credential awarded)',
                 'fr' => ''
             ]),
-            'education' => json_encode([
-                'en' => 'Education',
+            'in_progress' => json_encode([
+                'en' => 'In Progress',
                 'fr' => ''
             ]),
-            'awards' => json_encode([
-                'en' => 'Awards',
+            'audited' => json_encode([
+                'en' => 'Audited',
                 'fr' => ''
             ]),
-            'community' => json_encode([
-                'en' => 'Community',
+            'incomplete' => json_encode([
+                'en' => 'Incomplete',
                 'fr' => ''
             ])
         ];
 
-        Schema::create('experience_types', function (Blueprint $table) {
+        Schema::create('education_statuses', function (Blueprint $table) {
             $table->tinyIncrements('id');
             $table->string('name');
             $table->json('value');
             $table->timestamps();
         });
 
-
-        foreach ($experience_types as $name => $value) {
-            DB::table('experience_types')->insert([
+        foreach ($statuses as $name => $value) {
+            DB::table('education_statuses')->insert([
                 'name' => $name, 'value' => $value
             ]);
         }
@@ -59,6 +58,6 @@ class AddExperienceTypeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('experience_types');
+        Schema::dropIfExists('education_statuses');
     }
 }
