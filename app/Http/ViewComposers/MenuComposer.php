@@ -199,7 +199,7 @@ class MenuComposer
                     $menu['items']['logout']['active'] = true;
                     break;
                 default:
-                    // No menu item will be active
+                    // No menu item will be active.
                     break;
             }
 
@@ -208,7 +208,7 @@ class MenuComposer
             $menu['items']['jobs']['link'] = route('hr_advisor.jobs.index');
             $menu['items']['settings']['link'] = route('hr_advisor.settings.edit');
 
-            // Check if use is logged in, and remove invalid menu items
+            // Check if use is logged in, and remove invalid menu items.
             if (Auth::check()) {
                 unset($menu['items']['login']);
                 unset($menu['items']['register']);
