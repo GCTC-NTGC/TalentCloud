@@ -7,6 +7,7 @@ import IntroForm from "../../components/JobBuilder/Intro/IntroForm";
 import { Job } from "../../models/types";
 import { fakeDepartments } from "../../fakeData/fakeDepartments";
 import { fakeManager } from "../../fakeData/fakeManager";
+import { fakeUser } from "../../fakeData/fakeUsers";
 
 const stories = storiesOf("Job Poster Builder|Intro", module).addDecorator(
   withIntl,
@@ -24,6 +25,7 @@ stories
       <IntroForm
         job={null}
         manager={fakeManager()}
+        user={fakeUser()}
         departments={fakeDepartments()}
         handleSubmit={handleSubmit}
         handleContinue={action("Continue in English")}
@@ -36,6 +38,7 @@ stories
       <IntroForm
         job={fakeJob()}
         manager={fakeManager()}
+        user={fakeUser()}
         departments={fakeDepartments()}
         handleSubmit={handleSubmit}
         handleContinue={action("Continue in English")}

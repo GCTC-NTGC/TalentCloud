@@ -7,14 +7,14 @@
 
 namespace App\Models;
 
-use Spatie\Translatable\HasTranslations;
+use App\Events\JobSaved;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
-use Jenssegers\Date\Date;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
+use Jenssegers\Date\Date;
 
-use App\Events\JobSaved;
+use Spatie\Translatable\HasTranslations;
 
 /**
  * Class JobPoster
@@ -52,7 +52,7 @@ use App\Events\JobSaved;
  * @property int $flexible_hours_frequency_id
  * @property int $travel_requirement_id
  * @property int $overtime_requirement_id
- * @property int $process_number
+ * @property string $process_number
  * @property int $priority_clearance_number
  * @property \Jenssegers\Date\Date $loo_issuance_date
  * @property \Jenssegers\Date\Date $created_at
@@ -160,6 +160,8 @@ class JobPoster extends BaseModel
         'flexible_hours_frequency_id' => 'int',
         'travel_requirement_id' => 'int',
         'overtime_requirement_id' => 'int',
+        'process_number' => 'string',
+        'priority_clearance_number' => 'int'
     ];
 
     /**
@@ -579,7 +581,7 @@ class JobPoster extends BaseModel
      *    3 = Approved
      *    4 = Open
      *    5 = Closed
-     * These statuses needs an immenent refactoring, so I'm not going to create
+     * These statuses needs an imminent refactoring, so I'm not going to create
      * a lookup table for them yet.
      * TODO: When this is rebuilt, make sure to change matching JobStatus code in
      *    resources\assets\js\models\lookupConstants.ts
@@ -593,7 +595,7 @@ class JobPoster extends BaseModel
             return 1; // Draft.
         } elseif ($this->published_at === null) {
             return 2; // Review requested, but not approved.
-        } elseif ($this->open_date_time === null || $this->open_date_time >$now) {
+        } elseif ($this->open_date_time === null || $this->open_date_time > $now) {
             return 3; // Approved, but not open.
         } elseif ($this->close_date_time === null || $this->close_date_time > $now) {
             // Approved and currently open.

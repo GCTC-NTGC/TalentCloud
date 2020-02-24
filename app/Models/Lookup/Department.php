@@ -22,8 +22,8 @@ use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
- * @property \Illuminate\Database\Eloquent\Collection $managers
  * @property \Illuminate\Database\Eloquent\Collection $job_posters
+ * @property \Illuminate\Database\Eloquent\Collection $users
  *
  * Localized Properties:
  * @property string $name
@@ -53,9 +53,9 @@ class Department extends BaseModel
         'preference',
     ];
 
-    public function managers() // phpcs:ignore
+    public function users() // phpcs:ignore
     {
-        return $this->hasMany(\App\Models\Manager::class);
+        return $this->hasMany(\App\Models\User::class);
     }
 
     public function job_posters() // phpcs:ignore
