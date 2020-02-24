@@ -177,6 +177,10 @@ class MenuComposer
                 unset($menu['items']['resources']);
                 unset($menu['items']['settings']);
             }
+
+            if (Auth::user() && !Auth::user()->isUpgradedManager()) {
+                unset($menu['items']['resources']);
+            }
         } elseif (WhichPortal::isHrPortal()) {
             $menu = Lang::get('hr_advisor/menu');
 
@@ -222,6 +226,10 @@ class MenuComposer
                 unset($menu['items']['logout']);
                 unset($menu['items']['jobs']);
                 unset($menu['items']['settings']);
+                unset($menu['items']['resources']);
+            }
+
+            if (Auth::user() && !Auth::user()->isHrAdvisor()) {
                 unset($menu['items']['resources']);
             }
         } elseif (WhichPortal::isAdminPortal()) {

@@ -148,6 +148,10 @@ class AuthServiceProvider extends ServiceProvider
                     $user !== null && !$userProfile->isAdmin() && $userProfile->isUpgradedManager()
                 );
         });
+
+        Gate::define('view-resources', function ($user) {
+            return $user->isUpgradedManager() || $user->isHrAdvisor();
+        });
     }
 
     public function register(): void

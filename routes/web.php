@@ -437,6 +437,7 @@ Route::group(
                             ->name('manager.settings.government.update');
 
                         Route::get('resources', 'ResourcesController@show')
+                            ->middleware('can:view-resources')
                             ->name('manager.resources');
 
                         /* Two-factor Authentication */
@@ -658,6 +659,7 @@ Route::group(
                             ->name('hr_advisor.settings.government.update');
 
                         Route::get('resources', 'ResourcesController@show')
+                            ->middleware('can:view-resources')
                             ->name('hr_advisor.resources');
 
                         /* Two-factor Authentication */
