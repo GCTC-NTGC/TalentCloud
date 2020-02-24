@@ -17,15 +17,15 @@ class AddExperienceAwardsRecognitionTypesTable extends Migration
         $types = [
             'international' => json_encode([
                 'en' => 'International',
-                'fr' => ''
+                'fr' => 'Internationale'
             ]),
             'national' => json_encode([
                 'en' => 'National',
-                'fr' => ''
+                'fr' => 'Nationale'
             ]),
             'provincial' => json_encode([
                 'en' => 'Provincial',
-                'fr' => ''
+                'fr' => 'Provinciale'
             ]),
             'local' => json_encode([
                 'en' => 'Local',
@@ -33,7 +33,7 @@ class AddExperienceAwardsRecognitionTypesTable extends Migration
             ]),
             'community' => json_encode([
                 'en' => 'Community',
-                'fr' => ''
+                'fr' => 'Communautaire'
             ]),
             'organizational' => json_encode([
                 'en' => 'Organizational',
@@ -42,8 +42,7 @@ class AddExperienceAwardsRecognitionTypesTable extends Migration
             'sub_organizational' => json_encode([
                 'en' => 'Sub-organizational (branch or division)',
                 'fr' => ''
-            ]),
-
+            ])
         ];
 
         Schema::create('award_recognition_types', function (Blueprint $table) {

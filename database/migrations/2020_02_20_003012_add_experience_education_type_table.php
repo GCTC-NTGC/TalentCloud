@@ -37,11 +37,11 @@ class AddExperienceEducationTypeTable extends Migration
             ]),
             'online_course' => json_encode([
                 'en' => 'Online Course',
-                'fr' => ''
+                'fr' => 'Cours en ligne'
             ]),
             'certification' => json_encode([
                 'en' => 'Certification',
-                'fr' => ''
+                'fr' => 'Certification'
             ]),
             'other' => json_encode([
                 'en' => 'Other',

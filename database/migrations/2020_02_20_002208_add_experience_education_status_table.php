@@ -25,15 +25,15 @@ class AddExperienceEducationStatusTable extends Migration
             ]),
             'in_progress' => json_encode([
                 'en' => 'In Progress',
-                'fr' => ''
+                'fr' => 'En cours'
             ]),
             'audited' => json_encode([
                 'en' => 'Audited',
-                'fr' => ''
+                'fr' => 'Audité'
             ]),
             'incomplete' => json_encode([
                 'en' => 'Incomplete',
-                'fr' => ''
+                'fr' => 'Incomplet'
             ])
         ];
 
