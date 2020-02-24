@@ -15,14 +15,14 @@ class AddExperiencePersonalTable extends Migration
     {
         Schema::create('experience_personal', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('personal_experienceable_id')->unsigned();
-            $table->string('personal_experienceable_type')->nullable();
             $table->string('title');
             $table->longText('description');
             $table->boolean('is_shareable');
             $table->boolean('is_active')->nullable();
             $table->date('start_date');
             $table->date('end_date');
+            $table->integer('personal_experienceable_id')->unsigned()->index();
+            $table->string('personal_experienceable_type')->nullable();
             $table->timestamps();
         });
     }

@@ -15,14 +15,14 @@ class AddExperienceCommunityTable extends Migration
     {
         Schema::create('experience_community', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('community_experienceable_id')->unsigned();
-            $table->string('community_experienceable_type')->nullable();
             $table->string('title');
             $table->string('group');
             $table->string('project');
             $table->boolean('is_active')->nullable();
             $table->date('start_date');
             $table->date('end_date');
+            $table->integer('community_experienceable_id')->unsigned()->index();
+            $table->string('community_experienceable_type')->nullable();
             $table->timestamps();
         });
     }

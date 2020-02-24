@@ -15,8 +15,6 @@ class AddExperienceEducationTable extends Migration
     {
         Schema::create('experience_education', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('education_experienceable_id')->unsigned();
-            $table->string('education_experienceable_type')->nullable();
             $table->integer('education_type_id')->unsigned();
             $table->string('area_of_study');
             $table->string('institution');
@@ -26,17 +24,19 @@ class AddExperienceEducationTable extends Migration
             $table->date('end_date');
             $table->string('thesis_title')->nullable();
             $table->boolean('has_blockcert')->nullable();
+            $table->integer('education_experienceable_id')->unsigned()->index();
+            $table->string('education_experienceable_type')->nullable();
             $table->timestamps();
 
             $table->foreign('education_type_id')
                 ->references('id')
-                ->on('experience_education_types')
+                ->on('education_types')
                 ->onUpdate('CASCADE')
                 ->onDelete('NO ACTION');
 
             $table->foreign('status_type_id')
                 ->references('id')
-                ->on('experience_education_statuses')
+                ->on('education_statuses')
                 ->onUpdate('CASCADE')
                 ->onDelete('NO ACTION');
         });

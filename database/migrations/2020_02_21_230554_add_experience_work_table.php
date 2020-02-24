@@ -15,14 +15,14 @@ class AddExperienceWorkTable extends Migration
     {
         Schema::create('experience_work', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('work_experienceable_id')->unsigned();
-            $table->string('work_experienceable_type')->nullable();
             $table->string('title');
             $table->string('organization');
             $table->string('group')->nullable();
             $table->boolean('is_active')->nullable();
             $table->date('start_date');
             $table->date('end_date');
+            $table->integer('work_experienceable_id')->unsigned()->index();
+            $table->string('work_experienceable_type')->nullable();
             $table->timestamps();
         });
     }
