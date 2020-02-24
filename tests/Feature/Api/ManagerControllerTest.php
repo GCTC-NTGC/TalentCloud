@@ -31,7 +31,6 @@ class ManagerControllerTest extends TestCase
     private function generateFrontendManager(): array
     {
         $manager = [
-            'department_id' => $this->faker->numberBetween(1, 8),
             'twitter_username' => null,
             'linkedin_url' => null,
             'work_review_frequency_id' => $this->faker->numberBetween(1, 4),
@@ -100,7 +99,12 @@ class ManagerControllerTest extends TestCase
 
     public function testUpdateAsManager()
     {
-        $manager = factory(Manager::class)->create();
+        $user = factory(User::class)->create([
+            'department_id' => $this->faker->numberBetween(1, 8),
+        ]);
+        $manager = factory(Manager::class)->create([
+            'user_id' => $user->id
+        ]);
         $managerUpdate = $this->generateFrontendManager();
         $response = $this->followingRedirects()
             ->actingAs($manager->user)
@@ -119,9 +123,9 @@ class ManagerControllerTest extends TestCase
     public function testUpdateAsWrongManager()
     {
         $manager = factory(Manager::class)->create();
-        $otherManager = factory(User::class)->create();
+        $otherManager = factory(Manager::class)->create();
         $managerUpdate = $this->generateFrontendManager();
-        $response = $this->actingAs($otherManager)
+        $response = $this->actingAs($otherManager->user)
             ->json('put', "api/managers/$manager->id", $managerUpdate);
         $response->assertForbidden();
     }

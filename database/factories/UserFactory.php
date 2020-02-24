@@ -36,6 +36,7 @@ $factory->define(User::class, function (Faker\Generator $faker) {
         'user_role_id' => UserRole::where('key', 'basic')->first()->id, // Users should default to basic user role.
         'remember_token' => str_random(10),
         'is_priority' => $faker->boolean(10), // 10% chance of true
+        'department_id' => Department::inRandomOrder()->first()->id,
     ];
 });
 
@@ -80,7 +81,6 @@ $factory->define(Applicant::class, function (Faker\Generator $faker) {
 
 $factory->define(HrAdvisor::class, function () {
     return [
-        'department_id' => Department::inRandomOrder()->first()->id,
         'user_id' => function () {
             return factory(User::class)->state('hr_advisor')->create()->id;
         },
@@ -91,7 +91,6 @@ $factory->define(Manager::class, function (Faker\Generator $faker) use ($faker_f
     return [
         'twitter_username' => $faker->firstName(),
         'linkedin_url' => null,
-        'department_id' => Department::inRandomOrder()->first()->id,
         'work_review_frequency_id' => Frequency::inRandomOrder()->first()->id,
         'stay_late_frequency_id' => Frequency::inRandomOrder()->first()->id,
         'engage_team_frequency_id' => Frequency::inRandomOrder()->first()->id,

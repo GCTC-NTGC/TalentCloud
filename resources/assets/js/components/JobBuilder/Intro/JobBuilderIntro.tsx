@@ -14,6 +14,7 @@ import {
   JobPosterKeyTask,
   Criteria,
   Manager,
+  User,
 } from "../../../models/types";
 import { RootState } from "../../../store/store";
 import {
@@ -39,6 +40,8 @@ import {
   fetchManager,
   fetchCurrentManager,
 } from "../../../store/Manager/managerActions";
+import { getUserById } from "../../../store/User/userSelector";
+import { fetchUser } from "../../../store/User/userActions";
 
 interface JobBuilderIntroProps {
   // The id of the edited job, or null for a new job.
@@ -50,6 +53,8 @@ interface JobBuilderIntroProps {
   job: Job | null;
   // The manager of this job.
   manager: Manager | null;
+  // The user associated with the manager.
+  user: User | null;
   // Creates a new job. Must return the new job if successful.
   handleCreateJob: (newJob: Job) => Promise<Job>;
   // Updates an existing job. Must return the updated job if successful.
@@ -60,12 +65,14 @@ interface JobBuilderIntroProps {
   loadManager: (managerId: number) => Promise<void>;
   // Load the manager profile of the current authenticated user.
   loadCurrentManager: () => Promise<void>;
+  handleFetchUser: (userId: number) => Promise<void>;
 }
 
 const JobBuilderIntro: React.FunctionComponent<JobBuilderIntroProps &
   WrappedComponentProps> = ({
   jobId,
   manager,
+  user,
   job,
   departments,
   handleCreateJob,
@@ -73,6 +80,7 @@ const JobBuilderIntro: React.FunctionComponent<JobBuilderIntroProps &
   handleUpdateManager,
   loadManager,
   loadCurrentManager,
+  handleFetchUser,
   intl,
 }): React.ReactElement => {
   const { locale } = intl;
@@ -92,6 +100,15 @@ const JobBuilderIntro: React.FunctionComponent<JobBuilderIntroProps &
       nprogress.done();
     }
   }, [manager, jobId, job, loadCurrentManager, loadManager]);
+
+  // Load user after Manager has loaded
+  // eslint-disable-next-line camelcase
+  const userId = manager?.user_id;
+  useEffect((): void => {
+    if (userId) {
+      handleFetchUser(userId);
+    }
+  }, [handleFetchUser, userId]);
 
   const submitJob = job ? handleUpdateJob : handleCreateJob;
   const handleSubmit = async (
@@ -140,15 +157,18 @@ const JobBuilderIntro: React.FunctionComponent<JobBuilderIntroProps &
           </div>
         </div>
       )}
-      {manager !== null && (job !== null || jobId === null) && (
-        <IntroForm
-          job={job}
-          manager={manager}
-          departments={departments}
-          handleSubmit={handleSubmit}
-          handleContinue={handleContinue}
-        />
-      )}
+      {manager !== null &&
+        user !== null &&
+        (job !== null || jobId === null) && (
+          <IntroForm
+            job={job}
+            manager={manager}
+            user={user}
+            departments={departments}
+            handleSubmit={handleSubmit}
+            handleContinue={handleContinue}
+          />
+        )}
     </JobBuilderStepContainer>
   );
 };
@@ -160,12 +180,17 @@ const mapStateToProps = (
   job: Job | null;
   manager: Manager | null;
   departments: Department[];
+  user: User | null;
   keyTasks: JobPosterKeyTask[];
   criteria: Criteria[];
 } => ({
   job: getSelectedJob(state),
   manager: getSelectedManager(state),
   departments: getDepartments(state),
+  user: getUserById(state, {
+    // eslint-disable-next-line camelcase, @typescript-eslint/camelcase
+    userId: getSelectedManager(state)?.user_id || 0,
+  }),
   keyTasks: jobId !== null ? getTasksByJob(state, { jobId }) : [],
   criteria: jobId !== null ? getCriteriaByJob(state, { jobId }) : [],
 });
@@ -178,6 +203,7 @@ const mapDispatchToProps = (
   handleUpdateManager: (newManager: Manager) => Promise<Manager>;
   loadManager: (id: number) => Promise<void>;
   loadCurrentManager: () => Promise<void>;
+  handleFetchUser: (userId: number) => Promise<void>;
 } => ({
   handleCreateJob: async (newJob: Job): Promise<Job> => {
     const result = await dispatch(createJob(newJob));
@@ -223,6 +249,13 @@ const mapDispatchToProps = (
     }
     return Promise.reject(result.error);
   },
+  handleFetchUser: async (userId: number): Promise<void> => {
+    const result = await dispatch(fetchUser(userId));
+    if (!result.error) {
+      return Promise.resolve();
+    }
+    return Promise.reject(result.error);
+  },
 });
 
 const JobBuilderIntroPageContainer = connect(
@@ -236,6 +269,7 @@ if (document.getElementById("job-builder-intro")) {
   ) as HTMLElement;
   const jobIdAttr = container.getAttribute("data-job-id");
   const jobId = jobIdAttr ? Number(jobIdAttr) : null;
+
   ReactDOM.render(
     <RootContainer>
       <JobBuilderIntroPageContainer jobId={jobId} />

@@ -2087,7 +2087,7 @@
       {
         "defaultMessage": "If you're ready to submit your poster, click the Submit button below.",
         "description": "Instructions on how to submit",
-        "id": "jobBuilder.review.readyTosubmit"
+        "id": "jobBuilder.review.readyToSubmit"
       },
       {
         "defaultMessage": "What happens next?",
