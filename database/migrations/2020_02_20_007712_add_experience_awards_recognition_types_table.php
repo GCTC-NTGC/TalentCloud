@@ -31,11 +31,10 @@ class AddExperienceAwardsRecognitionTypesTable extends Migration
                 'en' => 'Local',
                 'fr' => ''
             ]),
-            /* Redundant?
             'community' => json_encode([
                 'en' => 'Community',
                 'fr' => ''
-            ]), */
+            ]),
             'organizational' => json_encode([
                 'en' => 'Organizational',
                 'fr' => ''
