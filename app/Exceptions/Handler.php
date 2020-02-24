@@ -129,7 +129,7 @@ class Handler extends ExceptionHandler
             return parent::render($request, $modifiedException);
         }
         if ($exception instanceof StateMachineException) {
-            return parent::render($request, new HttpException(400, Lang::get('errors.state_machine_transition')));
+            return parent::render($request, new HttpException(400, $exception->getMessage()));
         }
         return parent::render($request, $exception);
     }

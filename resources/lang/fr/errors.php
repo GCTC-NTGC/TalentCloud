@@ -11,5 +11,6 @@ return [
     'title' => 'Erreur',
     'refresh_page' => 'Veuillez actualiser la page.',
     'two_factor_required' => 'Vous devez activer l\'authentification à deux facteurs pour accéder à cette ressource.',
-    'state_machine_transition' => 'Ce n\'est pas une transition légale, ou vous n\'avez pas la permission d\'autoriser cette transition.'
+    'user_must_own_status' => 'Vous n\'avez pas la permission de modifier le statut actuel.',
+    'illegal_status_transition' => 'Le changement de statut de :from à :to n\'est pas autorisé.',
 ];

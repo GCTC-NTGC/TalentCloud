@@ -8,6 +8,7 @@ use App\Http\Resources\JobPoster as JobPosterResource;
 use App\Models\Lookup\JobPosterStatus;
 use App\Services\JobStatusTransitions;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
 
 class JobStatusController extends Controller
 {
@@ -20,8 +21,14 @@ class JobStatusController extends Controller
         $from = $fromStatus->key;
 
         // Ensure state transition is legal.
-        if (!$transitions->canTransition($user, $from, $to)) {
-            throw new StateMachineException('Illegal state transition');
+        if (!$transitions->userOwnsState($user, $from)) {
+            throw new StateMachineException(Lang::get('errors.user_must_own_status'));
+        }
+        if (!$transitions->isLegalTransition($from, $to)) {
+            throw new StateMachineException(Lang::get('errors.illegal_status_transition', [
+                'from' => $from,
+                'to' => $to,
+            ]));
         }
 
         // Save new status on job.

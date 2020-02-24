@@ -11,5 +11,6 @@ return [
     'title' => 'Error',
     'refresh_page' => 'Please refresh the page.',
     'two_factor_required' => 'You must activate Two-factor Authentication to access this resource.',
-    'state_machine_transition' => 'That is not a legal state transition, or you do not have permission to authorize this transition.'
+    'user_must_own_status' => 'You do not have permission to change the current status.',
+    'illegal_status_transition' => 'Changing status from :from to :to is not allowed.',
 ];
