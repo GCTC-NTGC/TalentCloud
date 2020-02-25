@@ -26,7 +26,7 @@ class RegistrationValidator
     {
         return [
             'department' => 'required|integer',
-            'gov_email' => 'nullable|required_unless:department,0|string|email',
+            'gov_email' => 'nullable|required_unless:department,0|string|email|max:255|unique:users',
             // gov_email is required unless department is set to 0 (Not in Government)
         ];
     }

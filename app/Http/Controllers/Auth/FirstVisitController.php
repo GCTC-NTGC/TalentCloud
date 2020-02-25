@@ -8,7 +8,6 @@ use App\Models\Lookup\Department;
 use App\Models\Manager;
 use Facades\App\Services\WhichPortal;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\Rule;
 
@@ -45,20 +44,13 @@ class FirstVisitController extends AuthController
      */
     public function finishManagerRegistration(Request $request)
     {
+        $user = $request->user();
+
         $data = $request->validate([
             'department' => 'required|integer',
-            'gov_email' => [
-                'nullable',
-                // gov_email is required unless department is set to 0 (Not in Government)
-                'required_unless:department,0',
-                'email:rfc',
-                'max:191',
-                // gov_email may match existing email for this user, must be unique if changed.
-                Rule::unique('users', 'email')->ignore($request->user()->id)
-            ]
+            'gov_email' => 'nullable|required_unless:department,0|string|email|max:255',
+            Rule::unique('users', 'gov_email')->ignore($user->id)
         ]);
-
-        $user = $request->user();
 
         // Save manager specific fields to user
         $managerDepartment = Department::find($data['department']);
@@ -113,20 +105,13 @@ class FirstVisitController extends AuthController
      */
     public function finishHrRegistration(Request $request)
     {
+        $user = $request->user();
+
         $data = $request->validate([
             'department' => 'required|integer',
-            'gov_email' => [
-                'nullable',
-                // gov_email is required unless department is set to 0 (Not in Government)
-                'required_unless:department,0',
-                'email:rfc',
-                'max:191',
-                // gov_email may match existing email for this user, must be unique if changed.
-                Rule::unique('users', 'email')->ignore($request->user()->id)
-            ]
+            'gov_email' => 'nullable|required_unless:department,0|string|email|max:255',
+            Rule::unique('users', 'gov_email')->ignore($user->id)
         ]);
-
-        $user = $request->user();
 
         // Save manager specific fields to user
         $hrDepartment = Department::find($data['department']);
