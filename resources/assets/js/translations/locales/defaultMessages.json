@@ -2065,7 +2065,7 @@
         "id": "jobBuilder.review.reviewYourPoster"
       },
       {
-        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\r\n            understand how an applicant will see it once published.",
+        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\n            understand how an applicant will see it once published.",
         "description": "Description under primary title of review section",
         "id": "jobBuilder.review.headsUp"
       },
@@ -3864,7 +3864,12 @@
       {
         "defaultMessage": "Applicant Review Page",
         "description": "Location where the activity is located.",
-        "id": "activityfeed.locations.applications.generic"
+        "id": "activityfeed.locations.applications"
+      },
+      {
+        "defaultMessage": "Assessment Plan",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.screeningPlan"
       },
       {
         "defaultMessage": "Location not found",
@@ -3873,63 +3878,43 @@
       },
       {
         "defaultMessage": "General",
-        "description": "Location where the activity is located.",
-        "id": "activityfeed.locations.review.details"
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.review.general"
       },
       {
         "defaultMessage": "Job Page Heading",
-        "description": "Location where the activity is located.",
+        "description": "Location of the activity.",
         "id": "activityfeed.locations.review.heading"
       },
       {
         "defaultMessage": "Basic Information",
-        "description": "Location where the activity is located.",
+        "description": "Location of the activity.",
         "id": "activityfeed.locations.review.basicInfo"
       },
       {
         "defaultMessage": "Impact",
-        "description": "Location where the activity is located.",
+        "description": "Location of the activity.",
         "id": "activityfeed.locations.review.impact"
       },
       {
         "defaultMessage": "Tasks",
-        "description": "Location where the activity is located.",
+        "description": "Location of the activity.",
         "id": "activityfeed.locations.review.tasks"
       },
       {
         "defaultMessage": "Skills",
-        "description": "Location where the activity is located.",
+        "description": "Location of the activity.",
         "id": "activityfeed.locations.review.skills"
       },
       {
         "defaultMessage": "Language Requirements",
-        "description": "Location where the activity is located.",
+        "description": "Location of the activity.",
         "id": "activityfeed.locations.review.langRequirements"
       },
       {
         "defaultMessage": "Environment",
-        "description": "Location where the activity is located.",
+        "description": "Location of the activity.",
         "id": "activityfeed.locations.review.environment"
-      },
-      {
-        "defaultMessage": "General",
-        "description": "Location of the activity.",
-        "id": "activityfeed.locations.screeningPlan.general"
-      },
-      {
-        "defaultMessage": "Assessment Plan Builder",
-        "description": "Location of the activity.",
-        "id": "activityfeed.locations.screeningPlan.builder"
-      },
-      {
-        "defaultMessage": "Assessment Plan Summary",
-        "description": "Location of the activity.",
-        "id": "activityfeed.locations.screeningPlan.summary"
-      },
-      {
-        "defaultMessage": "Ratings Guide Builder",
-        "description": "Location of the activity.",
-        "id": "activityfeed.locations.screeningPlan.ratings"
       },
       {
         "defaultMessage": "General",
@@ -3950,6 +3935,26 @@
         "defaultMessage": "No Longer Under Consideration",
         "description": "Location of the activity.",
         "id": "activityfeed.locations.applicantReview.notUnderConsideration"
+      },
+      {
+        "defaultMessage": "General",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.screeningPlan.general"
+      },
+      {
+        "defaultMessage": "Assessment Plan Builder",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.screeningPlan.builder"
+      },
+      {
+        "defaultMessage": "Assessment Plan Summary",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.screeningPlan.summary"
+      },
+      {
+        "defaultMessage": "Ratings Guide Builder",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.screeningPlan.ratings"
       }
     ],
     "path": "resources/assets/js/models/localizedConstants.json"

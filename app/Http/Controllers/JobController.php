@@ -334,13 +334,18 @@ class JobController extends Controller
             $jobPoster->save();
         }
 
-        $validator = Validator::make($request->input('question'), [
-            '*.question.*' => 'required|string',
-            '*.description.*' => 'required|string'
-        ]);
+        if ($request->input('question')) {
+            $validator = Validator::make($request->input('question'), [
+                '*.question.*' => 'required|string',
+            ], [
+                'required' => Lang::get('validation.custom.job_poster_question.required'),
+                'string' => Lang::get('validation.custom.job_poster_question.string')
+            ]);
 
-        if ($validator->fails()) {
-            return redirect(route('admin.jobs.edit', $jobPoster->id));
+            if ($validator->fails()) {
+                $request->session()->flash('errors', $validator->errors());
+                return redirect(route('admin.jobs.edit', $jobPoster->id));
+            }
         }
 
         $this->fillAndSaveJobPosterQuestions($input, $jobPoster, true);

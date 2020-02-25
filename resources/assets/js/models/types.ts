@@ -233,6 +233,7 @@ export interface User {
   is_priority: boolean;
   not_in_gov: boolean;
   gov_email: string;
+  department_id: number | null;
   user_role: {
     id: number;
     key: string;

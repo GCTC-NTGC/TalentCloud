@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\App;
 class JobPosterCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation { update as traitUpdate;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation {
+        update as traitUpdate;
     }
 
     /**
@@ -18,7 +19,7 @@ class JobPosterCrudController extends CrudController
      *
      * @return void
      */
-    public function setup() : void
+    public function setup(): void
     {
         $this->crud->setModel('App\Models\JobPoster');
         $this->crud->setRoute('admin/job-poster');
@@ -54,7 +55,7 @@ class JobPosterCrudController extends CrudController
             'name' => 'title',
             'type' => 'text',
             'label' => 'Title',
-            'searchLogic' => function ($query, $column, $searchTerm) use ($locale) : void {
+            'searchLogic' => function ($query, $column, $searchTerm) use ($locale): void {
                 $query->orWhere('title->' . $locale, 'ilike', "%$searchTerm%");
             },
             'orderLogic' => function ($query, $column, $columnDirection) use ($locale) {
@@ -99,11 +100,11 @@ class JobPosterCrudController extends CrudController
             'label' => 'Applications',
             'type' => 'closure',
             'function' =>
-                function ($entry) {
-                    return $entry->submitted_applications_count() > 0 ?
-                        '<a target="_blank" href="' . route('manager.jobs.applications', $entry->id) . '">' . $entry->submitted_applications_count() . ' (View <i class="fa fa-external-link"></i>)</a>' :
-                        $entry->submitted_applications_count();
-                }
+            function ($entry) {
+                return $entry->submitted_applications_count() > 0 ?
+                    '<a target="_blank" href="' . route('manager.jobs.applications', $entry->id) . '">' . $entry->submitted_applications_count() . ' (View <i class="fa fa-external-link"></i>)</a>' :
+                    $entry->submitted_applications_count();
+            }
         ]);
 
         // Filters.
@@ -180,7 +181,7 @@ class JobPosterCrudController extends CrudController
         ]);
         $this->crud->addField([
             'name' => 'process_number',
-            'type' => 'number',
+            'type' => 'text',
             'label' => 'Process #',
         ]);
         $this->crud->addField([

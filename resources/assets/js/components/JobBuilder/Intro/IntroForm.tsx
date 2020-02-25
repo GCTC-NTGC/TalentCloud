@@ -162,12 +162,13 @@ const updateJobWithValues = (
   job: Job,
   values: IntroFormValues,
   locale: string,
+  departmentId: number | null,
 ): Job => ({
   ...job,
   // eslint-disable-next-line @typescript-eslint/camelcase
   chosen_lang: locale,
   // eslint-disable-next-line @typescript-eslint/camelcase
-  department_id: values.department || null,
+  department_id: departmentId,
   division: {
     ...job.division,
     en: values.divisionEN || null,
@@ -276,6 +277,7 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
               job || emptyJob(),
               values,
               languageSelection,
+              user.department_id,
             );
             const updatedManager = updateManagerWithValues(manager, values);
             const updatedUser = updateUserWithValues(user, values);
