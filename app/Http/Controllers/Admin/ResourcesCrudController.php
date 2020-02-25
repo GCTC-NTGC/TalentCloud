@@ -41,6 +41,7 @@ class ResourcesCrudController extends CrudController
             $locale = $this->request->input('locale');
         }
         App::setLocale($locale);
+
         $this->crud->addColumn([
             'name' => 'id',
             'type' => 'text',
@@ -73,12 +74,6 @@ class ResourcesCrudController extends CrudController
             'name' => 'name',
             'type' => 'text',
             'label' => 'Title',
-        ]);
-
-        $this->crud->addField([
-            'name' => 'name',
-            'type' => 'text',
-            'label' => 'Title'
         ]);
 
         $this->crud->addField([
