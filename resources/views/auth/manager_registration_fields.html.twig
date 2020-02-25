@@ -36,7 +36,7 @@
 	<label for="gov_email">{{ copy.gov_email }}</label>
 	<span>{{ trans('forms.required') }}</span>
 	<div>
-		<input id="gov_email" name="gov_email" type="email" value="{% if user.gov_email %}{{ user.gov_email }}{% endif %}"/>
+		<input id="gov_email" name="gov_email" type="email" value="{{ user.gov_email ?: old('gov_email') }}"/>
 	</div>
 	<span>{{ trans('forms.error') }}</span>
 </div>
