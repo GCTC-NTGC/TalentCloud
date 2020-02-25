@@ -29,7 +29,7 @@ class AddExperienceAwardsRecognitionTypesTable extends Migration
             ]),
             'local' => json_encode([
                 'en' => 'Local',
-                'fr' => ''
+                'fr' => 'Local'
             ]),
             'community' => json_encode([
                 'en' => 'Community',
@@ -37,11 +37,11 @@ class AddExperienceAwardsRecognitionTypesTable extends Migration
             ]),
             'organizational' => json_encode([
                 'en' => 'Organizational',
-                'fr' => ''
+                'fr' => 'Organisationnel'
             ]),
             'sub_organizational' => json_encode([
                 'en' => 'Sub-organizational (branch or division)',
-                'fr' => ''
+                'fr' => 'Sous-organisationnel (direction générale ou division)'
             ])
         ];
 

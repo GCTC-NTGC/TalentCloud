@@ -17,11 +17,11 @@ class AddExperienceEducationStatusTable extends Migration
         $statuses = [
             'complete_credited' => json_encode([
                 'en' => 'Complete (credential awarded)',
-                'fr' => ''
+                'fr' => 'Terminé (titre de compétences décerné)'
             ]),
             'complete_uncredited' => json_encode([
                 'en' => 'Complete (no credential awarded)',
-                'fr' => ''
+                'fr' => 'Terminé (aucun titre de compétences décerné)'
             ]),
             'in_progress' => json_encode([
                 'en' => 'In Progress',

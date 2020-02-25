@@ -33,7 +33,7 @@ class AddExperienceEducationTypeTable extends Migration
             ]),
             'post_doctoral' => json_encode([
                 'en' => 'Post-doctoral Fellowship',
-                'fr' => ''
+                'fr' => 'Bourse postdoctorale'
             ]),
             'online_course' => json_encode([
                 'en' => 'Online Course',

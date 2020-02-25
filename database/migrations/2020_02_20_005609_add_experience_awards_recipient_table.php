@@ -17,19 +17,19 @@ class AddExperienceAwardsRecipientTable extends Migration
         $types = [
             'team' => json_encode([
                 'en' => 'My team',
-                'fr' => ''
+                'fr' => 'Mon équipe'
             ]),
             'project' => json_encode([
                 'en' => 'My project',
-                'fr' => ''
+                'fr' => 'Mon projet'
             ]),
             'organization' => json_encode([
                 'en' => 'My organization',
-                'fr' => ''
+                'fr' => 'Mon organisation'
             ]),
             'self' => json_encode([
                 'en' => 'Myself',
-                'fr' => ''
+                'fr' => 'Ma personne'
             ])
         ];
 
