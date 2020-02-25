@@ -20,7 +20,7 @@
 				<option value="{{ not_in_gov_option.value }}">{{ not_in_gov_option.name }}</option>
 			{% endif %}
 			{% for dept in departments %}
-				{% if user.department_id == dept.id %}
+				{% if user.department_id == dept.id or old('department') == dept.id %}
 					{% set visibility = "visible" %}
 					<option selected value="{{ dept.id }}">{{ dept.name }}</option>
 				{% else %}
