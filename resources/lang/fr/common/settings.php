@@ -15,7 +15,8 @@ return [
         'personal' => 'Renseignements personnels',
         'government' => 'Information du gouvernement du Canada',
         'password' => 'Mot de passe',
-        'two_factor' => 'Authentification à deux facteurs'
+        'two_factor' => 'Authentification à deux facteurs',
+        'delete' => ''
     ],
     'personal_copy' => 'Cette information sert à vous identifier sur la plateforme.',
     'required' => 'Champs obligatoires',
