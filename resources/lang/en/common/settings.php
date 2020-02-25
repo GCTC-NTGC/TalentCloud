@@ -75,7 +75,6 @@ return [
     'forget_remembered_devices' => 'Forget all trusted devices.',
     'success_title' => 'All good in the hood.',
     'danger_zone' => 'Danger zone!',
-    'delete_copy' => 'This action is permanent! This action is permanent! This is not a drill. This action is permanent! This action is permanent! This is not a drill. This action is permanent! This action is permanent! This is not a drill. ',
     'delete_alert_prefix' => 'Enter your email address',
     'delete_alert_suffix' => 'below to confirm you want to permanently delete your Talent Cloud account.',
     'confirm_delete_label' => 'Confirm account deletion',

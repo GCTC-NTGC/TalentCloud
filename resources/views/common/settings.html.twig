@@ -315,12 +315,11 @@
 													<i class="fas fa-exclamation-circle"></i>
 													{{ settings.danger_zone }}
 												</p>
-												<p data-c-margin="bottom(half)">{{ settings.delete_copy }}</p>
+												<p data-c-margin="bottom(half)">{{ settings.delete_alert_prefix }}
+													(<span data-c-font-weight="bold">{{ user.email }}</span>)
+													{{ settings.delete_alert_suffix }}</p>
 											</div>
 										</div>
-										<p data-c-margin="bottom(half)">{{ settings.delete_alert_prefix }}
-											(<span data-c-font-weight="bold">{{ user.email }}</span>)
-											{{ settings.delete_alert_suffix }}</p>
 										<div data-c-grid-item="base(1of)" data-c-input="email">
 											<label for="confirm_delete">{{ settings.confirm_delete_label }}</label>
 											<span>{{ settings.required }}</span>

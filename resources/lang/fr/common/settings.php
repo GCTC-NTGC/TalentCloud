@@ -73,7 +73,6 @@ return [
     'forget_remembered_devices' => 'Oubliez tous les appareils de confiance.',
     'success_title' => 'Tout va bien.',
     'danger_zone' => '',
-    'delete_copy' => '',
     'delete_alert_prefix' => '',
     'delete_alert_suffix' => '',
     'confirm_delete_label' => '',
