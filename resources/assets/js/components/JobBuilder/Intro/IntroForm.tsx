@@ -113,7 +113,7 @@ interface IntroFormProps {
   user: User;
   // Runs after successful validation.
   // It must (asynchronously) return the resulting job, if successful.
-  handleSubmit: (job: Job, manager: Manager, user: User) => Promise<Job>;
+  handleSubmit: (job: Job, manager: Manager) => Promise<Job>;
   // Continues to next step in JobBuilder.
   handleContinue: (chosenLang: "en" | "fr", job: Job) => void;
   // // Continues the JobBuilder in French.
@@ -191,12 +191,6 @@ const updateManagerWithValues = (
     en: values.managerPositionEn || null,
     fr: values.managerPositionFr || null,
   },
-});
-
-const updateUserWithValues = (user: User, values: IntroFormValues): User => ({
-  ...user,
-  // eslint-disable-next-line @typescript-eslint/camelcase
-  department_id: values.department || null,
 });
 
 const IntroForm: React.FunctionComponent<IntroFormProps &
@@ -280,9 +274,8 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
               user.department_id,
             );
             const updatedManager = updateManagerWithValues(manager, values);
-            const updatedUser = updateUserWithValues(user, values);
             nprogress.start();
-            handleSubmit(updatedJob, updatedManager, updatedUser)
+            handleSubmit(updatedJob, updatedManager)
               .then((newJob: Job): void => {
                 if (languageSelection === "fr") {
                   handleContinue("fr", newJob);
