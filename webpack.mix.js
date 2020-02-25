@@ -51,7 +51,7 @@ mix
     "public/js",
   )
   .ts(
-    "resources/assets/js/components/HRPortal/SummaryHrActivityFeed.tsx",
+    "resources/assets/js/components/HRPortal/JobSummaryActivityFeed.tsx",
     "public/js",
   )
   .sass("resources/assets/sass/app.scss", "public/css", {

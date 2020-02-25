@@ -13,6 +13,7 @@ import {
   Skill,
   Department,
   Manager,
+  User,
   Comment,
 } from "../../../models/types";
 import {
@@ -345,6 +346,7 @@ interface JobReviewDisplayProps {
   skills: Skill[];
   // List of all possible departments.
   departments: Department[];
+  user: User | null;
   hideBuilderLinks: boolean;
 }
 export const JobReviewDisplay: React.FC<JobReviewDisplayProps> = ({
@@ -354,6 +356,7 @@ export const JobReviewDisplay: React.FC<JobReviewDisplayProps> = ({
   criteria,
   skills,
   departments,
+  user,
   hideBuilderLinks = false,
 }): React.ReactElement => {
   // Scroll to element specified in the url hash, if possible
@@ -372,7 +375,7 @@ export const JobReviewDisplay: React.FC<JobReviewDisplayProps> = ({
       : "MISSING DEPARTMENT";
   };
   const departmentName = getDeptName(job.department_id);
-  const managerDeptName = manager ? getDeptName(manager.department_id) : "";
+  const userDeptName = user ? getDeptName(user.department_id) : "";
 
   // Map the skills into a dictionary for quicker access
   const skillsById = mapToObject(skills, getId);
@@ -686,7 +689,7 @@ export const JobReviewDisplay: React.FC<JobReviewDisplayProps> = ({
         link={managerEditProfile(locale)}
         hideLink={hideBuilderLinks}
       >
-        {renderManagerSection(manager, managerDeptName, locale)}
+        {renderManagerSection(manager, userDeptName, locale)}
       </JobReviewSection>
       <JobReviewSection
         title={intl.formatMessage(messages.workCultureHeading)}
@@ -740,6 +743,7 @@ interface JobReviewProps {
   skills: Skill[];
   // List of all possible departments.
   departments: Department[];
+  user: User | null;
   validForSubmission?: boolean;
   handleSubmit: (job: Job) => Promise<void>;
   handleContinue: () => void;
@@ -754,6 +758,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
   criteria,
   skills,
   departments,
+  user,
   validForSubmission = false,
   handleSubmit,
   handleReturn,
@@ -811,6 +816,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
           criteria={criteria}
           skills={skills}
           departments={departments}
+          user={user}
           hideBuilderLinks={false}
         />
         <div data-c-grid="gutter">
@@ -906,7 +912,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
             <div data-c-padding="normal">
               <p data-c-margin="bottom(normal)">
                 <FormattedMessage
-                  id="jobBuilder.review.readyTosubmit"
+                  id="jobBuilder.review.readyToSubmit"
                   defaultMessage="If you're ready to submit your poster, click the Submit button below."
                   description="Instructions on how to submit"
                 />

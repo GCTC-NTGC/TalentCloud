@@ -215,7 +215,7 @@
     "defaultMessage": "Congrats! Are You Ready to Submit?"
   },
   {
-    "id": "jobBuilder.review.readyTosubmit",
+    "id": "jobBuilder.review.readyToSubmit",
     "description": "Instructions on how to submit",
     "defaultMessage": "If you're ready to submit your poster, click the Submit button below."
   },

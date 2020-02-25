@@ -36,6 +36,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property boolean $not_in_gov
  * @property string $google2fa_secret
  * @property array $recovery_codes
+ * @property int $department_id
  * @property \Jenssegers\Date\Date $recovery_codes_generation_date
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
@@ -45,6 +46,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \App\Models\HrAdvisor $hr_advisor
  * @property \App\Models\ProfilePic $profile_pic
  * @property \App\Models\UserRole $user_role
+ * @property \App\Models\Lookup\Department $department
  */
 class User extends BaseModel implements
     // Laravel contracts for native login.
@@ -75,6 +77,7 @@ class User extends BaseModel implements
         'email' => 'string',
         'gov_email' => 'string',
         'not_in_gov' => 'boolean',
+        'department_id' => 'int'
     ];
 
     /**
@@ -92,7 +95,8 @@ class User extends BaseModel implements
         'is_priority',
         'gov_email',
         'not_in_gov',
-        'google2fa_secret'
+        'google2fa_secret',
+        'department_id'
     ];
 
     protected $with = ['user_role'];
@@ -139,6 +143,11 @@ class User extends BaseModel implements
     public function user_role() //phpcs:ignore
     {
         return $this->belongsTo(\App\Models\UserRole::class);
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(\App\Models\Lookup\Department::class);
     }
 
     public function setIsPriorityAttribute($value)
@@ -219,7 +228,7 @@ class User extends BaseModel implements
      */
     public function isUpgradedManager(): bool
     {
-        return $this->isAdmin() || $this->user_role->name === 'upgradedManager';
+        return $this->isAdmin() || $this->user_role->key === 'upgradedManager';
     }
 
     /**
@@ -251,7 +260,7 @@ class User extends BaseModel implements
      */
     public function isHrAdvisor(): bool
     {
-        return $this->user_role->name === 'hr_advisor' || $this->isAdmin();
+        return $this->user_role->key === 'hr_advisor' || $this->isAdmin();
     }
 
     /**
@@ -261,7 +270,7 @@ class User extends BaseModel implements
      */
     public function isAdmin(): bool
     {
-        return $this->user_role->name === 'admin';
+        return $this->user_role->key === 'admin';
     }
 
     /**
@@ -293,7 +302,7 @@ class User extends BaseModel implements
      */
     public function setRole(string $role): void
     {
-        $this->user_role()->associate(UserRole::where('name', $role)->firstOrFail());
+        $this->user_role()->associate(UserRole::where('key', $role)->firstOrFail());
     }
 
     /**

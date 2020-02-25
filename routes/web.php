@@ -331,6 +331,12 @@ Route::group(
                             ->middleware('can:view,jobPoster')
                             ->name('manager.jobs.show');
 
+                        /* View Job Summary */
+                        Route::get('jobs/{job}/summary', 'JobSummaryController@show')
+                            ->middleware('can:manage,job')
+                            ->name('manager.jobs.summary')
+                            ->where('jobPoster', '[0-9]+');
+
                         /* Job Builder */
                         Route::get(
                             'jobs/builder',
@@ -380,6 +386,15 @@ Route::group(
                         )
                             ->where('jobPoster', '[0-9]+')
                             ->name('manager.jobs.review');
+
+                        /* Job Preview */
+                        Route::get(
+                            'jobs/{job}',
+                            'JobController@show'
+                        )
+                            ->middleware('can:view,job')
+                            ->where('jobPoster', '[0-9]+')
+                            ->name('manager.jobs.preview');
 
                         /* Delete Job */
                         Route::delete('jobs/{jobPoster}', 'JobController@destroy')
@@ -708,6 +723,10 @@ Route::group(
 
                 Route::post('two-factor/generate-recovery-codes', 'Auth\RecoveryCodeController@generate')->name('admin.recovery_codes.generate');
                 Route::get('two-factor/recovery-codes', 'Auth\RecoveryCodeController@show')->name('admin.recovery_codes.show');
+
+                Route::get('{jobPoster}/download-applicants', 'JobController@downloadApplicants')
+                    ->middleware('can:downloadApplicants,jobPoster')
+                    ->name('admin.jobs.download.applicants');
             }
         );
     }

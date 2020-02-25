@@ -143,22 +143,24 @@
 								<h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="government">
 									{{ settings.heading.government }}</h2>
 								<p data-c-margin="bottom(normal)">{{ settings.government_copy }}</p>
-								<div data-c-grid-item="base(1of1)">
-									<div data-c-alert="information" data-c-radius="rounded" role="alert" data-c-margin="bottom(normal)">
-										<div data-c-padding="half">
-											<p data-c-margin="bottom(half)" data-c-heading="h6" data-c-font-weight="bold">
-												<i class="fas fa-exclamation-circle"></i>
-												{{ settings.government_dept }}
-												{% if user.manager.department %}
-													{{ user.manager.department.name }}
-												{% else %}
-													{{ settings.no_department }}
-												{% endif %}
-											</p>
-											<p data-c-margin="bottom(half)">{{ settings.dept_change_copy.one }}
-												<a href="{{ settings.dept_change_copy.two }}" title="{{ settings.dept_change_copy.three }}">{{ settings.dept_change_copy.four }}</a>
-											</p>
-											<p>{{ settings.dept_change_copy.five }}</p>
+								<div data-c-grid="gutter">
+									<div data-c-grid-item="base(1of1)">
+										<div data-c-alert="information" data-c-radius="rounded" role="alert" data-c-margin="bottom(normal)">
+											<div data-c-padding="half">
+												<p data-c-margin="bottom(half)" data-c-heading="h6" data-c-font-weight="bold">
+													<i class="fas fa-exclamation-circle"></i>
+													{{ settings.government_dept }}
+													{% if user.department %}
+														{{ user.department.name }}
+													{% else %}
+														{{ settings.no_department }}
+													{% endif %}
+												</p>
+												<p data-c-margin="bottom(half)">{{ settings.dept_change_copy.one }}
+													<a href="{{ settings.dept_change_copy.two }}" title="{{ settings.dept_change_copy.three }}">{{ settings.dept_change_copy.four }}</a>
+												</p>
+												<p>{{ settings.dept_change_copy.five }}</p>
+											</div>
 										</div>
 									</div>
 									<div data-c-grid-item="base(1of1)" data-c-input="email">

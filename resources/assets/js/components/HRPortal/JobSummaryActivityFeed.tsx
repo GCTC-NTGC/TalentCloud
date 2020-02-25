@@ -4,32 +4,40 @@ import RootContainer from "../RootContainer";
 import CommentForm from "../CommentForm";
 import ActivityList from "../ActivityList";
 import { LocationId } from "../../models/lookupConstants";
+import { Portal } from "../../models/app";
 
-interface SummaryHrActivityFeedProps {
+interface JobSummaryActivityFeedProps {
   jobId: number;
+  portal: Portal;
 }
 
-const SummaryHrActivityFeed: React.FunctionComponent<SummaryHrActivityFeedProps> = ({
+const JobSummaryActivityFeed: React.FunctionComponent<JobSummaryActivityFeedProps> = ({
   jobId,
+  portal,
 }) => {
   return (
     <>
-      <CommentForm jobId={jobId} isHrAdvisor location={LocationId.summary} />
+      <CommentForm
+        jobId={jobId}
+        isHrAdvisor={portal === "hr"}
+        location={LocationId.summary}
+      />
       <hr data-c-hr="thin(black)" data-c-margin="top(1)" />
-      <ActivityList jobId={jobId} isHrAdvisor />
+      <ActivityList jobId={jobId} isHrAdvisor={portal === "hr"} />
     </>
   );
 };
 
-export default SummaryHrActivityFeed;
+export default JobSummaryActivityFeed;
 
 const container = document.getElementById("summary-hr-activity-feed");
 if (container !== null) {
   if ("jobId" in container.dataset) {
     const jobId = Number(container.dataset.jobId as string);
+    const portal = container.dataset.portal as Portal;
     ReactDOM.render(
       <RootContainer>
-        <SummaryHrActivityFeed jobId={jobId} />
+        <JobSummaryActivityFeed jobId={jobId} portal={portal} />
       </RootContainer>,
       container,
     );

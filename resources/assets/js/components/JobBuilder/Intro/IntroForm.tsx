@@ -10,7 +10,7 @@ import * as Yup from "yup";
 import nprogress from "nprogress";
 import get from "lodash/get";
 import { validationMessages } from "../../Form/Messages";
-import { Job, Department, Manager } from "../../../models/types";
+import { Job, Department, Manager, User } from "../../../models/types";
 import { emptyJob } from "../../../models/jobUtil";
 import TextInput from "../../Form/TextInput";
 import { accountSettings } from "../../../helpers/routes";
@@ -109,6 +109,8 @@ interface IntroFormProps {
   manager: Manager;
   // List of known department options.
   departments: Department[];
+  // The user related to the manager of this job.
+  user: User;
   // Runs after successful validation.
   // It must (asynchronously) return the resulting job, if successful.
   handleSubmit: (job: Job, manager: Manager) => Promise<Job>;
@@ -121,10 +123,11 @@ interface IntroFormProps {
 const initializeValues = (
   job: Job | null,
   manager: Manager,
+  user: User,
 ): IntroFormValues => {
   let department: number | "" = "";
-  if (manager.department_id !== null) {
-    department = manager.department_id;
+  if (user.department_id !== null) {
+    department = user.department_id;
   }
 
   const managerDivision = {
@@ -159,12 +162,13 @@ const updateJobWithValues = (
   job: Job,
   values: IntroFormValues,
   locale: string,
+  departmentId: number | null,
 ): Job => ({
   ...job,
   // eslint-disable-next-line @typescript-eslint/camelcase
   chosen_lang: locale,
   // eslint-disable-next-line @typescript-eslint/camelcase
-  department_id: values.department || null,
+  department_id: departmentId,
   division: {
     ...job.division,
     en: values.divisionEN || null,
@@ -177,8 +181,6 @@ const updateManagerWithValues = (
   values: IntroFormValues,
 ): Manager => ({
   ...manager,
-  // eslint-disable-next-line @typescript-eslint/camelcase
-  department_id: values.department || null,
   division: {
     ...manager.division,
     en: values.divisionEN || null,
@@ -195,6 +197,7 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
   WrappedComponentProps> = ({
   job,
   manager,
+  user,
   departments,
   handleSubmit,
   handleContinue,
@@ -204,15 +207,15 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
   }
-  const initialValues: IntroFormValues = initializeValues(job, manager);
+  const initialValues: IntroFormValues = initializeValues(job, manager, user);
   const [languageSelection, setLanguageSelection] = useState(locale);
   const getDepartmentName = (): string | undefined => {
     // eslint-disable-next-line camelcase
-    const department = departments.find(
-      department => department.id === manager.department_id,
+    const departmentName = departments.find(
+      department => department.id === user.department_id,
     );
-    return department
-      ? localizeFieldNonNull(locale, department, "name")
+    return departmentName
+      ? localizeFieldNonNull(locale, departmentName, "name")
       : undefined;
   };
 
@@ -268,6 +271,7 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
               job || emptyJob(),
               values,
               languageSelection,
+              user.department_id,
             );
             const updatedManager = updateManagerWithValues(manager, values);
             nprogress.start();

@@ -5,10 +5,12 @@ import { connect } from "react-redux";
 import { FormattedMessage, useIntl } from "react-intl";
 import Activity from "./Activity";
 import { RootState } from "../store/store";
-import { Comment } from "../models/types";
+import { Comment, User } from "../models/types";
 import { DispatchType } from "../configureStore";
 import { fetchComments } from "../store/Job/jobActions";
+import { fetchAllUsers } from "../store/User/userActions";
 import { getComments, sortComments } from "../store/Job/jobSelector";
+import { getUsers } from "../store/User/userSelector";
 import { commentTypeMessages } from "./CommentForm";
 import {
   generalLocationOption,
@@ -16,20 +18,25 @@ import {
 } from "../models/localizedConstants";
 import { activityLocationUrl } from "../models/jobUtil";
 import { LocationId } from "../models/lookupConstants";
-import { getLocale } from "../helpers/localize";
+import { getLocale, localizeFieldNonNull } from "../helpers/localize";
+import { find } from "../helpers/queries";
 
 interface ActivityListProps {
   jobId: number;
   isHrAdvisor: boolean;
   comments: Comment[];
+  users: User[];
   handleFetchComments: (jobId: number) => Promise<void>;
+  handleFetchUsers: () => Promise<void>;
   filterComments?: (comment: Comment) => boolean;
 }
 
 export const ActivityList: React.FunctionComponent<ActivityListProps> = ({
   jobId,
   comments,
+  users,
   handleFetchComments,
+  handleFetchUsers,
   isHrAdvisor,
 }) => {
   const intl = useIntl();
@@ -49,6 +56,18 @@ export const ActivityList: React.FunctionComponent<ActivityListProps> = ({
         setIsError(true);
       });
   }, [handleFetchComments, jobId]);
+
+  useEffect((): void => {
+    setLoadingActivities(true);
+    handleFetchUsers()
+      .then(() => {
+        setLoadingActivities(false);
+      })
+      .catch(() => {
+        setLoadingActivities(false);
+        setIsError(true);
+      });
+  }, [handleFetchUsers]);
 
   const activityType = (type: number | null): string => {
     switch (type) {
@@ -121,27 +140,42 @@ export const ActivityList: React.FunctionComponent<ActivityListProps> = ({
                   location,
                   created_at,
                   type_id,
-                }: Comment): React.ReactElement => (
-                  <Activity
-                    key={id}
-                    name="Replace with Manager Name!" // TODO: Replace with user.name after User api is setup.
-                    userRole="Replace with Manager Role!" // TODO: Replace with user.name after User api is setup.
-                    comment={comment}
-                    location={getLocation(location)}
-                    time={created_at}
-                    type={activityType(type_id)}
-                    link={{
-                      url: activityLocationUrl(
-                        isHrAdvisor,
-                        location,
-                        jobId,
-                        locale,
-                      ),
-                      text: "",
-                      title: "",
-                    }}
-                  />
-                ),
+                  user_id,
+                }: Comment): React.ReactElement => {
+                  const user = find(users, user_id);
+                  const fullName = user?.full_name ?? "";
+                  const userRole = user?.user_role;
+                  let displayRole = "";
+                  if (userRole !== undefined) {
+                    displayRole = localizeFieldNonNull(
+                      locale,
+                      userRole,
+                      "name",
+                    );
+                  }
+
+                  return (
+                    <Activity
+                      key={id}
+                      name={fullName}
+                      userRole={displayRole}
+                      comment={comment}
+                      location={getLocation(location)}
+                      time={created_at}
+                      type={activityType(type_id)}
+                      link={{
+                        url: activityLocationUrl(
+                          isHrAdvisor,
+                          location,
+                          jobId,
+                          locale,
+                        ),
+                        text: "",
+                        title: "",
+                      }}
+                    />
+                  );
+                },
               )
             : !isError && (
                 <p>
@@ -165,17 +199,27 @@ const mapStateToProps = (
   }: { filterComments?: (comment: Comment) => boolean },
 ): {
   comments: Comment[];
+  users: User[];
 } => ({
   comments: sortComments(getComments(state).filter(filterComments)),
+  users: getUsers(state),
 });
 
 const mapDispatchToProps = (
   dispatch: DispatchType,
 ): {
   handleFetchComments: (jobId: number) => Promise<void>;
+  handleFetchUsers: () => Promise<void>;
 } => ({
   handleFetchComments: async (jobId: number): Promise<void> => {
     const result = await dispatch(fetchComments(jobId));
+    if (!result.error) {
+      return Promise.resolve();
+    }
+    return Promise.reject(result.error);
+  },
+  handleFetchUsers: async (): Promise<void> => {
+    const result = await dispatch(fetchAllUsers());
     if (!result.error) {
       return Promise.resolve();
     }
