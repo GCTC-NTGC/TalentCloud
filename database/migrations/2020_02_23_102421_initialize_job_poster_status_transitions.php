@@ -15,9 +15,9 @@ class InitializeJobPosterStatusTransitions extends Migration
     {
         $statuses = DB::table('job_poster_status')->get();
         $roles = DB::table('user_roles')->get();
-        $manager = $roles->firstWhere('key', 'upgradedManager');
-        $hr = $roles->firstWhere('key', 'hr_advisor');
-        $admin = $roles->firstWhere('key', 'admin');
+        $manager = $roles->firstWhere('key', 'upgradedManager')->id;
+        $hr = $roles->firstWhere('key', 'hr_advisor')->id;
+        $admin = $roles->firstWhere('key', 'admin')->id;
         DB::table('job_poster_status_transitions')->insert([
             [
                 'key' => 'draft_to_review_hr',

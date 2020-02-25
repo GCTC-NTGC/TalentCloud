@@ -10,7 +10,8 @@ use Spatie\Translatable\HasTranslations;
  *
  * @property int $id
  * @property string $key
- * @property string $value
+ * @property string $name
+ * @property string $description
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -31,7 +32,7 @@ class JobPosterStatus extends BaseModel
      */
     protected $table = 'job_poster_status';
 
-    public $translatable = ['value'];
+    public $translatable = ['name', 'description'];
     protected $fillable = [];
 
     public function job_posters() // phpcs:ignore
