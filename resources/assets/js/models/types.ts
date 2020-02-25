@@ -241,7 +241,6 @@ export interface User {
     updated_at: Date;
     name: localizedFieldNonNull;
   };
-  department_id: number | null;
 }
 
 type VeteranStatusName = "none" | "current" | "past";
