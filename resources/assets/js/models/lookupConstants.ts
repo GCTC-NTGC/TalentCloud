@@ -110,7 +110,7 @@ export const CommentTypeId = {
 };
 
 export const LocationId = {
-  generic: "job/generic",
+  jobGeneric: "job/generic",
   heading: "job/heading",
   basicInfo: "job/basicInfo",
   impact: "job/impact",
@@ -118,9 +118,16 @@ export const LocationId = {
   skills: "job/skills",
   langRequirements: "job/langRequirements",
   environment: "job/environment",
-  summary: "summary",
+  summary: "hr/summary",
   preview: "hr/preview",
-  screeningPlan: "screeningPlan",
+  screeningPlan: "screeningPlan/generic",
+  screeningPlanBuilder: "screeningPlan/builder",
+  screeningPlanSummary: "screeningPlan/summary",
+  screeningPlanRatings: "screeningPlan/ratings",
+  applicantsGeneric: "applicants/generic",
+  underConsideration: "applicants/underConsideration",
+  optionalConsideration: "applicants/optionalConsideration",
+  notUnderConsideration: "applicants/notUnderConsideration",
 } as const;
 
 export enum JobStatus {

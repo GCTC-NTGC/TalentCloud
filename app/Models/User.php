@@ -99,6 +99,8 @@ class User extends BaseModel implements
     protected $hidden = [
         'password',
         'remember_token',
+        'remember_device_token',
+        'recovery_codes_generation_date',
         'google2fa_secret',
         'recovery_codes',
     ];
@@ -216,7 +218,7 @@ class User extends BaseModel implements
      */
     public function isUpgradedManager(): bool
     {
-        return $this->isAdmin() || $this->user_role->name === 'upgradedManager';
+        return $this->isAdmin() || $this->user_role->key === 'upgradedManager';
     }
 
     /**
@@ -248,7 +250,7 @@ class User extends BaseModel implements
      */
     public function isHrAdvisor(): bool
     {
-        return $this->user_role->name === 'hr_advisor' || $this->isAdmin();
+        return $this->user_role->key === 'hr_advisor' || $this->isAdmin();
     }
 
     /**
@@ -258,7 +260,7 @@ class User extends BaseModel implements
      */
     public function isAdmin(): bool
     {
-        return $this->user_role->name === 'admin';
+        return $this->user_role->key === 'admin';
     }
 
     /**
@@ -290,7 +292,7 @@ class User extends BaseModel implements
     */
     public function setRole(string $role): void
     {
-        $this->user_role()->associate(UserRole::where('name', $role)->firstOrFail());
+        $this->user_role()->associate(UserRole::where('key', $role)->firstOrFail());
     }
 
     /**

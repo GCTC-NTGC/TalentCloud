@@ -156,3 +156,6 @@ export const sortComments = (comments: Comment[]): Comment[] => {
   };
   return comments.sort(comparator);
 };
+
+export const fetchingComments = (state: RootState): boolean =>
+  ui(state).fetchingComments;

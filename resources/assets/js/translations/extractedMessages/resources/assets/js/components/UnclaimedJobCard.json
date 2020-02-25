@@ -1,8 +1,13 @@
 [
   {
-    "id": "openJobCard.createdAt",
+    "id": "openJobCard.reviewRequested",
     "description": "Header for when Job Poster was created.",
-    "defaultMessage": "Created: "
+    "defaultMessage": "Received: "
+  },
+  {
+    "id": "openJobCard.error",
+    "description": "Error getting time review was requested.",
+    "defaultMessage": "Date Unavailable."
   },
   {
     "id": "openJobCard.hiringManager",

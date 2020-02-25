@@ -25,12 +25,12 @@ import {
   hrJobReview,
   hrScreeningPlan,
   managerScreeningPlan,
-  hrJobIndex,
   hrJobSummary,
   hrJobPreview,
   jobBuilderTasks,
-  managerJobIndex,
   managerJobShow,
+  hrJobApplications,
+  managerJobApplications,
 } from "../helpers/routes";
 import { hasKey } from "../helpers/queries";
 
@@ -169,7 +169,8 @@ export const activityLocationUrl = (
   locale: string,
 ): string => {
   const hrAdvisorUrls = {
-    [LocationId.generic]: hrJobReview(locale, jobId),
+    /* Job Poster Review Page */
+    [LocationId.jobGeneric]: hrJobReview(locale, jobId),
     [LocationId.heading]: hrJobReview(locale, jobId),
     [LocationId.basicInfo]: hrJobReview(locale, jobId),
     [LocationId.impact]: hrJobReview(locale, jobId),
@@ -177,12 +178,25 @@ export const activityLocationUrl = (
     [LocationId.skills]: hrJobReview(locale, jobId),
     [LocationId.langRequirements]: hrJobReview(locale, jobId),
     [LocationId.environment]: hrJobReview(locale, jobId),
+
+    /* Applicant Review Page */
+    [LocationId.applicantsGeneric]: hrJobApplications(locale, jobId),
+    [LocationId.underConsideration]: hrJobApplications(locale, jobId),
+    [LocationId.optionalConsideration]: hrJobApplications(locale, jobId),
+    [LocationId.notUnderConsideration]: hrJobApplications(locale, jobId),
+
+    /* Screening Plan Builder */
     [LocationId.screeningPlan]: hrScreeningPlan(locale, jobId),
+    [LocationId.screeningPlanBuilder]: hrScreeningPlan(locale, jobId),
+    [LocationId.screeningPlanSummary]: hrScreeningPlan(locale, jobId),
+    [LocationId.screeningPlanRatings]: hrScreeningPlan(locale, jobId),
+
     [LocationId.summary]: hrJobSummary(locale, jobId),
     [LocationId.preview]: hrJobPreview(locale, jobId),
   };
   const managerUrls = {
-    [LocationId.generic]: jobBuilderReview(locale, jobId),
+    /* Job Poster Review Page */
+    [LocationId.jobGeneric]: jobBuilderReview(locale, jobId),
     [LocationId.heading]: jobBuilderDetails(locale, jobId),
     [LocationId.basicInfo]: jobBuilderDetails(locale, jobId),
     [LocationId.impact]: jobBuilderImpact(locale, jobId),
@@ -190,7 +204,19 @@ export const activityLocationUrl = (
     [LocationId.skills]: jobBuilderSkills(locale, jobId),
     [LocationId.langRequirements]: jobBuilderDetails(locale, jobId),
     [LocationId.environment]: jobBuilderEnv(locale, jobId),
+
+    /* Applicant Review Page */
+    [LocationId.applicantsGeneric]: managerJobApplications(locale, jobId),
+    [LocationId.underConsideration]: managerJobApplications(locale, jobId),
+    [LocationId.optionalConsideration]: managerJobApplications(locale, jobId),
+    [LocationId.notUnderConsideration]: managerJobApplications(locale, jobId),
+
+    /* Screening Plan Builder */
     [LocationId.screeningPlan]: managerScreeningPlan(locale, jobId),
+    [LocationId.screeningPlanBuilder]: managerScreeningPlan(locale, jobId),
+    [LocationId.screeningPlanSummary]: managerScreeningPlan(locale, jobId),
+    [LocationId.screeningPlanRatings]: managerScreeningPlan(locale, jobId),
+
     [LocationId.summary]: jobBuilderReview(locale, jobId), // TODO: change to summary page, once managers have it
     [LocationId.preview]: managerJobShow(locale, jobId),
   };

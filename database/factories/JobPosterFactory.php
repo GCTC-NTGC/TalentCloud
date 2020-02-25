@@ -130,9 +130,15 @@ $factory->afterCreating(JobPoster::class, function ($jp) : void {
     $jp->criteria()->saveMany(factory(Criteria::class, 4)->make([
         'job_poster_id' => $jp->id
     ]));
-    $jp->job_poster_key_tasks()->saveMany(factory(JobPosterKeyTask::class, 5)->make([
-        'job_poster_id' => $jp->id
-    ]));
+    $order = 1;
+    $jp->job_poster_key_tasks()->saveMany(factory(JobPosterKeyTask::class, 5)
+        ->make([
+            'job_poster_id' => $jp->id,
+        ])
+        ->each(function ($task) use (&$order): void {
+            $task->order = $order;
+            $order++;
+        }));
     $jp->job_poster_questions()->saveMany(factory(JobPosterQuestion::class, 2)->make([
         'job_poster_id' => $jp->id
     ]));

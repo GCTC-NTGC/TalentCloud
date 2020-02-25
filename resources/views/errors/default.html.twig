@@ -1,24 +1,17 @@
 {% extends "layouts/base" %}
-
+{% block title %}
+	{{ error.title }}
+{% endblock %}
 {% block body %}
-
 	{% include "common/goc" %}
-{% include "common/alert" %}
-
-    {% include "common/header" with {"header":error} %}
-
-	<section
-		class="error">
-
-		<div
-			class="container--copy">
-
-			<h1> {{ exception.getStatusCode() }} </h1>
-
-			{% block error %}
-			{% endblock %}
+	{% include "common/alert" %}
+	{% include "common/header" with {"header": error} %}
+	<section class="error">
+		<div class="container--copy">
+			<h2>
+				{{ exception.getStatusCode() }}
+			</h2>
+			{% block error %}{% endblock %}
 		</div>
-
 	</section>
-
 {% endblock %}

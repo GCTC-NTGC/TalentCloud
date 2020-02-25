@@ -2,16 +2,18 @@
 
 namespace App\Exceptions;
 
-use Exception;
-use Illuminate\Auth\AuthenticationException as AuthenticationException;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
-use Facades\App\Services\WhichPortal;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Session\TokenMismatchException;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 class Handler extends ExceptionHandler
 {
@@ -44,11 +46,8 @@ class Handler extends ExceptionHandler
     protected $internalDontReport = [
         AuthenticationException::class,
         AuthorizationException::class,
-        HttpException::class,
         HttpResponseException::class,
         ModelNotFoundException::class,
-        SuspiciousOperationException::class,
-        // TokenMismatchException::class,
         ValidationException::class,
     ];
 
@@ -58,7 +57,7 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return void
      */
-    public function report(Exception $exception)
+    public function report(\Exception $exception)
     {
         if ($exception instanceof TokenMismatchException) {
             $logData = [
@@ -86,12 +85,11 @@ class Handler extends ExceptionHandler
         try {
             return array_filter([
                 'userId' => Auth::id(),
-                // 'email' => optional(Auth::user())->email,
                 'url' => Request::path(),
                 'method' => Request::method(),
                 'referer' => Request::header('referer', '')
             ]);
-        } catch (Throwable $e) {
+        } catch (\Throwable $e) {
             return [];
         }
     }
@@ -103,8 +101,21 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $exception)
+    public function render($request, \Exception $exception)
     {
+        // Redirect upper case URLs to lower case route.
+        $url = $request->url();
+        $loweredCaseUrl = strtolower($url);
+        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException && $url !== $loweredCaseUrl) {
+            return redirect($loweredCaseUrl);
+        }
+
+        // Laravel will render out the error page by default even for JSON
+        // requests... this will return a standardized JSON response with a 403
+        // if unauthorized.
+        if ($exception instanceof AuthorizationException && $request->wantsJson()) {
+            return response()->json(['message' => $exception->getMessage()], 403);
+        }
         if ($exception instanceof AdminException) {
             return $exception->render($request);
         }
