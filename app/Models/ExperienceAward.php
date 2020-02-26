@@ -13,13 +13,13 @@ use App\Models\BaseModel;
  * @property string $issued_by
  * @property int $recognition_type_id
  * @property \Jenssegers\Date\Date $awarded_date
- * @property int $awards_experienceable_id
- * @property string $awards_experienceable_type
+ * @property int $experienceable_id
+ * @property string $experienceable_type
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \Illuminate\Database\Eloquent\Collection $job_applications
- * @property \App\Models\Applicant|\App\Models\JobApplication $awards_experienceable
+ * @property \App\Models\Applicant|\App\Models\JobApplication $experienceable
  */
 class ExperienceAward extends BaseModel
 {
@@ -54,7 +54,7 @@ class ExperienceAward extends BaseModel
         return $this->belongsToMany(\App\Models\JobApplication::class);
     }
 
-    public function awards_experienceable() //phpcs:ignore
+    public function experienceable() //phpcs:ignore
     {
         return $this->morphTo();
     }

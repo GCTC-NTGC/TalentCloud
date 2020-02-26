@@ -122,30 +122,30 @@ class Applicant extends BaseModel
 
     public function experiences_work() //phpcs:ignore
     {
-        return $this->morphMany(\App\Models\ExperienceWork::class, 'work_experienceable')
+        return $this->morphMany(\App\Models\ExperienceWork::class, 'experienceable')
             ->orderBy('end_date', 'desc');
     }
 
     public function experiences_personal() //phpcs:ignore
     {
-        return $this->morphMany(\App\Models\ExperiencePersonal::class, 'personal_experienceable')
+        return $this->morphMany(\App\Models\ExperiencePersonal::class, 'experienceable')
             ->orderBy('end_date', 'desc');
     }
 
     public function experiences_education() //phpcs:ignore
     {
-        return $this->morphMany(\App\Models\ExperienceEducation::class, 'education_experienceable')
+        return $this->morphMany(\App\Models\ExperienceEducation::class, 'experienceable')
             ->orderBy('end_date', 'desc');
     }
 
     public function experiences_awards() //phpcs:ignore
     {
-        return $this->morphMany(\App\Models\ExperienceAward::class, 'awards_experienceable');
+        return $this->morphMany(\App\Models\ExperienceAward::class, 'experienceable');
     }
 
     public function experiences_community() //phpcs:ignore
     {
-        return $this->morphMany(\App\Models\ExperienceCommunity::class, 'community_experienceable')
+        return $this->morphMany(\App\Models\ExperienceCommunity::class, 'experienceable')
             ->orderBy('end_date', 'desc');
     }
 }

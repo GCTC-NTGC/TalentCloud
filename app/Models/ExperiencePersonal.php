@@ -14,13 +14,13 @@ use App\Models\BaseModel;
  * @property boolean $is_active
  * @property \Jenssegers\Date\Date $start_date
  * @property \Jenssegers\Date\Date $end_date
- * @property int $personal_experienceable_id
- * @property string $personal_experienceable_type
+ * @property int $experienceable_id
+ * @property string $experienceable_type
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \Illuminate\Database\Eloquent\Collection $job_applications
- * @property \App\Models\Applicant|\App\Models\JobApplication $personal_experienceable
+ * @property \App\Models\Applicant|\App\Models\JobApplication $experienceable
  */
 class ExperiencePersonal extends BaseModel
 {
@@ -47,7 +47,7 @@ class ExperiencePersonal extends BaseModel
         return $this->belongsToMany(\App\Models\JobApplication::class);
     }
 
-    public function personal_experienceable() //phpcs:ignore
+    public function experienceable() //phpcs:ignore
     {
         return $this->morphTo();
     }

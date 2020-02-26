@@ -17,15 +17,15 @@ use App\Models\BaseModel;
  * @property \Jenssegers\Date\Date $end_date
  * @property string $thesis_title
  * @property boolean $has_blockcert
- * @property int $education_experienceable_id
- * @property string $education_experienceable_type
+ * @property int $experienceable_id
+ * @property string $experienceable_type
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\Lookup\ExperienceEducationType $experience_education_type
  * @property \App\Models\Lookup\ExperienceEducationStatus $experience_education_status
  * @property \Illuminate\Database\Eloquent\Collection $job_applications
- * @property \App\Models\Applicant|\App\Models\JobApplication $education_experienceable
+ * @property \App\Models\Applicant|\App\Models\JobApplication $experienceable
  */
 class ExperienceEducation extends BaseModel
 {
@@ -68,7 +68,7 @@ class ExperienceEducation extends BaseModel
         return $this->belongsToMany(\App\Models\JobApplication::class);
     }
 
-    public function education_experienceable() //phpcs:ignore
+    public function experienceable() //phpcs:ignore
     {
         return $this->morphTo();
     }

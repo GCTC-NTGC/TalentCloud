@@ -21,8 +21,8 @@ class AddExperienceCommunityTable extends Migration
             $table->boolean('is_active')->nullable();
             $table->date('start_date');
             $table->date('end_date');
-            $table->integer('community_experienceable_id')->unsigned()->index();
-            $table->string('community_experienceable_type')->nullable();
+            $table->integer('experienceable_id')->unsigned()->index();
+            $table->string('experienceable_type')->nullable();
             $table->timestamps();
         });
     }

@@ -20,8 +20,8 @@ class AddExperienceAwardsTable extends Migration
             $table->string('issued_by');
             $table->integer('recognition_type_id')->unsigned();
             $table->date('awarded_date')->nullable();
-            $table->integer('awards_experienceable_id')->unsigned()->index();
-            $table->string('awards_experienceable_type')->nullable();
+            $table->integer('experienceable_id')->unsigned()->index();
+            $table->string('experienceable_type')->nullable();
             $table->timestamps();
 
             $table->foreign('recipient_type_id')

@@ -24,8 +24,8 @@ class AddExperienceEducationTable extends Migration
             $table->date('end_date');
             $table->string('thesis_title')->nullable();
             $table->boolean('has_blockcert')->nullable();
-            $table->integer('education_experienceable_id')->unsigned()->index();
-            $table->string('education_experienceable_type')->nullable();
+            $table->integer('experienceable_id')->unsigned()->index();
+            $table->string('experienceable_type')->nullable();
             $table->timestamps();
 
             $table->foreign('education_type_id')
