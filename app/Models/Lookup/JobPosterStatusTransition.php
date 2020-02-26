@@ -46,7 +46,8 @@ class JobPosterStatusTransition extends BaseModel
         'owner_user_role_id',
         'from_job_poster_status_id',
         'to_job_poster_status_id',
-        'metadata'
+        'metadata',
+        'name'
     ];
 
     /**
@@ -62,6 +63,13 @@ class JobPosterStatusTransition extends BaseModel
     public $translatable = [
         'name',
     ];
+
+    /**
+     * Allows the Backpack admin portal to edit json fields.
+     *
+     * @var string
+     */
+    public $fakeColumns = ['metadata'];
 
     public function owner_user_role() // phpcs:ignore
     {

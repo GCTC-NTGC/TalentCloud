@@ -3,7 +3,8 @@
 namespace App\Models\Lookup;
 
 use App\Models\BaseModel;
-use Spatie\Translatable\HasTranslations;
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
 
 /**
  * Class JobPosterStatus
@@ -18,11 +19,13 @@ use Spatie\Translatable\HasTranslations;
  * @property \Illuminate\Database\Eloquent\Collection $job_posters
  *
  * Localized Properties:
- * @property string $value
+ * @property string $name
+ * @property string $description
  *
  */
 class JobPosterStatus extends BaseModel
 {
+    use CrudTrait;
     use HasTranslations;
 
     /**
@@ -33,7 +36,7 @@ class JobPosterStatus extends BaseModel
     protected $table = 'job_poster_status';
 
     public $translatable = ['name', 'description'];
-    protected $fillable = [];
+    protected $fillable = ['name', 'description'];
 
     public function job_posters() // phpcs:ignore
     {

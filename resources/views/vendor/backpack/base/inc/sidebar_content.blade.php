@@ -7,6 +7,8 @@
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('skill') }}"><i class="nav-icon fa fa-list-alt"></i> <span>Skills</span></a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('department') }}"><i class="nav-icon fa fa-list-alt"></i> <span>Departments</span></a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('classification') }}"><i class="nav-icon fa fa-list-alt"></i> <span>Classifications</span></a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('job-poster-status') }}"><i class="nav-icon fa fa-list-alt"></i> <span>Job Status</span></a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('job-poster-status-transition') }}"><i class="nav-icon fa fa-list-alt"></i> <span>Job Status Transitions</span></a></li>
 <br />
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('2fa') }}"><i class="nav-icon fa fa-lock"></i> <span>Manage 2FA</span></a></li>
 <br />
