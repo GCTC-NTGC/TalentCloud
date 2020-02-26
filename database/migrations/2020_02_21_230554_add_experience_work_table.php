@@ -13,7 +13,7 @@ class AddExperienceWorkTable extends Migration
      */
     public function up()
     {
-        Schema::create('experience_work', function (Blueprint $table) {
+        Schema::create('experience_works', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
             $table->string('organization');
@@ -34,6 +34,6 @@ class AddExperienceWorkTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('experience_work');
+        Schema::dropIfExists('experience_works');
     }
 }

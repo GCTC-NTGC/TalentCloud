@@ -13,7 +13,7 @@ use Spatie\Translatable\HasTranslations;
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
- * @property \Illuminate\Database\Eloquent\Collection $experiences_education
+ * @property \Illuminate\Database\Eloquent\Collection $experience_educations
  *
  * Localized Properties:
  * @property string $name
@@ -25,7 +25,7 @@ class EducationType extends BaseModel
     public $translatable = ['name'];
     protected $fillable = [];
 
-    public function experiences_education() //phpcs:ignore
+    public function experience_educations() //phpcs:ignore
     {
         return $this->hasMany(\App\Models\ExperienceEducation::class);
     }

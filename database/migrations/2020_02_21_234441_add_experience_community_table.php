@@ -13,7 +13,7 @@ class AddExperienceCommunityTable extends Migration
      */
     public function up()
     {
-        Schema::create('experience_community', function (Blueprint $table) {
+        Schema::create('experience_communitys', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
             $table->string('group');
@@ -34,6 +34,6 @@ class AddExperienceCommunityTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('experience_community');
+        Schema::dropIfExists('experience_communitys');
     }
 }

@@ -13,7 +13,7 @@ class AddExperiencePersonalTable extends Migration
      */
     public function up()
     {
-        Schema::create('experience_personal', function (Blueprint $table) {
+        Schema::create('experience_personals', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
             $table->text('description');
@@ -34,6 +34,6 @@ class AddExperiencePersonalTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('experience_personal');
+        Schema::dropIfExists('experience_personals');
     }
 }

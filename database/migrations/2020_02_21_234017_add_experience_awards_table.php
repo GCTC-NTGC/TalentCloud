@@ -13,7 +13,7 @@ class AddExperienceAwardsTable extends Migration
      */
     public function up()
     {
-        Schema::create('experience_award', function (Blueprint $table) {
+        Schema::create('experience_awards', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
             $table->integer('award_recipient_type_id')->unsigned();
@@ -45,6 +45,6 @@ class AddExperienceAwardsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('experience_award');
+        Schema::dropIfExists('experience_awards');
     }
 }
