@@ -820,22 +820,33 @@ export const classificationCodeOption = (
   );
 
 const jobStatusMessages = defineMessages({
-  // The hr and manager review statuses can be grouped together.
-  review: {
-    id: "jobStatus.review",
-    defaultMessage: "In Review",
-  },
-  finalReview: {
-    id: "jobStatus.finalReview",
-    defaultMessage: "Final Review",
-  },
   [JobStatus.Draft]: {
     id: "jobStatus.draft",
     defaultMessage: "Draft",
   },
+  [JobStatus.ReviewHr]: {
+    id: "jobStatus.reviewHr",
+    defaultMessage: "In Review (HR)",
+  },
+  [JobStatus.ReviewManager]: {
+    id: "jobStatus.reviewManager",
+    defaultMessage: "In Review (Manager)",
+  },
   [JobStatus.Translation]: {
     id: "jobStatus.translation",
     defaultMessage: "In Translation",
+  },
+  [JobStatus.FinalReviewHr]: {
+    id: "jobStatus.finalReviewHr",
+    defaultMessage: "Final Review (HR)",
+  },
+  [JobStatus.FinalReviewManager]: {
+    id: "jobStatus.finalReviewManager",
+    defaultMessage: "Final Review (Manager)",
+  },
+  [JobStatus.PendingApproval]: {
+    id: "jobStatus.pendingApproval",
+    defaultMessage: "Pending Approval",
   },
   [JobStatus.Approved]: {
     id: "jobStatus.approved",
@@ -851,24 +862,10 @@ const jobStatusMessages = defineMessages({
   },
 });
 
-const groupReviewStatus = (
-  status: JobStatus,
-): JobStatus | "review" | "finalReview" => {
-  switch (status) {
-    case JobStatus.ReviewHr:
-    case JobStatus.ReviewManager:
-      return "review";
-    case JobStatus.FinalReviewHr:
-    case JobStatus.FinalReviewManager:
-      return "finalReview";
-    default:
-      return status;
-  }
-};
 export const jobStatus = (status: JobStatus): MessageDescriptor => {
   return getOrThrowError(
     jobStatusMessages,
-    groupReviewStatus(status),
+    status,
     "Invalid Job Status",
   );
 };
