@@ -35,14 +35,14 @@ class AddExperienceAwardsRecipientTable extends Migration
 
         Schema::create('award_recipient_types', function (Blueprint $table) {
             $table->tinyIncrements('id');
-            $table->string('name');
-            $table->json('value');
+            $table->string('key');
+            $table->json('name');
             $table->timestamps();
         });
 
-        foreach ($types as $name => $value) {
+        foreach ($types as $key => $name) {
             DB::table('award_recipient_types')->insert([
-                'name' => $name, 'value' => $value
+                'key' => $key, 'name' => $name
             ]);
         }
     }

@@ -9,33 +9,32 @@ use App\Models\BaseModel;
  *
  * @property int $id
  * @property string $title
- * @property int $recipient_type_id
+ * @property int $award_recipient_type_id
  * @property string $issued_by
- * @property int $recognition_type_id
+ * @property int $award_recognition_type_id
  * @property \Jenssegers\Date\Date $awarded_date
  * @property int $experienceable_id
  * @property string $experienceable_type
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
- * @property \Illuminate\Database\Eloquent\Collection $job_applications
  * @property \App\Models\Applicant|\App\Models\JobApplication $experienceable
  */
 class ExperienceAward extends BaseModel
 {
     protected $casts = [
         'title' => 'string',
-        'recipient_type_id' => 'int',
+        'award_recipient_type_id' => 'int',
         'issued_by' => 'string',
-        'recognition_type_id' => 'int',
+        'award_recognition_type_id' => 'int',
         'awarded_date' => 'date'
     ];
 
     protected $fillable = [
         'title',
-        'recipient_type_id',
+        'award_recipient_type_id',
         'issued_by',
-        'recognition_type_id',
+        'award_recognition_type_id',
         'awarded_date'
     ];
 
@@ -47,11 +46,6 @@ class ExperienceAward extends BaseModel
     public function award_recognition_type() //phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\AwardRecognitionType::class);
-    }
-
-    public function job_applications() //phpcs:ignore
-    {
-        return $this->belongsToMany(\App\Models\JobApplication::class);
     }
 
     public function experienceable() //phpcs:ignore

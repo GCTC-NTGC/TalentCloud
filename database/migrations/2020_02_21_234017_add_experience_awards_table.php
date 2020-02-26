@@ -16,21 +16,21 @@ class AddExperienceAwardsTable extends Migration
         Schema::create('experience_award', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
-            $table->integer('recipient_type_id')->unsigned();
+            $table->integer('award_recipient_type_id')->unsigned();
             $table->string('issued_by');
-            $table->integer('recognition_type_id')->unsigned();
+            $table->integer('award_recognition_type_id')->unsigned();
             $table->date('awarded_date')->nullable();
             $table->integer('experienceable_id')->unsigned()->index();
-            $table->string('experienceable_type')->nullable();
+            $table->string('experienceable_type');
             $table->timestamps();
 
-            $table->foreign('recipient_type_id')
+            $table->foreign('award_recipient_type_id')
                 ->references('id')
                 ->on('award_recipient_types')
                 ->onUpdate('CASCADE')
                 ->onDelete('NO ACTION');
 
-            $table->foreign('recognition_type_id')
+            $table->foreign('award_recognition_type_id')
                 ->references('id')
                 ->on('award_recognition_types')
                 ->onUpdate('CASCADE')

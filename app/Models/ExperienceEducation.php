@@ -11,7 +11,7 @@ use App\Models\BaseModel;
  * @property int $education_type_id
  * @property string $area_of_study
  * @property string $institution
- * @property int $status_type_id
+ * @property int $education_status_id
  * @property boolean $is_active
  * @property \Jenssegers\Date\Date $start_date
  * @property \Jenssegers\Date\Date $end_date
@@ -22,9 +22,8 @@ use App\Models\BaseModel;
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
- * @property \App\Models\Lookup\ExperienceEducationType $experience_education_type
- * @property \App\Models\Lookup\ExperienceEducationStatus $experience_education_status
- * @property \Illuminate\Database\Eloquent\Collection $job_applications
+ * @property \App\Models\Lookup\EducationType $education_type
+ * @property \App\Models\Lookup\EducationStatus $education_status
  * @property \App\Models\Applicant|\App\Models\JobApplication $experienceable
  */
 class ExperienceEducation extends BaseModel
@@ -33,7 +32,7 @@ class ExperienceEducation extends BaseModel
         'education_type_id' => 'int',
         'area_of_study' => 'string',
         'institution' => 'string',
-        'status_type_id' => 'int',
+        'education_status_id' => 'int',
         'is_active' => 'boolean',
         'start_date' => 'date',
         'end_date' => 'date',
@@ -45,7 +44,7 @@ class ExperienceEducation extends BaseModel
         'education_type_id',
         'area_of_study',
         'institution',
-        'status_type_id',
+        'education_status_id',
         'is_active',
         'start_date',
         'end_date',
@@ -61,11 +60,6 @@ class ExperienceEducation extends BaseModel
     public function education_status() //phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\EducationStatus::class);
-    }
-
-    public function job_applications() //phpcs:ignore
-    {
-        return $this->belongsToMany(\App\Models\JobApplication::class);
     }
 
     public function experienceable() //phpcs:ignore

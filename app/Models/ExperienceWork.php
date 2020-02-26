@@ -19,7 +19,6 @@ use App\Models\BaseModel;
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
- * @property \Illuminate\Database\Eloquent\Collection $job_applications
  * @property \App\Models\Applicant|\App\Models\JobApplication $experienceable
  */
 class ExperienceWork extends BaseModel
@@ -41,11 +40,6 @@ class ExperienceWork extends BaseModel
         'start_date',
         'end_date'
     ];
-
-    public function job_applications() //phpcs:ignore
-    {
-        return $this->belongsToMany(\App\Models\JobApplication::class);
-    }
 
     public function experienceable() //phpcs:ignore
     {

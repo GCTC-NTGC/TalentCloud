@@ -18,11 +18,11 @@ class AddExperienceCommunityTable extends Migration
             $table->string('title');
             $table->string('group');
             $table->string('project');
-            $table->boolean('is_active')->nullable();
+            $table->boolean('is_active')->default(false);
             $table->date('start_date');
             $table->date('end_date');
             $table->integer('experienceable_id')->unsigned()->index();
-            $table->string('experienceable_type')->nullable();
+            $table->string('experienceable_type');
             $table->timestamps();
         });
     }

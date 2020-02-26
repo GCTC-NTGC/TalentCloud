@@ -39,14 +39,14 @@ class AddExperienceEducationStatusTable extends Migration
 
         Schema::create('education_statuses', function (Blueprint $table) {
             $table->tinyIncrements('id');
-            $table->string('name');
-            $table->json('value');
+            $table->string('key');
+            $table->json('name');
             $table->timestamps();
         });
 
-        foreach ($statuses as $name => $value) {
+        foreach ($statuses as $key => $name) {
             DB::table('education_statuses')->insert([
-                'name' => $name, 'value' => $value
+                'key' => $key, 'name' => $name
             ]);
         }
     }

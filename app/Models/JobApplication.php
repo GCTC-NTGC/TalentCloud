@@ -57,7 +57,7 @@ use Illuminate\Notifications\Notifiable;
  * @property \Illuminate\Database\Eloquent\Collection $experiences_work
  * @property \Illuminate\Database\Eloquent\Collection $experiences_personal
  * @property \Illuminate\Database\Eloquent\Collection $experiences_education
- * @property \Illuminate\Database\Eloquent\Collection $experiences_awards
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_award
  * @property \Illuminate\Database\Eloquent\Collection $experiences_community
  */
 class JobApplication extends BaseModel
@@ -212,7 +212,7 @@ class JobApplication extends BaseModel
             ->orderBy('end_date', 'desc');
     }
 
-    public function experiences_awards() //phpcs:ignore
+    public function experiences_award() //phpcs:ignore
     {
         return $this->morphMany(\App\Models\ExperienceAward::class, 'experienceable');
     }
@@ -263,7 +263,8 @@ class JobApplication extends BaseModel
                 }
                 break;
             case 'preview':
-                if ($validator->basicsComplete($this) &&
+                if (
+                    $validator->basicsComplete($this) &&
                     $validator->experienceComplete($this) &&
                     $validator->essentialSkillsComplete($this) &&
                     $validator->assetSkillsComplete($this)
@@ -312,7 +313,8 @@ class JobApplication extends BaseModel
         $source = $this->isDraft() ? $this->applicant : $this;
         foreach ($essentialCriteria as $criterion) {
             $skillDeclaration = $source->skill_declarations->where('skill_id', $criterion->skill_id)->first();
-            if ($skillDeclaration === null ||
+            if (
+                $skillDeclaration === null ||
                 $skillDeclaration->skill_level_id < $criterion->skill_level_id
             ) {
                 return false;

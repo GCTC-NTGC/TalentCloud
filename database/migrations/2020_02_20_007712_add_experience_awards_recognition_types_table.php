@@ -47,14 +47,14 @@ class AddExperienceAwardsRecognitionTypesTable extends Migration
 
         Schema::create('award_recognition_types', function (Blueprint $table) {
             $table->tinyIncrements('id');
-            $table->string('name');
-            $table->json('value');
+            $table->string('key');
+            $table->json('name');
             $table->timestamps();
         });
 
-        foreach ($types as $name => $value) {
+        foreach ($types as $key => $name) {
             DB::table('award_recognition_types')->insert([
-                'name' => $name, 'value' => $value
+                'key' => $key, 'name' => $name
             ]);
         }
     }
