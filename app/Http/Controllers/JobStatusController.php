@@ -21,14 +21,13 @@ class JobStatusController extends Controller
         $from = $fromStatus->key;
 
         // Ensure state transition is legal.
-        if (!$transitionManager->userOwnsState($user, $from)) {
-            throw new StateMachineException(Lang::get('errors.user_must_own_status'));
-        }
         if (!$transitionManager->isLegalTransition($from, $to)) {
             throw new StateMachineException(Lang::get('errors.illegal_status_transition', [
                 'from' => $from,
                 'to' => $to,
             ]));
+        } elseif (!$transitionManager->userCanTransition($user, $from, $to)) {
+            throw new StateMachineException(Lang::get('errors.user_must_own_status'));
         }
 
         // Save new status on job.

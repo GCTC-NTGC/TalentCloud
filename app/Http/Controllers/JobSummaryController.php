@@ -64,53 +64,8 @@ class JobSummaryController extends Controller
             'disabled' => !$job->isClosed(),
         ];
 
-        # Determine translated job status label
-        switch ($job->job_poster_status->key) {
-            case 'draft':
-                $status = Lang::get('common/lookup/job_status.draft');
-                break;
-            case 'review_hr':
-                $status = Lang::get('common/lookup/job_status.review_hr');
-                break;
-            case 'review_manager':
-                $status = Lang::get('common/lookup/job_status.review_manager');
-                break;
-            case 'translation':
-                $status = Lang::get('common/lookup/job_status.in_translation');
-                break;
-            case 'final_review_manager':
-                $status = Lang::get('common/lookup/job_status.final_review_manager');
-                break;
-            case 'final_review_hr':
-                $status = Lang::get('common/lookup/job_status.final_review_hr');
-                break;
-            case 'pending_approval':
-                $status = Lang::get('common/lookup/job_status.pending_approval');
-                break;
-            case 'approved':
-                $status = Lang::get('common/lookup/job_status.approved');
-                break;
-            case 'published':
-                if ($job->isOpen()) {
-                    $status = Lang::get('common/lookup/job_status.open');
-                } elseif ($job->isClosed()) {
-                    $status = Lang::get('common/lookup/job_status.closed');
-                } else {
-                    $status = Lang::get('common/lookup/job_status.published');
-                }
-                break;
-            case 'completed':
-                $status = Lang::get('common/lookup/job_status.completed');
-                break;
-        }
-        // TODO: Need to add more descriptions for different statuses
-        $status_description =
-            ($job->job_poster_status->key === 'review_hr'
-                || $job->job_poster_status->key === 'review_manager'
-                || $job->job_poster_status->key === 'final_review_manager'
-                || $job->job_poster_status->key === 'final_review_hr')
-            ? $summaryLang['under_review']
-            : '';
+        $status = $job->job_poster_status->name;
+        $status_description = $job->job_poster_status->description;
 
         $portal = '';
         if (WhichPortal::isHrPortal()) {
@@ -119,10 +74,7 @@ class JobSummaryController extends Controller
             $portal = 'manager';
         }
 
-        // Determine available job-transition buttons
-        $statusRoute = WhichPortal::prefixRoute('jobs.setJobStatus');
         $transitionManager = new JobStatusTransitionManager();
-        $userOwnsState = $transitionManager->userOwnsState($user, $job->job_poster_status->key);
         $transitionToButton = function (JobPosterStatusTransition $transition) use ($user, $job, $transitionManager) {
             return [
                 'text' => $transition->name,
@@ -133,7 +85,7 @@ class JobSummaryController extends Controller
                 'style' => array_key_exists('button_style', $transition->metadata)
                     ? $transition->metadata['button_style']
                     : 'default',
-                'disabled' => $transitionManager->canTransition($user, $transition->from->key, $transition->to->key)
+                'disabled' => $transitionManager->userCanTransition($user, $transition->from->key, $transition->to->key)
             ];
         };
         $unclaimButton = [
@@ -147,8 +99,8 @@ class JobSummaryController extends Controller
 
         $buttonGroups = [];
 
-        $destinations = $transitionManager->legalDestinations($job->job_poster_status->key);
-        $transitionButtons = collect($buttonPerDestination)->only($destinations);
+        $transitionButtons = $transitionManager->legalTransitions($job->job_poster_status->key)
+            ->map($transitionToButton);
         array_push($buttonGroups, $transitionButtons);
 
         if (WhichPortal::isHrPortal()) {
