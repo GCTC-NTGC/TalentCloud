@@ -16,7 +16,7 @@ return [
         'government' => 'Information du gouvernement du Canada',
         'password' => 'Mot de passe',
         'two_factor' => 'Authentification à deux facteurs',
-        'delete' => ''
+        'delete' => 'Supprimez le compte'
     ],
     'personal_copy' => 'Cette information sert à vous identifier sur la plateforme.',
     'required' => 'Champs obligatoires',
@@ -73,10 +73,10 @@ return [
     'two_factor_off' => 'Désactivées',
     'forget_remembered_devices' => 'Oubliez tous les appareils de confiance.',
     'success_title' => 'Tout va bien.',
-    'danger_zone' => '',
-    'delete_alert_prefix' => '',
-    'delete_alert_suffix' => '',
-    'confirm_delete_label' => '',
-    'delete_placeholder' =>  '',
-    'delete_button' => '',
+    'danger_zone' => ' Zone de danger!',
+    'delete_alert_prefix' => 'Entrez votre adresse de courriel',
+    'delete_alert_suffix' => 'ci dessous pour confirmer que vous souhaitez supprimer définitivement votre compte du Nuage de talents.',
+    'confirm_delete_label' => 'Confirmez la suppression du compte',
+    'delete_placeholder' => 'Saisissez votre adresse de courriel pour activer le bouton Supprimer.',
+    'delete_button' => 'Supprimez le compte',
 ];

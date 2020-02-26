@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Applicant;
 use App\Services\Validation\Rules\PasswordCorrectRule;
 use App\Services\Validation\Rules\PasswordFormatRule;
 use Facades\App\Services\WhichPortal;
