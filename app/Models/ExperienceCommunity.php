@@ -41,6 +41,8 @@ class ExperienceCommunity extends BaseModel
         'end_date'
     ];
 
+    protected $table = ['experiences_community'];
+
     public function experienceable() //phpcs:ignore
     {
         return $this->morphTo();

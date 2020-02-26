@@ -13,7 +13,7 @@ class AddExperienceEducationTable extends Migration
      */
     public function up()
     {
-        Schema::create('experience_educations', function (Blueprint $table) {
+        Schema::create('experiences_education', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('education_type_id')->unsigned();
             $table->string('area_of_study');
@@ -49,6 +49,6 @@ class AddExperienceEducationTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('experience_educations');
+        Schema::dropIfExists('experiences_education');
     }
 }

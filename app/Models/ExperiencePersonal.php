@@ -41,6 +41,8 @@ class ExperiencePersonal extends BaseModel
         'end_date'
     ];
 
+    protected $table = ['experiences_personal'];
+
     public function experienceable() //phpcs:ignore
     {
         return $this->morphTo();

@@ -54,11 +54,11 @@ use Illuminate\Notifications\Notifiable;
  * @property \App\Models\JobApplicationVersion $job_application_version
  *
  * Version 2 application models.
- * @property \Illuminate\Database\Eloquent\Collection $experience_works
- * @property \Illuminate\Database\Eloquent\Collection $experience_personals
- * @property \Illuminate\Database\Eloquent\Collection $experience_educations
- * @property \Illuminate\Database\Eloquent\Collection $experience_awards
- * @property \Illuminate\Database\Eloquent\Collection $experience_communitys
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_work
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_personal
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_education
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_award
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_community
  */
 class JobApplication extends BaseModel
 {
@@ -194,30 +194,30 @@ class JobApplication extends BaseModel
     }
 
     // Version 2 application models.
-    public function experience_works() //phpcs:ignore
+    public function experiences_work() //phpcs:ignore
     {
         return $this->morphMany(\App\Models\ExperienceWork::class, 'experienceable')
             ->orderBy('end_date', 'desc');
     }
 
-    public function experience_personals() //phpcs:ignore
+    public function experiences_personal() //phpcs:ignore
     {
         return $this->morphMany(\App\Models\ExperiencePersonal::class, 'experienceable')
             ->orderBy('end_date', 'desc');
     }
 
-    public function experience_educations() //phpcs:ignore
+    public function experiences_education() //phpcs:ignore
     {
         return $this->morphMany(\App\Models\ExperienceEducation::class, 'experienceable')
             ->orderBy('end_date', 'desc');
     }
 
-    public function experience_awards() //phpcs:ignore
+    public function experiences_award() //phpcs:ignore
     {
         return $this->morphMany(\App\Models\ExperienceAward::class, 'experienceable');
     }
 
-    public function experience_communitys() //phpcs:ignore
+    public function experiences_community() //phpcs:ignore
     {
         return $this->morphMany(\App\Models\ExperienceCommunity::class, 'experienceable')
             ->orderBy('end_date', 'desc');
