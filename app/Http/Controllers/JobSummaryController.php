@@ -85,7 +85,7 @@ class JobSummaryController extends Controller
                 'style' => array_key_exists('button_style', $transition->metadata)
                     ? $transition->metadata['button_style']
                     : 'default',
-                'disabled' => $transitionManager->userCanTransition($user, $transition->from->key, $transition->to->key)
+                'disabled' => !$transitionManager->userCanTransition($user, $transition->from->key, $transition->to->key)
             ];
         };
         $unclaimButton = [
