@@ -49,39 +49,39 @@ class JobStatusTransitionManagerTest extends TestCase
     {
         $this->assertEqualsCanonicalizing(
             ['review_hr'],
-            $this->transitionManager->legalTransitions('draft')->pluck('key')->all()
+            $this->transitionManager->legalTransitions('draft')->pluck('to.key')->all()
         );
         $this->assertEqualsCanonicalizing(
             ['review_manager', 'translation'],
-            $this->transitionManager->legalTransitions('review_hr')->pluck('key')->all()
+            $this->transitionManager->legalTransitions('review_hr')->pluck('to.key')->all()
         );
         $this->assertEqualsCanonicalizing(
             ['review_hr'],
-            $this->transitionManager->legalTransitions('review_manager')->pluck('key')->all()
+            $this->transitionManager->legalTransitions('review_manager')->pluck('to.key')->all()
         );
         $this->assertEqualsCanonicalizing(
             ['final_review_manager'],
-            $this->transitionManager->legalTransitions('translation')->pluck('key')->all()
+            $this->transitionManager->legalTransitions('translation')->pluck('to.key')->all()
         );
         $this->assertEqualsCanonicalizing(
             ['final_review_hr', 'pending_approval'],
-            $this->transitionManager->legalTransitions('final_review_manager')->pluck('key')->all()
+            $this->transitionManager->legalTransitions('final_review_manager')->pluck('to.key')->all()
         );
         $this->assertEqualsCanonicalizing(
             ['translation', 'final_review_manager'],
-            $this->transitionManager->legalTransitions('final_review_hr')->pluck('key')->all()
+            $this->transitionManager->legalTransitions('final_review_hr')->pluck('to.key')->all()
         );
         $this->assertEqualsCanonicalizing(
             ['translation', 'final_review_manager', 'approved'],
-            $this->transitionManager->legalTransitions('pending_approval')->pluck('key')->all()
+            $this->transitionManager->legalTransitions('pending_approval')->pluck('to.key')->all()
         );
         $this->assertEqualsCanonicalizing(
             ['published'],
-            $this->transitionManager->legalTransitions('approved')->pluck('key')->all()
+            $this->transitionManager->legalTransitions('approved')->pluck('to.key')->all()
         );
         $this->assertEqualsCanonicalizing(
             ['completed'],
-            $this->transitionManager->legalTransitions('published')->pluck('key')->all()
+            $this->transitionManager->legalTransitions('published')->pluck('to.key')->all()
         );
         $this->assertEqualsCanonicalizing(
             [],
