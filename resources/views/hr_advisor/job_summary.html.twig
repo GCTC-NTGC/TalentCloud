@@ -91,16 +91,17 @@
 										<div aria-hidden="true" data-c-accordion-content data-c-padding="right(normal) left(normal)">
 											<div data-c-padding="bottom(normal)">
 												<p data-c-margin="top(.5)">
-													<span data-c-color="c2" data-c-font-weight="600">{{ summary.managers_label }}</span>
-                                                    {% if is_claimed %}
-                                                        <ul data-c-margin="top(.25)">
-                                                        {% for hr_advisor in hr_advisors %}
-                                                            <li>{{ hr_advisor.user.first_name }} {{ hr_advisor.user.last_name }}</li>
-                                                        {% endfor %}
-                                                        </ul>
-                                                    {% else %}
-                                                        {{ summary.not_applicable }}
-                                                    {% endif %}
+													<span data-c-color="c2" data-c-font-weight="600">{{ summary.hr_advisors_label }}</span>
+													{% if is_claimed or portal == 'manager' and hr_advisors|length > 0 %}
+														<ul data-c-margin="top(.25)">
+															{% for hr_advisor in hr_advisors %}
+																<li>{{ hr_advisor.user.first_name }}
+																	{{ hr_advisor.user.last_name }}</li>
+															{% endfor %}
+														</ul>
+													{% else %}
+														{{ summary.no_hr_advisors }}
+													{% endif %}
 												</p>
 												<p data-c-margin="top(.5)">
 													<span data-c-color="c2" data-c-font-weight="600">{{ summary.process_label }}</span>

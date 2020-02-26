@@ -6,9 +6,8 @@
     It requires the /js/managerRegistration.js script in order to function properly.
 
 ============================================================================= #}
-{% set visibility = "hidden" %}
-
 <div data-c-grid-item="base(1of1)" data-c-input="select">
+	{% set visibility = "hidden" %}
 	<label for="department">
 		{{ copy.department }}
 	</label>
@@ -16,13 +15,13 @@
 	<div>
 		<i class="fa fa-caret-down"></i>
 		<select id="department" name="department" required>
-			<option selected value="" disabled>{{ copy.department_null_selection }}</option>
-			{% if not '/hr/' in url %}
+			<option {% if user.department_id == null %} selected {% endif %} value="" disabled>{{ copy.department_null_selection }}</option>
+			{% if not_in_gov_option %}
 				<option value="{{ not_in_gov_option.value }}">{{ not_in_gov_option.name }}</option>
 			{% endif %}
 			{% for dept in departments %}
-				{% if old('department') == dept.id %}
-				{% set visibility = "visible" %}
+				{% if user.department_id == dept.id or old('department') == dept.id %}
+					{% set visibility = "visible" %}
 					<option selected value="{{ dept.id }}">{{ dept.name }}</option>
 				{% else %}
 					<option value="{{ dept.id }}">{{ dept.name }}</option>
@@ -33,11 +32,11 @@
 	<span>{{ trans('forms.error') }}</span>
 </div>
 {# gov_email is hidden and not-required, until the managerRegistration script unhides it. #}
-<div id="gov_email_wrapper" data-c-visibility={{visibility}} data-c-grid-item="base(1of1)" data-c-input="email">
+<div id="gov_email_wrapper" data-c-visibility={{ visibility }} data-c-grid-item="base(1of1)" data-c-input="email">
 	<label for="gov_email">{{ copy.gov_email }}</label>
 	<span>{{ trans('forms.required') }}</span>
 	<div>
-		<input id="gov_email" name="gov_email" type="email" value="{{ old('gov_email') }}"/>
+		<input id="gov_email" name="gov_email" type="email" value="{{ user.gov_email ?: old('gov_email') }}"/>
 	</div>
 	<span>{{ trans('forms.error') }}</span>
 </div>
