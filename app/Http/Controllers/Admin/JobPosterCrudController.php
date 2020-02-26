@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Lookup\Department;
 use App\Models\Lookup\JobPosterStatus;
-use App\Services\JobStatusTransitions;
+use App\Services\JobStatusTransitionManager;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Illuminate\Support\Facades\App;
 
@@ -231,9 +231,9 @@ class JobPosterCrudController extends CrudController
             'label' => 'Internal Only (Do not list this poster on the Browse Jobs page. You must access it with the direct URL.)',
         ]);
 
-        $transitions = new JobStatusTransitions();
+        $transitionManager = new JobStatusTransitionManager();
         $job = $this->crud->getCurrentEntry();
-        $legalDestinations = $transitions->legalDestinations($job->job_poster_status->key);
+        $legalDestinations = $transitionManager->legalDestinations($job->job_poster_status->key);
         $validStatuses = JobPosterStatus::all()->filter(function ($status) use ($job, $legalDestinations) {
             return in_array($status->key, $legalDestinations) || $status->id === $job->job_poster_status_id;
         });

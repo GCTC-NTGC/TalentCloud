@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\User;
 
-class JobStatusTransitions
+class JobStatusTransitionManager
 {
     protected $transition_graph = [
         'states' => [
@@ -88,6 +88,21 @@ class JobStatusTransitions
             ]
         ]
     ];
+
+    /**
+     * The list of all status transitions.
+     *
+     * @var [type]
+     */
+    private $status_transitions = null;
+
+    protected function transitions()
+    {
+        if ($this->status_transitions == null)
+        {
+            $this->status_transitions = JobStatusTr
+        }
+    }
 
     public function states()
     {

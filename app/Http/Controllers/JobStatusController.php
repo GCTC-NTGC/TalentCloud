@@ -6,7 +6,7 @@ use App\Exceptions\StateMachineException;
 use App\Models\JobPoster;
 use App\Http\Resources\JobPoster as JobPosterResource;
 use App\Models\Lookup\JobPosterStatus;
-use App\Services\JobStatusTransitions;
+use App\Services\JobStatusTransitionManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 
@@ -14,17 +14,17 @@ class JobStatusController extends Controller
 {
     protected function transitionJobStatus(Request $request, JobPoster $job, string $to)
     {
-        $transitions = new JobStatusTransitions();
+        $transitionManager = new JobStatusTransitionManager();
 
         $user = $request->user();
         $fromStatus = $job->job_poster_status;
         $from = $fromStatus->key;
 
         // Ensure state transition is legal.
-        if (!$transitions->userOwnsState($user, $from)) {
+        if (!$transitionManager->userOwnsState($user, $from)) {
             throw new StateMachineException(Lang::get('errors.user_must_own_status'));
         }
-        if (!$transitions->isLegalTransition($from, $to)) {
+        if (!$transitionManager->isLegalTransition($from, $to)) {
             throw new StateMachineException(Lang::get('errors.illegal_status_transition', [
                 'from' => $from,
                 'to' => $to,

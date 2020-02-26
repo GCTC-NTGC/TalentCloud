@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\JobPoster;
-use App\Services\JobStatusTransitions;
+use App\Models\Lookup\JobPosterStatusTransition;
+use App\Services\JobStatusTransitionManager;
 use Facades\App\Services\WhichPortal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -120,65 +121,21 @@ class JobSummaryController extends Controller
 
         // Determine available job-transition buttons
         $statusRoute = WhichPortal::prefixRoute('jobs.setJobStatus');
-        $transitions = new JobStatusTransitions();
-        $userOwnsState = $transitions->userOwnsState($user, $job->job_poster_status->key);
-        $buttonPerDestination = [
-            // 'draft' => [],
-            'review_hr' => [
-                'text' => 'Send to HR',
-                'url' => route($statusRoute, ['jobPoster' => $job, 'status' => 'review_hr']),
-                'style' => 'default',
-                'disabled' => !$userOwnsState,
-            ],
-            'review_manager' => [
-                'text' => 'Send to Manager',
-                'url' => route($statusRoute, ['jobPoster' => $job, 'status' => 'review_manager']),
-                'style' => 'default',
-                'disabled' => !$userOwnsState,
-            ],
-            'translation' => [
-                'text' => 'Send to Translation',
-                'url' => route($statusRoute, ['jobPoster' => $job, 'status' => 'translation']),
-                'style' => 'go',
-                'disabled' => !$userOwnsState,
-            ],
-            'final_review_manager' => [
-                'text' => 'Send to Manager for Final Review',
-                'url' => route($statusRoute, ['jobPoster' => $job, 'status' => 'final_review_manager']),
-                'style' => 'default',
-                'disabled' => !$userOwnsState,
-            ],
-            'final_review_hr' => [
-                'text' => 'Send to HR',
-                'url' => route($statusRoute, ['jobPoster' => $job, 'status' => 'final_review_hr']),
-                'style' => 'default',
-                'disabled' => !$userOwnsState,
-            ],
-            'pending_approval' => [
-                'text' => 'Submit for Approval',
-                'url' => route($statusRoute, ['jobPoster' => $job, 'status' => 'pending_approval']),
-                'style' => 'go',
-                'disabled' => !$userOwnsState,
-            ],
-            'approved' => [
-                'text' => 'Approve',
-                'url' => route($statusRoute, ['jobPoster' => $job, 'status' => 'approved']),
-                'style' => 'go',
-                'disabled' => !$userOwnsState,
-            ],
-            'published' => [
-                'text' => 'Publish',
-                'url' => route($statusRoute, ['jobPoster' => $job, 'status' => 'published']),
-                'style' => 'go',
-                'disabled' => !$userOwnsState,
-            ],
-            'completed' => [
-                'text' => 'Complete',
-                'url' => route($statusRoute, ['jobPoster' => $job, 'status' => 'completed']),
-                'style' => 'go',
-                'disabled' => !$userOwnsState,
-            ],
-        ];
+        $transitionManager = new JobStatusTransitionManager();
+        $userOwnsState = $transitionManager->userOwnsState($user, $job->job_poster_status->key);
+        $transitionToButton = function (JobPosterStatusTransition $transition) use ($user, $job, $transitionManager) {
+            return [
+                'text' => $transition->name,
+                'url' => route(WhichPortal::prefixRoute('jobs.setJobStatus'), [
+                    'jobPoster' => $job,
+                    'status' => $transition->to->key
+                ]),
+                'style' => array_key_exists('button_style', $transition->metadata)
+                    ? $transition->metadata['button_style']
+                    : 'default',
+                'disabled' => $transitionManager->canTransition($user, $transition->from->key, $transition->to->key)
+            ];
+        };
         $unclaimButton = [
             'unclaim_job' => [
                 'text' => Lang::get('hr_advisor/job_summary.relinquish_button'),
@@ -190,7 +147,7 @@ class JobSummaryController extends Controller
 
         $buttonGroups = [];
 
-        $destinations = $transitions->legalDestinations($job->job_poster_status->key);
+        $destinations = $transitionManager->legalDestinations($job->job_poster_status->key);
         $transitionButtons = collect($buttonPerDestination)->only($destinations);
         array_push($buttonGroups, $transitionButtons);
 

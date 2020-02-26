@@ -4,12 +4,12 @@ namespace Tests\Unit;
 
 use App\Models\Lookup\JobPosterStatus;
 use App\Models\User;
-use App\Services\JobStatusTransitions;
+use App\Services\JobStatusTransitionManager;
 use Tests\TestCase;
 
 class JobStatusTransitionsTest extends TestCase
 {
-    protected $transitions;
+    protected $transitionManager;
 
     /**
      * Run parent setup and provide reusable factories.
@@ -20,20 +20,20 @@ class JobStatusTransitionsTest extends TestCase
     {
         parent::setUp();
 
-        $this->transitions = new JobStatusTransitions();
+        $this->transitionManager = new JobStatusTransitionManager();
     }
 
     public function testStates(): void
     {
         $states = JobPosterStatus::all()->pluck('key')->all();
-        $this->assertEqualsCanonicalizing($states, $this->transitions->states());
+        $this->assertEqualsCanonicalizing($states, $this->transitionManager->states());
     }
 
     public function testStateMetadata(): void
     {
-        $this->assertEquals(['owner' => 'manager'], $this->transitions->stateMetadata('draft'));
-        $this->assertEquals(['owner' => 'hr'], $this->transitions->stateMetadata('review_hr'));
-        $this->assertEquals(['owner' => 'admin'], $this->transitions->stateMetadata('translation'));
+        $this->assertEquals(['owner' => 'manager'], $this->transitionManager->stateMetadata('draft'));
+        $this->assertEquals(['owner' => 'hr'], $this->transitionManager->stateMetadata('review_hr'));
+        $this->assertEquals(['owner' => 'admin'], $this->transitionManager->stateMetadata('translation'));
     }
 
     public function testIsLegalTransition(): void
@@ -57,16 +57,16 @@ class JobStatusTransitionsTest extends TestCase
 
     public function testLegalDestinations(): void
     {
-        $this->assertEqualsCanonicalizing(['review_hr'], $this->transitions->legalDestinations('draft'));
-        $this->assertEqualsCanonicalizing(['review_manager', 'translation'], $this->transitions->legalDestinations('review_hr'));
-        $this->assertEqualsCanonicalizing(['review_hr'], $this->transitions->legalDestinations('review_manager'));
-        $this->assertEqualsCanonicalizing(['final_review_manager'], $this->transitions->legalDestinations('translation'));
-        $this->assertEqualsCanonicalizing(['final_review_hr', 'pending_approval'], $this->transitions->legalDestinations('final_review_manager'));
-        $this->assertEqualsCanonicalizing(['translation', 'final_review_manager'], $this->transitions->legalDestinations('final_review_hr'));
-        $this->assertEqualsCanonicalizing(['translation', 'final_review_manager', 'approved'], $this->transitions->legalDestinations('pending_approval'));
-        $this->assertEqualsCanonicalizing(['published'], $this->transitions->legalDestinations('approved'));
-        $this->assertEqualsCanonicalizing(['completed'], $this->transitions->legalDestinations('published'));
-        $this->assertEqualsCanonicalizing([], $this->transitions->legalDestinations('completed'));
+        $this->assertEqualsCanonicalizing(['review_hr'], $this->transitionManager->legalDestinations('draft'));
+        $this->assertEqualsCanonicalizing(['review_manager', 'translation'], $this->transitionManager->legalDestinations('review_hr'));
+        $this->assertEqualsCanonicalizing(['review_hr'], $this->transitionManager->legalDestinations('review_manager'));
+        $this->assertEqualsCanonicalizing(['final_review_manager'], $this->transitionManager->legalDestinations('translation'));
+        $this->assertEqualsCanonicalizing(['final_review_hr', 'pending_approval'], $this->transitionManager->legalDestinations('final_review_manager'));
+        $this->assertEqualsCanonicalizing(['translation', 'final_review_manager'], $this->transitionManager->legalDestinations('final_review_hr'));
+        $this->assertEqualsCanonicalizing(['translation', 'final_review_manager', 'approved'], $this->transitionManager->legalDestinations('pending_approval'));
+        $this->assertEqualsCanonicalizing(['published'], $this->transitionManager->legalDestinations('approved'));
+        $this->assertEqualsCanonicalizing(['completed'], $this->transitionManager->legalDestinations('published'));
+        $this->assertEqualsCanonicalizing([], $this->transitionManager->legalDestinations('completed'));
     }
 
     public function testUserOwnsState(): void
