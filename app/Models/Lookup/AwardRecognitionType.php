@@ -27,6 +27,6 @@ class AwardRecognitionType extends BaseModel
 
     public function experiences_awards() //phpcs:ignore
     {
-        return $this->hasMany(\App\Models\ExperienceAwards::class);
+        return $this->hasMany(\App\Models\ExperienceAward::class);
     }
 }

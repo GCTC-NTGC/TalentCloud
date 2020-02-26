@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Models\BaseModel;
 
 /**
- * Class ExperienceAwards
+ * Class ExperienceAward
  *
  * @property int $id
  * @property string $title
@@ -21,7 +21,7 @@ use App\Models\BaseModel;
  * @property \Illuminate\Database\Eloquent\Collection $job_applications
  * @property \App\Models\Applicant|\App\Models\JobApplication $awards_experienceable
  */
-class ExperienceAwards extends BaseModel
+class ExperienceAward extends BaseModel
 {
     protected $casts = [
         'title' => 'string',

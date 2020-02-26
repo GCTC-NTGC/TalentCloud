@@ -140,7 +140,7 @@ class Applicant extends BaseModel
 
     public function experiences_awards() //phpcs:ignore
     {
-        return $this->morphMany(\App\Models\ExperienceAwards::class, 'awards_experienceable');
+        return $this->morphMany(\App\Models\ExperienceAward::class, 'awards_experienceable');
     }
 
     public function experiences_community() //phpcs:ignore
