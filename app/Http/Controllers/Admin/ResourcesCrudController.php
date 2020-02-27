@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\ResourceCrudRequest;
+use App\Http\Requests\UpdateResourceCrudRequest;
+use App\Http\Requests\StoreResourceCrudRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Illuminate\Support\Facades\App;
 
@@ -25,6 +26,21 @@ class ResourcesCrudController extends CrudController
         $this->crud->setModel('App\Models\Resource');
         $this->crud->setRoute('admin/resource');
         $this->crud->setEntityNameStrings('resource', 'resources');
+
+        $this->crud->operation(['create', 'update'], function () {
+            $this->crud->addField([
+                'name' => 'name',
+                'type' => 'text',
+                'label' => 'Title',
+            ]);
+
+            $this->crud->addField([
+                'name' => 'file',
+                'label' => 'File',
+                'type' => 'upload',
+                'upload' => true,
+            ]);
+        });
     }
 
     /**
@@ -68,20 +84,7 @@ class ResourcesCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        $this->crud->setValidation(ResourceCrudRequest::class);
-
-        $this->crud->addField([
-            'name' => 'name',
-            'type' => 'text',
-            'label' => 'Title',
-        ]);
-
-        $this->crud->addField([
-            'name' => 'file',
-            'label' => 'File',
-            'type' => 'upload',
-            'upload' => true,
-        ]);
+        $this->crud->setValidation(StoreResourceCrudRequest::class);
     }
 
     /**
@@ -91,6 +94,6 @@ class ResourcesCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+        $this->crud->setValidation(UpdateResourceCrudRequest::class);
     }
 }
