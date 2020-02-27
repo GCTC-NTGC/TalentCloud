@@ -11,16 +11,32 @@
     <div data-c-grid="gutter(all, 1)">
         <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(left)">
             {% if step == 1 %}
+            {% elseif step == 3 %}
+                <a
+                    href="/demo/application-02"
+                    data-c-button="outline(c1)"
+                    data-c-radius="rounded"
+                    type="button">
+                    <span>
+                        Return to Previous Step
+                    </span>
+                </a>
+            {% elseif step == 5 %}
+                <a
+                    href="/demo/application-04"
+                    data-c-button="outline(c1)"
+                    data-c-radius="rounded"
+                    type="button">
+                    <span>
+                        Return to Previous Step
+                    </span>
+                </a>
             {% else %}
                 <a
                     {% if step == 2 %}
-                    href="/demo/application-01"
-                    {% elseif step == 3 %}
-                        href="/demo/application-02"
+                        href="/demo/application-01"
                     {% elseif step == 4 %}
                         href="/demo/application-03"
-                    {% elseif step == 5 %}
-                        href="/demo/application-04"
                     {% elseif step == 6 %}
                         href="/demo/application-05"
                     {% elseif step == 7 %}
@@ -48,31 +64,49 @@
                     Save &amp; Quit
                 </span>
             </a>
-            <a
-                {% if step == 1 %}
-                    href="/demo/application-02"
-                {% elseif step == 2 %}
-                    href="/demo/application-03"
-                {% elseif step == 3 %}
+            {% if step == 3 %}
+                <a
                     href="/demo/application-04"
-                {% elseif step == 4 %}
-                    href="/demo/application-05"
-                {% elseif step == 5 %}
+                    data-c-button="solid(c1)"
+                    data-c-radius="rounded"
+                    type="button">
+                    <span>
+                        Continue to the Next Step
+                    </span>
+                </a>
+            {% elseif step == 5 %}
+                <a
                     href="/demo/application-06"
-                {% elseif step == 6 %}
-                    href="/demo/application-07"
-                {% elseif step == 7 %}
-                    href="/demo/application-08"
-                {% elseif step == 8 %}
-                    href="/demo/application-09"
-                {% endif %}
-                data-c-button="solid(c1)"
-                data-c-radius="rounded"
-                type="button">
-                <span>
-                    Save &amp; Continue
-                </span>
-            </a>
+                    data-c-button="solid(c1)"
+                    data-c-radius="rounded"
+                    type="button">
+                    <span>
+                        Continue to the Next Step
+                    </span>
+                </a>
+            {% else %}
+                <a
+                    {% if step == 1 %}
+                        href="/demo/application-02"
+                    {% elseif step == 2 %}
+                        href="/demo/application-03"
+                    {% elseif step == 4 %}
+                        href="/demo/application-05"
+                    {% elseif step == 6 %}
+                        href="/demo/application-07"
+                    {% elseif step == 7 %}
+                        href="/demo/application-08"
+                    {% elseif step == 8 %}
+                        href="/demo/application-09"
+                    {% endif %}
+                    data-c-button="solid(c1)"
+                    data-c-radius="rounded"
+                    type="button">
+                    <span>
+                        Save &amp; Continue
+                    </span>
+                </a>
+            {% endif %}
         </div>
     </div>
 </div>

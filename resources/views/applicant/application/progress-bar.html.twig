@@ -27,88 +27,115 @@
     {% set stepName = "Step 6/6" %}
 {% endif %}
 
+{# Couple notes about this progress bar:
+- the "fa-circle" should appear on the active step
+- the "fa-check-circle" should appear on steps that are validated as being complete with no errors
+- the "fa-exclamation-circle" should appear on steps that are validated as having errors
+- the "fa-circle" (grey) should appear on steps that are not yet reached
+
+I'm controlling this based on the "data-status" attribute on the li element.
+
+It's also important to note that the user should NOT be able to click forward through this process, however they SHOULD be able to return to steps they have already reached. This means that they sould be able to go backwards, and subsequently, they should be able to go forward back to the furthest point they have reached. #}
+
 <div data-c-background="black(100)" data-c-padding="tb(1)">
     <div data-c-container="large">
         <div data-c-grid="gutter(all, 1)">
             <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(left)">
                 <span data-c-color="white">{{ stepName }}</span>
                 <ul class="applicant-application-progress-bar">
-                    <li>
+                    {# These li elements can have a status of:
+                    - default
+                    - complete
+                    - error
+                    - current #}
+                    <li
+                        {% if step == 2 %}
+                            data-status="current"
+                        {% elseif step > 2 %}
+                            data-status="complete"
+                        {% else %}
+                            data-status="default"
+                        {% endif %}>
                         <a href="/demo/application-02" title="">
-                            {% if step == 2 %}
-                                <i class="far fa-circle" data-c-color="white"></i>
-                            {% else %}
-                                {% if step > 2 %}
-                                    <i class="fas fa-check-circle" data-c-color="go"></i>
-                                {% else %}
-                                    <i class="fas fa-circle" data-c-color="grey"></i>
-                                {% endif %}
-                            {% endif %}
+                            <i class="far fa-circle" data-c-color="white"></i>
+                            <i class="fas fa-check-circle" data-c-color="go"></i>
+                            <i class="fas fa-exclamation-circle" data-c-color="stop"></i>
+                            <i class="fas fa-circle" data-c-color="grey"></i>
                         </a>
                     </li>
-                    <li>
+                    <li
+                        {% if step == 3 or step == 4 %}
+                            data-status="current"
+                        {% elseif step > 4 %}
+                            data-status="complete"
+                        {% else %}
+                            data-status="default"
+                        {% endif %}>
                         <a href="/demo/application-04" title="">
-                            {% if step == 3 or step == 4 %}
-                                <i class="far fa-circle" data-c-color="white"></i>
-                            {% else %}
-                                {% if step > 4 %}
-                                    <i class="fas fa-check-circle" data-c-color="go"></i>
-                                {% else %}
-                                    <i class="fas fa-circle" data-c-color="grey"></i>
-                                {% endif %}
-                            {% endif %}
+                            <i class="far fa-circle" data-c-color="white"></i>
+                            <i class="fas fa-check-circle" data-c-color="go"></i>
+                            <i class="fas fa-exclamation-circle" data-c-color="stop"></i>
+                            <i class="fas fa-circle" data-c-color="grey"></i>
                         </a>
                     </li>
-                    <li>
+                    <li
+                        {% if step == 5 or step == 6 %}
+                            data-status="current"
+                        {% elseif step > 6 %}
+                            data-status="complete"
+                        {% else %}
+                            data-status="default"
+                        {% endif %}>
                         <a href="/demo/application-06" title="">
-                            {% if step == 5 or step == 6 %}
-                                <i class="far fa-circle" data-c-color="white"></i>
-                            {% else %}
-                                {% if step > 6 %}
-                                    <i class="fas fa-check-circle" data-c-color="go"></i>
-                                {% else %}
-                                    <i class="fas fa-circle" data-c-color="grey"></i>
-                                {% endif %}
-                            {% endif %}
+                            <i class="far fa-circle" data-c-color="white"></i>
+                            <i class="fas fa-check-circle" data-c-color="go"></i>
+                            <i class="fas fa-exclamation-circle" data-c-color="stop"></i>
+                            <i class="fas fa-circle" data-c-color="grey"></i>
                         </a>
                     </li>
-                    <li>
-                        <a href="/demo/application-07" title="">
-                            {% if step == 7 %}
-                                <i class="far fa-circle" data-c-color="white"></i>
-                            {% else %}
-                                {% if step > 7 %}
-                                    <i class="fas fa-check-circle" data-c-color="go"></i>
-                                {% else %}
-                                    <i class="fas fa-circle" data-c-color="grey"></i>
-                                {% endif %}
-                            {% endif %}
+                    <li
+                        {% if step == 7 %}
+                            data-status="current"
+                        {% elseif step > 7 %}
+                            data-status="complete"
+                        {% else %}
+                            data-status="default"
+                        {% endif %}>
+                        <a href="/demo/application-04" title="">
+                            <i class="far fa-circle" data-c-color="white"></i>
+                            <i class="fas fa-check-circle" data-c-color="go"></i>
+                            <i class="fas fa-exclamation-circle" data-c-color="stop"></i>
+                            <i class="fas fa-circle" data-c-color="grey"></i>
                         </a>
                     </li>
-                    <li>
-                        <a href="/demo/application-08" title="">
-                            {% if step == 8 %}
-                                <i class="far fa-circle" data-c-color="white"></i>
-                            {% else %}
-                                {% if step > 8 %}
-                                    <i class="fas fa-check-circle" data-c-color="go"></i>
-                                {% else %}
-                                    <i class="fas fa-circle" data-c-color="grey"></i>
-                                {% endif %}
-                            {% endif %}
+                    <li
+                        {% if step == 8 %}
+                            data-status="current"
+                        {% elseif step > 8 %}
+                            data-status="complete"
+                        {% else %}
+                            data-status="default"
+                        {% endif %}>
+                        <a href="/demo/application-04" title="">
+                            <i class="far fa-circle" data-c-color="white"></i>
+                            <i class="fas fa-check-circle" data-c-color="go"></i>
+                            <i class="fas fa-exclamation-circle" data-c-color="stop"></i>
+                            <i class="fas fa-circle" data-c-color="grey"></i>
                         </a>
                     </li>
-                    <li>
-                        <a href="/demo/application-09" title="">
-                            {% if step == 9 %}
-                                <i class="far fa-circle" data-c-color="white"></i>
-                            {% else %}
-                                {% if step > 9 %}
-                                    <i class="fas fa-check-circle" data-c-color="go"></i>
-                                {% else %}
-                                    <i class="fas fa-circle" data-c-color="grey"></i>
-                                {% endif %}
-                            {% endif %}
+                    <li
+                        {% if step == 9 %}
+                            data-status="current"
+                        {% elseif step > 9 %}
+                            data-status="complete"
+                        {% else %}
+                            data-status="default"
+                        {% endif %}>
+                        <a href="/demo/application-04" title="">
+                            <i class="far fa-circle" data-c-color="white"></i>
+                            <i class="fas fa-check-circle" data-c-color="go"></i>
+                            <i class="fas fa-exclamation-circle" data-c-color="stop"></i>
+                            <i class="fas fa-circle" data-c-color="grey"></i>
                         </a>
                     </li>
                 </ul>

@@ -13,5 +13,61 @@
                 }
             }
         }
+        &[data-status="default"] {
+            .fas.fa-circle {
+                display: inline-block;
+            }
+            .fas.fa-check-circle {
+                display: none;
+            }
+            .fas.fa-exclamation-circle {
+                display: none;
+            }
+            .far.fa-circle {
+                display: none;
+            }
+        }
+        &[data-status="complete"] {
+            .fas.fa-circle {
+                display: none;
+            }
+            .fas.fa-check-circle {
+                display: inline-block;
+            }
+            .fas.fa-exclamation-circle {
+                display: none;
+            }
+            .far.fa-circle {
+                display: none;
+            }
+        }
+        &[data-status="error"] {
+            .fas.fa-circle {
+                display: none;
+            }
+            .fas.fa-check-circle {
+                display: none;
+            }
+            .fas.fa-exclamation-circle {
+                display: inline-block;
+            }
+            .far.fa-circle {
+                display: none;
+            }
+        }
+        &[data-status="current"] {
+            .fas.fa-circle {
+                display: none;
+            }
+            .fas.fa-check-circle {
+                display: none;
+            }
+            .fas.fa-exclamation-circle {
+                display: none;
+            }
+            .far.fa-circle {
+                display: inline-block;
+            }
+        }
     }
 }
