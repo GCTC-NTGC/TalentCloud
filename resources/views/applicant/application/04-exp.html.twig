@@ -11,7 +11,7 @@
 {% extends "layouts/base-test" %}
 {# HTML Page Title #}
 {% block title %}
-	Apply Now: Welcome
+	Apply Now: My Experience
 {% endblock %}
 {# Page Header #}
 {% block header %}
@@ -27,7 +27,7 @@
             <p data-c-margin="bottom(1)">As you create each of your experiences, we're going to ask you to associate that experience with one or more of the skills required for this job. As a refresher, we've outlined them for you below:</p>
             <div data-c-grid="gutter(all, 1)">
                 <div data-c-grid-item="tl(1of2)">
-                    <p data-c-margin="bottom(1)">This job <span data-c-font-weight="bold" data-c-color="c2">requires</span> the following skills:</p>
+                    <p data-c-margin="bottom(.5)">This job <span data-c-font-weight="bold" data-c-color="c2">requires</span> the following skills:</p>
                     <ul data-c-margin="bottom(1)">
                         <li>Essential Skill 1</li>
                         <li>Essential Skill 2</li>
@@ -37,7 +37,7 @@
                     </ul>
                 </div>
                 <div data-c-grid-item="tl(1of2)">
-                    <p data-c-margin="bottom(1)">These skills are beneficial, but not required:</p>
+                    <p data-c-margin="bottom(.5)">These skills are beneficial, but not required:</p>
                     <ul data-c-margin="bottom(1)">
                         <li>Asset Skill 1</li>
                         <li>Asset Skill 2</li>
@@ -45,51 +45,52 @@
                     </ul>
                 </div>
             </div>
+            <p data-c-color="gray">Don't forget, <span data-c-font-weight="bold">Collaboration</span>, and <span data-c-font-weight="bold">Networking</span> will be evaluated later in the hiring process.</p>
+            <div data-c-alert="information" data-c-radius="rounded" role="alert" data-c-margin="top(2) bottom(2)">
+                <div data-c-padding=".5">
+                    <!-- This title/icon is optional. -->
+                    <p data-c-margin="bottom(.25)" data-c-font-weight="bold">
+                        <i aria-hidden="true" class="fas fa-exclamation-circle"></i>
+                        Did You Know?
+                    </p>
+                    <p>
+                        <span data-c-font-weight="bold">Experiences that are not related to skills required for this job will not be sent as a part of your application.</span> This is to help keep your application as concise and focused as possible. That being said, any experience you do add on this page will be saved on your profile for use on future applications!
+                    </p>
+                </div>
+            </div>
             <div data-c-grid="gutter(all, 1)">
                 <div data-c-grid-item="base(1of2) tp(1of3) tl(1of5)">
-                    <button class="application-experience-trigger" data-c-card data-c-background="c1(100)" data-c-radius="rounded" title="Add Education Experience">
+                    <button class="application-experience-trigger" data-c-card data-c-background="c1(100)" data-c-radius="rounded" title="Add Education Experience" data-c-dialog-id="education-dialog" data-c-dialog-action="open" type="button">
                         <i class="fas fa-book"></i>
-                        <span data-c-font-size="regular" data-c-font-weight="bold" data-c-font-style="underline">Add Education Experience</span>
+                        <span data-c-font-size="regular" data-c-font-weight="bold">Add Education Experience</span>
                     </button>
                 </div>
                 <div data-c-grid-item="base(1of2) tp(1of3) tl(1of5)">
-                    <button class="application-experience-trigger" data-c-card data-c-background="c1(100)" data-c-radius="rounded" title="Add Work Experience">
+                    <button class="application-experience-trigger" data-c-card data-c-background="c1(100)" data-c-radius="rounded" title="Add Work Experience" data-c-dialog-id="work-dialog" data-c-dialog-action="open" type="button">
                         <i class="fas fa-briefcase"></i>
-                        <span data-c-font-size="regular" data-c-font-weight="bold" data-c-font-style="underline">Add Work Experience</span>
+                        <span data-c-font-size="regular" data-c-font-weight="bold">Add Work Experience</span>
                     </button>
                 </div>
                 <div data-c-grid-item="base(1of2) tp(1of3) tl(1of5)">
-                    <button class="application-experience-trigger" data-c-card data-c-background="c1(100)" data-c-radius="rounded" title="Add Community Experience">
+                    <button class="application-experience-trigger" data-c-card data-c-background="c1(100)" data-c-radius="rounded" title="Add Community Experience" data-c-dialog-id="community-dialog" data-c-dialog-action="open" type="button">
                         <i class="fas fa-people-carry"></i>
-                        <span data-c-font-size="regular" data-c-font-weight="bold" data-c-font-style="underline">Add Community Experience</span>
+                        <span data-c-font-size="regular" data-c-font-weight="bold">Add Community Experience</span>
                     </button>
                 </div>
                 <div data-c-grid-item="base(1of2) tp(1of3) tl(1of5)">
-                    <button class="application-experience-trigger" data-c-card data-c-background="c1(100)" data-c-radius="rounded" title="Add Personal Experience">
+                    <button class="application-experience-trigger" data-c-card data-c-background="c1(100)" data-c-radius="rounded" title="Add Personal Experience" data-c-dialog-id="personal-dialog" data-c-dialog-action="open" type="button">
                         <i class="fas fa-mountain"></i>
-                        <span data-c-font-size="regular" data-c-font-weight="bold" data-c-font-style="underline">Add Personal Experience</span>
+                        <span data-c-font-size="regular" data-c-font-weight="bold">Add Personal Experience</span>
                     </button>
                 </div>
                 <div data-c-grid-item="base(1of2) tp(1of3) tl(1of5)">
-                    <button class="application-experience-trigger" data-c-card data-c-background="c1(100)" data-c-radius="rounded" title="Add an Award">
+                    <button class="application-experience-trigger" data-c-card data-c-background="c1(100)" data-c-radius="rounded" title="Add an Award" data-c-dialog-id="award-dialog" data-c-dialog-action="open" type="button">
                         <i class="fas fa-trophy"></i>
-                        <span data-c-font-size="regular" data-c-font-weight="bold" data-c-font-style="underline">Add An Award</span>
+                        <span data-c-font-size="regular" data-c-font-weight="bold">Add An Award</span>
                     </button>
                 </div>
             </div>
             <h3 data-c-heading="h3" data-c-margin="top(3) bottom(1)" data-c-padding="bottom(1)">My Experience</h3>
-            {# Experience Filters #}
-            <div data-c-padding="bottom(.5)">
-                <p>
-                    <span data-c-font-weight="bold">Order by: </span>
-                    <button>
-                        Date
-                    </button>
-                    <button>
-                        Type of Experience
-                    </button>
-                </p>
-            </div>
             {# Experience Null State #}
             {# Josh: remove the margin on this fella once the UI is dev ready! #}
             <div data-c-background="gray(10)" data-c-radius="rounded" data-c-border="all(thin, solid, gray)" data-c-padding="all(1)" data-c-margin="bottom(2)">
@@ -100,27 +101,142 @@
             {# Experience Objects #}
             <div class="experience-list">
                 <div data-c-accordion-group>
+                    {# Education Experience Example #}
                     <div
                         data-c-accordion
                         data-c-background="white(100)"
-                        data-c-card>
+                        data-c-card
+                        data-c-margin="bottom(.5)">
                         <button
                             aria-expanded="false"
                             data-c-accordion-trigger
                             tabindex="0"
                             type="button">
-                            <div data-c-padding="top(normal) right bottom(normal) left(normal)">
-                                <div data-c-grid="middle">
-                                    <div data-c-grid-item="tl(2of3)">
-                                        <p>
-                                            <span data-c-font-weight="bold">Front-end Developer</span> - SomeCompany
-                                        </p>
-                                        <p data-c-margin="top(quarter)" data-c-colour="c1">
-                                            JAN 2015 - FEB 2018
-                                        </p>
+                            <div data-c-grid="">
+                                <div data-c-grid-item="base(1of4) tl(1of6) equal-col">
+                                    <div class="experience-type-indicator" >
+                                        <i class="fas fa-book" data-c-color="c1" data-c-font-size="h4"></i>
                                     </div>
-                                    <div data-c-grid-item="tl(1of3)" data-c-align="base(left) tl(center)">
-                                        <span>2 Skills</span>
+                                </div>
+                                <div data-c-grid-item="base(3of4) tl(5of6)">
+                                    <div data-c-padding="all(1)">
+                                        <div data-c-grid="middle">
+                                            <div data-c-grid-item="tl(3of4)">
+                                                <p>
+                                                    <span data-c-font-weight="bold">Bachelor's Degree in Paleontology</span> - McGill University
+                                                </p>
+                                                <p data-c-margin="top(quarter)" data-c-colour="c1" data-c-font-size="small">
+                                                    JAN 2015 - FEB 2018
+                                                </p>
+                                            </div>
+                                            <div data-c-grid-item="tl(1of4)" data-c-align="base(left) tl(right)">
+                                                <span>2 Related Skills</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <span data-c-visibility="invisible">
+                                Click to view...
+                            </span>
+                            <i
+                                aria-hidden="true"
+                                class="fas fa-angle-down"
+                                data-c-accordion-add
+                                data-c-colour="black"></i>
+                            <i
+                                aria-hidden="true"
+                                class="fas fa-angle-up"
+                                data-c-accordion-remove
+                                data-c-colour="black"></i>
+                        </button>
+                        <div
+                            aria-hidden="true"
+                            data-c-accordion-content
+                            data-c-background="gray(10)">
+                            <hr data-c-hr="thin(gray)" data-c-margin="bottom(1)">
+                            <div data-c-padding="lr(1)">
+                                <div data-c-grid="gutter(all, 1)">
+                                    <div data-c-grid-item="tl(1of2)">
+                                        <h4 data-c-color="c2" data-c-font-weight="bold" data-c-margin="bottom(.5)">Type of Experience</h4>
+                                        <p data-c-margin="bottom(1)">Education Experience</p>
+                                        <h4 data-c-color="c2" data-c-font-weight="bold" data-c-margin="bottom(.5)">Details</h4>
+                                        <p><span data-c-font-weight="bold">Type of Education: </span>Bachelor's Degree</p>
+                                        <p><span data-c-font-weight="bold">Area of Study: </span>Paleontology</p>
+                                        <p><span data-c-font-weight="bold">Institution: </span>McGill University</p>
+                                        <p><span data-c-font-weight="bold">Status: </span>Successful Completion (Certificate Awarded)</p>
+                                        <p><span data-c-font-weight="bold">Start Date: </span>2019/04/01</p>
+                                        <p><span data-c-font-weight="bold">End Date: </span>2019/04/01</p>
+                                        <p><span data-c-font-weight="bold">Thesis Title: </span><span data-c-color="gray">N/A</span></p>
+                                        <p><span data-c-font-weight="bold">Blockcert Link: </span><span data-c-color="gray">N/A</span></p>
+                                    </div>
+                                    <div data-c-grid-item="tl(1of2)">
+                                        <h4 data-c-color="c2" data-c-font-weight="bold" data-c-margin="bottom(.5)">Skills for this Job</h4>
+                                        <p><span data-c-tag="c1" data-c-radius="pill" data-c-font-size="small">Research Methods</span> <span data-c-tag="c1" data-c-radius="pill" data-c-font-size="small">Dinosaurs</span></p>
+                                        <p data-c-margin="top(.5) bottom(1)" data-c-font-size="small" data-c-color="gray">There are <span data-c-font-weight="bold">2</span> other unrelated skills attached to this experience. You can see these on your profile.</p>
+                                        <h4 data-c-color="c2" data-c-font-weight="bold" data-c-margin="bottom(.5)"><i class="fas fa-check-circle" data-c-margin="right(.5)" data-c-color="go"></i>Education Requirement</h4>
+                                        <p>You've selected this experience as an indicator of how you meet the education requirements for this job.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-c-padding="all(1)">
+                                <div data-c-grid="gutter(all, 1) middle">
+                                    <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">
+                                        <button
+                                            data-c-button="outline(c1)"
+                                            data-c-radius="rounded"
+                                            type="button">
+                                            <span>
+                                                Delete Experience
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(right)">
+                                        <button
+                                            data-c-button="solid(c1)"
+                                            data-c-radius="rounded"
+                                            type="button">
+                                            <span>
+                                                Edit Experience
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {# Work Experience Example - markup for the rest of these is now out of date. Fix these later. #}
+                    <div
+                        data-c-accordion
+                        data-c-background="white(100)"
+                        data-c-card
+                        data-c-margin="bottom(.5)">
+                        <button
+                            aria-expanded="false"
+                            data-c-accordion-trigger
+                            tabindex="0"
+                            type="button">
+                            <div data-c-grid="">
+                                <div data-c-grid-item="base(1of4) tl(1of6) equal-col">
+                                    <div class="experience-type-indicator" >
+                                        <i class="fas fa-briefcase" data-c-color="c1" data-c-font-size="h4"></i>
+                                    </div>
+                                </div>
+                                <div data-c-grid-item="base(3of4) tl(5of6)">
+                                    <div data-c-padding="all(1)">
+                                        <div data-c-grid="middle">
+                                            <div data-c-grid-item="tl(3of4)">
+                                                <p>
+                                                    <span data-c-font-weight="bold">Front-end Developer</span> - SomeCompany
+                                                </p>
+                                                <p data-c-margin="top(quarter)" data-c-colour="c1" data-c-font-size="small">
+                                                    JAN 2015 - FEB 2018
+                                                </p>
+                                            </div>
+                                            <div data-c-grid-item="tl(1of4)" data-c-align="base(left) tl(right)">
+                                                <span>2 Related Skills</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -145,24 +261,25 @@
                             <div data-c-padding="lr(1)">
                                 <div data-c-grid="gutter(all, 1)">
                                     <div data-c-grid-item="tl(1of2)">
+                                        <h4 data-c-color="c2" data-c-font-weight="bold" data-c-margin="bottom(.5)">Type of Experience</h4>
+                                        <p data-c-margin="bottom(1)">Work Experience</p>
                                         <h4 data-c-color="c2" data-c-font-weight="bold" data-c-margin="bottom(.5)">Details</h4>
-                                        <p><span data-c-font-weight="bold">Company: </span>SomeCompany</p>
-                                        <p><span data-c-font-weight="bold">Location: </span>Ottawa, Canada</p>
+                                        <p><span data-c-font-weight="bold">Role/Job Title: </span>Front-end Developer</p>
+                                        <p><span data-c-font-weight="bold">Organization/Company: </span>SomeCompany</p>
+                                        <p><span data-c-font-weight="bold">Team/Group: </span><span data-c-color="gray">N/A</span></p>
                                         <p><span data-c-font-weight="bold">Start Date: </span>2019/04/01</p>
                                         <p><span data-c-font-weight="bold">End Date: </span>2019/04/01</p>
                                     </div>
                                     <div data-c-grid-item="tl(1of2)">
-                                        <h4 data-c-color="c2" data-c-font-weight="bold" data-c-margin="bottom(.5)">Education Requirement</h4>
-                                        <p data-c-margin="bottom(1)">You've identified that this experience helps identify how you meet the education requirements for this job.</p>
                                         <h4 data-c-color="c2" data-c-font-weight="bold" data-c-margin="bottom(.5)">Job Related Skills</h4>
                                         <p><span data-c-tag="c1" data-c-radius="pill" data-c-font-size="small">HTML5</span> <span data-c-tag="c1" data-c-radius="pill" data-c-font-size="small">Collaboration</span></p>
+                                        <p data-c-margin="top(.5)" data-c-font-size="small" data-c-color="gray">There are <span data-c-font-weight="bold">4</span> other unrelated skills attached to this experience. You can see these on your profile.</p>
                                     </div>
                                 </div>
                             </div>
-                            <hr data-c-hr="thin(gray)" data-c-margin="tb(1)">
-                            <div data-c-padding="lr(1) bottom(1)">
+                            <div data-c-padding="all(1)">
                                 <div data-c-grid="gutter(all, 1) middle">
-                                    <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(left)">
+                                    <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">
                                         <button
                                             data-c-button="outline(c1)"
                                             data-c-radius="rounded"
@@ -172,7 +289,302 @@
                                             </span>
                                         </button>
                                     </div>
-                                    <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(right)">
+                                    <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(right)">
+                                        <button
+                                            data-c-button="solid(c1)"
+                                            data-c-radius="rounded"
+                                            type="button">
+                                            <span>
+                                                Edit Experience
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {# Community Experience Example #}
+                    <div
+                        data-c-accordion
+                        data-c-background="white(100)"
+                        data-c-card
+                        data-c-margin="bottom(.5)">
+                        <button
+                            aria-expanded="false"
+                            data-c-accordion-trigger
+                            tabindex="0"
+                            type="button">
+                            <div data-c-grid="">
+                                <div data-c-grid-item="base(1of4) tl(1of6) equal-col">
+                                    <div class="experience-type-indicator" >
+                                        <i class="fas fa-people-carry" data-c-color="c1" data-c-font-size="h4"></i>
+                                    </div>
+                                </div>
+                                <div data-c-grid-item="base(3of4) tl(5of6)">
+                                    <div data-c-padding="all(1)">
+                                        <div data-c-grid="middle">
+                                            <div data-c-grid-item="tl(3of4)">
+                                                <p>
+                                                    <span data-c-font-weight="bold">Volunteer</span> - SPCA Ottawa
+                                                </p>
+                                                <p data-c-margin="top(quarter)" data-c-colour="c1" data-c-font-size="small">
+                                                    JAN 2015 - FEB 2018
+                                                </p>
+                                            </div>
+                                            <div data-c-grid-item="tl(1of4)" data-c-align="base(left) tl(right)">
+                                                <span data-c-color="gray">No Related Skills</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <span data-c-visibility="invisible">
+                                Click to view...
+                            </span>
+                            <i
+                                aria-hidden="true"
+                                class="fas fa-angle-down"
+                                data-c-accordion-add
+                                data-c-colour="black"></i>
+                            <i
+                                aria-hidden="true"
+                                class="fas fa-angle-up"
+                                data-c-accordion-remove
+                                data-c-colour="black"></i>
+                        </button>
+                        <div
+                            aria-hidden="true"
+                            data-c-accordion-content>
+                            <hr data-c-hr="thin(gray)" data-c-margin="bottom(1)">
+                            <div data-c-padding="lr(1)">
+                                <div data-c-grid="gutter(all, 1)">
+                                    <div data-c-grid-item="tl(1of2)">
+                                        <h4 data-c-color="c2" data-c-font-weight="bold" data-c-margin="bottom(.5)">Type of Experience</h4>
+                                        <p data-c-margin="bottom(1)">Community Experience</p>
+                                        <h4 data-c-color="c2" data-c-font-weight="bold" data-c-margin="bottom(.5)">Details</h4>
+                                        <p><span data-c-font-weight="bold">Role/Job Title: </span>Volunteer</p>
+                                        <p><span data-c-font-weight="bold">Group/Organization/Community: </span>SPCA Ottawa</p>
+                                        <p><span data-c-font-weight="bold">Project/Product: </span>Dog Washing</p>
+                                        <p><span data-c-font-weight="bold">Start Date: </span>2019/04/01</p>
+                                        <p><span data-c-font-weight="bold">End Date: </span>2019/04/01</p>
+                                    </div>
+                                    <div data-c-grid-item="tl(1of2)">
+                                        <h4 data-c-color="c2" data-c-font-weight="bold" data-c-margin="bottom(.5)"><i class="fas fa-award" data-c-margin="right(.5)"></i>Education Requirement</h4>
+                                        <p data-c-margin="bottom(1)">You've selected this experience as an indicator of how you meet the education requirements for this job.</p>
+                                        <h4 data-c-color="c2" data-c-font-weight="bold" data-c-margin="bottom(.5)">Job Related Skills</h4>
+                                        <p><span data-c-color="gray">No Related Skills</span></p>
+                                        <p data-c-margin="top(.5)" data-c-font-size="small" data-c-color="gray">There are <span data-c-font-weight="bold">3</span> other unrelated skills attached to this experience. You can see these on your profile.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-c-padding="all(1)">
+                                <div data-c-grid="gutter(all, 1) middle">
+                                    <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">
+                                        <button
+                                            data-c-button="outline(c1)"
+                                            data-c-radius="rounded"
+                                            type="button">
+                                            <span>
+                                                Delete Experience
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(right)">
+                                        <button
+                                            data-c-button="solid(c1)"
+                                            data-c-radius="rounded"
+                                            type="button">
+                                            <span>
+                                                Edit Experience
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {# Personal Experience Example #}
+                    <div
+                        data-c-accordion
+                        data-c-background="white(100)"
+                        data-c-card
+                        data-c-margin="bottom(.5)">
+                        <button
+                            aria-expanded="false"
+                            data-c-accordion-trigger
+                            tabindex="0"
+                            type="button">
+                            <div data-c-grid="">
+                                <div data-c-grid-item="base(1of4) tl(1of6) equal-col">
+                                    <div class="experience-type-indicator" >
+                                        <i class="fas fa-mountain" data-c-color="c1" data-c-font-size="h4"></i>
+                                    </div>
+                                </div>
+                                <div data-c-grid-item="base(3of4) tl(5of6)">
+                                    <div data-c-padding="all(1)">
+                                        <div data-c-grid="middle">
+                                            <div data-c-grid-item="tl(3of4)">
+                                                <p>
+                                                    <span data-c-font-weight="bold">A Personal Project
+                                                </p>
+                                                <p data-c-margin="top(quarter)" data-c-colour="c1" data-c-font-size="small">
+                                                    JAN 2015 - FEB 2018
+                                                </p>
+                                            </div>
+                                            <div data-c-grid-item="tl(1of4)" data-c-align="base(left) tl(right)">
+                                                <span data-c-color="gray">No Related Skills</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <span data-c-visibility="invisible">
+                                Click to view...
+                            </span>
+                            <i
+                                aria-hidden="true"
+                                class="fas fa-angle-down"
+                                data-c-accordion-add
+                                data-c-colour="black"></i>
+                            <i
+                                aria-hidden="true"
+                                class="fas fa-angle-up"
+                                data-c-accordion-remove
+                                data-c-colour="black"></i>
+                        </button>
+                        <div
+                            aria-hidden="true"
+                            data-c-accordion-content>
+                            <hr data-c-hr="thin(gray)" data-c-margin="bottom(1)">
+                            <div data-c-padding="lr(1)">
+                                <div data-c-grid="gutter(all, 1)">
+                                    <div data-c-grid-item="tl(1of2)">
+                                        <h4 data-c-color="c2" data-c-font-weight="bold" data-c-margin="bottom(.5)">Type of Experience</h4>
+                                        <p data-c-margin="bottom(1)">Community Experience</p>
+                                        <h4 data-c-color="c2" data-c-font-weight="bold" data-c-margin="bottom(.5)">Details</h4>
+                                        <p><span data-c-font-weight="bold">Title of Experience: </span>A Personal Project</p>
+                                        <p><span data-c-font-weight="bold">Description: </span>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse, tempore quia! Ut dolorem voluptate odit doloremque quos, iure, ullam aspernatur dignissimos delectus asperiores rem modi a autem quod architecto quaerat.</p>
+                                        <p><span data-c-font-weight="bold">Start Date: </span>2019/04/01</p>
+                                        <p><span data-c-font-weight="bold">End Date: </span>2019/04/01</p>
+                                    </div>
+                                    <div data-c-grid-item="tl(1of2)">
+                                        <h4 data-c-color="c2" data-c-font-weight="bold" data-c-margin="bottom(.5)">Job Related Skills</h4>
+                                        <p><span data-c-color="gray">No Related Skills</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-c-padding="all(1)">
+                                <div data-c-grid="gutter(all, 1) middle">
+                                    <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">
+                                        <button
+                                            data-c-button="outline(c1)"
+                                            data-c-radius="rounded"
+                                            type="button">
+                                            <span>
+                                                Delete Experience
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(right)">
+                                        <button
+                                            data-c-button="solid(c1)"
+                                            data-c-radius="rounded"
+                                            type="button">
+                                            <span>
+                                                Edit Experience
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {# Award Example #}
+                    <div
+                        data-c-accordion
+                        data-c-background="white(100)"
+                        data-c-card
+                        data-c-margin="bottom(.5)">
+                        <button
+                            aria-expanded="false"
+                            data-c-accordion-trigger
+                            tabindex="0"
+                            type="button">
+                            <div data-c-grid="">
+                                <div data-c-grid-item="base(1of4) tl(1of6) equal-col">
+                                    <div class="experience-type-indicator" >
+                                        <i class="fas fa-trophy" data-c-color="c1" data-c-font-size="h4"></i>
+                                    </div>
+                                </div>
+                                <div data-c-grid-item="base(3of4) tl(5of6)">
+                                    <div data-c-padding="all(1)">
+                                        <div data-c-grid="middle">
+                                            <div data-c-grid-item="tl(3of4)">
+                                                <p>
+                                                    <span data-c-font-weight="bold">Governor General's Award (Gold)</span> - McGill University
+                                                </p>
+                                                <p data-c-margin="top(quarter)" data-c-colour="c1" data-c-font-size="small">
+                                                    JAN 2015 - FEB 2018
+                                                </p>
+                                            </div>
+                                            <div data-c-grid-item="tl(1of4)" data-c-align="base(left) tl(right)">
+                                                <span data-c-color="gray">No Related Skills</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <span data-c-visibility="invisible">
+                                Click to view...
+                            </span>
+                            <i
+                                aria-hidden="true"
+                                class="fas fa-angle-down"
+                                data-c-accordion-add
+                                data-c-colour="black"></i>
+                            <i
+                                aria-hidden="true"
+                                class="fas fa-angle-up"
+                                data-c-accordion-remove
+                                data-c-colour="black"></i>
+                        </button>
+                        <div
+                            aria-hidden="true"
+                            data-c-accordion-content>
+                            <hr data-c-hr="thin(gray)" data-c-margin="bottom(1)">
+                            <div data-c-padding="lr(1)">
+                                <div data-c-grid="gutter(all, 1)">
+                                    <div data-c-grid-item="tl(1of2)">
+                                        <h4 data-c-color="c2" data-c-font-weight="bold" data-c-margin="bottom(.5)">Type of Experience</h4>
+                                        <p data-c-margin="bottom(1)">Community Experience</p>
+                                        <h4 data-c-color="c2" data-c-font-weight="bold" data-c-margin="bottom(.5)">Details</h4>
+                                        <p><span data-c-font-weight="bold">Award Title: </span>Governor General's Award (Gold)</p>
+                                        <p><span data-c-font-weight="bold">Awarded to: </span>Individual</p>
+                                        <p><span data-c-font-weight="bold">Issuing Organization/Institution: </span>McGill University</p>
+                                        <p><span data-c-font-weight="bold">Award Eligibility/Scope: </span>National</p>
+                                        <p><span data-c-font-weight="bold">Date Awarded: </span>2019/04/01</p>
+                                        <p><span data-c-font-weight="bold">Link to Award: </span><span data-c-color="gray">N/A</span></p>
+                                    </div>
+                                    <div data-c-grid-item="tl(1of2)">
+                                        <h4 data-c-color="c2" data-c-font-weight="bold" data-c-margin="bottom(.5)">Job Related Skills</h4>
+                                        <p><span data-c-color="gray">No Related Skills</span></p>
+                                        <p data-c-margin="top(.5)" data-c-font-size="small" data-c-color="gray">There is <span data-c-font-weight="bold">1</span> other unrelated skill attached to this experience. You can see it on your profile.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-c-padding="all(1)">
+                                <div data-c-grid="gutter(all, 1) middle">
+                                    <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">
+                                        <button
+                                            data-c-button="outline(c1)"
+                                            data-c-radius="rounded"
+                                            type="button">
+                                            <span>
+                                                Delete Experience
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(right)">
                                         <button
                                             data-c-button="solid(c1)"
                                             data-c-radius="rounded"
@@ -188,8 +600,26 @@
                     </div>
                 </div>
             </div>
+            {# Missing Skills Notification #}
+            {# This guy only shows up if there are required skills that have no related experience attached to them. When the page loads for the first time, we probably shouldn't show this - only show it once at least one experience has been added.If the user is applying to a job with pre-existing experience, show this notification with the correct skills when they load the page. #}
+            <p data-c-color="stop" data-c-margin="top(2)">Just a heads up! The following required skills are missing experience: <span data-c-tag="stop" data-c-radius="pill" data-c-font-size="small">CSS3</span> <span data-c-tag="stop" data-c-radius="pill" data-c-font-size="small">Web Programming</span></p>
         </div>
         {# Application Action Buttons #}
         {% include "applicant/application/action-buttons" with {"step": 4} %}
+    </div>
+    {# Experience Dialogs #}
+    <div data-clone>
+        {# Dialog Overlay #}
+        <div data-c-dialog-overlay></div>
+        {# Education Experience #}
+        {% include "applicant/application/dialogs/experience-education" %}
+        {# Work Experience #}
+        {% include "applicant/application/dialogs/experience-work" %}
+        {# Community Experience #}
+        {% include "applicant/application/dialogs/experience-community" %}
+        {# Personal Experience #}
+        {% include "applicant/application/dialogs/experience-personal" %}
+        {# Awards #}
+        {% include "applicant/application/dialogs/experience-award" %}
     </div>
 {% endblock %}

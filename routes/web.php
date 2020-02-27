@@ -65,9 +65,9 @@ Route::group(
             /* Application (Questions) */
             Route::view('application-07', 'applicant/application/07-questions')->middleware('localOnly')->name('app7');
             /* Application (Review) */
-            Route::view('application-07', 'applicant/application/08-review')->middleware('localOnly')->name('app8');
+            Route::view('application-08', 'applicant/application/08-review')->middleware('localOnly')->name('app8');
             /* Application (Signature & Submission) */
-            Route::view('application-08', 'applicant/application/09-submit')->middleware('localOnly')->name('app9');
+            Route::view('application-09', 'applicant/application/09-submit')->middleware('localOnly')->name('app9');
 
             /* Profile (Experience) */
 

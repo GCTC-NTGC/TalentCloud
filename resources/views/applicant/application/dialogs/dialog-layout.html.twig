@@ -1,0 +1,78 @@
+<div
+    aria-hidden="true"
+    aria-describedby="{% block dialogDescriptionARIA %}{% endblock %}-description"
+    aria-labelledby="{% block dialogTitleARIA %}{% endblock %}-title"
+    data-c-dialog
+    data-c-dialog-id="{% block dialogID %}{% endblock %}"
+    data-c-padding="top(double) bottom(double)"
+    class="application-experience-dialog"
+    role="dialog">
+    <div
+        data-c-background="white(100)"
+        data-c-radius="rounded"
+        data-c-margin="bottom(double)">
+        <div
+            data-c-padding="tb(1)"
+            data-c-border="bottom(thin, solid, black)" data-c-background="c1(100)"
+            class="dialog-header">
+            <div data-c-container="medium">
+                <h5
+                    data-c-font-size="h3" data-c-font-weight="bold"
+                    id="{% block dialogTitle %}{% endblock %}-title"
+                    data-c-dialog-focus data-c-color="white">
+                    {% block dialogContentTitle %}{% endblock %}
+                </h5>
+            </div>
+            <i class="fas {% block dialogContentIcon %}{% endblock %}" data-c-font-size="h1" data-c-color="c1"></i>
+        </div>
+        <div data-c-border="bottom(thin, solid, black)">
+            <div data-c-padding="top(2)">
+                <div data-c-container="medium">
+                    <p>{% block dialogContentDescription %}{% endblock %}</p>
+                </div>
+            </div>
+            <div id="{% block dialogDescription %}{% endblock %}-description">
+                <div data-c-container="medium">
+                    <p data-c-margin="top(2) bottom(1)"  data-c-font-size="h4" data-c-font-weight="bold" data-c-color="c3">Experience Details</p>
+                </div>
+                {% block dialogContent %}{% endblock %}
+                {# Everything from here down is specific to the application process. The profile version of this will need different UI. #}
+                <div data-c-container="medium">
+                    <p data-c-margin="top(1) bottom(1)"  data-c-font-size="h4" data-c-font-weight="bold" data-c-color="c3">Connect This Experience to the Job</p>
+                    <p data-c-margin="bottom(1)">Check any of the skills below that you used in this experience. You’ll be asked later to provide a few sentences of details later on to help managers understand how you used this skill. You can <a href="" title="Open the job poster in a new tab or window to review the definition of skills." target="_blank">review the definitions</a> of the skills on the job poster.</p>
+                </div>
+                {% include "applicant/application/dialogs/skill-selection" %}
+                <div data-c-container="medium">
+                    <p data-c-margin="top(1) bottom(1)"  data-c-font-size="h4" data-c-font-weight="bold" data-c-color="c3">Use This Experience as an Education Requirement</p>
+                    <p data-c-margin="bottom(1)">Check the option below if you feel that this experience helps you meet some or all of the specific education requirements for this job. We've included the requirements below to help refresh your memory.</p>
+                </div>
+                {% include "applicant/application/dialogs/education-selection" %}
+            </div>
+        </div>
+        <!-- The following dialog actions can be customized depending on the dialog. -->
+        <div data-c-padding="tb(1)" data-c-container="medium">
+            <div data-c-grid="gutter middle">
+                <div data-c-grid-item="base(1of2)">
+                    <button
+                        data-c-button="outline(c2)"
+                        data-c-radius="rounded"
+                        data-c-dialog-action="close"
+                        data-c-dialog-id="{% block dialogCancelButtonID %}{% endblock %}">
+                        Cancel
+                    </button>
+                </div>
+                <div
+                    data-c-grid-item="base(1of2)"
+                    data-c-alignment="base(right)">
+                    <button
+                        data-c-button="solid(c1)"
+                        data-c-radius="rounded"
+                        data-c-dialog-action="close"
+                        data-c-dialog-id="{% block dialogOkayButtonID %}{% endblock %}">
+                        Save Experience
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -22,8 +22,18 @@
         {# Application Progress Bar #}
         {% include "applicant/application/progress-bar" with {"step": 7} %}
         <div data-c-container="medium">
-            <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">TITLE</h2>
-            CONTENT
+            <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">Some Questions</h2>
+            <form>
+                <p>Question 01: Why are you the best fit for this job?</p>
+                <div data-c-input="textarea">
+                    <label for="TA2">My Answer to Question 01</label>
+                    <span>Required</span>
+                    <div>
+                        <textarea id="TA2" required placeholder="e.g. One day Bruce Wayne...">I am Batman.</textarea>
+                    </div>
+                    <span>This input has an error.</span>
+                </div>
+            </form>
         </div>
         {# Application Action Buttons #}
         {% include "applicant/application/action-buttons" with {"step": 7} %}

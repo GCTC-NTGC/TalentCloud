@@ -1,5 +1,22 @@
 .experience-list {
     [data-c-accordion] {
-        border-left: .5rem solid $clone-c2 !important;
+        border-left: .5rem solid $clone-c1 !important;
+        >button {
+            display: block;
+            padding-right: 0 !important;
+        }
+        .experience-type-indicator {
+            overflow: hidden;
+            position: relative;
+            >i {
+                color: $clone-c1;
+                font-size: 3rem;
+                opacity: .5;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
     }
 }

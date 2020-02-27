@@ -1,0 +1,78 @@
+{# Default Page Layout #}
+{% extends "applicant/application/dialogs/experience-dialog-layout" %}
+{# Inheritance Hack #}
+{% set dialogID = "work-dialog" %}
+{% block dialogDescriptionARIA %}{{ dialogID }}{% endblock %}
+{% block dialogTitleARIA %}{{ dialogID }}{% endblock %}
+{% block dialogID %}{{ dialogID }}{% endblock %}
+{% block dialogTitle %}{{ dialogID }}{% endblock %}
+{% block dialogCloseButtonID %}{{ dialogID }}{% endblock %}
+{% block dialogDescription %}{{ dialogID }}{% endblock %}
+{% block dialogCancelButtonID %}{{ dialogID }}{% endblock %}
+{% block dialogOkayButtonID %}{{ dialogID }}{% endblock %}
+{# Actual Dialog Content #}
+{% block dialogContentTitle %}Add Work Experience{% endblock %}
+{% block dialogContentIcon %}fa-briefcase{% endblock %}
+{% block dialogContentDescription %}Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione excepturi, natus, nisi aperiam itaque necessitatibus fugit debitis doloribus similique commodi adipisci! Praesentium, quo veniam? Cum error voluptatibus quam enim laboriosam.{% endblock %}
+{% block dialogContent %}
+    <form>
+        <div data-c-padding="">
+            <div data-c-container="medium">
+                <div data-c-grid="gutter(all, 1) middle">
+                    <div data-c-input="text" data-c-grid-item="base(1of1)">
+                        <label for="TI2">My Role/Job Title</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="TI2" placeholder="e.g. Front-end Development" required type="text" />
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-input="text" data-c-grid-item="base(1of2)">
+                        <label for="TI2">Organization/Company</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="TI2" placeholder="e.g. Government of Canada" required type="text" />
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-input="text" data-c-grid-item="base(1of2)">
+                        <label for="TI2">Team, Group, or Division</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="TI2" placeholder="e.g. Talent Cloud" required type="text" />
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-input="date" data-c-grid-item="base(1of1)">
+                        <label for="DAT2">Select a Start Date</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="DAT2" type="date" required placeholder="yyyy-mm-dd"/>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-input="checkbox(single)" data-c-grid-item="tl(1of2)">
+                        <span>Required</span>
+                        <div>
+                            <label for="cA1">
+                                <input
+                                    id="cA1"
+                                    type="checkbox"/>
+                                <span>This experience is still ongoing, or...</span>
+                            </label>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-input="date" data-c-grid-item="tl(1of2)">
+                        <label for="DAT2">Select an End Date</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="DAT2" type="date" required placeholder="yyyy-mm-dd"/>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}
