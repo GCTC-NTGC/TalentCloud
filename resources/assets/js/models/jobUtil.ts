@@ -6,6 +6,7 @@ import {
   Criteria,
   Skill,
   Comment,
+  JobPosterStatus,
 } from "./types";
 import {
   CriteriaTypeId,
@@ -32,7 +33,8 @@ import {
   hrJobApplications,
   managerJobApplications,
 } from "../helpers/routes";
-import { hasKey } from "../helpers/queries";
+import { hasKey, find } from "../helpers/queries";
+import { JobPosterStatusAction } from "../store/JobPosterStatus/jobStatusActions";
 
 const pad = (n: number, width: number, z = "0"): string => {
   return (String(z).repeat(width) + String(n)).slice(String(n).length);
@@ -152,13 +154,16 @@ export const emptyComment = (): Comment => ({
   type_id: null,
   created_at: new Date(),
 });
-// TODO: allow for Complete status.
-export const jobStatus = (job: Job): JobStatus => {
-  if (enumToIds(JobStatus).includes(job.job_poster_status_id)) {
-    return job.job_poster_status_id;
-  }
-  return JobStatus.Draft;
-};
+
+export const emptyJobPosterStatus = (): JobPosterStatus => ({
+  id: JobStatus.Draft,
+  key: "draft",
+  name: { en: "Draft", fr: "Provisoire" },
+  description: {
+    en: "This is a draft.",
+    fr: "Il s'agit d'un premier projet.",
+  },
+});
 
 export const activityLocationUrl = (
   isHrAdvisor: boolean,

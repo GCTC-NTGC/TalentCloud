@@ -247,3 +247,10 @@ export interface VeteranStatus {
   id: number;
   name: VeteranStatusName;
 }
+
+export interface JobPosterStatus {
+  id: number;
+  key: string;
+  name: localizedFieldNonNull;
+  description: localizedFieldNonNull;
+}

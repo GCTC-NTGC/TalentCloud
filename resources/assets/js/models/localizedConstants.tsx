@@ -16,7 +16,6 @@ import {
   TravelRequirementId,
   ClassificationId,
   LocationId,
-  JobStatus,
 } from "./lookupConstants";
 import { getOrThrowError } from "../helpers/queries";
 
@@ -818,57 +817,6 @@ export const classificationCodeOption = (
     classificationId,
     "invalid ClassificationId",
   );
-
-const jobStatusMessages = defineMessages({
-  [JobStatus.Draft]: {
-    id: "jobStatus.draft",
-    defaultMessage: "Draft",
-  },
-  [JobStatus.ReviewHr]: {
-    id: "jobStatus.reviewHr",
-    defaultMessage: "In Review (HR)",
-  },
-  [JobStatus.ReviewManager]: {
-    id: "jobStatus.reviewManager",
-    defaultMessage: "In Review (Manager)",
-  },
-  [JobStatus.Translation]: {
-    id: "jobStatus.translation",
-    defaultMessage: "In Translation",
-  },
-  [JobStatus.FinalReviewHr]: {
-    id: "jobStatus.finalReviewHr",
-    defaultMessage: "Final Review (HR)",
-  },
-  [JobStatus.FinalReviewManager]: {
-    id: "jobStatus.finalReviewManager",
-    defaultMessage: "Final Review (Manager)",
-  },
-  [JobStatus.PendingApproval]: {
-    id: "jobStatus.pendingApproval",
-    defaultMessage: "Pending Approval",
-  },
-  [JobStatus.Approved]: {
-    id: "jobStatus.approved",
-    defaultMessage: "Approved",
-  },
-  [JobStatus.Published]: {
-    id: "jobStatus.published",
-    defaultMessage: "Published",
-  },
-  [JobStatus.Completed]: {
-    id: "jobStatus.complete",
-    defaultMessage: "Complete",
-  },
-});
-
-export const jobStatus = (status: JobStatus): MessageDescriptor => {
-  return getOrThrowError(
-    jobStatusMessages,
-    status,
-    "Invalid Job Status",
-  );
-};
 
 export const generalLocations = defineMessages({
   [LocationId.jobGeneric]: {
