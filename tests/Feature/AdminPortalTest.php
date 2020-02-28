@@ -121,5 +121,6 @@ class AdminPortalTest extends TestCase
         $response->assertStatus(200);
         $this->assertTrue($response->headers->get('Content-Type') == 'text/csv');
         $this->assertTrue($response->headers->get('Content-Disposition') == 'attachment; filename=' . $expected_filename);
+        unlink($expected_filename);
     }
 }
