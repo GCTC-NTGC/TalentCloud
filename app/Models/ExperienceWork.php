@@ -20,6 +20,7 @@ use App\Models\BaseModel;
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\Applicant|\App\Models\JobApplication $experienceable
+ * @property \Illuminate\Database\Eloquent\Collection $skills
  */
 class ExperienceWork extends BaseModel
 {
@@ -46,5 +47,10 @@ class ExperienceWork extends BaseModel
     public function experienceable() //phpcs:ignore
     {
         return $this->morphTo();
+    }
+
+    public function skills()
+    {
+        return $this->morphToMany(\App\Models\Skill::class, 'experience', 'experience_skills');
     }
 }
