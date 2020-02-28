@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Job, Criteria, JobPosterKeyTask } from "../models/types";
-import { JobStatus } from "../models/lookupConstants";
 
 export const fakeJob = (id = 1): Job => ({
   id,
@@ -11,7 +10,7 @@ export const fakeJob = (id = 1): Job => ({
   close_date_time: new Date("2019-05-30T06:59:59"),
   start_date_time: new Date("2019-07-01T07:00:00"),
   created_at: new Date("2019-04-20T07:00:00"),
-  job_poster_status_id: JobStatus.Approved,
+  job_poster_status_id: 1,
   department_id: 1,
   province_id: 4,
   salary_min: 85000,
@@ -117,7 +116,7 @@ export const fakeJob2 = (id = 1): Job => ({
   start_date_time: new Date("2019-08-01T07:00:00"),
   created_at: new Date("2019-04-25T07:00:00"),
   department_id: 2,
-  job_poster_status_id: JobStatus.ReviewHr,
+  job_poster_status_id: 2,
   province_id: 1,
   salary_min: 95000,
   salary_max: 110000,

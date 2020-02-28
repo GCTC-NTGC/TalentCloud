@@ -13,7 +13,6 @@ import {
   getKeyByValue,
   ClassificationId,
   JobStatus,
-  enumToIds,
   LocationId,
 } from "./lookupConstants";
 import { assetSkillName, skillLevelName } from "./localizedConstants";
@@ -33,8 +32,7 @@ import {
   hrJobApplications,
   managerJobApplications,
 } from "../helpers/routes";
-import { hasKey, find } from "../helpers/queries";
-import { JobPosterStatusAction } from "../store/JobPosterStatus/jobStatusActions";
+import { hasKey } from "../helpers/queries";
 
 const pad = (n: number, width: number, z = "0"): string => {
   return (String(z).repeat(width) + String(n)).slice(String(n).length);
@@ -59,7 +57,7 @@ export const emptyJob = (): Job => {
     close_date_time: null,
     start_date_time: null,
     department_id: null,
-    job_poster_status_id: JobStatus.Draft,
+    job_poster_status_id: 1,
     province_id: null,
     salary_min: null,
     salary_max: null,
@@ -156,8 +154,8 @@ export const emptyComment = (): Comment => ({
 });
 
 export const emptyJobPosterStatus = (): JobPosterStatus => ({
-  id: JobStatus.Draft,
-  key: "draft",
+  id: 1,
+  key: JobStatus.Draft,
   name: { en: "Draft", fr: "Provisoire" },
   description: {
     en: "This is a draft.",

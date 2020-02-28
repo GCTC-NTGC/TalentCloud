@@ -4,125 +4,125 @@ import { UnclaimedJobCardProps } from "../UnclaimedJobCard";
 import { JobPosterStatus } from "../../models/types";
 
 export const jobPosterStatuses: { [key: string]: JobPosterStatus } = {
-  Draft: {
-    id: JobStatus.Draft,
-    key: "draft",
-    name: { en: "Draft", fr: "Provisoire" },
-    description: { en: "This is a draft.", fr: "This is a draft (FR)." },
-  },
-  ReviewManager: {
-    id: JobStatus.ReviewManager,
-    key: "review_manager",
-    name: {
-      en: "In Review (Manager)",
-      fr: "En revue (Gestionnaire)",
-    },
-    description: {
-      en: "This is in review by managers.",
-      fr: "This is in review by managers (FR).",
-    },
-  },
-  ReviewHr: {
-    id: JobStatus.ReviewHr,
-    key: "review_hr",
-    name: {
-      en: "In Review (HR)",
-      fr: "En revue (HR)",
-    },
-    description: {
-      en: "This is in review by managers.",
-      fr: "This is in review by HR (FR).",
-    },
-  },
-  Translation: {
-    id: JobStatus.Translation,
-    key: "translation",
-    name: {
-      en: "In Translation",
-      fr: "En traduction",
-    },
-    description: {
-      en: "This is in translation.",
-      fr: "This is in translation (FR).",
-    },
-  },
-  FinalReviewManager: {
-    id: JobStatus.FinalReviewManager,
-    key: "final_review_manager",
-    name: {
-      en: "Final Review (Manager)",
-      fr: "Révision finale (Gestionnaire)",
-    },
-    description: {
-      fr: "This is in final review by manager (FR).",
-      en: "This is in final review by manager.",
-    },
-  },
-  FinalReviewHr: {
-    id: JobStatus.FinalReviewHr,
-    key: "final_review_hr",
-    name: {
-      en: "Final Review (HR)",
-      fr: "Révision finale (RH)",
-    },
-    description: {
-      fr: "This is in final review by HR (FR).",
-      en: "This is in final review by HR.",
-    },
-  },
-  PendingApproval: {
-    id: JobStatus.PendingApproval,
-    key: "pending_approval",
-    name: {
-      en: "Pending Approval",
-      fr: "En attente d'approbation",
-    },
-    description: {
-      fr: "This is in waiting for approval by HR (FR).",
-      en: "This is in waiting for approval by HR.",
-    },
-  },
-  Approved: {
-    id: JobStatus.Approved,
-    key: "approved",
-    name: {
-      en: "Approved",
-      fr: "Approuvé",
-    },
-    description: {
-      fr:
-        "This is has been approved by HR, awaiting final publishing by Talent Cloud (FR).",
-      en:
-        "This is has been approved by HR, awaiting final publishing by Talent Cloud.",
-    },
-  },
-  Published: {
-    id: JobStatus.Published,
-    key: "published",
-    name: {
-      en: "Published",
-      fr: "Publié",
-    },
-    description: {
-      fr:
-        "This job has been published, and will accept applications between its open and closing dates. (FR).",
-      en:
-        "This job has been published, and will accept applications between its open and closing dates.",
-    },
-  },
-  Completed: {
-    id: JobStatus.Completed,
-    key: "completed",
-    name: {
-      en: "Completed",
-      fr: "Terminé",
-    },
-    description: {
-      fr: "The process of this job poster has been completed (FR).",
-      en: "The process of this job poster has been completed.",
-    },
-  },
-};
+         Draft: {
+           id: 1,
+           key: JobStatus.Draft,
+           name: { en: "Draft", fr: "Provisoire" },
+           description: { en: "This is a draft.", fr: "This is a draft (FR)." },
+         },
+         ReviewManager: {
+           id: 2,
+           key: JobStatus.ReviewManager,
+           name: {
+             en: "In Review (Manager)",
+             fr: "En revue (Gestionnaire)",
+           },
+           description: {
+             en: "This is in review by managers.",
+             fr: "This is in review by managers (FR).",
+           },
+         },
+         ReviewHr: {
+           id: 3,
+           key: JobStatus.ReviewHr,
+           name: {
+             en: "In Review (HR)",
+             fr: "En revue (HR)",
+           },
+           description: {
+             en: "This is in review by managers.",
+             fr: "This is in review by HR (FR).",
+           },
+         },
+         Translation: {
+           id: 4,
+           key: JobStatus.Translation,
+           name: {
+             en: "In Translation",
+             fr: "En traduction",
+           },
+           description: {
+             en: "This is in translation.",
+             fr: "This is in translation (FR).",
+           },
+         },
+         FinalReviewManager: {
+           id: 5,
+           key: JobStatus.FinalReviewManager,
+           name: {
+             en: "Final Review (Manager)",
+             fr: "Révision finale (Gestionnaire)",
+           },
+           description: {
+             fr: "This is in final review by manager (FR).",
+             en: "This is in final review by manager.",
+           },
+         },
+         FinalReviewHr: {
+           id: 6,
+           key: JobStatus.FinalReviewHr,
+           name: {
+             en: "Final Review (HR)",
+             fr: "Révision finale (RH)",
+           },
+           description: {
+             fr: "This is in final review by HR (FR).",
+             en: "This is in final review by HR.",
+           },
+         },
+         PendingApproval: {
+           id: 7,
+           key: JobStatus.PendingApproval,
+           name: {
+             en: "Pending Approval",
+             fr: "En attente d'approbation",
+           },
+           description: {
+             fr: "This is in waiting for approval by HR (FR).",
+             en: "This is in waiting for approval by HR.",
+           },
+         },
+         Approved: {
+           id: 8,
+           key: JobStatus.Approved,
+           name: {
+             en: "Approved",
+             fr: "Approuvé",
+           },
+           description: {
+             fr:
+               "This is has been approved by HR, awaiting final publishing by Talent Cloud (FR).",
+             en:
+               "This is has been approved by HR, awaiting final publishing by Talent Cloud.",
+           },
+         },
+         Published: {
+           id: 9,
+           key: JobStatus.Published,
+           name: {
+             en: "Published",
+             fr: "Publié",
+           },
+           description: {
+             fr:
+               "This job has been published, and will accept applications between its open and closing dates. (FR).",
+             en:
+               "This job has been published, and will accept applications between its open and closing dates.",
+           },
+         },
+         Completed: {
+           id: 10,
+           key: JobStatus.Completed,
+           name: {
+             en: "Completed",
+             fr: "Terminé",
+           },
+           description: {
+             fr: "The process of this job poster has been completed (FR).",
+             en: "The process of this job poster has been completed.",
+           },
+         },
+       };
 
 export const jobActions: JobCardProps[] = [
   {

@@ -11,13 +11,13 @@ interface Activity {
 }
 
 interface StatusPillProps {
-  status: JobStatus;
+  status: JobPosterStatus;
   text: string;
 }
 
 const StatusPill: React.FC<StatusPillProps> = ({ text, status }) => (
   <span
-    data-c-tag={status === JobStatus.Completed ? "go" : "c1"}
+    data-c-tag={status.key === JobStatus.Completed ? "go" : "c1"}
     data-c-font-size="small"
     data-c-radius="pill"
     data-c-margin="right(half)"
@@ -76,7 +76,7 @@ const JobCard: React.FC<JobCardProps> = ({
             </span>
             <StatusPill
               text={localizeFieldNonNull(locale, status, "name")}
-              status={status.id}
+              status={status}
             />
           </h2>
 
