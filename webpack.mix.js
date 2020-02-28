@@ -1,7 +1,7 @@
 const mix = require("laravel-mix");
 const sass = require("node-sass");
 const cssnano = require("cssnano");
-// const autoprefixer = require("autoprefixer");
+const autoprefixer = require("autoprefixer");
 const path = require("path");
 /*
  |--------------------------------------------------------------------------
