@@ -2,8 +2,10 @@
 
 namespace App\Console;
 
+use App\Jobs\ProcessJobStatusTransitions;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Log;
 
 class Kernel extends ConsoleKernel
 {
@@ -23,6 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
+        $schedule->job(new ProcessJobStatusTransitions())->everyMinute();
         // $schedule->command('inspire')
         // ->hourly();
         // start the queue daemon, if its not running
