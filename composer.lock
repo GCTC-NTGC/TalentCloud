@@ -1332,16 +1332,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v6.17.0",
+            "version": "v6.17.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "40fd590b93f060f2ebe407b3e6d29e66b0e57fbb"
+                "reference": "32d1ed55dd46dcd706ff2e45bb7965be7320b87d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/40fd590b93f060f2ebe407b3e6d29e66b0e57fbb",
-                "reference": "40fd590b93f060f2ebe407b3e6d29e66b0e57fbb",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/32d1ed55dd46dcd706ff2e45bb7965be7320b87d",
+                "reference": "32d1ed55dd46dcd706ff2e45bb7965be7320b87d",
                 "shasum": ""
             },
             "require": {
@@ -1474,7 +1474,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2020-02-25T15:07:46+00:00"
+            "time": "2020-02-26T14:23:01+00:00"
         },
         {
             "name": "laravel/helpers",
@@ -3064,21 +3064,21 @@
         },
         {
             "name": "rcrowe/twigbridge",
-            "version": "v0.11.2",
+            "version": "v0.11.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rcrowe/TwigBridge.git",
-                "reference": "b8bd5db744d51adb11623547f281dfaf5ac60230"
+                "reference": "b50247faf2f570eb2b2d0d3c98b4461f1ef60b2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rcrowe/TwigBridge/zipball/b8bd5db744d51adb11623547f281dfaf5ac60230",
-                "reference": "b8bd5db744d51adb11623547f281dfaf5ac60230",
+                "url": "https://api.github.com/repos/rcrowe/TwigBridge/zipball/b50247faf2f570eb2b2d0d3c98b4461f1ef60b2d",
+                "reference": "b50247faf2f570eb2b2d0d3c98b4461f1ef60b2d",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "^5.5|^6",
-                "illuminate/view": "^5.5|^6",
+                "illuminate/support": "^5.5|^6|^7",
+                "illuminate/view": "^5.5|^6|^7",
                 "php": ">=7.1",
                 "twig/twig": "~2.0"
             },
@@ -3132,7 +3132,7 @@
                 "laravel",
                 "twig"
             ],
-            "time": "2019-10-03T08:22:24+00:00"
+            "time": "2020-02-27T13:59:54+00:00"
         },
         {
             "name": "spatie/laravel-translatable",
