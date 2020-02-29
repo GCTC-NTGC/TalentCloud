@@ -24,7 +24,7 @@ class AddExperienceEducationStatusTable extends Migration
                 'fr' => 'Terminé (aucun titre de compétences décerné)'
             ]),
             'in_progress' => json_encode([
-                'en' => 'In Progress',
+                'en' => 'In progress',
                 'fr' => 'En cours'
             ]),
             'audited' => json_encode([
