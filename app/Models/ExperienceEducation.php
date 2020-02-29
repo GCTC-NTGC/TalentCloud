@@ -53,7 +53,7 @@ class ExperienceEducation extends BaseModel
         'has_blockcert'
     ];
 
-    protected $table = ['experiences_education'];
+    protected $table = 'experiences_education';
 
     public function education_type() //phpcs:ignore
     {

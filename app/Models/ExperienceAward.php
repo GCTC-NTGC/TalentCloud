@@ -39,7 +39,7 @@ class ExperienceAward extends BaseModel
         'awarded_date'
     ];
 
-    protected $table = ['experiences_award'];
+    protected $table = 'experiences_award';
 
     public function award_recipient_type() //phpcs:ignore
     {

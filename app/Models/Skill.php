@@ -4,6 +4,15 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
+use Illuminate\Database\Eloquent\Relations\Relation;
+
+Relation::morphMap([
+    'work' => 'App\Models\ExperienceWork',
+    'personal' => 'App\Models\ExperiencePersonal',
+    'education' => 'App\Models\ExperienceEducation',
+    'award' => 'App\Models\ExperienceAward',
+    'community' => 'App\Models\ExperienceCommunity',
+]);
 
 /**
  * Class Skill
@@ -21,11 +30,6 @@ use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
  * @property \Illuminate\Database\Eloquent\Collection $classifications
  * @property \App\Models\ExperienceAward|\App\Models\ExperienceCommunity|\App\Models\ExperienceEducation|\App\Models\ExperiencePersonal|\App\Models\ExperienceWork $experience
- * @property \Illuminate\Database\Eloquent\Collection $experiences_work
- * @property \Illuminate\Database\Eloquent\Collection $experiences_personal
- * @property \Illuminate\Database\Eloquent\Collection $experiences_education
- * @property \Illuminate\Database\Eloquent\Collection $experiences_award
- * @property \Illuminate\Database\Eloquent\Collection $experiences_community
  */
 class Skill extends BaseModel
 {
