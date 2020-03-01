@@ -21,7 +21,7 @@ class AddExperienceEducationTable extends Migration
             $table->integer('education_status_id')->unsigned();
             $table->boolean('is_active')->default(false);
             $table->date('start_date');
-            $table->date('end_date');
+            $table->date('end_date')->nullable();
             $table->string('thesis_title')->nullable();
             $table->boolean('has_blockcert')->nullable();
             $table->integer('experienceable_id')->unsigned()->index();

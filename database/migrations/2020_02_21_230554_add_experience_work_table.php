@@ -20,7 +20,7 @@ class AddExperienceWorkTable extends Migration
             $table->string('group')->nullable();
             $table->boolean('is_active')->default(false);
             $table->date('start_date');
-            $table->date('end_date');
+            $table->date('end_date')->nullable();
             $table->integer('experienceable_id')->unsigned()->index();
             $table->string('experienceable_type');
             $table->timestamps();
