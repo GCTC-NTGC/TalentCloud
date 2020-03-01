@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "backpack/crud",
-            "version": "4.0.41",
+            "version": "4.0.42",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/CRUD.git",
-                "reference": "1b4bf487febb9dc2a42731b52948265f1c11cae6"
+                "reference": "6a87fb746dcadd21c8959bbd80422673ed9e7e1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/1b4bf487febb9dc2a42731b52948265f1c11cae6",
-                "reference": "1b4bf487febb9dc2a42731b52948265f1c11cae6",
+                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/6a87fb746dcadd21c8959bbd80422673ed9e7e1d",
+                "reference": "6a87fb746dcadd21c8959bbd80422673ed9e7e1d",
                 "shasum": ""
             },
             "require": {
@@ -91,7 +91,7 @@
                 "read",
                 "update"
             ],
-            "time": "2020-02-16T07:26:33+00:00"
+            "time": "2020-03-01T08:42:43+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -4538,16 +4538,16 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v4.4.4",
+            "version": "v4.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "f5d2ac46930238b30a9c2f1b17c905f3697d808c"
+                "reference": "0a19a77fba20818a969ef03fdaf1602de0546353"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/f5d2ac46930238b30a9c2f1b17c905f3697d808c",
-                "reference": "f5d2ac46930238b30a9c2f1b17c905f3697d808c",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/0a19a77fba20818a969ef03fdaf1602de0546353",
+                "reference": "0a19a77fba20818a969ef03fdaf1602de0546353",
                 "shasum": ""
             },
             "require": {
@@ -4610,7 +4610,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2020-01-15T13:29:06+00:00"
+            "time": "2020-02-04T09:32:40+00:00"
         },
         {
             "name": "symfony/translation-contracts",
