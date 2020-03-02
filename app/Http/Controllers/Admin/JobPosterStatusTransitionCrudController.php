@@ -110,23 +110,23 @@ class JobPosterStatusTransitionCrudController extends CrudController
         ]);
 
         $this->crud->addColumn([
-            'name' => 'from.key',
+            'name' => 'from.name',
             'type' => 'text',
             'label' => 'From status',
             'orderable' => false,
         ]);
 
         $this->crud->addColumn([
-            'name' => 'to.key',
+            'name' => 'to.name',
             'type' => 'text',
             'label' => 'To status',
             'orderable' => false,
         ]);
 
         $this->crud->addColumn([
-            'name' => 'owner_user_role.key',
+            'name' => 'owner_user_role.name',
             'type' => 'text',
-            'label' => 'Onwer User Role',
+            'label' => 'Owner User Role',
             'orderable' => false,
         ]);
     }
