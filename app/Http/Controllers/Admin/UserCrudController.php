@@ -96,6 +96,14 @@ class UserCrudController extends CrudController
             'model' => 'App\Models\UserRole' // Foreign key model.
         ]);
         $this->crud->addField([
+            'label' => 'Department',
+            'type' => 'select',
+            'name' => 'department_id', // The db column for the foreign key.
+            'entity' => 'department', // The method that defines the relationship in your Model.
+            'attribute' => 'name', // Foreign key attribute that is shown to user.
+            'model' => 'App\Models\Lookup\Department' // Foreign key model.
+        ]);
+        $this->crud->addField([
             'name' => 'is_priority',
             'type' => 'checkbox',
             'label' => 'Priority'

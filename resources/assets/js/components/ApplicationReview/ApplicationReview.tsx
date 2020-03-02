@@ -117,7 +117,7 @@ export const messages = defineMessages({
   screenOutConfirm: {
     id: "application.review.screenOutConfirm",
     defaultMessage: "Screen out the candidate?",
-    description: "Are you sure you want to screen out the candidate worning",
+    description: "Are you sure you want to screen out the candidate warning",
   },
   screenInConfirm: {
     id: "application.review.screenInConfirm",

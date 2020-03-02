@@ -8,9 +8,7 @@ use Illuminate\Support\Facades\App;
 class JobPosterStatusTransitionCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
 
     /**
      * Prepare the admin interface by setting the associated
@@ -27,11 +25,12 @@ class JobPosterStatusTransitionCrudController extends CrudController
         // Custom strings to display within the backpack UI.
         $this->crud->setEntityNameStrings('job status transition', 'job status transitions');
 
-        $this->crud->operation(['create', 'update'], function () {
+        $this->crud->operation(['update'], function () {
             $this->crud->addField([
                 'name' => 'key',
                 'type' => 'text',
                 'label' => 'Key',
+                'attributes' => ['disabled' => 'disabled']
             ]);
 
             $this->crud->addField([
@@ -48,6 +47,7 @@ class JobPosterStatusTransitionCrudController extends CrudController
                 'entity' => 'owner_user_role', // the method that defines the relationship in your Model
                 'attribute' => 'key', // foreign key attribute that is shown to user
                 'model' => \App\Models\UserRole::class, // foreign key model
+                'attributes' => ['disabled' => 'disabled']
             ]);
 
             $this->crud->addField([  // Select
@@ -57,6 +57,7 @@ class JobPosterStatusTransitionCrudController extends CrudController
                 'entity' => 'from', // the method that defines the relationship in your Model
                 'attribute' => 'key', // foreign key attribute that is shown to user
                 'model' => \App\Models\Lookup\JobPosterStatus::class, // foreign key model
+                'attributes' => ['disabled' => 'disabled']
             ]);
 
             $this->crud->addField([  // Select
@@ -66,6 +67,7 @@ class JobPosterStatusTransitionCrudController extends CrudController
                 'entity' => 'to', // the method that defines the relationship in your Model
                 'attribute' => 'key', // foreign key attribute that is shown to user
                 'model' => \App\Models\Lookup\JobPosterStatus::class, // foreign key model
+                'attributes' => ['disabled' => 'disabled']
             ]);
 
             $this->crud->addField([
@@ -110,23 +112,23 @@ class JobPosterStatusTransitionCrudController extends CrudController
         ]);
 
         $this->crud->addColumn([
-            'name' => 'from.key',
+            'name' => 'from.name',
             'type' => 'text',
             'label' => 'From status',
             'orderable' => false,
         ]);
 
         $this->crud->addColumn([
-            'name' => 'to.key',
+            'name' => 'to.name',
             'type' => 'text',
             'label' => 'To status',
             'orderable' => false,
         ]);
 
         $this->crud->addColumn([
-            'name' => 'owner_user_role.key',
+            'name' => 'owner_user_role.name',
             'type' => 'text',
-            'label' => 'Onwer User Role',
+            'label' => 'Owner User Role',
             'orderable' => false,
         ]);
     }

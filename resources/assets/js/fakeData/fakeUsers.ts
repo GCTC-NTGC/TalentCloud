@@ -42,6 +42,7 @@ export const fakeUser = (
   full_name = "Ari Bode",
   email = "manager@test.com",
   user_role_id = 2,
+  department_id = 7,
 ): User => ({
   id,
   first_name,
@@ -50,6 +51,7 @@ export const fakeUser = (
   email,
   is_confirmed: true,
   user_role_id,
+  department_id,
   created_at: new Date("2020-01-01T01:01:00"),
   updated_at: new Date("2020-01-01T01:01:00"),
   is_priority: true,

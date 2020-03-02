@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
+
 /**
  * Class HrAdvisor
  *
  * @property int $id
  * @property int $user_id
- * @property int $department_id
  *
  * @property \App\Models\User $user
- * @property \App\Models\Lookup\Department $department
  * @property \Illuminate\Database\Eloquent\Collection $claimed_jobs
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
@@ -21,11 +21,12 @@ namespace App\Models;
  */
 class HrAdvisor extends BaseModel
 {
+    use CrudTrait;
+
     /**
      * @var string[] $casts
      */
     protected $casts = [
-        'department_id' => 'int',
         'user_id' => 'int'
     ];
 
@@ -34,12 +35,12 @@ class HrAdvisor extends BaseModel
      *
      * @var array
      */
-    protected $visible = ['id', 'department_id', 'user_id', 'name', 'claimed_job_ids'];
+    protected $visible = ['id', 'user_id', 'name', 'claimed_job_ids'];
 
     /**
      * @var string[] $fillable
      */
-    protected $fillable = ['department_id'];
+    protected $fillable = [];
 
 
 
@@ -55,12 +56,7 @@ class HrAdvisor extends BaseModel
         return $this->belongsTo(\App\Models\User::class);
     }
 
-    public function department()
-    {
-        return $this->belongsTo(\App\Models\Lookup\Department::class);
-    }
-
-    public function claimed_jobs()
+    public function claimed_jobs() //phpcs:ignore
     {
         return $this->belongsToMany(
             \App\Models\JobPoster::class,
