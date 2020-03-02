@@ -31,7 +31,7 @@ class JobApplicationTest extends TestCase
     public function testMeetsEssentialCriteria(): void
     {
         // Using make avoids creating criteria in factory.
-        $jobPoster = factory(JobPoster::class)->states('published')->make();
+        $jobPoster = factory(JobPoster::class)->states('live')->make();
         $jobPoster->save();
 
         // Sanity test.

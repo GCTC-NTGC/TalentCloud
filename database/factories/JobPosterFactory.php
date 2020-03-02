@@ -160,10 +160,10 @@ $factory->state(
 
 $factory->state(
     JobPoster::class,
-    'published',
+    'live',
     function (Faker\Generator $faker) {
         return [
-            'job_poster_status_id' => JobPosterStatus::where('key', 'published')->first()->id,
+            'job_poster_status_id' => JobPosterStatus::where('key', 'live')->first()->id,
             'open_date_time' => ptDayEndToUtcTime($faker->dateTimeBetween('-5 days', '-3 days')->format('Y-m-d')),
             'close_date_time' => ptDayEndToUtcTime($faker->dateTimeBetween('20 days', '30 days')->format('Y-m-d')),
         ];
@@ -175,7 +175,7 @@ $factory->state(
     'closed',
     function (Faker\Generator $faker) {
         return [
-            'job_poster_status_id' => JobPosterStatus::where('key', 'published')->first()->id,
+            'job_poster_status_id' => JobPosterStatus::where('key', 'assessment')->first()->id,
             'open_date_time' => ptDayEndToUtcTime($faker->dateTimeBetween('-20 days', '-7 days')->format('Y-m-d')),
             'close_date_time' => ptDayEndToUtcTime($faker->dateTimeBetween('-5 days', '-3 days')->format('Y-m-d')),
         ];

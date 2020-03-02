@@ -37,12 +37,15 @@ class JobStatusTransitionManagerTest extends TestCase
         $this->assertTrue($this->transitionManager->isLegalTransition('final_review_hr', 'final_review_manager'));
         $this->assertTrue($this->transitionManager->isLegalTransition('final_review_manager', 'pending_approval'));
         $this->assertTrue($this->transitionManager->isLegalTransition('pending_approval', 'approved'));
-        $this->assertTrue($this->transitionManager->isLegalTransition('approved', 'published'));
-        $this->assertTrue($this->transitionManager->isLegalTransition('published', 'completed'));
+        $this->assertTrue($this->transitionManager->isLegalTransition('approved', 'ready'));
+        $this->assertTrue($this->transitionManager->isLegalTransition('ready', 'live'));
+        $this->assertTrue($this->transitionManager->isLegalTransition('live', 'assessment'));
+        $this->assertTrue($this->transitionManager->isLegalTransition('assessment', 'completed'));
 
         $this->assertFalse($this->transitionManager->isLegalTransition('draft', 'pending_approval'));
         $this->assertFalse($this->transitionManager->isLegalTransition('review_hr', 'pending_approval'));
-        $this->assertFalse($this->transitionManager->isLegalTransition('final_review_manager', 'published'));
+        $this->assertFalse($this->transitionManager->isLegalTransition('final_review_manager', 'ready'));
+        $this->assertFalse($this->transitionManager->isLegalTransition('approved', 'live'));
     }
 
     public function testLegalTransitions(): void
@@ -76,12 +79,20 @@ class JobStatusTransitionManagerTest extends TestCase
             $this->transitionManager->legalTransitions('pending_approval')->pluck('to.key')->all()
         );
         $this->assertEqualsCanonicalizing(
-            ['published'],
+            ['ready'],
             $this->transitionManager->legalTransitions('approved')->pluck('to.key')->all()
         );
         $this->assertEqualsCanonicalizing(
+            ['live'],
+            $this->transitionManager->legalTransitions('ready')->pluck('to.key')->all()
+        );
+        $this->assertEqualsCanonicalizing(
+            ['assessment'],
+            $this->transitionManager->legalTransitions('live')->pluck('to.key')->all()
+        );
+        $this->assertEqualsCanonicalizing(
             ['completed'],
-            $this->transitionManager->legalTransitions('published')->pluck('to.key')->all()
+            $this->transitionManager->legalTransitions('assessment')->pluck('to.key')->all()
         );
         $this->assertEqualsCanonicalizing(
             [],
@@ -98,8 +109,10 @@ class JobStatusTransitionManagerTest extends TestCase
         $this->assertEqualsCanonicalizing(['final_review_hr', 'pending_approval'], $this->transitionManager->legalDestinations('final_review_manager'));
         $this->assertEqualsCanonicalizing(['translation', 'final_review_manager'], $this->transitionManager->legalDestinations('final_review_hr'));
         $this->assertEqualsCanonicalizing(['translation', 'final_review_manager', 'approved'], $this->transitionManager->legalDestinations('pending_approval'));
-        $this->assertEqualsCanonicalizing(['published'], $this->transitionManager->legalDestinations('approved'));
-        $this->assertEqualsCanonicalizing(['completed'], $this->transitionManager->legalDestinations('published'));
+        $this->assertEqualsCanonicalizing(['ready'], $this->transitionManager->legalDestinations('approved'));
+        $this->assertEqualsCanonicalizing(['live'], $this->transitionManager->legalDestinations('ready'));
+        $this->assertEqualsCanonicalizing(['assessment'], $this->transitionManager->legalDestinations('live'));
+        $this->assertEqualsCanonicalizing(['completed'], $this->transitionManager->legalDestinations('assessment'));
         $this->assertEqualsCanonicalizing([], $this->transitionManager->legalDestinations('completed'));
     }
 
@@ -119,16 +132,18 @@ class JobStatusTransitionManagerTest extends TestCase
         $this->assertTrue($this->transitionManager->userCanTransition($hrAdvisor, 'final_review_hr', 'final_review_manager'));
         $this->assertTrue($this->transitionManager->userCanTransition($manager, 'final_review_manager', 'pending_approval'));
         $this->assertTrue($this->transitionManager->userCanTransition($hrAdvisor, 'pending_approval', 'approved'));
-        $this->assertTrue($this->transitionManager->userCanTransition($admin, 'approved', 'published'));
-        $this->assertTrue($this->transitionManager->userCanTransition($admin, 'published', 'completed'));
+        $this->assertTrue($this->transitionManager->userCanTransition($admin, 'approved', 'ready'));
+        $this->assertTrue($this->transitionManager->userCanTransition($admin, 'ready', 'live'));
+        $this->assertTrue($this->transitionManager->userCanTransition($admin, 'live', 'assessment'));
+        $this->assertTrue($this->transitionManager->userCanTransition($admin, 'assessment', 'completed'));
 
         // Ensure that admins can trigger transitions intended for other users.
         $this->assertTrue($this->transitionManager->userCanTransition($admin, 'draft', 'review_hr'));
         $this->assertTrue($this->transitionManager->userCanTransition($admin, 'review_hr', 'review_manager'));
 
         // Ensure that even admins can't transition to arbitrary states.
-        $this->assertFalse($this->transitionManager->userCanTransition($admin, 'draft', 'published'));
-        $this->assertFalse($this->transitionManager->userCanTransition($admin, 'pending_approval', 'published'));
+        $this->assertFalse($this->transitionManager->userCanTransition($admin, 'draft', 'live'));
+        $this->assertFalse($this->transitionManager->userCanTransition($admin, 'pending_approval', 'ready'));
 
         // Ensure that managers and hr advisors must own their state to transition.
         $this->assertFalse($this->transitionManager->userCanTransition($manager, 'review_hr', 'translation'));

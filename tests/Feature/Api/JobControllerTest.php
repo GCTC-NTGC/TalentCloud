@@ -46,7 +46,6 @@ class JobControllerTest extends TestCase
      * Generate an array with all the data that would be submitted through a completed edit/create job form.
      *
      * @param  integer $managerId Manager ID to associate with the Job Poster.
-     * @param  boolean $published Whether this Job is published.
      * @return string[]
      */
     private function generateFrontendJob(int $managerId): array
@@ -113,13 +112,13 @@ class JobControllerTest extends TestCase
     }
 
     /**
-     * A guest user should be able to retrieve a published job.
+     * A guest user should be able to retrieve a live job.
      *
      * @return void
      */
     public function testGetAsPublic(): void
     {
-        $job = factory(JobPoster::class)->state('published')->create();
+        $job = factory(JobPoster::class)->state('live')->create();
         $response = $this->json('get', "api/jobs/$job->id");
         $response->assertOk();
         $expected = array_merge($job->toArray(), $job->getTranslations());
@@ -244,7 +243,7 @@ class JobControllerTest extends TestCase
     public function testReturnsCorrectClassification(): void
     {
         $classification = Classification::inRandomOrder()->first();
-        $job = factory(JobPoster::class)->state('published')->create([
+        $job = factory(JobPoster::class)->state('live')->create([
             'classification_id' => $classification->id
         ]);
         $response = $this->json('get', "api/jobs/$job->id");
@@ -263,7 +262,7 @@ class JobControllerTest extends TestCase
         $otherDemoJob = factory(JobPoster::class)->states(['draft', 'byDemoManager'])->create();
         $draftJob = factory(JobPoster::class)->states(['draft', 'byUpgradedManager'])->create();
         $reviewJob = factory(JobPoster::class)->states(['review_requested', 'byUpgradedManager'])->create();
-        $openJob = factory(JobPoster::class)->states(['published', 'byUpgradedManager'])->create();
+        $openJob = factory(JobPoster::class)->states(['live', 'byUpgradedManager'])->create();
         $closedJob = factory(JobPoster::class)->states(['closed', 'byUpgradedManager'])->create();
 
         $demoJson = $this->jobToArray($demoJob);
@@ -338,7 +337,7 @@ class JobControllerTest extends TestCase
             'manager_id' => $managerOtherDept->id,
         ]);
 
-        $openJob = factory(JobPoster::class)->states(['published', 'byUpgradedManager'])->create();
+        $openJob = factory(JobPoster::class)->states(['live', 'byUpgradedManager'])->create();
         $closedJob = factory(JobPoster::class)->states(['closed', 'byUpgradedManager'])->create();
 
         $hrResponse = $this->actingAs($hrAdvisor->user)->json('get', route('api.jobs.index'));
@@ -362,11 +361,11 @@ class JobControllerTest extends TestCase
             'department_id' => $otherDeptId,
         ]);
 
-        $inDept = factory(JobPoster::class)->state('published')->create([
+        $inDept = factory(JobPoster::class)->state('live')->create([
             'department_id' => $deptId,
             'manager_id' => $managerInDept->id,
         ]);
-        $otherDept = factory(JobPoster::class)->state('published')->create([
+        $otherDept = factory(JobPoster::class)->state('live')->create([
             'department_id' => $otherDeptId,
             'manager_id' => $managerOtherDept->id,
         ]);

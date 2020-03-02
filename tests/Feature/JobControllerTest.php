@@ -44,7 +44,7 @@ class JobControllerTest extends TestCase
                 'manager_id' => $this->otherManager->id
             ]);
 
-        $this->publishedJob = factory(JobPoster::class)->states('published')->create();
+        $this->liveJob = factory(JobPoster::class)->states('live')->create();
     }
 
     /**
@@ -70,7 +70,7 @@ class JobControllerTest extends TestCase
      */
     public function testGuestSingleView(): void
     {
-        $response = $this->get('jobs/' . $this->publishedJob->id);
+        $response = $this->get('jobs/' . $this->liveJob->id);
         $response->assertStatus(200);
         $response->assertSee(e(Lang::get('applicant/job_post')['apply']['login_link_title']));
     }
@@ -85,7 +85,7 @@ class JobControllerTest extends TestCase
         $applicant = factory(Applicant::class)->create();
 
         $response = $this->actingAs($applicant->user)
-            ->get('jobs/' . $this->publishedJob->id);
+            ->get('jobs/' . $this->liveJob->id);
         $response->assertStatus(200);
         $response->assertSee(e(Lang::get('applicant/job_post')['apply']['apply_link_title']));
     }

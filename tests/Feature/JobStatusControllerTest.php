@@ -65,11 +65,29 @@ class JobStatusControllerTest extends TestCase
         $responseApproved->assertStatus(302);
         $this->assertEquals('approved', $job->fresh()->job_poster_status->key);
 
-        $responsePublished = $this->actingAs($admin)->post(
-            route('hr_advisor.jobs.setJobStatus', ['jobPoster' => $job, 'status' => 'published'])
+        $responseReady = $this->actingAs($admin)->post(
+            route('hr_advisor.jobs.setJobStatus', ['jobPoster' => $job, 'status' => 'ready'])
         );
-        $responsePublished->assertStatus(302);
-        $this->assertEquals('published', $job->fresh()->job_poster_status->key);
+        $responseReady->assertStatus(302);
+        $this->assertEquals('ready', $job->fresh()->job_poster_status->key);
+
+        $responseLive = $this->actingAs($admin)->post(
+            route('hr_advisor.jobs.setJobStatus', ['jobPoster' => $job, 'status' => 'live'])
+        );
+        $responseLive->assertStatus(302);
+        $this->assertEquals('live', $job->fresh()->job_poster_status->key);
+
+        $responseAssessment = $this->actingAs($admin)->post(
+            route('hr_advisor.jobs.setJobStatus', ['jobPoster' => $job, 'status' => 'assessment'])
+        );
+        $responseAssessment->assertStatus(302);
+        $this->assertEquals('assessment', $job->fresh()->job_poster_status->key);
+
+        $responseCompleted = $this->actingAs($admin)->post(
+            route('hr_advisor.jobs.setJobStatus', ['jobPoster' => $job, 'status' => 'completed'])
+        );
+        $responseCompleted->assertStatus(302);
+        $this->assertEquals('completed', $job->fresh()->job_poster_status->key);
     }
 
     /**
@@ -83,7 +101,7 @@ class JobStatusControllerTest extends TestCase
         $this->assertEquals('draft', $job->fresh()->job_poster_status->key);
 
         $response = $this->actingAs($job->manager->user)->post(
-            route('manager.jobs.setJobStatus', ['jobPoster' => $job, 'status' => 'published'])
+            route('manager.jobs.setJobStatus', ['jobPoster' => $job, 'status' => 'live'])
         );
         $response->assertStatus(400);
         $this->assertEquals('draft', $job->fresh()->job_poster_status->key);

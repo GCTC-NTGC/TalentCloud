@@ -86,7 +86,7 @@ class DevSeeder extends Seeder // phpcs:ignore
             ]));
         }
 
-        factory(JobPoster::class, 3)->state('published')->create([
+        factory(JobPoster::class, 3)->state('live')->create([
             'manager_id' => $managerUser->manager->id
         ])->each(function ($job) : void {
             $job->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
@@ -180,7 +180,7 @@ class DevSeeder extends Seeder // phpcs:ignore
             ->create(['department_id' => $hrDepartment]);
         factory(JobPoster::class)->states(['byUpgradedManager', 'review_requested'])
             ->create(['department_id' => $hrDepartment]);
-        $hrOpenJob = factory(JobPoster::class)->states(['byUpgradedManager', 'published'])
+        $hrOpenJob = factory(JobPoster::class)->states(['byUpgradedManager', 'live'])
             ->create(['department_id' => $hrDepartment]);
         $hrClosedJob = factory(JobPoster::class)->states(['byUpgradedManager', 'closed'])
             ->create(['department_id' => $hrDepartment]);

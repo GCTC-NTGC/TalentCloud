@@ -126,6 +126,8 @@ return [
     'password_correct' => 'Le mot de passe actuel n\'est pas correct',
     'user_owns_skill_declaration' => ':attribute doit spécifier une déclaration de compétence qui appartient à l\' utilisateur actuel',
     'invalid_id' => ":attribute n'est pas un identifiant valide.",
+    'job_unpublished' => 'Impossible de mettre à jour une offre d\'emploi qui a été mise en ligne.',
+
 
     /*
     |--------------------------------------------------------------------------
@@ -147,9 +149,6 @@ return [
         ],
         'application_step_3' => [
             'accepted' => 'L\'étape 3 doit être complétée',
-        ],
-        'published' => [
-            'in' => 'Vous ne pouvez pas modifier une affiche d\'emploi qui a été publié'
         ],
         'twitter_handle' => 'Ce n\'est pas une poignée Twitter valide.',
         'linkedin_url' => 'Ce n\'est pas une url linkedIn valide.',

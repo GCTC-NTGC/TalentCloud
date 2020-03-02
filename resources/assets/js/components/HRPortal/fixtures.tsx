@@ -96,18 +96,46 @@ export const jobPosterStatuses: { [key: string]: JobPosterStatus } = {
                "This is has been approved by HR, awaiting final publishing by Talent Cloud.",
            },
          },
-         Published: {
+         Ready: {
            id: 9,
-           key: JobStatus.Published,
+           key: JobStatus.Ready,
            name: {
-             en: "Published",
-             fr: "Publié",
+             en: "Ready to Post",
+             fr: "Prêt à poster",
            },
            description: {
              fr:
-               "This job has been published, and will accept applications between its open and closing dates. (FR).",
+               "This job has is ready to go live as soon as the Open datetime arrives. (FR).",
              en:
-               "This job has been published, and will accept applications between its open and closing dates.",
+               "This job has is ready to go live as soon as the Open datetime arrives.",
+           },
+         },
+         Live: {
+           id: 9,
+           key: JobStatus.Live,
+           name: {
+             en: "Live",
+             fr: "En ligne",
+           },
+           description: {
+             fr:
+               "This job has has gone live, and will accept applications between its open and closing dates. (FR).",
+             en:
+               "This job has has gone live, and will accept applications between its open and closing dates.",
+           },
+         },
+         Assessment: {
+           id: 9,
+           key: JobStatus.Assessment,
+           name: {
+             en: "In Assessment",
+             fr: "En cours d'évaluation",
+           },
+           description: {
+             fr:
+               "This job has been closed to more applications, and has begun the assessment process. (FR).",
+             en:
+               "This job has been closed to more applications, and has begun the assessment process.",
            },
          },
          Completed: {
@@ -185,14 +213,14 @@ export const jobActions: JobCardProps[] = [
     preview: {
       url: "https://google.ca",
       text: "View Poster",
-      title: "View the published Job Poster.",
+      title: "View the live Job Poster.",
     },
     screeningPlan: {
       url: "https://google.ca",
       text: "View Screening Plan",
       title: "View the screening plan for this Job Poster.",
     },
-    status: jobPosterStatuses.Published,
+    status: jobPosterStatuses.Live,
     summary: {
       url: "https://google.ca",
       text: "Visit Job Summary",

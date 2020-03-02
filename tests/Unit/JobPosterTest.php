@@ -23,7 +23,7 @@ class JobPosterTest extends TestCase
      */
     public function testJobPosterIsOpen(): void
     {
-        $jobPoster = factory(JobPoster::class)->states('published')->make();
+        $jobPoster = factory(JobPoster::class)->states('live')->make();
         $this->assertTrue($jobPoster->isOpen());
 
         $jobPoster->close_date_time = $this->faker->dateTimeBetween('-1 weeks', 'now');
@@ -40,7 +40,7 @@ class JobPosterTest extends TestCase
      */
     public function testJobPosterIsClosed(): void
     {
-        $jobPoster = factory(JobPoster::class)->states('published')->make();
+        $jobPoster = factory(JobPoster::class)->states('live')->make();
         $this->assertFalse($jobPoster->isClosed());
 
         $jobPoster->close_date_time = $this->faker->dateTimeBetween('-1 weeks', '-5 minutes');
