@@ -7,14 +7,14 @@
 
 namespace App\Models;
 
-use Spatie\Translatable\HasTranslations;
+use App\Events\JobSaved;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
-use Jenssegers\Date\Date;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
+use Jenssegers\Date\Date;
 
-use App\Events\JobSaved;
+use Spatie\Translatable\HasTranslations;
 
 /**
  * Class JobPoster
@@ -49,7 +49,7 @@ use App\Events\JobSaved;
  * @property int $flexible_hours_frequency_id
  * @property int $travel_requirement_id
  * @property int $overtime_requirement_id
- * @property int $process_number
+ * @property string $process_number
  * @property int $priority_clearance_number
  * @property int $job_poster_status_id
  * @property \Jenssegers\Date\Date $loo_issuance_date
@@ -160,6 +160,8 @@ class JobPoster extends BaseModel
         'flexible_hours_frequency_id' => 'int',
         'travel_requirement_id' => 'int',
         'overtime_requirement_id' => 'int',
+        'process_number' => 'string',
+        'priority_clearance_number' => 'int'
     ];
 
     /**

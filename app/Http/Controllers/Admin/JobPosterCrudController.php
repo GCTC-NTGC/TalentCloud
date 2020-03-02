@@ -222,7 +222,7 @@ class JobPosterCrudController extends CrudController
         ]);
         $this->crud->addField([
             'name' => 'process_number',
-            'type' => 'number',
+            'type' => 'text',
             'label' => 'Process #',
         ]);
         $this->crud->addField([

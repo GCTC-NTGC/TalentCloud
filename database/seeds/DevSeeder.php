@@ -175,7 +175,7 @@ class DevSeeder extends Seeder // phpcs:ignore
         ]));
 
         // Ensure there are several jobs the hr advisor can claim.
-        $hrDepartment = $hrUser->hr_advisor->department_id;
+        $hrDepartment = $hrUser->department_id;
         factory(JobPoster::class)->states(['byUpgradedManager', 'draft'])
             ->create(['department_id' => $hrDepartment]);
         factory(JobPoster::class)->states(['byUpgradedManager', 'review_requested'])

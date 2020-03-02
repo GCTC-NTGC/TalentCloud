@@ -44,8 +44,13 @@ class UserControllerTest extends TestCase
 
         $transportCanada = Department::find(3); // Transport Canada.
 
+        $user = factory(User::class)->create([
+            'department_id' => $transportCanada->id,
+            'user_role_id' => 2
+        ]);
+
         $deptManager = factory(Manager::class)->state('upgraded')->create([
-            'department_id' => $transportCanada->id
+            'user_id' => $user->id
         ]);
 
         $job = factory(JobPoster::class)->state('closed')->create([
@@ -58,8 +63,13 @@ class UserControllerTest extends TestCase
             $application->applicant_id = $randomUsers[$key]->id;
         });
 
+        $hrUser = factory(User::class)->create([
+            'department_id' => $transportCanada->id,
+            'user_role_id' => 4
+        ]);
+
         $hrManager = factory(HrAdvisor::class)->create([
-            'department_id' => $transportCanada->id
+            'user_id' => $hrUser->id
         ]);
         $hrManager->claimed_jobs()->attach($job);
 
@@ -126,12 +136,22 @@ class UserControllerTest extends TestCase
         $randomUsers = factory(Applicant::class, 5)->create();
         $otherUsers = factory(Applicant::class, 3)->create();
 
+        $deptUser = factory(User::class)->create([
+            'department_id' => $transportCanada->id,
+            'user_role_id' => 2
+        ]);
+
+        $otherDeptUser = factory(User::class)->create([
+            'department_id' => $healthCanada->id,
+            'user_role_id' => 2
+        ]);
+
         $deptManager = factory(Manager::class)->state('upgraded')->create([
-            'department_id' => $transportCanada->id
+            'user_id' => $deptUser->id
         ]);
 
         $otherDeptManager = factory(Manager::class)->state('upgraded')->create([
-            'department_id' => $healthCanada->id
+            'user_id' => $otherDeptUser->id
         ]);
 
         $job = factory(JobPoster::class)->state('closed')->create([
@@ -154,13 +174,22 @@ class UserControllerTest extends TestCase
             $application->applicant_id = $otherUsers[$key]->id;
         }));
 
+        $hrUser = factory(User::class)->create([
+            'department_id' => $transportCanada->id,
+            'user_role_id' => 4
+        ]);
+
         $hrManager = factory(HrAdvisor::class)->create([
-            'department_id' => $transportCanada->id
+            'user_id' => $hrUser->id
         ]);
         $hrManager->claimed_jobs()->attach($job);
 
-        $otherHrManager = factory(HrAdvisor::class)->create([
+        $otherHrUser = factory(User::class)->create([
             'department_id' => $healthCanada->id,
+            'user_role_id' => 4
+        ]);
+        $otherHrManager = factory(HrAdvisor::class)->create([
+            'user_id' => $otherHrUser->id
         ]);
 
         $response = $this->followingRedirects()
@@ -248,12 +277,22 @@ class UserControllerTest extends TestCase
         $randomUsers = factory(Applicant::class, 5)->create();
         $otherUsers = factory(Applicant::class, 3)->create();
 
+        $deptUser = factory(User::class)->create([
+            'department_id' => $transportCanada->id,
+            'user_role_id' => 2
+        ]);
+
+        $otherDeptUser = factory(User::class)->create([
+            'department_id' => $healthCanada->id,
+            'user_role_id' => 2
+        ]);
+
         $deptManager = factory(Manager::class)->state('upgraded')->create([
-            'department_id' => $transportCanada->id
+            'user_id' => $deptUser->id
         ]);
 
         $otherDeptManager = factory(Manager::class)->state('upgraded')->create([
-            'department_id' => $healthCanada->id
+            'user_id' => $otherDeptUser->id
         ]);
 
         $job = factory(JobPoster::class)->state('closed')->create([
@@ -324,8 +363,13 @@ class UserControllerTest extends TestCase
         $response->assertStatus(403);
         $response->assertJsonFragment(['message' => 'This action is unauthorized.']);
 
+        $hrUser = factory(User::class)->create([
+            'department_id' => $transportCanada->id,
+            'user_role_id' => 4
+        ]);
+
         $hrManager = factory(HrAdvisor::class)->create([
-            'department_id' => $transportCanada->id
+            'user_id' => $hrUser->id
         ]);
 
         $response = $this->followingRedirects()

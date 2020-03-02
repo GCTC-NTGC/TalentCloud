@@ -111,7 +111,6 @@ export interface HrAdvisor {
   user_id: number;
   first_name: string;
   last_name: string;
-  department_id: number;
   claimed_job_ids: number[];
 }
 
@@ -170,7 +169,6 @@ export interface Manager {
   full_name: string;
   first_name: string;
   last_name: string;
-  department_id: number | null;
   twitter_username: string | null;
   linkedin_url: string | null;
   is_demo_manager: boolean;
@@ -233,6 +231,7 @@ export interface User {
   is_priority: boolean;
   not_in_gov: boolean;
   gov_email: string;
+  department_id: number | null;
   user_role: {
     id: number;
     key: string;
