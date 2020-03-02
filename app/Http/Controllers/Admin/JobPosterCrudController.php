@@ -68,18 +68,33 @@ class JobPosterCrudController extends CrudController
             'name' => 'job_poster_status.key',
             'label' => 'Status',
             'type' => 'text',
+            'orderable' => true,
+            'orderLogic' => function ($query, $column, $columnDirection) {
+                return $query->leftJoin('job_poster_status', 'job_poster_status.id', '=', 'job_posters.job_poster_status_id')
+                    ->orderBy('job_poster_status.key', $columnDirection)->select('job_posters.*');
+            }
         ]);
         $this->crud->addColumn([
             'name' => 'isOpen',
-            'label' => 'isOpen',
-            'type' => 'model_function',
-            'function_name' => 'isOpen'
+            'label' => 'Open',
+            'type' => 'closure',
+            'orderable' => false,
+            'function' => function ($entry) {
+                return $entry->isOpen() ?
+                    '<span><i class="fa fa-check-circle"></i></span>' :
+                    '<span><i class="fa fa-circle"></i></span>';
+            }
         ]);
         $this->crud->addColumn([
             'name' => 'isClosed',
-            'label' => 'isClosed',
-            'type' => 'model_function',
-            'function_name' => 'isClosed'
+            'label' => 'Closed',
+            'type' => 'closure',
+            'orderable' => false,
+            'function' => function ($entry) {
+                return $entry->isClosed() ?
+                    '<span><i class="fa fa-check-circle"></i></span>' :
+                    '<span><i class="fa fa-circle"></i></span>';
+            }
         ]);
 
         $this->crud->addColumn([
@@ -138,7 +153,7 @@ class JobPosterCrudController extends CrudController
             'type' => 'select2_multiple',
             'label' => 'Filter by status'
         ], function () {
-            // Using name because some of the job status values are the same.
+            // Using key because some of the job status names are the same.
             return JobPosterStatus::all()->pluck('key', 'id')->toArray();
         }, function ($values) {
             $this->crud->addClause('WhereHas', 'job_poster_status', function ($query) use ($values) {
