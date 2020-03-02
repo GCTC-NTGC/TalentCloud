@@ -55,11 +55,16 @@ class JobPosterStatusCrudController extends CrudController
         }
         App::setLocale($locale);
 
-        // Add custom columns to the Department index view.
         $this->crud->addColumn([
             'name' => 'id',
             'type' => 'text',
             'label' => 'ID',
+            'orderable' => true,
+        ]);
+        $this->crud->addColumn([
+            'name' => 'key',
+            'type' => 'text',
+            'label' => 'Key',
             'orderable' => true,
         ]);
         $this->crud->addColumn([

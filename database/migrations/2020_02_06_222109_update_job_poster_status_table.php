@@ -19,24 +19,24 @@ class UpdateJobPosterStatusTable extends Migration
                 'fr' => 'Provisoire'
             ]),
             'review_manager' => json_encode([
-                'en' => 'In Review',
-                'fr' => 'En revue',
+                'en' => 'In Review (Manager)',
+                'fr' => 'En revue (Gestion)',
             ]),
             'review_hr' => json_encode([
-                'en' => 'In Review',
-                'fr' => 'En revue',
+                'en' => 'In Review (HR)',
+                'fr' => 'En revue (RH)',
             ]),
             'translation' => json_encode([
                 'en' => 'In Translation',
                 'fr' => 'En traduction',
             ]),
             'final_review_manager' => json_encode([
-                'en' => 'Final Review',
-                'fr' => 'Révision finale'
+                'en' => 'Final Review (Manager)',
+                'fr' => 'Révision finale (Gestion)'
             ]),
             'final_review_hr' => json_encode([
-                'en' => 'Final Review',
-                'fr' => 'Révision finale',
+                'en' => 'Final Review (HR)',
+                'fr' => 'Révision finale (RH)',
             ]),
             'pending_approval' => json_encode([
                 'en' => 'Pending Approval',
