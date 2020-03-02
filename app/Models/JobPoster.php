@@ -511,8 +511,8 @@ class JobPoster extends BaseModel
     public function isPublic(): bool
     {
         return ($this->job_poster_status->key == 'live'
-            || $this->job_poster_status_name == 'assessment'
-            || $this->job_poster_status_name == 'completed');
+            || $this->job_poster_status->key == 'assessment'
+            || $this->job_poster_status->key == 'completed');
     }
 
     /**
