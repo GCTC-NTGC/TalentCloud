@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Created by Reliese Model.
- * Date: Thu, 12 Jul 2018 22:39:27 +0000.
- */
-
 namespace App\Models\Lookup;
 
 use App\Models\BaseModel;
@@ -13,7 +8,7 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
 
 /**
- * Class Department
+ * Class JobPosterStatusTransition
  * @property int $id
  * @property string $key
  * @property int $owner_user_role_id

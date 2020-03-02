@@ -29,7 +29,7 @@ class JobStatusTransitionManager
     }
 
     /**
-     * Returns true is a JobStatusTransition exists with these $from and $to keys.
+     * Returns true if a JobStatusTransition exists with these $from and $to keys.
      *
      * @param string $from
      * @param string $to

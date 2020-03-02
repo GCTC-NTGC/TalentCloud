@@ -3,7 +3,7 @@
 namespace App\Models;
 
 /**
- * Class JobPosterStatus
+ * Class JobPosterStatusHistory
  *
  * @property int $id
  * @property int $job_poster_id
