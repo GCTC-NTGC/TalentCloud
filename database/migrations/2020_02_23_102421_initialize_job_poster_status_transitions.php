@@ -176,21 +176,47 @@ class InitializeJobPosterStatusTransitions extends Migration
                 ]),
             ],
             [
-                'key' => 'approved_to_published',
+                'key' => 'approved_to_ready',
                 'from_job_poster_status_id' => $statuses->firstWhere('key', 'approved')->id,
-                'to_job_poster_status_id' => $statuses->firstWhere('key', 'published')->id,
+                'to_job_poster_status_id' => $statuses->firstWhere('key', 'ready')->id,
                 'owner_user_role_id' => $admin,
                 'name' => json_encode([
-                    'en' => 'Publish',
-                    'fr' => 'Publish'
+                    'en' => 'Ready to go Live',
+                    'fr' => 'Ready to go Live'
                 ]),
                 'metadata' => json_encode([
                     'button_style' => 'go'
                 ]),
             ],
             [
-                'key' => 'published_to_completed',
-                'from_job_poster_status_id' => $statuses->firstWhere('key', 'published')->id,
+                'key' => 'ready_to_live',
+                'from_job_poster_status_id' => $statuses->firstWhere('key', 'ready')->id,
+                'to_job_poster_status_id' => $statuses->firstWhere('key', 'live')->id,
+                'owner_user_role_id' => $admin,
+                'name' => json_encode([
+                    'en' => 'Go Live',
+                    'fr' => 'Go Live'
+                ]),
+                'metadata' => json_encode([
+                    'button_style' => 'go'
+                ]),
+            ],
+            [
+                'key' => 'live_to_assessment',
+                'from_job_poster_status_id' => $statuses->firstWhere('key', 'live')->id,
+                'to_job_poster_status_id' => $statuses->firstWhere('key', 'assessment')->id,
+                'owner_user_role_id' => $admin,
+                'name' => json_encode([
+                    'en' => 'Close for Assessment',
+                    'fr' => 'Close for Assessment'
+                ]),
+                'metadata' => json_encode([
+                    'button_style' => 'go'
+                ]),
+            ],
+            [
+                'key' => 'assessment_to_completed',
+                'from_job_poster_status_id' => $statuses->firstWhere('key', 'assessment')->id,
                 'to_job_poster_status_id' => $statuses->firstWhere('key', 'completed')->id,
                 'owner_user_role_id' => $admin,
                 'name' => json_encode([
