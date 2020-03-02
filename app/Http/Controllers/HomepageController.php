@@ -20,7 +20,8 @@ class HomepageController extends Controller
 
         // Find three most recent published jobs that are currently open for applications.
         // Eager load required relationships: Department, Province, JobTerm.
-        $jobs = JobPoster::where('job_poster_status_id', JobPosterStatus::where('key', 'live')->first()->id)
+        $jobs = JobPoster::where('internal_only', false)
+            ->where('job_poster_status_id', JobPosterStatus::where('key', 'live')->first()->id)
             ->with([
                 'department',
                 'province',
