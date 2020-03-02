@@ -34,12 +34,23 @@ class ProcessJobStatusTransitions implements ShouldQueue
     public function handle()
     {
         $now = Date::now();
-        $published = JobPosterStatus::where('key', 'published')->first();
-        $completed = JobPosterStatus::where('key', 'completed')->first();
-        $jobsReadyForClose = JobPoster::where('job_poster_status_id', $published->id)
+        $ready = JobPosterStatus::where('key', 'ready')->first();
+        $live = JobPosterStatus::where('key', 'live')->first();
+        $assessment = JobPosterStatus::where('key', 'assessment')->first();
+
+        $jobsReadyForLive = JobPoster::where('job_poster_status_id', $ready->id)
+            ->where('open_date_time', '<=', $now)->get();
+        // We want to call save on each model individually instead of doing a mass update in order to trigger
+        // any events that may be listening for eloquent model udpates.
+        foreach ($jobsReadyForLive as $job) {
+            $job->job_poster_status_id = $live->id;
+            $job->save();
+        }
+
+        $jobsReadyForAssessment = JobPoster::where('job_poster_status_id', $live->id)
             ->where('close_date_time', '<=', $now)->get();
-        foreach ($jobsReadyForClose as $job) {
-            $job->job_poster_status_id = $completed->id;
+        foreach ($jobsReadyForAssessment as $job) {
+            $job->job_poster_status_id = $assessment->id;
             $job->save();
         }
     }
