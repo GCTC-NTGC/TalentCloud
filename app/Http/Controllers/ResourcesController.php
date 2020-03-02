@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Resource;
+use Facades\App\Services\WhichPortal;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
@@ -40,10 +41,12 @@ class ResourcesController extends Controller
             });
         }
 
+        $portal = WhichPortal::isHrPortal() ? 'hr' : 'manager';
 
         return view('common/resources', [
           // Localized strings.
           'resources_template' => $resources_template,
+          'portal' => $portal,
           // List of resource downloads.
           'resources' => $resources,
         ]);

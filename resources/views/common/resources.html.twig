@@ -1,6 +1,6 @@
 {% extends "layouts/base" %}
 {% block title %}
-    {{ resources_template.resources }}
+    {{ portal == 'manager' ? resources_template.manager_title : resources_template.hr_title }}
 {% endblock %}
 {% block body %}
     {% include "common/goc" %}
@@ -27,7 +27,7 @@
                                 <p data-c-font-size="h4" data-c-font-weight="bold" data-c-margin="bottom(1)">{{ resources_template.resources }}</p>
                                 <ul>
                                     <li>
-                                        <a href="#emailTemplates" title="View email template resources.">{{ resources_template.email_templates }}</a>
+                                        <a href="#emailTemplates" title="{{ resources_template.email_templates_title }}">{{ resources_template.email_templates_text }}</a>
                                     </li>
                                 </ul>
                             </nav>
