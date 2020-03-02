@@ -394,7 +394,7 @@ Route::group(
                             ->middleware('can:delete,jobPoster')
                             ->name('manager.jobs.destroy');
                         Route::post(
-                            'jobs/{jobPoster}/set-status/{status}',
+                            'jobs/{jobPoster}/status/{status}',
                             'JobStatusController@setJobStatus'
                         )
                             ->middleware('can:manage,jobPoster')
@@ -629,7 +629,7 @@ Route::group(
                             ->name('hr_advisor.jobs.preview');
 
                         Route::post(
-                            'jobs/{jobPoster}/set-status/{status}',
+                            'jobs/{jobPoster}/status/{status}',
                             'JobStatusController@setJobStatus'
                         )
                             ->middleware('can:manage,jobPoster')
@@ -778,8 +778,8 @@ Route::group(['prefix' => 'api'], function (): void {
         ->where('jobPoster', '[0-9]+')
         ->middleware('can:update,jobPoster');
 
-    Route::post(
-        'jobs/{jobPoster}/set-status/{status}',
+    Route::put(
+        'jobs/{jobPoster}/status/{status}',
         'JobStatusController@setJobStatus'
     )
         ->middleware('can:manage,jobPoster')
