@@ -48,7 +48,8 @@ class RecordJobStatusTransition
                 $fromStatusKey = JobPosterStatus::find($fromStatusId)->key;
                 $toStatusKey = JobPosterStatus::find($toStatusId)->key;
                 Log::notice('Job status transition: job {id=' . $job->id . '} changed from ' . $fromStatusKey .
-                    ' to ' . $toStatusKey . ' by user {id=' . $user->id . ', email=' . $user->email . '}');
+                    ' to ' . $toStatusKey .
+                    ' by user {id=' . $user !== null ? $user->id : 'null' . ', email=' . $user->email . '}');
             }
         }
     }
