@@ -478,11 +478,7 @@ class JobPoster extends BaseModel
      */
     public function isOpen(): bool
     {
-        return $this->job_poster_status->key === 'published'
-            && $this->open_date_time !== null
-            && $this->close_date_time !== null
-            && $this->open_date_time->isPast()
-            && $this->close_date_time->isFuture();
+        return $this->job_poster_status->key === 'live';
     }
 
     /**
@@ -492,12 +488,8 @@ class JobPoster extends BaseModel
      */
     public function isClosed(): bool
     {
-        return ($this->job_poster_status->key === 'published'
-            || $this->job_poster_status->key === 'completed')
-            && $this->open_date_time !== null
-            && $this->close_date_time !== null
-            && $this->open_date_time->isPast()
-            && $this->close_date_time->isPast();
+        return ($this->job_poster_status->key === 'assessment'
+            || $this->job_poster_status->key === 'completed');
     }
 
     /**
@@ -518,10 +510,9 @@ class JobPoster extends BaseModel
      */
     public function isPublic(): bool
     {
-        return ($this->job_poster_status->key == 'published'
-            || $this->job_poster_status_name == 'closed')
-            && $this->open_date_time !== null
-            && $this->open_date_time->isPast();
+        return ($this->job_poster_status->key == 'live'
+            || $this->job_poster_status_name == 'assessment'
+            || $this->job_poster_status_name == 'completed');
     }
 
     /**
