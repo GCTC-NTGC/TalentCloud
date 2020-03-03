@@ -23,6 +23,7 @@ class AddExperienceWorkTable extends Migration
             $table->date('end_date')->nullable();
             $table->integer('experienceable_id')->unsigned()->index();
             $table->string('experienceable_type');
+            $table->boolean('is_education_requirement')->default(false);
             $table->timestamps();
         });
     }

@@ -22,6 +22,7 @@ class AddExperienceAwardsTable extends Migration
             $table->date('awarded_date')->nullable();
             $table->integer('experienceable_id')->unsigned()->index();
             $table->string('experienceable_type');
+            $table->boolean('is_education_requirement')->default(false);
             $table->timestamps();
 
             $table->foreign('award_recipient_type_id')

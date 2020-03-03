@@ -16,6 +16,7 @@ use App\Models\BaseModel;
  * @property \Jenssegers\Date\Date $end_date
  * @property int $experienceable_id
  * @property string $experienceable_type
+ * @property boolean $is_education_requirement
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -29,7 +30,8 @@ class ExperienceWork extends BaseModel
         'group' => 'string',
         'is_active' => 'boolean',
         'start_date' => 'date',
-        'end_date' => 'date'
+        'end_date' => 'date',
+        'is_education_requirement' => 'boolean'
     ];
 
     protected $fillable = [
@@ -38,7 +40,8 @@ class ExperienceWork extends BaseModel
         'group',
         'is_active',
         'start_date',
-        'end_date'
+        'end_date',
+        'is_education_requirement'
     ];
 
     protected $table = ['experiences_work'];

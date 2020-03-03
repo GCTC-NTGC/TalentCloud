@@ -15,6 +15,7 @@ use App\Models\BaseModel;
  * @property \Jenssegers\Date\Date $awarded_date
  * @property int $experienceable_id
  * @property string $experienceable_type
+ * @property boolean $is_education_requirement
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -27,7 +28,8 @@ class ExperienceAward extends BaseModel
         'award_recipient_type_id' => 'int',
         'issued_by' => 'string',
         'award_recognition_type_id' => 'int',
-        'awarded_date' => 'date'
+        'awarded_date' => 'date',
+        'is_education_requirement' => 'boolean'
     ];
 
     protected $fillable = [
@@ -35,7 +37,8 @@ class ExperienceAward extends BaseModel
         'award_recipient_type_id',
         'issued_by',
         'award_recognition_type_id',
-        'awarded_date'
+        'awarded_date',
+        'is_education_requirement'
     ];
 
     protected $table = ['experiences_award'];

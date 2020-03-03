@@ -26,6 +26,7 @@ class AddExperienceEducationTable extends Migration
             $table->boolean('has_blockcert')->nullable();
             $table->integer('experienceable_id')->unsigned()->index();
             $table->string('experienceable_type');
+            $table->boolean('is_education_requirement')->default(true);
             $table->timestamps();
 
             $table->foreign('education_type_id')
