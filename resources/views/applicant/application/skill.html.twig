@@ -1,0 +1,281 @@
+{# =============================================================================
+
+    Talent Cloud / Application Skill Accordion
+
+    The purpose of this UI is to showcase an applicant's experience within the
+    context of an individual skill. The skill will list all linked experiences
+    and their relevant details.
+
+============================================================================= #}
+{# Skill Mock Data #}
+{#
+    skillName: string
+    skillLevel: options
+    relatedExperiences: object
+        experienceType: options
+        educationReq: boolean
+        skillClaim: string
+        IF experienceType == education
+            experienceEducationType: string
+            experienceAreaOfStudy: string
+            experienceInstitution: string
+            experienceStatus: options
+            experienceStartDate: date
+            experienceEndDate: date
+            experienceCurrent: boolean
+            experienceThesisTitle: string
+            experienceBlockcertLink: link
+        ELSE IF experienceType == work
+            experienceRole: string
+            experienceCompany: string
+            experienceTeam: string
+            experienceStartDate: date
+            experienceEndDate: date
+            experienceCurrent: boolean
+        ELSE IF experienceType == community
+            experienceRole: string
+            experienceGroup: string
+            experienceProject: string
+            experienceStartDate: date
+            experienceEndDate: date
+            experienceCurrent: boolean
+        ELSE IF experienceType == personal
+            experienceTitle: string
+            experienceDescription: string
+            experienceConsent: boolean
+            experienceStartDate: date
+            experienceEndDate: date
+            experienceCurrent: boolean
+        ELSE IF experienceType == award
+            experienceTitle: string
+            experienceRecipient: options
+            experienceInstitution: string
+            experienceScope: options
+            experienceAwardDate: date
+            experienceAwardLink: link
+#}
+{# Skill Accordion #}
+<div
+    data-c-accordion
+    data-c-background="white(100)"
+    data-c-card
+    data-c-margin="bottom(.5)">
+    <button
+        aria-expanded="false"
+        data-c-accordion-trigger
+        tabindex="0"
+        type="button">
+        <div data-c-grid="">
+            <div data-c-grid-item="base(1of1)">
+                <div data-c-padding="all(1)">
+                    <div data-c-grid="middle">
+                        <div data-c-grid-item="tl(3of4)">
+                            <p data-c-font-weight="bold" data-c-margin="left(1)">{{ skillName }}</p>
+                        </div>
+                        <div data-c-grid-item="tl(1of4)" data-c-align="base(left) tl(right)">
+                            <span>{{ skillLevel }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <span data-c-visibility="invisible">
+            Click to view...
+        </span>
+        <i
+            aria-hidden="true"
+            class="fas fa-angle-down"
+            data-c-accordion-add
+            data-c-colour="black"></i>
+        <i
+            aria-hidden="true"
+            class="fas fa-angle-up"
+            data-c-accordion-remove
+            data-c-colour="black"></i>
+    </button>
+    <div
+        aria-hidden="true"
+        data-c-accordion-content
+        data-c-background="gray(20)"
+        data-c-padding="bottom(2)">
+        <hr data-c-hr="thin(gray)" data-c-margin="bottom(2)">
+        <div data-c-padding="lr(2)">
+            <p data-c-margin="bottom(.5)" data-c-color="c2"><span data-c-font-weight="bold">User Experience Designer</span> at SomeCompany<p>
+            <p data-c-margin="bottom(1)" data-c-font-size="small">January 2015 - January 2020</p>
+            <p data-c-font-style="italic" data-c-margin="bottom(1)">"Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in."</p>
+            <div data-c-grid="gutter(all, 1)">
+                {# This logic displays the correct details depending on
+                the experiece's type. #}
+                {# Experience Type #}
+                <div data-c-grid-item="base(1of2) tl(1of3)">
+                    <p data-c-font-weight="bold">Type of Experience:</p>
+                    <p><i class="fas fa-book" data-c-color="c1" data-c-margin="right(.25)"></i>{{ experienceType|title }} Experience</p>
+                </div>
+                {# Type of Education #}
+                <div data-c-grid-item="base(1of2) tl(1of3)">
+                    <p data-c-font-weight="bold">Type of Education:</p>
+                    {% if experienceEducationType == null %}
+                        <p data-c-color="gray">N/A</p>
+                    {% else %}
+                        <p>{{ experienceEducationType }}</p>
+                    {% endif %}
+                </div>
+                {# Area of Study #}
+                <div data-c-grid-item="base(1of2) tl(1of3)">
+                    <p data-c-font-weight="bold">Area of Study:</p>
+                    {% if experienceAreaOfStudy == null %}
+                        <p data-c-color="gray">N/A</p>
+                    {% else %}
+                        <p>{{ experienceAreaOfStudy }}</p>
+                    {% endif %}
+                </div>
+                {# Institution #}
+                <div data-c-grid-item="base(1of2) tl(1of3)">
+                    <p data-c-font-weight="bold">Institution:</p>
+                    {% if experienceInstitution == null %}
+                        <p data-c-color="gray">N/A</p>
+                    {% else %}
+                        <p>{{ experienceInstitution }}</p>
+                    {% endif %}
+                </div>
+                {# Status #}
+                <div data-c-grid-item="base(1of2) tl(1of3)">
+                    <p data-c-font-weight="bold">Status:</p>
+                    {% if experienceStatus == null %}
+                        <p data-c-color="gray">N/A</p>
+                    {% else %}
+                        <p>{{ experienceStatus }}</p>
+                    {% endif %}
+                </div>
+                {# Start Date #}
+                <div data-c-grid-item="base(1of2) tl(1of3)">
+                    <p data-c-font-weight="bold">Start Date:</p>
+                    {% if experienceStartDate == null %}
+                        <p data-c-color="gray">N/A</p>
+                    {% else %}
+                        <p>{{ experienceStartDate }}</p>
+                    {% endif %}
+                </div>
+                {# End Date #}
+                <div data-c-grid-item="base(1of2) tl(1of3)">
+                    <p data-c-font-weight="bold">End Date:</p>
+                    {% if experienceCurrent == true %}
+                        <p>Ongoing</p>
+                    {% else %}
+                        {% if experienceEndDate == null %}
+                            <p data-c-color="gray">N/A</p>
+                        {% else %}
+                            <p>{{ experienceEndDate }}</p>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                {# Thesis Title #}
+                <div data-c-grid-item="base(1of2) tl(1of3)">
+                    <p data-c-font-weight="bold">Thesis Title:</p>
+                    {% if experienceThesisTitle == null %}
+                        <p data-c-color="gray">N/A</p>
+                    {% else %}
+                        <p>{{ experienceThesisTitle }}</p>
+                    {% endif %}
+                </div>
+                {# Blockcert Link #}
+                <div data-c-grid-item="base(1of2) tl(1of3)">
+                    <p data-c-font-weight="bold">Blockcert Link:</p>
+                    {% if experienceBlockcertLink == null %}
+                        <p data-c-color="gray">N/A</p>
+                    {% else %}
+                        <p><a href="{{ experienceBlockcertLink }}" title="View this blockcert." target="_blank">My Blockcert</a></p>
+                    {% endif %}
+                </div>
+            </div>
+            <p data-c-margin="top(2) bottom(.5)" data-c-color="c2"><span data-c-font-weight="bold">User Experience Designer</span> at SomeCompany<p>
+            <p data-c-margin="bottom(1)" data-c-font-size="small">January 2015 - January 2020</p>
+            <p data-c-font-style="italic" data-c-margin="bottom(1)">"Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in."</p>
+            <div data-c-grid="gutter(all, 1)">
+                {# This logic displays the correct details depending on
+                the experiece's type. #}
+                {# Experience Type #}
+                <div data-c-grid-item="base(1of2) tl(1of3)">
+                    <p data-c-font-weight="bold">Type of Experience:</p>
+                    <p><i class="fas fa-book" data-c-color="c1" data-c-margin="right(.25)"></i>{{ experienceType|title }} Experience</p>
+                </div>
+                {# Type of Education #}
+                <div data-c-grid-item="base(1of2) tl(1of3)">
+                    <p data-c-font-weight="bold">Type of Education:</p>
+                    {% if experienceEducationType == null %}
+                        <p data-c-color="gray">N/A</p>
+                    {% else %}
+                        <p>{{ experienceEducationType }}</p>
+                    {% endif %}
+                </div>
+                {# Area of Study #}
+                <div data-c-grid-item="base(1of2) tl(1of3)">
+                    <p data-c-font-weight="bold">Area of Study:</p>
+                    {% if experienceAreaOfStudy == null %}
+                        <p data-c-color="gray">N/A</p>
+                    {% else %}
+                        <p>{{ experienceAreaOfStudy }}</p>
+                    {% endif %}
+                </div>
+                {# Institution #}
+                <div data-c-grid-item="base(1of2) tl(1of3)">
+                    <p data-c-font-weight="bold">Institution:</p>
+                    {% if experienceInstitution == null %}
+                        <p data-c-color="gray">N/A</p>
+                    {% else %}
+                        <p>{{ experienceInstitution }}</p>
+                    {% endif %}
+                </div>
+                {# Status #}
+                <div data-c-grid-item="base(1of2) tl(1of3)">
+                    <p data-c-font-weight="bold">Status:</p>
+                    {% if experienceStatus == null %}
+                        <p data-c-color="gray">N/A</p>
+                    {% else %}
+                        <p>{{ experienceStatus }}</p>
+                    {% endif %}
+                </div>
+                {# Start Date #}
+                <div data-c-grid-item="base(1of2) tl(1of3)">
+                    <p data-c-font-weight="bold">Start Date:</p>
+                    {% if experienceStartDate == null %}
+                        <p data-c-color="gray">N/A</p>
+                    {% else %}
+                        <p>{{ experienceStartDate }}</p>
+                    {% endif %}
+                </div>
+                {# End Date #}
+                <div data-c-grid-item="base(1of2) tl(1of3)">
+                    <p data-c-font-weight="bold">End Date:</p>
+                    {% if experienceCurrent == true %}
+                        <p>Ongoing</p>
+                    {% else %}
+                        {% if experienceEndDate == null %}
+                            <p data-c-color="gray">N/A</p>
+                        {% else %}
+                            <p>{{ experienceEndDate }}</p>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                {# Thesis Title #}
+                <div data-c-grid-item="base(1of2) tl(1of3)">
+                    <p data-c-font-weight="bold">Thesis Title:</p>
+                    {% if experienceThesisTitle == null %}
+                        <p data-c-color="gray">N/A</p>
+                    {% else %}
+                        <p>{{ experienceThesisTitle }}</p>
+                    {% endif %}
+                </div>
+                {# Blockcert Link #}
+                <div data-c-grid-item="base(1of2) tl(1of3)">
+                    <p data-c-font-weight="bold">Blockcert Link:</p>
+                    {% if experienceBlockcertLink == null %}
+                        <p data-c-color="gray">N/A</p>
+                    {% else %}
+                        <p><a href="{{ experienceBlockcertLink }}" title="View this blockcert." target="_blank">My Blockcert</a></p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

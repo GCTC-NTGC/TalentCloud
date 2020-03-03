@@ -11,7 +11,7 @@
 {% extends "layouts/base-test" %}
 {# HTML Page Title #}
 {% block title %}
-	Apply Now: Welcome
+	Apply Now: Understanding Skills
 {% endblock %}
 {# Page Header #}
 {% block header %}
@@ -23,17 +23,10 @@
         {# Application Progress Bar #}
         {% include "applicant/application/progress-bar" with {"step": 5} %}
         <div data-c-container="medium">
-            <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">Defining Your Experience</h2>
-            <p data-c-margin="bottom(1)">In a similar fashion to your resume, the next step in your application is telling us about your experiences. Unlike your resume, we want you to tell us about everything that has helped you hone your craft in relation to this job.</p>
-            <p data-c-margin="bottom(1)">On Talent Cloud, you can add experiences of these types:</p>
-            <ul data-c-margin="bottom(1)">
-                <li>Education Experience</li>
-                <li>Work Experience</li>
-                <li>Community Experience</li>
-                <li>Personal Experience</li>
-                <li>Awards</li>
-            </ul>
-            <p>The best part is that as you add these experiences, the information gets saved to your profile. The next time you go to apply to a job, you'll be able to select from the same work you've done to help speed up the process.</p>
+            <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">How You Used Each Skill</h2>
+            <p data-c-margin="bottom(1)">Now that you've shared your experiences, tell us how they connect to the skills required for the job.</p>
+            <p data-c-margin="bottom(1)">For each experience add a short explanation that demonstrates how you used the skill. These explanations are what the manager will use to decide how strong your application is, so it's important that you share your best examples.</p>
+            <p>Just like experience, this information is saved to your profile so that you can reuse it on other applications!</p>
         </div>
         {# Application Action Buttons #}
         {% include "applicant/application/action-buttons" with {"step": 5} %}

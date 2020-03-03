@@ -68,6 +68,8 @@ Route::group(
             Route::view('application-08', 'applicant/application/08-review')->middleware('localOnly')->name('app8');
             /* Application (Signature & Submission) */
             Route::view('application-09', 'applicant/application/09-submit')->middleware('localOnly')->name('app9');
+            /* Application (Congrats) */
+            Route::view('application-10', 'applicant/application/10-submit')->middleware('localOnly')->name('app10');
 
             /* Profile (Experience) */
 

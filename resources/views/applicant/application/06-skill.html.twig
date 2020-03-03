@@ -24,7 +24,7 @@
         <div data-c-container="large">
             <div data-c-grid="gutter(all, 1)">
                 <div data-c-grid-item="tl(1of4)">
-                    <div data-c-padding="tb(3)" class="application-skill-navigation">
+                    <div data-c-padding="top(3)" class="application-skill-navigation">
                         <p data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(1)">On this page:</p>
                         {# These sidebar nav items have icon indicators that should tell the user how an entire skill's experiences are filled out.
                         - if all experiences in a skill are complete, the sidebar item should be "complete"
@@ -62,6 +62,13 @@
                     <div class="skills-list">
                         {# This is a generic template of the accordion with the name of the data required. Below you can find a version of these accordions with fake data entered so that you can see what it should look like in practice. These accordions can have three states (controlled by the data-status attribute): complete, error, default. Also note that the headings require an id that matches the anchor in the sidebar navigation. The buttons inside of these headings open two individual modals - the skill name opens a modal with the skill's definition in it (including the manager's additions if applicable), and the level button opens a modal with the level's description in it. #}
                         <h3 class="application-skill-title" data-c-heading="h3" data-c-padding="top(3) bottom(1)" data-c-margin="bottom(1)" id="SKILLNAME"><button data-c-font-size="h3" data-c-dialog-id="skill-description" type="button" data-c-dialog-action="open">[SKILL NAME]</button><br><button data-c-font-size="normal"data-c-font-weight="bold" data-c-dialog-id="level-description" type="button" data-c-dialog-action="open">[LEVEL REQUIRED BY MANAGER]</button></h3>
+                        {# This is the null state for when a skill has no experiences associated to it. Theoretically this should only happen if a user removes the relationships one by one on this UI. #}
+                        <div data-c-background="gray(10)" data-c-radius="rounded" data-c-border="all(thin, solid, gray)" data-c-padding="all(1)">
+                            <div data-c-align="base(center)">
+                                <p data-c-color="gray">Looks like you don't have any experiences linked to this skill. You can link experiences to skills in the previous step.</p>
+                            </div>
+                        </div>
+                        {# List of experiences for this skill. #}
                         <div data-c-accordion-group>
                             <div
                                 data-c-accordion
