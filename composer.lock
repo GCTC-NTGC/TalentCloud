@@ -1896,16 +1896,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.30.0",
+            "version": "2.31.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "912dff66d2690ca66abddb9b291a1df5f371d3b4"
+                "reference": "bbc0ab53f41a4c6f223c18efcdbd9bc725eb5d2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/912dff66d2690ca66abddb9b291a1df5f371d3b4",
-                "reference": "912dff66d2690ca66abddb9b291a1df5f371d3b4",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/bbc0ab53f41a4c6f223c18efcdbd9bc725eb5d2d",
+                "reference": "bbc0ab53f41a4c6f223c18efcdbd9bc725eb5d2d",
                 "shasum": ""
             },
             "require": {
@@ -1962,7 +1962,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2020-02-07T15:25:46+00:00"
+            "time": "2020-03-01T11:11:58+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -5806,17 +5806,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laracasts/Laravel-5-Generators-Extended.git",
-                "reference": "e18d9887d321f40ea4331a4ecbae5a6fa44e3cd0"
+                "reference": "4b168b53e3a38eb344fa24aacc5109da3a45c53d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laracasts/Laravel-5-Generators-Extended/zipball/e18d9887d321f40ea4331a4ecbae5a6fa44e3cd0",
-                "reference": "e18d9887d321f40ea4331a4ecbae5a6fa44e3cd0",
+                "url": "https://api.github.com/repos/laracasts/Laravel-5-Generators-Extended/zipball/4b168b53e3a38eb344fa24aacc5109da3a45c53d",
+                "reference": "4b168b53e3a38eb344fa24aacc5109da3a45c53d",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "~5.0|~6.0",
-                "laravel/helpers": "^1.1",
+                "illuminate/support": "~5.0|~6.0|~7.0",
                 "php": ">=5.4.0"
             },
             "require-dev": {
@@ -5850,7 +5849,7 @@
                 "generators",
                 "laravel"
             ],
-            "time": "2020-02-21T11:25:09+00:00"
+            "time": "2020-03-03T10:08:39+00:00"
         },
         {
             "name": "maximebf/debugbar",
