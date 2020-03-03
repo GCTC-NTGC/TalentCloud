@@ -147,7 +147,7 @@ return [
             'accepted' => 'Step 1 must be completed',
         ],
         'application_step_3' => [
-            'accepted' => 'Step 3 must be completed',
+            'accepted' => 'Step 3 must be completed. If Step 3 appears complete, please check the skills page on your profile for duplicate entries. Multiple copies of a skill on your profile can also cause this error. We are working to resolve this issue.',
         ],
         'published' => [
             'in' => 'You cannot edit a Job Poster that has been published'
