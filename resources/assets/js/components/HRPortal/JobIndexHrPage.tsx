@@ -25,10 +25,7 @@ import { RootState } from "../../store/store";
 import { fetchJobIndex } from "../../store/Job/jobActions";
 import { getAllJobs } from "../../store/Job/jobSelector";
 import RootContainer from "../RootContainer";
-import {
-  getManagers,
-  getManagerIsUpdatingById,
-} from "../../store/Manager/managerSelector";
+import { getManagers } from "../../store/Manager/managerSelector";
 import { fetchManager } from "../../store/Manager/managerActions";
 import { getDepartmentById } from "../../store/Department/deptSelector";
 import { getDepartments } from "../../store/Department/deptActions";
@@ -256,15 +253,15 @@ const JobIndexHrDataFetcher: React.FC<JobIndexHrDataFetcherProps> = ({
 
   // Request and select all managers belonging to the dept jobs
   const managers = useSelector(getManagers);
-  const managersUpdating = useSelector(getManagerIsUpdatingById);
-  deptJobs.forEach((job: Job): void => {
-    if (
-      find(managers, job.manager_id) === null &&
-      managersUpdating[job.manager_id] !== true
-    ) {
-      dispatch(fetchManager(job.manager_id));
-    }
-  });
+  useEffect(() => {
+    const uniqueManagers: number[] = [];
+    deptJobs.forEach((job: Job): void => {
+      if (!uniqueManagers.includes(job.manager_id)) {
+        dispatch(fetchManager(job.manager_id));
+      }
+      uniqueManagers.push(job.manager_id);
+    });
+  }, [deptJobs, dispatch]);
 
   // Load department names
   useEffect(() => {
