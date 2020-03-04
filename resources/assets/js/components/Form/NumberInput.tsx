@@ -1,7 +1,6 @@
 import * as React from "react";
 import { FieldProps } from "formik";
-import { FormattedMessage } from "react-intl";
-import { inputMessages } from "./Messages";
+import Input from "../Input";
 
 interface NumberInputProps {
   /** HTML id of the input element */
@@ -41,33 +40,22 @@ const NumberInput: React.FunctionComponent<NumberInputProps> = ({
   const invalid = touched[name] && errors[name] ? true : null;
 
   return (
-    <div
-      data-c-input="number"
-      data-c-grid-item={grid}
-      data-c-required={required || null}
-      data-c-invalid={invalid}
-    >
-      <label htmlFor={id}>{label}</label>
-      <span>
-        <FormattedMessage {...inputMessages.required} />
-      </span>
-      <div>
-        <input
-          required
-          id={id}
-          name={name}
-          placeholder={placeholder}
-          type="number"
-          value={value || undefined}
-          min={min}
-          max={max}
-          onChange={onChange}
-          onBlur={onBlur}
-          {...props}
-        />
-      </div>
-      <span>{errorText || <FormattedMessage {...inputMessages.error} />}</span>
-    </div>
+    <Input
+      id={id}
+      label={label}
+      placeholder={placeholder}
+      required={required}
+      name={name}
+      value={value}
+      grid={grid}
+      min={min}
+      max={max}
+      onChange={onChange}
+      onBlur={onBlur}
+      errorText={errorText}
+      invalid={invalid}
+      {...props}
+    />
   );
 };
 
