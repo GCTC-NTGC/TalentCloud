@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
+use Tests\TestCase;
 use App\Models\HrAdvisor;
 use App\Models\JobPoster;
 use App\Models\Lookup\JobPosterStatus;
 use App\Models\User;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class JobStatusControllerTest extends TestCase
@@ -29,22 +29,25 @@ class JobStatusControllerTest extends TestCase
         $responseReview->assertStatus(302);
         $this->assertEquals('review_hr', $job->fresh()->job_poster_status->key);
 
-        $hrAdvisor = factory(HrAdvisor::class)->create([
+        $hrAdvisor = factory(User::class)->states('hr_advisor')->create([
             'department_id' => $job->department_id
         ]);
-        $hrAdvisor->claimed_jobs()->attach($job);
+        $hrAdvisor->hr_advisor()->save(factory(HrAdvisor::class)->create([
+            'user_id' => $hrAdvisor->id,
+        ]));
+        $hrAdvisor->hr_advisor->claimed_jobs()->attach($job);
 
-        $responseTranslation = $this->actingAs($hrAdvisor->fresh()->user)->post(
+        $responseTranslation = $this->actingAs($hrAdvisor->fresh())->post(
             route('hr_advisor.jobs.setJobStatus', ['jobPoster' => $job, 'status' => 'translation'])
         );
         $responseTranslation->assertStatus(302);
         $this->assertEquals('translation', $job->fresh()->job_poster_status->key);
 
         $admin = factory(User::class)->state('admin')->create([
-            'gov_email' => 'admin@test.gov'
+            'gov_email' => 'admin@test.gov',
+            'department_id' => $job->department_id,
         ]);
         $admin->hr_advisor()->save(factory(HrAdvisor::class)->create([
-            'department_id' => $job->department_id,
             'user_id' => $admin->id,
         ]));
         $responseFinalReview = $this->actingAs($admin)->post(
@@ -59,7 +62,7 @@ class JobStatusControllerTest extends TestCase
         $responsePending->assertStatus(302);
         $this->assertEquals('pending_approval', $job->fresh()->job_poster_status->key);
 
-        $responseApproved = $this->actingAs($hrAdvisor->fresh()->user)->post(
+        $responseApproved = $this->actingAs($hrAdvisor->fresh())->post(
             route('hr_advisor.jobs.setJobStatus', ['jobPoster' => $job, 'status' => 'approved'])
         );
         $responseApproved->assertStatus(302);
@@ -109,12 +112,15 @@ class JobStatusControllerTest extends TestCase
         $job->job_poster_status_id = JobPosterStatus::where('key', 'review_hr')->first()->id;
         $job->save();
 
-        $hrAdvisor = factory(HrAdvisor::class)->create([
+        $hrAdvisor = factory(User::class)->states('hr_advisor')->create([
             'department_id' => $job->department_id
         ]);
-        $hrAdvisor->claimed_jobs()->attach($job);
+        $hrAdvisor->hr_advisor()->save(factory(HrAdvisor::class)->create([
+            'user_id' => $hrAdvisor->id,
+        ]));
+        $hrAdvisor->hr_advisor->claimed_jobs()->attach($job);
 
-        $responseHr =  $this->actingAs($hrAdvisor->fresh()->user)->post(
+        $responseHr =  $this->actingAs($hrAdvisor->fresh())->post(
             route('hr_advisor.jobs.setJobStatus', ['jobPoster' => $job, 'status' => 'draft'])
         );
         $responseHr->assertStatus(400);
@@ -134,10 +140,13 @@ class JobStatusControllerTest extends TestCase
 
         $this->assertEquals('review_hr', $job->fresh()->job_poster_status->key);
 
-        $hrAdvisor = factory(HrAdvisor::class)->create([
+        $hrAdvisor = factory(User::class)->states('hr_advisor')->create([
             'department_id' => $job->department_id
         ]);
-        $hrAdvisor->claimed_jobs()->attach($job);
+        $hrAdvisor->hr_advisor()->save(factory(HrAdvisor::class)->create([
+            'user_id' => $hrAdvisor->id,
+        ]));
+        $hrAdvisor->hr_advisor->claimed_jobs()->attach($job);
 
         $response = $this->actingAs($job->manager->user)->post(
             route('manager.jobs.setJobStatus', ['jobPoster' => $job, 'status' => 'review_manager'])
