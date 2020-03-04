@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "backpack/crud",
-            "version": "4.0.42",
+            "version": "4.0.43",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/CRUD.git",
-                "reference": "6a87fb746dcadd21c8959bbd80422673ed9e7e1d"
+                "reference": "a42a1bac0c993fb362bbc5f7ebb74516ef99611a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/6a87fb746dcadd21c8959bbd80422673ed9e7e1d",
-                "reference": "6a87fb746dcadd21c8959bbd80422673ed9e7e1d",
+                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/a42a1bac0c993fb362bbc5f7ebb74516ef99611a",
+                "reference": "a42a1bac0c993fb362bbc5f7ebb74516ef99611a",
                 "shasum": ""
             },
             "require": {
@@ -25,19 +25,18 @@
                 "doctrine/dbal": "^2.5",
                 "guzzlehttp/guzzle": "^6.3",
                 "intervention/image": "^2.3",
-                "laravel/framework": "^6.0|5.8.*",
+                "laravel/framework": "^7.0|^6.0|5.8.*",
                 "laravel/helpers": "^1.1",
-                "nesbot/carbon": "^2.14.0",
+                "nesbot/carbon": "^2.14",
                 "ocramius/package-versions": "^1.4",
-                "prologue/alerts": "^0.4.1",
-                "venturecraft/revisionable": "1.*"
+                "prologue/alerts": "^0.4.1"
             },
             "require-dev": {
-                "orchestra/database": "3.8.x-dev",
-                "orchestra/testbench": "^3.0",
-                "phpunit/phpunit": "~7.0",
-                "scrutinizer/ocular": "~1.1",
-                "spatie/laravel-translatable": "^3.1.3"
+                "orchestra/database": "^5.0@dev|3.8.x-dev",
+                "orchestra/testbench": "^5.0|^3.0",
+                "phpunit/phpunit": "~8.0|~7.0",
+                "scrutinizer/ocular": "~1.7|~1.1",
+                "spatie/laravel-translatable": "^4.0|^3.1.3"
             },
             "type": "library",
             "extra": {
@@ -91,7 +90,7 @@
                 "read",
                 "update"
             ],
-            "time": "2020-03-01T08:42:43+00:00"
+            "time": "2020-03-04T06:46:54+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -4857,66 +4856,6 @@
                 "templating"
             ],
             "time": "2020-02-11T15:31:23+00:00"
-        },
-        {
-            "name": "venturecraft/revisionable",
-            "version": "1.34.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/VentureCraft/revisionable.git",
-                "reference": "151336f0cd51921a00a1ac249afdbcbedb3bc8b3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/VentureCraft/revisionable/zipball/151336f0cd51921a00a1ac249afdbcbedb3bc8b3",
-                "reference": "151336f0cd51921a00a1ac249afdbcbedb3bc8b3",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "~4.0|~5.0|~5.1|^6.0|^7.0",
-                "laravel/framework": "~5.4|^6.0|^7.0",
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "orchestra/testbench": "~3.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Venturecraft\\Revisionable\\RevisionableServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "classmap": [
-                    "src/migrations"
-                ],
-                "psr-0": {
-                    "Venturecraft\\Revisionable": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Chris Duell",
-                    "email": "me@chrisduell.com"
-                }
-            ],
-            "description": "Keep a revision history for your models without thinking, created as a package for use with Laravel",
-            "homepage": "http://github.com/venturecraft/revisionable",
-            "keywords": [
-                "Audit",
-                "ardent",
-                "history",
-                "laravel",
-                "model",
-                "revision"
-            ],
-            "time": "2020-03-03T22:35:12+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
