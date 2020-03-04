@@ -1,11 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control, @typescript-eslint/no-non-null-assertion, react/no-array-index-key, @typescript-eslint/camelcase, camelcase, jsx-a11y/no-noninteractive-tabindex */
 import React, { useState, useRef } from "react";
-import {
-  FormattedMessage,
-  WrappedComponentProps,
-  injectIntl,
-  defineMessages,
-} from "react-intl";
+import { FormattedMessage, defineMessages, useIntl } from "react-intl";
 import {
   Field,
   Form,
@@ -13,6 +8,7 @@ import {
   FieldArray,
   FormikErrors,
   FormikValues,
+  FastField,
 } from "formik";
 import { array, object, string } from "yup";
 import nprogress from "nprogress";
@@ -24,7 +20,7 @@ import TextAreaInput from "../../Form/TextAreaInput";
 import { JobPosterKeyTask } from "../../../models/types";
 import { find } from "../../../helpers/queries";
 import { emptyTasks } from "../../../models/jobUtil";
-import { localizeFieldNonNull } from "../../../helpers/localize";
+import { localizeFieldNonNull, getLocale } from "../../../helpers/localize";
 
 interface JobTasksProps {
   /** Job ID to pass to tasks. */
@@ -83,8 +79,7 @@ const formMessages = defineMessages({
   },
 });
 
-const JobTasks: React.FunctionComponent<JobTasksProps &
-  WrappedComponentProps> = ({
+export const JobTasks: React.FunctionComponent<JobTasksProps> = ({
   jobId,
   keyTasks,
   validCount,
@@ -94,15 +89,12 @@ const JobTasks: React.FunctionComponent<JobTasksProps &
   handleModalConfirm,
   jobIsComplete,
   handleSkipToReview,
-  intl,
 }): React.ReactElement => {
+  const intl = useIntl();
+  const locale = getLocale(intl.locale);
   const modalId = "tasks-modal";
   const [isModalVisible, setIsModalVisible] = useState(false);
   const modalParentRef = useRef<HTMLDivElement>(null);
-  const { locale } = intl;
-  if (locale !== "en" && locale !== "fr") {
-    throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
-  }
 
   const tasksToValues = (
     tasks: JobPosterKeyTask[],
@@ -258,7 +250,8 @@ const JobTasks: React.FunctionComponent<JobTasksProps &
               actions.setSubmitting(false); // Required by Formik to finish the submission cycle
             });
         }}
-        render={({
+      >
+        {({
           isSubmitting,
           values,
           errors,
@@ -415,7 +408,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps &
                                         <i className="fas fa-angle-down" />
                                       </button>
                                     </div>
-                                    <Field
+                                    <FastField
                                       id={`task-${task.id}`}
                                       name={`tasks.${index}.description`}
                                       grid="base(5of7) tl(8of10)"
@@ -636,11 +629,9 @@ const JobTasks: React.FunctionComponent<JobTasksProps &
             <div data-c-dialog-overlay={isModalVisible ? "active" : ""} />
           </>
         )}
-      />
+      </Formik>
     </div>
   );
 };
 
-export const JobTasksIntl = injectIntl(JobTasks);
-
-export default JobTasksIntl;
+export default JobTasks;
