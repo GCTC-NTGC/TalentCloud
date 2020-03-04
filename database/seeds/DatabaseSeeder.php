@@ -15,7 +15,8 @@ class DatabaseSeeder extends Seeder //phpcs:ignore
             DevSeeder::class,
             SkillClassificationSeeder::class,
             CommentSeeder::class,
-            ExperienceSkillSeeder::class
+            ExperienceSkillSeeder::class,
+            ResourceSeeder::class,
         ]);
     }
 }

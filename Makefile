@@ -36,6 +36,9 @@ set-perms:
 	@docker exec talentcloud sh -c "chown -R www-data /var/www/storage /var/www/vendor /var/www/bootstrap/cache"
 	@docker exec talentcloud sh -c "chmod -R 775 /var/www"
 
+create-symlink:
+	@docker exec talentcloud sh -c "php artisan storage:link"
+
 test:
 	@docker exec talentcloud sh -c "phpdbg -qrr ./vendor/bin/phpunit -dmemory_limit=4G --no-coverage"
 
