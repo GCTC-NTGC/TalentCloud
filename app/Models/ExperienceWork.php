@@ -41,7 +41,7 @@ class ExperienceWork extends BaseModel
         'end_date'
     ];
 
-    protected $table = ['experiences_work'];
+    protected $table = 'experiences_work';
 
     public function experienceable() //phpcs:ignore
     {

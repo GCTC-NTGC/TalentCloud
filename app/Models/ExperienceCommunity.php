@@ -41,7 +41,7 @@ class ExperienceCommunity extends BaseModel
         'end_date'
     ];
 
-    protected $table = ['experiences_community'];
+    protected $table = 'experiences_community';
 
     public function experienceable() //phpcs:ignore
     {
