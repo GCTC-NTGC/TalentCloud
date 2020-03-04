@@ -98,7 +98,7 @@
         "classnames": "^2.2.6",
         "clone-framework": "^2.4.15",
         "core-js": "^3.6.4",
-        "formik": "^1.5.8",
+        "formik": "^2.1.4",
         "history": "^4.10.1",
         "intl": "^1.2.5",
         "isomorphic-fetch": "^2.2.1",
