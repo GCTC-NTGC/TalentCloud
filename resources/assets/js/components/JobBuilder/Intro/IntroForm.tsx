@@ -1,11 +1,7 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, { useState } from "react";
-import {
-  injectIntl,
-  WrappedComponentProps,
-  FormattedMessage,
-  defineMessages,
-} from "react-intl";
-import { Form, Field, Formik } from "formik";
+import { FormattedMessage, defineMessages, useIntl } from "react-intl";
+import { Form, Formik, FastField } from "formik";
 import * as Yup from "yup";
 import nprogress from "nprogress";
 import get from "lodash/get";
@@ -14,7 +10,7 @@ import { Job, Department, Manager, User } from "../../../models/types";
 import { emptyJob } from "../../../models/jobUtil";
 import TextInput from "../../Form/TextInput";
 import { accountSettings } from "../../../helpers/routes";
-import { localizeFieldNonNull } from "../../../helpers/localize";
+import { localizeFieldNonNull, getLocale } from "../../../helpers/localize";
 
 const pageMessages = defineMessages({
   explanationBoldText: {
@@ -165,9 +161,7 @@ const updateJobWithValues = (
   departmentId: number | null,
 ): Job => ({
   ...job,
-  // eslint-disable-next-line @typescript-eslint/camelcase
   chosen_lang: locale,
-  // eslint-disable-next-line @typescript-eslint/camelcase
   department_id: departmentId,
   division: {
     ...job.division,
@@ -193,24 +187,20 @@ const updateManagerWithValues = (
   },
 });
 
-const IntroForm: React.FunctionComponent<IntroFormProps &
-  WrappedComponentProps> = ({
+const IntroForm: React.FunctionComponent<IntroFormProps> = ({
   job,
   manager,
   user,
   departments,
   handleSubmit,
   handleContinue,
-  intl,
-}: IntroFormProps & WrappedComponentProps): React.ReactElement => {
-  const { locale } = intl;
-  if (locale !== "en" && locale !== "fr") {
-    throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
-  }
+}: IntroFormProps): React.ReactElement => {
+  const intl = useIntl();
+  const locale = getLocale(intl.locale);
   const initialValues: IntroFormValues = initializeValues(job, manager, user);
   const [languageSelection, setLanguageSelection] = useState(locale);
+
   const getDepartmentName = (): string | undefined => {
-    // eslint-disable-next-line camelcase
     const departmentName = departments.find(
       department => department.id === user.department_id,
     );
@@ -288,7 +278,8 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
                 setSubmitting(false); // Required by Formik to finish the submission cycle
               });
           }}
-          render={({ isSubmitting, submitForm }): React.ReactElement => (
+        >
+          {({ isSubmitting, submitForm }): React.ReactElement => (
             <>
               <Form id="form" data-c-margin="bottom(normal)">
                 <div data-c-grid="gutter">
@@ -309,9 +300,9 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
                       description="Explanation of why the profile information is collected."
                     />
                   </p>
-                  <Field
+                  <FastField
                     type="text"
-                    id="builder01ManagerPositionEn"
+                    id="managerPositionEn"
                     name="managerPositionEn"
                     label={intl.formatMessage(formMessages.jobTitleLabelEN, {
                       name: manager.first_name,
@@ -323,9 +314,9 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
                     grid="tl(1of2)"
                     component={TextInput}
                   />
-                  <Field
+                  <FastField
                     type="text"
-                    id="builder01ManagerPositionFr"
+                    id="managerPositionFr"
                     name="managerPositionFr"
                     label={intl.formatMessage(formMessages.jobTitleLabelFR, {
                       name: manager.first_name,
@@ -394,9 +385,9 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
                       />
                     </span>
                   </p>
-                  <Field
+                  <FastField
                     type="text"
-                    id="builder01ManagerDivisionEN"
+                    id="divisionEN"
                     name="divisionEN"
                     label={intl.formatMessage(formMessages.divisionLabelEN, {
                       name: manager.first_name,
@@ -408,9 +399,9 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
                     grid="tl(1of2)"
                     component={TextInput}
                   />
-                  <Field
+                  <FastField
                     type="text"
-                    id="builder01ManagerDivisionFR"
+                    id="divisionFR"
                     name="divisionFR"
                     label={intl.formatMessage(formMessages.divisionLabelFR, {
                       name: manager.first_name,
@@ -499,10 +490,10 @@ const IntroForm: React.FunctionComponent<IntroFormProps &
               </button>
             </>
           )}
-        />
+        </Formik>
       </div>
     </>
   );
 };
 
-export default injectIntl(IntroForm);
+export default IntroForm;
