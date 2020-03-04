@@ -247,7 +247,7 @@ const JobTasks: React.FunctionComponent<JobTasksProps &
                *  This stops tasks from being recreated (instead of updated) if you save the form again.
                *  FIXME: However, this resets the ordering as well, to whatever order the server returns them in.
                */
-              actions.resetForm(tasksToValues(updatedTasks));
+              actions.resetForm({ values: tasksToValues(updatedTasks) });
               nprogress.done();
               setIsModalVisible(true);
             })

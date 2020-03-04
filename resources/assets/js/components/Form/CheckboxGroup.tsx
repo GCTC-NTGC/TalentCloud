@@ -1,5 +1,5 @@
 import * as React from "react";
-import { FormikActions } from "formik";
+import { FormikHelpers } from "formik";
 import { FormattedMessage } from "react-intl";
 import { inputMessages } from "./Messages";
 
@@ -13,15 +13,15 @@ interface CheckboxGroupProps {
   /** If this input is required for submission. */
   required?: boolean;
   /** Error to display. */
-  error: (string | undefined)[] | undefined;
+  error: string | string[] | undefined;
   /** If this group has been affected by user input or a submission. */
-  touched: (boolean | undefined)[] | undefined;
+  touched: boolean | undefined;
   /** Array of all selected values */
   value: (string | number)[];
   /** Function which takes an id and value as arguments, and sets the field (id) to the value */
-  onChange: FormikActions<any>["setFieldValue"];
+  onChange: FormikHelpers<any>["setFieldValue"];
   /** Function which takes an id and boolean value as arguments, and sets the field (id) to the boolean value */
-  onBlur: FormikActions<any>["setFieldTouched"];
+  onBlur: FormikHelpers<any>["setFieldTouched"];
 }
 
 const CheckboxGroup: React.FunctionComponent<CheckboxGroupProps> = ({
