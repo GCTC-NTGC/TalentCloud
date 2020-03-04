@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "562e2adffe52b3f292099f1ae8848c34",
+    "content-hash": "7020f9f6b142f03dc49b30cbcfce835a",
     "packages": [
         {
             "name": "backpack/crud",
-            "version": "4.0.42",
+            "version": "4.0.44",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/CRUD.git",
-                "reference": "6a87fb746dcadd21c8959bbd80422673ed9e7e1d"
+                "reference": "1b76b0a41e7ae0b0e1d9b200cf2a98b64deab1f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/6a87fb746dcadd21c8959bbd80422673ed9e7e1d",
-                "reference": "6a87fb746dcadd21c8959bbd80422673ed9e7e1d",
+                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/1b76b0a41e7ae0b0e1d9b200cf2a98b64deab1f7",
+                "reference": "1b76b0a41e7ae0b0e1d9b200cf2a98b64deab1f7",
                 "shasum": ""
             },
             "require": {
@@ -25,19 +25,18 @@
                 "doctrine/dbal": "^2.5",
                 "guzzlehttp/guzzle": "^6.3",
                 "intervention/image": "^2.3",
-                "laravel/framework": "^6.0|5.8.*",
+                "laravel/framework": "^7.0|^6.0|5.8.*",
                 "laravel/helpers": "^1.1",
-                "nesbot/carbon": "^2.14.0",
+                "nesbot/carbon": "^2.14",
                 "ocramius/package-versions": "^1.4",
-                "prologue/alerts": "^0.4.1",
-                "venturecraft/revisionable": "1.*"
+                "prologue/alerts": "^0.4.1"
             },
             "require-dev": {
-                "orchestra/database": "3.8.x-dev",
-                "orchestra/testbench": "^3.0",
-                "phpunit/phpunit": "~7.0",
-                "scrutinizer/ocular": "~1.1",
-                "spatie/laravel-translatable": "^3.1.3"
+                "orchestra/database": "^5.0@dev|3.8.x-dev",
+                "orchestra/testbench": "^5.0|^3.0",
+                "phpunit/phpunit": "~8.0|~7.0",
+                "scrutinizer/ocular": "~1.7|~1.1",
+                "spatie/laravel-translatable": "^4.0|^3.1.3"
             },
             "type": "library",
             "extra": {
@@ -91,7 +90,7 @@
                 "read",
                 "update"
             ],
-            "time": "2020-03-01T08:42:43+00:00"
+            "time": "2020-03-04T15:15:16+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -144,25 +143,25 @@
         },
         {
             "name": "calebporzio/parental",
-            "version": "v0.9.1",
+            "version": "v0.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/calebporzio/parental.git",
-                "reference": "487619256ed2a3c4f39236c5683e6f1a843722c3"
+                "reference": "6cdbcc7c62e9bb8dcf817a7ac451e8b2d851a00f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/calebporzio/parental/zipball/487619256ed2a3c4f39236c5683e6f1a843722c3",
-                "reference": "487619256ed2a3c4f39236c5683e6f1a843722c3",
+                "url": "https://api.github.com/repos/calebporzio/parental/zipball/6cdbcc7c62e9bb8dcf817a7ac451e8b2d851a00f",
+                "reference": "6cdbcc7c62e9bb8dcf817a7ac451e8b2d851a00f",
                 "shasum": ""
             },
             "require": {
-                "illuminate/database": "~5.6.0|~5.7.0|~5.8.0|^6.0.0",
-                "illuminate/events": "~5.6.0|~5.7.0|~5.8.0|^6.0.0"
+                "illuminate/database": "~5.6.0|~5.7.0|~5.8.0|^6.0.0|^7.0.0",
+                "illuminate/events": "~5.6.0|~5.7.0|~5.8.0|^6.0.0|^7.0.0"
             },
             "require-dev": {
-                "orchestra/testbench": "3.8.*",
-                "phpunit/phpunit": "^7.0"
+                "orchestra/testbench": "~3.6.0|~3.7.0|~3.8.0|^4.0|^5.0",
+                "phpunit/phpunit": "^7.0|^8.0"
             },
             "type": "library",
             "autoload": {
@@ -181,28 +180,28 @@
                 }
             ],
             "description": "A simple eloquent trait that allows relationships to be accessed through child models.",
-            "time": "2019-12-28T17:31:17+00:00"
+            "time": "2020-03-03T13:45:17+00:00"
         },
         {
             "name": "codezero/laravel-unique-translation",
-            "version": "3.0.0",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codezero-be/laravel-unique-translation.git",
-                "reference": "1eb3d56b1f4af36b4985730619838bb124436b81"
+                "reference": "da16b1e081e0f79275a315049047f13b846ea4fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codezero-be/laravel-unique-translation/zipball/1eb3d56b1f4af36b4985730619838bb124436b81",
-                "reference": "1eb3d56b1f4af36b4985730619838bb124436b81",
+                "url": "https://api.github.com/repos/codezero-be/laravel-unique-translation/zipball/da16b1e081e0f79275a315049047f13b846ea4fb",
+                "reference": "da16b1e081e0f79275a315049047f13b846ea4fb",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.2"
             },
             "require-dev": {
-                "orchestra/testbench": "~4.0",
-                "phpunit/phpunit": "~8.0",
+                "orchestra/testbench": "^4.0|^5.0",
+                "phpunit/phpunit": "^8.0|^9.0",
                 "spatie/laravel-translatable": "^4.2"
             },
             "type": "library",
@@ -242,7 +241,7 @@
                 "validation",
                 "validator"
             ],
-            "time": "2020-01-22T10:59:59+00:00"
+            "time": "2020-03-03T19:47:23+00:00"
         },
         {
             "name": "creativeorange/gravatar",
@@ -1478,20 +1477,20 @@
         },
         {
             "name": "laravel/helpers",
-            "version": "v1.1.1",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/helpers.git",
-                "reference": "b8eae9ddd461e89d0296f74fd069c413bf83b6fa"
+                "reference": "1f978fc5dad9f7f906b18242c654252615201de4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/helpers/zipball/b8eae9ddd461e89d0296f74fd069c413bf83b6fa",
-                "reference": "b8eae9ddd461e89d0296f74fd069c413bf83b6fa",
+                "url": "https://api.github.com/repos/laravel/helpers/zipball/1f978fc5dad9f7f906b18242c654252615201de4",
+                "reference": "1f978fc5dad9f7f906b18242c654252615201de4",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "~5.8.0|^6.0",
+                "illuminate/support": "~5.8.0|^6.0|^7.0",
                 "php": ">=7.1.3"
             },
             "require-dev": {
@@ -1527,7 +1526,7 @@
                 "helpers",
                 "laravel"
             ],
-            "time": "2019-07-30T15:25:31+00:00"
+            "time": "2020-03-03T13:52:16+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -4857,59 +4856,6 @@
                 "templating"
             ],
             "time": "2020-02-11T15:31:23+00:00"
-        },
-        {
-            "name": "venturecraft/revisionable",
-            "version": "1.33.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/VentureCraft/revisionable.git",
-                "reference": "31034cf307808eae0bf776e9c13793495d7f19f3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/VentureCraft/revisionable/zipball/31034cf307808eae0bf776e9c13793495d7f19f3",
-                "reference": "31034cf307808eae0bf776e9c13793495d7f19f3",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "~4.0|~5.0|~5.1|^6.0",
-                "laravel/framework": "~5.4|^6.0",
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "orchestra/testbench": "~3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/migrations"
-                ],
-                "psr-0": {
-                    "Venturecraft\\Revisionable": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Chris Duell",
-                    "email": "me@chrisduell.com"
-                }
-            ],
-            "description": "Keep a revision history for your models without thinking, created as a package for use with Laravel",
-            "homepage": "http://github.com/venturecraft/revisionable",
-            "keywords": [
-                "Audit",
-                "ardent",
-                "history",
-                "laravel",
-                "model",
-                "revision"
-            ],
-            "time": "2019-10-27T06:37:42+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
