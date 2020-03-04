@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "562e2adffe52b3f292099f1ae8848c34",
+    "content-hash": "7020f9f6b142f03dc49b30cbcfce835a",
     "packages": [
         {
             "name": "backpack/crud",
@@ -144,25 +144,25 @@
         },
         {
             "name": "calebporzio/parental",
-            "version": "v0.9.1",
+            "version": "v0.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/calebporzio/parental.git",
-                "reference": "487619256ed2a3c4f39236c5683e6f1a843722c3"
+                "reference": "6cdbcc7c62e9bb8dcf817a7ac451e8b2d851a00f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/calebporzio/parental/zipball/487619256ed2a3c4f39236c5683e6f1a843722c3",
-                "reference": "487619256ed2a3c4f39236c5683e6f1a843722c3",
+                "url": "https://api.github.com/repos/calebporzio/parental/zipball/6cdbcc7c62e9bb8dcf817a7ac451e8b2d851a00f",
+                "reference": "6cdbcc7c62e9bb8dcf817a7ac451e8b2d851a00f",
                 "shasum": ""
             },
             "require": {
-                "illuminate/database": "~5.6.0|~5.7.0|~5.8.0|^6.0.0",
-                "illuminate/events": "~5.6.0|~5.7.0|~5.8.0|^6.0.0"
+                "illuminate/database": "~5.6.0|~5.7.0|~5.8.0|^6.0.0|^7.0.0",
+                "illuminate/events": "~5.6.0|~5.7.0|~5.8.0|^6.0.0|^7.0.0"
             },
             "require-dev": {
-                "orchestra/testbench": "3.8.*",
-                "phpunit/phpunit": "^7.0"
+                "orchestra/testbench": "~3.6.0|~3.7.0|~3.8.0|^4.0|^5.0",
+                "phpunit/phpunit": "^7.0|^8.0"
             },
             "type": "library",
             "autoload": {
@@ -181,7 +181,7 @@
                 }
             ],
             "description": "A simple eloquent trait that allows relationships to be accessed through child models.",
-            "time": "2019-12-28T17:31:17+00:00"
+            "time": "2020-03-03T13:45:17+00:00"
         },
         {
             "name": "codezero/laravel-unique-translation",
