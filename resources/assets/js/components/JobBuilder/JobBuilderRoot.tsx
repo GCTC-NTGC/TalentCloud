@@ -4,8 +4,8 @@ import ReactDOM from "react-dom";
 import { Routes } from "universal-router";
 import { defineMessages, useIntl } from "react-intl";
 import { useRouter, RouterResult } from "../../helpers/router";
-import JobBuilderIntroPageContainer from "./Intro/JobBuilderIntro";
 import RootContainer from "../RootContainer";
+import JobIntroPage from "./Intro/JobIntroPage";
 import JobDetailsPage from "./Details/JobDetailsPage";
 import JobBuilderWorkEnvPage from "./WorkEnv/WorkEnvPage";
 import JobBuilderImpactPage from "./Impact/JobBuilderImpactPage";
@@ -66,7 +66,7 @@ const routes: Routes<{}, RouterResult> = [
         path: "/builder",
         action: () => ({
           title: titles.introTitle,
-          component: <JobBuilderIntroPageContainer jobId={null} />,
+          component: <JobIntroPage jobId={null} />,
         }),
       },
       {
@@ -83,9 +83,7 @@ const routes: Routes<{}, RouterResult> = [
             path: "/intro",
             action: ({ params }) => ({
               title: titles.introTitle,
-              component: (
-                <JobBuilderIntroPageContainer jobId={Number(params.id)} />
-              ),
+              component: <JobIntroPage jobId={Number(params.id)} />,
             }),
           },
           {

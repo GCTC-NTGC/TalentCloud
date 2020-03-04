@@ -1,10 +1,6 @@
 import React, { useEffect } from "react";
 import nprogress from "nprogress";
-import {
-  injectIntl,
-  WrappedComponentProps,
-  FormattedMessage,
-} from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
 import IntroForm from "./IntroForm";
@@ -42,8 +38,9 @@ import {
 } from "../../../store/Manager/managerActions";
 import { getUserById } from "../../../store/User/userSelector";
 import { fetchUser } from "../../../store/User/userActions";
+import { getLocale } from "../../../helpers/localize";
 
-interface JobBuilderIntroProps {
+interface JobIntroProps {
   // The id of the edited job, or null for a new job.
   jobId: number | null;
   // List of known department options.
@@ -68,8 +65,7 @@ interface JobBuilderIntroProps {
   handleFetchUser: (userId: number) => Promise<void>;
 }
 
-const JobBuilderIntro: React.FunctionComponent<JobBuilderIntroProps &
-  WrappedComponentProps> = ({
+const JobIntro: React.FunctionComponent<JobIntroProps> = ({
   jobId,
   manager,
   user,
@@ -81,12 +77,9 @@ const JobBuilderIntro: React.FunctionComponent<JobBuilderIntroProps &
   loadManager,
   loadCurrentManager,
   handleFetchUser,
-  intl,
 }): React.ReactElement => {
-  const { locale } = intl;
-  if (locale !== "en" && locale !== "fr") {
-    throw new Error("Unexpected locale");
-  }
+  const intl = useIntl();
+  const locale = getLocale(intl.locale);
   useEffect((): void => {
     if (manager === null) {
       nprogress.start();
@@ -258,10 +251,10 @@ const mapDispatchToProps = (
   },
 });
 
-const JobBuilderIntroPageContainer = connect(
+const JobIntroPageContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(injectIntl(JobBuilderIntro));
+)(JobIntro);
 
 if (document.getElementById("job-builder-intro")) {
   const container: HTMLElement = document.getElementById(
@@ -272,10 +265,10 @@ if (document.getElementById("job-builder-intro")) {
 
   ReactDOM.render(
     <RootContainer>
-      <JobBuilderIntroPageContainer jobId={jobId} />
+      <JobIntroPageContainer jobId={jobId} />
     </RootContainer>,
     container,
   );
 }
 
-export default JobBuilderIntroPageContainer;
+export default JobIntroPageContainer;
