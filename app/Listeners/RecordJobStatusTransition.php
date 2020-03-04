@@ -31,23 +31,29 @@ class RecordJobStatusTransition
 
         if ($job->isDirty('job_poster_status_id')) {
             $user = Auth::user();
-            if ($user == null) {
-                return false;
-            }
+
             $fromStatusId = $job->getOriginal('job_poster_status_id');
             $toStatusId = $job->job_poster_status_id;
 
-            $transition = new JobPosterStatusHistory();
-            $transition->job_poster_id = $job->id;
-            $transition->user_id = $user->id;
-            $transition->from_job_poster_status_id = $fromStatusId;
-            $transition->to_job_poster_status_id = $toStatusId;
-            $transition->save();
+            if ($fromStatusId !== null) {
+                // We don't need to save a transition history entry when the job is first created,
+                // which is the only time from is null.
+                $transition = new JobPosterStatusHistory();
+                $transition->job_poster_id = $job->id;
+                $transition->user_id = $user !== null ? $user->id : null;
+                $transition->from_job_poster_status_id = $fromStatusId;
+                $transition->to_job_poster_status_id = $toStatusId;
+                $transition->save();
 
-            $fromStatusKey = JobPosterStatus::find($fromStatusId)->key;
-            $toStatusKey = JobPosterStatus::find($toStatusId)->key;
-            Log::notice('Job status transition: job {id=' . $job->id . '} changed from ' . $fromStatusKey .
-                ' to ' . $toStatusKey . ' by user {id=' . $user->id . ', email=' . $user->email . '}');
+                $fromStatusKey = JobPosterStatus::find($fromStatusId)->key;
+                $toStatusKey = JobPosterStatus::find($toStatusId)->key;
+                $userDescription = $user !== null
+                    ? '{id=' . $user->id . ', email=' . $user->email . '}'
+                    : '{null}';
+                Log::notice('Job status transition: job {id=' . $job->id . '} changed from ' . $fromStatusKey .
+                    ' to ' . $toStatusKey .
+                    ' by user ' . $userDescription);
+            }
         }
     }
 }

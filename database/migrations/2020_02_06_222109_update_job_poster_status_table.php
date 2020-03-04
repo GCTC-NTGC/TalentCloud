@@ -46,9 +46,17 @@ class UpdateJobPosterStatusTable extends Migration
                 'en' => 'Approved',
                 'fr' => 'Approuvé'
             ]),
-            'published' => json_encode([
-                'en' => 'Published',
-                'fr' => 'Publié'
+            'ready' => json_encode([
+                'en' => 'Ready to Post',
+                'fr' => 'Prêt à poster'
+            ]),
+            'live' => json_encode([
+                'en' => 'Live',
+                'fr' => 'En ligne',
+            ]),
+            'assessment' => json_encode([
+                'en' => 'In Assessment',
+                'fr' => 'En cours d\'évaluation',
             ]),
             'completed' => json_encode([
                 'en' => 'Completed',

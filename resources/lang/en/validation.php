@@ -126,6 +126,7 @@ return [
     'password_correct' => 'Current password isn\'t correct',
     'user_owns_skill_declaration' => ':attribute must specify a Skill Declaration that belongs to the current user.',
     'invalid_id' => ':attribute is not a valid id.',
+    'job_unpublished' => 'Cannot update a job poster that has gone live.',
 
     /*
     |--------------------------------------------------------------------------
@@ -148,9 +149,6 @@ return [
         ],
         'application_step_3' => [
             'accepted' => 'Step 3 must be completed',
-        ],
-        'published' => [
-            'in' => 'You cannot edit a Job Poster that has been published'
         ],
         'twitter_handle' => 'This is not a valid twitter handle.',
         'linkedin_url' => 'This is not a valid linkedIn url.',

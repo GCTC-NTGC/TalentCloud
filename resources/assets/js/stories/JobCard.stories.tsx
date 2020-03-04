@@ -54,7 +54,7 @@ stories
     ),
   )
   .add(
-    "Published",
+    "Live",
     (): React.ReactElement => (
       <div data-c-container="large" data-c-padding="tb(triple)">
         <JobCard
@@ -86,7 +86,7 @@ stories
             text: text("Screening Plan Text", "View Screening Plan"),
             title: "View the screening plan for this Job Poster.",
           }}
-          status={jobPosterStatuses.Published}
+          status={jobPosterStatuses.Live}
           summary={{
             url: text("Summary Link", "https://google.ca"),
             text: text("Summary Text", "Visit Job Summary"),

@@ -139,7 +139,9 @@ export enum JobStatus {
   FinalReviewHr = "final_review_hr",
   PendingApproval = "pending_approval",
   Approved = "approved",
-  Published = "published",
+  Ready = "ready",
+  Live = "live",
+  Assessment = "assessment",
   Completed = "completed",
 }
 

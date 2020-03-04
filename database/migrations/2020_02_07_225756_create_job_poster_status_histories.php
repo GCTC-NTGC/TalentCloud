@@ -16,7 +16,7 @@ class CreateJobPosterStatusHistories extends Migration
         Schema::create('job_poster_status_histories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('job_poster_id');
-            $table->integer('user_id');
+            $table->integer('user_id')->nullable();
             $table->integer('from_job_poster_status_id');
             $table->integer('to_job_poster_status_id');
             $table->timestamps();

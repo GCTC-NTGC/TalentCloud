@@ -37,10 +37,8 @@ class JobController extends Controller
         // Eager load required relationships: Department, Province, JobTerm.
         // Eager load the count of submitted applications, to prevent the relationship
         // from being actually loaded and firing off events.
-        $jobs = JobPoster::where('open_date_time', '<=', $now)
-            ->where('close_date_time', '>=', $now)
-            ->where('internal_only', false)
-            ->where('job_poster_status_id', JobPosterStatus::where('key', 'published')->first()->id)
+        $jobs = JobPoster::where('internal_only', false)
+            ->where('job_poster_status_id', JobPosterStatus::where('key', 'live')->first()->id)
             ->with([
                 'department',
                 'province',

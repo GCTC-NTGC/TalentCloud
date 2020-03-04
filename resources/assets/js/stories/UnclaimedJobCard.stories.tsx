@@ -26,7 +26,7 @@ stories
             text: text("Title", "CS01 - Front-end Developer", "Props"),
           }}
           reviewRequested={new Date()}
-          status={jobPosterStatuses.Published}
+          status={jobPosterStatuses.Live}
           hiringManager={text("Hiring Manager", "Rebecca Appleby")}
           hrAdvisors={[]}
           handleClaimJob={action("Claim Job")}
@@ -46,7 +46,7 @@ stories
             text: text("Title", "AS02 - Executive Assisstant", "Props"),
           }}
           reviewRequested={new Date()}
-          status={jobPosterStatuses.Published}
+          status={jobPosterStatuses.Live}
           hiringManager={text("Hiring Managers", "Rebecca Appleby")}
           hrAdvisors={array(
             "HR Managers",
