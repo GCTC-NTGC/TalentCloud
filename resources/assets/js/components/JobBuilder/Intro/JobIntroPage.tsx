@@ -3,7 +3,7 @@ import nprogress from "nprogress";
 import { FormattedMessage, useIntl } from "react-intl";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
-import IntroForm from "./IntroForm";
+import JobIntro from "./JobIntro";
 import {
   Job,
   Department,
@@ -40,7 +40,7 @@ import { getUserById } from "../../../store/User/userSelector";
 import { fetchUser } from "../../../store/User/userActions";
 import { getLocale } from "../../../helpers/localize";
 
-interface JobIntroProps {
+interface JobIntroPageProps {
   // The id of the edited job, or null for a new job.
   jobId: number | null;
   // List of known department options.
@@ -65,7 +65,7 @@ interface JobIntroProps {
   handleFetchUser: (userId: number) => Promise<void>;
 }
 
-const JobIntro: React.FunctionComponent<JobIntroProps> = ({
+const JobIntroPage: React.FunctionComponent<JobIntroPageProps> = ({
   jobId,
   manager,
   user,
@@ -153,7 +153,7 @@ const JobIntro: React.FunctionComponent<JobIntroProps> = ({
       {manager !== null &&
         user !== null &&
         (job !== null || jobId === null) && (
-          <IntroForm
+          <JobIntro
             job={job}
             manager={manager}
             user={user}
@@ -254,7 +254,7 @@ const mapDispatchToProps = (
 const JobIntroPageContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(JobIntro);
+)(JobIntroPage);
 
 if (document.getElementById("job-builder-intro")) {
   const container: HTMLElement = document.getElementById(

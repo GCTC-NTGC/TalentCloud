@@ -90,7 +90,7 @@ const formMessages = defineMessages({
 });
 
 // shape of values used in Form
-interface IntroFormValues {
+interface JobIntroValues {
   managerPositionEn: string;
   managerPositionFr: string;
   department: number | "";
@@ -98,7 +98,7 @@ interface IntroFormValues {
   divisionFR: string;
 }
 
-interface IntroFormProps {
+interface JobIntroProps {
   // If not null, used to prepopulate form values
   job: Job | null;
   // The manager of this job. Used to prepopulate values.
@@ -120,7 +120,7 @@ const initializeValues = (
   job: Job | null,
   manager: Manager,
   user: User,
-): IntroFormValues => {
+): JobIntroValues => {
   let department: number | "" = "";
   if (user.department_id !== null) {
     department = user.department_id;
@@ -156,7 +156,7 @@ const initializeValues = (
 
 const updateJobWithValues = (
   job: Job,
-  values: IntroFormValues,
+  values: JobIntroValues,
   locale: string,
   departmentId: number | null,
 ): Job => ({
@@ -172,7 +172,7 @@ const updateJobWithValues = (
 
 const updateManagerWithValues = (
   manager: Manager,
-  values: IntroFormValues,
+  values: JobIntroValues,
 ): Manager => ({
   ...manager,
   division: {
@@ -187,17 +187,17 @@ const updateManagerWithValues = (
   },
 });
 
-const IntroForm: React.FunctionComponent<IntroFormProps> = ({
+const JobIntro: React.FunctionComponent<JobIntroProps> = ({
   job,
   manager,
   user,
   departments,
   handleSubmit,
   handleContinue,
-}: IntroFormProps): React.ReactElement => {
+}: JobIntroProps): React.ReactElement => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
-  const initialValues: IntroFormValues = initializeValues(job, manager, user);
+  const initialValues: JobIntroValues = initializeValues(job, manager, user);
   const [languageSelection, setLanguageSelection] = useState(locale);
 
   const getDepartmentName = (): string | undefined => {
@@ -496,4 +496,4 @@ const IntroForm: React.FunctionComponent<IntroFormProps> = ({
   );
 };
 
-export default IntroForm;
+export default JobIntro;
