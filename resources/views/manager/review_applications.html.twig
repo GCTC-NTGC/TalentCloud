@@ -7,31 +7,14 @@
 {% extends "layouts/base" %}
 {% block title %}
 	{{ jobs_l10n.review_applicants }}:
-	{% if (App.getLocale()) == 'en' %}
-		{{ job.title.en }}
-	{% else %}
-		{{ job.title.fr}}
-	{% endif %}
+	{{ job.title }}
 {% endblock %}
 {% block body %}
 	{% include "common/goc" %}
-    {% include "common/alert" %}
-
-    {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title':jobs_l10n.review_applicants, ':job':job.title}) }} %}
-
-    <a id="skipLink"></a>
-
-    <div
-        id="{{ is_hr_portal
-            ? "review-applications-container-hr"
-            : "review-applications-container" }}"
-        data-job="{{ job|json_encode() }}"
-        data-applications="{{ applications|json_encode() }}"
-        data-review-statuses="{{ review_statuses|json_encode() }}"
-        data-locale="{{App.getLocale()}}"
-    >
-    </div>
-
+	{% include "common/alert" %}
+	{% include "common/header" with {'header': {'title': ":title: :job"|replace({':title': jobs_l10n.review_applicants, ':job': job.title}) }} %}
+	<a id="skipLink"></a>
+	<div id="{{ is_hr_portal ? "review-applications-container-hr" : "review-applications-container" }}" data-job="{{ job|json_encode() }}" data-applications="{{ applications|json_encode() }}" data-review-statuses="{{ review_statuses|json_encode() }}" data-locale="{{ App.getLocale() }}"></div>
 {% endblock %}
 {% block scripts %}
 	<script async defer src="{{ mix('/js/ReviewApplicationsRoot.js') }}"></script>
