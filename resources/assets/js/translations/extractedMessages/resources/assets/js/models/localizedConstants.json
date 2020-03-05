@@ -588,6 +588,26 @@
     "defaultMessage": "Skills"
   },
   {
+    "id": "jobStatus.review",
+    "defaultMessage": "In Review"
+  },
+  {
+    "id": "jobStatus.finalReview",
+    "defaultMessage": "Final Review"
+  },
+  {
+    "id": "jobStatus.draft",
+    "defaultMessage": "Draft"
+  },
+  {
+    "id": "jobStatus.translation",
+    "defaultMessage": "In Translation"
+  },
+  {
+    "id": "jobStatus.published",
+    "defaultMessage": "Published"
+  },
+  {
     "id": "activityfeed.locations.review.langRequirements",
     "description": "Location of the activity.",
     "defaultMessage": "Language Requirements"

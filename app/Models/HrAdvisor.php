@@ -11,7 +11,7 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
  * @property int $user_id
  *
  * @property \App\Models\User $user
- * @property \Illuminate\Database\Eloquent\Collection $job_posters
+ * @property \Illuminate\Database\Eloquent\Collection $claimed_jobs
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *

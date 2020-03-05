@@ -10,8 +10,6 @@ export const parseJob = (data: any): Job => ({
   open_date_time: parseDate(data.open_date_time),
   close_date_time: parseDate(data.close_date_time),
   start_date_time: parseDate(data.start_date_time),
-  published_at: parseDate(data.published_at),
-  review_requested_at: parseDate(data.review_requested_at),
   created_at: parseDate(data.created_at),
 });
 
@@ -50,7 +48,7 @@ export const getJobEndpoint = (id: number | null): string =>
   id ? `${baseUrl()}/jobs/${id}` : `${baseUrl()}/jobs`;
 
 export const getSubmitJobEndpoint = (id: number): string =>
-  `${getJobEndpoint(id)}/submit`;
+  `${getJobEndpoint(id)}/status/review_hr`;
 
 export const getTasksEndpoint = (jobId: number): string =>
   `${getJobEndpoint(jobId)}/tasks`;
