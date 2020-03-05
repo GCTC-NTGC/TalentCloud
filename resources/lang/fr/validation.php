@@ -148,7 +148,7 @@ return [
             'accepted' => 'L\'étape 1 doit être complétée',
         ],
         'application_step_3' => [
-            'accepted' => 'L\'étape 3 doit être complétée',
+            'accepted' => 'L\'étape 3 doit être complet. Si l\'étape 3 semble complet, veuillez consulter la page de compétences de votre profil pour les compétences en double. Des copies multiples d\'une compétence sur votre profil peut également provoquer cette erreur. Nous travaillons pour résoudre ce problème.',
         ],
         'twitter_handle' => 'Ce n\'est pas une poignée Twitter valide.',
         'linkedin_url' => 'Ce n\'est pas une url linkedIn valide.',

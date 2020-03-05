@@ -145,6 +145,10 @@ class AuthServiceProvider extends ServiceProvider
                     // Manager profiles are viewable by any logged in User.
                     $user !== null && !$userProfile->isAdmin() && $userProfile->isUpgradedManager());
         });
+
+        Gate::define('view-resources', function ($user) {
+            return $user->isUpgradedManager() || $user->isHrAdvisor();
+        });
     }
 
     public function register(): void

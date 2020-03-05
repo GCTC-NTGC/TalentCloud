@@ -148,7 +148,7 @@ return [
             'accepted' => 'Step 1 must be completed',
         ],
         'application_step_3' => [
-            'accepted' => 'Step 3 must be completed',
+            'accepted' => 'Step 3 must be completed. If Step 3 appears complete, please check the skills page on your profile for duplicate entries. Multiple copies of a skill on your profile can also cause this error. We are working to resolve this issue.',
         ],
         'twitter_handle' => 'This is not a valid twitter handle.',
         'linkedin_url' => 'This is not a valid linkedIn url.',

@@ -20,5 +20,6 @@ Route::group([
     Route::crud('classification', 'ClassificationCrudController');
     Route::crud('job-poster-status', 'JobPosterStatusCrudController');
     Route::crud('job-poster-status-transition', 'JobPosterStatusTransitionCrudController');
+    Route::crud('resource', 'ResourcesCrudController');
     Route::crud('2fa', 'TwoFactorCrudController');
 });

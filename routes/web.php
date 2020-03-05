@@ -50,6 +50,10 @@ Route::group(
             Route::view('builder-07', 'manager/builder-07')->middleware('localOnly')->name('jpb7');
             /* Temp Builder 08 (Review) */
             Route::view('builder-08', 'manager/builder-08')->middleware('localOnly')->name('jpb8');
+
+            /* Temp Resources */
+            Route::view('resources', 'common/resources')->middleware('localOnly')->name('resources');
+
         });
 
         Route::group(['prefix' => config('app.applicant_prefix')], function (): void {
@@ -439,6 +443,10 @@ Route::group(
                             ->middleware('can:update,user')
                             ->name('manager.settings.government.update');
 
+                        Route::get('resources', 'ResourcesController@show')
+                            ->middleware('can:view-resources')
+                            ->name('manager.resources');
+
                         /* Two-factor Authentication */
                         Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('manager.two_factor.activate');
                         Route::post('two-factor/deactivate', 'Auth\TwoFactorController@deactivate')->name('manager.two_factor.deactivate');
@@ -664,6 +672,10 @@ Route::group(
                             ->middleware('can:view,user')
                             ->middleware('can:update,user')
                             ->name('hr_advisor.settings.government.update');
+
+                        Route::get('resources', 'ResourcesController@show')
+                            ->middleware('can:view-resources')
+                            ->name('hr_advisor.resources');
 
                         /* Two-factor Authentication */
                         Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('hr_advisor.two_factor.activate');
