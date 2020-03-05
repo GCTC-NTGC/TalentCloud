@@ -34,7 +34,7 @@ class JobPosterKeyTaskControllerTest extends TestCase
 
     public function testIndexByJob()
     {
-        $job = factory(JobPoster::class)->state('published')->create();
+        $job = factory(JobPoster::class)->state('live')->create();
         // Ensure the factory added tasks, so we're not just checking an empty array.
         $this->assertNotEmpty($job->job_poster_key_tasks);
 

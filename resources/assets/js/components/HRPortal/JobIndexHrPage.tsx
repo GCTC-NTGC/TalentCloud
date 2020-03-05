@@ -5,8 +5,11 @@ import { defineMessages, IntlShape, useIntl } from "react-intl";
 import { useDispatch, useSelector } from "react-redux";
 import JobIndexHr from "./JobIndexHr";
 import { JobCardProps } from "../JobCard";
-import { Job, Manager } from "../../models/types";
-import { classificationString, jobStatus } from "../../models/jobUtil";
+import { Job, Manager, JobPosterStatus } from "../../models/types";
+import {
+  classificationString,
+  emptyJobPosterStatus,
+} from "../../models/jobUtil";
 import { localizeField, Locales, getLocale } from "../../helpers/localize";
 import {
   hrJobSummary,
@@ -32,6 +35,11 @@ import {
 import { fetchManager } from "../../store/Manager/managerActions";
 import { getDepartmentById } from "../../store/Department/deptSelector";
 import { getDepartments } from "../../store/Department/deptActions";
+import {
+  getJobStatuses,
+  jobStatusesLoading,
+} from "../../store/JobPosterStatus/jobStatusSelector";
+import { fetchJobPosterStatuses } from "../../store/JobPosterStatus/jobStatusActions";
 import { getUserById } from "../../store/User/userSelector";
 import { fetchUser } from "../../store/User/userActions";
 
@@ -85,6 +93,7 @@ const makeJobAction = (
   intl: IntlShape,
   locale: Locales,
   job: Job,
+  jobPosterStatuses: JobPosterStatus[]
 ): JobCardProps => {
   const jobTitle = localizeField(locale, job, "title");
   return {
@@ -98,7 +107,9 @@ const makeJobAction = (
     title: stringNotEmpty(jobTitle)
       ? jobTitle
       : intl.formatMessage(messages.titleMissing),
-    status: jobStatus(job),
+    status:
+      find(jobPosterStatuses, job.job_poster_status_id) ??
+      emptyJobPosterStatus(),
     activity: {
       count: 0, // TODO: requires tracking which comments are "new"
       new: {
@@ -136,6 +147,7 @@ const makeUnclaimedJob = (
   handleClaimJob: () => void,
   manager: Manager | null,
   job: Job,
+  jobPosterStatuses: JobPosterStatus[],
 ): UnclaimedJobCardProps => {
   const jobTitle = localizeField(locale, job, "title");
   return {
@@ -147,8 +159,10 @@ const makeUnclaimedJob = (
         : intl.formatMessage(messages.titleMissing),
       title: "",
     },
-    reviewRequested: job.review_requested_at || undefined,
-    status: jobStatus(job),
+    reviewRequested: undefined, // TODO: use job_poster_status_histories to determine when this left draft status
+    status:
+      find(jobPosterStatuses, job.job_poster_status_id) ??
+      emptyJobPosterStatus(),
     hiringManager:
       manager !== null
         ? manager.full_name
@@ -165,6 +179,7 @@ interface JobIndexHrPageProps {
   managers: Manager[];
   // user: User | null;
   handleClaimJob: (jobId: number) => void;
+  jobPosterStatuses: JobPosterStatus[];
 }
 
 const JobIndexHrPage: React.FC<JobIndexHrPageProps> = ({
@@ -173,6 +188,7 @@ const JobIndexHrPage: React.FC<JobIndexHrPageProps> = ({
   jobs,
   managers,
   handleClaimJob,
+  jobPosterStatuses,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -181,7 +197,7 @@ const JobIndexHrPage: React.FC<JobIndexHrPageProps> = ({
   const isUnclaimed = (job: Job): boolean => !isClaimed(job);
 
   const jobToAction = (job: Job): JobCardProps =>
-    makeJobAction(intl, locale, job);
+    makeJobAction(intl, locale, job, jobPosterStatuses);
 
   const jobToUnclaimed = (job: Job): UnclaimedJobCardProps =>
     makeUnclaimedJob(
@@ -190,6 +206,7 @@ const JobIndexHrPage: React.FC<JobIndexHrPageProps> = ({
       () => handleClaimJob(job.id),
       find(managers, job.manager_id),
       job,
+      jobPosterStatuses,
     );
 
   const jobActions = jobs.filter(isClaimed).map(jobToAction);
@@ -277,6 +294,15 @@ const JobIndexHrDataFetcher: React.FC<JobIndexHrDataFetcherProps> = ({
     (department !== null ? localizeField(locale, department, "name") : null) ||
     intl.formatMessage(messages.departmentPlaceholder);
 
+  // Load Job Poster Statuses
+  const jobPosterStatuses = useSelector(getJobStatuses);
+  const isJobStatusesLoading = useSelector(jobStatusesLoading);
+  useEffect(() => {
+    if (jobPosterStatuses.length == 0 && !isJobStatusesLoading) {
+      dispatch(fetchJobPosterStatuses());
+    }
+  }, [dispatch, jobPosterStatuses, isJobStatusesLoading]);
+
   // Make claim job function
   const claimJobForAdvisor = (jobId: number): boolean =>
     dispatch(claimJob(hrAdvisorId, jobId));
@@ -288,6 +314,7 @@ const JobIndexHrDataFetcher: React.FC<JobIndexHrDataFetcherProps> = ({
       jobs={deptJobs}
       managers={managers}
       handleClaimJob={claimJobForAdvisor}
+      jobPosterStatuses={jobPosterStatuses}
     />
   );
 };

@@ -26,8 +26,6 @@ use Spatie\Translatable\HasTranslations;
  * @property \Jenssegers\Date\Date $open_date_time
  * @property \Jenssegers\Date\Date $close_date_time
  * @property \Jenssegers\Date\Date $start_date_time
- * @property \Jenssegers\Date\Date $review_requested_at
- * @property \Jenssegers\Date\Date $published_at
  * @property int $department_id
  * @property int $province_id
  * @property int $salary_min
@@ -39,7 +37,6 @@ use Spatie\Translatable\HasTranslations;
  * @property int $language_requirement_id
  * @property boolean $remote_work_allowed
  * @property int $manager_id
- * @property boolean $published
  * @property boolean $internal_only
  * @property int $team_size
  * @property array $work_env_features This should be an array of boolean flags for features, ie json of shape {[feature: string]: boolean}
@@ -54,6 +51,7 @@ use Spatie\Translatable\HasTranslations;
  * @property int $overtime_requirement_id
  * @property string $process_number
  * @property int $priority_clearance_number
+ * @property int $job_poster_status_id
  * @property \Jenssegers\Date\Date $loo_issuance_date
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
@@ -75,6 +73,7 @@ use Spatie\Translatable\HasTranslations;
  * @property \Illuminate\Database\Eloquent\Collection $hr_advisors
  * @property \App\Models\Lookup\Frequency $telework_allowed_frequency
  * @property \App\Models\Lookup\Frequency $flexible_hours_frequency
+ * @property \App\Models\Lookup\JobPosterStatus $job_poster_status
  *
  * Localized Properties:
  * @property string $city
@@ -90,14 +89,16 @@ use Spatie\Translatable\HasTranslations;
  *
  * Methods
  * @method boolean isOpen()
+ * @method boolean isClosed()
+ * @method boolean isVisibleToHr()
+ * @method boolean isPublic()
+ * @method boolean isEditable()
  * @method string timeRemaining()
  * @method mixed[] toApiArray()
- * @method boolean isVisibleToHr()
  *
  * Computed Properties
  * @property string|null $classification_code
  * @property string|null $classification_message
- * @property int $job_status_id
  */
 class JobPoster extends BaseModel
 {
@@ -147,7 +148,6 @@ class JobPoster extends BaseModel
         'language_requirement_id' => 'int',
         'remote_work_allowed' => 'boolean',
         'manager_id' => 'int',
-        'published' => 'boolean',
         'internal_only' => 'boolean',
         'team_size' => 'int',
         'work_env_features' => 'array',
@@ -171,8 +171,6 @@ class JobPoster extends BaseModel
         'open_date_time',
         'close_date_time',
         'start_date_time',
-        'review_requested_at',
-        'published_at',
         'loo_issuance_date',
     ];
 
@@ -194,7 +192,6 @@ class JobPoster extends BaseModel
         'security_clearance_id',
         'language_requirement_id',
         'remote_work_allowed',
-        'published',
         'internal_only',
         'team_size',
         'work_env_features',
@@ -222,6 +219,7 @@ class JobPoster extends BaseModel
         'work_env_description',
         'culture_summary',
         'culture_special',
+        'job_poster_status_id', // This really shouldn't be mass-editable, but its necesary for the admin crud portal to set it.
     ];
 
     /**
@@ -246,9 +244,6 @@ class JobPoster extends BaseModel
         'security_clearance_id',
         'language_requirement_id',
         'remote_work_allowed',
-        'published_at',
-        'published',
-        'review_requested_at',
         'team_size',
         'work_env_features',
         'fast_vs_steady',
@@ -265,7 +260,6 @@ class JobPoster extends BaseModel
         'loo_issuance_date',
         'classification_id',
         'classification_level',
-        'job_status_id',
         'city',
         'title',
         'dept_impact',
@@ -276,6 +270,7 @@ class JobPoster extends BaseModel
         'work_env_description',
         'culture_summary',
         'culture_special',
+        'job_poster_status_id',
         'created_at',
     ];
 
@@ -287,7 +282,6 @@ class JobPoster extends BaseModel
     protected $appends = [
         'classification_code',
         'classification_message',
-        'job_status_id',
     ];
 
     /**
@@ -395,6 +389,17 @@ class JobPoster extends BaseModel
     {
         return $this->hasMany(\App\Models\Comment::class);
     }
+
+    public function job_poster_status() // phpcs:ignore
+    {
+        return $this->belongsTo(\App\Models\Lookup\JobPosterStatus::class);
+    }
+
+    public function job_poster_status_histories() // phpcs:ignore
+    {
+        return $this->hasMany(\App\Models\JobPosterStatusHistory::class);
+    }
+
     // @codeCoverageIgnoreEnd
     /* Artificial Relations */
 
@@ -427,27 +432,6 @@ class JobPoster extends BaseModel
     public function resolveRouteBinding($value) // phpcs:ignore
     {
         return $this->withCount('submitted_applications')->where('id', $value)->first() ?? abort(404);
-    }
-
-    /**
-     * Intercept setting the "published" attribute, and set the
-     * "published_at" timestamp if true.
-     *
-     * @param mixed $value Incoming value for the 'published' attribute.
-     *
-     * @return void
-     */
-    public function setPublishedAttribute($value): void
-    {
-        if ($value) {
-            $this->attributes['published_at'] = new Date();
-        } else {
-            $this->attributes['published_at'] = null;
-        }
-        if ($value === null) {
-            $value = false;
-        }
-        $this->attributes['published'] = $value;
     }
 
     /* Methods */
@@ -496,11 +480,7 @@ class JobPoster extends BaseModel
      */
     public function isOpen(): bool
     {
-        return $this->published
-            && $this->open_date_time !== null
-            && $this->close_date_time !== null
-            && $this->open_date_time->isPast()
-            && $this->close_date_time->isFuture();
+        return $this->job_poster_status->key === 'live';
     }
 
     /**
@@ -510,11 +490,42 @@ class JobPoster extends BaseModel
      */
     public function isClosed(): bool
     {
-        return $this->published
-            && $this->open_date_time !== null
-            && $this->close_date_time !== null
-            && $this->open_date_time->isPast()
-            && $this->close_date_time->isPast();
+        return ($this->job_poster_status->key === 'assessment'
+            || $this->job_poster_status->key === 'completed');
+    }
+
+    /**
+     * Return true if this job should be visible to hr advisors.
+     * It should become visible after Manager has requested a review.
+     *
+     * @return boolean
+     */
+    public function isVisibleToHr()
+    {
+        return $this->job_poster_status->key !== 'draft';
+    }
+
+    /**
+     * Check if a Job Poster is open to public view.
+     *
+     * @return boolean
+     */
+    public function isPublic(): bool
+    {
+        return ($this->job_poster_status->key == 'live'
+            || $this->job_poster_status->key == 'assessment'
+            || $this->job_poster_status->key == 'completed');
+    }
+
+    /**
+     * Check if a Job Poster is theoretically editable.
+     *
+     * @return boolean
+     */
+    public function isEditable(): bool
+    {
+        // Admins, at least, should be able to edit the job up until the public can see it.
+        return !$this->isPublic();
     }
 
     /**
@@ -550,72 +561,6 @@ class JobPoster extends BaseModel
         return Lang::choice($key, $count);
     }
 
-    /**
-     * Return the current status for the Job Poster.
-     * Possible values are "draft", "submitted", "published" and "closed".
-     *
-     * @return string
-     */
-    public function status(): string
-    {
-        $status = 'draft';
-        if ($this->isOpen()) {
-            $status = 'published';
-        } elseif ($this->isClosed()) {
-            $status = 'closed';
-        } elseif ($this->review_requested_at !== null) {
-            $status = 'submitted';
-        } else {
-            $status = 'draft';
-        }
-
-        return $status;
-    }
-
-    /**
-     * FIXME:
-     * Return a calculated job status id.
-     * For now these ids represent the following:
-     *    1 = Draft
-     *    2 = Review requested
-     *    3 = Approved
-     *    4 = Open
-     *    5 = Closed
-     * These statuses needs an imminent refactoring, so I'm not going to create
-     * a lookup table for them yet.
-     * TODO: When this is rebuilt, make sure to change matching JobStatus code in
-     *    resources\assets\js\models\lookupConstants.ts
-     *
-     * @return integer
-     */
-    public function getJobStatusIdAttribute()
-    {
-        $now = new Date();
-        if ($this->review_requested_at === null) {
-            return 1; // Draft.
-        } elseif ($this->published_at === null) {
-            return 2; // Review requested, but not approved.
-        } elseif ($this->open_date_time === null || $this->open_date_time > $now) {
-            return 3; // Approved, but not open.
-        } elseif ($this->close_date_time === null || $this->close_date_time > $now) {
-            // Approved and currently open.
-            return 4; // Open.
-        } else {
-            // Published and close date has passed.
-            return 5; // Closed.
-        }
-    }
-
-    /**
-     * Return true if this job should be visible to hr advisors.
-     * It should become visible after Manager has requested a review.
-     *
-     * @return boolean
-     */
-    public function isVisibleToHr()
-    {
-        return $this->job_status_id !== 1;
-    }
 
     /**
      * The database model stores a foreign id to the classification table,

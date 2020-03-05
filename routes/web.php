@@ -397,6 +397,13 @@ Route::group(
                             ->where('jobPoster', '[0-9]+')
                             ->middleware('can:delete,jobPoster')
                             ->name('manager.jobs.destroy');
+                        Route::post(
+                            'jobs/{jobPoster}/status/{status}',
+                            'JobStatusController@setJobStatus'
+                        )
+                            ->middleware('can:manage,jobPoster')
+                            ->where('jobPoster', '[0-9]+')
+                            ->name('manager.jobs.setJobStatus');
 
                         /* Screening Plan Builder */
                         Route::get(
@@ -629,6 +636,14 @@ Route::group(
                             ->where('jobPoster', '[0-9]+')
                             ->name('hr_advisor.jobs.preview');
 
+                        Route::post(
+                            'jobs/{jobPoster}/status/{status}',
+                            'JobStatusController@setJobStatus'
+                        )
+                            ->middleware('can:manage,jobPoster')
+                            ->where('jobPoster', '[0-9]+')
+                            ->name('hr_advisor.jobs.setJobStatus');
+
                         /* Account Settings */
                         Route::get('settings', 'SettingsController@editAuthenticated')
                             // Permissions are checked in Controller.
@@ -743,6 +758,7 @@ Route::group(['prefix' => 'api'], function (): void {
     // Public, not protected by policy or gate.
     Route::get('skills', 'Api\SkillController@index');
     Route::get('departments', 'Api\DepartmentController@index');
+    Route::get('job-poster-statuses', 'Api\JobStatusController@index');
 
     // Resource Routes are protected by policies in controllers instead of middleware.
     Route::resource('assessments', 'AssessmentController')->except([
@@ -774,11 +790,13 @@ Route::group(['prefix' => 'api'], function (): void {
         ->where('jobPoster', '[0-9]+')
         ->middleware('can:update,jobPoster');
 
-
-    Route::post('jobs/{job}/submit', 'Api\JobController@submitForReview')
-        ->where('job', '[0-9]+')
-        ->middleware('can:submitForReview,job')
-        ->name('api.jobs.submit');
+    Route::put(
+        'jobs/{jobPoster}/status/{status}',
+        'JobStatusController@setJobStatus'
+    )
+        ->middleware('can:manage,jobPoster')
+        ->where('jobPoster', '[0-9]+')
+        ->name('api.jobs.setJobStatus');
     Route::resource('jobs', 'Api\JobController')->only([
         'show', 'store', 'update', 'index'
     ])->names([ // Specify custom names because default names collied with existing routes.

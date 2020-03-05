@@ -3,7 +3,7 @@ import { storiesOf } from "@storybook/react";
 import { text, boolean, number } from "@storybook/addon-knobs";
 import { withIntl } from "storybook-addon-intl";
 import JobCard from "../components/JobCard";
-import { JobStatus } from "../models/lookupConstants";
+import { jobPosterStatuses } from "../components/HRPortal/fixtures";
 
 const stories = storiesOf("Components|Job Card", module).addDecorator(withIntl);
 
@@ -41,7 +41,7 @@ stories
             text: text("Screening Plan Text", "View Screening Plan"),
             title: "View the screening plan for this Job Poster.",
           }}
-          status={JobStatus.Draft}
+          status={jobPosterStatuses.Draft}
           summary={{
             url: text("Summary Link", "https://google.ca"),
             text: text("Summary Text", "Visit Job Summary"),
@@ -54,7 +54,7 @@ stories
     ),
   )
   .add(
-    "Published",
+    "Live",
     (): React.ReactElement => (
       <div data-c-container="large" data-c-padding="tb(triple)">
         <JobCard
@@ -86,7 +86,7 @@ stories
             text: text("Screening Plan Text", "View Screening Plan"),
             title: "View the screening plan for this Job Poster.",
           }}
-          status={JobStatus.Open}
+          status={jobPosterStatuses.Live}
           summary={{
             url: text("Summary Link", "https://google.ca"),
             text: text("Summary Text", "Visit Job Summary"),
