@@ -8,7 +8,7 @@ import RootContainer from "../RootContainer";
 import JobIntroPage from "./Intro/JobIntroPage";
 import JobDetailsPage from "./Details/JobDetailsPage";
 import JobBuilderWorkEnvPage from "./WorkEnv/WorkEnvPage";
-import JobBuilderImpactPage from "./Impact/JobBuilderImpactPage";
+import JobImpactPage from "./Impact/JobImpactPage";
 import JobTasksPage from "./Tasks/JobTasksPage";
 import JobSkillsPage from "./Skills/JobBuilderSkillsPage";
 import JobReviewPage from "./Review/JobReviewPage";
@@ -104,7 +104,7 @@ const routes: Routes<{}, RouterResult> = [
             path: "/impact",
             action: ({ params }) => ({
               title: titles.impactTitle,
-              component: <JobBuilderImpactPage jobId={Number(params.id)} />,
+              component: <JobImpactPage jobId={Number(params.id)} />,
             }),
           },
           {

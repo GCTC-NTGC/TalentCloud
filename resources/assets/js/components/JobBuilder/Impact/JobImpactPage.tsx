@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { WrappedComponentProps, injectIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import ReactDOM from "react-dom";
 import {
   Department,
@@ -8,7 +8,7 @@ import {
   JobPosterKeyTask,
   Criteria,
 } from "../../../models/types";
-import JobBuilderImpact from "./JobBuilderImpact";
+import JobImpact from "./JobImpact";
 import {
   jobBuilderTasks,
   jobBuilderEnv,
@@ -27,8 +27,9 @@ import {
 import JobBuilderStepContainer from "../JobBuilderStep";
 import { isJobBuilderComplete } from "../jobBuilderHelpers";
 import { navigate } from "../../../helpers/router";
+import { getLocale } from "../../../helpers/localize";
 
-interface JobBuilderImpactPageProps {
+interface JobImpactPageProps {
   jobId: number;
   job: Job | null;
   departments: Department[];
@@ -39,20 +40,16 @@ interface JobBuilderImpactPageProps {
   handleUpdateJob: (newJob: Job) => Promise<boolean>;
 }
 
-const JobBuilderImpactPage: React.FunctionComponent<JobBuilderImpactPageProps &
-  WrappedComponentProps> = ({
+const JobImpactPage: React.FunctionComponent<JobImpactPageProps> = ({
   jobId,
   job,
   departments,
   keyTasks,
   criteria,
   handleUpdateJob,
-  intl,
 }): React.ReactElement => {
-  const { locale } = intl;
-  if (locale !== "en" && locale !== "fr") {
-    throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
-  }
+  const intl = useIntl();
+  const locale = getLocale(intl.locale);
   const handleModalCancel = (): void => {
     // Do nothing on cancel
   };
@@ -75,7 +72,7 @@ const JobBuilderImpactPage: React.FunctionComponent<JobBuilderImpactPageProps &
   return (
     <JobBuilderStepContainer jobId={jobId} currentPage="impact">
       {job !== null && (
-        <JobBuilderImpact
+        <JobImpact
           job={job}
           departments={departments}
           handleSubmit={handleSubmit}
@@ -116,12 +113,12 @@ const mapDispatchToProps = (
   },
 });
 
-export const JobBuilderImpactPageContainer = connect(
+export const JobImpactPageContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(injectIntl(JobBuilderImpactPage));
+)(JobImpactPage);
 
-export default JobBuilderImpactPageContainer;
+export default JobImpactPageContainer;
 
 if (document.getElementById("job-builder-impact")) {
   const container = document.getElementById(
@@ -132,7 +129,7 @@ if (document.getElementById("job-builder-impact")) {
   if (jobId) {
     ReactDOM.render(
       <RootContainer>
-        <JobBuilderImpactPageContainer jobId={jobId} />
+        <JobImpactPageContainer jobId={jobId} />
       </RootContainer>,
       container,
     );
