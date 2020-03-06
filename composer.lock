@@ -4979,23 +4979,23 @@
     "packages-dev": [
         {
             "name": "backpack/generators",
-            "version": "2.0.6",
+            "version": "v2.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/Generators.git",
-                "reference": "18df6d3c375c64535c25a76fb5dfc46c803ceaff"
+                "reference": "7011e79406919468f1c0408840741db8b4dd0876"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/Generators/zipball/18df6d3c375c64535c25a76fb5dfc46c803ceaff",
-                "reference": "18df6d3c375c64535c25a76fb5dfc46c803ceaff",
+                "url": "https://api.github.com/repos/Laravel-Backpack/Generators/zipball/7011e79406919468f1c0408840741db8b4dd0876",
+                "reference": "7011e79406919468f1c0408840741db8b4dd0876",
                 "shasum": ""
             },
             "require": {
-                "backpack/crud": "4.0.*|v4.x-dev"
+                "backpack/crud": "4.0.*"
             },
             "require-dev": {
-                "phpunit/phpunit": "4.*",
+                "phpunit/phpunit": "^9.0||^7.0",
                 "scrutinizer/ocular": "~1.1"
             },
             "type": "library",
@@ -5035,7 +5035,7 @@
                 "request",
                 "view"
             ],
-            "time": "2020-01-06T07:16:36+00:00"
+            "time": "2020-03-05T10:18:48+00:00"
         },
         {
             "name": "barryvdh/laravel-debugbar",
