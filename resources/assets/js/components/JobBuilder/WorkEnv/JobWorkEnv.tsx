@@ -211,7 +211,7 @@ const collaborativenessList: {
 
 // shape of values used in Form
 export interface JobWorkEnvValues {
-  teamSize?: number;
+  teamSize: number | "";
   physicalEnv: string[];
   technology: string[];
   amenities: string[];
@@ -256,7 +256,7 @@ const jobToValues = (
     work_env_features[option];
 
   return {
-    ...(team_size && { teamSize: team_size }),
+    teamSize: team_size || "",
     physicalEnv: physEnvOptions.filter(isTrueInEnvFeatures),
     technology: techOptions.filter(isTrueInEnvFeatures),
     amenities: amenitiesOptions.filter(isTrueInEnvFeatures),
@@ -464,7 +464,7 @@ const JobWorkEnv = ({
   const initialValues: JobWorkEnvValues = job
     ? jobToValues(job, locale)
     : {
-        teamSize: undefined,
+        teamSize: "",
         physicalEnv: [],
         technology: [],
         amenities: [],
