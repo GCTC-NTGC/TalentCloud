@@ -474,11 +474,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
         >
           {({ errors, touched, isSubmitting, values }): React.ReactElement => (
             <section>
-              <Form
-                id="job-information"
-                data-c-container="form"
-                data-c-grid="gutter"
-              >
+              <Form id="job-information" data-c-grid="gutter">
                 <FastField
                   id="builder02JobTitle"
                   type="text"
