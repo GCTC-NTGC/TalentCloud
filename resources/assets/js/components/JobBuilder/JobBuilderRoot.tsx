@@ -10,7 +10,7 @@ import JobDetailsPage from "./Details/JobDetailsPage";
 import JobWorkEnvPage from "./WorkEnv/JobWorkEnvPage";
 import JobImpactPage from "./Impact/JobImpactPage";
 import JobTasksPage from "./Tasks/JobTasksPage";
-import JobSkillsPage from "./Skills/JobBuilderSkillsPage";
+import JobSkillsPage from "./Skills/JobSkillsPage";
 import JobReviewPage from "./Review/JobReviewPage";
 import ScrollToTop from "../ScrollToTop";
 import RedirectPage from "./RedirectToLastIncompleteStep";

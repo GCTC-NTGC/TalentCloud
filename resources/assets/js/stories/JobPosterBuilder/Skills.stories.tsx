@@ -5,7 +5,7 @@ import { withIntl } from "storybook-addon-intl";
 import { select, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import { SelectTypeOptionsProp } from "@storybook/addon-knobs/dist/components/types";
-import JobBuilderSkills from "../../components/JobBuilder/Skills/JobBuilderSkills";
+import JobSkills from "../../components/JobBuilder/Skills/JobSkills";
 import fakeJob, { fakeCriterion, fakeJobTasks } from "../../fakeData/fakeJob";
 import { fakeSkills } from "../../fakeData/fakeSkills";
 import CriteriaForm from "../../components/JobBuilder/Skills/CriteriaForm";
@@ -57,7 +57,7 @@ stories
   .add(
     "Existing Job",
     (): React.ReactElement => (
-      <JobBuilderSkills
+      <JobSkills
         job={{
           ...fakeJob(),
           classification_id: select("Classification", classificationOptions, 1),
