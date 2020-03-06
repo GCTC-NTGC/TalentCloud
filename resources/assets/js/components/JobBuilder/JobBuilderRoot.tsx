@@ -7,7 +7,7 @@ import { useRouter, RouterResult } from "../../helpers/router";
 import RootContainer from "../RootContainer";
 import JobIntroPage from "./Intro/JobIntroPage";
 import JobDetailsPage from "./Details/JobDetailsPage";
-import JobBuilderWorkEnvPage from "./WorkEnv/WorkEnvPage";
+import JobWorkEnvPage from "./WorkEnv/JobWorkEnvPage";
 import JobImpactPage from "./Impact/JobImpactPage";
 import JobTasksPage from "./Tasks/JobTasksPage";
 import JobSkillsPage from "./Skills/JobBuilderSkillsPage";
@@ -97,7 +97,7 @@ const routes: Routes<{}, RouterResult> = [
             path: "/environment",
             action: ({ params }) => ({
               title: titles.workEnvTitle,
-              component: <JobBuilderWorkEnvPage jobId={Number(params.id)} />,
+              component: <JobWorkEnvPage jobId={Number(params.id)} />,
             }),
           },
           {

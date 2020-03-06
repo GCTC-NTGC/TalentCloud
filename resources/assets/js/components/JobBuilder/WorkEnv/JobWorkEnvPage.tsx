@@ -1,8 +1,8 @@
 import React from "react";
-import { injectIntl, WrappedComponentProps } from "react-intl";
+import { useIntl } from "react-intl";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
-import WorkEnvForm from "./WorkEnvForm";
+import JobWorkEnv from "./JobWorkEnv";
 import { Job, JobPosterKeyTask, Criteria } from "../../../models/types";
 import { DispatchType } from "../../../configureStore";
 import { RootState } from "../../../store/store";
@@ -21,8 +21,9 @@ import {
 import JobBuilderStepContainer from "../JobBuilderStep";
 import { isJobBuilderComplete } from "../jobBuilderHelpers";
 import { navigate } from "../../../helpers/router";
+import { getLocale } from "../../../helpers/localize";
 
-interface JobBuilderWorkEnvProps {
+interface JobWorkEnvPageProps {
   // The id of the edited job, or null for a new job.
   jobId: number;
   // If not null, used to prepopulate form values.
@@ -36,19 +37,15 @@ interface JobBuilderWorkEnvProps {
   handleUpdateJob: (newJob: Job) => Promise<Job>;
 }
 
-const JobBuilderWorkEnv: React.FunctionComponent<JobBuilderWorkEnvProps &
-  WrappedComponentProps> = ({
+const JobWorkEnvPage: React.FunctionComponent<JobWorkEnvPageProps> = ({
   jobId,
   job,
   handleUpdateJob,
   keyTasks,
   criteria,
-  intl,
 }): React.ReactElement => {
-  const { locale } = intl;
-  if (locale !== "en" && locale !== "fr") {
-    throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
-  }
+  const intl = useIntl();
+  const locale = getLocale(intl.locale);
   const handleSubmit = handleUpdateJob;
   const handleModalCancel = (): void => {};
   const handleModalConfirm = (): void => {
@@ -67,7 +64,7 @@ const JobBuilderWorkEnv: React.FunctionComponent<JobBuilderWorkEnvProps &
   return (
     <JobBuilderStepContainer jobId={jobId} currentPage="env">
       {job !== null && (
-        <WorkEnvForm
+        <JobWorkEnv
           job={job}
           handleSubmit={handleSubmit}
           handleReturn={handleReturn}
@@ -109,10 +106,10 @@ const mapDispatchToProps = (
   },
 });
 
-const JobBuilderWorkEnvContainer = connect(
+const JobWorkEnvPageContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(injectIntl(JobBuilderWorkEnv));
+)(JobWorkEnvPage);
 
 if (document.getElementById("job-builder-work-env")) {
   const container: HTMLElement = document.getElementById(
@@ -123,11 +120,11 @@ if (document.getElementById("job-builder-work-env")) {
   if (jobId) {
     ReactDOM.render(
       <RootContainer>
-        <JobBuilderWorkEnvContainer jobId={jobId} />
+        <JobWorkEnvPageContainer jobId={jobId} />
       </RootContainer>,
       container,
     );
   }
 }
 
-export default JobBuilderWorkEnvContainer;
+export default JobWorkEnvPageContainer;
