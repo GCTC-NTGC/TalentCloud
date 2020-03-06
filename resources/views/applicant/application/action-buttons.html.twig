@@ -56,15 +56,27 @@
             {% endif %}
         </div>
         <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(right)">
-            <a
-                data-c-button="outline(c1)"
-                data-c-radius="rounded"
-                type="button">
-                <span>
-                    Save &amp; Quit
-                </span>
-            </a>
-            {% if step == 3 %}
+            {% if step != 1 %}
+                <a
+                    data-c-button="outline(c1)"
+                    data-c-radius="rounded"
+                    type="button">
+                    <span>
+                        Save &amp; Quit
+                    </span>
+                </a>
+            {% endif %}
+            {% if step == 1 %}
+                <a
+                    href="/demo/application-02"
+                    data-c-button="solid(c1)"
+                    data-c-radius="rounded"
+                    type="button">
+                    <span>
+                        Start My Application
+                    </span>
+                </a>
+            {% elseif step == 3 %}
                 <a
                     href="/demo/application-04"
                     data-c-button="solid(c1)"
@@ -96,9 +108,7 @@
                 </a>
             {% else %}
                 <a
-                    {% if step == 1 %}
-                        href="/demo/application-02"
-                    {% elseif step == 2 %}
+                    {% if step == 2 %}
                         href="/demo/application-03"
                     {% elseif step == 4 %}
                         href="/demo/application-05"

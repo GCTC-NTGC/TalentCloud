@@ -36,7 +36,25 @@
                     <a href="/demo/application-02" title="Edit this section." data-c-color="c2" data-c-font-weight="bold">Edit</a>
                 </div>
             </div>
-            <hr data-c-hr="thin(gray)" data-c-margin="tb(1)">
+            <hr data-c-hr="thin(gray)" data-c-margin="top(1)">
+            <p data-c-font-weight="bold" data-c-color="c2" data-c-margin="top(1) bottom(.5)">Which citizenship status applies to you?</p>
+            <p>Canadian Citizen</p>
+            <p data-c-font-weight="bold" data-c-color="c2" data-c-margin="top(1) bottom(.5)">Are you a veteran or member of the Canadian Forces?</p>
+            <p>Yes - Army</p>
+            {# This section can indicate that they've either said yes or no
+            instead of a typed answer, so I've included the "no" version
+            commented out below the "yes" version. The only difference is that
+            I'm changing the icon to be a red x. #}
+            <p data-c-font-weight="bold" data-c-color="c2" data-c-margin="top(1) bottom(.5)">Language Requirements</p>
+            <p data-c-margin="bottom(.5)">This position requires working knowledge of both French and English. As part of this process, your language abilities will be tested by the Public Service Commission of Canada (the proficiency requirement for this position is BBB).</p>
+            {# Yes Version #}
+            <p data-c-margin="bottom(.5)"><i class="fas fa-check" data-c-color="go" data-c-margin="right(.25)"></i>I have intermediate or better reading, writing and verbal communication skills in English and French.</p>
+            <p><i class="fas fa-check" data-c-color="go" data-c-margin="right(.25)"></i>I understand that my second language proficiency will be tested as part of this process.</p>
+            {# No Version #}
+            {# <p data-c-margin="bottom(.5)"><i class="fas fa-times" data-c-color="stop" data-c-margin="right(.25)"></i>I have intermediate or better reading, writing and verbal communication skills in English and French.</p> #}
+            {# <p><i class="fas fa-times" data-c-color="stop" data-c-margin="right(.25)"></i>I understand that my second language proficiency will be tested as part of this process.</p> #}
+            <p data-c-font-weight="bold" data-c-color="c2" data-c-margin="top(1) bottom(.5)">Which language would you like to be contacted in regarding this application?</p>
+            <p>English</p>
             <div data-c-grid="gutter(all, 1) middle" data-c-padding="top(3)">
                 <div data-c-grid-item="tp(2of3) tl(4of5)">
                     <h3 data-c-font-size="h3">My Experience</h3>
@@ -52,10 +70,10 @@
                   View"
                 - the second button toggles the second section below: "Skill
                   View"
-                - the third button toggles the last view: "Education View", which is
-                the same as the first section markup wise, but it only shows the
-                experience that has been selected as helping the applicant meet
-                the education requirement. #}
+                - the third button toggles the last view: "Education View",
+                which is the same as the first section markup wise, but it only
+                shows the experience that has been selected as helping the
+                applicant meet the education requirement. #}
             <p data-c-padding="bottom(.5)" data-c-font-weight="bold">Change Your View:</p>
             <div data-c-padding="bottom(1)">
                 <button data-c-button="solid(c1)" type="button" data-c-radius="rounded">
@@ -93,9 +111,11 @@
             <div class="experience-list">
                 <p data-c-margin="bottom(1)">This view organizes your experiences by the skills required for this job.</p>
                 <div data-c-accordion-group>
-                    {# Education Example w/ Edu, End Date, Skill Display true, 2
-                    Related Skills, 1 Extra Skills #}
-                    {% include "applicant/application/skill" with {"skillName": "User Experience Design", "skillLevel": "Intermediate"} %}
+                    {# Skill w/ Education Example w/ Edu, End Date, Skill Display true, 2
+                    Related Skills, 1 Extra Skills, Personal Example w/ Edu, no End Date, Skill Display true,
+                    no Related Skills, 3 Extra Skills, Award Example w/ no Edu, Skill Display true, no Related
+                    Skills, no Extra Skills #}
+                    {% include "applicant/application/skill" with {"skillName": "User Experience Design", "skillLevel": "Intermediate", "relatedExperiences": {"1": {"experienceType": "education", "educationReq": true, "skillDisplay": true, "experienceEducationType": "Bachelor's Degree", "experienceAreaOfStudy": "Paleontology", "experienceInstitution": "McGill University", "experienceStatus": "Successful Completion (Certificate Awarded)", "experienceStartDate": "January 2018", "experienceEndDate": "January 2019", "experienceCurrent": false, "experienceThesisTitle": null, "experienceBlockcertLink": "http://google.com", "skillClaim": "Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in."}, "2": {"experienceType": "personal", "educationReq": true, "skillDisplay": true, "experienceTitle": "Parenting", "experienceDescription": "Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate.", "experienceConsent": false, "experienceStartDate": "March 2013", "experienceEndDate": false, "experienceCurrent": true, "skillClaim": "Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in."}, "3": {"experienceType": "award", "educationReq": false, "skillDisplay": true, "experienceTitle": "Governor General's Award (Gold)", "experienceRecipient": "Individual", "experienceInstitution": "McGill University", "experienceScope": "National", "experienceAwardDate": "27 January 2016", "experienceAwardLink": "http://google.com", "experienceCurrent": false, "skillClaim": null}}} %}
                 </div>
             </div>
             {# Education View #}
@@ -130,7 +150,11 @@
                     <a href="/demo/application-07" title="Edit this section." data-c-color="c2" data-c-font-weight="bold">Edit</a>
                 </div>
             </div>
-            <hr data-c-hr="thin(gray)" data-c-margin="tb(1)">
+            <hr data-c-hr="thin(gray)" data-c-margin="top(1)">
+            <p data-c-font-weight="bold" data-c-color="c2" data-c-margin="top(1) bottom(.5)">Question 01: Why are you interested in this job?</p>
+            <p>Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in.</p>
+            <p data-c-font-weight="bold" data-c-color="c2" data-c-margin="top(1) bottom(.5)">Question 02: Are there any other skills that you bring to the job that you want to highlight to the manager?</p>
+            <p>Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in.</p>
         </div>
         {# Application Action Buttons #}
         {% include "applicant/application/action-buttons" with {"step": 8} %}

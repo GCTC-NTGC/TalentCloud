@@ -25,27 +25,41 @@
     {% set stepName = "Review Your Application" %}
 {% elseif step == 9 %}
     {% set stepName = "Submit" %}
+{% elseif step == 10 %}
+    {% set stepName = "Thanks for Applying" %}
 {% endif %}
 
-<div data-clone>
-    <div data-c-overlay="black(80)" data-c-padding="bottom(3)" style="background-image: url('/images/bg_crowd.jpg');">
-        {% include "common/menu" %}
-        <div data-c-container="large">
-            <h1 data-c-heading="h1" data-c-margin="top(3)">Submit an Application</h1>
-            <p data-c-color="white" data-c-margin="top(1)">You're applying to: <span data-c-font-weight="bold">Front-end Developer</span> at <span data-c-font-weight="bold">Treasury Board of Canada Secretariat</span></p>
-            <nav aria-label="breadcrumb" data-c-breadcrumbs data-c-color="white" data-c-margin="top(3)">
-                <ol>
-                    <li>
-                        <a href="#link-to-page" title="This is the title of the page link.">Talent Cloud</a><i>/</i>
-                    </li>
-                    <li>
-                        <a href="#link-to-page" title="This is the title of the page link.">My Applications</a><i>/</i>
-                    </li>
-                    <li>
-                        <span aria-current="page">Apply: {{ stepName }}</span><i>/</i>
-                    </li>
-                </ol>
-            </nav>
+{% if step < 10 %}
+    <div data-clone>
+        <div data-c-overlay="black(80)" data-c-padding="bottom(3)" style="background-image: url('/images/bg_crowd.jpg');">
+            {% include "common/menu" %}
+            <div data-c-container="large">
+                <h1 data-c-heading="h1" data-c-margin="top(3)">Submit an Application</h1>
+                <p data-c-color="white" data-c-margin="top(1)">You're applying to: <span data-c-font-weight="bold">Front-end Developer</span> at <span data-c-font-weight="bold">Treasury Board of Canada Secretariat</span></p>
+                <nav aria-label="breadcrumb" data-c-breadcrumbs data-c-color="white" data-c-margin="top(3)">
+                    <ol>
+                        <li>
+                            <a href="#link-to-page" title="This is the title of the page link.">Talent Cloud</a><i>/</i>
+                        </li>
+                        <li>
+                            <a href="#link-to-page" title="This is the title of the page link.">My Applications</a><i>/</i>
+                        </li>
+                        <li>
+                            <span aria-current="page">Apply: {{ stepName }}</span><i>/</i>
+                        </li>
+                    </ol>
+                </nav>
+            </div>
         </div>
     </div>
-</div>
+{% else %}
+    <div data-clone>
+        <div data-c-overlay="black(80)" data-c-padding="bottom(3)" style="background-image: url('/images/bg_crowd.jpg');">
+            {% include "common/menu" %}
+            <div data-c-container="large" data-c-align="base(center)">
+                <h1 data-c-heading="h1" data-c-margin="top(3)">Thanks for Applying!</h1>
+                <p data-c-color="white" data-c-margin="top(1)">You've successfully applied to: <span data-c-font-weight="bold">Front-end Developer</span> at <span data-c-font-weight="bold">Treasury Board of Canada Secretariat</span></p>
+            </div>
+        </div>
+    </div>
+{% endif %}

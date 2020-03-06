@@ -25,43 +25,45 @@
         <div data-c-container="medium">
             <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">My Basic Information</h2>
             <form>
-                <div data-c-input="select">
-                    <label for="cit">Which of the following citizenship statuses applies to you?</label>
-                    <span>Required</span>
-                    <div>
-                        <i class="fas fa-caret-down"></i>
-                        <select required id="cit">
-                            <option disabled selected>Select an option...</option>
-                            <option>Option 1</option>
-                            <option>Option 2</option>
-                            <option>Option 3</option>
-                            <option>Option 4</option>
-                            <option>Option 5</option>
-                        </select>
+                <div data-c-grid="gutter(all, 1)">
+                    <div data-c-input="select" data-c-grid-item="tl(1of2)">
+                        <label for="cit">Which citizenship status applies to you?</label>
+                        <span>Required</span>
+                        <div>
+                            <i class="fas fa-caret-down"></i>
+                            <select required id="cit">
+                                <option disabled selected>Select an option...</option>
+                                <option>Option 1</option>
+                                <option>Option 2</option>
+                                <option>Option 3</option>
+                                <option>Option 4</option>
+                                <option>Option 5</option>
+                            </select>
+                        </div>
+                        <span>This input has an error.</span>
                     </div>
-                    <span>This input has an error.</span>
-                </div>
-                <div data-c-input="select">
-                    <label for="vet">Are you a veteran or member of the Canadian Forces?</label>
-                    <span>Required</span>
-                    <div>
-                        <i class="fas fa-caret-down"></i>
-                        <select required id="vet">
-                            <option disabled selected>Select an option...</option>
-                            <option>Option 1</option>
-                            <option>Option 2</option>
-                            <option>Option 3</option>
-                            <option>Option 4</option>
-                            <option>Option 5</option>
-                        </select>
+                    <div data-c-input="select" data-c-grid-item="tl(1of2)">
+                        <label for="vet">Are you a veteran or member of the Canadian Forces?</label>
+                        <span>Required</span>
+                        <div>
+                            <i class="fas fa-caret-down"></i>
+                            <select required id="vet">
+                                <option disabled selected>Select an option...</option>
+                                <option>Option 1</option>
+                                <option>Option 2</option>
+                                <option>Option 3</option>
+                                <option>Option 4</option>
+                                <option>Option 5</option>
+                            </select>
+                        </div>
+                        <span>This input has an error.</span>
                     </div>
-                    <span>This input has an error.</span>
                 </div>
                 <h3 data-c-heading="h3" data-c-margin="top(2) bottom(1)" data-c-padding="bottom(1)">Language Requirements</h3>
                 {# Language Check #}
                 {# This text changes to indicate the language requirement for the position. #}
-                <p data-c-margin="bottom(1)">This position requires working knowledge of both French and English. As part of this process, your language abilities will be tested by the Public Service Commission of Canada (the proficiency requirement for this position is BBB).</p>
-                <div data-c-input="checkbox(single)">
+                <p>This position requires working knowledge of both French and English. As part of this process, your language abilities will be tested by the Public Service Commission of Canada (the proficiency requirement for this position is BBB).</p>
+                <div data-c-input="checkbox(single)" data-c-margin="left(2)">
                     <span>Required</span>
                     <div>
                         <label for="langReq">
@@ -88,7 +90,7 @@
                     </div>
                     <span>This input has an error.</span>
                 </div>
-                <h4 data-c-heading="h4" data-c-margin="top(2) bottom(1)">Application Language</h4>
+                <h3 data-c-heading="h3" data-c-margin="top(2) bottom(1)" data-c-padding="bottom(1)">Contact &amp; Communication</h3>
                 <div data-c-input="select">
                     <label for="lang">Which language would you prefer to complete this application in?</label>
                     <span>Required</span>
@@ -102,8 +104,35 @@
                     </div>
                     <span>This input has an error.</span>
                 </div>
+                <p data-c-margin="top(1)">Do you give Talent Cloud permission to contact you at the email address you have provided for this job application for other related jobs?</p>
+                <div data-c-input="checkbox(single)" data-c-margin="left(2)">
+                    <span>Required</span>
+                    <div>
+                        <label for="langReq">
+                            <input
+                                id="langReq"
+                                type="checkbox"/>
+                            {# Please include the user's email here. #}
+                            <span>I would like Talent Cloud to contact me at [email] about related jobs.</span>
+                        </label>
+                    </div>
+                    <span>This input has an error.</span>
+                </div>
+                <p data-c-margin="top(1)">Do you give Talent Cloud permission to share your application with other Government of Canada managers who may be looking for a similar set of skills?</p>
+                <div data-c-input="checkbox(single)" data-c-margin="left(2)">
+                    <span>Required</span>
+                    <div>
+                        <label for="langReq">
+                            <input
+                                id="langReq"
+                                type="checkbox"/>
+                            <span>I would like Talent Cloud to share my application with other Government of Canada managers looking for similar sets of skills.</span>
+                        </label>
+                    </div>
+                    <span>This input has an error.</span>
+                </div>
             </form>
-            <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">Education Requirements</h2>
+            <h3 data-c-heading="h3" data-c-margin="top(2) bottom(1)" data-c-padding="bottom(1)">Education Requirements</h3>
             <p data-c-margin="bottom(1)">Based on the information outlined below, do you meet the minimum experience or education requirements for this position?</p>
             <div data-c-background="gray(20)" data-c-radius="rounded" data-c-padding="all(1)" data-c-margin="bottom(1)">
                 {# This content is written by manager somewhere on the JPB. The stuff below is just for example purposes. #}
@@ -114,7 +143,7 @@
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe accusamus animi consequatur dolorem voluptatum earum iure doloremque, facere est asperiores, dignissimos quae architecto vero unde vitae quis excepturi! Totam, libero.</p>
             </div>
             <form>
-                <div data-c-input="checkbox(single)">
+                <div data-c-input="checkbox(single)" data-c-margin="left(2)">
                     <span>Required</span>
                     <div>
                         <label for="cA1">
