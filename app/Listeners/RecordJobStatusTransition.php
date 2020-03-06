@@ -3,10 +3,12 @@
 namespace App\Listeners;
 
 use App\Events\JobSaved;
+use App\Mail\JobStatusChanged;
 use App\Models\JobPosterStatusHistory;
 use App\Models\Lookup\JobPosterStatus;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class RecordJobStatusTransition
 {
@@ -50,9 +52,14 @@ class RecordJobStatusTransition
                 $userDescription = $user !== null
                     ? '{id=' . $user->id . ', email=' . $user->email . '}'
                     : '{null}';
+
+                // Save the transition in log as well.
                 Log::notice('Job status transition: job {id=' . $job->id . '} changed from ' . $fromStatusKey .
                     ' to ' . $toStatusKey .
                     ' by user ' . $userDescription);
+
+                // Send an email notification to talentcloud admins.
+                Mail::to(config('mail.admin_address'))->send(new JobStatusChanged($transition));
             }
         }
     }
