@@ -33,6 +33,8 @@ class ProcessJobStatusTransitions implements ShouldQueue
      */
     public function handle()
     {
+        Log::debug('Processing job status transitions');
+
         $now = Date::now();
         $ready = JobPosterStatus::where('key', 'ready')->first();
         $live = JobPosterStatus::where('key', 'live')->first();
@@ -40,6 +42,10 @@ class ProcessJobStatusTransitions implements ShouldQueue
 
         $jobsReadyForLive = JobPoster::where('job_poster_status_id', $ready->id)
             ->where('open_date_time', '<=', $now)->get();
+
+        Log::debug('Jobs ready for live:');
+        Log::debug($jobsReadyForLive);
+
         // We want to call save on each model individually instead of doing a mass update in order to trigger
         // any events that may be listening for eloquent model udpates.
         foreach ($jobsReadyForLive as $job) {

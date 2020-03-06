@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "backpack/crud",
-            "version": "v4.0.46",
+            "version": "4.0.48",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/CRUD.git",
-                "reference": "6bf7166de7836cfa0be34b7b7c7711a616de4146"
+                "reference": "47f65fb68e78e7b535e76a109301a269bb35fdf8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/6bf7166de7836cfa0be34b7b7c7711a616de4146",
-                "reference": "6bf7166de7836cfa0be34b7b7c7711a616de4146",
+                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/47f65fb68e78e7b535e76a109301a269bb35fdf8",
+                "reference": "47f65fb68e78e7b535e76a109301a269bb35fdf8",
                 "shasum": ""
             },
             "require": {
@@ -91,7 +91,7 @@
                 "read",
                 "update"
             ],
-            "time": "2020-03-05T09:30:43+00:00"
+            "time": "2020-03-06T08:15:38+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -1753,25 +1753,25 @@
         },
         {
             "name": "mcamara/laravel-localization",
-            "version": "1.4.8",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mcamara/laravel-localization.git",
-                "reference": "046a3d48286a41b4f6656c6c5606450e6bf657b6"
+                "reference": "13a51715f8e066b0bfb637fd9065d7496c3579ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mcamara/laravel-localization/zipball/046a3d48286a41b4f6656c6c5606450e6bf657b6",
-                "reference": "046a3d48286a41b4f6656c6c5606450e6bf657b6",
+                "url": "https://api.github.com/repos/mcamara/laravel-localization/zipball/13a51715f8e066b0bfb637fd9065d7496c3579ec",
+                "reference": "13a51715f8e066b0bfb637fd9065d7496c3579ec",
                 "shasum": ""
             },
             "require": {
-                "laravel/framework": "~5.2.0||~5.3.0||~5.4.0||~5.5.0||~5.6.0||~5.7.0||~5.8.0||^6.0",
+                "laravel/framework": "~5.2.0||~5.3.0||~5.4.0||~5.5.0||~5.6.0||~5.7.0||~5.8.0||^6.0||^7.0",
                 "php": ">=7.1.0"
             },
             "require-dev": {
                 "orchestra/testbench-browser-kit": "~3.4|~3.8|~4.0",
-                "phpunit/phpunit": "6.0.*|8.0.*"
+                "phpunit/phpunit": "6.0.*|^8.0"
             },
             "suggest": {
                 "ext-intl": "*"
@@ -1811,7 +1811,7 @@
                 "localization",
                 "php"
             ],
-            "time": "2020-01-03T16:27:15+00:00"
+            "time": "2020-03-05T15:19:05+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -4979,23 +4979,23 @@
     "packages-dev": [
         {
             "name": "backpack/generators",
-            "version": "2.0.6",
+            "version": "v2.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/Generators.git",
-                "reference": "18df6d3c375c64535c25a76fb5dfc46c803ceaff"
+                "reference": "7011e79406919468f1c0408840741db8b4dd0876"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/Generators/zipball/18df6d3c375c64535c25a76fb5dfc46c803ceaff",
-                "reference": "18df6d3c375c64535c25a76fb5dfc46c803ceaff",
+                "url": "https://api.github.com/repos/Laravel-Backpack/Generators/zipball/7011e79406919468f1c0408840741db8b4dd0876",
+                "reference": "7011e79406919468f1c0408840741db8b4dd0876",
                 "shasum": ""
             },
             "require": {
-                "backpack/crud": "4.0.*|v4.x-dev"
+                "backpack/crud": "4.0.*"
             },
             "require-dev": {
-                "phpunit/phpunit": "4.*",
+                "phpunit/phpunit": "^9.0||^7.0",
                 "scrutinizer/ocular": "~1.1"
             },
             "type": "library",
@@ -5035,7 +5035,7 @@
                 "request",
                 "view"
             ],
-            "time": "2020-01-06T07:16:36+00:00"
+            "time": "2020-03-05T10:18:48+00:00"
         },
         {
             "name": "barryvdh/laravel-debugbar",
@@ -6287,16 +6287,16 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "v1.10.2",
+            "version": "v1.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "b4400efc9d206e83138e2bb97ed7f5b14b831cd9"
+                "reference": "451c3cd1418cf640de218914901e51b064abb093"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/b4400efc9d206e83138e2bb97ed7f5b14b831cd9",
-                "reference": "b4400efc9d206e83138e2bb97ed7f5b14b831cd9",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/451c3cd1418cf640de218914901e51b064abb093",
+                "reference": "451c3cd1418cf640de218914901e51b064abb093",
                 "shasum": ""
             },
             "require": {
@@ -6346,7 +6346,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2020-01-20T15:57:02+00:00"
+            "time": "2020-03-05T15:02:03+00:00"
         },
         {
             "name": "phpstan/phpdoc-parser",
