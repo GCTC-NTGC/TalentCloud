@@ -326,7 +326,7 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps> = ({
                   ).map(
                     ([key, { name }]): React.ReactElement => {
                       return (
-                        <Field
+                        <FastField
                           key={key}
                           id={key}
                           name="level"
