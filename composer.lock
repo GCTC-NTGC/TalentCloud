@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "backpack/crud",
-            "version": "4.0.48",
+            "version": "4.0.49",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/CRUD.git",
-                "reference": "47f65fb68e78e7b535e76a109301a269bb35fdf8"
+                "reference": "986f5e69593eab33e567787e0c28efb6747cd7b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/47f65fb68e78e7b535e76a109301a269bb35fdf8",
-                "reference": "47f65fb68e78e7b535e76a109301a269bb35fdf8",
+                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/986f5e69593eab33e567787e0c28efb6747cd7b5",
+                "reference": "986f5e69593eab33e567787e0c28efb6747cd7b5",
                 "shasum": ""
             },
             "require": {
@@ -70,7 +70,7 @@
                     "role": "Creator & Maintainer"
                 }
             ],
-            "description": "Quickly build an admin interfaces using Laravel 6, CoreUI, Boostrap 4 and jQuery.",
+            "description": "Quickly build an admin interfaces using Laravel 7, CoreUI, Boostrap 4 and jQuery.",
             "homepage": "https://github.com/laravel-backpack/CRUD",
             "keywords": [
                 "Admin Interface",
@@ -91,7 +91,7 @@
                 "read",
                 "update"
             ],
-            "time": "2020-03-06T08:15:38+00:00"
+            "time": "2020-03-08T11:45:20+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -5813,12 +5813,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laracasts/Laravel-5-Generators-Extended.git",
-                "reference": "4b168b53e3a38eb344fa24aacc5109da3a45c53d"
+                "reference": "061b307e666545fa3e3205a044a77b0382d3ae3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laracasts/Laravel-5-Generators-Extended/zipball/4b168b53e3a38eb344fa24aacc5109da3a45c53d",
-                "reference": "4b168b53e3a38eb344fa24aacc5109da3a45c53d",
+                "url": "https://api.github.com/repos/laracasts/Laravel-5-Generators-Extended/zipball/061b307e666545fa3e3205a044a77b0382d3ae3e",
+                "reference": "061b307e666545fa3e3205a044a77b0382d3ae3e",
                 "shasum": ""
             },
             "require": {
@@ -5856,7 +5856,7 @@
                 "generators",
                 "laravel"
             ],
-            "time": "2020-03-03T10:08:39+00:00"
+            "time": "2020-03-08T08:09:39+00:00"
         },
         {
             "name": "maximebf/debugbar",
