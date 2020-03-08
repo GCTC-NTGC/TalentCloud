@@ -1,31 +1,35 @@
 function applicationShow(
   locale: string,
   prefix: string,
+  jobId: number,
   applicationId: number,
 ): string {
-  return `/${locale}/${prefix}/applications/${applicationId}`;
+  return `/${locale}/${prefix}/jobs/${jobId}/applicants/${applicationId}`;
 }
 
 function applicantShow(
   locale: string,
   prefix: string,
+  jobId: number,
   applicantId: number,
 ): string {
-  return `/${locale}/${prefix}/applicants/${applicantId}`;
+  return `/${locale}/${prefix}/jobs/${jobId}/applicants/${applicantId}`;
 }
 
 export function managerApplicationShow(
   locale: string,
+  jobId: number,
   applicationId: number,
 ): string {
-  return applicationShow(locale, "manager", applicationId);
+  return applicationShow(locale, "manager", jobId, applicationId);
 }
 
 export function managerApplicantShow(
   locale: string,
+  jobId: number,
   applicantId: number,
 ): string {
-  return applicantShow(locale, "manager", applicantId);
+  return applicantShow(locale, "manager", jobId, applicantId);
 }
 
 export function managerEditProfile(locale: string): string {
@@ -116,10 +120,14 @@ export function hrJobApplications(locale: string, jobId: number): string {
 }
 export const hrApplicationShow = (
   locale: string,
+  jobId: number,
   applicationId: number,
-): string => applicationShow(locale, "hr", applicationId);
-export const hrApplicantShow = (locale: string, applicantId: number): string =>
-  applicantShow(locale, "hr", applicantId);
+): string => applicationShow(locale, "hr", jobId, applicationId);
+export const hrApplicantShow = (
+  locale: string,
+  jobId: number,
+  applicantId: number,
+): string => applicantShow(locale, "hr", jobId, applicantId);
 
 export function accountSettings(locale: string): string {
   return `/${locale}/settings`;

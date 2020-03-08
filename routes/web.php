@@ -53,7 +53,6 @@ Route::group(
 
             /* Temp Resources */
             Route::view('resources', 'common/resources')->middleware('localOnly')->name('resources');
-
         });
 
         Route::group(['prefix' => config('app.applicant_prefix')], function (): void {
@@ -309,12 +308,12 @@ Route::group(
                             ->name('manager.jobs.applications');
 
                         /* View Application */
-                        Route::get('applications/{application}', 'ApplicationController@show')
+                        Route::get('jobs/{jobPoster}/applications/{application}', 'ApplicationController@show')
                             ->middleware('can:view,application')
                             ->name('manager.applications.show');
 
                         /* View Applicant Profile */
-                        Route::get('applicants/{applicant}', 'ApplicantProfileController@show')
+                        Route::get('jobs/{jobPoster}/applicants/{applicant}', 'ApplicantProfileController@show')
                             ->middleware('can:view,applicant')
                             ->name('manager.applicants.show');
 
@@ -586,12 +585,12 @@ Route::group(
                             ->name('hr_advisor.jobs.applications');
 
                         /* View Application */
-                        Route::get('applications/{application}', 'ApplicationController@show')
+                        Route::get('jobs/{jobPoster}/applications/{application}', 'ApplicationController@show')
                             ->middleware('can:view,application')
                             ->name('hr_advisor.applications.show');
 
                         /* View Applicant Profile */
-                        Route::get('applicants/{applicant}', 'ApplicantProfileController@show')
+                        Route::get('jobs/{jobPoster}/applicants/{applicant}', 'ApplicantProfileController@show')
                             ->middleware('can:view,applicant')
                             ->name('hr_advisor.applicants.show');
 
