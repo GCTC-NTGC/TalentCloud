@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement, createElement } from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { select, text, number, boolean } from "@storybook/addon-knobs";
@@ -19,7 +19,7 @@ const iconClassOptions = {
 };
 
 const educationDetails = (
-  <div>
+  <>
     <div data-c-grid-item="base(1of2) tl(1of3)">
       <p data-c-font-weight="bold">Type of Experience:</p>
       <p>
@@ -39,10 +39,10 @@ const educationDetails = (
       <p data-c-font-weight="bold">Area of Study:</p>
       <p>Engineering</p>
     </div>
-  </div>
+  </>
 );
 const workDetails = (
-  <div>
+  <>
     <div data-c-grid-item="base(1of2) tl(1of3)">
       <p data-c-font-weight="bold">Type of Experience:</p>
       <p>
@@ -62,7 +62,7 @@ const workDetails = (
       <p data-c-font-weight="bold">Organization / Company:</p>
       <p>Talent Cloud</p>
     </div>
-  </div>
+  </>
 );
 
 const detailsSections = {
@@ -91,6 +91,12 @@ const skillClaims = [
   },
 ];
 
+const groupIds = {
+  type: "Experience Type",
+  details: "Details",
+  switches: "Switches",
+}
+
 stories.add(
   "Base Experience Accordion",
   (): React.ReactElement => {
@@ -98,25 +104,28 @@ stories.add(
       EDUCATION: educationDetails,
       WORK: workDetails,
     };
-    const detailsChoice = select("Details", detailsSections, "education");
+    const detailsChoice = select("Details", detailsSections, "education", groupIds.type);
     const details = detailsMap[detailsChoice];
     return (
-      <div data-c-accordion-group>
-        <BaseExperienceAccordion
-          title={text("Title", "My First Experience")}
-          iconClass={select("Icon", iconClassOptions, "education")}
-          relevantSkills={skillClaims}
-          irrelevantSkillCount={number("Irrelevant Skill count", 0)}
-          isEducationJustification={boolean(
-            "Is Education Justification?",
-            false,
-          )}
-          details={details}
-          showSkillDetails={boolean("Show skill details?", false)}
-          showButtons={boolean("Show buttons?", false)}
-          handleDelete={action("Delete Experience")}
-          handleEdit={action("Edit Experience")}
-        />
+      <div className="experience-list">
+        <div data-c-accordion-group="">
+          <BaseExperienceAccordion
+            title={text("Title", "My First Experience", groupIds.details)}
+            iconClass={select("Icon", iconClassOptions, "education", groupIds.type)}
+            relevantSkills={skillClaims}
+            irrelevantSkillCount={number("Irrelevant Skill count", 0, {}, groupIds.details)}
+            isEducationJustification={boolean(
+              "Is Education Justification?",
+              false,
+              groupIds.switches
+            )}
+            details={details}
+            showSkillDetails={boolean("Show skill details?", false, groupIds.switches)}
+            showButtons={boolean("Show buttons?", false, groupIds.switches)}
+            handleDelete={action("Delete Experience")}
+            handleEdit={action("Edit Experience")}
+          />
+        </div>
       </div>
     );
   },

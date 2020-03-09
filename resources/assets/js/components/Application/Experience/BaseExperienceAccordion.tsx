@@ -1,6 +1,5 @@
 import React, { ReactElement } from "react";
 import { FormattedMessage } from "react-intl";
-import { Skill } from "../../../models/types";
 
 interface ExperienceSkill {
   id: number;
@@ -10,11 +9,11 @@ interface ExperienceSkill {
 
 interface BaseExperienceAccordionProps {
   iconClass: string;
-  title: Element | string;
+  title: ReactElement | string;
   relevantSkills: ExperienceSkill[];
   irrelevantSkillCount: number;
   isEducationJustification: boolean;
-  details: Element;
+  details: ReactElement;
   showSkillDetails: boolean;
   showButtons: boolean;
   handleDelete: () => void;
@@ -36,15 +35,15 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
   const relevantSkillCount = relevantSkills.length;
   return (
     <div
-      data-c-accordion
+      data-c-accordion=""
       data-c-background="white(100)"
-      data-c-card
+      data-c-card=""
       data-c-margin="bottom(.5)"
     >
       <button
         tabIndex={0}
         aria-expanded="false"
-        data-c-accordion-trigger
+        data-c-accordion-trigger=""
         type="button"
       >
         <div data-c-grid="">
@@ -89,19 +88,19 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
         <i
           aria-hidden="true"
           className="fas fa-angle-down"
-          data-c-accordion-add
+          data-c-accordion-add=""
           data-c-colour="black"
         ></i>
         <i
           aria-hidden="true"
           className="fas fa-angle-up"
-          data-c-accordion-remove
+          data-c-accordion-remove=""
           data-c-colour="black"
         ></i>
       </button>
       <div
         aria-hidden="true"
-        data-c-accordion-content
+        data-c-accordion-content=""
         data-c-background="gray(10)"
         data-c-padding="bottom(2)"
       >
