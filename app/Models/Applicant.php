@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Created by Reliese Model.
- * Date: Thu, 12 Jul 2018 22:39:27 +0000.
- */
-
 namespace App\Models;
 
 /**
@@ -32,6 +27,13 @@ namespace App\Models;
  * @property \Illuminate\Database\Eloquent\Collection $references
  * @property \Illuminate\Database\Eloquent\Collection $work_samples
  * @property \Illuminate\Database\Eloquent\Collection $projects
+ *
+ * Version 2 application models.
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_work
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_personal
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_education
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_award
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_community
  */
 class Applicant extends BaseModel
 {
@@ -113,5 +115,36 @@ class Applicant extends BaseModel
     public function projects()
     {
         return $this->morphMany(\App\Models\Project::class, 'projectable');
+    }
+
+    // Version 2 application models.
+
+    public function experiences_work() //phpcs:ignore
+    {
+        return $this->morphMany(\App\Models\ExperienceWork::class, 'experienceable')
+            ->orderBy('end_date', 'desc');
+    }
+
+    public function experiences_personal() //phpcs:ignore
+    {
+        return $this->morphMany(\App\Models\ExperiencePersonal::class, 'experienceable')
+            ->orderBy('end_date', 'desc');
+    }
+
+    public function experiences_education() //phpcs:ignore
+    {
+        return $this->morphMany(\App\Models\ExperienceEducation::class, 'experienceable')
+            ->orderBy('end_date', 'desc');
+    }
+
+    public function experiences_award() //phpcs:ignore
+    {
+        return $this->morphMany(\App\Models\ExperienceAward::class, 'experienceable');
+    }
+
+    public function experiences_community() //phpcs:ignore
+    {
+        return $this->morphMany(\App\Models\ExperienceCommunity::class, 'experienceable')
+            ->orderBy('end_date', 'desc');
     }
 }

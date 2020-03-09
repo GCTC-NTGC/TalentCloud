@@ -41,7 +41,7 @@ class CommentApiControllerTest extends TestCase
     public function testIndexByJobForAdvisor(): void
     {
         // Factories.
-        $job = factory(JobPoster::class)->create();
+        $job = factory(JobPoster::class)->states(['byUpgradedManager', 'review_requested'])->create();
         $user = factory(User::class)->create([
             'department_id' => $job->department_id,
             'user_role_id' => 4
@@ -94,7 +94,7 @@ class CommentApiControllerTest extends TestCase
 
     public function testStoreCommentAsAdvisor(): void
     {
-        $job = factory(JobPoster::class)->create();
+        $job = factory(JobPoster::class)->states(['byUpgradedManager', 'review_requested'])->create();
         $user = factory(User::class)->create([
             'department_id' => $job->department_id,
             'user_role_id' => 4

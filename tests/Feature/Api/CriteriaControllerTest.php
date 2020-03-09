@@ -34,7 +34,7 @@ class CriteriaControllerTest extends TestCase
 
     public function testIndexByJob()
     {
-        $job = factory(JobPoster::class)->state('published')->create();
+        $job = factory(JobPoster::class)->state('live')->create();
         // Ensure the factory added criteria, so we're not just checking an empty array
         $this->assertNotEmpty($job->criteria);
 
