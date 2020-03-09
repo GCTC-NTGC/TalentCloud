@@ -11,4 +11,6 @@ return [
     |*
  */
     'subject' => 'Your :position :classification posting just closed - look at your applicants now',
+    'manager_portal_link' => 'https://talent.test/en/manager',
+    'position_link' => 'https://talent.test/en/jobs/:id'
 ];
