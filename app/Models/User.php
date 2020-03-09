@@ -7,19 +7,18 @@
 
 namespace App\Models;
 
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Illuminate\Notifications\Notifiable;
 use App\Events\UserCreated;
 use App\Events\UserUpdated;
 use App\Notifications\ResetPasswordNotification;
-use App\Traits\TalentCloudCrudTrait as CrudTrait;
 use App\Traits\RememberDeviceTrait;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\TalentCloudCrudTrait as CrudTrait;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class User
@@ -67,8 +66,6 @@ class User extends BaseModel implements
     use CrudTrait;
     // Trait for 2FA device memory.
     use RememberDeviceTrait;
-    // Trait for deleted_at column.
-    use SoftDeletes;
 
     protected $casts = [
         'is_confirmed' => 'boolean',

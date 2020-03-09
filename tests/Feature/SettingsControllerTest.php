@@ -2,14 +2,14 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\User;
-use App\Models\Manager;
 use App\Models\Applicant;
+use App\Models\Manager;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class SettingsControllerTest extends TestCase
 {
@@ -437,33 +437,24 @@ class SettingsControllerTest extends TestCase
      */
     public function testSoftDeleteApplicant(): void
     {
-        $testTime = Carbon::create(2017, 7, 7, 12);
-        Carbon::setTestNow($testTime);
-
         $response = $this->actingAs($this->applicant->user)
             ->get(route('settings.edit'));
         $response->assertOk();
 
         $data = ['confirm_delete' => $this->applicant->user->email];
-        $deleted = ['deleted_at' => $testTime];
         $userData = [
             'id' => $this->applicant->user->id,
             'first_name' => $this->applicant->user->first_name,
             'last_name' => $this->applicant->user->last_name,
             'email' => $this->applicant->user->email,
         ];
-        $applicantData = ['user_id' => $this->applicant->user->id];
         $response = $this->followingRedirects()
             ->actingAs($this->applicant->user)
             ->post(route('settings.account.delete', $this->applicant->user), $data);
         $response->assertOk();
         // Success notification visible.
         $response->assertSee(e(Lang::get('success.delete_account')));
-        // Data was updated.
-        $this->assertDatabaseHas('users', $deleted);
-        $this->assertDatabaseHas('applicants', $deleted);
-        // Data was not actually deleted.
-        $this->assertDatabaseHas('users', $userData);
-        $this->assertDatabaseHas('applicants', $applicantData);
+        // Data was scrambled.
+        $this->assertDatabaseMissing('users', $userData);
     }
 }

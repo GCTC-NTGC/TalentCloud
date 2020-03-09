@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Models\Applicant;
 use App\Services\Validation\Rules\PasswordCorrectRule;
 use App\Services\Validation\Rules\PasswordFormatRule;
 use Facades\App\Services\WhichPortal;
@@ -155,8 +154,12 @@ class SettingsController extends Controller
 
         if ($validData) {
             Auth::logout();
-            Applicant::where('user_id', $user->id)->delete();
-            User::where('id', $user->id)->delete();
+
+            User::where('id', $user->id)->update([
+                'first_name' => 'DELETED',
+                'last_name' => 'DELETED',
+                'email' => 'DELETED' . rand(7777777, 88888888),
+            ]);
         }
 
         return redirect()->route('home')->withSuccess(Lang::get('success.delete_account'));
