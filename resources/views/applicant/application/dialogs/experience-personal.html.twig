@@ -13,7 +13,7 @@
 {# Actual Dialog Content #}
 {% block dialogContentTitle %}Add Personal Experience{% endblock %}
 {% block dialogContentIcon %}fa-mountain{% endblock %}
-{% block dialogContentDescription %}Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione excepturi, natus, nisi aperiam itaque necessitatibus fugit debitis doloribus similique commodi adipisci! Praesentium, quo veniam? Cum error voluptatibus quam enim laboriosam.{% endblock %}
+{% block dialogContentDescription %}People are more than just education and work experiences. We want to make space for you to share your learning from other experiences. To protect your privacy, please don't share sensitive information about yourself or others. A good measure would be if you are comfortable with all your colleagues knowing it. (Hint: Focus on the skills for the job when you decide on what examples to share.){% endblock %}
 {% block dialogContent %}
     <form>
         <div data-c-padding="">
@@ -34,6 +34,8 @@
                             <textarea id="TA2" required placeholder="e.g. I have extensive experience in.."></textarea>
                         </div>
                         <span>This input has an error.</span>
+                        {# This is a simplified word counter we'd like to start using. It will simply count down from the specified maximum we set, as opposed to a whole fancy UI (Sorry Yoni!). Please note that the "s" should disappear from "words" when there is 1 word left. This probably also applies in french. #}
+                        <p data-c-align="base(right)">100 words left.</p>
                     </div>
                     <div data-c-input="checkbox(group)" data-c-grid-item="base(1of1)">
                         <label>Sharing Consent</label>
@@ -44,7 +46,7 @@
                                     id="cA1"
                                     type="checkbox"
                                     required/>
-                                <span>I am comfortable sharing this information with the managers of the jobs I apply to.</span>
+                                <span>This information is not sensitive in nature and I am comfortable sharing it with the staff managing this job application.</span>
                             </label>
                         </div>
                         <span>This input has an error.</span>
