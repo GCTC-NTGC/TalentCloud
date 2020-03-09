@@ -6,11 +6,13 @@ import { withKnobs } from "@storybook/addon-knobs";
 import { setIntlConfig } from "storybook-addon-intl";
 import messagesFr from "../resources/assets/js/translations/locales/fr.json";
 
-addDecorator(withInfo({
-  inline: true,
-  header: false,
-  source: false, // Source isn't displaying well with clone.
-}));
+addDecorator(
+  withInfo({
+    inline: true,
+    header: false,
+    source: false, // Source isn't displaying well with clone.
+  }),
+);
 addDecorator(withKnobs);
 
 // Option defaults.
@@ -24,7 +26,7 @@ addParameters({
 const req = require.context(
   "../resources/assets/js/stories",
   true,
-  /\.stories\.tsx$/
+  /\.stories\.tsx$/,
 );
 
 // Create a parent element for modals.
@@ -39,21 +41,27 @@ if (document.querySelector("#modal-root") === null) {
   document.body.append(modalRoot);
 }
 
+// Setup clone environment
+const cloneScript = document.createElement("script");
+cloneScript.setAttribute("async", "");
+cloneScript.setAttribute("defer", "");
+cloneScript.setAttribute("src", "https://cdn.jsdelivr.net/npm/clone-framework/dist/js/clone.min.js");
+document.body.append(cloneScript);
+
 // Set up react-intl localization
 // Load the locale data for all your defined locales
 const messages = {
   en: null, // default
   fr: messagesFr,
 };
-const getMessages = (locale) => messages[locale];
+const getMessages = locale => messages[locale];
 // Set intl configuration
 setIntlConfig({
-    locales: ["en", "fr"],
-    defaultLocale: "en",
-    getMessages,
-    textComponent: React.Fragment,
+  locales: ["en", "fr"],
+  defaultLocale: "en",
+  getMessages,
+  textComponent: React.Fragment,
 });
-
 
 function loadStories() {
   req.keys().forEach(req);
