@@ -4,7 +4,7 @@ function applicationShow(
   jobId: number,
   applicationId: number,
 ): string {
-  return `/${locale}/${prefix}/jobs/${jobId}/applicants/${applicationId}`;
+  return `/${locale}/${prefix}/jobs/${jobId}/applications/${applicationId}`;
 }
 
 function applicantShow(
@@ -118,11 +118,13 @@ export function hrScreeningPlan(locale: string, jobId: number): string {
 export function hrJobApplications(locale: string, jobId: number): string {
   return `/${locale}/hr/jobs/${jobId}/applications`;
 }
+
 export const hrApplicationShow = (
   locale: string,
   jobId: number,
   applicationId: number,
 ): string => applicationShow(locale, "hr", jobId, applicationId);
+
 export const hrApplicantShow = (
   locale: string,
   jobId: number,

@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Auth;
 use App\Models\JobApplication;
-use App\Models\Skill;
+use App\Models\JobPoster;
 use App\Models\Lookup\ReviewStatus;
+use App\Models\Skill;
 use Facades\App\Services\WhichPortal;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
 
 class ApplicationController extends Controller
 {
@@ -37,7 +38,7 @@ class ApplicationController extends Controller
      * @param  \App\Models\JobApplication $application Incoming Application object.
      * @return \Illuminate\Http\Response
      */
-    public function show(JobApplication $application)
+    public function show(JobPoster $jobPoster, JobApplication $application)
     {
         $criteria = [
             'essential' => $application->job_poster->criteria->filter(function ($value, $key) {
@@ -72,6 +73,8 @@ class ApplicationController extends Controller
         $references = $source->references;
         $work_samples = $source->work_samples;
 
+        $jobPoster = $application->job_poster;
+
         return view(
             $view,
             [
@@ -84,7 +87,7 @@ class ApplicationController extends Controller
                 'citizenship_declaration_template' => Lang::get('common/citizenship_declaration'),
                 'veteran_status_template' => Lang::get('common/veteran_status'),
                 // Job Data.
-                'job' => $application->job_poster,
+                'job' => $jobPoster,
                 // Skills Data.
                 'skills' => Skill::all(),
                 'skill_template' => Lang::get('common/skills'),
