@@ -111,7 +111,6 @@ export interface HrAdvisor {
   user_id: number;
   first_name: string;
   last_name: string;
-  department_id: number;
   claimed_job_ids: number[];
 }
 
@@ -128,14 +127,12 @@ export interface Job {
   salary_min: number | null;
   salary_max: number | null;
   noc: number | null;
-  job_status_id: number;
+  job_poster_status_id: number;
   classification_id: number | null;
   classification_level: number | null;
   security_clearance_id: number | null;
   language_requirement_id: number | null;
   remote_work_allowed: boolean;
-  published_at: Date | null;
-  review_requested_at: Date | null;
   team_size: number | null;
   work_env_features: { [feature: string]: boolean } | null;
   fast_vs_steady: number | null;
@@ -172,7 +169,6 @@ export interface Manager {
   full_name: string;
   first_name: string;
   last_name: string;
-  department_id: number | null;
   twitter_username: string | null;
   linkedin_url: string | null;
   is_demo_manager: boolean;
@@ -235,6 +231,7 @@ export interface User {
   is_priority: boolean;
   not_in_gov: boolean;
   gov_email: string;
+  department_id: number | null;
   user_role: {
     id: number;
     key: string;
@@ -248,4 +245,11 @@ type VeteranStatusName = "none" | "current" | "past";
 export interface VeteranStatus {
   id: number;
   name: VeteranStatusName;
+}
+
+export interface JobPosterStatus {
+  id: number;
+  key: string;
+  name: localizedFieldNonNull;
+  description: localizedFieldNonNull;
 }

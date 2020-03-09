@@ -2,8 +2,10 @@
 
 namespace App\Console;
 
+use App\Jobs\ProcessJobStatusTransitions;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Log;
 
 class Kernel extends ConsoleKernel
 {
@@ -23,8 +25,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')
-        // ->hourly();
+        // Open and Close datetimes are likely to be on the hour,
+        // so checking them one minute after the hour should always catch the transitions.
+        $schedule->job(new ProcessJobStatusTransitions())->hourlyAt(1);
+
         // start the queue daemon, if its not running
         if (!$this->osProcessIsRunning('queue:work')) {
             $schedule->command('queue:work')->everyMinute();

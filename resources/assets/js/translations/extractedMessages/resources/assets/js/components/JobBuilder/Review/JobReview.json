@@ -197,7 +197,7 @@
   {
     "id": "jobBuilder.review.headsUp",
     "description": "Description under primary title of review section",
-    "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\n            understand how an applicant will see it once published."
+    "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\r\n            understand how an applicant will see it once published."
   },
   {
     "id": "jobBuilder.review.button.return",
@@ -215,7 +215,7 @@
     "defaultMessage": "Congrats! Are You Ready to Submit?"
   },
   {
-    "id": "jobBuilder.review.readyTosubmit",
+    "id": "jobBuilder.review.readyToSubmit",
     "description": "Instructions on how to submit",
     "defaultMessage": "If you're ready to submit your poster, click the Submit button below."
   },

@@ -13,6 +13,7 @@ use App\Models\JobPoster;
 use App\Models\JobPosterQuestion;
 use App\Models\Lookup\ApplicationStatus;
 use App\Models\Lookup\CitizenshipDeclaration;
+use App\Models\Lookup\JobPosterStatus;
 use App\Models\Lookup\VeteranStatus;
 use App\Models\Manager;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -36,10 +37,8 @@ class JobController extends Controller
         // Eager load required relationships: Department, Province, JobTerm.
         // Eager load the count of submitted applications, to prevent the relationship
         // from being actually loaded and firing off events.
-        $jobs = JobPoster::where('open_date_time', '<=', $now)
-            ->where('close_date_time', '>=', $now)
-            ->where('internal_only', false)
-            ->where('published', true)
+        $jobs = JobPoster::where('internal_only', false)
+            ->where('job_poster_status_id', JobPosterStatus::where('key', 'live')->first()->id)
             ->with([
                 'department',
                 'province',
@@ -187,7 +186,7 @@ class JobController extends Controller
             }
         } elseif (Auth::check() && $jobPoster->isOpen()) {
             $application = JobApplication::where('applicant_id', Auth::user()->applicant->id)
-            ->where('job_poster_id', $jobPoster->id)->first();
+                ->where('job_poster_id', $jobPoster->id)->first();
             // If applicants job application is not draft anymore then link to application preview page.
             if ($application != null && $application->application_status->name != 'draft') {
                 $applyButton = [
@@ -302,7 +301,7 @@ class JobController extends Controller
         $divisionEn = $manager->getTranslation('division', 'en');
         $divisionFr = $manager->getTranslation('division', 'fr');
         $jobPoster->fill([
-            'department_id' => $manager->department_id,
+            'department_id' => $manager->user->department_id,
             'division' => ['en' => $divisionEn],
             'division' => ['fr' => $divisionFr],
         ]);
@@ -361,7 +360,7 @@ class JobController extends Controller
      * @param  boolean               $replace   Remove existing relationships.
      * @return void
      */
-    protected function fillAndSaveJobPosterQuestions(array $input, JobPoster $jobPoster, bool $replace) : void
+    protected function fillAndSaveJobPosterQuestions(array $input, JobPoster $jobPoster, bool $replace): void
     {
         if ($replace) {
             $jobPoster->job_poster_questions()->delete();

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\JobPoster;
+use App\Models\Lookup\JobPosterStatusTransition;
+use App\Services\JobStatusTransitionManager;
 use Facades\App\Services\WhichPortal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -62,37 +64,47 @@ class JobSummaryController extends Controller
             'disabled' => !$job->isClosed(),
         ];
 
-        switch ($job->job_status_id) {
-            case 1:
-                $status = Lang::get('common/lookup/job_status.draft');
-                break;
-            case 2:
-                $status = Lang::get('common/lookup/job_status.in_review');
-                break;
-            case 3:
-                $status = Lang::get('common/lookup/job_status.approved');
-                break;
-            case 4:
-                $status = Lang::get('common/lookup/job_status.open');
-                break;
-            case 5:
-                $status = Lang::get('common/lookup/job_status.closed');
-                break;
-            case 6:
-                $status = Lang::get('common/lookup/job_status.complete');
-                break;
-        }
-        // TODO: This should change based on the current status.
-        $status_description = $job->job_status_id == 2
-            ? $summaryLang['under_review']
-            : '';
+        $status = $job->job_poster_status->name;
+        $status_description = $job->job_poster_status->description;
 
         $portal = '';
-
         if (WhichPortal::isHrPortal()) {
             $portal = 'hr';
         } elseif (WhichPortal::isManagerPortal()) {
             $portal = 'manager';
+        }
+
+        $transitionManager = new JobStatusTransitionManager();
+        $transitionToButton = function (JobPosterStatusTransition $transition) use ($user, $job, $transitionManager) {
+            return [
+                'text' => $transition->name,
+                'url' => route(WhichPortal::prefixRoute('jobs.setJobStatus'), [
+                    'jobPoster' => $job,
+                    'status' => $transition->to->key
+                ]),
+                'style' => array_key_exists('button_style', $transition->metadata)
+                    ? $transition->metadata['button_style']
+                    : 'default',
+                'disabled' => !$transitionManager->userCanTransition($user, $transition->from->key, $transition->to->key)
+            ];
+        };
+        $unclaimButton = [
+            'unclaim_job' => [
+                'text' => Lang::get('hr_advisor/job_summary.relinquish_button'),
+                'url' => route('hr_advisor.jobs.unclaim', $job),
+                'style' => 'stop',
+                'disabled' => !$jobIsClaimed,
+            ]
+        ];
+
+        $buttonGroups = [];
+
+        $transitionButtons = $transitionManager->legalTransitions($job->job_poster_status->key)
+            ->map($transitionToButton);
+        array_push($buttonGroups, $transitionButtons);
+
+        if (WhichPortal::isHrPortal()) {
+            array_push($buttonGroups, $unclaimButton);
         }
 
         $data = [
@@ -109,20 +121,16 @@ class JobSummaryController extends Controller
             'job' => $job,
             // Application data.
             'applications' => $applications,
-            // TODO: Add Routes.
-            // 'send_manager' => ,
-            // 'send_translation' => ,
-            // 'approve_publishing' => ,
+            'side_button_groups' => $buttonGroups,
             'job_review_data' => $job_review_data,
             'job_preview_data' => $job_preview_data,
             'screening_plan_data' => $screening_plan_data,
             'view_applicants_data' => $view_applicants_data,
-            'relinquish_job' => route('hr_advisor.jobs.unclaim', $job),
             'portal' => $portal,
         ];
 
         return view(
-            'hr_advisor/job_summary',
+            'common/job_summary/job_summary',
             $data
         );
     }

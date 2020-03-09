@@ -91,16 +91,17 @@
 										<div aria-hidden="true" data-c-accordion-content data-c-padding="right(normal) left(normal)">
 											<div data-c-padding="bottom(normal)">
 												<p data-c-margin="top(.5)">
-													<span data-c-color="c2" data-c-font-weight="600">{{ summary.managers_label }}</span>
-                                                    {% if is_claimed %}
-                                                        <ul data-c-margin="top(.25)">
-                                                        {% for hr_advisor in hr_advisors %}
-                                                            <li>{{ hr_advisor.user.first_name }} {{ hr_advisor.user.last_name }}</li>
-                                                        {% endfor %}
-                                                        </ul>
-                                                    {% else %}
-                                                        {{ summary.not_applicable }}
-                                                    {% endif %}
+													<span data-c-color="c2" data-c-font-weight="600">{{ summary.hr_advisors_label }}</span>
+													{% if is_claimed or portal == 'manager' and hr_advisors|length > 0 %}
+														<ul data-c-margin="top(.25)">
+															{% for hr_advisor in hr_advisors %}
+																<li>{{ hr_advisor.user.first_name }}
+																	{{ hr_advisor.user.last_name }}</li>
+															{% endfor %}
+														</ul>
+													{% else %}
+														{{ summary.no_hr_advisors }}
+													{% endif %}
 												</p>
 												<p data-c-margin="top(.5)">
 													<span data-c-color="c2" data-c-font-weight="600">{{ summary.process_label }}</span>
@@ -127,14 +128,6 @@
 													{% endif %}
 												</p>
 												<p>
-													<span data-c-color="c2" data-c-font-weight="600">{{ summary.published_label }}</span>
-													{% if job.published_at %}
-														{{ humanizeDate(job.published_at) }}
-													{% else %}
-														{{ summary.not_applicable }}
-													{% endif %}
-												</p>
-												<p>
 													<span data-c-color="c2" data-c-font-weight="600">{{ summary.closed_label }}</span>
 													{% if job.close_date_time %}
 														{{ humanizeDate(job.close_date_time) }}
@@ -147,52 +140,32 @@
 									</div>
 								</div>
 							</div>
-							{% if portal == 'hr' %}
-								<div
-									data-c-grid-item="tl(1of3)" data-c-align="base(center)">
-									{#
-                                        <div data-c-card data-c-background="white(100)" data-c-padding="all(1)" data-c-radius="rounded" data-c-margin="bottom(1)">
-                                            <form action="{{ send_manager }}" method="POST">
-                                                {{ csrf_field() }}
-                                                <button data-c-button="solid(c1)" data-c-radius="rounded">{{ summary.send_manager_button }}</button>
-                                            </form>
-                                        </div>
-                                        <div data-c-card data-c-background="white(100)" data-c-padding="all(1)" data-c-radius="rounded">
-                                            <form action="{{ send_translation }}" method="POST">
-                                                {{ csrf_field() }}
-                                                <button data-c-button="solid(c1)" data-c-radius="rounded" data-c-margin="bottom(1)">{{ summary.send_translation_button }}</button>
-                                            </form>
-                                            <form action="{{ approve_publishing }}" method="POST">
-                                                {{ csrf_field() }}
-                                                <button data-c-button="solid(go)" data-c-radius="rounded">{{ summary.approve_button }}</button>
-                                            </form>
-                                        </div>
-                                    #}
-									<div data-c-card data-c-background="white(100)" data-c-padding="all(1)" data-c-radius="rounded">
-										<form action="{{ relinquish_job }}" method="POST">
-											{{ csrf_field() }}
-											<button {% if not is_claimed %} disabled {% endif %} data-c-button="outline(stop)" data-c-radius="rounded">
-												{{ summary.relinquish_button }}
-											</button>
-										</form>
-									</div>
-								</div>
-							{% endif %}
+
+                            <div
+                                data-c-grid-item="tl(1of3)" data-c-align="base(center)">
+                                {% for button_group in side_button_groups %}
+                                    <div data-c-card data-c-background="white(100)" data-c-padding="all(1)" data-c-radius="rounded" data-c-margin="bottom(1)">
+                                        {% for button in button_group %}
+                                            {% include "common/job_summary/side_button" with button %}
+                                        {% endfor %}
+                                    </div>
+                                {% endfor %}
+                            </div>
 						</div>
 						<h2 id="tools" data-c-font-size="h2" data-c-padding="top(3) bottom(1)">{{ summary.tools_title }}</h2>
 						{# Add routes to JPB Review, SPB, etc #}
 						<div data-c-grid="gutter(all, 1)">
 							<div data-c-grid-item="tp(1of2) tl(1of4)">
-								{% include "hr_advisor/summary_action_card" with {'data': job_review_data} %}
+								{% include "common/job_summary/summary_action_card" with {'data': job_review_data} %}
 							</div>
 							<div data-c-grid-item="tp(1of2) tl(1of4)">
-								{% include "hr_advisor/summary_action_card" with {'data': job_preview_data} %}
+								{% include "common/job_summary/summary_action_card" with {'data': job_preview_data} %}
 							</div>
 							<div data-c-grid-item="tp(1of2) tl(1of4)">
-								{% include "hr_advisor/summary_action_card" with {'data': screening_plan_data} %}
+								{% include "common/job_summary/summary_action_card" with {'data': screening_plan_data} %}
 							</div>
 							<div data-c-grid-item="tp(1of2) tl(1of4)">
-								{% include "hr_advisor/summary_action_card" with {'data': view_applicants_data} %}
+								{% include "common/job_summary/summary_action_card" with {'data': view_applicants_data} %}
 							</div>
 						</div>
 						<h2 id="activity" data-c-font-size="h2" data-c-padding="top(3) bottom(1)">{{ summary.activity_title }}</h2>

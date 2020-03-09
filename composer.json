@@ -69,7 +69,7 @@
         "ide-helper": [
             "@php artisan clear-compiled",
             "@php artisan ide-helper:generate",
-            "@php artisan ide-helper:models -N",
+            "@php artisan ide-helper:models -N -F etc/php/ide_helper_models.php",
             "@php artisan ide-helper:meta"
         ],
         "test": "phpunit",
