@@ -12,12 +12,21 @@
         {% block socialMeta %}{% endblock %}
         {% include "common/head" %}
     {# /head #}
-    {# Page Body #}
-    {% block body %}{% endblock %}
-    {# Footer #}
-    {% include "common/footer" %}
-    {# Scripts #}
-    {% include "common/scripts" %}
-    {% block scripts %}{% endblock %}
+    {# body #}
+        {# Government of Canada Banner #}
+        {% include "common/goc" %}
+        {# Beta Alert Banner #}
+        {% include "common/alert" %}
+        {# Page Header #}
+        {% block header %}{% endblock %}
+        {# Skip to Content Link #}
+        <a id="skipLink"></a>
+        {# Page Body #}
+        {% block body %}{% endblock %}
+        {# Footer #}
+        {% include "common/footer" %}
+        {# Scripts #}
+        {% include "common/scripts" %}
+        {% block scripts %}{% endblock %}
     </body>
 </html>

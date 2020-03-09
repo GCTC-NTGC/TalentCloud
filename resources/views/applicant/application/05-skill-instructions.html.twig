@@ -1,0 +1,34 @@
+{# =============================================================================
+
+    Talent Cloud / Application Skill Instructions
+
+    The purpose of this UI is to explain to the applicant how we will use their
+    experience information and ask them for further information about how they
+    used the relevant skills in those experiences.
+
+============================================================================= #}
+{# Default Page Layout #}
+{% extends "layouts/base-test" %}
+{# HTML Page Title #}
+{% block title %}
+	Apply Now: Understanding Skills
+{% endblock %}
+{# Page Header #}
+{% block header %}
+    {% include "applicant/application/application-header" with {"step": 5} %}
+{% endblock %}
+{# Page Contents #}
+{% block body %}
+	<div data-clone>
+        {# Application Progress Bar #}
+        {% include "applicant/application/progress-bar" with {"step": 5} %}
+        <div data-c-container="medium">
+            <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">How You Used Each Skill</h2>
+            <p data-c-margin="bottom(1)">Now that you've shared your experiences, tell us how they connect to the skills required for the job.</p>
+            <p data-c-margin="bottom(1)">For each experience add a short explanation that demonstrates how you used the skill. These explanations are what the manager will use to decide how strong your application is, so it's important that you share your best examples.</p>
+            <p>Just like experience, this information is saved to your profile so that you can reuse it on other applications!</p>
+        </div>
+        {# Application Action Buttons #}
+        {% include "applicant/application/action-buttons" with {"step": 5} %}
+    </div>
+{% endblock %}

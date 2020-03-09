@@ -1,0 +1,125 @@
+{# =============================================================================
+
+    Talent Cloud / Application Experience Timeline
+
+    The purpose of this UI is to have the applicant complete a timeline of their
+    past experiences and subsequently associate them to the skills required for
+    the job they are applying to.
+
+============================================================================= #}
+{# Default Page Layout #}
+{% extends "layouts/base-test" %}
+{# HTML Page Title #}
+{% block title %}
+	Apply Now: My Experience
+{% endblock %}
+{# Page Header #}
+{% block header %}
+    {% include "applicant/application/application-header" with {"step": 4} %}
+{% endblock %}
+{# Page Contents #}
+{% block body %}
+	<div data-clone>
+        {# Application Progress Bar #}
+        {% include "applicant/application/progress-bar" with {"step": 4} %}
+        <div data-c-container="medium">
+            <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">Defining Your Experience</h2>
+            <p data-c-margin="bottom(1)">As you create each of your experiences, we're going to ask you to associate that experience with one or more of the skills required for this job. As a refresher, we've outlined them for you below:</p>
+            <div data-c-grid="gutter(all, 1)">
+                <div data-c-grid-item="tl(1of2)">
+                    <p data-c-margin="bottom(.5)">This job <span data-c-font-weight="bold" data-c-color="c2">requires</span> the following skills:</p>
+                    <ul data-c-margin="bottom(1)">
+                        <li>Essential Skill 1</li>
+                        <li>Essential Skill 2</li>
+                        <li>Essential Skill 3</li>
+                        <li>Essential Skill 4</li>
+                        <li>Essential Skill 5</li>
+                    </ul>
+                </div>
+                <div data-c-grid-item="tl(1of2)">
+                    <p data-c-margin="bottom(.5)">These skills are beneficial, but not required:</p>
+                    <ul data-c-margin="bottom(1)">
+                        <li>Asset Skill 1</li>
+                        <li>Asset Skill 2</li>
+                        <li>Asset Skill 3</li>
+                    </ul>
+                </div>
+            </div>
+            <p data-c-color="gray" data-c-margin="bottom(2)">Don't forget, <span data-c-font-weight="bold">Collaboration</span>, and <span data-c-font-weight="bold">Networking</span> will be evaluated later in the hiring process.</p>
+            <div data-c-grid="gutter(all, 1)">
+                <div data-c-grid-item="base(1of2) tp(1of3) tl(1of5)">
+                    <button class="application-experience-trigger" data-c-card data-c-background="c1(100)" data-c-radius="rounded" title="Add Education Experience" data-c-dialog-id="education-dialog" data-c-dialog-action="open" type="button">
+                        <i class="fas fa-book"></i>
+                        <span data-c-font-size="regular" data-c-font-weight="bold">Add Education Experience</span>
+                    </button>
+                </div>
+                <div data-c-grid-item="base(1of2) tp(1of3) tl(1of5)">
+                    <button class="application-experience-trigger" data-c-card data-c-background="c1(100)" data-c-radius="rounded" title="Add Work Experience" data-c-dialog-id="work-dialog" data-c-dialog-action="open" type="button">
+                        <i class="fas fa-briefcase"></i>
+                        <span data-c-font-size="regular" data-c-font-weight="bold">Add Work Experience</span>
+                    </button>
+                </div>
+                <div data-c-grid-item="base(1of2) tp(1of3) tl(1of5)">
+                    <button class="application-experience-trigger" data-c-card data-c-background="c1(100)" data-c-radius="rounded" title="Add Community Experience" data-c-dialog-id="community-dialog" data-c-dialog-action="open" type="button">
+                        <i class="fas fa-people-carry"></i>
+                        <span data-c-font-size="regular" data-c-font-weight="bold">Add Community Experience</span>
+                    </button>
+                </div>
+                <div data-c-grid-item="base(1of2) tp(1of3) tl(1of5)">
+                    <button class="application-experience-trigger" data-c-card data-c-background="c1(100)" data-c-radius="rounded" title="Add Personal Experience" data-c-dialog-id="personal-dialog" data-c-dialog-action="open" type="button">
+                        <i class="fas fa-mountain"></i>
+                        <span data-c-font-size="regular" data-c-font-weight="bold">Add Personal Experience</span>
+                    </button>
+                </div>
+                <div data-c-grid-item="base(1of2) tp(1of3) tl(1of5)">
+                    <button class="application-experience-trigger" data-c-card data-c-background="c1(100)" data-c-radius="rounded" title="Add an Award" data-c-dialog-id="award-dialog" data-c-dialog-action="open" type="button">
+                        <i class="fas fa-trophy"></i>
+                        <span data-c-font-size="regular" data-c-font-weight="bold">Add An Award</span>
+                    </button>
+                </div>
+            </div>
+            <h3 data-c-heading="h3" data-c-margin="top(3) bottom(1)" data-c-padding="bottom(1)">My Experience</h3>
+            {# Experience Null State #}
+            <div data-c-background="gray(10)" data-c-radius="rounded" data-c-border="all(thin, solid, gray)" data-c-padding="all(1)">
+                <div data-c-align="base(center)">
+                    <p data-c-color="gray">Looks like you don't have any experience added yet. Use the buttons above to add experience. Don't forget that experience will always be saved to your profile so that you can use it on future applications!</p>
+                </div>
+            </div>
+            {# Experience Objects #}
+            <div class="experience-list">
+                <div data-c-accordion-group>
+                    {# Education Example w/ Edu, End Date, Skill Display false, 2 Related Skills, 1 Extra Skills, Actions Showing #}
+                    {% include "applicant/application/experience" with {"experienceType": "education", "educationReq": true, "skillDisplay": false, "experienceEducationType": "Bachelor's Degree", "experienceAreaOfStudy": "Paleontology", "experienceInstitution": "McGill University", "experienceStatus": "Successful Completion (Certificate Awarded)", "experienceStartDate": "January 2018", "experienceEndDate": "January 2019", "experienceCurrent": false, "experienceThesisTitle": null, "experienceBlockcertLink": "http://google.com", "relatedSkills": {"1": {"name": "Research Methods", "relevant": true, "claim": "Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in."}, "2": {"name": "Dinosaurs", "relevant": true, "claim": "Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in."}, "3": {"name": "Product Design", "relevant": false, "claim": "Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in."}}, "actionDisplay": true } %}
+                    {# Work Example w/ No Edu, No End Date, Skill Display false, no Related Skills, 3 Extra Skills, Actions Showing #}
+                    {% include "applicant/application/experience" with {"experienceType": "work", "educationReq": false, "skillDisplay": false, "experienceRole": "Front-end Developer", "experienceCompany": "WebDevs inc.", "experienceTeam": null, "experienceStartDate": "March 2013", "experienceEndDate": null, "experienceCurrent": true, "experienceThesisTitle": null, "experienceBlockcertLink": "http://google.com", "relatedSkills": {"1": {"name": "Research Methods", "relevant": false, "claim": "Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in."}, "2": {"name": "Dinosaurs", "relevant": false, "claim": "Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in."}, "3": {"name": "Product Design", "relevant": false, "claim": "Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in."}}, "actionDisplay": true } %}
+                    {# Community Example w/ Edu, End Date, Skill Display false, 3 Related Skills, no Extra Skills, Actions Showing #}
+                    {% include "applicant/application/experience" with {"experienceType": "community", "educationReq": true, "skillDisplay": false, "experienceRole": "Volunteer", "experienceGroup": "SPCA Ottawa", "experienceProject": "Adoption Weekend", "experienceStartDate": "March 2013", "experienceEndDate": "April 2020", "experienceCurrent": false, "experienceThesisTitle": null, "experienceBlockcertLink": "http://google.com", "relatedSkills": {"1": {"name": "Research Methods", "relevant": true, "claim": "Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in."}, "2": {"name": "Dinosaurs", "relevant": true, "claim": "Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in."}, "3": {"name": "Product Design", "relevant": true, "claim": "Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in."}}, "actionDisplay": true } %}
+                    {# Personal Example w/ Edu, no End Date, Skill Display false, no Related Skills, 3 Extra Skills, Actions Showing #}
+                    {% include "applicant/application/experience" with {"experienceType": "personal", "educationReq": true, "skillDisplay": false, "experienceTitle": "Parenting", "experienceDescription": "Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate.", "experienceConsent": false, "experienceStartDate": "March 2013", "experienceEndDate": false, "experienceCurrent": true,  "relatedSkills": {"1": {"name": "Research Methods", "relevant": false, "claim": "Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in."}, "2": {"name": "Dinosaurs", "relevant": false, "claim": "Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in."}, "3": {"name": "Product Design", "relevant": false, "claim": "Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in."}}, "actionDisplay": true } %}
+                    {# Award Example w/ no Edu, Skill Display false, no Related Skills, no Extra Skills, Actions Showing #}
+                    {% include "applicant/application/experience" with {"experienceType": "award", "educationReq": false, "skillDisplay": false, "experienceTitle": "Governor General's Award (Gold)", "experienceRecipient": "Individual", "experienceInstitution": "McGill University", "experienceScope": "National", "experienceAwardDate": "27 January 2016", "experienceAwardLink": "http://google.com", "experienceCurrent": false,  "relatedSkills": null, "actionDisplay": true  } %}
+                </div>
+            </div>
+            {# Missing Skills Notification #}
+            {# This guy only shows up if there are required skills that have no related experience attached to them. When the page loads for the first time, we probably shouldn't show this - only show it once at least one experience has been added.If the user is applying to a job with pre-existing experience, show this notification with the correct skills when they load the page. #}
+            <p data-c-color="stop" data-c-margin="top(2)">Just a heads up! The following required skills are missing experience: <span data-c-tag="stop" data-c-radius="pill" data-c-font-size="small">CSS3</span> <span data-c-tag="stop" data-c-radius="pill" data-c-font-size="small">Web Programming</span></p>
+        </div>
+        {# Application Action Buttons #}
+        {% include "applicant/application/action-buttons" with {"step": 4} %}
+    </div>
+    {# Experience Dialogs #}
+    <div data-clone>
+        {# Dialog Overlay #}
+        <div data-c-dialog-overlay></div>
+        {# Education Experience #}
+        {% include "applicant/application/dialogs/experience-education" %}
+        {# Work Experience #}
+        {% include "applicant/application/dialogs/experience-work" %}
+        {# Community Experience #}
+        {% include "applicant/application/dialogs/experience-community" %}
+        {# Personal Experience #}
+        {% include "applicant/application/dialogs/experience-personal" %}
+        {# Awards #}
+        {% include "applicant/application/dialogs/experience-award" %}
+    </div>
+{% endblock %}

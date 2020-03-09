@@ -1,0 +1,126 @@
+{# Default Page Layout #}
+{% extends "applicant/application/dialogs/experience-dialog-layout" %}
+{# Inheritance Hack #}
+{% set dialogID = "education-dialog" %}
+{% block dialogDescriptionARIA %}{{ dialogID }}{% endblock %}
+{% block dialogTitleARIA %}{{ dialogID }}{% endblock %}
+{% block dialogID %}{{ dialogID }}{% endblock %}
+{% block dialogTitle %}{{ dialogID }}{% endblock %}
+{% block dialogCloseButtonID %}{{ dialogID }}{% endblock %}
+{% block dialogDescription %}{{ dialogID }}{% endblock %}
+{% block dialogCancelButtonID %}{{ dialogID }}{% endblock %}
+{% block dialogOkayButtonID %}{{ dialogID }}{% endblock %}
+{# Actual Dialog Content #}
+{% block dialogContentTitle %}Add Education Experience{% endblock %}
+{% block dialogContentIcon %}fa-book{% endblock %}
+{% block dialogContentDescription %}Got creds? Share your degree, certificates, online courses, a trade apprenticeship, licences or alternative credentials. If you’ve learned something from a recognized educational provider, include your experiences here.  (Learned something from your community or on your own? Share this as a “Community Experience” or “Personal Experience”.){% endblock %}
+{% block dialogContent %}
+    <form>
+        <div data-c-padding="">
+            <div data-c-container="medium">
+                <div data-c-grid="gutter(all, 1) middle">
+                    <div data-c-input="select" data-c-grid-item="tl(1of2)">
+                        <label for="SEL2">Type of Education</label>
+                        <span>Required</span>
+                        <div>
+                            <i class="fas fa-caret-down"></i>
+                            <select required id="SEL2">
+                                <option disabled selected>Select an education type...</option>
+                                <option>Diploma</option>
+                                <option>Bachelor's Degree</option>
+                                <option>Master's Degree</option>
+                                <option>Phd</option>
+                                <option>Post-doctoral Fellowship</option>
+                                <option>Online Course</option>
+                                <option>Certification</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-input="text" data-c-grid-item="tl(1of2)">
+                        <label for="TI2">Area of Study</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="TI2" placeholder="e.g. Organic Chemistry" required type="text" />
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-input="text" data-c-grid-item="tl(1of2)">
+                        <label for="TI2">Institution</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="TI2" placeholder="e.g. Bishop's University" required type="text" />
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-input="select" data-c-grid-item="tl(1of2)">
+                        <label for="SEL2">Completion Status</label>
+                        <span>Required</span>
+                        <div>
+                            <i class="fas fa-caret-down"></i>
+                            <select required id="SEL2">
+                                <option disabled selected>Select a completion status...</option>
+                                <option>Successful Completion (Certificate Awarded)</option>
+                                <option>Successful Completion (No Certificate Awarded)</option>
+                                <option>In Progress</option>
+                                <option>Audited</option>
+                                <option>Did Not Complete</option>
+                            </select>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-input="date" data-c-grid-item="base(1of1)">
+                        <label for="DAT2">Select a Start Date</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="DAT2" type="date" required placeholder="yyyy-mm-dd"/>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-input="checkbox(single)" data-c-grid-item="tl(1of2)">
+                        <span>Required</span>
+                        <div>
+                            <label for="cA1">
+                                <input
+                                    id="cA1"
+                                    type="checkbox"/>
+                                <span>This experience is still ongoing, or...</span>
+                            </label>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-input="date" data-c-grid-item="tl(1of2)">
+                        <label for="DAT2">Select an End Date</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="DAT2" type="date" required placeholder="yyyy-mm-dd"/>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-input="text" data-c-grid-item="base(1of1)">
+                        <label for="TI2">Thesis Title (Optional)</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="TI2" placeholder="e.g. How bats navigate between each other during flight" type="text" />
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-input="checkbox(group)" data-c-grid-item="base(1of1)">
+                        <label>Blockcerts</label>
+                        <span>Required</span>
+                        <div>
+                            <label for="cA1">
+                                <input
+                                    id="cA1"
+                                    type="checkbox"/>
+                                <span>I have a Blockcert and can provide it on request. (Optional)</span>
+                            </label>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}
