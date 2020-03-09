@@ -11,10 +11,10 @@
 	{{ applicant.user.last_name }}
 {% endblock %}
 {% block body %}
-	{# Alert #}
-	{% include "common/alert" %}
 	{# Government of Canada #}
 	{% include "common/goc" %}
+	{# Alert #}
+	{% include "common/alert" %}
 	{# Page Header #}
 	{% include "common/header" with {'header': {'title': ":title: :fname :lname"|replace({':title': profile.title, ':fname': applicant.user.first_name, ':lname': applicant.user.last_name}) }} %}
 	<a id="skipLink"></a>
