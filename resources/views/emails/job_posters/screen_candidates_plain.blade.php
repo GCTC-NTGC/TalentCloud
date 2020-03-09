@@ -25,11 +25,11 @@ Vous voulez la meilleure personne pour ce poste?
 
 Ouvrez une séance à partir du site [{{ $manager_portal_link['fr'] }}]({{ $manager_portal_link['fr'] }}) maintenant, commencez la sélection et **TROUVEZ VOS MEILLEURS CANDIDATS**.
 
-Lorsque vous ouvrez une séance à partir du [Portail des gestionnaires]({{ $manager_portal_link['en'] }}), vous verrez que les demandes ont été présélectionnées par statut d’ancien combattant et citoyenneté. Les non-citoyens ou ceux qui ont déclaré un niveau inférieur pour au moins un des critères essentiels sont regroupés dans une catégorie de candidatures facultatives. Si vous voulez commencer par examiner d’abord les candidatures des citoyens canadiens, nous pouvons vous aider à aviser les non-citoyens canadiens qu’ils ne seront pris en considération que s’il n’y a pas de citoyens canadiens qualifiés.
+Lorsque vous ouvrez une séance à partir du [Portail des gestionnaires]({{ $manager_portal_link['fr'] }}), vous verrez que les demandes ont été présélectionnées par statut d’ancien combattant et citoyenneté. Les non-citoyens ou ceux qui ont déclaré un niveau inférieur pour au moins un des critères essentiels sont regroupés dans une catégorie de candidatures facultatives. Si vous voulez commencer par examiner d’abord les candidatures des citoyens canadiens, nous pouvons vous aider à aviser les non-citoyens canadiens qu’ils ne seront pris en considération que s’il n’y a pas de citoyens canadiens qualifiés.
 
 Si vous avez des questions ou si vous avez besoin de soutien, veuillez envoyer un courriel à <{{ $talent_cloud_email }}>.
 
-Nous vous prions d’agréer l’expression de nos sentiments les meilleurs.<br>
+Nous vous prions d’agréer l’expression de nos sentiments les meilleurs.<br><br>
 {{ config('app.name') }}
 
 @endcomponent
