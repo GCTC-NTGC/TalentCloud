@@ -4,15 +4,6 @@ namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
-use Illuminate\Database\Eloquent\Relations\Relation;
-
-Relation::morphMap([
-    'work' => 'App\Models\ExperienceWork',
-    'personal' => 'App\Models\ExperiencePersonal',
-    'education' => 'App\Models\ExperienceEducation',
-    'award' => 'App\Models\ExperienceAward',
-    'community' => 'App\Models\ExperienceCommunity',
-]);
 
 /**
  * Class Skill
