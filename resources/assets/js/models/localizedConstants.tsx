@@ -16,7 +16,6 @@ import {
   TravelRequirementId,
   ClassificationId,
   LocationId,
-  JobStatus,
 } from "./lookupConstants";
 import { getOrThrowError } from "../helpers/queries";
 
@@ -818,36 +817,6 @@ export const classificationCodeOption = (
     classificationId,
     "invalid ClassificationId",
   );
-
-const jobStatusMessages = defineMessages({
-  [JobStatus.Draft]: {
-    id: "jobStatus.draft",
-    defaultMessage: "Draft",
-  },
-  [JobStatus.Review]: {
-    id: "jobStatus.review",
-    defaultMessage: "In Review",
-  },
-  [JobStatus.Approved]: {
-    id: "jobStatus.approved",
-    defaultMessage: "Approved",
-  },
-  [JobStatus.Open]: {
-    id: "jobStatus.open",
-    defaultMessage: "Open",
-  },
-  [JobStatus.Closed]: {
-    id: "jobStatus.closed",
-    defaultMessage: "Closed",
-  },
-  [JobStatus.Complete]: {
-    id: "jobStatus.complete",
-    defaultMessage: "Complete",
-  },
-});
-
-export const jobStatus = (jobStatusId: JobStatus): MessageDescriptor =>
-  getOrThrowError(jobStatusMessages, jobStatusId, "Invalid Job Status");
 
 export const generalLocations = defineMessages({
   [LocationId.jobGeneric]: {

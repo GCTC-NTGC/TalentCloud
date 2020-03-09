@@ -57,7 +57,7 @@ class ApplicationByJobControllerTest extends TestCase
 
     public function testSubmit() : void
     {
-        $job = factory(JobPoster::class)->state('published')->create();
+        $job = factory(JobPoster::class)->state('live')->create();
         $applicant = factory(Applicant::class)->create();
         $application = factory(JobApplication::class)->state('draft')->create([
             'job_poster_id' => $job->id,
@@ -76,7 +76,7 @@ class ApplicationByJobControllerTest extends TestCase
 
     public function testSubmitFailsForIncompleteApplication() : void
     {
-        $job = factory(JobPoster::class)->state('published')->create();
+        $job = factory(JobPoster::class)->state('live')->create();
         $applicant = factory(Applicant::class)->create();
         $application = factory(JobApplication::class)->state('draft')->create([
             'job_poster_id' => $job->id,
@@ -96,7 +96,7 @@ class ApplicationByJobControllerTest extends TestCase
 
     public function testSubmitCopiesProfileData() : void
     {
-        $job = factory(JobPoster::class)->state('published')->create();
+        $job = factory(JobPoster::class)->state('live')->create();
         $applicant = factory(Applicant::class)->create();
         $applicant->degrees()->delete();
         $degree = factory(Degree::class)->create([
@@ -131,7 +131,7 @@ class ApplicationByJobControllerTest extends TestCase
 
     public function testSubmitDoesntCopyForInvalidApplication() : void
     {
-        $job = factory(JobPoster::class)->state('published')->create();
+        $job = factory(JobPoster::class)->state('live')->create();
         $applicant = factory(Applicant::class)->create();
         $application = factory(JobApplication::class)->state('draft')->create([
             'job_poster_id' => $job->id,

@@ -131,12 +131,18 @@ export const LocationId = {
 } as const;
 
 export enum JobStatus {
-  Draft = 1,
-  Review = 2,
-  Approved = 3,
-  Open = 4,
-  Closed = 5,
-  Complete = 6,
+  Draft = "draft",
+  ReviewManager = "review_manager",
+  ReviewHr = "review_hr",
+  Translation = "translation",
+  FinalReviewManager = "final_review_manager",
+  FinalReviewHr = "final_review_hr",
+  PendingApproval = "pending_approval",
+  Approved = "approved",
+  Ready = "ready",
+  Live = "live",
+  Assessment = "assessment",
+  Completed = "completed",
 }
 
 export function getKeyByValue(object, value): string {

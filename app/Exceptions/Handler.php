@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 class Handler extends ExceptionHandler
@@ -126,6 +127,9 @@ class Handler extends ExceptionHandler
             $newMessage = $exception->getMessage() . ' ' . Lang::get('errors.refresh_page');
             $modifiedException = new TokenMismatchException($newMessage, $exception->getCode(), $exception);
             return parent::render($request, $modifiedException);
+        }
+        if ($exception instanceof StateMachineException) {
+            return parent::render($request, new HttpException(400, $exception->getMessage()));
         }
         return parent::render($request, $exception);
     }

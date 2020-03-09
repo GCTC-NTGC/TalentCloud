@@ -1,0 +1,19 @@
+<form action="{{ url }}" method="POST">
+    {{ csrf_field() }}
+    <button
+    {% if style == "stop" %}
+        data-c-button="outline(stop)"
+    {% elseif style == "go" %}
+        data-c-button="solid(go)"
+    {% else %}
+        data-c-button="solid(c1)"
+    {% endif %}
+        data-c-radius="rounded"
+        data-c-margin="bottom(1)"
+    {% if disabled %}
+        disabled
+    {% endif %}
+    >
+        {{ text }}
+    </button>
+</form>

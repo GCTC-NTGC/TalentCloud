@@ -23,6 +23,9 @@ return [
         ],
         'settings' => [
             'name' => 'Settings'
+        ],
+        'resources' => [
+            'name' => 'Resources'
         ]
     ],
     'register' => 'Register',

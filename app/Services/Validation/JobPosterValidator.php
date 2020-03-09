@@ -2,14 +2,14 @@
 
 namespace App\Services\Validation;
 
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 use App\Models\JobPoster;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Validation\ValidationException;
 
 class JobPosterValidator
 {
     /**
-     * Check to see if JobPoster instance has published set to false
+     * Check to see if JobPoster instance has gone live yet.
      *
      * @param \App\Models\JobPoster $jobPoster Incoming Job Poster object
      *
@@ -17,14 +17,10 @@ class JobPosterValidator
      */
     public static function validateUnpublished(JobPoster $jobPoster)
     {
-        Validator::make(
-            $jobPoster->toArray(),
-            [
-                'published' => [
-                    'required',
-                    Rule::in([false])
-                ]
-            ]
-        )->validate();
+        if ($jobPoster->isPublic()) {
+            throw ValidationException::withMessages(
+                ['job_poster_status_id' => Lang::get('validation.job_unpublished')]
+            );
+        }
     }
 }
