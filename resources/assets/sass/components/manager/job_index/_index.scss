@@ -180,22 +180,6 @@
                 .edit-actions--edit-draft {
                     display: block;
                 }
-
-                .submit-button {
-                    display: block;
-                    text-align: center;
-                    width: 100%;
-                }
-
-                .review-button {
-                    display: none;
-                    text-align: center;
-                }
-
-                .poster-deletion {
-                    display: block;
-                }
-
             }
 
             &.submitted {
@@ -227,21 +211,6 @@
                 .edit-actions--edit-draft {
                     display: none;
                 }
-
-                .submit-button {
-                    display: none;
-                    text-align: center;
-                }
-
-                .review-button {
-                    display: block;
-                    text-align: center;
-                }
-
-                .poster-deletion {
-                    display: none;
-                }
-
             }
 
             &.published {
@@ -273,21 +242,6 @@
                 .edit-actions--edit-draft {
                     display: none;
                 }
-
-                .submit-button {
-                    display: none;
-                    text-align: center;
-                }
-
-                .review-button {
-                    display: block;
-                    text-align: center;
-                }
-
-                .poster-deletion {
-                    display: none;
-                }
-
             }
 
             &.closed {
@@ -319,21 +273,6 @@
                 .edit-actions--edit-draft {
                     display: none;
                 }
-
-                .submit-button {
-                    display: none;
-                    text-align: center;
-                }
-
-                .review-button {
-                    display: block;
-                    text-align: center;
-                }
-
-                .poster-deletion {
-                    display: none;
-                }
-
             }
 
     }

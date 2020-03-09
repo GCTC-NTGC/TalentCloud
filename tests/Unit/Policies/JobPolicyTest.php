@@ -75,7 +75,7 @@ class JobPolicyTest extends TestCase
      */
     public function testAnyoneCanViewOpenJob() : void
     {
-        $job = factory(JobPoster::class)->states('published')->make();
+        $job = factory(JobPoster::class)->states('live')->make();
         $this->assertTrue($this->policy->view($this->guest, $job));
         $this->assertTrue($this->policy->view($this->applicant, $job));
         $this->assertTrue($this->policy->view($this->manager, $job));
@@ -101,7 +101,7 @@ class JobPolicyTest extends TestCase
      */
     public function testNoOneCanViewUnpublishedJob() : void
     {
-        $job = factory(JobPoster::class)->make();
+        $job = factory(JobPoster::class)->state('draft')->make();
         $this->assertFalse($this->policy->view($this->guest, $job));
         $this->assertFalse($this->policy->view($this->applicant, $job));
         $this->assertFalse($this->policy->view($this->manager, $job));
@@ -114,7 +114,7 @@ class JobPolicyTest extends TestCase
      */
     public function testManagerCanViewOwnUnpublishedJob() : void
     {
-        $job = factory(JobPoster::class)->make([
+        $job = factory(JobPoster::class)->state('draft')->make([
             'manager_id' => $this->manager->manager->id
         ]);
         $this->assertTrue($this->policy->view($this->manager, $job));
@@ -127,7 +127,7 @@ class JobPolicyTest extends TestCase
      */
     public function testManagerCannotUpdatePublishedJob() : void
     {
-        $job = factory(JobPoster::class)->states('published')->make([
+        $job = factory(JobPoster::class)->states('live')->make([
             'manager_id' => $this->manager->manager->id
         ]);
         $this->assertFalse($this->policy->update($this->manager, $job));

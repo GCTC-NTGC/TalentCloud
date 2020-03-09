@@ -14,7 +14,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             DevSeeder::class,
             SkillClassificationSeeder::class,
-            CommentSeeder::class
+            CommentSeeder::class,
+            ResourceSeeder::class,
         ]);
     }
 }

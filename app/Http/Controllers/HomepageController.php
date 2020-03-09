@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Lang;
 use App\Http\Controllers\Controller;
 use App\Models\JobPoster;
+use App\Models\Lookup\JobPosterStatus;
 use Carbon\Carbon;
 
 class HomepageController extends Controller
@@ -19,9 +20,8 @@ class HomepageController extends Controller
 
         // Find three most recent published jobs that are currently open for applications.
         // Eager load required relationships: Department, Province, JobTerm.
-        $jobs = JobPoster::where('open_date_time', '<=', $now)
-            ->where('close_date_time', '>=', $now)
-            ->where('published', true)
+        $jobs = JobPoster::where('internal_only', false)
+            ->where('job_poster_status_id', JobPosterStatus::where('key', 'live')->first()->id)
             ->with([
                 'department',
                 'province',

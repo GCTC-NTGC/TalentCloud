@@ -60,6 +60,8 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Talent Cloud - Nuage de talents'),
     ],
 
+
+
     /*
     |--------------------------------------------------------------------------
     | E-Mail Encryption Protocol
@@ -120,8 +122,8 @@ return [
         ],
     ],
 
-    // Email of Job Posting Reviewer
+    // Email that admin will recieve emails at.
 
-    'reviewer_email' => env('REVIEWER_EMAIL')
+    'admin_address' => env('ADMIN_EMAIL', 'Talent.Cloud-nuage.de.talents@tbs-sct.gc.ca')
 
 ];

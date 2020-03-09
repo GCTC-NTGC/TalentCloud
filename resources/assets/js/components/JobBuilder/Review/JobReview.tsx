@@ -305,13 +305,14 @@ const renderManagerSection = (
       </p>
     );
   }
-  const aboutMe = localizeField(locale, manager, "about_me");
+  const leadershipStyle = localizeField(locale, manager, "leadership_style");
   const position = localizeField(locale, manager, "position");
-  if (aboutMe !== null && position !== null) {
+
+  if (leadershipStyle !== null && position !== null) {
     return (
       <>
         <p data-c-margin="bottom(normal)">{manager.full_name}</p>
-        <p data-c-margin={`${aboutMe && "{bottom(normal)"}`}>
+        <p data-c-margin={`${leadershipStyle && "{bottom(normal)"}`}>
           <FormattedMessage
             id="jobBuilder.review.managerPosition"
             defaultMessage="{position} at {department}"
@@ -322,7 +323,7 @@ const renderManagerSection = (
             }}
           />
         </p>
-        {aboutMe && <p>{aboutMe}</p>}
+        {leadershipStyle && <p>{leadershipStyle}</p>}
       </>
     );
   }
