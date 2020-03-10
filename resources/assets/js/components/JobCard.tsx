@@ -2,7 +2,8 @@ import React from "react";
 import { useIntl, FormattedMessage } from "react-intl";
 import { JobStatus } from "../models/lookupConstants";
 import { Link } from "../models/app";
-import { jobStatus } from "../models/localizedConstants";
+import { JobPosterStatus } from "../models/types";
+import { localizeFieldNonNull, getLocale } from "../helpers/localize";
 
 interface Activity {
   count: number;
@@ -10,13 +11,13 @@ interface Activity {
 }
 
 interface StatusPillProps {
-  status: JobStatus;
+  status: JobPosterStatus;
   text: string;
 }
 
 const StatusPill: React.FC<StatusPillProps> = ({ text, status }) => (
   <span
-    data-c-tag={status === JobStatus.Complete ? "go" : "c1"}
+    data-c-tag={status.key === JobStatus.Completed ? "go" : "c1"}
     data-c-font-size="small"
     data-c-radius="pill"
     data-c-margin="right(half)"
@@ -36,7 +37,7 @@ export interface JobCardProps {
   preview: Link;
   screeningPlan: Link;
   summary: Link;
-  status: JobStatus;
+  status: JobPosterStatus;
   title: string;
   userTime: number;
 }
@@ -56,6 +57,7 @@ const JobCard: React.FC<JobCardProps> = ({
   userTime,
 }) => {
   const intl = useIntl();
+  const locale = getLocale(intl.locale);
   return (
     <div
       data-c-card=""
@@ -73,7 +75,7 @@ const JobCard: React.FC<JobCardProps> = ({
               {title}
             </span>
             <StatusPill
-              text={intl.formatMessage(jobStatus(status))}
+              text={localizeFieldNonNull(locale, status, "name")}
               status={status}
             />
           </h2>

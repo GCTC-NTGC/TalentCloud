@@ -315,7 +315,7 @@ export const submitJobForReview = (
   Job,
   { id: number }
 > =>
-  asyncPost(
+  asyncPut(
     getSubmitJobEndpoint(jobId),
     "",
     SUBMIT_JOB_FOR_REVIEW_STARTED,
