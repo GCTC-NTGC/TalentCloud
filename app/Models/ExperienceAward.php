@@ -28,12 +28,8 @@ class ExperienceAward extends BaseModel
         'award_recipient_type_id' => 'int',
         'issued_by' => 'string',
         'award_recognition_type_id' => 'int',
-<<<<<<< HEAD
         'awarded_date' => 'date',
         'is_education_requirement' => 'boolean'
-=======
-        'awarded_date' => 'date'
->>>>>>> origin/dev
     ];
 
     protected $fillable = [
@@ -41,18 +37,11 @@ class ExperienceAward extends BaseModel
         'award_recipient_type_id',
         'issued_by',
         'award_recognition_type_id',
-<<<<<<< HEAD
         'awarded_date',
         'is_education_requirement'
     ];
 
     protected $table = ['experiences_award'];
-=======
-        'awarded_date'
-    ];
-
-    protected $table = 'experiences_award';
->>>>>>> origin/dev
 
     public function award_recipient_type() //phpcs:ignore
     {
