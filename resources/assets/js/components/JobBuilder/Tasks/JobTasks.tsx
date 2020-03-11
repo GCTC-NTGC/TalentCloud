@@ -337,7 +337,7 @@ export const JobTasks: React.FunctionComponent<JobTasksProps> = ({
                           values.tasks.length > 0 &&
                           values.tasks.map(
                             (task, index): React.ReactElement => (
-                              <>
+                              <React.Fragment key={task.id}>
                                 {validCount === index && (
                                   <div
                                     key="taskError"
@@ -440,7 +440,7 @@ export const JobTasks: React.FunctionComponent<JobTasksProps> = ({
                                     </div>
                                   </div>
                                 </div>
-                              </>
+                              </React.Fragment>
                             ),
                           )}
                       </div>
