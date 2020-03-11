@@ -41,13 +41,6 @@ if (document.querySelector("#modal-root") === null) {
   document.body.append(modalRoot);
 }
 
-// Setup clone environment
-const cloneScript = document.createElement("script");
-cloneScript.setAttribute("async", "");
-cloneScript.setAttribute("defer", "");
-cloneScript.setAttribute("src", "https://cdn.jsdelivr.net/npm/clone-framework/dist/js/clone.min.js");
-document.body.append(cloneScript);
-
 // Set up react-intl localization
 // Load the locale data for all your defined locales
 const messages = {

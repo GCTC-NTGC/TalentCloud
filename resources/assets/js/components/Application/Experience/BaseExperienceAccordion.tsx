@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 import { FormattedMessage } from "react-intl";
 
 interface ExperienceSkill {
@@ -32,6 +32,8 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
   handleDelete,
   handleEdit,
 }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   const relevantSkillCount = relevantSkills.length;
   return (
     <div
@@ -39,12 +41,16 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
       data-c-background="white(100)"
       data-c-card=""
       data-c-margin="bottom(.5)"
+      className={`${isExpanded && "active"}`}
     >
       <button
         tabIndex={0}
-        aria-expanded="false"
+        aria-expanded={isExpanded}
         data-c-accordion-trigger=""
         type="button"
+        onClick={(): void => {
+          setIsExpanded(!isExpanded);
+        }}
       >
         <div data-c-grid="">
           <div data-c-grid-item="base(1of4) tl(1of6) equal-col">
