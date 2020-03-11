@@ -1,21 +1,21 @@
 import React from "react";
 import { FormattedMessage } from "react-intl";
-import { WorkEnvFormValues } from "./WorkEnvForm";
+import { JobWorkEnvValues } from "./JobWorkEnv";
 import Modal from "../../Modal";
-import JobWorkEnv from "./JobWorkEnv";
+import WorkEnvFeatures from "./WorkEnvFeatures";
 
-interface WorkEnvModalProps {
+interface JobWorkEnvModalProps {
   modalConfirm: (values) => void;
   modalCancel: () => void;
   isVisible: boolean;
   parentElement: Element | null;
-  values: WorkEnvFormValues;
+  values: JobWorkEnvValues;
   cultureSummary: string;
   jobIsComplete: boolean;
   handleSkipToReview: () => void;
 }
 
-const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
+const JobWorkEnvModal: React.FunctionComponent<JobWorkEnvModalProps> = ({
   modalConfirm,
   modalCancel,
   isVisible,
@@ -88,7 +88,7 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
                   description="Header of job poster builder work environment step."
                 />
               </h4>
-              <JobWorkEnv
+              <WorkEnvFeatures
                 teamSize={values.teamSize || 0}
                 selectedEnvOptions={[
                   ...values.amenities,
@@ -148,4 +148,4 @@ const WorkEnvModal: React.FunctionComponent<WorkEnvModalProps> = ({
   );
 };
 
-export default WorkEnvModal;
+export default JobWorkEnvModal;

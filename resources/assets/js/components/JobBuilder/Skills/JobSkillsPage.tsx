@@ -1,10 +1,10 @@
 import React from "react";
-import { WrappedComponentProps, injectIntl } from "react-intl";
+import { WrappedComponentProps, injectIntl, useIntl } from "react-intl";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
 import RootContainer from "../../RootContainer";
 import { Job, JobPosterKeyTask, Criteria, Skill } from "../../../models/types";
-import JobBuilderSkills from "./JobBuilderSkills";
+import JobSkills from "./JobSkills";
 import { jobBuilderTasks, jobBuilderReview } from "../../../helpers/routes";
 import { RootState } from "../../../store/store";
 import {
@@ -17,8 +17,9 @@ import { DispatchType } from "../../../configureStore";
 import { batchUpdateCriteria } from "../../../store/Job/jobActions";
 import JobBuilderStepContainer from "../JobBuilderStep";
 import { navigate } from "../../../helpers/router";
+import { getLocale } from "../../../helpers/localize";
 
-interface JobBuilderSkillsPageProps {
+interface JobSkillsPageProps {
   jobId: number;
   job: Job | null;
   skills: Skill[];
@@ -30,20 +31,16 @@ interface JobBuilderSkillsPageProps {
   ) => Promise<Criteria[]>;
 }
 
-const JobBuilderSkillsPage: React.FunctionComponent<JobBuilderSkillsPageProps &
-  WrappedComponentProps> = ({
+const JobSkillsPage: React.FunctionComponent<JobSkillsPageProps> = ({
   jobId,
   job,
   skills,
   keyTasks,
   criteria,
   handleSubmitCriteria,
-  intl,
 }): React.ReactElement => {
-  const { locale } = intl;
-  if (locale !== "en" && locale !== "fr") {
-    throw new Error("Unexpected locale");
-  }
+  const intl = useIntl();
+  const locale = getLocale(intl.locale);
 
   const handleReturn = (): void => {
     // Continue to next page
@@ -64,7 +61,7 @@ const JobBuilderSkillsPage: React.FunctionComponent<JobBuilderSkillsPageProps &
   return (
     <JobBuilderStepContainer jobId={jobId} currentPage="skills">
       {job !== null && (
-        <JobBuilderSkills
+        <JobSkills
           job={job}
           keyTasks={keyTasks}
           initialCriteria={criteria}
@@ -119,7 +116,7 @@ const mapDispatchToProps = (
 const JobSkillsPageContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(injectIntl(JobBuilderSkillsPage));
+)(JobSkillsPage);
 
 export default JobSkillsPageContainer;
 

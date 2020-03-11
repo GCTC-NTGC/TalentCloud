@@ -1,11 +1,6 @@
 /* eslint-disable camelcase, @typescript-eslint/camelcase */
 import React, { useState, useRef, useReducer } from "react";
-import {
-  WrappedComponentProps,
-  injectIntl,
-  FormattedMessage,
-  defineMessages,
-} from "react-intl";
+import { FormattedMessage, defineMessages, useIntl } from "react-intl";
 import nprogress from "nprogress";
 import { Job, Skill, Criteria, JobPosterKeyTask } from "../../../models/types";
 import Modal from "../../Modal";
@@ -19,9 +14,13 @@ import {
 import Select, { SelectOption } from "../../Select";
 import { getSkillLevelName } from "../../../models/jobUtil";
 import Criterion from "../Criterion";
-import { localizeField, getLocale, localizeFieldNonNull } from "../../../helpers/localize";
+import {
+  localizeField,
+  getLocale,
+  localizeFieldNonNull,
+} from "../../../helpers/localize";
 
-interface JobBuilderSkillsProps {
+interface JobSkillsProps {
   // The job being built
   job: Job;
   // This job's key tasks
@@ -202,8 +201,7 @@ export const skillAlreadySelected = (
     (criterion): boolean => criterion.skill_id === skill.id,
   ) !== undefined;
 
-export const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps &
-  WrappedComponentProps> = ({
+export const JobSkills: React.FunctionComponent<JobSkillsProps> = ({
   job,
   keyTasks,
   initialCriteria,
@@ -213,8 +211,8 @@ export const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps &
   handleContinue,
   jobIsComplete,
   handleSkipToReview,
-  intl,
 }): React.ReactElement => {
+  const intl = useIntl();
   const locale = getLocale(intl.locale);
 
   // The ideal number of skills for each category
@@ -276,8 +274,16 @@ export const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps &
   };
 
   const sortAlphabetically = (a: Skill, b: Skill): number => {
-    const skillA: string = localizeFieldNonNull(locale, a, "name").toUpperCase();
-    const skillB: string = localizeFieldNonNull(locale, b, "name").toUpperCase();
+    const skillA: string = localizeFieldNonNull(
+      locale,
+      a,
+      "name",
+    ).toUpperCase();
+    const skillB: string = localizeFieldNonNull(
+      locale,
+      b,
+      "name",
+    ).toUpperCase();
 
     return skillA.localeCompare(skillB, locale, { sensitivity: "base" });
   };
@@ -1600,7 +1606,9 @@ export const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps &
               <ul>
                 {keyTasks.map(
                   (task): React.ReactElement => (
-                    <li key={task.id}>{localizeField(locale, task, "description")}</li>
+                    <li key={task.id}>
+                      {localizeField(locale, task, "description")}
+                    </li>
                   ),
                 )}
               </ul>
@@ -1874,4 +1882,4 @@ export const JobBuilderSkills: React.FunctionComponent<JobBuilderSkillsProps &
   );
 };
 
-export default injectIntl(JobBuilderSkills);
+export default JobSkills;

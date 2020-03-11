@@ -45,7 +45,7 @@ import {
   LocationId,
 } from "../../../models/lookupConstants";
 import Criterion from "../Criterion";
-import JobWorkEnv from "../WorkEnv/JobWorkEnv";
+import JobWorkEnv from "../WorkEnv/WorkEnvFeatures";
 import JobWorkCulture from "../JobWorkCulture";
 import Modal from "../../Modal";
 import { textToParagraphs } from "../../../helpers/textToParagraphs";

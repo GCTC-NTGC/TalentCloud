@@ -1,13 +1,9 @@
 import React, { useEffect } from "react";
 import nprogress from "nprogress";
-import {
-  injectIntl,
-  WrappedComponentProps,
-  FormattedMessage,
-} from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { connect } from "react-redux";
 import ReactDOM from "react-dom";
-import IntroForm from "./IntroForm";
+import JobIntro from "./JobIntro";
 import {
   Job,
   Department,
@@ -42,8 +38,9 @@ import {
 } from "../../../store/Manager/managerActions";
 import { getUserById } from "../../../store/User/userSelector";
 import { fetchUser } from "../../../store/User/userActions";
+import { getLocale } from "../../../helpers/localize";
 
-interface JobBuilderIntroProps {
+interface JobIntroPageProps {
   // The id of the edited job, or null for a new job.
   jobId: number | null;
   // List of known department options.
@@ -68,8 +65,7 @@ interface JobBuilderIntroProps {
   handleFetchUser: (userId: number) => Promise<void>;
 }
 
-const JobBuilderIntro: React.FunctionComponent<JobBuilderIntroProps &
-  WrappedComponentProps> = ({
+const JobIntroPage: React.FunctionComponent<JobIntroPageProps> = ({
   jobId,
   manager,
   user,
@@ -81,12 +77,9 @@ const JobBuilderIntro: React.FunctionComponent<JobBuilderIntroProps &
   loadManager,
   loadCurrentManager,
   handleFetchUser,
-  intl,
 }): React.ReactElement => {
-  const { locale } = intl;
-  if (locale !== "en" && locale !== "fr") {
-    throw new Error("Unexpected locale");
-  }
+  const intl = useIntl();
+  const locale = getLocale(intl.locale);
   useEffect((): void => {
     if (manager === null) {
       nprogress.start();
@@ -135,7 +128,16 @@ const JobBuilderIntro: React.FunctionComponent<JobBuilderIntroProps &
   return (
     <JobBuilderStepContainer jobId={jobId} currentPage="intro">
       {/** Show the form when the existing job has loaded, or if this is a new job */}
-      {manager === null && (
+      {manager !== null && user !== null && (job !== null || jobId === null) ? (
+        <JobIntro
+          job={job}
+          manager={manager}
+          user={user}
+          departments={departments}
+          handleSubmit={handleSubmit}
+          handleContinue={handleContinue}
+        />
+      ) : (
         <div
           data-c-container="form"
           data-c-padding="top(triple) bottom(triple)"
@@ -157,18 +159,6 @@ const JobBuilderIntro: React.FunctionComponent<JobBuilderIntroProps &
           </div>
         </div>
       )}
-      {manager !== null &&
-        user !== null &&
-        (job !== null || jobId === null) && (
-          <IntroForm
-            job={job}
-            manager={manager}
-            user={user}
-            departments={departments}
-            handleSubmit={handleSubmit}
-            handleContinue={handleContinue}
-          />
-        )}
     </JobBuilderStepContainer>
   );
 };
@@ -258,10 +248,10 @@ const mapDispatchToProps = (
   },
 });
 
-const JobBuilderIntroPageContainer = connect(
+const JobIntroPageContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(injectIntl(JobBuilderIntro));
+)(JobIntroPage);
 
 if (document.getElementById("job-builder-intro")) {
   const container: HTMLElement = document.getElementById(
@@ -272,10 +262,10 @@ if (document.getElementById("job-builder-intro")) {
 
   ReactDOM.render(
     <RootContainer>
-      <JobBuilderIntroPageContainer jobId={jobId} />
+      <JobIntroPageContainer jobId={jobId} />
     </RootContainer>,
     container,
   );
 }
 
-export default JobBuilderIntroPageContainer;
+export default JobIntroPageContainer;
