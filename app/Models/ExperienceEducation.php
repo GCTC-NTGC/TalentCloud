@@ -19,6 +19,7 @@ use App\Models\BaseModel;
  * @property boolean $has_blockcert
  * @property int $experienceable_id
  * @property string $experienceable_type
+ * @property boolean $is_education_requirement
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -39,7 +40,8 @@ class ExperienceEducation extends BaseModel
         'start_date' => 'date',
         'end_date' => 'date',
         'thesis_title' => 'string',
-        'has_blockcert' => 'boolean'
+        'has_blockcert' => 'boolean',
+        'is_education_requirement' => 'boolean'
     ];
 
     protected $fillable = [
@@ -51,7 +53,8 @@ class ExperienceEducation extends BaseModel
         'start_date',
         'end_date',
         'thesis_title',
-        'has_blockcert'
+        'has_blockcert',
+        'is_education_requirement'
     ];
 
     protected $table = 'experiences_education';
