@@ -128,7 +128,16 @@ const JobIntroPage: React.FunctionComponent<JobIntroPageProps> = ({
   return (
     <JobBuilderStepContainer jobId={jobId} currentPage="intro">
       {/** Show the form when the existing job has loaded, or if this is a new job */}
-      {manager === null && (
+      {manager !== null && user !== null && (job !== null || jobId === null) ? (
+        <JobIntro
+          job={job}
+          manager={manager}
+          user={user}
+          departments={departments}
+          handleSubmit={handleSubmit}
+          handleContinue={handleContinue}
+        />
+      ) : (
         <div
           data-c-container="form"
           data-c-padding="top(triple) bottom(triple)"
@@ -150,18 +159,6 @@ const JobIntroPage: React.FunctionComponent<JobIntroPageProps> = ({
           </div>
         </div>
       )}
-      {manager !== null &&
-        user !== null &&
-        (job !== null || jobId === null) && (
-          <JobIntro
-            job={job}
-            manager={manager}
-            user={user}
-            departments={departments}
-            handleSubmit={handleSubmit}
-            handleContinue={handleContinue}
-          />
-        )}
     </JobBuilderStepContainer>
   );
 };
