@@ -253,3 +253,13 @@ export interface JobPosterStatus {
   name: localizedFieldNonNull;
   description: localizedFieldNonNull;
 }
+
+export interface ExperienceWork {
+  id: number;
+  title: string;
+  organization: string;
+  group: string;
+  is_active: boolean;
+  start_date: Date;
+  end_date: Date|null;
+}
