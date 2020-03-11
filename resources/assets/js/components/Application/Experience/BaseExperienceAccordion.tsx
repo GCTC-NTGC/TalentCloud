@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from "react";
 import { FormattedMessage } from "react-intl";
 
-interface ExperienceSkill {
+export interface ExperienceSkill {
   id: number;
   name: string;
   claim: string;
