@@ -15,10 +15,13 @@ use App\Models\BaseModel;
  * @property \Jenssegers\Date\Date $awarded_date
  * @property int $experienceable_id
  * @property string $experienceable_type
+ * @property boolean $is_education_requirement
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\Applicant|\App\Models\JobApplication $experienceable
+ * @property \Illuminate\Database\Eloquent\Collection $skills
+ * @property \Illuminate\Database\Eloquent\Collection $experience_skills
  */
 class ExperienceAward extends BaseModel
 {
@@ -27,7 +30,8 @@ class ExperienceAward extends BaseModel
         'award_recipient_type_id' => 'int',
         'issued_by' => 'string',
         'award_recognition_type_id' => 'int',
-        'awarded_date' => 'date'
+        'awarded_date' => 'date',
+        'is_education_requirement' => 'boolean'
     ];
 
     protected $fillable = [
@@ -35,7 +39,8 @@ class ExperienceAward extends BaseModel
         'award_recipient_type_id',
         'issued_by',
         'award_recognition_type_id',
-        'awarded_date'
+        'awarded_date',
+        'is_education_requirement'
     ];
 
     protected $table = 'experiences_award';
@@ -53,5 +58,15 @@ class ExperienceAward extends BaseModel
     public function experienceable() //phpcs:ignore
     {
         return $this->morphTo();
+    }
+
+    public function skills()
+    {
+        return $this->morphToMany(\App\Models\Skill::class, 'experience', 'experience_skills');
+    }
+
+    public function experience_skills() //phpcs:ignore
+    {
+        return $this->morphMany(\App\Models\ExperienceSkill::class, 'experience');
     }
 }
