@@ -42,11 +42,11 @@ class AppServiceProvider extends ServiceProvider
         Relation::morphMap([
             'applicant' => Applicant::class,
             'application' => JobApplication::class,
-            'work' => ExperienceWork::class,
-            'personal' => ExperiencePersonal::class,
-            'education' => ExperienceEducation::class,
-            'award' => ExperienceAward::class,
-            'community' => ExperienceCommunity::class,
+            'experience_work' => ExperienceWork::class,
+            'experience_personal' => ExperiencePersonal::class,
+            'experience_education' => ExperienceEducation::class,
+            'experience_award' => ExperienceAward::class,
+            'experience_community' => ExperienceCommunity::class,
         ]);
     }
 
