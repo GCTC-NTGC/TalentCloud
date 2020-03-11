@@ -26,6 +26,7 @@ use App\Models\BaseModel;
  * @property \App\Models\Lookup\EducationStatus $education_status
  * @property \App\Models\Applicant|\App\Models\JobApplication $experienceable
  * @property \Illuminate\Database\Eloquent\Collection $skills
+ * @property \Illuminate\Database\Eloquent\Collection $experience_skills
  */
 class ExperienceEducation extends BaseModel
 {
@@ -73,5 +74,10 @@ class ExperienceEducation extends BaseModel
     public function skills()
     {
         return $this->morphToMany(\App\Models\Skill::class, 'experience', 'experience_skills');
+    }
+
+    public function experience_skills() //phpcs:ignore
+    {
+        return $this->morphMany(\App\Models\ExperienceSkill::class, 'experience');
     }
 }
