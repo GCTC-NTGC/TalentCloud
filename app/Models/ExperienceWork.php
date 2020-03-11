@@ -44,7 +44,7 @@ class ExperienceWork extends BaseModel
         'is_education_requirement'
     ];
 
-    protected $table = ['experiences_work'];
+    protected $table = 'experiences_work';
 
     public function experienceable() //phpcs:ignore
     {

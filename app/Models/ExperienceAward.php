@@ -41,7 +41,7 @@ class ExperienceAward extends BaseModel
         'is_education_requirement'
     ];
 
-    protected $table = ['experiences_award'];
+    protected $table = 'experiences_award';
 
     public function award_recipient_type() //phpcs:ignore
     {

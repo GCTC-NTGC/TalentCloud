@@ -55,7 +55,7 @@ class ExperienceEducation extends BaseModel
         'is_education_requirement'
     ];
 
-    protected $table = ['experiences_education'];
+    protected $table = 'experiences_education';
 
     public function education_type() //phpcs:ignore
     {
