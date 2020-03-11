@@ -3136,16 +3136,16 @@
         },
         {
             "name": "spatie/laravel-translatable",
-            "version": "4.3.0",
+            "version": "4.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-translatable.git",
-                "reference": "0f69b268257b3f594450712a95cce6178bb0eb13"
+                "reference": "39da2d93138b36e5fe6b1e493cac0d1e6b06e534"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-translatable/zipball/0f69b268257b3f594450712a95cce6178bb0eb13",
-                "reference": "0f69b268257b3f594450712a95cce6178bb0eb13",
+                "url": "https://api.github.com/repos/spatie/laravel-translatable/zipball/39da2d93138b36e5fe6b1e493cac0d1e6b06e534",
+                "reference": "39da2d93138b36e5fe6b1e493cac0d1e6b06e534",
                 "shasum": ""
             },
             "require": {
@@ -3204,7 +3204,7 @@
                 "spatie",
                 "translate"
             ],
-            "time": "2020-03-02T19:35:51+00:00"
+            "time": "2020-03-11T09:56:26+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
