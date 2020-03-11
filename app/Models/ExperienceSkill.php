@@ -32,33 +32,11 @@ class ExperienceSkill extends BaseModel
 
     public function skills()
     {
-        return $this->belongsToMany(\App\Models\Skill::class);
+        return $this->belongsTo(\App\Models\Skill::class);
     }
 
-    // Version 2 application models.
-
-    public function experiences_work() // phpcs:ignore
+    public function experience()
     {
-        return $this->morphToMany(\App\Models\ExperienceWork::class, 'experience', 'experience_skills');
-    }
-
-    public function experiences_personal() // phpcs:ignore
-    {
-        return $this->morphToMany(\App\Models\ExperiencePersonal::class, 'experience', 'experience_skills');
-    }
-
-    public function experiences_education() // phpcs:ignore
-    {
-        return $this->morphToMany(\App\Models\ExperienceEducation::class, 'experience', 'experience_skills');
-    }
-
-    public function experiences_award() // phpcs:ignore
-    {
-        return $this->morphToMany(\App\Models\ExperienceAward::class, 'experience', 'experience_skills');
-    }
-
-    public function experiences_community() // phpcs:ignore
-    {
-        return $this->morphToMany(\App\Models\ExperienceCommunity::class, 'experience', 'experience_skills');
+        return $this->morphTo();
     }
 }
