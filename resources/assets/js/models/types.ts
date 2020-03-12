@@ -261,5 +261,18 @@ export interface ExperienceWork {
   group: string;
   is_active: boolean;
   start_date: Date;
-  end_date: Date|null;
+  end_date: Date | null;
+}
+
+export interface ExperienceEducation {
+  id: number;
+  education_type_id: number;
+  area_of_study: string;
+  institution: string;
+  education_status_id: number;
+  is_active: boolean;
+  start_date: Date;
+  end_date: Date | null;
+  thesis_title: string | null;
+  has_blockcert: boolean;
 }

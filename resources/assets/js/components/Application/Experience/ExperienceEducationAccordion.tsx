@@ -7,12 +7,13 @@ import {
 import { Locales, getLocale } from "../../../helpers/localize";
 import { readableDate } from "../../../helpers/dates";
 
-interface ExperienceWorkAccordionProps {
-  title: string;
-  organization: string;
-  group: string;
+interface ExperienceEducationAccordionProps {
+  educationType: string;
+  areaOfStudy: string;
+  institution: string;
+  status: string;
   startDate: Date;
-  endDate: Date | null;
+  endDate: Date;
   isActive: boolean;
 
   relevantSkills: ExperienceSkill[];
@@ -24,35 +25,39 @@ interface ExperienceWorkAccordionProps {
   handleEdit: () => void;
 }
 
-const experienceWorkDetails = ({
+const experienceEducationDetails = ({
   locale,
-  title,
-  organization,
-  group,
+  educationType,
+  areaOfStudy,
+  institution,
+  status,
   startDate,
   endDate,
   isActive,
 }: {
   locale: Locales;
-  title: string;
-  organization: string;
-  group: string;
+  educationType: string;
+  areaOfStudy: string;
+  institution: string;
+  status: string;
   startDate: Date;
-  endDate: Date | null;
+  endDate: Date;
   isActive: boolean;
 }): React.ReactElement => {
   const notApplicable = (
-    <FormattedMessage
-      id="experienceWorkAccordion.notApplicable"
-      defaultMessage="N/A"
-    />
+    <p data-c-color="gray">
+      <FormattedMessage
+        id="experienceWorkAccordion.notApplicable"
+        defaultMessage="N/A"
+      />
+    </p>
   );
   return (
     <>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
           <FormattedMessage
-            id="experienceWorkAccordion.experienceTypeLabel"
+            id="experienceEducationAccordion.experienceTypeLabel"
             defaultMessage="Type of Experience:"
           />
         </p>
@@ -63,66 +68,71 @@ const experienceWorkDetails = ({
             data-c-margin="right(.25)"
           />
           <FormattedMessage
-            id="experienceWorkAccordion.experienceTypeTitle"
-            defaultMessage="Work Experience"
+            id="experienceEducationAccordion.experienceTypeTitle"
+            defaultMessage="Education Experience"
           />
         </p>
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
           <FormattedMessage
-            id="experienceWorkAccordion.roleLabel"
-            defaultMessage="Role / Job Title:"
+            id="experienceEducationAccordion.educationTypeLabel"
+            defaultMessage="Type of Education:"
           />
+          {educationType ? <p>{educationType}</p> : { notApplicable }}
         </p>
-        {title ? <p>{title}</p> : <p data-c-color="gray">{notApplicable}</p>}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
           <FormattedMessage
-            id="experienceWorkAccordion.organizationLabel"
-            defaultMessage="Organization / Company:"
+            id="experienceEducationAccordion.areaOfStudyLabel"
+            defaultMessage="Area of Study:"
           />
         </p>
-        {organization ? (
-          <p>{organization}</p>
-        ) : (
-          <p data-c-color="gray">{notApplicable}</p>
-        )}
+        {areaOfStudy ? <p>{areaOfStudy}</p> : { notApplicable }}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
           <FormattedMessage
-            id="experienceWorkAccordion.teamLabel"
-            defaultMessage="Team / Group:"
+            id="experienceEducationAccordion.institutionLabel"
+            defaultMessage="Institution:"
           />
         </p>
-        {group ? <p>{group}</p> : <p data-c-color="gray">{notApplicable}</p>}
+        {institution ? <p>{institution}</p> : { notApplicable }}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
           <FormattedMessage
-            id="experienceWorkAccordion.startDateLabel"
+            id="experienceEducationAccordion.statusLabel"
+            defaultMessage="Status:"
+          />
+        </p>
+        {status ? <p>{status}</p> : { notApplicable }}
+      </div>
+      <div data-c-grid-item="base(1of2) tl(1of3)">
+        <p data-c-font-weight="bold">
+          <FormattedMessage
+            id="experienceEducationAccordion.startDate"
             defaultMessage="Start Date:"
           />
         </p>
         {startDate ? (
           <p>{readableDate(locale, startDate)}</p>
         ) : (
-          <p data-c-color="gray">{notApplicable}</p>
+          { notApplicable }
         )}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
           <FormattedMessage
-            id="experienceWorkAccordion.endDateLabel"
+            id="experienceEducationAccordion.endDate"
             defaultMessage="End Date:"
           />
         </p>
         {isActive && (
           <p>
             <FormattedMessage
-              id="experienceWorkAccodrion.ongoing"
+              id="experienceEducationAccordion.ongoing"
               defaultMessage="Ongoing"
             />
           </p>
@@ -130,20 +140,22 @@ const experienceWorkDetails = ({
         {!isActive && endDate ? (
           <p>{readableDate(locale, endDate)}</p>
         ) : (
-          <p data-c-color="gray">{notApplicable}</p>
+          { notApplicable }
         )}
       </div>
     </>
   );
 };
 
-export const ExperienceWorkAccordion: React.FC<ExperienceWorkAccordionProps> = ({
-  title,
-  organization,
-  group,
+export const ExperienceEducationAccordion: React.FC<ExperienceEducationAccordionProps> = ({
+  educationType,
+  areaOfStudy,
+  institution,
+  status,
   startDate,
   endDate,
   isActive,
+
   relevantSkills,
   irrelevantSkillCount,
   isEducationJustification,
@@ -156,21 +168,32 @@ export const ExperienceWorkAccordion: React.FC<ExperienceWorkAccordionProps> = (
   const locale = getLocale(intl.locale);
   const accordionTitle = (
     <p>
-      <span data-c-font-weight="bold">{title}</span> - {organization}
+      <FormattedMessage
+        id="experienceEducationAccordion.title"
+        defaultMessage="<b>{educationType} in {areaOfStudy}</b> - {institution}"
+        description="Title of education accordion (this is the visible text when accordion is closed)."
+        values={{
+          educationType,
+          areaOfStudy,
+          institution,
+          b: value => <span data-c-font-weight="bold">{value}</span>,
+        }}
+      />
     </p>
   );
   return (
     <BaseExperienceAccordion
       title={accordionTitle}
-      iconClass="fa-briefcase"
+      iconClass="fa-book"
       relevantSkills={relevantSkills}
       irrelevantSkillCount={irrelevantSkillCount}
       isEducationJustification={isEducationJustification}
-      details={experienceWorkDetails({
+      details={experienceEducationDetails({
         locale,
-        title,
-        organization,
-        group,
+        educationType,
+        areaOfStudy,
+        institution,
+        status,
         startDate,
         endDate,
         isActive,
@@ -183,4 +206,4 @@ export const ExperienceWorkAccordion: React.FC<ExperienceWorkAccordionProps> = (
   );
 };
 
-export default ExperienceWorkAccordion;
+export default ExperienceEducationAccordion;
