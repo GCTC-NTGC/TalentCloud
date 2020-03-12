@@ -51,16 +51,19 @@
 				</div>
 			</div>
 			<a id="skipLink"></a>
-			<div data-c-container="medium" data-c-padding="bottom(triple)">
-				<h2 data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="top(triple) bottom(normal)">{{ home_l10n.info.heading }}</h2>
-				<p data-c-margin="bottom(normal)">{{ home_l10n.info.content_first }}</p>
-				<p data-c-margin="bottom(normal)">{{ home_l10n.info.content_second }}</p>
-				<p data-c-margin="bottom(normal)" data-c-font-weight="bold">{{ home_l10n.info.list_heading }}</p>
-				<ul>
-					{% for item in home_l10n.info.list %}
-						<li>{{ item }}</li>
-					{% endfor %}
-				</ul>
+			<div class="flourish-wrapper">
+                <div data-c-container="medium" data-c-padding="bottom(triple)">
+                    <h2 data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="top(triple) bottom(normal)">{{ home_l10n.info.heading }}</h2>
+                    <p data-c-margin="bottom(normal)">{{ home_l10n.info.content_first }}</p>
+                    <p data-c-margin="bottom(normal)">{{ home_l10n.info.content_second }}</p>
+                    <p data-c-margin="bottom(normal)" data-c-font-weight="bold">{{ home_l10n.info.list_heading }}</p>
+                    <ul>
+                        {% for item in home_l10n.info.list %}
+                            <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <img alt="{{ hhome_l10n.leaf }}" class="flourish-icon-right" src="/images/maple-leaf.svg">
 			</div>
 			<div data-c-background="grey(10)" data-c-padding="tb(triple)">
 				<div data-c-container="large">
