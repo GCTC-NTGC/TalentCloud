@@ -1,34 +1,31 @@
 {# =============================================================================
 
     Talent Cloud
-    Auth: Password - Reset
+    Authentication: Password Change Form
 
 ============================================================================= #}
-
 {% extends "layouts/base" %}
-
 {% block title %}{{ reset_password.title }}{% endblock %}
-
 {% block body %}
     {% include "common/goc" %}
     <div data-clone>
-        <section class="tc-auth" data-c-padding="tb(triple)" data-c-overlay="black(80)" style="background-image: url('/images/bg_crowd.jpg');">
-            <div class="tc-auth-wrapper" data-c-padding="tb(triple)" data-c-container="small">
+        <section class="tc-auth" data-c-padding="top(1) bottom(2)" data-c-overlay="black(80)" style="background-image: url('/images/bg_crowd.jpg');">
+            <div class="tc-auth-wrapper" data-c-container="small">
                 {# Return to the homepage link. #}
                 <a data-c-color="white" href="{{ routes.home }}" title="Return Home">
                     <i class="fas fa-chevron-left" data-c-margin="right(quarter)"></i>{{ reset_password.return }}
                 </a>
-                <div data-c-radius="rounded" data-c-margin="top(normal)">
+                <div data-c-radius="rounded" data-c-margin="top(1)">
                     {# Auth UI Title Area #}
-                    <div class="tc-auth-header gradient-left-right" data-c-padding="all(double)" data-c-align="base(center)">
+                    <div class="tc-auth-header gradient-left-right" data-c-padding="all(1)" data-c-align="base(center)">
                         <h1 data-c-font-size="h2" data-c-color="white">{{ reset_password.header }}</h1>
                     </div>
                     {# Password Form #}
                     <form action="{{ routes.password.request }}" method="POST">
                         {{ csrf_field() }}
                         <input type="hidden" name="token" value="{{ token }}">
-                        <div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)">
-                            <div data-c-padding="top(normal)">
+                        <div data-c-background="white(100)" data-c-padding="all(1)">
+                            <div>
                                 {% include "errors/form_errors" %}
                                 <div data-c-grid="gutter middle">
                                     {# Email #}
@@ -77,7 +74,7 @@
                             </div>
                         </div>
                         {# UI Actions #}
-                        <div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)" data-c-border="top(thin, solid, grey)">
+                        <div data-c-background="white(100)" data-c-padding="all(1)" data-c-border="top(thin, solid, grey)">
                             <div data-c-align="base(right)">
                                 <button data-c-button="solid(c1)" data-c-radius="rounded" type="submit">
                                     {{ reset_password.submit }}

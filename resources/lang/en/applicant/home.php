@@ -13,7 +13,7 @@ return [
     'hero' => [
         'title' => 'Talent Cloud',
         'tagline' => 'Applying to government jobs just got easier.',
-        'pilot' => 'BETA'
+        'pilot' => 'BETA / Pilot Project'
     ],
     'slogan' => [
         'copy' => 'No cover letter. No resume. Build a profile of your skills and experience while saving time applying to government jobs that inspire you. ',

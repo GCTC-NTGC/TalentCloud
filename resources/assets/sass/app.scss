@@ -30,6 +30,8 @@ $clone-alert--information: $clone-c1;
 
 $clone-font-scale: 1.250;
 
+$clone-whitespace-multiplier: 1;
+
 @import "../../../node_modules/clone-framework/app/scss/clone";
 
 @import "components/common/itp";
