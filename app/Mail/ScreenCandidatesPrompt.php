@@ -80,6 +80,7 @@ class ScreenCandidatesPrompt extends Mailable implements ShouldQueue
 
         return $this->subject($subject)
                     ->cc($hr_advisors_emails)
+                    ->cc(config('mail.admin_address'))
                     ->markdown('emails.job_posters.screen_candidates_plain', [
                         'drop_off_date' => $date_in_two_weeks,
                         'manager_portal_link' => [
