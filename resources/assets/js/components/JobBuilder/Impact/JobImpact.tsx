@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { FormattedMessage, defineMessages, useIntl } from "react-intl";
 import * as Yup from "yup";
-import { Formik, Form, Field, FastField } from "formik";
+import { Formik, Form, FastField } from "formik";
 import nprogress from "nprogress";
 import { Job, Department } from "../../../models/types";
 import { emptyJob } from "../../../models/jobUtil";
@@ -67,7 +67,9 @@ const updateJobWithValues = (
   deptImpacts: { en: string; fr: string },
 ): Job => ({
   ...initialJob,
-  dept_impact: deptImpacts,
+  // Adding this until the impact statement for the office privacy canada gets added
+  dept_impact:
+    deptImpacts.en && deptImpacts.fr ? deptImpacts : { en: "N/A", fr: "S/O" },
   team_impact: {
     ...initialJob.team_impact,
     [locale]: teamImpact,
