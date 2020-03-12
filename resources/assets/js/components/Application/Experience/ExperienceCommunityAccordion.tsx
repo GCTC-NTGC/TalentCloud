@@ -8,10 +8,9 @@ import { Locales, getLocale } from "../../../helpers/localize";
 import { readableDate } from "../../../helpers/dates";
 
 interface ExperienceCommunityAccordionProps {
-  role: string;
+  title: string;
   group: string;
-  institution: string;
-  status: string;
+  project: string;
   startDate: Date;
   endDate: Date;
   isActive: boolean;
@@ -27,19 +26,17 @@ interface ExperienceCommunityAccordionProps {
 
 const experienceCommunityDetails = ({
   locale,
-  educationType,
-  areaOfStudy,
-  institution,
-  status,
+  title,
+  group,
+  project,
   startDate,
   endDate,
   isActive,
 }: {
   locale: Locales;
-  educationType: string;
-  areaOfStudy: string;
-  institution: string;
-  status: string;
+  title: string;
+  group: string;
+  project: string;
   startDate: Date;
   endDate: Date;
   isActive: boolean;
@@ -47,10 +44,15 @@ const experienceCommunityDetails = ({
   const notApplicable = (
     <p data-c-color="gray">
       <FormattedMessage
-        id="experienceWorkAccordion.notApplicable"
+        id="experienceCommunityAccordion.notApplicable"
         defaultMessage="N/A"
       />
     </p>
+  );
+  const endDateOrNa = endDate ? (
+    <p>{readableDate(locale, endDate)}</p>
+  ) : (
+    { notApplicable }
   );
   return (
     <>
@@ -63,42 +65,42 @@ const experienceCommunityDetails = ({
         </p>
         <p>
           <i
-            className="fas fa-briefcase"
+            className="fas fa-people-carry"
             data-c-color="c1"
             data-c-margin="right(.25)"
           />
           <FormattedMessage
             id="experienceCommunityAccordion.experienceTypeTitle"
-            defaultMessage="Education Experience"
+            defaultMessage="Community Experience"
           />
         </p>
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
           <FormattedMessage
-            id="experienceCommunityAccordion.educationTypeLabel"
-            defaultMessage="Type of Education:"
+            id="experienceCommunityAccordion.roleLabel"
+            defaultMessage="Role / Job Title:"
           />
-          {educationType ? <p>{educationType}</p> : { notApplicable }}
+          {title ? <p>{title}</p> : { notApplicable }}
         </p>
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
           <FormattedMessage
-            id="experienceCommunityAccordion.areaOfStudyLabel"
-            defaultMessage="Area of Study:"
+            id="experienceCommunityAccordion.organizationLabel"
+            defaultMessage="Group / Organization / Community:"
           />
         </p>
-        {areaOfStudy ? <p>{areaOfStudy}</p> : { notApplicable }}
+        {group ? <p>{group}</p> : { notApplicable }}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
           <FormattedMessage
-            id="experienceCommunityAccordion.institutionLabel"
-            defaultMessage="Institution:"
+            id="experienceCommunityAccordion.projectLabel"
+            defaultMessage="Project / Product:"
           />
         </p>
-        {institution ? <p>{institution}</p> : { notApplicable }}
+        {project ? <p>{project}</p> : { notApplicable }}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
@@ -129,18 +131,15 @@ const experienceCommunityDetails = ({
             defaultMessage="End Date:"
           />
         </p>
-        {isActive && (
+        {isActive ? (
           <p>
             <FormattedMessage
               id="experienceCommunityAccordion.ongoing"
               defaultMessage="Ongoing"
             />
           </p>
-        )}
-        {!isActive && endDate ? (
-          <p>{readableDate(locale, endDate)}</p>
         ) : (
-          { notApplicable }
+          endDateOrNa
         )}
       </div>
     </>
@@ -148,8 +147,9 @@ const experienceCommunityDetails = ({
 };
 
 export const ExperienceCommunityAccordion: React.FC<ExperienceCommunityAccordionProps> = ({
-  role,
+  title,
   group,
+  project,
   startDate,
   endDate,
   isActive,
@@ -168,10 +168,10 @@ export const ExperienceCommunityAccordion: React.FC<ExperienceCommunityAccordion
     <p>
       <FormattedMessage
         id="experienceCommunityAccordion.title"
-        defaultMessage="<b>{role}</b> - {group}"
+        defaultMessage="<b>{title}</b> - {group}"
         description="Title of Community Experience accordion (this is the visible text when accordion is closed)."
         values={{
-          role,
+          title,
           group,
           b: value => <span data-c-font-weight="bold">{value}</span>,
         }}
@@ -181,16 +181,15 @@ export const ExperienceCommunityAccordion: React.FC<ExperienceCommunityAccordion
   return (
     <BaseExperienceAccordion
       title={accordionTitle}
-      iconClass="fa-book"
+      iconClass="fa-people-carry"
       relevantSkills={relevantSkills}
       irrelevantSkillCount={irrelevantSkillCount}
       isEducationJustification={isEducationJustification}
       details={experienceCommunityDetails({
         locale,
-        educationType,
-        areaOfStudy,
-        institution,
-        status,
+        title,
+        group,
+        project,
         startDate,
         endDate,
         isActive,
