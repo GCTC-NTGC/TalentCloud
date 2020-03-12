@@ -13,6 +13,8 @@ export interface RadioProps {
   value?: string | number | string[];
   /** Optional boolean to trigger a related context block. */
   trigger?: boolean;
+  /** boolean indicating if input must have a value, or not */
+  required?: boolean;
   /** Event listener which fires when a change event occurs (varies on input type) */
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   /** Event listener which fires when a input loses focus */
@@ -25,6 +27,7 @@ const Radio: React.FunctionComponent<RadioProps> = ({
   label,
   checked,
   value,
+  required,
   trigger,
   onBlur,
   onChange,
@@ -44,6 +47,7 @@ const Radio: React.FunctionComponent<RadioProps> = ({
         value={value}
         onChange={onChange}
         onBlur={onBlur}
+        required={required}
       />
       <span>{label}</span>
     </label>

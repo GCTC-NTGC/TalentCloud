@@ -1,23 +1,18 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import React, { useState, useRef } from "react";
-import {
-  injectIntl,
-  WrappedComponentProps,
-  FormattedMessage,
-  defineMessages,
-} from "react-intl";
+import React, { useState, useRef, useEffect } from "react";
+import { FormattedMessage, defineMessages, useIntl } from "react-intl";
 import * as Yup from "yup";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, FastField } from "formik";
 import nprogress from "nprogress";
 import { Job, Department } from "../../../models/types";
 import { emptyJob } from "../../../models/jobUtil";
-import JobImpactPreview from "./JobImpactPreview";
 import Modal from "../../Modal";
 import { validationMessages } from "../../Form/Messages";
 import TextAreaInput from "../../Form/TextAreaInput";
 import { find } from "../../../helpers/queries";
+import { getLocale } from "../../../helpers/localize";
 
-interface JobBuilderImpactProps {
+interface JobImpactProps {
   /** Optional Job to prepopulate form values from. */
   job: Job | null;
   /** The list of known departments. Used to determine the Department statement. */
@@ -133,27 +128,21 @@ const deptImpactStatement = (
       </p>
     );
   }
-  if (departments.length !== 0 && deptImpacts[locale] === "") {
-    return (
-      <p data-c-margin="bottom(double)">
+
+  return (
+    <p id="deptImpactStatement" data-c-margin="bottom(double)">
+      {deptImpacts[locale] || (
         <FormattedMessage
           id="jobBuilder.impact.unknownDepartment"
           defaultMessage="Error: Unknown Department selected."
           description="Error message shown when the job has a department selected for which data has not been passed to this component."
         />
-      </p>
-    );
-  }
-  return (
-    <p id="deptImpactStatement" data-c-margin="bottom(double)">
-      {deptImpacts[locale]}
+      )}
     </p>
   );
 };
 
-const JobBuilderImpact: React.FunctionComponent<JobBuilderImpactProps &
-  WrappedComponentProps> = ({
-  intl,
+const JobImpact: React.FunctionComponent<JobImpactProps> = ({
   departments,
   job,
   handleSubmit,
@@ -163,19 +152,19 @@ const JobBuilderImpact: React.FunctionComponent<JobBuilderImpactProps &
   jobIsComplete,
   handleSkipToReview,
 }): React.ReactElement => {
+  const intl = useIntl();
+  const locale = getLocale(intl.locale);
   const modalId = "impact-dialog";
   const [isModalVisible, setIsModalVisible] = useState(false);
   const modalParentRef = useRef<HTMLDivElement>(null);
-  const { locale } = intl;
-  if (locale !== "en" && locale !== "fr") {
-    throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
-  }
+
   const initialTeamImpact = job ? job.team_impact[locale] : null;
   const initialHireImpact = job ? job.hire_impact[locale] : null;
   const initialValues: ImpactFormValues = {
     teamImpact: initialTeamImpact || "",
     hireImpact: initialHireImpact || "",
   };
+
   const validationSchema = Yup.object().shape({
     teamImpact: Yup.string().required(
       intl.formatMessage(validationMessages.required),
@@ -184,6 +173,7 @@ const JobBuilderImpact: React.FunctionComponent<JobBuilderImpactProps &
       intl.formatMessage(validationMessages.required),
     ),
   });
+
   const deptImpacts: { en: string; fr: string } = determineDeptImpact(
     departments,
     job,
@@ -273,7 +263,8 @@ const JobBuilderImpact: React.FunctionComponent<JobBuilderImpactProps &
                 actions.setSubmitting(false); // Required by Formik to finish the submission cycle
               });
           }}
-          render={({ values, isSubmitting }): React.ReactElement => (
+        >
+          {({ values, isSubmitting }): React.ReactElement => (
             <>
               <Form id="form" data-c-grid="gutter">
                 <div data-c-grid-item="base(1of1)" data-c-input="textarea">
@@ -292,7 +283,7 @@ const JobBuilderImpact: React.FunctionComponent<JobBuilderImpactProps &
                     />
                   </p>
                   <div>
-                    <Field
+                    <FastField
                       name="teamImpact"
                       id="TeamImpact"
                       placeholder={intl.formatMessage(messages.teamPlaceholder)}
@@ -318,7 +309,7 @@ const JobBuilderImpact: React.FunctionComponent<JobBuilderImpactProps &
                     />
                   </p>
                   <div>
-                    <Field
+                    <FastField
                       id="HireImpact"
                       name="hireImpact"
                       label={intl.formatMessage(messages.hireLabel)}
@@ -427,11 +418,31 @@ const JobBuilderImpact: React.FunctionComponent<JobBuilderImpactProps &
                     data-c-border="bottom(thin, solid, black)"
                     data-c-padding="normal"
                   >
-                    <JobImpactPreview
-                      deptImpact={deptImpacts[locale]}
-                      teamImpact={values.teamImpact}
-                      hireImpact={values.hireImpact}
-                    />
+                    <div
+                      className="manager-job-card"
+                      data-c-background="white(100)"
+                      data-c-padding="normal"
+                      data-c-radius="rounded"
+                    >
+                      <h4
+                        data-c-border="bottom(thin, solid, black)"
+                        data-c-font-size="h4"
+                        data-c-font-weight="600"
+                        data-c-margin="bottom(normal)"
+                        data-c-padding="bottom(normal)"
+                      >
+                        <FormattedMessage
+                          id="jobBuilder.impactPreview.title"
+                          defaultMessage="Impact"
+                          description="Heading for Impact preview on modal dialog."
+                        />
+                      </h4>
+                      <p id="deptImpactPreview" data-c-margin="bottom(normal)">
+                        {deptImpacts[locale]}
+                      </p>
+                      <p data-c-margin="bottom(normal)">{values.teamImpact}</p>
+                      <p>{values.hireImpact}</p>
+                    </div>
                   </div>
                 </Modal.Body>
                 <Modal.Footer>
@@ -462,11 +473,11 @@ const JobBuilderImpact: React.FunctionComponent<JobBuilderImpactProps &
               </Modal>
             </>
           )}
-        />
+        </Formik>
       </div>
       <div data-c-dialog-overlay={isModalVisible ? "active" : ""} />
     </section>
   );
 };
 
-export default injectIntl(JobBuilderImpact);
+export default JobImpact;

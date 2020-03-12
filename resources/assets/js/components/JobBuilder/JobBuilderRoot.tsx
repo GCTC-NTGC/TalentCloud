@@ -4,13 +4,13 @@ import ReactDOM from "react-dom";
 import { Routes } from "universal-router";
 import { defineMessages, useIntl } from "react-intl";
 import { useRouter, RouterResult } from "../../helpers/router";
-import JobBuilderIntroPageContainer from "./Intro/JobBuilderIntro";
+import JobIntroPage from "./Intro/JobIntroPage";
 import RootContainer from "../RootContainer";
 import JobDetailsPage from "./Details/JobDetailsPage";
-import JobBuilderWorkEnvPage from "./WorkEnv/WorkEnvPage";
-import JobBuilderImpactPage from "./Impact/JobBuilderImpactPage";
+import JobWorkEnvPage from "./WorkEnv/JobWorkEnvPage";
+import JobImpactPage from "./Impact/JobImpactPage";
 import JobTasksPage from "./Tasks/JobTasksPage";
-import JobSkillsPage from "./Skills/JobBuilderSkillsPage";
+import JobSkillsPage from "./Skills/JobSkillsPage";
 import JobReviewPage from "./Review/JobReviewPage";
 import ScrollToTop from "../ScrollToTop";
 import RedirectPage from "./RedirectToLastIncompleteStep";
@@ -66,7 +66,7 @@ const routes: Routes<{}, RouterResult> = [
         path: "/builder",
         action: () => ({
           title: titles.introTitle,
-          component: <JobBuilderIntroPageContainer jobId={null} />,
+          component: <JobIntroPage jobId={null} />,
         }),
       },
       {
@@ -83,9 +83,7 @@ const routes: Routes<{}, RouterResult> = [
             path: "/intro",
             action: ({ params }) => ({
               title: titles.introTitle,
-              component: (
-                <JobBuilderIntroPageContainer jobId={Number(params.id)} />
-              ),
+              component: <JobIntroPage jobId={Number(params.id)} />,
             }),
           },
           {
@@ -99,14 +97,14 @@ const routes: Routes<{}, RouterResult> = [
             path: "/environment",
             action: ({ params }) => ({
               title: titles.workEnvTitle,
-              component: <JobBuilderWorkEnvPage jobId={Number(params.id)} />,
+              component: <JobWorkEnvPage jobId={Number(params.id)} />,
             }),
           },
           {
             path: "/impact",
             action: ({ params }) => ({
               title: titles.impactTitle,
-              component: <JobBuilderImpactPage jobId={Number(params.id)} />,
+              component: <JobImpactPage jobId={Number(params.id)} />,
             }),
           },
           {

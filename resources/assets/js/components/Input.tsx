@@ -24,6 +24,10 @@ export interface InputProps {
   minLength?: number;
   /** Maximum length of characters the text value can be */
   maxLength?: number;
+  /** Minimum value for the input */
+  min?: number;
+  /** Maximum value for the input */
+  max?: number;
   /** The value of the input */
   value?: string | number | string[];
   /** Error text that appers underneath if error occurs (eg. required) */
@@ -49,6 +53,8 @@ const Input: React.FunctionComponent<InputProps> = ({
   grid,
   minLength,
   maxLength,
+  min,
+  max,
   onBlur,
   onChange,
 }): React.ReactElement => (
@@ -72,6 +78,8 @@ const Input: React.FunctionComponent<InputProps> = ({
         value={value}
         minLength={minLength}
         maxLength={maxLength}
+        min={min}
+        max={max}
         onChange={onChange}
         onBlur={onBlur}
       />
