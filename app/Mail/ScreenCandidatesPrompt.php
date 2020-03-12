@@ -84,7 +84,7 @@ class ScreenCandidatesPrompt extends Mailable implements ShouldQueue
                         'drop_off_date' => $date_in_two_weeks,
                         'manager_portal_link' => [
                             'en' => route('manager.home'),
-                            'fr' => config('app.url') . '/fr/manager',
+                            'fr' => LaravelLocalization::getLocalizedURL('fr', route('manager.home')),
                         ],
                         'num_of_applicants' => $num_of_applicants,
                         'num_of_noncitizens' => $num_of_noncitizens,
@@ -92,7 +92,7 @@ class ScreenCandidatesPrompt extends Mailable implements ShouldQueue
                         'position' => $position,
                         'position_link' => [
                             'en' => route('jobs.show', $this->job->id),
-                            'fr' => config('app.url') . '/fr/jobs/' . $this->job->id,
+                            'fr' => LaravelLocalization::getLocalizedURL('fr', route('jobs.show', $this->job->id)),
                         ],
                         'talent_cloud_email' => config('mail.admin_address'),
                     ]);

@@ -19,7 +19,7 @@ Best Regards,<br>
 
 La période d’affichage de votre annonce [{{ $position['fr'] }}]({{ $position_link['fr'] }}) a pris fin aujourd’hui et **{{ $num_of_applicants }}**  candidats (**{{ $num_of_veterans }}**, anciens combattants et **{{ $num_of_noncitizens }}** non-citoyens canadiens) ont envoyé leur curriculum vitæ.
 
-Vous voulez la meilleure personne pour ce poste?
+# Vous voulez la meilleure personne pour ce poste?
 
 **2 SEMAINES** : Les meilleurs candidats commenceront à se désintéresser du poste s’ils n’ont pas de nouvelles de vous dans aussi peu que deux semaines. Assurez-vous de leur répondre avant le **{{ $drop_off_date }}** pour leur faire part de la prochaine étape du processus.
 
