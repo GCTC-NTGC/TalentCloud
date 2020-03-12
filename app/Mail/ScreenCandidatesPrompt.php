@@ -13,6 +13,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Log;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class ScreenCandidatesPrompt extends Mailable implements ShouldQueue
 {
@@ -81,16 +83,16 @@ class ScreenCandidatesPrompt extends Mailable implements ShouldQueue
                     ->markdown('emails.job_posters.screen_candidates_plain', [
                         'drop_off_date' => $date_in_two_weeks,
                         'manager_portal_link' => [
-                            'en' => Lang::get('common/notifications/screen_candidates.manager_portal_link'),
-                            'fr' => Lang::get('common/notifications/screen_candidates.manager_portal_link', [], 'fr'),
+                            'en' => route('manager.home'),
+                            'fr' => config('app.url') . '/fr/manager',
                         ],
                         'num_of_applicants' => $num_of_applicants,
                         'num_of_noncitizens' => $num_of_noncitizens,
                         'num_of_veterans' => $num_of_veterans,
                         'position' => $position,
                         'position_link' => [
-                            'en' => Lang::get('common/notifications/screen_candidates.position_link', ['id' => $this->job->id]),
-                            'fr' => Lang::get('common/notifications/screen_candidates.position_link', ['id' => $this->job->id], 'fr'),
+                            'en' => route('jobs.show', $this->job->id),
+                            'fr' => config('app.url') . '/fr/jobs/' . $this->job->id,
                         ],
                         'talent_cloud_email' => config('mail.admin_address'),
                     ]);
