@@ -31,7 +31,7 @@ class SendScreenCandidatesEmail
 
         $assessment = JobPosterStatus::where('key', 'assessment')->first()->id;
         // If the job poster status has changed to 'assessment' then send email
-        if ($job->isDirty('job_poster_status_id') && $job->job_poster_status_id === $assessment) {
+        if ($job->isDirty('job_poster_status_id') && $job->job_poster_status_id == $assessment) {
             $manager_email = $job->manager->user->email;
             if (isset($manager_email)) {
                 Mail::to($manager_email)->send(new ScreenCandidatesPrompt($job));

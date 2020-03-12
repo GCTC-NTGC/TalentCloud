@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
+use Jenssegers\Date\Date;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class ScreenCandidatesPrompt extends Mailable implements ShouldQueue
@@ -54,10 +55,11 @@ class ScreenCandidatesPrompt extends Mailable implements ShouldQueue
         }
 
         // Get date 2 weeks after job poster closes.
-        $dateFormat = Config::get('app.date_format');
+        $date_format = Config::get('app.date_format');
         $locale = App::getLocale();
-        $timestamp_in_two_weeks = strtotime('+2 weeks', $this->job->close_date_time->timestamp);
-        $date_in_two_weeks = date($dateFormat[$locale], $timestamp_in_two_weeks);
+        $locale_close_date = new Date($this->job->close_date_time); // This initializes the date object in UTC time.
+        $timestamp_in_two_weeks = strtotime('+2 weeks', $locale_close_date->timestamp);
+        $date_in_two_weeks = date($date_format[$locale], $timestamp_in_two_weeks);
 
         // Number of applicants.
         $num_of_applicants = $this->job->job_applications->count();
