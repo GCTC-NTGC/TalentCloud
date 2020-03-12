@@ -63,7 +63,7 @@ const experienceEducationDetails = ({
         </p>
         <p>
           <i
-            className="fas fa-briefcase"
+            className="fas fa-book"
             data-c-color="c1"
             data-c-margin="right(.25)"
           />

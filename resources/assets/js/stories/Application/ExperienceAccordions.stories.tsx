@@ -1,11 +1,15 @@
 import React, { ReactElement, createElement } from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
-import { select, text, number, boolean } from "@storybook/addon-knobs";
+import { select, text, number, boolean, date } from "@storybook/addon-knobs";
 import { BaseExperienceAccordion } from "../../components/Application/Experience/BaseExperienceAccordion";
 import { action } from "@storybook/addon-actions";
 import { ExperienceWorkAccordion } from "../../components/Application/Experience/ExperienceWorkAccordion";
-import { fakeExperienceWork } from "../../fakeData/fakeExperience";
+import {
+  fakeExperienceWork,
+  fakeExperienceEducation,
+} from "../../fakeData/fakeExperience";
+import ExperienceEducationAccordion from "../../components/Application/Experience/ExperienceEducationAccordion";
 
 const stories = storiesOf(
   "Application|Experience Accordions",
@@ -19,6 +23,11 @@ const iconClassOptions = {
   personal: "fa-mountain",
   award: "fa-trophy",
 };
+
+function myDateKnob(name, defaultValue, groupId) {
+  const stringTimestamp = date(name, defaultValue, groupId);
+  return new Date(stringTimestamp);
+}
 
 const educationDetails = (
   <>
@@ -137,6 +146,60 @@ stories.add(
               groupIds.switches,
             )}
             details={details}
+            showSkillDetails={boolean(
+              "Show skill details?",
+              false,
+              groupIds.switches,
+            )}
+            showButtons={boolean("Show buttons?", false, groupIds.switches)}
+            handleDelete={action("Delete Experience")}
+            handleEdit={action("Edit Experience")}
+          />
+        </div>
+      </div>
+    );
+  },
+);
+
+stories.add(
+  "Education Experience",
+  (): React.ReactElement => {
+    const education = fakeExperienceEducation();
+    return (
+      <div className="experience-list">
+        <div data-c-accordion-group="">
+          <ExperienceEducationAccordion
+            educationType={text(
+              "Education Type",
+              "Bachelors Degree",
+              "details",
+            )}
+            areaOfStudy={text(
+              "Area of Study",
+              education.area_of_study,
+              "details",
+            )}
+            institution={text("Institution", education.institution, "details")}
+            status={text("Education Status", "Complete", "details")}
+            startDate={myDateKnob(
+              "Start date",
+              education.start_date,
+              "details",
+            )}
+            endDate={myDateKnob("End date", education.end_date, "details")}
+            isActive={boolean("Is Active", education.is_active, "details")}
+            relevantSkills={skillClaims}
+            irrelevantSkillCount={number(
+              "Irrelevant Skill count",
+              0,
+              {},
+              groupIds.details,
+            )}
+            isEducationJustification={boolean(
+              "Is Education Justification?",
+              false,
+              groupIds.switches,
+            )}
             showSkillDetails={boolean(
               "Show skill details?",
               false,
