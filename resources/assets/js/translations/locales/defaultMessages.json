@@ -247,7 +247,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "< Save and Go Back to Applicant List",
+        "defaultMessage": "Save and Go Back to Applicant List",
         "description": "Back Button text",
         "id": "application.review.backToApplicantList"
       },
