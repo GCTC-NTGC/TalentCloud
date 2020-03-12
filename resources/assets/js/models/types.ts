@@ -286,3 +286,11 @@ export interface ExperienceCommunity {
   start_date: Date;
   end_date: Date | null;
 }
+
+export interface ExperienceAward {
+  id: number;
+  title: string;
+  award_recipient_type_id: number;
+  issued_by: string;
+  awarded_date: Date;
+}
