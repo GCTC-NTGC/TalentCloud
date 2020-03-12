@@ -8,8 +8,10 @@ import { ExperienceWorkAccordion } from "../../components/Application/Experience
 import {
   fakeExperienceWork,
   fakeExperienceEducation,
+  fakeExperienceCommunity,
 } from "../../fakeData/fakeExperience";
 import ExperienceEducationAccordion from "../../components/Application/Experience/ExperienceEducationAccordion";
+import ExperienceCommunityAccordion from "../../components/Application/Experience/ExperienceCommunityAccordion";
 
 const stories = storiesOf(
   "Application|Experience Accordions",
@@ -172,19 +174,19 @@ stories.add(
             educationType={text(
               "Education Type",
               "Bachelors Degree",
-              "details",
+              groupIds.details,
             )}
             areaOfStudy={text(
               "Area of Study",
               education.area_of_study,
-              "details",
+              groupIds.details,
             )}
             institution={text("Institution", education.institution, "details")}
             status={text("Education Status", "Complete", "details")}
             startDate={myDateKnob(
               "Start date",
               education.start_date,
-              "details",
+              groupIds.details,
             )}
             endDate={myDateKnob("End date", education.end_date, "details")}
             isActive={boolean("Is Active", education.is_active, "details")}
@@ -223,12 +225,65 @@ stories.add(
       <div className="experience-list">
         <div data-c-accordion-group="">
           <ExperienceWorkAccordion
-            title={work.title}
-            organization={work.organization}
-            group={work.group}
-            startDate={work.start_date}
-            endDate={work.end_date}
-            isActive={work.is_active}
+            title={text("Job Title", work.title, groupIds.details)}
+            organization={text(
+              "Organization",
+              work.organization,
+              groupIds.details,
+            )}
+            group={text("Group", work.group, groupIds.details)}
+            startDate={myDateKnob(
+              "Start Date",
+              work.start_date,
+              groupIds.details,
+            )}
+            endDate={myDateKnob("End Date", work.end_date, groupIds.details)}
+            isActive={boolean("Is Active", work.is_active, groupIds.details)}
+            relevantSkills={skillClaims}
+            irrelevantSkillCount={number(
+              "Irrelevant Skill count",
+              0,
+              {},
+              groupIds.details,
+            )}
+            isEducationJustification={boolean(
+              "Is Education Justification?",
+              false,
+              groupIds.switches,
+            )}
+            showSkillDetails={boolean(
+              "Show skill details?",
+              false,
+              groupIds.switches,
+            )}
+            showButtons={boolean("Show buttons?", false, groupIds.switches)}
+            handleDelete={action("Delete Experience")}
+            handleEdit={action("Edit Experience")}
+          />
+        </div>
+      </div>
+    );
+  },
+);
+
+stories.add(
+  "Community Experience",
+  (): React.ReactElement => {
+    const community = fakeExperienceCommunity();
+    return (
+      <div className="experience-list">
+        <div data-c-accordion-group="">
+          <ExperienceCommunityAccordion
+            title={text("Job Title", community.title, groupIds.details)}
+            group={text("Group", community.group, groupIds.details)}
+            project={text("Project", community.project, groupIds.details)}
+            startDate={myDateKnob(
+              "Start Date",
+              community.start_date,
+              groupIds.details,
+            )}
+            endDate={myDateKnob("End Date", community.end_date, groupIds.details)}
+            isActive={boolean("Is Active", community.is_active, groupIds.details)}
             relevantSkills={skillClaims}
             irrelevantSkillCount={number(
               "Irrelevant Skill count",

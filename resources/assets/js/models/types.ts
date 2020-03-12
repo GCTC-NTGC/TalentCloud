@@ -276,3 +276,13 @@ export interface ExperienceEducation {
   thesis_title: string | null;
   has_blockcert: boolean;
 }
+
+export interface ExperienceCommunity {
+  id: number;
+  title: string;
+  group: string;
+  project: string;
+  is_active: boolean;
+  start_date: Date;
+  end_date: Date | null;
+}

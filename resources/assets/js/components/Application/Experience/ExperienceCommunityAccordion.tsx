@@ -52,7 +52,7 @@ const experienceCommunityDetails = ({
   const endDateOrNa = endDate ? (
     <p>{readableDate(locale, endDate)}</p>
   ) : (
-    { notApplicable }
+    notApplicable
   );
   return (
     <>
@@ -81,7 +81,7 @@ const experienceCommunityDetails = ({
             id="experienceCommunityAccordion.roleLabel"
             defaultMessage="Role / Job Title:"
           />
-          {title ? <p>{title}</p> : { notApplicable }}
+          {title ? <p>{title}</p> : notApplicable}
         </p>
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
@@ -91,7 +91,7 @@ const experienceCommunityDetails = ({
             defaultMessage="Group / Organization / Community:"
           />
         </p>
-        {group ? <p>{group}</p> : { notApplicable }}
+        {group ? <p>{group}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
@@ -100,7 +100,7 @@ const experienceCommunityDetails = ({
             defaultMessage="Project / Product:"
           />
         </p>
-        {project ? <p>{project}</p> : { notApplicable }}
+        {project ? <p>{project}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
@@ -109,7 +109,7 @@ const experienceCommunityDetails = ({
             defaultMessage="Status:"
           />
         </p>
-        {status ? <p>{status}</p> : { notApplicable }}
+        {status ? <p>{status}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
@@ -118,11 +118,7 @@ const experienceCommunityDetails = ({
             defaultMessage="Start Date:"
           />
         </p>
-        {startDate ? (
-          <p>{readableDate(locale, startDate)}</p>
-        ) : (
-          { notApplicable }
-        )}
+        {startDate ? <p>{readableDate(locale, startDate)}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
