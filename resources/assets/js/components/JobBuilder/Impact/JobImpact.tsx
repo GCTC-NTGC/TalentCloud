@@ -438,7 +438,13 @@ const JobImpact: React.FunctionComponent<JobImpactProps> = ({
                         />
                       </h4>
                       <p id="deptImpactPreview" data-c-margin="bottom(normal)">
-                        {deptImpacts[locale]}
+                        {deptImpacts[locale] || (
+                          <FormattedMessage
+                            id="jobBuilder.impact.unknownDepartment"
+                            defaultMessage="Error: Unknown Department selected."
+                            description="Error message shown when the job has a department selected for which data has not been passed to this component."
+                          />
+                        )}
                       </p>
                       <p data-c-margin="bottom(normal)">{values.teamImpact}</p>
                       <p>{values.hireImpact}</p>
