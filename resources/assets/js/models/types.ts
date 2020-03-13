@@ -295,3 +295,13 @@ export interface ExperienceAward {
   award_recognition_type_id: number;
   awarded_date: Date;
 }
+
+export interface ExperiencePersonal {
+  id: number;
+  title: string;
+  description: string;
+  is_shareable: boolean;
+  is_active: boolean;
+  start_date: Date;
+  end_date: Date | boolean;
+}

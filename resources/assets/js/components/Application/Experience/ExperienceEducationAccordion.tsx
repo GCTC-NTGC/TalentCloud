@@ -13,7 +13,7 @@ interface ExperienceEducationAccordionProps {
   institution: string;
   status: string;
   startDate: Date;
-  endDate: Date;
+  endDate: Date | null;
   isActive: boolean;
 
   relevantSkills: ExperienceSkill[];
@@ -51,6 +51,11 @@ const experienceEducationDetails = ({
         defaultMessage="N/A"
       />
     </p>
+  );
+  const endDateOrNa = endDate ? (
+    <p>{readableDate(locale, endDate)}</p>
+  ) : (
+    notApplicable
   );
   return (
     <>
@@ -129,18 +134,15 @@ const experienceEducationDetails = ({
             defaultMessage="End Date:"
           />
         </p>
-        {isActive && (
+        {isActive ? (
           <p>
             <FormattedMessage
-              id="experienceEducationAccordion.ongoing"
+              id="experienceCommunityAccordion.ongoing"
               defaultMessage="Ongoing"
             />
           </p>
-        )}
-        {!isActive && endDate ? (
-          <p>{readableDate(locale, endDate)}</p>
         ) : (
-          { notApplicable }
+          endDateOrNa
         )}
       </div>
     </>
