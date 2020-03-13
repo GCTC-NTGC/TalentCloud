@@ -1,0 +1,28 @@
+.application-experience-trigger {
+    border: none;
+    cursor: pointer;
+    padding-top: 100%;
+    position: relative;
+    transition: transform .2s ease;
+    width: 100%;
+    &:hover {
+        transform: scale(1.05);
+        transition: transform .2s ease;
+    }
+    >i {
+        color: $clone-white;
+        font-size: 10rem;
+        opacity: .05;
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(20%, -5%) rotate(-35deg);
+    }
+    >span {
+        color: $clone-white;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}

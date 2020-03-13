@@ -30,6 +30,8 @@ $clone-alert--information: $clone-c1;
 
 $clone-font-scale: 1.250;
 
+$clone-whitespace-multiplier: 1;
+
 @import "../../../node_modules/clone-framework/app/scss/clone";
 
 @import "components/common/itp";
@@ -40,6 +42,14 @@ $clone-font-scale: 1.250;
 @import "components/manager/builder";
 
 @import "components/hr/home";
+
+@import "components/applicant/application/progress-bar.scss";
+@import "components/applicant/application/experience-trigger.scss";
+@import "components/applicant/application/experience-timeline.scss";
+@import "components/applicant/application/experience-dialog.scss";
+@import "components/applicant/application/skill-navigation.scss";
+@import "components/applicant/application/skill-explanations.scss";
+@import "components/applicant/application/signature.scss";
 
 // Post-Clone Utilities (move these to their own import later Josh!
 
