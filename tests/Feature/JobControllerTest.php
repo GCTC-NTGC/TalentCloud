@@ -25,7 +25,7 @@ class JobControllerTest extends TestCase
      *
      * @return void
      */
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -34,17 +34,17 @@ class JobControllerTest extends TestCase
 
         $this->manager = factory(Manager::class)->create();
         $this->jobPoster = factory(JobPoster::class)
-        ->create([
-            'manager_id' => $this->manager->id
-        ]);
+            ->create([
+                'manager_id' => $this->manager->id
+            ]);
 
         $this->otherManager = factory(Manager::class)->create();
         $this->otherJobPoster = factory(JobPoster::class)
-        ->create([
-            'manager_id' => $this->otherManager->id
-        ]);
+            ->create([
+                'manager_id' => $this->otherManager->id
+            ]);
 
-        $this->publishedJob = factory(JobPoster::class)->states('published')->create();
+        $this->liveJob = factory(JobPoster::class)->states('live')->create();
     }
 
     /**
@@ -52,7 +52,7 @@ class JobControllerTest extends TestCase
      *
      * @return array
      */
-    private function generateEditJobFormData() : array
+    private function generateEditJobFormData(): array
     {
         $jobForm = [
             'open_date' => $this->faker->date('Y-m-d', strtotime('+1 day')),
@@ -68,9 +68,9 @@ class JobControllerTest extends TestCase
      *
      * @return void
      */
-    public function testGuestSingleView() : void
+    public function testGuestSingleView(): void
     {
-        $response = $this->get('jobs/' . $this->publishedJob->id);
+        $response = $this->get('jobs/' . $this->liveJob->id);
         $response->assertStatus(200);
         $response->assertSee(e(Lang::get('applicant/job_post')['apply']['login_link_title']));
     }
@@ -80,12 +80,12 @@ class JobControllerTest extends TestCase
      *
      * @return void
      */
-    public function testApplicantSingleView() : void
+    public function testApplicantSingleView(): void
     {
         $applicant = factory(Applicant::class)->create();
 
         $response = $this->actingAs($applicant->user)
-        ->get('jobs/' . $this->publishedJob->id);
+            ->get('jobs/' . $this->liveJob->id);
         $response->assertStatus(200);
         $response->assertSee(e(Lang::get('applicant/job_post')['apply']['apply_link_title']));
     }
@@ -95,10 +95,10 @@ class JobControllerTest extends TestCase
      *
      * @return void
      */
-    public function testManagerIndexView() : void
+    public function testManagerIndexView(): void
     {
         $response = $this->actingAs($this->manager->user)
-        ->get('manager/jobs');
+            ->get('manager/jobs');
         $response->assertStatus(200);
 
         $response->assertSee(e($this->jobPoster->title));
@@ -110,7 +110,7 @@ class JobControllerTest extends TestCase
      *
      * @return void
      */
-    public function testAdminEditDoesntChangeManager() : void
+    public function testAdminEditDoesntChangeManager(): void
     {
         // In order to simulate actual behaviour, the admin
         // user needs a related Manager instance. When navigating
@@ -140,7 +140,7 @@ class JobControllerTest extends TestCase
      *
      * @return void
      */
-    public function testSavedJobHasCorrectTimes() : void
+    public function testSavedJobHasCorrectTimes(): void
     {
         $localTimezone = config('app.local_timezone');
         $jobTimezone = config('app.job_timezone');

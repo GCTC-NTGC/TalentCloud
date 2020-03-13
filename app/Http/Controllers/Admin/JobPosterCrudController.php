@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Lookup\Department;
+use App\Models\Lookup\JobPosterStatus;
+use App\Services\JobStatusTransitionManager;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Illuminate\Support\Facades\App;
 
 class JobPosterCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation { update as traitUpdate;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation {
+        update as traitUpdate;
     }
 
     /**
@@ -18,7 +21,7 @@ class JobPosterCrudController extends CrudController
      *
      * @return void
      */
-    public function setup() : void
+    public function setup(): void
     {
         $this->crud->setModel('App\Models\JobPoster');
         $this->crud->setRoute('admin/job-poster');
@@ -43,7 +46,7 @@ class JobPosterCrudController extends CrudController
         $this->crud->addButtonFromView('line', 'spb_link', 'spb_link', 'end');
         $this->crud->addButtonFromView('line', 'jpb_link', 'jpb_link', 'end');
         $this->crud->addButtonFromView('line', 'job_poster_link', 'job_poster_link', 'end');
-
+        $this->crud->addButtonFromView('line', 'applicants_download', 'applicants_download', 'end');
 
         $this->crud->addColumn([
             'name' => 'id',
@@ -54,7 +57,7 @@ class JobPosterCrudController extends CrudController
             'name' => 'title',
             'type' => 'text',
             'label' => 'Title',
-            'searchLogic' => function ($query, $column, $searchTerm) use ($locale) : void {
+            'searchLogic' => function ($query, $column, $searchTerm) use ($locale): void {
                 $query->orWhere('title->' . $locale, 'ilike', "%$searchTerm%");
             },
             'orderLogic' => function ($query, $column, $columnDirection) use ($locale) {
@@ -62,21 +65,41 @@ class JobPosterCrudController extends CrudController
             }
         ]);
         $this->crud->addColumn([
-            'name' => 'status',
+            'name' => 'job_poster_status.key',
             'label' => 'Status',
-            'type' => 'model_function',
-            'function_name' => 'status'
+            'type' => 'text',
+            'orderable' => true,
+            'orderLogic' => function ($query, $column, $columnDirection) {
+                return $query->leftJoin('job_poster_status', 'job_poster_status.id', '=', 'job_posters.job_poster_status_id')
+                    ->orderBy('job_poster_status.key', $columnDirection)->select('job_posters.*');
+            }
+        ]);
+        $this->crud->addColumn([
+            'name' => 'isOpen',
+            'label' => 'Open',
+            'type' => 'closure',
+            'orderable' => false,
+            'function' => function ($entry) {
+                return $entry->isOpen() ?
+                    '<span><i class="fa fa-check-circle"></i></span>' :
+                    '<span><i class="fa fa-circle"></i></span>';
+            }
+        ]);
+        $this->crud->addColumn([
+            'name' => 'isClosed',
+            'label' => 'Closed',
+            'type' => 'closure',
+            'orderable' => false,
+            'function' => function ($entry) {
+                return $entry->isClosed() ?
+                    '<span><i class="fa fa-check-circle"></i></span>' :
+                    '<span><i class="fa fa-circle"></i></span>';
+            }
         ]);
 
         $this->crud->addColumn([
             'name' => 'internal_only',
             'label' => 'Internal Only',
-            'type' => 'check',
-        ]);
-
-        $this->crud->addColumn([
-            'name' => 'published',
-            'label' => 'Published',
             'type' => 'check',
         ]);
 
@@ -99,22 +122,41 @@ class JobPosterCrudController extends CrudController
             'label' => 'Applications',
             'type' => 'closure',
             'function' =>
-                function ($entry) {
-                    return $entry->submitted_applications_count() > 0 ?
-                        '<a target="_blank" href="' . route('manager.jobs.applications', $entry->id) . '">' . $entry->submitted_applications_count() . ' (View <i class="fa fa-external-link"></i>)</a>' :
-                        $entry->submitted_applications_count();
-                }
+            function ($entry) {
+                return $entry->submitted_applications_count() > 0 ?
+                    '<a target="_blank" href="' . route('manager.jobs.applications', $entry->id) . '">' . $entry->submitted_applications_count() . ' (View <i class="fa fa-external-link"></i>)</a>' :
+                    $entry->submitted_applications_count();
+            }
         ]);
 
         // Filters.
         $this->crud->addFilter([
             'name' => 'departments',
             'type' => 'select2_multiple',
-            'label' => 'Departments'
+            'label' => 'Filter by department'
         ], function () {
             return Department::all()->pluck('name', 'id')->toArray();
         }, function ($values) {
             $this->crud->addClause('WhereHas', 'department', function ($query) use ($values) {
+                foreach (json_decode($values) as $key => $value) {
+                    if ($key === 0) {
+                        $query->where('id', $value);
+                    } else {
+                        $query->orWhere('id', $value);
+                    }
+                }
+            });
+        });
+
+        $this->crud->addFilter([
+            'name' => 'statuses',
+            'type' => 'select2_multiple',
+            'label' => 'Filter by status'
+        ], function () {
+            // Using key because some of the job status names are the same.
+            return JobPosterStatus::all()->pluck('key', 'id')->toArray();
+        }, function ($values) {
+            $this->crud->addClause('WhereHas', 'job_poster_status', function ($query) use ($values) {
                 foreach (json_decode($values) as $key => $value) {
                     if ($key === 0) {
                         $query->where('id', $value);
@@ -180,7 +222,7 @@ class JobPosterCrudController extends CrudController
         ]);
         $this->crud->addField([
             'name' => 'process_number',
-            'type' => 'number',
+            'type' => 'text',
             'label' => 'Process #',
         ]);
         $this->crud->addField([
@@ -204,15 +246,23 @@ class JobPosterCrudController extends CrudController
             'label' => 'Internal Only (Do not list this poster on the Browse Jobs page. You must access it with the direct URL.)',
         ]);
 
-        if ($this->crud->getCurrentEntry() &&
-            !$this->crud->getCurrentEntry()->published
-        ) {
-            $this->crud->addField([
-                'name' => 'published',
-                'label' => 'Publish',
-                'type' => 'checkbox'
-            ]);
-        }
+        $transitionManager = new JobStatusTransitionManager();
+        $job = $this->crud->getCurrentEntry();
+        $legalDestinations = $transitionManager->legalDestinations($job->job_poster_status->key);
+        $validStatuses = JobPosterStatus::all()->filter(function ($status) use ($job, $legalDestinations) {
+            return in_array($status->key, $legalDestinations) || $status->id === $job->job_poster_status_id;
+        });
+        $statusOptions = $validStatuses->mapWithKeys(function ($status) {
+            return [$status->id => $status->key];
+        });
+        $this->crud->addField([
+            'name' => 'job_poster_status_id',
+            'label' => 'Status',
+            'type' => 'select_from_array',
+            'options' => $statusOptions,
+            'allows_null' => false,
+            'default' => $job->job_poster_status_id,
+        ]);
     }
 
     public function update()

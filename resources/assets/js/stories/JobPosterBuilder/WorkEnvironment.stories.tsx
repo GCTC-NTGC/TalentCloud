@@ -5,7 +5,7 @@ import { action } from "@storybook/addon-actions";
 import { boolean } from "@storybook/addon-knobs";
 import fakeJob from "../../fakeData/fakeJob";
 import { Job } from "../../models/types";
-import WorkEnvForm from "../../components/JobBuilder/WorkEnv/WorkEnvForm";
+import JobWorkEnv from "../../components/JobBuilder/WorkEnv/JobWorkEnv";
 
 const stories = storiesOf(
   "Job Poster Builder|Work Environment",
@@ -24,7 +24,7 @@ stories
   .add(
     "New Job",
     (): React.ReactElement => (
-      <WorkEnvForm
+      <JobWorkEnv
         job={null}
         handleSubmit={handleSubmit}
         handleReturn={action("Save & Return")}
@@ -38,7 +38,7 @@ stories
   .add(
     "Existing Job",
     (): React.ReactElement => (
-      <WorkEnvForm
+      <JobWorkEnv
         job={fakeJob()}
         handleSubmit={handleSubmit}
         handleReturn={action("Save & Return")}

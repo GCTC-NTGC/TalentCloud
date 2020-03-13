@@ -1,15 +1,15 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Selector, Role, ClientFunction } from "testcafe";
 import {
   emptyApplicantUser,
   adminUser,
   assertIsLoggedIn,
+  hrUser,
 } from "./helpers/roles";
 
 const HOMEPAGE = "https://talent.test";
 
-fixture(`Critical - Applicant Profile`)
-  .page(HOMEPAGE)
-  .meta("travis", "run");
+fixture(`Critical - Applicant Profile`).page(HOMEPAGE).meta("travis", "run");
 
 // Skip when writing new tests
 // fixture.skip(`Critical - Applicant Profile`);
@@ -252,9 +252,7 @@ function randomEmail() {
   return email;
 }
 
-fixture(`Critical - Registration`)
-  .page(HOMEPAGE)
-  .meta("travis", "run");
+fixture(`Critical - Registration`).page(HOMEPAGE).meta("travis", "run");
 // Skip when writing new tests
 // fixture.skip(`Critical - Registration`);
 
@@ -293,10 +291,34 @@ test("Registration - Manager", async t => {
   await assertIsLoggedIn(t);
 });
 
+test("Registration - HR Advisor", async t => {
+  await t
+    .useRole(Role.anonymous())
+    .navigateTo("/hr/register")
+    .typeText(Selector("#first_name"), "Test")
+    .typeText(Selector("#last_name"), "Cafe")
+    .typeText(Selector("#email"), randomEmail())
+    .click(Selector("#department"))
+    .click(
+      Selector("#department")
+        .find("option")
+        .withText("Treasury Board of Canada Secretariat"),
+    )
+    .expect(Selector("#gov_email").visible)
+    .ok()
+    .typeText(Selector("#gov_email"), randomEmail())
+    .typeText(Selector("#password"), "Password123!@#")
+    .typeText(Selector("#password-confirm"), "Password123!@#")
+    .click(Selector("button").withText("Register"));
+  await assertIsLoggedIn(t);
+});
+
 // Returns the URL of the current web page
 const getPageUrl = ClientFunction(() => window.location.href);
 
-test("Registration - First Manager Visit", async t => {
+fixture(`Critical - First Visit`).page(HOMEPAGE);
+
+test("First Visit - Manager", async t => {
   await t
     .useRole(Role.anonymous())
     .click(Selector("a").withText("Register"))
@@ -308,19 +330,42 @@ test("Registration - First Manager Visit", async t => {
     .click(Selector("button").withText("Register"));
   await assertIsLoggedIn(t);
   await t
-    .navigateTo("/manager")
+    .navigateTo("/manager/first-visit")
+    .expect(Selector("#department").visible)
+    .ok()
     .click(Selector("#department"))
     .click(
       Selector("#department")
         .find("option")
-        .withText("Treasury Board of Canada Secretariat"),
+        .withText("Not in Government"),
     )
     // Gov email field should be visible after selecting a department
     .expect(Selector("#gov_email").visible)
-    .ok()
-    .typeText(Selector("#gov_email"), randomEmail())
+    .notOk()
     .click(Selector("button").withAttribute("type", "submit"))
     // Should now be on the manager homepage
     .expect(getPageUrl())
     .match(/\/manager$/);
+});
+
+test("First Visit - HR Advisor", async t => {
+  await t
+    .useRole(hrUser)
+    .navigateTo("/hr/first-visit")
+    .wait(200)
+    .expect(Selector("h1").withText("HR Advisor Area").visible)
+    .ok()
+    .click(Selector("#department"))
+    .click(
+      Selector("#department")
+        .find("option")
+        .withText("Global Affairs Canada"),
+    )
+    // Gov email field should be visible after selecting a department
+    .expect(Selector("#gov_email").visible)
+    .ok()
+    .click(Selector("button").withText("Continue"))
+    // Should now be on the HR advisor homepage
+    .expect(Selector("p").withText("You're visiting the HR Portal.").visible)
+    .ok();
 });

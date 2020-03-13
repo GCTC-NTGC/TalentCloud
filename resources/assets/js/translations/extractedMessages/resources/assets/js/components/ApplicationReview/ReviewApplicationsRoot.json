@@ -1,11 +1,11 @@
 [
   {
-    "id": "alert.oops",
+    "id": "review.applications.alert.oops",
     "description": "Dynamic Save button label",
     "defaultMessage": "Save"
   },
   {
-    "id": "apl.reviewSaveFailed",
+    "id": "review.applications.reviewSaveFailed",
     "description": "Dynamic Save button label",
     "defaultMessage": "Something went wrong while saving a review. Try again later."
   }

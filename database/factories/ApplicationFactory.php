@@ -13,7 +13,7 @@ use App\Models\SkillDeclaration;
 $factory->define(JobApplication::class, function (Faker\Generator $faker) {
     return [
         'job_poster_id' => function () {
-            return factory(JobPoster::class)->states('published')->create()->id;
+            return factory(JobPoster::class)->states('live')->create()->id;
         },
         'language_requirement_confirmed' => true,
         'application_status_id' => ApplicationStatus::where('name', 'submitted')->firstOrFail()->id,
@@ -62,6 +62,7 @@ $factory->afterCreating(JobApplication::class, function ($application) : void {
         $application->user_name = $application->applicant->user->full_name;
         $application->user_email = $application->applicant->user->email;
     }
+    $application->save();
     foreach ($application->job_poster->criteria as $criterion) {
         $owner->skill_declarations()->save(factory(SkillDeclaration::class)->create([
             'skill_id' => $criterion->skill_id,

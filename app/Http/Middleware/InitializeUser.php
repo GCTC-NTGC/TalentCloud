@@ -23,10 +23,10 @@ class InitializeUser
     public function handle($request, Closure $next)
     {
         if (Auth::check()) {
-            $user = Auth::user();
+            $user = $request->user();
 
             // If running in a local environment, and FORCE_ADMIN is true,
-            // automatically set any logged in user to (temporarilly) be an admin
+            // automatically set any logged in user to (temporarily) be an admin
             if (App::environment() == 'local' && Config::get('app.force_admin')) {
                 $user->setRole('admin');
                 $user->save();

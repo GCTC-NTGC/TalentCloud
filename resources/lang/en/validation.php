@@ -126,6 +126,7 @@ return [
     'password_correct' => 'Current password isn\'t correct',
     'user_owns_skill_declaration' => ':attribute must specify a Skill Declaration that belongs to the current user.',
     'invalid_id' => ':attribute is not a valid id.',
+    'job_unpublished' => 'Cannot update a job poster that has gone live.',
 
     /*
     |--------------------------------------------------------------------------
@@ -147,13 +148,14 @@ return [
             'accepted' => 'Step 1 must be completed',
         ],
         'application_step_3' => [
-            'accepted' => 'Step 3 must be completed',
-        ],
-        'published' => [
-            'in' => 'You cannot edit a Job Poster that has been published'
+            'accepted' => 'Step 3 must be completed. If Step 3 appears complete, please check the skills page on your profile for duplicate entries. Multiple copies of a skill on your profile can also cause this error. We are working to resolve this issue.',
         ],
         'twitter_handle' => 'This is not a valid twitter handle.',
         'linkedin_url' => 'This is not a valid linkedIn url.',
+        'job_poster_question' => [
+            'required' => 'The Question field must be filled out.',
+            'string' => 'The Question field must be text.'
+        ]
     ],
 
     /*

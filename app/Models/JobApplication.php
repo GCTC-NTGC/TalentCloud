@@ -7,12 +7,12 @@
 
 namespace App\Models;
 
+use App\Events\ApplicationRetrieved;
+use App\Events\ApplicationSaved;
 use App\Models\Applicant;
 use App\Models\ApplicationReview;
-use Illuminate\Notifications\Notifiable;
-use App\Events\ApplicationSaved;
-use App\Events\ApplicationRetrieved;
 use App\Services\Validation\ApplicationValidator;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class JobApplication
@@ -31,6 +31,7 @@ use App\Services\Validation\ApplicationValidator;
  * @property boolean $language_requirement_confirmed
  * @property string $user_name
  * @property string $user_email
+ * @property int $version_id
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -50,6 +51,14 @@ use App\Services\Validation\ApplicationValidator;
  * @property \Illuminate\Database\Eloquent\Collection $references
  * @property \Illuminate\Database\Eloquent\Collection $work_samples
  * @property \Illuminate\Database\Eloquent\Collection $projects
+ * @property \App\Models\JobApplicationVersion $job_application_version
+ *
+ * Version 2 application models.
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_work
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_personal
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_education
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_award
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_community
  */
 class JobApplication extends BaseModel
 {
@@ -72,7 +81,8 @@ class JobApplication extends BaseModel
         'submission_signature' => 'string',
         'submission_date' => 'string',
         'experience_saved' => 'boolean',
-        'language_requirement_confirmed' => 'boolean'
+        'language_requirement_confirmed' => 'boolean',
+        'version_id' => 'int',
     ];
     protected $fillable = [
         'citizenship_declaration_id',
@@ -103,47 +113,47 @@ class JobApplication extends BaseModel
         return $this->belongsTo(\App\Models\Applicant::class);
     }
 
-    public function applicant_snapshot()
+    public function applicant_snapshot() //phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Applicant::class, 'applicant_snapshot_id');
     }
 
-    public function application_status()
+    public function application_status() //phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\ApplicationStatus::class);
     }
 
-    public function citizenship_declaration()
+    public function citizenship_declaration() //phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\CitizenshipDeclaration::class);
     }
 
-    public function veteran_status()
+    public function veteran_status() //phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\VeteranStatus::class);
     }
 
-    public function preferred_language()
+    public function preferred_language() //phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\PreferredLanguage::class);
     }
 
-    public function job_poster()
+    public function job_poster() //phpcs:ignore
     {
         return $this->belongsTo(\App\Models\JobPoster::class);
     }
 
-    public function job_application_answers()
+    public function job_application_answers() //phpcs:ignore
     {
         return $this->hasMany(\App\Models\JobApplicationAnswer::class);
     }
 
-    public function skill_declarations()
+    public function skill_declarations() //phpcs:ignore
     {
         return $this->morphMany(\App\Models\SkillDeclaration::class, 'skillable');
     }
 
-    public function application_review()
+    public function application_review() //phpcs:ignore
     {
         return $this->hasOne(ApplicationReview::class);
     }
@@ -158,7 +168,7 @@ class JobApplication extends BaseModel
         return $this->morphMany(\App\Models\Course::class, 'courseable')->orderBy('end_date', 'desc');
     }
 
-    public function work_experiences()
+    public function work_experiences() //phpcs:ignore
     {
         return $this->morphMany(\App\Models\WorkExperience::class, 'experienceable')->orderBy('end_date', 'desc');
     }
@@ -173,9 +183,44 @@ class JobApplication extends BaseModel
         return $this->morphMany(\App\Models\Project::class, 'projectable');
     }
 
-    public function work_samples()
+    public function work_samples() //phpcs:ignore
     {
         return $this->morphMany(\App\Models\WorkSample::class, 'work_sampleable');
+    }
+
+    public function job_application_version() //phpcs:ignore
+    {
+        return $this->hasOne(\App\Models\JobApplicationVersion::class);
+    }
+
+    // Version 2 application models.
+    public function experiences_work() //phpcs:ignore
+    {
+        return $this->morphMany(\App\Models\ExperienceWork::class, 'experienceable')
+            ->orderBy('end_date', 'desc');
+    }
+
+    public function experiences_personal() //phpcs:ignore
+    {
+        return $this->morphMany(\App\Models\ExperiencePersonal::class, 'experienceable')
+            ->orderBy('end_date', 'desc');
+    }
+
+    public function experiences_education() //phpcs:ignore
+    {
+        return $this->morphMany(\App\Models\ExperienceEducation::class, 'experienceable')
+            ->orderBy('end_date', 'desc');
+    }
+
+    public function experiences_award() //phpcs:ignore
+    {
+        return $this->morphMany(\App\Models\ExperienceAward::class, 'experienceable');
+    }
+
+    public function experiences_community() //phpcs:ignore
+    {
+        return $this->morphMany(\App\Models\ExperienceCommunity::class, 'experienceable')
+            ->orderBy('end_date', 'desc');
     }
 
     /**
@@ -280,7 +325,7 @@ class JobApplication extends BaseModel
 
     /**
      * Accessor for meetsEssentialCriteria function, which
-     * allows this value to be automtacially appended to array/json representation.
+     * allows this value to be automatically appended to array/json representation.
      *
      * @return boolean
      */

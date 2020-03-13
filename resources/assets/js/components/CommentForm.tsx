@@ -83,7 +83,7 @@ interface CommentFormValues {
   commentLocation?: string | "";
 }
 
-const CommentForm: React.FunctionComponent<CommentFormProps> = ({
+export const CommentForm: React.FunctionComponent<CommentFormProps> = ({
   isHrAdvisor,
   handleCreateComment,
   jobId,
@@ -204,7 +204,9 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
             )}
             <div
               data-c-grid-item={
-                locationOptions && isHrAdvisor ? "tl(1of1)" : "tl(1of3)"
+                (locationOptions && isHrAdvisor) || !isHrAdvisor
+                  ? "tl(1of1)"
+                  : "tl(1of3)"
               }
               data-c-align="base(center) tl(right)"
             >

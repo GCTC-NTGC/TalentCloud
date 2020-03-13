@@ -10,6 +10,8 @@ import {
   Skill,
   Manager,
   Department,
+  User,
+  Comment,
 } from "../../models/types";
 import { hrJobSummary } from "../../helpers/routes";
 import { RootState } from "../../store/store";
@@ -31,8 +33,13 @@ import { fetchManager } from "../../store/Manager/managerActions";
 import { JobReviewDisplay } from "../JobBuilder/Review/JobReview";
 import { fetchSkills } from "../../store/Skill/skillActions";
 import Icon from "../Icon";
-import JobReviewActivityFeed from "../JobBuilder/Review/JobReviewActivityFeed";
+import ActivityFeed from "../ActivityFeed";
+import { jobReviewLocations } from "../../models/localizedConstants";
+import { LocationId } from "../../models/lookupConstants";
 import { localizeField } from "../../helpers/localize";
+import { getUserById } from "../../store/User/userSelector";
+import { fetchUser } from "../../store/User/userActions";
+import { hasKey } from "../../helpers/queries";
 
 interface JobReviewHrPageProps {
   jobId: number;
@@ -42,6 +49,7 @@ interface JobReviewHrPageProps {
   criteria: Criteria[];
   departments: Department[];
   manager: Manager | null;
+  user: User | null;
 }
 
 const messages = defineMessages({
@@ -60,6 +68,7 @@ const JobReviewHrPage: React.FunctionComponent<JobReviewHrPageProps> = ({
   criteria,
   departments,
   manager,
+  user,
 }): React.ReactElement => {
   const intl = useIntl();
   const { locale } = intl;
@@ -73,26 +82,37 @@ const JobReviewHrPage: React.FunctionComponent<JobReviewHrPageProps> = ({
           <h3
             data-c-font-size="h3"
             data-c-font-weight="bold"
-            data-c-margin="bottom(double)"
+            data-c-margin="bottom(normal)"
           >
             <FormattedMessage
               id="jobReviewHr.reviewYourPoster"
               defaultMessage="Review Your Job Poster for:"
               description="Title for Review Job Poster section."
             />{" "}
-            <span data-c-colour="c2">{localizeField(locale, job, "title")}</span>
+            <span data-c-colour="c2">
+              {localizeField(locale, job, "title")}
+            </span>
           </h3>
-          <p>
+          <p data-c-margin="bottom(double)">
             <FormattedMessage
               id="jobReviewHr.headsUp"
               defaultMessage="Just a heads up! We've rearranged some of your information to help you understand how an applicant will see it once published."
               description="Description under primary title of review section"
             />
           </p>
-          <JobReviewActivityFeed jobId={job.id} isHrAdvisor />
+          <ActivityFeed
+            jobId={job.id}
+            isHrAdvisor
+            generalLocation={LocationId.jobGeneric}
+            locationMessages={jobReviewLocations}
+            filterComments={(comment: Comment): boolean =>
+              hasKey(jobReviewLocations, comment.location)
+            }
+          />
           <JobReviewDisplay
             job={job}
             manager={manager}
+            user={user}
             tasks={keyTasks}
             criteria={criteria}
             skills={skills}
@@ -179,11 +199,24 @@ const JobReviewHrDataFetcher: React.FC<{ jobId: number }> = ({ jobId }) => {
     managerId ? getManagerById(state, { managerId }) : null,
   );
 
+  // Load user after manager has loaded
+  // eslint-disable-next-line camelcase
+  const userId = manager?.user_id;
+  useEffect(() => {
+    if (userId) {
+      dispatch(fetchUser(userId));
+    }
+  }, [dispatch, userId]);
+  const user = useSelector((state: RootState) =>
+    userId ? getUserById(state, { userId }) : null,
+  );
+
   return (
     <JobReviewHrPage
       jobId={jobId}
       job={job}
       manager={manager}
+      user={user}
       keyTasks={tasks}
       criteria={criteria}
       skills={skills}

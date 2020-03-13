@@ -15,11 +15,15 @@ class ClaimJobApiControllerTest extends TestCase
     public function testClaimAndUnclaim(): void
     {
         // Factories.
-        $hrAdvisor = factory(HrAdvisor::class)->create([
+        $user = factory(User::class)->create([
             'department_id' => 1,
+            'user_role_id' => 4
+        ]);
+        $hrAdvisor = factory(HrAdvisor::class)->create([
+            'user_id' => $user->id
         ]);
         $job = factory(JobPoster::class)->states(['review_requested'])->create([
-            'department_id' => 1,
+            'department_id' => 1
         ]);
 
         // Claim job poster.
@@ -43,11 +47,15 @@ class ClaimJobApiControllerTest extends TestCase
 
     public function testClaimUnclaimForAdvisor(): void
     {
-        $hrAdvisor = factory(HrAdvisor::class)->create([
+        $user = factory(User::class)->create([
             'department_id' => 1,
+            'user_role_id' => 4
+        ]);
+        $hrAdvisor = factory(HrAdvisor::class)->create([
+            'user_id' => $user->id
         ]);
         $job = factory(JobPoster::class)->states(['review_requested'])->create([
-            'department_id' => 1,
+            'department_id' => 1
         ]);
 
         // Claim job poster.
@@ -71,11 +79,15 @@ class ClaimJobApiControllerTest extends TestCase
 
     public function testAdvisorInWrongDeptCannotClaim(): void
     {
-        $hrAdvisor = factory(HrAdvisor::class)->create([
+        $user = factory(User::class)->create([
             'department_id' => 1,
+            'user_role_id' => 4
+        ]);
+        $hrAdvisor = factory(HrAdvisor::class)->create([
+            'user_id' => $user->id
         ]);
         $job = factory(JobPoster::class)->states(['review_requested'])->create([
-            'department_id' => 2,
+            'department_id' => 2
         ]);
 
         // Claim job poster.
@@ -92,19 +104,22 @@ class ClaimJobApiControllerTest extends TestCase
 
     public function testClaimUnclaimForAdvisorFailsForOtherUsers(): void
     {
-        $hrAdvisor = factory(HrAdvisor::class)->create([
+        $user = factory(User::class)->create([
             'department_id' => 1,
+            'user_role_id' => 4
+        ]);
+        $hrAdvisor = factory(HrAdvisor::class)->create([
+            'user_id' => $user->id
         ]);
         $job = factory(JobPoster::class)->states(['review_requested'])->create([
             'department_id' => 1,
         ]);
-        $otherUser = factory(HrAdvisor::class)->create([
-            'department_id' => 1,
-        ])->user;
+
+        $otherUser = factory(HrAdvisor::class)->create();
 
         // Claim job poster, logged in as different user.
         $response = $this->followingRedirects()
-            ->actingAs($otherUser)
+            ->actingAs($otherUser->user)
             ->json('put', "api/hr-advisors/$hrAdvisor->id/claims/$job->id");
         $response->assertStatus(403);
 
@@ -116,7 +131,7 @@ class ClaimJobApiControllerTest extends TestCase
 
         // Unclaim job poster, logged in as different user.
         $response = $this->followingRedirects()
-            ->actingAs($otherUser)
+            ->actingAs($otherUser->user)
             ->json('delete', "api/hr-advisors/$hrAdvisor->id/claims/$job->id");
         $response->assertStatus(403);
     }

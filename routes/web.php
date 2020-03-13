@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Lang;
  */
 
 /* ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP */
+
 Route::group(
     [
         'prefix' => LaravelLocalization::setLocale(),
@@ -72,6 +73,8 @@ Route::group(
             Route::view('application-10', 'applicant/application/10-congrats')->middleware('localOnly')->name('app10');
 
             /* Profile (Experience) */
+            /* Temp Resources */
+            Route::view('resources', 'common/resources')->middleware('localOnly')->name('resources');
 
         });
 
@@ -346,6 +349,12 @@ Route::group(
                             ->middleware('can:view,jobPoster')
                             ->name('manager.jobs.show');
 
+                        /* View Job Summary */
+                        Route::get('jobs/{job}/summary', 'JobSummaryController@show')
+                            ->middleware('can:manage,job')
+                            ->name('manager.jobs.summary')
+                            ->where('jobPoster', '[0-9]+');
+
                         /* Job Builder */
                         Route::get(
                             'jobs/builder',
@@ -396,11 +405,27 @@ Route::group(
                             ->where('jobPoster', '[0-9]+')
                             ->name('manager.jobs.review');
 
+                        /* Job Preview */
+                        Route::get(
+                            'jobs/{job}',
+                            'JobController@show'
+                        )
+                            ->middleware('can:view,job')
+                            ->where('jobPoster', '[0-9]+')
+                            ->name('manager.jobs.preview');
+
                         /* Delete Job */
                         Route::delete('jobs/{jobPoster}', 'JobController@destroy')
                             ->where('jobPoster', '[0-9]+')
                             ->middleware('can:delete,jobPoster')
                             ->name('manager.jobs.destroy');
+                        Route::post(
+                            'jobs/{jobPoster}/status/{status}',
+                            'JobStatusController@setJobStatus'
+                        )
+                            ->middleware('can:manage,jobPoster')
+                            ->where('jobPoster', '[0-9]+')
+                            ->name('manager.jobs.setJobStatus');
 
                         /* Screening Plan Builder */
                         Route::get(
@@ -439,6 +464,10 @@ Route::group(
                             ->middleware('can:view,user')
                             ->middleware('can:update,user')
                             ->name('manager.settings.government.update');
+
+                        Route::get('resources', 'ResourcesController@show')
+                            ->middleware('can:view-resources')
+                            ->name('manager.resources');
 
                         /* Two-factor Authentication */
                         Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('manager.two_factor.activate');
@@ -629,10 +658,18 @@ Route::group(
                             ->where('jobPoster', '[0-9]+')
                             ->name('hr_advisor.jobs.preview');
 
+                        Route::post(
+                            'jobs/{jobPoster}/status/{status}',
+                            'JobStatusController@setJobStatus'
+                        )
+                            ->middleware('can:manage,jobPoster')
+                            ->where('jobPoster', '[0-9]+')
+                            ->name('hr_advisor.jobs.setJobStatus');
+
                         /* Account Settings */
                         Route::get('settings', 'SettingsController@editAuthenticated')
-                        // Permissions are checked in Controller.
-                        ->name('hr_advisor.settings.edit');
+                            // Permissions are checked in Controller.
+                            ->name('hr_advisor.settings.edit');
 
                         Route::post(
                             'settings/{user}/personal/update',
@@ -657,6 +694,10 @@ Route::group(
                             ->middleware('can:view,user')
                             ->middleware('can:update,user')
                             ->name('hr_advisor.settings.government.update');
+
+                        Route::get('resources', 'ResourcesController@show')
+                            ->middleware('can:view-resources')
+                            ->name('hr_advisor.resources');
 
                         /* Two-factor Authentication */
                         Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('hr_advisor.two_factor.activate');
@@ -715,6 +756,10 @@ Route::group(
 
                 Route::post('two-factor/generate-recovery-codes', 'Auth\RecoveryCodeController@generate')->name('admin.recovery_codes.generate');
                 Route::get('two-factor/recovery-codes', 'Auth\RecoveryCodeController@show')->name('admin.recovery_codes.show');
+
+                Route::get('{jobPoster}/download-applicants', 'JobController@downloadApplicants')
+                    ->middleware('can:downloadApplicants,jobPoster')
+                    ->name('admin.jobs.download.applicants');
             }
         );
     }
@@ -735,6 +780,7 @@ Route::group(['prefix' => 'api'], function (): void {
     // Public, not protected by policy or gate.
     Route::get('skills', 'Api\SkillController@index');
     Route::get('departments', 'Api\DepartmentController@index');
+    Route::get('job-poster-statuses', 'Api\JobStatusController@index');
 
     // Resource Routes are protected by policies in controllers instead of middleware.
     Route::resource('assessments', 'AssessmentController')->except([
@@ -766,11 +812,13 @@ Route::group(['prefix' => 'api'], function (): void {
         ->where('jobPoster', '[0-9]+')
         ->middleware('can:update,jobPoster');
 
-
-    Route::post('jobs/{job}/submit', 'Api\JobController@submitForReview')
-        ->where('job', '[0-9]+')
-        ->middleware('can:submitForReview,job')
-        ->name('api.jobs.submit');
+    Route::put(
+        'jobs/{jobPoster}/status/{status}',
+        'JobStatusController@setJobStatus'
+    )
+        ->middleware('can:manage,jobPoster')
+        ->where('jobPoster', '[0-9]+')
+        ->name('api.jobs.setJobStatus');
     Route::resource('jobs', 'Api\JobController')->only([
         'show', 'store', 'update', 'index'
     ])->names([ // Specify custom names because default names collied with existing routes.

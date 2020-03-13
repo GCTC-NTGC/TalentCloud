@@ -11,7 +11,6 @@ export const fakeManager = (
   full_name: "Gray O'Byrne",
   first_name: "Gray",
   last_name: "O'Byrne",
-  department_id: 1,
   twitter_username: null,
   linkedin_url: null,
   is_demo_manager,

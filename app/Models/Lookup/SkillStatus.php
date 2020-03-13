@@ -30,7 +30,7 @@ class SkillStatus extends BaseModel
      */
     protected $appends = ['status'];
 
-    public function skill_declarations()
+    public function skill_declarations() //phpcs:ignore
     {
         return $this->hasMany(\App\Models\SkillDeclaration::class);
     }

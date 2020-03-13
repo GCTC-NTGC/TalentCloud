@@ -7,6 +7,7 @@ use App\Http\Requests\BatchUpdateJobTask;
 use App\Models\JobPoster;
 use App\Models\JobPosterKeyTask;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Log;
 
 class JobPosterKeyTaskController extends Controller
 {
@@ -18,7 +19,7 @@ class JobPosterKeyTaskController extends Controller
      */
     public function indexByJob(JobPoster $jobPoster)
     {
-        $tasksByJob = JobPosterKeyTask::where('job_poster_id', $jobPoster->id)->get();
+        $tasksByJob = JobPosterKeyTask::where('job_poster_id', $jobPoster->id)->orderBy('order', 'asc')->get();
         return JsonResource::collection($tasksByJob);
     }
 
@@ -31,7 +32,15 @@ class JobPosterKeyTaskController extends Controller
      */
     public function batchUpdate(BatchUpdateJobTask $request, JobPoster $jobPoster)
     {
-        $newTasks = collect($request->validated()); // Collection of JobPosterKeyTasks.
+        $order = 1;
+        // Collection of JobPosterKeyTasks. Update the
+        // order here so the frontend doesn't have to worry about it.
+        $newTasks = $request->validated();
+        foreach ($newTasks as &$singleTask) {
+            $singleTask['order'] = $order;
+            $order++;
+        }
+        $newTasks = collect($newTasks);
         $oldTasks = $jobPoster->job_poster_key_tasks;
 
         $savedNewTaskIds = [];
@@ -41,7 +50,7 @@ class JobPosterKeyTaskController extends Controller
             $newTask = $newTasks->firstWhere('id', $task['id']);
             if ($newTask) {
                 $savedNewTaskIds[] = $newTask['id'];
-                $task->fill(collect($newTask)->toArray());
+                $task->fill($newTask);
                 $task->save();
             } else {
                 $task->delete();
@@ -53,7 +62,7 @@ class JobPosterKeyTaskController extends Controller
             if ($this->isUnsaved($task, $savedNewTaskIds)) {
                 $jobPosterTask = new JobPosterKeyTask();
                 $jobPosterTask->job_poster_id = $jobPoster->id;
-                $jobPosterTask->fill(collect($task)->toArray());
+                $jobPosterTask->fill($task);
                 $jobPosterTask->save();
             }
         }

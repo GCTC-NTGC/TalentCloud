@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 class Handler extends ExceptionHandler
@@ -103,6 +104,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, \Exception $exception)
     {
+        // Redirect upper case URLs to lower case route.
+        $url = $request->url();
+        $loweredCaseUrl = strtolower($url);
+        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException && $url !== $loweredCaseUrl) {
+            return redirect($loweredCaseUrl);
+        }
+
         // Laravel will render out the error page by default even for JSON
         // requests... this will return a standardized JSON response with a 403
         // if unauthorized.
@@ -119,6 +127,9 @@ class Handler extends ExceptionHandler
             $newMessage = $exception->getMessage() . ' ' . Lang::get('errors.refresh_page');
             $modifiedException = new TokenMismatchException($newMessage, $exception->getCode(), $exception);
             return parent::render($request, $modifiedException);
+        }
+        if ($exception instanceof StateMachineException) {
+            return parent::render($request, new HttpException(400, $exception->getMessage()));
         }
         return parent::render($request, $exception);
     }
