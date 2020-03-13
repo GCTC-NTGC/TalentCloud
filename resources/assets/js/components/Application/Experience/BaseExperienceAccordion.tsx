@@ -1,11 +1,43 @@
 import React, { ReactElement, useState } from "react";
 import { FormattedMessage } from "react-intl";
+import { Locales } from "../../../helpers/localize";
+import { readableDate } from "../../../helpers/dates";
 
 export interface ExperienceSkill {
   id: number;
   name: string;
   claim: string;
 }
+
+export const titleBarDateRange = (
+  startDate: Date,
+  endDate: Date | null,
+  isActive: boolean,
+  locale: Locales
+) => (
+  <p data-c-margin="top(quarter)" data-c-colour="c1" data-c-font-size="small">
+    {isActive || endDate === null ? (
+      <FormattedMessage
+        id="experiencePersonalAccordion.startDateToCurrent"
+        defaultMessage="{startDate} - Current"
+        description="Shows the date range for the title bar (assuming activity is ongoing)."
+        values={{
+          startDate: readableDate(locale, startDate),
+        }}
+      />
+    ) : (
+      <FormattedMessage
+        id="experiencePersonalAccordion.startDateToEndDate"
+        defaultMessage="{startDate} - {endDate}"
+        description="Shows the date range for the title bar (assuming activity has an end date)."
+        values={{
+          startDate: readableDate(locale, startDate),
+          endDate: readableDate(locale, endDate),
+        }}
+      />
+    )}
+  </p>
+);
 
 interface BaseExperienceAccordionProps {
   iconClass: string;

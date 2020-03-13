@@ -3,6 +3,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 import {
   ExperienceSkill,
   BaseExperienceAccordion,
+  titleBarDateRange,
 } from "./BaseExperienceAccordion";
 import { Locales, getLocale } from "../../../helpers/localize";
 import { readableDate } from "../../../helpers/dates";
@@ -155,9 +156,12 @@ export const ExperienceWorkAccordion: React.FC<ExperienceWorkAccordionProps> = (
   const intl = useIntl();
   const locale = getLocale(intl.locale);
   const accordionTitle = (
-    <p>
-      <span data-c-font-weight="bold">{title}</span> - {organization}
-    </p>
+    <>
+      <p>
+        <span data-c-font-weight="bold">{title}</span> - {organization}
+      </p>
+      {titleBarDateRange(startDate, endDate, isActive, locale)}
+    </>
   );
   return (
     <BaseExperienceAccordion

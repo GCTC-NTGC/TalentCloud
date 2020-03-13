@@ -3,6 +3,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 import {
   ExperienceSkill,
   BaseExperienceAccordion,
+  titleBarDateRange,
 } from "./BaseExperienceAccordion";
 import { Locales, getLocale } from "../../../helpers/localize";
 import { readableDate } from "../../../helpers/dates";
@@ -169,19 +170,22 @@ export const ExperienceEducationAccordion: React.FC<ExperienceEducationAccordion
   const intl = useIntl();
   const locale = getLocale(intl.locale);
   const accordionTitle = (
-    <p>
-      <FormattedMessage
-        id="experienceEducationAccordion.title"
-        defaultMessage="<b>{educationType} in {areaOfStudy}</b> - {institution}"
-        description="Title of education accordion (this is the visible text when accordion is closed)."
-        values={{
-          educationType,
-          areaOfStudy,
-          institution,
-          b: value => <span data-c-font-weight="bold">{value}</span>,
-        }}
-      />
-    </p>
+    <>
+      <p>
+        <FormattedMessage
+          id="experienceEducationAccordion.title"
+          defaultMessage="<b>{educationType} in {areaOfStudy}</b> - {institution}"
+          description="Title of education accordion (this is the visible text when accordion is closed)."
+          values={{
+            educationType,
+            areaOfStudy,
+            institution,
+            b: value => <span data-c-font-weight="bold">{value}</span>,
+          }}
+        />
+      </p>
+      {titleBarDateRange(startDate, endDate, isActive, locale)}
+    </>
   );
   return (
     <BaseExperienceAccordion

@@ -3,6 +3,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 import {
   ExperienceSkill,
   BaseExperienceAccordion,
+  titleBarDateRange,
 } from "./BaseExperienceAccordion";
 import { Locales, getLocale } from "../../../helpers/localize";
 import { readableDate } from "../../../helpers/dates";
@@ -183,32 +184,7 @@ export const ExperiencePersonalAccordion: React.FC<ExperiencePersonalAccordionPr
       <p>
         <span data-c-font-weight="bold">{title}</span>
       </p>
-      <p
-        data-c-margin="top(quarter)"
-        data-c-colour="c1"
-        data-c-font-size="small"
-      >
-        {isActive || endDate === null ? (
-          <FormattedMessage
-            id="experiencePersonalAccordion.startDateToCurrent"
-            defaultMessage="{startDate} - Current"
-            description="Shows the date range for the title bar (assuming activity is ongoing)."
-            values={{
-              startDate: readableDate(locale, startDate),
-            }}
-          />
-        ) : (
-          <FormattedMessage
-            id="experiencePersonalAccordion.startDateToEndDate"
-            defaultMessage="{startDate} - {endDate}"
-            description="Shows the date range for the title bar (assuming activity has an end date)."
-            values={{
-              startDate: readableDate(locale, startDate),
-              endDate: readableDate(locale, endDate),
-            }}
-          />
-        )}
-      </p>
+      {titleBarDateRange(startDate, endDate, isActive, locale)}
     </>
   );
   return (
