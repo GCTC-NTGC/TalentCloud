@@ -234,9 +234,10 @@ class ApplicationReviewWithNav extends React.Component<
                 type="button"
                 onClick={() => this.handleLinkClicked(jobApplicationsUrl)}
               >
+                {`< `}
                 <FormattedMessage
                   id="application.review.backToApplicantList"
-                  defaultMessage="< Save and Go Back to Applicant List"
+                  defaultMessage="Save and Go Back to Applicant List"
                   description="Back Button text"
                 />
               </button>

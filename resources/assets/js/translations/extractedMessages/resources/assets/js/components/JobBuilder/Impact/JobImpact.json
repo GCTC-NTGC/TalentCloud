@@ -98,6 +98,11 @@
     "defaultMessage": "Here's a preview of the Impact Statement you just entered. Feel free to go back and edit things or move to the next step if you're happy with it."
   },
   {
+    "id": "jobBuilder.impactPreview.title",
+    "description": "Heading for Impact preview on modal dialog.",
+    "defaultMessage": "Impact"
+  },
+  {
     "id": "jobBuilder.impact.button.goBack",
     "description": "Label for Go Back button on Impact review modal.",
     "defaultMessage": "Go Back"

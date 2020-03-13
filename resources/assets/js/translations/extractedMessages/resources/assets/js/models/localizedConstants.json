@@ -504,30 +504,6 @@
     "defaultMessage": "AD - Administrative Services"
   },
   {
-    "id": "jobStatus.draft",
-    "defaultMessage": "Draft"
-  },
-  {
-    "id": "jobStatus.review",
-    "defaultMessage": "In Review"
-  },
-  {
-    "id": "jobStatus.approved",
-    "defaultMessage": "Approved"
-  },
-  {
-    "id": "jobStatus.open",
-    "defaultMessage": "Open"
-  },
-  {
-    "id": "jobStatus.closed",
-    "defaultMessage": "Closed"
-  },
-  {
-    "id": "jobStatus.complete",
-    "defaultMessage": "Complete"
-  },
-  {
     "id": "activityfeed.locations.review",
     "description": "Location where the activity is located.",
     "defaultMessage": "Job Poster Builder"
@@ -586,26 +562,6 @@
     "id": "activityfeed.locations.review.skills",
     "description": "Location of the activity.",
     "defaultMessage": "Skills"
-  },
-  {
-    "id": "jobStatus.review",
-    "defaultMessage": "In Review"
-  },
-  {
-    "id": "jobStatus.finalReview",
-    "defaultMessage": "Final Review"
-  },
-  {
-    "id": "jobStatus.draft",
-    "defaultMessage": "Draft"
-  },
-  {
-    "id": "jobStatus.translation",
-    "defaultMessage": "In Translation"
-  },
-  {
-    "id": "jobStatus.published",
-    "defaultMessage": "Published"
   },
   {
     "id": "activityfeed.locations.review.langRequirements",
