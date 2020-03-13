@@ -1,8 +1,9 @@
 import React from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage, useIntl, IntlShape } from "react-intl";
 import {
   ExperienceSkill,
   BaseExperienceAccordion,
+  baseExperienceMessages,
 } from "./BaseExperienceAccordion";
 import { Locales, getLocale } from "../../../helpers/localize";
 import { readableDate } from "../../../helpers/dates";
@@ -27,6 +28,7 @@ interface ExperienceAwardAccordionProps {
 
 const experienceAwardDetails = ({
   locale,
+  intl,
   title,
   recipient,
   issuer,
@@ -35,6 +37,7 @@ const experienceAwardDetails = ({
   awardLink,
 }: {
   locale: Locales;
+  intl: IntlShape;
   title: string;
   recipient: string;
   issuer: string;
@@ -44,20 +47,14 @@ const experienceAwardDetails = ({
 }): React.ReactElement => {
   const notApplicable = (
     <p data-c-color="gray">
-      <FormattedMessage
-        id="experienceAwardAccordion.notApplicable"
-        defaultMessage="N/A"
-      />
+      {intl.formatMessage(baseExperienceMessages.notApplicable)}
     </p>
   );
   return (
     <>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experienceAwardAccordion.experienceTypeLabel"
-            defaultMessage="Type of Experience:"
-          />
+          {intl.formatMessage(baseExperienceMessages.experienceTypeLabel)}
         </p>
         <p>
           <i
@@ -198,6 +195,7 @@ export const ExperienceAwardAccordion: React.FC<ExperienceAwardAccordionProps> =
       isEducationJustification={isEducationJustification}
       details={experienceAwardDetails({
         locale,
+        intl,
         title,
         recipient,
         issuer,

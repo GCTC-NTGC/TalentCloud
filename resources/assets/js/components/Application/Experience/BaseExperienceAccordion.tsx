@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, defineMessages } from "react-intl";
 import { Locales } from "../../../helpers/localize";
 import { readableDate } from "../../../helpers/dates";
 
@@ -13,7 +13,7 @@ export const titleBarDateRange = (
   startDate: Date,
   endDate: Date | null,
   isActive: boolean,
-  locale: Locales
+  locale: Locales,
 ) => (
   <p data-c-margin="top(quarter)" data-c-colour="c1" data-c-font-size="small">
     {isActive || endDate === null ? (
@@ -38,6 +38,32 @@ export const titleBarDateRange = (
     )}
   </p>
 );
+
+
+
+export const baseExperienceMessages = defineMessages({
+  notApplicable: {
+    id: "baseExperienceAccordion.notApplicable",
+    defaultMessage: "N/A",
+    description: "Used for any un-set fields in experience accordions."
+  },
+  experienceTypeLabel: {
+    id: "baseExperienceAccordion.experienceTypeLabel",
+    defaultMessage: "Type of Experience:",
+  },
+  startDateLabel: {
+    id: "baseExperienceAccordion.startDateLabel",
+    defaultMessage: "Start Date:"
+  },
+  endDateLabel: {
+    id: "baseExperienceAccordion.endDateLabel",
+    defaultMessage: "End Date:"
+  },
+  ongoing: {
+    id: "baseExperienceAccordion.ongoing",
+    defaultMessage: "Ongoing"
+  }
+});
 
 interface BaseExperienceAccordionProps {
   iconClass: string;

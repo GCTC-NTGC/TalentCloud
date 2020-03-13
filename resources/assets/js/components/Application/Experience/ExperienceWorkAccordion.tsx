@@ -1,9 +1,10 @@
 import React from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage, useIntl, IntlShape } from "react-intl";
 import {
   ExperienceSkill,
   BaseExperienceAccordion,
   titleBarDateRange,
+  baseExperienceMessages,
 } from "./BaseExperienceAccordion";
 import { Locales, getLocale } from "../../../helpers/localize";
 import { readableDate } from "../../../helpers/dates";
@@ -27,6 +28,7 @@ interface ExperienceWorkAccordionProps {
 
 const experienceWorkDetails = ({
   locale,
+  intl,
   title,
   organization,
   group,
@@ -35,6 +37,7 @@ const experienceWorkDetails = ({
   isActive,
 }: {
   locale: Locales;
+  intl: IntlShape;
   title: string;
   organization: string;
   group: string;
@@ -43,19 +46,15 @@ const experienceWorkDetails = ({
   isActive: boolean;
 }): React.ReactElement => {
   const notApplicable = (
-    <FormattedMessage
-      id="experienceWorkAccordion.notApplicable"
-      defaultMessage="N/A"
-    />
+    <p data-c-color="gray">
+      {intl.formatMessage(baseExperienceMessages.notApplicable)}
+    </p>
   );
   return (
     <>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experienceWorkAccordion.experienceTypeLabel"
-            defaultMessage="Type of Experience:"
-          />
+          {intl.formatMessage(baseExperienceMessages.experienceTypeLabel)}
         </p>
         <p>
           <i
@@ -76,7 +75,7 @@ const experienceWorkDetails = ({
             defaultMessage="Role / Job Title:"
           />
         </p>
-        {title ? <p>{title}</p> : <p data-c-color="gray">{notApplicable}</p>}
+        {title ? <p>{title}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
@@ -85,11 +84,7 @@ const experienceWorkDetails = ({
             defaultMessage="Organization / Company:"
           />
         </p>
-        {organization ? (
-          <p>{organization}</p>
-        ) : (
-          <p data-c-color="gray">{notApplicable}</p>
-        )}
+        {organization ? <p>{organization}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
@@ -98,40 +93,25 @@ const experienceWorkDetails = ({
             defaultMessage="Team / Group:"
           />
         </p>
-        {group ? <p>{group}</p> : <p data-c-color="gray">{notApplicable}</p>}
+        {group ? <p>{group}</p> : notApplicable}
+      </div>
+      <div data-c-grid-item="base(1of2) tl(1of3)">
+        <p data-c-font-weight="bold">{intl.formatMessage(baseExperienceMessages.startDateLabel)}</p>
+        {startDate ? <p>{readableDate(locale, startDate)}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experienceWorkAccordion.startDateLabel"
-            defaultMessage="Start Date:"
-          />
-        </p>
-        {startDate ? (
-          <p>{readableDate(locale, startDate)}</p>
-        ) : (
-          <p data-c-color="gray">{notApplicable}</p>
-        )}
-      </div>
-      <div data-c-grid-item="base(1of2) tl(1of3)">
-        <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experienceWorkAccordion.endDateLabel"
-            defaultMessage="End Date:"
-          />
+          {intl.formatMessage(baseExperienceMessages.endDateLabel)}
         </p>
         {isActive && (
           <p>
-            <FormattedMessage
-              id="experienceWorkAccodrion.ongoing"
-              defaultMessage="Ongoing"
-            />
+            {intl.formatMessage(baseExperienceMessages.ongoing)}
           </p>
         )}
         {!isActive && endDate ? (
           <p>{readableDate(locale, endDate)}</p>
         ) : (
-          <p data-c-color="gray">{notApplicable}</p>
+          notApplicable
         )}
       </div>
     </>
@@ -172,6 +152,7 @@ export const ExperienceWorkAccordion: React.FC<ExperienceWorkAccordionProps> = (
       isEducationJustification={isEducationJustification}
       details={experienceWorkDetails({
         locale,
+        intl,
         title,
         organization,
         group,

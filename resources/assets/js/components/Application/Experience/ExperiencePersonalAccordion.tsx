@@ -1,9 +1,10 @@
 import React from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage, useIntl, IntlShape } from "react-intl";
 import {
   ExperienceSkill,
   BaseExperienceAccordion,
   titleBarDateRange,
+  baseExperienceMessages,
 } from "./BaseExperienceAccordion";
 import { Locales, getLocale } from "../../../helpers/localize";
 import { readableDate } from "../../../helpers/dates";
@@ -28,6 +29,7 @@ interface ExperiencePersonalAccordionProps {
 
 const experiencePersonalDetails = ({
   locale,
+  intl,
   title,
   description,
   isShareable,
@@ -36,6 +38,7 @@ const experiencePersonalDetails = ({
   isActive,
 }: {
   locale: Locales;
+  intl: IntlShape;
   title: string;
   description: string;
   isShareable: boolean;
@@ -45,10 +48,7 @@ const experiencePersonalDetails = ({
 }): React.ReactElement => {
   const notApplicable = (
     <p data-c-color="gray">
-      <FormattedMessage
-        id="experiencePersonalAccordion.notApplicable"
-        defaultMessage="N/A"
-      />
+      {intl.formatMessage(baseExperienceMessages.notApplicable)}
     </p>
   );
   const endDateOrNa = endDate ? (
@@ -60,10 +60,7 @@ const experiencePersonalDetails = ({
     <>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experiencePersonalAccordion.experienceTypeLabel"
-            defaultMessage="Type of Experience:"
-          />
+          {intl.formatMessage(baseExperienceMessages.experienceTypeLabel)}
         </p>
         <p>
           <i
@@ -132,27 +129,16 @@ const experiencePersonalDetails = ({
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experienceCommunityAccordion.startDate"
-            defaultMessage="Start Date:"
-          />
+          {intl.formatMessage(baseExperienceMessages.startDateLabel)}
         </p>
         {startDate ? <p>{readableDate(locale, startDate)}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experienceCommunityAccordion.endDate"
-            defaultMessage="End Date:"
-          />
+          {intl.formatMessage(baseExperienceMessages.endDateLabel)}
         </p>
         {isActive ? (
-          <p>
-            <FormattedMessage
-              id="experienceCommunityAccordion.ongoing"
-              defaultMessage="Ongoing"
-            />
-          </p>
+          <p>{intl.formatMessage(baseExperienceMessages.ongoing)}</p>
         ) : (
           endDateOrNa
         )}
@@ -196,6 +182,7 @@ export const ExperiencePersonalAccordion: React.FC<ExperiencePersonalAccordionPr
       isEducationJustification={isEducationJustification}
       details={experiencePersonalDetails({
         locale,
+        intl,
         title,
         description,
         isShareable,
