@@ -4,7 +4,7 @@ Your [{{ $position['en'] }}]({{ $position_link['en'] }}) posting closed today wi
 
 # Want the best person for your job?
 
-**2 WEEKS**: Top applicants will start dropping-off if they don’t hear from you in as little as 2 weeks. Make sure to respond to them before **{{ $drop_off_date }}** about the next step in the process.
+**2 WEEKS**: Top applicants will start dropping-off if they don’t hear from you in as little as 2 weeks. Make sure to respond to them before **{{ $drop_off_date['en'] }}** about the next step in the process.
 
 Log-in to [{{ $manager_portal_link['en'] }}]({{ $manager_portal_link['en'] }}) now and start screening and **FIND YOUR TOP APPLICANTS**
 
@@ -21,7 +21,7 @@ La période d’affichage de votre annonce [{{ $position['fr'] }}]({{ $position_
 
 # Vous voulez la meilleure personne pour ce poste?
 
-**2 SEMAINES** : Les meilleurs candidats commenceront à se désintéresser du poste s’ils n’ont pas de nouvelles de vous dans aussi peu que deux semaines. Assurez-vous de leur répondre avant le **{{ $drop_off_date }}** pour leur faire part de la prochaine étape du processus.
+**2 SEMAINES** : Les meilleurs candidats commenceront à se désintéresser du poste s’ils n’ont pas de nouvelles de vous dans aussi peu que deux semaines. Assurez-vous de leur répondre avant le **{{ $drop_off_date['fr'] }}** pour leur faire part de la prochaine étape du processus.
 
 Ouvrez une séance à partir du site [{{ $manager_portal_link['fr'] }}]({{ $manager_portal_link['fr'] }}) maintenant, commencez la sélection et **TROUVEZ VOS MEILLEURS CANDIDATS**.
 

@@ -55,11 +55,8 @@ class ScreenCandidatesPrompt extends Mailable implements ShouldQueue
         }
 
         // Get date 2 weeks after job poster closes.
-        $date_format = Config::get('app.date_format');
-        $locale = App::getLocale();
-        $locale_close_date = new Date($this->job->close_date_time); // This initializes the date object in UTC time.
-        $timestamp_in_two_weeks = strtotime('+2 weeks', $locale_close_date->timestamp);
-        $date_in_two_weeks = date($date_format[$locale], $timestamp_in_two_weeks);
+        $date_in_two_weeks = humanizeLastDay($this->job->close_date_time->addWeeks(2));
+        $date_in_two_weeks_fr = humanizeLastDay($this->job->close_date_time->addWeeks(2), 'fr');
 
         // Number of applicants.
         $num_of_applicants = $this->job->job_applications->count();
@@ -84,7 +81,10 @@ class ScreenCandidatesPrompt extends Mailable implements ShouldQueue
                     ->cc($hr_advisors_emails)
                     ->cc(config('mail.admin_address'))
                     ->markdown('emails.job_posters.screen_candidates_plain', [
-                        'drop_off_date' => $date_in_two_weeks,
+                        'drop_off_date' => [
+                            'en' => $date_in_two_weeks,
+                            'fr' => $date_in_two_weeks_fr,
+                        ],
                         'manager_portal_link' => [
                             'en' => route('manager.home'),
                             'fr' => LaravelLocalization::getLocalizedURL('fr', route('manager.home')),
