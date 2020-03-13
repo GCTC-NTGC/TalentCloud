@@ -113,7 +113,6 @@ const experiencePersonalDetails = ({
               defaultMessage="Sharing Approved"
               description="Text shown when user has consented to share this experience."
             />
-            >
           </p>
         ) : (
           <p>
@@ -127,7 +126,6 @@ const experiencePersonalDetails = ({
               defaultMessage="Sharing Restricted"
               description="Text shown when user has NOT consented to share this experience."
             />
-            >
           </p>
         )}
       </div>

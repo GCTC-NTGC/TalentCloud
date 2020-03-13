@@ -41,7 +41,7 @@ const experienceEducationDetails = ({
   institution: string;
   status: string;
   startDate: Date;
-  endDate: Date;
+  endDate: Date | null;
   isActive: boolean;
 }): React.ReactElement => {
   const notApplicable = (

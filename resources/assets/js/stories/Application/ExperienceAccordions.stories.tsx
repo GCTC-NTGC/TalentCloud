@@ -10,10 +10,12 @@ import {
   fakeExperienceEducation,
   fakeExperienceCommunity,
   fakeExperienceAward,
+  fakeExperiencePersonal,
 } from "../../fakeData/fakeExperience";
 import ExperienceEducationAccordion from "../../components/Application/Experience/ExperienceEducationAccordion";
 import ExperienceCommunityAccordion from "../../components/Application/Experience/ExperienceCommunityAccordion";
 import ExperienceAwardAccordion from "../../components/Application/Experience/ExperienceAwardAccordion";
+import ExperiencePersonalAccordion from "../../components/Application/Experience/ExperiencePersonalAccordion";
 
 const stories = storiesOf(
   "Application|Experience Accordions",
@@ -276,7 +278,7 @@ stories.add(
       <div className="experience-list">
         <div data-c-accordion-group="">
           <ExperienceCommunityAccordion
-            title={text("Job Title", community.title, groupIds.details)}
+            title={text("Job Title / Role", community.title, groupIds.details)}
             group={text("Group", community.group, groupIds.details)}
             project={text("Project", community.project, groupIds.details)}
             startDate={myDateKnob(
@@ -329,7 +331,7 @@ stories.add(
       <div className="experience-list">
         <div data-c-accordion-group="">
           <ExperienceAwardAccordion
-            title={text("Job Title", experience.title, groupIds.details)}
+            title={text("Award Title", experience.title, groupIds.details)}
             recipient={text("Recipient", "Individual", groupIds.details)}
             issuer={text("Issuer", experience.issued_by, groupIds.details)}
             scope={text("Scope", "International", groupIds.details)}
@@ -343,6 +345,59 @@ stories.add(
               title: "View this award.",
               url: text("Award Url", "", groupIds.details),
             }}
+            relevantSkills={skillClaims}
+            irrelevantSkillCount={number(
+              "Irrelevant Skill count",
+              0,
+              {},
+              groupIds.details,
+            )}
+            isEducationJustification={boolean(
+              "Is Education Justification?",
+              false,
+              groupIds.switches,
+            )}
+            showSkillDetails={boolean(
+              "Show skill details?",
+              false,
+              groupIds.switches,
+            )}
+            showButtons={boolean("Show buttons?", false, groupIds.switches)}
+            handleDelete={action("Delete Experience")}
+            handleEdit={action("Edit Experience")}
+          />
+        </div>
+      </div>
+    );
+  },
+);
+
+stories.add(
+  "Personal Experience",
+  (): React.ReactElement => {
+    const experience = fakeExperiencePersonal();
+    return (
+      <div className="experience-list">
+        <div data-c-accordion-group="">
+          <ExperiencePersonalAccordion
+            title={text("Experience Title", experience.title, groupIds.details)}
+            description={text(
+              "Description",
+              experience.description,
+              groupIds.details,
+            )}
+            isShareable={boolean(
+              "Consent to Share",
+              experience.is_shareable,
+              groupIds.details,
+            )}
+            startDate={myDateKnob(
+              "Start Date",
+              experience.start_date,
+              groupIds.details,
+            )}
+            endDate={myDateKnob("End Date", experience.end_date, groupIds.details)}
+            isActive={boolean("Is Active", experience.is_active, groupIds.details)}
             relevantSkills={skillClaims}
             irrelevantSkillCount={number(
               "Irrelevant Skill count",

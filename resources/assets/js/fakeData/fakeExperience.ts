@@ -3,6 +3,7 @@ import {
   ExperienceEducation,
   ExperienceCommunity,
   ExperienceAward,
+  ExperiencePersonal,
 } from "../models/types";
 import dayjs from "dayjs";
 
@@ -58,4 +59,17 @@ export const fakeExperienceAward = (
   award_recognition_type_id: 1,
   awarded_date: dayjs("01/27/2016").toDate(),
   ...overrides,
+});
+
+export const fakeExperiencePersonal = (
+  overrides: Partial<ExperiencePersonal> = {},
+): ExperiencePersonal => ({
+  id: 1,
+  title: "Parenting",
+  description:
+    "Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate.",
+  is_shareable: true,
+  is_active: true,
+  start_date: dayjs("04/01/2013").toDate(),
+  end_date: null,
 });

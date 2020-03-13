@@ -303,5 +303,5 @@ export interface ExperiencePersonal {
   is_shareable: boolean;
   is_active: boolean;
   start_date: Date;
-  end_date: Date | boolean;
+  end_date: Date | null;
 }
