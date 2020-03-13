@@ -2,6 +2,7 @@ import {
   ExperienceWork,
   ExperienceEducation,
   ExperienceCommunity,
+  ExperienceAward,
 } from "../models/types";
 import dayjs from "dayjs";
 
@@ -44,5 +45,17 @@ export const fakeExperienceCommunity = (
   is_active: true,
   start_date: dayjs("04/01/2018").toDate(),
   end_date: null,
+  ...overrides,
+});
+
+export const fakeExperienceAward = (
+  overrides: Partial<ExperienceAward> = {},
+): ExperienceAward => ({
+  id: 1,
+  title: "Governor General's Award (Gold)",
+  award_recipient_type_id: 1,
+  issued_by: "McGill University",
+  award_recognition_type_id: 1,
+  awarded_date: dayjs("01/27/2016").toDate(),
   ...overrides,
 });

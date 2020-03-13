@@ -127,7 +127,7 @@ const experienceAwardDetails = ({
             defaultMessage="Link to award Date:"
           />
         </p>
-        {awardLink ? (
+        {awardLink && awardLink.url ? (
           <p>
             <a href={awardLink.url} title={awardLink.title} target="_blank">
               {awardLink.text}
@@ -183,7 +183,7 @@ export const ExperienceAwardAccordion: React.FC<ExperienceAwardAccordionProps> =
           defaultMessage="Awarded on: {date}"
           description="Shows the awarded date in the accordion title bar."
           values={{
-            date: awardedDate,
+            date: readableDate(locale, awardedDate),
           }}
         />
       </p>

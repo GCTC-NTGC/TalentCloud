@@ -292,5 +292,6 @@ export interface ExperienceAward {
   title: string;
   award_recipient_type_id: number;
   issued_by: string;
+  award_recognition_type_id: number;
   awarded_date: Date;
 }
