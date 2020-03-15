@@ -1,0 +1,71 @@
+{# =============================================================================
+
+    Talent Cloud / Application Long Form Questions
+
+    The purpose of this UI is to have the applicant answer long form skill
+    testing questions that will better identify their fit for the job.
+
+============================================================================= #}
+{# Default Page Layout #}
+{% extends "layouts/base-test" %}
+{# HTML Page Title #}
+{% block title %}
+	Apply Now: Welcome
+{% endblock %}
+{# Page Header #}
+{% block header %}
+    {% include "applicant/application/application-header" with {"step": 7} %}
+{% endblock %}
+{# Page Contents #}
+{% block body %}
+	<div data-clone>
+        {# Application Progress Bar #}
+        {% include "applicant/application/progress-bar" with {"step": 7} %}
+        <div data-c-container="medium">
+            <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">My Fit</h2>
+            <p>The manager has included a few further questions that they'd like you to answer in order to be considered for this position. Questions that require an answer are marked, while all others are optional.</p>
+            <form>
+                <p data-c-margin="top(3) bottom(1)" data-c-font-weight="bold" data-c-color="c2">Question 01: Why are you interested in this job?</p>
+                <div data-c-input="textarea">
+                    <label for="Q1">My Answer to Question 01</label>
+                    <span>Required</span>
+                    <div>
+                        <textarea id="Q1" required placeholder="e.g. I believe I'm the best person for this job because..."></textarea>
+                    </div>
+                    <span>This input has an error.</span>
+                </div>
+                <div data-c-align="base(center) tl(right)">
+                    <button
+                        data-c-button="solid(c1)"
+                        data-c-radius="rounded"
+                        type="button">
+                        <span>
+                            Save Answer
+                        </span>
+                    </button>
+                </div>
+                <p data-c-margin="top(3) bottom(1)" data-c-font-weight="bold" data-c-color="c2">Question 02: Are there any other skills that you bring to the job that you want to highlight to the manager?</p>
+                <div data-c-input="textarea">
+                    <label for="Q2">My Answer to Question 02</label>
+                    <span>Required</span>
+                    <div>
+                        <textarea id="Q2" placeholder="e.g. I have a few other skills..."></textarea>
+                    </div>
+                    <span>This input has an error.</span>
+                </div>
+                <div data-c-align="base(center) tl(right)">
+                    <button
+                        data-c-button="solid(c1)"
+                        data-c-radius="rounded"
+                        type="button">
+                        <span>
+                            Save Answer
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+        {# Application Action Buttons #}
+        {% include "applicant/application/action-buttons" with {"step": 7} %}
+    </div>
+{% endblock %}

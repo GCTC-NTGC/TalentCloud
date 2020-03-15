@@ -106,7 +106,7 @@
   },
   {
     "id": "application.review.screenOutConfirm",
-    "description": "Are you sure you want to screen out the candidate worning",
+    "description": "Are you sure you want to screen out the candidate warning",
     "defaultMessage": "Screen out the candidate?"
   },
   {

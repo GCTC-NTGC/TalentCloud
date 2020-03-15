@@ -1,0 +1,48 @@
+.application-skill-navigation {
+    ul {
+        list-style: none;
+        padding: 0 !important;
+        li {
+            >i {
+                margin-right: .5rem;
+            }
+            &[data-status="complete"] {
+                .fa-check-circle {
+                    display: inline-block;
+                }
+                .fa-circle {
+                    display: none;
+                }
+                .fa-exclamation-circle {
+                    display: none;
+                }
+            }
+            &[data-status="error"] {
+                .fa-check-circle {
+                    display: none;
+                }
+                .fa-circle {
+                    display: none;
+                }
+                .fa-exclamation-circle {
+                    display: inline-block;
+                }
+            }
+            &[data-status="default"] {
+                .fa-check-circle {
+                    display: none;
+                }
+                .fa-circle {
+                    display: inline-block;
+                }
+                .fa-exclamation-circle {
+                    display: none;
+                }
+            }
+        }
+    }
+    @media #{$clone-tablet-landscape} {
+        position: sticky;
+        top: 0;
+    }
+}
