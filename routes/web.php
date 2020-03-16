@@ -76,6 +76,9 @@ Route::group(
             /* Temp Resources */
             Route::view('resources', 'common/resources')->middleware('localOnly')->name('resources');
 
+            /* Response Home */
+            Route::view('response', 'common/response')->middleware('localOnly')->name('response');
+
         });
 
         Route::group(['prefix' => config('app.applicant_prefix')], function (): void {
