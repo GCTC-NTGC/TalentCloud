@@ -1,0 +1,43 @@
+<nav class="menu" data-c-background="black(60)">
+    <div data-c-container="large">
+        <div data-c-grid>
+            <div data-c-grid-item="base(1of1) tl(3of4)">
+                <ul data-c-align="base(center) tl(left)">
+                    <li>
+                        <a href="/response" title="Visit the COVID-19 Talent Response homepage." data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">Home</a>
+                    </li>
+                    <li>
+                        <a href="#apply" title="View available positions that are in need." data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">Apply</a>
+                    </li>
+                    <li>
+                        <a href="https://canada.ca/coronavirus" title="Learn more about COVID-19." target="_blank" data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">COVID-19 Information</a>
+                    </li>
+                    <li>
+                        <a href="/faq#covid19" title="Learn more about how Talent Cloud works." target="_blank" data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">FAQ</a>
+                    </li>
+                </ul>
+            </div>
+            <div data-c-grid-item="base(1of1) tl(1of4)">
+                <ul data-c-align="base(center) tl(right)">
+                    {% if auth_guest() %}
+                        <li>
+                            <a href="{{ login_modals.login_link }}" data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">{{ menu.login }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ login_modals.register_link }}" data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">{{ menu.register }}</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{{ login_modals.logout_link }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">
+                                {{ menu.logout }}
+                            </a>
+                            <form id="logout-form" action="{{ login_modals.logout_link }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

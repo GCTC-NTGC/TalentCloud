@@ -77,7 +77,7 @@ Route::group(
             Route::view('resources', 'common/resources')->middleware('localOnly')->name('resources');
 
             /* Response Home */
-            Route::view('response', 'common/response')->middleware('localOnly')->name('response');
+            Route::view('response', 'common/response/index')->middleware('localOnly')->name('response');
 
         });
 

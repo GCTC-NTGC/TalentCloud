@@ -12,18 +12,18 @@
     {# Government of Canada Banner #}
     {% include "common/goc" %}
     <div data-clone>
+        {# Beta Banner #}
+        {% include "common/response/beta-banner" %}
+        {# Menu #}
+        {% include "common/response/menu" %}
         {# Header #}
-        <header>
-            <div data-c-overlay="white(80)" style="background-image: url('https://images.unsplash.com/photo-1584315296878-37b5bcdd6bc5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80')">
-                <div data-c-container="large" data-c-padding="tb(3)">
-                    <h1 data-c-heading="h1" data-c-color="black">Talent Cloud Response</h1>
-                    <p data-c-color="black" data-c-margin="top(1)">Mapping talent to help locate gaps during emergencies.</p>
-                </div>
-            </div>
-        </header>
-        {# Info #}
-        {# Filters #}
+        {% include "common/response/header" %}
+        {# Content #}
+        {% include "common/response/content" %}
         {# Job List #}
+        {% include "common/response/job-list" %}
+        {# How to Apply #}
+        {% include "common/response/how" %}
     </div>
 {% endblock %}
 

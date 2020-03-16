@@ -1,0 +1,12 @@
+a.response-job-listing {
+    text-decoration: none;
+    transform: scale(1);
+    transition: transform .2s ease;
+    &:hover {
+        transform: scale(1.025);
+        transition: transform .2s ease;
+    }
+    p {
+        text-decoration: none;
+    }
+}
