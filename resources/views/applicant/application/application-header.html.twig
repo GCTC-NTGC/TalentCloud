@@ -1,0 +1,65 @@
+{# =============================================================================
+
+    Talent Cloud / Application Header
+
+    The purpose of this UI is to create an informative header for each step of
+    the application that highlights key information about the job and step.
+
+============================================================================= #}
+
+{% if step == 1 %}
+    {% set stepName = "Welcome" %}
+{% elseif step == 2 %}
+    {% set stepName = "Basic Information" %}
+{% elseif step == 3 %}
+    {% set stepName = "Defining Your Experience" %}
+{% elseif step == 4 %}
+    {% set stepName = "Experience" %}
+{% elseif step == 5 %}
+    {% set stepName = "Understanding Skills" %}
+{% elseif step == 6 %}
+    {% set stepName = "Skills" %}
+{% elseif step == 7 %}
+    {% set stepName = "Application Questions" %}
+{% elseif step == 8 %}
+    {% set stepName = "Review Your Application" %}
+{% elseif step == 9 %}
+    {% set stepName = "Submit" %}
+{% elseif step == 10 %}
+    {% set stepName = "Thanks for Applying" %}
+{% endif %}
+
+{% if step < 10 %}
+    <div data-clone>
+        <div data-c-overlay="black(80)" data-c-padding="bottom(3)" style="background-image: url('/images/bg_crowd.jpg');">
+            {% include "common/menu" %}
+            <div data-c-container="large">
+                <h1 data-c-heading="h1" data-c-margin="top(3)">Submit an Application</h1>
+                <p data-c-color="white" data-c-margin="top(1)">You're applying to: <span data-c-font-weight="bold">Front-end Developer</span> at <span data-c-font-weight="bold">Treasury Board of Canada Secretariat</span></p>
+                <nav aria-label="breadcrumb" data-c-breadcrumbs data-c-color="white" data-c-margin="top(3)">
+                    <ol>
+                        <li>
+                            <a href="#link-to-page" title="This is the title of the page link.">Talent Cloud</a><i>/</i>
+                        </li>
+                        <li>
+                            <a href="#link-to-page" title="This is the title of the page link.">My Applications</a><i>/</i>
+                        </li>
+                        <li>
+                            <span aria-current="page">Apply: {{ stepName }}</span><i>/</i>
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div data-clone>
+        <div data-c-overlay="black(80)" data-c-padding="bottom(3)" style="background-image: url('/images/bg_crowd.jpg');">
+            {% include "common/menu" %}
+            <div data-c-container="large" data-c-align="base(center)">
+                <h1 data-c-heading="h1" data-c-margin="top(3)">Thanks for Applying!</h1>
+                <p data-c-color="white" data-c-margin="top(1)">You've successfully applied to: <span data-c-font-weight="bold">Front-end Developer</span> at <span data-c-font-weight="bold">Treasury Board of Canada Secretariat</span></p>
+            </div>
+        </div>
+    </div>
+{% endif %}

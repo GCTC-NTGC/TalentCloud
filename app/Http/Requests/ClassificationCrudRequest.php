@@ -11,7 +11,7 @@ class ClassificationCrudRequest extends FormRequest
      *
      * @return boolean
      */
-    public function authorize() : bool
+    public function authorize(): bool
     {
         // Only allow updates if the user is a logged in Admin.
         return backpack_auth()->check();
@@ -22,10 +22,10 @@ class ClassificationCrudRequest extends FormRequest
      *
      * @return string[]
      */
-    public function rules() : array
+    public function rules(): array
     {
         return [
-            'key' => 'required|size:2|alpha|unique:classifications,key'
+            'key' => 'required|between:2,6|alpha_dash|unique:classifications,key'
         ];
     }
 
@@ -34,12 +34,12 @@ class ClassificationCrudRequest extends FormRequest
      *
      * @return string[]
      */
-    public function messages() : array
+    public function messages(): array
     {
         return [
             'key.required' => 'Please enter a classification key.',
-            'key.size' => 'The classification key must be 2 characters long.',
-            'key.alpha' => 'The classification key may only use alphabetic characters.',
+            'key.between' => 'The classification key must be between 2 and 6 characters long.',
+            'key.alpha_dash' => 'The classification key may only use alphabetic characters and dashes.',
             'key.unique' => 'That classification key already exists.'
         ];
     }

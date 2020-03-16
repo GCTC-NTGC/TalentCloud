@@ -1,0 +1,82 @@
+{# Default Page Layout #}
+{% extends "applicant/application/dialogs/experience-dialog-layout" %}
+{# Inheritance Hack #}
+{% set dialogID = "award-dialog" %}
+{% block dialogDescriptionARIA %}{{ dialogID }}{% endblock %}
+{% block dialogTitleARIA %}{{ dialogID }}{% endblock %}
+{% block dialogID %}{{ dialogID }}{% endblock %}
+{% block dialogTitle %}{{ dialogID }}{% endblock %}
+{% block dialogCloseButtonID %}{{ dialogID }}{% endblock %}
+{% block dialogDescription %}{{ dialogID }}{% endblock %}
+{% block dialogCancelButtonID %}{{ dialogID }}{% endblock %}
+{% block dialogOkayButtonID %}{{ dialogID }}{% endblock %}
+{# Actual Dialog Content #}
+{% block dialogContentTitle %}Add an Award{% endblock %}
+{% block dialogContentIcon %}fa-trophy{% endblock %}
+{% block dialogContentDescription %}Did you get recognized for going above and beyond? There are many ways to get recognized, awards are just one of them. (Here’s an opportunity to share how you’ve been recognized.){% endblock %}
+{% block dialogContent %}
+    <form>
+        <div data-c-padding="">
+            <div data-c-container="medium">
+                <div data-c-grid="gutter(all, 1) middle">
+                    <div data-c-input="text" data-c-grid-item="base(1of1)">
+                        <label for="TI2">Award Title</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="TI2" placeholder="e.g. My Award" required type="text" />
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-input="select" data-c-grid-item="tl(1of2)">
+                        <label for="SEL2">Awarded to...</label>
+                        <span>Required</span>
+                        <div>
+                            <i class="fas fa-caret-down"></i>
+                            <select required id="SEL2">
+                                <option disabled selected>Select an option...</option>
+                                <option>Successful Completion (Certificate Awarded)</option>
+                                <option>Successful Completion (No Certificate Awarded)</option>
+                                <option>In Progress</option>
+                                <option>Audited</option>
+                                <option>Did Not Complete</option>
+                            </select>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-input="text" data-c-grid-item="tl(1of2)">
+                        <label for="TI2">Issuing Organization or Institution</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="TI2" placeholder="e.g. My Award" required type="text" />
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-input="select" data-c-grid-item="tl(1of2)">
+                        <label for="SEL2">Scope of the Award</label>
+                        <span>Required</span>
+                        <div>
+                            <i class="fas fa-caret-down"></i>
+                            <select required id="SEL2">
+                                <option disabled selected>Select a scope...</option>
+                                <option>Successful Completion (Certificate Awarded)</option>
+                                <option>Successful Completion (No Certificate Awarded)</option>
+                                <option>In Progress</option>
+                                <option>Audited</option>
+                                <option>Did Not Complete</option>
+                            </select>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    <div data-c-input="date" data-c-grid-item="tl(1of2)">
+                        <label for="DAT2">Date Awarded</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="DAT2" type="date" required placeholder="yyyy-mm-dd"/>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}
