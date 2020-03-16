@@ -15,18 +15,24 @@
         <div
             data-c-background="white(100)">
             {# ITP Heading ================================================== #}
-            <header data-c-alignment="center" data-c-overlay="black(80)" data-c-padding="bottom(triple)" style="background-image: url('/images/bg-mountains.jpg');">
-                {% include "common/menu" %}
-                <div data-c-container="large" data-c-padding="top(double)">
-                    <h1 data-c-colour="white" data-c-font-size="h1" data-c-font-weight="700" data-c-margin="top(triple) bottom(normal)">{{ itp.itp_hero.title }}<img alt="Canadian Maple Leaf" class="hero-icon" src="/images/maple-leaf.svg"></h1>
-                    <p data-c-colour="white" data-c-margin="bottom(triple)">{{ itp.itp_hero.subtitle }}</p>
-                    <span data-c-colour="white" data-c-font-weight="800">{{ itp.itp_hero.pilot }}</span>
-                </div>
-            </header>
+            <header data-c-align="base(center) tl(left)" data-c-overlay="black(80)" data-c-padding="bottom(3)" style="background-image: url('/images/bg-mountains.jpg');">
+				{% include "common/menu" %}
+				<div data-c-container="large" data-c-padding="top(3)" id="home-heading">
+					<h1 data-c-heading="h1" data-c-margin="bottom(1)">{{ itp.itp_hero.title }}<img alt="{{ itp.leaf }}" class="hero-icon" src="/images/maple-leaf.svg"></h1>
+                    <div data-c-grid="gutter(all, 1)">
+                        <div data-c-grid-item="tl(1of2)">
+                            <p data-c-colour="white">{{ itp.itp_hero.subtitle }}</p>
+                        </div>
+                        <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(right)">
+                            <span data-c-colour="white">{{ itp.itp_hero.pilot }}</span>
+                        </div>
+                    </div>
+				</div>
+			</header>
             {# CTA Statement Banner ========================================= #}
-            <div class="gradient-left-right" data-c-padding="normal">
+            <div class="gradient-left-right" data-c-padding="tb(1)">
                 <div data-c-alignment="center" data-c-container="large">
-                    <p data-c-colour="white" data-c-margin="top(half) bottom(half)">{{ itp.itp_slogan }}</p>
+                    <p data-c-colour="white">{{ itp.itp_slogan }}</p>
                 </div>
             </div>
             {# Why, When, What ============================================== #}
@@ -60,7 +66,7 @@
                                     </h2>
                                     <div data-c-alert="information" data-c-radius="rounded" role="alert">
                                         <div data-c-padding="half">
-                                            <span data-c-font-weight="bold" data-c-heading="h5" data-c-margin="bottom(quarter)">
+                                            <span data-c-font-weight="bold" data-c-margin="bottom(quarter)">
                                                 <i aria-hidden="true" class="fa fa-star"></i>
                                                 {{ itp.itp_what.alert_title }}
                                             </span>

@@ -15,26 +15,32 @@
 		<div
 			data-c-background="white(100)">
 			{# Home Heading ================================================= #}
-			<header data-c-align="center" data-c-overlay="black(80)" data-c-padding="bottom(triple)" style="background-image: url('/images/bg_crowd.jpg');">
+			<header data-c-align="base(center) tl(left)" data-c-overlay="black(80)" data-c-padding="bottom(3)" style="background-image: url('/images/bg_crowd.jpg');">
 				{% include "common/menu" %}
-				<div data-c-container="large" data-c-padding="top(double)" id="home-heading">
-					<h1 data-c-colour="white" data-c-font-size="h1" data-c-font-weight="700" data-c-margin="top(triple) bottom(normal)">{{ home.hero.title }}<img alt="{{ home.leaf }}" class="hero-icon" src="/images/maple-leaf.svg"></h1>
-					<p data-c-colour="white" data-c-margin="bottom(triple)">{{ home.hero.tagline }}</p>
-					<span data-c-colour="white" data-c-font-weight="800">{{ home.hero.pilot }}</span>
+				<div data-c-container="large" data-c-padding="top(3)" id="home-heading">
+					<h1 data-c-heading="h1" data-c-margin="bottom(1)">{{ home.hero.title }}<img alt="{{ home.leaf }}" class="hero-icon" src="/images/maple-leaf.svg"></h1>
+                    <div data-c-grid="gutter(all, 1)">
+                        <div data-c-grid-item="tl(1of2)">
+                            <p data-c-colour="white">{{ home.hero.tagline }}</p>
+                        </div>
+                        <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(right)">
+                            <span data-c-colour="white">{{ home.hero.pilot }}</span>
+                        </div>
+                    </div>
 				</div>
 			</header>
 			{# Skip to Content Link #}
 			<a id="skipLink"></a>
 			{# CTA Statement Banner ========================================= #}
-			<div class="gradient-left-right" data-c-padding="normal">
-				<div data-c-align="center" data-c-container="large">
-					<p data-c-colour="white" data-c-margin="top(half) bottom(half)">{{ home.slogan.copy }}
+			<div class="gradient-left-right" data-c-padding="tb(1)">
+				<div data-c-align="base(center)" data-c-container="large">
+					<p data-c-colour="white">{{ home.slogan.copy }}
 						<a href="{{ home.slogan.link.href }}" title="{{ home.slogan.link.title }}">{{ home.slogan.link.label }}</a>.
 					</p>
 				</div>
 			</div>
 			{# Browse Jobs ================================================== #}
-			<div class="home-browse" data-c-background="white(100)" data-c-padding="top(triple) bottom(triple)" data-c-border="bottom(thin, solid, grey)">
+			<div class="home-browse" data-c-background="white(100)" data-c-padding="tb(3)" data-c-border="bottom(thin, solid, grey)">
 				{% set christmas_time = false %}
 				{% if christmas_time %}
 					{# Holiday Message #}
@@ -66,12 +72,12 @@
 								</a>
 							</div>
 						</div>
-						<div data-c-margin="top(double)">
+						<div data-c-margin="top(1)">
 							<div data-c-grid="gutter">
 								{% if job_count > 0 %}
 									{% for i in 0..job_count - 1 %}
 										<div data-c-grid-item="tl(1of3) equal-col">
-											<div class="card" data-c-background="white(100)" data-c-radius="rounded">
+											<div data-c-card data-c-background="white(100)" data-c-radius="rounded">
 												<div data-c-background="black(100)" data-c-padding="normal">
 													<h3>
 														<a data-c-colour="white" data-c-font-size="h3" data-c-font-weight="bold" href="{{ route('jobs.show', jobs[i].id) }}" title="{{ jobs[i].title }}">
@@ -116,8 +122,8 @@
 																{{ job_post.impact.title }}
 															</p>
 															<p>{{ handleNullState(
-                                                                jobs[i].hire_impact,
-                                                                jobs[i].hire_impact|nl2br,
+                                                                jobs[i].hire_impact|str_words(30, '...'),
+                                                                jobs[i].hire_impact|str_words(30, '...')|nl2br,
                                                                 job_post.no_info
                                                             ) }}</p>
 														</div>
@@ -183,9 +189,9 @@
 				</div>
 			</div>
 			{# Behind the Scenes ============================================ #}
-			<div data-c-overlay="black(80)" data-c-padding="top(triple) bottom(triple)" style="background-image: url('/images/bg_crowd.jpg');">
+			<div data-c-overlay="black(80)" data-c-padding="tb(3)" style="background-image: url('/images/bg_crowd.jpg');">
 				<div data-c-container="large">
-					<h2 data-c-colour="white" data-c-font-size="h2" data-c-margin="bottom(double)">
+					<h2 data-c-colour="white" data-c-font-size="h2" data-c-margin="bottom(1)">
 						{{ home.bts.title }}
 					</h2>
 					<p data-c-colour="white" data-c-margin="bottom(normal)">
@@ -219,7 +225,7 @@
 							data-c-align="tp(right)" data-c-grid-item="tp(1of2)">{# <a data-c-colour="c3" data-c-font-size="h4" data-c-font-weight="bold" href="" title="">View More Posts</a> #}
 						</div>
 					</div>
-					<div data-c-margin="top(double)">
+					<div data-c-margin="top(1)">
 						<div data-c-grid="gutter">
 							{% for item in home.blogs %}
 								<div data-c-grid-item="tl(1of3) equal-col">
@@ -241,9 +247,9 @@
 				<img alt="{{ home.leaf }}" class="home-blog-icon" src="/images/maple-leaf.svg">
 			</div>
 			{# GC Jobs Banner =============================================== #}
-			<div class="gradient-right-left" data-c-padding="normal">
-				<div data-c-align="center" data-c-container="layout">
-					<p data-c-colour="white" data-c-margin="top(half) bottom(half)">
+			<div class="gradient-right-left" data-c-padding="tb(1)">
+				<div data-c-align="center" data-c-container="large">
+					<p data-c-colour="white">
 						{{ home.cta.copy|replace({"%gcjobs%": home.cta.copy_links.gcjobs, "%fswep%": home.cta.copy_links.fswep})|raw }}
 					</p>
 				</div>
