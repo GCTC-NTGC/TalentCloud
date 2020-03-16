@@ -1,0 +1,73 @@
+.applicant-application-progress-bar {
+    display: inline;
+    list-style: none;
+    padding: 0 0 0 1rem !important;
+    >li {
+        display: inline;
+        margin: 0 .5rem;
+        >a {
+            text-decoration: none !important;
+            i {
+                &:hover {
+                    color: $clone-white !important;
+                }
+            }
+        }
+        &[data-status="default"] {
+            .fas.fa-circle {
+                display: inline-block;
+            }
+            .fas.fa-check-circle {
+                display: none;
+            }
+            .fas.fa-exclamation-circle {
+                display: none;
+            }
+            .far.fa-circle {
+                display: none;
+            }
+        }
+        &[data-status="complete"] {
+            .fas.fa-circle {
+                display: none;
+            }
+            .fas.fa-check-circle {
+                display: inline-block;
+            }
+            .fas.fa-exclamation-circle {
+                display: none;
+            }
+            .far.fa-circle {
+                display: none;
+            }
+        }
+        &[data-status="error"] {
+            .fas.fa-circle {
+                display: none;
+            }
+            .fas.fa-check-circle {
+                display: none;
+            }
+            .fas.fa-exclamation-circle {
+                display: inline-block;
+            }
+            .far.fa-circle {
+                display: none;
+            }
+        }
+        &[data-status="current"] {
+            .fas.fa-circle {
+                display: none;
+            }
+            .fas.fa-check-circle {
+                display: none;
+            }
+            .fas.fa-exclamation-circle {
+                display: none;
+            }
+            .far.fa-circle {
+                display: inline-block;
+            }
+        }
+    }
+}

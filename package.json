@@ -92,6 +92,8 @@
     "dependencies": {
         "@formatjs/intl-pluralrules": "^1.5.2",
         "@formatjs/intl-relativetimeformat": "^4.5.9",
+        "@storybook/addons": "^5.3.14",
+        "@storybook/theming": "^5.3.14",
         "axios": "^0.19.2",
         "babel-plugin-react-intl": "^6.0.1",
         "classnames": "^2.2.6",
