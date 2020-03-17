@@ -589,4 +589,15 @@ class JobPoster extends BaseModel
         }
         return null;
     }
+
+    /**
+     *
+     * Job Poster is from the Emergency Response department
+     *
+     * @return boolean
+     */
+    public function isInEmergencyResponseDepartment()
+    {
+        return $this->department->name == 'Emergency Response';
+    }
 }
