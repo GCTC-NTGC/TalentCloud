@@ -3,7 +3,8 @@
 namespace App\Models\Lookup;
 
 use App\Models\BaseModel;
-use Spatie\Translatable\HasTranslations;
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
 
 /**
  * Class JobSkillLevel
@@ -20,10 +21,11 @@ use Spatie\Translatable\HasTranslations;
  */
 class JobSkillLevel extends BaseModel
 {
+    use CrudTrait;
     use HasTranslations;
 
     public $translatable = ['name'];
-    protected $fillable = [];
+    protected $fillable = ['key', 'name'];
 
     public function job_posters() //phpcs:ignore
     {
