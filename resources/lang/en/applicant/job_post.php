@@ -157,5 +157,7 @@ return [
     'strategic_response' => [
         'various_departments' => 'Various Departments',
         'various' => 'Various',
+        'current_employee_alert' => 'You must be a current employee of the Government of Canada, with a valid security clearance.',
+        'management_approval_alert' => 'Your home department\'s management team will need to approve your temporary placement with another department or team.'
     ]
 ];

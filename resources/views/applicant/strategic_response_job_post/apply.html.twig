@@ -30,18 +30,25 @@
 
             <div
                 class="box med-1of7">
-                <i class="fas fa-globe"></i>
+                <i class="fas fa-flag"></i>
             </div>
 
             <div
                 class="box med-6of7">
-                <p
-                    class="job-post__apply-content-preference">
-                {% if job.department.preference is not empty %}
-                    {{ job.department.preference }}
-                {% else %}
-                    {{ job_post.apply.preference }}
-                {% endif %}
+                <p class="job-post__apply-content">
+                    {{ job_post.strategic_response.current_employee_alert }}
+                </p>
+            </div>
+
+            <div
+                class="box med-1of7">
+                <i class="fas fa-check-circle"></i>
+            </div>
+
+            <div
+                class="box med-6of7">
+                <p class="job-post__apply-content-preference">
+                    {{ job_post.strategic_response.management_approval_alert }}
                 </p>
             </div>
 
