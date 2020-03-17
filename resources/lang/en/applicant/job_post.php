@@ -152,5 +152,10 @@ return [
         'view_link_title'  => 'View your application.',
         'view_link_label'  => 'View Application',
     ],
-    'no_info' => 'No information provided.'
+    'no_info' => 'No information provided.',
+
+    'strategic_response' => [
+        'various_departments' => 'Various Departments',
+        'various' => 'Various',
+    ]
 ];

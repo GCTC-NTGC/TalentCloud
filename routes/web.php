@@ -76,6 +76,13 @@ Route::group(
             /* Temp Resources */
             Route::view('resources', 'common/resources')->middleware('localOnly')->name('resources');
 
+            /* Strategic Talent Response job view */
+            Route::get('response/jobs/{jobPoster}', [
+                'uses' => 'JobController@show',
+                'is_strategic_talent' => true
+            ])
+                ->middleware('can:view,jobPoster')
+                ->name('jobs.show');
         });
 
         Route::group(['prefix' => config('app.applicant_prefix')], function (): void {
