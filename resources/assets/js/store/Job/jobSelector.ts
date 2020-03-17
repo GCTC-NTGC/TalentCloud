@@ -157,5 +157,17 @@ export const sortComments = (comments: Comment[]): Comment[] => {
   return comments.sort(comparator);
 };
 
+export const getSortedFilteredComments = createCachedSelector(
+  getComments,
+  (state: RootState, ownProps: { filter?: (comment: Comment) => boolean }) =>
+    ownProps.filter,
+  (comments, filter): Comment[] => {
+    if (filter) {
+      return sortComments(comments.filter(filter));
+    }
+    return sortComments(comments);
+  },
+)((state, ownProps) => ownProps.filter);
+
 export const fetchingComments = (state: RootState): boolean =>
   ui(state).fetchingComments;
