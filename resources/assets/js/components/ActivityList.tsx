@@ -9,7 +9,7 @@ import { Comment, User } from "../models/types";
 import { DispatchType } from "../configureStore";
 import { fetchComments } from "../store/Job/jobActions";
 import { fetchAllUsers } from "../store/User/userActions";
-import { getComments, sortComments } from "../store/Job/jobSelector";
+import { getSortedFilteredComments } from "../store/Job/jobSelector";
 import { getUsers } from "../store/User/userSelector";
 import { commentTypeMessages } from "./CommentForm";
 import {
@@ -27,7 +27,7 @@ interface ActivityListProps {
   comments: Comment[];
   users: User[];
   handleFetchComments: (jobId: number) => Promise<void>;
-  handleFetchUsers: () => Promise<void>;
+  handleFetchUsers: (ids?: string) => Promise<void>;
   filterComments?: (comment: Comment) => boolean;
 }
 
@@ -59,15 +59,26 @@ export const ActivityList: React.FunctionComponent<ActivityListProps> = ({
 
   useEffect((): void => {
     setLoadingActivities(true);
-    handleFetchUsers()
-      .then(() => {
-        setLoadingActivities(false);
-      })
-      .catch(() => {
-        setLoadingActivities(false);
-        setIsError(true);
+    if (comments.length > 0) {
+      const userIds: number[] = [];
+
+      // eslint-disable-next-line array-callback-return
+      comments.map(comment => {
+        if (userIds.indexOf(comment.user_id) === -1) {
+          userIds.push(comment.user_id);
+        }
       });
-  }, [handleFetchUsers]);
+      handleFetchUsers(userIds.join(","))
+        .then(() => {
+          setLoadingActivities(false);
+        })
+        .catch(() => {
+          setLoadingActivities(false);
+          setIsError(true);
+        });
+    }
+    setLoadingActivities(false);
+  }, [comments, handleFetchUsers]);
 
   const activityType = (type: number | null): string => {
     switch (type) {
@@ -194,14 +205,12 @@ export const ActivityList: React.FunctionComponent<ActivityListProps> = ({
 
 const mapStateToProps = (
   state: RootState,
-  {
-    filterComments = (): boolean => true,
-  }: { filterComments?: (comment: Comment) => boolean },
+  ownProps: { filter?: (comment: Comment) => boolean },
 ): {
   comments: Comment[];
   users: User[];
 } => ({
-  comments: sortComments(getComments(state).filter(filterComments)),
+  comments: getSortedFilteredComments(state, ownProps),
   users: getUsers(state),
 });
 
@@ -218,8 +227,8 @@ const mapDispatchToProps = (
     }
     return Promise.reject(result.error);
   },
-  handleFetchUsers: async (): Promise<void> => {
-    const result = await dispatch(fetchAllUsers());
+  handleFetchUsers: async (ids = ""): Promise<void> => {
+    const result = await dispatch(fetchAllUsers(ids));
     if (!result.error) {
       return Promise.resolve();
     }
