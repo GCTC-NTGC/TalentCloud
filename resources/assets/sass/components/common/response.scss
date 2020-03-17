@@ -1,3 +1,14 @@
+.response-list-item {
+    position: relative;
+    i {
+        position: absolute;
+        top: .25rem;
+    }
+    p {
+        margin-left: 2rem;
+    }
+}
+
 a.response-job-listing {
     text-decoration: none;
     transform: scale(1);
