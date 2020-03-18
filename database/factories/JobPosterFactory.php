@@ -196,6 +196,14 @@ $factory->state(
 
 $factory->state(
     JobPoster::class,
+    'strategic_response',
+    [
+        'department_id' => config('app.strategic_response_department_id'),
+    ]
+);
+
+$factory->state(
+    JobPoster::class,
     'review_requested',
     function (Faker\Generator $faker) {
         return [

@@ -130,10 +130,6 @@ class JobController extends Controller
      */
     public function show(Request $request, JobPoster $jobPoster)
     {
-        $action = $request->route()->getAction();
-        Log::debug($action);
-        $is_strategic_talent = array_get($request->route()->getAction(), 'is_strategic_talent', false);
-
         $jobPoster->load([
             'department',
             'criteria.skill.skill_type',
@@ -227,7 +223,7 @@ class JobController extends Controller
         // Else, If the job poster is created after the release of the JPB.
         // Then, render with updated poster template.
         // Else, render with old poster template.
-        if ($is_strategic_talent) {
+        if ($jobPoster->isInStrategicResponseDepartment()) {
             return view(
                 'applicant/strategic_response_job_post',
                 [
