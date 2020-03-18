@@ -33,3 +33,33 @@ a.response-job-listing {
 .response-copy-container {
     max-width: 65rem;
 }
+
+.response-accordion-group {
+    [data-c-accordion] {
+        border-left: .5rem solid $clone-c1 !important;
+        &.active {
+            border-left: .5rem solid $clone-c3 !important;
+        }
+        [data-c-accordion-content] {
+            .applicant {
+                &:not(:first-child) {
+                    border-top: 1px solid rgba(200, 200, 200, 1);
+                    padding-top: 2rem;
+                    margin-top: 2rem;
+                }
+                >form >div:first-child >div {
+                    position: relative;
+                    >i {
+                        font-size: 1.1rem;
+                        position: absolute;
+                        top: .45rem;
+                        left: .2rem;
+                    }
+                    >div {
+                        margin-left: 3rem;
+                    }
+                }
+            }
+        }
+    }
+}
