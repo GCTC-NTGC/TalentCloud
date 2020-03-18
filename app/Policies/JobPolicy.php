@@ -104,8 +104,8 @@ class JobPolicy extends BasePolicy
         $authHr = $user->isHrAdvisor() && $this->manage($user, $jobPoster);
 
         // If the job is in Emergency Response department then it does not need to be closed to be viewed.
-        if ($jobPoster->isInEmergencyResponseDepartment()) {
-            return $jobPoster->isPublic() && $authManager || $authHr;
+        if ($jobPoster->isInStrategicResponseDepartment()) {
+            return $jobPoster->isPublic() && ($authManager || $authHr);
         }
 
         return $jobPoster->isClosed() && ($authManager || $authHr);

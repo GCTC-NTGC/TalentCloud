@@ -95,6 +95,7 @@ use Spatie\Translatable\HasTranslations;
  * @method boolean isEditable()
  * @method string timeRemaining()
  * @method mixed[] toApiArray()
+ * @method boolean isInStrategicResponseDepartment()
  *
  * Computed Properties
  * @property string|null $classification_code
@@ -592,12 +593,12 @@ class JobPoster extends BaseModel
 
     /**
      *
-     * Job Poster is from the Emergency Response department
+     * Job Poster is from the Strategic Talent Response department
      *
      * @return boolean
      */
-    public function isInEmergencyResponseDepartment()
+    public function isInStrategicResponseDepartment()
     {
-        return $this->department->name == 'Emergency Response';
+        return $this->department && $this->department->id === config('app.strategic_response_department_id');
     }
 }
