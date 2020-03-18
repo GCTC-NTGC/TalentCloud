@@ -22,6 +22,7 @@ import { getLocale, localizeFieldNonNull } from "../helpers/localize";
 import { find } from "../helpers/queries";
 
 interface ActivityListProps {
+  generalLocation: string;
   jobId: number;
   isHrAdvisor: boolean;
   comments: Comment[];
@@ -205,7 +206,10 @@ export const ActivityList: React.FunctionComponent<ActivityListProps> = ({
 
 const mapStateToProps = (
   state: RootState,
-  ownProps: { filter?: (comment: Comment) => boolean },
+  ownProps: {
+    filterComments?: (comment: Comment) => boolean;
+    generalLocation: string;
+  },
 ): {
   comments: Comment[];
   users: User[];

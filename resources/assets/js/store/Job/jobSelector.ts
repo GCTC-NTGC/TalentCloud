@@ -159,15 +159,16 @@ export const sortComments = (comments: Comment[]): Comment[] => {
 
 export const getSortedFilteredComments = createCachedSelector(
   getComments,
-  (state: RootState, ownProps: { filter?: (comment: Comment) => boolean }) =>
-    ownProps.filter,
-  (comments, filter): Comment[] => {
-    if (filter) {
-      return sortComments(comments.filter(filter));
-    }
-    return sortComments(comments);
-  },
-)((state, ownProps) => ownProps.filter);
+  (
+    state: RootState,
+    ownProps: {
+      filterComments?: (comment: Comment) => boolean;
+      generalLocation: string;
+    },
+  ) => ownProps.filterComments,
+  (comments, filterComments): Comment[] =>
+    sortComments(filterComments ? comments.filter(filterComments) : comments),
+)((state, ownProps) => ownProps.generalLocation);
 
 export const fetchingComments = (state: RootState): boolean =>
   ui(state).fetchingComments;
