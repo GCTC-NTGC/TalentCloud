@@ -95,6 +95,7 @@ use Spatie\Translatable\HasTranslations;
  * @method boolean isEditable()
  * @method string timeRemaining()
  * @method mixed[] toApiArray()
+ * @method boolean isInStrategicResponseDepartment()
  *
  * Computed Properties
  * @property string|null $classification_code
@@ -588,5 +589,16 @@ class JobPoster extends BaseModel
             return $this->classification->key . '-0' . $this->classification_level;
         }
         return null;
+    }
+
+    /**
+     *
+     * Job Poster is from the Strategic Talent Response department
+     *
+     * @return boolean
+     */
+    public function isInStrategicResponseDepartment()
+    {
+        return $this->department && $this->department->id === config('app.strategic_response_department_id');
     }
 }
