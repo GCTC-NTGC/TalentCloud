@@ -4,6 +4,14 @@
         position: absolute;
         top: .25rem;
     }
+    img {
+        position: absolute;
+        top: .3rem;
+        width: 3rem;
+        &+p {
+            margin-left: 4rem;
+        }
+    }
     p {
         margin-left: 2rem;
     }
