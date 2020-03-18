@@ -44,6 +44,7 @@ export const ActivityList: React.FunctionComponent<ActivityListProps> = ({
   const locale = getLocale(intl.locale);
   const activities: Comment[] = [...comments];
   const [loadingActivities, setLoadingActivities] = useState(false);
+  const [loadingUsers, setLoadingUsers] = useState(false);
   const [isError, setIsError] = useState(false);
 
   useEffect((): void => {
@@ -59,10 +60,9 @@ export const ActivityList: React.FunctionComponent<ActivityListProps> = ({
   }, [handleFetchComments, jobId]);
 
   useEffect((): void => {
-    setLoadingActivities(true);
+    setLoadingUsers(true);
     if (comments.length > 0) {
       const userIds: number[] = [];
-
       // eslint-disable-next-line array-callback-return
       comments.map(comment => {
         if (userIds.indexOf(comment.user_id) === -1) {
@@ -71,14 +71,14 @@ export const ActivityList: React.FunctionComponent<ActivityListProps> = ({
       });
       handleFetchUsers(userIds.join(","))
         .then(() => {
-          setLoadingActivities(false);
+          setLoadingUsers(false);
         })
         .catch(() => {
-          setLoadingActivities(false);
+          setLoadingUsers(false);
           setIsError(true);
         });
     }
-    setLoadingActivities(false);
+    setLoadingUsers(false);
   }, [comments, handleFetchUsers]);
 
   const activityType = (type: number | null): string => {
@@ -124,7 +124,7 @@ export const ActivityList: React.FunctionComponent<ActivityListProps> = ({
           />
         </p>
       )}
-      {loadingActivities ? (
+      {loadingActivities && loadingUsers ? (
         <div data-c-container="form" data-c-padding="top(1) bottom(1)">
           <div
             data-c-background="white(100)"
