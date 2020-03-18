@@ -38,6 +38,7 @@ class JobController extends Controller
         // Eager load the count of submitted applications, to prevent the relationship
         // from being actually loaded and firing off events.
         $jobs = JobPoster::where('internal_only', false)
+            ->where('department_id', '!=', config('app.strategic_response_department_id'))
             ->where('job_poster_status_id', JobPosterStatus::where('key', 'live')->first()->id)
             ->with([
                 'department',
