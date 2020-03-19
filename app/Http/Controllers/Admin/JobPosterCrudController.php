@@ -263,6 +263,29 @@ class JobPosterCrudController extends CrudController
             'allows_null' => false,
             'default' => $job->job_poster_status_id,
         ]);
+
+        // Strategic Talent Response fields
+        $this->crud->addField([
+            'label' => 'Talent Stream',
+            'type' => 'select',
+            'name' => 'talent_stream_id', // the db column for the foreign key
+            'entity' => 'talent_stream', // the method that defines the relationship in your Model
+            'attribute' => 'name', // foreign key attribute that is shown to user
+        ]);
+        $this->crud->addField([
+            'label' => 'Talent Stream Subcategory',
+            'type' => 'select',
+            'name' => 'talent_stream_category_id', // the db column for the foreign key
+            'entity' => 'talent_stream_category', // the method that defines the relationship in your Model
+            'attribute' => 'name', // foreign key attribute that is shown to user
+        ]);
+        $this->crud->addField([
+            'label' => 'Job Skill Level',
+            'type' => 'select',
+            'name' => 'job_skill_level_id', // the db column for the foreign key
+            'entity' => 'job_skill_level', // the method that defines the relationship in your Model
+            'attribute' => 'name', // foreign key attribute that is shown to user
+        ]);
     }
 
     public function update()
