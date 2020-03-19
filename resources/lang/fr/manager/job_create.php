@@ -94,5 +94,18 @@ return [
     'questions' => [
         '00' => 'Pourquoi êtes-vous intéressé par ce travail?',
         '01' => 'Pourquoi pensez-vous que vous serez un bon candidat pour ce poste?'
+    ],
+    'strategic_response_questions' => [
+        'What is your active GC email account (must end in .ca)',
+        'What is your current classification and level? (e.g. IS-03)',
+        'What is your current security clearance level? (Reliability, Enhanced, Secret)',
+        'What are your current levels in English and French? (e.g. BBB/BBB)',
+        'What is your current work location? (City, Province)',
+        'What is your home department and branch? (Department, Branch)',
+        'What is your current director’s name and email? (We’ll need approval that you can be loaned to another team for a bit to help out.)',
+        'What is the name and email of an additional reference who can confirm your skill set? (Preferably a current or recent Government of Canada supervisor.)',
+        'Are you willing to come to work in a physical office?',
+        'Will the team you’re helping to need to provide any additional accommodation measures to ensure you can apply your skills to the work required?',
+        'Do you have any experience or skills (other than those required for this position) that might be an asset to a team under the current circumstances?',
     ]
 ];

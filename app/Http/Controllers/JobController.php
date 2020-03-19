@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\JobApplication;
@@ -16,6 +15,7 @@ use App\Models\Lookup\CitizenshipDeclaration;
 use App\Models\Lookup\JobPosterStatus;
 use App\Models\Lookup\VeteranStatus;
 use App\Models\Manager;
+use App\Services\JobPosterDefaultQuestions;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Services\Validation\JobPosterValidator;
 use Facades\App\Services\WhichPortal;
@@ -283,10 +283,8 @@ class JobController extends Controller
     {
         $manager = $jobPoster->manager;
 
-        if ($jobPoster->job_poster_questions === null || $jobPoster->job_poster_questions->count() === 0) {
-            $jobPoster->job_poster_questions()->saveMany($this->populateDefaultQuestions());
-            $jobPoster->refresh();
-        }
+        $defaultQuestionManager = new JobPosterDefaultQuestions();
+        $defaultQuestionManager->initializeQuestionsIfEmpty($jobPoster);
 
         return view(
             'manager/job_create',
@@ -404,41 +402,6 @@ class JobController extends Controller
             $jobPoster->save();
             $jobQuestion->save();
         }
-    }
-
-    /**
-     * Get the localized default questions and add them to an array.
-     *
-     * @return mixed[]|void
-     */
-    protected function populateDefaultQuestions()
-    {
-        $defaultQuestions = [
-            'en' => array_values(Lang::get('manager/job_create', [], 'en')['questions']),
-            'fr' => array_values(Lang::get('manager/job_create', [], 'fr')['questions']),
-        ];
-
-        if (count($defaultQuestions['en']) !== count($defaultQuestions['fr'])) {
-            Log::warning('There must be the same number of French and English default questions for a Job Poster.');
-            return;
-        }
-
-        $jobQuestions = [];
-
-        for ($i = 0; $i < count($defaultQuestions['en']); $i++) {
-            $jobQuestion = new JobPosterQuestion();
-            $jobQuestion->fill(
-                [
-                    'question' => [
-                        'en' => $defaultQuestions['en'][$i],
-                        'fr' => $defaultQuestions['fr'][$i],
-                    ]
-                ]
-            );
-            $jobQuestions[] = $jobQuestion;
-        }
-
-        return $jobQuestions;
     }
 
     /**
