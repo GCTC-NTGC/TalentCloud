@@ -68,20 +68,20 @@ return [
     'language' => [
         'sidebar_title' => 'Voir les exigences linguistiques de ce travail.',
         'title' => 'Exigences linguistiques',
-        'english_essential_context_01' => 'Ce poste exige une bonne maîtrise de l’anglais, tant à l’écrit qu’à l’oral. Dans le cadre de l’évaluation de vos compétences linguistiques, le gestionnaire d’embauche peut vous demander de suivre certaines étapes d’évaluation en anglais, comme des questions d’entrevue ou un examen.',
+        'english_essential_context_01' => 'Ce poste exige une bonne maîtrise de l\'anglais, tant à l\'écrit qu\'à l\'oral. Dans le cadre de l\'évaluation de vos compétences linguistiques, le gestionnaire d\'embauche peut vous demander de suivre certaines étapes d\'évaluation en anglais, comme des questions d\'entrevue ou un examen.',
         'english_essential_context_02' => 'Vous pouvez présenter cette demande initiale dans la langue officielle de votre choix (français ou anglais).',
-        'french_essential_context_01' => 'Ce poste exige une bonne maîtrise du français, tant à l’écrit qu’à l’oral. Dans le cadre de l’évaluation de vos compétences linguistiques, le gestionnaire d’embauche peut vous demander de suivre certaines étapes d’évaluation en français, comme des questions d’entrevue ou un examen.',
+        'french_essential_context_01' => 'Ce poste exige une bonne maîtrise du français, tant à l\'écrit qu\'à l\'oral. Dans le cadre de l\'évaluation de vos compétences linguistiques, le gestionnaire d\'embauche peut vous demander de suivre certaines étapes d\'évaluation en français, comme des questions d\'entrevue ou un examen.',
         'french_essential_context_02' => 'Vous pouvez présenter cette demande initiale dans la langue officielle de votre choix (français ou anglais).',
         'english_or_french_context_01' => 'Pour ce poste, vous répondez aux exigences linguistiques si vous possédez de solides compétences en lecture, en rédaction et en communication verbale en français, en anglais ou dans les deux (bilingue).',
         'english_or_french_context_02' => 'Vous pouvez présenter cette demande dans la langue officielle de votre choix (français ou anglais).',
-        'bilingual_intermediate_context_01' => 'Ce poste exige une connaissance pratique du français et de l’anglais. Cela signifie que vous pouvez assumer les fonctions du poste en français ou en anglais, et que vous possédez des compétences intermédiaires en lecture, en rédaction et en communication verbale dans les deux langues officielles. Dans le cadre de ce processus de sélection, vos compétences linguistiques seront évaluées par la %proficiency%.',
-        'bilingual_intermediate_context_02' => 'Vous pouvez suivre toutes les autres étapes de ce processus d’évaluation dans la langue officielle de votre choix, y compris la demande initiale, l’entrevue, l’examen et toute autre composante de l’évaluation.',
-        'bilingual_advanced_context_01' => 'Ce poste exige une connaissance avancé du français et de l’anglais. Cela signifie que vous pouvez assumer les fonctions du poste en français ou en anglais, et que vous possédez des solides compétences en lecture, en rédaction et en communication verbale dans les deux langues. Dans le cadre de ce processus de sélection, vos compétences linguistiques seront évaluées par la %proficiency%.',
-        'bilingual_advanced_context_02' => 'Vous pouvez suivre toutes les autres étapes de ce processus d’évaluation dans la langue officielle de votre choix, y compris la demande initiale, l’entrevue, l’examen et toute autre composante de l’évaluation.',
+        'bilingual_intermediate_context_01' => 'Ce poste exige une connaissance pratique du français et de l\'anglais. Cela signifie que vous pouvez assumer les fonctions du poste en français ou en anglais, et que vous possédez des compétences intermédiaires en lecture, en rédaction et en communication verbale dans les deux langues officielles. Dans le cadre de ce processus de sélection, vos compétences linguistiques seront évaluées par la %proficiency%.',
+        'bilingual_intermediate_context_02' => 'Vous pouvez suivre toutes les autres étapes de ce processus d\'évaluation dans la langue officielle de votre choix, y compris la demande initiale, l\'entrevue, l\'examen et toute autre composante de l\'évaluation.',
+        'bilingual_advanced_context_01' => 'Ce poste exige une connaissance avancé du français et de l\'anglais. Cela signifie que vous pouvez assumer les fonctions du poste en français ou en anglais, et que vous possédez des solides compétences en lecture, en rédaction et en communication verbale dans les deux langues. Dans le cadre de ce processus de sélection, vos compétences linguistiques seront évaluées par la %proficiency%.',
+        'bilingual_advanced_context_02' => 'Vous pouvez suivre toutes les autres étapes de ce processus d\'évaluation dans la langue officielle de votre choix, y compris la demande initiale, l\'entrevue, l\'examen et toute autre composante de l\'évaluation.',
         'proficiency_link' => 'https://www.canada.ca/fr/commission-fonction-publique/emplois/services/emplois-gc/renseignements-candidats/exigences-linguistiques.html',
         'proficiency_copy' => 'Commission de la fonction publique du Canada',
         'assessment_link' => 'https://www.canada.ca/fr/commission-fonction-publique/services/evaluation-langue-seconde/tests-autoevaluation.html',
-        'assessment_copy' => 'tests d’autoévaluation',
+        'assessment_copy' => 'tests d\'autoévaluation',
     ],
     'culture' => [
         'sidebar_title' => 'Voir la culture à cet emploi.',
@@ -103,12 +103,12 @@ return [
         'team_work_label' => 'Notre mode de fonctionnement'
     ],
     'work_environment' => [
-        'view_more_button' => 'Voir l’environnement de travail et la culture de l’équipe',
+        'view_more_button' => 'Voir l\'environnement de travail et la culture de l\'équipe',
         'modal_title' => 'Environnement de travail et culture',
         'modal_more_on_env' => 'Plus sur votre environnement de travail',
         'modal_button' => 'Fermer',
         'remote_work_label' => 'Travail à distance :',
-        'remote_work_desc' => 'Travaillez n’importe où, en tout temps.',
+        'remote_work_desc' => 'Travaillez n\'importe où, en tout temps.',
         'remote_work_allowed' => [
             true => 'Autorisé',
             false => 'Non autorisé',
@@ -156,10 +156,10 @@ return [
     'no_info' => 'Aucune information fournie.',
 
     'strategic_response' => [
-        'various_departments' => 'GC - Various Departments',
-        'various' => 'Various',
-        'current_employee_alert' => 'You must be a current employee of the Government of Canada, with a valid security clearance.',
-        'management_approval_alert' => 'Your home department\'s management team will need to approve your temporary placement with another department or team.',
+        'various_departments' => 'GC – Divers ministères',
+        'various' => 'Divers',
+        'current_employee_alert' => 'Vous devez être un employé actuel du gouvernement du Canada avec une autorisation de sécurité valide.',
+        'management_approval_alert' => 'L\'équipe de gestion de votre ministère d\'attache devra approuver votre placement temporaire auprès d\'un autre ministère ou équipe.',
         'heads_up' => 'Juste pour vous informer!'
     ]
 ];
