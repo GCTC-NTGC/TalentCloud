@@ -75,7 +75,7 @@ class StrategicResponseSeeder extends Seeder // phpcs:ignore
             ]));
         }
 
-        factory(JobPoster::class, 3)->states(['live', 'strategic_response'])->create([
+        factory(JobPoster::class, 100)->states(['live', 'strategic_response'])->create([
             'manager_id' => $managerUser->manager->id
         ])->each(function ($job): void {
             $job->job_applications()->saveMany(factory(JobApplication::class, 5))->create([

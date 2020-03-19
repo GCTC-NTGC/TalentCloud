@@ -75,6 +75,8 @@ Route::group(
             /* Profile (Experience) */
             /* Temp Resources */
             Route::view('resources', 'common/resources')->middleware('localOnly')->name('resources');
+
+            Route::view('response/api-test', 'applicant/str_api_test')->middleware('localOnly');
         });
 
         Route::group(['prefix' => config('app.applicant_prefix')], function (): void {
