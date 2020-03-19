@@ -961,1533 +961,6 @@ exports.removeUnitNamespace = removeUnitNamespace;
 
 /***/ }),
 
-/***/ "./node_modules/create-react-context/lib/implementation.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/create-react-context/lib/implementation.js ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _gud = __webpack_require__(/*! gud */ "./node_modules/gud/index.js");
-
-var _gud2 = _interopRequireDefault(_gud);
-
-var _warning = __webpack_require__(/*! fbjs/lib/warning */ "./node_modules/fbjs/lib/warning.js");
-
-var _warning2 = _interopRequireDefault(_warning);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var MAX_SIGNED_31_BIT_INT = 1073741823;
-
-// Inlined Object.is polyfill.
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
-function objectIs(x, y) {
-  if (x === y) {
-    return x !== 0 || 1 / x === 1 / y;
-  } else {
-    return x !== x && y !== y;
-  }
-}
-
-function createEventEmitter(value) {
-  var handlers = [];
-  return {
-    on: function on(handler) {
-      handlers.push(handler);
-    },
-    off: function off(handler) {
-      handlers = handlers.filter(function (h) {
-        return h !== handler;
-      });
-    },
-    get: function get() {
-      return value;
-    },
-    set: function set(newValue, changedBits) {
-      value = newValue;
-      handlers.forEach(function (handler) {
-        return handler(value, changedBits);
-      });
-    }
-  };
-}
-
-function onlyChild(children) {
-  return Array.isArray(children) ? children[0] : children;
-}
-
-function createReactContext(defaultValue, calculateChangedBits) {
-  var _Provider$childContex, _Consumer$contextType;
-
-  var contextProp = '__create-react-context-' + (0, _gud2.default)() + '__';
-
-  var Provider = function (_Component) {
-    _inherits(Provider, _Component);
-
-    function Provider() {
-      var _temp, _this, _ret;
-
-      _classCallCheck(this, Provider);
-
-      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
-
-      return _ret = (_temp = (_this = _possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.emitter = createEventEmitter(_this.props.value), _temp), _possibleConstructorReturn(_this, _ret);
-    }
-
-    Provider.prototype.getChildContext = function getChildContext() {
-      var _ref;
-
-      return _ref = {}, _ref[contextProp] = this.emitter, _ref;
-    };
-
-    Provider.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-      if (this.props.value !== nextProps.value) {
-        var oldValue = this.props.value;
-        var newValue = nextProps.value;
-        var changedBits = void 0;
-
-        if (objectIs(oldValue, newValue)) {
-          changedBits = 0; // No change
-        } else {
-          changedBits = typeof calculateChangedBits === 'function' ? calculateChangedBits(oldValue, newValue) : MAX_SIGNED_31_BIT_INT;
-          if (true) {
-            (0, _warning2.default)((changedBits & MAX_SIGNED_31_BIT_INT) === changedBits, 'calculateChangedBits: Expected the return value to be a ' + '31-bit integer. Instead received: %s', changedBits);
-          }
-
-          changedBits |= 0;
-
-          if (changedBits !== 0) {
-            this.emitter.set(nextProps.value, changedBits);
-          }
-        }
-      }
-    };
-
-    Provider.prototype.render = function render() {
-      return this.props.children;
-    };
-
-    return Provider;
-  }(_react.Component);
-
-  Provider.childContextTypes = (_Provider$childContex = {}, _Provider$childContex[contextProp] = _propTypes2.default.object.isRequired, _Provider$childContex);
-
-  var Consumer = function (_Component2) {
-    _inherits(Consumer, _Component2);
-
-    function Consumer() {
-      var _temp2, _this2, _ret2;
-
-      _classCallCheck(this, Consumer);
-
-      for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-        args[_key2] = arguments[_key2];
-      }
-
-      return _ret2 = (_temp2 = (_this2 = _possibleConstructorReturn(this, _Component2.call.apply(_Component2, [this].concat(args))), _this2), _this2.state = {
-        value: _this2.getValue()
-      }, _this2.onUpdate = function (newValue, changedBits) {
-        var observedBits = _this2.observedBits | 0;
-        if ((observedBits & changedBits) !== 0) {
-          _this2.setState({ value: _this2.getValue() });
-        }
-      }, _temp2), _possibleConstructorReturn(_this2, _ret2);
-    }
-
-    Consumer.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-      var observedBits = nextProps.observedBits;
-
-      this.observedBits = observedBits === undefined || observedBits === null ? MAX_SIGNED_31_BIT_INT // Subscribe to all changes by default
-      : observedBits;
-    };
-
-    Consumer.prototype.componentDidMount = function componentDidMount() {
-      if (this.context[contextProp]) {
-        this.context[contextProp].on(this.onUpdate);
-      }
-      var observedBits = this.props.observedBits;
-
-      this.observedBits = observedBits === undefined || observedBits === null ? MAX_SIGNED_31_BIT_INT // Subscribe to all changes by default
-      : observedBits;
-    };
-
-    Consumer.prototype.componentWillUnmount = function componentWillUnmount() {
-      if (this.context[contextProp]) {
-        this.context[contextProp].off(this.onUpdate);
-      }
-    };
-
-    Consumer.prototype.getValue = function getValue() {
-      if (this.context[contextProp]) {
-        return this.context[contextProp].get();
-      } else {
-        return defaultValue;
-      }
-    };
-
-    Consumer.prototype.render = function render() {
-      return onlyChild(this.props.children)(this.state.value);
-    };
-
-    return Consumer;
-  }(_react.Component);
-
-  Consumer.contextTypes = (_Consumer$contextType = {}, _Consumer$contextType[contextProp] = _propTypes2.default.object, _Consumer$contextType);
-
-
-  return {
-    Provider: Provider,
-    Consumer: Consumer
-  };
-}
-
-exports.default = createReactContext;
-module.exports = exports['default'];
-
-/***/ }),
-
-/***/ "./node_modules/create-react-context/lib/index.js":
-/*!********************************************************!*\
-  !*** ./node_modules/create-react-context/lib/index.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _implementation = __webpack_require__(/*! ./implementation */ "./node_modules/create-react-context/lib/implementation.js");
-
-var _implementation2 = _interopRequireDefault(_implementation);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = _react2.default.createContext || _implementation2.default;
-module.exports = exports['default'];
-
-/***/ }),
-
-/***/ "./node_modules/deepmerge/dist/umd.js":
-/*!********************************************!*\
-  !*** ./node_modules/deepmerge/dist/umd.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-(function (global, factory) {
-	 true ? module.exports = factory() :
-	undefined;
-}(this, (function () { 'use strict';
-
-var isMergeableObject = function isMergeableObject(value) {
-	return isNonNullObject(value)
-		&& !isSpecial(value)
-};
-
-function isNonNullObject(value) {
-	return !!value && typeof value === 'object'
-}
-
-function isSpecial(value) {
-	var stringValue = Object.prototype.toString.call(value);
-
-	return stringValue === '[object RegExp]'
-		|| stringValue === '[object Date]'
-		|| isReactElement(value)
-}
-
-// see https://github.com/facebook/react/blob/b5ac963fb791d1298e7f396236383bc955f916c1/src/isomorphic/classic/element/ReactElement.js#L21-L25
-var canUseSymbol = typeof Symbol === 'function' && Symbol.for;
-var REACT_ELEMENT_TYPE = canUseSymbol ? Symbol.for('react.element') : 0xeac7;
-
-function isReactElement(value) {
-	return value.$$typeof === REACT_ELEMENT_TYPE
-}
-
-function emptyTarget(val) {
-	return Array.isArray(val) ? [] : {}
-}
-
-function cloneUnlessOtherwiseSpecified(value, options) {
-	return (options.clone !== false && options.isMergeableObject(value))
-		? deepmerge(emptyTarget(value), value, options)
-		: value
-}
-
-function defaultArrayMerge(target, source, options) {
-	return target.concat(source).map(function(element) {
-		return cloneUnlessOtherwiseSpecified(element, options)
-	})
-}
-
-function mergeObject(target, source, options) {
-	var destination = {};
-	if (options.isMergeableObject(target)) {
-		Object.keys(target).forEach(function(key) {
-			destination[key] = cloneUnlessOtherwiseSpecified(target[key], options);
-		});
-	}
-	Object.keys(source).forEach(function(key) {
-		if (!options.isMergeableObject(source[key]) || !target[key]) {
-			destination[key] = cloneUnlessOtherwiseSpecified(source[key], options);
-		} else {
-			destination[key] = deepmerge(target[key], source[key], options);
-		}
-	});
-	return destination
-}
-
-function deepmerge(target, source, options) {
-	options = options || {};
-	options.arrayMerge = options.arrayMerge || defaultArrayMerge;
-	options.isMergeableObject = options.isMergeableObject || isMergeableObject;
-
-	var sourceIsArray = Array.isArray(source);
-	var targetIsArray = Array.isArray(target);
-	var sourceAndTargetTypesMatch = sourceIsArray === targetIsArray;
-
-	if (!sourceAndTargetTypesMatch) {
-		return cloneUnlessOtherwiseSpecified(source, options)
-	} else if (sourceIsArray) {
-		return options.arrayMerge(target, source, options)
-	} else {
-		return mergeObject(target, source, options)
-	}
-}
-
-deepmerge.all = function deepmergeAll(array, options) {
-	if (!Array.isArray(array)) {
-		throw new Error('first argument should be an array')
-	}
-
-	return array.reduce(function(prev, next) {
-		return deepmerge(prev, next, options)
-	}, {})
-};
-
-var deepmerge_1 = deepmerge;
-
-return deepmerge_1;
-
-})));
-
-
-/***/ }),
-
-/***/ "./node_modules/fbjs/lib/emptyFunction.js":
-/*!************************************************!*\
-  !*** ./node_modules/fbjs/lib/emptyFunction.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * 
- */
-
-function makeEmptyFunction(arg) {
-  return function () {
-    return arg;
-  };
-}
-
-/**
- * This function accepts and discards inputs; it has no side effects. This is
- * primarily useful idiomatically for overridable function endpoints which
- * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
- */
-var emptyFunction = function emptyFunction() {};
-
-emptyFunction.thatReturns = makeEmptyFunction;
-emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
-emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
-emptyFunction.thatReturnsNull = makeEmptyFunction(null);
-emptyFunction.thatReturnsThis = function () {
-  return this;
-};
-emptyFunction.thatReturnsArgument = function (arg) {
-  return arg;
-};
-
-module.exports = emptyFunction;
-
-/***/ }),
-
-/***/ "./node_modules/fbjs/lib/warning.js":
-/*!******************************************!*\
-  !*** ./node_modules/fbjs/lib/warning.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright (c) 2014-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
-
-
-var emptyFunction = __webpack_require__(/*! ./emptyFunction */ "./node_modules/fbjs/lib/emptyFunction.js");
-
-/**
- * Similar to invariant but only logs a warning if the condition is not met.
- * This can be used to log issues in development environments in critical
- * paths. Removing the logging code for production environments will keep the
- * same logic and follow the same code paths.
- */
-
-var warning = emptyFunction;
-
-if (true) {
-  var printWarning = function printWarning(format) {
-    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-      args[_key - 1] = arguments[_key];
-    }
-
-    var argIndex = 0;
-    var message = 'Warning: ' + format.replace(/%s/g, function () {
-      return args[argIndex++];
-    });
-    if (typeof console !== 'undefined') {
-      console.error(message);
-    }
-    try {
-      // --- Welcome to debugging React ---
-      // This error was thrown as a convenience so that you can use this stack
-      // to find the callsite that caused this warning to fire.
-      throw new Error(message);
-    } catch (x) {}
-  };
-
-  warning = function warning(condition, format) {
-    if (format === undefined) {
-      throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
-    }
-
-    if (format.indexOf('Failed Composite propType: ') === 0) {
-      return; // Ignore CompositeComponent proptype check.
-    }
-
-    if (!condition) {
-      for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
-        args[_key2 - 2] = arguments[_key2];
-      }
-
-      printWarning.apply(undefined, [format].concat(args));
-    }
-  };
-}
-
-module.exports = warning;
-
-/***/ }),
-
-/***/ "./node_modules/formik/dist/formik.cjs.development.js":
-/*!************************************************************!*\
-  !*** ./node_modules/formik/dist/formik.cjs.development.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.js");
-var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var isEqual = _interopDefault(__webpack_require__(/*! react-fast-compare */ "./node_modules/react-fast-compare/index.js"));
-var deepmerge = _interopDefault(__webpack_require__(/*! deepmerge */ "./node_modules/deepmerge/dist/umd.js"));
-var hoistNonReactStatics = _interopDefault(__webpack_require__(/*! hoist-non-react-statics */ "./node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js"));
-var createContext = _interopDefault(__webpack_require__(/*! create-react-context */ "./node_modules/create-react-context/lib/index.js"));
-var warning = _interopDefault(__webpack_require__(/*! tiny-warning */ "./node_modules/tiny-warning/dist/tiny-warning.cjs.js"));
-var clone = _interopDefault(__webpack_require__(/*! lodash/clone */ "./node_modules/lodash/clone.js"));
-var toPath = _interopDefault(__webpack_require__(/*! lodash/toPath */ "./node_modules/lodash/toPath.js"));
-var cloneDeep = _interopDefault(__webpack_require__(/*! lodash/cloneDeep */ "./node_modules/lodash/cloneDeep.js"));
-
-var _a;
-var FormikProvider = (_a = createContext({}), _a.Provider), FormikConsumer = _a.Consumer;
-function connect(Comp) {
-    var C = function (props) { return (React.createElement(FormikConsumer, null, function (formik) { return React.createElement(Comp, tslib_1.__assign({}, props, { formik: formik })); })); };
-    var componentDisplayName = Comp.displayName ||
-        Comp.name ||
-        (Comp.constructor && Comp.constructor.name) ||
-        'Component';
-    C.WrappedComponent = Comp;
-    C.displayName = "FormikConnect(" + componentDisplayName + ")";
-    return hoistNonReactStatics(C, Comp);
-}
-
-var isFunction = function (obj) {
-    return typeof obj === 'function';
-};
-var isObject = function (obj) {
-    return obj !== null && typeof obj === 'object';
-};
-var isInteger = function (obj) {
-    return String(Math.floor(Number(obj))) === obj;
-};
-var isString = function (obj) {
-    return Object.prototype.toString.call(obj) === '[object String]';
-};
-var isNaN = function (obj) { return obj !== obj; };
-var isEmptyChildren = function (children) {
-    return React.Children.count(children) === 0;
-};
-var isPromise = function (value) {
-    return isObject(value) && isFunction(value.then);
-};
-var isInputEvent = function (value) {
-    return value && isObject(value) && isObject(value.target);
-};
-function getActiveElement(doc) {
-    doc = doc || (typeof document !== 'undefined' ? document : undefined);
-    if (typeof doc === 'undefined') {
-        return null;
-    }
-    try {
-        return doc.activeElement || doc.body;
-    }
-    catch (e) {
-        return doc.body;
-    }
-}
-function makeCancelable(promise) {
-    var hasCanceled = false;
-    var wrappedPromise = new Promise(function (resolve, reject) {
-        promise.then(function (val) { return (hasCanceled ? reject({ isCanceled: true }) : resolve(val)); }, function (error) { return (hasCanceled ? reject({ isCanceled: true }) : reject(error)); });
-    });
-    return [
-        wrappedPromise,
-        function cancel() {
-            hasCanceled = true;
-        },
-    ];
-}
-function getIn(obj, key, def, p) {
-    if (p === void 0) { p = 0; }
-    var path = toPath(key);
-    while (obj && p < path.length) {
-        obj = obj[path[p++]];
-    }
-    return obj === undefined ? def : obj;
-}
-function setIn(obj, path, value) {
-    var res = clone(obj);
-    var resVal = res;
-    var i = 0;
-    var pathArray = toPath(path);
-    for (; i < pathArray.length - 1; i++) {
-        var currentPath = pathArray[i];
-        var currentObj = getIn(obj, pathArray.slice(0, i + 1));
-        if (currentObj) {
-            resVal = resVal[currentPath] = clone(currentObj);
-        }
-        else {
-            var nextPath = pathArray[i + 1];
-            resVal = resVal[currentPath] =
-                isInteger(nextPath) && Number(nextPath) >= 0 ? [] : {};
-        }
-    }
-    if ((i === 0 ? obj : resVal)[pathArray[i]] === value) {
-        return obj;
-    }
-    if (value === undefined) {
-        delete resVal[pathArray[i]];
-    }
-    else {
-        resVal[pathArray[i]] = value;
-    }
-    if (i === 0 && value === undefined) {
-        delete res[pathArray[i]];
-    }
-    return res;
-}
-function setNestedObjectValues(object, value, visited, response) {
-    if (visited === void 0) { visited = new WeakMap(); }
-    if (response === void 0) { response = {}; }
-    for (var _i = 0, _a = Object.keys(object); _i < _a.length; _i++) {
-        var k = _a[_i];
-        var val = object[k];
-        if (isObject(val)) {
-            if (!visited.get(val)) {
-                visited.set(val, true);
-                response[k] = Array.isArray(val) ? [] : {};
-                setNestedObjectValues(val, value, visited, response[k]);
-            }
-        }
-        else {
-            response[k] = value;
-        }
-    }
-    return response;
-}
-
-var Formik = (function (_super) {
-    tslib_1.__extends(Formik, _super);
-    function Formik(props) {
-        var _this = _super.call(this, props) || this;
-        _this.hcCache = {};
-        _this.hbCache = {};
-        _this.registerField = function (name, Comp) {
-            _this.fields[name] = Comp;
-        };
-        _this.unregisterField = function (name) {
-            delete _this.fields[name];
-        };
-        _this.setErrors = function (errors) {
-            _this.setState({ errors: errors });
-        };
-        _this.setTouched = function (touched) {
-            _this.setState({ touched: touched }, function () {
-                if (_this.props.validateOnBlur) {
-                    _this.runValidations(_this.state.values);
-                }
-            });
-        };
-        _this.setValues = function (values) {
-            _this.setState({ values: values }, function () {
-                if (_this.props.validateOnChange) {
-                    _this.runValidations(values);
-                }
-            });
-        };
-        _this.setStatus = function (status) {
-            _this.setState({ status: status });
-        };
-        _this.setError = function (error) {
-            {
-                console.warn("Warning: Formik's setError(error) is deprecated and may be removed in future releases. Please use Formik's setStatus(status) instead. It works identically. For more info see https://github.com/jaredpalmer/formik#setstatus-status-any--void");
-            }
-            _this.setState({ error: error });
-        };
-        _this.setSubmitting = function (isSubmitting) {
-            if (_this.didMount) {
-                _this.setState({ isSubmitting: isSubmitting });
-            }
-        };
-        _this.validateField = function (field) {
-            _this.setState({ isValidating: true });
-            return _this.runSingleFieldLevelValidation(field, getIn(_this.state.values, field)).then(function (error) {
-                if (_this.didMount) {
-                    _this.setState({
-                        errors: setIn(_this.state.errors, field, error),
-                        isValidating: false,
-                    });
-                }
-                return error;
-            });
-        };
-        _this.runSingleFieldLevelValidation = function (field, value) {
-            return new Promise(function (resolve) {
-                return resolve(_this.fields[field].props.validate(value));
-            }).then(function (x) { return x; }, function (e) { return e; });
-        };
-        _this.runValidationSchema = function (values) {
-            return new Promise(function (resolve) {
-                var validationSchema = _this.props.validationSchema;
-                var schema = isFunction(validationSchema)
-                    ? validationSchema()
-                    : validationSchema;
-                validateYupSchema(values, schema).then(function () {
-                    resolve({});
-                }, function (err) {
-                    resolve(yupToFormErrors(err));
-                });
-            });
-        };
-        _this.runValidations = function (values) {
-            if (values === void 0) { values = _this.state.values; }
-            if (_this.validator) {
-                _this.validator();
-            }
-            var _a = makeCancelable(Promise.all([
-                _this.runFieldLevelValidations(values),
-                _this.props.validationSchema ? _this.runValidationSchema(values) : {},
-                _this.props.validate ? _this.runValidateHandler(values) : {},
-            ]).then(function (_a) {
-                var fieldErrors = _a[0], schemaErrors = _a[1], handlerErrors = _a[2];
-                return deepmerge.all([fieldErrors, schemaErrors, handlerErrors], { arrayMerge: arrayMerge });
-            })), promise = _a[0], cancel = _a[1];
-            _this.validator = cancel;
-            return promise
-                .then(function (errors) {
-                if (_this.didMount) {
-                    _this.setState(function (prevState) {
-                        if (!isEqual(prevState.errors, errors)) {
-                            return { errors: errors };
-                        }
-                        return null;
-                    });
-                }
-                return errors;
-            })
-                .catch(function (x) { return x; });
-        };
-        _this.handleChange = function (eventOrPath) {
-            var executeChange = function (eventOrValue, maybePath) {
-                var field = maybePath;
-                var value;
-                if (isInputEvent(eventOrValue)) {
-                    var event_1 = eventOrValue;
-                    if (event_1.persist) {
-                        event_1.persist();
-                    }
-                    var _a = event_1.target, type = _a.type, name_1 = _a.name, id = _a.id, checked = _a.checked, outerHTML = _a.outerHTML;
-                    field = maybePath ? maybePath : name_1 ? name_1 : id;
-                    if (!field && "development" !== 'production') {
-                        warnAboutMissingIdentifier({
-                            htmlContent: outerHTML,
-                            documentationAnchorLink: 'handlechange-e-reactchangeeventany--void',
-                            handlerName: 'handleChange',
-                        });
-                    }
-                    value = event_1.target.value;
-                    if (/number|range/.test(type)) {
-                        var parsed = parseFloat(event_1.target.value);
-                        value = isNaN(parsed) ? '' : parsed;
-                    }
-                    if (/checkbox/.test(type)) {
-                        value = checked;
-                    }
-                }
-                else {
-                    value = eventOrValue;
-                }
-                if (field) {
-                    _this.setState(function (prevState) { return (tslib_1.__assign({}, prevState, { values: setIn(prevState.values, field, value) })); }, function () {
-                        if (_this.props.validateOnChange) {
-                            _this.runValidations(setIn(_this.state.values, field, value));
-                        }
-                    });
-                }
-            };
-            if (isString(eventOrPath)) {
-                var path_1 = eventOrPath;
-                if (!isFunction(_this.hcCache[path_1])) {
-                    _this.hcCache[path_1] = function (eventOrValue) {
-                        return executeChange(eventOrValue, path_1);
-                    };
-                }
-                return _this.hcCache[path_1];
-            }
-            else {
-                var event_2 = eventOrPath;
-                executeChange(event_2);
-            }
-        };
-        _this.setFieldValue = function (field, value, shouldValidate) {
-            if (shouldValidate === void 0) { shouldValidate = true; }
-            if (_this.didMount) {
-                _this.setState(function (prevState) { return (tslib_1.__assign({}, prevState, { values: setIn(prevState.values, field, value) })); }, function () {
-                    if (_this.props.validateOnChange && shouldValidate) {
-                        _this.runValidations(_this.state.values);
-                    }
-                });
-            }
-        };
-        _this.handleSubmit = function (e) {
-            if (e && e.preventDefault) {
-                e.preventDefault();
-            }
-            if (typeof document !== 'undefined') {
-                var activeElement = getActiveElement();
-                if (activeElement !== null &&
-                    activeElement instanceof HTMLButtonElement) {
-                    warning(!!(activeElement.attributes &&
-                        activeElement.attributes.getNamedItem('type')), 'You submitted a Formik form using a button with an unspecified `type` attribute.  Most browsers default button elements to `type="submit"`. If this is not a submit button, please add `type="button"`.');
-                }
-            }
-            _this.submitForm();
-        };
-        _this.submitForm = function () {
-            _this.setState(function (prevState) { return ({
-                touched: setNestedObjectValues(prevState.values, true),
-                isSubmitting: true,
-                isValidating: true,
-                submitCount: prevState.submitCount + 1,
-            }); });
-            return _this.runValidations(_this.state.values).then(function (combinedErrors) {
-                if (_this.didMount) {
-                    _this.setState({ isValidating: false });
-                }
-                var isValid = Object.keys(combinedErrors).length === 0;
-                if (isValid) {
-                    _this.executeSubmit();
-                }
-                else if (_this.didMount) {
-                    _this.setState({ isSubmitting: false });
-                }
-            });
-        };
-        _this.executeSubmit = function () {
-            _this.props.onSubmit(_this.state.values, _this.getFormikActions());
-        };
-        _this.handleBlur = function (eventOrPath) {
-            var executeBlur = function (maybeEvent, maybePath) {
-                var field = maybePath;
-                if (isInputEvent(maybeEvent)) {
-                    var event_3 = maybeEvent;
-                    if (event_3.persist) {
-                        event_3.persist();
-                    }
-                    var _a = event_3.target, name_2 = _a.name, id = _a.id, outerHTML = _a.outerHTML;
-                    field = name_2 ? name_2 : id;
-                    if (!field && "development" !== 'production') {
-                        warnAboutMissingIdentifier({
-                            htmlContent: outerHTML,
-                            documentationAnchorLink: 'handleblur-e-reactfocuseventany--void',
-                            handlerName: 'handleBlur',
-                        });
-                    }
-                }
-                _this.setState(function (prevState) { return ({
-                    touched: setIn(prevState.touched, field, true),
-                }); });
-                if (_this.props.validateOnBlur) {
-                    _this.runValidations(_this.state.values);
-                }
-            };
-            if (isString(eventOrPath)) {
-                var path_2 = eventOrPath;
-                if (!isFunction(_this.hbCache[path_2])) {
-                    _this.hbCache[path_2] = function (event) {
-                        return executeBlur(event, path_2);
-                    };
-                }
-                return _this.hbCache[path_2];
-            }
-            else {
-                var event_4 = eventOrPath;
-                executeBlur(event_4);
-            }
-        };
-        _this.setFieldTouched = function (field, touched, shouldValidate) {
-            if (touched === void 0) { touched = true; }
-            if (shouldValidate === void 0) { shouldValidate = true; }
-            _this.setState(function (prevState) { return (tslib_1.__assign({}, prevState, { touched: setIn(prevState.touched, field, touched) })); }, function () {
-                if (_this.props.validateOnBlur && shouldValidate) {
-                    _this.runValidations(_this.state.values);
-                }
-            });
-        };
-        _this.setFieldError = function (field, message) {
-            _this.setState(function (prevState) { return (tslib_1.__assign({}, prevState, { errors: setIn(prevState.errors, field, message) })); });
-        };
-        _this.resetForm = function (nextValues) {
-            var values = nextValues ? nextValues : _this.props.initialValues;
-            _this.initialValues = values;
-            _this.setState({
-                isSubmitting: false,
-                isValidating: false,
-                errors: {},
-                touched: {},
-                error: undefined,
-                status: _this.props.initialStatus,
-                values: values,
-                submitCount: 0,
-            });
-        };
-        _this.handleReset = function () {
-            if (_this.props.onReset) {
-                var maybePromisedOnReset = _this.props.onReset(_this.state.values, _this.getFormikActions());
-                if (isPromise(maybePromisedOnReset)) {
-                    maybePromisedOnReset.then(_this.resetForm);
-                }
-                else {
-                    _this.resetForm();
-                }
-            }
-            else {
-                _this.resetForm();
-            }
-        };
-        _this.setFormikState = function (s, callback) {
-            return _this.setState(s, callback);
-        };
-        _this.validateForm = function (values) {
-            _this.setState({ isValidating: true });
-            return _this.runValidations(values).then(function (errors) {
-                if (_this.didMount) {
-                    _this.setState({ isValidating: false });
-                }
-                return errors;
-            });
-        };
-        _this.getFormikActions = function () {
-            return {
-                resetForm: _this.resetForm,
-                submitForm: _this.submitForm,
-                validateForm: _this.validateForm,
-                validateField: _this.validateField,
-                setError: _this.setError,
-                setErrors: _this.setErrors,
-                setFieldError: _this.setFieldError,
-                setFieldTouched: _this.setFieldTouched,
-                setFieldValue: _this.setFieldValue,
-                setStatus: _this.setStatus,
-                setSubmitting: _this.setSubmitting,
-                setTouched: _this.setTouched,
-                setValues: _this.setValues,
-                setFormikState: _this.setFormikState,
-            };
-        };
-        _this.getFormikComputedProps = function () {
-            var isInitialValid = _this.props.isInitialValid;
-            var dirty = !isEqual(_this.initialValues, _this.state.values);
-            return {
-                dirty: dirty,
-                isValid: dirty
-                    ? _this.state.errors && Object.keys(_this.state.errors).length === 0
-                    : isInitialValid !== false && isFunction(isInitialValid)
-                        ? isInitialValid(_this.props)
-                        : isInitialValid,
-                initialValues: _this.initialValues,
-            };
-        };
-        _this.getFormikBag = function () {
-            return tslib_1.__assign({}, _this.state, _this.getFormikActions(), _this.getFormikComputedProps(), { registerField: _this.registerField, unregisterField: _this.unregisterField, handleBlur: _this.handleBlur, handleChange: _this.handleChange, handleReset: _this.handleReset, handleSubmit: _this.handleSubmit, validateOnChange: _this.props.validateOnChange, validateOnBlur: _this.props.validateOnBlur });
-        };
-        _this.getFormikContext = function () {
-            return tslib_1.__assign({}, _this.getFormikBag(), { validationSchema: _this.props.validationSchema, validate: _this.props.validate, initialValues: _this.initialValues });
-        };
-        _this.state = {
-            values: props.initialValues || {},
-            errors: {},
-            touched: {},
-            isSubmitting: false,
-            isValidating: false,
-            submitCount: 0,
-            status: props.initialStatus,
-        };
-        _this.didMount = false;
-        _this.fields = {};
-        _this.initialValues = props.initialValues || {};
-        warning(!(props.component && props.render), 'You should not use <Formik component> and <Formik render> in the same <Formik> component; <Formik render> will be ignored');
-        warning(!(props.component && props.children && !isEmptyChildren(props.children)), 'You should not use <Formik component> and <Formik children> in the same <Formik> component; <Formik children> will be ignored');
-        warning(!(props.render && props.children && !isEmptyChildren(props.children)), 'You should not use <Formik render> and <Formik children> in the same <Formik> component; <Formik children> will be ignored');
-        return _this;
-    }
-    Formik.prototype.componentDidMount = function () {
-        this.didMount = true;
-    };
-    Formik.prototype.componentWillUnmount = function () {
-        this.didMount = false;
-        if (this.validator) {
-            this.validator();
-        }
-    };
-    Formik.prototype.componentDidUpdate = function (prevProps) {
-        if (this.props.enableReinitialize &&
-            !isEqual(prevProps.initialValues, this.props.initialValues)) {
-            this.initialValues = this.props.initialValues;
-            this.resetForm(this.props.initialValues);
-        }
-    };
-    Formik.prototype.runFieldLevelValidations = function (values) {
-        var _this = this;
-        var fieldKeysWithValidation = Object.keys(this.fields).filter(function (f) {
-            return _this.fields &&
-                _this.fields[f] &&
-                _this.fields[f].props.validate &&
-                isFunction(_this.fields[f].props.validate);
-        });
-        var fieldValidations = fieldKeysWithValidation.length > 0
-            ? fieldKeysWithValidation.map(function (f) {
-                return _this.runSingleFieldLevelValidation(f, getIn(values, f));
-            })
-            : [Promise.resolve('DO_NOT_DELETE_YOU_WILL_BE_FIRED')];
-        return Promise.all(fieldValidations).then(function (fieldErrorsList) {
-            return fieldErrorsList.reduce(function (prev, curr, index) {
-                if (curr === 'DO_NOT_DELETE_YOU_WILL_BE_FIRED') {
-                    return prev;
-                }
-                if (!!curr) {
-                    prev = setIn(prev, fieldKeysWithValidation[index], curr);
-                }
-                return prev;
-            }, {});
-        });
-    };
-    Formik.prototype.runValidateHandler = function (values) {
-        var _this = this;
-        return new Promise(function (resolve) {
-            var maybePromisedErrors = _this.props.validate(values);
-            if (maybePromisedErrors === undefined) {
-                resolve({});
-            }
-            else if (isPromise(maybePromisedErrors)) {
-                maybePromisedErrors.then(function () {
-                    resolve({});
-                }, function (errors) {
-                    resolve(errors);
-                });
-            }
-            else {
-                resolve(maybePromisedErrors);
-            }
-        });
-    };
-    Formik.prototype.render = function () {
-        var _a = this.props, component = _a.component, render = _a.render, children = _a.children;
-        var props = this.getFormikBag();
-        var ctx = this.getFormikContext();
-        return (React.createElement(FormikProvider, { value: ctx }, component
-            ? React.createElement(component, props)
-            : render
-                ? render(props)
-                : children
-                    ? isFunction(children)
-                        ? children(props)
-                        : !isEmptyChildren(children)
-                            ? React.Children.only(children)
-                            : null
-                    : null));
-    };
-    Formik.defaultProps = {
-        validateOnChange: true,
-        validateOnBlur: true,
-        isInitialValid: false,
-        enableReinitialize: false,
-    };
-    return Formik;
-}(React.Component));
-function warnAboutMissingIdentifier(_a) {
-    var htmlContent = _a.htmlContent, documentationAnchorLink = _a.documentationAnchorLink, handlerName = _a.handlerName;
-    console.warn("Warning: Formik called `" + handlerName + "`, but you forgot to pass an `id` or `name` attribute to your input:\n\n    " + htmlContent + "\n\n    Formik cannot determine which value to update. For more info see https://github.com/jaredpalmer/formik#" + documentationAnchorLink + "\n  ");
-}
-function yupToFormErrors(yupError) {
-    var errors = {};
-    if (yupError.inner.length === 0) {
-        return setIn(errors, yupError.path, yupError.message);
-    }
-    for (var _i = 0, _a = yupError.inner; _i < _a.length; _i++) {
-        var err = _a[_i];
-        if (!errors[err.path]) {
-            errors = setIn(errors, err.path, err.message);
-        }
-    }
-    return errors;
-}
-function validateYupSchema(values, schema, sync, context) {
-    if (sync === void 0) { sync = false; }
-    if (context === void 0) { context = {}; }
-    var validateData = {};
-    for (var k in values) {
-        if (values.hasOwnProperty(k)) {
-            var key = String(k);
-            validateData[key] = values[key] !== '' ? values[key] : undefined;
-        }
-    }
-    return schema[sync ? 'validateSync' : 'validate'](validateData, {
-        abortEarly: false,
-        context: context,
-    });
-}
-function arrayMerge(target, source, options) {
-    var destination = target.slice();
-    source.forEach(function (e, i) {
-        if (typeof destination[i] === 'undefined') {
-            var cloneRequested = options.clone !== false;
-            var shouldClone = cloneRequested && options.isMergeableObject(e);
-            destination[i] = shouldClone
-                ? deepmerge(Array.isArray(e) ? [] : {}, e, options)
-                : e;
-        }
-        else if (options.isMergeableObject(e)) {
-            destination[i] = deepmerge(target[i], e, options);
-        }
-        else if (target.indexOf(e) === -1) {
-            destination.push(e);
-        }
-    });
-    return destination;
-}
-
-var FieldInner = (function (_super) {
-    tslib_1.__extends(FieldInner, _super);
-    function FieldInner(props) {
-        var _this = _super.call(this, props) || this;
-        var render = props.render, children = props.children, component = props.component;
-        warning(!(component && render), 'You should not use <Field component> and <Field render> in the same <Field> component; <Field component> will be ignored');
-        warning(!(component && children && isFunction(children)), 'You should not use <Field component> and <Field children> as a function in the same <Field> component; <Field component> will be ignored.');
-        warning(!(render && children && !isEmptyChildren(children)), 'You should not use <Field render> and <Field children> in the same <Field> component; <Field children> will be ignored');
-        return _this;
-    }
-    FieldInner.prototype.componentDidMount = function () {
-        this.props.formik.registerField(this.props.name, this);
-    };
-    FieldInner.prototype.componentDidUpdate = function (prevProps) {
-        if (this.props.name !== prevProps.name) {
-            this.props.formik.unregisterField(prevProps.name);
-            this.props.formik.registerField(this.props.name, this);
-        }
-        if (this.props.validate !== prevProps.validate) {
-            this.props.formik.registerField(this.props.name, this);
-        }
-    };
-    FieldInner.prototype.componentWillUnmount = function () {
-        this.props.formik.unregisterField(this.props.name);
-    };
-    FieldInner.prototype.render = function () {
-        var _a = this.props, validate = _a.validate, name = _a.name, render = _a.render, children = _a.children, _b = _a.component, component = _b === void 0 ? 'input' : _b, formik = _a.formik, props = tslib_1.__rest(_a, ["validate", "name", "render", "children", "component", "formik"]);
-        var _validate = formik.validate, _validationSchema = formik.validationSchema, restOfFormik = tslib_1.__rest(formik, ["validate", "validationSchema"]);
-        var field = {
-            value: props.type === 'radio' || props.type === 'checkbox'
-                ? props.value
-                : getIn(formik.values, name),
-            name: name,
-            onChange: formik.handleChange,
-            onBlur: formik.handleBlur,
-        };
-        var bag = { field: field, form: restOfFormik };
-        if (render) {
-            return render(bag);
-        }
-        if (isFunction(children)) {
-            return children(bag);
-        }
-        if (typeof component === 'string') {
-            var innerRef = props.innerRef, rest = tslib_1.__rest(props, ["innerRef"]);
-            return React.createElement(component, tslib_1.__assign({ ref: innerRef }, field, rest, { children: children }));
-        }
-        return React.createElement(component, tslib_1.__assign({}, bag, props, { children: children }));
-    };
-    return FieldInner;
-}(React.Component));
-var Field = connect(FieldInner);
-
-var Form = connect(function (_a) {
-    var _b = _a.formik, handleReset = _b.handleReset, handleSubmit = _b.handleSubmit, props = tslib_1.__rest(_a, ["formik"]);
-    return (React.createElement("form", tslib_1.__assign({ onReset: handleReset, onSubmit: handleSubmit }, props)));
-});
-Form.displayName = 'Form';
-
-function withFormik(_a) {
-    var _b = _a.mapPropsToValues, mapPropsToValues = _b === void 0 ? function (vanillaProps) {
-        var val = {};
-        for (var k in vanillaProps) {
-            if (vanillaProps.hasOwnProperty(k) &&
-                typeof vanillaProps[k] !== 'function') {
-                val[k] = vanillaProps[k];
-            }
-        }
-        return val;
-    } : _b, config = tslib_1.__rest(_a, ["mapPropsToValues"]);
-    return function createFormik(Component) {
-        var componentDisplayName = Component.displayName ||
-            Component.name ||
-            (Component.constructor && Component.constructor.name) ||
-            'Component';
-        var C = (function (_super) {
-            tslib_1.__extends(C, _super);
-            function C() {
-                var _this = _super !== null && _super.apply(this, arguments) || this;
-                _this.validate = function (values) {
-                    return config.validate(values, _this.props);
-                };
-                _this.validationSchema = function () {
-                    return isFunction(config.validationSchema)
-                        ? config.validationSchema(_this.props)
-                        : config.validationSchema;
-                };
-                _this.handleSubmit = function (values, actions) {
-                    return config.handleSubmit(values, tslib_1.__assign({}, actions, { props: _this.props }));
-                };
-                _this.renderFormComponent = function (formikProps) {
-                    return React.createElement(Component, tslib_1.__assign({}, _this.props, formikProps));
-                };
-                return _this;
-            }
-            C.prototype.render = function () {
-                var _a = this.props, children = _a.children, props = tslib_1.__rest(_a, ["children"]);
-                return (React.createElement(Formik, tslib_1.__assign({}, props, config, { validate: config.validate && this.validate, validationSchema: config.validationSchema && this.validationSchema, initialValues: mapPropsToValues(this.props), initialStatus: config.mapPropsToStatus && config.mapPropsToStatus(this.props), onSubmit: this.handleSubmit, render: this.renderFormComponent })));
-            };
-            C.displayName = "WithFormik(" + componentDisplayName + ")";
-            return C;
-        }(React.Component));
-        return hoistNonReactStatics(C, Component);
-    };
-}
-
-var move = function (array, from, to) {
-    var copy = (array || []).slice();
-    var value = copy[from];
-    copy.splice(from, 1);
-    copy.splice(to, 0, value);
-    return copy;
-};
-var swap = function (array, indexA, indexB) {
-    var copy = (array || []).slice();
-    var a = copy[indexA];
-    copy[indexA] = copy[indexB];
-    copy[indexB] = a;
-    return copy;
-};
-var insert = function (array, index, value) {
-    var copy = (array || []).slice();
-    copy.splice(index, 0, value);
-    return copy;
-};
-var replace = function (array, index, value) {
-    var copy = (array || []).slice();
-    copy[index] = value;
-    return copy;
-};
-var FieldArrayInner = (function (_super) {
-    tslib_1.__extends(FieldArrayInner, _super);
-    function FieldArrayInner(props) {
-        var _this = _super.call(this, props) || this;
-        _this.updateArrayField = function (fn, alterTouched, alterErrors) {
-            var _a = _this.props, name = _a.name, validateOnChange = _a.validateOnChange, _b = _a.formik, setFormikState = _b.setFormikState, validateForm = _b.validateForm;
-            setFormikState(function (prevState) {
-                var updateErrors = typeof alterErrors === 'function' ? alterErrors : fn;
-                var updateTouched = typeof alterTouched === 'function' ? alterTouched : fn;
-                return tslib_1.__assign({}, prevState, { values: setIn(prevState.values, name, fn(getIn(prevState.values, name))), errors: alterErrors
-                        ? setIn(prevState.errors, name, updateErrors(getIn(prevState.errors, name)))
-                        : prevState.errors, touched: alterTouched
-                        ? setIn(prevState.touched, name, updateTouched(getIn(prevState.touched, name)))
-                        : prevState.touched });
-            }, function () {
-                if (validateOnChange) {
-                    validateForm();
-                }
-            });
-        };
-        _this.push = function (value) {
-            return _this.updateArrayField(function (array) { return (array || []).concat([cloneDeep(value)]); }, false, false);
-        };
-        _this.handlePush = function (value) { return function () { return _this.push(value); }; };
-        _this.swap = function (indexA, indexB) {
-            return _this.updateArrayField(function (array) { return swap(array, indexA, indexB); }, true, true);
-        };
-        _this.handleSwap = function (indexA, indexB) { return function () {
-            return _this.swap(indexA, indexB);
-        }; };
-        _this.move = function (from, to) {
-            return _this.updateArrayField(function (array) { return move(array, from, to); }, true, true);
-        };
-        _this.handleMove = function (from, to) { return function () { return _this.move(from, to); }; };
-        _this.insert = function (index, value) {
-            return _this.updateArrayField(function (array) { return insert(array, index, value); }, function (array) { return insert(array, index, null); }, function (array) { return insert(array, index, null); });
-        };
-        _this.handleInsert = function (index, value) { return function () { return _this.insert(index, value); }; };
-        _this.replace = function (index, value) {
-            return _this.updateArrayField(function (array) { return replace(array, index, value); }, false, false);
-        };
-        _this.handleReplace = function (index, value) { return function () {
-            return _this.replace(index, value);
-        }; };
-        _this.unshift = function (value) {
-            var length = -1;
-            _this.updateArrayField(function (array) {
-                var arr = array ? [value].concat(array) : [value];
-                if (length < 0) {
-                    length = arr.length;
-                }
-                return arr;
-            }, function (array) {
-                var arr = array ? [null].concat(array) : [null];
-                if (length < 0)
-                    length = arr.length;
-                return arr;
-            }, function (array) {
-                var arr = array ? [null].concat(array) : [null];
-                if (length < 0)
-                    length = arr.length;
-                return arr;
-            });
-            return length;
-        };
-        _this.handleUnshift = function (value) { return function () { return _this.unshift(value); }; };
-        _this.handleRemove = function (index) { return function () { return _this.remove(index); }; };
-        _this.handlePop = function () { return function () { return _this.pop(); }; };
-        _this.remove = _this.remove.bind(_this);
-        _this.pop = _this.pop.bind(_this);
-        return _this;
-    }
-    FieldArrayInner.prototype.remove = function (index) {
-        var result;
-        this.updateArrayField(function (array) {
-            var copy = array ? array.slice() : [];
-            if (!result) {
-                result = copy[index];
-            }
-            if (isFunction(copy.splice)) {
-                copy.splice(index, 1);
-            }
-            return copy;
-        }, true, true);
-        return result;
-    };
-    FieldArrayInner.prototype.pop = function () {
-        var result;
-        this.updateArrayField(function (array) {
-            var tmp = array;
-            if (!result) {
-                result = tmp && tmp.pop && tmp.pop();
-            }
-            return tmp;
-        }, true, true);
-        return result;
-    };
-    FieldArrayInner.prototype.render = function () {
-        var arrayHelpers = {
-            push: this.push,
-            pop: this.pop,
-            swap: this.swap,
-            move: this.move,
-            insert: this.insert,
-            replace: this.replace,
-            unshift: this.unshift,
-            remove: this.remove,
-            handlePush: this.handlePush,
-            handlePop: this.handlePop,
-            handleSwap: this.handleSwap,
-            handleMove: this.handleMove,
-            handleInsert: this.handleInsert,
-            handleReplace: this.handleReplace,
-            handleUnshift: this.handleUnshift,
-            handleRemove: this.handleRemove,
-        };
-        var _a = this.props, component = _a.component, render = _a.render, children = _a.children, name = _a.name, _b = _a.formik, _validate = _b.validate, _validationSchema = _b.validationSchema, restOfFormik = tslib_1.__rest(_b, ["validate", "validationSchema"]);
-        var props = tslib_1.__assign({}, arrayHelpers, { form: restOfFormik, name: name });
-        return component
-            ? React.createElement(component, props)
-            : render
-                ? render(props)
-                : children
-                    ? typeof children === 'function'
-                        ? children(props)
-                        : !isEmptyChildren(children) ? React.Children.only(children) : null
-                    : null;
-    };
-    FieldArrayInner.defaultProps = {
-        validateOnChange: true,
-    };
-    return FieldArrayInner;
-}(React.Component));
-var FieldArray = connect(FieldArrayInner);
-
-var FastFieldInner = (function (_super) {
-    tslib_1.__extends(FastFieldInner, _super);
-    function FastFieldInner(props) {
-        var _this = _super.call(this, props) || this;
-        var render = props.render, children = props.children, component = props.component;
-        warning(!(component && render), 'You should not use <FastField component> and <FastField render> in the same <FastField> component; <FastField component> will be ignored');
-        warning(!(component && children && isFunction(children)), 'You should not use <FastField component> and <FastField children> as a function in the same <FastField> component; <FastField component> will be ignored.');
-        warning(!(render && children && !isEmptyChildren(children)), 'You should not use <FastField render> and <FastField children> in the same <FastField> component; <FastField children> will be ignored');
-        return _this;
-    }
-    FastFieldInner.prototype.shouldComponentUpdate = function (props) {
-        if (this.props.shouldUpdate) {
-            return this.props.shouldUpdate(props, this.props);
-        }
-        else if (getIn(this.props.formik.values, this.props.name) !==
-            getIn(props.formik.values, this.props.name) ||
-            getIn(this.props.formik.errors, this.props.name) !==
-                getIn(props.formik.errors, this.props.name) ||
-            getIn(this.props.formik.touched, this.props.name) !==
-                getIn(props.formik.touched, this.props.name) ||
-            Object.keys(this.props).length !== Object.keys(props).length ||
-            this.props.formik.isSubmitting !== props.formik.isSubmitting) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    };
-    FastFieldInner.prototype.componentDidMount = function () {
-        this.props.formik.registerField(this.props.name, this);
-    };
-    FastFieldInner.prototype.componentDidUpdate = function (prevProps) {
-        if (this.props.name !== prevProps.name) {
-            this.props.formik.unregisterField(prevProps.name);
-            this.props.formik.registerField(this.props.name, this);
-        }
-        if (this.props.validate !== prevProps.validate) {
-            this.props.formik.registerField(this.props.name, this);
-        }
-    };
-    FastFieldInner.prototype.componentWillUnmount = function () {
-        this.props.formik.unregisterField(this.props.name);
-    };
-    FastFieldInner.prototype.render = function () {
-        var _a = this.props, validate = _a.validate, name = _a.name, render = _a.render, children = _a.children, _b = _a.component, component = _b === void 0 ? 'input' : _b, formik = _a.formik, shouldUpdate = _a.shouldUpdate, props = tslib_1.__rest(_a, ["validate", "name", "render", "children", "component", "formik", "shouldUpdate"]);
-        var _validate = formik.validate, _validationSchema = formik.validationSchema, restOfFormik = tslib_1.__rest(formik, ["validate", "validationSchema"]);
-        var field = {
-            value: props.type === 'radio' || props.type === 'checkbox'
-                ? props.value
-                : getIn(formik.values, name),
-            name: name,
-            onChange: formik.handleChange,
-            onBlur: formik.handleBlur,
-        };
-        var bag = { field: field, form: restOfFormik };
-        if (render) {
-            return render(bag);
-        }
-        if (isFunction(children)) {
-            return children(bag);
-        }
-        if (typeof component === 'string') {
-            var innerRef = props.innerRef, rest = tslib_1.__rest(props, ["innerRef"]);
-            return React.createElement(component, tslib_1.__assign({ ref: innerRef }, field, rest, { children: children }));
-        }
-        return React.createElement(component, tslib_1.__assign({}, bag, props, { children: children }));
-    };
-    return FastFieldInner;
-}(React.Component));
-var FastField = connect(FastFieldInner);
-
-var ErrorMessageImpl = (function (_super) {
-    tslib_1.__extends(ErrorMessageImpl, _super);
-    function ErrorMessageImpl() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    ErrorMessageImpl.prototype.shouldComponentUpdate = function (props) {
-        if (getIn(this.props.formik.errors, this.props.name) !==
-            getIn(props.formik.errors, this.props.name) ||
-            getIn(this.props.formik.touched, this.props.name) !==
-                getIn(props.formik.touched, this.props.name) ||
-            Object.keys(this.props).length !== Object.keys(props).length) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    };
-    ErrorMessageImpl.prototype.render = function () {
-        var _a = this.props, component = _a.component, formik = _a.formik, render = _a.render, children = _a.children, name = _a.name, rest = tslib_1.__rest(_a, ["component", "formik", "render", "children", "name"]);
-        var touch = getIn(formik.touched, name);
-        var error = getIn(formik.errors, name);
-        return !!touch && !!error
-            ? render
-                ? isFunction(render) ? render(error) : null
-                : children
-                    ? isFunction(children) ? children(error) : null
-                    : component
-                        ? React.createElement(component, rest, error)
-                        : error
-            : null;
-    };
-    return ErrorMessageImpl;
-}(React.Component));
-var ErrorMessage = connect(ErrorMessageImpl);
-
-exports.Formik = Formik;
-exports.yupToFormErrors = yupToFormErrors;
-exports.validateYupSchema = validateYupSchema;
-exports.Field = Field;
-exports.Form = Form;
-exports.withFormik = withFormik;
-exports.move = move;
-exports.swap = swap;
-exports.insert = insert;
-exports.replace = replace;
-exports.FieldArray = FieldArray;
-exports.isFunction = isFunction;
-exports.isObject = isObject;
-exports.isInteger = isInteger;
-exports.isString = isString;
-exports.isNaN = isNaN;
-exports.isEmptyChildren = isEmptyChildren;
-exports.isPromise = isPromise;
-exports.isInputEvent = isInputEvent;
-exports.getActiveElement = getActiveElement;
-exports.makeCancelable = makeCancelable;
-exports.getIn = getIn;
-exports.setIn = setIn;
-exports.setNestedObjectValues = setNestedObjectValues;
-exports.FastField = FastField;
-exports.FormikProvider = FormikProvider;
-exports.FormikConsumer = FormikConsumer;
-exports.connect = connect;
-exports.ErrorMessage = ErrorMessage;
-//# sourceMappingURL=formik.cjs.development.js.map
-
-
-/***/ }),
-
-/***/ "./node_modules/formik/dist/index.js":
-/*!*******************************************!*\
-  !*** ./node_modules/formik/dist/index.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-if (false) {} else {
-  module.exports = __webpack_require__(/*! ./formik.cjs.development.js */ "./node_modules/formik/dist/formik.cjs.development.js");
-}
-
-/***/ }),
-
-/***/ "./node_modules/gud/index.js":
-/*!***********************************!*\
-  !*** ./node_modules/gud/index.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(global) {// @flow
-
-
-var key = '__global_unique_id__';
-
-module.exports = function() {
-  return global[key] = (global[key] || 0) + 1;
-};
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
-
-/***/ }),
-
 /***/ "./node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js":
 /*!**********************************************************************************!*\
   !*** ./node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js ***!
@@ -2911,67 +1384,91 @@ function peg$parse(input, options) {
     var peg$c4 = function () {
         return __assign({ type: types_1.TYPE.pound }, insertLocation());
     };
-    var peg$c5 = peg$otherExpectation("argumentElement");
-    var peg$c6 = "{";
-    var peg$c7 = peg$literalExpectation("{", false);
-    var peg$c8 = "}";
-    var peg$c9 = peg$literalExpectation("}", false);
+    var peg$c5 = peg$otherExpectation("tagElement");
+    var peg$c6 = "<";
+    var peg$c7 = peg$literalExpectation("<", false);
+    var peg$c8 = "/>";
+    var peg$c9 = peg$literalExpectation("/>", false);
     var peg$c10 = function (value) {
+        return __assign({ type: types_1.TYPE.literal, value: value.join('') }, insertLocation());
+    };
+    var peg$c11 = function (open, children, close) {
+        if (open !== close) {
+            error("Mismatch tag \"" + open + "\" !== \"" + close + "\"", location());
+        }
+        return __assign({ type: types_1.TYPE.tag, value: open, children: children }, insertLocation());
+    };
+    var peg$c12 = function () { messageCtx.push('openingTag'); return true; };
+    var peg$c13 = ">";
+    var peg$c14 = peg$literalExpectation(">", false);
+    var peg$c15 = function (tag) { messageCtx.pop(); return true; };
+    var peg$c16 = function (tag) {
+        return tag;
+    };
+    var peg$c17 = "</";
+    var peg$c18 = peg$literalExpectation("</", false);
+    var peg$c19 = function () { messageCtx.push('closingTag'); return true; };
+    var peg$c20 = peg$otherExpectation("argumentElement");
+    var peg$c21 = "{";
+    var peg$c22 = peg$literalExpectation("{", false);
+    var peg$c23 = "}";
+    var peg$c24 = peg$literalExpectation("}", false);
+    var peg$c25 = function (value) {
         return __assign({ type: types_1.TYPE.argument, value: value }, insertLocation());
     };
-    var peg$c11 = peg$otherExpectation("numberSkeletonId");
-    var peg$c12 = /^['\/{}]/;
-    var peg$c13 = peg$classExpectation(["'", "/", "{", "}"], false, false);
-    var peg$c14 = peg$anyExpectation();
-    var peg$c15 = peg$otherExpectation("numberSkeletonTokenOption");
-    var peg$c16 = "/";
-    var peg$c17 = peg$literalExpectation("/", false);
-    var peg$c18 = function (option) { return option; };
-    var peg$c19 = peg$otherExpectation("numberSkeletonToken");
-    var peg$c20 = function (stem, options) {
+    var peg$c26 = peg$otherExpectation("numberSkeletonId");
+    var peg$c27 = /^['\/{}]/;
+    var peg$c28 = peg$classExpectation(["'", "/", "{", "}"], false, false);
+    var peg$c29 = peg$anyExpectation();
+    var peg$c30 = peg$otherExpectation("numberSkeletonTokenOption");
+    var peg$c31 = "/";
+    var peg$c32 = peg$literalExpectation("/", false);
+    var peg$c33 = function (option) { return option; };
+    var peg$c34 = peg$otherExpectation("numberSkeletonToken");
+    var peg$c35 = function (stem, options) {
         return { stem: stem, options: options };
     };
-    var peg$c21 = function (tokens) {
+    var peg$c36 = function (tokens) {
         return __assign({ type: 0 /* number */, tokens: tokens }, insertLocation());
     };
-    var peg$c22 = "::";
-    var peg$c23 = peg$literalExpectation("::", false);
-    var peg$c24 = function (skeleton) { return skeleton; };
-    var peg$c25 = function () { messageCtx.push('numberArgStyle'); return true; };
-    var peg$c26 = function (style) {
+    var peg$c37 = "::";
+    var peg$c38 = peg$literalExpectation("::", false);
+    var peg$c39 = function (skeleton) { return skeleton; };
+    var peg$c40 = function () { messageCtx.push('numberArgStyle'); return true; };
+    var peg$c41 = function (style) {
         messageCtx.pop();
         return style.replace(/\s*$/, '');
     };
-    var peg$c27 = ",";
-    var peg$c28 = peg$literalExpectation(",", false);
-    var peg$c29 = "number";
-    var peg$c30 = peg$literalExpectation("number", false);
-    var peg$c31 = function (value, type, style) {
+    var peg$c42 = ",";
+    var peg$c43 = peg$literalExpectation(",", false);
+    var peg$c44 = "number";
+    var peg$c45 = peg$literalExpectation("number", false);
+    var peg$c46 = function (value, type, style) {
         return __assign({ type: type === 'number' ? types_1.TYPE.number : type === 'date' ? types_1.TYPE.date : types_1.TYPE.time, style: style && style[2], value: value }, insertLocation());
     };
-    var peg$c32 = "'";
-    var peg$c33 = peg$literalExpectation("'", false);
-    var peg$c34 = /^[^']/;
-    var peg$c35 = peg$classExpectation(["'"], true, false);
-    var peg$c36 = /^[^a-zA-Z'{}]/;
-    var peg$c37 = peg$classExpectation([["a", "z"], ["A", "Z"], "'", "{", "}"], true, false);
-    var peg$c38 = /^[a-zA-Z]/;
-    var peg$c39 = peg$classExpectation([["a", "z"], ["A", "Z"]], false, false);
-    var peg$c40 = function (pattern) {
+    var peg$c47 = "'";
+    var peg$c48 = peg$literalExpectation("'", false);
+    var peg$c49 = /^[^']/;
+    var peg$c50 = peg$classExpectation(["'"], true, false);
+    var peg$c51 = /^[^a-zA-Z'{}]/;
+    var peg$c52 = peg$classExpectation([["a", "z"], ["A", "Z"], "'", "{", "}"], true, false);
+    var peg$c53 = /^[a-zA-Z]/;
+    var peg$c54 = peg$classExpectation([["a", "z"], ["A", "Z"]], false, false);
+    var peg$c55 = function (pattern) {
         return __assign({ type: 1 /* dateTime */, pattern: pattern }, insertLocation());
     };
-    var peg$c41 = function () { messageCtx.push('dateOrTimeArgStyle'); return true; };
-    var peg$c42 = "date";
-    var peg$c43 = peg$literalExpectation("date", false);
-    var peg$c44 = "time";
-    var peg$c45 = peg$literalExpectation("time", false);
-    var peg$c46 = "plural";
-    var peg$c47 = peg$literalExpectation("plural", false);
-    var peg$c48 = "selectordinal";
-    var peg$c49 = peg$literalExpectation("selectordinal", false);
-    var peg$c50 = "offset:";
-    var peg$c51 = peg$literalExpectation("offset:", false);
-    var peg$c52 = function (value, pluralType, offset, options) {
+    var peg$c56 = function () { messageCtx.push('dateOrTimeArgStyle'); return true; };
+    var peg$c57 = "date";
+    var peg$c58 = peg$literalExpectation("date", false);
+    var peg$c59 = "time";
+    var peg$c60 = peg$literalExpectation("time", false);
+    var peg$c61 = "plural";
+    var peg$c62 = peg$literalExpectation("plural", false);
+    var peg$c63 = "selectordinal";
+    var peg$c64 = peg$literalExpectation("selectordinal", false);
+    var peg$c65 = "offset:";
+    var peg$c66 = peg$literalExpectation("offset:", false);
+    var peg$c67 = function (value, pluralType, offset, options) {
         return __assign({ type: types_1.TYPE.plural, pluralType: pluralType === 'plural' ? 'cardinal' : 'ordinal', value: value, offset: offset ? offset[2] : 0, options: options.reduce(function (all, _a) {
                 var id = _a.id, value = _a.value, optionLocation = _a.location;
                 if (id in all) {
@@ -2984,9 +1481,9 @@ function peg$parse(input, options) {
                 return all;
             }, {}) }, insertLocation());
     };
-    var peg$c53 = "select";
-    var peg$c54 = peg$literalExpectation("select", false);
-    var peg$c55 = function (value, options) {
+    var peg$c68 = "select";
+    var peg$c69 = peg$literalExpectation("select", false);
+    var peg$c70 = function (value, options) {
         return __assign({ type: types_1.TYPE.select, value: value, options: options.reduce(function (all, _a) {
                 var id = _a.id, value = _a.value, optionLocation = _a.location;
                 if (id in all) {
@@ -2999,68 +1496,72 @@ function peg$parse(input, options) {
                 return all;
             }, {}) }, insertLocation());
     };
-    var peg$c56 = "=";
-    var peg$c57 = peg$literalExpectation("=", false);
-    var peg$c58 = function (id) { messageCtx.push('select'); return true; };
-    var peg$c59 = function (id, value) {
+    var peg$c71 = "=";
+    var peg$c72 = peg$literalExpectation("=", false);
+    var peg$c73 = function (id) { messageCtx.push('select'); return true; };
+    var peg$c74 = function (id, value) {
         messageCtx.pop();
         return __assign({ id: id,
             value: value }, insertLocation());
     };
-    var peg$c60 = function (id) { messageCtx.push('plural'); return true; };
-    var peg$c61 = function (id, value) {
+    var peg$c75 = function (id) { messageCtx.push('plural'); return true; };
+    var peg$c76 = function (id, value) {
         messageCtx.pop();
         return __assign({ id: id,
             value: value }, insertLocation());
     };
-    var peg$c62 = peg$otherExpectation("whitespace");
-    var peg$c63 = /^[\t-\r \x85\xA0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]/;
-    var peg$c64 = peg$classExpectation([["\t", "\r"], " ", "\x85", "\xA0", "\u1680", ["\u2000", "\u200A"], "\u2028", "\u2029", "\u202F", "\u205F", "\u3000"], false, false);
-    var peg$c65 = peg$otherExpectation("syntax pattern");
-    var peg$c66 = /^[!-\/:-@[-\^`{-~\xA1-\xA7\xA9\xAB\xAC\xAE\xB0\xB1\xB6\xBB\xBF\xD7\xF7\u2010-\u2027\u2030-\u203E\u2041-\u2053\u2055-\u205E\u2190-\u245F\u2500-\u2775\u2794-\u2BFF\u2E00-\u2E7F\u3001-\u3003\u3008-\u3020\u3030\uFD3E\uFD3F\uFE45\uFE46]/;
-    var peg$c67 = peg$classExpectation([["!", "/"], [":", "@"], ["[", "^"], "`", ["{", "~"], ["\xA1", "\xA7"], "\xA9", "\xAB", "\xAC", "\xAE", "\xB0", "\xB1", "\xB6", "\xBB", "\xBF", "\xD7", "\xF7", ["\u2010", "\u2027"], ["\u2030", "\u203E"], ["\u2041", "\u2053"], ["\u2055", "\u205E"], ["\u2190", "\u245F"], ["\u2500", "\u2775"], ["\u2794", "\u2BFF"], ["\u2E00", "\u2E7F"], ["\u3001", "\u3003"], ["\u3008", "\u3020"], "\u3030", "\uFD3E", "\uFD3F", "\uFE45", "\uFE46"], false, false);
-    var peg$c68 = peg$otherExpectation("optional whitespace");
-    var peg$c69 = peg$otherExpectation("number");
-    var peg$c70 = "-";
-    var peg$c71 = peg$literalExpectation("-", false);
-    var peg$c72 = function (negative, num) {
+    var peg$c77 = peg$otherExpectation("whitespace");
+    var peg$c78 = /^[\t-\r \x85\xA0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]/;
+    var peg$c79 = peg$classExpectation([["\t", "\r"], " ", "\x85", "\xA0", "\u1680", ["\u2000", "\u200A"], "\u2028", "\u2029", "\u202F", "\u205F", "\u3000"], false, false);
+    var peg$c80 = peg$otherExpectation("syntax pattern");
+    var peg$c81 = /^[!-\/:-@[-\^`{-~\xA1-\xA7\xA9\xAB\xAC\xAE\xB0\xB1\xB6\xBB\xBF\xD7\xF7\u2010-\u2027\u2030-\u203E\u2041-\u2053\u2055-\u205E\u2190-\u245F\u2500-\u2775\u2794-\u2BFF\u2E00-\u2E7F\u3001-\u3003\u3008-\u3020\u3030\uFD3E\uFD3F\uFE45\uFE46]/;
+    var peg$c82 = peg$classExpectation([["!", "/"], [":", "@"], ["[", "^"], "`", ["{", "~"], ["\xA1", "\xA7"], "\xA9", "\xAB", "\xAC", "\xAE", "\xB0", "\xB1", "\xB6", "\xBB", "\xBF", "\xD7", "\xF7", ["\u2010", "\u2027"], ["\u2030", "\u203E"], ["\u2041", "\u2053"], ["\u2055", "\u205E"], ["\u2190", "\u245F"], ["\u2500", "\u2775"], ["\u2794", "\u2BFF"], ["\u2E00", "\u2E7F"], ["\u3001", "\u3003"], ["\u3008", "\u3020"], "\u3030", "\uFD3E", "\uFD3F", "\uFE45", "\uFE46"], false, false);
+    var peg$c83 = peg$otherExpectation("optional whitespace");
+    var peg$c84 = peg$otherExpectation("number");
+    var peg$c85 = "-";
+    var peg$c86 = peg$literalExpectation("-", false);
+    var peg$c87 = function (negative, num) {
         return num
             ? negative
                 ? -num
                 : num
             : 0;
     };
-    var peg$c73 = peg$otherExpectation("apostrophe");
-    var peg$c74 = peg$otherExpectation("double apostrophes");
-    var peg$c75 = "''";
-    var peg$c76 = peg$literalExpectation("''", false);
-    var peg$c77 = function () { return "'"; };
-    var peg$c78 = function (escapedChar, quotedChars) {
+    var peg$c88 = peg$otherExpectation("apostrophe");
+    var peg$c89 = peg$otherExpectation("double apostrophes");
+    var peg$c90 = "''";
+    var peg$c91 = peg$literalExpectation("''", false);
+    var peg$c92 = function () { return "'"; };
+    var peg$c93 = function (escapedChar, quotedChars) {
         return escapedChar + quotedChars.replace("''", "'");
     };
-    var peg$c79 = function (x) {
-        return (x !== '{' &&
+    var peg$c94 = function (x) {
+        return (x !== '<' &&
+            x !== '{' &&
             !(isInPluralOption() && x === '#') &&
-            !(isNestedMessageText() && x === '}'));
+            !(isNestedMessageText() && x === '}') &&
+            !(isNestedMessageText() && x === '>'));
     };
-    var peg$c80 = "\n";
-    var peg$c81 = peg$literalExpectation("\n", false);
-    var peg$c82 = function (x) {
-        return x === '{' || x === '}' || (isInPluralOption() && x === '#');
+    var peg$c95 = "\n";
+    var peg$c96 = peg$literalExpectation("\n", false);
+    var peg$c97 = function (x) {
+        return x === '<' || x === '>' || x === '{' || x === '}' || (isInPluralOption() && x === '#');
     };
-    var peg$c83 = peg$otherExpectation("argNameOrNumber");
-    var peg$c84 = peg$otherExpectation("argNumber");
-    var peg$c85 = "0";
-    var peg$c86 = peg$literalExpectation("0", false);
-    var peg$c87 = function () { return 0; };
-    var peg$c88 = /^[1-9]/;
-    var peg$c89 = peg$classExpectation([["1", "9"]], false, false);
-    var peg$c90 = /^[0-9]/;
-    var peg$c91 = peg$classExpectation([["0", "9"]], false, false);
-    var peg$c92 = function (digits) {
+    var peg$c98 = peg$otherExpectation("argNameOrNumber");
+    var peg$c99 = peg$otherExpectation("validTag");
+    var peg$c100 = peg$otherExpectation("argNumber");
+    var peg$c101 = "0";
+    var peg$c102 = peg$literalExpectation("0", false);
+    var peg$c103 = function () { return 0; };
+    var peg$c104 = /^[1-9]/;
+    var peg$c105 = peg$classExpectation([["1", "9"]], false, false);
+    var peg$c106 = /^[0-9]/;
+    var peg$c107 = peg$classExpectation([["0", "9"]], false, false);
+    var peg$c108 = function (digits) {
         return parseInt(digits.join(''), 10);
     };
-    var peg$c93 = peg$otherExpectation("argName");
+    var peg$c109 = peg$otherExpectation("argName");
+    var peg$c110 = peg$otherExpectation("tagName");
     var peg$currPos = 0;
     var peg$savedPos = 0;
     var peg$posDetailsCache = [{ line: 1, column: 1 }];
@@ -3196,7 +1697,10 @@ function peg$parse(input, options) {
                     if (s0 === peg$FAILED) {
                         s0 = peg$parseselectElement();
                         if (s0 === peg$FAILED) {
-                            s0 = peg$parsepoundElement();
+                            s0 = peg$parsetagElement();
+                            if (s0 === peg$FAILED) {
+                                s0 = peg$parsepoundElement();
+                            }
                         }
                     }
                 }
@@ -3268,11 +1772,104 @@ function peg$parse(input, options) {
         s0 = s1;
         return s0;
     }
-    function peg$parseargumentElement() {
+    function peg$parsetagElement() {
         var s0, s1, s2, s3, s4, s5;
         peg$silentFails++;
         s0 = peg$currPos;
-        if (input.charCodeAt(peg$currPos) === 123) {
+        s1 = peg$currPos;
+        if (input.charCodeAt(peg$currPos) === 60) {
+            s2 = peg$c6;
+            peg$currPos++;
+        }
+        else {
+            s2 = peg$FAILED;
+            if (peg$silentFails === 0) {
+                peg$fail(peg$c7);
+            }
+        }
+        if (s2 !== peg$FAILED) {
+            s3 = peg$parsevalidTag();
+            if (s3 !== peg$FAILED) {
+                s4 = peg$parse_();
+                if (s4 !== peg$FAILED) {
+                    if (input.substr(peg$currPos, 2) === peg$c8) {
+                        s5 = peg$c8;
+                        peg$currPos += 2;
+                    }
+                    else {
+                        s5 = peg$FAILED;
+                        if (peg$silentFails === 0) {
+                            peg$fail(peg$c9);
+                        }
+                    }
+                    if (s5 !== peg$FAILED) {
+                        s2 = [s2, s3, s4, s5];
+                        s1 = s2;
+                    }
+                    else {
+                        peg$currPos = s1;
+                        s1 = peg$FAILED;
+                    }
+                }
+                else {
+                    peg$currPos = s1;
+                    s1 = peg$FAILED;
+                }
+            }
+            else {
+                peg$currPos = s1;
+                s1 = peg$FAILED;
+            }
+        }
+        else {
+            peg$currPos = s1;
+            s1 = peg$FAILED;
+        }
+        if (s1 !== peg$FAILED) {
+            peg$savedPos = s0;
+            s1 = peg$c10(s1);
+        }
+        s0 = s1;
+        if (s0 === peg$FAILED) {
+            s0 = peg$currPos;
+            s1 = peg$parseopeningTag();
+            if (s1 !== peg$FAILED) {
+                s2 = peg$parsemessage();
+                if (s2 !== peg$FAILED) {
+                    s3 = peg$parseclosingTag();
+                    if (s3 !== peg$FAILED) {
+                        peg$savedPos = s0;
+                        s1 = peg$c11(s1, s2, s3);
+                        s0 = s1;
+                    }
+                    else {
+                        peg$currPos = s0;
+                        s0 = peg$FAILED;
+                    }
+                }
+                else {
+                    peg$currPos = s0;
+                    s0 = peg$FAILED;
+                }
+            }
+            else {
+                peg$currPos = s0;
+                s0 = peg$FAILED;
+            }
+        }
+        peg$silentFails--;
+        if (s0 === peg$FAILED) {
+            s1 = peg$FAILED;
+            if (peg$silentFails === 0) {
+                peg$fail(peg$c5);
+            }
+        }
+        return s0;
+    }
+    function peg$parseopeningTag() {
+        var s0, s1, s2, s3, s4, s5;
+        s0 = peg$currPos;
+        if (input.charCodeAt(peg$currPos) === 60) {
             s1 = peg$c6;
             peg$currPos++;
         }
@@ -3283,6 +1880,157 @@ function peg$parse(input, options) {
             }
         }
         if (s1 !== peg$FAILED) {
+            peg$savedPos = peg$currPos;
+            s2 = peg$c12();
+            if (s2) {
+                s2 = undefined;
+            }
+            else {
+                s2 = peg$FAILED;
+            }
+            if (s2 !== peg$FAILED) {
+                s3 = peg$parsevalidTag();
+                if (s3 !== peg$FAILED) {
+                    if (input.charCodeAt(peg$currPos) === 62) {
+                        s4 = peg$c13;
+                        peg$currPos++;
+                    }
+                    else {
+                        s4 = peg$FAILED;
+                        if (peg$silentFails === 0) {
+                            peg$fail(peg$c14);
+                        }
+                    }
+                    if (s4 !== peg$FAILED) {
+                        peg$savedPos = peg$currPos;
+                        s5 = peg$c15(s3);
+                        if (s5) {
+                            s5 = undefined;
+                        }
+                        else {
+                            s5 = peg$FAILED;
+                        }
+                        if (s5 !== peg$FAILED) {
+                            peg$savedPos = s0;
+                            s1 = peg$c16(s3);
+                            s0 = s1;
+                        }
+                        else {
+                            peg$currPos = s0;
+                            s0 = peg$FAILED;
+                        }
+                    }
+                    else {
+                        peg$currPos = s0;
+                        s0 = peg$FAILED;
+                    }
+                }
+                else {
+                    peg$currPos = s0;
+                    s0 = peg$FAILED;
+                }
+            }
+            else {
+                peg$currPos = s0;
+                s0 = peg$FAILED;
+            }
+        }
+        else {
+            peg$currPos = s0;
+            s0 = peg$FAILED;
+        }
+        return s0;
+    }
+    function peg$parseclosingTag() {
+        var s0, s1, s2, s3, s4, s5;
+        s0 = peg$currPos;
+        if (input.substr(peg$currPos, 2) === peg$c17) {
+            s1 = peg$c17;
+            peg$currPos += 2;
+        }
+        else {
+            s1 = peg$FAILED;
+            if (peg$silentFails === 0) {
+                peg$fail(peg$c18);
+            }
+        }
+        if (s1 !== peg$FAILED) {
+            peg$savedPos = peg$currPos;
+            s2 = peg$c19();
+            if (s2) {
+                s2 = undefined;
+            }
+            else {
+                s2 = peg$FAILED;
+            }
+            if (s2 !== peg$FAILED) {
+                s3 = peg$parsevalidTag();
+                if (s3 !== peg$FAILED) {
+                    if (input.charCodeAt(peg$currPos) === 62) {
+                        s4 = peg$c13;
+                        peg$currPos++;
+                    }
+                    else {
+                        s4 = peg$FAILED;
+                        if (peg$silentFails === 0) {
+                            peg$fail(peg$c14);
+                        }
+                    }
+                    if (s4 !== peg$FAILED) {
+                        peg$savedPos = peg$currPos;
+                        s5 = peg$c15(s3);
+                        if (s5) {
+                            s5 = undefined;
+                        }
+                        else {
+                            s5 = peg$FAILED;
+                        }
+                        if (s5 !== peg$FAILED) {
+                            peg$savedPos = s0;
+                            s1 = peg$c16(s3);
+                            s0 = s1;
+                        }
+                        else {
+                            peg$currPos = s0;
+                            s0 = peg$FAILED;
+                        }
+                    }
+                    else {
+                        peg$currPos = s0;
+                        s0 = peg$FAILED;
+                    }
+                }
+                else {
+                    peg$currPos = s0;
+                    s0 = peg$FAILED;
+                }
+            }
+            else {
+                peg$currPos = s0;
+                s0 = peg$FAILED;
+            }
+        }
+        else {
+            peg$currPos = s0;
+            s0 = peg$FAILED;
+        }
+        return s0;
+    }
+    function peg$parseargumentElement() {
+        var s0, s1, s2, s3, s4, s5;
+        peg$silentFails++;
+        s0 = peg$currPos;
+        if (input.charCodeAt(peg$currPos) === 123) {
+            s1 = peg$c21;
+            peg$currPos++;
+        }
+        else {
+            s1 = peg$FAILED;
+            if (peg$silentFails === 0) {
+                peg$fail(peg$c22);
+            }
+        }
+        if (s1 !== peg$FAILED) {
             s2 = peg$parse_();
             if (s2 !== peg$FAILED) {
                 s3 = peg$parseargNameOrNumber();
@@ -3290,18 +2038,18 @@ function peg$parse(input, options) {
                     s4 = peg$parse_();
                     if (s4 !== peg$FAILED) {
                         if (input.charCodeAt(peg$currPos) === 125) {
-                            s5 = peg$c8;
+                            s5 = peg$c23;
                             peg$currPos++;
                         }
                         else {
                             s5 = peg$FAILED;
                             if (peg$silentFails === 0) {
-                                peg$fail(peg$c9);
+                                peg$fail(peg$c24);
                             }
                         }
                         if (s5 !== peg$FAILED) {
                             peg$savedPos = s0;
-                            s1 = peg$c10(s3);
+                            s1 = peg$c25(s3);
                             s0 = s1;
                         }
                         else {
@@ -3332,7 +2080,7 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c5);
+                peg$fail(peg$c20);
             }
         }
         return s0;
@@ -3347,14 +2095,14 @@ function peg$parse(input, options) {
         peg$silentFails++;
         s4 = peg$parsewhiteSpace();
         if (s4 === peg$FAILED) {
-            if (peg$c12.test(input.charAt(peg$currPos))) {
+            if (peg$c27.test(input.charAt(peg$currPos))) {
                 s4 = input.charAt(peg$currPos);
                 peg$currPos++;
             }
             else {
                 s4 = peg$FAILED;
                 if (peg$silentFails === 0) {
-                    peg$fail(peg$c13);
+                    peg$fail(peg$c28);
                 }
             }
         }
@@ -3374,7 +2122,7 @@ function peg$parse(input, options) {
             else {
                 s4 = peg$FAILED;
                 if (peg$silentFails === 0) {
-                    peg$fail(peg$c14);
+                    peg$fail(peg$c29);
                 }
             }
             if (s4 !== peg$FAILED) {
@@ -3398,14 +2146,14 @@ function peg$parse(input, options) {
                 peg$silentFails++;
                 s4 = peg$parsewhiteSpace();
                 if (s4 === peg$FAILED) {
-                    if (peg$c12.test(input.charAt(peg$currPos))) {
+                    if (peg$c27.test(input.charAt(peg$currPos))) {
                         s4 = input.charAt(peg$currPos);
                         peg$currPos++;
                     }
                     else {
                         s4 = peg$FAILED;
                         if (peg$silentFails === 0) {
-                            peg$fail(peg$c13);
+                            peg$fail(peg$c28);
                         }
                     }
                 }
@@ -3425,7 +2173,7 @@ function peg$parse(input, options) {
                     else {
                         s4 = peg$FAILED;
                         if (peg$silentFails === 0) {
-                            peg$fail(peg$c14);
+                            peg$fail(peg$c29);
                         }
                     }
                     if (s4 !== peg$FAILED) {
@@ -3456,7 +2204,7 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c11);
+                peg$fail(peg$c26);
             }
         }
         return s0;
@@ -3466,20 +2214,20 @@ function peg$parse(input, options) {
         peg$silentFails++;
         s0 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 47) {
-            s1 = peg$c16;
+            s1 = peg$c31;
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c17);
+                peg$fail(peg$c32);
             }
         }
         if (s1 !== peg$FAILED) {
             s2 = peg$parsenumberSkeletonId();
             if (s2 !== peg$FAILED) {
                 peg$savedPos = s0;
-                s1 = peg$c18(s2);
+                s1 = peg$c33(s2);
                 s0 = s1;
             }
             else {
@@ -3495,7 +2243,7 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c15);
+                peg$fail(peg$c30);
             }
         }
         return s0;
@@ -3516,7 +2264,7 @@ function peg$parse(input, options) {
                 }
                 if (s3 !== peg$FAILED) {
                     peg$savedPos = s0;
-                    s1 = peg$c20(s2, s3);
+                    s1 = peg$c35(s2, s3);
                     s0 = s1;
                 }
                 else {
@@ -3537,7 +2285,7 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c19);
+                peg$fail(peg$c34);
             }
         }
         return s0;
@@ -3558,7 +2306,7 @@ function peg$parse(input, options) {
         }
         if (s1 !== peg$FAILED) {
             peg$savedPos = s0;
-            s1 = peg$c21(s1);
+            s1 = peg$c36(s1);
         }
         s0 = s1;
         return s0;
@@ -3566,21 +2314,21 @@ function peg$parse(input, options) {
     function peg$parsenumberArgStyle() {
         var s0, s1, s2;
         s0 = peg$currPos;
-        if (input.substr(peg$currPos, 2) === peg$c22) {
-            s1 = peg$c22;
+        if (input.substr(peg$currPos, 2) === peg$c37) {
+            s1 = peg$c37;
             peg$currPos += 2;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c23);
+                peg$fail(peg$c38);
             }
         }
         if (s1 !== peg$FAILED) {
             s2 = peg$parsenumberSkeleton();
             if (s2 !== peg$FAILED) {
                 peg$savedPos = s0;
-                s1 = peg$c24(s2);
+                s1 = peg$c39(s2);
                 s0 = s1;
             }
             else {
@@ -3595,7 +2343,7 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s0 = peg$currPos;
             peg$savedPos = peg$currPos;
-            s1 = peg$c25();
+            s1 = peg$c40();
             if (s1) {
                 s1 = undefined;
             }
@@ -3606,7 +2354,7 @@ function peg$parse(input, options) {
                 s2 = peg$parsemessageText();
                 if (s2 !== peg$FAILED) {
                     peg$savedPos = s0;
-                    s1 = peg$c26(s2);
+                    s1 = peg$c41(s2);
                     s0 = s1;
                 }
                 else {
@@ -3625,13 +2373,13 @@ function peg$parse(input, options) {
         var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12;
         s0 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 123) {
-            s1 = peg$c6;
+            s1 = peg$c21;
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c7);
+                peg$fail(peg$c22);
             }
         }
         if (s1 !== peg$FAILED) {
@@ -3642,26 +2390,26 @@ function peg$parse(input, options) {
                     s4 = peg$parse_();
                     if (s4 !== peg$FAILED) {
                         if (input.charCodeAt(peg$currPos) === 44) {
-                            s5 = peg$c27;
+                            s5 = peg$c42;
                             peg$currPos++;
                         }
                         else {
                             s5 = peg$FAILED;
                             if (peg$silentFails === 0) {
-                                peg$fail(peg$c28);
+                                peg$fail(peg$c43);
                             }
                         }
                         if (s5 !== peg$FAILED) {
                             s6 = peg$parse_();
                             if (s6 !== peg$FAILED) {
-                                if (input.substr(peg$currPos, 6) === peg$c29) {
-                                    s7 = peg$c29;
+                                if (input.substr(peg$currPos, 6) === peg$c44) {
+                                    s7 = peg$c44;
                                     peg$currPos += 6;
                                 }
                                 else {
                                     s7 = peg$FAILED;
                                     if (peg$silentFails === 0) {
-                                        peg$fail(peg$c30);
+                                        peg$fail(peg$c45);
                                     }
                                 }
                                 if (s7 !== peg$FAILED) {
@@ -3669,13 +2417,13 @@ function peg$parse(input, options) {
                                     if (s8 !== peg$FAILED) {
                                         s9 = peg$currPos;
                                         if (input.charCodeAt(peg$currPos) === 44) {
-                                            s10 = peg$c27;
+                                            s10 = peg$c42;
                                             peg$currPos++;
                                         }
                                         else {
                                             s10 = peg$FAILED;
                                             if (peg$silentFails === 0) {
-                                                peg$fail(peg$c28);
+                                                peg$fail(peg$c43);
                                             }
                                         }
                                         if (s10 !== peg$FAILED) {
@@ -3707,18 +2455,18 @@ function peg$parse(input, options) {
                                             s10 = peg$parse_();
                                             if (s10 !== peg$FAILED) {
                                                 if (input.charCodeAt(peg$currPos) === 125) {
-                                                    s11 = peg$c8;
+                                                    s11 = peg$c23;
                                                     peg$currPos++;
                                                 }
                                                 else {
                                                     s11 = peg$FAILED;
                                                     if (peg$silentFails === 0) {
-                                                        peg$fail(peg$c9);
+                                                        peg$fail(peg$c24);
                                                     }
                                                 }
                                                 if (s11 !== peg$FAILED) {
                                                     peg$savedPos = s0;
-                                                    s1 = peg$c31(s3, s7, s9);
+                                                    s1 = peg$c46(s3, s7, s9);
                                                     s0 = s1;
                                                 }
                                                 else {
@@ -3781,27 +2529,27 @@ function peg$parse(input, options) {
         var s0, s1, s2, s3;
         s0 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 39) {
-            s1 = peg$c32;
+            s1 = peg$c47;
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c33);
+                peg$fail(peg$c48);
             }
         }
         if (s1 !== peg$FAILED) {
             s2 = [];
             s3 = peg$parsedoubleApostrophes();
             if (s3 === peg$FAILED) {
-                if (peg$c34.test(input.charAt(peg$currPos))) {
+                if (peg$c49.test(input.charAt(peg$currPos))) {
                     s3 = input.charAt(peg$currPos);
                     peg$currPos++;
                 }
                 else {
                     s3 = peg$FAILED;
                     if (peg$silentFails === 0) {
-                        peg$fail(peg$c35);
+                        peg$fail(peg$c50);
                     }
                 }
             }
@@ -3810,14 +2558,14 @@ function peg$parse(input, options) {
                     s2.push(s3);
                     s3 = peg$parsedoubleApostrophes();
                     if (s3 === peg$FAILED) {
-                        if (peg$c34.test(input.charAt(peg$currPos))) {
+                        if (peg$c49.test(input.charAt(peg$currPos))) {
                             s3 = input.charAt(peg$currPos);
                             peg$currPos++;
                         }
                         else {
                             s3 = peg$FAILED;
                             if (peg$silentFails === 0) {
-                                peg$fail(peg$c35);
+                                peg$fail(peg$c50);
                             }
                         }
                     }
@@ -3828,13 +2576,13 @@ function peg$parse(input, options) {
             }
             if (s2 !== peg$FAILED) {
                 if (input.charCodeAt(peg$currPos) === 39) {
-                    s3 = peg$c32;
+                    s3 = peg$c47;
                     peg$currPos++;
                 }
                 else {
                     s3 = peg$FAILED;
                     if (peg$silentFails === 0) {
-                        peg$fail(peg$c33);
+                        peg$fail(peg$c48);
                     }
                 }
                 if (s3 !== peg$FAILED) {
@@ -3859,14 +2607,14 @@ function peg$parse(input, options) {
             s0 = [];
             s1 = peg$parsedoubleApostrophes();
             if (s1 === peg$FAILED) {
-                if (peg$c36.test(input.charAt(peg$currPos))) {
+                if (peg$c51.test(input.charAt(peg$currPos))) {
                     s1 = input.charAt(peg$currPos);
                     peg$currPos++;
                 }
                 else {
                     s1 = peg$FAILED;
                     if (peg$silentFails === 0) {
-                        peg$fail(peg$c37);
+                        peg$fail(peg$c52);
                     }
                 }
             }
@@ -3875,14 +2623,14 @@ function peg$parse(input, options) {
                     s0.push(s1);
                     s1 = peg$parsedoubleApostrophes();
                     if (s1 === peg$FAILED) {
-                        if (peg$c36.test(input.charAt(peg$currPos))) {
+                        if (peg$c51.test(input.charAt(peg$currPos))) {
                             s1 = input.charAt(peg$currPos);
                             peg$currPos++;
                         }
                         else {
                             s1 = peg$FAILED;
                             if (peg$silentFails === 0) {
-                                peg$fail(peg$c37);
+                                peg$fail(peg$c52);
                             }
                         }
                     }
@@ -3897,27 +2645,27 @@ function peg$parse(input, options) {
     function peg$parsedateTimeSkeletonPattern() {
         var s0, s1;
         s0 = [];
-        if (peg$c38.test(input.charAt(peg$currPos))) {
+        if (peg$c53.test(input.charAt(peg$currPos))) {
             s1 = input.charAt(peg$currPos);
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c39);
+                peg$fail(peg$c54);
             }
         }
         if (s1 !== peg$FAILED) {
             while (s1 !== peg$FAILED) {
                 s0.push(s1);
-                if (peg$c38.test(input.charAt(peg$currPos))) {
+                if (peg$c53.test(input.charAt(peg$currPos))) {
                     s1 = input.charAt(peg$currPos);
                     peg$currPos++;
                 }
                 else {
                     s1 = peg$FAILED;
                     if (peg$silentFails === 0) {
-                        peg$fail(peg$c39);
+                        peg$fail(peg$c54);
                     }
                 }
             }
@@ -3956,7 +2704,7 @@ function peg$parse(input, options) {
         }
         if (s1 !== peg$FAILED) {
             peg$savedPos = s0;
-            s1 = peg$c40(s1);
+            s1 = peg$c55(s1);
         }
         s0 = s1;
         return s0;
@@ -3964,21 +2712,21 @@ function peg$parse(input, options) {
     function peg$parsedateOrTimeArgStyle() {
         var s0, s1, s2;
         s0 = peg$currPos;
-        if (input.substr(peg$currPos, 2) === peg$c22) {
-            s1 = peg$c22;
+        if (input.substr(peg$currPos, 2) === peg$c37) {
+            s1 = peg$c37;
             peg$currPos += 2;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c23);
+                peg$fail(peg$c38);
             }
         }
         if (s1 !== peg$FAILED) {
             s2 = peg$parsedateTimeSkeleton();
             if (s2 !== peg$FAILED) {
                 peg$savedPos = s0;
-                s1 = peg$c24(s2);
+                s1 = peg$c39(s2);
                 s0 = s1;
             }
             else {
@@ -3993,7 +2741,7 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s0 = peg$currPos;
             peg$savedPos = peg$currPos;
-            s1 = peg$c41();
+            s1 = peg$c56();
             if (s1) {
                 s1 = undefined;
             }
@@ -4004,7 +2752,7 @@ function peg$parse(input, options) {
                 s2 = peg$parsemessageText();
                 if (s2 !== peg$FAILED) {
                     peg$savedPos = s0;
-                    s1 = peg$c26(s2);
+                    s1 = peg$c41(s2);
                     s0 = s1;
                 }
                 else {
@@ -4023,13 +2771,13 @@ function peg$parse(input, options) {
         var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12;
         s0 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 123) {
-            s1 = peg$c6;
+            s1 = peg$c21;
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c7);
+                peg$fail(peg$c22);
             }
         }
         if (s1 !== peg$FAILED) {
@@ -4040,37 +2788,37 @@ function peg$parse(input, options) {
                     s4 = peg$parse_();
                     if (s4 !== peg$FAILED) {
                         if (input.charCodeAt(peg$currPos) === 44) {
-                            s5 = peg$c27;
+                            s5 = peg$c42;
                             peg$currPos++;
                         }
                         else {
                             s5 = peg$FAILED;
                             if (peg$silentFails === 0) {
-                                peg$fail(peg$c28);
+                                peg$fail(peg$c43);
                             }
                         }
                         if (s5 !== peg$FAILED) {
                             s6 = peg$parse_();
                             if (s6 !== peg$FAILED) {
-                                if (input.substr(peg$currPos, 4) === peg$c42) {
-                                    s7 = peg$c42;
+                                if (input.substr(peg$currPos, 4) === peg$c57) {
+                                    s7 = peg$c57;
                                     peg$currPos += 4;
                                 }
                                 else {
                                     s7 = peg$FAILED;
                                     if (peg$silentFails === 0) {
-                                        peg$fail(peg$c43);
+                                        peg$fail(peg$c58);
                                     }
                                 }
                                 if (s7 === peg$FAILED) {
-                                    if (input.substr(peg$currPos, 4) === peg$c44) {
-                                        s7 = peg$c44;
+                                    if (input.substr(peg$currPos, 4) === peg$c59) {
+                                        s7 = peg$c59;
                                         peg$currPos += 4;
                                     }
                                     else {
                                         s7 = peg$FAILED;
                                         if (peg$silentFails === 0) {
-                                            peg$fail(peg$c45);
+                                            peg$fail(peg$c60);
                                         }
                                     }
                                 }
@@ -4079,13 +2827,13 @@ function peg$parse(input, options) {
                                     if (s8 !== peg$FAILED) {
                                         s9 = peg$currPos;
                                         if (input.charCodeAt(peg$currPos) === 44) {
-                                            s10 = peg$c27;
+                                            s10 = peg$c42;
                                             peg$currPos++;
                                         }
                                         else {
                                             s10 = peg$FAILED;
                                             if (peg$silentFails === 0) {
-                                                peg$fail(peg$c28);
+                                                peg$fail(peg$c43);
                                             }
                                         }
                                         if (s10 !== peg$FAILED) {
@@ -4117,18 +2865,18 @@ function peg$parse(input, options) {
                                             s10 = peg$parse_();
                                             if (s10 !== peg$FAILED) {
                                                 if (input.charCodeAt(peg$currPos) === 125) {
-                                                    s11 = peg$c8;
+                                                    s11 = peg$c23;
                                                     peg$currPos++;
                                                 }
                                                 else {
                                                     s11 = peg$FAILED;
                                                     if (peg$silentFails === 0) {
-                                                        peg$fail(peg$c9);
+                                                        peg$fail(peg$c24);
                                                     }
                                                 }
                                                 if (s11 !== peg$FAILED) {
                                                     peg$savedPos = s0;
-                                                    s1 = peg$c31(s3, s7, s9);
+                                                    s1 = peg$c46(s3, s7, s9);
                                                     s0 = s1;
                                                 }
                                                 else {
@@ -4199,13 +2947,13 @@ function peg$parse(input, options) {
         var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15;
         s0 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 123) {
-            s1 = peg$c6;
+            s1 = peg$c21;
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c7);
+                peg$fail(peg$c22);
             }
         }
         if (s1 !== peg$FAILED) {
@@ -4216,37 +2964,37 @@ function peg$parse(input, options) {
                     s4 = peg$parse_();
                     if (s4 !== peg$FAILED) {
                         if (input.charCodeAt(peg$currPos) === 44) {
-                            s5 = peg$c27;
+                            s5 = peg$c42;
                             peg$currPos++;
                         }
                         else {
                             s5 = peg$FAILED;
                             if (peg$silentFails === 0) {
-                                peg$fail(peg$c28);
+                                peg$fail(peg$c43);
                             }
                         }
                         if (s5 !== peg$FAILED) {
                             s6 = peg$parse_();
                             if (s6 !== peg$FAILED) {
-                                if (input.substr(peg$currPos, 6) === peg$c46) {
-                                    s7 = peg$c46;
+                                if (input.substr(peg$currPos, 6) === peg$c61) {
+                                    s7 = peg$c61;
                                     peg$currPos += 6;
                                 }
                                 else {
                                     s7 = peg$FAILED;
                                     if (peg$silentFails === 0) {
-                                        peg$fail(peg$c47);
+                                        peg$fail(peg$c62);
                                     }
                                 }
                                 if (s7 === peg$FAILED) {
-                                    if (input.substr(peg$currPos, 13) === peg$c48) {
-                                        s7 = peg$c48;
+                                    if (input.substr(peg$currPos, 13) === peg$c63) {
+                                        s7 = peg$c63;
                                         peg$currPos += 13;
                                     }
                                     else {
                                         s7 = peg$FAILED;
                                         if (peg$silentFails === 0) {
-                                            peg$fail(peg$c49);
+                                            peg$fail(peg$c64);
                                         }
                                     }
                                 }
@@ -4254,27 +3002,27 @@ function peg$parse(input, options) {
                                     s8 = peg$parse_();
                                     if (s8 !== peg$FAILED) {
                                         if (input.charCodeAt(peg$currPos) === 44) {
-                                            s9 = peg$c27;
+                                            s9 = peg$c42;
                                             peg$currPos++;
                                         }
                                         else {
                                             s9 = peg$FAILED;
                                             if (peg$silentFails === 0) {
-                                                peg$fail(peg$c28);
+                                                peg$fail(peg$c43);
                                             }
                                         }
                                         if (s9 !== peg$FAILED) {
                                             s10 = peg$parse_();
                                             if (s10 !== peg$FAILED) {
                                                 s11 = peg$currPos;
-                                                if (input.substr(peg$currPos, 7) === peg$c50) {
-                                                    s12 = peg$c50;
+                                                if (input.substr(peg$currPos, 7) === peg$c65) {
+                                                    s12 = peg$c65;
                                                     peg$currPos += 7;
                                                 }
                                                 else {
                                                     s12 = peg$FAILED;
                                                     if (peg$silentFails === 0) {
-                                                        peg$fail(peg$c51);
+                                                        peg$fail(peg$c66);
                                                     }
                                                 }
                                                 if (s12 !== peg$FAILED) {
@@ -4320,18 +3068,18 @@ function peg$parse(input, options) {
                                                             s14 = peg$parse_();
                                                             if (s14 !== peg$FAILED) {
                                                                 if (input.charCodeAt(peg$currPos) === 125) {
-                                                                    s15 = peg$c8;
+                                                                    s15 = peg$c23;
                                                                     peg$currPos++;
                                                                 }
                                                                 else {
                                                                     s15 = peg$FAILED;
                                                                     if (peg$silentFails === 0) {
-                                                                        peg$fail(peg$c9);
+                                                                        peg$fail(peg$c24);
                                                                     }
                                                                 }
                                                                 if (s15 !== peg$FAILED) {
                                                                     peg$savedPos = s0;
-                                                                    s1 = peg$c52(s3, s7, s11, s13);
+                                                                    s1 = peg$c67(s3, s7, s11, s13);
                                                                     s0 = s1;
                                                                 }
                                                                 else {
@@ -4414,13 +3162,13 @@ function peg$parse(input, options) {
         var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13;
         s0 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 123) {
-            s1 = peg$c6;
+            s1 = peg$c21;
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c7);
+                peg$fail(peg$c22);
             }
         }
         if (s1 !== peg$FAILED) {
@@ -4431,39 +3179,39 @@ function peg$parse(input, options) {
                     s4 = peg$parse_();
                     if (s4 !== peg$FAILED) {
                         if (input.charCodeAt(peg$currPos) === 44) {
-                            s5 = peg$c27;
+                            s5 = peg$c42;
                             peg$currPos++;
                         }
                         else {
                             s5 = peg$FAILED;
                             if (peg$silentFails === 0) {
-                                peg$fail(peg$c28);
+                                peg$fail(peg$c43);
                             }
                         }
                         if (s5 !== peg$FAILED) {
                             s6 = peg$parse_();
                             if (s6 !== peg$FAILED) {
-                                if (input.substr(peg$currPos, 6) === peg$c53) {
-                                    s7 = peg$c53;
+                                if (input.substr(peg$currPos, 6) === peg$c68) {
+                                    s7 = peg$c68;
                                     peg$currPos += 6;
                                 }
                                 else {
                                     s7 = peg$FAILED;
                                     if (peg$silentFails === 0) {
-                                        peg$fail(peg$c54);
+                                        peg$fail(peg$c69);
                                     }
                                 }
                                 if (s7 !== peg$FAILED) {
                                     s8 = peg$parse_();
                                     if (s8 !== peg$FAILED) {
                                         if (input.charCodeAt(peg$currPos) === 44) {
-                                            s9 = peg$c27;
+                                            s9 = peg$c42;
                                             peg$currPos++;
                                         }
                                         else {
                                             s9 = peg$FAILED;
                                             if (peg$silentFails === 0) {
-                                                peg$fail(peg$c28);
+                                                peg$fail(peg$c43);
                                             }
                                         }
                                         if (s9 !== peg$FAILED) {
@@ -4484,18 +3232,18 @@ function peg$parse(input, options) {
                                                     s12 = peg$parse_();
                                                     if (s12 !== peg$FAILED) {
                                                         if (input.charCodeAt(peg$currPos) === 125) {
-                                                            s13 = peg$c8;
+                                                            s13 = peg$c23;
                                                             peg$currPos++;
                                                         }
                                                         else {
                                                             s13 = peg$FAILED;
                                                             if (peg$silentFails === 0) {
-                                                                peg$fail(peg$c9);
+                                                                peg$fail(peg$c24);
                                                             }
                                                         }
                                                         if (s13 !== peg$FAILED) {
                                                             peg$savedPos = s0;
-                                                            s1 = peg$c55(s3, s11);
+                                                            s1 = peg$c70(s3, s11);
                                                             s0 = s1;
                                                         }
                                                         else {
@@ -4569,13 +3317,13 @@ function peg$parse(input, options) {
         s0 = peg$currPos;
         s1 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 61) {
-            s2 = peg$c56;
+            s2 = peg$c71;
             peg$currPos++;
         }
         else {
             s2 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c57);
+                peg$fail(peg$c72);
             }
         }
         if (s2 !== peg$FAILED) {
@@ -4614,18 +3362,18 @@ function peg$parse(input, options) {
                 s3 = peg$parse_();
                 if (s3 !== peg$FAILED) {
                     if (input.charCodeAt(peg$currPos) === 123) {
-                        s4 = peg$c6;
+                        s4 = peg$c21;
                         peg$currPos++;
                     }
                     else {
                         s4 = peg$FAILED;
                         if (peg$silentFails === 0) {
-                            peg$fail(peg$c7);
+                            peg$fail(peg$c22);
                         }
                     }
                     if (s4 !== peg$FAILED) {
                         peg$savedPos = peg$currPos;
-                        s5 = peg$c58(s2);
+                        s5 = peg$c73(s2);
                         if (s5) {
                             s5 = undefined;
                         }
@@ -4636,18 +3384,18 @@ function peg$parse(input, options) {
                             s6 = peg$parsemessage();
                             if (s6 !== peg$FAILED) {
                                 if (input.charCodeAt(peg$currPos) === 125) {
-                                    s7 = peg$c8;
+                                    s7 = peg$c23;
                                     peg$currPos++;
                                 }
                                 else {
                                     s7 = peg$FAILED;
                                     if (peg$silentFails === 0) {
-                                        peg$fail(peg$c9);
+                                        peg$fail(peg$c24);
                                     }
                                 }
                                 if (s7 !== peg$FAILED) {
                                     peg$savedPos = s0;
-                                    s1 = peg$c59(s2, s6);
+                                    s1 = peg$c74(s2, s6);
                                     s0 = s1;
                                 }
                                 else {
@@ -4696,18 +3444,18 @@ function peg$parse(input, options) {
                 s3 = peg$parse_();
                 if (s3 !== peg$FAILED) {
                     if (input.charCodeAt(peg$currPos) === 123) {
-                        s4 = peg$c6;
+                        s4 = peg$c21;
                         peg$currPos++;
                     }
                     else {
                         s4 = peg$FAILED;
                         if (peg$silentFails === 0) {
-                            peg$fail(peg$c7);
+                            peg$fail(peg$c22);
                         }
                     }
                     if (s4 !== peg$FAILED) {
                         peg$savedPos = peg$currPos;
-                        s5 = peg$c60(s2);
+                        s5 = peg$c75(s2);
                         if (s5) {
                             s5 = undefined;
                         }
@@ -4718,18 +3466,18 @@ function peg$parse(input, options) {
                             s6 = peg$parsemessage();
                             if (s6 !== peg$FAILED) {
                                 if (input.charCodeAt(peg$currPos) === 125) {
-                                    s7 = peg$c8;
+                                    s7 = peg$c23;
                                     peg$currPos++;
                                 }
                                 else {
                                     s7 = peg$FAILED;
                                     if (peg$silentFails === 0) {
-                                        peg$fail(peg$c9);
+                                        peg$fail(peg$c24);
                                     }
                                 }
                                 if (s7 !== peg$FAILED) {
                                     peg$savedPos = s0;
-                                    s1 = peg$c61(s2, s6);
+                                    s1 = peg$c76(s2, s6);
                                     s0 = s1;
                                 }
                                 else {
@@ -4771,21 +3519,21 @@ function peg$parse(input, options) {
     function peg$parsewhiteSpace() {
         var s0, s1;
         peg$silentFails++;
-        if (peg$c63.test(input.charAt(peg$currPos))) {
+        if (peg$c78.test(input.charAt(peg$currPos))) {
             s0 = input.charAt(peg$currPos);
             peg$currPos++;
         }
         else {
             s0 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c64);
+                peg$fail(peg$c79);
             }
         }
         peg$silentFails--;
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c62);
+                peg$fail(peg$c77);
             }
         }
         return s0;
@@ -4793,21 +3541,21 @@ function peg$parse(input, options) {
     function peg$parsepatternSyntax() {
         var s0, s1;
         peg$silentFails++;
-        if (peg$c66.test(input.charAt(peg$currPos))) {
+        if (peg$c81.test(input.charAt(peg$currPos))) {
             s0 = input.charAt(peg$currPos);
             peg$currPos++;
         }
         else {
             s0 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c67);
+                peg$fail(peg$c82);
             }
         }
         peg$silentFails--;
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c65);
+                peg$fail(peg$c80);
             }
         }
         return s0;
@@ -4832,7 +3580,7 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c68);
+                peg$fail(peg$c83);
             }
         }
         return s0;
@@ -4842,13 +3590,13 @@ function peg$parse(input, options) {
         peg$silentFails++;
         s0 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 45) {
-            s1 = peg$c70;
+            s1 = peg$c85;
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c71);
+                peg$fail(peg$c86);
             }
         }
         if (s1 === peg$FAILED) {
@@ -4858,7 +3606,7 @@ function peg$parse(input, options) {
             s2 = peg$parseargNumber();
             if (s2 !== peg$FAILED) {
                 peg$savedPos = s0;
-                s1 = peg$c72(s1, s2);
+                s1 = peg$c87(s1, s2);
                 s0 = s1;
             }
             else {
@@ -4874,7 +3622,7 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c69);
+                peg$fail(peg$c84);
             }
         }
         return s0;
@@ -4883,20 +3631,20 @@ function peg$parse(input, options) {
         var s0, s1;
         peg$silentFails++;
         if (input.charCodeAt(peg$currPos) === 39) {
-            s0 = peg$c32;
+            s0 = peg$c47;
             peg$currPos++;
         }
         else {
             s0 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c33);
+                peg$fail(peg$c48);
             }
         }
         peg$silentFails--;
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c73);
+                peg$fail(peg$c88);
             }
         }
         return s0;
@@ -4905,26 +3653,26 @@ function peg$parse(input, options) {
         var s0, s1;
         peg$silentFails++;
         s0 = peg$currPos;
-        if (input.substr(peg$currPos, 2) === peg$c75) {
-            s1 = peg$c75;
+        if (input.substr(peg$currPos, 2) === peg$c90) {
+            s1 = peg$c90;
             peg$currPos += 2;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c76);
+                peg$fail(peg$c91);
             }
         }
         if (s1 !== peg$FAILED) {
             peg$savedPos = s0;
-            s1 = peg$c77();
+            s1 = peg$c92();
         }
         s0 = s1;
         peg$silentFails--;
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c74);
+                peg$fail(peg$c89);
             }
         }
         return s0;
@@ -4933,13 +3681,13 @@ function peg$parse(input, options) {
         var s0, s1, s2, s3, s4, s5;
         s0 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 39) {
-            s1 = peg$c32;
+            s1 = peg$c47;
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c33);
+                peg$fail(peg$c48);
             }
         }
         if (s1 !== peg$FAILED) {
@@ -4947,49 +3695,49 @@ function peg$parse(input, options) {
             if (s2 !== peg$FAILED) {
                 s3 = peg$currPos;
                 s4 = [];
-                if (input.substr(peg$currPos, 2) === peg$c75) {
-                    s5 = peg$c75;
+                if (input.substr(peg$currPos, 2) === peg$c90) {
+                    s5 = peg$c90;
                     peg$currPos += 2;
                 }
                 else {
                     s5 = peg$FAILED;
                     if (peg$silentFails === 0) {
-                        peg$fail(peg$c76);
+                        peg$fail(peg$c91);
                     }
                 }
                 if (s5 === peg$FAILED) {
-                    if (peg$c34.test(input.charAt(peg$currPos))) {
+                    if (peg$c49.test(input.charAt(peg$currPos))) {
                         s5 = input.charAt(peg$currPos);
                         peg$currPos++;
                     }
                     else {
                         s5 = peg$FAILED;
                         if (peg$silentFails === 0) {
-                            peg$fail(peg$c35);
+                            peg$fail(peg$c50);
                         }
                     }
                 }
                 while (s5 !== peg$FAILED) {
                     s4.push(s5);
-                    if (input.substr(peg$currPos, 2) === peg$c75) {
-                        s5 = peg$c75;
+                    if (input.substr(peg$currPos, 2) === peg$c90) {
+                        s5 = peg$c90;
                         peg$currPos += 2;
                     }
                     else {
                         s5 = peg$FAILED;
                         if (peg$silentFails === 0) {
-                            peg$fail(peg$c76);
+                            peg$fail(peg$c91);
                         }
                     }
                     if (s5 === peg$FAILED) {
-                        if (peg$c34.test(input.charAt(peg$currPos))) {
+                        if (peg$c49.test(input.charAt(peg$currPos))) {
                             s5 = input.charAt(peg$currPos);
                             peg$currPos++;
                         }
                         else {
                             s5 = peg$FAILED;
                             if (peg$silentFails === 0) {
-                                peg$fail(peg$c35);
+                                peg$fail(peg$c50);
                             }
                         }
                     }
@@ -5002,13 +3750,13 @@ function peg$parse(input, options) {
                 }
                 if (s3 !== peg$FAILED) {
                     if (input.charCodeAt(peg$currPos) === 39) {
-                        s4 = peg$c32;
+                        s4 = peg$c47;
                         peg$currPos++;
                     }
                     else {
                         s4 = peg$FAILED;
                         if (peg$silentFails === 0) {
-                            peg$fail(peg$c33);
+                            peg$fail(peg$c48);
                         }
                     }
                     if (s4 === peg$FAILED) {
@@ -5016,7 +3764,7 @@ function peg$parse(input, options) {
                     }
                     if (s4 !== peg$FAILED) {
                         peg$savedPos = s0;
-                        s1 = peg$c78(s2, s3);
+                        s1 = peg$c93(s2, s3);
                         s0 = s1;
                     }
                     else {
@@ -5051,12 +3799,12 @@ function peg$parse(input, options) {
         else {
             s2 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c14);
+                peg$fail(peg$c29);
             }
         }
         if (s2 !== peg$FAILED) {
             peg$savedPos = peg$currPos;
-            s3 = peg$c79(s2);
+            s3 = peg$c94(s2);
             if (s3) {
                 s3 = undefined;
             }
@@ -5078,13 +3826,13 @@ function peg$parse(input, options) {
         }
         if (s1 === peg$FAILED) {
             if (input.charCodeAt(peg$currPos) === 10) {
-                s1 = peg$c80;
+                s1 = peg$c95;
                 peg$currPos++;
             }
             else {
                 s1 = peg$FAILED;
                 if (peg$silentFails === 0) {
-                    peg$fail(peg$c81);
+                    peg$fail(peg$c96);
                 }
             }
         }
@@ -5107,12 +3855,12 @@ function peg$parse(input, options) {
         else {
             s2 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c14);
+                peg$fail(peg$c29);
             }
         }
         if (s2 !== peg$FAILED) {
             peg$savedPos = peg$currPos;
-            s3 = peg$c82(s2);
+            s3 = peg$c97(s2);
             if (s3) {
                 s3 = undefined;
             }
@@ -5158,7 +3906,30 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c83);
+                peg$fail(peg$c98);
+            }
+        }
+        return s0;
+    }
+    function peg$parsevalidTag() {
+        var s0, s1;
+        peg$silentFails++;
+        s0 = peg$currPos;
+        s1 = peg$parseargNumber();
+        if (s1 === peg$FAILED) {
+            s1 = peg$parsetagName();
+        }
+        if (s1 !== peg$FAILED) {
+            s0 = input.substring(s0, peg$currPos);
+        }
+        else {
+            s0 = s1;
+        }
+        peg$silentFails--;
+        if (s0 === peg$FAILED) {
+            s1 = peg$FAILED;
+            if (peg$silentFails === 0) {
+                peg$fail(peg$c99);
             }
         }
         return s0;
@@ -5168,55 +3939,55 @@ function peg$parse(input, options) {
         peg$silentFails++;
         s0 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 48) {
-            s1 = peg$c85;
+            s1 = peg$c101;
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c86);
+                peg$fail(peg$c102);
             }
         }
         if (s1 !== peg$FAILED) {
             peg$savedPos = s0;
-            s1 = peg$c87();
+            s1 = peg$c103();
         }
         s0 = s1;
         if (s0 === peg$FAILED) {
             s0 = peg$currPos;
             s1 = peg$currPos;
-            if (peg$c88.test(input.charAt(peg$currPos))) {
+            if (peg$c104.test(input.charAt(peg$currPos))) {
                 s2 = input.charAt(peg$currPos);
                 peg$currPos++;
             }
             else {
                 s2 = peg$FAILED;
                 if (peg$silentFails === 0) {
-                    peg$fail(peg$c89);
+                    peg$fail(peg$c105);
                 }
             }
             if (s2 !== peg$FAILED) {
                 s3 = [];
-                if (peg$c90.test(input.charAt(peg$currPos))) {
+                if (peg$c106.test(input.charAt(peg$currPos))) {
                     s4 = input.charAt(peg$currPos);
                     peg$currPos++;
                 }
                 else {
                     s4 = peg$FAILED;
                     if (peg$silentFails === 0) {
-                        peg$fail(peg$c91);
+                        peg$fail(peg$c107);
                     }
                 }
                 while (s4 !== peg$FAILED) {
                     s3.push(s4);
-                    if (peg$c90.test(input.charAt(peg$currPos))) {
+                    if (peg$c106.test(input.charAt(peg$currPos))) {
                         s4 = input.charAt(peg$currPos);
                         peg$currPos++;
                     }
                     else {
                         s4 = peg$FAILED;
                         if (peg$silentFails === 0) {
-                            peg$fail(peg$c91);
+                            peg$fail(peg$c107);
                         }
                     }
                 }
@@ -5235,7 +4006,7 @@ function peg$parse(input, options) {
             }
             if (s1 !== peg$FAILED) {
                 peg$savedPos = s0;
-                s1 = peg$c92(s1);
+                s1 = peg$c108(s1);
             }
             s0 = s1;
         }
@@ -5243,7 +4014,7 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c84);
+                peg$fail(peg$c100);
             }
         }
         return s0;
@@ -5276,7 +4047,7 @@ function peg$parse(input, options) {
             else {
                 s4 = peg$FAILED;
                 if (peg$silentFails === 0) {
-                    peg$fail(peg$c14);
+                    peg$fail(peg$c29);
                 }
             }
             if (s4 !== peg$FAILED) {
@@ -5318,7 +4089,7 @@ function peg$parse(input, options) {
                     else {
                         s4 = peg$FAILED;
                         if (peg$silentFails === 0) {
-                            peg$fail(peg$c14);
+                            peg$fail(peg$c29);
                         }
                     }
                     if (s4 !== peg$FAILED) {
@@ -5349,7 +4120,137 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c93);
+                peg$fail(peg$c109);
+            }
+        }
+        return s0;
+    }
+    function peg$parsetagName() {
+        var s0, s1, s2, s3, s4;
+        peg$silentFails++;
+        s0 = peg$currPos;
+        s1 = [];
+        if (input.charCodeAt(peg$currPos) === 45) {
+            s2 = peg$c85;
+            peg$currPos++;
+        }
+        else {
+            s2 = peg$FAILED;
+            if (peg$silentFails === 0) {
+                peg$fail(peg$c86);
+            }
+        }
+        if (s2 === peg$FAILED) {
+            s2 = peg$currPos;
+            s3 = peg$currPos;
+            peg$silentFails++;
+            s4 = peg$parsewhiteSpace();
+            if (s4 === peg$FAILED) {
+                s4 = peg$parsepatternSyntax();
+            }
+            peg$silentFails--;
+            if (s4 === peg$FAILED) {
+                s3 = undefined;
+            }
+            else {
+                peg$currPos = s3;
+                s3 = peg$FAILED;
+            }
+            if (s3 !== peg$FAILED) {
+                if (input.length > peg$currPos) {
+                    s4 = input.charAt(peg$currPos);
+                    peg$currPos++;
+                }
+                else {
+                    s4 = peg$FAILED;
+                    if (peg$silentFails === 0) {
+                        peg$fail(peg$c29);
+                    }
+                }
+                if (s4 !== peg$FAILED) {
+                    s3 = [s3, s4];
+                    s2 = s3;
+                }
+                else {
+                    peg$currPos = s2;
+                    s2 = peg$FAILED;
+                }
+            }
+            else {
+                peg$currPos = s2;
+                s2 = peg$FAILED;
+            }
+        }
+        if (s2 !== peg$FAILED) {
+            while (s2 !== peg$FAILED) {
+                s1.push(s2);
+                if (input.charCodeAt(peg$currPos) === 45) {
+                    s2 = peg$c85;
+                    peg$currPos++;
+                }
+                else {
+                    s2 = peg$FAILED;
+                    if (peg$silentFails === 0) {
+                        peg$fail(peg$c86);
+                    }
+                }
+                if (s2 === peg$FAILED) {
+                    s2 = peg$currPos;
+                    s3 = peg$currPos;
+                    peg$silentFails++;
+                    s4 = peg$parsewhiteSpace();
+                    if (s4 === peg$FAILED) {
+                        s4 = peg$parsepatternSyntax();
+                    }
+                    peg$silentFails--;
+                    if (s4 === peg$FAILED) {
+                        s3 = undefined;
+                    }
+                    else {
+                        peg$currPos = s3;
+                        s3 = peg$FAILED;
+                    }
+                    if (s3 !== peg$FAILED) {
+                        if (input.length > peg$currPos) {
+                            s4 = input.charAt(peg$currPos);
+                            peg$currPos++;
+                        }
+                        else {
+                            s4 = peg$FAILED;
+                            if (peg$silentFails === 0) {
+                                peg$fail(peg$c29);
+                            }
+                        }
+                        if (s4 !== peg$FAILED) {
+                            s3 = [s3, s4];
+                            s2 = s3;
+                        }
+                        else {
+                            peg$currPos = s2;
+                            s2 = peg$FAILED;
+                        }
+                    }
+                    else {
+                        peg$currPos = s2;
+                        s2 = peg$FAILED;
+                    }
+                }
+            }
+        }
+        else {
+            s1 = peg$FAILED;
+        }
+        if (s1 !== peg$FAILED) {
+            s0 = input.substring(s0, peg$currPos);
+        }
+        else {
+            s0 = s1;
+        }
+        peg$silentFails--;
+        if (s0 === peg$FAILED) {
+            s1 = peg$FAILED;
+            if (peg$silentFails === 0) {
+                peg$fail(peg$c110);
             }
         }
         return s0;
@@ -5752,6 +4653,10 @@ var TYPE;
      * This is the `#` symbol that will be substituted with the count.
      */
     TYPE[TYPE["pound"] = 7] = "pound";
+    /**
+     * XML-like tag
+     */
+    TYPE[TYPE["tag"] = 8] = "tag";
 })(TYPE = exports.TYPE || (exports.TYPE = {}));
 /**
  * Type Guards
@@ -5788,6 +4693,10 @@ function isPoundElement(el) {
     return el.type === TYPE.pound;
 }
 exports.isPoundElement = isPoundElement;
+function isTagElement(el) {
+    return el.type === TYPE.tag;
+}
+exports.isTagElement = isTagElement;
 function isNumberSkeleton(el) {
     return !!(el && typeof el === 'object' && el.type === 0 /* number */);
 }
@@ -5886,13 +4795,29 @@ var IntlMessageFormat = /** @class */ (function () {
             pluralRules: {},
         };
         this.format = function (values) {
-            return formatters_1.formatToString(_this.ast, _this.locales, _this.formatters, _this.formats, values, _this.message);
+            var parts = _this.formatToParts(values);
+            // Hot path for straight simple msg translations
+            if (parts.length === 1) {
+                return parts[0].value;
+            }
+            var result = parts.reduce(function (all, part) {
+                if (!all.length ||
+                    part.type !== 0 /* literal */ ||
+                    typeof all[all.length - 1] !== 'string') {
+                    all.push(part.value);
+                }
+                else {
+                    all[all.length - 1] += part.value;
+                }
+                return all;
+            }, []);
+            if (result.length <= 1) {
+                return result[0] || '';
+            }
+            return result;
         };
         this.formatToParts = function (values) {
             return formatters_1.formatToParts(_this.ast, _this.locales, _this.formatters, _this.formats, values, undefined, _this.message);
-        };
-        this.formatHTMLMessage = function (values) {
-            return formatters_1.formatHTMLMessage(_this.ast, _this.locales, _this.formatters, _this.formats, values, _this.message);
         };
         this.resolvedOptions = function () { return ({
             locale: Intl.NumberFormat.supportedLocalesOf(_this.locales)[0],
@@ -5991,10 +4916,10 @@ exports.default = IntlMessageFormat;
 
 /***/ }),
 
-/***/ "./node_modules/intl-messageformat/dist/formatters.js":
-/*!************************************************************!*\
-  !*** ./node_modules/intl-messageformat/dist/formatters.js ***!
-  \************************************************************/
+/***/ "./node_modules/intl-messageformat/dist/error.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/intl-messageformat/dist/error.js ***!
+  \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6013,24 +4938,52 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var intl_messageformat_parser_1 = __webpack_require__(/*! intl-messageformat-parser */ "./node_modules/intl-messageformat-parser/dist/index.js");
 var FormatError = /** @class */ (function (_super) {
     __extends(FormatError, _super);
-    function FormatError(msg, variableId) {
+    function FormatError(msg, code) {
         var _this = _super.call(this, msg) || this;
-        _this.variableId = variableId;
+        _this.code = code;
         return _this;
     }
+    FormatError.prototype.toString = function () {
+        return "[formatjs Error: " + this.code + "] " + this.message;
+    };
     return FormatError;
 }(Error));
+exports.FormatError = FormatError;
+var InvalidValueError = /** @class */ (function (_super) {
+    __extends(InvalidValueError, _super);
+    function InvalidValueError(variableId, value, options) {
+        return _super.call(this, "Invalid values for \"" + variableId + "\": \"" + value + "\". Options are \"" + Object.keys(options).join('", "') + "\"", 1 /* INVALID_VALUE */) || this;
+    }
+    return InvalidValueError;
+}(FormatError));
+exports.InvalidValueError = InvalidValueError;
+var MissingValueError = /** @class */ (function (_super) {
+    __extends(MissingValueError, _super);
+    function MissingValueError(variableId, originalMessage) {
+        return _super.call(this, "The intl string context variable \"" + variableId + "\" was not provided to the string \"" + originalMessage + "\"", 0 /* MISSING_VALUE */) || this;
+    }
+    return MissingValueError;
+}(FormatError));
+exports.MissingValueError = MissingValueError;
+
+
+/***/ }),
+
+/***/ "./node_modules/intl-messageformat/dist/formatters.js":
+/*!************************************************************!*\
+  !*** ./node_modules/intl-messageformat/dist/formatters.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var intl_messageformat_parser_1 = __webpack_require__(/*! intl-messageformat-parser */ "./node_modules/intl-messageformat-parser/dist/index.js");
+var error_1 = __webpack_require__(/*! ./error */ "./node_modules/intl-messageformat/dist/error.js");
 function mergeLiteral(parts) {
     if (parts.length < 2) {
         return parts;
@@ -6047,6 +5000,9 @@ function mergeLiteral(parts) {
         }
         return all;
     }, []);
+}
+function isFormatXMLElementFn(el) {
+    return typeof el === 'function';
 }
 // TODO(skeleton): add skeleton support
 function formatToParts(els, locales, formatters, formats, values, currentPluralValue, 
@@ -6086,7 +5042,7 @@ originalMessage) {
         var varName = el.value;
         // Enforce that all required values are provided by the caller.
         if (!(values && varName in values)) {
-            throw new FormatError("The intl string context variable \"" + varName + "\" was not provided to the string \"" + originalMessage + "\"");
+            throw new error_1.MissingValueError(varName, originalMessage);
         }
         var value = values[varName];
         if (intl_messageformat_parser_1.isArgumentElement(el)) {
@@ -6097,7 +5053,7 @@ originalMessage) {
                         : '';
             }
             result.push({
-                type: 1 /* argument */,
+                type: typeof value === 'string' ? 0 /* literal */ : 1 /* object */,
                 value: value,
             });
             continue;
@@ -6143,10 +5099,28 @@ originalMessage) {
             });
             continue;
         }
+        if (intl_messageformat_parser_1.isTagElement(el)) {
+            var children = el.children, value_1 = el.value;
+            var formatFn = values[value_1];
+            if (!isFormatXMLElementFn(formatFn)) {
+                throw new TypeError("Value for \"" + value_1 + "\" must be a function");
+            }
+            var parts = formatToParts(children, locales, formatters, formats, values);
+            var chunks = formatFn.apply(void 0, parts.map(function (p) { return p.value; }));
+            if (!Array.isArray(chunks)) {
+                chunks = [chunks];
+            }
+            result.push.apply(result, chunks.map(function (c) {
+                return {
+                    type: typeof c === 'string' ? 0 /* literal */ : 1 /* object */,
+                    value: c,
+                };
+            }));
+        }
         if (intl_messageformat_parser_1.isSelectElement(el)) {
             var opt = el.options[value] || el.options.other;
             if (!opt) {
-                throw new RangeError("Invalid values for \"" + el.value + "\": \"" + value + "\". Options are \"" + Object.keys(el.options).join('", "') + "\"");
+                throw new error_1.InvalidValueError(el.value, value, Object.keys(el.options));
             }
             result.push.apply(result, formatToParts(opt.value, locales, formatters, formats, values));
             continue;
@@ -6155,7 +5129,7 @@ originalMessage) {
             var opt = el.options["=" + value];
             if (!opt) {
                 if (!Intl.PluralRules) {
-                    throw new FormatError("Intl.PluralRules is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-pluralrules\"\n");
+                    throw new error_1.FormatError("Intl.PluralRules is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-pluralrules\"\n", 2 /* MISSING_INTL_API */);
                 }
                 var rule = formatters
                     .getPluralRules(locales, { type: el.pluralType })
@@ -6163,7 +5137,7 @@ originalMessage) {
                 opt = el.options[rule] || el.options.other;
             }
             if (!opt) {
-                throw new RangeError("Invalid values for \"" + el.value + "\": \"" + value + "\". Options are \"" + Object.keys(el.options).join('", "') + "\"");
+                throw new error_1.InvalidValueError(el.value, value, Object.keys(el.options));
             }
             result.push.apply(result, formatToParts(opt.value, locales, formatters, formats, values, value - (el.offset || 0)));
             continue;
@@ -6172,141 +5146,6 @@ originalMessage) {
     return mergeLiteral(result);
 }
 exports.formatToParts = formatToParts;
-function formatToString(els, locales, formatters, formats, values, 
-// For debugging
-originalMessage) {
-    var parts = formatToParts(els, locales, formatters, formats, values, undefined, originalMessage);
-    // Hot path for straight simple msg translations
-    if (parts.length === 1) {
-        return parts[0].value;
-    }
-    return parts.reduce(function (all, part) { return (all += part.value); }, '');
-}
-exports.formatToString = formatToString;
-// Singleton
-var domParser;
-var TOKEN_DELIMITER = '@@';
-var TOKEN_REGEX = /@@(\d+_\d+)@@/g;
-var counter = 0;
-function generateId() {
-    return Date.now() + "_" + ++counter;
-}
-function restoreRichPlaceholderMessage(text, objectParts) {
-    return text
-        .split(TOKEN_REGEX)
-        .filter(Boolean)
-        .map(function (c) { return (objectParts[c] != null ? objectParts[c] : c); })
-        .reduce(function (all, c) {
-        if (!all.length) {
-            all.push(c);
-        }
-        else if (typeof c === 'string' &&
-            typeof all[all.length - 1] === 'string') {
-            all[all.length - 1] += c;
-        }
-        else {
-            all.push(c);
-        }
-        return all;
-    }, []);
-}
-/**
- * Not exhaustive, just for sanity check
- */
-var SIMPLE_XML_REGEX = /(<([0-9a-zA-Z-_]*?)>(.*?)<\/([0-9a-zA-Z-_]*?)>)|(<[0-9a-zA-Z-_]*?\/>)/;
-var TEMPLATE_ID = Date.now() + '@@';
-var VOID_ELEMENTS = [
-    'area',
-    'base',
-    'br',
-    'col',
-    'embed',
-    'hr',
-    'img',
-    'input',
-    'link',
-    'meta',
-    'param',
-    'source',
-    'track',
-    'wbr',
-];
-function formatHTMLElement(el, objectParts, values) {
-    var tagName = el.tagName;
-    var outerHTML = el.outerHTML, textContent = el.textContent, childNodes = el.childNodes;
-    // Regular text
-    if (!tagName) {
-        return restoreRichPlaceholderMessage(textContent || '', objectParts);
-    }
-    tagName = tagName.toLowerCase();
-    var isVoidElement = ~VOID_ELEMENTS.indexOf(tagName);
-    var formatFnOrValue = values[tagName];
-    if (formatFnOrValue && isVoidElement) {
-        throw new FormatError(tagName + " is a self-closing tag and can not be used, please use another tag name.");
-    }
-    if (!childNodes.length) {
-        return [outerHTML];
-    }
-    var chunks = Array.prototype.slice.call(childNodes).reduce(function (all, child) {
-        return all.concat(formatHTMLElement(child, objectParts, values));
-    }, []);
-    // Legacy HTML
-    if (!formatFnOrValue) {
-        return __spreadArrays(["<" + tagName + ">"], chunks, ["</" + tagName + ">"]);
-    }
-    // HTML Tag replacement
-    if (typeof formatFnOrValue === 'function') {
-        return [formatFnOrValue.apply(void 0, chunks)];
-    }
-    return [formatFnOrValue];
-}
-function formatHTMLMessage(els, locales, formatters, formats, values, 
-// For debugging
-originalMessage) {
-    var parts = formatToParts(els, locales, formatters, formats, values, undefined, originalMessage);
-    var objectParts = {};
-    var formattedMessage = parts.reduce(function (all, part) {
-        if (part.type === 0 /* literal */) {
-            return (all += part.value);
-        }
-        var id = generateId();
-        objectParts[id] = part.value;
-        return (all += "" + TOKEN_DELIMITER + id + TOKEN_DELIMITER);
-    }, '');
-    // Not designed to filter out aggressively
-    if (!SIMPLE_XML_REGEX.test(formattedMessage)) {
-        return restoreRichPlaceholderMessage(formattedMessage, objectParts);
-    }
-    if (!values) {
-        throw new FormatError('Message has placeholders but no values was given');
-    }
-    if (typeof DOMParser === 'undefined') {
-        throw new FormatError('Cannot format XML message without DOMParser');
-    }
-    if (!domParser) {
-        domParser = new DOMParser();
-    }
-    var content = domParser
-        .parseFromString("<formatted-message id=\"" + TEMPLATE_ID + "\">" + formattedMessage + "</formatted-message>", 'text/html')
-        .getElementById(TEMPLATE_ID);
-    if (!content) {
-        throw new FormatError("Malformed HTML message " + formattedMessage);
-    }
-    var tagsToFormat = Object.keys(values).filter(function (varName) { return !!content.getElementsByTagName(varName).length; });
-    // No tags to format
-    if (!tagsToFormat.length) {
-        return restoreRichPlaceholderMessage(formattedMessage, objectParts);
-    }
-    var caseSensitiveTags = tagsToFormat.filter(function (tagName) { return tagName !== tagName.toLowerCase(); });
-    if (caseSensitiveTags.length) {
-        throw new FormatError("HTML tag must be lowercased but the following tags are not: " + caseSensitiveTags.join(', '));
-    }
-    // We're doing this since top node is `<formatted-message/>` which does not have a formatter
-    return Array.prototype.slice
-        .call(content.childNodes)
-        .reduce(function (all, child) { return all.concat(formatHTMLElement(child, objectParts, values)); }, []);
-}
-exports.formatHTMLMessage = formatHTMLMessage;
 
 
 /***/ }),
@@ -6332,7445 +5171,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! ./core */ "./node_modules/intl-messageformat/dist/core.js");
 __export(__webpack_require__(/*! ./formatters */ "./node_modules/intl-messageformat/dist/formatters.js"));
 __export(__webpack_require__(/*! ./core */ "./node_modules/intl-messageformat/dist/core.js"));
+__export(__webpack_require__(/*! ./error */ "./node_modules/intl-messageformat/dist/error.js"));
 exports.default = core_1.default;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_DataView.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/_DataView.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var getNative = __webpack_require__(/*! ./_getNative */ "./node_modules/lodash/_getNative.js"),
-    root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
-
-/* Built-in method references that are verified to be native. */
-var DataView = getNative(root, 'DataView');
-
-module.exports = DataView;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_Hash.js":
-/*!**************************************!*\
-  !*** ./node_modules/lodash/_Hash.js ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var hashClear = __webpack_require__(/*! ./_hashClear */ "./node_modules/lodash/_hashClear.js"),
-    hashDelete = __webpack_require__(/*! ./_hashDelete */ "./node_modules/lodash/_hashDelete.js"),
-    hashGet = __webpack_require__(/*! ./_hashGet */ "./node_modules/lodash/_hashGet.js"),
-    hashHas = __webpack_require__(/*! ./_hashHas */ "./node_modules/lodash/_hashHas.js"),
-    hashSet = __webpack_require__(/*! ./_hashSet */ "./node_modules/lodash/_hashSet.js");
-
-/**
- * Creates a hash object.
- *
- * @private
- * @constructor
- * @param {Array} [entries] The key-value pairs to cache.
- */
-function Hash(entries) {
-  var index = -1,
-      length = entries == null ? 0 : entries.length;
-
-  this.clear();
-  while (++index < length) {
-    var entry = entries[index];
-    this.set(entry[0], entry[1]);
-  }
-}
-
-// Add methods to `Hash`.
-Hash.prototype.clear = hashClear;
-Hash.prototype['delete'] = hashDelete;
-Hash.prototype.get = hashGet;
-Hash.prototype.has = hashHas;
-Hash.prototype.set = hashSet;
-
-module.exports = Hash;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_ListCache.js":
-/*!*******************************************!*\
-  !*** ./node_modules/lodash/_ListCache.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var listCacheClear = __webpack_require__(/*! ./_listCacheClear */ "./node_modules/lodash/_listCacheClear.js"),
-    listCacheDelete = __webpack_require__(/*! ./_listCacheDelete */ "./node_modules/lodash/_listCacheDelete.js"),
-    listCacheGet = __webpack_require__(/*! ./_listCacheGet */ "./node_modules/lodash/_listCacheGet.js"),
-    listCacheHas = __webpack_require__(/*! ./_listCacheHas */ "./node_modules/lodash/_listCacheHas.js"),
-    listCacheSet = __webpack_require__(/*! ./_listCacheSet */ "./node_modules/lodash/_listCacheSet.js");
-
-/**
- * Creates an list cache object.
- *
- * @private
- * @constructor
- * @param {Array} [entries] The key-value pairs to cache.
- */
-function ListCache(entries) {
-  var index = -1,
-      length = entries == null ? 0 : entries.length;
-
-  this.clear();
-  while (++index < length) {
-    var entry = entries[index];
-    this.set(entry[0], entry[1]);
-  }
-}
-
-// Add methods to `ListCache`.
-ListCache.prototype.clear = listCacheClear;
-ListCache.prototype['delete'] = listCacheDelete;
-ListCache.prototype.get = listCacheGet;
-ListCache.prototype.has = listCacheHas;
-ListCache.prototype.set = listCacheSet;
-
-module.exports = ListCache;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_Map.js":
-/*!*************************************!*\
-  !*** ./node_modules/lodash/_Map.js ***!
-  \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var getNative = __webpack_require__(/*! ./_getNative */ "./node_modules/lodash/_getNative.js"),
-    root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
-
-/* Built-in method references that are verified to be native. */
-var Map = getNative(root, 'Map');
-
-module.exports = Map;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_MapCache.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/_MapCache.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var mapCacheClear = __webpack_require__(/*! ./_mapCacheClear */ "./node_modules/lodash/_mapCacheClear.js"),
-    mapCacheDelete = __webpack_require__(/*! ./_mapCacheDelete */ "./node_modules/lodash/_mapCacheDelete.js"),
-    mapCacheGet = __webpack_require__(/*! ./_mapCacheGet */ "./node_modules/lodash/_mapCacheGet.js"),
-    mapCacheHas = __webpack_require__(/*! ./_mapCacheHas */ "./node_modules/lodash/_mapCacheHas.js"),
-    mapCacheSet = __webpack_require__(/*! ./_mapCacheSet */ "./node_modules/lodash/_mapCacheSet.js");
-
-/**
- * Creates a map cache object to store key-value pairs.
- *
- * @private
- * @constructor
- * @param {Array} [entries] The key-value pairs to cache.
- */
-function MapCache(entries) {
-  var index = -1,
-      length = entries == null ? 0 : entries.length;
-
-  this.clear();
-  while (++index < length) {
-    var entry = entries[index];
-    this.set(entry[0], entry[1]);
-  }
-}
-
-// Add methods to `MapCache`.
-MapCache.prototype.clear = mapCacheClear;
-MapCache.prototype['delete'] = mapCacheDelete;
-MapCache.prototype.get = mapCacheGet;
-MapCache.prototype.has = mapCacheHas;
-MapCache.prototype.set = mapCacheSet;
-
-module.exports = MapCache;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_Promise.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/_Promise.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var getNative = __webpack_require__(/*! ./_getNative */ "./node_modules/lodash/_getNative.js"),
-    root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
-
-/* Built-in method references that are verified to be native. */
-var Promise = getNative(root, 'Promise');
-
-module.exports = Promise;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_Set.js":
-/*!*************************************!*\
-  !*** ./node_modules/lodash/_Set.js ***!
-  \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var getNative = __webpack_require__(/*! ./_getNative */ "./node_modules/lodash/_getNative.js"),
-    root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
-
-/* Built-in method references that are verified to be native. */
-var Set = getNative(root, 'Set');
-
-module.exports = Set;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_SetCache.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/_SetCache.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var MapCache = __webpack_require__(/*! ./_MapCache */ "./node_modules/lodash/_MapCache.js"),
-    setCacheAdd = __webpack_require__(/*! ./_setCacheAdd */ "./node_modules/lodash/_setCacheAdd.js"),
-    setCacheHas = __webpack_require__(/*! ./_setCacheHas */ "./node_modules/lodash/_setCacheHas.js");
-
-/**
- *
- * Creates an array cache object to store unique values.
- *
- * @private
- * @constructor
- * @param {Array} [values] The values to cache.
- */
-function SetCache(values) {
-  var index = -1,
-      length = values == null ? 0 : values.length;
-
-  this.__data__ = new MapCache;
-  while (++index < length) {
-    this.add(values[index]);
-  }
-}
-
-// Add methods to `SetCache`.
-SetCache.prototype.add = SetCache.prototype.push = setCacheAdd;
-SetCache.prototype.has = setCacheHas;
-
-module.exports = SetCache;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_Stack.js":
-/*!***************************************!*\
-  !*** ./node_modules/lodash/_Stack.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var ListCache = __webpack_require__(/*! ./_ListCache */ "./node_modules/lodash/_ListCache.js"),
-    stackClear = __webpack_require__(/*! ./_stackClear */ "./node_modules/lodash/_stackClear.js"),
-    stackDelete = __webpack_require__(/*! ./_stackDelete */ "./node_modules/lodash/_stackDelete.js"),
-    stackGet = __webpack_require__(/*! ./_stackGet */ "./node_modules/lodash/_stackGet.js"),
-    stackHas = __webpack_require__(/*! ./_stackHas */ "./node_modules/lodash/_stackHas.js"),
-    stackSet = __webpack_require__(/*! ./_stackSet */ "./node_modules/lodash/_stackSet.js");
-
-/**
- * Creates a stack cache object to store key-value pairs.
- *
- * @private
- * @constructor
- * @param {Array} [entries] The key-value pairs to cache.
- */
-function Stack(entries) {
-  var data = this.__data__ = new ListCache(entries);
-  this.size = data.size;
-}
-
-// Add methods to `Stack`.
-Stack.prototype.clear = stackClear;
-Stack.prototype['delete'] = stackDelete;
-Stack.prototype.get = stackGet;
-Stack.prototype.has = stackHas;
-Stack.prototype.set = stackSet;
-
-module.exports = Stack;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_Symbol.js":
-/*!****************************************!*\
-  !*** ./node_modules/lodash/_Symbol.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
-
-/** Built-in value references. */
-var Symbol = root.Symbol;
-
-module.exports = Symbol;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_Uint8Array.js":
-/*!********************************************!*\
-  !*** ./node_modules/lodash/_Uint8Array.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
-
-/** Built-in value references. */
-var Uint8Array = root.Uint8Array;
-
-module.exports = Uint8Array;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_WeakMap.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/_WeakMap.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var getNative = __webpack_require__(/*! ./_getNative */ "./node_modules/lodash/_getNative.js"),
-    root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
-
-/* Built-in method references that are verified to be native. */
-var WeakMap = getNative(root, 'WeakMap');
-
-module.exports = WeakMap;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_arrayEach.js":
-/*!*******************************************!*\
-  !*** ./node_modules/lodash/_arrayEach.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * A specialized version of `_.forEach` for arrays without support for
- * iteratee shorthands.
- *
- * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array} Returns `array`.
- */
-function arrayEach(array, iteratee) {
-  var index = -1,
-      length = array == null ? 0 : array.length;
-
-  while (++index < length) {
-    if (iteratee(array[index], index, array) === false) {
-      break;
-    }
-  }
-  return array;
-}
-
-module.exports = arrayEach;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_arrayFilter.js":
-/*!*********************************************!*\
-  !*** ./node_modules/lodash/_arrayFilter.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * A specialized version of `_.filter` for arrays without support for
- * iteratee shorthands.
- *
- * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} predicate The function invoked per iteration.
- * @returns {Array} Returns the new filtered array.
- */
-function arrayFilter(array, predicate) {
-  var index = -1,
-      length = array == null ? 0 : array.length,
-      resIndex = 0,
-      result = [];
-
-  while (++index < length) {
-    var value = array[index];
-    if (predicate(value, index, array)) {
-      result[resIndex++] = value;
-    }
-  }
-  return result;
-}
-
-module.exports = arrayFilter;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_arrayLikeKeys.js":
-/*!***********************************************!*\
-  !*** ./node_modules/lodash/_arrayLikeKeys.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseTimes = __webpack_require__(/*! ./_baseTimes */ "./node_modules/lodash/_baseTimes.js"),
-    isArguments = __webpack_require__(/*! ./isArguments */ "./node_modules/lodash/isArguments.js"),
-    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
-    isBuffer = __webpack_require__(/*! ./isBuffer */ "./node_modules/lodash/isBuffer.js"),
-    isIndex = __webpack_require__(/*! ./_isIndex */ "./node_modules/lodash/_isIndex.js"),
-    isTypedArray = __webpack_require__(/*! ./isTypedArray */ "./node_modules/lodash/isTypedArray.js");
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * Creates an array of the enumerable property names of the array-like `value`.
- *
- * @private
- * @param {*} value The value to query.
- * @param {boolean} inherited Specify returning inherited property names.
- * @returns {Array} Returns the array of property names.
- */
-function arrayLikeKeys(value, inherited) {
-  var isArr = isArray(value),
-      isArg = !isArr && isArguments(value),
-      isBuff = !isArr && !isArg && isBuffer(value),
-      isType = !isArr && !isArg && !isBuff && isTypedArray(value),
-      skipIndexes = isArr || isArg || isBuff || isType,
-      result = skipIndexes ? baseTimes(value.length, String) : [],
-      length = result.length;
-
-  for (var key in value) {
-    if ((inherited || hasOwnProperty.call(value, key)) &&
-        !(skipIndexes && (
-           // Safari 9 has enumerable `arguments.length` in strict mode.
-           key == 'length' ||
-           // Node.js 0.10 has enumerable non-index properties on buffers.
-           (isBuff && (key == 'offset' || key == 'parent')) ||
-           // PhantomJS 2 has enumerable non-index properties on typed arrays.
-           (isType && (key == 'buffer' || key == 'byteLength' || key == 'byteOffset')) ||
-           // Skip index properties.
-           isIndex(key, length)
-        ))) {
-      result.push(key);
-    }
-  }
-  return result;
-}
-
-module.exports = arrayLikeKeys;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_arrayMap.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/_arrayMap.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * A specialized version of `_.map` for arrays without support for iteratee
- * shorthands.
- *
- * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array} Returns the new mapped array.
- */
-function arrayMap(array, iteratee) {
-  var index = -1,
-      length = array == null ? 0 : array.length,
-      result = Array(length);
-
-  while (++index < length) {
-    result[index] = iteratee(array[index], index, array);
-  }
-  return result;
-}
-
-module.exports = arrayMap;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_arrayPush.js":
-/*!*******************************************!*\
-  !*** ./node_modules/lodash/_arrayPush.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Appends the elements of `values` to `array`.
- *
- * @private
- * @param {Array} array The array to modify.
- * @param {Array} values The values to append.
- * @returns {Array} Returns `array`.
- */
-function arrayPush(array, values) {
-  var index = -1,
-      length = values.length,
-      offset = array.length;
-
-  while (++index < length) {
-    array[offset + index] = values[index];
-  }
-  return array;
-}
-
-module.exports = arrayPush;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_arrayReduce.js":
-/*!*********************************************!*\
-  !*** ./node_modules/lodash/_arrayReduce.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * A specialized version of `_.reduce` for arrays without support for
- * iteratee shorthands.
- *
- * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @param {*} [accumulator] The initial value.
- * @param {boolean} [initAccum] Specify using the first element of `array` as
- *  the initial value.
- * @returns {*} Returns the accumulated value.
- */
-function arrayReduce(array, iteratee, accumulator, initAccum) {
-  var index = -1,
-      length = array == null ? 0 : array.length;
-
-  if (initAccum && length) {
-    accumulator = array[++index];
-  }
-  while (++index < length) {
-    accumulator = iteratee(accumulator, array[index], index, array);
-  }
-  return accumulator;
-}
-
-module.exports = arrayReduce;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_arraySome.js":
-/*!*******************************************!*\
-  !*** ./node_modules/lodash/_arraySome.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * A specialized version of `_.some` for arrays without support for iteratee
- * shorthands.
- *
- * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} predicate The function invoked per iteration.
- * @returns {boolean} Returns `true` if any element passes the predicate check,
- *  else `false`.
- */
-function arraySome(array, predicate) {
-  var index = -1,
-      length = array == null ? 0 : array.length;
-
-  while (++index < length) {
-    if (predicate(array[index], index, array)) {
-      return true;
-    }
-  }
-  return false;
-}
-
-module.exports = arraySome;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_asciiToArray.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/_asciiToArray.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Converts an ASCII `string` to an array.
- *
- * @private
- * @param {string} string The string to convert.
- * @returns {Array} Returns the converted array.
- */
-function asciiToArray(string) {
-  return string.split('');
-}
-
-module.exports = asciiToArray;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_asciiWords.js":
-/*!********************************************!*\
-  !*** ./node_modules/lodash/_asciiWords.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/** Used to match words composed of alphanumeric characters. */
-var reAsciiWord = /[^\x00-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f]+/g;
-
-/**
- * Splits an ASCII `string` into an array of its words.
- *
- * @private
- * @param {string} The string to inspect.
- * @returns {Array} Returns the words of `string`.
- */
-function asciiWords(string) {
-  return string.match(reAsciiWord) || [];
-}
-
-module.exports = asciiWords;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_assignValue.js":
-/*!*********************************************!*\
-  !*** ./node_modules/lodash/_assignValue.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseAssignValue = __webpack_require__(/*! ./_baseAssignValue */ "./node_modules/lodash/_baseAssignValue.js"),
-    eq = __webpack_require__(/*! ./eq */ "./node_modules/lodash/eq.js");
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * Assigns `value` to `key` of `object` if the existing value is not equivalent
- * using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
- * for equality comparisons.
- *
- * @private
- * @param {Object} object The object to modify.
- * @param {string} key The key of the property to assign.
- * @param {*} value The value to assign.
- */
-function assignValue(object, key, value) {
-  var objValue = object[key];
-  if (!(hasOwnProperty.call(object, key) && eq(objValue, value)) ||
-      (value === undefined && !(key in object))) {
-    baseAssignValue(object, key, value);
-  }
-}
-
-module.exports = assignValue;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_assocIndexOf.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/_assocIndexOf.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var eq = __webpack_require__(/*! ./eq */ "./node_modules/lodash/eq.js");
-
-/**
- * Gets the index at which the `key` is found in `array` of key-value pairs.
- *
- * @private
- * @param {Array} array The array to inspect.
- * @param {*} key The key to search for.
- * @returns {number} Returns the index of the matched value, else `-1`.
- */
-function assocIndexOf(array, key) {
-  var length = array.length;
-  while (length--) {
-    if (eq(array[length][0], key)) {
-      return length;
-    }
-  }
-  return -1;
-}
-
-module.exports = assocIndexOf;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseAssign.js":
-/*!********************************************!*\
-  !*** ./node_modules/lodash/_baseAssign.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var copyObject = __webpack_require__(/*! ./_copyObject */ "./node_modules/lodash/_copyObject.js"),
-    keys = __webpack_require__(/*! ./keys */ "./node_modules/lodash/keys.js");
-
-/**
- * The base implementation of `_.assign` without support for multiple sources
- * or `customizer` functions.
- *
- * @private
- * @param {Object} object The destination object.
- * @param {Object} source The source object.
- * @returns {Object} Returns `object`.
- */
-function baseAssign(object, source) {
-  return object && copyObject(source, keys(source), object);
-}
-
-module.exports = baseAssign;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseAssignIn.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/_baseAssignIn.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var copyObject = __webpack_require__(/*! ./_copyObject */ "./node_modules/lodash/_copyObject.js"),
-    keysIn = __webpack_require__(/*! ./keysIn */ "./node_modules/lodash/keysIn.js");
-
-/**
- * The base implementation of `_.assignIn` without support for multiple sources
- * or `customizer` functions.
- *
- * @private
- * @param {Object} object The destination object.
- * @param {Object} source The source object.
- * @returns {Object} Returns `object`.
- */
-function baseAssignIn(object, source) {
-  return object && copyObject(source, keysIn(source), object);
-}
-
-module.exports = baseAssignIn;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseAssignValue.js":
-/*!*************************************************!*\
-  !*** ./node_modules/lodash/_baseAssignValue.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var defineProperty = __webpack_require__(/*! ./_defineProperty */ "./node_modules/lodash/_defineProperty.js");
-
-/**
- * The base implementation of `assignValue` and `assignMergeValue` without
- * value checks.
- *
- * @private
- * @param {Object} object The object to modify.
- * @param {string} key The key of the property to assign.
- * @param {*} value The value to assign.
- */
-function baseAssignValue(object, key, value) {
-  if (key == '__proto__' && defineProperty) {
-    defineProperty(object, key, {
-      'configurable': true,
-      'enumerable': true,
-      'value': value,
-      'writable': true
-    });
-  } else {
-    object[key] = value;
-  }
-}
-
-module.exports = baseAssignValue;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseClone.js":
-/*!*******************************************!*\
-  !*** ./node_modules/lodash/_baseClone.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Stack = __webpack_require__(/*! ./_Stack */ "./node_modules/lodash/_Stack.js"),
-    arrayEach = __webpack_require__(/*! ./_arrayEach */ "./node_modules/lodash/_arrayEach.js"),
-    assignValue = __webpack_require__(/*! ./_assignValue */ "./node_modules/lodash/_assignValue.js"),
-    baseAssign = __webpack_require__(/*! ./_baseAssign */ "./node_modules/lodash/_baseAssign.js"),
-    baseAssignIn = __webpack_require__(/*! ./_baseAssignIn */ "./node_modules/lodash/_baseAssignIn.js"),
-    cloneBuffer = __webpack_require__(/*! ./_cloneBuffer */ "./node_modules/lodash/_cloneBuffer.js"),
-    copyArray = __webpack_require__(/*! ./_copyArray */ "./node_modules/lodash/_copyArray.js"),
-    copySymbols = __webpack_require__(/*! ./_copySymbols */ "./node_modules/lodash/_copySymbols.js"),
-    copySymbolsIn = __webpack_require__(/*! ./_copySymbolsIn */ "./node_modules/lodash/_copySymbolsIn.js"),
-    getAllKeys = __webpack_require__(/*! ./_getAllKeys */ "./node_modules/lodash/_getAllKeys.js"),
-    getAllKeysIn = __webpack_require__(/*! ./_getAllKeysIn */ "./node_modules/lodash/_getAllKeysIn.js"),
-    getTag = __webpack_require__(/*! ./_getTag */ "./node_modules/lodash/_getTag.js"),
-    initCloneArray = __webpack_require__(/*! ./_initCloneArray */ "./node_modules/lodash/_initCloneArray.js"),
-    initCloneByTag = __webpack_require__(/*! ./_initCloneByTag */ "./node_modules/lodash/_initCloneByTag.js"),
-    initCloneObject = __webpack_require__(/*! ./_initCloneObject */ "./node_modules/lodash/_initCloneObject.js"),
-    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
-    isBuffer = __webpack_require__(/*! ./isBuffer */ "./node_modules/lodash/isBuffer.js"),
-    isMap = __webpack_require__(/*! ./isMap */ "./node_modules/lodash/isMap.js"),
-    isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js"),
-    isSet = __webpack_require__(/*! ./isSet */ "./node_modules/lodash/isSet.js"),
-    keys = __webpack_require__(/*! ./keys */ "./node_modules/lodash/keys.js");
-
-/** Used to compose bitmasks for cloning. */
-var CLONE_DEEP_FLAG = 1,
-    CLONE_FLAT_FLAG = 2,
-    CLONE_SYMBOLS_FLAG = 4;
-
-/** `Object#toString` result references. */
-var argsTag = '[object Arguments]',
-    arrayTag = '[object Array]',
-    boolTag = '[object Boolean]',
-    dateTag = '[object Date]',
-    errorTag = '[object Error]',
-    funcTag = '[object Function]',
-    genTag = '[object GeneratorFunction]',
-    mapTag = '[object Map]',
-    numberTag = '[object Number]',
-    objectTag = '[object Object]',
-    regexpTag = '[object RegExp]',
-    setTag = '[object Set]',
-    stringTag = '[object String]',
-    symbolTag = '[object Symbol]',
-    weakMapTag = '[object WeakMap]';
-
-var arrayBufferTag = '[object ArrayBuffer]',
-    dataViewTag = '[object DataView]',
-    float32Tag = '[object Float32Array]',
-    float64Tag = '[object Float64Array]',
-    int8Tag = '[object Int8Array]',
-    int16Tag = '[object Int16Array]',
-    int32Tag = '[object Int32Array]',
-    uint8Tag = '[object Uint8Array]',
-    uint8ClampedTag = '[object Uint8ClampedArray]',
-    uint16Tag = '[object Uint16Array]',
-    uint32Tag = '[object Uint32Array]';
-
-/** Used to identify `toStringTag` values supported by `_.clone`. */
-var cloneableTags = {};
-cloneableTags[argsTag] = cloneableTags[arrayTag] =
-cloneableTags[arrayBufferTag] = cloneableTags[dataViewTag] =
-cloneableTags[boolTag] = cloneableTags[dateTag] =
-cloneableTags[float32Tag] = cloneableTags[float64Tag] =
-cloneableTags[int8Tag] = cloneableTags[int16Tag] =
-cloneableTags[int32Tag] = cloneableTags[mapTag] =
-cloneableTags[numberTag] = cloneableTags[objectTag] =
-cloneableTags[regexpTag] = cloneableTags[setTag] =
-cloneableTags[stringTag] = cloneableTags[symbolTag] =
-cloneableTags[uint8Tag] = cloneableTags[uint8ClampedTag] =
-cloneableTags[uint16Tag] = cloneableTags[uint32Tag] = true;
-cloneableTags[errorTag] = cloneableTags[funcTag] =
-cloneableTags[weakMapTag] = false;
-
-/**
- * The base implementation of `_.clone` and `_.cloneDeep` which tracks
- * traversed objects.
- *
- * @private
- * @param {*} value The value to clone.
- * @param {boolean} bitmask The bitmask flags.
- *  1 - Deep clone
- *  2 - Flatten inherited properties
- *  4 - Clone symbols
- * @param {Function} [customizer] The function to customize cloning.
- * @param {string} [key] The key of `value`.
- * @param {Object} [object] The parent object of `value`.
- * @param {Object} [stack] Tracks traversed objects and their clone counterparts.
- * @returns {*} Returns the cloned value.
- */
-function baseClone(value, bitmask, customizer, key, object, stack) {
-  var result,
-      isDeep = bitmask & CLONE_DEEP_FLAG,
-      isFlat = bitmask & CLONE_FLAT_FLAG,
-      isFull = bitmask & CLONE_SYMBOLS_FLAG;
-
-  if (customizer) {
-    result = object ? customizer(value, key, object, stack) : customizer(value);
-  }
-  if (result !== undefined) {
-    return result;
-  }
-  if (!isObject(value)) {
-    return value;
-  }
-  var isArr = isArray(value);
-  if (isArr) {
-    result = initCloneArray(value);
-    if (!isDeep) {
-      return copyArray(value, result);
-    }
-  } else {
-    var tag = getTag(value),
-        isFunc = tag == funcTag || tag == genTag;
-
-    if (isBuffer(value)) {
-      return cloneBuffer(value, isDeep);
-    }
-    if (tag == objectTag || tag == argsTag || (isFunc && !object)) {
-      result = (isFlat || isFunc) ? {} : initCloneObject(value);
-      if (!isDeep) {
-        return isFlat
-          ? copySymbolsIn(value, baseAssignIn(result, value))
-          : copySymbols(value, baseAssign(result, value));
-      }
-    } else {
-      if (!cloneableTags[tag]) {
-        return object ? value : {};
-      }
-      result = initCloneByTag(value, tag, isDeep);
-    }
-  }
-  // Check for circular references and return its corresponding clone.
-  stack || (stack = new Stack);
-  var stacked = stack.get(value);
-  if (stacked) {
-    return stacked;
-  }
-  stack.set(value, result);
-
-  if (isSet(value)) {
-    value.forEach(function(subValue) {
-      result.add(baseClone(subValue, bitmask, customizer, subValue, value, stack));
-    });
-  } else if (isMap(value)) {
-    value.forEach(function(subValue, key) {
-      result.set(key, baseClone(subValue, bitmask, customizer, key, value, stack));
-    });
-  }
-
-  var keysFunc = isFull
-    ? (isFlat ? getAllKeysIn : getAllKeys)
-    : (isFlat ? keysIn : keys);
-
-  var props = isArr ? undefined : keysFunc(value);
-  arrayEach(props || value, function(subValue, key) {
-    if (props) {
-      key = subValue;
-      subValue = value[key];
-    }
-    // Recursively populate clone (susceptible to call stack limits).
-    assignValue(result, key, baseClone(subValue, bitmask, customizer, key, value, stack));
-  });
-  return result;
-}
-
-module.exports = baseClone;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseCreate.js":
-/*!********************************************!*\
-  !*** ./node_modules/lodash/_baseCreate.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js");
-
-/** Built-in value references. */
-var objectCreate = Object.create;
-
-/**
- * The base implementation of `_.create` without support for assigning
- * properties to the created object.
- *
- * @private
- * @param {Object} proto The object to inherit from.
- * @returns {Object} Returns the new object.
- */
-var baseCreate = (function() {
-  function object() {}
-  return function(proto) {
-    if (!isObject(proto)) {
-      return {};
-    }
-    if (objectCreate) {
-      return objectCreate(proto);
-    }
-    object.prototype = proto;
-    var result = new object;
-    object.prototype = undefined;
-    return result;
-  };
-}());
-
-module.exports = baseCreate;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseFor.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/_baseFor.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var createBaseFor = __webpack_require__(/*! ./_createBaseFor */ "./node_modules/lodash/_createBaseFor.js");
-
-/**
- * The base implementation of `baseForOwn` which iterates over `object`
- * properties returned by `keysFunc` and invokes `iteratee` for each property.
- * Iteratee functions may exit iteration early by explicitly returning `false`.
- *
- * @private
- * @param {Object} object The object to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @param {Function} keysFunc The function to get the keys of `object`.
- * @returns {Object} Returns `object`.
- */
-var baseFor = createBaseFor();
-
-module.exports = baseFor;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseForOwn.js":
-/*!********************************************!*\
-  !*** ./node_modules/lodash/_baseForOwn.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseFor = __webpack_require__(/*! ./_baseFor */ "./node_modules/lodash/_baseFor.js"),
-    keys = __webpack_require__(/*! ./keys */ "./node_modules/lodash/keys.js");
-
-/**
- * The base implementation of `_.forOwn` without support for iteratee shorthands.
- *
- * @private
- * @param {Object} object The object to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Object} Returns `object`.
- */
-function baseForOwn(object, iteratee) {
-  return object && baseFor(object, iteratee, keys);
-}
-
-module.exports = baseForOwn;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseGet.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/_baseGet.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var castPath = __webpack_require__(/*! ./_castPath */ "./node_modules/lodash/_castPath.js"),
-    toKey = __webpack_require__(/*! ./_toKey */ "./node_modules/lodash/_toKey.js");
-
-/**
- * The base implementation of `_.get` without support for default values.
- *
- * @private
- * @param {Object} object The object to query.
- * @param {Array|string} path The path of the property to get.
- * @returns {*} Returns the resolved value.
- */
-function baseGet(object, path) {
-  path = castPath(path, object);
-
-  var index = 0,
-      length = path.length;
-
-  while (object != null && index < length) {
-    object = object[toKey(path[index++])];
-  }
-  return (index && index == length) ? object : undefined;
-}
-
-module.exports = baseGet;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseGetAllKeys.js":
-/*!************************************************!*\
-  !*** ./node_modules/lodash/_baseGetAllKeys.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayPush = __webpack_require__(/*! ./_arrayPush */ "./node_modules/lodash/_arrayPush.js"),
-    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js");
-
-/**
- * The base implementation of `getAllKeys` and `getAllKeysIn` which uses
- * `keysFunc` and `symbolsFunc` to get the enumerable property names and
- * symbols of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @param {Function} keysFunc The function to get the keys of `object`.
- * @param {Function} symbolsFunc The function to get the symbols of `object`.
- * @returns {Array} Returns the array of property names and symbols.
- */
-function baseGetAllKeys(object, keysFunc, symbolsFunc) {
-  var result = keysFunc(object);
-  return isArray(object) ? result : arrayPush(result, symbolsFunc(object));
-}
-
-module.exports = baseGetAllKeys;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseGetTag.js":
-/*!********************************************!*\
-  !*** ./node_modules/lodash/_baseGetTag.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Symbol = __webpack_require__(/*! ./_Symbol */ "./node_modules/lodash/_Symbol.js"),
-    getRawTag = __webpack_require__(/*! ./_getRawTag */ "./node_modules/lodash/_getRawTag.js"),
-    objectToString = __webpack_require__(/*! ./_objectToString */ "./node_modules/lodash/_objectToString.js");
-
-/** `Object#toString` result references. */
-var nullTag = '[object Null]',
-    undefinedTag = '[object Undefined]';
-
-/** Built-in value references. */
-var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
-
-/**
- * The base implementation of `getTag` without fallbacks for buggy environments.
- *
- * @private
- * @param {*} value The value to query.
- * @returns {string} Returns the `toStringTag`.
- */
-function baseGetTag(value) {
-  if (value == null) {
-    return value === undefined ? undefinedTag : nullTag;
-  }
-  return (symToStringTag && symToStringTag in Object(value))
-    ? getRawTag(value)
-    : objectToString(value);
-}
-
-module.exports = baseGetTag;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseHas.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/_baseHas.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * The base implementation of `_.has` without support for deep paths.
- *
- * @private
- * @param {Object} [object] The object to query.
- * @param {Array|string} key The key to check.
- * @returns {boolean} Returns `true` if `key` exists, else `false`.
- */
-function baseHas(object, key) {
-  return object != null && hasOwnProperty.call(object, key);
-}
-
-module.exports = baseHas;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseHasIn.js":
-/*!*******************************************!*\
-  !*** ./node_modules/lodash/_baseHasIn.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * The base implementation of `_.hasIn` without support for deep paths.
- *
- * @private
- * @param {Object} [object] The object to query.
- * @param {Array|string} key The key to check.
- * @returns {boolean} Returns `true` if `key` exists, else `false`.
- */
-function baseHasIn(object, key) {
-  return object != null && key in Object(object);
-}
-
-module.exports = baseHasIn;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseIsArguments.js":
-/*!*************************************************!*\
-  !*** ./node_modules/lodash/_baseIsArguments.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
-    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
-
-/** `Object#toString` result references. */
-var argsTag = '[object Arguments]';
-
-/**
- * The base implementation of `_.isArguments`.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an `arguments` object,
- */
-function baseIsArguments(value) {
-  return isObjectLike(value) && baseGetTag(value) == argsTag;
-}
-
-module.exports = baseIsArguments;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseIsEqual.js":
-/*!*********************************************!*\
-  !*** ./node_modules/lodash/_baseIsEqual.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseIsEqualDeep = __webpack_require__(/*! ./_baseIsEqualDeep */ "./node_modules/lodash/_baseIsEqualDeep.js"),
-    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
-
-/**
- * The base implementation of `_.isEqual` which supports partial comparisons
- * and tracks traversed objects.
- *
- * @private
- * @param {*} value The value to compare.
- * @param {*} other The other value to compare.
- * @param {boolean} bitmask The bitmask flags.
- *  1 - Unordered comparison
- *  2 - Partial comparison
- * @param {Function} [customizer] The function to customize comparisons.
- * @param {Object} [stack] Tracks traversed `value` and `other` objects.
- * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
- */
-function baseIsEqual(value, other, bitmask, customizer, stack) {
-  if (value === other) {
-    return true;
-  }
-  if (value == null || other == null || (!isObjectLike(value) && !isObjectLike(other))) {
-    return value !== value && other !== other;
-  }
-  return baseIsEqualDeep(value, other, bitmask, customizer, baseIsEqual, stack);
-}
-
-module.exports = baseIsEqual;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseIsEqualDeep.js":
-/*!*************************************************!*\
-  !*** ./node_modules/lodash/_baseIsEqualDeep.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Stack = __webpack_require__(/*! ./_Stack */ "./node_modules/lodash/_Stack.js"),
-    equalArrays = __webpack_require__(/*! ./_equalArrays */ "./node_modules/lodash/_equalArrays.js"),
-    equalByTag = __webpack_require__(/*! ./_equalByTag */ "./node_modules/lodash/_equalByTag.js"),
-    equalObjects = __webpack_require__(/*! ./_equalObjects */ "./node_modules/lodash/_equalObjects.js"),
-    getTag = __webpack_require__(/*! ./_getTag */ "./node_modules/lodash/_getTag.js"),
-    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
-    isBuffer = __webpack_require__(/*! ./isBuffer */ "./node_modules/lodash/isBuffer.js"),
-    isTypedArray = __webpack_require__(/*! ./isTypedArray */ "./node_modules/lodash/isTypedArray.js");
-
-/** Used to compose bitmasks for value comparisons. */
-var COMPARE_PARTIAL_FLAG = 1;
-
-/** `Object#toString` result references. */
-var argsTag = '[object Arguments]',
-    arrayTag = '[object Array]',
-    objectTag = '[object Object]';
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * A specialized version of `baseIsEqual` for arrays and objects which performs
- * deep comparisons and tracks traversed objects enabling objects with circular
- * references to be compared.
- *
- * @private
- * @param {Object} object The object to compare.
- * @param {Object} other The other object to compare.
- * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
- * @param {Function} customizer The function to customize comparisons.
- * @param {Function} equalFunc The function to determine equivalents of values.
- * @param {Object} [stack] Tracks traversed `object` and `other` objects.
- * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
- */
-function baseIsEqualDeep(object, other, bitmask, customizer, equalFunc, stack) {
-  var objIsArr = isArray(object),
-      othIsArr = isArray(other),
-      objTag = objIsArr ? arrayTag : getTag(object),
-      othTag = othIsArr ? arrayTag : getTag(other);
-
-  objTag = objTag == argsTag ? objectTag : objTag;
-  othTag = othTag == argsTag ? objectTag : othTag;
-
-  var objIsObj = objTag == objectTag,
-      othIsObj = othTag == objectTag,
-      isSameTag = objTag == othTag;
-
-  if (isSameTag && isBuffer(object)) {
-    if (!isBuffer(other)) {
-      return false;
-    }
-    objIsArr = true;
-    objIsObj = false;
-  }
-  if (isSameTag && !objIsObj) {
-    stack || (stack = new Stack);
-    return (objIsArr || isTypedArray(object))
-      ? equalArrays(object, other, bitmask, customizer, equalFunc, stack)
-      : equalByTag(object, other, objTag, bitmask, customizer, equalFunc, stack);
-  }
-  if (!(bitmask & COMPARE_PARTIAL_FLAG)) {
-    var objIsWrapped = objIsObj && hasOwnProperty.call(object, '__wrapped__'),
-        othIsWrapped = othIsObj && hasOwnProperty.call(other, '__wrapped__');
-
-    if (objIsWrapped || othIsWrapped) {
-      var objUnwrapped = objIsWrapped ? object.value() : object,
-          othUnwrapped = othIsWrapped ? other.value() : other;
-
-      stack || (stack = new Stack);
-      return equalFunc(objUnwrapped, othUnwrapped, bitmask, customizer, stack);
-    }
-  }
-  if (!isSameTag) {
-    return false;
-  }
-  stack || (stack = new Stack);
-  return equalObjects(object, other, bitmask, customizer, equalFunc, stack);
-}
-
-module.exports = baseIsEqualDeep;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseIsMap.js":
-/*!*******************************************!*\
-  !*** ./node_modules/lodash/_baseIsMap.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var getTag = __webpack_require__(/*! ./_getTag */ "./node_modules/lodash/_getTag.js"),
-    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
-
-/** `Object#toString` result references. */
-var mapTag = '[object Map]';
-
-/**
- * The base implementation of `_.isMap` without Node.js optimizations.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a map, else `false`.
- */
-function baseIsMap(value) {
-  return isObjectLike(value) && getTag(value) == mapTag;
-}
-
-module.exports = baseIsMap;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseIsMatch.js":
-/*!*********************************************!*\
-  !*** ./node_modules/lodash/_baseIsMatch.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Stack = __webpack_require__(/*! ./_Stack */ "./node_modules/lodash/_Stack.js"),
-    baseIsEqual = __webpack_require__(/*! ./_baseIsEqual */ "./node_modules/lodash/_baseIsEqual.js");
-
-/** Used to compose bitmasks for value comparisons. */
-var COMPARE_PARTIAL_FLAG = 1,
-    COMPARE_UNORDERED_FLAG = 2;
-
-/**
- * The base implementation of `_.isMatch` without support for iteratee shorthands.
- *
- * @private
- * @param {Object} object The object to inspect.
- * @param {Object} source The object of property values to match.
- * @param {Array} matchData The property names, values, and compare flags to match.
- * @param {Function} [customizer] The function to customize comparisons.
- * @returns {boolean} Returns `true` if `object` is a match, else `false`.
- */
-function baseIsMatch(object, source, matchData, customizer) {
-  var index = matchData.length,
-      length = index,
-      noCustomizer = !customizer;
-
-  if (object == null) {
-    return !length;
-  }
-  object = Object(object);
-  while (index--) {
-    var data = matchData[index];
-    if ((noCustomizer && data[2])
-          ? data[1] !== object[data[0]]
-          : !(data[0] in object)
-        ) {
-      return false;
-    }
-  }
-  while (++index < length) {
-    data = matchData[index];
-    var key = data[0],
-        objValue = object[key],
-        srcValue = data[1];
-
-    if (noCustomizer && data[2]) {
-      if (objValue === undefined && !(key in object)) {
-        return false;
-      }
-    } else {
-      var stack = new Stack;
-      if (customizer) {
-        var result = customizer(objValue, srcValue, key, object, source, stack);
-      }
-      if (!(result === undefined
-            ? baseIsEqual(srcValue, objValue, COMPARE_PARTIAL_FLAG | COMPARE_UNORDERED_FLAG, customizer, stack)
-            : result
-          )) {
-        return false;
-      }
-    }
-  }
-  return true;
-}
-
-module.exports = baseIsMatch;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseIsNative.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/_baseIsNative.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var isFunction = __webpack_require__(/*! ./isFunction */ "./node_modules/lodash/isFunction.js"),
-    isMasked = __webpack_require__(/*! ./_isMasked */ "./node_modules/lodash/_isMasked.js"),
-    isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js"),
-    toSource = __webpack_require__(/*! ./_toSource */ "./node_modules/lodash/_toSource.js");
-
-/**
- * Used to match `RegExp`
- * [syntax characters](http://ecma-international.org/ecma-262/7.0/#sec-patterns).
- */
-var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
-
-/** Used to detect host constructors (Safari). */
-var reIsHostCtor = /^\[object .+?Constructor\]$/;
-
-/** Used for built-in method references. */
-var funcProto = Function.prototype,
-    objectProto = Object.prototype;
-
-/** Used to resolve the decompiled source of functions. */
-var funcToString = funcProto.toString;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/** Used to detect if a method is native. */
-var reIsNative = RegExp('^' +
-  funcToString.call(hasOwnProperty).replace(reRegExpChar, '\\$&')
-  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
-);
-
-/**
- * The base implementation of `_.isNative` without bad shim checks.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a native function,
- *  else `false`.
- */
-function baseIsNative(value) {
-  if (!isObject(value) || isMasked(value)) {
-    return false;
-  }
-  var pattern = isFunction(value) ? reIsNative : reIsHostCtor;
-  return pattern.test(toSource(value));
-}
-
-module.exports = baseIsNative;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseIsSet.js":
-/*!*******************************************!*\
-  !*** ./node_modules/lodash/_baseIsSet.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var getTag = __webpack_require__(/*! ./_getTag */ "./node_modules/lodash/_getTag.js"),
-    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
-
-/** `Object#toString` result references. */
-var setTag = '[object Set]';
-
-/**
- * The base implementation of `_.isSet` without Node.js optimizations.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a set, else `false`.
- */
-function baseIsSet(value) {
-  return isObjectLike(value) && getTag(value) == setTag;
-}
-
-module.exports = baseIsSet;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseIsTypedArray.js":
-/*!**************************************************!*\
-  !*** ./node_modules/lodash/_baseIsTypedArray.js ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
-    isLength = __webpack_require__(/*! ./isLength */ "./node_modules/lodash/isLength.js"),
-    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
-
-/** `Object#toString` result references. */
-var argsTag = '[object Arguments]',
-    arrayTag = '[object Array]',
-    boolTag = '[object Boolean]',
-    dateTag = '[object Date]',
-    errorTag = '[object Error]',
-    funcTag = '[object Function]',
-    mapTag = '[object Map]',
-    numberTag = '[object Number]',
-    objectTag = '[object Object]',
-    regexpTag = '[object RegExp]',
-    setTag = '[object Set]',
-    stringTag = '[object String]',
-    weakMapTag = '[object WeakMap]';
-
-var arrayBufferTag = '[object ArrayBuffer]',
-    dataViewTag = '[object DataView]',
-    float32Tag = '[object Float32Array]',
-    float64Tag = '[object Float64Array]',
-    int8Tag = '[object Int8Array]',
-    int16Tag = '[object Int16Array]',
-    int32Tag = '[object Int32Array]',
-    uint8Tag = '[object Uint8Array]',
-    uint8ClampedTag = '[object Uint8ClampedArray]',
-    uint16Tag = '[object Uint16Array]',
-    uint32Tag = '[object Uint32Array]';
-
-/** Used to identify `toStringTag` values of typed arrays. */
-var typedArrayTags = {};
-typedArrayTags[float32Tag] = typedArrayTags[float64Tag] =
-typedArrayTags[int8Tag] = typedArrayTags[int16Tag] =
-typedArrayTags[int32Tag] = typedArrayTags[uint8Tag] =
-typedArrayTags[uint8ClampedTag] = typedArrayTags[uint16Tag] =
-typedArrayTags[uint32Tag] = true;
-typedArrayTags[argsTag] = typedArrayTags[arrayTag] =
-typedArrayTags[arrayBufferTag] = typedArrayTags[boolTag] =
-typedArrayTags[dataViewTag] = typedArrayTags[dateTag] =
-typedArrayTags[errorTag] = typedArrayTags[funcTag] =
-typedArrayTags[mapTag] = typedArrayTags[numberTag] =
-typedArrayTags[objectTag] = typedArrayTags[regexpTag] =
-typedArrayTags[setTag] = typedArrayTags[stringTag] =
-typedArrayTags[weakMapTag] = false;
-
-/**
- * The base implementation of `_.isTypedArray` without Node.js optimizations.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
- */
-function baseIsTypedArray(value) {
-  return isObjectLike(value) &&
-    isLength(value.length) && !!typedArrayTags[baseGetTag(value)];
-}
-
-module.exports = baseIsTypedArray;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseIteratee.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/_baseIteratee.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseMatches = __webpack_require__(/*! ./_baseMatches */ "./node_modules/lodash/_baseMatches.js"),
-    baseMatchesProperty = __webpack_require__(/*! ./_baseMatchesProperty */ "./node_modules/lodash/_baseMatchesProperty.js"),
-    identity = __webpack_require__(/*! ./identity */ "./node_modules/lodash/identity.js"),
-    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
-    property = __webpack_require__(/*! ./property */ "./node_modules/lodash/property.js");
-
-/**
- * The base implementation of `_.iteratee`.
- *
- * @private
- * @param {*} [value=_.identity] The value to convert to an iteratee.
- * @returns {Function} Returns the iteratee.
- */
-function baseIteratee(value) {
-  // Don't store the `typeof` result in a variable to avoid a JIT bug in Safari 9.
-  // See https://bugs.webkit.org/show_bug.cgi?id=156034 for more details.
-  if (typeof value == 'function') {
-    return value;
-  }
-  if (value == null) {
-    return identity;
-  }
-  if (typeof value == 'object') {
-    return isArray(value)
-      ? baseMatchesProperty(value[0], value[1])
-      : baseMatches(value);
-  }
-  return property(value);
-}
-
-module.exports = baseIteratee;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseKeys.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/_baseKeys.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var isPrototype = __webpack_require__(/*! ./_isPrototype */ "./node_modules/lodash/_isPrototype.js"),
-    nativeKeys = __webpack_require__(/*! ./_nativeKeys */ "./node_modules/lodash/_nativeKeys.js");
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * The base implementation of `_.keys` which doesn't treat sparse arrays as dense.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names.
- */
-function baseKeys(object) {
-  if (!isPrototype(object)) {
-    return nativeKeys(object);
-  }
-  var result = [];
-  for (var key in Object(object)) {
-    if (hasOwnProperty.call(object, key) && key != 'constructor') {
-      result.push(key);
-    }
-  }
-  return result;
-}
-
-module.exports = baseKeys;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseKeysIn.js":
-/*!********************************************!*\
-  !*** ./node_modules/lodash/_baseKeysIn.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js"),
-    isPrototype = __webpack_require__(/*! ./_isPrototype */ "./node_modules/lodash/_isPrototype.js"),
-    nativeKeysIn = __webpack_require__(/*! ./_nativeKeysIn */ "./node_modules/lodash/_nativeKeysIn.js");
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * The base implementation of `_.keysIn` which doesn't treat sparse arrays as dense.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names.
- */
-function baseKeysIn(object) {
-  if (!isObject(object)) {
-    return nativeKeysIn(object);
-  }
-  var isProto = isPrototype(object),
-      result = [];
-
-  for (var key in object) {
-    if (!(key == 'constructor' && (isProto || !hasOwnProperty.call(object, key)))) {
-      result.push(key);
-    }
-  }
-  return result;
-}
-
-module.exports = baseKeysIn;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseMatches.js":
-/*!*********************************************!*\
-  !*** ./node_modules/lodash/_baseMatches.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseIsMatch = __webpack_require__(/*! ./_baseIsMatch */ "./node_modules/lodash/_baseIsMatch.js"),
-    getMatchData = __webpack_require__(/*! ./_getMatchData */ "./node_modules/lodash/_getMatchData.js"),
-    matchesStrictComparable = __webpack_require__(/*! ./_matchesStrictComparable */ "./node_modules/lodash/_matchesStrictComparable.js");
-
-/**
- * The base implementation of `_.matches` which doesn't clone `source`.
- *
- * @private
- * @param {Object} source The object of property values to match.
- * @returns {Function} Returns the new spec function.
- */
-function baseMatches(source) {
-  var matchData = getMatchData(source);
-  if (matchData.length == 1 && matchData[0][2]) {
-    return matchesStrictComparable(matchData[0][0], matchData[0][1]);
-  }
-  return function(object) {
-    return object === source || baseIsMatch(object, source, matchData);
-  };
-}
-
-module.exports = baseMatches;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseMatchesProperty.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/lodash/_baseMatchesProperty.js ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseIsEqual = __webpack_require__(/*! ./_baseIsEqual */ "./node_modules/lodash/_baseIsEqual.js"),
-    get = __webpack_require__(/*! ./get */ "./node_modules/lodash/get.js"),
-    hasIn = __webpack_require__(/*! ./hasIn */ "./node_modules/lodash/hasIn.js"),
-    isKey = __webpack_require__(/*! ./_isKey */ "./node_modules/lodash/_isKey.js"),
-    isStrictComparable = __webpack_require__(/*! ./_isStrictComparable */ "./node_modules/lodash/_isStrictComparable.js"),
-    matchesStrictComparable = __webpack_require__(/*! ./_matchesStrictComparable */ "./node_modules/lodash/_matchesStrictComparable.js"),
-    toKey = __webpack_require__(/*! ./_toKey */ "./node_modules/lodash/_toKey.js");
-
-/** Used to compose bitmasks for value comparisons. */
-var COMPARE_PARTIAL_FLAG = 1,
-    COMPARE_UNORDERED_FLAG = 2;
-
-/**
- * The base implementation of `_.matchesProperty` which doesn't clone `srcValue`.
- *
- * @private
- * @param {string} path The path of the property to get.
- * @param {*} srcValue The value to match.
- * @returns {Function} Returns the new spec function.
- */
-function baseMatchesProperty(path, srcValue) {
-  if (isKey(path) && isStrictComparable(srcValue)) {
-    return matchesStrictComparable(toKey(path), srcValue);
-  }
-  return function(object) {
-    var objValue = get(object, path);
-    return (objValue === undefined && objValue === srcValue)
-      ? hasIn(object, path)
-      : baseIsEqual(srcValue, objValue, COMPARE_PARTIAL_FLAG | COMPARE_UNORDERED_FLAG);
-  };
-}
-
-module.exports = baseMatchesProperty;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseProperty.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/_baseProperty.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * The base implementation of `_.property` without support for deep paths.
- *
- * @private
- * @param {string} key The key of the property to get.
- * @returns {Function} Returns the new accessor function.
- */
-function baseProperty(key) {
-  return function(object) {
-    return object == null ? undefined : object[key];
-  };
-}
-
-module.exports = baseProperty;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_basePropertyDeep.js":
-/*!**************************************************!*\
-  !*** ./node_modules/lodash/_basePropertyDeep.js ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseGet = __webpack_require__(/*! ./_baseGet */ "./node_modules/lodash/_baseGet.js");
-
-/**
- * A specialized version of `baseProperty` which supports deep paths.
- *
- * @private
- * @param {Array|string} path The path of the property to get.
- * @returns {Function} Returns the new accessor function.
- */
-function basePropertyDeep(path) {
-  return function(object) {
-    return baseGet(object, path);
-  };
-}
-
-module.exports = basePropertyDeep;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_basePropertyOf.js":
-/*!************************************************!*\
-  !*** ./node_modules/lodash/_basePropertyOf.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * The base implementation of `_.propertyOf` without support for deep paths.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Function} Returns the new accessor function.
- */
-function basePropertyOf(object) {
-  return function(key) {
-    return object == null ? undefined : object[key];
-  };
-}
-
-module.exports = basePropertyOf;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseSlice.js":
-/*!*******************************************!*\
-  !*** ./node_modules/lodash/_baseSlice.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * The base implementation of `_.slice` without an iteratee call guard.
- *
- * @private
- * @param {Array} array The array to slice.
- * @param {number} [start=0] The start position.
- * @param {number} [end=array.length] The end position.
- * @returns {Array} Returns the slice of `array`.
- */
-function baseSlice(array, start, end) {
-  var index = -1,
-      length = array.length;
-
-  if (start < 0) {
-    start = -start > length ? 0 : (length + start);
-  }
-  end = end > length ? length : end;
-  if (end < 0) {
-    end += length;
-  }
-  length = start > end ? 0 : ((end - start) >>> 0);
-  start >>>= 0;
-
-  var result = Array(length);
-  while (++index < length) {
-    result[index] = array[index + start];
-  }
-  return result;
-}
-
-module.exports = baseSlice;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseTimes.js":
-/*!*******************************************!*\
-  !*** ./node_modules/lodash/_baseTimes.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * The base implementation of `_.times` without support for iteratee shorthands
- * or max array length checks.
- *
- * @private
- * @param {number} n The number of times to invoke `iteratee`.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array} Returns the array of results.
- */
-function baseTimes(n, iteratee) {
-  var index = -1,
-      result = Array(n);
-
-  while (++index < n) {
-    result[index] = iteratee(index);
-  }
-  return result;
-}
-
-module.exports = baseTimes;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseToString.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/_baseToString.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Symbol = __webpack_require__(/*! ./_Symbol */ "./node_modules/lodash/_Symbol.js"),
-    arrayMap = __webpack_require__(/*! ./_arrayMap */ "./node_modules/lodash/_arrayMap.js"),
-    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
-    isSymbol = __webpack_require__(/*! ./isSymbol */ "./node_modules/lodash/isSymbol.js");
-
-/** Used as references for various `Number` constants. */
-var INFINITY = 1 / 0;
-
-/** Used to convert symbols to primitives and strings. */
-var symbolProto = Symbol ? Symbol.prototype : undefined,
-    symbolToString = symbolProto ? symbolProto.toString : undefined;
-
-/**
- * The base implementation of `_.toString` which doesn't convert nullish
- * values to empty strings.
- *
- * @private
- * @param {*} value The value to process.
- * @returns {string} Returns the string.
- */
-function baseToString(value) {
-  // Exit early for strings to avoid a performance hit in some environments.
-  if (typeof value == 'string') {
-    return value;
-  }
-  if (isArray(value)) {
-    // Recursively convert values (susceptible to call stack limits).
-    return arrayMap(value, baseToString) + '';
-  }
-  if (isSymbol(value)) {
-    return symbolToString ? symbolToString.call(value) : '';
-  }
-  var result = (value + '');
-  return (result == '0' && (1 / value) == -INFINITY) ? '-0' : result;
-}
-
-module.exports = baseToString;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseUnary.js":
-/*!*******************************************!*\
-  !*** ./node_modules/lodash/_baseUnary.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * The base implementation of `_.unary` without support for storing metadata.
- *
- * @private
- * @param {Function} func The function to cap arguments for.
- * @returns {Function} Returns the new capped function.
- */
-function baseUnary(func) {
-  return function(value) {
-    return func(value);
-  };
-}
-
-module.exports = baseUnary;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseValues.js":
-/*!********************************************!*\
-  !*** ./node_modules/lodash/_baseValues.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayMap = __webpack_require__(/*! ./_arrayMap */ "./node_modules/lodash/_arrayMap.js");
-
-/**
- * The base implementation of `_.values` and `_.valuesIn` which creates an
- * array of `object` property values corresponding to the property names
- * of `props`.
- *
- * @private
- * @param {Object} object The object to query.
- * @param {Array} props The property names to get values for.
- * @returns {Object} Returns the array of property values.
- */
-function baseValues(object, props) {
-  return arrayMap(props, function(key) {
-    return object[key];
-  });
-}
-
-module.exports = baseValues;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_cacheHas.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/_cacheHas.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Checks if a `cache` value for `key` exists.
- *
- * @private
- * @param {Object} cache The cache to query.
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
-function cacheHas(cache, key) {
-  return cache.has(key);
-}
-
-module.exports = cacheHas;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_castPath.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/_castPath.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
-    isKey = __webpack_require__(/*! ./_isKey */ "./node_modules/lodash/_isKey.js"),
-    stringToPath = __webpack_require__(/*! ./_stringToPath */ "./node_modules/lodash/_stringToPath.js"),
-    toString = __webpack_require__(/*! ./toString */ "./node_modules/lodash/toString.js");
-
-/**
- * Casts `value` to a path array if it's not one.
- *
- * @private
- * @param {*} value The value to inspect.
- * @param {Object} [object] The object to query keys on.
- * @returns {Array} Returns the cast property path array.
- */
-function castPath(value, object) {
-  if (isArray(value)) {
-    return value;
-  }
-  return isKey(value, object) ? [value] : stringToPath(toString(value));
-}
-
-module.exports = castPath;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_castSlice.js":
-/*!*******************************************!*\
-  !*** ./node_modules/lodash/_castSlice.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseSlice = __webpack_require__(/*! ./_baseSlice */ "./node_modules/lodash/_baseSlice.js");
-
-/**
- * Casts `array` to a slice if it's needed.
- *
- * @private
- * @param {Array} array The array to inspect.
- * @param {number} start The start position.
- * @param {number} [end=array.length] The end position.
- * @returns {Array} Returns the cast slice.
- */
-function castSlice(array, start, end) {
-  var length = array.length;
-  end = end === undefined ? length : end;
-  return (!start && end >= length) ? array : baseSlice(array, start, end);
-}
-
-module.exports = castSlice;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_cloneArrayBuffer.js":
-/*!**************************************************!*\
-  !*** ./node_modules/lodash/_cloneArrayBuffer.js ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Uint8Array = __webpack_require__(/*! ./_Uint8Array */ "./node_modules/lodash/_Uint8Array.js");
-
-/**
- * Creates a clone of `arrayBuffer`.
- *
- * @private
- * @param {ArrayBuffer} arrayBuffer The array buffer to clone.
- * @returns {ArrayBuffer} Returns the cloned array buffer.
- */
-function cloneArrayBuffer(arrayBuffer) {
-  var result = new arrayBuffer.constructor(arrayBuffer.byteLength);
-  new Uint8Array(result).set(new Uint8Array(arrayBuffer));
-  return result;
-}
-
-module.exports = cloneArrayBuffer;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_cloneBuffer.js":
-/*!*********************************************!*\
-  !*** ./node_modules/lodash/_cloneBuffer.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
-
-/** Detect free variable `exports`. */
-var freeExports =  true && exports && !exports.nodeType && exports;
-
-/** Detect free variable `module`. */
-var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
-
-/** Detect the popular CommonJS extension `module.exports`. */
-var moduleExports = freeModule && freeModule.exports === freeExports;
-
-/** Built-in value references. */
-var Buffer = moduleExports ? root.Buffer : undefined,
-    allocUnsafe = Buffer ? Buffer.allocUnsafe : undefined;
-
-/**
- * Creates a clone of  `buffer`.
- *
- * @private
- * @param {Buffer} buffer The buffer to clone.
- * @param {boolean} [isDeep] Specify a deep clone.
- * @returns {Buffer} Returns the cloned buffer.
- */
-function cloneBuffer(buffer, isDeep) {
-  if (isDeep) {
-    return buffer.slice();
-  }
-  var length = buffer.length,
-      result = allocUnsafe ? allocUnsafe(length) : new buffer.constructor(length);
-
-  buffer.copy(result);
-  return result;
-}
-
-module.exports = cloneBuffer;
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_cloneDataView.js":
-/*!***********************************************!*\
-  !*** ./node_modules/lodash/_cloneDataView.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var cloneArrayBuffer = __webpack_require__(/*! ./_cloneArrayBuffer */ "./node_modules/lodash/_cloneArrayBuffer.js");
-
-/**
- * Creates a clone of `dataView`.
- *
- * @private
- * @param {Object} dataView The data view to clone.
- * @param {boolean} [isDeep] Specify a deep clone.
- * @returns {Object} Returns the cloned data view.
- */
-function cloneDataView(dataView, isDeep) {
-  var buffer = isDeep ? cloneArrayBuffer(dataView.buffer) : dataView.buffer;
-  return new dataView.constructor(buffer, dataView.byteOffset, dataView.byteLength);
-}
-
-module.exports = cloneDataView;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_cloneRegExp.js":
-/*!*********************************************!*\
-  !*** ./node_modules/lodash/_cloneRegExp.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/** Used to match `RegExp` flags from their coerced string values. */
-var reFlags = /\w*$/;
-
-/**
- * Creates a clone of `regexp`.
- *
- * @private
- * @param {Object} regexp The regexp to clone.
- * @returns {Object} Returns the cloned regexp.
- */
-function cloneRegExp(regexp) {
-  var result = new regexp.constructor(regexp.source, reFlags.exec(regexp));
-  result.lastIndex = regexp.lastIndex;
-  return result;
-}
-
-module.exports = cloneRegExp;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_cloneSymbol.js":
-/*!*********************************************!*\
-  !*** ./node_modules/lodash/_cloneSymbol.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Symbol = __webpack_require__(/*! ./_Symbol */ "./node_modules/lodash/_Symbol.js");
-
-/** Used to convert symbols to primitives and strings. */
-var symbolProto = Symbol ? Symbol.prototype : undefined,
-    symbolValueOf = symbolProto ? symbolProto.valueOf : undefined;
-
-/**
- * Creates a clone of the `symbol` object.
- *
- * @private
- * @param {Object} symbol The symbol object to clone.
- * @returns {Object} Returns the cloned symbol object.
- */
-function cloneSymbol(symbol) {
-  return symbolValueOf ? Object(symbolValueOf.call(symbol)) : {};
-}
-
-module.exports = cloneSymbol;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_cloneTypedArray.js":
-/*!*************************************************!*\
-  !*** ./node_modules/lodash/_cloneTypedArray.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var cloneArrayBuffer = __webpack_require__(/*! ./_cloneArrayBuffer */ "./node_modules/lodash/_cloneArrayBuffer.js");
-
-/**
- * Creates a clone of `typedArray`.
- *
- * @private
- * @param {Object} typedArray The typed array to clone.
- * @param {boolean} [isDeep] Specify a deep clone.
- * @returns {Object} Returns the cloned typed array.
- */
-function cloneTypedArray(typedArray, isDeep) {
-  var buffer = isDeep ? cloneArrayBuffer(typedArray.buffer) : typedArray.buffer;
-  return new typedArray.constructor(buffer, typedArray.byteOffset, typedArray.length);
-}
-
-module.exports = cloneTypedArray;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_copyArray.js":
-/*!*******************************************!*\
-  !*** ./node_modules/lodash/_copyArray.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Copies the values of `source` to `array`.
- *
- * @private
- * @param {Array} source The array to copy values from.
- * @param {Array} [array=[]] The array to copy values to.
- * @returns {Array} Returns `array`.
- */
-function copyArray(source, array) {
-  var index = -1,
-      length = source.length;
-
-  array || (array = Array(length));
-  while (++index < length) {
-    array[index] = source[index];
-  }
-  return array;
-}
-
-module.exports = copyArray;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_copyObject.js":
-/*!********************************************!*\
-  !*** ./node_modules/lodash/_copyObject.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var assignValue = __webpack_require__(/*! ./_assignValue */ "./node_modules/lodash/_assignValue.js"),
-    baseAssignValue = __webpack_require__(/*! ./_baseAssignValue */ "./node_modules/lodash/_baseAssignValue.js");
-
-/**
- * Copies properties of `source` to `object`.
- *
- * @private
- * @param {Object} source The object to copy properties from.
- * @param {Array} props The property identifiers to copy.
- * @param {Object} [object={}] The object to copy properties to.
- * @param {Function} [customizer] The function to customize copied values.
- * @returns {Object} Returns `object`.
- */
-function copyObject(source, props, object, customizer) {
-  var isNew = !object;
-  object || (object = {});
-
-  var index = -1,
-      length = props.length;
-
-  while (++index < length) {
-    var key = props[index];
-
-    var newValue = customizer
-      ? customizer(object[key], source[key], key, object, source)
-      : undefined;
-
-    if (newValue === undefined) {
-      newValue = source[key];
-    }
-    if (isNew) {
-      baseAssignValue(object, key, newValue);
-    } else {
-      assignValue(object, key, newValue);
-    }
-  }
-  return object;
-}
-
-module.exports = copyObject;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_copySymbols.js":
-/*!*********************************************!*\
-  !*** ./node_modules/lodash/_copySymbols.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var copyObject = __webpack_require__(/*! ./_copyObject */ "./node_modules/lodash/_copyObject.js"),
-    getSymbols = __webpack_require__(/*! ./_getSymbols */ "./node_modules/lodash/_getSymbols.js");
-
-/**
- * Copies own symbols of `source` to `object`.
- *
- * @private
- * @param {Object} source The object to copy symbols from.
- * @param {Object} [object={}] The object to copy symbols to.
- * @returns {Object} Returns `object`.
- */
-function copySymbols(source, object) {
-  return copyObject(source, getSymbols(source), object);
-}
-
-module.exports = copySymbols;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_copySymbolsIn.js":
-/*!***********************************************!*\
-  !*** ./node_modules/lodash/_copySymbolsIn.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var copyObject = __webpack_require__(/*! ./_copyObject */ "./node_modules/lodash/_copyObject.js"),
-    getSymbolsIn = __webpack_require__(/*! ./_getSymbolsIn */ "./node_modules/lodash/_getSymbolsIn.js");
-
-/**
- * Copies own and inherited symbols of `source` to `object`.
- *
- * @private
- * @param {Object} source The object to copy symbols from.
- * @param {Object} [object={}] The object to copy symbols to.
- * @returns {Object} Returns `object`.
- */
-function copySymbolsIn(source, object) {
-  return copyObject(source, getSymbolsIn(source), object);
-}
-
-module.exports = copySymbolsIn;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_coreJsData.js":
-/*!********************************************!*\
-  !*** ./node_modules/lodash/_coreJsData.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js");
-
-/** Used to detect overreaching core-js shims. */
-var coreJsData = root['__core-js_shared__'];
-
-module.exports = coreJsData;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_createBaseFor.js":
-/*!***********************************************!*\
-  !*** ./node_modules/lodash/_createBaseFor.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Creates a base function for methods like `_.forIn` and `_.forOwn`.
- *
- * @private
- * @param {boolean} [fromRight] Specify iterating from right to left.
- * @returns {Function} Returns the new base function.
- */
-function createBaseFor(fromRight) {
-  return function(object, iteratee, keysFunc) {
-    var index = -1,
-        iterable = Object(object),
-        props = keysFunc(object),
-        length = props.length;
-
-    while (length--) {
-      var key = props[fromRight ? length : ++index];
-      if (iteratee(iterable[key], key, iterable) === false) {
-        break;
-      }
-    }
-    return object;
-  };
-}
-
-module.exports = createBaseFor;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_createCaseFirst.js":
-/*!*************************************************!*\
-  !*** ./node_modules/lodash/_createCaseFirst.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var castSlice = __webpack_require__(/*! ./_castSlice */ "./node_modules/lodash/_castSlice.js"),
-    hasUnicode = __webpack_require__(/*! ./_hasUnicode */ "./node_modules/lodash/_hasUnicode.js"),
-    stringToArray = __webpack_require__(/*! ./_stringToArray */ "./node_modules/lodash/_stringToArray.js"),
-    toString = __webpack_require__(/*! ./toString */ "./node_modules/lodash/toString.js");
-
-/**
- * Creates a function like `_.lowerFirst`.
- *
- * @private
- * @param {string} methodName The name of the `String` case method to use.
- * @returns {Function} Returns the new case function.
- */
-function createCaseFirst(methodName) {
-  return function(string) {
-    string = toString(string);
-
-    var strSymbols = hasUnicode(string)
-      ? stringToArray(string)
-      : undefined;
-
-    var chr = strSymbols
-      ? strSymbols[0]
-      : string.charAt(0);
-
-    var trailing = strSymbols
-      ? castSlice(strSymbols, 1).join('')
-      : string.slice(1);
-
-    return chr[methodName]() + trailing;
-  };
-}
-
-module.exports = createCaseFirst;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_createCompounder.js":
-/*!**************************************************!*\
-  !*** ./node_modules/lodash/_createCompounder.js ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayReduce = __webpack_require__(/*! ./_arrayReduce */ "./node_modules/lodash/_arrayReduce.js"),
-    deburr = __webpack_require__(/*! ./deburr */ "./node_modules/lodash/deburr.js"),
-    words = __webpack_require__(/*! ./words */ "./node_modules/lodash/words.js");
-
-/** Used to compose unicode capture groups. */
-var rsApos = "['\u2019]";
-
-/** Used to match apostrophes. */
-var reApos = RegExp(rsApos, 'g');
-
-/**
- * Creates a function like `_.camelCase`.
- *
- * @private
- * @param {Function} callback The function to combine each word.
- * @returns {Function} Returns the new compounder function.
- */
-function createCompounder(callback) {
-  return function(string) {
-    return arrayReduce(words(deburr(string).replace(reApos, '')), callback, '');
-  };
-}
-
-module.exports = createCompounder;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_deburrLetter.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/_deburrLetter.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var basePropertyOf = __webpack_require__(/*! ./_basePropertyOf */ "./node_modules/lodash/_basePropertyOf.js");
-
-/** Used to map Latin Unicode letters to basic Latin letters. */
-var deburredLetters = {
-  // Latin-1 Supplement block.
-  '\xc0': 'A',  '\xc1': 'A', '\xc2': 'A', '\xc3': 'A', '\xc4': 'A', '\xc5': 'A',
-  '\xe0': 'a',  '\xe1': 'a', '\xe2': 'a', '\xe3': 'a', '\xe4': 'a', '\xe5': 'a',
-  '\xc7': 'C',  '\xe7': 'c',
-  '\xd0': 'D',  '\xf0': 'd',
-  '\xc8': 'E',  '\xc9': 'E', '\xca': 'E', '\xcb': 'E',
-  '\xe8': 'e',  '\xe9': 'e', '\xea': 'e', '\xeb': 'e',
-  '\xcc': 'I',  '\xcd': 'I', '\xce': 'I', '\xcf': 'I',
-  '\xec': 'i',  '\xed': 'i', '\xee': 'i', '\xef': 'i',
-  '\xd1': 'N',  '\xf1': 'n',
-  '\xd2': 'O',  '\xd3': 'O', '\xd4': 'O', '\xd5': 'O', '\xd6': 'O', '\xd8': 'O',
-  '\xf2': 'o',  '\xf3': 'o', '\xf4': 'o', '\xf5': 'o', '\xf6': 'o', '\xf8': 'o',
-  '\xd9': 'U',  '\xda': 'U', '\xdb': 'U', '\xdc': 'U',
-  '\xf9': 'u',  '\xfa': 'u', '\xfb': 'u', '\xfc': 'u',
-  '\xdd': 'Y',  '\xfd': 'y', '\xff': 'y',
-  '\xc6': 'Ae', '\xe6': 'ae',
-  '\xde': 'Th', '\xfe': 'th',
-  '\xdf': 'ss',
-  // Latin Extended-A block.
-  '\u0100': 'A',  '\u0102': 'A', '\u0104': 'A',
-  '\u0101': 'a',  '\u0103': 'a', '\u0105': 'a',
-  '\u0106': 'C',  '\u0108': 'C', '\u010a': 'C', '\u010c': 'C',
-  '\u0107': 'c',  '\u0109': 'c', '\u010b': 'c', '\u010d': 'c',
-  '\u010e': 'D',  '\u0110': 'D', '\u010f': 'd', '\u0111': 'd',
-  '\u0112': 'E',  '\u0114': 'E', '\u0116': 'E', '\u0118': 'E', '\u011a': 'E',
-  '\u0113': 'e',  '\u0115': 'e', '\u0117': 'e', '\u0119': 'e', '\u011b': 'e',
-  '\u011c': 'G',  '\u011e': 'G', '\u0120': 'G', '\u0122': 'G',
-  '\u011d': 'g',  '\u011f': 'g', '\u0121': 'g', '\u0123': 'g',
-  '\u0124': 'H',  '\u0126': 'H', '\u0125': 'h', '\u0127': 'h',
-  '\u0128': 'I',  '\u012a': 'I', '\u012c': 'I', '\u012e': 'I', '\u0130': 'I',
-  '\u0129': 'i',  '\u012b': 'i', '\u012d': 'i', '\u012f': 'i', '\u0131': 'i',
-  '\u0134': 'J',  '\u0135': 'j',
-  '\u0136': 'K',  '\u0137': 'k', '\u0138': 'k',
-  '\u0139': 'L',  '\u013b': 'L', '\u013d': 'L', '\u013f': 'L', '\u0141': 'L',
-  '\u013a': 'l',  '\u013c': 'l', '\u013e': 'l', '\u0140': 'l', '\u0142': 'l',
-  '\u0143': 'N',  '\u0145': 'N', '\u0147': 'N', '\u014a': 'N',
-  '\u0144': 'n',  '\u0146': 'n', '\u0148': 'n', '\u014b': 'n',
-  '\u014c': 'O',  '\u014e': 'O', '\u0150': 'O',
-  '\u014d': 'o',  '\u014f': 'o', '\u0151': 'o',
-  '\u0154': 'R',  '\u0156': 'R', '\u0158': 'R',
-  '\u0155': 'r',  '\u0157': 'r', '\u0159': 'r',
-  '\u015a': 'S',  '\u015c': 'S', '\u015e': 'S', '\u0160': 'S',
-  '\u015b': 's',  '\u015d': 's', '\u015f': 's', '\u0161': 's',
-  '\u0162': 'T',  '\u0164': 'T', '\u0166': 'T',
-  '\u0163': 't',  '\u0165': 't', '\u0167': 't',
-  '\u0168': 'U',  '\u016a': 'U', '\u016c': 'U', '\u016e': 'U', '\u0170': 'U', '\u0172': 'U',
-  '\u0169': 'u',  '\u016b': 'u', '\u016d': 'u', '\u016f': 'u', '\u0171': 'u', '\u0173': 'u',
-  '\u0174': 'W',  '\u0175': 'w',
-  '\u0176': 'Y',  '\u0177': 'y', '\u0178': 'Y',
-  '\u0179': 'Z',  '\u017b': 'Z', '\u017d': 'Z',
-  '\u017a': 'z',  '\u017c': 'z', '\u017e': 'z',
-  '\u0132': 'IJ', '\u0133': 'ij',
-  '\u0152': 'Oe', '\u0153': 'oe',
-  '\u0149': "'n", '\u017f': 's'
-};
-
-/**
- * Used by `_.deburr` to convert Latin-1 Supplement and Latin Extended-A
- * letters to basic Latin letters.
- *
- * @private
- * @param {string} letter The matched letter to deburr.
- * @returns {string} Returns the deburred letter.
- */
-var deburrLetter = basePropertyOf(deburredLetters);
-
-module.exports = deburrLetter;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_defineProperty.js":
-/*!************************************************!*\
-  !*** ./node_modules/lodash/_defineProperty.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var getNative = __webpack_require__(/*! ./_getNative */ "./node_modules/lodash/_getNative.js");
-
-var defineProperty = (function() {
-  try {
-    var func = getNative(Object, 'defineProperty');
-    func({}, '', {});
-    return func;
-  } catch (e) {}
-}());
-
-module.exports = defineProperty;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_equalArrays.js":
-/*!*********************************************!*\
-  !*** ./node_modules/lodash/_equalArrays.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var SetCache = __webpack_require__(/*! ./_SetCache */ "./node_modules/lodash/_SetCache.js"),
-    arraySome = __webpack_require__(/*! ./_arraySome */ "./node_modules/lodash/_arraySome.js"),
-    cacheHas = __webpack_require__(/*! ./_cacheHas */ "./node_modules/lodash/_cacheHas.js");
-
-/** Used to compose bitmasks for value comparisons. */
-var COMPARE_PARTIAL_FLAG = 1,
-    COMPARE_UNORDERED_FLAG = 2;
-
-/**
- * A specialized version of `baseIsEqualDeep` for arrays with support for
- * partial deep comparisons.
- *
- * @private
- * @param {Array} array The array to compare.
- * @param {Array} other The other array to compare.
- * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
- * @param {Function} customizer The function to customize comparisons.
- * @param {Function} equalFunc The function to determine equivalents of values.
- * @param {Object} stack Tracks traversed `array` and `other` objects.
- * @returns {boolean} Returns `true` if the arrays are equivalent, else `false`.
- */
-function equalArrays(array, other, bitmask, customizer, equalFunc, stack) {
-  var isPartial = bitmask & COMPARE_PARTIAL_FLAG,
-      arrLength = array.length,
-      othLength = other.length;
-
-  if (arrLength != othLength && !(isPartial && othLength > arrLength)) {
-    return false;
-  }
-  // Assume cyclic values are equal.
-  var stacked = stack.get(array);
-  if (stacked && stack.get(other)) {
-    return stacked == other;
-  }
-  var index = -1,
-      result = true,
-      seen = (bitmask & COMPARE_UNORDERED_FLAG) ? new SetCache : undefined;
-
-  stack.set(array, other);
-  stack.set(other, array);
-
-  // Ignore non-index properties.
-  while (++index < arrLength) {
-    var arrValue = array[index],
-        othValue = other[index];
-
-    if (customizer) {
-      var compared = isPartial
-        ? customizer(othValue, arrValue, index, other, array, stack)
-        : customizer(arrValue, othValue, index, array, other, stack);
-    }
-    if (compared !== undefined) {
-      if (compared) {
-        continue;
-      }
-      result = false;
-      break;
-    }
-    // Recursively compare arrays (susceptible to call stack limits).
-    if (seen) {
-      if (!arraySome(other, function(othValue, othIndex) {
-            if (!cacheHas(seen, othIndex) &&
-                (arrValue === othValue || equalFunc(arrValue, othValue, bitmask, customizer, stack))) {
-              return seen.push(othIndex);
-            }
-          })) {
-        result = false;
-        break;
-      }
-    } else if (!(
-          arrValue === othValue ||
-            equalFunc(arrValue, othValue, bitmask, customizer, stack)
-        )) {
-      result = false;
-      break;
-    }
-  }
-  stack['delete'](array);
-  stack['delete'](other);
-  return result;
-}
-
-module.exports = equalArrays;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_equalByTag.js":
-/*!********************************************!*\
-  !*** ./node_modules/lodash/_equalByTag.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Symbol = __webpack_require__(/*! ./_Symbol */ "./node_modules/lodash/_Symbol.js"),
-    Uint8Array = __webpack_require__(/*! ./_Uint8Array */ "./node_modules/lodash/_Uint8Array.js"),
-    eq = __webpack_require__(/*! ./eq */ "./node_modules/lodash/eq.js"),
-    equalArrays = __webpack_require__(/*! ./_equalArrays */ "./node_modules/lodash/_equalArrays.js"),
-    mapToArray = __webpack_require__(/*! ./_mapToArray */ "./node_modules/lodash/_mapToArray.js"),
-    setToArray = __webpack_require__(/*! ./_setToArray */ "./node_modules/lodash/_setToArray.js");
-
-/** Used to compose bitmasks for value comparisons. */
-var COMPARE_PARTIAL_FLAG = 1,
-    COMPARE_UNORDERED_FLAG = 2;
-
-/** `Object#toString` result references. */
-var boolTag = '[object Boolean]',
-    dateTag = '[object Date]',
-    errorTag = '[object Error]',
-    mapTag = '[object Map]',
-    numberTag = '[object Number]',
-    regexpTag = '[object RegExp]',
-    setTag = '[object Set]',
-    stringTag = '[object String]',
-    symbolTag = '[object Symbol]';
-
-var arrayBufferTag = '[object ArrayBuffer]',
-    dataViewTag = '[object DataView]';
-
-/** Used to convert symbols to primitives and strings. */
-var symbolProto = Symbol ? Symbol.prototype : undefined,
-    symbolValueOf = symbolProto ? symbolProto.valueOf : undefined;
-
-/**
- * A specialized version of `baseIsEqualDeep` for comparing objects of
- * the same `toStringTag`.
- *
- * **Note:** This function only supports comparing values with tags of
- * `Boolean`, `Date`, `Error`, `Number`, `RegExp`, or `String`.
- *
- * @private
- * @param {Object} object The object to compare.
- * @param {Object} other The other object to compare.
- * @param {string} tag The `toStringTag` of the objects to compare.
- * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
- * @param {Function} customizer The function to customize comparisons.
- * @param {Function} equalFunc The function to determine equivalents of values.
- * @param {Object} stack Tracks traversed `object` and `other` objects.
- * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
- */
-function equalByTag(object, other, tag, bitmask, customizer, equalFunc, stack) {
-  switch (tag) {
-    case dataViewTag:
-      if ((object.byteLength != other.byteLength) ||
-          (object.byteOffset != other.byteOffset)) {
-        return false;
-      }
-      object = object.buffer;
-      other = other.buffer;
-
-    case arrayBufferTag:
-      if ((object.byteLength != other.byteLength) ||
-          !equalFunc(new Uint8Array(object), new Uint8Array(other))) {
-        return false;
-      }
-      return true;
-
-    case boolTag:
-    case dateTag:
-    case numberTag:
-      // Coerce booleans to `1` or `0` and dates to milliseconds.
-      // Invalid dates are coerced to `NaN`.
-      return eq(+object, +other);
-
-    case errorTag:
-      return object.name == other.name && object.message == other.message;
-
-    case regexpTag:
-    case stringTag:
-      // Coerce regexes to strings and treat strings, primitives and objects,
-      // as equal. See http://www.ecma-international.org/ecma-262/7.0/#sec-regexp.prototype.tostring
-      // for more details.
-      return object == (other + '');
-
-    case mapTag:
-      var convert = mapToArray;
-
-    case setTag:
-      var isPartial = bitmask & COMPARE_PARTIAL_FLAG;
-      convert || (convert = setToArray);
-
-      if (object.size != other.size && !isPartial) {
-        return false;
-      }
-      // Assume cyclic values are equal.
-      var stacked = stack.get(object);
-      if (stacked) {
-        return stacked == other;
-      }
-      bitmask |= COMPARE_UNORDERED_FLAG;
-
-      // Recursively compare objects (susceptible to call stack limits).
-      stack.set(object, other);
-      var result = equalArrays(convert(object), convert(other), bitmask, customizer, equalFunc, stack);
-      stack['delete'](object);
-      return result;
-
-    case symbolTag:
-      if (symbolValueOf) {
-        return symbolValueOf.call(object) == symbolValueOf.call(other);
-      }
-  }
-  return false;
-}
-
-module.exports = equalByTag;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_equalObjects.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/_equalObjects.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var getAllKeys = __webpack_require__(/*! ./_getAllKeys */ "./node_modules/lodash/_getAllKeys.js");
-
-/** Used to compose bitmasks for value comparisons. */
-var COMPARE_PARTIAL_FLAG = 1;
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * A specialized version of `baseIsEqualDeep` for objects with support for
- * partial deep comparisons.
- *
- * @private
- * @param {Object} object The object to compare.
- * @param {Object} other The other object to compare.
- * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
- * @param {Function} customizer The function to customize comparisons.
- * @param {Function} equalFunc The function to determine equivalents of values.
- * @param {Object} stack Tracks traversed `object` and `other` objects.
- * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
- */
-function equalObjects(object, other, bitmask, customizer, equalFunc, stack) {
-  var isPartial = bitmask & COMPARE_PARTIAL_FLAG,
-      objProps = getAllKeys(object),
-      objLength = objProps.length,
-      othProps = getAllKeys(other),
-      othLength = othProps.length;
-
-  if (objLength != othLength && !isPartial) {
-    return false;
-  }
-  var index = objLength;
-  while (index--) {
-    var key = objProps[index];
-    if (!(isPartial ? key in other : hasOwnProperty.call(other, key))) {
-      return false;
-    }
-  }
-  // Assume cyclic values are equal.
-  var stacked = stack.get(object);
-  if (stacked && stack.get(other)) {
-    return stacked == other;
-  }
-  var result = true;
-  stack.set(object, other);
-  stack.set(other, object);
-
-  var skipCtor = isPartial;
-  while (++index < objLength) {
-    key = objProps[index];
-    var objValue = object[key],
-        othValue = other[key];
-
-    if (customizer) {
-      var compared = isPartial
-        ? customizer(othValue, objValue, key, other, object, stack)
-        : customizer(objValue, othValue, key, object, other, stack);
-    }
-    // Recursively compare objects (susceptible to call stack limits).
-    if (!(compared === undefined
-          ? (objValue === othValue || equalFunc(objValue, othValue, bitmask, customizer, stack))
-          : compared
-        )) {
-      result = false;
-      break;
-    }
-    skipCtor || (skipCtor = key == 'constructor');
-  }
-  if (result && !skipCtor) {
-    var objCtor = object.constructor,
-        othCtor = other.constructor;
-
-    // Non `Object` object instances with different constructors are not equal.
-    if (objCtor != othCtor &&
-        ('constructor' in object && 'constructor' in other) &&
-        !(typeof objCtor == 'function' && objCtor instanceof objCtor &&
-          typeof othCtor == 'function' && othCtor instanceof othCtor)) {
-      result = false;
-    }
-  }
-  stack['delete'](object);
-  stack['delete'](other);
-  return result;
-}
-
-module.exports = equalObjects;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_freeGlobal.js":
-/*!********************************************!*\
-  !*** ./node_modules/lodash/_freeGlobal.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global) {/** Detect free variable `global` from Node.js. */
-var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
-
-module.exports = freeGlobal;
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_getAllKeys.js":
-/*!********************************************!*\
-  !*** ./node_modules/lodash/_getAllKeys.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseGetAllKeys = __webpack_require__(/*! ./_baseGetAllKeys */ "./node_modules/lodash/_baseGetAllKeys.js"),
-    getSymbols = __webpack_require__(/*! ./_getSymbols */ "./node_modules/lodash/_getSymbols.js"),
-    keys = __webpack_require__(/*! ./keys */ "./node_modules/lodash/keys.js");
-
-/**
- * Creates an array of own enumerable property names and symbols of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names and symbols.
- */
-function getAllKeys(object) {
-  return baseGetAllKeys(object, keys, getSymbols);
-}
-
-module.exports = getAllKeys;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_getAllKeysIn.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/_getAllKeysIn.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseGetAllKeys = __webpack_require__(/*! ./_baseGetAllKeys */ "./node_modules/lodash/_baseGetAllKeys.js"),
-    getSymbolsIn = __webpack_require__(/*! ./_getSymbolsIn */ "./node_modules/lodash/_getSymbolsIn.js"),
-    keysIn = __webpack_require__(/*! ./keysIn */ "./node_modules/lodash/keysIn.js");
-
-/**
- * Creates an array of own and inherited enumerable property names and
- * symbols of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names and symbols.
- */
-function getAllKeysIn(object) {
-  return baseGetAllKeys(object, keysIn, getSymbolsIn);
-}
-
-module.exports = getAllKeysIn;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_getMapData.js":
-/*!********************************************!*\
-  !*** ./node_modules/lodash/_getMapData.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var isKeyable = __webpack_require__(/*! ./_isKeyable */ "./node_modules/lodash/_isKeyable.js");
-
-/**
- * Gets the data for `map`.
- *
- * @private
- * @param {Object} map The map to query.
- * @param {string} key The reference key.
- * @returns {*} Returns the map data.
- */
-function getMapData(map, key) {
-  var data = map.__data__;
-  return isKeyable(key)
-    ? data[typeof key == 'string' ? 'string' : 'hash']
-    : data.map;
-}
-
-module.exports = getMapData;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_getMatchData.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/_getMatchData.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var isStrictComparable = __webpack_require__(/*! ./_isStrictComparable */ "./node_modules/lodash/_isStrictComparable.js"),
-    keys = __webpack_require__(/*! ./keys */ "./node_modules/lodash/keys.js");
-
-/**
- * Gets the property names, values, and compare flags of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the match data of `object`.
- */
-function getMatchData(object) {
-  var result = keys(object),
-      length = result.length;
-
-  while (length--) {
-    var key = result[length],
-        value = object[key];
-
-    result[length] = [key, value, isStrictComparable(value)];
-  }
-  return result;
-}
-
-module.exports = getMatchData;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_getNative.js":
-/*!*******************************************!*\
-  !*** ./node_modules/lodash/_getNative.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseIsNative = __webpack_require__(/*! ./_baseIsNative */ "./node_modules/lodash/_baseIsNative.js"),
-    getValue = __webpack_require__(/*! ./_getValue */ "./node_modules/lodash/_getValue.js");
-
-/**
- * Gets the native function at `key` of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @param {string} key The key of the method to get.
- * @returns {*} Returns the function if it's native, else `undefined`.
- */
-function getNative(object, key) {
-  var value = getValue(object, key);
-  return baseIsNative(value) ? value : undefined;
-}
-
-module.exports = getNative;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_getPrototype.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/_getPrototype.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var overArg = __webpack_require__(/*! ./_overArg */ "./node_modules/lodash/_overArg.js");
-
-/** Built-in value references. */
-var getPrototype = overArg(Object.getPrototypeOf, Object);
-
-module.exports = getPrototype;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_getRawTag.js":
-/*!*******************************************!*\
-  !*** ./node_modules/lodash/_getRawTag.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Symbol = __webpack_require__(/*! ./_Symbol */ "./node_modules/lodash/_Symbol.js");
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * Used to resolve the
- * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
- * of values.
- */
-var nativeObjectToString = objectProto.toString;
-
-/** Built-in value references. */
-var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
-
-/**
- * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
- *
- * @private
- * @param {*} value The value to query.
- * @returns {string} Returns the raw `toStringTag`.
- */
-function getRawTag(value) {
-  var isOwn = hasOwnProperty.call(value, symToStringTag),
-      tag = value[symToStringTag];
-
-  try {
-    value[symToStringTag] = undefined;
-    var unmasked = true;
-  } catch (e) {}
-
-  var result = nativeObjectToString.call(value);
-  if (unmasked) {
-    if (isOwn) {
-      value[symToStringTag] = tag;
-    } else {
-      delete value[symToStringTag];
-    }
-  }
-  return result;
-}
-
-module.exports = getRawTag;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_getSymbols.js":
-/*!********************************************!*\
-  !*** ./node_modules/lodash/_getSymbols.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayFilter = __webpack_require__(/*! ./_arrayFilter */ "./node_modules/lodash/_arrayFilter.js"),
-    stubArray = __webpack_require__(/*! ./stubArray */ "./node_modules/lodash/stubArray.js");
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/** Built-in value references. */
-var propertyIsEnumerable = objectProto.propertyIsEnumerable;
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeGetSymbols = Object.getOwnPropertySymbols;
-
-/**
- * Creates an array of the own enumerable symbols of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of symbols.
- */
-var getSymbols = !nativeGetSymbols ? stubArray : function(object) {
-  if (object == null) {
-    return [];
-  }
-  object = Object(object);
-  return arrayFilter(nativeGetSymbols(object), function(symbol) {
-    return propertyIsEnumerable.call(object, symbol);
-  });
-};
-
-module.exports = getSymbols;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_getSymbolsIn.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/_getSymbolsIn.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayPush = __webpack_require__(/*! ./_arrayPush */ "./node_modules/lodash/_arrayPush.js"),
-    getPrototype = __webpack_require__(/*! ./_getPrototype */ "./node_modules/lodash/_getPrototype.js"),
-    getSymbols = __webpack_require__(/*! ./_getSymbols */ "./node_modules/lodash/_getSymbols.js"),
-    stubArray = __webpack_require__(/*! ./stubArray */ "./node_modules/lodash/stubArray.js");
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeGetSymbols = Object.getOwnPropertySymbols;
-
-/**
- * Creates an array of the own and inherited enumerable symbols of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of symbols.
- */
-var getSymbolsIn = !nativeGetSymbols ? stubArray : function(object) {
-  var result = [];
-  while (object) {
-    arrayPush(result, getSymbols(object));
-    object = getPrototype(object);
-  }
-  return result;
-};
-
-module.exports = getSymbolsIn;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_getTag.js":
-/*!****************************************!*\
-  !*** ./node_modules/lodash/_getTag.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var DataView = __webpack_require__(/*! ./_DataView */ "./node_modules/lodash/_DataView.js"),
-    Map = __webpack_require__(/*! ./_Map */ "./node_modules/lodash/_Map.js"),
-    Promise = __webpack_require__(/*! ./_Promise */ "./node_modules/lodash/_Promise.js"),
-    Set = __webpack_require__(/*! ./_Set */ "./node_modules/lodash/_Set.js"),
-    WeakMap = __webpack_require__(/*! ./_WeakMap */ "./node_modules/lodash/_WeakMap.js"),
-    baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
-    toSource = __webpack_require__(/*! ./_toSource */ "./node_modules/lodash/_toSource.js");
-
-/** `Object#toString` result references. */
-var mapTag = '[object Map]',
-    objectTag = '[object Object]',
-    promiseTag = '[object Promise]',
-    setTag = '[object Set]',
-    weakMapTag = '[object WeakMap]';
-
-var dataViewTag = '[object DataView]';
-
-/** Used to detect maps, sets, and weakmaps. */
-var dataViewCtorString = toSource(DataView),
-    mapCtorString = toSource(Map),
-    promiseCtorString = toSource(Promise),
-    setCtorString = toSource(Set),
-    weakMapCtorString = toSource(WeakMap);
-
-/**
- * Gets the `toStringTag` of `value`.
- *
- * @private
- * @param {*} value The value to query.
- * @returns {string} Returns the `toStringTag`.
- */
-var getTag = baseGetTag;
-
-// Fallback for data views, maps, sets, and weak maps in IE 11 and promises in Node.js < 6.
-if ((DataView && getTag(new DataView(new ArrayBuffer(1))) != dataViewTag) ||
-    (Map && getTag(new Map) != mapTag) ||
-    (Promise && getTag(Promise.resolve()) != promiseTag) ||
-    (Set && getTag(new Set) != setTag) ||
-    (WeakMap && getTag(new WeakMap) != weakMapTag)) {
-  getTag = function(value) {
-    var result = baseGetTag(value),
-        Ctor = result == objectTag ? value.constructor : undefined,
-        ctorString = Ctor ? toSource(Ctor) : '';
-
-    if (ctorString) {
-      switch (ctorString) {
-        case dataViewCtorString: return dataViewTag;
-        case mapCtorString: return mapTag;
-        case promiseCtorString: return promiseTag;
-        case setCtorString: return setTag;
-        case weakMapCtorString: return weakMapTag;
-      }
-    }
-    return result;
-  };
-}
-
-module.exports = getTag;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_getValue.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/_getValue.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Gets the value at `key` of `object`.
- *
- * @private
- * @param {Object} [object] The object to query.
- * @param {string} key The key of the property to get.
- * @returns {*} Returns the property value.
- */
-function getValue(object, key) {
-  return object == null ? undefined : object[key];
-}
-
-module.exports = getValue;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_hasPath.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/_hasPath.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var castPath = __webpack_require__(/*! ./_castPath */ "./node_modules/lodash/_castPath.js"),
-    isArguments = __webpack_require__(/*! ./isArguments */ "./node_modules/lodash/isArguments.js"),
-    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
-    isIndex = __webpack_require__(/*! ./_isIndex */ "./node_modules/lodash/_isIndex.js"),
-    isLength = __webpack_require__(/*! ./isLength */ "./node_modules/lodash/isLength.js"),
-    toKey = __webpack_require__(/*! ./_toKey */ "./node_modules/lodash/_toKey.js");
-
-/**
- * Checks if `path` exists on `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @param {Array|string} path The path to check.
- * @param {Function} hasFunc The function to check properties.
- * @returns {boolean} Returns `true` if `path` exists, else `false`.
- */
-function hasPath(object, path, hasFunc) {
-  path = castPath(path, object);
-
-  var index = -1,
-      length = path.length,
-      result = false;
-
-  while (++index < length) {
-    var key = toKey(path[index]);
-    if (!(result = object != null && hasFunc(object, key))) {
-      break;
-    }
-    object = object[key];
-  }
-  if (result || ++index != length) {
-    return result;
-  }
-  length = object == null ? 0 : object.length;
-  return !!length && isLength(length) && isIndex(key, length) &&
-    (isArray(object) || isArguments(object));
-}
-
-module.exports = hasPath;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_hasUnicode.js":
-/*!********************************************!*\
-  !*** ./node_modules/lodash/_hasUnicode.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/** Used to compose unicode character classes. */
-var rsAstralRange = '\\ud800-\\udfff',
-    rsComboMarksRange = '\\u0300-\\u036f',
-    reComboHalfMarksRange = '\\ufe20-\\ufe2f',
-    rsComboSymbolsRange = '\\u20d0-\\u20ff',
-    rsComboRange = rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange,
-    rsVarRange = '\\ufe0e\\ufe0f';
-
-/** Used to compose unicode capture groups. */
-var rsZWJ = '\\u200d';
-
-/** Used to detect strings with [zero-width joiners or code points from the astral planes](http://eev.ee/blog/2015/09/12/dark-corners-of-unicode/). */
-var reHasUnicode = RegExp('[' + rsZWJ + rsAstralRange  + rsComboRange + rsVarRange + ']');
-
-/**
- * Checks if `string` contains Unicode symbols.
- *
- * @private
- * @param {string} string The string to inspect.
- * @returns {boolean} Returns `true` if a symbol is found, else `false`.
- */
-function hasUnicode(string) {
-  return reHasUnicode.test(string);
-}
-
-module.exports = hasUnicode;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_hasUnicodeWord.js":
-/*!************************************************!*\
-  !*** ./node_modules/lodash/_hasUnicodeWord.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/** Used to detect strings that need a more robust regexp to match words. */
-var reHasUnicodeWord = /[a-z][A-Z]|[A-Z]{2}[a-z]|[0-9][a-zA-Z]|[a-zA-Z][0-9]|[^a-zA-Z0-9 ]/;
-
-/**
- * Checks if `string` contains a word composed of Unicode symbols.
- *
- * @private
- * @param {string} string The string to inspect.
- * @returns {boolean} Returns `true` if a word is found, else `false`.
- */
-function hasUnicodeWord(string) {
-  return reHasUnicodeWord.test(string);
-}
-
-module.exports = hasUnicodeWord;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_hashClear.js":
-/*!*******************************************!*\
-  !*** ./node_modules/lodash/_hashClear.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var nativeCreate = __webpack_require__(/*! ./_nativeCreate */ "./node_modules/lodash/_nativeCreate.js");
-
-/**
- * Removes all key-value entries from the hash.
- *
- * @private
- * @name clear
- * @memberOf Hash
- */
-function hashClear() {
-  this.__data__ = nativeCreate ? nativeCreate(null) : {};
-  this.size = 0;
-}
-
-module.exports = hashClear;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_hashDelete.js":
-/*!********************************************!*\
-  !*** ./node_modules/lodash/_hashDelete.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Removes `key` and its value from the hash.
- *
- * @private
- * @name delete
- * @memberOf Hash
- * @param {Object} hash The hash to modify.
- * @param {string} key The key of the value to remove.
- * @returns {boolean} Returns `true` if the entry was removed, else `false`.
- */
-function hashDelete(key) {
-  var result = this.has(key) && delete this.__data__[key];
-  this.size -= result ? 1 : 0;
-  return result;
-}
-
-module.exports = hashDelete;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_hashGet.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/_hashGet.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var nativeCreate = __webpack_require__(/*! ./_nativeCreate */ "./node_modules/lodash/_nativeCreate.js");
-
-/** Used to stand-in for `undefined` hash values. */
-var HASH_UNDEFINED = '__lodash_hash_undefined__';
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * Gets the hash value for `key`.
- *
- * @private
- * @name get
- * @memberOf Hash
- * @param {string} key The key of the value to get.
- * @returns {*} Returns the entry value.
- */
-function hashGet(key) {
-  var data = this.__data__;
-  if (nativeCreate) {
-    var result = data[key];
-    return result === HASH_UNDEFINED ? undefined : result;
-  }
-  return hasOwnProperty.call(data, key) ? data[key] : undefined;
-}
-
-module.exports = hashGet;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_hashHas.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/_hashHas.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var nativeCreate = __webpack_require__(/*! ./_nativeCreate */ "./node_modules/lodash/_nativeCreate.js");
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * Checks if a hash value for `key` exists.
- *
- * @private
- * @name has
- * @memberOf Hash
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
-function hashHas(key) {
-  var data = this.__data__;
-  return nativeCreate ? (data[key] !== undefined) : hasOwnProperty.call(data, key);
-}
-
-module.exports = hashHas;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_hashSet.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/_hashSet.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var nativeCreate = __webpack_require__(/*! ./_nativeCreate */ "./node_modules/lodash/_nativeCreate.js");
-
-/** Used to stand-in for `undefined` hash values. */
-var HASH_UNDEFINED = '__lodash_hash_undefined__';
-
-/**
- * Sets the hash `key` to `value`.
- *
- * @private
- * @name set
- * @memberOf Hash
- * @param {string} key The key of the value to set.
- * @param {*} value The value to set.
- * @returns {Object} Returns the hash instance.
- */
-function hashSet(key, value) {
-  var data = this.__data__;
-  this.size += this.has(key) ? 0 : 1;
-  data[key] = (nativeCreate && value === undefined) ? HASH_UNDEFINED : value;
-  return this;
-}
-
-module.exports = hashSet;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_initCloneArray.js":
-/*!************************************************!*\
-  !*** ./node_modules/lodash/_initCloneArray.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * Initializes an array clone.
- *
- * @private
- * @param {Array} array The array to clone.
- * @returns {Array} Returns the initialized clone.
- */
-function initCloneArray(array) {
-  var length = array.length,
-      result = new array.constructor(length);
-
-  // Add properties assigned by `RegExp#exec`.
-  if (length && typeof array[0] == 'string' && hasOwnProperty.call(array, 'index')) {
-    result.index = array.index;
-    result.input = array.input;
-  }
-  return result;
-}
-
-module.exports = initCloneArray;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_initCloneByTag.js":
-/*!************************************************!*\
-  !*** ./node_modules/lodash/_initCloneByTag.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var cloneArrayBuffer = __webpack_require__(/*! ./_cloneArrayBuffer */ "./node_modules/lodash/_cloneArrayBuffer.js"),
-    cloneDataView = __webpack_require__(/*! ./_cloneDataView */ "./node_modules/lodash/_cloneDataView.js"),
-    cloneRegExp = __webpack_require__(/*! ./_cloneRegExp */ "./node_modules/lodash/_cloneRegExp.js"),
-    cloneSymbol = __webpack_require__(/*! ./_cloneSymbol */ "./node_modules/lodash/_cloneSymbol.js"),
-    cloneTypedArray = __webpack_require__(/*! ./_cloneTypedArray */ "./node_modules/lodash/_cloneTypedArray.js");
-
-/** `Object#toString` result references. */
-var boolTag = '[object Boolean]',
-    dateTag = '[object Date]',
-    mapTag = '[object Map]',
-    numberTag = '[object Number]',
-    regexpTag = '[object RegExp]',
-    setTag = '[object Set]',
-    stringTag = '[object String]',
-    symbolTag = '[object Symbol]';
-
-var arrayBufferTag = '[object ArrayBuffer]',
-    dataViewTag = '[object DataView]',
-    float32Tag = '[object Float32Array]',
-    float64Tag = '[object Float64Array]',
-    int8Tag = '[object Int8Array]',
-    int16Tag = '[object Int16Array]',
-    int32Tag = '[object Int32Array]',
-    uint8Tag = '[object Uint8Array]',
-    uint8ClampedTag = '[object Uint8ClampedArray]',
-    uint16Tag = '[object Uint16Array]',
-    uint32Tag = '[object Uint32Array]';
-
-/**
- * Initializes an object clone based on its `toStringTag`.
- *
- * **Note:** This function only supports cloning values with tags of
- * `Boolean`, `Date`, `Error`, `Map`, `Number`, `RegExp`, `Set`, or `String`.
- *
- * @private
- * @param {Object} object The object to clone.
- * @param {string} tag The `toStringTag` of the object to clone.
- * @param {boolean} [isDeep] Specify a deep clone.
- * @returns {Object} Returns the initialized clone.
- */
-function initCloneByTag(object, tag, isDeep) {
-  var Ctor = object.constructor;
-  switch (tag) {
-    case arrayBufferTag:
-      return cloneArrayBuffer(object);
-
-    case boolTag:
-    case dateTag:
-      return new Ctor(+object);
-
-    case dataViewTag:
-      return cloneDataView(object, isDeep);
-
-    case float32Tag: case float64Tag:
-    case int8Tag: case int16Tag: case int32Tag:
-    case uint8Tag: case uint8ClampedTag: case uint16Tag: case uint32Tag:
-      return cloneTypedArray(object, isDeep);
-
-    case mapTag:
-      return new Ctor;
-
-    case numberTag:
-    case stringTag:
-      return new Ctor(object);
-
-    case regexpTag:
-      return cloneRegExp(object);
-
-    case setTag:
-      return new Ctor;
-
-    case symbolTag:
-      return cloneSymbol(object);
-  }
-}
-
-module.exports = initCloneByTag;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_initCloneObject.js":
-/*!*************************************************!*\
-  !*** ./node_modules/lodash/_initCloneObject.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseCreate = __webpack_require__(/*! ./_baseCreate */ "./node_modules/lodash/_baseCreate.js"),
-    getPrototype = __webpack_require__(/*! ./_getPrototype */ "./node_modules/lodash/_getPrototype.js"),
-    isPrototype = __webpack_require__(/*! ./_isPrototype */ "./node_modules/lodash/_isPrototype.js");
-
-/**
- * Initializes an object clone.
- *
- * @private
- * @param {Object} object The object to clone.
- * @returns {Object} Returns the initialized clone.
- */
-function initCloneObject(object) {
-  return (typeof object.constructor == 'function' && !isPrototype(object))
-    ? baseCreate(getPrototype(object))
-    : {};
-}
-
-module.exports = initCloneObject;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_isIndex.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/_isIndex.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/** Used as references for various `Number` constants. */
-var MAX_SAFE_INTEGER = 9007199254740991;
-
-/** Used to detect unsigned integer values. */
-var reIsUint = /^(?:0|[1-9]\d*)$/;
-
-/**
- * Checks if `value` is a valid array-like index.
- *
- * @private
- * @param {*} value The value to check.
- * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
- * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
- */
-function isIndex(value, length) {
-  var type = typeof value;
-  length = length == null ? MAX_SAFE_INTEGER : length;
-
-  return !!length &&
-    (type == 'number' ||
-      (type != 'symbol' && reIsUint.test(value))) &&
-        (value > -1 && value % 1 == 0 && value < length);
-}
-
-module.exports = isIndex;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_isKey.js":
-/*!***************************************!*\
-  !*** ./node_modules/lodash/_isKey.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
-    isSymbol = __webpack_require__(/*! ./isSymbol */ "./node_modules/lodash/isSymbol.js");
-
-/** Used to match property names within property paths. */
-var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/,
-    reIsPlainProp = /^\w*$/;
-
-/**
- * Checks if `value` is a property name and not a property path.
- *
- * @private
- * @param {*} value The value to check.
- * @param {Object} [object] The object to query keys on.
- * @returns {boolean} Returns `true` if `value` is a property name, else `false`.
- */
-function isKey(value, object) {
-  if (isArray(value)) {
-    return false;
-  }
-  var type = typeof value;
-  if (type == 'number' || type == 'symbol' || type == 'boolean' ||
-      value == null || isSymbol(value)) {
-    return true;
-  }
-  return reIsPlainProp.test(value) || !reIsDeepProp.test(value) ||
-    (object != null && value in Object(object));
-}
-
-module.exports = isKey;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_isKeyable.js":
-/*!*******************************************!*\
-  !*** ./node_modules/lodash/_isKeyable.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Checks if `value` is suitable for use as unique object key.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
- */
-function isKeyable(value) {
-  var type = typeof value;
-  return (type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean')
-    ? (value !== '__proto__')
-    : (value === null);
-}
-
-module.exports = isKeyable;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_isMasked.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/_isMasked.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var coreJsData = __webpack_require__(/*! ./_coreJsData */ "./node_modules/lodash/_coreJsData.js");
-
-/** Used to detect methods masquerading as native. */
-var maskSrcKey = (function() {
-  var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
-  return uid ? ('Symbol(src)_1.' + uid) : '';
-}());
-
-/**
- * Checks if `func` has its source masked.
- *
- * @private
- * @param {Function} func The function to check.
- * @returns {boolean} Returns `true` if `func` is masked, else `false`.
- */
-function isMasked(func) {
-  return !!maskSrcKey && (maskSrcKey in func);
-}
-
-module.exports = isMasked;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_isPrototype.js":
-/*!*********************************************!*\
-  !*** ./node_modules/lodash/_isPrototype.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/**
- * Checks if `value` is likely a prototype object.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
- */
-function isPrototype(value) {
-  var Ctor = value && value.constructor,
-      proto = (typeof Ctor == 'function' && Ctor.prototype) || objectProto;
-
-  return value === proto;
-}
-
-module.exports = isPrototype;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_isStrictComparable.js":
-/*!****************************************************!*\
-  !*** ./node_modules/lodash/_isStrictComparable.js ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js");
-
-/**
- * Checks if `value` is suitable for strict equality comparisons, i.e. `===`.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` if suitable for strict
- *  equality comparisons, else `false`.
- */
-function isStrictComparable(value) {
-  return value === value && !isObject(value);
-}
-
-module.exports = isStrictComparable;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_iteratorToArray.js":
-/*!*************************************************!*\
-  !*** ./node_modules/lodash/_iteratorToArray.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Converts `iterator` to an array.
- *
- * @private
- * @param {Object} iterator The iterator to convert.
- * @returns {Array} Returns the converted array.
- */
-function iteratorToArray(iterator) {
-  var data,
-      result = [];
-
-  while (!(data = iterator.next()).done) {
-    result.push(data.value);
-  }
-  return result;
-}
-
-module.exports = iteratorToArray;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_listCacheClear.js":
-/*!************************************************!*\
-  !*** ./node_modules/lodash/_listCacheClear.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Removes all key-value entries from the list cache.
- *
- * @private
- * @name clear
- * @memberOf ListCache
- */
-function listCacheClear() {
-  this.__data__ = [];
-  this.size = 0;
-}
-
-module.exports = listCacheClear;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_listCacheDelete.js":
-/*!*************************************************!*\
-  !*** ./node_modules/lodash/_listCacheDelete.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var assocIndexOf = __webpack_require__(/*! ./_assocIndexOf */ "./node_modules/lodash/_assocIndexOf.js");
-
-/** Used for built-in method references. */
-var arrayProto = Array.prototype;
-
-/** Built-in value references. */
-var splice = arrayProto.splice;
-
-/**
- * Removes `key` and its value from the list cache.
- *
- * @private
- * @name delete
- * @memberOf ListCache
- * @param {string} key The key of the value to remove.
- * @returns {boolean} Returns `true` if the entry was removed, else `false`.
- */
-function listCacheDelete(key) {
-  var data = this.__data__,
-      index = assocIndexOf(data, key);
-
-  if (index < 0) {
-    return false;
-  }
-  var lastIndex = data.length - 1;
-  if (index == lastIndex) {
-    data.pop();
-  } else {
-    splice.call(data, index, 1);
-  }
-  --this.size;
-  return true;
-}
-
-module.exports = listCacheDelete;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_listCacheGet.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/_listCacheGet.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var assocIndexOf = __webpack_require__(/*! ./_assocIndexOf */ "./node_modules/lodash/_assocIndexOf.js");
-
-/**
- * Gets the list cache value for `key`.
- *
- * @private
- * @name get
- * @memberOf ListCache
- * @param {string} key The key of the value to get.
- * @returns {*} Returns the entry value.
- */
-function listCacheGet(key) {
-  var data = this.__data__,
-      index = assocIndexOf(data, key);
-
-  return index < 0 ? undefined : data[index][1];
-}
-
-module.exports = listCacheGet;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_listCacheHas.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/_listCacheHas.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var assocIndexOf = __webpack_require__(/*! ./_assocIndexOf */ "./node_modules/lodash/_assocIndexOf.js");
-
-/**
- * Checks if a list cache value for `key` exists.
- *
- * @private
- * @name has
- * @memberOf ListCache
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
-function listCacheHas(key) {
-  return assocIndexOf(this.__data__, key) > -1;
-}
-
-module.exports = listCacheHas;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_listCacheSet.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/_listCacheSet.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var assocIndexOf = __webpack_require__(/*! ./_assocIndexOf */ "./node_modules/lodash/_assocIndexOf.js");
-
-/**
- * Sets the list cache `key` to `value`.
- *
- * @private
- * @name set
- * @memberOf ListCache
- * @param {string} key The key of the value to set.
- * @param {*} value The value to set.
- * @returns {Object} Returns the list cache instance.
- */
-function listCacheSet(key, value) {
-  var data = this.__data__,
-      index = assocIndexOf(data, key);
-
-  if (index < 0) {
-    ++this.size;
-    data.push([key, value]);
-  } else {
-    data[index][1] = value;
-  }
-  return this;
-}
-
-module.exports = listCacheSet;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_mapCacheClear.js":
-/*!***********************************************!*\
-  !*** ./node_modules/lodash/_mapCacheClear.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Hash = __webpack_require__(/*! ./_Hash */ "./node_modules/lodash/_Hash.js"),
-    ListCache = __webpack_require__(/*! ./_ListCache */ "./node_modules/lodash/_ListCache.js"),
-    Map = __webpack_require__(/*! ./_Map */ "./node_modules/lodash/_Map.js");
-
-/**
- * Removes all key-value entries from the map.
- *
- * @private
- * @name clear
- * @memberOf MapCache
- */
-function mapCacheClear() {
-  this.size = 0;
-  this.__data__ = {
-    'hash': new Hash,
-    'map': new (Map || ListCache),
-    'string': new Hash
-  };
-}
-
-module.exports = mapCacheClear;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_mapCacheDelete.js":
-/*!************************************************!*\
-  !*** ./node_modules/lodash/_mapCacheDelete.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var getMapData = __webpack_require__(/*! ./_getMapData */ "./node_modules/lodash/_getMapData.js");
-
-/**
- * Removes `key` and its value from the map.
- *
- * @private
- * @name delete
- * @memberOf MapCache
- * @param {string} key The key of the value to remove.
- * @returns {boolean} Returns `true` if the entry was removed, else `false`.
- */
-function mapCacheDelete(key) {
-  var result = getMapData(this, key)['delete'](key);
-  this.size -= result ? 1 : 0;
-  return result;
-}
-
-module.exports = mapCacheDelete;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_mapCacheGet.js":
-/*!*********************************************!*\
-  !*** ./node_modules/lodash/_mapCacheGet.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var getMapData = __webpack_require__(/*! ./_getMapData */ "./node_modules/lodash/_getMapData.js");
-
-/**
- * Gets the map value for `key`.
- *
- * @private
- * @name get
- * @memberOf MapCache
- * @param {string} key The key of the value to get.
- * @returns {*} Returns the entry value.
- */
-function mapCacheGet(key) {
-  return getMapData(this, key).get(key);
-}
-
-module.exports = mapCacheGet;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_mapCacheHas.js":
-/*!*********************************************!*\
-  !*** ./node_modules/lodash/_mapCacheHas.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var getMapData = __webpack_require__(/*! ./_getMapData */ "./node_modules/lodash/_getMapData.js");
-
-/**
- * Checks if a map value for `key` exists.
- *
- * @private
- * @name has
- * @memberOf MapCache
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
-function mapCacheHas(key) {
-  return getMapData(this, key).has(key);
-}
-
-module.exports = mapCacheHas;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_mapCacheSet.js":
-/*!*********************************************!*\
-  !*** ./node_modules/lodash/_mapCacheSet.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var getMapData = __webpack_require__(/*! ./_getMapData */ "./node_modules/lodash/_getMapData.js");
-
-/**
- * Sets the map `key` to `value`.
- *
- * @private
- * @name set
- * @memberOf MapCache
- * @param {string} key The key of the value to set.
- * @param {*} value The value to set.
- * @returns {Object} Returns the map cache instance.
- */
-function mapCacheSet(key, value) {
-  var data = getMapData(this, key),
-      size = data.size;
-
-  data.set(key, value);
-  this.size += data.size == size ? 0 : 1;
-  return this;
-}
-
-module.exports = mapCacheSet;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_mapToArray.js":
-/*!********************************************!*\
-  !*** ./node_modules/lodash/_mapToArray.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Converts `map` to its key-value pairs.
- *
- * @private
- * @param {Object} map The map to convert.
- * @returns {Array} Returns the key-value pairs.
- */
-function mapToArray(map) {
-  var index = -1,
-      result = Array(map.size);
-
-  map.forEach(function(value, key) {
-    result[++index] = [key, value];
-  });
-  return result;
-}
-
-module.exports = mapToArray;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_matchesStrictComparable.js":
-/*!*********************************************************!*\
-  !*** ./node_modules/lodash/_matchesStrictComparable.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * A specialized version of `matchesProperty` for source values suitable
- * for strict equality comparisons, i.e. `===`.
- *
- * @private
- * @param {string} key The key of the property to get.
- * @param {*} srcValue The value to match.
- * @returns {Function} Returns the new spec function.
- */
-function matchesStrictComparable(key, srcValue) {
-  return function(object) {
-    if (object == null) {
-      return false;
-    }
-    return object[key] === srcValue &&
-      (srcValue !== undefined || (key in Object(object)));
-  };
-}
-
-module.exports = matchesStrictComparable;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_memoizeCapped.js":
-/*!***********************************************!*\
-  !*** ./node_modules/lodash/_memoizeCapped.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var memoize = __webpack_require__(/*! ./memoize */ "./node_modules/lodash/memoize.js");
-
-/** Used as the maximum memoize cache size. */
-var MAX_MEMOIZE_SIZE = 500;
-
-/**
- * A specialized version of `_.memoize` which clears the memoized function's
- * cache when it exceeds `MAX_MEMOIZE_SIZE`.
- *
- * @private
- * @param {Function} func The function to have its output memoized.
- * @returns {Function} Returns the new memoized function.
- */
-function memoizeCapped(func) {
-  var result = memoize(func, function(key) {
-    if (cache.size === MAX_MEMOIZE_SIZE) {
-      cache.clear();
-    }
-    return key;
-  });
-
-  var cache = result.cache;
-  return result;
-}
-
-module.exports = memoizeCapped;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_nativeCreate.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/_nativeCreate.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var getNative = __webpack_require__(/*! ./_getNative */ "./node_modules/lodash/_getNative.js");
-
-/* Built-in method references that are verified to be native. */
-var nativeCreate = getNative(Object, 'create');
-
-module.exports = nativeCreate;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_nativeKeys.js":
-/*!********************************************!*\
-  !*** ./node_modules/lodash/_nativeKeys.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var overArg = __webpack_require__(/*! ./_overArg */ "./node_modules/lodash/_overArg.js");
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeKeys = overArg(Object.keys, Object);
-
-module.exports = nativeKeys;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_nativeKeysIn.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/_nativeKeysIn.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * This function is like
- * [`Object.keys`](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
- * except that it includes inherited enumerable properties.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names.
- */
-function nativeKeysIn(object) {
-  var result = [];
-  if (object != null) {
-    for (var key in Object(object)) {
-      result.push(key);
-    }
-  }
-  return result;
-}
-
-module.exports = nativeKeysIn;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_nodeUtil.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/_nodeUtil.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(module) {var freeGlobal = __webpack_require__(/*! ./_freeGlobal */ "./node_modules/lodash/_freeGlobal.js");
-
-/** Detect free variable `exports`. */
-var freeExports =  true && exports && !exports.nodeType && exports;
-
-/** Detect free variable `module`. */
-var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
-
-/** Detect the popular CommonJS extension `module.exports`. */
-var moduleExports = freeModule && freeModule.exports === freeExports;
-
-/** Detect free variable `process` from Node.js. */
-var freeProcess = moduleExports && freeGlobal.process;
-
-/** Used to access faster Node.js helpers. */
-var nodeUtil = (function() {
-  try {
-    // Use `util.types` for Node.js 10+.
-    var types = freeModule && freeModule.require && freeModule.require('util').types;
-
-    if (types) {
-      return types;
-    }
-
-    // Legacy `process.binding('util')` for Node.js < 10.
-    return freeProcess && freeProcess.binding && freeProcess.binding('util');
-  } catch (e) {}
-}());
-
-module.exports = nodeUtil;
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_objectToString.js":
-/*!************************************************!*\
-  !*** ./node_modules/lodash/_objectToString.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/**
- * Used to resolve the
- * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
- * of values.
- */
-var nativeObjectToString = objectProto.toString;
-
-/**
- * Converts `value` to a string using `Object.prototype.toString`.
- *
- * @private
- * @param {*} value The value to convert.
- * @returns {string} Returns the converted string.
- */
-function objectToString(value) {
-  return nativeObjectToString.call(value);
-}
-
-module.exports = objectToString;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_overArg.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/_overArg.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Creates a unary function that invokes `func` with its argument transformed.
- *
- * @private
- * @param {Function} func The function to wrap.
- * @param {Function} transform The argument transform.
- * @returns {Function} Returns the new function.
- */
-function overArg(func, transform) {
-  return function(arg) {
-    return func(transform(arg));
-  };
-}
-
-module.exports = overArg;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_root.js":
-/*!**************************************!*\
-  !*** ./node_modules/lodash/_root.js ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var freeGlobal = __webpack_require__(/*! ./_freeGlobal */ "./node_modules/lodash/_freeGlobal.js");
-
-/** Detect free variable `self`. */
-var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
-
-/** Used as a reference to the global object. */
-var root = freeGlobal || freeSelf || Function('return this')();
-
-module.exports = root;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_setCacheAdd.js":
-/*!*********************************************!*\
-  !*** ./node_modules/lodash/_setCacheAdd.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/** Used to stand-in for `undefined` hash values. */
-var HASH_UNDEFINED = '__lodash_hash_undefined__';
-
-/**
- * Adds `value` to the array cache.
- *
- * @private
- * @name add
- * @memberOf SetCache
- * @alias push
- * @param {*} value The value to cache.
- * @returns {Object} Returns the cache instance.
- */
-function setCacheAdd(value) {
-  this.__data__.set(value, HASH_UNDEFINED);
-  return this;
-}
-
-module.exports = setCacheAdd;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_setCacheHas.js":
-/*!*********************************************!*\
-  !*** ./node_modules/lodash/_setCacheHas.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Checks if `value` is in the array cache.
- *
- * @private
- * @name has
- * @memberOf SetCache
- * @param {*} value The value to search for.
- * @returns {number} Returns `true` if `value` is found, else `false`.
- */
-function setCacheHas(value) {
-  return this.__data__.has(value);
-}
-
-module.exports = setCacheHas;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_setToArray.js":
-/*!********************************************!*\
-  !*** ./node_modules/lodash/_setToArray.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Converts `set` to an array of its values.
- *
- * @private
- * @param {Object} set The set to convert.
- * @returns {Array} Returns the values.
- */
-function setToArray(set) {
-  var index = -1,
-      result = Array(set.size);
-
-  set.forEach(function(value) {
-    result[++index] = value;
-  });
-  return result;
-}
-
-module.exports = setToArray;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_stackClear.js":
-/*!********************************************!*\
-  !*** ./node_modules/lodash/_stackClear.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var ListCache = __webpack_require__(/*! ./_ListCache */ "./node_modules/lodash/_ListCache.js");
-
-/**
- * Removes all key-value entries from the stack.
- *
- * @private
- * @name clear
- * @memberOf Stack
- */
-function stackClear() {
-  this.__data__ = new ListCache;
-  this.size = 0;
-}
-
-module.exports = stackClear;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_stackDelete.js":
-/*!*********************************************!*\
-  !*** ./node_modules/lodash/_stackDelete.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Removes `key` and its value from the stack.
- *
- * @private
- * @name delete
- * @memberOf Stack
- * @param {string} key The key of the value to remove.
- * @returns {boolean} Returns `true` if the entry was removed, else `false`.
- */
-function stackDelete(key) {
-  var data = this.__data__,
-      result = data['delete'](key);
-
-  this.size = data.size;
-  return result;
-}
-
-module.exports = stackDelete;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_stackGet.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/_stackGet.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Gets the stack value for `key`.
- *
- * @private
- * @name get
- * @memberOf Stack
- * @param {string} key The key of the value to get.
- * @returns {*} Returns the entry value.
- */
-function stackGet(key) {
-  return this.__data__.get(key);
-}
-
-module.exports = stackGet;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_stackHas.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/_stackHas.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Checks if a stack value for `key` exists.
- *
- * @private
- * @name has
- * @memberOf Stack
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
-function stackHas(key) {
-  return this.__data__.has(key);
-}
-
-module.exports = stackHas;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_stackSet.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/_stackSet.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var ListCache = __webpack_require__(/*! ./_ListCache */ "./node_modules/lodash/_ListCache.js"),
-    Map = __webpack_require__(/*! ./_Map */ "./node_modules/lodash/_Map.js"),
-    MapCache = __webpack_require__(/*! ./_MapCache */ "./node_modules/lodash/_MapCache.js");
-
-/** Used as the size to enable large array optimizations. */
-var LARGE_ARRAY_SIZE = 200;
-
-/**
- * Sets the stack `key` to `value`.
- *
- * @private
- * @name set
- * @memberOf Stack
- * @param {string} key The key of the value to set.
- * @param {*} value The value to set.
- * @returns {Object} Returns the stack cache instance.
- */
-function stackSet(key, value) {
-  var data = this.__data__;
-  if (data instanceof ListCache) {
-    var pairs = data.__data__;
-    if (!Map || (pairs.length < LARGE_ARRAY_SIZE - 1)) {
-      pairs.push([key, value]);
-      this.size = ++data.size;
-      return this;
-    }
-    data = this.__data__ = new MapCache(pairs);
-  }
-  data.set(key, value);
-  this.size = data.size;
-  return this;
-}
-
-module.exports = stackSet;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_stringToArray.js":
-/*!***********************************************!*\
-  !*** ./node_modules/lodash/_stringToArray.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var asciiToArray = __webpack_require__(/*! ./_asciiToArray */ "./node_modules/lodash/_asciiToArray.js"),
-    hasUnicode = __webpack_require__(/*! ./_hasUnicode */ "./node_modules/lodash/_hasUnicode.js"),
-    unicodeToArray = __webpack_require__(/*! ./_unicodeToArray */ "./node_modules/lodash/_unicodeToArray.js");
-
-/**
- * Converts `string` to an array.
- *
- * @private
- * @param {string} string The string to convert.
- * @returns {Array} Returns the converted array.
- */
-function stringToArray(string) {
-  return hasUnicode(string)
-    ? unicodeToArray(string)
-    : asciiToArray(string);
-}
-
-module.exports = stringToArray;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_stringToPath.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/_stringToPath.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var memoizeCapped = __webpack_require__(/*! ./_memoizeCapped */ "./node_modules/lodash/_memoizeCapped.js");
-
-/** Used to match property names within property paths. */
-var rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
-
-/** Used to match backslashes in property paths. */
-var reEscapeChar = /\\(\\)?/g;
-
-/**
- * Converts `string` to a property path array.
- *
- * @private
- * @param {string} string The string to convert.
- * @returns {Array} Returns the property path array.
- */
-var stringToPath = memoizeCapped(function(string) {
-  var result = [];
-  if (string.charCodeAt(0) === 46 /* . */) {
-    result.push('');
-  }
-  string.replace(rePropName, function(match, number, quote, subString) {
-    result.push(quote ? subString.replace(reEscapeChar, '$1') : (number || match));
-  });
-  return result;
-});
-
-module.exports = stringToPath;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_toKey.js":
-/*!***************************************!*\
-  !*** ./node_modules/lodash/_toKey.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var isSymbol = __webpack_require__(/*! ./isSymbol */ "./node_modules/lodash/isSymbol.js");
-
-/** Used as references for various `Number` constants. */
-var INFINITY = 1 / 0;
-
-/**
- * Converts `value` to a string key if it's not a string or symbol.
- *
- * @private
- * @param {*} value The value to inspect.
- * @returns {string|symbol} Returns the key.
- */
-function toKey(value) {
-  if (typeof value == 'string' || isSymbol(value)) {
-    return value;
-  }
-  var result = (value + '');
-  return (result == '0' && (1 / value) == -INFINITY) ? '-0' : result;
-}
-
-module.exports = toKey;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_toSource.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/_toSource.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/** Used for built-in method references. */
-var funcProto = Function.prototype;
-
-/** Used to resolve the decompiled source of functions. */
-var funcToString = funcProto.toString;
-
-/**
- * Converts `func` to its source code.
- *
- * @private
- * @param {Function} func The function to convert.
- * @returns {string} Returns the source code.
- */
-function toSource(func) {
-  if (func != null) {
-    try {
-      return funcToString.call(func);
-    } catch (e) {}
-    try {
-      return (func + '');
-    } catch (e) {}
-  }
-  return '';
-}
-
-module.exports = toSource;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_unicodeToArray.js":
-/*!************************************************!*\
-  !*** ./node_modules/lodash/_unicodeToArray.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/** Used to compose unicode character classes. */
-var rsAstralRange = '\\ud800-\\udfff',
-    rsComboMarksRange = '\\u0300-\\u036f',
-    reComboHalfMarksRange = '\\ufe20-\\ufe2f',
-    rsComboSymbolsRange = '\\u20d0-\\u20ff',
-    rsComboRange = rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange,
-    rsVarRange = '\\ufe0e\\ufe0f';
-
-/** Used to compose unicode capture groups. */
-var rsAstral = '[' + rsAstralRange + ']',
-    rsCombo = '[' + rsComboRange + ']',
-    rsFitz = '\\ud83c[\\udffb-\\udfff]',
-    rsModifier = '(?:' + rsCombo + '|' + rsFitz + ')',
-    rsNonAstral = '[^' + rsAstralRange + ']',
-    rsRegional = '(?:\\ud83c[\\udde6-\\uddff]){2}',
-    rsSurrPair = '[\\ud800-\\udbff][\\udc00-\\udfff]',
-    rsZWJ = '\\u200d';
-
-/** Used to compose unicode regexes. */
-var reOptMod = rsModifier + '?',
-    rsOptVar = '[' + rsVarRange + ']?',
-    rsOptJoin = '(?:' + rsZWJ + '(?:' + [rsNonAstral, rsRegional, rsSurrPair].join('|') + ')' + rsOptVar + reOptMod + ')*',
-    rsSeq = rsOptVar + reOptMod + rsOptJoin,
-    rsSymbol = '(?:' + [rsNonAstral + rsCombo + '?', rsCombo, rsRegional, rsSurrPair, rsAstral].join('|') + ')';
-
-/** Used to match [string symbols](https://mathiasbynens.be/notes/javascript-unicode). */
-var reUnicode = RegExp(rsFitz + '(?=' + rsFitz + ')|' + rsSymbol + rsSeq, 'g');
-
-/**
- * Converts a Unicode `string` to an array.
- *
- * @private
- * @param {string} string The string to convert.
- * @returns {Array} Returns the converted array.
- */
-function unicodeToArray(string) {
-  return string.match(reUnicode) || [];
-}
-
-module.exports = unicodeToArray;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_unicodeWords.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/_unicodeWords.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/** Used to compose unicode character classes. */
-var rsAstralRange = '\\ud800-\\udfff',
-    rsComboMarksRange = '\\u0300-\\u036f',
-    reComboHalfMarksRange = '\\ufe20-\\ufe2f',
-    rsComboSymbolsRange = '\\u20d0-\\u20ff',
-    rsComboRange = rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange,
-    rsDingbatRange = '\\u2700-\\u27bf',
-    rsLowerRange = 'a-z\\xdf-\\xf6\\xf8-\\xff',
-    rsMathOpRange = '\\xac\\xb1\\xd7\\xf7',
-    rsNonCharRange = '\\x00-\\x2f\\x3a-\\x40\\x5b-\\x60\\x7b-\\xbf',
-    rsPunctuationRange = '\\u2000-\\u206f',
-    rsSpaceRange = ' \\t\\x0b\\f\\xa0\\ufeff\\n\\r\\u2028\\u2029\\u1680\\u180e\\u2000\\u2001\\u2002\\u2003\\u2004\\u2005\\u2006\\u2007\\u2008\\u2009\\u200a\\u202f\\u205f\\u3000',
-    rsUpperRange = 'A-Z\\xc0-\\xd6\\xd8-\\xde',
-    rsVarRange = '\\ufe0e\\ufe0f',
-    rsBreakRange = rsMathOpRange + rsNonCharRange + rsPunctuationRange + rsSpaceRange;
-
-/** Used to compose unicode capture groups. */
-var rsApos = "['\u2019]",
-    rsBreak = '[' + rsBreakRange + ']',
-    rsCombo = '[' + rsComboRange + ']',
-    rsDigits = '\\d+',
-    rsDingbat = '[' + rsDingbatRange + ']',
-    rsLower = '[' + rsLowerRange + ']',
-    rsMisc = '[^' + rsAstralRange + rsBreakRange + rsDigits + rsDingbatRange + rsLowerRange + rsUpperRange + ']',
-    rsFitz = '\\ud83c[\\udffb-\\udfff]',
-    rsModifier = '(?:' + rsCombo + '|' + rsFitz + ')',
-    rsNonAstral = '[^' + rsAstralRange + ']',
-    rsRegional = '(?:\\ud83c[\\udde6-\\uddff]){2}',
-    rsSurrPair = '[\\ud800-\\udbff][\\udc00-\\udfff]',
-    rsUpper = '[' + rsUpperRange + ']',
-    rsZWJ = '\\u200d';
-
-/** Used to compose unicode regexes. */
-var rsMiscLower = '(?:' + rsLower + '|' + rsMisc + ')',
-    rsMiscUpper = '(?:' + rsUpper + '|' + rsMisc + ')',
-    rsOptContrLower = '(?:' + rsApos + '(?:d|ll|m|re|s|t|ve))?',
-    rsOptContrUpper = '(?:' + rsApos + '(?:D|LL|M|RE|S|T|VE))?',
-    reOptMod = rsModifier + '?',
-    rsOptVar = '[' + rsVarRange + ']?',
-    rsOptJoin = '(?:' + rsZWJ + '(?:' + [rsNonAstral, rsRegional, rsSurrPair].join('|') + ')' + rsOptVar + reOptMod + ')*',
-    rsOrdLower = '\\d*(?:1st|2nd|3rd|(?![123])\\dth)(?=\\b|[A-Z_])',
-    rsOrdUpper = '\\d*(?:1ST|2ND|3RD|(?![123])\\dTH)(?=\\b|[a-z_])',
-    rsSeq = rsOptVar + reOptMod + rsOptJoin,
-    rsEmoji = '(?:' + [rsDingbat, rsRegional, rsSurrPair].join('|') + ')' + rsSeq;
-
-/** Used to match complex or compound words. */
-var reUnicodeWord = RegExp([
-  rsUpper + '?' + rsLower + '+' + rsOptContrLower + '(?=' + [rsBreak, rsUpper, '$'].join('|') + ')',
-  rsMiscUpper + '+' + rsOptContrUpper + '(?=' + [rsBreak, rsUpper + rsMiscLower, '$'].join('|') + ')',
-  rsUpper + '?' + rsMiscLower + '+' + rsOptContrLower,
-  rsUpper + '+' + rsOptContrUpper,
-  rsOrdUpper,
-  rsOrdLower,
-  rsDigits,
-  rsEmoji
-].join('|'), 'g');
-
-/**
- * Splits a Unicode `string` into an array of its words.
- *
- * @private
- * @param {string} The string to inspect.
- * @returns {Array} Returns the words of `string`.
- */
-function unicodeWords(string) {
-  return string.match(reUnicodeWord) || [];
-}
-
-module.exports = unicodeWords;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/camelCase.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/camelCase.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var capitalize = __webpack_require__(/*! ./capitalize */ "./node_modules/lodash/capitalize.js"),
-    createCompounder = __webpack_require__(/*! ./_createCompounder */ "./node_modules/lodash/_createCompounder.js");
-
-/**
- * Converts `string` to [camel case](https://en.wikipedia.org/wiki/CamelCase).
- *
- * @static
- * @memberOf _
- * @since 3.0.0
- * @category String
- * @param {string} [string=''] The string to convert.
- * @returns {string} Returns the camel cased string.
- * @example
- *
- * _.camelCase('Foo Bar');
- * // => 'fooBar'
- *
- * _.camelCase('--foo-bar--');
- * // => 'fooBar'
- *
- * _.camelCase('__FOO_BAR__');
- * // => 'fooBar'
- */
-var camelCase = createCompounder(function(result, word, index) {
-  word = word.toLowerCase();
-  return result + (index ? capitalize(word) : word);
-});
-
-module.exports = camelCase;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/capitalize.js":
-/*!*******************************************!*\
-  !*** ./node_modules/lodash/capitalize.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var toString = __webpack_require__(/*! ./toString */ "./node_modules/lodash/toString.js"),
-    upperFirst = __webpack_require__(/*! ./upperFirst */ "./node_modules/lodash/upperFirst.js");
-
-/**
- * Converts the first character of `string` to upper case and the remaining
- * to lower case.
- *
- * @static
- * @memberOf _
- * @since 3.0.0
- * @category String
- * @param {string} [string=''] The string to capitalize.
- * @returns {string} Returns the capitalized string.
- * @example
- *
- * _.capitalize('FRED');
- * // => 'Fred'
- */
-function capitalize(string) {
-  return upperFirst(toString(string).toLowerCase());
-}
-
-module.exports = capitalize;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/clone.js":
-/*!**************************************!*\
-  !*** ./node_modules/lodash/clone.js ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseClone = __webpack_require__(/*! ./_baseClone */ "./node_modules/lodash/_baseClone.js");
-
-/** Used to compose bitmasks for cloning. */
-var CLONE_SYMBOLS_FLAG = 4;
-
-/**
- * Creates a shallow clone of `value`.
- *
- * **Note:** This method is loosely based on the
- * [structured clone algorithm](https://mdn.io/Structured_clone_algorithm)
- * and supports cloning arrays, array buffers, booleans, date objects, maps,
- * numbers, `Object` objects, regexes, sets, strings, symbols, and typed
- * arrays. The own enumerable properties of `arguments` objects are cloned
- * as plain objects. An empty object is returned for uncloneable values such
- * as error objects, functions, DOM nodes, and WeakMaps.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to clone.
- * @returns {*} Returns the cloned value.
- * @see _.cloneDeep
- * @example
- *
- * var objects = [{ 'a': 1 }, { 'b': 2 }];
- *
- * var shallow = _.clone(objects);
- * console.log(shallow[0] === objects[0]);
- * // => true
- */
-function clone(value) {
-  return baseClone(value, CLONE_SYMBOLS_FLAG);
-}
-
-module.exports = clone;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/cloneDeep.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/cloneDeep.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseClone = __webpack_require__(/*! ./_baseClone */ "./node_modules/lodash/_baseClone.js");
-
-/** Used to compose bitmasks for cloning. */
-var CLONE_DEEP_FLAG = 1,
-    CLONE_SYMBOLS_FLAG = 4;
-
-/**
- * This method is like `_.clone` except that it recursively clones `value`.
- *
- * @static
- * @memberOf _
- * @since 1.0.0
- * @category Lang
- * @param {*} value The value to recursively clone.
- * @returns {*} Returns the deep cloned value.
- * @see _.clone
- * @example
- *
- * var objects = [{ 'a': 1 }, { 'b': 2 }];
- *
- * var deep = _.cloneDeep(objects);
- * console.log(deep[0] === objects[0]);
- * // => false
- */
-function cloneDeep(value) {
-  return baseClone(value, CLONE_DEEP_FLAG | CLONE_SYMBOLS_FLAG);
-}
-
-module.exports = cloneDeep;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/cloneDeepWith.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/cloneDeepWith.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseClone = __webpack_require__(/*! ./_baseClone */ "./node_modules/lodash/_baseClone.js");
-
-/** Used to compose bitmasks for cloning. */
-var CLONE_DEEP_FLAG = 1,
-    CLONE_SYMBOLS_FLAG = 4;
-
-/**
- * This method is like `_.cloneWith` except that it recursively clones `value`.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to recursively clone.
- * @param {Function} [customizer] The function to customize cloning.
- * @returns {*} Returns the deep cloned value.
- * @see _.cloneWith
- * @example
- *
- * function customizer(value) {
- *   if (_.isElement(value)) {
- *     return value.cloneNode(true);
- *   }
- * }
- *
- * var el = _.cloneDeepWith(document.body, customizer);
- *
- * console.log(el === document.body);
- * // => false
- * console.log(el.nodeName);
- * // => 'BODY'
- * console.log(el.childNodes.length);
- * // => 20
- */
-function cloneDeepWith(value, customizer) {
-  customizer = typeof customizer == 'function' ? customizer : undefined;
-  return baseClone(value, CLONE_DEEP_FLAG | CLONE_SYMBOLS_FLAG, customizer);
-}
-
-module.exports = cloneDeepWith;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/deburr.js":
-/*!***************************************!*\
-  !*** ./node_modules/lodash/deburr.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var deburrLetter = __webpack_require__(/*! ./_deburrLetter */ "./node_modules/lodash/_deburrLetter.js"),
-    toString = __webpack_require__(/*! ./toString */ "./node_modules/lodash/toString.js");
-
-/** Used to match Latin Unicode letters (excluding mathematical operators). */
-var reLatin = /[\xc0-\xd6\xd8-\xf6\xf8-\xff\u0100-\u017f]/g;
-
-/** Used to compose unicode character classes. */
-var rsComboMarksRange = '\\u0300-\\u036f',
-    reComboHalfMarksRange = '\\ufe20-\\ufe2f',
-    rsComboSymbolsRange = '\\u20d0-\\u20ff',
-    rsComboRange = rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange;
-
-/** Used to compose unicode capture groups. */
-var rsCombo = '[' + rsComboRange + ']';
-
-/**
- * Used to match [combining diacritical marks](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks) and
- * [combining diacritical marks for symbols](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks_for_Symbols).
- */
-var reComboMark = RegExp(rsCombo, 'g');
-
-/**
- * Deburrs `string` by converting
- * [Latin-1 Supplement](https://en.wikipedia.org/wiki/Latin-1_Supplement_(Unicode_block)#Character_table)
- * and [Latin Extended-A](https://en.wikipedia.org/wiki/Latin_Extended-A)
- * letters to basic Latin letters and removing
- * [combining diacritical marks](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks).
- *
- * @static
- * @memberOf _
- * @since 3.0.0
- * @category String
- * @param {string} [string=''] The string to deburr.
- * @returns {string} Returns the deburred string.
- * @example
- *
- * _.deburr('déjà vu');
- * // => 'deja vu'
- */
-function deburr(string) {
-  string = toString(string);
-  return string && string.replace(reLatin, deburrLetter).replace(reComboMark, '');
-}
-
-module.exports = deburr;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/eq.js":
-/*!***********************************!*\
-  !*** ./node_modules/lodash/eq.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Performs a
- * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
- * comparison between two values to determine if they are equivalent.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to compare.
- * @param {*} other The other value to compare.
- * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
- * @example
- *
- * var object = { 'a': 1 };
- * var other = { 'a': 1 };
- *
- * _.eq(object, object);
- * // => true
- *
- * _.eq(object, other);
- * // => false
- *
- * _.eq('a', 'a');
- * // => true
- *
- * _.eq('a', Object('a'));
- * // => false
- *
- * _.eq(NaN, NaN);
- * // => true
- */
-function eq(value, other) {
-  return value === other || (value !== value && other !== other);
-}
-
-module.exports = eq;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/get.js":
-/*!************************************!*\
-  !*** ./node_modules/lodash/get.js ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseGet = __webpack_require__(/*! ./_baseGet */ "./node_modules/lodash/_baseGet.js");
-
-/**
- * Gets the value at `path` of `object`. If the resolved value is
- * `undefined`, the `defaultValue` is returned in its place.
- *
- * @static
- * @memberOf _
- * @since 3.7.0
- * @category Object
- * @param {Object} object The object to query.
- * @param {Array|string} path The path of the property to get.
- * @param {*} [defaultValue] The value returned for `undefined` resolved values.
- * @returns {*} Returns the resolved value.
- * @example
- *
- * var object = { 'a': [{ 'b': { 'c': 3 } }] };
- *
- * _.get(object, 'a[0].b.c');
- * // => 3
- *
- * _.get(object, ['a', '0', 'b', 'c']);
- * // => 3
- *
- * _.get(object, 'a.b.c', 'default');
- * // => 'default'
- */
-function get(object, path, defaultValue) {
-  var result = object == null ? undefined : baseGet(object, path);
-  return result === undefined ? defaultValue : result;
-}
-
-module.exports = get;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/has.js":
-/*!************************************!*\
-  !*** ./node_modules/lodash/has.js ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseHas = __webpack_require__(/*! ./_baseHas */ "./node_modules/lodash/_baseHas.js"),
-    hasPath = __webpack_require__(/*! ./_hasPath */ "./node_modules/lodash/_hasPath.js");
-
-/**
- * Checks if `path` is a direct property of `object`.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Object
- * @param {Object} object The object to query.
- * @param {Array|string} path The path to check.
- * @returns {boolean} Returns `true` if `path` exists, else `false`.
- * @example
- *
- * var object = { 'a': { 'b': 2 } };
- * var other = _.create({ 'a': _.create({ 'b': 2 }) });
- *
- * _.has(object, 'a');
- * // => true
- *
- * _.has(object, 'a.b');
- * // => true
- *
- * _.has(object, ['a', 'b']);
- * // => true
- *
- * _.has(other, 'a');
- * // => false
- */
-function has(object, path) {
-  return object != null && hasPath(object, path, baseHas);
-}
-
-module.exports = has;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/hasIn.js":
-/*!**************************************!*\
-  !*** ./node_modules/lodash/hasIn.js ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseHasIn = __webpack_require__(/*! ./_baseHasIn */ "./node_modules/lodash/_baseHasIn.js"),
-    hasPath = __webpack_require__(/*! ./_hasPath */ "./node_modules/lodash/_hasPath.js");
-
-/**
- * Checks if `path` is a direct or inherited property of `object`.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Object
- * @param {Object} object The object to query.
- * @param {Array|string} path The path to check.
- * @returns {boolean} Returns `true` if `path` exists, else `false`.
- * @example
- *
- * var object = _.create({ 'a': _.create({ 'b': 2 }) });
- *
- * _.hasIn(object, 'a');
- * // => true
- *
- * _.hasIn(object, 'a.b');
- * // => true
- *
- * _.hasIn(object, ['a', 'b']);
- * // => true
- *
- * _.hasIn(object, 'b');
- * // => false
- */
-function hasIn(object, path) {
-  return object != null && hasPath(object, path, baseHasIn);
-}
-
-module.exports = hasIn;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/identity.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/identity.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * This method returns the first argument it receives.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Util
- * @param {*} value Any value.
- * @returns {*} Returns `value`.
- * @example
- *
- * var object = { 'a': 1 };
- *
- * console.log(_.identity(object) === object);
- * // => true
- */
-function identity(value) {
-  return value;
-}
-
-module.exports = identity;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/isArguments.js":
-/*!********************************************!*\
-  !*** ./node_modules/lodash/isArguments.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseIsArguments = __webpack_require__(/*! ./_baseIsArguments */ "./node_modules/lodash/_baseIsArguments.js"),
-    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/** Built-in value references. */
-var propertyIsEnumerable = objectProto.propertyIsEnumerable;
-
-/**
- * Checks if `value` is likely an `arguments` object.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an `arguments` object,
- *  else `false`.
- * @example
- *
- * _.isArguments(function() { return arguments; }());
- * // => true
- *
- * _.isArguments([1, 2, 3]);
- * // => false
- */
-var isArguments = baseIsArguments(function() { return arguments; }()) ? baseIsArguments : function(value) {
-  return isObjectLike(value) && hasOwnProperty.call(value, 'callee') &&
-    !propertyIsEnumerable.call(value, 'callee');
-};
-
-module.exports = isArguments;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/isArray.js":
-/*!****************************************!*\
-  !*** ./node_modules/lodash/isArray.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Checks if `value` is classified as an `Array` object.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an array, else `false`.
- * @example
- *
- * _.isArray([1, 2, 3]);
- * // => true
- *
- * _.isArray(document.body.children);
- * // => false
- *
- * _.isArray('abc');
- * // => false
- *
- * _.isArray(_.noop);
- * // => false
- */
-var isArray = Array.isArray;
-
-module.exports = isArray;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/isArrayLike.js":
-/*!********************************************!*\
-  !*** ./node_modules/lodash/isArrayLike.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var isFunction = __webpack_require__(/*! ./isFunction */ "./node_modules/lodash/isFunction.js"),
-    isLength = __webpack_require__(/*! ./isLength */ "./node_modules/lodash/isLength.js");
-
-/**
- * Checks if `value` is array-like. A value is considered array-like if it's
- * not a function and has a `value.length` that's an integer greater than or
- * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
- * @example
- *
- * _.isArrayLike([1, 2, 3]);
- * // => true
- *
- * _.isArrayLike(document.body.children);
- * // => true
- *
- * _.isArrayLike('abc');
- * // => true
- *
- * _.isArrayLike(_.noop);
- * // => false
- */
-function isArrayLike(value) {
-  return value != null && isLength(value.length) && !isFunction(value);
-}
-
-module.exports = isArrayLike;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/isBuffer.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/isBuffer.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(/*! ./_root */ "./node_modules/lodash/_root.js"),
-    stubFalse = __webpack_require__(/*! ./stubFalse */ "./node_modules/lodash/stubFalse.js");
-
-/** Detect free variable `exports`. */
-var freeExports =  true && exports && !exports.nodeType && exports;
-
-/** Detect free variable `module`. */
-var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
-
-/** Detect the popular CommonJS extension `module.exports`. */
-var moduleExports = freeModule && freeModule.exports === freeExports;
-
-/** Built-in value references. */
-var Buffer = moduleExports ? root.Buffer : undefined;
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined;
-
-/**
- * Checks if `value` is a buffer.
- *
- * @static
- * @memberOf _
- * @since 4.3.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a buffer, else `false`.
- * @example
- *
- * _.isBuffer(new Buffer(2));
- * // => true
- *
- * _.isBuffer(new Uint8Array(2));
- * // => false
- */
-var isBuffer = nativeIsBuffer || stubFalse;
-
-module.exports = isBuffer;
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
-
-/***/ }),
-
-/***/ "./node_modules/lodash/isFunction.js":
-/*!*******************************************!*\
-  !*** ./node_modules/lodash/isFunction.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
-    isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js");
-
-/** `Object#toString` result references. */
-var asyncTag = '[object AsyncFunction]',
-    funcTag = '[object Function]',
-    genTag = '[object GeneratorFunction]',
-    proxyTag = '[object Proxy]';
-
-/**
- * Checks if `value` is classified as a `Function` object.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a function, else `false`.
- * @example
- *
- * _.isFunction(_);
- * // => true
- *
- * _.isFunction(/abc/);
- * // => false
- */
-function isFunction(value) {
-  if (!isObject(value)) {
-    return false;
-  }
-  // The use of `Object#toString` avoids issues with the `typeof` operator
-  // in Safari 9 which returns 'object' for typed arrays and other constructors.
-  var tag = baseGetTag(value);
-  return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
-}
-
-module.exports = isFunction;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/isLength.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/isLength.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/** Used as references for various `Number` constants. */
-var MAX_SAFE_INTEGER = 9007199254740991;
-
-/**
- * Checks if `value` is a valid array-like length.
- *
- * **Note:** This method is loosely based on
- * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
- * @example
- *
- * _.isLength(3);
- * // => true
- *
- * _.isLength(Number.MIN_VALUE);
- * // => false
- *
- * _.isLength(Infinity);
- * // => false
- *
- * _.isLength('3');
- * // => false
- */
-function isLength(value) {
-  return typeof value == 'number' &&
-    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
-}
-
-module.exports = isLength;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/isMap.js":
-/*!**************************************!*\
-  !*** ./node_modules/lodash/isMap.js ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseIsMap = __webpack_require__(/*! ./_baseIsMap */ "./node_modules/lodash/_baseIsMap.js"),
-    baseUnary = __webpack_require__(/*! ./_baseUnary */ "./node_modules/lodash/_baseUnary.js"),
-    nodeUtil = __webpack_require__(/*! ./_nodeUtil */ "./node_modules/lodash/_nodeUtil.js");
-
-/* Node.js helper references. */
-var nodeIsMap = nodeUtil && nodeUtil.isMap;
-
-/**
- * Checks if `value` is classified as a `Map` object.
- *
- * @static
- * @memberOf _
- * @since 4.3.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a map, else `false`.
- * @example
- *
- * _.isMap(new Map);
- * // => true
- *
- * _.isMap(new WeakMap);
- * // => false
- */
-var isMap = nodeIsMap ? baseUnary(nodeIsMap) : baseIsMap;
-
-module.exports = isMap;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/isObject.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/isObject.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Checks if `value` is the
- * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
- * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an object, else `false`.
- * @example
- *
- * _.isObject({});
- * // => true
- *
- * _.isObject([1, 2, 3]);
- * // => true
- *
- * _.isObject(_.noop);
- * // => true
- *
- * _.isObject(null);
- * // => false
- */
-function isObject(value) {
-  var type = typeof value;
-  return value != null && (type == 'object' || type == 'function');
-}
-
-module.exports = isObject;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/isObjectLike.js":
-/*!*********************************************!*\
-  !*** ./node_modules/lodash/isObjectLike.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Checks if `value` is object-like. A value is object-like if it's not `null`
- * and has a `typeof` result of "object".
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
- * @example
- *
- * _.isObjectLike({});
- * // => true
- *
- * _.isObjectLike([1, 2, 3]);
- * // => true
- *
- * _.isObjectLike(_.noop);
- * // => false
- *
- * _.isObjectLike(null);
- * // => false
- */
-function isObjectLike(value) {
-  return value != null && typeof value == 'object';
-}
-
-module.exports = isObjectLike;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/isSet.js":
-/*!**************************************!*\
-  !*** ./node_modules/lodash/isSet.js ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseIsSet = __webpack_require__(/*! ./_baseIsSet */ "./node_modules/lodash/_baseIsSet.js"),
-    baseUnary = __webpack_require__(/*! ./_baseUnary */ "./node_modules/lodash/_baseUnary.js"),
-    nodeUtil = __webpack_require__(/*! ./_nodeUtil */ "./node_modules/lodash/_nodeUtil.js");
-
-/* Node.js helper references. */
-var nodeIsSet = nodeUtil && nodeUtil.isSet;
-
-/**
- * Checks if `value` is classified as a `Set` object.
- *
- * @static
- * @memberOf _
- * @since 4.3.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a set, else `false`.
- * @example
- *
- * _.isSet(new Set);
- * // => true
- *
- * _.isSet(new WeakSet);
- * // => false
- */
-var isSet = nodeIsSet ? baseUnary(nodeIsSet) : baseIsSet;
-
-module.exports = isSet;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/isString.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/isString.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
-    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
-    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
-
-/** `Object#toString` result references. */
-var stringTag = '[object String]';
-
-/**
- * Checks if `value` is classified as a `String` primitive or object.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a string, else `false`.
- * @example
- *
- * _.isString('abc');
- * // => true
- *
- * _.isString(1);
- * // => false
- */
-function isString(value) {
-  return typeof value == 'string' ||
-    (!isArray(value) && isObjectLike(value) && baseGetTag(value) == stringTag);
-}
-
-module.exports = isString;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/isSymbol.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/isSymbol.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
-    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
-
-/** `Object#toString` result references. */
-var symbolTag = '[object Symbol]';
-
-/**
- * Checks if `value` is classified as a `Symbol` primitive or object.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
- * @example
- *
- * _.isSymbol(Symbol.iterator);
- * // => true
- *
- * _.isSymbol('abc');
- * // => false
- */
-function isSymbol(value) {
-  return typeof value == 'symbol' ||
-    (isObjectLike(value) && baseGetTag(value) == symbolTag);
-}
-
-module.exports = isSymbol;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/isTypedArray.js":
-/*!*********************************************!*\
-  !*** ./node_modules/lodash/isTypedArray.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseIsTypedArray = __webpack_require__(/*! ./_baseIsTypedArray */ "./node_modules/lodash/_baseIsTypedArray.js"),
-    baseUnary = __webpack_require__(/*! ./_baseUnary */ "./node_modules/lodash/_baseUnary.js"),
-    nodeUtil = __webpack_require__(/*! ./_nodeUtil */ "./node_modules/lodash/_nodeUtil.js");
-
-/* Node.js helper references. */
-var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
-
-/**
- * Checks if `value` is classified as a typed array.
- *
- * @static
- * @memberOf _
- * @since 3.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
- * @example
- *
- * _.isTypedArray(new Uint8Array);
- * // => true
- *
- * _.isTypedArray([]);
- * // => false
- */
-var isTypedArray = nodeIsTypedArray ? baseUnary(nodeIsTypedArray) : baseIsTypedArray;
-
-module.exports = isTypedArray;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/keys.js":
-/*!*************************************!*\
-  !*** ./node_modules/lodash/keys.js ***!
-  \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayLikeKeys = __webpack_require__(/*! ./_arrayLikeKeys */ "./node_modules/lodash/_arrayLikeKeys.js"),
-    baseKeys = __webpack_require__(/*! ./_baseKeys */ "./node_modules/lodash/_baseKeys.js"),
-    isArrayLike = __webpack_require__(/*! ./isArrayLike */ "./node_modules/lodash/isArrayLike.js");
-
-/**
- * Creates an array of the own enumerable property names of `object`.
- *
- * **Note:** Non-object values are coerced to objects. See the
- * [ES spec](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
- * for more details.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Object
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names.
- * @example
- *
- * function Foo() {
- *   this.a = 1;
- *   this.b = 2;
- * }
- *
- * Foo.prototype.c = 3;
- *
- * _.keys(new Foo);
- * // => ['a', 'b'] (iteration order is not guaranteed)
- *
- * _.keys('hi');
- * // => ['0', '1']
- */
-function keys(object) {
-  return isArrayLike(object) ? arrayLikeKeys(object) : baseKeys(object);
-}
-
-module.exports = keys;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/keysIn.js":
-/*!***************************************!*\
-  !*** ./node_modules/lodash/keysIn.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayLikeKeys = __webpack_require__(/*! ./_arrayLikeKeys */ "./node_modules/lodash/_arrayLikeKeys.js"),
-    baseKeysIn = __webpack_require__(/*! ./_baseKeysIn */ "./node_modules/lodash/_baseKeysIn.js"),
-    isArrayLike = __webpack_require__(/*! ./isArrayLike */ "./node_modules/lodash/isArrayLike.js");
-
-/**
- * Creates an array of the own and inherited enumerable property names of `object`.
- *
- * **Note:** Non-object values are coerced to objects.
- *
- * @static
- * @memberOf _
- * @since 3.0.0
- * @category Object
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names.
- * @example
- *
- * function Foo() {
- *   this.a = 1;
- *   this.b = 2;
- * }
- *
- * Foo.prototype.c = 3;
- *
- * _.keysIn(new Foo);
- * // => ['a', 'b', 'c'] (iteration order is not guaranteed)
- */
-function keysIn(object) {
-  return isArrayLike(object) ? arrayLikeKeys(object, true) : baseKeysIn(object);
-}
-
-module.exports = keysIn;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/mapKeys.js":
-/*!****************************************!*\
-  !*** ./node_modules/lodash/mapKeys.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseAssignValue = __webpack_require__(/*! ./_baseAssignValue */ "./node_modules/lodash/_baseAssignValue.js"),
-    baseForOwn = __webpack_require__(/*! ./_baseForOwn */ "./node_modules/lodash/_baseForOwn.js"),
-    baseIteratee = __webpack_require__(/*! ./_baseIteratee */ "./node_modules/lodash/_baseIteratee.js");
-
-/**
- * The opposite of `_.mapValues`; this method creates an object with the
- * same values as `object` and keys generated by running each own enumerable
- * string keyed property of `object` thru `iteratee`. The iteratee is invoked
- * with three arguments: (value, key, object).
- *
- * @static
- * @memberOf _
- * @since 3.8.0
- * @category Object
- * @param {Object} object The object to iterate over.
- * @param {Function} [iteratee=_.identity] The function invoked per iteration.
- * @returns {Object} Returns the new mapped object.
- * @see _.mapValues
- * @example
- *
- * _.mapKeys({ 'a': 1, 'b': 2 }, function(value, key) {
- *   return key + value;
- * });
- * // => { 'a1': 1, 'b2': 2 }
- */
-function mapKeys(object, iteratee) {
-  var result = {};
-  iteratee = baseIteratee(iteratee, 3);
-
-  baseForOwn(object, function(value, key, object) {
-    baseAssignValue(result, iteratee(value, key, object), value);
-  });
-  return result;
-}
-
-module.exports = mapKeys;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/mapValues.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/mapValues.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseAssignValue = __webpack_require__(/*! ./_baseAssignValue */ "./node_modules/lodash/_baseAssignValue.js"),
-    baseForOwn = __webpack_require__(/*! ./_baseForOwn */ "./node_modules/lodash/_baseForOwn.js"),
-    baseIteratee = __webpack_require__(/*! ./_baseIteratee */ "./node_modules/lodash/_baseIteratee.js");
-
-/**
- * Creates an object with the same keys as `object` and values generated
- * by running each own enumerable string keyed property of `object` thru
- * `iteratee`. The iteratee is invoked with three arguments:
- * (value, key, object).
- *
- * @static
- * @memberOf _
- * @since 2.4.0
- * @category Object
- * @param {Object} object The object to iterate over.
- * @param {Function} [iteratee=_.identity] The function invoked per iteration.
- * @returns {Object} Returns the new mapped object.
- * @see _.mapKeys
- * @example
- *
- * var users = {
- *   'fred':    { 'user': 'fred',    'age': 40 },
- *   'pebbles': { 'user': 'pebbles', 'age': 1 }
- * };
- *
- * _.mapValues(users, function(o) { return o.age; });
- * // => { 'fred': 40, 'pebbles': 1 } (iteration order is not guaranteed)
- *
- * // The `_.property` iteratee shorthand.
- * _.mapValues(users, 'age');
- * // => { 'fred': 40, 'pebbles': 1 } (iteration order is not guaranteed)
- */
-function mapValues(object, iteratee) {
-  var result = {};
-  iteratee = baseIteratee(iteratee, 3);
-
-  baseForOwn(object, function(value, key, object) {
-    baseAssignValue(result, key, iteratee(value, key, object));
-  });
-  return result;
-}
-
-module.exports = mapValues;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/memoize.js":
-/*!****************************************!*\
-  !*** ./node_modules/lodash/memoize.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var MapCache = __webpack_require__(/*! ./_MapCache */ "./node_modules/lodash/_MapCache.js");
-
-/** Error message constants. */
-var FUNC_ERROR_TEXT = 'Expected a function';
-
-/**
- * Creates a function that memoizes the result of `func`. If `resolver` is
- * provided, it determines the cache key for storing the result based on the
- * arguments provided to the memoized function. By default, the first argument
- * provided to the memoized function is used as the map cache key. The `func`
- * is invoked with the `this` binding of the memoized function.
- *
- * **Note:** The cache is exposed as the `cache` property on the memoized
- * function. Its creation may be customized by replacing the `_.memoize.Cache`
- * constructor with one whose instances implement the
- * [`Map`](http://ecma-international.org/ecma-262/7.0/#sec-properties-of-the-map-prototype-object)
- * method interface of `clear`, `delete`, `get`, `has`, and `set`.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Function
- * @param {Function} func The function to have its output memoized.
- * @param {Function} [resolver] The function to resolve the cache key.
- * @returns {Function} Returns the new memoized function.
- * @example
- *
- * var object = { 'a': 1, 'b': 2 };
- * var other = { 'c': 3, 'd': 4 };
- *
- * var values = _.memoize(_.values);
- * values(object);
- * // => [1, 2]
- *
- * values(other);
- * // => [3, 4]
- *
- * object.a = 2;
- * values(object);
- * // => [1, 2]
- *
- * // Modify the result cache.
- * values.cache.set(object, ['a', 'b']);
- * values(object);
- * // => ['a', 'b']
- *
- * // Replace `_.memoize.Cache`.
- * _.memoize.Cache = WeakMap;
- */
-function memoize(func, resolver) {
-  if (typeof func != 'function' || (resolver != null && typeof resolver != 'function')) {
-    throw new TypeError(FUNC_ERROR_TEXT);
-  }
-  var memoized = function() {
-    var args = arguments,
-        key = resolver ? resolver.apply(this, args) : args[0],
-        cache = memoized.cache;
-
-    if (cache.has(key)) {
-      return cache.get(key);
-    }
-    var result = func.apply(this, args);
-    memoized.cache = cache.set(key, result) || cache;
-    return result;
-  };
-  memoized.cache = new (memoize.Cache || MapCache);
-  return memoized;
-}
-
-// Expose `MapCache`.
-memoize.Cache = MapCache;
-
-module.exports = memoize;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/property.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/property.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseProperty = __webpack_require__(/*! ./_baseProperty */ "./node_modules/lodash/_baseProperty.js"),
-    basePropertyDeep = __webpack_require__(/*! ./_basePropertyDeep */ "./node_modules/lodash/_basePropertyDeep.js"),
-    isKey = __webpack_require__(/*! ./_isKey */ "./node_modules/lodash/_isKey.js"),
-    toKey = __webpack_require__(/*! ./_toKey */ "./node_modules/lodash/_toKey.js");
-
-/**
- * Creates a function that returns the value at `path` of a given object.
- *
- * @static
- * @memberOf _
- * @since 2.4.0
- * @category Util
- * @param {Array|string} path The path of the property to get.
- * @returns {Function} Returns the new accessor function.
- * @example
- *
- * var objects = [
- *   { 'a': { 'b': 2 } },
- *   { 'a': { 'b': 1 } }
- * ];
- *
- * _.map(objects, _.property('a.b'));
- * // => [2, 1]
- *
- * _.map(_.sortBy(objects, _.property(['a', 'b'])), 'a.b');
- * // => [1, 2]
- */
-function property(path) {
-  return isKey(path) ? baseProperty(toKey(path)) : basePropertyDeep(path);
-}
-
-module.exports = property;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/snakeCase.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/snakeCase.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var createCompounder = __webpack_require__(/*! ./_createCompounder */ "./node_modules/lodash/_createCompounder.js");
-
-/**
- * Converts `string` to
- * [snake case](https://en.wikipedia.org/wiki/Snake_case).
- *
- * @static
- * @memberOf _
- * @since 3.0.0
- * @category String
- * @param {string} [string=''] The string to convert.
- * @returns {string} Returns the snake cased string.
- * @example
- *
- * _.snakeCase('Foo Bar');
- * // => 'foo_bar'
- *
- * _.snakeCase('fooBar');
- * // => 'foo_bar'
- *
- * _.snakeCase('--FOO-BAR--');
- * // => 'foo_bar'
- */
-var snakeCase = createCompounder(function(result, word, index) {
-  return result + (index ? '_' : '') + word.toLowerCase();
-});
-
-module.exports = snakeCase;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/stubArray.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/stubArray.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * This method returns a new empty array.
- *
- * @static
- * @memberOf _
- * @since 4.13.0
- * @category Util
- * @returns {Array} Returns the new empty array.
- * @example
- *
- * var arrays = _.times(2, _.stubArray);
- *
- * console.log(arrays);
- * // => [[], []]
- *
- * console.log(arrays[0] === arrays[1]);
- * // => false
- */
-function stubArray() {
-  return [];
-}
-
-module.exports = stubArray;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/stubFalse.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/stubFalse.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * This method returns `false`.
- *
- * @static
- * @memberOf _
- * @since 4.13.0
- * @category Util
- * @returns {boolean} Returns `false`.
- * @example
- *
- * _.times(2, _.stubFalse);
- * // => [false, false]
- */
-function stubFalse() {
-  return false;
-}
-
-module.exports = stubFalse;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/toArray.js":
-/*!****************************************!*\
-  !*** ./node_modules/lodash/toArray.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Symbol = __webpack_require__(/*! ./_Symbol */ "./node_modules/lodash/_Symbol.js"),
-    copyArray = __webpack_require__(/*! ./_copyArray */ "./node_modules/lodash/_copyArray.js"),
-    getTag = __webpack_require__(/*! ./_getTag */ "./node_modules/lodash/_getTag.js"),
-    isArrayLike = __webpack_require__(/*! ./isArrayLike */ "./node_modules/lodash/isArrayLike.js"),
-    isString = __webpack_require__(/*! ./isString */ "./node_modules/lodash/isString.js"),
-    iteratorToArray = __webpack_require__(/*! ./_iteratorToArray */ "./node_modules/lodash/_iteratorToArray.js"),
-    mapToArray = __webpack_require__(/*! ./_mapToArray */ "./node_modules/lodash/_mapToArray.js"),
-    setToArray = __webpack_require__(/*! ./_setToArray */ "./node_modules/lodash/_setToArray.js"),
-    stringToArray = __webpack_require__(/*! ./_stringToArray */ "./node_modules/lodash/_stringToArray.js"),
-    values = __webpack_require__(/*! ./values */ "./node_modules/lodash/values.js");
-
-/** `Object#toString` result references. */
-var mapTag = '[object Map]',
-    setTag = '[object Set]';
-
-/** Built-in value references. */
-var symIterator = Symbol ? Symbol.iterator : undefined;
-
-/**
- * Converts `value` to an array.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Lang
- * @param {*} value The value to convert.
- * @returns {Array} Returns the converted array.
- * @example
- *
- * _.toArray({ 'a': 1, 'b': 2 });
- * // => [1, 2]
- *
- * _.toArray('abc');
- * // => ['a', 'b', 'c']
- *
- * _.toArray(1);
- * // => []
- *
- * _.toArray(null);
- * // => []
- */
-function toArray(value) {
-  if (!value) {
-    return [];
-  }
-  if (isArrayLike(value)) {
-    return isString(value) ? stringToArray(value) : copyArray(value);
-  }
-  if (symIterator && value[symIterator]) {
-    return iteratorToArray(value[symIterator]());
-  }
-  var tag = getTag(value),
-      func = tag == mapTag ? mapToArray : (tag == setTag ? setToArray : values);
-
-  return func(value);
-}
-
-module.exports = toArray;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/toPath.js":
-/*!***************************************!*\
-  !*** ./node_modules/lodash/toPath.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayMap = __webpack_require__(/*! ./_arrayMap */ "./node_modules/lodash/_arrayMap.js"),
-    copyArray = __webpack_require__(/*! ./_copyArray */ "./node_modules/lodash/_copyArray.js"),
-    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
-    isSymbol = __webpack_require__(/*! ./isSymbol */ "./node_modules/lodash/isSymbol.js"),
-    stringToPath = __webpack_require__(/*! ./_stringToPath */ "./node_modules/lodash/_stringToPath.js"),
-    toKey = __webpack_require__(/*! ./_toKey */ "./node_modules/lodash/_toKey.js"),
-    toString = __webpack_require__(/*! ./toString */ "./node_modules/lodash/toString.js");
-
-/**
- * Converts `value` to a property path array.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Util
- * @param {*} value The value to convert.
- * @returns {Array} Returns the new property path array.
- * @example
- *
- * _.toPath('a.b.c');
- * // => ['a', 'b', 'c']
- *
- * _.toPath('a[0].b.c');
- * // => ['a', '0', 'b', 'c']
- */
-function toPath(value) {
-  if (isArray(value)) {
-    return arrayMap(value, toKey);
-  }
-  return isSymbol(value) ? [value] : copyArray(stringToPath(toString(value)));
-}
-
-module.exports = toPath;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/toString.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/toString.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseToString = __webpack_require__(/*! ./_baseToString */ "./node_modules/lodash/_baseToString.js");
-
-/**
- * Converts `value` to a string. An empty string is returned for `null`
- * and `undefined` values. The sign of `-0` is preserved.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to convert.
- * @returns {string} Returns the converted string.
- * @example
- *
- * _.toString(null);
- * // => ''
- *
- * _.toString(-0);
- * // => '-0'
- *
- * _.toString([1, 2, 3]);
- * // => '1,2,3'
- */
-function toString(value) {
-  return value == null ? '' : baseToString(value);
-}
-
-module.exports = toString;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/upperFirst.js":
-/*!*******************************************!*\
-  !*** ./node_modules/lodash/upperFirst.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var createCaseFirst = __webpack_require__(/*! ./_createCaseFirst */ "./node_modules/lodash/_createCaseFirst.js");
-
-/**
- * Converts the first character of `string` to upper case.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category String
- * @param {string} [string=''] The string to convert.
- * @returns {string} Returns the converted string.
- * @example
- *
- * _.upperFirst('fred');
- * // => 'Fred'
- *
- * _.upperFirst('FRED');
- * // => 'FRED'
- */
-var upperFirst = createCaseFirst('toUpperCase');
-
-module.exports = upperFirst;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/values.js":
-/*!***************************************!*\
-  !*** ./node_modules/lodash/values.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseValues = __webpack_require__(/*! ./_baseValues */ "./node_modules/lodash/_baseValues.js"),
-    keys = __webpack_require__(/*! ./keys */ "./node_modules/lodash/keys.js");
-
-/**
- * Creates an array of the own enumerable string keyed property values of `object`.
- *
- * **Note:** Non-object values are coerced to objects.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Object
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property values.
- * @example
- *
- * function Foo() {
- *   this.a = 1;
- *   this.b = 2;
- * }
- *
- * Foo.prototype.c = 3;
- *
- * _.values(new Foo);
- * // => [1, 2] (iteration order is not guaranteed)
- *
- * _.values('hi');
- * // => ['h', 'i']
- */
-function values(object) {
-  return object == null ? [] : baseValues(object, keys(object));
-}
-
-module.exports = values;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/words.js":
-/*!**************************************!*\
-  !*** ./node_modules/lodash/words.js ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var asciiWords = __webpack_require__(/*! ./_asciiWords */ "./node_modules/lodash/_asciiWords.js"),
-    hasUnicodeWord = __webpack_require__(/*! ./_hasUnicodeWord */ "./node_modules/lodash/_hasUnicodeWord.js"),
-    toString = __webpack_require__(/*! ./toString */ "./node_modules/lodash/toString.js"),
-    unicodeWords = __webpack_require__(/*! ./_unicodeWords */ "./node_modules/lodash/_unicodeWords.js");
-
-/**
- * Splits `string` into an array of its words.
- *
- * @static
- * @memberOf _
- * @since 3.0.0
- * @category String
- * @param {string} [string=''] The string to inspect.
- * @param {RegExp|string} [pattern] The pattern to match words.
- * @param- {Object} [guard] Enables use as an iteratee for methods like `_.map`.
- * @returns {Array} Returns the words of `string`.
- * @example
- *
- * _.words('fred, barney, & pebbles');
- * // => ['fred', 'barney', 'pebbles']
- *
- * _.words('fred, barney, & pebbles', /[^, ]+/g);
- * // => ['fred', 'barney', '&', 'pebbles']
- */
-function words(string, pattern, guard) {
-  string = toString(string);
-  pattern = guard ? undefined : pattern;
-
-  if (pattern === undefined) {
-    return hasUnicodeWord(string) ? unicodeWords(string) : asciiWords(string);
-  }
-  return string.match(pattern) || [];
-}
-
-module.exports = words;
-
-
-/***/ }),
-
-/***/ "./node_modules/nprogress/nprogress.js":
-/*!*********************************************!*\
-  !*** ./node_modules/nprogress/nprogress.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/* NProgress, (c) 2013, 2014 Rico Sta. Cruz - http://ricostacruz.com/nprogress
- * @license MIT */
-
-;(function(root, factory) {
-
-  if (true) {
-    !(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
-				__WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-  } else {}
-
-})(this, function() {
-  var NProgress = {};
-
-  NProgress.version = '0.2.0';
-
-  var Settings = NProgress.settings = {
-    minimum: 0.08,
-    easing: 'ease',
-    positionUsing: '',
-    speed: 200,
-    trickle: true,
-    trickleRate: 0.02,
-    trickleSpeed: 800,
-    showSpinner: true,
-    barSelector: '[role="bar"]',
-    spinnerSelector: '[role="spinner"]',
-    parent: 'body',
-    template: '<div class="bar" role="bar"><div class="peg"></div></div><div class="spinner" role="spinner"><div class="spinner-icon"></div></div>'
-  };
-
-  /**
-   * Updates configuration.
-   *
-   *     NProgress.configure({
-   *       minimum: 0.1
-   *     });
-   */
-  NProgress.configure = function(options) {
-    var key, value;
-    for (key in options) {
-      value = options[key];
-      if (value !== undefined && options.hasOwnProperty(key)) Settings[key] = value;
-    }
-
-    return this;
-  };
-
-  /**
-   * Last number.
-   */
-
-  NProgress.status = null;
-
-  /**
-   * Sets the progress bar status, where `n` is a number from `0.0` to `1.0`.
-   *
-   *     NProgress.set(0.4);
-   *     NProgress.set(1.0);
-   */
-
-  NProgress.set = function(n) {
-    var started = NProgress.isStarted();
-
-    n = clamp(n, Settings.minimum, 1);
-    NProgress.status = (n === 1 ? null : n);
-
-    var progress = NProgress.render(!started),
-        bar      = progress.querySelector(Settings.barSelector),
-        speed    = Settings.speed,
-        ease     = Settings.easing;
-
-    progress.offsetWidth; /* Repaint */
-
-    queue(function(next) {
-      // Set positionUsing if it hasn't already been set
-      if (Settings.positionUsing === '') Settings.positionUsing = NProgress.getPositioningCSS();
-
-      // Add transition
-      css(bar, barPositionCSS(n, speed, ease));
-
-      if (n === 1) {
-        // Fade out
-        css(progress, { 
-          transition: 'none', 
-          opacity: 1 
-        });
-        progress.offsetWidth; /* Repaint */
-
-        setTimeout(function() {
-          css(progress, { 
-            transition: 'all ' + speed + 'ms linear', 
-            opacity: 0 
-          });
-          setTimeout(function() {
-            NProgress.remove();
-            next();
-          }, speed);
-        }, speed);
-      } else {
-        setTimeout(next, speed);
-      }
-    });
-
-    return this;
-  };
-
-  NProgress.isStarted = function() {
-    return typeof NProgress.status === 'number';
-  };
-
-  /**
-   * Shows the progress bar.
-   * This is the same as setting the status to 0%, except that it doesn't go backwards.
-   *
-   *     NProgress.start();
-   *
-   */
-  NProgress.start = function() {
-    if (!NProgress.status) NProgress.set(0);
-
-    var work = function() {
-      setTimeout(function() {
-        if (!NProgress.status) return;
-        NProgress.trickle();
-        work();
-      }, Settings.trickleSpeed);
-    };
-
-    if (Settings.trickle) work();
-
-    return this;
-  };
-
-  /**
-   * Hides the progress bar.
-   * This is the *sort of* the same as setting the status to 100%, with the
-   * difference being `done()` makes some placebo effect of some realistic motion.
-   *
-   *     NProgress.done();
-   *
-   * If `true` is passed, it will show the progress bar even if its hidden.
-   *
-   *     NProgress.done(true);
-   */
-
-  NProgress.done = function(force) {
-    if (!force && !NProgress.status) return this;
-
-    return NProgress.inc(0.3 + 0.5 * Math.random()).set(1);
-  };
-
-  /**
-   * Increments by a random amount.
-   */
-
-  NProgress.inc = function(amount) {
-    var n = NProgress.status;
-
-    if (!n) {
-      return NProgress.start();
-    } else {
-      if (typeof amount !== 'number') {
-        amount = (1 - n) * clamp(Math.random() * n, 0.1, 0.95);
-      }
-
-      n = clamp(n + amount, 0, 0.994);
-      return NProgress.set(n);
-    }
-  };
-
-  NProgress.trickle = function() {
-    return NProgress.inc(Math.random() * Settings.trickleRate);
-  };
-
-  /**
-   * Waits for all supplied jQuery promises and
-   * increases the progress as the promises resolve.
-   *
-   * @param $promise jQUery Promise
-   */
-  (function() {
-    var initial = 0, current = 0;
-
-    NProgress.promise = function($promise) {
-      if (!$promise || $promise.state() === "resolved") {
-        return this;
-      }
-
-      if (current === 0) {
-        NProgress.start();
-      }
-
-      initial++;
-      current++;
-
-      $promise.always(function() {
-        current--;
-        if (current === 0) {
-            initial = 0;
-            NProgress.done();
-        } else {
-            NProgress.set((initial - current) / initial);
-        }
-      });
-
-      return this;
-    };
-
-  })();
-
-  /**
-   * (Internal) renders the progress bar markup based on the `template`
-   * setting.
-   */
-
-  NProgress.render = function(fromStart) {
-    if (NProgress.isRendered()) return document.getElementById('nprogress');
-
-    addClass(document.documentElement, 'nprogress-busy');
-    
-    var progress = document.createElement('div');
-    progress.id = 'nprogress';
-    progress.innerHTML = Settings.template;
-
-    var bar      = progress.querySelector(Settings.barSelector),
-        perc     = fromStart ? '-100' : toBarPerc(NProgress.status || 0),
-        parent   = document.querySelector(Settings.parent),
-        spinner;
-    
-    css(bar, {
-      transition: 'all 0 linear',
-      transform: 'translate3d(' + perc + '%,0,0)'
-    });
-
-    if (!Settings.showSpinner) {
-      spinner = progress.querySelector(Settings.spinnerSelector);
-      spinner && removeElement(spinner);
-    }
-
-    if (parent != document.body) {
-      addClass(parent, 'nprogress-custom-parent');
-    }
-
-    parent.appendChild(progress);
-    return progress;
-  };
-
-  /**
-   * Removes the element. Opposite of render().
-   */
-
-  NProgress.remove = function() {
-    removeClass(document.documentElement, 'nprogress-busy');
-    removeClass(document.querySelector(Settings.parent), 'nprogress-custom-parent');
-    var progress = document.getElementById('nprogress');
-    progress && removeElement(progress);
-  };
-
-  /**
-   * Checks if the progress bar is rendered.
-   */
-
-  NProgress.isRendered = function() {
-    return !!document.getElementById('nprogress');
-  };
-
-  /**
-   * Determine which positioning CSS rule to use.
-   */
-
-  NProgress.getPositioningCSS = function() {
-    // Sniff on document.body.style
-    var bodyStyle = document.body.style;
-
-    // Sniff prefixes
-    var vendorPrefix = ('WebkitTransform' in bodyStyle) ? 'Webkit' :
-                       ('MozTransform' in bodyStyle) ? 'Moz' :
-                       ('msTransform' in bodyStyle) ? 'ms' :
-                       ('OTransform' in bodyStyle) ? 'O' : '';
-
-    if (vendorPrefix + 'Perspective' in bodyStyle) {
-      // Modern browsers with 3D support, e.g. Webkit, IE10
-      return 'translate3d';
-    } else if (vendorPrefix + 'Transform' in bodyStyle) {
-      // Browsers without 3D support, e.g. IE9
-      return 'translate';
-    } else {
-      // Browsers without translate() support, e.g. IE7-8
-      return 'margin';
-    }
-  };
-
-  /**
-   * Helpers
-   */
-
-  function clamp(n, min, max) {
-    if (n < min) return min;
-    if (n > max) return max;
-    return n;
-  }
-
-  /**
-   * (Internal) converts a percentage (`0..1`) to a bar translateX
-   * percentage (`-100%..0%`).
-   */
-
-  function toBarPerc(n) {
-    return (-1 + n) * 100;
-  }
-
-
-  /**
-   * (Internal) returns the correct CSS for changing the bar's
-   * position given an n percentage, and speed and ease from Settings
-   */
-
-  function barPositionCSS(n, speed, ease) {
-    var barCSS;
-
-    if (Settings.positionUsing === 'translate3d') {
-      barCSS = { transform: 'translate3d('+toBarPerc(n)+'%,0,0)' };
-    } else if (Settings.positionUsing === 'translate') {
-      barCSS = { transform: 'translate('+toBarPerc(n)+'%,0)' };
-    } else {
-      barCSS = { 'margin-left': toBarPerc(n)+'%' };
-    }
-
-    barCSS.transition = 'all '+speed+'ms '+ease;
-
-    return barCSS;
-  }
-
-  /**
-   * (Internal) Queues a function to be executed.
-   */
-
-  var queue = (function() {
-    var pending = [];
-    
-    function next() {
-      var fn = pending.shift();
-      if (fn) {
-        fn(next);
-      }
-    }
-
-    return function(fn) {
-      pending.push(fn);
-      if (pending.length == 1) next();
-    };
-  })();
-
-  /**
-   * (Internal) Applies css properties to an element, similar to the jQuery 
-   * css method.
-   *
-   * While this helper does assist with vendor prefixed property names, it 
-   * does not perform any manipulation of values prior to setting styles.
-   */
-
-  var css = (function() {
-    var cssPrefixes = [ 'Webkit', 'O', 'Moz', 'ms' ],
-        cssProps    = {};
-
-    function camelCase(string) {
-      return string.replace(/^-ms-/, 'ms-').replace(/-([\da-z])/gi, function(match, letter) {
-        return letter.toUpperCase();
-      });
-    }
-
-    function getVendorProp(name) {
-      var style = document.body.style;
-      if (name in style) return name;
-
-      var i = cssPrefixes.length,
-          capName = name.charAt(0).toUpperCase() + name.slice(1),
-          vendorName;
-      while (i--) {
-        vendorName = cssPrefixes[i] + capName;
-        if (vendorName in style) return vendorName;
-      }
-
-      return name;
-    }
-
-    function getStyleProp(name) {
-      name = camelCase(name);
-      return cssProps[name] || (cssProps[name] = getVendorProp(name));
-    }
-
-    function applyCss(element, prop, value) {
-      prop = getStyleProp(prop);
-      element.style[prop] = value;
-    }
-
-    return function(element, properties) {
-      var args = arguments,
-          prop, 
-          value;
-
-      if (args.length == 2) {
-        for (prop in properties) {
-          value = properties[prop];
-          if (value !== undefined && properties.hasOwnProperty(prop)) applyCss(element, prop, value);
-        }
-      } else {
-        applyCss(element, args[1], args[2]);
-      }
-    }
-  })();
-
-  /**
-   * (Internal) Determines if an element or space separated list of class names contains a class name.
-   */
-
-  function hasClass(element, name) {
-    var list = typeof element == 'string' ? element : classList(element);
-    return list.indexOf(' ' + name + ' ') >= 0;
-  }
-
-  /**
-   * (Internal) Adds a class to an element.
-   */
-
-  function addClass(element, name) {
-    var oldList = classList(element),
-        newList = oldList + name;
-
-    if (hasClass(oldList, name)) return; 
-
-    // Trim the opening space.
-    element.className = newList.substring(1);
-  }
-
-  /**
-   * (Internal) Removes a class from an element.
-   */
-
-  function removeClass(element, name) {
-    var oldList = classList(element),
-        newList;
-
-    if (!hasClass(element, name)) return;
-
-    // Replace the class name.
-    newList = oldList.replace(' ' + name + ' ', ' ');
-
-    // Trim the opening and closing spaces.
-    element.className = newList.substring(1, newList.length - 1);
-  }
-
-  /**
-   * (Internal) Gets a space separated list of the class names on the element. 
-   * The list is wrapped with a single space on each end to facilitate finding 
-   * matches within the list.
-   */
-
-  function classList(element) {
-    return (' ' + (element.className || '') + ' ').replace(/\s+/gi, ' ');
-  }
-
-  /**
-   * (Internal) Removes an element from the DOM.
-   */
-
-  function removeElement(element) {
-    element && element.parentNode && element.parentNode.removeChild(element);
-  }
-
-  return NProgress;
-});
-
 
 
 /***/ }),
@@ -13991,635 +5393,6 @@ module.exports = checkPropTypes;
 
 /***/ }),
 
-/***/ "./node_modules/prop-types/factoryWithTypeCheckers.js":
-/*!************************************************************!*\
-  !*** ./node_modules/prop-types/factoryWithTypeCheckers.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-
-
-var ReactIs = __webpack_require__(/*! react-is */ "./node_modules/react-is/index.js");
-var assign = __webpack_require__(/*! object-assign */ "./node_modules/object-assign/index.js");
-
-var ReactPropTypesSecret = __webpack_require__(/*! ./lib/ReactPropTypesSecret */ "./node_modules/prop-types/lib/ReactPropTypesSecret.js");
-var checkPropTypes = __webpack_require__(/*! ./checkPropTypes */ "./node_modules/prop-types/checkPropTypes.js");
-
-var has = Function.call.bind(Object.prototype.hasOwnProperty);
-var printWarning = function() {};
-
-if (true) {
-  printWarning = function(text) {
-    var message = 'Warning: ' + text;
-    if (typeof console !== 'undefined') {
-      console.error(message);
-    }
-    try {
-      // --- Welcome to debugging React ---
-      // This error was thrown as a convenience so that you can use this stack
-      // to find the callsite that caused this warning to fire.
-      throw new Error(message);
-    } catch (x) {}
-  };
-}
-
-function emptyFunctionThatReturnsNull() {
-  return null;
-}
-
-module.exports = function(isValidElement, throwOnDirectAccess) {
-  /* global Symbol */
-  var ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
-  var FAUX_ITERATOR_SYMBOL = '@@iterator'; // Before Symbol spec.
-
-  /**
-   * Returns the iterator method function contained on the iterable object.
-   *
-   * Be sure to invoke the function with the iterable as context:
-   *
-   *     var iteratorFn = getIteratorFn(myIterable);
-   *     if (iteratorFn) {
-   *       var iterator = iteratorFn.call(myIterable);
-   *       ...
-   *     }
-   *
-   * @param {?object} maybeIterable
-   * @return {?function}
-   */
-  function getIteratorFn(maybeIterable) {
-    var iteratorFn = maybeIterable && (ITERATOR_SYMBOL && maybeIterable[ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL]);
-    if (typeof iteratorFn === 'function') {
-      return iteratorFn;
-    }
-  }
-
-  /**
-   * Collection of methods that allow declaration and validation of props that are
-   * supplied to React components. Example usage:
-   *
-   *   var Props = require('ReactPropTypes');
-   *   var MyArticle = React.createClass({
-   *     propTypes: {
-   *       // An optional string prop named "description".
-   *       description: Props.string,
-   *
-   *       // A required enum prop named "category".
-   *       category: Props.oneOf(['News','Photos']).isRequired,
-   *
-   *       // A prop named "dialog" that requires an instance of Dialog.
-   *       dialog: Props.instanceOf(Dialog).isRequired
-   *     },
-   *     render: function() { ... }
-   *   });
-   *
-   * A more formal specification of how these methods are used:
-   *
-   *   type := array|bool|func|object|number|string|oneOf([...])|instanceOf(...)
-   *   decl := ReactPropTypes.{type}(.isRequired)?
-   *
-   * Each and every declaration produces a function with the same signature. This
-   * allows the creation of custom validation functions. For example:
-   *
-   *  var MyLink = React.createClass({
-   *    propTypes: {
-   *      // An optional string or URI prop named "href".
-   *      href: function(props, propName, componentName) {
-   *        var propValue = props[propName];
-   *        if (propValue != null && typeof propValue !== 'string' &&
-   *            !(propValue instanceof URI)) {
-   *          return new Error(
-   *            'Expected a string or an URI for ' + propName + ' in ' +
-   *            componentName
-   *          );
-   *        }
-   *      }
-   *    },
-   *    render: function() {...}
-   *  });
-   *
-   * @internal
-   */
-
-  var ANONYMOUS = '<<anonymous>>';
-
-  // Important!
-  // Keep this list in sync with production version in `./factoryWithThrowingShims.js`.
-  var ReactPropTypes = {
-    array: createPrimitiveTypeChecker('array'),
-    bool: createPrimitiveTypeChecker('boolean'),
-    func: createPrimitiveTypeChecker('function'),
-    number: createPrimitiveTypeChecker('number'),
-    object: createPrimitiveTypeChecker('object'),
-    string: createPrimitiveTypeChecker('string'),
-    symbol: createPrimitiveTypeChecker('symbol'),
-
-    any: createAnyTypeChecker(),
-    arrayOf: createArrayOfTypeChecker,
-    element: createElementTypeChecker(),
-    elementType: createElementTypeTypeChecker(),
-    instanceOf: createInstanceTypeChecker,
-    node: createNodeChecker(),
-    objectOf: createObjectOfTypeChecker,
-    oneOf: createEnumTypeChecker,
-    oneOfType: createUnionTypeChecker,
-    shape: createShapeTypeChecker,
-    exact: createStrictShapeTypeChecker,
-  };
-
-  /**
-   * inlined Object.is polyfill to avoid requiring consumers ship their own
-   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
-   */
-  /*eslint-disable no-self-compare*/
-  function is(x, y) {
-    // SameValue algorithm
-    if (x === y) {
-      // Steps 1-5, 7-10
-      // Steps 6.b-6.e: +0 != -0
-      return x !== 0 || 1 / x === 1 / y;
-    } else {
-      // Step 6.a: NaN == NaN
-      return x !== x && y !== y;
-    }
-  }
-  /*eslint-enable no-self-compare*/
-
-  /**
-   * We use an Error-like object for backward compatibility as people may call
-   * PropTypes directly and inspect their output. However, we don't use real
-   * Errors anymore. We don't inspect their stack anyway, and creating them
-   * is prohibitively expensive if they are created too often, such as what
-   * happens in oneOfType() for any type before the one that matched.
-   */
-  function PropTypeError(message) {
-    this.message = message;
-    this.stack = '';
-  }
-  // Make `instanceof Error` still work for returned errors.
-  PropTypeError.prototype = Error.prototype;
-
-  function createChainableTypeChecker(validate) {
-    if (true) {
-      var manualPropTypeCallCache = {};
-      var manualPropTypeWarningCount = 0;
-    }
-    function checkType(isRequired, props, propName, componentName, location, propFullName, secret) {
-      componentName = componentName || ANONYMOUS;
-      propFullName = propFullName || propName;
-
-      if (secret !== ReactPropTypesSecret) {
-        if (throwOnDirectAccess) {
-          // New behavior only for users of `prop-types` package
-          var err = new Error(
-            'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
-            'Use `PropTypes.checkPropTypes()` to call them. ' +
-            'Read more at http://fb.me/use-check-prop-types'
-          );
-          err.name = 'Invariant Violation';
-          throw err;
-        } else if ( true && typeof console !== 'undefined') {
-          // Old behavior for people using React.PropTypes
-          var cacheKey = componentName + ':' + propName;
-          if (
-            !manualPropTypeCallCache[cacheKey] &&
-            // Avoid spamming the console because they are often not actionable except for lib authors
-            manualPropTypeWarningCount < 3
-          ) {
-            printWarning(
-              'You are manually calling a React.PropTypes validation ' +
-              'function for the `' + propFullName + '` prop on `' + componentName  + '`. This is deprecated ' +
-              'and will throw in the standalone `prop-types` package. ' +
-              'You may be seeing this warning due to a third-party PropTypes ' +
-              'library. See https://fb.me/react-warning-dont-call-proptypes ' + 'for details.'
-            );
-            manualPropTypeCallCache[cacheKey] = true;
-            manualPropTypeWarningCount++;
-          }
-        }
-      }
-      if (props[propName] == null) {
-        if (isRequired) {
-          if (props[propName] === null) {
-            return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required ' + ('in `' + componentName + '`, but its value is `null`.'));
-          }
-          return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required in ' + ('`' + componentName + '`, but its value is `undefined`.'));
-        }
-        return null;
-      } else {
-        return validate(props, propName, componentName, location, propFullName);
-      }
-    }
-
-    var chainedCheckType = checkType.bind(null, false);
-    chainedCheckType.isRequired = checkType.bind(null, true);
-
-    return chainedCheckType;
-  }
-
-  function createPrimitiveTypeChecker(expectedType) {
-    function validate(props, propName, componentName, location, propFullName, secret) {
-      var propValue = props[propName];
-      var propType = getPropType(propValue);
-      if (propType !== expectedType) {
-        // `propValue` being instance of, say, date/regexp, pass the 'object'
-        // check, but we can offer a more precise error message here rather than
-        // 'of type `object`'.
-        var preciseType = getPreciseType(propValue);
-
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + preciseType + '` supplied to `' + componentName + '`, expected ') + ('`' + expectedType + '`.'));
-      }
-      return null;
-    }
-    return createChainableTypeChecker(validate);
-  }
-
-  function createAnyTypeChecker() {
-    return createChainableTypeChecker(emptyFunctionThatReturnsNull);
-  }
-
-  function createArrayOfTypeChecker(typeChecker) {
-    function validate(props, propName, componentName, location, propFullName) {
-      if (typeof typeChecker !== 'function') {
-        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside arrayOf.');
-      }
-      var propValue = props[propName];
-      if (!Array.isArray(propValue)) {
-        var propType = getPropType(propValue);
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an array.'));
-      }
-      for (var i = 0; i < propValue.length; i++) {
-        var error = typeChecker(propValue, i, componentName, location, propFullName + '[' + i + ']', ReactPropTypesSecret);
-        if (error instanceof Error) {
-          return error;
-        }
-      }
-      return null;
-    }
-    return createChainableTypeChecker(validate);
-  }
-
-  function createElementTypeChecker() {
-    function validate(props, propName, componentName, location, propFullName) {
-      var propValue = props[propName];
-      if (!isValidElement(propValue)) {
-        var propType = getPropType(propValue);
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected a single ReactElement.'));
-      }
-      return null;
-    }
-    return createChainableTypeChecker(validate);
-  }
-
-  function createElementTypeTypeChecker() {
-    function validate(props, propName, componentName, location, propFullName) {
-      var propValue = props[propName];
-      if (!ReactIs.isValidElementType(propValue)) {
-        var propType = getPropType(propValue);
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected a single ReactElement type.'));
-      }
-      return null;
-    }
-    return createChainableTypeChecker(validate);
-  }
-
-  function createInstanceTypeChecker(expectedClass) {
-    function validate(props, propName, componentName, location, propFullName) {
-      if (!(props[propName] instanceof expectedClass)) {
-        var expectedClassName = expectedClass.name || ANONYMOUS;
-        var actualClassName = getClassName(props[propName]);
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + actualClassName + '` supplied to `' + componentName + '`, expected ') + ('instance of `' + expectedClassName + '`.'));
-      }
-      return null;
-    }
-    return createChainableTypeChecker(validate);
-  }
-
-  function createEnumTypeChecker(expectedValues) {
-    if (!Array.isArray(expectedValues)) {
-      if (true) {
-        if (arguments.length > 1) {
-          printWarning(
-            'Invalid arguments supplied to oneOf, expected an array, got ' + arguments.length + ' arguments. ' +
-            'A common mistake is to write oneOf(x, y, z) instead of oneOf([x, y, z]).'
-          );
-        } else {
-          printWarning('Invalid argument supplied to oneOf, expected an array.');
-        }
-      }
-      return emptyFunctionThatReturnsNull;
-    }
-
-    function validate(props, propName, componentName, location, propFullName) {
-      var propValue = props[propName];
-      for (var i = 0; i < expectedValues.length; i++) {
-        if (is(propValue, expectedValues[i])) {
-          return null;
-        }
-      }
-
-      var valuesString = JSON.stringify(expectedValues, function replacer(key, value) {
-        var type = getPreciseType(value);
-        if (type === 'symbol') {
-          return String(value);
-        }
-        return value;
-      });
-      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of value `' + String(propValue) + '` ' + ('supplied to `' + componentName + '`, expected one of ' + valuesString + '.'));
-    }
-    return createChainableTypeChecker(validate);
-  }
-
-  function createObjectOfTypeChecker(typeChecker) {
-    function validate(props, propName, componentName, location, propFullName) {
-      if (typeof typeChecker !== 'function') {
-        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside objectOf.');
-      }
-      var propValue = props[propName];
-      var propType = getPropType(propValue);
-      if (propType !== 'object') {
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an object.'));
-      }
-      for (var key in propValue) {
-        if (has(propValue, key)) {
-          var error = typeChecker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
-          if (error instanceof Error) {
-            return error;
-          }
-        }
-      }
-      return null;
-    }
-    return createChainableTypeChecker(validate);
-  }
-
-  function createUnionTypeChecker(arrayOfTypeCheckers) {
-    if (!Array.isArray(arrayOfTypeCheckers)) {
-       true ? printWarning('Invalid argument supplied to oneOfType, expected an instance of array.') : undefined;
-      return emptyFunctionThatReturnsNull;
-    }
-
-    for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
-      var checker = arrayOfTypeCheckers[i];
-      if (typeof checker !== 'function') {
-        printWarning(
-          'Invalid argument supplied to oneOfType. Expected an array of check functions, but ' +
-          'received ' + getPostfixForTypeWarning(checker) + ' at index ' + i + '.'
-        );
-        return emptyFunctionThatReturnsNull;
-      }
-    }
-
-    function validate(props, propName, componentName, location, propFullName) {
-      for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
-        var checker = arrayOfTypeCheckers[i];
-        if (checker(props, propName, componentName, location, propFullName, ReactPropTypesSecret) == null) {
-          return null;
-        }
-      }
-
-      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`.'));
-    }
-    return createChainableTypeChecker(validate);
-  }
-
-  function createNodeChecker() {
-    function validate(props, propName, componentName, location, propFullName) {
-      if (!isNode(props[propName])) {
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`, expected a ReactNode.'));
-      }
-      return null;
-    }
-    return createChainableTypeChecker(validate);
-  }
-
-  function createShapeTypeChecker(shapeTypes) {
-    function validate(props, propName, componentName, location, propFullName) {
-      var propValue = props[propName];
-      var propType = getPropType(propValue);
-      if (propType !== 'object') {
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
-      }
-      for (var key in shapeTypes) {
-        var checker = shapeTypes[key];
-        if (!checker) {
-          continue;
-        }
-        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
-        if (error) {
-          return error;
-        }
-      }
-      return null;
-    }
-    return createChainableTypeChecker(validate);
-  }
-
-  function createStrictShapeTypeChecker(shapeTypes) {
-    function validate(props, propName, componentName, location, propFullName) {
-      var propValue = props[propName];
-      var propType = getPropType(propValue);
-      if (propType !== 'object') {
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
-      }
-      // We need to check all keys in case some are required but missing from
-      // props.
-      var allKeys = assign({}, props[propName], shapeTypes);
-      for (var key in allKeys) {
-        var checker = shapeTypes[key];
-        if (!checker) {
-          return new PropTypeError(
-            'Invalid ' + location + ' `' + propFullName + '` key `' + key + '` supplied to `' + componentName + '`.' +
-            '\nBad object: ' + JSON.stringify(props[propName], null, '  ') +
-            '\nValid keys: ' +  JSON.stringify(Object.keys(shapeTypes), null, '  ')
-          );
-        }
-        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
-        if (error) {
-          return error;
-        }
-      }
-      return null;
-    }
-
-    return createChainableTypeChecker(validate);
-  }
-
-  function isNode(propValue) {
-    switch (typeof propValue) {
-      case 'number':
-      case 'string':
-      case 'undefined':
-        return true;
-      case 'boolean':
-        return !propValue;
-      case 'object':
-        if (Array.isArray(propValue)) {
-          return propValue.every(isNode);
-        }
-        if (propValue === null || isValidElement(propValue)) {
-          return true;
-        }
-
-        var iteratorFn = getIteratorFn(propValue);
-        if (iteratorFn) {
-          var iterator = iteratorFn.call(propValue);
-          var step;
-          if (iteratorFn !== propValue.entries) {
-            while (!(step = iterator.next()).done) {
-              if (!isNode(step.value)) {
-                return false;
-              }
-            }
-          } else {
-            // Iterator will provide entry [k,v] tuples rather than values.
-            while (!(step = iterator.next()).done) {
-              var entry = step.value;
-              if (entry) {
-                if (!isNode(entry[1])) {
-                  return false;
-                }
-              }
-            }
-          }
-        } else {
-          return false;
-        }
-
-        return true;
-      default:
-        return false;
-    }
-  }
-
-  function isSymbol(propType, propValue) {
-    // Native Symbol.
-    if (propType === 'symbol') {
-      return true;
-    }
-
-    // falsy value can't be a Symbol
-    if (!propValue) {
-      return false;
-    }
-
-    // 19.4.3.5 Symbol.prototype[@@toStringTag] === 'Symbol'
-    if (propValue['@@toStringTag'] === 'Symbol') {
-      return true;
-    }
-
-    // Fallback for non-spec compliant Symbols which are polyfilled.
-    if (typeof Symbol === 'function' && propValue instanceof Symbol) {
-      return true;
-    }
-
-    return false;
-  }
-
-  // Equivalent of `typeof` but with special handling for array and regexp.
-  function getPropType(propValue) {
-    var propType = typeof propValue;
-    if (Array.isArray(propValue)) {
-      return 'array';
-    }
-    if (propValue instanceof RegExp) {
-      // Old webkits (at least until Android 4.0) return 'function' rather than
-      // 'object' for typeof a RegExp. We'll normalize this here so that /bla/
-      // passes PropTypes.object.
-      return 'object';
-    }
-    if (isSymbol(propType, propValue)) {
-      return 'symbol';
-    }
-    return propType;
-  }
-
-  // This handles more types than `getPropType`. Only used for error messages.
-  // See `createPrimitiveTypeChecker`.
-  function getPreciseType(propValue) {
-    if (typeof propValue === 'undefined' || propValue === null) {
-      return '' + propValue;
-    }
-    var propType = getPropType(propValue);
-    if (propType === 'object') {
-      if (propValue instanceof Date) {
-        return 'date';
-      } else if (propValue instanceof RegExp) {
-        return 'regexp';
-      }
-    }
-    return propType;
-  }
-
-  // Returns a string that is postfixed to a warning about an invalid type.
-  // For example, "undefined" or "of type array"
-  function getPostfixForTypeWarning(value) {
-    var type = getPreciseType(value);
-    switch (type) {
-      case 'array':
-      case 'object':
-        return 'an ' + type;
-      case 'boolean':
-      case 'date':
-      case 'regexp':
-        return 'a ' + type;
-      default:
-        return type;
-    }
-  }
-
-  // Returns class name of the object, if any.
-  function getClassName(propValue) {
-    if (!propValue.constructor || !propValue.constructor.name) {
-      return ANONYMOUS;
-    }
-    return propValue.constructor.name;
-  }
-
-  ReactPropTypes.checkPropTypes = checkPropTypes;
-  ReactPropTypes.resetWarningCache = checkPropTypes.resetWarningCache;
-  ReactPropTypes.PropTypes = ReactPropTypes;
-
-  return ReactPropTypes;
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/prop-types/index.js":
-/*!******************************************!*\
-  !*** ./node_modules/prop-types/index.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-if (true) {
-  var ReactIs = __webpack_require__(/*! react-is */ "./node_modules/react-is/index.js");
-
-  // By explicitly using `prop-types` you are opting into new development behavior.
-  // http://fb.me/prop-types-in-prod
-  var throwOnDirectAccess = true;
-  module.exports = __webpack_require__(/*! ./factoryWithTypeCheckers */ "./node_modules/prop-types/factoryWithTypeCheckers.js")(ReactIs.isElement, throwOnDirectAccess);
-} else {}
-
-
-/***/ }),
-
 /***/ "./node_modules/prop-types/lib/ReactPropTypesSecret.js":
 /*!*************************************************************!*\
   !*** ./node_modules/prop-types/lib/ReactPropTypesSecret.js ***!
@@ -14640,165 +5413,6 @@ if (true) {
 var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 
 module.exports = ReactPropTypesSecret;
-
-
-/***/ }),
-
-/***/ "./node_modules/property-expr/index.js":
-/*!*********************************************!*\
-  !*** ./node_modules/property-expr/index.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Based on Kendo UI Core expression code <https://github.com/telerik/kendo-ui-core#license-information>
- */
-
-
-function Cache(maxSize) {
-  this._maxSize = maxSize
-  this.clear()
-}
-Cache.prototype.clear = function() {
-  this._size = 0
-  this._values = Object.create(null)
-}
-Cache.prototype.get = function(key) {
-  return this._values[key]
-}
-Cache.prototype.set = function(key, value) {
-  this._size >= this._maxSize && this.clear()
-  if (!(key in this._values)) this._size++
-
-  return (this._values[key] = value)
-}
-
-var SPLIT_REGEX = /[^.^\]^[]+|(?=\[\]|\.\.)/g,
-  DIGIT_REGEX = /^\d+$/,
-  LEAD_DIGIT_REGEX = /^\d/,
-  SPEC_CHAR_REGEX = /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g,
-  CLEAN_QUOTES_REGEX = /^\s*(['"]?)(.*?)(\1)\s*$/,
-  MAX_CACHE_SIZE = 512
-
-var pathCache = new Cache(MAX_CACHE_SIZE),
-  setCache = new Cache(MAX_CACHE_SIZE),
-  getCache = new Cache(MAX_CACHE_SIZE)
-
-var config
-
-module.exports = {
-  Cache: Cache,
-
-  split: split,
-
-  normalizePath: normalizePath,
-
-  setter: function(path) {
-    var parts = normalizePath(path)
-
-    return (
-      setCache.get(path) ||
-      setCache.set(path, function setter(data, value) {
-        var index = 0,
-          len = parts.length
-        while (index < len - 1) {
-          data = data[parts[index++]]
-        }
-        data[parts[index]] = value
-      })
-    )
-  },
-
-  getter: function(path, safe) {
-    var parts = normalizePath(path)
-    return (
-      getCache.get(path) ||
-      getCache.set(path, function getter(data) {
-        var index = 0,
-          len = parts.length
-        while (index < len) {
-          if (data != null || !safe) data = data[parts[index++]]
-          else return
-        }
-        return data
-      })
-    )
-  },
-
-  join: function(segments) {
-    return segments.reduce(function(path, part) {
-      return (
-        path +
-        (isQuoted(part) || DIGIT_REGEX.test(part)
-          ? '[' + part + ']'
-          : (path ? '.' : '') + part)
-      )
-    }, '')
-  },
-
-  forEach: function(path, cb, thisArg) {
-    forEach(Array.isArray(path) ? path : split(path), cb, thisArg)
-  }
-}
-
-function normalizePath(path) {
-  return (
-    pathCache.get(path) ||
-    pathCache.set(
-      path,
-      split(path).map(function(part) {
-        return part.replace(CLEAN_QUOTES_REGEX, '$2')
-      })
-    )
-  )
-}
-
-function split(path) {
-  return path.match(SPLIT_REGEX)
-}
-
-function forEach(parts, iter, thisArg) {
-  var len = parts.length,
-    part,
-    idx,
-    isArray,
-    isBracket
-
-  for (idx = 0; idx < len; idx++) {
-    part = parts[idx]
-
-    if (part) {
-      if (shouldBeQuoted(part)) {
-        part = '"' + part + '"'
-      }
-
-      isBracket = isQuoted(part)
-      isArray = !isBracket && /^\d+$/.test(part)
-
-      iter.call(thisArg, part, isBracket, isArray, idx, parts)
-    }
-  }
-}
-
-function isQuoted(str) {
-  return (
-    typeof str === 'string' && str && ["'", '"'].indexOf(str.charAt(0)) !== -1
-  )
-}
-
-function hasLeadingNumber(part) {
-  return part.match(LEAD_DIGIT_REGEX) && !part.match(DIGIT_REGEX)
-}
-
-function hasSpecialChars(part) {
-  return SPEC_CHAR_REGEX.test(part)
-}
-
-function shouldBeQuoted(part) {
-  return !isQuoted(part) && (hasLeadingNumber(part) || hasSpecialChars(part))
-}
 
 
 /***/ }),
@@ -41171,112 +31785,6 @@ if (false) {} else {
 
 /***/ }),
 
-/***/ "./node_modules/react-fast-compare/index.js":
-/*!**************************************************!*\
-  !*** ./node_modules/react-fast-compare/index.js ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var isArray = Array.isArray;
-var keyList = Object.keys;
-var hasProp = Object.prototype.hasOwnProperty;
-var hasElementType = typeof Element !== 'undefined';
-
-function equal(a, b) {
-  // fast-deep-equal index.js 2.0.1
-  if (a === b) return true;
-
-  if (a && b && typeof a == 'object' && typeof b == 'object') {
-    var arrA = isArray(a)
-      , arrB = isArray(b)
-      , i
-      , length
-      , key;
-
-    if (arrA && arrB) {
-      length = a.length;
-      if (length != b.length) return false;
-      for (i = length; i-- !== 0;)
-        if (!equal(a[i], b[i])) return false;
-      return true;
-    }
-
-    if (arrA != arrB) return false;
-
-    var dateA = a instanceof Date
-      , dateB = b instanceof Date;
-    if (dateA != dateB) return false;
-    if (dateA && dateB) return a.getTime() == b.getTime();
-
-    var regexpA = a instanceof RegExp
-      , regexpB = b instanceof RegExp;
-    if (regexpA != regexpB) return false;
-    if (regexpA && regexpB) return a.toString() == b.toString();
-
-    var keys = keyList(a);
-    length = keys.length;
-
-    if (length !== keyList(b).length)
-      return false;
-
-    for (i = length; i-- !== 0;)
-      if (!hasProp.call(b, keys[i])) return false;
-    // end fast-deep-equal
-
-    // start react-fast-compare
-    // custom handling for DOM elements
-    if (hasElementType && a instanceof Element && b instanceof Element)
-      return a === b;
-
-    // custom handling for React
-    for (i = length; i-- !== 0;) {
-      key = keys[i];
-      if (key === '_owner' && a.$$typeof) {
-        // React-specific: avoid traversing React elements' _owner.
-        //  _owner contains circular references
-        // and is not needed when comparing the actual elements (and not their owners)
-        // .$$typeof and ._store on just reasonable markers of a react element
-        continue;
-      } else {
-        // all other properties should be traversed as usual
-        if (!equal(a[key], b[key])) return false;
-      }
-    }
-    // end react-fast-compare
-
-    // fast-deep-equal index.js 2.0.1
-    return true;
-  }
-
-  return a !== a && b !== b;
-}
-// end fast-deep-equal
-
-module.exports = function exportedEqual(a, b) {
-  try {
-    return equal(a, b);
-  } catch (error) {
-    if ((error.message && error.message.match(/stack|recursion/i)) || (error.number === -2146828260)) {
-      // warn on circular references, don't crash
-      // browsers give this different errors name and messages:
-      // chrome/safari: "RangeError", "Maximum call stack size exceeded"
-      // firefox: "InternalError", too much recursion"
-      // edge: "Error", "Out of stack space"
-      console.warn('Warning: react-fast-compare does not handle circular references.', error.name, error.message);
-      return false;
-    }
-    // some other error. we should definitely know about these
-    throw error;
-  }
-};
-
-
-/***/ }),
-
 /***/ "./node_modules/react-intl/dist/components/createFormattedComponent.js":
 /*!*****************************************************************************!*\
   !*** ./node_modules/react-intl/dist/components/createFormattedComponent.js ***!
@@ -41354,93 +31862,6 @@ function createFormattedComponent(name) {
     return Component;
 }
 exports.createFormattedComponent = createFormattedComponent;
-
-
-/***/ }),
-
-/***/ "./node_modules/react-intl/dist/components/html-message.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/react-intl/dist/components/html-message.js ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/*
- * Copyright 2015, Yahoo Inc.
- * Copyrights licensed under the New BSD License.
- * See the accompanying LICENSE file for terms.
- */
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var message_1 = __webpack_require__(/*! ./message */ "./node_modules/react-intl/dist/components/message.js");
-var injectIntl_1 = __webpack_require__(/*! ./injectIntl */ "./node_modules/react-intl/dist/components/injectIntl.js");
-var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
-var FormattedHTMLMessage = /** @class */ (function (_super) {
-    __extends(FormattedHTMLMessage, _super);
-    function FormattedHTMLMessage() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    FormattedHTMLMessage.prototype.render = function () {
-        var _this = this;
-        return (React.createElement(injectIntl_1.Context.Consumer, null, function (intl) {
-            if (!_this.props.defaultMessage) {
-                utils_1.invariantIntlContext(intl);
-            }
-            var formatHTMLMessage = intl.formatHTMLMessage, textComponent = intl.textComponent;
-            var _a = _this.props, id = _a.id, description = _a.description, defaultMessage = _a.defaultMessage, rawValues = _a.values, children = _a.children;
-            var Component = _this.props.tagName;
-            // This is bc of TS3.3 doesn't recognize `defaultProps`
-            if (!Component) {
-                Component = textComponent || 'span';
-            }
-            var descriptor = { id: id, description: description, defaultMessage: defaultMessage };
-            var formattedHTMLMessage = formatHTMLMessage(descriptor, rawValues);
-            if (typeof children === 'function') {
-                return children(formattedHTMLMessage);
-            }
-            // Since the message presumably has HTML in it, we need to set
-            // `innerHTML` in order for it to be rendered and not escaped by React.
-            // To be safe, all string prop values were escaped when formatting the
-            // message. It is assumed that the message is not UGC, and came from the
-            // developer making it more like a template.
-            //
-            // Note: There's a perf impact of using this component since there's no
-            // way for React to do its virtual DOM diffing.
-            var html = { __html: formattedHTMLMessage };
-            return React.createElement(Component, { dangerouslySetInnerHTML: html });
-        }));
-    };
-    FormattedHTMLMessage.displayName = 'FormattedHTMLMessage';
-    FormattedHTMLMessage.defaultProps = __assign(__assign({}, message_1.default.defaultProps), { tagName: 'span' });
-    return FormattedHTMLMessage;
-}(message_1.default));
-exports.default = FormattedHTMLMessage;
 
 
 /***/ }),
@@ -41568,12 +31989,12 @@ var message_1 = __webpack_require__(/*! ../formatters/message */ "./node_modules
 var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
 var shallowEquals_ = __webpack_require__(/*! shallow-equal/objects */ "./node_modules/shallow-equal/objects/index.js");
 var shallowEquals = shallowEquals_.default || shallowEquals_;
-var defaultFormatMessage = function (descriptor, values) {
+function defaultFormatMessage(descriptor, values) {
     if (true) {
         console.error('[React Intl] Could not find required `intl` object. <IntlProvider> needs to exist in the component ancestry. Using default message as fallback.');
     }
     return message_1.formatMessage(__assign(__assign({}, utils_1.DEFAULT_INTL_CONFIG), { locale: 'en' }), utils_1.createFormatters(), descriptor, values);
-};
+}
 var FormattedMessage = /** @class */ (function (_super) {
     __extends(FormattedMessage, _super);
     function FormattedMessage() {
@@ -41709,6 +32130,7 @@ var message_1 = __webpack_require__(/*! ../formatters/message */ "./node_modules
 var shallowEquals_ = __webpack_require__(/*! shallow-equal/objects */ "./node_modules/shallow-equal/objects/index.js");
 var list_1 = __webpack_require__(/*! ../formatters/list */ "./node_modules/react-intl/dist/formatters/list.js");
 var displayName_1 = __webpack_require__(/*! ../formatters/displayName */ "./node_modules/react-intl/dist/formatters/displayName.js");
+var error_1 = __webpack_require__(/*! ../error */ "./node_modules/react-intl/dist/error.js");
 var shallowEquals = shallowEquals_.default || shallowEquals_;
 function processIntlConfig(config) {
     return {
@@ -41733,7 +32155,7 @@ function createIntl(config, cache) {
     var locale = resolvedConfig.locale, defaultLocale = resolvedConfig.defaultLocale, onError = resolvedConfig.onError;
     if (!locale) {
         if (onError) {
-            onError(utils_1.createError("\"locale\" was not configured, using \"" + defaultLocale + "\" as fallback. See https://github.com/formatjs/react-intl/blob/master/docs/API.md#intlshape for more details"));
+            onError(new error_1.ReactIntlError("INVALID_CONFIG" /* INVALID_CONFIG */, "\"locale\" was not configured, using \"" + defaultLocale + "\" as fallback. See https://github.com/formatjs/react-intl/blob/master/docs/API.md#intlshape for more details"));
         }
         // Since there's no registered locale data for `locale`, this will
         // fallback to the `defaultLocale` to make sure things can render.
@@ -41743,13 +32165,13 @@ function createIntl(config, cache) {
         resolvedConfig.locale = resolvedConfig.defaultLocale || 'en';
     }
     else if (!Intl.NumberFormat.supportedLocalesOf(locale).length && onError) {
-        onError(utils_1.createError("Missing locale data for locale: \"" + locale + "\" in Intl.NumberFormat. Using default locale: \"" + defaultLocale + "\" as fallback. See https://github.com/formatjs/react-intl/blob/master/docs/Getting-Started.md#runtime-requirements for more details"));
+        onError(new error_1.ReactIntlError("MISSING_DATA" /* MISSING_DATA */, "Missing locale data for locale: \"" + locale + "\" in Intl.NumberFormat. Using default locale: \"" + defaultLocale + "\" as fallback. See https://github.com/formatjs/react-intl/blob/master/docs/Getting-Started.md#runtime-requirements for more details"));
     }
     else if (!Intl.DateTimeFormat.supportedLocalesOf(locale).length &&
         onError) {
-        onError(utils_1.createError("Missing locale data for locale: \"" + locale + "\" in Intl.DateTimeFormat. Using default locale: \"" + defaultLocale + "\" as fallback. See https://github.com/formatjs/react-intl/blob/master/docs/Getting-Started.md#runtime-requirements for more details"));
+        onError(new error_1.ReactIntlError("MISSING_DATA" /* MISSING_DATA */, "Missing locale data for locale: \"" + locale + "\" in Intl.DateTimeFormat. Using default locale: \"" + defaultLocale + "\" as fallback. See https://github.com/formatjs/react-intl/blob/master/docs/Getting-Started.md#runtime-requirements for more details"));
     }
-    return __assign(__assign({}, resolvedConfig), { formatters: formatters, formatNumber: number_1.formatNumber.bind(null, resolvedConfig, formatters.getNumberFormat), formatNumberToParts: number_1.formatNumberToParts.bind(null, resolvedConfig, formatters.getNumberFormat), formatRelativeTime: relativeTime_1.formatRelativeTime.bind(null, resolvedConfig, formatters.getRelativeTimeFormat), formatDate: dateTime_1.formatDate.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatDateToParts: dateTime_1.formatDateToParts.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatTime: dateTime_1.formatTime.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatTimeToParts: dateTime_1.formatTimeToParts.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatPlural: plural_1.formatPlural.bind(null, resolvedConfig, formatters.getPluralRules), formatMessage: message_1.formatMessage.bind(null, resolvedConfig, formatters), formatHTMLMessage: message_1.formatHTMLMessage.bind(null, resolvedConfig, formatters), formatList: list_1.formatList.bind(null, resolvedConfig, formatters.getListFormat), formatDisplayName: displayName_1.formatDisplayName.bind(null, resolvedConfig, formatters.getDisplayNames) });
+    return __assign(__assign({}, resolvedConfig), { formatters: formatters, formatNumber: number_1.formatNumber.bind(null, resolvedConfig, formatters.getNumberFormat), formatNumberToParts: number_1.formatNumberToParts.bind(null, resolvedConfig, formatters.getNumberFormat), formatRelativeTime: relativeTime_1.formatRelativeTime.bind(null, resolvedConfig, formatters.getRelativeTimeFormat), formatDate: dateTime_1.formatDate.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatDateToParts: dateTime_1.formatDateToParts.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatTime: dateTime_1.formatTime.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatTimeToParts: dateTime_1.formatTimeToParts.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatPlural: plural_1.formatPlural.bind(null, resolvedConfig, formatters.getPluralRules), formatMessage: message_1.formatMessage.bind(null, resolvedConfig, formatters), formatList: list_1.formatList.bind(null, resolvedConfig, formatters.getListFormat), formatDisplayName: displayName_1.formatDisplayName.bind(null, resolvedConfig, formatters.getDisplayNames) });
 }
 exports.createIntl = createIntl;
 var IntlProvider = /** @class */ (function (_super) {
@@ -42008,6 +32430,46 @@ exports.default = useIntl;
 
 /***/ }),
 
+/***/ "./node_modules/react-intl/dist/error.js":
+/*!***********************************************!*\
+  !*** ./node_modules/react-intl/dist/error.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var ReactIntlError = /** @class */ (function (_super) {
+    __extends(ReactIntlError, _super);
+    function ReactIntlError(code, message, exception) {
+        var _this = _super.call(this, "[React Intl Error " + code + "] " + message + " " + (exception ? "\n" + exception.stack : '')) || this;
+        _this.code = code;
+        if (typeof Error.captureStackTrace === 'function') {
+            Error.captureStackTrace(_this, ReactIntlError);
+        }
+        return _this;
+    }
+    return ReactIntlError;
+}(Error));
+exports.ReactIntlError = ReactIntlError;
+
+
+/***/ }),
+
 /***/ "./node_modules/react-intl/dist/formatters/dateTime.js":
 /*!*************************************************************!*\
   !*** ./node_modules/react-intl/dist/formatters/dateTime.js ***!
@@ -42035,6 +32497,7 @@ var __assign = (this && this.__assign) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
+var error_1 = __webpack_require__(/*! ../error */ "./node_modules/react-intl/dist/error.js");
 var DATE_TIME_FORMAT_OPTIONS = [
     'localeMatcher',
     'formatMatcher',
@@ -42073,7 +32536,7 @@ function formatDate(config, getDateTimeFormat, value, options) {
         return getFormatter(config, 'date', getDateTimeFormat, options).format(date);
     }
     catch (e) {
-        config.onError(utils_1.createError('Error formatting date.', e));
+        config.onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting date.', e));
     }
     return String(date);
 }
@@ -42085,7 +32548,7 @@ function formatTime(config, getDateTimeFormat, value, options) {
         return getFormatter(config, 'time', getDateTimeFormat, options).format(date);
     }
     catch (e) {
-        config.onError(utils_1.createError('Error formatting time.', e));
+        config.onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting time.', e));
     }
     return String(date);
 }
@@ -42097,7 +32560,7 @@ function formatDateToParts(config, getDateTimeFormat, value, options) {
         return getFormatter(config, 'date', getDateTimeFormat, options).formatToParts(date);
     }
     catch (e) {
-        config.onError(utils_1.createError('Error formatting date.', e));
+        config.onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting date.', e));
     }
     return [];
 }
@@ -42109,7 +32572,7 @@ function formatTimeToParts(config, getDateTimeFormat, value, options) {
         return getFormatter(config, 'time', getDateTimeFormat, options).formatToParts(date);
     }
     catch (e) {
-        config.onError(utils_1.createError('Error formatting time.', e));
+        config.onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting time.', e));
     }
     return [];
 }
@@ -42129,6 +32592,8 @@ exports.formatTimeToParts = formatTimeToParts;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
+var intl_messageformat_1 = __webpack_require__(/*! intl-messageformat */ "./node_modules/intl-messageformat/dist/index.js");
+var error_1 = __webpack_require__(/*! ../error */ "./node_modules/react-intl/dist/error.js");
 var DISPLAY_NAMES_OPTONS = [
     'localeMatcher',
     'style',
@@ -42140,14 +32605,14 @@ function formatDisplayName(_a, getDisplayNames, value, options) {
     if (options === void 0) { options = {}; }
     var DisplayNames = Intl.DisplayNames;
     if (!DisplayNames) {
-        onError(utils_1.createError("Intl.DisplayNames is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-displaynames\"\n"));
+        onError(new intl_messageformat_1.FormatError("Intl.DisplayNames is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-displaynames\"\n", 2 /* MISSING_INTL_API */));
     }
     var filteredOptions = utils_1.filterProps(options, DISPLAY_NAMES_OPTONS);
     try {
         return getDisplayNames(locale, filteredOptions).of(value);
     }
     catch (e) {
-        onError(utils_1.createError('Error formatting display name.', e));
+        onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting display name.', e));
     }
 }
 exports.formatDisplayName = formatDisplayName;
@@ -42166,6 +32631,8 @@ exports.formatDisplayName = formatDisplayName;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
+var intl_messageformat_1 = __webpack_require__(/*! intl-messageformat */ "./node_modules/intl-messageformat/dist/index.js");
+var error_1 = __webpack_require__(/*! ../error */ "./node_modules/react-intl/dist/error.js");
 var LIST_FORMAT_OPTIONS = [
     'localeMatcher',
     'type',
@@ -42180,7 +32647,7 @@ function formatList(_a, getListFormat, values, options) {
     if (options === void 0) { options = {}; }
     var ListFormat = Intl.ListFormat;
     if (!ListFormat) {
-        onError(utils_1.createError("Intl.ListFormat is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-listformat\"\n"));
+        onError(new intl_messageformat_1.FormatError("Intl.ListFormat is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-listformat\"\n", 2 /* MISSING_INTL_API */));
     }
     var filteredOptions = utils_1.filterProps(options, LIST_FORMAT_OPTIONS);
     try {
@@ -42212,7 +32679,7 @@ function formatList(_a, getListFormat, values, options) {
         }, []);
     }
     catch (e) {
-        onError(utils_1.createError('Error formatting list.', e));
+        onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting list.', e));
     }
     return values;
 }
@@ -42256,8 +32723,8 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var intl_utils_1 = __webpack_require__(/*! @formatjs/intl-utils */ "./node_modules/@formatjs/intl-utils/dist/index.js");
-var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
 var intl_messageformat_1 = __webpack_require__(/*! intl-messageformat */ "./node_modules/intl-messageformat/dist/index.js");
+var error_1 = __webpack_require__(/*! ../error */ "./node_modules/react-intl/dist/error.js");
 function setTimeZoneInOptions(opts, timeZone) {
     return Object.keys(opts).reduce(function (all, k) {
         all[k] = __assign({ timeZone: timeZone }, opts[k]);
@@ -42289,67 +32756,50 @@ function formatMessage(_a, state, messageDescriptor, values) {
     var message = messages && messages[String(id)];
     formats = deepMergeFormatsAndSetTimeZone(formats, timeZone);
     defaultFormats = deepMergeFormatsAndSetTimeZone(defaultFormats, timeZone);
-    var formattedMessageParts = [];
+    var formattedMessageParts = '';
     if (message) {
         try {
             var formatter = state.getMessageFormat(message, locale, formats, {
                 formatters: state,
             });
-            formattedMessageParts = formatter.formatHTMLMessage(values);
+            formattedMessageParts = formatter.format(values);
         }
         catch (e) {
-            onError(utils_1.createError("Error formatting message: \"" + id + "\" for locale: \"" + locale + "\"" +
+            onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, "Error formatting message: \"" + id + "\" for locale: \"" + locale + "\"" +
                 (defaultMessage ? ', using default message as fallback.' : ''), e));
         }
     }
-    else {
+    else if (!defaultMessage ||
+        (locale && locale.toLowerCase() !== defaultLocale.toLowerCase())) {
         // This prevents warnings from littering the console in development
         // when no `messages` are passed into the <IntlProvider> for the
-        // default locale, and a default message is in the source.
-        if (!defaultMessage ||
-            (locale && locale.toLowerCase() !== defaultLocale.toLowerCase())) {
-            onError(utils_1.createError("Missing message: \"" + id + "\" for locale: \"" + locale + "\"" +
-                (defaultMessage ? ', using default message as fallback.' : '')));
-        }
+        // default locale.
+        onError(new error_1.ReactIntlError("MISSING_TRANSLATION" /* MISSING_TRANSLATION */, "Missing message: \"" + id + "\" for locale: \"" + locale + "\"" +
+            (defaultMessage ? ', using default message as fallback.' : '')));
     }
-    if (!formattedMessageParts.length && defaultMessage) {
+    if (!formattedMessageParts && defaultMessage) {
         try {
             var formatter = state.getMessageFormat(defaultMessage, defaultLocale, defaultFormats);
-            formattedMessageParts = formatter.formatHTMLMessage(values);
+            formattedMessageParts = formatter.format(values);
         }
         catch (e) {
-            onError(utils_1.createError("Error formatting the default message for: \"" + id + "\"", e));
+            onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, "Error formatting the default message for: \"" + id + "\"", e));
         }
     }
-    if (!formattedMessageParts.length) {
-        onError(utils_1.createError("Cannot format message: \"" + id + "\", " +
+    if (!formattedMessageParts) {
+        onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, "Cannot format message: \"" + id + "\", " +
             ("using message " + (message || defaultMessage ? 'source' : 'id') + " as fallback.")));
         if (typeof message === 'string') {
             return message || defaultMessage || String(id);
         }
         return defaultMessage || String(id);
     }
-    if (formattedMessageParts.length === 1 &&
-        typeof formattedMessageParts[0] === 'string') {
-        return formattedMessageParts[0] || defaultMessage || String(id);
+    if (Array.isArray(formattedMessageParts)) {
+        return exports.prepareIntlMessageFormatHtmlOutput(formattedMessageParts);
     }
-    return exports.prepareIntlMessageFormatHtmlOutput(formattedMessageParts);
+    return formattedMessageParts;
 }
 exports.formatMessage = formatMessage;
-function formatHTMLMessage(config, state, messageDescriptor, rawValues) {
-    if (messageDescriptor === void 0) { messageDescriptor = { id: '' }; }
-    if (rawValues === void 0) { rawValues = {}; }
-    // Process all the values before they are used when formatting the ICU
-    // Message string. Since the formatted message might be injected via
-    // `innerHTML`, all String-based values need to be HTML-escaped.
-    var escapedValues = Object.keys(rawValues).reduce(function (escaped, name) {
-        var value = rawValues[name];
-        escaped[name] = typeof value === 'string' ? utils_1.escape(value) : value;
-        return escaped;
-    }, {});
-    return formatMessage(config, state, messageDescriptor, escapedValues);
-}
-exports.formatHTMLMessage = formatHTMLMessage;
 
 
 /***/ }),
@@ -42365,6 +32815,7 @@ exports.formatHTMLMessage = formatHTMLMessage;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
+var error_1 = __webpack_require__(/*! ../error */ "./node_modules/react-intl/dist/error.js");
 var NUMBER_FORMAT_OPTIONS = [
     'localeMatcher',
     'style',
@@ -42404,7 +32855,7 @@ function formatNumber(config, getNumberFormat, value, options) {
         return getFormatter(config, getNumberFormat, options).format(value);
     }
     catch (e) {
-        config.onError(utils_1.createError('Error formatting number.', e));
+        config.onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting number.', e));
     }
     return String(value);
 }
@@ -42415,7 +32866,7 @@ function formatNumberToParts(config, getNumberFormat, value, options) {
         return getFormatter(config, getNumberFormat, options).formatToParts(value);
     }
     catch (e) {
-        config.onError(utils_1.createError('Error formatting number.', e));
+        config.onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting number.', e));
     }
     return [];
 }
@@ -42435,6 +32886,8 @@ exports.formatNumberToParts = formatNumberToParts;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
+var error_1 = __webpack_require__(/*! ../error */ "./node_modules/react-intl/dist/error.js");
+var intl_messageformat_1 = __webpack_require__(/*! intl-messageformat */ "./node_modules/intl-messageformat/dist/index.js");
 var PLURAL_FORMAT_OPTIONS = [
     'localeMatcher',
     'type',
@@ -42443,14 +32896,14 @@ function formatPlural(_a, getPluralRules, value, options) {
     var locale = _a.locale, onError = _a.onError;
     if (options === void 0) { options = {}; }
     if (!Intl.PluralRules) {
-        onError(utils_1.createError("Intl.PluralRules is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-pluralrules\"\n"));
+        onError(new intl_messageformat_1.FormatError("Intl.PluralRules is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-pluralrules\"\n", 2 /* MISSING_INTL_API */));
     }
     var filteredOptions = utils_1.filterProps(options, PLURAL_FORMAT_OPTIONS);
     try {
         return getPluralRules(locale, filteredOptions).select(value);
     }
     catch (e) {
-        onError(utils_1.createError('Error formatting plural.', e));
+        onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting plural.', e));
     }
     return 'other';
 }
@@ -42470,6 +32923,8 @@ exports.formatPlural = formatPlural;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
+var intl_messageformat_1 = __webpack_require__(/*! intl-messageformat */ "./node_modules/intl-messageformat/dist/index.js");
+var error_1 = __webpack_require__(/*! ../error */ "./node_modules/react-intl/dist/error.js");
 var RELATIVE_TIME_FORMAT_OPTIONS = [
     'numeric',
     'style',
@@ -42489,13 +32944,13 @@ function formatRelativeTime(config, getRelativeTimeFormat, value, unit, options)
     }
     var RelativeTimeFormat = Intl.RelativeTimeFormat;
     if (!RelativeTimeFormat) {
-        config.onError(utils_1.createError("Intl.RelativeTimeFormat is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-relativetimeformat\"\n"));
+        config.onError(new intl_messageformat_1.FormatError("Intl.RelativeTimeFormat is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-relativetimeformat\"\n", 2 /* MISSING_INTL_API */));
     }
     try {
         return getFormatter(config, getRelativeTimeFormat, options).format(value, unit);
     }
     catch (e) {
-        config.onError(utils_1.createError('Error formatting relative time.', e));
+        config.onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting relative time.', e));
     }
     return String(value);
 }
@@ -42544,10 +32999,10 @@ var plural_1 = __webpack_require__(/*! ./components/plural */ "./node_modules/re
 exports.FormattedPlural = plural_1.default;
 var message_1 = __webpack_require__(/*! ./components/message */ "./node_modules/react-intl/dist/components/message.js");
 exports.FormattedMessage = message_1.default;
-var html_message_1 = __webpack_require__(/*! ./components/html-message */ "./node_modules/react-intl/dist/components/html-message.js");
-exports.FormattedHTMLMessage = html_message_1.default;
 var utils_1 = __webpack_require__(/*! ./utils */ "./node_modules/react-intl/dist/utils.js");
 exports.createIntlCache = utils_1.createIntlCache;
+var error_1 = __webpack_require__(/*! ./error */ "./node_modules/react-intl/dist/error.js");
+exports.ReactIntlError = error_1.ReactIntlError;
 
 
 /***/ }),
@@ -42576,18 +33031,7 @@ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var intl_messageformat_1 = __webpack_require__(/*! intl-messageformat */ "./node_modules/intl-messageformat/dist/index.js");
 var intl_format_cache_1 = __webpack_require__(/*! intl-format-cache */ "./node_modules/intl-format-cache/dist/index.js");
 var intl_utils_1 = __webpack_require__(/*! @formatjs/intl-utils */ "./node_modules/@formatjs/intl-utils/dist/index.js");
-var ESCAPED_CHARS = {
-    38: '&amp;',
-    62: '&gt;',
-    60: '&lt;',
-    34: '&quot;',
-    39: '&#x27;',
-};
-var UNSAFE_CHARS_REGEX = /[&><"']/g;
-function escape(str) {
-    return ('' + str).replace(UNSAFE_CHARS_REGEX, function (match) { return ESCAPED_CHARS[match.charCodeAt(0)]; });
-}
-exports.escape = escape;
+var error_1 = __webpack_require__(/*! ./error */ "./node_modules/react-intl/dist/error.js");
 function filterProps(props, whitelist, defaults) {
     if (defaults === void 0) { defaults = {}; }
     return whitelist.reduce(function (filtered, name) {
@@ -42606,11 +33050,6 @@ function invariantIntlContext(intl) {
         '<IntlProvider> needs to exist in the component ancestry.');
 }
 exports.invariantIntlContext = invariantIntlContext;
-function createError(message, exception) {
-    var eMsg = exception ? "\n" + exception.stack : '';
-    return "[React Intl] " + message + eMsg;
-}
-exports.createError = createError;
 function defaultErrorHandler(error) {
     if (true) {
         console.error(error);
@@ -42667,7 +33106,7 @@ function getNamedFormat(formats, type, name, onError) {
     if (format) {
         return format;
     }
-    onError(createError("No " + type + " format named: " + name));
+    onError(new error_1.ReactIntlError("UNSUPPORTED_FORMATTER" /* UNSUPPORTED_FORMATTER */, "No " + type + " format named: " + name));
 }
 exports.getNamedFormat = getNamedFormat;
 
@@ -44923,3997 +35362,6 @@ module.exports = shallowEqualObjects;
 
 /***/ }),
 
-/***/ "./node_modules/synchronous-promise/index.js":
-/*!***************************************************!*\
-  !*** ./node_modules/synchronous-promise/index.js ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* jshint node: true */
-
-function makeArrayFrom(obj) {
-  return Array.prototype.slice.apply(obj);
-}
-var
-  PENDING = "pending",
-  RESOLVED = "resolved",
-  REJECTED = "rejected";
-
-function SynchronousPromise(handler) {
-  this.status = PENDING;
-  this._continuations = [];
-  this._parent = null;
-  this._paused = false;
-  if (handler) {
-    handler.call(
-      this,
-      this._continueWith.bind(this),
-      this._failWith.bind(this)
-    );
-  }
-}
-
-function looksLikeAPromise(obj) {
-  return obj && typeof (obj.then) === "function";
-}
-
-SynchronousPromise.prototype = {
-  then: function (nextFn, catchFn) {
-    var next = SynchronousPromise.unresolved()._setParent(this);
-    if (this._isRejected()) {
-      if (this._paused) {
-        this._continuations.push({
-          promise: next,
-          nextFn: nextFn,
-          catchFn: catchFn
-        });
-        return next;
-      }
-      if (catchFn) {
-        try {
-          var catchResult = catchFn(this._error);
-          if (looksLikeAPromise(catchResult)) {
-            this._chainPromiseData(catchResult, next);
-            return next;
-          } else {
-            return SynchronousPromise.resolve(catchResult)._setParent(this);
-          }
-        } catch (e) {
-          return SynchronousPromise.reject(e)._setParent(this);
-        }
-      }
-      return SynchronousPromise.reject(this._error)._setParent(this);
-    }
-    this._continuations.push({
-      promise: next,
-      nextFn: nextFn,
-      catchFn: catchFn
-    });
-    this._runResolutions();
-    return next;
-  },
-  catch: function (handler) {
-    if (this._isResolved()) {
-      return SynchronousPromise.resolve(this._data)._setParent(this);
-    }
-    var next = SynchronousPromise.unresolved()._setParent(this);
-    this._continuations.push({
-      promise: next,
-      catchFn: handler
-    });
-    this._runRejections();
-    return next;
-  },
-  finally: function(callback) {
-    var ran = false;
-    function runFinally() {
-      if (!ran) {
-        ran = true;
-        return callback();
-      }
-    }
-    return this.then(runFinally)
-      .catch(runFinally);
-  },
-  pause: function () {
-    this._paused = true;
-    return this;
-  },
-  resume: function () {
-    var firstPaused = this._findFirstPaused();
-    if (firstPaused) {
-      firstPaused._paused = false;
-      firstPaused._runResolutions();
-      firstPaused._runRejections();
-    }
-    return this;
-  },
-  _findAncestry: function () {
-    return this._continuations.reduce(function (acc, cur) {
-      if (cur.promise) {
-        var node = {
-          promise: cur.promise,
-          children: cur.promise._findAncestry()
-        };
-        acc.push(node);
-      }
-      return acc;
-    }, []);
-  },
-  _setParent: function (parent) {
-    if (this._parent) {
-      throw new Error("parent already set");
-    }
-    this._parent = parent;
-    return this;
-  },
-  _continueWith: function (data) {
-    var firstPending = this._findFirstPending();
-    if (firstPending) {
-      firstPending._data = data;
-      firstPending._setResolved();
-    }
-  },
-  _findFirstPending: function () {
-    return this._findFirstAncestor(function (test) {
-      return test._isPending && test._isPending();
-    });
-  },
-  _findFirstPaused: function () {
-    return this._findFirstAncestor(function (test) {
-      return test._paused;
-    });
-  },
-  _findFirstAncestor: function (matching) {
-    var test = this;
-    var result;
-    while (test) {
-      if (matching(test)) {
-        result = test;
-      }
-      test = test._parent;
-    }
-    return result;
-  },
-  _failWith: function (error) {
-    var firstRejected = this._findFirstPending();
-    if (firstRejected) {
-      firstRejected._error = error;
-      firstRejected._setRejected();
-    }
-  },
-  _takeContinuations: function () {
-    return this._continuations.splice(0, this._continuations.length);
-  },
-  _runRejections: function () {
-    if (this._paused || !this._isRejected()) {
-      return;
-    }
-    var
-      error = this._error,
-      continuations = this._takeContinuations(),
-      self = this;
-    continuations.forEach(function (cont) {
-      if (cont.catchFn) {
-        try {
-          var catchResult = cont.catchFn(error);
-          self._handleUserFunctionResult(catchResult, cont.promise);
-        } catch (e) {
-          var message = e.message;
-          cont.promise.reject(e);
-        }
-      } else {
-        cont.promise.reject(error);
-      }
-    });
-  },
-  _runResolutions: function () {
-    if (this._paused || !this._isResolved() || this._isPending()) {
-      return;
-    }
-    var continuations = this._takeContinuations();
-    if (looksLikeAPromise(this._data)) {
-      return this._handleWhenResolvedDataIsPromise(this._data);
-    }
-    var data = this._data;
-    var self = this;
-    continuations.forEach(function (cont) {
-      if (cont.nextFn) {
-        try {
-          var result = cont.nextFn(data);
-          self._handleUserFunctionResult(result, cont.promise);
-        } catch (e) {
-          self._handleResolutionError(e, cont);
-        }
-      } else if (cont.promise) {
-        cont.promise.resolve(data);
-      }
-    });
-  },
-  _handleResolutionError: function (e, continuation) {
-    this._setRejected();
-    if (continuation.catchFn) {
-      try {
-        continuation.catchFn(e);
-        return;
-      } catch (e2) {
-        e = e2;
-      }
-    }
-    if (continuation.promise) {
-      continuation.promise.reject(e);
-    }
-  },
-  _handleWhenResolvedDataIsPromise: function (data) {
-    var self = this;
-    return data.then(function (result) {
-      self._data = result;
-      self._runResolutions();
-    }).catch(function (error) {
-      self._error = error;
-      self._setRejected();
-      self._runRejections();
-    });
-  },
-  _handleUserFunctionResult: function (data, nextSynchronousPromise) {
-    if (looksLikeAPromise(data)) {
-      this._chainPromiseData(data, nextSynchronousPromise);
-    } else {
-      nextSynchronousPromise.resolve(data);
-    }
-  },
-  _chainPromiseData: function (promiseData, nextSynchronousPromise) {
-    promiseData.then(function (newData) {
-      nextSynchronousPromise.resolve(newData);
-    }).catch(function (newError) {
-      nextSynchronousPromise.reject(newError);
-    });
-  },
-  _setResolved: function () {
-    this.status = RESOLVED;
-    if (!this._paused) {
-      this._runResolutions();
-    }
-  },
-  _setRejected: function () {
-    this.status = REJECTED;
-    if (!this._paused) {
-      this._runRejections();
-    }
-  },
-  _isPending: function () {
-    return this.status === PENDING;
-  },
-  _isResolved: function () {
-    return this.status === RESOLVED;
-  },
-  _isRejected: function () {
-    return this.status === REJECTED;
-  }
-};
-
-SynchronousPromise.resolve = function (result) {
-  return new SynchronousPromise(function (resolve, reject) {
-    if (looksLikeAPromise(result)) {
-      result.then(function (newResult) {
-        resolve(newResult);
-      }).catch(function (error) {
-        reject(error);
-      });
-    } else {
-      resolve(result);
-    }
-  });
-};
-
-SynchronousPromise.reject = function (result) {
-  return new SynchronousPromise(function (resolve, reject) {
-    reject(result);
-  });
-};
-
-SynchronousPromise.unresolved = function () {
-  return new SynchronousPromise(function (resolve, reject) {
-    this.resolve = resolve;
-    this.reject = reject;
-  });
-};
-
-SynchronousPromise.all = function () {
-  var args = makeArrayFrom(arguments);
-  if (Array.isArray(args[0])) {
-    args = args[0];
-  }
-  if (!args.length) {
-    return SynchronousPromise.resolve([]);
-  }
-  return new SynchronousPromise(function (resolve, reject) {
-    var
-      allData = [],
-      numResolved = 0,
-      doResolve = function () {
-        if (numResolved === args.length) {
-          resolve(allData);
-        }
-      },
-      rejected = false,
-      doReject = function (err) {
-        if (rejected) {
-          return;
-        }
-        rejected = true;
-        reject(err);
-      };
-    args.forEach(function (arg, idx) {
-      SynchronousPromise.resolve(arg).then(function (thisResult) {
-        allData[idx] = thisResult;
-        numResolved += 1;
-        doResolve();
-      }).catch(function (err) {
-        doReject(err);
-      });
-    });
-  });
-};
-
-/* jshint ignore:start */
-if (Promise === SynchronousPromise) {
-  throw new Error("Please use SynchronousPromise.installGlobally() to install globally");
-}
-var RealPromise = Promise;
-SynchronousPromise.installGlobally = function(__awaiter) {
-  if (Promise === SynchronousPromise) {
-    return __awaiter;
-  }
-  var result = patchAwaiterIfRequired(__awaiter);
-  Promise = SynchronousPromise;
-  return result;
-};
-
-SynchronousPromise.uninstallGlobally = function() {
-  if (Promise === SynchronousPromise) {
-    Promise = RealPromise;
-  }
-};
-
-function patchAwaiterIfRequired(__awaiter) {
-  if (typeof(__awaiter) === "undefined" || __awaiter.__patched) {
-    return __awaiter;
-  }
-  var originalAwaiter = __awaiter;
-  __awaiter = function() {
-    var Promise = RealPromise;
-    originalAwaiter.apply(this, makeArrayFrom(arguments));
-  };
-  __awaiter.__patched = true;
-  return __awaiter;
-}
-/* jshint ignore:end */
-
-module.exports = {
-  SynchronousPromise: SynchronousPromise
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/tiny-warning/dist/tiny-warning.cjs.js":
-/*!************************************************************!*\
-  !*** ./node_modules/tiny-warning/dist/tiny-warning.cjs.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var isProduction = "development" === 'production';
-function warning(condition, message) {
-  if (!isProduction) {
-    if (condition) {
-      return;
-    }
-
-    var text = "Warning: " + message;
-
-    if (typeof console !== 'undefined') {
-      console.warn(text);
-    }
-
-    try {
-      throw Error(text);
-    } catch (x) {}
-  }
-}
-
-module.exports = warning;
-
-
-/***/ }),
-
-/***/ "./node_modules/toposort/index.js":
-/*!****************************************!*\
-  !*** ./node_modules/toposort/index.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
-/**
- * Topological sorting function
- *
- * @param {Array} edges
- * @returns {Array}
- */
-
-module.exports = function(edges) {
-  return toposort(uniqueNodes(edges), edges)
-}
-
-module.exports.array = toposort
-
-function toposort(nodes, edges) {
-  var cursor = nodes.length
-    , sorted = new Array(cursor)
-    , visited = {}
-    , i = cursor
-    // Better data structures make algorithm much faster.
-    , outgoingEdges = makeOutgoingEdges(edges)
-    , nodesHash = makeNodesHash(nodes)
-
-  // check for unknown nodes
-  edges.forEach(function(edge) {
-    if (!nodesHash.has(edge[0]) || !nodesHash.has(edge[1])) {
-      throw new Error('Unknown node. There is an unknown node in the supplied edges.')
-    }
-  })
-
-  while (i--) {
-    if (!visited[i]) visit(nodes[i], i, new Set())
-  }
-
-  return sorted
-
-  function visit(node, i, predecessors) {
-    if(predecessors.has(node)) {
-      var nodeRep
-      try {
-        nodeRep = ", node was:" + JSON.stringify(node)
-      } catch(e) {
-        nodeRep = ""
-      }
-      throw new Error('Cyclic dependency' + nodeRep)
-    }
-
-    if (!nodesHash.has(node)) {
-      throw new Error('Found unknown node. Make sure to provided all involved nodes. Unknown node: '+JSON.stringify(node))
-    }
-
-    if (visited[i]) return;
-    visited[i] = true
-
-    var outgoing = outgoingEdges.get(node) || new Set()
-    outgoing = Array.from(outgoing)
-
-    if (i = outgoing.length) {
-      predecessors.add(node)
-      do {
-        var child = outgoing[--i]
-        visit(child, nodesHash.get(child), predecessors)
-      } while (i)
-      predecessors.delete(node)
-    }
-
-    sorted[--cursor] = node
-  }
-}
-
-function uniqueNodes(arr){
-  var res = new Set()
-  for (var i = 0, len = arr.length; i < len; i++) {
-    var edge = arr[i]
-    res.add(edge[0])
-    res.add(edge[1])
-  }
-  return Array.from(res)
-}
-
-function makeOutgoingEdges(arr){
-  var edges = new Map()
-  for (var i = 0, len = arr.length; i < len; i++) {
-    var edge = arr[i]
-    if (!edges.has(edge[0])) edges.set(edge[0], new Set())
-    if (!edges.has(edge[1])) edges.set(edge[1], new Set())
-    edges.get(edge[0]).add(edge[1])
-  }
-  return edges
-}
-
-function makeNodesHash(arr){
-  var res = new Map()
-  for (var i = 0, len = arr.length; i < len; i++) {
-    res.set(arr[i], i)
-  }
-  return res
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/tslib/tslib.js":
-/*!*************************************!*\
-  !*** ./node_modules/tslib/tslib.js ***!
-  \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! *****************************************************************************
-Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0
-
-THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-MERCHANTABLITY OR NON-INFRINGEMENT.
-
-See the Apache Version 2.0 License for specific language governing permissions
-and limitations under the License.
-***************************************************************************** */
-/* global global, define, System, Reflect, Promise */
-var __extends;
-var __assign;
-var __rest;
-var __decorate;
-var __param;
-var __metadata;
-var __awaiter;
-var __generator;
-var __exportStar;
-var __values;
-var __read;
-var __spread;
-var __spreadArrays;
-var __await;
-var __asyncGenerator;
-var __asyncDelegator;
-var __asyncValues;
-var __makeTemplateObject;
-var __importStar;
-var __importDefault;
-(function (factory) {
-    var root = typeof global === "object" ? global : typeof self === "object" ? self : typeof this === "object" ? this : {};
-    if (true) {
-        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports], __WEBPACK_AMD_DEFINE_RESULT__ = (function (exports) { factory(createExporter(root, createExporter(exports))); }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-    }
-    else {}
-    function createExporter(exports, previous) {
-        if (exports !== root) {
-            if (typeof Object.create === "function") {
-                Object.defineProperty(exports, "__esModule", { value: true });
-            }
-            else {
-                exports.__esModule = true;
-            }
-        }
-        return function (id, v) { return exports[id] = previous ? previous(id, v) : v; };
-    }
-})
-(function (exporter) {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-
-    __extends = function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-
-    __assign = Object.assign || function (t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-        }
-        return t;
-    };
-
-    __rest = function (s, e) {
-        var t = {};
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-            t[p] = s[p];
-        if (s != null && typeof Object.getOwnPropertySymbols === "function")
-            for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-                if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                    t[p[i]] = s[p[i]];
-            }
-        return t;
-    };
-
-    __decorate = function (decorators, target, key, desc) {
-        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-        return c > 3 && r && Object.defineProperty(target, key, r), r;
-    };
-
-    __param = function (paramIndex, decorator) {
-        return function (target, key) { decorator(target, key, paramIndex); }
-    };
-
-    __metadata = function (metadataKey, metadataValue) {
-        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
-    };
-
-    __awaiter = function (thisArg, _arguments, P, generator) {
-        return new (P || (P = Promise))(function (resolve, reject) {
-            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-            function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-            step((generator = generator.apply(thisArg, _arguments || [])).next());
-        });
-    };
-
-    __generator = function (thisArg, body) {
-        var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-        function verb(n) { return function (v) { return step([n, v]); }; }
-        function step(op) {
-            if (f) throw new TypeError("Generator is already executing.");
-            while (_) try {
-                if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-                if (y = 0, t) op = [op[0] & 2, t.value];
-                switch (op[0]) {
-                    case 0: case 1: t = op; break;
-                    case 4: _.label++; return { value: op[1], done: false };
-                    case 5: _.label++; y = op[1]; op = [0]; continue;
-                    case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                    default:
-                        if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                        if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                        if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                        if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                        if (t[2]) _.ops.pop();
-                        _.trys.pop(); continue;
-                }
-                op = body.call(thisArg, _);
-            } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-            if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-        }
-    };
-
-    __exportStar = function (m, exports) {
-        for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-    };
-
-    __values = function (o) {
-        var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
-        if (m) return m.call(o);
-        return {
-            next: function () {
-                if (o && i >= o.length) o = void 0;
-                return { value: o && o[i++], done: !o };
-            }
-        };
-    };
-
-    __read = function (o, n) {
-        var m = typeof Symbol === "function" && o[Symbol.iterator];
-        if (!m) return o;
-        var i = m.call(o), r, ar = [], e;
-        try {
-            while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-        }
-        catch (error) { e = { error: error }; }
-        finally {
-            try {
-                if (r && !r.done && (m = i["return"])) m.call(i);
-            }
-            finally { if (e) throw e.error; }
-        }
-        return ar;
-    };
-
-    __spread = function () {
-        for (var ar = [], i = 0; i < arguments.length; i++)
-            ar = ar.concat(__read(arguments[i]));
-        return ar;
-    };
-
-    __spreadArrays = function () {
-        for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-        for (var r = Array(s), k = 0, i = 0; i < il; i++)
-            for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-                r[k] = a[j];
-        return r;
-    };
-
-    __await = function (v) {
-        return this instanceof __await ? (this.v = v, this) : new __await(v);
-    };
-
-    __asyncGenerator = function (thisArg, _arguments, generator) {
-        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-        var g = generator.apply(thisArg, _arguments || []), i, q = [];
-        return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
-        function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
-        function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
-        function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r);  }
-        function fulfill(value) { resume("next", value); }
-        function reject(value) { resume("throw", value); }
-        function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
-    };
-
-    __asyncDelegator = function (o) {
-        var i, p;
-        return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
-        function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
-    };
-
-    __asyncValues = function (o) {
-        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-        var m = o[Symbol.asyncIterator], i;
-        return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-        function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-    };
-
-    __makeTemplateObject = function (cooked, raw) {
-        if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
-        return cooked;
-    };
-
-    __importStar = function (mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-        result["default"] = mod;
-        return result;
-    };
-
-    __importDefault = function (mod) {
-        return (mod && mod.__esModule) ? mod : { "default": mod };
-    };
-
-    exporter("__extends", __extends);
-    exporter("__assign", __assign);
-    exporter("__rest", __rest);
-    exporter("__decorate", __decorate);
-    exporter("__param", __param);
-    exporter("__metadata", __metadata);
-    exporter("__awaiter", __awaiter);
-    exporter("__generator", __generator);
-    exporter("__exportStar", __exportStar);
-    exporter("__values", __values);
-    exporter("__read", __read);
-    exporter("__spread", __spread);
-    exporter("__spreadArrays", __spreadArrays);
-    exporter("__await", __await);
-    exporter("__asyncGenerator", __asyncGenerator);
-    exporter("__asyncDelegator", __asyncDelegator);
-    exporter("__asyncValues", __asyncValues);
-    exporter("__makeTemplateObject", __makeTemplateObject);
-    exporter("__importStar", __importStar);
-    exporter("__importDefault", __importDefault);
-});
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
-
-/***/ }),
-
-/***/ "./node_modules/webpack/buildin/global.js":
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-
-/***/ "./node_modules/webpack/buildin/module.js":
-/*!***********************************!*\
-  !*** (webpack)/buildin/module.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = function(module) {
-	if (!module.webpackPolyfill) {
-		module.deprecate = function() {};
-		module.paths = [];
-		// module.parent = undefined by default
-		if (!module.children) module.children = [];
-		Object.defineProperty(module, "loaded", {
-			enumerable: true,
-			get: function() {
-				return module.l;
-			}
-		});
-		Object.defineProperty(module, "id", {
-			enumerable: true,
-			get: function() {
-				return module.i;
-			}
-		});
-		module.webpackPolyfill = 1;
-	}
-	return module;
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/Condition.js":
-/*!*******************************************!*\
-  !*** ./node_modules/yup/lib/Condition.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _has = _interopRequireDefault(__webpack_require__(/*! lodash/has */ "./node_modules/lodash/has.js"));
-
-var _isSchema = _interopRequireDefault(__webpack_require__(/*! ./util/isSchema */ "./node_modules/yup/lib/util/isSchema.js"));
-
-var Condition = /*#__PURE__*/function () {
-  function Condition(refs, options) {
-    this.refs = refs;
-
-    if (typeof options === 'function') {
-      this.fn = options;
-      return;
-    }
-
-    if (!(0, _has.default)(options, 'is')) throw new TypeError('`is:` is required for `when()` conditions');
-    if (!options.then && !options.otherwise) throw new TypeError('either `then:` or `otherwise:` is required for `when()` conditions');
-    var is = options.is,
-        then = options.then,
-        otherwise = options.otherwise;
-    var check = typeof is === 'function' ? is : function () {
-      for (var _len = arguments.length, values = new Array(_len), _key = 0; _key < _len; _key++) {
-        values[_key] = arguments[_key];
-      }
-
-      return values.every(function (value) {
-        return value === is;
-      });
-    };
-
-    this.fn = function () {
-      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-        args[_key2] = arguments[_key2];
-      }
-
-      var options = args.pop();
-      var schema = args.pop();
-      var branch = check.apply(void 0, args) ? then : otherwise;
-      if (!branch) return undefined;
-      if (typeof branch === 'function') return branch(schema);
-      return schema.concat(branch.resolve(options));
-    };
-  }
-
-  var _proto = Condition.prototype;
-
-  _proto.resolve = function resolve(base, options) {
-    var values = this.refs.map(function (ref) {
-      return ref.getValue(options);
-    });
-    var schema = this.fn.apply(base, values.concat(base, options));
-    if (schema === undefined || schema === base) return base;
-    if (!(0, _isSchema.default)(schema)) throw new TypeError('conditions must return a schema object');
-    return schema.resolve(options);
-  };
-
-  return Condition;
-}();
-
-var _default = Condition;
-exports.default = _default;
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/Lazy.js":
-/*!**************************************!*\
-  !*** ./node_modules/yup/lib/Lazy.js ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _isSchema = _interopRequireDefault(__webpack_require__(/*! ./util/isSchema */ "./node_modules/yup/lib/util/isSchema.js"));
-
-var Lazy = /*#__PURE__*/function () {
-  function Lazy(mapFn) {
-    this._resolve = function (value, options) {
-      var schema = mapFn(value, options);
-      if (!(0, _isSchema.default)(schema)) throw new TypeError('lazy() functions must return a valid schema');
-      return schema.resolve(options);
-    };
-  }
-
-  var _proto = Lazy.prototype;
-
-  _proto.resolve = function resolve(options) {
-    return this._resolve(options.value, options);
-  };
-
-  _proto.cast = function cast(value, options) {
-    return this._resolve(value, options).cast(value, options);
-  };
-
-  _proto.validate = function validate(value, options) {
-    return this._resolve(value, options).validate(value, options);
-  };
-
-  _proto.validateSync = function validateSync(value, options) {
-    return this._resolve(value, options).validateSync(value, options);
-  };
-
-  _proto.validateAt = function validateAt(path, value, options) {
-    return this._resolve(value, options).validateAt(path, value, options);
-  };
-
-  _proto.validateSyncAt = function validateSyncAt(path, value, options) {
-    return this._resolve(value, options).validateSyncAt(path, value, options);
-  };
-
-  return Lazy;
-}();
-
-Lazy.prototype.__isYupSchema__ = true;
-var _default = Lazy;
-exports.default = _default;
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/Reference.js":
-/*!*******************************************!*\
-  !*** ./node_modules/yup/lib/Reference.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/yup/node_modules/@babel/runtime/helpers/extends.js"));
-
-var _propertyExpr = __webpack_require__(/*! property-expr */ "./node_modules/property-expr/index.js");
-
-var prefixes = {
-  context: '$',
-  value: '.'
-};
-
-var Reference = /*#__PURE__*/function () {
-  function Reference(key, options) {
-    if (options === void 0) {
-      options = {};
-    }
-
-    if (typeof key !== 'string') throw new TypeError('ref must be a string, got: ' + key);
-    this.key = key.trim();
-    if (key === '') throw new TypeError('ref must be a non-empty string');
-    this.isContext = this.key[0] === prefixes.context;
-    this.isValue = this.key[0] === prefixes.value;
-    this.isSibling = !this.isContext && !this.isValue;
-    var prefix = this.isContext ? prefixes.context : this.isValue ? prefixes.value : '';
-    this.path = this.key.slice(prefix.length);
-    this.getter = this.path && (0, _propertyExpr.getter)(this.path, true);
-    this.map = options.map;
-  }
-
-  var _proto = Reference.prototype;
-
-  _proto.getValue = function getValue(options) {
-    var result = this.isContext ? options.context : this.isValue ? options.value : options.parent;
-    if (this.getter) result = this.getter(result || {});
-    if (this.map) result = this.map(result);
-    return result;
-  };
-
-  _proto.cast = function cast(value, options) {
-    return this.getValue((0, _extends2.default)({}, options, {
-      value: value
-    }));
-  };
-
-  _proto.resolve = function resolve() {
-    return this;
-  };
-
-  _proto.describe = function describe() {
-    return {
-      type: 'ref',
-      key: this.key
-    };
-  };
-
-  _proto.toString = function toString() {
-    return "Ref(" + this.key + ")";
-  };
-
-  Reference.isRef = function isRef(value) {
-    return value && value.__isYupRef;
-  };
-
-  return Reference;
-}();
-
-exports.default = Reference;
-Reference.prototype.__isYupRef = true;
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/ValidationError.js":
-/*!*************************************************!*\
-  !*** ./node_modules/yup/lib/ValidationError.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = ValidationError;
-
-var _printValue = _interopRequireDefault(__webpack_require__(/*! ./util/printValue */ "./node_modules/yup/lib/util/printValue.js"));
-
-var strReg = /\$\{\s*(\w+)\s*\}/g;
-
-var replace = function replace(str) {
-  return function (params) {
-    return str.replace(strReg, function (_, key) {
-      return (0, _printValue.default)(params[key]);
-    });
-  };
-};
-
-function ValidationError(errors, value, field, type) {
-  var _this = this;
-
-  this.name = 'ValidationError';
-  this.value = value;
-  this.path = field;
-  this.type = type;
-  this.errors = [];
-  this.inner = [];
-  if (errors) [].concat(errors).forEach(function (err) {
-    _this.errors = _this.errors.concat(err.errors || err);
-    if (err.inner) _this.inner = _this.inner.concat(err.inner.length ? err.inner : err);
-  });
-  this.message = this.errors.length > 1 ? this.errors.length + " errors occurred" : this.errors[0];
-  if (Error.captureStackTrace) Error.captureStackTrace(this, ValidationError);
-}
-
-ValidationError.prototype = Object.create(Error.prototype);
-ValidationError.prototype.constructor = ValidationError;
-
-ValidationError.isError = function (err) {
-  return err && err.name === 'ValidationError';
-};
-
-ValidationError.formatError = function (message, params) {
-  if (typeof message === 'string') message = replace(message);
-
-  var fn = function fn(params) {
-    params.path = params.label || params.path || 'this';
-    return typeof message === 'function' ? message(params) : message;
-  };
-
-  return arguments.length === 1 ? fn : fn(params);
-};
-
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/array.js":
-/*!***************************************!*\
-  !*** ./node_modules/yup/lib/array.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireWildcard = __webpack_require__(/*! @babel/runtime/helpers/interopRequireWildcard */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireWildcard.js");
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _taggedTemplateLiteralLoose2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteralLoose */ "./node_modules/yup/node_modules/@babel/runtime/helpers/taggedTemplateLiteralLoose.js"));
-
-var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/yup/node_modules/@babel/runtime/helpers/extends.js"));
-
-var _inherits = _interopRequireDefault(__webpack_require__(/*! ./util/inherits */ "./node_modules/yup/lib/util/inherits.js"));
-
-var _isAbsent = _interopRequireDefault(__webpack_require__(/*! ./util/isAbsent */ "./node_modules/yup/lib/util/isAbsent.js"));
-
-var _isSchema = _interopRequireDefault(__webpack_require__(/*! ./util/isSchema */ "./node_modules/yup/lib/util/isSchema.js"));
-
-var _makePath = _interopRequireDefault(__webpack_require__(/*! ./util/makePath */ "./node_modules/yup/lib/util/makePath.js"));
-
-var _printValue = _interopRequireDefault(__webpack_require__(/*! ./util/printValue */ "./node_modules/yup/lib/util/printValue.js"));
-
-var _mixed = _interopRequireDefault(__webpack_require__(/*! ./mixed */ "./node_modules/yup/lib/mixed.js"));
-
-var _locale = __webpack_require__(/*! ./locale */ "./node_modules/yup/lib/locale.js");
-
-var _runValidations = _interopRequireWildcard(__webpack_require__(/*! ./util/runValidations */ "./node_modules/yup/lib/util/runValidations.js"));
-
-function _templateObject2() {
-  var data = (0, _taggedTemplateLiteralLoose2.default)(["", "[", "]"]);
-
-  _templateObject2 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject() {
-  var data = (0, _taggedTemplateLiteralLoose2.default)(["", "[", "]"]);
-
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-
-var _default = ArraySchema;
-exports.default = _default;
-
-function ArraySchema(type) {
-  var _this = this;
-
-  if (!(this instanceof ArraySchema)) return new ArraySchema(type);
-
-  _mixed.default.call(this, {
-    type: 'array'
-  }); // `undefined` specifically means uninitialized, as opposed to
-  // "no subtype"
-
-
-  this._subType = undefined;
-  this.withMutation(function () {
-    _this.transform(function (values) {
-      if (typeof values === 'string') try {
-        values = JSON.parse(values);
-      } catch (err) {
-        values = null;
-      }
-      return this.isType(values) ? values : null;
-    });
-
-    if (type) _this.of(type);
-  });
-}
-
-(0, _inherits.default)(ArraySchema, _mixed.default, {
-  _typeCheck: function _typeCheck(v) {
-    return Array.isArray(v);
-  },
-  _cast: function _cast(_value, _opts) {
-    var _this2 = this;
-
-    var value = _mixed.default.prototype._cast.call(this, _value, _opts); //should ignore nulls here
-
-
-    if (!this._typeCheck(value) || !this._subType) return value;
-    var isChanged = false;
-    var castArray = value.map(function (v, idx) {
-      var castElement = _this2._subType.cast(v, (0, _extends2.default)({}, _opts, {
-        path: (0, _makePath.default)(_templateObject(), _opts.path, idx)
-      }));
-
-      if (castElement !== v) {
-        isChanged = true;
-      }
-
-      return castElement;
-    });
-    return isChanged ? castArray : value;
-  },
-  _validate: function _validate(_value, options) {
-    var _this3 = this;
-
-    if (options === void 0) {
-      options = {};
-    }
-
-    var errors = [];
-    var sync = options.sync;
-    var path = options.path;
-    var subType = this._subType;
-
-    var endEarly = this._option('abortEarly', options);
-
-    var recursive = this._option('recursive', options);
-
-    var originalValue = options.originalValue != null ? options.originalValue : _value;
-    return _mixed.default.prototype._validate.call(this, _value, options).catch((0, _runValidations.propagateErrors)(endEarly, errors)).then(function (value) {
-      if (!recursive || !subType || !_this3._typeCheck(value)) {
-        if (errors.length) throw errors[0];
-        return value;
-      }
-
-      originalValue = originalValue || value;
-      var validations = value.map(function (item, idx) {
-        var path = (0, _makePath.default)(_templateObject2(), options.path, idx); // object._validate note for isStrict explanation
-
-        var innerOptions = (0, _extends2.default)({}, options, {
-          path: path,
-          strict: true,
-          parent: value,
-          originalValue: originalValue[idx]
-        });
-        if (subType.validate) return subType.validate(item, innerOptions);
-        return true;
-      });
-      return (0, _runValidations.default)({
-        sync: sync,
-        path: path,
-        value: value,
-        errors: errors,
-        endEarly: endEarly,
-        validations: validations
-      });
-    });
-  },
-  _isPresent: function _isPresent(value) {
-    return _mixed.default.prototype._cast.call(this, value) && value.length > 0;
-  },
-  of: function of(schema) {
-    var next = this.clone();
-    if (schema !== false && !(0, _isSchema.default)(schema)) throw new TypeError('`array.of()` sub-schema must be a valid yup schema, or `false` to negate a current sub-schema. ' + 'not: ' + (0, _printValue.default)(schema));
-    next._subType = schema;
-    return next;
-  },
-  min: function min(_min, message) {
-    message = message || _locale.array.min;
-    return this.test({
-      message: message,
-      name: 'min',
-      exclusive: true,
-      params: {
-        min: _min
-      },
-      test: function test(value) {
-        return (0, _isAbsent.default)(value) || value.length >= this.resolve(_min);
-      }
-    });
-  },
-  max: function max(_max, message) {
-    message = message || _locale.array.max;
-    return this.test({
-      message: message,
-      name: 'max',
-      exclusive: true,
-      params: {
-        max: _max
-      },
-      test: function test(value) {
-        return (0, _isAbsent.default)(value) || value.length <= this.resolve(_max);
-      }
-    });
-  },
-  ensure: function ensure() {
-    var _this4 = this;
-
-    return this.default(function () {
-      return [];
-    }).transform(function (val, original) {
-      // We don't want to return `null` for nullable schema
-      if (_this4._typeCheck(val)) return val;
-      return original == null ? [] : [].concat(original);
-    });
-  },
-  compact: function compact(rejector) {
-    var reject = !rejector ? function (v) {
-      return !!v;
-    } : function (v, i, a) {
-      return !rejector(v, i, a);
-    };
-    return this.transform(function (values) {
-      return values != null ? values.filter(reject) : values;
-    });
-  },
-  describe: function describe() {
-    var base = _mixed.default.prototype.describe.call(this);
-
-    if (this._subType) base.innerType = this._subType.describe();
-    return base;
-  }
-});
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/boolean.js":
-/*!*****************************************!*\
-  !*** ./node_modules/yup/lib/boolean.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _inherits = _interopRequireDefault(__webpack_require__(/*! ./util/inherits */ "./node_modules/yup/lib/util/inherits.js"));
-
-var _mixed = _interopRequireDefault(__webpack_require__(/*! ./mixed */ "./node_modules/yup/lib/mixed.js"));
-
-var _default = BooleanSchema;
-exports.default = _default;
-
-function BooleanSchema() {
-  var _this = this;
-
-  if (!(this instanceof BooleanSchema)) return new BooleanSchema();
-
-  _mixed.default.call(this, {
-    type: 'boolean'
-  });
-
-  this.withMutation(function () {
-    _this.transform(function (value) {
-      if (!this.isType(value)) {
-        if (/^(true|1)$/i.test(value)) return true;
-        if (/^(false|0)$/i.test(value)) return false;
-      }
-
-      return value;
-    });
-  });
-}
-
-(0, _inherits.default)(BooleanSchema, _mixed.default, {
-  _typeCheck: function _typeCheck(v) {
-    if (v instanceof Boolean) v = v.valueOf();
-    return typeof v === 'boolean';
-  }
-});
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/date.js":
-/*!**************************************!*\
-  !*** ./node_modules/yup/lib/date.js ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _mixed = _interopRequireDefault(__webpack_require__(/*! ./mixed */ "./node_modules/yup/lib/mixed.js"));
-
-var _inherits = _interopRequireDefault(__webpack_require__(/*! ./util/inherits */ "./node_modules/yup/lib/util/inherits.js"));
-
-var _isodate = _interopRequireDefault(__webpack_require__(/*! ./util/isodate */ "./node_modules/yup/lib/util/isodate.js"));
-
-var _locale = __webpack_require__(/*! ./locale */ "./node_modules/yup/lib/locale.js");
-
-var _isAbsent = _interopRequireDefault(__webpack_require__(/*! ./util/isAbsent */ "./node_modules/yup/lib/util/isAbsent.js"));
-
-var _Reference = _interopRequireDefault(__webpack_require__(/*! ./Reference */ "./node_modules/yup/lib/Reference.js"));
-
-var invalidDate = new Date('');
-
-var isDate = function isDate(obj) {
-  return Object.prototype.toString.call(obj) === '[object Date]';
-};
-
-var _default = DateSchema;
-exports.default = _default;
-
-function DateSchema() {
-  var _this = this;
-
-  if (!(this instanceof DateSchema)) return new DateSchema();
-
-  _mixed.default.call(this, {
-    type: 'date'
-  });
-
-  this.withMutation(function () {
-    _this.transform(function (value) {
-      if (this.isType(value)) return value;
-      value = (0, _isodate.default)(value); // 0 is a valid timestamp equivalent to 1970-01-01T00:00:00Z(unix epoch) or before.
-
-      return !isNaN(value) ? new Date(value) : invalidDate;
-    });
-  });
-}
-
-(0, _inherits.default)(DateSchema, _mixed.default, {
-  _typeCheck: function _typeCheck(v) {
-    return isDate(v) && !isNaN(v.getTime());
-  },
-  min: function min(_min, message) {
-    if (message === void 0) {
-      message = _locale.date.min;
-    }
-
-    var limit = _min;
-
-    if (!_Reference.default.isRef(limit)) {
-      limit = this.cast(_min);
-      if (!this._typeCheck(limit)) throw new TypeError('`min` must be a Date or a value that can be `cast()` to a Date');
-    }
-
-    return this.test({
-      message: message,
-      name: 'min',
-      exclusive: true,
-      params: {
-        min: _min
-      },
-      test: function test(value) {
-        return (0, _isAbsent.default)(value) || value >= this.resolve(limit);
-      }
-    });
-  },
-  max: function max(_max, message) {
-    if (message === void 0) {
-      message = _locale.date.max;
-    }
-
-    var limit = _max;
-
-    if (!_Reference.default.isRef(limit)) {
-      limit = this.cast(_max);
-      if (!this._typeCheck(limit)) throw new TypeError('`max` must be a Date or a value that can be `cast()` to a Date');
-    }
-
-    return this.test({
-      message: message,
-      name: 'max',
-      exclusive: true,
-      params: {
-        max: _max
-      },
-      test: function test(value) {
-        return (0, _isAbsent.default)(value) || value <= this.resolve(limit);
-      }
-    });
-  }
-});
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/index.js":
-/*!***************************************!*\
-  !*** ./node_modules/yup/lib/index.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.addMethod = addMethod;
-exports.lazy = exports.ref = exports.boolean = void 0;
-
-var _mixed = _interopRequireDefault(__webpack_require__(/*! ./mixed */ "./node_modules/yup/lib/mixed.js"));
-
-exports.mixed = _mixed.default;
-
-var _boolean = _interopRequireDefault(__webpack_require__(/*! ./boolean */ "./node_modules/yup/lib/boolean.js"));
-
-exports.bool = _boolean.default;
-
-var _string = _interopRequireDefault(__webpack_require__(/*! ./string */ "./node_modules/yup/lib/string.js"));
-
-exports.string = _string.default;
-
-var _number = _interopRequireDefault(__webpack_require__(/*! ./number */ "./node_modules/yup/lib/number.js"));
-
-exports.number = _number.default;
-
-var _date = _interopRequireDefault(__webpack_require__(/*! ./date */ "./node_modules/yup/lib/date.js"));
-
-exports.date = _date.default;
-
-var _object = _interopRequireDefault(__webpack_require__(/*! ./object */ "./node_modules/yup/lib/object.js"));
-
-exports.object = _object.default;
-
-var _array = _interopRequireDefault(__webpack_require__(/*! ./array */ "./node_modules/yup/lib/array.js"));
-
-exports.array = _array.default;
-
-var _Reference = _interopRequireDefault(__webpack_require__(/*! ./Reference */ "./node_modules/yup/lib/Reference.js"));
-
-var _Lazy = _interopRequireDefault(__webpack_require__(/*! ./Lazy */ "./node_modules/yup/lib/Lazy.js"));
-
-var _ValidationError = _interopRequireDefault(__webpack_require__(/*! ./ValidationError */ "./node_modules/yup/lib/ValidationError.js"));
-
-exports.ValidationError = _ValidationError.default;
-
-var _reach = _interopRequireDefault(__webpack_require__(/*! ./util/reach */ "./node_modules/yup/lib/util/reach.js"));
-
-exports.reach = _reach.default;
-
-var _isSchema = _interopRequireDefault(__webpack_require__(/*! ./util/isSchema */ "./node_modules/yup/lib/util/isSchema.js"));
-
-exports.isSchema = _isSchema.default;
-
-var _setLocale = _interopRequireDefault(__webpack_require__(/*! ./setLocale */ "./node_modules/yup/lib/setLocale.js"));
-
-exports.setLocale = _setLocale.default;
-var boolean = _boolean.default;
-exports.boolean = boolean;
-
-var ref = function ref(key, options) {
-  return new _Reference.default(key, options);
-};
-
-exports.ref = ref;
-
-var lazy = function lazy(fn) {
-  return new _Lazy.default(fn);
-};
-
-exports.lazy = lazy;
-
-function addMethod(schemaType, name, fn) {
-  if (!schemaType || !(0, _isSchema.default)(schemaType.prototype)) throw new TypeError('You must provide a yup schema constructor function');
-  if (typeof name !== 'string') throw new TypeError('A Method name must be provided');
-  if (typeof fn !== 'function') throw new TypeError('Method function must be provided');
-  schemaType.prototype[name] = fn;
-}
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/locale.js":
-/*!****************************************!*\
-  !*** ./node_modules/yup/lib/locale.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = exports.array = exports.object = exports.boolean = exports.date = exports.number = exports.string = exports.mixed = void 0;
-
-var _printValue = _interopRequireDefault(__webpack_require__(/*! ./util/printValue */ "./node_modules/yup/lib/util/printValue.js"));
-
-var mixed = {
-  default: '${path} is invalid',
-  required: '${path} is a required field',
-  oneOf: '${path} must be one of the following values: ${values}',
-  notOneOf: '${path} must not be one of the following values: ${values}',
-  notType: function notType(_ref) {
-    var path = _ref.path,
-        type = _ref.type,
-        value = _ref.value,
-        originalValue = _ref.originalValue;
-    var isCast = originalValue != null && originalValue !== value;
-    var msg = path + " must be a `" + type + "` type, " + ("but the final value was: `" + (0, _printValue.default)(value, true) + "`") + (isCast ? " (cast from the value `" + (0, _printValue.default)(originalValue, true) + "`)." : '.');
-
-    if (value === null) {
-      msg += "\n If \"null\" is intended as an empty value be sure to mark the schema as `.nullable()`";
-    }
-
-    return msg;
-  },
-  defined: '${path} must be defined'
-};
-exports.mixed = mixed;
-var string = {
-  length: '${path} must be exactly ${length} characters',
-  min: '${path} must be at least ${min} characters',
-  max: '${path} must be at most ${max} characters',
-  matches: '${path} must match the following: "${regex}"',
-  email: '${path} must be a valid email',
-  url: '${path} must be a valid URL',
-  trim: '${path} must be a trimmed string',
-  lowercase: '${path} must be a lowercase string',
-  uppercase: '${path} must be a upper case string'
-};
-exports.string = string;
-var number = {
-  min: '${path} must be greater than or equal to ${min}',
-  max: '${path} must be less than or equal to ${max}',
-  lessThan: '${path} must be less than ${less}',
-  moreThan: '${path} must be greater than ${more}',
-  notEqual: '${path} must be not equal to ${notEqual}',
-  positive: '${path} must be a positive number',
-  negative: '${path} must be a negative number',
-  integer: '${path} must be an integer'
-};
-exports.number = number;
-var date = {
-  min: '${path} field must be later than ${min}',
-  max: '${path} field must be at earlier than ${max}'
-};
-exports.date = date;
-var boolean = {};
-exports.boolean = boolean;
-var object = {
-  noUnknown: '${path} field cannot have keys not specified in the object shape'
-};
-exports.object = object;
-var array = {
-  min: '${path} field must have at least ${min} items',
-  max: '${path} field must have less than or equal to ${max} items'
-};
-exports.array = array;
-var _default = {
-  mixed: mixed,
-  string: string,
-  number: number,
-  date: date,
-  object: object,
-  array: array,
-  boolean: boolean
-};
-exports.default = _default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/mixed.js":
-/*!***************************************!*\
-  !*** ./node_modules/yup/lib/mixed.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = SchemaType;
-
-var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/yup/node_modules/@babel/runtime/helpers/extends.js"));
-
-var _has = _interopRequireDefault(__webpack_require__(/*! lodash/has */ "./node_modules/lodash/has.js"));
-
-var _cloneDeepWith = _interopRequireDefault(__webpack_require__(/*! lodash/cloneDeepWith */ "./node_modules/lodash/cloneDeepWith.js"));
-
-var _toArray2 = _interopRequireDefault(__webpack_require__(/*! lodash/toArray */ "./node_modules/lodash/toArray.js"));
-
-var _locale = __webpack_require__(/*! ./locale */ "./node_modules/yup/lib/locale.js");
-
-var _Condition = _interopRequireDefault(__webpack_require__(/*! ./Condition */ "./node_modules/yup/lib/Condition.js"));
-
-var _runValidations = _interopRequireDefault(__webpack_require__(/*! ./util/runValidations */ "./node_modules/yup/lib/util/runValidations.js"));
-
-var _prependDeep = _interopRequireDefault(__webpack_require__(/*! ./util/prependDeep */ "./node_modules/yup/lib/util/prependDeep.js"));
-
-var _isSchema = _interopRequireDefault(__webpack_require__(/*! ./util/isSchema */ "./node_modules/yup/lib/util/isSchema.js"));
-
-var _createValidation = _interopRequireDefault(__webpack_require__(/*! ./util/createValidation */ "./node_modules/yup/lib/util/createValidation.js"));
-
-var _printValue = _interopRequireDefault(__webpack_require__(/*! ./util/printValue */ "./node_modules/yup/lib/util/printValue.js"));
-
-var _Reference = _interopRequireDefault(__webpack_require__(/*! ./Reference */ "./node_modules/yup/lib/Reference.js"));
-
-var _reach = __webpack_require__(/*! ./util/reach */ "./node_modules/yup/lib/util/reach.js");
-
-var RefSet = /*#__PURE__*/function () {
-  function RefSet() {
-    this.list = new Set();
-    this.refs = new Map();
-  }
-
-  var _proto = RefSet.prototype;
-
-  _proto.toArray = function toArray() {
-    return (0, _toArray2.default)(this.list).concat((0, _toArray2.default)(this.refs.values()));
-  };
-
-  _proto.add = function add(value) {
-    _Reference.default.isRef(value) ? this.refs.set(value.key, value) : this.list.add(value);
-  };
-
-  _proto.delete = function _delete(value) {
-    _Reference.default.isRef(value) ? this.refs.delete(value.key) : this.list.delete(value);
-  };
-
-  _proto.has = function has(value, resolve) {
-    if (this.list.has(value)) return true;
-    var item,
-        values = this.refs.values();
-
-    while (item = values.next(), !item.done) {
-      if (resolve(item.value) === value) return true;
-    }
-
-    return false;
-  };
-
-  _proto.clone = function clone() {
-    var next = new RefSet();
-    next.list = new Set(this.list);
-    next.refs = new Map(this.refs);
-    return next;
-  };
-
-  _proto.merge = function merge(newItems, removeItems) {
-    var next = this.clone();
-    newItems.list.forEach(function (value) {
-      return next.add(value);
-    });
-    newItems.refs.forEach(function (value) {
-      return next.add(value);
-    });
-    removeItems.list.forEach(function (value) {
-      return next.delete(value);
-    });
-    removeItems.refs.forEach(function (value) {
-      return next.delete(value);
-    });
-    return next;
-  };
-
-  return RefSet;
-}();
-
-function SchemaType(options) {
-  var _this = this;
-
-  if (options === void 0) {
-    options = {};
-  }
-
-  if (!(this instanceof SchemaType)) return new SchemaType();
-  this._deps = [];
-  this._conditions = [];
-  this._options = {
-    abortEarly: true,
-    recursive: true
-  };
-  this._exclusive = Object.create(null);
-  this._whitelist = new RefSet();
-  this._blacklist = new RefSet();
-  this.tests = [];
-  this.transforms = [];
-  this.withMutation(function () {
-    _this.typeError(_locale.mixed.notType);
-  });
-  if ((0, _has.default)(options, 'default')) this._defaultDefault = options.default;
-  this._type = options.type || 'mixed';
-}
-
-var proto = SchemaType.prototype = {
-  __isYupSchema__: true,
-  constructor: SchemaType,
-  clone: function clone() {
-    var _this2 = this;
-
-    if (this._mutate) return this; // if the nested value is a schema we can skip cloning, since
-    // they are already immutable
-
-    return (0, _cloneDeepWith.default)(this, function (value) {
-      if ((0, _isSchema.default)(value) && value !== _this2) return value;
-    });
-  },
-  label: function label(_label) {
-    var next = this.clone();
-    next._label = _label;
-    return next;
-  },
-  meta: function meta(obj) {
-    if (arguments.length === 0) return this._meta;
-    var next = this.clone();
-    next._meta = (0, _extends2.default)(next._meta || {}, obj);
-    return next;
-  },
-  withMutation: function withMutation(fn) {
-    var before = this._mutate;
-    this._mutate = true;
-    var result = fn(this);
-    this._mutate = before;
-    return result;
-  },
-  concat: function concat(schema) {
-    if (!schema || schema === this) return this;
-    if (schema._type !== this._type && this._type !== 'mixed') throw new TypeError("You cannot `concat()` schema's of different types: " + this._type + " and " + schema._type);
-    var next = (0, _prependDeep.default)(schema.clone(), this); // new undefined default is overridden by old non-undefined one, revert
-
-    if ((0, _has.default)(schema, '_default')) next._default = schema._default;
-    next.tests = this.tests;
-    next._exclusive = this._exclusive; // manually merge the blacklist/whitelist (the other `schema` takes
-    // precedence in case of conflicts)
-
-    next._whitelist = this._whitelist.merge(schema._whitelist, schema._blacklist);
-    next._blacklist = this._blacklist.merge(schema._blacklist, schema._whitelist); // manually add the new tests to ensure
-    // the deduping logic is consistent
-
-    next.withMutation(function (next) {
-      schema.tests.forEach(function (fn) {
-        next.test(fn.OPTIONS);
-      });
-    });
-    return next;
-  },
-  isType: function isType(v) {
-    if (this._nullable && v === null) return true;
-    return !this._typeCheck || this._typeCheck(v);
-  },
-  resolve: function resolve(options) {
-    var schema = this;
-
-    if (schema._conditions.length) {
-      var conditions = schema._conditions;
-      schema = schema.clone();
-      schema._conditions = [];
-      schema = conditions.reduce(function (schema, condition) {
-        return condition.resolve(schema, options);
-      }, schema);
-      schema = schema.resolve(options);
-    }
-
-    return schema;
-  },
-  cast: function cast(value, options) {
-    if (options === void 0) {
-      options = {};
-    }
-
-    var resolvedSchema = this.resolve((0, _extends2.default)({}, options, {
-      value: value
-    }));
-
-    var result = resolvedSchema._cast(value, options);
-
-    if (value !== undefined && options.assert !== false && resolvedSchema.isType(result) !== true) {
-      var formattedValue = (0, _printValue.default)(value);
-      var formattedResult = (0, _printValue.default)(result);
-      throw new TypeError("The value of " + (options.path || 'field') + " could not be cast to a value " + ("that satisfies the schema type: \"" + resolvedSchema._type + "\". \n\n") + ("attempted value: " + formattedValue + " \n") + (formattedResult !== formattedValue ? "result of cast: " + formattedResult : ''));
-    }
-
-    return result;
-  },
-  _cast: function _cast(rawValue) {
-    var _this3 = this;
-
-    var value = rawValue === undefined ? rawValue : this.transforms.reduce(function (value, fn) {
-      return fn.call(_this3, value, rawValue);
-    }, rawValue);
-
-    if (value === undefined && (0, _has.default)(this, '_default')) {
-      value = this.default();
-    }
-
-    return value;
-  },
-  _validate: function _validate(_value, options) {
-    var _this4 = this;
-
-    if (options === void 0) {
-      options = {};
-    }
-
-    var value = _value;
-    var originalValue = options.originalValue != null ? options.originalValue : _value;
-
-    var isStrict = this._option('strict', options);
-
-    var endEarly = this._option('abortEarly', options);
-
-    var sync = options.sync;
-    var path = options.path;
-    var label = this._label;
-
-    if (!isStrict) {
-      value = this._cast(value, (0, _extends2.default)({
-        assert: false
-      }, options));
-    } // value is cast, we can check if it meets type requirements
-
-
-    var validationParams = {
-      value: value,
-      path: path,
-      schema: this,
-      options: options,
-      label: label,
-      originalValue: originalValue,
-      sync: sync
-    };
-    var initialTests = [];
-    if (this._typeError) initialTests.push(this._typeError(validationParams));
-    if (this._whitelistError) initialTests.push(this._whitelistError(validationParams));
-    if (this._blacklistError) initialTests.push(this._blacklistError(validationParams));
-    return (0, _runValidations.default)({
-      validations: initialTests,
-      endEarly: endEarly,
-      value: value,
-      path: path,
-      sync: sync
-    }).then(function (value) {
-      return (0, _runValidations.default)({
-        path: path,
-        sync: sync,
-        value: value,
-        endEarly: endEarly,
-        validations: _this4.tests.map(function (fn) {
-          return fn(validationParams);
-        })
-      });
-    });
-  },
-  validate: function validate(value, options) {
-    if (options === void 0) {
-      options = {};
-    }
-
-    var schema = this.resolve((0, _extends2.default)({}, options, {
-      value: value
-    }));
-    return schema._validate(value, options);
-  },
-  validateSync: function validateSync(value, options) {
-    if (options === void 0) {
-      options = {};
-    }
-
-    var schema = this.resolve((0, _extends2.default)({}, options, {
-      value: value
-    }));
-    var result, err;
-
-    schema._validate(value, (0, _extends2.default)({}, options, {
-      sync: true
-    })).then(function (r) {
-      return result = r;
-    }).catch(function (e) {
-      return err = e;
-    });
-
-    if (err) throw err;
-    return result;
-  },
-  isValid: function isValid(value, options) {
-    return this.validate(value, options).then(function () {
-      return true;
-    }).catch(function (err) {
-      if (err.name === 'ValidationError') return false;
-      throw err;
-    });
-  },
-  isValidSync: function isValidSync(value, options) {
-    try {
-      this.validateSync(value, options);
-      return true;
-    } catch (err) {
-      if (err.name === 'ValidationError') return false;
-      throw err;
-    }
-  },
-  getDefault: function getDefault(options) {
-    if (options === void 0) {
-      options = {};
-    }
-
-    var schema = this.resolve(options);
-    return schema.default();
-  },
-  default: function _default(def) {
-    if (arguments.length === 0) {
-      var defaultValue = (0, _has.default)(this, '_default') ? this._default : this._defaultDefault;
-      return typeof defaultValue === 'function' ? defaultValue.call(this) : (0, _cloneDeepWith.default)(defaultValue);
-    }
-
-    var next = this.clone();
-    next._default = def;
-    return next;
-  },
-  strict: function strict(isStrict) {
-    if (isStrict === void 0) {
-      isStrict = true;
-    }
-
-    var next = this.clone();
-    next._options.strict = isStrict;
-    return next;
-  },
-  _isPresent: function _isPresent(value) {
-    return value != null;
-  },
-  required: function required(message) {
-    if (message === void 0) {
-      message = _locale.mixed.required;
-    }
-
-    return this.test({
-      message: message,
-      name: 'required',
-      exclusive: true,
-      test: function test(value) {
-        return this.schema._isPresent(value);
-      }
-    });
-  },
-  notRequired: function notRequired() {
-    var next = this.clone();
-    next.tests = next.tests.filter(function (test) {
-      return test.OPTIONS.name !== 'required';
-    });
-    return next;
-  },
-  nullable: function nullable(isNullable) {
-    if (isNullable === void 0) {
-      isNullable = true;
-    }
-
-    var next = this.clone();
-    next._nullable = isNullable;
-    return next;
-  },
-  transform: function transform(fn) {
-    var next = this.clone();
-    next.transforms.push(fn);
-    return next;
-  },
-
-  /**
-   * Adds a test function to the schema's queue of tests.
-   * tests can be exclusive or non-exclusive.
-   *
-   * - exclusive tests, will replace any existing tests of the same name.
-   * - non-exclusive: can be stacked
-   *
-   * If a non-exclusive test is added to a schema with an exclusive test of the same name
-   * the exclusive test is removed and further tests of the same name will be stacked.
-   *
-   * If an exclusive test is added to a schema with non-exclusive tests of the same name
-   * the previous tests are removed and further tests of the same name will replace each other.
-   */
-  test: function test() {
-    var opts;
-
-    if (arguments.length === 1) {
-      if (typeof (arguments.length <= 0 ? undefined : arguments[0]) === 'function') {
-        opts = {
-          test: arguments.length <= 0 ? undefined : arguments[0]
-        };
-      } else {
-        opts = arguments.length <= 0 ? undefined : arguments[0];
-      }
-    } else if (arguments.length === 2) {
-      opts = {
-        name: arguments.length <= 0 ? undefined : arguments[0],
-        test: arguments.length <= 1 ? undefined : arguments[1]
-      };
-    } else {
-      opts = {
-        name: arguments.length <= 0 ? undefined : arguments[0],
-        message: arguments.length <= 1 ? undefined : arguments[1],
-        test: arguments.length <= 2 ? undefined : arguments[2]
-      };
-    }
-
-    if (opts.message === undefined) opts.message = _locale.mixed.default;
-    if (typeof opts.test !== 'function') throw new TypeError('`test` is a required parameters');
-    var next = this.clone();
-    var validate = (0, _createValidation.default)(opts);
-    var isExclusive = opts.exclusive || opts.name && next._exclusive[opts.name] === true;
-
-    if (opts.exclusive && !opts.name) {
-      throw new TypeError('Exclusive tests must provide a unique `name` identifying the test');
-    }
-
-    next._exclusive[opts.name] = !!opts.exclusive;
-    next.tests = next.tests.filter(function (fn) {
-      if (fn.OPTIONS.name === opts.name) {
-        if (isExclusive) return false;
-        if (fn.OPTIONS.test === validate.OPTIONS.test) return false;
-      }
-
-      return true;
-    });
-    next.tests.push(validate);
-    return next;
-  },
-  when: function when(keys, options) {
-    if (arguments.length === 1) {
-      options = keys;
-      keys = '.';
-    }
-
-    var next = this.clone(),
-        deps = [].concat(keys).map(function (key) {
-      return new _Reference.default(key);
-    });
-    deps.forEach(function (dep) {
-      if (dep.isSibling) next._deps.push(dep.key);
-    });
-
-    next._conditions.push(new _Condition.default(deps, options));
-
-    return next;
-  },
-  typeError: function typeError(message) {
-    var next = this.clone();
-    next._typeError = (0, _createValidation.default)({
-      message: message,
-      name: 'typeError',
-      test: function test(value) {
-        if (value !== undefined && !this.schema.isType(value)) return this.createError({
-          params: {
-            type: this.schema._type
-          }
-        });
-        return true;
-      }
-    });
-    return next;
-  },
-  oneOf: function oneOf(enums, message) {
-    if (message === void 0) {
-      message = _locale.mixed.oneOf;
-    }
-
-    var next = this.clone();
-    enums.forEach(function (val) {
-      next._whitelist.add(val);
-
-      next._blacklist.delete(val);
-    });
-    next._whitelistError = (0, _createValidation.default)({
-      message: message,
-      name: 'oneOf',
-      test: function test(value) {
-        if (value === undefined) return true;
-        var valids = this.schema._whitelist;
-        return valids.has(value, this.resolve) ? true : this.createError({
-          params: {
-            values: valids.toArray().join(', ')
-          }
-        });
-      }
-    });
-    return next;
-  },
-  notOneOf: function notOneOf(enums, message) {
-    if (message === void 0) {
-      message = _locale.mixed.notOneOf;
-    }
-
-    var next = this.clone();
-    enums.forEach(function (val) {
-      next._blacklist.add(val);
-
-      next._whitelist.delete(val);
-    });
-    next._blacklistError = (0, _createValidation.default)({
-      message: message,
-      name: 'notOneOf',
-      test: function test(value) {
-        var invalids = this.schema._blacklist;
-        if (invalids.has(value, this.resolve)) return this.createError({
-          params: {
-            values: invalids.toArray().join(', ')
-          }
-        });
-        return true;
-      }
-    });
-    return next;
-  },
-  strip: function strip(_strip) {
-    if (_strip === void 0) {
-      _strip = true;
-    }
-
-    var next = this.clone();
-    next._strip = _strip;
-    return next;
-  },
-  _option: function _option(key, overrides) {
-    return (0, _has.default)(overrides, key) ? overrides[key] : this._options[key];
-  },
-  describe: function describe() {
-    var next = this.clone();
-    return {
-      type: next._type,
-      meta: next._meta,
-      label: next._label,
-      tests: next.tests.map(function (fn) {
-        return {
-          name: fn.OPTIONS.name,
-          params: fn.OPTIONS.params
-        };
-      }).filter(function (n, idx, list) {
-        return list.findIndex(function (c) {
-          return c.name === n.name;
-        }) === idx;
-      })
-    };
-  },
-  defined: function defined(message) {
-    if (message === void 0) {
-      message = _locale.mixed.defined;
-    }
-
-    return this.nullable().test({
-      message: message,
-      name: 'defined',
-      exclusive: true,
-      test: function test(value) {
-        return value !== undefined;
-      }
-    });
-  }
-};
-
-var _loop = function _loop() {
-  var method = _arr[_i];
-
-  proto[method + "At"] = function (path, value, options) {
-    if (options === void 0) {
-      options = {};
-    }
-
-    var _getIn = (0, _reach.getIn)(this, path, value, options.context),
-        parent = _getIn.parent,
-        parentPath = _getIn.parentPath,
-        schema = _getIn.schema;
-
-    return schema[method](parent && parent[parentPath], (0, _extends2.default)({}, options, {
-      parent: parent,
-      path: path
-    }));
-  };
-};
-
-for (var _i = 0, _arr = ['validate', 'validateSync']; _i < _arr.length; _i++) {
-  _loop();
-}
-
-for (var _i2 = 0, _arr2 = ['equals', 'is']; _i2 < _arr2.length; _i2++) {
-  var alias = _arr2[_i2];
-  proto[alias] = proto.oneOf;
-}
-
-for (var _i3 = 0, _arr3 = ['not', 'nope']; _i3 < _arr3.length; _i3++) {
-  var _alias = _arr3[_i3];
-  proto[_alias] = proto.notOneOf;
-}
-
-proto.optional = proto.notRequired;
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/number.js":
-/*!****************************************!*\
-  !*** ./node_modules/yup/lib/number.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = NumberSchema;
-
-var _inherits = _interopRequireDefault(__webpack_require__(/*! ./util/inherits */ "./node_modules/yup/lib/util/inherits.js"));
-
-var _mixed = _interopRequireDefault(__webpack_require__(/*! ./mixed */ "./node_modules/yup/lib/mixed.js"));
-
-var _locale = __webpack_require__(/*! ./locale */ "./node_modules/yup/lib/locale.js");
-
-var _isAbsent = _interopRequireDefault(__webpack_require__(/*! ./util/isAbsent */ "./node_modules/yup/lib/util/isAbsent.js"));
-
-var isNaN = function isNaN(value) {
-  return value != +value;
-};
-
-function NumberSchema() {
-  var _this = this;
-
-  if (!(this instanceof NumberSchema)) return new NumberSchema();
-
-  _mixed.default.call(this, {
-    type: 'number'
-  });
-
-  this.withMutation(function () {
-    _this.transform(function (value) {
-      var parsed = value;
-
-      if (typeof parsed === 'string') {
-        parsed = parsed.replace(/\s/g, '');
-        if (parsed === '') return NaN; // don't use parseFloat to avoid positives on alpha-numeric strings
-
-        parsed = +parsed;
-      }
-
-      if (this.isType(parsed)) return parsed;
-      return parseFloat(parsed);
-    });
-  });
-}
-
-(0, _inherits.default)(NumberSchema, _mixed.default, {
-  _typeCheck: function _typeCheck(value) {
-    if (value instanceof Number) value = value.valueOf();
-    return typeof value === 'number' && !isNaN(value);
-  },
-  min: function min(_min, message) {
-    if (message === void 0) {
-      message = _locale.number.min;
-    }
-
-    return this.test({
-      message: message,
-      name: 'min',
-      exclusive: true,
-      params: {
-        min: _min
-      },
-      test: function test(value) {
-        return (0, _isAbsent.default)(value) || value >= this.resolve(_min);
-      }
-    });
-  },
-  max: function max(_max, message) {
-    if (message === void 0) {
-      message = _locale.number.max;
-    }
-
-    return this.test({
-      message: message,
-      name: 'max',
-      exclusive: true,
-      params: {
-        max: _max
-      },
-      test: function test(value) {
-        return (0, _isAbsent.default)(value) || value <= this.resolve(_max);
-      }
-    });
-  },
-  lessThan: function lessThan(less, message) {
-    if (message === void 0) {
-      message = _locale.number.lessThan;
-    }
-
-    return this.test({
-      message: message,
-      name: 'max',
-      exclusive: true,
-      params: {
-        less: less
-      },
-      test: function test(value) {
-        return (0, _isAbsent.default)(value) || value < this.resolve(less);
-      }
-    });
-  },
-  moreThan: function moreThan(more, message) {
-    if (message === void 0) {
-      message = _locale.number.moreThan;
-    }
-
-    return this.test({
-      message: message,
-      name: 'min',
-      exclusive: true,
-      params: {
-        more: more
-      },
-      test: function test(value) {
-        return (0, _isAbsent.default)(value) || value > this.resolve(more);
-      }
-    });
-  },
-  positive: function positive(msg) {
-    if (msg === void 0) {
-      msg = _locale.number.positive;
-    }
-
-    return this.moreThan(0, msg);
-  },
-  negative: function negative(msg) {
-    if (msg === void 0) {
-      msg = _locale.number.negative;
-    }
-
-    return this.lessThan(0, msg);
-  },
-  integer: function integer(message) {
-    if (message === void 0) {
-      message = _locale.number.integer;
-    }
-
-    return this.test({
-      name: 'integer',
-      message: message,
-      test: function test(val) {
-        return (0, _isAbsent.default)(val) || Number.isInteger(val);
-      }
-    });
-  },
-  truncate: function truncate() {
-    return this.transform(function (value) {
-      return !(0, _isAbsent.default)(value) ? value | 0 : value;
-    });
-  },
-  round: function round(method) {
-    var avail = ['ceil', 'floor', 'round', 'trunc'];
-    method = method && method.toLowerCase() || 'round'; // this exists for symemtry with the new Math.trunc
-
-    if (method === 'trunc') return this.truncate();
-    if (avail.indexOf(method.toLowerCase()) === -1) throw new TypeError('Only valid options for round() are: ' + avail.join(', '));
-    return this.transform(function (value) {
-      return !(0, _isAbsent.default)(value) ? Math[method](value) : value;
-    });
-  }
-});
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/object.js":
-/*!****************************************!*\
-  !*** ./node_modules/yup/lib/object.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireWildcard = __webpack_require__(/*! @babel/runtime/helpers/interopRequireWildcard */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireWildcard.js");
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = ObjectSchema;
-
-var _taggedTemplateLiteralLoose2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteralLoose */ "./node_modules/yup/node_modules/@babel/runtime/helpers/taggedTemplateLiteralLoose.js"));
-
-var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/yup/node_modules/@babel/runtime/helpers/extends.js"));
-
-var _has = _interopRequireDefault(__webpack_require__(/*! lodash/has */ "./node_modules/lodash/has.js"));
-
-var _snakeCase2 = _interopRequireDefault(__webpack_require__(/*! lodash/snakeCase */ "./node_modules/lodash/snakeCase.js"));
-
-var _camelCase2 = _interopRequireDefault(__webpack_require__(/*! lodash/camelCase */ "./node_modules/lodash/camelCase.js"));
-
-var _mapKeys = _interopRequireDefault(__webpack_require__(/*! lodash/mapKeys */ "./node_modules/lodash/mapKeys.js"));
-
-var _mapValues = _interopRequireDefault(__webpack_require__(/*! lodash/mapValues */ "./node_modules/lodash/mapValues.js"));
-
-var _propertyExpr = __webpack_require__(/*! property-expr */ "./node_modules/property-expr/index.js");
-
-var _mixed = _interopRequireDefault(__webpack_require__(/*! ./mixed */ "./node_modules/yup/lib/mixed.js"));
-
-var _locale = __webpack_require__(/*! ./locale.js */ "./node_modules/yup/lib/locale.js");
-
-var _sortFields = _interopRequireDefault(__webpack_require__(/*! ./util/sortFields */ "./node_modules/yup/lib/util/sortFields.js"));
-
-var _sortByKeyOrder = _interopRequireDefault(__webpack_require__(/*! ./util/sortByKeyOrder */ "./node_modules/yup/lib/util/sortByKeyOrder.js"));
-
-var _inherits = _interopRequireDefault(__webpack_require__(/*! ./util/inherits */ "./node_modules/yup/lib/util/inherits.js"));
-
-var _makePath = _interopRequireDefault(__webpack_require__(/*! ./util/makePath */ "./node_modules/yup/lib/util/makePath.js"));
-
-var _runValidations = _interopRequireWildcard(__webpack_require__(/*! ./util/runValidations */ "./node_modules/yup/lib/util/runValidations.js"));
-
-var _synchronousPromise = __webpack_require__(/*! synchronous-promise */ "./node_modules/synchronous-promise/index.js");
-
-function _templateObject3() {
-  var data = (0, _taggedTemplateLiteralLoose2.default)(["", "[\"", "\"]"]);
-
-  _templateObject3 = function _templateObject3() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject2() {
-  var data = (0, _taggedTemplateLiteralLoose2.default)(["", ".", ""]);
-
-  _templateObject2 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject() {
-  var data = (0, _taggedTemplateLiteralLoose2.default)(["", ".", ""]);
-
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-
-var isObject = function isObject(obj) {
-  return Object.prototype.toString.call(obj) === '[object Object]';
-};
-
-var promise = function promise(sync) {
-  return sync ? _synchronousPromise.SynchronousPromise : Promise;
-};
-
-function unknown(ctx, value) {
-  var known = Object.keys(ctx.fields);
-  return Object.keys(value).filter(function (key) {
-    return known.indexOf(key) === -1;
-  });
-}
-
-function ObjectSchema(spec) {
-  var _this2 = this;
-
-  if (!(this instanceof ObjectSchema)) return new ObjectSchema(spec);
-
-  _mixed.default.call(this, {
-    type: 'object',
-    default: function _default() {
-      var _this = this;
-
-      if (!this._nodes.length) return undefined;
-      var dft = {};
-
-      this._nodes.forEach(function (key) {
-        dft[key] = _this.fields[key].default ? _this.fields[key].default() : undefined;
-      });
-
-      return dft;
-    }
-  });
-
-  this.fields = Object.create(null);
-  this._nodes = [];
-  this._excludedEdges = [];
-  this.withMutation(function () {
-    _this2.transform(function coerce(value) {
-      if (typeof value === 'string') {
-        try {
-          value = JSON.parse(value);
-        } catch (err) {
-          value = null;
-        }
-      }
-
-      if (this.isType(value)) return value;
-      return null;
-    });
-
-    if (spec) {
-      _this2.shape(spec);
-    }
-  });
-}
-
-(0, _inherits.default)(ObjectSchema, _mixed.default, {
-  _typeCheck: function _typeCheck(value) {
-    return isObject(value) || typeof value === 'function';
-  },
-  _cast: function _cast(_value, options) {
-    var _this3 = this;
-
-    if (options === void 0) {
-      options = {};
-    }
-
-    var value = _mixed.default.prototype._cast.call(this, _value, options); //should ignore nulls here
-
-
-    if (value === undefined) return this.default();
-    if (!this._typeCheck(value)) return value;
-    var fields = this.fields;
-    var strip = this._option('stripUnknown', options) === true;
-
-    var props = this._nodes.concat(Object.keys(value).filter(function (v) {
-      return _this3._nodes.indexOf(v) === -1;
-    }));
-
-    var intermediateValue = {}; // is filled during the transform below
-
-    var innerOptions = (0, _extends2.default)({}, options, {
-      parent: intermediateValue,
-      __validating: false
-    });
-    var isChanged = false;
-    props.forEach(function (prop) {
-      var field = fields[prop];
-      var exists = (0, _has.default)(value, prop);
-
-      if (field) {
-        var fieldValue;
-        var strict = field._options && field._options.strict; // safe to mutate since this is fired in sequence
-
-        innerOptions.path = (0, _makePath.default)(_templateObject(), options.path, prop);
-        innerOptions.value = value[prop];
-        field = field.resolve(innerOptions);
-
-        if (field._strip === true) {
-          isChanged = isChanged || prop in value;
-          return;
-        }
-
-        fieldValue = !options.__validating || !strict ? field.cast(value[prop], innerOptions) : value[prop];
-        if (fieldValue !== undefined) intermediateValue[prop] = fieldValue;
-      } else if (exists && !strip) intermediateValue[prop] = value[prop];
-
-      if (intermediateValue[prop] !== value[prop]) isChanged = true;
-    });
-    return isChanged ? intermediateValue : value;
-  },
-  _validate: function _validate(_value, opts) {
-    var _this4 = this;
-
-    if (opts === void 0) {
-      opts = {};
-    }
-
-    var endEarly, recursive;
-    var sync = opts.sync;
-    var errors = [];
-    var originalValue = opts.originalValue != null ? opts.originalValue : _value;
-    endEarly = this._option('abortEarly', opts);
-    recursive = this._option('recursive', opts);
-    opts = (0, _extends2.default)({}, opts, {
-      __validating: true,
-      originalValue: originalValue
-    });
-    return _mixed.default.prototype._validate.call(this, _value, opts).catch((0, _runValidations.propagateErrors)(endEarly, errors)).then(function (value) {
-      if (!recursive || !isObject(value)) {
-        // only iterate though actual objects
-        if (errors.length) throw errors[0];
-        return value;
-      }
-
-      originalValue = originalValue || value;
-
-      var validations = _this4._nodes.map(function (key) {
-        var path = key.indexOf('.') === -1 ? (0, _makePath.default)(_templateObject2(), opts.path, key) : (0, _makePath.default)(_templateObject3(), opts.path, key);
-        var field = _this4.fields[key];
-        var innerOptions = (0, _extends2.default)({}, opts, {
-          path: path,
-          parent: value,
-          originalValue: originalValue[key]
-        });
-
-        if (field && field.validate) {
-          // inner fields are always strict:
-          // 1. this isn't strict so the casting will also have cast inner values
-          // 2. this is strict in which case the nested values weren't cast either
-          innerOptions.strict = true;
-          return field.validate(value[key], innerOptions);
-        }
-
-        return promise(sync).resolve(true);
-      });
-
-      return (0, _runValidations.default)({
-        sync: sync,
-        validations: validations,
-        value: value,
-        errors: errors,
-        endEarly: endEarly,
-        path: opts.path,
-        sort: (0, _sortByKeyOrder.default)(_this4.fields)
-      });
-    });
-  },
-  concat: function concat(schema) {
-    var next = _mixed.default.prototype.concat.call(this, schema);
-
-    next._nodes = (0, _sortFields.default)(next.fields, next._excludedEdges);
-    return next;
-  },
-  shape: function shape(schema, excludes) {
-    if (excludes === void 0) {
-      excludes = [];
-    }
-
-    var next = this.clone();
-    var fields = (0, _extends2.default)(next.fields, schema);
-    next.fields = fields;
-
-    if (excludes.length) {
-      if (!Array.isArray(excludes[0])) excludes = [excludes];
-      var keys = excludes.map(function (_ref) {
-        var first = _ref[0],
-            second = _ref[1];
-        return first + "-" + second;
-      });
-      next._excludedEdges = next._excludedEdges.concat(keys);
-    }
-
-    next._nodes = (0, _sortFields.default)(fields, next._excludedEdges);
-    return next;
-  },
-  from: function from(_from, to, alias) {
-    var fromGetter = (0, _propertyExpr.getter)(_from, true);
-    return this.transform(function (obj) {
-      if (obj == null) return obj;
-      var newObj = obj;
-
-      if ((0, _has.default)(obj, _from)) {
-        newObj = (0, _extends2.default)({}, obj);
-        if (!alias) delete newObj[_from];
-        newObj[to] = fromGetter(obj);
-      }
-
-      return newObj;
-    });
-  },
-  noUnknown: function noUnknown(noAllow, message) {
-    if (noAllow === void 0) {
-      noAllow = true;
-    }
-
-    if (message === void 0) {
-      message = _locale.object.noUnknown;
-    }
-
-    if (typeof noAllow === 'string') {
-      message = noAllow;
-      noAllow = true;
-    }
-
-    var next = this.test({
-      name: 'noUnknown',
-      exclusive: true,
-      message: message,
-      test: function test(value) {
-        return value == null || !noAllow || unknown(this.schema, value).length === 0;
-      }
-    });
-    next._options.stripUnknown = noAllow;
-    return next;
-  },
-  unknown: function unknown(allow, message) {
-    if (allow === void 0) {
-      allow = true;
-    }
-
-    if (message === void 0) {
-      message = _locale.object.noUnknown;
-    }
-
-    return this.noUnknown(!allow, message);
-  },
-  transformKeys: function transformKeys(fn) {
-    return this.transform(function (obj) {
-      return obj && (0, _mapKeys.default)(obj, function (_, key) {
-        return fn(key);
-      });
-    });
-  },
-  camelCase: function camelCase() {
-    return this.transformKeys(_camelCase2.default);
-  },
-  snakeCase: function snakeCase() {
-    return this.transformKeys(_snakeCase2.default);
-  },
-  constantCase: function constantCase() {
-    return this.transformKeys(function (key) {
-      return (0, _snakeCase2.default)(key).toUpperCase();
-    });
-  },
-  describe: function describe() {
-    var base = _mixed.default.prototype.describe.call(this);
-
-    base.fields = (0, _mapValues.default)(this.fields, function (value) {
-      return value.describe();
-    });
-    return base;
-  }
-});
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/setLocale.js":
-/*!*******************************************!*\
-  !*** ./node_modules/yup/lib/setLocale.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = setLocale;
-
-var _locale = _interopRequireDefault(__webpack_require__(/*! ./locale */ "./node_modules/yup/lib/locale.js"));
-
-function setLocale(custom) {
-  Object.keys(custom).forEach(function (type) {
-    Object.keys(custom[type]).forEach(function (method) {
-      _locale.default[type][method] = custom[type][method];
-    });
-  });
-}
-
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/string.js":
-/*!****************************************!*\
-  !*** ./node_modules/yup/lib/string.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = StringSchema;
-
-var _inherits = _interopRequireDefault(__webpack_require__(/*! ./util/inherits */ "./node_modules/yup/lib/util/inherits.js"));
-
-var _mixed = _interopRequireDefault(__webpack_require__(/*! ./mixed */ "./node_modules/yup/lib/mixed.js"));
-
-var _locale = __webpack_require__(/*! ./locale */ "./node_modules/yup/lib/locale.js");
-
-var _isAbsent = _interopRequireDefault(__webpack_require__(/*! ./util/isAbsent */ "./node_modules/yup/lib/util/isAbsent.js"));
-
-// eslint-disable-next-line
-var rEmail = /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$/i; // eslint-disable-next-line
-
-var rUrl = /^((https?|ftp):)?\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;
-
-var isTrimmed = function isTrimmed(value) {
-  return (0, _isAbsent.default)(value) || value === value.trim();
-};
-
-function StringSchema() {
-  var _this = this;
-
-  if (!(this instanceof StringSchema)) return new StringSchema();
-
-  _mixed.default.call(this, {
-    type: 'string'
-  });
-
-  this.withMutation(function () {
-    _this.transform(function (value) {
-      if (this.isType(value)) return value;
-      return value != null && value.toString ? value.toString() : value;
-    });
-  });
-}
-
-(0, _inherits.default)(StringSchema, _mixed.default, {
-  _typeCheck: function _typeCheck(value) {
-    if (value instanceof String) value = value.valueOf();
-    return typeof value === 'string';
-  },
-  _isPresent: function _isPresent(value) {
-    return _mixed.default.prototype._cast.call(this, value) && value.length > 0;
-  },
-  length: function length(_length, message) {
-    if (message === void 0) {
-      message = _locale.string.length;
-    }
-
-    return this.test({
-      message: message,
-      name: 'length',
-      exclusive: true,
-      params: {
-        length: _length
-      },
-      test: function test(value) {
-        return (0, _isAbsent.default)(value) || value.length === this.resolve(_length);
-      }
-    });
-  },
-  min: function min(_min, message) {
-    if (message === void 0) {
-      message = _locale.string.min;
-    }
-
-    return this.test({
-      message: message,
-      name: 'min',
-      exclusive: true,
-      params: {
-        min: _min
-      },
-      test: function test(value) {
-        return (0, _isAbsent.default)(value) || value.length >= this.resolve(_min);
-      }
-    });
-  },
-  max: function max(_max, message) {
-    if (message === void 0) {
-      message = _locale.string.max;
-    }
-
-    return this.test({
-      name: 'max',
-      exclusive: true,
-      message: message,
-      params: {
-        max: _max
-      },
-      test: function test(value) {
-        return (0, _isAbsent.default)(value) || value.length <= this.resolve(_max);
-      }
-    });
-  },
-  matches: function matches(regex, options) {
-    var excludeEmptyString = false;
-    var message;
-    var name;
-
-    if (options) {
-      if (typeof options === 'string') message = options;
-
-      if (typeof options === 'object') {
-        excludeEmptyString = options.excludeEmptyString;
-        message = options.message;
-        name = options.name;
-      }
-    }
-
-    return this.test({
-      name: name || 'matches',
-      message: message || _locale.string.matches,
-      params: {
-        regex: regex
-      },
-      test: function test(value) {
-        return (0, _isAbsent.default)(value) || value === '' && excludeEmptyString || value.search(regex) !== -1;
-      }
-    });
-  },
-  email: function email(message) {
-    if (message === void 0) {
-      message = _locale.string.email;
-    }
-
-    return this.matches(rEmail, {
-      name: 'email',
-      message: message,
-      excludeEmptyString: true
-    });
-  },
-  url: function url(message) {
-    if (message === void 0) {
-      message = _locale.string.url;
-    }
-
-    return this.matches(rUrl, {
-      name: 'url',
-      message: message,
-      excludeEmptyString: true
-    });
-  },
-  //-- transforms --
-  ensure: function ensure() {
-    return this.default('').transform(function (val) {
-      return val === null ? '' : val;
-    });
-  },
-  trim: function trim(message) {
-    if (message === void 0) {
-      message = _locale.string.trim;
-    }
-
-    return this.transform(function (val) {
-      return val != null ? val.trim() : val;
-    }).test({
-      message: message,
-      name: 'trim',
-      test: isTrimmed
-    });
-  },
-  lowercase: function lowercase(message) {
-    if (message === void 0) {
-      message = _locale.string.lowercase;
-    }
-
-    return this.transform(function (value) {
-      return !(0, _isAbsent.default)(value) ? value.toLowerCase() : value;
-    }).test({
-      message: message,
-      name: 'string_case',
-      exclusive: true,
-      test: function test(value) {
-        return (0, _isAbsent.default)(value) || value === value.toLowerCase();
-      }
-    });
-  },
-  uppercase: function uppercase(message) {
-    if (message === void 0) {
-      message = _locale.string.uppercase;
-    }
-
-    return this.transform(function (value) {
-      return !(0, _isAbsent.default)(value) ? value.toUpperCase() : value;
-    }).test({
-      message: message,
-      name: 'string_case',
-      exclusive: true,
-      test: function test(value) {
-        return (0, _isAbsent.default)(value) || value === value.toUpperCase();
-      }
-    });
-  }
-});
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/util/createValidation.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/yup/lib/util/createValidation.js ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.createErrorFactory = createErrorFactory;
-exports.default = createValidation;
-
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectWithoutPropertiesLoose */ "./node_modules/yup/node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js"));
-
-var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/yup/node_modules/@babel/runtime/helpers/extends.js"));
-
-var _mapValues = _interopRequireDefault(__webpack_require__(/*! lodash/mapValues */ "./node_modules/lodash/mapValues.js"));
-
-var _ValidationError = _interopRequireDefault(__webpack_require__(/*! ../ValidationError */ "./node_modules/yup/lib/ValidationError.js"));
-
-var _Reference = _interopRequireDefault(__webpack_require__(/*! ../Reference */ "./node_modules/yup/lib/Reference.js"));
-
-var _synchronousPromise = __webpack_require__(/*! synchronous-promise */ "./node_modules/synchronous-promise/index.js");
-
-var formatError = _ValidationError.default.formatError;
-
-var thenable = function thenable(p) {
-  return p && typeof p.then === 'function' && typeof p.catch === 'function';
-};
-
-function runTest(testFn, ctx, value, sync) {
-  var result = testFn.call(ctx, value);
-  if (!sync) return Promise.resolve(result);
-
-  if (thenable(result)) {
-    throw new Error("Validation test of type: \"" + ctx.type + "\" returned a Promise during a synchronous validate. " + "This test will finish after the validate call has returned");
-  }
-
-  return _synchronousPromise.SynchronousPromise.resolve(result);
-}
-
-function resolveParams(oldParams, newParams, resolve) {
-  return (0, _mapValues.default)((0, _extends2.default)({}, oldParams, {}, newParams), resolve);
-}
-
-function createErrorFactory(_ref) {
-  var value = _ref.value,
-      label = _ref.label,
-      resolve = _ref.resolve,
-      originalValue = _ref.originalValue,
-      opts = (0, _objectWithoutPropertiesLoose2.default)(_ref, ["value", "label", "resolve", "originalValue"]);
-  return function createError(_temp) {
-    var _ref2 = _temp === void 0 ? {} : _temp,
-        _ref2$path = _ref2.path,
-        path = _ref2$path === void 0 ? opts.path : _ref2$path,
-        _ref2$message = _ref2.message,
-        message = _ref2$message === void 0 ? opts.message : _ref2$message,
-        _ref2$type = _ref2.type,
-        type = _ref2$type === void 0 ? opts.name : _ref2$type,
-        params = _ref2.params;
-
-    params = (0, _extends2.default)({
-      path: path,
-      value: value,
-      originalValue: originalValue,
-      label: label
-    }, resolveParams(opts.params, params, resolve));
-    return (0, _extends2.default)(new _ValidationError.default(formatError(message, params), value, path, type), {
-      params: params
-    });
-  };
-}
-
-function createValidation(options) {
-  var name = options.name,
-      message = options.message,
-      test = options.test,
-      params = options.params;
-
-  function validate(_ref3) {
-    var value = _ref3.value,
-        path = _ref3.path,
-        label = _ref3.label,
-        options = _ref3.options,
-        originalValue = _ref3.originalValue,
-        sync = _ref3.sync,
-        rest = (0, _objectWithoutPropertiesLoose2.default)(_ref3, ["value", "path", "label", "options", "originalValue", "sync"]);
-    var parent = options.parent;
-
-    var resolve = function resolve(item) {
-      return _Reference.default.isRef(item) ? item.getValue({
-        value: value,
-        parent: parent,
-        context: options.context
-      }) : item;
-    };
-
-    var createError = createErrorFactory({
-      message: message,
-      path: path,
-      value: value,
-      originalValue: originalValue,
-      params: params,
-      label: label,
-      resolve: resolve,
-      name: name
-    });
-    var ctx = (0, _extends2.default)({
-      path: path,
-      parent: parent,
-      type: name,
-      createError: createError,
-      resolve: resolve,
-      options: options
-    }, rest);
-    return runTest(test, ctx, value, sync).then(function (validOrError) {
-      if (_ValidationError.default.isError(validOrError)) throw validOrError;else if (!validOrError) throw createError();
-    });
-  }
-
-  validate.OPTIONS = options;
-  return validate;
-}
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/util/inherits.js":
-/*!***********************************************!*\
-  !*** ./node_modules/yup/lib/util/inherits.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = inherits;
-
-var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/yup/node_modules/@babel/runtime/helpers/extends.js"));
-
-function inherits(ctor, superCtor, spec) {
-  ctor.prototype = Object.create(superCtor.prototype, {
-    constructor: {
-      value: ctor,
-      enumerable: false,
-      writable: true,
-      configurable: true
-    }
-  });
-  (0, _extends2.default)(ctor.prototype, spec);
-}
-
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/util/isAbsent.js":
-/*!***********************************************!*\
-  !*** ./node_modules/yup/lib/util/isAbsent.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _default = function _default(value) {
-  return value == null;
-};
-
-exports.default = _default;
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/util/isSchema.js":
-/*!***********************************************!*\
-  !*** ./node_modules/yup/lib/util/isSchema.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _default = function _default(obj) {
-  return obj && obj.__isYupSchema__;
-};
-
-exports.default = _default;
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/util/isodate.js":
-/*!**********************************************!*\
-  !*** ./node_modules/yup/lib/util/isodate.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.default = parseIsoDate;
-
-/* eslint-disable */
-
-/**
- *
- * Date.parse with progressive enhancement for ISO 8601 <https://github.com/csnover/js-iso8601>
- * NON-CONFORMANT EDITION.
- * © 2011 Colin Snover <http://zetafleet.com>
- * Released under MIT license.
- */
-//              1 YYYY                 2 MM        3 DD              4 HH     5 mm        6 ss            7 msec         8 Z 9 ±    10 tzHH    11 tzmm
-var isoReg = /^(\d{4}|[+\-]\d{6})(?:-?(\d{2})(?:-?(\d{2}))?)?(?:[ T]?(\d{2}):?(\d{2})(?::?(\d{2})(?:[,\.](\d{1,}))?)?(?:(Z)|([+\-])(\d{2})(?::?(\d{2}))?)?)?$/;
-
-function parseIsoDate(date) {
-  var numericKeys = [1, 4, 5, 6, 7, 10, 11],
-      minutesOffset = 0,
-      timestamp,
-      struct;
-
-  if (struct = isoReg.exec(date)) {
-    // avoid NaN timestamps caused by “undefined” values being passed to Date.UTC
-    for (var i = 0, k; k = numericKeys[i]; ++i) {
-      struct[k] = +struct[k] || 0;
-    } // allow undefined days and months
-
-
-    struct[2] = (+struct[2] || 1) - 1;
-    struct[3] = +struct[3] || 1; // allow arbitrary sub-second precision beyond milliseconds
-
-    struct[7] = struct[7] ? String(struct[7]).substr(0, 3) : 0; // timestamps without timezone identifiers should be considered local time
-
-    if ((struct[8] === undefined || struct[8] === '') && (struct[9] === undefined || struct[9] === '')) timestamp = +new Date(struct[1], struct[2], struct[3], struct[4], struct[5], struct[6], struct[7]);else {
-      if (struct[8] !== 'Z' && struct[9] !== undefined) {
-        minutesOffset = struct[10] * 60 + struct[11];
-        if (struct[9] === '+') minutesOffset = 0 - minutesOffset;
-      }
-
-      timestamp = Date.UTC(struct[1], struct[2], struct[3], struct[4], struct[5] + minutesOffset, struct[6], struct[7]);
-    }
-  } else timestamp = Date.parse ? Date.parse(date) : NaN;
-
-  return timestamp;
-}
-
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/util/makePath.js":
-/*!***********************************************!*\
-  !*** ./node_modules/yup/lib/util/makePath.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.default = makePath;
-
-function makePath(strings) {
-  for (var _len = arguments.length, values = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-    values[_key - 1] = arguments[_key];
-  }
-
-  var path = strings.reduce(function (str, next) {
-    var value = values.shift();
-    return str + (value == null ? '' : value) + next;
-  });
-  return path.replace(/^\./, '');
-}
-
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/util/prependDeep.js":
-/*!**************************************************!*\
-  !*** ./node_modules/yup/lib/util/prependDeep.js ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = prependDeep;
-
-var _has = _interopRequireDefault(__webpack_require__(/*! lodash/has */ "./node_modules/lodash/has.js"));
-
-var _isSchema = _interopRequireDefault(__webpack_require__(/*! ./isSchema */ "./node_modules/yup/lib/util/isSchema.js"));
-
-var isObject = function isObject(obj) {
-  return Object.prototype.toString.call(obj) === '[object Object]';
-};
-
-function prependDeep(target, source) {
-  for (var key in source) {
-    if ((0, _has.default)(source, key)) {
-      var sourceVal = source[key],
-          targetVal = target[key];
-
-      if (targetVal === undefined) {
-        target[key] = sourceVal;
-      } else if (targetVal === sourceVal) {
-        continue;
-      } else if ((0, _isSchema.default)(targetVal)) {
-        if ((0, _isSchema.default)(sourceVal)) target[key] = sourceVal.concat(targetVal);
-      } else if (isObject(targetVal)) {
-        if (isObject(sourceVal)) target[key] = prependDeep(targetVal, sourceVal);
-      } else if (Array.isArray(targetVal)) {
-        if (Array.isArray(sourceVal)) target[key] = sourceVal.concat(targetVal);
-      }
-    }
-  }
-
-  return target;
-}
-
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/util/printValue.js":
-/*!*************************************************!*\
-  !*** ./node_modules/yup/lib/util/printValue.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.default = printValue;
-var toString = Object.prototype.toString;
-var errorToString = Error.prototype.toString;
-var regExpToString = RegExp.prototype.toString;
-var symbolToString = typeof Symbol !== 'undefined' ? Symbol.prototype.toString : function () {
-  return '';
-};
-var SYMBOL_REGEXP = /^Symbol\((.*)\)(.*)$/;
-
-function printNumber(val) {
-  if (val != +val) return 'NaN';
-  var isNegativeZero = val === 0 && 1 / val < 0;
-  return isNegativeZero ? '-0' : '' + val;
-}
-
-function printSimpleValue(val, quoteStrings) {
-  if (quoteStrings === void 0) {
-    quoteStrings = false;
-  }
-
-  if (val == null || val === true || val === false) return '' + val;
-  var typeOf = typeof val;
-  if (typeOf === 'number') return printNumber(val);
-  if (typeOf === 'string') return quoteStrings ? "\"" + val + "\"" : val;
-  if (typeOf === 'function') return '[Function ' + (val.name || 'anonymous') + ']';
-  if (typeOf === 'symbol') return symbolToString.call(val).replace(SYMBOL_REGEXP, 'Symbol($1)');
-  var tag = toString.call(val).slice(8, -1);
-  if (tag === 'Date') return isNaN(val.getTime()) ? '' + val : val.toISOString(val);
-  if (tag === 'Error' || val instanceof Error) return '[' + errorToString.call(val) + ']';
-  if (tag === 'RegExp') return regExpToString.call(val);
-  return null;
-}
-
-function printValue(value, quoteStrings) {
-  var result = printSimpleValue(value, quoteStrings);
-  if (result !== null) return result;
-  return JSON.stringify(value, function (key, value) {
-    var result = printSimpleValue(this[key], quoteStrings);
-    if (result !== null) return result;
-    return value;
-  }, 2);
-}
-
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/util/reach.js":
-/*!********************************************!*\
-  !*** ./node_modules/yup/lib/util/reach.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.getIn = getIn;
-exports.default = void 0;
-
-var _propertyExpr = __webpack_require__(/*! property-expr */ "./node_modules/property-expr/index.js");
-
-var _has = _interopRequireDefault(__webpack_require__(/*! lodash/has */ "./node_modules/lodash/has.js"));
-
-var trim = function trim(part) {
-  return part.substr(0, part.length - 1).substr(1);
-};
-
-function getIn(schema, path, value, context) {
-  var parent, lastPart, lastPartDebug; // if only one "value" arg then use it for both
-
-  context = context || value;
-  if (!path) return {
-    parent: parent,
-    parentPath: path,
-    schema: schema
-  };
-  (0, _propertyExpr.forEach)(path, function (_part, isBracket, isArray) {
-    var part = isBracket ? trim(_part) : _part;
-
-    if (isArray || (0, _has.default)(schema, '_subType')) {
-      // we skipped an array: foo[].bar
-      var idx = isArray ? parseInt(part, 10) : 0;
-      schema = schema.resolve({
-        context: context,
-        parent: parent,
-        value: value
-      })._subType;
-
-      if (value) {
-        if (isArray && idx >= value.length) {
-          throw new Error("Yup.reach cannot resolve an array item at index: " + _part + ", in the path: " + path + ". " + "because there is no value at that index. ");
-        }
-
-        value = value[idx];
-      }
-    }
-
-    if (!isArray) {
-      schema = schema.resolve({
-        context: context,
-        parent: parent,
-        value: value
-      });
-      if (!(0, _has.default)(schema, 'fields') || !(0, _has.default)(schema.fields, part)) throw new Error("The schema does not contain the path: " + path + ". " + ("(failed at: " + lastPartDebug + " which is a type: \"" + schema._type + "\") "));
-      schema = schema.fields[part];
-      parent = value;
-      value = value && value[part];
-      lastPart = part;
-      lastPartDebug = isBracket ? '[' + _part + ']' : '.' + _part;
-    }
-  });
-  return {
-    schema: schema,
-    parent: parent,
-    parentPath: lastPart
-  };
-}
-
-var reach = function reach(obj, path, value, context) {
-  return getIn(obj, path, value, context).schema;
-};
-
-var _default = reach;
-exports.default = _default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/util/runValidations.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/yup/lib/util/runValidations.js ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.propagateErrors = propagateErrors;
-exports.settled = settled;
-exports.collectErrors = collectErrors;
-exports.default = runValidations;
-
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectWithoutPropertiesLoose */ "./node_modules/yup/node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js"));
-
-var _synchronousPromise = __webpack_require__(/*! synchronous-promise */ "./node_modules/synchronous-promise/index.js");
-
-var _ValidationError = _interopRequireDefault(__webpack_require__(/*! ../ValidationError */ "./node_modules/yup/lib/ValidationError.js"));
-
-var promise = function promise(sync) {
-  return sync ? _synchronousPromise.SynchronousPromise : Promise;
-};
-
-var unwrapError = function unwrapError(errors) {
-  if (errors === void 0) {
-    errors = [];
-  }
-
-  return errors.inner && errors.inner.length ? errors.inner : [].concat(errors);
-};
-
-function scopeToValue(promises, value, sync) {
-  //console.log('scopeToValue', promises, value)
-  var p = promise(sync).all(promises); //console.log('scopeToValue B', p)
-
-  var b = p.catch(function (err) {
-    if (err.name === 'ValidationError') err.value = value;
-    throw err;
-  }); //console.log('scopeToValue c', b)
-
-  var c = b.then(function () {
-    return value;
-  }); //console.log('scopeToValue d', c)
-
-  return c;
-}
-/**
- * If not failing on the first error, catch the errors
- * and collect them in an array
- */
-
-
-function propagateErrors(endEarly, errors) {
-  return endEarly ? null : function (err) {
-    errors.push(err);
-    return err.value;
-  };
-}
-
-function settled(promises, sync) {
-  var Promise = promise(sync);
-  return Promise.all(promises.map(function (p) {
-    return Promise.resolve(p).then(function (value) {
-      return {
-        fulfilled: true,
-        value: value
-      };
-    }, function (value) {
-      return {
-        fulfilled: false,
-        value: value
-      };
-    });
-  }));
-}
-
-function collectErrors(_ref) {
-  var validations = _ref.validations,
-      value = _ref.value,
-      path = _ref.path,
-      sync = _ref.sync,
-      errors = _ref.errors,
-      sort = _ref.sort;
-  errors = unwrapError(errors);
-  return settled(validations, sync).then(function (results) {
-    var nestedErrors = results.filter(function (r) {
-      return !r.fulfilled;
-    }).reduce(function (arr, _ref2) {
-      var error = _ref2.value;
-
-      // we are only collecting validation errors
-      if (!_ValidationError.default.isError(error)) {
-        throw error;
-      }
-
-      return arr.concat(error);
-    }, []);
-    if (sort) nestedErrors.sort(sort); //show parent errors after the nested ones: name.first, name
-
-    errors = nestedErrors.concat(errors);
-    if (errors.length) throw new _ValidationError.default(errors, value, path);
-    return value;
-  });
-}
-
-function runValidations(_ref3) {
-  var endEarly = _ref3.endEarly,
-      options = (0, _objectWithoutPropertiesLoose2.default)(_ref3, ["endEarly"]);
-  if (endEarly) return scopeToValue(options.validations, options.value, options.sync);
-  return collectErrors(options);
-}
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/util/sortByKeyOrder.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/yup/lib/util/sortByKeyOrder.js ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.default = sortByKeyOrder;
-
-function findIndex(arr, err) {
-  var idx = Infinity;
-  arr.some(function (key, ii) {
-    if (err.path.indexOf(key) !== -1) {
-      idx = ii;
-      return true;
-    }
-  });
-  return idx;
-}
-
-function sortByKeyOrder(fields) {
-  var keys = Object.keys(fields);
-  return function (a, b) {
-    return findIndex(keys, a) - findIndex(keys, b);
-  };
-}
-
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/util/sortFields.js":
-/*!*************************************************!*\
-  !*** ./node_modules/yup/lib/util/sortFields.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = sortFields;
-
-var _has = _interopRequireDefault(__webpack_require__(/*! lodash/has */ "./node_modules/lodash/has.js"));
-
-var _toposort = _interopRequireDefault(__webpack_require__(/*! toposort */ "./node_modules/toposort/index.js"));
-
-var _propertyExpr = __webpack_require__(/*! property-expr */ "./node_modules/property-expr/index.js");
-
-var _Reference = _interopRequireDefault(__webpack_require__(/*! ../Reference */ "./node_modules/yup/lib/Reference.js"));
-
-var _isSchema = _interopRequireDefault(__webpack_require__(/*! ./isSchema */ "./node_modules/yup/lib/util/isSchema.js"));
-
-function sortFields(fields, excludes) {
-  if (excludes === void 0) {
-    excludes = [];
-  }
-
-  var edges = [],
-      nodes = [];
-
-  function addNode(depPath, key) {
-    var node = (0, _propertyExpr.split)(depPath)[0];
-    if (!~nodes.indexOf(node)) nodes.push(node);
-    if (!~excludes.indexOf(key + "-" + node)) edges.push([key, node]);
-  }
-
-  for (var key in fields) {
-    if ((0, _has.default)(fields, key)) {
-      var value = fields[key];
-      if (!~nodes.indexOf(key)) nodes.push(key);
-      if (_Reference.default.isRef(value) && value.isSibling) addNode(value.path, key);else if ((0, _isSchema.default)(value) && value._deps) value._deps.forEach(function (path) {
-        return addNode(path, key);
-      });
-    }
-  }
-
-  return _toposort.default.array(nodes, edges).reverse();
-}
-
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/node_modules/@babel/runtime/helpers/extends.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/yup/node_modules/@babel/runtime/helpers/extends.js ***!
-  \*************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _extends() {
-  module.exports = _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  return _extends.apply(this, arguments);
-}
-
-module.exports = _extends;
-
-/***/ }),
-
-/***/ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js":
-/*!***************************************************************************************!*\
-  !*** ./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js ***!
-  \***************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {
-    "default": obj
-  };
-}
-
-module.exports = _interopRequireDefault;
-
-/***/ }),
-
-/***/ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireWildcard.js":
-/*!****************************************************************************************!*\
-  !*** ./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireWildcard.js ***!
-  \****************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _typeof = __webpack_require__(/*! ../helpers/typeof */ "./node_modules/yup/node_modules/@babel/runtime/helpers/typeof.js");
-
-function _getRequireWildcardCache() {
-  if (typeof WeakMap !== "function") return null;
-  var cache = new WeakMap();
-
-  _getRequireWildcardCache = function _getRequireWildcardCache() {
-    return cache;
-  };
-
-  return cache;
-}
-
-function _interopRequireWildcard(obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  }
-
-  if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") {
-    return {
-      "default": obj
-    };
-  }
-
-  var cache = _getRequireWildcardCache();
-
-  if (cache && cache.has(obj)) {
-    return cache.get(obj);
-  }
-
-  var newObj = {};
-  var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;
-
-  for (var key in obj) {
-    if (Object.prototype.hasOwnProperty.call(obj, key)) {
-      var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;
-
-      if (desc && (desc.get || desc.set)) {
-        Object.defineProperty(newObj, key, desc);
-      } else {
-        newObj[key] = obj[key];
-      }
-    }
-  }
-
-  newObj["default"] = obj;
-
-  if (cache) {
-    cache.set(obj, newObj);
-  }
-
-  return newObj;
-}
-
-module.exports = _interopRequireWildcard;
-
-/***/ }),
-
-/***/ "./node_modules/yup/node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js":
-/*!**********************************************************************************************!*\
-  !*** ./node_modules/yup/node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js ***!
-  \**********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _objectWithoutPropertiesLoose(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
-
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0) continue;
-    target[key] = source[key];
-  }
-
-  return target;
-}
-
-module.exports = _objectWithoutPropertiesLoose;
-
-/***/ }),
-
-/***/ "./node_modules/yup/node_modules/@babel/runtime/helpers/taggedTemplateLiteralLoose.js":
-/*!********************************************************************************************!*\
-  !*** ./node_modules/yup/node_modules/@babel/runtime/helpers/taggedTemplateLiteralLoose.js ***!
-  \********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _taggedTemplateLiteralLoose(strings, raw) {
-  if (!raw) {
-    raw = strings.slice(0);
-  }
-
-  strings.raw = raw;
-  return strings;
-}
-
-module.exports = _taggedTemplateLiteralLoose;
-
-/***/ }),
-
-/***/ "./node_modules/yup/node_modules/@babel/runtime/helpers/typeof.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/yup/node_modules/@babel/runtime/helpers/typeof.js ***!
-  \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _typeof(obj) {
-  "@babel/helpers - typeof";
-
-  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    module.exports = _typeof = function _typeof(obj) {
-      return typeof obj;
-    };
-  } else {
-    module.exports = _typeof = function _typeof(obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    };
-  }
-
-  return _typeof(obj);
-}
-
-module.exports = _typeof;
-
-/***/ }),
-
 /***/ "./resources/assets/js/IntlContainer.tsx":
 /*!***********************************************!*\
   !*** ./resources/assets/js/IntlContainer.tsx ***!
@@ -48943,270 +35391,10 @@ exports.default = IntlContainer;
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/Checkbox.tsx":
-/*!*****************************************************!*\
-  !*** ./resources/assets/js/components/Checkbox.tsx ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-var Checkbox = function (_a) {
-    var id = _a.id, name = _a.name, label = _a.label, grid = _a.grid, checked = _a.checked, value = _a.value, onBlur = _a.onBlur, onChange = _a.onChange;
-    return (react_1.default.createElement("div", { "data-c-grid-item": grid },
-        react_1.default.createElement("label", null,
-            react_1.default.createElement("input", { id: id, name: name, type: "checkbox", checked: checked, value: value, onChange: onChange, onBlur: onBlur }),
-            react_1.default.createElement("span", null, label))));
-};
-exports.default = Checkbox;
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/ContextBlock/ContextBlock.tsx":
-/*!**********************************************************************!*\
-  !*** ./resources/assets/js/components/ContextBlock/ContextBlock.tsx ***!
-  \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-var ContextBlockItem_1 = __importDefault(__webpack_require__(/*! ./ContextBlockItem */ "./resources/assets/js/components/ContextBlock/ContextBlockItem.tsx"));
-var ContextBlock = function (_a) {
-    var grid = _a.grid, className = _a.className, items = _a.items, children = _a.children;
-    return (React.createElement("div", { "data-c-grid-item": grid },
-        React.createElement("div", { className: className },
-            items &&
-                items.map(function (_a) {
-                    var contextId = _a.contextId, title = _a.title, subtext = _a.subtext;
-                    return (React.createElement(ContextBlockItem_1.default, { contextId: contextId, title: title, subtext: subtext }));
-                }),
-            children)));
-};
-exports.default = ContextBlock;
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/ContextBlock/ContextBlockItem.tsx":
-/*!**************************************************************************!*\
-  !*** ./resources/assets/js/components/ContextBlock/ContextBlockItem.tsx ***!
-  \**************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-var textToParagraphs_1 = __importDefault(__webpack_require__(/*! ../../helpers/textToParagraphs */ "./resources/assets/js/helpers/textToParagraphs.tsx"));
-var ContextBlockItem = function (_a) {
-    var subtext = _a.subtext, title = _a.title, className = _a.className, contextId = _a.contextId, backgroundColor = _a.backgroundColor, backgroundOpacity = _a.backgroundOpacity, padding = _a.padding, radius = _a.radius, fontSize = _a.fontSize, fontWeight = _a.fontWeight, wrapperMargin = _a.wrapperMargin, titleMargin = _a.titleMargin, active = _a.active;
-    return (React.createElement("div", { className: "" + (className || "") + (active ? " active" : ""), "data-tc-wenv-id": contextId, "data-c-background": (backgroundColor && backgroundColor + "(" + backgroundOpacity + ")") ||
-            "grey(20)", "data-c-padding": padding || "all(normal)", "data-c-radius": radius || "rounded", "data-c-margin": wrapperMargin || "" },
-        title && (React.createElement("p", { "data-c-font-size": fontSize || "small", "data-c-margin": titleMargin || "bottom(half)", "data-c-font-weight": fontWeight || "bold" }, title)),
-        subtext &&
-            textToParagraphs_1.default(subtext, { "data-c-font-size": fontSize || "small" })));
-};
-exports.default = ContextBlockItem;
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/CopyToClipboardButton.tsx":
-/*!******************************************************************!*\
-  !*** ./resources/assets/js/components/CopyToClipboardButton.tsx ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-var clipboard_1 = __webpack_require__(/*! ../helpers/clipboard */ "./resources/assets/js/helpers/clipboard.ts");
-var CopyToClipboard = function (_a) {
-    var actionText = _a.actionText, postActionText = _a.postActionText, textToCopy = _a.textToCopy;
-    var _b = react_1.useState(false), hidden = _b[0], hideText = _b[1];
-    return (react_1.default.createElement("button", { type: "button", "data-c-button": "solid(c1)", "data-c-radius": "rounded", onClick: function (event) {
-            clipboard_1.copyToClipboard(event, textToCopy).then(function () {
-                hideText(!hidden);
-                setTimeout(function () {
-                    hideText(hidden);
-                }, 2000);
-            });
-        } },
-        react_1.default.createElement("span", { className: "default " + (hidden && "hidden") }, actionText),
-        react_1.default.createElement("span", { className: "copied " + (!hidden && "hidden") }, postActionText)));
-};
-exports.default = CopyToClipboard;
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/Form/CheckboxGroup.tsx":
-/*!***************************************************************!*\
-  !*** ./resources/assets/js/components/Form/CheckboxGroup.tsx ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
-var Messages_1 = __webpack_require__(/*! ./Messages */ "./resources/assets/js/components/Form/Messages.tsx");
-var CheckboxGroup = function (_a) {
-    var id = _a.id, checkboxGroupLabel = _a.label, grid = _a.grid, required = _a.required, children = _a.children, value = _a.value, error = _a.error, touched = _a.touched, onChange = _a.onChange, onBlur = _a.onBlur;
-    var handleChange = function (event) {
-        // Get target checkbox element
-        var target = event.currentTarget;
-        // if the target is checked push the "name" to the values array
-        if (target.checked) {
-            value.push(target.id);
-        }
-        else {
-            // if the target is unchecked then filter out the "name" from the array
-            value.splice(value.indexOf(target.id), 1);
-        }
-        onChange(id, value);
-    };
-    var handleBlur = function () {
-        onBlur(id, true);
-    };
-    return (React.createElement("div", { "data-c-grid-item": grid, "data-c-input": "checkbox", "data-c-required": required || null, "data-c-invalid": touched && error ? true : null },
-        React.createElement("label", null, checkboxGroupLabel),
-        React.createElement("span", null,
-            React.createElement(react_intl_1.FormattedMessage, __assign({}, Messages_1.inputMessages.required))),
-        React.createElement("div", { "data-c-grid": true }, React.Children.map(children, function (child) {
-            return React.cloneElement(child, {
-                field: {
-                    value: value.includes(child.props.id),
-                    onChange: handleChange,
-                    onBlur: handleBlur,
-                },
-                checked: value.includes(child.props.id),
-            });
-        })),
-        React.createElement("span", null, error)));
-};
-exports.default = CheckboxGroup;
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/Form/CheckboxInput.tsx":
-/*!***************************************************************!*\
-  !*** ./resources/assets/js/components/Form/CheckboxInput.tsx ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-};
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-var Checkbox_1 = __importDefault(__webpack_require__(/*! ../Checkbox */ "./resources/assets/js/components/Checkbox.tsx"));
-var CheckboxInput = function (_a) {
-    var id = _a.id, label = _a.label, checked = _a.checked, grid = _a.grid, _b = _a.field, name = _b.name, value = _b.value, onChange = _b.onChange, onBlur = _b.onBlur, props = __rest(_a, ["id", "label", "checked", "grid", "field"]);
-    return (React.createElement(Checkbox_1.default, __assign({ id: id, name: name, label: label, value: value, grid: grid, checked: checked, onChange: onChange, onBlur: onBlur }, props)));
-};
-exports.default = CheckboxInput;
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/Form/Messages.tsx":
-/*!**********************************************************!*\
-  !*** ./resources/assets/js/components/Form/Messages.tsx ***!
-  \**********************************************************/
+/***/ "./resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnvMessages.tsx":
+/*!**********************************************************************************!*\
+  !*** ./resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnvMessages.tsx ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -49214,113 +35402,316 @@ exports.default = CheckboxInput;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
-exports.validationMessages = react_intl_1.defineMessages({
-    required: {
-        id: "formValidation.required",
-        defaultMessage: "This field is required.",
-        description: "Error message displayed when a required field is empty.",
+exports.formMessages = react_intl_1.defineMessages({
+    ourWorkEnvDesc: {
+        id: "jobBuilder.workEnv.ourWorkEnvDesc",
+        defaultMessage: "Share a little about your physical space, the technology used by your team, and the amenities close to your office. Check all that apply.",
+        description: "Section 1 description of Job Poster Builder Work Environment Step",
     },
-    tooShort: {
-        id: "formValidation.tooShort",
-        defaultMessage: "Too short!",
-        description: "Error message displayed when a field value is below the minimum length.",
+    teamSizeLabel: {
+        id: "jobBuilder.workEnv.teamSizeLabel",
+        defaultMessage: "Team Size",
+        description: "The label displayed on the team size input.",
     },
-    tooLong: {
-        id: "formValidation.tooLong",
-        defaultMessage: "Too long!",
-        description: "Error message displayed when a field value is above the maximum length.",
+    teamSizePlaceholder: {
+        id: "jobBuilder.workEnv.teamSizePlaceholder",
+        defaultMessage: "e.g. 10",
+        description: "The placeholder displayed on the team size input.",
     },
-    invalidSelection: {
-        id: "formValidation.invalidSelection",
-        defaultMessage: "Please select from the available options.",
-        description: "Error message displayed when a field value is outside of the available selection options.",
+    physicalEnvLabel: {
+        id: "jobBuilder.workEnv.physicalEnvLabel",
+        defaultMessage: "Our Physical Environment",
+        description: "The label displayed on the physical environment checkbox group.",
     },
-    checkboxRequired: {
-        id: "formValidation.checkboxRequired",
-        defaultMessage: "At least one checkbox is required.",
-        description: "Error message displayed when a required checkbox group or radio group is empty.",
+    technologyLabel: {
+        id: "jobBuilder.workEnv.technologyLabel",
+        defaultMessage: "Technology",
+        description: "The label displayed on the technology checkbox group.",
+    },
+    amenitiesLabel: {
+        id: "jobBuilder.workEnv.amenitiesLabel",
+        defaultMessage: "Amenities",
+        description: "The label displayed on the amenities checkbox group.",
+    },
+    moreOnWorkEnv: {
+        id: "jobBuilder.workEnv.moreOnWorkEnv",
+        defaultMessage: "More about your Environment",
+        description: "The title for the more about your environment textbox.",
+    },
+    moreOnWorkEnvSubtext: {
+        id: "jobBuilder.workEnv.moreOnWorkEnvSubtext",
+        defaultMessage: "Anything else you'd like to add about your work environment? Highlight features of the physical environment, technology and amenities specific to your team.",
+        description: "Subtext displayed for the more about your environment textbox.",
+    },
+    moreOnWorkEnvLabel: {
+        id: "jobBuilder.workEnv.moreOnWorkEnvLabel",
+        defaultMessage: "More About Your Environment",
+        description: "The label displayed for the more about your environment textbox.",
+    },
+    moreOnWorkEnvPlaceholder: {
+        id: "jobBuilder.workEnv.moreOnWorkEnvPlaceholder",
+        defaultMessage: "Try for a casual, frank, friendly tone.",
+        description: "The placeholder displayed for the more about your environment textbox.",
+    },
+    culture: {
+        id: "jobBuilder.workEnv.culture",
+        defaultMessage: "Our Culture",
+        description: "Section 2 radio group title of our culture step.",
+    },
+    cultureSubtext2: {
+        id: "jobBuilder.workEnv.cultureSubtext2",
+        defaultMessage: "Based on your selections, we'll create a short paragraph summarizing your work culture. You can edit this paragraph to customize it to your team.",
+        description: "Subtext 2 displayed of the our culture section.",
+    },
+    fastPacedSteadyLabel: {
+        id: "jobBuilder.workEnv.fastPacedSteadyLabel",
+        defaultMessage: "Fast-paced vs. Steady:",
+        description: "The label for the fast-paced vs. steady radio group",
+    },
+    managementLabel: {
+        id: "jobBuilder.workEnv.managementLabel",
+        defaultMessage: "Horizontal vs. Vertical:",
+        description: "The label for the management radio group",
+    },
+    experimentalLabel: {
+        id: "jobBuilder.workEnv.experimentalLabel",
+        defaultMessage: "Experimental vs. Ongoing Business:",
+        description: "The label for the experimental radio group",
+    },
+    facingLabel: {
+        id: "jobBuilder.workEnv.facingLabel",
+        defaultMessage: "Citizen Facing vs. Back Office:",
+        description: "The label for the facing radio group",
+    },
+    collaborativeLabel: {
+        id: "jobBuilder.workEnv.collaborativeLabel",
+        defaultMessage: "Collaborative vs. Independent:",
+        description: 'The label for the "collaborative vs independent" radio group',
+    },
+    cultureSummary: {
+        id: "jobBuilder.workEnv.cultureSummary",
+        defaultMessage: "Culture Summary",
+        description: "The header for the culture summary section.",
+    },
+    cultureSummarySubtext: {
+        id: "jobBuilder.workEnv.cultureSummarySubtext",
+        defaultMessage: "Here is the short paragraph summarizing your work culture which will appear on the job poster. Copy and paste it into the text box below if you want to customize it to the personality of your team and the way you work.",
+        description: "The subtext for the culture summary section.",
+    },
+    customCultureSummaryLabel: {
+        id: "jobBuilder.workEnv.customCultureSummaryLabel",
+        defaultMessage: "Customize your culture summary:",
+        description: "The label for the custom culture summary textbox.",
+    },
+    customCultureSummaryPlaceholder: {
+        id: "jobBuilder.workEnv.customCultureSummaryPlaceholder",
+        defaultMessage: "Paste here to edit the paragraph.",
+        description: "The placeholder for the custom culture summary textbox.",
+    },
+    specialWorkCulture: {
+        id: "jobBuilder.workEnv.specialWorkCulture",
+        defaultMessage: "Anything Special About Your Work Culture?",
+        description: "Title for subsection in our work culture.",
+    },
+    specialWorkCultureSubtext: {
+        id: "jobBuilder.workEnv.specialWorkCultureSubtext",
+        defaultMessage: "Does your team care a lot about something else? Proud of the team's record of getting results? Strong commitment to mental wellness? Actively involved in advancing diversity and inclusion? LGBTQ+ champions? Here's a chance to let applicants know about the culture of the team they'll potentially be joining.",
+        description: "Subtext for subsection in our work culture.",
+    },
+    specialWorkCultureLabel: {
+        id: "jobBuilder.workEnv.specialWorkCultureLabel",
+        defaultMessage: "More About Your Work Culture",
+        description: "The label for the 'more on work culture' textarea.",
+    },
+    textAreaPlaceholder1: {
+        id: "jobBuilder.workEnv.textAreaPlaceholder1",
+        defaultMessage: "Try for a casual, frank, friendly tone.",
+        description: "Default placeholder for textarea element",
+    },
+    thisIsOptional: {
+        id: "jobBuilder.workEnv.thisIsOptional",
+        defaultMessage: "This is optional.",
+        description: "Text indicator for optional sections within form.",
     },
 });
-exports.inputMessages = react_intl_1.defineMessages({
-    error: {
-        id: "formInput.error",
-        defaultMessage: "Something went wrong.",
-        description: "Generic error message for inputs.",
+exports.culturePaceMessages = react_intl_1.defineMessages({
+    pace01Title: {
+        id: "jobBuilder.culturePace.01.title",
+        defaultMessage: "Very Fast-paced",
     },
-    required: {
-        id: "formInput.required",
-        defaultMessage: "Required",
-        description: "Displayed next to required form inputs.",
+    pace01Description: {
+        id: "jobBuilder.culturePace.01.description",
+        defaultMessage: "Our deadlines are tight, we balance several tasks at the same time, and our priorities are always changing. Our work should come with running shoes!",
+    },
+    pace02Title: {
+        id: "jobBuilder.culturePace.02.title",
+        defaultMessage: "Fast-paced",
+    },
+    pace02Description: {
+        id: "jobBuilder.culturePace.02.description",
+        defaultMessage: "Our deadlines are usually close together, we balance some tasks at the same time, and our priorities change regularly. Our work keeps us on our toes!",
+    },
+    pace03Title: {
+        id: "jobBuilder.culturePace.03.title",
+        defaultMessage: "Steady",
+    },
+    pace03Description: {
+        id: "jobBuilder.culturePace.03.description",
+        defaultMessage: "Our deadlines are regular and predictable, we balance a couple of tasks at a time, and our priorities change occasionally. We keep things on an even keel.",
+    },
+    pace04Title: {
+        id: "jobBuilder.culturePace.04.title",
+        defaultMessage: "Very Steady",
+    },
+    pace04Description: {
+        id: "jobBuilder.culturePace.04.description",
+        defaultMessage: "Our work is ongoing so there aren't very many deadlines. We don't usually have to balance tasks and our priorities change rarely. We thrive on routine.",
+    },
+});
+exports.mgmtStyleMessages = react_intl_1.defineMessages({
+    style01Title: {
+        id: "jobBuilder.mgmtStyle.01.title",
+        defaultMessage: "Horizontal",
+    },
+    style01Description: {
+        id: "jobBuilder.mgmtStyle.01.description",
+        defaultMessage: "There's no middle management here, so we make most big decisions ourselves and you can expect to interact regularly with our executives.",
+    },
+    style02Title: {
+        id: "jobBuilder.mgmtStyle.02.title",
+        defaultMessage: "Somewhat Horizontal",
+    },
+    style02Description: {
+        id: "jobBuilder.mgmtStyle.02.description",
+        defaultMessage: "We have some middle management here but make most day-to-day decisions ourselves. Don't be surprised to interact fairly often with our executives.",
+    },
+    style03Title: {
+        id: "jobBuilder.mgmtStyle.03.title",
+        defaultMessage: "Somewhat Vertical",
+    },
+    style03Description: {
+        id: "jobBuilder.mgmtStyle.03.description",
+        defaultMessage: "Our team has a clearly defined role. We check in regularly with middle-management for approvals and updates on the strategic vision of our executives.",
+    },
+    style04Title: {
+        id: "jobBuilder.mgmtStyle.04.title",
+        defaultMessage: "Vertical",
+    },
+    style04Description: {
+        id: "jobBuilder.mgmtStyle.04.description",
+        defaultMessage: "Our team has a clearly defined role. We check in often with middle-management for approvals and updates on the strategic vision of our executives.",
+    },
+});
+exports.experimentalMessages = react_intl_1.defineMessages({
+    experimental01Title: {
+        id: "jobBuilder.experimental.01.title",
+        defaultMessage: "Experimental",
+    },
+    experimental01Description: {
+        id: "jobBuilder.experimental.01.description",
+        defaultMessage: "Our work is defined by trying out brand new ideas, methods, and activities to address persistent problems that traditional approaches have failed to solve.",
+    },
+    experimental02Title: {
+        id: "jobBuilder.experimental.02.title",
+        defaultMessage: "Somewhat Experimental",
+    },
+    experimental02Description: {
+        id: "jobBuilder.experimental.02.description",
+        defaultMessage: "We try out new and proven ideas, methods, and activities to improve how we do our work.",
+    },
+    experimental03Title: {
+        id: "jobBuilder.experimental.03.title",
+        defaultMessage: "Somewhat Predictable Work",
+    },
+    experimental03Description: {
+        id: "jobBuilder.experimental.03.description",
+        defaultMessage: "Our work includes some administrative tasks are repeated on a regular basis. The tools we use work well for us but we are open to improving our processes.",
+    },
+    experimental04Title: {
+        id: "jobBuilder.experimental.04.title",
+        defaultMessage: "Predictable Work",
+    },
+    experimental04Description: {
+        id: "jobBuilder.experimental.04.description",
+        defaultMessage: "Most of our work involves administrative tasks are repeated on a regular basis. Consistency is key here, so we follow a standard process with tried and true tools.",
+    },
+});
+exports.facingMessages = react_intl_1.defineMessages({
+    facing01Title: {
+        id: "jobBuilder.facing.01.title",
+        defaultMessage: "Citizen Facing",
+    },
+    facing01Description: {
+        id: "jobBuilder.facing.01.description",
+        defaultMessage: "We are the face of the service we deliver and spend most of our time engaging directly with the public.",
+    },
+    facing02Title: {
+        id: "jobBuilder.facing.02.title",
+        defaultMessage: "Mostly Citizen Facing",
+    },
+    facing02Description: {
+        id: "jobBuilder.facing.02.description",
+        defaultMessage: "We spend a lot of our time engaging directly with the public, but there is also behind the scenes work to support others.",
+    },
+    facing03Title: {
+        id: "jobBuilder.facing.03.title",
+        defaultMessage: "Mostly Back Office",
+    },
+    facing03Description: {
+        id: "jobBuilder.facing.03.description",
+        defaultMessage: "We usually work behind the scenes doing important work that makes service delivery possible.",
+    },
+    facing04Title: {
+        id: "jobBuilder.facing.04.title",
+        defaultMessage: "Back Office",
+    },
+    facing04Description: {
+        id: "jobBuilder.facing.04.description",
+        defaultMessage: "We work behind the scenes doing important work that makes service delivery possible. We thrive on supporting others.",
+    },
+});
+exports.collaborativenessMessages = react_intl_1.defineMessages({
+    collaborativeness01Title: {
+        id: "jobBuilder.collaborativeness.01.title",
+        defaultMessage: "Collaborative",
+    },
+    collaborativeness01Description: {
+        id: "jobBuilder.collaborativeness.01.description",
+        defaultMessage: "Our team has diverse backgrounds, viewpoints, and skills and we play to each others strengths. We collectively own the team's goals and are always looking for ways to pitch in.",
+    },
+    collaborativeness02Title: {
+        id: "jobBuilder.collaborativeness.02.title",
+        defaultMessage: "Somewhat Collaborative",
+    },
+    collaborativeness02Description: {
+        id: "jobBuilder.collaborativeness.02.description",
+        defaultMessage: "Our team has a diverse set of skills and we recognize each others strengths. We work together often and are quick to pitch in when someone asks for help.",
+    },
+    collaborativeness03Title: {
+        id: "jobBuilder.collaborativeness.03.title",
+        defaultMessage: "Somewhat Independent",
+    },
+    collaborativeness03Description: {
+        id: "jobBuilder.collaborativeness.03.description",
+        defaultMessage: "Members of our team own their piece of the puzzle and have some freedom to choose how they get their work done.",
+    },
+    collaborativeness04Title: {
+        id: "jobBuilder.collaborativeness.04.title",
+        defaultMessage: "Independent",
+    },
+    collaborativeness04Description: {
+        id: "jobBuilder.collaborativeness.04.description",
+        defaultMessage: "Members of our team own their piece of the puzzle. It doesn't really matter how we get our work done as long as it's high quality.",
     },
 });
 
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/Form/NumberInput.tsx":
-/*!*************************************************************!*\
-  !*** ./resources/assets/js/components/Form/NumberInput.tsx ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-};
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
-var Messages_1 = __webpack_require__(/*! ./Messages */ "./resources/assets/js/components/Form/Messages.tsx");
-var NumberInput = function (_a) {
-    var id = _a.id, label = _a.label, required = _a.required, placeholder = _a.placeholder, min = _a.min, max = _a.max, grid = _a.grid, _b = _a.field, name = _b.name, value = _b.value, onChange = _b.onChange, onBlur = _b.onBlur, _c = _a.form, errors = _c.errors, touched = _c.touched, props = __rest(_a, ["id", "label", "required", "placeholder", "min", "max", "grid", "field", "form"]);
-    var specificError = errors ? errors[name] : null;
-    var errorText = specificError ? specificError.toString() : undefined;
-    var invalid = touched[name] && errors[name] ? true : null;
-    return (React.createElement("div", { "data-c-input": "number", "data-c-grid-item": grid, "data-c-required": required || null, "data-c-invalid": invalid },
-        React.createElement("label", { htmlFor: id }, label),
-        React.createElement("span", null,
-            React.createElement(react_intl_1.FormattedMessage, __assign({}, Messages_1.inputMessages.required))),
-        React.createElement("div", null,
-            React.createElement("input", __assign({ required: true, id: id, name: name, placeholder: placeholder, type: "number", value: value || undefined, min: min, max: max, onChange: onChange, onBlur: onBlur }, props))),
-        React.createElement("span", null, errorText || React.createElement(react_intl_1.FormattedMessage, __assign({}, Messages_1.inputMessages.error)))));
-};
-exports.default = NumberInput;
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/Form/RadioGroup.tsx":
-/*!************************************************************!*\
-  !*** ./resources/assets/js/components/Form/RadioGroup.tsx ***!
-  \************************************************************/
+/***/ "./resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvFeatures.tsx":
+/*!*******************************************************************************!*\
+  !*** ./resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvFeatures.tsx ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -49343,123 +35734,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
-var Messages_1 = __webpack_require__(/*! ./Messages */ "./resources/assets/js/components/Form/Messages.tsx");
-var RadioGroup = function (_a) {
-    var id = _a.id, label = _a.label, grid = _a.grid, required = _a.required, error = _a.error, touched = _a.touched, children = _a.children;
-    var hasError = !!error && touched;
-    return (react_1.default.createElement("div", { "data-c-grid-item": grid, "data-c-input": "radio", "data-c-required": required, "data-c-invalid": hasError ? true : null },
-        react_1.default.createElement("label", { htmlFor: id }, label),
-        react_1.default.createElement("span", null,
-            react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, Messages_1.inputMessages.required))),
-        react_1.default.createElement("div", { id: id, role: "radiogroup" }, children),
-        react_1.default.createElement("span", null, error)));
-};
-exports.default = RadioGroup;
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/Form/RadioInput.tsx":
-/*!************************************************************!*\
-  !*** ./resources/assets/js/components/Form/RadioInput.tsx ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-var Radio_1 = __importDefault(__webpack_require__(/*! ../Radio */ "./resources/assets/js/components/Radio.tsx"));
-var RadioInput = function (_a) {
-    var id = _a.id, label = _a.label, trigger = _a.trigger, _b = _a.field, name = _b.name, value = _b.value, onChange = _b.onChange, onBlur = _b.onBlur;
-    return (react_1.default.createElement(Radio_1.default, { id: id, name: name, label: label, value: id, checked: id === value, trigger: trigger, onChange: onChange, onBlur: onBlur }));
-};
-exports.default = RadioInput;
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/Form/TextAreaInput.tsx":
-/*!***************************************************************!*\
-  !*** ./resources/assets/js/components/Form/TextAreaInput.tsx ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-var formik_1 = __webpack_require__(/*! formik */ "./node_modules/formik/dist/index.js");
-var TextArea_1 = __importDefault(__webpack_require__(/*! ../TextArea */ "./resources/assets/js/components/TextArea.tsx"));
-var TextAreaInput = function (_a) {
-    var id = _a.id, label = _a.label, className = _a.className, grid = _a.grid, required = _a.required, placeholder = _a.placeholder, _b = _a.field, name = _b.name, value = _b.value, onChange = _b.onChange, onBlur = _b.onBlur, _c = _a.form, errors = _c.errors, touched = _c.touched, props = __rest(_a, ["id", "label", "className", "grid", "required", "placeholder", "field", "form"]);
-    var specificError = errors ? formik_1.getIn(errors, name) : null;
-    var errorText = specificError ? specificError.toString() : undefined;
-    var invalid = formik_1.getIn(touched, name) && specificError ? true : null;
-    return (react_1.default.createElement(TextArea_1.default, __assign({ id: id, label: label, className: className, grid: grid, required: required, placeholder: placeholder, name: name, value: value, errorText: errorText, invalid: invalid, onChange: onChange, onBlur: onBlur }, props)));
-};
-exports.default = TextAreaInput;
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnv.tsx":
-/*!**************************************************************************!*\
-  !*** ./resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnv.tsx ***!
-  \**************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
-var WorkEnvForm_1 = __webpack_require__(/*! ./WorkEnvForm */ "./resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvForm.tsx");
+var JobWorkEnvMessages_1 = __webpack_require__(/*! ./JobWorkEnvMessages */ "./resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnvMessages.tsx");
 exports.physEnvMessages = react_intl_1.defineMessages({
     openConcept: {
         id: "jobBuilder.workEnv.physEnv.openConcept",
@@ -49597,19 +35872,20 @@ exports.techDescriptions = function (intl) {
 exports.amenitiesDescriptions = function (intl) {
     return createOptions(exports.amenitiesOptions, exports.amenitiesMessages, intl);
 };
-exports.JobWorkEnv = function (_a) {
-    var teamSize = _a.teamSize, selectedEnvOptions = _a.selectedEnvOptions, envDescription = _a.envDescription, intl = _a.intl;
+var WorkEnvSection = function (_a) {
+    var teamSize = _a.teamSize, selectedEnvOptions = _a.selectedEnvOptions, envDescription = _a.envDescription;
+    var intl = react_intl_1.useIntl();
     var phyEnvData = exports.phyEnvDescriptions(intl);
     var techData = exports.techDescriptions(intl);
     var amenitiesData = exports.amenitiesDescriptions(intl);
     return (react_1.default.createElement("div", { "data-c-grid": "gutter" },
         react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" },
             react_1.default.createElement("span", { "data-c-colour": "c1", "data-c-margin": "top(half) bottom(half)", "data-c-font-weight": "bold" },
-                react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, WorkEnvForm_1.formMessages.teamSizeLabel))),
+                react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, JobWorkEnvMessages_1.formMessages.teamSizeLabel))),
             react_1.default.createElement("span", { "data-c-margin": "left(normal)" }, teamSize)),
         react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" },
             react_1.default.createElement("p", { "data-c-colour": "c1", "data-c-margin": "top(half) bottom(half)", "data-c-font-weight": "bold" },
-                react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, WorkEnvForm_1.formMessages.physicalEnvLabel))),
+                react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, JobWorkEnvMessages_1.formMessages.physicalEnvLabel))),
             react_1.default.createElement("div", { "data-c-margin": "left(quarter)" },
                 react_1.default.createElement("div", { "data-c-grid": "gutter" }, phyEnvData.map(function (_a) {
                     var label = _a.label, name = _a.name;
@@ -49621,7 +35897,7 @@ exports.JobWorkEnv = function (_a) {
                 })))),
         react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" },
             react_1.default.createElement("p", { "data-c-colour": "c1", "data-c-padding": "top(half) bottom(half)", "data-c-font-weight": "bold" },
-                react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, WorkEnvForm_1.formMessages.technologyLabel))),
+                react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, JobWorkEnvMessages_1.formMessages.technologyLabel))),
             react_1.default.createElement("div", { "data-c-margin": "left(quarter)" },
                 react_1.default.createElement("div", { "data-c-grid": "gutter" }, techData.map(function (_a) {
                     var label = _a.label, name = _a.name;
@@ -49633,7 +35909,7 @@ exports.JobWorkEnv = function (_a) {
                 })))),
         react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" },
             react_1.default.createElement("p", { "data-c-colour": "c1", "data-c-margin": "top(half) bottom(half)", "data-c-font-weight": "bold" },
-                react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, WorkEnvForm_1.formMessages.amenitiesLabel))),
+                react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, JobWorkEnvMessages_1.formMessages.amenitiesLabel))),
             react_1.default.createElement("div", { "data-c-margin": "left(quarter)" },
                 react_1.default.createElement("div", { "data-c-grid": "gutter" }, amenitiesData.map(function (_a) {
                     var label = _a.label, name = _a.name;
@@ -49645,990 +35921,10 @@ exports.JobWorkEnv = function (_a) {
                 })))),
         react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" },
             react_1.default.createElement("p", { "data-c-margin": "bottom(normal) top(half)", "data-c-colour": "c1", "data-c-font-weight": "bold" },
-                react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, WorkEnvForm_1.formMessages.moreOnWorkEnv))),
+                react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, JobWorkEnvMessages_1.formMessages.moreOnWorkEnv))),
             react_1.default.createElement("p", null, envDescription))));
 };
-exports.default = react_intl_1.injectIntl(exports.JobWorkEnv);
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvForm.tsx":
-/*!***************************************************************************!*\
-  !*** ./resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvForm.tsx ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-};
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-/* eslint-disable jsx-a11y/label-has-associated-control, camelcase, @typescript-eslint/camelcase */
-var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-var formik_1 = __webpack_require__(/*! formik */ "./node_modules/formik/dist/index.js");
-var Yup = __importStar(__webpack_require__(/*! yup */ "./node_modules/yup/lib/index.js"));
-var nprogress_1 = __importDefault(__webpack_require__(/*! nprogress */ "./node_modules/nprogress/nprogress.js"));
-var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
-var CheckboxGroup_1 = __importDefault(__webpack_require__(/*! ../../Form/CheckboxGroup */ "./resources/assets/js/components/Form/CheckboxGroup.tsx"));
-var RadioGroup_1 = __importDefault(__webpack_require__(/*! ../../Form/RadioGroup */ "./resources/assets/js/components/Form/RadioGroup.tsx"));
-var ContextBlock_1 = __importDefault(__webpack_require__(/*! ../../ContextBlock/ContextBlock */ "./resources/assets/js/components/ContextBlock/ContextBlock.tsx"));
-var ContextBlockItem_1 = __importDefault(__webpack_require__(/*! ../../ContextBlock/ContextBlockItem */ "./resources/assets/js/components/ContextBlock/ContextBlockItem.tsx"));
-var CopyToClipboardButton_1 = __importDefault(__webpack_require__(/*! ../../CopyToClipboardButton */ "./resources/assets/js/components/CopyToClipboardButton.tsx"));
-var WorkEnvModal_1 = __importDefault(__webpack_require__(/*! ./WorkEnvModal */ "./resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvModal.tsx"));
-var RadioInput_1 = __importDefault(__webpack_require__(/*! ../../Form/RadioInput */ "./resources/assets/js/components/Form/RadioInput.tsx"));
-var NumberInput_1 = __importDefault(__webpack_require__(/*! ../../Form/NumberInput */ "./resources/assets/js/components/Form/NumberInput.tsx"));
-var CheckboxInput_1 = __importDefault(__webpack_require__(/*! ../../Form/CheckboxInput */ "./resources/assets/js/components/Form/CheckboxInput.tsx"));
-var TextAreaInput_1 = __importDefault(__webpack_require__(/*! ../../Form/TextAreaInput */ "./resources/assets/js/components/Form/TextAreaInput.tsx"));
-var Messages_1 = __webpack_require__(/*! ../../Form/Messages */ "./resources/assets/js/components/Form/Messages.tsx");
-var jobUtil_1 = __webpack_require__(/*! ../../../models/jobUtil */ "./resources/assets/js/models/jobUtil.ts");
-var queries_1 = __webpack_require__(/*! ../../../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
-var JobWorkEnv_1 = __webpack_require__(/*! ./JobWorkEnv */ "./resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnv.tsx");
-var localize_1 = __webpack_require__(/*! ../../../helpers/localize */ "./resources/assets/js/helpers/localize.ts");
-exports.formMessages = react_intl_1.defineMessages({
-    ourWorkEnvDesc: {
-        id: "jobBuilder.workEnv.ourWorkEnvDesc",
-        defaultMessage: "Share a little about your physical space, the technology used by your team, and the amenities close to your office. Check all that apply.",
-        description: "Section 1 description of Job Poster Builder Work Environment Step",
-    },
-    teamSizeLabel: {
-        id: "jobBuilder.workEnv.teamSizeLabel",
-        defaultMessage: "Team Size",
-        description: "The label displayed on the team size input.",
-    },
-    teamSizePlaceholder: {
-        id: "jobBuilder.workEnv.teamSizePlaceholder",
-        defaultMessage: "e.g. 10",
-        description: "The placeholder displayed on the team size input.",
-    },
-    physicalEnvLabel: {
-        id: "jobBuilder.workEnv.physicalEnvLabel",
-        defaultMessage: "Our Physical Environment",
-        description: "The label displayed on the physical environment checkbox group.",
-    },
-    technologyLabel: {
-        id: "jobBuilder.workEnv.technologyLabel",
-        defaultMessage: "Technology",
-        description: "The label displayed on the technology checkbox group.",
-    },
-    amenitiesLabel: {
-        id: "jobBuilder.workEnv.amenitiesLabel",
-        defaultMessage: "Amenities",
-        description: "The label displayed on the amenities checkbox group.",
-    },
-    moreOnWorkEnv: {
-        id: "jobBuilder.workEnv.moreOnWorkEnv",
-        defaultMessage: "More about your Environment",
-        description: "The title for the more about your environment textbox.",
-    },
-    moreOnWorkEnvSubtext: {
-        id: "jobBuilder.workEnv.moreOnWorkEnvSubtext",
-        defaultMessage: "Anything else you'd like to add about your work environment? Highlight features of the physical environment, technology and amenities specific to your team.",
-        description: "Subtext displayed for the more about your environment textbox.",
-    },
-    moreOnWorkEnvLabel: {
-        id: "jobBuilder.workEnv.moreOnWorkEnvLabel",
-        defaultMessage: "More About Your Environment",
-        description: "The label displayed for the more about your environment textbox.",
-    },
-    moreOnWorkEnvPlaceholder: {
-        id: "jobBuilder.workEnv.moreOnWorkEnvPlaceholder",
-        defaultMessage: "Try for a casual, frank, friendly tone.",
-        description: "The placeholder displayed for the more about your environment textbox.",
-    },
-    culture: {
-        id: "jobBuilder.workEnv.culture",
-        defaultMessage: "Our Culture",
-        description: "Section 2 radio group title of our culture step.",
-    },
-    cultureSubtext2: {
-        id: "jobBuilder.workEnv.cultureSubtext2",
-        defaultMessage: "Based on your selections, we'll create a short paragraph summarizing your work culture. You can edit this paragraph to customize it to your team.",
-        description: "Subtext 2 displayed of the our culture section.",
-    },
-    fastPacedSteadyLabel: {
-        id: "jobBuilder.workEnv.fastPacedSteadyLabel",
-        defaultMessage: "Fast-paced vs. Steady:",
-        description: "The label for the fast-paced vs. steady radio group",
-    },
-    managementLabel: {
-        id: "jobBuilder.workEnv.managementLabel",
-        defaultMessage: "Horizontal vs. Vertical:",
-        description: "The label for the management radio group",
-    },
-    experimentalLabel: {
-        id: "jobBuilder.workEnv.experimentalLabel",
-        defaultMessage: "Experimental vs. Ongoing Business:",
-        description: "The label for the experimental radio group",
-    },
-    facingLabel: {
-        id: "jobBuilder.workEnv.facingLabel",
-        defaultMessage: "Citizen Facing vs. Back Office:",
-        description: "The label for the facing radio group",
-    },
-    collaborativeLabel: {
-        id: "jobBuilder.workEnv.collaborativeLabel",
-        defaultMessage: "Collaborative vs. Independent:",
-        description: 'The label for the "collaborative vs independent" radio group',
-    },
-    cultureSummary: {
-        id: "jobBuilder.workEnv.cultureSummary",
-        defaultMessage: "Culture Summary",
-        description: "The header for the culture summary section.",
-    },
-    cultureSummarySubtext: {
-        id: "jobBuilder.workEnv.cultureSummarySubtext",
-        defaultMessage: "Here is the short paragraph summarizing your work culture which will appear on the job poster. Copy and paste it into the text box below if you want to customize it to the personality of your team and the way you work.",
-        description: "The subtext for the culture summary section.",
-    },
-    customCultureSummaryLabel: {
-        id: "jobBuilder.workEnv.customCultureSummaryLabel",
-        defaultMessage: "Customize your culture summary:",
-        description: "The label for the custom culture summary textbox.",
-    },
-    customCultureSummaryPlaceholder: {
-        id: "jobBuilder.workEnv.customCultureSummaryPlaceholder",
-        defaultMessage: "Paste here to edit the paragraph.",
-        description: "The placeholder for the custom culture summary textbox.",
-    },
-    specialWorkCulture: {
-        id: "jobBuilder.workEnv.specialWorkCulture",
-        defaultMessage: "Anything Special About Your Work Culture?",
-        description: "Title for subsection in our work culture.",
-    },
-    specialWorkCultureSubtext: {
-        id: "jobBuilder.workEnv.specialWorkCultureSubtext",
-        defaultMessage: "Does your team care a lot about something else? Proud of the team's record of getting results? Strong commitment to mental wellness? Actively involved in advancing diversity and inclusion? LGBTQ+ champions? Here's a chance to let applicants know about the culture of the team they'll potentially be joining.",
-        description: "Subtext for subsection in our work culture.",
-    },
-    specialWorkCultureLabel: {
-        id: "jobBuilder.workEnv.specialWorkCultureLabel",
-        defaultMessage: "More About Your Work Culture",
-        description: "The label for the 'more on work culture' textarea.",
-    },
-    textAreaPlaceholder1: {
-        id: "jobBuilder.workEnv.textAreaPlaceholder1",
-        defaultMessage: "Try for a casual, frank, friendly tone.",
-        description: "Default placeholder for textarea element",
-    },
-    thisIsOptional: {
-        id: "jobBuilder.workEnv.thisIsOptional",
-        defaultMessage: "This is optional.",
-        description: "Text indicator for optional sections within form.",
-    },
-});
-var culturePaceMessages = react_intl_1.defineMessages({
-    pace01Title: {
-        id: "jobBuilder.culturePace.01.title",
-        defaultMessage: "Very Fast-paced",
-    },
-    pace01Description: {
-        id: "jobBuilder.culturePace.01.description",
-        defaultMessage: "Our deadlines are tight, we balance several tasks at the same time, and our priorities are always changing. Our work should come with running shoes!",
-    },
-    pace02Title: {
-        id: "jobBuilder.culturePace.02.title",
-        defaultMessage: "Fast-paced",
-    },
-    pace02Description: {
-        id: "jobBuilder.culturePace.02.description",
-        defaultMessage: "Our deadlines are usually close together, we balance some tasks at the same time, and our priorities change regularly. Our work keeps us on our toes!",
-    },
-    pace03Title: {
-        id: "jobBuilder.culturePace.03.title",
-        defaultMessage: "Steady",
-    },
-    pace03Description: {
-        id: "jobBuilder.culturePace.03.description",
-        defaultMessage: "Our deadlines are regular and predictable, we balance a couple of tasks at a time, and our priorities change occasionally. We keep things on an even keel.",
-    },
-    pace04Title: {
-        id: "jobBuilder.culturePace.04.title",
-        defaultMessage: "Very Steady",
-    },
-    pace04Description: {
-        id: "jobBuilder.culturePace.04.description",
-        defaultMessage: "Our work is ongoing so there aren't very many deadlines. We don't usually have to balance tasks and our priorities change rarely. We thrive on routine.",
-    },
-});
-var culturePaceList = [
-    {
-        id: "culturePace01",
-        title: culturePaceMessages.pace01Title,
-        subtext: culturePaceMessages.pace01Description,
-    },
-    {
-        id: "culturePace02",
-        title: culturePaceMessages.pace02Title,
-        subtext: culturePaceMessages.pace02Description,
-    },
-    {
-        id: "culturePace03",
-        title: culturePaceMessages.pace03Title,
-        subtext: culturePaceMessages.pace03Description,
-    },
-    {
-        id: "culturePace04",
-        title: culturePaceMessages.pace04Title,
-        subtext: culturePaceMessages.pace04Description,
-    },
-];
-var mgmtStyleMessages = react_intl_1.defineMessages({
-    style01Title: {
-        id: "jobBuilder.mgmtStyle.01.title",
-        defaultMessage: "Horizontal",
-    },
-    style01Description: {
-        id: "jobBuilder.mgmtStyle.01.description",
-        defaultMessage: "There's no middle management here, so we make most big decisions ourselves and you can expect to interact regularly with our executives.",
-    },
-    style02Title: {
-        id: "jobBuilder.mgmtStyle.02.title",
-        defaultMessage: "Somewhat Horizontal",
-    },
-    style02Description: {
-        id: "jobBuilder.mgmtStyle.02.description",
-        defaultMessage: "We have some middle management here but make most day-to-day decisions ourselves. Don't be surprised to interact fairly often with our executives.",
-    },
-    style03Title: {
-        id: "jobBuilder.mgmtStyle.03.title",
-        defaultMessage: "Somewhat Vertical",
-    },
-    style03Description: {
-        id: "jobBuilder.mgmtStyle.03.description",
-        defaultMessage: "Our team has a clearly defined role. We check in regularly with middle-management for approvals and updates on the strategic vision of our executives.",
-    },
-    style04Title: {
-        id: "jobBuilder.mgmtStyle.04.title",
-        defaultMessage: "Vertical",
-    },
-    style04Description: {
-        id: "jobBuilder.mgmtStyle.04.description",
-        defaultMessage: "Our team has a clearly defined role. We check in often with middle-management for approvals and updates on the strategic vision of our executives.",
-    },
-});
-var managementList = [
-    {
-        id: "mgmtStyle01",
-        title: mgmtStyleMessages.style01Title,
-        subtext: mgmtStyleMessages.style01Description,
-    },
-    {
-        id: "mgmtStyle02",
-        title: mgmtStyleMessages.style02Title,
-        subtext: mgmtStyleMessages.style02Description,
-    },
-    {
-        id: "mgmtStyle03",
-        title: mgmtStyleMessages.style03Title,
-        subtext: mgmtStyleMessages.style03Description,
-    },
-    {
-        id: "mgmtStyle04",
-        title: mgmtStyleMessages.style04Title,
-        subtext: mgmtStyleMessages.style04Description,
-    },
-];
-var experimentalMessages = react_intl_1.defineMessages({
-    experimental01Title: {
-        id: "jobBuilder.experimental.01.title",
-        defaultMessage: "Experimental",
-    },
-    experimental01Description: {
-        id: "jobBuilder.experimental.01.description",
-        defaultMessage: "Our work is defined by trying out brand new ideas, methods, and activities to address persistent problems that traditional approaches have failed to solve.",
-    },
-    experimental02Title: {
-        id: "jobBuilder.experimental.02.title",
-        defaultMessage: "Somewhat Experimental",
-    },
-    experimental02Description: {
-        id: "jobBuilder.experimental.02.description",
-        defaultMessage: "We try out new and proven ideas, methods, and activities to improve how we do our work.",
-    },
-    experimental03Title: {
-        id: "jobBuilder.experimental.03.title",
-        defaultMessage: "Somewhat Predictable Work",
-    },
-    experimental03Description: {
-        id: "jobBuilder.experimental.03.description",
-        defaultMessage: "Our work includes some administrative tasks are repeated on a regular basis. The tools we use work well for us but we are open to improving our processes.",
-    },
-    experimental04Title: {
-        id: "jobBuilder.experimental.04.title",
-        defaultMessage: "Predictable Work",
-    },
-    experimental04Description: {
-        id: "jobBuilder.experimental.04.description",
-        defaultMessage: "Most of our work involves administrative tasks are repeated on a regular basis. Consistency is key here, so we follow a standard process with tried and true tools.",
-    },
-});
-var experimentalList = [
-    {
-        id: "experimental01",
-        title: experimentalMessages.experimental01Title,
-        subtext: experimentalMessages.experimental01Description,
-    },
-    {
-        id: "experimental02",
-        title: experimentalMessages.experimental02Title,
-        subtext: experimentalMessages.experimental02Description,
-    },
-    {
-        id: "experimental03",
-        title: experimentalMessages.experimental03Title,
-        subtext: experimentalMessages.experimental03Description,
-    },
-    {
-        id: "experimental04",
-        title: experimentalMessages.experimental04Title,
-        subtext: experimentalMessages.experimental04Description,
-    },
-];
-var facingMessages = react_intl_1.defineMessages({
-    facing01Title: {
-        id: "jobBuilder.facing.01.title",
-        defaultMessage: "Citizen Facing",
-    },
-    facing01Description: {
-        id: "jobBuilder.facing.01.description",
-        defaultMessage: "We are the face of the service we deliver and spend most of our time engaging directly with the public.",
-    },
-    facing02Title: {
-        id: "jobBuilder.facing.02.title",
-        defaultMessage: "Mostly Citizen Facing",
-    },
-    facing02Description: {
-        id: "jobBuilder.facing.02.description",
-        defaultMessage: "We spend a lot of our time engaging directly with the public, but there is also behind the scenes work to support others.",
-    },
-    facing03Title: {
-        id: "jobBuilder.facing.03.title",
-        defaultMessage: "Mostly Back Office",
-    },
-    facing03Description: {
-        id: "jobBuilder.facing.03.description",
-        defaultMessage: "We usually work behind the scenes doing important work that makes service delivery possible.",
-    },
-    facing04Title: {
-        id: "jobBuilder.facing.04.title",
-        defaultMessage: "Back Office",
-    },
-    facing04Description: {
-        id: "jobBuilder.facing.04.description",
-        defaultMessage: "We work behind the scenes doing important work that makes service delivery possible. We thrive on supporting others.",
-    },
-});
-var facingList = [
-    {
-        id: "facing01",
-        title: facingMessages.facing01Title,
-        subtext: facingMessages.facing01Description,
-    },
-    {
-        id: "facing02",
-        title: facingMessages.facing02Title,
-        subtext: facingMessages.facing02Description,
-    },
-    {
-        id: "facing03",
-        title: facingMessages.facing03Title,
-        subtext: facingMessages.facing03Description,
-    },
-    {
-        id: "facing04",
-        title: facingMessages.facing04Title,
-        subtext: facingMessages.facing04Description,
-    },
-];
-var collaborativenessMessages = react_intl_1.defineMessages({
-    collaborativeness01Title: {
-        id: "jobBuilder.collaborativeness.01.title",
-        defaultMessage: "Collaborative",
-    },
-    collaborativeness01Description: {
-        id: "jobBuilder.collaborativeness.01.description",
-        defaultMessage: "Our team has diverse backgrounds, viewpoints, and skills and we play to each others strengths. We collectively own the team's goals and are always looking for ways to pitch in.",
-    },
-    collaborativeness02Title: {
-        id: "jobBuilder.collaborativeness.02.title",
-        defaultMessage: "Somewhat Collaborative",
-    },
-    collaborativeness02Description: {
-        id: "jobBuilder.collaborativeness.02.description",
-        defaultMessage: "Our team has a diverse set of skills and we recognize each others strengths. We work together often and are quick to pitch in when someone asks for help.",
-    },
-    collaborativeness03Title: {
-        id: "jobBuilder.collaborativeness.03.title",
-        defaultMessage: "Somewhat Independent",
-    },
-    collaborativeness03Description: {
-        id: "jobBuilder.collaborativeness.03.description",
-        defaultMessage: "Members of our team own their piece of the puzzle and have some freedom to choose how they get their work done.",
-    },
-    collaborativeness04Title: {
-        id: "jobBuilder.collaborativeness.04.title",
-        defaultMessage: "Independent",
-    },
-    collaborativeness04Description: {
-        id: "jobBuilder.collaborativeness.04.description",
-        defaultMessage: "Members of our team own their piece of the puzzle. It doesn't really matter how we get our work done as long as it's high quality.",
-    },
-});
-var collaborativenessList = [
-    {
-        id: "collaborativeness01",
-        title: collaborativenessMessages.collaborativeness01Title,
-        subtext: collaborativenessMessages.collaborativeness01Description,
-    },
-    {
-        id: "collaborativeness02",
-        title: collaborativenessMessages.collaborativeness02Title,
-        subtext: collaborativenessMessages.collaborativeness02Description,
-    },
-    {
-        id: "collaborativeness03",
-        title: collaborativenessMessages.collaborativeness03Title,
-        subtext: collaborativenessMessages.collaborativeness03Description,
-    },
-    {
-        id: "collaborativeness04",
-        title: collaborativenessMessages.collaborativeness04Title,
-        subtext: collaborativenessMessages.collaborativeness04Description,
-    },
-];
-function convertSliderIdFromJob(key, formSliderArray, jobSliderId) {
-    var _a;
-    return jobSliderId && jobSliderId > 0 && jobSliderId <= formSliderArray.length
-        ? (_a = {},
-            _a[key] = formSliderArray[jobSliderId - 1].id,
-            _a) : {};
-}
-var jobToValues = function (_a, locale) {
-    var team_size = _a.team_size, fast_vs_steady = _a.fast_vs_steady, horizontal_vs_vertical = _a.horizontal_vs_vertical, experimental_vs_ongoing = _a.experimental_vs_ongoing, citizen_facing_vs_back_office = _a.citizen_facing_vs_back_office, collaborative_vs_independent = _a.collaborative_vs_independent, work_env_features = _a.work_env_features, job = __rest(_a, ["team_size", "fast_vs_steady", "horizontal_vs_vertical", "experimental_vs_ongoing", "citizen_facing_vs_back_office", "collaborative_vs_independent", "work_env_features"]);
-    var isTrueInEnvFeatures = function (option) {
-        return work_env_features !== null &&
-            queries_1.hasKey(work_env_features, option) &&
-            work_env_features[option];
-    };
-    return __assign(__assign(__assign(__assign(__assign(__assign(__assign(__assign({}, (team_size && { teamSize: team_size })), { physicalEnv: JobWorkEnv_1.physEnvOptions.filter(isTrueInEnvFeatures), technology: JobWorkEnv_1.techOptions.filter(isTrueInEnvFeatures), amenities: JobWorkEnv_1.amenitiesOptions.filter(isTrueInEnvFeatures) }), convertSliderIdFromJob("culturePace", culturePaceList, fast_vs_steady)), convertSliderIdFromJob("management", managementList, horizontal_vs_vertical)), convertSliderIdFromJob("experimental", experimentalList, experimental_vs_ongoing)), convertSliderIdFromJob("facing", facingList, citizen_facing_vs_back_office)), convertSliderIdFromJob("collaborativeness", collaborativenessList, collaborative_vs_independent)), { envDescription: localize_1.localizeField(locale, job, "work_env_description") || "", cultureSummary: localize_1.localizeField(locale, job, "culture_summary") || "", moreCultureSummary: localize_1.localizeField(locale, job, "culture_special") || "" });
-};
-function convertSliderIdToJob(formSliderArray, id) {
-    if (id === undefined) {
-        return null;
-    }
-    return formSliderArray.map(function (item) { return item.id; }).indexOf(id) + 1;
-}
-var updateJobWithValues = function (job, locale, _a) {
-    var _b, _c, _d;
-    var teamSize = _a.teamSize, physicalEnv = _a.physicalEnv, technology = _a.technology, amenities = _a.amenities, envDescription = _a.envDescription, culturePace = _a.culturePace, management = _a.management, experimental = _a.experimental, facing = _a.facing, collaborativeness = _a.collaborativeness, cultureSummary = _a.cultureSummary, moreCultureSummary = _a.moreCultureSummary;
-    var physFeatures = queries_1.mapToObjectTrans(JobWorkEnv_1.physEnvOptions, queries_1.identity, function (option) { return physicalEnv.includes(option); });
-    var techFeatures = queries_1.mapToObjectTrans(JobWorkEnv_1.techOptions, queries_1.identity, function (option) { return technology.includes(option); });
-    var amenityFeatures = queries_1.mapToObjectTrans(JobWorkEnv_1.amenitiesOptions, queries_1.identity, function (option) { return amenities.includes(option); });
-    var workEnvFeatures = __assign(__assign(__assign({}, physFeatures), techFeatures), amenityFeatures);
-    return __assign(__assign({}, job), { team_size: teamSize || null, fast_vs_steady: convertSliderIdToJob(culturePaceList, culturePace), horizontal_vs_vertical: convertSliderIdToJob(managementList, management), experimental_vs_ongoing: convertSliderIdToJob(experimentalList, experimental), citizen_facing_vs_back_office: convertSliderIdToJob(facingList, facing), collaborative_vs_independent: convertSliderIdToJob(collaborativenessList, collaborativeness), work_env_features: workEnvFeatures, work_env_description: __assign(__assign({}, job.work_env_description), (_b = {}, _b[locale] = envDescription || null, _b)), culture_summary: __assign(__assign({}, job.culture_summary), (_c = {}, _c[locale] = cultureSummary || null, _c)), culture_special: __assign(__assign({}, job.culture_special), (_d = {}, _d[locale] = moreCultureSummary || null, _d)) });
-};
-var renderRadioWithContext = function (intl, touched, errors, values, fieldName, label, sliderList) {
-    return (react_1.default.createElement("div", { className: "job-builder-culture-block", "data-c-grid-item": "base(1of1)" },
-        react_1.default.createElement("div", { "data-c-grid": "gutter" },
-            react_1.default.createElement(RadioGroup_1.default, { id: fieldName, label: label, required: true, touched: touched[fieldName], error: errors[fieldName], value: values[fieldName], grid: "base(1of1) tl(1of3)" }, sliderList.map(function (_a) {
-                var id = _a.id, title = _a.title;
-                return (react_1.default.createElement(formik_1.Field, { key: id, name: fieldName, component: RadioInput_1.default, id: id, label: intl.formatMessage(title), value: id, trigger: true }));
-            })),
-            react_1.default.createElement(ContextBlock_1.default, { className: "job-builder-context-block", grid: "base(1of1) tl(2of3)" }, sliderList.map(function (_a) {
-                var id = _a.id, title = _a.title, subtext = _a.subtext;
-                return (react_1.default.createElement(ContextBlockItem_1.default, { key: id, contextId: id, title: intl.formatMessage(title), subtext: intl.formatMessage(subtext), className: "job-builder-context-item", active: values[fieldName] === id }));
-            })))));
-};
-var WorkEnvForm = function (_a) {
-    var job = _a.job, handleSubmit = _a.handleSubmit, handleReturn = _a.handleReturn, handleModalCancel = _a.handleModalCancel, handleModalConfirm = _a.handleModalConfirm, jobIsComplete = _a.jobIsComplete, handleSkipToReview = _a.handleSkipToReview, intl = _a.intl;
-    var _b = react_1.useState(false), isModalVisible = _b[0], setIsModalVisible = _b[1];
-    var locale = intl.locale;
-    if (locale !== "en" && locale !== "fr") {
-        throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
-    }
-    var initialValues = job
-        ? jobToValues(job, locale)
-        : {
-            physicalEnv: [],
-            technology: [],
-            amenities: [],
-            envDescription: "",
-            cultureSummary: "",
-            moreCultureSummary: "",
-        };
-    var phyEnvData = JobWorkEnv_1.phyEnvDescriptions(intl);
-    var techData = JobWorkEnv_1.techDescriptions(intl);
-    var amenitiesData = JobWorkEnv_1.amenitiesDescriptions(intl);
-    var modalParentRef = react_1.useRef(null);
-    var workEnvSchema = Yup.object().shape({
-        teamSize: Yup.number()
-            .min(1, intl.formatMessage(Messages_1.validationMessages.required))
-            .required(intl.formatMessage(Messages_1.validationMessages.required)),
-        physicalEnv: Yup.array(),
-        technology: Yup.array(),
-        amenities: Yup.array(),
-        envDescription: Yup.string(),
-        culturePace: Yup.string()
-            .oneOf(culturePaceList.map(function (item) { return item.id; }))
-            .required(intl.formatMessage(Messages_1.validationMessages.checkboxRequired)),
-        management: Yup.string()
-            .oneOf(managementList.map(function (item) { return item.id; }))
-            .required(intl.formatMessage(Messages_1.validationMessages.checkboxRequired)),
-        experimental: Yup.string()
-            .oneOf(experimentalList.map(function (item) { return item.id; }))
-            .required(intl.formatMessage(Messages_1.validationMessages.checkboxRequired)),
-        facing: Yup.string()
-            .oneOf(facingList.map(function (item) { return item.id; }))
-            .required(intl.formatMessage(Messages_1.validationMessages.checkboxRequired)),
-        collaborativeness: Yup.string()
-            .oneOf(collaborativenessList.map(function (item) { return item.id; }))
-            .required(intl.formatMessage(Messages_1.validationMessages.checkboxRequired)),
-    });
-    /** Compiles and returns all the active radio buttons corresponding context box values within the culture section  */
-    var buildCultureSummary = function (values) {
-        var pace = culturePaceList.find(function (_a) {
-            var id = _a.id;
-            return id === values.culturePace;
-        });
-        var management = managementList.find(function (_a) {
-            var id = _a.id;
-            return id === values.management;
-        });
-        var experimental = experimentalList.find(function (_a) {
-            var id = _a.id;
-            return id === values.experimental;
-        });
-        var facing = facingList.find(function (_a) {
-            var id = _a.id;
-            return id === values.facing;
-        });
-        var collaborativeness = collaborativenessList.find(function (_a) {
-            var id = _a.id;
-            return id === values.collaborativeness;
-        });
-        var cultureSummary = [
-            pace,
-            management,
-            experimental,
-            facing,
-            collaborativeness,
-        ]
-            .filter(queries_1.notEmpty)
-            .map(function (item) { return intl.formatMessage(item.subtext); })
-            .join(" ");
-        return cultureSummary;
-    };
-    var updateValuesAndReturn = function (values) {
-        nprogress_1.default.start();
-        // If custom summary textbox is length is zero, set cultureSummary to generated text
-        var cultureSummary = values.cultureSummary.length === 0
-            ? buildCultureSummary(values)
-            : values.cultureSummary;
-        var formValues = __assign(__assign({}, values), { cultureSummary: cultureSummary });
-        var oldJob = job || jobUtil_1.emptyJob();
-        var updatedJob = updateJobWithValues(oldJob, locale, formValues);
-        handleSubmit(updatedJob).then(function () {
-            nprogress_1.default.done();
-            handleReturn();
-        });
-    };
-    return (react_1.default.createElement("div", { "data-c-container": "form", "data-c-padding": "top(triple) bottom(triple)", ref: modalParentRef },
-        react_1.default.createElement("h3", { "data-c-font-size": "h3", "data-c-font-weight": "bold", "data-c-margin": "bottom(double)" },
-            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnv.title", defaultMessage: "Work Environment", description: "Header of job poster builder work environment step." })),
-        react_1.default.createElement("p", null,
-            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnv.stepDescription", defaultMessage: "Applicants care a lot about the team they'll be working with and the physical workspace as well. Sharing information about these things help applicants determine if they'll be a good fit, and can reduce the number of \"wishful thinking\" applications that slow down the screening process.", description: "Description of job poster builder work environment step." })),
-        react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" },
-            react_1.default.createElement("h4", { "data-c-font-size": "h4", "data-c-margin": "top(triple) bottom(normal)" },
-                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnv.ourWorkEnv", defaultMessage: "Our Work Environment", description: "Section 1 of Job Poster Builder Work Environment Step" })),
-            react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" }, intl.formatMessage(exports.formMessages.ourWorkEnvDesc))),
-        react_1.default.createElement(formik_1.Formik, { enableReinitialize: true, initialValues: initialValues, validationSchema: workEnvSchema, onSubmit: function (values, _a) {
-                var setSubmitting = _a.setSubmitting;
-                // If custom summary textbox is length is zero, set cultureSummary to generated text
-                var cultureSummary = values.cultureSummary.length === 0
-                    ? buildCultureSummary(values)
-                    : values.cultureSummary;
-                var formValues = __assign(__assign({}, values), { cultureSummary: cultureSummary });
-                var oldJob = job || jobUtil_1.emptyJob();
-                var updatedJob = updateJobWithValues(oldJob, locale, formValues);
-                nprogress_1.default.start();
-                handleSubmit(updatedJob)
-                    .then(function () {
-                    nprogress_1.default.done();
-                    setIsModalVisible(true);
-                })
-                    .finally(function () {
-                    setSubmitting(false);
-                });
-            }, render: function (_a) {
-                var errors = _a.errors, touched = _a.touched, isSubmitting = _a.isSubmitting, values = _a.values, setFieldValue = _a.setFieldValue, setFieldTouched = _a.setFieldTouched;
-                return (react_1.default.createElement(react_1.default.Fragment, null,
-                    react_1.default.createElement(formik_1.Form, { id: "form", "data-c-margin": "bottom(normal)" },
-                        react_1.default.createElement(formik_1.Field, { name: "teamSize", component: NumberInput_1.default, required: true, min: 1, grid: "tl(1of2)", id: "teamSize", label: intl.formatMessage(exports.formMessages.teamSizeLabel), placeholder: intl.formatMessage(exports.formMessages.teamSizePlaceholder) }),
-                        react_1.default.createElement(CheckboxGroup_1.default, { id: "physicalEnv", label: intl.formatMessage(exports.formMessages.physicalEnvLabel), grid: "base(1of1)", value: values.physicalEnv, error: errors.physicalEnv, touched: touched.physicalEnv, onChange: setFieldValue, onBlur: setFieldTouched }, phyEnvData &&
-                            phyEnvData.map(function (_a) {
-                                var name = _a.name, label = _a.label;
-                                return (react_1.default.createElement(formik_1.Field, { key: name, id: name, name: name, label: label, component: CheckboxInput_1.default, grid: "base(1of2)" }));
-                            })),
-                        react_1.default.createElement(CheckboxGroup_1.default, { id: "technology", label: intl.formatMessage(exports.formMessages.technologyLabel), grid: "base(1of1)", value: values.technology, error: errors.technology, touched: touched.technology, onChange: setFieldValue, onBlur: setFieldTouched }, techData &&
-                            techData.map(function (_a) {
-                                var name = _a.name, label = _a.label;
-                                return (react_1.default.createElement(formik_1.Field, { key: name, id: name, name: name, label: label, component: CheckboxInput_1.default, grid: "base(1of2)" }));
-                            })),
-                        react_1.default.createElement(CheckboxGroup_1.default, { id: "amenities", label: intl.formatMessage(exports.formMessages.amenitiesLabel), grid: "base(1of1)", value: values.amenities, error: errors.amenities, touched: touched.amenities, onChange: setFieldValue, onBlur: setFieldTouched }, amenitiesData &&
-                            amenitiesData.map(function (_a) {
-                                var name = _a.name, label = _a.label;
-                                return (react_1.default.createElement(formik_1.Field, { key: name, id: name, name: name, label: label, component: CheckboxInput_1.default, grid: "base(1of2)" }));
-                            })),
-                        react_1.default.createElement("p", { "data-c-margin": "bottom(normal) top(normal)", "data-c-font-weight": "bold" }, intl.formatMessage(exports.formMessages.moreOnWorkEnv)),
-                        react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" }, intl.formatMessage(exports.formMessages.thisIsOptional)),
-                        react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" }, intl.formatMessage(exports.formMessages.moreOnWorkEnvSubtext)),
-                        react_1.default.createElement(formik_1.Field, { type: "textarea", id: "environment_description", name: "envDescription", label: intl.formatMessage(exports.formMessages.moreOnWorkEnvLabel), placeholder: intl.formatMessage(exports.formMessages.moreOnWorkEnvPlaceholder), component: TextAreaInput_1.default, grid: "base(1of2)" }),
-                        react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" },
-                            react_1.default.createElement("h4", { "data-c-font-size": "h4", "data-c-margin": "top(double) bottom(normal)" }, intl.formatMessage(exports.formMessages.culture)),
-                            react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" },
-                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnv.cultureSubtext1", defaultMessage: "Now let applicants know more about the personality of your team and the type of work that you usually do.", description: "Subtext 1 displayed of the our culture section." })),
-                            react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" }, intl.formatMessage(exports.formMessages.cultureSubtext2))),
-                        renderRadioWithContext(intl, touched, errors, values, "culturePace", intl.formatMessage(exports.formMessages.fastPacedSteadyLabel), culturePaceList),
-                        renderRadioWithContext(intl, touched, errors, values, "management", intl.formatMessage(exports.formMessages.managementLabel), managementList),
-                        renderRadioWithContext(intl, touched, errors, values, "experimental", intl.formatMessage(exports.formMessages.experimentalLabel), experimentalList),
-                        renderRadioWithContext(intl, touched, errors, values, "facing", intl.formatMessage(exports.formMessages.facingLabel), facingList),
-                        renderRadioWithContext(intl, touched, errors, values, "collaborativeness", intl.formatMessage(exports.formMessages.collaborativeLabel), collaborativenessList),
-                        react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" },
-                            react_1.default.createElement("p", { "data-c-margin": "bottom(normal) top(normal)", "data-c-font-weight": "bold" }, intl.formatMessage(exports.formMessages.cultureSummary)),
-                            react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" }, intl.formatMessage(exports.formMessages.cultureSummarySubtext)),
-                            react_1.default.createElement(ContextBlockItem_1.default, { subtext: buildCultureSummary(values) }),
-                            react_1.default.createElement("div", { "data-c-alignment": "base(centre) tl(right)", "data-c-margin": "top(normal)" },
-                                react_1.default.createElement(CopyToClipboardButton_1.default, { actionText: react_1.default.createElement(react_intl_1.FormattedMessage, { id: "button.copyToClipboard", defaultMessage: "Copy to Clipboard", description: "Button to copy text to clipboard." }), postActionText: react_1.default.createElement(react_intl_1.FormattedMessage, { id: "button.copied", defaultMessage: "Copied!", description: "Confirmation for Button to copy text to clipboard." }), textToCopy: buildCultureSummary(values) }))),
-                        react_1.default.createElement(formik_1.Field, { type: "textarea", id: "custom_culture_summary", name: "cultureSummary", label: intl.formatMessage(exports.formMessages.customCultureSummaryLabel), placeholder: intl.formatMessage(exports.formMessages.customCultureSummaryPlaceholder), component: TextAreaInput_1.default, grid: "base(1of1)" }),
-                        react_1.default.createElement("p", { "data-c-margin": "bottom(normal)", "data-c-font-weight": "bold" }, intl.formatMessage(exports.formMessages.specialWorkCulture)),
-                        react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" }, intl.formatMessage(exports.formMessages.thisIsOptional)),
-                        react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" }, intl.formatMessage(exports.formMessages.specialWorkCultureSubtext)),
-                        react_1.default.createElement(formik_1.Field, { type: "textarea", id: "more_culture_summary", name: "moreCultureSummary", label: intl.formatMessage(exports.formMessages.specialWorkCultureLabel), placeholder: intl.formatMessage(exports.formMessages.textAreaPlaceholder1), component: TextAreaInput_1.default, grid: "base(1of1)" }),
-                        react_1.default.createElement("div", { "data-c-grid": "gutter", "data-c-grid-item": "base(1of1)" },
-                            react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" },
-                                react_1.default.createElement("hr", { "data-c-margin": "top(normal) bottom(normal)" })),
-                            react_1.default.createElement("div", { "data-c-alignment": "base(centre) tp(left)", "data-c-grid-item": "tp(1of2)" },
-                                react_1.default.createElement("button", { "data-c-button": "outline(c2)", "data-c-radius": "rounded", type: "button", disabled: isSubmitting, onClick: function () {
-                                        updateValuesAndReturn(values);
-                                    } },
-                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnv.saveAndReturnButtonLabel", defaultMessage: "Save & Return to Job Details", description: "Label for Save & Return button on Work Environment form." }))),
-                            react_1.default.createElement("div", { "data-c-alignment": "base(centre) tp(right)", "data-c-grid-item": "tp(1of2)" },
-                                react_1.default.createElement("button", { "data-c-button": "solid(c1)", "data-c-radius": "rounded", type: "submit", disabled: isSubmitting },
-                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnv.submitButtonLabel", defaultMessage: "Save & Preview", description: "Label for work environment submit button." }))))),
-                    react_1.default.createElement(WorkEnvModal_1.default, { modalConfirm: function () {
-                            setIsModalVisible(false);
-                            handleModalConfirm();
-                        }, modalCancel: function () {
-                            setIsModalVisible(false);
-                            handleModalCancel();
-                        }, isVisible: isModalVisible, parentElement: modalParentRef.current, values: values, cultureSummary: values.cultureSummary || buildCultureSummary(values), jobIsComplete: jobIsComplete, handleSkipToReview: function () {
-                            handleSkipToReview().finally(function () {
-                                setIsModalVisible(false);
-                            });
-                        } })));
-            } })));
-};
-var WorkEnvFormContainer = react_intl_1.injectIntl(WorkEnvForm);
-exports.default = WorkEnvFormContainer;
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvModal.tsx":
-/*!****************************************************************************!*\
-  !*** ./resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvModal.tsx ***!
-  \****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
-var Modal_1 = __importDefault(__webpack_require__(/*! ../../Modal */ "./resources/assets/js/components/Modal.tsx"));
-var JobWorkEnv_1 = __importDefault(__webpack_require__(/*! ./JobWorkEnv */ "./resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnv.tsx"));
-var WorkEnvModal = function (_a) {
-    var modalConfirm = _a.modalConfirm, modalCancel = _a.modalCancel, isVisible = _a.isVisible, parentElement = _a.parentElement, values = _a.values, cultureSummary = _a.cultureSummary, jobIsComplete = _a.jobIsComplete, handleSkipToReview = _a.handleSkipToReview;
-    return (react_1.default.createElement(react_1.default.Fragment, null,
-        react_1.default.createElement(Modal_1.default, { id: "work-environment-preview", parentElement: parentElement, visible: isVisible, onModalConfirm: modalConfirm, onModalCancel: modalCancel, onModalMiddle: handleSkipToReview },
-            react_1.default.createElement(Modal_1.default.Header, null,
-                react_1.default.createElement("div", { "data-c-background": "c1(100)", "data-c-border": "bottom(thin, solid, black)", "data-c-padding": "normal" },
-                    react_1.default.createElement("h5", { "data-c-colour": "white", "data-c-font-size": "h4", id: "work-environment-preview-title" },
-                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnv.greatStart", defaultMessage: "You're off to a great start!", description: "Kicker message at the start of the modal." })))),
-            react_1.default.createElement(Modal_1.default.Body, null,
-                react_1.default.createElement("div", { "data-c-border": "bottom(thin, solid, black)", "data-c-padding": "normal", id: "work-environment-preview-body" },
-                    react_1.default.createElement("p", null,
-                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnv.openingSentence", defaultMessage: "Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it.", description: "Opening sentence for modal." }))),
-                react_1.default.createElement("div", { "data-c-background": "grey(20)", "data-c-padding": "normal" },
-                    react_1.default.createElement("div", { className: "manager-job-card", "data-c-background": "white(100)", "data-c-padding": "normal", "data-c-radius": "rounded" },
-                        react_1.default.createElement("h4", { "data-c-border": "bottom(thin, solid, black)", "data-c-font-size": "h4", "data-c-font-weight": "600", "data-c-margin": "bottom(normal)", "data-c-padding": "bottom(normal)" },
-                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnvModal.title", defaultMessage: "Work Environment", description: "Header of job poster builder work environment step." })),
-                        react_1.default.createElement(JobWorkEnv_1.default, { teamSize: values.teamSize || 0, selectedEnvOptions: __spreadArrays(values.amenities, values.physicalEnv, values.technology), envDescription: values.envDescription }),
-                        react_1.default.createElement("h4", { "data-c-border": "bottom(thin, solid, black)", "data-c-font-size": "h4", "data-c-font-weight": "600", "data-c-margin": "top(double) bottom(normal)", "data-c-padding": "bottom(normal)" },
-                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnvModal.workCultureTitle", defaultMessage: "Work Culture", description: "The title displayed for the work culture section on modal." })),
-                        react_1.default.createElement("p", null, cultureSummary),
-                        values.moreCultureSummary && (react_1.default.createElement("p", { "data-c-margin": "top(normal)" }, values.moreCultureSummary))))),
-            react_1.default.createElement(Modal_1.default.Footer, null,
-                react_1.default.createElement(Modal_1.default.FooterCancelBtn, null,
-                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnvModal.cancelLabel", defaultMessage: "Go Back", description: "The label displayed on modal cancel button." })),
-                jobIsComplete && (react_1.default.createElement(Modal_1.default.FooterMiddleBtn, null,
-                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnvModal.modalMiddleLabel", defaultMessage: "Skip to Review", description: "The text displayed on the 'Skip to Review' button of the Work Env modal." }))),
-                react_1.default.createElement(Modal_1.default.FooterConfirmBtn, null,
-                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnvModal.confirmLabel", defaultMessage: "Next Step", description: "The label displayed on modal confirm button." })))),
-        react_1.default.createElement("div", { "data-c-dialog-overlay": isVisible ? "active" : "" })));
-};
-exports.default = WorkEnvModal;
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/Modal.tsx":
-/*!**************************************************!*\
-  !*** ./resources/assets/js/components/Modal.tsx ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-var react_dom_1 = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-// Partial helper allows empty defaults in the createContext call:
-// https://fettblog.eu/typescript-react/context/#context-without-default-values
-var modalContext = react_1.createContext({});
-function Modal(_a) {
-    var id = _a.id, parentElement = _a.parentElement, visible = _a.visible, children = _a.children, onModalConfirm = _a.onModalConfirm, onModalMiddle = _a.onModalMiddle, onModalCancel = _a.onModalCancel;
-    // Set up div ref to measure modal height
-    var modalRef = react_1.useRef(null);
-    var handleTabKey = function (e) {
-        if (modalRef && modalRef.current) {
-            var focusableModalElements = modalRef.current.querySelectorAll('a[href], button, textarea, input[type="text"], input[type="email"], input[type="radio"], select');
-            var firstElement = focusableModalElements[0];
-            var lastElement = focusableModalElements[focusableModalElements.length - 1];
-            var focusableModalElementsArray = Array.from(focusableModalElements);
-            if (document.activeElement &&
-                !focusableModalElementsArray.includes(document.activeElement)) {
-                firstElement.focus();
-                e.preventDefault();
-            }
-            if (!e.shiftKey && document.activeElement === lastElement) {
-                firstElement.focus();
-                e.preventDefault();
-            }
-            if (e.shiftKey && document.activeElement === firstElement) {
-                lastElement.focus();
-                e.preventDefault();
-            }
-        }
-    };
-    // Collection of key codes and event listeners
-    var keyListenersMap = new Map([
-        [27, onModalCancel],
-        [9, handleTabKey],
-    ]);
-    // Runs every time visible changes to set the overflow on the modal and update the body overflow
-    react_1.useEffect(function () {
-        function setBodyStyle() {
-            document.body.style.overflow = visible ? "hidden" : "visible";
-        }
-        setBodyStyle();
-        // Runs on component unmount
-        return function () {
-            setBodyStyle();
-        };
-    }, [visible]);
-    // Adds various key commands to the modal
-    react_1.useEffect(function () {
-        var keyListener;
-        if (visible) {
-            keyListener = function (e) {
-                var listener = keyListenersMap.get(e.keyCode);
-                return listener && listener(e);
-            };
-            document.addEventListener("keydown", keyListener);
-        }
-        return function () {
-            if (keyListener !== undefined) {
-                document.removeEventListener("keydown", keyListener);
-            }
-        };
-    }, [keyListenersMap, visible]);
-    if (parentElement !== null) {
-        return react_dom_1.createPortal(react_1.default.createElement("div", { "aria-describedby": id + "-description", "aria-hidden": !visible, "aria-labelledby": id + "-title", "data-c-dialog": visible ? "active--overflowing" : "", "data-c-padding": "top(double) bottom(double)", role: "dialog", ref: modalRef },
-            react_1.default.createElement("div", { "data-c-background": "white(100)", "data-c-radius": "rounded" },
-                react_1.default.createElement(modalContext.Provider, { value: {
-                        id: id,
-                        parentElement: parentElement,
-                        visible: visible,
-                        onModalConfirm: onModalConfirm,
-                        onModalMiddle: onModalMiddle,
-                        onModalCancel: onModalCancel,
-                    } }, children))), parentElement);
-    }
-    return null;
-}
-exports.default = Modal;
-Modal.Header = function ModalHeader(props) {
-    return props.children;
-};
-Modal.Body = function ModalBody(props) {
-    var children = props.children;
-    return react_1.default.createElement("div", { "data-c-border": "bottom(thin, solid, black)" }, children);
-};
-Modal.Footer = function ModalFooter(props) {
-    var children = props.children;
-    return (react_1.default.createElement("div", { "data-c-padding": "normal" },
-        react_1.default.createElement("div", { "data-c-grid": "gutter middle" }, Array.isArray(children) && children.length > 0
-            ? children.map(function (btn, index) { return (react_1.default.createElement("div", { 
-                // eslint-disable-next-line react/no-array-index-key
-                key: index, "data-c-grid-item": "base(1of" + children.length + ")" }, btn)); })
-            : children)));
-};
-Modal.FooterConfirmBtn = function ConfirmBtn(props) {
-    var onModalConfirm = react_1.useContext(modalContext).onModalConfirm;
-    return (react_1.default.createElement("div", { "data-c-alignment": "base(right)" },
-        react_1.default.createElement("button", __assign({}, props, { "data-c-button": "solid(c1)", "data-c-dialog-action": "close", "data-c-radius": "rounded", type: "button", onClick: onModalConfirm }))));
-};
-Modal.FooterCancelBtn = function CancelBtn(props) {
-    var onModalCancel = react_1.useContext(modalContext).onModalCancel;
-    return (react_1.default.createElement("div", null,
-        react_1.default.createElement("button", __assign({}, props, { "data-c-button": "outline(c1)", "data-c-dialog-action": "close", "data-c-radius": "rounded", type: "button", onClick: onModalCancel }))));
-};
-Modal.FooterMiddleBtn = function MiddleBtn(props) {
-    var onModalMiddle = react_1.useContext(modalContext).onModalMiddle;
-    return (react_1.default.createElement("div", { "data-c-alignment": "base(center)" },
-        react_1.default.createElement("button", __assign({}, props, { "data-c-button": "solid(c1)", "data-c-dialog-action": "close", "data-c-radius": "rounded", type: "button", disabled: onModalMiddle === undefined, onClick: onModalMiddle }))));
-};
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/Radio.tsx":
-/*!**************************************************!*\
-  !*** ./resources/assets/js/components/Radio.tsx ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-var Radio = function (_a) {
-    var id = _a.id, name = _a.name, label = _a.label, checked = _a.checked, value = _a.value, trigger = _a.trigger, onBlur = _a.onBlur, onChange = _a.onChange;
-    var clicked = id === value;
-    return (react_1.default.createElement("label", { "data-tc-wenv-id": id, "data-tc-wenv-trigger": trigger, className: clicked ? "active" : "" },
-        react_1.default.createElement("input", { id: id, name: name, type: "radio", checked: checked, value: value, onChange: onChange, onBlur: onBlur }),
-        react_1.default.createElement("span", null, label)));
-};
-exports.default = Radio;
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/TextArea.tsx":
-/*!*****************************************************!*\
-  !*** ./resources/assets/js/components/TextArea.tsx ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
-var Messages_1 = __webpack_require__(/*! ./Form/Messages */ "./resources/assets/js/components/Form/Messages.tsx");
-var TextArea = function (_a) {
-    var id = _a.id, name = _a.name, label = _a.label, className = _a.className, required = _a.required, invalid = _a.invalid, placeholder = _a.placeholder, value = _a.value, errorText = _a.errorText, grid = _a.grid, minLength = _a.minLength, maxLength = _a.maxLength, onChange = _a.onChange, onBlur = _a.onBlur;
-    return (react_1.default.createElement("div", { className: className, "data-c-grid-item": grid, "data-c-input": "textarea", "data-c-required": required || null, "data-c-invalid": invalid || null },
-        react_1.default.createElement("label", { htmlFor: id }, label),
-        react_1.default.createElement("span", null,
-            react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, Messages_1.inputMessages.required))),
-        react_1.default.createElement("div", null,
-            react_1.default.createElement("textarea", { id: id, name: name, required: required, placeholder: placeholder, minLength: minLength, maxLength: maxLength, onChange: onChange, onBlur: onBlur, value: value })),
-        react_1.default.createElement("span", null, errorText || react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, Messages_1.inputMessages.error)))));
-};
-exports.default = TextArea;
+exports.default = WorkEnvSection;
 
 
 /***/ }),
@@ -50655,7 +35951,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 var react_dom_1 = __importDefault(__webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js"));
-var JobWorkEnv_1 = __importDefault(__webpack_require__(/*! ./JobBuilder/WorkEnv/JobWorkEnv */ "./resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnv.tsx"));
+var WorkEnvFeatures_1 = __importDefault(__webpack_require__(/*! ./JobBuilder/WorkEnv/WorkEnvFeatures */ "./resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvFeatures.tsx"));
 var IntlContainer_1 = __importDefault(__webpack_require__(/*! ../IntlContainer */ "./resources/assets/js/IntlContainer.tsx"));
 var extractSelectedEnvOptions = function (workEnvOptions) {
     return Object.entries(workEnvOptions)
@@ -50677,1683 +35973,9 @@ if (document.getElementById("work-env-features-section")) {
         var envDescription = container.dataset.workEnvDescription;
         var locale = document.documentElement.lang;
         react_dom_1.default.render(React.createElement(IntlContainer_1.default, { locale: locale },
-            React.createElement(JobWorkEnv_1.default, { teamSize: teamSize, selectedEnvOptions: selectedEnvOptions, envDescription: envDescription || "" })), container);
+            React.createElement(WorkEnvFeatures_1.default, { teamSize: teamSize, selectedEnvOptions: selectedEnvOptions, envDescription: envDescription || "" })), container);
     }
 }
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/helpers/clipboard.ts":
-/*!**************************************************!*\
-  !*** ./resources/assets/js/helpers/clipboard.ts ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-function copyToClipboard(event, text) {
-    return __awaiter(this, void 0, void 0, function () {
-        var textarea;
-        return __generator(this, function (_a) {
-            if (event.clipboardData && event.clipboardData.setData) {
-                // IE specific code path to prevent textarea being shown while dialog is visible.
-                return [2 /*return*/, event.clipboardData.setData("Text", text)];
-            }
-            if (document.queryCommandSupported &&
-                document.queryCommandSupported("copy")) {
-                textarea = document.createElement("textarea");
-                textarea.textContent = text;
-                textarea.style.position = "fixed"; // Prevent scrolling to bottom of page in MS Edge.
-                document.body.appendChild(textarea);
-                textarea.select();
-                try {
-                    document.execCommand("copy"); // Security exception may be thrown by some browsers.
-                    return [2 /*return*/, Promise.resolve()];
-                }
-                catch (ex) {
-                    console.warn("Copy to clipboard failed.", ex);
-                    return [2 /*return*/, Promise.reject()];
-                }
-                finally {
-                    document.body.removeChild(textarea);
-                }
-            }
-            return [2 /*return*/, Promise.reject()];
-        });
-    });
-}
-exports.copyToClipboard = copyToClipboard;
-function copyElementContents(el) {
-    var documentIEBody = document.body;
-    var range;
-    var sel;
-    if (document.createRange && window.getSelection) {
-        range = document.createRange();
-        sel = window.getSelection();
-        sel.removeAllRanges();
-        try {
-            range.selectNodeContents(el);
-            sel.addRange(range);
-        }
-        catch (e) {
-            range.selectNode(el);
-            sel.addRange(range);
-        }
-        // createTextRange is IE only
-    }
-    else if (documentIEBody.createTextRange) {
-        range = documentIEBody.createTextRange();
-        range.moveToElementText(el);
-        range.select();
-    }
-    document.execCommand("copy");
-}
-exports.copyElementContents = copyElementContents;
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/helpers/localize.ts":
-/*!*************************************************!*\
-  !*** ./resources/assets/js/helpers/localize.ts ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-function localizeField(locale, model, field) {
-    return model[field][locale];
-}
-exports.localizeField = localizeField;
-function localizeFieldNonNull(locale, model, field) {
-    return model[field][locale];
-}
-exports.localizeFieldNonNull = localizeFieldNonNull;
-function getLocale(locale) {
-    if (locale === "en" || locale === "fr") {
-        return locale;
-    }
-    console.log("Warning: unknown locale. Defaulting to en.");
-    return "en";
-}
-exports.getLocale = getLocale;
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/helpers/queries.ts":
-/*!************************************************!*\
-  !*** ./resources/assets/js/helpers/queries.ts ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * Shortcut function that returns the id attribute of an object.
- * @param item
- */
-function getId(item) {
-    return item.id;
-}
-exports.getId = getId;
-function identity(value) {
-    return value;
-}
-exports.identity = identity;
-/**
- * Returns true as long as the value passed to it is not null or undefined.
- * Can be used to filter nulls and undefined values out of an array.
- * @param item
- */
-function notEmpty(value) {
-    return value !== null && value !== undefined;
-}
-exports.notEmpty = notEmpty;
-function stringNotEmpty(value) {
-    return notEmpty(value) && value.length > 0;
-}
-exports.stringNotEmpty = stringNotEmpty;
-/**
- * From an array of objects, return the first object with a specific id value.
- * @param objs
- * @param id
- */
-function find(objs, id) {
-    var found = objs.filter(function (item) { return item.id === id; });
-    return found.length > 0 ? found[0] : null;
-}
-exports.find = find;
-/**
- * Return all objects from array with the specified key-value attribute.
- * @param objs
- * @param prop
- * @param value
- */
-function where(objs, prop, value) {
-    return objs.filter(function (obj) { return prop in obj && obj[prop] === value; });
-}
-exports.where = where;
-/**
- * Return first object from array with the specified key-value attribute.
- * @param objs
- * @param prop
- * @param value
- */
-function whereFirst(objs, prop, value) {
-    return where(objs, prop, value)[0];
-}
-exports.whereFirst = whereFirst;
-/**
- * Map each key-value attribute of an object into an array
- * @param object
- * @param mapFn
- */
-function objectMap(object, mapFn) {
-    return Object.keys(object).reduce(function (result, key) {
-        result.push(mapFn(key, object[key]));
-        return result;
-    }, []);
-}
-exports.objectMap = objectMap;
-/**
- * Maps an array of items into an object, with each transformed into an attribute
- * @param items array of objects
- * @param keyFn Function that returns a unique key for each object. Typically the getId function.
- * @param valFn Function that returns a new value for each object.
- */
-function mapToObjectTrans(items, keyFn, valFn) {
-    return items.reduce(function (result, item) {
-        var key = keyFn(item);
-        result[key] = valFn(item);
-        return result;
-    }, {});
-}
-exports.mapToObjectTrans = mapToObjectTrans;
-/**
- * Maps an array of items into an object, with each item set as an attribute.
- * @param items array of objects
- * @param keyFn Function that returns a unique key for each object. Typically the getId function.
- */
-function mapToObject(items, keyFn) {
-    return mapToObjectTrans(items, keyFn, function (item) { return item; });
-}
-exports.mapToObject = mapToObject;
-/**
- * Checks if an object has an attribute with a particular key
- * @param object
- * @param key
- */
-function hasKey(object, key) {
-    return Object.prototype.hasOwnProperty.call(object, key);
-}
-exports.hasKey = hasKey;
-/**
- * Returns the value at the specified key. If the key is not present, throws an error.
- * @param object
- * @param key
- * @param errorMessage
- */
-function getOrThrowError(object, key, errorMessage) {
-    if (!hasKey(object, key)) {
-        throw new Error(errorMessage);
-    }
-    return object[key];
-}
-exports.getOrThrowError = getOrThrowError;
-/** Return a copy of the object with specific property removed */
-function deleteProperty(obj, key) {
-    var _a = obj, _b = key, _ = _a[_b], newObj = __rest(_a, [typeof _b === "symbol" ? _b : _b + ""]);
-    return newObj;
-}
-exports.deleteProperty = deleteProperty;
-/**
- * Iterate through the properties of the object, checking which return true for the filterFunction.
- * Return a copy of the object, without the properties that don't pass the filter.
- */
-function filterObjectProps(obj, filter) {
-    return Object.entries(obj).reduce(function (newObj, _a) {
-        var key = _a[0], value = _a[1];
-        if (filter(value)) {
-            newObj[key] = value;
-        }
-        return newObj;
-    }, {});
-}
-exports.filterObjectProps = filterObjectProps;
-/** Return a copy of the list with duplicate elements removed */
-function uniq(x) {
-    return Array.from(new Set(x));
-}
-exports.uniq = uniq;
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/helpers/routes.ts":
-/*!***********************************************!*\
-  !*** ./resources/assets/js/helpers/routes.ts ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-function applicationShow(locale, prefix, applicationId) {
-    return "/" + locale + "/" + prefix + "/applications/" + applicationId;
-}
-function applicantShow(locale, prefix, applicantId) {
-    return "/" + locale + "/" + prefix + "/applicants/" + applicantId;
-}
-function managerApplicationShow(locale, applicationId) {
-    return applicationShow(locale, "manager", applicationId);
-}
-exports.managerApplicationShow = managerApplicationShow;
-function managerApplicantShow(locale, applicantId) {
-    return applicantShow(locale, "manager", applicantId);
-}
-exports.managerApplicantShow = managerApplicantShow;
-function managerEditProfile(locale) {
-    return "/" + locale + "/manager/profile";
-}
-exports.managerEditProfile = managerEditProfile;
-function managerJobIndex(locale) {
-    return "/" + locale + "/manager/jobs";
-}
-exports.managerJobIndex = managerJobIndex;
-function managerJobShow(locale, jobId) {
-    return "/" + locale + "/manager/jobs/" + jobId;
-}
-exports.managerJobShow = managerJobShow;
-function managerJobApplications(locale, jobId) {
-    return "/" + locale + "/manager/jobs/" + jobId + "/applications";
-}
-exports.managerJobApplications = managerJobApplications;
-function managerScreeningPlan(locale, jobId) {
-    return "/" + locale + "/manager/jobs/" + jobId + "/assessment-plan";
-}
-exports.managerScreeningPlan = managerScreeningPlan;
-function applicationReviewUpdate(locale, applicationId) {
-    return "/api/applications/" + applicationId + "/review";
-}
-exports.applicationReviewUpdate = applicationReviewUpdate;
-function jobBuilderIntro(locale, jobId) {
-    if (jobId) {
-        return "/" + locale + "/manager/jobs/" + jobId + "/builder/intro";
-    }
-    return "/" + locale + "/manager/job-builder/intro";
-}
-exports.jobBuilderIntro = jobBuilderIntro;
-function jobBuilderDetails(locale, jobId) {
-    return "/" + locale + "/manager/jobs/" + jobId + "/builder/details";
-}
-exports.jobBuilderDetails = jobBuilderDetails;
-function jobBuilderEnv(locale, jobId) {
-    return "/" + locale + "/manager/jobs/" + jobId + "/builder/environment";
-}
-exports.jobBuilderEnv = jobBuilderEnv;
-function jobBuilderImpact(locale, jobId) {
-    return "/" + locale + "/manager/jobs/" + jobId + "/builder/impact";
-}
-exports.jobBuilderImpact = jobBuilderImpact;
-function jobBuilderTasks(locale, jobId) {
-    return "/" + locale + "/manager/jobs/" + jobId + "/builder/tasks";
-}
-exports.jobBuilderTasks = jobBuilderTasks;
-function jobBuilderSkills(locale, jobId) {
-    return "/" + locale + "/manager/jobs/" + jobId + "/builder/skills";
-}
-exports.jobBuilderSkills = jobBuilderSkills;
-function jobBuilderReview(locale, jobId) {
-    return "/" + locale + "/manager/jobs/" + jobId + "/builder/review";
-}
-exports.jobBuilderReview = jobBuilderReview;
-function managerFaq(locale, faqSection) {
-    var base = "/" + locale + "/manager/faq";
-    if (faqSection) {
-        return base + "#" + faqSection;
-    }
-    return base;
-}
-exports.managerFaq = managerFaq;
-function hrJobIndex(locale) {
-    return "/" + locale + "/hr/jobs";
-}
-exports.hrJobIndex = hrJobIndex;
-function hrJobSummary(locale, jobId) {
-    return "/" + locale + "/hr/jobs/" + jobId + "/summary";
-}
-exports.hrJobSummary = hrJobSummary;
-function hrJobReview(locale, jobId) {
-    return "/" + locale + "/hr/jobs/" + jobId + "/review";
-}
-exports.hrJobReview = hrJobReview;
-function hrJobPreview(locale, jobId) {
-    return "/" + locale + "/hr/jobs/" + jobId;
-}
-exports.hrJobPreview = hrJobPreview;
-function hrScreeningPlan(locale, jobId) {
-    return "/" + locale + "/hr/jobs/" + jobId + "/assessment-plan";
-}
-exports.hrScreeningPlan = hrScreeningPlan;
-function hrJobApplications(locale, jobId) {
-    return "/" + locale + "/hr/jobs/" + jobId + "/applications";
-}
-exports.hrJobApplications = hrJobApplications;
-exports.hrApplicationShow = function (locale, applicationId) { return applicationShow(locale, "hr", applicationId); };
-exports.hrApplicantShow = function (locale, applicantId) {
-    return applicantShow(locale, "hr", applicantId);
-};
-function accountSettings(locale) {
-    return "/" + locale + "/settings";
-}
-exports.accountSettings = accountSettings;
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/helpers/textToParagraphs.tsx":
-/*!**********************************************************!*\
-  !*** ./resources/assets/js/helpers/textToParagraphs.tsx ***!
-  \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-/**
- * Splits a string on newlines and creates a list of <p> elements with the results.
- * @param text A string that may or may not contain newlines.
- * @param props An object with attributes to add to each <p> element.
- * @returns One or more <p> elements wrapped in a fragment.
- */
-exports.textToParagraphs = function (text, props) {
-    var items = text.split("\n");
-    return (react_1.default.createElement(react_1.default.Fragment, null, items.map(function (item, index) { return (
-    // eslint-disable-next-line react/no-array-index-key
-    react_1.default.createElement("p", __assign({ key: index }, props), item.trim().length > 0 ? item : react_1.default.createElement("br", null))); })));
-};
-exports.default = exports.textToParagraphs;
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/models/jobUtil.ts":
-/*!***********************************************!*\
-  !*** ./resources/assets/js/models/jobUtil.ts ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var lookupConstants_1 = __webpack_require__(/*! ./lookupConstants */ "./resources/assets/js/models/lookupConstants.ts");
-var localizedConstants_1 = __webpack_require__(/*! ./localizedConstants */ "./resources/assets/js/models/localizedConstants.tsx");
-var routes_1 = __webpack_require__(/*! ../helpers/routes */ "./resources/assets/js/helpers/routes.ts");
-var queries_1 = __webpack_require__(/*! ../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
-var pad = function (n, width, z) {
-    if (z === void 0) { z = "0"; }
-    return (String(z).repeat(width) + String(n)).slice(String(n).length);
-};
-exports.classificationString = function (job) {
-    return job.classification_id && job.classification_level
-        ? lookupConstants_1.getKeyByValue(lookupConstants_1.ClassificationId, job.classification_id) + "-" + pad(job.classification_level, 2)
-        : "";
-};
-exports.emptyJob = function () {
-    return {
-        id: 0,
-        manager_id: 0,
-        chosen_lang: null,
-        term_qty: null,
-        open_date_time: null,
-        close_date_time: null,
-        start_date_time: null,
-        department_id: null,
-        job_poster_status_id: 1,
-        province_id: null,
-        salary_min: null,
-        salary_max: null,
-        noc: null,
-        classification_id: null,
-        classification_level: null,
-        security_clearance_id: null,
-        language_requirement_id: null,
-        remote_work_allowed: true,
-        team_size: null,
-        work_env_features: null,
-        fast_vs_steady: null,
-        horizontal_vs_vertical: null,
-        experimental_vs_ongoing: null,
-        citizen_facing_vs_back_office: null,
-        collaborative_vs_independent: null,
-        telework_allowed_frequency_id: null,
-        flexible_hours_frequency_id: null,
-        travel_requirement_id: null,
-        overtime_requirement_id: null,
-        created_at: new Date(),
-        city: {
-            en: "",
-            fr: "",
-        },
-        title: {
-            en: "",
-            fr: "",
-        },
-        dept_impact: {
-            en: "",
-            fr: "",
-        },
-        team_impact: {
-            en: "",
-            fr: "",
-        },
-        hire_impact: {
-            en: "",
-            fr: "",
-        },
-        division: {
-            en: "",
-            fr: "",
-        },
-        education: {
-            en: "",
-            fr: "",
-        },
-        work_env_description: {
-            en: "",
-            fr: "",
-        },
-        culture_summary: {
-            en: "",
-            fr: "",
-        },
-        culture_special: {
-            en: "",
-            fr: "",
-        },
-    };
-};
-exports.emptyTasks = function () { return [
-    {
-        id: 0,
-        job_poster_id: 0,
-        description: {
-            en: "",
-            fr: "",
-        },
-    },
-]; };
-exports.getSkillLevelName = function (_a, _b) {
-    var skill_level_id = _a.skill_level_id, criteria_type_id = _a.criteria_type_id;
-    var skill_type_id = _b.skill_type_id;
-    if (criteria_type_id === lookupConstants_1.CriteriaTypeId.Asset) {
-        return localizedConstants_1.assetSkillName();
-    }
-    return localizedConstants_1.skillLevelName(skill_level_id, skill_type_id);
-};
-exports.emptyComment = function () { return ({
-    id: 0,
-    job_poster_id: 0,
-    user_id: 0,
-    comment: "",
-    location: "",
-    type_id: null,
-    created_at: new Date(),
-}); };
-exports.emptyJobPosterStatus = function () { return ({
-    id: 1,
-    key: lookupConstants_1.JobStatus.Draft,
-    name: { en: "Draft", fr: "Provisoire" },
-    description: {
-        en: "This is a draft.",
-        fr: "Il s'agit d'un premier projet.",
-    },
-}); };
-exports.activityLocationUrl = function (isHrAdvisor, location, jobId, locale) {
-    var _a, _b;
-    var hrAdvisorUrls = (_a = {},
-        /* Job Poster Review Page */
-        _a[lookupConstants_1.LocationId.jobGeneric] = routes_1.hrJobReview(locale, jobId),
-        _a[lookupConstants_1.LocationId.heading] = routes_1.hrJobReview(locale, jobId),
-        _a[lookupConstants_1.LocationId.basicInfo] = routes_1.hrJobReview(locale, jobId),
-        _a[lookupConstants_1.LocationId.impact] = routes_1.hrJobReview(locale, jobId),
-        _a[lookupConstants_1.LocationId.tasks] = routes_1.hrJobReview(locale, jobId),
-        _a[lookupConstants_1.LocationId.skills] = routes_1.hrJobReview(locale, jobId),
-        _a[lookupConstants_1.LocationId.langRequirements] = routes_1.hrJobReview(locale, jobId),
-        _a[lookupConstants_1.LocationId.environment] = routes_1.hrJobReview(locale, jobId),
-        /* Applicant Review Page */
-        _a[lookupConstants_1.LocationId.applicantsGeneric] = routes_1.hrJobApplications(locale, jobId),
-        _a[lookupConstants_1.LocationId.underConsideration] = routes_1.hrJobApplications(locale, jobId),
-        _a[lookupConstants_1.LocationId.optionalConsideration] = routes_1.hrJobApplications(locale, jobId),
-        _a[lookupConstants_1.LocationId.notUnderConsideration] = routes_1.hrJobApplications(locale, jobId),
-        /* Screening Plan Builder */
-        _a[lookupConstants_1.LocationId.screeningPlan] = routes_1.hrScreeningPlan(locale, jobId),
-        _a[lookupConstants_1.LocationId.screeningPlanBuilder] = routes_1.hrScreeningPlan(locale, jobId),
-        _a[lookupConstants_1.LocationId.screeningPlanSummary] = routes_1.hrScreeningPlan(locale, jobId),
-        _a[lookupConstants_1.LocationId.screeningPlanRatings] = routes_1.hrScreeningPlan(locale, jobId),
-        _a[lookupConstants_1.LocationId.summary] = routes_1.hrJobSummary(locale, jobId),
-        _a[lookupConstants_1.LocationId.preview] = routes_1.hrJobPreview(locale, jobId),
-        _a);
-    var managerUrls = (_b = {},
-        /* Job Poster Review Page */
-        _b[lookupConstants_1.LocationId.jobGeneric] = routes_1.jobBuilderReview(locale, jobId),
-        _b[lookupConstants_1.LocationId.heading] = routes_1.jobBuilderDetails(locale, jobId),
-        _b[lookupConstants_1.LocationId.basicInfo] = routes_1.jobBuilderDetails(locale, jobId),
-        _b[lookupConstants_1.LocationId.impact] = routes_1.jobBuilderImpact(locale, jobId),
-        _b[lookupConstants_1.LocationId.tasks] = routes_1.jobBuilderTasks(locale, jobId),
-        _b[lookupConstants_1.LocationId.skills] = routes_1.jobBuilderSkills(locale, jobId),
-        _b[lookupConstants_1.LocationId.langRequirements] = routes_1.jobBuilderDetails(locale, jobId),
-        _b[lookupConstants_1.LocationId.environment] = routes_1.jobBuilderEnv(locale, jobId),
-        /* Applicant Review Page */
-        _b[lookupConstants_1.LocationId.applicantsGeneric] = routes_1.managerJobApplications(locale, jobId),
-        _b[lookupConstants_1.LocationId.underConsideration] = routes_1.managerJobApplications(locale, jobId),
-        _b[lookupConstants_1.LocationId.optionalConsideration] = routes_1.managerJobApplications(locale, jobId),
-        _b[lookupConstants_1.LocationId.notUnderConsideration] = routes_1.managerJobApplications(locale, jobId),
-        /* Screening Plan Builder */
-        _b[lookupConstants_1.LocationId.screeningPlan] = routes_1.managerScreeningPlan(locale, jobId),
-        _b[lookupConstants_1.LocationId.screeningPlanBuilder] = routes_1.managerScreeningPlan(locale, jobId),
-        _b[lookupConstants_1.LocationId.screeningPlanSummary] = routes_1.managerScreeningPlan(locale, jobId),
-        _b[lookupConstants_1.LocationId.screeningPlanRatings] = routes_1.managerScreeningPlan(locale, jobId),
-        _b[lookupConstants_1.LocationId.summary] = routes_1.jobBuilderReview(locale, jobId),
-        _b[lookupConstants_1.LocationId.preview] = routes_1.managerJobShow(locale, jobId),
-        _b);
-    var urlMap = isHrAdvisor ? hrAdvisorUrls : managerUrls;
-    var backupUrl = "/";
-    return queries_1.hasKey(urlMap, location) ? urlMap[location] : backupUrl;
-};
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/models/localizedConstants.tsx":
-/*!***********************************************************!*\
-  !*** ./resources/assets/js/models/localizedConstants.tsx ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p;
-Object.defineProperty(exports, "__esModule", { value: true });
-var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
-var lookupConstants_1 = __webpack_require__(/*! ./lookupConstants */ "./resources/assets/js/models/lookupConstants.ts");
-var queries_1 = __webpack_require__(/*! ../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
-var skillLevelDescriptions = react_intl_1.defineMessages({
-    hardBasic: {
-        id: "skillLevel.hard.basic.description",
-        defaultMessage: "You have the ability to accomplish basic tasks with steady supervision and clear direction. The tasks you’re assigned are clear and don’t involve significant complexity. Their impact is usually locally felt. As you advance in this category, you should be developing the ability to accomplish tasks of moderate complexity with steady supervision. You will also need to be able to accomplish basic tasks with little or no supervision. This level is usually associated with tasks that form the bulk of the work for lower level positions, such as junior analysts or entry level developers.",
-        description: "Description of basic hard skill level.",
-    },
-    hardIntermediate: {
-        id: "skillLevel.hard.intermediate.description",
-        defaultMessage: "You have the ability to accomplish tasks of moderate complexity or moderate impact with supervision. The approach to the tasks, and how they are delivered, is determined by the supervisor. You contribute input and advice. You are able to advance the task, even in the face of small to moderate hurdles and complications. As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with steady supervision. You will also need to be able to accomplish tasks of moderate complexity or impact with little or no supervision. This level is usually associated with tasks that form the bulk of the work for mid-level positions, such as analysts or developers.",
-        description: "Description of intermediate skill level.",
-    },
-    hardAdvanced: {
-        id: "skillLevel.hard.advanced.description",
-        defaultMessage: "You have the ability to accomplish tasks of significant complexity or impact with supervision. You provide advice and input on the approach to the tasks, and how they are delivered, for the supervisor’s consideration. You are able to advance the task, even in the face of moderate to large hurdles and complications. As you advance in this category, you should be developing the ability to accomplish tasks of significant complexity or larger impact with only light levels of supervision, where you are effectively the lead on the initiative. You may also take on a role of training others in this skills set or take on a light supervisory role for those at lower levels. This level is usually associated with tasks that form the bulk of the work for higher level positions, such as senior analysts or senior developers.",
-        description: "Description of advanced hard skill level.",
-    },
-    hardExpert: {
-        id: "skillLevel.hard.expert.description",
-        defaultMessage: "You have the ability to accomplish tasks of significant complexity or impact, where you call the shots and answer to the organization’s senior management for your decisions. You bring forward the tasks, the approach and the delivery plan for senior management consideration. You often supervise others (individuals or teams) in delivering tasks of high complexity or system wide impact. You are able to advance these tasks, even in the face of significant unforeseen hurdles and complications. As you advance in this category, you should be developing the ability to assess others at more junior levels, becoming able to clearly identify the difference between beginner, intermediate and advanced tasks. You should be able to build teams, set direction and provide supervision. This level is usually associated with tasks that form the bulk of the work for management and executive level positions.",
-        description: "Description of expert hard skill level.",
-    },
-    softBasic: {
-        id: "skillLevel.soft.basic.description",
-        defaultMessage: "You’re working on acquiring this skill or attribute. You are able to demonstrate it under favourable conditions (low stress, minimal difficulty) and can apply it in a work context intermittently.",
-        description: "Description of soft basic skill level.",
-    },
-    softIntermediate: {
-        id: "skillLevel.soft.intermediate.description",
-        defaultMessage: "You’re able to consistently demonstrate this skill or attribute in the workplace, including under conditions of low-to-moderate stress or difficulty. Your peers and supervisors are able to attest to the fact that you have been able to demonstrate this skill or attribute on a regular basis.",
-        description: "Description of soft intermediate skill level.",
-    },
-    softAdvanced: {
-        id: "skillLevel.soft.advanced.description",
-        defaultMessage: "You’re able to consistently demonstrate this skill or attribute in the workplace, including under conditions of high stress or difficulty. Your peers and supervisors recognize this as a strength you demonstrate in the workplace.",
-        description: "Description of soft advanced skill level.",
-    },
-    softExpert: {
-        id: "skillLevel.soft.expert.description",
-        defaultMessage: "This is a foundational part of who you are. You consistently demonstrate this skill or attribute, even under conditions of extreme stress or difficulty. Your peers and supervisors recognize this as a significant strength you demonstrate in the workplace, providing an example to others.",
-        description: "Description of expert soft skill level.",
-    },
-    asset: {
-        id: "skillLevel.asset.description",
-        defaultMessage: "This skill isn't required for the employee to do the job, but it provides an added benefit to their skillset and will improve the speed or effectiveness of their work.",
-        description: "Description of what it means to be an 'Asset' skill.",
-    },
-});
-var skillLevelNames = react_intl_1.defineMessages({
-    hardBasic: {
-        id: "skillLevel.hard.basic.name",
-        defaultMessage: "Beginner",
-        description: "Single-word descriptor of basic hard skill level.",
-    },
-    hardIntermediate: {
-        id: "skillLevel.hard.intermediate.name",
-        defaultMessage: "Intermediate",
-        description: "Single-word descriptor of intermediate hard skill level.",
-    },
-    hardAdvanced: {
-        id: "skillLevel.hard.advanced.name",
-        defaultMessage: "Advanced",
-        description: "Single-word descriptor of advanced hard skill level.",
-    },
-    hardExpert: {
-        id: "skillLevel.hard.expert.name",
-        defaultMessage: "Expert",
-        description: "Single-word descriptor of expert hard skill level.",
-    },
-    softBasic: {
-        id: "skillLevel.soft.basic.name",
-        defaultMessage: "In Early Development",
-        description: "Single-word descriptor of soft basic skill level.",
-    },
-    softIntermediate: {
-        id: "skillLevel.soft.intermediate.name",
-        defaultMessage: "Moderately in Evidence",
-        description: "Single-word descriptor of soft intermediate skill level.",
-    },
-    softAdvanced: {
-        id: "skillLevel.soft.advanced.name",
-        defaultMessage: "Strongly in Evidence",
-        description: "Single-word descriptor of soft advanced skill level.",
-    },
-    softExpert: {
-        id: "skillLevel.soft.expert.name",
-        defaultMessage: "Deep Level Demonstration",
-        description: "Single-word descriptor of soft expert skill level.",
-    },
-    asset: {
-        id: "skillLevel.asset.name",
-        defaultMessage: "Asset / No Level Required",
-        description: "Name for 'Asset' skills.",
-    },
-});
-var skillLevelL10n = function (skillLevelId, skillTypeId, l10nObj) {
-    var _a, _b, _c;
-    if (!lookupConstants_1.SkillLevelIdValues.includes(skillLevelId)) {
-        throw new Error("invalid SkillLevelIdValue");
-    }
-    if (!lookupConstants_1.SkillTypeIdValues.includes(skillTypeId)) {
-        throw new Error("invalid SkillTypeIdValue");
-    }
-    var basicKey = lookupConstants_1.SkillLevelId.Basic.toString();
-    var intermediateKey = lookupConstants_1.SkillLevelId.Intermediate.toString();
-    var advancedKey = lookupConstants_1.SkillLevelId.Advanced.toString();
-    var expertKey = lookupConstants_1.SkillLevelId.Expert.toString();
-    return (_a = {},
-        _a[lookupConstants_1.SkillTypeId.Hard.toString()] = (_b = {},
-            _b[basicKey] = l10nObj.hardBasic,
-            _b[intermediateKey] = l10nObj.hardIntermediate,
-            _b[advancedKey] = l10nObj.hardAdvanced,
-            _b[expertKey] = l10nObj.hardExpert,
-            _b),
-        _a[lookupConstants_1.SkillTypeId.Soft.toString()] = (_c = {},
-            _c[basicKey] = l10nObj.softBasic,
-            _c[intermediateKey] = l10nObj.softIntermediate,
-            _c[advancedKey] = l10nObj.softAdvanced,
-            _c[expertKey] = l10nObj.softExpert,
-            _c),
-        _a)[skillTypeId.toString()][skillLevelId.toString()];
-};
-exports.skillLevelDescription = function (skillLevelId, skillTypeId) {
-    return skillLevelL10n(skillLevelId, skillTypeId, skillLevelDescriptions);
-};
-exports.skillLevelName = function (skillLevelId, skillTypeId) {
-    return skillLevelL10n(skillLevelId, skillTypeId, skillLevelNames);
-};
-var assessmentTypes = react_intl_1.defineMessages({
-    narrativeAssessment: {
-        id: "assessmentType.narrativeAssessment",
-        defaultMessage: "Narrative Review",
-        description: "Title of an assessment type.",
-    },
-    applicationScreeningQuestion: {
-        id: "assessmentType.applicationScreeningQuestion",
-        defaultMessage: "Application Screening Question",
-        description: "Title of an assessment type.",
-    },
-    groupTest: {
-        id: "assessmentType.groupTest",
-        defaultMessage: "Group Test",
-        description: "Title of an assessment type.",
-    },
-    informalPhoneConversation: {
-        id: "assessmentType.informalPhoneConversation",
-        defaultMessage: "Informal Phone Conversation",
-        description: "Title of an assessment type.",
-    },
-    interview: {
-        id: "assessmentType.interview",
-        defaultMessage: "Interview",
-        description: "Title of an assessment type.",
-    },
-    onlineExam: {
-        id: "assessmentType.onlineExam",
-        defaultMessage: "Online Exam",
-        description: "Title of an assessment type.",
-    },
-    onSiteExam: {
-        id: "assessmentType.onSiteExam",
-        defaultMessage: "On-Site Exam",
-        description: "Title of an assessment type.",
-    },
-    takeHomeExam: {
-        id: "assessmentType.takeHomeExam",
-        defaultMessage: "Take Home Exam",
-        description: "Title of an assessment type.",
-    },
-    portfolioReview: {
-        id: "assessmentType.portfolioReview",
-        defaultMessage: "Portfolio Review",
-        description: "Title of an assessment type.",
-    },
-    referenceCheck: {
-        id: "assessmentType.referenceCheck",
-        defaultMessage: "Reference Check",
-        description: "Title of an assessment type.",
-    },
-    seriousGames: {
-        id: "assessmentType.seriousGames",
-        defaultMessage: "Serious Games",
-        description: "Title of an assessment type.",
-    },
-});
-exports.assetSkillName = function () { return skillLevelNames.asset; };
-exports.assetSkillDescription = function () {
-    return skillLevelDescriptions.asset;
-};
-exports.assessmentType = function (assessmentTypeId) {
-    var _a;
-    if (!lookupConstants_1.AssessmentTypeIdValues.includes(assessmentTypeId)) {
-        throw new Error("invalid AssessmentTypeValue");
-    }
-    return (_a = {},
-        _a[lookupConstants_1.AssessmentTypeId.ApplicationScreeningQuestion] = assessmentTypes.applicationScreeningQuestion,
-        _a[lookupConstants_1.AssessmentTypeId.GroupTest] = assessmentTypes.groupTest,
-        _a[lookupConstants_1.AssessmentTypeId.InformalPhoneConversation] = assessmentTypes.informalPhoneConversation,
-        _a[lookupConstants_1.AssessmentTypeId.Interview] = assessmentTypes.interview,
-        _a[lookupConstants_1.AssessmentTypeId.NarrativeAssessment] = assessmentTypes.narrativeAssessment,
-        _a[lookupConstants_1.AssessmentTypeId.OnSiteExam] = assessmentTypes.onSiteExam,
-        _a[lookupConstants_1.AssessmentTypeId.OnlineExam] = assessmentTypes.onlineExam,
-        _a[lookupConstants_1.AssessmentTypeId.PortfolioReview] = assessmentTypes.portfolioReview,
-        _a[lookupConstants_1.AssessmentTypeId.ReferenceCheck] = assessmentTypes.referenceCheck,
-        _a[lookupConstants_1.AssessmentTypeId.SeriousGames] = assessmentTypes.seriousGames,
-        _a[lookupConstants_1.AssessmentTypeId.TakeHomeExam] = assessmentTypes.takeHomeExam,
-        _a)[assessmentTypeId.toString()];
-};
-var criteriaTypes = react_intl_1.defineMessages({
-    asset: {
-        id: "criteriaType.asset",
-        defaultMessage: "Asset",
-        description: "Title of an asset criteria type.",
-    },
-    essential: {
-        id: "criteriaType.essential",
-        defaultMessage: "Essential",
-        description: "Title of an essential criteria type.",
-    },
-});
-exports.criteriaType = function (criteriaTypeId) {
-    var _a;
-    if (!lookupConstants_1.CriteriaTypeIdValues.includes(criteriaTypeId)) {
-        throw new Error("invalid CriteriaTypeValue");
-    }
-    return (_a = {},
-        _a[lookupConstants_1.CriteriaTypeId.Asset] = criteriaTypes.asset,
-        _a[lookupConstants_1.CriteriaTypeId.Essential] = criteriaTypes.essential,
-        _a)[criteriaTypeId.toString()];
-};
-var assessmentTypeDescriptions = react_intl_1.defineMessages({
-    narrativeAssessment: {
-        id: "assessmentType.narrativeAssessment.description",
-        defaultMessage: "This is a description requested during the application process, in which applicants to self-identify and describe their experience and level of expertise with a skill.",
-        description: "Description of an assessment type, to help a manager understand when to use it.",
-    },
-    applicationScreeningQuestion: {
-        id: "assessmentType.applicationScreeningQuestion.description",
-        defaultMessage: "These questions appear in the application form, and are submitted through Talent Cloud, they allow a first glance at the applicant’s understanding, process, knowledge, or cultural fit for the position.",
-        description: "Description of an assessment type, to help a manager understand when to use it.",
-    },
-    groupTest: {
-        id: "assessmentType.groupTest.description",
-        defaultMessage: "Applicants perform this test in real-time in conjunction with other applicants, team members, or facilitators, to determine their skill prowess, team communication, and performance in a collaborative environment.",
-        description: "Description of an assessment type, to help a manager understand when to use it.",
-    },
-    informalPhoneConversation: {
-        id: "assessmentType.informalPhoneConversation.description",
-        defaultMessage: "A loose structure chat between a member of the hiring board and an applicant, aimed at discovering the applicant’s knowledge, aptitudes, or personality traits, conversations may vary between applicants.",
-        description: "Description of an assessment type, to help a manager understand when to use it.",
-    },
-    interview: {
-        id: "assessmentType.interview.description",
-        defaultMessage: "A formal question-and-answer examination performed in real-time between the hiring-board and an applicant. Questions are aimed at assessing skill expertise, level, and approach. Each question is crafted beforehand and follows the same structure between all interviewed applicants.",
-        description: "Description of an assessment type, to help a manager understand when to use it.",
-    },
-    onlineExam: {
-        id: "assessmentType.onlineExam.description",
-        defaultMessage: "Prepared examination that does not require supervision, and can be performed from any location through internet access, with a defined time-frame for completion.",
-        description: "Description of an assessment type, to help a manager understand when to use it.",
-    },
-    onSiteExam: {
-        id: "assessmentType.onSiteExam.description",
-        defaultMessage: "Prepared examination that requires the applicant to perform a test at a specific location under supervision, aimed at assessing skill expertise and technique.",
-        description: "Description of an assessment type, to help a manager understand when to use it.",
-    },
-    takeHomeExam: {
-        id: "assessmentType.takeHomeExam.description",
-        defaultMessage: "Applicants receive a physical package containing the assessment tools, they complete the assessment at their own leisure and at their preferred location without supervision, and must return the materials before a specific deadline.",
-        description: "Description of an assessment type, to help a manager understand when to use it.",
-    },
-    portfolioReview: {
-        id: "assessmentType.portfolioReview.description",
-        defaultMessage: "During the application process, applicants provide access to samples of their work to exhibit their skill level, and back-up their skill claims. ",
-        description: "Description of an assessment type, to help a manager understand when to use it.",
-    },
-    referenceCheck: {
-        id: "assessmentType.referenceCheck.description",
-        defaultMessage: "During the application process, applicants provide contact information to an acquaintance who can validate and confirm their skill expertise, knowledge or aptitude.",
-        description: "Description of an assessment type, to help a manager understand when to use it.",
-    },
-    seriousGames: {
-        id: "assessmentType.seriousGames.description",
-        defaultMessage: "Test involving the use of games to explore a candidate’s communication skills, resilience, emotional intelligence, among many other soft skills.",
-        description: "Description of an assessment type, to help a manager understand when to use it.",
-    },
-});
-exports.assessmentTypeDescription = function (assessmentTypeId) {
-    var _a;
-    if (!lookupConstants_1.AssessmentTypeIdValues.includes(assessmentTypeId)) {
-        throw new Error("invalid AssessmentTypeValue");
-    }
-    return (_a = {},
-        _a[lookupConstants_1.AssessmentTypeId.ApplicationScreeningQuestion] = assessmentTypeDescriptions.applicationScreeningQuestion,
-        _a[lookupConstants_1.AssessmentTypeId.GroupTest] = assessmentTypeDescriptions.groupTest,
-        _a[lookupConstants_1.AssessmentTypeId.InformalPhoneConversation] = assessmentTypeDescriptions.informalPhoneConversation,
-        _a[lookupConstants_1.AssessmentTypeId.Interview] = assessmentTypeDescriptions.interview,
-        _a[lookupConstants_1.AssessmentTypeId.NarrativeAssessment] = assessmentTypeDescriptions.narrativeAssessment,
-        _a[lookupConstants_1.AssessmentTypeId.OnSiteExam] = assessmentTypeDescriptions.onSiteExam,
-        _a[lookupConstants_1.AssessmentTypeId.OnlineExam] = assessmentTypeDescriptions.onlineExam,
-        _a[lookupConstants_1.AssessmentTypeId.PortfolioReview] = assessmentTypeDescriptions.portfolioReview,
-        _a[lookupConstants_1.AssessmentTypeId.ReferenceCheck] = assessmentTypeDescriptions.referenceCheck,
-        _a[lookupConstants_1.AssessmentTypeId.SeriousGames] = assessmentTypeDescriptions.seriousGames,
-        _a[lookupConstants_1.AssessmentTypeId.TakeHomeExam] = assessmentTypeDescriptions.takeHomeExam,
-        _a)[assessmentTypeId];
-};
-var standardAssessmentText = react_intl_1.defineMessages({
-    narrativeReviewQuestion: {
-        id: "assessmentType.narrativeReview.standardQuestion",
-        defaultMessage: "Narrative Review of skill includes all descriptions added by the applicant in their application.",
-        description: "Description which replaces 'interview question' for the Narrative Review assessment type.",
-    },
-    narrativeReviewAnswer: {
-        id: "assessmentType.narrativeReview.standardAnswer",
-        defaultMessage: "The provided description contains sufficient evidence to advance this candidate to the next screening steps.",
-        description: "Standard evalutation statement which replaces 'expected answer' for all skills under the Narrative Review assessment type.",
-    },
-});
-var provinceNames = react_intl_1.defineMessages((_a = {},
-    _a[lookupConstants_1.ProvinceId.AB] = {
-        id: "province.ab",
-        defaultMessage: "Alberta",
-    },
-    _a[lookupConstants_1.ProvinceId.BC] = {
-        id: "province.bc",
-        defaultMessage: "British Columbia",
-    },
-    _a[lookupConstants_1.ProvinceId.MB] = {
-        id: "province.mb",
-        defaultMessage: "Manitoba",
-    },
-    _a[lookupConstants_1.ProvinceId.NL] = {
-        id: "province.nl",
-        defaultMessage: "Newfoundland and Labrador",
-    },
-    _a[lookupConstants_1.ProvinceId.NB] = {
-        id: "province.nb",
-        defaultMessage: "New Brunswick",
-    },
-    _a[lookupConstants_1.ProvinceId.NS] = {
-        id: "province.ns",
-        defaultMessage: "Nova Scotia",
-    },
-    _a[lookupConstants_1.ProvinceId.NU] = {
-        id: "province.nu",
-        defaultMessage: "Nunavut",
-    },
-    _a[lookupConstants_1.ProvinceId.NT] = {
-        id: "province.nt",
-        defaultMessage: "Northwest Territories",
-    },
-    _a[lookupConstants_1.ProvinceId.ON] = {
-        id: "province.on",
-        defaultMessage: "Ontario",
-    },
-    _a[lookupConstants_1.ProvinceId.PE] = {
-        id: "province.pe",
-        defaultMessage: "Prince Edward Island",
-    },
-    _a[lookupConstants_1.ProvinceId.QC] = {
-        id: "province.qc",
-        defaultMessage: "Quebec",
-    },
-    _a[lookupConstants_1.ProvinceId.SK] = {
-        id: "province.sk",
-        defaultMessage: "Saskatchewan",
-    },
-    _a[lookupConstants_1.ProvinceId.YT] = {
-        id: "province.yk",
-        defaultMessage: "Yukon",
-    },
-    _a));
-exports.provinceName = function (provinceId) {
-    return queries_1.getOrThrowError(provinceNames, provinceId, "invalid ProvinceId");
-};
-var provinceAbreviations = react_intl_1.defineMessages((_b = {},
-    _b[lookupConstants_1.ProvinceId.AB] = {
-        id: "province.ab.abreviation",
-        defaultMessage: "Alb.",
-    },
-    _b[lookupConstants_1.ProvinceId.BC] = {
-        id: "province.bc.abreviation",
-        defaultMessage: "B.C.",
-    },
-    _b[lookupConstants_1.ProvinceId.MB] = {
-        id: "province.mb.abreviation",
-        defaultMessage: "Man.",
-    },
-    _b[lookupConstants_1.ProvinceId.NL] = {
-        id: "province.nl.abreviation",
-        defaultMessage: "N.L.",
-    },
-    _b[lookupConstants_1.ProvinceId.NB] = {
-        id: "province.nb.abreviation",
-        defaultMessage: "N.B.",
-    },
-    _b[lookupConstants_1.ProvinceId.NS] = {
-        id: "province.ns.abreviation",
-        defaultMessage: "N.S.",
-    },
-    _b[lookupConstants_1.ProvinceId.NU] = {
-        id: "province.nu.abreviation",
-        defaultMessage: "Nvt.",
-    },
-    _b[lookupConstants_1.ProvinceId.NT] = {
-        id: "province.nt.abreviation",
-        defaultMessage: "N.W.T.",
-    },
-    _b[lookupConstants_1.ProvinceId.ON] = {
-        id: "province.on.abreviation",
-        defaultMessage: "Ont.",
-    },
-    _b[lookupConstants_1.ProvinceId.PE] = {
-        id: "province.pe.abreviation",
-        defaultMessage: "P.E.I.",
-    },
-    _b[lookupConstants_1.ProvinceId.QC] = {
-        id: "province.qc.abreviation",
-        defaultMessage: "Que.",
-    },
-    _b[lookupConstants_1.ProvinceId.SK] = {
-        id: "province.sk.abreviation",
-        defaultMessage: "Sask.",
-    },
-    _b[lookupConstants_1.ProvinceId.YT] = {
-        id: "province.yk.abreviation",
-        defaultMessage: "Y.T.",
-    },
-    _b));
-exports.provinceAbreviation = function (provinceId) {
-    return queries_1.getOrThrowError(provinceAbreviations, provinceId, "invalid ProvinceId");
-};
-var securityClearances = react_intl_1.defineMessages((_c = {},
-    _c[lookupConstants_1.SecurityClearanceId.reliability] = {
-        id: "securityClearance.reliability",
-        defaultMessage: "Reliability",
-    },
-    _c[lookupConstants_1.SecurityClearanceId.secret] = {
-        id: "securityClearance.secret",
-        defaultMessage: "Secret",
-    },
-    _c[lookupConstants_1.SecurityClearanceId.topSecret] = {
-        id: "securityClearance.topSecret",
-        defaultMessage: "Top Secret",
-    },
-    _c));
-exports.securityClearance = function (securityClearanceId) {
-    return queries_1.getOrThrowError(securityClearances, securityClearanceId, "invalid security clearance id");
-};
-var languageRequirements = react_intl_1.defineMessages((_d = {},
-    _d[lookupConstants_1.LanguageRequirementId.english] = {
-        id: "languageRequirement.english",
-        defaultMessage: "English Essential",
-    },
-    _d[lookupConstants_1.LanguageRequirementId.french] = {
-        id: "languageRequirement.french",
-        defaultMessage: "French Essential",
-    },
-    _d[lookupConstants_1.LanguageRequirementId.bilingualIntermediate] = {
-        id: "languageRequirement.bilingualIntermediate",
-        defaultMessage: "Bilingual - Intermediate",
-    },
-    _d[lookupConstants_1.LanguageRequirementId.bilingualAdvanced] = {
-        id: "languageRequirement.bilingualAdvanced",
-        defaultMessage: "Bilingual - Advanced",
-    },
-    _d[lookupConstants_1.LanguageRequirementId.englishOrFrench] = {
-        id: "languageRequirement.englishOrFrench",
-        defaultMessage: "English or French",
-    },
-    _d));
-exports.languageRequirement = function (languageRequirementId) {
-    return queries_1.getOrThrowError(languageRequirements, languageRequirementId, "invalid LanguageRequirementId");
-};
-var languageRequirementDescriptions = react_intl_1.defineMessages((_e = {},
-    _e[lookupConstants_1.LanguageRequirementId.english] = {
-        id: "languageRequirement.description.english",
-        defaultMessage: "This position requires fluency in English in both written and verbal communication. As part of the assessment of your language abilities, the hiring manager may ask you to complete some assessment steps in English, such as interview questions or an exam.",
-    },
-    _e[lookupConstants_1.LanguageRequirementId.french] = {
-        id: "languageRequirement.description.french",
-        defaultMessage: "This position requires fluency in French in both written and verbal communication. As part of the assessment of your language abilities, the hiring manager may ask you to complete some assessment steps in French, such as interview questions or an exam.",
-    },
-    _e[lookupConstants_1.LanguageRequirementId.bilingualIntermediate] = {
-        id: "languageRequirement.description.bilingualIntermediate",
-        // TODO: turn "Public Service Commission of Canada" into a link to https://www.canada.ca/en/public-service-commission/jobs/services/gc-jobs/information-candidates/language-requirements-candidates.html
-        defaultMessage: "This position requires working knowledge of both French and English. This means that you can take on job duties in either French or English, and you have intermediate reading, writing and verbal communication skills in both official languages. As part of this selection process, your language abilities will be tested by the Public Service Commission of Canada.",
-    },
-    _e[lookupConstants_1.LanguageRequirementId.bilingualAdvanced] = {
-        id: "languageRequirement.description.bilingualAdvanced",
-        // TODO: turn "Public Service Commission of Canada" into a link to https://www.canada.ca/en/public-service-commission/jobs/services/gc-jobs/information-candidates/language-requirements-candidates.html
-        defaultMessage: "This position requires advanced knowledge of both French and English. This means that you can take on job duties in either French or English, and you have strong reading, writing and verbal communication skills in both official languages. As part of this selection process, your language abilities will be tested by the Public Service Commission of Canada Public Service Commission of Canada.",
-    },
-    _e[lookupConstants_1.LanguageRequirementId.englishOrFrench] = {
-        id: "languageRequirement.description.englishOrFrench",
-        defaultMessage: "For this position, you meet the language requirements if you have strong reading, writing and verbal communication skills in either English or French, or both (bilingual).",
-    },
-    _e));
-exports.languageRequirementDescription = function (languageRequirementId) {
-    return queries_1.getOrThrowError(languageRequirementDescriptions, languageRequirementId, "invalid LanguageRequirementId");
-};
-var languageRequirementContexts = react_intl_1.defineMessages({
-    basic: {
-        id: "languageRequirement.context.basic",
-        defaultMessage: "You can submit this initial application in either official language of your choice (English or French).",
-    },
-    expanded: {
-        id: "languageRequirement.context.expanded",
-        defaultMessage: "You can complete all other steps of this assessment process in the official language of your choice, including the initial application, interview, exam and any other evaluation components.",
-    },
-});
-exports.languageRequirementContext = function (languageRequirementId) {
-    switch (languageRequirementId) {
-        case lookupConstants_1.LanguageRequirementId.bilingualIntermediate:
-        case lookupConstants_1.LanguageRequirementId.bilingualAdvanced:
-            return languageRequirementContexts.expanded;
-        case lookupConstants_1.LanguageRequirementId.englishOrFrench:
-        case lookupConstants_1.LanguageRequirementId.english:
-        case lookupConstants_1.LanguageRequirementId.french:
-        default:
-            return languageRequirementContexts.basic;
-    }
-};
-exports.narrativeReviewStandardQuestion = function () {
-    return standardAssessmentText.narrativeReviewQuestion;
-};
-exports.narrativeReviewStandardAnswer = function () {
-    return standardAssessmentText.narrativeReviewAnswer;
-};
-var frequencyMessages = react_intl_1.defineMessages((_f = {},
-    _f[lookupConstants_1.FrequencyId.always] = {
-        id: "jobBuilder.details.frequencyAlwaysLabel",
-        defaultMessage: "Almost Always",
-        description: "The form label displayed on 'always' frequency options.",
-    },
-    _f[lookupConstants_1.FrequencyId.often] = {
-        id: "jobBuilder.details.frequencyFrequentlyLabel",
-        defaultMessage: "Frequently",
-        description: "The form label displayed on 'frequently' frequency options.",
-    },
-    _f[lookupConstants_1.FrequencyId.sometimes] = {
-        id: "jobBuilder.details.frequencySometimesLabel",
-        defaultMessage: "Sometimes",
-        description: "The form label displayed on 'sometimes' frequency options.",
-    },
-    _f[lookupConstants_1.FrequencyId.rarely] = {
-        id: "jobBuilder.details.frequencyOccasionallyLabel",
-        defaultMessage: "Occasionally",
-        description: "The form label displayed on 'occasionally' frequency options.",
-    },
-    _f[lookupConstants_1.FrequencyId.never] = {
-        id: "jobBuilder.details.frequencyNeverLabel",
-        defaultMessage: "Never",
-        description: "The form label displayed on 'never' frequency options.",
-    },
-    _f));
-exports.frequencyName = function (frequencyId) {
-    return queries_1.getOrThrowError(frequencyMessages, frequencyId, "invalid FrequencyId");
-};
-var overtimeRequirmentDescriptions = react_intl_1.defineMessages((_g = {},
-    _g[lookupConstants_1.OvertimeRequirementId.frequently] = {
-        id: "jobBuilder.details.overtimeFrequentlyLabel",
-        defaultMessage: "Yes, overtime is frequently required for the position.",
-        description: "The form label displayed on 'frequently' overtime options",
-    },
-    _g[lookupConstants_1.OvertimeRequirementId.available] = {
-        id: "jobBuilder.details.overtimeOpportunitiesAvailableLabel",
-        defaultMessage: "Yes, overtime opportunities are available for those that are interested.",
-        description: "The form label displayed on 'overtime opportunities available' overtime options",
-    },
-    _g[lookupConstants_1.OvertimeRequirementId.none] = {
-        id: "jobBuilder.details.overtimeNoneRequiredLabel",
-        defaultMessage: "No, overtime is not required for the position.",
-        description: "The form label displayed on 'no overtime required' overtime options",
-    },
-    _g));
-exports.overtimeRequirementDescription = function (overtimeRequirementId) {
-    return queries_1.getOrThrowError(overtimeRequirmentDescriptions, overtimeRequirementId, "invalid OvertimeRequirementId");
-};
-var travelRequirementDescriptions = react_intl_1.defineMessages((_h = {},
-    _h[lookupConstants_1.TravelRequirementId.frequently] = {
-        id: "jobBuilder.details.travelFrequentlyLabel",
-        defaultMessage: "Yes, travel is frequently required for the position.",
-        description: "The form label displayed on 'frequently' travel options",
-    },
-    _h[lookupConstants_1.TravelRequirementId.available] = {
-        id: "jobBuilder.details.travelOpportunitiesAvailableLabel",
-        defaultMessage: "Yes, travel opportunities are available for those that are interested.",
-        description: "The form label displayed on 'travel opportunities available' travel options",
-    },
-    _h[lookupConstants_1.TravelRequirementId.none] = {
-        id: "jobBuilder.details.travelNoneRequiredLabel",
-        defaultMessage: "No, travel is not required for the position.",
-        description: "The form label displayed on 'no travel required' travel options",
-    },
-    _h));
-exports.travelRequirementDescription = function (travelRequirementId) {
-    return queries_1.getOrThrowError(travelRequirementDescriptions, travelRequirementId, "invalid TravelRequirementId");
-};
-exports.classificationCodes = react_intl_1.defineMessages((_j = {},
-    _j[lookupConstants_1.ClassificationId.AS] = {
-        id: "jobBuilder.details.classificationOptions.AS",
-        defaultMessage: "AS - Administrative Services",
-        description: "Job Classification from list of Classifications",
-    },
-    _j[lookupConstants_1.ClassificationId.BI] = {
-        id: "jobBuilder.details.classificationOptions.BI",
-        defaultMessage: "BI - Biological Sciences",
-        description: "Job Classification from list of Classifications",
-    },
-    _j[lookupConstants_1.ClassificationId.CO] = {
-        id: "jobBuilder.details.classificationOptions.CO",
-        defaultMessage: "CO - Commerce",
-        description: "Job Classification from list of Classifications",
-    },
-    _j[lookupConstants_1.ClassificationId.CR] = {
-        id: "jobBuilder.details.classificationOptions.CR",
-        defaultMessage: "CR - Clerical and Regulatory",
-        description: "Job Classification from list of Classifications",
-    },
-    _j[lookupConstants_1.ClassificationId.CS] = {
-        id: "jobBuilder.details.classificationOptions.CS",
-        defaultMessage: "CS - Computer Systems",
-        description: "Job Classification from list of Classifications",
-    },
-    _j[lookupConstants_1.ClassificationId.EC] = {
-        id: "jobBuilder.details.classificationOptions.EC",
-        defaultMessage: "EC - Economics and Social Science Services",
-        description: "Job Classification from list of Classifications",
-    },
-    _j[lookupConstants_1.ClassificationId.EX] = {
-        id: "jobBuilder.details.classificationOptions.EX",
-        defaultMessage: "EX - Executive",
-        description: "Job Classification from list of Classifications",
-    },
-    _j[lookupConstants_1.ClassificationId.FO] = {
-        id: "jobBuilder.details.classificationOptions.FO",
-        defaultMessage: "FO - Forestry",
-        description: "Job Classification from list of Classifications",
-    },
-    _j[lookupConstants_1.ClassificationId.IS] = {
-        id: "jobBuilder.details.classificationOptions.IS",
-        defaultMessage: "IS - Information Services",
-        description: "Job Classification from list of Classifications",
-    },
-    _j[lookupConstants_1.ClassificationId.PC] = {
-        id: "jobBuilder.details.classificationOptions.PC",
-        defaultMessage: "PC - Physical Sciences",
-        description: "Job Classification from list of Classifications",
-    },
-    _j[lookupConstants_1.ClassificationId.PE] = {
-        id: "jobBuilder.details.classificationOptions.PE",
-        defaultMessage: "PE - Personnel Administration",
-        description: "Job Classification from list of Classifications",
-    },
-    _j[lookupConstants_1.ClassificationId.PM] = {
-        id: "jobBuilder.details.classificationOptions.PM",
-        defaultMessage: "PM - Programme Administration",
-        description: "Job Classification from list of Classifications",
-    },
-    _j[lookupConstants_1.ClassificationId.AD] = {
-        id: "jobBuilder.details.classificationOptions.AD",
-        defaultMessage: "AD - Administrative Services",
-        description: "Job Classification from list of Classifications",
-    },
-    _j));
-exports.classificationCodeOption = function (classificationId) {
-    return queries_1.getOrThrowError(exports.classificationCodes, classificationId, "invalid ClassificationId");
-};
-exports.generalLocations = react_intl_1.defineMessages((_k = {},
-    _k[lookupConstants_1.LocationId.jobGeneric] = {
-        id: "activityfeed.locations.review",
-        defaultMessage: "Job Poster Builder",
-        description: "Location where the activity is located.",
-    },
-    _k[lookupConstants_1.LocationId.summary] = {
-        id: "activityfeed.locations.hr.summary",
-        defaultMessage: "HR Summary Page",
-        description: "Location where the activity is located.",
-    },
-    _k[lookupConstants_1.LocationId.preview] = {
-        id: "activityfeed.locations.hr.preview",
-        defaultMessage: "HR Preview Page",
-        description: "Location where the activity is located.",
-    },
-    _k[lookupConstants_1.LocationId.applicantsGeneric] = {
-        id: "activityfeed.locations.applications",
-        defaultMessage: "Applicant Review Page",
-        description: "Location where the activity is located.",
-    },
-    _k[lookupConstants_1.LocationId.screeningPlan] = {
-        id: "activityfeed.locations.screeningPlan",
-        defaultMessage: "Assessment Plan",
-        description: "Location where the activity is located.",
-    },
-    _k.notFound = {
-        id: "activityfeed.locations.notFound",
-        defaultMessage: "Location not found",
-        description: "Error message if location id is not recognized",
-    },
-    _k));
-exports.generalLocationOption = function (locationId) {
-    switch (locationId) {
-        /* Job Poster Review Page */
-        case lookupConstants_1.LocationId.jobGeneric:
-        case lookupConstants_1.LocationId.heading:
-        case lookupConstants_1.LocationId.basicInfo:
-        case lookupConstants_1.LocationId.impact:
-        case lookupConstants_1.LocationId.tasks:
-        case lookupConstants_1.LocationId.skills:
-        case lookupConstants_1.LocationId.langRequirements:
-        case lookupConstants_1.LocationId.environment:
-            return exports.generalLocations[lookupConstants_1.LocationId.jobGeneric];
-        /* Applicant Review Page */
-        case lookupConstants_1.LocationId.applicantsGeneric:
-        case lookupConstants_1.LocationId.underConsideration:
-        case lookupConstants_1.LocationId.optionalConsideration:
-        case lookupConstants_1.LocationId.notUnderConsideration:
-            return exports.generalLocations[lookupConstants_1.LocationId.applicantsGeneric];
-        /* Assessment Plan */
-        case lookupConstants_1.LocationId.screeningPlan:
-        case lookupConstants_1.LocationId.screeningPlanBuilder:
-        case lookupConstants_1.LocationId.screeningPlanSummary:
-        case lookupConstants_1.LocationId.screeningPlanRatings:
-            return exports.generalLocations[lookupConstants_1.LocationId.screeningPlan];
-        /* Hr Portal */
-        case lookupConstants_1.LocationId.summary:
-            return exports.generalLocations[lookupConstants_1.LocationId.summary];
-        case lookupConstants_1.LocationId.preview:
-            return exports.generalLocations[lookupConstants_1.LocationId.preview];
-        default:
-            return exports.generalLocations.notFound;
-    }
-};
-exports.jobReviewLocations = react_intl_1.defineMessages((_l = {},
-    _l[lookupConstants_1.LocationId.jobGeneric] = {
-        id: "activityfeed.locations.review.general",
-        defaultMessage: "General",
-        description: "Location of the activity.",
-    },
-    _l[lookupConstants_1.LocationId.heading] = {
-        id: "activityfeed.locations.review.heading",
-        defaultMessage: "Job Page Heading",
-        description: "Location of the activity.",
-    },
-    _l[lookupConstants_1.LocationId.basicInfo] = {
-        id: "activityfeed.locations.review.basicInfo",
-        defaultMessage: "Basic Information",
-        description: "Location of the activity.",
-    },
-    _l[lookupConstants_1.LocationId.impact] = {
-        id: "activityfeed.locations.review.impact",
-        defaultMessage: "Impact",
-        description: "Location of the activity.",
-    },
-    _l[lookupConstants_1.LocationId.tasks] = {
-        id: "activityfeed.locations.review.tasks",
-        defaultMessage: "Tasks",
-        description: "Location of the activity.",
-    },
-    _l[lookupConstants_1.LocationId.skills] = {
-        id: "activityfeed.locations.review.skills",
-        defaultMessage: "Skills",
-        description: "Location of the activity.",
-    },
-    _l[lookupConstants_1.LocationId.langRequirements] = {
-        id: "activityfeed.locations.review.langRequirements",
-        defaultMessage: "Language Requirements",
-        description: "Location of the activity.",
-    },
-    _l[lookupConstants_1.LocationId.environment] = {
-        id: "activityfeed.locations.review.environment",
-        defaultMessage: "Environment",
-        description: "Location of the activity.",
-    },
-    _l));
-exports.applicantReviewLocations = react_intl_1.defineMessages((_m = {},
-    _m[lookupConstants_1.LocationId.applicantsGeneric] = {
-        id: "activityfeed.locations.applicantReview.general",
-        defaultMessage: "General",
-        description: "Location of the activity.",
-    },
-    _m[lookupConstants_1.LocationId.underConsideration] = {
-        id: "activityfeed.locations.applicantReview.underConsideration",
-        defaultMessage: "Under Consideration",
-        description: "Location of the activity.",
-    },
-    _m[lookupConstants_1.LocationId.optionalConsideration] = {
-        id: "activityfeed.locations.applicantReview.optionalConsideration",
-        defaultMessage: "Optional Consideration",
-        description: "Location of the activity.",
-    },
-    _m[lookupConstants_1.LocationId.notUnderConsideration] = {
-        id: "activityfeed.locations.applicantReview.notUnderConsideration",
-        defaultMessage: "No Longer Under Consideration",
-        description: "Location of the activity.",
-    },
-    _m));
-exports.screeningPlanLocations = react_intl_1.defineMessages((_o = {},
-    _o[lookupConstants_1.LocationId.screeningPlan] = {
-        id: "activityfeed.locations.screeningPlan.general",
-        defaultMessage: "General",
-        description: "Location of the activity.",
-    },
-    _o[lookupConstants_1.LocationId.screeningPlanBuilder] = {
-        id: "activityfeed.locations.screeningPlan.builder",
-        defaultMessage: "Assessment Plan Builder",
-        description: "Location of the activity.",
-    },
-    _o[lookupConstants_1.LocationId.screeningPlanSummary] = {
-        id: "activityfeed.locations.screeningPlan.summary",
-        defaultMessage: "Assessment Plan Summary",
-        description: "Location of the activity.",
-    },
-    _o[lookupConstants_1.LocationId.screeningPlanRatings] = {
-        id: "activityfeed.locations.screeningPlan.ratings",
-        defaultMessage: "Ratings Guide Builder",
-        description: "Location of the activity.",
-    },
-    _o));
-exports.hrPortalLocations = (_p = {},
-    _p[lookupConstants_1.LocationId.summary] = exports.jobReviewLocations[lookupConstants_1.LocationId.jobGeneric],
-    _p[lookupConstants_1.LocationId.preview] = exports.jobReviewLocations[lookupConstants_1.LocationId.jobGeneric],
-    _p);
-exports.specificLocationOption = function (locationId) {
-    return queries_1.getOrThrowError(__assign(__assign(__assign(__assign({}, exports.jobReviewLocations), exports.applicantReviewLocations), exports.hrPortalLocations), exports.screeningPlanLocations), locationId, "Invalid LocationId");
-};
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/models/lookupConstants.ts":
-/*!*******************************************************!*\
-  !*** ./resources/assets/js/models/lookupConstants.ts ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ReviewStatusId;
-(function (ReviewStatusId) {
-    ReviewStatusId[ReviewStatusId["ScreenedOut"] = 1] = "ScreenedOut";
-    ReviewStatusId[ReviewStatusId["StillThinking"] = 2] = "StillThinking";
-    ReviewStatusId[ReviewStatusId["StillIn"] = 3] = "StillIn";
-})(ReviewStatusId = exports.ReviewStatusId || (exports.ReviewStatusId = {}));
-var CriteriaTypeId;
-(function (CriteriaTypeId) {
-    CriteriaTypeId[CriteriaTypeId["Essential"] = 1] = "Essential";
-    CriteriaTypeId[CriteriaTypeId["Asset"] = 2] = "Asset";
-})(CriteriaTypeId = exports.CriteriaTypeId || (exports.CriteriaTypeId = {}));
-var SkillTypeId;
-(function (SkillTypeId) {
-    SkillTypeId[SkillTypeId["Soft"] = 1] = "Soft";
-    SkillTypeId[SkillTypeId["Hard"] = 2] = "Hard";
-})(SkillTypeId = exports.SkillTypeId || (exports.SkillTypeId = {}));
-var SkillLevelId;
-(function (SkillLevelId) {
-    SkillLevelId[SkillLevelId["Basic"] = 1] = "Basic";
-    SkillLevelId[SkillLevelId["Intermediate"] = 2] = "Intermediate";
-    SkillLevelId[SkillLevelId["Advanced"] = 3] = "Advanced";
-    SkillLevelId[SkillLevelId["Expert"] = 4] = "Expert";
-})(SkillLevelId = exports.SkillLevelId || (exports.SkillLevelId = {}));
-var AssessmentTypeId;
-(function (AssessmentTypeId) {
-    AssessmentTypeId[AssessmentTypeId["NarrativeAssessment"] = 1] = "NarrativeAssessment";
-    AssessmentTypeId[AssessmentTypeId["ApplicationScreeningQuestion"] = 2] = "ApplicationScreeningQuestion";
-    AssessmentTypeId[AssessmentTypeId["GroupTest"] = 3] = "GroupTest";
-    AssessmentTypeId[AssessmentTypeId["InformalPhoneConversation"] = 4] = "InformalPhoneConversation";
-    AssessmentTypeId[AssessmentTypeId["Interview"] = 5] = "Interview";
-    AssessmentTypeId[AssessmentTypeId["OnlineExam"] = 6] = "OnlineExam";
-    AssessmentTypeId[AssessmentTypeId["OnSiteExam"] = 7] = "OnSiteExam";
-    AssessmentTypeId[AssessmentTypeId["TakeHomeExam"] = 8] = "TakeHomeExam";
-    AssessmentTypeId[AssessmentTypeId["PortfolioReview"] = 9] = "PortfolioReview";
-    AssessmentTypeId[AssessmentTypeId["ReferenceCheck"] = 10] = "ReferenceCheck";
-    AssessmentTypeId[AssessmentTypeId["SeriousGames"] = 11] = "SeriousGames";
-})(AssessmentTypeId = exports.AssessmentTypeId || (exports.AssessmentTypeId = {}));
-exports.ProvinceId = {
-    AB: 1,
-    BC: 2,
-    MB: 3,
-    NL: 4,
-    NB: 5,
-    NS: 6,
-    NU: 7,
-    NT: 8,
-    ON: 9,
-    PE: 10,
-    QC: 11,
-    SK: 12,
-    YT: 13,
-};
-exports.SecurityClearanceId = {
-    reliability: 1,
-    secret: 2,
-    topSecret: 3,
-};
-exports.LanguageRequirementId = {
-    english: 1,
-    french: 2,
-    bilingualIntermediate: 3,
-    bilingualAdvanced: 4,
-    englishOrFrench: 5,
-};
-exports.FrequencyId = {
-    never: 1,
-    rarely: 2,
-    sometimes: 3,
-    often: 4,
-    always: 5,
-};
-exports.TravelRequirementId = {
-    frequently: 1,
-    available: 2,
-    none: 3,
-};
-exports.OvertimeRequirementId = {
-    frequently: 1,
-    available: 2,
-    none: 3,
-};
-exports.ClassificationId = {
-    AS: 1,
-    BI: 2,
-    CO: 3,
-    CR: 4,
-    CS: 5,
-    EC: 6,
-    EX: 7,
-    FO: 8,
-    IS: 9,
-    PC: 10,
-    PE: 11,
-    PM: 12,
-    AD: 13,
-};
-exports.CommentTypeId = {
-    question: 1,
-    recommendation: 2,
-    requiredAction: 3,
-};
-exports.LocationId = {
-    jobGeneric: "job/generic",
-    heading: "job/heading",
-    basicInfo: "job/basicInfo",
-    impact: "job/impact",
-    tasks: "job/tasks",
-    skills: "job/skills",
-    langRequirements: "job/langRequirements",
-    environment: "job/environment",
-    summary: "hr/summary",
-    preview: "hr/preview",
-    screeningPlan: "screeningPlan/generic",
-    screeningPlanBuilder: "screeningPlan/builder",
-    screeningPlanSummary: "screeningPlan/summary",
-    screeningPlanRatings: "screeningPlan/ratings",
-    applicantsGeneric: "applicants/generic",
-    underConsideration: "applicants/underConsideration",
-    optionalConsideration: "applicants/optionalConsideration",
-    notUnderConsideration: "applicants/notUnderConsideration",
-};
-var JobStatus;
-(function (JobStatus) {
-    JobStatus["Draft"] = "draft";
-    JobStatus["ReviewManager"] = "review_manager";
-    JobStatus["ReviewHr"] = "review_hr";
-    JobStatus["Translation"] = "translation";
-    JobStatus["FinalReviewManager"] = "final_review_manager";
-    JobStatus["FinalReviewHr"] = "final_review_hr";
-    JobStatus["PendingApproval"] = "pending_approval";
-    JobStatus["Approved"] = "approved";
-    JobStatus["Ready"] = "ready";
-    JobStatus["Live"] = "live";
-    JobStatus["Assessment"] = "assessment";
-    JobStatus["Completed"] = "completed";
-})(JobStatus = exports.JobStatus || (exports.JobStatus = {}));
-function getKeyByValue(object, value) {
-    return (Object.keys(object).find(function (key) { return object[key] === parseInt(value, 10); }) || "");
-}
-exports.getKeyByValue = getKeyByValue;
-function enumToIds(enumType) {
-    var enumVals = Object.values(enumType);
-    // Note: this first array includes the list of ids as strings, followed by the list of names as strings
-    var enumIds = enumVals.filter(function (item) { return !Number.isNaN(Number(item)); });
-    return enumIds.map(function (id) { return Number(id); });
-}
-exports.enumToIds = enumToIds;
-exports.SkillLevelIdValues = enumToIds(SkillLevelId);
-exports.SkillTypeIdValues = enumToIds(SkillTypeId);
-exports.AssessmentTypeIdValues = enumToIds(AssessmentTypeId);
-exports.CriteriaTypeIdValues = enumToIds(CriteriaTypeId);
 
 
 /***/ }),
@@ -52362,10 +35984,10 @@ exports.CriteriaTypeIdValues = enumToIds(CriteriaTypeId);
 /*!**********************************************************!*\
   !*** ./resources/assets/js/translations/locales/fr.json ***!
   \**********************************************************/
-/*! exports provided: activity.commentLocation.label, activity.commentMetadata, activity.viewComment.label, activityfeed.accordionAccessibleLabel, activityfeed.error, activityfeed.header, activityfeed.loading, activityfeed.loadingIconText, activityfeed.locations.applicantReview.general, activityfeed.locations.applicantReview.notUnderConsideration, activityfeed.locations.applicantReview.optionalConsideration, activityfeed.locations.applicantReview.underConsideration, activityfeed.locations.applications, activityfeed.locations.hr.preview, activityfeed.locations.hr.summary, activityfeed.locations.notFound, activityfeed.locations.review, activityfeed.locations.review.basicInfo, activityfeed.locations.review.environment, activityfeed.locations.review.general, activityfeed.locations.review.heading, activityfeed.locations.review.impact, activityfeed.locations.review.langRequirements, activityfeed.locations.review.skills, activityfeed.locations.review.tasks, activityfeed.locations.screeningPlan, activityfeed.locations.screeningPlan.builder, activityfeed.locations.screeningPlan.general, activityfeed.locations.screeningPlan.ratings, activityfeed.locations.screeningPlan.summary, activityfeed.noActivities, activityfeed.review.accordionAccessibleLabel, activityfeed.review.header, activityfeed.review.loadingIconText, activityfeed.title, application.review.addNote, application.review.alert.oops, application.review.backToApplicantList, application.review.button.cancel, application.review.button.confirm, application.review.button.save, application.review.button.saved, application.review.button.saving, application.review.button.viewJobPoster, application.review.collapseAllSkills, application.review.decision, application.review.editNote, application.review.emailCandidateLinkTitle, application.review.expandAllSkills, application.review.priorityStatus.priority, application.review.priorityStatus.priorityLogoTitle, application.review.reviewSaveFailed, application.review.reviewStatus.notReviewed, application.review.reviewStatus.screenedOut, application.review.reviewStatus.stillIn, application.review.reviewStatus.stillThinking, application.review.screenInConfirm, application.review.screenOutConfirm, application.review.veteranStatus.veteran, application.review.veteranStatus.veteranLogoAlt, application.review.viewApplication, application.review.viewApplicationLinkTitle, application.review.viewProfile, application.review.viewProfileLinkTitle, assessmentPlan.addAssessmentButton, assessmentPlan.alert.checking, assessmentPlan.alert.created, assessmentPlan.alert.deleted, assessmentPlan.alert.explanation, assessmentPlan.alert.skillAndLevelUpdated, assessmentPlan.alert.skillLevelUpdated, assessmentPlan.alert.skillUpdated, assessmentPlan.alert.title, assessmentPlan.assessmentPlanBuilder.instructions, assessmentPlan.assessmentPlanBuilder.shortDescription, assessmentPlan.assessmentPlanBuilder.title, assessmentPlan.assessmentPlanSummary.shortDescription, assessmentPlan.assessmentPlanSummary.title, assessmentPlan.assessmentTypesLabel, assessmentPlan.assetCriteria.nullState, assessmentPlan.criteriaTitle, assessmentPlan.essentialCriteria.nullState, assessmentPlan.instructions.intro, assessmentPlan.instructions.narrativeNote, assessmentPlan.pageTitle, assessmentPlan.ratingGuideBuilder.shortDescription, assessmentPlan.ratingGuideBuilder.title, assessmentPlan.selectAssessment.label, assessmentPlan.selectAssessment.null, assessmentPlan.skillDescriptionLabel, assessmentPlan.skillLevelDescriptionLabel, assessmentPlan.summary.assessmentSummary.noAssessments, assessmentPlan.summary.assessmentSummary.title, assessmentPlan.summary.assessmentSummary.toolSkillCount, assessmentPlan.summary.description, assessmentPlan.summary.skillCount, assessmentPlan.summary.skillsNullState, assessmentPlan.summary.title, assessmentPlan.title, assessmentType.applicationScreeningQuestion, assessmentType.applicationScreeningQuestion.description, assessmentType.groupTest, assessmentType.groupTest.description, assessmentType.informalPhoneConversation, assessmentType.informalPhoneConversation.description, assessmentType.interview, assessmentType.interview.description, assessmentType.narrativeAssessment, assessmentType.narrativeAssessment.description, assessmentType.narrativeReview.standardAnswer, assessmentType.narrativeReview.standardQuestion, assessmentType.onSiteExam, assessmentType.onSiteExam.description, assessmentType.onlineExam, assessmentType.onlineExam.description, assessmentType.portfolioReview, assessmentType.portfolioReview.description, assessmentType.referenceCheck, assessmentType.referenceCheck.description, assessmentType.seriousGames, assessmentType.seriousGames.description, assessmentType.takeHomeExam, assessmentType.takeHomeExam.description, button.copied, button.copyEmails, button.copyToClipboard, button.toggleAccordion, commentForm.comment.label, commentForm.comment.placeholder, commentForm.commentLocation.label, commentForm.commentLocation.nullSelection, commentForm.commentType.label, commentForm.commentType.nullSelection, commentForm.submitButton.label, commentType.comment, commentType.question, commentType.recommendation, commentType.requiredAction, criteria.asset, criteria.essential, criteriaForm.skillLevelSelectionLabel, criteriaForm.skillSpecificityLabel, criteriaForm.skillSpecificityPlaceholder, criteriaType.asset, criteriaType.essential, demoSubmitJobModal.cancel, demoSubmitJobModal.explanation, demoSubmitJobModal.link, demoSubmitJobModal.link.title, demoSubmitJobModal.title, errorToast.title, formInput.error, formInput.required, formValidation.checkboxRequired, formValidation.invalidSelection, formValidation.required, formValidation.tooLong, formValidation.tooShort, hrJobIndex.departmentPlaceholder, hrJobIndex.jobTitleMissing, hrJobIndex.managerLoading, hrJobIndex.preview, hrJobIndex.reviewDraft, hrJobIndex.viewActivity, hrJobIndex.viewScreeningPlan, hrJobIndex.viewSummary, hrPortal.jobPageIndex.clickToView, hrPortal.jobPageIndex.completedJobsHeader, hrPortal.jobPageIndex.hideAccordion, hrPortal.jobPageIndex.jobActionsEmpty, hrPortal.jobPageIndex.jobActionsHeader, hrPortal.jobPageIndex.jobActionsMessage, hrPortal.jobPageIndex.noJobsCompleted, hrPortal.jobPageIndex.preDepartmentName, hrPortal.jobPageIndex.showAccordion, hrPortal.jobPageIndex.unclaimedJobsEmpty, hrPortal.jobPageIndex.unclaimedJobsMessage, job.daysSinceClosed, jobBuilder.collaborativeness.01.description, jobBuilder.collaborativeness.01.title, jobBuilder.collaborativeness.02.description, jobBuilder.collaborativeness.02.title, jobBuilder.collaborativeness.03.description, jobBuilder.collaborativeness.03.title, jobBuilder.collaborativeness.04.description, jobBuilder.collaborativeness.04.title, jobBuilder.criteriaForm.addSpecificity, jobBuilder.criteriaForm.button.add, jobBuilder.criteriaForm.button.cancel, jobBuilder.criteriaForm.chooseSkillLevel, jobBuilder.criteriaForm.or, jobBuilder.criteriaForm.removeSpecificity, jobBuilder.criteriaForm.skillDefinition, jobBuilder.criterion.requiredSkill, jobBuilder.culturePace.01.description, jobBuilder.culturePace.01.title, jobBuilder.culturePace.02.description, jobBuilder.culturePace.02.title, jobBuilder.culturePace.03.description, jobBuilder.culturePace.03.title, jobBuilder.culturePace.04.description, jobBuilder.culturePace.04.title, jobBuilder.details.SelectClassAndLvlMessage, jobBuilder.details.cityLabel, jobBuilder.details.cityPlaceholder, jobBuilder.details.classificationLabel, jobBuilder.details.classificationNullSelection, jobBuilder.details.classificationOptions.AD, jobBuilder.details.classificationOptions.AS, jobBuilder.details.classificationOptions.BI, jobBuilder.details.classificationOptions.CO, jobBuilder.details.classificationOptions.CR, jobBuilder.details.classificationOptions.CS, jobBuilder.details.classificationOptions.EC, jobBuilder.details.classificationOptions.EX, jobBuilder.details.classificationOptions.FO, jobBuilder.details.classificationOptions.IS, jobBuilder.details.classificationOptions.PC, jobBuilder.details.classificationOptions.PE, jobBuilder.details.classificationOptions.PM, jobBuilder.details.documentTitle, jobBuilder.details.educationMessages.AD, jobBuilder.details.educationMessages.AS, jobBuilder.details.educationMessages.BI, jobBuilder.details.educationMessages.CO, jobBuilder.details.educationMessages.CR, jobBuilder.details.educationMessages.CS, jobBuilder.details.educationMessages.EC, jobBuilder.details.educationMessages.EX, jobBuilder.details.educationMessages.FO, jobBuilder.details.educationMessages.IS, jobBuilder.details.educationMessages.PC, jobBuilder.details.educationMessages.PE, jobBuilder.details.educationMessages.PM, jobBuilder.details.educationRequirementCopyAndPaste, jobBuilder.details.educationRequirementHeader, jobBuilder.details.educationRequirementPlaceholder, jobBuilder.details.educationRequirementReviewChanges, jobBuilder.details.educationRequirementsLabel, jobBuilder.details.flexHoursGroupBody, jobBuilder.details.flexHoursGroupHeader, jobBuilder.details.flexHoursGroupLabel, jobBuilder.details.frequencyAlwaysLabel, jobBuilder.details.frequencyFrequentlyLabel, jobBuilder.details.frequencyNeverLabel, jobBuilder.details.frequencyOccasionallyLabel, jobBuilder.details.frequencySometimesLabel, jobBuilder.details.heading, jobBuilder.details.languageLabel, jobBuilder.details.languageNullSelection, jobBuilder.details.levelLabel, jobBuilder.details.levelNullSelection, jobBuilder.details.modalBody, jobBuilder.details.modalCancelLabel, jobBuilder.details.modalConfirmLabel, jobBuilder.details.modalHeader, jobBuilder.details.modalMiddleLabel, jobBuilder.details.overtimeFrequentlyLabel, jobBuilder.details.overtimeGroupHeader, jobBuilder.details.overtimeGroupLabel, jobBuilder.details.overtimeNoneRequiredLabel, jobBuilder.details.overtimeOpportunitiesAvailableLabel, jobBuilder.details.provinceLabel, jobBuilder.details.provinceNullSelection, jobBuilder.details.remoteWorkCanadaLabel, jobBuilder.details.remoteWorkGroupBody, jobBuilder.details.remoteWorkGroupHeader, jobBuilder.details.remoteWorkGroupLabel, jobBuilder.details.remoteWorkNoneLabel, jobBuilder.details.remoteWorkWorldLabel, jobBuilder.details.returnButtonLabel, jobBuilder.details.securityLevelLabel, jobBuilder.details.securityLevelNullSelection, jobBuilder.details.submitButtonLabel, jobBuilder.details.teleworkGroupBody, jobBuilder.details.teleworkGroupHeader, jobBuilder.details.teleworkGroupLabel, jobBuilder.details.termLengthLabel, jobBuilder.details.termLengthPlaceholder, jobBuilder.details.titleLabel, jobBuilder.details.titlePlaceholder, jobBuilder.details.travelFrequentlyLabel, jobBuilder.details.travelGroupHeader, jobBuilder.details.travelGroupLabel, jobBuilder.details.travelNoneRequiredLabel, jobBuilder.details.travelOpportunitiesAvailableLabel, jobBuilder.experimental.01.description, jobBuilder.experimental.01.title, jobBuilder.experimental.02.description, jobBuilder.experimental.02.title, jobBuilder.experimental.03.description, jobBuilder.experimental.03.title, jobBuilder.experimental.04.description, jobBuilder.experimental.04.title, jobBuilder.facing.01.description, jobBuilder.facing.01.title, jobBuilder.facing.02.description, jobBuilder.facing.02.title, jobBuilder.facing.03.description, jobBuilder.facing.03.title, jobBuilder.facing.04.description, jobBuilder.facing.04.title, jobBuilder.impact.button.goBack, jobBuilder.impact.button.next, jobBuilder.impact.button.nextStep, jobBuilder.impact.button.return, jobBuilder.impact.button.skipToReview, jobBuilder.impact.departmentsLoading, jobBuilder.impact.documentTitle, jobBuilder.impact.header.department, jobBuilder.impact.hireBody, jobBuilder.impact.hireHeader, jobBuilder.impact.hireLabel, jobBuilder.impact.hirePlaceholder, jobBuilder.impact.modalDescription, jobBuilder.impact.modalTitle, jobBuilder.impact.points.counts, jobBuilder.impact.points.highlight, jobBuilder.impact.points.opportunity, jobBuilder.impact.selectDepartment, jobBuilder.impact.teamBody, jobBuilder.impact.teamHeader, jobBuilder.impact.teamLabel, jobBuilder.impact.teamPlaceholder, jobBuilder.impact.title, jobBuilder.impact.unknownDepartment, jobBuilder.impactPreview.title, jobBuilder.intro.accountSettingsLinkText, jobBuilder.intro.accountSettingsLinkTitle, jobBuilder.intro.changeDepartment, jobBuilder.intro.completeInLanguage, jobBuilder.intro.contactUs, jobBuilder.intro.continueButtonLabelEN, jobBuilder.intro.continueButtonLabelFR, jobBuilder.intro.departmentHeader, jobBuilder.intro.departmentLabel, jobBuilder.intro.departmentNullSelection, jobBuilder.intro.divisionLabelEN, jobBuilder.intro.divisionLabelFR, jobBuilder.intro.divisionPlaceholderEN, jobBuilder.intro.divisionPlaceholderFR, jobBuilder.intro.documentTitle, jobBuilder.intro.emailLinkText, jobBuilder.intro.emailLinkTitle, jobBuilder.intro.explanation, jobBuilder.intro.explanation.boldText, jobBuilder.intro.formDescription, jobBuilder.intro.formTitle, jobBuilder.intro.jobTitleLabelEN, jobBuilder.intro.jobTitleLabelFR, jobBuilder.intro.jobTitlePlaceholderEN, jobBuilder.intro.jobTitlePlaceholderFR, jobBuilder.intro.managerLoading, jobBuilder.intro.welcome, jobBuilder.jobLoading, jobBuilder.loading, jobBuilder.mgmtStyle.01.description, jobBuilder.mgmtStyle.01.title, jobBuilder.mgmtStyle.02.description, jobBuilder.mgmtStyle.02.title, jobBuilder.mgmtStyle.03.description, jobBuilder.mgmtStyle.03.title, jobBuilder.mgmtStyle.04.description, jobBuilder.mgmtStyle.04.title, jobBuilder.preview.city, jobBuilder.preview.classification, jobBuilder.preview.classificationEducation, jobBuilder.preview.education, jobBuilder.preview.flexibleHours, jobBuilder.preview.jobInformation, jobBuilder.preview.jobTitle, jobBuilder.preview.languageProfile, jobBuilder.preview.lengthOfTheTerm, jobBuilder.preview.level, jobBuilder.preview.overtime, jobBuilder.preview.province, jobBuilder.preview.remoteWork, jobBuilder.preview.securityClearance, jobBuilder.preview.telework, jobBuilder.preview.termLength, jobBuilder.preview.travel, jobBuilder.preview.workStyles, jobBuilder.progressTracker.label.finish, jobBuilder.progressTracker.label.start, jobBuilder.progressTracker.label.step1, jobBuilder.progressTracker.label.step2, jobBuilder.progressTracker.label.step3, jobBuilder.progressTracker.label.step4, jobBuilder.progressTracker.label.step5, jobBuilder.progressTracker.title.impact, jobBuilder.progressTracker.title.jobInfo, jobBuilder.progressTracker.title.review, jobBuilder.progressTracker.title.skills, jobBuilder.progressTracker.title.tasks, jobBuilder.progressTracker.title.welcome, jobBuilder.progressTracker.title.workEnv, jobBuilder.review.GovernmentClass, jobBuilder.review.assetHeading, jobBuilder.review.averageAnnualSalary, jobBuilder.review.basicInformationHeading, jobBuilder.review.button.return, jobBuilder.review.button.submit, jobBuilder.review.comesLater, jobBuilder.review.confirm.cancel, jobBuilder.review.confirm.submit, jobBuilder.review.confirm.title, jobBuilder.review.criteriaSection, jobBuilder.review.cultureSection, jobBuilder.review.documentTitle, jobBuilder.review.duration, jobBuilder.review.educationalHeading, jobBuilder.review.headsUp, jobBuilder.review.impactEditLink, jobBuilder.review.impactHeading, jobBuilder.review.infoEditLink, jobBuilder.review.jobPageHeading, jobBuilder.review.languageHeading, jobBuilder.review.languageProfile, jobBuilder.review.managerDataLoading, jobBuilder.review.managerHeading, jobBuilder.review.managerIncomplete, jobBuilder.review.managerPosition, jobBuilder.review.managerProfileLink, jobBuilder.review.meantime, jobBuilder.review.months, jobBuilder.review.nullProvince, jobBuilder.review.or, jobBuilder.review.otherInfoHeading, jobBuilder.review.readyToSubmit, jobBuilder.review.remoteAllowed, jobBuilder.review.remoteNotAllowed, jobBuilder.review.reviewYourPoster, jobBuilder.review.securityClearance, jobBuilder.review.sendYourDraft, jobBuilder.review.skills.nullState, jobBuilder.review.skillsEditLink, jobBuilder.review.skillsHeading, jobBuilder.review.tCAdds, jobBuilder.review.targetStartDate, jobBuilder.review.tasksEditLink, jobBuilder.review.tasksHeading, jobBuilder.review.whatHappens, jobBuilder.review.workCultureHeading, jobBuilder.review.workDescription, jobBuilder.review.workEnvEditLink, jobBuilder.review.workEnvHeading, jobBuilder.root.documentTitle, jobBuilder.skills.addSkillBelow, jobBuilder.skills.alt.happyArrow, jobBuilder.skills.alt.happyGraySmiley, jobBuilder.skills.alt.happySmiley, jobBuilder.skills.alt.neutralArrow, jobBuilder.skills.alt.neutralGraySmiley, jobBuilder.skills.alt.neutralSmiley, jobBuilder.skills.alt.unhappyArrow, jobBuilder.skills.alt.unhappyGraySmiley, jobBuilder.skills.alt.unhappySmiley, jobBuilder.skills.button.keyTasks, jobBuilder.skills.button.previewSkills, jobBuilder.skills.button.returnToTasks, jobBuilder.skills.description, jobBuilder.skills.description.keepItUp, jobBuilder.skills.documentTitle, jobBuilder.skills.emailLink, jobBuilder.skills.essentialSkillRequiredError, jobBuilder.skills.instructions.missingSkills, jobBuilder.skills.listTitle, jobBuilder.skills.nullState, jobBuilder.skills.nullText.occupationalSkills, jobBuilder.skills.placeholder.otherSkills, jobBuilder.skills.previewModalCancelLabel, jobBuilder.skills.previewModalConfirmLabel, jobBuilder.skills.previewModalMiddleLabel, jobBuilder.skills.range.culturalSkills, jobBuilder.skills.range.futureSkills, jobBuilder.skills.range.occupationalSkills, jobBuilder.skills.selectSkillLabel, jobBuilder.skills.selectSkillNull, jobBuilder.skills.skillLevel, jobBuilder.skills.statusSmiley.acceptable, jobBuilder.skills.statusSmiley.almost, jobBuilder.skills.statusSmiley.awesome, jobBuilder.skills.statusSmiley.essential.acceptable, jobBuilder.skills.statusSmiley.essential.almost, jobBuilder.skills.statusSmiley.essential.awesome, jobBuilder.skills.statusSmiley.essential.tooFew, jobBuilder.skills.statusSmiley.essential.tooMany, jobBuilder.skills.statusSmiley.essentialTitle, jobBuilder.skills.statusSmiley.title, jobBuilder.skills.statusSmiley.tooFew, jobBuilder.skills.statusSmiley.tooMany, jobBuilder.skills.tasksModalCancelLabel, jobBuilder.skills.title, jobBuilder.skills.title.addASkill, jobBuilder.skills.title.assetSkills, jobBuilder.skills.title.culturalSkills, jobBuilder.skills.title.editSkill, jobBuilder.skills.title.essentialSkills, jobBuilder.skills.title.futureSkills, jobBuilder.skills.title.keepItUp, jobBuilder.skills.title.keyTasks, jobBuilder.skills.title.missingSkill, jobBuilder.skills.title.needsToHave, jobBuilder.skills.title.niceToHave, jobBuilder.skills.title.occupationalSkills, jobBuilder.skills.title.otherSkills, jobBuilder.skills.title.skillSelection, jobBuilder.tasks.addJob, jobBuilder.tasks.documentTitle, jobBuilder.tasks.heading, jobBuilder.tasks.intro.first, jobBuilder.tasks.intro.fourth, jobBuilder.tasks.intro.second, jobBuilder.tasks.intro.third, jobBuilder.tasks.modal.body, jobBuilder.tasks.modal.body.heading, jobBuilder.tasks.modal.cancelButtonLabel, jobBuilder.tasks.modal.confirmButtonLabel, jobBuilder.tasks.modal.middleButtonLabel, jobBuilder.tasks.modal.title, jobBuilder.tasks.preview, jobBuilder.tasks.previous, jobBuilder.tasks.taskCount.error.body, jobBuilder.tasks.taskCount.error.title, jobBuilder.tasks.taskCount.none, jobBuilder.tasks.taskCount.some, jobBuilder.tasks.taskLabel, jobBuilder.tasks.taskPlaceholder, jobBuilder.tasks.tasksMaximum, jobBuilder.tasks.tasksRequired, jobBuilder.workCulture.flexibleHours, jobBuilder.workCulture.flexibleHoursDescription, jobBuilder.workCulture.overtime, jobBuilder.workCulture.overtimeDescription, jobBuilder.workCulture.remoteWork, jobBuilder.workCulture.remoteWorkDescription, jobBuilder.workCulture.remoteWorkMsg.always, jobBuilder.workCulture.remoteWorkMsg.never, jobBuilder.workCulture.telework, jobBuilder.workCulture.teleworkDescription, jobBuilder.workCulture.travel, jobBuilder.workCulture.travelDescription, jobBuilder.workEnv.amenities.cafeteria, jobBuilder.workEnv.amenities.closeToTransit, jobBuilder.workEnv.amenities.downtown, jobBuilder.workEnv.amenities.fitnessCenter, jobBuilder.workEnv.amenities.parking, jobBuilder.workEnv.amenities.restaurants, jobBuilder.workEnv.amenitiesLabel, jobBuilder.workEnv.collaborativeLabel, jobBuilder.workEnv.culture, jobBuilder.workEnv.cultureSubtext1, jobBuilder.workEnv.cultureSubtext2, jobBuilder.workEnv.cultureSummary, jobBuilder.workEnv.cultureSummarySubtext, jobBuilder.workEnv.customCultureSummaryLabel, jobBuilder.workEnv.customCultureSummaryPlaceholder, jobBuilder.workEnv.documentTitle, jobBuilder.workEnv.experimentalLabel, jobBuilder.workEnv.facingLabel, jobBuilder.workEnv.fastPacedSteadyLabel, jobBuilder.workEnv.greatStart, jobBuilder.workEnv.managementLabel, jobBuilder.workEnv.moreOnWorkEnv, jobBuilder.workEnv.moreOnWorkEnvLabel, jobBuilder.workEnv.moreOnWorkEnvPlaceholder, jobBuilder.workEnv.moreOnWorkEnvSubtext, jobBuilder.workEnv.openingSentence, jobBuilder.workEnv.ourWorkEnv, jobBuilder.workEnv.ourWorkEnvDesc, jobBuilder.workEnv.physEnv.assignedSeating, jobBuilder.workEnv.physEnv.naturalLight, jobBuilder.workEnv.physEnv.openConcept, jobBuilder.workEnv.physEnv.private, jobBuilder.workEnv.physEnv.smudging, jobBuilder.workEnv.physEnv.windows, jobBuilder.workEnv.physicalEnvLabel, jobBuilder.workEnv.saveAndReturnButtonLabel, jobBuilder.workEnv.specialWorkCulture, jobBuilder.workEnv.specialWorkCultureLabel, jobBuilder.workEnv.specialWorkCultureSubtext, jobBuilder.workEnv.stepDescription, jobBuilder.workEnv.submitButtonLabel, jobBuilder.workEnv.teamSizeLabel, jobBuilder.workEnv.teamSizePlaceholder, jobBuilder.workEnv.technology.accessToExternal, jobBuilder.workEnv.technology.collaboration, jobBuilder.workEnv.technology.fileSharing, jobBuilder.workEnv.technology.taskManagement, jobBuilder.workEnv.technology.versionControl, jobBuilder.workEnv.technology.videoConferencing, jobBuilder.workEnv.technologyLabel, jobBuilder.workEnv.textAreaPlaceholder1, jobBuilder.workEnv.thisIsOptional, jobBuilder.workEnv.title, jobBuilder.workEnvModal.cancelLabel, jobBuilder.workEnvModal.confirmLabel, jobBuilder.workEnvModal.modalMiddleLabel, jobBuilder.workEnvModal.title, jobBuilder.workEnvModal.workCultureTitle, jobCard.applicants, jobCard.managerTime, jobCard.noActivity, jobCard.userTime, jobReviewHr.headsUp, jobReviewHr.loadingIconText, jobReviewHr.reviewYourPoster, jobReviewHr.summaryLink, jobStatus.approved, jobStatus.completed, jobStatus.draft, jobStatus.finalReview, jobStatus.published, jobStatus.review, jobStatus.translation, languageRequirement.bilingualAdvanced, languageRequirement.bilingualIntermediate, languageRequirement.context.basic, languageRequirement.context.expanded, languageRequirement.description.bilingualAdvanced, languageRequirement.description.bilingualIntermediate, languageRequirement.description.english, languageRequirement.description.englishOrFrench, languageRequirement.description.french, languageRequirement.english, languageRequirement.englishOrFrench, languageRequirement.french, managerSurveyModal.explanation, managerSurveyModal.jobPosterLink, managerSurveyModal.jobPosterLinkTitle, managerSurveyModal.link, managerSurveyModal.managerSurveyLinkTitle, managerSurveyModal.title, openJobCard.claimJob, openJobCard.error, openJobCard.hiringManager, openJobCard.hrAdvisors, openJobCard.reviewRequested, openJobCard.unclaimed, progressTracker.unreachableStep, province.ab, province.ab.abreviation, province.bc, province.bc.abreviation, province.mb, province.mb.abreviation, province.nb, province.nb.abreviation, province.nl, province.nl.abreviation, province.ns, province.ns.abreviation, province.nt, province.nt.abreviation, province.nu, province.nu.abreviation, province.on, province.on.abreviation, province.pe, province.pe.abreviation, province.qc, province.qc.abreviation, province.sk, province.sk.abreviation, province.yk, province.yk.abreviation, ratingGuideAnswer.answerLabel, ratingGuideAnswer.answerPlaceholder, ratingGuideAnswer.nullSelection, ratingGuideAnswer.selectLabel, ratingGuideBuilder.addQuestion, ratingGuideBuilder.assetMissing, ratingGuideBuilder.copyButton, ratingGuideBuilder.copyInstructions, ratingGuideBuilder.criteriaName, ratingGuideBuilder.criteriaTypeHeading, ratingGuideBuilder.essentialMissing, ratingGuideBuilder.instructions, ratingGuideBuilder.narrativeSectionTitle, ratingGuideBuilder.questionHeading, ratingGuideBuilder.ratingGuideHeading, ratingGuideBuilder.sectionTitle, ratingGuideBuilder.skillDescriptionHeading, ratingGuideBuilder.skillHeading, ratingGuideBuilder.targetLevelHeading, ratingGuideBuilder.title, ratingGuideBuilder.titleHeading, ratingGuideQuestion.questionLabel, ratingGuideQuestion.questionPlaceholder, review.applications.alert.oops, review.applications.button.confirm, review.applications.indexPageTitle, review.applications.nonCitizens.description, review.applications.nonCitizens.title, review.applications.optionalConsideration.description, review.applications.optionalConsideration.title, review.applications.priorityApplicants.description, review.applications.priorityApplicants.title, review.applications.reviewSaveFailed, review.applications.screenOutAll, review.applications.screenOutAll.confirm, review.applications.screenedOut.description, review.applications.screenedOut.title, review.applications.underConsideration.description, review.applications.underConsideration.title, review.applications.unqualified.description, review.applications.unqualified.title, review.applications.veteransAndCitizens.description, review.applications.veteransAndCitizens.title, reviewLocations.jpb.basicInfo, reviewLocations.jpb.environment, reviewLocations.jpb.generic, reviewLocations.jpb.heading, reviewLocations.jpb.impact, reviewLocations.jpb.langRequirements, reviewLocations.jpb.skills, reviewLocations.jpb.tasks, securityClearance.reliability, securityClearance.secret, securityClearance.topSecret, skillLevel.asset.description, skillLevel.asset.name, skillLevel.hard.advanced.description, skillLevel.hard.advanced.name, skillLevel.hard.basic.description, skillLevel.hard.basic.name, skillLevel.hard.expert.description, skillLevel.hard.expert.name, skillLevel.hard.intermediate.description, skillLevel.hard.intermediate.name, skillLevel.soft.advanced.description, skillLevel.soft.advanced.name, skillLevel.soft.basic.description, skillLevel.soft.basic.name, skillLevel.soft.expert.description, skillLevel.soft.expert.name, skillLevel.soft.intermediate.description, skillLevel.soft.intermediate.name, wordCounter.skills.longMessage, wordCounter.skills.placeholder, wordCounter.skills.shortMessage, wordCounter.skills.slightlyLongMessage, wordCounter.skills.veryLongMessage, wordCounter.skills.veryShortMessage, default */
+/*! exports provided: activity.commentLocation.label, activity.commentMetadata, activity.viewComment.label, activityfeed.accordionAccessibleLabel, activityfeed.error, activityfeed.header, activityfeed.loading, activityfeed.loadingIconText, activityfeed.locations.applicantReview.general, activityfeed.locations.applicantReview.notUnderConsideration, activityfeed.locations.applicantReview.optionalConsideration, activityfeed.locations.applicantReview.underConsideration, activityfeed.locations.applications, activityfeed.locations.hr.preview, activityfeed.locations.hr.summary, activityfeed.locations.notFound, activityfeed.locations.review, activityfeed.locations.review.basicInfo, activityfeed.locations.review.environment, activityfeed.locations.review.general, activityfeed.locations.review.heading, activityfeed.locations.review.impact, activityfeed.locations.review.langRequirements, activityfeed.locations.review.skills, activityfeed.locations.review.tasks, activityfeed.locations.screeningPlan, activityfeed.locations.screeningPlan.builder, activityfeed.locations.screeningPlan.general, activityfeed.locations.screeningPlan.ratings, activityfeed.locations.screeningPlan.summary, activityfeed.noActivities, activityfeed.review.accordionAccessibleLabel, activityfeed.review.header, activityfeed.review.loadingIconText, activityfeed.title, application.review.addNote, application.review.alert.oops, application.review.backToApplicantList, application.review.button.cancel, application.review.button.confirm, application.review.button.save, application.review.button.saved, application.review.button.saving, application.review.button.viewJobPoster, application.review.collapseAllSkills, application.review.decision, application.review.editNote, application.review.emailCandidateLinkTitle, application.review.expandAllSkills, application.review.priorityStatus.priority, application.review.priorityStatus.priorityLogoTitle, application.review.reviewSaveFailed, application.review.reviewStatus.notReviewed, application.review.reviewStatus.screenedOut, application.review.reviewStatus.stillIn, application.review.reviewStatus.stillThinking, application.review.screenInConfirm, application.review.screenOutConfirm, application.review.veteranStatus.veteran, application.review.veteranStatus.veteranLogoAlt, application.review.viewApplication, application.review.viewApplicationLinkTitle, application.review.viewProfile, application.review.viewProfileLinkTitle, assessmentPlan.addAssessmentButton, assessmentPlan.alert.checking, assessmentPlan.alert.created, assessmentPlan.alert.deleted, assessmentPlan.alert.explanation, assessmentPlan.alert.skillAndLevelUpdated, assessmentPlan.alert.skillLevelUpdated, assessmentPlan.alert.skillUpdated, assessmentPlan.alert.title, assessmentPlan.assessmentPlanBuilder.instructions, assessmentPlan.assessmentPlanBuilder.shortDescription, assessmentPlan.assessmentPlanBuilder.title, assessmentPlan.assessmentPlanSummary.shortDescription, assessmentPlan.assessmentPlanSummary.title, assessmentPlan.assessmentTypesLabel, assessmentPlan.assetCriteria.nullState, assessmentPlan.criteriaTitle, assessmentPlan.essentialCriteria.nullState, assessmentPlan.instructions.intro, assessmentPlan.instructions.narrativeNote, assessmentPlan.pageTitle, assessmentPlan.ratingGuideBuilder.shortDescription, assessmentPlan.ratingGuideBuilder.title, assessmentPlan.selectAssessment.label, assessmentPlan.selectAssessment.null, assessmentPlan.skillDescriptionLabel, assessmentPlan.skillLevelDescriptionLabel, assessmentPlan.summary.assessmentSummary.noAssessments, assessmentPlan.summary.assessmentSummary.title, assessmentPlan.summary.assessmentSummary.toolSkillCount, assessmentPlan.summary.description, assessmentPlan.summary.skillCount, assessmentPlan.summary.skillsNullState, assessmentPlan.summary.title, assessmentPlan.title, assessmentType.applicationScreeningQuestion, assessmentType.applicationScreeningQuestion.description, assessmentType.groupTest, assessmentType.groupTest.description, assessmentType.informalPhoneConversation, assessmentType.informalPhoneConversation.description, assessmentType.interview, assessmentType.interview.description, assessmentType.narrativeAssessment, assessmentType.narrativeAssessment.description, assessmentType.narrativeReview.standardAnswer, assessmentType.narrativeReview.standardQuestion, assessmentType.onSiteExam, assessmentType.onSiteExam.description, assessmentType.onlineExam, assessmentType.onlineExam.description, assessmentType.portfolioReview, assessmentType.portfolioReview.description, assessmentType.referenceCheck, assessmentType.referenceCheck.description, assessmentType.seriousGames, assessmentType.seriousGames.description, assessmentType.takeHomeExam, assessmentType.takeHomeExam.description, button.copied, button.copyEmails, button.copyToClipboard, button.toggleAccordion, commentForm.comment.label, commentForm.comment.placeholder, commentForm.commentLocation.label, commentForm.commentLocation.nullSelection, commentForm.commentType.label, commentForm.commentType.nullSelection, commentForm.submitButton.label, commentType.comment, commentType.question, commentType.recommendation, commentType.requiredAction, criteria.asset, criteria.essential, criteriaForm.skillLevelSelectionLabel, criteriaForm.skillSpecificityLabel, criteriaForm.skillSpecificityPlaceholder, criteriaType.asset, criteriaType.essential, demoSubmitJobModal.cancel, demoSubmitJobModal.explanation, demoSubmitJobModal.link, demoSubmitJobModal.link.title, demoSubmitJobModal.title, errorToast.title, formInput.error, formInput.required, formValidation.checkboxRequired, formValidation.invalidSelection, formValidation.required, formValidation.tooLong, formValidation.tooShort, hrJobIndex.departmentPlaceholder, hrJobIndex.jobTitleMissing, hrJobIndex.managerLoading, hrJobIndex.preview, hrJobIndex.reviewDraft, hrJobIndex.viewActivity, hrJobIndex.viewScreeningPlan, hrJobIndex.viewSummary, hrPortal.jobPageIndex.clickToView, hrPortal.jobPageIndex.completedJobsHeader, hrPortal.jobPageIndex.hideAccordion, hrPortal.jobPageIndex.jobActionsEmpty, hrPortal.jobPageIndex.jobActionsHeader, hrPortal.jobPageIndex.jobActionsMessage, hrPortal.jobPageIndex.noJobsCompleted, hrPortal.jobPageIndex.preDepartmentName, hrPortal.jobPageIndex.showAccordion, hrPortal.jobPageIndex.unclaimedJobsEmpty, hrPortal.jobPageIndex.unclaimedJobsMessage, job.daysSinceClosed, jobBuilder.collaborativeness.01.description, jobBuilder.collaborativeness.01.title, jobBuilder.collaborativeness.02.description, jobBuilder.collaborativeness.02.title, jobBuilder.collaborativeness.03.description, jobBuilder.collaborativeness.03.title, jobBuilder.collaborativeness.04.description, jobBuilder.collaborativeness.04.title, jobBuilder.criteriaForm.addSpecificity, jobBuilder.criteriaForm.button.add, jobBuilder.criteriaForm.button.cancel, jobBuilder.criteriaForm.chooseSkillLevel, jobBuilder.criteriaForm.or, jobBuilder.criteriaForm.removeSpecificity, jobBuilder.criteriaForm.skillDefinition, jobBuilder.criterion.requiredSkill, jobBuilder.culturePace.01.description, jobBuilder.culturePace.01.title, jobBuilder.culturePace.02.description, jobBuilder.culturePace.02.title, jobBuilder.culturePace.03.description, jobBuilder.culturePace.03.title, jobBuilder.culturePace.04.description, jobBuilder.culturePace.04.title, jobBuilder.details.SelectClassAndLvlMessage, jobBuilder.details.cityLabel, jobBuilder.details.cityPlaceholder, jobBuilder.details.classificationLabel, jobBuilder.details.classificationNullSelection, jobBuilder.details.classificationOptions.AD, jobBuilder.details.classificationOptions.AS, jobBuilder.details.classificationOptions.BI, jobBuilder.details.classificationOptions.CO, jobBuilder.details.classificationOptions.CR, jobBuilder.details.classificationOptions.CS, jobBuilder.details.classificationOptions.EC, jobBuilder.details.classificationOptions.EX, jobBuilder.details.classificationOptions.FO, jobBuilder.details.classificationOptions.IS, jobBuilder.details.classificationOptions.PC, jobBuilder.details.classificationOptions.PE, jobBuilder.details.classificationOptions.PM, jobBuilder.details.documentTitle, jobBuilder.details.educationMessages.AD, jobBuilder.details.educationMessages.AS, jobBuilder.details.educationMessages.BI, jobBuilder.details.educationMessages.CO, jobBuilder.details.educationMessages.CR, jobBuilder.details.educationMessages.CS, jobBuilder.details.educationMessages.EC, jobBuilder.details.educationMessages.EX, jobBuilder.details.educationMessages.FO, jobBuilder.details.educationMessages.IS, jobBuilder.details.educationMessages.PC, jobBuilder.details.educationMessages.PE, jobBuilder.details.educationMessages.PM, jobBuilder.details.educationRequirementCopyAndPaste, jobBuilder.details.educationRequirementHeader, jobBuilder.details.educationRequirementPlaceholder, jobBuilder.details.educationRequirementReviewChanges, jobBuilder.details.educationRequirementsLabel, jobBuilder.details.flexHoursGroupBody, jobBuilder.details.flexHoursGroupHeader, jobBuilder.details.flexHoursGroupLabel, jobBuilder.details.frequencyAlwaysLabel, jobBuilder.details.frequencyFrequentlyLabel, jobBuilder.details.frequencyNeverLabel, jobBuilder.details.frequencyOccasionallyLabel, jobBuilder.details.frequencySometimesLabel, jobBuilder.details.heading, jobBuilder.details.languageLabel, jobBuilder.details.languageNullSelection, jobBuilder.details.levelLabel, jobBuilder.details.levelNullSelection, jobBuilder.details.modalBody, jobBuilder.details.modalCancelLabel, jobBuilder.details.modalConfirmLabel, jobBuilder.details.modalHeader, jobBuilder.details.modalMiddleLabel, jobBuilder.details.overtimeFrequentlyLabel, jobBuilder.details.overtimeGroupHeader, jobBuilder.details.overtimeGroupLabel, jobBuilder.details.overtimeNoneRequiredLabel, jobBuilder.details.overtimeOpportunitiesAvailableLabel, jobBuilder.details.provinceLabel, jobBuilder.details.provinceNullSelection, jobBuilder.details.remoteWorkCanadaLabel, jobBuilder.details.remoteWorkGroupBody, jobBuilder.details.remoteWorkGroupHeader, jobBuilder.details.remoteWorkGroupLabel, jobBuilder.details.remoteWorkNoneLabel, jobBuilder.details.remoteWorkWorldLabel, jobBuilder.details.returnButtonLabel, jobBuilder.details.securityLevelLabel, jobBuilder.details.securityLevelNullSelection, jobBuilder.details.submitButtonLabel, jobBuilder.details.teleworkGroupBody, jobBuilder.details.teleworkGroupHeader, jobBuilder.details.teleworkGroupLabel, jobBuilder.details.termLengthLabel, jobBuilder.details.termLengthPlaceholder, jobBuilder.details.titleLabel, jobBuilder.details.titlePlaceholder, jobBuilder.details.travelFrequentlyLabel, jobBuilder.details.travelGroupHeader, jobBuilder.details.travelGroupLabel, jobBuilder.details.travelNoneRequiredLabel, jobBuilder.details.travelOpportunitiesAvailableLabel, jobBuilder.experimental.01.description, jobBuilder.experimental.01.title, jobBuilder.experimental.02.description, jobBuilder.experimental.02.title, jobBuilder.experimental.03.description, jobBuilder.experimental.03.title, jobBuilder.experimental.04.description, jobBuilder.experimental.04.title, jobBuilder.facing.01.description, jobBuilder.facing.01.title, jobBuilder.facing.02.description, jobBuilder.facing.02.title, jobBuilder.facing.03.description, jobBuilder.facing.03.title, jobBuilder.facing.04.description, jobBuilder.facing.04.title, jobBuilder.impact.button.goBack, jobBuilder.impact.button.next, jobBuilder.impact.button.nextStep, jobBuilder.impact.button.return, jobBuilder.impact.button.skipToReview, jobBuilder.impact.departmentsLoading, jobBuilder.impact.documentTitle, jobBuilder.impact.header.department, jobBuilder.impact.hireBody, jobBuilder.impact.hireHeader, jobBuilder.impact.hireLabel, jobBuilder.impact.hirePlaceholder, jobBuilder.impact.modalDescription, jobBuilder.impact.modalTitle, jobBuilder.impact.points.counts, jobBuilder.impact.points.highlight, jobBuilder.impact.points.opportunity, jobBuilder.impact.selectDepartment, jobBuilder.impact.teamBody, jobBuilder.impact.teamHeader, jobBuilder.impact.teamLabel, jobBuilder.impact.teamPlaceholder, jobBuilder.impact.title, jobBuilder.impact.unknownDepartment, jobBuilder.impactPreview.title, jobBuilder.intro.accountSettingsLinkText, jobBuilder.intro.accountSettingsLinkTitle, jobBuilder.intro.changeDepartment, jobBuilder.intro.completeInLanguage, jobBuilder.intro.contactUs, jobBuilder.intro.continueButtonLabelEN, jobBuilder.intro.continueButtonLabelFR, jobBuilder.intro.departmentHeader, jobBuilder.intro.departmentLabel, jobBuilder.intro.departmentNullSelection, jobBuilder.intro.divisionLabelEN, jobBuilder.intro.divisionLabelFR, jobBuilder.intro.divisionPlaceholderEN, jobBuilder.intro.divisionPlaceholderFR, jobBuilder.intro.documentTitle, jobBuilder.intro.emailLinkText, jobBuilder.intro.emailLinkTitle, jobBuilder.intro.explanation, jobBuilder.intro.explanation.boldText, jobBuilder.intro.formDescription, jobBuilder.intro.formTitle, jobBuilder.intro.jobTitleLabelEN, jobBuilder.intro.jobTitleLabelFR, jobBuilder.intro.jobTitlePlaceholderEN, jobBuilder.intro.jobTitlePlaceholderFR, jobBuilder.intro.managerLoading, jobBuilder.intro.welcome, jobBuilder.jobLoading, jobBuilder.loading, jobBuilder.mgmtStyle.01.description, jobBuilder.mgmtStyle.01.title, jobBuilder.mgmtStyle.02.description, jobBuilder.mgmtStyle.02.title, jobBuilder.mgmtStyle.03.description, jobBuilder.mgmtStyle.03.title, jobBuilder.mgmtStyle.04.description, jobBuilder.mgmtStyle.04.title, jobBuilder.preview.city, jobBuilder.preview.classification, jobBuilder.preview.classificationEducation, jobBuilder.preview.education, jobBuilder.preview.flexibleHours, jobBuilder.preview.jobInformation, jobBuilder.preview.jobTitle, jobBuilder.preview.languageProfile, jobBuilder.preview.lengthOfTheTerm, jobBuilder.preview.level, jobBuilder.preview.overtime, jobBuilder.preview.province, jobBuilder.preview.remoteWork, jobBuilder.preview.securityClearance, jobBuilder.preview.telework, jobBuilder.preview.termLength, jobBuilder.preview.travel, jobBuilder.preview.workStyles, jobBuilder.progressTracker.label.finish, jobBuilder.progressTracker.label.start, jobBuilder.progressTracker.label.step1, jobBuilder.progressTracker.label.step2, jobBuilder.progressTracker.label.step3, jobBuilder.progressTracker.label.step4, jobBuilder.progressTracker.label.step5, jobBuilder.progressTracker.title.impact, jobBuilder.progressTracker.title.jobInfo, jobBuilder.progressTracker.title.review, jobBuilder.progressTracker.title.skills, jobBuilder.progressTracker.title.tasks, jobBuilder.progressTracker.title.welcome, jobBuilder.progressTracker.title.workEnv, jobBuilder.review.GovernmentClass, jobBuilder.review.assetHeading, jobBuilder.review.averageAnnualSalary, jobBuilder.review.basicInformationHeading, jobBuilder.review.button.return, jobBuilder.review.button.submit, jobBuilder.review.comesLater, jobBuilder.review.confirm.cancel, jobBuilder.review.confirm.submit, jobBuilder.review.confirm.title, jobBuilder.review.criteriaSection, jobBuilder.review.cultureSection, jobBuilder.review.documentTitle, jobBuilder.review.duration, jobBuilder.review.educationalHeading, jobBuilder.review.headsUp, jobBuilder.review.impactEditLink, jobBuilder.review.impactHeading, jobBuilder.review.infoEditLink, jobBuilder.review.jobPageHeading, jobBuilder.review.languageHeading, jobBuilder.review.languageProfile, jobBuilder.review.managerDataLoading, jobBuilder.review.managerHeading, jobBuilder.review.managerIncomplete, jobBuilder.review.managerPosition, jobBuilder.review.managerProfileLink, jobBuilder.review.meantime, jobBuilder.review.months, jobBuilder.review.nullProvince, jobBuilder.review.or, jobBuilder.review.otherInfoHeading, jobBuilder.review.readyToSubmit, jobBuilder.review.remoteAllowed, jobBuilder.review.remoteNotAllowed, jobBuilder.review.reviewYourPoster, jobBuilder.review.securityClearance, jobBuilder.review.sendYourDraft, jobBuilder.review.skills.nullState, jobBuilder.review.skillsEditLink, jobBuilder.review.skillsHeading, jobBuilder.review.tCAdds, jobBuilder.review.targetStartDate, jobBuilder.review.tasksEditLink, jobBuilder.review.tasksHeading, jobBuilder.review.whatHappens, jobBuilder.review.workCultureHeading, jobBuilder.review.workDescription, jobBuilder.review.workEnvEditLink, jobBuilder.review.workEnvHeading, jobBuilder.root.documentTitle, jobBuilder.skills.addSkillBelow, jobBuilder.skills.alt.happyArrow, jobBuilder.skills.alt.happyGraySmiley, jobBuilder.skills.alt.happySmiley, jobBuilder.skills.alt.neutralArrow, jobBuilder.skills.alt.neutralGraySmiley, jobBuilder.skills.alt.neutralSmiley, jobBuilder.skills.alt.unhappyArrow, jobBuilder.skills.alt.unhappyGraySmiley, jobBuilder.skills.alt.unhappySmiley, jobBuilder.skills.button.keyTasks, jobBuilder.skills.button.previewSkills, jobBuilder.skills.button.returnToTasks, jobBuilder.skills.description, jobBuilder.skills.description.keepItUp, jobBuilder.skills.documentTitle, jobBuilder.skills.emailLink, jobBuilder.skills.essentialSkillRequiredError, jobBuilder.skills.instructions.missingSkills, jobBuilder.skills.listTitle, jobBuilder.skills.nullState, jobBuilder.skills.nullText.occupationalSkills, jobBuilder.skills.placeholder.otherSkills, jobBuilder.skills.previewModalCancelLabel, jobBuilder.skills.previewModalConfirmLabel, jobBuilder.skills.previewModalMiddleLabel, jobBuilder.skills.range.culturalSkills, jobBuilder.skills.range.futureSkills, jobBuilder.skills.range.occupationalSkills, jobBuilder.skills.selectSkillLabel, jobBuilder.skills.selectSkillNull, jobBuilder.skills.skillLevel, jobBuilder.skills.statusSmiley.acceptable, jobBuilder.skills.statusSmiley.almost, jobBuilder.skills.statusSmiley.awesome, jobBuilder.skills.statusSmiley.essential.acceptable, jobBuilder.skills.statusSmiley.essential.almost, jobBuilder.skills.statusSmiley.essential.awesome, jobBuilder.skills.statusSmiley.essential.tooFew, jobBuilder.skills.statusSmiley.essential.tooMany, jobBuilder.skills.statusSmiley.essentialTitle, jobBuilder.skills.statusSmiley.title, jobBuilder.skills.statusSmiley.tooFew, jobBuilder.skills.statusSmiley.tooMany, jobBuilder.skills.tasksModalCancelLabel, jobBuilder.skills.title, jobBuilder.skills.title.addASkill, jobBuilder.skills.title.assetSkills, jobBuilder.skills.title.culturalSkills, jobBuilder.skills.title.editSkill, jobBuilder.skills.title.essentialSkills, jobBuilder.skills.title.futureSkills, jobBuilder.skills.title.keepItUp, jobBuilder.skills.title.keyTasks, jobBuilder.skills.title.missingSkill, jobBuilder.skills.title.needsToHave, jobBuilder.skills.title.niceToHave, jobBuilder.skills.title.occupationalSkills, jobBuilder.skills.title.otherSkills, jobBuilder.skills.title.skillSelection, jobBuilder.tasks.addJob, jobBuilder.tasks.documentTitle, jobBuilder.tasks.heading, jobBuilder.tasks.intro.first, jobBuilder.tasks.intro.fourth, jobBuilder.tasks.intro.second, jobBuilder.tasks.intro.third, jobBuilder.tasks.modal.body, jobBuilder.tasks.modal.body.heading, jobBuilder.tasks.modal.cancelButtonLabel, jobBuilder.tasks.modal.confirmButtonLabel, jobBuilder.tasks.modal.middleButtonLabel, jobBuilder.tasks.modal.title, jobBuilder.tasks.preview, jobBuilder.tasks.previous, jobBuilder.tasks.taskCount.error.body, jobBuilder.tasks.taskCount.error.title, jobBuilder.tasks.taskCount.none, jobBuilder.tasks.taskCount.some, jobBuilder.tasks.taskLabel, jobBuilder.tasks.taskPlaceholder, jobBuilder.tasks.tasksMaximum, jobBuilder.tasks.tasksRequired, jobBuilder.workCulture.flexibleHours, jobBuilder.workCulture.flexibleHoursDescription, jobBuilder.workCulture.overtime, jobBuilder.workCulture.overtimeDescription, jobBuilder.workCulture.remoteWork, jobBuilder.workCulture.remoteWorkDescription, jobBuilder.workCulture.remoteWorkMsg.always, jobBuilder.workCulture.remoteWorkMsg.never, jobBuilder.workCulture.telework, jobBuilder.workCulture.teleworkDescription, jobBuilder.workCulture.travel, jobBuilder.workCulture.travelDescription, jobBuilder.workEnv.amenities.cafeteria, jobBuilder.workEnv.amenities.closeToTransit, jobBuilder.workEnv.amenities.downtown, jobBuilder.workEnv.amenities.fitnessCenter, jobBuilder.workEnv.amenities.parking, jobBuilder.workEnv.amenities.restaurants, jobBuilder.workEnv.amenitiesLabel, jobBuilder.workEnv.collaborativeLabel, jobBuilder.workEnv.culture, jobBuilder.workEnv.cultureSubtext1, jobBuilder.workEnv.cultureSubtext2, jobBuilder.workEnv.cultureSummary, jobBuilder.workEnv.cultureSummarySubtext, jobBuilder.workEnv.customCultureSummaryLabel, jobBuilder.workEnv.customCultureSummaryPlaceholder, jobBuilder.workEnv.documentTitle, jobBuilder.workEnv.experimentalLabel, jobBuilder.workEnv.facingLabel, jobBuilder.workEnv.fastPacedSteadyLabel, jobBuilder.workEnv.greatStart, jobBuilder.workEnv.managementLabel, jobBuilder.workEnv.moreOnWorkEnv, jobBuilder.workEnv.moreOnWorkEnvLabel, jobBuilder.workEnv.moreOnWorkEnvPlaceholder, jobBuilder.workEnv.moreOnWorkEnvSubtext, jobBuilder.workEnv.openingSentence, jobBuilder.workEnv.ourWorkEnv, jobBuilder.workEnv.ourWorkEnvDesc, jobBuilder.workEnv.physEnv.assignedSeating, jobBuilder.workEnv.physEnv.naturalLight, jobBuilder.workEnv.physEnv.openConcept, jobBuilder.workEnv.physEnv.private, jobBuilder.workEnv.physEnv.smudging, jobBuilder.workEnv.physEnv.windows, jobBuilder.workEnv.physicalEnvLabel, jobBuilder.workEnv.saveAndReturnButtonLabel, jobBuilder.workEnv.specialWorkCulture, jobBuilder.workEnv.specialWorkCultureLabel, jobBuilder.workEnv.specialWorkCultureSubtext, jobBuilder.workEnv.stepDescription, jobBuilder.workEnv.submitButtonLabel, jobBuilder.workEnv.teamSizeLabel, jobBuilder.workEnv.teamSizePlaceholder, jobBuilder.workEnv.technology.accessToExternal, jobBuilder.workEnv.technology.collaboration, jobBuilder.workEnv.technology.fileSharing, jobBuilder.workEnv.technology.taskManagement, jobBuilder.workEnv.technology.versionControl, jobBuilder.workEnv.technology.videoConferencing, jobBuilder.workEnv.technologyLabel, jobBuilder.workEnv.textAreaPlaceholder1, jobBuilder.workEnv.thisIsOptional, jobBuilder.workEnv.title, jobBuilder.workEnvModal.cancelLabel, jobBuilder.workEnvModal.confirmLabel, jobBuilder.workEnvModal.modalMiddleLabel, jobBuilder.workEnvModal.title, jobBuilder.workEnvModal.workCultureTitle, jobCard.applicants, jobCard.managerTime, jobCard.noActivity, jobCard.userTime, jobReviewHr.headsUp, jobReviewHr.loadingIconText, jobReviewHr.reviewYourPoster, jobReviewHr.summaryLink, languageRequirement.bilingualAdvanced, languageRequirement.bilingualIntermediate, languageRequirement.context.basic, languageRequirement.context.expanded, languageRequirement.description.bilingualAdvanced, languageRequirement.description.bilingualIntermediate, languageRequirement.description.english, languageRequirement.description.englishOrFrench, languageRequirement.description.french, languageRequirement.english, languageRequirement.englishOrFrench, languageRequirement.french, managerSurveyModal.explanation, managerSurveyModal.jobPosterLink, managerSurveyModal.jobPosterLinkTitle, managerSurveyModal.link, managerSurveyModal.managerSurveyLinkTitle, managerSurveyModal.title, openJobCard.claimJob, openJobCard.error, openJobCard.hiringManager, openJobCard.hrAdvisors, openJobCard.reviewRequested, openJobCard.unclaimed, progressTracker.unreachableStep, province.ab, province.ab.abreviation, province.bc, province.bc.abreviation, province.mb, province.mb.abreviation, province.nb, province.nb.abreviation, province.nl, province.nl.abreviation, province.ns, province.ns.abreviation, province.nt, province.nt.abreviation, province.nu, province.nu.abreviation, province.on, province.on.abreviation, province.pe, province.pe.abreviation, province.qc, province.qc.abreviation, province.sk, province.sk.abreviation, province.yk, province.yk.abreviation, ratingGuideAnswer.answerLabel, ratingGuideAnswer.answerPlaceholder, ratingGuideAnswer.nullSelection, ratingGuideAnswer.selectLabel, ratingGuideBuilder.addQuestion, ratingGuideBuilder.assetMissing, ratingGuideBuilder.copyButton, ratingGuideBuilder.copyInstructions, ratingGuideBuilder.criteriaName, ratingGuideBuilder.criteriaTypeHeading, ratingGuideBuilder.essentialMissing, ratingGuideBuilder.instructions, ratingGuideBuilder.narrativeSectionTitle, ratingGuideBuilder.questionHeading, ratingGuideBuilder.ratingGuideHeading, ratingGuideBuilder.sectionTitle, ratingGuideBuilder.skillDescriptionHeading, ratingGuideBuilder.skillHeading, ratingGuideBuilder.targetLevelHeading, ratingGuideBuilder.title, ratingGuideBuilder.titleHeading, ratingGuideQuestion.questionLabel, ratingGuideQuestion.questionPlaceholder, review.applications.alert.oops, review.applications.button.confirm, review.applications.indexPageTitle, review.applications.nonCitizens.description, review.applications.nonCitizens.title, review.applications.optionalConsideration.description, review.applications.optionalConsideration.title, review.applications.priorityApplicants.description, review.applications.priorityApplicants.title, review.applications.reviewSaveFailed, review.applications.screenOutAll, review.applications.screenOutAll.confirm, review.applications.screenedOut.description, review.applications.screenedOut.title, review.applications.underConsideration.description, review.applications.underConsideration.title, review.applications.unqualified.description, review.applications.unqualified.title, review.applications.veteransAndCitizens.description, review.applications.veteransAndCitizens.title, reviewLocations.jpb.basicInfo, reviewLocations.jpb.environment, reviewLocations.jpb.generic, reviewLocations.jpb.heading, reviewLocations.jpb.impact, reviewLocations.jpb.langRequirements, reviewLocations.jpb.skills, reviewLocations.jpb.tasks, securityClearance.reliability, securityClearance.secret, securityClearance.topSecret, skillLevel.asset.description, skillLevel.asset.name, skillLevel.hard.advanced.description, skillLevel.hard.advanced.name, skillLevel.hard.basic.description, skillLevel.hard.basic.name, skillLevel.hard.expert.description, skillLevel.hard.expert.name, skillLevel.hard.intermediate.description, skillLevel.hard.intermediate.name, skillLevel.soft.advanced.description, skillLevel.soft.advanced.name, skillLevel.soft.basic.description, skillLevel.soft.basic.name, skillLevel.soft.expert.description, skillLevel.soft.expert.name, skillLevel.soft.intermediate.description, skillLevel.soft.intermediate.name, wordCounter.skills.longMessage, wordCounter.skills.placeholder, wordCounter.skills.shortMessage, wordCounter.skills.slightlyLongMessage, wordCounter.skills.veryLongMessage, wordCounter.skills.veryShortMessage, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"activity.commentLocation.label\":\"Commentaire trouvé\",\"activity.commentMetadata\":\"{name} ({userRole}) a commenté à {time}.\",\"activity.viewComment.label\":\"Visualiser le commentaire\",\"activityfeed.accordionAccessibleLabel\":\"Cliquez pour voir...\",\"activityfeed.error\":\"Une erreur s'est produite\",\"activityfeed.header\":\"Cliquez pour voir les commentaires {totalActivities}\",\"activityfeed.loading\":\"Chargement de vos activités...\",\"activityfeed.loadingIconText\":\"Nombre d'activités est en cours de chargement...\",\"activityfeed.locations.applicantReview.general\":\"Général\",\"activityfeed.locations.applicantReview.notUnderConsideration\":\"Candidats qui ne sont plus considérés\",\"activityfeed.locations.applicantReview.optionalConsideration\":\"Candidats supplémentaires\",\"activityfeed.locations.applicantReview.underConsideration\":\"Candidats à considérée\",\"activityfeed.locations.applications\":\"Page des Réviser les candidats\",\"activityfeed.locations.hr.preview\":\"RH Page d'aperçu\",\"activityfeed.locations.hr.summary\":\"RH Résumé de l'emploi\",\"activityfeed.locations.notFound\":\"lieu non trouvé\",\"activityfeed.locations.review\":\"Constructeur d'Affiches\",\"activityfeed.locations.review.basicInfo\":\"Renseignements de base\",\"activityfeed.locations.review.environment\":\"Environnement de travail\",\"activityfeed.locations.review.general\":\"Général\",\"activityfeed.locations.review.heading\":\"Titre de la page de l’emploi\",\"activityfeed.locations.review.impact\":\"Incidence\",\"activityfeed.locations.review.langRequirements\":\"Exigences linguistiques\",\"activityfeed.locations.review.skills\":\"Compétences\",\"activityfeed.locations.review.tasks\":\"Taches\",\"activityfeed.locations.screeningPlan\":\"plan d’évaluation\",\"activityfeed.locations.screeningPlan.builder\":\"Concepteur de plans d’évaluation\",\"activityfeed.locations.screeningPlan.general\":\"Général\",\"activityfeed.locations.screeningPlan.ratings\":\"Concepteur de guides de cotation\",\"activityfeed.locations.screeningPlan.summary\":\"Sommaire du plan d’évaluation\",\"activityfeed.noActivities\":\"Aucune activité.\",\"activityfeed.review.accordionAccessibleLabel\":\"Cliquer pour afficher...\",\"activityfeed.review.header\":\"Cliquez pour voir les commentaires {totalActivities}\",\"activityfeed.review.loadingIconText\":\"Les données sont en cours de chargement...\",\"activityfeed.title\":\"Activités\",\"application.review.addNote\":\"+ Ajouter une note\",\"application.review.alert.oops\":\"Oups...\",\"application.review.backToApplicantList\":\"< Sauvegarder et revenir à la liste des candidats\",\"application.review.button.cancel\":\"Annuler\",\"application.review.button.confirm\":\"Confirmer\",\"application.review.button.save\":\"Enregistrer\",\"application.review.button.saved\":\"Enregistrée\",\"application.review.button.saving\":\"Enregistre...\",\"application.review.button.viewJobPoster\":\"Voir l'affiche d'emploi\",\"application.review.collapseAllSkills\":\"Réduire les compétences\",\"application.review.decision\":\"Décision\",\"application.review.editNote\":\"Modifier la note\",\"application.review.emailCandidateLinkTitle\":\"Envoyer un courriel à ce candidat.\",\"application.review.expandAllSkills\":\"Élargir les compétences\",\"application.review.priorityStatus.priority\":\"Priorité\",\"application.review.priorityStatus.priorityLogoTitle\":\"Icône pour candidat prioritaire\",\"application.review.reviewSaveFailed\":\"Une erreur s'est produite lors de l'enregistrement d'un commentaire. Réessayez plus tard.\",\"application.review.reviewStatus.notReviewed\":\"Non révisé\",\"application.review.reviewStatus.screenedOut\":\"Éliminé\",\"application.review.reviewStatus.stillIn\":\"Encore considérée\",\"application.review.reviewStatus.stillThinking\":\"Incertain\",\"application.review.screenInConfirm\":\"Remettre le candidat dans la section à l'étude?\",\"application.review.screenOutConfirm\":\"Éliminer le candidat?\",\"application.review.veteranStatus.veteran\":\"Anciens combattants\",\"application.review.veteranStatus.veteranLogoAlt\":\"icône pour anciens combattants\",\"application.review.viewApplication\":\"Voir l'application\",\"application.review.viewApplicationLinkTitle\":\"Voir l'application de ce candidat.\",\"application.review.viewProfile\":\"Voir le profil\",\"application.review.viewProfileLinkTitle\":\"Voir le profil de ce candidat.\",\"assessmentPlan.addAssessmentButton\":\"Ajouter une évaluation\",\"assessmentPlan.alert.checking\":\"Vérifier si le poste a changé récemment...\",\"assessmentPlan.alert.created\":\"{skills} {count, plural, one {compétence a été ajoutée} other {compétences ont été ajoutées}}.\",\"assessmentPlan.alert.deleted\":\"{skills} {count, plural, one {compétence a été supprimée} other {compétences ont été supprimées}}.\",\"assessmentPlan.alert.explanation\":\"Certaines parties du plan de présélection ont été modifiées pour qu’elles concordent les unes avec les autres.\",\"assessmentPlan.alert.skillAndLevelUpdated\":\"Le champ « {oldSkill} » a été remplacé par « {newSkill} » et a fait l’objet d’une mise à jour.\",\"assessmentPlan.alert.skillLevelUpdated\":\"{skills} {count, plural, one {compétence a été mise à jour} other {compétences ont été mises à jour}}.\",\"assessmentPlan.alert.skillUpdated\":\"Le champ {oldSkill} a été remplacé par {newSkill}.\",\"assessmentPlan.alert.title\":\"Ce poste a récemment changé!\",\"assessmentPlan.assessmentPlanBuilder.instructions\":\"La première étape consiste à choisir des évaluations qui vous permettront d’évaluer les critères que vous avez sélectionnés pour votre offre d’emploi. Vous trouverez ci-dessous vos critères essentiels, suivis de vos critères constituant un atout, le cas échéant. Le concepteur sera enregistré au fur et à mesure, donc lorsque vous aurez terminé, n’hésitez pas à passer à l’étape 2 pour examiner votre travail.\",\"assessmentPlan.assessmentPlanBuilder.shortDescription\":\"(Sélectionnez vos évaluations)\",\"assessmentPlan.assessmentPlanBuilder.title\":\"Concepteur de plans d’évaluation\",\"assessmentPlan.assessmentPlanSummary.shortDescription\":\"(Passez votre plan en revue)\",\"assessmentPlan.assessmentPlanSummary.title\":\"Sommaire du plan d’évaluation\",\"assessmentPlan.assessmentTypesLabel\":\"Types d’évaluation\",\"assessmentPlan.assetCriteria.nullState\":\"Vous n’avez pas choisi de compétences constituant un atout pour cette offre d’emploi.\",\"assessmentPlan.criteriaTitle\":\"{skillName} - {skillLevel}\",\"assessmentPlan.essentialCriteria.nullState\":\"Vous n’avez pas choisi de compétences essentielles pour cette offre d’emploi.\",\"assessmentPlan.instructions.intro\":\"Cet outil vous permet d’élaborer un plan d’évaluation et un guide de cotation pour votre offre d’emploi. L’outil est utilisé en trois étapes :\",\"assessmentPlan.instructions.narrativeNote\":\"Veuillez prendre note que tous les plans d’évaluation comprendront un examen des éléments de preuve fournis par le candidat.\",\"assessmentPlan.pageTitle\":\"Élaborer un plan d’évaluation pour : {jobTitle}\",\"assessmentPlan.ratingGuideBuilder.shortDescription\":\"(Personnalisez vos évaluations)\",\"assessmentPlan.ratingGuideBuilder.title\":\"Concepteur de guides de cotation\",\"assessmentPlan.selectAssessment.label\":\"Sélectionner une évaluation\",\"assessmentPlan.selectAssessment.null\":\"Sélectionner une évaluation\",\"assessmentPlan.skillDescriptionLabel\":\"Description\",\"assessmentPlan.skillLevelDescriptionLabel\":\"Niveau de compétence sélectionné\",\"assessmentPlan.summary.assessmentSummary.noAssessments\":\"Vous n’avez pas sélectionné d’évaluations pour cette offre d’emploi. Ajoutez-les ci-dessus.\",\"assessmentPlan.summary.assessmentSummary.title\":\"Sommaire de l’évaluation\",\"assessmentPlan.summary.assessmentSummary.toolSkillCount\":\"Votre plan utilise {toolCount, plural, =0 {aucun outil} one {# outill} other {# outils}} pour évaluer {skillCount, plural, =0 {compétences} one {# compétence} other {# compétences}}.\",\"assessmentPlan.summary.description\":\"Ceci est un résumé du travail que vous avez effectué ci-dessus. Vous trouverez\\n      chaque évaluation accompagnée d'une liste consolidée des compétences essentielles\\n      et des atouts qui s'y rattachent.\",\"assessmentPlan.summary.skillCount\":\"Évaluer {count, plural, one {# compétence} other {# compétences}}.\",\"assessmentPlan.summary.skillsNullState\":\"Aucune compétence n’est évaluée par cet outil.\",\"assessmentPlan.summary.title\":\"2. Sommaire du plan d’évaluation\",\"assessmentPlan.title\":\"Concepteur de plans d’évaluation\",\"assessmentType.applicationScreeningQuestion\":\"Questions de présélection dans le cadre du processus d’embauche\",\"assessmentType.applicationScreeningQuestion.description\":\"Ces questions paraissent dans le formulaire de demande, et sont présentées dans le Nuage de talents. Elles donnent un premier aperçu de la compréhension, du processus, des connaissances ou de l’adaptation culturelle du candidat pour le poste.\",\"assessmentType.groupTest\":\"Test de groupe\",\"assessmentType.groupTest.description\":\"Les candidats effectuent ce test en temps réel conjointement avec d’autres candidats, des membres de l’équipe ou des animateurs afin de déterminer leurs compétences exceptionnelles, leur habileté à communiquer au sein d’une équipe.\",\"assessmentType.informalPhoneConversation\":\"Conversation téléphonique informelle\",\"assessmentType.informalPhoneConversation.description\":\"Une conversation informelle entre un membre du comité d’embauche et un(e) candidat(e), visant à découvrir les connaissances, les aptitudes ou les traits de personnalité du candidat; les conversations peuvent varier d’un candidat à l’autre.\",\"assessmentType.interview\":\"Entrevue\",\"assessmentType.interview.description\":\"Examen formel de questions-réponses effectué en temps réel entre le comité de sélection et le (la) candidat(e). Les questions ont pour but d'évaluer l'expertise, le niveau et l'approche des compétences. Chaque question est élaborée à l’avance et suit la même structure entre tous les candidats interrogés.\",\"assessmentType.narrativeAssessment\":\"Examen narratif\",\"assessmentType.narrativeAssessment.description\":\"Il s’agit d’une description demandée au cours du processus de demande, dans laquelle les candidats s’identifient et décrivent leur expérience et leur niveau de compétence.\",\"assessmentType.narrativeReview.standardAnswer\":\"La description fournie contient suffisamment d’éléments de preuve pour faire passer ce candidat aux étapes de présélection suivantes.\",\"assessmentType.narrativeReview.standardQuestion\":\"L’examen descriptif des compétences comprend toutes les descriptions ajoutées par le candidat dans sa demande.\",\"assessmentType.onSiteExam\":\"Épreuve sur place\",\"assessmentType.onSiteExam.description\":\"Épreuve préparée qui exige que le candidat effectue à un endroit précis et sous supervision un test visant à évaluer ses compétences et sa technique.\",\"assessmentType.onlineExam\":\"Épreuve en ligne\",\"assessmentType.onlineExam.description\":\"Épreuve préparée qui n’exige pas de supervision, qui peut être effectuée de n’importe quel endroit au moyen d’un accès à Internet, et qui doit être achevée dans un intervalle de temps défini.\",\"assessmentType.portfolioReview\":\"Examen du portefeuille\",\"assessmentType.portfolioReview.description\":\"Au cours du processus de demande, les candidats donnent accès à des échantillons de leur travail pour démontrer leur niveau de compétence et étayer leurs prétentions à cet égard.\",\"assessmentType.referenceCheck\":\"Vérification des références\",\"assessmentType.referenceCheck.description\":\"Au cours du processus de demande, les candidats fournissent les coordonnées d’une connaissance qui peut valider et confirmer leurs compétences, leurs connaissances ou leurs aptitudes.\",\"assessmentType.seriousGames\":\"Jeux sérieux\",\"assessmentType.seriousGames.description\":\"Test comprenant l’utilisation de jeux pour explorer les aptitudes en communication, la résilience et l’intelligence émotionnelle d’un(e) candidat(e), entre autres compétences générales.\",\"assessmentType.takeHomeExam\":\"Épreuve à la maison\",\"assessmentType.takeHomeExam.description\":\"Les candidats reçoivent une trousse matérielle contenant les outils d’évaluation; ils effectuent l’évaluation à un moment qui leur convient le mieux, et à un endroit de leur choix, sans supervision, et ils doivent retourner les documents avant une date limite précise.\",\"button.copied\":\"Copié!\",\"button.copyEmails\":\"Copier des emails\",\"button.copyToClipboard\":\"Copier sur le presse-papier\",\"button.toggleAccordion\":\"Basculer pour voir les candidats concernés.\",\"commentForm.comment.label\":\"Ajouter un commentaire\",\"commentForm.comment.placeholder\":\"À titre d’exemple, entrez votre question, votre recommandation, etc.\",\"commentForm.commentLocation.label\":\"Emplacement du commentaire\",\"commentForm.commentLocation.nullSelection\":\"Sélectionnez un emplacement...\",\"commentForm.commentType.label\":\"Type de commentaire\",\"commentForm.commentType.nullSelection\":\"Sélectionner un type de commentaire\",\"commentForm.submitButton.label\":\"Soumettre un commentaire\",\"commentType.comment\":\"Commentaire\",\"commentType.question\":\"Question\",\"commentType.recommendation\":\"Recommandation\",\"commentType.requiredAction\":\"Mesure requise\",\"criteria.asset\":\"Compétences constituant un atout\",\"criteria.essential\":\"Compétences essentielles\",\"criteriaForm.skillLevelSelectionLabel\":\"Choisir un niveau de compétence\",\"criteriaForm.skillSpecificityLabel\":\"Détails supplémentaires pour cette compétence\",\"criteriaForm.skillSpecificityPlaceholder\":\"Ajoutez du contexte ou des détails à la définition de cette compétence qui n'apparaîtront que sur votre affiche d'emploi. Ceci sera examiné par votre conseiller en ressources humaines.\",\"criteriaType.asset\":\"Atout\",\"criteriaType.essential\":\"Essentiel\",\"demoSubmitJobModal.cancel\":\"Retourner\",\"demoSubmitJobModal.explanation\":\"Seuls les ministères partenaires de Nuage des talents ont accès à l'examen et à la publication des avis d'emploi.\",\"demoSubmitJobModal.link\":\"<a>Savoir si vous pouvez accéder à ces fonctions</a>.\",\"demoSubmitJobModal.link.title\":\"Découvrez comment accéder aux fonctions d'examen et de publication des avis d'emploi.\",\"demoSubmitJobModal.title\":\"Il semble que vous utilisez un compte de démonstration.\",\"errorToast.title\":\"Quelque chose a mal tourné!\",\"formInput.error\":\"Cette entrée a une erreur.\",\"formInput.required\":\"Champs obligatoires\",\"formValidation.checkboxRequired\":\"Il faut cocher au moins une case.\",\"formValidation.invalidSelection\":\"Veuillez choisir parmi les options disponibles.\",\"formValidation.required\":\"Ce champ est requis.\",\"formValidation.tooLong\":\"Trop longue?\",\"formValidation.tooShort\":\"Trop courte?\",\"hrJobIndex.departmentPlaceholder\":\" [Chargement du ministère]\",\"hrJobIndex.jobTitleMissing\":\"Titre manquant \",\"hrJobIndex.managerLoading\":\"Chargement...\",\"hrJobIndex.preview\":\"Prévisualiser l’avis d’emploi \",\"hrJobIndex.reviewDraft\":\"Réviser l’ébauche \",\"hrJobIndex.viewActivity\":\"Afficher l’activité \",\"hrJobIndex.viewScreeningPlan\":\"Afficher le plan d’évaluation \",\"hrJobIndex.viewSummary\":\"Afficher le résumé \",\"hrPortal.jobPageIndex.clickToView\":\"Cliquer pour afficher...\",\"hrPortal.jobPageIndex.completedJobsHeader\":\" Mes mesures d’emploi achevées \",\"hrPortal.jobPageIndex.hideAccordion\":\" Masquer \",\"hrPortal.jobPageIndex.jobActionsEmpty\":\"Réclamer un emploi ci-dessous!\",\"hrPortal.jobPageIndex.jobActionsHeader\":\"Mes mesures d’emploi achevée\",\"hrPortal.jobPageIndex.jobActionsMessage\":\"Voici une liste de toutes les mesures d’emploi auxquelles vous participez actuellement. Vous cherchez une ancienne offre d’emploi? Cochez la section « Mes mesures d’emploi achevées » sous vos offres d’emploi actives.\",\"hrPortal.jobPageIndex.noJobsCompleted\":\"Aucune offre d’emploi achevée à l’heure actuelle!\",\"hrPortal.jobPageIndex.preDepartmentName\":\"Toutes les offres d’emploi dans\",\"hrPortal.jobPageIndex.showAccordion\":\"Afficher \",\"hrPortal.jobPageIndex.unclaimedJobsEmpty\":\"Il n’y a actuellement aucune offre d’emploi active disponible.\",\"hrPortal.jobPageIndex.unclaimedJobsMessage\":\"Voici la liste de toutes les mesures actives dans votre ministère. À partir de ce point, vous pouvez « réclamer » un emploi qui sera transféré dans votre liste d’emploi ci-dessus, ce qui vous permettra de commencer à collaborer avec le gestionnaire d’embauche pour trouver le meilleur talent possible. Si vous réclamez un emploi par erreur, ne craignez rien, car vous pouvez cliquer sur le résumé de l’emploi et retirer votre nom au moyen du bouton « Renoncer à cet emploi ».\",\"job.daysSinceClosed\":\"{dayCount, plural, =0 {Aucun jour} one {# jour} other {# jours}} depuis la fermeture\",\"jobBuilder.collaborativeness.01.description\":\"Les membres de notre équipe proviennent de divers milieux, et ont des points de vue et des compétences variés. Nous nous appuyons sur nos points forts. Collectivement, nous nous approprions les objectifs de l’équipe et nous sommes constamment à la recherche de façons de s’entraider.\",\"jobBuilder.collaborativeness.01.title\":\"Collaboratif\",\"jobBuilder.collaborativeness.02.description\":\"Notre équipe possède un ensemble de compétences diversifiées et nous reconnaissons les forces de chacun. Nous travaillons ensemble souvent et nous intervenons rapidement quand une personne demande de l’aide.\",\"jobBuilder.collaborativeness.02.title\":\"Assez collaboratif\",\"jobBuilder.collaborativeness.03.description\":\"Chaque membre de notre équipe possède une pièce du casse-tête et jouit de la liberté de choisir sa propre façon de travailler.\",\"jobBuilder.collaborativeness.03.title\":\"Assez indépendant \",\"jobBuilder.collaborativeness.04.description\":\"Chaque membre de notre équipe prend en charge sa pièce du casse-tête. La façon dont nous accomplissons notre travail importe peu, tant qu’il est de qualité supérieure.\",\"jobBuilder.collaborativeness.04.title\":\"Indépendant\",\"jobBuilder.criteriaForm.addSpecificity\":\"Je voudrais ajouter des détails à cette définition qui sont spécifiques à ce poste.\",\"jobBuilder.criteriaForm.button.add\":\"Ajouter une compétence\",\"jobBuilder.criteriaForm.button.cancel\":\"Annuler\",\"jobBuilder.criteriaForm.chooseSkillLevel\":\"Choisir un niveau de compétence\",\"jobBuilder.criteriaForm.or\":\"ou\",\"jobBuilder.criteriaForm.removeSpecificity\":\"Supprimer la particularité supplémentaire.\",\"jobBuilder.criteriaForm.skillDefinition\":\"Définition de la compétence\",\"jobBuilder.criterion.requiredSkill\":\"Compétence requise :\",\"jobBuilder.culturePace.01.description\":\"Nos échéances sont serrées, nous traitons plusieurs tâches en même temps et nos priorités changent constamment. Notre travail devrait être effectué en portant des chaussures de courses!\",\"jobBuilder.culturePace.01.title\":\"Un rythme très rapide\",\"jobBuilder.culturePace.02.description\":\"Nos échéances sont habituellement rapprochées, nous traitons plusieurs tâches en même temps et nos priorités changent régulièrement. Notre travail nous force à rester sur le qui-vive!\",\"jobBuilder.culturePace.02.title\":\"Rythme rapide\",\"jobBuilder.culturePace.03.description\":\"Nos échéances sont régulières et prévisibles, nous traitons quelques tâches à la fois et nos priorités changent de temps à autre. Nous maintenons un certain équilibre.\",\"jobBuilder.culturePace.03.title\":\"Soutenu\",\"jobBuilder.culturePace.04.description\":\"Notre travail est continu, donc il n’y a pas beaucoup d’échéances. Habituellement, nous ne sommes pas obligés d’équilibrer la répartition des tâches et nos priorités changent rarement. Nous nous sentons bien dans la routine.\",\"jobBuilder.culturePace.04.title\":\"Très soutenu\",\"jobBuilder.details.SelectClassAndLvlMessage\":\"Veuillez choisir une classification et un niveau avant de préparer\\r\\n                          les exigences en matière d’éducation.\",\"jobBuilder.details.cityLabel\":\"Dans quelle ville l'équipe est-elle située?\",\"jobBuilder.details.cityPlaceholder\":\"P. ex. Ottawa\",\"jobBuilder.details.classificationLabel\":\"Quelle est la classification?\",\"jobBuilder.details.classificationNullSelection\":\"Veuillez sélectionner la classification...\",\"jobBuilder.details.classificationOptions.AD\":\"AD - Services administratifs\",\"jobBuilder.details.classificationOptions.AS\":\"AS – Services administratifs\",\"jobBuilder.details.classificationOptions.BI\":\"BI – Sciences biologiques\",\"jobBuilder.details.classificationOptions.CO\":\"CO - Commerce\",\"jobBuilder.details.classificationOptions.CR\":\"CR - Commis aux écritures et aux règlements\",\"jobBuilder.details.classificationOptions.CS\":\"CS – Systèmes d’ordinateurs\",\"jobBuilder.details.classificationOptions.EC\":\"EC - Économique et services de sciences sociales\",\"jobBuilder.details.classificationOptions.EX\":\"EX - Direction\",\"jobBuilder.details.classificationOptions.FO\":\"FO - Sciences forestières\",\"jobBuilder.details.classificationOptions.IS\":\"IS – Services d’information\",\"jobBuilder.details.classificationOptions.PC\":\"PC – Sciences physiques\",\"jobBuilder.details.classificationOptions.PE\":\"PE – Gestion du personnel\",\"jobBuilder.details.classificationOptions.PM\":\"PM – Administration des programmes\",\"jobBuilder.details.documentTitle\":\"Constructeur d'affiches: Renseignements\",\"jobBuilder.details.educationMessages.AD\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires;\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’elle soit prise en considération. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.AS\":\"Diplôme d’études secondaires ou équivalent :\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.BI\":\"Diplôme d’études postsecondaires:\\nDiplôme d’études postsecondaires en sciences naturelles, physiques ou appliquées, avec spécialisation dans un domaine lié aux fonctions du poste.\",\"jobBuilder.details.educationMessages.CO\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.CR\":\"Deux années d’études secondaires ou l’équivalent:\\nAu moins deux années d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative aux deux années d’études secondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.CS\":\"Deux (2) ans d’études postsecondaires ou l’équivalent:\\nDeux années d’études postsecondaires en informatique, en technologie de l’information, en gestion de l’information ou dans une autre spécialité pertinente à ce poste.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente aux deux années d’études postsecondaires requises, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.EC\":\"Diplôme d’études postsecondaires:\\nun diplôme d’un établissement d’enseignement postsecondaire reconnu avec spécialisation acceptable en économique, en sociologie ou en statistique.\\n\\nLes candidats doivent toujours détenir un diplôme. Les cours de spécialisation doivent être acceptables et avoir été suivis auprès d’un établissement d’enseignement postsecondaire reconnu, mais pas nécessairement dans le cadre d’un programme de diplôme dans la spécialisation requise. La spécialisation peut également être obtenue grâce à un agencement acceptable d’études, de formation et (ou) d’expérience.\",\"jobBuilder.details.educationMessages.EX\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires, ou admissibilité à un titre professionnel reconnu dans une province ou un territoire du Canada.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.FO\":\"Diplôme d’études postsecondaires:\\nUn diplôme en foresterie ou en produits du bois d’un établissement d’enseignement postsecondaire reconnu.\\n\\nou\\n\\nUn diplôme dans une science connexe d’un établissement d’enseignement postsecondaire reconnu agencé à une expérience acceptable.\",\"jobBuilder.details.educationMessages.IS\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.PC\":\"Diplôme d’études postsecondaires:\\nDiplôme d’études postsecondaires, avec spécialisation en physique, en géologie, en chimie ou dans une autre science liée aux fonctions du poste.\",\"jobBuilder.details.educationMessages.PE\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires, avec spécialisation en gestion des ressources humaines, en relations de travail ou en relations industrielles, en psychologie, en administration publique ou en administration des affaires, en développement organisationnel, en sciences de l’éducation, en sciences sociales, en sociologie ou dans un autre domaine lié aux fonctions du poste.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.PM\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationRequirementCopyAndPaste\":\"Si vous voulez personnaliser ce paragraphe, veuillez le copier-coller dans la zone de texte ci-dessous pour le modifier. \",\"jobBuilder.details.educationRequirementHeader\":\"En fonction du niveau de classification sélectionné, le paragraphe générique suivant apparaîtra sur l’offre d’emploi. \",\"jobBuilder.details.educationRequirementPlaceholder\":\"Collez le paragraphe ici pour le modifier...\",\"jobBuilder.details.educationRequirementReviewChanges\":\"Votre conseiller en RH examinera vos changements.\",\"jobBuilder.details.educationRequirementsLabel\":\"Personnaliser les exigences en matière d’études :\",\"jobBuilder.details.flexHoursGroupBody\":\"Vous voulez appuyer un milieu de travail plus inclusif sur le plan de l’égalité des sexes? Des études montrent que l’horaire flexible est un excellent moyen d’améliorer les possibilités des femmes et des parents.\",\"jobBuilder.details.flexHoursGroupHeader\":\"À quelle fréquence les heures flexibles sont-elles permises?\",\"jobBuilder.details.flexHoursGroupLabel\":\"Choisissez les horaires souples :\",\"jobBuilder.details.frequencyAlwaysLabel\":\"Presque toujours\",\"jobBuilder.details.frequencyFrequentlyLabel\":\"Habituellement\",\"jobBuilder.details.frequencyNeverLabel\":\"Jamais\",\"jobBuilder.details.frequencyOccasionallyLabel\":\"Rarement\",\"jobBuilder.details.frequencySometimesLabel\":\"Parfois\",\"jobBuilder.details.heading\":\"Détails sur l’emploi\",\"jobBuilder.details.languageLabel\":\"Quel est le profil linguistique?\",\"jobBuilder.details.languageNullSelection\":\"Veuillez sélectionner le profil linguistique...\",\"jobBuilder.details.levelLabel\":\"Quel est le niveau?\",\"jobBuilder.details.levelNullSelection\":\" Veuillez sélectionner le niveau...\",\"jobBuilder.details.modalBody\":\"Voici un aperçu des informations sur le travail que vous venez de saisir. N'hésitez pas à revenir en arrière et à modifier des éléments ou à passer à l'étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.details.modalCancelLabel\":\"Retourner\",\"jobBuilder.details.modalConfirmLabel\":\"Étape suivante\",\"jobBuilder.details.modalHeader\":\"Vous partez du bon pied!\",\"jobBuilder.details.modalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.details.overtimeFrequentlyLabel\":\"Oui, il est souvent nécessaire de travailler des heures supplémentaires dans le cadre de ce poste.\",\"jobBuilder.details.overtimeGroupHeader\":\"Le temps supplémentaire est-il requis?\",\"jobBuilder.details.overtimeGroupLabel\":\"Sélectionner l’exigence en matière de temps supplémentaire\",\"jobBuilder.details.overtimeNoneRequiredLabel\":\"Non, le temps supplémentaire n’est pas nécessaire pour ce poste.\",\"jobBuilder.details.overtimeOpportunitiesAvailableLabel\":\"Oui, il est possible que des heures supplémentaires soient offertes aux personnes intéressées.\",\"jobBuilder.details.provinceLabel\":\"Dans quelle province l'équipe est-elle située?\",\"jobBuilder.details.provinceNullSelection\":\"Veuillez sélectionner la province...\",\"jobBuilder.details.remoteWorkCanadaLabel\":\"Oui, je suis prêt(e) à superviser des employés dans n'importe quelle province ou territoire au Canada.\",\"jobBuilder.details.remoteWorkGroupBody\":\"Vous voulez les meilleurs talents au Canada? Vous augmentez vos chances lorsque vous permettez à ceux qui se trouvent dans d’autres régions du Canada de présenter une demande. La diversité régionale ajoute également une perspective à la culture de votre équipe. Assurez-vous d’en discuter à l’avance avec votre conseiller en RH.\",\"jobBuilder.details.remoteWorkGroupHeader\":\"Le travail à distance est-il permis?\",\"jobBuilder.details.remoteWorkGroupLabel\":\"Choisissez le travail à distance :\",\"jobBuilder.details.remoteWorkNoneLabel\":\"Non, j’exige que l’employé(e) qui occupe ce poste soit dans le même lieu géographique que le bureau.\",\"jobBuilder.details.remoteWorkWorldLabel\":\"Oui, je suis prêt(e) à superviser des employés partout dans le monde.\",\"jobBuilder.details.returnButtonLabel\":\"Enregistrer et retourner à l’introduction\",\"jobBuilder.details.securityLevelLabel\":\"Quel est le niveau de sécurité?\",\"jobBuilder.details.securityLevelNullSelection\":\"Veuillez sélectionner le niveau de sécurité...\",\"jobBuilder.details.submitButtonLabel\":\"Prochain\",\"jobBuilder.details.teleworkGroupBody\":\"Démontrez que vous faites confiance à vos employés et que vous avez une culture organisationnelle positive. Autorisez le télétravail en option.\",\"jobBuilder.details.teleworkGroupHeader\":\"À quelle fréquence le télétravail est-il permis?\",\"jobBuilder.details.teleworkGroupLabel\":\"Choisissez le télétravail :\",\"jobBuilder.details.termLengthLabel\":\"Quelle est la durée du poste (en mois)?\",\"jobBuilder.details.termLengthPlaceholder\":\" P.ex. 3\",\"jobBuilder.details.titleLabel\":\"Quel est le titre du poste?\",\"jobBuilder.details.titlePlaceholder\":\"P. ex. Chercheur - utilisateurs\",\"jobBuilder.details.travelFrequentlyLabel\":\"Oui, des déplacements sont souvent exigés pour le poste.\",\"jobBuilder.details.travelGroupHeader\":\"Est-il nécessaire de voyager?\",\"jobBuilder.details.travelGroupLabel\":\"Sélectionner l’exigence des déplacements\",\"jobBuilder.details.travelNoneRequiredLabel\":\"Non, aucun déplacement n’est nécessaire pour ce poste.\",\"jobBuilder.details.travelOpportunitiesAvailableLabel\":\"Oui, des possibilités de voyage sont offertes pour ceux qui sont intéressés.\",\"jobBuilder.experimental.01.description\":\"Notre travail est défini en essayant de nouvelles idées, méthodes et activités pour aborder des problèmes persistants auxquels les approches traditionnelles ne peuvent pas remédier.\",\"jobBuilder.experimental.01.title\":\"Approche expérimentale\",\"jobBuilder.experimental.02.description\":\"Nous essayons des idées, méthodes et activités nouvelles et éprouvées pour améliorer la façon de faire notre travail.\",\"jobBuilder.experimental.02.title\":\"Approche assez expérimentale\",\"jobBuilder.experimental.03.description\":\"Notre travail comprend quelques tâches administratives qui se répètent quotidiennement. Les outils que nous utilisons nous conviennent, mais nous sommes ouverts à améliorer notre processus..\",\"jobBuilder.experimental.03.title\":\"Travail assez prévisible\",\"jobBuilder.experimental.04.description\":\"La majeure partie de notre travail comprend quelques tâches administratives qui se répètent quotidiennement. La cohérence est un facteur clé ici, donc nous suivons un processus standard avec des outils éprouvés.\",\"jobBuilder.experimental.04.title\":\"Travail prévisible\",\"jobBuilder.facing.01.description\":\"Nous représentons l’image de marque des services que nous offrons et nous passons la plupart de notre temps à interagir directement avec le public.\",\"jobBuilder.facing.01.title\":\"Services orientés vers le citoyen\",\"jobBuilder.facing.02.description\":\"Nous passons beaucoup de temps à interagir directement avec le public, mais nous travaillons également en coulisses afin d’appuyer d’autres personnes.\",\"jobBuilder.facing.02.title\":\"Services essentiellement orientés vers le citoyen\",\"jobBuilder.facing.03.description\":\" Nous travaillons généralement en coulisses et nous effectuons un travail important qui rend possible la prestation de services.\",\"jobBuilder.facing.03.title\":\"Services essentiellement administratifs\",\"jobBuilder.facing.04.description\":\" Nous travaillons en coulisses et nous effectuons un travail important qui rend possible la prestation de services. Nous nous sentons bien quand nous appuyons les autres.\",\"jobBuilder.facing.04.title\":\"Services administratifs\",\"jobBuilder.impact.button.goBack\":\"Revenir en arrière\",\"jobBuilder.impact.button.next\":\"Prochain\",\"jobBuilder.impact.button.nextStep\":\"Passer à l’étape suivante\",\"jobBuilder.impact.button.return\":\"Enregistrer et retourner à l’environnement de travail\",\"jobBuilder.impact.button.skipToReview\":\"Passer pour la révision\",\"jobBuilder.impact.departmentsLoading\":\"Chargement des données du Ministère...\",\"jobBuilder.impact.documentTitle\":\"Constructeur d’affiches: Incidences\",\"jobBuilder.impact.header.department\":\"Comment votre ministère engendre des incidences:\",\"jobBuilder.impact.hireBody\":\"Décrivez la contribution du nouvel employé dans le cadre de son rôle. Misez sur la valeur qu’il apportera et non des tâches particulières (vous les indiquerez plus loin). Par exemple « Dans ce rôle, vous contribuerez à … » ou « En tant que membre de l’équipe, vous serez responsable de nous aider à… »\",\"jobBuilder.impact.hireHeader\":\"Comment le nouvel employé engendra des incidences\",\"jobBuilder.impact.hireLabel\":\"Déclaration d'incidences des employés\",\"jobBuilder.impact.hirePlaceholder\":\"Souvenez-vous de ne pas utiliser de jargon administratif.\",\"jobBuilder.impact.modalDescription\":\"Voici un aperçu de l’énoncé des incidences que vous venez de rédiger.\\n                        N'hésitez pas à revenir en arrière pour modifier le texte.\\n                        Passez à l'étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.impact.modalTitle\":\"Excellent travail!\",\"jobBuilder.impact.points.counts\":\"La première chose que les candidats voient lorsqu’ils cliquent sur votre avis de concours est votre énoncé des incidences. Assurez-vous donc de bien le rédiger!\",\"jobBuilder.impact.points.highlight\":\"C’est votre chance de souligner en quoi votre travail est utile et intéressant.\",\"jobBuilder.impact.points.opportunity\":\"Le fait de travailler pour le gouvernement fédéral offre une importante occasion d’engendrer d’importantes incidences pour les Canadiens.\",\"jobBuilder.impact.selectDepartment\":\"Vous devez choisir un ministère pour cet emploi.\",\"jobBuilder.impact.teamBody\":\"Décrivez la valeur apportée aux Canadiens par votre équipe/service/initiative. Peu importe si votre travail consiste à offrir des services directement aux citoyens ou des services administratifs, d’innovation ou d’entretien, de priorité absolue ou continus. Décrivez comment votre travail contribue à améliorer le Canada comme si vous parliez à quelqu’un qui ne connaît rien de votre travail.\",\"jobBuilder.impact.teamHeader\":\"Comment votre équipe engendre des impacts:\",\"jobBuilder.impact.teamLabel\":\"Déclaration d’incidence d'équipe\",\"jobBuilder.impact.teamPlaceholder\":\"Employez un ton informel, franc et amical\",\"jobBuilder.impact.title\":\"Rédiger votre énoncé des incidences\",\"jobBuilder.impact.unknownDepartment\":\"Erreur : Choisissez un ministère inconnu.\",\"jobBuilder.impactPreview.title\":\"Impact\",\"jobBuilder.intro.accountSettingsLinkText\":\"les paramètres de votre compte\",\"jobBuilder.intro.accountSettingsLinkTitle\":\"Visitez la page Paramètres du compte.\",\"jobBuilder.intro.changeDepartment\":\"Pour changer de département, veuillez contacter {email}. Pour en savoir plus, visitez {accountSettings}.\",\"jobBuilder.intro.completeInLanguage\":\"Répondez à l’offre d’emploi dans la langue officielle de votre choix. Nous nous chargerons de la traduction\",\"jobBuilder.intro.contactUs\":\"Nous avons également fourni des instructions et des exemples pour vous guider tout au long du processus, mais si vous avez toujours des questions, veuillez communiquer avec le {link}\",\"jobBuilder.intro.continueButtonLabelEN\":\"Continue in English\",\"jobBuilder.intro.continueButtonLabelFR\":\"Continuer en français\",\"jobBuilder.intro.departmentHeader\":\"Informations sur le département de {name}\",\"jobBuilder.intro.departmentLabel\":\"Ministère\",\"jobBuilder.intro.departmentNullSelection\":\"Choisissez un ministère...\",\"jobBuilder.intro.divisionLabelEN\":\"La division de {name} (en anglais)\",\"jobBuilder.intro.divisionLabelFR\":\"La division de {name} (en français)\",\"jobBuilder.intro.divisionPlaceholderEN\":\"p. ex., Digital Change\",\"jobBuilder.intro.divisionPlaceholderFR\":\"p. ex., Changement numérique\",\"jobBuilder.intro.documentTitle\":\"Constructeur d'affiches: Intro\",\"jobBuilder.intro.emailLinkText\":\"Nuage de talents\",\"jobBuilder.intro.emailLinkTitle\":\"Envoyer un courriel au Nuage de talents.\",\"jobBuilder.intro.explanation\":\"Le présent outil vous aidera à créer une offre d’emploi qui vous aidera à attirer les bons talents. Avant de commencer à créer l’offre d’emploi, veuillez prendre le temps de {boldText}\",\"jobBuilder.intro.explanation.boldText\":\"confirmer l’exactitude de vos renseignements personnels ci-dessous.\",\"jobBuilder.intro.formDescription\":\"Ces renseignements apparaîtront dans l’offre d’emploi pour donner de plus amples renseignements aux candidats sur les personnes avec qui ils travailleront.\",\"jobBuilder.intro.formTitle\":\"Information du profil de {name}\",\"jobBuilder.intro.jobTitleLabelEN\":\"Le poste de {name} (en anglais)\",\"jobBuilder.intro.jobTitleLabelFR\":\"Le poste de {name} (en français)\",\"jobBuilder.intro.jobTitlePlaceholderEN\":\"Par exemple : Design Manager\",\"jobBuilder.intro.jobTitlePlaceholderFR\":\"Par exemple : Gestionnaire de la conception\",\"jobBuilder.intro.managerLoading\":\"Votre profil de gestionnaire est en cours de chargement...\",\"jobBuilder.intro.welcome\":\"Bienvenue sur le Constructeur d'Affiches\",\"jobBuilder.jobLoading\":\"Votre offre d’emploi est en train de se charger...\",\"jobBuilder.loading\":\"Votre offre d’emploi est en train de se charger...\",\"jobBuilder.mgmtStyle.01.description\":\"Il n’y a aucun cadre intermédiaire ici, donc nous prenons, nous-mêmes, la plupart des décisions importantes et vous pouvez vous attendre à interagir quotidiennement avec nos cadres supérieures.\",\"jobBuilder.mgmtStyle.01.title\":\"Horizontale\",\"jobBuilder.mgmtStyle.02.description\":\"Nous avons quelques cadres intermédiaires ici, mais nous prenons, nous-mêmes, les décisions quotidiennes. Ne soyez pas surpris d’interagir assez souvent avec nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.02.title\":\"Assez horizontale\",\"jobBuilder.mgmtStyle.03.description\":\"Notre équipe a un rôle clairement défini. Nous faisons régulièrement le point avec les cadres intermédiaires pour approuver et mettre à jour la vision stratégique de nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.03.title\":\"Assez verticale\",\"jobBuilder.mgmtStyle.04.description\":\"Notre équipe a un rôle clairement défini. Nous faisons souvent le point auprès des cadres intermédiaires pour approuver et procéder à la mise à jour de la vision stratégique de nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.04.title\":\"Verticale\",\"jobBuilder.preview.city\":\"Ville\",\"jobBuilder.preview.classification\":\"Classification\",\"jobBuilder.preview.classificationEducation\":\"Classification et éducation\",\"jobBuilder.preview.education\":\"Éducation\",\"jobBuilder.preview.flexibleHours\":\"Heures flexibles\",\"jobBuilder.preview.jobInformation\":\"Renseignements sur l’emploi\",\"jobBuilder.preview.jobTitle\":\"Titre du poste\",\"jobBuilder.preview.languageProfile\":\"Profil linguistique\",\"jobBuilder.preview.lengthOfTheTerm\":\"Durée du poste\",\"jobBuilder.preview.level\":\"Niveau\",\"jobBuilder.preview.overtime\":\"Heures supplémentaires\",\"jobBuilder.preview.province\":\"Province\",\"jobBuilder.preview.remoteWork\":\"Travail à distance\",\"jobBuilder.preview.securityClearance\":\"Cote de sécurité\",\"jobBuilder.preview.telework\":\"Télétravail\",\"jobBuilder.preview.termLength\":\"{termMonths, plural, =0 {pas de mois} other {# mois}}\",\"jobBuilder.preview.travel\":\"Voyage\",\"jobBuilder.preview.workStyles\":\"Styles de travail\",\"jobBuilder.progressTracker.label.finish\":\"Fin\",\"jobBuilder.progressTracker.label.start\":\"Début\",\"jobBuilder.progressTracker.label.step1\":\"Étape 1 / 5\",\"jobBuilder.progressTracker.label.step2\":\"Étape 2 / 5\",\"jobBuilder.progressTracker.label.step3\":\"Étape 3 / 5\",\"jobBuilder.progressTracker.label.step4\":\"Étape 4 / 5\",\"jobBuilder.progressTracker.label.step5\":\"Étape 5 / 5\",\"jobBuilder.progressTracker.title.impact\":\"Incidence\",\"jobBuilder.progressTracker.title.jobInfo\":\"Renseignements\",\"jobBuilder.progressTracker.title.review\":\"Révision\",\"jobBuilder.progressTracker.title.skills\":\"Compétences\",\"jobBuilder.progressTracker.title.tasks\":\"Tâches\",\"jobBuilder.progressTracker.title.welcome\":\"Bienvenue\",\"jobBuilder.progressTracker.title.workEnv\":\"Environnement\",\"jobBuilder.review.GovernmentClass\":\"Classification gouvernementale\",\"jobBuilder.review.assetHeading\":\"Compétences souhaitables\",\"jobBuilder.review.averageAnnualSalary\":\"Échelle de salaire annuel\",\"jobBuilder.review.basicInformationHeading\":\"Renseignements de base\",\"jobBuilder.review.button.return\":\"Enregistrer et retourner aux compétences\",\"jobBuilder.review.button.submit\":\"Cela semble bon!\",\"jobBuilder.review.comesLater\":\"Cette étape survient plus tard.\",\"jobBuilder.review.confirm.cancel\":\"Annuler\",\"jobBuilder.review.confirm.submit\":\"Oui, transmettre\",\"jobBuilder.review.confirm.title\":\"Félicitations! Êtes-vous prêt à transmettre l’offre d’emploi?\",\"jobBuilder.review.criteriaSection\":\"Critères\",\"jobBuilder.review.cultureSection\":\"Environnement et culture\",\"jobBuilder.review.documentTitle\":\"Constructeur d'affiches: Révision\",\"jobBuilder.review.duration\":\"Durée\",\"jobBuilder.review.educationalHeading\":\"Exigences relatives aux études\",\"jobBuilder.review.headsUp\":\"Un simple rappel. Nous avons réorganisé certains renseignements fournis afin de vous aider à comprendre comment le candidat verra l’information une fois publiée.\",\"jobBuilder.review.impactEditLink\":\"Modifier cet élément à l’étape 03, Incidence.\",\"jobBuilder.review.impactHeading\":\"Incidence\",\"jobBuilder.review.infoEditLink\":\"Modifier cet élément à l’étape 01, Renseignements sur le poste\",\"jobBuilder.review.jobPageHeading\":\"Titre de la page de l’emploi\",\"jobBuilder.review.languageHeading\":\"Exigences linguistiques\",\"jobBuilder.review.languageProfile\":\"Profil linguistique\",\"jobBuilder.review.managerDataLoading\":\"Les données du gestionnaire sont en cours de chargement...\",\"jobBuilder.review.managerHeading\":\"Les données du gestionnaire sont en cours de chargement...\",\"jobBuilder.review.managerIncomplete\":\"Veuillez remplir votre profil de gestionnaire.\",\"jobBuilder.review.managerPosition\":\"{position} au {department}\",\"jobBuilder.review.managerProfileLink\":\"Modifier cet élément dans votre profil\",\"jobBuilder.review.meantime\":\"Entre-temps, n’hésitez pas à créer un plan de présélection pour votre processus de sélection. Vous pouvez aussi attendre les commentaires des RH avant de passer à l’étape suivante.\",\"jobBuilder.review.months\":\"{termMonths,plural,=0{No Months} one{{termMonths, number} Month} other{{termMonths, number} Months}}\",\"jobBuilder.review.nullProvince\":\"PROVINCE MANQUANTE\",\"jobBuilder.review.or\":\"ou\",\"jobBuilder.review.otherInfoHeading\":\"Autres renseignements au sujet de l’équipe\",\"jobBuilder.review.readyToSubmit\":\"Si vous êtes prêt à soumettre votre offre, cliquez sur le bouton Soumettre ci-dessous.\",\"jobBuilder.review.remoteAllowed\":\"Travail à distance autorisé\",\"jobBuilder.review.remoteNotAllowed\":\"Travail à distance non autorisé\",\"jobBuilder.review.reviewYourPoster\":\"Examiner votre offre d’emploi pour :\",\"jobBuilder.review.securityClearance\":\"Autorisation de sécurité\",\"jobBuilder.review.sendYourDraft\":\"Le Nuage de talents enverra votre ébauche au conseiller en RH de votre ministère, et ce dernier vous informera de ses commentaires.\",\"jobBuilder.review.skills.nullState\":\"Vous n’avez pas ajouté de compétences souhaitables pour cette offre d’emploi.\",\"jobBuilder.review.skillsEditLink\":\"Modifier cet élément à l’étape 05, Compétences\",\"jobBuilder.review.skillsHeading\":\"Compétences requises\",\"jobBuilder.review.tCAdds\":\"Le Nuage de talents ajoutera l’élément.\",\"jobBuilder.review.targetStartDate\":\"Date d’entrée en fonction prévue\",\"jobBuilder.review.tasksEditLink\":\"Modifier cet élément à l’étape 04, Tâches\",\"jobBuilder.review.tasksHeading\":\"Tâches\",\"jobBuilder.review.whatHappens\":\"Quelles sont les prochaines étapes?\",\"jobBuilder.review.workCultureHeading\":\"Culture de travail\",\"jobBuilder.review.workDescription\":\"Veuillez prendre note que certains renseignements sur le milieu de travail ne seront affichés que si le candidat clique sur le bouton « Afficher le milieu de travail et la culture de l’équipe » qui apparaît sur l’offre d’emploi.\",\"jobBuilder.review.workEnvEditLink\":\"Modifier cet élément à l’étape 02, Environnement de travail\",\"jobBuilder.review.workEnvHeading\":\"Milieu de travail\",\"jobBuilder.root.documentTitle\":\"Constructeur d'Affiches\",\"jobBuilder.skills.addSkillBelow\":\"Ajoutez des compétences, ci-dessous, pour continuer.\",\"jobBuilder.skills.alt.happyArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône sourire.\",\"jobBuilder.skills.alt.happyGraySmiley\":\"émoticône sourire en gris.\",\"jobBuilder.skills.alt.happySmiley\":\"émoticône sourire en couleur.\",\"jobBuilder.skills.alt.neutralArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône neutre.\",\"jobBuilder.skills.alt.neutralGraySmiley\":\"émoticône neutre en gris.\",\"jobBuilder.skills.alt.neutralSmiley\":\"émoticône neutre en couleur.\",\"jobBuilder.skills.alt.unhappyArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône triste.\",\"jobBuilder.skills.alt.unhappyGraySmiley\":\"émoticône triste en gris.\",\"jobBuilder.skills.alt.unhappySmiley\":\"émoticône triste en couleur.\",\"jobBuilder.skills.button.keyTasks\":\"Voir les tâches principales\",\"jobBuilder.skills.button.previewSkills\":\"Sauvegarder et voir un aperçu des compétences\",\"jobBuilder.skills.button.returnToTasks\":\"Sauvegarder et retourner aux tâches\",\"jobBuilder.skills.description\":\"C’est ici que vous choisissez les critères requis pour accomplir ce travail efficacement. Vous trouverez, ci-dessous, deux barres qui indiquent la mesure du niveau de votre présente compétence sélectionnée.\",\"jobBuilder.skills.description.keepItUp\":\"Voici un aperçu des compétences que vous venez de saisir. N’hésitez pas à retourner à la page précédente et à corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait. \",\"jobBuilder.skills.documentTitle\":\"Constructeur d'affiches: Compétences\",\"jobBuilder.skills.emailLink\":\"Communiquez avec nous par courriel\",\"jobBuilder.skills.essentialSkillRequiredError\":\"Au moins une compétence essentielle est requise.\",\"jobBuilder.skills.instructions.missingSkills\":\"Le fait de dresser une liste de compétences est une tâche énorme, et il n’est pas surprenant que la liste de Nuage de talents ne contienne pas la compétence que vous cherchez. Afin de nous aider à allonger la liste des compétences, veuillez {link}. Veuillez fournir le nom de la compétence ainsi qu’une brève description pour lancer la discussion.\",\"jobBuilder.skills.listTitle\":\"Votre liste de compétences\",\"jobBuilder.skills.nullState\":\"Vous n’avez pas encore ajouté de compétences.\",\"jobBuilder.skills.nullText.occupationalSkills\":\"Vous devez retourner à Étape 1 et choisir une classification.\",\"jobBuilder.skills.placeholder.otherSkills\":\"Aucune autre compétence n’est ajoutée.\",\"jobBuilder.skills.previewModalCancelLabel\":\"Retour en arrière\",\"jobBuilder.skills.previewModalConfirmLabel\":\"Prochaine étape\",\"jobBuilder.skills.previewModalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.skills.range.culturalSkills\":\"Visez des compétences {minCulture} – {maxCulture}.\",\"jobBuilder.skills.range.futureSkills\":\"Visez des compétences {minFuture} – {maxFuture}.\",\"jobBuilder.skills.range.occupationalSkills\":\"Visez des compétences {minOccupational} – {maxOccupational}.\",\"jobBuilder.skills.selectSkillLabel\":\"Veuillez sélectionner une compétence dans notre liste.\",\"jobBuilder.skills.selectSkillNull\":\"Veuillez sélectionner une compétence\",\"jobBuilder.skills.skillLevel\":\"Niveau de compétences\",\"jobBuilder.skills.statusSmiley.acceptable\":\"Acceptable\",\"jobBuilder.skills.statusSmiley.almost\":\"Presque\",\"jobBuilder.skills.statusSmiley.awesome\":\"Fantastique\",\"jobBuilder.skills.statusSmiley.essential.acceptable\":\"Acceptable\",\"jobBuilder.skills.statusSmiley.essential.almost\":\"Presque\",\"jobBuilder.skills.statusSmiley.essential.awesome\":\"Fantastique\",\"jobBuilder.skills.statusSmiley.essential.tooFew\":\"Insuffisant\",\"jobBuilder.skills.statusSmiley.essential.tooMany\":\"Trop\",\"jobBuilder.skills.statusSmiley.essentialTitle\":\"Le nombre de compétences fondamentales est\",\"jobBuilder.skills.statusSmiley.title\":\"Le nombre total des compétences\",\"jobBuilder.skills.statusSmiley.tooFew\":\"Insuffisant\",\"jobBuilder.skills.statusSmiley.tooMany\":\"Trop\",\"jobBuilder.skills.tasksModalCancelLabel\":\"Retour aux compétences\",\"jobBuilder.skills.title\":\"Compétences\",\"jobBuilder.skills.title.addASkill\":\"Ajoutez une compétence\",\"jobBuilder.skills.title.assetSkills\":\"Compétences constituant un atout\",\"jobBuilder.skills.title.culturalSkills\":\"Compétences comportementales\",\"jobBuilder.skills.title.editSkill\":\"Modifiez une compétence\",\"jobBuilder.skills.title.essentialSkills\":\"Compétences essentielles\",\"jobBuilder.skills.title.futureSkills\":\"Compétences de la fonction publique\",\"jobBuilder.skills.title.keepItUp\":\"Ne lâchez surtout pas!\",\"jobBuilder.skills.title.keyTasks\":\"Tâches principales\",\"jobBuilder.skills.title.missingSkill\":\"Vous ne trouvez pas la compétence dont vous avez besoin?\",\"jobBuilder.skills.title.needsToHave\":\"Les compétences que l’employé(e) doit posséder\",\"jobBuilder.skills.title.niceToHave\":\"Les compétences qu’il serait souhaitable que l’employé(e) possède\",\"jobBuilder.skills.title.occupationalSkills\":\"Compétences professionnelles\",\"jobBuilder.skills.title.otherSkills\":\"Autres compétences\",\"jobBuilder.skills.title.skillSelection\":\"Choix des compétences\",\"jobBuilder.tasks.addJob\":\"Ajoutez une tâche \",\"jobBuilder.tasks.documentTitle\":\"Constructeur d'affiches: Tâches\",\"jobBuilder.tasks.heading\":\"Ajoutez des tâches principales\",\"jobBuilder.tasks.intro.first\":\"À quoi le nouveau membre de votre équipe consacrera-t-il son temps? Quelles sont les tâches à exécuter?\",\"jobBuilder.tasks.intro.fourth\":\"Une fois que vous aurez terminé d’entrer les tâches principales, vous passerez à la détermination des compétences individuelles nécessaires à l’exécution de ces tâches.\",\"jobBuilder.tasks.intro.second\":\"Mettez l’accent sur les tâches à exécuter. Vous n’avez pas à donner tous les détails de l’emploi, mais les candidats souhaitent savoir comment ils vont passer la plus grande partie de leur temps.\",\"jobBuilder.tasks.intro.third\":\"Cherchez à indiquer de quatre à six tâches principales. (Tout au long du remue-méninges, vous pouvez ajouter autant de tâches principales que vous le souhaitez ici, mais vous ne pouvez pas en inclure plus de six dans l’offre d’emploi finale.)\",\"jobBuilder.tasks.modal.body\":\"Voici un aperçu des tâches que vous venez de saisir. N’hésitez pas à retourner à la page précédente pour corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.tasks.modal.body.heading\":\"Tâches\",\"jobBuilder.tasks.modal.cancelButtonLabel\":\"Retour en arrière\",\"jobBuilder.tasks.modal.confirmButtonLabel\":\"Prochaine étape\",\"jobBuilder.tasks.modal.middleButtonLabel\":\"Passer pour la révision\",\"jobBuilder.tasks.modal.title\":\"Ne lâchez surtout pas!\",\"jobBuilder.tasks.preview\":\"Aperçu des tâches\",\"jobBuilder.tasks.previous\":\"Étape précédente\",\"jobBuilder.tasks.taskCount.error.body\":\"Vous avez dépassé le nombre maximal permis de tâches principales, mais ce n’est pas grave. Tout au long du remue-méninges, vous pouvez continuer à ajouter des tâches principales ici, mais on vous demandera de réduire votre liste à six tâches ou moins pour continuer.\",\"jobBuilder.tasks.taskCount.error.title\":\"Juste pour vous informer!\",\"jobBuilder.tasks.taskCount.none\":\"Vous n’avez pas encore ajouté de tâches!\",\"jobBuilder.tasks.taskCount.some\":\"Vous avez ajouté {taskCount, plural, one {# tâche} other {# tâches}}.\",\"jobBuilder.tasks.taskLabel\":\"Tâche\",\"jobBuilder.tasks.taskPlaceholder\":\"Essayez d’adopter un ton décontracté, franc et amical...\",\"jobBuilder.tasks.tasksMaximum\":\"Veuillez supprimer toute tâche supplémentaire avant de continuer.\",\"jobBuilder.tasks.tasksRequired\":\"Au moins une tâche est requise.\",\"jobBuilder.workCulture.flexibleHours\":\"Heures flexibles\",\"jobBuilder.workCulture.flexibleHoursDescription\":\"Précisez vos propres heures de début et de fin.\",\"jobBuilder.workCulture.overtime\":\"Heures supplémentaires\",\"jobBuilder.workCulture.overtimeDescription\":\"Heures supplémentaires le soir ou la fin de semaine.\",\"jobBuilder.workCulture.remoteWork\":\"Travail à distance\",\"jobBuilder.workCulture.remoteWorkDescription\":\"Travailler de n’importe où, en tout temps.\",\"jobBuilder.workCulture.remoteWorkMsg.always\":\"Toujours\",\"jobBuilder.workCulture.remoteWorkMsg.never\":\"Jamais\",\"jobBuilder.workCulture.telework\":\"Télétravail\",\"jobBuilder.workCulture.teleworkDescription\":\"Travailler à partir de la maison certains jours (à une distance raisonnable en voiture du bureau).\",\"jobBuilder.workCulture.travel\":\"Déplacements\",\"jobBuilder.workCulture.travelDescription\":\"Découvrez le Canada ou d’autres régions du monde.\",\"jobBuilder.workEnv.amenities.cafeteria\":\"Cafétéria sur place\",\"jobBuilder.workEnv.amenities.closeToTransit\":\"À proximité du transport en commun\",\"jobBuilder.workEnv.amenities.downtown\":\"Centre-ville\",\"jobBuilder.workEnv.amenities.fitnessCenter\":\"À proximité d’un centre de conditionnement physique\",\"jobBuilder.workEnv.amenities.parking\":\" Accès facile à un stationnement\",\"jobBuilder.workEnv.amenities.restaurants\":\"À distance de marche des restaurants et des centres commerciaux\",\"jobBuilder.workEnv.amenitiesLabel\":\"À proximité\",\"jobBuilder.workEnv.collaborativeLabel\":\"Collaboratif ou indépendant :\",\"jobBuilder.workEnv.culture\":\"Notre culture\",\"jobBuilder.workEnv.cultureSubtext1\":\"Maintenant, renseignez les candidats davantage sur la personnalité des membres de votre équipe et le type de travail que vous faites habituellement.\",\"jobBuilder.workEnv.cultureSubtext2\":\"Sur la base de vos sélections, nous allons créer un court paragraphe résumant votre culture de travail. Vous pouvez modifier ce paragraphe afin qu’il soit personnalisé selon votre équipe.\",\"jobBuilder.workEnv.cultureSummary\":\"Résumé sur la culture\",\"jobBuilder.workEnv.cultureSummarySubtext\":\"Voici le court paragraphe qui résume la culture de votre travail qui apparaîtra dans l’offre d’emploi. Copiez-le et collez-le dans le champ de saisie qui suit, si vous désirez l’adapter à la personnalité des membres de votre équipe et à votre façon de travailler.\",\"jobBuilder.workEnv.customCultureSummaryLabel\":\"Adaptez votre résumé sur la culture :\",\"jobBuilder.workEnv.customCultureSummaryPlaceholder\":\"Collez le paragraphe ici pour le modifier...\",\"jobBuilder.workEnv.documentTitle\":\"Constructeur d'affiches: Environnement\",\"jobBuilder.workEnv.experimentalLabel\":\"Toujours expérimentale contre activités en cours:\",\"jobBuilder.workEnv.facingLabel\":\"Services orientés vers le client contre services administratifs :\",\"jobBuilder.workEnv.fastPacedSteadyLabel\":\"Rythme rapide contre rythme soutenu :\",\"jobBuilder.workEnv.greatStart\":\"Vous commencez très bien!\",\"jobBuilder.workEnv.managementLabel\":\"Horizontale contre verticale :\",\"jobBuilder.workEnv.moreOnWorkEnv\":\"Voici de plus amples renseignements sur votre environnement\",\"jobBuilder.workEnv.moreOnWorkEnvLabel\":\"Voici de plus amples renseignements sur votre environnement\",\"jobBuilder.workEnv.moreOnWorkEnvPlaceholder\":\"Essayez d’adopter un ton décontracté, franc et amical.\",\"jobBuilder.workEnv.moreOnWorkEnvSubtext\":\"Souhaitez-vous ajouter quelque chose à propos de votre environnement de travail? Mettez en évidence les caractéristiques de l’environnement physique, de la technologie et des commodités propres à votre équipe.\",\"jobBuilder.workEnv.openingSentence\":\"Voici un aperçu des renseignements sur l’emploi que vous venez de saisir. N’hésitez pas à retourner à la page précédente et à corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.workEnv.ourWorkEnv\":\"Notre environnement de travail\",\"jobBuilder.workEnv.ourWorkEnvDesc\":\"Décrivez un peu votre espace physique, la technologie que les membres de votre équipe utilisent et les services qui se trouvent à proximité de votre bureau. Cochez toutes les réponses qui s’appliquent.\",\"jobBuilder.workEnv.physEnv.assignedSeating\":\"Places réservées\",\"jobBuilder.workEnv.physEnv.naturalLight\":\"Lumière naturelle\",\"jobBuilder.workEnv.physEnv.openConcept\":\"Espaces de travail à aire ouverte\",\"jobBuilder.workEnv.physEnv.private\":\"Privé\",\"jobBuilder.workEnv.physEnv.smudging\":\"Convient aux cérémonies de purification par la fumée\",\"jobBuilder.workEnv.physEnv.windows\":\"Plusieurs fenêtres\",\"jobBuilder.workEnv.physicalEnvLabel\":\"Notre environnement physique\",\"jobBuilder.workEnv.saveAndReturnButtonLabel\":\"Découvrez le Canada ou d’autres régions du monde.\",\"jobBuilder.workEnv.specialWorkCulture\":\"Y a-t-il quelque chose de spécial au sujet de votre culture de travail?\",\"jobBuilder.workEnv.specialWorkCultureLabel\":\"Voici de plus amples renseignements sur votre culture de travail.\",\"jobBuilder.workEnv.specialWorkCultureSubtext\":\"Votre équipe accorde-t-elle beaucoup d’importance à d’autres aspects? Est-elle fière de son bilan en matière de résultats? A-t-elle pris de solides engagements envers le mieux-être mental? Participe-t-elle activement à la promotion de la diversité et de l’inclusion? Ses membres se font-ils les champions des enjeux relatifs à la collectivité LGBTQ+? Voici l’occasion de faire connaître aux candidats la culture de l’équipe qu’ils pourraient intégrer.\",\"jobBuilder.workEnv.stepDescription\":\"Les candidats accordent beaucoup d’importance à l’équipe au sein de laquelle ils travailleront et à leur espace de travail physique. Le fait de communiquer de l’information à ce sujet aide les candidats à déterminer s’ils correspondent bien au profil de l’emploi, et peut réduire le nombre de demandes « illusoires » qui ralentissent le processus de présélection.\",\"jobBuilder.workEnv.submitButtonLabel\":\"Aperçu de l’environnement de travail\",\"jobBuilder.workEnv.teamSizeLabel\":\"Taille de l’équipe\",\"jobBuilder.workEnv.teamSizePlaceholder\":\"Par exemple 10\",\"jobBuilder.workEnv.technology.accessToExternal\":\"Accès à un réseau sans fil externe et non filtré\",\"jobBuilder.workEnv.technology.collaboration\":\"Collaboration (p. ex., Slack, Hangouts)\",\"jobBuilder.workEnv.technology.fileSharing\":\"Partage des dossiers (p. ex., Google Drive, Dropbox)\",\"jobBuilder.workEnv.technology.taskManagement\":\"Gestion de tâches (p. ex., Trello, Asana)\",\"jobBuilder.workEnv.technology.versionControl\":\"Gestion de versions (p. ex., Github, Gitlab)\",\"jobBuilder.workEnv.technology.videoConferencing\":\"Vidéo-conférence (p. ex., Skype, Zoom)\",\"jobBuilder.workEnv.technologyLabel\":\"Technologie\",\"jobBuilder.workEnv.textAreaPlaceholder1\":\"Essayez d’adopter un ton décontracté, franc et amical.\",\"jobBuilder.workEnv.thisIsOptional\":\"Ceci est facultatif.\",\"jobBuilder.workEnv.title\":\"Environnement de travail\",\"jobBuilder.workEnvModal.cancelLabel\":\"Retour en arrière\",\"jobBuilder.workEnvModal.confirmLabel\":\"Prochaine étape\",\"jobBuilder.workEnvModal.modalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.workEnvModal.title\":\"Environnement de travail\",\"jobBuilder.workEnvModal.workCultureTitle\":\"Culture du travail\",\"jobCard.applicants\":\"{applicants, plural,=0 {Aucun candidat} one {# candidat} other {# candidats}}\",\"jobCard.managerTime\":\"Time with Manager: {managerTime, plural, one {# day} other {# days} }\",\"jobCard.noActivity\":\"Aucune nouvelle activité\",\"jobCard.userTime\":\"Time with you: <s>{userTime, plural, one {# day} other {# days} }</s>\",\"jobReviewHr.headsUp\":\"Un simple rappel! Nous avons réorganisé certains renseignements fournis afin de vous aider à comprendre comment le candidat verra l’information une fois publiée.\",\"jobReviewHr.loadingIconText\":\"Les données sont en cours de chargement...\",\"jobReviewHr.reviewYourPoster\":\"Examiner votre offre d’emploi pour :\",\"jobReviewHr.summaryLink\":\"Revenir au résumé\",\"jobStatus.approved\":\"Approuvé\",\"jobStatus.completed\":\"Achevé\",\"jobStatus.draft\":\"Ébauche\",\"jobStatus.finalReview\":\"Révision finale\",\"jobStatus.published\":\"Publié\",\"jobStatus.review\":\"En cours de révision\",\"jobStatus.translation\":\"En cours de traduction\",\"languageRequirement.bilingualAdvanced\":\"Bilingue - Avancé (CBC)\",\"languageRequirement.bilingualIntermediate\":\"Bilingue - Intermédiaire (BBB)\",\"languageRequirement.context.basic\":\"Vous pouvez présenter cette demande initiale dans la langue officielle de votre choix (français ou anglais).\",\"languageRequirement.context.expanded\":\"Vous pouvez suivre toutes les autres étapes de ce processus d’évaluation dans la langue officielle de votre choix, y compris la demande initiale, l’entrevue, l’examen et toute autre composante de l’évaluation.\",\"languageRequirement.description.bilingualAdvanced\":\"Ce poste nécessite une connaissance approfondie du français et de l'anglais. Cela signifie que vous pouvez assumer des tâches en français ou en anglais et que vous avez de solides compétences en lecture, en écriture et en communication verbale dans les deux langues officielles. Dans le cadre de ce processus de sélection, vos compétences linguistiques seront testées par la Commission de la fonction publique du Canada. Commission de la fonction publique du Canada.\",\"languageRequirement.description.bilingualIntermediate\":\"Ce poste nécessite une connaissance pratique du français et de l'anglais. Cela signifie que vous pouvez occuper des fonctions en français ou en anglais et que vous possédez des compétences intermédiaires en lecture, en écriture et en communication verbale dans les deux langues officielles. Dans le cadre de ce processus de sélection, vos compétences linguistiques seront testées par la Commission de la fonction publique du Canada.\",\"languageRequirement.description.english\":\"Ce poste exige une bonne maîtrise de l’anglais, tant à l’écrit que de vive voix. Dans le cadre de l’évaluation de vos compétences linguistiques, le gestionnaire d’embauche peut vous demander de suivre certaines étapes d’évaluation en anglais, comme des questions d’entrevue ou un examen.\",\"languageRequirement.description.englishOrFrench\":\"Pour ce poste, vous répondez aux exigences linguistiques si vous possédez de solides compétences en lecture, en rédaction et en communication verbale en français, en anglais ou dans les deux (bilingue).\",\"languageRequirement.description.french\":\"Ce poste exige une bonne maîtrise du français, tant à l’écrit que de vive voix. Dans le cadre de l’évaluation de vos compétences linguistiques, le gestionnaire d’embauche peut vous demander de suivre certaines étapes d’évaluation en français, comme des questions d’entrevue ou un examen.\",\"languageRequirement.english\":\"Anglais - Essentiel\",\"languageRequirement.englishOrFrench\":\"Anglais ou français\",\"languageRequirement.french\":\"Français - Essentiel\",\"managerSurveyModal.explanation\":\"Vos commentaires nous aident à améliorer nos outils! Veuillez prendre quelques minutes pour répondre à un sondage.\",\"managerSurveyModal.jobPosterLink\":\"Retour à Mes offres d'emploi\",\"managerSurveyModal.jobPosterLinkTitle\":\"Visitez Mes offres d'emploi.\",\"managerSurveyModal.link\":\"<a>M'emmener au sondage</>.\",\"managerSurveyModal.managerSurveyLinkTitle\":\"Lien vers le sondage auprès des gestionnaires.\",\"managerSurveyModal.title\":\"Votre offre d'emploi a été soumise!\",\"openJobCard.claimJob\":\"Réclamer cet emploi\",\"openJobCard.error\":\"Date non disponible.\",\"openJobCard.hiringManager\":\"Gestionnaires d’embauche :\",\"openJobCard.hrAdvisors\":\"Conseillers en RH :\",\"openJobCard.reviewRequested\":\"Récupérée: \",\"openJobCard.unclaimed\":\"Non réclamé\",\"progressTracker.unreachableStep\":\"Doit compléter les étapes précédentes.\",\"province.ab\":\"Alberta\",\"province.ab.abreviation\":\"Alta.\",\"province.bc\":\"Colombie britannique\",\"province.bc.abreviation\":\"C.-B.\",\"province.mb\":\"Manitoba\",\"province.mb.abreviation\":\"Man.\",\"province.nb\":\"Nouveau-Brunswick\",\"province.nb.abreviation\":\"N.-B.\",\"province.nl\":\"Terre-Neuve-et-Labrador\",\"province.nl.abreviation\":\"T.-N.-L.\",\"province.ns\":\"Nouvelle-Écosse\",\"province.ns.abreviation\":\"N.-É.\",\"province.nt\":\"Territoires du nord-ouest\",\"province.nt.abreviation\":\"T.N.-O.\",\"province.nu\":\"Nunavut\",\"province.nu.abreviation\":\"Nt\",\"province.on\":\"Ontario\",\"province.on.abreviation\":\"Ont.\",\"province.pe\":\"Île-du-Prince-Édouard\",\"province.pe.abreviation\":\"Î.-P.-É.\",\"province.qc\":\"Québec\",\"province.qc.abreviation\":\"Qc\",\"province.sk\":\"Saskatchewan\",\"province.sk.abreviation\":\"Sask.\",\"province.yk\":\"Yukon\",\"province.yk.abreviation\":\"Yn\",\"ratingGuideAnswer.answerLabel\":\"Réponse de passage acceptable / Démonstration requise\",\"ratingGuideAnswer.answerPlaceholder\":\"Écrivez la réponse de passage attendue du candidat relativement à cette compétence...\",\"ratingGuideAnswer.nullSelection\":\"Sélectionnez une compétence...\",\"ratingGuideAnswer.selectLabel\":\"Sélectionnez une compétence\",\"ratingGuideBuilder.addQuestion\":\"Ajoutez une question\",\"ratingGuideBuilder.assetMissing\":\"{count} Atout manquant : \",\"ratingGuideBuilder.copyButton\":\"Cliquez ici pour copier ce guide de cotation dans votre presse-papiers\",\"ratingGuideBuilder.copyInstructions\":\"Maintenant que vous avez conçu votre guide de cotation, vous pouvez utiliser le bouton ci-dessous pour copier tout le contenu dans votre presse-papiers, et ainsi pouvoir coller facilement votre système de traitement de texte préféré.\",\"ratingGuideBuilder.criteriaName\":\"{skillName} - {skillLevel}\",\"ratingGuideBuilder.criteriaTypeHeading\":\"Type de critères\",\"ratingGuideBuilder.essentialMissing\":\"{count} Critères essentiels manquants : \",\"ratingGuideBuilder.instructions\":\"Vous trouverez ci-dessous votre propre guide de cotation pour vous aider à évaluer vos candidats. Cet outil vous permet d’élaborer vos propres questions pour chaque évaluation que vous avez sélectionnée ci-dessus, puis de noter les critères de ce que pourrait représenter une excellente réponse du candidat. Veuillez prendre note que l’« examen narratif » est unique en ce sens que le contenu est généré pour vous ci-dessous.\",\"ratingGuideBuilder.narrativeSectionTitle\":\"Évaluation {index}: {assessmentType}\",\"ratingGuideBuilder.questionHeading\":\"Question\",\"ratingGuideBuilder.ratingGuideHeading\":\"Guide de notation\",\"ratingGuideBuilder.sectionTitle\":\"Évaluation {index}: {assessmentType}\",\"ratingGuideBuilder.skillDescriptionHeading\":\"Description de la compétence\",\"ratingGuideBuilder.skillHeading\":\"Compétence\",\"ratingGuideBuilder.targetLevelHeading\":\"Niveau cible\",\"ratingGuideBuilder.title\":\"3. Concepteur de guides de cotation\",\"ratingGuideBuilder.titleHeading\":\"Titre\",\"ratingGuideQuestion.questionLabel\":\"Question d'entrevue\",\"ratingGuideQuestion.questionPlaceholder\":\"Écrivez votre question d'entrevue ici ...\",\"review.applications.alert.oops\":\"Enregistrer\",\"review.applications.button.confirm\":\"Confirmer\",\"review.applications.indexPageTitle\":\"Applications pour : {jobTitle} {jobClassification}\",\"review.applications.nonCitizens.description\":\" \",\"review.applications.nonCitizens.title\":\"Non-Citoyens canadiens\",\"review.applications.optionalConsideration.description\":\"Dans ce groupe, vous trouverez les candidats qui ne sont pas citoyens canadiens ou qui ne prétendent pas répondre aux critères essentiels.\",\"review.applications.optionalConsideration.title\":\"Candidats supplémentaires\",\"review.applications.priorityApplicants.description\":\"Ce sont des candidats prioritaires pour ce poste. Ils doivent être examinés et pris en compte en premier.\",\"review.applications.priorityApplicants.title\":\"Candidats prioritaire\",\"review.applications.reviewSaveFailed\":\"Une erreur s'est produite lors de l'enregistrement d'un commentaire. Réessayez plus tard.\",\"review.applications.screenOutAll\":\"Éliminer tous les candidats supplémentaires\",\"review.applications.screenOutAll.confirm\":\"Êtes-vous sûr de vouloir éliminer tous les candidats supplémentaires?\",\"review.applications.screenedOut.description\":\"Ces applications ont déjà été éliminées.\",\"review.applications.screenedOut.title\":\"Candidats qui ne sont plus considérés\",\"review.applications.underConsideration.description\":\"Examinez les candidats dans la section Anciens combattants et citoyens canadiens. Si aucun ou très peu de ces candidats ne répondent aux critères, vous pouvez toujours prendre en compte les candidatures non citoyennes dans la section Considérations facultatives.\",\"review.applications.underConsideration.title\":\"Candidats à considérée\",\"review.applications.unqualified.description\":\" \",\"review.applications.unqualified.title\":\"Ne répond pas aux critères essentiels\",\"review.applications.veteransAndCitizens.description\":\" \",\"review.applications.veteransAndCitizens.title\":\"Anciens combattants et citoyens canadiens\",\"reviewLocations.jpb.basicInfo\":\"Renseignements de base\",\"reviewLocations.jpb.environment\":\"Environnement de travail\",\"reviewLocations.jpb.generic\":\"Générique\",\"reviewLocations.jpb.heading\":\"Titre de la page de l’emploi\",\"reviewLocations.jpb.impact\":\"Impact\",\"reviewLocations.jpb.langRequirements\":\"Exigences linguistiques\",\"reviewLocations.jpb.skills\":\"Compétences\",\"reviewLocations.jpb.tasks\":\"Taches\",\"securityClearance.reliability\":\"Fiabilité\",\"securityClearance.secret\":\"Secret\",\"securityClearance.topSecret\":\"Très secret\",\"skillLevel.asset.description\":\"Cette compétence n’est pas nécessaire pour que l’employé puisse exécuter le travail, mais elle ajoute un avantage à l’ensemble de ses compétences et améliorera le rythme ou l’efficacité de son travail.\",\"skillLevel.asset.name\":\"Atout/aucun niveau requis\",\"skillLevel.hard.advanced.description\":\"Vous avez la capacité d’accomplir des tâches d’une complexité ou d’une incidence importante avec supervision. Vous donnez des conseils et des commentaires au superviseur sur l’approche à employer pour effectuer les tâches et la façon dont elles sont exécutées. Vous êtes en mesure de faire progresser la tâche, même face à des obstacles et à des complications d’envergure moyenne à importante. Au fur et à mesure que vous progressez dans cette catégorie, vous êtes être en mesure d’accomplir des tâches d’une complexité importante ou ayant une incidence plus grande avec seulement de légers niveaux de supervision, en étant effectivement le responsable de l’initiative. Vous pouvez également jouer un rôle de formation d’autres personnes dans cet ensemble de compétences ou assumer un rôle de supervision léger pour les personnes aux niveaux inférieurs. Ce niveau est habituellement associé à des tâches qui constituent la majeure partie du travail pour des postes de niveau supérieur, comme les analystes principaux ou les développeurs principaux.\",\"skillLevel.hard.advanced.name\":\"Avancé\",\"skillLevel.hard.basic.description\":\"Vous êtes capable d’accomplir des tâches de base avec une supervision régulière et une orientation claire. Les tâches qui vous sont assignées sont claires et ne sont pas très complexes. Elles ont généralement une incidence locale. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’accomplir des tâches de complexité modérée avec une supervision régulière. Vous devriez également être en mesure d’accomplir des tâches de base avec peu ou pas de supervision. Ce niveau est habituellement associé aux tâches qui constituent le gros du travail pour les postes de niveau inférieur, comme les analystes ou les développeurs de niveau débutant.\",\"skillLevel.hard.basic.name\":\"Débutant\",\"skillLevel.hard.expert.description\":\"Vous êtes en mesure d’accomplir des tâches d’une complexité ou d’une incidence importante, où vous prenez les décisions et répondez de vos décisions auprès de la haute direction de l’organisation. Vous présentez les tâches, l’approche et le plan de réalisation à la haute direction. Vous supervisez souvent d’autres personnes (personnes ou équipes) dans l’exécution de tâches très complexes ou ayant une incidence sur l’ensemble du système. Vous êtes en mesure de faire progresser ces tâches, même face à des obstacles et à des complications importants et imprévus. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’évaluer les autres à des niveaux plus subalternes, et de déterminer clairement la différence entre les tâches débutantes, intermédiaires et avancées. Vous devriez également être en mesure de pouvoir former des équipes, définir des orientations et assurer une supervision. Ce niveau est habituellement associé aux tâches qui constituent la majeure partie du travail pour les postes de direction et de direction.\",\"skillLevel.hard.expert.name\":\"Responsable\",\"skillLevel.hard.intermediate.description\":\"Vous avez la capacité d’accomplir des tâches de complexité modérée ou d’incidence modérée avec supervision. C’est le superviseur qui détermine l’approche à préconiser pour effectuer les tâches, de même que la façon dont elles sont exécutées. Vous apportez des commentaires et des conseils. Vous êtes en mesure de faire progresser la tâche, même face à des obstacles et à des complications de petite à moyenne envergure. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’accomplir des tâches d’une complexité importante ou ayant une incidence plus grande avec une supervision régulière. Vous devriez également être en mesure d’accomplir des tâches d’une complexité ou d’une incidence modérée avec peu ou pas de supervision. Ce niveau est habituellement associé aux tâches qui constituent le gros du travail pour les postes de niveau intermédiaire, comme les analystes ou les développeurs.\",\"skillLevel.hard.intermediate.name\":\"Intermédiaire\",\"skillLevel.soft.advanced.description\":\"Vous êtes capable de démontrer cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont élevés. Vos pairs et vos superviseurs reconnaissent qu’il s’agit d’une force dont vous faites preuve en milieu de travail.\",\"skillLevel.soft.advanced.name\":\"Fortement en évidence\",\"skillLevel.soft.basic.description\":\"Vous êtes en processus d’acquérir cette compétence ou cet attribut. Vous êtes capable de le démontrer dans des conditions favorables (peu de stress, difficulté minimale) et pouvez l’appliquer dans un contexte de travail de façon intermittente.\",\"skillLevel.soft.basic.name\":\"Phase de développement précoce\",\"skillLevel.soft.expert.description\":\"Il s’agit d’une partie fondamentale de qui vous êtes. Vous démontrez cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont extrêmes. Vos pairs et vos superviseurs reconnaissent qu’il s’agit d’une force importante dont vous faites preuve en milieu de travail, en donnant un exemple aux autres.\",\"skillLevel.soft.expert.name\":\"Démonstration à un niveau profond\",\"skillLevel.soft.intermediate.description\":\"Vous êtes capable de démontrer cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont bas ou modérés. Vos pairs et vos superviseurs peuvent attester le fait que vous êtes capable de démontrer cette compétence ou cet attribut de façon régulière.\",\"skillLevel.soft.intermediate.name\":\"Modérément en évidence\",\"wordCounter.skills.longMessage\":\"Ça a l'air trop long. Pouvez-vous résumer une partie de votre réponse?\",\"wordCounter.skills.placeholder\":\"Commencez à taper votre réponse ci-dessus.\",\"wordCounter.skills.shortMessage\":\"Ce paragraphe semble trop court. Avez-vous un autre exemple ou une leçon à ajouter?\",\"wordCounter.skills.slightlyLongMessage\":\"Ça commence à être un peu long.\",\"wordCounter.skills.veryLongMessage\":\"La limite des 500 mot a été atteinte. C'est beaucoup trop long. Découvrez l'un de nos exemples pour voir à quoi ressemble une description de compétence concise.\",\"wordCounter.skills.veryShortMessage\":\"Ce paragraphe semble trop court. Avez-vous inclus des exemples ou des leçons apprises?\"}");
+module.exports = JSON.parse("{\"activity.commentLocation.label\":\"Commentaire trouvé\",\"activity.commentMetadata\":\"{name} ({userRole}) a commenté à {time}.\",\"activity.viewComment.label\":\"Visualiser le commentaire\",\"activityfeed.accordionAccessibleLabel\":\"Cliquez pour voir...\",\"activityfeed.error\":\"Une erreur s'est produite\",\"activityfeed.header\":\"Cliquez pour voir les commentaires {totalActivities}\",\"activityfeed.loading\":\"Chargement de vos activités...\",\"activityfeed.loadingIconText\":\"Nombre d'activités est en cours de chargement...\",\"activityfeed.locations.applicantReview.general\":\"Général\",\"activityfeed.locations.applicantReview.notUnderConsideration\":\"Candidats qui ne sont plus considérés\",\"activityfeed.locations.applicantReview.optionalConsideration\":\"Candidats supplémentaires\",\"activityfeed.locations.applicantReview.underConsideration\":\"Candidats à considérée\",\"activityfeed.locations.applications\":\"Page des Réviser les candidats\",\"activityfeed.locations.hr.preview\":\"RH Page d'aperçu\",\"activityfeed.locations.hr.summary\":\"RH Résumé de l'emploi\",\"activityfeed.locations.notFound\":\"lieu non trouvé\",\"activityfeed.locations.review\":\"Constructeur d'Affiches\",\"activityfeed.locations.review.basicInfo\":\"Renseignements de base\",\"activityfeed.locations.review.environment\":\"Environnement de travail\",\"activityfeed.locations.review.general\":\"Général\",\"activityfeed.locations.review.heading\":\"Titre de la page de l’emploi\",\"activityfeed.locations.review.impact\":\"Incidence\",\"activityfeed.locations.review.langRequirements\":\"Exigences linguistiques\",\"activityfeed.locations.review.skills\":\"Compétences\",\"activityfeed.locations.review.tasks\":\"Taches\",\"activityfeed.locations.screeningPlan\":\"plan d’évaluation\",\"activityfeed.locations.screeningPlan.builder\":\"Concepteur de plans d’évaluation\",\"activityfeed.locations.screeningPlan.general\":\"Général\",\"activityfeed.locations.screeningPlan.ratings\":\"Concepteur de guides de cotation\",\"activityfeed.locations.screeningPlan.summary\":\"Sommaire du plan d’évaluation\",\"activityfeed.noActivities\":\"Aucune activité.\",\"activityfeed.review.accordionAccessibleLabel\":\"Cliquer pour afficher...\",\"activityfeed.review.header\":\"Cliquez pour voir les commentaires {totalActivities}\",\"activityfeed.review.loadingIconText\":\"Les données sont en cours de chargement...\",\"activityfeed.title\":\"Activités\",\"application.review.addNote\":\"+ Ajouter une note\",\"application.review.alert.oops\":\"Oups...\",\"application.review.backToApplicantList\":\"Sauvegarder et revenir à la liste des candidats\",\"application.review.button.cancel\":\"Annuler\",\"application.review.button.confirm\":\"Confirmer\",\"application.review.button.save\":\"Enregistrer\",\"application.review.button.saved\":\"Enregistrée\",\"application.review.button.saving\":\"Enregistre...\",\"application.review.button.viewJobPoster\":\"Voir l'affiche d'emploi\",\"application.review.collapseAllSkills\":\"Réduire les compétences\",\"application.review.decision\":\"Décision\",\"application.review.editNote\":\"Modifier la note\",\"application.review.emailCandidateLinkTitle\":\"Envoyer un courriel à ce candidat.\",\"application.review.expandAllSkills\":\"Élargir les compétences\",\"application.review.priorityStatus.priority\":\"Priorité\",\"application.review.priorityStatus.priorityLogoTitle\":\"Icône pour candidat prioritaire\",\"application.review.reviewSaveFailed\":\"Une erreur s'est produite lors de l'enregistrement d'un commentaire. Réessayez plus tard.\",\"application.review.reviewStatus.notReviewed\":\"Non révisé\",\"application.review.reviewStatus.screenedOut\":\"Éliminé\",\"application.review.reviewStatus.stillIn\":\"Encore considérée\",\"application.review.reviewStatus.stillThinking\":\"Incertain\",\"application.review.screenInConfirm\":\"Remettre le candidat dans la section à l'étude?\",\"application.review.screenOutConfirm\":\"Éliminer le candidat?\",\"application.review.veteranStatus.veteran\":\"Anciens combattants\",\"application.review.veteranStatus.veteranLogoAlt\":\"icône pour anciens combattants\",\"application.review.viewApplication\":\"Voir l'application\",\"application.review.viewApplicationLinkTitle\":\"Voir l'application de ce candidat.\",\"application.review.viewProfile\":\"Voir le profil\",\"application.review.viewProfileLinkTitle\":\"Voir le profil de ce candidat.\",\"assessmentPlan.addAssessmentButton\":\"Ajouter une évaluation\",\"assessmentPlan.alert.checking\":\"Vérifier si le poste a changé récemment...\",\"assessmentPlan.alert.created\":\"{skills} {count, plural, one {compétence a été ajoutée} other {compétences ont été ajoutées}}.\",\"assessmentPlan.alert.deleted\":\"{skills} {count, plural, one {compétence a été supprimée} other {compétences ont été supprimées}}.\",\"assessmentPlan.alert.explanation\":\"Certaines parties du plan de présélection ont été modifiées pour qu’elles concordent les unes avec les autres.\",\"assessmentPlan.alert.skillAndLevelUpdated\":\"Le champ « {oldSkill} » a été remplacé par « {newSkill} » et a fait l’objet d’une mise à jour.\",\"assessmentPlan.alert.skillLevelUpdated\":\"{skills} {count, plural, one {compétence a été mise à jour} other {compétences ont été mises à jour}}.\",\"assessmentPlan.alert.skillUpdated\":\"Le champ {oldSkill} a été remplacé par {newSkill}.\",\"assessmentPlan.alert.title\":\"Ce poste a récemment changé!\",\"assessmentPlan.assessmentPlanBuilder.instructions\":\"La première étape consiste à choisir des évaluations qui vous permettront d’évaluer les critères que vous avez sélectionnés pour votre offre d’emploi. Vous trouverez ci-dessous vos critères essentiels, suivis de vos critères constituant un atout, le cas échéant. Le concepteur sera enregistré au fur et à mesure, donc lorsque vous aurez terminé, n’hésitez pas à passer à l’étape 2 pour examiner votre travail.\",\"assessmentPlan.assessmentPlanBuilder.shortDescription\":\"(Sélectionnez vos évaluations)\",\"assessmentPlan.assessmentPlanBuilder.title\":\"Concepteur de plans d’évaluation\",\"assessmentPlan.assessmentPlanSummary.shortDescription\":\"(Passez votre plan en revue)\",\"assessmentPlan.assessmentPlanSummary.title\":\"Sommaire du plan d’évaluation\",\"assessmentPlan.assessmentTypesLabel\":\"Types d’évaluation\",\"assessmentPlan.assetCriteria.nullState\":\"Vous n’avez pas choisi de compétences constituant un atout pour cette offre d’emploi.\",\"assessmentPlan.criteriaTitle\":\"{skillName} - {skillLevel}\",\"assessmentPlan.essentialCriteria.nullState\":\"Vous n’avez pas choisi de compétences essentielles pour cette offre d’emploi.\",\"assessmentPlan.instructions.intro\":\"Cet outil vous permet d’élaborer un plan d’évaluation et un guide de cotation pour votre offre d’emploi. L’outil est utilisé en trois étapes :\",\"assessmentPlan.instructions.narrativeNote\":\"Veuillez prendre note que tous les plans d’évaluation comprendront un examen des éléments de preuve fournis par le candidat.\",\"assessmentPlan.pageTitle\":\"Élaborer un plan d’évaluation pour : {jobTitle}\",\"assessmentPlan.ratingGuideBuilder.shortDescription\":\"(Personnalisez vos évaluations)\",\"assessmentPlan.ratingGuideBuilder.title\":\"Concepteur de guides de cotation\",\"assessmentPlan.selectAssessment.label\":\"Sélectionner une évaluation\",\"assessmentPlan.selectAssessment.null\":\"Sélectionner une évaluation\",\"assessmentPlan.skillDescriptionLabel\":\"Description\",\"assessmentPlan.skillLevelDescriptionLabel\":\"Niveau de compétence sélectionné\",\"assessmentPlan.summary.assessmentSummary.noAssessments\":\"Vous n’avez pas sélectionné d’évaluations pour cette offre d’emploi. Ajoutez-les ci-dessus.\",\"assessmentPlan.summary.assessmentSummary.title\":\"Sommaire de l’évaluation\",\"assessmentPlan.summary.assessmentSummary.toolSkillCount\":\"Votre plan utilise {toolCount, plural, =0 {aucun outil} one {# outill} other {# outils}} pour évaluer {skillCount, plural, =0 {compétences} one {# compétence} other {# compétences}}.\",\"assessmentPlan.summary.description\":\"Ceci est un résumé du travail que vous avez effectué ci-dessus. Vous trouverez\\n      chaque évaluation accompagnée d'une liste consolidée des compétences essentielles\\n      et des atouts qui s'y rattachent.\",\"assessmentPlan.summary.skillCount\":\"Évaluer {count, plural, one {# compétence} other {# compétences}}.\",\"assessmentPlan.summary.skillsNullState\":\"Aucune compétence n’est évaluée par cet outil.\",\"assessmentPlan.summary.title\":\"2. Sommaire du plan d’évaluation\",\"assessmentPlan.title\":\"Concepteur de plans d’évaluation\",\"assessmentType.applicationScreeningQuestion\":\"Questions de présélection dans le cadre du processus d’embauche\",\"assessmentType.applicationScreeningQuestion.description\":\"Ces questions paraissent dans le formulaire de demande, et sont présentées dans le Nuage de talents. Elles donnent un premier aperçu de la compréhension, du processus, des connaissances ou de l’adaptation culturelle du candidat pour le poste.\",\"assessmentType.groupTest\":\"Test de groupe\",\"assessmentType.groupTest.description\":\"Les candidats effectuent ce test en temps réel conjointement avec d’autres candidats, des membres de l’équipe ou des animateurs afin de déterminer leurs compétences exceptionnelles, leur habileté à communiquer au sein d’une équipe.\",\"assessmentType.informalPhoneConversation\":\"Conversation téléphonique informelle\",\"assessmentType.informalPhoneConversation.description\":\"Une conversation informelle entre un membre du comité d’embauche et un(e) candidat(e), visant à découvrir les connaissances, les aptitudes ou les traits de personnalité du candidat; les conversations peuvent varier d’un candidat à l’autre.\",\"assessmentType.interview\":\"Entrevue\",\"assessmentType.interview.description\":\"Examen formel de questions-réponses effectué en temps réel entre le comité de sélection et le (la) candidat(e). Les questions ont pour but d'évaluer l'expertise, le niveau et l'approche des compétences. Chaque question est élaborée à l’avance et suit la même structure entre tous les candidats interrogés.\",\"assessmentType.narrativeAssessment\":\"Examen narratif\",\"assessmentType.narrativeAssessment.description\":\"Il s’agit d’une description demandée au cours du processus de demande, dans laquelle les candidats s’identifient et décrivent leur expérience et leur niveau de compétence.\",\"assessmentType.narrativeReview.standardAnswer\":\"La description fournie contient suffisamment d’éléments de preuve pour faire passer ce candidat aux étapes de présélection suivantes.\",\"assessmentType.narrativeReview.standardQuestion\":\"L’examen descriptif des compétences comprend toutes les descriptions ajoutées par le candidat dans sa demande.\",\"assessmentType.onSiteExam\":\"Épreuve sur place\",\"assessmentType.onSiteExam.description\":\"Épreuve préparée qui exige que le candidat effectue à un endroit précis et sous supervision un test visant à évaluer ses compétences et sa technique.\",\"assessmentType.onlineExam\":\"Épreuve en ligne\",\"assessmentType.onlineExam.description\":\"Épreuve préparée qui n’exige pas de supervision, qui peut être effectuée de n’importe quel endroit au moyen d’un accès à Internet, et qui doit être achevée dans un intervalle de temps défini.\",\"assessmentType.portfolioReview\":\"Examen du portefeuille\",\"assessmentType.portfolioReview.description\":\"Au cours du processus de demande, les candidats donnent accès à des échantillons de leur travail pour démontrer leur niveau de compétence et étayer leurs prétentions à cet égard.\",\"assessmentType.referenceCheck\":\"Vérification des références\",\"assessmentType.referenceCheck.description\":\"Au cours du processus de demande, les candidats fournissent les coordonnées d’une connaissance qui peut valider et confirmer leurs compétences, leurs connaissances ou leurs aptitudes.\",\"assessmentType.seriousGames\":\"Jeux sérieux\",\"assessmentType.seriousGames.description\":\"Test comprenant l’utilisation de jeux pour explorer les aptitudes en communication, la résilience et l’intelligence émotionnelle d’un(e) candidat(e), entre autres compétences générales.\",\"assessmentType.takeHomeExam\":\"Épreuve à la maison\",\"assessmentType.takeHomeExam.description\":\"Les candidats reçoivent une trousse matérielle contenant les outils d’évaluation; ils effectuent l’évaluation à un moment qui leur convient le mieux, et à un endroit de leur choix, sans supervision, et ils doivent retourner les documents avant une date limite précise.\",\"button.copied\":\"Copié!\",\"button.copyEmails\":\"Copier des emails\",\"button.copyToClipboard\":\"Copier sur le presse-papier\",\"button.toggleAccordion\":\"Basculer pour voir les candidats concernés.\",\"commentForm.comment.label\":\"Ajouter un commentaire\",\"commentForm.comment.placeholder\":\"À titre d’exemple, entrez votre question, votre recommandation, etc.\",\"commentForm.commentLocation.label\":\"Emplacement du commentaire\",\"commentForm.commentLocation.nullSelection\":\"Sélectionnez un emplacement...\",\"commentForm.commentType.label\":\"Type de commentaire\",\"commentForm.commentType.nullSelection\":\"Sélectionner un type de commentaire\",\"commentForm.submitButton.label\":\"Soumettre un commentaire\",\"commentType.comment\":\"Commentaire\",\"commentType.question\":\"Question\",\"commentType.recommendation\":\"Recommandation\",\"commentType.requiredAction\":\"Mesure requise\",\"criteria.asset\":\"Compétences constituant un atout\",\"criteria.essential\":\"Compétences essentielles\",\"criteriaForm.skillLevelSelectionLabel\":\"Choisir un niveau de compétence\",\"criteriaForm.skillSpecificityLabel\":\"Détails supplémentaires pour cette compétence\",\"criteriaForm.skillSpecificityPlaceholder\":\"Ajoutez du contexte ou des détails à la définition de cette compétence qui n'apparaîtront que sur votre affiche d'emploi. Ceci sera examiné par votre conseiller en ressources humaines.\",\"criteriaType.asset\":\"Atout\",\"criteriaType.essential\":\"Essentiel\",\"demoSubmitJobModal.cancel\":\"Retourner\",\"demoSubmitJobModal.explanation\":\"Seuls les ministères partenaires de Nuage des talents ont accès à l'examen et à la publication des avis d'emploi.\",\"demoSubmitJobModal.link\":\"<a>Savoir si vous pouvez accéder à ces fonctions</a>.\",\"demoSubmitJobModal.link.title\":\"Découvrez comment accéder aux fonctions d'examen et de publication des avis d'emploi.\",\"demoSubmitJobModal.title\":\"Il semble que vous utilisez un compte de démonstration.\",\"errorToast.title\":\"Quelque chose a mal tourné!\",\"formInput.error\":\"Cette entrée a une erreur.\",\"formInput.required\":\"Champs obligatoires\",\"formValidation.checkboxRequired\":\"Il faut cocher au moins une case.\",\"formValidation.invalidSelection\":\"Veuillez choisir parmi les options disponibles.\",\"formValidation.required\":\"Ce champ est requis.\",\"formValidation.tooLong\":\"Trop longue?\",\"formValidation.tooShort\":\"Trop courte?\",\"hrJobIndex.departmentPlaceholder\":\" [Chargement du ministère]\",\"hrJobIndex.jobTitleMissing\":\"Titre manquant \",\"hrJobIndex.managerLoading\":\"Chargement...\",\"hrJobIndex.preview\":\"Prévisualiser l’avis d’emploi \",\"hrJobIndex.reviewDraft\":\"Réviser l’ébauche \",\"hrJobIndex.viewActivity\":\"Afficher l’activité \",\"hrJobIndex.viewScreeningPlan\":\"Afficher le plan d’évaluation \",\"hrJobIndex.viewSummary\":\"Afficher le résumé \",\"hrPortal.jobPageIndex.clickToView\":\"Cliquer pour afficher...\",\"hrPortal.jobPageIndex.completedJobsHeader\":\" Mes mesures d’emploi achevées \",\"hrPortal.jobPageIndex.hideAccordion\":\" Masquer \",\"hrPortal.jobPageIndex.jobActionsEmpty\":\"Réclamer un emploi ci-dessous!\",\"hrPortal.jobPageIndex.jobActionsHeader\":\"Mes mesures d’emploi achevée\",\"hrPortal.jobPageIndex.jobActionsMessage\":\"Voici une liste de toutes les mesures d’emploi auxquelles vous participez actuellement. Vous cherchez une ancienne offre d’emploi? Cochez la section « Mes mesures d’emploi achevées » sous vos offres d’emploi actives.\",\"hrPortal.jobPageIndex.noJobsCompleted\":\"Aucune offre d’emploi achevée à l’heure actuelle!\",\"hrPortal.jobPageIndex.preDepartmentName\":\"Toutes les offres d’emploi dans\",\"hrPortal.jobPageIndex.showAccordion\":\"Afficher \",\"hrPortal.jobPageIndex.unclaimedJobsEmpty\":\"Il n’y a actuellement aucune offre d’emploi active disponible.\",\"hrPortal.jobPageIndex.unclaimedJobsMessage\":\"Voici la liste de toutes les mesures actives dans votre ministère. À partir de ce point, vous pouvez « réclamer » un emploi qui sera transféré dans votre liste d’emploi ci-dessus, ce qui vous permettra de commencer à collaborer avec le gestionnaire d’embauche pour trouver le meilleur talent possible. Si vous réclamez un emploi par erreur, ne craignez rien, car vous pouvez cliquer sur le résumé de l’emploi et retirer votre nom au moyen du bouton « Renoncer à cet emploi ».\",\"job.daysSinceClosed\":\"{dayCount, plural, =0 {Aucun jour} one {# jour} other {# jours}} depuis la fermeture\",\"jobBuilder.collaborativeness.01.description\":\"Les membres de notre équipe proviennent de divers milieux, et ont des points de vue et des compétences variés. Nous nous appuyons sur nos points forts. Collectivement, nous nous approprions les objectifs de l’équipe et nous sommes constamment à la recherche de façons de s’entraider.\",\"jobBuilder.collaborativeness.01.title\":\"Collaboratif\",\"jobBuilder.collaborativeness.02.description\":\"Notre équipe possède un ensemble de compétences diversifiées et nous reconnaissons les forces de chacun. Nous travaillons ensemble souvent et nous intervenons rapidement quand une personne demande de l’aide.\",\"jobBuilder.collaborativeness.02.title\":\"Assez collaboratif\",\"jobBuilder.collaborativeness.03.description\":\"Chaque membre de notre équipe possède une pièce du casse-tête et jouit de la liberté de choisir sa propre façon de travailler.\",\"jobBuilder.collaborativeness.03.title\":\"Assez indépendant \",\"jobBuilder.collaborativeness.04.description\":\"Chaque membre de notre équipe prend en charge sa pièce du casse-tête. La façon dont nous accomplissons notre travail importe peu, tant qu’il est de qualité supérieure.\",\"jobBuilder.collaborativeness.04.title\":\"Indépendant\",\"jobBuilder.criteriaForm.addSpecificity\":\"Je voudrais ajouter des détails à cette définition qui sont spécifiques à ce poste.\",\"jobBuilder.criteriaForm.button.add\":\"Ajouter une compétence\",\"jobBuilder.criteriaForm.button.cancel\":\"Annuler\",\"jobBuilder.criteriaForm.chooseSkillLevel\":\"Choisir un niveau de compétence\",\"jobBuilder.criteriaForm.or\":\"ou\",\"jobBuilder.criteriaForm.removeSpecificity\":\"Supprimer la particularité supplémentaire.\",\"jobBuilder.criteriaForm.skillDefinition\":\"Définition de la compétence\",\"jobBuilder.criterion.requiredSkill\":\"Compétence requise :\",\"jobBuilder.culturePace.01.description\":\"Nos échéances sont serrées, nous traitons plusieurs tâches en même temps et nos priorités changent constamment. Notre travail devrait être effectué en portant des chaussures de courses!\",\"jobBuilder.culturePace.01.title\":\"Un rythme très rapide\",\"jobBuilder.culturePace.02.description\":\"Nos échéances sont habituellement rapprochées, nous traitons plusieurs tâches en même temps et nos priorités changent régulièrement. Notre travail nous force à rester sur le qui-vive!\",\"jobBuilder.culturePace.02.title\":\"Rythme rapide\",\"jobBuilder.culturePace.03.description\":\"Nos échéances sont régulières et prévisibles, nous traitons quelques tâches à la fois et nos priorités changent de temps à autre. Nous maintenons un certain équilibre.\",\"jobBuilder.culturePace.03.title\":\"Soutenu\",\"jobBuilder.culturePace.04.description\":\"Notre travail est continu, donc il n’y a pas beaucoup d’échéances. Habituellement, nous ne sommes pas obligés d’équilibrer la répartition des tâches et nos priorités changent rarement. Nous nous sentons bien dans la routine.\",\"jobBuilder.culturePace.04.title\":\"Très soutenu\",\"jobBuilder.details.SelectClassAndLvlMessage\":\"Veuillez choisir une classification et un niveau avant de préparer\\r\\n                          les exigences en matière d’éducation.\",\"jobBuilder.details.cityLabel\":\"Dans quelle ville l'équipe est-elle située?\",\"jobBuilder.details.cityPlaceholder\":\"P. ex. Ottawa\",\"jobBuilder.details.classificationLabel\":\"Quelle est la classification?\",\"jobBuilder.details.classificationNullSelection\":\"Veuillez sélectionner la classification...\",\"jobBuilder.details.classificationOptions.AD\":\"AD - Services administratifs\",\"jobBuilder.details.classificationOptions.AS\":\"AS – Services administratifs\",\"jobBuilder.details.classificationOptions.BI\":\"BI – Sciences biologiques\",\"jobBuilder.details.classificationOptions.CO\":\"CO - Commerce\",\"jobBuilder.details.classificationOptions.CR\":\"CR - Commis aux écritures et aux règlements\",\"jobBuilder.details.classificationOptions.CS\":\"CS – Systèmes d’ordinateurs\",\"jobBuilder.details.classificationOptions.EC\":\"EC - Économique et services de sciences sociales\",\"jobBuilder.details.classificationOptions.EX\":\"EX - Direction\",\"jobBuilder.details.classificationOptions.FO\":\"FO - Sciences forestières\",\"jobBuilder.details.classificationOptions.IS\":\"IS – Services d’information\",\"jobBuilder.details.classificationOptions.PC\":\"PC – Sciences physiques\",\"jobBuilder.details.classificationOptions.PE\":\"PE – Gestion du personnel\",\"jobBuilder.details.classificationOptions.PM\":\"PM – Administration des programmes\",\"jobBuilder.details.documentTitle\":\"Constructeur d'affiches: Renseignements\",\"jobBuilder.details.educationMessages.AD\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires;\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’elle soit prise en considération. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.AS\":\"Diplôme d’études secondaires ou équivalent :\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.BI\":\"Diplôme d’études postsecondaires:\\nDiplôme d’études postsecondaires en sciences naturelles, physiques ou appliquées, avec spécialisation dans un domaine lié aux fonctions du poste.\",\"jobBuilder.details.educationMessages.CO\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.CR\":\"Deux années d’études secondaires ou l’équivalent:\\nAu moins deux années d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative aux deux années d’études secondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.CS\":\"Deux (2) ans d’études postsecondaires ou l’équivalent:\\nDeux années d’études postsecondaires en informatique, en technologie de l’information, en gestion de l’information ou dans une autre spécialité pertinente à ce poste.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente aux deux années d’études postsecondaires requises, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.EC\":\"Diplôme d’études postsecondaires:\\nun diplôme d’un établissement d’enseignement postsecondaire reconnu avec spécialisation acceptable en économique, en sociologie ou en statistique.\\n\\nLes candidats doivent toujours détenir un diplôme. Les cours de spécialisation doivent être acceptables et avoir été suivis auprès d’un établissement d’enseignement postsecondaire reconnu, mais pas nécessairement dans le cadre d’un programme de diplôme dans la spécialisation requise. La spécialisation peut également être obtenue grâce à un agencement acceptable d’études, de formation et (ou) d’expérience.\",\"jobBuilder.details.educationMessages.EX\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires, ou admissibilité à un titre professionnel reconnu dans une province ou un territoire du Canada.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.FO\":\"Diplôme d’études postsecondaires:\\nUn diplôme en foresterie ou en produits du bois d’un établissement d’enseignement postsecondaire reconnu.\\n\\nou\\n\\nUn diplôme dans une science connexe d’un établissement d’enseignement postsecondaire reconnu agencé à une expérience acceptable.\",\"jobBuilder.details.educationMessages.IS\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.PC\":\"Diplôme d’études postsecondaires:\\nDiplôme d’études postsecondaires, avec spécialisation en physique, en géologie, en chimie ou dans une autre science liée aux fonctions du poste.\",\"jobBuilder.details.educationMessages.PE\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires, avec spécialisation en gestion des ressources humaines, en relations de travail ou en relations industrielles, en psychologie, en administration publique ou en administration des affaires, en développement organisationnel, en sciences de l’éducation, en sciences sociales, en sociologie ou dans un autre domaine lié aux fonctions du poste.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.PM\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationRequirementCopyAndPaste\":\"Si vous voulez personnaliser ce paragraphe, veuillez le copier-coller dans la zone de texte ci-dessous pour le modifier. \",\"jobBuilder.details.educationRequirementHeader\":\"En fonction du niveau de classification sélectionné, le paragraphe générique suivant apparaîtra sur l’offre d’emploi. \",\"jobBuilder.details.educationRequirementPlaceholder\":\"Collez le paragraphe ici pour le modifier...\",\"jobBuilder.details.educationRequirementReviewChanges\":\"Votre conseiller en RH examinera vos changements.\",\"jobBuilder.details.educationRequirementsLabel\":\"Personnaliser les exigences en matière d’études :\",\"jobBuilder.details.flexHoursGroupBody\":\"Vous voulez appuyer un milieu de travail plus inclusif sur le plan de l’égalité des sexes? Des études montrent que l’horaire flexible est un excellent moyen d’améliorer les possibilités des femmes et des parents.\",\"jobBuilder.details.flexHoursGroupHeader\":\"À quelle fréquence les heures flexibles sont-elles permises?\",\"jobBuilder.details.flexHoursGroupLabel\":\"Choisissez les horaires souples :\",\"jobBuilder.details.frequencyAlwaysLabel\":\"Presque toujours\",\"jobBuilder.details.frequencyFrequentlyLabel\":\"Habituellement\",\"jobBuilder.details.frequencyNeverLabel\":\"Jamais\",\"jobBuilder.details.frequencyOccasionallyLabel\":\"Rarement\",\"jobBuilder.details.frequencySometimesLabel\":\"Parfois\",\"jobBuilder.details.heading\":\"Détails sur l’emploi\",\"jobBuilder.details.languageLabel\":\"Quel est le profil linguistique?\",\"jobBuilder.details.languageNullSelection\":\"Veuillez sélectionner le profil linguistique...\",\"jobBuilder.details.levelLabel\":\"Quel est le niveau?\",\"jobBuilder.details.levelNullSelection\":\" Veuillez sélectionner le niveau...\",\"jobBuilder.details.modalBody\":\"Voici un aperçu des informations sur le travail que vous venez de saisir. N'hésitez pas à revenir en arrière et à modifier des éléments ou à passer à l'étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.details.modalCancelLabel\":\"Retourner\",\"jobBuilder.details.modalConfirmLabel\":\"Étape suivante\",\"jobBuilder.details.modalHeader\":\"Vous partez du bon pied!\",\"jobBuilder.details.modalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.details.overtimeFrequentlyLabel\":\"Oui, il est souvent nécessaire de travailler des heures supplémentaires dans le cadre de ce poste.\",\"jobBuilder.details.overtimeGroupHeader\":\"Le temps supplémentaire est-il requis?\",\"jobBuilder.details.overtimeGroupLabel\":\"Sélectionner l’exigence en matière de temps supplémentaire\",\"jobBuilder.details.overtimeNoneRequiredLabel\":\"Non, le temps supplémentaire n’est pas nécessaire pour ce poste.\",\"jobBuilder.details.overtimeOpportunitiesAvailableLabel\":\"Oui, il est possible que des heures supplémentaires soient offertes aux personnes intéressées.\",\"jobBuilder.details.provinceLabel\":\"Dans quelle province l'équipe est-elle située?\",\"jobBuilder.details.provinceNullSelection\":\"Veuillez sélectionner la province...\",\"jobBuilder.details.remoteWorkCanadaLabel\":\"Oui, je suis prêt(e) à superviser des employés dans n'importe quelle province ou territoire au Canada.\",\"jobBuilder.details.remoteWorkGroupBody\":\"Vous voulez les meilleurs talents au Canada? Vous augmentez vos chances lorsque vous permettez à ceux qui se trouvent dans d’autres régions du Canada de présenter une demande. La diversité régionale ajoute également une perspective à la culture de votre équipe. Assurez-vous d’en discuter à l’avance avec votre conseiller en RH.\",\"jobBuilder.details.remoteWorkGroupHeader\":\"Le travail à distance est-il permis?\",\"jobBuilder.details.remoteWorkGroupLabel\":\"Choisissez le travail à distance :\",\"jobBuilder.details.remoteWorkNoneLabel\":\"Non, j’exige que l’employé(e) qui occupe ce poste soit dans le même lieu géographique que le bureau.\",\"jobBuilder.details.remoteWorkWorldLabel\":\"Oui, je suis prêt(e) à superviser des employés partout dans le monde.\",\"jobBuilder.details.returnButtonLabel\":\"Enregistrer et retourner à l’introduction\",\"jobBuilder.details.securityLevelLabel\":\"Quel est le niveau de sécurité?\",\"jobBuilder.details.securityLevelNullSelection\":\"Veuillez sélectionner le niveau de sécurité...\",\"jobBuilder.details.submitButtonLabel\":\"Prochain\",\"jobBuilder.details.teleworkGroupBody\":\"Démontrez que vous faites confiance à vos employés et que vous avez une culture organisationnelle positive. Autorisez le télétravail en option.\",\"jobBuilder.details.teleworkGroupHeader\":\"À quelle fréquence le télétravail est-il permis?\",\"jobBuilder.details.teleworkGroupLabel\":\"Choisissez le télétravail :\",\"jobBuilder.details.termLengthLabel\":\"Quelle est la durée du poste (en mois)?\",\"jobBuilder.details.termLengthPlaceholder\":\" P.ex. 3\",\"jobBuilder.details.titleLabel\":\"Quel est le titre du poste?\",\"jobBuilder.details.titlePlaceholder\":\"P. ex. Chercheur - utilisateurs\",\"jobBuilder.details.travelFrequentlyLabel\":\"Oui, des déplacements sont souvent exigés pour le poste.\",\"jobBuilder.details.travelGroupHeader\":\"Est-il nécessaire de voyager?\",\"jobBuilder.details.travelGroupLabel\":\"Sélectionner l’exigence des déplacements\",\"jobBuilder.details.travelNoneRequiredLabel\":\"Non, aucun déplacement n’est nécessaire pour ce poste.\",\"jobBuilder.details.travelOpportunitiesAvailableLabel\":\"Oui, des possibilités de voyage sont offertes pour ceux qui sont intéressés.\",\"jobBuilder.experimental.01.description\":\"Notre travail est défini en essayant de nouvelles idées, méthodes et activités pour aborder des problèmes persistants auxquels les approches traditionnelles ne peuvent pas remédier.\",\"jobBuilder.experimental.01.title\":\"Approche expérimentale\",\"jobBuilder.experimental.02.description\":\"Nous essayons des idées, méthodes et activités nouvelles et éprouvées pour améliorer la façon de faire notre travail.\",\"jobBuilder.experimental.02.title\":\"Approche assez expérimentale\",\"jobBuilder.experimental.03.description\":\"Notre travail comprend quelques tâches administratives qui se répètent quotidiennement. Les outils que nous utilisons nous conviennent, mais nous sommes ouverts à améliorer notre processus..\",\"jobBuilder.experimental.03.title\":\"Travail assez prévisible\",\"jobBuilder.experimental.04.description\":\"La majeure partie de notre travail comprend quelques tâches administratives qui se répètent quotidiennement. La cohérence est un facteur clé ici, donc nous suivons un processus standard avec des outils éprouvés.\",\"jobBuilder.experimental.04.title\":\"Travail prévisible\",\"jobBuilder.facing.01.description\":\"Nous représentons l’image de marque des services que nous offrons et nous passons la plupart de notre temps à interagir directement avec le public.\",\"jobBuilder.facing.01.title\":\"Services orientés vers le citoyen\",\"jobBuilder.facing.02.description\":\"Nous passons beaucoup de temps à interagir directement avec le public, mais nous travaillons également en coulisses afin d’appuyer d’autres personnes.\",\"jobBuilder.facing.02.title\":\"Services essentiellement orientés vers le citoyen\",\"jobBuilder.facing.03.description\":\" Nous travaillons généralement en coulisses et nous effectuons un travail important qui rend possible la prestation de services.\",\"jobBuilder.facing.03.title\":\"Services essentiellement administratifs\",\"jobBuilder.facing.04.description\":\" Nous travaillons en coulisses et nous effectuons un travail important qui rend possible la prestation de services. Nous nous sentons bien quand nous appuyons les autres.\",\"jobBuilder.facing.04.title\":\"Services administratifs\",\"jobBuilder.impact.button.goBack\":\"Revenir en arrière\",\"jobBuilder.impact.button.next\":\"Prochain\",\"jobBuilder.impact.button.nextStep\":\"Passer à l’étape suivante\",\"jobBuilder.impact.button.return\":\"Enregistrer et retourner à l’environnement de travail\",\"jobBuilder.impact.button.skipToReview\":\"Passer pour la révision\",\"jobBuilder.impact.departmentsLoading\":\"Chargement des données du Ministère...\",\"jobBuilder.impact.documentTitle\":\"Constructeur d’affiches: Incidences\",\"jobBuilder.impact.header.department\":\"Comment votre ministère engendre des incidences:\",\"jobBuilder.impact.hireBody\":\"Décrivez la contribution du nouvel employé dans le cadre de son rôle. Misez sur la valeur qu’il apportera et non des tâches particulières (vous les indiquerez plus loin). Par exemple « Dans ce rôle, vous contribuerez à … » ou « En tant que membre de l’équipe, vous serez responsable de nous aider à… »\",\"jobBuilder.impact.hireHeader\":\"Comment le nouvel employé engendra des incidences\",\"jobBuilder.impact.hireLabel\":\"Déclaration d'incidences des employés\",\"jobBuilder.impact.hirePlaceholder\":\"Souvenez-vous de ne pas utiliser de jargon administratif.\",\"jobBuilder.impact.modalDescription\":\"Voici un aperçu de l’énoncé des incidences que vous venez de rédiger.\\n                        N'hésitez pas à revenir en arrière pour modifier le texte.\\n                        Passez à l'étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.impact.modalTitle\":\"Excellent travail!\",\"jobBuilder.impact.points.counts\":\"La première chose que les candidats voient lorsqu’ils cliquent sur votre avis de concours est votre énoncé des incidences. Assurez-vous donc de bien le rédiger!\",\"jobBuilder.impact.points.highlight\":\"C’est votre chance de souligner en quoi votre travail est utile et intéressant.\",\"jobBuilder.impact.points.opportunity\":\"Le fait de travailler pour le gouvernement fédéral offre une importante occasion d’engendrer d’importantes incidences pour les Canadiens.\",\"jobBuilder.impact.selectDepartment\":\"Vous devez choisir un ministère pour cet emploi.\",\"jobBuilder.impact.teamBody\":\"Décrivez la valeur apportée aux Canadiens par votre équipe/service/initiative. Peu importe si votre travail consiste à offrir des services directement aux citoyens ou des services administratifs, d’innovation ou d’entretien, de priorité absolue ou continus. Décrivez comment votre travail contribue à améliorer le Canada comme si vous parliez à quelqu’un qui ne connaît rien de votre travail.\",\"jobBuilder.impact.teamHeader\":\"Comment votre équipe engendre des impacts:\",\"jobBuilder.impact.teamLabel\":\"Déclaration d’incidence d'équipe\",\"jobBuilder.impact.teamPlaceholder\":\"Employez un ton informel, franc et amical\",\"jobBuilder.impact.title\":\"Rédiger votre énoncé des incidences\",\"jobBuilder.impact.unknownDepartment\":\"Erreur : Choisissez un ministère inconnu.\",\"jobBuilder.impactPreview.title\":\"Impact\",\"jobBuilder.intro.accountSettingsLinkText\":\"les paramètres de votre compte\",\"jobBuilder.intro.accountSettingsLinkTitle\":\"Visitez la page Paramètres du compte.\",\"jobBuilder.intro.changeDepartment\":\"Pour changer de département, veuillez contacter {email}. Pour en savoir plus, visitez {accountSettings}.\",\"jobBuilder.intro.completeInLanguage\":\"Répondez à l’offre d’emploi dans la langue officielle de votre choix. Nous nous chargerons de la traduction\",\"jobBuilder.intro.contactUs\":\"Nous avons également fourni des instructions et des exemples pour vous guider tout au long du processus, mais si vous avez toujours des questions, veuillez communiquer avec le {link}\",\"jobBuilder.intro.continueButtonLabelEN\":\"Continue in English\",\"jobBuilder.intro.continueButtonLabelFR\":\"Continuer en français\",\"jobBuilder.intro.departmentHeader\":\"Informations sur le département de {name}\",\"jobBuilder.intro.departmentLabel\":\"Ministère\",\"jobBuilder.intro.departmentNullSelection\":\"Choisissez un ministère...\",\"jobBuilder.intro.divisionLabelEN\":\"La division de {name} (en anglais)\",\"jobBuilder.intro.divisionLabelFR\":\"La division de {name} (en français)\",\"jobBuilder.intro.divisionPlaceholderEN\":\"p. ex., Digital Change\",\"jobBuilder.intro.divisionPlaceholderFR\":\"p. ex., Changement numérique\",\"jobBuilder.intro.documentTitle\":\"Constructeur d'affiches: Intro\",\"jobBuilder.intro.emailLinkText\":\"Nuage de talents\",\"jobBuilder.intro.emailLinkTitle\":\"Envoyer un courriel au Nuage de talents.\",\"jobBuilder.intro.explanation\":\"Le présent outil vous aidera à créer une offre d’emploi qui vous aidera à attirer les bons talents. Avant de commencer à créer l’offre d’emploi, veuillez prendre le temps de {boldText}\",\"jobBuilder.intro.explanation.boldText\":\"confirmer l’exactitude de vos renseignements personnels ci-dessous.\",\"jobBuilder.intro.formDescription\":\"Ces renseignements apparaîtront dans l’offre d’emploi pour donner de plus amples renseignements aux candidats sur les personnes avec qui ils travailleront.\",\"jobBuilder.intro.formTitle\":\"Information du profil de {name}\",\"jobBuilder.intro.jobTitleLabelEN\":\"Le poste de {name} (en anglais)\",\"jobBuilder.intro.jobTitleLabelFR\":\"Le poste de {name} (en français)\",\"jobBuilder.intro.jobTitlePlaceholderEN\":\"Par exemple : Design Manager\",\"jobBuilder.intro.jobTitlePlaceholderFR\":\"Par exemple : Gestionnaire de la conception\",\"jobBuilder.intro.managerLoading\":\"Votre profil de gestionnaire est en cours de chargement...\",\"jobBuilder.intro.welcome\":\"Bienvenue sur le Constructeur d'Affiches\",\"jobBuilder.jobLoading\":\"Votre offre d’emploi est en train de se charger...\",\"jobBuilder.loading\":\"Votre offre d’emploi est en train de se charger...\",\"jobBuilder.mgmtStyle.01.description\":\"Il n’y a aucun cadre intermédiaire ici, donc nous prenons, nous-mêmes, la plupart des décisions importantes et vous pouvez vous attendre à interagir quotidiennement avec nos cadres supérieures.\",\"jobBuilder.mgmtStyle.01.title\":\"Horizontale\",\"jobBuilder.mgmtStyle.02.description\":\"Nous avons quelques cadres intermédiaires ici, mais nous prenons, nous-mêmes, les décisions quotidiennes. Ne soyez pas surpris d’interagir assez souvent avec nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.02.title\":\"Assez horizontale\",\"jobBuilder.mgmtStyle.03.description\":\"Notre équipe a un rôle clairement défini. Nous faisons régulièrement le point avec les cadres intermédiaires pour approuver et mettre à jour la vision stratégique de nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.03.title\":\"Assez verticale\",\"jobBuilder.mgmtStyle.04.description\":\"Notre équipe a un rôle clairement défini. Nous faisons souvent le point auprès des cadres intermédiaires pour approuver et procéder à la mise à jour de la vision stratégique de nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.04.title\":\"Verticale\",\"jobBuilder.preview.city\":\"Ville\",\"jobBuilder.preview.classification\":\"Classification\",\"jobBuilder.preview.classificationEducation\":\"Classification et éducation\",\"jobBuilder.preview.education\":\"Éducation\",\"jobBuilder.preview.flexibleHours\":\"Heures flexibles\",\"jobBuilder.preview.jobInformation\":\"Renseignements sur l’emploi\",\"jobBuilder.preview.jobTitle\":\"Titre du poste\",\"jobBuilder.preview.languageProfile\":\"Profil linguistique\",\"jobBuilder.preview.lengthOfTheTerm\":\"Durée du poste\",\"jobBuilder.preview.level\":\"Niveau\",\"jobBuilder.preview.overtime\":\"Heures supplémentaires\",\"jobBuilder.preview.province\":\"Province\",\"jobBuilder.preview.remoteWork\":\"Travail à distance\",\"jobBuilder.preview.securityClearance\":\"Cote de sécurité\",\"jobBuilder.preview.telework\":\"Télétravail\",\"jobBuilder.preview.termLength\":\"{termMonths, plural, =0 {pas de mois} other {# mois}}\",\"jobBuilder.preview.travel\":\"Voyage\",\"jobBuilder.preview.workStyles\":\"Styles de travail\",\"jobBuilder.progressTracker.label.finish\":\"Fin\",\"jobBuilder.progressTracker.label.start\":\"Début\",\"jobBuilder.progressTracker.label.step1\":\"Étape 1 / 5\",\"jobBuilder.progressTracker.label.step2\":\"Étape 2 / 5\",\"jobBuilder.progressTracker.label.step3\":\"Étape 3 / 5\",\"jobBuilder.progressTracker.label.step4\":\"Étape 4 / 5\",\"jobBuilder.progressTracker.label.step5\":\"Étape 5 / 5\",\"jobBuilder.progressTracker.title.impact\":\"Incidence\",\"jobBuilder.progressTracker.title.jobInfo\":\"Renseignements\",\"jobBuilder.progressTracker.title.review\":\"Révision\",\"jobBuilder.progressTracker.title.skills\":\"Compétences\",\"jobBuilder.progressTracker.title.tasks\":\"Tâches\",\"jobBuilder.progressTracker.title.welcome\":\"Bienvenue\",\"jobBuilder.progressTracker.title.workEnv\":\"Environnement\",\"jobBuilder.review.GovernmentClass\":\"Classification gouvernementale\",\"jobBuilder.review.assetHeading\":\"Compétences souhaitables\",\"jobBuilder.review.averageAnnualSalary\":\"Échelle de salaire annuel\",\"jobBuilder.review.basicInformationHeading\":\"Renseignements de base\",\"jobBuilder.review.button.return\":\"Enregistrer et retourner aux compétences\",\"jobBuilder.review.button.submit\":\"Cela semble bon!\",\"jobBuilder.review.comesLater\":\"Cette étape survient plus tard.\",\"jobBuilder.review.confirm.cancel\":\"Annuler\",\"jobBuilder.review.confirm.submit\":\"Oui, transmettre\",\"jobBuilder.review.confirm.title\":\"Félicitations! Êtes-vous prêt à transmettre l’offre d’emploi?\",\"jobBuilder.review.criteriaSection\":\"Critères\",\"jobBuilder.review.cultureSection\":\"Environnement et culture\",\"jobBuilder.review.documentTitle\":\"Constructeur d'affiches: Révision\",\"jobBuilder.review.duration\":\"Durée\",\"jobBuilder.review.educationalHeading\":\"Exigences relatives aux études\",\"jobBuilder.review.headsUp\":\"Un simple rappel. Nous avons réorganisé certains renseignements fournis afin de vous aider à comprendre comment le candidat verra l’information une fois publiée.\",\"jobBuilder.review.impactEditLink\":\"Modifier cet élément à l’étape 03, Incidence.\",\"jobBuilder.review.impactHeading\":\"Incidence\",\"jobBuilder.review.infoEditLink\":\"Modifier cet élément à l’étape 01, Renseignements sur le poste\",\"jobBuilder.review.jobPageHeading\":\"Titre de la page de l’emploi\",\"jobBuilder.review.languageHeading\":\"Exigences linguistiques\",\"jobBuilder.review.languageProfile\":\"Profil linguistique\",\"jobBuilder.review.managerDataLoading\":\"Les données du gestionnaire sont en cours de chargement...\",\"jobBuilder.review.managerHeading\":\"Les données du gestionnaire sont en cours de chargement...\",\"jobBuilder.review.managerIncomplete\":\"Veuillez remplir votre profil de gestionnaire.\",\"jobBuilder.review.managerPosition\":\"{position} au {department}\",\"jobBuilder.review.managerProfileLink\":\"Modifier cet élément dans votre profil\",\"jobBuilder.review.meantime\":\"Entre-temps, n’hésitez pas à créer un plan de présélection pour votre processus de sélection. Vous pouvez aussi attendre les commentaires des RH avant de passer à l’étape suivante.\",\"jobBuilder.review.months\":\"{termMonths,plural,=0{No Months} one{{termMonths, number} Month} other{{termMonths, number} Months}}\",\"jobBuilder.review.nullProvince\":\"PROVINCE MANQUANTE\",\"jobBuilder.review.or\":\"ou\",\"jobBuilder.review.otherInfoHeading\":\"Autres renseignements au sujet de l’équipe\",\"jobBuilder.review.readyToSubmit\":\"Si vous êtes prêt à soumettre votre offre, cliquez sur le bouton Soumettre ci-dessous.\",\"jobBuilder.review.remoteAllowed\":\"Travail à distance autorisé\",\"jobBuilder.review.remoteNotAllowed\":\"Travail à distance non autorisé\",\"jobBuilder.review.reviewYourPoster\":\"Examiner votre offre d’emploi pour :\",\"jobBuilder.review.securityClearance\":\"Autorisation de sécurité\",\"jobBuilder.review.sendYourDraft\":\"Le Nuage de talents enverra votre ébauche au conseiller en RH de votre ministère, et ce dernier vous informera de ses commentaires.\",\"jobBuilder.review.skills.nullState\":\"Vous n’avez pas ajouté de compétences souhaitables pour cette offre d’emploi.\",\"jobBuilder.review.skillsEditLink\":\"Modifier cet élément à l’étape 05, Compétences\",\"jobBuilder.review.skillsHeading\":\"Compétences requises\",\"jobBuilder.review.tCAdds\":\"Le Nuage de talents ajoutera l’élément.\",\"jobBuilder.review.targetStartDate\":\"Date d’entrée en fonction prévue\",\"jobBuilder.review.tasksEditLink\":\"Modifier cet élément à l’étape 04, Tâches\",\"jobBuilder.review.tasksHeading\":\"Tâches\",\"jobBuilder.review.whatHappens\":\"Quelles sont les prochaines étapes?\",\"jobBuilder.review.workCultureHeading\":\"Culture de travail\",\"jobBuilder.review.workDescription\":\"Veuillez prendre note que certains renseignements sur le milieu de travail ne seront affichés que si le candidat clique sur le bouton « Afficher le milieu de travail et la culture de l’équipe » qui apparaît sur l’offre d’emploi.\",\"jobBuilder.review.workEnvEditLink\":\"Modifier cet élément à l’étape 02, Environnement de travail\",\"jobBuilder.review.workEnvHeading\":\"Milieu de travail\",\"jobBuilder.root.documentTitle\":\"Constructeur d'Affiches\",\"jobBuilder.skills.addSkillBelow\":\"Ajoutez des compétences, ci-dessous, pour continuer.\",\"jobBuilder.skills.alt.happyArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône sourire.\",\"jobBuilder.skills.alt.happyGraySmiley\":\"émoticône sourire en gris.\",\"jobBuilder.skills.alt.happySmiley\":\"émoticône sourire en couleur.\",\"jobBuilder.skills.alt.neutralArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône neutre.\",\"jobBuilder.skills.alt.neutralGraySmiley\":\"émoticône neutre en gris.\",\"jobBuilder.skills.alt.neutralSmiley\":\"émoticône neutre en couleur.\",\"jobBuilder.skills.alt.unhappyArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône triste.\",\"jobBuilder.skills.alt.unhappyGraySmiley\":\"émoticône triste en gris.\",\"jobBuilder.skills.alt.unhappySmiley\":\"émoticône triste en couleur.\",\"jobBuilder.skills.button.keyTasks\":\"Voir les tâches principales\",\"jobBuilder.skills.button.previewSkills\":\"Sauvegarder et voir un aperçu des compétences\",\"jobBuilder.skills.button.returnToTasks\":\"Sauvegarder et retourner aux tâches\",\"jobBuilder.skills.description\":\"C’est ici que vous choisissez les critères requis pour accomplir ce travail efficacement. Vous trouverez, ci-dessous, deux barres qui indiquent la mesure du niveau de votre présente compétence sélectionnée.\",\"jobBuilder.skills.description.keepItUp\":\"Voici un aperçu des compétences que vous venez de saisir. N’hésitez pas à retourner à la page précédente et à corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait. \",\"jobBuilder.skills.documentTitle\":\"Constructeur d'affiches: Compétences\",\"jobBuilder.skills.emailLink\":\"Communiquez avec nous par courriel\",\"jobBuilder.skills.essentialSkillRequiredError\":\"Au moins une compétence essentielle est requise.\",\"jobBuilder.skills.instructions.missingSkills\":\"Le fait de dresser une liste de compétences est une tâche énorme, et il n’est pas surprenant que la liste de Nuage de talents ne contienne pas la compétence que vous cherchez. Afin de nous aider à allonger la liste des compétences, veuillez {link}. Veuillez fournir le nom de la compétence ainsi qu’une brève description pour lancer la discussion.\",\"jobBuilder.skills.listTitle\":\"Votre liste de compétences\",\"jobBuilder.skills.nullState\":\"Vous n’avez pas encore ajouté de compétences.\",\"jobBuilder.skills.nullText.occupationalSkills\":\"Vous devez retourner à Étape 1 et choisir une classification.\",\"jobBuilder.skills.placeholder.otherSkills\":\"Aucune autre compétence n’est ajoutée.\",\"jobBuilder.skills.previewModalCancelLabel\":\"Retour en arrière\",\"jobBuilder.skills.previewModalConfirmLabel\":\"Prochaine étape\",\"jobBuilder.skills.previewModalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.skills.range.culturalSkills\":\"Visez des compétences {minCulture} – {maxCulture}.\",\"jobBuilder.skills.range.futureSkills\":\"Visez des compétences {minFuture} – {maxFuture}.\",\"jobBuilder.skills.range.occupationalSkills\":\"Visez des compétences {minOccupational} – {maxOccupational}.\",\"jobBuilder.skills.selectSkillLabel\":\"Veuillez sélectionner une compétence dans notre liste.\",\"jobBuilder.skills.selectSkillNull\":\"Veuillez sélectionner une compétence\",\"jobBuilder.skills.skillLevel\":\"Niveau de compétences\",\"jobBuilder.skills.statusSmiley.acceptable\":\"Acceptable\",\"jobBuilder.skills.statusSmiley.almost\":\"Presque\",\"jobBuilder.skills.statusSmiley.awesome\":\"Fantastique\",\"jobBuilder.skills.statusSmiley.essential.acceptable\":\"Acceptable\",\"jobBuilder.skills.statusSmiley.essential.almost\":\"Presque\",\"jobBuilder.skills.statusSmiley.essential.awesome\":\"Fantastique\",\"jobBuilder.skills.statusSmiley.essential.tooFew\":\"Insuffisant\",\"jobBuilder.skills.statusSmiley.essential.tooMany\":\"Trop\",\"jobBuilder.skills.statusSmiley.essentialTitle\":\"Le nombre de compétences fondamentales est\",\"jobBuilder.skills.statusSmiley.title\":\"Le nombre total des compétences\",\"jobBuilder.skills.statusSmiley.tooFew\":\"Insuffisant\",\"jobBuilder.skills.statusSmiley.tooMany\":\"Trop\",\"jobBuilder.skills.tasksModalCancelLabel\":\"Retour aux compétences\",\"jobBuilder.skills.title\":\"Compétences\",\"jobBuilder.skills.title.addASkill\":\"Ajoutez une compétence\",\"jobBuilder.skills.title.assetSkills\":\"Compétences constituant un atout\",\"jobBuilder.skills.title.culturalSkills\":\"Compétences comportementales\",\"jobBuilder.skills.title.editSkill\":\"Modifiez une compétence\",\"jobBuilder.skills.title.essentialSkills\":\"Compétences essentielles\",\"jobBuilder.skills.title.futureSkills\":\"Compétences de la fonction publique\",\"jobBuilder.skills.title.keepItUp\":\"Ne lâchez surtout pas!\",\"jobBuilder.skills.title.keyTasks\":\"Tâches principales\",\"jobBuilder.skills.title.missingSkill\":\"Vous ne trouvez pas la compétence dont vous avez besoin?\",\"jobBuilder.skills.title.needsToHave\":\"Les compétences que l’employé(e) doit posséder\",\"jobBuilder.skills.title.niceToHave\":\"Les compétences qu’il serait souhaitable que l’employé(e) possède\",\"jobBuilder.skills.title.occupationalSkills\":\"Compétences professionnelles\",\"jobBuilder.skills.title.otherSkills\":\"Autres compétences\",\"jobBuilder.skills.title.skillSelection\":\"Choix des compétences\",\"jobBuilder.tasks.addJob\":\"Ajoutez une tâche \",\"jobBuilder.tasks.documentTitle\":\"Constructeur d'affiches: Tâches\",\"jobBuilder.tasks.heading\":\"Ajoutez des tâches principales\",\"jobBuilder.tasks.intro.first\":\"À quoi le nouveau membre de votre équipe consacrera-t-il son temps? Quelles sont les tâches à exécuter?\",\"jobBuilder.tasks.intro.fourth\":\"Une fois que vous aurez terminé d’entrer les tâches principales, vous passerez à la détermination des compétences individuelles nécessaires à l’exécution de ces tâches.\",\"jobBuilder.tasks.intro.second\":\"Mettez l’accent sur les tâches à exécuter. Vous n’avez pas à donner tous les détails de l’emploi, mais les candidats souhaitent savoir comment ils vont passer la plus grande partie de leur temps.\",\"jobBuilder.tasks.intro.third\":\"Cherchez à indiquer de quatre à six tâches principales. (Tout au long du remue-méninges, vous pouvez ajouter autant de tâches principales que vous le souhaitez ici, mais vous ne pouvez pas en inclure plus de six dans l’offre d’emploi finale.)\",\"jobBuilder.tasks.modal.body\":\"Voici un aperçu des tâches que vous venez de saisir. N’hésitez pas à retourner à la page précédente pour corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.tasks.modal.body.heading\":\"Tâches\",\"jobBuilder.tasks.modal.cancelButtonLabel\":\"Retour en arrière\",\"jobBuilder.tasks.modal.confirmButtonLabel\":\"Prochaine étape\",\"jobBuilder.tasks.modal.middleButtonLabel\":\"Passer pour la révision\",\"jobBuilder.tasks.modal.title\":\"Ne lâchez surtout pas!\",\"jobBuilder.tasks.preview\":\"Aperçu des tâches\",\"jobBuilder.tasks.previous\":\"Étape précédente\",\"jobBuilder.tasks.taskCount.error.body\":\"Vous avez dépassé le nombre maximal permis de tâches principales, mais ce n’est pas grave. Tout au long du remue-méninges, vous pouvez continuer à ajouter des tâches principales ici, mais on vous demandera de réduire votre liste à six tâches ou moins pour continuer.\",\"jobBuilder.tasks.taskCount.error.title\":\"Juste pour vous informer!\",\"jobBuilder.tasks.taskCount.none\":\"Vous n’avez pas encore ajouté de tâches!\",\"jobBuilder.tasks.taskCount.some\":\"Vous avez ajouté {taskCount, plural, one {# tâche} other {# tâches}}.\",\"jobBuilder.tasks.taskLabel\":\"Tâche\",\"jobBuilder.tasks.taskPlaceholder\":\"Essayez d’adopter un ton décontracté, franc et amical...\",\"jobBuilder.tasks.tasksMaximum\":\"Veuillez supprimer toute tâche supplémentaire avant de continuer.\",\"jobBuilder.tasks.tasksRequired\":\"Au moins une tâche est requise.\",\"jobBuilder.workCulture.flexibleHours\":\"Heures flexibles\",\"jobBuilder.workCulture.flexibleHoursDescription\":\"Précisez vos propres heures de début et de fin.\",\"jobBuilder.workCulture.overtime\":\"Heures supplémentaires\",\"jobBuilder.workCulture.overtimeDescription\":\"Heures supplémentaires le soir ou la fin de semaine.\",\"jobBuilder.workCulture.remoteWork\":\"Travail à distance\",\"jobBuilder.workCulture.remoteWorkDescription\":\"Travailler de n’importe où, en tout temps.\",\"jobBuilder.workCulture.remoteWorkMsg.always\":\"Toujours\",\"jobBuilder.workCulture.remoteWorkMsg.never\":\"Jamais\",\"jobBuilder.workCulture.telework\":\"Télétravail\",\"jobBuilder.workCulture.teleworkDescription\":\"Travailler à partir de la maison certains jours (à une distance raisonnable en voiture du bureau).\",\"jobBuilder.workCulture.travel\":\"Déplacements\",\"jobBuilder.workCulture.travelDescription\":\"Découvrez le Canada ou d’autres régions du monde.\",\"jobBuilder.workEnv.amenities.cafeteria\":\"Cafétéria sur place\",\"jobBuilder.workEnv.amenities.closeToTransit\":\"À proximité du transport en commun\",\"jobBuilder.workEnv.amenities.downtown\":\"Centre-ville\",\"jobBuilder.workEnv.amenities.fitnessCenter\":\"À proximité d’un centre de conditionnement physique\",\"jobBuilder.workEnv.amenities.parking\":\" Accès facile à un stationnement\",\"jobBuilder.workEnv.amenities.restaurants\":\"À distance de marche des restaurants et des centres commerciaux\",\"jobBuilder.workEnv.amenitiesLabel\":\"À proximité\",\"jobBuilder.workEnv.collaborativeLabel\":\"Collaboratif ou indépendant :\",\"jobBuilder.workEnv.culture\":\"Notre culture\",\"jobBuilder.workEnv.cultureSubtext1\":\"Maintenant, renseignez les candidats davantage sur la personnalité des membres de votre équipe et le type de travail que vous faites habituellement.\",\"jobBuilder.workEnv.cultureSubtext2\":\"Sur la base de vos sélections, nous allons créer un court paragraphe résumant votre culture de travail. Vous pouvez modifier ce paragraphe afin qu’il soit personnalisé selon votre équipe.\",\"jobBuilder.workEnv.cultureSummary\":\"Résumé sur la culture\",\"jobBuilder.workEnv.cultureSummarySubtext\":\"Voici le court paragraphe qui résume la culture de votre travail qui apparaîtra dans l’offre d’emploi. Copiez-le et collez-le dans le champ de saisie qui suit, si vous désirez l’adapter à la personnalité des membres de votre équipe et à votre façon de travailler.\",\"jobBuilder.workEnv.customCultureSummaryLabel\":\"Adaptez votre résumé sur la culture :\",\"jobBuilder.workEnv.customCultureSummaryPlaceholder\":\"Collez le paragraphe ici pour le modifier...\",\"jobBuilder.workEnv.documentTitle\":\"Constructeur d'affiches: Environnement\",\"jobBuilder.workEnv.experimentalLabel\":\"Toujours expérimentale contre activités en cours:\",\"jobBuilder.workEnv.facingLabel\":\"Services orientés vers le client contre services administratifs :\",\"jobBuilder.workEnv.fastPacedSteadyLabel\":\"Rythme rapide contre rythme soutenu :\",\"jobBuilder.workEnv.greatStart\":\"Vous commencez très bien!\",\"jobBuilder.workEnv.managementLabel\":\"Horizontale contre verticale :\",\"jobBuilder.workEnv.moreOnWorkEnv\":\"Voici de plus amples renseignements sur votre environnement\",\"jobBuilder.workEnv.moreOnWorkEnvLabel\":\"Voici de plus amples renseignements sur votre environnement\",\"jobBuilder.workEnv.moreOnWorkEnvPlaceholder\":\"Essayez d’adopter un ton décontracté, franc et amical.\",\"jobBuilder.workEnv.moreOnWorkEnvSubtext\":\"Souhaitez-vous ajouter quelque chose à propos de votre environnement de travail? Mettez en évidence les caractéristiques de l’environnement physique, de la technologie et des commodités propres à votre équipe.\",\"jobBuilder.workEnv.openingSentence\":\"Voici un aperçu des renseignements sur l’emploi que vous venez de saisir. N’hésitez pas à retourner à la page précédente et à corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.workEnv.ourWorkEnv\":\"Notre environnement de travail\",\"jobBuilder.workEnv.ourWorkEnvDesc\":\"Décrivez un peu votre espace physique, la technologie que les membres de votre équipe utilisent et les services qui se trouvent à proximité de votre bureau. Cochez toutes les réponses qui s’appliquent.\",\"jobBuilder.workEnv.physEnv.assignedSeating\":\"Places réservées\",\"jobBuilder.workEnv.physEnv.naturalLight\":\"Lumière naturelle\",\"jobBuilder.workEnv.physEnv.openConcept\":\"Espaces de travail à aire ouverte\",\"jobBuilder.workEnv.physEnv.private\":\"Privé\",\"jobBuilder.workEnv.physEnv.smudging\":\"Convient aux cérémonies de purification par la fumée\",\"jobBuilder.workEnv.physEnv.windows\":\"Plusieurs fenêtres\",\"jobBuilder.workEnv.physicalEnvLabel\":\"Notre environnement physique\",\"jobBuilder.workEnv.saveAndReturnButtonLabel\":\"Découvrez le Canada ou d’autres régions du monde.\",\"jobBuilder.workEnv.specialWorkCulture\":\"Y a-t-il quelque chose de spécial au sujet de votre culture de travail?\",\"jobBuilder.workEnv.specialWorkCultureLabel\":\"Voici de plus amples renseignements sur votre culture de travail.\",\"jobBuilder.workEnv.specialWorkCultureSubtext\":\"Votre équipe accorde-t-elle beaucoup d’importance à d’autres aspects? Est-elle fière de son bilan en matière de résultats? A-t-elle pris de solides engagements envers le mieux-être mental? Participe-t-elle activement à la promotion de la diversité et de l’inclusion? Ses membres se font-ils les champions des enjeux relatifs à la collectivité LGBTQ+? Voici l’occasion de faire connaître aux candidats la culture de l’équipe qu’ils pourraient intégrer.\",\"jobBuilder.workEnv.stepDescription\":\"Les candidats accordent beaucoup d’importance à l’équipe au sein de laquelle ils travailleront et à leur espace de travail physique. Le fait de communiquer de l’information à ce sujet aide les candidats à déterminer s’ils correspondent bien au profil de l’emploi, et peut réduire le nombre de demandes « illusoires » qui ralentissent le processus de présélection.\",\"jobBuilder.workEnv.submitButtonLabel\":\"Aperçu de l’environnement de travail\",\"jobBuilder.workEnv.teamSizeLabel\":\"Taille de l’équipe\",\"jobBuilder.workEnv.teamSizePlaceholder\":\"Par exemple 10\",\"jobBuilder.workEnv.technology.accessToExternal\":\"Accès à un réseau sans fil externe et non filtré\",\"jobBuilder.workEnv.technology.collaboration\":\"Collaboration (p. ex., Slack, Hangouts)\",\"jobBuilder.workEnv.technology.fileSharing\":\"Partage des dossiers (p. ex., Google Drive, Dropbox)\",\"jobBuilder.workEnv.technology.taskManagement\":\"Gestion de tâches (p. ex., Trello, Asana)\",\"jobBuilder.workEnv.technology.versionControl\":\"Gestion de versions (p. ex., Github, Gitlab)\",\"jobBuilder.workEnv.technology.videoConferencing\":\"Vidéo-conférence (p. ex., Skype, Zoom)\",\"jobBuilder.workEnv.technologyLabel\":\"Technologie\",\"jobBuilder.workEnv.textAreaPlaceholder1\":\"Essayez d’adopter un ton décontracté, franc et amical.\",\"jobBuilder.workEnv.thisIsOptional\":\"Ceci est facultatif.\",\"jobBuilder.workEnv.title\":\"Environnement de travail\",\"jobBuilder.workEnvModal.cancelLabel\":\"Retour en arrière\",\"jobBuilder.workEnvModal.confirmLabel\":\"Prochaine étape\",\"jobBuilder.workEnvModal.modalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.workEnvModal.title\":\"Environnement de travail\",\"jobBuilder.workEnvModal.workCultureTitle\":\"Culture du travail\",\"jobCard.applicants\":\"{applicants, plural,=0 {Aucun candidat} one {# candidat} other {# candidats}}\",\"jobCard.managerTime\":\"Time with Manager: {managerTime, plural, one {# day} other {# days} }\",\"jobCard.noActivity\":\"Aucune nouvelle activité\",\"jobCard.userTime\":\"Time with you: <s>{userTime, plural, one {# day} other {# days} }</s>\",\"jobReviewHr.headsUp\":\"Un simple rappel! Nous avons réorganisé certains renseignements fournis afin de vous aider à comprendre comment le candidat verra l’information une fois publiée.\",\"jobReviewHr.loadingIconText\":\"Les données sont en cours de chargement...\",\"jobReviewHr.reviewYourPoster\":\"Examiner votre offre d’emploi pour :\",\"jobReviewHr.summaryLink\":\"Revenir au résumé\",\"languageRequirement.bilingualAdvanced\":\"Bilingue - Avancé (CBC)\",\"languageRequirement.bilingualIntermediate\":\"Bilingue - Intermédiaire (BBB)\",\"languageRequirement.context.basic\":\"Vous pouvez présenter cette demande initiale dans la langue officielle de votre choix (français ou anglais).\",\"languageRequirement.context.expanded\":\"Vous pouvez suivre toutes les autres étapes de ce processus d’évaluation dans la langue officielle de votre choix, y compris la demande initiale, l’entrevue, l’examen et toute autre composante de l’évaluation.\",\"languageRequirement.description.bilingualAdvanced\":\"Ce poste nécessite une connaissance approfondie du français et de l'anglais. Cela signifie que vous pouvez assumer des tâches en français ou en anglais et que vous avez de solides compétences en lecture, en écriture et en communication verbale dans les deux langues officielles. Dans le cadre de ce processus de sélection, vos compétences linguistiques seront testées par la Commission de la fonction publique du Canada. Commission de la fonction publique du Canada.\",\"languageRequirement.description.bilingualIntermediate\":\"Ce poste nécessite une connaissance pratique du français et de l'anglais. Cela signifie que vous pouvez occuper des fonctions en français ou en anglais et que vous possédez des compétences intermédiaires en lecture, en écriture et en communication verbale dans les deux langues officielles. Dans le cadre de ce processus de sélection, vos compétences linguistiques seront testées par la Commission de la fonction publique du Canada.\",\"languageRequirement.description.english\":\"Ce poste exige une bonne maîtrise de l’anglais, tant à l’écrit que de vive voix. Dans le cadre de l’évaluation de vos compétences linguistiques, le gestionnaire d’embauche peut vous demander de suivre certaines étapes d’évaluation en anglais, comme des questions d’entrevue ou un examen.\",\"languageRequirement.description.englishOrFrench\":\"Pour ce poste, vous répondez aux exigences linguistiques si vous possédez de solides compétences en lecture, en rédaction et en communication verbale en français, en anglais ou dans les deux (bilingue).\",\"languageRequirement.description.french\":\"Ce poste exige une bonne maîtrise du français, tant à l’écrit que de vive voix. Dans le cadre de l’évaluation de vos compétences linguistiques, le gestionnaire d’embauche peut vous demander de suivre certaines étapes d’évaluation en français, comme des questions d’entrevue ou un examen.\",\"languageRequirement.english\":\"Anglais - Essentiel\",\"languageRequirement.englishOrFrench\":\"Anglais ou français\",\"languageRequirement.french\":\"Français - Essentiel\",\"managerSurveyModal.explanation\":\"Vos commentaires nous aident à améliorer nos outils! Veuillez prendre quelques minutes pour répondre à un sondage.\",\"managerSurveyModal.jobPosterLink\":\"Retour à Mes offres d'emploi\",\"managerSurveyModal.jobPosterLinkTitle\":\"Visitez Mes offres d'emploi.\",\"managerSurveyModal.link\":\"M'emmener au sondage.\",\"managerSurveyModal.managerSurveyLinkTitle\":\"Lien vers le sondage auprès des gestionnaires.\",\"managerSurveyModal.title\":\"Votre offre d'emploi a été soumise!\",\"openJobCard.claimJob\":\"Réclamer cet emploi\",\"openJobCard.error\":\"Date non disponible.\",\"openJobCard.hiringManager\":\"Gestionnaires d’embauche :\",\"openJobCard.hrAdvisors\":\"Conseillers en RH :\",\"openJobCard.reviewRequested\":\"Récupérée: \",\"openJobCard.unclaimed\":\"Non réclamé\",\"progressTracker.unreachableStep\":\"Doit compléter les étapes précédentes.\",\"province.ab\":\"Alberta\",\"province.ab.abreviation\":\"Alta.\",\"province.bc\":\"Colombie britannique\",\"province.bc.abreviation\":\"C.-B.\",\"province.mb\":\"Manitoba\",\"province.mb.abreviation\":\"Man.\",\"province.nb\":\"Nouveau-Brunswick\",\"province.nb.abreviation\":\"N.-B.\",\"province.nl\":\"Terre-Neuve-et-Labrador\",\"province.nl.abreviation\":\"T.-N.-L.\",\"province.ns\":\"Nouvelle-Écosse\",\"province.ns.abreviation\":\"N.-É.\",\"province.nt\":\"Territoires du nord-ouest\",\"province.nt.abreviation\":\"T.N.-O.\",\"province.nu\":\"Nunavut\",\"province.nu.abreviation\":\"Nt\",\"province.on\":\"Ontario\",\"province.on.abreviation\":\"Ont.\",\"province.pe\":\"Île-du-Prince-Édouard\",\"province.pe.abreviation\":\"Î.-P.-É.\",\"province.qc\":\"Québec\",\"province.qc.abreviation\":\"Qc\",\"province.sk\":\"Saskatchewan\",\"province.sk.abreviation\":\"Sask.\",\"province.yk\":\"Yukon\",\"province.yk.abreviation\":\"Yn\",\"ratingGuideAnswer.answerLabel\":\"Réponse de passage acceptable / Démonstration requise\",\"ratingGuideAnswer.answerPlaceholder\":\"Écrivez la réponse de passage attendue du candidat relativement à cette compétence...\",\"ratingGuideAnswer.nullSelection\":\"Sélectionnez une compétence...\",\"ratingGuideAnswer.selectLabel\":\"Sélectionnez une compétence\",\"ratingGuideBuilder.addQuestion\":\"Ajoutez une question\",\"ratingGuideBuilder.assetMissing\":\"{count} Atout manquant : \",\"ratingGuideBuilder.copyButton\":\"Cliquez ici pour copier ce guide de cotation dans votre presse-papiers\",\"ratingGuideBuilder.copyInstructions\":\"Maintenant que vous avez conçu votre guide de cotation, vous pouvez utiliser le bouton ci-dessous pour copier tout le contenu dans votre presse-papiers, et ainsi pouvoir coller facilement votre système de traitement de texte préféré.\",\"ratingGuideBuilder.criteriaName\":\"{skillName} - {skillLevel}\",\"ratingGuideBuilder.criteriaTypeHeading\":\"Type de critères\",\"ratingGuideBuilder.essentialMissing\":\"{count} Critères essentiels manquants : \",\"ratingGuideBuilder.instructions\":\"Vous trouverez ci-dessous votre propre guide de cotation pour vous aider à évaluer vos candidats. Cet outil vous permet d’élaborer vos propres questions pour chaque évaluation que vous avez sélectionnée ci-dessus, puis de noter les critères de ce que pourrait représenter une excellente réponse du candidat. Veuillez prendre note que l’« examen narratif » est unique en ce sens que le contenu est généré pour vous ci-dessous.\",\"ratingGuideBuilder.narrativeSectionTitle\":\"Évaluation {index}: {assessmentType}\",\"ratingGuideBuilder.questionHeading\":\"Question\",\"ratingGuideBuilder.ratingGuideHeading\":\"Guide de notation\",\"ratingGuideBuilder.sectionTitle\":\"Évaluation {index}: {assessmentType}\",\"ratingGuideBuilder.skillDescriptionHeading\":\"Description de la compétence\",\"ratingGuideBuilder.skillHeading\":\"Compétence\",\"ratingGuideBuilder.targetLevelHeading\":\"Niveau cible\",\"ratingGuideBuilder.title\":\"3. Concepteur de guides de cotation\",\"ratingGuideBuilder.titleHeading\":\"Titre\",\"ratingGuideQuestion.questionLabel\":\"Question d'entrevue\",\"ratingGuideQuestion.questionPlaceholder\":\"Écrivez votre question d'entrevue ici ...\",\"review.applications.alert.oops\":\"Enregistrer\",\"review.applications.button.confirm\":\"Confirmer\",\"review.applications.indexPageTitle\":\"Applications pour : {jobTitle} {jobClassification}\",\"review.applications.nonCitizens.description\":\" \",\"review.applications.nonCitizens.title\":\"Non-Citoyens canadiens\",\"review.applications.optionalConsideration.description\":\"Dans ce groupe, vous trouverez les candidats qui ne sont pas citoyens canadiens ou qui ne prétendent pas répondre aux critères essentiels.\",\"review.applications.optionalConsideration.title\":\"Candidats supplémentaires\",\"review.applications.priorityApplicants.description\":\"Ce sont des candidats prioritaires pour ce poste. Ils doivent être examinés et pris en compte en premier.\",\"review.applications.priorityApplicants.title\":\"Candidats prioritaire\",\"review.applications.reviewSaveFailed\":\"Une erreur s'est produite lors de l'enregistrement d'un commentaire. Réessayez plus tard.\",\"review.applications.screenOutAll\":\"Éliminer tous les candidats supplémentaires\",\"review.applications.screenOutAll.confirm\":\"Êtes-vous sûr de vouloir éliminer tous les candidats supplémentaires?\",\"review.applications.screenedOut.description\":\"Ces applications ont déjà été éliminées.\",\"review.applications.screenedOut.title\":\"Candidats qui ne sont plus considérés\",\"review.applications.underConsideration.description\":\"Examinez les candidats dans la section Anciens combattants et citoyens canadiens. Si aucun ou très peu de ces candidats ne répondent aux critères, vous pouvez toujours prendre en compte les candidatures non citoyennes dans la section Considérations facultatives.\",\"review.applications.underConsideration.title\":\"Candidats à considérée\",\"review.applications.unqualified.description\":\" \",\"review.applications.unqualified.title\":\"Ne répond pas aux critères essentiels\",\"review.applications.veteransAndCitizens.description\":\" \",\"review.applications.veteransAndCitizens.title\":\"Anciens combattants et citoyens canadiens\",\"reviewLocations.jpb.basicInfo\":\"Renseignements de base\",\"reviewLocations.jpb.environment\":\"Environnement de travail\",\"reviewLocations.jpb.generic\":\"Générique\",\"reviewLocations.jpb.heading\":\"Titre de la page de l’emploi\",\"reviewLocations.jpb.impact\":\"Impact\",\"reviewLocations.jpb.langRequirements\":\"Exigences linguistiques\",\"reviewLocations.jpb.skills\":\"Compétences\",\"reviewLocations.jpb.tasks\":\"Taches\",\"securityClearance.reliability\":\"Fiabilité\",\"securityClearance.secret\":\"Secret\",\"securityClearance.topSecret\":\"Très secret\",\"skillLevel.asset.description\":\"Cette compétence n’est pas nécessaire pour que l’employé puisse exécuter le travail, mais elle ajoute un avantage à l’ensemble de ses compétences et améliorera le rythme ou l’efficacité de son travail.\",\"skillLevel.asset.name\":\"Atout/aucun niveau requis\",\"skillLevel.hard.advanced.description\":\"Vous avez la capacité d’accomplir des tâches d’une complexité ou d’une incidence importante avec supervision. Vous donnez des conseils et des commentaires au superviseur sur l’approche à employer pour effectuer les tâches et la façon dont elles sont exécutées. Vous êtes en mesure de faire progresser la tâche, même face à des obstacles et à des complications d’envergure moyenne à importante. Au fur et à mesure que vous progressez dans cette catégorie, vous êtes être en mesure d’accomplir des tâches d’une complexité importante ou ayant une incidence plus grande avec seulement de légers niveaux de supervision, en étant effectivement le responsable de l’initiative. Vous pouvez également jouer un rôle de formation d’autres personnes dans cet ensemble de compétences ou assumer un rôle de supervision léger pour les personnes aux niveaux inférieurs. Ce niveau est habituellement associé à des tâches qui constituent la majeure partie du travail pour des postes de niveau supérieur, comme les analystes principaux ou les développeurs principaux.\",\"skillLevel.hard.advanced.name\":\"Avancé\",\"skillLevel.hard.basic.description\":\"Vous êtes capable d’accomplir des tâches de base avec une supervision régulière et une orientation claire. Les tâches qui vous sont assignées sont claires et ne sont pas très complexes. Elles ont généralement une incidence locale. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’accomplir des tâches de complexité modérée avec une supervision régulière. Vous devriez également être en mesure d’accomplir des tâches de base avec peu ou pas de supervision. Ce niveau est habituellement associé aux tâches qui constituent le gros du travail pour les postes de niveau inférieur, comme les analystes ou les développeurs de niveau débutant.\",\"skillLevel.hard.basic.name\":\"Débutant\",\"skillLevel.hard.expert.description\":\"Vous êtes en mesure d’accomplir des tâches d’une complexité ou d’une incidence importante, où vous prenez les décisions et répondez de vos décisions auprès de la haute direction de l’organisation. Vous présentez les tâches, l’approche et le plan de réalisation à la haute direction. Vous supervisez souvent d’autres personnes (personnes ou équipes) dans l’exécution de tâches très complexes ou ayant une incidence sur l’ensemble du système. Vous êtes en mesure de faire progresser ces tâches, même face à des obstacles et à des complications importants et imprévus. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’évaluer les autres à des niveaux plus subalternes, et de déterminer clairement la différence entre les tâches débutantes, intermédiaires et avancées. Vous devriez également être en mesure de pouvoir former des équipes, définir des orientations et assurer une supervision. Ce niveau est habituellement associé aux tâches qui constituent la majeure partie du travail pour les postes de direction et de direction.\",\"skillLevel.hard.expert.name\":\"Responsable\",\"skillLevel.hard.intermediate.description\":\"Vous avez la capacité d’accomplir des tâches de complexité modérée ou d’incidence modérée avec supervision. C’est le superviseur qui détermine l’approche à préconiser pour effectuer les tâches, de même que la façon dont elles sont exécutées. Vous apportez des commentaires et des conseils. Vous êtes en mesure de faire progresser la tâche, même face à des obstacles et à des complications de petite à moyenne envergure. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’accomplir des tâches d’une complexité importante ou ayant une incidence plus grande avec une supervision régulière. Vous devriez également être en mesure d’accomplir des tâches d’une complexité ou d’une incidence modérée avec peu ou pas de supervision. Ce niveau est habituellement associé aux tâches qui constituent le gros du travail pour les postes de niveau intermédiaire, comme les analystes ou les développeurs.\",\"skillLevel.hard.intermediate.name\":\"Intermédiaire\",\"skillLevel.soft.advanced.description\":\"Vous êtes capable de démontrer cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont élevés. Vos pairs et vos superviseurs reconnaissent qu’il s’agit d’une force dont vous faites preuve en milieu de travail.\",\"skillLevel.soft.advanced.name\":\"Fortement en évidence\",\"skillLevel.soft.basic.description\":\"Vous êtes en processus d’acquérir cette compétence ou cet attribut. Vous êtes capable de le démontrer dans des conditions favorables (peu de stress, difficulté minimale) et pouvez l’appliquer dans un contexte de travail de façon intermittente.\",\"skillLevel.soft.basic.name\":\"Phase de développement précoce\",\"skillLevel.soft.expert.description\":\"Il s’agit d’une partie fondamentale de qui vous êtes. Vous démontrez cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont extrêmes. Vos pairs et vos superviseurs reconnaissent qu’il s’agit d’une force importante dont vous faites preuve en milieu de travail, en donnant un exemple aux autres.\",\"skillLevel.soft.expert.name\":\"Démonstration à un niveau profond\",\"skillLevel.soft.intermediate.description\":\"Vous êtes capable de démontrer cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont bas ou modérés. Vos pairs et vos superviseurs peuvent attester le fait que vous êtes capable de démontrer cette compétence ou cet attribut de façon régulière.\",\"skillLevel.soft.intermediate.name\":\"Modérément en évidence\",\"wordCounter.skills.longMessage\":\"Ça a l'air trop long. Pouvez-vous résumer une partie de votre réponse?\",\"wordCounter.skills.placeholder\":\"Commencez à taper votre réponse ci-dessus.\",\"wordCounter.skills.shortMessage\":\"Ce paragraphe semble trop court. Avez-vous un autre exemple ou une leçon à ajouter?\",\"wordCounter.skills.slightlyLongMessage\":\"Ça commence à être un peu long.\",\"wordCounter.skills.veryLongMessage\":\"La limite des 500 mot a été atteinte. C'est beaucoup trop long. Découvrez l'un de nos exemples pour voir à quoi ressemble une description de compétence concise.\",\"wordCounter.skills.veryShortMessage\":\"Ce paragraphe semble trop court. Avez-vous inclus des exemples ou des leçons apprises?\"}");
 
 /***/ }),
 
@@ -52376,7 +35998,7 @@ module.exports = JSON.parse("{\"activity.commentLocation.label\":\"Commentaire t
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/Grant/Sites/TalentCloud/resources/assets/js/components/WorkEnvFeaturesRoot.tsx */"./resources/assets/js/components/WorkEnvFeaturesRoot.tsx");
+module.exports = __webpack_require__(/*! /Users/cwiseman/Projects/TalentCloud/resources/assets/js/components/WorkEnvFeaturesRoot.tsx */"./resources/assets/js/components/WorkEnvFeaturesRoot.tsx");
 
 
 /***/ })

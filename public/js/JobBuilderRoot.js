@@ -4178,240 +4178,6 @@ if (!IS_PURE && typeof NativePromise == 'function' && !NativePromise.prototype['
 
 /***/ }),
 
-/***/ "./node_modules/create-react-context/lib/implementation.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/create-react-context/lib/implementation.js ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _gud = __webpack_require__(/*! gud */ "./node_modules/gud/index.js");
-
-var _gud2 = _interopRequireDefault(_gud);
-
-var _warning = __webpack_require__(/*! fbjs/lib/warning */ "./node_modules/fbjs/lib/warning.js");
-
-var _warning2 = _interopRequireDefault(_warning);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var MAX_SIGNED_31_BIT_INT = 1073741823;
-
-// Inlined Object.is polyfill.
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
-function objectIs(x, y) {
-  if (x === y) {
-    return x !== 0 || 1 / x === 1 / y;
-  } else {
-    return x !== x && y !== y;
-  }
-}
-
-function createEventEmitter(value) {
-  var handlers = [];
-  return {
-    on: function on(handler) {
-      handlers.push(handler);
-    },
-    off: function off(handler) {
-      handlers = handlers.filter(function (h) {
-        return h !== handler;
-      });
-    },
-    get: function get() {
-      return value;
-    },
-    set: function set(newValue, changedBits) {
-      value = newValue;
-      handlers.forEach(function (handler) {
-        return handler(value, changedBits);
-      });
-    }
-  };
-}
-
-function onlyChild(children) {
-  return Array.isArray(children) ? children[0] : children;
-}
-
-function createReactContext(defaultValue, calculateChangedBits) {
-  var _Provider$childContex, _Consumer$contextType;
-
-  var contextProp = '__create-react-context-' + (0, _gud2.default)() + '__';
-
-  var Provider = function (_Component) {
-    _inherits(Provider, _Component);
-
-    function Provider() {
-      var _temp, _this, _ret;
-
-      _classCallCheck(this, Provider);
-
-      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
-
-      return _ret = (_temp = (_this = _possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.emitter = createEventEmitter(_this.props.value), _temp), _possibleConstructorReturn(_this, _ret);
-    }
-
-    Provider.prototype.getChildContext = function getChildContext() {
-      var _ref;
-
-      return _ref = {}, _ref[contextProp] = this.emitter, _ref;
-    };
-
-    Provider.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-      if (this.props.value !== nextProps.value) {
-        var oldValue = this.props.value;
-        var newValue = nextProps.value;
-        var changedBits = void 0;
-
-        if (objectIs(oldValue, newValue)) {
-          changedBits = 0; // No change
-        } else {
-          changedBits = typeof calculateChangedBits === 'function' ? calculateChangedBits(oldValue, newValue) : MAX_SIGNED_31_BIT_INT;
-          if (true) {
-            (0, _warning2.default)((changedBits & MAX_SIGNED_31_BIT_INT) === changedBits, 'calculateChangedBits: Expected the return value to be a ' + '31-bit integer. Instead received: %s', changedBits);
-          }
-
-          changedBits |= 0;
-
-          if (changedBits !== 0) {
-            this.emitter.set(nextProps.value, changedBits);
-          }
-        }
-      }
-    };
-
-    Provider.prototype.render = function render() {
-      return this.props.children;
-    };
-
-    return Provider;
-  }(_react.Component);
-
-  Provider.childContextTypes = (_Provider$childContex = {}, _Provider$childContex[contextProp] = _propTypes2.default.object.isRequired, _Provider$childContex);
-
-  var Consumer = function (_Component2) {
-    _inherits(Consumer, _Component2);
-
-    function Consumer() {
-      var _temp2, _this2, _ret2;
-
-      _classCallCheck(this, Consumer);
-
-      for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-        args[_key2] = arguments[_key2];
-      }
-
-      return _ret2 = (_temp2 = (_this2 = _possibleConstructorReturn(this, _Component2.call.apply(_Component2, [this].concat(args))), _this2), _this2.state = {
-        value: _this2.getValue()
-      }, _this2.onUpdate = function (newValue, changedBits) {
-        var observedBits = _this2.observedBits | 0;
-        if ((observedBits & changedBits) !== 0) {
-          _this2.setState({ value: _this2.getValue() });
-        }
-      }, _temp2), _possibleConstructorReturn(_this2, _ret2);
-    }
-
-    Consumer.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-      var observedBits = nextProps.observedBits;
-
-      this.observedBits = observedBits === undefined || observedBits === null ? MAX_SIGNED_31_BIT_INT // Subscribe to all changes by default
-      : observedBits;
-    };
-
-    Consumer.prototype.componentDidMount = function componentDidMount() {
-      if (this.context[contextProp]) {
-        this.context[contextProp].on(this.onUpdate);
-      }
-      var observedBits = this.props.observedBits;
-
-      this.observedBits = observedBits === undefined || observedBits === null ? MAX_SIGNED_31_BIT_INT // Subscribe to all changes by default
-      : observedBits;
-    };
-
-    Consumer.prototype.componentWillUnmount = function componentWillUnmount() {
-      if (this.context[contextProp]) {
-        this.context[contextProp].off(this.onUpdate);
-      }
-    };
-
-    Consumer.prototype.getValue = function getValue() {
-      if (this.context[contextProp]) {
-        return this.context[contextProp].get();
-      } else {
-        return defaultValue;
-      }
-    };
-
-    Consumer.prototype.render = function render() {
-      return onlyChild(this.props.children)(this.state.value);
-    };
-
-    return Consumer;
-  }(_react.Component);
-
-  Consumer.contextTypes = (_Consumer$contextType = {}, _Consumer$contextType[contextProp] = _propTypes2.default.object, _Consumer$contextType);
-
-
-  return {
-    Provider: Provider,
-    Consumer: Consumer
-  };
-}
-
-exports.default = createReactContext;
-module.exports = exports['default'];
-
-/***/ }),
-
-/***/ "./node_modules/create-react-context/lib/index.js":
-/*!********************************************************!*\
-  !*** ./node_modules/create-react-context/lib/index.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _implementation = __webpack_require__(/*! ./implementation */ "./node_modules/create-react-context/lib/implementation.js");
-
-var _implementation2 = _interopRequireDefault(_implementation);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = _react2.default.createContext || _implementation2.default;
-module.exports = exports['default'];
-
-/***/ }),
-
 /***/ "./node_modules/dayjs/dayjs.min.js":
 /*!*****************************************!*\
   !*** ./node_modules/dayjs/dayjs.min.js ***!
@@ -4555,126 +4321,6 @@ return deepmerge_1;
 
 /***/ }),
 
-/***/ "./node_modules/fbjs/lib/emptyFunction.js":
-/*!************************************************!*\
-  !*** ./node_modules/fbjs/lib/emptyFunction.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * 
- */
-
-function makeEmptyFunction(arg) {
-  return function () {
-    return arg;
-  };
-}
-
-/**
- * This function accepts and discards inputs; it has no side effects. This is
- * primarily useful idiomatically for overridable function endpoints which
- * always need to be callable, since JS lacks a null-call idiom ala Cocoa.
- */
-var emptyFunction = function emptyFunction() {};
-
-emptyFunction.thatReturns = makeEmptyFunction;
-emptyFunction.thatReturnsFalse = makeEmptyFunction(false);
-emptyFunction.thatReturnsTrue = makeEmptyFunction(true);
-emptyFunction.thatReturnsNull = makeEmptyFunction(null);
-emptyFunction.thatReturnsThis = function () {
-  return this;
-};
-emptyFunction.thatReturnsArgument = function (arg) {
-  return arg;
-};
-
-module.exports = emptyFunction;
-
-/***/ }),
-
-/***/ "./node_modules/fbjs/lib/warning.js":
-/*!******************************************!*\
-  !*** ./node_modules/fbjs/lib/warning.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Copyright (c) 2014-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
-
-
-var emptyFunction = __webpack_require__(/*! ./emptyFunction */ "./node_modules/fbjs/lib/emptyFunction.js");
-
-/**
- * Similar to invariant but only logs a warning if the condition is not met.
- * This can be used to log issues in development environments in critical
- * paths. Removing the logging code for production environments will keep the
- * same logic and follow the same code paths.
- */
-
-var warning = emptyFunction;
-
-if (true) {
-  var printWarning = function printWarning(format) {
-    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-      args[_key - 1] = arguments[_key];
-    }
-
-    var argIndex = 0;
-    var message = 'Warning: ' + format.replace(/%s/g, function () {
-      return args[argIndex++];
-    });
-    if (typeof console !== 'undefined') {
-      console.error(message);
-    }
-    try {
-      // --- Welcome to debugging React ---
-      // This error was thrown as a convenience so that you can use this stack
-      // to find the callsite that caused this warning to fire.
-      throw new Error(message);
-    } catch (x) {}
-  };
-
-  warning = function warning(condition, format) {
-    if (format === undefined) {
-      throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
-    }
-
-    if (format.indexOf('Failed Composite propType: ') === 0) {
-      return; // Ignore CompositeComponent proptype check.
-    }
-
-    if (!condition) {
-      for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
-        args[_key2 - 2] = arguments[_key2];
-      }
-
-      printWarning.apply(undefined, [format].concat(args));
-    }
-  };
-}
-
-module.exports = warning;
-
-/***/ }),
-
 /***/ "./node_modules/formik/dist/formik.cjs.development.js":
 /*!************************************************************!*\
   !*** ./node_modules/formik/dist/formik.cjs.development.js ***!
@@ -4689,1016 +4335,2067 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.js");
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var isEqual = _interopDefault(__webpack_require__(/*! react-fast-compare */ "./node_modules/react-fast-compare/index.js"));
 var deepmerge = _interopDefault(__webpack_require__(/*! deepmerge */ "./node_modules/deepmerge/dist/umd.js"));
-var hoistNonReactStatics = _interopDefault(__webpack_require__(/*! hoist-non-react-statics */ "./node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js"));
-var createContext = _interopDefault(__webpack_require__(/*! create-react-context */ "./node_modules/create-react-context/lib/index.js"));
-var warning = _interopDefault(__webpack_require__(/*! tiny-warning */ "./node_modules/tiny-warning/dist/tiny-warning.cjs.js"));
+var isPlainObject = _interopDefault(__webpack_require__(/*! lodash/isPlainObject */ "./node_modules/lodash/isPlainObject.js"));
 var clone = _interopDefault(__webpack_require__(/*! lodash/clone */ "./node_modules/lodash/clone.js"));
 var toPath = _interopDefault(__webpack_require__(/*! lodash/toPath */ "./node_modules/lodash/toPath.js"));
+var invariant = _interopDefault(__webpack_require__(/*! tiny-warning */ "./node_modules/tiny-warning/dist/tiny-warning.cjs.js"));
+var scheduler = __webpack_require__(/*! scheduler */ "./node_modules/scheduler/index.js");
+var hoistNonReactStatics = _interopDefault(__webpack_require__(/*! hoist-non-react-statics */ "./node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js"));
 var cloneDeep = _interopDefault(__webpack_require__(/*! lodash/cloneDeep */ "./node_modules/lodash/cloneDeep.js"));
 
-var _a;
-var FormikProvider = (_a = createContext({}), _a.Provider), FormikConsumer = _a.Consumer;
-function connect(Comp) {
-    var C = function (props) { return (React.createElement(FormikConsumer, null, function (formik) { return React.createElement(Comp, tslib_1.__assign({}, props, { formik: formik })); })); };
-    var componentDisplayName = Comp.displayName ||
-        Comp.name ||
-        (Comp.constructor && Comp.constructor.name) ||
-        'Component';
-    C.WrappedComponent = Comp;
-    C.displayName = "FormikConnect(" + componentDisplayName + ")";
-    return hoistNonReactStatics(C, Comp);
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
 }
 
-var isFunction = function (obj) {
-    return typeof obj === 'function';
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  subClass.__proto__ = superClass;
+}
+
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+/** @private is the value an empty array? */
+
+var isEmptyArray = function isEmptyArray(value) {
+  return Array.isArray(value) && value.length === 0;
 };
-var isObject = function (obj) {
-    return obj !== null && typeof obj === 'object';
+/** @private is the given object a Function? */
+
+var isFunction = function isFunction(obj) {
+  return typeof obj === 'function';
 };
-var isInteger = function (obj) {
-    return String(Math.floor(Number(obj))) === obj;
+/** @private is the given object an Object? */
+
+var isObject = function isObject(obj) {
+  return obj !== null && typeof obj === 'object';
 };
-var isString = function (obj) {
-    return Object.prototype.toString.call(obj) === '[object String]';
+/** @private is the given object an integer? */
+
+var isInteger = function isInteger(obj) {
+  return String(Math.floor(Number(obj))) === obj;
 };
-var isNaN = function (obj) { return obj !== obj; };
-var isEmptyChildren = function (children) {
-    return React.Children.count(children) === 0;
+/** @private is the given object a string? */
+
+var isString = function isString(obj) {
+  return Object.prototype.toString.call(obj) === '[object String]';
 };
-var isPromise = function (value) {
-    return isObject(value) && isFunction(value.then);
+/** @private is the given object a NaN? */
+// eslint-disable-next-line no-self-compare
+
+var isNaN$1 = function isNaN(obj) {
+  return obj !== obj;
 };
-var isInputEvent = function (value) {
-    return value && isObject(value) && isObject(value.target);
+/** @private Does a React component have exactly 0 children? */
+
+var isEmptyChildren = function isEmptyChildren(children) {
+  return React.Children.count(children) === 0;
 };
+/** @private is the given object/value a promise? */
+
+var isPromise = function isPromise(value) {
+  return isObject(value) && isFunction(value.then);
+};
+/** @private is the given object/value a type of synthetic event? */
+
+var isInputEvent = function isInputEvent(value) {
+  return value && isObject(value) && isObject(value.target);
+};
+/**
+ * Same as document.activeElement but wraps in a try-catch block. In IE it is
+ * not safe to call document.activeElement if there is nothing focused.
+ *
+ * The activeElement will be null only if the document or document body is not
+ * yet defined.
+ *
+ * @param {?Document} doc Defaults to current document.
+ * @return {Element | null}
+ * @see https://github.com/facebook/fbjs/blob/master/packages/fbjs/src/core/dom/getActiveElement.js
+ */
+
 function getActiveElement(doc) {
-    doc = doc || (typeof document !== 'undefined' ? document : undefined);
-    if (typeof doc === 'undefined') {
-        return null;
-    }
-    try {
-        return doc.activeElement || doc.body;
-    }
-    catch (e) {
-        return doc.body;
-    }
+  doc = doc || (typeof document !== 'undefined' ? document : undefined);
+
+  if (typeof doc === 'undefined') {
+    return null;
+  }
+
+  try {
+    return doc.activeElement || doc.body;
+  } catch (e) {
+    return doc.body;
+  }
 }
-function makeCancelable(promise) {
-    var hasCanceled = false;
-    var wrappedPromise = new Promise(function (resolve, reject) {
-        promise.then(function (val) { return (hasCanceled ? reject({ isCanceled: true }) : resolve(val)); }, function (error) { return (hasCanceled ? reject({ isCanceled: true }) : reject(error)); });
-    });
-    return [
-        wrappedPromise,
-        function cancel() {
-            hasCanceled = true;
-        },
-    ];
-}
+/**
+ * Deeply get a value from an object via its path.
+ */
+
 function getIn(obj, key, def, p) {
-    if (p === void 0) { p = 0; }
-    var path = toPath(key);
-    while (obj && p < path.length) {
-        obj = obj[path[p++]];
-    }
-    return obj === undefined ? def : obj;
+  if (p === void 0) {
+    p = 0;
+  }
+
+  var path = toPath(key);
+
+  while (obj && p < path.length) {
+    obj = obj[path[p++]];
+  }
+
+  return obj === undefined ? def : obj;
 }
+/**
+ * Deeply set a value from in object via it's path. If the value at `path`
+ * has changed, return a shallow copy of obj with `value` set at `path`.
+ * If `value` has not changed, return the original `obj`.
+ *
+ * Existing objects / arrays along `path` are also shallow copied. Sibling
+ * objects along path retain the same internal js reference. Since new
+ * objects / arrays are only created along `path`, we can test if anything
+ * changed in a nested structure by comparing the object's reference in
+ * the old and new object, similar to how russian doll cache invalidation
+ * works.
+ *
+ * In earlier versions of this function, which used cloneDeep, there were
+ * issues whereby settings a nested value would mutate the parent
+ * instead of creating a new object. `clone` avoids that bug making a
+ * shallow copy of the objects along the update path
+ * so no object is mutated in place.
+ *
+ * Before changing this function, please read through the following
+ * discussions.
+ *
+ * @see https://github.com/developit/linkstate
+ * @see https://github.com/jaredpalmer/formik/pull/123
+ */
+
 function setIn(obj, path, value) {
-    var res = clone(obj);
-    var resVal = res;
-    var i = 0;
-    var pathArray = toPath(path);
-    for (; i < pathArray.length - 1; i++) {
-        var currentPath = pathArray[i];
-        var currentObj = getIn(obj, pathArray.slice(0, i + 1));
-        if (currentObj) {
-            resVal = resVal[currentPath] = clone(currentObj);
-        }
-        else {
-            var nextPath = pathArray[i + 1];
-            resVal = resVal[currentPath] =
-                isInteger(nextPath) && Number(nextPath) >= 0 ? [] : {};
-        }
+  var res = clone(obj); // this keeps inheritance when obj is a class
+
+  var resVal = res;
+  var i = 0;
+  var pathArray = toPath(path);
+
+  for (; i < pathArray.length - 1; i++) {
+    var currentPath = pathArray[i];
+    var currentObj = getIn(obj, pathArray.slice(0, i + 1));
+
+    if (currentObj && (isObject(currentObj) || Array.isArray(currentObj))) {
+      resVal = resVal[currentPath] = clone(currentObj);
+    } else {
+      var nextPath = pathArray[i + 1];
+      resVal = resVal[currentPath] = isInteger(nextPath) && Number(nextPath) >= 0 ? [] : {};
     }
-    if ((i === 0 ? obj : resVal)[pathArray[i]] === value) {
-        return obj;
-    }
-    if (value === undefined) {
-        delete resVal[pathArray[i]];
-    }
-    else {
-        resVal[pathArray[i]] = value;
-    }
-    if (i === 0 && value === undefined) {
-        delete res[pathArray[i]];
-    }
-    return res;
+  } // Return original object if new value is the same as current
+
+
+  if ((i === 0 ? obj : resVal)[pathArray[i]] === value) {
+    return obj;
+  }
+
+  if (value === undefined) {
+    delete resVal[pathArray[i]];
+  } else {
+    resVal[pathArray[i]] = value;
+  } // If the path array has a single element, the loop did not run.
+  // Deleting on `resVal` had no effect in this scenario, so we delete on the result instead.
+
+
+  if (i === 0 && value === undefined) {
+    delete res[pathArray[i]];
+  }
+
+  return res;
 }
+/**
+ * Recursively a set the same value for all keys and arrays nested object, cloning
+ * @param object
+ * @param value
+ * @param visited
+ * @param response
+ */
+
 function setNestedObjectValues(object, value, visited, response) {
-    if (visited === void 0) { visited = new WeakMap(); }
-    if (response === void 0) { response = {}; }
-    for (var _i = 0, _a = Object.keys(object); _i < _a.length; _i++) {
-        var k = _a[_i];
-        var val = object[k];
-        if (isObject(val)) {
-            if (!visited.get(val)) {
-                visited.set(val, true);
-                response[k] = Array.isArray(val) ? [] : {};
-                setNestedObjectValues(val, value, visited, response[k]);
-            }
-        }
-        else {
-            response[k] = value;
-        }
+  if (visited === void 0) {
+    visited = new WeakMap();
+  }
+
+  if (response === void 0) {
+    response = {};
+  }
+
+  for (var _i = 0, _Object$keys = Object.keys(object); _i < _Object$keys.length; _i++) {
+    var k = _Object$keys[_i];
+    var val = object[k];
+
+    if (isObject(val)) {
+      if (!visited.get(val)) {
+        visited.set(val, true); // In order to keep array values consistent for both dot path  and
+        // bracket syntax, we need to check if this is an array so that
+        // this will output  { friends: [true] } and not { friends: { "0": true } }
+
+        response[k] = Array.isArray(val) ? [] : {};
+        setNestedObjectValues(val, value, visited, response[k]);
+      }
+    } else {
+      response[k] = value;
     }
-    return response;
+  }
+
+  return response;
 }
 
-var Formik = (function (_super) {
-    tslib_1.__extends(Formik, _super);
-    function Formik(props) {
-        var _this = _super.call(this, props) || this;
-        _this.hcCache = {};
-        _this.hbCache = {};
-        _this.registerField = function (name, Comp) {
-            _this.fields[name] = Comp;
-        };
-        _this.unregisterField = function (name) {
-            delete _this.fields[name];
-        };
-        _this.setErrors = function (errors) {
-            _this.setState({ errors: errors });
-        };
-        _this.setTouched = function (touched) {
-            _this.setState({ touched: touched }, function () {
-                if (_this.props.validateOnBlur) {
-                    _this.runValidations(_this.state.values);
-                }
-            });
-        };
-        _this.setValues = function (values) {
-            _this.setState({ values: values }, function () {
-                if (_this.props.validateOnChange) {
-                    _this.runValidations(values);
-                }
-            });
-        };
-        _this.setStatus = function (status) {
-            _this.setState({ status: status });
-        };
-        _this.setError = function (error) {
-            {
-                console.warn("Warning: Formik's setError(error) is deprecated and may be removed in future releases. Please use Formik's setStatus(status) instead. It works identically. For more info see https://github.com/jaredpalmer/formik#setstatus-status-any--void");
-            }
-            _this.setState({ error: error });
-        };
-        _this.setSubmitting = function (isSubmitting) {
-            if (_this.didMount) {
-                _this.setState({ isSubmitting: isSubmitting });
-            }
-        };
-        _this.validateField = function (field) {
-            _this.setState({ isValidating: true });
-            return _this.runSingleFieldLevelValidation(field, getIn(_this.state.values, field)).then(function (error) {
-                if (_this.didMount) {
-                    _this.setState({
-                        errors: setIn(_this.state.errors, field, error),
-                        isValidating: false,
-                    });
-                }
-                return error;
-            });
-        };
-        _this.runSingleFieldLevelValidation = function (field, value) {
-            return new Promise(function (resolve) {
-                return resolve(_this.fields[field].props.validate(value));
-            }).then(function (x) { return x; }, function (e) { return e; });
-        };
-        _this.runValidationSchema = function (values) {
-            return new Promise(function (resolve) {
-                var validationSchema = _this.props.validationSchema;
-                var schema = isFunction(validationSchema)
-                    ? validationSchema()
-                    : validationSchema;
-                validateYupSchema(values, schema).then(function () {
-                    resolve({});
-                }, function (err) {
-                    resolve(yupToFormErrors(err));
-                });
-            });
-        };
-        _this.runValidations = function (values) {
-            if (values === void 0) { values = _this.state.values; }
-            if (_this.validator) {
-                _this.validator();
-            }
-            var _a = makeCancelable(Promise.all([
-                _this.runFieldLevelValidations(values),
-                _this.props.validationSchema ? _this.runValidationSchema(values) : {},
-                _this.props.validate ? _this.runValidateHandler(values) : {},
-            ]).then(function (_a) {
-                var fieldErrors = _a[0], schemaErrors = _a[1], handlerErrors = _a[2];
-                return deepmerge.all([fieldErrors, schemaErrors, handlerErrors], { arrayMerge: arrayMerge });
-            })), promise = _a[0], cancel = _a[1];
-            _this.validator = cancel;
-            return promise
-                .then(function (errors) {
-                if (_this.didMount) {
-                    _this.setState(function (prevState) {
-                        if (!isEqual(prevState.errors, errors)) {
-                            return { errors: errors };
-                        }
-                        return null;
-                    });
-                }
-                return errors;
-            })
-                .catch(function (x) { return x; });
-        };
-        _this.handleChange = function (eventOrPath) {
-            var executeChange = function (eventOrValue, maybePath) {
-                var field = maybePath;
-                var value;
-                if (isInputEvent(eventOrValue)) {
-                    var event_1 = eventOrValue;
-                    if (event_1.persist) {
-                        event_1.persist();
-                    }
-                    var _a = event_1.target, type = _a.type, name_1 = _a.name, id = _a.id, checked = _a.checked, outerHTML = _a.outerHTML;
-                    field = maybePath ? maybePath : name_1 ? name_1 : id;
-                    if (!field && "development" !== 'production') {
-                        warnAboutMissingIdentifier({
-                            htmlContent: outerHTML,
-                            documentationAnchorLink: 'handlechange-e-reactchangeeventany--void',
-                            handlerName: 'handleChange',
-                        });
-                    }
-                    value = event_1.target.value;
-                    if (/number|range/.test(type)) {
-                        var parsed = parseFloat(event_1.target.value);
-                        value = isNaN(parsed) ? '' : parsed;
-                    }
-                    if (/checkbox/.test(type)) {
-                        value = checked;
-                    }
-                }
-                else {
-                    value = eventOrValue;
-                }
-                if (field) {
-                    _this.setState(function (prevState) { return (tslib_1.__assign({}, prevState, { values: setIn(prevState.values, field, value) })); }, function () {
-                        if (_this.props.validateOnChange) {
-                            _this.runValidations(setIn(_this.state.values, field, value));
-                        }
-                    });
-                }
-            };
-            if (isString(eventOrPath)) {
-                var path_1 = eventOrPath;
-                if (!isFunction(_this.hcCache[path_1])) {
-                    _this.hcCache[path_1] = function (eventOrValue) {
-                        return executeChange(eventOrValue, path_1);
-                    };
-                }
-                return _this.hcCache[path_1];
-            }
-            else {
-                var event_2 = eventOrPath;
-                executeChange(event_2);
-            }
-        };
-        _this.setFieldValue = function (field, value, shouldValidate) {
-            if (shouldValidate === void 0) { shouldValidate = true; }
-            if (_this.didMount) {
-                _this.setState(function (prevState) { return (tslib_1.__assign({}, prevState, { values: setIn(prevState.values, field, value) })); }, function () {
-                    if (_this.props.validateOnChange && shouldValidate) {
-                        _this.runValidations(_this.state.values);
-                    }
-                });
-            }
-        };
-        _this.handleSubmit = function (e) {
-            if (e && e.preventDefault) {
-                e.preventDefault();
-            }
-            if (typeof document !== 'undefined') {
-                var activeElement = getActiveElement();
-                if (activeElement !== null &&
-                    activeElement instanceof HTMLButtonElement) {
-                    warning(!!(activeElement.attributes &&
-                        activeElement.attributes.getNamedItem('type')), 'You submitted a Formik form using a button with an unspecified `type` attribute.  Most browsers default button elements to `type="submit"`. If this is not a submit button, please add `type="button"`.');
-                }
-            }
-            _this.submitForm();
-        };
-        _this.submitForm = function () {
-            _this.setState(function (prevState) { return ({
-                touched: setNestedObjectValues(prevState.values, true),
-                isSubmitting: true,
-                isValidating: true,
-                submitCount: prevState.submitCount + 1,
-            }); });
-            return _this.runValidations(_this.state.values).then(function (combinedErrors) {
-                if (_this.didMount) {
-                    _this.setState({ isValidating: false });
-                }
-                var isValid = Object.keys(combinedErrors).length === 0;
-                if (isValid) {
-                    _this.executeSubmit();
-                }
-                else if (_this.didMount) {
-                    _this.setState({ isSubmitting: false });
-                }
-            });
-        };
-        _this.executeSubmit = function () {
-            _this.props.onSubmit(_this.state.values, _this.getFormikActions());
-        };
-        _this.handleBlur = function (eventOrPath) {
-            var executeBlur = function (maybeEvent, maybePath) {
-                var field = maybePath;
-                if (isInputEvent(maybeEvent)) {
-                    var event_3 = maybeEvent;
-                    if (event_3.persist) {
-                        event_3.persist();
-                    }
-                    var _a = event_3.target, name_2 = _a.name, id = _a.id, outerHTML = _a.outerHTML;
-                    field = name_2 ? name_2 : id;
-                    if (!field && "development" !== 'production') {
-                        warnAboutMissingIdentifier({
-                            htmlContent: outerHTML,
-                            documentationAnchorLink: 'handleblur-e-reactfocuseventany--void',
-                            handlerName: 'handleBlur',
-                        });
-                    }
-                }
-                _this.setState(function (prevState) { return ({
-                    touched: setIn(prevState.touched, field, true),
-                }); });
-                if (_this.props.validateOnBlur) {
-                    _this.runValidations(_this.state.values);
-                }
-            };
-            if (isString(eventOrPath)) {
-                var path_2 = eventOrPath;
-                if (!isFunction(_this.hbCache[path_2])) {
-                    _this.hbCache[path_2] = function (event) {
-                        return executeBlur(event, path_2);
-                    };
-                }
-                return _this.hbCache[path_2];
-            }
-            else {
-                var event_4 = eventOrPath;
-                executeBlur(event_4);
-            }
-        };
-        _this.setFieldTouched = function (field, touched, shouldValidate) {
-            if (touched === void 0) { touched = true; }
-            if (shouldValidate === void 0) { shouldValidate = true; }
-            _this.setState(function (prevState) { return (tslib_1.__assign({}, prevState, { touched: setIn(prevState.touched, field, touched) })); }, function () {
-                if (_this.props.validateOnBlur && shouldValidate) {
-                    _this.runValidations(_this.state.values);
-                }
-            });
-        };
-        _this.setFieldError = function (field, message) {
-            _this.setState(function (prevState) { return (tslib_1.__assign({}, prevState, { errors: setIn(prevState.errors, field, message) })); });
-        };
-        _this.resetForm = function (nextValues) {
-            var values = nextValues ? nextValues : _this.props.initialValues;
-            _this.initialValues = values;
-            _this.setState({
-                isSubmitting: false,
-                isValidating: false,
-                errors: {},
-                touched: {},
-                error: undefined,
-                status: _this.props.initialStatus,
-                values: values,
-                submitCount: 0,
-            });
-        };
-        _this.handleReset = function () {
-            if (_this.props.onReset) {
-                var maybePromisedOnReset = _this.props.onReset(_this.state.values, _this.getFormikActions());
-                if (isPromise(maybePromisedOnReset)) {
-                    maybePromisedOnReset.then(_this.resetForm);
-                }
-                else {
-                    _this.resetForm();
-                }
-            }
-            else {
-                _this.resetForm();
-            }
-        };
-        _this.setFormikState = function (s, callback) {
-            return _this.setState(s, callback);
-        };
-        _this.validateForm = function (values) {
-            _this.setState({ isValidating: true });
-            return _this.runValidations(values).then(function (errors) {
-                if (_this.didMount) {
-                    _this.setState({ isValidating: false });
-                }
-                return errors;
-            });
-        };
-        _this.getFormikActions = function () {
-            return {
-                resetForm: _this.resetForm,
-                submitForm: _this.submitForm,
-                validateForm: _this.validateForm,
-                validateField: _this.validateField,
-                setError: _this.setError,
-                setErrors: _this.setErrors,
-                setFieldError: _this.setFieldError,
-                setFieldTouched: _this.setFieldTouched,
-                setFieldValue: _this.setFieldValue,
-                setStatus: _this.setStatus,
-                setSubmitting: _this.setSubmitting,
-                setTouched: _this.setTouched,
-                setValues: _this.setValues,
-                setFormikState: _this.setFormikState,
-            };
-        };
-        _this.getFormikComputedProps = function () {
-            var isInitialValid = _this.props.isInitialValid;
-            var dirty = !isEqual(_this.initialValues, _this.state.values);
-            return {
-                dirty: dirty,
-                isValid: dirty
-                    ? _this.state.errors && Object.keys(_this.state.errors).length === 0
-                    : isInitialValid !== false && isFunction(isInitialValid)
-                        ? isInitialValid(_this.props)
-                        : isInitialValid,
-                initialValues: _this.initialValues,
-            };
-        };
-        _this.getFormikBag = function () {
-            return tslib_1.__assign({}, _this.state, _this.getFormikActions(), _this.getFormikComputedProps(), { registerField: _this.registerField, unregisterField: _this.unregisterField, handleBlur: _this.handleBlur, handleChange: _this.handleChange, handleReset: _this.handleReset, handleSubmit: _this.handleSubmit, validateOnChange: _this.props.validateOnChange, validateOnBlur: _this.props.validateOnBlur });
-        };
-        _this.getFormikContext = function () {
-            return tslib_1.__assign({}, _this.getFormikBag(), { validationSchema: _this.props.validationSchema, validate: _this.props.validate, initialValues: _this.initialValues });
-        };
-        _this.state = {
-            values: props.initialValues || {},
-            errors: {},
-            touched: {},
-            isSubmitting: false,
-            isValidating: false,
-            submitCount: 0,
-            status: props.initialStatus,
-        };
-        _this.didMount = false;
-        _this.fields = {};
-        _this.initialValues = props.initialValues || {};
-        warning(!(props.component && props.render), 'You should not use <Formik component> and <Formik render> in the same <Formik> component; <Formik render> will be ignored');
-        warning(!(props.component && props.children && !isEmptyChildren(props.children)), 'You should not use <Formik component> and <Formik children> in the same <Formik> component; <Formik children> will be ignored');
-        warning(!(props.render && props.children && !isEmptyChildren(props.children)), 'You should not use <Formik render> and <Formik children> in the same <Formik> component; <Formik children> will be ignored');
-        return _this;
-    }
-    Formik.prototype.componentDidMount = function () {
-        this.didMount = true;
-    };
-    Formik.prototype.componentWillUnmount = function () {
-        this.didMount = false;
-        if (this.validator) {
-            this.validator();
-        }
-    };
-    Formik.prototype.componentDidUpdate = function (prevProps) {
-        if (this.props.enableReinitialize &&
-            !isEqual(prevProps.initialValues, this.props.initialValues)) {
-            this.initialValues = this.props.initialValues;
-            this.resetForm(this.props.initialValues);
-        }
-    };
-    Formik.prototype.runFieldLevelValidations = function (values) {
-        var _this = this;
-        var fieldKeysWithValidation = Object.keys(this.fields).filter(function (f) {
-            return _this.fields &&
-                _this.fields[f] &&
-                _this.fields[f].props.validate &&
-                isFunction(_this.fields[f].props.validate);
-        });
-        var fieldValidations = fieldKeysWithValidation.length > 0
-            ? fieldKeysWithValidation.map(function (f) {
-                return _this.runSingleFieldLevelValidation(f, getIn(values, f));
-            })
-            : [Promise.resolve('DO_NOT_DELETE_YOU_WILL_BE_FIRED')];
-        return Promise.all(fieldValidations).then(function (fieldErrorsList) {
-            return fieldErrorsList.reduce(function (prev, curr, index) {
-                if (curr === 'DO_NOT_DELETE_YOU_WILL_BE_FIRED') {
-                    return prev;
-                }
-                if (!!curr) {
-                    prev = setIn(prev, fieldKeysWithValidation[index], curr);
-                }
-                return prev;
-            }, {});
-        });
-    };
-    Formik.prototype.runValidateHandler = function (values) {
-        var _this = this;
-        return new Promise(function (resolve) {
-            var maybePromisedErrors = _this.props.validate(values);
-            if (maybePromisedErrors === undefined) {
-                resolve({});
-            }
-            else if (isPromise(maybePromisedErrors)) {
-                maybePromisedErrors.then(function () {
-                    resolve({});
-                }, function (errors) {
-                    resolve(errors);
-                });
-            }
-            else {
-                resolve(maybePromisedErrors);
-            }
-        });
-    };
-    Formik.prototype.render = function () {
-        var _a = this.props, component = _a.component, render = _a.render, children = _a.children;
-        var props = this.getFormikBag();
-        var ctx = this.getFormikContext();
-        return (React.createElement(FormikProvider, { value: ctx }, component
-            ? React.createElement(component, props)
-            : render
-                ? render(props)
-                : children
-                    ? isFunction(children)
-                        ? children(props)
-                        : !isEmptyChildren(children)
-                            ? React.Children.only(children)
-                            : null
-                    : null));
-    };
-    Formik.defaultProps = {
-        validateOnChange: true,
-        validateOnBlur: true,
-        isInitialValid: false,
-        enableReinitialize: false,
-    };
-    return Formik;
-}(React.Component));
-function warnAboutMissingIdentifier(_a) {
-    var htmlContent = _a.htmlContent, documentationAnchorLink = _a.documentationAnchorLink, handlerName = _a.handlerName;
-    console.warn("Warning: Formik called `" + handlerName + "`, but you forgot to pass an `id` or `name` attribute to your input:\n\n    " + htmlContent + "\n\n    Formik cannot determine which value to update. For more info see https://github.com/jaredpalmer/formik#" + documentationAnchorLink + "\n  ");
+var FormikContext =
+/*#__PURE__*/
+React.createContext(undefined);
+var FormikProvider = FormikContext.Provider;
+var FormikConsumer = FormikContext.Consumer;
+function useFormikContext() {
+  var formik = React.useContext(FormikContext);
+  !!!formik ?  invariant(false, "Formik context is undefined, please verify you are calling useFormikContext() as child of a <Formik> component.")  : void 0;
+  return formik;
 }
+
+function formikReducer(state, msg) {
+  switch (msg.type) {
+    case 'SET_VALUES':
+      return _extends({}, state, {
+        values: msg.payload
+      });
+
+    case 'SET_TOUCHED':
+      return _extends({}, state, {
+        touched: msg.payload
+      });
+
+    case 'SET_ERRORS':
+      if (isEqual(state.errors, msg.payload)) {
+        return state;
+      }
+
+      return _extends({}, state, {
+        errors: msg.payload
+      });
+
+    case 'SET_STATUS':
+      return _extends({}, state, {
+        status: msg.payload
+      });
+
+    case 'SET_ISSUBMITTING':
+      return _extends({}, state, {
+        isSubmitting: msg.payload
+      });
+
+    case 'SET_ISVALIDATING':
+      return _extends({}, state, {
+        isValidating: msg.payload
+      });
+
+    case 'SET_FIELD_VALUE':
+      return _extends({}, state, {
+        values: setIn(state.values, msg.payload.field, msg.payload.value)
+      });
+
+    case 'SET_FIELD_TOUCHED':
+      return _extends({}, state, {
+        touched: setIn(state.touched, msg.payload.field, msg.payload.value)
+      });
+
+    case 'SET_FIELD_ERROR':
+      return _extends({}, state, {
+        errors: setIn(state.errors, msg.payload.field, msg.payload.value)
+      });
+
+    case 'RESET_FORM':
+      return _extends({}, state, {}, msg.payload);
+
+    case 'SET_FORMIK_STATE':
+      return msg.payload(state);
+
+    case 'SUBMIT_ATTEMPT':
+      return _extends({}, state, {
+        touched: setNestedObjectValues(state.values, true),
+        isSubmitting: true,
+        submitCount: state.submitCount + 1
+      });
+
+    case 'SUBMIT_FAILURE':
+      return _extends({}, state, {
+        isSubmitting: false
+      });
+
+    case 'SUBMIT_SUCCESS':
+      return _extends({}, state, {
+        isSubmitting: false
+      });
+
+    default:
+      return state;
+  }
+} // Initial empty states // objects
+
+
+var emptyErrors = {};
+var emptyTouched = {};
+function useFormik(_ref) {
+  var _ref$validateOnChange = _ref.validateOnChange,
+      validateOnChange = _ref$validateOnChange === void 0 ? true : _ref$validateOnChange,
+      _ref$validateOnBlur = _ref.validateOnBlur,
+      validateOnBlur = _ref$validateOnBlur === void 0 ? true : _ref$validateOnBlur,
+      _ref$validateOnMount = _ref.validateOnMount,
+      validateOnMount = _ref$validateOnMount === void 0 ? false : _ref$validateOnMount,
+      isInitialValid = _ref.isInitialValid,
+      _ref$enableReinitiali = _ref.enableReinitialize,
+      enableReinitialize = _ref$enableReinitiali === void 0 ? false : _ref$enableReinitiali,
+      onSubmit = _ref.onSubmit,
+      rest = _objectWithoutPropertiesLoose(_ref, ["validateOnChange", "validateOnBlur", "validateOnMount", "isInitialValid", "enableReinitialize", "onSubmit"]);
+
+  var props = _extends({
+    validateOnChange: validateOnChange,
+    validateOnBlur: validateOnBlur,
+    validateOnMount: validateOnMount,
+    onSubmit: onSubmit
+  }, rest);
+
+  var initialValues = React.useRef(props.initialValues);
+  var initialErrors = React.useRef(props.initialErrors || emptyErrors);
+  var initialTouched = React.useRef(props.initialTouched || emptyTouched);
+  var initialStatus = React.useRef(props.initialStatus);
+  var isMounted = React.useRef(false);
+  var fieldRegistry = React.useRef({});
+  React.useEffect(function () {
+    {
+      !(typeof isInitialValid === 'undefined') ?  invariant(false, 'isInitialValid has been deprecated and will be removed in future versions of Formik. Please use initialErrors or validateOnMount instead.')  : void 0;
+    } // eslint-disable-next-line
+
+  }, []);
+  React.useEffect(function () {
+    isMounted.current = true;
+    return function () {
+      isMounted.current = false;
+    };
+  }, []);
+
+  var _React$useReducer = React.useReducer(formikReducer, {
+    values: props.initialValues,
+    errors: props.initialErrors || emptyErrors,
+    touched: props.initialTouched || emptyTouched,
+    status: props.initialStatus,
+    isSubmitting: false,
+    isValidating: false,
+    submitCount: 0
+  }),
+      state = _React$useReducer[0],
+      dispatch = _React$useReducer[1];
+
+  var runValidateHandler = React.useCallback(function (values, field) {
+    return new Promise(function (resolve, reject) {
+      var maybePromisedErrors = props.validate(values, field);
+
+      if (maybePromisedErrors == null) {
+        // use loose null check here on purpose
+        resolve(emptyErrors);
+      } else if (isPromise(maybePromisedErrors)) {
+        maybePromisedErrors.then(function (errors) {
+          resolve(errors || emptyErrors);
+        }, function (actualException) {
+          {
+            console.warn("Warning: An unhandled error was caught during validation in <Formik validate />", actualException);
+          }
+
+          reject(actualException);
+        });
+      } else {
+        resolve(maybePromisedErrors);
+      }
+    });
+  }, [props.validate]);
+  /**
+   * Run validation against a Yup schema and optionally run a function if successful
+   */
+
+  var runValidationSchema = React.useCallback(function (values, field) {
+    var validationSchema = props.validationSchema;
+    var schema = isFunction(validationSchema) ? validationSchema(field) : validationSchema;
+    var promise = field && schema.validateAt ? schema.validateAt(field, values) : validateYupSchema(values, schema);
+    return new Promise(function (resolve, reject) {
+      promise.then(function () {
+        resolve(emptyErrors);
+      }, function (err) {
+        // Yup will throw a validation error if validation fails. We catch those and
+        // resolve them into Formik errors. We can sniff if something is a Yup error
+        // by checking error.name.
+        // @see https://github.com/jquense/yup#validationerrorerrors-string--arraystring-value-any-path-string
+        if (err.name === 'ValidationError') {
+          resolve(yupToFormErrors(err));
+        } else {
+          // We throw any other errors
+          {
+            console.warn("Warning: An unhandled error was caught during validation in <Formik validationSchema />", err);
+          }
+
+          reject(err);
+        }
+      });
+    });
+  }, [props.validationSchema]);
+  var runSingleFieldLevelValidation = React.useCallback(function (field, value) {
+    return new Promise(function (resolve) {
+      return resolve(fieldRegistry.current[field].validate(value));
+    });
+  }, []);
+  var runFieldLevelValidations = React.useCallback(function (values) {
+    var fieldKeysWithValidation = Object.keys(fieldRegistry.current).filter(function (f) {
+      return isFunction(fieldRegistry.current[f].validate);
+    }); // Construct an array with all of the field validation functions
+
+    var fieldValidations = fieldKeysWithValidation.length > 0 ? fieldKeysWithValidation.map(function (f) {
+      return runSingleFieldLevelValidation(f, getIn(values, f));
+    }) : [Promise.resolve('DO_NOT_DELETE_YOU_WILL_BE_FIRED')]; // use special case ;)
+
+    return Promise.all(fieldValidations).then(function (fieldErrorsList) {
+      return fieldErrorsList.reduce(function (prev, curr, index) {
+        if (curr === 'DO_NOT_DELETE_YOU_WILL_BE_FIRED') {
+          return prev;
+        }
+
+        if (curr) {
+          prev = setIn(prev, fieldKeysWithValidation[index], curr);
+        }
+
+        return prev;
+      }, {});
+    });
+  }, [runSingleFieldLevelValidation]); // Run all validations and return the result
+
+  var runAllValidations = React.useCallback(function (values) {
+    return Promise.all([runFieldLevelValidations(values), props.validationSchema ? runValidationSchema(values) : {}, props.validate ? runValidateHandler(values) : {}]).then(function (_ref2) {
+      var fieldErrors = _ref2[0],
+          schemaErrors = _ref2[1],
+          validateErrors = _ref2[2];
+      var combinedErrors = deepmerge.all([fieldErrors, schemaErrors, validateErrors], {
+        arrayMerge: arrayMerge
+      });
+      return combinedErrors;
+    });
+  }, [props.validate, props.validationSchema, runFieldLevelValidations, runValidateHandler, runValidationSchema]); // Run validations and dispatching the result as low-priority via rAF.
+  //
+  // The thinking is that validation as a result of onChange and onBlur
+  // should never block user input. Note: This method should never be called
+  // during the submission phase because validation prior to submission
+  // is actaully high-priority since we absolutely need to guarantee the
+  // form is valid before executing props.onSubmit.
+
+  var validateFormWithLowPriority = useEventCallback(function (values) {
+    if (values === void 0) {
+      values = state.values;
+    }
+
+    return scheduler.unstable_runWithPriority(scheduler.LowPriority, function () {
+      return runAllValidations(values).then(function (combinedErrors) {
+        if (!!isMounted.current) {
+          dispatch({
+            type: 'SET_ERRORS',
+            payload: combinedErrors
+          });
+        }
+
+        return combinedErrors;
+      })["catch"](function (actualException) {
+        {
+          // Users can throw during validate, however they have no way of handling their error on touch / blur. In low priority, we need to handle it
+          console.warn("Warning: An unhandled error was caught during low priority validation in <Formik validate />", actualException);
+        }
+      });
+    });
+  }); // Run all validations methods and update state accordingly
+
+  var validateFormWithHighPriority = useEventCallback(function (values) {
+    if (values === void 0) {
+      values = state.values;
+    }
+
+    dispatch({
+      type: 'SET_ISVALIDATING',
+      payload: true
+    });
+    return runAllValidations(values).then(function (combinedErrors) {
+      if (!!isMounted.current) {
+        dispatch({
+          type: 'SET_ISVALIDATING',
+          payload: false
+        });
+
+        if (!isEqual(state.errors, combinedErrors)) {
+          dispatch({
+            type: 'SET_ERRORS',
+            payload: combinedErrors
+          });
+        }
+      }
+
+      return combinedErrors;
+    });
+  });
+  React.useEffect(function () {
+    if (validateOnMount && isMounted.current === true) {
+      validateFormWithLowPriority(initialValues.current);
+    }
+  }, [validateOnMount, validateFormWithLowPriority]);
+  var resetForm = React.useCallback(function (nextState) {
+    var values = nextState && nextState.values ? nextState.values : initialValues.current;
+    var errors = nextState && nextState.errors ? nextState.errors : initialErrors.current ? initialErrors.current : props.initialErrors || {};
+    var touched = nextState && nextState.touched ? nextState.touched : initialTouched.current ? initialTouched.current : props.initialTouched || {};
+    var status = nextState && nextState.status ? nextState.status : initialStatus.current ? initialStatus.current : props.initialStatus;
+    initialValues.current = values;
+    initialErrors.current = errors;
+    initialTouched.current = touched;
+    initialStatus.current = status;
+
+    var dispatchFn = function dispatchFn() {
+      dispatch({
+        type: 'RESET_FORM',
+        payload: {
+          isSubmitting: !!nextState && !!nextState.isSubmitting,
+          errors: errors,
+          touched: touched,
+          status: status,
+          values: values,
+          isValidating: !!nextState && !!nextState.isValidating,
+          submitCount: !!nextState && !!nextState.submitCount && typeof nextState.submitCount === 'number' ? nextState.submitCount : 0
+        }
+      });
+    };
+
+    if (props.onReset) {
+      var maybePromisedOnReset = props.onReset(state.values, imperativeMethods);
+
+      if (isPromise(maybePromisedOnReset)) {
+        maybePromisedOnReset.then(dispatchFn);
+      } else {
+        dispatchFn();
+      }
+    } else {
+      dispatchFn();
+    }
+  }, [props.initialErrors, props.initialStatus, props.initialTouched]);
+  React.useEffect(function () {
+    if (!enableReinitialize) {
+      initialValues.current = props.initialValues;
+    }
+  }, [enableReinitialize, props.initialValues]);
+  React.useEffect(function () {
+    if (enableReinitialize && isMounted.current === true && !isEqual(initialValues.current, props.initialValues)) {
+      initialValues.current = props.initialValues;
+      resetForm();
+    }
+  }, [enableReinitialize, props.initialValues, resetForm]);
+  React.useEffect(function () {
+    if (enableReinitialize && isMounted.current === true && !isEqual(initialErrors.current, props.initialErrors)) {
+      initialErrors.current = props.initialErrors || emptyErrors;
+      dispatch({
+        type: 'SET_ERRORS',
+        payload: props.initialErrors || emptyErrors
+      });
+    }
+  }, [enableReinitialize, props.initialErrors]);
+  React.useEffect(function () {
+    if (enableReinitialize && isMounted.current === true && !isEqual(initialTouched.current, props.initialTouched)) {
+      initialTouched.current = props.initialTouched || emptyTouched;
+      dispatch({
+        type: 'SET_TOUCHED',
+        payload: props.initialTouched || emptyTouched
+      });
+    }
+  }, [enableReinitialize, props.initialTouched]);
+  React.useEffect(function () {
+    if (enableReinitialize && isMounted.current === true && !isEqual(initialStatus.current, props.initialStatus)) {
+      initialStatus.current = props.initialStatus;
+      dispatch({
+        type: 'SET_STATUS',
+        payload: props.initialStatus
+      });
+    }
+  }, [enableReinitialize, props.initialStatus, props.initialTouched]);
+  var validateField = useEventCallback(function (name) {
+    // This will efficiently validate a single field by avoiding state
+    // changes if the validation function is synchronous. It's different from
+    // what is called when using validateForm.
+    if (isFunction(fieldRegistry.current[name].validate)) {
+      var value = getIn(state.values, name);
+      var maybePromise = fieldRegistry.current[name].validate(value);
+
+      if (isPromise(maybePromise)) {
+        // Only flip isValidating if the function is async.
+        dispatch({
+          type: 'SET_ISVALIDATING',
+          payload: true
+        });
+        return maybePromise.then(function (x) {
+          return x;
+        }).then(function (error) {
+          dispatch({
+            type: 'SET_FIELD_ERROR',
+            payload: {
+              field: name,
+              value: error
+            }
+          });
+          dispatch({
+            type: 'SET_ISVALIDATING',
+            payload: false
+          });
+        });
+      } else {
+        dispatch({
+          type: 'SET_FIELD_ERROR',
+          payload: {
+            field: name,
+            value: maybePromise
+          }
+        });
+        return Promise.resolve(maybePromise);
+      }
+    } else if (props.validationSchema) {
+      dispatch({
+        type: 'SET_ISVALIDATING',
+        payload: true
+      });
+      return runValidationSchema(state.values, name).then(function (x) {
+        return x;
+      }).then(function (error) {
+        dispatch({
+          type: 'SET_FIELD_ERROR',
+          payload: {
+            field: name,
+            value: error[name]
+          }
+        });
+        dispatch({
+          type: 'SET_ISVALIDATING',
+          payload: false
+        });
+      });
+    }
+
+    return Promise.resolve();
+  });
+  var registerField = React.useCallback(function (name, _ref3) {
+    var validate = _ref3.validate;
+    fieldRegistry.current[name] = {
+      validate: validate
+    };
+  }, []);
+  var unregisterField = React.useCallback(function (name) {
+    delete fieldRegistry.current[name];
+  }, []);
+  var setTouched = useEventCallback(function (touched, shouldValidate) {
+    dispatch({
+      type: 'SET_TOUCHED',
+      payload: touched
+    });
+    var willValidate = shouldValidate === undefined ? validateOnBlur : shouldValidate;
+    return willValidate ? validateFormWithLowPriority(state.values) : Promise.resolve();
+  });
+  var setErrors = React.useCallback(function (errors) {
+    dispatch({
+      type: 'SET_ERRORS',
+      payload: errors
+    });
+  }, []);
+  var setValues = useEventCallback(function (values, shouldValidate) {
+    dispatch({
+      type: 'SET_VALUES',
+      payload: values
+    });
+    var willValidate = shouldValidate === undefined ? validateOnChange : shouldValidate;
+    return willValidate ? validateFormWithLowPriority(values) : Promise.resolve();
+  });
+  var setFieldError = React.useCallback(function (field, value) {
+    dispatch({
+      type: 'SET_FIELD_ERROR',
+      payload: {
+        field: field,
+        value: value
+      }
+    });
+  }, []);
+  var setFieldValue = useEventCallback(function (field, value, shouldValidate) {
+    dispatch({
+      type: 'SET_FIELD_VALUE',
+      payload: {
+        field: field,
+        value: value
+      }
+    });
+    var willValidate = shouldValidate === undefined ? validateOnChange : shouldValidate;
+    return willValidate ? validateFormWithLowPriority(setIn(state.values, field, value)) : Promise.resolve();
+  });
+  var executeChange = React.useCallback(function (eventOrTextValue, maybePath) {
+    // By default, assume that the first argument is a string. This allows us to use
+    // handleChange with React Native and React Native Web's onChangeText prop which
+    // provides just the value of the input.
+    var field = maybePath;
+    var val = eventOrTextValue;
+    var parsed; // If the first argument is not a string though, it has to be a synthetic React Event (or a fake one),
+    // so we handle like we would a normal HTML change event.
+
+    if (!isString(eventOrTextValue)) {
+      // If we can, persist the event
+      // @see https://reactjs.org/docs/events.html#event-pooling
+      if (eventOrTextValue.persist) {
+        eventOrTextValue.persist();
+      }
+
+      var target = eventOrTextValue.target ? eventOrTextValue.target : eventOrTextValue.currentTarget;
+      var type = target.type,
+          name = target.name,
+          id = target.id,
+          value = target.value,
+          checked = target.checked,
+          outerHTML = target.outerHTML,
+          options = target.options,
+          multiple = target.multiple;
+      field = maybePath ? maybePath : name ? name : id;
+
+      if (!field && "development" !== "production") {
+        warnAboutMissingIdentifier({
+          htmlContent: outerHTML,
+          documentationAnchorLink: 'handlechange-e-reactchangeeventany--void',
+          handlerName: 'handleChange'
+        });
+      }
+
+      val = /number|range/.test(type) ? (parsed = parseFloat(value), isNaN(parsed) ? '' : parsed) : /checkbox/.test(type) // checkboxes
+      ? getValueForCheckbox(getIn(state.values, field), checked, value) : !!multiple // <select multiple>
+      ? getSelectedValues(options) : value;
+    }
+
+    if (field) {
+      // Set form fields by name
+      setFieldValue(field, val);
+    }
+  }, [setFieldValue, state.values]);
+  var handleChange = useEventCallback(function (eventOrPath) {
+    if (isString(eventOrPath)) {
+      return function (event) {
+        return executeChange(event, eventOrPath);
+      };
+    } else {
+      executeChange(eventOrPath);
+    }
+  });
+  var setFieldTouched = useEventCallback(function (field, touched, shouldValidate) {
+    if (touched === void 0) {
+      touched = true;
+    }
+
+    dispatch({
+      type: 'SET_FIELD_TOUCHED',
+      payload: {
+        field: field,
+        value: touched
+      }
+    });
+    var willValidate = shouldValidate === undefined ? validateOnBlur : shouldValidate;
+    return willValidate ? validateFormWithLowPriority(state.values) : Promise.resolve();
+  });
+  var executeBlur = React.useCallback(function (e, path) {
+    if (e.persist) {
+      e.persist();
+    }
+
+    var _e$target = e.target,
+        name = _e$target.name,
+        id = _e$target.id,
+        outerHTML = _e$target.outerHTML;
+    var field = path ? path : name ? name : id;
+
+    if (!field && "development" !== "production") {
+      warnAboutMissingIdentifier({
+        htmlContent: outerHTML,
+        documentationAnchorLink: 'handleblur-e-any--void',
+        handlerName: 'handleBlur'
+      });
+    }
+
+    setFieldTouched(field, true);
+  }, [setFieldTouched]);
+  var handleBlur = useEventCallback(function (eventOrString) {
+    if (isString(eventOrString)) {
+      return function (event) {
+        return executeBlur(event, eventOrString);
+      };
+    } else {
+      executeBlur(eventOrString);
+    }
+  });
+  var setFormikState = React.useCallback(function (stateOrCb) {
+    if (isFunction(stateOrCb)) {
+      dispatch({
+        type: 'SET_FORMIK_STATE',
+        payload: stateOrCb
+      });
+    } else {
+      dispatch({
+        type: 'SET_FORMIK_STATE',
+        payload: function payload() {
+          return stateOrCb;
+        }
+      });
+    }
+  }, []);
+  var setStatus = React.useCallback(function (status) {
+    dispatch({
+      type: 'SET_STATUS',
+      payload: status
+    });
+  }, []);
+  var setSubmitting = React.useCallback(function (isSubmitting) {
+    dispatch({
+      type: 'SET_ISSUBMITTING',
+      payload: isSubmitting
+    });
+  }, []);
+  var submitForm = useEventCallback(function () {
+    dispatch({
+      type: 'SUBMIT_ATTEMPT'
+    });
+    return validateFormWithHighPriority().then(function (combinedErrors) {
+      // In case an error was thrown and passed to the resolved Promise,
+      // `combinedErrors` can be an instance of an Error. We need to check
+      // that and abort the submit.
+      // If we don't do that, calling `Object.keys(new Error())` yields an
+      // empty array, which causes the validation to pass and the form
+      // to be submitted.
+      var isInstanceOfError = combinedErrors instanceof Error;
+      var isActuallyValid = !isInstanceOfError && Object.keys(combinedErrors).length === 0;
+
+      if (isActuallyValid) {
+        // Proceed with submit...
+        //
+        // To respect sync submit fns, we can't simply wrap executeSubmit in a promise and
+        // _always_ dispatch SUBMIT_SUCCESS because isSubmitting would then always be false.
+        // This would be fine in simple cases, but make it impossible to disable submit
+        // buttons where people use callbacks or promises as side effects (which is basically
+        // all of v1 Formik code). Instead, recall that we are inside of a promise chain already,
+        //  so we can try/catch executeSubmit(), if it returns undefined, then just bail.
+        // If there are errors, throw em. Otherwise, wrap executeSubmit in a promise and handle
+        // cleanup of isSubmitting on behalf of the consumer.
+        var promiseOrUndefined;
+
+        try {
+          promiseOrUndefined = executeSubmit(); // Bail if it's sync, consumer is responsible for cleaning up
+          // via setSubmitting(false)
+
+          if (promiseOrUndefined === undefined) {
+            return;
+          }
+        } catch (error) {
+          throw error;
+        }
+
+        return Promise.resolve(promiseOrUndefined).then(function () {
+          if (!!isMounted.current) {
+            dispatch({
+              type: 'SUBMIT_SUCCESS'
+            });
+          }
+        })["catch"](function (_errors) {
+          if (!!isMounted.current) {
+            dispatch({
+              type: 'SUBMIT_FAILURE'
+            }); // This is a legit error rejected by the onSubmit fn
+            // so we don't want to break the promise chain
+
+            throw _errors;
+          }
+        });
+      } else if (!!isMounted.current) {
+        // ^^^ Make sure Formik is still mounted before updating state
+        dispatch({
+          type: 'SUBMIT_FAILURE'
+        }); // throw combinedErrors;
+
+        if (isInstanceOfError) {
+          throw combinedErrors;
+        }
+      }
+
+      return;
+    });
+  });
+  var handleSubmit = useEventCallback(function (e) {
+    if (e && e.preventDefault && isFunction(e.preventDefault)) {
+      e.preventDefault();
+    }
+
+    if (e && e.stopPropagation && isFunction(e.stopPropagation)) {
+      e.stopPropagation();
+    } // Warn if form submission is triggered by a <button> without a
+    // specified `type` attribute during development. This mitigates
+    // a common gotcha in forms with both reset and submit buttons,
+    // where the dev forgets to add type="button" to the reset button.
+
+
+    if ( typeof document !== 'undefined') {
+      // Safely get the active element (works with IE)
+      var activeElement = getActiveElement();
+
+      if (activeElement !== null && activeElement instanceof HTMLButtonElement) {
+        !(activeElement.attributes && activeElement.attributes.getNamedItem('type')) ?  invariant(false, 'You submitted a Formik form using a button with an unspecified `type` attribute.  Most browsers default button elements to `type="submit"`. If this is not a submit button, please add `type="button"`.')  : void 0;
+      }
+    }
+
+    submitForm()["catch"](function (reason) {
+      console.warn("Warning: An unhandled error was caught from submitForm()", reason);
+    });
+  });
+  var imperativeMethods = {
+    resetForm: resetForm,
+    validateForm: validateFormWithHighPriority,
+    validateField: validateField,
+    setErrors: setErrors,
+    setFieldError: setFieldError,
+    setFieldTouched: setFieldTouched,
+    setFieldValue: setFieldValue,
+    setStatus: setStatus,
+    setSubmitting: setSubmitting,
+    setTouched: setTouched,
+    setValues: setValues,
+    setFormikState: setFormikState,
+    submitForm: submitForm
+  };
+  var executeSubmit = useEventCallback(function () {
+    return onSubmit(state.values, imperativeMethods);
+  });
+  var handleReset = useEventCallback(function (e) {
+    if (e && e.preventDefault && isFunction(e.preventDefault)) {
+      e.preventDefault();
+    }
+
+    if (e && e.stopPropagation && isFunction(e.stopPropagation)) {
+      e.stopPropagation();
+    }
+
+    resetForm();
+  });
+  var getFieldMeta = React.useCallback(function (name) {
+    return {
+      value: getIn(state.values, name),
+      error: getIn(state.errors, name),
+      touched: !!getIn(state.touched, name),
+      initialValue: getIn(initialValues.current, name),
+      initialTouched: !!getIn(initialTouched.current, name),
+      initialError: getIn(initialErrors.current, name)
+    };
+  }, [state.errors, state.touched, state.values]);
+  var getFieldHelpers = React.useCallback(function (name) {
+    return {
+      setValue: function setValue(value) {
+        return setFieldValue(name, value);
+      },
+      setTouched: function setTouched(value) {
+        return setFieldTouched(name, value);
+      },
+      setError: function setError(value) {
+        return setFieldError(name, value);
+      }
+    };
+  }, [setFieldValue, setFieldTouched, setFieldError]);
+  var getFieldProps = React.useCallback(function (nameOrOptions) {
+    var isAnObject = isObject(nameOrOptions);
+    var name = isAnObject ? nameOrOptions.name : nameOrOptions;
+    var valueState = getIn(state.values, name);
+    var field = {
+      name: name,
+      value: valueState,
+      onChange: handleChange,
+      onBlur: handleBlur
+    };
+
+    if (isAnObject) {
+      var type = nameOrOptions.type,
+          valueProp = nameOrOptions.value,
+          is = nameOrOptions.as,
+          multiple = nameOrOptions.multiple;
+
+      if (type === 'checkbox') {
+        if (valueProp === undefined) {
+          field.checked = !!valueState;
+        } else {
+          field.checked = !!(Array.isArray(valueState) && ~valueState.indexOf(valueProp));
+          field.value = valueProp;
+        }
+      } else if (type === 'radio') {
+        field.checked = valueState === valueProp;
+        field.value = valueProp;
+      } else if (is === 'select' && multiple) {
+        field.value = field.value || [];
+        field.multiple = true;
+      }
+    }
+
+    return field;
+  }, [handleBlur, handleChange, state.values]);
+  var dirty = React.useMemo(function () {
+    return !isEqual(initialValues.current, state.values);
+  }, [initialValues.current, state.values]);
+  var isValid = React.useMemo(function () {
+    return typeof isInitialValid !== 'undefined' ? dirty ? state.errors && Object.keys(state.errors).length === 0 : isInitialValid !== false && isFunction(isInitialValid) ? isInitialValid(props) : isInitialValid : state.errors && Object.keys(state.errors).length === 0;
+  }, [isInitialValid, dirty, state.errors, props]);
+
+  var ctx = _extends({}, state, {
+    initialValues: initialValues.current,
+    initialErrors: initialErrors.current,
+    initialTouched: initialTouched.current,
+    initialStatus: initialStatus.current,
+    handleBlur: handleBlur,
+    handleChange: handleChange,
+    handleReset: handleReset,
+    handleSubmit: handleSubmit,
+    resetForm: resetForm,
+    setErrors: setErrors,
+    setFormikState: setFormikState,
+    setFieldTouched: setFieldTouched,
+    setFieldValue: setFieldValue,
+    setFieldError: setFieldError,
+    setStatus: setStatus,
+    setSubmitting: setSubmitting,
+    setTouched: setTouched,
+    setValues: setValues,
+    submitForm: submitForm,
+    validateForm: validateFormWithHighPriority,
+    validateField: validateField,
+    isValid: isValid,
+    dirty: dirty,
+    unregisterField: unregisterField,
+    registerField: registerField,
+    getFieldProps: getFieldProps,
+    getFieldMeta: getFieldMeta,
+    getFieldHelpers: getFieldHelpers,
+    validateOnBlur: validateOnBlur,
+    validateOnChange: validateOnChange,
+    validateOnMount: validateOnMount
+  });
+
+  return ctx;
+}
+function Formik(props) {
+  var formikbag = useFormik(props);
+  var component = props.component,
+      children = props.children,
+      render = props.render,
+      innerRef = props.innerRef; // This allows folks to pass a ref to <Formik />
+
+  React.useImperativeHandle(innerRef, function () {
+    return formikbag;
+  });
+  React.useEffect(function () {
+    {
+      !!props.render ?  invariant(false, "<Formik render> has been deprecated and will be removed in future versions of Formik. Please use a child callback function instead. To get rid of this warning, replace <Formik render={(props) => ...} /> with <Formik>{(props) => ...}</Formik>")  : void 0;
+    } // eslint-disable-next-line
+
+  }, []);
+  return React.createElement(FormikProvider, {
+    value: formikbag
+  }, component ? React.createElement(component, formikbag) : render ? render(formikbag) : children // children come last, always called
+  ? isFunction(children) ? children(formikbag) : !isEmptyChildren(children) ? React.Children.only(children) : null : null);
+}
+
+function warnAboutMissingIdentifier(_ref4) {
+  var htmlContent = _ref4.htmlContent,
+      documentationAnchorLink = _ref4.documentationAnchorLink,
+      handlerName = _ref4.handlerName;
+  console.warn("Warning: Formik called `" + handlerName + "`, but you forgot to pass an `id` or `name` attribute to your input:\n    " + htmlContent + "\n    Formik cannot determine which value to update. For more info see https://github.com/jaredpalmer/formik#" + documentationAnchorLink + "\n  ");
+}
+/**
+ * Transform Yup ValidationError to a more usable object
+ */
+
+
 function yupToFormErrors(yupError) {
-    var errors = {};
+  var errors = {};
+
+  if (yupError.inner) {
     if (yupError.inner.length === 0) {
-        return setIn(errors, yupError.path, yupError.message);
+      return setIn(errors, yupError.path, yupError.message);
     }
-    for (var _i = 0, _a = yupError.inner; _i < _a.length; _i++) {
-        var err = _a[_i];
-        if (!errors[err.path]) {
-            errors = setIn(errors, err.path, err.message);
-        }
+
+    for (var _iterator = yupError.inner, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+      var _ref5;
+
+      if (_isArray) {
+        if (_i >= _iterator.length) break;
+        _ref5 = _iterator[_i++];
+      } else {
+        _i = _iterator.next();
+        if (_i.done) break;
+        _ref5 = _i.value;
+      }
+
+      var err = _ref5;
+
+      if (!getIn(errors, err.path)) {
+        errors = setIn(errors, err.path, err.message);
+      }
     }
-    return errors;
+  }
+
+  return errors;
 }
+/**
+ * Validate a yup schema.
+ */
+
 function validateYupSchema(values, schema, sync, context) {
-    if (sync === void 0) { sync = false; }
-    if (context === void 0) { context = {}; }
-    var validateData = {};
-    for (var k in values) {
-        if (values.hasOwnProperty(k)) {
-            var key = String(k);
-            validateData[key] = values[key] !== '' ? values[key] : undefined;
-        }
-    }
-    return schema[sync ? 'validateSync' : 'validate'](validateData, {
-        abortEarly: false,
-        context: context,
-    });
+  if (sync === void 0) {
+    sync = false;
+  }
+
+  if (context === void 0) {
+    context = {};
+  }
+
+  var validateData = prepareDataForValidation(values);
+  return schema[sync ? 'validateSync' : 'validate'](validateData, {
+    abortEarly: false,
+    context: context
+  });
 }
+/**
+ * Recursively prepare values.
+ */
+
+function prepareDataForValidation(values) {
+  var data = {};
+
+  for (var k in values) {
+    if (Object.prototype.hasOwnProperty.call(values, k)) {
+      var key = String(k);
+
+      if (Array.isArray(values[key]) === true) {
+        data[key] = values[key].map(function (value) {
+          if (Array.isArray(value) === true || isPlainObject(value)) {
+            return prepareDataForValidation(value);
+          } else {
+            return value !== '' ? value : undefined;
+          }
+        });
+      } else if (isPlainObject(values[key])) {
+        data[key] = prepareDataForValidation(values[key]);
+      } else {
+        data[key] = values[key] !== '' ? values[key] : undefined;
+      }
+    }
+  }
+
+  return data;
+}
+/**
+ * deepmerge array merging algorithm
+ * https://github.com/KyleAMathews/deepmerge#combine-array
+ */
+
 function arrayMerge(target, source, options) {
-    var destination = target.slice();
-    source.forEach(function (e, i) {
-        if (typeof destination[i] === 'undefined') {
-            var cloneRequested = options.clone !== false;
-            var shouldClone = cloneRequested && options.isMergeableObject(e);
-            destination[i] = shouldClone
-                ? deepmerge(Array.isArray(e) ? [] : {}, e, options)
-                : e;
-        }
-        else if (options.isMergeableObject(e)) {
-            destination[i] = deepmerge(target[i], e, options);
-        }
-        else if (target.indexOf(e) === -1) {
-            destination.push(e);
-        }
-    });
-    return destination;
+  var destination = target.slice();
+  source.forEach(function (e, i) {
+    if (typeof destination[i] === 'undefined') {
+      var cloneRequested = options.clone !== false;
+      var shouldClone = cloneRequested && options.isMergeableObject(e);
+      destination[i] = shouldClone ? deepmerge(Array.isArray(e) ? [] : {}, e, options) : e;
+    } else if (options.isMergeableObject(e)) {
+      destination[i] = deepmerge(target[i], e, options);
+    } else if (target.indexOf(e) === -1) {
+      destination.push(e);
+    }
+  });
+  return destination;
+}
+/** Return multi select values based on an array of options */
+
+
+function getSelectedValues(options) {
+  return Array.from(options).filter(function (el) {
+    return el.selected;
+  }).map(function (el) {
+    return el.value;
+  });
+}
+/** Return the next value for a checkbox */
+
+
+function getValueForCheckbox(currentValue, checked, valueProp) {
+  // If the current value was a boolean, return a boolean
+  if (typeof currentValue === 'boolean') {
+    return Boolean(checked);
+  } // If the currentValue was not a boolean we want to return an array
+
+
+  var currentArrayOfValues = [];
+  var isValueInArray = false;
+  var index = -1;
+
+  if (!Array.isArray(currentValue)) {
+    // eslint-disable-next-line eqeqeq
+    if (!valueProp || valueProp == 'true' || valueProp == 'false') {
+      return Boolean(checked);
+    }
+  } else {
+    // If the current value is already an array, use it
+    currentArrayOfValues = currentValue;
+    index = currentValue.indexOf(valueProp);
+    isValueInArray = index >= 0;
+  } // If the checkbox was checked and the value is not already present in the aray we want to add the new value to the array of values
+
+
+  if (checked && valueProp && !isValueInArray) {
+    return currentArrayOfValues.concat(valueProp);
+  } // If the checkbox was unchecked and the value is not in the array, simply return the already existing array of values
+
+
+  if (!isValueInArray) {
+    return currentArrayOfValues;
+  } // If the checkbox was unchecked and the value is in the array, remove the value and return the array
+
+
+  return currentArrayOfValues.slice(0, index).concat(currentArrayOfValues.slice(index + 1));
+} // React currently throws a warning when using useLayoutEffect on the server.
+// To get around it, we can conditionally useEffect on the server (no-op) and
+// useLayoutEffect in the browser.
+// @see https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85
+
+
+var useIsomorphicLayoutEffect = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.document.createElement !== 'undefined' ? React.useLayoutEffect : React.useEffect;
+
+function useEventCallback(fn) {
+  var ref = React.useRef(fn); // we copy a ref to the callback scoped to the current state/props on each render
+
+  useIsomorphicLayoutEffect(function () {
+    ref.current = fn;
+  });
+  return React.useCallback(function () {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return ref.current.apply(void 0, args);
+  }, []);
 }
 
-var FieldInner = (function (_super) {
-    tslib_1.__extends(FieldInner, _super);
-    function FieldInner(props) {
-        var _this = _super.call(this, props) || this;
-        var render = props.render, children = props.children, component = props.component;
-        warning(!(component && render), 'You should not use <Field component> and <Field render> in the same <Field> component; <Field component> will be ignored');
-        warning(!(component && children && isFunction(children)), 'You should not use <Field component> and <Field children> as a function in the same <Field> component; <Field component> will be ignored.');
-        warning(!(render && children && !isEmptyChildren(children)), 'You should not use <Field render> and <Field children> in the same <Field> component; <Field children> will be ignored');
-        return _this;
-    }
-    FieldInner.prototype.componentDidMount = function () {
-        this.props.formik.registerField(this.props.name, this);
-    };
-    FieldInner.prototype.componentDidUpdate = function (prevProps) {
-        if (this.props.name !== prevProps.name) {
-            this.props.formik.unregisterField(prevProps.name);
-            this.props.formik.registerField(this.props.name, this);
-        }
-        if (this.props.validate !== prevProps.validate) {
-            this.props.formik.registerField(this.props.name, this);
-        }
-    };
-    FieldInner.prototype.componentWillUnmount = function () {
-        this.props.formik.unregisterField(this.props.name);
-    };
-    FieldInner.prototype.render = function () {
-        var _a = this.props, validate = _a.validate, name = _a.name, render = _a.render, children = _a.children, _b = _a.component, component = _b === void 0 ? 'input' : _b, formik = _a.formik, props = tslib_1.__rest(_a, ["validate", "name", "render", "children", "component", "formik"]);
-        var _validate = formik.validate, _validationSchema = formik.validationSchema, restOfFormik = tslib_1.__rest(formik, ["validate", "validationSchema"]);
-        var field = {
-            value: props.type === 'radio' || props.type === 'checkbox'
-                ? props.value
-                : getIn(formik.values, name),
-            name: name,
-            onChange: formik.handleChange,
-            onBlur: formik.handleBlur,
-        };
-        var bag = { field: field, form: restOfFormik };
-        if (render) {
-            return render(bag);
-        }
-        if (isFunction(children)) {
-            return children(bag);
-        }
-        if (typeof component === 'string') {
-            var innerRef = props.innerRef, rest = tslib_1.__rest(props, ["innerRef"]);
-            return React.createElement(component, tslib_1.__assign({ ref: innerRef }, field, rest, { children: children }));
-        }
-        return React.createElement(component, tslib_1.__assign({}, bag, props, { children: children }));
-    };
-    return FieldInner;
-}(React.Component));
-var Field = connect(FieldInner);
+function useField(propsOrFieldName) {
+  var formik = useFormikContext();
+  var getFieldProps = formik.getFieldProps,
+      getFieldMeta = formik.getFieldMeta,
+      getFieldHelpers = formik.getFieldHelpers,
+      registerField = formik.registerField,
+      unregisterField = formik.unregisterField;
+  var isAnObject = isObject(propsOrFieldName); // Normalize propsOrFieldName to FieldHookConfig<Val>
 
-var Form = connect(function (_a) {
-    var _b = _a.formik, handleReset = _b.handleReset, handleSubmit = _b.handleSubmit, props = tslib_1.__rest(_a, ["formik"]);
-    return (React.createElement("form", tslib_1.__assign({ onReset: handleReset, onSubmit: handleSubmit }, props)));
+  var props = isAnObject ? propsOrFieldName : {
+    name: propsOrFieldName
+  };
+  var fieldName = props.name,
+      validateFn = props.validate;
+  React.useEffect(function () {
+    if (fieldName) {
+      registerField(fieldName, {
+        validate: validateFn
+      });
+    }
+
+    return function () {
+      if (fieldName) {
+        unregisterField(fieldName);
+      }
+    };
+  }, [registerField, unregisterField, fieldName, validateFn]);
+
+  {
+    !formik ?  invariant(false, 'useField() / <Field /> must be used underneath a <Formik> component or withFormik() higher order component')  : void 0;
+  }
+
+  !fieldName ?  invariant(false, 'Invalid field name. Either pass `useField` a string or an object containing a `name` key.')  : void 0;
+  return [getFieldProps(props), getFieldMeta(fieldName), getFieldHelpers(fieldName)];
+}
+function Field(_ref) {
+  var validate = _ref.validate,
+      name = _ref.name,
+      render = _ref.render,
+      children = _ref.children,
+      is = _ref.as,
+      component = _ref.component,
+      props = _objectWithoutPropertiesLoose(_ref, ["validate", "name", "render", "children", "as", "component"]);
+
+  var _useFormikContext = useFormikContext(),
+      formik = _objectWithoutPropertiesLoose(_useFormikContext, ["validate", "validationSchema"]);
+
+  React.useEffect(function () {
+    {
+      !!render ?  invariant(false, "<Field render> has been deprecated and will be removed in future versions of Formik. Please use a child callback function instead. To get rid of this warning, replace <Field name=\"" + name + "\" render={({field, form}) => ...} /> with <Field name=\"" + name + "\">{({field, form, meta}) => ...}</Field>")  : void 0;
+      !!(is && children && isFunction(children)) ?  invariant(false, 'You should not use <Field as> and <Field children> as a function in the same <Field> component; <Field as> will be ignored.')  : void 0;
+      !!(component && children && isFunction(children)) ?  invariant(false, 'You should not use <Field component> and <Field children> as a function in the same <Field> component; <Field component> will be ignored.')  : void 0;
+      !!(render && children && !isEmptyChildren(children)) ?  invariant(false, 'You should not use <Field render> and <Field children> in the same <Field> component; <Field children> will be ignored')  : void 0;
+    } // eslint-disable-next-line
+
+  }, []); // Register field and field-level validation with parent <Formik>
+
+  var registerField = formik.registerField,
+      unregisterField = formik.unregisterField;
+  React.useEffect(function () {
+    registerField(name, {
+      validate: validate
+    });
+    return function () {
+      unregisterField(name);
+    };
+  }, [registerField, unregisterField, name, validate]);
+  var field = formik.getFieldProps(_extends({
+    name: name
+  }, props));
+  var meta = formik.getFieldMeta(name);
+  var legacyBag = {
+    field: field,
+    form: formik
+  };
+
+  if (render) {
+    return render(_extends({}, legacyBag, {
+      meta: meta
+    }));
+  }
+
+  if (isFunction(children)) {
+    return children(_extends({}, legacyBag, {
+      meta: meta
+    }));
+  }
+
+  if (component) {
+    // This behavior is backwards compat with earlier Formik 0.9 to 1.x
+    if (typeof component === 'string') {
+      var innerRef = props.innerRef,
+          rest = _objectWithoutPropertiesLoose(props, ["innerRef"]);
+
+      return React.createElement(component, _extends({
+        ref: innerRef
+      }, field, {}, rest), children);
+    } // We don't pass `meta` for backwards compat
+
+
+    return React.createElement(component, _extends({
+      field: field,
+      form: formik
+    }, props), children);
+  } // default to input here so we can check for both `as` and `children` above
+
+
+  var asElement = is || 'input';
+
+  if (typeof asElement === 'string') {
+    var _innerRef = props.innerRef,
+        _rest = _objectWithoutPropertiesLoose(props, ["innerRef"]);
+
+    return React.createElement(asElement, _extends({
+      ref: _innerRef
+    }, field, {}, _rest), children);
+  }
+
+  return React.createElement(asElement, _extends({}, field, {}, props), children);
+}
+
+var Form =
+/*#__PURE__*/
+React.forwardRef(function (props, ref) {
+  // iOS needs an "action" attribute for nice input: https://stackoverflow.com/a/39485162/406725
+  // We default the action to "#" in case the preventDefault fails (just updates the URL hash)
+  var action = props.action,
+      rest = _objectWithoutPropertiesLoose(props, ["action"]);
+
+  var _action = action || '#';
+
+  var _useFormikContext = useFormikContext(),
+      handleReset = _useFormikContext.handleReset,
+      handleSubmit = _useFormikContext.handleSubmit;
+
+  return React.createElement("form", Object.assign({
+    onSubmit: handleSubmit,
+    ref: ref,
+    onReset: handleReset,
+    action: _action
+  }, rest));
 });
 Form.displayName = 'Form';
 
-function withFormik(_a) {
-    var _b = _a.mapPropsToValues, mapPropsToValues = _b === void 0 ? function (vanillaProps) {
-        var val = {};
-        for (var k in vanillaProps) {
-            if (vanillaProps.hasOwnProperty(k) &&
-                typeof vanillaProps[k] !== 'function') {
-                val[k] = vanillaProps[k];
-            }
-        }
-        return val;
-    } : _b, config = tslib_1.__rest(_a, ["mapPropsToValues"]);
-    return function createFormik(Component) {
-        var componentDisplayName = Component.displayName ||
-            Component.name ||
-            (Component.constructor && Component.constructor.name) ||
-            'Component';
-        var C = (function (_super) {
-            tslib_1.__extends(C, _super);
-            function C() {
-                var _this = _super !== null && _super.apply(this, arguments) || this;
-                _this.validate = function (values) {
-                    return config.validate(values, _this.props);
-                };
-                _this.validationSchema = function () {
-                    return isFunction(config.validationSchema)
-                        ? config.validationSchema(_this.props)
-                        : config.validationSchema;
-                };
-                _this.handleSubmit = function (values, actions) {
-                    return config.handleSubmit(values, tslib_1.__assign({}, actions, { props: _this.props }));
-                };
-                _this.renderFormComponent = function (formikProps) {
-                    return React.createElement(Component, tslib_1.__assign({}, _this.props, formikProps));
-                };
-                return _this;
-            }
-            C.prototype.render = function () {
-                var _a = this.props, children = _a.children, props = tslib_1.__rest(_a, ["children"]);
-                return (React.createElement(Formik, tslib_1.__assign({}, props, config, { validate: config.validate && this.validate, validationSchema: config.validationSchema && this.validationSchema, initialValues: mapPropsToValues(this.props), initialStatus: config.mapPropsToStatus && config.mapPropsToStatus(this.props), onSubmit: this.handleSubmit, render: this.renderFormComponent })));
-            };
-            C.displayName = "WithFormik(" + componentDisplayName + ")";
-            return C;
-        }(React.Component));
-        return hoistNonReactStatics(C, Component);
-    };
+/**
+ * A public higher-order component to access the imperative API
+ */
+
+function withFormik(_ref) {
+  var _ref$mapPropsToValues = _ref.mapPropsToValues,
+      mapPropsToValues = _ref$mapPropsToValues === void 0 ? function (vanillaProps) {
+    var val = {};
+
+    for (var k in vanillaProps) {
+      if (vanillaProps.hasOwnProperty(k) && typeof vanillaProps[k] !== 'function') {
+        // @todo TypeScript fix
+        val[k] = vanillaProps[k];
+      }
+    }
+
+    return val;
+  } : _ref$mapPropsToValues,
+      config = _objectWithoutPropertiesLoose(_ref, ["mapPropsToValues"]);
+
+  return function createFormik(Component) {
+    var componentDisplayName = Component.displayName || Component.name || Component.constructor && Component.constructor.name || 'Component';
+    /**
+     * We need to use closures here for to provide the wrapped component's props to
+     * the respective withFormik config methods.
+     */
+
+    var C =
+    /*#__PURE__*/
+    function (_React$Component) {
+      _inheritsLoose(C, _React$Component);
+
+      function C() {
+        var _this;
+
+        _this = _React$Component.apply(this, arguments) || this;
+
+        _this.validate = function (values) {
+          return config.validate(values, _this.props);
+        };
+
+        _this.validationSchema = function () {
+          return isFunction(config.validationSchema) ? config.validationSchema(_this.props) : config.validationSchema;
+        };
+
+        _this.handleSubmit = function (values, actions) {
+          return config.handleSubmit(values, _extends({}, actions, {
+            props: _this.props
+          }));
+        };
+        /**
+         * Just avoiding a render callback for perf here
+         */
+
+
+        _this.renderFormComponent = function (formikProps) {
+          return React.createElement(Component, Object.assign({}, _this.props, formikProps));
+        };
+
+        return _this;
+      }
+
+      var _proto = C.prototype;
+
+      _proto.render = function render() {
+        var _this$props = this.props,
+            props = _objectWithoutPropertiesLoose(_this$props, ["children"]);
+
+        return React.createElement(Formik, Object.assign({}, props, config, {
+          validate: config.validate && this.validate,
+          validationSchema: config.validationSchema && this.validationSchema,
+          initialValues: mapPropsToValues(this.props),
+          initialStatus: config.mapPropsToStatus && config.mapPropsToStatus(this.props),
+          initialErrors: config.mapPropsToErrors && config.mapPropsToErrors(this.props),
+          initialTouched: config.mapPropsToTouched && config.mapPropsToTouched(this.props),
+          onSubmit: this.handleSubmit,
+          children: this.renderFormComponent
+        }));
+      };
+
+      return C;
+    }(React.Component);
+
+    C.displayName = "WithFormik(" + componentDisplayName + ")";
+    return hoistNonReactStatics(C, Component // cast type to ComponentClass (even if SFC)
+    );
+  };
 }
 
-var move = function (array, from, to) {
-    var copy = (array || []).slice();
-    var value = copy[from];
-    copy.splice(from, 1);
-    copy.splice(to, 0, value);
-    return copy;
-};
-var swap = function (array, indexA, indexB) {
-    var copy = (array || []).slice();
-    var a = copy[indexA];
-    copy[indexA] = copy[indexB];
-    copy[indexB] = a;
-    return copy;
-};
-var insert = function (array, index, value) {
-    var copy = (array || []).slice();
-    copy.splice(index, 0, value);
-    return copy;
-};
-var replace = function (array, index, value) {
-    var copy = (array || []).slice();
-    copy[index] = value;
-    return copy;
-};
-var FieldArrayInner = (function (_super) {
-    tslib_1.__extends(FieldArrayInner, _super);
-    function FieldArrayInner(props) {
-        var _this = _super.call(this, props) || this;
-        _this.updateArrayField = function (fn, alterTouched, alterErrors) {
-            var _a = _this.props, name = _a.name, validateOnChange = _a.validateOnChange, _b = _a.formik, setFormikState = _b.setFormikState, validateForm = _b.validateForm;
-            setFormikState(function (prevState) {
-                var updateErrors = typeof alterErrors === 'function' ? alterErrors : fn;
-                var updateTouched = typeof alterTouched === 'function' ? alterTouched : fn;
-                return tslib_1.__assign({}, prevState, { values: setIn(prevState.values, name, fn(getIn(prevState.values, name))), errors: alterErrors
-                        ? setIn(prevState.errors, name, updateErrors(getIn(prevState.errors, name)))
-                        : prevState.errors, touched: alterTouched
-                        ? setIn(prevState.touched, name, updateTouched(getIn(prevState.touched, name)))
-                        : prevState.touched });
-            }, function () {
-                if (validateOnChange) {
-                    validateForm();
-                }
-            });
-        };
-        _this.push = function (value) {
-            return _this.updateArrayField(function (array) { return (array || []).concat([cloneDeep(value)]); }, false, false);
-        };
-        _this.handlePush = function (value) { return function () { return _this.push(value); }; };
-        _this.swap = function (indexA, indexB) {
-            return _this.updateArrayField(function (array) { return swap(array, indexA, indexB); }, true, true);
-        };
-        _this.handleSwap = function (indexA, indexB) { return function () {
-            return _this.swap(indexA, indexB);
-        }; };
-        _this.move = function (from, to) {
-            return _this.updateArrayField(function (array) { return move(array, from, to); }, true, true);
-        };
-        _this.handleMove = function (from, to) { return function () { return _this.move(from, to); }; };
-        _this.insert = function (index, value) {
-            return _this.updateArrayField(function (array) { return insert(array, index, value); }, function (array) { return insert(array, index, null); }, function (array) { return insert(array, index, null); });
-        };
-        _this.handleInsert = function (index, value) { return function () { return _this.insert(index, value); }; };
-        _this.replace = function (index, value) {
-            return _this.updateArrayField(function (array) { return replace(array, index, value); }, false, false);
-        };
-        _this.handleReplace = function (index, value) { return function () {
-            return _this.replace(index, value);
-        }; };
-        _this.unshift = function (value) {
-            var length = -1;
-            _this.updateArrayField(function (array) {
-                var arr = array ? [value].concat(array) : [value];
-                if (length < 0) {
-                    length = arr.length;
-                }
-                return arr;
-            }, function (array) {
-                var arr = array ? [null].concat(array) : [null];
-                if (length < 0)
-                    length = arr.length;
-                return arr;
-            }, function (array) {
-                var arr = array ? [null].concat(array) : [null];
-                if (length < 0)
-                    length = arr.length;
-                return arr;
-            });
-            return length;
-        };
-        _this.handleUnshift = function (value) { return function () { return _this.unshift(value); }; };
-        _this.handleRemove = function (index) { return function () { return _this.remove(index); }; };
-        _this.handlePop = function () { return function () { return _this.pop(); }; };
-        _this.remove = _this.remove.bind(_this);
-        _this.pop = _this.pop.bind(_this);
-        return _this;
-    }
-    FieldArrayInner.prototype.remove = function (index) {
-        var result;
-        this.updateArrayField(function (array) {
-            var copy = array ? array.slice() : [];
-            if (!result) {
-                result = copy[index];
-            }
-            if (isFunction(copy.splice)) {
-                copy.splice(index, 1);
-            }
-            return copy;
-        }, true, true);
-        return result;
-    };
-    FieldArrayInner.prototype.pop = function () {
-        var result;
-        this.updateArrayField(function (array) {
-            var tmp = array;
-            if (!result) {
-                result = tmp && tmp.pop && tmp.pop();
-            }
-            return tmp;
-        }, true, true);
-        return result;
-    };
-    FieldArrayInner.prototype.render = function () {
-        var arrayHelpers = {
-            push: this.push,
-            pop: this.pop,
-            swap: this.swap,
-            move: this.move,
-            insert: this.insert,
-            replace: this.replace,
-            unshift: this.unshift,
-            remove: this.remove,
-            handlePush: this.handlePush,
-            handlePop: this.handlePop,
-            handleSwap: this.handleSwap,
-            handleMove: this.handleMove,
-            handleInsert: this.handleInsert,
-            handleReplace: this.handleReplace,
-            handleUnshift: this.handleUnshift,
-            handleRemove: this.handleRemove,
-        };
-        var _a = this.props, component = _a.component, render = _a.render, children = _a.children, name = _a.name, _b = _a.formik, _validate = _b.validate, _validationSchema = _b.validationSchema, restOfFormik = tslib_1.__rest(_b, ["validate", "validationSchema"]);
-        var props = tslib_1.__assign({}, arrayHelpers, { form: restOfFormik, name: name });
-        return component
-            ? React.createElement(component, props)
-            : render
-                ? render(props)
-                : children
-                    ? typeof children === 'function'
-                        ? children(props)
-                        : !isEmptyChildren(children) ? React.Children.only(children) : null
-                    : null;
-    };
-    FieldArrayInner.defaultProps = {
-        validateOnChange: true,
-    };
-    return FieldArrayInner;
-}(React.Component));
-var FieldArray = connect(FieldArrayInner);
+/**
+ * Connect any component to Formik context, and inject as a prop called `formik`;
+ * @param Comp React Component
+ */
 
-var FastFieldInner = (function (_super) {
-    tslib_1.__extends(FastFieldInner, _super);
-    function FastFieldInner(props) {
-        var _this = _super.call(this, props) || this;
-        var render = props.render, children = props.children, component = props.component;
-        warning(!(component && render), 'You should not use <FastField component> and <FastField render> in the same <FastField> component; <FastField component> will be ignored');
-        warning(!(component && children && isFunction(children)), 'You should not use <FastField component> and <FastField children> as a function in the same <FastField> component; <FastField component> will be ignored.');
-        warning(!(render && children && !isEmptyChildren(children)), 'You should not use <FastField render> and <FastField children> in the same <FastField> component; <FastField children> will be ignored');
-        return _this;
-    }
-    FastFieldInner.prototype.shouldComponentUpdate = function (props) {
-        if (this.props.shouldUpdate) {
-            return this.props.shouldUpdate(props, this.props);
-        }
-        else if (getIn(this.props.formik.values, this.props.name) !==
-            getIn(props.formik.values, this.props.name) ||
-            getIn(this.props.formik.errors, this.props.name) !==
-                getIn(props.formik.errors, this.props.name) ||
-            getIn(this.props.formik.touched, this.props.name) !==
-                getIn(props.formik.touched, this.props.name) ||
-            Object.keys(this.props).length !== Object.keys(props).length ||
-            this.props.formik.isSubmitting !== props.formik.isSubmitting) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    };
-    FastFieldInner.prototype.componentDidMount = function () {
-        this.props.formik.registerField(this.props.name, this);
-    };
-    FastFieldInner.prototype.componentDidUpdate = function (prevProps) {
-        if (this.props.name !== prevProps.name) {
-            this.props.formik.unregisterField(prevProps.name);
-            this.props.formik.registerField(this.props.name, this);
-        }
-        if (this.props.validate !== prevProps.validate) {
-            this.props.formik.registerField(this.props.name, this);
-        }
-    };
-    FastFieldInner.prototype.componentWillUnmount = function () {
-        this.props.formik.unregisterField(this.props.name);
-    };
-    FastFieldInner.prototype.render = function () {
-        var _a = this.props, validate = _a.validate, name = _a.name, render = _a.render, children = _a.children, _b = _a.component, component = _b === void 0 ? 'input' : _b, formik = _a.formik, shouldUpdate = _a.shouldUpdate, props = tslib_1.__rest(_a, ["validate", "name", "render", "children", "component", "formik", "shouldUpdate"]);
-        var _validate = formik.validate, _validationSchema = formik.validationSchema, restOfFormik = tslib_1.__rest(formik, ["validate", "validationSchema"]);
-        var field = {
-            value: props.type === 'radio' || props.type === 'checkbox'
-                ? props.value
-                : getIn(formik.values, name),
-            name: name,
-            onChange: formik.handleChange,
-            onBlur: formik.handleBlur,
-        };
-        var bag = { field: field, form: restOfFormik };
-        if (render) {
-            return render(bag);
-        }
-        if (isFunction(children)) {
-            return children(bag);
-        }
-        if (typeof component === 'string') {
-            var innerRef = props.innerRef, rest = tslib_1.__rest(props, ["innerRef"]);
-            return React.createElement(component, tslib_1.__assign({ ref: innerRef }, field, rest, { children: children }));
-        }
-        return React.createElement(component, tslib_1.__assign({}, bag, props, { children: children }));
-    };
-    return FastFieldInner;
-}(React.Component));
-var FastField = connect(FastFieldInner);
+function connect(Comp) {
+  var C = function C(props) {
+    return React.createElement(FormikConsumer, null, function (formik) {
+      !!!formik ?  invariant(false, "Formik context is undefined, please verify you are rendering <Form>, <Field>, <FastField>, <FieldArray>, or your custom context-using component as a child of a <Formik> component. Component name: " + Comp.name)  : void 0;
+      return React.createElement(Comp, Object.assign({}, props, {
+        formik: formik
+      }));
+    });
+  };
 
-var ErrorMessageImpl = (function (_super) {
-    tslib_1.__extends(ErrorMessageImpl, _super);
-    function ErrorMessageImpl() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    ErrorMessageImpl.prototype.shouldComponentUpdate = function (props) {
-        if (getIn(this.props.formik.errors, this.props.name) !==
-            getIn(props.formik.errors, this.props.name) ||
-            getIn(this.props.formik.touched, this.props.name) !==
-                getIn(props.formik.touched, this.props.name) ||
-            Object.keys(this.props).length !== Object.keys(props).length) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    };
-    ErrorMessageImpl.prototype.render = function () {
-        var _a = this.props, component = _a.component, formik = _a.formik, render = _a.render, children = _a.children, name = _a.name, rest = tslib_1.__rest(_a, ["component", "formik", "render", "children", "name"]);
-        var touch = getIn(formik.touched, name);
-        var error = getIn(formik.errors, name);
-        return !!touch && !!error
-            ? render
-                ? isFunction(render) ? render(error) : null
-                : children
-                    ? isFunction(children) ? children(error) : null
-                    : component
-                        ? React.createElement(component, rest, error)
-                        : error
-            : null;
-    };
-    return ErrorMessageImpl;
-}(React.Component));
-var ErrorMessage = connect(ErrorMessageImpl);
+  var componentDisplayName = Comp.displayName || Comp.name || Comp.constructor && Comp.constructor.name || 'Component'; // Assign Comp to C.WrappedComponent so we can access the inner component in tests
+  // For example, <Field.WrappedComponent /> gets us <FieldInner/>
 
-exports.Formik = Formik;
-exports.yupToFormErrors = yupToFormErrors;
-exports.validateYupSchema = validateYupSchema;
+  C.WrappedComponent = Comp;
+  C.displayName = "FormikConnect(" + componentDisplayName + ")";
+  return hoistNonReactStatics(C, Comp // cast type to ComponentClass (even if SFC)
+  );
+}
+
+/**
+ * Some array helpers!
+ */
+
+var move = function move(array, from, to) {
+  var copy = copyArrayLike(array);
+  var value = copy[from];
+  copy.splice(from, 1);
+  copy.splice(to, 0, value);
+  return copy;
+};
+var swap = function swap(arrayLike, indexA, indexB) {
+  var copy = copyArrayLike(arrayLike);
+  var a = copy[indexA];
+  copy[indexA] = copy[indexB];
+  copy[indexB] = a;
+  return copy;
+};
+var insert = function insert(arrayLike, index, value) {
+  var copy = copyArrayLike(arrayLike);
+  copy.splice(index, 0, value);
+  return copy;
+};
+var replace = function replace(arrayLike, index, value) {
+  var copy = copyArrayLike(arrayLike);
+  copy[index] = value;
+  return copy;
+};
+
+var copyArrayLike = function copyArrayLike(arrayLike) {
+  if (!arrayLike) {
+    return [];
+  } else if (Array.isArray(arrayLike)) {
+    return [].concat(arrayLike);
+  } else {
+    var maxIndex = Object.keys(arrayLike).map(function (key) {
+      return parseInt(key);
+    }).reduce(function (max, el) {
+      return el > max ? el : max;
+    }, 0);
+    return Array.from(_extends({}, arrayLike, {
+      length: maxIndex + 1
+    }));
+  }
+};
+
+var FieldArrayInner =
+/*#__PURE__*/
+function (_React$Component) {
+  _inheritsLoose(FieldArrayInner, _React$Component);
+
+  function FieldArrayInner(props) {
+    var _this;
+
+    _this = _React$Component.call(this, props) || this;
+
+    _this.updateArrayField = function (fn, alterTouched, alterErrors) {
+      var _this$props = _this.props,
+          name = _this$props.name,
+          setFormikState = _this$props.formik.setFormikState;
+      setFormikState(function (prevState) {
+        var updateErrors = typeof alterErrors === 'function' ? alterErrors : fn;
+        var updateTouched = typeof alterTouched === 'function' ? alterTouched : fn; // values fn should be executed before updateErrors and updateTouched,
+        // otherwise it causes an error with unshift.
+
+        var values = setIn(prevState.values, name, fn(getIn(prevState.values, name)));
+        var fieldError = alterErrors ? updateErrors(getIn(prevState.errors, name)) : undefined;
+        var fieldTouched = alterTouched ? updateTouched(getIn(prevState.touched, name)) : undefined;
+
+        if (isEmptyArray(fieldError)) {
+          fieldError = undefined;
+        }
+
+        if (isEmptyArray(fieldTouched)) {
+          fieldTouched = undefined;
+        }
+
+        return _extends({}, prevState, {
+          values: values,
+          errors: alterErrors ? setIn(prevState.errors, name, fieldError) : prevState.errors,
+          touched: alterTouched ? setIn(prevState.touched, name, fieldTouched) : prevState.touched
+        });
+      });
+    };
+
+    _this.push = function (value) {
+      return _this.updateArrayField(function (arrayLike) {
+        return [].concat(copyArrayLike(arrayLike), [cloneDeep(value)]);
+      }, false, false);
+    };
+
+    _this.handlePush = function (value) {
+      return function () {
+        return _this.push(value);
+      };
+    };
+
+    _this.swap = function (indexA, indexB) {
+      return _this.updateArrayField(function (array) {
+        return swap(array, indexA, indexB);
+      }, true, true);
+    };
+
+    _this.handleSwap = function (indexA, indexB) {
+      return function () {
+        return _this.swap(indexA, indexB);
+      };
+    };
+
+    _this.move = function (from, to) {
+      return _this.updateArrayField(function (array) {
+        return move(array, from, to);
+      }, true, true);
+    };
+
+    _this.handleMove = function (from, to) {
+      return function () {
+        return _this.move(from, to);
+      };
+    };
+
+    _this.insert = function (index, value) {
+      return _this.updateArrayField(function (array) {
+        return insert(array, index, value);
+      }, function (array) {
+        return insert(array, index, null);
+      }, function (array) {
+        return insert(array, index, null);
+      });
+    };
+
+    _this.handleInsert = function (index, value) {
+      return function () {
+        return _this.insert(index, value);
+      };
+    };
+
+    _this.replace = function (index, value) {
+      return _this.updateArrayField(function (array) {
+        return replace(array, index, value);
+      }, false, false);
+    };
+
+    _this.handleReplace = function (index, value) {
+      return function () {
+        return _this.replace(index, value);
+      };
+    };
+
+    _this.unshift = function (value) {
+      var length = -1;
+
+      _this.updateArrayField(function (array) {
+        var arr = array ? [value].concat(array) : [value];
+
+        if (length < 0) {
+          length = arr.length;
+        }
+
+        return arr;
+      }, function (array) {
+        var arr = array ? [null].concat(array) : [null];
+
+        if (length < 0) {
+          length = arr.length;
+        }
+
+        return arr;
+      }, function (array) {
+        var arr = array ? [null].concat(array) : [null];
+
+        if (length < 0) {
+          length = arr.length;
+        }
+
+        return arr;
+      });
+
+      return length;
+    };
+
+    _this.handleUnshift = function (value) {
+      return function () {
+        return _this.unshift(value);
+      };
+    };
+
+    _this.handleRemove = function (index) {
+      return function () {
+        return _this.remove(index);
+      };
+    };
+
+    _this.handlePop = function () {
+      return function () {
+        return _this.pop();
+      };
+    }; // We need TypeScript generics on these, so we'll bind them in the constructor
+    // @todo Fix TS 3.2.1
+
+
+    _this.remove = _this.remove.bind(_assertThisInitialized(_this));
+    _this.pop = _this.pop.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  var _proto = FieldArrayInner.prototype;
+
+  _proto.componentDidUpdate = function componentDidUpdate(prevProps) {
+    if (!isEqual(getIn(prevProps.formik.values, prevProps.name), getIn(this.props.formik.values, this.props.name)) && this.props.formik.validateOnChange) {
+      this.props.formik.validateForm(this.props.formik.values);
+    }
+  };
+
+  _proto.remove = function remove(index) {
+    // We need to make sure we also remove relevant pieces of `touched` and `errors`
+    var result;
+    this.updateArrayField( // so this gets call 3 times
+    function (array) {
+      var copy = array ? copyArrayLike(array) : [];
+
+      if (!result) {
+        result = copy[index];
+      }
+
+      if (isFunction(copy.splice)) {
+        copy.splice(index, 1);
+      }
+
+      return copy;
+    }, true, true);
+    return result;
+  };
+
+  _proto.pop = function pop() {
+    // Remove relevant pieces of `touched` and `errors` too!
+    var result;
+    this.updateArrayField( // so this gets call 3 times
+    function (array) {
+      var tmp = array;
+
+      if (!result) {
+        result = tmp && tmp.pop && tmp.pop();
+      }
+
+      return tmp;
+    }, true, true);
+    return result;
+  };
+
+  _proto.render = function render() {
+    var arrayHelpers = {
+      push: this.push,
+      pop: this.pop,
+      swap: this.swap,
+      move: this.move,
+      insert: this.insert,
+      replace: this.replace,
+      unshift: this.unshift,
+      remove: this.remove,
+      handlePush: this.handlePush,
+      handlePop: this.handlePop,
+      handleSwap: this.handleSwap,
+      handleMove: this.handleMove,
+      handleInsert: this.handleInsert,
+      handleReplace: this.handleReplace,
+      handleUnshift: this.handleUnshift,
+      handleRemove: this.handleRemove
+    };
+
+    var _this$props2 = this.props,
+        component = _this$props2.component,
+        render = _this$props2.render,
+        children = _this$props2.children,
+        name = _this$props2.name,
+        _this$props2$formik = _this$props2.formik,
+        restOfFormik = _objectWithoutPropertiesLoose(_this$props2$formik, ["validate", "validationSchema"]);
+
+    var props = _extends({}, arrayHelpers, {
+      form: restOfFormik,
+      name: name
+    });
+
+    return component ? React.createElement(component, props) : render ? render(props) : children // children come last, always called
+    ? typeof children === 'function' ? children(props) : !isEmptyChildren(children) ? React.Children.only(children) : null : null;
+  };
+
+  return FieldArrayInner;
+}(React.Component);
+
+FieldArrayInner.defaultProps = {
+  validateOnChange: true
+};
+var FieldArray =
+/*#__PURE__*/
+connect(FieldArrayInner);
+
+var ErrorMessageImpl =
+/*#__PURE__*/
+function (_React$Component) {
+  _inheritsLoose(ErrorMessageImpl, _React$Component);
+
+  function ErrorMessageImpl() {
+    return _React$Component.apply(this, arguments) || this;
+  }
+
+  var _proto = ErrorMessageImpl.prototype;
+
+  _proto.shouldComponentUpdate = function shouldComponentUpdate(props) {
+    if (getIn(this.props.formik.errors, this.props.name) !== getIn(props.formik.errors, this.props.name) || getIn(this.props.formik.touched, this.props.name) !== getIn(props.formik.touched, this.props.name) || Object.keys(this.props).length !== Object.keys(props).length) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        component = _this$props.component,
+        formik = _this$props.formik,
+        render = _this$props.render,
+        children = _this$props.children,
+        name = _this$props.name,
+        rest = _objectWithoutPropertiesLoose(_this$props, ["component", "formik", "render", "children", "name"]);
+
+    var touch = getIn(formik.touched, name);
+    var error = getIn(formik.errors, name);
+    return !!touch && !!error ? render ? isFunction(render) ? render(error) : null : children ? isFunction(children) ? children(error) : null : component ? React.createElement(component, rest, error) : error : null;
+  };
+
+  return ErrorMessageImpl;
+}(React.Component);
+
+var ErrorMessage =
+/*#__PURE__*/
+connect(ErrorMessageImpl);
+
+/**
+ * Custom Field component for quickly hooking into Formik
+ * context and wiring up forms.
+ */
+
+var FastFieldInner =
+/*#__PURE__*/
+function (_React$Component) {
+  _inheritsLoose(FastFieldInner, _React$Component);
+
+  function FastFieldInner(props) {
+    var _this;
+
+    _this = _React$Component.call(this, props) || this;
+    var render = props.render,
+        children = props.children,
+        component = props.component,
+        is = props.as,
+        name = props.name;
+    !!render ?  invariant(false, "<FastField render> has been deprecated. Please use a child callback function instead: <FastField name={" + name + "}>{props => ...}</FastField> instead.")  : void 0;
+    !!(component && render) ?  invariant(false, 'You should not use <FastField component> and <FastField render> in the same <FastField> component; <FastField component> will be ignored')  : void 0;
+    !!(is && children && isFunction(children)) ?  invariant(false, 'You should not use <FastField as> and <FastField children> as a function in the same <FastField> component; <FastField as> will be ignored.')  : void 0;
+    !!(component && children && isFunction(children)) ?  invariant(false, 'You should not use <FastField component> and <FastField children> as a function in the same <FastField> component; <FastField component> will be ignored.')  : void 0;
+    !!(render && children && !isEmptyChildren(children)) ?  invariant(false, 'You should not use <FastField render> and <FastField children> in the same <FastField> component; <FastField children> will be ignored')  : void 0;
+    return _this;
+  }
+
+  var _proto = FastFieldInner.prototype;
+
+  _proto.shouldComponentUpdate = function shouldComponentUpdate(props) {
+    if (this.props.shouldUpdate) {
+      return this.props.shouldUpdate(props, this.props);
+    } else if (props.name !== this.props.name || getIn(props.formik.values, this.props.name) !== getIn(this.props.formik.values, this.props.name) || getIn(props.formik.errors, this.props.name) !== getIn(this.props.formik.errors, this.props.name) || getIn(props.formik.touched, this.props.name) !== getIn(this.props.formik.touched, this.props.name) || Object.keys(this.props).length !== Object.keys(props).length || props.formik.isSubmitting !== this.props.formik.isSubmitting) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  _proto.componentDidMount = function componentDidMount() {
+    // Register the Field with the parent Formik. Parent will cycle through
+    // registered Field's validate fns right prior to submit
+    this.props.formik.registerField(this.props.name, {
+      validate: this.props.validate
+    });
+  };
+
+  _proto.componentDidUpdate = function componentDidUpdate(prevProps) {
+    if (this.props.name !== prevProps.name) {
+      this.props.formik.unregisterField(prevProps.name);
+      this.props.formik.registerField(this.props.name, {
+        validate: this.props.validate
+      });
+    }
+
+    if (this.props.validate !== prevProps.validate) {
+      this.props.formik.registerField(this.props.name, {
+        validate: this.props.validate
+      });
+    }
+  };
+
+  _proto.componentWillUnmount = function componentWillUnmount() {
+    this.props.formik.unregisterField(this.props.name);
+  };
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        name = _this$props.name,
+        render = _this$props.render,
+        is = _this$props.as,
+        children = _this$props.children,
+        component = _this$props.component,
+        formik = _this$props.formik,
+        props = _objectWithoutPropertiesLoose(_this$props, ["validate", "name", "render", "as", "children", "component", "shouldUpdate", "formik"]);
+
+    var restOfFormik = _objectWithoutPropertiesLoose(formik, ["validate", "validationSchema"]);
+
+    var field = {
+      value: props.type === 'radio' || props.type === 'checkbox' ? props.value // React uses checked={} for these inputs
+      : getIn(formik.values, name),
+      name: name,
+      onChange: formik.handleChange,
+      onBlur: formik.handleBlur
+    };
+    var meta = {
+      value: getIn(formik.values, name),
+      error: getIn(formik.errors, name),
+      touched: !!getIn(formik.touched, name),
+      initialValue: getIn(formik.initialValues, name),
+      initialTouched: !!getIn(formik.initialTouched, name),
+      initialError: getIn(formik.initialErrors, name)
+    };
+    var bag = {
+      field: field,
+      meta: meta,
+      form: restOfFormik
+    };
+
+    if (render) {
+      return render(bag);
+    }
+
+    if (isFunction(children)) {
+      return children(bag);
+    }
+
+    if (component) {
+      // This behavior is backwards compat with earlier Formik 0.9 to 1.x
+      if (typeof component === 'string') {
+        var innerRef = props.innerRef,
+            rest = _objectWithoutPropertiesLoose(props, ["innerRef"]);
+
+        return React.createElement(component, _extends({
+          ref: innerRef
+        }, field, {}, rest), children);
+      } // We don't pass `meta` for backwards compat
+
+
+      return React.createElement(component, _extends({
+        field: field,
+        form: formik
+      }, props), children);
+    } // default to input here so we can check for both `as` and `children` above
+
+
+    var asElement = is || 'input';
+
+    if (typeof asElement === 'string') {
+      var _innerRef = props.innerRef,
+          _rest = _objectWithoutPropertiesLoose(props, ["innerRef"]);
+
+      return React.createElement(asElement, _extends({
+        ref: _innerRef
+      }, field, {}, _rest), children);
+    }
+
+    return React.createElement(asElement, _extends({}, field, {}, props), children);
+  };
+
+  return FastFieldInner;
+}(React.Component);
+
+var FastField =
+/*#__PURE__*/
+connect(FastFieldInner);
+
+exports.ErrorMessage = ErrorMessage;
+exports.FastField = FastField;
 exports.Field = Field;
-exports.Form = Form;
-exports.withFormik = withFormik;
-exports.move = move;
-exports.swap = swap;
-exports.insert = insert;
-exports.replace = replace;
 exports.FieldArray = FieldArray;
-exports.isFunction = isFunction;
-exports.isObject = isObject;
-exports.isInteger = isInteger;
-exports.isString = isString;
-exports.isNaN = isNaN;
-exports.isEmptyChildren = isEmptyChildren;
-exports.isPromise = isPromise;
-exports.isInputEvent = isInputEvent;
+exports.Form = Form;
+exports.Formik = Formik;
+exports.FormikConsumer = FormikConsumer;
+exports.FormikContext = FormikContext;
+exports.FormikProvider = FormikProvider;
+exports.connect = connect;
 exports.getActiveElement = getActiveElement;
-exports.makeCancelable = makeCancelable;
 exports.getIn = getIn;
+exports.insert = insert;
+exports.isEmptyArray = isEmptyArray;
+exports.isEmptyChildren = isEmptyChildren;
+exports.isFunction = isFunction;
+exports.isInputEvent = isInputEvent;
+exports.isInteger = isInteger;
+exports.isNaN = isNaN$1;
+exports.isObject = isObject;
+exports.isPromise = isPromise;
+exports.isString = isString;
+exports.move = move;
+exports.prepareDataForValidation = prepareDataForValidation;
+exports.replace = replace;
 exports.setIn = setIn;
 exports.setNestedObjectValues = setNestedObjectValues;
-exports.FastField = FastField;
-exports.FormikProvider = FormikProvider;
-exports.FormikConsumer = FormikConsumer;
-exports.connect = connect;
-exports.ErrorMessage = ErrorMessage;
+exports.swap = swap;
+exports.useField = useField;
+exports.useFormik = useFormik;
+exports.useFormikContext = useFormikContext;
+exports.validateYupSchema = validateYupSchema;
+exports.withFormik = withFormik;
+exports.yupToFormErrors = yupToFormErrors;
 //# sourceMappingURL=formik.cjs.development.js.map
 
 
@@ -5714,30 +6411,11 @@ exports.ErrorMessage = ErrorMessage;
 "use strict";
 
 
+
 if (false) {} else {
-  module.exports = __webpack_require__(/*! ./formik.cjs.development.js */ "./node_modules/formik/dist/formik.cjs.development.js");
+  module.exports = __webpack_require__(/*! ./formik.cjs.development.js */ "./node_modules/formik/dist/formik.cjs.development.js")
 }
 
-/***/ }),
-
-/***/ "./node_modules/gud/index.js":
-/*!***********************************!*\
-  !*** ./node_modules/gud/index.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(global) {// @flow
-
-
-var key = '__global_unique_id__';
-
-module.exports = function() {
-  return global[key] = (global[key] || 0) + 1;
-};
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
@@ -7141,67 +7819,91 @@ function peg$parse(input, options) {
     var peg$c4 = function () {
         return __assign({ type: types_1.TYPE.pound }, insertLocation());
     };
-    var peg$c5 = peg$otherExpectation("argumentElement");
-    var peg$c6 = "{";
-    var peg$c7 = peg$literalExpectation("{", false);
-    var peg$c8 = "}";
-    var peg$c9 = peg$literalExpectation("}", false);
+    var peg$c5 = peg$otherExpectation("tagElement");
+    var peg$c6 = "<";
+    var peg$c7 = peg$literalExpectation("<", false);
+    var peg$c8 = "/>";
+    var peg$c9 = peg$literalExpectation("/>", false);
     var peg$c10 = function (value) {
+        return __assign({ type: types_1.TYPE.literal, value: value.join('') }, insertLocation());
+    };
+    var peg$c11 = function (open, children, close) {
+        if (open !== close) {
+            error("Mismatch tag \"" + open + "\" !== \"" + close + "\"", location());
+        }
+        return __assign({ type: types_1.TYPE.tag, value: open, children: children }, insertLocation());
+    };
+    var peg$c12 = function () { messageCtx.push('openingTag'); return true; };
+    var peg$c13 = ">";
+    var peg$c14 = peg$literalExpectation(">", false);
+    var peg$c15 = function (tag) { messageCtx.pop(); return true; };
+    var peg$c16 = function (tag) {
+        return tag;
+    };
+    var peg$c17 = "</";
+    var peg$c18 = peg$literalExpectation("</", false);
+    var peg$c19 = function () { messageCtx.push('closingTag'); return true; };
+    var peg$c20 = peg$otherExpectation("argumentElement");
+    var peg$c21 = "{";
+    var peg$c22 = peg$literalExpectation("{", false);
+    var peg$c23 = "}";
+    var peg$c24 = peg$literalExpectation("}", false);
+    var peg$c25 = function (value) {
         return __assign({ type: types_1.TYPE.argument, value: value }, insertLocation());
     };
-    var peg$c11 = peg$otherExpectation("numberSkeletonId");
-    var peg$c12 = /^['\/{}]/;
-    var peg$c13 = peg$classExpectation(["'", "/", "{", "}"], false, false);
-    var peg$c14 = peg$anyExpectation();
-    var peg$c15 = peg$otherExpectation("numberSkeletonTokenOption");
-    var peg$c16 = "/";
-    var peg$c17 = peg$literalExpectation("/", false);
-    var peg$c18 = function (option) { return option; };
-    var peg$c19 = peg$otherExpectation("numberSkeletonToken");
-    var peg$c20 = function (stem, options) {
+    var peg$c26 = peg$otherExpectation("numberSkeletonId");
+    var peg$c27 = /^['\/{}]/;
+    var peg$c28 = peg$classExpectation(["'", "/", "{", "}"], false, false);
+    var peg$c29 = peg$anyExpectation();
+    var peg$c30 = peg$otherExpectation("numberSkeletonTokenOption");
+    var peg$c31 = "/";
+    var peg$c32 = peg$literalExpectation("/", false);
+    var peg$c33 = function (option) { return option; };
+    var peg$c34 = peg$otherExpectation("numberSkeletonToken");
+    var peg$c35 = function (stem, options) {
         return { stem: stem, options: options };
     };
-    var peg$c21 = function (tokens) {
+    var peg$c36 = function (tokens) {
         return __assign({ type: 0 /* number */, tokens: tokens }, insertLocation());
     };
-    var peg$c22 = "::";
-    var peg$c23 = peg$literalExpectation("::", false);
-    var peg$c24 = function (skeleton) { return skeleton; };
-    var peg$c25 = function () { messageCtx.push('numberArgStyle'); return true; };
-    var peg$c26 = function (style) {
+    var peg$c37 = "::";
+    var peg$c38 = peg$literalExpectation("::", false);
+    var peg$c39 = function (skeleton) { return skeleton; };
+    var peg$c40 = function () { messageCtx.push('numberArgStyle'); return true; };
+    var peg$c41 = function (style) {
         messageCtx.pop();
         return style.replace(/\s*$/, '');
     };
-    var peg$c27 = ",";
-    var peg$c28 = peg$literalExpectation(",", false);
-    var peg$c29 = "number";
-    var peg$c30 = peg$literalExpectation("number", false);
-    var peg$c31 = function (value, type, style) {
+    var peg$c42 = ",";
+    var peg$c43 = peg$literalExpectation(",", false);
+    var peg$c44 = "number";
+    var peg$c45 = peg$literalExpectation("number", false);
+    var peg$c46 = function (value, type, style) {
         return __assign({ type: type === 'number' ? types_1.TYPE.number : type === 'date' ? types_1.TYPE.date : types_1.TYPE.time, style: style && style[2], value: value }, insertLocation());
     };
-    var peg$c32 = "'";
-    var peg$c33 = peg$literalExpectation("'", false);
-    var peg$c34 = /^[^']/;
-    var peg$c35 = peg$classExpectation(["'"], true, false);
-    var peg$c36 = /^[^a-zA-Z'{}]/;
-    var peg$c37 = peg$classExpectation([["a", "z"], ["A", "Z"], "'", "{", "}"], true, false);
-    var peg$c38 = /^[a-zA-Z]/;
-    var peg$c39 = peg$classExpectation([["a", "z"], ["A", "Z"]], false, false);
-    var peg$c40 = function (pattern) {
+    var peg$c47 = "'";
+    var peg$c48 = peg$literalExpectation("'", false);
+    var peg$c49 = /^[^']/;
+    var peg$c50 = peg$classExpectation(["'"], true, false);
+    var peg$c51 = /^[^a-zA-Z'{}]/;
+    var peg$c52 = peg$classExpectation([["a", "z"], ["A", "Z"], "'", "{", "}"], true, false);
+    var peg$c53 = /^[a-zA-Z]/;
+    var peg$c54 = peg$classExpectation([["a", "z"], ["A", "Z"]], false, false);
+    var peg$c55 = function (pattern) {
         return __assign({ type: 1 /* dateTime */, pattern: pattern }, insertLocation());
     };
-    var peg$c41 = function () { messageCtx.push('dateOrTimeArgStyle'); return true; };
-    var peg$c42 = "date";
-    var peg$c43 = peg$literalExpectation("date", false);
-    var peg$c44 = "time";
-    var peg$c45 = peg$literalExpectation("time", false);
-    var peg$c46 = "plural";
-    var peg$c47 = peg$literalExpectation("plural", false);
-    var peg$c48 = "selectordinal";
-    var peg$c49 = peg$literalExpectation("selectordinal", false);
-    var peg$c50 = "offset:";
-    var peg$c51 = peg$literalExpectation("offset:", false);
-    var peg$c52 = function (value, pluralType, offset, options) {
+    var peg$c56 = function () { messageCtx.push('dateOrTimeArgStyle'); return true; };
+    var peg$c57 = "date";
+    var peg$c58 = peg$literalExpectation("date", false);
+    var peg$c59 = "time";
+    var peg$c60 = peg$literalExpectation("time", false);
+    var peg$c61 = "plural";
+    var peg$c62 = peg$literalExpectation("plural", false);
+    var peg$c63 = "selectordinal";
+    var peg$c64 = peg$literalExpectation("selectordinal", false);
+    var peg$c65 = "offset:";
+    var peg$c66 = peg$literalExpectation("offset:", false);
+    var peg$c67 = function (value, pluralType, offset, options) {
         return __assign({ type: types_1.TYPE.plural, pluralType: pluralType === 'plural' ? 'cardinal' : 'ordinal', value: value, offset: offset ? offset[2] : 0, options: options.reduce(function (all, _a) {
                 var id = _a.id, value = _a.value, optionLocation = _a.location;
                 if (id in all) {
@@ -7214,9 +7916,9 @@ function peg$parse(input, options) {
                 return all;
             }, {}) }, insertLocation());
     };
-    var peg$c53 = "select";
-    var peg$c54 = peg$literalExpectation("select", false);
-    var peg$c55 = function (value, options) {
+    var peg$c68 = "select";
+    var peg$c69 = peg$literalExpectation("select", false);
+    var peg$c70 = function (value, options) {
         return __assign({ type: types_1.TYPE.select, value: value, options: options.reduce(function (all, _a) {
                 var id = _a.id, value = _a.value, optionLocation = _a.location;
                 if (id in all) {
@@ -7229,68 +7931,72 @@ function peg$parse(input, options) {
                 return all;
             }, {}) }, insertLocation());
     };
-    var peg$c56 = "=";
-    var peg$c57 = peg$literalExpectation("=", false);
-    var peg$c58 = function (id) { messageCtx.push('select'); return true; };
-    var peg$c59 = function (id, value) {
+    var peg$c71 = "=";
+    var peg$c72 = peg$literalExpectation("=", false);
+    var peg$c73 = function (id) { messageCtx.push('select'); return true; };
+    var peg$c74 = function (id, value) {
         messageCtx.pop();
         return __assign({ id: id,
             value: value }, insertLocation());
     };
-    var peg$c60 = function (id) { messageCtx.push('plural'); return true; };
-    var peg$c61 = function (id, value) {
+    var peg$c75 = function (id) { messageCtx.push('plural'); return true; };
+    var peg$c76 = function (id, value) {
         messageCtx.pop();
         return __assign({ id: id,
             value: value }, insertLocation());
     };
-    var peg$c62 = peg$otherExpectation("whitespace");
-    var peg$c63 = /^[\t-\r \x85\xA0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]/;
-    var peg$c64 = peg$classExpectation([["\t", "\r"], " ", "\x85", "\xA0", "\u1680", ["\u2000", "\u200A"], "\u2028", "\u2029", "\u202F", "\u205F", "\u3000"], false, false);
-    var peg$c65 = peg$otherExpectation("syntax pattern");
-    var peg$c66 = /^[!-\/:-@[-\^`{-~\xA1-\xA7\xA9\xAB\xAC\xAE\xB0\xB1\xB6\xBB\xBF\xD7\xF7\u2010-\u2027\u2030-\u203E\u2041-\u2053\u2055-\u205E\u2190-\u245F\u2500-\u2775\u2794-\u2BFF\u2E00-\u2E7F\u3001-\u3003\u3008-\u3020\u3030\uFD3E\uFD3F\uFE45\uFE46]/;
-    var peg$c67 = peg$classExpectation([["!", "/"], [":", "@"], ["[", "^"], "`", ["{", "~"], ["\xA1", "\xA7"], "\xA9", "\xAB", "\xAC", "\xAE", "\xB0", "\xB1", "\xB6", "\xBB", "\xBF", "\xD7", "\xF7", ["\u2010", "\u2027"], ["\u2030", "\u203E"], ["\u2041", "\u2053"], ["\u2055", "\u205E"], ["\u2190", "\u245F"], ["\u2500", "\u2775"], ["\u2794", "\u2BFF"], ["\u2E00", "\u2E7F"], ["\u3001", "\u3003"], ["\u3008", "\u3020"], "\u3030", "\uFD3E", "\uFD3F", "\uFE45", "\uFE46"], false, false);
-    var peg$c68 = peg$otherExpectation("optional whitespace");
-    var peg$c69 = peg$otherExpectation("number");
-    var peg$c70 = "-";
-    var peg$c71 = peg$literalExpectation("-", false);
-    var peg$c72 = function (negative, num) {
+    var peg$c77 = peg$otherExpectation("whitespace");
+    var peg$c78 = /^[\t-\r \x85\xA0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]/;
+    var peg$c79 = peg$classExpectation([["\t", "\r"], " ", "\x85", "\xA0", "\u1680", ["\u2000", "\u200A"], "\u2028", "\u2029", "\u202F", "\u205F", "\u3000"], false, false);
+    var peg$c80 = peg$otherExpectation("syntax pattern");
+    var peg$c81 = /^[!-\/:-@[-\^`{-~\xA1-\xA7\xA9\xAB\xAC\xAE\xB0\xB1\xB6\xBB\xBF\xD7\xF7\u2010-\u2027\u2030-\u203E\u2041-\u2053\u2055-\u205E\u2190-\u245F\u2500-\u2775\u2794-\u2BFF\u2E00-\u2E7F\u3001-\u3003\u3008-\u3020\u3030\uFD3E\uFD3F\uFE45\uFE46]/;
+    var peg$c82 = peg$classExpectation([["!", "/"], [":", "@"], ["[", "^"], "`", ["{", "~"], ["\xA1", "\xA7"], "\xA9", "\xAB", "\xAC", "\xAE", "\xB0", "\xB1", "\xB6", "\xBB", "\xBF", "\xD7", "\xF7", ["\u2010", "\u2027"], ["\u2030", "\u203E"], ["\u2041", "\u2053"], ["\u2055", "\u205E"], ["\u2190", "\u245F"], ["\u2500", "\u2775"], ["\u2794", "\u2BFF"], ["\u2E00", "\u2E7F"], ["\u3001", "\u3003"], ["\u3008", "\u3020"], "\u3030", "\uFD3E", "\uFD3F", "\uFE45", "\uFE46"], false, false);
+    var peg$c83 = peg$otherExpectation("optional whitespace");
+    var peg$c84 = peg$otherExpectation("number");
+    var peg$c85 = "-";
+    var peg$c86 = peg$literalExpectation("-", false);
+    var peg$c87 = function (negative, num) {
         return num
             ? negative
                 ? -num
                 : num
             : 0;
     };
-    var peg$c73 = peg$otherExpectation("apostrophe");
-    var peg$c74 = peg$otherExpectation("double apostrophes");
-    var peg$c75 = "''";
-    var peg$c76 = peg$literalExpectation("''", false);
-    var peg$c77 = function () { return "'"; };
-    var peg$c78 = function (escapedChar, quotedChars) {
+    var peg$c88 = peg$otherExpectation("apostrophe");
+    var peg$c89 = peg$otherExpectation("double apostrophes");
+    var peg$c90 = "''";
+    var peg$c91 = peg$literalExpectation("''", false);
+    var peg$c92 = function () { return "'"; };
+    var peg$c93 = function (escapedChar, quotedChars) {
         return escapedChar + quotedChars.replace("''", "'");
     };
-    var peg$c79 = function (x) {
-        return (x !== '{' &&
+    var peg$c94 = function (x) {
+        return (x !== '<' &&
+            x !== '{' &&
             !(isInPluralOption() && x === '#') &&
-            !(isNestedMessageText() && x === '}'));
+            !(isNestedMessageText() && x === '}') &&
+            !(isNestedMessageText() && x === '>'));
     };
-    var peg$c80 = "\n";
-    var peg$c81 = peg$literalExpectation("\n", false);
-    var peg$c82 = function (x) {
-        return x === '{' || x === '}' || (isInPluralOption() && x === '#');
+    var peg$c95 = "\n";
+    var peg$c96 = peg$literalExpectation("\n", false);
+    var peg$c97 = function (x) {
+        return x === '<' || x === '>' || x === '{' || x === '}' || (isInPluralOption() && x === '#');
     };
-    var peg$c83 = peg$otherExpectation("argNameOrNumber");
-    var peg$c84 = peg$otherExpectation("argNumber");
-    var peg$c85 = "0";
-    var peg$c86 = peg$literalExpectation("0", false);
-    var peg$c87 = function () { return 0; };
-    var peg$c88 = /^[1-9]/;
-    var peg$c89 = peg$classExpectation([["1", "9"]], false, false);
-    var peg$c90 = /^[0-9]/;
-    var peg$c91 = peg$classExpectation([["0", "9"]], false, false);
-    var peg$c92 = function (digits) {
+    var peg$c98 = peg$otherExpectation("argNameOrNumber");
+    var peg$c99 = peg$otherExpectation("validTag");
+    var peg$c100 = peg$otherExpectation("argNumber");
+    var peg$c101 = "0";
+    var peg$c102 = peg$literalExpectation("0", false);
+    var peg$c103 = function () { return 0; };
+    var peg$c104 = /^[1-9]/;
+    var peg$c105 = peg$classExpectation([["1", "9"]], false, false);
+    var peg$c106 = /^[0-9]/;
+    var peg$c107 = peg$classExpectation([["0", "9"]], false, false);
+    var peg$c108 = function (digits) {
         return parseInt(digits.join(''), 10);
     };
-    var peg$c93 = peg$otherExpectation("argName");
+    var peg$c109 = peg$otherExpectation("argName");
+    var peg$c110 = peg$otherExpectation("tagName");
     var peg$currPos = 0;
     var peg$savedPos = 0;
     var peg$posDetailsCache = [{ line: 1, column: 1 }];
@@ -7426,7 +8132,10 @@ function peg$parse(input, options) {
                     if (s0 === peg$FAILED) {
                         s0 = peg$parseselectElement();
                         if (s0 === peg$FAILED) {
-                            s0 = peg$parsepoundElement();
+                            s0 = peg$parsetagElement();
+                            if (s0 === peg$FAILED) {
+                                s0 = peg$parsepoundElement();
+                            }
                         }
                     }
                 }
@@ -7498,11 +8207,104 @@ function peg$parse(input, options) {
         s0 = s1;
         return s0;
     }
-    function peg$parseargumentElement() {
+    function peg$parsetagElement() {
         var s0, s1, s2, s3, s4, s5;
         peg$silentFails++;
         s0 = peg$currPos;
-        if (input.charCodeAt(peg$currPos) === 123) {
+        s1 = peg$currPos;
+        if (input.charCodeAt(peg$currPos) === 60) {
+            s2 = peg$c6;
+            peg$currPos++;
+        }
+        else {
+            s2 = peg$FAILED;
+            if (peg$silentFails === 0) {
+                peg$fail(peg$c7);
+            }
+        }
+        if (s2 !== peg$FAILED) {
+            s3 = peg$parsevalidTag();
+            if (s3 !== peg$FAILED) {
+                s4 = peg$parse_();
+                if (s4 !== peg$FAILED) {
+                    if (input.substr(peg$currPos, 2) === peg$c8) {
+                        s5 = peg$c8;
+                        peg$currPos += 2;
+                    }
+                    else {
+                        s5 = peg$FAILED;
+                        if (peg$silentFails === 0) {
+                            peg$fail(peg$c9);
+                        }
+                    }
+                    if (s5 !== peg$FAILED) {
+                        s2 = [s2, s3, s4, s5];
+                        s1 = s2;
+                    }
+                    else {
+                        peg$currPos = s1;
+                        s1 = peg$FAILED;
+                    }
+                }
+                else {
+                    peg$currPos = s1;
+                    s1 = peg$FAILED;
+                }
+            }
+            else {
+                peg$currPos = s1;
+                s1 = peg$FAILED;
+            }
+        }
+        else {
+            peg$currPos = s1;
+            s1 = peg$FAILED;
+        }
+        if (s1 !== peg$FAILED) {
+            peg$savedPos = s0;
+            s1 = peg$c10(s1);
+        }
+        s0 = s1;
+        if (s0 === peg$FAILED) {
+            s0 = peg$currPos;
+            s1 = peg$parseopeningTag();
+            if (s1 !== peg$FAILED) {
+                s2 = peg$parsemessage();
+                if (s2 !== peg$FAILED) {
+                    s3 = peg$parseclosingTag();
+                    if (s3 !== peg$FAILED) {
+                        peg$savedPos = s0;
+                        s1 = peg$c11(s1, s2, s3);
+                        s0 = s1;
+                    }
+                    else {
+                        peg$currPos = s0;
+                        s0 = peg$FAILED;
+                    }
+                }
+                else {
+                    peg$currPos = s0;
+                    s0 = peg$FAILED;
+                }
+            }
+            else {
+                peg$currPos = s0;
+                s0 = peg$FAILED;
+            }
+        }
+        peg$silentFails--;
+        if (s0 === peg$FAILED) {
+            s1 = peg$FAILED;
+            if (peg$silentFails === 0) {
+                peg$fail(peg$c5);
+            }
+        }
+        return s0;
+    }
+    function peg$parseopeningTag() {
+        var s0, s1, s2, s3, s4, s5;
+        s0 = peg$currPos;
+        if (input.charCodeAt(peg$currPos) === 60) {
             s1 = peg$c6;
             peg$currPos++;
         }
@@ -7513,6 +8315,157 @@ function peg$parse(input, options) {
             }
         }
         if (s1 !== peg$FAILED) {
+            peg$savedPos = peg$currPos;
+            s2 = peg$c12();
+            if (s2) {
+                s2 = undefined;
+            }
+            else {
+                s2 = peg$FAILED;
+            }
+            if (s2 !== peg$FAILED) {
+                s3 = peg$parsevalidTag();
+                if (s3 !== peg$FAILED) {
+                    if (input.charCodeAt(peg$currPos) === 62) {
+                        s4 = peg$c13;
+                        peg$currPos++;
+                    }
+                    else {
+                        s4 = peg$FAILED;
+                        if (peg$silentFails === 0) {
+                            peg$fail(peg$c14);
+                        }
+                    }
+                    if (s4 !== peg$FAILED) {
+                        peg$savedPos = peg$currPos;
+                        s5 = peg$c15(s3);
+                        if (s5) {
+                            s5 = undefined;
+                        }
+                        else {
+                            s5 = peg$FAILED;
+                        }
+                        if (s5 !== peg$FAILED) {
+                            peg$savedPos = s0;
+                            s1 = peg$c16(s3);
+                            s0 = s1;
+                        }
+                        else {
+                            peg$currPos = s0;
+                            s0 = peg$FAILED;
+                        }
+                    }
+                    else {
+                        peg$currPos = s0;
+                        s0 = peg$FAILED;
+                    }
+                }
+                else {
+                    peg$currPos = s0;
+                    s0 = peg$FAILED;
+                }
+            }
+            else {
+                peg$currPos = s0;
+                s0 = peg$FAILED;
+            }
+        }
+        else {
+            peg$currPos = s0;
+            s0 = peg$FAILED;
+        }
+        return s0;
+    }
+    function peg$parseclosingTag() {
+        var s0, s1, s2, s3, s4, s5;
+        s0 = peg$currPos;
+        if (input.substr(peg$currPos, 2) === peg$c17) {
+            s1 = peg$c17;
+            peg$currPos += 2;
+        }
+        else {
+            s1 = peg$FAILED;
+            if (peg$silentFails === 0) {
+                peg$fail(peg$c18);
+            }
+        }
+        if (s1 !== peg$FAILED) {
+            peg$savedPos = peg$currPos;
+            s2 = peg$c19();
+            if (s2) {
+                s2 = undefined;
+            }
+            else {
+                s2 = peg$FAILED;
+            }
+            if (s2 !== peg$FAILED) {
+                s3 = peg$parsevalidTag();
+                if (s3 !== peg$FAILED) {
+                    if (input.charCodeAt(peg$currPos) === 62) {
+                        s4 = peg$c13;
+                        peg$currPos++;
+                    }
+                    else {
+                        s4 = peg$FAILED;
+                        if (peg$silentFails === 0) {
+                            peg$fail(peg$c14);
+                        }
+                    }
+                    if (s4 !== peg$FAILED) {
+                        peg$savedPos = peg$currPos;
+                        s5 = peg$c15(s3);
+                        if (s5) {
+                            s5 = undefined;
+                        }
+                        else {
+                            s5 = peg$FAILED;
+                        }
+                        if (s5 !== peg$FAILED) {
+                            peg$savedPos = s0;
+                            s1 = peg$c16(s3);
+                            s0 = s1;
+                        }
+                        else {
+                            peg$currPos = s0;
+                            s0 = peg$FAILED;
+                        }
+                    }
+                    else {
+                        peg$currPos = s0;
+                        s0 = peg$FAILED;
+                    }
+                }
+                else {
+                    peg$currPos = s0;
+                    s0 = peg$FAILED;
+                }
+            }
+            else {
+                peg$currPos = s0;
+                s0 = peg$FAILED;
+            }
+        }
+        else {
+            peg$currPos = s0;
+            s0 = peg$FAILED;
+        }
+        return s0;
+    }
+    function peg$parseargumentElement() {
+        var s0, s1, s2, s3, s4, s5;
+        peg$silentFails++;
+        s0 = peg$currPos;
+        if (input.charCodeAt(peg$currPos) === 123) {
+            s1 = peg$c21;
+            peg$currPos++;
+        }
+        else {
+            s1 = peg$FAILED;
+            if (peg$silentFails === 0) {
+                peg$fail(peg$c22);
+            }
+        }
+        if (s1 !== peg$FAILED) {
             s2 = peg$parse_();
             if (s2 !== peg$FAILED) {
                 s3 = peg$parseargNameOrNumber();
@@ -7520,18 +8473,18 @@ function peg$parse(input, options) {
                     s4 = peg$parse_();
                     if (s4 !== peg$FAILED) {
                         if (input.charCodeAt(peg$currPos) === 125) {
-                            s5 = peg$c8;
+                            s5 = peg$c23;
                             peg$currPos++;
                         }
                         else {
                             s5 = peg$FAILED;
                             if (peg$silentFails === 0) {
-                                peg$fail(peg$c9);
+                                peg$fail(peg$c24);
                             }
                         }
                         if (s5 !== peg$FAILED) {
                             peg$savedPos = s0;
-                            s1 = peg$c10(s3);
+                            s1 = peg$c25(s3);
                             s0 = s1;
                         }
                         else {
@@ -7562,7 +8515,7 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c5);
+                peg$fail(peg$c20);
             }
         }
         return s0;
@@ -7577,14 +8530,14 @@ function peg$parse(input, options) {
         peg$silentFails++;
         s4 = peg$parsewhiteSpace();
         if (s4 === peg$FAILED) {
-            if (peg$c12.test(input.charAt(peg$currPos))) {
+            if (peg$c27.test(input.charAt(peg$currPos))) {
                 s4 = input.charAt(peg$currPos);
                 peg$currPos++;
             }
             else {
                 s4 = peg$FAILED;
                 if (peg$silentFails === 0) {
-                    peg$fail(peg$c13);
+                    peg$fail(peg$c28);
                 }
             }
         }
@@ -7604,7 +8557,7 @@ function peg$parse(input, options) {
             else {
                 s4 = peg$FAILED;
                 if (peg$silentFails === 0) {
-                    peg$fail(peg$c14);
+                    peg$fail(peg$c29);
                 }
             }
             if (s4 !== peg$FAILED) {
@@ -7628,14 +8581,14 @@ function peg$parse(input, options) {
                 peg$silentFails++;
                 s4 = peg$parsewhiteSpace();
                 if (s4 === peg$FAILED) {
-                    if (peg$c12.test(input.charAt(peg$currPos))) {
+                    if (peg$c27.test(input.charAt(peg$currPos))) {
                         s4 = input.charAt(peg$currPos);
                         peg$currPos++;
                     }
                     else {
                         s4 = peg$FAILED;
                         if (peg$silentFails === 0) {
-                            peg$fail(peg$c13);
+                            peg$fail(peg$c28);
                         }
                     }
                 }
@@ -7655,7 +8608,7 @@ function peg$parse(input, options) {
                     else {
                         s4 = peg$FAILED;
                         if (peg$silentFails === 0) {
-                            peg$fail(peg$c14);
+                            peg$fail(peg$c29);
                         }
                     }
                     if (s4 !== peg$FAILED) {
@@ -7686,7 +8639,7 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c11);
+                peg$fail(peg$c26);
             }
         }
         return s0;
@@ -7696,20 +8649,20 @@ function peg$parse(input, options) {
         peg$silentFails++;
         s0 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 47) {
-            s1 = peg$c16;
+            s1 = peg$c31;
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c17);
+                peg$fail(peg$c32);
             }
         }
         if (s1 !== peg$FAILED) {
             s2 = peg$parsenumberSkeletonId();
             if (s2 !== peg$FAILED) {
                 peg$savedPos = s0;
-                s1 = peg$c18(s2);
+                s1 = peg$c33(s2);
                 s0 = s1;
             }
             else {
@@ -7725,7 +8678,7 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c15);
+                peg$fail(peg$c30);
             }
         }
         return s0;
@@ -7746,7 +8699,7 @@ function peg$parse(input, options) {
                 }
                 if (s3 !== peg$FAILED) {
                     peg$savedPos = s0;
-                    s1 = peg$c20(s2, s3);
+                    s1 = peg$c35(s2, s3);
                     s0 = s1;
                 }
                 else {
@@ -7767,7 +8720,7 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c19);
+                peg$fail(peg$c34);
             }
         }
         return s0;
@@ -7788,7 +8741,7 @@ function peg$parse(input, options) {
         }
         if (s1 !== peg$FAILED) {
             peg$savedPos = s0;
-            s1 = peg$c21(s1);
+            s1 = peg$c36(s1);
         }
         s0 = s1;
         return s0;
@@ -7796,21 +8749,21 @@ function peg$parse(input, options) {
     function peg$parsenumberArgStyle() {
         var s0, s1, s2;
         s0 = peg$currPos;
-        if (input.substr(peg$currPos, 2) === peg$c22) {
-            s1 = peg$c22;
+        if (input.substr(peg$currPos, 2) === peg$c37) {
+            s1 = peg$c37;
             peg$currPos += 2;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c23);
+                peg$fail(peg$c38);
             }
         }
         if (s1 !== peg$FAILED) {
             s2 = peg$parsenumberSkeleton();
             if (s2 !== peg$FAILED) {
                 peg$savedPos = s0;
-                s1 = peg$c24(s2);
+                s1 = peg$c39(s2);
                 s0 = s1;
             }
             else {
@@ -7825,7 +8778,7 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s0 = peg$currPos;
             peg$savedPos = peg$currPos;
-            s1 = peg$c25();
+            s1 = peg$c40();
             if (s1) {
                 s1 = undefined;
             }
@@ -7836,7 +8789,7 @@ function peg$parse(input, options) {
                 s2 = peg$parsemessageText();
                 if (s2 !== peg$FAILED) {
                     peg$savedPos = s0;
-                    s1 = peg$c26(s2);
+                    s1 = peg$c41(s2);
                     s0 = s1;
                 }
                 else {
@@ -7855,13 +8808,13 @@ function peg$parse(input, options) {
         var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12;
         s0 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 123) {
-            s1 = peg$c6;
+            s1 = peg$c21;
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c7);
+                peg$fail(peg$c22);
             }
         }
         if (s1 !== peg$FAILED) {
@@ -7872,26 +8825,26 @@ function peg$parse(input, options) {
                     s4 = peg$parse_();
                     if (s4 !== peg$FAILED) {
                         if (input.charCodeAt(peg$currPos) === 44) {
-                            s5 = peg$c27;
+                            s5 = peg$c42;
                             peg$currPos++;
                         }
                         else {
                             s5 = peg$FAILED;
                             if (peg$silentFails === 0) {
-                                peg$fail(peg$c28);
+                                peg$fail(peg$c43);
                             }
                         }
                         if (s5 !== peg$FAILED) {
                             s6 = peg$parse_();
                             if (s6 !== peg$FAILED) {
-                                if (input.substr(peg$currPos, 6) === peg$c29) {
-                                    s7 = peg$c29;
+                                if (input.substr(peg$currPos, 6) === peg$c44) {
+                                    s7 = peg$c44;
                                     peg$currPos += 6;
                                 }
                                 else {
                                     s7 = peg$FAILED;
                                     if (peg$silentFails === 0) {
-                                        peg$fail(peg$c30);
+                                        peg$fail(peg$c45);
                                     }
                                 }
                                 if (s7 !== peg$FAILED) {
@@ -7899,13 +8852,13 @@ function peg$parse(input, options) {
                                     if (s8 !== peg$FAILED) {
                                         s9 = peg$currPos;
                                         if (input.charCodeAt(peg$currPos) === 44) {
-                                            s10 = peg$c27;
+                                            s10 = peg$c42;
                                             peg$currPos++;
                                         }
                                         else {
                                             s10 = peg$FAILED;
                                             if (peg$silentFails === 0) {
-                                                peg$fail(peg$c28);
+                                                peg$fail(peg$c43);
                                             }
                                         }
                                         if (s10 !== peg$FAILED) {
@@ -7937,18 +8890,18 @@ function peg$parse(input, options) {
                                             s10 = peg$parse_();
                                             if (s10 !== peg$FAILED) {
                                                 if (input.charCodeAt(peg$currPos) === 125) {
-                                                    s11 = peg$c8;
+                                                    s11 = peg$c23;
                                                     peg$currPos++;
                                                 }
                                                 else {
                                                     s11 = peg$FAILED;
                                                     if (peg$silentFails === 0) {
-                                                        peg$fail(peg$c9);
+                                                        peg$fail(peg$c24);
                                                     }
                                                 }
                                                 if (s11 !== peg$FAILED) {
                                                     peg$savedPos = s0;
-                                                    s1 = peg$c31(s3, s7, s9);
+                                                    s1 = peg$c46(s3, s7, s9);
                                                     s0 = s1;
                                                 }
                                                 else {
@@ -8011,27 +8964,27 @@ function peg$parse(input, options) {
         var s0, s1, s2, s3;
         s0 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 39) {
-            s1 = peg$c32;
+            s1 = peg$c47;
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c33);
+                peg$fail(peg$c48);
             }
         }
         if (s1 !== peg$FAILED) {
             s2 = [];
             s3 = peg$parsedoubleApostrophes();
             if (s3 === peg$FAILED) {
-                if (peg$c34.test(input.charAt(peg$currPos))) {
+                if (peg$c49.test(input.charAt(peg$currPos))) {
                     s3 = input.charAt(peg$currPos);
                     peg$currPos++;
                 }
                 else {
                     s3 = peg$FAILED;
                     if (peg$silentFails === 0) {
-                        peg$fail(peg$c35);
+                        peg$fail(peg$c50);
                     }
                 }
             }
@@ -8040,14 +8993,14 @@ function peg$parse(input, options) {
                     s2.push(s3);
                     s3 = peg$parsedoubleApostrophes();
                     if (s3 === peg$FAILED) {
-                        if (peg$c34.test(input.charAt(peg$currPos))) {
+                        if (peg$c49.test(input.charAt(peg$currPos))) {
                             s3 = input.charAt(peg$currPos);
                             peg$currPos++;
                         }
                         else {
                             s3 = peg$FAILED;
                             if (peg$silentFails === 0) {
-                                peg$fail(peg$c35);
+                                peg$fail(peg$c50);
                             }
                         }
                     }
@@ -8058,13 +9011,13 @@ function peg$parse(input, options) {
             }
             if (s2 !== peg$FAILED) {
                 if (input.charCodeAt(peg$currPos) === 39) {
-                    s3 = peg$c32;
+                    s3 = peg$c47;
                     peg$currPos++;
                 }
                 else {
                     s3 = peg$FAILED;
                     if (peg$silentFails === 0) {
-                        peg$fail(peg$c33);
+                        peg$fail(peg$c48);
                     }
                 }
                 if (s3 !== peg$FAILED) {
@@ -8089,14 +9042,14 @@ function peg$parse(input, options) {
             s0 = [];
             s1 = peg$parsedoubleApostrophes();
             if (s1 === peg$FAILED) {
-                if (peg$c36.test(input.charAt(peg$currPos))) {
+                if (peg$c51.test(input.charAt(peg$currPos))) {
                     s1 = input.charAt(peg$currPos);
                     peg$currPos++;
                 }
                 else {
                     s1 = peg$FAILED;
                     if (peg$silentFails === 0) {
-                        peg$fail(peg$c37);
+                        peg$fail(peg$c52);
                     }
                 }
             }
@@ -8105,14 +9058,14 @@ function peg$parse(input, options) {
                     s0.push(s1);
                     s1 = peg$parsedoubleApostrophes();
                     if (s1 === peg$FAILED) {
-                        if (peg$c36.test(input.charAt(peg$currPos))) {
+                        if (peg$c51.test(input.charAt(peg$currPos))) {
                             s1 = input.charAt(peg$currPos);
                             peg$currPos++;
                         }
                         else {
                             s1 = peg$FAILED;
                             if (peg$silentFails === 0) {
-                                peg$fail(peg$c37);
+                                peg$fail(peg$c52);
                             }
                         }
                     }
@@ -8127,27 +9080,27 @@ function peg$parse(input, options) {
     function peg$parsedateTimeSkeletonPattern() {
         var s0, s1;
         s0 = [];
-        if (peg$c38.test(input.charAt(peg$currPos))) {
+        if (peg$c53.test(input.charAt(peg$currPos))) {
             s1 = input.charAt(peg$currPos);
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c39);
+                peg$fail(peg$c54);
             }
         }
         if (s1 !== peg$FAILED) {
             while (s1 !== peg$FAILED) {
                 s0.push(s1);
-                if (peg$c38.test(input.charAt(peg$currPos))) {
+                if (peg$c53.test(input.charAt(peg$currPos))) {
                     s1 = input.charAt(peg$currPos);
                     peg$currPos++;
                 }
                 else {
                     s1 = peg$FAILED;
                     if (peg$silentFails === 0) {
-                        peg$fail(peg$c39);
+                        peg$fail(peg$c54);
                     }
                 }
             }
@@ -8186,7 +9139,7 @@ function peg$parse(input, options) {
         }
         if (s1 !== peg$FAILED) {
             peg$savedPos = s0;
-            s1 = peg$c40(s1);
+            s1 = peg$c55(s1);
         }
         s0 = s1;
         return s0;
@@ -8194,21 +9147,21 @@ function peg$parse(input, options) {
     function peg$parsedateOrTimeArgStyle() {
         var s0, s1, s2;
         s0 = peg$currPos;
-        if (input.substr(peg$currPos, 2) === peg$c22) {
-            s1 = peg$c22;
+        if (input.substr(peg$currPos, 2) === peg$c37) {
+            s1 = peg$c37;
             peg$currPos += 2;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c23);
+                peg$fail(peg$c38);
             }
         }
         if (s1 !== peg$FAILED) {
             s2 = peg$parsedateTimeSkeleton();
             if (s2 !== peg$FAILED) {
                 peg$savedPos = s0;
-                s1 = peg$c24(s2);
+                s1 = peg$c39(s2);
                 s0 = s1;
             }
             else {
@@ -8223,7 +9176,7 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s0 = peg$currPos;
             peg$savedPos = peg$currPos;
-            s1 = peg$c41();
+            s1 = peg$c56();
             if (s1) {
                 s1 = undefined;
             }
@@ -8234,7 +9187,7 @@ function peg$parse(input, options) {
                 s2 = peg$parsemessageText();
                 if (s2 !== peg$FAILED) {
                     peg$savedPos = s0;
-                    s1 = peg$c26(s2);
+                    s1 = peg$c41(s2);
                     s0 = s1;
                 }
                 else {
@@ -8253,13 +9206,13 @@ function peg$parse(input, options) {
         var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12;
         s0 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 123) {
-            s1 = peg$c6;
+            s1 = peg$c21;
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c7);
+                peg$fail(peg$c22);
             }
         }
         if (s1 !== peg$FAILED) {
@@ -8270,37 +9223,37 @@ function peg$parse(input, options) {
                     s4 = peg$parse_();
                     if (s4 !== peg$FAILED) {
                         if (input.charCodeAt(peg$currPos) === 44) {
-                            s5 = peg$c27;
+                            s5 = peg$c42;
                             peg$currPos++;
                         }
                         else {
                             s5 = peg$FAILED;
                             if (peg$silentFails === 0) {
-                                peg$fail(peg$c28);
+                                peg$fail(peg$c43);
                             }
                         }
                         if (s5 !== peg$FAILED) {
                             s6 = peg$parse_();
                             if (s6 !== peg$FAILED) {
-                                if (input.substr(peg$currPos, 4) === peg$c42) {
-                                    s7 = peg$c42;
+                                if (input.substr(peg$currPos, 4) === peg$c57) {
+                                    s7 = peg$c57;
                                     peg$currPos += 4;
                                 }
                                 else {
                                     s7 = peg$FAILED;
                                     if (peg$silentFails === 0) {
-                                        peg$fail(peg$c43);
+                                        peg$fail(peg$c58);
                                     }
                                 }
                                 if (s7 === peg$FAILED) {
-                                    if (input.substr(peg$currPos, 4) === peg$c44) {
-                                        s7 = peg$c44;
+                                    if (input.substr(peg$currPos, 4) === peg$c59) {
+                                        s7 = peg$c59;
                                         peg$currPos += 4;
                                     }
                                     else {
                                         s7 = peg$FAILED;
                                         if (peg$silentFails === 0) {
-                                            peg$fail(peg$c45);
+                                            peg$fail(peg$c60);
                                         }
                                     }
                                 }
@@ -8309,13 +9262,13 @@ function peg$parse(input, options) {
                                     if (s8 !== peg$FAILED) {
                                         s9 = peg$currPos;
                                         if (input.charCodeAt(peg$currPos) === 44) {
-                                            s10 = peg$c27;
+                                            s10 = peg$c42;
                                             peg$currPos++;
                                         }
                                         else {
                                             s10 = peg$FAILED;
                                             if (peg$silentFails === 0) {
-                                                peg$fail(peg$c28);
+                                                peg$fail(peg$c43);
                                             }
                                         }
                                         if (s10 !== peg$FAILED) {
@@ -8347,18 +9300,18 @@ function peg$parse(input, options) {
                                             s10 = peg$parse_();
                                             if (s10 !== peg$FAILED) {
                                                 if (input.charCodeAt(peg$currPos) === 125) {
-                                                    s11 = peg$c8;
+                                                    s11 = peg$c23;
                                                     peg$currPos++;
                                                 }
                                                 else {
                                                     s11 = peg$FAILED;
                                                     if (peg$silentFails === 0) {
-                                                        peg$fail(peg$c9);
+                                                        peg$fail(peg$c24);
                                                     }
                                                 }
                                                 if (s11 !== peg$FAILED) {
                                                     peg$savedPos = s0;
-                                                    s1 = peg$c31(s3, s7, s9);
+                                                    s1 = peg$c46(s3, s7, s9);
                                                     s0 = s1;
                                                 }
                                                 else {
@@ -8429,13 +9382,13 @@ function peg$parse(input, options) {
         var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15;
         s0 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 123) {
-            s1 = peg$c6;
+            s1 = peg$c21;
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c7);
+                peg$fail(peg$c22);
             }
         }
         if (s1 !== peg$FAILED) {
@@ -8446,37 +9399,37 @@ function peg$parse(input, options) {
                     s4 = peg$parse_();
                     if (s4 !== peg$FAILED) {
                         if (input.charCodeAt(peg$currPos) === 44) {
-                            s5 = peg$c27;
+                            s5 = peg$c42;
                             peg$currPos++;
                         }
                         else {
                             s5 = peg$FAILED;
                             if (peg$silentFails === 0) {
-                                peg$fail(peg$c28);
+                                peg$fail(peg$c43);
                             }
                         }
                         if (s5 !== peg$FAILED) {
                             s6 = peg$parse_();
                             if (s6 !== peg$FAILED) {
-                                if (input.substr(peg$currPos, 6) === peg$c46) {
-                                    s7 = peg$c46;
+                                if (input.substr(peg$currPos, 6) === peg$c61) {
+                                    s7 = peg$c61;
                                     peg$currPos += 6;
                                 }
                                 else {
                                     s7 = peg$FAILED;
                                     if (peg$silentFails === 0) {
-                                        peg$fail(peg$c47);
+                                        peg$fail(peg$c62);
                                     }
                                 }
                                 if (s7 === peg$FAILED) {
-                                    if (input.substr(peg$currPos, 13) === peg$c48) {
-                                        s7 = peg$c48;
+                                    if (input.substr(peg$currPos, 13) === peg$c63) {
+                                        s7 = peg$c63;
                                         peg$currPos += 13;
                                     }
                                     else {
                                         s7 = peg$FAILED;
                                         if (peg$silentFails === 0) {
-                                            peg$fail(peg$c49);
+                                            peg$fail(peg$c64);
                                         }
                                     }
                                 }
@@ -8484,27 +9437,27 @@ function peg$parse(input, options) {
                                     s8 = peg$parse_();
                                     if (s8 !== peg$FAILED) {
                                         if (input.charCodeAt(peg$currPos) === 44) {
-                                            s9 = peg$c27;
+                                            s9 = peg$c42;
                                             peg$currPos++;
                                         }
                                         else {
                                             s9 = peg$FAILED;
                                             if (peg$silentFails === 0) {
-                                                peg$fail(peg$c28);
+                                                peg$fail(peg$c43);
                                             }
                                         }
                                         if (s9 !== peg$FAILED) {
                                             s10 = peg$parse_();
                                             if (s10 !== peg$FAILED) {
                                                 s11 = peg$currPos;
-                                                if (input.substr(peg$currPos, 7) === peg$c50) {
-                                                    s12 = peg$c50;
+                                                if (input.substr(peg$currPos, 7) === peg$c65) {
+                                                    s12 = peg$c65;
                                                     peg$currPos += 7;
                                                 }
                                                 else {
                                                     s12 = peg$FAILED;
                                                     if (peg$silentFails === 0) {
-                                                        peg$fail(peg$c51);
+                                                        peg$fail(peg$c66);
                                                     }
                                                 }
                                                 if (s12 !== peg$FAILED) {
@@ -8550,18 +9503,18 @@ function peg$parse(input, options) {
                                                             s14 = peg$parse_();
                                                             if (s14 !== peg$FAILED) {
                                                                 if (input.charCodeAt(peg$currPos) === 125) {
-                                                                    s15 = peg$c8;
+                                                                    s15 = peg$c23;
                                                                     peg$currPos++;
                                                                 }
                                                                 else {
                                                                     s15 = peg$FAILED;
                                                                     if (peg$silentFails === 0) {
-                                                                        peg$fail(peg$c9);
+                                                                        peg$fail(peg$c24);
                                                                     }
                                                                 }
                                                                 if (s15 !== peg$FAILED) {
                                                                     peg$savedPos = s0;
-                                                                    s1 = peg$c52(s3, s7, s11, s13);
+                                                                    s1 = peg$c67(s3, s7, s11, s13);
                                                                     s0 = s1;
                                                                 }
                                                                 else {
@@ -8644,13 +9597,13 @@ function peg$parse(input, options) {
         var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13;
         s0 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 123) {
-            s1 = peg$c6;
+            s1 = peg$c21;
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c7);
+                peg$fail(peg$c22);
             }
         }
         if (s1 !== peg$FAILED) {
@@ -8661,39 +9614,39 @@ function peg$parse(input, options) {
                     s4 = peg$parse_();
                     if (s4 !== peg$FAILED) {
                         if (input.charCodeAt(peg$currPos) === 44) {
-                            s5 = peg$c27;
+                            s5 = peg$c42;
                             peg$currPos++;
                         }
                         else {
                             s5 = peg$FAILED;
                             if (peg$silentFails === 0) {
-                                peg$fail(peg$c28);
+                                peg$fail(peg$c43);
                             }
                         }
                         if (s5 !== peg$FAILED) {
                             s6 = peg$parse_();
                             if (s6 !== peg$FAILED) {
-                                if (input.substr(peg$currPos, 6) === peg$c53) {
-                                    s7 = peg$c53;
+                                if (input.substr(peg$currPos, 6) === peg$c68) {
+                                    s7 = peg$c68;
                                     peg$currPos += 6;
                                 }
                                 else {
                                     s7 = peg$FAILED;
                                     if (peg$silentFails === 0) {
-                                        peg$fail(peg$c54);
+                                        peg$fail(peg$c69);
                                     }
                                 }
                                 if (s7 !== peg$FAILED) {
                                     s8 = peg$parse_();
                                     if (s8 !== peg$FAILED) {
                                         if (input.charCodeAt(peg$currPos) === 44) {
-                                            s9 = peg$c27;
+                                            s9 = peg$c42;
                                             peg$currPos++;
                                         }
                                         else {
                                             s9 = peg$FAILED;
                                             if (peg$silentFails === 0) {
-                                                peg$fail(peg$c28);
+                                                peg$fail(peg$c43);
                                             }
                                         }
                                         if (s9 !== peg$FAILED) {
@@ -8714,18 +9667,18 @@ function peg$parse(input, options) {
                                                     s12 = peg$parse_();
                                                     if (s12 !== peg$FAILED) {
                                                         if (input.charCodeAt(peg$currPos) === 125) {
-                                                            s13 = peg$c8;
+                                                            s13 = peg$c23;
                                                             peg$currPos++;
                                                         }
                                                         else {
                                                             s13 = peg$FAILED;
                                                             if (peg$silentFails === 0) {
-                                                                peg$fail(peg$c9);
+                                                                peg$fail(peg$c24);
                                                             }
                                                         }
                                                         if (s13 !== peg$FAILED) {
                                                             peg$savedPos = s0;
-                                                            s1 = peg$c55(s3, s11);
+                                                            s1 = peg$c70(s3, s11);
                                                             s0 = s1;
                                                         }
                                                         else {
@@ -8799,13 +9752,13 @@ function peg$parse(input, options) {
         s0 = peg$currPos;
         s1 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 61) {
-            s2 = peg$c56;
+            s2 = peg$c71;
             peg$currPos++;
         }
         else {
             s2 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c57);
+                peg$fail(peg$c72);
             }
         }
         if (s2 !== peg$FAILED) {
@@ -8844,18 +9797,18 @@ function peg$parse(input, options) {
                 s3 = peg$parse_();
                 if (s3 !== peg$FAILED) {
                     if (input.charCodeAt(peg$currPos) === 123) {
-                        s4 = peg$c6;
+                        s4 = peg$c21;
                         peg$currPos++;
                     }
                     else {
                         s4 = peg$FAILED;
                         if (peg$silentFails === 0) {
-                            peg$fail(peg$c7);
+                            peg$fail(peg$c22);
                         }
                     }
                     if (s4 !== peg$FAILED) {
                         peg$savedPos = peg$currPos;
-                        s5 = peg$c58(s2);
+                        s5 = peg$c73(s2);
                         if (s5) {
                             s5 = undefined;
                         }
@@ -8866,18 +9819,18 @@ function peg$parse(input, options) {
                             s6 = peg$parsemessage();
                             if (s6 !== peg$FAILED) {
                                 if (input.charCodeAt(peg$currPos) === 125) {
-                                    s7 = peg$c8;
+                                    s7 = peg$c23;
                                     peg$currPos++;
                                 }
                                 else {
                                     s7 = peg$FAILED;
                                     if (peg$silentFails === 0) {
-                                        peg$fail(peg$c9);
+                                        peg$fail(peg$c24);
                                     }
                                 }
                                 if (s7 !== peg$FAILED) {
                                     peg$savedPos = s0;
-                                    s1 = peg$c59(s2, s6);
+                                    s1 = peg$c74(s2, s6);
                                     s0 = s1;
                                 }
                                 else {
@@ -8926,18 +9879,18 @@ function peg$parse(input, options) {
                 s3 = peg$parse_();
                 if (s3 !== peg$FAILED) {
                     if (input.charCodeAt(peg$currPos) === 123) {
-                        s4 = peg$c6;
+                        s4 = peg$c21;
                         peg$currPos++;
                     }
                     else {
                         s4 = peg$FAILED;
                         if (peg$silentFails === 0) {
-                            peg$fail(peg$c7);
+                            peg$fail(peg$c22);
                         }
                     }
                     if (s4 !== peg$FAILED) {
                         peg$savedPos = peg$currPos;
-                        s5 = peg$c60(s2);
+                        s5 = peg$c75(s2);
                         if (s5) {
                             s5 = undefined;
                         }
@@ -8948,18 +9901,18 @@ function peg$parse(input, options) {
                             s6 = peg$parsemessage();
                             if (s6 !== peg$FAILED) {
                                 if (input.charCodeAt(peg$currPos) === 125) {
-                                    s7 = peg$c8;
+                                    s7 = peg$c23;
                                     peg$currPos++;
                                 }
                                 else {
                                     s7 = peg$FAILED;
                                     if (peg$silentFails === 0) {
-                                        peg$fail(peg$c9);
+                                        peg$fail(peg$c24);
                                     }
                                 }
                                 if (s7 !== peg$FAILED) {
                                     peg$savedPos = s0;
-                                    s1 = peg$c61(s2, s6);
+                                    s1 = peg$c76(s2, s6);
                                     s0 = s1;
                                 }
                                 else {
@@ -9001,21 +9954,21 @@ function peg$parse(input, options) {
     function peg$parsewhiteSpace() {
         var s0, s1;
         peg$silentFails++;
-        if (peg$c63.test(input.charAt(peg$currPos))) {
+        if (peg$c78.test(input.charAt(peg$currPos))) {
             s0 = input.charAt(peg$currPos);
             peg$currPos++;
         }
         else {
             s0 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c64);
+                peg$fail(peg$c79);
             }
         }
         peg$silentFails--;
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c62);
+                peg$fail(peg$c77);
             }
         }
         return s0;
@@ -9023,21 +9976,21 @@ function peg$parse(input, options) {
     function peg$parsepatternSyntax() {
         var s0, s1;
         peg$silentFails++;
-        if (peg$c66.test(input.charAt(peg$currPos))) {
+        if (peg$c81.test(input.charAt(peg$currPos))) {
             s0 = input.charAt(peg$currPos);
             peg$currPos++;
         }
         else {
             s0 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c67);
+                peg$fail(peg$c82);
             }
         }
         peg$silentFails--;
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c65);
+                peg$fail(peg$c80);
             }
         }
         return s0;
@@ -9062,7 +10015,7 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c68);
+                peg$fail(peg$c83);
             }
         }
         return s0;
@@ -9072,13 +10025,13 @@ function peg$parse(input, options) {
         peg$silentFails++;
         s0 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 45) {
-            s1 = peg$c70;
+            s1 = peg$c85;
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c71);
+                peg$fail(peg$c86);
             }
         }
         if (s1 === peg$FAILED) {
@@ -9088,7 +10041,7 @@ function peg$parse(input, options) {
             s2 = peg$parseargNumber();
             if (s2 !== peg$FAILED) {
                 peg$savedPos = s0;
-                s1 = peg$c72(s1, s2);
+                s1 = peg$c87(s1, s2);
                 s0 = s1;
             }
             else {
@@ -9104,7 +10057,7 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c69);
+                peg$fail(peg$c84);
             }
         }
         return s0;
@@ -9113,20 +10066,20 @@ function peg$parse(input, options) {
         var s0, s1;
         peg$silentFails++;
         if (input.charCodeAt(peg$currPos) === 39) {
-            s0 = peg$c32;
+            s0 = peg$c47;
             peg$currPos++;
         }
         else {
             s0 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c33);
+                peg$fail(peg$c48);
             }
         }
         peg$silentFails--;
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c73);
+                peg$fail(peg$c88);
             }
         }
         return s0;
@@ -9135,26 +10088,26 @@ function peg$parse(input, options) {
         var s0, s1;
         peg$silentFails++;
         s0 = peg$currPos;
-        if (input.substr(peg$currPos, 2) === peg$c75) {
-            s1 = peg$c75;
+        if (input.substr(peg$currPos, 2) === peg$c90) {
+            s1 = peg$c90;
             peg$currPos += 2;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c76);
+                peg$fail(peg$c91);
             }
         }
         if (s1 !== peg$FAILED) {
             peg$savedPos = s0;
-            s1 = peg$c77();
+            s1 = peg$c92();
         }
         s0 = s1;
         peg$silentFails--;
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c74);
+                peg$fail(peg$c89);
             }
         }
         return s0;
@@ -9163,13 +10116,13 @@ function peg$parse(input, options) {
         var s0, s1, s2, s3, s4, s5;
         s0 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 39) {
-            s1 = peg$c32;
+            s1 = peg$c47;
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c33);
+                peg$fail(peg$c48);
             }
         }
         if (s1 !== peg$FAILED) {
@@ -9177,49 +10130,49 @@ function peg$parse(input, options) {
             if (s2 !== peg$FAILED) {
                 s3 = peg$currPos;
                 s4 = [];
-                if (input.substr(peg$currPos, 2) === peg$c75) {
-                    s5 = peg$c75;
+                if (input.substr(peg$currPos, 2) === peg$c90) {
+                    s5 = peg$c90;
                     peg$currPos += 2;
                 }
                 else {
                     s5 = peg$FAILED;
                     if (peg$silentFails === 0) {
-                        peg$fail(peg$c76);
+                        peg$fail(peg$c91);
                     }
                 }
                 if (s5 === peg$FAILED) {
-                    if (peg$c34.test(input.charAt(peg$currPos))) {
+                    if (peg$c49.test(input.charAt(peg$currPos))) {
                         s5 = input.charAt(peg$currPos);
                         peg$currPos++;
                     }
                     else {
                         s5 = peg$FAILED;
                         if (peg$silentFails === 0) {
-                            peg$fail(peg$c35);
+                            peg$fail(peg$c50);
                         }
                     }
                 }
                 while (s5 !== peg$FAILED) {
                     s4.push(s5);
-                    if (input.substr(peg$currPos, 2) === peg$c75) {
-                        s5 = peg$c75;
+                    if (input.substr(peg$currPos, 2) === peg$c90) {
+                        s5 = peg$c90;
                         peg$currPos += 2;
                     }
                     else {
                         s5 = peg$FAILED;
                         if (peg$silentFails === 0) {
-                            peg$fail(peg$c76);
+                            peg$fail(peg$c91);
                         }
                     }
                     if (s5 === peg$FAILED) {
-                        if (peg$c34.test(input.charAt(peg$currPos))) {
+                        if (peg$c49.test(input.charAt(peg$currPos))) {
                             s5 = input.charAt(peg$currPos);
                             peg$currPos++;
                         }
                         else {
                             s5 = peg$FAILED;
                             if (peg$silentFails === 0) {
-                                peg$fail(peg$c35);
+                                peg$fail(peg$c50);
                             }
                         }
                     }
@@ -9232,13 +10185,13 @@ function peg$parse(input, options) {
                 }
                 if (s3 !== peg$FAILED) {
                     if (input.charCodeAt(peg$currPos) === 39) {
-                        s4 = peg$c32;
+                        s4 = peg$c47;
                         peg$currPos++;
                     }
                     else {
                         s4 = peg$FAILED;
                         if (peg$silentFails === 0) {
-                            peg$fail(peg$c33);
+                            peg$fail(peg$c48);
                         }
                     }
                     if (s4 === peg$FAILED) {
@@ -9246,7 +10199,7 @@ function peg$parse(input, options) {
                     }
                     if (s4 !== peg$FAILED) {
                         peg$savedPos = s0;
-                        s1 = peg$c78(s2, s3);
+                        s1 = peg$c93(s2, s3);
                         s0 = s1;
                     }
                     else {
@@ -9281,12 +10234,12 @@ function peg$parse(input, options) {
         else {
             s2 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c14);
+                peg$fail(peg$c29);
             }
         }
         if (s2 !== peg$FAILED) {
             peg$savedPos = peg$currPos;
-            s3 = peg$c79(s2);
+            s3 = peg$c94(s2);
             if (s3) {
                 s3 = undefined;
             }
@@ -9308,13 +10261,13 @@ function peg$parse(input, options) {
         }
         if (s1 === peg$FAILED) {
             if (input.charCodeAt(peg$currPos) === 10) {
-                s1 = peg$c80;
+                s1 = peg$c95;
                 peg$currPos++;
             }
             else {
                 s1 = peg$FAILED;
                 if (peg$silentFails === 0) {
-                    peg$fail(peg$c81);
+                    peg$fail(peg$c96);
                 }
             }
         }
@@ -9337,12 +10290,12 @@ function peg$parse(input, options) {
         else {
             s2 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c14);
+                peg$fail(peg$c29);
             }
         }
         if (s2 !== peg$FAILED) {
             peg$savedPos = peg$currPos;
-            s3 = peg$c82(s2);
+            s3 = peg$c97(s2);
             if (s3) {
                 s3 = undefined;
             }
@@ -9388,7 +10341,30 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c83);
+                peg$fail(peg$c98);
+            }
+        }
+        return s0;
+    }
+    function peg$parsevalidTag() {
+        var s0, s1;
+        peg$silentFails++;
+        s0 = peg$currPos;
+        s1 = peg$parseargNumber();
+        if (s1 === peg$FAILED) {
+            s1 = peg$parsetagName();
+        }
+        if (s1 !== peg$FAILED) {
+            s0 = input.substring(s0, peg$currPos);
+        }
+        else {
+            s0 = s1;
+        }
+        peg$silentFails--;
+        if (s0 === peg$FAILED) {
+            s1 = peg$FAILED;
+            if (peg$silentFails === 0) {
+                peg$fail(peg$c99);
             }
         }
         return s0;
@@ -9398,55 +10374,55 @@ function peg$parse(input, options) {
         peg$silentFails++;
         s0 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 48) {
-            s1 = peg$c85;
+            s1 = peg$c101;
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c86);
+                peg$fail(peg$c102);
             }
         }
         if (s1 !== peg$FAILED) {
             peg$savedPos = s0;
-            s1 = peg$c87();
+            s1 = peg$c103();
         }
         s0 = s1;
         if (s0 === peg$FAILED) {
             s0 = peg$currPos;
             s1 = peg$currPos;
-            if (peg$c88.test(input.charAt(peg$currPos))) {
+            if (peg$c104.test(input.charAt(peg$currPos))) {
                 s2 = input.charAt(peg$currPos);
                 peg$currPos++;
             }
             else {
                 s2 = peg$FAILED;
                 if (peg$silentFails === 0) {
-                    peg$fail(peg$c89);
+                    peg$fail(peg$c105);
                 }
             }
             if (s2 !== peg$FAILED) {
                 s3 = [];
-                if (peg$c90.test(input.charAt(peg$currPos))) {
+                if (peg$c106.test(input.charAt(peg$currPos))) {
                     s4 = input.charAt(peg$currPos);
                     peg$currPos++;
                 }
                 else {
                     s4 = peg$FAILED;
                     if (peg$silentFails === 0) {
-                        peg$fail(peg$c91);
+                        peg$fail(peg$c107);
                     }
                 }
                 while (s4 !== peg$FAILED) {
                     s3.push(s4);
-                    if (peg$c90.test(input.charAt(peg$currPos))) {
+                    if (peg$c106.test(input.charAt(peg$currPos))) {
                         s4 = input.charAt(peg$currPos);
                         peg$currPos++;
                     }
                     else {
                         s4 = peg$FAILED;
                         if (peg$silentFails === 0) {
-                            peg$fail(peg$c91);
+                            peg$fail(peg$c107);
                         }
                     }
                 }
@@ -9465,7 +10441,7 @@ function peg$parse(input, options) {
             }
             if (s1 !== peg$FAILED) {
                 peg$savedPos = s0;
-                s1 = peg$c92(s1);
+                s1 = peg$c108(s1);
             }
             s0 = s1;
         }
@@ -9473,7 +10449,7 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c84);
+                peg$fail(peg$c100);
             }
         }
         return s0;
@@ -9506,7 +10482,7 @@ function peg$parse(input, options) {
             else {
                 s4 = peg$FAILED;
                 if (peg$silentFails === 0) {
-                    peg$fail(peg$c14);
+                    peg$fail(peg$c29);
                 }
             }
             if (s4 !== peg$FAILED) {
@@ -9548,7 +10524,7 @@ function peg$parse(input, options) {
                     else {
                         s4 = peg$FAILED;
                         if (peg$silentFails === 0) {
-                            peg$fail(peg$c14);
+                            peg$fail(peg$c29);
                         }
                     }
                     if (s4 !== peg$FAILED) {
@@ -9579,7 +10555,137 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c93);
+                peg$fail(peg$c109);
+            }
+        }
+        return s0;
+    }
+    function peg$parsetagName() {
+        var s0, s1, s2, s3, s4;
+        peg$silentFails++;
+        s0 = peg$currPos;
+        s1 = [];
+        if (input.charCodeAt(peg$currPos) === 45) {
+            s2 = peg$c85;
+            peg$currPos++;
+        }
+        else {
+            s2 = peg$FAILED;
+            if (peg$silentFails === 0) {
+                peg$fail(peg$c86);
+            }
+        }
+        if (s2 === peg$FAILED) {
+            s2 = peg$currPos;
+            s3 = peg$currPos;
+            peg$silentFails++;
+            s4 = peg$parsewhiteSpace();
+            if (s4 === peg$FAILED) {
+                s4 = peg$parsepatternSyntax();
+            }
+            peg$silentFails--;
+            if (s4 === peg$FAILED) {
+                s3 = undefined;
+            }
+            else {
+                peg$currPos = s3;
+                s3 = peg$FAILED;
+            }
+            if (s3 !== peg$FAILED) {
+                if (input.length > peg$currPos) {
+                    s4 = input.charAt(peg$currPos);
+                    peg$currPos++;
+                }
+                else {
+                    s4 = peg$FAILED;
+                    if (peg$silentFails === 0) {
+                        peg$fail(peg$c29);
+                    }
+                }
+                if (s4 !== peg$FAILED) {
+                    s3 = [s3, s4];
+                    s2 = s3;
+                }
+                else {
+                    peg$currPos = s2;
+                    s2 = peg$FAILED;
+                }
+            }
+            else {
+                peg$currPos = s2;
+                s2 = peg$FAILED;
+            }
+        }
+        if (s2 !== peg$FAILED) {
+            while (s2 !== peg$FAILED) {
+                s1.push(s2);
+                if (input.charCodeAt(peg$currPos) === 45) {
+                    s2 = peg$c85;
+                    peg$currPos++;
+                }
+                else {
+                    s2 = peg$FAILED;
+                    if (peg$silentFails === 0) {
+                        peg$fail(peg$c86);
+                    }
+                }
+                if (s2 === peg$FAILED) {
+                    s2 = peg$currPos;
+                    s3 = peg$currPos;
+                    peg$silentFails++;
+                    s4 = peg$parsewhiteSpace();
+                    if (s4 === peg$FAILED) {
+                        s4 = peg$parsepatternSyntax();
+                    }
+                    peg$silentFails--;
+                    if (s4 === peg$FAILED) {
+                        s3 = undefined;
+                    }
+                    else {
+                        peg$currPos = s3;
+                        s3 = peg$FAILED;
+                    }
+                    if (s3 !== peg$FAILED) {
+                        if (input.length > peg$currPos) {
+                            s4 = input.charAt(peg$currPos);
+                            peg$currPos++;
+                        }
+                        else {
+                            s4 = peg$FAILED;
+                            if (peg$silentFails === 0) {
+                                peg$fail(peg$c29);
+                            }
+                        }
+                        if (s4 !== peg$FAILED) {
+                            s3 = [s3, s4];
+                            s2 = s3;
+                        }
+                        else {
+                            peg$currPos = s2;
+                            s2 = peg$FAILED;
+                        }
+                    }
+                    else {
+                        peg$currPos = s2;
+                        s2 = peg$FAILED;
+                    }
+                }
+            }
+        }
+        else {
+            s1 = peg$FAILED;
+        }
+        if (s1 !== peg$FAILED) {
+            s0 = input.substring(s0, peg$currPos);
+        }
+        else {
+            s0 = s1;
+        }
+        peg$silentFails--;
+        if (s0 === peg$FAILED) {
+            s1 = peg$FAILED;
+            if (peg$silentFails === 0) {
+                peg$fail(peg$c110);
             }
         }
         return s0;
@@ -9982,6 +11088,10 @@ var TYPE;
      * This is the `#` symbol that will be substituted with the count.
      */
     TYPE[TYPE["pound"] = 7] = "pound";
+    /**
+     * XML-like tag
+     */
+    TYPE[TYPE["tag"] = 8] = "tag";
 })(TYPE = exports.TYPE || (exports.TYPE = {}));
 /**
  * Type Guards
@@ -10018,6 +11128,10 @@ function isPoundElement(el) {
     return el.type === TYPE.pound;
 }
 exports.isPoundElement = isPoundElement;
+function isTagElement(el) {
+    return el.type === TYPE.tag;
+}
+exports.isTagElement = isTagElement;
 function isNumberSkeleton(el) {
     return !!(el && typeof el === 'object' && el.type === 0 /* number */);
 }
@@ -10116,13 +11230,29 @@ var IntlMessageFormat = /** @class */ (function () {
             pluralRules: {},
         };
         this.format = function (values) {
-            return formatters_1.formatToString(_this.ast, _this.locales, _this.formatters, _this.formats, values, _this.message);
+            var parts = _this.formatToParts(values);
+            // Hot path for straight simple msg translations
+            if (parts.length === 1) {
+                return parts[0].value;
+            }
+            var result = parts.reduce(function (all, part) {
+                if (!all.length ||
+                    part.type !== 0 /* literal */ ||
+                    typeof all[all.length - 1] !== 'string') {
+                    all.push(part.value);
+                }
+                else {
+                    all[all.length - 1] += part.value;
+                }
+                return all;
+            }, []);
+            if (result.length <= 1) {
+                return result[0] || '';
+            }
+            return result;
         };
         this.formatToParts = function (values) {
             return formatters_1.formatToParts(_this.ast, _this.locales, _this.formatters, _this.formats, values, undefined, _this.message);
-        };
-        this.formatHTMLMessage = function (values) {
-            return formatters_1.formatHTMLMessage(_this.ast, _this.locales, _this.formatters, _this.formats, values, _this.message);
         };
         this.resolvedOptions = function () { return ({
             locale: Intl.NumberFormat.supportedLocalesOf(_this.locales)[0],
@@ -10221,10 +11351,10 @@ exports.default = IntlMessageFormat;
 
 /***/ }),
 
-/***/ "./node_modules/intl-messageformat/dist/formatters.js":
-/*!************************************************************!*\
-  !*** ./node_modules/intl-messageformat/dist/formatters.js ***!
-  \************************************************************/
+/***/ "./node_modules/intl-messageformat/dist/error.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/intl-messageformat/dist/error.js ***!
+  \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10243,24 +11373,52 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var intl_messageformat_parser_1 = __webpack_require__(/*! intl-messageformat-parser */ "./node_modules/intl-messageformat-parser/dist/index.js");
 var FormatError = /** @class */ (function (_super) {
     __extends(FormatError, _super);
-    function FormatError(msg, variableId) {
+    function FormatError(msg, code) {
         var _this = _super.call(this, msg) || this;
-        _this.variableId = variableId;
+        _this.code = code;
         return _this;
     }
+    FormatError.prototype.toString = function () {
+        return "[formatjs Error: " + this.code + "] " + this.message;
+    };
     return FormatError;
 }(Error));
+exports.FormatError = FormatError;
+var InvalidValueError = /** @class */ (function (_super) {
+    __extends(InvalidValueError, _super);
+    function InvalidValueError(variableId, value, options) {
+        return _super.call(this, "Invalid values for \"" + variableId + "\": \"" + value + "\". Options are \"" + Object.keys(options).join('", "') + "\"", 1 /* INVALID_VALUE */) || this;
+    }
+    return InvalidValueError;
+}(FormatError));
+exports.InvalidValueError = InvalidValueError;
+var MissingValueError = /** @class */ (function (_super) {
+    __extends(MissingValueError, _super);
+    function MissingValueError(variableId, originalMessage) {
+        return _super.call(this, "The intl string context variable \"" + variableId + "\" was not provided to the string \"" + originalMessage + "\"", 0 /* MISSING_VALUE */) || this;
+    }
+    return MissingValueError;
+}(FormatError));
+exports.MissingValueError = MissingValueError;
+
+
+/***/ }),
+
+/***/ "./node_modules/intl-messageformat/dist/formatters.js":
+/*!************************************************************!*\
+  !*** ./node_modules/intl-messageformat/dist/formatters.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var intl_messageformat_parser_1 = __webpack_require__(/*! intl-messageformat-parser */ "./node_modules/intl-messageformat-parser/dist/index.js");
+var error_1 = __webpack_require__(/*! ./error */ "./node_modules/intl-messageformat/dist/error.js");
 function mergeLiteral(parts) {
     if (parts.length < 2) {
         return parts;
@@ -10277,6 +11435,9 @@ function mergeLiteral(parts) {
         }
         return all;
     }, []);
+}
+function isFormatXMLElementFn(el) {
+    return typeof el === 'function';
 }
 // TODO(skeleton): add skeleton support
 function formatToParts(els, locales, formatters, formats, values, currentPluralValue, 
@@ -10316,7 +11477,7 @@ originalMessage) {
         var varName = el.value;
         // Enforce that all required values are provided by the caller.
         if (!(values && varName in values)) {
-            throw new FormatError("The intl string context variable \"" + varName + "\" was not provided to the string \"" + originalMessage + "\"");
+            throw new error_1.MissingValueError(varName, originalMessage);
         }
         var value = values[varName];
         if (intl_messageformat_parser_1.isArgumentElement(el)) {
@@ -10327,7 +11488,7 @@ originalMessage) {
                         : '';
             }
             result.push({
-                type: 1 /* argument */,
+                type: typeof value === 'string' ? 0 /* literal */ : 1 /* object */,
                 value: value,
             });
             continue;
@@ -10373,10 +11534,28 @@ originalMessage) {
             });
             continue;
         }
+        if (intl_messageformat_parser_1.isTagElement(el)) {
+            var children = el.children, value_1 = el.value;
+            var formatFn = values[value_1];
+            if (!isFormatXMLElementFn(formatFn)) {
+                throw new TypeError("Value for \"" + value_1 + "\" must be a function");
+            }
+            var parts = formatToParts(children, locales, formatters, formats, values);
+            var chunks = formatFn.apply(void 0, parts.map(function (p) { return p.value; }));
+            if (!Array.isArray(chunks)) {
+                chunks = [chunks];
+            }
+            result.push.apply(result, chunks.map(function (c) {
+                return {
+                    type: typeof c === 'string' ? 0 /* literal */ : 1 /* object */,
+                    value: c,
+                };
+            }));
+        }
         if (intl_messageformat_parser_1.isSelectElement(el)) {
             var opt = el.options[value] || el.options.other;
             if (!opt) {
-                throw new RangeError("Invalid values for \"" + el.value + "\": \"" + value + "\". Options are \"" + Object.keys(el.options).join('", "') + "\"");
+                throw new error_1.InvalidValueError(el.value, value, Object.keys(el.options));
             }
             result.push.apply(result, formatToParts(opt.value, locales, formatters, formats, values));
             continue;
@@ -10385,7 +11564,7 @@ originalMessage) {
             var opt = el.options["=" + value];
             if (!opt) {
                 if (!Intl.PluralRules) {
-                    throw new FormatError("Intl.PluralRules is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-pluralrules\"\n");
+                    throw new error_1.FormatError("Intl.PluralRules is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-pluralrules\"\n", 2 /* MISSING_INTL_API */);
                 }
                 var rule = formatters
                     .getPluralRules(locales, { type: el.pluralType })
@@ -10393,7 +11572,7 @@ originalMessage) {
                 opt = el.options[rule] || el.options.other;
             }
             if (!opt) {
-                throw new RangeError("Invalid values for \"" + el.value + "\": \"" + value + "\". Options are \"" + Object.keys(el.options).join('", "') + "\"");
+                throw new error_1.InvalidValueError(el.value, value, Object.keys(el.options));
             }
             result.push.apply(result, formatToParts(opt.value, locales, formatters, formats, values, value - (el.offset || 0)));
             continue;
@@ -10402,141 +11581,6 @@ originalMessage) {
     return mergeLiteral(result);
 }
 exports.formatToParts = formatToParts;
-function formatToString(els, locales, formatters, formats, values, 
-// For debugging
-originalMessage) {
-    var parts = formatToParts(els, locales, formatters, formats, values, undefined, originalMessage);
-    // Hot path for straight simple msg translations
-    if (parts.length === 1) {
-        return parts[0].value;
-    }
-    return parts.reduce(function (all, part) { return (all += part.value); }, '');
-}
-exports.formatToString = formatToString;
-// Singleton
-var domParser;
-var TOKEN_DELIMITER = '@@';
-var TOKEN_REGEX = /@@(\d+_\d+)@@/g;
-var counter = 0;
-function generateId() {
-    return Date.now() + "_" + ++counter;
-}
-function restoreRichPlaceholderMessage(text, objectParts) {
-    return text
-        .split(TOKEN_REGEX)
-        .filter(Boolean)
-        .map(function (c) { return (objectParts[c] != null ? objectParts[c] : c); })
-        .reduce(function (all, c) {
-        if (!all.length) {
-            all.push(c);
-        }
-        else if (typeof c === 'string' &&
-            typeof all[all.length - 1] === 'string') {
-            all[all.length - 1] += c;
-        }
-        else {
-            all.push(c);
-        }
-        return all;
-    }, []);
-}
-/**
- * Not exhaustive, just for sanity check
- */
-var SIMPLE_XML_REGEX = /(<([0-9a-zA-Z-_]*?)>(.*?)<\/([0-9a-zA-Z-_]*?)>)|(<[0-9a-zA-Z-_]*?\/>)/;
-var TEMPLATE_ID = Date.now() + '@@';
-var VOID_ELEMENTS = [
-    'area',
-    'base',
-    'br',
-    'col',
-    'embed',
-    'hr',
-    'img',
-    'input',
-    'link',
-    'meta',
-    'param',
-    'source',
-    'track',
-    'wbr',
-];
-function formatHTMLElement(el, objectParts, values) {
-    var tagName = el.tagName;
-    var outerHTML = el.outerHTML, textContent = el.textContent, childNodes = el.childNodes;
-    // Regular text
-    if (!tagName) {
-        return restoreRichPlaceholderMessage(textContent || '', objectParts);
-    }
-    tagName = tagName.toLowerCase();
-    var isVoidElement = ~VOID_ELEMENTS.indexOf(tagName);
-    var formatFnOrValue = values[tagName];
-    if (formatFnOrValue && isVoidElement) {
-        throw new FormatError(tagName + " is a self-closing tag and can not be used, please use another tag name.");
-    }
-    if (!childNodes.length) {
-        return [outerHTML];
-    }
-    var chunks = Array.prototype.slice.call(childNodes).reduce(function (all, child) {
-        return all.concat(formatHTMLElement(child, objectParts, values));
-    }, []);
-    // Legacy HTML
-    if (!formatFnOrValue) {
-        return __spreadArrays(["<" + tagName + ">"], chunks, ["</" + tagName + ">"]);
-    }
-    // HTML Tag replacement
-    if (typeof formatFnOrValue === 'function') {
-        return [formatFnOrValue.apply(void 0, chunks)];
-    }
-    return [formatFnOrValue];
-}
-function formatHTMLMessage(els, locales, formatters, formats, values, 
-// For debugging
-originalMessage) {
-    var parts = formatToParts(els, locales, formatters, formats, values, undefined, originalMessage);
-    var objectParts = {};
-    var formattedMessage = parts.reduce(function (all, part) {
-        if (part.type === 0 /* literal */) {
-            return (all += part.value);
-        }
-        var id = generateId();
-        objectParts[id] = part.value;
-        return (all += "" + TOKEN_DELIMITER + id + TOKEN_DELIMITER);
-    }, '');
-    // Not designed to filter out aggressively
-    if (!SIMPLE_XML_REGEX.test(formattedMessage)) {
-        return restoreRichPlaceholderMessage(formattedMessage, objectParts);
-    }
-    if (!values) {
-        throw new FormatError('Message has placeholders but no values was given');
-    }
-    if (typeof DOMParser === 'undefined') {
-        throw new FormatError('Cannot format XML message without DOMParser');
-    }
-    if (!domParser) {
-        domParser = new DOMParser();
-    }
-    var content = domParser
-        .parseFromString("<formatted-message id=\"" + TEMPLATE_ID + "\">" + formattedMessage + "</formatted-message>", 'text/html')
-        .getElementById(TEMPLATE_ID);
-    if (!content) {
-        throw new FormatError("Malformed HTML message " + formattedMessage);
-    }
-    var tagsToFormat = Object.keys(values).filter(function (varName) { return !!content.getElementsByTagName(varName).length; });
-    // No tags to format
-    if (!tagsToFormat.length) {
-        return restoreRichPlaceholderMessage(formattedMessage, objectParts);
-    }
-    var caseSensitiveTags = tagsToFormat.filter(function (tagName) { return tagName !== tagName.toLowerCase(); });
-    if (caseSensitiveTags.length) {
-        throw new FormatError("HTML tag must be lowercased but the following tags are not: " + caseSensitiveTags.join(', '));
-    }
-    // We're doing this since top node is `<formatted-message/>` which does not have a formatter
-    return Array.prototype.slice
-        .call(content.childNodes)
-        .reduce(function (all, child) { return all.concat(formatHTMLElement(child, objectParts, values)); }, []);
-}
-exports.formatHTMLMessage = formatHTMLMessage;
 
 
 /***/ }),
@@ -10562,6 +11606,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! ./core */ "./node_modules/intl-messageformat/dist/core.js");
 __export(__webpack_require__(/*! ./formatters */ "./node_modules/intl-messageformat/dist/formatters.js"));
 __export(__webpack_require__(/*! ./core */ "./node_modules/intl-messageformat/dist/core.js"));
+__export(__webpack_require__(/*! ./error */ "./node_modules/intl-messageformat/dist/error.js"));
 exports.default = core_1.default;
 
 
@@ -17003,6 +18048,79 @@ function isObjectLike(value) {
 }
 
 module.exports = isObjectLike;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isPlainObject.js":
+/*!**********************************************!*\
+  !*** ./node_modules/lodash/isPlainObject.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
+    getPrototype = __webpack_require__(/*! ./_getPrototype */ "./node_modules/lodash/_getPrototype.js"),
+    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
+
+/** `Object#toString` result references. */
+var objectTag = '[object Object]';
+
+/** Used for built-in method references. */
+var funcProto = Function.prototype,
+    objectProto = Object.prototype;
+
+/** Used to resolve the decompiled source of functions. */
+var funcToString = funcProto.toString;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/** Used to infer the `Object` constructor. */
+var objectCtorString = funcToString.call(Object);
+
+/**
+ * Checks if `value` is a plain object, that is, an object created by the
+ * `Object` constructor or one with a `[[Prototype]]` of `null`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.8.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ * }
+ *
+ * _.isPlainObject(new Foo);
+ * // => false
+ *
+ * _.isPlainObject([1, 2, 3]);
+ * // => false
+ *
+ * _.isPlainObject({ 'x': 0, 'y': 0 });
+ * // => true
+ *
+ * _.isPlainObject(Object.create(null));
+ * // => true
+ */
+function isPlainObject(value) {
+  if (!isObjectLike(value) || baseGetTag(value) != objectTag) {
+    return false;
+  }
+  var proto = getPrototype(value);
+  if (proto === null) {
+    return true;
+  }
+  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
+  return typeof Ctor == 'function' && Ctor instanceof Ctor &&
+    funcToString.call(Ctor) == objectCtorString;
+}
+
+module.exports = isPlainObject;
 
 
 /***/ }),
@@ -46670,93 +47788,6 @@ exports.createFormattedComponent = createFormattedComponent;
 
 /***/ }),
 
-/***/ "./node_modules/react-intl/dist/components/html-message.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/react-intl/dist/components/html-message.js ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/*
- * Copyright 2015, Yahoo Inc.
- * Copyrights licensed under the New BSD License.
- * See the accompanying LICENSE file for terms.
- */
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var message_1 = __webpack_require__(/*! ./message */ "./node_modules/react-intl/dist/components/message.js");
-var injectIntl_1 = __webpack_require__(/*! ./injectIntl */ "./node_modules/react-intl/dist/components/injectIntl.js");
-var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
-var FormattedHTMLMessage = /** @class */ (function (_super) {
-    __extends(FormattedHTMLMessage, _super);
-    function FormattedHTMLMessage() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    FormattedHTMLMessage.prototype.render = function () {
-        var _this = this;
-        return (React.createElement(injectIntl_1.Context.Consumer, null, function (intl) {
-            if (!_this.props.defaultMessage) {
-                utils_1.invariantIntlContext(intl);
-            }
-            var formatHTMLMessage = intl.formatHTMLMessage, textComponent = intl.textComponent;
-            var _a = _this.props, id = _a.id, description = _a.description, defaultMessage = _a.defaultMessage, rawValues = _a.values, children = _a.children;
-            var Component = _this.props.tagName;
-            // This is bc of TS3.3 doesn't recognize `defaultProps`
-            if (!Component) {
-                Component = textComponent || 'span';
-            }
-            var descriptor = { id: id, description: description, defaultMessage: defaultMessage };
-            var formattedHTMLMessage = formatHTMLMessage(descriptor, rawValues);
-            if (typeof children === 'function') {
-                return children(formattedHTMLMessage);
-            }
-            // Since the message presumably has HTML in it, we need to set
-            // `innerHTML` in order for it to be rendered and not escaped by React.
-            // To be safe, all string prop values were escaped when formatting the
-            // message. It is assumed that the message is not UGC, and came from the
-            // developer making it more like a template.
-            //
-            // Note: There's a perf impact of using this component since there's no
-            // way for React to do its virtual DOM diffing.
-            var html = { __html: formattedHTMLMessage };
-            return React.createElement(Component, { dangerouslySetInnerHTML: html });
-        }));
-    };
-    FormattedHTMLMessage.displayName = 'FormattedHTMLMessage';
-    FormattedHTMLMessage.defaultProps = __assign(__assign({}, message_1.default.defaultProps), { tagName: 'span' });
-    return FormattedHTMLMessage;
-}(message_1.default));
-exports.default = FormattedHTMLMessage;
-
-
-/***/ }),
-
 /***/ "./node_modules/react-intl/dist/components/injectIntl.js":
 /*!***************************************************************!*\
   !*** ./node_modules/react-intl/dist/components/injectIntl.js ***!
@@ -46880,12 +47911,12 @@ var message_1 = __webpack_require__(/*! ../formatters/message */ "./node_modules
 var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
 var shallowEquals_ = __webpack_require__(/*! shallow-equal/objects */ "./node_modules/shallow-equal/objects/index.js");
 var shallowEquals = shallowEquals_.default || shallowEquals_;
-var defaultFormatMessage = function (descriptor, values) {
+function defaultFormatMessage(descriptor, values) {
     if (true) {
         console.error('[React Intl] Could not find required `intl` object. <IntlProvider> needs to exist in the component ancestry. Using default message as fallback.');
     }
     return message_1.formatMessage(__assign(__assign({}, utils_1.DEFAULT_INTL_CONFIG), { locale: 'en' }), utils_1.createFormatters(), descriptor, values);
-};
+}
 var FormattedMessage = /** @class */ (function (_super) {
     __extends(FormattedMessage, _super);
     function FormattedMessage() {
@@ -47021,6 +48052,7 @@ var message_1 = __webpack_require__(/*! ../formatters/message */ "./node_modules
 var shallowEquals_ = __webpack_require__(/*! shallow-equal/objects */ "./node_modules/shallow-equal/objects/index.js");
 var list_1 = __webpack_require__(/*! ../formatters/list */ "./node_modules/react-intl/dist/formatters/list.js");
 var displayName_1 = __webpack_require__(/*! ../formatters/displayName */ "./node_modules/react-intl/dist/formatters/displayName.js");
+var error_1 = __webpack_require__(/*! ../error */ "./node_modules/react-intl/dist/error.js");
 var shallowEquals = shallowEquals_.default || shallowEquals_;
 function processIntlConfig(config) {
     return {
@@ -47045,7 +48077,7 @@ function createIntl(config, cache) {
     var locale = resolvedConfig.locale, defaultLocale = resolvedConfig.defaultLocale, onError = resolvedConfig.onError;
     if (!locale) {
         if (onError) {
-            onError(utils_1.createError("\"locale\" was not configured, using \"" + defaultLocale + "\" as fallback. See https://github.com/formatjs/react-intl/blob/master/docs/API.md#intlshape for more details"));
+            onError(new error_1.ReactIntlError("INVALID_CONFIG" /* INVALID_CONFIG */, "\"locale\" was not configured, using \"" + defaultLocale + "\" as fallback. See https://github.com/formatjs/react-intl/blob/master/docs/API.md#intlshape for more details"));
         }
         // Since there's no registered locale data for `locale`, this will
         // fallback to the `defaultLocale` to make sure things can render.
@@ -47055,13 +48087,13 @@ function createIntl(config, cache) {
         resolvedConfig.locale = resolvedConfig.defaultLocale || 'en';
     }
     else if (!Intl.NumberFormat.supportedLocalesOf(locale).length && onError) {
-        onError(utils_1.createError("Missing locale data for locale: \"" + locale + "\" in Intl.NumberFormat. Using default locale: \"" + defaultLocale + "\" as fallback. See https://github.com/formatjs/react-intl/blob/master/docs/Getting-Started.md#runtime-requirements for more details"));
+        onError(new error_1.ReactIntlError("MISSING_DATA" /* MISSING_DATA */, "Missing locale data for locale: \"" + locale + "\" in Intl.NumberFormat. Using default locale: \"" + defaultLocale + "\" as fallback. See https://github.com/formatjs/react-intl/blob/master/docs/Getting-Started.md#runtime-requirements for more details"));
     }
     else if (!Intl.DateTimeFormat.supportedLocalesOf(locale).length &&
         onError) {
-        onError(utils_1.createError("Missing locale data for locale: \"" + locale + "\" in Intl.DateTimeFormat. Using default locale: \"" + defaultLocale + "\" as fallback. See https://github.com/formatjs/react-intl/blob/master/docs/Getting-Started.md#runtime-requirements for more details"));
+        onError(new error_1.ReactIntlError("MISSING_DATA" /* MISSING_DATA */, "Missing locale data for locale: \"" + locale + "\" in Intl.DateTimeFormat. Using default locale: \"" + defaultLocale + "\" as fallback. See https://github.com/formatjs/react-intl/blob/master/docs/Getting-Started.md#runtime-requirements for more details"));
     }
-    return __assign(__assign({}, resolvedConfig), { formatters: formatters, formatNumber: number_1.formatNumber.bind(null, resolvedConfig, formatters.getNumberFormat), formatNumberToParts: number_1.formatNumberToParts.bind(null, resolvedConfig, formatters.getNumberFormat), formatRelativeTime: relativeTime_1.formatRelativeTime.bind(null, resolvedConfig, formatters.getRelativeTimeFormat), formatDate: dateTime_1.formatDate.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatDateToParts: dateTime_1.formatDateToParts.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatTime: dateTime_1.formatTime.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatTimeToParts: dateTime_1.formatTimeToParts.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatPlural: plural_1.formatPlural.bind(null, resolvedConfig, formatters.getPluralRules), formatMessage: message_1.formatMessage.bind(null, resolvedConfig, formatters), formatHTMLMessage: message_1.formatHTMLMessage.bind(null, resolvedConfig, formatters), formatList: list_1.formatList.bind(null, resolvedConfig, formatters.getListFormat), formatDisplayName: displayName_1.formatDisplayName.bind(null, resolvedConfig, formatters.getDisplayNames) });
+    return __assign(__assign({}, resolvedConfig), { formatters: formatters, formatNumber: number_1.formatNumber.bind(null, resolvedConfig, formatters.getNumberFormat), formatNumberToParts: number_1.formatNumberToParts.bind(null, resolvedConfig, formatters.getNumberFormat), formatRelativeTime: relativeTime_1.formatRelativeTime.bind(null, resolvedConfig, formatters.getRelativeTimeFormat), formatDate: dateTime_1.formatDate.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatDateToParts: dateTime_1.formatDateToParts.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatTime: dateTime_1.formatTime.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatTimeToParts: dateTime_1.formatTimeToParts.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatPlural: plural_1.formatPlural.bind(null, resolvedConfig, formatters.getPluralRules), formatMessage: message_1.formatMessage.bind(null, resolvedConfig, formatters), formatList: list_1.formatList.bind(null, resolvedConfig, formatters.getListFormat), formatDisplayName: displayName_1.formatDisplayName.bind(null, resolvedConfig, formatters.getDisplayNames) });
 }
 exports.createIntl = createIntl;
 var IntlProvider = /** @class */ (function (_super) {
@@ -47320,6 +48352,46 @@ exports.default = useIntl;
 
 /***/ }),
 
+/***/ "./node_modules/react-intl/dist/error.js":
+/*!***********************************************!*\
+  !*** ./node_modules/react-intl/dist/error.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var ReactIntlError = /** @class */ (function (_super) {
+    __extends(ReactIntlError, _super);
+    function ReactIntlError(code, message, exception) {
+        var _this = _super.call(this, "[React Intl Error " + code + "] " + message + " " + (exception ? "\n" + exception.stack : '')) || this;
+        _this.code = code;
+        if (typeof Error.captureStackTrace === 'function') {
+            Error.captureStackTrace(_this, ReactIntlError);
+        }
+        return _this;
+    }
+    return ReactIntlError;
+}(Error));
+exports.ReactIntlError = ReactIntlError;
+
+
+/***/ }),
+
 /***/ "./node_modules/react-intl/dist/formatters/dateTime.js":
 /*!*************************************************************!*\
   !*** ./node_modules/react-intl/dist/formatters/dateTime.js ***!
@@ -47347,6 +48419,7 @@ var __assign = (this && this.__assign) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
+var error_1 = __webpack_require__(/*! ../error */ "./node_modules/react-intl/dist/error.js");
 var DATE_TIME_FORMAT_OPTIONS = [
     'localeMatcher',
     'formatMatcher',
@@ -47385,7 +48458,7 @@ function formatDate(config, getDateTimeFormat, value, options) {
         return getFormatter(config, 'date', getDateTimeFormat, options).format(date);
     }
     catch (e) {
-        config.onError(utils_1.createError('Error formatting date.', e));
+        config.onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting date.', e));
     }
     return String(date);
 }
@@ -47397,7 +48470,7 @@ function formatTime(config, getDateTimeFormat, value, options) {
         return getFormatter(config, 'time', getDateTimeFormat, options).format(date);
     }
     catch (e) {
-        config.onError(utils_1.createError('Error formatting time.', e));
+        config.onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting time.', e));
     }
     return String(date);
 }
@@ -47409,7 +48482,7 @@ function formatDateToParts(config, getDateTimeFormat, value, options) {
         return getFormatter(config, 'date', getDateTimeFormat, options).formatToParts(date);
     }
     catch (e) {
-        config.onError(utils_1.createError('Error formatting date.', e));
+        config.onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting date.', e));
     }
     return [];
 }
@@ -47421,7 +48494,7 @@ function formatTimeToParts(config, getDateTimeFormat, value, options) {
         return getFormatter(config, 'time', getDateTimeFormat, options).formatToParts(date);
     }
     catch (e) {
-        config.onError(utils_1.createError('Error formatting time.', e));
+        config.onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting time.', e));
     }
     return [];
 }
@@ -47441,6 +48514,8 @@ exports.formatTimeToParts = formatTimeToParts;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
+var intl_messageformat_1 = __webpack_require__(/*! intl-messageformat */ "./node_modules/intl-messageformat/dist/index.js");
+var error_1 = __webpack_require__(/*! ../error */ "./node_modules/react-intl/dist/error.js");
 var DISPLAY_NAMES_OPTONS = [
     'localeMatcher',
     'style',
@@ -47452,14 +48527,14 @@ function formatDisplayName(_a, getDisplayNames, value, options) {
     if (options === void 0) { options = {}; }
     var DisplayNames = Intl.DisplayNames;
     if (!DisplayNames) {
-        onError(utils_1.createError("Intl.DisplayNames is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-displaynames\"\n"));
+        onError(new intl_messageformat_1.FormatError("Intl.DisplayNames is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-displaynames\"\n", 2 /* MISSING_INTL_API */));
     }
     var filteredOptions = utils_1.filterProps(options, DISPLAY_NAMES_OPTONS);
     try {
         return getDisplayNames(locale, filteredOptions).of(value);
     }
     catch (e) {
-        onError(utils_1.createError('Error formatting display name.', e));
+        onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting display name.', e));
     }
 }
 exports.formatDisplayName = formatDisplayName;
@@ -47478,6 +48553,8 @@ exports.formatDisplayName = formatDisplayName;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
+var intl_messageformat_1 = __webpack_require__(/*! intl-messageformat */ "./node_modules/intl-messageformat/dist/index.js");
+var error_1 = __webpack_require__(/*! ../error */ "./node_modules/react-intl/dist/error.js");
 var LIST_FORMAT_OPTIONS = [
     'localeMatcher',
     'type',
@@ -47492,7 +48569,7 @@ function formatList(_a, getListFormat, values, options) {
     if (options === void 0) { options = {}; }
     var ListFormat = Intl.ListFormat;
     if (!ListFormat) {
-        onError(utils_1.createError("Intl.ListFormat is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-listformat\"\n"));
+        onError(new intl_messageformat_1.FormatError("Intl.ListFormat is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-listformat\"\n", 2 /* MISSING_INTL_API */));
     }
     var filteredOptions = utils_1.filterProps(options, LIST_FORMAT_OPTIONS);
     try {
@@ -47524,7 +48601,7 @@ function formatList(_a, getListFormat, values, options) {
         }, []);
     }
     catch (e) {
-        onError(utils_1.createError('Error formatting list.', e));
+        onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting list.', e));
     }
     return values;
 }
@@ -47568,8 +48645,8 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var intl_utils_1 = __webpack_require__(/*! @formatjs/intl-utils */ "./node_modules/@formatjs/intl-utils/dist/index.js");
-var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
 var intl_messageformat_1 = __webpack_require__(/*! intl-messageformat */ "./node_modules/intl-messageformat/dist/index.js");
+var error_1 = __webpack_require__(/*! ../error */ "./node_modules/react-intl/dist/error.js");
 function setTimeZoneInOptions(opts, timeZone) {
     return Object.keys(opts).reduce(function (all, k) {
         all[k] = __assign({ timeZone: timeZone }, opts[k]);
@@ -47601,67 +48678,50 @@ function formatMessage(_a, state, messageDescriptor, values) {
     var message = messages && messages[String(id)];
     formats = deepMergeFormatsAndSetTimeZone(formats, timeZone);
     defaultFormats = deepMergeFormatsAndSetTimeZone(defaultFormats, timeZone);
-    var formattedMessageParts = [];
+    var formattedMessageParts = '';
     if (message) {
         try {
             var formatter = state.getMessageFormat(message, locale, formats, {
                 formatters: state,
             });
-            formattedMessageParts = formatter.formatHTMLMessage(values);
+            formattedMessageParts = formatter.format(values);
         }
         catch (e) {
-            onError(utils_1.createError("Error formatting message: \"" + id + "\" for locale: \"" + locale + "\"" +
+            onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, "Error formatting message: \"" + id + "\" for locale: \"" + locale + "\"" +
                 (defaultMessage ? ', using default message as fallback.' : ''), e));
         }
     }
-    else {
+    else if (!defaultMessage ||
+        (locale && locale.toLowerCase() !== defaultLocale.toLowerCase())) {
         // This prevents warnings from littering the console in development
         // when no `messages` are passed into the <IntlProvider> for the
-        // default locale, and a default message is in the source.
-        if (!defaultMessage ||
-            (locale && locale.toLowerCase() !== defaultLocale.toLowerCase())) {
-            onError(utils_1.createError("Missing message: \"" + id + "\" for locale: \"" + locale + "\"" +
-                (defaultMessage ? ', using default message as fallback.' : '')));
-        }
+        // default locale.
+        onError(new error_1.ReactIntlError("MISSING_TRANSLATION" /* MISSING_TRANSLATION */, "Missing message: \"" + id + "\" for locale: \"" + locale + "\"" +
+            (defaultMessage ? ', using default message as fallback.' : '')));
     }
-    if (!formattedMessageParts.length && defaultMessage) {
+    if (!formattedMessageParts && defaultMessage) {
         try {
             var formatter = state.getMessageFormat(defaultMessage, defaultLocale, defaultFormats);
-            formattedMessageParts = formatter.formatHTMLMessage(values);
+            formattedMessageParts = formatter.format(values);
         }
         catch (e) {
-            onError(utils_1.createError("Error formatting the default message for: \"" + id + "\"", e));
+            onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, "Error formatting the default message for: \"" + id + "\"", e));
         }
     }
-    if (!formattedMessageParts.length) {
-        onError(utils_1.createError("Cannot format message: \"" + id + "\", " +
+    if (!formattedMessageParts) {
+        onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, "Cannot format message: \"" + id + "\", " +
             ("using message " + (message || defaultMessage ? 'source' : 'id') + " as fallback.")));
         if (typeof message === 'string') {
             return message || defaultMessage || String(id);
         }
         return defaultMessage || String(id);
     }
-    if (formattedMessageParts.length === 1 &&
-        typeof formattedMessageParts[0] === 'string') {
-        return formattedMessageParts[0] || defaultMessage || String(id);
+    if (Array.isArray(formattedMessageParts)) {
+        return exports.prepareIntlMessageFormatHtmlOutput(formattedMessageParts);
     }
-    return exports.prepareIntlMessageFormatHtmlOutput(formattedMessageParts);
+    return formattedMessageParts;
 }
 exports.formatMessage = formatMessage;
-function formatHTMLMessage(config, state, messageDescriptor, rawValues) {
-    if (messageDescriptor === void 0) { messageDescriptor = { id: '' }; }
-    if (rawValues === void 0) { rawValues = {}; }
-    // Process all the values before they are used when formatting the ICU
-    // Message string. Since the formatted message might be injected via
-    // `innerHTML`, all String-based values need to be HTML-escaped.
-    var escapedValues = Object.keys(rawValues).reduce(function (escaped, name) {
-        var value = rawValues[name];
-        escaped[name] = typeof value === 'string' ? utils_1.escape(value) : value;
-        return escaped;
-    }, {});
-    return formatMessage(config, state, messageDescriptor, escapedValues);
-}
-exports.formatHTMLMessage = formatHTMLMessage;
 
 
 /***/ }),
@@ -47677,6 +48737,7 @@ exports.formatHTMLMessage = formatHTMLMessage;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
+var error_1 = __webpack_require__(/*! ../error */ "./node_modules/react-intl/dist/error.js");
 var NUMBER_FORMAT_OPTIONS = [
     'localeMatcher',
     'style',
@@ -47716,7 +48777,7 @@ function formatNumber(config, getNumberFormat, value, options) {
         return getFormatter(config, getNumberFormat, options).format(value);
     }
     catch (e) {
-        config.onError(utils_1.createError('Error formatting number.', e));
+        config.onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting number.', e));
     }
     return String(value);
 }
@@ -47727,7 +48788,7 @@ function formatNumberToParts(config, getNumberFormat, value, options) {
         return getFormatter(config, getNumberFormat, options).formatToParts(value);
     }
     catch (e) {
-        config.onError(utils_1.createError('Error formatting number.', e));
+        config.onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting number.', e));
     }
     return [];
 }
@@ -47747,6 +48808,8 @@ exports.formatNumberToParts = formatNumberToParts;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
+var error_1 = __webpack_require__(/*! ../error */ "./node_modules/react-intl/dist/error.js");
+var intl_messageformat_1 = __webpack_require__(/*! intl-messageformat */ "./node_modules/intl-messageformat/dist/index.js");
 var PLURAL_FORMAT_OPTIONS = [
     'localeMatcher',
     'type',
@@ -47755,14 +48818,14 @@ function formatPlural(_a, getPluralRules, value, options) {
     var locale = _a.locale, onError = _a.onError;
     if (options === void 0) { options = {}; }
     if (!Intl.PluralRules) {
-        onError(utils_1.createError("Intl.PluralRules is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-pluralrules\"\n"));
+        onError(new intl_messageformat_1.FormatError("Intl.PluralRules is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-pluralrules\"\n", 2 /* MISSING_INTL_API */));
     }
     var filteredOptions = utils_1.filterProps(options, PLURAL_FORMAT_OPTIONS);
     try {
         return getPluralRules(locale, filteredOptions).select(value);
     }
     catch (e) {
-        onError(utils_1.createError('Error formatting plural.', e));
+        onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting plural.', e));
     }
     return 'other';
 }
@@ -47782,6 +48845,8 @@ exports.formatPlural = formatPlural;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
+var intl_messageformat_1 = __webpack_require__(/*! intl-messageformat */ "./node_modules/intl-messageformat/dist/index.js");
+var error_1 = __webpack_require__(/*! ../error */ "./node_modules/react-intl/dist/error.js");
 var RELATIVE_TIME_FORMAT_OPTIONS = [
     'numeric',
     'style',
@@ -47801,13 +48866,13 @@ function formatRelativeTime(config, getRelativeTimeFormat, value, unit, options)
     }
     var RelativeTimeFormat = Intl.RelativeTimeFormat;
     if (!RelativeTimeFormat) {
-        config.onError(utils_1.createError("Intl.RelativeTimeFormat is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-relativetimeformat\"\n"));
+        config.onError(new intl_messageformat_1.FormatError("Intl.RelativeTimeFormat is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-relativetimeformat\"\n", 2 /* MISSING_INTL_API */));
     }
     try {
         return getFormatter(config, getRelativeTimeFormat, options).format(value, unit);
     }
     catch (e) {
-        config.onError(utils_1.createError('Error formatting relative time.', e));
+        config.onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting relative time.', e));
     }
     return String(value);
 }
@@ -47856,10 +48921,10 @@ var plural_1 = __webpack_require__(/*! ./components/plural */ "./node_modules/re
 exports.FormattedPlural = plural_1.default;
 var message_1 = __webpack_require__(/*! ./components/message */ "./node_modules/react-intl/dist/components/message.js");
 exports.FormattedMessage = message_1.default;
-var html_message_1 = __webpack_require__(/*! ./components/html-message */ "./node_modules/react-intl/dist/components/html-message.js");
-exports.FormattedHTMLMessage = html_message_1.default;
 var utils_1 = __webpack_require__(/*! ./utils */ "./node_modules/react-intl/dist/utils.js");
 exports.createIntlCache = utils_1.createIntlCache;
+var error_1 = __webpack_require__(/*! ./error */ "./node_modules/react-intl/dist/error.js");
+exports.ReactIntlError = error_1.ReactIntlError;
 
 
 /***/ }),
@@ -47888,18 +48953,7 @@ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var intl_messageformat_1 = __webpack_require__(/*! intl-messageformat */ "./node_modules/intl-messageformat/dist/index.js");
 var intl_format_cache_1 = __webpack_require__(/*! intl-format-cache */ "./node_modules/intl-format-cache/dist/index.js");
 var intl_utils_1 = __webpack_require__(/*! @formatjs/intl-utils */ "./node_modules/@formatjs/intl-utils/dist/index.js");
-var ESCAPED_CHARS = {
-    38: '&amp;',
-    62: '&gt;',
-    60: '&lt;',
-    34: '&quot;',
-    39: '&#x27;',
-};
-var UNSAFE_CHARS_REGEX = /[&><"']/g;
-function escape(str) {
-    return ('' + str).replace(UNSAFE_CHARS_REGEX, function (match) { return ESCAPED_CHARS[match.charCodeAt(0)]; });
-}
-exports.escape = escape;
+var error_1 = __webpack_require__(/*! ./error */ "./node_modules/react-intl/dist/error.js");
 function filterProps(props, whitelist, defaults) {
     if (defaults === void 0) { defaults = {}; }
     return whitelist.reduce(function (filtered, name) {
@@ -47918,11 +48972,6 @@ function invariantIntlContext(intl) {
         '<IntlProvider> needs to exist in the component ancestry.');
 }
 exports.invariantIntlContext = invariantIntlContext;
-function createError(message, exception) {
-    var eMsg = exception ? "\n" + exception.stack : '';
-    return "[React Intl] " + message + eMsg;
-}
-exports.createError = createError;
 function defaultErrorHandler(error) {
     if (true) {
         console.error(error);
@@ -47979,7 +49028,7 @@ function getNamedFormat(formats, type, name, onError) {
     if (format) {
         return format;
     }
-    onError(createError("No " + type + " format named: " + name));
+    onError(new error_1.ReactIntlError("UNSUPPORTED_FORMATTER" /* UNSUPPORTED_FORMATTER */, "No " + type + " format named: " + name));
 }
 exports.getNamedFormat = getNamedFormat;
 
@@ -55913,6 +56962,939 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./node_modules/scheduler/cjs/scheduler.development.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/scheduler/cjs/scheduler.development.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/** @license React v0.18.0
+ * scheduler.development.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+
+
+if (true) {
+  (function() {
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+var enableSchedulerDebugging = false;
+var enableIsInputPending = false;
+var enableProfiling = true;
+
+var requestHostCallback;
+
+var requestHostTimeout;
+var cancelHostTimeout;
+var shouldYieldToHost;
+var requestPaint;
+
+
+
+if ( // If Scheduler runs in a non-DOM environment, it falls back to a naive
+// implementation using setTimeout.
+typeof window === 'undefined' || // Check if MessageChannel is supported, too.
+typeof MessageChannel !== 'function') {
+  // If this accidentally gets imported in a non-browser environment, e.g. JavaScriptCore,
+  // fallback to a naive implementation.
+  var _callback = null;
+  var _timeoutID = null;
+
+  var _flushCallback = function () {
+    if (_callback !== null) {
+      try {
+        var currentTime = exports.unstable_now();
+        var hasRemainingTime = true;
+
+        _callback(hasRemainingTime, currentTime);
+
+        _callback = null;
+      } catch (e) {
+        setTimeout(_flushCallback, 0);
+        throw e;
+      }
+    }
+  };
+
+  var initialTime = Date.now();
+
+  exports.unstable_now = function () {
+    return Date.now() - initialTime;
+  };
+
+  requestHostCallback = function (cb) {
+    if (_callback !== null) {
+      // Protect against re-entrancy.
+      setTimeout(requestHostCallback, 0, cb);
+    } else {
+      _callback = cb;
+      setTimeout(_flushCallback, 0);
+    }
+  };
+
+  requestHostTimeout = function (cb, ms) {
+    _timeoutID = setTimeout(cb, ms);
+  };
+
+  cancelHostTimeout = function () {
+    clearTimeout(_timeoutID);
+  };
+
+  shouldYieldToHost = function () {
+    return false;
+  };
+
+  requestPaint = exports.unstable_forceFrameRate = function () {};
+} else {
+  // Capture local references to native APIs, in case a polyfill overrides them.
+  var performance = window.performance;
+  var _Date = window.Date;
+  var _setTimeout = window.setTimeout;
+  var _clearTimeout = window.clearTimeout;
+
+  if (typeof console !== 'undefined') {
+    // TODO: Scheduler no longer requires these methods to be polyfilled. But
+    // maybe we want to continue warning if they don't exist, to preserve the
+    // option to rely on it in the future?
+    var requestAnimationFrame = window.requestAnimationFrame;
+    var cancelAnimationFrame = window.cancelAnimationFrame; // TODO: Remove fb.me link
+
+    if (typeof requestAnimationFrame !== 'function') {
+      console.error("This browser doesn't support requestAnimationFrame. " + 'Make sure that you load a ' + 'polyfill in older browsers. https://fb.me/react-polyfills');
+    }
+
+    if (typeof cancelAnimationFrame !== 'function') {
+      console.error("This browser doesn't support cancelAnimationFrame. " + 'Make sure that you load a ' + 'polyfill in older browsers. https://fb.me/react-polyfills');
+    }
+  }
+
+  if (typeof performance === 'object' && typeof performance.now === 'function') {
+    exports.unstable_now = function () {
+      return performance.now();
+    };
+  } else {
+    var _initialTime = _Date.now();
+
+    exports.unstable_now = function () {
+      return _Date.now() - _initialTime;
+    };
+  }
+
+  var isMessageLoopRunning = false;
+  var scheduledHostCallback = null;
+  var taskTimeoutID = -1; // Scheduler periodically yields in case there is other work on the main
+  // thread, like user events. By default, it yields multiple times per frame.
+  // It does not attempt to align with frame boundaries, since most tasks don't
+  // need to be frame aligned; for those that do, use requestAnimationFrame.
+
+  var yieldInterval = 5;
+  var deadline = 0; // TODO: Make this configurable
+  // TODO: Adjust this based on priority?
+
+  var maxYieldInterval = 300;
+  var needsPaint = false;
+
+  if (enableIsInputPending && navigator !== undefined && navigator.scheduling !== undefined && navigator.scheduling.isInputPending !== undefined) {
+    var scheduling = navigator.scheduling;
+
+    shouldYieldToHost = function () {
+      var currentTime = exports.unstable_now();
+
+      if (currentTime >= deadline) {
+        // There's no time left. We may want to yield control of the main
+        // thread, so the browser can perform high priority tasks. The main ones
+        // are painting and user input. If there's a pending paint or a pending
+        // input, then we should yield. But if there's neither, then we can
+        // yield less often while remaining responsive. We'll eventually yield
+        // regardless, since there could be a pending paint that wasn't
+        // accompanied by a call to `requestPaint`, or other main thread tasks
+        // like network events.
+        if (needsPaint || scheduling.isInputPending()) {
+          // There is either a pending paint or a pending input.
+          return true;
+        } // There's no pending input. Only yield if we've reached the max
+        // yield interval.
+
+
+        return currentTime >= maxYieldInterval;
+      } else {
+        // There's still time left in the frame.
+        return false;
+      }
+    };
+
+    requestPaint = function () {
+      needsPaint = true;
+    };
+  } else {
+    // `isInputPending` is not available. Since we have no way of knowing if
+    // there's pending input, always yield at the end of the frame.
+    shouldYieldToHost = function () {
+      return exports.unstable_now() >= deadline;
+    }; // Since we yield every frame regardless, `requestPaint` has no effect.
+
+
+    requestPaint = function () {};
+  }
+
+  exports.unstable_forceFrameRate = function (fps) {
+    if (fps < 0 || fps > 125) {
+      console.error('forceFrameRate takes a positive int between 0 and 125, ' + 'forcing framerates higher than 125 fps is not unsupported');
+      return;
+    }
+
+    if (fps > 0) {
+      yieldInterval = Math.floor(1000 / fps);
+    } else {
+      // reset the framerate
+      yieldInterval = 5;
+    }
+  };
+
+  var performWorkUntilDeadline = function () {
+    if (scheduledHostCallback !== null) {
+      var currentTime = exports.unstable_now(); // Yield after `yieldInterval` ms, regardless of where we are in the vsync
+      // cycle. This means there's always time remaining at the beginning of
+      // the message event.
+
+      deadline = currentTime + yieldInterval;
+      var hasTimeRemaining = true;
+
+      try {
+        var hasMoreWork = scheduledHostCallback(hasTimeRemaining, currentTime);
+
+        if (!hasMoreWork) {
+          isMessageLoopRunning = false;
+          scheduledHostCallback = null;
+        } else {
+          // If there's more work, schedule the next message event at the end
+          // of the preceding one.
+          port.postMessage(null);
+        }
+      } catch (error) {
+        // If a scheduler task throws, exit the current browser task so the
+        // error can be observed.
+        port.postMessage(null);
+        throw error;
+      }
+    } else {
+      isMessageLoopRunning = false;
+    } // Yielding to the browser will give it a chance to paint, so we can
+    // reset this.
+
+
+    needsPaint = false;
+  };
+
+  var channel = new MessageChannel();
+  var port = channel.port2;
+  channel.port1.onmessage = performWorkUntilDeadline;
+
+  requestHostCallback = function (callback) {
+    scheduledHostCallback = callback;
+
+    if (!isMessageLoopRunning) {
+      isMessageLoopRunning = true;
+      port.postMessage(null);
+    }
+  };
+
+  requestHostTimeout = function (callback, ms) {
+    taskTimeoutID = _setTimeout(function () {
+      callback(exports.unstable_now());
+    }, ms);
+  };
+
+  cancelHostTimeout = function () {
+    _clearTimeout(taskTimeoutID);
+
+    taskTimeoutID = -1;
+  };
+}
+
+function push(heap, node) {
+  var index = heap.length;
+  heap.push(node);
+  siftUp(heap, node, index);
+}
+function peek(heap) {
+  var first = heap[0];
+  return first === undefined ? null : first;
+}
+function pop(heap) {
+  var first = heap[0];
+
+  if (first !== undefined) {
+    var last = heap.pop();
+
+    if (last !== first) {
+      heap[0] = last;
+      siftDown(heap, last, 0);
+    }
+
+    return first;
+  } else {
+    return null;
+  }
+}
+
+function siftUp(heap, node, i) {
+  var index = i;
+
+  while (true) {
+    var parentIndex = Math.floor((index - 1) / 2);
+    var parent = heap[parentIndex];
+
+    if (parent !== undefined && compare(parent, node) > 0) {
+      // The parent is larger. Swap positions.
+      heap[parentIndex] = node;
+      heap[index] = parent;
+      index = parentIndex;
+    } else {
+      // The parent is smaller. Exit.
+      return;
+    }
+  }
+}
+
+function siftDown(heap, node, i) {
+  var index = i;
+  var length = heap.length;
+
+  while (index < length) {
+    var leftIndex = (index + 1) * 2 - 1;
+    var left = heap[leftIndex];
+    var rightIndex = leftIndex + 1;
+    var right = heap[rightIndex]; // If the left or right node is smaller, swap with the smaller of those.
+
+    if (left !== undefined && compare(left, node) < 0) {
+      if (right !== undefined && compare(right, left) < 0) {
+        heap[index] = right;
+        heap[rightIndex] = node;
+        index = rightIndex;
+      } else {
+        heap[index] = left;
+        heap[leftIndex] = node;
+        index = leftIndex;
+      }
+    } else if (right !== undefined && compare(right, node) < 0) {
+      heap[index] = right;
+      heap[rightIndex] = node;
+      index = rightIndex;
+    } else {
+      // Neither child is smaller. Exit.
+      return;
+    }
+  }
+}
+
+function compare(a, b) {
+  // Compare sort index first, then task id.
+  var diff = a.sortIndex - b.sortIndex;
+  return diff !== 0 ? diff : a.id - b.id;
+}
+
+// TODO: Use symbols?
+var NoPriority = 0;
+var ImmediatePriority = 1;
+var UserBlockingPriority = 2;
+var NormalPriority = 3;
+var LowPriority = 4;
+var IdlePriority = 5;
+
+var runIdCounter = 0;
+var mainThreadIdCounter = 0;
+var profilingStateSize = 4;
+var sharedProfilingBuffer = enableProfiling ? // $FlowFixMe Flow doesn't know about SharedArrayBuffer
+typeof SharedArrayBuffer === 'function' ? new SharedArrayBuffer(profilingStateSize * Int32Array.BYTES_PER_ELEMENT) : // $FlowFixMe Flow doesn't know about ArrayBuffer
+typeof ArrayBuffer === 'function' ? new ArrayBuffer(profilingStateSize * Int32Array.BYTES_PER_ELEMENT) : null // Don't crash the init path on IE9
+: null;
+var profilingState = enableProfiling && sharedProfilingBuffer !== null ? new Int32Array(sharedProfilingBuffer) : []; // We can't read this but it helps save bytes for null checks
+
+var PRIORITY = 0;
+var CURRENT_TASK_ID = 1;
+var CURRENT_RUN_ID = 2;
+var QUEUE_SIZE = 3;
+
+if (enableProfiling) {
+  profilingState[PRIORITY] = NoPriority; // This is maintained with a counter, because the size of the priority queue
+  // array might include canceled tasks.
+
+  profilingState[QUEUE_SIZE] = 0;
+  profilingState[CURRENT_TASK_ID] = 0;
+} // Bytes per element is 4
+
+
+var INITIAL_EVENT_LOG_SIZE = 131072;
+var MAX_EVENT_LOG_SIZE = 524288; // Equivalent to 2 megabytes
+
+var eventLogSize = 0;
+var eventLogBuffer = null;
+var eventLog = null;
+var eventLogIndex = 0;
+var TaskStartEvent = 1;
+var TaskCompleteEvent = 2;
+var TaskErrorEvent = 3;
+var TaskCancelEvent = 4;
+var TaskRunEvent = 5;
+var TaskYieldEvent = 6;
+var SchedulerSuspendEvent = 7;
+var SchedulerResumeEvent = 8;
+
+function logEvent(entries) {
+  if (eventLog !== null) {
+    var offset = eventLogIndex;
+    eventLogIndex += entries.length;
+
+    if (eventLogIndex + 1 > eventLogSize) {
+      eventLogSize *= 2;
+
+      if (eventLogSize > MAX_EVENT_LOG_SIZE) {
+        console.error("Scheduler Profiling: Event log exceeded maximum size. Don't " + 'forget to call `stopLoggingProfilingEvents()`.');
+        stopLoggingProfilingEvents();
+        return;
+      }
+
+      var newEventLog = new Int32Array(eventLogSize * 4);
+      newEventLog.set(eventLog);
+      eventLogBuffer = newEventLog.buffer;
+      eventLog = newEventLog;
+    }
+
+    eventLog.set(entries, offset);
+  }
+}
+
+function startLoggingProfilingEvents() {
+  eventLogSize = INITIAL_EVENT_LOG_SIZE;
+  eventLogBuffer = new ArrayBuffer(eventLogSize * 4);
+  eventLog = new Int32Array(eventLogBuffer);
+  eventLogIndex = 0;
+}
+function stopLoggingProfilingEvents() {
+  var buffer = eventLogBuffer;
+  eventLogSize = 0;
+  eventLogBuffer = null;
+  eventLog = null;
+  eventLogIndex = 0;
+  return buffer;
+}
+function markTaskStart(task, ms) {
+  if (enableProfiling) {
+    profilingState[QUEUE_SIZE]++;
+
+    if (eventLog !== null) {
+      // performance.now returns a float, representing milliseconds. When the
+      // event is logged, it's coerced to an int. Convert to microseconds to
+      // maintain extra degrees of precision.
+      logEvent([TaskStartEvent, ms * 1000, task.id, task.priorityLevel]);
+    }
+  }
+}
+function markTaskCompleted(task, ms) {
+  if (enableProfiling) {
+    profilingState[PRIORITY] = NoPriority;
+    profilingState[CURRENT_TASK_ID] = 0;
+    profilingState[QUEUE_SIZE]--;
+
+    if (eventLog !== null) {
+      logEvent([TaskCompleteEvent, ms * 1000, task.id]);
+    }
+  }
+}
+function markTaskCanceled(task, ms) {
+  if (enableProfiling) {
+    profilingState[QUEUE_SIZE]--;
+
+    if (eventLog !== null) {
+      logEvent([TaskCancelEvent, ms * 1000, task.id]);
+    }
+  }
+}
+function markTaskErrored(task, ms) {
+  if (enableProfiling) {
+    profilingState[PRIORITY] = NoPriority;
+    profilingState[CURRENT_TASK_ID] = 0;
+    profilingState[QUEUE_SIZE]--;
+
+    if (eventLog !== null) {
+      logEvent([TaskErrorEvent, ms * 1000, task.id]);
+    }
+  }
+}
+function markTaskRun(task, ms) {
+  if (enableProfiling) {
+    runIdCounter++;
+    profilingState[PRIORITY] = task.priorityLevel;
+    profilingState[CURRENT_TASK_ID] = task.id;
+    profilingState[CURRENT_RUN_ID] = runIdCounter;
+
+    if (eventLog !== null) {
+      logEvent([TaskRunEvent, ms * 1000, task.id, runIdCounter]);
+    }
+  }
+}
+function markTaskYield(task, ms) {
+  if (enableProfiling) {
+    profilingState[PRIORITY] = NoPriority;
+    profilingState[CURRENT_TASK_ID] = 0;
+    profilingState[CURRENT_RUN_ID] = 0;
+
+    if (eventLog !== null) {
+      logEvent([TaskYieldEvent, ms * 1000, task.id, runIdCounter]);
+    }
+  }
+}
+function markSchedulerSuspended(ms) {
+  if (enableProfiling) {
+    mainThreadIdCounter++;
+
+    if (eventLog !== null) {
+      logEvent([SchedulerSuspendEvent, ms * 1000, mainThreadIdCounter]);
+    }
+  }
+}
+function markSchedulerUnsuspended(ms) {
+  if (enableProfiling) {
+    if (eventLog !== null) {
+      logEvent([SchedulerResumeEvent, ms * 1000, mainThreadIdCounter]);
+    }
+  }
+}
+
+/* eslint-disable no-var */
+// Math.pow(2, 30) - 1
+// 0b111111111111111111111111111111
+
+var maxSigned31BitInt = 1073741823; // Times out immediately
+
+var IMMEDIATE_PRIORITY_TIMEOUT = -1; // Eventually times out
+
+var USER_BLOCKING_PRIORITY = 250;
+var NORMAL_PRIORITY_TIMEOUT = 5000;
+var LOW_PRIORITY_TIMEOUT = 10000; // Never times out
+
+var IDLE_PRIORITY = maxSigned31BitInt; // Tasks are stored on a min heap
+
+var taskQueue = [];
+var timerQueue = []; // Incrementing id counter. Used to maintain insertion order.
+
+var taskIdCounter = 1; // Pausing the scheduler is useful for debugging.
+
+var isSchedulerPaused = false;
+var currentTask = null;
+var currentPriorityLevel = NormalPriority; // This is set while performing work, to prevent re-entrancy.
+
+var isPerformingWork = false;
+var isHostCallbackScheduled = false;
+var isHostTimeoutScheduled = false;
+
+function advanceTimers(currentTime) {
+  // Check for tasks that are no longer delayed and add them to the queue.
+  var timer = peek(timerQueue);
+
+  while (timer !== null) {
+    if (timer.callback === null) {
+      // Timer was cancelled.
+      pop(timerQueue);
+    } else if (timer.startTime <= currentTime) {
+      // Timer fired. Transfer to the task queue.
+      pop(timerQueue);
+      timer.sortIndex = timer.expirationTime;
+      push(taskQueue, timer);
+
+      if (enableProfiling) {
+        markTaskStart(timer, currentTime);
+        timer.isQueued = true;
+      }
+    } else {
+      // Remaining timers are pending.
+      return;
+    }
+
+    timer = peek(timerQueue);
+  }
+}
+
+function handleTimeout(currentTime) {
+  isHostTimeoutScheduled = false;
+  advanceTimers(currentTime);
+
+  if (!isHostCallbackScheduled) {
+    if (peek(taskQueue) !== null) {
+      isHostCallbackScheduled = true;
+      requestHostCallback(flushWork);
+    } else {
+      var firstTimer = peek(timerQueue);
+
+      if (firstTimer !== null) {
+        requestHostTimeout(handleTimeout, firstTimer.startTime - currentTime);
+      }
+    }
+  }
+}
+
+function flushWork(hasTimeRemaining, initialTime) {
+  if (enableProfiling) {
+    markSchedulerUnsuspended(initialTime);
+  } // We'll need a host callback the next time work is scheduled.
+
+
+  isHostCallbackScheduled = false;
+
+  if (isHostTimeoutScheduled) {
+    // We scheduled a timeout but it's no longer needed. Cancel it.
+    isHostTimeoutScheduled = false;
+    cancelHostTimeout();
+  }
+
+  isPerformingWork = true;
+  var previousPriorityLevel = currentPriorityLevel;
+
+  try {
+    if (enableProfiling) {
+      try {
+        return workLoop(hasTimeRemaining, initialTime);
+      } catch (error) {
+        if (currentTask !== null) {
+          var currentTime = exports.unstable_now();
+          markTaskErrored(currentTask, currentTime);
+          currentTask.isQueued = false;
+        }
+
+        throw error;
+      }
+    } else {
+      // No catch in prod codepath.
+      return workLoop(hasTimeRemaining, initialTime);
+    }
+  } finally {
+    currentTask = null;
+    currentPriorityLevel = previousPriorityLevel;
+    isPerformingWork = false;
+
+    if (enableProfiling) {
+      var _currentTime = exports.unstable_now();
+
+      markSchedulerSuspended(_currentTime);
+    }
+  }
+}
+
+function workLoop(hasTimeRemaining, initialTime) {
+  var currentTime = initialTime;
+  advanceTimers(currentTime);
+  currentTask = peek(taskQueue);
+
+  while (currentTask !== null && !(enableSchedulerDebugging && isSchedulerPaused)) {
+    if (currentTask.expirationTime > currentTime && (!hasTimeRemaining || shouldYieldToHost())) {
+      // This currentTask hasn't expired, and we've reached the deadline.
+      break;
+    }
+
+    var callback = currentTask.callback;
+
+    if (callback !== null) {
+      currentTask.callback = null;
+      currentPriorityLevel = currentTask.priorityLevel;
+      var didUserCallbackTimeout = currentTask.expirationTime <= currentTime;
+      markTaskRun(currentTask, currentTime);
+      var continuationCallback = callback(didUserCallbackTimeout);
+      currentTime = exports.unstable_now();
+
+      if (typeof continuationCallback === 'function') {
+        currentTask.callback = continuationCallback;
+        markTaskYield(currentTask, currentTime);
+      } else {
+        if (enableProfiling) {
+          markTaskCompleted(currentTask, currentTime);
+          currentTask.isQueued = false;
+        }
+
+        if (currentTask === peek(taskQueue)) {
+          pop(taskQueue);
+        }
+      }
+
+      advanceTimers(currentTime);
+    } else {
+      pop(taskQueue);
+    }
+
+    currentTask = peek(taskQueue);
+  } // Return whether there's additional work
+
+
+  if (currentTask !== null) {
+    return true;
+  } else {
+    var firstTimer = peek(timerQueue);
+
+    if (firstTimer !== null) {
+      requestHostTimeout(handleTimeout, firstTimer.startTime - currentTime);
+    }
+
+    return false;
+  }
+}
+
+function unstable_runWithPriority(priorityLevel, eventHandler) {
+  switch (priorityLevel) {
+    case ImmediatePriority:
+    case UserBlockingPriority:
+    case NormalPriority:
+    case LowPriority:
+    case IdlePriority:
+      break;
+
+    default:
+      priorityLevel = NormalPriority;
+  }
+
+  var previousPriorityLevel = currentPriorityLevel;
+  currentPriorityLevel = priorityLevel;
+
+  try {
+    return eventHandler();
+  } finally {
+    currentPriorityLevel = previousPriorityLevel;
+  }
+}
+
+function unstable_next(eventHandler) {
+  var priorityLevel;
+
+  switch (currentPriorityLevel) {
+    case ImmediatePriority:
+    case UserBlockingPriority:
+    case NormalPriority:
+      // Shift down to normal priority
+      priorityLevel = NormalPriority;
+      break;
+
+    default:
+      // Anything lower than normal priority should remain at the current level.
+      priorityLevel = currentPriorityLevel;
+      break;
+  }
+
+  var previousPriorityLevel = currentPriorityLevel;
+  currentPriorityLevel = priorityLevel;
+
+  try {
+    return eventHandler();
+  } finally {
+    currentPriorityLevel = previousPriorityLevel;
+  }
+}
+
+function unstable_wrapCallback(callback) {
+  var parentPriorityLevel = currentPriorityLevel;
+  return function () {
+    // This is a fork of runWithPriority, inlined for performance.
+    var previousPriorityLevel = currentPriorityLevel;
+    currentPriorityLevel = parentPriorityLevel;
+
+    try {
+      return callback.apply(this, arguments);
+    } finally {
+      currentPriorityLevel = previousPriorityLevel;
+    }
+  };
+}
+
+function timeoutForPriorityLevel(priorityLevel) {
+  switch (priorityLevel) {
+    case ImmediatePriority:
+      return IMMEDIATE_PRIORITY_TIMEOUT;
+
+    case UserBlockingPriority:
+      return USER_BLOCKING_PRIORITY;
+
+    case IdlePriority:
+      return IDLE_PRIORITY;
+
+    case LowPriority:
+      return LOW_PRIORITY_TIMEOUT;
+
+    case NormalPriority:
+    default:
+      return NORMAL_PRIORITY_TIMEOUT;
+  }
+}
+
+function unstable_scheduleCallback(priorityLevel, callback, options) {
+  var currentTime = exports.unstable_now();
+  var startTime;
+  var timeout;
+
+  if (typeof options === 'object' && options !== null) {
+    var delay = options.delay;
+
+    if (typeof delay === 'number' && delay > 0) {
+      startTime = currentTime + delay;
+    } else {
+      startTime = currentTime;
+    }
+
+    timeout = typeof options.timeout === 'number' ? options.timeout : timeoutForPriorityLevel(priorityLevel);
+  } else {
+    timeout = timeoutForPriorityLevel(priorityLevel);
+    startTime = currentTime;
+  }
+
+  var expirationTime = startTime + timeout;
+  var newTask = {
+    id: taskIdCounter++,
+    callback: callback,
+    priorityLevel: priorityLevel,
+    startTime: startTime,
+    expirationTime: expirationTime,
+    sortIndex: -1
+  };
+
+  if (enableProfiling) {
+    newTask.isQueued = false;
+  }
+
+  if (startTime > currentTime) {
+    // This is a delayed task.
+    newTask.sortIndex = startTime;
+    push(timerQueue, newTask);
+
+    if (peek(taskQueue) === null && newTask === peek(timerQueue)) {
+      // All tasks are delayed, and this is the task with the earliest delay.
+      if (isHostTimeoutScheduled) {
+        // Cancel an existing timeout.
+        cancelHostTimeout();
+      } else {
+        isHostTimeoutScheduled = true;
+      } // Schedule a timeout.
+
+
+      requestHostTimeout(handleTimeout, startTime - currentTime);
+    }
+  } else {
+    newTask.sortIndex = expirationTime;
+    push(taskQueue, newTask);
+
+    if (enableProfiling) {
+      markTaskStart(newTask, currentTime);
+      newTask.isQueued = true;
+    } // Schedule a host callback, if needed. If we're already performing work,
+    // wait until the next time we yield.
+
+
+    if (!isHostCallbackScheduled && !isPerformingWork) {
+      isHostCallbackScheduled = true;
+      requestHostCallback(flushWork);
+    }
+  }
+
+  return newTask;
+}
+
+function unstable_pauseExecution() {
+  isSchedulerPaused = true;
+}
+
+function unstable_continueExecution() {
+  isSchedulerPaused = false;
+
+  if (!isHostCallbackScheduled && !isPerformingWork) {
+    isHostCallbackScheduled = true;
+    requestHostCallback(flushWork);
+  }
+}
+
+function unstable_getFirstCallbackNode() {
+  return peek(taskQueue);
+}
+
+function unstable_cancelCallback(task) {
+  if (enableProfiling) {
+    if (task.isQueued) {
+      var currentTime = exports.unstable_now();
+      markTaskCanceled(task, currentTime);
+      task.isQueued = false;
+    }
+  } // Null out the callback to indicate the task has been canceled. (Can't
+  // remove from the queue because you can't remove arbitrary nodes from an
+  // array based heap, only the first one.)
+
+
+  task.callback = null;
+}
+
+function unstable_getCurrentPriorityLevel() {
+  return currentPriorityLevel;
+}
+
+function unstable_shouldYield() {
+  var currentTime = exports.unstable_now();
+  advanceTimers(currentTime);
+  var firstTask = peek(taskQueue);
+  return firstTask !== currentTask && currentTask !== null && firstTask !== null && firstTask.callback !== null && firstTask.startTime <= currentTime && firstTask.expirationTime < currentTask.expirationTime || shouldYieldToHost();
+}
+
+var unstable_requestPaint = requestPaint;
+var unstable_Profiling = enableProfiling ? {
+  startLoggingProfilingEvents: startLoggingProfilingEvents,
+  stopLoggingProfilingEvents: stopLoggingProfilingEvents,
+  sharedProfilingBuffer: sharedProfilingBuffer
+} : null;
+
+exports.unstable_ImmediatePriority = ImmediatePriority;
+exports.unstable_UserBlockingPriority = UserBlockingPriority;
+exports.unstable_NormalPriority = NormalPriority;
+exports.unstable_IdlePriority = IdlePriority;
+exports.unstable_LowPriority = LowPriority;
+exports.unstable_runWithPriority = unstable_runWithPriority;
+exports.unstable_next = unstable_next;
+exports.unstable_scheduleCallback = unstable_scheduleCallback;
+exports.unstable_cancelCallback = unstable_cancelCallback;
+exports.unstable_wrapCallback = unstable_wrapCallback;
+exports.unstable_getCurrentPriorityLevel = unstable_getCurrentPriorityLevel;
+exports.unstable_shouldYield = unstable_shouldYield;
+exports.unstable_requestPaint = unstable_requestPaint;
+exports.unstable_continueExecution = unstable_continueExecution;
+exports.unstable_pauseExecution = unstable_pauseExecution;
+exports.unstable_getFirstCallbackNode = unstable_getFirstCallbackNode;
+exports.unstable_Profiling = unstable_Profiling;
+  })();
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/scheduler/index.js":
+/*!*****************************************!*\
+  !*** ./node_modules/scheduler/index.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+if (false) {} else {
+  module.exports = __webpack_require__(/*! ./cjs/scheduler.development.js */ "./node_modules/scheduler/cjs/scheduler.development.js");
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/shallow-equal/objects/index.js":
 /*!*****************************************************!*\
   !*** ./node_modules/shallow-equal/objects/index.js ***!
@@ -56572,269 +58554,6 @@ function makeNodesHash(arr){
   return res
 }
 
-
-/***/ }),
-
-/***/ "./node_modules/tslib/tslib.js":
-/*!*************************************!*\
-  !*** ./node_modules/tslib/tslib.js ***!
-  \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! *****************************************************************************
-Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0
-
-THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-MERCHANTABLITY OR NON-INFRINGEMENT.
-
-See the Apache Version 2.0 License for specific language governing permissions
-and limitations under the License.
-***************************************************************************** */
-/* global global, define, System, Reflect, Promise */
-var __extends;
-var __assign;
-var __rest;
-var __decorate;
-var __param;
-var __metadata;
-var __awaiter;
-var __generator;
-var __exportStar;
-var __values;
-var __read;
-var __spread;
-var __spreadArrays;
-var __await;
-var __asyncGenerator;
-var __asyncDelegator;
-var __asyncValues;
-var __makeTemplateObject;
-var __importStar;
-var __importDefault;
-(function (factory) {
-    var root = typeof global === "object" ? global : typeof self === "object" ? self : typeof this === "object" ? this : {};
-    if (true) {
-        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports], __WEBPACK_AMD_DEFINE_RESULT__ = (function (exports) { factory(createExporter(root, createExporter(exports))); }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-    }
-    else {}
-    function createExporter(exports, previous) {
-        if (exports !== root) {
-            if (typeof Object.create === "function") {
-                Object.defineProperty(exports, "__esModule", { value: true });
-            }
-            else {
-                exports.__esModule = true;
-            }
-        }
-        return function (id, v) { return exports[id] = previous ? previous(id, v) : v; };
-    }
-})
-(function (exporter) {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-
-    __extends = function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-
-    __assign = Object.assign || function (t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-        }
-        return t;
-    };
-
-    __rest = function (s, e) {
-        var t = {};
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-            t[p] = s[p];
-        if (s != null && typeof Object.getOwnPropertySymbols === "function")
-            for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-                if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                    t[p[i]] = s[p[i]];
-            }
-        return t;
-    };
-
-    __decorate = function (decorators, target, key, desc) {
-        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-        return c > 3 && r && Object.defineProperty(target, key, r), r;
-    };
-
-    __param = function (paramIndex, decorator) {
-        return function (target, key) { decorator(target, key, paramIndex); }
-    };
-
-    __metadata = function (metadataKey, metadataValue) {
-        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
-    };
-
-    __awaiter = function (thisArg, _arguments, P, generator) {
-        return new (P || (P = Promise))(function (resolve, reject) {
-            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-            function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-            step((generator = generator.apply(thisArg, _arguments || [])).next());
-        });
-    };
-
-    __generator = function (thisArg, body) {
-        var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-        function verb(n) { return function (v) { return step([n, v]); }; }
-        function step(op) {
-            if (f) throw new TypeError("Generator is already executing.");
-            while (_) try {
-                if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-                if (y = 0, t) op = [op[0] & 2, t.value];
-                switch (op[0]) {
-                    case 0: case 1: t = op; break;
-                    case 4: _.label++; return { value: op[1], done: false };
-                    case 5: _.label++; y = op[1]; op = [0]; continue;
-                    case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                    default:
-                        if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                        if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                        if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                        if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                        if (t[2]) _.ops.pop();
-                        _.trys.pop(); continue;
-                }
-                op = body.call(thisArg, _);
-            } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-            if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-        }
-    };
-
-    __exportStar = function (m, exports) {
-        for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-    };
-
-    __values = function (o) {
-        var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
-        if (m) return m.call(o);
-        return {
-            next: function () {
-                if (o && i >= o.length) o = void 0;
-                return { value: o && o[i++], done: !o };
-            }
-        };
-    };
-
-    __read = function (o, n) {
-        var m = typeof Symbol === "function" && o[Symbol.iterator];
-        if (!m) return o;
-        var i = m.call(o), r, ar = [], e;
-        try {
-            while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-        }
-        catch (error) { e = { error: error }; }
-        finally {
-            try {
-                if (r && !r.done && (m = i["return"])) m.call(i);
-            }
-            finally { if (e) throw e.error; }
-        }
-        return ar;
-    };
-
-    __spread = function () {
-        for (var ar = [], i = 0; i < arguments.length; i++)
-            ar = ar.concat(__read(arguments[i]));
-        return ar;
-    };
-
-    __spreadArrays = function () {
-        for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-        for (var r = Array(s), k = 0, i = 0; i < il; i++)
-            for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-                r[k] = a[j];
-        return r;
-    };
-
-    __await = function (v) {
-        return this instanceof __await ? (this.v = v, this) : new __await(v);
-    };
-
-    __asyncGenerator = function (thisArg, _arguments, generator) {
-        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-        var g = generator.apply(thisArg, _arguments || []), i, q = [];
-        return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
-        function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
-        function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
-        function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r);  }
-        function fulfill(value) { resume("next", value); }
-        function reject(value) { resume("throw", value); }
-        function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
-    };
-
-    __asyncDelegator = function (o) {
-        var i, p;
-        return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
-        function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
-    };
-
-    __asyncValues = function (o) {
-        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-        var m = o[Symbol.asyncIterator], i;
-        return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-        function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-    };
-
-    __makeTemplateObject = function (cooked, raw) {
-        if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
-        return cooked;
-    };
-
-    __importStar = function (mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-        result["default"] = mod;
-        return result;
-    };
-
-    __importDefault = function (mod) {
-        return (mod && mod.__esModule) ? mod : { "default": mod };
-    };
-
-    exporter("__extends", __extends);
-    exporter("__assign", __assign);
-    exporter("__rest", __rest);
-    exporter("__decorate", __decorate);
-    exporter("__param", __param);
-    exporter("__metadata", __metadata);
-    exporter("__awaiter", __awaiter);
-    exporter("__generator", __generator);
-    exporter("__exportStar", __exportStar);
-    exporter("__values", __values);
-    exporter("__read", __read);
-    exporter("__spread", __spread);
-    exporter("__spreadArrays", __spreadArrays);
-    exporter("__await", __await);
-    exporter("__asyncGenerator", __asyncGenerator);
-    exporter("__asyncDelegator", __asyncDelegator);
-    exporter("__asyncValues", __asyncValues);
-    exporter("__makeTemplateObject", __makeTemplateObject);
-    exporter("__importStar", __importStar);
-    exporter("__importDefault", __importDefault);
-});
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
@@ -61270,7 +62989,10 @@ exports.parseSkill = function (data) { return data; };
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var base_1 = __webpack_require__(/*! ./base */ "./resources/assets/js/api/base.ts");
-exports.getAllUsersEndpoint = function () { return base_1.baseUrl() + "/users"; };
+exports.getAllUsersEndpoint = function (ids) {
+    if (ids === void 0) { ids = ""; }
+    return ids.length > 0 ? base_1.baseUrl() + "/users/?id=" + ids : base_1.baseUrl() + "/users/";
+};
 exports.parseAllUsersResponse = function (data) { return data; };
 exports.getUserEndpoint = function (id) {
     return base_1.baseUrl() + "/users/" + id;
@@ -61299,15 +63021,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
 var dates_1 = __webpack_require__(/*! ../helpers/dates */ "./resources/assets/js/helpers/dates.ts");
+var localize_1 = __webpack_require__(/*! ../helpers/localize */ "./resources/assets/js/helpers/localize.ts");
 var Activity = function (_a) {
     var name = _a.name, userRole = _a.userRole, time = _a.time, type = _a.type, comment = _a.comment, location = _a.location, link = _a.link;
-    var locale = react_intl_1.useIntl().locale;
-    if (locale !== "en" && locale !== "fr") {
-        throw new Error("Unexpected locale");
-    }
+    var intl = react_intl_1.useIntl();
+    var locale = localize_1.getLocale(intl.locale);
     return (React.createElement("div", null,
         React.createElement("a", { href: link.url, title: link.title, target: "_blank", rel: "noopener noreferrer", className: "tc-job-activity-comment", "data-c-card": true, "data-c-background": "white(100)", "data-c-radius": "rounded", "data-c-padding": "all(1)", "data-c-margin": "bottom(.5)" },
-            React.createElement("p", { "data-c-margin": "bottom(.5)", "data-c-color": "gray", "data-c-font-size": "small" },
+            React.createElement("p", { "data-c-margin": "bottom(.5)", "data-c-color": "black", "data-c-font-size": "small" },
                 React.createElement(react_intl_1.FormattedMessage, { id: "activity.commentMetadata", description: "Text with additional information on comment.", defaultMessage: "{name} ({userRole}) commented at {time}.", values: {
                         name: name,
                         userRole: userRole,
@@ -61398,7 +63119,7 @@ var ActivityFeed = function (_a) {
                 React.createElement("div", { "aria-hidden": "false", "data-c-accordion-content": true, "data-c-background": "grey(20)", "data-c-padding": "all(1)" },
                     React.createElement(CommentForm_1.default, { jobId: jobId, isHrAdvisor: isHrAdvisor, location: generalLocation, locationOptions: locationOptions }),
                     React.createElement("hr", { "data-c-hr": "thin(black)", "data-c-margin": "top(1)" }),
-                    React.createElement(ActivityList_1.default, { jobId: jobId, isHrAdvisor: isHrAdvisor, filterComments: filterComments }))))));
+                    React.createElement(ActivityList_1.default, { generalLocation: generalLocation, jobId: jobId, isHrAdvisor: isHrAdvisor, filterComments: filterComments }))))));
 };
 var mapStateToProps = function (state, _a) {
     var _b = _a.filterComments, filterComments = _b === void 0 ? function () { return true; } : _b;
@@ -61491,13 +63212,21 @@ var jobUtil_1 = __webpack_require__(/*! ../models/jobUtil */ "./resources/assets
 var lookupConstants_1 = __webpack_require__(/*! ../models/lookupConstants */ "./resources/assets/js/models/lookupConstants.ts");
 var localize_1 = __webpack_require__(/*! ../helpers/localize */ "./resources/assets/js/helpers/localize.ts");
 var queries_1 = __webpack_require__(/*! ../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
+var messages = react_intl_1.defineMessages({
+    unknownUser: {
+        id: "activity.unknownUser",
+        defaultMessage: "User not found",
+        description: "Error message displayed when a user id is unknown.",
+    },
+});
 exports.ActivityList = function (_a) {
     var jobId = _a.jobId, comments = _a.comments, users = _a.users, handleFetchComments = _a.handleFetchComments, handleFetchUsers = _a.handleFetchUsers, isHrAdvisor = _a.isHrAdvisor;
     var intl = react_intl_1.useIntl();
     var locale = localize_1.getLocale(intl.locale);
     var activities = __spreadArrays(comments);
     var _b = react_1.useState(false), loadingActivities = _b[0], setLoadingActivities = _b[1];
-    var _c = react_1.useState(false), isError = _c[0], setIsError = _c[1];
+    var _c = react_1.useState(false), loadingUsers = _c[0], setLoadingUsers = _c[1];
+    var _d = react_1.useState(false), isError = _d[0], setIsError = _d[1];
     react_1.useEffect(function () {
         setLoadingActivities(true);
         handleFetchComments(jobId)
@@ -61510,16 +63239,28 @@ exports.ActivityList = function (_a) {
         });
     }, [handleFetchComments, jobId]);
     react_1.useEffect(function () {
-        setLoadingActivities(true);
-        handleFetchUsers()
-            .then(function () {
-            setLoadingActivities(false);
-        })
-            .catch(function () {
-            setLoadingActivities(false);
-            setIsError(true);
-        });
-    }, [handleFetchUsers]);
+        setLoadingUsers(true);
+        if (comments.length > 0) {
+            var userIds_1 = [];
+            // eslint-disable-next-line array-callback-return
+            comments.map(function (comment) {
+                if (userIds_1.indexOf(comment.user_id) === -1) {
+                    userIds_1.push(comment.user_id);
+                }
+            });
+            handleFetchUsers(userIds_1.join(","))
+                .then(function () {
+                setLoadingUsers(false);
+            })
+                .catch(function () {
+                setLoadingUsers(false);
+                setIsError(true);
+            });
+        }
+        else {
+            setLoadingUsers(false);
+        }
+    }, [comments, handleFetchUsers]);
     var activityType = function (type) {
         switch (type) {
             case 1:
@@ -61546,17 +63287,19 @@ exports.ActivityList = function (_a) {
             react_1.default.createElement(react_intl_1.FormattedMessage, { id: "activityfeed.title", defaultMessage: "Activities", description: "Title of activity feed." })),
         isError && (react_1.default.createElement("p", null,
             react_1.default.createElement(react_intl_1.FormattedMessage, { id: "activityfeed.error", defaultMessage: "Something went wrong...", description: "Error fetching activities." }))),
-        loadingActivities ? (react_1.default.createElement("div", { "data-c-container": "form", "data-c-padding": "top(1) bottom(1)" },
+        !isError &&
+            (loadingActivities || loadingUsers) &&
+            activities.length === 0 ? (react_1.default.createElement("div", { "data-c-container": "form", "data-c-padding": "top(1) bottom(1)" },
             react_1.default.createElement("div", { "data-c-background": "white(100)", "data-c-card": true, "data-c-padding": "all(double)", "data-c-radius": "rounded", "data-c-align": "base(centre)" },
                 react_1.default.createElement("p", null,
-                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "activityfeed.loading", defaultMessage: "Your activities are loading...", description: "Message indicating that the activity feed is still being loaded." }))))) : (react_1.default.createElement(react_1.default.Fragment, null, activities && activities.length !== 0
+                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "activityfeed.loading", defaultMessage: "Your activities are loading...", description: "Message indicating that the activity feed is still being loaded." }))))) : (react_1.default.createElement(react_1.default.Fragment, null, !isError && activities && activities.length !== 0
             ? activities.map(function (_a) {
                 var id = _a.id, comment = _a.comment, location = _a.location, created_at = _a.created_at, type_id = _a.type_id, user_id = _a.user_id;
                 var _b;
                 var user = queries_1.find(users, user_id);
-                var fullName = (_b = user === null || user === void 0 ? void 0 : user.full_name) !== null && _b !== void 0 ? _b : "";
+                var fullName = (_b = user === null || user === void 0 ? void 0 : user.full_name) !== null && _b !== void 0 ? _b : intl.formatMessage(messages.unknownUser);
                 var userRole = user === null || user === void 0 ? void 0 : user.user_role;
-                var displayRole = "";
+                var displayRole = "?";
                 if (userRole !== undefined) {
                     displayRole = localize_1.localizeFieldNonNull(locale, userRole, "name");
                 }
@@ -61569,13 +63312,10 @@ exports.ActivityList = function (_a) {
             : !isError && (react_1.default.createElement("p", null,
                 react_1.default.createElement(react_intl_1.FormattedMessage, { id: "activityfeed.noActivities", defaultMessage: "No activities.", description: "Message displayed when activities is empty." })))))));
 };
-var mapStateToProps = function (state, _a) {
-    var _b = _a.filterComments, filterComments = _b === void 0 ? function () { return true; } : _b;
-    return ({
-        comments: jobSelector_1.sortComments(jobSelector_1.getComments(state).filter(filterComments)),
-        users: userSelector_1.getUsers(state),
-    });
-};
+var mapStateToProps = function (state, ownProps) { return ({
+    comments: jobSelector_1.getSortedFilteredComments(state, ownProps),
+    users: userSelector_1.getUsers(state),
+}); };
 var mapDispatchToProps = function (dispatch) { return ({
     handleFetchComments: function (jobId) { return __awaiter(void 0, void 0, void 0, function () {
         var result;
@@ -61591,20 +63331,23 @@ var mapDispatchToProps = function (dispatch) { return ({
             }
         });
     }); },
-    handleFetchUsers: function () { return __awaiter(void 0, void 0, void 0, function () {
-        var result;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, dispatch(userActions_1.fetchAllUsers())];
-                case 1:
-                    result = _a.sent();
-                    if (!result.error) {
-                        return [2 /*return*/, Promise.resolve()];
-                    }
-                    return [2 /*return*/, Promise.reject(result.error)];
-            }
+    handleFetchUsers: function (ids) {
+        if (ids === void 0) { ids = ""; }
+        return __awaiter(void 0, void 0, void 0, function () {
+            var result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, dispatch(userActions_1.fetchAllUsers(ids))];
+                    case 1:
+                        result = _a.sent();
+                        if (!result.error) {
+                            return [2 /*return*/, Promise.resolve()];
+                        }
+                        return [2 /*return*/, Promise.reject(result.error)];
+                }
+            });
         });
-    }); },
+    },
 }); };
 exports.default = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(exports.ActivityList);
 
@@ -61801,37 +63544,37 @@ exports.CommentForm = function (_a) {
                     .catch(function () {
                     setSubmitting(false);
                 });
-            }, render: function (_a) {
-                var isSubmitting = _a.isSubmitting;
-                return (React.createElement(formik_1.Form, { "data-c-grid": "gutter(all, 1) middle" },
-                    React.createElement(formik_1.Field, { id: "comment_form_input", type: "text", name: "comment", component: TextAreaInput_1.default, required: true, grid: "tl(1of1)", label: intl.formatMessage(formMessages.commentLabel), placeholder: intl.formatMessage(formMessages.commentPlaceholder) }),
-                    locationOptions && (React.createElement(formik_1.Field, { name: "commentLocation", id: "comment_form_location", label: intl.formatMessage(formMessages.commentLocationLabel), grid: locationOptions && isHrAdvisor ? "tl(1of2)" : "tl(2of3)", component: SelectInput_1.default, required: true, nullSelection: intl.formatMessage(formMessages.commentLocationNullSelection), options: locationOptions.map(function (_a) {
-                            var value = _a.value, label = _a.label;
-                            return ({
-                                value: value,
-                                label: label,
-                            });
-                        }) })),
-                    isHrAdvisor && (React.createElement(formik_1.Field, { id: "comment_form_type", name: "commentType", component: SelectInput_1.default, required: true, grid: locationOptions && isHrAdvisor ? "tl(1of2)" : "tl(2of3)", nullSelection: intl.formatMessage(formMessages.commentTypeNullSelection), label: intl.formatMessage(formMessages.commentTypeLabel), options: [
-                            {
-                                value: lookupConstants_1.CommentTypeId.question,
-                                label: intl.formatMessage(exports.commentTypeMessages.question),
-                            },
-                            {
-                                value: lookupConstants_1.CommentTypeId.recommendation,
-                                label: intl.formatMessage(exports.commentTypeMessages.recommendation),
-                            },
-                            {
-                                value: lookupConstants_1.CommentTypeId.requiredAction,
-                                label: intl.formatMessage(exports.commentTypeMessages.requiredAction),
-                            },
-                        ] })),
-                    React.createElement("div", { "data-c-grid-item": (locationOptions && isHrAdvisor) || !isHrAdvisor
-                            ? "tl(1of1)"
-                            : "tl(1of3)", "data-c-align": "base(center) tl(right)" },
-                        React.createElement("button", { type: "submit", disabled: isSubmitting, "data-c-button": "solid(c1)", "data-c-radius": "rounded" },
-                            React.createElement(react_intl_1.FormattedMessage, { id: "commentForm.submitButton.label", defaultMessage: "Submit Comment", description: "The text displayed on the submit button in the comment form." })))));
-            } })));
+            } }, function (_a) {
+            var isSubmitting = _a.isSubmitting;
+            return (React.createElement(formik_1.Form, { "data-c-grid": "gutter(all, 1) middle" },
+                React.createElement(formik_1.FastField, { id: "comment_form_input", type: "text", name: "comment", component: TextAreaInput_1.default, required: true, grid: "tl(1of1)", label: intl.formatMessage(formMessages.commentLabel), placeholder: intl.formatMessage(formMessages.commentPlaceholder) }),
+                locationOptions && (React.createElement(formik_1.FastField, { name: "commentLocation", id: "comment_form_location", label: intl.formatMessage(formMessages.commentLocationLabel), grid: locationOptions && isHrAdvisor ? "tl(1of2)" : "tl(2of3)", component: SelectInput_1.default, required: true, nullSelection: intl.formatMessage(formMessages.commentLocationNullSelection), options: locationOptions.map(function (_a) {
+                        var value = _a.value, label = _a.label;
+                        return ({
+                            value: value,
+                            label: label,
+                        });
+                    }) })),
+                isHrAdvisor && (React.createElement(formik_1.FastField, { id: "comment_form_type", name: "commentType", component: SelectInput_1.default, required: true, grid: locationOptions && isHrAdvisor ? "tl(1of2)" : "tl(2of3)", nullSelection: intl.formatMessage(formMessages.commentTypeNullSelection), label: intl.formatMessage(formMessages.commentTypeLabel), options: [
+                        {
+                            value: lookupConstants_1.CommentTypeId.question,
+                            label: intl.formatMessage(exports.commentTypeMessages.question),
+                        },
+                        {
+                            value: lookupConstants_1.CommentTypeId.recommendation,
+                            label: intl.formatMessage(exports.commentTypeMessages.recommendation),
+                        },
+                        {
+                            value: lookupConstants_1.CommentTypeId.requiredAction,
+                            label: intl.formatMessage(exports.commentTypeMessages.requiredAction),
+                        },
+                    ] })),
+                React.createElement("div", { "data-c-grid-item": (locationOptions && isHrAdvisor) || !isHrAdvisor
+                        ? "tl(1of1)"
+                        : "tl(1of3)", "data-c-align": "base(center) tl(right)" },
+                    React.createElement("button", { type: "submit", disabled: isSubmitting, "data-c-button": "solid(c1)", "data-c-radius": "rounded" },
+                        React.createElement(react_intl_1.FormattedMessage, { id: "commentForm.submitButton.label", defaultMessage: "Submit Comment", description: "The text displayed on the submit button in the comment form." })))));
+        })));
 };
 var mapDispatchToProps = function (dispatch) { return ({
     handleCreateComment: function (jobId, newComment) { return __awaiter(void 0, void 0, void 0, function () {
@@ -62250,22 +63993,18 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
-var Messages_1 = __webpack_require__(/*! ./Messages */ "./resources/assets/js/components/Form/Messages.tsx");
+var Input_1 = __importDefault(__webpack_require__(/*! ../Input */ "./resources/assets/js/components/Input.tsx"));
 var NumberInput = function (_a) {
     var id = _a.id, label = _a.label, required = _a.required, placeholder = _a.placeholder, min = _a.min, max = _a.max, grid = _a.grid, _b = _a.field, name = _b.name, value = _b.value, onChange = _b.onChange, onBlur = _b.onBlur, _c = _a.form, errors = _c.errors, touched = _c.touched, props = __rest(_a, ["id", "label", "required", "placeholder", "min", "max", "grid", "field", "form"]);
     var specificError = errors ? errors[name] : null;
     var errorText = specificError ? specificError.toString() : undefined;
     var invalid = touched[name] && errors[name] ? true : null;
-    return (React.createElement("div", { "data-c-input": "number", "data-c-grid-item": grid, "data-c-required": required || null, "data-c-invalid": invalid },
-        React.createElement("label", { htmlFor: id }, label),
-        React.createElement("span", null,
-            React.createElement(react_intl_1.FormattedMessage, __assign({}, Messages_1.inputMessages.required))),
-        React.createElement("div", null,
-            React.createElement("input", __assign({ required: true, id: id, name: name, placeholder: placeholder, type: "number", value: value || undefined, min: min, max: max, onChange: onChange, onBlur: onBlur }, props))),
-        React.createElement("span", null, errorText || React.createElement(react_intl_1.FormattedMessage, __assign({}, Messages_1.inputMessages.error)))));
+    return (React.createElement(Input_1.default, __assign({ id: id, label: label, placeholder: placeholder, required: required, name: name, value: value, grid: grid, min: min, max: max, onChange: onChange, onBlur: onBlur, errorText: errorText, invalid: invalid }, props)));
 };
 exports.default = NumberInput;
 
@@ -62292,21 +64031,31 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
 var Messages_1 = __webpack_require__(/*! ./Messages */ "./resources/assets/js/components/Form/Messages.tsx");
 var RadioGroup = function (_a) {
     var id = _a.id, label = _a.label, grid = _a.grid, required = _a.required, error = _a.error, touched = _a.touched, children = _a.children;
+    // Add a temporary style when radiogroup is focused, until it's added to clone.
+    var _b = react_1.useState(false), focus = _b[0], setFocus = _b[1];
+    var focusStyle = {
+        boxShadow: "-3px -3px 0 #0a6cbc, 3px -3px 0 #0a6cbc, 3px 3px 0 #0a6cbc, -3px 3px 0 #0a6cbc",
+        transition: "all .2s ease",
+    };
     var hasError = !!error && touched;
     return (react_1.default.createElement("div", { "data-c-grid-item": grid, "data-c-input": "radio", "data-c-required": required, "data-c-invalid": hasError ? true : null },
         react_1.default.createElement("label", { htmlFor: id }, label),
         react_1.default.createElement("span", null,
             react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, Messages_1.inputMessages.required))),
-        react_1.default.createElement("div", { id: id, role: "radiogroup" }, children),
+        react_1.default.createElement("div", { id: id, role: "radiogroup", onFocus: function () { return setFocus(true); }, onBlur: function () { return setFocus(false); }, style: focus && !!error ? focusStyle : {} }, children),
         react_1.default.createElement("span", null, error)));
 };
 exports.default = RadioGroup;
@@ -62330,8 +64079,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 var Radio_1 = __importDefault(__webpack_require__(/*! ../Radio */ "./resources/assets/js/components/Radio.tsx"));
 var RadioInput = function (_a) {
-    var id = _a.id, label = _a.label, trigger = _a.trigger, _b = _a.field, name = _b.name, value = _b.value, onChange = _b.onChange, onBlur = _b.onBlur;
-    return (react_1.default.createElement(Radio_1.default, { id: id, name: name, label: label, value: id, checked: id === value, trigger: trigger, onChange: onChange, onBlur: onBlur }));
+    var id = _a.id, label = _a.label, required = _a.required, trigger = _a.trigger, _b = _a.field, name = _b.name, value = _b.value, onChange = _b.onChange, onBlur = _b.onBlur;
+    return (react_1.default.createElement(Radio_1.default, { id: id, name: name, label: label, value: id, checked: id === value, trigger: trigger, required: required, onChange: onChange, onBlur: onBlur }));
 };
 exports.default = RadioInput;
 
@@ -62521,13 +64270,13 @@ var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/r
 var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
 var Messages_1 = __webpack_require__(/*! ./Form/Messages */ "./resources/assets/js/components/Form/Messages.tsx");
 var Input = function (_a) {
-    var id = _a.id, name = _a.name, label = _a.label, required = _a.required, placeholder = _a.placeholder, type = _a.type, value = _a.value, invalid = _a.invalid, errorText = _a.errorText, grid = _a.grid, minLength = _a.minLength, maxLength = _a.maxLength, onBlur = _a.onBlur, onChange = _a.onChange;
+    var id = _a.id, name = _a.name, label = _a.label, required = _a.required, placeholder = _a.placeholder, type = _a.type, value = _a.value, invalid = _a.invalid, errorText = _a.errorText, grid = _a.grid, minLength = _a.minLength, maxLength = _a.maxLength, min = _a.min, max = _a.max, onBlur = _a.onBlur, onChange = _a.onChange;
     return (react_1.default.createElement("div", { "data-c-input": type || "text", "data-c-grid-item": grid, "data-c-required": required || null, "data-c-invalid": invalid || null },
         react_1.default.createElement("label", { htmlFor: id }, label),
         react_1.default.createElement("span", null,
             react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, Messages_1.inputMessages.required))),
         react_1.default.createElement("div", null,
-            react_1.default.createElement("input", { id: id, name: name, required: required, placeholder: placeholder, type: type || "text", value: value, minLength: minLength, maxLength: maxLength, onChange: onChange, onBlur: onBlur })),
+            react_1.default.createElement("input", { id: id, name: name, required: required, placeholder: placeholder, type: type || "text", value: value, minLength: minLength, maxLength: maxLength, min: min, max: max, onChange: onChange, onBlur: onBlur })),
         react_1.default.createElement("span", null, errorText || react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, Messages_1.inputMessages.error)))));
 };
 exports.default = Input;
@@ -62764,11 +64513,12 @@ var updateJobWithValues = function (initialJob, locale, _a) {
     var title = _a.title, termLength = _a.termLength, classification = _a.classification, level = _a.level, educationRequirements = _a.educationRequirements, securityLevel = _a.securityLevel, language = _a.language, city = _a.city, province = _a.province, remoteWork = _a.remoteWork, telework = _a.telework, flexHours = _a.flexHours, travel = _a.travel, overtime = _a.overtime;
     return (__assign(__assign({}, initialJob), { term_qty: termLength || null, classification_id: classification || null, classification_level: level || null, security_clearance_id: securityLevel || null, language_requirement_id: language || null, province_id: province || null, remote_work_allowed: remoteWork !== "remoteWorkNone", telework_allowed_frequency_id: teleworkFrequencies.indexOf(telework) + 1, flexible_hours_frequency_id: flexHourFrequencies.indexOf(flexHours) + 1, travel_requirement_id: travelRequirements.indexOf(travel) + 1, overtime_requirement_id: overtimeRequirements.indexOf(overtime) + 1, title: __assign(__assign({}, initialJob.title), (_b = {}, _b[locale] = title, _b)), city: __assign(__assign({}, initialJob.city), (_c = {}, _c[locale] = city, _c)), education: __assign(__assign({}, initialJob.education), (_d = {}, _d[locale] = educationRequirements, _d)) }));
 };
-var JobDetails = function (_a) {
-    var job = _a.job, handleSubmit = _a.handleSubmit, handleReturn = _a.handleReturn, handleModalCancel = _a.handleModalCancel, handleModalConfirm = _a.handleModalConfirm, jobIsComplete = _a.jobIsComplete, handleSkipToReview = _a.handleSkipToReview, intl = _a.intl;
+exports.JobDetails = function (_a) {
+    var job = _a.job, handleSubmit = _a.handleSubmit, handleReturn = _a.handleReturn, handleModalCancel = _a.handleModalCancel, handleModalConfirm = _a.handleModalConfirm, jobIsComplete = _a.jobIsComplete, handleSkipToReview = _a.handleSkipToReview;
+    var intl = react_intl_1.useIntl();
+    var locale = localize_1.getLocale(intl.locale);
     var _b = react_1.useState(false), isModalVisible = _b[0], setIsModalVisible = _b[1];
     var modalParentRef = react_1.useRef(null);
-    var locale = intl.locale;
     if (locale !== "en" && locale !== "fr") {
         throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
     }
@@ -62860,138 +64610,137 @@ var JobDetails = function (_a) {
                         .finally(function () {
                         actions.setSubmitting(false); // Required by Formik to finish the submission cycle
                     });
-                }, render: function (_a) {
-                    var errors = _a.errors, touched = _a.touched, isSubmitting = _a.isSubmitting, values = _a.values;
-                    return (react_1.default.createElement("section", null,
-                        react_1.default.createElement(formik_1.Form, { id: "job-information", "data-c-container": "form", "data-c-grid": "gutter" },
-                            react_1.default.createElement(formik_1.Field, { type: "text", name: "title", component: TextInput_1.default, required: true, grid: "tl(1of2)", id: "builder02JobTitle", label: intl.formatMessage(JobDetailsMessages_1.formMessages.titleLabel), placeholder: intl.formatMessage(JobDetailsMessages_1.formMessages.titlePlaceholder) }),
-                            react_1.default.createElement(formik_1.Field, { type: "number", name: "termLength", component: NumberInput_1.default, placeholder: intl.formatMessage(JobDetailsMessages_1.formMessages.termLengthPlaceholder), min: 1, max: 36, required: true, grid: "tl(1of2)", id: "builder02TermLength", label: intl.formatMessage(JobDetailsMessages_1.formMessages.termLengthLabel) }),
-                            react_1.default.createElement(formik_1.Field, { name: "classification", id: "builder02Classification", label: intl.formatMessage(JobDetailsMessages_1.formMessages.classificationLabel), grid: "tl(1of2)", component: SelectInput_1.default, required: true, nullSelection: intl.formatMessage(JobDetailsMessages_1.formMessages.classificationNullSelection), options: Object.values(lookupConstants_1.ClassificationId).map(function (id) { return ({
-                                    value: id,
-                                    label: intl.formatMessage(localizedConstants_1.classificationCodeOption(id)),
-                                }); }) }),
-                            react_1.default.createElement(formik_1.Field, { name: "level", id: "builder02Level", component: SelectInput_1.default, required: true, label: intl.formatMessage(JobDetailsMessages_1.formMessages.levelLabel), grid: "tl(1of2)", nullSelection: intl.formatMessage(JobDetailsMessages_1.formMessages.levelNullSelection), options: [
-                                    { value: 1, label: "1" },
-                                    { value: 2, label: "2" },
-                                    { value: 3, label: "3" },
-                                    { value: 4, label: "4" },
-                                    { value: 5, label: "5" },
-                                    { value: 6, label: "6" },
-                                    { value: 7, label: "7" },
-                                    { value: 8, label: "8" },
-                                    { value: 9, label: "9" },
-                                ] }),
-                            react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" }, !isClassificationSet(values) ? (react_1.default.createElement("p", { "data-c-font-weight": "bold", "data-c-margin": "bottom(normal)", "data-c-colour": "grey", "data-c-border": "all(thin, solid, grey)", "data-c-background": "white(100)", "data-c-padding": "all(normal)", "data-c-alignment": "base(center)" },
-                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.SelectClassAndLvlMessage", defaultMessage: "Please select a classification and level before preparing the education requirements.", description: "Message displayed after classification and level select boxes." }))) : (react_1.default.createElement(react_1.default.Fragment, null,
+                } }, function (_a) {
+                var errors = _a.errors, touched = _a.touched, isSubmitting = _a.isSubmitting, values = _a.values;
+                return (react_1.default.createElement("section", null,
+                    react_1.default.createElement(formik_1.Form, { id: "job-information", "data-c-grid": "gutter" },
+                        react_1.default.createElement(formik_1.FastField, { id: "builder02JobTitle", type: "text", name: "title", component: TextInput_1.default, required: true, grid: "tl(1of2)", label: intl.formatMessage(JobDetailsMessages_1.formMessages.titleLabel), placeholder: intl.formatMessage(JobDetailsMessages_1.formMessages.titlePlaceholder) }),
+                        react_1.default.createElement(formik_1.FastField, { id: "builder02TermLength", type: "number", name: "termLength", component: NumberInput_1.default, min: 1, max: 36, required: true, grid: "tl(1of2)", label: intl.formatMessage(JobDetailsMessages_1.formMessages.termLengthLabel), placeholder: intl.formatMessage(JobDetailsMessages_1.formMessages.termLengthPlaceholder) }),
+                        react_1.default.createElement(formik_1.FastField, { id: "builder02Classification", name: "classification", label: intl.formatMessage(JobDetailsMessages_1.formMessages.classificationLabel), grid: "tl(1of2)", component: SelectInput_1.default, required: true, nullSelection: intl.formatMessage(JobDetailsMessages_1.formMessages.classificationNullSelection), options: Object.values(lookupConstants_1.ClassificationId).map(function (id) { return ({
+                                value: id,
+                                label: intl.formatMessage(localizedConstants_1.classificationCodeOption(id)),
+                            }); }) }),
+                        react_1.default.createElement(formik_1.FastField, { name: "level", id: "builder02Level", component: SelectInput_1.default, required: true, label: intl.formatMessage(JobDetailsMessages_1.formMessages.levelLabel), grid: "tl(1of2)", nullSelection: intl.formatMessage(JobDetailsMessages_1.formMessages.levelNullSelection), options: [
+                                { value: 1, label: "1" },
+                                { value: 2, label: "2" },
+                                { value: 3, label: "3" },
+                                { value: 4, label: "4" },
+                                { value: 5, label: "5" },
+                                { value: 6, label: "6" },
+                                { value: 7, label: "7" },
+                                { value: 8, label: "8" },
+                                { value: 9, label: "9" },
+                            ] }),
+                        react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" }, !isClassificationSet(values) ? (react_1.default.createElement("p", { "data-c-font-weight": "bold", "data-c-margin": "bottom(normal)", "data-c-colour": "grey", "data-c-border": "all(thin, solid, grey)", "data-c-background": "white(100)", "data-c-padding": "all(normal)", "data-c-alignment": "base(center)" },
+                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.SelectClassAndLvlMessage", defaultMessage: "Please select a classification and level before preparing the education requirements.", description: "Message displayed after classification and level select boxes." }))) : (react_1.default.createElement(react_1.default.Fragment, null,
+                            react_1.default.createElement("p", { "data-c-font-weight": "bold", "data-c-margin": "bottom(normal)" },
+                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.educationRequirementHeader", defaultMessage: "Based on the classification level you selected, this standard paragraph will appear on the job poster.", description: "Header message displayed for the Education requirement section." })),
+                            react_1.default.createElement("div", null,
+                                react_1.default.createElement(ContextBlockItem_1.default, { wrapperMargin: "bottom(normal)", subtext: getEducationMsgForClassification(values.classification, intl) })),
+                            react_1.default.createElement("div", { className: "job-builder-education-customization active" },
+                                react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" },
+                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.educationRequirementCopyAndPaste", defaultMessage: "If you want to customize this paragraph, copy and paste it into the textbox below.", description: "Footer message displayed for the Education requirement section." })),
                                 react_1.default.createElement("p", { "data-c-font-weight": "bold", "data-c-margin": "bottom(normal)" },
-                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.educationRequirementHeader", defaultMessage: "Based on the classification level you selected, this standard paragraph will appear on the job poster.", description: "Header message displayed for the Education requirement section." })),
-                                react_1.default.createElement("div", null,
-                                    react_1.default.createElement(ContextBlockItem_1.default, { wrapperMargin: "bottom(normal)", subtext: getEducationMsgForClassification(values.classification, intl) })),
-                                react_1.default.createElement("div", { className: "job-builder-education-customization active" },
-                                    react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" },
-                                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.educationRequirementCopyAndPaste", defaultMessage: "If you want to customize this paragraph, copy and paste it into the textbox below.", description: "Footer message displayed for the Education requirement section." })),
-                                    react_1.default.createElement("p", { "data-c-font-weight": "bold", "data-c-margin": "bottom(normal)" },
-                                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.educationRequirementReviewChanges", defaultMessage: "Your HR advisor will review your changes.", description: "Footer message displayed for the Education requirement section." })),
-                                    react_1.default.createElement("div", { "data-c-alignment": "base(centre)", "data-c-margin": "top(normal) bottom(half)" },
-                                        react_1.default.createElement(CopyToClipboardButton_1.default, { actionText: react_1.default.createElement(react_intl_1.FormattedMessage, { id: "button.copyToClipboard", defaultMessage: "Copy to Clipboard", description: "Button to copy text to clipboard." }), postActionText: react_1.default.createElement(react_intl_1.FormattedMessage, { id: "button.copied", defaultMessage: "Copied!", description: "Confirmation for Button to copy text to clipboard." }), textToCopy: getEducationMsgForClassification(values.classification, intl) })),
-                                    react_1.default.createElement(formik_1.Field, { type: "textarea", id: "education_requirements", name: "educationRequirements", label: intl.formatMessage(JobDetailsMessages_1.formMessages.educationRequirementsLabel), placeholder: intl.formatMessage(JobDetailsMessages_1.formMessages.educationRequirementPlaceholder), component: TextAreaInput_1.default, grid: "base(1of1)" }))))),
-                            react_1.default.createElement(formik_1.Field, { name: "securityLevel", id: "builder02SecurityLevel", component: SelectInput_1.default, required: true, grid: "tl(1of2)", label: intl.formatMessage(JobDetailsMessages_1.formMessages.securityLevelLabel), nullSelection: intl.formatMessage(JobDetailsMessages_1.formMessages.securityLevelNullSelection), options: Object.values(lookupConstants_1.SecurityClearanceId).map(function (id) { return ({
-                                    value: id,
-                                    label: intl.formatMessage(localizedConstants_1.securityClearance(id)),
-                                }); }) }),
-                            react_1.default.createElement(formik_1.Field, { name: "language", id: "builder02Language", component: SelectInput_1.default, required: true, grid: "tl(1of2)", label: intl.formatMessage(JobDetailsMessages_1.formMessages.languageLabel), nullSelection: intl.formatMessage(JobDetailsMessages_1.formMessages.languageNullSelection), options: Object.values(lookupConstants_1.LanguageRequirementId).map(function (id) { return ({
-                                    value: id,
-                                    label: intl.formatMessage(localizedConstants_1.languageRequirement(id)),
-                                }); }) }),
-                            react_1.default.createElement(formik_1.Field, { name: "city", type: "text", component: TextInput_1.default, required: true, grid: "tl(1of2)", id: "builder02City", label: intl.formatMessage(JobDetailsMessages_1.formMessages.cityLabel), placeholder: intl.formatMessage(JobDetailsMessages_1.formMessages.cityPlaceholder) }),
-                            react_1.default.createElement(formik_1.Field, { name: "province", id: "builder02Province", component: SelectInput_1.default, required: true, grid: "tl(1of2)", label: intl.formatMessage(JobDetailsMessages_1.formMessages.provinceLabel), nullSelection: intl.formatMessage(JobDetailsMessages_1.formMessages.provinceNullSelection), options: Object.values(lookupConstants_1.ProvinceId).map(function (id) { return ({
-                                    value: id,
-                                    label: intl.formatMessage(localizedConstants_1.provinceName(id)),
-                                }); }) }),
-                            react_1.default.createElement("p", { "data-c-margin": "bottom(normal)", "data-c-font-weight": "bold" },
-                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.remoteWorkGroupHeader", defaultMessage: "Is remote work allowed?", description: "Header message displayed on the remote work group input." })),
-                            react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" },
-                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.remoteWorkGroupBody", defaultMessage: "Want the best talent in Canada? You increase your chances when you allow those in other parts of Canada to apply. Regional diversity also adds perspective to your team culture. Make sure to discuss this in advance with your HR Advisor.", description: "Body message displayed on the remote work group input." })),
-                            react_1.default.createElement(RadioGroup_1.default, { id: "remoteWork", label: intl.formatMessage(JobDetailsMessages_1.formMessages.remoteWorkGroupLabel), required: true, grid: "base(1of1)", error: errors.remoteWork, touched: touched.remoteWork, value: values.remoteWork }, Object.keys(remoteWorkMessages).map(function (key) {
-                                return (react_1.default.createElement(formik_1.Field, { key: key, name: "remoteWork", component: RadioInput_1.default, id: key, label: intl.formatMessage(remoteWorkMessages[key]) }));
-                            })),
-                            react_1.default.createElement("p", { "data-c-margin": "bottom(normal)", "data-c-font-weight": "bold" },
-                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.teleworkGroupHeader", defaultMessage: "How often is telework allowed?", description: "Header message displayed on the telework group input." })),
-                            react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" },
-                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.teleworkGroupBody", defaultMessage: "Demonstrate that you trust your employees and you have a positive workplace culture. Allow telework as an option.", description: "Body message displayed on the telework group input." })),
-                            react_1.default.createElement(RadioGroup_1.default, { id: "telework", label: intl.formatMessage(JobDetailsMessages_1.formMessages.teleworkGroupLabel), required: true, grid: "base(1of1)", error: errors.telework, touched: touched.telework, value: values.telework }, Object.keys(teleworkMessages).map(function (key) {
-                                return (react_1.default.createElement(formik_1.Field, { key: key, name: "telework", component: RadioInput_1.default, id: key, label: intl.formatMessage(teleworkMessages[key]) }));
-                            })),
-                            react_1.default.createElement("p", { "data-c-margin": "bottom(normal)", "data-c-font-weight": "bold" },
-                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.flexHoursGroupHeader", defaultMessage: "How often are flexible hours allowed?", description: "Header message displayed on the flex hours group input." })),
-                            react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" },
-                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.flexHoursGroupBody", defaultMessage: "Want to support a more gender inclusive workplace?\n                          Studies show allowing flex hours is a great way to improve opportunities for women and parents.", description: "Body message displayed on the flex hours group input." })),
-                            react_1.default.createElement(RadioGroup_1.default, { id: "flexHours", required: true, grid: "base(1of1)", label: intl.formatMessage(JobDetailsMessages_1.formMessages.flexHoursGroupLabel), error: errors.flexHours, touched: touched.flexHours, value: values.flexHours }, Object.keys(flexHourMessages).map(function (key) {
-                                return (react_1.default.createElement(formik_1.Field, { key: key, name: "flexHours", component: RadioInput_1.default, id: key, label: intl.formatMessage(flexHourMessages[key]) }));
-                            })),
-                            react_1.default.createElement("p", { "data-c-margin": "bottom(normal)", "data-c-font-weight": "bold" },
-                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.travelGroupHeader", defaultMessage: "Is travel required?", description: "Header message displayed on the travel group input." })),
-                            react_1.default.createElement(RadioGroup_1.default, { id: "travel", required: true, grid: "base(1of1)", label: intl.formatMessage(JobDetailsMessages_1.formMessages.travelGroupLabel), error: errors.travel, touched: touched.travel, value: values.travel }, Object.keys(travelMessages).map(function (key) {
-                                return (react_1.default.createElement(formik_1.Field, { key: key, name: "travel", component: RadioInput_1.default, id: key, label: intl.formatMessage(travelMessages[key]) }));
-                            })),
-                            react_1.default.createElement("p", { "data-c-margin": "bottom(normal)", "data-c-font-weight": "bold" },
-                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.overtimeGroupHeader", defaultMessage: "Is overtime required?", description: "Header message displayed on the overtime group input." })),
-                            react_1.default.createElement(RadioGroup_1.default, { id: "overtime", required: true, grid: "base(1of1)", label: intl.formatMessage(JobDetailsMessages_1.formMessages.overtimeGroupLabel), error: errors.overtime, touched: touched.overtime, value: values.overtime }, Object.keys(overtimeMessages).map(function (key) {
-                                return (react_1.default.createElement(formik_1.Field, { key: key, name: "overtime", component: RadioInput_1.default, id: key, label: intl.formatMessage(overtimeMessages[key]) }));
-                            })),
-                            react_1.default.createElement("div", { "data-c-grid": "gutter", "data-c-grid-item": "base(1of1)" },
-                                react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" },
-                                    react_1.default.createElement("hr", { "data-c-margin": "top(normal) bottom(normal)" })),
-                                react_1.default.createElement("div", { "data-c-alignment": "base(centre) tp(left)", "data-c-grid-item": "tp(1of2)" },
-                                    react_1.default.createElement("button", { "data-c-button": "outline(c2)", "data-c-radius": "rounded", type: "button", disabled: isSubmitting, onClick: function () {
-                                            updateValuesAndReturn(values);
-                                        } },
-                                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.returnButtonLabel", defaultMessage: "Save & Return to Intro", description: "The text displayed on the Save & Return button of the Job Details form." }))),
-                                react_1.default.createElement("div", { "data-c-alignment": "base(centre) tp(right)", "data-c-grid-item": "tp(1of2)" },
-                                    react_1.default.createElement("button", { "data-c-button": "solid(c1)", "data-c-radius": "rounded", type: "submit", disabled: isSubmitting },
-                                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.submitButtonLabel", defaultMessage: "Save & Preview", description: "The text displayed on the submit button for the Job Details form." }))))),
-                        react_1.default.createElement(Modal_1.default, { id: "job-details-preview", parentElement: modalParentRef.current, visible: isModalVisible, onModalConfirm: function () {
-                                handleModalConfirm();
+                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.educationRequirementReviewChanges", defaultMessage: "Your HR advisor will review your changes.", description: "Footer message displayed for the Education requirement section." })),
+                                react_1.default.createElement("div", { "data-c-alignment": "base(centre)", "data-c-margin": "top(normal) bottom(half)" },
+                                    react_1.default.createElement(CopyToClipboardButton_1.default, { actionText: react_1.default.createElement(react_intl_1.FormattedMessage, { id: "button.copyToClipboard", defaultMessage: "Copy to Clipboard", description: "Button to copy text to clipboard." }), postActionText: react_1.default.createElement(react_intl_1.FormattedMessage, { id: "button.copied", defaultMessage: "Copied!", description: "Confirmation for Button to copy text to clipboard." }), textToCopy: getEducationMsgForClassification(values.classification, intl) })),
+                                react_1.default.createElement(formik_1.Field, { type: "textarea", id: "education_requirements", name: "educationRequirements", label: intl.formatMessage(JobDetailsMessages_1.formMessages.educationRequirementsLabel), placeholder: intl.formatMessage(JobDetailsMessages_1.formMessages.educationRequirementPlaceholder), component: TextAreaInput_1.default, grid: "base(1of1)" }))))),
+                        react_1.default.createElement(formik_1.FastField, { name: "securityLevel", id: "builder02SecurityLevel", component: SelectInput_1.default, required: true, grid: "tl(1of2)", label: intl.formatMessage(JobDetailsMessages_1.formMessages.securityLevelLabel), nullSelection: intl.formatMessage(JobDetailsMessages_1.formMessages.securityLevelNullSelection), options: Object.values(lookupConstants_1.SecurityClearanceId).map(function (id) { return ({
+                                value: id,
+                                label: intl.formatMessage(localizedConstants_1.securityClearance(id)),
+                            }); }) }),
+                        react_1.default.createElement(formik_1.FastField, { name: "language", id: "builder02Language", component: SelectInput_1.default, required: true, grid: "tl(1of2)", label: intl.formatMessage(JobDetailsMessages_1.formMessages.languageLabel), nullSelection: intl.formatMessage(JobDetailsMessages_1.formMessages.languageNullSelection), options: Object.values(lookupConstants_1.LanguageRequirementId).map(function (id) { return ({
+                                value: id,
+                                label: intl.formatMessage(localizedConstants_1.languageRequirement(id)),
+                            }); }) }),
+                        react_1.default.createElement(formik_1.FastField, { name: "city", type: "text", component: TextInput_1.default, required: true, grid: "tl(1of2)", id: "builder02City", label: intl.formatMessage(JobDetailsMessages_1.formMessages.cityLabel), placeholder: intl.formatMessage(JobDetailsMessages_1.formMessages.cityPlaceholder) }),
+                        react_1.default.createElement(formik_1.FastField, { name: "province", id: "builder02Province", component: SelectInput_1.default, required: true, grid: "tl(1of2)", label: intl.formatMessage(JobDetailsMessages_1.formMessages.provinceLabel), nullSelection: intl.formatMessage(JobDetailsMessages_1.formMessages.provinceNullSelection), options: Object.values(lookupConstants_1.ProvinceId).map(function (id) { return ({
+                                value: id,
+                                label: intl.formatMessage(localizedConstants_1.provinceName(id)),
+                            }); }) }),
+                        react_1.default.createElement("p", { "data-c-margin": "bottom(normal)", "data-c-font-weight": "bold" },
+                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.remoteWorkGroupHeader", defaultMessage: "Is remote work allowed?", description: "Header message displayed on the remote work group input." })),
+                        react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" },
+                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.remoteWorkGroupBody", defaultMessage: "Want the best talent in Canada? You increase your chances when you allow those in other parts of Canada to apply. Regional diversity also adds perspective to your team culture. Make sure to discuss this in advance with your HR Advisor.", description: "Body message displayed on the remote work group input." })),
+                        react_1.default.createElement(RadioGroup_1.default, { id: "remoteWork", label: intl.formatMessage(JobDetailsMessages_1.formMessages.remoteWorkGroupLabel), required: true, grid: "base(1of1)", error: errors.remoteWork, touched: touched.remoteWork, value: values.remoteWork }, Object.keys(remoteWorkMessages).map(function (key) {
+                            return (react_1.default.createElement(formik_1.FastField, { key: key, name: "remoteWork", component: RadioInput_1.default, id: key, label: intl.formatMessage(remoteWorkMessages[key]) }));
+                        })),
+                        react_1.default.createElement("p", { "data-c-margin": "bottom(normal)", "data-c-font-weight": "bold" },
+                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.teleworkGroupHeader", defaultMessage: "How often is telework allowed?", description: "Header message displayed on the telework group input." })),
+                        react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" },
+                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.teleworkGroupBody", defaultMessage: "Demonstrate that you trust your employees and you have a positive workplace culture. Allow telework as an option.", description: "Body message displayed on the telework group input." })),
+                        react_1.default.createElement(RadioGroup_1.default, { id: "telework", label: intl.formatMessage(JobDetailsMessages_1.formMessages.teleworkGroupLabel), required: true, grid: "base(1of1)", error: errors.telework, touched: touched.telework, value: values.telework }, Object.keys(teleworkMessages).map(function (key) {
+                            return (react_1.default.createElement(formik_1.FastField, { key: key, name: "telework", component: RadioInput_1.default, id: key, label: intl.formatMessage(teleworkMessages[key]) }));
+                        })),
+                        react_1.default.createElement("p", { "data-c-margin": "bottom(normal)", "data-c-font-weight": "bold" },
+                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.flexHoursGroupHeader", defaultMessage: "How often are flexible hours allowed?", description: "Header message displayed on the flex hours group input." })),
+                        react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" },
+                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.flexHoursGroupBody", defaultMessage: "Want to support a more gender inclusive workplace?\n                          Studies show allowing flex hours is a great way to improve opportunities for women and parents.", description: "Body message displayed on the flex hours group input." })),
+                        react_1.default.createElement(RadioGroup_1.default, { id: "flexHours", required: true, grid: "base(1of1)", label: intl.formatMessage(JobDetailsMessages_1.formMessages.flexHoursGroupLabel), error: errors.flexHours, touched: touched.flexHours, value: values.flexHours }, Object.keys(flexHourMessages).map(function (key) {
+                            return (react_1.default.createElement(formik_1.FastField, { key: key, name: "flexHours", component: RadioInput_1.default, id: key, label: intl.formatMessage(flexHourMessages[key]) }));
+                        })),
+                        react_1.default.createElement("p", { "data-c-margin": "bottom(normal)", "data-c-font-weight": "bold" },
+                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.travelGroupHeader", defaultMessage: "Is travel required?", description: "Header message displayed on the travel group input." })),
+                        react_1.default.createElement(RadioGroup_1.default, { id: "travel", required: true, grid: "base(1of1)", label: intl.formatMessage(JobDetailsMessages_1.formMessages.travelGroupLabel), error: errors.travel, touched: touched.travel, value: values.travel }, Object.keys(travelMessages).map(function (key) {
+                            return (react_1.default.createElement(formik_1.FastField, { key: key, name: "travel", component: RadioInput_1.default, id: key, label: intl.formatMessage(travelMessages[key]) }));
+                        })),
+                        react_1.default.createElement("p", { "data-c-margin": "bottom(normal)", "data-c-font-weight": "bold" },
+                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.overtimeGroupHeader", defaultMessage: "Is overtime required?", description: "Header message displayed on the overtime group input." })),
+                        react_1.default.createElement(RadioGroup_1.default, { id: "overtime", required: true, grid: "base(1of1)", label: intl.formatMessage(JobDetailsMessages_1.formMessages.overtimeGroupLabel), error: errors.overtime, touched: touched.overtime, value: values.overtime }, Object.keys(overtimeMessages).map(function (key) {
+                            return (react_1.default.createElement(formik_1.FastField, { key: key, name: "overtime", component: RadioInput_1.default, id: key, label: intl.formatMessage(overtimeMessages[key]) }));
+                        })),
+                        react_1.default.createElement("div", { "data-c-grid": "gutter", "data-c-grid-item": "base(1of1)" },
+                            react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" },
+                                react_1.default.createElement("hr", { "data-c-margin": "top(normal) bottom(normal)" })),
+                            react_1.default.createElement("div", { "data-c-alignment": "base(centre) tp(left)", "data-c-grid-item": "tp(1of2)" },
+                                react_1.default.createElement("button", { "data-c-button": "outline(c2)", "data-c-radius": "rounded", type: "button", disabled: isSubmitting, onClick: function () {
+                                        updateValuesAndReturn(values);
+                                    } },
+                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.returnButtonLabel", defaultMessage: "Save & Return to Intro", description: "The text displayed on the Save & Return button of the Job Details form." }))),
+                            react_1.default.createElement("div", { "data-c-alignment": "base(centre) tp(right)", "data-c-grid-item": "tp(1of2)" },
+                                react_1.default.createElement("button", { "data-c-button": "solid(c1)", "data-c-radius": "rounded", type: "submit", disabled: isSubmitting },
+                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.submitButtonLabel", defaultMessage: "Save & Preview", description: "The text displayed on the submit button for the Job Details form." }))))),
+                    react_1.default.createElement(Modal_1.default, { id: "job-details-preview", parentElement: modalParentRef.current, visible: isModalVisible, onModalConfirm: function () {
+                            handleModalConfirm();
+                            setIsModalVisible(false);
+                        }, onModalCancel: function () {
+                            handleModalCancel();
+                            setIsModalVisible(false);
+                        }, onModalMiddle: function () {
+                            handleSkipToReview().finally(function () {
                                 setIsModalVisible(false);
-                            }, onModalCancel: function () {
-                                handleModalCancel();
-                                setIsModalVisible(false);
-                            }, onModalMiddle: function () {
-                                handleSkipToReview().finally(function () {
-                                    setIsModalVisible(false);
-                                });
-                            } },
-                            react_1.default.createElement(Modal_1.default.Header, null,
-                                react_1.default.createElement("div", { "data-c-background": "c1(100)", "data-c-border": "bottom(thin, solid, black)", "data-c-padding": "normal" },
-                                    react_1.default.createElement("h5", { "data-c-colour": "white", "data-c-font-size": "h4", id: "job-details-preview-title" },
-                                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.modalHeader", defaultMessage: "You're off to a great start!", description: "The text displayed in the header of the Job Details modal." })))),
-                            react_1.default.createElement(Modal_1.default.Body, null,
-                                react_1.default.createElement("div", { "data-c-border": "bottom(thin, solid, black)", "data-c-padding": "normal", id: "job-details-preview-description" },
-                                    react_1.default.createElement("p", null,
-                                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.modalBody", defaultMessage: "Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it.", description: "The text displayed in the body of the Job Details modal." }))),
-                                react_1.default.createElement("div", { "data-c-background": "grey(20)", "data-c-border": "bottom(thin, solid, black)", "data-c-padding": "normal" },
-                                    react_1.default.createElement(JobPreview_1.default, { title: values.title, department: "Department", remoteWork: intl.formatMessage(remoteWorkMessages[values.remoteWork]), language: typeof values.language === "string"
-                                            ? ""
-                                            : intl.formatMessage(localizedConstants_1.languageRequirement(Number(values.language))), city: values.city, province: typeof values.province === "string"
-                                            ? ""
-                                            : intl.formatMessage(localizedConstants_1.provinceName(Number(values.province))), education: values.educationRequirements.length > 0
-                                            ? values.educationRequirements
-                                            : getEducationMsgForClassification(values.classification, intl), termLength: typeof values.termLength === "string"
-                                            ? null
-                                            : Number(values.termLength), telework: intl.formatMessage(teleworkMessages[values.telework]), flexHours: intl.formatMessage(flexHourMessages[values.flexHours]), securityLevel: typeof values.securityLevel === "string"
-                                            ? ""
-                                            : intl.formatMessage(localizedConstants_1.securityClearance(Number(values.securityLevel))), classification: lookupConstants_1.getKeyByValue(lookupConstants_1.ClassificationId, values.classification), level: String(values.level), travel: intl.formatMessage(travelMessages[values.travel]), overtime: intl.formatMessage(overtimeMessages[values.overtime]) }))),
-                            react_1.default.createElement(Modal_1.default.Footer, null,
-                                react_1.default.createElement(Modal_1.default.FooterCancelBtn, null,
-                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.modalCancelLabel", defaultMessage: "Go Back", description: "The text displayed on the cancel button of the Job Details modal." })),
-                                jobIsComplete && (react_1.default.createElement(Modal_1.default.FooterMiddleBtn, null,
-                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.modalMiddleLabel", defaultMessage: "Skip to Review", description: "The text displayed on the 'Skip to Review' button of the Job Details modal." }))),
-                                react_1.default.createElement(Modal_1.default.FooterConfirmBtn, null,
-                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.modalConfirmLabel", defaultMessage: "Next Step", description: "The text displayed on the confirm button of the Job Details modal." }))))));
-                } })),
+                            });
+                        } },
+                        react_1.default.createElement(Modal_1.default.Header, null,
+                            react_1.default.createElement("div", { "data-c-background": "c1(100)", "data-c-border": "bottom(thin, solid, black)", "data-c-padding": "normal" },
+                                react_1.default.createElement("h5", { "data-c-colour": "white", "data-c-font-size": "h4", id: "job-details-preview-title" },
+                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.modalHeader", defaultMessage: "You're off to a great start!", description: "The text displayed in the header of the Job Details modal." })))),
+                        react_1.default.createElement(Modal_1.default.Body, null,
+                            react_1.default.createElement("div", { "data-c-border": "bottom(thin, solid, black)", "data-c-padding": "normal", id: "job-details-preview-description" },
+                                react_1.default.createElement("p", null,
+                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.modalBody", defaultMessage: "Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it.", description: "The text displayed in the body of the Job Details modal." }))),
+                            react_1.default.createElement("div", { "data-c-background": "grey(20)", "data-c-border": "bottom(thin, solid, black)", "data-c-padding": "normal" },
+                                react_1.default.createElement(JobPreview_1.default, { title: values.title, department: "Department", remoteWork: intl.formatMessage(remoteWorkMessages[values.remoteWork]), language: typeof values.language === "string"
+                                        ? ""
+                                        : intl.formatMessage(localizedConstants_1.languageRequirement(Number(values.language))), city: values.city, province: typeof values.province === "string"
+                                        ? ""
+                                        : intl.formatMessage(localizedConstants_1.provinceName(Number(values.province))), education: values.educationRequirements.length > 0
+                                        ? values.educationRequirements
+                                        : getEducationMsgForClassification(values.classification, intl), termLength: typeof values.termLength === "string"
+                                        ? null
+                                        : Number(values.termLength), telework: intl.formatMessage(teleworkMessages[values.telework]), flexHours: intl.formatMessage(flexHourMessages[values.flexHours]), securityLevel: typeof values.securityLevel === "string"
+                                        ? ""
+                                        : intl.formatMessage(localizedConstants_1.securityClearance(Number(values.securityLevel))), classification: lookupConstants_1.getKeyByValue(lookupConstants_1.ClassificationId, values.classification), level: String(values.level), travel: intl.formatMessage(travelMessages[values.travel]), overtime: intl.formatMessage(overtimeMessages[values.overtime]) }))),
+                        react_1.default.createElement(Modal_1.default.Footer, null,
+                            react_1.default.createElement(Modal_1.default.FooterCancelBtn, null,
+                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.modalCancelLabel", defaultMessage: "Go Back", description: "The text displayed on the cancel button of the Job Details modal." })),
+                            jobIsComplete && (react_1.default.createElement(Modal_1.default.FooterMiddleBtn, null,
+                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.modalMiddleLabel", defaultMessage: "Skip to Review", description: "The text displayed on the 'Skip to Review' button of the Job Details modal." }))),
+                            react_1.default.createElement(Modal_1.default.FooterConfirmBtn, null,
+                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.details.modalConfirmLabel", defaultMessage: "Next Step", description: "The text displayed on the confirm button of the Job Details modal." }))))));
+            })),
         react_1.default.createElement("div", { "data-c-dialog-overlay": isModalVisible ? "active" : "" })));
 };
-exports.JobDetailsIntl = react_intl_1.injectIntl(JobDetails);
 var mapStateToProps = function (state, ownProps) { return ({
     job: ownProps.jobId ? jobSelector_1.getJob(state, ownProps) : null,
 }); };
@@ -63020,7 +64769,7 @@ var mapDispatchToProps = function (dispatch, ownProps) { return ({
             });
         }); },
 }); };
-exports.JobDetailsContainer = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(react_intl_1.injectIntl(JobDetails));
+exports.JobDetailsContainer = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(exports.JobDetails);
 exports.default = exports.JobDetailsContainer;
 
 
@@ -63326,7 +65075,7 @@ var JobDetailsPage = function (_a) {
         });
     }); };
     var jobIsComplete = job !== null && jobBuilderHelpers_1.isJobBuilderComplete(job, keyTasks, criteria, locale);
-    return (react_1.default.createElement(JobBuilderStep_1.default, { jobId: jobId, currentPage: "details" }, job !== null && (react_1.default.createElement(JobDetails_1.JobDetailsIntl, { job: job, handleSubmit: handleSubmit, handleReturn: handleReturn, handleModalCancel: handleModalCancel, handleModalConfirm: handleModalConfirm, jobIsComplete: jobIsComplete, handleSkipToReview: handleSkipToReview }))));
+    return (react_1.default.createElement(JobBuilderStep_1.default, { jobId: jobId, currentPage: "details" }, job !== null && (react_1.default.createElement(JobDetails_1.JobDetails, { job: job, handleSubmit: handleSubmit, handleReturn: handleReturn, handleModalCancel: handleModalCancel, handleModalConfirm: handleModalConfirm, jobIsComplete: jobIsComplete, handleSkipToReview: handleSkipToReview }))));
 };
 var mapStateToPropsPage = function (state, ownProps) { return ({
     job: jobSelector_1.getJob(state, ownProps),
@@ -63361,10 +65110,10 @@ exports.default = JobDetailsPageContainer;
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/JobBuilder/Impact/JobBuilderImpact.tsx":
-/*!*******************************************************************************!*\
-  !*** ./resources/assets/js/components/JobBuilder/Impact/JobBuilderImpact.tsx ***!
-  \*******************************************************************************/
+/***/ "./resources/assets/js/components/JobBuilder/Impact/JobImpact.tsx":
+/*!************************************************************************!*\
+  !*** ./resources/assets/js/components/JobBuilder/Impact/JobImpact.tsx ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -63399,11 +65148,11 @@ var Yup = __importStar(__webpack_require__(/*! yup */ "./node_modules/yup/lib/in
 var formik_1 = __webpack_require__(/*! formik */ "./node_modules/formik/dist/index.js");
 var nprogress_1 = __importDefault(__webpack_require__(/*! nprogress */ "./node_modules/nprogress/nprogress.js"));
 var jobUtil_1 = __webpack_require__(/*! ../../../models/jobUtil */ "./resources/assets/js/models/jobUtil.ts");
-var JobImpactPreview_1 = __importDefault(__webpack_require__(/*! ./JobImpactPreview */ "./resources/assets/js/components/JobBuilder/Impact/JobImpactPreview.tsx"));
 var Modal_1 = __importDefault(__webpack_require__(/*! ../../Modal */ "./resources/assets/js/components/Modal.tsx"));
 var Messages_1 = __webpack_require__(/*! ../../Form/Messages */ "./resources/assets/js/components/Form/Messages.tsx");
 var TextAreaInput_1 = __importDefault(__webpack_require__(/*! ../../Form/TextAreaInput */ "./resources/assets/js/components/Form/TextAreaInput.tsx"));
 var queries_1 = __webpack_require__(/*! ../../../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
+var localize_1 = __webpack_require__(/*! ../../../helpers/localize */ "./resources/assets/js/helpers/localize.ts");
 var messages = react_intl_1.defineMessages({
     hireLabel: {
         id: "jobBuilder.impact.hireLabel",
@@ -63429,7 +65178,9 @@ var messages = react_intl_1.defineMessages({
 var updateJobWithValues = function (initialJob, locale, _a, deptImpacts) {
     var _b, _c;
     var teamImpact = _a.teamImpact, hireImpact = _a.hireImpact;
-    return (__assign(__assign({}, initialJob), { dept_impact: deptImpacts, team_impact: __assign(__assign({}, initialJob.team_impact), (_b = {}, _b[locale] = teamImpact, _b)), hire_impact: __assign(__assign({}, initialJob.hire_impact), (_c = {}, _c[locale] = hireImpact, _c)) }));
+    return (__assign(__assign({}, initialJob), { 
+        // Adding this until the impact statement for the office privacy canada gets added
+        dept_impact: deptImpacts.en && deptImpacts.fr ? deptImpacts : { en: "N/A", fr: "S/O" }, team_impact: __assign(__assign({}, initialJob.team_impact), (_b = {}, _b[locale] = teamImpact, _b)), hire_impact: __assign(__assign({}, initialJob.hire_impact), (_c = {}, _c[locale] = hireImpact, _c)) }));
 };
 var determineDeptImpact = function (departments, job) {
     if (job === null || job.department_id === null) {
@@ -63454,21 +65205,15 @@ var deptImpactStatement = function (departments, job, deptImpacts, locale) {
             react_1.default.createElement("i", { "aria-hidden": "true", className: "fa fa-spinner fa-spin", "data-c-margin": "right" }),
             react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.impact.departmentsLoading", defaultMessage: "Loading department data...", description: "Placeholder message while department data is being retrieved from the server." })));
     }
-    if (departments.length !== 0 && deptImpacts[locale] === "") {
-        return (react_1.default.createElement("p", { "data-c-margin": "bottom(double)" },
-            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.impact.unknownDepartment", defaultMessage: "Error: Unknown Department selected.", description: "Error message shown when the job has a department selected for which data has not been passed to this component." })));
-    }
-    return (react_1.default.createElement("p", { id: "deptImpactStatement", "data-c-margin": "bottom(double)" }, deptImpacts[locale]));
+    return (react_1.default.createElement("p", { id: "deptImpactStatement", "data-c-margin": "bottom(double)" }, deptImpacts[locale] || (react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.impact.unknownDepartment", defaultMessage: "Error: Unknown Department selected.", description: "Error message shown when the job has a department selected for which data has not been passed to this component." }))));
 };
-var JobBuilderImpact = function (_a) {
-    var intl = _a.intl, departments = _a.departments, job = _a.job, handleSubmit = _a.handleSubmit, handleReturn = _a.handleReturn, handleModalCancel = _a.handleModalCancel, handleModalConfirm = _a.handleModalConfirm, jobIsComplete = _a.jobIsComplete, handleSkipToReview = _a.handleSkipToReview;
+var JobImpact = function (_a) {
+    var departments = _a.departments, job = _a.job, handleSubmit = _a.handleSubmit, handleReturn = _a.handleReturn, handleModalCancel = _a.handleModalCancel, handleModalConfirm = _a.handleModalConfirm, jobIsComplete = _a.jobIsComplete, handleSkipToReview = _a.handleSkipToReview;
+    var intl = react_intl_1.useIntl();
+    var locale = localize_1.getLocale(intl.locale);
     var modalId = "impact-dialog";
     var _b = react_1.useState(false), isModalVisible = _b[0], setIsModalVisible = _b[1];
     var modalParentRef = react_1.useRef(null);
-    var locale = intl.locale;
-    if (locale !== "en" && locale !== "fr") {
-        throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
-    }
     var initialTeamImpact = job ? job.team_impact[locale] : null;
     var initialHireImpact = job ? job.hire_impact[locale] : null;
     var initialValues = {
@@ -63518,75 +65263,80 @@ var JobBuilderImpact = function (_a) {
                         .finally(function () {
                         actions.setSubmitting(false); // Required by Formik to finish the submission cycle
                     });
-                }, render: function (_a) {
-                    var values = _a.values, isSubmitting = _a.isSubmitting;
-                    return (react_1.default.createElement(react_1.default.Fragment, null,
-                        react_1.default.createElement(formik_1.Form, { id: "form", "data-c-grid": "gutter" },
-                            react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)", "data-c-input": "textarea" },
-                                react_1.default.createElement("p", { "data-c-font-weight": "bold", "data-c-margin": "bottom(normal)" },
-                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.impact.teamHeader", defaultMessage: "How our team makes an impact:", description: "Header of Job Poster Builder Team Impact Section" })),
-                                react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" },
-                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.impact.teamBody", defaultMessage: "Describe the value your team/service/initiative brings to Canadians. It doesn\u2019t matter if your work is direct to citizens or back office, innovative or maintenance, top priority or ongoing. Describe how it contributes to making Canada better the way you would to someone who knows nothing about your work.", description: "Body of Job Poster Builder Team Impact Section" })),
-                                react_1.default.createElement("div", null,
-                                    react_1.default.createElement(formik_1.Field, { name: "teamImpact", id: "TeamImpact", placeholder: intl.formatMessage(messages.teamPlaceholder), label: intl.formatMessage(messages.teamLabel), required: true, component: TextAreaInput_1.default }))),
-                            react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)", "data-c-input": "textarea" },
-                                react_1.default.createElement("p", { "data-c-font-weight": "bold", "data-c-margin": "bottom(normal)" },
-                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.impact.hireHeader", defaultMessage: "How the new hire makes an impact:", description: "Header of Job Poster Builder Hire Impact Section" })),
-                                react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" },
-                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.impact.hireBody", defaultMessage: "Describe how the new hire will contribute in this role. Focus on the value they\u2019ll bring, not on specific tasks (you\u2019ll provide these later on). For example \u201CIn this role, you\u2019ll contribute to\u2026\u201D or, \u201CAs a member of this team, you\u2019ll be responsible for helping us\u2026\u201D", description: "Body of Job Poster Builder Hire Impact Section" })),
-                                react_1.default.createElement("div", null,
-                                    react_1.default.createElement(formik_1.Field, { id: "HireImpact", name: "hireImpact", label: intl.formatMessage(messages.hireLabel), placeholder: intl.formatMessage(messages.hirePlaceholder), required: true, component: TextAreaInput_1.default }))),
-                            react_1.default.createElement("div", { "data-c-grid": "gutter", "data-c-grid-item": "base(1of1)" },
-                                react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" },
-                                    react_1.default.createElement("hr", { "data-c-margin": "top(normal) bottom(normal)" })),
-                                react_1.default.createElement("div", { "data-c-alignment": "base(centre) tp(left)", "data-c-grid-item": "tp(1of2)" },
-                                    react_1.default.createElement("button", { "data-c-button": "outline(c2)", "data-c-radius": "rounded", type: "button", disabled: isSubmitting, onClick: function () {
-                                            updateValuesAndReturn(values);
-                                        } },
-                                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.impact.button.return", defaultMessage: "Save & Return to Work Environment", description: "Label for Save & Return button on Impact form." }))),
-                                react_1.default.createElement("div", { "data-c-alignment": "base(centre) tp(right)", "data-c-grid-item": "tp(1of2)" },
-                                    react_1.default.createElement("button", { "data-c-button": "solid(c1)", "data-c-radius": "rounded", type: "submit", disabled: isSubmitting },
-                                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.impact.button.next", defaultMessage: "Save & Preview", description: "Label for Save & Preview button on Impact form." }))))),
-                        react_1.default.createElement(Modal_1.default, { id: modalId, parentElement: modalParentRef.current, visible: isModalVisible, onModalConfirm: function () {
-                                handleModalConfirm();
-                                setIsModalVisible(false);
-                            }, onModalCancel: function () {
-                                handleModalCancel();
-                                setIsModalVisible(false);
-                            }, onModalMiddle: function () {
-                                handleSkipToReview().finally(function () {
-                                    return setIsModalVisible(false);
-                                });
-                            } },
-                            react_1.default.createElement(Modal_1.default.Header, null,
-                                react_1.default.createElement("div", { "data-c-background": "c1(100)", "data-c-border": "bottom(thin, solid, black)", "data-c-padding": "normal" },
-                                    react_1.default.createElement("h5", { "data-c-colour": "white", "data-c-font-size": "h4", id: modalId + "-title" },
-                                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.impact.modalTitle", defaultMessage: "Awesome work!", description: "Title of modal dialog for Impact review." })))),
-                            react_1.default.createElement(Modal_1.default.Body, null,
-                                react_1.default.createElement("div", { "data-c-border": "bottom(thin, solid, black)", "data-c-padding": "normal", id: modalId + "-description" },
-                                    react_1.default.createElement("p", null,
-                                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.impact.modalDescription", defaultMessage: "Here's a preview of the Impact Statement you just entered. Feel free to go back and edit things or move to the next step if you're happy with it.", description: "Description of modal dialog for Impact review." }))),
-                                react_1.default.createElement("div", { "data-c-background": "grey(20)", "data-c-border": "bottom(thin, solid, black)", "data-c-padding": "normal" },
-                                    react_1.default.createElement(JobImpactPreview_1.default, { deptImpact: deptImpacts[locale], teamImpact: values.teamImpact, hireImpact: values.hireImpact }))),
-                            react_1.default.createElement(Modal_1.default.Footer, null,
-                                react_1.default.createElement(Modal_1.default.FooterCancelBtn, null,
-                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.impact.button.goBack", defaultMessage: "Go Back", description: "Label for Go Back button on Impact review modal." })),
-                                jobIsComplete && (react_1.default.createElement(Modal_1.default.FooterMiddleBtn, null,
-                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.impact.button.skipToReview", defaultMessage: "Skip to Review", description: "Label for Skip to Review button on Impact review modal." }))),
-                                react_1.default.createElement(Modal_1.default.FooterConfirmBtn, null,
-                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.impact.button.nextStep", defaultMessage: "Next Step", description: "Label for Next Step button on Impact review modal." }))))));
-                } })),
+                } }, function (_a) {
+                var values = _a.values, isSubmitting = _a.isSubmitting;
+                return (react_1.default.createElement(react_1.default.Fragment, null,
+                    react_1.default.createElement(formik_1.Form, { id: "form", "data-c-grid": "gutter" },
+                        react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)", "data-c-input": "textarea" },
+                            react_1.default.createElement("p", { "data-c-font-weight": "bold", "data-c-margin": "bottom(normal)" },
+                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.impact.teamHeader", defaultMessage: "How our team makes an impact:", description: "Header of Job Poster Builder Team Impact Section" })),
+                            react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" },
+                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.impact.teamBody", defaultMessage: "Describe the value your team/service/initiative brings to Canadians. It doesn\u2019t matter if your work is direct to citizens or back office, innovative or maintenance, top priority or ongoing. Describe how it contributes to making Canada better the way you would to someone who knows nothing about your work.", description: "Body of Job Poster Builder Team Impact Section" })),
+                            react_1.default.createElement("div", null,
+                                react_1.default.createElement(formik_1.FastField, { name: "teamImpact", id: "TeamImpact", placeholder: intl.formatMessage(messages.teamPlaceholder), label: intl.formatMessage(messages.teamLabel), required: true, component: TextAreaInput_1.default }))),
+                        react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)", "data-c-input": "textarea" },
+                            react_1.default.createElement("p", { "data-c-font-weight": "bold", "data-c-margin": "bottom(normal)" },
+                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.impact.hireHeader", defaultMessage: "How the new hire makes an impact:", description: "Header of Job Poster Builder Hire Impact Section" })),
+                            react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" },
+                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.impact.hireBody", defaultMessage: "Describe how the new hire will contribute in this role. Focus on the value they\u2019ll bring, not on specific tasks (you\u2019ll provide these later on). For example \u201CIn this role, you\u2019ll contribute to\u2026\u201D or, \u201CAs a member of this team, you\u2019ll be responsible for helping us\u2026\u201D", description: "Body of Job Poster Builder Hire Impact Section" })),
+                            react_1.default.createElement("div", null,
+                                react_1.default.createElement(formik_1.FastField, { id: "HireImpact", name: "hireImpact", label: intl.formatMessage(messages.hireLabel), placeholder: intl.formatMessage(messages.hirePlaceholder), required: true, component: TextAreaInput_1.default }))),
+                        react_1.default.createElement("div", { "data-c-grid": "gutter", "data-c-grid-item": "base(1of1)" },
+                            react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" },
+                                react_1.default.createElement("hr", { "data-c-margin": "top(normal) bottom(normal)" })),
+                            react_1.default.createElement("div", { "data-c-alignment": "base(centre) tp(left)", "data-c-grid-item": "tp(1of2)" },
+                                react_1.default.createElement("button", { "data-c-button": "outline(c2)", "data-c-radius": "rounded", type: "button", disabled: isSubmitting, onClick: function () {
+                                        updateValuesAndReturn(values);
+                                    } },
+                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.impact.button.return", defaultMessage: "Save & Return to Work Environment", description: "Label for Save & Return button on Impact form." }))),
+                            react_1.default.createElement("div", { "data-c-alignment": "base(centre) tp(right)", "data-c-grid-item": "tp(1of2)" },
+                                react_1.default.createElement("button", { "data-c-button": "solid(c1)", "data-c-radius": "rounded", type: "submit", disabled: isSubmitting },
+                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.impact.button.next", defaultMessage: "Save & Preview", description: "Label for Save & Preview button on Impact form." }))))),
+                    react_1.default.createElement(Modal_1.default, { id: modalId, parentElement: modalParentRef.current, visible: isModalVisible, onModalConfirm: function () {
+                            handleModalConfirm();
+                            setIsModalVisible(false);
+                        }, onModalCancel: function () {
+                            handleModalCancel();
+                            setIsModalVisible(false);
+                        }, onModalMiddle: function () {
+                            handleSkipToReview().finally(function () {
+                                return setIsModalVisible(false);
+                            });
+                        } },
+                        react_1.default.createElement(Modal_1.default.Header, null,
+                            react_1.default.createElement("div", { "data-c-background": "c1(100)", "data-c-border": "bottom(thin, solid, black)", "data-c-padding": "normal" },
+                                react_1.default.createElement("h5", { "data-c-colour": "white", "data-c-font-size": "h4", id: modalId + "-title" },
+                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.impact.modalTitle", defaultMessage: "Awesome work!", description: "Title of modal dialog for Impact review." })))),
+                        react_1.default.createElement(Modal_1.default.Body, null,
+                            react_1.default.createElement("div", { "data-c-border": "bottom(thin, solid, black)", "data-c-padding": "normal", id: modalId + "-description" },
+                                react_1.default.createElement("p", null,
+                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.impact.modalDescription", defaultMessage: "Here's a preview of the Impact Statement you just entered. Feel free to go back and edit things or move to the next step if you're happy with it.", description: "Description of modal dialog for Impact review." }))),
+                            react_1.default.createElement("div", { "data-c-background": "grey(20)", "data-c-border": "bottom(thin, solid, black)", "data-c-padding": "normal" },
+                                react_1.default.createElement("div", { className: "manager-job-card", "data-c-background": "white(100)", "data-c-padding": "normal", "data-c-radius": "rounded" },
+                                    react_1.default.createElement("h4", { "data-c-border": "bottom(thin, solid, black)", "data-c-font-size": "h4", "data-c-font-weight": "600", "data-c-margin": "bottom(normal)", "data-c-padding": "bottom(normal)" },
+                                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.impactPreview.title", defaultMessage: "Impact", description: "Heading for Impact preview on modal dialog." })),
+                                    react_1.default.createElement("p", { id: "deptImpactPreview", "data-c-margin": "bottom(normal)" }, deptImpacts[locale] || (react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.impact.unknownDepartment", defaultMessage: "Error: Unknown Department selected.", description: "Error message shown when the job has a department selected for which data has not been passed to this component." }))),
+                                    react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" }, values.teamImpact),
+                                    react_1.default.createElement("p", null, values.hireImpact)))),
+                        react_1.default.createElement(Modal_1.default.Footer, null,
+                            react_1.default.createElement(Modal_1.default.FooterCancelBtn, null,
+                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.impact.button.goBack", defaultMessage: "Go Back", description: "Label for Go Back button on Impact review modal." })),
+                            jobIsComplete && (react_1.default.createElement(Modal_1.default.FooterMiddleBtn, null,
+                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.impact.button.skipToReview", defaultMessage: "Skip to Review", description: "Label for Skip to Review button on Impact review modal." }))),
+                            react_1.default.createElement(Modal_1.default.FooterConfirmBtn, null,
+                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.impact.button.nextStep", defaultMessage: "Next Step", description: "Label for Next Step button on Impact review modal." }))))));
+            })),
         react_1.default.createElement("div", { "data-c-dialog-overlay": isModalVisible ? "active" : "" })));
 };
-exports.default = react_intl_1.injectIntl(JobBuilderImpact);
+exports.default = JobImpact;
 
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/JobBuilder/Impact/JobBuilderImpactPage.tsx":
-/*!***********************************************************************************!*\
-  !*** ./resources/assets/js/components/JobBuilder/Impact/JobBuilderImpactPage.tsx ***!
-  \***********************************************************************************/
+/***/ "./resources/assets/js/components/JobBuilder/Impact/JobImpactPage.tsx":
+/*!****************************************************************************!*\
+  !*** ./resources/assets/js/components/JobBuilder/Impact/JobImpactPage.tsx ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -63636,7 +65386,7 @@ var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/r
 var react_redux_1 = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/lib/index.js");
 var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
 var react_dom_1 = __importDefault(__webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js"));
-var JobBuilderImpact_1 = __importDefault(__webpack_require__(/*! ./JobBuilderImpact */ "./resources/assets/js/components/JobBuilder/Impact/JobBuilderImpact.tsx"));
+var JobImpact_1 = __importDefault(__webpack_require__(/*! ./JobImpact */ "./resources/assets/js/components/JobBuilder/Impact/JobImpact.tsx"));
 var routes_1 = __webpack_require__(/*! ../../../helpers/routes */ "./resources/assets/js/helpers/routes.ts");
 var jobActions_1 = __webpack_require__(/*! ../../../store/Job/jobActions */ "./resources/assets/js/store/Job/jobActions.ts");
 var deptSelector_1 = __webpack_require__(/*! ../../../store/Department/deptSelector */ "./resources/assets/js/store/Department/deptSelector.ts");
@@ -63645,12 +65395,11 @@ var jobSelector_1 = __webpack_require__(/*! ../../../store/Job/jobSelector */ ".
 var JobBuilderStep_1 = __importDefault(__webpack_require__(/*! ../JobBuilderStep */ "./resources/assets/js/components/JobBuilder/JobBuilderStep.tsx"));
 var jobBuilderHelpers_1 = __webpack_require__(/*! ../jobBuilderHelpers */ "./resources/assets/js/components/JobBuilder/jobBuilderHelpers.ts");
 var router_1 = __webpack_require__(/*! ../../../helpers/router */ "./resources/assets/js/helpers/router.tsx");
-var JobBuilderImpactPage = function (_a) {
-    var jobId = _a.jobId, job = _a.job, departments = _a.departments, keyTasks = _a.keyTasks, criteria = _a.criteria, handleUpdateJob = _a.handleUpdateJob, intl = _a.intl;
-    var locale = intl.locale;
-    if (locale !== "en" && locale !== "fr") {
-        throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
-    }
+var localize_1 = __webpack_require__(/*! ../../../helpers/localize */ "./resources/assets/js/helpers/localize.ts");
+var JobImpactPage = function (_a) {
+    var jobId = _a.jobId, job = _a.job, departments = _a.departments, keyTasks = _a.keyTasks, criteria = _a.criteria, handleUpdateJob = _a.handleUpdateJob;
+    var intl = react_intl_1.useIntl();
+    var locale = localize_1.getLocale(intl.locale);
     var handleModalCancel = function () {
         // Do nothing on cancel
     };
@@ -63672,7 +65421,7 @@ var JobBuilderImpactPage = function (_a) {
         });
     }); };
     var jobIsComplete = job !== null && jobBuilderHelpers_1.isJobBuilderComplete(job, keyTasks, criteria, locale);
-    return (react_1.default.createElement(JobBuilderStep_1.default, { jobId: jobId, currentPage: "impact" }, job !== null && (react_1.default.createElement(JobBuilderImpact_1.default, { job: job, departments: departments, handleSubmit: handleSubmit, handleReturn: handleReturn, handleModalCancel: handleModalCancel, handleModalConfirm: handleModalConfirm, jobIsComplete: jobIsComplete, handleSkipToReview: handleSkipToReview }))));
+    return (react_1.default.createElement(JobBuilderStep_1.default, { jobId: jobId, currentPage: "impact" }, job !== null && (react_1.default.createElement(JobImpact_1.default, { job: job, departments: departments, handleSubmit: handleSubmit, handleReturn: handleReturn, handleModalCancel: handleModalCancel, handleModalConfirm: handleModalConfirm, jobIsComplete: jobIsComplete, handleSkipToReview: handleSkipToReview }))));
 };
 var mapStateToProps = function (state, ownProps) { return ({
     job: jobSelector_1.getJob(state, ownProps),
@@ -63693,54 +65442,25 @@ var mapDispatchToProps = function (dispatch) { return ({
         });
     }); },
 }); };
-exports.JobBuilderImpactPageContainer = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(react_intl_1.injectIntl(JobBuilderImpactPage));
-exports.default = exports.JobBuilderImpactPageContainer;
+exports.JobImpactPageContainer = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(JobImpactPage);
+exports.default = exports.JobImpactPageContainer;
 if (document.getElementById("job-builder-impact")) {
     var container = document.getElementById("job-builder-impact");
     var jobIdAttr = container.getAttribute("data-job-id");
     var jobId = jobIdAttr ? Number(jobIdAttr) : null;
     if (jobId) {
         react_dom_1.default.render(react_1.default.createElement(RootContainer_1.default, null,
-            react_1.default.createElement(exports.JobBuilderImpactPageContainer, { jobId: jobId })), container);
+            react_1.default.createElement(exports.JobImpactPageContainer, { jobId: jobId })), container);
     }
 }
 
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/JobBuilder/Impact/JobImpactPreview.tsx":
-/*!*******************************************************************************!*\
-  !*** ./resources/assets/js/components/JobBuilder/Impact/JobImpactPreview.tsx ***!
-  \*******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
-var JobImpactPreview = function (_a) {
-    var deptImpact = _a.deptImpact, teamImpact = _a.teamImpact, hireImpact = _a.hireImpact;
-    return (react_1.default.createElement("div", { className: "manager-job-card", "data-c-background": "white(100)", "data-c-padding": "normal", "data-c-radius": "rounded" },
-        react_1.default.createElement("h4", { "data-c-border": "bottom(thin, solid, black)", "data-c-font-size": "h4", "data-c-font-weight": "600", "data-c-margin": "bottom(normal)", "data-c-padding": "bottom(normal)" },
-            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.impactPreview.title", defaultMessage: "Impact", description: "Heading for Impact preview on modal dialog." })),
-        react_1.default.createElement("p", { id: "deptImpactPreview", "data-c-margin": "bottom(normal)" }, deptImpact),
-        react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" }, teamImpact),
-        react_1.default.createElement("p", null, hireImpact)));
-};
-exports.default = JobImpactPreview;
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/JobBuilder/Intro/IntroForm.tsx":
-/*!***********************************************************************!*\
-  !*** ./resources/assets/js/components/JobBuilder/Intro/IntroForm.tsx ***!
-  \***********************************************************************/
+/***/ "./resources/assets/js/components/JobBuilder/Intro/JobIntro.tsx":
+/*!**********************************************************************!*\
+  !*** ./resources/assets/js/components/JobBuilder/Intro/JobIntro.tsx ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -63768,6 +65488,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable @typescript-eslint/camelcase */
 var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
 var formik_1 = __webpack_require__(/*! formik */ "./node_modules/formik/dist/index.js");
@@ -63884,22 +65605,15 @@ var initializeValues = function (job, manager, user) {
         divisionFR: divisionFR,
     };
 };
-var updateJobWithValues = function (job, values, locale, departmentId) { return (__assign(__assign({}, job), { 
-    // eslint-disable-next-line @typescript-eslint/camelcase
-    chosen_lang: locale, 
-    // eslint-disable-next-line @typescript-eslint/camelcase
-    department_id: departmentId, division: __assign(__assign({}, job.division), { en: values.divisionEN || null, fr: values.divisionFR || null }) })); };
+var updateJobWithValues = function (job, values, locale, departmentId) { return (__assign(__assign({}, job), { chosen_lang: locale, department_id: departmentId, division: __assign(__assign({}, job.division), { en: values.divisionEN || null, fr: values.divisionFR || null }) })); };
 var updateManagerWithValues = function (manager, values) { return (__assign(__assign({}, manager), { division: __assign(__assign({}, manager.division), { en: values.divisionEN || null, fr: values.divisionFR || null }), position: __assign(__assign({}, manager.position), { en: values.managerPositionEn || null, fr: values.managerPositionFr || null }) })); };
-var IntroForm = function (_a) {
-    var job = _a.job, manager = _a.manager, user = _a.user, departments = _a.departments, handleSubmit = _a.handleSubmit, handleContinue = _a.handleContinue, intl = _a.intl;
-    var locale = intl.locale;
-    if (locale !== "en" && locale !== "fr") {
-        throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
-    }
+var JobIntro = function (_a) {
+    var job = _a.job, manager = _a.manager, user = _a.user, departments = _a.departments, handleSubmit = _a.handleSubmit, handleContinue = _a.handleContinue;
+    var intl = react_intl_1.useIntl();
+    var locale = localize_1.getLocale(intl.locale);
     var initialValues = initializeValues(job, manager, user);
     var _b = react_1.useState(locale), languageSelection = _b[0], setLanguageSelection = _b[1];
     var getDepartmentName = function () {
-        // eslint-disable-next-line camelcase
         var departmentName = departments.find(function (department) { return department.id === user.department_id; });
         return departmentName
             ? localize_1.localizeFieldNonNull(locale, departmentName, "name")
@@ -63937,82 +65651,82 @@ var IntroForm = function (_a) {
                         nprogress_1.default.done();
                         setSubmitting(false); // Required by Formik to finish the submission cycle
                     });
-                }, render: function (_a) {
-                    var isSubmitting = _a.isSubmitting, submitForm = _a.submitForm;
-                    return (react_1.default.createElement(react_1.default.Fragment, null,
-                        react_1.default.createElement(formik_1.Form, { id: "form", "data-c-margin": "bottom(normal)" },
-                            react_1.default.createElement("div", { "data-c-grid": "gutter" },
-                                react_1.default.createElement("h4", { "data-c-font-size": "h4", "data-c-grid-item": "base(1of1)" },
-                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.intro.formTitle", defaultMessage: "{name}'s Profile Information", description: "The title of the profile information form.", values: {
-                                            name: manager.first_name,
-                                        } })),
-                                react_1.default.createElement("p", { "data-c-grid-item": "base(1of1)" },
-                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.intro.formDescription", defaultMessage: "This information is used on the Job Poster to help applicants learn more about who they'll be working with.", description: "Explanation of why the profile information is collected." })),
-                                react_1.default.createElement(formik_1.Field, { type: "text", id: "builder01ManagerPositionEn", name: "managerPositionEn", label: intl.formatMessage(formMessages.jobTitleLabelEN, {
+                } }, function (_a) {
+                var isSubmitting = _a.isSubmitting, submitForm = _a.submitForm;
+                return (react_1.default.createElement(react_1.default.Fragment, null,
+                    react_1.default.createElement(formik_1.Form, { id: "form", "data-c-margin": "bottom(normal)" },
+                        react_1.default.createElement("div", { "data-c-grid": "gutter" },
+                            react_1.default.createElement("h4", { "data-c-font-size": "h4", "data-c-grid-item": "base(1of1)" },
+                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.intro.formTitle", defaultMessage: "{name}'s Profile Information", description: "The title of the profile information form.", values: {
                                         name: manager.first_name,
-                                    }), placeholder: intl.formatMessage(formMessages.jobTitlePlaceholderEN), required: true, grid: "tl(1of2)", component: TextInput_1.default }),
-                                react_1.default.createElement(formik_1.Field, { type: "text", id: "builder01ManagerPositionFr", name: "managerPositionFr", label: intl.formatMessage(formMessages.jobTitleLabelFR, {
-                                        name: manager.first_name,
-                                    }), placeholder: intl.formatMessage(formMessages.jobTitlePlaceholderFR), required: true, grid: "tl(1of2)", component: TextInput_1.default }),
-                                react_1.default.createElement("h4", { "data-c-font-size": "h4", "data-c-grid-item": "base(1of1)" },
-                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.intro.departmentHeader", defaultMessage: "{name}'s Department Information", description: "The label displayed on the department select box.", values: { name: manager.first_name } })),
-                                react_1.default.createElement("p", { "data-c-grid-item": "base(1of1)" },
-                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.intro.departmentLabel", defaultMessage: "Department", description: "The label displayed on the department select box." }),
-                                    ":",
-                                    " ",
-                                    getDepartmentName && (react_1.default.createElement("span", { id: "department", "data-c-font-weight": "bold" }, getDepartmentName())),
-                                    react_1.default.createElement("span", { "data-c-margin": "top(quarter)", "data-c-font-size": "small", style: { display: "block" } },
-                                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.intro.changeDepartment", defaultMessage: "To change your department, please contact {email}. To learn more visit your {accountSettings}.", values: {
-                                                email: (react_1.default.createElement("a", { href: "mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca", title: intl.formatMessage(pageMessages.emailLinkTitle) }, intl.formatMessage(pageMessages.emailLinkText))),
-                                                accountSettings: (react_1.default.createElement("a", { href: routes_1.accountSettings(locale), title: intl.formatMessage(formMessages.accountSettingsLinkTitle), target: "_blank", rel: "noopener noreferrer" }, intl.formatMessage(formMessages.accountSettingsLinkText))),
-                                            } }))),
-                                react_1.default.createElement(formik_1.Field, { type: "text", id: "builder01ManagerDivisionEN", name: "divisionEN", label: intl.formatMessage(formMessages.divisionLabelEN, {
-                                        name: manager.first_name,
-                                    }), placeholder: intl.formatMessage(formMessages.divisionPlaceholderEN), required: true, grid: "tl(1of2)", component: TextInput_1.default }),
-                                react_1.default.createElement(formik_1.Field, { type: "text", id: "builder01ManagerDivisionFR", name: "divisionFR", label: intl.formatMessage(formMessages.divisionLabelFR, {
-                                        name: manager.first_name,
-                                    }), placeholder: intl.formatMessage(formMessages.divisionPlaceholderFR), required: true, grid: "tl(1of2)", component: TextInput_1.default }))),
-                        react_1.default.createElement("p", { "data-c-margin": "bottom(double)" },
-                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.intro.completeInLanguage", defaultMessage: "Complete the job poster in the language of your choice. We will handle translation.", description: "Instructions at bottom of form on language choice for job poster builder." }),
-                            " ",
-                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.intro.contactUs", defaultMessage: "We\u2019ve also provided instructions and examples to help guide you through the process but if you still have questions, contact {link}.", description: "Subtitle 2 of Job Poster Builder Intro Step", values: {
-                                    link: (react_1.default.createElement("a", { href: "mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca", title: intl.formatMessage(pageMessages.emailLinkTitle) }, intl.formatMessage(pageMessages.emailLinkText))),
-                                } })),
-                        react_1.default.createElement("button", { form: "form", "data-c-button": "solid(c1)", "data-c-radius": "rounded", "data-c-margin": "right(normal) bottom(normal)", type: "button", disabled: isSubmitting, onClick: function () {
-                                /** FIXME:
-                                 * This is a race condition, since setLanguageSelection is asynchronous.
-                                 * I have to find a way to handle 2 submit buttons in formik without a race condition somewhere :(
-                                 * For now, the setState always happens faster than the validation check, so it works.
-                                 * See https://github.com/jaredpalmer/formik/issues/214
-                                 * -- Tristan
-                                 */
-                                setLanguageSelection("en");
-                                submitForm();
-                            } },
-                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.intro.continueButtonLabelEN", defaultMessage: "Continue in English", description: "Label displayed on submit button for continuation of job builder in english." })),
-                        react_1.default.createElement("button", { form: "form", "data-c-button": "solid(c1)", "data-c-radius": "rounded", type: "button", disabled: isSubmitting, onClick: function () {
-                                /** FIXME:
-                                 * This is a race condition, since setLanguageSelection is asynchronous.
-                                 * I have to find a way to handle 2 submit buttons in formik without a race condition somewhere :(
-                                 * For now, the setState always happens faster than the validation check, so it works.
-                                 * See https://github.com/jaredpalmer/formik/issues/214
-                                 * -- Tristan
-                                 */
-                                setLanguageSelection("fr");
-                                submitForm();
-                            } },
-                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.intro.continueButtonLabelFR", defaultMessage: "Continuer en Fran\u00E7ais", description: "Label displayed on submit button for continuation of job builder in french." }))));
-                } }))));
+                                    } })),
+                            react_1.default.createElement("p", { "data-c-grid-item": "base(1of1)" },
+                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.intro.formDescription", defaultMessage: "This information is used on the Job Poster to help applicants learn more about who they'll be working with.", description: "Explanation of why the profile information is collected." })),
+                            react_1.default.createElement(formik_1.FastField, { type: "text", id: "managerPositionEn", name: "managerPositionEn", label: intl.formatMessage(formMessages.jobTitleLabelEN, {
+                                    name: manager.first_name,
+                                }), placeholder: intl.formatMessage(formMessages.jobTitlePlaceholderEN), required: true, grid: "tl(1of2)", component: TextInput_1.default }),
+                            react_1.default.createElement(formik_1.FastField, { type: "text", id: "managerPositionFr", name: "managerPositionFr", label: intl.formatMessage(formMessages.jobTitleLabelFR, {
+                                    name: manager.first_name,
+                                }), placeholder: intl.formatMessage(formMessages.jobTitlePlaceholderFR), required: true, grid: "tl(1of2)", component: TextInput_1.default }),
+                            react_1.default.createElement("h4", { "data-c-font-size": "h4", "data-c-grid-item": "base(1of1)" },
+                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.intro.departmentHeader", defaultMessage: "{name}'s Department Information", description: "The label displayed on the department select box.", values: { name: manager.first_name } })),
+                            react_1.default.createElement("p", { "data-c-grid-item": "base(1of1)" },
+                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.intro.departmentLabel", defaultMessage: "Department", description: "The label displayed on the department select box." }),
+                                ":",
+                                " ",
+                                getDepartmentName && (react_1.default.createElement("span", { id: "department", "data-c-font-weight": "bold" }, getDepartmentName())),
+                                react_1.default.createElement("span", { "data-c-margin": "top(quarter)", "data-c-font-size": "small", style: { display: "block" } },
+                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.intro.changeDepartment", defaultMessage: "To change your department, please contact {email}. To learn more visit your {accountSettings}.", values: {
+                                            email: (react_1.default.createElement("a", { href: "mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca", title: intl.formatMessage(pageMessages.emailLinkTitle) }, intl.formatMessage(pageMessages.emailLinkText))),
+                                            accountSettings: (react_1.default.createElement("a", { href: routes_1.accountSettings(locale), title: intl.formatMessage(formMessages.accountSettingsLinkTitle), target: "_blank", rel: "noopener noreferrer" }, intl.formatMessage(formMessages.accountSettingsLinkText))),
+                                        } }))),
+                            react_1.default.createElement(formik_1.FastField, { type: "text", id: "divisionEN", name: "divisionEN", label: intl.formatMessage(formMessages.divisionLabelEN, {
+                                    name: manager.first_name,
+                                }), placeholder: intl.formatMessage(formMessages.divisionPlaceholderEN), required: true, grid: "tl(1of2)", component: TextInput_1.default }),
+                            react_1.default.createElement(formik_1.FastField, { type: "text", id: "divisionFR", name: "divisionFR", label: intl.formatMessage(formMessages.divisionLabelFR, {
+                                    name: manager.first_name,
+                                }), placeholder: intl.formatMessage(formMessages.divisionPlaceholderFR), required: true, grid: "tl(1of2)", component: TextInput_1.default }))),
+                    react_1.default.createElement("p", { "data-c-margin": "bottom(double)" },
+                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.intro.completeInLanguage", defaultMessage: "Complete the job poster in the language of your choice. We will handle translation.", description: "Instructions at bottom of form on language choice for job poster builder." }),
+                        " ",
+                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.intro.contactUs", defaultMessage: "We\u2019ve also provided instructions and examples to help guide you through the process but if you still have questions, contact {link}.", description: "Subtitle 2 of Job Poster Builder Intro Step", values: {
+                                link: (react_1.default.createElement("a", { href: "mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca", title: intl.formatMessage(pageMessages.emailLinkTitle) }, intl.formatMessage(pageMessages.emailLinkText))),
+                            } })),
+                    react_1.default.createElement("button", { form: "form", "data-c-button": "solid(c1)", "data-c-radius": "rounded", "data-c-margin": "right(normal) bottom(normal)", type: "button", disabled: isSubmitting, onClick: function () {
+                            /** FIXME:
+                             * This is a race condition, since setLanguageSelection is asynchronous.
+                             * I have to find a way to handle 2 submit buttons in formik without a race condition somewhere :(
+                             * For now, the setState always happens faster than the validation check, so it works.
+                             * See https://github.com/jaredpalmer/formik/issues/214
+                             * -- Tristan
+                             */
+                            setLanguageSelection("en");
+                            submitForm();
+                        } },
+                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.intro.continueButtonLabelEN", defaultMessage: "Continue in English", description: "Label displayed on submit button for continuation of job builder in english." })),
+                    react_1.default.createElement("button", { form: "form", "data-c-button": "solid(c1)", "data-c-radius": "rounded", type: "button", disabled: isSubmitting, onClick: function () {
+                            /** FIXME:
+                             * This is a race condition, since setLanguageSelection is asynchronous.
+                             * I have to find a way to handle 2 submit buttons in formik without a race condition somewhere :(
+                             * For now, the setState always happens faster than the validation check, so it works.
+                             * See https://github.com/jaredpalmer/formik/issues/214
+                             * -- Tristan
+                             */
+                            setLanguageSelection("fr");
+                            submitForm();
+                        } },
+                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.intro.continueButtonLabelFR", defaultMessage: "Continuer en Fran\u00E7ais", description: "Label displayed on submit button for continuation of job builder in french." }))));
+            }))));
 };
-exports.default = react_intl_1.injectIntl(IntroForm);
+exports.default = JobIntro;
 
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/JobBuilder/Intro/JobBuilderIntro.tsx":
-/*!*****************************************************************************!*\
-  !*** ./resources/assets/js/components/JobBuilder/Intro/JobBuilderIntro.tsx ***!
-  \*****************************************************************************/
+/***/ "./resources/assets/js/components/JobBuilder/Intro/JobIntroPage.tsx":
+/*!**************************************************************************!*\
+  !*** ./resources/assets/js/components/JobBuilder/Intro/JobIntroPage.tsx ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -64070,7 +65784,7 @@ var nprogress_1 = __importDefault(__webpack_require__(/*! nprogress */ "./node_m
 var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
 var react_redux_1 = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/lib/index.js");
 var react_dom_1 = __importDefault(__webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js"));
-var IntroForm_1 = __importDefault(__webpack_require__(/*! ./IntroForm */ "./resources/assets/js/components/JobBuilder/Intro/IntroForm.tsx"));
+var JobIntro_1 = __importDefault(__webpack_require__(/*! ./JobIntro */ "./resources/assets/js/components/JobBuilder/Intro/JobIntro.tsx"));
 var jobSelector_1 = __webpack_require__(/*! ../../../store/Job/jobSelector */ "./resources/assets/js/store/Job/jobSelector.ts");
 var jobActions_1 = __webpack_require__(/*! ../../../store/Job/jobActions */ "./resources/assets/js/store/Job/jobActions.ts");
 var RootContainer_1 = __importDefault(__webpack_require__(/*! ../../RootContainer */ "./resources/assets/js/components/RootContainer.tsx"));
@@ -64082,12 +65796,11 @@ var managerSelector_1 = __webpack_require__(/*! ../../../store/Manager/managerSe
 var managerActions_1 = __webpack_require__(/*! ../../../store/Manager/managerActions */ "./resources/assets/js/store/Manager/managerActions.ts");
 var userSelector_1 = __webpack_require__(/*! ../../../store/User/userSelector */ "./resources/assets/js/store/User/userSelector.ts");
 var userActions_1 = __webpack_require__(/*! ../../../store/User/userActions */ "./resources/assets/js/store/User/userActions.ts");
-var JobBuilderIntro = function (_a) {
-    var jobId = _a.jobId, manager = _a.manager, user = _a.user, job = _a.job, departments = _a.departments, handleCreateJob = _a.handleCreateJob, handleUpdateJob = _a.handleUpdateJob, handleUpdateManager = _a.handleUpdateManager, loadManager = _a.loadManager, loadCurrentManager = _a.loadCurrentManager, handleFetchUser = _a.handleFetchUser, intl = _a.intl;
-    var locale = intl.locale;
-    if (locale !== "en" && locale !== "fr") {
-        throw new Error("Unexpected locale");
-    }
+var localize_1 = __webpack_require__(/*! ../../../helpers/localize */ "./resources/assets/js/helpers/localize.ts");
+var JobIntroPage = function (_a) {
+    var jobId = _a.jobId, manager = _a.manager, user = _a.user, job = _a.job, departments = _a.departments, handleCreateJob = _a.handleCreateJob, handleUpdateJob = _a.handleUpdateJob, handleUpdateManager = _a.handleUpdateManager, loadManager = _a.loadManager, loadCurrentManager = _a.loadCurrentManager, handleFetchUser = _a.handleFetchUser;
+    var intl = react_intl_1.useIntl();
+    var locale = localize_1.getLocale(intl.locale);
     react_1.useEffect(function () {
         if (manager === null) {
             nprogress_1.default.start();
@@ -64133,14 +65846,10 @@ var JobBuilderIntro = function (_a) {
             window.location.href = "" + baseUrl + routes_1.jobBuilderDetails(chosenLang, newJob.id);
         }
     };
-    return (react_1.default.createElement(JobBuilderStep_1.default, { jobId: jobId, currentPage: "intro" },
-        manager === null && (react_1.default.createElement("div", { "data-c-container": "form", "data-c-padding": "top(triple) bottom(triple)" },
-            react_1.default.createElement("div", { "data-c-background": "white(100)", "data-c-card": true, "data-c-padding": "all(double)", "data-c-radius": "rounded", "data-c-align": "base(centre)" },
-                react_1.default.createElement("p", null,
-                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.intro.managerLoading", defaultMessage: "Your Manager Profile is loading...", description: "Message indicating that the manager profile is still being loaded." }))))),
-        manager !== null &&
-            user !== null &&
-            (job !== null || jobId === null) && (react_1.default.createElement(IntroForm_1.default, { job: job, manager: manager, user: user, departments: departments, handleSubmit: handleSubmit, handleContinue: handleContinue }))));
+    return (react_1.default.createElement(JobBuilderStep_1.default, { jobId: jobId, currentPage: "intro" }, manager !== null && user !== null && (job !== null || jobId === null) ? (react_1.default.createElement(JobIntro_1.default, { job: job, manager: manager, user: user, departments: departments, handleSubmit: handleSubmit, handleContinue: handleContinue })) : (react_1.default.createElement("div", { "data-c-container": "form", "data-c-padding": "top(triple) bottom(triple)" },
+        react_1.default.createElement("div", { "data-c-background": "white(100)", "data-c-card": true, "data-c-padding": "all(double)", "data-c-radius": "rounded", "data-c-align": "base(centre)" },
+            react_1.default.createElement("p", null,
+                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.intro.managerLoading", defaultMessage: "Your Manager Profile is loading...", description: "Message indicating that the manager profile is still being loaded." })))))));
 };
 var mapStateToProps = function (state, _a) {
     var jobId = _a.jobId;
@@ -64257,15 +65966,15 @@ var mapDispatchToProps = function (dispatch) { return ({
         });
     }); },
 }); };
-var JobBuilderIntroPageContainer = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(react_intl_1.injectIntl(JobBuilderIntro));
+var JobIntroPageContainer = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(JobIntroPage);
 if (document.getElementById("job-builder-intro")) {
     var container = document.getElementById("job-builder-intro");
     var jobIdAttr = container.getAttribute("data-job-id");
     var jobId = jobIdAttr ? Number(jobIdAttr) : null;
     react_dom_1.default.render(react_1.default.createElement(RootContainer_1.default, null,
-        react_1.default.createElement(JobBuilderIntroPageContainer, { jobId: jobId })), container);
+        react_1.default.createElement(JobIntroPageContainer, { jobId: jobId })), container);
 }
-exports.default = JobBuilderIntroPageContainer;
+exports.default = JobIntroPageContainer;
 
 
 /***/ }),
@@ -64404,13 +66113,13 @@ var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/r
 var react_dom_1 = __importDefault(__webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js"));
 var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
 var router_1 = __webpack_require__(/*! ../../helpers/router */ "./resources/assets/js/helpers/router.tsx");
-var JobBuilderIntro_1 = __importDefault(__webpack_require__(/*! ./Intro/JobBuilderIntro */ "./resources/assets/js/components/JobBuilder/Intro/JobBuilderIntro.tsx"));
+var JobIntroPage_1 = __importDefault(__webpack_require__(/*! ./Intro/JobIntroPage */ "./resources/assets/js/components/JobBuilder/Intro/JobIntroPage.tsx"));
 var RootContainer_1 = __importDefault(__webpack_require__(/*! ../RootContainer */ "./resources/assets/js/components/RootContainer.tsx"));
 var JobDetailsPage_1 = __importDefault(__webpack_require__(/*! ./Details/JobDetailsPage */ "./resources/assets/js/components/JobBuilder/Details/JobDetailsPage.tsx"));
-var WorkEnvPage_1 = __importDefault(__webpack_require__(/*! ./WorkEnv/WorkEnvPage */ "./resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvPage.tsx"));
-var JobBuilderImpactPage_1 = __importDefault(__webpack_require__(/*! ./Impact/JobBuilderImpactPage */ "./resources/assets/js/components/JobBuilder/Impact/JobBuilderImpactPage.tsx"));
+var JobWorkEnvPage_1 = __importDefault(__webpack_require__(/*! ./WorkEnv/JobWorkEnvPage */ "./resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnvPage.tsx"));
+var JobImpactPage_1 = __importDefault(__webpack_require__(/*! ./Impact/JobImpactPage */ "./resources/assets/js/components/JobBuilder/Impact/JobImpactPage.tsx"));
 var JobTasksPage_1 = __importDefault(__webpack_require__(/*! ./Tasks/JobTasksPage */ "./resources/assets/js/components/JobBuilder/Tasks/JobTasksPage.tsx"));
-var JobBuilderSkillsPage_1 = __importDefault(__webpack_require__(/*! ./Skills/JobBuilderSkillsPage */ "./resources/assets/js/components/JobBuilder/Skills/JobBuilderSkillsPage.tsx"));
+var JobSkillsPage_1 = __importDefault(__webpack_require__(/*! ./Skills/JobSkillsPage */ "./resources/assets/js/components/JobBuilder/Skills/JobSkillsPage.tsx"));
 var JobReviewPage_1 = __importDefault(__webpack_require__(/*! ./Review/JobReviewPage */ "./resources/assets/js/components/JobBuilder/Review/JobReviewPage.tsx"));
 var ScrollToTop_1 = __importDefault(__webpack_require__(/*! ../ScrollToTop */ "./resources/assets/js/components/ScrollToTop.tsx"));
 var RedirectToLastIncompleteStep_1 = __importDefault(__webpack_require__(/*! ./RedirectToLastIncompleteStep */ "./resources/assets/js/components/JobBuilder/RedirectToLastIncompleteStep.tsx"));
@@ -64464,7 +66173,7 @@ var routes = [
                 path: "/builder",
                 action: function () { return ({
                     title: titles.introTitle,
-                    component: react_1.default.createElement(JobBuilderIntro_1.default, { jobId: null }),
+                    component: react_1.default.createElement(JobIntroPage_1.default, { jobId: null }),
                 }); },
             },
             {
@@ -64486,7 +66195,7 @@ var routes = [
                             var params = _a.params;
                             return ({
                                 title: titles.introTitle,
-                                component: (react_1.default.createElement(JobBuilderIntro_1.default, { jobId: Number(params.id) })),
+                                component: react_1.default.createElement(JobIntroPage_1.default, { jobId: Number(params.id) }),
                             });
                         },
                     },
@@ -64506,7 +66215,7 @@ var routes = [
                             var params = _a.params;
                             return ({
                                 title: titles.workEnvTitle,
-                                component: react_1.default.createElement(WorkEnvPage_1.default, { jobId: Number(params.id) }),
+                                component: react_1.default.createElement(JobWorkEnvPage_1.default, { jobId: Number(params.id) }),
                             });
                         },
                     },
@@ -64516,7 +66225,7 @@ var routes = [
                             var params = _a.params;
                             return ({
                                 title: titles.impactTitle,
-                                component: react_1.default.createElement(JobBuilderImpactPage_1.default, { jobId: Number(params.id) }),
+                                component: react_1.default.createElement(JobImpactPage_1.default, { jobId: Number(params.id) }),
                             });
                         },
                     },
@@ -64536,7 +66245,7 @@ var routes = [
                             var params = _a.params;
                             return ({
                                 title: titles.skillsTitle,
-                                component: react_1.default.createElement(JobBuilderSkillsPage_1.default, { jobId: Number(params.id) }),
+                                component: react_1.default.createElement(JobSkillsPage_1.default, { jobId: Number(params.id) }),
                             });
                         },
                     },
@@ -64644,7 +66353,7 @@ var deptActions_1 = __webpack_require__(/*! ../../store/Department/deptActions *
 var JobBuilderStep = function (_a) {
     var jobId = _a.jobId, job = _a.job, loadJob = _a.loadJob, keyTasks = _a.keyTasks, loadTasks = _a.loadTasks, criteria = _a.criteria, loadCriteria = _a.loadCriteria, loadSkills = _a.loadSkills, departments = _a.departments, loadDepartments = _a.loadDepartments, currentPage = _a.currentPage, forceIsLoading = _a.forceIsLoading, children = _a.children;
     // Trigger fetching of job details
-    var _b = react_1.useState(true), isLoadingJob = _b[0], setIsLoadingJob = _b[1];
+    var _b = react_1.useState(false), isLoadingJob = _b[0], setIsLoadingJob = _b[1];
     react_1.useEffect(function () {
         var isSubscribed = true;
         if (jobId) {
@@ -64659,7 +66368,7 @@ var JobBuilderStep = function (_a) {
             isSubscribed = false;
         };
     }, [jobId, loadJob]);
-    var _c = react_1.useState(true), isLoadingTasks = _c[0], setIsLoadingTasks = _c[1];
+    var _c = react_1.useState(false), isLoadingTasks = _c[0], setIsLoadingTasks = _c[1];
     react_1.useEffect(function () {
         var isSubscribed = true;
         if (jobId) {
@@ -64674,7 +66383,7 @@ var JobBuilderStep = function (_a) {
             isSubscribed = false;
         };
     }, [jobId, loadTasks]);
-    var _d = react_1.useState(true), isLoadingCriteria = _d[0], setIsLoadingCriteria = _d[1];
+    var _d = react_1.useState(false), isLoadingCriteria = _d[0], setIsLoadingCriteria = _d[1];
     react_1.useEffect(function () {
         var isSubscribed = true;
         if (jobId) {
@@ -65034,9 +66743,8 @@ exports.DemoSubmitJobModal = function (_a) {
                         react_1.default.createElement(react_intl_1.FormattedMessage, { id: "demoSubmitJobModal.link", defaultMessage: "<a>Find out if you can access these features</a>.", description: "Explanation of where to find more information.", values: {
                                 a: function (msg) { return (react_1.default.createElement("a", { href: routes_1.managerFaq(intl.locale, "manager-who"), title: intl.formatMessage(messages.linkTitle) }, msg)); },
                             } })),
-                    react_1.default.createElement("p", { "data-c-margin": "top(normal)" }, intl.formatMessage(ManagerSurveyModal_1.managerSurveyMessages.managerSurveyExplanation, {
-                        a: function (msg) { return (react_1.default.createElement("a", { href: "https://talentcloud1.typeform.com/to/MrOkgK", title: intl.formatMessage(ManagerSurveyModal_1.managerSurveyMessages.managerSurveyLinkTitle), target: "_blank", rel: "noreferrer noopener" }, msg)); },
-                    }))))),
+                    react_1.default.createElement("p", { "data-c-margin": "top(normal)" },
+                        react_1.default.createElement("a", { href: "https://talentcloud1.typeform.com/to/MrOkgK", title: intl.formatMessage(ManagerSurveyModal_1.managerSurveyMessages.managerSurveyLinkTitle), target: "_blank", rel: "noreferrer noopener" }, intl.formatMessage(ManagerSurveyModal_1.managerSurveyMessages.managerSurveyExplanation)))))),
         react_1.default.createElement(Modal_1.default.Footer, null,
             react_1.default.createElement(Modal_1.default.FooterCancelBtn, null,
                 react_1.default.createElement(react_intl_1.FormattedMessage, { id: "demoSubmitJobModal.cancel", defaultMessage: "Go back", description: "Cancel button of Demo Submit Job modal." })),
@@ -65111,7 +66819,7 @@ var queries_1 = __webpack_require__(/*! ../../../helpers/queries */ "./resources
 var localizedConstants_1 = __webpack_require__(/*! ../../../models/localizedConstants */ "./resources/assets/js/models/localizedConstants.tsx");
 var lookupConstants_1 = __webpack_require__(/*! ../../../models/lookupConstants */ "./resources/assets/js/models/lookupConstants.ts");
 var Criterion_1 = __importDefault(__webpack_require__(/*! ../Criterion */ "./resources/assets/js/components/JobBuilder/Criterion.tsx"));
-var JobWorkEnv_1 = __importDefault(__webpack_require__(/*! ../WorkEnv/JobWorkEnv */ "./resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnv.tsx"));
+var WorkEnvFeatures_1 = __importDefault(__webpack_require__(/*! ../WorkEnv/WorkEnvFeatures */ "./resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvFeatures.tsx"));
 var JobWorkCulture_1 = __importDefault(__webpack_require__(/*! ../JobWorkCulture */ "./resources/assets/js/components/JobBuilder/JobWorkCulture.tsx"));
 var Modal_1 = __importDefault(__webpack_require__(/*! ../../Modal */ "./resources/assets/js/components/Modal.tsx"));
 var textToParagraphs_1 = __webpack_require__(/*! ../../../helpers/textToParagraphs */ "./resources/assets/js/helpers/textToParagraphs.tsx");
@@ -65416,7 +67124,7 @@ exports.JobReviewDisplay = function (_a) {
             localize_1.localizeField(locale, job, "culture_summary") && (react_1.default.createElement("p", null, localize_1.localizeField(locale, job, "culture_summary"))),
             localize_1.localizeField(locale, job, "culture_special") && (react_1.default.createElement("p", null, localize_1.localizeField(locale, job, "culture_special")))),
         react_1.default.createElement(JobReviewSection, { title: intl.formatMessage(messages.workEnvHeading), isSubsection: true, linkLabel: intl.formatMessage(messages.workEnvEditLink), link: routes_1.jobBuilderEnv(locale, job.id), description: intl.formatMessage(messages.workEnvDescription), hideLink: hideBuilderLinks },
-            react_1.default.createElement(JobWorkEnv_1.default, { teamSize: job.team_size || 0, selectedEnvOptions: selectedEnvOptions, envDescription: localize_1.localizeField(locale, job, "work_env_description") || "" })),
+            react_1.default.createElement(WorkEnvFeatures_1.default, { teamSize: job.team_size || 0, selectedEnvOptions: selectedEnvOptions, envDescription: localize_1.localizeField(locale, job, "work_env_description") || "" })),
         react_1.default.createElement(JobReviewSection, { title: intl.formatMessage(messages.otherInfoHeading), isSubsection: true, linkLabel: intl.formatMessage(messages.infoEditLink), link: routes_1.jobBuilderDetails(locale, job.id), hideLink: hideBuilderLinks },
             react_1.default.createElement(JobWorkCulture_1.default, { job: job }))));
 };
@@ -65430,6 +67138,7 @@ exports.JobReview = function (_a) {
     var _d = react_1.useState(false), isSurveyModalVisible = _d[0], setIsSurveyModalVisible = _d[1];
     var modalId = "job-review-modal";
     var modalParentRef = react_1.useRef(null);
+    var filterComments = react_1.useCallback(function (comment) { return queries_1.hasKey(localizedConstants_1.jobReviewLocations, comment.location); }, []);
     return (react_1.default.createElement(react_1.default.Fragment, null,
         react_1.default.createElement("div", { "data-c-container": "form", "data-c-padding": "top(triple) bottom(triple)", ref: modalParentRef },
             react_1.default.createElement("h3", { "data-c-font-size": "h3", "data-c-font-weight": "bold", "data-c-margin": "bottom(normal)" },
@@ -65438,9 +67147,7 @@ exports.JobReview = function (_a) {
                 react_1.default.createElement("span", { "data-c-colour": "c2" }, localize_1.localizeField(locale, job, "title"))),
             react_1.default.createElement("p", { "data-c-margin": "bottom(double)" },
                 react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.review.headsUp", defaultMessage: "Just a heads up! We've rearranged some of your information to help you\n            understand how an applicant will see it once published.", description: "Description under primary title of review section" })),
-            react_1.default.createElement(ActivityFeed_1.default, { jobId: job.id, isHrAdvisor: false, generalLocation: lookupConstants_1.LocationId.jobGeneric, locationMessages: localizedConstants_1.jobReviewLocations, filterComments: function (comment) {
-                    return queries_1.hasKey(localizedConstants_1.jobReviewLocations, comment.location);
-                } }),
+            react_1.default.createElement(ActivityFeed_1.default, { jobId: job.id, isHrAdvisor: false, generalLocation: lookupConstants_1.LocationId.jobGeneric, locationMessages: localizedConstants_1.jobReviewLocations, filterComments: filterComments }),
             react_1.default.createElement(exports.JobReviewDisplay, { job: job, manager: manager, tasks: tasks, criteria: criteria, skills: skills, departments: departments, user: user, hideBuilderLinks: false }),
             react_1.default.createElement("div", { "data-c-grid": "gutter" },
                 react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" },
@@ -65719,7 +67426,7 @@ exports.managerSurveyMessages = react_intl_1.defineMessages({
     },
     managerSurveyLink: {
         id: "managerSurveyModal.link",
-        defaultMessage: "<a>Take me to the survey</>.",
+        defaultMessage: "Take me to the survey.",
         description: "Link to manager survey.",
     },
     jobPosterLink: {
@@ -65744,9 +67451,8 @@ exports.ManagerSurveyModal = function (_a) {
             react_1.default.createElement("div", { "data-c-padding": "normal" },
                 react_1.default.createElement("div", { id: "upgrade-modal-description" },
                     react_1.default.createElement("p", null, intl.formatMessage(exports.managerSurveyMessages.managerSurveyExplanation)),
-                    react_1.default.createElement("p", { "data-c-margin": "top(normal)" }, intl.formatMessage(exports.managerSurveyMessages.managerSurveyLink, {
-                        a: function (msg) { return (react_1.default.createElement("a", { href: "https://talentcloud1.typeform.com/to/MrOkgK", title: intl.formatMessage(exports.managerSurveyMessages.managerSurveyLinkTitle), target: "_blank", rel: "noreferrer noopener" }, msg)); },
-                    }))))),
+                    react_1.default.createElement("p", { "data-c-margin": "top(normal)" },
+                        react_1.default.createElement("a", { href: "https://talentcloud1.typeform.com/to/MrOkgK", title: intl.formatMessage(exports.managerSurveyMessages.managerSurveyLinkTitle), target: "_blank", rel: "noreferrer noopener" }, intl.formatMessage(exports.managerSurveyMessages.managerSurveyLink)))))),
         react_1.default.createElement("div", { "data-c-padding": "half", "data-c-alignment": "base(right)" },
             react_1.default.createElement("a", { "data-c-button": "solid(c1)", "data-c-dialog-action": "close", "data-c-radius": "rounded", style: { textDecoration: "none" }, href: routes_1.managerJobIndex(intl.locale), title: intl.formatMessage(exports.managerSurveyMessages.jobPosterLinkTitle) }, intl.formatMessage(exports.managerSurveyMessages.jobPosterLink)))));
 };
@@ -65902,7 +67608,8 @@ var newCriteria = function (jobPosterId, skillId) { return ({
 }); };
 /* eslint-enable @typescript-eslint/camelcase */
 exports.CriteriaForm = function (_a) {
-    var jobPosterId = _a.jobPosterId, criteria = _a.criteria, skill = _a.skill, handleSubmit = _a.handleSubmit, handleCancel = _a.handleCancel, intl = _a.intl;
+    var jobPosterId = _a.jobPosterId, criteria = _a.criteria, skill = _a.skill, handleSubmit = _a.handleSubmit, handleCancel = _a.handleCancel;
+    var intl = react_intl_1.useIntl();
     var locale = localize_1.getLocale(intl.locale);
     var stringNotEmpty = function (value) {
         return value !== null && value.length !== 0;
@@ -65929,69 +67636,68 @@ exports.CriteriaForm = function (_a) {
             var updatedCriteria = updateCriteriaWithValues(locale, oldCriteria, skill, values);
             handleSubmit(updatedCriteria);
             setSubmitting(false);
-        }, render: function (_a) {
-            var errors = _a.errors, touched = _a.touched, isSubmitting = _a.isSubmitting, values = _a.values, setFieldValue = _a.setFieldValue;
-            return (react_1.default.createElement(react_1.default.Fragment, null,
-                react_1.default.createElement(formik_1.Form, { id: "jpbSkillsForm" },
-                    react_1.default.createElement("div", { "data-c-padding": "all(normal)", "data-c-background": "grey(10)" },
-                        react_1.default.createElement("p", { "data-c-font-weight": "bold", "data-c-margin": "bottom(normal)" },
-                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.criteriaForm.skillDefinition", defaultMessage: "Skill Definition", description: "Label for Skill Definition heading on Add Skill modal." })),
-                        react_1.default.createElement("div", null,
-                            react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" }, localize_1.localizeField(locale, skill, "name")),
-                            react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" }, localize_1.localizeField(locale, skill, "description")),
-                            showSpecificity ? (react_1.default.createElement(react_1.default.Fragment, null,
-                                react_1.default.createElement(formik_1.Field, { id: "skillSpecificity", type: "textarea", name: "specificity", label: intl.formatMessage(criteriaFormMessages.skillSpecificityLabel), placeholder: intl.formatMessage(criteriaFormMessages.skillSpecificityPlaceholder), component: TextAreaInput_1.default }),
-                                react_1.default.createElement("button", { className: "job-builder-add-skill-definition-trigger", type: "button", onClick: function () {
-                                        // Clear the field before hiding it
-                                        setFieldValue("specificity", "");
-                                        setShowSpecificity(false);
-                                    } },
-                                    react_1.default.createElement("span", null,
-                                        react_1.default.createElement("i", { className: "fas fa-minus-circle", "data-c-colour": "c1" }),
-                                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.criteriaForm.removeSpecificity", defaultMessage: "Remove additional specificity.", description: "Label for 'Remove additional specificity' button on Add Skill modal." }))))) : (react_1.default.createElement("button", { className: "job-builder-add-skill-definition-trigger", type: "button", onClick: function () { return setShowSpecificity(true); } },
+        } }, function (_a) {
+        var errors = _a.errors, touched = _a.touched, isSubmitting = _a.isSubmitting, values = _a.values, setFieldValue = _a.setFieldValue;
+        return (react_1.default.createElement(react_1.default.Fragment, null,
+            react_1.default.createElement(formik_1.Form, { id: "jpbSkillsForm" },
+                react_1.default.createElement("div", { "data-c-padding": "all(normal)", "data-c-background": "grey(10)" },
+                    react_1.default.createElement("p", { "data-c-font-weight": "bold", "data-c-margin": "bottom(normal)" },
+                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.criteriaForm.skillDefinition", defaultMessage: "Skill Definition", description: "Label for Skill Definition heading on Add Skill modal." })),
+                    react_1.default.createElement("div", null,
+                        react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" }, localize_1.localizeField(locale, skill, "name")),
+                        react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" }, localize_1.localizeField(locale, skill, "description")),
+                        showSpecificity ? (react_1.default.createElement(react_1.default.Fragment, null,
+                            react_1.default.createElement(formik_1.FastField, { id: "skillSpecificity", type: "textarea", name: "specificity", label: intl.formatMessage(criteriaFormMessages.skillSpecificityLabel), placeholder: intl.formatMessage(criteriaFormMessages.skillSpecificityPlaceholder), component: TextAreaInput_1.default }),
+                            react_1.default.createElement("button", { className: "job-builder-add-skill-definition-trigger", type: "button", onClick: function () {
+                                    // Clear the field before hiding it
+                                    setFieldValue("specificity", "");
+                                    setShowSpecificity(false);
+                                } },
                                 react_1.default.createElement("span", null,
-                                    react_1.default.createElement("i", { className: "fas fa-plus-circle", "data-c-colour": "c1" }),
-                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.criteriaForm.addSpecificity", defaultMessage: "I would like to add details to this definition that are specific to this position.", description: "Label for 'Add additional specificity' button on Add Skill modal." })))))),
-                    react_1.default.createElement("div", { "data-c-padding": "all(normal)" },
-                        react_1.default.createElement("div", { className: "job-builder-culture-block" },
-                            react_1.default.createElement("p", { "data-c-font-weight": "bold", "data-c-margin": "bottom(normal)" },
-                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.criteriaForm.chooseSkillLevel", defaultMessage: "Choose a Skill Level", description: "Label for 'Choose a Skill Level' radio group heading on Add Skill modal." })),
-                            react_1.default.createElement("div", { "data-c-grid": "gutter" },
-                                react_1.default.createElement(RadioGroup_1.default, { id: "skillLevelSelection", label: intl.formatMessage(criteriaFormMessages.skillLevelSelectionLabel), required: true, touched: touched.level, error: errors.level, value: values.level, grid: "base(1of1) tl(1of3)" },
-                                    Object.entries(essentialSkillLevels(skill.skill_type_id)).map(function (_a) {
-                                        var key = _a[0], name = _a[1].name;
-                                        return (react_1.default.createElement(formik_1.Field, { key: key, id: key, name: "level", component: RadioInput_1.default, label: intl.formatMessage(name), value: key, trigger: true }));
-                                    }),
-                                    react_1.default.createElement("div", { className: "job-builder-skill-level-or-block", "data-c-alignment": "base(centre)" },
-                                        react_1.default.createElement("div", null),
-                                        react_1.default.createElement("span", null,
-                                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.criteriaForm.or", defaultMessage: "or", description: "Label for 'or' between essential/asset levels on Add Skill modal." }))),
-                                    react_1.default.createElement(formik_1.Field, { key: "asset", id: "asset", name: "level", component: RadioInput_1.default, label: intl.formatMessage(localizedConstants_1.assetSkillName()), value: "asset", trigger: true })),
-                                react_1.default.createElement(ContextBlock_1.default, { className: "job-builder-context-block", grid: "base(1of1) tl(2of3)" },
-                                    Object.entries(essentialSkillLevels(skill.skill_type_id)).map(function (_a) {
-                                        var key = _a[0], _b = _a[1], name = _b.name, context = _b.context;
-                                        return (react_1.default.createElement(ContextBlockItem_1.default, { key: key, contextId: key, title: intl.formatMessage(name), subtext: intl.formatMessage(context), className: "job-builder-context-item", active: values.level === key }));
-                                    }),
-                                    react_1.default.createElement(ContextBlockItem_1.default, { key: "asset", contextId: "asset", title: intl.formatMessage(localizedConstants_1.assetSkillName()), subtext: intl.formatMessage(localizedConstants_1.assetSkillDescription()), className: "job-builder-context-item", active: values.level === "asset" }))))),
-                    react_1.default.createElement("div", { "data-c-padding": "normal" },
-                        react_1.default.createElement("div", { "data-c-grid": "gutter middle" },
-                            react_1.default.createElement("div", { "data-c-grid-item": "base(1of2)" },
-                                react_1.default.createElement("button", { "data-c-button": "outline(c2)", "data-c-radius": "rounded", type: "button", disabled: isSubmitting, onClick: handleCancel },
-                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.criteriaForm.button.cancel", defaultMessage: "Cancel", description: "Label for Cancel button on Add Skill modal." }))),
-                            react_1.default.createElement("div", { "data-c-alignment": "base(right)", "data-c-grid-item": "base(1of2)" },
-                                react_1.default.createElement("button", { "data-c-button": "solid(c2)", "data-c-radius": "rounded", disabled: isSubmitting, type: "submit" },
-                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.criteriaForm.button.add", defaultMessage: "Add Skill", description: "Label for Add Skill button on Add Skill modal." }))))))));
-        } }));
+                                    react_1.default.createElement("i", { className: "fas fa-minus-circle", "data-c-colour": "c1" }),
+                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.criteriaForm.removeSpecificity", defaultMessage: "Remove additional specificity.", description: "Label for 'Remove additional specificity' button on Add Skill modal." }))))) : (react_1.default.createElement("button", { className: "job-builder-add-skill-definition-trigger", type: "button", onClick: function () { return setShowSpecificity(true); } },
+                            react_1.default.createElement("span", null,
+                                react_1.default.createElement("i", { className: "fas fa-plus-circle", "data-c-colour": "c1" }),
+                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.criteriaForm.addSpecificity", defaultMessage: "I would like to add details to this definition that are specific to this position.", description: "Label for 'Add additional specificity' button on Add Skill modal." })))))),
+                react_1.default.createElement("div", { className: "job-builder-culture-block", "data-c-grid-item": "base(1of1)", "data-c-padding": "all(normal)" },
+                    react_1.default.createElement("p", { "data-c-font-weight": "bold", "data-c-margin": "bottom(normal)" },
+                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.criteriaForm.chooseSkillLevel", defaultMessage: "Choose a Skill Level", description: "Label for 'Choose a Skill Level' radio group heading on Add Skill modal." })),
+                    react_1.default.createElement("div", { "data-c-grid": "gutter" },
+                        react_1.default.createElement(RadioGroup_1.default, { id: "skillLevelSelection", label: intl.formatMessage(criteriaFormMessages.skillLevelSelectionLabel), required: true, touched: touched.level, error: errors.level, value: values.level, grid: "base(1of1) tl(1of3)" },
+                            Object.entries(essentialSkillLevels(skill.skill_type_id)).map(function (_a) {
+                                var key = _a[0], name = _a[1].name;
+                                return (react_1.default.createElement(formik_1.FastField, { key: key, id: key, name: "level", component: RadioInput_1.default, label: intl.formatMessage(name), value: key, trigger: true }));
+                            }),
+                            react_1.default.createElement("div", { className: "job-builder-skill-level-or-block", "data-c-alignment": "base(centre)" },
+                                react_1.default.createElement("div", null),
+                                react_1.default.createElement("span", null,
+                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.criteriaForm.or", defaultMessage: "or", description: "Label for 'or' between essential/asset levels on Add Skill modal." }))),
+                            react_1.default.createElement(formik_1.FastField, { key: "asset", id: "asset", name: "level", component: RadioInput_1.default, label: intl.formatMessage(localizedConstants_1.assetSkillName()), value: "asset", trigger: true })),
+                        react_1.default.createElement(ContextBlock_1.default, { className: "job-builder-context-block", grid: "base(1of1) tl(2of3)" },
+                            Object.entries(essentialSkillLevels(skill.skill_type_id)).map(function (_a) {
+                                var key = _a[0], _b = _a[1], name = _b.name, context = _b.context;
+                                return (react_1.default.createElement(ContextBlockItem_1.default, { key: key, contextId: key, title: intl.formatMessage(name), subtext: intl.formatMessage(context), className: "job-builder-context-item", active: values.level === key }));
+                            }),
+                            react_1.default.createElement(ContextBlockItem_1.default, { key: "asset", contextId: "asset", title: intl.formatMessage(localizedConstants_1.assetSkillName()), subtext: intl.formatMessage(localizedConstants_1.assetSkillDescription()), className: "job-builder-context-item", active: values.level === "asset" })))),
+                react_1.default.createElement("div", { "data-c-padding": "normal" },
+                    react_1.default.createElement("div", { "data-c-grid": "gutter middle" },
+                        react_1.default.createElement("div", { "data-c-grid-item": "base(1of2)" },
+                            react_1.default.createElement("button", { "data-c-button": "outline(c2)", "data-c-radius": "rounded", type: "button", disabled: isSubmitting, onClick: handleCancel },
+                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.criteriaForm.button.cancel", defaultMessage: "Cancel", description: "Label for Cancel button on Add Skill modal." }))),
+                        react_1.default.createElement("div", { "data-c-alignment": "base(right)", "data-c-grid-item": "base(1of2)" },
+                            react_1.default.createElement("button", { "data-c-button": "solid(c2)", "data-c-radius": "rounded", disabled: isSubmitting, type: "submit" },
+                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.criteriaForm.button.add", defaultMessage: "Add Skill", description: "Label for Add Skill button on Add Skill modal." }))))))));
+    }));
 };
-exports.default = react_intl_1.injectIntl(exports.CriteriaForm);
+exports.default = exports.CriteriaForm;
 
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/JobBuilder/Skills/JobBuilderSkills.tsx":
-/*!*******************************************************************************!*\
-  !*** ./resources/assets/js/components/JobBuilder/Skills/JobBuilderSkills.tsx ***!
-  \*******************************************************************************/
+/***/ "./resources/assets/js/components/JobBuilder/Skills/JobSkills.tsx":
+/*!************************************************************************!*\
+  !*** ./resources/assets/js/components/JobBuilder/Skills/JobSkills.tsx ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -66121,8 +67827,9 @@ var criteriaReducer = function (state, action) {
 exports.skillAlreadySelected = function (selectedCriteria, skill) {
     return selectedCriteria.find(function (criterion) { return criterion.skill_id === skill.id; }) !== undefined;
 };
-exports.JobBuilderSkills = function (_a) {
-    var job = _a.job, keyTasks = _a.keyTasks, initialCriteria = _a.initialCriteria, skills = _a.skills, handleSubmit = _a.handleSubmit, handleReturn = _a.handleReturn, handleContinue = _a.handleContinue, jobIsComplete = _a.jobIsComplete, handleSkipToReview = _a.handleSkipToReview, intl = _a.intl;
+exports.JobSkills = function (_a) {
+    var job = _a.job, keyTasks = _a.keyTasks, initialCriteria = _a.initialCriteria, skills = _a.skills, handleSubmit = _a.handleSubmit, handleReturn = _a.handleReturn, handleContinue = _a.handleContinue, jobIsComplete = _a.jobIsComplete, handleSkipToReview = _a.handleSkipToReview;
+    var intl = react_intl_1.useIntl();
     var locale = localize_1.getLocale(intl.locale);
     // The ideal number of skills for each category
     var minOccupational = 3;
@@ -66637,15 +68344,15 @@ exports.JobBuilderSkills = function (_a) {
                 react_1.default.createElement(Modal_1.default.FooterConfirmBtn, null,
                     react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.skills.previewModalConfirmLabel", defaultMessage: "Next Step", description: "The text displayed on the confirm button of the Job Builder Skills Preview modal." }))))));
 };
-exports.default = react_intl_1.injectIntl(exports.JobBuilderSkills);
+exports.default = exports.JobSkills;
 
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/JobBuilder/Skills/JobBuilderSkillsPage.tsx":
-/*!***********************************************************************************!*\
-  !*** ./resources/assets/js/components/JobBuilder/Skills/JobBuilderSkillsPage.tsx ***!
-  \***********************************************************************************/
+/***/ "./resources/assets/js/components/JobBuilder/Skills/JobSkillsPage.tsx":
+/*!****************************************************************************!*\
+  !*** ./resources/assets/js/components/JobBuilder/Skills/JobSkillsPage.tsx ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -66696,19 +68403,18 @@ var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-i
 var react_redux_1 = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/lib/index.js");
 var react_dom_1 = __importDefault(__webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js"));
 var RootContainer_1 = __importDefault(__webpack_require__(/*! ../../RootContainer */ "./resources/assets/js/components/RootContainer.tsx"));
-var JobBuilderSkills_1 = __importDefault(__webpack_require__(/*! ./JobBuilderSkills */ "./resources/assets/js/components/JobBuilder/Skills/JobBuilderSkills.tsx"));
+var JobSkills_1 = __importDefault(__webpack_require__(/*! ./JobSkills */ "./resources/assets/js/components/JobBuilder/Skills/JobSkills.tsx"));
 var routes_1 = __webpack_require__(/*! ../../../helpers/routes */ "./resources/assets/js/helpers/routes.ts");
 var jobSelector_1 = __webpack_require__(/*! ../../../store/Job/jobSelector */ "./resources/assets/js/store/Job/jobSelector.ts");
 var skillSelector_1 = __webpack_require__(/*! ../../../store/Skill/skillSelector */ "./resources/assets/js/store/Skill/skillSelector.ts");
 var jobActions_1 = __webpack_require__(/*! ../../../store/Job/jobActions */ "./resources/assets/js/store/Job/jobActions.ts");
 var JobBuilderStep_1 = __importDefault(__webpack_require__(/*! ../JobBuilderStep */ "./resources/assets/js/components/JobBuilder/JobBuilderStep.tsx"));
 var router_1 = __webpack_require__(/*! ../../../helpers/router */ "./resources/assets/js/helpers/router.tsx");
-var JobBuilderSkillsPage = function (_a) {
-    var jobId = _a.jobId, job = _a.job, skills = _a.skills, keyTasks = _a.keyTasks, criteria = _a.criteria, handleSubmitCriteria = _a.handleSubmitCriteria, intl = _a.intl;
-    var locale = intl.locale;
-    if (locale !== "en" && locale !== "fr") {
-        throw new Error("Unexpected locale");
-    }
+var localize_1 = __webpack_require__(/*! ../../../helpers/localize */ "./resources/assets/js/helpers/localize.ts");
+var JobSkillsPage = function (_a) {
+    var jobId = _a.jobId, job = _a.job, skills = _a.skills, keyTasks = _a.keyTasks, criteria = _a.criteria, handleSubmitCriteria = _a.handleSubmitCriteria;
+    var intl = react_intl_1.useIntl();
+    var locale = localize_1.getLocale(intl.locale);
     var handleReturn = function () {
         // Continue to next page
         router_1.navigate(routes_1.jobBuilderTasks(locale, jobId));
@@ -66728,7 +68434,7 @@ var JobBuilderSkillsPage = function (_a) {
     }); };
     // As long as Skills is the last step, we never need to show the Skip to Review button
     var jobIsComplete = false;
-    return (react_1.default.createElement(JobBuilderStep_1.default, { jobId: jobId, currentPage: "skills" }, job !== null && (react_1.default.createElement(JobBuilderSkills_1.default, { job: job, keyTasks: keyTasks, initialCriteria: criteria, skills: skills, handleSubmit: handleSubmit, handleReturn: handleReturn, handleContinue: handleContinue, jobIsComplete: jobIsComplete, handleSkipToReview: handleSkipToReview }))));
+    return (react_1.default.createElement(JobBuilderStep_1.default, { jobId: jobId, currentPage: "skills" }, job !== null && (react_1.default.createElement(JobSkills_1.default, { job: job, keyTasks: keyTasks, initialCriteria: criteria, skills: skills, handleSubmit: handleSubmit, handleReturn: handleReturn, handleContinue: handleContinue, jobIsComplete: jobIsComplete, handleSkipToReview: handleSkipToReview }))));
 };
 var mapStateToProps = function (state, ownProps) { return ({
     job: jobSelector_1.getJob(state, ownProps),
@@ -66755,7 +68461,7 @@ var mapDispatchToProps = function (dispatch) { return ({
         });
     }); },
 }); };
-var JobSkillsPageContainer = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(react_intl_1.injectIntl(JobBuilderSkillsPage));
+var JobSkillsPageContainer = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(JobSkillsPage);
 exports.default = JobSkillsPageContainer;
 if (document.getElementById("job-builder-skills")) {
     var container = document.getElementById("job-builder-skills");
@@ -66843,15 +68549,13 @@ var formMessages = react_intl_1.defineMessages({
         description: "Validation message shown when a user tries to submit more than the allowed number of tasks.",
     },
 });
-var JobTasks = function (_a) {
-    var jobId = _a.jobId, keyTasks = _a.keyTasks, validCount = _a.validCount, handleSubmit = _a.handleSubmit, handleReturn = _a.handleReturn, handleModalCancel = _a.handleModalCancel, handleModalConfirm = _a.handleModalConfirm, jobIsComplete = _a.jobIsComplete, handleSkipToReview = _a.handleSkipToReview, intl = _a.intl;
+exports.JobTasks = function (_a) {
+    var jobId = _a.jobId, keyTasks = _a.keyTasks, validCount = _a.validCount, handleSubmit = _a.handleSubmit, handleReturn = _a.handleReturn, handleModalCancel = _a.handleModalCancel, handleModalConfirm = _a.handleModalConfirm, jobIsComplete = _a.jobIsComplete, handleSkipToReview = _a.handleSkipToReview;
+    var intl = react_intl_1.useIntl();
+    var locale = localize_1.getLocale(intl.locale);
     var modalId = "tasks-modal";
     var _b = react_1.useState(false), isModalVisible = _b[0], setIsModalVisible = _b[1];
     var modalParentRef = react_1.useRef(null);
-    var locale = intl.locale;
-    if (locale !== "en" && locale !== "fr") {
-        throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
-    }
     var tasksToValues = function (tasks) { return ({
         tasks: tasks.map(function (task) { return ({
             id: task.id,
@@ -66930,7 +68634,7 @@ var JobTasks = function (_a) {
                      *  This stops tasks from being recreated (instead of updated) if you save the form again.
                      *  FIXME: However, this resets the ordering as well, to whatever order the server returns them in.
                      */
-                    actions.resetForm(tasksToValues(updatedTasks));
+                    actions.resetForm({ values: tasksToValues(updatedTasks) });
                     nprogress_1.default.done();
                     setIsModalVisible(true);
                 })
@@ -66940,130 +68644,129 @@ var JobTasks = function (_a) {
                     .finally(function () {
                     actions.setSubmitting(false); // Required by Formik to finish the submission cycle
                 });
-            }, render: function (_a) {
-                var isSubmitting = _a.isSubmitting, values = _a.values, errors = _a.errors, setFieldValue = _a.setFieldValue;
-                return (react_1.default.createElement(react_1.default.Fragment, null,
-                    values.tasks.length > 0 && (react_1.default.createElement("p", { "data-c-alignment": "tl(right)", "data-c-margin": "bottom(double)" },
-                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.tasks.taskCount.some", defaultMessage: "You have {taskCount, plural, one {# task} other {# tasks}} added.", description: "Indicates how many tasks are present on the page.", values: {
-                                taskCount: values.tasks.length,
-                            } }))),
-                    values.tasks.length === 0 && (react_1.default.createElement("div", { "data-c-margin": "top(normal) bottom(double)", "data-c-background": "grey(20)", "data-c-padding": "normal", "data-c-radius": "rounded", "data-c-border": "all(thin, solid, grey)", "data-c-alignment": "centre" },
-                        react_1.default.createElement("p", null,
-                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.tasks.taskCount.none", defaultMessage: "You don't have any tasks added yet!", description: "Message displayed when there are no tasks present on the page." })))),
-                    react_1.default.createElement(formik_1.Form, { id: "job-tasks" },
-                        react_1.default.createElement(formik_1.FieldArray, { name: "tasks", render: function (_a) {
-                                var push = _a.push;
-                                /* The next two methods are workaround replacements
-                                 * for Formik's built-in array helpers. Due to the
-                                 * way they're called, they end up crashing the page
-                                 * when a Yup validation on the array is thrown,
-                                 * see https://github.com/jaredpalmer/formik/issues/1158#issuecomment-510868126
-                                 */
-                                var move = function (from, to) {
-                                    var copy = __spreadArrays((values.tasks || []));
-                                    var value = copy[from];
-                                    copy.splice(from, 1);
-                                    copy.splice(to, 0, value);
-                                    setFieldValue("tasks", copy);
-                                };
-                                var remove = function (position) {
-                                    var copy = values.tasks ? __spreadArrays(values.tasks) : [];
-                                    copy.splice(position, 1);
-                                    setFieldValue("tasks", copy);
-                                };
-                                var taskArrayErrors = function (arrayErrors) {
-                                    return typeof arrayErrors.tasks === "string" ? (react_1.default.createElement("div", { "data-c-alert": "error", "data-c-radius": "rounded", role: "alert", "data-c-margin": "top(normal)" },
-                                        react_1.default.createElement("div", { "data-c-padding": "half" },
-                                            react_1.default.createElement("p", null, arrayErrors.tasks)))) : null;
-                                };
-                                var tempId = nanoid_1.default(10);
-                                return (react_1.default.createElement(react_1.default.Fragment, null,
-                                    react_1.default.createElement("div", { "data-c-grid": "gutter" }, values.tasks &&
-                                        values.tasks.length > 0 &&
-                                        values.tasks.map(function (task, index) { return (react_1.default.createElement(react_1.default.Fragment, null,
-                                            validCount === index && (react_1.default.createElement("div", { key: "taskError", className: "job-builder-task-warning", "data-c-grid-item": "base(1of1)" },
-                                                react_1.default.createElement("div", { "data-c-alert": "error", "data-c-radius": "rounded", role: "alert", "data-c-margin": "bottom(normal)" },
-                                                    react_1.default.createElement("div", { "data-c-padding": "half" },
-                                                        react_1.default.createElement("span", { "data-c-margin": "bottom(quarter)", "data-c-font-weight": "bold" },
-                                                            react_1.default.createElement("i", { "aria-hidden": "true", className: "fas fa-exclamation-circle" }),
-                                                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.tasks.taskCount.error.title", description: "Error message displayed when too many tasks are on screen.", defaultMessage: "Just a heads up!" })),
-                                                        react_1.default.createElement("p", null,
-                                                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.tasks.taskCount.error.body", description: "Error message displayed when too many tasks are on screen.", defaultMessage: "You have exceeded the maximum number of key tasks allowed, but that\u2019s okay. You can continue to add key tasks as you brainstorm here, but you will be asked to trim your list to 6 key tasks or fewer to proceed." })))))),
-                                            react_1.default.createElement("div", { key: task.id, className: "job-builder-task" + (index + 1 > validCount ? " invalid" : ""), "data-c-grid-item": "base(1of1)", "data-tc-up-down-item": true },
-                                                react_1.default.createElement("div", { "data-c-grid": "gutter middle" },
-                                                    react_1.default.createElement("div", { "data-c-grid-item": "base(1of7) tl(1of10)", "data-c-align": "base(centre)" },
-                                                        react_1.default.createElement("button", { type: "button", "data-tc-move-up-trigger": true, onClick: function () {
-                                                                return move(index, index - 1);
-                                                            } },
-                                                            react_1.default.createElement("i", { className: "fas fa-angle-up" })),
-                                                        react_1.default.createElement("button", { type: "button", "data-tc-move-down-trigger": true, onClick: function () {
-                                                                return move(index, index + 1);
-                                                            } },
-                                                            react_1.default.createElement("i", { className: "fas fa-angle-down" }))),
-                                                    react_1.default.createElement(formik_1.Field, { id: "task-" + task.id, name: "tasks." + index + ".description", grid: "base(5of7) tl(8of10)", label: intl.formatMessage(formMessages.taskLabel) + " " + (index + 1), component: TextAreaInput_1.default, placeholder: intl.formatMessage(formMessages.taskPlaceholder), required: true }),
-                                                    react_1.default.createElement("div", { "data-c-grid-item": "base(1of7) tl(1of10)", "data-c-align": "base(centre)" },
-                                                        react_1.default.createElement("button", { type: "button", "data-tc-builder-task-delete-trigger": true, onClick: function () {
-                                                                remove(index);
-                                                            } },
-                                                            react_1.default.createElement("i", { className: "fas fa-trash", "data-c-colour": "stop" }))))))); })),
-                                    react_1.default.createElement("div", { "data-c-grid": "gutter" },
-                                        react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)", "data-c-alignment": "base(centre)" },
-                                            react_1.default.createElement("button", { "data-c-button": "solid(c2)", "data-c-radius": "rounded", type: "button", disabled: isSubmitting, onClick: function () {
-                                                    return push({
-                                                        id: tempId,
-                                                        job_poster_id: jobId,
-                                                        en: { description: "" },
-                                                        fr: { description: "" },
-                                                    });
-                                                } },
-                                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.tasks.addJob", description: "Text on the Add Task button.", defaultMessage: "Add a Task" }))),
-                                        react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" },
-                                            react_1.default.createElement("hr", { "data-c-margin": "top(normal) bottom(normal)" })),
-                                        react_1.default.createElement("div", { "data-c-alignment": "base(centre) tp(left)", "data-c-grid-item": "tp(1of2)" },
-                                            react_1.default.createElement("button", { "data-c-button": "outline(c2)", "data-c-radius": "rounded", type: "button", disabled: isSubmitting, onClick: function () {
-                                                    updateValuesAndReturn(values);
-                                                } },
-                                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.tasks.previous", description: "Text on the Previous Step button.", defaultMessage: "Save & Return to Impact" }))),
-                                        react_1.default.createElement("div", { "data-c-alignment": "base(centre) tp(right)", "data-c-grid-item": "tp(1of2)" },
-                                            react_1.default.createElement("button", { "data-c-button": "solid(c2)", "data-c-radius": "rounded", type: "submit", disabled: isSubmitting },
-                                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.tasks.preview", description: "Text on the Preview Tasks button.", defaultMessage: "Save & Preview Tasks" })),
-                                            taskArrayErrors(errors)))));
-                            } })),
-                    react_1.default.createElement(Modal_1.default, { id: modalId, parentElement: modalParentRef.current, visible: isModalVisible, onModalCancel: function () {
-                            handleModalCancel();
-                            setIsModalVisible(false);
-                        }, onModalConfirm: function () {
-                            handleModalConfirm();
-                        }, onModalMiddle: function () {
-                            handleSkipToReview();
-                        } },
-                        react_1.default.createElement(Modal_1.default.Header, null,
-                            react_1.default.createElement("div", { "data-c-background": "c1(100)", "data-c-border": "bottom(thin, solid, black)", "data-c-padding": "normal" },
-                                react_1.default.createElement("h5", { "data-c-colour": "white", "data-c-font-size": "h4", id: modalId + "-title" },
-                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.tasks.modal.title", defaultMessage: "Keep it up!", description: "Text displayed on the title of the Job Task page Modal." })))),
-                        react_1.default.createElement(Modal_1.default.Body, null,
-                            react_1.default.createElement("div", { "data-c-border": "bottom(thin, solid, black)" },
-                                react_1.default.createElement("div", { "data-c-border": "bottom(thin, solid, black)", "data-c-padding": "normal", id: modalId + "-description" },
-                                    react_1.default.createElement("p", null,
-                                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.tasks.modal.body", description: "Text displayed above the body of the Job Task page Modal.", defaultMessage: "Here's a preview of the Tasks you just entered. Feel free to go back and edit things or move to the next step if you're happy with it." }))),
-                                react_1.default.createElement("div", { "data-c-background": "grey(20)", "data-c-padding": "normal" },
-                                    react_1.default.createElement("div", { className: "manager-job-card", "data-c-background": "white(100)", "data-c-padding": "normal", "data-c-radius": "rounded" },
-                                        react_1.default.createElement("h4", { "data-c-border": "bottom(thin, solid, black)", "data-c-font-size": "h4", "data-c-font-weight": "600", "data-c-margin": "bottom(normal)", "data-c-padding": "bottom(normal)" },
-                                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.tasks.modal.body.heading", description: "Text displayed above the lists of Tasks inside the Modal body.", defaultMessage: "Tasks" })),
-                                        react_1.default.createElement("ul", null, values.tasks &&
-                                            values.tasks.map(function (task) { return (react_1.default.createElement("li", { key: task.id }, task.description)); })))))),
-                        react_1.default.createElement(Modal_1.default.Footer, null,
-                            react_1.default.createElement(Modal_1.default.FooterCancelBtn, null,
-                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.tasks.modal.cancelButtonLabel", description: "The text displayed on the cancel button of the Job Tasks modal.", defaultMessage: "Go Back" })),
-                            jobIsComplete && (react_1.default.createElement(Modal_1.default.FooterMiddleBtn, null,
-                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.tasks.modal.middleButtonLabel", description: "The text displayed on the Skip to Review button of the Job Tasks modal.", defaultMessage: "Skip to Review" }))),
-                            react_1.default.createElement(Modal_1.default.FooterConfirmBtn, null,
-                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.tasks.modal.confirmButtonLabel", description: "The text displayed on the confirm button of the Job Tasks modal.", defaultMessage: "Next Step" })))),
-                    react_1.default.createElement("div", { "data-c-dialog-overlay": isModalVisible ? "active" : "" })));
-            } })));
+            } }, function (_a) {
+            var isSubmitting = _a.isSubmitting, values = _a.values, errors = _a.errors, setFieldValue = _a.setFieldValue;
+            return (react_1.default.createElement(react_1.default.Fragment, null,
+                values.tasks.length > 0 && (react_1.default.createElement("p", { "data-c-alignment": "tl(right)", "data-c-margin": "bottom(double)" },
+                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.tasks.taskCount.some", defaultMessage: "You have {taskCount, plural, one {# task} other {# tasks}} added.", description: "Indicates how many tasks are present on the page.", values: {
+                            taskCount: values.tasks.length,
+                        } }))),
+                values.tasks.length === 0 && (react_1.default.createElement("div", { "data-c-margin": "top(normal) bottom(double)", "data-c-background": "grey(20)", "data-c-padding": "normal", "data-c-radius": "rounded", "data-c-border": "all(thin, solid, grey)", "data-c-alignment": "centre" },
+                    react_1.default.createElement("p", null,
+                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.tasks.taskCount.none", defaultMessage: "You don't have any tasks added yet!", description: "Message displayed when there are no tasks present on the page." })))),
+                react_1.default.createElement(formik_1.Form, { id: "job-tasks" },
+                    react_1.default.createElement(formik_1.FieldArray, { name: "tasks", render: function (_a) {
+                            var push = _a.push;
+                            /* The next two methods are workaround replacements
+                             * for Formik's built-in array helpers. Due to the
+                             * way they're called, they end up crashing the page
+                             * when a Yup validation on the array is thrown,
+                             * see https://github.com/jaredpalmer/formik/issues/1158#issuecomment-510868126
+                             */
+                            var move = function (from, to) {
+                                var copy = __spreadArrays((values.tasks || []));
+                                var value = copy[from];
+                                copy.splice(from, 1);
+                                copy.splice(to, 0, value);
+                                setFieldValue("tasks", copy);
+                            };
+                            var remove = function (position) {
+                                var copy = values.tasks ? __spreadArrays(values.tasks) : [];
+                                copy.splice(position, 1);
+                                setFieldValue("tasks", copy);
+                            };
+                            var taskArrayErrors = function (arrayErrors) {
+                                return typeof arrayErrors.tasks === "string" ? (react_1.default.createElement("div", { "data-c-alert": "error", "data-c-radius": "rounded", role: "alert", "data-c-margin": "top(normal)" },
+                                    react_1.default.createElement("div", { "data-c-padding": "half" },
+                                        react_1.default.createElement("p", null, arrayErrors.tasks)))) : null;
+                            };
+                            var tempId = nanoid_1.default(10);
+                            return (react_1.default.createElement(react_1.default.Fragment, null,
+                                react_1.default.createElement("div", { "data-c-grid": "gutter" }, values.tasks &&
+                                    values.tasks.length > 0 &&
+                                    values.tasks.map(function (task, index) { return (react_1.default.createElement(react_1.default.Fragment, { key: task.id },
+                                        validCount === index && (react_1.default.createElement("div", { key: "taskError", className: "job-builder-task-warning", "data-c-grid-item": "base(1of1)" },
+                                            react_1.default.createElement("div", { "data-c-alert": "error", "data-c-radius": "rounded", role: "alert", "data-c-margin": "bottom(normal)" },
+                                                react_1.default.createElement("div", { "data-c-padding": "half" },
+                                                    react_1.default.createElement("span", { "data-c-margin": "bottom(quarter)", "data-c-font-weight": "bold" },
+                                                        react_1.default.createElement("i", { "aria-hidden": "true", className: "fas fa-exclamation-circle" }),
+                                                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.tasks.taskCount.error.title", description: "Error message displayed when too many tasks are on screen.", defaultMessage: "Just a heads up!" })),
+                                                    react_1.default.createElement("p", null,
+                                                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.tasks.taskCount.error.body", description: "Error message displayed when too many tasks are on screen.", defaultMessage: "You have exceeded the maximum number of key tasks allowed, but that\u2019s okay. You can continue to add key tasks as you brainstorm here, but you will be asked to trim your list to 6 key tasks or fewer to proceed." })))))),
+                                        react_1.default.createElement("div", { key: task.id, className: "job-builder-task" + (index + 1 > validCount ? " invalid" : ""), "data-c-grid-item": "base(1of1)", "data-tc-up-down-item": true },
+                                            react_1.default.createElement("div", { "data-c-grid": "gutter middle" },
+                                                react_1.default.createElement("div", { "data-c-grid-item": "base(1of7) tl(1of10)", "data-c-align": "base(centre)" },
+                                                    react_1.default.createElement("button", { type: "button", "data-tc-move-up-trigger": true, onClick: function () {
+                                                            return move(index, index - 1);
+                                                        } },
+                                                        react_1.default.createElement("i", { className: "fas fa-angle-up" })),
+                                                    react_1.default.createElement("button", { type: "button", "data-tc-move-down-trigger": true, onClick: function () {
+                                                            return move(index, index + 1);
+                                                        } },
+                                                        react_1.default.createElement("i", { className: "fas fa-angle-down" }))),
+                                                react_1.default.createElement(formik_1.FastField, { id: "task-" + task.id, name: "tasks." + index + ".description", grid: "base(5of7) tl(8of10)", label: intl.formatMessage(formMessages.taskLabel) + " " + (index + 1), component: TextAreaInput_1.default, placeholder: intl.formatMessage(formMessages.taskPlaceholder), required: true }),
+                                                react_1.default.createElement("div", { "data-c-grid-item": "base(1of7) tl(1of10)", "data-c-align": "base(centre)" },
+                                                    react_1.default.createElement("button", { type: "button", "data-tc-builder-task-delete-trigger": true, onClick: function () {
+                                                            remove(index);
+                                                        } },
+                                                        react_1.default.createElement("i", { className: "fas fa-trash", "data-c-colour": "stop" }))))))); })),
+                                react_1.default.createElement("div", { "data-c-grid": "gutter" },
+                                    react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)", "data-c-alignment": "base(centre)" },
+                                        react_1.default.createElement("button", { "data-c-button": "solid(c2)", "data-c-radius": "rounded", type: "button", disabled: isSubmitting, onClick: function () {
+                                                return push({
+                                                    id: tempId,
+                                                    job_poster_id: jobId,
+                                                    en: { description: "" },
+                                                    fr: { description: "" },
+                                                });
+                                            } },
+                                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.tasks.addJob", description: "Text on the Add Task button.", defaultMessage: "Add a Task" }))),
+                                    react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" },
+                                        react_1.default.createElement("hr", { "data-c-margin": "top(normal) bottom(normal)" })),
+                                    react_1.default.createElement("div", { "data-c-alignment": "base(centre) tp(left)", "data-c-grid-item": "tp(1of2)" },
+                                        react_1.default.createElement("button", { "data-c-button": "outline(c2)", "data-c-radius": "rounded", type: "button", disabled: isSubmitting, onClick: function () {
+                                                updateValuesAndReturn(values);
+                                            } },
+                                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.tasks.previous", description: "Text on the Previous Step button.", defaultMessage: "Save & Return to Impact" }))),
+                                    react_1.default.createElement("div", { "data-c-alignment": "base(centre) tp(right)", "data-c-grid-item": "tp(1of2)" },
+                                        react_1.default.createElement("button", { "data-c-button": "solid(c2)", "data-c-radius": "rounded", type: "submit", disabled: isSubmitting },
+                                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.tasks.preview", description: "Text on the Preview Tasks button.", defaultMessage: "Save & Preview Tasks" })),
+                                        taskArrayErrors(errors)))));
+                        } })),
+                react_1.default.createElement(Modal_1.default, { id: modalId, parentElement: modalParentRef.current, visible: isModalVisible, onModalCancel: function () {
+                        handleModalCancel();
+                        setIsModalVisible(false);
+                    }, onModalConfirm: function () {
+                        handleModalConfirm();
+                    }, onModalMiddle: function () {
+                        handleSkipToReview();
+                    } },
+                    react_1.default.createElement(Modal_1.default.Header, null,
+                        react_1.default.createElement("div", { "data-c-background": "c1(100)", "data-c-border": "bottom(thin, solid, black)", "data-c-padding": "normal" },
+                            react_1.default.createElement("h5", { "data-c-colour": "white", "data-c-font-size": "h4", id: modalId + "-title" },
+                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.tasks.modal.title", defaultMessage: "Keep it up!", description: "Text displayed on the title of the Job Task page Modal." })))),
+                    react_1.default.createElement(Modal_1.default.Body, null,
+                        react_1.default.createElement("div", { "data-c-border": "bottom(thin, solid, black)" },
+                            react_1.default.createElement("div", { "data-c-border": "bottom(thin, solid, black)", "data-c-padding": "normal", id: modalId + "-description" },
+                                react_1.default.createElement("p", null,
+                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.tasks.modal.body", description: "Text displayed above the body of the Job Task page Modal.", defaultMessage: "Here's a preview of the Tasks you just entered. Feel free to go back and edit things or move to the next step if you're happy with it." }))),
+                            react_1.default.createElement("div", { "data-c-background": "grey(20)", "data-c-padding": "normal" },
+                                react_1.default.createElement("div", { className: "manager-job-card", "data-c-background": "white(100)", "data-c-padding": "normal", "data-c-radius": "rounded" },
+                                    react_1.default.createElement("h4", { "data-c-border": "bottom(thin, solid, black)", "data-c-font-size": "h4", "data-c-font-weight": "600", "data-c-margin": "bottom(normal)", "data-c-padding": "bottom(normal)" },
+                                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.tasks.modal.body.heading", description: "Text displayed above the lists of Tasks inside the Modal body.", defaultMessage: "Tasks" })),
+                                    react_1.default.createElement("ul", null, values.tasks &&
+                                        values.tasks.map(function (task) { return (react_1.default.createElement("li", { key: task.id }, task.description)); })))))),
+                    react_1.default.createElement(Modal_1.default.Footer, null,
+                        react_1.default.createElement(Modal_1.default.FooterCancelBtn, null,
+                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.tasks.modal.cancelButtonLabel", description: "The text displayed on the cancel button of the Job Tasks modal.", defaultMessage: "Go Back" })),
+                        jobIsComplete && (react_1.default.createElement(Modal_1.default.FooterMiddleBtn, null,
+                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.tasks.modal.middleButtonLabel", description: "The text displayed on the Skip to Review button of the Job Tasks modal.", defaultMessage: "Skip to Review" }))),
+                        react_1.default.createElement(Modal_1.default.FooterConfirmBtn, null,
+                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.tasks.modal.confirmButtonLabel", description: "The text displayed on the confirm button of the Job Tasks modal.", defaultMessage: "Next Step" })))),
+                react_1.default.createElement("div", { "data-c-dialog-overlay": isModalVisible ? "active" : "" })));
+        })));
 };
-exports.JobTasksIntl = react_intl_1.injectIntl(JobTasks);
-exports.default = exports.JobTasksIntl;
+exports.default = exports.JobTasks;
 
 
 /***/ }),
@@ -67212,13 +68915,927 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable jsx-a11y/label-has-associated-control, camelcase, @typescript-eslint/camelcase */
+var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+var formik_1 = __webpack_require__(/*! formik */ "./node_modules/formik/dist/index.js");
+var Yup = __importStar(__webpack_require__(/*! yup */ "./node_modules/yup/lib/index.js"));
+var nprogress_1 = __importDefault(__webpack_require__(/*! nprogress */ "./node_modules/nprogress/nprogress.js"));
+var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
+var CheckboxGroup_1 = __importDefault(__webpack_require__(/*! ../../Form/CheckboxGroup */ "./resources/assets/js/components/Form/CheckboxGroup.tsx"));
+var RadioGroup_1 = __importDefault(__webpack_require__(/*! ../../Form/RadioGroup */ "./resources/assets/js/components/Form/RadioGroup.tsx"));
+var ContextBlock_1 = __importDefault(__webpack_require__(/*! ../../ContextBlock/ContextBlock */ "./resources/assets/js/components/ContextBlock/ContextBlock.tsx"));
+var ContextBlockItem_1 = __importDefault(__webpack_require__(/*! ../../ContextBlock/ContextBlockItem */ "./resources/assets/js/components/ContextBlock/ContextBlockItem.tsx"));
+var CopyToClipboardButton_1 = __importDefault(__webpack_require__(/*! ../../CopyToClipboardButton */ "./resources/assets/js/components/CopyToClipboardButton.tsx"));
+var JobWorkEnvModal_1 = __importDefault(__webpack_require__(/*! ./JobWorkEnvModal */ "./resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnvModal.tsx"));
+var RadioInput_1 = __importDefault(__webpack_require__(/*! ../../Form/RadioInput */ "./resources/assets/js/components/Form/RadioInput.tsx"));
+var NumberInput_1 = __importDefault(__webpack_require__(/*! ../../Form/NumberInput */ "./resources/assets/js/components/Form/NumberInput.tsx"));
+var CheckboxInput_1 = __importDefault(__webpack_require__(/*! ../../Form/CheckboxInput */ "./resources/assets/js/components/Form/CheckboxInput.tsx"));
+var TextAreaInput_1 = __importDefault(__webpack_require__(/*! ../../Form/TextAreaInput */ "./resources/assets/js/components/Form/TextAreaInput.tsx"));
+var Messages_1 = __webpack_require__(/*! ../../Form/Messages */ "./resources/assets/js/components/Form/Messages.tsx");
+var jobUtil_1 = __webpack_require__(/*! ../../../models/jobUtil */ "./resources/assets/js/models/jobUtil.ts");
+var queries_1 = __webpack_require__(/*! ../../../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
+var WorkEnvFeatures_1 = __webpack_require__(/*! ./WorkEnvFeatures */ "./resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvFeatures.tsx");
+var localize_1 = __webpack_require__(/*! ../../../helpers/localize */ "./resources/assets/js/helpers/localize.ts");
+var JobWorkEnvMessages_1 = __webpack_require__(/*! ./JobWorkEnvMessages */ "./resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnvMessages.tsx");
+var culturePaceList = [
+    {
+        id: "culturePace01",
+        title: JobWorkEnvMessages_1.culturePaceMessages.pace01Title,
+        subtext: JobWorkEnvMessages_1.culturePaceMessages.pace01Description,
+    },
+    {
+        id: "culturePace02",
+        title: JobWorkEnvMessages_1.culturePaceMessages.pace02Title,
+        subtext: JobWorkEnvMessages_1.culturePaceMessages.pace02Description,
+    },
+    {
+        id: "culturePace03",
+        title: JobWorkEnvMessages_1.culturePaceMessages.pace03Title,
+        subtext: JobWorkEnvMessages_1.culturePaceMessages.pace03Description,
+    },
+    {
+        id: "culturePace04",
+        title: JobWorkEnvMessages_1.culturePaceMessages.pace04Title,
+        subtext: JobWorkEnvMessages_1.culturePaceMessages.pace04Description,
+    },
+];
+var managementList = [
+    {
+        id: "mgmtStyle01",
+        title: JobWorkEnvMessages_1.mgmtStyleMessages.style01Title,
+        subtext: JobWorkEnvMessages_1.mgmtStyleMessages.style01Description,
+    },
+    {
+        id: "mgmtStyle02",
+        title: JobWorkEnvMessages_1.mgmtStyleMessages.style02Title,
+        subtext: JobWorkEnvMessages_1.mgmtStyleMessages.style02Description,
+    },
+    {
+        id: "mgmtStyle03",
+        title: JobWorkEnvMessages_1.mgmtStyleMessages.style03Title,
+        subtext: JobWorkEnvMessages_1.mgmtStyleMessages.style03Description,
+    },
+    {
+        id: "mgmtStyle04",
+        title: JobWorkEnvMessages_1.mgmtStyleMessages.style04Title,
+        subtext: JobWorkEnvMessages_1.mgmtStyleMessages.style04Description,
+    },
+];
+var experimentalList = [
+    {
+        id: "experimental01",
+        title: JobWorkEnvMessages_1.experimentalMessages.experimental01Title,
+        subtext: JobWorkEnvMessages_1.experimentalMessages.experimental01Description,
+    },
+    {
+        id: "experimental02",
+        title: JobWorkEnvMessages_1.experimentalMessages.experimental02Title,
+        subtext: JobWorkEnvMessages_1.experimentalMessages.experimental02Description,
+    },
+    {
+        id: "experimental03",
+        title: JobWorkEnvMessages_1.experimentalMessages.experimental03Title,
+        subtext: JobWorkEnvMessages_1.experimentalMessages.experimental03Description,
+    },
+    {
+        id: "experimental04",
+        title: JobWorkEnvMessages_1.experimentalMessages.experimental04Title,
+        subtext: JobWorkEnvMessages_1.experimentalMessages.experimental04Description,
+    },
+];
+var facingList = [
+    {
+        id: "facing01",
+        title: JobWorkEnvMessages_1.facingMessages.facing01Title,
+        subtext: JobWorkEnvMessages_1.facingMessages.facing01Description,
+    },
+    {
+        id: "facing02",
+        title: JobWorkEnvMessages_1.facingMessages.facing02Title,
+        subtext: JobWorkEnvMessages_1.facingMessages.facing02Description,
+    },
+    {
+        id: "facing03",
+        title: JobWorkEnvMessages_1.facingMessages.facing03Title,
+        subtext: JobWorkEnvMessages_1.facingMessages.facing03Description,
+    },
+    {
+        id: "facing04",
+        title: JobWorkEnvMessages_1.facingMessages.facing04Title,
+        subtext: JobWorkEnvMessages_1.facingMessages.facing04Description,
+    },
+];
+var collaborativenessList = [
+    {
+        id: "collaborativeness01",
+        title: JobWorkEnvMessages_1.collaborativenessMessages.collaborativeness01Title,
+        subtext: JobWorkEnvMessages_1.collaborativenessMessages.collaborativeness01Description,
+    },
+    {
+        id: "collaborativeness02",
+        title: JobWorkEnvMessages_1.collaborativenessMessages.collaborativeness02Title,
+        subtext: JobWorkEnvMessages_1.collaborativenessMessages.collaborativeness02Description,
+    },
+    {
+        id: "collaborativeness03",
+        title: JobWorkEnvMessages_1.collaborativenessMessages.collaborativeness03Title,
+        subtext: JobWorkEnvMessages_1.collaborativenessMessages.collaborativeness03Description,
+    },
+    {
+        id: "collaborativeness04",
+        title: JobWorkEnvMessages_1.collaborativenessMessages.collaborativeness04Title,
+        subtext: JobWorkEnvMessages_1.collaborativenessMessages.collaborativeness04Description,
+    },
+];
+function convertSliderIdFromJob(key, formSliderArray, jobSliderId) {
+    var _a, _b;
+    return jobSliderId && jobSliderId > 0 && jobSliderId <= formSliderArray.length
+        ? (_a = {},
+            _a[key] = formSliderArray[jobSliderId - 1].id,
+            _a) : (_b = {}, _b[key] = undefined, _b);
+}
+var jobToValues = function (_a, locale) {
+    var team_size = _a.team_size, fast_vs_steady = _a.fast_vs_steady, horizontal_vs_vertical = _a.horizontal_vs_vertical, experimental_vs_ongoing = _a.experimental_vs_ongoing, citizen_facing_vs_back_office = _a.citizen_facing_vs_back_office, collaborative_vs_independent = _a.collaborative_vs_independent, work_env_features = _a.work_env_features, job = __rest(_a, ["team_size", "fast_vs_steady", "horizontal_vs_vertical", "experimental_vs_ongoing", "citizen_facing_vs_back_office", "collaborative_vs_independent", "work_env_features"]);
+    var isTrueInEnvFeatures = function (option) {
+        return work_env_features !== null &&
+            queries_1.hasKey(work_env_features, option) &&
+            work_env_features[option];
+    };
+    return __assign(__assign(__assign(__assign(__assign(__assign({ teamSize: team_size || "", physicalEnv: WorkEnvFeatures_1.physEnvOptions.filter(isTrueInEnvFeatures), technology: WorkEnvFeatures_1.techOptions.filter(isTrueInEnvFeatures), amenities: WorkEnvFeatures_1.amenitiesOptions.filter(isTrueInEnvFeatures) }, convertSliderIdFromJob("culturePace", culturePaceList, fast_vs_steady)), convertSliderIdFromJob("management", managementList, horizontal_vs_vertical)), convertSliderIdFromJob("experimental", experimentalList, experimental_vs_ongoing)), convertSliderIdFromJob("facing", facingList, citizen_facing_vs_back_office)), convertSliderIdFromJob("collaborativeness", collaborativenessList, collaborative_vs_independent)), { envDescription: localize_1.localizeField(locale, job, "work_env_description") || "", cultureSummary: localize_1.localizeField(locale, job, "culture_summary") || "", moreCultureSummary: localize_1.localizeField(locale, job, "culture_special") || "" });
+};
+function convertSliderIdToJob(formSliderArray, id) {
+    if (id === undefined) {
+        return null;
+    }
+    return formSliderArray.map(function (item) { return item.id; }).indexOf(id) + 1;
+}
+var updateJobWithValues = function (job, locale, _a) {
+    var _b, _c, _d;
+    var teamSize = _a.teamSize, physicalEnv = _a.physicalEnv, technology = _a.technology, amenities = _a.amenities, envDescription = _a.envDescription, culturePace = _a.culturePace, management = _a.management, experimental = _a.experimental, facing = _a.facing, collaborativeness = _a.collaborativeness, cultureSummary = _a.cultureSummary, moreCultureSummary = _a.moreCultureSummary;
+    var physFeatures = queries_1.mapToObjectTrans(WorkEnvFeatures_1.physEnvOptions, queries_1.identity, function (option) { return physicalEnv.includes(option); });
+    var techFeatures = queries_1.mapToObjectTrans(WorkEnvFeatures_1.techOptions, queries_1.identity, function (option) { return technology.includes(option); });
+    var amenityFeatures = queries_1.mapToObjectTrans(WorkEnvFeatures_1.amenitiesOptions, queries_1.identity, function (option) { return amenities.includes(option); });
+    var workEnvFeatures = __assign(__assign(__assign({}, physFeatures), techFeatures), amenityFeatures);
+    return __assign(__assign({}, job), { team_size: teamSize || null, fast_vs_steady: convertSliderIdToJob(culturePaceList, culturePace), horizontal_vs_vertical: convertSliderIdToJob(managementList, management), experimental_vs_ongoing: convertSliderIdToJob(experimentalList, experimental), citizen_facing_vs_back_office: convertSliderIdToJob(facingList, facing), collaborative_vs_independent: convertSliderIdToJob(collaborativenessList, collaborativeness), work_env_features: workEnvFeatures, work_env_description: __assign(__assign({}, job.work_env_description), (_b = {}, _b[locale] = envDescription || null, _b)), culture_summary: __assign(__assign({}, job.culture_summary), (_c = {}, _c[locale] = cultureSummary || null, _c)), culture_special: __assign(__assign({}, job.culture_special), (_d = {}, _d[locale] = moreCultureSummary || null, _d)) });
+};
+var renderRadioWithContext = function (intl, touched, errors, values, fieldName, label, sliderList) {
+    return (react_1.default.createElement("div", { className: "job-builder-culture-block", "data-c-grid-item": "base(1of1)" },
+        react_1.default.createElement("div", { "data-c-grid": "gutter" },
+            react_1.default.createElement(RadioGroup_1.default, { id: fieldName, label: label, required: true, touched: touched[fieldName], error: errors[fieldName], value: values[fieldName], grid: "base(1of1) tl(1of3)" }, sliderList.map(function (_a) {
+                var id = _a.id, title = _a.title;
+                return (react_1.default.createElement(formik_1.FastField, { key: id, name: fieldName, component: RadioInput_1.default, id: id, label: intl.formatMessage(title), value: id, trigger: true, required: true }));
+            })),
+            react_1.default.createElement(ContextBlock_1.default, { className: "job-builder-context-block", grid: "base(1of1) tl(2of3)" }, sliderList.map(function (_a) {
+                var id = _a.id, title = _a.title, subtext = _a.subtext;
+                return (react_1.default.createElement(ContextBlockItem_1.default, { key: id, contextId: id, title: intl.formatMessage(title), subtext: intl.formatMessage(subtext), className: "job-builder-context-item", active: values[fieldName] === id }));
+            })))));
+};
+var JobWorkEnv = function (_a) {
+    var job = _a.job, handleSubmit = _a.handleSubmit, handleReturn = _a.handleReturn, handleModalCancel = _a.handleModalCancel, handleModalConfirm = _a.handleModalConfirm, jobIsComplete = _a.jobIsComplete, handleSkipToReview = _a.handleSkipToReview;
+    var intl = react_intl_1.useIntl();
+    var locale = localize_1.getLocale(intl.locale);
+    var _b = react_1.useState(false), isModalVisible = _b[0], setIsModalVisible = _b[1];
+    var initialValues = job
+        ? jobToValues(job, locale)
+        : {
+            teamSize: "",
+            physicalEnv: [],
+            technology: [],
+            amenities: [],
+            culturePace: undefined,
+            management: undefined,
+            experimental: undefined,
+            facing: undefined,
+            collaborativeness: undefined,
+            envDescription: "",
+            cultureSummary: "",
+            moreCultureSummary: "",
+        };
+    var phyEnvData = WorkEnvFeatures_1.phyEnvDescriptions(intl);
+    var techData = WorkEnvFeatures_1.techDescriptions(intl);
+    var amenitiesData = WorkEnvFeatures_1.amenitiesDescriptions(intl);
+    var modalParentRef = react_1.useRef(null);
+    var workEnvSchema = Yup.object().shape({
+        teamSize: Yup.number()
+            .min(1, intl.formatMessage(Messages_1.validationMessages.required))
+            .required(intl.formatMessage(Messages_1.validationMessages.required)),
+        physicalEnv: Yup.array(),
+        technology: Yup.array(),
+        amenities: Yup.array(),
+        envDescription: Yup.string(),
+        culturePace: Yup.string()
+            .oneOf(culturePaceList.map(function (item) { return item.id; }))
+            .required(intl.formatMessage(Messages_1.validationMessages.checkboxRequired)),
+        management: Yup.string()
+            .oneOf(managementList.map(function (item) { return item.id; }))
+            .required(intl.formatMessage(Messages_1.validationMessages.checkboxRequired)),
+        experimental: Yup.string()
+            .oneOf(experimentalList.map(function (item) { return item.id; }))
+            .required(intl.formatMessage(Messages_1.validationMessages.checkboxRequired)),
+        facing: Yup.string()
+            .oneOf(facingList.map(function (item) { return item.id; }))
+            .required(intl.formatMessage(Messages_1.validationMessages.checkboxRequired)),
+        collaborativeness: Yup.string()
+            .oneOf(collaborativenessList.map(function (item) { return item.id; }))
+            .required(intl.formatMessage(Messages_1.validationMessages.checkboxRequired)),
+    });
+    /** Compiles and returns all the active radio buttons corresponding context box values within the culture section  */
+    var buildCultureSummary = function (values) {
+        var pace = culturePaceList.find(function (_a) {
+            var id = _a.id;
+            return id === values.culturePace;
+        });
+        var management = managementList.find(function (_a) {
+            var id = _a.id;
+            return id === values.management;
+        });
+        var experimental = experimentalList.find(function (_a) {
+            var id = _a.id;
+            return id === values.experimental;
+        });
+        var facing = facingList.find(function (_a) {
+            var id = _a.id;
+            return id === values.facing;
+        });
+        var collaborativeness = collaborativenessList.find(function (_a) {
+            var id = _a.id;
+            return id === values.collaborativeness;
+        });
+        var cultureSummary = [
+            pace,
+            management,
+            experimental,
+            facing,
+            collaborativeness,
+        ]
+            .filter(queries_1.notEmpty)
+            .map(function (item) { return intl.formatMessage(item.subtext); })
+            .join(" ");
+        return cultureSummary;
+    };
+    var updateValuesAndReturn = function (values) {
+        nprogress_1.default.start();
+        // If custom summary textbox is length is zero, set cultureSummary to generated text
+        var cultureSummary = values.cultureSummary.length === 0
+            ? buildCultureSummary(values)
+            : values.cultureSummary;
+        var formValues = __assign(__assign({}, values), { cultureSummary: cultureSummary });
+        var oldJob = job || jobUtil_1.emptyJob();
+        var updatedJob = updateJobWithValues(oldJob, locale, formValues);
+        handleSubmit(updatedJob).then(function () {
+            nprogress_1.default.done();
+            handleReturn();
+        });
+    };
+    return (react_1.default.createElement("div", { "data-c-container": "form", "data-c-padding": "top(triple) bottom(triple)", ref: modalParentRef },
+        react_1.default.createElement("h3", { "data-c-font-size": "h3", "data-c-font-weight": "bold", "data-c-margin": "bottom(double)" },
+            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnv.title", defaultMessage: "Work Environment", description: "Header of job poster builder work environment step." })),
+        react_1.default.createElement("p", null,
+            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnv.stepDescription", defaultMessage: "Applicants care a lot about the team they'll be working with and the physical workspace as well. Sharing information about these things help applicants determine if they'll be a good fit, and can reduce the number of \"wishful thinking\" applications that slow down the screening process.", description: "Description of job poster builder work environment step." })),
+        react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" },
+            react_1.default.createElement("h4", { "data-c-font-size": "h4", "data-c-margin": "top(triple) bottom(normal)" },
+                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnv.ourWorkEnv", defaultMessage: "Our Work Environment", description: "Section 1 of Job Poster Builder Work Environment Step" })),
+            react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" }, intl.formatMessage(JobWorkEnvMessages_1.formMessages.ourWorkEnvDesc))),
+        react_1.default.createElement(formik_1.Formik, { enableReinitialize: true, initialValues: initialValues, validationSchema: workEnvSchema, onSubmit: function (values, _a) {
+                var setSubmitting = _a.setSubmitting;
+                // If custom summary textbox is length is zero, set cultureSummary to generated text
+                var cultureSummary = values.cultureSummary.length === 0
+                    ? buildCultureSummary(values)
+                    : values.cultureSummary;
+                var formValues = __assign(__assign({}, values), { cultureSummary: cultureSummary });
+                var oldJob = job || jobUtil_1.emptyJob();
+                var updatedJob = updateJobWithValues(oldJob, locale, formValues);
+                nprogress_1.default.start();
+                handleSubmit(updatedJob)
+                    .then(function () {
+                    nprogress_1.default.done();
+                    setIsModalVisible(true);
+                })
+                    .finally(function () {
+                    setSubmitting(false);
+                });
+            } }, function (_a) {
+            var errors = _a.errors, touched = _a.touched, isSubmitting = _a.isSubmitting, values = _a.values, setFieldValue = _a.setFieldValue, setFieldTouched = _a.setFieldTouched;
+            return (react_1.default.createElement(react_1.default.Fragment, null,
+                react_1.default.createElement(formik_1.Form, { id: "form", "data-c-margin": "bottom(normal)" },
+                    react_1.default.createElement(formik_1.FastField, { id: "teamSize", type: "number", name: "teamSize", component: NumberInput_1.default, required: true, min: 1, grid: "tl(1of2)", label: intl.formatMessage(JobWorkEnvMessages_1.formMessages.teamSizeLabel), placeholder: intl.formatMessage(JobWorkEnvMessages_1.formMessages.teamSizePlaceholder) }),
+                    react_1.default.createElement(CheckboxGroup_1.default, { id: "physicalEnv", label: intl.formatMessage(JobWorkEnvMessages_1.formMessages.physicalEnvLabel), grid: "base(1of1)", value: values.physicalEnv, error: errors.physicalEnv, touched: touched.physicalEnv, onChange: setFieldValue, onBlur: setFieldTouched }, phyEnvData &&
+                        phyEnvData.map(function (_a) {
+                            var name = _a.name, label = _a.label;
+                            return (react_1.default.createElement(formik_1.Field, { key: name, id: name, name: name, label: label, component: CheckboxInput_1.default, grid: "base(1of2)" }));
+                        })),
+                    react_1.default.createElement(CheckboxGroup_1.default, { id: "technology", label: intl.formatMessage(JobWorkEnvMessages_1.formMessages.technologyLabel), grid: "base(1of1)", value: values.technology, error: errors.technology, touched: touched.technology, onChange: setFieldValue, onBlur: setFieldTouched }, techData &&
+                        techData.map(function (_a) {
+                            var name = _a.name, label = _a.label;
+                            return (react_1.default.createElement(formik_1.Field, { key: name, id: name, name: name, label: label, component: CheckboxInput_1.default, grid: "base(1of2)" }));
+                        })),
+                    react_1.default.createElement(CheckboxGroup_1.default, { id: "amenities", label: intl.formatMessage(JobWorkEnvMessages_1.formMessages.amenitiesLabel), grid: "base(1of1)", value: values.amenities, error: errors.amenities, touched: touched.amenities, onChange: setFieldValue, onBlur: setFieldTouched }, amenitiesData &&
+                        amenitiesData.map(function (_a) {
+                            var name = _a.name, label = _a.label;
+                            return (react_1.default.createElement(formik_1.Field, { key: name, id: name, name: name, label: label, component: CheckboxInput_1.default, grid: "base(1of2)" }));
+                        })),
+                    react_1.default.createElement("p", { "data-c-margin": "bottom(normal) top(normal)", "data-c-font-weight": "bold" }, intl.formatMessage(JobWorkEnvMessages_1.formMessages.moreOnWorkEnv)),
+                    react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" }, intl.formatMessage(JobWorkEnvMessages_1.formMessages.thisIsOptional)),
+                    react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" }, intl.formatMessage(JobWorkEnvMessages_1.formMessages.moreOnWorkEnvSubtext)),
+                    react_1.default.createElement(formik_1.FastField, { type: "textarea", id: "environment_description", name: "envDescription", label: intl.formatMessage(JobWorkEnvMessages_1.formMessages.moreOnWorkEnvLabel), placeholder: intl.formatMessage(JobWorkEnvMessages_1.formMessages.moreOnWorkEnvPlaceholder), component: TextAreaInput_1.default, grid: "base(1of2)" }),
+                    react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" },
+                        react_1.default.createElement("h4", { "data-c-font-size": "h4", "data-c-margin": "top(double) bottom(normal)" }, intl.formatMessage(JobWorkEnvMessages_1.formMessages.culture)),
+                        react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" },
+                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnv.cultureSubtext1", defaultMessage: "Now let applicants know more about the personality of your team and the type of work that you usually do.", description: "Subtext 1 displayed of the our culture section." })),
+                        react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" }, intl.formatMessage(JobWorkEnvMessages_1.formMessages.cultureSubtext2))),
+                    renderRadioWithContext(intl, touched, errors, values, "culturePace", intl.formatMessage(JobWorkEnvMessages_1.formMessages.fastPacedSteadyLabel), culturePaceList),
+                    renderRadioWithContext(intl, touched, errors, values, "management", intl.formatMessage(JobWorkEnvMessages_1.formMessages.managementLabel), managementList),
+                    renderRadioWithContext(intl, touched, errors, values, "experimental", intl.formatMessage(JobWorkEnvMessages_1.formMessages.experimentalLabel), experimentalList),
+                    renderRadioWithContext(intl, touched, errors, values, "facing", intl.formatMessage(JobWorkEnvMessages_1.formMessages.facingLabel), facingList),
+                    renderRadioWithContext(intl, touched, errors, values, "collaborativeness", intl.formatMessage(JobWorkEnvMessages_1.formMessages.collaborativeLabel), collaborativenessList),
+                    react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" },
+                        react_1.default.createElement("p", { "data-c-margin": "bottom(normal) top(normal)", "data-c-font-weight": "bold" }, intl.formatMessage(JobWorkEnvMessages_1.formMessages.cultureSummary)),
+                        react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" }, intl.formatMessage(JobWorkEnvMessages_1.formMessages.cultureSummarySubtext)),
+                        react_1.default.createElement(ContextBlockItem_1.default, { subtext: buildCultureSummary(values) }),
+                        react_1.default.createElement("div", { "data-c-alignment": "base(centre) tl(right)", "data-c-margin": "top(normal)" },
+                            react_1.default.createElement(CopyToClipboardButton_1.default, { actionText: react_1.default.createElement(react_intl_1.FormattedMessage, { id: "button.copyToClipboard", defaultMessage: "Copy to Clipboard", description: "Button to copy text to clipboard." }), postActionText: react_1.default.createElement(react_intl_1.FormattedMessage, { id: "button.copied", defaultMessage: "Copied!", description: "Confirmation for Button to copy text to clipboard." }), textToCopy: buildCultureSummary(values) }))),
+                    react_1.default.createElement(formik_1.FastField, { type: "textarea", id: "custom_culture_summary", name: "cultureSummary", label: intl.formatMessage(JobWorkEnvMessages_1.formMessages.customCultureSummaryLabel), placeholder: intl.formatMessage(JobWorkEnvMessages_1.formMessages.customCultureSummaryPlaceholder), component: TextAreaInput_1.default, grid: "base(1of1)" }),
+                    react_1.default.createElement("p", { "data-c-margin": "bottom(normal)", "data-c-font-weight": "bold" }, intl.formatMessage(JobWorkEnvMessages_1.formMessages.specialWorkCulture)),
+                    react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" }, intl.formatMessage(JobWorkEnvMessages_1.formMessages.thisIsOptional)),
+                    react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" }, intl.formatMessage(JobWorkEnvMessages_1.formMessages.specialWorkCultureSubtext)),
+                    react_1.default.createElement(formik_1.FastField, { type: "textarea", id: "more_culture_summary", name: "moreCultureSummary", label: intl.formatMessage(JobWorkEnvMessages_1.formMessages.specialWorkCultureLabel), placeholder: intl.formatMessage(JobWorkEnvMessages_1.formMessages.textAreaPlaceholder1), component: TextAreaInput_1.default, grid: "base(1of1)" }),
+                    react_1.default.createElement("div", { "data-c-grid": "gutter", "data-c-grid-item": "base(1of1)" },
+                        react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" },
+                            react_1.default.createElement("hr", { "data-c-margin": "top(normal) bottom(normal)" })),
+                        react_1.default.createElement("div", { "data-c-alignment": "base(centre) tp(left)", "data-c-grid-item": "tp(1of2)" },
+                            react_1.default.createElement("button", { "data-c-button": "outline(c2)", "data-c-radius": "rounded", type: "button", disabled: isSubmitting, onClick: function () {
+                                    updateValuesAndReturn(values);
+                                } },
+                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnv.saveAndReturnButtonLabel", defaultMessage: "Save & Return to Job Details", description: "Label for Save & Return button on Work Environment form." }))),
+                        react_1.default.createElement("div", { "data-c-alignment": "base(centre) tp(right)", "data-c-grid-item": "tp(1of2)" },
+                            react_1.default.createElement("button", { "data-c-button": "solid(c1)", "data-c-radius": "rounded", type: "submit", disabled: isSubmitting },
+                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnv.submitButtonLabel", defaultMessage: "Save & Preview", description: "Label for work environment submit button." }))))),
+                react_1.default.createElement(JobWorkEnvModal_1.default, { modalConfirm: function () {
+                        setIsModalVisible(false);
+                        handleModalConfirm();
+                    }, modalCancel: function () {
+                        setIsModalVisible(false);
+                        handleModalCancel();
+                    }, isVisible: isModalVisible, parentElement: modalParentRef.current, values: values, cultureSummary: values.cultureSummary || buildCultureSummary(values), jobIsComplete: jobIsComplete, handleSkipToReview: function () {
+                        handleSkipToReview().finally(function () {
+                            setIsModalVisible(false);
+                        });
+                    } })));
+        })));
+};
+exports.default = JobWorkEnv;
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnvMessages.tsx":
+/*!**********************************************************************************!*\
+  !*** ./resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnvMessages.tsx ***!
+  \**********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
+exports.formMessages = react_intl_1.defineMessages({
+    ourWorkEnvDesc: {
+        id: "jobBuilder.workEnv.ourWorkEnvDesc",
+        defaultMessage: "Share a little about your physical space, the technology used by your team, and the amenities close to your office. Check all that apply.",
+        description: "Section 1 description of Job Poster Builder Work Environment Step",
+    },
+    teamSizeLabel: {
+        id: "jobBuilder.workEnv.teamSizeLabel",
+        defaultMessage: "Team Size",
+        description: "The label displayed on the team size input.",
+    },
+    teamSizePlaceholder: {
+        id: "jobBuilder.workEnv.teamSizePlaceholder",
+        defaultMessage: "e.g. 10",
+        description: "The placeholder displayed on the team size input.",
+    },
+    physicalEnvLabel: {
+        id: "jobBuilder.workEnv.physicalEnvLabel",
+        defaultMessage: "Our Physical Environment",
+        description: "The label displayed on the physical environment checkbox group.",
+    },
+    technologyLabel: {
+        id: "jobBuilder.workEnv.technologyLabel",
+        defaultMessage: "Technology",
+        description: "The label displayed on the technology checkbox group.",
+    },
+    amenitiesLabel: {
+        id: "jobBuilder.workEnv.amenitiesLabel",
+        defaultMessage: "Amenities",
+        description: "The label displayed on the amenities checkbox group.",
+    },
+    moreOnWorkEnv: {
+        id: "jobBuilder.workEnv.moreOnWorkEnv",
+        defaultMessage: "More about your Environment",
+        description: "The title for the more about your environment textbox.",
+    },
+    moreOnWorkEnvSubtext: {
+        id: "jobBuilder.workEnv.moreOnWorkEnvSubtext",
+        defaultMessage: "Anything else you'd like to add about your work environment? Highlight features of the physical environment, technology and amenities specific to your team.",
+        description: "Subtext displayed for the more about your environment textbox.",
+    },
+    moreOnWorkEnvLabel: {
+        id: "jobBuilder.workEnv.moreOnWorkEnvLabel",
+        defaultMessage: "More About Your Environment",
+        description: "The label displayed for the more about your environment textbox.",
+    },
+    moreOnWorkEnvPlaceholder: {
+        id: "jobBuilder.workEnv.moreOnWorkEnvPlaceholder",
+        defaultMessage: "Try for a casual, frank, friendly tone.",
+        description: "The placeholder displayed for the more about your environment textbox.",
+    },
+    culture: {
+        id: "jobBuilder.workEnv.culture",
+        defaultMessage: "Our Culture",
+        description: "Section 2 radio group title of our culture step.",
+    },
+    cultureSubtext2: {
+        id: "jobBuilder.workEnv.cultureSubtext2",
+        defaultMessage: "Based on your selections, we'll create a short paragraph summarizing your work culture. You can edit this paragraph to customize it to your team.",
+        description: "Subtext 2 displayed of the our culture section.",
+    },
+    fastPacedSteadyLabel: {
+        id: "jobBuilder.workEnv.fastPacedSteadyLabel",
+        defaultMessage: "Fast-paced vs. Steady:",
+        description: "The label for the fast-paced vs. steady radio group",
+    },
+    managementLabel: {
+        id: "jobBuilder.workEnv.managementLabel",
+        defaultMessage: "Horizontal vs. Vertical:",
+        description: "The label for the management radio group",
+    },
+    experimentalLabel: {
+        id: "jobBuilder.workEnv.experimentalLabel",
+        defaultMessage: "Experimental vs. Ongoing Business:",
+        description: "The label for the experimental radio group",
+    },
+    facingLabel: {
+        id: "jobBuilder.workEnv.facingLabel",
+        defaultMessage: "Citizen Facing vs. Back Office:",
+        description: "The label for the facing radio group",
+    },
+    collaborativeLabel: {
+        id: "jobBuilder.workEnv.collaborativeLabel",
+        defaultMessage: "Collaborative vs. Independent:",
+        description: 'The label for the "collaborative vs independent" radio group',
+    },
+    cultureSummary: {
+        id: "jobBuilder.workEnv.cultureSummary",
+        defaultMessage: "Culture Summary",
+        description: "The header for the culture summary section.",
+    },
+    cultureSummarySubtext: {
+        id: "jobBuilder.workEnv.cultureSummarySubtext",
+        defaultMessage: "Here is the short paragraph summarizing your work culture which will appear on the job poster. Copy and paste it into the text box below if you want to customize it to the personality of your team and the way you work.",
+        description: "The subtext for the culture summary section.",
+    },
+    customCultureSummaryLabel: {
+        id: "jobBuilder.workEnv.customCultureSummaryLabel",
+        defaultMessage: "Customize your culture summary:",
+        description: "The label for the custom culture summary textbox.",
+    },
+    customCultureSummaryPlaceholder: {
+        id: "jobBuilder.workEnv.customCultureSummaryPlaceholder",
+        defaultMessage: "Paste here to edit the paragraph.",
+        description: "The placeholder for the custom culture summary textbox.",
+    },
+    specialWorkCulture: {
+        id: "jobBuilder.workEnv.specialWorkCulture",
+        defaultMessage: "Anything Special About Your Work Culture?",
+        description: "Title for subsection in our work culture.",
+    },
+    specialWorkCultureSubtext: {
+        id: "jobBuilder.workEnv.specialWorkCultureSubtext",
+        defaultMessage: "Does your team care a lot about something else? Proud of the team's record of getting results? Strong commitment to mental wellness? Actively involved in advancing diversity and inclusion? LGBTQ+ champions? Here's a chance to let applicants know about the culture of the team they'll potentially be joining.",
+        description: "Subtext for subsection in our work culture.",
+    },
+    specialWorkCultureLabel: {
+        id: "jobBuilder.workEnv.specialWorkCultureLabel",
+        defaultMessage: "More About Your Work Culture",
+        description: "The label for the 'more on work culture' textarea.",
+    },
+    textAreaPlaceholder1: {
+        id: "jobBuilder.workEnv.textAreaPlaceholder1",
+        defaultMessage: "Try for a casual, frank, friendly tone.",
+        description: "Default placeholder for textarea element",
+    },
+    thisIsOptional: {
+        id: "jobBuilder.workEnv.thisIsOptional",
+        defaultMessage: "This is optional.",
+        description: "Text indicator for optional sections within form.",
+    },
+});
+exports.culturePaceMessages = react_intl_1.defineMessages({
+    pace01Title: {
+        id: "jobBuilder.culturePace.01.title",
+        defaultMessage: "Very Fast-paced",
+    },
+    pace01Description: {
+        id: "jobBuilder.culturePace.01.description",
+        defaultMessage: "Our deadlines are tight, we balance several tasks at the same time, and our priorities are always changing. Our work should come with running shoes!",
+    },
+    pace02Title: {
+        id: "jobBuilder.culturePace.02.title",
+        defaultMessage: "Fast-paced",
+    },
+    pace02Description: {
+        id: "jobBuilder.culturePace.02.description",
+        defaultMessage: "Our deadlines are usually close together, we balance some tasks at the same time, and our priorities change regularly. Our work keeps us on our toes!",
+    },
+    pace03Title: {
+        id: "jobBuilder.culturePace.03.title",
+        defaultMessage: "Steady",
+    },
+    pace03Description: {
+        id: "jobBuilder.culturePace.03.description",
+        defaultMessage: "Our deadlines are regular and predictable, we balance a couple of tasks at a time, and our priorities change occasionally. We keep things on an even keel.",
+    },
+    pace04Title: {
+        id: "jobBuilder.culturePace.04.title",
+        defaultMessage: "Very Steady",
+    },
+    pace04Description: {
+        id: "jobBuilder.culturePace.04.description",
+        defaultMessage: "Our work is ongoing so there aren't very many deadlines. We don't usually have to balance tasks and our priorities change rarely. We thrive on routine.",
+    },
+});
+exports.mgmtStyleMessages = react_intl_1.defineMessages({
+    style01Title: {
+        id: "jobBuilder.mgmtStyle.01.title",
+        defaultMessage: "Horizontal",
+    },
+    style01Description: {
+        id: "jobBuilder.mgmtStyle.01.description",
+        defaultMessage: "There's no middle management here, so we make most big decisions ourselves and you can expect to interact regularly with our executives.",
+    },
+    style02Title: {
+        id: "jobBuilder.mgmtStyle.02.title",
+        defaultMessage: "Somewhat Horizontal",
+    },
+    style02Description: {
+        id: "jobBuilder.mgmtStyle.02.description",
+        defaultMessage: "We have some middle management here but make most day-to-day decisions ourselves. Don't be surprised to interact fairly often with our executives.",
+    },
+    style03Title: {
+        id: "jobBuilder.mgmtStyle.03.title",
+        defaultMessage: "Somewhat Vertical",
+    },
+    style03Description: {
+        id: "jobBuilder.mgmtStyle.03.description",
+        defaultMessage: "Our team has a clearly defined role. We check in regularly with middle-management for approvals and updates on the strategic vision of our executives.",
+    },
+    style04Title: {
+        id: "jobBuilder.mgmtStyle.04.title",
+        defaultMessage: "Vertical",
+    },
+    style04Description: {
+        id: "jobBuilder.mgmtStyle.04.description",
+        defaultMessage: "Our team has a clearly defined role. We check in often with middle-management for approvals and updates on the strategic vision of our executives.",
+    },
+});
+exports.experimentalMessages = react_intl_1.defineMessages({
+    experimental01Title: {
+        id: "jobBuilder.experimental.01.title",
+        defaultMessage: "Experimental",
+    },
+    experimental01Description: {
+        id: "jobBuilder.experimental.01.description",
+        defaultMessage: "Our work is defined by trying out brand new ideas, methods, and activities to address persistent problems that traditional approaches have failed to solve.",
+    },
+    experimental02Title: {
+        id: "jobBuilder.experimental.02.title",
+        defaultMessage: "Somewhat Experimental",
+    },
+    experimental02Description: {
+        id: "jobBuilder.experimental.02.description",
+        defaultMessage: "We try out new and proven ideas, methods, and activities to improve how we do our work.",
+    },
+    experimental03Title: {
+        id: "jobBuilder.experimental.03.title",
+        defaultMessage: "Somewhat Predictable Work",
+    },
+    experimental03Description: {
+        id: "jobBuilder.experimental.03.description",
+        defaultMessage: "Our work includes some administrative tasks are repeated on a regular basis. The tools we use work well for us but we are open to improving our processes.",
+    },
+    experimental04Title: {
+        id: "jobBuilder.experimental.04.title",
+        defaultMessage: "Predictable Work",
+    },
+    experimental04Description: {
+        id: "jobBuilder.experimental.04.description",
+        defaultMessage: "Most of our work involves administrative tasks are repeated on a regular basis. Consistency is key here, so we follow a standard process with tried and true tools.",
+    },
+});
+exports.facingMessages = react_intl_1.defineMessages({
+    facing01Title: {
+        id: "jobBuilder.facing.01.title",
+        defaultMessage: "Citizen Facing",
+    },
+    facing01Description: {
+        id: "jobBuilder.facing.01.description",
+        defaultMessage: "We are the face of the service we deliver and spend most of our time engaging directly with the public.",
+    },
+    facing02Title: {
+        id: "jobBuilder.facing.02.title",
+        defaultMessage: "Mostly Citizen Facing",
+    },
+    facing02Description: {
+        id: "jobBuilder.facing.02.description",
+        defaultMessage: "We spend a lot of our time engaging directly with the public, but there is also behind the scenes work to support others.",
+    },
+    facing03Title: {
+        id: "jobBuilder.facing.03.title",
+        defaultMessage: "Mostly Back Office",
+    },
+    facing03Description: {
+        id: "jobBuilder.facing.03.description",
+        defaultMessage: "We usually work behind the scenes doing important work that makes service delivery possible.",
+    },
+    facing04Title: {
+        id: "jobBuilder.facing.04.title",
+        defaultMessage: "Back Office",
+    },
+    facing04Description: {
+        id: "jobBuilder.facing.04.description",
+        defaultMessage: "We work behind the scenes doing important work that makes service delivery possible. We thrive on supporting others.",
+    },
+});
+exports.collaborativenessMessages = react_intl_1.defineMessages({
+    collaborativeness01Title: {
+        id: "jobBuilder.collaborativeness.01.title",
+        defaultMessage: "Collaborative",
+    },
+    collaborativeness01Description: {
+        id: "jobBuilder.collaborativeness.01.description",
+        defaultMessage: "Our team has diverse backgrounds, viewpoints, and skills and we play to each others strengths. We collectively own the team's goals and are always looking for ways to pitch in.",
+    },
+    collaborativeness02Title: {
+        id: "jobBuilder.collaborativeness.02.title",
+        defaultMessage: "Somewhat Collaborative",
+    },
+    collaborativeness02Description: {
+        id: "jobBuilder.collaborativeness.02.description",
+        defaultMessage: "Our team has a diverse set of skills and we recognize each others strengths. We work together often and are quick to pitch in when someone asks for help.",
+    },
+    collaborativeness03Title: {
+        id: "jobBuilder.collaborativeness.03.title",
+        defaultMessage: "Somewhat Independent",
+    },
+    collaborativeness03Description: {
+        id: "jobBuilder.collaborativeness.03.description",
+        defaultMessage: "Members of our team own their piece of the puzzle and have some freedom to choose how they get their work done.",
+    },
+    collaborativeness04Title: {
+        id: "jobBuilder.collaborativeness.04.title",
+        defaultMessage: "Independent",
+    },
+    collaborativeness04Description: {
+        id: "jobBuilder.collaborativeness.04.description",
+        defaultMessage: "Members of our team own their piece of the puzzle. It doesn't really matter how we get our work done as long as it's high quality.",
+    },
+});
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnvModal.tsx":
+/*!*******************************************************************************!*\
+  !*** ./resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnvModal.tsx ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
-var WorkEnvForm_1 = __webpack_require__(/*! ./WorkEnvForm */ "./resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvForm.tsx");
+var Modal_1 = __importDefault(__webpack_require__(/*! ../../Modal */ "./resources/assets/js/components/Modal.tsx"));
+var WorkEnvFeatures_1 = __importDefault(__webpack_require__(/*! ./WorkEnvFeatures */ "./resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvFeatures.tsx"));
+var JobWorkEnvModal = function (_a) {
+    var modalConfirm = _a.modalConfirm, modalCancel = _a.modalCancel, isVisible = _a.isVisible, parentElement = _a.parentElement, values = _a.values, cultureSummary = _a.cultureSummary, jobIsComplete = _a.jobIsComplete, handleSkipToReview = _a.handleSkipToReview;
+    return (react_1.default.createElement(react_1.default.Fragment, null,
+        react_1.default.createElement(Modal_1.default, { id: "work-environment-preview", parentElement: parentElement, visible: isVisible, onModalConfirm: modalConfirm, onModalCancel: modalCancel, onModalMiddle: handleSkipToReview },
+            react_1.default.createElement(Modal_1.default.Header, null,
+                react_1.default.createElement("div", { "data-c-background": "c1(100)", "data-c-border": "bottom(thin, solid, black)", "data-c-padding": "normal" },
+                    react_1.default.createElement("h5", { "data-c-colour": "white", "data-c-font-size": "h4", id: "work-environment-preview-title" },
+                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnv.greatStart", defaultMessage: "You're off to a great start!", description: "Kicker message at the start of the modal." })))),
+            react_1.default.createElement(Modal_1.default.Body, null,
+                react_1.default.createElement("div", { "data-c-border": "bottom(thin, solid, black)", "data-c-padding": "normal", id: "work-environment-preview-body" },
+                    react_1.default.createElement("p", null,
+                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnv.openingSentence", defaultMessage: "Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it.", description: "Opening sentence for modal." }))),
+                react_1.default.createElement("div", { "data-c-background": "grey(20)", "data-c-padding": "normal" },
+                    react_1.default.createElement("div", { className: "manager-job-card", "data-c-background": "white(100)", "data-c-padding": "normal", "data-c-radius": "rounded" },
+                        react_1.default.createElement("h4", { "data-c-border": "bottom(thin, solid, black)", "data-c-font-size": "h4", "data-c-font-weight": "600", "data-c-margin": "bottom(normal)", "data-c-padding": "bottom(normal)" },
+                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnvModal.title", defaultMessage: "Work Environment", description: "Header of job poster builder work environment step." })),
+                        react_1.default.createElement(WorkEnvFeatures_1.default, { teamSize: values.teamSize || 0, selectedEnvOptions: __spreadArrays(values.amenities, values.physicalEnv, values.technology), envDescription: values.envDescription }),
+                        react_1.default.createElement("h4", { "data-c-border": "bottom(thin, solid, black)", "data-c-font-size": "h4", "data-c-font-weight": "600", "data-c-margin": "top(double) bottom(normal)", "data-c-padding": "bottom(normal)" },
+                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnvModal.workCultureTitle", defaultMessage: "Work Culture", description: "The title displayed for the work culture section on modal." })),
+                        react_1.default.createElement("p", null, cultureSummary),
+                        values.moreCultureSummary && (react_1.default.createElement("p", { "data-c-margin": "top(normal)" }, values.moreCultureSummary))))),
+            react_1.default.createElement(Modal_1.default.Footer, null,
+                react_1.default.createElement(Modal_1.default.FooterCancelBtn, null,
+                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnvModal.cancelLabel", defaultMessage: "Go Back", description: "The label displayed on modal cancel button." })),
+                jobIsComplete && (react_1.default.createElement(Modal_1.default.FooterMiddleBtn, null,
+                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnvModal.modalMiddleLabel", defaultMessage: "Skip to Review", description: "The text displayed on the 'Skip to Review' button of the Work Env modal." }))),
+                react_1.default.createElement(Modal_1.default.FooterConfirmBtn, null,
+                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnvModal.confirmLabel", defaultMessage: "Next Step", description: "The label displayed on modal confirm button." })))),
+        react_1.default.createElement("div", { "data-c-dialog-overlay": isVisible ? "active" : "" })));
+};
+exports.default = JobWorkEnvModal;
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnvPage.tsx":
+/*!******************************************************************************!*\
+  !*** ./resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnvPage.tsx ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
+var react_redux_1 = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/lib/index.js");
+var react_dom_1 = __importDefault(__webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js"));
+var JobWorkEnv_1 = __importDefault(__webpack_require__(/*! ./JobWorkEnv */ "./resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnv.tsx"));
+var jobActions_1 = __webpack_require__(/*! ../../../store/Job/jobActions */ "./resources/assets/js/store/Job/jobActions.ts");
+var jobSelector_1 = __webpack_require__(/*! ../../../store/Job/jobSelector */ "./resources/assets/js/store/Job/jobSelector.ts");
+var RootContainer_1 = __importDefault(__webpack_require__(/*! ../../RootContainer */ "./resources/assets/js/components/RootContainer.tsx"));
+var routes_1 = __webpack_require__(/*! ../../../helpers/routes */ "./resources/assets/js/helpers/routes.ts");
+var JobBuilderStep_1 = __importDefault(__webpack_require__(/*! ../JobBuilderStep */ "./resources/assets/js/components/JobBuilder/JobBuilderStep.tsx"));
+var jobBuilderHelpers_1 = __webpack_require__(/*! ../jobBuilderHelpers */ "./resources/assets/js/components/JobBuilder/jobBuilderHelpers.ts");
+var router_1 = __webpack_require__(/*! ../../../helpers/router */ "./resources/assets/js/helpers/router.tsx");
+var localize_1 = __webpack_require__(/*! ../../../helpers/localize */ "./resources/assets/js/helpers/localize.ts");
+var JobWorkEnvPage = function (_a) {
+    var jobId = _a.jobId, job = _a.job, handleUpdateJob = _a.handleUpdateJob, keyTasks = _a.keyTasks, criteria = _a.criteria;
+    var intl = react_intl_1.useIntl();
+    var locale = localize_1.getLocale(intl.locale);
+    var handleSubmit = handleUpdateJob;
+    var handleModalCancel = function () { };
+    var handleModalConfirm = function () {
+        router_1.navigate(routes_1.jobBuilderImpact(intl.locale, jobId));
+    };
+    var handleReturn = function () {
+        router_1.navigate(routes_1.jobBuilderDetails(locale, jobId));
+    };
+    var handleSkipToReview = function () { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            if (jobId) {
+                router_1.navigate(routes_1.jobBuilderReview(locale, jobId));
+            }
+            return [2 /*return*/];
+        });
+    }); };
+    var jobIsComplete = job !== null && jobBuilderHelpers_1.isJobBuilderComplete(job, keyTasks, criteria, locale);
+    return (react_1.default.createElement(JobBuilderStep_1.default, { jobId: jobId, currentPage: "env" }, job !== null && (react_1.default.createElement(JobWorkEnv_1.default, { job: job, handleSubmit: handleSubmit, handleReturn: handleReturn, handleModalCancel: handleModalCancel, handleModalConfirm: handleModalConfirm, jobIsComplete: jobIsComplete, handleSkipToReview: handleSkipToReview }))));
+};
+var mapStateToProps = function (state, ownProps) { return ({
+    job: jobSelector_1.getJob(state, ownProps),
+    keyTasks: jobSelector_1.getTasksByJob(state, ownProps),
+    criteria: jobSelector_1.getCriteriaByJob(state, ownProps),
+}); };
+var mapDispatchToProps = function (dispatch) { return ({
+    handleUpdateJob: function (newJob) { return __awaiter(void 0, void 0, void 0, function () {
+        var result, resultJob;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, dispatch(jobActions_1.updateJob(newJob))];
+                case 1:
+                    result = _a.sent();
+                    if (!!result.error) return [3 /*break*/, 3];
+                    return [4 /*yield*/, result.payload];
+                case 2:
+                    resultJob = _a.sent();
+                    return [2 /*return*/, resultJob];
+                case 3: return [2 /*return*/, Promise.reject(result.payload)];
+            }
+        });
+    }); },
+}); };
+var JobWorkEnvPageContainer = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(JobWorkEnvPage);
+if (document.getElementById("job-builder-work-env")) {
+    var container = document.getElementById("job-builder-work-env");
+    var jobIdAttr = container.getAttribute("data-job-id");
+    var jobId = jobIdAttr ? Number(jobIdAttr) : null;
+    if (jobId) {
+        react_dom_1.default.render(react_1.default.createElement(RootContainer_1.default, null,
+            react_1.default.createElement(JobWorkEnvPageContainer, { jobId: jobId })), container);
+    }
+}
+exports.default = JobWorkEnvPageContainer;
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvFeatures.tsx":
+/*!*******************************************************************************!*\
+  !*** ./resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvFeatures.tsx ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
+var JobWorkEnvMessages_1 = __webpack_require__(/*! ./JobWorkEnvMessages */ "./resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnvMessages.tsx");
 exports.physEnvMessages = react_intl_1.defineMessages({
     openConcept: {
         id: "jobBuilder.workEnv.physEnv.openConcept",
@@ -67356,19 +69973,20 @@ exports.techDescriptions = function (intl) {
 exports.amenitiesDescriptions = function (intl) {
     return createOptions(exports.amenitiesOptions, exports.amenitiesMessages, intl);
 };
-exports.JobWorkEnv = function (_a) {
-    var teamSize = _a.teamSize, selectedEnvOptions = _a.selectedEnvOptions, envDescription = _a.envDescription, intl = _a.intl;
+var WorkEnvSection = function (_a) {
+    var teamSize = _a.teamSize, selectedEnvOptions = _a.selectedEnvOptions, envDescription = _a.envDescription;
+    var intl = react_intl_1.useIntl();
     var phyEnvData = exports.phyEnvDescriptions(intl);
     var techData = exports.techDescriptions(intl);
     var amenitiesData = exports.amenitiesDescriptions(intl);
     return (react_1.default.createElement("div", { "data-c-grid": "gutter" },
         react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" },
             react_1.default.createElement("span", { "data-c-colour": "c1", "data-c-margin": "top(half) bottom(half)", "data-c-font-weight": "bold" },
-                react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, WorkEnvForm_1.formMessages.teamSizeLabel))),
+                react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, JobWorkEnvMessages_1.formMessages.teamSizeLabel))),
             react_1.default.createElement("span", { "data-c-margin": "left(normal)" }, teamSize)),
         react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" },
             react_1.default.createElement("p", { "data-c-colour": "c1", "data-c-margin": "top(half) bottom(half)", "data-c-font-weight": "bold" },
-                react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, WorkEnvForm_1.formMessages.physicalEnvLabel))),
+                react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, JobWorkEnvMessages_1.formMessages.physicalEnvLabel))),
             react_1.default.createElement("div", { "data-c-margin": "left(quarter)" },
                 react_1.default.createElement("div", { "data-c-grid": "gutter" }, phyEnvData.map(function (_a) {
                     var label = _a.label, name = _a.name;
@@ -67380,7 +69998,7 @@ exports.JobWorkEnv = function (_a) {
                 })))),
         react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" },
             react_1.default.createElement("p", { "data-c-colour": "c1", "data-c-padding": "top(half) bottom(half)", "data-c-font-weight": "bold" },
-                react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, WorkEnvForm_1.formMessages.technologyLabel))),
+                react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, JobWorkEnvMessages_1.formMessages.technologyLabel))),
             react_1.default.createElement("div", { "data-c-margin": "left(quarter)" },
                 react_1.default.createElement("div", { "data-c-grid": "gutter" }, techData.map(function (_a) {
                     var label = _a.label, name = _a.name;
@@ -67392,7 +70010,7 @@ exports.JobWorkEnv = function (_a) {
                 })))),
         react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" },
             react_1.default.createElement("p", { "data-c-colour": "c1", "data-c-margin": "top(half) bottom(half)", "data-c-font-weight": "bold" },
-                react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, WorkEnvForm_1.formMessages.amenitiesLabel))),
+                react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, JobWorkEnvMessages_1.formMessages.amenitiesLabel))),
             react_1.default.createElement("div", { "data-c-margin": "left(quarter)" },
                 react_1.default.createElement("div", { "data-c-grid": "gutter" }, amenitiesData.map(function (_a) {
                     var label = _a.label, name = _a.name;
@@ -67404,906 +70022,10 @@ exports.JobWorkEnv = function (_a) {
                 })))),
         react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" },
             react_1.default.createElement("p", { "data-c-margin": "bottom(normal) top(half)", "data-c-colour": "c1", "data-c-font-weight": "bold" },
-                react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, WorkEnvForm_1.formMessages.moreOnWorkEnv))),
+                react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, JobWorkEnvMessages_1.formMessages.moreOnWorkEnv))),
             react_1.default.createElement("p", null, envDescription))));
 };
-exports.default = react_intl_1.injectIntl(exports.JobWorkEnv);
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvForm.tsx":
-/*!***************************************************************************!*\
-  !*** ./resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvForm.tsx ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-};
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-/* eslint-disable jsx-a11y/label-has-associated-control, camelcase, @typescript-eslint/camelcase */
-var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-var formik_1 = __webpack_require__(/*! formik */ "./node_modules/formik/dist/index.js");
-var Yup = __importStar(__webpack_require__(/*! yup */ "./node_modules/yup/lib/index.js"));
-var nprogress_1 = __importDefault(__webpack_require__(/*! nprogress */ "./node_modules/nprogress/nprogress.js"));
-var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
-var CheckboxGroup_1 = __importDefault(__webpack_require__(/*! ../../Form/CheckboxGroup */ "./resources/assets/js/components/Form/CheckboxGroup.tsx"));
-var RadioGroup_1 = __importDefault(__webpack_require__(/*! ../../Form/RadioGroup */ "./resources/assets/js/components/Form/RadioGroup.tsx"));
-var ContextBlock_1 = __importDefault(__webpack_require__(/*! ../../ContextBlock/ContextBlock */ "./resources/assets/js/components/ContextBlock/ContextBlock.tsx"));
-var ContextBlockItem_1 = __importDefault(__webpack_require__(/*! ../../ContextBlock/ContextBlockItem */ "./resources/assets/js/components/ContextBlock/ContextBlockItem.tsx"));
-var CopyToClipboardButton_1 = __importDefault(__webpack_require__(/*! ../../CopyToClipboardButton */ "./resources/assets/js/components/CopyToClipboardButton.tsx"));
-var WorkEnvModal_1 = __importDefault(__webpack_require__(/*! ./WorkEnvModal */ "./resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvModal.tsx"));
-var RadioInput_1 = __importDefault(__webpack_require__(/*! ../../Form/RadioInput */ "./resources/assets/js/components/Form/RadioInput.tsx"));
-var NumberInput_1 = __importDefault(__webpack_require__(/*! ../../Form/NumberInput */ "./resources/assets/js/components/Form/NumberInput.tsx"));
-var CheckboxInput_1 = __importDefault(__webpack_require__(/*! ../../Form/CheckboxInput */ "./resources/assets/js/components/Form/CheckboxInput.tsx"));
-var TextAreaInput_1 = __importDefault(__webpack_require__(/*! ../../Form/TextAreaInput */ "./resources/assets/js/components/Form/TextAreaInput.tsx"));
-var Messages_1 = __webpack_require__(/*! ../../Form/Messages */ "./resources/assets/js/components/Form/Messages.tsx");
-var jobUtil_1 = __webpack_require__(/*! ../../../models/jobUtil */ "./resources/assets/js/models/jobUtil.ts");
-var queries_1 = __webpack_require__(/*! ../../../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
-var JobWorkEnv_1 = __webpack_require__(/*! ./JobWorkEnv */ "./resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnv.tsx");
-var localize_1 = __webpack_require__(/*! ../../../helpers/localize */ "./resources/assets/js/helpers/localize.ts");
-exports.formMessages = react_intl_1.defineMessages({
-    ourWorkEnvDesc: {
-        id: "jobBuilder.workEnv.ourWorkEnvDesc",
-        defaultMessage: "Share a little about your physical space, the technology used by your team, and the amenities close to your office. Check all that apply.",
-        description: "Section 1 description of Job Poster Builder Work Environment Step",
-    },
-    teamSizeLabel: {
-        id: "jobBuilder.workEnv.teamSizeLabel",
-        defaultMessage: "Team Size",
-        description: "The label displayed on the team size input.",
-    },
-    teamSizePlaceholder: {
-        id: "jobBuilder.workEnv.teamSizePlaceholder",
-        defaultMessage: "e.g. 10",
-        description: "The placeholder displayed on the team size input.",
-    },
-    physicalEnvLabel: {
-        id: "jobBuilder.workEnv.physicalEnvLabel",
-        defaultMessage: "Our Physical Environment",
-        description: "The label displayed on the physical environment checkbox group.",
-    },
-    technologyLabel: {
-        id: "jobBuilder.workEnv.technologyLabel",
-        defaultMessage: "Technology",
-        description: "The label displayed on the technology checkbox group.",
-    },
-    amenitiesLabel: {
-        id: "jobBuilder.workEnv.amenitiesLabel",
-        defaultMessage: "Amenities",
-        description: "The label displayed on the amenities checkbox group.",
-    },
-    moreOnWorkEnv: {
-        id: "jobBuilder.workEnv.moreOnWorkEnv",
-        defaultMessage: "More about your Environment",
-        description: "The title for the more about your environment textbox.",
-    },
-    moreOnWorkEnvSubtext: {
-        id: "jobBuilder.workEnv.moreOnWorkEnvSubtext",
-        defaultMessage: "Anything else you'd like to add about your work environment? Highlight features of the physical environment, technology and amenities specific to your team.",
-        description: "Subtext displayed for the more about your environment textbox.",
-    },
-    moreOnWorkEnvLabel: {
-        id: "jobBuilder.workEnv.moreOnWorkEnvLabel",
-        defaultMessage: "More About Your Environment",
-        description: "The label displayed for the more about your environment textbox.",
-    },
-    moreOnWorkEnvPlaceholder: {
-        id: "jobBuilder.workEnv.moreOnWorkEnvPlaceholder",
-        defaultMessage: "Try for a casual, frank, friendly tone.",
-        description: "The placeholder displayed for the more about your environment textbox.",
-    },
-    culture: {
-        id: "jobBuilder.workEnv.culture",
-        defaultMessage: "Our Culture",
-        description: "Section 2 radio group title of our culture step.",
-    },
-    cultureSubtext2: {
-        id: "jobBuilder.workEnv.cultureSubtext2",
-        defaultMessage: "Based on your selections, we'll create a short paragraph summarizing your work culture. You can edit this paragraph to customize it to your team.",
-        description: "Subtext 2 displayed of the our culture section.",
-    },
-    fastPacedSteadyLabel: {
-        id: "jobBuilder.workEnv.fastPacedSteadyLabel",
-        defaultMessage: "Fast-paced vs. Steady:",
-        description: "The label for the fast-paced vs. steady radio group",
-    },
-    managementLabel: {
-        id: "jobBuilder.workEnv.managementLabel",
-        defaultMessage: "Horizontal vs. Vertical:",
-        description: "The label for the management radio group",
-    },
-    experimentalLabel: {
-        id: "jobBuilder.workEnv.experimentalLabel",
-        defaultMessage: "Experimental vs. Ongoing Business:",
-        description: "The label for the experimental radio group",
-    },
-    facingLabel: {
-        id: "jobBuilder.workEnv.facingLabel",
-        defaultMessage: "Citizen Facing vs. Back Office:",
-        description: "The label for the facing radio group",
-    },
-    collaborativeLabel: {
-        id: "jobBuilder.workEnv.collaborativeLabel",
-        defaultMessage: "Collaborative vs. Independent:",
-        description: 'The label for the "collaborative vs independent" radio group',
-    },
-    cultureSummary: {
-        id: "jobBuilder.workEnv.cultureSummary",
-        defaultMessage: "Culture Summary",
-        description: "The header for the culture summary section.",
-    },
-    cultureSummarySubtext: {
-        id: "jobBuilder.workEnv.cultureSummarySubtext",
-        defaultMessage: "Here is the short paragraph summarizing your work culture which will appear on the job poster. Copy and paste it into the text box below if you want to customize it to the personality of your team and the way you work.",
-        description: "The subtext for the culture summary section.",
-    },
-    customCultureSummaryLabel: {
-        id: "jobBuilder.workEnv.customCultureSummaryLabel",
-        defaultMessage: "Customize your culture summary:",
-        description: "The label for the custom culture summary textbox.",
-    },
-    customCultureSummaryPlaceholder: {
-        id: "jobBuilder.workEnv.customCultureSummaryPlaceholder",
-        defaultMessage: "Paste here to edit the paragraph.",
-        description: "The placeholder for the custom culture summary textbox.",
-    },
-    specialWorkCulture: {
-        id: "jobBuilder.workEnv.specialWorkCulture",
-        defaultMessage: "Anything Special About Your Work Culture?",
-        description: "Title for subsection in our work culture.",
-    },
-    specialWorkCultureSubtext: {
-        id: "jobBuilder.workEnv.specialWorkCultureSubtext",
-        defaultMessage: "Does your team care a lot about something else? Proud of the team's record of getting results? Strong commitment to mental wellness? Actively involved in advancing diversity and inclusion? LGBTQ+ champions? Here's a chance to let applicants know about the culture of the team they'll potentially be joining.",
-        description: "Subtext for subsection in our work culture.",
-    },
-    specialWorkCultureLabel: {
-        id: "jobBuilder.workEnv.specialWorkCultureLabel",
-        defaultMessage: "More About Your Work Culture",
-        description: "The label for the 'more on work culture' textarea.",
-    },
-    textAreaPlaceholder1: {
-        id: "jobBuilder.workEnv.textAreaPlaceholder1",
-        defaultMessage: "Try for a casual, frank, friendly tone.",
-        description: "Default placeholder for textarea element",
-    },
-    thisIsOptional: {
-        id: "jobBuilder.workEnv.thisIsOptional",
-        defaultMessage: "This is optional.",
-        description: "Text indicator for optional sections within form.",
-    },
-});
-var culturePaceMessages = react_intl_1.defineMessages({
-    pace01Title: {
-        id: "jobBuilder.culturePace.01.title",
-        defaultMessage: "Very Fast-paced",
-    },
-    pace01Description: {
-        id: "jobBuilder.culturePace.01.description",
-        defaultMessage: "Our deadlines are tight, we balance several tasks at the same time, and our priorities are always changing. Our work should come with running shoes!",
-    },
-    pace02Title: {
-        id: "jobBuilder.culturePace.02.title",
-        defaultMessage: "Fast-paced",
-    },
-    pace02Description: {
-        id: "jobBuilder.culturePace.02.description",
-        defaultMessage: "Our deadlines are usually close together, we balance some tasks at the same time, and our priorities change regularly. Our work keeps us on our toes!",
-    },
-    pace03Title: {
-        id: "jobBuilder.culturePace.03.title",
-        defaultMessage: "Steady",
-    },
-    pace03Description: {
-        id: "jobBuilder.culturePace.03.description",
-        defaultMessage: "Our deadlines are regular and predictable, we balance a couple of tasks at a time, and our priorities change occasionally. We keep things on an even keel.",
-    },
-    pace04Title: {
-        id: "jobBuilder.culturePace.04.title",
-        defaultMessage: "Very Steady",
-    },
-    pace04Description: {
-        id: "jobBuilder.culturePace.04.description",
-        defaultMessage: "Our work is ongoing so there aren't very many deadlines. We don't usually have to balance tasks and our priorities change rarely. We thrive on routine.",
-    },
-});
-var culturePaceList = [
-    {
-        id: "culturePace01",
-        title: culturePaceMessages.pace01Title,
-        subtext: culturePaceMessages.pace01Description,
-    },
-    {
-        id: "culturePace02",
-        title: culturePaceMessages.pace02Title,
-        subtext: culturePaceMessages.pace02Description,
-    },
-    {
-        id: "culturePace03",
-        title: culturePaceMessages.pace03Title,
-        subtext: culturePaceMessages.pace03Description,
-    },
-    {
-        id: "culturePace04",
-        title: culturePaceMessages.pace04Title,
-        subtext: culturePaceMessages.pace04Description,
-    },
-];
-var mgmtStyleMessages = react_intl_1.defineMessages({
-    style01Title: {
-        id: "jobBuilder.mgmtStyle.01.title",
-        defaultMessage: "Horizontal",
-    },
-    style01Description: {
-        id: "jobBuilder.mgmtStyle.01.description",
-        defaultMessage: "There's no middle management here, so we make most big decisions ourselves and you can expect to interact regularly with our executives.",
-    },
-    style02Title: {
-        id: "jobBuilder.mgmtStyle.02.title",
-        defaultMessage: "Somewhat Horizontal",
-    },
-    style02Description: {
-        id: "jobBuilder.mgmtStyle.02.description",
-        defaultMessage: "We have some middle management here but make most day-to-day decisions ourselves. Don't be surprised to interact fairly often with our executives.",
-    },
-    style03Title: {
-        id: "jobBuilder.mgmtStyle.03.title",
-        defaultMessage: "Somewhat Vertical",
-    },
-    style03Description: {
-        id: "jobBuilder.mgmtStyle.03.description",
-        defaultMessage: "Our team has a clearly defined role. We check in regularly with middle-management for approvals and updates on the strategic vision of our executives.",
-    },
-    style04Title: {
-        id: "jobBuilder.mgmtStyle.04.title",
-        defaultMessage: "Vertical",
-    },
-    style04Description: {
-        id: "jobBuilder.mgmtStyle.04.description",
-        defaultMessage: "Our team has a clearly defined role. We check in often with middle-management for approvals and updates on the strategic vision of our executives.",
-    },
-});
-var managementList = [
-    {
-        id: "mgmtStyle01",
-        title: mgmtStyleMessages.style01Title,
-        subtext: mgmtStyleMessages.style01Description,
-    },
-    {
-        id: "mgmtStyle02",
-        title: mgmtStyleMessages.style02Title,
-        subtext: mgmtStyleMessages.style02Description,
-    },
-    {
-        id: "mgmtStyle03",
-        title: mgmtStyleMessages.style03Title,
-        subtext: mgmtStyleMessages.style03Description,
-    },
-    {
-        id: "mgmtStyle04",
-        title: mgmtStyleMessages.style04Title,
-        subtext: mgmtStyleMessages.style04Description,
-    },
-];
-var experimentalMessages = react_intl_1.defineMessages({
-    experimental01Title: {
-        id: "jobBuilder.experimental.01.title",
-        defaultMessage: "Experimental",
-    },
-    experimental01Description: {
-        id: "jobBuilder.experimental.01.description",
-        defaultMessage: "Our work is defined by trying out brand new ideas, methods, and activities to address persistent problems that traditional approaches have failed to solve.",
-    },
-    experimental02Title: {
-        id: "jobBuilder.experimental.02.title",
-        defaultMessage: "Somewhat Experimental",
-    },
-    experimental02Description: {
-        id: "jobBuilder.experimental.02.description",
-        defaultMessage: "We try out new and proven ideas, methods, and activities to improve how we do our work.",
-    },
-    experimental03Title: {
-        id: "jobBuilder.experimental.03.title",
-        defaultMessage: "Somewhat Predictable Work",
-    },
-    experimental03Description: {
-        id: "jobBuilder.experimental.03.description",
-        defaultMessage: "Our work includes some administrative tasks are repeated on a regular basis. The tools we use work well for us but we are open to improving our processes.",
-    },
-    experimental04Title: {
-        id: "jobBuilder.experimental.04.title",
-        defaultMessage: "Predictable Work",
-    },
-    experimental04Description: {
-        id: "jobBuilder.experimental.04.description",
-        defaultMessage: "Most of our work involves administrative tasks are repeated on a regular basis. Consistency is key here, so we follow a standard process with tried and true tools.",
-    },
-});
-var experimentalList = [
-    {
-        id: "experimental01",
-        title: experimentalMessages.experimental01Title,
-        subtext: experimentalMessages.experimental01Description,
-    },
-    {
-        id: "experimental02",
-        title: experimentalMessages.experimental02Title,
-        subtext: experimentalMessages.experimental02Description,
-    },
-    {
-        id: "experimental03",
-        title: experimentalMessages.experimental03Title,
-        subtext: experimentalMessages.experimental03Description,
-    },
-    {
-        id: "experimental04",
-        title: experimentalMessages.experimental04Title,
-        subtext: experimentalMessages.experimental04Description,
-    },
-];
-var facingMessages = react_intl_1.defineMessages({
-    facing01Title: {
-        id: "jobBuilder.facing.01.title",
-        defaultMessage: "Citizen Facing",
-    },
-    facing01Description: {
-        id: "jobBuilder.facing.01.description",
-        defaultMessage: "We are the face of the service we deliver and spend most of our time engaging directly with the public.",
-    },
-    facing02Title: {
-        id: "jobBuilder.facing.02.title",
-        defaultMessage: "Mostly Citizen Facing",
-    },
-    facing02Description: {
-        id: "jobBuilder.facing.02.description",
-        defaultMessage: "We spend a lot of our time engaging directly with the public, but there is also behind the scenes work to support others.",
-    },
-    facing03Title: {
-        id: "jobBuilder.facing.03.title",
-        defaultMessage: "Mostly Back Office",
-    },
-    facing03Description: {
-        id: "jobBuilder.facing.03.description",
-        defaultMessage: "We usually work behind the scenes doing important work that makes service delivery possible.",
-    },
-    facing04Title: {
-        id: "jobBuilder.facing.04.title",
-        defaultMessage: "Back Office",
-    },
-    facing04Description: {
-        id: "jobBuilder.facing.04.description",
-        defaultMessage: "We work behind the scenes doing important work that makes service delivery possible. We thrive on supporting others.",
-    },
-});
-var facingList = [
-    {
-        id: "facing01",
-        title: facingMessages.facing01Title,
-        subtext: facingMessages.facing01Description,
-    },
-    {
-        id: "facing02",
-        title: facingMessages.facing02Title,
-        subtext: facingMessages.facing02Description,
-    },
-    {
-        id: "facing03",
-        title: facingMessages.facing03Title,
-        subtext: facingMessages.facing03Description,
-    },
-    {
-        id: "facing04",
-        title: facingMessages.facing04Title,
-        subtext: facingMessages.facing04Description,
-    },
-];
-var collaborativenessMessages = react_intl_1.defineMessages({
-    collaborativeness01Title: {
-        id: "jobBuilder.collaborativeness.01.title",
-        defaultMessage: "Collaborative",
-    },
-    collaborativeness01Description: {
-        id: "jobBuilder.collaborativeness.01.description",
-        defaultMessage: "Our team has diverse backgrounds, viewpoints, and skills and we play to each others strengths. We collectively own the team's goals and are always looking for ways to pitch in.",
-    },
-    collaborativeness02Title: {
-        id: "jobBuilder.collaborativeness.02.title",
-        defaultMessage: "Somewhat Collaborative",
-    },
-    collaborativeness02Description: {
-        id: "jobBuilder.collaborativeness.02.description",
-        defaultMessage: "Our team has a diverse set of skills and we recognize each others strengths. We work together often and are quick to pitch in when someone asks for help.",
-    },
-    collaborativeness03Title: {
-        id: "jobBuilder.collaborativeness.03.title",
-        defaultMessage: "Somewhat Independent",
-    },
-    collaborativeness03Description: {
-        id: "jobBuilder.collaborativeness.03.description",
-        defaultMessage: "Members of our team own their piece of the puzzle and have some freedom to choose how they get their work done.",
-    },
-    collaborativeness04Title: {
-        id: "jobBuilder.collaborativeness.04.title",
-        defaultMessage: "Independent",
-    },
-    collaborativeness04Description: {
-        id: "jobBuilder.collaborativeness.04.description",
-        defaultMessage: "Members of our team own their piece of the puzzle. It doesn't really matter how we get our work done as long as it's high quality.",
-    },
-});
-var collaborativenessList = [
-    {
-        id: "collaborativeness01",
-        title: collaborativenessMessages.collaborativeness01Title,
-        subtext: collaborativenessMessages.collaborativeness01Description,
-    },
-    {
-        id: "collaborativeness02",
-        title: collaborativenessMessages.collaborativeness02Title,
-        subtext: collaborativenessMessages.collaborativeness02Description,
-    },
-    {
-        id: "collaborativeness03",
-        title: collaborativenessMessages.collaborativeness03Title,
-        subtext: collaborativenessMessages.collaborativeness03Description,
-    },
-    {
-        id: "collaborativeness04",
-        title: collaborativenessMessages.collaborativeness04Title,
-        subtext: collaborativenessMessages.collaborativeness04Description,
-    },
-];
-function convertSliderIdFromJob(key, formSliderArray, jobSliderId) {
-    var _a;
-    return jobSliderId && jobSliderId > 0 && jobSliderId <= formSliderArray.length
-        ? (_a = {},
-            _a[key] = formSliderArray[jobSliderId - 1].id,
-            _a) : {};
-}
-var jobToValues = function (_a, locale) {
-    var team_size = _a.team_size, fast_vs_steady = _a.fast_vs_steady, horizontal_vs_vertical = _a.horizontal_vs_vertical, experimental_vs_ongoing = _a.experimental_vs_ongoing, citizen_facing_vs_back_office = _a.citizen_facing_vs_back_office, collaborative_vs_independent = _a.collaborative_vs_independent, work_env_features = _a.work_env_features, job = __rest(_a, ["team_size", "fast_vs_steady", "horizontal_vs_vertical", "experimental_vs_ongoing", "citizen_facing_vs_back_office", "collaborative_vs_independent", "work_env_features"]);
-    var isTrueInEnvFeatures = function (option) {
-        return work_env_features !== null &&
-            queries_1.hasKey(work_env_features, option) &&
-            work_env_features[option];
-    };
-    return __assign(__assign(__assign(__assign(__assign(__assign(__assign(__assign({}, (team_size && { teamSize: team_size })), { physicalEnv: JobWorkEnv_1.physEnvOptions.filter(isTrueInEnvFeatures), technology: JobWorkEnv_1.techOptions.filter(isTrueInEnvFeatures), amenities: JobWorkEnv_1.amenitiesOptions.filter(isTrueInEnvFeatures) }), convertSliderIdFromJob("culturePace", culturePaceList, fast_vs_steady)), convertSliderIdFromJob("management", managementList, horizontal_vs_vertical)), convertSliderIdFromJob("experimental", experimentalList, experimental_vs_ongoing)), convertSliderIdFromJob("facing", facingList, citizen_facing_vs_back_office)), convertSliderIdFromJob("collaborativeness", collaborativenessList, collaborative_vs_independent)), { envDescription: localize_1.localizeField(locale, job, "work_env_description") || "", cultureSummary: localize_1.localizeField(locale, job, "culture_summary") || "", moreCultureSummary: localize_1.localizeField(locale, job, "culture_special") || "" });
-};
-function convertSliderIdToJob(formSliderArray, id) {
-    if (id === undefined) {
-        return null;
-    }
-    return formSliderArray.map(function (item) { return item.id; }).indexOf(id) + 1;
-}
-var updateJobWithValues = function (job, locale, _a) {
-    var _b, _c, _d;
-    var teamSize = _a.teamSize, physicalEnv = _a.physicalEnv, technology = _a.technology, amenities = _a.amenities, envDescription = _a.envDescription, culturePace = _a.culturePace, management = _a.management, experimental = _a.experimental, facing = _a.facing, collaborativeness = _a.collaborativeness, cultureSummary = _a.cultureSummary, moreCultureSummary = _a.moreCultureSummary;
-    var physFeatures = queries_1.mapToObjectTrans(JobWorkEnv_1.physEnvOptions, queries_1.identity, function (option) { return physicalEnv.includes(option); });
-    var techFeatures = queries_1.mapToObjectTrans(JobWorkEnv_1.techOptions, queries_1.identity, function (option) { return technology.includes(option); });
-    var amenityFeatures = queries_1.mapToObjectTrans(JobWorkEnv_1.amenitiesOptions, queries_1.identity, function (option) { return amenities.includes(option); });
-    var workEnvFeatures = __assign(__assign(__assign({}, physFeatures), techFeatures), amenityFeatures);
-    return __assign(__assign({}, job), { team_size: teamSize || null, fast_vs_steady: convertSliderIdToJob(culturePaceList, culturePace), horizontal_vs_vertical: convertSliderIdToJob(managementList, management), experimental_vs_ongoing: convertSliderIdToJob(experimentalList, experimental), citizen_facing_vs_back_office: convertSliderIdToJob(facingList, facing), collaborative_vs_independent: convertSliderIdToJob(collaborativenessList, collaborativeness), work_env_features: workEnvFeatures, work_env_description: __assign(__assign({}, job.work_env_description), (_b = {}, _b[locale] = envDescription || null, _b)), culture_summary: __assign(__assign({}, job.culture_summary), (_c = {}, _c[locale] = cultureSummary || null, _c)), culture_special: __assign(__assign({}, job.culture_special), (_d = {}, _d[locale] = moreCultureSummary || null, _d)) });
-};
-var renderRadioWithContext = function (intl, touched, errors, values, fieldName, label, sliderList) {
-    return (react_1.default.createElement("div", { className: "job-builder-culture-block", "data-c-grid-item": "base(1of1)" },
-        react_1.default.createElement("div", { "data-c-grid": "gutter" },
-            react_1.default.createElement(RadioGroup_1.default, { id: fieldName, label: label, required: true, touched: touched[fieldName], error: errors[fieldName], value: values[fieldName], grid: "base(1of1) tl(1of3)" }, sliderList.map(function (_a) {
-                var id = _a.id, title = _a.title;
-                return (react_1.default.createElement(formik_1.Field, { key: id, name: fieldName, component: RadioInput_1.default, id: id, label: intl.formatMessage(title), value: id, trigger: true }));
-            })),
-            react_1.default.createElement(ContextBlock_1.default, { className: "job-builder-context-block", grid: "base(1of1) tl(2of3)" }, sliderList.map(function (_a) {
-                var id = _a.id, title = _a.title, subtext = _a.subtext;
-                return (react_1.default.createElement(ContextBlockItem_1.default, { key: id, contextId: id, title: intl.formatMessage(title), subtext: intl.formatMessage(subtext), className: "job-builder-context-item", active: values[fieldName] === id }));
-            })))));
-};
-var WorkEnvForm = function (_a) {
-    var job = _a.job, handleSubmit = _a.handleSubmit, handleReturn = _a.handleReturn, handleModalCancel = _a.handleModalCancel, handleModalConfirm = _a.handleModalConfirm, jobIsComplete = _a.jobIsComplete, handleSkipToReview = _a.handleSkipToReview, intl = _a.intl;
-    var _b = react_1.useState(false), isModalVisible = _b[0], setIsModalVisible = _b[1];
-    var locale = intl.locale;
-    if (locale !== "en" && locale !== "fr") {
-        throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
-    }
-    var initialValues = job
-        ? jobToValues(job, locale)
-        : {
-            physicalEnv: [],
-            technology: [],
-            amenities: [],
-            envDescription: "",
-            cultureSummary: "",
-            moreCultureSummary: "",
-        };
-    var phyEnvData = JobWorkEnv_1.phyEnvDescriptions(intl);
-    var techData = JobWorkEnv_1.techDescriptions(intl);
-    var amenitiesData = JobWorkEnv_1.amenitiesDescriptions(intl);
-    var modalParentRef = react_1.useRef(null);
-    var workEnvSchema = Yup.object().shape({
-        teamSize: Yup.number()
-            .min(1, intl.formatMessage(Messages_1.validationMessages.required))
-            .required(intl.formatMessage(Messages_1.validationMessages.required)),
-        physicalEnv: Yup.array(),
-        technology: Yup.array(),
-        amenities: Yup.array(),
-        envDescription: Yup.string(),
-        culturePace: Yup.string()
-            .oneOf(culturePaceList.map(function (item) { return item.id; }))
-            .required(intl.formatMessage(Messages_1.validationMessages.checkboxRequired)),
-        management: Yup.string()
-            .oneOf(managementList.map(function (item) { return item.id; }))
-            .required(intl.formatMessage(Messages_1.validationMessages.checkboxRequired)),
-        experimental: Yup.string()
-            .oneOf(experimentalList.map(function (item) { return item.id; }))
-            .required(intl.formatMessage(Messages_1.validationMessages.checkboxRequired)),
-        facing: Yup.string()
-            .oneOf(facingList.map(function (item) { return item.id; }))
-            .required(intl.formatMessage(Messages_1.validationMessages.checkboxRequired)),
-        collaborativeness: Yup.string()
-            .oneOf(collaborativenessList.map(function (item) { return item.id; }))
-            .required(intl.formatMessage(Messages_1.validationMessages.checkboxRequired)),
-    });
-    /** Compiles and returns all the active radio buttons corresponding context box values within the culture section  */
-    var buildCultureSummary = function (values) {
-        var pace = culturePaceList.find(function (_a) {
-            var id = _a.id;
-            return id === values.culturePace;
-        });
-        var management = managementList.find(function (_a) {
-            var id = _a.id;
-            return id === values.management;
-        });
-        var experimental = experimentalList.find(function (_a) {
-            var id = _a.id;
-            return id === values.experimental;
-        });
-        var facing = facingList.find(function (_a) {
-            var id = _a.id;
-            return id === values.facing;
-        });
-        var collaborativeness = collaborativenessList.find(function (_a) {
-            var id = _a.id;
-            return id === values.collaborativeness;
-        });
-        var cultureSummary = [
-            pace,
-            management,
-            experimental,
-            facing,
-            collaborativeness,
-        ]
-            .filter(queries_1.notEmpty)
-            .map(function (item) { return intl.formatMessage(item.subtext); })
-            .join(" ");
-        return cultureSummary;
-    };
-    var updateValuesAndReturn = function (values) {
-        nprogress_1.default.start();
-        // If custom summary textbox is length is zero, set cultureSummary to generated text
-        var cultureSummary = values.cultureSummary.length === 0
-            ? buildCultureSummary(values)
-            : values.cultureSummary;
-        var formValues = __assign(__assign({}, values), { cultureSummary: cultureSummary });
-        var oldJob = job || jobUtil_1.emptyJob();
-        var updatedJob = updateJobWithValues(oldJob, locale, formValues);
-        handleSubmit(updatedJob).then(function () {
-            nprogress_1.default.done();
-            handleReturn();
-        });
-    };
-    return (react_1.default.createElement("div", { "data-c-container": "form", "data-c-padding": "top(triple) bottom(triple)", ref: modalParentRef },
-        react_1.default.createElement("h3", { "data-c-font-size": "h3", "data-c-font-weight": "bold", "data-c-margin": "bottom(double)" },
-            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnv.title", defaultMessage: "Work Environment", description: "Header of job poster builder work environment step." })),
-        react_1.default.createElement("p", null,
-            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnv.stepDescription", defaultMessage: "Applicants care a lot about the team they'll be working with and the physical workspace as well. Sharing information about these things help applicants determine if they'll be a good fit, and can reduce the number of \"wishful thinking\" applications that slow down the screening process.", description: "Description of job poster builder work environment step." })),
-        react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" },
-            react_1.default.createElement("h4", { "data-c-font-size": "h4", "data-c-margin": "top(triple) bottom(normal)" },
-                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnv.ourWorkEnv", defaultMessage: "Our Work Environment", description: "Section 1 of Job Poster Builder Work Environment Step" })),
-            react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" }, intl.formatMessage(exports.formMessages.ourWorkEnvDesc))),
-        react_1.default.createElement(formik_1.Formik, { enableReinitialize: true, initialValues: initialValues, validationSchema: workEnvSchema, onSubmit: function (values, _a) {
-                var setSubmitting = _a.setSubmitting;
-                // If custom summary textbox is length is zero, set cultureSummary to generated text
-                var cultureSummary = values.cultureSummary.length === 0
-                    ? buildCultureSummary(values)
-                    : values.cultureSummary;
-                var formValues = __assign(__assign({}, values), { cultureSummary: cultureSummary });
-                var oldJob = job || jobUtil_1.emptyJob();
-                var updatedJob = updateJobWithValues(oldJob, locale, formValues);
-                nprogress_1.default.start();
-                handleSubmit(updatedJob)
-                    .then(function () {
-                    nprogress_1.default.done();
-                    setIsModalVisible(true);
-                })
-                    .finally(function () {
-                    setSubmitting(false);
-                });
-            }, render: function (_a) {
-                var errors = _a.errors, touched = _a.touched, isSubmitting = _a.isSubmitting, values = _a.values, setFieldValue = _a.setFieldValue, setFieldTouched = _a.setFieldTouched;
-                return (react_1.default.createElement(react_1.default.Fragment, null,
-                    react_1.default.createElement(formik_1.Form, { id: "form", "data-c-margin": "bottom(normal)" },
-                        react_1.default.createElement(formik_1.Field, { name: "teamSize", component: NumberInput_1.default, required: true, min: 1, grid: "tl(1of2)", id: "teamSize", label: intl.formatMessage(exports.formMessages.teamSizeLabel), placeholder: intl.formatMessage(exports.formMessages.teamSizePlaceholder) }),
-                        react_1.default.createElement(CheckboxGroup_1.default, { id: "physicalEnv", label: intl.formatMessage(exports.formMessages.physicalEnvLabel), grid: "base(1of1)", value: values.physicalEnv, error: errors.physicalEnv, touched: touched.physicalEnv, onChange: setFieldValue, onBlur: setFieldTouched }, phyEnvData &&
-                            phyEnvData.map(function (_a) {
-                                var name = _a.name, label = _a.label;
-                                return (react_1.default.createElement(formik_1.Field, { key: name, id: name, name: name, label: label, component: CheckboxInput_1.default, grid: "base(1of2)" }));
-                            })),
-                        react_1.default.createElement(CheckboxGroup_1.default, { id: "technology", label: intl.formatMessage(exports.formMessages.technologyLabel), grid: "base(1of1)", value: values.technology, error: errors.technology, touched: touched.technology, onChange: setFieldValue, onBlur: setFieldTouched }, techData &&
-                            techData.map(function (_a) {
-                                var name = _a.name, label = _a.label;
-                                return (react_1.default.createElement(formik_1.Field, { key: name, id: name, name: name, label: label, component: CheckboxInput_1.default, grid: "base(1of2)" }));
-                            })),
-                        react_1.default.createElement(CheckboxGroup_1.default, { id: "amenities", label: intl.formatMessage(exports.formMessages.amenitiesLabel), grid: "base(1of1)", value: values.amenities, error: errors.amenities, touched: touched.amenities, onChange: setFieldValue, onBlur: setFieldTouched }, amenitiesData &&
-                            amenitiesData.map(function (_a) {
-                                var name = _a.name, label = _a.label;
-                                return (react_1.default.createElement(formik_1.Field, { key: name, id: name, name: name, label: label, component: CheckboxInput_1.default, grid: "base(1of2)" }));
-                            })),
-                        react_1.default.createElement("p", { "data-c-margin": "bottom(normal) top(normal)", "data-c-font-weight": "bold" }, intl.formatMessage(exports.formMessages.moreOnWorkEnv)),
-                        react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" }, intl.formatMessage(exports.formMessages.thisIsOptional)),
-                        react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" }, intl.formatMessage(exports.formMessages.moreOnWorkEnvSubtext)),
-                        react_1.default.createElement(formik_1.Field, { type: "textarea", id: "environment_description", name: "envDescription", label: intl.formatMessage(exports.formMessages.moreOnWorkEnvLabel), placeholder: intl.formatMessage(exports.formMessages.moreOnWorkEnvPlaceholder), component: TextAreaInput_1.default, grid: "base(1of2)" }),
-                        react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" },
-                            react_1.default.createElement("h4", { "data-c-font-size": "h4", "data-c-margin": "top(double) bottom(normal)" }, intl.formatMessage(exports.formMessages.culture)),
-                            react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" },
-                                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnv.cultureSubtext1", defaultMessage: "Now let applicants know more about the personality of your team and the type of work that you usually do.", description: "Subtext 1 displayed of the our culture section." })),
-                            react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" }, intl.formatMessage(exports.formMessages.cultureSubtext2))),
-                        renderRadioWithContext(intl, touched, errors, values, "culturePace", intl.formatMessage(exports.formMessages.fastPacedSteadyLabel), culturePaceList),
-                        renderRadioWithContext(intl, touched, errors, values, "management", intl.formatMessage(exports.formMessages.managementLabel), managementList),
-                        renderRadioWithContext(intl, touched, errors, values, "experimental", intl.formatMessage(exports.formMessages.experimentalLabel), experimentalList),
-                        renderRadioWithContext(intl, touched, errors, values, "facing", intl.formatMessage(exports.formMessages.facingLabel), facingList),
-                        renderRadioWithContext(intl, touched, errors, values, "collaborativeness", intl.formatMessage(exports.formMessages.collaborativeLabel), collaborativenessList),
-                        react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" },
-                            react_1.default.createElement("p", { "data-c-margin": "bottom(normal) top(normal)", "data-c-font-weight": "bold" }, intl.formatMessage(exports.formMessages.cultureSummary)),
-                            react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" }, intl.formatMessage(exports.formMessages.cultureSummarySubtext)),
-                            react_1.default.createElement(ContextBlockItem_1.default, { subtext: buildCultureSummary(values) }),
-                            react_1.default.createElement("div", { "data-c-alignment": "base(centre) tl(right)", "data-c-margin": "top(normal)" },
-                                react_1.default.createElement(CopyToClipboardButton_1.default, { actionText: react_1.default.createElement(react_intl_1.FormattedMessage, { id: "button.copyToClipboard", defaultMessage: "Copy to Clipboard", description: "Button to copy text to clipboard." }), postActionText: react_1.default.createElement(react_intl_1.FormattedMessage, { id: "button.copied", defaultMessage: "Copied!", description: "Confirmation for Button to copy text to clipboard." }), textToCopy: buildCultureSummary(values) }))),
-                        react_1.default.createElement(formik_1.Field, { type: "textarea", id: "custom_culture_summary", name: "cultureSummary", label: intl.formatMessage(exports.formMessages.customCultureSummaryLabel), placeholder: intl.formatMessage(exports.formMessages.customCultureSummaryPlaceholder), component: TextAreaInput_1.default, grid: "base(1of1)" }),
-                        react_1.default.createElement("p", { "data-c-margin": "bottom(normal)", "data-c-font-weight": "bold" }, intl.formatMessage(exports.formMessages.specialWorkCulture)),
-                        react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" }, intl.formatMessage(exports.formMessages.thisIsOptional)),
-                        react_1.default.createElement("p", { "data-c-margin": "bottom(normal)" }, intl.formatMessage(exports.formMessages.specialWorkCultureSubtext)),
-                        react_1.default.createElement(formik_1.Field, { type: "textarea", id: "more_culture_summary", name: "moreCultureSummary", label: intl.formatMessage(exports.formMessages.specialWorkCultureLabel), placeholder: intl.formatMessage(exports.formMessages.textAreaPlaceholder1), component: TextAreaInput_1.default, grid: "base(1of1)" }),
-                        react_1.default.createElement("div", { "data-c-grid": "gutter", "data-c-grid-item": "base(1of1)" },
-                            react_1.default.createElement("div", { "data-c-grid-item": "base(1of1)" },
-                                react_1.default.createElement("hr", { "data-c-margin": "top(normal) bottom(normal)" })),
-                            react_1.default.createElement("div", { "data-c-alignment": "base(centre) tp(left)", "data-c-grid-item": "tp(1of2)" },
-                                react_1.default.createElement("button", { "data-c-button": "outline(c2)", "data-c-radius": "rounded", type: "button", disabled: isSubmitting, onClick: function () {
-                                        updateValuesAndReturn(values);
-                                    } },
-                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnv.saveAndReturnButtonLabel", defaultMessage: "Save & Return to Job Details", description: "Label for Save & Return button on Work Environment form." }))),
-                            react_1.default.createElement("div", { "data-c-alignment": "base(centre) tp(right)", "data-c-grid-item": "tp(1of2)" },
-                                react_1.default.createElement("button", { "data-c-button": "solid(c1)", "data-c-radius": "rounded", type: "submit", disabled: isSubmitting },
-                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnv.submitButtonLabel", defaultMessage: "Save & Preview", description: "Label for work environment submit button." }))))),
-                    react_1.default.createElement(WorkEnvModal_1.default, { modalConfirm: function () {
-                            setIsModalVisible(false);
-                            handleModalConfirm();
-                        }, modalCancel: function () {
-                            setIsModalVisible(false);
-                            handleModalCancel();
-                        }, isVisible: isModalVisible, parentElement: modalParentRef.current, values: values, cultureSummary: values.cultureSummary || buildCultureSummary(values), jobIsComplete: jobIsComplete, handleSkipToReview: function () {
-                            handleSkipToReview().finally(function () {
-                                setIsModalVisible(false);
-                            });
-                        } })));
-            } })));
-};
-var WorkEnvFormContainer = react_intl_1.injectIntl(WorkEnvForm);
-exports.default = WorkEnvFormContainer;
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvModal.tsx":
-/*!****************************************************************************!*\
-  !*** ./resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvModal.tsx ***!
-  \****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
-var Modal_1 = __importDefault(__webpack_require__(/*! ../../Modal */ "./resources/assets/js/components/Modal.tsx"));
-var JobWorkEnv_1 = __importDefault(__webpack_require__(/*! ./JobWorkEnv */ "./resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnv.tsx"));
-var WorkEnvModal = function (_a) {
-    var modalConfirm = _a.modalConfirm, modalCancel = _a.modalCancel, isVisible = _a.isVisible, parentElement = _a.parentElement, values = _a.values, cultureSummary = _a.cultureSummary, jobIsComplete = _a.jobIsComplete, handleSkipToReview = _a.handleSkipToReview;
-    return (react_1.default.createElement(react_1.default.Fragment, null,
-        react_1.default.createElement(Modal_1.default, { id: "work-environment-preview", parentElement: parentElement, visible: isVisible, onModalConfirm: modalConfirm, onModalCancel: modalCancel, onModalMiddle: handleSkipToReview },
-            react_1.default.createElement(Modal_1.default.Header, null,
-                react_1.default.createElement("div", { "data-c-background": "c1(100)", "data-c-border": "bottom(thin, solid, black)", "data-c-padding": "normal" },
-                    react_1.default.createElement("h5", { "data-c-colour": "white", "data-c-font-size": "h4", id: "work-environment-preview-title" },
-                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnv.greatStart", defaultMessage: "You're off to a great start!", description: "Kicker message at the start of the modal." })))),
-            react_1.default.createElement(Modal_1.default.Body, null,
-                react_1.default.createElement("div", { "data-c-border": "bottom(thin, solid, black)", "data-c-padding": "normal", id: "work-environment-preview-body" },
-                    react_1.default.createElement("p", null,
-                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnv.openingSentence", defaultMessage: "Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it.", description: "Opening sentence for modal." }))),
-                react_1.default.createElement("div", { "data-c-background": "grey(20)", "data-c-padding": "normal" },
-                    react_1.default.createElement("div", { className: "manager-job-card", "data-c-background": "white(100)", "data-c-padding": "normal", "data-c-radius": "rounded" },
-                        react_1.default.createElement("h4", { "data-c-border": "bottom(thin, solid, black)", "data-c-font-size": "h4", "data-c-font-weight": "600", "data-c-margin": "bottom(normal)", "data-c-padding": "bottom(normal)" },
-                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnvModal.title", defaultMessage: "Work Environment", description: "Header of job poster builder work environment step." })),
-                        react_1.default.createElement(JobWorkEnv_1.default, { teamSize: values.teamSize || 0, selectedEnvOptions: __spreadArrays(values.amenities, values.physicalEnv, values.technology), envDescription: values.envDescription }),
-                        react_1.default.createElement("h4", { "data-c-border": "bottom(thin, solid, black)", "data-c-font-size": "h4", "data-c-font-weight": "600", "data-c-margin": "top(double) bottom(normal)", "data-c-padding": "bottom(normal)" },
-                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnvModal.workCultureTitle", defaultMessage: "Work Culture", description: "The title displayed for the work culture section on modal." })),
-                        react_1.default.createElement("p", null, cultureSummary),
-                        values.moreCultureSummary && (react_1.default.createElement("p", { "data-c-margin": "top(normal)" }, values.moreCultureSummary))))),
-            react_1.default.createElement(Modal_1.default.Footer, null,
-                react_1.default.createElement(Modal_1.default.FooterCancelBtn, null,
-                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnvModal.cancelLabel", defaultMessage: "Go Back", description: "The label displayed on modal cancel button." })),
-                jobIsComplete && (react_1.default.createElement(Modal_1.default.FooterMiddleBtn, null,
-                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnvModal.modalMiddleLabel", defaultMessage: "Skip to Review", description: "The text displayed on the 'Skip to Review' button of the Work Env modal." }))),
-                react_1.default.createElement(Modal_1.default.FooterConfirmBtn, null,
-                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.workEnvModal.confirmLabel", defaultMessage: "Next Step", description: "The label displayed on modal confirm button." })))),
-        react_1.default.createElement("div", { "data-c-dialog-overlay": isVisible ? "active" : "" })));
-};
-exports.default = WorkEnvModal;
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvPage.tsx":
-/*!***************************************************************************!*\
-  !*** ./resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvPage.tsx ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
-var react_redux_1 = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/lib/index.js");
-var react_dom_1 = __importDefault(__webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js"));
-var WorkEnvForm_1 = __importDefault(__webpack_require__(/*! ./WorkEnvForm */ "./resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvForm.tsx"));
-var jobActions_1 = __webpack_require__(/*! ../../../store/Job/jobActions */ "./resources/assets/js/store/Job/jobActions.ts");
-var jobSelector_1 = __webpack_require__(/*! ../../../store/Job/jobSelector */ "./resources/assets/js/store/Job/jobSelector.ts");
-var RootContainer_1 = __importDefault(__webpack_require__(/*! ../../RootContainer */ "./resources/assets/js/components/RootContainer.tsx"));
-var routes_1 = __webpack_require__(/*! ../../../helpers/routes */ "./resources/assets/js/helpers/routes.ts");
-var JobBuilderStep_1 = __importDefault(__webpack_require__(/*! ../JobBuilderStep */ "./resources/assets/js/components/JobBuilder/JobBuilderStep.tsx"));
-var jobBuilderHelpers_1 = __webpack_require__(/*! ../jobBuilderHelpers */ "./resources/assets/js/components/JobBuilder/jobBuilderHelpers.ts");
-var router_1 = __webpack_require__(/*! ../../../helpers/router */ "./resources/assets/js/helpers/router.tsx");
-var JobBuilderWorkEnv = function (_a) {
-    var jobId = _a.jobId, job = _a.job, handleUpdateJob = _a.handleUpdateJob, keyTasks = _a.keyTasks, criteria = _a.criteria, intl = _a.intl;
-    var locale = intl.locale;
-    if (locale !== "en" && locale !== "fr") {
-        throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
-    }
-    var handleSubmit = handleUpdateJob;
-    var handleModalCancel = function () { };
-    var handleModalConfirm = function () {
-        router_1.navigate(routes_1.jobBuilderImpact(intl.locale, jobId));
-    };
-    var handleReturn = function () {
-        router_1.navigate(routes_1.jobBuilderDetails(locale, jobId));
-    };
-    var handleSkipToReview = function () { return __awaiter(void 0, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            if (jobId) {
-                router_1.navigate(routes_1.jobBuilderReview(locale, jobId));
-            }
-            return [2 /*return*/];
-        });
-    }); };
-    var jobIsComplete = job !== null && jobBuilderHelpers_1.isJobBuilderComplete(job, keyTasks, criteria, locale);
-    return (react_1.default.createElement(JobBuilderStep_1.default, { jobId: jobId, currentPage: "env" }, job !== null && (react_1.default.createElement(WorkEnvForm_1.default, { job: job, handleSubmit: handleSubmit, handleReturn: handleReturn, handleModalCancel: handleModalCancel, handleModalConfirm: handleModalConfirm, jobIsComplete: jobIsComplete, handleSkipToReview: handleSkipToReview }))));
-};
-var mapStateToProps = function (state, ownProps) { return ({
-    job: jobSelector_1.getJob(state, ownProps),
-    keyTasks: jobSelector_1.getTasksByJob(state, ownProps),
-    criteria: jobSelector_1.getCriteriaByJob(state, ownProps),
-}); };
-var mapDispatchToProps = function (dispatch) { return ({
-    handleUpdateJob: function (newJob) { return __awaiter(void 0, void 0, void 0, function () {
-        var result, resultJob;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, dispatch(jobActions_1.updateJob(newJob))];
-                case 1:
-                    result = _a.sent();
-                    if (!!result.error) return [3 /*break*/, 3];
-                    return [4 /*yield*/, result.payload];
-                case 2:
-                    resultJob = _a.sent();
-                    return [2 /*return*/, resultJob];
-                case 3: return [2 /*return*/, Promise.reject(result.payload)];
-            }
-        });
-    }); },
-}); };
-var JobBuilderWorkEnvContainer = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(react_intl_1.injectIntl(JobBuilderWorkEnv));
-if (document.getElementById("job-builder-work-env")) {
-    var container = document.getElementById("job-builder-work-env");
-    var jobIdAttr = container.getAttribute("data-job-id");
-    var jobId = jobIdAttr ? Number(jobIdAttr) : null;
-    if (jobId) {
-        react_dom_1.default.render(react_1.default.createElement(RootContainer_1.default, null,
-            react_1.default.createElement(JobBuilderWorkEnvContainer, { jobId: jobId })), container);
-    }
-}
-exports.default = JobBuilderWorkEnvContainer;
+exports.default = WorkEnvSection;
 
 
 /***/ }),
@@ -68940,10 +70662,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 var Radio = function (_a) {
-    var id = _a.id, name = _a.name, label = _a.label, checked = _a.checked, value = _a.value, trigger = _a.trigger, onBlur = _a.onBlur, onChange = _a.onChange;
+    var id = _a.id, name = _a.name, label = _a.label, checked = _a.checked, value = _a.value, required = _a.required, trigger = _a.trigger, onBlur = _a.onBlur, onChange = _a.onChange;
     var clicked = id === value;
     return (react_1.default.createElement("label", { "data-tc-wenv-id": id, "data-tc-wenv-trigger": trigger, className: clicked ? "active" : "" },
-        react_1.default.createElement("input", { id: id, name: name, type: "radio", checked: checked, value: value, onChange: onChange, onBlur: onBlur }),
+        react_1.default.createElement("input", { id: id, name: name, type: "radio", checked: checked, value: value, onChange: onChange, onBlur: onBlur, required: required }),
         react_1.default.createElement("span", null, label)));
 };
 exports.default = Radio;
@@ -72127,6 +73849,12 @@ exports.sortComments = function (comments) {
     };
     return comments.sort(comparator);
 };
+exports.getSortedComments = reselect_1.createSelector(exports.getComments, exports.sortComments);
+exports.getSortedFilteredComments = re_reselect_1.default(exports.getSortedComments, function (state, ownProps) { return ownProps.filterComments; }, function (comments, filterComments) {
+    return filterComments !== undefined
+        ? comments.filter(filterComments)
+        : comments;
+})(function (state, ownProps) { return ownProps.generalLocation; });
 exports.fetchingComments = function (state) {
     return ui(state).fetchingComments;
 };
@@ -73322,8 +75050,9 @@ exports.fetchUser = function (id) {
 exports.FETCH_ALL_USERS_STARTED = "USERS: GET STARTED";
 exports.FETCH_ALL_USERS_SUCCEEDED = "USERS: GET SUCCEEDED";
 exports.FETCH_ALL_USERS_FAILED = "USERS: GET FAILED";
-exports.fetchAllUsers = function () {
-    return asyncAction_1.asyncGet(user_1.getAllUsersEndpoint(), exports.FETCH_ALL_USERS_STARTED, exports.FETCH_ALL_USERS_SUCCEEDED, exports.FETCH_ALL_USERS_FAILED, user_1.parseAllUsersResponse, {});
+exports.fetchAllUsers = function (ids) {
+    if (ids === void 0) { ids = ""; }
+    return asyncAction_1.asyncGet(user_1.getAllUsersEndpoint(ids), exports.FETCH_ALL_USERS_STARTED, exports.FETCH_ALL_USERS_SUCCEEDED, exports.FETCH_ALL_USERS_FAILED, user_1.parseAllUsersResponse, {});
 };
 
 
@@ -73598,10 +75327,10 @@ exports.default = exports.rootReducer;
 /*!**********************************************************!*\
   !*** ./resources/assets/js/translations/locales/fr.json ***!
   \**********************************************************/
-/*! exports provided: activity.commentLocation.label, activity.commentMetadata, activity.viewComment.label, activityfeed.accordionAccessibleLabel, activityfeed.error, activityfeed.header, activityfeed.loading, activityfeed.loadingIconText, activityfeed.locations.applicantReview.general, activityfeed.locations.applicantReview.notUnderConsideration, activityfeed.locations.applicantReview.optionalConsideration, activityfeed.locations.applicantReview.underConsideration, activityfeed.locations.applications, activityfeed.locations.hr.preview, activityfeed.locations.hr.summary, activityfeed.locations.notFound, activityfeed.locations.review, activityfeed.locations.review.basicInfo, activityfeed.locations.review.environment, activityfeed.locations.review.general, activityfeed.locations.review.heading, activityfeed.locations.review.impact, activityfeed.locations.review.langRequirements, activityfeed.locations.review.skills, activityfeed.locations.review.tasks, activityfeed.locations.screeningPlan, activityfeed.locations.screeningPlan.builder, activityfeed.locations.screeningPlan.general, activityfeed.locations.screeningPlan.ratings, activityfeed.locations.screeningPlan.summary, activityfeed.noActivities, activityfeed.review.accordionAccessibleLabel, activityfeed.review.header, activityfeed.review.loadingIconText, activityfeed.title, application.review.addNote, application.review.alert.oops, application.review.backToApplicantList, application.review.button.cancel, application.review.button.confirm, application.review.button.save, application.review.button.saved, application.review.button.saving, application.review.button.viewJobPoster, application.review.collapseAllSkills, application.review.decision, application.review.editNote, application.review.emailCandidateLinkTitle, application.review.expandAllSkills, application.review.priorityStatus.priority, application.review.priorityStatus.priorityLogoTitle, application.review.reviewSaveFailed, application.review.reviewStatus.notReviewed, application.review.reviewStatus.screenedOut, application.review.reviewStatus.stillIn, application.review.reviewStatus.stillThinking, application.review.screenInConfirm, application.review.screenOutConfirm, application.review.veteranStatus.veteran, application.review.veteranStatus.veteranLogoAlt, application.review.viewApplication, application.review.viewApplicationLinkTitle, application.review.viewProfile, application.review.viewProfileLinkTitle, assessmentPlan.addAssessmentButton, assessmentPlan.alert.checking, assessmentPlan.alert.created, assessmentPlan.alert.deleted, assessmentPlan.alert.explanation, assessmentPlan.alert.skillAndLevelUpdated, assessmentPlan.alert.skillLevelUpdated, assessmentPlan.alert.skillUpdated, assessmentPlan.alert.title, assessmentPlan.assessmentPlanBuilder.instructions, assessmentPlan.assessmentPlanBuilder.shortDescription, assessmentPlan.assessmentPlanBuilder.title, assessmentPlan.assessmentPlanSummary.shortDescription, assessmentPlan.assessmentPlanSummary.title, assessmentPlan.assessmentTypesLabel, assessmentPlan.assetCriteria.nullState, assessmentPlan.criteriaTitle, assessmentPlan.essentialCriteria.nullState, assessmentPlan.instructions.intro, assessmentPlan.instructions.narrativeNote, assessmentPlan.pageTitle, assessmentPlan.ratingGuideBuilder.shortDescription, assessmentPlan.ratingGuideBuilder.title, assessmentPlan.selectAssessment.label, assessmentPlan.selectAssessment.null, assessmentPlan.skillDescriptionLabel, assessmentPlan.skillLevelDescriptionLabel, assessmentPlan.summary.assessmentSummary.noAssessments, assessmentPlan.summary.assessmentSummary.title, assessmentPlan.summary.assessmentSummary.toolSkillCount, assessmentPlan.summary.description, assessmentPlan.summary.skillCount, assessmentPlan.summary.skillsNullState, assessmentPlan.summary.title, assessmentPlan.title, assessmentType.applicationScreeningQuestion, assessmentType.applicationScreeningQuestion.description, assessmentType.groupTest, assessmentType.groupTest.description, assessmentType.informalPhoneConversation, assessmentType.informalPhoneConversation.description, assessmentType.interview, assessmentType.interview.description, assessmentType.narrativeAssessment, assessmentType.narrativeAssessment.description, assessmentType.narrativeReview.standardAnswer, assessmentType.narrativeReview.standardQuestion, assessmentType.onSiteExam, assessmentType.onSiteExam.description, assessmentType.onlineExam, assessmentType.onlineExam.description, assessmentType.portfolioReview, assessmentType.portfolioReview.description, assessmentType.referenceCheck, assessmentType.referenceCheck.description, assessmentType.seriousGames, assessmentType.seriousGames.description, assessmentType.takeHomeExam, assessmentType.takeHomeExam.description, button.copied, button.copyEmails, button.copyToClipboard, button.toggleAccordion, commentForm.comment.label, commentForm.comment.placeholder, commentForm.commentLocation.label, commentForm.commentLocation.nullSelection, commentForm.commentType.label, commentForm.commentType.nullSelection, commentForm.submitButton.label, commentType.comment, commentType.question, commentType.recommendation, commentType.requiredAction, criteria.asset, criteria.essential, criteriaForm.skillLevelSelectionLabel, criteriaForm.skillSpecificityLabel, criteriaForm.skillSpecificityPlaceholder, criteriaType.asset, criteriaType.essential, demoSubmitJobModal.cancel, demoSubmitJobModal.explanation, demoSubmitJobModal.link, demoSubmitJobModal.link.title, demoSubmitJobModal.title, errorToast.title, formInput.error, formInput.required, formValidation.checkboxRequired, formValidation.invalidSelection, formValidation.required, formValidation.tooLong, formValidation.tooShort, hrJobIndex.departmentPlaceholder, hrJobIndex.jobTitleMissing, hrJobIndex.managerLoading, hrJobIndex.preview, hrJobIndex.reviewDraft, hrJobIndex.viewActivity, hrJobIndex.viewScreeningPlan, hrJobIndex.viewSummary, hrPortal.jobPageIndex.clickToView, hrPortal.jobPageIndex.completedJobsHeader, hrPortal.jobPageIndex.hideAccordion, hrPortal.jobPageIndex.jobActionsEmpty, hrPortal.jobPageIndex.jobActionsHeader, hrPortal.jobPageIndex.jobActionsMessage, hrPortal.jobPageIndex.noJobsCompleted, hrPortal.jobPageIndex.preDepartmentName, hrPortal.jobPageIndex.showAccordion, hrPortal.jobPageIndex.unclaimedJobsEmpty, hrPortal.jobPageIndex.unclaimedJobsMessage, job.daysSinceClosed, jobBuilder.collaborativeness.01.description, jobBuilder.collaborativeness.01.title, jobBuilder.collaborativeness.02.description, jobBuilder.collaborativeness.02.title, jobBuilder.collaborativeness.03.description, jobBuilder.collaborativeness.03.title, jobBuilder.collaborativeness.04.description, jobBuilder.collaborativeness.04.title, jobBuilder.criteriaForm.addSpecificity, jobBuilder.criteriaForm.button.add, jobBuilder.criteriaForm.button.cancel, jobBuilder.criteriaForm.chooseSkillLevel, jobBuilder.criteriaForm.or, jobBuilder.criteriaForm.removeSpecificity, jobBuilder.criteriaForm.skillDefinition, jobBuilder.criterion.requiredSkill, jobBuilder.culturePace.01.description, jobBuilder.culturePace.01.title, jobBuilder.culturePace.02.description, jobBuilder.culturePace.02.title, jobBuilder.culturePace.03.description, jobBuilder.culturePace.03.title, jobBuilder.culturePace.04.description, jobBuilder.culturePace.04.title, jobBuilder.details.SelectClassAndLvlMessage, jobBuilder.details.cityLabel, jobBuilder.details.cityPlaceholder, jobBuilder.details.classificationLabel, jobBuilder.details.classificationNullSelection, jobBuilder.details.classificationOptions.AD, jobBuilder.details.classificationOptions.AS, jobBuilder.details.classificationOptions.BI, jobBuilder.details.classificationOptions.CO, jobBuilder.details.classificationOptions.CR, jobBuilder.details.classificationOptions.CS, jobBuilder.details.classificationOptions.EC, jobBuilder.details.classificationOptions.EX, jobBuilder.details.classificationOptions.FO, jobBuilder.details.classificationOptions.IS, jobBuilder.details.classificationOptions.PC, jobBuilder.details.classificationOptions.PE, jobBuilder.details.classificationOptions.PM, jobBuilder.details.documentTitle, jobBuilder.details.educationMessages.AD, jobBuilder.details.educationMessages.AS, jobBuilder.details.educationMessages.BI, jobBuilder.details.educationMessages.CO, jobBuilder.details.educationMessages.CR, jobBuilder.details.educationMessages.CS, jobBuilder.details.educationMessages.EC, jobBuilder.details.educationMessages.EX, jobBuilder.details.educationMessages.FO, jobBuilder.details.educationMessages.IS, jobBuilder.details.educationMessages.PC, jobBuilder.details.educationMessages.PE, jobBuilder.details.educationMessages.PM, jobBuilder.details.educationRequirementCopyAndPaste, jobBuilder.details.educationRequirementHeader, jobBuilder.details.educationRequirementPlaceholder, jobBuilder.details.educationRequirementReviewChanges, jobBuilder.details.educationRequirementsLabel, jobBuilder.details.flexHoursGroupBody, jobBuilder.details.flexHoursGroupHeader, jobBuilder.details.flexHoursGroupLabel, jobBuilder.details.frequencyAlwaysLabel, jobBuilder.details.frequencyFrequentlyLabel, jobBuilder.details.frequencyNeverLabel, jobBuilder.details.frequencyOccasionallyLabel, jobBuilder.details.frequencySometimesLabel, jobBuilder.details.heading, jobBuilder.details.languageLabel, jobBuilder.details.languageNullSelection, jobBuilder.details.levelLabel, jobBuilder.details.levelNullSelection, jobBuilder.details.modalBody, jobBuilder.details.modalCancelLabel, jobBuilder.details.modalConfirmLabel, jobBuilder.details.modalHeader, jobBuilder.details.modalMiddleLabel, jobBuilder.details.overtimeFrequentlyLabel, jobBuilder.details.overtimeGroupHeader, jobBuilder.details.overtimeGroupLabel, jobBuilder.details.overtimeNoneRequiredLabel, jobBuilder.details.overtimeOpportunitiesAvailableLabel, jobBuilder.details.provinceLabel, jobBuilder.details.provinceNullSelection, jobBuilder.details.remoteWorkCanadaLabel, jobBuilder.details.remoteWorkGroupBody, jobBuilder.details.remoteWorkGroupHeader, jobBuilder.details.remoteWorkGroupLabel, jobBuilder.details.remoteWorkNoneLabel, jobBuilder.details.remoteWorkWorldLabel, jobBuilder.details.returnButtonLabel, jobBuilder.details.securityLevelLabel, jobBuilder.details.securityLevelNullSelection, jobBuilder.details.submitButtonLabel, jobBuilder.details.teleworkGroupBody, jobBuilder.details.teleworkGroupHeader, jobBuilder.details.teleworkGroupLabel, jobBuilder.details.termLengthLabel, jobBuilder.details.termLengthPlaceholder, jobBuilder.details.titleLabel, jobBuilder.details.titlePlaceholder, jobBuilder.details.travelFrequentlyLabel, jobBuilder.details.travelGroupHeader, jobBuilder.details.travelGroupLabel, jobBuilder.details.travelNoneRequiredLabel, jobBuilder.details.travelOpportunitiesAvailableLabel, jobBuilder.experimental.01.description, jobBuilder.experimental.01.title, jobBuilder.experimental.02.description, jobBuilder.experimental.02.title, jobBuilder.experimental.03.description, jobBuilder.experimental.03.title, jobBuilder.experimental.04.description, jobBuilder.experimental.04.title, jobBuilder.facing.01.description, jobBuilder.facing.01.title, jobBuilder.facing.02.description, jobBuilder.facing.02.title, jobBuilder.facing.03.description, jobBuilder.facing.03.title, jobBuilder.facing.04.description, jobBuilder.facing.04.title, jobBuilder.impact.button.goBack, jobBuilder.impact.button.next, jobBuilder.impact.button.nextStep, jobBuilder.impact.button.return, jobBuilder.impact.button.skipToReview, jobBuilder.impact.departmentsLoading, jobBuilder.impact.documentTitle, jobBuilder.impact.header.department, jobBuilder.impact.hireBody, jobBuilder.impact.hireHeader, jobBuilder.impact.hireLabel, jobBuilder.impact.hirePlaceholder, jobBuilder.impact.modalDescription, jobBuilder.impact.modalTitle, jobBuilder.impact.points.counts, jobBuilder.impact.points.highlight, jobBuilder.impact.points.opportunity, jobBuilder.impact.selectDepartment, jobBuilder.impact.teamBody, jobBuilder.impact.teamHeader, jobBuilder.impact.teamLabel, jobBuilder.impact.teamPlaceholder, jobBuilder.impact.title, jobBuilder.impact.unknownDepartment, jobBuilder.impactPreview.title, jobBuilder.intro.accountSettingsLinkText, jobBuilder.intro.accountSettingsLinkTitle, jobBuilder.intro.changeDepartment, jobBuilder.intro.completeInLanguage, jobBuilder.intro.contactUs, jobBuilder.intro.continueButtonLabelEN, jobBuilder.intro.continueButtonLabelFR, jobBuilder.intro.departmentHeader, jobBuilder.intro.departmentLabel, jobBuilder.intro.departmentNullSelection, jobBuilder.intro.divisionLabelEN, jobBuilder.intro.divisionLabelFR, jobBuilder.intro.divisionPlaceholderEN, jobBuilder.intro.divisionPlaceholderFR, jobBuilder.intro.documentTitle, jobBuilder.intro.emailLinkText, jobBuilder.intro.emailLinkTitle, jobBuilder.intro.explanation, jobBuilder.intro.explanation.boldText, jobBuilder.intro.formDescription, jobBuilder.intro.formTitle, jobBuilder.intro.jobTitleLabelEN, jobBuilder.intro.jobTitleLabelFR, jobBuilder.intro.jobTitlePlaceholderEN, jobBuilder.intro.jobTitlePlaceholderFR, jobBuilder.intro.managerLoading, jobBuilder.intro.welcome, jobBuilder.jobLoading, jobBuilder.loading, jobBuilder.mgmtStyle.01.description, jobBuilder.mgmtStyle.01.title, jobBuilder.mgmtStyle.02.description, jobBuilder.mgmtStyle.02.title, jobBuilder.mgmtStyle.03.description, jobBuilder.mgmtStyle.03.title, jobBuilder.mgmtStyle.04.description, jobBuilder.mgmtStyle.04.title, jobBuilder.preview.city, jobBuilder.preview.classification, jobBuilder.preview.classificationEducation, jobBuilder.preview.education, jobBuilder.preview.flexibleHours, jobBuilder.preview.jobInformation, jobBuilder.preview.jobTitle, jobBuilder.preview.languageProfile, jobBuilder.preview.lengthOfTheTerm, jobBuilder.preview.level, jobBuilder.preview.overtime, jobBuilder.preview.province, jobBuilder.preview.remoteWork, jobBuilder.preview.securityClearance, jobBuilder.preview.telework, jobBuilder.preview.termLength, jobBuilder.preview.travel, jobBuilder.preview.workStyles, jobBuilder.progressTracker.label.finish, jobBuilder.progressTracker.label.start, jobBuilder.progressTracker.label.step1, jobBuilder.progressTracker.label.step2, jobBuilder.progressTracker.label.step3, jobBuilder.progressTracker.label.step4, jobBuilder.progressTracker.label.step5, jobBuilder.progressTracker.title.impact, jobBuilder.progressTracker.title.jobInfo, jobBuilder.progressTracker.title.review, jobBuilder.progressTracker.title.skills, jobBuilder.progressTracker.title.tasks, jobBuilder.progressTracker.title.welcome, jobBuilder.progressTracker.title.workEnv, jobBuilder.review.GovernmentClass, jobBuilder.review.assetHeading, jobBuilder.review.averageAnnualSalary, jobBuilder.review.basicInformationHeading, jobBuilder.review.button.return, jobBuilder.review.button.submit, jobBuilder.review.comesLater, jobBuilder.review.confirm.cancel, jobBuilder.review.confirm.submit, jobBuilder.review.confirm.title, jobBuilder.review.criteriaSection, jobBuilder.review.cultureSection, jobBuilder.review.documentTitle, jobBuilder.review.duration, jobBuilder.review.educationalHeading, jobBuilder.review.headsUp, jobBuilder.review.impactEditLink, jobBuilder.review.impactHeading, jobBuilder.review.infoEditLink, jobBuilder.review.jobPageHeading, jobBuilder.review.languageHeading, jobBuilder.review.languageProfile, jobBuilder.review.managerDataLoading, jobBuilder.review.managerHeading, jobBuilder.review.managerIncomplete, jobBuilder.review.managerPosition, jobBuilder.review.managerProfileLink, jobBuilder.review.meantime, jobBuilder.review.months, jobBuilder.review.nullProvince, jobBuilder.review.or, jobBuilder.review.otherInfoHeading, jobBuilder.review.readyToSubmit, jobBuilder.review.remoteAllowed, jobBuilder.review.remoteNotAllowed, jobBuilder.review.reviewYourPoster, jobBuilder.review.securityClearance, jobBuilder.review.sendYourDraft, jobBuilder.review.skills.nullState, jobBuilder.review.skillsEditLink, jobBuilder.review.skillsHeading, jobBuilder.review.tCAdds, jobBuilder.review.targetStartDate, jobBuilder.review.tasksEditLink, jobBuilder.review.tasksHeading, jobBuilder.review.whatHappens, jobBuilder.review.workCultureHeading, jobBuilder.review.workDescription, jobBuilder.review.workEnvEditLink, jobBuilder.review.workEnvHeading, jobBuilder.root.documentTitle, jobBuilder.skills.addSkillBelow, jobBuilder.skills.alt.happyArrow, jobBuilder.skills.alt.happyGraySmiley, jobBuilder.skills.alt.happySmiley, jobBuilder.skills.alt.neutralArrow, jobBuilder.skills.alt.neutralGraySmiley, jobBuilder.skills.alt.neutralSmiley, jobBuilder.skills.alt.unhappyArrow, jobBuilder.skills.alt.unhappyGraySmiley, jobBuilder.skills.alt.unhappySmiley, jobBuilder.skills.button.keyTasks, jobBuilder.skills.button.previewSkills, jobBuilder.skills.button.returnToTasks, jobBuilder.skills.description, jobBuilder.skills.description.keepItUp, jobBuilder.skills.documentTitle, jobBuilder.skills.emailLink, jobBuilder.skills.essentialSkillRequiredError, jobBuilder.skills.instructions.missingSkills, jobBuilder.skills.listTitle, jobBuilder.skills.nullState, jobBuilder.skills.nullText.occupationalSkills, jobBuilder.skills.placeholder.otherSkills, jobBuilder.skills.previewModalCancelLabel, jobBuilder.skills.previewModalConfirmLabel, jobBuilder.skills.previewModalMiddleLabel, jobBuilder.skills.range.culturalSkills, jobBuilder.skills.range.futureSkills, jobBuilder.skills.range.occupationalSkills, jobBuilder.skills.selectSkillLabel, jobBuilder.skills.selectSkillNull, jobBuilder.skills.skillLevel, jobBuilder.skills.statusSmiley.acceptable, jobBuilder.skills.statusSmiley.almost, jobBuilder.skills.statusSmiley.awesome, jobBuilder.skills.statusSmiley.essential.acceptable, jobBuilder.skills.statusSmiley.essential.almost, jobBuilder.skills.statusSmiley.essential.awesome, jobBuilder.skills.statusSmiley.essential.tooFew, jobBuilder.skills.statusSmiley.essential.tooMany, jobBuilder.skills.statusSmiley.essentialTitle, jobBuilder.skills.statusSmiley.title, jobBuilder.skills.statusSmiley.tooFew, jobBuilder.skills.statusSmiley.tooMany, jobBuilder.skills.tasksModalCancelLabel, jobBuilder.skills.title, jobBuilder.skills.title.addASkill, jobBuilder.skills.title.assetSkills, jobBuilder.skills.title.culturalSkills, jobBuilder.skills.title.editSkill, jobBuilder.skills.title.essentialSkills, jobBuilder.skills.title.futureSkills, jobBuilder.skills.title.keepItUp, jobBuilder.skills.title.keyTasks, jobBuilder.skills.title.missingSkill, jobBuilder.skills.title.needsToHave, jobBuilder.skills.title.niceToHave, jobBuilder.skills.title.occupationalSkills, jobBuilder.skills.title.otherSkills, jobBuilder.skills.title.skillSelection, jobBuilder.tasks.addJob, jobBuilder.tasks.documentTitle, jobBuilder.tasks.heading, jobBuilder.tasks.intro.first, jobBuilder.tasks.intro.fourth, jobBuilder.tasks.intro.second, jobBuilder.tasks.intro.third, jobBuilder.tasks.modal.body, jobBuilder.tasks.modal.body.heading, jobBuilder.tasks.modal.cancelButtonLabel, jobBuilder.tasks.modal.confirmButtonLabel, jobBuilder.tasks.modal.middleButtonLabel, jobBuilder.tasks.modal.title, jobBuilder.tasks.preview, jobBuilder.tasks.previous, jobBuilder.tasks.taskCount.error.body, jobBuilder.tasks.taskCount.error.title, jobBuilder.tasks.taskCount.none, jobBuilder.tasks.taskCount.some, jobBuilder.tasks.taskLabel, jobBuilder.tasks.taskPlaceholder, jobBuilder.tasks.tasksMaximum, jobBuilder.tasks.tasksRequired, jobBuilder.workCulture.flexibleHours, jobBuilder.workCulture.flexibleHoursDescription, jobBuilder.workCulture.overtime, jobBuilder.workCulture.overtimeDescription, jobBuilder.workCulture.remoteWork, jobBuilder.workCulture.remoteWorkDescription, jobBuilder.workCulture.remoteWorkMsg.always, jobBuilder.workCulture.remoteWorkMsg.never, jobBuilder.workCulture.telework, jobBuilder.workCulture.teleworkDescription, jobBuilder.workCulture.travel, jobBuilder.workCulture.travelDescription, jobBuilder.workEnv.amenities.cafeteria, jobBuilder.workEnv.amenities.closeToTransit, jobBuilder.workEnv.amenities.downtown, jobBuilder.workEnv.amenities.fitnessCenter, jobBuilder.workEnv.amenities.parking, jobBuilder.workEnv.amenities.restaurants, jobBuilder.workEnv.amenitiesLabel, jobBuilder.workEnv.collaborativeLabel, jobBuilder.workEnv.culture, jobBuilder.workEnv.cultureSubtext1, jobBuilder.workEnv.cultureSubtext2, jobBuilder.workEnv.cultureSummary, jobBuilder.workEnv.cultureSummarySubtext, jobBuilder.workEnv.customCultureSummaryLabel, jobBuilder.workEnv.customCultureSummaryPlaceholder, jobBuilder.workEnv.documentTitle, jobBuilder.workEnv.experimentalLabel, jobBuilder.workEnv.facingLabel, jobBuilder.workEnv.fastPacedSteadyLabel, jobBuilder.workEnv.greatStart, jobBuilder.workEnv.managementLabel, jobBuilder.workEnv.moreOnWorkEnv, jobBuilder.workEnv.moreOnWorkEnvLabel, jobBuilder.workEnv.moreOnWorkEnvPlaceholder, jobBuilder.workEnv.moreOnWorkEnvSubtext, jobBuilder.workEnv.openingSentence, jobBuilder.workEnv.ourWorkEnv, jobBuilder.workEnv.ourWorkEnvDesc, jobBuilder.workEnv.physEnv.assignedSeating, jobBuilder.workEnv.physEnv.naturalLight, jobBuilder.workEnv.physEnv.openConcept, jobBuilder.workEnv.physEnv.private, jobBuilder.workEnv.physEnv.smudging, jobBuilder.workEnv.physEnv.windows, jobBuilder.workEnv.physicalEnvLabel, jobBuilder.workEnv.saveAndReturnButtonLabel, jobBuilder.workEnv.specialWorkCulture, jobBuilder.workEnv.specialWorkCultureLabel, jobBuilder.workEnv.specialWorkCultureSubtext, jobBuilder.workEnv.stepDescription, jobBuilder.workEnv.submitButtonLabel, jobBuilder.workEnv.teamSizeLabel, jobBuilder.workEnv.teamSizePlaceholder, jobBuilder.workEnv.technology.accessToExternal, jobBuilder.workEnv.technology.collaboration, jobBuilder.workEnv.technology.fileSharing, jobBuilder.workEnv.technology.taskManagement, jobBuilder.workEnv.technology.versionControl, jobBuilder.workEnv.technology.videoConferencing, jobBuilder.workEnv.technologyLabel, jobBuilder.workEnv.textAreaPlaceholder1, jobBuilder.workEnv.thisIsOptional, jobBuilder.workEnv.title, jobBuilder.workEnvModal.cancelLabel, jobBuilder.workEnvModal.confirmLabel, jobBuilder.workEnvModal.modalMiddleLabel, jobBuilder.workEnvModal.title, jobBuilder.workEnvModal.workCultureTitle, jobCard.applicants, jobCard.managerTime, jobCard.noActivity, jobCard.userTime, jobReviewHr.headsUp, jobReviewHr.loadingIconText, jobReviewHr.reviewYourPoster, jobReviewHr.summaryLink, jobStatus.approved, jobStatus.completed, jobStatus.draft, jobStatus.finalReview, jobStatus.published, jobStatus.review, jobStatus.translation, languageRequirement.bilingualAdvanced, languageRequirement.bilingualIntermediate, languageRequirement.context.basic, languageRequirement.context.expanded, languageRequirement.description.bilingualAdvanced, languageRequirement.description.bilingualIntermediate, languageRequirement.description.english, languageRequirement.description.englishOrFrench, languageRequirement.description.french, languageRequirement.english, languageRequirement.englishOrFrench, languageRequirement.french, managerSurveyModal.explanation, managerSurveyModal.jobPosterLink, managerSurveyModal.jobPosterLinkTitle, managerSurveyModal.link, managerSurveyModal.managerSurveyLinkTitle, managerSurveyModal.title, openJobCard.claimJob, openJobCard.error, openJobCard.hiringManager, openJobCard.hrAdvisors, openJobCard.reviewRequested, openJobCard.unclaimed, progressTracker.unreachableStep, province.ab, province.ab.abreviation, province.bc, province.bc.abreviation, province.mb, province.mb.abreviation, province.nb, province.nb.abreviation, province.nl, province.nl.abreviation, province.ns, province.ns.abreviation, province.nt, province.nt.abreviation, province.nu, province.nu.abreviation, province.on, province.on.abreviation, province.pe, province.pe.abreviation, province.qc, province.qc.abreviation, province.sk, province.sk.abreviation, province.yk, province.yk.abreviation, ratingGuideAnswer.answerLabel, ratingGuideAnswer.answerPlaceholder, ratingGuideAnswer.nullSelection, ratingGuideAnswer.selectLabel, ratingGuideBuilder.addQuestion, ratingGuideBuilder.assetMissing, ratingGuideBuilder.copyButton, ratingGuideBuilder.copyInstructions, ratingGuideBuilder.criteriaName, ratingGuideBuilder.criteriaTypeHeading, ratingGuideBuilder.essentialMissing, ratingGuideBuilder.instructions, ratingGuideBuilder.narrativeSectionTitle, ratingGuideBuilder.questionHeading, ratingGuideBuilder.ratingGuideHeading, ratingGuideBuilder.sectionTitle, ratingGuideBuilder.skillDescriptionHeading, ratingGuideBuilder.skillHeading, ratingGuideBuilder.targetLevelHeading, ratingGuideBuilder.title, ratingGuideBuilder.titleHeading, ratingGuideQuestion.questionLabel, ratingGuideQuestion.questionPlaceholder, review.applications.alert.oops, review.applications.button.confirm, review.applications.indexPageTitle, review.applications.nonCitizens.description, review.applications.nonCitizens.title, review.applications.optionalConsideration.description, review.applications.optionalConsideration.title, review.applications.priorityApplicants.description, review.applications.priorityApplicants.title, review.applications.reviewSaveFailed, review.applications.screenOutAll, review.applications.screenOutAll.confirm, review.applications.screenedOut.description, review.applications.screenedOut.title, review.applications.underConsideration.description, review.applications.underConsideration.title, review.applications.unqualified.description, review.applications.unqualified.title, review.applications.veteransAndCitizens.description, review.applications.veteransAndCitizens.title, reviewLocations.jpb.basicInfo, reviewLocations.jpb.environment, reviewLocations.jpb.generic, reviewLocations.jpb.heading, reviewLocations.jpb.impact, reviewLocations.jpb.langRequirements, reviewLocations.jpb.skills, reviewLocations.jpb.tasks, securityClearance.reliability, securityClearance.secret, securityClearance.topSecret, skillLevel.asset.description, skillLevel.asset.name, skillLevel.hard.advanced.description, skillLevel.hard.advanced.name, skillLevel.hard.basic.description, skillLevel.hard.basic.name, skillLevel.hard.expert.description, skillLevel.hard.expert.name, skillLevel.hard.intermediate.description, skillLevel.hard.intermediate.name, skillLevel.soft.advanced.description, skillLevel.soft.advanced.name, skillLevel.soft.basic.description, skillLevel.soft.basic.name, skillLevel.soft.expert.description, skillLevel.soft.expert.name, skillLevel.soft.intermediate.description, skillLevel.soft.intermediate.name, wordCounter.skills.longMessage, wordCounter.skills.placeholder, wordCounter.skills.shortMessage, wordCounter.skills.slightlyLongMessage, wordCounter.skills.veryLongMessage, wordCounter.skills.veryShortMessage, default */
+/*! exports provided: activity.commentLocation.label, activity.commentMetadata, activity.viewComment.label, activityfeed.accordionAccessibleLabel, activityfeed.error, activityfeed.header, activityfeed.loading, activityfeed.loadingIconText, activityfeed.locations.applicantReview.general, activityfeed.locations.applicantReview.notUnderConsideration, activityfeed.locations.applicantReview.optionalConsideration, activityfeed.locations.applicantReview.underConsideration, activityfeed.locations.applications, activityfeed.locations.hr.preview, activityfeed.locations.hr.summary, activityfeed.locations.notFound, activityfeed.locations.review, activityfeed.locations.review.basicInfo, activityfeed.locations.review.environment, activityfeed.locations.review.general, activityfeed.locations.review.heading, activityfeed.locations.review.impact, activityfeed.locations.review.langRequirements, activityfeed.locations.review.skills, activityfeed.locations.review.tasks, activityfeed.locations.screeningPlan, activityfeed.locations.screeningPlan.builder, activityfeed.locations.screeningPlan.general, activityfeed.locations.screeningPlan.ratings, activityfeed.locations.screeningPlan.summary, activityfeed.noActivities, activityfeed.review.accordionAccessibleLabel, activityfeed.review.header, activityfeed.review.loadingIconText, activityfeed.title, application.review.addNote, application.review.alert.oops, application.review.backToApplicantList, application.review.button.cancel, application.review.button.confirm, application.review.button.save, application.review.button.saved, application.review.button.saving, application.review.button.viewJobPoster, application.review.collapseAllSkills, application.review.decision, application.review.editNote, application.review.emailCandidateLinkTitle, application.review.expandAllSkills, application.review.priorityStatus.priority, application.review.priorityStatus.priorityLogoTitle, application.review.reviewSaveFailed, application.review.reviewStatus.notReviewed, application.review.reviewStatus.screenedOut, application.review.reviewStatus.stillIn, application.review.reviewStatus.stillThinking, application.review.screenInConfirm, application.review.screenOutConfirm, application.review.veteranStatus.veteran, application.review.veteranStatus.veteranLogoAlt, application.review.viewApplication, application.review.viewApplicationLinkTitle, application.review.viewProfile, application.review.viewProfileLinkTitle, assessmentPlan.addAssessmentButton, assessmentPlan.alert.checking, assessmentPlan.alert.created, assessmentPlan.alert.deleted, assessmentPlan.alert.explanation, assessmentPlan.alert.skillAndLevelUpdated, assessmentPlan.alert.skillLevelUpdated, assessmentPlan.alert.skillUpdated, assessmentPlan.alert.title, assessmentPlan.assessmentPlanBuilder.instructions, assessmentPlan.assessmentPlanBuilder.shortDescription, assessmentPlan.assessmentPlanBuilder.title, assessmentPlan.assessmentPlanSummary.shortDescription, assessmentPlan.assessmentPlanSummary.title, assessmentPlan.assessmentTypesLabel, assessmentPlan.assetCriteria.nullState, assessmentPlan.criteriaTitle, assessmentPlan.essentialCriteria.nullState, assessmentPlan.instructions.intro, assessmentPlan.instructions.narrativeNote, assessmentPlan.pageTitle, assessmentPlan.ratingGuideBuilder.shortDescription, assessmentPlan.ratingGuideBuilder.title, assessmentPlan.selectAssessment.label, assessmentPlan.selectAssessment.null, assessmentPlan.skillDescriptionLabel, assessmentPlan.skillLevelDescriptionLabel, assessmentPlan.summary.assessmentSummary.noAssessments, assessmentPlan.summary.assessmentSummary.title, assessmentPlan.summary.assessmentSummary.toolSkillCount, assessmentPlan.summary.description, assessmentPlan.summary.skillCount, assessmentPlan.summary.skillsNullState, assessmentPlan.summary.title, assessmentPlan.title, assessmentType.applicationScreeningQuestion, assessmentType.applicationScreeningQuestion.description, assessmentType.groupTest, assessmentType.groupTest.description, assessmentType.informalPhoneConversation, assessmentType.informalPhoneConversation.description, assessmentType.interview, assessmentType.interview.description, assessmentType.narrativeAssessment, assessmentType.narrativeAssessment.description, assessmentType.narrativeReview.standardAnswer, assessmentType.narrativeReview.standardQuestion, assessmentType.onSiteExam, assessmentType.onSiteExam.description, assessmentType.onlineExam, assessmentType.onlineExam.description, assessmentType.portfolioReview, assessmentType.portfolioReview.description, assessmentType.referenceCheck, assessmentType.referenceCheck.description, assessmentType.seriousGames, assessmentType.seriousGames.description, assessmentType.takeHomeExam, assessmentType.takeHomeExam.description, button.copied, button.copyEmails, button.copyToClipboard, button.toggleAccordion, commentForm.comment.label, commentForm.comment.placeholder, commentForm.commentLocation.label, commentForm.commentLocation.nullSelection, commentForm.commentType.label, commentForm.commentType.nullSelection, commentForm.submitButton.label, commentType.comment, commentType.question, commentType.recommendation, commentType.requiredAction, criteria.asset, criteria.essential, criteriaForm.skillLevelSelectionLabel, criteriaForm.skillSpecificityLabel, criteriaForm.skillSpecificityPlaceholder, criteriaType.asset, criteriaType.essential, demoSubmitJobModal.cancel, demoSubmitJobModal.explanation, demoSubmitJobModal.link, demoSubmitJobModal.link.title, demoSubmitJobModal.title, errorToast.title, formInput.error, formInput.required, formValidation.checkboxRequired, formValidation.invalidSelection, formValidation.required, formValidation.tooLong, formValidation.tooShort, hrJobIndex.departmentPlaceholder, hrJobIndex.jobTitleMissing, hrJobIndex.managerLoading, hrJobIndex.preview, hrJobIndex.reviewDraft, hrJobIndex.viewActivity, hrJobIndex.viewScreeningPlan, hrJobIndex.viewSummary, hrPortal.jobPageIndex.clickToView, hrPortal.jobPageIndex.completedJobsHeader, hrPortal.jobPageIndex.hideAccordion, hrPortal.jobPageIndex.jobActionsEmpty, hrPortal.jobPageIndex.jobActionsHeader, hrPortal.jobPageIndex.jobActionsMessage, hrPortal.jobPageIndex.noJobsCompleted, hrPortal.jobPageIndex.preDepartmentName, hrPortal.jobPageIndex.showAccordion, hrPortal.jobPageIndex.unclaimedJobsEmpty, hrPortal.jobPageIndex.unclaimedJobsMessage, job.daysSinceClosed, jobBuilder.collaborativeness.01.description, jobBuilder.collaborativeness.01.title, jobBuilder.collaborativeness.02.description, jobBuilder.collaborativeness.02.title, jobBuilder.collaborativeness.03.description, jobBuilder.collaborativeness.03.title, jobBuilder.collaborativeness.04.description, jobBuilder.collaborativeness.04.title, jobBuilder.criteriaForm.addSpecificity, jobBuilder.criteriaForm.button.add, jobBuilder.criteriaForm.button.cancel, jobBuilder.criteriaForm.chooseSkillLevel, jobBuilder.criteriaForm.or, jobBuilder.criteriaForm.removeSpecificity, jobBuilder.criteriaForm.skillDefinition, jobBuilder.criterion.requiredSkill, jobBuilder.culturePace.01.description, jobBuilder.culturePace.01.title, jobBuilder.culturePace.02.description, jobBuilder.culturePace.02.title, jobBuilder.culturePace.03.description, jobBuilder.culturePace.03.title, jobBuilder.culturePace.04.description, jobBuilder.culturePace.04.title, jobBuilder.details.SelectClassAndLvlMessage, jobBuilder.details.cityLabel, jobBuilder.details.cityPlaceholder, jobBuilder.details.classificationLabel, jobBuilder.details.classificationNullSelection, jobBuilder.details.classificationOptions.AD, jobBuilder.details.classificationOptions.AS, jobBuilder.details.classificationOptions.BI, jobBuilder.details.classificationOptions.CO, jobBuilder.details.classificationOptions.CR, jobBuilder.details.classificationOptions.CS, jobBuilder.details.classificationOptions.EC, jobBuilder.details.classificationOptions.EX, jobBuilder.details.classificationOptions.FO, jobBuilder.details.classificationOptions.IS, jobBuilder.details.classificationOptions.PC, jobBuilder.details.classificationOptions.PE, jobBuilder.details.classificationOptions.PM, jobBuilder.details.documentTitle, jobBuilder.details.educationMessages.AD, jobBuilder.details.educationMessages.AS, jobBuilder.details.educationMessages.BI, jobBuilder.details.educationMessages.CO, jobBuilder.details.educationMessages.CR, jobBuilder.details.educationMessages.CS, jobBuilder.details.educationMessages.EC, jobBuilder.details.educationMessages.EX, jobBuilder.details.educationMessages.FO, jobBuilder.details.educationMessages.IS, jobBuilder.details.educationMessages.PC, jobBuilder.details.educationMessages.PE, jobBuilder.details.educationMessages.PM, jobBuilder.details.educationRequirementCopyAndPaste, jobBuilder.details.educationRequirementHeader, jobBuilder.details.educationRequirementPlaceholder, jobBuilder.details.educationRequirementReviewChanges, jobBuilder.details.educationRequirementsLabel, jobBuilder.details.flexHoursGroupBody, jobBuilder.details.flexHoursGroupHeader, jobBuilder.details.flexHoursGroupLabel, jobBuilder.details.frequencyAlwaysLabel, jobBuilder.details.frequencyFrequentlyLabel, jobBuilder.details.frequencyNeverLabel, jobBuilder.details.frequencyOccasionallyLabel, jobBuilder.details.frequencySometimesLabel, jobBuilder.details.heading, jobBuilder.details.languageLabel, jobBuilder.details.languageNullSelection, jobBuilder.details.levelLabel, jobBuilder.details.levelNullSelection, jobBuilder.details.modalBody, jobBuilder.details.modalCancelLabel, jobBuilder.details.modalConfirmLabel, jobBuilder.details.modalHeader, jobBuilder.details.modalMiddleLabel, jobBuilder.details.overtimeFrequentlyLabel, jobBuilder.details.overtimeGroupHeader, jobBuilder.details.overtimeGroupLabel, jobBuilder.details.overtimeNoneRequiredLabel, jobBuilder.details.overtimeOpportunitiesAvailableLabel, jobBuilder.details.provinceLabel, jobBuilder.details.provinceNullSelection, jobBuilder.details.remoteWorkCanadaLabel, jobBuilder.details.remoteWorkGroupBody, jobBuilder.details.remoteWorkGroupHeader, jobBuilder.details.remoteWorkGroupLabel, jobBuilder.details.remoteWorkNoneLabel, jobBuilder.details.remoteWorkWorldLabel, jobBuilder.details.returnButtonLabel, jobBuilder.details.securityLevelLabel, jobBuilder.details.securityLevelNullSelection, jobBuilder.details.submitButtonLabel, jobBuilder.details.teleworkGroupBody, jobBuilder.details.teleworkGroupHeader, jobBuilder.details.teleworkGroupLabel, jobBuilder.details.termLengthLabel, jobBuilder.details.termLengthPlaceholder, jobBuilder.details.titleLabel, jobBuilder.details.titlePlaceholder, jobBuilder.details.travelFrequentlyLabel, jobBuilder.details.travelGroupHeader, jobBuilder.details.travelGroupLabel, jobBuilder.details.travelNoneRequiredLabel, jobBuilder.details.travelOpportunitiesAvailableLabel, jobBuilder.experimental.01.description, jobBuilder.experimental.01.title, jobBuilder.experimental.02.description, jobBuilder.experimental.02.title, jobBuilder.experimental.03.description, jobBuilder.experimental.03.title, jobBuilder.experimental.04.description, jobBuilder.experimental.04.title, jobBuilder.facing.01.description, jobBuilder.facing.01.title, jobBuilder.facing.02.description, jobBuilder.facing.02.title, jobBuilder.facing.03.description, jobBuilder.facing.03.title, jobBuilder.facing.04.description, jobBuilder.facing.04.title, jobBuilder.impact.button.goBack, jobBuilder.impact.button.next, jobBuilder.impact.button.nextStep, jobBuilder.impact.button.return, jobBuilder.impact.button.skipToReview, jobBuilder.impact.departmentsLoading, jobBuilder.impact.documentTitle, jobBuilder.impact.header.department, jobBuilder.impact.hireBody, jobBuilder.impact.hireHeader, jobBuilder.impact.hireLabel, jobBuilder.impact.hirePlaceholder, jobBuilder.impact.modalDescription, jobBuilder.impact.modalTitle, jobBuilder.impact.points.counts, jobBuilder.impact.points.highlight, jobBuilder.impact.points.opportunity, jobBuilder.impact.selectDepartment, jobBuilder.impact.teamBody, jobBuilder.impact.teamHeader, jobBuilder.impact.teamLabel, jobBuilder.impact.teamPlaceholder, jobBuilder.impact.title, jobBuilder.impact.unknownDepartment, jobBuilder.impactPreview.title, jobBuilder.intro.accountSettingsLinkText, jobBuilder.intro.accountSettingsLinkTitle, jobBuilder.intro.changeDepartment, jobBuilder.intro.completeInLanguage, jobBuilder.intro.contactUs, jobBuilder.intro.continueButtonLabelEN, jobBuilder.intro.continueButtonLabelFR, jobBuilder.intro.departmentHeader, jobBuilder.intro.departmentLabel, jobBuilder.intro.departmentNullSelection, jobBuilder.intro.divisionLabelEN, jobBuilder.intro.divisionLabelFR, jobBuilder.intro.divisionPlaceholderEN, jobBuilder.intro.divisionPlaceholderFR, jobBuilder.intro.documentTitle, jobBuilder.intro.emailLinkText, jobBuilder.intro.emailLinkTitle, jobBuilder.intro.explanation, jobBuilder.intro.explanation.boldText, jobBuilder.intro.formDescription, jobBuilder.intro.formTitle, jobBuilder.intro.jobTitleLabelEN, jobBuilder.intro.jobTitleLabelFR, jobBuilder.intro.jobTitlePlaceholderEN, jobBuilder.intro.jobTitlePlaceholderFR, jobBuilder.intro.managerLoading, jobBuilder.intro.welcome, jobBuilder.jobLoading, jobBuilder.loading, jobBuilder.mgmtStyle.01.description, jobBuilder.mgmtStyle.01.title, jobBuilder.mgmtStyle.02.description, jobBuilder.mgmtStyle.02.title, jobBuilder.mgmtStyle.03.description, jobBuilder.mgmtStyle.03.title, jobBuilder.mgmtStyle.04.description, jobBuilder.mgmtStyle.04.title, jobBuilder.preview.city, jobBuilder.preview.classification, jobBuilder.preview.classificationEducation, jobBuilder.preview.education, jobBuilder.preview.flexibleHours, jobBuilder.preview.jobInformation, jobBuilder.preview.jobTitle, jobBuilder.preview.languageProfile, jobBuilder.preview.lengthOfTheTerm, jobBuilder.preview.level, jobBuilder.preview.overtime, jobBuilder.preview.province, jobBuilder.preview.remoteWork, jobBuilder.preview.securityClearance, jobBuilder.preview.telework, jobBuilder.preview.termLength, jobBuilder.preview.travel, jobBuilder.preview.workStyles, jobBuilder.progressTracker.label.finish, jobBuilder.progressTracker.label.start, jobBuilder.progressTracker.label.step1, jobBuilder.progressTracker.label.step2, jobBuilder.progressTracker.label.step3, jobBuilder.progressTracker.label.step4, jobBuilder.progressTracker.label.step5, jobBuilder.progressTracker.title.impact, jobBuilder.progressTracker.title.jobInfo, jobBuilder.progressTracker.title.review, jobBuilder.progressTracker.title.skills, jobBuilder.progressTracker.title.tasks, jobBuilder.progressTracker.title.welcome, jobBuilder.progressTracker.title.workEnv, jobBuilder.review.GovernmentClass, jobBuilder.review.assetHeading, jobBuilder.review.averageAnnualSalary, jobBuilder.review.basicInformationHeading, jobBuilder.review.button.return, jobBuilder.review.button.submit, jobBuilder.review.comesLater, jobBuilder.review.confirm.cancel, jobBuilder.review.confirm.submit, jobBuilder.review.confirm.title, jobBuilder.review.criteriaSection, jobBuilder.review.cultureSection, jobBuilder.review.documentTitle, jobBuilder.review.duration, jobBuilder.review.educationalHeading, jobBuilder.review.headsUp, jobBuilder.review.impactEditLink, jobBuilder.review.impactHeading, jobBuilder.review.infoEditLink, jobBuilder.review.jobPageHeading, jobBuilder.review.languageHeading, jobBuilder.review.languageProfile, jobBuilder.review.managerDataLoading, jobBuilder.review.managerHeading, jobBuilder.review.managerIncomplete, jobBuilder.review.managerPosition, jobBuilder.review.managerProfileLink, jobBuilder.review.meantime, jobBuilder.review.months, jobBuilder.review.nullProvince, jobBuilder.review.or, jobBuilder.review.otherInfoHeading, jobBuilder.review.readyToSubmit, jobBuilder.review.remoteAllowed, jobBuilder.review.remoteNotAllowed, jobBuilder.review.reviewYourPoster, jobBuilder.review.securityClearance, jobBuilder.review.sendYourDraft, jobBuilder.review.skills.nullState, jobBuilder.review.skillsEditLink, jobBuilder.review.skillsHeading, jobBuilder.review.tCAdds, jobBuilder.review.targetStartDate, jobBuilder.review.tasksEditLink, jobBuilder.review.tasksHeading, jobBuilder.review.whatHappens, jobBuilder.review.workCultureHeading, jobBuilder.review.workDescription, jobBuilder.review.workEnvEditLink, jobBuilder.review.workEnvHeading, jobBuilder.root.documentTitle, jobBuilder.skills.addSkillBelow, jobBuilder.skills.alt.happyArrow, jobBuilder.skills.alt.happyGraySmiley, jobBuilder.skills.alt.happySmiley, jobBuilder.skills.alt.neutralArrow, jobBuilder.skills.alt.neutralGraySmiley, jobBuilder.skills.alt.neutralSmiley, jobBuilder.skills.alt.unhappyArrow, jobBuilder.skills.alt.unhappyGraySmiley, jobBuilder.skills.alt.unhappySmiley, jobBuilder.skills.button.keyTasks, jobBuilder.skills.button.previewSkills, jobBuilder.skills.button.returnToTasks, jobBuilder.skills.description, jobBuilder.skills.description.keepItUp, jobBuilder.skills.documentTitle, jobBuilder.skills.emailLink, jobBuilder.skills.essentialSkillRequiredError, jobBuilder.skills.instructions.missingSkills, jobBuilder.skills.listTitle, jobBuilder.skills.nullState, jobBuilder.skills.nullText.occupationalSkills, jobBuilder.skills.placeholder.otherSkills, jobBuilder.skills.previewModalCancelLabel, jobBuilder.skills.previewModalConfirmLabel, jobBuilder.skills.previewModalMiddleLabel, jobBuilder.skills.range.culturalSkills, jobBuilder.skills.range.futureSkills, jobBuilder.skills.range.occupationalSkills, jobBuilder.skills.selectSkillLabel, jobBuilder.skills.selectSkillNull, jobBuilder.skills.skillLevel, jobBuilder.skills.statusSmiley.acceptable, jobBuilder.skills.statusSmiley.almost, jobBuilder.skills.statusSmiley.awesome, jobBuilder.skills.statusSmiley.essential.acceptable, jobBuilder.skills.statusSmiley.essential.almost, jobBuilder.skills.statusSmiley.essential.awesome, jobBuilder.skills.statusSmiley.essential.tooFew, jobBuilder.skills.statusSmiley.essential.tooMany, jobBuilder.skills.statusSmiley.essentialTitle, jobBuilder.skills.statusSmiley.title, jobBuilder.skills.statusSmiley.tooFew, jobBuilder.skills.statusSmiley.tooMany, jobBuilder.skills.tasksModalCancelLabel, jobBuilder.skills.title, jobBuilder.skills.title.addASkill, jobBuilder.skills.title.assetSkills, jobBuilder.skills.title.culturalSkills, jobBuilder.skills.title.editSkill, jobBuilder.skills.title.essentialSkills, jobBuilder.skills.title.futureSkills, jobBuilder.skills.title.keepItUp, jobBuilder.skills.title.keyTasks, jobBuilder.skills.title.missingSkill, jobBuilder.skills.title.needsToHave, jobBuilder.skills.title.niceToHave, jobBuilder.skills.title.occupationalSkills, jobBuilder.skills.title.otherSkills, jobBuilder.skills.title.skillSelection, jobBuilder.tasks.addJob, jobBuilder.tasks.documentTitle, jobBuilder.tasks.heading, jobBuilder.tasks.intro.first, jobBuilder.tasks.intro.fourth, jobBuilder.tasks.intro.second, jobBuilder.tasks.intro.third, jobBuilder.tasks.modal.body, jobBuilder.tasks.modal.body.heading, jobBuilder.tasks.modal.cancelButtonLabel, jobBuilder.tasks.modal.confirmButtonLabel, jobBuilder.tasks.modal.middleButtonLabel, jobBuilder.tasks.modal.title, jobBuilder.tasks.preview, jobBuilder.tasks.previous, jobBuilder.tasks.taskCount.error.body, jobBuilder.tasks.taskCount.error.title, jobBuilder.tasks.taskCount.none, jobBuilder.tasks.taskCount.some, jobBuilder.tasks.taskLabel, jobBuilder.tasks.taskPlaceholder, jobBuilder.tasks.tasksMaximum, jobBuilder.tasks.tasksRequired, jobBuilder.workCulture.flexibleHours, jobBuilder.workCulture.flexibleHoursDescription, jobBuilder.workCulture.overtime, jobBuilder.workCulture.overtimeDescription, jobBuilder.workCulture.remoteWork, jobBuilder.workCulture.remoteWorkDescription, jobBuilder.workCulture.remoteWorkMsg.always, jobBuilder.workCulture.remoteWorkMsg.never, jobBuilder.workCulture.telework, jobBuilder.workCulture.teleworkDescription, jobBuilder.workCulture.travel, jobBuilder.workCulture.travelDescription, jobBuilder.workEnv.amenities.cafeteria, jobBuilder.workEnv.amenities.closeToTransit, jobBuilder.workEnv.amenities.downtown, jobBuilder.workEnv.amenities.fitnessCenter, jobBuilder.workEnv.amenities.parking, jobBuilder.workEnv.amenities.restaurants, jobBuilder.workEnv.amenitiesLabel, jobBuilder.workEnv.collaborativeLabel, jobBuilder.workEnv.culture, jobBuilder.workEnv.cultureSubtext1, jobBuilder.workEnv.cultureSubtext2, jobBuilder.workEnv.cultureSummary, jobBuilder.workEnv.cultureSummarySubtext, jobBuilder.workEnv.customCultureSummaryLabel, jobBuilder.workEnv.customCultureSummaryPlaceholder, jobBuilder.workEnv.documentTitle, jobBuilder.workEnv.experimentalLabel, jobBuilder.workEnv.facingLabel, jobBuilder.workEnv.fastPacedSteadyLabel, jobBuilder.workEnv.greatStart, jobBuilder.workEnv.managementLabel, jobBuilder.workEnv.moreOnWorkEnv, jobBuilder.workEnv.moreOnWorkEnvLabel, jobBuilder.workEnv.moreOnWorkEnvPlaceholder, jobBuilder.workEnv.moreOnWorkEnvSubtext, jobBuilder.workEnv.openingSentence, jobBuilder.workEnv.ourWorkEnv, jobBuilder.workEnv.ourWorkEnvDesc, jobBuilder.workEnv.physEnv.assignedSeating, jobBuilder.workEnv.physEnv.naturalLight, jobBuilder.workEnv.physEnv.openConcept, jobBuilder.workEnv.physEnv.private, jobBuilder.workEnv.physEnv.smudging, jobBuilder.workEnv.physEnv.windows, jobBuilder.workEnv.physicalEnvLabel, jobBuilder.workEnv.saveAndReturnButtonLabel, jobBuilder.workEnv.specialWorkCulture, jobBuilder.workEnv.specialWorkCultureLabel, jobBuilder.workEnv.specialWorkCultureSubtext, jobBuilder.workEnv.stepDescription, jobBuilder.workEnv.submitButtonLabel, jobBuilder.workEnv.teamSizeLabel, jobBuilder.workEnv.teamSizePlaceholder, jobBuilder.workEnv.technology.accessToExternal, jobBuilder.workEnv.technology.collaboration, jobBuilder.workEnv.technology.fileSharing, jobBuilder.workEnv.technology.taskManagement, jobBuilder.workEnv.technology.versionControl, jobBuilder.workEnv.technology.videoConferencing, jobBuilder.workEnv.technologyLabel, jobBuilder.workEnv.textAreaPlaceholder1, jobBuilder.workEnv.thisIsOptional, jobBuilder.workEnv.title, jobBuilder.workEnvModal.cancelLabel, jobBuilder.workEnvModal.confirmLabel, jobBuilder.workEnvModal.modalMiddleLabel, jobBuilder.workEnvModal.title, jobBuilder.workEnvModal.workCultureTitle, jobCard.applicants, jobCard.managerTime, jobCard.noActivity, jobCard.userTime, jobReviewHr.headsUp, jobReviewHr.loadingIconText, jobReviewHr.reviewYourPoster, jobReviewHr.summaryLink, languageRequirement.bilingualAdvanced, languageRequirement.bilingualIntermediate, languageRequirement.context.basic, languageRequirement.context.expanded, languageRequirement.description.bilingualAdvanced, languageRequirement.description.bilingualIntermediate, languageRequirement.description.english, languageRequirement.description.englishOrFrench, languageRequirement.description.french, languageRequirement.english, languageRequirement.englishOrFrench, languageRequirement.french, managerSurveyModal.explanation, managerSurveyModal.jobPosterLink, managerSurveyModal.jobPosterLinkTitle, managerSurveyModal.link, managerSurveyModal.managerSurveyLinkTitle, managerSurveyModal.title, openJobCard.claimJob, openJobCard.error, openJobCard.hiringManager, openJobCard.hrAdvisors, openJobCard.reviewRequested, openJobCard.unclaimed, progressTracker.unreachableStep, province.ab, province.ab.abreviation, province.bc, province.bc.abreviation, province.mb, province.mb.abreviation, province.nb, province.nb.abreviation, province.nl, province.nl.abreviation, province.ns, province.ns.abreviation, province.nt, province.nt.abreviation, province.nu, province.nu.abreviation, province.on, province.on.abreviation, province.pe, province.pe.abreviation, province.qc, province.qc.abreviation, province.sk, province.sk.abreviation, province.yk, province.yk.abreviation, ratingGuideAnswer.answerLabel, ratingGuideAnswer.answerPlaceholder, ratingGuideAnswer.nullSelection, ratingGuideAnswer.selectLabel, ratingGuideBuilder.addQuestion, ratingGuideBuilder.assetMissing, ratingGuideBuilder.copyButton, ratingGuideBuilder.copyInstructions, ratingGuideBuilder.criteriaName, ratingGuideBuilder.criteriaTypeHeading, ratingGuideBuilder.essentialMissing, ratingGuideBuilder.instructions, ratingGuideBuilder.narrativeSectionTitle, ratingGuideBuilder.questionHeading, ratingGuideBuilder.ratingGuideHeading, ratingGuideBuilder.sectionTitle, ratingGuideBuilder.skillDescriptionHeading, ratingGuideBuilder.skillHeading, ratingGuideBuilder.targetLevelHeading, ratingGuideBuilder.title, ratingGuideBuilder.titleHeading, ratingGuideQuestion.questionLabel, ratingGuideQuestion.questionPlaceholder, review.applications.alert.oops, review.applications.button.confirm, review.applications.indexPageTitle, review.applications.nonCitizens.description, review.applications.nonCitizens.title, review.applications.optionalConsideration.description, review.applications.optionalConsideration.title, review.applications.priorityApplicants.description, review.applications.priorityApplicants.title, review.applications.reviewSaveFailed, review.applications.screenOutAll, review.applications.screenOutAll.confirm, review.applications.screenedOut.description, review.applications.screenedOut.title, review.applications.underConsideration.description, review.applications.underConsideration.title, review.applications.unqualified.description, review.applications.unqualified.title, review.applications.veteransAndCitizens.description, review.applications.veteransAndCitizens.title, reviewLocations.jpb.basicInfo, reviewLocations.jpb.environment, reviewLocations.jpb.generic, reviewLocations.jpb.heading, reviewLocations.jpb.impact, reviewLocations.jpb.langRequirements, reviewLocations.jpb.skills, reviewLocations.jpb.tasks, securityClearance.reliability, securityClearance.secret, securityClearance.topSecret, skillLevel.asset.description, skillLevel.asset.name, skillLevel.hard.advanced.description, skillLevel.hard.advanced.name, skillLevel.hard.basic.description, skillLevel.hard.basic.name, skillLevel.hard.expert.description, skillLevel.hard.expert.name, skillLevel.hard.intermediate.description, skillLevel.hard.intermediate.name, skillLevel.soft.advanced.description, skillLevel.soft.advanced.name, skillLevel.soft.basic.description, skillLevel.soft.basic.name, skillLevel.soft.expert.description, skillLevel.soft.expert.name, skillLevel.soft.intermediate.description, skillLevel.soft.intermediate.name, wordCounter.skills.longMessage, wordCounter.skills.placeholder, wordCounter.skills.shortMessage, wordCounter.skills.slightlyLongMessage, wordCounter.skills.veryLongMessage, wordCounter.skills.veryShortMessage, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"activity.commentLocation.label\":\"Commentaire trouvé\",\"activity.commentMetadata\":\"{name} ({userRole}) a commenté à {time}.\",\"activity.viewComment.label\":\"Visualiser le commentaire\",\"activityfeed.accordionAccessibleLabel\":\"Cliquez pour voir...\",\"activityfeed.error\":\"Une erreur s'est produite\",\"activityfeed.header\":\"Cliquez pour voir les commentaires {totalActivities}\",\"activityfeed.loading\":\"Chargement de vos activités...\",\"activityfeed.loadingIconText\":\"Nombre d'activités est en cours de chargement...\",\"activityfeed.locations.applicantReview.general\":\"Général\",\"activityfeed.locations.applicantReview.notUnderConsideration\":\"Candidats qui ne sont plus considérés\",\"activityfeed.locations.applicantReview.optionalConsideration\":\"Candidats supplémentaires\",\"activityfeed.locations.applicantReview.underConsideration\":\"Candidats à considérée\",\"activityfeed.locations.applications\":\"Page des Réviser les candidats\",\"activityfeed.locations.hr.preview\":\"RH Page d'aperçu\",\"activityfeed.locations.hr.summary\":\"RH Résumé de l'emploi\",\"activityfeed.locations.notFound\":\"lieu non trouvé\",\"activityfeed.locations.review\":\"Constructeur d'Affiches\",\"activityfeed.locations.review.basicInfo\":\"Renseignements de base\",\"activityfeed.locations.review.environment\":\"Environnement de travail\",\"activityfeed.locations.review.general\":\"Général\",\"activityfeed.locations.review.heading\":\"Titre de la page de l’emploi\",\"activityfeed.locations.review.impact\":\"Incidence\",\"activityfeed.locations.review.langRequirements\":\"Exigences linguistiques\",\"activityfeed.locations.review.skills\":\"Compétences\",\"activityfeed.locations.review.tasks\":\"Taches\",\"activityfeed.locations.screeningPlan\":\"plan d’évaluation\",\"activityfeed.locations.screeningPlan.builder\":\"Concepteur de plans d’évaluation\",\"activityfeed.locations.screeningPlan.general\":\"Général\",\"activityfeed.locations.screeningPlan.ratings\":\"Concepteur de guides de cotation\",\"activityfeed.locations.screeningPlan.summary\":\"Sommaire du plan d’évaluation\",\"activityfeed.noActivities\":\"Aucune activité.\",\"activityfeed.review.accordionAccessibleLabel\":\"Cliquer pour afficher...\",\"activityfeed.review.header\":\"Cliquez pour voir les commentaires {totalActivities}\",\"activityfeed.review.loadingIconText\":\"Les données sont en cours de chargement...\",\"activityfeed.title\":\"Activités\",\"application.review.addNote\":\"+ Ajouter une note\",\"application.review.alert.oops\":\"Oups...\",\"application.review.backToApplicantList\":\"< Sauvegarder et revenir à la liste des candidats\",\"application.review.button.cancel\":\"Annuler\",\"application.review.button.confirm\":\"Confirmer\",\"application.review.button.save\":\"Enregistrer\",\"application.review.button.saved\":\"Enregistrée\",\"application.review.button.saving\":\"Enregistre...\",\"application.review.button.viewJobPoster\":\"Voir l'affiche d'emploi\",\"application.review.collapseAllSkills\":\"Réduire les compétences\",\"application.review.decision\":\"Décision\",\"application.review.editNote\":\"Modifier la note\",\"application.review.emailCandidateLinkTitle\":\"Envoyer un courriel à ce candidat.\",\"application.review.expandAllSkills\":\"Élargir les compétences\",\"application.review.priorityStatus.priority\":\"Priorité\",\"application.review.priorityStatus.priorityLogoTitle\":\"Icône pour candidat prioritaire\",\"application.review.reviewSaveFailed\":\"Une erreur s'est produite lors de l'enregistrement d'un commentaire. Réessayez plus tard.\",\"application.review.reviewStatus.notReviewed\":\"Non révisé\",\"application.review.reviewStatus.screenedOut\":\"Éliminé\",\"application.review.reviewStatus.stillIn\":\"Encore considérée\",\"application.review.reviewStatus.stillThinking\":\"Incertain\",\"application.review.screenInConfirm\":\"Remettre le candidat dans la section à l'étude?\",\"application.review.screenOutConfirm\":\"Éliminer le candidat?\",\"application.review.veteranStatus.veteran\":\"Anciens combattants\",\"application.review.veteranStatus.veteranLogoAlt\":\"icône pour anciens combattants\",\"application.review.viewApplication\":\"Voir l'application\",\"application.review.viewApplicationLinkTitle\":\"Voir l'application de ce candidat.\",\"application.review.viewProfile\":\"Voir le profil\",\"application.review.viewProfileLinkTitle\":\"Voir le profil de ce candidat.\",\"assessmentPlan.addAssessmentButton\":\"Ajouter une évaluation\",\"assessmentPlan.alert.checking\":\"Vérifier si le poste a changé récemment...\",\"assessmentPlan.alert.created\":\"{skills} {count, plural, one {compétence a été ajoutée} other {compétences ont été ajoutées}}.\",\"assessmentPlan.alert.deleted\":\"{skills} {count, plural, one {compétence a été supprimée} other {compétences ont été supprimées}}.\",\"assessmentPlan.alert.explanation\":\"Certaines parties du plan de présélection ont été modifiées pour qu’elles concordent les unes avec les autres.\",\"assessmentPlan.alert.skillAndLevelUpdated\":\"Le champ « {oldSkill} » a été remplacé par « {newSkill} » et a fait l’objet d’une mise à jour.\",\"assessmentPlan.alert.skillLevelUpdated\":\"{skills} {count, plural, one {compétence a été mise à jour} other {compétences ont été mises à jour}}.\",\"assessmentPlan.alert.skillUpdated\":\"Le champ {oldSkill} a été remplacé par {newSkill}.\",\"assessmentPlan.alert.title\":\"Ce poste a récemment changé!\",\"assessmentPlan.assessmentPlanBuilder.instructions\":\"La première étape consiste à choisir des évaluations qui vous permettront d’évaluer les critères que vous avez sélectionnés pour votre offre d’emploi. Vous trouverez ci-dessous vos critères essentiels, suivis de vos critères constituant un atout, le cas échéant. Le concepteur sera enregistré au fur et à mesure, donc lorsque vous aurez terminé, n’hésitez pas à passer à l’étape 2 pour examiner votre travail.\",\"assessmentPlan.assessmentPlanBuilder.shortDescription\":\"(Sélectionnez vos évaluations)\",\"assessmentPlan.assessmentPlanBuilder.title\":\"Concepteur de plans d’évaluation\",\"assessmentPlan.assessmentPlanSummary.shortDescription\":\"(Passez votre plan en revue)\",\"assessmentPlan.assessmentPlanSummary.title\":\"Sommaire du plan d’évaluation\",\"assessmentPlan.assessmentTypesLabel\":\"Types d’évaluation\",\"assessmentPlan.assetCriteria.nullState\":\"Vous n’avez pas choisi de compétences constituant un atout pour cette offre d’emploi.\",\"assessmentPlan.criteriaTitle\":\"{skillName} - {skillLevel}\",\"assessmentPlan.essentialCriteria.nullState\":\"Vous n’avez pas choisi de compétences essentielles pour cette offre d’emploi.\",\"assessmentPlan.instructions.intro\":\"Cet outil vous permet d’élaborer un plan d’évaluation et un guide de cotation pour votre offre d’emploi. L’outil est utilisé en trois étapes :\",\"assessmentPlan.instructions.narrativeNote\":\"Veuillez prendre note que tous les plans d’évaluation comprendront un examen des éléments de preuve fournis par le candidat.\",\"assessmentPlan.pageTitle\":\"Élaborer un plan d’évaluation pour : {jobTitle}\",\"assessmentPlan.ratingGuideBuilder.shortDescription\":\"(Personnalisez vos évaluations)\",\"assessmentPlan.ratingGuideBuilder.title\":\"Concepteur de guides de cotation\",\"assessmentPlan.selectAssessment.label\":\"Sélectionner une évaluation\",\"assessmentPlan.selectAssessment.null\":\"Sélectionner une évaluation\",\"assessmentPlan.skillDescriptionLabel\":\"Description\",\"assessmentPlan.skillLevelDescriptionLabel\":\"Niveau de compétence sélectionné\",\"assessmentPlan.summary.assessmentSummary.noAssessments\":\"Vous n’avez pas sélectionné d’évaluations pour cette offre d’emploi. Ajoutez-les ci-dessus.\",\"assessmentPlan.summary.assessmentSummary.title\":\"Sommaire de l’évaluation\",\"assessmentPlan.summary.assessmentSummary.toolSkillCount\":\"Votre plan utilise {toolCount, plural, =0 {aucun outil} one {# outill} other {# outils}} pour évaluer {skillCount, plural, =0 {compétences} one {# compétence} other {# compétences}}.\",\"assessmentPlan.summary.description\":\"Ceci est un résumé du travail que vous avez effectué ci-dessus. Vous trouverez\\n      chaque évaluation accompagnée d'une liste consolidée des compétences essentielles\\n      et des atouts qui s'y rattachent.\",\"assessmentPlan.summary.skillCount\":\"Évaluer {count, plural, one {# compétence} other {# compétences}}.\",\"assessmentPlan.summary.skillsNullState\":\"Aucune compétence n’est évaluée par cet outil.\",\"assessmentPlan.summary.title\":\"2. Sommaire du plan d’évaluation\",\"assessmentPlan.title\":\"Concepteur de plans d’évaluation\",\"assessmentType.applicationScreeningQuestion\":\"Questions de présélection dans le cadre du processus d’embauche\",\"assessmentType.applicationScreeningQuestion.description\":\"Ces questions paraissent dans le formulaire de demande, et sont présentées dans le Nuage de talents. Elles donnent un premier aperçu de la compréhension, du processus, des connaissances ou de l’adaptation culturelle du candidat pour le poste.\",\"assessmentType.groupTest\":\"Test de groupe\",\"assessmentType.groupTest.description\":\"Les candidats effectuent ce test en temps réel conjointement avec d’autres candidats, des membres de l’équipe ou des animateurs afin de déterminer leurs compétences exceptionnelles, leur habileté à communiquer au sein d’une équipe.\",\"assessmentType.informalPhoneConversation\":\"Conversation téléphonique informelle\",\"assessmentType.informalPhoneConversation.description\":\"Une conversation informelle entre un membre du comité d’embauche et un(e) candidat(e), visant à découvrir les connaissances, les aptitudes ou les traits de personnalité du candidat; les conversations peuvent varier d’un candidat à l’autre.\",\"assessmentType.interview\":\"Entrevue\",\"assessmentType.interview.description\":\"Examen formel de questions-réponses effectué en temps réel entre le comité de sélection et le (la) candidat(e). Les questions ont pour but d'évaluer l'expertise, le niveau et l'approche des compétences. Chaque question est élaborée à l’avance et suit la même structure entre tous les candidats interrogés.\",\"assessmentType.narrativeAssessment\":\"Examen narratif\",\"assessmentType.narrativeAssessment.description\":\"Il s’agit d’une description demandée au cours du processus de demande, dans laquelle les candidats s’identifient et décrivent leur expérience et leur niveau de compétence.\",\"assessmentType.narrativeReview.standardAnswer\":\"La description fournie contient suffisamment d’éléments de preuve pour faire passer ce candidat aux étapes de présélection suivantes.\",\"assessmentType.narrativeReview.standardQuestion\":\"L’examen descriptif des compétences comprend toutes les descriptions ajoutées par le candidat dans sa demande.\",\"assessmentType.onSiteExam\":\"Épreuve sur place\",\"assessmentType.onSiteExam.description\":\"Épreuve préparée qui exige que le candidat effectue à un endroit précis et sous supervision un test visant à évaluer ses compétences et sa technique.\",\"assessmentType.onlineExam\":\"Épreuve en ligne\",\"assessmentType.onlineExam.description\":\"Épreuve préparée qui n’exige pas de supervision, qui peut être effectuée de n’importe quel endroit au moyen d’un accès à Internet, et qui doit être achevée dans un intervalle de temps défini.\",\"assessmentType.portfolioReview\":\"Examen du portefeuille\",\"assessmentType.portfolioReview.description\":\"Au cours du processus de demande, les candidats donnent accès à des échantillons de leur travail pour démontrer leur niveau de compétence et étayer leurs prétentions à cet égard.\",\"assessmentType.referenceCheck\":\"Vérification des références\",\"assessmentType.referenceCheck.description\":\"Au cours du processus de demande, les candidats fournissent les coordonnées d’une connaissance qui peut valider et confirmer leurs compétences, leurs connaissances ou leurs aptitudes.\",\"assessmentType.seriousGames\":\"Jeux sérieux\",\"assessmentType.seriousGames.description\":\"Test comprenant l’utilisation de jeux pour explorer les aptitudes en communication, la résilience et l’intelligence émotionnelle d’un(e) candidat(e), entre autres compétences générales.\",\"assessmentType.takeHomeExam\":\"Épreuve à la maison\",\"assessmentType.takeHomeExam.description\":\"Les candidats reçoivent une trousse matérielle contenant les outils d’évaluation; ils effectuent l’évaluation à un moment qui leur convient le mieux, et à un endroit de leur choix, sans supervision, et ils doivent retourner les documents avant une date limite précise.\",\"button.copied\":\"Copié!\",\"button.copyEmails\":\"Copier des emails\",\"button.copyToClipboard\":\"Copier sur le presse-papier\",\"button.toggleAccordion\":\"Basculer pour voir les candidats concernés.\",\"commentForm.comment.label\":\"Ajouter un commentaire\",\"commentForm.comment.placeholder\":\"À titre d’exemple, entrez votre question, votre recommandation, etc.\",\"commentForm.commentLocation.label\":\"Emplacement du commentaire\",\"commentForm.commentLocation.nullSelection\":\"Sélectionnez un emplacement...\",\"commentForm.commentType.label\":\"Type de commentaire\",\"commentForm.commentType.nullSelection\":\"Sélectionner un type de commentaire\",\"commentForm.submitButton.label\":\"Soumettre un commentaire\",\"commentType.comment\":\"Commentaire\",\"commentType.question\":\"Question\",\"commentType.recommendation\":\"Recommandation\",\"commentType.requiredAction\":\"Mesure requise\",\"criteria.asset\":\"Compétences constituant un atout\",\"criteria.essential\":\"Compétences essentielles\",\"criteriaForm.skillLevelSelectionLabel\":\"Choisir un niveau de compétence\",\"criteriaForm.skillSpecificityLabel\":\"Détails supplémentaires pour cette compétence\",\"criteriaForm.skillSpecificityPlaceholder\":\"Ajoutez du contexte ou des détails à la définition de cette compétence qui n'apparaîtront que sur votre affiche d'emploi. Ceci sera examiné par votre conseiller en ressources humaines.\",\"criteriaType.asset\":\"Atout\",\"criteriaType.essential\":\"Essentiel\",\"demoSubmitJobModal.cancel\":\"Retourner\",\"demoSubmitJobModal.explanation\":\"Seuls les ministères partenaires de Nuage des talents ont accès à l'examen et à la publication des avis d'emploi.\",\"demoSubmitJobModal.link\":\"<a>Savoir si vous pouvez accéder à ces fonctions</a>.\",\"demoSubmitJobModal.link.title\":\"Découvrez comment accéder aux fonctions d'examen et de publication des avis d'emploi.\",\"demoSubmitJobModal.title\":\"Il semble que vous utilisez un compte de démonstration.\",\"errorToast.title\":\"Quelque chose a mal tourné!\",\"formInput.error\":\"Cette entrée a une erreur.\",\"formInput.required\":\"Champs obligatoires\",\"formValidation.checkboxRequired\":\"Il faut cocher au moins une case.\",\"formValidation.invalidSelection\":\"Veuillez choisir parmi les options disponibles.\",\"formValidation.required\":\"Ce champ est requis.\",\"formValidation.tooLong\":\"Trop longue?\",\"formValidation.tooShort\":\"Trop courte?\",\"hrJobIndex.departmentPlaceholder\":\" [Chargement du ministère]\",\"hrJobIndex.jobTitleMissing\":\"Titre manquant \",\"hrJobIndex.managerLoading\":\"Chargement...\",\"hrJobIndex.preview\":\"Prévisualiser l’avis d’emploi \",\"hrJobIndex.reviewDraft\":\"Réviser l’ébauche \",\"hrJobIndex.viewActivity\":\"Afficher l’activité \",\"hrJobIndex.viewScreeningPlan\":\"Afficher le plan d’évaluation \",\"hrJobIndex.viewSummary\":\"Afficher le résumé \",\"hrPortal.jobPageIndex.clickToView\":\"Cliquer pour afficher...\",\"hrPortal.jobPageIndex.completedJobsHeader\":\" Mes mesures d’emploi achevées \",\"hrPortal.jobPageIndex.hideAccordion\":\" Masquer \",\"hrPortal.jobPageIndex.jobActionsEmpty\":\"Réclamer un emploi ci-dessous!\",\"hrPortal.jobPageIndex.jobActionsHeader\":\"Mes mesures d’emploi achevée\",\"hrPortal.jobPageIndex.jobActionsMessage\":\"Voici une liste de toutes les mesures d’emploi auxquelles vous participez actuellement. Vous cherchez une ancienne offre d’emploi? Cochez la section « Mes mesures d’emploi achevées » sous vos offres d’emploi actives.\",\"hrPortal.jobPageIndex.noJobsCompleted\":\"Aucune offre d’emploi achevée à l’heure actuelle!\",\"hrPortal.jobPageIndex.preDepartmentName\":\"Toutes les offres d’emploi dans\",\"hrPortal.jobPageIndex.showAccordion\":\"Afficher \",\"hrPortal.jobPageIndex.unclaimedJobsEmpty\":\"Il n’y a actuellement aucune offre d’emploi active disponible.\",\"hrPortal.jobPageIndex.unclaimedJobsMessage\":\"Voici la liste de toutes les mesures actives dans votre ministère. À partir de ce point, vous pouvez « réclamer » un emploi qui sera transféré dans votre liste d’emploi ci-dessus, ce qui vous permettra de commencer à collaborer avec le gestionnaire d’embauche pour trouver le meilleur talent possible. Si vous réclamez un emploi par erreur, ne craignez rien, car vous pouvez cliquer sur le résumé de l’emploi et retirer votre nom au moyen du bouton « Renoncer à cet emploi ».\",\"job.daysSinceClosed\":\"{dayCount, plural, =0 {Aucun jour} one {# jour} other {# jours}} depuis la fermeture\",\"jobBuilder.collaborativeness.01.description\":\"Les membres de notre équipe proviennent de divers milieux, et ont des points de vue et des compétences variés. Nous nous appuyons sur nos points forts. Collectivement, nous nous approprions les objectifs de l’équipe et nous sommes constamment à la recherche de façons de s’entraider.\",\"jobBuilder.collaborativeness.01.title\":\"Collaboratif\",\"jobBuilder.collaborativeness.02.description\":\"Notre équipe possède un ensemble de compétences diversifiées et nous reconnaissons les forces de chacun. Nous travaillons ensemble souvent et nous intervenons rapidement quand une personne demande de l’aide.\",\"jobBuilder.collaborativeness.02.title\":\"Assez collaboratif\",\"jobBuilder.collaborativeness.03.description\":\"Chaque membre de notre équipe possède une pièce du casse-tête et jouit de la liberté de choisir sa propre façon de travailler.\",\"jobBuilder.collaborativeness.03.title\":\"Assez indépendant \",\"jobBuilder.collaborativeness.04.description\":\"Chaque membre de notre équipe prend en charge sa pièce du casse-tête. La façon dont nous accomplissons notre travail importe peu, tant qu’il est de qualité supérieure.\",\"jobBuilder.collaborativeness.04.title\":\"Indépendant\",\"jobBuilder.criteriaForm.addSpecificity\":\"Je voudrais ajouter des détails à cette définition qui sont spécifiques à ce poste.\",\"jobBuilder.criteriaForm.button.add\":\"Ajouter une compétence\",\"jobBuilder.criteriaForm.button.cancel\":\"Annuler\",\"jobBuilder.criteriaForm.chooseSkillLevel\":\"Choisir un niveau de compétence\",\"jobBuilder.criteriaForm.or\":\"ou\",\"jobBuilder.criteriaForm.removeSpecificity\":\"Supprimer la particularité supplémentaire.\",\"jobBuilder.criteriaForm.skillDefinition\":\"Définition de la compétence\",\"jobBuilder.criterion.requiredSkill\":\"Compétence requise :\",\"jobBuilder.culturePace.01.description\":\"Nos échéances sont serrées, nous traitons plusieurs tâches en même temps et nos priorités changent constamment. Notre travail devrait être effectué en portant des chaussures de courses!\",\"jobBuilder.culturePace.01.title\":\"Un rythme très rapide\",\"jobBuilder.culturePace.02.description\":\"Nos échéances sont habituellement rapprochées, nous traitons plusieurs tâches en même temps et nos priorités changent régulièrement. Notre travail nous force à rester sur le qui-vive!\",\"jobBuilder.culturePace.02.title\":\"Rythme rapide\",\"jobBuilder.culturePace.03.description\":\"Nos échéances sont régulières et prévisibles, nous traitons quelques tâches à la fois et nos priorités changent de temps à autre. Nous maintenons un certain équilibre.\",\"jobBuilder.culturePace.03.title\":\"Soutenu\",\"jobBuilder.culturePace.04.description\":\"Notre travail est continu, donc il n’y a pas beaucoup d’échéances. Habituellement, nous ne sommes pas obligés d’équilibrer la répartition des tâches et nos priorités changent rarement. Nous nous sentons bien dans la routine.\",\"jobBuilder.culturePace.04.title\":\"Très soutenu\",\"jobBuilder.details.SelectClassAndLvlMessage\":\"Veuillez choisir une classification et un niveau avant de préparer\\r\\n                          les exigences en matière d’éducation.\",\"jobBuilder.details.cityLabel\":\"Dans quelle ville l'équipe est-elle située?\",\"jobBuilder.details.cityPlaceholder\":\"P. ex. Ottawa\",\"jobBuilder.details.classificationLabel\":\"Quelle est la classification?\",\"jobBuilder.details.classificationNullSelection\":\"Veuillez sélectionner la classification...\",\"jobBuilder.details.classificationOptions.AD\":\"AD - Services administratifs\",\"jobBuilder.details.classificationOptions.AS\":\"AS – Services administratifs\",\"jobBuilder.details.classificationOptions.BI\":\"BI – Sciences biologiques\",\"jobBuilder.details.classificationOptions.CO\":\"CO - Commerce\",\"jobBuilder.details.classificationOptions.CR\":\"CR - Commis aux écritures et aux règlements\",\"jobBuilder.details.classificationOptions.CS\":\"CS – Systèmes d’ordinateurs\",\"jobBuilder.details.classificationOptions.EC\":\"EC - Économique et services de sciences sociales\",\"jobBuilder.details.classificationOptions.EX\":\"EX - Direction\",\"jobBuilder.details.classificationOptions.FO\":\"FO - Sciences forestières\",\"jobBuilder.details.classificationOptions.IS\":\"IS – Services d’information\",\"jobBuilder.details.classificationOptions.PC\":\"PC – Sciences physiques\",\"jobBuilder.details.classificationOptions.PE\":\"PE – Gestion du personnel\",\"jobBuilder.details.classificationOptions.PM\":\"PM – Administration des programmes\",\"jobBuilder.details.documentTitle\":\"Constructeur d'affiches: Renseignements\",\"jobBuilder.details.educationMessages.AD\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires;\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’elle soit prise en considération. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.AS\":\"Diplôme d’études secondaires ou équivalent :\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.BI\":\"Diplôme d’études postsecondaires:\\nDiplôme d’études postsecondaires en sciences naturelles, physiques ou appliquées, avec spécialisation dans un domaine lié aux fonctions du poste.\",\"jobBuilder.details.educationMessages.CO\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.CR\":\"Deux années d’études secondaires ou l’équivalent:\\nAu moins deux années d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative aux deux années d’études secondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.CS\":\"Deux (2) ans d’études postsecondaires ou l’équivalent:\\nDeux années d’études postsecondaires en informatique, en technologie de l’information, en gestion de l’information ou dans une autre spécialité pertinente à ce poste.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente aux deux années d’études postsecondaires requises, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.EC\":\"Diplôme d’études postsecondaires:\\nun diplôme d’un établissement d’enseignement postsecondaire reconnu avec spécialisation acceptable en économique, en sociologie ou en statistique.\\n\\nLes candidats doivent toujours détenir un diplôme. Les cours de spécialisation doivent être acceptables et avoir été suivis auprès d’un établissement d’enseignement postsecondaire reconnu, mais pas nécessairement dans le cadre d’un programme de diplôme dans la spécialisation requise. La spécialisation peut également être obtenue grâce à un agencement acceptable d’études, de formation et (ou) d’expérience.\",\"jobBuilder.details.educationMessages.EX\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires, ou admissibilité à un titre professionnel reconnu dans une province ou un territoire du Canada.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.FO\":\"Diplôme d’études postsecondaires:\\nUn diplôme en foresterie ou en produits du bois d’un établissement d’enseignement postsecondaire reconnu.\\n\\nou\\n\\nUn diplôme dans une science connexe d’un établissement d’enseignement postsecondaire reconnu agencé à une expérience acceptable.\",\"jobBuilder.details.educationMessages.IS\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.PC\":\"Diplôme d’études postsecondaires:\\nDiplôme d’études postsecondaires, avec spécialisation en physique, en géologie, en chimie ou dans une autre science liée aux fonctions du poste.\",\"jobBuilder.details.educationMessages.PE\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires, avec spécialisation en gestion des ressources humaines, en relations de travail ou en relations industrielles, en psychologie, en administration publique ou en administration des affaires, en développement organisationnel, en sciences de l’éducation, en sciences sociales, en sociologie ou dans un autre domaine lié aux fonctions du poste.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.PM\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationRequirementCopyAndPaste\":\"Si vous voulez personnaliser ce paragraphe, veuillez le copier-coller dans la zone de texte ci-dessous pour le modifier. \",\"jobBuilder.details.educationRequirementHeader\":\"En fonction du niveau de classification sélectionné, le paragraphe générique suivant apparaîtra sur l’offre d’emploi. \",\"jobBuilder.details.educationRequirementPlaceholder\":\"Collez le paragraphe ici pour le modifier...\",\"jobBuilder.details.educationRequirementReviewChanges\":\"Votre conseiller en RH examinera vos changements.\",\"jobBuilder.details.educationRequirementsLabel\":\"Personnaliser les exigences en matière d’études :\",\"jobBuilder.details.flexHoursGroupBody\":\"Vous voulez appuyer un milieu de travail plus inclusif sur le plan de l’égalité des sexes? Des études montrent que l’horaire flexible est un excellent moyen d’améliorer les possibilités des femmes et des parents.\",\"jobBuilder.details.flexHoursGroupHeader\":\"À quelle fréquence les heures flexibles sont-elles permises?\",\"jobBuilder.details.flexHoursGroupLabel\":\"Choisissez les horaires souples :\",\"jobBuilder.details.frequencyAlwaysLabel\":\"Presque toujours\",\"jobBuilder.details.frequencyFrequentlyLabel\":\"Habituellement\",\"jobBuilder.details.frequencyNeverLabel\":\"Jamais\",\"jobBuilder.details.frequencyOccasionallyLabel\":\"Rarement\",\"jobBuilder.details.frequencySometimesLabel\":\"Parfois\",\"jobBuilder.details.heading\":\"Détails sur l’emploi\",\"jobBuilder.details.languageLabel\":\"Quel est le profil linguistique?\",\"jobBuilder.details.languageNullSelection\":\"Veuillez sélectionner le profil linguistique...\",\"jobBuilder.details.levelLabel\":\"Quel est le niveau?\",\"jobBuilder.details.levelNullSelection\":\" Veuillez sélectionner le niveau...\",\"jobBuilder.details.modalBody\":\"Voici un aperçu des informations sur le travail que vous venez de saisir. N'hésitez pas à revenir en arrière et à modifier des éléments ou à passer à l'étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.details.modalCancelLabel\":\"Retourner\",\"jobBuilder.details.modalConfirmLabel\":\"Étape suivante\",\"jobBuilder.details.modalHeader\":\"Vous partez du bon pied!\",\"jobBuilder.details.modalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.details.overtimeFrequentlyLabel\":\"Oui, il est souvent nécessaire de travailler des heures supplémentaires dans le cadre de ce poste.\",\"jobBuilder.details.overtimeGroupHeader\":\"Le temps supplémentaire est-il requis?\",\"jobBuilder.details.overtimeGroupLabel\":\"Sélectionner l’exigence en matière de temps supplémentaire\",\"jobBuilder.details.overtimeNoneRequiredLabel\":\"Non, le temps supplémentaire n’est pas nécessaire pour ce poste.\",\"jobBuilder.details.overtimeOpportunitiesAvailableLabel\":\"Oui, il est possible que des heures supplémentaires soient offertes aux personnes intéressées.\",\"jobBuilder.details.provinceLabel\":\"Dans quelle province l'équipe est-elle située?\",\"jobBuilder.details.provinceNullSelection\":\"Veuillez sélectionner la province...\",\"jobBuilder.details.remoteWorkCanadaLabel\":\"Oui, je suis prêt(e) à superviser des employés dans n'importe quelle province ou territoire au Canada.\",\"jobBuilder.details.remoteWorkGroupBody\":\"Vous voulez les meilleurs talents au Canada? Vous augmentez vos chances lorsque vous permettez à ceux qui se trouvent dans d’autres régions du Canada de présenter une demande. La diversité régionale ajoute également une perspective à la culture de votre équipe. Assurez-vous d’en discuter à l’avance avec votre conseiller en RH.\",\"jobBuilder.details.remoteWorkGroupHeader\":\"Le travail à distance est-il permis?\",\"jobBuilder.details.remoteWorkGroupLabel\":\"Choisissez le travail à distance :\",\"jobBuilder.details.remoteWorkNoneLabel\":\"Non, j’exige que l’employé(e) qui occupe ce poste soit dans le même lieu géographique que le bureau.\",\"jobBuilder.details.remoteWorkWorldLabel\":\"Oui, je suis prêt(e) à superviser des employés partout dans le monde.\",\"jobBuilder.details.returnButtonLabel\":\"Enregistrer et retourner à l’introduction\",\"jobBuilder.details.securityLevelLabel\":\"Quel est le niveau de sécurité?\",\"jobBuilder.details.securityLevelNullSelection\":\"Veuillez sélectionner le niveau de sécurité...\",\"jobBuilder.details.submitButtonLabel\":\"Prochain\",\"jobBuilder.details.teleworkGroupBody\":\"Démontrez que vous faites confiance à vos employés et que vous avez une culture organisationnelle positive. Autorisez le télétravail en option.\",\"jobBuilder.details.teleworkGroupHeader\":\"À quelle fréquence le télétravail est-il permis?\",\"jobBuilder.details.teleworkGroupLabel\":\"Choisissez le télétravail :\",\"jobBuilder.details.termLengthLabel\":\"Quelle est la durée du poste (en mois)?\",\"jobBuilder.details.termLengthPlaceholder\":\" P.ex. 3\",\"jobBuilder.details.titleLabel\":\"Quel est le titre du poste?\",\"jobBuilder.details.titlePlaceholder\":\"P. ex. Chercheur - utilisateurs\",\"jobBuilder.details.travelFrequentlyLabel\":\"Oui, des déplacements sont souvent exigés pour le poste.\",\"jobBuilder.details.travelGroupHeader\":\"Est-il nécessaire de voyager?\",\"jobBuilder.details.travelGroupLabel\":\"Sélectionner l’exigence des déplacements\",\"jobBuilder.details.travelNoneRequiredLabel\":\"Non, aucun déplacement n’est nécessaire pour ce poste.\",\"jobBuilder.details.travelOpportunitiesAvailableLabel\":\"Oui, des possibilités de voyage sont offertes pour ceux qui sont intéressés.\",\"jobBuilder.experimental.01.description\":\"Notre travail est défini en essayant de nouvelles idées, méthodes et activités pour aborder des problèmes persistants auxquels les approches traditionnelles ne peuvent pas remédier.\",\"jobBuilder.experimental.01.title\":\"Approche expérimentale\",\"jobBuilder.experimental.02.description\":\"Nous essayons des idées, méthodes et activités nouvelles et éprouvées pour améliorer la façon de faire notre travail.\",\"jobBuilder.experimental.02.title\":\"Approche assez expérimentale\",\"jobBuilder.experimental.03.description\":\"Notre travail comprend quelques tâches administratives qui se répètent quotidiennement. Les outils que nous utilisons nous conviennent, mais nous sommes ouverts à améliorer notre processus..\",\"jobBuilder.experimental.03.title\":\"Travail assez prévisible\",\"jobBuilder.experimental.04.description\":\"La majeure partie de notre travail comprend quelques tâches administratives qui se répètent quotidiennement. La cohérence est un facteur clé ici, donc nous suivons un processus standard avec des outils éprouvés.\",\"jobBuilder.experimental.04.title\":\"Travail prévisible\",\"jobBuilder.facing.01.description\":\"Nous représentons l’image de marque des services que nous offrons et nous passons la plupart de notre temps à interagir directement avec le public.\",\"jobBuilder.facing.01.title\":\"Services orientés vers le citoyen\",\"jobBuilder.facing.02.description\":\"Nous passons beaucoup de temps à interagir directement avec le public, mais nous travaillons également en coulisses afin d’appuyer d’autres personnes.\",\"jobBuilder.facing.02.title\":\"Services essentiellement orientés vers le citoyen\",\"jobBuilder.facing.03.description\":\" Nous travaillons généralement en coulisses et nous effectuons un travail important qui rend possible la prestation de services.\",\"jobBuilder.facing.03.title\":\"Services essentiellement administratifs\",\"jobBuilder.facing.04.description\":\" Nous travaillons en coulisses et nous effectuons un travail important qui rend possible la prestation de services. Nous nous sentons bien quand nous appuyons les autres.\",\"jobBuilder.facing.04.title\":\"Services administratifs\",\"jobBuilder.impact.button.goBack\":\"Revenir en arrière\",\"jobBuilder.impact.button.next\":\"Prochain\",\"jobBuilder.impact.button.nextStep\":\"Passer à l’étape suivante\",\"jobBuilder.impact.button.return\":\"Enregistrer et retourner à l’environnement de travail\",\"jobBuilder.impact.button.skipToReview\":\"Passer pour la révision\",\"jobBuilder.impact.departmentsLoading\":\"Chargement des données du Ministère...\",\"jobBuilder.impact.documentTitle\":\"Constructeur d’affiches: Incidences\",\"jobBuilder.impact.header.department\":\"Comment votre ministère engendre des incidences:\",\"jobBuilder.impact.hireBody\":\"Décrivez la contribution du nouvel employé dans le cadre de son rôle. Misez sur la valeur qu’il apportera et non des tâches particulières (vous les indiquerez plus loin). Par exemple « Dans ce rôle, vous contribuerez à … » ou « En tant que membre de l’équipe, vous serez responsable de nous aider à… »\",\"jobBuilder.impact.hireHeader\":\"Comment le nouvel employé engendra des incidences\",\"jobBuilder.impact.hireLabel\":\"Déclaration d'incidences des employés\",\"jobBuilder.impact.hirePlaceholder\":\"Souvenez-vous de ne pas utiliser de jargon administratif.\",\"jobBuilder.impact.modalDescription\":\"Voici un aperçu de l’énoncé des incidences que vous venez de rédiger.\\n                        N'hésitez pas à revenir en arrière pour modifier le texte.\\n                        Passez à l'étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.impact.modalTitle\":\"Excellent travail!\",\"jobBuilder.impact.points.counts\":\"La première chose que les candidats voient lorsqu’ils cliquent sur votre avis de concours est votre énoncé des incidences. Assurez-vous donc de bien le rédiger!\",\"jobBuilder.impact.points.highlight\":\"C’est votre chance de souligner en quoi votre travail est utile et intéressant.\",\"jobBuilder.impact.points.opportunity\":\"Le fait de travailler pour le gouvernement fédéral offre une importante occasion d’engendrer d’importantes incidences pour les Canadiens.\",\"jobBuilder.impact.selectDepartment\":\"Vous devez choisir un ministère pour cet emploi.\",\"jobBuilder.impact.teamBody\":\"Décrivez la valeur apportée aux Canadiens par votre équipe/service/initiative. Peu importe si votre travail consiste à offrir des services directement aux citoyens ou des services administratifs, d’innovation ou d’entretien, de priorité absolue ou continus. Décrivez comment votre travail contribue à améliorer le Canada comme si vous parliez à quelqu’un qui ne connaît rien de votre travail.\",\"jobBuilder.impact.teamHeader\":\"Comment votre équipe engendre des impacts:\",\"jobBuilder.impact.teamLabel\":\"Déclaration d’incidence d'équipe\",\"jobBuilder.impact.teamPlaceholder\":\"Employez un ton informel, franc et amical\",\"jobBuilder.impact.title\":\"Rédiger votre énoncé des incidences\",\"jobBuilder.impact.unknownDepartment\":\"Erreur : Choisissez un ministère inconnu.\",\"jobBuilder.impactPreview.title\":\"Impact\",\"jobBuilder.intro.accountSettingsLinkText\":\"les paramètres de votre compte\",\"jobBuilder.intro.accountSettingsLinkTitle\":\"Visitez la page Paramètres du compte.\",\"jobBuilder.intro.changeDepartment\":\"Pour changer de département, veuillez contacter {email}. Pour en savoir plus, visitez {accountSettings}.\",\"jobBuilder.intro.completeInLanguage\":\"Répondez à l’offre d’emploi dans la langue officielle de votre choix. Nous nous chargerons de la traduction\",\"jobBuilder.intro.contactUs\":\"Nous avons également fourni des instructions et des exemples pour vous guider tout au long du processus, mais si vous avez toujours des questions, veuillez communiquer avec le {link}\",\"jobBuilder.intro.continueButtonLabelEN\":\"Continue in English\",\"jobBuilder.intro.continueButtonLabelFR\":\"Continuer en français\",\"jobBuilder.intro.departmentHeader\":\"Informations sur le département de {name}\",\"jobBuilder.intro.departmentLabel\":\"Ministère\",\"jobBuilder.intro.departmentNullSelection\":\"Choisissez un ministère...\",\"jobBuilder.intro.divisionLabelEN\":\"La division de {name} (en anglais)\",\"jobBuilder.intro.divisionLabelFR\":\"La division de {name} (en français)\",\"jobBuilder.intro.divisionPlaceholderEN\":\"p. ex., Digital Change\",\"jobBuilder.intro.divisionPlaceholderFR\":\"p. ex., Changement numérique\",\"jobBuilder.intro.documentTitle\":\"Constructeur d'affiches: Intro\",\"jobBuilder.intro.emailLinkText\":\"Nuage de talents\",\"jobBuilder.intro.emailLinkTitle\":\"Envoyer un courriel au Nuage de talents.\",\"jobBuilder.intro.explanation\":\"Le présent outil vous aidera à créer une offre d’emploi qui vous aidera à attirer les bons talents. Avant de commencer à créer l’offre d’emploi, veuillez prendre le temps de {boldText}\",\"jobBuilder.intro.explanation.boldText\":\"confirmer l’exactitude de vos renseignements personnels ci-dessous.\",\"jobBuilder.intro.formDescription\":\"Ces renseignements apparaîtront dans l’offre d’emploi pour donner de plus amples renseignements aux candidats sur les personnes avec qui ils travailleront.\",\"jobBuilder.intro.formTitle\":\"Information du profil de {name}\",\"jobBuilder.intro.jobTitleLabelEN\":\"Le poste de {name} (en anglais)\",\"jobBuilder.intro.jobTitleLabelFR\":\"Le poste de {name} (en français)\",\"jobBuilder.intro.jobTitlePlaceholderEN\":\"Par exemple : Design Manager\",\"jobBuilder.intro.jobTitlePlaceholderFR\":\"Par exemple : Gestionnaire de la conception\",\"jobBuilder.intro.managerLoading\":\"Votre profil de gestionnaire est en cours de chargement...\",\"jobBuilder.intro.welcome\":\"Bienvenue sur le Constructeur d'Affiches\",\"jobBuilder.jobLoading\":\"Votre offre d’emploi est en train de se charger...\",\"jobBuilder.loading\":\"Votre offre d’emploi est en train de se charger...\",\"jobBuilder.mgmtStyle.01.description\":\"Il n’y a aucun cadre intermédiaire ici, donc nous prenons, nous-mêmes, la plupart des décisions importantes et vous pouvez vous attendre à interagir quotidiennement avec nos cadres supérieures.\",\"jobBuilder.mgmtStyle.01.title\":\"Horizontale\",\"jobBuilder.mgmtStyle.02.description\":\"Nous avons quelques cadres intermédiaires ici, mais nous prenons, nous-mêmes, les décisions quotidiennes. Ne soyez pas surpris d’interagir assez souvent avec nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.02.title\":\"Assez horizontale\",\"jobBuilder.mgmtStyle.03.description\":\"Notre équipe a un rôle clairement défini. Nous faisons régulièrement le point avec les cadres intermédiaires pour approuver et mettre à jour la vision stratégique de nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.03.title\":\"Assez verticale\",\"jobBuilder.mgmtStyle.04.description\":\"Notre équipe a un rôle clairement défini. Nous faisons souvent le point auprès des cadres intermédiaires pour approuver et procéder à la mise à jour de la vision stratégique de nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.04.title\":\"Verticale\",\"jobBuilder.preview.city\":\"Ville\",\"jobBuilder.preview.classification\":\"Classification\",\"jobBuilder.preview.classificationEducation\":\"Classification et éducation\",\"jobBuilder.preview.education\":\"Éducation\",\"jobBuilder.preview.flexibleHours\":\"Heures flexibles\",\"jobBuilder.preview.jobInformation\":\"Renseignements sur l’emploi\",\"jobBuilder.preview.jobTitle\":\"Titre du poste\",\"jobBuilder.preview.languageProfile\":\"Profil linguistique\",\"jobBuilder.preview.lengthOfTheTerm\":\"Durée du poste\",\"jobBuilder.preview.level\":\"Niveau\",\"jobBuilder.preview.overtime\":\"Heures supplémentaires\",\"jobBuilder.preview.province\":\"Province\",\"jobBuilder.preview.remoteWork\":\"Travail à distance\",\"jobBuilder.preview.securityClearance\":\"Cote de sécurité\",\"jobBuilder.preview.telework\":\"Télétravail\",\"jobBuilder.preview.termLength\":\"{termMonths, plural, =0 {pas de mois} other {# mois}}\",\"jobBuilder.preview.travel\":\"Voyage\",\"jobBuilder.preview.workStyles\":\"Styles de travail\",\"jobBuilder.progressTracker.label.finish\":\"Fin\",\"jobBuilder.progressTracker.label.start\":\"Début\",\"jobBuilder.progressTracker.label.step1\":\"Étape 1 / 5\",\"jobBuilder.progressTracker.label.step2\":\"Étape 2 / 5\",\"jobBuilder.progressTracker.label.step3\":\"Étape 3 / 5\",\"jobBuilder.progressTracker.label.step4\":\"Étape 4 / 5\",\"jobBuilder.progressTracker.label.step5\":\"Étape 5 / 5\",\"jobBuilder.progressTracker.title.impact\":\"Incidence\",\"jobBuilder.progressTracker.title.jobInfo\":\"Renseignements\",\"jobBuilder.progressTracker.title.review\":\"Révision\",\"jobBuilder.progressTracker.title.skills\":\"Compétences\",\"jobBuilder.progressTracker.title.tasks\":\"Tâches\",\"jobBuilder.progressTracker.title.welcome\":\"Bienvenue\",\"jobBuilder.progressTracker.title.workEnv\":\"Environnement\",\"jobBuilder.review.GovernmentClass\":\"Classification gouvernementale\",\"jobBuilder.review.assetHeading\":\"Compétences souhaitables\",\"jobBuilder.review.averageAnnualSalary\":\"Échelle de salaire annuel\",\"jobBuilder.review.basicInformationHeading\":\"Renseignements de base\",\"jobBuilder.review.button.return\":\"Enregistrer et retourner aux compétences\",\"jobBuilder.review.button.submit\":\"Cela semble bon!\",\"jobBuilder.review.comesLater\":\"Cette étape survient plus tard.\",\"jobBuilder.review.confirm.cancel\":\"Annuler\",\"jobBuilder.review.confirm.submit\":\"Oui, transmettre\",\"jobBuilder.review.confirm.title\":\"Félicitations! Êtes-vous prêt à transmettre l’offre d’emploi?\",\"jobBuilder.review.criteriaSection\":\"Critères\",\"jobBuilder.review.cultureSection\":\"Environnement et culture\",\"jobBuilder.review.documentTitle\":\"Constructeur d'affiches: Révision\",\"jobBuilder.review.duration\":\"Durée\",\"jobBuilder.review.educationalHeading\":\"Exigences relatives aux études\",\"jobBuilder.review.headsUp\":\"Un simple rappel. Nous avons réorganisé certains renseignements fournis afin de vous aider à comprendre comment le candidat verra l’information une fois publiée.\",\"jobBuilder.review.impactEditLink\":\"Modifier cet élément à l’étape 03, Incidence.\",\"jobBuilder.review.impactHeading\":\"Incidence\",\"jobBuilder.review.infoEditLink\":\"Modifier cet élément à l’étape 01, Renseignements sur le poste\",\"jobBuilder.review.jobPageHeading\":\"Titre de la page de l’emploi\",\"jobBuilder.review.languageHeading\":\"Exigences linguistiques\",\"jobBuilder.review.languageProfile\":\"Profil linguistique\",\"jobBuilder.review.managerDataLoading\":\"Les données du gestionnaire sont en cours de chargement...\",\"jobBuilder.review.managerHeading\":\"Les données du gestionnaire sont en cours de chargement...\",\"jobBuilder.review.managerIncomplete\":\"Veuillez remplir votre profil de gestionnaire.\",\"jobBuilder.review.managerPosition\":\"{position} au {department}\",\"jobBuilder.review.managerProfileLink\":\"Modifier cet élément dans votre profil\",\"jobBuilder.review.meantime\":\"Entre-temps, n’hésitez pas à créer un plan de présélection pour votre processus de sélection. Vous pouvez aussi attendre les commentaires des RH avant de passer à l’étape suivante.\",\"jobBuilder.review.months\":\"{termMonths,plural,=0{No Months} one{{termMonths, number} Month} other{{termMonths, number} Months}}\",\"jobBuilder.review.nullProvince\":\"PROVINCE MANQUANTE\",\"jobBuilder.review.or\":\"ou\",\"jobBuilder.review.otherInfoHeading\":\"Autres renseignements au sujet de l’équipe\",\"jobBuilder.review.readyToSubmit\":\"Si vous êtes prêt à soumettre votre offre, cliquez sur le bouton Soumettre ci-dessous.\",\"jobBuilder.review.remoteAllowed\":\"Travail à distance autorisé\",\"jobBuilder.review.remoteNotAllowed\":\"Travail à distance non autorisé\",\"jobBuilder.review.reviewYourPoster\":\"Examiner votre offre d’emploi pour :\",\"jobBuilder.review.securityClearance\":\"Autorisation de sécurité\",\"jobBuilder.review.sendYourDraft\":\"Le Nuage de talents enverra votre ébauche au conseiller en RH de votre ministère, et ce dernier vous informera de ses commentaires.\",\"jobBuilder.review.skills.nullState\":\"Vous n’avez pas ajouté de compétences souhaitables pour cette offre d’emploi.\",\"jobBuilder.review.skillsEditLink\":\"Modifier cet élément à l’étape 05, Compétences\",\"jobBuilder.review.skillsHeading\":\"Compétences requises\",\"jobBuilder.review.tCAdds\":\"Le Nuage de talents ajoutera l’élément.\",\"jobBuilder.review.targetStartDate\":\"Date d’entrée en fonction prévue\",\"jobBuilder.review.tasksEditLink\":\"Modifier cet élément à l’étape 04, Tâches\",\"jobBuilder.review.tasksHeading\":\"Tâches\",\"jobBuilder.review.whatHappens\":\"Quelles sont les prochaines étapes?\",\"jobBuilder.review.workCultureHeading\":\"Culture de travail\",\"jobBuilder.review.workDescription\":\"Veuillez prendre note que certains renseignements sur le milieu de travail ne seront affichés que si le candidat clique sur le bouton « Afficher le milieu de travail et la culture de l’équipe » qui apparaît sur l’offre d’emploi.\",\"jobBuilder.review.workEnvEditLink\":\"Modifier cet élément à l’étape 02, Environnement de travail\",\"jobBuilder.review.workEnvHeading\":\"Milieu de travail\",\"jobBuilder.root.documentTitle\":\"Constructeur d'Affiches\",\"jobBuilder.skills.addSkillBelow\":\"Ajoutez des compétences, ci-dessous, pour continuer.\",\"jobBuilder.skills.alt.happyArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône sourire.\",\"jobBuilder.skills.alt.happyGraySmiley\":\"émoticône sourire en gris.\",\"jobBuilder.skills.alt.happySmiley\":\"émoticône sourire en couleur.\",\"jobBuilder.skills.alt.neutralArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône neutre.\",\"jobBuilder.skills.alt.neutralGraySmiley\":\"émoticône neutre en gris.\",\"jobBuilder.skills.alt.neutralSmiley\":\"émoticône neutre en couleur.\",\"jobBuilder.skills.alt.unhappyArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône triste.\",\"jobBuilder.skills.alt.unhappyGraySmiley\":\"émoticône triste en gris.\",\"jobBuilder.skills.alt.unhappySmiley\":\"émoticône triste en couleur.\",\"jobBuilder.skills.button.keyTasks\":\"Voir les tâches principales\",\"jobBuilder.skills.button.previewSkills\":\"Sauvegarder et voir un aperçu des compétences\",\"jobBuilder.skills.button.returnToTasks\":\"Sauvegarder et retourner aux tâches\",\"jobBuilder.skills.description\":\"C’est ici que vous choisissez les critères requis pour accomplir ce travail efficacement. Vous trouverez, ci-dessous, deux barres qui indiquent la mesure du niveau de votre présente compétence sélectionnée.\",\"jobBuilder.skills.description.keepItUp\":\"Voici un aperçu des compétences que vous venez de saisir. N’hésitez pas à retourner à la page précédente et à corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait. \",\"jobBuilder.skills.documentTitle\":\"Constructeur d'affiches: Compétences\",\"jobBuilder.skills.emailLink\":\"Communiquez avec nous par courriel\",\"jobBuilder.skills.essentialSkillRequiredError\":\"Au moins une compétence essentielle est requise.\",\"jobBuilder.skills.instructions.missingSkills\":\"Le fait de dresser une liste de compétences est une tâche énorme, et il n’est pas surprenant que la liste de Nuage de talents ne contienne pas la compétence que vous cherchez. Afin de nous aider à allonger la liste des compétences, veuillez {link}. Veuillez fournir le nom de la compétence ainsi qu’une brève description pour lancer la discussion.\",\"jobBuilder.skills.listTitle\":\"Votre liste de compétences\",\"jobBuilder.skills.nullState\":\"Vous n’avez pas encore ajouté de compétences.\",\"jobBuilder.skills.nullText.occupationalSkills\":\"Vous devez retourner à Étape 1 et choisir une classification.\",\"jobBuilder.skills.placeholder.otherSkills\":\"Aucune autre compétence n’est ajoutée.\",\"jobBuilder.skills.previewModalCancelLabel\":\"Retour en arrière\",\"jobBuilder.skills.previewModalConfirmLabel\":\"Prochaine étape\",\"jobBuilder.skills.previewModalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.skills.range.culturalSkills\":\"Visez des compétences {minCulture} – {maxCulture}.\",\"jobBuilder.skills.range.futureSkills\":\"Visez des compétences {minFuture} – {maxFuture}.\",\"jobBuilder.skills.range.occupationalSkills\":\"Visez des compétences {minOccupational} – {maxOccupational}.\",\"jobBuilder.skills.selectSkillLabel\":\"Veuillez sélectionner une compétence dans notre liste.\",\"jobBuilder.skills.selectSkillNull\":\"Veuillez sélectionner une compétence\",\"jobBuilder.skills.skillLevel\":\"Niveau de compétences\",\"jobBuilder.skills.statusSmiley.acceptable\":\"Acceptable\",\"jobBuilder.skills.statusSmiley.almost\":\"Presque\",\"jobBuilder.skills.statusSmiley.awesome\":\"Fantastique\",\"jobBuilder.skills.statusSmiley.essential.acceptable\":\"Acceptable\",\"jobBuilder.skills.statusSmiley.essential.almost\":\"Presque\",\"jobBuilder.skills.statusSmiley.essential.awesome\":\"Fantastique\",\"jobBuilder.skills.statusSmiley.essential.tooFew\":\"Insuffisant\",\"jobBuilder.skills.statusSmiley.essential.tooMany\":\"Trop\",\"jobBuilder.skills.statusSmiley.essentialTitle\":\"Le nombre de compétences fondamentales est\",\"jobBuilder.skills.statusSmiley.title\":\"Le nombre total des compétences\",\"jobBuilder.skills.statusSmiley.tooFew\":\"Insuffisant\",\"jobBuilder.skills.statusSmiley.tooMany\":\"Trop\",\"jobBuilder.skills.tasksModalCancelLabel\":\"Retour aux compétences\",\"jobBuilder.skills.title\":\"Compétences\",\"jobBuilder.skills.title.addASkill\":\"Ajoutez une compétence\",\"jobBuilder.skills.title.assetSkills\":\"Compétences constituant un atout\",\"jobBuilder.skills.title.culturalSkills\":\"Compétences comportementales\",\"jobBuilder.skills.title.editSkill\":\"Modifiez une compétence\",\"jobBuilder.skills.title.essentialSkills\":\"Compétences essentielles\",\"jobBuilder.skills.title.futureSkills\":\"Compétences de la fonction publique\",\"jobBuilder.skills.title.keepItUp\":\"Ne lâchez surtout pas!\",\"jobBuilder.skills.title.keyTasks\":\"Tâches principales\",\"jobBuilder.skills.title.missingSkill\":\"Vous ne trouvez pas la compétence dont vous avez besoin?\",\"jobBuilder.skills.title.needsToHave\":\"Les compétences que l’employé(e) doit posséder\",\"jobBuilder.skills.title.niceToHave\":\"Les compétences qu’il serait souhaitable que l’employé(e) possède\",\"jobBuilder.skills.title.occupationalSkills\":\"Compétences professionnelles\",\"jobBuilder.skills.title.otherSkills\":\"Autres compétences\",\"jobBuilder.skills.title.skillSelection\":\"Choix des compétences\",\"jobBuilder.tasks.addJob\":\"Ajoutez une tâche \",\"jobBuilder.tasks.documentTitle\":\"Constructeur d'affiches: Tâches\",\"jobBuilder.tasks.heading\":\"Ajoutez des tâches principales\",\"jobBuilder.tasks.intro.first\":\"À quoi le nouveau membre de votre équipe consacrera-t-il son temps? Quelles sont les tâches à exécuter?\",\"jobBuilder.tasks.intro.fourth\":\"Une fois que vous aurez terminé d’entrer les tâches principales, vous passerez à la détermination des compétences individuelles nécessaires à l’exécution de ces tâches.\",\"jobBuilder.tasks.intro.second\":\"Mettez l’accent sur les tâches à exécuter. Vous n’avez pas à donner tous les détails de l’emploi, mais les candidats souhaitent savoir comment ils vont passer la plus grande partie de leur temps.\",\"jobBuilder.tasks.intro.third\":\"Cherchez à indiquer de quatre à six tâches principales. (Tout au long du remue-méninges, vous pouvez ajouter autant de tâches principales que vous le souhaitez ici, mais vous ne pouvez pas en inclure plus de six dans l’offre d’emploi finale.)\",\"jobBuilder.tasks.modal.body\":\"Voici un aperçu des tâches que vous venez de saisir. N’hésitez pas à retourner à la page précédente pour corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.tasks.modal.body.heading\":\"Tâches\",\"jobBuilder.tasks.modal.cancelButtonLabel\":\"Retour en arrière\",\"jobBuilder.tasks.modal.confirmButtonLabel\":\"Prochaine étape\",\"jobBuilder.tasks.modal.middleButtonLabel\":\"Passer pour la révision\",\"jobBuilder.tasks.modal.title\":\"Ne lâchez surtout pas!\",\"jobBuilder.tasks.preview\":\"Aperçu des tâches\",\"jobBuilder.tasks.previous\":\"Étape précédente\",\"jobBuilder.tasks.taskCount.error.body\":\"Vous avez dépassé le nombre maximal permis de tâches principales, mais ce n’est pas grave. Tout au long du remue-méninges, vous pouvez continuer à ajouter des tâches principales ici, mais on vous demandera de réduire votre liste à six tâches ou moins pour continuer.\",\"jobBuilder.tasks.taskCount.error.title\":\"Juste pour vous informer!\",\"jobBuilder.tasks.taskCount.none\":\"Vous n’avez pas encore ajouté de tâches!\",\"jobBuilder.tasks.taskCount.some\":\"Vous avez ajouté {taskCount, plural, one {# tâche} other {# tâches}}.\",\"jobBuilder.tasks.taskLabel\":\"Tâche\",\"jobBuilder.tasks.taskPlaceholder\":\"Essayez d’adopter un ton décontracté, franc et amical...\",\"jobBuilder.tasks.tasksMaximum\":\"Veuillez supprimer toute tâche supplémentaire avant de continuer.\",\"jobBuilder.tasks.tasksRequired\":\"Au moins une tâche est requise.\",\"jobBuilder.workCulture.flexibleHours\":\"Heures flexibles\",\"jobBuilder.workCulture.flexibleHoursDescription\":\"Précisez vos propres heures de début et de fin.\",\"jobBuilder.workCulture.overtime\":\"Heures supplémentaires\",\"jobBuilder.workCulture.overtimeDescription\":\"Heures supplémentaires le soir ou la fin de semaine.\",\"jobBuilder.workCulture.remoteWork\":\"Travail à distance\",\"jobBuilder.workCulture.remoteWorkDescription\":\"Travailler de n’importe où, en tout temps.\",\"jobBuilder.workCulture.remoteWorkMsg.always\":\"Toujours\",\"jobBuilder.workCulture.remoteWorkMsg.never\":\"Jamais\",\"jobBuilder.workCulture.telework\":\"Télétravail\",\"jobBuilder.workCulture.teleworkDescription\":\"Travailler à partir de la maison certains jours (à une distance raisonnable en voiture du bureau).\",\"jobBuilder.workCulture.travel\":\"Déplacements\",\"jobBuilder.workCulture.travelDescription\":\"Découvrez le Canada ou d’autres régions du monde.\",\"jobBuilder.workEnv.amenities.cafeteria\":\"Cafétéria sur place\",\"jobBuilder.workEnv.amenities.closeToTransit\":\"À proximité du transport en commun\",\"jobBuilder.workEnv.amenities.downtown\":\"Centre-ville\",\"jobBuilder.workEnv.amenities.fitnessCenter\":\"À proximité d’un centre de conditionnement physique\",\"jobBuilder.workEnv.amenities.parking\":\" Accès facile à un stationnement\",\"jobBuilder.workEnv.amenities.restaurants\":\"À distance de marche des restaurants et des centres commerciaux\",\"jobBuilder.workEnv.amenitiesLabel\":\"À proximité\",\"jobBuilder.workEnv.collaborativeLabel\":\"Collaboratif ou indépendant :\",\"jobBuilder.workEnv.culture\":\"Notre culture\",\"jobBuilder.workEnv.cultureSubtext1\":\"Maintenant, renseignez les candidats davantage sur la personnalité des membres de votre équipe et le type de travail que vous faites habituellement.\",\"jobBuilder.workEnv.cultureSubtext2\":\"Sur la base de vos sélections, nous allons créer un court paragraphe résumant votre culture de travail. Vous pouvez modifier ce paragraphe afin qu’il soit personnalisé selon votre équipe.\",\"jobBuilder.workEnv.cultureSummary\":\"Résumé sur la culture\",\"jobBuilder.workEnv.cultureSummarySubtext\":\"Voici le court paragraphe qui résume la culture de votre travail qui apparaîtra dans l’offre d’emploi. Copiez-le et collez-le dans le champ de saisie qui suit, si vous désirez l’adapter à la personnalité des membres de votre équipe et à votre façon de travailler.\",\"jobBuilder.workEnv.customCultureSummaryLabel\":\"Adaptez votre résumé sur la culture :\",\"jobBuilder.workEnv.customCultureSummaryPlaceholder\":\"Collez le paragraphe ici pour le modifier...\",\"jobBuilder.workEnv.documentTitle\":\"Constructeur d'affiches: Environnement\",\"jobBuilder.workEnv.experimentalLabel\":\"Toujours expérimentale contre activités en cours:\",\"jobBuilder.workEnv.facingLabel\":\"Services orientés vers le client contre services administratifs :\",\"jobBuilder.workEnv.fastPacedSteadyLabel\":\"Rythme rapide contre rythme soutenu :\",\"jobBuilder.workEnv.greatStart\":\"Vous commencez très bien!\",\"jobBuilder.workEnv.managementLabel\":\"Horizontale contre verticale :\",\"jobBuilder.workEnv.moreOnWorkEnv\":\"Voici de plus amples renseignements sur votre environnement\",\"jobBuilder.workEnv.moreOnWorkEnvLabel\":\"Voici de plus amples renseignements sur votre environnement\",\"jobBuilder.workEnv.moreOnWorkEnvPlaceholder\":\"Essayez d’adopter un ton décontracté, franc et amical.\",\"jobBuilder.workEnv.moreOnWorkEnvSubtext\":\"Souhaitez-vous ajouter quelque chose à propos de votre environnement de travail? Mettez en évidence les caractéristiques de l’environnement physique, de la technologie et des commodités propres à votre équipe.\",\"jobBuilder.workEnv.openingSentence\":\"Voici un aperçu des renseignements sur l’emploi que vous venez de saisir. N’hésitez pas à retourner à la page précédente et à corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.workEnv.ourWorkEnv\":\"Notre environnement de travail\",\"jobBuilder.workEnv.ourWorkEnvDesc\":\"Décrivez un peu votre espace physique, la technologie que les membres de votre équipe utilisent et les services qui se trouvent à proximité de votre bureau. Cochez toutes les réponses qui s’appliquent.\",\"jobBuilder.workEnv.physEnv.assignedSeating\":\"Places réservées\",\"jobBuilder.workEnv.physEnv.naturalLight\":\"Lumière naturelle\",\"jobBuilder.workEnv.physEnv.openConcept\":\"Espaces de travail à aire ouverte\",\"jobBuilder.workEnv.physEnv.private\":\"Privé\",\"jobBuilder.workEnv.physEnv.smudging\":\"Convient aux cérémonies de purification par la fumée\",\"jobBuilder.workEnv.physEnv.windows\":\"Plusieurs fenêtres\",\"jobBuilder.workEnv.physicalEnvLabel\":\"Notre environnement physique\",\"jobBuilder.workEnv.saveAndReturnButtonLabel\":\"Découvrez le Canada ou d’autres régions du monde.\",\"jobBuilder.workEnv.specialWorkCulture\":\"Y a-t-il quelque chose de spécial au sujet de votre culture de travail?\",\"jobBuilder.workEnv.specialWorkCultureLabel\":\"Voici de plus amples renseignements sur votre culture de travail.\",\"jobBuilder.workEnv.specialWorkCultureSubtext\":\"Votre équipe accorde-t-elle beaucoup d’importance à d’autres aspects? Est-elle fière de son bilan en matière de résultats? A-t-elle pris de solides engagements envers le mieux-être mental? Participe-t-elle activement à la promotion de la diversité et de l’inclusion? Ses membres se font-ils les champions des enjeux relatifs à la collectivité LGBTQ+? Voici l’occasion de faire connaître aux candidats la culture de l’équipe qu’ils pourraient intégrer.\",\"jobBuilder.workEnv.stepDescription\":\"Les candidats accordent beaucoup d’importance à l’équipe au sein de laquelle ils travailleront et à leur espace de travail physique. Le fait de communiquer de l’information à ce sujet aide les candidats à déterminer s’ils correspondent bien au profil de l’emploi, et peut réduire le nombre de demandes « illusoires » qui ralentissent le processus de présélection.\",\"jobBuilder.workEnv.submitButtonLabel\":\"Aperçu de l’environnement de travail\",\"jobBuilder.workEnv.teamSizeLabel\":\"Taille de l’équipe\",\"jobBuilder.workEnv.teamSizePlaceholder\":\"Par exemple 10\",\"jobBuilder.workEnv.technology.accessToExternal\":\"Accès à un réseau sans fil externe et non filtré\",\"jobBuilder.workEnv.technology.collaboration\":\"Collaboration (p. ex., Slack, Hangouts)\",\"jobBuilder.workEnv.technology.fileSharing\":\"Partage des dossiers (p. ex., Google Drive, Dropbox)\",\"jobBuilder.workEnv.technology.taskManagement\":\"Gestion de tâches (p. ex., Trello, Asana)\",\"jobBuilder.workEnv.technology.versionControl\":\"Gestion de versions (p. ex., Github, Gitlab)\",\"jobBuilder.workEnv.technology.videoConferencing\":\"Vidéo-conférence (p. ex., Skype, Zoom)\",\"jobBuilder.workEnv.technologyLabel\":\"Technologie\",\"jobBuilder.workEnv.textAreaPlaceholder1\":\"Essayez d’adopter un ton décontracté, franc et amical.\",\"jobBuilder.workEnv.thisIsOptional\":\"Ceci est facultatif.\",\"jobBuilder.workEnv.title\":\"Environnement de travail\",\"jobBuilder.workEnvModal.cancelLabel\":\"Retour en arrière\",\"jobBuilder.workEnvModal.confirmLabel\":\"Prochaine étape\",\"jobBuilder.workEnvModal.modalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.workEnvModal.title\":\"Environnement de travail\",\"jobBuilder.workEnvModal.workCultureTitle\":\"Culture du travail\",\"jobCard.applicants\":\"{applicants, plural,=0 {Aucun candidat} one {# candidat} other {# candidats}}\",\"jobCard.managerTime\":\"Time with Manager: {managerTime, plural, one {# day} other {# days} }\",\"jobCard.noActivity\":\"Aucune nouvelle activité\",\"jobCard.userTime\":\"Time with you: <s>{userTime, plural, one {# day} other {# days} }</s>\",\"jobReviewHr.headsUp\":\"Un simple rappel! Nous avons réorganisé certains renseignements fournis afin de vous aider à comprendre comment le candidat verra l’information une fois publiée.\",\"jobReviewHr.loadingIconText\":\"Les données sont en cours de chargement...\",\"jobReviewHr.reviewYourPoster\":\"Examiner votre offre d’emploi pour :\",\"jobReviewHr.summaryLink\":\"Revenir au résumé\",\"jobStatus.approved\":\"Approuvé\",\"jobStatus.completed\":\"Achevé\",\"jobStatus.draft\":\"Ébauche\",\"jobStatus.finalReview\":\"Révision finale\",\"jobStatus.published\":\"Publié\",\"jobStatus.review\":\"En cours de révision\",\"jobStatus.translation\":\"En cours de traduction\",\"languageRequirement.bilingualAdvanced\":\"Bilingue - Avancé (CBC)\",\"languageRequirement.bilingualIntermediate\":\"Bilingue - Intermédiaire (BBB)\",\"languageRequirement.context.basic\":\"Vous pouvez présenter cette demande initiale dans la langue officielle de votre choix (français ou anglais).\",\"languageRequirement.context.expanded\":\"Vous pouvez suivre toutes les autres étapes de ce processus d’évaluation dans la langue officielle de votre choix, y compris la demande initiale, l’entrevue, l’examen et toute autre composante de l’évaluation.\",\"languageRequirement.description.bilingualAdvanced\":\"Ce poste nécessite une connaissance approfondie du français et de l'anglais. Cela signifie que vous pouvez assumer des tâches en français ou en anglais et que vous avez de solides compétences en lecture, en écriture et en communication verbale dans les deux langues officielles. Dans le cadre de ce processus de sélection, vos compétences linguistiques seront testées par la Commission de la fonction publique du Canada. Commission de la fonction publique du Canada.\",\"languageRequirement.description.bilingualIntermediate\":\"Ce poste nécessite une connaissance pratique du français et de l'anglais. Cela signifie que vous pouvez occuper des fonctions en français ou en anglais et que vous possédez des compétences intermédiaires en lecture, en écriture et en communication verbale dans les deux langues officielles. Dans le cadre de ce processus de sélection, vos compétences linguistiques seront testées par la Commission de la fonction publique du Canada.\",\"languageRequirement.description.english\":\"Ce poste exige une bonne maîtrise de l’anglais, tant à l’écrit que de vive voix. Dans le cadre de l’évaluation de vos compétences linguistiques, le gestionnaire d’embauche peut vous demander de suivre certaines étapes d’évaluation en anglais, comme des questions d’entrevue ou un examen.\",\"languageRequirement.description.englishOrFrench\":\"Pour ce poste, vous répondez aux exigences linguistiques si vous possédez de solides compétences en lecture, en rédaction et en communication verbale en français, en anglais ou dans les deux (bilingue).\",\"languageRequirement.description.french\":\"Ce poste exige une bonne maîtrise du français, tant à l’écrit que de vive voix. Dans le cadre de l’évaluation de vos compétences linguistiques, le gestionnaire d’embauche peut vous demander de suivre certaines étapes d’évaluation en français, comme des questions d’entrevue ou un examen.\",\"languageRequirement.english\":\"Anglais - Essentiel\",\"languageRequirement.englishOrFrench\":\"Anglais ou français\",\"languageRequirement.french\":\"Français - Essentiel\",\"managerSurveyModal.explanation\":\"Vos commentaires nous aident à améliorer nos outils! Veuillez prendre quelques minutes pour répondre à un sondage.\",\"managerSurveyModal.jobPosterLink\":\"Retour à Mes offres d'emploi\",\"managerSurveyModal.jobPosterLinkTitle\":\"Visitez Mes offres d'emploi.\",\"managerSurveyModal.link\":\"<a>M'emmener au sondage</>.\",\"managerSurveyModal.managerSurveyLinkTitle\":\"Lien vers le sondage auprès des gestionnaires.\",\"managerSurveyModal.title\":\"Votre offre d'emploi a été soumise!\",\"openJobCard.claimJob\":\"Réclamer cet emploi\",\"openJobCard.error\":\"Date non disponible.\",\"openJobCard.hiringManager\":\"Gestionnaires d’embauche :\",\"openJobCard.hrAdvisors\":\"Conseillers en RH :\",\"openJobCard.reviewRequested\":\"Récupérée: \",\"openJobCard.unclaimed\":\"Non réclamé\",\"progressTracker.unreachableStep\":\"Doit compléter les étapes précédentes.\",\"province.ab\":\"Alberta\",\"province.ab.abreviation\":\"Alta.\",\"province.bc\":\"Colombie britannique\",\"province.bc.abreviation\":\"C.-B.\",\"province.mb\":\"Manitoba\",\"province.mb.abreviation\":\"Man.\",\"province.nb\":\"Nouveau-Brunswick\",\"province.nb.abreviation\":\"N.-B.\",\"province.nl\":\"Terre-Neuve-et-Labrador\",\"province.nl.abreviation\":\"T.-N.-L.\",\"province.ns\":\"Nouvelle-Écosse\",\"province.ns.abreviation\":\"N.-É.\",\"province.nt\":\"Territoires du nord-ouest\",\"province.nt.abreviation\":\"T.N.-O.\",\"province.nu\":\"Nunavut\",\"province.nu.abreviation\":\"Nt\",\"province.on\":\"Ontario\",\"province.on.abreviation\":\"Ont.\",\"province.pe\":\"Île-du-Prince-Édouard\",\"province.pe.abreviation\":\"Î.-P.-É.\",\"province.qc\":\"Québec\",\"province.qc.abreviation\":\"Qc\",\"province.sk\":\"Saskatchewan\",\"province.sk.abreviation\":\"Sask.\",\"province.yk\":\"Yukon\",\"province.yk.abreviation\":\"Yn\",\"ratingGuideAnswer.answerLabel\":\"Réponse de passage acceptable / Démonstration requise\",\"ratingGuideAnswer.answerPlaceholder\":\"Écrivez la réponse de passage attendue du candidat relativement à cette compétence...\",\"ratingGuideAnswer.nullSelection\":\"Sélectionnez une compétence...\",\"ratingGuideAnswer.selectLabel\":\"Sélectionnez une compétence\",\"ratingGuideBuilder.addQuestion\":\"Ajoutez une question\",\"ratingGuideBuilder.assetMissing\":\"{count} Atout manquant : \",\"ratingGuideBuilder.copyButton\":\"Cliquez ici pour copier ce guide de cotation dans votre presse-papiers\",\"ratingGuideBuilder.copyInstructions\":\"Maintenant que vous avez conçu votre guide de cotation, vous pouvez utiliser le bouton ci-dessous pour copier tout le contenu dans votre presse-papiers, et ainsi pouvoir coller facilement votre système de traitement de texte préféré.\",\"ratingGuideBuilder.criteriaName\":\"{skillName} - {skillLevel}\",\"ratingGuideBuilder.criteriaTypeHeading\":\"Type de critères\",\"ratingGuideBuilder.essentialMissing\":\"{count} Critères essentiels manquants : \",\"ratingGuideBuilder.instructions\":\"Vous trouverez ci-dessous votre propre guide de cotation pour vous aider à évaluer vos candidats. Cet outil vous permet d’élaborer vos propres questions pour chaque évaluation que vous avez sélectionnée ci-dessus, puis de noter les critères de ce que pourrait représenter une excellente réponse du candidat. Veuillez prendre note que l’« examen narratif » est unique en ce sens que le contenu est généré pour vous ci-dessous.\",\"ratingGuideBuilder.narrativeSectionTitle\":\"Évaluation {index}: {assessmentType}\",\"ratingGuideBuilder.questionHeading\":\"Question\",\"ratingGuideBuilder.ratingGuideHeading\":\"Guide de notation\",\"ratingGuideBuilder.sectionTitle\":\"Évaluation {index}: {assessmentType}\",\"ratingGuideBuilder.skillDescriptionHeading\":\"Description de la compétence\",\"ratingGuideBuilder.skillHeading\":\"Compétence\",\"ratingGuideBuilder.targetLevelHeading\":\"Niveau cible\",\"ratingGuideBuilder.title\":\"3. Concepteur de guides de cotation\",\"ratingGuideBuilder.titleHeading\":\"Titre\",\"ratingGuideQuestion.questionLabel\":\"Question d'entrevue\",\"ratingGuideQuestion.questionPlaceholder\":\"Écrivez votre question d'entrevue ici ...\",\"review.applications.alert.oops\":\"Enregistrer\",\"review.applications.button.confirm\":\"Confirmer\",\"review.applications.indexPageTitle\":\"Applications pour : {jobTitle} {jobClassification}\",\"review.applications.nonCitizens.description\":\" \",\"review.applications.nonCitizens.title\":\"Non-Citoyens canadiens\",\"review.applications.optionalConsideration.description\":\"Dans ce groupe, vous trouverez les candidats qui ne sont pas citoyens canadiens ou qui ne prétendent pas répondre aux critères essentiels.\",\"review.applications.optionalConsideration.title\":\"Candidats supplémentaires\",\"review.applications.priorityApplicants.description\":\"Ce sont des candidats prioritaires pour ce poste. Ils doivent être examinés et pris en compte en premier.\",\"review.applications.priorityApplicants.title\":\"Candidats prioritaire\",\"review.applications.reviewSaveFailed\":\"Une erreur s'est produite lors de l'enregistrement d'un commentaire. Réessayez plus tard.\",\"review.applications.screenOutAll\":\"Éliminer tous les candidats supplémentaires\",\"review.applications.screenOutAll.confirm\":\"Êtes-vous sûr de vouloir éliminer tous les candidats supplémentaires?\",\"review.applications.screenedOut.description\":\"Ces applications ont déjà été éliminées.\",\"review.applications.screenedOut.title\":\"Candidats qui ne sont plus considérés\",\"review.applications.underConsideration.description\":\"Examinez les candidats dans la section Anciens combattants et citoyens canadiens. Si aucun ou très peu de ces candidats ne répondent aux critères, vous pouvez toujours prendre en compte les candidatures non citoyennes dans la section Considérations facultatives.\",\"review.applications.underConsideration.title\":\"Candidats à considérée\",\"review.applications.unqualified.description\":\" \",\"review.applications.unqualified.title\":\"Ne répond pas aux critères essentiels\",\"review.applications.veteransAndCitizens.description\":\" \",\"review.applications.veteransAndCitizens.title\":\"Anciens combattants et citoyens canadiens\",\"reviewLocations.jpb.basicInfo\":\"Renseignements de base\",\"reviewLocations.jpb.environment\":\"Environnement de travail\",\"reviewLocations.jpb.generic\":\"Générique\",\"reviewLocations.jpb.heading\":\"Titre de la page de l’emploi\",\"reviewLocations.jpb.impact\":\"Impact\",\"reviewLocations.jpb.langRequirements\":\"Exigences linguistiques\",\"reviewLocations.jpb.skills\":\"Compétences\",\"reviewLocations.jpb.tasks\":\"Taches\",\"securityClearance.reliability\":\"Fiabilité\",\"securityClearance.secret\":\"Secret\",\"securityClearance.topSecret\":\"Très secret\",\"skillLevel.asset.description\":\"Cette compétence n’est pas nécessaire pour que l’employé puisse exécuter le travail, mais elle ajoute un avantage à l’ensemble de ses compétences et améliorera le rythme ou l’efficacité de son travail.\",\"skillLevel.asset.name\":\"Atout/aucun niveau requis\",\"skillLevel.hard.advanced.description\":\"Vous avez la capacité d’accomplir des tâches d’une complexité ou d’une incidence importante avec supervision. Vous donnez des conseils et des commentaires au superviseur sur l’approche à employer pour effectuer les tâches et la façon dont elles sont exécutées. Vous êtes en mesure de faire progresser la tâche, même face à des obstacles et à des complications d’envergure moyenne à importante. Au fur et à mesure que vous progressez dans cette catégorie, vous êtes être en mesure d’accomplir des tâches d’une complexité importante ou ayant une incidence plus grande avec seulement de légers niveaux de supervision, en étant effectivement le responsable de l’initiative. Vous pouvez également jouer un rôle de formation d’autres personnes dans cet ensemble de compétences ou assumer un rôle de supervision léger pour les personnes aux niveaux inférieurs. Ce niveau est habituellement associé à des tâches qui constituent la majeure partie du travail pour des postes de niveau supérieur, comme les analystes principaux ou les développeurs principaux.\",\"skillLevel.hard.advanced.name\":\"Avancé\",\"skillLevel.hard.basic.description\":\"Vous êtes capable d’accomplir des tâches de base avec une supervision régulière et une orientation claire. Les tâches qui vous sont assignées sont claires et ne sont pas très complexes. Elles ont généralement une incidence locale. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’accomplir des tâches de complexité modérée avec une supervision régulière. Vous devriez également être en mesure d’accomplir des tâches de base avec peu ou pas de supervision. Ce niveau est habituellement associé aux tâches qui constituent le gros du travail pour les postes de niveau inférieur, comme les analystes ou les développeurs de niveau débutant.\",\"skillLevel.hard.basic.name\":\"Débutant\",\"skillLevel.hard.expert.description\":\"Vous êtes en mesure d’accomplir des tâches d’une complexité ou d’une incidence importante, où vous prenez les décisions et répondez de vos décisions auprès de la haute direction de l’organisation. Vous présentez les tâches, l’approche et le plan de réalisation à la haute direction. Vous supervisez souvent d’autres personnes (personnes ou équipes) dans l’exécution de tâches très complexes ou ayant une incidence sur l’ensemble du système. Vous êtes en mesure de faire progresser ces tâches, même face à des obstacles et à des complications importants et imprévus. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’évaluer les autres à des niveaux plus subalternes, et de déterminer clairement la différence entre les tâches débutantes, intermédiaires et avancées. Vous devriez également être en mesure de pouvoir former des équipes, définir des orientations et assurer une supervision. Ce niveau est habituellement associé aux tâches qui constituent la majeure partie du travail pour les postes de direction et de direction.\",\"skillLevel.hard.expert.name\":\"Responsable\",\"skillLevel.hard.intermediate.description\":\"Vous avez la capacité d’accomplir des tâches de complexité modérée ou d’incidence modérée avec supervision. C’est le superviseur qui détermine l’approche à préconiser pour effectuer les tâches, de même que la façon dont elles sont exécutées. Vous apportez des commentaires et des conseils. Vous êtes en mesure de faire progresser la tâche, même face à des obstacles et à des complications de petite à moyenne envergure. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’accomplir des tâches d’une complexité importante ou ayant une incidence plus grande avec une supervision régulière. Vous devriez également être en mesure d’accomplir des tâches d’une complexité ou d’une incidence modérée avec peu ou pas de supervision. Ce niveau est habituellement associé aux tâches qui constituent le gros du travail pour les postes de niveau intermédiaire, comme les analystes ou les développeurs.\",\"skillLevel.hard.intermediate.name\":\"Intermédiaire\",\"skillLevel.soft.advanced.description\":\"Vous êtes capable de démontrer cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont élevés. Vos pairs et vos superviseurs reconnaissent qu’il s’agit d’une force dont vous faites preuve en milieu de travail.\",\"skillLevel.soft.advanced.name\":\"Fortement en évidence\",\"skillLevel.soft.basic.description\":\"Vous êtes en processus d’acquérir cette compétence ou cet attribut. Vous êtes capable de le démontrer dans des conditions favorables (peu de stress, difficulté minimale) et pouvez l’appliquer dans un contexte de travail de façon intermittente.\",\"skillLevel.soft.basic.name\":\"Phase de développement précoce\",\"skillLevel.soft.expert.description\":\"Il s’agit d’une partie fondamentale de qui vous êtes. Vous démontrez cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont extrêmes. Vos pairs et vos superviseurs reconnaissent qu’il s’agit d’une force importante dont vous faites preuve en milieu de travail, en donnant un exemple aux autres.\",\"skillLevel.soft.expert.name\":\"Démonstration à un niveau profond\",\"skillLevel.soft.intermediate.description\":\"Vous êtes capable de démontrer cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont bas ou modérés. Vos pairs et vos superviseurs peuvent attester le fait que vous êtes capable de démontrer cette compétence ou cet attribut de façon régulière.\",\"skillLevel.soft.intermediate.name\":\"Modérément en évidence\",\"wordCounter.skills.longMessage\":\"Ça a l'air trop long. Pouvez-vous résumer une partie de votre réponse?\",\"wordCounter.skills.placeholder\":\"Commencez à taper votre réponse ci-dessus.\",\"wordCounter.skills.shortMessage\":\"Ce paragraphe semble trop court. Avez-vous un autre exemple ou une leçon à ajouter?\",\"wordCounter.skills.slightlyLongMessage\":\"Ça commence à être un peu long.\",\"wordCounter.skills.veryLongMessage\":\"La limite des 500 mot a été atteinte. C'est beaucoup trop long. Découvrez l'un de nos exemples pour voir à quoi ressemble une description de compétence concise.\",\"wordCounter.skills.veryShortMessage\":\"Ce paragraphe semble trop court. Avez-vous inclus des exemples ou des leçons apprises?\"}");
+module.exports = JSON.parse("{\"activity.commentLocation.label\":\"Commentaire trouvé\",\"activity.commentMetadata\":\"{name} ({userRole}) a commenté à {time}.\",\"activity.viewComment.label\":\"Visualiser le commentaire\",\"activityfeed.accordionAccessibleLabel\":\"Cliquez pour voir...\",\"activityfeed.error\":\"Une erreur s'est produite\",\"activityfeed.header\":\"Cliquez pour voir les commentaires {totalActivities}\",\"activityfeed.loading\":\"Chargement de vos activités...\",\"activityfeed.loadingIconText\":\"Nombre d'activités est en cours de chargement...\",\"activityfeed.locations.applicantReview.general\":\"Général\",\"activityfeed.locations.applicantReview.notUnderConsideration\":\"Candidats qui ne sont plus considérés\",\"activityfeed.locations.applicantReview.optionalConsideration\":\"Candidats supplémentaires\",\"activityfeed.locations.applicantReview.underConsideration\":\"Candidats à considérée\",\"activityfeed.locations.applications\":\"Page des Réviser les candidats\",\"activityfeed.locations.hr.preview\":\"RH Page d'aperçu\",\"activityfeed.locations.hr.summary\":\"RH Résumé de l'emploi\",\"activityfeed.locations.notFound\":\"lieu non trouvé\",\"activityfeed.locations.review\":\"Constructeur d'Affiches\",\"activityfeed.locations.review.basicInfo\":\"Renseignements de base\",\"activityfeed.locations.review.environment\":\"Environnement de travail\",\"activityfeed.locations.review.general\":\"Général\",\"activityfeed.locations.review.heading\":\"Titre de la page de l’emploi\",\"activityfeed.locations.review.impact\":\"Incidence\",\"activityfeed.locations.review.langRequirements\":\"Exigences linguistiques\",\"activityfeed.locations.review.skills\":\"Compétences\",\"activityfeed.locations.review.tasks\":\"Taches\",\"activityfeed.locations.screeningPlan\":\"plan d’évaluation\",\"activityfeed.locations.screeningPlan.builder\":\"Concepteur de plans d’évaluation\",\"activityfeed.locations.screeningPlan.general\":\"Général\",\"activityfeed.locations.screeningPlan.ratings\":\"Concepteur de guides de cotation\",\"activityfeed.locations.screeningPlan.summary\":\"Sommaire du plan d’évaluation\",\"activityfeed.noActivities\":\"Aucune activité.\",\"activityfeed.review.accordionAccessibleLabel\":\"Cliquer pour afficher...\",\"activityfeed.review.header\":\"Cliquez pour voir les commentaires {totalActivities}\",\"activityfeed.review.loadingIconText\":\"Les données sont en cours de chargement...\",\"activityfeed.title\":\"Activités\",\"application.review.addNote\":\"+ Ajouter une note\",\"application.review.alert.oops\":\"Oups...\",\"application.review.backToApplicantList\":\"Sauvegarder et revenir à la liste des candidats\",\"application.review.button.cancel\":\"Annuler\",\"application.review.button.confirm\":\"Confirmer\",\"application.review.button.save\":\"Enregistrer\",\"application.review.button.saved\":\"Enregistrée\",\"application.review.button.saving\":\"Enregistre...\",\"application.review.button.viewJobPoster\":\"Voir l'affiche d'emploi\",\"application.review.collapseAllSkills\":\"Réduire les compétences\",\"application.review.decision\":\"Décision\",\"application.review.editNote\":\"Modifier la note\",\"application.review.emailCandidateLinkTitle\":\"Envoyer un courriel à ce candidat.\",\"application.review.expandAllSkills\":\"Élargir les compétences\",\"application.review.priorityStatus.priority\":\"Priorité\",\"application.review.priorityStatus.priorityLogoTitle\":\"Icône pour candidat prioritaire\",\"application.review.reviewSaveFailed\":\"Une erreur s'est produite lors de l'enregistrement d'un commentaire. Réessayez plus tard.\",\"application.review.reviewStatus.notReviewed\":\"Non révisé\",\"application.review.reviewStatus.screenedOut\":\"Éliminé\",\"application.review.reviewStatus.stillIn\":\"Encore considérée\",\"application.review.reviewStatus.stillThinking\":\"Incertain\",\"application.review.screenInConfirm\":\"Remettre le candidat dans la section à l'étude?\",\"application.review.screenOutConfirm\":\"Éliminer le candidat?\",\"application.review.veteranStatus.veteran\":\"Anciens combattants\",\"application.review.veteranStatus.veteranLogoAlt\":\"icône pour anciens combattants\",\"application.review.viewApplication\":\"Voir l'application\",\"application.review.viewApplicationLinkTitle\":\"Voir l'application de ce candidat.\",\"application.review.viewProfile\":\"Voir le profil\",\"application.review.viewProfileLinkTitle\":\"Voir le profil de ce candidat.\",\"assessmentPlan.addAssessmentButton\":\"Ajouter une évaluation\",\"assessmentPlan.alert.checking\":\"Vérifier si le poste a changé récemment...\",\"assessmentPlan.alert.created\":\"{skills} {count, plural, one {compétence a été ajoutée} other {compétences ont été ajoutées}}.\",\"assessmentPlan.alert.deleted\":\"{skills} {count, plural, one {compétence a été supprimée} other {compétences ont été supprimées}}.\",\"assessmentPlan.alert.explanation\":\"Certaines parties du plan de présélection ont été modifiées pour qu’elles concordent les unes avec les autres.\",\"assessmentPlan.alert.skillAndLevelUpdated\":\"Le champ « {oldSkill} » a été remplacé par « {newSkill} » et a fait l’objet d’une mise à jour.\",\"assessmentPlan.alert.skillLevelUpdated\":\"{skills} {count, plural, one {compétence a été mise à jour} other {compétences ont été mises à jour}}.\",\"assessmentPlan.alert.skillUpdated\":\"Le champ {oldSkill} a été remplacé par {newSkill}.\",\"assessmentPlan.alert.title\":\"Ce poste a récemment changé!\",\"assessmentPlan.assessmentPlanBuilder.instructions\":\"La première étape consiste à choisir des évaluations qui vous permettront d’évaluer les critères que vous avez sélectionnés pour votre offre d’emploi. Vous trouverez ci-dessous vos critères essentiels, suivis de vos critères constituant un atout, le cas échéant. Le concepteur sera enregistré au fur et à mesure, donc lorsque vous aurez terminé, n’hésitez pas à passer à l’étape 2 pour examiner votre travail.\",\"assessmentPlan.assessmentPlanBuilder.shortDescription\":\"(Sélectionnez vos évaluations)\",\"assessmentPlan.assessmentPlanBuilder.title\":\"Concepteur de plans d’évaluation\",\"assessmentPlan.assessmentPlanSummary.shortDescription\":\"(Passez votre plan en revue)\",\"assessmentPlan.assessmentPlanSummary.title\":\"Sommaire du plan d’évaluation\",\"assessmentPlan.assessmentTypesLabel\":\"Types d’évaluation\",\"assessmentPlan.assetCriteria.nullState\":\"Vous n’avez pas choisi de compétences constituant un atout pour cette offre d’emploi.\",\"assessmentPlan.criteriaTitle\":\"{skillName} - {skillLevel}\",\"assessmentPlan.essentialCriteria.nullState\":\"Vous n’avez pas choisi de compétences essentielles pour cette offre d’emploi.\",\"assessmentPlan.instructions.intro\":\"Cet outil vous permet d’élaborer un plan d’évaluation et un guide de cotation pour votre offre d’emploi. L’outil est utilisé en trois étapes :\",\"assessmentPlan.instructions.narrativeNote\":\"Veuillez prendre note que tous les plans d’évaluation comprendront un examen des éléments de preuve fournis par le candidat.\",\"assessmentPlan.pageTitle\":\"Élaborer un plan d’évaluation pour : {jobTitle}\",\"assessmentPlan.ratingGuideBuilder.shortDescription\":\"(Personnalisez vos évaluations)\",\"assessmentPlan.ratingGuideBuilder.title\":\"Concepteur de guides de cotation\",\"assessmentPlan.selectAssessment.label\":\"Sélectionner une évaluation\",\"assessmentPlan.selectAssessment.null\":\"Sélectionner une évaluation\",\"assessmentPlan.skillDescriptionLabel\":\"Description\",\"assessmentPlan.skillLevelDescriptionLabel\":\"Niveau de compétence sélectionné\",\"assessmentPlan.summary.assessmentSummary.noAssessments\":\"Vous n’avez pas sélectionné d’évaluations pour cette offre d’emploi. Ajoutez-les ci-dessus.\",\"assessmentPlan.summary.assessmentSummary.title\":\"Sommaire de l’évaluation\",\"assessmentPlan.summary.assessmentSummary.toolSkillCount\":\"Votre plan utilise {toolCount, plural, =0 {aucun outil} one {# outill} other {# outils}} pour évaluer {skillCount, plural, =0 {compétences} one {# compétence} other {# compétences}}.\",\"assessmentPlan.summary.description\":\"Ceci est un résumé du travail que vous avez effectué ci-dessus. Vous trouverez\\n      chaque évaluation accompagnée d'une liste consolidée des compétences essentielles\\n      et des atouts qui s'y rattachent.\",\"assessmentPlan.summary.skillCount\":\"Évaluer {count, plural, one {# compétence} other {# compétences}}.\",\"assessmentPlan.summary.skillsNullState\":\"Aucune compétence n’est évaluée par cet outil.\",\"assessmentPlan.summary.title\":\"2. Sommaire du plan d’évaluation\",\"assessmentPlan.title\":\"Concepteur de plans d’évaluation\",\"assessmentType.applicationScreeningQuestion\":\"Questions de présélection dans le cadre du processus d’embauche\",\"assessmentType.applicationScreeningQuestion.description\":\"Ces questions paraissent dans le formulaire de demande, et sont présentées dans le Nuage de talents. Elles donnent un premier aperçu de la compréhension, du processus, des connaissances ou de l’adaptation culturelle du candidat pour le poste.\",\"assessmentType.groupTest\":\"Test de groupe\",\"assessmentType.groupTest.description\":\"Les candidats effectuent ce test en temps réel conjointement avec d’autres candidats, des membres de l’équipe ou des animateurs afin de déterminer leurs compétences exceptionnelles, leur habileté à communiquer au sein d’une équipe.\",\"assessmentType.informalPhoneConversation\":\"Conversation téléphonique informelle\",\"assessmentType.informalPhoneConversation.description\":\"Une conversation informelle entre un membre du comité d’embauche et un(e) candidat(e), visant à découvrir les connaissances, les aptitudes ou les traits de personnalité du candidat; les conversations peuvent varier d’un candidat à l’autre.\",\"assessmentType.interview\":\"Entrevue\",\"assessmentType.interview.description\":\"Examen formel de questions-réponses effectué en temps réel entre le comité de sélection et le (la) candidat(e). Les questions ont pour but d'évaluer l'expertise, le niveau et l'approche des compétences. Chaque question est élaborée à l’avance et suit la même structure entre tous les candidats interrogés.\",\"assessmentType.narrativeAssessment\":\"Examen narratif\",\"assessmentType.narrativeAssessment.description\":\"Il s’agit d’une description demandée au cours du processus de demande, dans laquelle les candidats s’identifient et décrivent leur expérience et leur niveau de compétence.\",\"assessmentType.narrativeReview.standardAnswer\":\"La description fournie contient suffisamment d’éléments de preuve pour faire passer ce candidat aux étapes de présélection suivantes.\",\"assessmentType.narrativeReview.standardQuestion\":\"L’examen descriptif des compétences comprend toutes les descriptions ajoutées par le candidat dans sa demande.\",\"assessmentType.onSiteExam\":\"Épreuve sur place\",\"assessmentType.onSiteExam.description\":\"Épreuve préparée qui exige que le candidat effectue à un endroit précis et sous supervision un test visant à évaluer ses compétences et sa technique.\",\"assessmentType.onlineExam\":\"Épreuve en ligne\",\"assessmentType.onlineExam.description\":\"Épreuve préparée qui n’exige pas de supervision, qui peut être effectuée de n’importe quel endroit au moyen d’un accès à Internet, et qui doit être achevée dans un intervalle de temps défini.\",\"assessmentType.portfolioReview\":\"Examen du portefeuille\",\"assessmentType.portfolioReview.description\":\"Au cours du processus de demande, les candidats donnent accès à des échantillons de leur travail pour démontrer leur niveau de compétence et étayer leurs prétentions à cet égard.\",\"assessmentType.referenceCheck\":\"Vérification des références\",\"assessmentType.referenceCheck.description\":\"Au cours du processus de demande, les candidats fournissent les coordonnées d’une connaissance qui peut valider et confirmer leurs compétences, leurs connaissances ou leurs aptitudes.\",\"assessmentType.seriousGames\":\"Jeux sérieux\",\"assessmentType.seriousGames.description\":\"Test comprenant l’utilisation de jeux pour explorer les aptitudes en communication, la résilience et l’intelligence émotionnelle d’un(e) candidat(e), entre autres compétences générales.\",\"assessmentType.takeHomeExam\":\"Épreuve à la maison\",\"assessmentType.takeHomeExam.description\":\"Les candidats reçoivent une trousse matérielle contenant les outils d’évaluation; ils effectuent l’évaluation à un moment qui leur convient le mieux, et à un endroit de leur choix, sans supervision, et ils doivent retourner les documents avant une date limite précise.\",\"button.copied\":\"Copié!\",\"button.copyEmails\":\"Copier des emails\",\"button.copyToClipboard\":\"Copier sur le presse-papier\",\"button.toggleAccordion\":\"Basculer pour voir les candidats concernés.\",\"commentForm.comment.label\":\"Ajouter un commentaire\",\"commentForm.comment.placeholder\":\"À titre d’exemple, entrez votre question, votre recommandation, etc.\",\"commentForm.commentLocation.label\":\"Emplacement du commentaire\",\"commentForm.commentLocation.nullSelection\":\"Sélectionnez un emplacement...\",\"commentForm.commentType.label\":\"Type de commentaire\",\"commentForm.commentType.nullSelection\":\"Sélectionner un type de commentaire\",\"commentForm.submitButton.label\":\"Soumettre un commentaire\",\"commentType.comment\":\"Commentaire\",\"commentType.question\":\"Question\",\"commentType.recommendation\":\"Recommandation\",\"commentType.requiredAction\":\"Mesure requise\",\"criteria.asset\":\"Compétences constituant un atout\",\"criteria.essential\":\"Compétences essentielles\",\"criteriaForm.skillLevelSelectionLabel\":\"Choisir un niveau de compétence\",\"criteriaForm.skillSpecificityLabel\":\"Détails supplémentaires pour cette compétence\",\"criteriaForm.skillSpecificityPlaceholder\":\"Ajoutez du contexte ou des détails à la définition de cette compétence qui n'apparaîtront que sur votre affiche d'emploi. Ceci sera examiné par votre conseiller en ressources humaines.\",\"criteriaType.asset\":\"Atout\",\"criteriaType.essential\":\"Essentiel\",\"demoSubmitJobModal.cancel\":\"Retourner\",\"demoSubmitJobModal.explanation\":\"Seuls les ministères partenaires de Nuage des talents ont accès à l'examen et à la publication des avis d'emploi.\",\"demoSubmitJobModal.link\":\"<a>Savoir si vous pouvez accéder à ces fonctions</a>.\",\"demoSubmitJobModal.link.title\":\"Découvrez comment accéder aux fonctions d'examen et de publication des avis d'emploi.\",\"demoSubmitJobModal.title\":\"Il semble que vous utilisez un compte de démonstration.\",\"errorToast.title\":\"Quelque chose a mal tourné!\",\"formInput.error\":\"Cette entrée a une erreur.\",\"formInput.required\":\"Champs obligatoires\",\"formValidation.checkboxRequired\":\"Il faut cocher au moins une case.\",\"formValidation.invalidSelection\":\"Veuillez choisir parmi les options disponibles.\",\"formValidation.required\":\"Ce champ est requis.\",\"formValidation.tooLong\":\"Trop longue?\",\"formValidation.tooShort\":\"Trop courte?\",\"hrJobIndex.departmentPlaceholder\":\" [Chargement du ministère]\",\"hrJobIndex.jobTitleMissing\":\"Titre manquant \",\"hrJobIndex.managerLoading\":\"Chargement...\",\"hrJobIndex.preview\":\"Prévisualiser l’avis d’emploi \",\"hrJobIndex.reviewDraft\":\"Réviser l’ébauche \",\"hrJobIndex.viewActivity\":\"Afficher l’activité \",\"hrJobIndex.viewScreeningPlan\":\"Afficher le plan d’évaluation \",\"hrJobIndex.viewSummary\":\"Afficher le résumé \",\"hrPortal.jobPageIndex.clickToView\":\"Cliquer pour afficher...\",\"hrPortal.jobPageIndex.completedJobsHeader\":\" Mes mesures d’emploi achevées \",\"hrPortal.jobPageIndex.hideAccordion\":\" Masquer \",\"hrPortal.jobPageIndex.jobActionsEmpty\":\"Réclamer un emploi ci-dessous!\",\"hrPortal.jobPageIndex.jobActionsHeader\":\"Mes mesures d’emploi achevée\",\"hrPortal.jobPageIndex.jobActionsMessage\":\"Voici une liste de toutes les mesures d’emploi auxquelles vous participez actuellement. Vous cherchez une ancienne offre d’emploi? Cochez la section « Mes mesures d’emploi achevées » sous vos offres d’emploi actives.\",\"hrPortal.jobPageIndex.noJobsCompleted\":\"Aucune offre d’emploi achevée à l’heure actuelle!\",\"hrPortal.jobPageIndex.preDepartmentName\":\"Toutes les offres d’emploi dans\",\"hrPortal.jobPageIndex.showAccordion\":\"Afficher \",\"hrPortal.jobPageIndex.unclaimedJobsEmpty\":\"Il n’y a actuellement aucune offre d’emploi active disponible.\",\"hrPortal.jobPageIndex.unclaimedJobsMessage\":\"Voici la liste de toutes les mesures actives dans votre ministère. À partir de ce point, vous pouvez « réclamer » un emploi qui sera transféré dans votre liste d’emploi ci-dessus, ce qui vous permettra de commencer à collaborer avec le gestionnaire d’embauche pour trouver le meilleur talent possible. Si vous réclamez un emploi par erreur, ne craignez rien, car vous pouvez cliquer sur le résumé de l’emploi et retirer votre nom au moyen du bouton « Renoncer à cet emploi ».\",\"job.daysSinceClosed\":\"{dayCount, plural, =0 {Aucun jour} one {# jour} other {# jours}} depuis la fermeture\",\"jobBuilder.collaborativeness.01.description\":\"Les membres de notre équipe proviennent de divers milieux, et ont des points de vue et des compétences variés. Nous nous appuyons sur nos points forts. Collectivement, nous nous approprions les objectifs de l’équipe et nous sommes constamment à la recherche de façons de s’entraider.\",\"jobBuilder.collaborativeness.01.title\":\"Collaboratif\",\"jobBuilder.collaborativeness.02.description\":\"Notre équipe possède un ensemble de compétences diversifiées et nous reconnaissons les forces de chacun. Nous travaillons ensemble souvent et nous intervenons rapidement quand une personne demande de l’aide.\",\"jobBuilder.collaborativeness.02.title\":\"Assez collaboratif\",\"jobBuilder.collaborativeness.03.description\":\"Chaque membre de notre équipe possède une pièce du casse-tête et jouit de la liberté de choisir sa propre façon de travailler.\",\"jobBuilder.collaborativeness.03.title\":\"Assez indépendant \",\"jobBuilder.collaborativeness.04.description\":\"Chaque membre de notre équipe prend en charge sa pièce du casse-tête. La façon dont nous accomplissons notre travail importe peu, tant qu’il est de qualité supérieure.\",\"jobBuilder.collaborativeness.04.title\":\"Indépendant\",\"jobBuilder.criteriaForm.addSpecificity\":\"Je voudrais ajouter des détails à cette définition qui sont spécifiques à ce poste.\",\"jobBuilder.criteriaForm.button.add\":\"Ajouter une compétence\",\"jobBuilder.criteriaForm.button.cancel\":\"Annuler\",\"jobBuilder.criteriaForm.chooseSkillLevel\":\"Choisir un niveau de compétence\",\"jobBuilder.criteriaForm.or\":\"ou\",\"jobBuilder.criteriaForm.removeSpecificity\":\"Supprimer la particularité supplémentaire.\",\"jobBuilder.criteriaForm.skillDefinition\":\"Définition de la compétence\",\"jobBuilder.criterion.requiredSkill\":\"Compétence requise :\",\"jobBuilder.culturePace.01.description\":\"Nos échéances sont serrées, nous traitons plusieurs tâches en même temps et nos priorités changent constamment. Notre travail devrait être effectué en portant des chaussures de courses!\",\"jobBuilder.culturePace.01.title\":\"Un rythme très rapide\",\"jobBuilder.culturePace.02.description\":\"Nos échéances sont habituellement rapprochées, nous traitons plusieurs tâches en même temps et nos priorités changent régulièrement. Notre travail nous force à rester sur le qui-vive!\",\"jobBuilder.culturePace.02.title\":\"Rythme rapide\",\"jobBuilder.culturePace.03.description\":\"Nos échéances sont régulières et prévisibles, nous traitons quelques tâches à la fois et nos priorités changent de temps à autre. Nous maintenons un certain équilibre.\",\"jobBuilder.culturePace.03.title\":\"Soutenu\",\"jobBuilder.culturePace.04.description\":\"Notre travail est continu, donc il n’y a pas beaucoup d’échéances. Habituellement, nous ne sommes pas obligés d’équilibrer la répartition des tâches et nos priorités changent rarement. Nous nous sentons bien dans la routine.\",\"jobBuilder.culturePace.04.title\":\"Très soutenu\",\"jobBuilder.details.SelectClassAndLvlMessage\":\"Veuillez choisir une classification et un niveau avant de préparer\\r\\n                          les exigences en matière d’éducation.\",\"jobBuilder.details.cityLabel\":\"Dans quelle ville l'équipe est-elle située?\",\"jobBuilder.details.cityPlaceholder\":\"P. ex. Ottawa\",\"jobBuilder.details.classificationLabel\":\"Quelle est la classification?\",\"jobBuilder.details.classificationNullSelection\":\"Veuillez sélectionner la classification...\",\"jobBuilder.details.classificationOptions.AD\":\"AD - Services administratifs\",\"jobBuilder.details.classificationOptions.AS\":\"AS – Services administratifs\",\"jobBuilder.details.classificationOptions.BI\":\"BI – Sciences biologiques\",\"jobBuilder.details.classificationOptions.CO\":\"CO - Commerce\",\"jobBuilder.details.classificationOptions.CR\":\"CR - Commis aux écritures et aux règlements\",\"jobBuilder.details.classificationOptions.CS\":\"CS – Systèmes d’ordinateurs\",\"jobBuilder.details.classificationOptions.EC\":\"EC - Économique et services de sciences sociales\",\"jobBuilder.details.classificationOptions.EX\":\"EX - Direction\",\"jobBuilder.details.classificationOptions.FO\":\"FO - Sciences forestières\",\"jobBuilder.details.classificationOptions.IS\":\"IS – Services d’information\",\"jobBuilder.details.classificationOptions.PC\":\"PC – Sciences physiques\",\"jobBuilder.details.classificationOptions.PE\":\"PE – Gestion du personnel\",\"jobBuilder.details.classificationOptions.PM\":\"PM – Administration des programmes\",\"jobBuilder.details.documentTitle\":\"Constructeur d'affiches: Renseignements\",\"jobBuilder.details.educationMessages.AD\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires;\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’elle soit prise en considération. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.AS\":\"Diplôme d’études secondaires ou équivalent :\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.BI\":\"Diplôme d’études postsecondaires:\\nDiplôme d’études postsecondaires en sciences naturelles, physiques ou appliquées, avec spécialisation dans un domaine lié aux fonctions du poste.\",\"jobBuilder.details.educationMessages.CO\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.CR\":\"Deux années d’études secondaires ou l’équivalent:\\nAu moins deux années d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative aux deux années d’études secondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.CS\":\"Deux (2) ans d’études postsecondaires ou l’équivalent:\\nDeux années d’études postsecondaires en informatique, en technologie de l’information, en gestion de l’information ou dans une autre spécialité pertinente à ce poste.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente aux deux années d’études postsecondaires requises, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.EC\":\"Diplôme d’études postsecondaires:\\nun diplôme d’un établissement d’enseignement postsecondaire reconnu avec spécialisation acceptable en économique, en sociologie ou en statistique.\\n\\nLes candidats doivent toujours détenir un diplôme. Les cours de spécialisation doivent être acceptables et avoir été suivis auprès d’un établissement d’enseignement postsecondaire reconnu, mais pas nécessairement dans le cadre d’un programme de diplôme dans la spécialisation requise. La spécialisation peut également être obtenue grâce à un agencement acceptable d’études, de formation et (ou) d’expérience.\",\"jobBuilder.details.educationMessages.EX\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires, ou admissibilité à un titre professionnel reconnu dans une province ou un territoire du Canada.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.FO\":\"Diplôme d’études postsecondaires:\\nUn diplôme en foresterie ou en produits du bois d’un établissement d’enseignement postsecondaire reconnu.\\n\\nou\\n\\nUn diplôme dans une science connexe d’un établissement d’enseignement postsecondaire reconnu agencé à une expérience acceptable.\",\"jobBuilder.details.educationMessages.IS\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.PC\":\"Diplôme d’études postsecondaires:\\nDiplôme d’études postsecondaires, avec spécialisation en physique, en géologie, en chimie ou dans une autre science liée aux fonctions du poste.\",\"jobBuilder.details.educationMessages.PE\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires, avec spécialisation en gestion des ressources humaines, en relations de travail ou en relations industrielles, en psychologie, en administration publique ou en administration des affaires, en développement organisationnel, en sciences de l’éducation, en sciences sociales, en sociologie ou dans un autre domaine lié aux fonctions du poste.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.PM\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationRequirementCopyAndPaste\":\"Si vous voulez personnaliser ce paragraphe, veuillez le copier-coller dans la zone de texte ci-dessous pour le modifier. \",\"jobBuilder.details.educationRequirementHeader\":\"En fonction du niveau de classification sélectionné, le paragraphe générique suivant apparaîtra sur l’offre d’emploi. \",\"jobBuilder.details.educationRequirementPlaceholder\":\"Collez le paragraphe ici pour le modifier...\",\"jobBuilder.details.educationRequirementReviewChanges\":\"Votre conseiller en RH examinera vos changements.\",\"jobBuilder.details.educationRequirementsLabel\":\"Personnaliser les exigences en matière d’études :\",\"jobBuilder.details.flexHoursGroupBody\":\"Vous voulez appuyer un milieu de travail plus inclusif sur le plan de l’égalité des sexes? Des études montrent que l’horaire flexible est un excellent moyen d’améliorer les possibilités des femmes et des parents.\",\"jobBuilder.details.flexHoursGroupHeader\":\"À quelle fréquence les heures flexibles sont-elles permises?\",\"jobBuilder.details.flexHoursGroupLabel\":\"Choisissez les horaires souples :\",\"jobBuilder.details.frequencyAlwaysLabel\":\"Presque toujours\",\"jobBuilder.details.frequencyFrequentlyLabel\":\"Habituellement\",\"jobBuilder.details.frequencyNeverLabel\":\"Jamais\",\"jobBuilder.details.frequencyOccasionallyLabel\":\"Rarement\",\"jobBuilder.details.frequencySometimesLabel\":\"Parfois\",\"jobBuilder.details.heading\":\"Détails sur l’emploi\",\"jobBuilder.details.languageLabel\":\"Quel est le profil linguistique?\",\"jobBuilder.details.languageNullSelection\":\"Veuillez sélectionner le profil linguistique...\",\"jobBuilder.details.levelLabel\":\"Quel est le niveau?\",\"jobBuilder.details.levelNullSelection\":\" Veuillez sélectionner le niveau...\",\"jobBuilder.details.modalBody\":\"Voici un aperçu des informations sur le travail que vous venez de saisir. N'hésitez pas à revenir en arrière et à modifier des éléments ou à passer à l'étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.details.modalCancelLabel\":\"Retourner\",\"jobBuilder.details.modalConfirmLabel\":\"Étape suivante\",\"jobBuilder.details.modalHeader\":\"Vous partez du bon pied!\",\"jobBuilder.details.modalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.details.overtimeFrequentlyLabel\":\"Oui, il est souvent nécessaire de travailler des heures supplémentaires dans le cadre de ce poste.\",\"jobBuilder.details.overtimeGroupHeader\":\"Le temps supplémentaire est-il requis?\",\"jobBuilder.details.overtimeGroupLabel\":\"Sélectionner l’exigence en matière de temps supplémentaire\",\"jobBuilder.details.overtimeNoneRequiredLabel\":\"Non, le temps supplémentaire n’est pas nécessaire pour ce poste.\",\"jobBuilder.details.overtimeOpportunitiesAvailableLabel\":\"Oui, il est possible que des heures supplémentaires soient offertes aux personnes intéressées.\",\"jobBuilder.details.provinceLabel\":\"Dans quelle province l'équipe est-elle située?\",\"jobBuilder.details.provinceNullSelection\":\"Veuillez sélectionner la province...\",\"jobBuilder.details.remoteWorkCanadaLabel\":\"Oui, je suis prêt(e) à superviser des employés dans n'importe quelle province ou territoire au Canada.\",\"jobBuilder.details.remoteWorkGroupBody\":\"Vous voulez les meilleurs talents au Canada? Vous augmentez vos chances lorsque vous permettez à ceux qui se trouvent dans d’autres régions du Canada de présenter une demande. La diversité régionale ajoute également une perspective à la culture de votre équipe. Assurez-vous d’en discuter à l’avance avec votre conseiller en RH.\",\"jobBuilder.details.remoteWorkGroupHeader\":\"Le travail à distance est-il permis?\",\"jobBuilder.details.remoteWorkGroupLabel\":\"Choisissez le travail à distance :\",\"jobBuilder.details.remoteWorkNoneLabel\":\"Non, j’exige que l’employé(e) qui occupe ce poste soit dans le même lieu géographique que le bureau.\",\"jobBuilder.details.remoteWorkWorldLabel\":\"Oui, je suis prêt(e) à superviser des employés partout dans le monde.\",\"jobBuilder.details.returnButtonLabel\":\"Enregistrer et retourner à l’introduction\",\"jobBuilder.details.securityLevelLabel\":\"Quel est le niveau de sécurité?\",\"jobBuilder.details.securityLevelNullSelection\":\"Veuillez sélectionner le niveau de sécurité...\",\"jobBuilder.details.submitButtonLabel\":\"Prochain\",\"jobBuilder.details.teleworkGroupBody\":\"Démontrez que vous faites confiance à vos employés et que vous avez une culture organisationnelle positive. Autorisez le télétravail en option.\",\"jobBuilder.details.teleworkGroupHeader\":\"À quelle fréquence le télétravail est-il permis?\",\"jobBuilder.details.teleworkGroupLabel\":\"Choisissez le télétravail :\",\"jobBuilder.details.termLengthLabel\":\"Quelle est la durée du poste (en mois)?\",\"jobBuilder.details.termLengthPlaceholder\":\" P.ex. 3\",\"jobBuilder.details.titleLabel\":\"Quel est le titre du poste?\",\"jobBuilder.details.titlePlaceholder\":\"P. ex. Chercheur - utilisateurs\",\"jobBuilder.details.travelFrequentlyLabel\":\"Oui, des déplacements sont souvent exigés pour le poste.\",\"jobBuilder.details.travelGroupHeader\":\"Est-il nécessaire de voyager?\",\"jobBuilder.details.travelGroupLabel\":\"Sélectionner l’exigence des déplacements\",\"jobBuilder.details.travelNoneRequiredLabel\":\"Non, aucun déplacement n’est nécessaire pour ce poste.\",\"jobBuilder.details.travelOpportunitiesAvailableLabel\":\"Oui, des possibilités de voyage sont offertes pour ceux qui sont intéressés.\",\"jobBuilder.experimental.01.description\":\"Notre travail est défini en essayant de nouvelles idées, méthodes et activités pour aborder des problèmes persistants auxquels les approches traditionnelles ne peuvent pas remédier.\",\"jobBuilder.experimental.01.title\":\"Approche expérimentale\",\"jobBuilder.experimental.02.description\":\"Nous essayons des idées, méthodes et activités nouvelles et éprouvées pour améliorer la façon de faire notre travail.\",\"jobBuilder.experimental.02.title\":\"Approche assez expérimentale\",\"jobBuilder.experimental.03.description\":\"Notre travail comprend quelques tâches administratives qui se répètent quotidiennement. Les outils que nous utilisons nous conviennent, mais nous sommes ouverts à améliorer notre processus..\",\"jobBuilder.experimental.03.title\":\"Travail assez prévisible\",\"jobBuilder.experimental.04.description\":\"La majeure partie de notre travail comprend quelques tâches administratives qui se répètent quotidiennement. La cohérence est un facteur clé ici, donc nous suivons un processus standard avec des outils éprouvés.\",\"jobBuilder.experimental.04.title\":\"Travail prévisible\",\"jobBuilder.facing.01.description\":\"Nous représentons l’image de marque des services que nous offrons et nous passons la plupart de notre temps à interagir directement avec le public.\",\"jobBuilder.facing.01.title\":\"Services orientés vers le citoyen\",\"jobBuilder.facing.02.description\":\"Nous passons beaucoup de temps à interagir directement avec le public, mais nous travaillons également en coulisses afin d’appuyer d’autres personnes.\",\"jobBuilder.facing.02.title\":\"Services essentiellement orientés vers le citoyen\",\"jobBuilder.facing.03.description\":\" Nous travaillons généralement en coulisses et nous effectuons un travail important qui rend possible la prestation de services.\",\"jobBuilder.facing.03.title\":\"Services essentiellement administratifs\",\"jobBuilder.facing.04.description\":\" Nous travaillons en coulisses et nous effectuons un travail important qui rend possible la prestation de services. Nous nous sentons bien quand nous appuyons les autres.\",\"jobBuilder.facing.04.title\":\"Services administratifs\",\"jobBuilder.impact.button.goBack\":\"Revenir en arrière\",\"jobBuilder.impact.button.next\":\"Prochain\",\"jobBuilder.impact.button.nextStep\":\"Passer à l’étape suivante\",\"jobBuilder.impact.button.return\":\"Enregistrer et retourner à l’environnement de travail\",\"jobBuilder.impact.button.skipToReview\":\"Passer pour la révision\",\"jobBuilder.impact.departmentsLoading\":\"Chargement des données du Ministère...\",\"jobBuilder.impact.documentTitle\":\"Constructeur d’affiches: Incidences\",\"jobBuilder.impact.header.department\":\"Comment votre ministère engendre des incidences:\",\"jobBuilder.impact.hireBody\":\"Décrivez la contribution du nouvel employé dans le cadre de son rôle. Misez sur la valeur qu’il apportera et non des tâches particulières (vous les indiquerez plus loin). Par exemple « Dans ce rôle, vous contribuerez à … » ou « En tant que membre de l’équipe, vous serez responsable de nous aider à… »\",\"jobBuilder.impact.hireHeader\":\"Comment le nouvel employé engendra des incidences\",\"jobBuilder.impact.hireLabel\":\"Déclaration d'incidences des employés\",\"jobBuilder.impact.hirePlaceholder\":\"Souvenez-vous de ne pas utiliser de jargon administratif.\",\"jobBuilder.impact.modalDescription\":\"Voici un aperçu de l’énoncé des incidences que vous venez de rédiger.\\n                        N'hésitez pas à revenir en arrière pour modifier le texte.\\n                        Passez à l'étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.impact.modalTitle\":\"Excellent travail!\",\"jobBuilder.impact.points.counts\":\"La première chose que les candidats voient lorsqu’ils cliquent sur votre avis de concours est votre énoncé des incidences. Assurez-vous donc de bien le rédiger!\",\"jobBuilder.impact.points.highlight\":\"C’est votre chance de souligner en quoi votre travail est utile et intéressant.\",\"jobBuilder.impact.points.opportunity\":\"Le fait de travailler pour le gouvernement fédéral offre une importante occasion d’engendrer d’importantes incidences pour les Canadiens.\",\"jobBuilder.impact.selectDepartment\":\"Vous devez choisir un ministère pour cet emploi.\",\"jobBuilder.impact.teamBody\":\"Décrivez la valeur apportée aux Canadiens par votre équipe/service/initiative. Peu importe si votre travail consiste à offrir des services directement aux citoyens ou des services administratifs, d’innovation ou d’entretien, de priorité absolue ou continus. Décrivez comment votre travail contribue à améliorer le Canada comme si vous parliez à quelqu’un qui ne connaît rien de votre travail.\",\"jobBuilder.impact.teamHeader\":\"Comment votre équipe engendre des impacts:\",\"jobBuilder.impact.teamLabel\":\"Déclaration d’incidence d'équipe\",\"jobBuilder.impact.teamPlaceholder\":\"Employez un ton informel, franc et amical\",\"jobBuilder.impact.title\":\"Rédiger votre énoncé des incidences\",\"jobBuilder.impact.unknownDepartment\":\"Erreur : Choisissez un ministère inconnu.\",\"jobBuilder.impactPreview.title\":\"Impact\",\"jobBuilder.intro.accountSettingsLinkText\":\"les paramètres de votre compte\",\"jobBuilder.intro.accountSettingsLinkTitle\":\"Visitez la page Paramètres du compte.\",\"jobBuilder.intro.changeDepartment\":\"Pour changer de département, veuillez contacter {email}. Pour en savoir plus, visitez {accountSettings}.\",\"jobBuilder.intro.completeInLanguage\":\"Répondez à l’offre d’emploi dans la langue officielle de votre choix. Nous nous chargerons de la traduction\",\"jobBuilder.intro.contactUs\":\"Nous avons également fourni des instructions et des exemples pour vous guider tout au long du processus, mais si vous avez toujours des questions, veuillez communiquer avec le {link}\",\"jobBuilder.intro.continueButtonLabelEN\":\"Continue in English\",\"jobBuilder.intro.continueButtonLabelFR\":\"Continuer en français\",\"jobBuilder.intro.departmentHeader\":\"Informations sur le département de {name}\",\"jobBuilder.intro.departmentLabel\":\"Ministère\",\"jobBuilder.intro.departmentNullSelection\":\"Choisissez un ministère...\",\"jobBuilder.intro.divisionLabelEN\":\"La division de {name} (en anglais)\",\"jobBuilder.intro.divisionLabelFR\":\"La division de {name} (en français)\",\"jobBuilder.intro.divisionPlaceholderEN\":\"p. ex., Digital Change\",\"jobBuilder.intro.divisionPlaceholderFR\":\"p. ex., Changement numérique\",\"jobBuilder.intro.documentTitle\":\"Constructeur d'affiches: Intro\",\"jobBuilder.intro.emailLinkText\":\"Nuage de talents\",\"jobBuilder.intro.emailLinkTitle\":\"Envoyer un courriel au Nuage de talents.\",\"jobBuilder.intro.explanation\":\"Le présent outil vous aidera à créer une offre d’emploi qui vous aidera à attirer les bons talents. Avant de commencer à créer l’offre d’emploi, veuillez prendre le temps de {boldText}\",\"jobBuilder.intro.explanation.boldText\":\"confirmer l’exactitude de vos renseignements personnels ci-dessous.\",\"jobBuilder.intro.formDescription\":\"Ces renseignements apparaîtront dans l’offre d’emploi pour donner de plus amples renseignements aux candidats sur les personnes avec qui ils travailleront.\",\"jobBuilder.intro.formTitle\":\"Information du profil de {name}\",\"jobBuilder.intro.jobTitleLabelEN\":\"Le poste de {name} (en anglais)\",\"jobBuilder.intro.jobTitleLabelFR\":\"Le poste de {name} (en français)\",\"jobBuilder.intro.jobTitlePlaceholderEN\":\"Par exemple : Design Manager\",\"jobBuilder.intro.jobTitlePlaceholderFR\":\"Par exemple : Gestionnaire de la conception\",\"jobBuilder.intro.managerLoading\":\"Votre profil de gestionnaire est en cours de chargement...\",\"jobBuilder.intro.welcome\":\"Bienvenue sur le Constructeur d'Affiches\",\"jobBuilder.jobLoading\":\"Votre offre d’emploi est en train de se charger...\",\"jobBuilder.loading\":\"Votre offre d’emploi est en train de se charger...\",\"jobBuilder.mgmtStyle.01.description\":\"Il n’y a aucun cadre intermédiaire ici, donc nous prenons, nous-mêmes, la plupart des décisions importantes et vous pouvez vous attendre à interagir quotidiennement avec nos cadres supérieures.\",\"jobBuilder.mgmtStyle.01.title\":\"Horizontale\",\"jobBuilder.mgmtStyle.02.description\":\"Nous avons quelques cadres intermédiaires ici, mais nous prenons, nous-mêmes, les décisions quotidiennes. Ne soyez pas surpris d’interagir assez souvent avec nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.02.title\":\"Assez horizontale\",\"jobBuilder.mgmtStyle.03.description\":\"Notre équipe a un rôle clairement défini. Nous faisons régulièrement le point avec les cadres intermédiaires pour approuver et mettre à jour la vision stratégique de nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.03.title\":\"Assez verticale\",\"jobBuilder.mgmtStyle.04.description\":\"Notre équipe a un rôle clairement défini. Nous faisons souvent le point auprès des cadres intermédiaires pour approuver et procéder à la mise à jour de la vision stratégique de nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.04.title\":\"Verticale\",\"jobBuilder.preview.city\":\"Ville\",\"jobBuilder.preview.classification\":\"Classification\",\"jobBuilder.preview.classificationEducation\":\"Classification et éducation\",\"jobBuilder.preview.education\":\"Éducation\",\"jobBuilder.preview.flexibleHours\":\"Heures flexibles\",\"jobBuilder.preview.jobInformation\":\"Renseignements sur l’emploi\",\"jobBuilder.preview.jobTitle\":\"Titre du poste\",\"jobBuilder.preview.languageProfile\":\"Profil linguistique\",\"jobBuilder.preview.lengthOfTheTerm\":\"Durée du poste\",\"jobBuilder.preview.level\":\"Niveau\",\"jobBuilder.preview.overtime\":\"Heures supplémentaires\",\"jobBuilder.preview.province\":\"Province\",\"jobBuilder.preview.remoteWork\":\"Travail à distance\",\"jobBuilder.preview.securityClearance\":\"Cote de sécurité\",\"jobBuilder.preview.telework\":\"Télétravail\",\"jobBuilder.preview.termLength\":\"{termMonths, plural, =0 {pas de mois} other {# mois}}\",\"jobBuilder.preview.travel\":\"Voyage\",\"jobBuilder.preview.workStyles\":\"Styles de travail\",\"jobBuilder.progressTracker.label.finish\":\"Fin\",\"jobBuilder.progressTracker.label.start\":\"Début\",\"jobBuilder.progressTracker.label.step1\":\"Étape 1 / 5\",\"jobBuilder.progressTracker.label.step2\":\"Étape 2 / 5\",\"jobBuilder.progressTracker.label.step3\":\"Étape 3 / 5\",\"jobBuilder.progressTracker.label.step4\":\"Étape 4 / 5\",\"jobBuilder.progressTracker.label.step5\":\"Étape 5 / 5\",\"jobBuilder.progressTracker.title.impact\":\"Incidence\",\"jobBuilder.progressTracker.title.jobInfo\":\"Renseignements\",\"jobBuilder.progressTracker.title.review\":\"Révision\",\"jobBuilder.progressTracker.title.skills\":\"Compétences\",\"jobBuilder.progressTracker.title.tasks\":\"Tâches\",\"jobBuilder.progressTracker.title.welcome\":\"Bienvenue\",\"jobBuilder.progressTracker.title.workEnv\":\"Environnement\",\"jobBuilder.review.GovernmentClass\":\"Classification gouvernementale\",\"jobBuilder.review.assetHeading\":\"Compétences souhaitables\",\"jobBuilder.review.averageAnnualSalary\":\"Échelle de salaire annuel\",\"jobBuilder.review.basicInformationHeading\":\"Renseignements de base\",\"jobBuilder.review.button.return\":\"Enregistrer et retourner aux compétences\",\"jobBuilder.review.button.submit\":\"Cela semble bon!\",\"jobBuilder.review.comesLater\":\"Cette étape survient plus tard.\",\"jobBuilder.review.confirm.cancel\":\"Annuler\",\"jobBuilder.review.confirm.submit\":\"Oui, transmettre\",\"jobBuilder.review.confirm.title\":\"Félicitations! Êtes-vous prêt à transmettre l’offre d’emploi?\",\"jobBuilder.review.criteriaSection\":\"Critères\",\"jobBuilder.review.cultureSection\":\"Environnement et culture\",\"jobBuilder.review.documentTitle\":\"Constructeur d'affiches: Révision\",\"jobBuilder.review.duration\":\"Durée\",\"jobBuilder.review.educationalHeading\":\"Exigences relatives aux études\",\"jobBuilder.review.headsUp\":\"Un simple rappel. Nous avons réorganisé certains renseignements fournis afin de vous aider à comprendre comment le candidat verra l’information une fois publiée.\",\"jobBuilder.review.impactEditLink\":\"Modifier cet élément à l’étape 03, Incidence.\",\"jobBuilder.review.impactHeading\":\"Incidence\",\"jobBuilder.review.infoEditLink\":\"Modifier cet élément à l’étape 01, Renseignements sur le poste\",\"jobBuilder.review.jobPageHeading\":\"Titre de la page de l’emploi\",\"jobBuilder.review.languageHeading\":\"Exigences linguistiques\",\"jobBuilder.review.languageProfile\":\"Profil linguistique\",\"jobBuilder.review.managerDataLoading\":\"Les données du gestionnaire sont en cours de chargement...\",\"jobBuilder.review.managerHeading\":\"Les données du gestionnaire sont en cours de chargement...\",\"jobBuilder.review.managerIncomplete\":\"Veuillez remplir votre profil de gestionnaire.\",\"jobBuilder.review.managerPosition\":\"{position} au {department}\",\"jobBuilder.review.managerProfileLink\":\"Modifier cet élément dans votre profil\",\"jobBuilder.review.meantime\":\"Entre-temps, n’hésitez pas à créer un plan de présélection pour votre processus de sélection. Vous pouvez aussi attendre les commentaires des RH avant de passer à l’étape suivante.\",\"jobBuilder.review.months\":\"{termMonths,plural,=0{No Months} one{{termMonths, number} Month} other{{termMonths, number} Months}}\",\"jobBuilder.review.nullProvince\":\"PROVINCE MANQUANTE\",\"jobBuilder.review.or\":\"ou\",\"jobBuilder.review.otherInfoHeading\":\"Autres renseignements au sujet de l’équipe\",\"jobBuilder.review.readyToSubmit\":\"Si vous êtes prêt à soumettre votre offre, cliquez sur le bouton Soumettre ci-dessous.\",\"jobBuilder.review.remoteAllowed\":\"Travail à distance autorisé\",\"jobBuilder.review.remoteNotAllowed\":\"Travail à distance non autorisé\",\"jobBuilder.review.reviewYourPoster\":\"Examiner votre offre d’emploi pour :\",\"jobBuilder.review.securityClearance\":\"Autorisation de sécurité\",\"jobBuilder.review.sendYourDraft\":\"Le Nuage de talents enverra votre ébauche au conseiller en RH de votre ministère, et ce dernier vous informera de ses commentaires.\",\"jobBuilder.review.skills.nullState\":\"Vous n’avez pas ajouté de compétences souhaitables pour cette offre d’emploi.\",\"jobBuilder.review.skillsEditLink\":\"Modifier cet élément à l’étape 05, Compétences\",\"jobBuilder.review.skillsHeading\":\"Compétences requises\",\"jobBuilder.review.tCAdds\":\"Le Nuage de talents ajoutera l’élément.\",\"jobBuilder.review.targetStartDate\":\"Date d’entrée en fonction prévue\",\"jobBuilder.review.tasksEditLink\":\"Modifier cet élément à l’étape 04, Tâches\",\"jobBuilder.review.tasksHeading\":\"Tâches\",\"jobBuilder.review.whatHappens\":\"Quelles sont les prochaines étapes?\",\"jobBuilder.review.workCultureHeading\":\"Culture de travail\",\"jobBuilder.review.workDescription\":\"Veuillez prendre note que certains renseignements sur le milieu de travail ne seront affichés que si le candidat clique sur le bouton « Afficher le milieu de travail et la culture de l’équipe » qui apparaît sur l’offre d’emploi.\",\"jobBuilder.review.workEnvEditLink\":\"Modifier cet élément à l’étape 02, Environnement de travail\",\"jobBuilder.review.workEnvHeading\":\"Milieu de travail\",\"jobBuilder.root.documentTitle\":\"Constructeur d'Affiches\",\"jobBuilder.skills.addSkillBelow\":\"Ajoutez des compétences, ci-dessous, pour continuer.\",\"jobBuilder.skills.alt.happyArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône sourire.\",\"jobBuilder.skills.alt.happyGraySmiley\":\"émoticône sourire en gris.\",\"jobBuilder.skills.alt.happySmiley\":\"émoticône sourire en couleur.\",\"jobBuilder.skills.alt.neutralArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône neutre.\",\"jobBuilder.skills.alt.neutralGraySmiley\":\"émoticône neutre en gris.\",\"jobBuilder.skills.alt.neutralSmiley\":\"émoticône neutre en couleur.\",\"jobBuilder.skills.alt.unhappyArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône triste.\",\"jobBuilder.skills.alt.unhappyGraySmiley\":\"émoticône triste en gris.\",\"jobBuilder.skills.alt.unhappySmiley\":\"émoticône triste en couleur.\",\"jobBuilder.skills.button.keyTasks\":\"Voir les tâches principales\",\"jobBuilder.skills.button.previewSkills\":\"Sauvegarder et voir un aperçu des compétences\",\"jobBuilder.skills.button.returnToTasks\":\"Sauvegarder et retourner aux tâches\",\"jobBuilder.skills.description\":\"C’est ici que vous choisissez les critères requis pour accomplir ce travail efficacement. Vous trouverez, ci-dessous, deux barres qui indiquent la mesure du niveau de votre présente compétence sélectionnée.\",\"jobBuilder.skills.description.keepItUp\":\"Voici un aperçu des compétences que vous venez de saisir. N’hésitez pas à retourner à la page précédente et à corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait. \",\"jobBuilder.skills.documentTitle\":\"Constructeur d'affiches: Compétences\",\"jobBuilder.skills.emailLink\":\"Communiquez avec nous par courriel\",\"jobBuilder.skills.essentialSkillRequiredError\":\"Au moins une compétence essentielle est requise.\",\"jobBuilder.skills.instructions.missingSkills\":\"Le fait de dresser une liste de compétences est une tâche énorme, et il n’est pas surprenant que la liste de Nuage de talents ne contienne pas la compétence que vous cherchez. Afin de nous aider à allonger la liste des compétences, veuillez {link}. Veuillez fournir le nom de la compétence ainsi qu’une brève description pour lancer la discussion.\",\"jobBuilder.skills.listTitle\":\"Votre liste de compétences\",\"jobBuilder.skills.nullState\":\"Vous n’avez pas encore ajouté de compétences.\",\"jobBuilder.skills.nullText.occupationalSkills\":\"Vous devez retourner à Étape 1 et choisir une classification.\",\"jobBuilder.skills.placeholder.otherSkills\":\"Aucune autre compétence n’est ajoutée.\",\"jobBuilder.skills.previewModalCancelLabel\":\"Retour en arrière\",\"jobBuilder.skills.previewModalConfirmLabel\":\"Prochaine étape\",\"jobBuilder.skills.previewModalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.skills.range.culturalSkills\":\"Visez des compétences {minCulture} – {maxCulture}.\",\"jobBuilder.skills.range.futureSkills\":\"Visez des compétences {minFuture} – {maxFuture}.\",\"jobBuilder.skills.range.occupationalSkills\":\"Visez des compétences {minOccupational} – {maxOccupational}.\",\"jobBuilder.skills.selectSkillLabel\":\"Veuillez sélectionner une compétence dans notre liste.\",\"jobBuilder.skills.selectSkillNull\":\"Veuillez sélectionner une compétence\",\"jobBuilder.skills.skillLevel\":\"Niveau de compétences\",\"jobBuilder.skills.statusSmiley.acceptable\":\"Acceptable\",\"jobBuilder.skills.statusSmiley.almost\":\"Presque\",\"jobBuilder.skills.statusSmiley.awesome\":\"Fantastique\",\"jobBuilder.skills.statusSmiley.essential.acceptable\":\"Acceptable\",\"jobBuilder.skills.statusSmiley.essential.almost\":\"Presque\",\"jobBuilder.skills.statusSmiley.essential.awesome\":\"Fantastique\",\"jobBuilder.skills.statusSmiley.essential.tooFew\":\"Insuffisant\",\"jobBuilder.skills.statusSmiley.essential.tooMany\":\"Trop\",\"jobBuilder.skills.statusSmiley.essentialTitle\":\"Le nombre de compétences fondamentales est\",\"jobBuilder.skills.statusSmiley.title\":\"Le nombre total des compétences\",\"jobBuilder.skills.statusSmiley.tooFew\":\"Insuffisant\",\"jobBuilder.skills.statusSmiley.tooMany\":\"Trop\",\"jobBuilder.skills.tasksModalCancelLabel\":\"Retour aux compétences\",\"jobBuilder.skills.title\":\"Compétences\",\"jobBuilder.skills.title.addASkill\":\"Ajoutez une compétence\",\"jobBuilder.skills.title.assetSkills\":\"Compétences constituant un atout\",\"jobBuilder.skills.title.culturalSkills\":\"Compétences comportementales\",\"jobBuilder.skills.title.editSkill\":\"Modifiez une compétence\",\"jobBuilder.skills.title.essentialSkills\":\"Compétences essentielles\",\"jobBuilder.skills.title.futureSkills\":\"Compétences de la fonction publique\",\"jobBuilder.skills.title.keepItUp\":\"Ne lâchez surtout pas!\",\"jobBuilder.skills.title.keyTasks\":\"Tâches principales\",\"jobBuilder.skills.title.missingSkill\":\"Vous ne trouvez pas la compétence dont vous avez besoin?\",\"jobBuilder.skills.title.needsToHave\":\"Les compétences que l’employé(e) doit posséder\",\"jobBuilder.skills.title.niceToHave\":\"Les compétences qu’il serait souhaitable que l’employé(e) possède\",\"jobBuilder.skills.title.occupationalSkills\":\"Compétences professionnelles\",\"jobBuilder.skills.title.otherSkills\":\"Autres compétences\",\"jobBuilder.skills.title.skillSelection\":\"Choix des compétences\",\"jobBuilder.tasks.addJob\":\"Ajoutez une tâche \",\"jobBuilder.tasks.documentTitle\":\"Constructeur d'affiches: Tâches\",\"jobBuilder.tasks.heading\":\"Ajoutez des tâches principales\",\"jobBuilder.tasks.intro.first\":\"À quoi le nouveau membre de votre équipe consacrera-t-il son temps? Quelles sont les tâches à exécuter?\",\"jobBuilder.tasks.intro.fourth\":\"Une fois que vous aurez terminé d’entrer les tâches principales, vous passerez à la détermination des compétences individuelles nécessaires à l’exécution de ces tâches.\",\"jobBuilder.tasks.intro.second\":\"Mettez l’accent sur les tâches à exécuter. Vous n’avez pas à donner tous les détails de l’emploi, mais les candidats souhaitent savoir comment ils vont passer la plus grande partie de leur temps.\",\"jobBuilder.tasks.intro.third\":\"Cherchez à indiquer de quatre à six tâches principales. (Tout au long du remue-méninges, vous pouvez ajouter autant de tâches principales que vous le souhaitez ici, mais vous ne pouvez pas en inclure plus de six dans l’offre d’emploi finale.)\",\"jobBuilder.tasks.modal.body\":\"Voici un aperçu des tâches que vous venez de saisir. N’hésitez pas à retourner à la page précédente pour corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.tasks.modal.body.heading\":\"Tâches\",\"jobBuilder.tasks.modal.cancelButtonLabel\":\"Retour en arrière\",\"jobBuilder.tasks.modal.confirmButtonLabel\":\"Prochaine étape\",\"jobBuilder.tasks.modal.middleButtonLabel\":\"Passer pour la révision\",\"jobBuilder.tasks.modal.title\":\"Ne lâchez surtout pas!\",\"jobBuilder.tasks.preview\":\"Aperçu des tâches\",\"jobBuilder.tasks.previous\":\"Étape précédente\",\"jobBuilder.tasks.taskCount.error.body\":\"Vous avez dépassé le nombre maximal permis de tâches principales, mais ce n’est pas grave. Tout au long du remue-méninges, vous pouvez continuer à ajouter des tâches principales ici, mais on vous demandera de réduire votre liste à six tâches ou moins pour continuer.\",\"jobBuilder.tasks.taskCount.error.title\":\"Juste pour vous informer!\",\"jobBuilder.tasks.taskCount.none\":\"Vous n’avez pas encore ajouté de tâches!\",\"jobBuilder.tasks.taskCount.some\":\"Vous avez ajouté {taskCount, plural, one {# tâche} other {# tâches}}.\",\"jobBuilder.tasks.taskLabel\":\"Tâche\",\"jobBuilder.tasks.taskPlaceholder\":\"Essayez d’adopter un ton décontracté, franc et amical...\",\"jobBuilder.tasks.tasksMaximum\":\"Veuillez supprimer toute tâche supplémentaire avant de continuer.\",\"jobBuilder.tasks.tasksRequired\":\"Au moins une tâche est requise.\",\"jobBuilder.workCulture.flexibleHours\":\"Heures flexibles\",\"jobBuilder.workCulture.flexibleHoursDescription\":\"Précisez vos propres heures de début et de fin.\",\"jobBuilder.workCulture.overtime\":\"Heures supplémentaires\",\"jobBuilder.workCulture.overtimeDescription\":\"Heures supplémentaires le soir ou la fin de semaine.\",\"jobBuilder.workCulture.remoteWork\":\"Travail à distance\",\"jobBuilder.workCulture.remoteWorkDescription\":\"Travailler de n’importe où, en tout temps.\",\"jobBuilder.workCulture.remoteWorkMsg.always\":\"Toujours\",\"jobBuilder.workCulture.remoteWorkMsg.never\":\"Jamais\",\"jobBuilder.workCulture.telework\":\"Télétravail\",\"jobBuilder.workCulture.teleworkDescription\":\"Travailler à partir de la maison certains jours (à une distance raisonnable en voiture du bureau).\",\"jobBuilder.workCulture.travel\":\"Déplacements\",\"jobBuilder.workCulture.travelDescription\":\"Découvrez le Canada ou d’autres régions du monde.\",\"jobBuilder.workEnv.amenities.cafeteria\":\"Cafétéria sur place\",\"jobBuilder.workEnv.amenities.closeToTransit\":\"À proximité du transport en commun\",\"jobBuilder.workEnv.amenities.downtown\":\"Centre-ville\",\"jobBuilder.workEnv.amenities.fitnessCenter\":\"À proximité d’un centre de conditionnement physique\",\"jobBuilder.workEnv.amenities.parking\":\" Accès facile à un stationnement\",\"jobBuilder.workEnv.amenities.restaurants\":\"À distance de marche des restaurants et des centres commerciaux\",\"jobBuilder.workEnv.amenitiesLabel\":\"À proximité\",\"jobBuilder.workEnv.collaborativeLabel\":\"Collaboratif ou indépendant :\",\"jobBuilder.workEnv.culture\":\"Notre culture\",\"jobBuilder.workEnv.cultureSubtext1\":\"Maintenant, renseignez les candidats davantage sur la personnalité des membres de votre équipe et le type de travail que vous faites habituellement.\",\"jobBuilder.workEnv.cultureSubtext2\":\"Sur la base de vos sélections, nous allons créer un court paragraphe résumant votre culture de travail. Vous pouvez modifier ce paragraphe afin qu’il soit personnalisé selon votre équipe.\",\"jobBuilder.workEnv.cultureSummary\":\"Résumé sur la culture\",\"jobBuilder.workEnv.cultureSummarySubtext\":\"Voici le court paragraphe qui résume la culture de votre travail qui apparaîtra dans l’offre d’emploi. Copiez-le et collez-le dans le champ de saisie qui suit, si vous désirez l’adapter à la personnalité des membres de votre équipe et à votre façon de travailler.\",\"jobBuilder.workEnv.customCultureSummaryLabel\":\"Adaptez votre résumé sur la culture :\",\"jobBuilder.workEnv.customCultureSummaryPlaceholder\":\"Collez le paragraphe ici pour le modifier...\",\"jobBuilder.workEnv.documentTitle\":\"Constructeur d'affiches: Environnement\",\"jobBuilder.workEnv.experimentalLabel\":\"Toujours expérimentale contre activités en cours:\",\"jobBuilder.workEnv.facingLabel\":\"Services orientés vers le client contre services administratifs :\",\"jobBuilder.workEnv.fastPacedSteadyLabel\":\"Rythme rapide contre rythme soutenu :\",\"jobBuilder.workEnv.greatStart\":\"Vous commencez très bien!\",\"jobBuilder.workEnv.managementLabel\":\"Horizontale contre verticale :\",\"jobBuilder.workEnv.moreOnWorkEnv\":\"Voici de plus amples renseignements sur votre environnement\",\"jobBuilder.workEnv.moreOnWorkEnvLabel\":\"Voici de plus amples renseignements sur votre environnement\",\"jobBuilder.workEnv.moreOnWorkEnvPlaceholder\":\"Essayez d’adopter un ton décontracté, franc et amical.\",\"jobBuilder.workEnv.moreOnWorkEnvSubtext\":\"Souhaitez-vous ajouter quelque chose à propos de votre environnement de travail? Mettez en évidence les caractéristiques de l’environnement physique, de la technologie et des commodités propres à votre équipe.\",\"jobBuilder.workEnv.openingSentence\":\"Voici un aperçu des renseignements sur l’emploi que vous venez de saisir. N’hésitez pas à retourner à la page précédente et à corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.workEnv.ourWorkEnv\":\"Notre environnement de travail\",\"jobBuilder.workEnv.ourWorkEnvDesc\":\"Décrivez un peu votre espace physique, la technologie que les membres de votre équipe utilisent et les services qui se trouvent à proximité de votre bureau. Cochez toutes les réponses qui s’appliquent.\",\"jobBuilder.workEnv.physEnv.assignedSeating\":\"Places réservées\",\"jobBuilder.workEnv.physEnv.naturalLight\":\"Lumière naturelle\",\"jobBuilder.workEnv.physEnv.openConcept\":\"Espaces de travail à aire ouverte\",\"jobBuilder.workEnv.physEnv.private\":\"Privé\",\"jobBuilder.workEnv.physEnv.smudging\":\"Convient aux cérémonies de purification par la fumée\",\"jobBuilder.workEnv.physEnv.windows\":\"Plusieurs fenêtres\",\"jobBuilder.workEnv.physicalEnvLabel\":\"Notre environnement physique\",\"jobBuilder.workEnv.saveAndReturnButtonLabel\":\"Découvrez le Canada ou d’autres régions du monde.\",\"jobBuilder.workEnv.specialWorkCulture\":\"Y a-t-il quelque chose de spécial au sujet de votre culture de travail?\",\"jobBuilder.workEnv.specialWorkCultureLabel\":\"Voici de plus amples renseignements sur votre culture de travail.\",\"jobBuilder.workEnv.specialWorkCultureSubtext\":\"Votre équipe accorde-t-elle beaucoup d’importance à d’autres aspects? Est-elle fière de son bilan en matière de résultats? A-t-elle pris de solides engagements envers le mieux-être mental? Participe-t-elle activement à la promotion de la diversité et de l’inclusion? Ses membres se font-ils les champions des enjeux relatifs à la collectivité LGBTQ+? Voici l’occasion de faire connaître aux candidats la culture de l’équipe qu’ils pourraient intégrer.\",\"jobBuilder.workEnv.stepDescription\":\"Les candidats accordent beaucoup d’importance à l’équipe au sein de laquelle ils travailleront et à leur espace de travail physique. Le fait de communiquer de l’information à ce sujet aide les candidats à déterminer s’ils correspondent bien au profil de l’emploi, et peut réduire le nombre de demandes « illusoires » qui ralentissent le processus de présélection.\",\"jobBuilder.workEnv.submitButtonLabel\":\"Aperçu de l’environnement de travail\",\"jobBuilder.workEnv.teamSizeLabel\":\"Taille de l’équipe\",\"jobBuilder.workEnv.teamSizePlaceholder\":\"Par exemple 10\",\"jobBuilder.workEnv.technology.accessToExternal\":\"Accès à un réseau sans fil externe et non filtré\",\"jobBuilder.workEnv.technology.collaboration\":\"Collaboration (p. ex., Slack, Hangouts)\",\"jobBuilder.workEnv.technology.fileSharing\":\"Partage des dossiers (p. ex., Google Drive, Dropbox)\",\"jobBuilder.workEnv.technology.taskManagement\":\"Gestion de tâches (p. ex., Trello, Asana)\",\"jobBuilder.workEnv.technology.versionControl\":\"Gestion de versions (p. ex., Github, Gitlab)\",\"jobBuilder.workEnv.technology.videoConferencing\":\"Vidéo-conférence (p. ex., Skype, Zoom)\",\"jobBuilder.workEnv.technologyLabel\":\"Technologie\",\"jobBuilder.workEnv.textAreaPlaceholder1\":\"Essayez d’adopter un ton décontracté, franc et amical.\",\"jobBuilder.workEnv.thisIsOptional\":\"Ceci est facultatif.\",\"jobBuilder.workEnv.title\":\"Environnement de travail\",\"jobBuilder.workEnvModal.cancelLabel\":\"Retour en arrière\",\"jobBuilder.workEnvModal.confirmLabel\":\"Prochaine étape\",\"jobBuilder.workEnvModal.modalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.workEnvModal.title\":\"Environnement de travail\",\"jobBuilder.workEnvModal.workCultureTitle\":\"Culture du travail\",\"jobCard.applicants\":\"{applicants, plural,=0 {Aucun candidat} one {# candidat} other {# candidats}}\",\"jobCard.managerTime\":\"Time with Manager: {managerTime, plural, one {# day} other {# days} }\",\"jobCard.noActivity\":\"Aucune nouvelle activité\",\"jobCard.userTime\":\"Time with you: <s>{userTime, plural, one {# day} other {# days} }</s>\",\"jobReviewHr.headsUp\":\"Un simple rappel! Nous avons réorganisé certains renseignements fournis afin de vous aider à comprendre comment le candidat verra l’information une fois publiée.\",\"jobReviewHr.loadingIconText\":\"Les données sont en cours de chargement...\",\"jobReviewHr.reviewYourPoster\":\"Examiner votre offre d’emploi pour :\",\"jobReviewHr.summaryLink\":\"Revenir au résumé\",\"languageRequirement.bilingualAdvanced\":\"Bilingue - Avancé (CBC)\",\"languageRequirement.bilingualIntermediate\":\"Bilingue - Intermédiaire (BBB)\",\"languageRequirement.context.basic\":\"Vous pouvez présenter cette demande initiale dans la langue officielle de votre choix (français ou anglais).\",\"languageRequirement.context.expanded\":\"Vous pouvez suivre toutes les autres étapes de ce processus d’évaluation dans la langue officielle de votre choix, y compris la demande initiale, l’entrevue, l’examen et toute autre composante de l’évaluation.\",\"languageRequirement.description.bilingualAdvanced\":\"Ce poste nécessite une connaissance approfondie du français et de l'anglais. Cela signifie que vous pouvez assumer des tâches en français ou en anglais et que vous avez de solides compétences en lecture, en écriture et en communication verbale dans les deux langues officielles. Dans le cadre de ce processus de sélection, vos compétences linguistiques seront testées par la Commission de la fonction publique du Canada. Commission de la fonction publique du Canada.\",\"languageRequirement.description.bilingualIntermediate\":\"Ce poste nécessite une connaissance pratique du français et de l'anglais. Cela signifie que vous pouvez occuper des fonctions en français ou en anglais et que vous possédez des compétences intermédiaires en lecture, en écriture et en communication verbale dans les deux langues officielles. Dans le cadre de ce processus de sélection, vos compétences linguistiques seront testées par la Commission de la fonction publique du Canada.\",\"languageRequirement.description.english\":\"Ce poste exige une bonne maîtrise de l’anglais, tant à l’écrit que de vive voix. Dans le cadre de l’évaluation de vos compétences linguistiques, le gestionnaire d’embauche peut vous demander de suivre certaines étapes d’évaluation en anglais, comme des questions d’entrevue ou un examen.\",\"languageRequirement.description.englishOrFrench\":\"Pour ce poste, vous répondez aux exigences linguistiques si vous possédez de solides compétences en lecture, en rédaction et en communication verbale en français, en anglais ou dans les deux (bilingue).\",\"languageRequirement.description.french\":\"Ce poste exige une bonne maîtrise du français, tant à l’écrit que de vive voix. Dans le cadre de l’évaluation de vos compétences linguistiques, le gestionnaire d’embauche peut vous demander de suivre certaines étapes d’évaluation en français, comme des questions d’entrevue ou un examen.\",\"languageRequirement.english\":\"Anglais - Essentiel\",\"languageRequirement.englishOrFrench\":\"Anglais ou français\",\"languageRequirement.french\":\"Français - Essentiel\",\"managerSurveyModal.explanation\":\"Vos commentaires nous aident à améliorer nos outils! Veuillez prendre quelques minutes pour répondre à un sondage.\",\"managerSurveyModal.jobPosterLink\":\"Retour à Mes offres d'emploi\",\"managerSurveyModal.jobPosterLinkTitle\":\"Visitez Mes offres d'emploi.\",\"managerSurveyModal.link\":\"M'emmener au sondage.\",\"managerSurveyModal.managerSurveyLinkTitle\":\"Lien vers le sondage auprès des gestionnaires.\",\"managerSurveyModal.title\":\"Votre offre d'emploi a été soumise!\",\"openJobCard.claimJob\":\"Réclamer cet emploi\",\"openJobCard.error\":\"Date non disponible.\",\"openJobCard.hiringManager\":\"Gestionnaires d’embauche :\",\"openJobCard.hrAdvisors\":\"Conseillers en RH :\",\"openJobCard.reviewRequested\":\"Récupérée: \",\"openJobCard.unclaimed\":\"Non réclamé\",\"progressTracker.unreachableStep\":\"Doit compléter les étapes précédentes.\",\"province.ab\":\"Alberta\",\"province.ab.abreviation\":\"Alta.\",\"province.bc\":\"Colombie britannique\",\"province.bc.abreviation\":\"C.-B.\",\"province.mb\":\"Manitoba\",\"province.mb.abreviation\":\"Man.\",\"province.nb\":\"Nouveau-Brunswick\",\"province.nb.abreviation\":\"N.-B.\",\"province.nl\":\"Terre-Neuve-et-Labrador\",\"province.nl.abreviation\":\"T.-N.-L.\",\"province.ns\":\"Nouvelle-Écosse\",\"province.ns.abreviation\":\"N.-É.\",\"province.nt\":\"Territoires du nord-ouest\",\"province.nt.abreviation\":\"T.N.-O.\",\"province.nu\":\"Nunavut\",\"province.nu.abreviation\":\"Nt\",\"province.on\":\"Ontario\",\"province.on.abreviation\":\"Ont.\",\"province.pe\":\"Île-du-Prince-Édouard\",\"province.pe.abreviation\":\"Î.-P.-É.\",\"province.qc\":\"Québec\",\"province.qc.abreviation\":\"Qc\",\"province.sk\":\"Saskatchewan\",\"province.sk.abreviation\":\"Sask.\",\"province.yk\":\"Yukon\",\"province.yk.abreviation\":\"Yn\",\"ratingGuideAnswer.answerLabel\":\"Réponse de passage acceptable / Démonstration requise\",\"ratingGuideAnswer.answerPlaceholder\":\"Écrivez la réponse de passage attendue du candidat relativement à cette compétence...\",\"ratingGuideAnswer.nullSelection\":\"Sélectionnez une compétence...\",\"ratingGuideAnswer.selectLabel\":\"Sélectionnez une compétence\",\"ratingGuideBuilder.addQuestion\":\"Ajoutez une question\",\"ratingGuideBuilder.assetMissing\":\"{count} Atout manquant : \",\"ratingGuideBuilder.copyButton\":\"Cliquez ici pour copier ce guide de cotation dans votre presse-papiers\",\"ratingGuideBuilder.copyInstructions\":\"Maintenant que vous avez conçu votre guide de cotation, vous pouvez utiliser le bouton ci-dessous pour copier tout le contenu dans votre presse-papiers, et ainsi pouvoir coller facilement votre système de traitement de texte préféré.\",\"ratingGuideBuilder.criteriaName\":\"{skillName} - {skillLevel}\",\"ratingGuideBuilder.criteriaTypeHeading\":\"Type de critères\",\"ratingGuideBuilder.essentialMissing\":\"{count} Critères essentiels manquants : \",\"ratingGuideBuilder.instructions\":\"Vous trouverez ci-dessous votre propre guide de cotation pour vous aider à évaluer vos candidats. Cet outil vous permet d’élaborer vos propres questions pour chaque évaluation que vous avez sélectionnée ci-dessus, puis de noter les critères de ce que pourrait représenter une excellente réponse du candidat. Veuillez prendre note que l’« examen narratif » est unique en ce sens que le contenu est généré pour vous ci-dessous.\",\"ratingGuideBuilder.narrativeSectionTitle\":\"Évaluation {index}: {assessmentType}\",\"ratingGuideBuilder.questionHeading\":\"Question\",\"ratingGuideBuilder.ratingGuideHeading\":\"Guide de notation\",\"ratingGuideBuilder.sectionTitle\":\"Évaluation {index}: {assessmentType}\",\"ratingGuideBuilder.skillDescriptionHeading\":\"Description de la compétence\",\"ratingGuideBuilder.skillHeading\":\"Compétence\",\"ratingGuideBuilder.targetLevelHeading\":\"Niveau cible\",\"ratingGuideBuilder.title\":\"3. Concepteur de guides de cotation\",\"ratingGuideBuilder.titleHeading\":\"Titre\",\"ratingGuideQuestion.questionLabel\":\"Question d'entrevue\",\"ratingGuideQuestion.questionPlaceholder\":\"Écrivez votre question d'entrevue ici ...\",\"review.applications.alert.oops\":\"Enregistrer\",\"review.applications.button.confirm\":\"Confirmer\",\"review.applications.indexPageTitle\":\"Applications pour : {jobTitle} {jobClassification}\",\"review.applications.nonCitizens.description\":\" \",\"review.applications.nonCitizens.title\":\"Non-Citoyens canadiens\",\"review.applications.optionalConsideration.description\":\"Dans ce groupe, vous trouverez les candidats qui ne sont pas citoyens canadiens ou qui ne prétendent pas répondre aux critères essentiels.\",\"review.applications.optionalConsideration.title\":\"Candidats supplémentaires\",\"review.applications.priorityApplicants.description\":\"Ce sont des candidats prioritaires pour ce poste. Ils doivent être examinés et pris en compte en premier.\",\"review.applications.priorityApplicants.title\":\"Candidats prioritaire\",\"review.applications.reviewSaveFailed\":\"Une erreur s'est produite lors de l'enregistrement d'un commentaire. Réessayez plus tard.\",\"review.applications.screenOutAll\":\"Éliminer tous les candidats supplémentaires\",\"review.applications.screenOutAll.confirm\":\"Êtes-vous sûr de vouloir éliminer tous les candidats supplémentaires?\",\"review.applications.screenedOut.description\":\"Ces applications ont déjà été éliminées.\",\"review.applications.screenedOut.title\":\"Candidats qui ne sont plus considérés\",\"review.applications.underConsideration.description\":\"Examinez les candidats dans la section Anciens combattants et citoyens canadiens. Si aucun ou très peu de ces candidats ne répondent aux critères, vous pouvez toujours prendre en compte les candidatures non citoyennes dans la section Considérations facultatives.\",\"review.applications.underConsideration.title\":\"Candidats à considérée\",\"review.applications.unqualified.description\":\" \",\"review.applications.unqualified.title\":\"Ne répond pas aux critères essentiels\",\"review.applications.veteransAndCitizens.description\":\" \",\"review.applications.veteransAndCitizens.title\":\"Anciens combattants et citoyens canadiens\",\"reviewLocations.jpb.basicInfo\":\"Renseignements de base\",\"reviewLocations.jpb.environment\":\"Environnement de travail\",\"reviewLocations.jpb.generic\":\"Générique\",\"reviewLocations.jpb.heading\":\"Titre de la page de l’emploi\",\"reviewLocations.jpb.impact\":\"Impact\",\"reviewLocations.jpb.langRequirements\":\"Exigences linguistiques\",\"reviewLocations.jpb.skills\":\"Compétences\",\"reviewLocations.jpb.tasks\":\"Taches\",\"securityClearance.reliability\":\"Fiabilité\",\"securityClearance.secret\":\"Secret\",\"securityClearance.topSecret\":\"Très secret\",\"skillLevel.asset.description\":\"Cette compétence n’est pas nécessaire pour que l’employé puisse exécuter le travail, mais elle ajoute un avantage à l’ensemble de ses compétences et améliorera le rythme ou l’efficacité de son travail.\",\"skillLevel.asset.name\":\"Atout/aucun niveau requis\",\"skillLevel.hard.advanced.description\":\"Vous avez la capacité d’accomplir des tâches d’une complexité ou d’une incidence importante avec supervision. Vous donnez des conseils et des commentaires au superviseur sur l’approche à employer pour effectuer les tâches et la façon dont elles sont exécutées. Vous êtes en mesure de faire progresser la tâche, même face à des obstacles et à des complications d’envergure moyenne à importante. Au fur et à mesure que vous progressez dans cette catégorie, vous êtes être en mesure d’accomplir des tâches d’une complexité importante ou ayant une incidence plus grande avec seulement de légers niveaux de supervision, en étant effectivement le responsable de l’initiative. Vous pouvez également jouer un rôle de formation d’autres personnes dans cet ensemble de compétences ou assumer un rôle de supervision léger pour les personnes aux niveaux inférieurs. Ce niveau est habituellement associé à des tâches qui constituent la majeure partie du travail pour des postes de niveau supérieur, comme les analystes principaux ou les développeurs principaux.\",\"skillLevel.hard.advanced.name\":\"Avancé\",\"skillLevel.hard.basic.description\":\"Vous êtes capable d’accomplir des tâches de base avec une supervision régulière et une orientation claire. Les tâches qui vous sont assignées sont claires et ne sont pas très complexes. Elles ont généralement une incidence locale. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’accomplir des tâches de complexité modérée avec une supervision régulière. Vous devriez également être en mesure d’accomplir des tâches de base avec peu ou pas de supervision. Ce niveau est habituellement associé aux tâches qui constituent le gros du travail pour les postes de niveau inférieur, comme les analystes ou les développeurs de niveau débutant.\",\"skillLevel.hard.basic.name\":\"Débutant\",\"skillLevel.hard.expert.description\":\"Vous êtes en mesure d’accomplir des tâches d’une complexité ou d’une incidence importante, où vous prenez les décisions et répondez de vos décisions auprès de la haute direction de l’organisation. Vous présentez les tâches, l’approche et le plan de réalisation à la haute direction. Vous supervisez souvent d’autres personnes (personnes ou équipes) dans l’exécution de tâches très complexes ou ayant une incidence sur l’ensemble du système. Vous êtes en mesure de faire progresser ces tâches, même face à des obstacles et à des complications importants et imprévus. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’évaluer les autres à des niveaux plus subalternes, et de déterminer clairement la différence entre les tâches débutantes, intermédiaires et avancées. Vous devriez également être en mesure de pouvoir former des équipes, définir des orientations et assurer une supervision. Ce niveau est habituellement associé aux tâches qui constituent la majeure partie du travail pour les postes de direction et de direction.\",\"skillLevel.hard.expert.name\":\"Responsable\",\"skillLevel.hard.intermediate.description\":\"Vous avez la capacité d’accomplir des tâches de complexité modérée ou d’incidence modérée avec supervision. C’est le superviseur qui détermine l’approche à préconiser pour effectuer les tâches, de même que la façon dont elles sont exécutées. Vous apportez des commentaires et des conseils. Vous êtes en mesure de faire progresser la tâche, même face à des obstacles et à des complications de petite à moyenne envergure. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’accomplir des tâches d’une complexité importante ou ayant une incidence plus grande avec une supervision régulière. Vous devriez également être en mesure d’accomplir des tâches d’une complexité ou d’une incidence modérée avec peu ou pas de supervision. Ce niveau est habituellement associé aux tâches qui constituent le gros du travail pour les postes de niveau intermédiaire, comme les analystes ou les développeurs.\",\"skillLevel.hard.intermediate.name\":\"Intermédiaire\",\"skillLevel.soft.advanced.description\":\"Vous êtes capable de démontrer cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont élevés. Vos pairs et vos superviseurs reconnaissent qu’il s’agit d’une force dont vous faites preuve en milieu de travail.\",\"skillLevel.soft.advanced.name\":\"Fortement en évidence\",\"skillLevel.soft.basic.description\":\"Vous êtes en processus d’acquérir cette compétence ou cet attribut. Vous êtes capable de le démontrer dans des conditions favorables (peu de stress, difficulté minimale) et pouvez l’appliquer dans un contexte de travail de façon intermittente.\",\"skillLevel.soft.basic.name\":\"Phase de développement précoce\",\"skillLevel.soft.expert.description\":\"Il s’agit d’une partie fondamentale de qui vous êtes. Vous démontrez cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont extrêmes. Vos pairs et vos superviseurs reconnaissent qu’il s’agit d’une force importante dont vous faites preuve en milieu de travail, en donnant un exemple aux autres.\",\"skillLevel.soft.expert.name\":\"Démonstration à un niveau profond\",\"skillLevel.soft.intermediate.description\":\"Vous êtes capable de démontrer cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont bas ou modérés. Vos pairs et vos superviseurs peuvent attester le fait que vous êtes capable de démontrer cette compétence ou cet attribut de façon régulière.\",\"skillLevel.soft.intermediate.name\":\"Modérément en évidence\",\"wordCounter.skills.longMessage\":\"Ça a l'air trop long. Pouvez-vous résumer une partie de votre réponse?\",\"wordCounter.skills.placeholder\":\"Commencez à taper votre réponse ci-dessus.\",\"wordCounter.skills.shortMessage\":\"Ce paragraphe semble trop court. Avez-vous un autre exemple ou une leçon à ajouter?\",\"wordCounter.skills.slightlyLongMessage\":\"Ça commence à être un peu long.\",\"wordCounter.skills.veryLongMessage\":\"La limite des 500 mot a été atteinte. C'est beaucoup trop long. Découvrez l'un de nos exemples pour voir à quoi ressemble une description de compétence concise.\",\"wordCounter.skills.veryShortMessage\":\"Ce paragraphe semble trop court. Avez-vous inclus des exemples ou des leçons apprises?\"}");
 
 /***/ }),
 
@@ -73612,7 +75341,7 @@ module.exports = JSON.parse("{\"activity.commentLocation.label\":\"Commentaire t
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/Grant/Sites/TalentCloud/resources/assets/js/components/JobBuilder/JobBuilderRoot.tsx */"./resources/assets/js/components/JobBuilder/JobBuilderRoot.tsx");
+module.exports = __webpack_require__(/*! /Users/cwiseman/Projects/TalentCloud/resources/assets/js/components/JobBuilder/JobBuilderRoot.tsx */"./resources/assets/js/components/JobBuilder/JobBuilderRoot.tsx");
 
 
 /***/ })

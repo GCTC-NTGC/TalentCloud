@@ -1384,67 +1384,91 @@ function peg$parse(input, options) {
     var peg$c4 = function () {
         return __assign({ type: types_1.TYPE.pound }, insertLocation());
     };
-    var peg$c5 = peg$otherExpectation("argumentElement");
-    var peg$c6 = "{";
-    var peg$c7 = peg$literalExpectation("{", false);
-    var peg$c8 = "}";
-    var peg$c9 = peg$literalExpectation("}", false);
+    var peg$c5 = peg$otherExpectation("tagElement");
+    var peg$c6 = "<";
+    var peg$c7 = peg$literalExpectation("<", false);
+    var peg$c8 = "/>";
+    var peg$c9 = peg$literalExpectation("/>", false);
     var peg$c10 = function (value) {
+        return __assign({ type: types_1.TYPE.literal, value: value.join('') }, insertLocation());
+    };
+    var peg$c11 = function (open, children, close) {
+        if (open !== close) {
+            error("Mismatch tag \"" + open + "\" !== \"" + close + "\"", location());
+        }
+        return __assign({ type: types_1.TYPE.tag, value: open, children: children }, insertLocation());
+    };
+    var peg$c12 = function () { messageCtx.push('openingTag'); return true; };
+    var peg$c13 = ">";
+    var peg$c14 = peg$literalExpectation(">", false);
+    var peg$c15 = function (tag) { messageCtx.pop(); return true; };
+    var peg$c16 = function (tag) {
+        return tag;
+    };
+    var peg$c17 = "</";
+    var peg$c18 = peg$literalExpectation("</", false);
+    var peg$c19 = function () { messageCtx.push('closingTag'); return true; };
+    var peg$c20 = peg$otherExpectation("argumentElement");
+    var peg$c21 = "{";
+    var peg$c22 = peg$literalExpectation("{", false);
+    var peg$c23 = "}";
+    var peg$c24 = peg$literalExpectation("}", false);
+    var peg$c25 = function (value) {
         return __assign({ type: types_1.TYPE.argument, value: value }, insertLocation());
     };
-    var peg$c11 = peg$otherExpectation("numberSkeletonId");
-    var peg$c12 = /^['\/{}]/;
-    var peg$c13 = peg$classExpectation(["'", "/", "{", "}"], false, false);
-    var peg$c14 = peg$anyExpectation();
-    var peg$c15 = peg$otherExpectation("numberSkeletonTokenOption");
-    var peg$c16 = "/";
-    var peg$c17 = peg$literalExpectation("/", false);
-    var peg$c18 = function (option) { return option; };
-    var peg$c19 = peg$otherExpectation("numberSkeletonToken");
-    var peg$c20 = function (stem, options) {
+    var peg$c26 = peg$otherExpectation("numberSkeletonId");
+    var peg$c27 = /^['\/{}]/;
+    var peg$c28 = peg$classExpectation(["'", "/", "{", "}"], false, false);
+    var peg$c29 = peg$anyExpectation();
+    var peg$c30 = peg$otherExpectation("numberSkeletonTokenOption");
+    var peg$c31 = "/";
+    var peg$c32 = peg$literalExpectation("/", false);
+    var peg$c33 = function (option) { return option; };
+    var peg$c34 = peg$otherExpectation("numberSkeletonToken");
+    var peg$c35 = function (stem, options) {
         return { stem: stem, options: options };
     };
-    var peg$c21 = function (tokens) {
+    var peg$c36 = function (tokens) {
         return __assign({ type: 0 /* number */, tokens: tokens }, insertLocation());
     };
-    var peg$c22 = "::";
-    var peg$c23 = peg$literalExpectation("::", false);
-    var peg$c24 = function (skeleton) { return skeleton; };
-    var peg$c25 = function () { messageCtx.push('numberArgStyle'); return true; };
-    var peg$c26 = function (style) {
+    var peg$c37 = "::";
+    var peg$c38 = peg$literalExpectation("::", false);
+    var peg$c39 = function (skeleton) { return skeleton; };
+    var peg$c40 = function () { messageCtx.push('numberArgStyle'); return true; };
+    var peg$c41 = function (style) {
         messageCtx.pop();
         return style.replace(/\s*$/, '');
     };
-    var peg$c27 = ",";
-    var peg$c28 = peg$literalExpectation(",", false);
-    var peg$c29 = "number";
-    var peg$c30 = peg$literalExpectation("number", false);
-    var peg$c31 = function (value, type, style) {
+    var peg$c42 = ",";
+    var peg$c43 = peg$literalExpectation(",", false);
+    var peg$c44 = "number";
+    var peg$c45 = peg$literalExpectation("number", false);
+    var peg$c46 = function (value, type, style) {
         return __assign({ type: type === 'number' ? types_1.TYPE.number : type === 'date' ? types_1.TYPE.date : types_1.TYPE.time, style: style && style[2], value: value }, insertLocation());
     };
-    var peg$c32 = "'";
-    var peg$c33 = peg$literalExpectation("'", false);
-    var peg$c34 = /^[^']/;
-    var peg$c35 = peg$classExpectation(["'"], true, false);
-    var peg$c36 = /^[^a-zA-Z'{}]/;
-    var peg$c37 = peg$classExpectation([["a", "z"], ["A", "Z"], "'", "{", "}"], true, false);
-    var peg$c38 = /^[a-zA-Z]/;
-    var peg$c39 = peg$classExpectation([["a", "z"], ["A", "Z"]], false, false);
-    var peg$c40 = function (pattern) {
+    var peg$c47 = "'";
+    var peg$c48 = peg$literalExpectation("'", false);
+    var peg$c49 = /^[^']/;
+    var peg$c50 = peg$classExpectation(["'"], true, false);
+    var peg$c51 = /^[^a-zA-Z'{}]/;
+    var peg$c52 = peg$classExpectation([["a", "z"], ["A", "Z"], "'", "{", "}"], true, false);
+    var peg$c53 = /^[a-zA-Z]/;
+    var peg$c54 = peg$classExpectation([["a", "z"], ["A", "Z"]], false, false);
+    var peg$c55 = function (pattern) {
         return __assign({ type: 1 /* dateTime */, pattern: pattern }, insertLocation());
     };
-    var peg$c41 = function () { messageCtx.push('dateOrTimeArgStyle'); return true; };
-    var peg$c42 = "date";
-    var peg$c43 = peg$literalExpectation("date", false);
-    var peg$c44 = "time";
-    var peg$c45 = peg$literalExpectation("time", false);
-    var peg$c46 = "plural";
-    var peg$c47 = peg$literalExpectation("plural", false);
-    var peg$c48 = "selectordinal";
-    var peg$c49 = peg$literalExpectation("selectordinal", false);
-    var peg$c50 = "offset:";
-    var peg$c51 = peg$literalExpectation("offset:", false);
-    var peg$c52 = function (value, pluralType, offset, options) {
+    var peg$c56 = function () { messageCtx.push('dateOrTimeArgStyle'); return true; };
+    var peg$c57 = "date";
+    var peg$c58 = peg$literalExpectation("date", false);
+    var peg$c59 = "time";
+    var peg$c60 = peg$literalExpectation("time", false);
+    var peg$c61 = "plural";
+    var peg$c62 = peg$literalExpectation("plural", false);
+    var peg$c63 = "selectordinal";
+    var peg$c64 = peg$literalExpectation("selectordinal", false);
+    var peg$c65 = "offset:";
+    var peg$c66 = peg$literalExpectation("offset:", false);
+    var peg$c67 = function (value, pluralType, offset, options) {
         return __assign({ type: types_1.TYPE.plural, pluralType: pluralType === 'plural' ? 'cardinal' : 'ordinal', value: value, offset: offset ? offset[2] : 0, options: options.reduce(function (all, _a) {
                 var id = _a.id, value = _a.value, optionLocation = _a.location;
                 if (id in all) {
@@ -1457,9 +1481,9 @@ function peg$parse(input, options) {
                 return all;
             }, {}) }, insertLocation());
     };
-    var peg$c53 = "select";
-    var peg$c54 = peg$literalExpectation("select", false);
-    var peg$c55 = function (value, options) {
+    var peg$c68 = "select";
+    var peg$c69 = peg$literalExpectation("select", false);
+    var peg$c70 = function (value, options) {
         return __assign({ type: types_1.TYPE.select, value: value, options: options.reduce(function (all, _a) {
                 var id = _a.id, value = _a.value, optionLocation = _a.location;
                 if (id in all) {
@@ -1472,68 +1496,72 @@ function peg$parse(input, options) {
                 return all;
             }, {}) }, insertLocation());
     };
-    var peg$c56 = "=";
-    var peg$c57 = peg$literalExpectation("=", false);
-    var peg$c58 = function (id) { messageCtx.push('select'); return true; };
-    var peg$c59 = function (id, value) {
+    var peg$c71 = "=";
+    var peg$c72 = peg$literalExpectation("=", false);
+    var peg$c73 = function (id) { messageCtx.push('select'); return true; };
+    var peg$c74 = function (id, value) {
         messageCtx.pop();
         return __assign({ id: id,
             value: value }, insertLocation());
     };
-    var peg$c60 = function (id) { messageCtx.push('plural'); return true; };
-    var peg$c61 = function (id, value) {
+    var peg$c75 = function (id) { messageCtx.push('plural'); return true; };
+    var peg$c76 = function (id, value) {
         messageCtx.pop();
         return __assign({ id: id,
             value: value }, insertLocation());
     };
-    var peg$c62 = peg$otherExpectation("whitespace");
-    var peg$c63 = /^[\t-\r \x85\xA0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]/;
-    var peg$c64 = peg$classExpectation([["\t", "\r"], " ", "\x85", "\xA0", "\u1680", ["\u2000", "\u200A"], "\u2028", "\u2029", "\u202F", "\u205F", "\u3000"], false, false);
-    var peg$c65 = peg$otherExpectation("syntax pattern");
-    var peg$c66 = /^[!-\/:-@[-\^`{-~\xA1-\xA7\xA9\xAB\xAC\xAE\xB0\xB1\xB6\xBB\xBF\xD7\xF7\u2010-\u2027\u2030-\u203E\u2041-\u2053\u2055-\u205E\u2190-\u245F\u2500-\u2775\u2794-\u2BFF\u2E00-\u2E7F\u3001-\u3003\u3008-\u3020\u3030\uFD3E\uFD3F\uFE45\uFE46]/;
-    var peg$c67 = peg$classExpectation([["!", "/"], [":", "@"], ["[", "^"], "`", ["{", "~"], ["\xA1", "\xA7"], "\xA9", "\xAB", "\xAC", "\xAE", "\xB0", "\xB1", "\xB6", "\xBB", "\xBF", "\xD7", "\xF7", ["\u2010", "\u2027"], ["\u2030", "\u203E"], ["\u2041", "\u2053"], ["\u2055", "\u205E"], ["\u2190", "\u245F"], ["\u2500", "\u2775"], ["\u2794", "\u2BFF"], ["\u2E00", "\u2E7F"], ["\u3001", "\u3003"], ["\u3008", "\u3020"], "\u3030", "\uFD3E", "\uFD3F", "\uFE45", "\uFE46"], false, false);
-    var peg$c68 = peg$otherExpectation("optional whitespace");
-    var peg$c69 = peg$otherExpectation("number");
-    var peg$c70 = "-";
-    var peg$c71 = peg$literalExpectation("-", false);
-    var peg$c72 = function (negative, num) {
+    var peg$c77 = peg$otherExpectation("whitespace");
+    var peg$c78 = /^[\t-\r \x85\xA0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]/;
+    var peg$c79 = peg$classExpectation([["\t", "\r"], " ", "\x85", "\xA0", "\u1680", ["\u2000", "\u200A"], "\u2028", "\u2029", "\u202F", "\u205F", "\u3000"], false, false);
+    var peg$c80 = peg$otherExpectation("syntax pattern");
+    var peg$c81 = /^[!-\/:-@[-\^`{-~\xA1-\xA7\xA9\xAB\xAC\xAE\xB0\xB1\xB6\xBB\xBF\xD7\xF7\u2010-\u2027\u2030-\u203E\u2041-\u2053\u2055-\u205E\u2190-\u245F\u2500-\u2775\u2794-\u2BFF\u2E00-\u2E7F\u3001-\u3003\u3008-\u3020\u3030\uFD3E\uFD3F\uFE45\uFE46]/;
+    var peg$c82 = peg$classExpectation([["!", "/"], [":", "@"], ["[", "^"], "`", ["{", "~"], ["\xA1", "\xA7"], "\xA9", "\xAB", "\xAC", "\xAE", "\xB0", "\xB1", "\xB6", "\xBB", "\xBF", "\xD7", "\xF7", ["\u2010", "\u2027"], ["\u2030", "\u203E"], ["\u2041", "\u2053"], ["\u2055", "\u205E"], ["\u2190", "\u245F"], ["\u2500", "\u2775"], ["\u2794", "\u2BFF"], ["\u2E00", "\u2E7F"], ["\u3001", "\u3003"], ["\u3008", "\u3020"], "\u3030", "\uFD3E", "\uFD3F", "\uFE45", "\uFE46"], false, false);
+    var peg$c83 = peg$otherExpectation("optional whitespace");
+    var peg$c84 = peg$otherExpectation("number");
+    var peg$c85 = "-";
+    var peg$c86 = peg$literalExpectation("-", false);
+    var peg$c87 = function (negative, num) {
         return num
             ? negative
                 ? -num
                 : num
             : 0;
     };
-    var peg$c73 = peg$otherExpectation("apostrophe");
-    var peg$c74 = peg$otherExpectation("double apostrophes");
-    var peg$c75 = "''";
-    var peg$c76 = peg$literalExpectation("''", false);
-    var peg$c77 = function () { return "'"; };
-    var peg$c78 = function (escapedChar, quotedChars) {
+    var peg$c88 = peg$otherExpectation("apostrophe");
+    var peg$c89 = peg$otherExpectation("double apostrophes");
+    var peg$c90 = "''";
+    var peg$c91 = peg$literalExpectation("''", false);
+    var peg$c92 = function () { return "'"; };
+    var peg$c93 = function (escapedChar, quotedChars) {
         return escapedChar + quotedChars.replace("''", "'");
     };
-    var peg$c79 = function (x) {
-        return (x !== '{' &&
+    var peg$c94 = function (x) {
+        return (x !== '<' &&
+            x !== '{' &&
             !(isInPluralOption() && x === '#') &&
-            !(isNestedMessageText() && x === '}'));
+            !(isNestedMessageText() && x === '}') &&
+            !(isNestedMessageText() && x === '>'));
     };
-    var peg$c80 = "\n";
-    var peg$c81 = peg$literalExpectation("\n", false);
-    var peg$c82 = function (x) {
-        return x === '{' || x === '}' || (isInPluralOption() && x === '#');
+    var peg$c95 = "\n";
+    var peg$c96 = peg$literalExpectation("\n", false);
+    var peg$c97 = function (x) {
+        return x === '<' || x === '>' || x === '{' || x === '}' || (isInPluralOption() && x === '#');
     };
-    var peg$c83 = peg$otherExpectation("argNameOrNumber");
-    var peg$c84 = peg$otherExpectation("argNumber");
-    var peg$c85 = "0";
-    var peg$c86 = peg$literalExpectation("0", false);
-    var peg$c87 = function () { return 0; };
-    var peg$c88 = /^[1-9]/;
-    var peg$c89 = peg$classExpectation([["1", "9"]], false, false);
-    var peg$c90 = /^[0-9]/;
-    var peg$c91 = peg$classExpectation([["0", "9"]], false, false);
-    var peg$c92 = function (digits) {
+    var peg$c98 = peg$otherExpectation("argNameOrNumber");
+    var peg$c99 = peg$otherExpectation("validTag");
+    var peg$c100 = peg$otherExpectation("argNumber");
+    var peg$c101 = "0";
+    var peg$c102 = peg$literalExpectation("0", false);
+    var peg$c103 = function () { return 0; };
+    var peg$c104 = /^[1-9]/;
+    var peg$c105 = peg$classExpectation([["1", "9"]], false, false);
+    var peg$c106 = /^[0-9]/;
+    var peg$c107 = peg$classExpectation([["0", "9"]], false, false);
+    var peg$c108 = function (digits) {
         return parseInt(digits.join(''), 10);
     };
-    var peg$c93 = peg$otherExpectation("argName");
+    var peg$c109 = peg$otherExpectation("argName");
+    var peg$c110 = peg$otherExpectation("tagName");
     var peg$currPos = 0;
     var peg$savedPos = 0;
     var peg$posDetailsCache = [{ line: 1, column: 1 }];
@@ -1669,7 +1697,10 @@ function peg$parse(input, options) {
                     if (s0 === peg$FAILED) {
                         s0 = peg$parseselectElement();
                         if (s0 === peg$FAILED) {
-                            s0 = peg$parsepoundElement();
+                            s0 = peg$parsetagElement();
+                            if (s0 === peg$FAILED) {
+                                s0 = peg$parsepoundElement();
+                            }
                         }
                     }
                 }
@@ -1741,11 +1772,104 @@ function peg$parse(input, options) {
         s0 = s1;
         return s0;
     }
-    function peg$parseargumentElement() {
+    function peg$parsetagElement() {
         var s0, s1, s2, s3, s4, s5;
         peg$silentFails++;
         s0 = peg$currPos;
-        if (input.charCodeAt(peg$currPos) === 123) {
+        s1 = peg$currPos;
+        if (input.charCodeAt(peg$currPos) === 60) {
+            s2 = peg$c6;
+            peg$currPos++;
+        }
+        else {
+            s2 = peg$FAILED;
+            if (peg$silentFails === 0) {
+                peg$fail(peg$c7);
+            }
+        }
+        if (s2 !== peg$FAILED) {
+            s3 = peg$parsevalidTag();
+            if (s3 !== peg$FAILED) {
+                s4 = peg$parse_();
+                if (s4 !== peg$FAILED) {
+                    if (input.substr(peg$currPos, 2) === peg$c8) {
+                        s5 = peg$c8;
+                        peg$currPos += 2;
+                    }
+                    else {
+                        s5 = peg$FAILED;
+                        if (peg$silentFails === 0) {
+                            peg$fail(peg$c9);
+                        }
+                    }
+                    if (s5 !== peg$FAILED) {
+                        s2 = [s2, s3, s4, s5];
+                        s1 = s2;
+                    }
+                    else {
+                        peg$currPos = s1;
+                        s1 = peg$FAILED;
+                    }
+                }
+                else {
+                    peg$currPos = s1;
+                    s1 = peg$FAILED;
+                }
+            }
+            else {
+                peg$currPos = s1;
+                s1 = peg$FAILED;
+            }
+        }
+        else {
+            peg$currPos = s1;
+            s1 = peg$FAILED;
+        }
+        if (s1 !== peg$FAILED) {
+            peg$savedPos = s0;
+            s1 = peg$c10(s1);
+        }
+        s0 = s1;
+        if (s0 === peg$FAILED) {
+            s0 = peg$currPos;
+            s1 = peg$parseopeningTag();
+            if (s1 !== peg$FAILED) {
+                s2 = peg$parsemessage();
+                if (s2 !== peg$FAILED) {
+                    s3 = peg$parseclosingTag();
+                    if (s3 !== peg$FAILED) {
+                        peg$savedPos = s0;
+                        s1 = peg$c11(s1, s2, s3);
+                        s0 = s1;
+                    }
+                    else {
+                        peg$currPos = s0;
+                        s0 = peg$FAILED;
+                    }
+                }
+                else {
+                    peg$currPos = s0;
+                    s0 = peg$FAILED;
+                }
+            }
+            else {
+                peg$currPos = s0;
+                s0 = peg$FAILED;
+            }
+        }
+        peg$silentFails--;
+        if (s0 === peg$FAILED) {
+            s1 = peg$FAILED;
+            if (peg$silentFails === 0) {
+                peg$fail(peg$c5);
+            }
+        }
+        return s0;
+    }
+    function peg$parseopeningTag() {
+        var s0, s1, s2, s3, s4, s5;
+        s0 = peg$currPos;
+        if (input.charCodeAt(peg$currPos) === 60) {
             s1 = peg$c6;
             peg$currPos++;
         }
@@ -1756,6 +1880,157 @@ function peg$parse(input, options) {
             }
         }
         if (s1 !== peg$FAILED) {
+            peg$savedPos = peg$currPos;
+            s2 = peg$c12();
+            if (s2) {
+                s2 = undefined;
+            }
+            else {
+                s2 = peg$FAILED;
+            }
+            if (s2 !== peg$FAILED) {
+                s3 = peg$parsevalidTag();
+                if (s3 !== peg$FAILED) {
+                    if (input.charCodeAt(peg$currPos) === 62) {
+                        s4 = peg$c13;
+                        peg$currPos++;
+                    }
+                    else {
+                        s4 = peg$FAILED;
+                        if (peg$silentFails === 0) {
+                            peg$fail(peg$c14);
+                        }
+                    }
+                    if (s4 !== peg$FAILED) {
+                        peg$savedPos = peg$currPos;
+                        s5 = peg$c15(s3);
+                        if (s5) {
+                            s5 = undefined;
+                        }
+                        else {
+                            s5 = peg$FAILED;
+                        }
+                        if (s5 !== peg$FAILED) {
+                            peg$savedPos = s0;
+                            s1 = peg$c16(s3);
+                            s0 = s1;
+                        }
+                        else {
+                            peg$currPos = s0;
+                            s0 = peg$FAILED;
+                        }
+                    }
+                    else {
+                        peg$currPos = s0;
+                        s0 = peg$FAILED;
+                    }
+                }
+                else {
+                    peg$currPos = s0;
+                    s0 = peg$FAILED;
+                }
+            }
+            else {
+                peg$currPos = s0;
+                s0 = peg$FAILED;
+            }
+        }
+        else {
+            peg$currPos = s0;
+            s0 = peg$FAILED;
+        }
+        return s0;
+    }
+    function peg$parseclosingTag() {
+        var s0, s1, s2, s3, s4, s5;
+        s0 = peg$currPos;
+        if (input.substr(peg$currPos, 2) === peg$c17) {
+            s1 = peg$c17;
+            peg$currPos += 2;
+        }
+        else {
+            s1 = peg$FAILED;
+            if (peg$silentFails === 0) {
+                peg$fail(peg$c18);
+            }
+        }
+        if (s1 !== peg$FAILED) {
+            peg$savedPos = peg$currPos;
+            s2 = peg$c19();
+            if (s2) {
+                s2 = undefined;
+            }
+            else {
+                s2 = peg$FAILED;
+            }
+            if (s2 !== peg$FAILED) {
+                s3 = peg$parsevalidTag();
+                if (s3 !== peg$FAILED) {
+                    if (input.charCodeAt(peg$currPos) === 62) {
+                        s4 = peg$c13;
+                        peg$currPos++;
+                    }
+                    else {
+                        s4 = peg$FAILED;
+                        if (peg$silentFails === 0) {
+                            peg$fail(peg$c14);
+                        }
+                    }
+                    if (s4 !== peg$FAILED) {
+                        peg$savedPos = peg$currPos;
+                        s5 = peg$c15(s3);
+                        if (s5) {
+                            s5 = undefined;
+                        }
+                        else {
+                            s5 = peg$FAILED;
+                        }
+                        if (s5 !== peg$FAILED) {
+                            peg$savedPos = s0;
+                            s1 = peg$c16(s3);
+                            s0 = s1;
+                        }
+                        else {
+                            peg$currPos = s0;
+                            s0 = peg$FAILED;
+                        }
+                    }
+                    else {
+                        peg$currPos = s0;
+                        s0 = peg$FAILED;
+                    }
+                }
+                else {
+                    peg$currPos = s0;
+                    s0 = peg$FAILED;
+                }
+            }
+            else {
+                peg$currPos = s0;
+                s0 = peg$FAILED;
+            }
+        }
+        else {
+            peg$currPos = s0;
+            s0 = peg$FAILED;
+        }
+        return s0;
+    }
+    function peg$parseargumentElement() {
+        var s0, s1, s2, s3, s4, s5;
+        peg$silentFails++;
+        s0 = peg$currPos;
+        if (input.charCodeAt(peg$currPos) === 123) {
+            s1 = peg$c21;
+            peg$currPos++;
+        }
+        else {
+            s1 = peg$FAILED;
+            if (peg$silentFails === 0) {
+                peg$fail(peg$c22);
+            }
+        }
+        if (s1 !== peg$FAILED) {
             s2 = peg$parse_();
             if (s2 !== peg$FAILED) {
                 s3 = peg$parseargNameOrNumber();
@@ -1763,18 +2038,18 @@ function peg$parse(input, options) {
                     s4 = peg$parse_();
                     if (s4 !== peg$FAILED) {
                         if (input.charCodeAt(peg$currPos) === 125) {
-                            s5 = peg$c8;
+                            s5 = peg$c23;
                             peg$currPos++;
                         }
                         else {
                             s5 = peg$FAILED;
                             if (peg$silentFails === 0) {
-                                peg$fail(peg$c9);
+                                peg$fail(peg$c24);
                             }
                         }
                         if (s5 !== peg$FAILED) {
                             peg$savedPos = s0;
-                            s1 = peg$c10(s3);
+                            s1 = peg$c25(s3);
                             s0 = s1;
                         }
                         else {
@@ -1805,7 +2080,7 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c5);
+                peg$fail(peg$c20);
             }
         }
         return s0;
@@ -1820,14 +2095,14 @@ function peg$parse(input, options) {
         peg$silentFails++;
         s4 = peg$parsewhiteSpace();
         if (s4 === peg$FAILED) {
-            if (peg$c12.test(input.charAt(peg$currPos))) {
+            if (peg$c27.test(input.charAt(peg$currPos))) {
                 s4 = input.charAt(peg$currPos);
                 peg$currPos++;
             }
             else {
                 s4 = peg$FAILED;
                 if (peg$silentFails === 0) {
-                    peg$fail(peg$c13);
+                    peg$fail(peg$c28);
                 }
             }
         }
@@ -1847,7 +2122,7 @@ function peg$parse(input, options) {
             else {
                 s4 = peg$FAILED;
                 if (peg$silentFails === 0) {
-                    peg$fail(peg$c14);
+                    peg$fail(peg$c29);
                 }
             }
             if (s4 !== peg$FAILED) {
@@ -1871,14 +2146,14 @@ function peg$parse(input, options) {
                 peg$silentFails++;
                 s4 = peg$parsewhiteSpace();
                 if (s4 === peg$FAILED) {
-                    if (peg$c12.test(input.charAt(peg$currPos))) {
+                    if (peg$c27.test(input.charAt(peg$currPos))) {
                         s4 = input.charAt(peg$currPos);
                         peg$currPos++;
                     }
                     else {
                         s4 = peg$FAILED;
                         if (peg$silentFails === 0) {
-                            peg$fail(peg$c13);
+                            peg$fail(peg$c28);
                         }
                     }
                 }
@@ -1898,7 +2173,7 @@ function peg$parse(input, options) {
                     else {
                         s4 = peg$FAILED;
                         if (peg$silentFails === 0) {
-                            peg$fail(peg$c14);
+                            peg$fail(peg$c29);
                         }
                     }
                     if (s4 !== peg$FAILED) {
@@ -1929,7 +2204,7 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c11);
+                peg$fail(peg$c26);
             }
         }
         return s0;
@@ -1939,20 +2214,20 @@ function peg$parse(input, options) {
         peg$silentFails++;
         s0 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 47) {
-            s1 = peg$c16;
+            s1 = peg$c31;
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c17);
+                peg$fail(peg$c32);
             }
         }
         if (s1 !== peg$FAILED) {
             s2 = peg$parsenumberSkeletonId();
             if (s2 !== peg$FAILED) {
                 peg$savedPos = s0;
-                s1 = peg$c18(s2);
+                s1 = peg$c33(s2);
                 s0 = s1;
             }
             else {
@@ -1968,7 +2243,7 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c15);
+                peg$fail(peg$c30);
             }
         }
         return s0;
@@ -1989,7 +2264,7 @@ function peg$parse(input, options) {
                 }
                 if (s3 !== peg$FAILED) {
                     peg$savedPos = s0;
-                    s1 = peg$c20(s2, s3);
+                    s1 = peg$c35(s2, s3);
                     s0 = s1;
                 }
                 else {
@@ -2010,7 +2285,7 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c19);
+                peg$fail(peg$c34);
             }
         }
         return s0;
@@ -2031,7 +2306,7 @@ function peg$parse(input, options) {
         }
         if (s1 !== peg$FAILED) {
             peg$savedPos = s0;
-            s1 = peg$c21(s1);
+            s1 = peg$c36(s1);
         }
         s0 = s1;
         return s0;
@@ -2039,21 +2314,21 @@ function peg$parse(input, options) {
     function peg$parsenumberArgStyle() {
         var s0, s1, s2;
         s0 = peg$currPos;
-        if (input.substr(peg$currPos, 2) === peg$c22) {
-            s1 = peg$c22;
+        if (input.substr(peg$currPos, 2) === peg$c37) {
+            s1 = peg$c37;
             peg$currPos += 2;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c23);
+                peg$fail(peg$c38);
             }
         }
         if (s1 !== peg$FAILED) {
             s2 = peg$parsenumberSkeleton();
             if (s2 !== peg$FAILED) {
                 peg$savedPos = s0;
-                s1 = peg$c24(s2);
+                s1 = peg$c39(s2);
                 s0 = s1;
             }
             else {
@@ -2068,7 +2343,7 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s0 = peg$currPos;
             peg$savedPos = peg$currPos;
-            s1 = peg$c25();
+            s1 = peg$c40();
             if (s1) {
                 s1 = undefined;
             }
@@ -2079,7 +2354,7 @@ function peg$parse(input, options) {
                 s2 = peg$parsemessageText();
                 if (s2 !== peg$FAILED) {
                     peg$savedPos = s0;
-                    s1 = peg$c26(s2);
+                    s1 = peg$c41(s2);
                     s0 = s1;
                 }
                 else {
@@ -2098,13 +2373,13 @@ function peg$parse(input, options) {
         var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12;
         s0 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 123) {
-            s1 = peg$c6;
+            s1 = peg$c21;
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c7);
+                peg$fail(peg$c22);
             }
         }
         if (s1 !== peg$FAILED) {
@@ -2115,26 +2390,26 @@ function peg$parse(input, options) {
                     s4 = peg$parse_();
                     if (s4 !== peg$FAILED) {
                         if (input.charCodeAt(peg$currPos) === 44) {
-                            s5 = peg$c27;
+                            s5 = peg$c42;
                             peg$currPos++;
                         }
                         else {
                             s5 = peg$FAILED;
                             if (peg$silentFails === 0) {
-                                peg$fail(peg$c28);
+                                peg$fail(peg$c43);
                             }
                         }
                         if (s5 !== peg$FAILED) {
                             s6 = peg$parse_();
                             if (s6 !== peg$FAILED) {
-                                if (input.substr(peg$currPos, 6) === peg$c29) {
-                                    s7 = peg$c29;
+                                if (input.substr(peg$currPos, 6) === peg$c44) {
+                                    s7 = peg$c44;
                                     peg$currPos += 6;
                                 }
                                 else {
                                     s7 = peg$FAILED;
                                     if (peg$silentFails === 0) {
-                                        peg$fail(peg$c30);
+                                        peg$fail(peg$c45);
                                     }
                                 }
                                 if (s7 !== peg$FAILED) {
@@ -2142,13 +2417,13 @@ function peg$parse(input, options) {
                                     if (s8 !== peg$FAILED) {
                                         s9 = peg$currPos;
                                         if (input.charCodeAt(peg$currPos) === 44) {
-                                            s10 = peg$c27;
+                                            s10 = peg$c42;
                                             peg$currPos++;
                                         }
                                         else {
                                             s10 = peg$FAILED;
                                             if (peg$silentFails === 0) {
-                                                peg$fail(peg$c28);
+                                                peg$fail(peg$c43);
                                             }
                                         }
                                         if (s10 !== peg$FAILED) {
@@ -2180,18 +2455,18 @@ function peg$parse(input, options) {
                                             s10 = peg$parse_();
                                             if (s10 !== peg$FAILED) {
                                                 if (input.charCodeAt(peg$currPos) === 125) {
-                                                    s11 = peg$c8;
+                                                    s11 = peg$c23;
                                                     peg$currPos++;
                                                 }
                                                 else {
                                                     s11 = peg$FAILED;
                                                     if (peg$silentFails === 0) {
-                                                        peg$fail(peg$c9);
+                                                        peg$fail(peg$c24);
                                                     }
                                                 }
                                                 if (s11 !== peg$FAILED) {
                                                     peg$savedPos = s0;
-                                                    s1 = peg$c31(s3, s7, s9);
+                                                    s1 = peg$c46(s3, s7, s9);
                                                     s0 = s1;
                                                 }
                                                 else {
@@ -2254,27 +2529,27 @@ function peg$parse(input, options) {
         var s0, s1, s2, s3;
         s0 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 39) {
-            s1 = peg$c32;
+            s1 = peg$c47;
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c33);
+                peg$fail(peg$c48);
             }
         }
         if (s1 !== peg$FAILED) {
             s2 = [];
             s3 = peg$parsedoubleApostrophes();
             if (s3 === peg$FAILED) {
-                if (peg$c34.test(input.charAt(peg$currPos))) {
+                if (peg$c49.test(input.charAt(peg$currPos))) {
                     s3 = input.charAt(peg$currPos);
                     peg$currPos++;
                 }
                 else {
                     s3 = peg$FAILED;
                     if (peg$silentFails === 0) {
-                        peg$fail(peg$c35);
+                        peg$fail(peg$c50);
                     }
                 }
             }
@@ -2283,14 +2558,14 @@ function peg$parse(input, options) {
                     s2.push(s3);
                     s3 = peg$parsedoubleApostrophes();
                     if (s3 === peg$FAILED) {
-                        if (peg$c34.test(input.charAt(peg$currPos))) {
+                        if (peg$c49.test(input.charAt(peg$currPos))) {
                             s3 = input.charAt(peg$currPos);
                             peg$currPos++;
                         }
                         else {
                             s3 = peg$FAILED;
                             if (peg$silentFails === 0) {
-                                peg$fail(peg$c35);
+                                peg$fail(peg$c50);
                             }
                         }
                     }
@@ -2301,13 +2576,13 @@ function peg$parse(input, options) {
             }
             if (s2 !== peg$FAILED) {
                 if (input.charCodeAt(peg$currPos) === 39) {
-                    s3 = peg$c32;
+                    s3 = peg$c47;
                     peg$currPos++;
                 }
                 else {
                     s3 = peg$FAILED;
                     if (peg$silentFails === 0) {
-                        peg$fail(peg$c33);
+                        peg$fail(peg$c48);
                     }
                 }
                 if (s3 !== peg$FAILED) {
@@ -2332,14 +2607,14 @@ function peg$parse(input, options) {
             s0 = [];
             s1 = peg$parsedoubleApostrophes();
             if (s1 === peg$FAILED) {
-                if (peg$c36.test(input.charAt(peg$currPos))) {
+                if (peg$c51.test(input.charAt(peg$currPos))) {
                     s1 = input.charAt(peg$currPos);
                     peg$currPos++;
                 }
                 else {
                     s1 = peg$FAILED;
                     if (peg$silentFails === 0) {
-                        peg$fail(peg$c37);
+                        peg$fail(peg$c52);
                     }
                 }
             }
@@ -2348,14 +2623,14 @@ function peg$parse(input, options) {
                     s0.push(s1);
                     s1 = peg$parsedoubleApostrophes();
                     if (s1 === peg$FAILED) {
-                        if (peg$c36.test(input.charAt(peg$currPos))) {
+                        if (peg$c51.test(input.charAt(peg$currPos))) {
                             s1 = input.charAt(peg$currPos);
                             peg$currPos++;
                         }
                         else {
                             s1 = peg$FAILED;
                             if (peg$silentFails === 0) {
-                                peg$fail(peg$c37);
+                                peg$fail(peg$c52);
                             }
                         }
                     }
@@ -2370,27 +2645,27 @@ function peg$parse(input, options) {
     function peg$parsedateTimeSkeletonPattern() {
         var s0, s1;
         s0 = [];
-        if (peg$c38.test(input.charAt(peg$currPos))) {
+        if (peg$c53.test(input.charAt(peg$currPos))) {
             s1 = input.charAt(peg$currPos);
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c39);
+                peg$fail(peg$c54);
             }
         }
         if (s1 !== peg$FAILED) {
             while (s1 !== peg$FAILED) {
                 s0.push(s1);
-                if (peg$c38.test(input.charAt(peg$currPos))) {
+                if (peg$c53.test(input.charAt(peg$currPos))) {
                     s1 = input.charAt(peg$currPos);
                     peg$currPos++;
                 }
                 else {
                     s1 = peg$FAILED;
                     if (peg$silentFails === 0) {
-                        peg$fail(peg$c39);
+                        peg$fail(peg$c54);
                     }
                 }
             }
@@ -2429,7 +2704,7 @@ function peg$parse(input, options) {
         }
         if (s1 !== peg$FAILED) {
             peg$savedPos = s0;
-            s1 = peg$c40(s1);
+            s1 = peg$c55(s1);
         }
         s0 = s1;
         return s0;
@@ -2437,21 +2712,21 @@ function peg$parse(input, options) {
     function peg$parsedateOrTimeArgStyle() {
         var s0, s1, s2;
         s0 = peg$currPos;
-        if (input.substr(peg$currPos, 2) === peg$c22) {
-            s1 = peg$c22;
+        if (input.substr(peg$currPos, 2) === peg$c37) {
+            s1 = peg$c37;
             peg$currPos += 2;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c23);
+                peg$fail(peg$c38);
             }
         }
         if (s1 !== peg$FAILED) {
             s2 = peg$parsedateTimeSkeleton();
             if (s2 !== peg$FAILED) {
                 peg$savedPos = s0;
-                s1 = peg$c24(s2);
+                s1 = peg$c39(s2);
                 s0 = s1;
             }
             else {
@@ -2466,7 +2741,7 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s0 = peg$currPos;
             peg$savedPos = peg$currPos;
-            s1 = peg$c41();
+            s1 = peg$c56();
             if (s1) {
                 s1 = undefined;
             }
@@ -2477,7 +2752,7 @@ function peg$parse(input, options) {
                 s2 = peg$parsemessageText();
                 if (s2 !== peg$FAILED) {
                     peg$savedPos = s0;
-                    s1 = peg$c26(s2);
+                    s1 = peg$c41(s2);
                     s0 = s1;
                 }
                 else {
@@ -2496,13 +2771,13 @@ function peg$parse(input, options) {
         var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12;
         s0 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 123) {
-            s1 = peg$c6;
+            s1 = peg$c21;
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c7);
+                peg$fail(peg$c22);
             }
         }
         if (s1 !== peg$FAILED) {
@@ -2513,37 +2788,37 @@ function peg$parse(input, options) {
                     s4 = peg$parse_();
                     if (s4 !== peg$FAILED) {
                         if (input.charCodeAt(peg$currPos) === 44) {
-                            s5 = peg$c27;
+                            s5 = peg$c42;
                             peg$currPos++;
                         }
                         else {
                             s5 = peg$FAILED;
                             if (peg$silentFails === 0) {
-                                peg$fail(peg$c28);
+                                peg$fail(peg$c43);
                             }
                         }
                         if (s5 !== peg$FAILED) {
                             s6 = peg$parse_();
                             if (s6 !== peg$FAILED) {
-                                if (input.substr(peg$currPos, 4) === peg$c42) {
-                                    s7 = peg$c42;
+                                if (input.substr(peg$currPos, 4) === peg$c57) {
+                                    s7 = peg$c57;
                                     peg$currPos += 4;
                                 }
                                 else {
                                     s7 = peg$FAILED;
                                     if (peg$silentFails === 0) {
-                                        peg$fail(peg$c43);
+                                        peg$fail(peg$c58);
                                     }
                                 }
                                 if (s7 === peg$FAILED) {
-                                    if (input.substr(peg$currPos, 4) === peg$c44) {
-                                        s7 = peg$c44;
+                                    if (input.substr(peg$currPos, 4) === peg$c59) {
+                                        s7 = peg$c59;
                                         peg$currPos += 4;
                                     }
                                     else {
                                         s7 = peg$FAILED;
                                         if (peg$silentFails === 0) {
-                                            peg$fail(peg$c45);
+                                            peg$fail(peg$c60);
                                         }
                                     }
                                 }
@@ -2552,13 +2827,13 @@ function peg$parse(input, options) {
                                     if (s8 !== peg$FAILED) {
                                         s9 = peg$currPos;
                                         if (input.charCodeAt(peg$currPos) === 44) {
-                                            s10 = peg$c27;
+                                            s10 = peg$c42;
                                             peg$currPos++;
                                         }
                                         else {
                                             s10 = peg$FAILED;
                                             if (peg$silentFails === 0) {
-                                                peg$fail(peg$c28);
+                                                peg$fail(peg$c43);
                                             }
                                         }
                                         if (s10 !== peg$FAILED) {
@@ -2590,18 +2865,18 @@ function peg$parse(input, options) {
                                             s10 = peg$parse_();
                                             if (s10 !== peg$FAILED) {
                                                 if (input.charCodeAt(peg$currPos) === 125) {
-                                                    s11 = peg$c8;
+                                                    s11 = peg$c23;
                                                     peg$currPos++;
                                                 }
                                                 else {
                                                     s11 = peg$FAILED;
                                                     if (peg$silentFails === 0) {
-                                                        peg$fail(peg$c9);
+                                                        peg$fail(peg$c24);
                                                     }
                                                 }
                                                 if (s11 !== peg$FAILED) {
                                                     peg$savedPos = s0;
-                                                    s1 = peg$c31(s3, s7, s9);
+                                                    s1 = peg$c46(s3, s7, s9);
                                                     s0 = s1;
                                                 }
                                                 else {
@@ -2672,13 +2947,13 @@ function peg$parse(input, options) {
         var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15;
         s0 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 123) {
-            s1 = peg$c6;
+            s1 = peg$c21;
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c7);
+                peg$fail(peg$c22);
             }
         }
         if (s1 !== peg$FAILED) {
@@ -2689,37 +2964,37 @@ function peg$parse(input, options) {
                     s4 = peg$parse_();
                     if (s4 !== peg$FAILED) {
                         if (input.charCodeAt(peg$currPos) === 44) {
-                            s5 = peg$c27;
+                            s5 = peg$c42;
                             peg$currPos++;
                         }
                         else {
                             s5 = peg$FAILED;
                             if (peg$silentFails === 0) {
-                                peg$fail(peg$c28);
+                                peg$fail(peg$c43);
                             }
                         }
                         if (s5 !== peg$FAILED) {
                             s6 = peg$parse_();
                             if (s6 !== peg$FAILED) {
-                                if (input.substr(peg$currPos, 6) === peg$c46) {
-                                    s7 = peg$c46;
+                                if (input.substr(peg$currPos, 6) === peg$c61) {
+                                    s7 = peg$c61;
                                     peg$currPos += 6;
                                 }
                                 else {
                                     s7 = peg$FAILED;
                                     if (peg$silentFails === 0) {
-                                        peg$fail(peg$c47);
+                                        peg$fail(peg$c62);
                                     }
                                 }
                                 if (s7 === peg$FAILED) {
-                                    if (input.substr(peg$currPos, 13) === peg$c48) {
-                                        s7 = peg$c48;
+                                    if (input.substr(peg$currPos, 13) === peg$c63) {
+                                        s7 = peg$c63;
                                         peg$currPos += 13;
                                     }
                                     else {
                                         s7 = peg$FAILED;
                                         if (peg$silentFails === 0) {
-                                            peg$fail(peg$c49);
+                                            peg$fail(peg$c64);
                                         }
                                     }
                                 }
@@ -2727,27 +3002,27 @@ function peg$parse(input, options) {
                                     s8 = peg$parse_();
                                     if (s8 !== peg$FAILED) {
                                         if (input.charCodeAt(peg$currPos) === 44) {
-                                            s9 = peg$c27;
+                                            s9 = peg$c42;
                                             peg$currPos++;
                                         }
                                         else {
                                             s9 = peg$FAILED;
                                             if (peg$silentFails === 0) {
-                                                peg$fail(peg$c28);
+                                                peg$fail(peg$c43);
                                             }
                                         }
                                         if (s9 !== peg$FAILED) {
                                             s10 = peg$parse_();
                                             if (s10 !== peg$FAILED) {
                                                 s11 = peg$currPos;
-                                                if (input.substr(peg$currPos, 7) === peg$c50) {
-                                                    s12 = peg$c50;
+                                                if (input.substr(peg$currPos, 7) === peg$c65) {
+                                                    s12 = peg$c65;
                                                     peg$currPos += 7;
                                                 }
                                                 else {
                                                     s12 = peg$FAILED;
                                                     if (peg$silentFails === 0) {
-                                                        peg$fail(peg$c51);
+                                                        peg$fail(peg$c66);
                                                     }
                                                 }
                                                 if (s12 !== peg$FAILED) {
@@ -2793,18 +3068,18 @@ function peg$parse(input, options) {
                                                             s14 = peg$parse_();
                                                             if (s14 !== peg$FAILED) {
                                                                 if (input.charCodeAt(peg$currPos) === 125) {
-                                                                    s15 = peg$c8;
+                                                                    s15 = peg$c23;
                                                                     peg$currPos++;
                                                                 }
                                                                 else {
                                                                     s15 = peg$FAILED;
                                                                     if (peg$silentFails === 0) {
-                                                                        peg$fail(peg$c9);
+                                                                        peg$fail(peg$c24);
                                                                     }
                                                                 }
                                                                 if (s15 !== peg$FAILED) {
                                                                     peg$savedPos = s0;
-                                                                    s1 = peg$c52(s3, s7, s11, s13);
+                                                                    s1 = peg$c67(s3, s7, s11, s13);
                                                                     s0 = s1;
                                                                 }
                                                                 else {
@@ -2887,13 +3162,13 @@ function peg$parse(input, options) {
         var s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13;
         s0 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 123) {
-            s1 = peg$c6;
+            s1 = peg$c21;
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c7);
+                peg$fail(peg$c22);
             }
         }
         if (s1 !== peg$FAILED) {
@@ -2904,39 +3179,39 @@ function peg$parse(input, options) {
                     s4 = peg$parse_();
                     if (s4 !== peg$FAILED) {
                         if (input.charCodeAt(peg$currPos) === 44) {
-                            s5 = peg$c27;
+                            s5 = peg$c42;
                             peg$currPos++;
                         }
                         else {
                             s5 = peg$FAILED;
                             if (peg$silentFails === 0) {
-                                peg$fail(peg$c28);
+                                peg$fail(peg$c43);
                             }
                         }
                         if (s5 !== peg$FAILED) {
                             s6 = peg$parse_();
                             if (s6 !== peg$FAILED) {
-                                if (input.substr(peg$currPos, 6) === peg$c53) {
-                                    s7 = peg$c53;
+                                if (input.substr(peg$currPos, 6) === peg$c68) {
+                                    s7 = peg$c68;
                                     peg$currPos += 6;
                                 }
                                 else {
                                     s7 = peg$FAILED;
                                     if (peg$silentFails === 0) {
-                                        peg$fail(peg$c54);
+                                        peg$fail(peg$c69);
                                     }
                                 }
                                 if (s7 !== peg$FAILED) {
                                     s8 = peg$parse_();
                                     if (s8 !== peg$FAILED) {
                                         if (input.charCodeAt(peg$currPos) === 44) {
-                                            s9 = peg$c27;
+                                            s9 = peg$c42;
                                             peg$currPos++;
                                         }
                                         else {
                                             s9 = peg$FAILED;
                                             if (peg$silentFails === 0) {
-                                                peg$fail(peg$c28);
+                                                peg$fail(peg$c43);
                                             }
                                         }
                                         if (s9 !== peg$FAILED) {
@@ -2957,18 +3232,18 @@ function peg$parse(input, options) {
                                                     s12 = peg$parse_();
                                                     if (s12 !== peg$FAILED) {
                                                         if (input.charCodeAt(peg$currPos) === 125) {
-                                                            s13 = peg$c8;
+                                                            s13 = peg$c23;
                                                             peg$currPos++;
                                                         }
                                                         else {
                                                             s13 = peg$FAILED;
                                                             if (peg$silentFails === 0) {
-                                                                peg$fail(peg$c9);
+                                                                peg$fail(peg$c24);
                                                             }
                                                         }
                                                         if (s13 !== peg$FAILED) {
                                                             peg$savedPos = s0;
-                                                            s1 = peg$c55(s3, s11);
+                                                            s1 = peg$c70(s3, s11);
                                                             s0 = s1;
                                                         }
                                                         else {
@@ -3042,13 +3317,13 @@ function peg$parse(input, options) {
         s0 = peg$currPos;
         s1 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 61) {
-            s2 = peg$c56;
+            s2 = peg$c71;
             peg$currPos++;
         }
         else {
             s2 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c57);
+                peg$fail(peg$c72);
             }
         }
         if (s2 !== peg$FAILED) {
@@ -3087,18 +3362,18 @@ function peg$parse(input, options) {
                 s3 = peg$parse_();
                 if (s3 !== peg$FAILED) {
                     if (input.charCodeAt(peg$currPos) === 123) {
-                        s4 = peg$c6;
+                        s4 = peg$c21;
                         peg$currPos++;
                     }
                     else {
                         s4 = peg$FAILED;
                         if (peg$silentFails === 0) {
-                            peg$fail(peg$c7);
+                            peg$fail(peg$c22);
                         }
                     }
                     if (s4 !== peg$FAILED) {
                         peg$savedPos = peg$currPos;
-                        s5 = peg$c58(s2);
+                        s5 = peg$c73(s2);
                         if (s5) {
                             s5 = undefined;
                         }
@@ -3109,18 +3384,18 @@ function peg$parse(input, options) {
                             s6 = peg$parsemessage();
                             if (s6 !== peg$FAILED) {
                                 if (input.charCodeAt(peg$currPos) === 125) {
-                                    s7 = peg$c8;
+                                    s7 = peg$c23;
                                     peg$currPos++;
                                 }
                                 else {
                                     s7 = peg$FAILED;
                                     if (peg$silentFails === 0) {
-                                        peg$fail(peg$c9);
+                                        peg$fail(peg$c24);
                                     }
                                 }
                                 if (s7 !== peg$FAILED) {
                                     peg$savedPos = s0;
-                                    s1 = peg$c59(s2, s6);
+                                    s1 = peg$c74(s2, s6);
                                     s0 = s1;
                                 }
                                 else {
@@ -3169,18 +3444,18 @@ function peg$parse(input, options) {
                 s3 = peg$parse_();
                 if (s3 !== peg$FAILED) {
                     if (input.charCodeAt(peg$currPos) === 123) {
-                        s4 = peg$c6;
+                        s4 = peg$c21;
                         peg$currPos++;
                     }
                     else {
                         s4 = peg$FAILED;
                         if (peg$silentFails === 0) {
-                            peg$fail(peg$c7);
+                            peg$fail(peg$c22);
                         }
                     }
                     if (s4 !== peg$FAILED) {
                         peg$savedPos = peg$currPos;
-                        s5 = peg$c60(s2);
+                        s5 = peg$c75(s2);
                         if (s5) {
                             s5 = undefined;
                         }
@@ -3191,18 +3466,18 @@ function peg$parse(input, options) {
                             s6 = peg$parsemessage();
                             if (s6 !== peg$FAILED) {
                                 if (input.charCodeAt(peg$currPos) === 125) {
-                                    s7 = peg$c8;
+                                    s7 = peg$c23;
                                     peg$currPos++;
                                 }
                                 else {
                                     s7 = peg$FAILED;
                                     if (peg$silentFails === 0) {
-                                        peg$fail(peg$c9);
+                                        peg$fail(peg$c24);
                                     }
                                 }
                                 if (s7 !== peg$FAILED) {
                                     peg$savedPos = s0;
-                                    s1 = peg$c61(s2, s6);
+                                    s1 = peg$c76(s2, s6);
                                     s0 = s1;
                                 }
                                 else {
@@ -3244,21 +3519,21 @@ function peg$parse(input, options) {
     function peg$parsewhiteSpace() {
         var s0, s1;
         peg$silentFails++;
-        if (peg$c63.test(input.charAt(peg$currPos))) {
+        if (peg$c78.test(input.charAt(peg$currPos))) {
             s0 = input.charAt(peg$currPos);
             peg$currPos++;
         }
         else {
             s0 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c64);
+                peg$fail(peg$c79);
             }
         }
         peg$silentFails--;
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c62);
+                peg$fail(peg$c77);
             }
         }
         return s0;
@@ -3266,21 +3541,21 @@ function peg$parse(input, options) {
     function peg$parsepatternSyntax() {
         var s0, s1;
         peg$silentFails++;
-        if (peg$c66.test(input.charAt(peg$currPos))) {
+        if (peg$c81.test(input.charAt(peg$currPos))) {
             s0 = input.charAt(peg$currPos);
             peg$currPos++;
         }
         else {
             s0 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c67);
+                peg$fail(peg$c82);
             }
         }
         peg$silentFails--;
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c65);
+                peg$fail(peg$c80);
             }
         }
         return s0;
@@ -3305,7 +3580,7 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c68);
+                peg$fail(peg$c83);
             }
         }
         return s0;
@@ -3315,13 +3590,13 @@ function peg$parse(input, options) {
         peg$silentFails++;
         s0 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 45) {
-            s1 = peg$c70;
+            s1 = peg$c85;
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c71);
+                peg$fail(peg$c86);
             }
         }
         if (s1 === peg$FAILED) {
@@ -3331,7 +3606,7 @@ function peg$parse(input, options) {
             s2 = peg$parseargNumber();
             if (s2 !== peg$FAILED) {
                 peg$savedPos = s0;
-                s1 = peg$c72(s1, s2);
+                s1 = peg$c87(s1, s2);
                 s0 = s1;
             }
             else {
@@ -3347,7 +3622,7 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c69);
+                peg$fail(peg$c84);
             }
         }
         return s0;
@@ -3356,20 +3631,20 @@ function peg$parse(input, options) {
         var s0, s1;
         peg$silentFails++;
         if (input.charCodeAt(peg$currPos) === 39) {
-            s0 = peg$c32;
+            s0 = peg$c47;
             peg$currPos++;
         }
         else {
             s0 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c33);
+                peg$fail(peg$c48);
             }
         }
         peg$silentFails--;
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c73);
+                peg$fail(peg$c88);
             }
         }
         return s0;
@@ -3378,26 +3653,26 @@ function peg$parse(input, options) {
         var s0, s1;
         peg$silentFails++;
         s0 = peg$currPos;
-        if (input.substr(peg$currPos, 2) === peg$c75) {
-            s1 = peg$c75;
+        if (input.substr(peg$currPos, 2) === peg$c90) {
+            s1 = peg$c90;
             peg$currPos += 2;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c76);
+                peg$fail(peg$c91);
             }
         }
         if (s1 !== peg$FAILED) {
             peg$savedPos = s0;
-            s1 = peg$c77();
+            s1 = peg$c92();
         }
         s0 = s1;
         peg$silentFails--;
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c74);
+                peg$fail(peg$c89);
             }
         }
         return s0;
@@ -3406,13 +3681,13 @@ function peg$parse(input, options) {
         var s0, s1, s2, s3, s4, s5;
         s0 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 39) {
-            s1 = peg$c32;
+            s1 = peg$c47;
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c33);
+                peg$fail(peg$c48);
             }
         }
         if (s1 !== peg$FAILED) {
@@ -3420,49 +3695,49 @@ function peg$parse(input, options) {
             if (s2 !== peg$FAILED) {
                 s3 = peg$currPos;
                 s4 = [];
-                if (input.substr(peg$currPos, 2) === peg$c75) {
-                    s5 = peg$c75;
+                if (input.substr(peg$currPos, 2) === peg$c90) {
+                    s5 = peg$c90;
                     peg$currPos += 2;
                 }
                 else {
                     s5 = peg$FAILED;
                     if (peg$silentFails === 0) {
-                        peg$fail(peg$c76);
+                        peg$fail(peg$c91);
                     }
                 }
                 if (s5 === peg$FAILED) {
-                    if (peg$c34.test(input.charAt(peg$currPos))) {
+                    if (peg$c49.test(input.charAt(peg$currPos))) {
                         s5 = input.charAt(peg$currPos);
                         peg$currPos++;
                     }
                     else {
                         s5 = peg$FAILED;
                         if (peg$silentFails === 0) {
-                            peg$fail(peg$c35);
+                            peg$fail(peg$c50);
                         }
                     }
                 }
                 while (s5 !== peg$FAILED) {
                     s4.push(s5);
-                    if (input.substr(peg$currPos, 2) === peg$c75) {
-                        s5 = peg$c75;
+                    if (input.substr(peg$currPos, 2) === peg$c90) {
+                        s5 = peg$c90;
                         peg$currPos += 2;
                     }
                     else {
                         s5 = peg$FAILED;
                         if (peg$silentFails === 0) {
-                            peg$fail(peg$c76);
+                            peg$fail(peg$c91);
                         }
                     }
                     if (s5 === peg$FAILED) {
-                        if (peg$c34.test(input.charAt(peg$currPos))) {
+                        if (peg$c49.test(input.charAt(peg$currPos))) {
                             s5 = input.charAt(peg$currPos);
                             peg$currPos++;
                         }
                         else {
                             s5 = peg$FAILED;
                             if (peg$silentFails === 0) {
-                                peg$fail(peg$c35);
+                                peg$fail(peg$c50);
                             }
                         }
                     }
@@ -3475,13 +3750,13 @@ function peg$parse(input, options) {
                 }
                 if (s3 !== peg$FAILED) {
                     if (input.charCodeAt(peg$currPos) === 39) {
-                        s4 = peg$c32;
+                        s4 = peg$c47;
                         peg$currPos++;
                     }
                     else {
                         s4 = peg$FAILED;
                         if (peg$silentFails === 0) {
-                            peg$fail(peg$c33);
+                            peg$fail(peg$c48);
                         }
                     }
                     if (s4 === peg$FAILED) {
@@ -3489,7 +3764,7 @@ function peg$parse(input, options) {
                     }
                     if (s4 !== peg$FAILED) {
                         peg$savedPos = s0;
-                        s1 = peg$c78(s2, s3);
+                        s1 = peg$c93(s2, s3);
                         s0 = s1;
                     }
                     else {
@@ -3524,12 +3799,12 @@ function peg$parse(input, options) {
         else {
             s2 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c14);
+                peg$fail(peg$c29);
             }
         }
         if (s2 !== peg$FAILED) {
             peg$savedPos = peg$currPos;
-            s3 = peg$c79(s2);
+            s3 = peg$c94(s2);
             if (s3) {
                 s3 = undefined;
             }
@@ -3551,13 +3826,13 @@ function peg$parse(input, options) {
         }
         if (s1 === peg$FAILED) {
             if (input.charCodeAt(peg$currPos) === 10) {
-                s1 = peg$c80;
+                s1 = peg$c95;
                 peg$currPos++;
             }
             else {
                 s1 = peg$FAILED;
                 if (peg$silentFails === 0) {
-                    peg$fail(peg$c81);
+                    peg$fail(peg$c96);
                 }
             }
         }
@@ -3580,12 +3855,12 @@ function peg$parse(input, options) {
         else {
             s2 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c14);
+                peg$fail(peg$c29);
             }
         }
         if (s2 !== peg$FAILED) {
             peg$savedPos = peg$currPos;
-            s3 = peg$c82(s2);
+            s3 = peg$c97(s2);
             if (s3) {
                 s3 = undefined;
             }
@@ -3631,7 +3906,30 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c83);
+                peg$fail(peg$c98);
+            }
+        }
+        return s0;
+    }
+    function peg$parsevalidTag() {
+        var s0, s1;
+        peg$silentFails++;
+        s0 = peg$currPos;
+        s1 = peg$parseargNumber();
+        if (s1 === peg$FAILED) {
+            s1 = peg$parsetagName();
+        }
+        if (s1 !== peg$FAILED) {
+            s0 = input.substring(s0, peg$currPos);
+        }
+        else {
+            s0 = s1;
+        }
+        peg$silentFails--;
+        if (s0 === peg$FAILED) {
+            s1 = peg$FAILED;
+            if (peg$silentFails === 0) {
+                peg$fail(peg$c99);
             }
         }
         return s0;
@@ -3641,55 +3939,55 @@ function peg$parse(input, options) {
         peg$silentFails++;
         s0 = peg$currPos;
         if (input.charCodeAt(peg$currPos) === 48) {
-            s1 = peg$c85;
+            s1 = peg$c101;
             peg$currPos++;
         }
         else {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c86);
+                peg$fail(peg$c102);
             }
         }
         if (s1 !== peg$FAILED) {
             peg$savedPos = s0;
-            s1 = peg$c87();
+            s1 = peg$c103();
         }
         s0 = s1;
         if (s0 === peg$FAILED) {
             s0 = peg$currPos;
             s1 = peg$currPos;
-            if (peg$c88.test(input.charAt(peg$currPos))) {
+            if (peg$c104.test(input.charAt(peg$currPos))) {
                 s2 = input.charAt(peg$currPos);
                 peg$currPos++;
             }
             else {
                 s2 = peg$FAILED;
                 if (peg$silentFails === 0) {
-                    peg$fail(peg$c89);
+                    peg$fail(peg$c105);
                 }
             }
             if (s2 !== peg$FAILED) {
                 s3 = [];
-                if (peg$c90.test(input.charAt(peg$currPos))) {
+                if (peg$c106.test(input.charAt(peg$currPos))) {
                     s4 = input.charAt(peg$currPos);
                     peg$currPos++;
                 }
                 else {
                     s4 = peg$FAILED;
                     if (peg$silentFails === 0) {
-                        peg$fail(peg$c91);
+                        peg$fail(peg$c107);
                     }
                 }
                 while (s4 !== peg$FAILED) {
                     s3.push(s4);
-                    if (peg$c90.test(input.charAt(peg$currPos))) {
+                    if (peg$c106.test(input.charAt(peg$currPos))) {
                         s4 = input.charAt(peg$currPos);
                         peg$currPos++;
                     }
                     else {
                         s4 = peg$FAILED;
                         if (peg$silentFails === 0) {
-                            peg$fail(peg$c91);
+                            peg$fail(peg$c107);
                         }
                     }
                 }
@@ -3708,7 +4006,7 @@ function peg$parse(input, options) {
             }
             if (s1 !== peg$FAILED) {
                 peg$savedPos = s0;
-                s1 = peg$c92(s1);
+                s1 = peg$c108(s1);
             }
             s0 = s1;
         }
@@ -3716,7 +4014,7 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c84);
+                peg$fail(peg$c100);
             }
         }
         return s0;
@@ -3749,7 +4047,7 @@ function peg$parse(input, options) {
             else {
                 s4 = peg$FAILED;
                 if (peg$silentFails === 0) {
-                    peg$fail(peg$c14);
+                    peg$fail(peg$c29);
                 }
             }
             if (s4 !== peg$FAILED) {
@@ -3791,7 +4089,7 @@ function peg$parse(input, options) {
                     else {
                         s4 = peg$FAILED;
                         if (peg$silentFails === 0) {
-                            peg$fail(peg$c14);
+                            peg$fail(peg$c29);
                         }
                     }
                     if (s4 !== peg$FAILED) {
@@ -3822,7 +4120,137 @@ function peg$parse(input, options) {
         if (s0 === peg$FAILED) {
             s1 = peg$FAILED;
             if (peg$silentFails === 0) {
-                peg$fail(peg$c93);
+                peg$fail(peg$c109);
+            }
+        }
+        return s0;
+    }
+    function peg$parsetagName() {
+        var s0, s1, s2, s3, s4;
+        peg$silentFails++;
+        s0 = peg$currPos;
+        s1 = [];
+        if (input.charCodeAt(peg$currPos) === 45) {
+            s2 = peg$c85;
+            peg$currPos++;
+        }
+        else {
+            s2 = peg$FAILED;
+            if (peg$silentFails === 0) {
+                peg$fail(peg$c86);
+            }
+        }
+        if (s2 === peg$FAILED) {
+            s2 = peg$currPos;
+            s3 = peg$currPos;
+            peg$silentFails++;
+            s4 = peg$parsewhiteSpace();
+            if (s4 === peg$FAILED) {
+                s4 = peg$parsepatternSyntax();
+            }
+            peg$silentFails--;
+            if (s4 === peg$FAILED) {
+                s3 = undefined;
+            }
+            else {
+                peg$currPos = s3;
+                s3 = peg$FAILED;
+            }
+            if (s3 !== peg$FAILED) {
+                if (input.length > peg$currPos) {
+                    s4 = input.charAt(peg$currPos);
+                    peg$currPos++;
+                }
+                else {
+                    s4 = peg$FAILED;
+                    if (peg$silentFails === 0) {
+                        peg$fail(peg$c29);
+                    }
+                }
+                if (s4 !== peg$FAILED) {
+                    s3 = [s3, s4];
+                    s2 = s3;
+                }
+                else {
+                    peg$currPos = s2;
+                    s2 = peg$FAILED;
+                }
+            }
+            else {
+                peg$currPos = s2;
+                s2 = peg$FAILED;
+            }
+        }
+        if (s2 !== peg$FAILED) {
+            while (s2 !== peg$FAILED) {
+                s1.push(s2);
+                if (input.charCodeAt(peg$currPos) === 45) {
+                    s2 = peg$c85;
+                    peg$currPos++;
+                }
+                else {
+                    s2 = peg$FAILED;
+                    if (peg$silentFails === 0) {
+                        peg$fail(peg$c86);
+                    }
+                }
+                if (s2 === peg$FAILED) {
+                    s2 = peg$currPos;
+                    s3 = peg$currPos;
+                    peg$silentFails++;
+                    s4 = peg$parsewhiteSpace();
+                    if (s4 === peg$FAILED) {
+                        s4 = peg$parsepatternSyntax();
+                    }
+                    peg$silentFails--;
+                    if (s4 === peg$FAILED) {
+                        s3 = undefined;
+                    }
+                    else {
+                        peg$currPos = s3;
+                        s3 = peg$FAILED;
+                    }
+                    if (s3 !== peg$FAILED) {
+                        if (input.length > peg$currPos) {
+                            s4 = input.charAt(peg$currPos);
+                            peg$currPos++;
+                        }
+                        else {
+                            s4 = peg$FAILED;
+                            if (peg$silentFails === 0) {
+                                peg$fail(peg$c29);
+                            }
+                        }
+                        if (s4 !== peg$FAILED) {
+                            s3 = [s3, s4];
+                            s2 = s3;
+                        }
+                        else {
+                            peg$currPos = s2;
+                            s2 = peg$FAILED;
+                        }
+                    }
+                    else {
+                        peg$currPos = s2;
+                        s2 = peg$FAILED;
+                    }
+                }
+            }
+        }
+        else {
+            s1 = peg$FAILED;
+        }
+        if (s1 !== peg$FAILED) {
+            s0 = input.substring(s0, peg$currPos);
+        }
+        else {
+            s0 = s1;
+        }
+        peg$silentFails--;
+        if (s0 === peg$FAILED) {
+            s1 = peg$FAILED;
+            if (peg$silentFails === 0) {
+                peg$fail(peg$c110);
             }
         }
         return s0;
@@ -4225,6 +4653,10 @@ var TYPE;
      * This is the `#` symbol that will be substituted with the count.
      */
     TYPE[TYPE["pound"] = 7] = "pound";
+    /**
+     * XML-like tag
+     */
+    TYPE[TYPE["tag"] = 8] = "tag";
 })(TYPE = exports.TYPE || (exports.TYPE = {}));
 /**
  * Type Guards
@@ -4261,6 +4693,10 @@ function isPoundElement(el) {
     return el.type === TYPE.pound;
 }
 exports.isPoundElement = isPoundElement;
+function isTagElement(el) {
+    return el.type === TYPE.tag;
+}
+exports.isTagElement = isTagElement;
 function isNumberSkeleton(el) {
     return !!(el && typeof el === 'object' && el.type === 0 /* number */);
 }
@@ -4359,13 +4795,29 @@ var IntlMessageFormat = /** @class */ (function () {
             pluralRules: {},
         };
         this.format = function (values) {
-            return formatters_1.formatToString(_this.ast, _this.locales, _this.formatters, _this.formats, values, _this.message);
+            var parts = _this.formatToParts(values);
+            // Hot path for straight simple msg translations
+            if (parts.length === 1) {
+                return parts[0].value;
+            }
+            var result = parts.reduce(function (all, part) {
+                if (!all.length ||
+                    part.type !== 0 /* literal */ ||
+                    typeof all[all.length - 1] !== 'string') {
+                    all.push(part.value);
+                }
+                else {
+                    all[all.length - 1] += part.value;
+                }
+                return all;
+            }, []);
+            if (result.length <= 1) {
+                return result[0] || '';
+            }
+            return result;
         };
         this.formatToParts = function (values) {
             return formatters_1.formatToParts(_this.ast, _this.locales, _this.formatters, _this.formats, values, undefined, _this.message);
-        };
-        this.formatHTMLMessage = function (values) {
-            return formatters_1.formatHTMLMessage(_this.ast, _this.locales, _this.formatters, _this.formats, values, _this.message);
         };
         this.resolvedOptions = function () { return ({
             locale: Intl.NumberFormat.supportedLocalesOf(_this.locales)[0],
@@ -4464,10 +4916,10 @@ exports.default = IntlMessageFormat;
 
 /***/ }),
 
-/***/ "./node_modules/intl-messageformat/dist/formatters.js":
-/*!************************************************************!*\
-  !*** ./node_modules/intl-messageformat/dist/formatters.js ***!
-  \************************************************************/
+/***/ "./node_modules/intl-messageformat/dist/error.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/intl-messageformat/dist/error.js ***!
+  \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4486,24 +4938,52 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var intl_messageformat_parser_1 = __webpack_require__(/*! intl-messageformat-parser */ "./node_modules/intl-messageformat-parser/dist/index.js");
 var FormatError = /** @class */ (function (_super) {
     __extends(FormatError, _super);
-    function FormatError(msg, variableId) {
+    function FormatError(msg, code) {
         var _this = _super.call(this, msg) || this;
-        _this.variableId = variableId;
+        _this.code = code;
         return _this;
     }
+    FormatError.prototype.toString = function () {
+        return "[formatjs Error: " + this.code + "] " + this.message;
+    };
     return FormatError;
 }(Error));
+exports.FormatError = FormatError;
+var InvalidValueError = /** @class */ (function (_super) {
+    __extends(InvalidValueError, _super);
+    function InvalidValueError(variableId, value, options) {
+        return _super.call(this, "Invalid values for \"" + variableId + "\": \"" + value + "\". Options are \"" + Object.keys(options).join('", "') + "\"", 1 /* INVALID_VALUE */) || this;
+    }
+    return InvalidValueError;
+}(FormatError));
+exports.InvalidValueError = InvalidValueError;
+var MissingValueError = /** @class */ (function (_super) {
+    __extends(MissingValueError, _super);
+    function MissingValueError(variableId, originalMessage) {
+        return _super.call(this, "The intl string context variable \"" + variableId + "\" was not provided to the string \"" + originalMessage + "\"", 0 /* MISSING_VALUE */) || this;
+    }
+    return MissingValueError;
+}(FormatError));
+exports.MissingValueError = MissingValueError;
+
+
+/***/ }),
+
+/***/ "./node_modules/intl-messageformat/dist/formatters.js":
+/*!************************************************************!*\
+  !*** ./node_modules/intl-messageformat/dist/formatters.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var intl_messageformat_parser_1 = __webpack_require__(/*! intl-messageformat-parser */ "./node_modules/intl-messageformat-parser/dist/index.js");
+var error_1 = __webpack_require__(/*! ./error */ "./node_modules/intl-messageformat/dist/error.js");
 function mergeLiteral(parts) {
     if (parts.length < 2) {
         return parts;
@@ -4520,6 +5000,9 @@ function mergeLiteral(parts) {
         }
         return all;
     }, []);
+}
+function isFormatXMLElementFn(el) {
+    return typeof el === 'function';
 }
 // TODO(skeleton): add skeleton support
 function formatToParts(els, locales, formatters, formats, values, currentPluralValue, 
@@ -4559,7 +5042,7 @@ originalMessage) {
         var varName = el.value;
         // Enforce that all required values are provided by the caller.
         if (!(values && varName in values)) {
-            throw new FormatError("The intl string context variable \"" + varName + "\" was not provided to the string \"" + originalMessage + "\"");
+            throw new error_1.MissingValueError(varName, originalMessage);
         }
         var value = values[varName];
         if (intl_messageformat_parser_1.isArgumentElement(el)) {
@@ -4570,7 +5053,7 @@ originalMessage) {
                         : '';
             }
             result.push({
-                type: 1 /* argument */,
+                type: typeof value === 'string' ? 0 /* literal */ : 1 /* object */,
                 value: value,
             });
             continue;
@@ -4616,10 +5099,28 @@ originalMessage) {
             });
             continue;
         }
+        if (intl_messageformat_parser_1.isTagElement(el)) {
+            var children = el.children, value_1 = el.value;
+            var formatFn = values[value_1];
+            if (!isFormatXMLElementFn(formatFn)) {
+                throw new TypeError("Value for \"" + value_1 + "\" must be a function");
+            }
+            var parts = formatToParts(children, locales, formatters, formats, values);
+            var chunks = formatFn.apply(void 0, parts.map(function (p) { return p.value; }));
+            if (!Array.isArray(chunks)) {
+                chunks = [chunks];
+            }
+            result.push.apply(result, chunks.map(function (c) {
+                return {
+                    type: typeof c === 'string' ? 0 /* literal */ : 1 /* object */,
+                    value: c,
+                };
+            }));
+        }
         if (intl_messageformat_parser_1.isSelectElement(el)) {
             var opt = el.options[value] || el.options.other;
             if (!opt) {
-                throw new RangeError("Invalid values for \"" + el.value + "\": \"" + value + "\". Options are \"" + Object.keys(el.options).join('", "') + "\"");
+                throw new error_1.InvalidValueError(el.value, value, Object.keys(el.options));
             }
             result.push.apply(result, formatToParts(opt.value, locales, formatters, formats, values));
             continue;
@@ -4628,7 +5129,7 @@ originalMessage) {
             var opt = el.options["=" + value];
             if (!opt) {
                 if (!Intl.PluralRules) {
-                    throw new FormatError("Intl.PluralRules is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-pluralrules\"\n");
+                    throw new error_1.FormatError("Intl.PluralRules is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-pluralrules\"\n", 2 /* MISSING_INTL_API */);
                 }
                 var rule = formatters
                     .getPluralRules(locales, { type: el.pluralType })
@@ -4636,7 +5137,7 @@ originalMessage) {
                 opt = el.options[rule] || el.options.other;
             }
             if (!opt) {
-                throw new RangeError("Invalid values for \"" + el.value + "\": \"" + value + "\". Options are \"" + Object.keys(el.options).join('", "') + "\"");
+                throw new error_1.InvalidValueError(el.value, value, Object.keys(el.options));
             }
             result.push.apply(result, formatToParts(opt.value, locales, formatters, formats, values, value - (el.offset || 0)));
             continue;
@@ -4645,141 +5146,6 @@ originalMessage) {
     return mergeLiteral(result);
 }
 exports.formatToParts = formatToParts;
-function formatToString(els, locales, formatters, formats, values, 
-// For debugging
-originalMessage) {
-    var parts = formatToParts(els, locales, formatters, formats, values, undefined, originalMessage);
-    // Hot path for straight simple msg translations
-    if (parts.length === 1) {
-        return parts[0].value;
-    }
-    return parts.reduce(function (all, part) { return (all += part.value); }, '');
-}
-exports.formatToString = formatToString;
-// Singleton
-var domParser;
-var TOKEN_DELIMITER = '@@';
-var TOKEN_REGEX = /@@(\d+_\d+)@@/g;
-var counter = 0;
-function generateId() {
-    return Date.now() + "_" + ++counter;
-}
-function restoreRichPlaceholderMessage(text, objectParts) {
-    return text
-        .split(TOKEN_REGEX)
-        .filter(Boolean)
-        .map(function (c) { return (objectParts[c] != null ? objectParts[c] : c); })
-        .reduce(function (all, c) {
-        if (!all.length) {
-            all.push(c);
-        }
-        else if (typeof c === 'string' &&
-            typeof all[all.length - 1] === 'string') {
-            all[all.length - 1] += c;
-        }
-        else {
-            all.push(c);
-        }
-        return all;
-    }, []);
-}
-/**
- * Not exhaustive, just for sanity check
- */
-var SIMPLE_XML_REGEX = /(<([0-9a-zA-Z-_]*?)>(.*?)<\/([0-9a-zA-Z-_]*?)>)|(<[0-9a-zA-Z-_]*?\/>)/;
-var TEMPLATE_ID = Date.now() + '@@';
-var VOID_ELEMENTS = [
-    'area',
-    'base',
-    'br',
-    'col',
-    'embed',
-    'hr',
-    'img',
-    'input',
-    'link',
-    'meta',
-    'param',
-    'source',
-    'track',
-    'wbr',
-];
-function formatHTMLElement(el, objectParts, values) {
-    var tagName = el.tagName;
-    var outerHTML = el.outerHTML, textContent = el.textContent, childNodes = el.childNodes;
-    // Regular text
-    if (!tagName) {
-        return restoreRichPlaceholderMessage(textContent || '', objectParts);
-    }
-    tagName = tagName.toLowerCase();
-    var isVoidElement = ~VOID_ELEMENTS.indexOf(tagName);
-    var formatFnOrValue = values[tagName];
-    if (formatFnOrValue && isVoidElement) {
-        throw new FormatError(tagName + " is a self-closing tag and can not be used, please use another tag name.");
-    }
-    if (!childNodes.length) {
-        return [outerHTML];
-    }
-    var chunks = Array.prototype.slice.call(childNodes).reduce(function (all, child) {
-        return all.concat(formatHTMLElement(child, objectParts, values));
-    }, []);
-    // Legacy HTML
-    if (!formatFnOrValue) {
-        return __spreadArrays(["<" + tagName + ">"], chunks, ["</" + tagName + ">"]);
-    }
-    // HTML Tag replacement
-    if (typeof formatFnOrValue === 'function') {
-        return [formatFnOrValue.apply(void 0, chunks)];
-    }
-    return [formatFnOrValue];
-}
-function formatHTMLMessage(els, locales, formatters, formats, values, 
-// For debugging
-originalMessage) {
-    var parts = formatToParts(els, locales, formatters, formats, values, undefined, originalMessage);
-    var objectParts = {};
-    var formattedMessage = parts.reduce(function (all, part) {
-        if (part.type === 0 /* literal */) {
-            return (all += part.value);
-        }
-        var id = generateId();
-        objectParts[id] = part.value;
-        return (all += "" + TOKEN_DELIMITER + id + TOKEN_DELIMITER);
-    }, '');
-    // Not designed to filter out aggressively
-    if (!SIMPLE_XML_REGEX.test(formattedMessage)) {
-        return restoreRichPlaceholderMessage(formattedMessage, objectParts);
-    }
-    if (!values) {
-        throw new FormatError('Message has placeholders but no values was given');
-    }
-    if (typeof DOMParser === 'undefined') {
-        throw new FormatError('Cannot format XML message without DOMParser');
-    }
-    if (!domParser) {
-        domParser = new DOMParser();
-    }
-    var content = domParser
-        .parseFromString("<formatted-message id=\"" + TEMPLATE_ID + "\">" + formattedMessage + "</formatted-message>", 'text/html')
-        .getElementById(TEMPLATE_ID);
-    if (!content) {
-        throw new FormatError("Malformed HTML message " + formattedMessage);
-    }
-    var tagsToFormat = Object.keys(values).filter(function (varName) { return !!content.getElementsByTagName(varName).length; });
-    // No tags to format
-    if (!tagsToFormat.length) {
-        return restoreRichPlaceholderMessage(formattedMessage, objectParts);
-    }
-    var caseSensitiveTags = tagsToFormat.filter(function (tagName) { return tagName !== tagName.toLowerCase(); });
-    if (caseSensitiveTags.length) {
-        throw new FormatError("HTML tag must be lowercased but the following tags are not: " + caseSensitiveTags.join(', '));
-    }
-    // We're doing this since top node is `<formatted-message/>` which does not have a formatter
-    return Array.prototype.slice
-        .call(content.childNodes)
-        .reduce(function (all, child) { return all.concat(formatHTMLElement(child, objectParts, values)); }, []);
-}
-exports.formatHTMLMessage = formatHTMLMessage;
 
 
 /***/ }),
@@ -4805,6 +5171,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(/*! ./core */ "./node_modules/intl-messageformat/dist/core.js");
 __export(__webpack_require__(/*! ./formatters */ "./node_modules/intl-messageformat/dist/formatters.js"));
 __export(__webpack_require__(/*! ./core */ "./node_modules/intl-messageformat/dist/core.js"));
+__export(__webpack_require__(/*! ./error */ "./node_modules/intl-messageformat/dist/error.js"));
 exports.default = core_1.default;
 
 
@@ -31499,93 +31866,6 @@ exports.createFormattedComponent = createFormattedComponent;
 
 /***/ }),
 
-/***/ "./node_modules/react-intl/dist/components/html-message.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/react-intl/dist/components/html-message.js ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/*
- * Copyright 2015, Yahoo Inc.
- * Copyrights licensed under the New BSD License.
- * See the accompanying LICENSE file for terms.
- */
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var message_1 = __webpack_require__(/*! ./message */ "./node_modules/react-intl/dist/components/message.js");
-var injectIntl_1 = __webpack_require__(/*! ./injectIntl */ "./node_modules/react-intl/dist/components/injectIntl.js");
-var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
-var FormattedHTMLMessage = /** @class */ (function (_super) {
-    __extends(FormattedHTMLMessage, _super);
-    function FormattedHTMLMessage() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    FormattedHTMLMessage.prototype.render = function () {
-        var _this = this;
-        return (React.createElement(injectIntl_1.Context.Consumer, null, function (intl) {
-            if (!_this.props.defaultMessage) {
-                utils_1.invariantIntlContext(intl);
-            }
-            var formatHTMLMessage = intl.formatHTMLMessage, textComponent = intl.textComponent;
-            var _a = _this.props, id = _a.id, description = _a.description, defaultMessage = _a.defaultMessage, rawValues = _a.values, children = _a.children;
-            var Component = _this.props.tagName;
-            // This is bc of TS3.3 doesn't recognize `defaultProps`
-            if (!Component) {
-                Component = textComponent || 'span';
-            }
-            var descriptor = { id: id, description: description, defaultMessage: defaultMessage };
-            var formattedHTMLMessage = formatHTMLMessage(descriptor, rawValues);
-            if (typeof children === 'function') {
-                return children(formattedHTMLMessage);
-            }
-            // Since the message presumably has HTML in it, we need to set
-            // `innerHTML` in order for it to be rendered and not escaped by React.
-            // To be safe, all string prop values were escaped when formatting the
-            // message. It is assumed that the message is not UGC, and came from the
-            // developer making it more like a template.
-            //
-            // Note: There's a perf impact of using this component since there's no
-            // way for React to do its virtual DOM diffing.
-            var html = { __html: formattedHTMLMessage };
-            return React.createElement(Component, { dangerouslySetInnerHTML: html });
-        }));
-    };
-    FormattedHTMLMessage.displayName = 'FormattedHTMLMessage';
-    FormattedHTMLMessage.defaultProps = __assign(__assign({}, message_1.default.defaultProps), { tagName: 'span' });
-    return FormattedHTMLMessage;
-}(message_1.default));
-exports.default = FormattedHTMLMessage;
-
-
-/***/ }),
-
 /***/ "./node_modules/react-intl/dist/components/injectIntl.js":
 /*!***************************************************************!*\
   !*** ./node_modules/react-intl/dist/components/injectIntl.js ***!
@@ -31709,12 +31989,12 @@ var message_1 = __webpack_require__(/*! ../formatters/message */ "./node_modules
 var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
 var shallowEquals_ = __webpack_require__(/*! shallow-equal/objects */ "./node_modules/shallow-equal/objects/index.js");
 var shallowEquals = shallowEquals_.default || shallowEquals_;
-var defaultFormatMessage = function (descriptor, values) {
+function defaultFormatMessage(descriptor, values) {
     if (true) {
         console.error('[React Intl] Could not find required `intl` object. <IntlProvider> needs to exist in the component ancestry. Using default message as fallback.');
     }
     return message_1.formatMessage(__assign(__assign({}, utils_1.DEFAULT_INTL_CONFIG), { locale: 'en' }), utils_1.createFormatters(), descriptor, values);
-};
+}
 var FormattedMessage = /** @class */ (function (_super) {
     __extends(FormattedMessage, _super);
     function FormattedMessage() {
@@ -31850,6 +32130,7 @@ var message_1 = __webpack_require__(/*! ../formatters/message */ "./node_modules
 var shallowEquals_ = __webpack_require__(/*! shallow-equal/objects */ "./node_modules/shallow-equal/objects/index.js");
 var list_1 = __webpack_require__(/*! ../formatters/list */ "./node_modules/react-intl/dist/formatters/list.js");
 var displayName_1 = __webpack_require__(/*! ../formatters/displayName */ "./node_modules/react-intl/dist/formatters/displayName.js");
+var error_1 = __webpack_require__(/*! ../error */ "./node_modules/react-intl/dist/error.js");
 var shallowEquals = shallowEquals_.default || shallowEquals_;
 function processIntlConfig(config) {
     return {
@@ -31874,7 +32155,7 @@ function createIntl(config, cache) {
     var locale = resolvedConfig.locale, defaultLocale = resolvedConfig.defaultLocale, onError = resolvedConfig.onError;
     if (!locale) {
         if (onError) {
-            onError(utils_1.createError("\"locale\" was not configured, using \"" + defaultLocale + "\" as fallback. See https://github.com/formatjs/react-intl/blob/master/docs/API.md#intlshape for more details"));
+            onError(new error_1.ReactIntlError("INVALID_CONFIG" /* INVALID_CONFIG */, "\"locale\" was not configured, using \"" + defaultLocale + "\" as fallback. See https://github.com/formatjs/react-intl/blob/master/docs/API.md#intlshape for more details"));
         }
         // Since there's no registered locale data for `locale`, this will
         // fallback to the `defaultLocale` to make sure things can render.
@@ -31884,13 +32165,13 @@ function createIntl(config, cache) {
         resolvedConfig.locale = resolvedConfig.defaultLocale || 'en';
     }
     else if (!Intl.NumberFormat.supportedLocalesOf(locale).length && onError) {
-        onError(utils_1.createError("Missing locale data for locale: \"" + locale + "\" in Intl.NumberFormat. Using default locale: \"" + defaultLocale + "\" as fallback. See https://github.com/formatjs/react-intl/blob/master/docs/Getting-Started.md#runtime-requirements for more details"));
+        onError(new error_1.ReactIntlError("MISSING_DATA" /* MISSING_DATA */, "Missing locale data for locale: \"" + locale + "\" in Intl.NumberFormat. Using default locale: \"" + defaultLocale + "\" as fallback. See https://github.com/formatjs/react-intl/blob/master/docs/Getting-Started.md#runtime-requirements for more details"));
     }
     else if (!Intl.DateTimeFormat.supportedLocalesOf(locale).length &&
         onError) {
-        onError(utils_1.createError("Missing locale data for locale: \"" + locale + "\" in Intl.DateTimeFormat. Using default locale: \"" + defaultLocale + "\" as fallback. See https://github.com/formatjs/react-intl/blob/master/docs/Getting-Started.md#runtime-requirements for more details"));
+        onError(new error_1.ReactIntlError("MISSING_DATA" /* MISSING_DATA */, "Missing locale data for locale: \"" + locale + "\" in Intl.DateTimeFormat. Using default locale: \"" + defaultLocale + "\" as fallback. See https://github.com/formatjs/react-intl/blob/master/docs/Getting-Started.md#runtime-requirements for more details"));
     }
-    return __assign(__assign({}, resolvedConfig), { formatters: formatters, formatNumber: number_1.formatNumber.bind(null, resolvedConfig, formatters.getNumberFormat), formatNumberToParts: number_1.formatNumberToParts.bind(null, resolvedConfig, formatters.getNumberFormat), formatRelativeTime: relativeTime_1.formatRelativeTime.bind(null, resolvedConfig, formatters.getRelativeTimeFormat), formatDate: dateTime_1.formatDate.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatDateToParts: dateTime_1.formatDateToParts.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatTime: dateTime_1.formatTime.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatTimeToParts: dateTime_1.formatTimeToParts.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatPlural: plural_1.formatPlural.bind(null, resolvedConfig, formatters.getPluralRules), formatMessage: message_1.formatMessage.bind(null, resolvedConfig, formatters), formatHTMLMessage: message_1.formatHTMLMessage.bind(null, resolvedConfig, formatters), formatList: list_1.formatList.bind(null, resolvedConfig, formatters.getListFormat), formatDisplayName: displayName_1.formatDisplayName.bind(null, resolvedConfig, formatters.getDisplayNames) });
+    return __assign(__assign({}, resolvedConfig), { formatters: formatters, formatNumber: number_1.formatNumber.bind(null, resolvedConfig, formatters.getNumberFormat), formatNumberToParts: number_1.formatNumberToParts.bind(null, resolvedConfig, formatters.getNumberFormat), formatRelativeTime: relativeTime_1.formatRelativeTime.bind(null, resolvedConfig, formatters.getRelativeTimeFormat), formatDate: dateTime_1.formatDate.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatDateToParts: dateTime_1.formatDateToParts.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatTime: dateTime_1.formatTime.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatTimeToParts: dateTime_1.formatTimeToParts.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatPlural: plural_1.formatPlural.bind(null, resolvedConfig, formatters.getPluralRules), formatMessage: message_1.formatMessage.bind(null, resolvedConfig, formatters), formatList: list_1.formatList.bind(null, resolvedConfig, formatters.getListFormat), formatDisplayName: displayName_1.formatDisplayName.bind(null, resolvedConfig, formatters.getDisplayNames) });
 }
 exports.createIntl = createIntl;
 var IntlProvider = /** @class */ (function (_super) {
@@ -32149,6 +32430,46 @@ exports.default = useIntl;
 
 /***/ }),
 
+/***/ "./node_modules/react-intl/dist/error.js":
+/*!***********************************************!*\
+  !*** ./node_modules/react-intl/dist/error.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var ReactIntlError = /** @class */ (function (_super) {
+    __extends(ReactIntlError, _super);
+    function ReactIntlError(code, message, exception) {
+        var _this = _super.call(this, "[React Intl Error " + code + "] " + message + " " + (exception ? "\n" + exception.stack : '')) || this;
+        _this.code = code;
+        if (typeof Error.captureStackTrace === 'function') {
+            Error.captureStackTrace(_this, ReactIntlError);
+        }
+        return _this;
+    }
+    return ReactIntlError;
+}(Error));
+exports.ReactIntlError = ReactIntlError;
+
+
+/***/ }),
+
 /***/ "./node_modules/react-intl/dist/formatters/dateTime.js":
 /*!*************************************************************!*\
   !*** ./node_modules/react-intl/dist/formatters/dateTime.js ***!
@@ -32176,6 +32497,7 @@ var __assign = (this && this.__assign) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
+var error_1 = __webpack_require__(/*! ../error */ "./node_modules/react-intl/dist/error.js");
 var DATE_TIME_FORMAT_OPTIONS = [
     'localeMatcher',
     'formatMatcher',
@@ -32214,7 +32536,7 @@ function formatDate(config, getDateTimeFormat, value, options) {
         return getFormatter(config, 'date', getDateTimeFormat, options).format(date);
     }
     catch (e) {
-        config.onError(utils_1.createError('Error formatting date.', e));
+        config.onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting date.', e));
     }
     return String(date);
 }
@@ -32226,7 +32548,7 @@ function formatTime(config, getDateTimeFormat, value, options) {
         return getFormatter(config, 'time', getDateTimeFormat, options).format(date);
     }
     catch (e) {
-        config.onError(utils_1.createError('Error formatting time.', e));
+        config.onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting time.', e));
     }
     return String(date);
 }
@@ -32238,7 +32560,7 @@ function formatDateToParts(config, getDateTimeFormat, value, options) {
         return getFormatter(config, 'date', getDateTimeFormat, options).formatToParts(date);
     }
     catch (e) {
-        config.onError(utils_1.createError('Error formatting date.', e));
+        config.onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting date.', e));
     }
     return [];
 }
@@ -32250,7 +32572,7 @@ function formatTimeToParts(config, getDateTimeFormat, value, options) {
         return getFormatter(config, 'time', getDateTimeFormat, options).formatToParts(date);
     }
     catch (e) {
-        config.onError(utils_1.createError('Error formatting time.', e));
+        config.onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting time.', e));
     }
     return [];
 }
@@ -32270,6 +32592,8 @@ exports.formatTimeToParts = formatTimeToParts;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
+var intl_messageformat_1 = __webpack_require__(/*! intl-messageformat */ "./node_modules/intl-messageformat/dist/index.js");
+var error_1 = __webpack_require__(/*! ../error */ "./node_modules/react-intl/dist/error.js");
 var DISPLAY_NAMES_OPTONS = [
     'localeMatcher',
     'style',
@@ -32281,14 +32605,14 @@ function formatDisplayName(_a, getDisplayNames, value, options) {
     if (options === void 0) { options = {}; }
     var DisplayNames = Intl.DisplayNames;
     if (!DisplayNames) {
-        onError(utils_1.createError("Intl.DisplayNames is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-displaynames\"\n"));
+        onError(new intl_messageformat_1.FormatError("Intl.DisplayNames is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-displaynames\"\n", 2 /* MISSING_INTL_API */));
     }
     var filteredOptions = utils_1.filterProps(options, DISPLAY_NAMES_OPTONS);
     try {
         return getDisplayNames(locale, filteredOptions).of(value);
     }
     catch (e) {
-        onError(utils_1.createError('Error formatting display name.', e));
+        onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting display name.', e));
     }
 }
 exports.formatDisplayName = formatDisplayName;
@@ -32307,6 +32631,8 @@ exports.formatDisplayName = formatDisplayName;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
+var intl_messageformat_1 = __webpack_require__(/*! intl-messageformat */ "./node_modules/intl-messageformat/dist/index.js");
+var error_1 = __webpack_require__(/*! ../error */ "./node_modules/react-intl/dist/error.js");
 var LIST_FORMAT_OPTIONS = [
     'localeMatcher',
     'type',
@@ -32321,7 +32647,7 @@ function formatList(_a, getListFormat, values, options) {
     if (options === void 0) { options = {}; }
     var ListFormat = Intl.ListFormat;
     if (!ListFormat) {
-        onError(utils_1.createError("Intl.ListFormat is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-listformat\"\n"));
+        onError(new intl_messageformat_1.FormatError("Intl.ListFormat is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-listformat\"\n", 2 /* MISSING_INTL_API */));
     }
     var filteredOptions = utils_1.filterProps(options, LIST_FORMAT_OPTIONS);
     try {
@@ -32353,7 +32679,7 @@ function formatList(_a, getListFormat, values, options) {
         }, []);
     }
     catch (e) {
-        onError(utils_1.createError('Error formatting list.', e));
+        onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting list.', e));
     }
     return values;
 }
@@ -32397,8 +32723,8 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var intl_utils_1 = __webpack_require__(/*! @formatjs/intl-utils */ "./node_modules/@formatjs/intl-utils/dist/index.js");
-var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
 var intl_messageformat_1 = __webpack_require__(/*! intl-messageformat */ "./node_modules/intl-messageformat/dist/index.js");
+var error_1 = __webpack_require__(/*! ../error */ "./node_modules/react-intl/dist/error.js");
 function setTimeZoneInOptions(opts, timeZone) {
     return Object.keys(opts).reduce(function (all, k) {
         all[k] = __assign({ timeZone: timeZone }, opts[k]);
@@ -32430,67 +32756,50 @@ function formatMessage(_a, state, messageDescriptor, values) {
     var message = messages && messages[String(id)];
     formats = deepMergeFormatsAndSetTimeZone(formats, timeZone);
     defaultFormats = deepMergeFormatsAndSetTimeZone(defaultFormats, timeZone);
-    var formattedMessageParts = [];
+    var formattedMessageParts = '';
     if (message) {
         try {
             var formatter = state.getMessageFormat(message, locale, formats, {
                 formatters: state,
             });
-            formattedMessageParts = formatter.formatHTMLMessage(values);
+            formattedMessageParts = formatter.format(values);
         }
         catch (e) {
-            onError(utils_1.createError("Error formatting message: \"" + id + "\" for locale: \"" + locale + "\"" +
+            onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, "Error formatting message: \"" + id + "\" for locale: \"" + locale + "\"" +
                 (defaultMessage ? ', using default message as fallback.' : ''), e));
         }
     }
-    else {
+    else if (!defaultMessage ||
+        (locale && locale.toLowerCase() !== defaultLocale.toLowerCase())) {
         // This prevents warnings from littering the console in development
         // when no `messages` are passed into the <IntlProvider> for the
-        // default locale, and a default message is in the source.
-        if (!defaultMessage ||
-            (locale && locale.toLowerCase() !== defaultLocale.toLowerCase())) {
-            onError(utils_1.createError("Missing message: \"" + id + "\" for locale: \"" + locale + "\"" +
-                (defaultMessage ? ', using default message as fallback.' : '')));
-        }
+        // default locale.
+        onError(new error_1.ReactIntlError("MISSING_TRANSLATION" /* MISSING_TRANSLATION */, "Missing message: \"" + id + "\" for locale: \"" + locale + "\"" +
+            (defaultMessage ? ', using default message as fallback.' : '')));
     }
-    if (!formattedMessageParts.length && defaultMessage) {
+    if (!formattedMessageParts && defaultMessage) {
         try {
             var formatter = state.getMessageFormat(defaultMessage, defaultLocale, defaultFormats);
-            formattedMessageParts = formatter.formatHTMLMessage(values);
+            formattedMessageParts = formatter.format(values);
         }
         catch (e) {
-            onError(utils_1.createError("Error formatting the default message for: \"" + id + "\"", e));
+            onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, "Error formatting the default message for: \"" + id + "\"", e));
         }
     }
-    if (!formattedMessageParts.length) {
-        onError(utils_1.createError("Cannot format message: \"" + id + "\", " +
+    if (!formattedMessageParts) {
+        onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, "Cannot format message: \"" + id + "\", " +
             ("using message " + (message || defaultMessage ? 'source' : 'id') + " as fallback.")));
         if (typeof message === 'string') {
             return message || defaultMessage || String(id);
         }
         return defaultMessage || String(id);
     }
-    if (formattedMessageParts.length === 1 &&
-        typeof formattedMessageParts[0] === 'string') {
-        return formattedMessageParts[0] || defaultMessage || String(id);
+    if (Array.isArray(formattedMessageParts)) {
+        return exports.prepareIntlMessageFormatHtmlOutput(formattedMessageParts);
     }
-    return exports.prepareIntlMessageFormatHtmlOutput(formattedMessageParts);
+    return formattedMessageParts;
 }
 exports.formatMessage = formatMessage;
-function formatHTMLMessage(config, state, messageDescriptor, rawValues) {
-    if (messageDescriptor === void 0) { messageDescriptor = { id: '' }; }
-    if (rawValues === void 0) { rawValues = {}; }
-    // Process all the values before they are used when formatting the ICU
-    // Message string. Since the formatted message might be injected via
-    // `innerHTML`, all String-based values need to be HTML-escaped.
-    var escapedValues = Object.keys(rawValues).reduce(function (escaped, name) {
-        var value = rawValues[name];
-        escaped[name] = typeof value === 'string' ? utils_1.escape(value) : value;
-        return escaped;
-    }, {});
-    return formatMessage(config, state, messageDescriptor, escapedValues);
-}
-exports.formatHTMLMessage = formatHTMLMessage;
 
 
 /***/ }),
@@ -32506,6 +32815,7 @@ exports.formatHTMLMessage = formatHTMLMessage;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
+var error_1 = __webpack_require__(/*! ../error */ "./node_modules/react-intl/dist/error.js");
 var NUMBER_FORMAT_OPTIONS = [
     'localeMatcher',
     'style',
@@ -32545,7 +32855,7 @@ function formatNumber(config, getNumberFormat, value, options) {
         return getFormatter(config, getNumberFormat, options).format(value);
     }
     catch (e) {
-        config.onError(utils_1.createError('Error formatting number.', e));
+        config.onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting number.', e));
     }
     return String(value);
 }
@@ -32556,7 +32866,7 @@ function formatNumberToParts(config, getNumberFormat, value, options) {
         return getFormatter(config, getNumberFormat, options).formatToParts(value);
     }
     catch (e) {
-        config.onError(utils_1.createError('Error formatting number.', e));
+        config.onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting number.', e));
     }
     return [];
 }
@@ -32576,6 +32886,8 @@ exports.formatNumberToParts = formatNumberToParts;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
+var error_1 = __webpack_require__(/*! ../error */ "./node_modules/react-intl/dist/error.js");
+var intl_messageformat_1 = __webpack_require__(/*! intl-messageformat */ "./node_modules/intl-messageformat/dist/index.js");
 var PLURAL_FORMAT_OPTIONS = [
     'localeMatcher',
     'type',
@@ -32584,14 +32896,14 @@ function formatPlural(_a, getPluralRules, value, options) {
     var locale = _a.locale, onError = _a.onError;
     if (options === void 0) { options = {}; }
     if (!Intl.PluralRules) {
-        onError(utils_1.createError("Intl.PluralRules is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-pluralrules\"\n"));
+        onError(new intl_messageformat_1.FormatError("Intl.PluralRules is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-pluralrules\"\n", 2 /* MISSING_INTL_API */));
     }
     var filteredOptions = utils_1.filterProps(options, PLURAL_FORMAT_OPTIONS);
     try {
         return getPluralRules(locale, filteredOptions).select(value);
     }
     catch (e) {
-        onError(utils_1.createError('Error formatting plural.', e));
+        onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting plural.', e));
     }
     return 'other';
 }
@@ -32611,6 +32923,8 @@ exports.formatPlural = formatPlural;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
+var intl_messageformat_1 = __webpack_require__(/*! intl-messageformat */ "./node_modules/intl-messageformat/dist/index.js");
+var error_1 = __webpack_require__(/*! ../error */ "./node_modules/react-intl/dist/error.js");
 var RELATIVE_TIME_FORMAT_OPTIONS = [
     'numeric',
     'style',
@@ -32630,13 +32944,13 @@ function formatRelativeTime(config, getRelativeTimeFormat, value, unit, options)
     }
     var RelativeTimeFormat = Intl.RelativeTimeFormat;
     if (!RelativeTimeFormat) {
-        config.onError(utils_1.createError("Intl.RelativeTimeFormat is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-relativetimeformat\"\n"));
+        config.onError(new intl_messageformat_1.FormatError("Intl.RelativeTimeFormat is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-relativetimeformat\"\n", 2 /* MISSING_INTL_API */));
     }
     try {
         return getFormatter(config, getRelativeTimeFormat, options).format(value, unit);
     }
     catch (e) {
-        config.onError(utils_1.createError('Error formatting relative time.', e));
+        config.onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, 'Error formatting relative time.', e));
     }
     return String(value);
 }
@@ -32685,10 +32999,10 @@ var plural_1 = __webpack_require__(/*! ./components/plural */ "./node_modules/re
 exports.FormattedPlural = plural_1.default;
 var message_1 = __webpack_require__(/*! ./components/message */ "./node_modules/react-intl/dist/components/message.js");
 exports.FormattedMessage = message_1.default;
-var html_message_1 = __webpack_require__(/*! ./components/html-message */ "./node_modules/react-intl/dist/components/html-message.js");
-exports.FormattedHTMLMessage = html_message_1.default;
 var utils_1 = __webpack_require__(/*! ./utils */ "./node_modules/react-intl/dist/utils.js");
 exports.createIntlCache = utils_1.createIntlCache;
+var error_1 = __webpack_require__(/*! ./error */ "./node_modules/react-intl/dist/error.js");
+exports.ReactIntlError = error_1.ReactIntlError;
 
 
 /***/ }),
@@ -32717,18 +33031,7 @@ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var intl_messageformat_1 = __webpack_require__(/*! intl-messageformat */ "./node_modules/intl-messageformat/dist/index.js");
 var intl_format_cache_1 = __webpack_require__(/*! intl-format-cache */ "./node_modules/intl-format-cache/dist/index.js");
 var intl_utils_1 = __webpack_require__(/*! @formatjs/intl-utils */ "./node_modules/@formatjs/intl-utils/dist/index.js");
-var ESCAPED_CHARS = {
-    38: '&amp;',
-    62: '&gt;',
-    60: '&lt;',
-    34: '&quot;',
-    39: '&#x27;',
-};
-var UNSAFE_CHARS_REGEX = /[&><"']/g;
-function escape(str) {
-    return ('' + str).replace(UNSAFE_CHARS_REGEX, function (match) { return ESCAPED_CHARS[match.charCodeAt(0)]; });
-}
-exports.escape = escape;
+var error_1 = __webpack_require__(/*! ./error */ "./node_modules/react-intl/dist/error.js");
 function filterProps(props, whitelist, defaults) {
     if (defaults === void 0) { defaults = {}; }
     return whitelist.reduce(function (filtered, name) {
@@ -32747,11 +33050,6 @@ function invariantIntlContext(intl) {
         '<IntlProvider> needs to exist in the component ancestry.');
 }
 exports.invariantIntlContext = invariantIntlContext;
-function createError(message, exception) {
-    var eMsg = exception ? "\n" + exception.stack : '';
-    return "[React Intl] " + message + eMsg;
-}
-exports.createError = createError;
 function defaultErrorHandler(error) {
     if (true) {
         console.error(error);
@@ -32808,7 +33106,7 @@ function getNamedFormat(formats, type, name, onError) {
     if (format) {
         return format;
     }
-    onError(createError("No " + type + " format named: " + name));
+    onError(new error_1.ReactIntlError("UNSUPPORTED_FORMATTER" /* UNSUPPORTED_FORMATTER */, "No " + type + " format named: " + name));
 }
 exports.getNamedFormat = getNamedFormat;
 
@@ -35442,10 +35740,10 @@ exports.sortMessages = function (messages) {
 /*!**********************************************************!*\
   !*** ./resources/assets/js/translations/locales/fr.json ***!
   \**********************************************************/
-/*! exports provided: activity.commentLocation.label, activity.commentMetadata, activity.viewComment.label, activityfeed.accordionAccessibleLabel, activityfeed.error, activityfeed.header, activityfeed.loading, activityfeed.loadingIconText, activityfeed.locations.applicantReview.general, activityfeed.locations.applicantReview.notUnderConsideration, activityfeed.locations.applicantReview.optionalConsideration, activityfeed.locations.applicantReview.underConsideration, activityfeed.locations.applications, activityfeed.locations.hr.preview, activityfeed.locations.hr.summary, activityfeed.locations.notFound, activityfeed.locations.review, activityfeed.locations.review.basicInfo, activityfeed.locations.review.environment, activityfeed.locations.review.general, activityfeed.locations.review.heading, activityfeed.locations.review.impact, activityfeed.locations.review.langRequirements, activityfeed.locations.review.skills, activityfeed.locations.review.tasks, activityfeed.locations.screeningPlan, activityfeed.locations.screeningPlan.builder, activityfeed.locations.screeningPlan.general, activityfeed.locations.screeningPlan.ratings, activityfeed.locations.screeningPlan.summary, activityfeed.noActivities, activityfeed.review.accordionAccessibleLabel, activityfeed.review.header, activityfeed.review.loadingIconText, activityfeed.title, application.review.addNote, application.review.alert.oops, application.review.backToApplicantList, application.review.button.cancel, application.review.button.confirm, application.review.button.save, application.review.button.saved, application.review.button.saving, application.review.button.viewJobPoster, application.review.collapseAllSkills, application.review.decision, application.review.editNote, application.review.emailCandidateLinkTitle, application.review.expandAllSkills, application.review.priorityStatus.priority, application.review.priorityStatus.priorityLogoTitle, application.review.reviewSaveFailed, application.review.reviewStatus.notReviewed, application.review.reviewStatus.screenedOut, application.review.reviewStatus.stillIn, application.review.reviewStatus.stillThinking, application.review.screenInConfirm, application.review.screenOutConfirm, application.review.veteranStatus.veteran, application.review.veteranStatus.veteranLogoAlt, application.review.viewApplication, application.review.viewApplicationLinkTitle, application.review.viewProfile, application.review.viewProfileLinkTitle, assessmentPlan.addAssessmentButton, assessmentPlan.alert.checking, assessmentPlan.alert.created, assessmentPlan.alert.deleted, assessmentPlan.alert.explanation, assessmentPlan.alert.skillAndLevelUpdated, assessmentPlan.alert.skillLevelUpdated, assessmentPlan.alert.skillUpdated, assessmentPlan.alert.title, assessmentPlan.assessmentPlanBuilder.instructions, assessmentPlan.assessmentPlanBuilder.shortDescription, assessmentPlan.assessmentPlanBuilder.title, assessmentPlan.assessmentPlanSummary.shortDescription, assessmentPlan.assessmentPlanSummary.title, assessmentPlan.assessmentTypesLabel, assessmentPlan.assetCriteria.nullState, assessmentPlan.criteriaTitle, assessmentPlan.essentialCriteria.nullState, assessmentPlan.instructions.intro, assessmentPlan.instructions.narrativeNote, assessmentPlan.pageTitle, assessmentPlan.ratingGuideBuilder.shortDescription, assessmentPlan.ratingGuideBuilder.title, assessmentPlan.selectAssessment.label, assessmentPlan.selectAssessment.null, assessmentPlan.skillDescriptionLabel, assessmentPlan.skillLevelDescriptionLabel, assessmentPlan.summary.assessmentSummary.noAssessments, assessmentPlan.summary.assessmentSummary.title, assessmentPlan.summary.assessmentSummary.toolSkillCount, assessmentPlan.summary.description, assessmentPlan.summary.skillCount, assessmentPlan.summary.skillsNullState, assessmentPlan.summary.title, assessmentPlan.title, assessmentType.applicationScreeningQuestion, assessmentType.applicationScreeningQuestion.description, assessmentType.groupTest, assessmentType.groupTest.description, assessmentType.informalPhoneConversation, assessmentType.informalPhoneConversation.description, assessmentType.interview, assessmentType.interview.description, assessmentType.narrativeAssessment, assessmentType.narrativeAssessment.description, assessmentType.narrativeReview.standardAnswer, assessmentType.narrativeReview.standardQuestion, assessmentType.onSiteExam, assessmentType.onSiteExam.description, assessmentType.onlineExam, assessmentType.onlineExam.description, assessmentType.portfolioReview, assessmentType.portfolioReview.description, assessmentType.referenceCheck, assessmentType.referenceCheck.description, assessmentType.seriousGames, assessmentType.seriousGames.description, assessmentType.takeHomeExam, assessmentType.takeHomeExam.description, button.copied, button.copyEmails, button.copyToClipboard, button.toggleAccordion, commentForm.comment.label, commentForm.comment.placeholder, commentForm.commentLocation.label, commentForm.commentLocation.nullSelection, commentForm.commentType.label, commentForm.commentType.nullSelection, commentForm.submitButton.label, commentType.comment, commentType.question, commentType.recommendation, commentType.requiredAction, criteria.asset, criteria.essential, criteriaForm.skillLevelSelectionLabel, criteriaForm.skillSpecificityLabel, criteriaForm.skillSpecificityPlaceholder, criteriaType.asset, criteriaType.essential, demoSubmitJobModal.cancel, demoSubmitJobModal.explanation, demoSubmitJobModal.link, demoSubmitJobModal.link.title, demoSubmitJobModal.title, errorToast.title, formInput.error, formInput.required, formValidation.checkboxRequired, formValidation.invalidSelection, formValidation.required, formValidation.tooLong, formValidation.tooShort, hrJobIndex.departmentPlaceholder, hrJobIndex.jobTitleMissing, hrJobIndex.managerLoading, hrJobIndex.preview, hrJobIndex.reviewDraft, hrJobIndex.viewActivity, hrJobIndex.viewScreeningPlan, hrJobIndex.viewSummary, hrPortal.jobPageIndex.clickToView, hrPortal.jobPageIndex.completedJobsHeader, hrPortal.jobPageIndex.hideAccordion, hrPortal.jobPageIndex.jobActionsEmpty, hrPortal.jobPageIndex.jobActionsHeader, hrPortal.jobPageIndex.jobActionsMessage, hrPortal.jobPageIndex.noJobsCompleted, hrPortal.jobPageIndex.preDepartmentName, hrPortal.jobPageIndex.showAccordion, hrPortal.jobPageIndex.unclaimedJobsEmpty, hrPortal.jobPageIndex.unclaimedJobsMessage, job.daysSinceClosed, jobBuilder.collaborativeness.01.description, jobBuilder.collaborativeness.01.title, jobBuilder.collaborativeness.02.description, jobBuilder.collaborativeness.02.title, jobBuilder.collaborativeness.03.description, jobBuilder.collaborativeness.03.title, jobBuilder.collaborativeness.04.description, jobBuilder.collaborativeness.04.title, jobBuilder.criteriaForm.addSpecificity, jobBuilder.criteriaForm.button.add, jobBuilder.criteriaForm.button.cancel, jobBuilder.criteriaForm.chooseSkillLevel, jobBuilder.criteriaForm.or, jobBuilder.criteriaForm.removeSpecificity, jobBuilder.criteriaForm.skillDefinition, jobBuilder.criterion.requiredSkill, jobBuilder.culturePace.01.description, jobBuilder.culturePace.01.title, jobBuilder.culturePace.02.description, jobBuilder.culturePace.02.title, jobBuilder.culturePace.03.description, jobBuilder.culturePace.03.title, jobBuilder.culturePace.04.description, jobBuilder.culturePace.04.title, jobBuilder.details.SelectClassAndLvlMessage, jobBuilder.details.cityLabel, jobBuilder.details.cityPlaceholder, jobBuilder.details.classificationLabel, jobBuilder.details.classificationNullSelection, jobBuilder.details.classificationOptions.AD, jobBuilder.details.classificationOptions.AS, jobBuilder.details.classificationOptions.BI, jobBuilder.details.classificationOptions.CO, jobBuilder.details.classificationOptions.CR, jobBuilder.details.classificationOptions.CS, jobBuilder.details.classificationOptions.EC, jobBuilder.details.classificationOptions.EX, jobBuilder.details.classificationOptions.FO, jobBuilder.details.classificationOptions.IS, jobBuilder.details.classificationOptions.PC, jobBuilder.details.classificationOptions.PE, jobBuilder.details.classificationOptions.PM, jobBuilder.details.documentTitle, jobBuilder.details.educationMessages.AD, jobBuilder.details.educationMessages.AS, jobBuilder.details.educationMessages.BI, jobBuilder.details.educationMessages.CO, jobBuilder.details.educationMessages.CR, jobBuilder.details.educationMessages.CS, jobBuilder.details.educationMessages.EC, jobBuilder.details.educationMessages.EX, jobBuilder.details.educationMessages.FO, jobBuilder.details.educationMessages.IS, jobBuilder.details.educationMessages.PC, jobBuilder.details.educationMessages.PE, jobBuilder.details.educationMessages.PM, jobBuilder.details.educationRequirementCopyAndPaste, jobBuilder.details.educationRequirementHeader, jobBuilder.details.educationRequirementPlaceholder, jobBuilder.details.educationRequirementReviewChanges, jobBuilder.details.educationRequirementsLabel, jobBuilder.details.flexHoursGroupBody, jobBuilder.details.flexHoursGroupHeader, jobBuilder.details.flexHoursGroupLabel, jobBuilder.details.frequencyAlwaysLabel, jobBuilder.details.frequencyFrequentlyLabel, jobBuilder.details.frequencyNeverLabel, jobBuilder.details.frequencyOccasionallyLabel, jobBuilder.details.frequencySometimesLabel, jobBuilder.details.heading, jobBuilder.details.languageLabel, jobBuilder.details.languageNullSelection, jobBuilder.details.levelLabel, jobBuilder.details.levelNullSelection, jobBuilder.details.modalBody, jobBuilder.details.modalCancelLabel, jobBuilder.details.modalConfirmLabel, jobBuilder.details.modalHeader, jobBuilder.details.modalMiddleLabel, jobBuilder.details.overtimeFrequentlyLabel, jobBuilder.details.overtimeGroupHeader, jobBuilder.details.overtimeGroupLabel, jobBuilder.details.overtimeNoneRequiredLabel, jobBuilder.details.overtimeOpportunitiesAvailableLabel, jobBuilder.details.provinceLabel, jobBuilder.details.provinceNullSelection, jobBuilder.details.remoteWorkCanadaLabel, jobBuilder.details.remoteWorkGroupBody, jobBuilder.details.remoteWorkGroupHeader, jobBuilder.details.remoteWorkGroupLabel, jobBuilder.details.remoteWorkNoneLabel, jobBuilder.details.remoteWorkWorldLabel, jobBuilder.details.returnButtonLabel, jobBuilder.details.securityLevelLabel, jobBuilder.details.securityLevelNullSelection, jobBuilder.details.submitButtonLabel, jobBuilder.details.teleworkGroupBody, jobBuilder.details.teleworkGroupHeader, jobBuilder.details.teleworkGroupLabel, jobBuilder.details.termLengthLabel, jobBuilder.details.termLengthPlaceholder, jobBuilder.details.titleLabel, jobBuilder.details.titlePlaceholder, jobBuilder.details.travelFrequentlyLabel, jobBuilder.details.travelGroupHeader, jobBuilder.details.travelGroupLabel, jobBuilder.details.travelNoneRequiredLabel, jobBuilder.details.travelOpportunitiesAvailableLabel, jobBuilder.experimental.01.description, jobBuilder.experimental.01.title, jobBuilder.experimental.02.description, jobBuilder.experimental.02.title, jobBuilder.experimental.03.description, jobBuilder.experimental.03.title, jobBuilder.experimental.04.description, jobBuilder.experimental.04.title, jobBuilder.facing.01.description, jobBuilder.facing.01.title, jobBuilder.facing.02.description, jobBuilder.facing.02.title, jobBuilder.facing.03.description, jobBuilder.facing.03.title, jobBuilder.facing.04.description, jobBuilder.facing.04.title, jobBuilder.impact.button.goBack, jobBuilder.impact.button.next, jobBuilder.impact.button.nextStep, jobBuilder.impact.button.return, jobBuilder.impact.button.skipToReview, jobBuilder.impact.departmentsLoading, jobBuilder.impact.documentTitle, jobBuilder.impact.header.department, jobBuilder.impact.hireBody, jobBuilder.impact.hireHeader, jobBuilder.impact.hireLabel, jobBuilder.impact.hirePlaceholder, jobBuilder.impact.modalDescription, jobBuilder.impact.modalTitle, jobBuilder.impact.points.counts, jobBuilder.impact.points.highlight, jobBuilder.impact.points.opportunity, jobBuilder.impact.selectDepartment, jobBuilder.impact.teamBody, jobBuilder.impact.teamHeader, jobBuilder.impact.teamLabel, jobBuilder.impact.teamPlaceholder, jobBuilder.impact.title, jobBuilder.impact.unknownDepartment, jobBuilder.impactPreview.title, jobBuilder.intro.accountSettingsLinkText, jobBuilder.intro.accountSettingsLinkTitle, jobBuilder.intro.changeDepartment, jobBuilder.intro.completeInLanguage, jobBuilder.intro.contactUs, jobBuilder.intro.continueButtonLabelEN, jobBuilder.intro.continueButtonLabelFR, jobBuilder.intro.departmentHeader, jobBuilder.intro.departmentLabel, jobBuilder.intro.departmentNullSelection, jobBuilder.intro.divisionLabelEN, jobBuilder.intro.divisionLabelFR, jobBuilder.intro.divisionPlaceholderEN, jobBuilder.intro.divisionPlaceholderFR, jobBuilder.intro.documentTitle, jobBuilder.intro.emailLinkText, jobBuilder.intro.emailLinkTitle, jobBuilder.intro.explanation, jobBuilder.intro.explanation.boldText, jobBuilder.intro.formDescription, jobBuilder.intro.formTitle, jobBuilder.intro.jobTitleLabelEN, jobBuilder.intro.jobTitleLabelFR, jobBuilder.intro.jobTitlePlaceholderEN, jobBuilder.intro.jobTitlePlaceholderFR, jobBuilder.intro.managerLoading, jobBuilder.intro.welcome, jobBuilder.jobLoading, jobBuilder.loading, jobBuilder.mgmtStyle.01.description, jobBuilder.mgmtStyle.01.title, jobBuilder.mgmtStyle.02.description, jobBuilder.mgmtStyle.02.title, jobBuilder.mgmtStyle.03.description, jobBuilder.mgmtStyle.03.title, jobBuilder.mgmtStyle.04.description, jobBuilder.mgmtStyle.04.title, jobBuilder.preview.city, jobBuilder.preview.classification, jobBuilder.preview.classificationEducation, jobBuilder.preview.education, jobBuilder.preview.flexibleHours, jobBuilder.preview.jobInformation, jobBuilder.preview.jobTitle, jobBuilder.preview.languageProfile, jobBuilder.preview.lengthOfTheTerm, jobBuilder.preview.level, jobBuilder.preview.overtime, jobBuilder.preview.province, jobBuilder.preview.remoteWork, jobBuilder.preview.securityClearance, jobBuilder.preview.telework, jobBuilder.preview.termLength, jobBuilder.preview.travel, jobBuilder.preview.workStyles, jobBuilder.progressTracker.label.finish, jobBuilder.progressTracker.label.start, jobBuilder.progressTracker.label.step1, jobBuilder.progressTracker.label.step2, jobBuilder.progressTracker.label.step3, jobBuilder.progressTracker.label.step4, jobBuilder.progressTracker.label.step5, jobBuilder.progressTracker.title.impact, jobBuilder.progressTracker.title.jobInfo, jobBuilder.progressTracker.title.review, jobBuilder.progressTracker.title.skills, jobBuilder.progressTracker.title.tasks, jobBuilder.progressTracker.title.welcome, jobBuilder.progressTracker.title.workEnv, jobBuilder.review.GovernmentClass, jobBuilder.review.assetHeading, jobBuilder.review.averageAnnualSalary, jobBuilder.review.basicInformationHeading, jobBuilder.review.button.return, jobBuilder.review.button.submit, jobBuilder.review.comesLater, jobBuilder.review.confirm.cancel, jobBuilder.review.confirm.submit, jobBuilder.review.confirm.title, jobBuilder.review.criteriaSection, jobBuilder.review.cultureSection, jobBuilder.review.documentTitle, jobBuilder.review.duration, jobBuilder.review.educationalHeading, jobBuilder.review.headsUp, jobBuilder.review.impactEditLink, jobBuilder.review.impactHeading, jobBuilder.review.infoEditLink, jobBuilder.review.jobPageHeading, jobBuilder.review.languageHeading, jobBuilder.review.languageProfile, jobBuilder.review.managerDataLoading, jobBuilder.review.managerHeading, jobBuilder.review.managerIncomplete, jobBuilder.review.managerPosition, jobBuilder.review.managerProfileLink, jobBuilder.review.meantime, jobBuilder.review.months, jobBuilder.review.nullProvince, jobBuilder.review.or, jobBuilder.review.otherInfoHeading, jobBuilder.review.readyToSubmit, jobBuilder.review.remoteAllowed, jobBuilder.review.remoteNotAllowed, jobBuilder.review.reviewYourPoster, jobBuilder.review.securityClearance, jobBuilder.review.sendYourDraft, jobBuilder.review.skills.nullState, jobBuilder.review.skillsEditLink, jobBuilder.review.skillsHeading, jobBuilder.review.tCAdds, jobBuilder.review.targetStartDate, jobBuilder.review.tasksEditLink, jobBuilder.review.tasksHeading, jobBuilder.review.whatHappens, jobBuilder.review.workCultureHeading, jobBuilder.review.workDescription, jobBuilder.review.workEnvEditLink, jobBuilder.review.workEnvHeading, jobBuilder.root.documentTitle, jobBuilder.skills.addSkillBelow, jobBuilder.skills.alt.happyArrow, jobBuilder.skills.alt.happyGraySmiley, jobBuilder.skills.alt.happySmiley, jobBuilder.skills.alt.neutralArrow, jobBuilder.skills.alt.neutralGraySmiley, jobBuilder.skills.alt.neutralSmiley, jobBuilder.skills.alt.unhappyArrow, jobBuilder.skills.alt.unhappyGraySmiley, jobBuilder.skills.alt.unhappySmiley, jobBuilder.skills.button.keyTasks, jobBuilder.skills.button.previewSkills, jobBuilder.skills.button.returnToTasks, jobBuilder.skills.description, jobBuilder.skills.description.keepItUp, jobBuilder.skills.documentTitle, jobBuilder.skills.emailLink, jobBuilder.skills.essentialSkillRequiredError, jobBuilder.skills.instructions.missingSkills, jobBuilder.skills.listTitle, jobBuilder.skills.nullState, jobBuilder.skills.nullText.occupationalSkills, jobBuilder.skills.placeholder.otherSkills, jobBuilder.skills.previewModalCancelLabel, jobBuilder.skills.previewModalConfirmLabel, jobBuilder.skills.previewModalMiddleLabel, jobBuilder.skills.range.culturalSkills, jobBuilder.skills.range.futureSkills, jobBuilder.skills.range.occupationalSkills, jobBuilder.skills.selectSkillLabel, jobBuilder.skills.selectSkillNull, jobBuilder.skills.skillLevel, jobBuilder.skills.statusSmiley.acceptable, jobBuilder.skills.statusSmiley.almost, jobBuilder.skills.statusSmiley.awesome, jobBuilder.skills.statusSmiley.essential.acceptable, jobBuilder.skills.statusSmiley.essential.almost, jobBuilder.skills.statusSmiley.essential.awesome, jobBuilder.skills.statusSmiley.essential.tooFew, jobBuilder.skills.statusSmiley.essential.tooMany, jobBuilder.skills.statusSmiley.essentialTitle, jobBuilder.skills.statusSmiley.title, jobBuilder.skills.statusSmiley.tooFew, jobBuilder.skills.statusSmiley.tooMany, jobBuilder.skills.tasksModalCancelLabel, jobBuilder.skills.title, jobBuilder.skills.title.addASkill, jobBuilder.skills.title.assetSkills, jobBuilder.skills.title.culturalSkills, jobBuilder.skills.title.editSkill, jobBuilder.skills.title.essentialSkills, jobBuilder.skills.title.futureSkills, jobBuilder.skills.title.keepItUp, jobBuilder.skills.title.keyTasks, jobBuilder.skills.title.missingSkill, jobBuilder.skills.title.needsToHave, jobBuilder.skills.title.niceToHave, jobBuilder.skills.title.occupationalSkills, jobBuilder.skills.title.otherSkills, jobBuilder.skills.title.skillSelection, jobBuilder.tasks.addJob, jobBuilder.tasks.documentTitle, jobBuilder.tasks.heading, jobBuilder.tasks.intro.first, jobBuilder.tasks.intro.fourth, jobBuilder.tasks.intro.second, jobBuilder.tasks.intro.third, jobBuilder.tasks.modal.body, jobBuilder.tasks.modal.body.heading, jobBuilder.tasks.modal.cancelButtonLabel, jobBuilder.tasks.modal.confirmButtonLabel, jobBuilder.tasks.modal.middleButtonLabel, jobBuilder.tasks.modal.title, jobBuilder.tasks.preview, jobBuilder.tasks.previous, jobBuilder.tasks.taskCount.error.body, jobBuilder.tasks.taskCount.error.title, jobBuilder.tasks.taskCount.none, jobBuilder.tasks.taskCount.some, jobBuilder.tasks.taskLabel, jobBuilder.tasks.taskPlaceholder, jobBuilder.tasks.tasksMaximum, jobBuilder.tasks.tasksRequired, jobBuilder.workCulture.flexibleHours, jobBuilder.workCulture.flexibleHoursDescription, jobBuilder.workCulture.overtime, jobBuilder.workCulture.overtimeDescription, jobBuilder.workCulture.remoteWork, jobBuilder.workCulture.remoteWorkDescription, jobBuilder.workCulture.remoteWorkMsg.always, jobBuilder.workCulture.remoteWorkMsg.never, jobBuilder.workCulture.telework, jobBuilder.workCulture.teleworkDescription, jobBuilder.workCulture.travel, jobBuilder.workCulture.travelDescription, jobBuilder.workEnv.amenities.cafeteria, jobBuilder.workEnv.amenities.closeToTransit, jobBuilder.workEnv.amenities.downtown, jobBuilder.workEnv.amenities.fitnessCenter, jobBuilder.workEnv.amenities.parking, jobBuilder.workEnv.amenities.restaurants, jobBuilder.workEnv.amenitiesLabel, jobBuilder.workEnv.collaborativeLabel, jobBuilder.workEnv.culture, jobBuilder.workEnv.cultureSubtext1, jobBuilder.workEnv.cultureSubtext2, jobBuilder.workEnv.cultureSummary, jobBuilder.workEnv.cultureSummarySubtext, jobBuilder.workEnv.customCultureSummaryLabel, jobBuilder.workEnv.customCultureSummaryPlaceholder, jobBuilder.workEnv.documentTitle, jobBuilder.workEnv.experimentalLabel, jobBuilder.workEnv.facingLabel, jobBuilder.workEnv.fastPacedSteadyLabel, jobBuilder.workEnv.greatStart, jobBuilder.workEnv.managementLabel, jobBuilder.workEnv.moreOnWorkEnv, jobBuilder.workEnv.moreOnWorkEnvLabel, jobBuilder.workEnv.moreOnWorkEnvPlaceholder, jobBuilder.workEnv.moreOnWorkEnvSubtext, jobBuilder.workEnv.openingSentence, jobBuilder.workEnv.ourWorkEnv, jobBuilder.workEnv.ourWorkEnvDesc, jobBuilder.workEnv.physEnv.assignedSeating, jobBuilder.workEnv.physEnv.naturalLight, jobBuilder.workEnv.physEnv.openConcept, jobBuilder.workEnv.physEnv.private, jobBuilder.workEnv.physEnv.smudging, jobBuilder.workEnv.physEnv.windows, jobBuilder.workEnv.physicalEnvLabel, jobBuilder.workEnv.saveAndReturnButtonLabel, jobBuilder.workEnv.specialWorkCulture, jobBuilder.workEnv.specialWorkCultureLabel, jobBuilder.workEnv.specialWorkCultureSubtext, jobBuilder.workEnv.stepDescription, jobBuilder.workEnv.submitButtonLabel, jobBuilder.workEnv.teamSizeLabel, jobBuilder.workEnv.teamSizePlaceholder, jobBuilder.workEnv.technology.accessToExternal, jobBuilder.workEnv.technology.collaboration, jobBuilder.workEnv.technology.fileSharing, jobBuilder.workEnv.technology.taskManagement, jobBuilder.workEnv.technology.versionControl, jobBuilder.workEnv.technology.videoConferencing, jobBuilder.workEnv.technologyLabel, jobBuilder.workEnv.textAreaPlaceholder1, jobBuilder.workEnv.thisIsOptional, jobBuilder.workEnv.title, jobBuilder.workEnvModal.cancelLabel, jobBuilder.workEnvModal.confirmLabel, jobBuilder.workEnvModal.modalMiddleLabel, jobBuilder.workEnvModal.title, jobBuilder.workEnvModal.workCultureTitle, jobCard.applicants, jobCard.managerTime, jobCard.noActivity, jobCard.userTime, jobReviewHr.headsUp, jobReviewHr.loadingIconText, jobReviewHr.reviewYourPoster, jobReviewHr.summaryLink, jobStatus.approved, jobStatus.completed, jobStatus.draft, jobStatus.finalReview, jobStatus.published, jobStatus.review, jobStatus.translation, languageRequirement.bilingualAdvanced, languageRequirement.bilingualIntermediate, languageRequirement.context.basic, languageRequirement.context.expanded, languageRequirement.description.bilingualAdvanced, languageRequirement.description.bilingualIntermediate, languageRequirement.description.english, languageRequirement.description.englishOrFrench, languageRequirement.description.french, languageRequirement.english, languageRequirement.englishOrFrench, languageRequirement.french, managerSurveyModal.explanation, managerSurveyModal.jobPosterLink, managerSurveyModal.jobPosterLinkTitle, managerSurveyModal.link, managerSurveyModal.managerSurveyLinkTitle, managerSurveyModal.title, openJobCard.claimJob, openJobCard.error, openJobCard.hiringManager, openJobCard.hrAdvisors, openJobCard.reviewRequested, openJobCard.unclaimed, progressTracker.unreachableStep, province.ab, province.ab.abreviation, province.bc, province.bc.abreviation, province.mb, province.mb.abreviation, province.nb, province.nb.abreviation, province.nl, province.nl.abreviation, province.ns, province.ns.abreviation, province.nt, province.nt.abreviation, province.nu, province.nu.abreviation, province.on, province.on.abreviation, province.pe, province.pe.abreviation, province.qc, province.qc.abreviation, province.sk, province.sk.abreviation, province.yk, province.yk.abreviation, ratingGuideAnswer.answerLabel, ratingGuideAnswer.answerPlaceholder, ratingGuideAnswer.nullSelection, ratingGuideAnswer.selectLabel, ratingGuideBuilder.addQuestion, ratingGuideBuilder.assetMissing, ratingGuideBuilder.copyButton, ratingGuideBuilder.copyInstructions, ratingGuideBuilder.criteriaName, ratingGuideBuilder.criteriaTypeHeading, ratingGuideBuilder.essentialMissing, ratingGuideBuilder.instructions, ratingGuideBuilder.narrativeSectionTitle, ratingGuideBuilder.questionHeading, ratingGuideBuilder.ratingGuideHeading, ratingGuideBuilder.sectionTitle, ratingGuideBuilder.skillDescriptionHeading, ratingGuideBuilder.skillHeading, ratingGuideBuilder.targetLevelHeading, ratingGuideBuilder.title, ratingGuideBuilder.titleHeading, ratingGuideQuestion.questionLabel, ratingGuideQuestion.questionPlaceholder, review.applications.alert.oops, review.applications.button.confirm, review.applications.indexPageTitle, review.applications.nonCitizens.description, review.applications.nonCitizens.title, review.applications.optionalConsideration.description, review.applications.optionalConsideration.title, review.applications.priorityApplicants.description, review.applications.priorityApplicants.title, review.applications.reviewSaveFailed, review.applications.screenOutAll, review.applications.screenOutAll.confirm, review.applications.screenedOut.description, review.applications.screenedOut.title, review.applications.underConsideration.description, review.applications.underConsideration.title, review.applications.unqualified.description, review.applications.unqualified.title, review.applications.veteransAndCitizens.description, review.applications.veteransAndCitizens.title, reviewLocations.jpb.basicInfo, reviewLocations.jpb.environment, reviewLocations.jpb.generic, reviewLocations.jpb.heading, reviewLocations.jpb.impact, reviewLocations.jpb.langRequirements, reviewLocations.jpb.skills, reviewLocations.jpb.tasks, securityClearance.reliability, securityClearance.secret, securityClearance.topSecret, skillLevel.asset.description, skillLevel.asset.name, skillLevel.hard.advanced.description, skillLevel.hard.advanced.name, skillLevel.hard.basic.description, skillLevel.hard.basic.name, skillLevel.hard.expert.description, skillLevel.hard.expert.name, skillLevel.hard.intermediate.description, skillLevel.hard.intermediate.name, skillLevel.soft.advanced.description, skillLevel.soft.advanced.name, skillLevel.soft.basic.description, skillLevel.soft.basic.name, skillLevel.soft.expert.description, skillLevel.soft.expert.name, skillLevel.soft.intermediate.description, skillLevel.soft.intermediate.name, wordCounter.skills.longMessage, wordCounter.skills.placeholder, wordCounter.skills.shortMessage, wordCounter.skills.slightlyLongMessage, wordCounter.skills.veryLongMessage, wordCounter.skills.veryShortMessage, default */
+/*! exports provided: activity.commentLocation.label, activity.commentMetadata, activity.viewComment.label, activityfeed.accordionAccessibleLabel, activityfeed.error, activityfeed.header, activityfeed.loading, activityfeed.loadingIconText, activityfeed.locations.applicantReview.general, activityfeed.locations.applicantReview.notUnderConsideration, activityfeed.locations.applicantReview.optionalConsideration, activityfeed.locations.applicantReview.underConsideration, activityfeed.locations.applications, activityfeed.locations.hr.preview, activityfeed.locations.hr.summary, activityfeed.locations.notFound, activityfeed.locations.review, activityfeed.locations.review.basicInfo, activityfeed.locations.review.environment, activityfeed.locations.review.general, activityfeed.locations.review.heading, activityfeed.locations.review.impact, activityfeed.locations.review.langRequirements, activityfeed.locations.review.skills, activityfeed.locations.review.tasks, activityfeed.locations.screeningPlan, activityfeed.locations.screeningPlan.builder, activityfeed.locations.screeningPlan.general, activityfeed.locations.screeningPlan.ratings, activityfeed.locations.screeningPlan.summary, activityfeed.noActivities, activityfeed.review.accordionAccessibleLabel, activityfeed.review.header, activityfeed.review.loadingIconText, activityfeed.title, application.review.addNote, application.review.alert.oops, application.review.backToApplicantList, application.review.button.cancel, application.review.button.confirm, application.review.button.save, application.review.button.saved, application.review.button.saving, application.review.button.viewJobPoster, application.review.collapseAllSkills, application.review.decision, application.review.editNote, application.review.emailCandidateLinkTitle, application.review.expandAllSkills, application.review.priorityStatus.priority, application.review.priorityStatus.priorityLogoTitle, application.review.reviewSaveFailed, application.review.reviewStatus.notReviewed, application.review.reviewStatus.screenedOut, application.review.reviewStatus.stillIn, application.review.reviewStatus.stillThinking, application.review.screenInConfirm, application.review.screenOutConfirm, application.review.veteranStatus.veteran, application.review.veteranStatus.veteranLogoAlt, application.review.viewApplication, application.review.viewApplicationLinkTitle, application.review.viewProfile, application.review.viewProfileLinkTitle, assessmentPlan.addAssessmentButton, assessmentPlan.alert.checking, assessmentPlan.alert.created, assessmentPlan.alert.deleted, assessmentPlan.alert.explanation, assessmentPlan.alert.skillAndLevelUpdated, assessmentPlan.alert.skillLevelUpdated, assessmentPlan.alert.skillUpdated, assessmentPlan.alert.title, assessmentPlan.assessmentPlanBuilder.instructions, assessmentPlan.assessmentPlanBuilder.shortDescription, assessmentPlan.assessmentPlanBuilder.title, assessmentPlan.assessmentPlanSummary.shortDescription, assessmentPlan.assessmentPlanSummary.title, assessmentPlan.assessmentTypesLabel, assessmentPlan.assetCriteria.nullState, assessmentPlan.criteriaTitle, assessmentPlan.essentialCriteria.nullState, assessmentPlan.instructions.intro, assessmentPlan.instructions.narrativeNote, assessmentPlan.pageTitle, assessmentPlan.ratingGuideBuilder.shortDescription, assessmentPlan.ratingGuideBuilder.title, assessmentPlan.selectAssessment.label, assessmentPlan.selectAssessment.null, assessmentPlan.skillDescriptionLabel, assessmentPlan.skillLevelDescriptionLabel, assessmentPlan.summary.assessmentSummary.noAssessments, assessmentPlan.summary.assessmentSummary.title, assessmentPlan.summary.assessmentSummary.toolSkillCount, assessmentPlan.summary.description, assessmentPlan.summary.skillCount, assessmentPlan.summary.skillsNullState, assessmentPlan.summary.title, assessmentPlan.title, assessmentType.applicationScreeningQuestion, assessmentType.applicationScreeningQuestion.description, assessmentType.groupTest, assessmentType.groupTest.description, assessmentType.informalPhoneConversation, assessmentType.informalPhoneConversation.description, assessmentType.interview, assessmentType.interview.description, assessmentType.narrativeAssessment, assessmentType.narrativeAssessment.description, assessmentType.narrativeReview.standardAnswer, assessmentType.narrativeReview.standardQuestion, assessmentType.onSiteExam, assessmentType.onSiteExam.description, assessmentType.onlineExam, assessmentType.onlineExam.description, assessmentType.portfolioReview, assessmentType.portfolioReview.description, assessmentType.referenceCheck, assessmentType.referenceCheck.description, assessmentType.seriousGames, assessmentType.seriousGames.description, assessmentType.takeHomeExam, assessmentType.takeHomeExam.description, button.copied, button.copyEmails, button.copyToClipboard, button.toggleAccordion, commentForm.comment.label, commentForm.comment.placeholder, commentForm.commentLocation.label, commentForm.commentLocation.nullSelection, commentForm.commentType.label, commentForm.commentType.nullSelection, commentForm.submitButton.label, commentType.comment, commentType.question, commentType.recommendation, commentType.requiredAction, criteria.asset, criteria.essential, criteriaForm.skillLevelSelectionLabel, criteriaForm.skillSpecificityLabel, criteriaForm.skillSpecificityPlaceholder, criteriaType.asset, criteriaType.essential, demoSubmitJobModal.cancel, demoSubmitJobModal.explanation, demoSubmitJobModal.link, demoSubmitJobModal.link.title, demoSubmitJobModal.title, errorToast.title, formInput.error, formInput.required, formValidation.checkboxRequired, formValidation.invalidSelection, formValidation.required, formValidation.tooLong, formValidation.tooShort, hrJobIndex.departmentPlaceholder, hrJobIndex.jobTitleMissing, hrJobIndex.managerLoading, hrJobIndex.preview, hrJobIndex.reviewDraft, hrJobIndex.viewActivity, hrJobIndex.viewScreeningPlan, hrJobIndex.viewSummary, hrPortal.jobPageIndex.clickToView, hrPortal.jobPageIndex.completedJobsHeader, hrPortal.jobPageIndex.hideAccordion, hrPortal.jobPageIndex.jobActionsEmpty, hrPortal.jobPageIndex.jobActionsHeader, hrPortal.jobPageIndex.jobActionsMessage, hrPortal.jobPageIndex.noJobsCompleted, hrPortal.jobPageIndex.preDepartmentName, hrPortal.jobPageIndex.showAccordion, hrPortal.jobPageIndex.unclaimedJobsEmpty, hrPortal.jobPageIndex.unclaimedJobsMessage, job.daysSinceClosed, jobBuilder.collaborativeness.01.description, jobBuilder.collaborativeness.01.title, jobBuilder.collaborativeness.02.description, jobBuilder.collaborativeness.02.title, jobBuilder.collaborativeness.03.description, jobBuilder.collaborativeness.03.title, jobBuilder.collaborativeness.04.description, jobBuilder.collaborativeness.04.title, jobBuilder.criteriaForm.addSpecificity, jobBuilder.criteriaForm.button.add, jobBuilder.criteriaForm.button.cancel, jobBuilder.criteriaForm.chooseSkillLevel, jobBuilder.criteriaForm.or, jobBuilder.criteriaForm.removeSpecificity, jobBuilder.criteriaForm.skillDefinition, jobBuilder.criterion.requiredSkill, jobBuilder.culturePace.01.description, jobBuilder.culturePace.01.title, jobBuilder.culturePace.02.description, jobBuilder.culturePace.02.title, jobBuilder.culturePace.03.description, jobBuilder.culturePace.03.title, jobBuilder.culturePace.04.description, jobBuilder.culturePace.04.title, jobBuilder.details.SelectClassAndLvlMessage, jobBuilder.details.cityLabel, jobBuilder.details.cityPlaceholder, jobBuilder.details.classificationLabel, jobBuilder.details.classificationNullSelection, jobBuilder.details.classificationOptions.AD, jobBuilder.details.classificationOptions.AS, jobBuilder.details.classificationOptions.BI, jobBuilder.details.classificationOptions.CO, jobBuilder.details.classificationOptions.CR, jobBuilder.details.classificationOptions.CS, jobBuilder.details.classificationOptions.EC, jobBuilder.details.classificationOptions.EX, jobBuilder.details.classificationOptions.FO, jobBuilder.details.classificationOptions.IS, jobBuilder.details.classificationOptions.PC, jobBuilder.details.classificationOptions.PE, jobBuilder.details.classificationOptions.PM, jobBuilder.details.documentTitle, jobBuilder.details.educationMessages.AD, jobBuilder.details.educationMessages.AS, jobBuilder.details.educationMessages.BI, jobBuilder.details.educationMessages.CO, jobBuilder.details.educationMessages.CR, jobBuilder.details.educationMessages.CS, jobBuilder.details.educationMessages.EC, jobBuilder.details.educationMessages.EX, jobBuilder.details.educationMessages.FO, jobBuilder.details.educationMessages.IS, jobBuilder.details.educationMessages.PC, jobBuilder.details.educationMessages.PE, jobBuilder.details.educationMessages.PM, jobBuilder.details.educationRequirementCopyAndPaste, jobBuilder.details.educationRequirementHeader, jobBuilder.details.educationRequirementPlaceholder, jobBuilder.details.educationRequirementReviewChanges, jobBuilder.details.educationRequirementsLabel, jobBuilder.details.flexHoursGroupBody, jobBuilder.details.flexHoursGroupHeader, jobBuilder.details.flexHoursGroupLabel, jobBuilder.details.frequencyAlwaysLabel, jobBuilder.details.frequencyFrequentlyLabel, jobBuilder.details.frequencyNeverLabel, jobBuilder.details.frequencyOccasionallyLabel, jobBuilder.details.frequencySometimesLabel, jobBuilder.details.heading, jobBuilder.details.languageLabel, jobBuilder.details.languageNullSelection, jobBuilder.details.levelLabel, jobBuilder.details.levelNullSelection, jobBuilder.details.modalBody, jobBuilder.details.modalCancelLabel, jobBuilder.details.modalConfirmLabel, jobBuilder.details.modalHeader, jobBuilder.details.modalMiddleLabel, jobBuilder.details.overtimeFrequentlyLabel, jobBuilder.details.overtimeGroupHeader, jobBuilder.details.overtimeGroupLabel, jobBuilder.details.overtimeNoneRequiredLabel, jobBuilder.details.overtimeOpportunitiesAvailableLabel, jobBuilder.details.provinceLabel, jobBuilder.details.provinceNullSelection, jobBuilder.details.remoteWorkCanadaLabel, jobBuilder.details.remoteWorkGroupBody, jobBuilder.details.remoteWorkGroupHeader, jobBuilder.details.remoteWorkGroupLabel, jobBuilder.details.remoteWorkNoneLabel, jobBuilder.details.remoteWorkWorldLabel, jobBuilder.details.returnButtonLabel, jobBuilder.details.securityLevelLabel, jobBuilder.details.securityLevelNullSelection, jobBuilder.details.submitButtonLabel, jobBuilder.details.teleworkGroupBody, jobBuilder.details.teleworkGroupHeader, jobBuilder.details.teleworkGroupLabel, jobBuilder.details.termLengthLabel, jobBuilder.details.termLengthPlaceholder, jobBuilder.details.titleLabel, jobBuilder.details.titlePlaceholder, jobBuilder.details.travelFrequentlyLabel, jobBuilder.details.travelGroupHeader, jobBuilder.details.travelGroupLabel, jobBuilder.details.travelNoneRequiredLabel, jobBuilder.details.travelOpportunitiesAvailableLabel, jobBuilder.experimental.01.description, jobBuilder.experimental.01.title, jobBuilder.experimental.02.description, jobBuilder.experimental.02.title, jobBuilder.experimental.03.description, jobBuilder.experimental.03.title, jobBuilder.experimental.04.description, jobBuilder.experimental.04.title, jobBuilder.facing.01.description, jobBuilder.facing.01.title, jobBuilder.facing.02.description, jobBuilder.facing.02.title, jobBuilder.facing.03.description, jobBuilder.facing.03.title, jobBuilder.facing.04.description, jobBuilder.facing.04.title, jobBuilder.impact.button.goBack, jobBuilder.impact.button.next, jobBuilder.impact.button.nextStep, jobBuilder.impact.button.return, jobBuilder.impact.button.skipToReview, jobBuilder.impact.departmentsLoading, jobBuilder.impact.documentTitle, jobBuilder.impact.header.department, jobBuilder.impact.hireBody, jobBuilder.impact.hireHeader, jobBuilder.impact.hireLabel, jobBuilder.impact.hirePlaceholder, jobBuilder.impact.modalDescription, jobBuilder.impact.modalTitle, jobBuilder.impact.points.counts, jobBuilder.impact.points.highlight, jobBuilder.impact.points.opportunity, jobBuilder.impact.selectDepartment, jobBuilder.impact.teamBody, jobBuilder.impact.teamHeader, jobBuilder.impact.teamLabel, jobBuilder.impact.teamPlaceholder, jobBuilder.impact.title, jobBuilder.impact.unknownDepartment, jobBuilder.impactPreview.title, jobBuilder.intro.accountSettingsLinkText, jobBuilder.intro.accountSettingsLinkTitle, jobBuilder.intro.changeDepartment, jobBuilder.intro.completeInLanguage, jobBuilder.intro.contactUs, jobBuilder.intro.continueButtonLabelEN, jobBuilder.intro.continueButtonLabelFR, jobBuilder.intro.departmentHeader, jobBuilder.intro.departmentLabel, jobBuilder.intro.departmentNullSelection, jobBuilder.intro.divisionLabelEN, jobBuilder.intro.divisionLabelFR, jobBuilder.intro.divisionPlaceholderEN, jobBuilder.intro.divisionPlaceholderFR, jobBuilder.intro.documentTitle, jobBuilder.intro.emailLinkText, jobBuilder.intro.emailLinkTitle, jobBuilder.intro.explanation, jobBuilder.intro.explanation.boldText, jobBuilder.intro.formDescription, jobBuilder.intro.formTitle, jobBuilder.intro.jobTitleLabelEN, jobBuilder.intro.jobTitleLabelFR, jobBuilder.intro.jobTitlePlaceholderEN, jobBuilder.intro.jobTitlePlaceholderFR, jobBuilder.intro.managerLoading, jobBuilder.intro.welcome, jobBuilder.jobLoading, jobBuilder.loading, jobBuilder.mgmtStyle.01.description, jobBuilder.mgmtStyle.01.title, jobBuilder.mgmtStyle.02.description, jobBuilder.mgmtStyle.02.title, jobBuilder.mgmtStyle.03.description, jobBuilder.mgmtStyle.03.title, jobBuilder.mgmtStyle.04.description, jobBuilder.mgmtStyle.04.title, jobBuilder.preview.city, jobBuilder.preview.classification, jobBuilder.preview.classificationEducation, jobBuilder.preview.education, jobBuilder.preview.flexibleHours, jobBuilder.preview.jobInformation, jobBuilder.preview.jobTitle, jobBuilder.preview.languageProfile, jobBuilder.preview.lengthOfTheTerm, jobBuilder.preview.level, jobBuilder.preview.overtime, jobBuilder.preview.province, jobBuilder.preview.remoteWork, jobBuilder.preview.securityClearance, jobBuilder.preview.telework, jobBuilder.preview.termLength, jobBuilder.preview.travel, jobBuilder.preview.workStyles, jobBuilder.progressTracker.label.finish, jobBuilder.progressTracker.label.start, jobBuilder.progressTracker.label.step1, jobBuilder.progressTracker.label.step2, jobBuilder.progressTracker.label.step3, jobBuilder.progressTracker.label.step4, jobBuilder.progressTracker.label.step5, jobBuilder.progressTracker.title.impact, jobBuilder.progressTracker.title.jobInfo, jobBuilder.progressTracker.title.review, jobBuilder.progressTracker.title.skills, jobBuilder.progressTracker.title.tasks, jobBuilder.progressTracker.title.welcome, jobBuilder.progressTracker.title.workEnv, jobBuilder.review.GovernmentClass, jobBuilder.review.assetHeading, jobBuilder.review.averageAnnualSalary, jobBuilder.review.basicInformationHeading, jobBuilder.review.button.return, jobBuilder.review.button.submit, jobBuilder.review.comesLater, jobBuilder.review.confirm.cancel, jobBuilder.review.confirm.submit, jobBuilder.review.confirm.title, jobBuilder.review.criteriaSection, jobBuilder.review.cultureSection, jobBuilder.review.documentTitle, jobBuilder.review.duration, jobBuilder.review.educationalHeading, jobBuilder.review.headsUp, jobBuilder.review.impactEditLink, jobBuilder.review.impactHeading, jobBuilder.review.infoEditLink, jobBuilder.review.jobPageHeading, jobBuilder.review.languageHeading, jobBuilder.review.languageProfile, jobBuilder.review.managerDataLoading, jobBuilder.review.managerHeading, jobBuilder.review.managerIncomplete, jobBuilder.review.managerPosition, jobBuilder.review.managerProfileLink, jobBuilder.review.meantime, jobBuilder.review.months, jobBuilder.review.nullProvince, jobBuilder.review.or, jobBuilder.review.otherInfoHeading, jobBuilder.review.readyToSubmit, jobBuilder.review.remoteAllowed, jobBuilder.review.remoteNotAllowed, jobBuilder.review.reviewYourPoster, jobBuilder.review.securityClearance, jobBuilder.review.sendYourDraft, jobBuilder.review.skills.nullState, jobBuilder.review.skillsEditLink, jobBuilder.review.skillsHeading, jobBuilder.review.tCAdds, jobBuilder.review.targetStartDate, jobBuilder.review.tasksEditLink, jobBuilder.review.tasksHeading, jobBuilder.review.whatHappens, jobBuilder.review.workCultureHeading, jobBuilder.review.workDescription, jobBuilder.review.workEnvEditLink, jobBuilder.review.workEnvHeading, jobBuilder.root.documentTitle, jobBuilder.skills.addSkillBelow, jobBuilder.skills.alt.happyArrow, jobBuilder.skills.alt.happyGraySmiley, jobBuilder.skills.alt.happySmiley, jobBuilder.skills.alt.neutralArrow, jobBuilder.skills.alt.neutralGraySmiley, jobBuilder.skills.alt.neutralSmiley, jobBuilder.skills.alt.unhappyArrow, jobBuilder.skills.alt.unhappyGraySmiley, jobBuilder.skills.alt.unhappySmiley, jobBuilder.skills.button.keyTasks, jobBuilder.skills.button.previewSkills, jobBuilder.skills.button.returnToTasks, jobBuilder.skills.description, jobBuilder.skills.description.keepItUp, jobBuilder.skills.documentTitle, jobBuilder.skills.emailLink, jobBuilder.skills.essentialSkillRequiredError, jobBuilder.skills.instructions.missingSkills, jobBuilder.skills.listTitle, jobBuilder.skills.nullState, jobBuilder.skills.nullText.occupationalSkills, jobBuilder.skills.placeholder.otherSkills, jobBuilder.skills.previewModalCancelLabel, jobBuilder.skills.previewModalConfirmLabel, jobBuilder.skills.previewModalMiddleLabel, jobBuilder.skills.range.culturalSkills, jobBuilder.skills.range.futureSkills, jobBuilder.skills.range.occupationalSkills, jobBuilder.skills.selectSkillLabel, jobBuilder.skills.selectSkillNull, jobBuilder.skills.skillLevel, jobBuilder.skills.statusSmiley.acceptable, jobBuilder.skills.statusSmiley.almost, jobBuilder.skills.statusSmiley.awesome, jobBuilder.skills.statusSmiley.essential.acceptable, jobBuilder.skills.statusSmiley.essential.almost, jobBuilder.skills.statusSmiley.essential.awesome, jobBuilder.skills.statusSmiley.essential.tooFew, jobBuilder.skills.statusSmiley.essential.tooMany, jobBuilder.skills.statusSmiley.essentialTitle, jobBuilder.skills.statusSmiley.title, jobBuilder.skills.statusSmiley.tooFew, jobBuilder.skills.statusSmiley.tooMany, jobBuilder.skills.tasksModalCancelLabel, jobBuilder.skills.title, jobBuilder.skills.title.addASkill, jobBuilder.skills.title.assetSkills, jobBuilder.skills.title.culturalSkills, jobBuilder.skills.title.editSkill, jobBuilder.skills.title.essentialSkills, jobBuilder.skills.title.futureSkills, jobBuilder.skills.title.keepItUp, jobBuilder.skills.title.keyTasks, jobBuilder.skills.title.missingSkill, jobBuilder.skills.title.needsToHave, jobBuilder.skills.title.niceToHave, jobBuilder.skills.title.occupationalSkills, jobBuilder.skills.title.otherSkills, jobBuilder.skills.title.skillSelection, jobBuilder.tasks.addJob, jobBuilder.tasks.documentTitle, jobBuilder.tasks.heading, jobBuilder.tasks.intro.first, jobBuilder.tasks.intro.fourth, jobBuilder.tasks.intro.second, jobBuilder.tasks.intro.third, jobBuilder.tasks.modal.body, jobBuilder.tasks.modal.body.heading, jobBuilder.tasks.modal.cancelButtonLabel, jobBuilder.tasks.modal.confirmButtonLabel, jobBuilder.tasks.modal.middleButtonLabel, jobBuilder.tasks.modal.title, jobBuilder.tasks.preview, jobBuilder.tasks.previous, jobBuilder.tasks.taskCount.error.body, jobBuilder.tasks.taskCount.error.title, jobBuilder.tasks.taskCount.none, jobBuilder.tasks.taskCount.some, jobBuilder.tasks.taskLabel, jobBuilder.tasks.taskPlaceholder, jobBuilder.tasks.tasksMaximum, jobBuilder.tasks.tasksRequired, jobBuilder.workCulture.flexibleHours, jobBuilder.workCulture.flexibleHoursDescription, jobBuilder.workCulture.overtime, jobBuilder.workCulture.overtimeDescription, jobBuilder.workCulture.remoteWork, jobBuilder.workCulture.remoteWorkDescription, jobBuilder.workCulture.remoteWorkMsg.always, jobBuilder.workCulture.remoteWorkMsg.never, jobBuilder.workCulture.telework, jobBuilder.workCulture.teleworkDescription, jobBuilder.workCulture.travel, jobBuilder.workCulture.travelDescription, jobBuilder.workEnv.amenities.cafeteria, jobBuilder.workEnv.amenities.closeToTransit, jobBuilder.workEnv.amenities.downtown, jobBuilder.workEnv.amenities.fitnessCenter, jobBuilder.workEnv.amenities.parking, jobBuilder.workEnv.amenities.restaurants, jobBuilder.workEnv.amenitiesLabel, jobBuilder.workEnv.collaborativeLabel, jobBuilder.workEnv.culture, jobBuilder.workEnv.cultureSubtext1, jobBuilder.workEnv.cultureSubtext2, jobBuilder.workEnv.cultureSummary, jobBuilder.workEnv.cultureSummarySubtext, jobBuilder.workEnv.customCultureSummaryLabel, jobBuilder.workEnv.customCultureSummaryPlaceholder, jobBuilder.workEnv.documentTitle, jobBuilder.workEnv.experimentalLabel, jobBuilder.workEnv.facingLabel, jobBuilder.workEnv.fastPacedSteadyLabel, jobBuilder.workEnv.greatStart, jobBuilder.workEnv.managementLabel, jobBuilder.workEnv.moreOnWorkEnv, jobBuilder.workEnv.moreOnWorkEnvLabel, jobBuilder.workEnv.moreOnWorkEnvPlaceholder, jobBuilder.workEnv.moreOnWorkEnvSubtext, jobBuilder.workEnv.openingSentence, jobBuilder.workEnv.ourWorkEnv, jobBuilder.workEnv.ourWorkEnvDesc, jobBuilder.workEnv.physEnv.assignedSeating, jobBuilder.workEnv.physEnv.naturalLight, jobBuilder.workEnv.physEnv.openConcept, jobBuilder.workEnv.physEnv.private, jobBuilder.workEnv.physEnv.smudging, jobBuilder.workEnv.physEnv.windows, jobBuilder.workEnv.physicalEnvLabel, jobBuilder.workEnv.saveAndReturnButtonLabel, jobBuilder.workEnv.specialWorkCulture, jobBuilder.workEnv.specialWorkCultureLabel, jobBuilder.workEnv.specialWorkCultureSubtext, jobBuilder.workEnv.stepDescription, jobBuilder.workEnv.submitButtonLabel, jobBuilder.workEnv.teamSizeLabel, jobBuilder.workEnv.teamSizePlaceholder, jobBuilder.workEnv.technology.accessToExternal, jobBuilder.workEnv.technology.collaboration, jobBuilder.workEnv.technology.fileSharing, jobBuilder.workEnv.technology.taskManagement, jobBuilder.workEnv.technology.versionControl, jobBuilder.workEnv.technology.videoConferencing, jobBuilder.workEnv.technologyLabel, jobBuilder.workEnv.textAreaPlaceholder1, jobBuilder.workEnv.thisIsOptional, jobBuilder.workEnv.title, jobBuilder.workEnvModal.cancelLabel, jobBuilder.workEnvModal.confirmLabel, jobBuilder.workEnvModal.modalMiddleLabel, jobBuilder.workEnvModal.title, jobBuilder.workEnvModal.workCultureTitle, jobCard.applicants, jobCard.managerTime, jobCard.noActivity, jobCard.userTime, jobReviewHr.headsUp, jobReviewHr.loadingIconText, jobReviewHr.reviewYourPoster, jobReviewHr.summaryLink, languageRequirement.bilingualAdvanced, languageRequirement.bilingualIntermediate, languageRequirement.context.basic, languageRequirement.context.expanded, languageRequirement.description.bilingualAdvanced, languageRequirement.description.bilingualIntermediate, languageRequirement.description.english, languageRequirement.description.englishOrFrench, languageRequirement.description.french, languageRequirement.english, languageRequirement.englishOrFrench, languageRequirement.french, managerSurveyModal.explanation, managerSurveyModal.jobPosterLink, managerSurveyModal.jobPosterLinkTitle, managerSurveyModal.link, managerSurveyModal.managerSurveyLinkTitle, managerSurveyModal.title, openJobCard.claimJob, openJobCard.error, openJobCard.hiringManager, openJobCard.hrAdvisors, openJobCard.reviewRequested, openJobCard.unclaimed, progressTracker.unreachableStep, province.ab, province.ab.abreviation, province.bc, province.bc.abreviation, province.mb, province.mb.abreviation, province.nb, province.nb.abreviation, province.nl, province.nl.abreviation, province.ns, province.ns.abreviation, province.nt, province.nt.abreviation, province.nu, province.nu.abreviation, province.on, province.on.abreviation, province.pe, province.pe.abreviation, province.qc, province.qc.abreviation, province.sk, province.sk.abreviation, province.yk, province.yk.abreviation, ratingGuideAnswer.answerLabel, ratingGuideAnswer.answerPlaceholder, ratingGuideAnswer.nullSelection, ratingGuideAnswer.selectLabel, ratingGuideBuilder.addQuestion, ratingGuideBuilder.assetMissing, ratingGuideBuilder.copyButton, ratingGuideBuilder.copyInstructions, ratingGuideBuilder.criteriaName, ratingGuideBuilder.criteriaTypeHeading, ratingGuideBuilder.essentialMissing, ratingGuideBuilder.instructions, ratingGuideBuilder.narrativeSectionTitle, ratingGuideBuilder.questionHeading, ratingGuideBuilder.ratingGuideHeading, ratingGuideBuilder.sectionTitle, ratingGuideBuilder.skillDescriptionHeading, ratingGuideBuilder.skillHeading, ratingGuideBuilder.targetLevelHeading, ratingGuideBuilder.title, ratingGuideBuilder.titleHeading, ratingGuideQuestion.questionLabel, ratingGuideQuestion.questionPlaceholder, review.applications.alert.oops, review.applications.button.confirm, review.applications.indexPageTitle, review.applications.nonCitizens.description, review.applications.nonCitizens.title, review.applications.optionalConsideration.description, review.applications.optionalConsideration.title, review.applications.priorityApplicants.description, review.applications.priorityApplicants.title, review.applications.reviewSaveFailed, review.applications.screenOutAll, review.applications.screenOutAll.confirm, review.applications.screenedOut.description, review.applications.screenedOut.title, review.applications.underConsideration.description, review.applications.underConsideration.title, review.applications.unqualified.description, review.applications.unqualified.title, review.applications.veteransAndCitizens.description, review.applications.veteransAndCitizens.title, reviewLocations.jpb.basicInfo, reviewLocations.jpb.environment, reviewLocations.jpb.generic, reviewLocations.jpb.heading, reviewLocations.jpb.impact, reviewLocations.jpb.langRequirements, reviewLocations.jpb.skills, reviewLocations.jpb.tasks, securityClearance.reliability, securityClearance.secret, securityClearance.topSecret, skillLevel.asset.description, skillLevel.asset.name, skillLevel.hard.advanced.description, skillLevel.hard.advanced.name, skillLevel.hard.basic.description, skillLevel.hard.basic.name, skillLevel.hard.expert.description, skillLevel.hard.expert.name, skillLevel.hard.intermediate.description, skillLevel.hard.intermediate.name, skillLevel.soft.advanced.description, skillLevel.soft.advanced.name, skillLevel.soft.basic.description, skillLevel.soft.basic.name, skillLevel.soft.expert.description, skillLevel.soft.expert.name, skillLevel.soft.intermediate.description, skillLevel.soft.intermediate.name, wordCounter.skills.longMessage, wordCounter.skills.placeholder, wordCounter.skills.shortMessage, wordCounter.skills.slightlyLongMessage, wordCounter.skills.veryLongMessage, wordCounter.skills.veryShortMessage, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"activity.commentLocation.label\":\"Commentaire trouvé\",\"activity.commentMetadata\":\"{name} ({userRole}) a commenté à {time}.\",\"activity.viewComment.label\":\"Visualiser le commentaire\",\"activityfeed.accordionAccessibleLabel\":\"Cliquez pour voir...\",\"activityfeed.error\":\"Une erreur s'est produite\",\"activityfeed.header\":\"Cliquez pour voir les commentaires {totalActivities}\",\"activityfeed.loading\":\"Chargement de vos activités...\",\"activityfeed.loadingIconText\":\"Nombre d'activités est en cours de chargement...\",\"activityfeed.locations.applicantReview.general\":\"Général\",\"activityfeed.locations.applicantReview.notUnderConsideration\":\"Candidats qui ne sont plus considérés\",\"activityfeed.locations.applicantReview.optionalConsideration\":\"Candidats supplémentaires\",\"activityfeed.locations.applicantReview.underConsideration\":\"Candidats à considérée\",\"activityfeed.locations.applications\":\"Page des Réviser les candidats\",\"activityfeed.locations.hr.preview\":\"RH Page d'aperçu\",\"activityfeed.locations.hr.summary\":\"RH Résumé de l'emploi\",\"activityfeed.locations.notFound\":\"lieu non trouvé\",\"activityfeed.locations.review\":\"Constructeur d'Affiches\",\"activityfeed.locations.review.basicInfo\":\"Renseignements de base\",\"activityfeed.locations.review.environment\":\"Environnement de travail\",\"activityfeed.locations.review.general\":\"Général\",\"activityfeed.locations.review.heading\":\"Titre de la page de l’emploi\",\"activityfeed.locations.review.impact\":\"Incidence\",\"activityfeed.locations.review.langRequirements\":\"Exigences linguistiques\",\"activityfeed.locations.review.skills\":\"Compétences\",\"activityfeed.locations.review.tasks\":\"Taches\",\"activityfeed.locations.screeningPlan\":\"plan d’évaluation\",\"activityfeed.locations.screeningPlan.builder\":\"Concepteur de plans d’évaluation\",\"activityfeed.locations.screeningPlan.general\":\"Général\",\"activityfeed.locations.screeningPlan.ratings\":\"Concepteur de guides de cotation\",\"activityfeed.locations.screeningPlan.summary\":\"Sommaire du plan d’évaluation\",\"activityfeed.noActivities\":\"Aucune activité.\",\"activityfeed.review.accordionAccessibleLabel\":\"Cliquer pour afficher...\",\"activityfeed.review.header\":\"Cliquez pour voir les commentaires {totalActivities}\",\"activityfeed.review.loadingIconText\":\"Les données sont en cours de chargement...\",\"activityfeed.title\":\"Activités\",\"application.review.addNote\":\"+ Ajouter une note\",\"application.review.alert.oops\":\"Oups...\",\"application.review.backToApplicantList\":\"< Sauvegarder et revenir à la liste des candidats\",\"application.review.button.cancel\":\"Annuler\",\"application.review.button.confirm\":\"Confirmer\",\"application.review.button.save\":\"Enregistrer\",\"application.review.button.saved\":\"Enregistrée\",\"application.review.button.saving\":\"Enregistre...\",\"application.review.button.viewJobPoster\":\"Voir l'affiche d'emploi\",\"application.review.collapseAllSkills\":\"Réduire les compétences\",\"application.review.decision\":\"Décision\",\"application.review.editNote\":\"Modifier la note\",\"application.review.emailCandidateLinkTitle\":\"Envoyer un courriel à ce candidat.\",\"application.review.expandAllSkills\":\"Élargir les compétences\",\"application.review.priorityStatus.priority\":\"Priorité\",\"application.review.priorityStatus.priorityLogoTitle\":\"Icône pour candidat prioritaire\",\"application.review.reviewSaveFailed\":\"Une erreur s'est produite lors de l'enregistrement d'un commentaire. Réessayez plus tard.\",\"application.review.reviewStatus.notReviewed\":\"Non révisé\",\"application.review.reviewStatus.screenedOut\":\"Éliminé\",\"application.review.reviewStatus.stillIn\":\"Encore considérée\",\"application.review.reviewStatus.stillThinking\":\"Incertain\",\"application.review.screenInConfirm\":\"Remettre le candidat dans la section à l'étude?\",\"application.review.screenOutConfirm\":\"Éliminer le candidat?\",\"application.review.veteranStatus.veteran\":\"Anciens combattants\",\"application.review.veteranStatus.veteranLogoAlt\":\"icône pour anciens combattants\",\"application.review.viewApplication\":\"Voir l'application\",\"application.review.viewApplicationLinkTitle\":\"Voir l'application de ce candidat.\",\"application.review.viewProfile\":\"Voir le profil\",\"application.review.viewProfileLinkTitle\":\"Voir le profil de ce candidat.\",\"assessmentPlan.addAssessmentButton\":\"Ajouter une évaluation\",\"assessmentPlan.alert.checking\":\"Vérifier si le poste a changé récemment...\",\"assessmentPlan.alert.created\":\"{skills} {count, plural, one {compétence a été ajoutée} other {compétences ont été ajoutées}}.\",\"assessmentPlan.alert.deleted\":\"{skills} {count, plural, one {compétence a été supprimée} other {compétences ont été supprimées}}.\",\"assessmentPlan.alert.explanation\":\"Certaines parties du plan de présélection ont été modifiées pour qu’elles concordent les unes avec les autres.\",\"assessmentPlan.alert.skillAndLevelUpdated\":\"Le champ « {oldSkill} » a été remplacé par « {newSkill} » et a fait l’objet d’une mise à jour.\",\"assessmentPlan.alert.skillLevelUpdated\":\"{skills} {count, plural, one {compétence a été mise à jour} other {compétences ont été mises à jour}}.\",\"assessmentPlan.alert.skillUpdated\":\"Le champ {oldSkill} a été remplacé par {newSkill}.\",\"assessmentPlan.alert.title\":\"Ce poste a récemment changé!\",\"assessmentPlan.assessmentPlanBuilder.instructions\":\"La première étape consiste à choisir des évaluations qui vous permettront d’évaluer les critères que vous avez sélectionnés pour votre offre d’emploi. Vous trouverez ci-dessous vos critères essentiels, suivis de vos critères constituant un atout, le cas échéant. Le concepteur sera enregistré au fur et à mesure, donc lorsque vous aurez terminé, n’hésitez pas à passer à l’étape 2 pour examiner votre travail.\",\"assessmentPlan.assessmentPlanBuilder.shortDescription\":\"(Sélectionnez vos évaluations)\",\"assessmentPlan.assessmentPlanBuilder.title\":\"Concepteur de plans d’évaluation\",\"assessmentPlan.assessmentPlanSummary.shortDescription\":\"(Passez votre plan en revue)\",\"assessmentPlan.assessmentPlanSummary.title\":\"Sommaire du plan d’évaluation\",\"assessmentPlan.assessmentTypesLabel\":\"Types d’évaluation\",\"assessmentPlan.assetCriteria.nullState\":\"Vous n’avez pas choisi de compétences constituant un atout pour cette offre d’emploi.\",\"assessmentPlan.criteriaTitle\":\"{skillName} - {skillLevel}\",\"assessmentPlan.essentialCriteria.nullState\":\"Vous n’avez pas choisi de compétences essentielles pour cette offre d’emploi.\",\"assessmentPlan.instructions.intro\":\"Cet outil vous permet d’élaborer un plan d’évaluation et un guide de cotation pour votre offre d’emploi. L’outil est utilisé en trois étapes :\",\"assessmentPlan.instructions.narrativeNote\":\"Veuillez prendre note que tous les plans d’évaluation comprendront un examen des éléments de preuve fournis par le candidat.\",\"assessmentPlan.pageTitle\":\"Élaborer un plan d’évaluation pour : {jobTitle}\",\"assessmentPlan.ratingGuideBuilder.shortDescription\":\"(Personnalisez vos évaluations)\",\"assessmentPlan.ratingGuideBuilder.title\":\"Concepteur de guides de cotation\",\"assessmentPlan.selectAssessment.label\":\"Sélectionner une évaluation\",\"assessmentPlan.selectAssessment.null\":\"Sélectionner une évaluation\",\"assessmentPlan.skillDescriptionLabel\":\"Description\",\"assessmentPlan.skillLevelDescriptionLabel\":\"Niveau de compétence sélectionné\",\"assessmentPlan.summary.assessmentSummary.noAssessments\":\"Vous n’avez pas sélectionné d’évaluations pour cette offre d’emploi. Ajoutez-les ci-dessus.\",\"assessmentPlan.summary.assessmentSummary.title\":\"Sommaire de l’évaluation\",\"assessmentPlan.summary.assessmentSummary.toolSkillCount\":\"Votre plan utilise {toolCount, plural, =0 {aucun outil} one {# outill} other {# outils}} pour évaluer {skillCount, plural, =0 {compétences} one {# compétence} other {# compétences}}.\",\"assessmentPlan.summary.description\":\"Ceci est un résumé du travail que vous avez effectué ci-dessus. Vous trouverez\\n      chaque évaluation accompagnée d'une liste consolidée des compétences essentielles\\n      et des atouts qui s'y rattachent.\",\"assessmentPlan.summary.skillCount\":\"Évaluer {count, plural, one {# compétence} other {# compétences}}.\",\"assessmentPlan.summary.skillsNullState\":\"Aucune compétence n’est évaluée par cet outil.\",\"assessmentPlan.summary.title\":\"2. Sommaire du plan d’évaluation\",\"assessmentPlan.title\":\"Concepteur de plans d’évaluation\",\"assessmentType.applicationScreeningQuestion\":\"Questions de présélection dans le cadre du processus d’embauche\",\"assessmentType.applicationScreeningQuestion.description\":\"Ces questions paraissent dans le formulaire de demande, et sont présentées dans le Nuage de talents. Elles donnent un premier aperçu de la compréhension, du processus, des connaissances ou de l’adaptation culturelle du candidat pour le poste.\",\"assessmentType.groupTest\":\"Test de groupe\",\"assessmentType.groupTest.description\":\"Les candidats effectuent ce test en temps réel conjointement avec d’autres candidats, des membres de l’équipe ou des animateurs afin de déterminer leurs compétences exceptionnelles, leur habileté à communiquer au sein d’une équipe.\",\"assessmentType.informalPhoneConversation\":\"Conversation téléphonique informelle\",\"assessmentType.informalPhoneConversation.description\":\"Une conversation informelle entre un membre du comité d’embauche et un(e) candidat(e), visant à découvrir les connaissances, les aptitudes ou les traits de personnalité du candidat; les conversations peuvent varier d’un candidat à l’autre.\",\"assessmentType.interview\":\"Entrevue\",\"assessmentType.interview.description\":\"Examen formel de questions-réponses effectué en temps réel entre le comité de sélection et le (la) candidat(e). Les questions ont pour but d'évaluer l'expertise, le niveau et l'approche des compétences. Chaque question est élaborée à l’avance et suit la même structure entre tous les candidats interrogés.\",\"assessmentType.narrativeAssessment\":\"Examen narratif\",\"assessmentType.narrativeAssessment.description\":\"Il s’agit d’une description demandée au cours du processus de demande, dans laquelle les candidats s’identifient et décrivent leur expérience et leur niveau de compétence.\",\"assessmentType.narrativeReview.standardAnswer\":\"La description fournie contient suffisamment d’éléments de preuve pour faire passer ce candidat aux étapes de présélection suivantes.\",\"assessmentType.narrativeReview.standardQuestion\":\"L’examen descriptif des compétences comprend toutes les descriptions ajoutées par le candidat dans sa demande.\",\"assessmentType.onSiteExam\":\"Épreuve sur place\",\"assessmentType.onSiteExam.description\":\"Épreuve préparée qui exige que le candidat effectue à un endroit précis et sous supervision un test visant à évaluer ses compétences et sa technique.\",\"assessmentType.onlineExam\":\"Épreuve en ligne\",\"assessmentType.onlineExam.description\":\"Épreuve préparée qui n’exige pas de supervision, qui peut être effectuée de n’importe quel endroit au moyen d’un accès à Internet, et qui doit être achevée dans un intervalle de temps défini.\",\"assessmentType.portfolioReview\":\"Examen du portefeuille\",\"assessmentType.portfolioReview.description\":\"Au cours du processus de demande, les candidats donnent accès à des échantillons de leur travail pour démontrer leur niveau de compétence et étayer leurs prétentions à cet égard.\",\"assessmentType.referenceCheck\":\"Vérification des références\",\"assessmentType.referenceCheck.description\":\"Au cours du processus de demande, les candidats fournissent les coordonnées d’une connaissance qui peut valider et confirmer leurs compétences, leurs connaissances ou leurs aptitudes.\",\"assessmentType.seriousGames\":\"Jeux sérieux\",\"assessmentType.seriousGames.description\":\"Test comprenant l’utilisation de jeux pour explorer les aptitudes en communication, la résilience et l’intelligence émotionnelle d’un(e) candidat(e), entre autres compétences générales.\",\"assessmentType.takeHomeExam\":\"Épreuve à la maison\",\"assessmentType.takeHomeExam.description\":\"Les candidats reçoivent une trousse matérielle contenant les outils d’évaluation; ils effectuent l’évaluation à un moment qui leur convient le mieux, et à un endroit de leur choix, sans supervision, et ils doivent retourner les documents avant une date limite précise.\",\"button.copied\":\"Copié!\",\"button.copyEmails\":\"Copier des emails\",\"button.copyToClipboard\":\"Copier sur le presse-papier\",\"button.toggleAccordion\":\"Basculer pour voir les candidats concernés.\",\"commentForm.comment.label\":\"Ajouter un commentaire\",\"commentForm.comment.placeholder\":\"À titre d’exemple, entrez votre question, votre recommandation, etc.\",\"commentForm.commentLocation.label\":\"Emplacement du commentaire\",\"commentForm.commentLocation.nullSelection\":\"Sélectionnez un emplacement...\",\"commentForm.commentType.label\":\"Type de commentaire\",\"commentForm.commentType.nullSelection\":\"Sélectionner un type de commentaire\",\"commentForm.submitButton.label\":\"Soumettre un commentaire\",\"commentType.comment\":\"Commentaire\",\"commentType.question\":\"Question\",\"commentType.recommendation\":\"Recommandation\",\"commentType.requiredAction\":\"Mesure requise\",\"criteria.asset\":\"Compétences constituant un atout\",\"criteria.essential\":\"Compétences essentielles\",\"criteriaForm.skillLevelSelectionLabel\":\"Choisir un niveau de compétence\",\"criteriaForm.skillSpecificityLabel\":\"Détails supplémentaires pour cette compétence\",\"criteriaForm.skillSpecificityPlaceholder\":\"Ajoutez du contexte ou des détails à la définition de cette compétence qui n'apparaîtront que sur votre affiche d'emploi. Ceci sera examiné par votre conseiller en ressources humaines.\",\"criteriaType.asset\":\"Atout\",\"criteriaType.essential\":\"Essentiel\",\"demoSubmitJobModal.cancel\":\"Retourner\",\"demoSubmitJobModal.explanation\":\"Seuls les ministères partenaires de Nuage des talents ont accès à l'examen et à la publication des avis d'emploi.\",\"demoSubmitJobModal.link\":\"<a>Savoir si vous pouvez accéder à ces fonctions</a>.\",\"demoSubmitJobModal.link.title\":\"Découvrez comment accéder aux fonctions d'examen et de publication des avis d'emploi.\",\"demoSubmitJobModal.title\":\"Il semble que vous utilisez un compte de démonstration.\",\"errorToast.title\":\"Quelque chose a mal tourné!\",\"formInput.error\":\"Cette entrée a une erreur.\",\"formInput.required\":\"Champs obligatoires\",\"formValidation.checkboxRequired\":\"Il faut cocher au moins une case.\",\"formValidation.invalidSelection\":\"Veuillez choisir parmi les options disponibles.\",\"formValidation.required\":\"Ce champ est requis.\",\"formValidation.tooLong\":\"Trop longue?\",\"formValidation.tooShort\":\"Trop courte?\",\"hrJobIndex.departmentPlaceholder\":\" [Chargement du ministère]\",\"hrJobIndex.jobTitleMissing\":\"Titre manquant \",\"hrJobIndex.managerLoading\":\"Chargement...\",\"hrJobIndex.preview\":\"Prévisualiser l’avis d’emploi \",\"hrJobIndex.reviewDraft\":\"Réviser l’ébauche \",\"hrJobIndex.viewActivity\":\"Afficher l’activité \",\"hrJobIndex.viewScreeningPlan\":\"Afficher le plan d’évaluation \",\"hrJobIndex.viewSummary\":\"Afficher le résumé \",\"hrPortal.jobPageIndex.clickToView\":\"Cliquer pour afficher...\",\"hrPortal.jobPageIndex.completedJobsHeader\":\" Mes mesures d’emploi achevées \",\"hrPortal.jobPageIndex.hideAccordion\":\" Masquer \",\"hrPortal.jobPageIndex.jobActionsEmpty\":\"Réclamer un emploi ci-dessous!\",\"hrPortal.jobPageIndex.jobActionsHeader\":\"Mes mesures d’emploi achevée\",\"hrPortal.jobPageIndex.jobActionsMessage\":\"Voici une liste de toutes les mesures d’emploi auxquelles vous participez actuellement. Vous cherchez une ancienne offre d’emploi? Cochez la section « Mes mesures d’emploi achevées » sous vos offres d’emploi actives.\",\"hrPortal.jobPageIndex.noJobsCompleted\":\"Aucune offre d’emploi achevée à l’heure actuelle!\",\"hrPortal.jobPageIndex.preDepartmentName\":\"Toutes les offres d’emploi dans\",\"hrPortal.jobPageIndex.showAccordion\":\"Afficher \",\"hrPortal.jobPageIndex.unclaimedJobsEmpty\":\"Il n’y a actuellement aucune offre d’emploi active disponible.\",\"hrPortal.jobPageIndex.unclaimedJobsMessage\":\"Voici la liste de toutes les mesures actives dans votre ministère. À partir de ce point, vous pouvez « réclamer » un emploi qui sera transféré dans votre liste d’emploi ci-dessus, ce qui vous permettra de commencer à collaborer avec le gestionnaire d’embauche pour trouver le meilleur talent possible. Si vous réclamez un emploi par erreur, ne craignez rien, car vous pouvez cliquer sur le résumé de l’emploi et retirer votre nom au moyen du bouton « Renoncer à cet emploi ».\",\"job.daysSinceClosed\":\"{dayCount, plural, =0 {Aucun jour} one {# jour} other {# jours}} depuis la fermeture\",\"jobBuilder.collaborativeness.01.description\":\"Les membres de notre équipe proviennent de divers milieux, et ont des points de vue et des compétences variés. Nous nous appuyons sur nos points forts. Collectivement, nous nous approprions les objectifs de l’équipe et nous sommes constamment à la recherche de façons de s’entraider.\",\"jobBuilder.collaborativeness.01.title\":\"Collaboratif\",\"jobBuilder.collaborativeness.02.description\":\"Notre équipe possède un ensemble de compétences diversifiées et nous reconnaissons les forces de chacun. Nous travaillons ensemble souvent et nous intervenons rapidement quand une personne demande de l’aide.\",\"jobBuilder.collaborativeness.02.title\":\"Assez collaboratif\",\"jobBuilder.collaborativeness.03.description\":\"Chaque membre de notre équipe possède une pièce du casse-tête et jouit de la liberté de choisir sa propre façon de travailler.\",\"jobBuilder.collaborativeness.03.title\":\"Assez indépendant \",\"jobBuilder.collaborativeness.04.description\":\"Chaque membre de notre équipe prend en charge sa pièce du casse-tête. La façon dont nous accomplissons notre travail importe peu, tant qu’il est de qualité supérieure.\",\"jobBuilder.collaborativeness.04.title\":\"Indépendant\",\"jobBuilder.criteriaForm.addSpecificity\":\"Je voudrais ajouter des détails à cette définition qui sont spécifiques à ce poste.\",\"jobBuilder.criteriaForm.button.add\":\"Ajouter une compétence\",\"jobBuilder.criteriaForm.button.cancel\":\"Annuler\",\"jobBuilder.criteriaForm.chooseSkillLevel\":\"Choisir un niveau de compétence\",\"jobBuilder.criteriaForm.or\":\"ou\",\"jobBuilder.criteriaForm.removeSpecificity\":\"Supprimer la particularité supplémentaire.\",\"jobBuilder.criteriaForm.skillDefinition\":\"Définition de la compétence\",\"jobBuilder.criterion.requiredSkill\":\"Compétence requise :\",\"jobBuilder.culturePace.01.description\":\"Nos échéances sont serrées, nous traitons plusieurs tâches en même temps et nos priorités changent constamment. Notre travail devrait être effectué en portant des chaussures de courses!\",\"jobBuilder.culturePace.01.title\":\"Un rythme très rapide\",\"jobBuilder.culturePace.02.description\":\"Nos échéances sont habituellement rapprochées, nous traitons plusieurs tâches en même temps et nos priorités changent régulièrement. Notre travail nous force à rester sur le qui-vive!\",\"jobBuilder.culturePace.02.title\":\"Rythme rapide\",\"jobBuilder.culturePace.03.description\":\"Nos échéances sont régulières et prévisibles, nous traitons quelques tâches à la fois et nos priorités changent de temps à autre. Nous maintenons un certain équilibre.\",\"jobBuilder.culturePace.03.title\":\"Soutenu\",\"jobBuilder.culturePace.04.description\":\"Notre travail est continu, donc il n’y a pas beaucoup d’échéances. Habituellement, nous ne sommes pas obligés d’équilibrer la répartition des tâches et nos priorités changent rarement. Nous nous sentons bien dans la routine.\",\"jobBuilder.culturePace.04.title\":\"Très soutenu\",\"jobBuilder.details.SelectClassAndLvlMessage\":\"Veuillez choisir une classification et un niveau avant de préparer\\r\\n                          les exigences en matière d’éducation.\",\"jobBuilder.details.cityLabel\":\"Dans quelle ville l'équipe est-elle située?\",\"jobBuilder.details.cityPlaceholder\":\"P. ex. Ottawa\",\"jobBuilder.details.classificationLabel\":\"Quelle est la classification?\",\"jobBuilder.details.classificationNullSelection\":\"Veuillez sélectionner la classification...\",\"jobBuilder.details.classificationOptions.AD\":\"AD - Services administratifs\",\"jobBuilder.details.classificationOptions.AS\":\"AS – Services administratifs\",\"jobBuilder.details.classificationOptions.BI\":\"BI – Sciences biologiques\",\"jobBuilder.details.classificationOptions.CO\":\"CO - Commerce\",\"jobBuilder.details.classificationOptions.CR\":\"CR - Commis aux écritures et aux règlements\",\"jobBuilder.details.classificationOptions.CS\":\"CS – Systèmes d’ordinateurs\",\"jobBuilder.details.classificationOptions.EC\":\"EC - Économique et services de sciences sociales\",\"jobBuilder.details.classificationOptions.EX\":\"EX - Direction\",\"jobBuilder.details.classificationOptions.FO\":\"FO - Sciences forestières\",\"jobBuilder.details.classificationOptions.IS\":\"IS – Services d’information\",\"jobBuilder.details.classificationOptions.PC\":\"PC – Sciences physiques\",\"jobBuilder.details.classificationOptions.PE\":\"PE – Gestion du personnel\",\"jobBuilder.details.classificationOptions.PM\":\"PM – Administration des programmes\",\"jobBuilder.details.documentTitle\":\"Constructeur d'affiches: Renseignements\",\"jobBuilder.details.educationMessages.AD\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires;\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’elle soit prise en considération. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.AS\":\"Diplôme d’études secondaires ou équivalent :\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.BI\":\"Diplôme d’études postsecondaires:\\nDiplôme d’études postsecondaires en sciences naturelles, physiques ou appliquées, avec spécialisation dans un domaine lié aux fonctions du poste.\",\"jobBuilder.details.educationMessages.CO\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.CR\":\"Deux années d’études secondaires ou l’équivalent:\\nAu moins deux années d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative aux deux années d’études secondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.CS\":\"Deux (2) ans d’études postsecondaires ou l’équivalent:\\nDeux années d’études postsecondaires en informatique, en technologie de l’information, en gestion de l’information ou dans une autre spécialité pertinente à ce poste.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente aux deux années d’études postsecondaires requises, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.EC\":\"Diplôme d’études postsecondaires:\\nun diplôme d’un établissement d’enseignement postsecondaire reconnu avec spécialisation acceptable en économique, en sociologie ou en statistique.\\n\\nLes candidats doivent toujours détenir un diplôme. Les cours de spécialisation doivent être acceptables et avoir été suivis auprès d’un établissement d’enseignement postsecondaire reconnu, mais pas nécessairement dans le cadre d’un programme de diplôme dans la spécialisation requise. La spécialisation peut également être obtenue grâce à un agencement acceptable d’études, de formation et (ou) d’expérience.\",\"jobBuilder.details.educationMessages.EX\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires, ou admissibilité à un titre professionnel reconnu dans une province ou un territoire du Canada.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.FO\":\"Diplôme d’études postsecondaires:\\nUn diplôme en foresterie ou en produits du bois d’un établissement d’enseignement postsecondaire reconnu.\\n\\nou\\n\\nUn diplôme dans une science connexe d’un établissement d’enseignement postsecondaire reconnu agencé à une expérience acceptable.\",\"jobBuilder.details.educationMessages.IS\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.PC\":\"Diplôme d’études postsecondaires:\\nDiplôme d’études postsecondaires, avec spécialisation en physique, en géologie, en chimie ou dans une autre science liée aux fonctions du poste.\",\"jobBuilder.details.educationMessages.PE\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires, avec spécialisation en gestion des ressources humaines, en relations de travail ou en relations industrielles, en psychologie, en administration publique ou en administration des affaires, en développement organisationnel, en sciences de l’éducation, en sciences sociales, en sociologie ou dans un autre domaine lié aux fonctions du poste.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.PM\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationRequirementCopyAndPaste\":\"Si vous voulez personnaliser ce paragraphe, veuillez le copier-coller dans la zone de texte ci-dessous pour le modifier. \",\"jobBuilder.details.educationRequirementHeader\":\"En fonction du niveau de classification sélectionné, le paragraphe générique suivant apparaîtra sur l’offre d’emploi. \",\"jobBuilder.details.educationRequirementPlaceholder\":\"Collez le paragraphe ici pour le modifier...\",\"jobBuilder.details.educationRequirementReviewChanges\":\"Votre conseiller en RH examinera vos changements.\",\"jobBuilder.details.educationRequirementsLabel\":\"Personnaliser les exigences en matière d’études :\",\"jobBuilder.details.flexHoursGroupBody\":\"Vous voulez appuyer un milieu de travail plus inclusif sur le plan de l’égalité des sexes? Des études montrent que l’horaire flexible est un excellent moyen d’améliorer les possibilités des femmes et des parents.\",\"jobBuilder.details.flexHoursGroupHeader\":\"À quelle fréquence les heures flexibles sont-elles permises?\",\"jobBuilder.details.flexHoursGroupLabel\":\"Choisissez les horaires souples :\",\"jobBuilder.details.frequencyAlwaysLabel\":\"Presque toujours\",\"jobBuilder.details.frequencyFrequentlyLabel\":\"Habituellement\",\"jobBuilder.details.frequencyNeverLabel\":\"Jamais\",\"jobBuilder.details.frequencyOccasionallyLabel\":\"Rarement\",\"jobBuilder.details.frequencySometimesLabel\":\"Parfois\",\"jobBuilder.details.heading\":\"Détails sur l’emploi\",\"jobBuilder.details.languageLabel\":\"Quel est le profil linguistique?\",\"jobBuilder.details.languageNullSelection\":\"Veuillez sélectionner le profil linguistique...\",\"jobBuilder.details.levelLabel\":\"Quel est le niveau?\",\"jobBuilder.details.levelNullSelection\":\" Veuillez sélectionner le niveau...\",\"jobBuilder.details.modalBody\":\"Voici un aperçu des informations sur le travail que vous venez de saisir. N'hésitez pas à revenir en arrière et à modifier des éléments ou à passer à l'étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.details.modalCancelLabel\":\"Retourner\",\"jobBuilder.details.modalConfirmLabel\":\"Étape suivante\",\"jobBuilder.details.modalHeader\":\"Vous partez du bon pied!\",\"jobBuilder.details.modalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.details.overtimeFrequentlyLabel\":\"Oui, il est souvent nécessaire de travailler des heures supplémentaires dans le cadre de ce poste.\",\"jobBuilder.details.overtimeGroupHeader\":\"Le temps supplémentaire est-il requis?\",\"jobBuilder.details.overtimeGroupLabel\":\"Sélectionner l’exigence en matière de temps supplémentaire\",\"jobBuilder.details.overtimeNoneRequiredLabel\":\"Non, le temps supplémentaire n’est pas nécessaire pour ce poste.\",\"jobBuilder.details.overtimeOpportunitiesAvailableLabel\":\"Oui, il est possible que des heures supplémentaires soient offertes aux personnes intéressées.\",\"jobBuilder.details.provinceLabel\":\"Dans quelle province l'équipe est-elle située?\",\"jobBuilder.details.provinceNullSelection\":\"Veuillez sélectionner la province...\",\"jobBuilder.details.remoteWorkCanadaLabel\":\"Oui, je suis prêt(e) à superviser des employés dans n'importe quelle province ou territoire au Canada.\",\"jobBuilder.details.remoteWorkGroupBody\":\"Vous voulez les meilleurs talents au Canada? Vous augmentez vos chances lorsque vous permettez à ceux qui se trouvent dans d’autres régions du Canada de présenter une demande. La diversité régionale ajoute également une perspective à la culture de votre équipe. Assurez-vous d’en discuter à l’avance avec votre conseiller en RH.\",\"jobBuilder.details.remoteWorkGroupHeader\":\"Le travail à distance est-il permis?\",\"jobBuilder.details.remoteWorkGroupLabel\":\"Choisissez le travail à distance :\",\"jobBuilder.details.remoteWorkNoneLabel\":\"Non, j’exige que l’employé(e) qui occupe ce poste soit dans le même lieu géographique que le bureau.\",\"jobBuilder.details.remoteWorkWorldLabel\":\"Oui, je suis prêt(e) à superviser des employés partout dans le monde.\",\"jobBuilder.details.returnButtonLabel\":\"Enregistrer et retourner à l’introduction\",\"jobBuilder.details.securityLevelLabel\":\"Quel est le niveau de sécurité?\",\"jobBuilder.details.securityLevelNullSelection\":\"Veuillez sélectionner le niveau de sécurité...\",\"jobBuilder.details.submitButtonLabel\":\"Prochain\",\"jobBuilder.details.teleworkGroupBody\":\"Démontrez que vous faites confiance à vos employés et que vous avez une culture organisationnelle positive. Autorisez le télétravail en option.\",\"jobBuilder.details.teleworkGroupHeader\":\"À quelle fréquence le télétravail est-il permis?\",\"jobBuilder.details.teleworkGroupLabel\":\"Choisissez le télétravail :\",\"jobBuilder.details.termLengthLabel\":\"Quelle est la durée du poste (en mois)?\",\"jobBuilder.details.termLengthPlaceholder\":\" P.ex. 3\",\"jobBuilder.details.titleLabel\":\"Quel est le titre du poste?\",\"jobBuilder.details.titlePlaceholder\":\"P. ex. Chercheur - utilisateurs\",\"jobBuilder.details.travelFrequentlyLabel\":\"Oui, des déplacements sont souvent exigés pour le poste.\",\"jobBuilder.details.travelGroupHeader\":\"Est-il nécessaire de voyager?\",\"jobBuilder.details.travelGroupLabel\":\"Sélectionner l’exigence des déplacements\",\"jobBuilder.details.travelNoneRequiredLabel\":\"Non, aucun déplacement n’est nécessaire pour ce poste.\",\"jobBuilder.details.travelOpportunitiesAvailableLabel\":\"Oui, des possibilités de voyage sont offertes pour ceux qui sont intéressés.\",\"jobBuilder.experimental.01.description\":\"Notre travail est défini en essayant de nouvelles idées, méthodes et activités pour aborder des problèmes persistants auxquels les approches traditionnelles ne peuvent pas remédier.\",\"jobBuilder.experimental.01.title\":\"Approche expérimentale\",\"jobBuilder.experimental.02.description\":\"Nous essayons des idées, méthodes et activités nouvelles et éprouvées pour améliorer la façon de faire notre travail.\",\"jobBuilder.experimental.02.title\":\"Approche assez expérimentale\",\"jobBuilder.experimental.03.description\":\"Notre travail comprend quelques tâches administratives qui se répètent quotidiennement. Les outils que nous utilisons nous conviennent, mais nous sommes ouverts à améliorer notre processus..\",\"jobBuilder.experimental.03.title\":\"Travail assez prévisible\",\"jobBuilder.experimental.04.description\":\"La majeure partie de notre travail comprend quelques tâches administratives qui se répètent quotidiennement. La cohérence est un facteur clé ici, donc nous suivons un processus standard avec des outils éprouvés.\",\"jobBuilder.experimental.04.title\":\"Travail prévisible\",\"jobBuilder.facing.01.description\":\"Nous représentons l’image de marque des services que nous offrons et nous passons la plupart de notre temps à interagir directement avec le public.\",\"jobBuilder.facing.01.title\":\"Services orientés vers le citoyen\",\"jobBuilder.facing.02.description\":\"Nous passons beaucoup de temps à interagir directement avec le public, mais nous travaillons également en coulisses afin d’appuyer d’autres personnes.\",\"jobBuilder.facing.02.title\":\"Services essentiellement orientés vers le citoyen\",\"jobBuilder.facing.03.description\":\" Nous travaillons généralement en coulisses et nous effectuons un travail important qui rend possible la prestation de services.\",\"jobBuilder.facing.03.title\":\"Services essentiellement administratifs\",\"jobBuilder.facing.04.description\":\" Nous travaillons en coulisses et nous effectuons un travail important qui rend possible la prestation de services. Nous nous sentons bien quand nous appuyons les autres.\",\"jobBuilder.facing.04.title\":\"Services administratifs\",\"jobBuilder.impact.button.goBack\":\"Revenir en arrière\",\"jobBuilder.impact.button.next\":\"Prochain\",\"jobBuilder.impact.button.nextStep\":\"Passer à l’étape suivante\",\"jobBuilder.impact.button.return\":\"Enregistrer et retourner à l’environnement de travail\",\"jobBuilder.impact.button.skipToReview\":\"Passer pour la révision\",\"jobBuilder.impact.departmentsLoading\":\"Chargement des données du Ministère...\",\"jobBuilder.impact.documentTitle\":\"Constructeur d’affiches: Incidences\",\"jobBuilder.impact.header.department\":\"Comment votre ministère engendre des incidences:\",\"jobBuilder.impact.hireBody\":\"Décrivez la contribution du nouvel employé dans le cadre de son rôle. Misez sur la valeur qu’il apportera et non des tâches particulières (vous les indiquerez plus loin). Par exemple « Dans ce rôle, vous contribuerez à … » ou « En tant que membre de l’équipe, vous serez responsable de nous aider à… »\",\"jobBuilder.impact.hireHeader\":\"Comment le nouvel employé engendra des incidences\",\"jobBuilder.impact.hireLabel\":\"Déclaration d'incidences des employés\",\"jobBuilder.impact.hirePlaceholder\":\"Souvenez-vous de ne pas utiliser de jargon administratif.\",\"jobBuilder.impact.modalDescription\":\"Voici un aperçu de l’énoncé des incidences que vous venez de rédiger.\\n                        N'hésitez pas à revenir en arrière pour modifier le texte.\\n                        Passez à l'étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.impact.modalTitle\":\"Excellent travail!\",\"jobBuilder.impact.points.counts\":\"La première chose que les candidats voient lorsqu’ils cliquent sur votre avis de concours est votre énoncé des incidences. Assurez-vous donc de bien le rédiger!\",\"jobBuilder.impact.points.highlight\":\"C’est votre chance de souligner en quoi votre travail est utile et intéressant.\",\"jobBuilder.impact.points.opportunity\":\"Le fait de travailler pour le gouvernement fédéral offre une importante occasion d’engendrer d’importantes incidences pour les Canadiens.\",\"jobBuilder.impact.selectDepartment\":\"Vous devez choisir un ministère pour cet emploi.\",\"jobBuilder.impact.teamBody\":\"Décrivez la valeur apportée aux Canadiens par votre équipe/service/initiative. Peu importe si votre travail consiste à offrir des services directement aux citoyens ou des services administratifs, d’innovation ou d’entretien, de priorité absolue ou continus. Décrivez comment votre travail contribue à améliorer le Canada comme si vous parliez à quelqu’un qui ne connaît rien de votre travail.\",\"jobBuilder.impact.teamHeader\":\"Comment votre équipe engendre des impacts:\",\"jobBuilder.impact.teamLabel\":\"Déclaration d’incidence d'équipe\",\"jobBuilder.impact.teamPlaceholder\":\"Employez un ton informel, franc et amical\",\"jobBuilder.impact.title\":\"Rédiger votre énoncé des incidences\",\"jobBuilder.impact.unknownDepartment\":\"Erreur : Choisissez un ministère inconnu.\",\"jobBuilder.impactPreview.title\":\"Impact\",\"jobBuilder.intro.accountSettingsLinkText\":\"les paramètres de votre compte\",\"jobBuilder.intro.accountSettingsLinkTitle\":\"Visitez la page Paramètres du compte.\",\"jobBuilder.intro.changeDepartment\":\"Pour changer de département, veuillez contacter {email}. Pour en savoir plus, visitez {accountSettings}.\",\"jobBuilder.intro.completeInLanguage\":\"Répondez à l’offre d’emploi dans la langue officielle de votre choix. Nous nous chargerons de la traduction\",\"jobBuilder.intro.contactUs\":\"Nous avons également fourni des instructions et des exemples pour vous guider tout au long du processus, mais si vous avez toujours des questions, veuillez communiquer avec le {link}\",\"jobBuilder.intro.continueButtonLabelEN\":\"Continue in English\",\"jobBuilder.intro.continueButtonLabelFR\":\"Continuer en français\",\"jobBuilder.intro.departmentHeader\":\"Informations sur le département de {name}\",\"jobBuilder.intro.departmentLabel\":\"Ministère\",\"jobBuilder.intro.departmentNullSelection\":\"Choisissez un ministère...\",\"jobBuilder.intro.divisionLabelEN\":\"La division de {name} (en anglais)\",\"jobBuilder.intro.divisionLabelFR\":\"La division de {name} (en français)\",\"jobBuilder.intro.divisionPlaceholderEN\":\"p. ex., Digital Change\",\"jobBuilder.intro.divisionPlaceholderFR\":\"p. ex., Changement numérique\",\"jobBuilder.intro.documentTitle\":\"Constructeur d'affiches: Intro\",\"jobBuilder.intro.emailLinkText\":\"Nuage de talents\",\"jobBuilder.intro.emailLinkTitle\":\"Envoyer un courriel au Nuage de talents.\",\"jobBuilder.intro.explanation\":\"Le présent outil vous aidera à créer une offre d’emploi qui vous aidera à attirer les bons talents. Avant de commencer à créer l’offre d’emploi, veuillez prendre le temps de {boldText}\",\"jobBuilder.intro.explanation.boldText\":\"confirmer l’exactitude de vos renseignements personnels ci-dessous.\",\"jobBuilder.intro.formDescription\":\"Ces renseignements apparaîtront dans l’offre d’emploi pour donner de plus amples renseignements aux candidats sur les personnes avec qui ils travailleront.\",\"jobBuilder.intro.formTitle\":\"Information du profil de {name}\",\"jobBuilder.intro.jobTitleLabelEN\":\"Le poste de {name} (en anglais)\",\"jobBuilder.intro.jobTitleLabelFR\":\"Le poste de {name} (en français)\",\"jobBuilder.intro.jobTitlePlaceholderEN\":\"Par exemple : Design Manager\",\"jobBuilder.intro.jobTitlePlaceholderFR\":\"Par exemple : Gestionnaire de la conception\",\"jobBuilder.intro.managerLoading\":\"Votre profil de gestionnaire est en cours de chargement...\",\"jobBuilder.intro.welcome\":\"Bienvenue sur le Constructeur d'Affiches\",\"jobBuilder.jobLoading\":\"Votre offre d’emploi est en train de se charger...\",\"jobBuilder.loading\":\"Votre offre d’emploi est en train de se charger...\",\"jobBuilder.mgmtStyle.01.description\":\"Il n’y a aucun cadre intermédiaire ici, donc nous prenons, nous-mêmes, la plupart des décisions importantes et vous pouvez vous attendre à interagir quotidiennement avec nos cadres supérieures.\",\"jobBuilder.mgmtStyle.01.title\":\"Horizontale\",\"jobBuilder.mgmtStyle.02.description\":\"Nous avons quelques cadres intermédiaires ici, mais nous prenons, nous-mêmes, les décisions quotidiennes. Ne soyez pas surpris d’interagir assez souvent avec nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.02.title\":\"Assez horizontale\",\"jobBuilder.mgmtStyle.03.description\":\"Notre équipe a un rôle clairement défini. Nous faisons régulièrement le point avec les cadres intermédiaires pour approuver et mettre à jour la vision stratégique de nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.03.title\":\"Assez verticale\",\"jobBuilder.mgmtStyle.04.description\":\"Notre équipe a un rôle clairement défini. Nous faisons souvent le point auprès des cadres intermédiaires pour approuver et procéder à la mise à jour de la vision stratégique de nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.04.title\":\"Verticale\",\"jobBuilder.preview.city\":\"Ville\",\"jobBuilder.preview.classification\":\"Classification\",\"jobBuilder.preview.classificationEducation\":\"Classification et éducation\",\"jobBuilder.preview.education\":\"Éducation\",\"jobBuilder.preview.flexibleHours\":\"Heures flexibles\",\"jobBuilder.preview.jobInformation\":\"Renseignements sur l’emploi\",\"jobBuilder.preview.jobTitle\":\"Titre du poste\",\"jobBuilder.preview.languageProfile\":\"Profil linguistique\",\"jobBuilder.preview.lengthOfTheTerm\":\"Durée du poste\",\"jobBuilder.preview.level\":\"Niveau\",\"jobBuilder.preview.overtime\":\"Heures supplémentaires\",\"jobBuilder.preview.province\":\"Province\",\"jobBuilder.preview.remoteWork\":\"Travail à distance\",\"jobBuilder.preview.securityClearance\":\"Cote de sécurité\",\"jobBuilder.preview.telework\":\"Télétravail\",\"jobBuilder.preview.termLength\":\"{termMonths, plural, =0 {pas de mois} other {# mois}}\",\"jobBuilder.preview.travel\":\"Voyage\",\"jobBuilder.preview.workStyles\":\"Styles de travail\",\"jobBuilder.progressTracker.label.finish\":\"Fin\",\"jobBuilder.progressTracker.label.start\":\"Début\",\"jobBuilder.progressTracker.label.step1\":\"Étape 1 / 5\",\"jobBuilder.progressTracker.label.step2\":\"Étape 2 / 5\",\"jobBuilder.progressTracker.label.step3\":\"Étape 3 / 5\",\"jobBuilder.progressTracker.label.step4\":\"Étape 4 / 5\",\"jobBuilder.progressTracker.label.step5\":\"Étape 5 / 5\",\"jobBuilder.progressTracker.title.impact\":\"Incidence\",\"jobBuilder.progressTracker.title.jobInfo\":\"Renseignements\",\"jobBuilder.progressTracker.title.review\":\"Révision\",\"jobBuilder.progressTracker.title.skills\":\"Compétences\",\"jobBuilder.progressTracker.title.tasks\":\"Tâches\",\"jobBuilder.progressTracker.title.welcome\":\"Bienvenue\",\"jobBuilder.progressTracker.title.workEnv\":\"Environnement\",\"jobBuilder.review.GovernmentClass\":\"Classification gouvernementale\",\"jobBuilder.review.assetHeading\":\"Compétences souhaitables\",\"jobBuilder.review.averageAnnualSalary\":\"Échelle de salaire annuel\",\"jobBuilder.review.basicInformationHeading\":\"Renseignements de base\",\"jobBuilder.review.button.return\":\"Enregistrer et retourner aux compétences\",\"jobBuilder.review.button.submit\":\"Cela semble bon!\",\"jobBuilder.review.comesLater\":\"Cette étape survient plus tard.\",\"jobBuilder.review.confirm.cancel\":\"Annuler\",\"jobBuilder.review.confirm.submit\":\"Oui, transmettre\",\"jobBuilder.review.confirm.title\":\"Félicitations! Êtes-vous prêt à transmettre l’offre d’emploi?\",\"jobBuilder.review.criteriaSection\":\"Critères\",\"jobBuilder.review.cultureSection\":\"Environnement et culture\",\"jobBuilder.review.documentTitle\":\"Constructeur d'affiches: Révision\",\"jobBuilder.review.duration\":\"Durée\",\"jobBuilder.review.educationalHeading\":\"Exigences relatives aux études\",\"jobBuilder.review.headsUp\":\"Un simple rappel. Nous avons réorganisé certains renseignements fournis afin de vous aider à comprendre comment le candidat verra l’information une fois publiée.\",\"jobBuilder.review.impactEditLink\":\"Modifier cet élément à l’étape 03, Incidence.\",\"jobBuilder.review.impactHeading\":\"Incidence\",\"jobBuilder.review.infoEditLink\":\"Modifier cet élément à l’étape 01, Renseignements sur le poste\",\"jobBuilder.review.jobPageHeading\":\"Titre de la page de l’emploi\",\"jobBuilder.review.languageHeading\":\"Exigences linguistiques\",\"jobBuilder.review.languageProfile\":\"Profil linguistique\",\"jobBuilder.review.managerDataLoading\":\"Les données du gestionnaire sont en cours de chargement...\",\"jobBuilder.review.managerHeading\":\"Les données du gestionnaire sont en cours de chargement...\",\"jobBuilder.review.managerIncomplete\":\"Veuillez remplir votre profil de gestionnaire.\",\"jobBuilder.review.managerPosition\":\"{position} au {department}\",\"jobBuilder.review.managerProfileLink\":\"Modifier cet élément dans votre profil\",\"jobBuilder.review.meantime\":\"Entre-temps, n’hésitez pas à créer un plan de présélection pour votre processus de sélection. Vous pouvez aussi attendre les commentaires des RH avant de passer à l’étape suivante.\",\"jobBuilder.review.months\":\"{termMonths,plural,=0{No Months} one{{termMonths, number} Month} other{{termMonths, number} Months}}\",\"jobBuilder.review.nullProvince\":\"PROVINCE MANQUANTE\",\"jobBuilder.review.or\":\"ou\",\"jobBuilder.review.otherInfoHeading\":\"Autres renseignements au sujet de l’équipe\",\"jobBuilder.review.readyToSubmit\":\"Si vous êtes prêt à soumettre votre offre, cliquez sur le bouton Soumettre ci-dessous.\",\"jobBuilder.review.remoteAllowed\":\"Travail à distance autorisé\",\"jobBuilder.review.remoteNotAllowed\":\"Travail à distance non autorisé\",\"jobBuilder.review.reviewYourPoster\":\"Examiner votre offre d’emploi pour :\",\"jobBuilder.review.securityClearance\":\"Autorisation de sécurité\",\"jobBuilder.review.sendYourDraft\":\"Le Nuage de talents enverra votre ébauche au conseiller en RH de votre ministère, et ce dernier vous informera de ses commentaires.\",\"jobBuilder.review.skills.nullState\":\"Vous n’avez pas ajouté de compétences souhaitables pour cette offre d’emploi.\",\"jobBuilder.review.skillsEditLink\":\"Modifier cet élément à l’étape 05, Compétences\",\"jobBuilder.review.skillsHeading\":\"Compétences requises\",\"jobBuilder.review.tCAdds\":\"Le Nuage de talents ajoutera l’élément.\",\"jobBuilder.review.targetStartDate\":\"Date d’entrée en fonction prévue\",\"jobBuilder.review.tasksEditLink\":\"Modifier cet élément à l’étape 04, Tâches\",\"jobBuilder.review.tasksHeading\":\"Tâches\",\"jobBuilder.review.whatHappens\":\"Quelles sont les prochaines étapes?\",\"jobBuilder.review.workCultureHeading\":\"Culture de travail\",\"jobBuilder.review.workDescription\":\"Veuillez prendre note que certains renseignements sur le milieu de travail ne seront affichés que si le candidat clique sur le bouton « Afficher le milieu de travail et la culture de l’équipe » qui apparaît sur l’offre d’emploi.\",\"jobBuilder.review.workEnvEditLink\":\"Modifier cet élément à l’étape 02, Environnement de travail\",\"jobBuilder.review.workEnvHeading\":\"Milieu de travail\",\"jobBuilder.root.documentTitle\":\"Constructeur d'Affiches\",\"jobBuilder.skills.addSkillBelow\":\"Ajoutez des compétences, ci-dessous, pour continuer.\",\"jobBuilder.skills.alt.happyArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône sourire.\",\"jobBuilder.skills.alt.happyGraySmiley\":\"émoticône sourire en gris.\",\"jobBuilder.skills.alt.happySmiley\":\"émoticône sourire en couleur.\",\"jobBuilder.skills.alt.neutralArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône neutre.\",\"jobBuilder.skills.alt.neutralGraySmiley\":\"émoticône neutre en gris.\",\"jobBuilder.skills.alt.neutralSmiley\":\"émoticône neutre en couleur.\",\"jobBuilder.skills.alt.unhappyArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône triste.\",\"jobBuilder.skills.alt.unhappyGraySmiley\":\"émoticône triste en gris.\",\"jobBuilder.skills.alt.unhappySmiley\":\"émoticône triste en couleur.\",\"jobBuilder.skills.button.keyTasks\":\"Voir les tâches principales\",\"jobBuilder.skills.button.previewSkills\":\"Sauvegarder et voir un aperçu des compétences\",\"jobBuilder.skills.button.returnToTasks\":\"Sauvegarder et retourner aux tâches\",\"jobBuilder.skills.description\":\"C’est ici que vous choisissez les critères requis pour accomplir ce travail efficacement. Vous trouverez, ci-dessous, deux barres qui indiquent la mesure du niveau de votre présente compétence sélectionnée.\",\"jobBuilder.skills.description.keepItUp\":\"Voici un aperçu des compétences que vous venez de saisir. N’hésitez pas à retourner à la page précédente et à corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait. \",\"jobBuilder.skills.documentTitle\":\"Constructeur d'affiches: Compétences\",\"jobBuilder.skills.emailLink\":\"Communiquez avec nous par courriel\",\"jobBuilder.skills.essentialSkillRequiredError\":\"Au moins une compétence essentielle est requise.\",\"jobBuilder.skills.instructions.missingSkills\":\"Le fait de dresser une liste de compétences est une tâche énorme, et il n’est pas surprenant que la liste de Nuage de talents ne contienne pas la compétence que vous cherchez. Afin de nous aider à allonger la liste des compétences, veuillez {link}. Veuillez fournir le nom de la compétence ainsi qu’une brève description pour lancer la discussion.\",\"jobBuilder.skills.listTitle\":\"Votre liste de compétences\",\"jobBuilder.skills.nullState\":\"Vous n’avez pas encore ajouté de compétences.\",\"jobBuilder.skills.nullText.occupationalSkills\":\"Vous devez retourner à Étape 1 et choisir une classification.\",\"jobBuilder.skills.placeholder.otherSkills\":\"Aucune autre compétence n’est ajoutée.\",\"jobBuilder.skills.previewModalCancelLabel\":\"Retour en arrière\",\"jobBuilder.skills.previewModalConfirmLabel\":\"Prochaine étape\",\"jobBuilder.skills.previewModalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.skills.range.culturalSkills\":\"Visez des compétences {minCulture} – {maxCulture}.\",\"jobBuilder.skills.range.futureSkills\":\"Visez des compétences {minFuture} – {maxFuture}.\",\"jobBuilder.skills.range.occupationalSkills\":\"Visez des compétences {minOccupational} – {maxOccupational}.\",\"jobBuilder.skills.selectSkillLabel\":\"Veuillez sélectionner une compétence dans notre liste.\",\"jobBuilder.skills.selectSkillNull\":\"Veuillez sélectionner une compétence\",\"jobBuilder.skills.skillLevel\":\"Niveau de compétences\",\"jobBuilder.skills.statusSmiley.acceptable\":\"Acceptable\",\"jobBuilder.skills.statusSmiley.almost\":\"Presque\",\"jobBuilder.skills.statusSmiley.awesome\":\"Fantastique\",\"jobBuilder.skills.statusSmiley.essential.acceptable\":\"Acceptable\",\"jobBuilder.skills.statusSmiley.essential.almost\":\"Presque\",\"jobBuilder.skills.statusSmiley.essential.awesome\":\"Fantastique\",\"jobBuilder.skills.statusSmiley.essential.tooFew\":\"Insuffisant\",\"jobBuilder.skills.statusSmiley.essential.tooMany\":\"Trop\",\"jobBuilder.skills.statusSmiley.essentialTitle\":\"Le nombre de compétences fondamentales est\",\"jobBuilder.skills.statusSmiley.title\":\"Le nombre total des compétences\",\"jobBuilder.skills.statusSmiley.tooFew\":\"Insuffisant\",\"jobBuilder.skills.statusSmiley.tooMany\":\"Trop\",\"jobBuilder.skills.tasksModalCancelLabel\":\"Retour aux compétences\",\"jobBuilder.skills.title\":\"Compétences\",\"jobBuilder.skills.title.addASkill\":\"Ajoutez une compétence\",\"jobBuilder.skills.title.assetSkills\":\"Compétences constituant un atout\",\"jobBuilder.skills.title.culturalSkills\":\"Compétences comportementales\",\"jobBuilder.skills.title.editSkill\":\"Modifiez une compétence\",\"jobBuilder.skills.title.essentialSkills\":\"Compétences essentielles\",\"jobBuilder.skills.title.futureSkills\":\"Compétences de la fonction publique\",\"jobBuilder.skills.title.keepItUp\":\"Ne lâchez surtout pas!\",\"jobBuilder.skills.title.keyTasks\":\"Tâches principales\",\"jobBuilder.skills.title.missingSkill\":\"Vous ne trouvez pas la compétence dont vous avez besoin?\",\"jobBuilder.skills.title.needsToHave\":\"Les compétences que l’employé(e) doit posséder\",\"jobBuilder.skills.title.niceToHave\":\"Les compétences qu’il serait souhaitable que l’employé(e) possède\",\"jobBuilder.skills.title.occupationalSkills\":\"Compétences professionnelles\",\"jobBuilder.skills.title.otherSkills\":\"Autres compétences\",\"jobBuilder.skills.title.skillSelection\":\"Choix des compétences\",\"jobBuilder.tasks.addJob\":\"Ajoutez une tâche \",\"jobBuilder.tasks.documentTitle\":\"Constructeur d'affiches: Tâches\",\"jobBuilder.tasks.heading\":\"Ajoutez des tâches principales\",\"jobBuilder.tasks.intro.first\":\"À quoi le nouveau membre de votre équipe consacrera-t-il son temps? Quelles sont les tâches à exécuter?\",\"jobBuilder.tasks.intro.fourth\":\"Une fois que vous aurez terminé d’entrer les tâches principales, vous passerez à la détermination des compétences individuelles nécessaires à l’exécution de ces tâches.\",\"jobBuilder.tasks.intro.second\":\"Mettez l’accent sur les tâches à exécuter. Vous n’avez pas à donner tous les détails de l’emploi, mais les candidats souhaitent savoir comment ils vont passer la plus grande partie de leur temps.\",\"jobBuilder.tasks.intro.third\":\"Cherchez à indiquer de quatre à six tâches principales. (Tout au long du remue-méninges, vous pouvez ajouter autant de tâches principales que vous le souhaitez ici, mais vous ne pouvez pas en inclure plus de six dans l’offre d’emploi finale.)\",\"jobBuilder.tasks.modal.body\":\"Voici un aperçu des tâches que vous venez de saisir. N’hésitez pas à retourner à la page précédente pour corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.tasks.modal.body.heading\":\"Tâches\",\"jobBuilder.tasks.modal.cancelButtonLabel\":\"Retour en arrière\",\"jobBuilder.tasks.modal.confirmButtonLabel\":\"Prochaine étape\",\"jobBuilder.tasks.modal.middleButtonLabel\":\"Passer pour la révision\",\"jobBuilder.tasks.modal.title\":\"Ne lâchez surtout pas!\",\"jobBuilder.tasks.preview\":\"Aperçu des tâches\",\"jobBuilder.tasks.previous\":\"Étape précédente\",\"jobBuilder.tasks.taskCount.error.body\":\"Vous avez dépassé le nombre maximal permis de tâches principales, mais ce n’est pas grave. Tout au long du remue-méninges, vous pouvez continuer à ajouter des tâches principales ici, mais on vous demandera de réduire votre liste à six tâches ou moins pour continuer.\",\"jobBuilder.tasks.taskCount.error.title\":\"Juste pour vous informer!\",\"jobBuilder.tasks.taskCount.none\":\"Vous n’avez pas encore ajouté de tâches!\",\"jobBuilder.tasks.taskCount.some\":\"Vous avez ajouté {taskCount, plural, one {# tâche} other {# tâches}}.\",\"jobBuilder.tasks.taskLabel\":\"Tâche\",\"jobBuilder.tasks.taskPlaceholder\":\"Essayez d’adopter un ton décontracté, franc et amical...\",\"jobBuilder.tasks.tasksMaximum\":\"Veuillez supprimer toute tâche supplémentaire avant de continuer.\",\"jobBuilder.tasks.tasksRequired\":\"Au moins une tâche est requise.\",\"jobBuilder.workCulture.flexibleHours\":\"Heures flexibles\",\"jobBuilder.workCulture.flexibleHoursDescription\":\"Précisez vos propres heures de début et de fin.\",\"jobBuilder.workCulture.overtime\":\"Heures supplémentaires\",\"jobBuilder.workCulture.overtimeDescription\":\"Heures supplémentaires le soir ou la fin de semaine.\",\"jobBuilder.workCulture.remoteWork\":\"Travail à distance\",\"jobBuilder.workCulture.remoteWorkDescription\":\"Travailler de n’importe où, en tout temps.\",\"jobBuilder.workCulture.remoteWorkMsg.always\":\"Toujours\",\"jobBuilder.workCulture.remoteWorkMsg.never\":\"Jamais\",\"jobBuilder.workCulture.telework\":\"Télétravail\",\"jobBuilder.workCulture.teleworkDescription\":\"Travailler à partir de la maison certains jours (à une distance raisonnable en voiture du bureau).\",\"jobBuilder.workCulture.travel\":\"Déplacements\",\"jobBuilder.workCulture.travelDescription\":\"Découvrez le Canada ou d’autres régions du monde.\",\"jobBuilder.workEnv.amenities.cafeteria\":\"Cafétéria sur place\",\"jobBuilder.workEnv.amenities.closeToTransit\":\"À proximité du transport en commun\",\"jobBuilder.workEnv.amenities.downtown\":\"Centre-ville\",\"jobBuilder.workEnv.amenities.fitnessCenter\":\"À proximité d’un centre de conditionnement physique\",\"jobBuilder.workEnv.amenities.parking\":\" Accès facile à un stationnement\",\"jobBuilder.workEnv.amenities.restaurants\":\"À distance de marche des restaurants et des centres commerciaux\",\"jobBuilder.workEnv.amenitiesLabel\":\"À proximité\",\"jobBuilder.workEnv.collaborativeLabel\":\"Collaboratif ou indépendant :\",\"jobBuilder.workEnv.culture\":\"Notre culture\",\"jobBuilder.workEnv.cultureSubtext1\":\"Maintenant, renseignez les candidats davantage sur la personnalité des membres de votre équipe et le type de travail que vous faites habituellement.\",\"jobBuilder.workEnv.cultureSubtext2\":\"Sur la base de vos sélections, nous allons créer un court paragraphe résumant votre culture de travail. Vous pouvez modifier ce paragraphe afin qu’il soit personnalisé selon votre équipe.\",\"jobBuilder.workEnv.cultureSummary\":\"Résumé sur la culture\",\"jobBuilder.workEnv.cultureSummarySubtext\":\"Voici le court paragraphe qui résume la culture de votre travail qui apparaîtra dans l’offre d’emploi. Copiez-le et collez-le dans le champ de saisie qui suit, si vous désirez l’adapter à la personnalité des membres de votre équipe et à votre façon de travailler.\",\"jobBuilder.workEnv.customCultureSummaryLabel\":\"Adaptez votre résumé sur la culture :\",\"jobBuilder.workEnv.customCultureSummaryPlaceholder\":\"Collez le paragraphe ici pour le modifier...\",\"jobBuilder.workEnv.documentTitle\":\"Constructeur d'affiches: Environnement\",\"jobBuilder.workEnv.experimentalLabel\":\"Toujours expérimentale contre activités en cours:\",\"jobBuilder.workEnv.facingLabel\":\"Services orientés vers le client contre services administratifs :\",\"jobBuilder.workEnv.fastPacedSteadyLabel\":\"Rythme rapide contre rythme soutenu :\",\"jobBuilder.workEnv.greatStart\":\"Vous commencez très bien!\",\"jobBuilder.workEnv.managementLabel\":\"Horizontale contre verticale :\",\"jobBuilder.workEnv.moreOnWorkEnv\":\"Voici de plus amples renseignements sur votre environnement\",\"jobBuilder.workEnv.moreOnWorkEnvLabel\":\"Voici de plus amples renseignements sur votre environnement\",\"jobBuilder.workEnv.moreOnWorkEnvPlaceholder\":\"Essayez d’adopter un ton décontracté, franc et amical.\",\"jobBuilder.workEnv.moreOnWorkEnvSubtext\":\"Souhaitez-vous ajouter quelque chose à propos de votre environnement de travail? Mettez en évidence les caractéristiques de l’environnement physique, de la technologie et des commodités propres à votre équipe.\",\"jobBuilder.workEnv.openingSentence\":\"Voici un aperçu des renseignements sur l’emploi que vous venez de saisir. N’hésitez pas à retourner à la page précédente et à corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.workEnv.ourWorkEnv\":\"Notre environnement de travail\",\"jobBuilder.workEnv.ourWorkEnvDesc\":\"Décrivez un peu votre espace physique, la technologie que les membres de votre équipe utilisent et les services qui se trouvent à proximité de votre bureau. Cochez toutes les réponses qui s’appliquent.\",\"jobBuilder.workEnv.physEnv.assignedSeating\":\"Places réservées\",\"jobBuilder.workEnv.physEnv.naturalLight\":\"Lumière naturelle\",\"jobBuilder.workEnv.physEnv.openConcept\":\"Espaces de travail à aire ouverte\",\"jobBuilder.workEnv.physEnv.private\":\"Privé\",\"jobBuilder.workEnv.physEnv.smudging\":\"Convient aux cérémonies de purification par la fumée\",\"jobBuilder.workEnv.physEnv.windows\":\"Plusieurs fenêtres\",\"jobBuilder.workEnv.physicalEnvLabel\":\"Notre environnement physique\",\"jobBuilder.workEnv.saveAndReturnButtonLabel\":\"Découvrez le Canada ou d’autres régions du monde.\",\"jobBuilder.workEnv.specialWorkCulture\":\"Y a-t-il quelque chose de spécial au sujet de votre culture de travail?\",\"jobBuilder.workEnv.specialWorkCultureLabel\":\"Voici de plus amples renseignements sur votre culture de travail.\",\"jobBuilder.workEnv.specialWorkCultureSubtext\":\"Votre équipe accorde-t-elle beaucoup d’importance à d’autres aspects? Est-elle fière de son bilan en matière de résultats? A-t-elle pris de solides engagements envers le mieux-être mental? Participe-t-elle activement à la promotion de la diversité et de l’inclusion? Ses membres se font-ils les champions des enjeux relatifs à la collectivité LGBTQ+? Voici l’occasion de faire connaître aux candidats la culture de l’équipe qu’ils pourraient intégrer.\",\"jobBuilder.workEnv.stepDescription\":\"Les candidats accordent beaucoup d’importance à l’équipe au sein de laquelle ils travailleront et à leur espace de travail physique. Le fait de communiquer de l’information à ce sujet aide les candidats à déterminer s’ils correspondent bien au profil de l’emploi, et peut réduire le nombre de demandes « illusoires » qui ralentissent le processus de présélection.\",\"jobBuilder.workEnv.submitButtonLabel\":\"Aperçu de l’environnement de travail\",\"jobBuilder.workEnv.teamSizeLabel\":\"Taille de l’équipe\",\"jobBuilder.workEnv.teamSizePlaceholder\":\"Par exemple 10\",\"jobBuilder.workEnv.technology.accessToExternal\":\"Accès à un réseau sans fil externe et non filtré\",\"jobBuilder.workEnv.technology.collaboration\":\"Collaboration (p. ex., Slack, Hangouts)\",\"jobBuilder.workEnv.technology.fileSharing\":\"Partage des dossiers (p. ex., Google Drive, Dropbox)\",\"jobBuilder.workEnv.technology.taskManagement\":\"Gestion de tâches (p. ex., Trello, Asana)\",\"jobBuilder.workEnv.technology.versionControl\":\"Gestion de versions (p. ex., Github, Gitlab)\",\"jobBuilder.workEnv.technology.videoConferencing\":\"Vidéo-conférence (p. ex., Skype, Zoom)\",\"jobBuilder.workEnv.technologyLabel\":\"Technologie\",\"jobBuilder.workEnv.textAreaPlaceholder1\":\"Essayez d’adopter un ton décontracté, franc et amical.\",\"jobBuilder.workEnv.thisIsOptional\":\"Ceci est facultatif.\",\"jobBuilder.workEnv.title\":\"Environnement de travail\",\"jobBuilder.workEnvModal.cancelLabel\":\"Retour en arrière\",\"jobBuilder.workEnvModal.confirmLabel\":\"Prochaine étape\",\"jobBuilder.workEnvModal.modalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.workEnvModal.title\":\"Environnement de travail\",\"jobBuilder.workEnvModal.workCultureTitle\":\"Culture du travail\",\"jobCard.applicants\":\"{applicants, plural,=0 {Aucun candidat} one {# candidat} other {# candidats}}\",\"jobCard.managerTime\":\"Time with Manager: {managerTime, plural, one {# day} other {# days} }\",\"jobCard.noActivity\":\"Aucune nouvelle activité\",\"jobCard.userTime\":\"Time with you: <s>{userTime, plural, one {# day} other {# days} }</s>\",\"jobReviewHr.headsUp\":\"Un simple rappel! Nous avons réorganisé certains renseignements fournis afin de vous aider à comprendre comment le candidat verra l’information une fois publiée.\",\"jobReviewHr.loadingIconText\":\"Les données sont en cours de chargement...\",\"jobReviewHr.reviewYourPoster\":\"Examiner votre offre d’emploi pour :\",\"jobReviewHr.summaryLink\":\"Revenir au résumé\",\"jobStatus.approved\":\"Approuvé\",\"jobStatus.completed\":\"Achevé\",\"jobStatus.draft\":\"Ébauche\",\"jobStatus.finalReview\":\"Révision finale\",\"jobStatus.published\":\"Publié\",\"jobStatus.review\":\"En cours de révision\",\"jobStatus.translation\":\"En cours de traduction\",\"languageRequirement.bilingualAdvanced\":\"Bilingue - Avancé (CBC)\",\"languageRequirement.bilingualIntermediate\":\"Bilingue - Intermédiaire (BBB)\",\"languageRequirement.context.basic\":\"Vous pouvez présenter cette demande initiale dans la langue officielle de votre choix (français ou anglais).\",\"languageRequirement.context.expanded\":\"Vous pouvez suivre toutes les autres étapes de ce processus d’évaluation dans la langue officielle de votre choix, y compris la demande initiale, l’entrevue, l’examen et toute autre composante de l’évaluation.\",\"languageRequirement.description.bilingualAdvanced\":\"Ce poste nécessite une connaissance approfondie du français et de l'anglais. Cela signifie que vous pouvez assumer des tâches en français ou en anglais et que vous avez de solides compétences en lecture, en écriture et en communication verbale dans les deux langues officielles. Dans le cadre de ce processus de sélection, vos compétences linguistiques seront testées par la Commission de la fonction publique du Canada. Commission de la fonction publique du Canada.\",\"languageRequirement.description.bilingualIntermediate\":\"Ce poste nécessite une connaissance pratique du français et de l'anglais. Cela signifie que vous pouvez occuper des fonctions en français ou en anglais et que vous possédez des compétences intermédiaires en lecture, en écriture et en communication verbale dans les deux langues officielles. Dans le cadre de ce processus de sélection, vos compétences linguistiques seront testées par la Commission de la fonction publique du Canada.\",\"languageRequirement.description.english\":\"Ce poste exige une bonne maîtrise de l’anglais, tant à l’écrit que de vive voix. Dans le cadre de l’évaluation de vos compétences linguistiques, le gestionnaire d’embauche peut vous demander de suivre certaines étapes d’évaluation en anglais, comme des questions d’entrevue ou un examen.\",\"languageRequirement.description.englishOrFrench\":\"Pour ce poste, vous répondez aux exigences linguistiques si vous possédez de solides compétences en lecture, en rédaction et en communication verbale en français, en anglais ou dans les deux (bilingue).\",\"languageRequirement.description.french\":\"Ce poste exige une bonne maîtrise du français, tant à l’écrit que de vive voix. Dans le cadre de l’évaluation de vos compétences linguistiques, le gestionnaire d’embauche peut vous demander de suivre certaines étapes d’évaluation en français, comme des questions d’entrevue ou un examen.\",\"languageRequirement.english\":\"Anglais - Essentiel\",\"languageRequirement.englishOrFrench\":\"Anglais ou français\",\"languageRequirement.french\":\"Français - Essentiel\",\"managerSurveyModal.explanation\":\"Vos commentaires nous aident à améliorer nos outils! Veuillez prendre quelques minutes pour répondre à un sondage.\",\"managerSurveyModal.jobPosterLink\":\"Retour à Mes offres d'emploi\",\"managerSurveyModal.jobPosterLinkTitle\":\"Visitez Mes offres d'emploi.\",\"managerSurveyModal.link\":\"<a>M'emmener au sondage</>.\",\"managerSurveyModal.managerSurveyLinkTitle\":\"Lien vers le sondage auprès des gestionnaires.\",\"managerSurveyModal.title\":\"Votre offre d'emploi a été soumise!\",\"openJobCard.claimJob\":\"Réclamer cet emploi\",\"openJobCard.error\":\"Date non disponible.\",\"openJobCard.hiringManager\":\"Gestionnaires d’embauche :\",\"openJobCard.hrAdvisors\":\"Conseillers en RH :\",\"openJobCard.reviewRequested\":\"Récupérée: \",\"openJobCard.unclaimed\":\"Non réclamé\",\"progressTracker.unreachableStep\":\"Doit compléter les étapes précédentes.\",\"province.ab\":\"Alberta\",\"province.ab.abreviation\":\"Alta.\",\"province.bc\":\"Colombie britannique\",\"province.bc.abreviation\":\"C.-B.\",\"province.mb\":\"Manitoba\",\"province.mb.abreviation\":\"Man.\",\"province.nb\":\"Nouveau-Brunswick\",\"province.nb.abreviation\":\"N.-B.\",\"province.nl\":\"Terre-Neuve-et-Labrador\",\"province.nl.abreviation\":\"T.-N.-L.\",\"province.ns\":\"Nouvelle-Écosse\",\"province.ns.abreviation\":\"N.-É.\",\"province.nt\":\"Territoires du nord-ouest\",\"province.nt.abreviation\":\"T.N.-O.\",\"province.nu\":\"Nunavut\",\"province.nu.abreviation\":\"Nt\",\"province.on\":\"Ontario\",\"province.on.abreviation\":\"Ont.\",\"province.pe\":\"Île-du-Prince-Édouard\",\"province.pe.abreviation\":\"Î.-P.-É.\",\"province.qc\":\"Québec\",\"province.qc.abreviation\":\"Qc\",\"province.sk\":\"Saskatchewan\",\"province.sk.abreviation\":\"Sask.\",\"province.yk\":\"Yukon\",\"province.yk.abreviation\":\"Yn\",\"ratingGuideAnswer.answerLabel\":\"Réponse de passage acceptable / Démonstration requise\",\"ratingGuideAnswer.answerPlaceholder\":\"Écrivez la réponse de passage attendue du candidat relativement à cette compétence...\",\"ratingGuideAnswer.nullSelection\":\"Sélectionnez une compétence...\",\"ratingGuideAnswer.selectLabel\":\"Sélectionnez une compétence\",\"ratingGuideBuilder.addQuestion\":\"Ajoutez une question\",\"ratingGuideBuilder.assetMissing\":\"{count} Atout manquant : \",\"ratingGuideBuilder.copyButton\":\"Cliquez ici pour copier ce guide de cotation dans votre presse-papiers\",\"ratingGuideBuilder.copyInstructions\":\"Maintenant que vous avez conçu votre guide de cotation, vous pouvez utiliser le bouton ci-dessous pour copier tout le contenu dans votre presse-papiers, et ainsi pouvoir coller facilement votre système de traitement de texte préféré.\",\"ratingGuideBuilder.criteriaName\":\"{skillName} - {skillLevel}\",\"ratingGuideBuilder.criteriaTypeHeading\":\"Type de critères\",\"ratingGuideBuilder.essentialMissing\":\"{count} Critères essentiels manquants : \",\"ratingGuideBuilder.instructions\":\"Vous trouverez ci-dessous votre propre guide de cotation pour vous aider à évaluer vos candidats. Cet outil vous permet d’élaborer vos propres questions pour chaque évaluation que vous avez sélectionnée ci-dessus, puis de noter les critères de ce que pourrait représenter une excellente réponse du candidat. Veuillez prendre note que l’« examen narratif » est unique en ce sens que le contenu est généré pour vous ci-dessous.\",\"ratingGuideBuilder.narrativeSectionTitle\":\"Évaluation {index}: {assessmentType}\",\"ratingGuideBuilder.questionHeading\":\"Question\",\"ratingGuideBuilder.ratingGuideHeading\":\"Guide de notation\",\"ratingGuideBuilder.sectionTitle\":\"Évaluation {index}: {assessmentType}\",\"ratingGuideBuilder.skillDescriptionHeading\":\"Description de la compétence\",\"ratingGuideBuilder.skillHeading\":\"Compétence\",\"ratingGuideBuilder.targetLevelHeading\":\"Niveau cible\",\"ratingGuideBuilder.title\":\"3. Concepteur de guides de cotation\",\"ratingGuideBuilder.titleHeading\":\"Titre\",\"ratingGuideQuestion.questionLabel\":\"Question d'entrevue\",\"ratingGuideQuestion.questionPlaceholder\":\"Écrivez votre question d'entrevue ici ...\",\"review.applications.alert.oops\":\"Enregistrer\",\"review.applications.button.confirm\":\"Confirmer\",\"review.applications.indexPageTitle\":\"Applications pour : {jobTitle} {jobClassification}\",\"review.applications.nonCitizens.description\":\" \",\"review.applications.nonCitizens.title\":\"Non-Citoyens canadiens\",\"review.applications.optionalConsideration.description\":\"Dans ce groupe, vous trouverez les candidats qui ne sont pas citoyens canadiens ou qui ne prétendent pas répondre aux critères essentiels.\",\"review.applications.optionalConsideration.title\":\"Candidats supplémentaires\",\"review.applications.priorityApplicants.description\":\"Ce sont des candidats prioritaires pour ce poste. Ils doivent être examinés et pris en compte en premier.\",\"review.applications.priorityApplicants.title\":\"Candidats prioritaire\",\"review.applications.reviewSaveFailed\":\"Une erreur s'est produite lors de l'enregistrement d'un commentaire. Réessayez plus tard.\",\"review.applications.screenOutAll\":\"Éliminer tous les candidats supplémentaires\",\"review.applications.screenOutAll.confirm\":\"Êtes-vous sûr de vouloir éliminer tous les candidats supplémentaires?\",\"review.applications.screenedOut.description\":\"Ces applications ont déjà été éliminées.\",\"review.applications.screenedOut.title\":\"Candidats qui ne sont plus considérés\",\"review.applications.underConsideration.description\":\"Examinez les candidats dans la section Anciens combattants et citoyens canadiens. Si aucun ou très peu de ces candidats ne répondent aux critères, vous pouvez toujours prendre en compte les candidatures non citoyennes dans la section Considérations facultatives.\",\"review.applications.underConsideration.title\":\"Candidats à considérée\",\"review.applications.unqualified.description\":\" \",\"review.applications.unqualified.title\":\"Ne répond pas aux critères essentiels\",\"review.applications.veteransAndCitizens.description\":\" \",\"review.applications.veteransAndCitizens.title\":\"Anciens combattants et citoyens canadiens\",\"reviewLocations.jpb.basicInfo\":\"Renseignements de base\",\"reviewLocations.jpb.environment\":\"Environnement de travail\",\"reviewLocations.jpb.generic\":\"Générique\",\"reviewLocations.jpb.heading\":\"Titre de la page de l’emploi\",\"reviewLocations.jpb.impact\":\"Impact\",\"reviewLocations.jpb.langRequirements\":\"Exigences linguistiques\",\"reviewLocations.jpb.skills\":\"Compétences\",\"reviewLocations.jpb.tasks\":\"Taches\",\"securityClearance.reliability\":\"Fiabilité\",\"securityClearance.secret\":\"Secret\",\"securityClearance.topSecret\":\"Très secret\",\"skillLevel.asset.description\":\"Cette compétence n’est pas nécessaire pour que l’employé puisse exécuter le travail, mais elle ajoute un avantage à l’ensemble de ses compétences et améliorera le rythme ou l’efficacité de son travail.\",\"skillLevel.asset.name\":\"Atout/aucun niveau requis\",\"skillLevel.hard.advanced.description\":\"Vous avez la capacité d’accomplir des tâches d’une complexité ou d’une incidence importante avec supervision. Vous donnez des conseils et des commentaires au superviseur sur l’approche à employer pour effectuer les tâches et la façon dont elles sont exécutées. Vous êtes en mesure de faire progresser la tâche, même face à des obstacles et à des complications d’envergure moyenne à importante. Au fur et à mesure que vous progressez dans cette catégorie, vous êtes être en mesure d’accomplir des tâches d’une complexité importante ou ayant une incidence plus grande avec seulement de légers niveaux de supervision, en étant effectivement le responsable de l’initiative. Vous pouvez également jouer un rôle de formation d’autres personnes dans cet ensemble de compétences ou assumer un rôle de supervision léger pour les personnes aux niveaux inférieurs. Ce niveau est habituellement associé à des tâches qui constituent la majeure partie du travail pour des postes de niveau supérieur, comme les analystes principaux ou les développeurs principaux.\",\"skillLevel.hard.advanced.name\":\"Avancé\",\"skillLevel.hard.basic.description\":\"Vous êtes capable d’accomplir des tâches de base avec une supervision régulière et une orientation claire. Les tâches qui vous sont assignées sont claires et ne sont pas très complexes. Elles ont généralement une incidence locale. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’accomplir des tâches de complexité modérée avec une supervision régulière. Vous devriez également être en mesure d’accomplir des tâches de base avec peu ou pas de supervision. Ce niveau est habituellement associé aux tâches qui constituent le gros du travail pour les postes de niveau inférieur, comme les analystes ou les développeurs de niveau débutant.\",\"skillLevel.hard.basic.name\":\"Débutant\",\"skillLevel.hard.expert.description\":\"Vous êtes en mesure d’accomplir des tâches d’une complexité ou d’une incidence importante, où vous prenez les décisions et répondez de vos décisions auprès de la haute direction de l’organisation. Vous présentez les tâches, l’approche et le plan de réalisation à la haute direction. Vous supervisez souvent d’autres personnes (personnes ou équipes) dans l’exécution de tâches très complexes ou ayant une incidence sur l’ensemble du système. Vous êtes en mesure de faire progresser ces tâches, même face à des obstacles et à des complications importants et imprévus. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’évaluer les autres à des niveaux plus subalternes, et de déterminer clairement la différence entre les tâches débutantes, intermédiaires et avancées. Vous devriez également être en mesure de pouvoir former des équipes, définir des orientations et assurer une supervision. Ce niveau est habituellement associé aux tâches qui constituent la majeure partie du travail pour les postes de direction et de direction.\",\"skillLevel.hard.expert.name\":\"Responsable\",\"skillLevel.hard.intermediate.description\":\"Vous avez la capacité d’accomplir des tâches de complexité modérée ou d’incidence modérée avec supervision. C’est le superviseur qui détermine l’approche à préconiser pour effectuer les tâches, de même que la façon dont elles sont exécutées. Vous apportez des commentaires et des conseils. Vous êtes en mesure de faire progresser la tâche, même face à des obstacles et à des complications de petite à moyenne envergure. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’accomplir des tâches d’une complexité importante ou ayant une incidence plus grande avec une supervision régulière. Vous devriez également être en mesure d’accomplir des tâches d’une complexité ou d’une incidence modérée avec peu ou pas de supervision. Ce niveau est habituellement associé aux tâches qui constituent le gros du travail pour les postes de niveau intermédiaire, comme les analystes ou les développeurs.\",\"skillLevel.hard.intermediate.name\":\"Intermédiaire\",\"skillLevel.soft.advanced.description\":\"Vous êtes capable de démontrer cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont élevés. Vos pairs et vos superviseurs reconnaissent qu’il s’agit d’une force dont vous faites preuve en milieu de travail.\",\"skillLevel.soft.advanced.name\":\"Fortement en évidence\",\"skillLevel.soft.basic.description\":\"Vous êtes en processus d’acquérir cette compétence ou cet attribut. Vous êtes capable de le démontrer dans des conditions favorables (peu de stress, difficulté minimale) et pouvez l’appliquer dans un contexte de travail de façon intermittente.\",\"skillLevel.soft.basic.name\":\"Phase de développement précoce\",\"skillLevel.soft.expert.description\":\"Il s’agit d’une partie fondamentale de qui vous êtes. Vous démontrez cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont extrêmes. Vos pairs et vos superviseurs reconnaissent qu’il s’agit d’une force importante dont vous faites preuve en milieu de travail, en donnant un exemple aux autres.\",\"skillLevel.soft.expert.name\":\"Démonstration à un niveau profond\",\"skillLevel.soft.intermediate.description\":\"Vous êtes capable de démontrer cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont bas ou modérés. Vos pairs et vos superviseurs peuvent attester le fait que vous êtes capable de démontrer cette compétence ou cet attribut de façon régulière.\",\"skillLevel.soft.intermediate.name\":\"Modérément en évidence\",\"wordCounter.skills.longMessage\":\"Ça a l'air trop long. Pouvez-vous résumer une partie de votre réponse?\",\"wordCounter.skills.placeholder\":\"Commencez à taper votre réponse ci-dessus.\",\"wordCounter.skills.shortMessage\":\"Ce paragraphe semble trop court. Avez-vous un autre exemple ou une leçon à ajouter?\",\"wordCounter.skills.slightlyLongMessage\":\"Ça commence à être un peu long.\",\"wordCounter.skills.veryLongMessage\":\"La limite des 500 mot a été atteinte. C'est beaucoup trop long. Découvrez l'un de nos exemples pour voir à quoi ressemble une description de compétence concise.\",\"wordCounter.skills.veryShortMessage\":\"Ce paragraphe semble trop court. Avez-vous inclus des exemples ou des leçons apprises?\"}");
+module.exports = JSON.parse("{\"activity.commentLocation.label\":\"Commentaire trouvé\",\"activity.commentMetadata\":\"{name} ({userRole}) a commenté à {time}.\",\"activity.viewComment.label\":\"Visualiser le commentaire\",\"activityfeed.accordionAccessibleLabel\":\"Cliquez pour voir...\",\"activityfeed.error\":\"Une erreur s'est produite\",\"activityfeed.header\":\"Cliquez pour voir les commentaires {totalActivities}\",\"activityfeed.loading\":\"Chargement de vos activités...\",\"activityfeed.loadingIconText\":\"Nombre d'activités est en cours de chargement...\",\"activityfeed.locations.applicantReview.general\":\"Général\",\"activityfeed.locations.applicantReview.notUnderConsideration\":\"Candidats qui ne sont plus considérés\",\"activityfeed.locations.applicantReview.optionalConsideration\":\"Candidats supplémentaires\",\"activityfeed.locations.applicantReview.underConsideration\":\"Candidats à considérée\",\"activityfeed.locations.applications\":\"Page des Réviser les candidats\",\"activityfeed.locations.hr.preview\":\"RH Page d'aperçu\",\"activityfeed.locations.hr.summary\":\"RH Résumé de l'emploi\",\"activityfeed.locations.notFound\":\"lieu non trouvé\",\"activityfeed.locations.review\":\"Constructeur d'Affiches\",\"activityfeed.locations.review.basicInfo\":\"Renseignements de base\",\"activityfeed.locations.review.environment\":\"Environnement de travail\",\"activityfeed.locations.review.general\":\"Général\",\"activityfeed.locations.review.heading\":\"Titre de la page de l’emploi\",\"activityfeed.locations.review.impact\":\"Incidence\",\"activityfeed.locations.review.langRequirements\":\"Exigences linguistiques\",\"activityfeed.locations.review.skills\":\"Compétences\",\"activityfeed.locations.review.tasks\":\"Taches\",\"activityfeed.locations.screeningPlan\":\"plan d’évaluation\",\"activityfeed.locations.screeningPlan.builder\":\"Concepteur de plans d’évaluation\",\"activityfeed.locations.screeningPlan.general\":\"Général\",\"activityfeed.locations.screeningPlan.ratings\":\"Concepteur de guides de cotation\",\"activityfeed.locations.screeningPlan.summary\":\"Sommaire du plan d’évaluation\",\"activityfeed.noActivities\":\"Aucune activité.\",\"activityfeed.review.accordionAccessibleLabel\":\"Cliquer pour afficher...\",\"activityfeed.review.header\":\"Cliquez pour voir les commentaires {totalActivities}\",\"activityfeed.review.loadingIconText\":\"Les données sont en cours de chargement...\",\"activityfeed.title\":\"Activités\",\"application.review.addNote\":\"+ Ajouter une note\",\"application.review.alert.oops\":\"Oups...\",\"application.review.backToApplicantList\":\"Sauvegarder et revenir à la liste des candidats\",\"application.review.button.cancel\":\"Annuler\",\"application.review.button.confirm\":\"Confirmer\",\"application.review.button.save\":\"Enregistrer\",\"application.review.button.saved\":\"Enregistrée\",\"application.review.button.saving\":\"Enregistre...\",\"application.review.button.viewJobPoster\":\"Voir l'affiche d'emploi\",\"application.review.collapseAllSkills\":\"Réduire les compétences\",\"application.review.decision\":\"Décision\",\"application.review.editNote\":\"Modifier la note\",\"application.review.emailCandidateLinkTitle\":\"Envoyer un courriel à ce candidat.\",\"application.review.expandAllSkills\":\"Élargir les compétences\",\"application.review.priorityStatus.priority\":\"Priorité\",\"application.review.priorityStatus.priorityLogoTitle\":\"Icône pour candidat prioritaire\",\"application.review.reviewSaveFailed\":\"Une erreur s'est produite lors de l'enregistrement d'un commentaire. Réessayez plus tard.\",\"application.review.reviewStatus.notReviewed\":\"Non révisé\",\"application.review.reviewStatus.screenedOut\":\"Éliminé\",\"application.review.reviewStatus.stillIn\":\"Encore considérée\",\"application.review.reviewStatus.stillThinking\":\"Incertain\",\"application.review.screenInConfirm\":\"Remettre le candidat dans la section à l'étude?\",\"application.review.screenOutConfirm\":\"Éliminer le candidat?\",\"application.review.veteranStatus.veteran\":\"Anciens combattants\",\"application.review.veteranStatus.veteranLogoAlt\":\"icône pour anciens combattants\",\"application.review.viewApplication\":\"Voir l'application\",\"application.review.viewApplicationLinkTitle\":\"Voir l'application de ce candidat.\",\"application.review.viewProfile\":\"Voir le profil\",\"application.review.viewProfileLinkTitle\":\"Voir le profil de ce candidat.\",\"assessmentPlan.addAssessmentButton\":\"Ajouter une évaluation\",\"assessmentPlan.alert.checking\":\"Vérifier si le poste a changé récemment...\",\"assessmentPlan.alert.created\":\"{skills} {count, plural, one {compétence a été ajoutée} other {compétences ont été ajoutées}}.\",\"assessmentPlan.alert.deleted\":\"{skills} {count, plural, one {compétence a été supprimée} other {compétences ont été supprimées}}.\",\"assessmentPlan.alert.explanation\":\"Certaines parties du plan de présélection ont été modifiées pour qu’elles concordent les unes avec les autres.\",\"assessmentPlan.alert.skillAndLevelUpdated\":\"Le champ « {oldSkill} » a été remplacé par « {newSkill} » et a fait l’objet d’une mise à jour.\",\"assessmentPlan.alert.skillLevelUpdated\":\"{skills} {count, plural, one {compétence a été mise à jour} other {compétences ont été mises à jour}}.\",\"assessmentPlan.alert.skillUpdated\":\"Le champ {oldSkill} a été remplacé par {newSkill}.\",\"assessmentPlan.alert.title\":\"Ce poste a récemment changé!\",\"assessmentPlan.assessmentPlanBuilder.instructions\":\"La première étape consiste à choisir des évaluations qui vous permettront d’évaluer les critères que vous avez sélectionnés pour votre offre d’emploi. Vous trouverez ci-dessous vos critères essentiels, suivis de vos critères constituant un atout, le cas échéant. Le concepteur sera enregistré au fur et à mesure, donc lorsque vous aurez terminé, n’hésitez pas à passer à l’étape 2 pour examiner votre travail.\",\"assessmentPlan.assessmentPlanBuilder.shortDescription\":\"(Sélectionnez vos évaluations)\",\"assessmentPlan.assessmentPlanBuilder.title\":\"Concepteur de plans d’évaluation\",\"assessmentPlan.assessmentPlanSummary.shortDescription\":\"(Passez votre plan en revue)\",\"assessmentPlan.assessmentPlanSummary.title\":\"Sommaire du plan d’évaluation\",\"assessmentPlan.assessmentTypesLabel\":\"Types d’évaluation\",\"assessmentPlan.assetCriteria.nullState\":\"Vous n’avez pas choisi de compétences constituant un atout pour cette offre d’emploi.\",\"assessmentPlan.criteriaTitle\":\"{skillName} - {skillLevel}\",\"assessmentPlan.essentialCriteria.nullState\":\"Vous n’avez pas choisi de compétences essentielles pour cette offre d’emploi.\",\"assessmentPlan.instructions.intro\":\"Cet outil vous permet d’élaborer un plan d’évaluation et un guide de cotation pour votre offre d’emploi. L’outil est utilisé en trois étapes :\",\"assessmentPlan.instructions.narrativeNote\":\"Veuillez prendre note que tous les plans d’évaluation comprendront un examen des éléments de preuve fournis par le candidat.\",\"assessmentPlan.pageTitle\":\"Élaborer un plan d’évaluation pour : {jobTitle}\",\"assessmentPlan.ratingGuideBuilder.shortDescription\":\"(Personnalisez vos évaluations)\",\"assessmentPlan.ratingGuideBuilder.title\":\"Concepteur de guides de cotation\",\"assessmentPlan.selectAssessment.label\":\"Sélectionner une évaluation\",\"assessmentPlan.selectAssessment.null\":\"Sélectionner une évaluation\",\"assessmentPlan.skillDescriptionLabel\":\"Description\",\"assessmentPlan.skillLevelDescriptionLabel\":\"Niveau de compétence sélectionné\",\"assessmentPlan.summary.assessmentSummary.noAssessments\":\"Vous n’avez pas sélectionné d’évaluations pour cette offre d’emploi. Ajoutez-les ci-dessus.\",\"assessmentPlan.summary.assessmentSummary.title\":\"Sommaire de l’évaluation\",\"assessmentPlan.summary.assessmentSummary.toolSkillCount\":\"Votre plan utilise {toolCount, plural, =0 {aucun outil} one {# outill} other {# outils}} pour évaluer {skillCount, plural, =0 {compétences} one {# compétence} other {# compétences}}.\",\"assessmentPlan.summary.description\":\"Ceci est un résumé du travail que vous avez effectué ci-dessus. Vous trouverez\\n      chaque évaluation accompagnée d'une liste consolidée des compétences essentielles\\n      et des atouts qui s'y rattachent.\",\"assessmentPlan.summary.skillCount\":\"Évaluer {count, plural, one {# compétence} other {# compétences}}.\",\"assessmentPlan.summary.skillsNullState\":\"Aucune compétence n’est évaluée par cet outil.\",\"assessmentPlan.summary.title\":\"2. Sommaire du plan d’évaluation\",\"assessmentPlan.title\":\"Concepteur de plans d’évaluation\",\"assessmentType.applicationScreeningQuestion\":\"Questions de présélection dans le cadre du processus d’embauche\",\"assessmentType.applicationScreeningQuestion.description\":\"Ces questions paraissent dans le formulaire de demande, et sont présentées dans le Nuage de talents. Elles donnent un premier aperçu de la compréhension, du processus, des connaissances ou de l’adaptation culturelle du candidat pour le poste.\",\"assessmentType.groupTest\":\"Test de groupe\",\"assessmentType.groupTest.description\":\"Les candidats effectuent ce test en temps réel conjointement avec d’autres candidats, des membres de l’équipe ou des animateurs afin de déterminer leurs compétences exceptionnelles, leur habileté à communiquer au sein d’une équipe.\",\"assessmentType.informalPhoneConversation\":\"Conversation téléphonique informelle\",\"assessmentType.informalPhoneConversation.description\":\"Une conversation informelle entre un membre du comité d’embauche et un(e) candidat(e), visant à découvrir les connaissances, les aptitudes ou les traits de personnalité du candidat; les conversations peuvent varier d’un candidat à l’autre.\",\"assessmentType.interview\":\"Entrevue\",\"assessmentType.interview.description\":\"Examen formel de questions-réponses effectué en temps réel entre le comité de sélection et le (la) candidat(e). Les questions ont pour but d'évaluer l'expertise, le niveau et l'approche des compétences. Chaque question est élaborée à l’avance et suit la même structure entre tous les candidats interrogés.\",\"assessmentType.narrativeAssessment\":\"Examen narratif\",\"assessmentType.narrativeAssessment.description\":\"Il s’agit d’une description demandée au cours du processus de demande, dans laquelle les candidats s’identifient et décrivent leur expérience et leur niveau de compétence.\",\"assessmentType.narrativeReview.standardAnswer\":\"La description fournie contient suffisamment d’éléments de preuve pour faire passer ce candidat aux étapes de présélection suivantes.\",\"assessmentType.narrativeReview.standardQuestion\":\"L’examen descriptif des compétences comprend toutes les descriptions ajoutées par le candidat dans sa demande.\",\"assessmentType.onSiteExam\":\"Épreuve sur place\",\"assessmentType.onSiteExam.description\":\"Épreuve préparée qui exige que le candidat effectue à un endroit précis et sous supervision un test visant à évaluer ses compétences et sa technique.\",\"assessmentType.onlineExam\":\"Épreuve en ligne\",\"assessmentType.onlineExam.description\":\"Épreuve préparée qui n’exige pas de supervision, qui peut être effectuée de n’importe quel endroit au moyen d’un accès à Internet, et qui doit être achevée dans un intervalle de temps défini.\",\"assessmentType.portfolioReview\":\"Examen du portefeuille\",\"assessmentType.portfolioReview.description\":\"Au cours du processus de demande, les candidats donnent accès à des échantillons de leur travail pour démontrer leur niveau de compétence et étayer leurs prétentions à cet égard.\",\"assessmentType.referenceCheck\":\"Vérification des références\",\"assessmentType.referenceCheck.description\":\"Au cours du processus de demande, les candidats fournissent les coordonnées d’une connaissance qui peut valider et confirmer leurs compétences, leurs connaissances ou leurs aptitudes.\",\"assessmentType.seriousGames\":\"Jeux sérieux\",\"assessmentType.seriousGames.description\":\"Test comprenant l’utilisation de jeux pour explorer les aptitudes en communication, la résilience et l’intelligence émotionnelle d’un(e) candidat(e), entre autres compétences générales.\",\"assessmentType.takeHomeExam\":\"Épreuve à la maison\",\"assessmentType.takeHomeExam.description\":\"Les candidats reçoivent une trousse matérielle contenant les outils d’évaluation; ils effectuent l’évaluation à un moment qui leur convient le mieux, et à un endroit de leur choix, sans supervision, et ils doivent retourner les documents avant une date limite précise.\",\"button.copied\":\"Copié!\",\"button.copyEmails\":\"Copier des emails\",\"button.copyToClipboard\":\"Copier sur le presse-papier\",\"button.toggleAccordion\":\"Basculer pour voir les candidats concernés.\",\"commentForm.comment.label\":\"Ajouter un commentaire\",\"commentForm.comment.placeholder\":\"À titre d’exemple, entrez votre question, votre recommandation, etc.\",\"commentForm.commentLocation.label\":\"Emplacement du commentaire\",\"commentForm.commentLocation.nullSelection\":\"Sélectionnez un emplacement...\",\"commentForm.commentType.label\":\"Type de commentaire\",\"commentForm.commentType.nullSelection\":\"Sélectionner un type de commentaire\",\"commentForm.submitButton.label\":\"Soumettre un commentaire\",\"commentType.comment\":\"Commentaire\",\"commentType.question\":\"Question\",\"commentType.recommendation\":\"Recommandation\",\"commentType.requiredAction\":\"Mesure requise\",\"criteria.asset\":\"Compétences constituant un atout\",\"criteria.essential\":\"Compétences essentielles\",\"criteriaForm.skillLevelSelectionLabel\":\"Choisir un niveau de compétence\",\"criteriaForm.skillSpecificityLabel\":\"Détails supplémentaires pour cette compétence\",\"criteriaForm.skillSpecificityPlaceholder\":\"Ajoutez du contexte ou des détails à la définition de cette compétence qui n'apparaîtront que sur votre affiche d'emploi. Ceci sera examiné par votre conseiller en ressources humaines.\",\"criteriaType.asset\":\"Atout\",\"criteriaType.essential\":\"Essentiel\",\"demoSubmitJobModal.cancel\":\"Retourner\",\"demoSubmitJobModal.explanation\":\"Seuls les ministères partenaires de Nuage des talents ont accès à l'examen et à la publication des avis d'emploi.\",\"demoSubmitJobModal.link\":\"<a>Savoir si vous pouvez accéder à ces fonctions</a>.\",\"demoSubmitJobModal.link.title\":\"Découvrez comment accéder aux fonctions d'examen et de publication des avis d'emploi.\",\"demoSubmitJobModal.title\":\"Il semble que vous utilisez un compte de démonstration.\",\"errorToast.title\":\"Quelque chose a mal tourné!\",\"formInput.error\":\"Cette entrée a une erreur.\",\"formInput.required\":\"Champs obligatoires\",\"formValidation.checkboxRequired\":\"Il faut cocher au moins une case.\",\"formValidation.invalidSelection\":\"Veuillez choisir parmi les options disponibles.\",\"formValidation.required\":\"Ce champ est requis.\",\"formValidation.tooLong\":\"Trop longue?\",\"formValidation.tooShort\":\"Trop courte?\",\"hrJobIndex.departmentPlaceholder\":\" [Chargement du ministère]\",\"hrJobIndex.jobTitleMissing\":\"Titre manquant \",\"hrJobIndex.managerLoading\":\"Chargement...\",\"hrJobIndex.preview\":\"Prévisualiser l’avis d’emploi \",\"hrJobIndex.reviewDraft\":\"Réviser l’ébauche \",\"hrJobIndex.viewActivity\":\"Afficher l’activité \",\"hrJobIndex.viewScreeningPlan\":\"Afficher le plan d’évaluation \",\"hrJobIndex.viewSummary\":\"Afficher le résumé \",\"hrPortal.jobPageIndex.clickToView\":\"Cliquer pour afficher...\",\"hrPortal.jobPageIndex.completedJobsHeader\":\" Mes mesures d’emploi achevées \",\"hrPortal.jobPageIndex.hideAccordion\":\" Masquer \",\"hrPortal.jobPageIndex.jobActionsEmpty\":\"Réclamer un emploi ci-dessous!\",\"hrPortal.jobPageIndex.jobActionsHeader\":\"Mes mesures d’emploi achevée\",\"hrPortal.jobPageIndex.jobActionsMessage\":\"Voici une liste de toutes les mesures d’emploi auxquelles vous participez actuellement. Vous cherchez une ancienne offre d’emploi? Cochez la section « Mes mesures d’emploi achevées » sous vos offres d’emploi actives.\",\"hrPortal.jobPageIndex.noJobsCompleted\":\"Aucune offre d’emploi achevée à l’heure actuelle!\",\"hrPortal.jobPageIndex.preDepartmentName\":\"Toutes les offres d’emploi dans\",\"hrPortal.jobPageIndex.showAccordion\":\"Afficher \",\"hrPortal.jobPageIndex.unclaimedJobsEmpty\":\"Il n’y a actuellement aucune offre d’emploi active disponible.\",\"hrPortal.jobPageIndex.unclaimedJobsMessage\":\"Voici la liste de toutes les mesures actives dans votre ministère. À partir de ce point, vous pouvez « réclamer » un emploi qui sera transféré dans votre liste d’emploi ci-dessus, ce qui vous permettra de commencer à collaborer avec le gestionnaire d’embauche pour trouver le meilleur talent possible. Si vous réclamez un emploi par erreur, ne craignez rien, car vous pouvez cliquer sur le résumé de l’emploi et retirer votre nom au moyen du bouton « Renoncer à cet emploi ».\",\"job.daysSinceClosed\":\"{dayCount, plural, =0 {Aucun jour} one {# jour} other {# jours}} depuis la fermeture\",\"jobBuilder.collaborativeness.01.description\":\"Les membres de notre équipe proviennent de divers milieux, et ont des points de vue et des compétences variés. Nous nous appuyons sur nos points forts. Collectivement, nous nous approprions les objectifs de l’équipe et nous sommes constamment à la recherche de façons de s’entraider.\",\"jobBuilder.collaborativeness.01.title\":\"Collaboratif\",\"jobBuilder.collaborativeness.02.description\":\"Notre équipe possède un ensemble de compétences diversifiées et nous reconnaissons les forces de chacun. Nous travaillons ensemble souvent et nous intervenons rapidement quand une personne demande de l’aide.\",\"jobBuilder.collaborativeness.02.title\":\"Assez collaboratif\",\"jobBuilder.collaborativeness.03.description\":\"Chaque membre de notre équipe possède une pièce du casse-tête et jouit de la liberté de choisir sa propre façon de travailler.\",\"jobBuilder.collaborativeness.03.title\":\"Assez indépendant \",\"jobBuilder.collaborativeness.04.description\":\"Chaque membre de notre équipe prend en charge sa pièce du casse-tête. La façon dont nous accomplissons notre travail importe peu, tant qu’il est de qualité supérieure.\",\"jobBuilder.collaborativeness.04.title\":\"Indépendant\",\"jobBuilder.criteriaForm.addSpecificity\":\"Je voudrais ajouter des détails à cette définition qui sont spécifiques à ce poste.\",\"jobBuilder.criteriaForm.button.add\":\"Ajouter une compétence\",\"jobBuilder.criteriaForm.button.cancel\":\"Annuler\",\"jobBuilder.criteriaForm.chooseSkillLevel\":\"Choisir un niveau de compétence\",\"jobBuilder.criteriaForm.or\":\"ou\",\"jobBuilder.criteriaForm.removeSpecificity\":\"Supprimer la particularité supplémentaire.\",\"jobBuilder.criteriaForm.skillDefinition\":\"Définition de la compétence\",\"jobBuilder.criterion.requiredSkill\":\"Compétence requise :\",\"jobBuilder.culturePace.01.description\":\"Nos échéances sont serrées, nous traitons plusieurs tâches en même temps et nos priorités changent constamment. Notre travail devrait être effectué en portant des chaussures de courses!\",\"jobBuilder.culturePace.01.title\":\"Un rythme très rapide\",\"jobBuilder.culturePace.02.description\":\"Nos échéances sont habituellement rapprochées, nous traitons plusieurs tâches en même temps et nos priorités changent régulièrement. Notre travail nous force à rester sur le qui-vive!\",\"jobBuilder.culturePace.02.title\":\"Rythme rapide\",\"jobBuilder.culturePace.03.description\":\"Nos échéances sont régulières et prévisibles, nous traitons quelques tâches à la fois et nos priorités changent de temps à autre. Nous maintenons un certain équilibre.\",\"jobBuilder.culturePace.03.title\":\"Soutenu\",\"jobBuilder.culturePace.04.description\":\"Notre travail est continu, donc il n’y a pas beaucoup d’échéances. Habituellement, nous ne sommes pas obligés d’équilibrer la répartition des tâches et nos priorités changent rarement. Nous nous sentons bien dans la routine.\",\"jobBuilder.culturePace.04.title\":\"Très soutenu\",\"jobBuilder.details.SelectClassAndLvlMessage\":\"Veuillez choisir une classification et un niveau avant de préparer\\r\\n                          les exigences en matière d’éducation.\",\"jobBuilder.details.cityLabel\":\"Dans quelle ville l'équipe est-elle située?\",\"jobBuilder.details.cityPlaceholder\":\"P. ex. Ottawa\",\"jobBuilder.details.classificationLabel\":\"Quelle est la classification?\",\"jobBuilder.details.classificationNullSelection\":\"Veuillez sélectionner la classification...\",\"jobBuilder.details.classificationOptions.AD\":\"AD - Services administratifs\",\"jobBuilder.details.classificationOptions.AS\":\"AS – Services administratifs\",\"jobBuilder.details.classificationOptions.BI\":\"BI – Sciences biologiques\",\"jobBuilder.details.classificationOptions.CO\":\"CO - Commerce\",\"jobBuilder.details.classificationOptions.CR\":\"CR - Commis aux écritures et aux règlements\",\"jobBuilder.details.classificationOptions.CS\":\"CS – Systèmes d’ordinateurs\",\"jobBuilder.details.classificationOptions.EC\":\"EC - Économique et services de sciences sociales\",\"jobBuilder.details.classificationOptions.EX\":\"EX - Direction\",\"jobBuilder.details.classificationOptions.FO\":\"FO - Sciences forestières\",\"jobBuilder.details.classificationOptions.IS\":\"IS – Services d’information\",\"jobBuilder.details.classificationOptions.PC\":\"PC – Sciences physiques\",\"jobBuilder.details.classificationOptions.PE\":\"PE – Gestion du personnel\",\"jobBuilder.details.classificationOptions.PM\":\"PM – Administration des programmes\",\"jobBuilder.details.documentTitle\":\"Constructeur d'affiches: Renseignements\",\"jobBuilder.details.educationMessages.AD\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires;\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’elle soit prise en considération. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.AS\":\"Diplôme d’études secondaires ou équivalent :\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.BI\":\"Diplôme d’études postsecondaires:\\nDiplôme d’études postsecondaires en sciences naturelles, physiques ou appliquées, avec spécialisation dans un domaine lié aux fonctions du poste.\",\"jobBuilder.details.educationMessages.CO\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.CR\":\"Deux années d’études secondaires ou l’équivalent:\\nAu moins deux années d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative aux deux années d’études secondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.CS\":\"Deux (2) ans d’études postsecondaires ou l’équivalent:\\nDeux années d’études postsecondaires en informatique, en technologie de l’information, en gestion de l’information ou dans une autre spécialité pertinente à ce poste.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente aux deux années d’études postsecondaires requises, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.EC\":\"Diplôme d’études postsecondaires:\\nun diplôme d’un établissement d’enseignement postsecondaire reconnu avec spécialisation acceptable en économique, en sociologie ou en statistique.\\n\\nLes candidats doivent toujours détenir un diplôme. Les cours de spécialisation doivent être acceptables et avoir été suivis auprès d’un établissement d’enseignement postsecondaire reconnu, mais pas nécessairement dans le cadre d’un programme de diplôme dans la spécialisation requise. La spécialisation peut également être obtenue grâce à un agencement acceptable d’études, de formation et (ou) d’expérience.\",\"jobBuilder.details.educationMessages.EX\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires, ou admissibilité à un titre professionnel reconnu dans une province ou un territoire du Canada.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.FO\":\"Diplôme d’études postsecondaires:\\nUn diplôme en foresterie ou en produits du bois d’un établissement d’enseignement postsecondaire reconnu.\\n\\nou\\n\\nUn diplôme dans une science connexe d’un établissement d’enseignement postsecondaire reconnu agencé à une expérience acceptable.\",\"jobBuilder.details.educationMessages.IS\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.PC\":\"Diplôme d’études postsecondaires:\\nDiplôme d’études postsecondaires, avec spécialisation en physique, en géologie, en chimie ou dans une autre science liée aux fonctions du poste.\",\"jobBuilder.details.educationMessages.PE\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires, avec spécialisation en gestion des ressources humaines, en relations de travail ou en relations industrielles, en psychologie, en administration publique ou en administration des affaires, en développement organisationnel, en sciences de l’éducation, en sciences sociales, en sociologie ou dans un autre domaine lié aux fonctions du poste.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.PM\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationRequirementCopyAndPaste\":\"Si vous voulez personnaliser ce paragraphe, veuillez le copier-coller dans la zone de texte ci-dessous pour le modifier. \",\"jobBuilder.details.educationRequirementHeader\":\"En fonction du niveau de classification sélectionné, le paragraphe générique suivant apparaîtra sur l’offre d’emploi. \",\"jobBuilder.details.educationRequirementPlaceholder\":\"Collez le paragraphe ici pour le modifier...\",\"jobBuilder.details.educationRequirementReviewChanges\":\"Votre conseiller en RH examinera vos changements.\",\"jobBuilder.details.educationRequirementsLabel\":\"Personnaliser les exigences en matière d’études :\",\"jobBuilder.details.flexHoursGroupBody\":\"Vous voulez appuyer un milieu de travail plus inclusif sur le plan de l’égalité des sexes? Des études montrent que l’horaire flexible est un excellent moyen d’améliorer les possibilités des femmes et des parents.\",\"jobBuilder.details.flexHoursGroupHeader\":\"À quelle fréquence les heures flexibles sont-elles permises?\",\"jobBuilder.details.flexHoursGroupLabel\":\"Choisissez les horaires souples :\",\"jobBuilder.details.frequencyAlwaysLabel\":\"Presque toujours\",\"jobBuilder.details.frequencyFrequentlyLabel\":\"Habituellement\",\"jobBuilder.details.frequencyNeverLabel\":\"Jamais\",\"jobBuilder.details.frequencyOccasionallyLabel\":\"Rarement\",\"jobBuilder.details.frequencySometimesLabel\":\"Parfois\",\"jobBuilder.details.heading\":\"Détails sur l’emploi\",\"jobBuilder.details.languageLabel\":\"Quel est le profil linguistique?\",\"jobBuilder.details.languageNullSelection\":\"Veuillez sélectionner le profil linguistique...\",\"jobBuilder.details.levelLabel\":\"Quel est le niveau?\",\"jobBuilder.details.levelNullSelection\":\" Veuillez sélectionner le niveau...\",\"jobBuilder.details.modalBody\":\"Voici un aperçu des informations sur le travail que vous venez de saisir. N'hésitez pas à revenir en arrière et à modifier des éléments ou à passer à l'étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.details.modalCancelLabel\":\"Retourner\",\"jobBuilder.details.modalConfirmLabel\":\"Étape suivante\",\"jobBuilder.details.modalHeader\":\"Vous partez du bon pied!\",\"jobBuilder.details.modalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.details.overtimeFrequentlyLabel\":\"Oui, il est souvent nécessaire de travailler des heures supplémentaires dans le cadre de ce poste.\",\"jobBuilder.details.overtimeGroupHeader\":\"Le temps supplémentaire est-il requis?\",\"jobBuilder.details.overtimeGroupLabel\":\"Sélectionner l’exigence en matière de temps supplémentaire\",\"jobBuilder.details.overtimeNoneRequiredLabel\":\"Non, le temps supplémentaire n’est pas nécessaire pour ce poste.\",\"jobBuilder.details.overtimeOpportunitiesAvailableLabel\":\"Oui, il est possible que des heures supplémentaires soient offertes aux personnes intéressées.\",\"jobBuilder.details.provinceLabel\":\"Dans quelle province l'équipe est-elle située?\",\"jobBuilder.details.provinceNullSelection\":\"Veuillez sélectionner la province...\",\"jobBuilder.details.remoteWorkCanadaLabel\":\"Oui, je suis prêt(e) à superviser des employés dans n'importe quelle province ou territoire au Canada.\",\"jobBuilder.details.remoteWorkGroupBody\":\"Vous voulez les meilleurs talents au Canada? Vous augmentez vos chances lorsque vous permettez à ceux qui se trouvent dans d’autres régions du Canada de présenter une demande. La diversité régionale ajoute également une perspective à la culture de votre équipe. Assurez-vous d’en discuter à l’avance avec votre conseiller en RH.\",\"jobBuilder.details.remoteWorkGroupHeader\":\"Le travail à distance est-il permis?\",\"jobBuilder.details.remoteWorkGroupLabel\":\"Choisissez le travail à distance :\",\"jobBuilder.details.remoteWorkNoneLabel\":\"Non, j’exige que l’employé(e) qui occupe ce poste soit dans le même lieu géographique que le bureau.\",\"jobBuilder.details.remoteWorkWorldLabel\":\"Oui, je suis prêt(e) à superviser des employés partout dans le monde.\",\"jobBuilder.details.returnButtonLabel\":\"Enregistrer et retourner à l’introduction\",\"jobBuilder.details.securityLevelLabel\":\"Quel est le niveau de sécurité?\",\"jobBuilder.details.securityLevelNullSelection\":\"Veuillez sélectionner le niveau de sécurité...\",\"jobBuilder.details.submitButtonLabel\":\"Prochain\",\"jobBuilder.details.teleworkGroupBody\":\"Démontrez que vous faites confiance à vos employés et que vous avez une culture organisationnelle positive. Autorisez le télétravail en option.\",\"jobBuilder.details.teleworkGroupHeader\":\"À quelle fréquence le télétravail est-il permis?\",\"jobBuilder.details.teleworkGroupLabel\":\"Choisissez le télétravail :\",\"jobBuilder.details.termLengthLabel\":\"Quelle est la durée du poste (en mois)?\",\"jobBuilder.details.termLengthPlaceholder\":\" P.ex. 3\",\"jobBuilder.details.titleLabel\":\"Quel est le titre du poste?\",\"jobBuilder.details.titlePlaceholder\":\"P. ex. Chercheur - utilisateurs\",\"jobBuilder.details.travelFrequentlyLabel\":\"Oui, des déplacements sont souvent exigés pour le poste.\",\"jobBuilder.details.travelGroupHeader\":\"Est-il nécessaire de voyager?\",\"jobBuilder.details.travelGroupLabel\":\"Sélectionner l’exigence des déplacements\",\"jobBuilder.details.travelNoneRequiredLabel\":\"Non, aucun déplacement n’est nécessaire pour ce poste.\",\"jobBuilder.details.travelOpportunitiesAvailableLabel\":\"Oui, des possibilités de voyage sont offertes pour ceux qui sont intéressés.\",\"jobBuilder.experimental.01.description\":\"Notre travail est défini en essayant de nouvelles idées, méthodes et activités pour aborder des problèmes persistants auxquels les approches traditionnelles ne peuvent pas remédier.\",\"jobBuilder.experimental.01.title\":\"Approche expérimentale\",\"jobBuilder.experimental.02.description\":\"Nous essayons des idées, méthodes et activités nouvelles et éprouvées pour améliorer la façon de faire notre travail.\",\"jobBuilder.experimental.02.title\":\"Approche assez expérimentale\",\"jobBuilder.experimental.03.description\":\"Notre travail comprend quelques tâches administratives qui se répètent quotidiennement. Les outils que nous utilisons nous conviennent, mais nous sommes ouverts à améliorer notre processus..\",\"jobBuilder.experimental.03.title\":\"Travail assez prévisible\",\"jobBuilder.experimental.04.description\":\"La majeure partie de notre travail comprend quelques tâches administratives qui se répètent quotidiennement. La cohérence est un facteur clé ici, donc nous suivons un processus standard avec des outils éprouvés.\",\"jobBuilder.experimental.04.title\":\"Travail prévisible\",\"jobBuilder.facing.01.description\":\"Nous représentons l’image de marque des services que nous offrons et nous passons la plupart de notre temps à interagir directement avec le public.\",\"jobBuilder.facing.01.title\":\"Services orientés vers le citoyen\",\"jobBuilder.facing.02.description\":\"Nous passons beaucoup de temps à interagir directement avec le public, mais nous travaillons également en coulisses afin d’appuyer d’autres personnes.\",\"jobBuilder.facing.02.title\":\"Services essentiellement orientés vers le citoyen\",\"jobBuilder.facing.03.description\":\" Nous travaillons généralement en coulisses et nous effectuons un travail important qui rend possible la prestation de services.\",\"jobBuilder.facing.03.title\":\"Services essentiellement administratifs\",\"jobBuilder.facing.04.description\":\" Nous travaillons en coulisses et nous effectuons un travail important qui rend possible la prestation de services. Nous nous sentons bien quand nous appuyons les autres.\",\"jobBuilder.facing.04.title\":\"Services administratifs\",\"jobBuilder.impact.button.goBack\":\"Revenir en arrière\",\"jobBuilder.impact.button.next\":\"Prochain\",\"jobBuilder.impact.button.nextStep\":\"Passer à l’étape suivante\",\"jobBuilder.impact.button.return\":\"Enregistrer et retourner à l’environnement de travail\",\"jobBuilder.impact.button.skipToReview\":\"Passer pour la révision\",\"jobBuilder.impact.departmentsLoading\":\"Chargement des données du Ministère...\",\"jobBuilder.impact.documentTitle\":\"Constructeur d’affiches: Incidences\",\"jobBuilder.impact.header.department\":\"Comment votre ministère engendre des incidences:\",\"jobBuilder.impact.hireBody\":\"Décrivez la contribution du nouvel employé dans le cadre de son rôle. Misez sur la valeur qu’il apportera et non des tâches particulières (vous les indiquerez plus loin). Par exemple « Dans ce rôle, vous contribuerez à … » ou « En tant que membre de l’équipe, vous serez responsable de nous aider à… »\",\"jobBuilder.impact.hireHeader\":\"Comment le nouvel employé engendra des incidences\",\"jobBuilder.impact.hireLabel\":\"Déclaration d'incidences des employés\",\"jobBuilder.impact.hirePlaceholder\":\"Souvenez-vous de ne pas utiliser de jargon administratif.\",\"jobBuilder.impact.modalDescription\":\"Voici un aperçu de l’énoncé des incidences que vous venez de rédiger.\\n                        N'hésitez pas à revenir en arrière pour modifier le texte.\\n                        Passez à l'étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.impact.modalTitle\":\"Excellent travail!\",\"jobBuilder.impact.points.counts\":\"La première chose que les candidats voient lorsqu’ils cliquent sur votre avis de concours est votre énoncé des incidences. Assurez-vous donc de bien le rédiger!\",\"jobBuilder.impact.points.highlight\":\"C’est votre chance de souligner en quoi votre travail est utile et intéressant.\",\"jobBuilder.impact.points.opportunity\":\"Le fait de travailler pour le gouvernement fédéral offre une importante occasion d’engendrer d’importantes incidences pour les Canadiens.\",\"jobBuilder.impact.selectDepartment\":\"Vous devez choisir un ministère pour cet emploi.\",\"jobBuilder.impact.teamBody\":\"Décrivez la valeur apportée aux Canadiens par votre équipe/service/initiative. Peu importe si votre travail consiste à offrir des services directement aux citoyens ou des services administratifs, d’innovation ou d’entretien, de priorité absolue ou continus. Décrivez comment votre travail contribue à améliorer le Canada comme si vous parliez à quelqu’un qui ne connaît rien de votre travail.\",\"jobBuilder.impact.teamHeader\":\"Comment votre équipe engendre des impacts:\",\"jobBuilder.impact.teamLabel\":\"Déclaration d’incidence d'équipe\",\"jobBuilder.impact.teamPlaceholder\":\"Employez un ton informel, franc et amical\",\"jobBuilder.impact.title\":\"Rédiger votre énoncé des incidences\",\"jobBuilder.impact.unknownDepartment\":\"Erreur : Choisissez un ministère inconnu.\",\"jobBuilder.impactPreview.title\":\"Impact\",\"jobBuilder.intro.accountSettingsLinkText\":\"les paramètres de votre compte\",\"jobBuilder.intro.accountSettingsLinkTitle\":\"Visitez la page Paramètres du compte.\",\"jobBuilder.intro.changeDepartment\":\"Pour changer de département, veuillez contacter {email}. Pour en savoir plus, visitez {accountSettings}.\",\"jobBuilder.intro.completeInLanguage\":\"Répondez à l’offre d’emploi dans la langue officielle de votre choix. Nous nous chargerons de la traduction\",\"jobBuilder.intro.contactUs\":\"Nous avons également fourni des instructions et des exemples pour vous guider tout au long du processus, mais si vous avez toujours des questions, veuillez communiquer avec le {link}\",\"jobBuilder.intro.continueButtonLabelEN\":\"Continue in English\",\"jobBuilder.intro.continueButtonLabelFR\":\"Continuer en français\",\"jobBuilder.intro.departmentHeader\":\"Informations sur le département de {name}\",\"jobBuilder.intro.departmentLabel\":\"Ministère\",\"jobBuilder.intro.departmentNullSelection\":\"Choisissez un ministère...\",\"jobBuilder.intro.divisionLabelEN\":\"La division de {name} (en anglais)\",\"jobBuilder.intro.divisionLabelFR\":\"La division de {name} (en français)\",\"jobBuilder.intro.divisionPlaceholderEN\":\"p. ex., Digital Change\",\"jobBuilder.intro.divisionPlaceholderFR\":\"p. ex., Changement numérique\",\"jobBuilder.intro.documentTitle\":\"Constructeur d'affiches: Intro\",\"jobBuilder.intro.emailLinkText\":\"Nuage de talents\",\"jobBuilder.intro.emailLinkTitle\":\"Envoyer un courriel au Nuage de talents.\",\"jobBuilder.intro.explanation\":\"Le présent outil vous aidera à créer une offre d’emploi qui vous aidera à attirer les bons talents. Avant de commencer à créer l’offre d’emploi, veuillez prendre le temps de {boldText}\",\"jobBuilder.intro.explanation.boldText\":\"confirmer l’exactitude de vos renseignements personnels ci-dessous.\",\"jobBuilder.intro.formDescription\":\"Ces renseignements apparaîtront dans l’offre d’emploi pour donner de plus amples renseignements aux candidats sur les personnes avec qui ils travailleront.\",\"jobBuilder.intro.formTitle\":\"Information du profil de {name}\",\"jobBuilder.intro.jobTitleLabelEN\":\"Le poste de {name} (en anglais)\",\"jobBuilder.intro.jobTitleLabelFR\":\"Le poste de {name} (en français)\",\"jobBuilder.intro.jobTitlePlaceholderEN\":\"Par exemple : Design Manager\",\"jobBuilder.intro.jobTitlePlaceholderFR\":\"Par exemple : Gestionnaire de la conception\",\"jobBuilder.intro.managerLoading\":\"Votre profil de gestionnaire est en cours de chargement...\",\"jobBuilder.intro.welcome\":\"Bienvenue sur le Constructeur d'Affiches\",\"jobBuilder.jobLoading\":\"Votre offre d’emploi est en train de se charger...\",\"jobBuilder.loading\":\"Votre offre d’emploi est en train de se charger...\",\"jobBuilder.mgmtStyle.01.description\":\"Il n’y a aucun cadre intermédiaire ici, donc nous prenons, nous-mêmes, la plupart des décisions importantes et vous pouvez vous attendre à interagir quotidiennement avec nos cadres supérieures.\",\"jobBuilder.mgmtStyle.01.title\":\"Horizontale\",\"jobBuilder.mgmtStyle.02.description\":\"Nous avons quelques cadres intermédiaires ici, mais nous prenons, nous-mêmes, les décisions quotidiennes. Ne soyez pas surpris d’interagir assez souvent avec nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.02.title\":\"Assez horizontale\",\"jobBuilder.mgmtStyle.03.description\":\"Notre équipe a un rôle clairement défini. Nous faisons régulièrement le point avec les cadres intermédiaires pour approuver et mettre à jour la vision stratégique de nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.03.title\":\"Assez verticale\",\"jobBuilder.mgmtStyle.04.description\":\"Notre équipe a un rôle clairement défini. Nous faisons souvent le point auprès des cadres intermédiaires pour approuver et procéder à la mise à jour de la vision stratégique de nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.04.title\":\"Verticale\",\"jobBuilder.preview.city\":\"Ville\",\"jobBuilder.preview.classification\":\"Classification\",\"jobBuilder.preview.classificationEducation\":\"Classification et éducation\",\"jobBuilder.preview.education\":\"Éducation\",\"jobBuilder.preview.flexibleHours\":\"Heures flexibles\",\"jobBuilder.preview.jobInformation\":\"Renseignements sur l’emploi\",\"jobBuilder.preview.jobTitle\":\"Titre du poste\",\"jobBuilder.preview.languageProfile\":\"Profil linguistique\",\"jobBuilder.preview.lengthOfTheTerm\":\"Durée du poste\",\"jobBuilder.preview.level\":\"Niveau\",\"jobBuilder.preview.overtime\":\"Heures supplémentaires\",\"jobBuilder.preview.province\":\"Province\",\"jobBuilder.preview.remoteWork\":\"Travail à distance\",\"jobBuilder.preview.securityClearance\":\"Cote de sécurité\",\"jobBuilder.preview.telework\":\"Télétravail\",\"jobBuilder.preview.termLength\":\"{termMonths, plural, =0 {pas de mois} other {# mois}}\",\"jobBuilder.preview.travel\":\"Voyage\",\"jobBuilder.preview.workStyles\":\"Styles de travail\",\"jobBuilder.progressTracker.label.finish\":\"Fin\",\"jobBuilder.progressTracker.label.start\":\"Début\",\"jobBuilder.progressTracker.label.step1\":\"Étape 1 / 5\",\"jobBuilder.progressTracker.label.step2\":\"Étape 2 / 5\",\"jobBuilder.progressTracker.label.step3\":\"Étape 3 / 5\",\"jobBuilder.progressTracker.label.step4\":\"Étape 4 / 5\",\"jobBuilder.progressTracker.label.step5\":\"Étape 5 / 5\",\"jobBuilder.progressTracker.title.impact\":\"Incidence\",\"jobBuilder.progressTracker.title.jobInfo\":\"Renseignements\",\"jobBuilder.progressTracker.title.review\":\"Révision\",\"jobBuilder.progressTracker.title.skills\":\"Compétences\",\"jobBuilder.progressTracker.title.tasks\":\"Tâches\",\"jobBuilder.progressTracker.title.welcome\":\"Bienvenue\",\"jobBuilder.progressTracker.title.workEnv\":\"Environnement\",\"jobBuilder.review.GovernmentClass\":\"Classification gouvernementale\",\"jobBuilder.review.assetHeading\":\"Compétences souhaitables\",\"jobBuilder.review.averageAnnualSalary\":\"Échelle de salaire annuel\",\"jobBuilder.review.basicInformationHeading\":\"Renseignements de base\",\"jobBuilder.review.button.return\":\"Enregistrer et retourner aux compétences\",\"jobBuilder.review.button.submit\":\"Cela semble bon!\",\"jobBuilder.review.comesLater\":\"Cette étape survient plus tard.\",\"jobBuilder.review.confirm.cancel\":\"Annuler\",\"jobBuilder.review.confirm.submit\":\"Oui, transmettre\",\"jobBuilder.review.confirm.title\":\"Félicitations! Êtes-vous prêt à transmettre l’offre d’emploi?\",\"jobBuilder.review.criteriaSection\":\"Critères\",\"jobBuilder.review.cultureSection\":\"Environnement et culture\",\"jobBuilder.review.documentTitle\":\"Constructeur d'affiches: Révision\",\"jobBuilder.review.duration\":\"Durée\",\"jobBuilder.review.educationalHeading\":\"Exigences relatives aux études\",\"jobBuilder.review.headsUp\":\"Un simple rappel. Nous avons réorganisé certains renseignements fournis afin de vous aider à comprendre comment le candidat verra l’information une fois publiée.\",\"jobBuilder.review.impactEditLink\":\"Modifier cet élément à l’étape 03, Incidence.\",\"jobBuilder.review.impactHeading\":\"Incidence\",\"jobBuilder.review.infoEditLink\":\"Modifier cet élément à l’étape 01, Renseignements sur le poste\",\"jobBuilder.review.jobPageHeading\":\"Titre de la page de l’emploi\",\"jobBuilder.review.languageHeading\":\"Exigences linguistiques\",\"jobBuilder.review.languageProfile\":\"Profil linguistique\",\"jobBuilder.review.managerDataLoading\":\"Les données du gestionnaire sont en cours de chargement...\",\"jobBuilder.review.managerHeading\":\"Les données du gestionnaire sont en cours de chargement...\",\"jobBuilder.review.managerIncomplete\":\"Veuillez remplir votre profil de gestionnaire.\",\"jobBuilder.review.managerPosition\":\"{position} au {department}\",\"jobBuilder.review.managerProfileLink\":\"Modifier cet élément dans votre profil\",\"jobBuilder.review.meantime\":\"Entre-temps, n’hésitez pas à créer un plan de présélection pour votre processus de sélection. Vous pouvez aussi attendre les commentaires des RH avant de passer à l’étape suivante.\",\"jobBuilder.review.months\":\"{termMonths,plural,=0{No Months} one{{termMonths, number} Month} other{{termMonths, number} Months}}\",\"jobBuilder.review.nullProvince\":\"PROVINCE MANQUANTE\",\"jobBuilder.review.or\":\"ou\",\"jobBuilder.review.otherInfoHeading\":\"Autres renseignements au sujet de l’équipe\",\"jobBuilder.review.readyToSubmit\":\"Si vous êtes prêt à soumettre votre offre, cliquez sur le bouton Soumettre ci-dessous.\",\"jobBuilder.review.remoteAllowed\":\"Travail à distance autorisé\",\"jobBuilder.review.remoteNotAllowed\":\"Travail à distance non autorisé\",\"jobBuilder.review.reviewYourPoster\":\"Examiner votre offre d’emploi pour :\",\"jobBuilder.review.securityClearance\":\"Autorisation de sécurité\",\"jobBuilder.review.sendYourDraft\":\"Le Nuage de talents enverra votre ébauche au conseiller en RH de votre ministère, et ce dernier vous informera de ses commentaires.\",\"jobBuilder.review.skills.nullState\":\"Vous n’avez pas ajouté de compétences souhaitables pour cette offre d’emploi.\",\"jobBuilder.review.skillsEditLink\":\"Modifier cet élément à l’étape 05, Compétences\",\"jobBuilder.review.skillsHeading\":\"Compétences requises\",\"jobBuilder.review.tCAdds\":\"Le Nuage de talents ajoutera l’élément.\",\"jobBuilder.review.targetStartDate\":\"Date d’entrée en fonction prévue\",\"jobBuilder.review.tasksEditLink\":\"Modifier cet élément à l’étape 04, Tâches\",\"jobBuilder.review.tasksHeading\":\"Tâches\",\"jobBuilder.review.whatHappens\":\"Quelles sont les prochaines étapes?\",\"jobBuilder.review.workCultureHeading\":\"Culture de travail\",\"jobBuilder.review.workDescription\":\"Veuillez prendre note que certains renseignements sur le milieu de travail ne seront affichés que si le candidat clique sur le bouton « Afficher le milieu de travail et la culture de l’équipe » qui apparaît sur l’offre d’emploi.\",\"jobBuilder.review.workEnvEditLink\":\"Modifier cet élément à l’étape 02, Environnement de travail\",\"jobBuilder.review.workEnvHeading\":\"Milieu de travail\",\"jobBuilder.root.documentTitle\":\"Constructeur d'Affiches\",\"jobBuilder.skills.addSkillBelow\":\"Ajoutez des compétences, ci-dessous, pour continuer.\",\"jobBuilder.skills.alt.happyArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône sourire.\",\"jobBuilder.skills.alt.happyGraySmiley\":\"émoticône sourire en gris.\",\"jobBuilder.skills.alt.happySmiley\":\"émoticône sourire en couleur.\",\"jobBuilder.skills.alt.neutralArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône neutre.\",\"jobBuilder.skills.alt.neutralGraySmiley\":\"émoticône neutre en gris.\",\"jobBuilder.skills.alt.neutralSmiley\":\"émoticône neutre en couleur.\",\"jobBuilder.skills.alt.unhappyArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône triste.\",\"jobBuilder.skills.alt.unhappyGraySmiley\":\"émoticône triste en gris.\",\"jobBuilder.skills.alt.unhappySmiley\":\"émoticône triste en couleur.\",\"jobBuilder.skills.button.keyTasks\":\"Voir les tâches principales\",\"jobBuilder.skills.button.previewSkills\":\"Sauvegarder et voir un aperçu des compétences\",\"jobBuilder.skills.button.returnToTasks\":\"Sauvegarder et retourner aux tâches\",\"jobBuilder.skills.description\":\"C’est ici que vous choisissez les critères requis pour accomplir ce travail efficacement. Vous trouverez, ci-dessous, deux barres qui indiquent la mesure du niveau de votre présente compétence sélectionnée.\",\"jobBuilder.skills.description.keepItUp\":\"Voici un aperçu des compétences que vous venez de saisir. N’hésitez pas à retourner à la page précédente et à corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait. \",\"jobBuilder.skills.documentTitle\":\"Constructeur d'affiches: Compétences\",\"jobBuilder.skills.emailLink\":\"Communiquez avec nous par courriel\",\"jobBuilder.skills.essentialSkillRequiredError\":\"Au moins une compétence essentielle est requise.\",\"jobBuilder.skills.instructions.missingSkills\":\"Le fait de dresser une liste de compétences est une tâche énorme, et il n’est pas surprenant que la liste de Nuage de talents ne contienne pas la compétence que vous cherchez. Afin de nous aider à allonger la liste des compétences, veuillez {link}. Veuillez fournir le nom de la compétence ainsi qu’une brève description pour lancer la discussion.\",\"jobBuilder.skills.listTitle\":\"Votre liste de compétences\",\"jobBuilder.skills.nullState\":\"Vous n’avez pas encore ajouté de compétences.\",\"jobBuilder.skills.nullText.occupationalSkills\":\"Vous devez retourner à Étape 1 et choisir une classification.\",\"jobBuilder.skills.placeholder.otherSkills\":\"Aucune autre compétence n’est ajoutée.\",\"jobBuilder.skills.previewModalCancelLabel\":\"Retour en arrière\",\"jobBuilder.skills.previewModalConfirmLabel\":\"Prochaine étape\",\"jobBuilder.skills.previewModalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.skills.range.culturalSkills\":\"Visez des compétences {minCulture} – {maxCulture}.\",\"jobBuilder.skills.range.futureSkills\":\"Visez des compétences {minFuture} – {maxFuture}.\",\"jobBuilder.skills.range.occupationalSkills\":\"Visez des compétences {minOccupational} – {maxOccupational}.\",\"jobBuilder.skills.selectSkillLabel\":\"Veuillez sélectionner une compétence dans notre liste.\",\"jobBuilder.skills.selectSkillNull\":\"Veuillez sélectionner une compétence\",\"jobBuilder.skills.skillLevel\":\"Niveau de compétences\",\"jobBuilder.skills.statusSmiley.acceptable\":\"Acceptable\",\"jobBuilder.skills.statusSmiley.almost\":\"Presque\",\"jobBuilder.skills.statusSmiley.awesome\":\"Fantastique\",\"jobBuilder.skills.statusSmiley.essential.acceptable\":\"Acceptable\",\"jobBuilder.skills.statusSmiley.essential.almost\":\"Presque\",\"jobBuilder.skills.statusSmiley.essential.awesome\":\"Fantastique\",\"jobBuilder.skills.statusSmiley.essential.tooFew\":\"Insuffisant\",\"jobBuilder.skills.statusSmiley.essential.tooMany\":\"Trop\",\"jobBuilder.skills.statusSmiley.essentialTitle\":\"Le nombre de compétences fondamentales est\",\"jobBuilder.skills.statusSmiley.title\":\"Le nombre total des compétences\",\"jobBuilder.skills.statusSmiley.tooFew\":\"Insuffisant\",\"jobBuilder.skills.statusSmiley.tooMany\":\"Trop\",\"jobBuilder.skills.tasksModalCancelLabel\":\"Retour aux compétences\",\"jobBuilder.skills.title\":\"Compétences\",\"jobBuilder.skills.title.addASkill\":\"Ajoutez une compétence\",\"jobBuilder.skills.title.assetSkills\":\"Compétences constituant un atout\",\"jobBuilder.skills.title.culturalSkills\":\"Compétences comportementales\",\"jobBuilder.skills.title.editSkill\":\"Modifiez une compétence\",\"jobBuilder.skills.title.essentialSkills\":\"Compétences essentielles\",\"jobBuilder.skills.title.futureSkills\":\"Compétences de la fonction publique\",\"jobBuilder.skills.title.keepItUp\":\"Ne lâchez surtout pas!\",\"jobBuilder.skills.title.keyTasks\":\"Tâches principales\",\"jobBuilder.skills.title.missingSkill\":\"Vous ne trouvez pas la compétence dont vous avez besoin?\",\"jobBuilder.skills.title.needsToHave\":\"Les compétences que l’employé(e) doit posséder\",\"jobBuilder.skills.title.niceToHave\":\"Les compétences qu’il serait souhaitable que l’employé(e) possède\",\"jobBuilder.skills.title.occupationalSkills\":\"Compétences professionnelles\",\"jobBuilder.skills.title.otherSkills\":\"Autres compétences\",\"jobBuilder.skills.title.skillSelection\":\"Choix des compétences\",\"jobBuilder.tasks.addJob\":\"Ajoutez une tâche \",\"jobBuilder.tasks.documentTitle\":\"Constructeur d'affiches: Tâches\",\"jobBuilder.tasks.heading\":\"Ajoutez des tâches principales\",\"jobBuilder.tasks.intro.first\":\"À quoi le nouveau membre de votre équipe consacrera-t-il son temps? Quelles sont les tâches à exécuter?\",\"jobBuilder.tasks.intro.fourth\":\"Une fois que vous aurez terminé d’entrer les tâches principales, vous passerez à la détermination des compétences individuelles nécessaires à l’exécution de ces tâches.\",\"jobBuilder.tasks.intro.second\":\"Mettez l’accent sur les tâches à exécuter. Vous n’avez pas à donner tous les détails de l’emploi, mais les candidats souhaitent savoir comment ils vont passer la plus grande partie de leur temps.\",\"jobBuilder.tasks.intro.third\":\"Cherchez à indiquer de quatre à six tâches principales. (Tout au long du remue-méninges, vous pouvez ajouter autant de tâches principales que vous le souhaitez ici, mais vous ne pouvez pas en inclure plus de six dans l’offre d’emploi finale.)\",\"jobBuilder.tasks.modal.body\":\"Voici un aperçu des tâches que vous venez de saisir. N’hésitez pas à retourner à la page précédente pour corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.tasks.modal.body.heading\":\"Tâches\",\"jobBuilder.tasks.modal.cancelButtonLabel\":\"Retour en arrière\",\"jobBuilder.tasks.modal.confirmButtonLabel\":\"Prochaine étape\",\"jobBuilder.tasks.modal.middleButtonLabel\":\"Passer pour la révision\",\"jobBuilder.tasks.modal.title\":\"Ne lâchez surtout pas!\",\"jobBuilder.tasks.preview\":\"Aperçu des tâches\",\"jobBuilder.tasks.previous\":\"Étape précédente\",\"jobBuilder.tasks.taskCount.error.body\":\"Vous avez dépassé le nombre maximal permis de tâches principales, mais ce n’est pas grave. Tout au long du remue-méninges, vous pouvez continuer à ajouter des tâches principales ici, mais on vous demandera de réduire votre liste à six tâches ou moins pour continuer.\",\"jobBuilder.tasks.taskCount.error.title\":\"Juste pour vous informer!\",\"jobBuilder.tasks.taskCount.none\":\"Vous n’avez pas encore ajouté de tâches!\",\"jobBuilder.tasks.taskCount.some\":\"Vous avez ajouté {taskCount, plural, one {# tâche} other {# tâches}}.\",\"jobBuilder.tasks.taskLabel\":\"Tâche\",\"jobBuilder.tasks.taskPlaceholder\":\"Essayez d’adopter un ton décontracté, franc et amical...\",\"jobBuilder.tasks.tasksMaximum\":\"Veuillez supprimer toute tâche supplémentaire avant de continuer.\",\"jobBuilder.tasks.tasksRequired\":\"Au moins une tâche est requise.\",\"jobBuilder.workCulture.flexibleHours\":\"Heures flexibles\",\"jobBuilder.workCulture.flexibleHoursDescription\":\"Précisez vos propres heures de début et de fin.\",\"jobBuilder.workCulture.overtime\":\"Heures supplémentaires\",\"jobBuilder.workCulture.overtimeDescription\":\"Heures supplémentaires le soir ou la fin de semaine.\",\"jobBuilder.workCulture.remoteWork\":\"Travail à distance\",\"jobBuilder.workCulture.remoteWorkDescription\":\"Travailler de n’importe où, en tout temps.\",\"jobBuilder.workCulture.remoteWorkMsg.always\":\"Toujours\",\"jobBuilder.workCulture.remoteWorkMsg.never\":\"Jamais\",\"jobBuilder.workCulture.telework\":\"Télétravail\",\"jobBuilder.workCulture.teleworkDescription\":\"Travailler à partir de la maison certains jours (à une distance raisonnable en voiture du bureau).\",\"jobBuilder.workCulture.travel\":\"Déplacements\",\"jobBuilder.workCulture.travelDescription\":\"Découvrez le Canada ou d’autres régions du monde.\",\"jobBuilder.workEnv.amenities.cafeteria\":\"Cafétéria sur place\",\"jobBuilder.workEnv.amenities.closeToTransit\":\"À proximité du transport en commun\",\"jobBuilder.workEnv.amenities.downtown\":\"Centre-ville\",\"jobBuilder.workEnv.amenities.fitnessCenter\":\"À proximité d’un centre de conditionnement physique\",\"jobBuilder.workEnv.amenities.parking\":\" Accès facile à un stationnement\",\"jobBuilder.workEnv.amenities.restaurants\":\"À distance de marche des restaurants et des centres commerciaux\",\"jobBuilder.workEnv.amenitiesLabel\":\"À proximité\",\"jobBuilder.workEnv.collaborativeLabel\":\"Collaboratif ou indépendant :\",\"jobBuilder.workEnv.culture\":\"Notre culture\",\"jobBuilder.workEnv.cultureSubtext1\":\"Maintenant, renseignez les candidats davantage sur la personnalité des membres de votre équipe et le type de travail que vous faites habituellement.\",\"jobBuilder.workEnv.cultureSubtext2\":\"Sur la base de vos sélections, nous allons créer un court paragraphe résumant votre culture de travail. Vous pouvez modifier ce paragraphe afin qu’il soit personnalisé selon votre équipe.\",\"jobBuilder.workEnv.cultureSummary\":\"Résumé sur la culture\",\"jobBuilder.workEnv.cultureSummarySubtext\":\"Voici le court paragraphe qui résume la culture de votre travail qui apparaîtra dans l’offre d’emploi. Copiez-le et collez-le dans le champ de saisie qui suit, si vous désirez l’adapter à la personnalité des membres de votre équipe et à votre façon de travailler.\",\"jobBuilder.workEnv.customCultureSummaryLabel\":\"Adaptez votre résumé sur la culture :\",\"jobBuilder.workEnv.customCultureSummaryPlaceholder\":\"Collez le paragraphe ici pour le modifier...\",\"jobBuilder.workEnv.documentTitle\":\"Constructeur d'affiches: Environnement\",\"jobBuilder.workEnv.experimentalLabel\":\"Toujours expérimentale contre activités en cours:\",\"jobBuilder.workEnv.facingLabel\":\"Services orientés vers le client contre services administratifs :\",\"jobBuilder.workEnv.fastPacedSteadyLabel\":\"Rythme rapide contre rythme soutenu :\",\"jobBuilder.workEnv.greatStart\":\"Vous commencez très bien!\",\"jobBuilder.workEnv.managementLabel\":\"Horizontale contre verticale :\",\"jobBuilder.workEnv.moreOnWorkEnv\":\"Voici de plus amples renseignements sur votre environnement\",\"jobBuilder.workEnv.moreOnWorkEnvLabel\":\"Voici de plus amples renseignements sur votre environnement\",\"jobBuilder.workEnv.moreOnWorkEnvPlaceholder\":\"Essayez d’adopter un ton décontracté, franc et amical.\",\"jobBuilder.workEnv.moreOnWorkEnvSubtext\":\"Souhaitez-vous ajouter quelque chose à propos de votre environnement de travail? Mettez en évidence les caractéristiques de l’environnement physique, de la technologie et des commodités propres à votre équipe.\",\"jobBuilder.workEnv.openingSentence\":\"Voici un aperçu des renseignements sur l’emploi que vous venez de saisir. N’hésitez pas à retourner à la page précédente et à corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.workEnv.ourWorkEnv\":\"Notre environnement de travail\",\"jobBuilder.workEnv.ourWorkEnvDesc\":\"Décrivez un peu votre espace physique, la technologie que les membres de votre équipe utilisent et les services qui se trouvent à proximité de votre bureau. Cochez toutes les réponses qui s’appliquent.\",\"jobBuilder.workEnv.physEnv.assignedSeating\":\"Places réservées\",\"jobBuilder.workEnv.physEnv.naturalLight\":\"Lumière naturelle\",\"jobBuilder.workEnv.physEnv.openConcept\":\"Espaces de travail à aire ouverte\",\"jobBuilder.workEnv.physEnv.private\":\"Privé\",\"jobBuilder.workEnv.physEnv.smudging\":\"Convient aux cérémonies de purification par la fumée\",\"jobBuilder.workEnv.physEnv.windows\":\"Plusieurs fenêtres\",\"jobBuilder.workEnv.physicalEnvLabel\":\"Notre environnement physique\",\"jobBuilder.workEnv.saveAndReturnButtonLabel\":\"Découvrez le Canada ou d’autres régions du monde.\",\"jobBuilder.workEnv.specialWorkCulture\":\"Y a-t-il quelque chose de spécial au sujet de votre culture de travail?\",\"jobBuilder.workEnv.specialWorkCultureLabel\":\"Voici de plus amples renseignements sur votre culture de travail.\",\"jobBuilder.workEnv.specialWorkCultureSubtext\":\"Votre équipe accorde-t-elle beaucoup d’importance à d’autres aspects? Est-elle fière de son bilan en matière de résultats? A-t-elle pris de solides engagements envers le mieux-être mental? Participe-t-elle activement à la promotion de la diversité et de l’inclusion? Ses membres se font-ils les champions des enjeux relatifs à la collectivité LGBTQ+? Voici l’occasion de faire connaître aux candidats la culture de l’équipe qu’ils pourraient intégrer.\",\"jobBuilder.workEnv.stepDescription\":\"Les candidats accordent beaucoup d’importance à l’équipe au sein de laquelle ils travailleront et à leur espace de travail physique. Le fait de communiquer de l’information à ce sujet aide les candidats à déterminer s’ils correspondent bien au profil de l’emploi, et peut réduire le nombre de demandes « illusoires » qui ralentissent le processus de présélection.\",\"jobBuilder.workEnv.submitButtonLabel\":\"Aperçu de l’environnement de travail\",\"jobBuilder.workEnv.teamSizeLabel\":\"Taille de l’équipe\",\"jobBuilder.workEnv.teamSizePlaceholder\":\"Par exemple 10\",\"jobBuilder.workEnv.technology.accessToExternal\":\"Accès à un réseau sans fil externe et non filtré\",\"jobBuilder.workEnv.technology.collaboration\":\"Collaboration (p. ex., Slack, Hangouts)\",\"jobBuilder.workEnv.technology.fileSharing\":\"Partage des dossiers (p. ex., Google Drive, Dropbox)\",\"jobBuilder.workEnv.technology.taskManagement\":\"Gestion de tâches (p. ex., Trello, Asana)\",\"jobBuilder.workEnv.technology.versionControl\":\"Gestion de versions (p. ex., Github, Gitlab)\",\"jobBuilder.workEnv.technology.videoConferencing\":\"Vidéo-conférence (p. ex., Skype, Zoom)\",\"jobBuilder.workEnv.technologyLabel\":\"Technologie\",\"jobBuilder.workEnv.textAreaPlaceholder1\":\"Essayez d’adopter un ton décontracté, franc et amical.\",\"jobBuilder.workEnv.thisIsOptional\":\"Ceci est facultatif.\",\"jobBuilder.workEnv.title\":\"Environnement de travail\",\"jobBuilder.workEnvModal.cancelLabel\":\"Retour en arrière\",\"jobBuilder.workEnvModal.confirmLabel\":\"Prochaine étape\",\"jobBuilder.workEnvModal.modalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.workEnvModal.title\":\"Environnement de travail\",\"jobBuilder.workEnvModal.workCultureTitle\":\"Culture du travail\",\"jobCard.applicants\":\"{applicants, plural,=0 {Aucun candidat} one {# candidat} other {# candidats}}\",\"jobCard.managerTime\":\"Time with Manager: {managerTime, plural, one {# day} other {# days} }\",\"jobCard.noActivity\":\"Aucune nouvelle activité\",\"jobCard.userTime\":\"Time with you: <s>{userTime, plural, one {# day} other {# days} }</s>\",\"jobReviewHr.headsUp\":\"Un simple rappel! Nous avons réorganisé certains renseignements fournis afin de vous aider à comprendre comment le candidat verra l’information une fois publiée.\",\"jobReviewHr.loadingIconText\":\"Les données sont en cours de chargement...\",\"jobReviewHr.reviewYourPoster\":\"Examiner votre offre d’emploi pour :\",\"jobReviewHr.summaryLink\":\"Revenir au résumé\",\"languageRequirement.bilingualAdvanced\":\"Bilingue - Avancé (CBC)\",\"languageRequirement.bilingualIntermediate\":\"Bilingue - Intermédiaire (BBB)\",\"languageRequirement.context.basic\":\"Vous pouvez présenter cette demande initiale dans la langue officielle de votre choix (français ou anglais).\",\"languageRequirement.context.expanded\":\"Vous pouvez suivre toutes les autres étapes de ce processus d’évaluation dans la langue officielle de votre choix, y compris la demande initiale, l’entrevue, l’examen et toute autre composante de l’évaluation.\",\"languageRequirement.description.bilingualAdvanced\":\"Ce poste nécessite une connaissance approfondie du français et de l'anglais. Cela signifie que vous pouvez assumer des tâches en français ou en anglais et que vous avez de solides compétences en lecture, en écriture et en communication verbale dans les deux langues officielles. Dans le cadre de ce processus de sélection, vos compétences linguistiques seront testées par la Commission de la fonction publique du Canada. Commission de la fonction publique du Canada.\",\"languageRequirement.description.bilingualIntermediate\":\"Ce poste nécessite une connaissance pratique du français et de l'anglais. Cela signifie que vous pouvez occuper des fonctions en français ou en anglais et que vous possédez des compétences intermédiaires en lecture, en écriture et en communication verbale dans les deux langues officielles. Dans le cadre de ce processus de sélection, vos compétences linguistiques seront testées par la Commission de la fonction publique du Canada.\",\"languageRequirement.description.english\":\"Ce poste exige une bonne maîtrise de l’anglais, tant à l’écrit que de vive voix. Dans le cadre de l’évaluation de vos compétences linguistiques, le gestionnaire d’embauche peut vous demander de suivre certaines étapes d’évaluation en anglais, comme des questions d’entrevue ou un examen.\",\"languageRequirement.description.englishOrFrench\":\"Pour ce poste, vous répondez aux exigences linguistiques si vous possédez de solides compétences en lecture, en rédaction et en communication verbale en français, en anglais ou dans les deux (bilingue).\",\"languageRequirement.description.french\":\"Ce poste exige une bonne maîtrise du français, tant à l’écrit que de vive voix. Dans le cadre de l’évaluation de vos compétences linguistiques, le gestionnaire d’embauche peut vous demander de suivre certaines étapes d’évaluation en français, comme des questions d’entrevue ou un examen.\",\"languageRequirement.english\":\"Anglais - Essentiel\",\"languageRequirement.englishOrFrench\":\"Anglais ou français\",\"languageRequirement.french\":\"Français - Essentiel\",\"managerSurveyModal.explanation\":\"Vos commentaires nous aident à améliorer nos outils! Veuillez prendre quelques minutes pour répondre à un sondage.\",\"managerSurveyModal.jobPosterLink\":\"Retour à Mes offres d'emploi\",\"managerSurveyModal.jobPosterLinkTitle\":\"Visitez Mes offres d'emploi.\",\"managerSurveyModal.link\":\"M'emmener au sondage.\",\"managerSurveyModal.managerSurveyLinkTitle\":\"Lien vers le sondage auprès des gestionnaires.\",\"managerSurveyModal.title\":\"Votre offre d'emploi a été soumise!\",\"openJobCard.claimJob\":\"Réclamer cet emploi\",\"openJobCard.error\":\"Date non disponible.\",\"openJobCard.hiringManager\":\"Gestionnaires d’embauche :\",\"openJobCard.hrAdvisors\":\"Conseillers en RH :\",\"openJobCard.reviewRequested\":\"Récupérée: \",\"openJobCard.unclaimed\":\"Non réclamé\",\"progressTracker.unreachableStep\":\"Doit compléter les étapes précédentes.\",\"province.ab\":\"Alberta\",\"province.ab.abreviation\":\"Alta.\",\"province.bc\":\"Colombie britannique\",\"province.bc.abreviation\":\"C.-B.\",\"province.mb\":\"Manitoba\",\"province.mb.abreviation\":\"Man.\",\"province.nb\":\"Nouveau-Brunswick\",\"province.nb.abreviation\":\"N.-B.\",\"province.nl\":\"Terre-Neuve-et-Labrador\",\"province.nl.abreviation\":\"T.-N.-L.\",\"province.ns\":\"Nouvelle-Écosse\",\"province.ns.abreviation\":\"N.-É.\",\"province.nt\":\"Territoires du nord-ouest\",\"province.nt.abreviation\":\"T.N.-O.\",\"province.nu\":\"Nunavut\",\"province.nu.abreviation\":\"Nt\",\"province.on\":\"Ontario\",\"province.on.abreviation\":\"Ont.\",\"province.pe\":\"Île-du-Prince-Édouard\",\"province.pe.abreviation\":\"Î.-P.-É.\",\"province.qc\":\"Québec\",\"province.qc.abreviation\":\"Qc\",\"province.sk\":\"Saskatchewan\",\"province.sk.abreviation\":\"Sask.\",\"province.yk\":\"Yukon\",\"province.yk.abreviation\":\"Yn\",\"ratingGuideAnswer.answerLabel\":\"Réponse de passage acceptable / Démonstration requise\",\"ratingGuideAnswer.answerPlaceholder\":\"Écrivez la réponse de passage attendue du candidat relativement à cette compétence...\",\"ratingGuideAnswer.nullSelection\":\"Sélectionnez une compétence...\",\"ratingGuideAnswer.selectLabel\":\"Sélectionnez une compétence\",\"ratingGuideBuilder.addQuestion\":\"Ajoutez une question\",\"ratingGuideBuilder.assetMissing\":\"{count} Atout manquant : \",\"ratingGuideBuilder.copyButton\":\"Cliquez ici pour copier ce guide de cotation dans votre presse-papiers\",\"ratingGuideBuilder.copyInstructions\":\"Maintenant que vous avez conçu votre guide de cotation, vous pouvez utiliser le bouton ci-dessous pour copier tout le contenu dans votre presse-papiers, et ainsi pouvoir coller facilement votre système de traitement de texte préféré.\",\"ratingGuideBuilder.criteriaName\":\"{skillName} - {skillLevel}\",\"ratingGuideBuilder.criteriaTypeHeading\":\"Type de critères\",\"ratingGuideBuilder.essentialMissing\":\"{count} Critères essentiels manquants : \",\"ratingGuideBuilder.instructions\":\"Vous trouverez ci-dessous votre propre guide de cotation pour vous aider à évaluer vos candidats. Cet outil vous permet d’élaborer vos propres questions pour chaque évaluation que vous avez sélectionnée ci-dessus, puis de noter les critères de ce que pourrait représenter une excellente réponse du candidat. Veuillez prendre note que l’« examen narratif » est unique en ce sens que le contenu est généré pour vous ci-dessous.\",\"ratingGuideBuilder.narrativeSectionTitle\":\"Évaluation {index}: {assessmentType}\",\"ratingGuideBuilder.questionHeading\":\"Question\",\"ratingGuideBuilder.ratingGuideHeading\":\"Guide de notation\",\"ratingGuideBuilder.sectionTitle\":\"Évaluation {index}: {assessmentType}\",\"ratingGuideBuilder.skillDescriptionHeading\":\"Description de la compétence\",\"ratingGuideBuilder.skillHeading\":\"Compétence\",\"ratingGuideBuilder.targetLevelHeading\":\"Niveau cible\",\"ratingGuideBuilder.title\":\"3. Concepteur de guides de cotation\",\"ratingGuideBuilder.titleHeading\":\"Titre\",\"ratingGuideQuestion.questionLabel\":\"Question d'entrevue\",\"ratingGuideQuestion.questionPlaceholder\":\"Écrivez votre question d'entrevue ici ...\",\"review.applications.alert.oops\":\"Enregistrer\",\"review.applications.button.confirm\":\"Confirmer\",\"review.applications.indexPageTitle\":\"Applications pour : {jobTitle} {jobClassification}\",\"review.applications.nonCitizens.description\":\" \",\"review.applications.nonCitizens.title\":\"Non-Citoyens canadiens\",\"review.applications.optionalConsideration.description\":\"Dans ce groupe, vous trouverez les candidats qui ne sont pas citoyens canadiens ou qui ne prétendent pas répondre aux critères essentiels.\",\"review.applications.optionalConsideration.title\":\"Candidats supplémentaires\",\"review.applications.priorityApplicants.description\":\"Ce sont des candidats prioritaires pour ce poste. Ils doivent être examinés et pris en compte en premier.\",\"review.applications.priorityApplicants.title\":\"Candidats prioritaire\",\"review.applications.reviewSaveFailed\":\"Une erreur s'est produite lors de l'enregistrement d'un commentaire. Réessayez plus tard.\",\"review.applications.screenOutAll\":\"Éliminer tous les candidats supplémentaires\",\"review.applications.screenOutAll.confirm\":\"Êtes-vous sûr de vouloir éliminer tous les candidats supplémentaires?\",\"review.applications.screenedOut.description\":\"Ces applications ont déjà été éliminées.\",\"review.applications.screenedOut.title\":\"Candidats qui ne sont plus considérés\",\"review.applications.underConsideration.description\":\"Examinez les candidats dans la section Anciens combattants et citoyens canadiens. Si aucun ou très peu de ces candidats ne répondent aux critères, vous pouvez toujours prendre en compte les candidatures non citoyennes dans la section Considérations facultatives.\",\"review.applications.underConsideration.title\":\"Candidats à considérée\",\"review.applications.unqualified.description\":\" \",\"review.applications.unqualified.title\":\"Ne répond pas aux critères essentiels\",\"review.applications.veteransAndCitizens.description\":\" \",\"review.applications.veteransAndCitizens.title\":\"Anciens combattants et citoyens canadiens\",\"reviewLocations.jpb.basicInfo\":\"Renseignements de base\",\"reviewLocations.jpb.environment\":\"Environnement de travail\",\"reviewLocations.jpb.generic\":\"Générique\",\"reviewLocations.jpb.heading\":\"Titre de la page de l’emploi\",\"reviewLocations.jpb.impact\":\"Impact\",\"reviewLocations.jpb.langRequirements\":\"Exigences linguistiques\",\"reviewLocations.jpb.skills\":\"Compétences\",\"reviewLocations.jpb.tasks\":\"Taches\",\"securityClearance.reliability\":\"Fiabilité\",\"securityClearance.secret\":\"Secret\",\"securityClearance.topSecret\":\"Très secret\",\"skillLevel.asset.description\":\"Cette compétence n’est pas nécessaire pour que l’employé puisse exécuter le travail, mais elle ajoute un avantage à l’ensemble de ses compétences et améliorera le rythme ou l’efficacité de son travail.\",\"skillLevel.asset.name\":\"Atout/aucun niveau requis\",\"skillLevel.hard.advanced.description\":\"Vous avez la capacité d’accomplir des tâches d’une complexité ou d’une incidence importante avec supervision. Vous donnez des conseils et des commentaires au superviseur sur l’approche à employer pour effectuer les tâches et la façon dont elles sont exécutées. Vous êtes en mesure de faire progresser la tâche, même face à des obstacles et à des complications d’envergure moyenne à importante. Au fur et à mesure que vous progressez dans cette catégorie, vous êtes être en mesure d’accomplir des tâches d’une complexité importante ou ayant une incidence plus grande avec seulement de légers niveaux de supervision, en étant effectivement le responsable de l’initiative. Vous pouvez également jouer un rôle de formation d’autres personnes dans cet ensemble de compétences ou assumer un rôle de supervision léger pour les personnes aux niveaux inférieurs. Ce niveau est habituellement associé à des tâches qui constituent la majeure partie du travail pour des postes de niveau supérieur, comme les analystes principaux ou les développeurs principaux.\",\"skillLevel.hard.advanced.name\":\"Avancé\",\"skillLevel.hard.basic.description\":\"Vous êtes capable d’accomplir des tâches de base avec une supervision régulière et une orientation claire. Les tâches qui vous sont assignées sont claires et ne sont pas très complexes. Elles ont généralement une incidence locale. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’accomplir des tâches de complexité modérée avec une supervision régulière. Vous devriez également être en mesure d’accomplir des tâches de base avec peu ou pas de supervision. Ce niveau est habituellement associé aux tâches qui constituent le gros du travail pour les postes de niveau inférieur, comme les analystes ou les développeurs de niveau débutant.\",\"skillLevel.hard.basic.name\":\"Débutant\",\"skillLevel.hard.expert.description\":\"Vous êtes en mesure d’accomplir des tâches d’une complexité ou d’une incidence importante, où vous prenez les décisions et répondez de vos décisions auprès de la haute direction de l’organisation. Vous présentez les tâches, l’approche et le plan de réalisation à la haute direction. Vous supervisez souvent d’autres personnes (personnes ou équipes) dans l’exécution de tâches très complexes ou ayant une incidence sur l’ensemble du système. Vous êtes en mesure de faire progresser ces tâches, même face à des obstacles et à des complications importants et imprévus. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’évaluer les autres à des niveaux plus subalternes, et de déterminer clairement la différence entre les tâches débutantes, intermédiaires et avancées. Vous devriez également être en mesure de pouvoir former des équipes, définir des orientations et assurer une supervision. Ce niveau est habituellement associé aux tâches qui constituent la majeure partie du travail pour les postes de direction et de direction.\",\"skillLevel.hard.expert.name\":\"Responsable\",\"skillLevel.hard.intermediate.description\":\"Vous avez la capacité d’accomplir des tâches de complexité modérée ou d’incidence modérée avec supervision. C’est le superviseur qui détermine l’approche à préconiser pour effectuer les tâches, de même que la façon dont elles sont exécutées. Vous apportez des commentaires et des conseils. Vous êtes en mesure de faire progresser la tâche, même face à des obstacles et à des complications de petite à moyenne envergure. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’accomplir des tâches d’une complexité importante ou ayant une incidence plus grande avec une supervision régulière. Vous devriez également être en mesure d’accomplir des tâches d’une complexité ou d’une incidence modérée avec peu ou pas de supervision. Ce niveau est habituellement associé aux tâches qui constituent le gros du travail pour les postes de niveau intermédiaire, comme les analystes ou les développeurs.\",\"skillLevel.hard.intermediate.name\":\"Intermédiaire\",\"skillLevel.soft.advanced.description\":\"Vous êtes capable de démontrer cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont élevés. Vos pairs et vos superviseurs reconnaissent qu’il s’agit d’une force dont vous faites preuve en milieu de travail.\",\"skillLevel.soft.advanced.name\":\"Fortement en évidence\",\"skillLevel.soft.basic.description\":\"Vous êtes en processus d’acquérir cette compétence ou cet attribut. Vous êtes capable de le démontrer dans des conditions favorables (peu de stress, difficulté minimale) et pouvez l’appliquer dans un contexte de travail de façon intermittente.\",\"skillLevel.soft.basic.name\":\"Phase de développement précoce\",\"skillLevel.soft.expert.description\":\"Il s’agit d’une partie fondamentale de qui vous êtes. Vous démontrez cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont extrêmes. Vos pairs et vos superviseurs reconnaissent qu’il s’agit d’une force importante dont vous faites preuve en milieu de travail, en donnant un exemple aux autres.\",\"skillLevel.soft.expert.name\":\"Démonstration à un niveau profond\",\"skillLevel.soft.intermediate.description\":\"Vous êtes capable de démontrer cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont bas ou modérés. Vos pairs et vos superviseurs peuvent attester le fait que vous êtes capable de démontrer cette compétence ou cet attribut de façon régulière.\",\"skillLevel.soft.intermediate.name\":\"Modérément en évidence\",\"wordCounter.skills.longMessage\":\"Ça a l'air trop long. Pouvez-vous résumer une partie de votre réponse?\",\"wordCounter.skills.placeholder\":\"Commencez à taper votre réponse ci-dessus.\",\"wordCounter.skills.shortMessage\":\"Ce paragraphe semble trop court. Avez-vous un autre exemple ou une leçon à ajouter?\",\"wordCounter.skills.slightlyLongMessage\":\"Ça commence à être un peu long.\",\"wordCounter.skills.veryLongMessage\":\"La limite des 500 mot a été atteinte. C'est beaucoup trop long. Découvrez l'un de nos exemples pour voir à quoi ressemble une description de compétence concise.\",\"wordCounter.skills.veryShortMessage\":\"Ce paragraphe semble trop court. Avez-vous inclus des exemples ou des leçons apprises?\"}");
 
 /***/ }),
 
@@ -35456,7 +35754,7 @@ module.exports = JSON.parse("{\"activity.commentLocation.label\":\"Commentaire t
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/Grant/Sites/TalentCloud/resources/assets/js/components/ApplicantSkills/SkillsWordCounter.tsx */"./resources/assets/js/components/ApplicantSkills/SkillsWordCounter.tsx");
+module.exports = __webpack_require__(/*! /Users/cwiseman/Projects/TalentCloud/resources/assets/js/components/ApplicantSkills/SkillsWordCounter.tsx */"./resources/assets/js/components/ApplicantSkills/SkillsWordCounter.tsx");
 
 
 /***/ })
