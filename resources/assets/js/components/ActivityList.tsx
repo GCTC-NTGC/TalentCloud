@@ -2,14 +2,14 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage, useIntl, defineMessages } from "react-intl";
 import Activity from "./Activity";
 import { RootState } from "../store/store";
 import { Comment, User } from "../models/types";
 import { DispatchType } from "../configureStore";
 import { fetchComments } from "../store/Job/jobActions";
 import { fetchAllUsers } from "../store/User/userActions";
-import { getComments, sortComments } from "../store/Job/jobSelector";
+import { getSortedFilteredComments } from "../store/Job/jobSelector";
 import { getUsers } from "../store/User/userSelector";
 import { commentTypeMessages } from "./CommentForm";
 import {
@@ -21,13 +21,22 @@ import { LocationId } from "../models/lookupConstants";
 import { getLocale, localizeFieldNonNull } from "../helpers/localize";
 import { find } from "../helpers/queries";
 
+const messages = defineMessages({
+  unknownUser: {
+    id: "activity.unknownUser",
+    defaultMessage: "User not found",
+    description: "Error message displayed when a user id is unknown.",
+  },
+});
+
 interface ActivityListProps {
+  generalLocation: string;
   jobId: number;
   isHrAdvisor: boolean;
   comments: Comment[];
   users: User[];
   handleFetchComments: (jobId: number) => Promise<void>;
-  handleFetchUsers: () => Promise<void>;
+  handleFetchUsers: (ids?: string) => Promise<void>;
   filterComments?: (comment: Comment) => boolean;
 }
 
@@ -43,6 +52,7 @@ export const ActivityList: React.FunctionComponent<ActivityListProps> = ({
   const locale = getLocale(intl.locale);
   const activities: Comment[] = [...comments];
   const [loadingActivities, setLoadingActivities] = useState(false);
+  const [loadingUsers, setLoadingUsers] = useState(false);
   const [isError, setIsError] = useState(false);
 
   useEffect((): void => {
@@ -58,16 +68,27 @@ export const ActivityList: React.FunctionComponent<ActivityListProps> = ({
   }, [handleFetchComments, jobId]);
 
   useEffect((): void => {
-    setLoadingActivities(true);
-    handleFetchUsers()
-      .then(() => {
-        setLoadingActivities(false);
-      })
-      .catch(() => {
-        setLoadingActivities(false);
-        setIsError(true);
+    setLoadingUsers(true);
+    if (comments.length > 0) {
+      const userIds: number[] = [];
+      // eslint-disable-next-line array-callback-return
+      comments.map(comment => {
+        if (userIds.indexOf(comment.user_id) === -1) {
+          userIds.push(comment.user_id);
+        }
       });
-  }, [handleFetchUsers]);
+      handleFetchUsers(userIds.join(","))
+        .then(() => {
+          setLoadingUsers(false);
+        })
+        .catch(() => {
+          setLoadingUsers(false);
+          setIsError(true);
+        });
+    } else {
+      setLoadingUsers(false);
+    }
+  }, [comments, handleFetchUsers]);
 
   const activityType = (type: number | null): string => {
     switch (type) {
@@ -112,7 +133,9 @@ export const ActivityList: React.FunctionComponent<ActivityListProps> = ({
           />
         </p>
       )}
-      {loadingActivities ? (
+      {!isError &&
+      (loadingActivities || loadingUsers) &&
+      activities.length === 0 ? (
         <div data-c-container="form" data-c-padding="top(1) bottom(1)">
           <div
             data-c-background="white(100)"
@@ -132,7 +155,7 @@ export const ActivityList: React.FunctionComponent<ActivityListProps> = ({
         </div>
       ) : (
         <>
-          {activities && activities.length !== 0
+          {!isError && activities && activities.length !== 0
             ? activities.map(
                 ({
                   id,
@@ -143,9 +166,10 @@ export const ActivityList: React.FunctionComponent<ActivityListProps> = ({
                   user_id,
                 }: Comment): React.ReactElement => {
                   const user = find(users, user_id);
-                  const fullName = user?.full_name ?? "";
+                  const fullName =
+                    user?.full_name ?? intl.formatMessage(messages.unknownUser);
                   const userRole = user?.user_role;
-                  let displayRole = "";
+                  let displayRole = "?";
                   if (userRole !== undefined) {
                     displayRole = localizeFieldNonNull(
                       locale,
@@ -194,14 +218,15 @@ export const ActivityList: React.FunctionComponent<ActivityListProps> = ({
 
 const mapStateToProps = (
   state: RootState,
-  {
-    filterComments = (): boolean => true,
-  }: { filterComments?: (comment: Comment) => boolean },
+  ownProps: {
+    filterComments?: (comment: Comment) => boolean;
+    generalLocation: string;
+  },
 ): {
   comments: Comment[];
   users: User[];
 } => ({
-  comments: sortComments(getComments(state).filter(filterComments)),
+  comments: getSortedFilteredComments(state, ownProps),
   users: getUsers(state),
 });
 
@@ -218,8 +243,8 @@ const mapDispatchToProps = (
     }
     return Promise.reject(result.error);
   },
-  handleFetchUsers: async (): Promise<void> => {
-    const result = await dispatch(fetchAllUsers());
+  handleFetchUsers: async (ids = ""): Promise<void> => {
+    const result = await dispatch(fetchAllUsers(ids));
     if (!result.error) {
       return Promise.resolve();
     }
