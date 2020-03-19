@@ -53,6 +53,9 @@ use Spatie\Translatable\HasTranslations;
  * @property int $priority_clearance_number
  * @property int $job_poster_status_id
  * @property \Jenssegers\Date\Date $loo_issuance_date
+ * @property int $talent_stream_id
+ * @property int $talent_stream_category_id
+ * @property int $job_skill_level_id
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -74,6 +77,9 @@ use Spatie\Translatable\HasTranslations;
  * @property \App\Models\Lookup\Frequency $telework_allowed_frequency
  * @property \App\Models\Lookup\Frequency $flexible_hours_frequency
  * @property \App\Models\Lookup\JobPosterStatus $job_poster_status
+ * @property \App\Models\Lookup\TalentStream|null $talent_stream
+ * @property \App\Models\Lookup\TalentStreamCategory|null $talent_stream_category
+ * @property \App\Models\Lookup\JobSkillLevel|null $job_skill_level
  *
  * Localized Properties:
  * @property string $city
@@ -220,6 +226,9 @@ class JobPoster extends BaseModel
         'work_env_description',
         'culture_summary',
         'culture_special',
+        'talent_stream_id',
+        'talent_stream_category_id',
+        'job_skill_level_id',
         'job_poster_status_id', // This really shouldn't be mass-editable, but its necesary for the admin crud portal to set it.
     ];
 
@@ -272,6 +281,9 @@ class JobPoster extends BaseModel
         'culture_summary',
         'culture_special',
         'job_poster_status_id',
+        'talent_stream_id',
+        'talent_stream_category_id',
+        'job_skill_level_id',
         'created_at',
     ];
 
@@ -399,6 +411,21 @@ class JobPoster extends BaseModel
     public function job_poster_status_histories() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\JobPosterStatusHistory::class);
+    }
+
+    public function talent_stream() // phpcs:ignore
+    {
+        return $this->belongsTo(\App\Models\Lookup\TalentStream::class);
+    }
+
+    public function talent_stream_category() // phpcs:ignore
+    {
+        return $this->belongsTo(\App\Models\Lookup\TalentStreamCategory::class);
+    }
+
+    public function job_skill_level() // phpcs:ignore
+    {
+        return $this->belongsTo(\App\Models\Lookup\JobSkillLevel::class);
     }
 
     // @codeCoverageIgnoreEnd

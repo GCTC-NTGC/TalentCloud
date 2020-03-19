@@ -9,6 +9,9 @@
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('classification') }}"><i class="nav-icon fa fa-list-alt"></i> <span>Classifications</span></a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('job-poster-status') }}"><i class="nav-icon fa fa-list-alt"></i> <span>Job Status</span></a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('job-poster-status-transition') }}"><i class="nav-icon fa fa-list-alt"></i> <span>Job Status Transitions</span></a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('talent-stream') }}"><i class="nav-icon fa fa-list-alt"></i> <span>Talent Streams</span></a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('talent-stream-category') }}"><i class="nav-icon fa fa-list-alt"></i> <span>Talent Stream Categories</span></a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('job-skill-level') }}"><i class="nav-icon fa fa-list-alt"></i> <span>Job Skill Levels</span></a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('resource') }}"><i class="nav-icon fa fa-folder"></i> <span>Resources</span></a></li>
 <br />
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('2fa') }}"><i class="nav-icon fa fa-lock"></i> <span>Manage 2FA</span></a></li>
