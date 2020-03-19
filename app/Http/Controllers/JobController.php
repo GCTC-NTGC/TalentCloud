@@ -219,10 +219,24 @@ class JobController extends Controller
         $jpb_release_date = strtotime('2019-08-21 16:18:17');
         $job_created_at = strtotime($jobPoster->created_at);
 
-        // If the job poster is created after the release of the JPB.
+        // If the poster is part of the Strategic Talent Response dept, use the talent stream template.
+        // Else, If the job poster is created after the release of the JPB.
         // Then, render with updated poster template.
         // Else, render with old poster template.
-        if ($job_created_at > $jpb_release_date) {
+        if ($jobPoster->isInStrategicResponseDepartment()) {
+            return view(
+                'applicant/strategic_response_job_post',
+                [
+                    'job_post' => $jobLang,
+                    'frequencies' => Lang::get('common/lookup/frequency'),
+                    'skill_template' => Lang::get('common/skills'),
+                    'job' => $jobPoster,
+                    'manager' => $jobPoster->manager,
+                    'criteria' => $criteria,
+                    'apply_button' => $applyButton,
+                ]
+            );
+        } elseif ($job_created_at > $jpb_release_date) {
             // Updated job poster (JPB).
             return view(
                 'applicant/jpb_job_post',

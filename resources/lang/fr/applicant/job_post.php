@@ -153,5 +153,13 @@ return [
         'view_link_title'  => "Voir votre l'application.",
         'view_link_label'  => "Voir votre l'application",
     ],
-    'no_info' => 'Aucune information fournie.'
+    'no_info' => 'Aucune information fournie.',
+
+    'strategic_response' => [
+        'various_departments' => 'GC - Various Departments',
+        'various' => 'Various',
+        'current_employee_alert' => 'You must be a current employee of the Government of Canada, with a valid security clearance.',
+        'management_approval_alert' => 'Your home department\'s management team will need to approve your temporary placement with another department or team.',
+        'heads_up' => 'Juste pour vous informer!'
+    ]
 ];
