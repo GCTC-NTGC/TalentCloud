@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useIntl, FormattedMessage, defineMessages } from "react-intl";
 import { useDispatch, useSelector } from "react-redux";
 import ReactDOM from "react-dom";
@@ -75,6 +75,10 @@ const JobReviewHrPage: React.FunctionComponent<JobReviewHrPageProps> = ({
   if (locale !== "en" && locale !== "fr") {
     throw new Error("Unexpected locale");
   }
+  const filterComments = useCallback(
+    (comment: Comment): boolean => hasKey(jobReviewLocations, comment.location),
+    [],
+  );
   return (
     <div data-c-container="form" data-c-padding="top(triple) bottom(triple)">
       {job !== null ? (
@@ -105,9 +109,7 @@ const JobReviewHrPage: React.FunctionComponent<JobReviewHrPageProps> = ({
             isHrAdvisor
             generalLocation={LocationId.jobGeneric}
             locationMessages={jobReviewLocations}
-            filterComments={(comment: Comment): boolean =>
-              hasKey(jobReviewLocations, comment.location)
-            }
+            filterComments={filterComments}
           />
           <JobReviewDisplay
             job={job}

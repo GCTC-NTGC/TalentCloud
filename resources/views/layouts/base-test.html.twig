@@ -1,0 +1,32 @@
+{# =============================================================================
+
+    Talent Cloud / Base Layout
+
+============================================================================= #}
+<!DOCTYPE html>
+<html lang="{{ appLocale }}">
+    {# Note that the </head> and <body> tags are located inside the common/head
+    file due to Google Tag Manager being required on all pages. #}
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        {% block socialMeta %}{% endblock %}
+        {% include "common/head" %}
+    {# /head #}
+    {# body #}
+        {# Government of Canada Banner #}
+        {% include "common/goc" %}
+        {# Beta Alert Banner #}
+        {% include "common/alert" %}
+        {# Page Header #}
+        {% block header %}{% endblock %}
+        {# Skip to Content Link #}
+        <a id="skipLink"></a>
+        {# Page Body #}
+        {% block body %}{% endblock %}
+        {# Footer #}
+        {% include "common/footer" %}
+        {# Scripts #}
+        {% include "common/scripts" %}
+        {% block scripts %}{% endblock %}
+    </body>
+</html>

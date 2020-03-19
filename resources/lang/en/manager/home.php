@@ -15,7 +15,8 @@ return [
         'button' => [
             'text' => 'Sign Up',
             'title' => 'Sign up as a manager to demo Talent Cloud\'s manager portal.'
-        ]
+        ],
+        'pilot' => 'BETA / Pilot Project'
     ],
     'banner' => [
         'content' => 'Welcome to the Talent Cloud :open manager :close portal.',

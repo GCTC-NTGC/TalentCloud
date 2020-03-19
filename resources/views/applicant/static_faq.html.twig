@@ -11,17 +11,8 @@
 {% block body %}
 	{% include "common/goc" %}
 	{% include "common/alert" %}
-	<header data-clone>
-		<div data-c-overlay="black(80)" style="background-image: url('/images/sean-pollock.jpg');">
-			{% include "common/menu" %}
-			<div data-c-container="large" data-c-padding="tb(triple)">
-				<h1 class="logotype" data-c-font-size="h1" data-c-font-weight="600" data-c-color="white" data-c-margin="bottom(double)">{{ faq.faq_title }}</h1>
-				<div data-c-alignment="left" data-c-margin="top(double)">
-					{% include "common/breadcrumbs" %}
-				</div>
-			</div>
-		</div>
-	</header>
+	{# Page Header #}
+    {% include "common/header" with {"header": faq} %}
 	{% if show_notification %}
 		{% include "manager/notification" %}
 	{% endif %}

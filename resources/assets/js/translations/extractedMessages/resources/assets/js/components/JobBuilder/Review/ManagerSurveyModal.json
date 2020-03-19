@@ -17,7 +17,7 @@
   {
     "id": "managerSurveyModal.link",
     "description": "Link to manager survey.",
-    "defaultMessage": "<a>Take me to the survey</>."
+    "defaultMessage": "Take me to the survey."
   },
   {
     "id": "managerSurveyModal.jobPosterLink",

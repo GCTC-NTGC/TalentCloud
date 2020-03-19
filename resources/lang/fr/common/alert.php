@@ -16,5 +16,5 @@ return [
     "feedback_copy" => "Aidez-nous à améliorer le Nuage de talents.",
     "feedback_link" => "talent.cloud-nuage.de.talents@tbs-sct.gc.ca",
     "feedback_link_title" => "Soumettre des commentaires au Nuage de talents du GC par courriel.",
-    "feedback_link_copy" => "Soumettre des commentaires"
+    "feedback_link_copy" => "Soumettre des commentaires",
 ];

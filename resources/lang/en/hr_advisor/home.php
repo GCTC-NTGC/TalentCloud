@@ -12,7 +12,9 @@ return [
         'heading_alt' => 'The Canadian maple leaf.',
         'button' => [
             'text' => 'Sign Up',
-        ]
+        ],
+        'subheading' => 'Hiring for government just got easier.',
+        'pilot' => 'BETA / Pilot Project'
     ],
     'banner' => [
         'content' => 'You\'re visiting the HR Portal. Looking for the Applicant portal?',

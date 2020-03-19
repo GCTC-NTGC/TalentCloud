@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class DatabaseSeeder extends Seeder //phpcs:ignore
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,9 @@ class DatabaseSeeder extends Seeder
             DevSeeder::class,
             SkillClassificationSeeder::class,
             CommentSeeder::class,
+            ExperienceSkillSeeder::class,
             ResourceSeeder::class,
+            TalentStreamSeeder::class,
         ]);
     }
 }

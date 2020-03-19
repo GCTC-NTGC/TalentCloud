@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Created by Reliese Model.
- * Date: Thu, 12 Jul 2018 22:39:27 +0000.
- */
-
 namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
@@ -25,23 +20,20 @@ use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
  * @property \App\Models\Lookup\SkillType $skill_type
  * @property \Illuminate\Database\Eloquent\Collection $skill_declarations
  * @property \Illuminate\Database\Eloquent\Collection $classifications
+ * @property \App\Models\ExperienceAward|\App\Models\ExperienceCommunity|\App\Models\ExperienceEducation|\App\Models\ExperiencePersonal|\App\Models\ExperienceWork $experience
+ * @property \Illuminate\Database\Eloquent\Collection $experience_skills
  */
 class Skill extends BaseModel
 {
     use CrudTrait;
     use HasTranslations;
 
-    /**
-     * @var $casts string[]
-     * */
     protected $casts = [
         'skill_type_id' => 'int',
         'is_culture_skill' => 'boolean',
         'is_future_skill' => 'boolean',
     ];
-    /**
-     * @var $fillable string[]
-     * */
+
     protected $fillable = [
         'name',
         'description',
@@ -50,9 +42,7 @@ class Skill extends BaseModel
         'is_future_skill',
         'classifications'
     ];
-    /**
-     * @var $translatable string[]
-     * */
+
     public $translatable = [
         'name',
         'description',
@@ -73,6 +63,38 @@ class Skill extends BaseModel
         return $this->belongsToMany(\App\Models\Classification::class)->withTimestamps();
     }
 
+    // Version 2 application models.
+
+    public function experiences_work() // phpcs:ignore
+    {
+        return $this->morphedByMany(\App\Models\ExperienceWork::class, 'experience', 'experience_skills');
+    }
+
+    public function experiences_personal() // phpcs:ignore
+    {
+        return $this->morphedByMany(\App\Models\ExperiencePersonal::class, 'experience', 'experience_skills');
+    }
+
+    public function experiences_education() // phpcs:ignore
+    {
+        return $this->morphedByMany(\App\Models\ExperienceEducation::class, 'experience', 'experience_skills');
+    }
+
+    public function experiences_award() // phpcs:ignore
+    {
+        return $this->morphedByMany(\App\Models\ExperienceAward::class, 'experience', 'experience_skills');
+    }
+
+    public function experiences_community() // phpcs:ignore
+    {
+        return $this->morphedByMany(\App\Models\ExperienceCommunity::class, 'experience', 'experience_skills');
+    }
+
+    public function experience_skills() // phpcs:ignore
+    {
+        return $this->hasMany(\App\Models\ExperienceSkill::class);
+    }
+
     /**
      * Check for a null "is_culture_skill" and pass false instead.
      *
@@ -80,7 +102,7 @@ class Skill extends BaseModel
      *
      * @return void
      */
-    public function setIsCultureSkillAttribute($value) : void
+    public function setIsCultureSkillAttribute($value): void
     {
         if ($value === null) {
             $value = false;
@@ -95,7 +117,7 @@ class Skill extends BaseModel
      *
      * @return void
      */
-    public function setIsFutureSkillAttribute($value) : void
+    public function setIsFutureSkillAttribute($value): void
     {
         if ($value === null) {
             $value = false;

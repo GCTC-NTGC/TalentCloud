@@ -4,10 +4,24 @@
     Header
 
 ============================================================================= #}
-<header class="header" style="background-image: url('/images/bg_crowd.jpg');">
-	{% include "common/menu" %}
-	{# Header Content #}
-	<div class="header__content">
-		<h1 class="heading--01">{{ header.title }}</h1>
-	</div>
-</header>
+<div data-clone>
+    <header data-c-align="base(center) tl(left)" data-c-overlay="black(80)" data-c-padding="bottom(3)" style="background-image: url('/images/bg_crowd.jpg');">
+        {% include "common/menu" %}
+        <div data-c-container="large" data-c-padding="top(3)" id="home-heading">
+            <h1 data-c-heading="h1">{{ header.title }}</h1>
+            {% if header.subtitle %}
+                <p data-c-color="white" data-c-margin="top(1)">{{ header.subtitle }}</p>
+            {% endif %}
+            <div data-c-margin="top(2)">
+                <div data-c-grid="gutter(all, 1)">
+                    <div data-c-grid-item="tl(1of2)">
+                        {% include "common/breadcrumbs" %}
+                    </div>
+                    <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(right)">
+                        <span data-c-colour="white">{{ goc.pilot }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+</div>

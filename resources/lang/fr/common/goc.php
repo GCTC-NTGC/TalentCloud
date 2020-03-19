@@ -19,4 +19,5 @@ return [
     "talent_cloud" => "Nuage de talents du GC",
     "portal" => "Portail candidat",
     "admin_portal" => "Portail gestionnaire",
+    'pilot' => 'BETA / Projet pilote'
 ];

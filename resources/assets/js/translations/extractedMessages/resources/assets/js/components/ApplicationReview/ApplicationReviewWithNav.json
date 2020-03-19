@@ -2,7 +2,7 @@
   {
     "id": "application.review.backToApplicantList",
     "description": "Back Button text",
-    "defaultMessage": "< Save and Go Back to Applicant List"
+    "defaultMessage": "Save and Go Back to Applicant List"
   },
   {
     "id": "application.review.button.viewJobPoster",
