@@ -20,9 +20,9 @@ jobs:
           branch: heroku
       - name: Build Assets
         uses: actions/setup-node@v1
-          with:
-            node-version: '12.x'
-            registry-url: 'https://registry.npmjs.org'
+        with:
+          node-version: '12.x'
+          registry-url: 'https://registry.npmjs.org'
       - run: npm install
       - run: npm run prod
       - name: Push
