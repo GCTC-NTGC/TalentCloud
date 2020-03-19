@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import {
   injectIntl,
   WrappedComponentProps,
@@ -774,6 +774,11 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
   const modalId = "job-review-modal";
   const modalParentRef = useRef<HTMLDivElement>(null);
 
+  const filterComments = useCallback(
+    (comment: Comment): boolean => hasKey(jobReviewLocations, comment.location),
+    [],
+  );
+
   return (
     <>
       <div
@@ -806,9 +811,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
           isHrAdvisor={false}
           generalLocation={LocationId.jobGeneric}
           locationMessages={jobReviewLocations}
-          filterComments={(comment: Comment): boolean =>
-            hasKey(jobReviewLocations, comment.location)
-          }
+          filterComments={filterComments}
         />
         <JobReviewDisplay
           job={job}

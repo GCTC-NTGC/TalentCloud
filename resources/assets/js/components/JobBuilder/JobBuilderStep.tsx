@@ -110,11 +110,6 @@ const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
     };
   }, [jobId, loadCriteria]);
 
-  console.log("forceIsLoading", forceIsLoading);
-  console.log("isLoadingJob", isLoadingJob);
-  console.log("isLoadingTasks", isLoadingTasks);
-  console.log("isLoadingCriteria", isLoadingCriteria);
-
   const dataIsLoading =
     forceIsLoading || isLoadingJob || isLoadingTasks || isLoadingCriteria;
 
