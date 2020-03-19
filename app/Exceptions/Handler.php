@@ -104,13 +104,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, \Exception $exception)
     {
-        // Redirect upper case URLs to lower case route, excluding assets.
-        if (!$request->is('css/*', 'fonts/*', 'images/*', 'js/*', 'packages/*', 'storage/*', 'webfonts/*')) {
-            $url = $request->url();
-            $loweredCaseUrl = strtolower($url);
-            if ($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException && $url !== $loweredCaseUrl) {
-                return redirect($loweredCaseUrl);
-            }
+        // Redirect upper case URLs to lower case route.
+        $url = $request->url();
+        $loweredCaseUrl = strtolower($url);
+        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException && $url !== $loweredCaseUrl) {
+            return redirect($loweredCaseUrl);
         }
 
         // Laravel will render out the error page by default even for JSON
