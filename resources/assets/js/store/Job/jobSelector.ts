@@ -38,6 +38,14 @@ export const getAllJobs = createSelector(getJobState, (jobState): Job[] =>
   Object.values(jobState),
 );
 
+export const getAllJobsInDept = createCachedSelector(
+  getAllJobs,
+  (state: RootState, ownProps: { departmentId: number }): number =>
+    ownProps.departmentId,
+  (jobs, departmentId): Job[] =>
+    jobs.filter(job => job.department_id === departmentId),
+)((state, ownProps): number => ownProps.departmentId);
+
 export const getJob = createCachedSelector(
   getJobState,
   (state: RootState, ownProps: { jobId: number }): number => ownProps.jobId,
