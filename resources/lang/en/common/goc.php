@@ -19,4 +19,5 @@ return [
     "talent_cloud" => "GC Talent Cloud",
     "portal" => "Applicant Portal",
     "admin_portal" => "Manager Portal",
+    "pilot" => "BETA / Pilot Project"
 ];

@@ -13,7 +13,7 @@ return [
     "itp_hero" => [
         "title" => "Nuage de Talents",
         "subtitle" => "Comment nous prenons des mesures pour créer un Portail des talents autochtones",
-        "pilot" => "PROJET BETA"
+        "pilot" => "BETA / Projet pilote"
     ],
     "itp_slogan" => "En concevant un portail autochtone, les candidats autochtones peuvent se réapproprier leur histoire et trouver des possibilités de mobilité professionnelle.",
     "itp_how" => [
@@ -26,7 +26,7 @@ return [
     ],
     "itp_when" => [
         "title_01" => "Quels sont les échéanciers?",
-        "subtitle_01" => "Nous avons fixé l’hiver 2020 comme échéancier.",
+        "subtitle_01" => "Nous avons fixé l’automne 2020 comme échéancier.",
         "copy_01" => "Nos échéanciers dépendent d’un certain nombre de facteurs, notamment du succès de notre mobilisation communautaire, de la mise à niveau de notre nouvel environnement de serveur en nuage et de l’évaluation des facteurs relatifs à la vie privée de l’équipe."
     ],
     "itp_what" => [

@@ -13,7 +13,7 @@ return [
     'hero' => [
         'title' => 'Nuage de talents',
         'tagline' => 'Il est désormais plus facile de postuler un emploi au gouvernement.',
-        'pilot' => 'BETA'
+        'pilot' => 'BETA / Projet pilote'
     ],
     'slogan' => [
         'copy' => 'Pas de lettre de présentation. Aucun curriculum vitae. Créez un profil de vos compétences et de votre expérience tout en gagnant du temps pour postuler des emplois gouvernementaux qui vous inspirent.',

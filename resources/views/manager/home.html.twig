@@ -14,7 +14,7 @@
 	{# {% include "common/home/hero" %} #}
 	<div data-clone>
 		<div data-c-background="white(100)">
-			<header data-c-overlay="black(80)" data-c-padding="bottom(triple)" style="background-image: url('/images/sean-pollock.jpg');">
+			{# <header data-c-overlay="black(80)" data-c-padding="bottom(triple)" style="background-image: url('/images/sean-pollock.jpg');">
 				{% include "common/menu" %}
 				<div data-c-align="base(center)" data-c-container="medium" data-c-padding="top(double)">
 					<h1 data-c-colour="white" data-c-font-size="h1" data-c-font-weight="700" data-c-margin="top(triple) bottom(normal)">{{ home_l10n.hero.heading }}<img alt="{{ home_l10n.hero.heading_alt }}" class="hero-icon" src="/images/maple-leaf.svg"></h1>
@@ -25,26 +25,45 @@
 						</a>
 					{% endif %}
 				</div>
+			</header> #}
+            {# Home Heading ================================================= #}
+			<header data-c-align="base(center) tl(left)" data-c-overlay="black(80)" data-c-padding="bottom(3)" style="background-image: url('/images/sean-pollock.jpg');">
+				{% include "common/menu" %}
+				<div data-c-container="large" data-c-padding="top(3)" id="home-heading">
+					<h1 data-c-heading="h1" data-c-margin="bottom(1)">{{ home_l10n.hero.heading }}<img alt="{{ home_l10n.hero.heading_alt }}" class="hero-icon" src="/images/maple-leaf.svg"></h1>
+                    <div data-c-grid="gutter(all, 1)">
+                        <div data-c-grid-item="tl(1of2)">
+                            <p data-c-colour="white">{{ home_l10n.hero.subheading }}</p>
+                        </div>
+                        <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(right)">
+                            <span data-c-colour="white">{{ home_l10n.hero.pilot }}</span>
+                        </div>
+                    </div>
+				</div>
 			</header>
-			<div data-c-padding="tb(normal)" class="tc-gradient-lr">
+            {# Callout #}
+			<div data-c-padding="tb(1)" class="tc-gradient-lr">
 				<div data-c-container="medium" data-c-align="base(center)" data-c-color="white">
-					<p data-c-padding="tb(half)">
+					<p>
 						{{ trans('manager/home.banner.content', {open: '<span data-c-font-weight="bold">', close: '</span>'})|raw }}
 						<a href="{{ route('home') }}" title="{{ home_l10n.banner.anchor.title }}">{{ home_l10n.banner.anchor.text }}</a>
 					</p>
 				</div>
 			</div>
 			<a id="skipLink"></a>
-			<div data-c-container="medium" data-c-padding="bottom(triple)">
-				<h2 data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="top(triple) bottom(normal)">{{ home_l10n.info.heading }}</h2>
-				<p data-c-margin="bottom(normal)">{{ home_l10n.info.content_first }}</p>
-				<p data-c-margin="bottom(normal)">{{ home_l10n.info.content_second }}</p>
-				<p data-c-margin="bottom(normal)" data-c-font-weight="bold">{{ home_l10n.info.list_heading }}</p>
-				<ul>
-					{% for item in home_l10n.info.list %}
-						<li>{{ item }}</li>
-					{% endfor %}
-				</ul>
+			<div class="flourish-wrapper">
+                <div data-c-container="medium" data-c-padding="bottom(triple)">
+                    <h2 data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="top(triple) bottom(normal)">{{ home_l10n.info.heading }}</h2>
+                    <p data-c-margin="bottom(normal)">{{ home_l10n.info.content_first }}</p>
+                    <p data-c-margin="bottom(normal)">{{ home_l10n.info.content_second }}</p>
+                    <p data-c-margin="bottom(normal)" data-c-font-weight="bold">{{ home_l10n.info.list_heading }}</p>
+                    <ul>
+                        {% for item in home_l10n.info.list %}
+                            <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <img alt="{{ hhome_l10n.leaf }}" class="flourish-icon-right" src="/images/maple-leaf.svg">
 			</div>
 			<div data-c-background="grey(10)" data-c-padding="tb(triple)">
 				<div data-c-container="large">

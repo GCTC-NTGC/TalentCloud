@@ -4,86 +4,43 @@
 
 // =============================================================================
 .menu {
-    background: transparentize($palette--black, .35);
-    // @media #{$l-tablet} {
-    //     position: sticky !important;
-    //     top: 0;
-    //     z-index: 1000;
-    // }
-
-    .menu__mobile-trigger {
-        display: none;
-
-        @media #{$l-tablet} {
-            display: none;
-        }
-
-    }
-
-    .menu__list {
-        list-style: none;
-        margin: 0;
+    padding: .5rem 0;
+    @media #{$clone-tablet-landscape} {
         padding: 0;
-        text-align: center;
-        width: 100%;
-
-        @media #{$l-tablet} {
-            padding: 0 $unit;
-        }
-
+    }
+    ul {
+        list-style: none;
+        padding: 0;
         li {
             display: inline-block;
             margin-bottom: 0 !important;
-            position: relative;
-
-            a,
-            button {
-                background: none;
-                border: none;
-                cursor: pointer;
+            a {
                 display: block;
-                color: $palette--font-white;
-                font-family: $font--sans;
-                font-size: $font-scale--regular;
-                font-weight: 400;
-                padding: calc(#{$unit} * 1.5);
-                position: relative;
-                text-decoration: none;
-                // text-transform: uppercase;
-
+                transition: all .2s ease;
+                @media #{$clone-tablet-landscape} {
+                    border-left: 1px solid rgba(255, 255, 255, .2);
+                }
+                span {
+                    transition: all .2s ease;
+                }
                 &:hover {
-                    color: white !important;
-                    &::before {
-                        background: $clone-c3;
-                        content: " ";
-                        display: block;
-                        height: calc(#{$unit} / 2);
-                        position: absolute;
-                        left: 0;
-                        bottom: 0;
-                        width: 100%;
+                    background: transparentize($clone-c2, .2);
+                    transition: all .2s ease;
+                    span {
+                        transition: all .2s ease;
                     }
                 }
-
-                &.active {
-
-                    &::before {
-                        background: $clone-c3;
-                        content: " ";
-                        display: block;
-                        height: calc(#{$unit} / 2);
-                        position: absolute;
-                        left: 0;
-                        bottom: 0;
-                        width: 100%;
-                    }
-
-                }
-
             }
-
+            &:not(:first-child) {
+                margin-left: -5px;
+            }
+            &:last-child {
+                a {
+                    @media #{$clone-tablet-landscape} {
+                        border-right: 1px solid rgba(255, 255, 255, .2);
+                    }
+                }
+            }
         }
-
     }
-
 }

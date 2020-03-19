@@ -1,33 +1,30 @@
 {# =============================================================================
 
     Talent Cloud
-    Auth: Login
+    Authentication: Login
 
 ============================================================================= #}
-
 {% extends "layouts/base" %}
-
 {% block title %}{{ login.title }}{% endblock %}
-
 {% block body %}
     {% include "common/goc" %}
     <div data-clone>
-        <section class="tc-auth" data-c-padding="tb(triple)" data-c-overlay="black(80)" style="background-image: url('/images/bg_crowd.jpg');">
-            <div class="tc-auth-wrapper" data-c-padding="tb(triple)" data-c-container="small">
+        <section class="tc-auth" data-c-padding="top(1) bottom(2)" data-c-overlay="black(80)" style="background-image: url('/images/bg_crowd.jpg');">
+            <div class="tc-auth-wrapper" data-c-container="small">
                 {# Return to the homepage link. #}
                 <a data-c-color="white" href={{ home_url }} title="{{ login.return }}">
-                    <i class="fas fa-chevron-left" data-c-margin="right(quarter)"></i>{{ login.return }}
+                    <i class="fas fa-chevron-left" data-c-margin="right(.25)"></i>{{ login.return }}
                 </a>
-                <div data-c-radius="rounded" data-c-margin="top(normal)">
+                <div data-c-radius="rounded" data-c-margin="top(1)">
                     {# Auth UI Title Area #}
-                    <div class="tc-auth-header gradient-left-right" data-c-padding="all(double)" data-c-align="base(center)">
+                    <div class="tc-auth-header gradient-left-right" data-c-padding="all(1)" data-c-align="base(center)">
                         <h1 data-c-font-size="h2" data-c-color="white">{{ login.header }}</h1>
                     </div>
                     {# Login Form #}
                     <form action="{{ routes.login }}" method="POST">
                         {{ csrf_field() }}
-                        <div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)">
-                            <div data-c-padding="tb(half)">
+                        <div data-c-background="white(100)" data-c-padding="all(1)">
+                            <div>
                                 {% include "errors/form_errors" %}
                                 {# Email Field #}
                                 <div data-c-input="email">
@@ -78,7 +75,7 @@
                             </div>
                         </div>
                         {# UI Actions #}
-                        <div data-c-background="white(100)" data-c-padding="tb(normal) rl(double)" data-c-border="top(thin, solid, grey)">
+                        <div data-c-background="white(100)" data-c-padding="all(1)" data-c-border="top(thin, solid, grey)">
                             <div data-c-grid="middle">
                                 <div data-c-grid-item="base(1of2)">
                                     <a href="{{ routes.register }}" title="Register for Talent Cloud">
