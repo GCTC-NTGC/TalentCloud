@@ -76,6 +76,11 @@ Route::group(
             /* Temp Resources */
             Route::view('resources', 'common/resources')->middleware('localOnly')->name('resources');
 
+            /* Response Home */
+            Route::view('response', 'common/response/index/index')->middleware('localOnly')->name('response');
+            /* Response Screening */
+            Route::view('response-screening', 'common/response/screening/index')->middleware('localOnly')->name('responseScreening');
+
             Route::view('response/api-test', 'applicant/str_api_test')->middleware('localOnly');
         });
 
