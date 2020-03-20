@@ -80,6 +80,8 @@ Route::group(
             Route::view('response', 'common/response/index/index')->middleware('localOnly')->name('response');
             /* Response Screening */
             Route::view('response-screening', 'common/response/screening/index')->middleware('localOnly')->name('responseScreening');
+            /* Response Screening */
+            Route::view('response-faq', 'common/response/faq/index')->middleware('localOnly')->name('responseFaq');
 
         });
 

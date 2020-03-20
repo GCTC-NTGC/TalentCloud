@@ -1,0 +1,17 @@
+<section>
+    <div data-c-border="tb(thin, solid, gray)">
+        <div data-c-container="large" data-c-padding="bottom(3)">
+            <div data-c-grid="gutter(all, 2)">
+                {# Include Sidebar #}
+                {% include "common/response/faq/sidebar" %}
+                {# FAQ Content #}
+                <div data-c-grid-item="tl(3of4)">
+                    <div data-c-padding="bottom(3)">
+                        {# Include this for each group/section of questions. #}
+                        {% include "common/response/faq/faq-section" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

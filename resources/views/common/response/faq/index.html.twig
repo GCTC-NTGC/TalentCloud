@@ -1,0 +1,24 @@
+{# =============================================================================
+
+    Talent Cloud
+    COVID-19 Response: FAQ
+    Purpose: This is a static FAQ page designed to house frequently asked
+    questions about the Talent Response site for COVID-19.
+
+============================================================================= #}
+{% extends "layouts/base" %}
+{% block title %}GC Talent Reserve - FAQ{% endblock %}
+{% block body %}
+    {# Government of Canada Banner #}
+    {% include "common/goc" %}
+    <div data-clone>
+        {# Beta Banner #}
+        {% include "common/response/beta-banner" %}
+        {# Menu #}
+        {% include "common/response/menu" %}
+        {# Header #}
+        {% include "common/response/faq/header" %}
+        {# Sorting #}
+        {% include "common/response/faq/layout" %}
+    </div>
+{% endblock %}
