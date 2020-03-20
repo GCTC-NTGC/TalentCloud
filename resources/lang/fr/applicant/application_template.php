@@ -208,4 +208,8 @@ return [
         'faq_title' => 'Accéder à la foire aux questions du Talent Cloud.',
         'faq_label' => 'Voir la foire aux questions',
     ],
+
+    'strategic_response' => [
+        'required_information' => 'Required Information',
+    ]
 ];

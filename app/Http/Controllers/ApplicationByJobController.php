@@ -91,8 +91,11 @@ class ApplicationByJobController extends Controller
         $this->authorize('view', $application);
         $this->authorize('update', $application);
 
+        $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
+            ? 'applicant/strategic_response_application/application_post_01'
+            : 'applicant/application_post_01';
         return view(
-            'applicant/application_post_01',
+            $viewTemplate,
             [
                 // Application Template Data.
                 'application_step' => 1,
@@ -129,8 +132,11 @@ class ApplicationByJobController extends Controller
         $this->authorize('view', $application);
         $this->authorize('update', $application);
 
+        $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
+            ? 'applicant/strategic_response_application/application_post_02'
+            : 'applicant/application_post_02';
         return view(
-            'applicant/application_post_02',
+            $viewTemplate,
             [
                 // Application Template Data.
                 'application_step' => 2,
@@ -170,8 +176,11 @@ class ApplicationByJobController extends Controller
             }),
         ];
 
+        $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
+            ? 'applicant/strategic_response_application/application_post_03'
+            : 'applicant/application_post_03';
         return view(
-            'applicant/application_post_03',
+            $viewTemplate,
             [
                 // Application Template Data.
                 'application_step' => 3,
@@ -215,8 +224,11 @@ class ApplicationByJobController extends Controller
             }),
         ];
 
+        $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
+            ? 'applicant/strategic_response_application/application_post_04'
+            : 'applicant/application_post_04';
         return view(
-            'applicant/application_post_04',
+            $viewTemplate,
             [
                 // Application Template Data.
                 'application_step' => 4,
@@ -269,8 +281,11 @@ class ApplicationByJobController extends Controller
             ? $applicant->work_experiences
             : $application->work_experiences;
 
+        $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
+            ? 'applicant/strategic_response_application/application_post_05'
+            : 'applicant/application_post_05';
         return view(
-            'applicant/application_post_05',
+            $viewTemplate,
             [
                 // Application Template Data.
                 'application_step' => 5,
@@ -310,8 +325,11 @@ class ApplicationByJobController extends Controller
 
         $this->authorize('update', $application);
 
+        $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
+            ? 'applicant/strategic_response_application/application_post_06'
+            : 'applicant/application_post_06';
         return view(
-            'applicant/application_post_06',
+            $viewTemplate,
             [
                 // Application Template Data.
                 'application_step' => 6,
@@ -341,9 +359,11 @@ class ApplicationByJobController extends Controller
         // Ensure user has permissions to view application.
         $this->authorize('view', $application);
 
-        // Return the Completion View.
+        $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
+            ? 'applicant/strategic_response_application/application_post_complete'
+            : 'applicant/application_post_complete';
         return view(
-            'applicant/application_post_complete',
+            $viewTemplate,
             [
                 // Application Template Data.
                 'application_template' => Lang::get('applicant/application_template'),
@@ -387,7 +407,7 @@ class ApplicationByJobController extends Controller
                 $answer = $questionsInput[$question->id];
             }
             $answerObj = $application->job_application_answers
-            ->firstWhere('job_poster_question_id', $question->id);
+                ->firstWhere('job_poster_question_id', $question->id);
             if ($answerObj == null) {
                 $answerObj = new JobApplicationAnswer();
                 $answerObj->job_poster_question_id = $question->id;

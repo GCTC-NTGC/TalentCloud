@@ -206,4 +206,8 @@ return [
         'faq_title' => 'Go to the Talent Cloud FAQ.',
         'faq_label' => 'View the FAQ',
     ],
+
+    'strategic_response' => [
+        'required_information' => 'Required Information',
+    ]
 ];

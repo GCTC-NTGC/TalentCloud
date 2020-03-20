@@ -1,0 +1,142 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Application Post - Questions
+
+============================================================================= #}
+<div
+    class="application-post__questions">
+
+    <div
+        class="container--copy">
+
+        {# Language for Process #}
+
+        <div
+            class="application-post__veterans">
+
+            <div
+                class="form_wrapper">
+
+                <div
+                    class="flex-grid">
+
+                    <p>
+                        {{ application_template.language_copy }}
+                    </p>
+
+                    <div
+                        class="box full">
+
+                        <div
+                            class="form__input-wrapper--select">
+                            <label
+                                class="form__label"
+                                for="preferred_language_id">
+                                {{ application_template.language_label }}
+                            </label>
+                            <div
+                                class="form__select-wrapper fas fa-chevron-down">
+                                <select
+                                    id="preferred_language_id"
+                                    class="form__input"
+                                    required
+                                    name="preferred_language_id">
+                                    <option
+                                        value=""
+                                        disabled
+                                        {% if not job_application.preferred_language_id %}selected{% endif %}>
+                                        {{ application_template.select_default_option }}
+                                    </option>
+                                    {% for option in language_options %}
+                                        <option
+                                            value="{{ option.id }}" {% if option.id == job_application.preferred_language_id %} selected
+                                            {% endif %}>
+                                            {{ preferred_language_template[option.name] }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <h3>
+            {{ application_template.question_title }}
+        </h3>
+
+        {% for question in job.job_poster_questions %}
+
+            <div
+                class="application-post__long-form-question">
+
+                <span>
+                    {{ question.question }}
+                </span>
+
+                <p>
+                    {{ question.description }}
+                </p>
+
+                <div
+                    class="form__input-wrapper--float {% for userAnswer in job_application.job_application_answers %}{% if userAnswer.job_poster_question.id == question.id %}active{% endif %}{% endfor %}">
+                    <label
+                        class="form__label"
+                        for="questions[{{ question.id }}]">
+                        {{ application_template.question_label }}
+                    </label>
+                    <textarea
+                        id="questions[{{ question.id }}]"
+                        class="form__textarea"
+                        name="questions[{{ question.id }}]"
+                        required>{% for userAnswer in job_application.job_application_answers %}
+                            {% if userAnswer.job_poster_question.id == question.id %}
+                                {{ userAnswer.answer }}
+                            {% endif %}
+                        {% endfor %}</textarea>
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+        <div
+            class="flex-grid middle application-post__action-wrapper">
+
+            <div
+                class="box med-1of2">
+
+                <button
+                    class="button--blue light-bg"
+                    type="submit"
+                    name="submit"
+                    value="save_and_quit">
+                    {{ application_template.save_quit_button_label }}
+                </button>
+
+            </div>
+
+            <div
+                class="box med-1of2">
+
+                <button
+                    class="button--blue light-bg"
+                    type="submit"
+                    name="submit"
+                    value="save_and_continue">
+                    {{ application_template.save_continue_button_label }}
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

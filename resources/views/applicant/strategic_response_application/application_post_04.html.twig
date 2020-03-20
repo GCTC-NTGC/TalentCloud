@@ -1,0 +1,24 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Apply - Step 04
+
+============================================================================= #}
+{% extends "layouts/base" %}
+{% block title %}
+	{{ application_template.step_04_title }}
+{% endblock %}
+{% block body %}
+	{% include "common/goc" %}
+	{% include "common/alert" %}
+	{% include "common/header" with {'header': {'title': ":title: :job"|replace({':title': application_template.title, ':job': job.title})}} %}
+	<a id="skipLink"></a>
+	{% include "applicant/strategic_response_application/common/tracker-ajax" %}
+	{% include "applicant/strategic_response_application/common/skill-layout" %}
+	{# Modals #}
+	{% include "common/modal" with {"page": application} %}
+	{% include "common/modals/skills_need_help" %}
+{% endblock %}
+{% block scripts %}
+	<script async defer src="{{ mix('/js/SkillsWordCounter.js') }}"></script>
+{% endblock %}
