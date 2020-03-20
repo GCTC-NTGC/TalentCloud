@@ -37,6 +37,12 @@ return [
         'sign_off' => 'See you in 2020!',
         'signature' => 'The Talent Cloud Team'
     ],
+    'response' => [
+        'title' => 'We\'re improving the platform.',
+        'main_message' => 'Due to the evolving situation surrounding COVID-19, we\'ll put a pause on posting new opportunities on this site.',
+        'sign_off' => 'For more opportunities, visit',
+        'link' => '<a href="https://psjobs-emploisfp.psc-cfp.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=en" title="" target="_blank">GC Jobs</a>'
+    ],
     'hiw' => [
         'title' => 'How Talent Cloud Works',
         'steps' => [
