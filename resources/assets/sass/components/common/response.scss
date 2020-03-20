@@ -63,3 +63,9 @@ a.response-job-listing {
         }
     }
 }
+
+.response-apply-button {
+    &:hover {
+        background: darken($clone-c1, 5) !important;
+    }
+}

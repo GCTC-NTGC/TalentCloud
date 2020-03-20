@@ -81,6 +81,7 @@ Route::group(
             /* Response Screening */
             Route::view('response-screening', 'common/response/screening/index')->middleware('localOnly')->name('responseScreening');
 
+            Route::view('response/api-test', 'applicant/str_api_test')->middleware('localOnly');
         });
 
         Route::group(['prefix' => config('app.applicant_prefix')], function (): void {

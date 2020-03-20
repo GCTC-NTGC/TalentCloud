@@ -11,14 +11,18 @@ return [
      */
     'title' => 'Parcourir les emplois',
     'job_index_title' => 'Nuage de talents | Candidat : Parcourir les emplois',
-     'job_index_description' => 'Liste des emplois actifs publiés sur le Nuage de talents.',
+    'job_index_description' => 'Liste des emplois actifs publiés sur le Nuage de talents.',
     'index' => [
         'null_alert' => [
             'title' => 'Nous améliorons la plate-forme.',
-            'copy_01' => "Bien qu'il n'y ait pas d'emplois affichés au moment, revenez bientôt pour plus de possibilités.",
-            'copy_02' => 'Voulez-vous rester au courant? %link% pour les mises à jour.',
-            'link' => 'https://twitter.com/GC_Talent',
-            'link_title' => 'Visitez Nuage de talents sur Twitter'
+            'copy_01' => 'En raison de l\'évolution de la situation autour de COVID-19, nous allons faire une pause sur la publication de nouvelles opportunités sur ce site.',
+            //"Bien qu'il n'y ait pas d'emplois affichés au moment, revenez bientôt pour plus de possibilités.",
+            'copy_02' => 'Pour plus d\'opportunités, visitez le site %link%.',
+            //'Voulez-vous rester au courant? %link% pour les mises à jour.',
+            'link' => 'https://psjobs-emploisfp.psc-cfp.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&amp;toggleLanguage=fr',
+            //'https://twitter.com/GC_Talent',
+            'link_title' => 'Emplois GC',
+            //'Visitez Nuage de talents sur Twitter'
         ],
         'view_title' => "Voir l'affiche de travail pour",
         'location_label' => 'Emplacement',

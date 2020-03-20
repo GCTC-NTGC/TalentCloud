@@ -1,0 +1,50 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Jobs - Post: Header
+
+============================================================================= #}
+<header
+    class="job-post__header">
+
+    <div
+        class="container--layout">
+
+        <div
+            class="flex-grid bottom">
+
+            <div
+                class="box lg-2of3">
+
+                <h2 class="job-post__job-title">{{ job.title }}</h2>
+
+                <div class="job-post__department">
+
+                    <span>
+                        {{ job_post.strategic_response.various_departments }}
+                    </span>
+
+                    <br>
+
+                    <div>
+                        <i aria-hidden="true" class="fas fa-home"></i>
+                        <span>{{ job_post.header.remote_work_allowed[true] }}</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div
+                class="box lg-1of3">
+                <p
+                    class="job-post__reference-id">
+                    <span>{{ job_post.header.reference_id|replace({':id':job.id}) }}</span>
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
