@@ -51,6 +51,8 @@ $clone-whitespace-multiplier: 1;
 @import "components/applicant/application/skill-explanations.scss";
 @import "components/applicant/application/signature.scss";
 
+@import "components/common/response.scss";
+
 // Post-Clone Utilities (move these to their own import later Josh!
 
 .button-trash {

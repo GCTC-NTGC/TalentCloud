@@ -1,0 +1,34 @@
+{# =============================================================================
+
+    Talent Cloud
+    COVID-19 Response
+    Purpose: This page is to help locate talent that is dedicated to helping the
+    relief effort for the COVID-19 pandemic.
+
+============================================================================= #}
+{% extends "layouts/base" %}
+{% block title %}GC Talent Reserve{% endblock %}
+{% block body %}
+    {# Government of Canada Banner #}
+    {% include "common/goc" %}
+    <div data-clone>
+        {# Beta Banner #}
+        {% include "common/response/beta-banner" %}
+        {# Menu #}
+        {% include "common/response/menu" %}
+        {# Header #}
+        {% include "common/response/index/header" %}
+        {# Content #}
+        {% include "common/response/index/content" %}
+        {# Job List #}
+        {% include "common/response/index/job-list" %}
+        {# How to Apply #}
+        {% include "common/response/index/how" %}
+    </div>
+{% endblock %}
+
+{#
+    - remove levels everywhere (poster, application, manager tracking)
+    - comms, manager, strat comms (example poster)
+    - turn off soft skills
+#}
