@@ -2863,16 +2863,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.10.0",
+            "version": "v0.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "e361c8b7e5114534078e0ce04ddc442b39018a3c"
+                "reference": "a0873507fdd47364e6cfadd4066d7a18e8861c03"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/e361c8b7e5114534078e0ce04ddc442b39018a3c",
-                "reference": "e361c8b7e5114534078e0ce04ddc442b39018a3c",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/a0873507fdd47364e6cfadd4066d7a18e8861c03",
+                "reference": "a0873507fdd47364e6cfadd4066d7a18e8861c03",
                 "shasum": ""
             },
             "require": {
@@ -2932,7 +2932,7 @@
                 "interactive",
                 "shell"
             ],
-            "time": "2020-03-15T22:52:37+00:00"
+            "time": "2020-03-21T06:35:47+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
