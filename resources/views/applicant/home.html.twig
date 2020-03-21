@@ -41,8 +41,6 @@
 			</div>
 			{# Browse Jobs ================================================== #}
 			<div class="home-browse" data-c-background="white(100)" data-c-padding="tb(3)" data-c-border="bottom(thin, solid, grey)">
-				{% set christmas_time = false %}
-                {% set emergencyResponse = true %}
 				{% if christmas_time %}
 					{# Holiday Message #}
 					<div data-c-container="medium">
@@ -59,7 +57,7 @@
 							</div>
 						</div>
 					</div>
-                {% elseif emergencyResponse %}
+                {% elseif emergency_response %}
                     {# Response Message #}
 					<div data-c-container="medium">
 						<div data-c-border="all(thick, solid, c1)" data-c-padding="all(1)" data-c-radius="rounded" data-c-align="base(center) tl(left)" style="background: #eee7ec; position: relative;">

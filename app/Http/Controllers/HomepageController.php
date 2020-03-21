@@ -18,6 +18,12 @@ class HomepageController extends Controller
     {
         $now = Carbon::now();
 
+        // If true, show the Closed for the Holidays message (complete with snowman).
+        $christmas_time = false;
+
+        // If true, show the Paused due to COVID-19 message.
+        $emergency_response = true;
+
         // Find three most recent published jobs that are currently open for applications.
         // Eager load required relationships: Department, Province, JobTerm.
         $jobs = JobPoster::where('internal_only', false)
@@ -35,7 +41,9 @@ class HomepageController extends Controller
             'job_index' => Lang::get('applicant/job_index'),
             'job_post' => Lang::get('applicant/job_post'),
             'jobs' => $jobs,
-            'job_count' => count($jobs)
+            'job_count' => count($jobs),
+            'christmas_time' => $christmas_time,
+            'emergency_response' => $emergency_response,
         ]);
     }
 
