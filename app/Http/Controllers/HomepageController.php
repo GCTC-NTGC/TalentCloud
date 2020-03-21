@@ -16,10 +16,10 @@ class HomepageController extends Controller
     public function applicant()
     {
         // If true, show the Closed for the Holidays message (complete with snowman).
-        $christmas_time = false;
+        $christmas_time = config('seasonal.is_christmas_holiday');
 
         // If true, show the Paused due to COVID-19 message.
-        $emergency_response = true;
+        $emergency_response = config('seasonal.is_covid_emergency');
 
         // Find three most recent published jobs that are currently open for applications.
         // Eager load required relationships: Department, Province, JobTerm.
