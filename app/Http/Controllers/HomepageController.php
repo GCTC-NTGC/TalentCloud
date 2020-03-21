@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Lang;
 use App\Http\Controllers\Controller;
 use App\Models\JobPoster;
 use App\Models\Lookup\JobPosterStatus;
-use Carbon\Carbon;
 
 class HomepageController extends Controller
 {
@@ -16,8 +15,6 @@ class HomepageController extends Controller
      */
     public function applicant()
     {
-        $now = Carbon::now();
-
         // If true, show the Closed for the Holidays message (complete with snowman).
         $christmas_time = false;
 
