@@ -9,10 +9,10 @@
 		{% if jobs is empty %}
 			<div class="container--copy browse__index-job-null">
 				<div class="null-alert">
-					<h2>{{ job_index.index.null_alert.title }}</h2>
-					<p>{{ job_index.index.null_alert.copy_01 }}</p>
+					<h2>{{ null_alert.title }}</h2>
+					<p>{{ null_alert.copy_01 }}</p>
 					<hr>
-					<p>{{ job_index.index.null_alert.copy_02|replace({'%link%': '<a href="' ~ job_index.index.null_alert.link ~ '"> ' ~ job_index.index.null_alert.link_title ~'</a>'})|raw }}</p>
+					<p>{{ null_alert.copy_02|replace({'%link%': '<a href="' ~ null_alert.link ~ '"> ' ~ null_alert.link_title ~'</a>'})|raw }}</p>
 				</div>
 			</div>
 		{% endif %}
