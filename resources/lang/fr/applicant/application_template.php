@@ -211,5 +211,6 @@ return [
 
     'strategic_response' => [
         'required_information' => 'Required Information',
+        'experience_description' => 'Add some of your education, if available.'
     ]
 ];
