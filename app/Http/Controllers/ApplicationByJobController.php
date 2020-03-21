@@ -167,14 +167,9 @@ class ApplicationByJobController extends Controller
         $this->authorize('view', $application);
         $this->authorize('update', $application);
 
-        $criteria = [
-            'essential' => $jobPoster->criteria->filter(function ($value, $key) {
-                return $value->criteria_type->name == 'essential';
-            }),
-            'asset' => $jobPoster->criteria->filter(function ($value, $key) {
-                return $value->criteria_type->name == 'asset';
-            }),
-        ];
+        $criteria = $jobPoster->criteria->filter(function ($value, $key) {
+            return $value->criteria_type->name == 'essential';
+        });
 
         $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
             ? 'applicant/strategic_response_application/application_post_03'
@@ -215,14 +210,10 @@ class ApplicationByJobController extends Controller
         $this->authorize('view', $application);
         $this->authorize('update', $application);
 
-        $criteria = [
-            'essential' => $jobPoster->criteria->filter(function ($value, $key) {
-                return $value->criteria_type->name == 'essential';
-            }),
-            'asset' => $jobPoster->criteria->filter(function ($value, $key) {
-                return $value->criteria_type->name == 'asset';
-            }),
-        ];
+        $criteria = $jobPoster->criteria->filter(function ($value, $key) {
+            return $value->criteria_type->name == 'asset';
+        });
+
 
         $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
             ? 'applicant/strategic_response_application/application_post_04'

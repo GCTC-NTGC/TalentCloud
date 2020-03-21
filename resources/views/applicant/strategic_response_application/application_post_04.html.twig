@@ -17,6 +17,19 @@
 	{% include "applicant/strategic_response_application/common/skill-layout" %}
 	{# Modals #}
 	{% include "common/modal" with {"page": application} %}
+
+    <section class="application-post__skills-layout">
+        <div class="container--copy">
+            <h2>
+                {{ application_template.asset_title }}
+            </h2>
+            <p>
+                {{ application_template.asset_context }}
+            </p>
+        </div>
+	    {% include "applicant/strategic_response_application/common/skill-layout" %}
+    </section>
+
 	{% include "common/modals/skills_need_help" %}
 {% endblock %}
 {% block scripts %}

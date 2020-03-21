@@ -4,225 +4,127 @@
     Applicant: Application Post - Tracker
 
 ============================================================================= #}
-<section
-    class="application-post__skills-layout">
+
+
+<div
+    class="container--layout">
 
     <div
-        class="container--copy">
+        class="flex-grid">
 
-        {# <div class="timer-wrapper">
-            <i class="fas fa-stopwatch"></i>
-            <span>72 hours left to apply</span>
-        </div> #}
+        {# Include Sidebar #}
 
-        {% if application_step == "3" %}
-            <h2>
-                {{ application_template.essential_title }}
-            </h2>
-            <p class="bold">{{ application_template.essential_subtitle }}</p>
+            {% include "applicant/strategic_response_application/common/sidebar" %}
 
-            <ul>
-                <li>
-                    <p class="italics">{{ application_template.essential_question_1 }}</p>
-                    <p class="bold">{{ application_template.essential_answer_1 }}</p>
-                </li>
-                <li>
-                    <p>{{ application_template.essential_question_2 }}</p>
-                    <p class="bold">{{ application_template.essential_answer_2 }}</p>
-                </li>
-            </ul>
+        {# Skills Content #}
 
-        {% elseif application_step == "4" %}
-            <h2>
-                {{ application_template.asset_title }}
-            </h2>
-            <p>
-                {{ application_template.asset_context }}
-            </p>
-        {% endif %}
+            <div class="application-post__content-wrapper box lg-3of4">
 
-    </div>
+                <a
+                    aria-hidden="true"
+                    class="application-post__anchor"
+                    id="begin">
+                </a>
 
-    <div
-        class="container--layout">
+                {# Skills Layout #}
 
-        <div
-            class="flex-grid">
+                    {# Profile List (Soft Skills) #}
 
-            {# Include Sidebar #}
+                        <div
+                            class="profile-list">
 
-                {% include "applicant/strategic_response_application/common/sidebar" %}
+                            {# Set Locale #}
 
-            {# Skills Content #}
+                                {% set locale = "application" %}
 
-                <div class="application-post__content-wrapper box lg-3of4">
+                            {# Profile Element List #}
 
-                    <a
-                        aria-hidden="true"
-                        class="application-post__anchor"
-                        id="begin">
-                    </a>
+                                <div
+                                    class="profile-element-list {{ application_step == "3" ? "step3" : "" }}">
 
-                    {# Skills Layout #}
+                                    {% for criterion in criteria %}
 
-                        {# Profile List (Soft Skills) #}
+                                        {# Get User Skill #}
 
-                            <div
-                                class="profile-list">
+                                            {% set skill_declaration = false %}
 
-                                {# Profile List Header #}
+                                            {% for skillDeclaration in applicant.skill_declarations %}
 
-                                {% if application_step == "4" %}
-                                    <div
-                                        class="profile-list__header flex-grid middle">
+                                                {% if criterion.skill.id == skillDeclaration.skill_id %}
 
-                                        <div
-                                            class="box med-1of2">
+                                                    {% set skill_declaration = skillDeclaration %}
 
-                                                <h2>{{ application_template.skills_section.asset_title }}</h2>
-
-                                        </div>
-
-                                        <div
-                                            class="box med-1of2">
-
-                                        </div>
-
-                                    </div>
-                                {% endif %}
-
-                                {# Set Locale #}
-
-                                    {% set locale = "application" %}
-
-                                {# Profile Element List #}
-
-                                    <div
-                                        class="profile-element-list {{ application_step == "3" ? "step3" : "" }}">
-
-                                        {% if application_step == "3" %}
-
-                                            {% for criterion in criteria.essential %}
-
-                                                {# Get User Skill #}
-
-                                                    {% set skill_declaration = false %}
-
-                                                    {% for skillDeclaration in applicant.skill_declarations %}
-
-                                                        {% if criterion.skill.id == skillDeclaration.skill_id %}
-
-                                                            {% set skill_declaration = skillDeclaration %}
-
-                                                        {% endif %}
-
-                                                    {% endfor %}
-
-                                                {# Get Skill Type #}
-
-                                                    {% set skillType = criterion.skill.skill_type.name %}
-
-                                                {# Import Skill Template #}
-
-                                                    <a
-                                                        class="application-post__anchor"
-                                                        id="skill{{ criterion.skill.id }}"></a>
-
-                                                    {% include "common/skill" %}
+                                                {% endif %}
 
                                             {% endfor %}
 
-                                        {% endif %}
+                                        {# Get Skill Type #}
 
-                                        {% if application_step == "4" %}
+                                            {% set skillType = criterion.skill.skill_type.name %}
 
-                                            {% for criterion in criteria.asset %}
+                                        {# Import Skill Template #}
 
-                                                {# Get User Skill #}
+                                            <a
+                                                class="application-post__anchor"
+                                                id="skill{{ criterion.skill.id }}"></a>
 
-                                                    {% set skill_declaration = false %}
+                                            {% include "common/skill" %}
 
-                                                    {% for skillDeclaration in applicant.skill_declarations %}
+                                    {% endfor %}
 
-                                                        {% if criterion.skill.id == skillDeclaration.skill_id %}
+                                </div>
 
-                                                            {% set skill_declaration = skillDeclaration %}
-
-                                                        {% endif %}
-
-                                                    {% endfor %}
-
-                                                {# Get Skill Type #}
-
-                                                    {% set skillType = criterion.skill.skill_type.name %}
-
-                                                {# Import Skill Template #}
-
-                                                    <a
-                                                        class="application-post__anchor"
-                                                        id="skill{{ criterion.skill.id }}"></a>
-
-                                                    {% include "common/skill" %}
-
-                                            {% endfor %}
-
-                                        {% endif %}
-
-                                    </div>
-
-                            </div>
-
-                </div>
-
-        </div>
-
-    </div>
-
-    <div
-        class="container--copy">
-
-        {# Save Buttons #}
-
-            <div
-                class="flex-grid middle application-post__action-wrapper">
-
-                <div
-                    class="box med-1of2">
-
-                    <button
-                        class="button--blue light-bg ajax-submit-all"
-                        type="button"
-                        name="submit"
-                        value="save_and_quit"
-                        data-on-success-url="{{ route('applications.index') }}">
-                        <span class="submit-default">{{ application_template.save_quit_button_label }}</span>
-                        <span class="submit-working">{{ application_template.save_button_working }}</span>
-                    </button>
-
-                </div>
-
-                <div
-                    class="box med-1of2">
-
-                    <button
-                        class="button--blue light-bg ajax-submit-all"
-                        type="button"
-                        name="submit"
-                        value="save_and_continue"
-                        {% if application_step == "3" %}
-                            data-on-success-url="{{ route('job.application.edit.4', job) }}"
-                        {% elseif application_step == "4" %}
-                            data-on-success-url="{{ route('job.application.edit.5', job) }}"
-                        {% endif %}
-                        >
-                        <span class="submit-default">{{ application_template.save_continue_button_label }}</span>
-                        <span class="submit-working">{{ application_template.save_button_working }}</span>
-                    </button>
-
-                </div>
+                        </div>
 
             </div>
 
     </div>
 
-</section>
+</div>
+
+<div
+    class="container--copy">
+
+    {# Save Buttons #}
+
+        <div
+            class="flex-grid middle application-post__action-wrapper">
+
+            <div
+                class="box med-1of2">
+
+                <button
+                    class="button--blue light-bg ajax-submit-all"
+                    type="button"
+                    name="submit"
+                    value="save_and_quit"
+                    data-on-success-url="{{ route('applications.index') }}">
+                    <span class="submit-default">{{ application_template.save_quit_button_label }}</span>
+                    <span class="submit-working">{{ application_template.save_button_working }}</span>
+                </button>
+
+            </div>
+
+            <div
+                class="box med-1of2">
+
+                <button
+                    class="button--blue light-bg ajax-submit-all"
+                    type="button"
+                    name="submit"
+                    value="save_and_continue"
+                    {% if application_step == "3" %}
+                        data-on-success-url="{{ route('job.application.edit.4', job) }}"
+                    {% elseif application_step == "4" %}
+                        data-on-success-url="{{ route('job.application.edit.5', job) }}"
+                    {% endif %}
+                    >
+                    <span class="submit-default">{{ application_template.save_continue_button_label }}</span>
+                    <span class="submit-working">{{ application_template.save_button_working }}</span>
+                </button>
+
+            </div>
+
+        </div>
+
+</div>
