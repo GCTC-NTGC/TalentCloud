@@ -23,7 +23,11 @@ const JobSummaryActivityFeed: React.FunctionComponent<JobSummaryActivityFeedProp
         location={LocationId.summary}
       />
       <hr data-c-hr="thin(black)" data-c-margin="top(1)" />
-      <ActivityList jobId={jobId} isHrAdvisor={portal === "hr"} />
+      <ActivityList
+        generalLocation={LocationId.summary}
+        jobId={jobId}
+        isHrAdvisor={portal === "hr"}
+      />
     </>
   );
 };

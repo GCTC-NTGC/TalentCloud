@@ -25,6 +25,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\JobSaved' => [
             'App\Listeners\RecordJobStatusTransition',
+            'App\Listeners\JobPosterQuestionInitializer',
         ],
         'App\Events\ApplicationRetrieved' => [
             'App\Listeners\LogApplicationRetrieved',

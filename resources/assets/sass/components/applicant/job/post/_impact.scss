@@ -25,5 +25,27 @@
         }
 
     }
+}
 
+.job-poster__alert {
+    border-radius: 3px 3px 0 0;
+    padding: 0 3rem 3rem 3rem;
+
+    i {
+        // color: $palette--blue;
+        color: black;
+        font-size: $font-scale--h1;
+        text-align: left;
+        width: 100%;
+    }
+
+    p {
+        display: block;
+        font-family: $font--sans;
+        font-size: $font-scale--regular;
+        line-height: 1.5;
+        margin: 0;
+        padding: 0;
+        font-weight: 700;
+    }
 }
