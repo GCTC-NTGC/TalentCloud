@@ -18,6 +18,7 @@ use App\Models\Skill;
 use App\Models\SkillDeclaration;
 use App\Models\WorkExperience;
 use App\Services\Validation\ApplicationValidator;
+use App\Services\Validation\StrategicResponseApplicationValidator;
 use Facades\App\Services\WhichPortal;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -801,7 +802,10 @@ class ApplicationByJobController extends Controller
             ]);
 
             // Error out of this process now if application is not complete.
-            $validator = new ApplicationValidator();
+            $validator = $jobPoster->isInStrategicResponseDepartment()
+                ? new StrategicResponseApplicationValidator()
+                : new ApplicationValidator();
+
             $validatorInstance = $validator->validator($application);
             if (!$validatorInstance->passes()) {
                 $userId = $application->applicant->user_id;

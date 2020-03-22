@@ -13,10 +13,10 @@ class ApplicationValidator
 {
 
     public $backendRules =  [
-            'job_poster_id' => 'required',
-            'application_status_id' => 'required',
-            'applicant_id' => 'required',
-        ];
+        'job_poster_id' => 'required',
+        'application_status_id' => 'required',
+        'applicant_id' => 'required',
+    ];
     public function validator(JobApplication $application)
     {
         $data = $application->toArray();
@@ -94,22 +94,24 @@ class ApplicationValidator
         return $rules;
     }
 
-    public function basicRules(JobApplication $application)
+    protected function basicInfoSimpleRules()
     {
-        // Validate the fields common to every application
-        $rules = [
+        return [
             'language_requirement_confirmed' => ['required', 'boolean'],
             'citizenship_declaration_id' => ['required', 'exists:citizenship_declarations,id'],
             'veteran_status_id' => ['required', 'exists:veteran_statuses,id'],
             'preferred_language_id' => ['required', 'exists:preferred_languages,id'],
         ];
+    }
 
-        // Merge with Answer rules, that ensure each answer is complete
+    protected function questionAnswerRules(JobApplication $application)
+    {
+        // Start with Answer rules, that ensure each answer is complete
         $answerValidator = new JobApplicationAnswerValidator($application);
         $rules = $this->addNestedValidatorRules(
             'job_application_answers.*',
             $answerValidator->rules(),
-            $rules
+            []
         );
 
         // Validate that each question has been answered
@@ -121,6 +123,12 @@ class ApplicationValidator
 
         return $rules;
     }
+
+    public function basicRules(JobApplication $application)
+    {
+        return array_merge($this->basicInfoSimpleRules(), $this->questionAnswerRules($application));
+    }
+
     public function basicsValidator(JobApplication $application)
     {
         // Load application answers so they are included in application->toArray().
