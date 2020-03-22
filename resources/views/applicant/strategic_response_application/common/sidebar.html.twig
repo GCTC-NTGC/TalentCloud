@@ -10,45 +10,21 @@
     <nav
         class="application-post__subnav-sticky-wrapper">
 
-        {% if application_step == "3" %}
-            <h4
-                class="application-post_subnav-label">
-                {{ application_template.essential_sidebar_label }}
-            </h4>
-        {% elseif application_step == "4" %}
-            <h4
-                class="application-post_subnav-label">
-                {{ application_template.asset_sidebar_label }}
-            </h4>
-        {% endif %}
+        <h4
+            class="application-post_subnav-label">
+            {{ application_template.skill_sidebar_label }}
+        </h4>
 
-            {% if application_step == "3" %}
+        {% for criterion in criteria %}
 
-                {% for criterion in criteria.essential %}
+            <a
+                class="application-post__subnav-item"
+                href="#skill{{ criterion.skill.id }}"
+                title="{{ application_template.sidebar_item_title }}">
+                {{ criterion.skill.name }}
+            </a>
 
-                    <a
-                        class="application-post__subnav-item"
-                        href="#skill{{ criterion.skill.id }}"
-                        title="{{ application_template.sidebar_item_title }}">
-                        {{ criterion.skill.name }}
-                    </a>
-
-                {% endfor %}
-
-            {% elseif application_step == "4" %}
-
-                {% for criterion in criteria.asset %}
-
-                    <a
-                        class="application-post__subnav-item"
-                        href="#skill{{ criterion.skill.id }}"
-                        title="{{ application_template.sidebar_item_title }}">
-                        {{ criterion.skill.name }}
-                    </a>
-
-                {% endfor %}
-
-            {% endif %}
+        {% endfor %}
 
     </nav>
 

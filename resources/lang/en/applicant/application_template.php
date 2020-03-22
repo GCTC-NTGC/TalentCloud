@@ -139,13 +139,15 @@ return [
     'essential_answer_1' => 'Sorry, you really do need all of them, and at the right level.',
     'essential_question_2' => 'Q. What if I stretch the truth a little? Once I’m interviewed they’ll change their mind for sure!',
     'essential_answer_2' => 'Don’t do it. These will be assessed, and you’re better than that.',
-    'essential_sidebar_label' => 'Skills Checklist',
 
     'asset_title' => 'Skills That Are Nice to Have',
     'asset_context' => 'You can apply for this job if you don’t have any of these skills. These are assets that the hiring manager thinks will help with the work. They’re often used to help select the best candidate amongst all those who meet all the “Need to Have” criteria. So if you do have these skills, now is the time to let the hiring manager know.',
     'asset_start_button_title' => 'Scroll to begin filling out the skills that are nice to have.',
     'skills_start_button_label' => 'Get Started',
-    'asset_sidebar_label' => 'Skills Checklist',
+
+    /* Step 3&4 */
+    'skill_sidebar_label' => 'Skills Checklist',
+
     /* Step 05 */
     'step_05_title' => 'Talent Cloud | Applicant: Apply Now - Step 5',
     'preview' => [

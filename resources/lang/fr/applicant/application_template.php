@@ -140,13 +140,14 @@ return [
     'essential_answer_1' => 'Désolé, vous devez vraiment toutes les posséder, et au niveau adéquat.',
     'essential_question_2' => 'Q. Et si j’étirais un peu la vérité? Une fois qu’ils m’auront interviewé, ils changeront d’avis, c’est certain!',
     'essential_answer_2' => 'Ne le faites pas. Ces compétences seront évaluées, et vous valez mieux que ça.',
-    'essential_sidebar_label' => 'Liste de compétences',
 
     'asset_title' => "Des compétences qu'il est bon à avoir",
     'asset_context' => "Vous pouvez postuler à cet emploi si vous ne possédez aucune de ces compétences. Ce sont des atouts qui, selon le responsable du recrutement, viendraient faciliter le travail. Ces compétences servent souvent pour sélectionner le ou la meilleur(e) candidat(e) parmi tous ceux et toutes celles qui répondent à tous les critères du « Besoin d’avoir ». Donc, si vous avez ces compétences, le moment est venu d'en informer le responsable du recrutement.",
     'asset_start_button_title' => "Faites défiler pour commencer à remplir les compétences qu'il est bon à avoir.",
     'skills_start_button_label' => 'Commencer',
-    'asset_sidebar_label' => 'Liste de compétences',
+
+    /* Step 3&4 */
+    'skill_sidebar_label' => 'Liste de compétences',
 
     /* Step 05 */
     'step_05_title' => 'Nuage de talents | Candidat : Postuler maintenant - Étape 5',
