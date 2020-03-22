@@ -86,7 +86,7 @@
         "storybook-addon-intl": "^2.4.1",
         "testcafe": "^1.8.3",
         "ts-jest": "^25.2.1",
-        "ts-loader": "^6.2.1",
+        "ts-loader": "^6.2.2",
         "typescript": "^3.8.3",
         "vue-template-compiler": "^2.6.11",
         "webpack": "^4.42.0"
