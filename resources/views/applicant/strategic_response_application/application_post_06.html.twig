@@ -47,7 +47,14 @@
 							<label class="form__label" for="applicationReviewDate">
 								{{ application_template.integrity.date_label }}
 							</label>
-							<input class="form__input" id="applicationReviewDate" name="submission_date" required type="date"/>
+							<input
+                                class="form__input"
+                                id="applicationReviewDate"
+                                name="submission_date"
+                                type="date"
+                                value={{ "now"|date("Y-m-d") }}
+                                required
+                            />
 						</div>
 					</div>
 				</div>
