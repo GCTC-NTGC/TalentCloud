@@ -212,6 +212,7 @@ return [
 
     'strategic_response' => [
         'required_information' => 'Required Information',
-        'experience_description' => 'Add some of your education, if available.'
+        'experience_description' => 'Add some of your education, if available.',
+        'skill_prompt' => 'Assurez-vous d’utiliser des exemples précis pour démontrer que vous possédez cette compétence.',
     ]
 ];

@@ -252,14 +252,14 @@ class ApplicationByJobController extends Controller
         $application = $this->getApplicationFromJob($jobPoster);
 
         $this->authorize('view', $application);
-        $criteria = [
-            'essential' => $jobPoster->criteria->filter(function ($value, $key) {
-                return $value->criteria_type->name == 'essential';
-            }),
-            'asset' => $jobPoster->criteria->filter(function ($value, $key) {
-                return $value->criteria_type->name == 'asset';
-            }),
-        ];
+
+        $essential_criteria = $jobPoster->criteria->filter(function ($value, $key) {
+            return $value->criteria_type->name == 'essential';
+        });
+        $asset_criteria = $jobPoster->criteria->filter(function ($value, $key) {
+            return $value->criteria_type->name == 'asset';
+        });
+
         $skillDeclarations = $application->isDraft()
             ? $applicant->skill_declarations
             : $application->skill_declarations;
@@ -290,7 +290,8 @@ class ApplicationByJobController extends Controller
                 // Skills Data.
                 'skills' => Skill::all(),
                 'skill_template' => Lang::get('common/skills'),
-                'criteria' => $criteria,
+                'essential_criteria' => $essential_criteria,
+                'asset_criteria' => $asset_criteria,
                 // Applicant Data.
                 'applicant' => $applicant,
                 'job_application' => $application,
