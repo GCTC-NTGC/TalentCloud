@@ -1,0 +1,37 @@
+name: Heroku Publish
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: heroku
+      - name: Merge Dev
+        uses: MaximeHeckel/github-action-merge-fast-forward@master
+        with:
+          branchtomerge: dev
+          branch: heroku
+      - name: Build Assets
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm install
+      - run: npm run prod
+      - name: Push
+        uses: github-actions-x/commit@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          push-branch: heroku
+          commit-message: 'Update assets'
+          force-add: 'true'
+          files: public/js/*.js public/css/* public/mix-manifest.json
+          name: Github Actions
+          email: actions@github.com
