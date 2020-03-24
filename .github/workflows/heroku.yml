@@ -13,8 +13,8 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: heroku
-      - name: Merge Dev
-        uses: MaximeHeckel/github-action-merge-fast-forward@master
+      - name: Merge Fast Forward Only
+        uses: MaximeHeckel/github-action-merge-fast-forward@v1.1.0
         with:
           branchtomerge: dev
           branch: heroku
