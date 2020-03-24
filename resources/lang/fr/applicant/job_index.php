@@ -24,6 +24,7 @@ return [
             'link_title' => 'Emplois GC',
             //'Visitez Nuage de talents sur Twitter'
         ],
+        'section_title' => 'Tous les emplois disponibles :',
         'view_title' => "Voir l'affiche de travail pour",
         'location_label' => 'Emplacement',
         'salary_label' => 'Échelle de salaire annuel',
@@ -44,6 +45,6 @@ return [
         'job_closed' => "L'affiche est fermée",
         'days_remaining_label' => ":count jour jusqu'à la date de clôture.|:count jours jusqu'à la date de clôture.",
         'applicants_label' => "Candidat Jusqu'à Présent|Candidats Jusqu'à Présent",
-        'button_label' => 'Voir le travail'
+        'button_label' => 'Voir ce travail'
     ]
 ];

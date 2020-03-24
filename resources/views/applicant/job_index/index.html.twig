@@ -22,7 +22,7 @@
         <div data-c-container="large" data-c-padding="tb(3)">
             <div data-c-grid="gutter(1)" class="tc-applicant-job-list" id="react-jobs">
                 <div data-c-grid-item="base(1of1)">
-                    <h2 data-c-heading="h2" data-c-margin="bottom(.25)">All Available Jobs:</h2>
+                    <h2 data-c-heading="h2" data-c-margin="bottom(.25)">{{ job_index.index.section_title }}</h2>
                 </div>
                 {% for job in jobs %}
                     <div data-c-grid-item="tp(1of2) ds(1of3) equal-col">
@@ -72,7 +72,7 @@
                                 </div>
                             </div>
                             <div data-c-background="c1(10)" data-c-padding="all(.5)" data-c-border="top(thin, solid, c1)" data-c-align="base(right)">
-                                <p data-c-color="c1">{{ job_index.index.button_label }}</p>
+                                <p data-c-color="c1" data-c-font-style="underline" data-c-font-weight="bold">{{ job_index.index.button_label }}</p>
                             </div>
                         </a>
                     </div>
