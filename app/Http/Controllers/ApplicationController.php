@@ -40,10 +40,12 @@ class ApplicationController extends Controller
     public function show(JobApplication $application)
     {
         $essential_criteria = $application->job_poster->criteria->filter(function ($value, $key) {
-            return $value->criteria_type->name == 'essential';
+            return $value->criteria_type->name == 'essential'
+                && $value->skill->skill_type->name == 'hard';
         });
         $asset_criteria = $application->job_poster->criteria->filter(function ($value, $key) {
-            return $value->criteria_type->name == 'asset';
+            return $value->criteria_type->name == 'asset'
+                && $value->skill->skill_type->name == 'hard';
         });
 
         // Display slightly different views on different portals.

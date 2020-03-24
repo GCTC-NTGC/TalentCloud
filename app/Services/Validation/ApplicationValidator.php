@@ -167,15 +167,21 @@ class ApplicationValidator
 
         $skillDeclarationRules = [];
         $criteriaTypeId = CriteriaType::where('name', $criteria_type)->firstOrFail()->id;
-        foreach ($application->job_poster->criteria->where('criteria_type_id', $criteriaTypeId) as $criteria) {
-            // Validate that every essential skill has a corresponding declaration
-            $skillDeclarationRules[] = new ContainsObjectWithAttributeRule('skill_id', $criteria->skill_id);
+        $criteria = $application->job_poster->criteria
+            ->where('criteria_type_id', $criteriaTypeId)
+            ->filter(function ($value, $key) {
+                // Only hard skills need to be part of the application.
+                return $value->skill->skill_type->name == 'hard';
+            });
+        foreach ($criteria as $criterion) {
+            // Validate that every essential skill has a corresponding declaration.
+            $skillDeclarationRules[] = new ContainsObjectWithAttributeRule('skill_id', $criterion->skill_id);
         }
         $rules[$skillDeclarationsAttribute] = $skillDeclarationRules;
 
         // Validate that those declarations are complete
         $skillDeclarationValidatorFactory = new SkillDeclarationValidator();
-        $relevantSkillIds = $application->job_poster->criteria->where('criteria_type_id', $criteriaTypeId)->pluck('skill_id');
+        $relevantSkillIds = $criteria->pluck('skill_id');
         foreach ($skillDeclarations as $key => $declaration) {
             if ($relevantSkillIds->contains($declaration->skill_id)) {
                 $attribute = implode('.', [$skillDeclarationsAttribute, $key]);

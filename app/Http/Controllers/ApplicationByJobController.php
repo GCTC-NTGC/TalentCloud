@@ -169,7 +169,8 @@ class ApplicationByJobController extends Controller
         $this->authorize('update', $application);
 
         $criteria = $jobPoster->criteria->filter(function ($value, $key) {
-            return $value->criteria_type->name == 'essential';
+            return $value->criteria_type->name == 'essential'
+                && $value->skill->skill_type->name == 'hard';
         });
 
         $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
@@ -212,7 +213,8 @@ class ApplicationByJobController extends Controller
         $this->authorize('update', $application);
 
         $criteria = $jobPoster->criteria->filter(function ($value, $key) {
-            return $value->criteria_type->name == 'asset';
+            return $value->criteria_type->name == 'asset'
+                && $value->skill->skill_type->name == 'hard';
         });
 
 
@@ -254,10 +256,12 @@ class ApplicationByJobController extends Controller
         $this->authorize('view', $application);
 
         $essential_criteria = $jobPoster->criteria->filter(function ($value, $key) {
-            return $value->criteria_type->name == 'essential';
+            return $value->criteria_type->name == 'essential'
+                && $value->skill->skill_type->name == 'hard';
         });
         $asset_criteria = $jobPoster->criteria->filter(function ($value, $key) {
-            return $value->criteria_type->name == 'asset';
+            return $value->criteria_type->name == 'asset'
+                && $value->skill->skill_type->name == 'hard';
         });
 
         $skillDeclarations = $application->isDraft()
