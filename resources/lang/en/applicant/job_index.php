@@ -15,14 +15,17 @@ return [
     'index' => [
         'null_alert' => [
             'title' => "We're improving the platform.",
+            'copy_01' => "While there aren't any jobs posted at the moment, check back soon for more opportunities.",
+            'copy_02' => 'Want to stay in the know? %link% for updates.',
+            'link' => 'https://twitter.com/GC_Talent',
+            'link_title' => 'Follow Talent Cloud on Twitter'
+        ],
+        'covid_null_alert' => [
+            'title' => "We're improving the platform.",
             'copy_01' => 'Due to the evolving situation surrounding COVID-19, we\'ll put a pause on posting new opportunities on this site.',
-            //"While there aren't any jobs posted at the moment, check back soon for more opportunities.",
             'copy_02' => 'For more opportunities, visit %link%.',
-            //'Want to stay in the know? %link% for updates.',
             'link' => 'https://psjobs-emploisfp.psc-cfp.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&amp;toggleLanguage=en',
-            //'https://twitter.com/GC_Talent',
             'link_title' => 'GC Jobs',
-            //'Follow Talent Cloud on Twitter'
         ],
         'view_title' => 'View the job post for',
         'location_label' => 'Location',
