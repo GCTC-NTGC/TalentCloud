@@ -25,8 +25,8 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: npm install
       - run: npm run prod
-      - name: Push
-        uses: github-actions-x/commit@v2
+      - name: Git Commit and Push
+        uses: github-actions-x/commit@v2.5
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           push-branch: heroku
