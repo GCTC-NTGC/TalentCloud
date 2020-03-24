@@ -32,6 +32,6 @@ jobs:
           push-branch: heroku
           commit-message: 'Update assets'
           force-add: 'true'
-          files: js/*.js css/* mix-manifest.json
+          files: public/js/*.js public/css/*.css public/mix-manifest.json
           name: Github Actions
           email: actions@github.com
