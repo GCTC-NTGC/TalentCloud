@@ -370,7 +370,7 @@ class JobPoster extends BaseModel
 
     public function job_poster_questions() // phpcs:ignore
     {
-        return $this->hasMany(\App\Models\JobPosterQuestion::class);
+        return $this->hasMany(\App\Models\JobPosterQuestion::class)->orderBy('id', 'asc');
     }
 
     public function telework_allowed_frequency() // phpcs:ignore
