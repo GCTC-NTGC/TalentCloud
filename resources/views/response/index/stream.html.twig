@@ -1,0 +1,66 @@
+        <div data-c-accordion-group>
+            {# New Version #}
+            <div data-stream-accordion data-c-accordion>
+                <button
+                    aria-expanded="false"
+                    data-c-accordion-trigger
+                    {# data-c-card #}
+                    data-c-padding="rl(2)"
+                    data-c-margin="bottom(1)"
+                    data-c-background="black(80)"
+                    data-c-color="white"
+                    data-c-radius="rounded"
+                    tabindex="0"
+                    type="button">
+                    <div data-c-padding="tb(1)">
+                        <h3 data-c-font-size="h3">{{ stream.title }}</h4>
+                    </div>
+                    <span data-c-visibility="invisible">
+                        {{ response.stream.click_to_view }}
+                    </span>
+                    <i
+                        aria-hidden="true"
+                        class="fas fa-plus"
+                        data-c-accordion-add
+                        data-c-colour="white">
+                    </i>
+                    <i
+                        aria-hidden="true"
+                        class="fas fa-minus"
+                        data-c-accordion-remove
+                        data-c-colour="white">
+                    </i>
+                </button>
+                <div
+                    aria-hidden="true"
+                    data-c-accordion-content
+                    data-c-padding="tl(1)">
+                    <div data-c-padding="bottom(3)">
+                        {# Job Specialty #}
+                        {% for specialty in stream.specialties %}
+                          <p data-c-font-size="h4" data-c-font-weight="bold" data-c-margin="top(1) bottom(.5)" data-c-color="c2">{{ specialty.title }}</p>
+                          <div data-c-grid="gutter(all, 1)">
+                              {# Job Levels #}
+                              {% for level in specialty.levels %}
+                                {% if level.job_id != null %}
+                                  <div data-c-grid-item="base(1of2) tp(1of3) tl(1of{{ specialty.levels|length }}) equal-col">
+                                    <a href="{{ route('jobs.show', level.job_id) }}" title="{{ response.stream.view_job_title }}" class="response-job-listing" data-c-card data-c-background="white(100)" data-c-display="block" data-c-radius="rounded" data-c-hover-color="black" data-c-align="base(center)" data-c-padding="tb(1) rl(.5)" data-c-border="all(thin, solid, white)">
+                                        <p data-c-font-weight="bold" data-c-color="c1" data-c-font-style="underline">{{ level.title }} {{ response.stream.level }}</p>
+                                        <p>{{ response.stream.offer_support}}</p>
+                                    </a>
+                                  </div>
+                                {% else %}
+                                  <div data-c-grid-item="base(1of2) tp(1of3) tl(1of{{ specialty.levels|length }}) equal-col">
+                                    <div data-c-border="all(thin, dashed, gray)" data-c-radius="rounded" data-c-padding="tb(1) rl(.5)" data-c-align="base(center)">
+                                        <p data-c-font-weight="bold" data-c-color="gray" data-c-font-style="underline">{{ level.title }} {{ response.stream.level }}</p>
+                                        <p data-c-color="gray">{{ response.stream.no_jobs }}</p>
+                                    </div>
+                                </div>
+                                {% endif %}
+                              {% endfor %}
+                          </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
