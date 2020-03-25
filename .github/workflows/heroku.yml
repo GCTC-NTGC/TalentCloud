@@ -30,9 +30,9 @@ jobs:
         with:
             name: compiled-assets
             path: |
-              - public/js/*.js 
-              - public/css/*.css 
-              - public/mix-manifest.json
+              public/mix-manifest.json
+              public/js/*.js 
+              public/css/*.css 
       - name: Git Commit and Push
         uses: github-actions-x/commit@v2.5
         with:
