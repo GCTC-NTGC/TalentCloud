@@ -34,12 +34,12 @@ jobs:
         uses: actions/upload-artifact@v1.0.0
         with:
             name: js-assets
-            path: ./public/js/*.js 
+            path: ./public/js/*
       - name: Upload artifact
         uses: actions/upload-artifact@v1.0.0
         with:
             name: css-assets
-            path: ./public/css/*.css
+            path: ./public/css/*
       - name: Git Commit and Push
         uses: github-actions-x/commit@v2.5
         with:
