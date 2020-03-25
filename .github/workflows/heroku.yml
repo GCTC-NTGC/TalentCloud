@@ -28,11 +28,18 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v1.0.0
         with:
-            name: compiled-assets
-            path: |
-              public/mix-manifest.json
-              public/js/*.js 
-              public/css/*.css 
+            name: mix-manifest
+            path: ./public/mix-manifest.json
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1.0.0
+        with:
+            name: js-assets
+            path: ./public/js/*.js 
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1.0.0
+        with:
+            name: css-assets
+            path: ./public/css/*.css
       - name: Git Commit and Push
         uses: github-actions-x/commit@v2.5
         with:
