@@ -25,6 +25,11 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: npm install
       - run: npm run prod
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1.0.0
+        with:
+            name: files
+            path: public/js/*.js public/css/*.css public/mix-manifest.json
       - name: Git Commit and Push
         uses: github-actions-x/commit@v2.5
         with:
