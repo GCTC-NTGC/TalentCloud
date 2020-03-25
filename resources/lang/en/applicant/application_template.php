@@ -184,7 +184,7 @@ return [
     /* Step 06 (Integrity Check) */
     'integrity' => [
         'title' => 'Application Confirmation',
-        'confirmation_copy' => 'By signing your name below, you’re confirming:',
+        'confirmation_copy' => 'By signing my name below, I confirm:',
         'confirmation_01' => 'I’ve reviewed what I wrote in my application.',
         'confirmation_02' => 'I understand that I am part of a community of people who trust each other.',
         'confirmation_03' => 'I promise that the information I am providing is true.',
@@ -211,7 +211,20 @@ return [
 
     'strategic_response' => [
         'required_information' => 'Required Information',
-        'experience_description' => 'Add some of your education, if available.',
-        'skill_prompt' => 'Make sure that you use specific examples to demonstrate you have this skill.',
+        'experience_title' => 'My Education',
+        'experience_description' => 'Add education if it’s relevant to the skill requirements for this job.',
+        'essential_context_1' => 'You\'re amazing for applying. Thanks for offering to help out. These skills are what departments need right now. <strong>Super important:</strong> if you want to be of genuine help, <strong>these are skills you must already have.</strong>',
+        'essential_context_2' => 'You\'ll be dropped into a different team - one that might be under pressure or tight timelines to deliver support for Canadians. If you\'re strong in these skills and you\'re the kind of person who steps up, you\'re a right fit for this. (If you\'re not strong in these skills but want to help, check out some of the other calls for talent.)',
+        'asset_context' => 'This isn\'t required for the job you might be placed in. You can learn it as you go. But it would be great if you already had the skill(s) listed below.',
+        'skill_prompt' => 'Share a few high level bullet points about your work experience:',
+        'skill_placeholder' => 'Tell us a bit about your skills, like where you worked, what your role was, and what you delivered.',
+        'confirmations' => [
+            'That I am part of a community of people who trust each other.',
+            'People will be relying on me to do this job in this time of great need and I promise that the information I am providing is true.',
+        ],
+        'complete_title' => 'Success!',
+        'complete_copy_1' => 'You\'re awesome.',
+        'complete_copy_2' => 'Thanks for putting your name forward.The GC Talent Reserve team will be in touch in a few days with next steps.',
+        'complete_return_label' => 'Back to Homepage',
     ]
 ];

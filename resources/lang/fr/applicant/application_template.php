@@ -185,7 +185,7 @@ return [
     /* Step 06 (Integrity Check) */
     'integrity' => [
         'title' => 'Confirmation de candidature',
-        'confirmation_copy' => 'En signant votre nom ci-dessous, vous confirmez:',
+        'confirmation_copy' => 'En signant mon nom ci-dessous, je confirme:',
         'confirmation_01' => "J'ai examiné ce que j'ai écrit dans ma candidature.",
         'confirmation_02' => "Je comprends que je fais partie d'une collectivité de gens qui se font confiance.",
         'confirmation_03' => 'Je jure que l’information que je fournis est vraie.',

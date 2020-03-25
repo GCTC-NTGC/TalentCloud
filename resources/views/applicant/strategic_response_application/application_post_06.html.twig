@@ -28,9 +28,9 @@
 				<h3>{{ application_template.integrity.title }}</h3>
 				<p>{{ application_template.integrity.confirmation_copy }}</p>
 				<ul>
-					<li>{{ application_template.integrity.confirmation_01 }}</li>
-					<li>{{ application_template.integrity.confirmation_02 }}</li>
-					<li>{{ application_template.integrity.confirmation_03 }}</li>
+                    {% for confirmation in application_template.strategic_response.confirmations %}
+					    <li>{{ confirmation }}</li>
+					{% endfor %}
 				</ul>
 				{% include "errors/form_errors" %}
 				<div class="flex-grid gutter">
