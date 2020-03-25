@@ -1,46 +1,30 @@
 {# =============================================================================
 
     Talent Cloud
-    Applicant: Jobs - Post: Layout
+    Applicant: Response Job Poster - Sidebar Layout
 
 ============================================================================= #}
 {% set noInfo %}
     {{ job_post.no_info }}
 {% endset %}
-<div class="job-poster__section-wrapper container--layout">
-
-    <div class="flex-grid">
-
-        {# Include Sidebar #}
-
+<div data-c-container="large" data-c-padding="bottom(3)">
+    <div data-c-grid="gutter(all, 2)">
+        <div data-c-grid-item="tl(1of4)">
+            {# Sidebar #}
             {% include "applicant/strategic_response_job_post/sidebar" %}
-
-        {# Poster Content #}
-
-            <div class="job-poster__content-wrapper box lg-3of4">
-
-                {# Include Basics #}
-
-                    {% include "applicant/strategic_response_job_post/basics" %}
-
-                {# Include Impact #}
-
-                    {% include "applicant/strategic_response_job_post/impact" %}
-
-                {# Include Work #}
-
-                    {% include "applicant/strategic_response_job_post/work" %}
-
-                {# Include Criteria #}
-
-                    {% include "applicant/strategic_response_job_post/criteria" %}
-
-                {# Include Apply #}
-
-                    {% include "applicant/strategic_response_job_post/apply" %}
-
         </div>
-
+        <div data-c-grid-item="tl(3of4)">
+            <div data-c-container="medium(left)">
+                {# Job Poster Content #}
+                {% include "applicant/strategic_response_job_post/basics" %}
+                {% include "applicant/strategic_response_job_post/impact" %}
+                {% include "applicant/strategic_response_job_post/work" %}
+                {% include "applicant/strategic_response_job_post/criteria" %}
+                {# {% include "applicant/strategic_response_job_post/language" %} #}
+                {# {% include "applicant/strategic_response_job_post/culture" %} #}
+                {% include "applicant/strategic_response_job_post/apply" %}
+            </div>
+        </div>
     </div>
-
 </div>
+

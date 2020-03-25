@@ -21,10 +21,13 @@
 {% block body %}
 	{% include "common/goc" %}
 	{% include "common/alert" %}
-	{% include "common/header" with {'header': job_post} %}
-	<a id="skipLink"></a>
-	{% include "applicant/strategic_response_job_post/header" %}
-	{% include "applicant/strategic_response_job_post/layout" %}
+    {% include "applicant/strategic_response_job_post/header" %}
+	<div data-clone>
+        <a id="skipLink"></a>
+        <div data-c-border="bottom(thin, solid, gray)">
+	        {% include "applicant/strategic_response_job_post/layout" %}
+        </div>
+    </div>
 {% endblock %}
 {% block scripts %}
 {% endblock %}

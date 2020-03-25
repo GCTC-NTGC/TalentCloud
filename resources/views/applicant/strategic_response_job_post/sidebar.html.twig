@@ -4,62 +4,27 @@
     Applicant: Jobs - Post: Sidebar
 
 ============================================================================= #}
-<div
-    class="job-poster__subnav-wrapper box lg-1of4">
-
-    <nav
-        class="job-poster__subnav-sticky-wrapper">
-
-        <span
-            class="job-poster__subnav-job-title">
-            {{ job.title }}
-        </span>
-
-        <span
-            class="job-poster__subnav-department">
-            {{ job.department.name }}
-        </span>
-
-        <h3
-            class="job-poster_subnav-label">
-            {{ job_post.header.sidebar_label }}
-        </h3>
-
-        <a
-            class="job-poster__subnav-item"
-            href="#basics"
-            title="{{ job_post.basics.sidebar_title }}">
-            {{ job_post.basics.title }}
-        </a>
-
-        <a
-            class="job-poster__subnav-item"
-            href="#impact"
-            title="{{ job_post.impact.sidebar_title }}">
-            {{ job_post.impact.title }}
-        </a>
-
-        <a
-            class="job-poster__subnav-item"
-            href="#work"
-            title="{{ job_post.work.sidebar_title }}">
-            {{ job_post.work.title }}
-        </a>
-
-        <a
-            class="job-poster__subnav-item"
-            href="#criteria"
-            title="{{ job_post.criteria.sidebar_title }}">
-            {{ job_post.criteria.title }}
-        </a>
-
-        <a
-            class="job-poster__subnav-item"
-            href="#apply"
-            title="{{ job_post.apply.sidebar_title }}">
-            {{ job_post.apply.title }}
-        </a>
-
+<div class="sidebar" data-c-padding="top(3)">
+    <nav>
+        <p data-c-font-weight="bold" data-c-font-size="h4" data-c-margin="bottom(1)">On this page:</p>
+        <p data-c-color="c1" data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ job.title }}</p>
+        <p data-c-margin="bottom(1)">{{ job.department.name }}</p>
+        <ul>
+            <li>
+                <a href="#basics" title="{{ job_post.basics.sidebar_title }}">{{ job_post.basics.title }}</a>
+            </li>
+            <li>
+                <a href="#impact" title="{{ job_post.impact.sidebar_title }}">{{ job_post.impact.title }}</a>
+            </li>
+            <li>
+                <a href="#work" title="{{ job_post.work.sidebar_title }}">{{ job_post.work.title }}</a>
+            </li>
+            <li>
+                <a href="#criteria" title="{{ job_post.criteria.sidebar_title }}">{{ job_post.criteria.title }}</a>
+            </li>
+            <li>
+                <a href="#apply" title="{{ job_post.apply.sidebar_title }}">{{ job_post.apply.title }}</a>
+            </li>
+        </ul>
     </nav>
-
 </div>
