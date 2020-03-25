@@ -29,7 +29,7 @@ jobs:
         uses: actions/upload-artifact@v1.0.0
         with:
             name: compiled-assets
-            files: |
+            path: |
               - public/js/*.js 
               - public/css/*.css 
               - public/mix-manifest.json
