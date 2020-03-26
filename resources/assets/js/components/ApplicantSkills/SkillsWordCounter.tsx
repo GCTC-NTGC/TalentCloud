@@ -47,8 +47,9 @@ interface SkillsWordCounterProps {
   elementId: string;
 }
 
-const SkillsWordCounter: React.FunctionComponent<SkillsWordCounterProps &
-  WrappedComponentProps> = ({ elementId, intl }): React.ReactElement => {
+const SkillsWordCounter: React.FunctionComponent<
+  SkillsWordCounterProps & WrappedComponentProps
+> = ({ elementId, intl }): React.ReactElement => {
   const placeholder = intl.formatMessage(wordCounterMessages.skillsPlaceholder);
   const messages = [
     {
@@ -97,12 +98,17 @@ const addHardSkillButton: HTMLElement | null = document.getElementById(
 
 const updateWordCounters = (): void => {
   if (addSoftSkillButton) {
-    addSoftSkillButton.addEventListener("click", updateWordCounters);
+    addSoftSkillButton.addEventListener("click", () => {
+      setTimeout(updateWordCounters, 1000);
+    });
   }
 
   if (addHardSkillButton) {
-    addHardSkillButton.addEventListener("click", updateWordCounters);
+    addHardSkillButton.addEventListener("click", () => {
+      setTimeout(updateWordCounters, 1000);
+    });
   }
+
   // Find all skills textarea elements
   if (document.querySelectorAll("div[data-word-counter-id]")) {
     const wordCounters = document.querySelectorAll("div[data-word-counter-id]");

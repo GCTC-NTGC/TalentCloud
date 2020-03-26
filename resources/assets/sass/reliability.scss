@@ -1,9 +1,3 @@
-// My Custom Clone Theme
-// Please note that Clone must be included last, after all of your custom variables.
-
-// Clone Theme Variables
-// All available theme variables can be found at https://github.com/joshdrink/clone-framework/blob/master/app/scss/core/_defaults.scss
-
 // Clone: Talent Cloud Edition =================================================
 
 // Layout Variables
@@ -15,41 +9,37 @@ $clone-small-layout: 39rem;
 // On Portrait Phone Devices, Media Queries exist at Tablet Landscape, and Desktop Large and are generated using the multiplier below.
 $clone-margin: 1rem;
 $clone-padding: 1rem;
-$clone-whitespace-multiplier: 1.4;
+$clone-whitespace-multiplier: 1;
 
 // Grid Variables
 $clone-grid-columns: 12;
-$clone-grid-gutter: $clone-padding;
 
 // Main Colour Variables
 
     // Black & White
     $clone-white: #FFFFFF;
-    $clone-black: rgba(20, 20, 35, 1);
-
-    // gray/Gray
     $clone-gray: rgba(150, 150, 150, 1);
+    $clone-black: rgba(20, 20, 35, 1);
 
     // Theme Colours
     $clone-c1: #5b1647;
     $clone-c2: #96043e;
     $clone-c3: #c90035;
     $clone-c4: #0a6cbc;
-    $clone-c5: #0a6cbc;
+    // $clone-c5: #0a6cbc;
 
     // Go, Slow, Stop
     $clone-go: green;
     $clone-slow: orange;
     $clone-stop: red;
-    $clone-error: $clone-stop;
 
 // Sitewide Colour Variables
 
     // Text Selection
-    $clone-selection-background-colour: $clone-c5;
+    $clone-selection-background-colour: $clone-c4;
 
     // Hover
-    $clone-hover-colour: $clone-c5;
+    $clone-hover-colour: $clone-c4;
 
     // Focus
     $clone-focus-colour: $clone-hover-colour;
@@ -59,6 +49,71 @@ $clone-grid-gutter: $clone-padding;
 
     // Horizontal Rules
     $clone-hr-colour: $clone-c2;
+
+// Font Variables
+
+    // Fonts
+    $clone-font-sans: "Open Sans", sans-serif;
+    $clone-font-serif: serif;
+    $clone-font-script: "Euphoria Script", cursive;
+    $clone-font-monospace: "Consolas", monospace;
+
+    $clone-font-default: $clone-font-sans;
+
+    // Default Line Height
+    $clone-line-height: 1.5;
+
+    // The Typography Scale
+    $clone-default-font-size: 1rem;
+    $clone-font-scale: 1.250;
+
+    $clone-font-scale-small: calc(#{$clone-default-font-size}/(#{$clone-font-scale}));
+    $clone-font-scale-h5: $clone-default-font-size;
+    $clone-font-scale-h4: calc(#{$clone-default-font-size}*(#{$clone-font-scale}));
+    $clone-font-scale-h3: calc(#{$clone-font-scale-h4}*(#{$clone-font-scale}));
+    $clone-font-scale-h2: calc(#{$clone-font-scale-h3}*(#{$clone-font-scale}));
+    $clone-font-scale-h1: calc(#{$clone-font-scale-h2}*(#{$clone-font-scale}));
+
+    // Headings
+    $clone-heading-1-border-color: $clone-c3;
+    $clone-heading-1-border-style: none none solid none;
+    $clone-heading-1-border-width: 0px;
+    $clone-heading-1-color: $clone-white;
+    $clone-heading-1-font: $clone-font-sans;
+    $clone-heading-1-font-size: $clone-font-scale-h1;
+    $clone-heading-1-font-weight: bold;
+
+    $clone-heading-2-border-color: $clone-black;
+    $clone-heading-2-border-style: none none solid none;
+    $clone-heading-2-border-width: 1px;
+    $clone-heading-2-color: $clone-black;
+    $clone-heading-2-font: $clone-font-sans;
+    $clone-heading-2-font-size: $clone-font-scale-h2;
+    $clone-heading-2-font-weight: normal;
+
+    $clone-heading-3-border-color: $clone-black;
+    $clone-heading-3-border-style: none none solid none;
+    $clone-heading-3-border-width: 0px;
+    $clone-heading-3-color: $clone-c3;
+    $clone-heading-3-font: $clone-font-sans;
+    $clone-heading-3-font-size: $clone-font-scale-h3;
+    $clone-heading-3-font-weight: normal;
+
+    $clone-heading-4-border-color: $clone-c3;
+    $clone-heading-4-border-style: none none solid none;
+    $clone-heading-4-border-width: 0px;
+    $clone-heading-4-color: $clone-black;
+    $clone-heading-4-font: $clone-font-sans;
+    $clone-heading-4-font-size: $clone-font-scale-h4;
+    $clone-heading-4-font-weight: bold;
+
+    $clone-heading-5-border-color: $clone-c1;
+    $clone-heading-5-border-style: none none solid none;
+    $clone-heading-5-border-width: 1px;
+    $clone-heading-5-color: $clone-c1;
+    $clone-heading-5-font: $clone-font-sans;
+    $clone-heading-5-font-size: $clone-font-scale-h5;
+    $clone-heading-5-font-weight: normal;
 
 // Component Options
 
@@ -99,25 +154,9 @@ $clone-grid-gutter: $clone-padding;
 
     // Tables
     $clone-table-heading-colour: $clone-c1;
-    $clone-table-alternating-colour: rgba(0, 0, 0, .1); // Note that this transparency allows for a checker pattern on the grid when there is a vertical heading column,.
+    $clone-table-alternating-colour: rgba(0, 0, 0, .1); // Note that this transparency allows for a checker pattern on the grid when there is a vertical heading column.
 
-// Font Variables
-
-    // Fonts
-    $clone-font-sans: "Open Sans", sans-serif;
-    $clone-font-serif: serif;
-    $clone-font-script: "Euphoria Script", cursive;
-    $clone-font-monospace: "Consolas", monospace;
-
-    $clone-font-default: $clone-font-sans;
-
-    // Default Line Height
-    $clone-line-height: 1.5;
-
-    // The Typography Scale
-    $clone-default-font-size: 1rem;
-    $clone-font-scale: 1.250;
-
+// Include Clone
 @import "../../../node_modules/clone-framework/app/scss/clone";
 
 [data-clone] {
@@ -143,30 +182,57 @@ $clone-grid-gutter: $clone-padding;
             padding: 0;
         }
         .sidebar-complete {
-            span {
+            i {
                 color: $clone-go;
-                font-size: 2rem;
+                font-size: 1rem;
                 line-height: 1;
                 margin: 0 .5rem 0 0;
                 vertical-align: middle;
+                &:nth-child(1) {
+                    display: none;
+                }
+                &:nth-child(2) {
+                    display: none;
+                }
+                &:nth-child(3) {
+                    display: inline;
+                }
             }
         }
         .sidebar-incomplete {
-            span {
+            i {
                 color: $clone-slow;
-                font-size: 2rem;
+                font-size: 1rem;
                 line-height: 1;
                 margin: 0 .5rem 0 0;
                 vertical-align: middle;
+                &:nth-child(1) {
+                    display: inline;
+                }
+                &:nth-child(2) {
+                    display: none;
+                }
+                &:nth-child(3) {
+                    display: none;
+                }
             }
         }
         .sidebar-error {
-            span {
+            i {
                 color: $clone-stop;
-                font-size: 2rem;
+                font-size: 1rem;
                 line-height: 1;
                 margin: 0 .5rem 0 0;
                 vertical-align: middle;
+                &:nth-child(1) {
+                    display: none;
+                }
+                &:nth-child(2) {
+                    display: inline;
+                }
+                &:nth-child(3) {
+                    display: none;
+                }
             }
         }
     }
