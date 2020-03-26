@@ -23,13 +23,16 @@ class ApplicationPolicy extends BasePolicy
         $authApplicant = ($user->isApplicant() &&
             $user->applicant->id === $jobApplication->applicant_id);
         $authManager = ($user->isManager()
-            && $jobApplication->job_poster->manager->user->is($user))
-            && $jobApplication->job_poster->isClosed();
+            && $jobApplication->job_poster->manager->user->is($user));
         $authHr = $user->isHrAdvisor()
-            && $user->can('manage', $jobApplication->job_poster)
-            && $jobApplication->job_poster->isClosed();
+            && $user->can('manage', $jobApplication->job_poster);
 
-        return $authApplicant || $authManager || $authHr;
+        // If the job is in Emergency Response department then it does not need to be closed to be viewed.
+        if ($jobApplication->job_poster->isInStrategicResponseDepartment()) {
+            return $jobApplication->job_poster->isPublic() && ($authManager || $authHr);
+        }
+
+        return $authApplicant || ($jobApplication->job_poster->isClosed() && ($authManager || $authHr));
     }
 
     /**
