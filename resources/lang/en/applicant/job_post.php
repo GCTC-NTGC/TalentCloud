@@ -25,6 +25,7 @@ return [
             false => 'Remote Work Not Allowed',
         ],
         'sidebar_label' => 'About this job:',
+        "pilot" => "BETA / Pilot Project"
     ],
     'basics' => [
         'sidebar_title' => 'View this job\'s basic information.',

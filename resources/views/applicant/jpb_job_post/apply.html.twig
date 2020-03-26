@@ -1,82 +1,48 @@
 {# =============================================================================
 
     Talent Cloud
-    Applicant: Jobs - Post: Apply
+    Applicant: Job Poster - Apply Call-to-action
 
 ============================================================================= #}
-
-<a
-    aria-hidden="true"
-    class="job-post__anchor"
-    id="apply">
-</a>
-
-<section
-    class="job-post__apply">
-
-    <div
-        class="job-post__apply-accommodation-wrapper">
-
-        <div
-            class="flex-grid">
-
-            <div
-                class="box full">
-                <h3
-                    class="job-post__apply-title">
-                    {{ job_post.apply.title }}
-                </h3>
+<section id="apply" data-c-padding="top(3)" class="tc-applicant-job-poster-apply">
+    <div data-c-border="all(thin, solid, c1)" data-c-radius="rounded">
+        {# Content #}
+        <div data-c-padding="all(1)" data-c-background="c1(10)">
+            <h3 data-c-font-size="h3" data-c-color="c1" data-c-margin="bottom(1)" data-c-border="bottom(thin, solid, c1)" data-c-padding="bottom(1)">{{ job_post.apply.title }}</h3>
+            <div data-c-margin="bottom(1)">
+                <div data-c-grid="gutter(all, 1)">
+                    <div data-c-grid-item="tl(1of7)" data-c-align="base(center)">
+                        <i aria-hidden="true" class="fas fa-hand-holding-heart" data-c-font-size="h1" data-c-color="c1"></i>
+                    </div>
+                    <div data-c-grid-item="tl(6of7)">
+                        <p data-c-color="c1">{{ job_post.apply.accommodation }}</p>
+                    </div>
+                </div>
             </div>
-
-            <div class="box med-1of7">
-                <i class="fas fa-hand-holding-heart"></i>
+            <div>
+                <div data-c-grid="gutter(all, 1) middle">
+                    <div data-c-grid-item="tl(1of7)" data-c-align="base(center)">
+                        <i aria-hidden="true" class="fas fa-globe" data-c-font-size="h1" data-c-color="c1"></i>
+                    </div>
+                    <div data-c-grid-item="tl(6of7)">
+                        <p data-c-color="c1">
+                            {% if job.department.preference is not empty %}
+                                {{ job.department.preference }}
+                            {% else %}
+                                {{ job_post.apply.preference }}
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
             </div>
-
-            <div
-                class="box med-6of7">
-                <p
-                    class="job-post__apply-content">
-                    {{ job_post.apply.accommodation }}
-                </p>
-            </div>
-
-            <div
-                class="box med-1of7">
-                <i class="fas fa-globe"></i>
-            </div>
-
-            <div
-                class="box med-6of7">
-                <p
-                    class="job-post__apply-content-preference">
-                {% if job.department.preference is not empty %}
-                    {{ job.department.preference }}
-                {% else %}
-                    {{ job_post.apply.preference }}
-                {% endif %}
-                </p>
-            </div>
-
         </div>
-
-    </div>
-
-    <div
-        class="job-post__button-wrapper">
-
+        {# Call-to-action #}
         {% if apply_button.href == null %}
-            <div class="job-post__apply-button--closed">
-                {{ apply_button.text }}
+            <div data-c-align="base(center)" data-c-background="gray(30)" data-c-padding="all(1)" data-c-border="top(thin, solid, c1)">
+                <p data-c-color="gray" data-c-font-size="h3" data-c-font-weight="bold">{{ apply_button.text }}</p>
             </div>
         {% else %}
-            <a
-                class="job-post__apply-button"
-                href="{{ apply_button.href }}"
-                title="{{ apply_button.title }}">
-                {{ apply_button.text }}
-            </a>
+            <a href="{{ apply_button.href }}" title="{{ apply_button.title }}" data-c-background="c1(100)" data-c-padding="all(1)" data-c-border="top(thin, solid, c1)">{{ apply_button.text }}</a>
         {% endif %}
-
     </div>
-
 </section>
