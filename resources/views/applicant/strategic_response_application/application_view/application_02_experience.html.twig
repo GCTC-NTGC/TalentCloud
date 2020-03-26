@@ -1,0 +1,54 @@
+{# =============================================================================
+
+    Talent Cloud
+    Application View - Step 02
+
+============================================================================= #}
+<a
+    aria-hidden="true"
+    class="application__view-anchor"
+    id="applicationView02">
+</a>
+
+<section
+    class="application-preview__section-02">
+
+    <h4>
+        {{ application_template.strategic_response.experience_title }}
+    </h4>
+
+    {# Set Locale #}
+
+        {% set locale = "application-view" %}
+
+    <div>
+
+        <h5>{{ application_template.preview.experience.degree_label }}</h5>
+
+        {# Profile Element List #}
+
+            <div
+                class="profile-element-list">
+
+                {% set degreeCounter = 0 %}
+
+                {% for degree in degrees %}
+
+                    {% set degreeCounter = degreeCounter + 1 %}
+
+                    {% include "common/degree" %}
+
+                {% endfor %}
+
+                <div
+                    class="profile-null {% if degreeCounter == 0 %}active{% endif %}">
+
+                    <p>{{ application_template.preview.experience.null_degree_copy }}</p>
+
+                </div>
+
+            </div>
+
+    </div>
+
+</section>

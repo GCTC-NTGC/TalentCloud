@@ -50,6 +50,14 @@ $factory->state(JobApplication::class, 'submitted', function (Faker\Generator $f
     ];
 });
 
+$factory->state(JobApplication::class, 'strategic_response', function (Faker\Generator $faker) {
+    return [
+        'citizenship_declaration_id' => null,
+        'veteran_status_id' => null,
+        'preferred_language_id' => null,
+    ];
+});
+
 $factory->afterCreating(JobApplication::class, function ($application): void {
     foreach ($application->job_poster->job_poster_questions as $question) {
         $answer = factory(JobApplicationAnswer::class)->create([

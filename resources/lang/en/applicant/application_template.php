@@ -139,13 +139,15 @@ return [
     'essential_answer_1' => 'Sorry, you really do need all of them, and at the right level.',
     'essential_question_2' => 'Q. What if I stretch the truth a little? Once I’m interviewed they’ll change their mind for sure!',
     'essential_answer_2' => 'Don’t do it. These will be assessed, and you’re better than that.',
-    'essential_sidebar_label' => 'Skills Checklist',
 
     'asset_title' => 'Skills That Are Nice to Have',
     'asset_context' => 'You can apply for this job if you don’t have any of these skills. These are assets that the hiring manager thinks will help with the work. They’re often used to help select the best candidate amongst all those who meet all the “Need to Have” criteria. So if you do have these skills, now is the time to let the hiring manager know.',
     'asset_start_button_title' => 'Scroll to begin filling out the skills that are nice to have.',
     'skills_start_button_label' => 'Get Started',
-    'asset_sidebar_label' => 'Skills Checklist',
+
+    /* Step 3&4 */
+    'skill_sidebar_label' => 'Skills Checklist',
+
     /* Step 05 */
     'step_05_title' => 'Talent Cloud | Applicant: Apply Now - Step 5',
     'preview' => [
@@ -182,7 +184,7 @@ return [
     /* Step 06 (Integrity Check) */
     'integrity' => [
         'title' => 'Application Confirmation',
-        'confirmation_copy' => 'By signing your name below, you’re confirming:',
+        'confirmation_copy' => 'By signing my name below, I confirm:',
         'confirmation_01' => 'I’ve reviewed what I wrote in my application.',
         'confirmation_02' => 'I understand that I am part of a community of people who trust each other.',
         'confirmation_03' => 'I promise that the information I am providing is true.',
@@ -206,4 +208,23 @@ return [
         'faq_title' => 'Go to the Talent Cloud FAQ.',
         'faq_label' => 'View the FAQ',
     ],
+
+    'strategic_response' => [
+        'required_information' => 'Required Information',
+        'experience_title' => 'My Education',
+        'experience_description' => 'Add education if it’s relevant to the skill requirements for this job.',
+        'essential_context_1' => 'You\'re amazing for applying. Thanks for offering to help out. These skills are what departments need right now. <strong>Super important:</strong> if you want to be of genuine help, <strong>these are skills you must already have.</strong>',
+        'essential_context_2' => 'You\'ll be dropped into a different team - one that might be under pressure or tight timelines to deliver support for Canadians. If you\'re strong in these skills and you\'re the kind of person who steps up, you\'re a right fit for this. (If you\'re not strong in these skills but want to help, check out some of the other calls for talent.)',
+        'asset_context' => 'This isn\'t required for the job you might be placed in. You can learn it as you go. But it would be great if you already had the skill(s) listed below.',
+        'skill_prompt' => 'Share a few high level bullet points about your work experience:',
+        'skill_placeholder' => 'Tell us a bit about your skills, like where you worked, what your role was, and what you delivered.',
+        'confirmations' => [
+            'That I am part of a community of people who trust each other.',
+            'People will be relying on me to do this job in this time of great need and I promise that the information I am providing is true.',
+        ],
+        'complete_title' => 'Success!',
+        'complete_copy_1' => 'You\'re awesome.',
+        'complete_copy_2' => 'Thanks for putting your name forward.The GC Talent Reserve team will be in touch in a few days with next steps.',
+        'complete_return_label' => 'Back to Homepage',
+    ]
 ];

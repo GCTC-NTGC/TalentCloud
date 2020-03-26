@@ -12,6 +12,7 @@ use App\Events\ApplicationSaved;
 use App\Models\Applicant;
 use App\Models\ApplicationReview;
 use App\Services\Validation\ApplicationValidator;
+use App\Services\Validation\StrategicResponseApplicationValidator;
 use Illuminate\Notifications\Notifiable;
 
 /**
@@ -257,7 +258,10 @@ class JobApplication extends BaseModel
     public function getSectionStatus(string $section)
     {
         // TODO: determine whether sections are complete or invalid
-        $validator = new ApplicationValidator();
+        $jobPoster = $this->job_poster;
+        $validator = $jobPoster->isInStrategicResponseDepartment()
+            ? new StrategicResponseApplicationValidator()
+            : new ApplicationValidator();
         $status = 'incomplete';
         switch ($section) {
             case 'basics':
