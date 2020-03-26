@@ -62,7 +62,7 @@ return [
       ],
       'email' => [
         'or' => 'or',
-        'text' => 'email the team at ____',
+        'text' => 'email the team at',
         'title' => 'Open your mail client and email the team.',
       ],
       'submit_name' => [

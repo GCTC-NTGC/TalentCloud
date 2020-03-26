@@ -62,7 +62,7 @@ return [
       ],
       'email' => [
         'or' => 'ou',
-        'text' => 'envoyez un courriel à ____.',
+        'text' => 'envoyez un courriel à',
         'title' => 'Ouvrez votre client de messagerie et envoyez un courriel à l’équipe.',
       ],
       'submit_name' => [
