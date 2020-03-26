@@ -1,13 +1,13 @@
 <?php
 
+use App\Models\Applicant;
 use App\Models\JobApplication;
+use App\Models\JobApplicationAnswer;
 use App\Models\JobPoster;
 use App\Models\Lookup\ApplicationStatus;
 use App\Models\Lookup\CitizenshipDeclaration;
-use App\Models\Lookup\VeteranStatus;
 use App\Models\Lookup\PreferredLanguage;
-use App\Models\Applicant;
-use App\Models\JobApplicationAnswer;
+use App\Models\Lookup\VeteranStatus;
 use App\Models\SkillDeclaration;
 
 $factory->define(JobApplication::class, function (Faker\Generator $faker) {
@@ -25,7 +25,13 @@ $factory->define(JobApplication::class, function (Faker\Generator $faker) {
         'submission_date' => $faker->dateTimeBetween('yesterday', 'tomorrow')->format('Y-m-d H:i:s'),
         'applicant_id' => function () {
             return factory(Applicant::class)->create()->id;
-        }
+        },
+        'director_name' => $faker->name(),
+        'director_title' => $faker->jobTitle(),
+        'director_email' => $faker->email(),
+        'reference_name' => $faker->name(),
+        'reference_title' => $faker->jobTitle(),
+        'reference_email' => $faker->email()
     ];
 });
 
@@ -44,7 +50,7 @@ $factory->state(JobApplication::class, 'submitted', function (Faker\Generator $f
     ];
 });
 
-$factory->afterCreating(JobApplication::class, function ($application) : void {
+$factory->afterCreating(JobApplication::class, function ($application): void {
     foreach ($application->job_poster->job_poster_questions as $question) {
         $answer = factory(JobApplicationAnswer::class)->create([
             'job_poster_question_id' => $question->id,

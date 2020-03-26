@@ -3,20 +3,20 @@
 namespace App\Services\Validation;
 
 use App\Models\JobApplication;
-use Illuminate\Support\Facades\Validator;
 use App\Models\Lookup\CriteriaType;
-use App\Services\Validation\Rules\ContainsObjectWithAttributeRule;
 use App\Services\Validation\JobApplicationAnswerValidator;
+use App\Services\Validation\Rules\ContainsObjectWithAttributeRule;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class ApplicationValidator
 {
 
     public $backendRules =  [
-            'job_poster_id' => 'required',
-            'application_status_id' => 'required',
-            'applicant_id' => 'required',
-        ];
+        'job_poster_id' => 'required',
+        'application_status_id' => 'required',
+        'applicant_id' => 'required',
+    ];
     public function validator(JobApplication $application)
     {
         $data = $application->toArray();
@@ -27,7 +27,7 @@ class ApplicationValidator
             $this->affirmationRules
         );
 
-        // Combining and simplifiying error messages
+        // Combining and simplifying error messages
         $rules = array_merge(
             $rules,
             ['application_step_1' => 'required|boolean|accepted'],
@@ -102,6 +102,12 @@ class ApplicationValidator
             'citizenship_declaration_id' => ['required', 'exists:citizenship_declarations,id'],
             'veteran_status_id' => ['required', 'exists:veteran_statuses,id'],
             'preferred_language_id' => ['required', 'exists:preferred_languages,id'],
+            'director_name' => ['required', 'string'],
+            'director_title' => ['required', 'string'],
+            'director_email' => ['required', 'string'],
+            'reference_name' => ['required', 'string'],
+            'reference_title' => ['required', 'string'],
+            'reference_email' => ['required', 'string']
         ];
 
         // Merge with Answer rules, that ensure each answer is complete
