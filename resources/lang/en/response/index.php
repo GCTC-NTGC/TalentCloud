@@ -140,7 +140,6 @@ return [
 
     'stream' => [
       'click_to_view' => 'Click to view...',
-      'level' => 'Level',
       'offer_support' => 'Click to Offer Support',
       'no_jobs' => 'Help Not Yet Requested',
       'view_job_title' => 'View the job post.',
