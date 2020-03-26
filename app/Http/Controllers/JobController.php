@@ -31,7 +31,8 @@ class JobController extends Controller
      */
     public function index()
     {
-        $now = Carbon::now();
+        // If true, show the Paused due to COVID-19 message.
+        $emergency_response = config('seasonal.is_covid_emergency');
 
         // Find published jobs that are currently open for applications.
         // Eager load required relationships: Department, Province, JobTerm.
@@ -49,8 +50,13 @@ class JobController extends Controller
                 'submitted_applications',
             ])
             ->get();
+
+        $null_alert = $emergency_response
+            ? Lang::get('applicant/job_index.index.covid_null_alert')
+            : Lang::get('applicant/job_index.index.null_alert');
         return view('applicant/job_index', [
             'job_index' => Lang::get('applicant/job_index'),
+            'null_alert' => $null_alert,
             'jobs' => $jobs
         ]);
     }

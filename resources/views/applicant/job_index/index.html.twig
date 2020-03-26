@@ -12,10 +12,10 @@
     {% if jobs is empty %}
         <div data-c-container="small" data-c-padding="tb(3)">
             <div data-c-border="all(thin, solid, gray)" data-c-background="gray(20)" data-c-radius="rounded" data-c-padding="all(1)">
-                <h2 data-c-font-size="h2" data-c-color="gray" data-c-margin="bottom(1)">{{ job_index.index.null_alert.title }}</h2>
-                <p data-c-color="gray">{{ job_index.index.null_alert.copy_01 }}</p>
+                <h2 data-c-font-size="h2" data-c-color="gray" data-c-margin="bottom(1)">{{ null_alert.title }}</h2>
+                <p data-c-color="gray">{{ null_alert.copy_01 }}</p>
                 <hr data-c-hr="thin(gray)" data-c-margin="tb(1)">
-                <p data-c-color="gray">{{ job_index.index.null_alert.copy_02|replace({'%link%': '<a href="' ~ job_index.index.null_alert.link ~ '"> ' ~ job_index.index.null_alert.link_title ~'</a>'})|raw }}</p>
+                <p data-c-color="gray">{{ null_alert.copy_02|replace({'%link%': '<a href="' ~ null_alert.link ~ '"> ' ~ null_alert.link_title ~'</a>'})|raw }}</p>
             </div>
         </div>
     {% else %}
