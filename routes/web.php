@@ -838,6 +838,19 @@ Route::group(['prefix' => 'api'], function (): void {
         ->middleware('can:review,application')
         ->name('api.application_reviews.update');
 
+    Route::get('applications/{application}/reference-mail/director', 'Api\MicroReferenceController@showDirectorEmail')
+        ->middleware('can:review,application')
+        ->name('api.application.reference_mail.director.show');
+    Route::post('applications/{application}/reference-mail/director/send', 'Api\MicroReferenceController@sendDirectorEmail')
+        ->middleware('can:review,application')
+        ->name('api.application.reference_mail.director.send');
+    Route::get('applications/{application}/reference-mail/secondary', 'Api\MicroReferenceController@showSecondaryReferenceEmail')
+        ->middleware('can:review,application')
+        ->name('api.application.reference_mail.secondary.show');
+    Route::post('applications/{application}/reference-mail/secondary/send', 'Api\MicroReferenceController@sendSecondaryReferenceEmail')
+        ->middleware('can:review,application')
+        ->name('api.application.reference_mail.secondary.send');
+
     Route::resource('managers', 'Api\ManagerController')->only([
         'show', 'update'
     ])->names([ // Specify custom names because default names collied with existing routes.
