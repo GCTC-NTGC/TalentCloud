@@ -20,7 +20,7 @@ class StrategicResponseController extends Controller
     {
 
         $stream_names = TalentStream::all();
-        $stream_speciaties = TalentStreamCategory::all();
+        $stream_specialties = TalentStreamCategory::all();
         $job_skill_levels = JobSkillLevel::all();
 
         $strategic_response_id = config('app.strategic_response_department_id');
@@ -31,7 +31,7 @@ class StrategicResponseController extends Controller
         foreach ($stream_names as $stream) {
             $stream_jobs = $strategic_response_jobs->where('talent_stream_id', $stream->id);
             $specialties = [];
-            foreach ($stream_speciaties as $specialty) {
+            foreach ($stream_specialties as $specialty) {
                 $stream_specialty_jobs = $stream_jobs->where('talent_stream_category_id', $specialty->id);
                 if ($stream_specialty_jobs->isNotEmpty()) {
                     $levels = [];
@@ -50,8 +50,11 @@ class StrategicResponseController extends Controller
                     ];
                 }
             }
-            // Push stream title and specialties to streams array.
-            $streams[$stream->name] = ['title' => $stream->name, 'specialties' => $specialties];
+            if (!empty($specialties)) {
+                // Push stream title and specialties to streams array.
+                $streams[$stream->name] = ['title' => $stream->name, 'specialties' => $specialties];
+            }
+
         }
 
         return view('response/index/index', [
