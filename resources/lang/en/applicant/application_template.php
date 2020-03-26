@@ -9,13 +9,14 @@ return [
     * The following language lines are used in the application process.
     *
     */
-    'title' => 'Apply Now',
+    'title' => 'Submit an Application',
     'view_title' => 'Application',
     'job_context_copy' => 'You are applying for:',
     'save_quit_button_label' => 'Save & Quit',
     'save_continue_button_label' => 'Save & Continue',
     'save_button_working' => 'Saving...',
     'submit_button_label' => 'Submit',
+    "pilot" => "BETA / Pilot Project",
     /* Tracker */
     'tracker_label' => 'Step',
     'tracker_previous_title' => 'Go to the previous step in the application process.',
