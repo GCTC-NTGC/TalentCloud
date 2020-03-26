@@ -12,7 +12,7 @@
     ))
     }}">
 	<div class="flex-grid middle gutter">
-		<div class="box med-1of12 poster-status">
+		<div class="box med-1of12 poster-status poster-center">
 			<i class="fas fa-pencil-alt"></i>
 			<i class="fas fa-hourglass-half"></i>
 			<i class="fas fa-exclamation-circle action-required"></i>
@@ -72,7 +72,7 @@
 			{% endif %}
 		</div>
 		<div class="box med-2of12">
-			<a class="button--blue" href="{{ route('manager.jobs.summary', job) }}" title="{{ jobs_l10n.view_summary_title }}">
+			<a class="button--blue poster-center" href="{{ route('manager.jobs.summary', job) }}" title="{{ jobs_l10n.view_summary_title }}">
 				{{ jobs_l10n.view_job_summary }}
 			</a>
 		</div>
