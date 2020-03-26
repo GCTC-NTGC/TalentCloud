@@ -32,6 +32,8 @@ $clone-font-scale: 1.250;
 
 $clone-whitespace-multiplier: 1;
 
+$clone-card-shadow: 0 2px 7px rgba(0, 0, 0, .5);
+
 @import "../../../node_modules/clone-framework/app/scss/clone";
 
 @import "components/common/itp";

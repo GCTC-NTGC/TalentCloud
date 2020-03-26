@@ -25,7 +25,6 @@ class ApplicationController extends Controller
             [
                 'application_index' => Lang::get('applicant/application_index'),
                 'applications' => $applications,
-                'departments_template' => Lang::get('common/lookup/departments'),
                 'manager_profile_photo' => '/images/user.png', // TODO: get real photo.
             ]
         );
