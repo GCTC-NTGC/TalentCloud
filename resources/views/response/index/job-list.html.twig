@@ -9,15 +9,17 @@
                     const toggleAccordions = function() {
                         const streamAccordions = document.querySelectorAll('div[data-stream-accordion]');
                         const trigger = document.querySelector('#massAccordionTrigger');
-                        streamAccordions.forEach(function(streamAccordion) {
-                            if(streamAccordion.classList.contains('active')) {
-                                streamAccordion.classList.remove("active");
-                                trigger.innerHTML = trigger.dataset.expandText;
+                            if(trigger.innerHTML === trigger.dataset.expandText) {
+                                streamAccordions.forEach(function(streamAccordion) {
+                                    streamAccordion.classList.add("active");
+                                    trigger.innerHTML = trigger.dataset.collapseText;
+                                });
                             } else {
-                                streamAccordion.classList.add("active");
-                                trigger.innerHTML = trigger.dataset.collapseText;
+                                streamAccordions.forEach(function(streamAccordion) {
+                                    streamAccordion.classList.remove("active");
+                                    trigger.innerHTML = trigger.dataset.expandText;
+                                });
                             }
-                        });
                     }
                 </script>
                 <button
@@ -31,9 +33,7 @@
                         id="massAccordionTrigger"
                         data-expand-text="{{ response.job_list.expand_sections }}"
                         data-collapse-text="{{ response.job_list.collapse_sections }}"
-                    >
-                        {{ response.job_list.expand_sections }}
-                    </span>
+                    >{{ response.job_list.expand_sections }}</span>
                 </button>
             </div>
         </div>
