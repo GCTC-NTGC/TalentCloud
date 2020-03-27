@@ -4,28 +4,47 @@
     Applicant: Application Post - Questions
 
 ============================================================================= #}
-<div class="application-post__questions">
+<div
+    class="application-post__questions">
     <div
         class="container--copy">
         {# Language for Process #}
-        <div class="application-post__veterans">
-            <div class="form_wrapper">
-                <div class="flex-grid">
+        <div
+            class="application-post__veterans">
+            <div
+                class="form_wrapper">
+                <div
+                    class="flex-grid">
                     <p>
                         {{ application_template.language_copy }}
                     </p>
-                    <div class="box full">
-                        <div class="form__input-wrapper--select">
-                            <label class="form__label" for="preferred_language_id">
+                    <div
+                        class="box full">
+                        <div
+                            class="form__input-wrapper--select">
+                            <label
+                                class="form__label"
+                                for="preferred_language_id">
                                 {{ application_template.language_label }}
                             </label>
-                            <div class="form__select-wrapper fas fa-chevron-down">
-                                <select id="preferred_language_id" class="form__input" required name="preferred_language_id">
-                                    <option value="" disabled {% if not job_application.preferred_language_id %} selected {% endif %}>
+                            <div
+                                class="form__select-wrapper fas fa-chevron-down">
+                                <select
+                                    id="preferred_language_id"
+                                    class="form__input"
+                                    required
+                                    name="preferred_language_id">
+                                    <option
+                                        value=""
+                                        disabled
+                                        {% if not job_application.preferred_language_id %} selected
+                                        {% endif %}>
                                         {{ application_template.select_default_option }}
                                     </option>
                                     {% for option in language_options %}
-                                        <option value="{{ option.id }}" {% if option.id == job_application.preferred_language_id %} selected {% endif %}>
+                                        <option
+                                            value="{{ option.id }}" {% if option.id == job_application.preferred_language_id %} selected
+                                            {% endif %}>
                                             {{ preferred_language_template[option.name] }}
                                         </option>
                                     {% endfor %}
@@ -36,62 +55,117 @@
                     </div>
                 </div>
                 {# Director / Reference #}
-                <div class="flex-grid">
-                    <div class="box full">
+                <div
+                    class="flex-grid">
+                    <div
+                        class="box full">
                         <h3>
-                            {{ application_template.strategic_response.required_info_heading }}
+                            {{ application_template.required_info_heading }}
                         </h3>
                         <p>
-                            {{ application_template.strategic_response.director_copy }}
+                            {{ application_template.director_copy }}
                         </p>
-                        <div class="form__input-wrapper--date">
-                            <label class="form__label" for="director_name">
-                                {{ application_template.strategic_response.director_name_label }}
+                        <div
+                            class="form__input-wrapper--date">
+                            <label
+                                class="form__label"
+                                for="director_name">
+                                {{ application_template.director_name_label }}
                             </label>
-                            <input class="form__input" id="director_name" name="director_name" required type="text"/>
+                            <input
+                                class="form__input"
+                                id="director_name"
+                                name="director_name"
+                                required
+                                type="text"/>
                         </div>
                     </div>
-                    <div class="box full">
-                        <div class="form__input-wrapper--date">
-                            <label class="form__label" for="director_title">
-                                {{ application_template.strategic_response.director_title_label }}
+                    <div
+                        class="box full">
+                        <div
+                            class="form__input-wrapper--date">
+                            <label
+                                class="form__label"
+                                for="director_title">
+                                {{ application_template.director_title_label }}
                             </label>
-                            <input class="form__input" id="director_title" name="director_title" required type="text"/>
+                            <input
+                                class="form__input"
+                                id="director_title"
+                                name="director_title"
+                                required
+                                type="text"/>
                         </div>
                     </div>
-                    <div class="box full">
-                        <div class="form__input-wrapper--date">
-                            <label class="form__label" for="director_email">
-                                {{ application_template.strategic_response.director_email_label }}
+                    <div
+                        class="box full">
+                        <div
+                            class="form__input-wrapper--date">
+                            <label
+                                class="form__label"
+                                for="director_email">
+                                {{ application_template.director_email_label }}
                             </label>
-                            <input class="form__input" id="director_email" name="director_email" required type="email"/>
+                            <input
+                                class="form__input"
+                                id="director_email"
+                                name="director_email"
+                                required
+                                type="email"/>
                         </div>
                     </div>
                     <p>
-                        {{ application_template.strategic_response.reference_copy }}
+                        {{ application_template.reference_copy }}
                     </p>
-                    <div class="box full">
-                        <div class="form__input-wrapper--date">
-                            <label class="form__label" for="reference_name">
-                                {{ application_template.strategic_response.reference_name_label }}
+                    <div
+                        class="box full">
+                        <div
+                            class="form__input-wrapper--date">
+                            <label
+                                class="form__label"
+                                for="reference_name">
+                                {{ application_template.reference_name_label }}
                             </label>
-                            <input class="form__input" id="reference_name" name="reference_name" required type="text"/>
+                            <input
+                                class="form__input"
+                                id="reference_name"
+                                name="reference_name"
+                                required
+                                type="text"/>
                         </div>
                     </div>
-                    <div class="box full">
-                        <div class="form__input-wrapper--date">
-                            <label class="form__label" for="reference_title">
-                                {{ application_template.strategic_response.reference_title_label }}
+                    <div
+                        class="box full">
+                        <div
+                            class="form__input-wrapper--date">
+                            <label
+                                class="form__label"
+                                for="reference_title">
+                                {{ application_template.reference_title_label }}
                             </label>
-                            <input class="form__input" id="reference_title" name="reference_title" required type="text"/>
+                            <input
+                                class="form__input"
+                                id="reference_title"
+                                name="reference_title"
+                                required
+                                type="text"/>
                         </div>
                     </div>
-                    <div class="box full">
-                        <div class="form__input-wrapper--date">
-                            <label class="form__label" for="reference_email">
-                                {{ application_template.strategic_response.reference_email_label }}
+                    <div
+                        class="box full">
+                        <div
+                            class="form__input-wrapper--date">
+                            <label
+                                class="form__label"
+                                for="reference_email">
+                                {{ application_template.reference_email_label }}
                             </label>
-                            <input class="form__input" id="reference_email" name="reference_email" required type="email"/>
+                            <input
+                                class="form__input"
+                                id="reference_email"
+                                name="reference_email"
+                                required
+                                type="email"/>
                         </div>
                     </div>
                 </div>
@@ -101,18 +175,26 @@
             {{ application_template.question_title }}
         </h3>
         {% for question in job.job_poster_questions %}
-            <div class="application-post__long-form-question">
+            <div
+                class="application-post__long-form-question">
                 <span>
                     {{ question.question }}
                 </span>
                 <p>
                     {{ question.description }}
                 </p>
-                <div class="form__input-wrapper--float {% for userAnswer in job_application.job_application_answers %}{% if userAnswer.job_poster_question.id == question.id %}active{% endif %}{% endfor %}">
-                    <label class="form__label" for="questions[{{ question.id }}]">
+                <div
+                    class="form__input-wrapper--float {% for userAnswer in job_application.job_application_answers %}{% if userAnswer.job_poster_question.id == question.id %}active{% endif %}{% endfor %}">
+                    <label
+                        class="form__label"
+                        for="questions[{{ question.id }}]">
                         {{ application_template.question_label }}
                     </label>
-                    <textarea id="questions[{{ question.id }}]" class="form__textarea" name="questions[{{ question.id }}]" required>
+                    <textarea
+                        id="questions[{{ question.id }}]"
+                        class="form__textarea"
+                        name="questions[{{ question.id }}]"
+                        required>
                         {% for userAnswer in job_application.job_application_answers %}
                             {% if userAnswer.job_poster_question.id == question.id %}
                                 {{ userAnswer.answer }}
@@ -122,14 +204,25 @@
                 </div>
             </div>
         {% endfor %}
-        <div class="flex-grid middle application-post__action-wrapper">
-            <div class="box med-1of2">
-                <button class="button--blue light-bg" type="submit" name="submit" value="save_and_quit">
+        <div
+            class="flex-grid middle application-post__action-wrapper">
+            <div
+                class="box med-1of2">
+                <button
+                    class="button--blue light-bg"
+                    type="submit"
+                    name="submit"
+                    value="save_and_quit">
                     {{ application_template.save_quit_button_label }}
                 </button>
             </div>
-            <div class="box med-1of2">
-                <button class="button--blue light-bg" type="submit" name="submit" value="save_and_continue">
+            <div
+                class="box med-1of2">
+                <button
+                    class="button--blue light-bg"
+                    type="submit"
+                    name="submit"
+                    value="save_and_continue">
                     {{ application_template.save_continue_button_label }}
                 </button>
             </div>
