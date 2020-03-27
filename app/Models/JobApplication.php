@@ -33,6 +33,12 @@ use Illuminate\Notifications\Notifiable;
  * @property string $user_name
  * @property string $user_email
  * @property int $version_id
+ * @property string $director_name
+ * @property string $director_title
+ * @property string $director_email
+ * @property string $reference_name
+ * @property string $reference_title
+ * @property string $reference_email
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -84,6 +90,12 @@ class JobApplication extends BaseModel
         'experience_saved' => 'boolean',
         'language_requirement_confirmed' => 'boolean',
         'version_id' => 'int',
+        'director_name' => 'string',
+        'director_title' => 'string',
+        'director_email' => 'string',
+        'reference_name' => 'string',
+        'reference_title' => 'string',
+        'reference_email' => 'string'
     ];
     protected $fillable = [
         'citizenship_declaration_id',
@@ -93,6 +105,12 @@ class JobApplication extends BaseModel
         'submission_signature',
         'submission_date',
         'experience_saved',
+        'director_name',
+        'director_title',
+        'director_email',
+        'reference_name',
+        'reference_title',
+        'reference_email'
     ];
 
     /**
@@ -267,8 +285,7 @@ class JobApplication extends BaseModel
                 }
                 break;
             case 'preview':
-                if (
-                    $validator->basicsComplete($this) &&
+                if ($validator->basicsComplete($this) &&
                     $validator->experienceComplete($this) &&
                     $validator->essentialSkillsComplete($this) &&
                     $validator->assetSkillsComplete($this)
@@ -317,8 +334,7 @@ class JobApplication extends BaseModel
         $source = $this->isDraft() ? $this->applicant : $this;
         foreach ($essentialCriteria as $criterion) {
             $skillDeclaration = $source->skill_declarations->where('skill_id', $criterion->skill_id)->first();
-            if (
-                $skillDeclaration === null ||
+            if ($skillDeclaration === null ||
                 $skillDeclaration->skill_level_id < $criterion->skill_level_id
             ) {
                 return false;
