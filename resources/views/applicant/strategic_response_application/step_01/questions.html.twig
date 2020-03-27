@@ -11,6 +11,9 @@
         <div class="application-post__veterans">
             <div class="form_wrapper">
                 <div class="flex-grid">
+                    <h2>
+                        {{ application_template.strategic_response.required_title }}
+                    </h2>
                     <p>
                         {{ application_template.language_copy }}
                     </p>
@@ -37,6 +40,7 @@
                 </div>
                 {# Director / Reference #}
                 <div class="flex-grid">
+                    <br><br>
                     <p>
                         {{ application_template.strategic_response.director_copy }}
                     </p>
@@ -94,9 +98,6 @@
                 </div>
             </div>
         </div>
-        <h3>
-            {{ application_template.question_title }}
-        </h3>
         {% for question in job.job_poster_questions %}
             <div class="application-post__long-form-question">
                 <span>

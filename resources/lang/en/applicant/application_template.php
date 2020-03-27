@@ -229,6 +229,7 @@ return [
         'reference_name_label' => 'Reference Name',
         'reference_title_label' => 'Reference Title',
         'reference_email_label' => 'Reference Email',
+        'required_title' => 'Required Information',
         'director_copy' => 'What is your current director’s name and email? (We’ll need approval that you can be loaned to another team for a bit to help out.)',
         'reference_copy' => 'What is the name and email of an additional reference who can confirm your skill set? (Preferably a current or recent Government of Canada supervisor.)'
     ]
