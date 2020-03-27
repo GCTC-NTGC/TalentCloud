@@ -89,7 +89,7 @@ class StrategicResponseApplicationValidatorTest extends TestCase
 
         // Ensure validation also works correctly for drafts
         // (because in drafts, application, instead of applicANT, skills are validated).
-        $completeDraft = factory(JobApplication::class)->state(['draft', 'strategic_response'])->create([
+        $completeDraft = factory(JobApplication::class)->states(['draft', 'strategic_response'])->create([
             'applicant_id' => $applicant->id
         ]);
         $applicant->job_applications()->save($completeDraft);
@@ -97,7 +97,7 @@ class StrategicResponseApplicationValidatorTest extends TestCase
         $this->assertTrue($validator->assetSkillsComplete($completeDraft));
 
         // Missing skills should make it invalid.
-        $missingSkills = factory(JobApplication::class)->state(['draft', 'strategic_response'])->create([
+        $missingSkills = factory(JobApplication::class)->states(['draft', 'strategic_response'])->create([
             'applicant_id' => $applicant->id
         ]);
         $applicant->job_applications()->save($missingSkills);
@@ -106,7 +106,7 @@ class StrategicResponseApplicationValidatorTest extends TestCase
         $this->assertFalse($validator->assetSkillsComplete($missingSkills));
 
         // An incomplete skill declaration should make it invalid.
-        $incompleteSkills = factory(JobApplication::class)->state(['draft', 'strategic_response'])->create([
+        $incompleteSkills = factory(JobApplication::class)->states(['draft', 'strategic_response'])->create([
             'applicant_id' => $applicant->id
         ]);
         $essentialCriteria = $incompleteSkills->job_poster->criteria->where('criteria_type.name', 'essential')->first();
@@ -154,7 +154,7 @@ class StrategicResponseApplicationValidatorTest extends TestCase
 
         // Having any of the steps incomplete should invalidate the whole app
         $basicIncomplete = factory(JobApplication::class)->state('strategic_response')->create([
-            'veteran_status_id' => null, // FIXME: This will fail
+            'director_email' => '',
         ]);
         $this->assertFalse($validator->validateComplete($basicIncomplete));
 

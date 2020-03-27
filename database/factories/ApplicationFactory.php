@@ -48,7 +48,7 @@ $factory->state(JobApplication::class, 'strategic_response', function (Faker\Gen
     return [
         'citizenship_declaration_id' => null,
         'veteran_status_id' => null,
-        'preferred_language_id' => null,
+        'language_requirement_confirmed' => false,
         'director_name' => $faker->name(),
         'director_title' => $faker->jobTitle(),
         'director_email' => $faker->email(),
