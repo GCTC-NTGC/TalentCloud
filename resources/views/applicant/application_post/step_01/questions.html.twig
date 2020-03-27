@@ -4,132 +4,143 @@
     Applicant: Submit an Application - Basic Information
 
 ============================================================================= #}
-<div data-c-border="bottom(thin, solid, gray)" data-c-padding="tb(3)">
-    <div data-c-container="medium(center)">
-        <h2 data-c-heading="h2" data-c-margin="bottom(1)">{{ application_template.claim_title }}</h2>
-        {# Citizenship Question #}
-        <div data-c-input="select">
-            <label for="citizenship_declaration_id">{{ application_template.citizenship_content }}</label>
-            <span>Required</span>
-            <div>
-                <i class="fas fa-caret-down"></i>
-                <select required id="citizenship_declaration_id" name="citizenship_declaration_id">
-                    <option
-                        value=""
-                        disabled
-                        {% if not job_application.citizenship_declaration_id %}selected{% endif %}>
-                        {{ application_template.select_default_option }}
-                    </option>
-                    {% for option in citizenship_options %}
-                        <option
-                            value="{{ option.id }}" {% if option.id == job_application.citizenship_declaration_id %} selected
-                            {% endif %}>
-                            {{ citizenship_declaration_template[option.name] }}
-                        </option>
+<div data-c-border="bottom(thin, solid, gray)" data-c-padding="bottom(3)">
+    <div data-c-container="large(center)">
+        <div data-c-grid="gutter(all, 2)">
+            <div data-c-grid-item="tl(1of4)">
+                {% include "applicant/application_post/step_01/sidebar" %}
+            </div>
+            <div data-c-grid-item="tl(3of4)">
+                <div data-c-container="medium(left)">
+                    <h2 id="basics" data-c-heading="h2" data-c-padding="top(3)" data-c-margin="bottom(1)">{{ application_template.claim_title }}</h2>
+                    {# Citizenship Question #}
+                    <div data-c-input="select">
+                        <label for="citizenship_declaration_id">{{ application_template.citizenship_content }}</label>
+                        <span>{{ application_template.required_label }}</span>
+                        <div>
+                            <i class="fas fa-caret-down"></i>
+                            <select required id="citizenship_declaration_id" name="citizenship_declaration_id">
+                                <option
+                                    value=""
+                                    disabled
+                                    {% if not job_application.citizenship_declaration_id %}selected{% endif %}>
+                                    {{ application_template.select_default_option }}
+                                </option>
+                                {% for option in citizenship_options %}
+                                    <option
+                                        value="{{ option.id }}" {% if option.id == job_application.citizenship_declaration_id %} selected
+                                        {% endif %}>
+                                        {{ citizenship_declaration_template[option.name] }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <span>{{ application_template.input_error }}</span>
+                    </div>
+                    {# Forces Question #}
+                    <div data-c-input="select">
+                        <label for="veteran_status_id">{{ application_template.veterans_content }}</label>
+                        <span>{{ application_template.required_label }}</span>
+                        <div>
+                            <i class="fas fa-caret-down"></i>
+                            <select required id="veteran_status_id" name="veteran_status_id">
+                                <option
+                                    value="{{ option.id }}"
+                                    disabled
+                                    {% if not job_application.veteran_status_id %}selected{% endif %}>
+                                    {{ application_template.select_default_option }}
+                                </option>
+                                {% for option in veteran_options %}
+                                    <option
+                                        value="{{ option.id }}" {% if option.id == job_application.veteran_status_id %} selected
+                                        {% endif %}>
+                                        {{ veteran_status_template[option.name] }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <span>{{ application_template.input_error }}</span>
+                    </div>
+                    {# Language Requirements #}
+                    <h3 id="language" data-c-heading="h3" data-c-margin="bottom(1)" data-c-padding="top(3) bottom(1)">{{ application_template.language_title }}</h3>
+                    <p data-c-margin="bottom(1)">{{ application_template.language_declaration }}</p>
+                    <div data-c-input="checkbox(single)" data-c-margin="left(1)">
+                        <span>{{ application_template.required_label }}</span>
+                        <div>
+                            <label for="language_requirement_confirmed">
+                                <input
+                                    id="language_requirement_confirmed"
+                                    name="language_requirement_confirmed"
+                                    type="checkbox"
+                                    required
+                                    {{ job_application.language_requirement_confirmed ? 'checked' : '' }}/>
+                                <span>
+                                    {% if job.language_requirement.id == 1 %}
+                                        {# English Essential #}
+                                        {{ application_template.english_essential }}
+                                    {% elseif job.language_requirement.id == 2 %}
+                                        {# French Essential #}
+                                        {{ application_template.french_essential }}
+                                    {% elseif job.language_requirement.id == 3 %}
+                                        {# Bilingual Intermediate #}
+                                        {{ application_template.bilingual_intermediate }}
+                                    {% elseif job.language_requirement.id == 4 %}
+                                        {# Bilingual Advanced #}
+                                        {{ application_template.bilingual_advanced }}
+                                    {% elseif job.language_requirement.id == 5 %}
+                                        {# English or French #}
+                                        {{ application_template.english_or_french }}
+                                        {% else %}
+                                        {# nothing #}
+                                    {% endif %}
+                                </span>
+                            </label>
+                        </div>
+                        <span>{{ application_template.input_error }}</span>
+                    </div>
+                    {# Contact and Communication #}
+                    <h3 id="contact" data-c-heading="h3" data-c-margin="bottom(1)" data-c-padding="top(3) bottom(1)">{{ application_template.communication_title }}</h3>
+                    <div data-c-input="select">
+                        <label for="preferred_language_id">{{ application_template.language_copy }}</label>
+                        <span>{{ application_template.required_label }}</span>
+                        <div>
+                            <i class="fas fa-caret-down"></i>
+                            <select required id="preferred_language_id" name="preferred_language_id">
+                                <option
+                                    value=""
+                                    disabled
+                                    {% if not job_application.preferred_language_id %}selected{% endif %}>
+                                    {{ application_template.select_default_option }}
+                                </option>
+                                {% for option in language_options %}
+                                    <option
+                                        value="{{ option.id }}" {% if option.id == job_application.preferred_language_id %} selected
+                                        {% endif %}>
+                                        {{ preferred_language_template[option.name] }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <span>{{ application_template.input_error }}</span>
+                    </div>
+                    <h2 id="fit" data-c-heading="h2" data-c-margin="bottom(1)" data-c-padding="top(3)">{{ application_template.question_title }}</h2>
+                    {% for question in job.job_poster_questions %}
+                        <p data-c-font-weight="bold" data-c-color="c2" data-c-margin="top(1) bottom(.5)">{{ question.question }}</p>
+                        <p data-c-margin="bottom(1)">{{ question.description }}</p>
+                        <div data-c-input="textarea">
+                            <label for="questions[{{ question.id }}]">{{ application_template.question_label }}</label>
+                            <span>{{ application_template.required_label }}</span>
+                            <div>
+                                <textarea id="questions[{{ question.id }}]" name="questions[{{ question.id }}]" required>{% for userAnswer in job_application.job_application_answers %}{% if userAnswer.job_poster_question.id == question.id %}{{ userAnswer.answer }}{% endif %}{% endfor %}</textarea>
+                            </div>
+                            <span>{{ application_template.input_error }}</span>
+                        </div>
                     {% endfor %}
-                </select>
-            </div>
-            <span>This input has an error.</span>
-        </div>
-        {# Forces Question #}
-        <div data-c-input="select">
-            <label for="veteran_status_id">{{ application_template.veterans_content }}</label>
-            <span>Required</span>
-            <div>
-                <i class="fas fa-caret-down"></i>
-                <select required id="veteran_status_id" name="veteran_status_id">
-                    <option
-                        value="{{ option.id }}"
-                        disabled
-                        {% if not job_application.veteran_status_id %}selected{% endif %}>
-                        {{ application_template.select_default_option }}
-                    </option>
-                    {% for option in veteran_options %}
-                        <option
-                            value="{{ option.id }}" {% if option.id == job_application.veteran_status_id %} selected
-                            {% endif %}>
-                            {{ veteran_status_template[option.name] }}
-                        </option>
-                    {% endfor %}
-                </select>
-            </div>
-            <span>This input has an error.</span>
-        </div>
-        {# Language Requirements #}
-        <h3 data-c-heading="h3" data-c-margin="top(3) bottom(1)" data-c-padding="bottom(1)">Language Requirements</h3>
-        <p data-c-margin="bottom(1)">{{ application_template.language_declaration }}</p>
-        <div data-c-input="checkbox(single)" data-c-margin="left(1)">
-            <span>Required</span>
-            <div>
-                <label for="language_requirement_confirmed">
-                    <input
-                        id="language_requirement_confirmed"
-                        name="language_requirement_confirmed"
-                        type="checkbox"
-                        required
-                        {{ job_application.language_requirement_confirmed ? 'checked' : '' }}/>
-                    <span>
-                        {% if job.language_requirement.id == 1 %}
-                            {# English Essential #}
-                            {{ application_template.english_essential }}
-                        {% elseif job.language_requirement.id == 2 %}
-                            {# French Essential #}
-                            {{ application_template.french_essential }}
-                        {% elseif job.language_requirement.id == 3 %}
-                            {# Bilingual Intermediate #}
-                            {{ application_template.bilingual_intermediate }}
-                        {% elseif job.language_requirement.id == 4 %}
-                            {# Bilingual Advanced #}
-                            {{ application_template.bilingual_advanced }}
-                        {% elseif job.language_requirement.id == 5 %}
-                            {# English or French #}
-                            {{ application_template.english_or_french }}
-                            {% else %}
-                            {# nothing #}
-                        {% endif %}
-                    </span>
-                </label>
-            </div>
-            <span>This input has an error.</span>
-        </div>
-        {# Contact and Communication #}
-        <h3 data-c-heading="h3" data-c-margin="top(3) bottom(1)" data-c-padding="bottom(1)">Contact & Communication</h3>
-        <div data-c-input="select">
-            <label for="preferred_language_id">{{ application_template.language_copy }}</label>
-            <span>Required</span>
-            <div>
-                <i class="fas fa-caret-down"></i>
-                <select required id="preferred_language_id" name="preferred_language_id">
-                    <option
-                        value=""
-                        disabled
-                        {% if not job_application.preferred_language_id %}selected{% endif %}>
-                        {{ application_template.select_default_option }}
-                    </option>
-                    {% for option in language_options %}
-                        <option
-                            value="{{ option.id }}" {% if option.id == job_application.preferred_language_id %} selected
-                            {% endif %}>
-                            {{ preferred_language_template[option.name] }}
-                        </option>
-                    {% endfor %}
-                </select>
-            </div>
-            <span>This input has an error.</span>
-        </div>
-        <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">{{ application_template.question_title }}</h2>
-        {% for question in job.job_poster_questions %}
-            <p data-c-font-weight="bold" data-c-color="c2" data-c-margin="top(1) bottom(.5)">{{ question.question }}</p>
-            <p data-c-margin="bottom(1)">{{ question.description }}</p>
-            <div data-c-input="textarea">
-                <label for="questions[{{ question.id }}]">{{ application_template.question_label }}</label>
-                <span>Required</span>
-                <div>
-                    <textarea id="questions[{{ question.id }}]" name="questions[{{ question.id }}]" required>{% for userAnswer in job_application.job_application_answers %}{% if userAnswer.job_poster_question.id == question.id %}{{ userAnswer.answer }}{% endif %}{% endfor %}</textarea>
                 </div>
-                <span>This input has an error.</span>
             </div>
-        {% endfor %}
+        </div>
+    </div>
+    <div data-c-container="medium(center)">
         <hr data-c-hr="thin(gray)" data-c-margin="tb(2)">
         <div data-c-grid="gutter(all, 1)">
             <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">

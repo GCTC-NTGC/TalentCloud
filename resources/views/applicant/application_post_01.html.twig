@@ -1,7 +1,7 @@
 {# =============================================================================
 
     Talent Cloud
-    Applicant: Apply - Step 01
+    Applicant: Submit an Application - Basic Information
 
 ============================================================================= #}
 {% extends "layouts/base" %}
@@ -12,7 +12,6 @@
 	{% include "common/goc" %}
 	{% include "common/alert" %}
     <div data-clone>
-	    {# {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title': application_template.title, ':job': job.title})}} %} #}
         {% include "applicant/application_post/common/header" %}
         <a id="skipLink"></a>
         {# Form containing all about_me editable elements #}

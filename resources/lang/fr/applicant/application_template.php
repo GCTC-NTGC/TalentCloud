@@ -17,6 +17,8 @@ return [
     'save_button_working' => 'Actif...',
     'submit_button_label' => 'Soumettre',
     'pilot' => 'BETA / Projet pilote',
+    'required_label' => 'Requis',
+    'input_error' => 'Cette entrée comporte une erreur.',
     /* Tracker */
     'tracker_label' => 'Étape',
     'tracker_previous_title' => "Aller à l'étape précédente de l'application.",
@@ -106,6 +108,7 @@ return [
     'language_title' => 'Exigence linguistique',
     'language_copy' => 'Quelle langue officielle préféreriez-vous pour ce processus de candidature?',
     'language_label' => 'En choisir un',
+    'communication_title' => 'Contact et communication',
     /* Step 02 */
     'step_02_title' => 'Nuage de talents | Candidat : Postuler maintenant - Étape 2',
     'experience' => [

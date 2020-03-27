@@ -17,6 +17,8 @@ return [
     'save_button_working' => 'Saving...',
     'submit_button_label' => 'Submit',
     "pilot" => "BETA / Pilot Project",
+    'required_label' => 'Required',
+    'input_error' => 'This input has an error.',
     /* Tracker */
     'tracker_label' => 'Step',
     'tracker_previous_title' => 'Go to the previous step in the application process.',
@@ -105,6 +107,7 @@ return [
     'language_title' => 'Language Requirement',
     'language_copy' => 'Which language would you prefer for this application process?',
     'language_label' => 'Select One',
+    'communication_title' => 'Contact & Communication',
     /* Step 02 */
     'step_02_title' => 'Talent Cloud | Applicant: Apply Now - Step 2',
     'experience' => [

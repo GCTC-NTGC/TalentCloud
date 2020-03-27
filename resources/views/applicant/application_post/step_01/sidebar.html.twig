@@ -1,0 +1,25 @@
+{# =============================================================================
+    Talent Cloud
+    Applicant: Application - Basic Information Sidebar
+============================================================================= #}
+<div class="sidebar" data-c-padding="top(3)">
+    <nav>
+        <p data-c-font-weight="bold" data-c-font-size="h4" data-c-margin="bottom(1)">On this page:</p>
+        <ul>
+            <li>
+                <a href="#basics" title="{{ application_template.claim_title }}">{{ application_template.claim_title }}</a>
+                <ul>
+                    <li>
+                        <a href="#language" title="{{ application_template.language_title }}">{{ application_template.language_title }}</a>
+                    </li>
+                    <li>
+                        <a href="#contact" title="{{ application_template.communication_title }}">{{ application_template.communication_title }}</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#fit" title="{{ application_template.question_title }}">{{ application_template.question_title }}</a>
+            </li>
+        </ul>
+    </nav>
+</div>
