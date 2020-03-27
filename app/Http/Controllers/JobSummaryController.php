@@ -61,7 +61,7 @@ class JobSummaryController extends Controller
             'imgAlt' => "{$summaryLang['view_applicants_icon']} {$summaryLang['flat_icons']}",
             'text' => $summaryLang['view_applicants_button'],
             'url' => route(WhichPortal::prefixRoute('jobs.applications'), $job),
-            'disabled' => !$job->isClosed(),
+            'disabled' => !$user->can('reviewApplicationsFor', $job),
         ];
 
         $status = $job->job_poster_status->name;

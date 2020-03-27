@@ -75,6 +75,11 @@
         box-shadow: 0 3px 5px rgba(0, 0, 0, .2);
         margin: 0 0 2rem 0;
         padding: 1.5rem 1rem;
+        text-align: center;
+
+        @media #{$p-tablet} {
+            text-align: left;
+        }
 
         .heading--04 {
             font-weight: 600;
@@ -85,8 +90,7 @@
             }
 
         }
-
-        .poster-status {
+        .poster-center {
             text-align: center;
         }
 
