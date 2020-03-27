@@ -101,9 +101,15 @@ return [
     'veterans_title' => 'Veterans Claim',
     'veterans_content' => 'Are you a veteran or a member of the Canadian Armed Forces?',
     'veterans_label' => 'Select One',
-    'language_title' => 'Language Requirement',
-    'language_copy' => 'Which language would you prefer for this application process?',
-    'language_label' => 'Select One',
+    'director_name_label' => 'Director Name',
+    'director_title_label' => 'Director Title',
+    'director_email_label' => 'Director Email',
+    'reference_name_label' => 'Reference Name',
+    'reference_title_label' => 'Reference Title',
+    'reference_email_label' => 'Reference Email',
+    'required_info_heading' => 'Required Information',
+    'director_copy' => 'Director',
+    'reference_copy' => 'Reference',
     /* Step 02 */
     'step_02_title' => 'Talent Cloud | Applicant: Apply Now - Step 2',
     'experience' => [

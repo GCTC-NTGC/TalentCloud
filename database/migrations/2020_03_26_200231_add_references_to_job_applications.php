@@ -14,12 +14,12 @@ class AddReferencesToJobApplications extends Migration
     public function up()
     {
         Schema::table('job_applications', function (Blueprint $table) {
-            $table->string('director_name');
-            $table->string('director_title');
-            $table->string('director_email');
-            $table->string('reference_name');
-            $table->string('reference_title');
-            $table->string('reference_email');
+            $table->string('director_name')->nullable();
+            $table->string('director_title')->nullable();
+            $table->string('director_email')->nullable();
+            $table->string('reference_name')->nullable();
+            $table->string('reference_title')->nullable();
+            $table->string('reference_email')->nullable();
         });
     }
 

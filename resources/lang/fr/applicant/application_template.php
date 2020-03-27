@@ -102,9 +102,15 @@ return [
     'veterans_title' => 'Statut Vétéran',
     'veterans_content' => 'Êtes-vous membre des Forces armées canadiennes?',
     'veterans_label' => 'En choisir un',
-    'language_title' => 'Exigence linguistique',
-    'language_copy' => 'Quelle langue officielle préféreriez-vous pour ce processus de candidature?',
-    'language_label' => 'En choisir un',
+    'director_name_label' => '',
+    'director_title_label' => '',
+    'director_email_label' => '',
+    'reference_name_label' => '',
+    'reference_title_label' => '',
+    'reference_email_label' => '',
+    'required_info_heading' => '',
+    'director_copy' => '',
+    'reference_copy' => '',
     /* Step 02 */
     'step_02_title' => 'Nuage de talents | Candidat : Postuler maintenant - Étape 2',
     'experience' => [
