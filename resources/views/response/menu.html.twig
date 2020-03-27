@@ -1,23 +1,23 @@
 <nav class="menu" data-c-background="black(60)">
     <div data-c-container="large">
         <div data-c-grid>
-            <div data-c-grid-item="base(1of1) tl(3of4)">
+            <div data-c-grid-item="base(1of1) tl(2of4)">
                 <ul data-c-align="base(center) tl(left)">
                     <li>
-                        <a href="/response" title="Visit the Rapid Response Talent Solutions homepage." data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">Home</a>
+                        <a href="{{ route('response.index') }}" title="{{ response.menu.home.title }}" data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">{{ response.menu.home.text }}</a>
                     </li>
                     <li>
-                        <a href="#apply" title="View available areas of expertise that are in need." data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">Apply</a>
+                        <a href="#apply" title="{{ response.menu.apply.title }}" data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">{{ response.menu.apply.text }}</a>
                     </li>
                     <li>
-                        <a href="https://canada.ca/coronavirus" title="Learn more about COVID-19." target="_blank" data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">COVID-19 Information</a>
+                        <a href="https://canada.ca/coronavirus" title="{{ response.menu.info.title }}" target="_blank" data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">{{ response.menu.info.text }}</a>
                     </li>
                     <li>
-                        <a href="/faq#covid19" title="Learn more about how Talent Cloud works." target="_blank" data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">FAQ</a>
+                        <a href="/faq#covid19" title="{{ response.menu.faq.title }}" target="_blank" data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">{{ response.menu.faq.text }}</a>
                     </li>
                 </ul>
             </div>
-            <div data-c-grid-item="base(1of1) tl(1of4)">
+            <div data-c-grid-item="base(1of1) tl(2of4)">
                 <ul data-c-align="base(center) tl(right)">
                     {% if auth_guest() %}
                         <li>
