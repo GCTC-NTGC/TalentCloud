@@ -230,7 +230,6 @@ return [
         'reference_name_label' => '',
         'reference_title_label' => '',
         'reference_email_label' => '',
-        'required_info_heading' => '',
         'director_copy' => '',
         'reference_copy' => ''
     ]
