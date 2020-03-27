@@ -101,9 +101,6 @@ return [
     'veterans_title' => 'Veterans Claim',
     'veterans_content' => 'Are you a veteran or a member of the Canadian Armed Forces?',
     'veterans_label' => 'Select One',
-    'language_title' => 'Language Requirement',
-    'language_copy' => 'Which language would you prefer for this application process?',
-    'language_label' => 'Select One',
     /* Step 02 */
     'step_02_title' => 'Talent Cloud | Applicant: Apply Now - Step 2',
     'experience' => [
@@ -226,5 +223,14 @@ return [
         'complete_copy_1' => 'You\'re awesome.',
         'complete_copy_2' => 'Thanks for putting your name forward.The GC Talent Reserve team will be in touch in a few days with next steps.',
         'complete_return_label' => 'Back to Homepage',
+        'director_name_label' => 'Director Name',
+        'director_title_label' => 'Director Title',
+        'director_email_label' => 'Director Email',
+        'reference_name_label' => 'Reference Name',
+        'reference_title_label' => 'Reference Title',
+        'reference_email_label' => 'Reference Email',
+        'required_title' => 'Required Information',
+        'director_copy' => 'What is your current director’s name and email? (We’ll need approval that you can be loaned to another team for a bit to help out.)',
+        'reference_copy' => 'What is the name and email of an additional reference who can confirm your skill set? (Preferably a current or recent Government of Canada supervisor.)'
     ]
 ];

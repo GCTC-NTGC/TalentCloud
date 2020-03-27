@@ -392,7 +392,13 @@ class ApplicationByJobController extends Controller
             'citizenship_declaration_id' => $request->input('citizenship_declaration_id'),
             'veteran_status_id' => $request->input('veteran_status_id'),
             'preferred_language_id' => $request->input('preferred_language_id'),
-            'language_requirement_confirmed' => $request->input('language_requirement_confirmed', false)
+            'language_requirement_confirmed' => $request->input('language_requirement_confirmed'),
+            'director_name' => $request->input('director_name'),
+            'director_title' => $request->input('director_title'),
+            'director_email' => $request->input('director_email'),
+            'reference_name' => $request->input('reference_name'),
+            'reference_title' => $request->input('reference_title'),
+            'reference_email' => $request->input('reference_email')
         ]);
         $application->save();
 
