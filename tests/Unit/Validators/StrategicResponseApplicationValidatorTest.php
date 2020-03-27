@@ -89,7 +89,7 @@ class StrategicResponseApplicationValidatorTest extends TestCase
 
         // Ensure validation also works correctly for drafts
         // (because in drafts, application, instead of applicANT, skills are validated).
-        $completeDraft = factory(JobApplication::class)->state(['draft', 'strategic_response'])->create([
+        $completeDraft = factory(JobApplication::class)->states(['draft', 'strategic_response'])->create([
             'applicant_id' => $applicant->id
         ]);
         $applicant->job_applications()->save($completeDraft);
