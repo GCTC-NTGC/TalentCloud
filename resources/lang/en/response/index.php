@@ -43,18 +43,18 @@ return [
     'content' => [
       'title' => 'Purpose of This Site',
       'offer_help' => [
-        'text' => 'Offer to Help',
+        'text' => 'View Opportunities',
         'title' => 'Learn more about how you can help during an emergency.'
       ],
       'body' => 'The COVID-19 pandemic has placed enormous pressure on citizens and governments around the world. In times of extreme disruption, organizations have different talent needs. Governments may experience critical talent shortages in some areas and surplus in others. A strong, coordinated response requires a method for identifying talent gaps, and getting skilled people where they’re needed most, quickly and effectively.',
       'designed_to_header' => 'This site is designed to:',
       'designed_to_list' => [
-         1 => 'Provide a single-window, whole-of-government vehicle for talent mobilization in a crisis situation',
+         1 => 'Provide a single-window vehicle for digital and technology talent mobilization in a crisis situation',
          2 => 'Enable the flow of talent from areas of lower priority to areas of critical need, supported by data tracking and central coordination',
          3 => 'Give public servants a way to use their skills where help is needed most',
-         4 => 'Offer departments a fast, efficient vehicle for sourcing skilled, available talent',
+         4 => 'Offer departments a fast, efficient vehicle for sourcing skilled, available digital and technology talent',
       ],
-      'shared_effort' => 'This exercise is a shared effort involving several Government of Canada departments and agencies, and is centrally coordinated through the Treasury Board Secretariat.',
+      'shared_effort' => 'This exercise is managed by the Office of the Chief Information Officer with the support of Talent Cloud and the Community Management Office.',
       'code_for_site' => 'The code for this site and supporting information is available to other governments and jurisdictions. ',
       'github_url' => [
         'text' => 'Please visit us on GitHub',
@@ -101,7 +101,7 @@ return [
     ],
 
     'job_list' => [
-      'title' => 'The Government of Canada is looking for extra help in these areas:',
+      'title' => 'The Government of Canada Needs Help',
       'expand_sections' => 'Expand All Sections',
       'collapse_sections' => 'Collapse All Sections',
       'have_skills' => 'Do you have skills in any of the following critical need areas? (Because you’re helping out under exceptional circumstances, remember to be realistic about your abilities.)',

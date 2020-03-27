@@ -37,9 +37,12 @@
                 </button>
             </div>
         </div>
-        <p data-c-margin="tb(1)" class="response-copy-container">{{ response.job_list.have_skills }}</p>
-        <p data-c-margin="tb(1)" class="response-copy-container">{{ response.job_list.impact_position }}</p>
-        <p data-c-margin="tb(1)" class="response-copy-container">{{ response.job_list.dont_have_skills }}</p>
+        <div data-c-container="medium(left)">
+            <p data-c-margin="tb(1)">{{ response.job_list.have_skills }}</p>
+            <p data-c-margin="tb(1)">Below are categories of work that require extra help. By clicking on them to expand them, you can browse various sub categories that are defined by a particular set of skills. Once you find a category you can offer your help in, <span data-c-font-weight="bold">click on the level of skill you have to begin the application process</span>.</p>
+            <p data-c-margin="top(1) bottom(2)">{{ response.job_list.impact_position }}</p>
+            {# <p data-c-margin="tb(1)">{{ response.job_list.dont_have_skills }}</p> #}
+        </div>
         {% for stream in streams %}
             {% include "response/index/stream" with {"stream": stream} %}
         {% endfor %}
