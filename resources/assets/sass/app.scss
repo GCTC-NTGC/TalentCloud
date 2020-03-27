@@ -119,10 +119,8 @@ table thead a:visited {
 
 .clone-accordion {
     border-left: .5rem solid $clone-c1 !important;
-    transition: border .2s ease;
     &.active {
         border-left: .5rem solid $clone-c3 !important;
-        transition: border .2s ease;
     }
 }
 

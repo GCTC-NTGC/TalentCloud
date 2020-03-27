@@ -96,20 +96,7 @@
 
 // Null State ==========================================================
 .profile-null {
-  background: $palette--white;
-  border-radius: 3px;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
   display: none;
-  padding: calc(#{$unit} * 2);
-  text-align: center;
-
-  p {
-    color: $palette--font-black;
-    font-family: $font--sans;
-    font-size: $font-scale--h4;
-    font-weight: 400;
-  }
-
   &.active {
     display: block;
   }
@@ -117,7 +104,7 @@
 
 // Elements ============================================================
 .profile-element-list {
-  padding: 2rem 0 0 0;
+//   padding: 2rem 0 0 0;
 
   &.step3 {
     padding-top: 0;

@@ -11,7 +11,6 @@
     {% set name_prefix = "skill_declarations[:template][:skill_type][:id]"|replace({":skill_type": skillType ? skillType:"all_types"}) %}
     {% set id_prefix = name_prefix %}
 {% endif %}
-
 {% if locale=="application" %}
     {# application skills will never be templates. #}
     {# New items should index themselves by criterion_id #}
@@ -29,7 +28,6 @@
         {% set id_prefix = id_prefix|replace({":template":"old", ":id":skill_declaration.id}) %}
     {% endif %}
 {% endif %}
-
 {# NOTE: AJAX Form Submission #}
 {#
     This template contains a form meant to be submitted through AJAX. A number
@@ -74,21 +72,72 @@
          included somewhere on the page that contains this template.
 
 #}
-<div
-    class="profile-element accordion skill ajax-form
+<!-- Accordion -->
+<div data-c-accordion data-c-card class="clone-accordion profile-element skill ajax-form
         {% if locale == "profile" and skill_declaration == false %}template active{% endif %}
         {% if locale == "application" and application_step == "3" and criterion == false %}template{% endif %}
         {% if locale == "application" and application_step == "4" and criterion == false %}template{% endif %}
         {% if skill_declaration %}complete{% endif %}
         modal-target-object"
+    data-item-saved="{{ skill_declaration ? "true" : "" }}" data-item-url="{{ route("skill_declarations.destroy", ":id") }}" data-item-id="{{ skill_declaration ? skill_declaration.id : 0 }}">
+    <button data-c-accordion-trigger tabindex="0" type="button"
+        {% if skill_declaration == false %}
+            aria-expanded="true"
+        {% else %}
+            aria-expanded="false"
+        {% endif %}>
+        <div data-c-grid>
+            {% if locale == "profile" %}
+                <div data-c-grid-item="base(1of1)">
+            {% else %}
+                <div data-c-grid-item="base(1of4) tl(1of6)">
+                    <span class="accordion-status">
+                        <i class="fas fa-check"></i>
+                        <i class="fas fa-exclamation-circle"></i>
+                    </span>
+                </div>
+                <div data-c-grid-item="base(3of4) tl(5of6)">
+            {% endif %}
+                <div data-c-padding="all(1)">
+                    <!-- Title -->
+                    {% if locale == "profile" and skill_declaration == false %}
+                        <p data-c-font-weight="bold">{{ skill_template.new_skill_title }}</p>
+                    {% elseif locale == "profile" and skill_declaration == true %}
+                        <p data-c-font-weight="bold">{{ skill_declaration.skill.name }}</p>
+                    {% elseif locale == "application" %}
+                        <p data-c-font-weight="bold">{{ criterion.skill.name }}</p>
+                        <p data-c-margin="top(.25)" data-c-colour="c1">Level Required: {{ skill_template.skill_levels[criterion.skill.skill_type.name][criterion.skill_level.name]|title }}</p>
+                    {% elseif locale == "application-view" %}
+                        <p data-c-font-weight="bold">{{ criterion.skill.name }}</p>
+                        <p data-c-margin="top(.25)" data-c-colour="c1">Level Required: {{ skill_template.skill_levels[criterion.skill.skill_type.name][criterion.skill_level.name]|title }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <span data-c-visibility="invisible">Click to view...</span>
+        <i aria-hidden="true" data-c-accordion-add data-c-colour="c1" data-c-font-size="h3" data-c-font-weight="bold">+</i>
+        <i aria-hidden="true" data-c-accordion-remove data-c-colour="c1" data-c-font-size="h3" data-c-font-weight="bold">-</i>
+    </button>
+    <div aria-hidden="true" data-c-accordion-content>
+        <hr data-c-hr="thin(gray)">
+        <div data-c-padding="all(1)">
+            <!-- Accordion Content -->
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem atque ad quos placeat quidem earum corrupti? Ad, distinctio, maxime quasi illum ex consectetur necessitatibus et soluta quo sit ratione maiores.</p>
+        </div>
+    </div>
+</div>
 
-    data-item-saved="{{ skill_declaration ? "true" : "" }}"
-    data-item-url="{{ route("skill_declarations.destroy", ":id") }}"
-    data-item-id="{{ skill_declaration ? skill_declaration.id : 0 }}"
-    >
 
+
+
+<div class="profile-element accordion skill ajax-form
+        {% if locale == "profile" and skill_declaration == false %}template active{% endif %}
+        {% if locale == "application" and application_step == "3" and criterion == false %}template{% endif %}
+        {% if locale == "application" and application_step == "4" and criterion == false %}template{% endif %}
+        {% if skill_declaration %}complete{% endif %}
+        modal-target-object"
+    data-item-saved="{{ skill_declaration ? "true" : "" }}" data-item-url="{{ route("skill_declarations.destroy", ":id") }}" data-item-id="{{ skill_declaration ? skill_declaration.id : 0 }}">
     {# Accordion Trigger #}
-
         <button
             {% if skill_declaration == false %}
                 aria-expanded="true"
@@ -98,22 +147,14 @@
             class="accordion-trigger"
             tabindex="0"
             type="button">
-
             {% if locale == "profile" %}
-
             {% else %}
-
                 <span
                     class="accordion-status">
-
                     <i class="fas fa-check"></i>
-
                     <i class="fas fa-exclamation-circle"></i>
-
                 </span>
-
             {% endif %}
-
             <span
                 class="accordion-title">
                 {% if locale == "profile" and skill_declaration == false %}
@@ -130,24 +171,17 @@
                     </span>
                 {% endif %}
             </span>
-
             <span class="invisible">{{ skill_template.accordion_sr_helper }}</span>
-
             {% if locale == "profile" and skill_declaration == true %}
-
                 <span
                     class="skill-summary">
-
                     {% set type = skill_declaration.skill.skill_type.name %}
                     {#
                     <span>{{ skill_template.skill_levels[type][skill_declaration.skill_level.name]|title }}</span> | <span>{{ skill_template.status[skill_declaration.skill_status.name] }}</span> | <span><i class="fas fa-users"></i> {{ skill_declaration.references|length }}</span> | <span><i class="fas fa-briefcase"></i> {{ skill_declaration.work_samples|length }}</span>
                     #}
                 </span>
-
             {% endif %}
-
             <i class="fas fa-chevron-up"></i>
-
         </button>
 
     {# Accordion Content #}
