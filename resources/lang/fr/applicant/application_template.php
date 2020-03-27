@@ -102,15 +102,6 @@ return [
     'veterans_title' => 'Statut Vétéran',
     'veterans_content' => 'Êtes-vous membre des Forces armées canadiennes?',
     'veterans_label' => 'En choisir un',
-    'director_name_label' => '',
-    'director_title_label' => '',
-    'director_email_label' => '',
-    'reference_name_label' => '',
-    'reference_title_label' => '',
-    'reference_email_label' => '',
-    'required_info_heading' => '',
-    'director_copy' => '',
-    'reference_copy' => '',
     /* Step 02 */
     'step_02_title' => 'Nuage de talents | Candidat : Postuler maintenant - Étape 2',
     'experience' => [
@@ -217,8 +208,30 @@ return [
     ],
 
     'strategic_response' => [
-        'required_information' => 'Required Information',
-        'experience_description' => 'Add some of your education, if available.',
-        'skill_prompt' => 'Assurez-vous d’utiliser des exemples précis pour démontrer que vous possédez cette compétence.',
+        'required_information' => '',
+        'experience_title' => '',
+        'experience_description' => '',
+        'essential_context_1' => '',
+        'essential_context_2' => '',
+        'asset_context' => '',
+        'skill_prompt' => '',
+        'skill_placeholder' => '',
+        'confirmations' => [
+            '',
+            '',
+        ],
+        'complete_title' => '',
+        'complete_copy_1' => '',
+        'complete_copy_2' => '',
+        'complete_return_label' => '',
+        'director_name_label' => '',
+        'director_title_label' => '',
+        'director_email_label' => '',
+        'reference_name_label' => '',
+        'reference_title_label' => '',
+        'reference_email_label' => '',
+        'required_info_heading' => '',
+        'director_copy' => '',
+        'reference_copy' => ''
     ]
 ];

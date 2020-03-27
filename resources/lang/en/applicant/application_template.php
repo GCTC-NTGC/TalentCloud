@@ -101,15 +101,6 @@ return [
     'veterans_title' => 'Veterans Claim',
     'veterans_content' => 'Are you a veteran or a member of the Canadian Armed Forces?',
     'veterans_label' => 'Select One',
-    'director_name_label' => 'Director Name',
-    'director_title_label' => 'Director Title',
-    'director_email_label' => 'Director Email',
-    'reference_name_label' => 'Reference Name',
-    'reference_title_label' => 'Reference Title',
-    'reference_email_label' => 'Reference Email',
-    'required_info_heading' => 'Required Information',
-    'director_copy' => 'Director',
-    'reference_copy' => 'Reference',
     /* Step 02 */
     'step_02_title' => 'Talent Cloud | Applicant: Apply Now - Step 2',
     'experience' => [
@@ -232,5 +223,14 @@ return [
         'complete_copy_1' => 'You\'re awesome.',
         'complete_copy_2' => 'Thanks for putting your name forward.The GC Talent Reserve team will be in touch in a few days with next steps.',
         'complete_return_label' => 'Back to Homepage',
+        'director_name_label' => 'Director Name',
+        'director_title_label' => 'Director Title',
+        'director_email_label' => 'Director Email',
+        'reference_name_label' => 'Reference Name',
+        'reference_title_label' => 'Reference Title',
+        'reference_email_label' => 'Reference Email',
+        'required_info_heading' => 'Required Information',
+        'director_copy' => 'Director',
+        'reference_copy' => 'Reference'
     ]
 ];

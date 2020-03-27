@@ -25,13 +25,7 @@ $factory->define(JobApplication::class, function (Faker\Generator $faker) {
         'submission_date' => $faker->dateTimeBetween('yesterday', 'tomorrow')->format('Y-m-d H:i:s'),
         'applicant_id' => function () {
             return factory(Applicant::class)->create()->id;
-        },
-        'director_name' => $faker->name(),
-        'director_title' => $faker->jobTitle(),
-        'director_email' => $faker->email(),
-        'reference_name' => $faker->name(),
-        'reference_title' => $faker->jobTitle(),
-        'reference_email' => $faker->email()
+        }
     ];
 });
 
@@ -55,6 +49,12 @@ $factory->state(JobApplication::class, 'strategic_response', function (Faker\Gen
         'citizenship_declaration_id' => null,
         'veteran_status_id' => null,
         'preferred_language_id' => null,
+        'director_name' => $faker->name(),
+        'director_title' => $faker->jobTitle(),
+        'director_email' => $faker->email(),
+        'reference_name' => $faker->name(),
+        'reference_title' => $faker->jobTitle(),
+        'reference_email' => $faker->email()
     ];
 });
 
