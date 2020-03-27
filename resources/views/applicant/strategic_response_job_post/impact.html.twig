@@ -1,24 +1,21 @@
 {# =============================================================================
 
     Talent Cloud
-    Applicant: Jobs - Post: Impact
+    Applicant: Job Poster - Impact Statement
 
 ============================================================================= #}
-<a aria-hidden="true" class="job-post__anchor"id="impact"></a>
-<section data-clone>
-    <div data-c-alert="error" data-c-radius="rounded" role="alert" data-c-margin="bottom(2)">
-        <div data-c-padding="all(.5)">
-            <p data-c-margin="bottom(.5)" data-c-font-weight="bold">
-                <i aria-hidden="true" class="fas fa-flag"></i>
-                {{ job_post.strategic_response.heads_up }}
-            </p>
-            <p>{{ job_post.strategic_response.current_employee_alert }}</p>
-        </div>
+<div data-c-alert="error" data-c-radius="rounded" role="alert" data-c-margin="top(3)">
+    <div data-c-padding="all(.5)">
+        <p data-c-margin="bottom(.5)" data-c-font-weight="bold">
+            <i aria-hidden="true" class="fas fa-flag" data-c-margin="right(.25)"></i>
+            {{ job_post.strategic_response.heads_up }}
+        </p>
+        <p>{{ job_post.strategic_response.current_employee_alert }}</p>
     </div>
-</section>
-<section class="job-poster__impact">
-    <h3 class="job-poster__impact-title">{{ job_post.impact.title }}</h3>
-    <p>{{ job.dept_impact ? job.dept_impact|nl2br : noInfo }}</p>
-    <p>{{ job.team_impact ? job.team_impact|nl2br : noInfo }}</p>
+</div>
+<section id="impact">
+    <h3 data-c-heading="h3" data-c-margin="bottom(1)" data-c-padding="top(3) bottom(1)">{{ job_post.impact.title }}</h3>
+    <p data-c-margin="bottom(1)">{{ job.dept_impact ? job.dept_impact|nl2br : noInfo }}</p>
+    <p data-c-margin="bottom(1)">{{ job.team_impact ? job.team_impact|nl2br : noInfo }}</p>
     <p>{{ job.hire_impact ? job.hire_impact|nl2br : noInfo }}</p>
 </section>

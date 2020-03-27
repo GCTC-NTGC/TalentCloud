@@ -1,0 +1,47 @@
+<div id="apply" data-c-background="gray(20)">
+    <div data-c-container="large" data-c-padding="tb(3)">
+        <div data-c-grid="gutter(all, 1) middle">
+            <div data-c-grid-item="tl(3of4)">
+                <h2 data-c-heading="h2">{{ response.job_list.title }}</h2>
+            </div>
+            <div data-c-grid-item="tl(1of4)" data-c-align="base(center) tl(right)">
+                <script>
+                    const toggleAccordions = function() {
+                        const streamAccordions = document.querySelectorAll('div[data-stream-accordion]');
+                        const trigger = document.querySelector('#massAccordionTrigger');
+                            if(trigger.innerHTML === trigger.dataset.expandText) {
+                                streamAccordions.forEach(function(streamAccordion) {
+                                    streamAccordion.classList.add("active");
+                                    trigger.innerHTML = trigger.dataset.collapseText;
+                                });
+                            } else {
+                                streamAccordions.forEach(function(streamAccordion) {
+                                    streamAccordion.classList.remove("active");
+                                    trigger.innerHTML = trigger.dataset.expandText;
+                                });
+                            }
+                    }
+                </script>
+                <button
+                    data-c-button="reset"
+                    data-c-font-size="normal"
+                    data-c-font-style="underline"
+                    onClick="toggleAccordions()"
+                    type="button"
+                >
+                    <span
+                        id="massAccordionTrigger"
+                        data-expand-text="{{ response.job_list.expand_sections }}"
+                        data-collapse-text="{{ response.job_list.collapse_sections }}"
+                    >{{ response.job_list.expand_sections }}</span>
+                </button>
+            </div>
+        </div>
+        <p data-c-margin="tb(1)" class="response-copy-container">{{ response.job_list.have_skills }}</p>
+        <p data-c-margin="tb(1)" class="response-copy-container">{{ response.job_list.impact_position }}</p>
+        <p data-c-margin="tb(1)" class="response-copy-container">{{ response.job_list.dont_have_skills }}</p>
+        {% for stream in streams %}
+            {% include "response/index/stream" with {"stream": stream} %}
+        {% endfor %}
+    </div>
+</div>
