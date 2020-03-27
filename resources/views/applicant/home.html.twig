@@ -41,7 +41,6 @@
 			</div>
 			{# Browse Jobs ================================================== #}
 			<div class="home-browse" data-c-background="white(100)" data-c-padding="tb(3)" data-c-border="bottom(thin, solid, grey)">
-				{% set christmas_time = false %}
 				{% if christmas_time %}
 					{# Holiday Message #}
 					<div data-c-container="medium">
@@ -56,6 +55,16 @@
 									<img src="/images/holiday-snowman.svg" alt="A decorative snowman standing joyfully in the falling snow." style="">
 								</div>
 							</div>
+						</div>
+					</div>
+                {% elseif emergency_response %}
+                    {# Response Message #}
+					<div data-c-container="medium">
+						<div data-c-border="all(thick, solid, c1)" data-c-padding="all(1)" data-c-radius="rounded" data-c-align="base(center) tl(left)" style="background: #eee7ec; position: relative;">
+							<h2 data-c-font-size="h2" data-c-font-weight="bold" data-c-color="c1" data-c-margin="bottom(1)">{{ home.response.title }}</h2>
+                            <p data-c-color="c1" data-c-margin="bottom(1)">{{ home.response.main_message }}</p>
+                            <hr data-c-hr="thin(c1)" data-c-margin="bottom(1)">
+                            <p data-c-color="c1">{{ home.response.sign_off }}{{ home.response.signature }}&nbsp;{{ home.response.link|raw }}.</p>
 						</div>
 					</div>
 				{% else %}

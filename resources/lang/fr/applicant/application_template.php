@@ -102,9 +102,6 @@ return [
     'veterans_title' => 'Statut Vétéran',
     'veterans_content' => 'Êtes-vous membre des Forces armées canadiennes?',
     'veterans_label' => 'En choisir un',
-    'language_title' => 'Exigence linguistique',
-    'language_copy' => 'Quelle langue officielle préféreriez-vous pour ce processus de candidature?',
-    'language_label' => 'En choisir un',
     /* Step 02 */
     'step_02_title' => 'Nuage de talents | Candidat : Postuler maintenant - Étape 2',
     'experience' => [
@@ -140,13 +137,14 @@ return [
     'essential_answer_1' => 'Désolé, vous devez vraiment toutes les posséder, et au niveau adéquat.',
     'essential_question_2' => 'Q. Et si j’étirais un peu la vérité? Une fois qu’ils m’auront interviewé, ils changeront d’avis, c’est certain!',
     'essential_answer_2' => 'Ne le faites pas. Ces compétences seront évaluées, et vous valez mieux que ça.',
-    'essential_sidebar_label' => 'Liste de compétences',
 
     'asset_title' => "Des compétences qu'il est bon à avoir",
     'asset_context' => "Vous pouvez postuler à cet emploi si vous ne possédez aucune de ces compétences. Ce sont des atouts qui, selon le responsable du recrutement, viendraient faciliter le travail. Ces compétences servent souvent pour sélectionner le ou la meilleur(e) candidat(e) parmi tous ceux et toutes celles qui répondent à tous les critères du « Besoin d’avoir ». Donc, si vous avez ces compétences, le moment est venu d'en informer le responsable du recrutement.",
     'asset_start_button_title' => "Faites défiler pour commencer à remplir les compétences qu'il est bon à avoir.",
     'skills_start_button_label' => 'Commencer',
-    'asset_sidebar_label' => 'Liste de compétences',
+
+    /* Step 3&4 */
+    'skill_sidebar_label' => 'Liste de compétences',
 
     /* Step 05 */
     'step_05_title' => 'Nuage de talents | Candidat : Postuler maintenant - Étape 5',
@@ -184,7 +182,7 @@ return [
     /* Step 06 (Integrity Check) */
     'integrity' => [
         'title' => 'Confirmation de candidature',
-        'confirmation_copy' => 'En signant votre nom ci-dessous, vous confirmez:',
+        'confirmation_copy' => 'En signant mon nom ci-dessous, je confirme:',
         'confirmation_01' => "J'ai examiné ce que j'ai écrit dans ma candidature.",
         'confirmation_02' => "Je comprends que je fais partie d'une collectivité de gens qui se font confiance.",
         'confirmation_03' => 'Je jure que l’information que je fournis est vraie.',
@@ -208,4 +206,32 @@ return [
         'faq_title' => 'Accéder à la foire aux questions du Talent Cloud.',
         'faq_label' => 'Voir la foire aux questions',
     ],
+
+    'strategic_response' => [
+        'required_information' => '',
+        'experience_title' => '',
+        'experience_description' => '',
+        'essential_context_1' => '',
+        'essential_context_2' => '',
+        'asset_context' => '',
+        'skill_prompt' => '',
+        'skill_placeholder' => '',
+        'confirmations' => [
+            '',
+            '',
+        ],
+        'complete_title' => '',
+        'complete_copy_1' => '',
+        'complete_copy_2' => '',
+        'complete_return_label' => '',
+        'director_name_label' => '',
+        'director_title_label' => '',
+        'director_email_label' => '',
+        'reference_name_label' => '',
+        'reference_title_label' => '',
+        'reference_email_label' => '',
+        'required_title' => '',
+        'director_copy' => '',
+        'reference_copy' => ''
+    ]
 ];

@@ -1,0 +1,43 @@
+<nav class="menu" data-c-background="black(60)">
+    <div data-c-container="large">
+        <div data-c-grid>
+            <div data-c-grid-item="base(1of1) tl(2of4)">
+                <ul data-c-align="base(center) tl(left)">
+                    <li>
+                        <a href="{{ route('response.index') }}" title="{{ response.menu.home.title }}" data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">{{ response.menu.home.text }}</a>
+                    </li>
+                    <li>
+                        <a href="#apply" title="{{ response.menu.apply.title }}" data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">{{ response.menu.apply.text }}</a>
+                    </li>
+                    <li>
+                        <a href="https://canada.ca/coronavirus" title="{{ response.menu.info.title }}" target="_blank" data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">{{ response.menu.info.text }}</a>
+                    </li>
+                    <li>
+                        <a href="/faq#covid19" title="{{ response.menu.faq.title }}" target="_blank" data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">{{ response.menu.faq.text }}</a>
+                    </li>
+                </ul>
+            </div>
+            <div data-c-grid-item="base(1of1) tl(2of4)">
+                <ul data-c-align="base(center) tl(right)">
+                    {% if auth_guest() %}
+                        <li>
+                            <a href="{{ login_modals.login_link }}" data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">{{ menu.login }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ login_modals.register_link }}" data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">{{ menu.register }}</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{{ login_modals.logout_link }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">
+                                {{ menu.logout }}
+                            </a>
+                            <form id="logout-form" action="{{ login_modals.logout_link }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

@@ -94,5 +94,18 @@ return [
     'questions' => [
         '00' => 'Pourquoi êtes-vous intéressé par ce travail?',
         '01' => 'Pourquoi pensez-vous que vous serez un bon candidat pour ce poste?'
+    ],
+    'strategic_response_questions' => [
+        'Quel est votre compte courriel actif du GC (doit se terminer par .ca)',
+        'Quel est votre classification et votre niveau actuel? (par exemple, IS-03)',
+        'Quel est votre niveau d\'autorisation de sécurité actuel? (Fiabilité, Approfondi, Secret)',
+        'Quel est votre niveau actuel en français et en anglais? (par exemple, BBB/BBB)',
+        'Quel est votre lieu de travail actuel? (Ville, Province)',
+        'Quels sont votre ministère d\'attache et votre direction générale? (Ministère, Direction générale)',
+        'Quels sont le nom et l\'adresse courriel de votre directeur actuel? (Nous aurons besoin de l\'approbation indiquant que vous pouvez être prêté à une autre équipe pendant un certain temps pour aider.)',
+        'Quels sont le nom et l\'adresse courriel d\'un autre répondant qui peut confirmer votre ensemble de compétences? (De préférence un superviseur actuel ou récent du gouvernement du Canada.)',
+        'Êtes-vous prêt à venir au travail dans un réel bureau?',
+        'L\'équipe que vous aidez devra-t-elle fournir des mesures d\'adaptation supplémentaires pour que vous puissiez appliquer vos compétences au travail requis?',
+        'Avez-vous de l\'expérience ou des compétences (autres que celles requises pour ce poste) qui peuvent être un atout à l\'équipe dans les circonstances actuelles?',
     ]
 ];

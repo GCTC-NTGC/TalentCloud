@@ -1,0 +1,63 @@
+<div class="flourish-wrapper" data-c-border="tb(thin, solid, gray)">
+    <img alt="{{ response.canadian_maple_leaf_alt }}" class="flourish-icon-left" src="/images/maple-leaf.svg">
+    <div data-c-container="large" data-c-padding="tb(3)">
+        <div data-c-grid="gutter(all, 2)">
+            <div data-c-grid-item="tl(1of2)">
+                <div data-c-card data-c-background="white(100)" data-c-radius="rounded" data-c-padding="all(1)">
+                    <div data-c-grid="gutter(all, 1) middle">
+                        <div data-c-grid-item="tp(1of2) tl(2of3)" data-c-align="base(center) tp(left)">
+                            <h2 data-c-heading="h2">{{ response.content.title }}</h2>
+                        </div>
+                        <div data-c-grid-item="tp(1of2) tl(1of3)" data-c-align="base(center) tp(right)">
+                            <a href="#apply" title="{{ response.content.offer_help.title }}" data-c-button="solid(go)" data-c-radius="rounded"><span>{{ response.content.offer_help.text }}</span></a>
+                        </div>
+                    </div>
+                    <p data-c-margin="tb(1)">{{ response.content.body }}</p>
+                    <p data-c-margin="tb(.5)">{{ response.content.designed_to_header }}</p>
+                    <ul data-c-margin="bottom(1)">
+                        {% for item in response.content.designed_to_list %}
+                            <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                    <p data-c-margin="bottom(1)">{{ response.content.shared_effort }}</p>
+                    <p>{{ response.content.code_for_site }}<a href="https://github.com/GCTC-NTGC/TalentCloud" title="{{ response.content.github_url.title }}" target="_blank">{{ response.content.github_url.text }}</a> {{ response.content.email.or }} {{ response.content.email.text }} <a href="mailto:{{config('mail.admin_address')}}" title="{{ response.content.email.title }}">{{config('mail.admin_address')}}</a>.</p>
+                    <a data-c-margin="top(1)" href="#how" title="{{ response.content.submit_name.title }}" data-c-button="outline(c1)" data-c-radius="rounded"><span>{{ response.content.submit_name.text }}</span></a>
+                    <a data-c-margin="top(1)" href="" title="{{ response.content.get_approval.title }}" data-c-button="outline(c1)" data-c-radius="rounded"><span>{{ response.content.get_approval.text }}</span></a>
+                </div>
+            </div>
+            <div data-c-grid-item="tl(1of2)">
+                <div data-c-alert="warning" data-c-radius="rounded" role="alert" data-c-margin="bottom(2)">
+                    <div data-c-padding="half">
+                        <p data-c-margin="bottom(quarter)" data-c-font-weight="bold">
+                            <i class="fas fa-bell"></i>
+                            {{ response.content.need_help.title }}
+                        </p>
+                        <p>
+                            {{ response.content.need_help.body }} <a href="{# {{ route('response.faq')}} #}" title="{{ response.content.need_help.learn_more.title }}" target="_blank">{{ response.content.need_help.learn_more.text }}</a>.
+                        </p>
+                    </div>
+                </div>
+                <div data-c-grid="gutter(all, 1)">
+                    <div data-c-grid-item="tp(1of1)">
+                        <p data-c-font-weight="bold" data-c-font-size="h4" data-c-margin="bottom(1)">{{ response.content.apply_list_title }}</p>
+                        {% for item in response.content.apply_list %}
+                            <div class="response-list-item">
+                                <i class="fas fa-check" data-c-color="go" data-c-margin="right(.5)"></i>
+                                <p data-c-margin="bottom(.25)">{{ item }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div data-c-grid-item="tp(1of1)">
+                        <p data-c-font-weight="bold" data-c-font-size="h4" data-c-margin="bottom(1)">{{ response.content.not_apply_list_title }}</p>
+                        {% for item in response.content.not_apply_list %}
+                            <div class="response-list-item">
+                                <i class="fas fa-times" data-c-color="stop" data-c-margin="right(.5)"></i>
+                                <p data-c-margin="bottom(.25)">{{ item }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,12 +1,22 @@
-// =============================================================================
-
-    // Jobs: Post - Apply
-
-// =============================================================================
-.job-post__apply {
-
+// Applicant: Job Poster - Apply Call-to-action
+.tc-applicant-job-poster-apply {
+    a {
+        color: $clone-white;
+        display: block !important;
+        font-size: $clone-font-scale-h3;
+        font-weight: bold;
+        text-align: center;
+        transition: all .2s ease;
+        &:hover,
+        &:focus {
+            background: transparentize($clone-c5, .9);
+            color: $clone-hover-colour;
+            transition: all .2s ease;
+        }
+    }
 }
 
+// Old Job Poster Support
 .job-post__apply-accommodation-wrapper {
     background: $palette--black;
     border-radius: 3px 3px 0 0;
@@ -21,14 +31,12 @@
     }
 
 }
-
 .job-post__apply-title {
     color: $palette--font-white;
     font-family: $font--sans;
     font-size: $font-scale--h3;
     margin: 0 0 3rem 0;
 }
-
 .job-post__apply-content,
 .job-post__apply-content-preference {
     color: $palette--font-white;
@@ -38,7 +46,6 @@
     line-height: 1.5;
 
 }
-
 .job-post__apply-content-preference {
     margin: 1rem 0 0 0;
 
@@ -46,7 +53,6 @@
         margin: 0;
     }
 }
-
 .job-post__apply-content {
     margin: 1rem 0 3rem 0;
 
@@ -54,11 +60,9 @@
         margin: 0 0 3rem 0;
     }
 }
-
 .job-post__apply-content-preference:not(:last-child) {
     margin: 0 0 1rem 0;
 }
-
 .job-post__apply-button {
     background: $clone-c1;
     border-radius: 0 0 3px 3px;
@@ -82,7 +86,6 @@
     }
 
 }
-
 .job-post__apply-button--closed {
     background: rgba(200, 200, 200, 1);
     border-radius: 0 0 3px 3px;

@@ -1,0 +1,33 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Job Poster - Basic Information
+
+============================================================================= #}
+<section id="basics" data-c-padding="top(3)">
+    <div data-c-border="all(thin, solid, c1)" data-c-background="c1(10)" data-c-radius="rounded" data-c-padding="all(1)">
+        <h3 data-c-font-size="h3" data-c-color="c1" data-c-margin="bottom(1)" data-c-border="bottom(thin, solid, c1)" data-c-padding="bottom(1)">{{ job_post.basics.title }}</h3>
+        <div data-c-grid="gutter(1)" data-c-color="c1">
+            {# Language #}
+            <div data-c-grid-item="tp(1of2)">
+                <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ job_post.basics.language_label }}</p>
+                <p>{{ job_post.strategic_response.various }}</p>
+            </div>
+            {# Duration #}
+            <div data-c-grid-item="tp(1of2)">
+                <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ job_post.basics.duration_label }}</p>
+                <p>{{ job_post.strategic_response.various }}</p>
+            </div>
+            {# Security #}
+            <div data-c-grid-item="tp(1of2)">
+                <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ job_post.basics.security_label }}</p>
+                <p>{{ job_post.strategic_response.various }}</p>
+            </div>
+            {# Classification #}
+            <div data-c-grid-item="tp(1of2)">
+                <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ job_post.basics.classification_label }}</p>
+                <p>{{ job_post.strategic_response.various }}</p>
+            </div>
+        </div>
+    </div>
+</section>
