@@ -49,7 +49,7 @@
                             <label class="form__label" for="director_name">
                                 {{ application_template.strategic_response.director_name_label }}
                             </label>
-                            <input class="form__input" id="director_name" name="director_name" required type="text"/>
+                            <input class="form__input" i="director_name" name="director_name" required type="text" value="{{ job_application.director_name }}"/>
                         </div>
                     </div>
                     <div class="box full">
@@ -57,7 +57,7 @@
                             <label class="form__label" for="director_title">
                                 {{ application_template.strategic_response.director_title_label }}
                             </label>
-                            <input class="form__input" id="director_title" name="director_title" required type="text"/>
+                            <input class="form__input" id="director_title" name="director_title" required type="text" value="{{ job_application.director_title }}"/>
                         </div>
                     </div>
                     <div class="box full">
@@ -65,7 +65,7 @@
                             <label class="form__label" for="director_email">
                                 {{ application_template.strategic_response.director_email_label }}
                             </label>
-                            <input class="form__input" id="director_email" name="director_email" required type="email"/>
+                            <input class="form__input" id="director_email" name="director_email" required type="email" value="{{ job_application.director_email }}"/>
                         </div>
                     </div>
                     <p>
@@ -76,7 +76,7 @@
                             <label class="form__label" for="reference_name">
                                 {{ application_template.strategic_response.reference_name_label }}
                             </label>
-                            <input class="form__input" id="reference_name" name="reference_name" required type="text"/>
+                            <input class="form__input" id="reference_name" name="reference_name" required type="text" value="{{ job_application.reference_name }}"/>
                         </div>
                     </div>
                     <div class="box full">
@@ -84,7 +84,7 @@
                             <label class="form__label" for="reference_title">
                                 {{ application_template.strategic_response.reference_title_label }}
                             </label>
-                            <input class="form__input" id="reference_title" name="reference_title" required type="text"/>
+                            <input class="form__input" id="reference_title" name="reference_title" required type="text" value="{{ job_application.reference_title }}"/>
                         </div>
                     </div>
                     <div class="box full">
@@ -92,7 +92,7 @@
                             <label class="form__label" for="reference_email">
                                 {{ application_template.strategic_response.reference_email_label }}
                             </label>
-                            <input class="form__input" id="reference_email" name="reference_email" required type="email"/>
+                            <input class="form__input" id="reference_email" name="reference_email" required type="email" value="{{ job_application.reference_email }}"/>
                         </div>
                     </div>
                 </div>
@@ -110,13 +110,8 @@
                     <label class="form__label" for="questions[{{ question.id }}]">
                         {{ application_template.question_label }}
                     </label>
-                    <textarea id="questions[{{ question.id }}]" class="form__textarea" name="questions[{{ question.id }}]" required>
-                        {% for userAnswer in job_application.job_application_answers %}
-                            {% if userAnswer.job_poster_question.id == question.id %}
-                                {{ userAnswer.answer }}
-                            {% endif %}
-                        {% endfor %}
-                    </textarea>
+                    <textarea id="questions[{{ question.id }}]" class="form__textarea" name="questions[{{ question.id }}]" required
+                        >{% for userAnswer in job_application.job_application_answers %}{% if userAnswer.job_poster_question.id == question.id %}{{ userAnswer.answer }}{% endif %}{% endfor %}</textarea>
                 </div>
             </div>
         {% endfor %}
