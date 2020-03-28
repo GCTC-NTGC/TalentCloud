@@ -108,8 +108,10 @@
       border-color: rgba(0, 0, 0, 0.5);
     }
 
-    .checkbox__wrapper .checkbox__content i {
+    .checkbox__wrapper .checkbox__content {
+        i {
         opacity: 0;
+      }
     }
 
     input:checked + .checkbox__wrapper .checkbox__content {
