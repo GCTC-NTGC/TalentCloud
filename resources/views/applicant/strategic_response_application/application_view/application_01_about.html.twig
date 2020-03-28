@@ -48,6 +48,75 @@
                 </span>
         </div>
 
+    {# References #}
+
+        <div
+            class="application-preview__status">
+                <i class="fas fa-{{ job_application.director_name ? 'check' : 'times' }}"></i>
+                <span>
+                    {{ application_template.strategic_response.director_name_label }}:
+                </span>
+                <span>
+                    {{ job_application.director_name }}
+                </span>
+        </div>
+
+        <div
+            class="application-preview__status">
+                <i class="fas fa-{{ job_application.director_title ? 'check' : 'times' }}"></i>
+                <span>
+                    {{ application_template.strategic_response.director_title_label }}:
+                </span>
+                <span>
+                    {{ job_application.director_title }}
+                </span>
+        </div>
+
+        <div
+            class="application-preview__status">
+                <i class="fas fa-{{ job_application.director_email ? 'check' : 'times' }}"></i>
+                <span>
+                    {{ application_template.strategic_response.director_email_label }}:
+                </span>
+                <span>
+                    {{ job_application.director_email }}
+                </span>
+        </div>
+
+        <div
+            class="application-preview__status">
+                <i class="fas fa-{{ job_application.reference_name ? 'check' : 'times' }}"></i>
+                <span>
+                    {{ application_template.strategic_response.reference_name_label }}:
+                </span>
+                <span>
+                    {{ job_application.reference_name }}
+                </span>
+        </div>
+
+        <div
+            class="application-preview__status">
+                <i class="fas fa-{{ job_application.reference_title ? 'check' : 'times' }}"></i>
+                <span>
+                    {{ application_template.strategic_response.reference_title_label }}:
+                </span>
+                <span>
+                    {{ job_application.reference_title }}
+                </span>
+        </div>
+
+        <div
+            class="application-preview__status">
+                <i class="fas fa-{{ job_application.reference_email ? 'check' : 'times' }}"></i>
+                <span>
+                    {{ application_template.strategic_response.reference_email_label }}:
+                </span>
+                <span>
+                    {{ job_application.reference_email }}
+                </span>
+        </div>
+
+
     {# Long Form Questions #}
 
         {% for question in job.job_poster_questions %}
