@@ -96,13 +96,10 @@ return [
         '01' => 'Why do you think you would be a good fit for this job?'
     ],
     'strategic_response_questions' => [
-        'What is your active GC email account (must end in .ca)',
         'What is your current classification and level? (e.g. IS-03)',
-        'What is your current security clearance level? (Reliability, Enhanced, Secret)',
         'What are your current levels in English and French? (e.g. BBB/BBB)',
         'What is your current work location? (City, Province)',
         'What is your home department and branch? (Department, Branch)',
-        'Are you willing to come to work in a physical office?',
         'Will the team you’re helping to need to provide any additional accommodation measures to ensure you can apply your skills to the work required?',
         'Do you have any experience or skills (other than those required for this position) that might be an asset to a team under the current circumstances?',
     ]
