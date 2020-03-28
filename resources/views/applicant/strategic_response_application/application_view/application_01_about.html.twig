@@ -4,156 +4,159 @@
     Application View - Step 01
 
 ============================================================================= #}
-<a
-    aria-hidden="true"
-    class="application__view-anchor"
-    id="applicationView01">
-</a>
-
-<section
-    class="application-preview__section-01">
-
+<a aria-hidden="true" class="application__view-anchor" id="applicationView01"></a>
+<section class="application-preview__section-01">
     <h4>
         {{ application_template.preview.section_01_title }}
     </h4>
-
     {# Applicant Name #}
-
-        {% if is_manager_view %}
-            <div
-                class="application-preview__status">
-
-                <span>Applicant: {{ applicant.user.first_name }} {{ applicant.user.last_name }}</span>
-
-            </div>
-        {% endif %}
-
+    {% if is_manager_view %}
+        <div class="application-preview__status">
+            <span>Applicant:
+                {{ applicant.user.first_name }}
+                {{ applicant.user.last_name }}</span>
+        </div>
+    {% endif %}
     {# Language Choice #}
-
-        {% if job_application.preferred_language_id == 1 %}
-            {# English #}
-            {% set language_choice = application_template.preview.english_choice %}
-        {% elseif job_application.preferred_language_id == 2 %}
-            {# French #}
-            {% set language_choice = application_template.preview.french_choice %}
-        {% else %}
-            {% set language_choice = application_template.preview.language_null_copy %}
-        {% endif %}
-
-        <div
-            class="application-preview__status">
-                <i class="fas fa-{{ job_application.preferred_language_id ? 'check' : 'times' }}"></i>
-                <span>
-                    {{ language_choice|raw|nl2br }}
-                </span>
-        </div>
-
+    {% if job_application.preferred_language_id == 1 %}
+        {# English #}
+        {% set language_choice = application_template.preview.english_choice %}
+    {% elseif job_application.preferred_language_id == 2 %}
+        {# French #}
+        {% set language_choice = application_template.preview.french_choice %}
+    {% else %}
+        {% set language_choice = application_template.preview.language_null_copy %}
+    {% endif %}
+    <div class="application-preview__status">
+        <i class="fas fa-{{ job_application.preferred_language_id ? 'check' : 'times' }}"></i>
+        <span>
+            {{ language_choice|raw|nl2br }}
+        </span>
+    </div>
+    {# Government email #}
+    <div class="application-preview__status">
+        <i class="fas fa-{{ job_application.gov_email ? 'check' : 'times' }}"></i>
+        <span>
+            {{ application_template.strategic_response.gov_email_label }}:
+        </span>
+        <span>
+            <strong>
+                {{ job_application.gov_email }}
+            </strong>
+        </span>
+    </div>
+    {# Security clearance #}
+    <div class="application-preview__status">
+        <i class="fas fa-{{ job_application.security_clearance_id ? 'check' : 'times' }}"></i>
+        <span>
+            {{ application_template.strategic_response.preview_security_clearance_label }}:
+        </span>
+        <span>
+            <strong>
+                {{ job_application.security_clearance.value }}
+            </strong>
+        </span>
+    </div>
+    {# Willing to work in physical office #}
+    <div class="application-preview__status">
+        <i class="fas fa-{{ job_application.physical_office_willing ? 'check' : 'times' }}"></i>
+        <span>
+            {{ job_application.physical_office_willing
+                ? application_template.strategic_response.preview_physical_office_yes|raw
+                : application_template.strategic_response.preview_physical_office_no|raw }}
+        </span>
+    </div>
     {# References #}
-
-        <div
-            class="application-preview__status">
-                <i class="fas fa-{{ job_application.director_name ? 'check' : 'times' }}"></i>
-                <span>
-                    {{ application_template.strategic_response.director_name_label }}:
-                </span>
-                <span>
-                    {{ job_application.director_name }}
-                </span>
-        </div>
-
-        <div
-            class="application-preview__status">
-                <i class="fas fa-{{ job_application.director_title ? 'check' : 'times' }}"></i>
-                <span>
-                    {{ application_template.strategic_response.director_title_label }}:
-                </span>
-                <span>
-                    {{ job_application.director_title }}
-                </span>
-        </div>
-
-        <div
-            class="application-preview__status">
-                <i class="fas fa-{{ job_application.director_email ? 'check' : 'times' }}"></i>
-                <span>
-                    {{ application_template.strategic_response.director_email_label }}:
-                </span>
-                <span>
-                    {{ job_application.director_email }}
-                </span>
-        </div>
-
-        <div
-            class="application-preview__status">
-                <i class="fas fa-{{ job_application.reference_name ? 'check' : 'times' }}"></i>
-                <span>
-                    {{ application_template.strategic_response.reference_name_label }}:
-                </span>
-                <span>
-                    {{ job_application.reference_name }}
-                </span>
-        </div>
-
-        <div
-            class="application-preview__status">
-                <i class="fas fa-{{ job_application.reference_title ? 'check' : 'times' }}"></i>
-                <span>
-                    {{ application_template.strategic_response.reference_title_label }}:
-                </span>
-                <span>
-                    {{ job_application.reference_title }}
-                </span>
-        </div>
-
-        <div
-            class="application-preview__status">
-                <i class="fas fa-{{ job_application.reference_email ? 'check' : 'times' }}"></i>
-                <span>
-                    {{ application_template.strategic_response.reference_email_label }}:
-                </span>
-                <span>
-                    {{ job_application.reference_email }}
-                </span>
-        </div>
-
-
+    <div class="application-preview__status">
+        <i class="fas fa-{{ job_application.director_name ? 'check' : 'times' }}"></i>
+        <span>
+            {{ application_template.strategic_response.director_name_label }}:
+        </span>
+        <span>
+            <strong>
+                {{ job_application.director_name }}
+            </strong>
+        </span>
+    </div>
+    <div class="application-preview__status">
+        <i class="fas fa-{{ job_application.director_title ? 'check' : 'times' }}"></i>
+        <span>
+            {{ application_template.strategic_response.director_title_label }}:
+        </span>
+        <span>
+            <strong>
+                {{ job_application.director_title }}
+            </strong>
+        </span>
+    </div>
+    <div class="application-preview__status">
+        <i class="fas fa-{{ job_application.director_email ? 'check' : 'times' }}"></i>
+        <span>
+            {{ application_template.strategic_response.director_email_label }}:
+        </span>
+        <span>
+            <strong>
+                {{ job_application.director_email }}
+            </strong>
+        </span>
+    </div>
+    <div class="application-preview__status">
+        <i class="fas fa-{{ job_application.reference_name ? 'check' : 'times' }}"></i>
+        <span>
+            {{ application_template.strategic_response.reference_name_label }}:
+        </span>
+        <span>
+            <strong>
+                {{ job_application.reference_name }}
+            </strong>
+        </span>
+    </div>
+    <div class="application-preview__status">
+        <i class="fas fa-{{ job_application.reference_title ? 'check' : 'times' }}"></i>
+        <span>
+            {{ application_template.strategic_response.reference_title_label }}:
+        </span>
+        <span>
+            <strong>
+                {{ job_application.reference_title }}
+            </strong>
+        </span>
+    </div>
+    <div class="application-preview__status">
+        <i class="fas fa-{{ job_application.reference_email ? 'check' : 'times' }}"></i>
+        <span>
+            {{ application_template.strategic_response.reference_email_label }}:
+        </span>
+        <span>
+            <strong>
+                {{ job_application.reference_email }}
+            </strong>
+        </span>
+    </div>
     {# Long Form Questions #}
-
-        {% for question in job.job_poster_questions %}
-
-            <div
-                class="application-preview__long-question">
-
-                <span>
-                    {{ question.question }}
-                </span>
-
-                <p>
-
-                    {% set questionCounter = 0 %}
-
-                    {% for applicantQuestion in application_template.application.questions %}
-                        {% if applicantQuestion.id == question.id %}
-                            {% set questionCounter = questionCounter + 1 %}
-                            {{ applicantQuestion.answer }}
-                        {% endif %}
-                    {% endfor %}
-
-                    {% for userAnswer in job_application.job_application_answers %}
-                        {% if userAnswer.job_poster_question.id == question.id %}
-                            {% set questionCounter = questionCounter + 1 %}
-                            {{ userAnswer.answer|nl2br }}
-                        {% endif %}
-                    {% endfor %}
-
-                    {% if questionCounter == 0 %}
-                        {{ application_template.preview.long_question_null }}
+    {% for question in job.job_poster_questions %}
+        <div class="application-preview__long-question">
+            <span>
+                {{ question.question }}
+            </span>
+            <p>
+                {% set questionCounter = 0 %}
+                {% for applicantQuestion in application_template.application.questions %}
+                    {% if applicantQuestion.id == question.id %}
+                        {% set questionCounter = questionCounter + 1 %}
+                        {{ applicantQuestion.answer }}
                     {% endif %}
-
-                </p>
-
-            </div>
-
-        {% endfor %}
-
+                {% endfor %}
+                {% for userAnswer in job_application.job_application_answers %}
+                    {% if userAnswer.job_poster_question.id == question.id %}
+                        {% set questionCounter = questionCounter + 1 %}
+                        {{ userAnswer.answer|nl2br }}
+                    {% endif %}
+                {% endfor %}
+                {% if questionCounter == 0 %}
+                    {{ application_template.preview.long_question_null }}
+                {% endif %}
+            </p>
+        </div>
+    {% endfor %}
 </section>
