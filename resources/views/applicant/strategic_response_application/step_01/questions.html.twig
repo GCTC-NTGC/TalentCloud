@@ -47,7 +47,7 @@
                             <label class="form__label" for="gov_email">
                                 {{ application_template.strategic_response.gov_email_label }}
                             </label>
-                            <input class="form__input" id="gov_email" name="gov_email" required type="email"/>
+                            <input class="form__input" id="gov_email" name="gov_email" required type="email" value="{{ job_application.gov_email }}"/>
                             <br><br>
                         </div>
                     </div>
@@ -79,7 +79,7 @@
                 </div>
                 <div class="application-post__language-declaration">
                     <span>
-                        {{ application_template.strategic_response.physical_office_willing_label }}
+                        {{ application_template.strategic_response.physical_office_willing_copy }}
                     </span>
                     <div class="form__input-wrapper--checkbox">
                         <label class="form-label" for="physical_office_willing">
@@ -91,7 +91,7 @@
                             </span>
                         </label>
                         <p class="box fit">
-                            Check for Yes.
+                            {{ application_template.strategic_response.physical_office_willing_label }}
                         </p>
                     </div>
                 </div>
