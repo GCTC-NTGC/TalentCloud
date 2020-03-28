@@ -208,6 +208,20 @@ return [
 
     'strategic_response' => [
         'required_information' => 'Required Information',
+        'gov_email_copy' => 'What is your active GC email account (must end in .ca)',
+        'gov_email_label' => 'GC email',
+        'physical_office_willing_label' => 'Are you willing to come to work in a physical office?',
+        'security_clearance_copy' => 'What is your current security clearance level?',
+        'security_clearance_label' => 'Select One',
+        'director_name_label' => 'Director Name',
+        'director_title_label' => 'Director Title',
+        'director_email_label' => 'Director Email',
+        'reference_name_label' => 'Reference Name',
+        'reference_title_label' => 'Reference Title',
+        'reference_email_label' => 'Reference Email',
+        'required_title' => 'Required Information',
+        'director_copy' => 'What is your current director’s name and email? (We’ll need approval that you can be loaned to another team for a bit to help out.)',
+        'reference_copy' => 'What is the name and email of an additional reference who can confirm your skill set? (Preferably a current or recent Government of Canada supervisor.)',
         'experience_title' => 'My Education',
         'experience_description' => 'Add education if it’s relevant to the skill requirements for this job.',
         'essential_context_1' => 'You\'re amazing for applying. Thanks for offering to help out. These skills are what departments need right now. <strong>Super important:</strong> if you want to be of genuine help, <strong>these are skills you must already have.</strong>',
@@ -223,14 +237,5 @@ return [
         'complete_copy_1' => 'You\'re awesome.',
         'complete_copy_2' => 'Thanks for putting your name forward.The GC Talent Reserve team will be in touch in a few days with next steps.',
         'complete_return_label' => 'Back to Homepage',
-        'director_name_label' => 'Director Name',
-        'director_title_label' => 'Director Title',
-        'director_email_label' => 'Director Email',
-        'reference_name_label' => 'Reference Name',
-        'reference_title_label' => 'Reference Title',
-        'reference_email_label' => 'Reference Email',
-        'required_title' => 'Required Information',
-        'director_copy' => 'What is your current director’s name and email? (We’ll need approval that you can be loaned to another team for a bit to help out.)',
-        'reference_copy' => 'What is the name and email of an additional reference who can confirm your skill set? (Preferably a current or recent Government of Canada supervisor.)'
     ]
 ];

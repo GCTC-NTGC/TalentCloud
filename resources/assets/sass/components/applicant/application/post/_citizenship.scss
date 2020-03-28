@@ -108,6 +108,10 @@
       border-color: rgba(0, 0, 0, 0.5);
     }
 
+    .checkbox__wrapper .checkbox__content i {
+        opacity: 0;
+    }
+
     input:checked + .checkbox__wrapper .checkbox__content {
       animation: check 0.5s cubic-bezier(0.895, 0.03, 0.685, 0.22) forwards;
 
