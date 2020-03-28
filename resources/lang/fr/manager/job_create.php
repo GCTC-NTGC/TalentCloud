@@ -105,6 +105,7 @@ return [
         'Quels sont le nom et l\'adresse courriel de votre directeur actuel? (Nous aurons besoin de l\'approbation indiquant que vous pouvez être prêté à une autre équipe pendant un certain temps pour aider.)',
         'Quels sont le nom et l\'adresse courriel d\'un autre répondant qui peut confirmer votre ensemble de compétences? (De préférence un superviseur actuel ou récent du gouvernement du Canada.)',
         'Êtes-vous prêt à venir au travail dans un réel bureau?',
+        'Can you work full time? If not, please indicate your availability',
         'L\'équipe que vous aidez devra-t-elle fournir des mesures d\'adaptation supplémentaires pour que vous puissiez appliquer vos compétences au travail requis?',
         'Avez-vous de l\'expérience ou des compétences (autres que celles requises pour ce poste) qui peuvent être un atout à l\'équipe dans les circonstances actuelles?',
     ]
