@@ -32,7 +32,7 @@ class ViewComposerServiceProvider extends ServiceProvider
 
         // Nav menu.
         View::composer(
-            '*',
+            ['common/menu', 'response/menu'],
             'App\Http\ViewComposers\MenuComposer'
         );
 
@@ -63,8 +63,10 @@ class ViewComposerServiceProvider extends ServiceProvider
         );
 
         View::composer(
-            ['common/relatives','common/reference','common/relatives-projects',
-                'common/sample', 'common/skill', 'common/modals/create_reference'],
+            [
+                'common/relatives', 'common/reference', 'common/relatives-projects',
+                'common/sample', 'common/skill', 'common/modals/create_reference'
+            ],
             'App\Http\ViewComposers\RelativeComposer'
         );
 
@@ -118,6 +120,16 @@ class ViewComposerServiceProvider extends ServiceProvider
             'common/breadcrumbs',
             'App\Http\ViewComposers\BreadcrumbsComposer'
         );
+
+        View::composer(
+            'response/menu',
+            'App\Http\ViewComposers\StrategicResponseMenuComposer'
+        );
+
+        View::composer(
+            'response/beta-banner',
+            'App\Http\ViewComposers\StrategicResponseBannerComposer'
+        );
     }
 
     /**
@@ -125,7 +137,7 @@ class ViewComposerServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register() : void
+    public function register(): void
     {
         $this->app->singleton(\App\Http\ViewComposers\CourseComposer::class);
         $this->app->singleton(\App\Http\ViewComposers\DegreeComposer::class);

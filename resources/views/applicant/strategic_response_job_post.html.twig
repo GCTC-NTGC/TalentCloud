@@ -20,9 +20,11 @@
 {% endblock %}
 {% block body %}
 	{% include "common/goc" %}
-	{% include "common/alert" %}
-    {% include "applicant/strategic_response_job_post/header" %}
 	<div data-clone>
+        {% include "response/beta-banner" %}
+        {% include "response/menu" %}
+        {% include "applicant/strategic_response_job_post/header" %}
+
         <a id="skipLink"></a>
         <div data-c-border="bottom(thin, solid, gray)">
 	        {% include "applicant/strategic_response_job_post/layout" %}
