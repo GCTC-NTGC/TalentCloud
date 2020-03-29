@@ -209,6 +209,20 @@ return [
 
     'strategic_response' => [
         'required_information' => '',
+        'gov_email_copy' => '',
+        'gov_email_label' => '',
+        'physical_office_willing_copy' => '',
+        'physical_office_willing_label' => '',
+        'security_clearance_copy' => '',
+        'security_clearance_label' => '',
+        'director_name_label' => '',
+        'director_title_label' => '',
+        'director_email_label' => '',
+        'reference_name_label' => '',
+        'reference_title_label' => '',
+        'reference_email_label' => '',
+        'director_copy' => '',
+        'reference_copy' => '',
         'experience_title' => '',
         'experience_description' => '',
         'essential_context_1' => '',
@@ -216,6 +230,9 @@ return [
         'asset_context' => '',
         'skill_prompt' => '',
         'skill_placeholder' => '',
+        'preview_security_clearance_label' => '',
+        'preview_physical_office_yes' => '',
+        'preview_physical_office_no' => '',
         'confirmations' => [
             '',
             '',
@@ -224,14 +241,5 @@ return [
         'complete_copy_1' => '',
         'complete_copy_2' => '',
         'complete_return_label' => '',
-        'director_name_label' => '',
-        'director_title_label' => '',
-        'director_email_label' => '',
-        'reference_name_label' => '',
-        'reference_title_label' => '',
-        'reference_email_label' => '',
-        'required_title' => '',
-        'director_copy' => '',
-        'reference_copy' => ''
     ]
 ];

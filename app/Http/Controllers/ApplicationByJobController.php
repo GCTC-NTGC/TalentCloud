@@ -12,6 +12,7 @@ use App\Models\Lookup\ApplicationStatus;
 use App\Models\Lookup\CitizenshipDeclaration;
 use App\Models\Lookup\PreferredLanguage;
 use App\Models\Lookup\ReviewStatus;
+use App\Models\Lookup\SecurityClearance;
 use App\Models\Lookup\SkillStatus;
 use App\Models\Lookup\VeteranStatus;
 use App\Models\Skill;
@@ -104,6 +105,7 @@ class ApplicationByJobController extends Controller
                 'language_options' => PreferredLanguage::all(),
                 'citizenship_options' => CitizenshipDeclaration::all(),
                 'veteran_options' => VeteranStatus::all(),
+                'security_clearance_options' => SecurityClearance::all(),
                 'preferred_language_template' => Lang::get('common/preferred_language'),
                 'citizenship_declaration_template' => Lang::get('common/citizenship_declaration'),
                 'veteran_status_template' => Lang::get('common/veteran_status'),
@@ -393,12 +395,17 @@ class ApplicationByJobController extends Controller
             'veteran_status_id' => $request->input('veteran_status_id'),
             'preferred_language_id' => $request->input('preferred_language_id'),
             'language_requirement_confirmed' => $request->input('language_requirement_confirmed', false),
+
+            // The following fields are exclusive Strategic Talent Response applications.
             'director_name' => $request->input('director_name'),
             'director_title' => $request->input('director_title'),
             'director_email' => $request->input('director_email'),
             'reference_name' => $request->input('reference_name'),
             'reference_title' => $request->input('reference_title'),
-            'reference_email' => $request->input('reference_email')
+            'reference_email' => $request->input('reference_email'),
+            'gov_email' => $request->input('gov_email'),
+            'physical_office_willing' => $request->input('physical_office_willing', false),
+            'security_clearance_id' => $request->input('security_clearance_id'),
         ]);
         $application->save();
 

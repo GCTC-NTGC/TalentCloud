@@ -208,6 +208,20 @@ return [
 
     'strategic_response' => [
         'required_information' => 'Required Information',
+        'gov_email_copy' => 'What is your active GC email account (must end in .ca)',
+        'gov_email_label' => 'GC email',
+        'physical_office_willing_copy' => 'Are you willing to come to work in a physical office?',
+        'physical_office_willing_label' => 'Check for Yes',
+        'security_clearance_copy' => 'What is your current security clearance level?',
+        'security_clearance_label' => 'Select One',
+        'director_name_label' => 'Director Name',
+        'director_title_label' => 'Director Title',
+        'director_email_label' => 'Director Email',
+        'reference_name_label' => 'Reference Name',
+        'reference_title_label' => 'Reference Title',
+        'reference_email_label' => 'Reference Email',
+        'director_copy' => 'What is your current director’s name and email? (We’ll need approval that you can be loaned to another team for a bit to help out.)',
+        'reference_copy' => 'What is the name and email of an additional reference who can confirm your skill set? (Preferably a current or recent Government of Canada supervisor.)',
         'experience_title' => 'My Education',
         'experience_description' => 'Add education if it’s relevant to the skill requirements for this job.',
         'essential_context_1' => 'You\'re amazing for applying. Thanks for offering to help out. These skills are what departments need right now. <strong>Super important:</strong> if you want to be of genuine help, <strong>these are skills you must already have.</strong>',
@@ -215,6 +229,9 @@ return [
         'asset_context' => 'This isn\'t required for the job you might be placed in. You can learn it as you go. But it would be great if you already had the skill(s) listed below.',
         'skill_prompt' => 'Share a few high level bullet points about your work experience:',
         'skill_placeholder' => 'Tell us a bit about your skills, like where you worked, what your role was, and what you delivered.',
+        'preview_security_clearance_label' => 'Security Clearance',
+        'preview_physical_office_yes' => '<strong>Yes</strong>, I am willing to come to work in a physical office.',
+        'preview_physical_office_no' => '<strong>No</strong>, I am not willing to come to work in a physical office.',
         'confirmations' => [
             'That I am part of a community of people who trust each other.',
             'People will be relying on me to do this job in this time of great need and I promise that the information I am providing is true.',
@@ -223,14 +240,5 @@ return [
         'complete_copy_1' => 'You\'re awesome.',
         'complete_copy_2' => 'Thanks for putting your name forward.The GC Talent Reserve team will be in touch in a few days with next steps.',
         'complete_return_label' => 'Back to Homepage',
-        'director_name_label' => 'Director Name',
-        'director_title_label' => 'Director Title',
-        'director_email_label' => 'Director Email',
-        'reference_name_label' => 'Reference Name',
-        'reference_title_label' => 'Reference Title',
-        'reference_email_label' => 'Reference Email',
-        'required_title' => 'Required Information',
-        'director_copy' => 'What is your current director’s name and email? (We’ll need approval that you can be loaned to another team for a bit to help out.)',
-        'reference_copy' => 'What is the name and email of an additional reference who can confirm your skill set? (Preferably a current or recent Government of Canada supervisor.)'
     ]
 ];
