@@ -22,12 +22,13 @@
             <div data-c-grid-item="tl(1of2)">
                 <div data-c-alert="warning" data-c-radius="rounded" role="alert" data-c-margin="bottom(2)">
                     <div data-c-padding="half">
-                        <p data-c-margin="bottom(quarter)" data-c-font-weight="bold">
+                        <p data-c-margin="bottom(.5)" data-c-font-weight="bold">
                             <i class="fas fa-bell"></i>
                             {{ response.content.need_help.title }}
                         </p>
+                        <p data-c-margin="bottom(.25)">{{ response.content.need_help.body1 }}</p>
                         <p>
-                            {{ response.content.need_help.body }} <a href="{# {{ route('response.faq')}} #}" title="{{ response.content.need_help.learn_more.title }}" target="_blank">{{ response.content.need_help.learn_more.text }}</a>.
+                            {{ response.content.need_help.body2 }} <a href="{# {{ route('response.faq')}} #}" title="{{ response.content.need_help.learn_more.title }}" target="_blank">{{ response.content.need_help.learn_more.text }}</a>.
                         </p>
                     </div>
                 </div>

@@ -11,7 +11,7 @@
             {% for specialty in stream.specialties %}
                 {% set specialtyCount = specialtyCount + 1 %}
             {% endfor %}
-            <h3 data-c-font-size="h4"><span data-c-font-weight="bold">View {{ stream.title }}</span> ({{ specialtyCount }})</h4>
+            <h3 data-c-font-size="h4"><span data-c-font-weight="bold">{{response.stream.view}} {{ stream.title }}</span> ({{ specialtyCount }})</h4>
             <span data-c-visibility="invisible">
                 {{ response.stream.click_to_view }}
             </span>
@@ -32,11 +32,11 @@
             data-c-padding="bottom(1)">
             <hr data-c-hr="thin(gray)">
             <div data-c-padding="rl(1)">
-                <p data-c-margin="top(1)">Find your area of expertise and click on your skill level to begin.</p>
+                <p data-c-margin="top(1)">{{response.stream.instruction}}</p>
                 {# Job Specialty #}
                 {% for specialty in stream.specialties %}
                     <div data-c-padding="top(1)">
-                        <p data-c-font-size="h5" data-c-margin="bottom(.5)">Positions in <span data-c-font-weight="bold" data-c-color="c2">{{ specialty.title }}</span></p>
+                        <p data-c-font-size="h5" data-c-margin="bottom(.5)">{{response.stream.position_label}} <span data-c-font-weight="bold" data-c-color="c2">{{ specialty.title }}</span></p>
                         <div data-c-grid="gutter(all, 1)">
                             {# Job Levels #}
                             {% for level in specialty.levels %}
