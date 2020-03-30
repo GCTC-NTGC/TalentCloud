@@ -100,6 +100,7 @@ return [
         'Quel est votre niveau actuel en français et en anglais? (par exemple, BBB/BBB)',
         'Quel est votre lieu de travail actuel? (Ville, Province)',
         'Quels sont votre ministère d\'attache et votre direction générale? (Ministère, Direction générale)',
+        'Pouvez-vous travailler à temps plein? Si ce n’est pas le cas, veuillez indiquer votre disponibilité.',
         'L\'équipe que vous aidez devra-t-elle fournir des mesures d\'adaptation supplémentaires pour que vous puissiez appliquer vos compétences au travail requis?',
         'Avez-vous de l\'expérience ou des compétences (autres que celles requises pour ce poste) qui peuvent être un atout à l\'équipe dans les circonstances actuelles?',
     ]

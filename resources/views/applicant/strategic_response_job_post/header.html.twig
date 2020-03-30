@@ -7,29 +7,28 @@
     viewing.
 
 ============================================================================= #}
-<div data-clone>
-    <header data-c-align="base(center) tl(left)" data-c-overlay="black(80)" data-c-padding="bottom(3)" style="background-image: url('/images/bg_crowd.jpg');">
-        {% include "common/menu" %}
-        <div data-c-container="large" data-c-padding="top(3)" id="home-heading">
+<header>
+    <div data-c-overlay="white(80)" style="background-image: url('/images/response-wall.jpg')">
+        <div data-c-container="large" data-c-padding="tb(3)" data-c-align="base(center) tl(left)">
+            <h1 data-c-heading="h1" data-c-color="black" data-c-margin="bottom(1)">{{ job.talent_stream.name }}
+                -
+                {{ job.talent_stream_category.name }}
+                -
+                {{ job.job_skill_level.name }}</h1>
             <div data-c-grid="gutter(all, 1)">
-                <div data-c-grid-item="tl(2of3)">
+                <div data-c-grid-item="tl(2of3)" data-c-align="base(center) tl(left)">
+                    <p data-c-color="black">{{ job_post.strategic_response.various_departments }}</p>
                 </div>
-                <div data-c-grid-item="tl(1of3)" data-c-align="base(left) tl(right)">
-                    <p>{{ job_post.header.reference_id|replace({':id':job.id}) }}</p>
+                <div data-c-grid-item="tl(1of3)" data-c-align="base(center) tl(right)">
+                    <span data-c-color="black">{{ job_post.header.pilot }}</span>
                 </div>
             </div>
-            <h1 data-c-heading="h1" data-c-margin="bottom(1)">{{ job.title }}</h1>
-            <p data-c-margin="bottom(1)">{{ job_post.strategic_response.various_departments }}</p>
-            <div data-c-margin="top(2)">
-                <div data-c-grid="gutter(all, 1)">
-                    <div data-c-grid-item="tl(1of2)">
-                        {% include "common/breadcrumbs" %}
-                    </div>
-                    <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(right)">
-                        <span data-c-colour="white">{{ job_post.header.pilot }}</span>
-                    </div>
+            <div data-c-grid="gutter(all, 1)">
+                <div data-c-grid-item="tl(2of3)"></div>
+                <div data-c-grid-item="tl(1of3)" data-c-align="base(center) tl(right)">
+                    <p data-c-color="black">{{ job_post.header.reference_id|replace({':id':job.id}) }}</p>
                 </div>
             </div>
         </div>
-    </header>
-</div>
+    </div>
+</header>

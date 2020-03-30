@@ -100,6 +100,7 @@ return [
         'What are your current levels in English and French? (e.g. BBB/BBB)',
         'What is your current work location? (City, Province)',
         'What is your home department and branch? (Department, Branch)',
+        'Can you work full time? If not, please indicate your availability',
         'Will the team you’re helping to need to provide any additional accommodation measures to ensure you can apply your skills to the work required?',
         'Do you have any experience or skills (other than those required for this position) that might be an asset to a team under the current circumstances?',
     ]
