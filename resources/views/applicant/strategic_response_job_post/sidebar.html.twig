@@ -4,27 +4,21 @@
     Applicant: Jobs - Post: Sidebar
 
 ============================================================================= #}
-<div class="sidebar" data-c-padding="top(3)">
+<div class="sidebar" data-c-padding="top(3)" data-c-container="medium(center)">
     <nav>
         <p data-c-font-weight="bold" data-c-font-size="h4" data-c-margin="bottom(1)">On this page:</p>
-        <p data-c-color="c1" data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ job.title }}</p>
-        <p data-c-margin="bottom(1)">{{ job.department.name }}</p>
+        <p data-c-color="c1" data-c-font-weight="bold" data-c-margin="bottom(.25)">
+            {{ job.talent_stream_category.name }}
+            -
+            {{ job.job_skill_level.name }}
+        </p>
+        <p data-c-margin="bottom(1)">{{ job_post.strategic_response.various_departments }}</p>
         <ul>
-            <li>
-                <a href="#basics" title="{{ job_post.basics.sidebar_title }}">{{ job_post.basics.title }}</a>
-            </li>
-            <li>
-                <a href="#impact" title="{{ job_post.impact.sidebar_title }}">{{ job_post.impact.title }}</a>
-            </li>
-            <li>
-                <a href="#work" title="{{ job_post.work.sidebar_title }}">{{ job_post.work.title }}</a>
-            </li>
-            <li>
-                <a href="#criteria" title="{{ job_post.criteria.sidebar_title }}">{{ job_post.criteria.title }}</a>
-            </li>
-            <li>
-                <a href="#apply" title="{{ job_post.apply.sidebar_title }}">{{ job_post.apply.title }}</a>
-            </li>
+            <li><a href="#basics"title="{{ job_post.basics.sidebar_title }}">{{ job_post.basics.title }}</a></li>
+            <li><a href="#impact"title="{{ job_post.impact.sidebar_title }}">{{ job_post.impact.title }}</a></li>
+            <li><a href="#work"title="{{ job_post.work.sidebar_title }}">{{ job_post.work.title }}</a></li>
+            <li><a href="#criteria"title="{{ job_post.criteria.sidebar_title }}">{{ job_post.criteria.title }}</a></li>
+            <li><a href="#apply"title="{{ job_post.apply.sidebar_title }}">{{ job_post.apply.title }}</a></li>
         </ul>
     </nav>
 </div>
