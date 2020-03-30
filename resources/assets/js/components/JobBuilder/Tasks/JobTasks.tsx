@@ -2,7 +2,6 @@
 import React, { useState, useRef } from "react";
 import { FormattedMessage, defineMessages, useIntl } from "react-intl";
 import {
-  Field,
   Form,
   Formik,
   FieldArray,
@@ -12,7 +11,7 @@ import {
 } from "formik";
 import { array, object, string } from "yup";
 import nprogress from "nprogress";
-import nanoid from "nanoid";
+import { nanoid } from "nanoid";
 
 import Modal from "../../Modal";
 import { validationMessages } from "../../Form/Messages";
