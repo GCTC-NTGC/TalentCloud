@@ -53,7 +53,7 @@
         </span>
         <span>
             <strong>
-                {{ job_application.security_clearance.value }}
+                {{ job_application.security_clearance_id ? job_application.security_clearance.value : "" }}
             </strong>
         </span>
     </div>
