@@ -54,7 +54,7 @@ mix
     "public/js",
   )
   .ts(
-    "resources/assets/js/components/StrategicResponse/StrApiTestPage.tsx",
+    "resources/assets/js/components/StrategicTalentResponse/StrApiTestPage.tsx",
     "public/js",
   )
   .sass("resources/assets/sass/app.scss", "public/css", {
