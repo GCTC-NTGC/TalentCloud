@@ -105,6 +105,7 @@ return [
         'What is your current director’s name and email? (We’ll need approval that you can be loaned to another team for a bit to help out.)',
         'What is the name and email of an additional reference who can confirm your skill set? (Preferably a current or recent Government of Canada supervisor.)',
         'Are you willing to come to work in a physical office?',
+        'Can you work full time? If not, please indicate your availability',
         'Will the team you’re helping to need to provide any additional accommodation measures to ensure you can apply your skills to the work required?',
         'Do you have any experience or skills (other than those required for this position) that might be an asset to a team under the current circumstances?',
     ]
