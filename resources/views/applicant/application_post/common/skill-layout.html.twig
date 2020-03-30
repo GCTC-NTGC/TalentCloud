@@ -18,7 +18,8 @@
                         <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ application_template.essential_question_1 }}</p>
                         <p data-c-margin="bottom(1)">{{ application_template.essential_answer_1 }}</p>
                         <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ application_template.essential_question_2 }}</p>
-                        <p>{{ application_template.essential_answer_2 }}</p>
+                        <p data-c-margin="bottom(1)">{{ application_template.essential_answer_2 }}</p>
+                        <p>Please note that skills with a <i class="fas fa-exclamation-circle" data-c-color="stop"></i> icon are incomplete and require your attention. Skills with a <i class="fas fa-check" data-c-color="go"></i> are ready to submit or have been pre-populated from your profile. You're welcome to edit these if you need to.</p>
                     {% elseif application_step == "4" %}
                         <h2 data-c-heading="h2" data-c-padding="top(3)" data-c-margin="bottom(1)">{{ application_template.asset_title }}</h2>
                         <p>{{ application_template.asset_context }}</p>
@@ -26,45 +27,11 @@
                     {# Set Locale #}
                     {% set locale = "application" %}
                     {# Skill List #}
-                    <div data-c-padding="top(3)">
+                    <div data-c-padding="top(1)">
                         <div class="profile-element-list {{ application_step == "3" ? "step3" : "" }}">
                             {# Essential Skills #}
                             {% if application_step == "3" %}
                                 {% set locale = "application" %}
-                                {% for criterion in criteria.essential %}
-                                    {# Get User Skill #}
-                                    {% set skill_declaration = false %}
-                                    {% for skillDeclaration in applicant.skill_declarations %}
-                                        {% if criterion.skill.id == skillDeclaration.skill_id %}
-                                            {% set skill_declaration = skillDeclaration %}
-                                        {% endif %}
-                                    {% endfor %}
-                                    {# Get Skill Type #}
-                                    {% set skillType = criterion.skill.skill_type.name %}
-                                    {# Import Skill Template #}
-                                    <a aria-hidden="true" id="skill{{ criterion.skill.id }}"></a>
-                                    <div data-c-accordion-group>
-                                        {% include "common/skill" %}
-                                    </div>
-                                {% endfor %}
-                                {% set locale = "application-view" %}
-                                {% for criterion in criteria.essential %}
-                                    {# Get User Skill #}
-                                    {% set skill_declaration = false %}
-                                    {% for skillDeclaration in applicant.skill_declarations %}
-                                        {% if criterion.skill.id == skillDeclaration.skill_id %}
-                                            {% set skill_declaration = skillDeclaration %}
-                                        {% endif %}
-                                    {% endfor %}
-                                    {# Get Skill Type #}
-                                    {% set skillType = criterion.skill.skill_type.name %}
-                                    {# Import Skill Template #}
-                                    <a aria-hidden="true" id="skill{{ criterion.skill.id }}"></a>
-                                    <div data-c-accordion-group>
-                                        {% include "common/skill" %}
-                                    </div>
-                                {% endfor %}
-                                {% set locale = "profile" %}
                                 {% for criterion in criteria.essential %}
                                     {# Get User Skill #}
                                     {% set skill_declaration = false %}

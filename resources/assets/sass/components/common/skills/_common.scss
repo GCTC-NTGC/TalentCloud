@@ -3,6 +3,84 @@
 // Skills - Common Features
 
 // =============================================================================
+.clone-accordion.profile-element.skill {
+    [data-c-accordion-trigger] {
+        display: block;
+    }
+    .accordion-status {
+        position: relative;
+        >div {
+            height: 3rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 3rem;
+            i {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                &.fa-check {
+                    display: none;
+                }
+                &.fa-exclamation-circle {
+                    display: block;
+                }
+            }
+        }
+    }
+    button {
+        .submit-default {
+            display: block;
+        }
+        .submit-working {
+            display: none;
+        }
+        .submit-saved {
+            display: none;
+        }
+        &.working {
+            .submit-default {
+                display: none;
+            }
+            .submit-working {
+                display: block;
+            }
+            .submit-saved {
+                display: none;
+            }
+        }
+        &.saved {
+            .submit-default {
+                display: none;
+            }
+            .submit-working {
+                display: none;
+            }
+            .submit-saved {
+                display: block;
+            }
+        }
+    }
+    &.complete {
+        .accordion-status {
+            >div {
+                border-color: $clone-go !important;
+                i {
+                    &.fa-check {
+                        display: block;
+                    }
+                    &.fa-exclamation-circle {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
 
 // Lists ===================================================================
 .profile-list {
