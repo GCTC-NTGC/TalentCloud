@@ -38,7 +38,7 @@ export const wordCounterMessages = defineMessages({
   veryLongMessage: {
     id: "wordCounter.skills.veryLongMessage",
     defaultMessage:
-      "500 word limit reached. This is way too long. Check out one of our examples to see what a concise skill description looks like.",
+      "Word limit reached. This is way too long. Check out one of our examples to see what a concise skill description looks like.",
     description: "Message displayed to user when the word count is very high.",
   },
 });
@@ -57,26 +57,26 @@ const SkillsWordCounter: React.FunctionComponent<
       message: intl.formatMessage(wordCounterMessages.veryShortMessage),
     },
     {
-      count: 100,
+      count: 25,
       message: intl.formatMessage(wordCounterMessages.shortMessage),
     },
-    { count: 200, message: "" },
+    { count: 50, message: "" },
     {
-      count: 350,
+      count: 150,
       message: intl.formatMessage(wordCounterMessages.slightlyLongMessage),
     },
     {
-      count: 425,
+      count: 200,
       message: intl.formatMessage(wordCounterMessages.longMessage),
     },
     {
-      count: 500,
+      count: 250,
       message: intl.formatMessage(wordCounterMessages.veryLongMessage),
     },
   ];
-  const minWords = 200;
-  const maxWords = 350;
-  const wordLimit = 500;
+  const minWords = 50;
+  const maxWords = 150;
+  const wordLimit = 250;
   return (
     <WordCounterWrapper
       elementId={elementId}

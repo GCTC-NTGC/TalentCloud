@@ -18,7 +18,10 @@ class StrategicResponseApplicationValidator extends ApplicationValidator
             'director_email' => ['required', 'email:rfc', 'max:191'],
             'reference_name' => ['required', 'string'],
             'reference_title' => ['required', 'string'],
-            'reference_email' => ['required', 'email:rfc', 'max:191']
+            'reference_email' => ['required', 'email:rfc', 'max:191'],
+            'gov_email' => 'required|email',
+            'physical_office_willing' => 'required|boolean',
+            'security_clearance_id' => ['required', 'exists:security_clearances,id'],
         ];
     }
 }

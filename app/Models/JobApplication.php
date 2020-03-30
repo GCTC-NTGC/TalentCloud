@@ -39,6 +39,9 @@ use Illuminate\Notifications\Notifiable;
  * @property string $reference_name
  * @property string $reference_title
  * @property string $reference_email
+ * @property string $gov_email
+ * @property boolean $physical_office_willing
+ * @property int $security_clearance_id
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -59,6 +62,7 @@ use Illuminate\Notifications\Notifiable;
  * @property \Illuminate\Database\Eloquent\Collection $work_samples
  * @property \Illuminate\Database\Eloquent\Collection $projects
  * @property \App\Models\JobApplicationVersion $job_application_version
+ * @property \App\Models\Lookup\SecurityClearance $security_clearance
  *
  * Version 2 application models.
  * @property \Illuminate\Database\Eloquent\Collection $experiences_work
@@ -95,7 +99,10 @@ class JobApplication extends BaseModel
         'director_email' => 'string',
         'reference_name' => 'string',
         'reference_title' => 'string',
-        'reference_email' => 'string'
+        'reference_email' => 'string',
+        'gov_email' => 'string',
+        'physical_office_willing' => 'boolean',
+        'security_clearance_id' => 'int',
     ];
     protected $fillable = [
         'citizenship_declaration_id',
@@ -110,7 +117,10 @@ class JobApplication extends BaseModel
         'director_email',
         'reference_name',
         'reference_title',
-        'reference_email'
+        'reference_email',
+        'gov_email',
+        'physical_office_willing',
+        'security_clearance_id',
     ];
 
     /**
@@ -212,6 +222,11 @@ class JobApplication extends BaseModel
         return $this->hasOne(\App\Models\JobApplicationVersion::class);
     }
 
+    public function security_clearance() //phpcs:ignore
+    {
+        return $this->belongsTo(\App\Models\Lookup\SecurityClearance::class);
+    }
+
     // Version 2 application models.
     public function experiences_work() //phpcs:ignore
     {
@@ -285,7 +300,8 @@ class JobApplication extends BaseModel
                 }
                 break;
             case 'preview':
-                if ($validator->basicsComplete($this) &&
+                if (
+                    $validator->basicsComplete($this) &&
                     $validator->experienceComplete($this) &&
                     $validator->essentialSkillsComplete($this) &&
                     $validator->assetSkillsComplete($this)
@@ -316,7 +332,7 @@ class JobApplication extends BaseModel
     }
 
     /**
-     * Returns true if this meets all the essential criteria.
+     * Returns true if this meets all the HARD SKILL essential criteria.
      * That means it has attached an SkillDeclaration for each essential criterion,
      * with a level at least as high as the required level.
      * NOTE: If this application is in draft status, it will use
@@ -328,13 +344,15 @@ class JobApplication extends BaseModel
     {
         $essentialCriteria = $this->job_poster->criteria->filter(
             function ($value, $key) {
-                return $value->criteria_type->name == 'essential';
+                return $value->criteria_type->name == 'essential'
+                    && $value->skill->skill_type->name == 'hard';
             }
         );
         $source = $this->isDraft() ? $this->applicant : $this;
         foreach ($essentialCriteria as $criterion) {
             $skillDeclaration = $source->skill_declarations->where('skill_id', $criterion->skill_id)->first();
-            if ($skillDeclaration === null ||
+            if (
+                $skillDeclaration === null ||
                 $skillDeclaration->skill_level_id < $criterion->skill_level_id
             ) {
                 return false;
@@ -387,7 +405,6 @@ class JobApplication extends BaseModel
                 'new' => $model->replicate()
             ];
         };
-
 
         $projectMap = $applicant->projects->map($copyWithHistory);
         $referenceMap = $applicant->references->map($copyWithHistory);

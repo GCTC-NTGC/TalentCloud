@@ -7,7 +7,7 @@
     offers a message when there are no jobs available.
 
 ============================================================================= #}
-<div data-clone>
+<section class="browse-jobs" data-clone>
     <div data-c-border="bottom(thin, solid, gray)">
     {% if jobs is empty %}
         <div data-c-container="small" data-c-padding="tb(3)">
@@ -25,8 +25,8 @@
                     <h2 data-c-heading="h2" data-c-margin="bottom(.25)">{{ job_index.index.section_title }}</h2>
                 </div>
                 {% for job in jobs %}
-                    <div data-c-grid-item="tp(1of2) ds(1of3) equal-col">
-                        <a href="{{ route('jobs.show', job.id) }}" title="{{ job_index.index.view_title }} {{ job.title }}." data-c-display="flex" data-c-radius="rounded" data-c-card data-c-hover-color="black">
+                    <div class="job-card" data-c-grid-item="tp(1of2) ds(1of3) equal-col">
+                        <a class="job-card-apply-button" href="{{ route('jobs.show', job.id) }}" title="{{ job_index.index.view_title }} {{ job.title }}." data-c-display="flex" data-c-radius="rounded" data-c-card data-c-hover-color="black">
                             <div data-c-background="black(90)" data-c-padding="all(.5)">
                                 <h3 data-c-font-size="h4" data-c-color="white" data-c-margin="bottom(.25)" data-c-font-weight="bold">{{ job.title }}</h3>
                                 <p data-c-color="white" data-c-font-size="small">{{ job.department.name }}</p>
@@ -80,4 +80,4 @@
             </div>
         </div>
     {% endif %}
-</div>
+</section>

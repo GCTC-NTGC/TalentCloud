@@ -32,7 +32,7 @@ class ViewComposerServiceProvider extends ServiceProvider
 
         // Nav menu.
         View::composer(
-            'common/menu',
+            ['common/menu', 'response/menu'],
             'App\Http\ViewComposers\MenuComposer'
         );
 
@@ -125,6 +125,16 @@ class ViewComposerServiceProvider extends ServiceProvider
         View::composer(
             'common/breadcrumbs',
             'App\Http\ViewComposers\BreadcrumbsComposer'
+        );
+
+        View::composer(
+            'response/menu',
+            'App\Http\ViewComposers\StrategicResponseMenuComposer'
+        );
+
+        View::composer(
+            'response/beta-banner',
+            'App\Http\ViewComposers\StrategicResponseBannerComposer'
         );
     }
 

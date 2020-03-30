@@ -7,6 +7,7 @@ use App\Models\JobPoster;
 use App\Models\Lookup\ApplicationStatus;
 use App\Models\Lookup\CitizenshipDeclaration;
 use App\Models\Lookup\PreferredLanguage;
+use App\Models\Lookup\SecurityClearance;
 use App\Models\Lookup\VeteranStatus;
 use App\Models\SkillDeclaration;
 
@@ -54,7 +55,10 @@ $factory->state(JobApplication::class, 'strategic_response', function (Faker\Gen
         'director_email' => $faker->email(),
         'reference_name' => $faker->name(),
         'reference_title' => $faker->jobTitle(),
-        'reference_email' => $faker->email()
+        'reference_email' => $faker->email(),
+        'gov_email' => $faker->email(),
+        'physical_office_willing' => $faker->boolean(),
+        'security_clearance_id' => SecurityClearance::inRandomOrder()->first()->id,
     ];
 });
 

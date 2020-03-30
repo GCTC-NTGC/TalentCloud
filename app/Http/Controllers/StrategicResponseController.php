@@ -43,6 +43,7 @@ class StrategicResponseController extends Controller
                             $levels[$level->name] = ['title' => $level->name, 'job_id' => null];
                         }
                     }
+
                     // Push specialty title and associated levels to specialty array.
                     $specialties[$specialty->name] = [
                         'title' => $specialty->name,
@@ -51,11 +52,13 @@ class StrategicResponseController extends Controller
                 }
             }
             if (!empty($specialties)) {
+                ksort($specialties);
+
                 // Push stream title and specialties to streams array.
                 $streams[$stream->name] = ['title' => $stream->name, 'specialties' => $specialties];
             }
-
         }
+        ksort($streams);
 
         return view('response/index/index', [
             'response' => Lang::get('response/index'),
