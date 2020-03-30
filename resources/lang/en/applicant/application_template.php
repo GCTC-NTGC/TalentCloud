@@ -208,7 +208,7 @@ return [
 
     'strategic_response' => [
         'required_information' => 'Required Information',
-        'gov_email_copy' => 'What is your active GC email account (must end in .ca)',
+        'gov_email_copy' => 'What is your active GC email account? (must end in .ca)',
         'gov_email_label' => 'GC email',
         'physical_office_willing_copy' => 'Are you willing to come to work in a physical office?',
         'physical_office_willing_label' => 'Check for Yes',
