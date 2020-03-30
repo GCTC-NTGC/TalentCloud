@@ -1,38 +1,30 @@
 {# =============================================================================
 
     Talent Cloud
-    Applicant: Apply - Step 03
+    Applicant: Apply - Step 04
 
 ============================================================================= #}
 {% extends "layouts/base" %}
 {% block title %}
-	{{ application_template.step_03_title }}
+	{{ application_template.step_04_title }}
 {% endblock %}
 {% block body %}
 	{% include "common/goc" %}
 	{% include "common/alert" %}
 	{% include "common/header" with {'header': {'title': ":title: :job"|replace({':title': application_template.title, ':job': job.title})}} %}
 	<a id="skipLink"></a>
-	{% include "applicant/application_post/common/tracker-ajax" %}
+	{% include "applicant/strategic_response_application/common/tracker-ajax" %}
 
     <section class="application-post__skills-layout">
         <div class="container--copy">
             <h2>
-                {{ application_template.essential_title }}
+                {{ application_template.asset_title }}
             </h2>
-            <p class="bold">{{ application_template.essential_subtitle }}</p>
-            <ul>
-                <li>
-                    <p class="italics">{{ application_template.essential_question_1 }}</p>
-                    <p class="bold">{{ application_template.essential_answer_1 }}</p>
-                </li>
-                <li>
-                    <p>{{ application_template.essential_question_2 }}</p>
-                    <p class="bold">{{ application_template.essential_answer_2 }}</p>
-                </li>
-            </ul>
+            <p>
+                {{ application_template.strategic_response.asset_context }}
+            </p>
         </div>
-	    {% include "applicant/application_post/common/skill-layout" %}
+	    {% include "applicant/strategic_response_application/common/skill-layout" %}
     </section>
 
 	{# Modals #}

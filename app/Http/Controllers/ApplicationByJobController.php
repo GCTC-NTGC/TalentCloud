@@ -12,12 +12,14 @@ use App\Models\Lookup\ApplicationStatus;
 use App\Models\Lookup\CitizenshipDeclaration;
 use App\Models\Lookup\PreferredLanguage;
 use App\Models\Lookup\ReviewStatus;
+use App\Models\Lookup\SecurityClearance;
 use App\Models\Lookup\SkillStatus;
 use App\Models\Lookup\VeteranStatus;
 use App\Models\Skill;
 use App\Models\SkillDeclaration;
 use App\Models\WorkExperience;
 use App\Services\Validation\ApplicationValidator;
+use App\Services\Validation\StrategicResponseApplicationValidator;
 use Facades\App\Services\WhichPortal;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -91,8 +93,11 @@ class ApplicationByJobController extends Controller
         $this->authorize('view', $application);
         $this->authorize('update', $application);
 
+        $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
+            ? 'applicant/strategic_response_application/application_post_01'
+            : 'applicant/application_post_01';
         return view(
-            'applicant/application_post_01',
+            $viewTemplate,
             [
                 // Application Template Data.
                 'application_step' => 1,
@@ -100,6 +105,7 @@ class ApplicationByJobController extends Controller
                 'language_options' => PreferredLanguage::all(),
                 'citizenship_options' => CitizenshipDeclaration::all(),
                 'veteran_options' => VeteranStatus::all(),
+                'security_clearance_options' => SecurityClearance::all(),
                 'preferred_language_template' => Lang::get('common/preferred_language'),
                 'citizenship_declaration_template' => Lang::get('common/citizenship_declaration'),
                 'veteran_status_template' => Lang::get('common/veteran_status'),
@@ -129,8 +135,11 @@ class ApplicationByJobController extends Controller
         $this->authorize('view', $application);
         $this->authorize('update', $application);
 
+        $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
+            ? 'applicant/strategic_response_application/application_post_02'
+            : 'applicant/application_post_02';
         return view(
-            'applicant/application_post_02',
+            $viewTemplate,
             [
                 // Application Template Data.
                 'application_step' => 2,
@@ -161,17 +170,16 @@ class ApplicationByJobController extends Controller
         $this->authorize('view', $application);
         $this->authorize('update', $application);
 
-        $criteria = [
-            'essential' => $jobPoster->criteria->filter(function ($value, $key) {
-                return $value->criteria_type->name == 'essential';
-            }),
-            'asset' => $jobPoster->criteria->filter(function ($value, $key) {
-                return $value->criteria_type->name == 'asset';
-            }),
-        ];
+        $criteria = $jobPoster->criteria->filter(function ($value, $key) {
+            return $value->criteria_type->name == 'essential'
+                && $value->skill->skill_type->name == 'hard';
+        });
 
+        $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
+            ? 'applicant/strategic_response_application/application_post_03'
+            : 'applicant/application_post_03';
         return view(
-            'applicant/application_post_03',
+            $viewTemplate,
             [
                 // Application Template Data.
                 'application_step' => 3,
@@ -206,17 +214,17 @@ class ApplicationByJobController extends Controller
         $this->authorize('view', $application);
         $this->authorize('update', $application);
 
-        $criteria = [
-            'essential' => $jobPoster->criteria->filter(function ($value, $key) {
-                return $value->criteria_type->name == 'essential';
-            }),
-            'asset' => $jobPoster->criteria->filter(function ($value, $key) {
-                return $value->criteria_type->name == 'asset';
-            }),
-        ];
+        $criteria = $jobPoster->criteria->filter(function ($value, $key) {
+            return $value->criteria_type->name == 'asset'
+                && $value->skill->skill_type->name == 'hard';
+        });
 
+
+        $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
+            ? 'applicant/strategic_response_application/application_post_04'
+            : 'applicant/application_post_04';
         return view(
-            'applicant/application_post_04',
+            $viewTemplate,
             [
                 // Application Template Data.
                 'application_step' => 4,
@@ -248,14 +256,16 @@ class ApplicationByJobController extends Controller
         $application = $this->getApplicationFromJob($jobPoster);
 
         $this->authorize('view', $application);
-        $criteria = [
-            'essential' => $jobPoster->criteria->filter(function ($value, $key) {
-                return $value->criteria_type->name == 'essential';
-            }),
-            'asset' => $jobPoster->criteria->filter(function ($value, $key) {
-                return $value->criteria_type->name == 'asset';
-            }),
-        ];
+
+        $essential_criteria = $jobPoster->criteria->filter(function ($value, $key) {
+            return $value->criteria_type->name == 'essential'
+                && $value->skill->skill_type->name == 'hard';
+        });
+        $asset_criteria = $jobPoster->criteria->filter(function ($value, $key) {
+            return $value->criteria_type->name == 'asset'
+                && $value->skill->skill_type->name == 'hard';
+        });
+
         $skillDeclarations = $application->isDraft()
             ? $applicant->skill_declarations
             : $application->skill_declarations;
@@ -269,8 +279,11 @@ class ApplicationByJobController extends Controller
             ? $applicant->work_experiences
             : $application->work_experiences;
 
+        $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
+            ? 'applicant/strategic_response_application/application_post_05'
+            : 'applicant/application_post_05';
         return view(
-            'applicant/application_post_05',
+            $viewTemplate,
             [
                 // Application Template Data.
                 'application_step' => 5,
@@ -283,7 +296,8 @@ class ApplicationByJobController extends Controller
                 // Skills Data.
                 'skills' => Skill::all(),
                 'skill_template' => Lang::get('common/skills'),
-                'criteria' => $criteria,
+                'essential_criteria' => $essential_criteria,
+                'asset_criteria' => $asset_criteria,
                 // Applicant Data.
                 'applicant' => $applicant,
                 'job_application' => $application,
@@ -310,8 +324,11 @@ class ApplicationByJobController extends Controller
 
         $this->authorize('update', $application);
 
+        $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
+            ? 'applicant/strategic_response_application/application_post_06'
+            : 'applicant/application_post_06';
         return view(
-            'applicant/application_post_06',
+            $viewTemplate,
             [
                 // Application Template Data.
                 'application_step' => 6,
@@ -341,9 +358,11 @@ class ApplicationByJobController extends Controller
         // Ensure user has permissions to view application.
         $this->authorize('view', $application);
 
-        // Return the Completion View.
+        $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
+            ? 'applicant/strategic_response_application/application_post_complete'
+            : 'applicant/application_post_complete';
         return view(
-            'applicant/application_post_complete',
+            $viewTemplate,
             [
                 // Application Template Data.
                 'application_template' => Lang::get('applicant/application_template'),
@@ -375,7 +394,18 @@ class ApplicationByJobController extends Controller
             'citizenship_declaration_id' => $request->input('citizenship_declaration_id'),
             'veteran_status_id' => $request->input('veteran_status_id'),
             'preferred_language_id' => $request->input('preferred_language_id'),
-            'language_requirement_confirmed' => $request->input('language_requirement_confirmed')
+            'language_requirement_confirmed' => $request->input('language_requirement_confirmed', false),
+
+            // The following fields are exclusive Strategic Talent Response applications.
+            'director_name' => $request->input('director_name'),
+            'director_title' => $request->input('director_title'),
+            'director_email' => $request->input('director_email'),
+            'reference_name' => $request->input('reference_name'),
+            'reference_title' => $request->input('reference_title'),
+            'reference_email' => $request->input('reference_email'),
+            'gov_email' => $request->input('gov_email'),
+            'physical_office_willing' => $request->input('physical_office_willing', false),
+            'security_clearance_id' => $request->input('security_clearance_id'),
         ]);
         $application->save();
 
@@ -387,7 +417,7 @@ class ApplicationByJobController extends Controller
                 $answer = $questionsInput[$question->id];
             }
             $answerObj = $application->job_application_answers
-            ->firstWhere('job_poster_question_id', $question->id);
+                ->firstWhere('job_poster_question_id', $question->id);
             if ($answerObj == null) {
                 $answerObj = new JobApplicationAnswer();
                 $answerObj->job_poster_question_id = $question->id;
@@ -790,7 +820,10 @@ class ApplicationByJobController extends Controller
             ]);
 
             // Error out of this process now if application is not complete.
-            $validator = new ApplicationValidator();
+            $validator = $jobPoster->isInStrategicResponseDepartment()
+                ? new StrategicResponseApplicationValidator()
+                : new ApplicationValidator();
+
             $validatorInstance = $validator->validator($application);
             if (!$validatorInstance->passes()) {
                 $userId = $application->applicant->user_id;
