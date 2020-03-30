@@ -330,7 +330,6 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
   const jobSchema = Yup.object().shape({
     title: Yup.string()
       .min(2, intl.formatMessage(validationMessages.tooShort))
-      .max(50, intl.formatMessage(validationMessages.tooLong))
       .required(intl.formatMessage(validationMessages.required)),
     termLength: Yup.number()
       .min(1, intl.formatMessage(validationMessages.tooShort))
