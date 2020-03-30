@@ -6,7 +6,7 @@ return [
     |--------------------------------------------------------------------------
     |
     */
-    'page_title' => 'Réserve de talents du GC : Soutenir les besoins prioritaires en talents pour la communauté numérique et technique du GC',
+    'page_title' => 'Réserve de talents du GC : Soutenir les besoins prioritaires en talents pour la communauté numérique et technologique du GC',
     'beta_banner' => [
       'message' => 'Dans notre tentative de rendre ce site opérationnel rapidement, nous nous attendons à ce quelques problèmes surviennent. ',
       'need_help' => [
@@ -37,7 +37,7 @@ return [
     'header' => [
       'title' => 'Réserve de talents du GC',
       'blurb' => 'Les circonstances exceptionnelles nécessitent des personnes exceptionnelles, travaillant là où elles sont le plus nécessaires.',
-      'blurb2' => 'Aidez à soutenir les besoins prioritaires en talents de la communauté numérique et technique du GC pendant COVID-19.',
+      'blurb2' => 'Aidez à soutenir les besoins prioritaires en talents de la communauté numérique et technologique du GC pendant COVID-19.',
       'beta' => 'BÊTA et projet-pilote',
       'cta' => 'Employé du GC? Vous voulez offrir votre aide?',
       'cta_link' => [
@@ -60,7 +60,7 @@ return [
          3 => 'Donner aux fonctionnaires un moyen d’utiliser leurs compétences là où l’aide est la plus nécessaire',
          4 => 'Offrir aux ministères un mécanisme rapide et efficace pour trouver des talents numériques et technologiques qualifiés et disponibles',
       ],
-      'shared_effort' => 'Cet exercice est géré par le bureau du directeur de l\'information avec le soutien de Talent Cloud et du bureau de gestion communautaire.',
+      'shared_effort' => 'Cet exercice est géré par le bureau du directeur de l\'information avec le soutien du Nuage de talents et du bureau de gestion communautaire.',
       'code_for_site' => 'Le code de ce site et les renseignements connexes sont disponibles pour d’autres gouvernements et administrations. ',
       'github_url' => [
         'text' => 'Visitez le Nuage de talents sur Github',
@@ -82,7 +82,7 @@ return [
       'need_help' => [
         'title' => 'Votre ministère a-t-il besoin d’une aide supplémentaire?',
         'body1' => 'Cet outil est actuellement disponible pour la communauté numérique et technologique.',
-        'body2' => 'Si votre ministère a identifié une pénurie de talents actuelle ou prévue dans un domaine critique, contactez-nous pour demander une aide supplémentaire. Si votre service a un besoin unique dans un domaine spécialisé, nous pouvons lancer une nouvelle intervention. Si vous souhaitez utiliser cet outil pour un autre domaine, veuillez contacter votre chef de service ou nous le faire savoir.',
+        'body2' => 'Si votre ministère a relevé une pénurie de talents actuelle ou anticipée dans un domaine essentiel, contactez-nous pour demander de l’aide supplémentaire. Si votre ministère a un besoin unique dans un domaine spécialisé, nous pouvons lancer un nouvel appel.',
         'learn_more' => [
           'text' => 'Apprenez-en davantage.',
           'title' => 'Cliquez ici pour en apprendre davantage sur la façon de nous joindre.',
@@ -125,7 +125,7 @@ return [
         'title' => 'En savoir plus sur le processus.',
         'label' => 'guide de demande',
         ],
-      'impact_position' => 'Il \'agit d\'un placement flexible et temporaire qui nous permet de donner un coup de main là où il est le plus nécessaire. Les dispositions en matière de ressources humaines pour les personnes sélectionnées seront prises au cas par cas. Les ministères d\'origine et d\'accueil travailleront ensemble pour garantir des solutions rapides et appropriées. Certaines peuvent durer quelques jours, d\'autres plusieurs semaines.',
+      'impact_position' => 'Il s\'agit d\'un placement flexible et temporaire qui nous permet de donner un coup de main là où il est le plus nécessaire. Les dispositions en matière de ressources humaines pour les personnes sélectionnées seront prises au cas par cas. Les ministères d\'origine et d\'accueil travailleront ensemble pour garantir des solutions rapides et appropriées. Certaines peuvent durer quelques jours, d\'autres plusieurs semaines.',
       'dont_have_skills' => "Vous n’avez pas ces compétences, mais vous voulez aider? Nous faisons continuellement des mises à jour et ajoutons des emplois. Veuillez vérifier tous les 2 ou 3 jours.",
     ],
 
