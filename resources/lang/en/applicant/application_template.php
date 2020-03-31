@@ -137,7 +137,7 @@ return [
         'null_copy' => "You don't currently have any skills on your profile! Use the button above to add a skill.",
     ],
     /* Step 3: Essential SKills Header */
-    'essential_title' => 'Need to Have',
+    'essential_title' => 'Skills you Need to Have',
     'essential_subtitle' => 'Remember, that you need ALL these skills to apply for this job!',
     'essential_question_1' => 'Q. Really? I have most of these skills and I’m a quick learner.',
     'essential_answer_1' => 'Sorry, you really do need all of them, and at the right level.',
@@ -145,7 +145,7 @@ return [
     'essential_answer_2' => 'Don’t do it. These will be assessed, and you’re better than that.',
     'essential_sidebar_label' => 'Skills Checklist',
 
-    'asset_title' => 'Skills That Are Nice to Have',
+    'asset_title' => 'Skills that are Nice to Have',
     'asset_context' => 'You can apply for this job if you don’t have any of these skills. These are assets that the hiring manager thinks will help with the work. They’re often used to help select the best candidate amongst all those who meet all the “Need to Have” criteria. So if you do have these skills, now is the time to let the hiring manager know.',
     'asset_start_button_title' => 'Scroll to begin filling out the skills that are nice to have.',
     'skills_start_button_label' => 'Get Started',

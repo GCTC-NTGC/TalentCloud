@@ -16,7 +16,7 @@
     {% set id_prefix = id_prefix|replace({":template":"old", ":id":course.id}) %}
 {% endif %}
 <!-- Accordion -->
-<div data-c-accordion data-c-card data-c-margin="bottom(.5)" class="clone-accordion profile-element course {% if course == false %}template active{% endif %} modal-target-object" data-item-saved="{{ course ? "true" : "" }}" data-item-url="{{ route("courses.destroy", ":id") }}" data-item-id="{{ course ? course.id : 0 }}">
+<div data-c-accordion data-c-card data-c-margin="top(.5)" class="clone-accordion profile-element course {% if course == false %}template active{% endif %} modal-target-object" data-item-saved="{{ course ? "true" : "" }}" data-item-url="{{ route("courses.destroy", ":id") }}" data-item-id="{{ course ? course.id : 0 }}">
     <button data-c-accordion-trigger tabindex="0" type="button"
         {% if course == false %}
             aria-expanded="true"

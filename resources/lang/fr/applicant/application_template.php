@@ -138,7 +138,7 @@ return [
         'null_copy' => "Vous n'avez actuellement aucune compétence sur votre profil. Utilisez le bouton ci-dessus pour ajouter une compétence.",
     ],
     /* Step 3: Essential SKills Header */
-    'essential_title' => 'Ce que vous devez avoir',
+    'essential_title' => 'Les compétences que vous devez avoir',
     'essential_subtitle' => 'Rappelez-vous que vous devez posséder TOUTES ces compétences pour postuler cet emploi!',
     'essential_question_1' => 'Q. Vraiment? J’ai la plupart de ces compétences et j’apprends vite.',
     'essential_answer_1' => 'Désolé, vous devez vraiment toutes les posséder, et au niveau adéquat.',
@@ -146,7 +146,7 @@ return [
     'essential_answer_2' => 'Ne le faites pas. Ces compétences seront évaluées, et vous valez mieux que ça.',
     'essential_sidebar_label' => 'Liste de compétences',
 
-    'asset_title' => "Des compétences qu'il est bon à avoir",
+    'asset_title' => "Les compétences qu'il est bon à avoir",
     'asset_context' => "Vous pouvez postuler à cet emploi si vous ne possédez aucune de ces compétences. Ce sont des atouts qui, selon le responsable du recrutement, viendraient faciliter le travail. Ces compétences servent souvent pour sélectionner le ou la meilleur(e) candidat(e) parmi tous ceux et toutes celles qui répondent à tous les critères du « Besoin d’avoir ». Donc, si vous avez ces compétences, le moment est venu d'en informer le responsable du recrutement.",
     'asset_start_button_title' => "Faites défiler pour commencer à remplir les compétences qu'il est bon à avoir.",
     'skills_start_button_label' => 'Commencer',
