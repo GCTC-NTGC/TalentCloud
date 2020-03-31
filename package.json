@@ -86,7 +86,7 @@
         "ts-jest": "^25.3.0",
         "ts-loader": "^6.2.2",
         "typescript": "^3.8.3",
-        "uuid": "^7.0.2",
+        "uuid": "^7.0.3",
         "vue-template-compiler": "^2.6.11",
         "webpack": "^4.42.1"
     },
