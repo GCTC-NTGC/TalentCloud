@@ -4,12 +4,16 @@
 
 // =============================================================================
 .clone-accordion.profile-element.skill {
-    [data-c-accordion-trigger] {
+    >button[data-c-accordion-trigger] {
         display: block;
+        >div {
+            padding-right: 0 !important;
+        }
     }
     .accordion-status {
         position: relative;
         >div {
+            border-width: 5px !important;
             height: 3rem;
             position: absolute;
             top: 50%;
@@ -17,6 +21,7 @@
             transform: translate(-50%, -50%);
             width: 3rem;
             i {
+                margin-top: .05rem;
                 position: absolute;
                 top: 50%;
                 left: 50%;
@@ -77,7 +82,7 @@
                     &.fa-check {
                         display: block;
                     }
-                    &.fa-exclamation-circle {
+                    &.fa-exclamation {
                         display: none;
                     }
                 }

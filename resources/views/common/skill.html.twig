@@ -91,14 +91,14 @@
                 <div data-c-grid-item="base(1of1)">
             {% else %}
                 <div data-c-grid-item="base(1of4) tl(1of6)" class="accordion-status">
-                    <div data-c-border="all(thin, solid, stop)" data-c-radius="pill">
+                    <div data-c-border="all(thin, solid, slow)" data-c-radius="pill">
                         <i class="fas fa-check" data-c-color="go" data-c-font-size="h3"></i>
-                        <i class="fas fa-exclamation-circle" data-c-color="stop" data-c-font-size="h3"></i>
+                        <i class="fas fa-exclamation" data-c-color="slow" data-c-font-size="h3"></i>
                     </div>
                 </div>
                 <div data-c-grid-item="base(3of4) tl(5of6)">
             {% endif %}
-                <div data-c-padding="all(1)">
+                <div data-c-padding="tb(1)">
                     <!-- Title -->
                     {% if locale == "profile" and skill_declaration == false %}
                         <p data-c-font-weight="bold">{{ skill_template.new_skill_title }}</p>
