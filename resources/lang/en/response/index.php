@@ -6,29 +6,61 @@ return [
     |--------------------------------------------------------------------------
     |
     */
-    'page_title' => 'GC Talent Reserve',
+    'page_title' => 'GC Talent Reserve: Supporting priority talent needs for the GC Digital and Tech Community',
+    'beta_banner' => [
+        'message' => 'In our effort to get this site up and running quickly, we expect there to be a few glitches. ',
+        'need_help' => [
+            'text' => 'Need help? Get in touch.',
+            'title' => 'Click here to get support.',
+        ]
+    ],
+
+    'menu' => [
+        'home' => [
+            'text' => 'Home',
+            'title' => 'Visit the Rapid Response Talent Solutions homepage.'
+        ],
+        'apply' => [
+            'text' => 'Apply',
+            'title' => 'View available areas of expertise that are in need.'
+        ],
+        'info' => [
+            'text' => 'COVID-19 Information',
+            'title' => 'Learn more about COVID-19.'
+        ],
+        'faq' => [
+            'text' => 'FAQ',
+            'title' => 'Learn more about how Talent Cloud works.'
+        ],
+    ],
 
     'header' => [
         'title' => 'GC Talent Reserve',
         'blurb' => 'Exceptional circumstances require exceptional people, working where they’re needed most.',
+        'blurb2' => 'Help support priority talent needs for the GC Digital and Tech Community during COVID-19.',
         'beta' => 'BETA / Pilot Project',
+        'cta' => 'GC Employee? Want to offer your help?',
+        'cta_link' => [
+            'title' => 'Click here to see opportunities.',
+            'label' => 'Find out which areas of expertise need help',
+        ],
     ],
 
     'content' => [
         'title' => 'Purpose of This Site',
         'offer_help' => [
-            'text' => 'Offer to Help',
-            'title' => 'Learn more about how you can help during an emergency.'
+            'text' => 'View Opportunities',
+            'title' => 'Learn more about how you can help.'
         ],
-        'body' => 'The COVID-19 pandemic has placed enormous pressure on citizens and governments around the world. In times of extreme disruption, organizations have different talent needs. Governments may experience critical talent shortages in some areas and surplus in others. A strong, coordinated response requires a method for identifying talent gaps, and getting skilled people where they’re needed most, quickly and effectively.',
+        'body' => 'The Government of Canada Digital and Technology Community is working hard to support the operations of the Government of Canada during the COVID-19 pandemic. Some teams will be needing additional support during this time as they work on priority areas. This tool is designed to identify existing, skilled, Government of Canada employees who may be able to temporarily support those needs.',
         'designed_to_header' => 'This site is designed to:',
         'designed_to_list' => [
-            1 => 'Provide a single-window, whole-of-government vehicle for talent mobilization in a crisis situation',
+            1 => 'Provide a tool for temporary digital and technology talent mobilization within the Government of Canada in a crisis situation',
             2 => 'Enable the flow of talent from areas of lower priority to areas of critical need, supported by data tracking and central coordination',
             3 => 'Give public servants a way to use their skills where help is needed most',
-            4 => 'Offer departments a fast, efficient vehicle for sourcing skilled, available talent',
+            4 => 'Offer departments a fast, efficient mechanism for sourcing skilled, available digital and technology talent',
         ],
-        'shared_effort' => 'This exercise is a shared effort involving several Government of Canada departments and agencies, and is centrally coordinated through the Treasury Board Secretariat.',
+        'shared_effort' => 'This exercise is managed by the Office of the Chief Information Officer with the support of Talent Cloud and the Community Management Office.',
         'code_for_site' => 'The code for this site and supporting information is available to other governments and jurisdictions. ',
         'github_url' => [
             'text' => 'Please visit us on GitHub',
@@ -49,37 +81,51 @@ return [
         ],
         'need_help' => [
             'title' => 'Does your department need extra help?',
-            'body' => 'If your department has identified a current or anticipated talent shortage in a critical area, get in touch to request some extra help. If your department has a unique need in a specialized field, we can launch a new call-out. ',
+            'body1' => 'This tool is currently available for the digital and technology community.',
+            'body2' => 'If your department has identified a current or anticipated talent shortage in a critical area, get in touch to request some extra help. If your department has a unique need in a specialized field, we can launch a new call-out. If you would would like to use this tool for another area please get in touch with your head of community or let us know. ',
             'learn_more' => [
                 'text' => 'Learn More',
                 'title' => 'Click here to learn more about contacting us.',
             ],
         ],
-        'apply_list_title' => 'You should apply to be in the GC talent reserve if:',
+        'apply_list_title' => 'You should apply to be in the GC Talent Reserve if:',
         'apply_list' => [
-            1 => 'You want to help Canadians by going where you’re most needed',
-            2 => 'You’re currently a Government of Canada employee (indeterminate or term)',
-            3 => 'You have specialized skills to share (see list below)',
-            4 => 'You want to support your colleagues in other teams or departments',
-            5 => 'You’re good at adapting to new environments and processes',
-            6 =>  "You're not currently in a critical role in your own department, and your manager would support a temporary placement.",
+            1 =>  "You're not currently in a critical role in your own department, and your manager would support a temporary placement.",
+            2 => 'You want to help Canadians by going where you’re most needed',
+            3 => 'You’re currently a Government of Canada employee (indeterminate or term)',
+            4 => 'You have specialized skills to share (see list below)',
+            5 => 'You want to support your colleagues in other teams or departments',
+            6 => 'You’re good at adapting to new environments and processes',
         ],
-        'not_apply_list_title' => 'You should NOT apply to be in the GC talent reserve if:',
+        'not_apply_list_title' => 'You should NOT apply to be in the GC Talent Reserve if:',
         'not_apply_list' => [
             1 => "You're not a current Government of Canada employee (indeterminate or term). Sorry, no exceptions",
             2 => 'You don’t have the skills needed (see below)',
-            3 => "You're hunting for a new permanent job",
-            4 => "You're looking for a promotional acting appointment",
-            5 => 'You find it hard to adapt to new environments or processes',
+            3 => 'You\'re only available for a very specific and limited amount of time',
+            4 => "You're hunting for a new permanent job",
+            5 => "You're looking for a promotional acting appointment",
+            6 => 'You find it hard to adapt to new environments or processes',
         ],
     ],
 
     'job_list' => [
-        'title' => 'The Government of Canada is looking for extra help in these areas:',
+        'title' => 'The Government of Canada Needs Help',
         'expand_sections' => 'Expand All Sections',
         'collapse_sections' => 'Collapse All Sections',
         'have_skills' => 'Do you have skills in any of the following critical need areas? (Because you’re helping out under exceptional circumstances, remember to be realistic about your abilities.)',
-        'impact_position' => 'Rest assured, this will not impact your current position or salary. This is a flexible, temporary placement so we can lend a hand where its most needed. HR arrangements for those selected will be made on a case-by-case basis. Home and host departments will work together to ensure fast, appropriate solutions. Most options will allow for remote work. Some may last a few days, others may last several weeks.',
+        'instructions' => 'Below are categories of work that require extra help. By clicking on them to expand them, you can browse various sub categories that are defined by a particular set of skills. Once you find a category you can offer your help in,',
+        'instructions_bold' => 'click on the level of skill you have to begin the application process',
+        'learn_more_copy1' => 'Want more details before you apply? Check out our',
+        'learn_more_copy2' => 'or step-by-step',
+        'learn_more_faq_link' => [
+            'title' => 'Open the FAQ in a new window or tab.',
+            'label' => 'FAQ',
+        ],
+        'learn_more_how_link' => [
+            'title' => 'Learn more about the process.',
+            'label' => 'application guide',
+        ],
+        'impact_position' => 'This is a flexible, temporary placement so we can lend a hand where its most needed. HR arrangements for those selected will be made on a case-by-case basis. Home and host departments will work together to ensure fast, appropriate solutions. Some may last a few days, others may last several weeks.',
         'dont_have_skills' => "Don't have these skills but want to help? We're continuously updating and add jobs. Please check back every 2-3 days.",
     ],
 
@@ -95,7 +141,7 @@ return [
         'list_content' => [
             1 => [
                 'title' => 'Step 01: Complete the application process',
-                'body' => "Because we'd like you to be able to hit the ground running as you join a team that needs essential help, we have created a very short and easy process to find your best fit options.This application should take you 20 minutes to complete. Grab a nice hot beverage, and sign up to do your part.",
+                'body' => "Because we'd like you to be able to hit the ground running as you join a team that needs essential help, we have created a very short and easy process to find your best fit options.This application should take you 20 minutes to complete. Grab a nice hot beverage, and sign up to do your part. Before you do, make sure that your manager and team would support your potential move.",
             ],
             2 => [
                 'title' => 'Step 02: Get an email about next steps',
@@ -113,6 +159,9 @@ return [
     ],
 
     'stream' => [
+        'view' => 'View',
+        'instruction' => 'Find your area of expertise and click on your skill level to begin.',
+        'position_label' => 'Positions in',
         'click_to_view' => 'Click to view...',
         'offer_support' => 'Click to Offer Support',
         'no_jobs' => 'Help Not Yet Requested',
