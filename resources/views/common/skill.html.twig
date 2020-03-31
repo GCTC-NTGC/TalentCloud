@@ -1,7 +1,7 @@
 {# =============================================================================
 
     Talent Cloud
-    Skill
+    Recurring Elements: Skill Accordion
 
 ============================================================================= #}
 {% if prefix %}
@@ -268,7 +268,7 @@
                                 <label for="{{ id_prefix }}skillDescription">{{ skill_template.knowledge_label }}</label>
                                 <span>Required <span data-c-color="black">(<span>100</span> words left)</span></span>
                                 <div>
-                                    <textarea id="{{ id_prefix }}skillDescription" name="description" required>{{ skill_declaration.description }}</textarea>
+                                    <textarea id="{{ id_prefix }}skillDescription" name="description" placeholder="Tell us a bit about your skills, like where you worked, what your role was, what you delivered, and what tools you used." required>{{ skill_declaration.description }}</textarea>
                                 </div>
                                 <span>This input has an error.</span>
                             </div>
@@ -313,10 +313,10 @@
                         <div class="profile-relative__add-trigger-wrapper">
                             {% if applicant.work_samples|length > 0 %}
                                 {% if relativeCounter == 0 %}
-                                    <p class="profile-relative__null" data-c-background="gray(20)" data-c-border="all(thin, solid, gray)" data-c-radius="rounded" data-c-margin="top(1)" data-c-padding="all(1)" data-c-align="base(center)" data-c-color="gray">You can add one of your Work Samples as evidence for this skill using the button above.</p>
+                                    <p class="profile-relative__null active" data-c-background="gray(20)" data-c-border="all(thin, solid, gray)" data-c-radius="rounded" data-c-margin="top(1)" data-c-padding="all(1)" data-c-align="base(center)" data-c-color="gray">You can add one of your Work Samples as evidence for this skill using the button above.</p>
                                 {% endif %}
                             {% else %}
-                                <p class="profile-relative__null" data-c-background="gray(20)" data-c-border="all(thin, solid, gray)" data-c-radius="rounded" data-c-margin="top(1)" data-c-padding="all(1)" data-c-align="base(center)" data-c-color="gray">{{ relative_template.sample.null_copy }}</p>
+                                <p class="profile-relative__null active" data-c-background="gray(20)" data-c-border="all(thin, solid, gray)" data-c-radius="rounded" data-c-margin="top(1)" data-c-padding="all(1)" data-c-align="base(center)" data-c-color="gray">{{ relative_template.sample.null_copy }}</p>
                             {% endif %}
                         </div>
                     </div>
