@@ -22,7 +22,7 @@
                     <span data-c-colour="white" data-c-font-size="h4" data-c-font-weight="bold" data-c-margin="bottom(normal)">
                         {{ content.title }}
                     </span>
-                    <p data-c-margin="top(normal)" data-c-colour="white">{{ content.body }}</p>
+                    <p data-c-margin="top(normal)" data-c-colour="white">{{ content.body|raw }}</p>
                 </div>
                 {% endfor %}
             </div>
