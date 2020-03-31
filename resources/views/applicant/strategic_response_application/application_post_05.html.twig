@@ -6,16 +6,20 @@
 ============================================================================= #}
 {% extends "layouts/base" %}
 {% block title %}
-	{{ application_template.step_05_title }}
+    {{ application_template.step_05_title }}
 {% endblock %}
 {% block body %}
-	{% include "common/goc" %}
-	{% include "common/alert" %}
-	{% include "common/header" with {'header': {'title': ":title: :job"|replace({':title': application_template.title, ':job': job.title})}} %}
-	<a id="skipLink"></a>
-	{% include "applicant/strategic_response_application/common/tracker-ajax" %}
-    <section class="application__view-layout">
-        {% include "applicant/strategic_response_application/application_view/application_layout" %}
-        {% include "applicant/strategic_response_application/step_05/view_05_actions" %}
-    </section>
+    {% include "common/goc" %}
+    <div data-clone>
+        {% include "response/beta-banner" %}
+        {% include "response/menu" %}
+        {% set job_title = ":specialty - :level"|replace({':specialty': job.talent_stream_category.name, ':level': job.job_skill_level.name}) %}
+        {% include "response/header" with {'header': {'title': ":title: :job"|replace({':title': application_template.title, ':job': job_title})}} %}
+        <a id="skipLink"></a>
+        {% include "applicant/strategic_response_application/common/tracker-ajax" %}
+        <section class="application__view-layout">
+            {% include "applicant/strategic_response_application/application_view/application_layout" %}
+            {% include "applicant/strategic_response_application/step_05/view_05_actions" %}
+        </section>
+    </div>
 {% endblock %}
