@@ -31,7 +31,8 @@ class JobController extends Controller
      */
     public function index()
     {
-        $now = Carbon::now();
+        // If true, show the Paused due to COVID-19 message.
+        $emergency_response = config('seasonal.is_covid_emergency');
 
         // Find published jobs that are currently open for applications.
         // Eager load required relationships: Department, Province, JobTerm.
@@ -49,8 +50,13 @@ class JobController extends Controller
                 'submitted_applications',
             ])
             ->get();
+
+        $null_alert = $emergency_response
+            ? Lang::get('applicant/job_index.index.covid_null_alert')
+            : Lang::get('applicant/job_index.index.null_alert');
         return view('applicant/job_index', [
             'job_index' => Lang::get('applicant/job_index'),
+            'null_alert' => $null_alert,
             'jobs' => $jobs
         ]);
     }
@@ -149,17 +155,33 @@ class JobController extends Controller
         }
 
         // TODO: replace route('manager.show',manager.id) in templates with link using slug.
+        $essential_hard = $jobPoster->criteria->filter(
+            function ($value, $key) {
+                return $value->criteria_type->name == 'essential' &&
+                    $value->skill->skill_type->name == 'hard';
+            }
+        )->sortBy('skill.name');
+        $essential_soft = $jobPoster->criteria->filter(
+            function ($value, $key) {
+                return $value->criteria_type->name == 'essential' &&
+                    $value->skill->skill_type->name == 'soft';
+            }
+        )->sortBy('skill.name');
+        $asset_hard = $jobPoster->criteria->filter(
+            function ($value, $key) {
+                return $value->criteria_type->name == 'asset' &&
+                    $value->skill->skill_type->name == 'hard';
+            }
+        )->sortBy('skill.name');
+        $asset_soft = $jobPoster->criteria->filter(
+            function ($value, $key) {
+                return $value->criteria_type->name == 'asset' &&
+                    $value->skill->skill_type->name == 'soft';
+            }
+        )->sortBy('skill.name');
         $criteria = [
-            'essential' => $jobPoster->criteria->filter(
-                function ($value, $key) {
-                    return $value->criteria_type->name == 'essential';
-                }
-            ),
-            'asset' => $jobPoster->criteria->filter(
-                function ($value, $key) {
-                    return $value->criteria_type->name == 'asset';
-                }
-            ),
+            'essential' => $essential_hard->merge($essential_soft),
+            'asset' => $asset_hard->merge($asset_soft),
         ];
 
         $jobLang = Lang::get('applicant/job_post');

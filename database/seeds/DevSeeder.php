@@ -1,17 +1,17 @@
 <?php
 
-use Illuminate\Database\Seeder;
-use App\Models\Manager;
-use App\Models\User;
-use App\Models\JobPoster;
 use App\Models\Applicant;
-use App\Models\JobApplication;
-use App\Models\Reference;
 use App\Models\Assessment;
 use App\Models\Course;
 use App\Models\Degree;
 use App\Models\HrAdvisor;
+use App\Models\JobApplication;
+use App\Models\JobPoster;
+use App\Models\Manager;
+use App\Models\Reference;
+use App\Models\User;
 use App\Models\WorkExperience;
+use Illuminate\Database\Seeder;
 
 class DevSeeder extends Seeder // phpcs:ignore
 {
@@ -60,7 +60,7 @@ class DevSeeder extends Seeder // phpcs:ignore
      *
      * @return void
      */
-    public function run() : void
+    public function run(): void
     {
         $adminUser = User::where('email', $this->adminEmail)->first();
         if ($adminUser === null) {
@@ -88,7 +88,7 @@ class DevSeeder extends Seeder // phpcs:ignore
 
         factory(JobPoster::class, 3)->state('live')->create([
             'manager_id' => $managerUser->manager->id
-        ])->each(function ($job) : void {
+        ])->each(function ($job): void {
             $job->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
                 'job_poster_id' => $job->id
             ]);
@@ -96,13 +96,13 @@ class DevSeeder extends Seeder // phpcs:ignore
             $job->job_applications()->save(factory(JobApplication::class)->create([
                 'job_poster_id' => $job->id,
                 'applicant_id' => factory(Applicant::class)->create([
-                        'user_id' => factory(User::class)->state('priority')->create()->id
-                    ])->id
+                    'user_id' => factory(User::class)->state('priority')->create()->id
+                ])->id
             ]));
         });
         factory(JobPoster::class, 3)->state('closed')->create([
             'manager_id' => $managerUser->manager->id
-        ])->each(function ($job) : void {
+        ])->each(function ($job): void {
             $job->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
                 'job_poster_id' => $job->id
             ]);

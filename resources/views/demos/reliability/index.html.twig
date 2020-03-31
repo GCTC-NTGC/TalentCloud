@@ -13,29 +13,22 @@
         {# Compatibility #}
         <meta
             http-equiv="X-UA-Compatible"
-            content="IE=edge" />
+            content="IE=edge">
 
         {# Viewport #}
         <meta
             name="viewport"
-            content="width=device-width, initial-scale=1.0" />
-
-        {# Prevents search engine scraping
-           None is equivalent to "noindex, nofollow"
-        #}
-        <meta
-            name="robots"
-            content="none" />
+            content="width=device-width, initial-scale=1.0">
 
         {# Generic Google Fonts #}
         <link
             href="https://fonts.googleapis.com/css?family=Euphoria+Script|Open+Sans:400,400i,600,600i,800,800i&amp;subset=latin-ext"
-            rel="stylesheet" />
+            rel="stylesheet">
 
         {# Material Icons #}
         <link
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
-            rel="stylesheet" />
+            rel="stylesheet">
 
         {# Your CSS #}
         <link
@@ -43,11 +36,14 @@
             rel="stylesheet"
             type="text/css" />
 
-        {# Modernizr #}
-        <script
-            async defer
-            src="{{ mix('/js/modernizr.js') }}">
-        </script>
+        {# Favicons #}
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#b91d47">
+        <meta name="msapplication-TileColor" content="#b91d47">
+        <meta name="theme-color" content="#b91d47">
 
         {# jQuery & UI #}
         <script
@@ -67,9 +63,13 @@
     {# Playground's Body #}
     <body data-clone>
 
-        <header data-c-overlay="black(90)" data-c-padding="tb(triple)" style="background-image: url('/images/bg_crowd.jpg');">
+        <div data-c-visibility="hidden">
+            {# {% include "demos/reliability/templates/repeaters/legal-name" %} #}
+        </div>
+
+        <header data-c-overlay="black(90)" data-c-padding="tb(3)" style="background-image: url('https://images.unsplash.com/photo-1545091154-2d7904ef24a3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80');">
             <div data-c-container="large">
-                <h1 data-c-font-size="h2" data-c-color="white" data-c-margin="bottom(double)" data-c-font-weight="600">Reliability Screening Application and Consent Form</h1>
+                <h1 data-c-margin="bottom(2)" data-c-heading="h1">Reliability Screening Application and Consent Form</h1>
                 <div data-c-color="white">
                     <nav
                         aria-label="breadcrumb"
@@ -77,15 +77,19 @@
                         <ol>
                             <li>
                                 <a
-                                    href="https://talent.canada.ca"
+                                    href="https://canada.ca"
                                     title="This is the title of the page link.">
-                                    Talent Cloud
-                                </a>
-                                <i class="material-icons">arrow_right</i>
+                                    Canada.ca</a>
+                                <i>/</i>
+                                <a
+                                    href="https://canada.ca"
+                                    title="This is the title of the page link.">
+                                    Security Forms</a>
+                                <i>/</i>
                             </li>
                             <li>
                                 <span aria-current="page">Reliability Form</span>
-                                <i class="material-icons">arrow_right</i>
+                                <i>/</i>
                             </li>
                         </ol>
                     </nav>
@@ -93,9 +97,9 @@
             </div>
         </header>
 
-        <div class="gradient" data-c-padding="tb(normal)">
+        <div class="gradient" data-c-padding="tb(1)">
             <div data-c-container="large" data-c-align="base(center)">
-                <p data-c-color="white" data-c-margin="tb(half)">Looking for a different security clearance form? Discover more here.</p>
+                <p data-c-color="white">Looking for a different security clearance form? <a href="canada.ca" title="Learn about other types of security forms.">Discover more here</a>.</p>
             </div>
         </div>
 
@@ -104,17 +108,57 @@
                 <div data-c-grid="gutter">
                     <div data-c-grid-item="tl(1of4) ds(1of5)" class="sidebar-wrapper">
                         <div class="sidebar" data-c-padding="tb(triple)">
-                            <span data-c-font-weight="bold" data-c-font-size="h4">Reliability Form</span>
+                            <span data-c-font-weight="bold" data-c-font-size="h4">On this page:</span>
                             <nav data-c-margin="top(normal)">
                                 <ul>
-                                    <li class="sidebar-complete"><span>•</span><a href="#consent" title="">Consent &amp; Verification</a></li>
-                                    <li class="sidebar-incomplete"><span>•</span><a href="#background" title="">Background Information</a></li>
-                                    <li class="sidebar-error"><span>•</span><a href="#residence" title="">Residence</a></li>
-                                    <li class="sidebar-incomplete"><span>•</span><a href="#experience" title="">Professional Background</a></li>
-                                    <li class="sidebar-incomplete"><span>•</span><a href="#references" title="">Personal References</a></li>
-                                    <li class="sidebar-incomplete"><span>•</span><a href="#education" title="">Education &amp; Professional Designations</a></li>
-                                    <li class="sidebar-incomplete"><span>•</span><a href="#record" title="">Criminal Record</a></li>
-                                    <li class="sidebar-incomplete"><span>•</span><a href="#summary" title="">Summary</a></li>
+                                    <li class="sidebar-complete">
+                                        <i class="material-icons">error</i>
+                                        <i class="material-icons">warning</i>
+                                        <i class="material-icons">check_circle</i>
+                                        <a href="#consent" title="">Consent &amp; Verification</a>
+                                    </li>
+                                    <li class="sidebar-incomplete">
+                                        <i class="material-icons">error</i>
+                                        <i class="material-icons">warning</i>
+                                        <i class="material-icons">check_circle</i>
+                                        <a href="#background" title="">Background Information</a>
+                                    </li>
+                                    <li class="sidebar-error">
+                                        <i class="material-icons">error</i>
+                                        <i class="material-icons">warning</i>
+                                        <i class="material-icons">check_circle</i>
+                                        <a href="#residence" title="">Residence</a>
+                                    </li>
+                                    <li class="sidebar-incomplete">
+                                        <i class="material-icons">error</i>
+                                        <i class="material-icons">warning</i>
+                                        <i class="material-icons">check_circle</i>
+                                        <a href="#experience" title="">Professional Background</a>
+                                    </li>
+                                    <li class="sidebar-incomplete">
+                                        <i class="material-icons">error</i>
+                                        <i class="material-icons">warning</i>
+                                        <i class="material-icons">check_circle</i>
+                                        <a href="#references" title="">Personal References</a>
+                                    </li>
+                                    <li class="sidebar-incomplete">
+                                        <i class="material-icons">error</i>
+                                        <i class="material-icons">warning</i>
+                                        <i class="material-icons">check_circle</i>
+                                        <a href="#education" title="">Education &amp; Professional Designations</a>
+                                    </li>
+                                    <li class="sidebar-incomplete">
+                                        <i class="material-icons">error</i>
+                                        <i class="material-icons">warning</i>
+                                        <i class="material-icons">check_circle</i>
+                                        <a href="#record" title="">Criminal Record</a>
+                                    </li>
+                                    <li class="sidebar-incomplete">
+                                        <i class="material-icons">error</i>
+                                        <i class="material-icons">warning</i>
+                                        <i class="material-icons">check_circle</i>
+                                        <a href="#summary" title="">Summary</a>
+                                    </li>
                                 </ul>
                             </nav>
                             <button data-c-margin="top(double)" data-c-button="solid(go)" type="button" data-c-radius="rounded">
@@ -123,7 +167,7 @@
                         </div>
                     </div>
                     <div data-c-grid-item="tl(3of4) ds(4of5)" class="sidebar-content">
-                        <form data-c-grid="gutter">
+                        <form data-c-grid="gutter(all, 1)">
                             <div data-c-grid-item="base(1of1)">
                                 <p data-c-margin="top(triple)">Before you begin the clearance form, please review the information provided in the "Consent Documentation &amp; Details" section. This information describes the type of inquiries and assessments you agree to allow the Government of Canada perform in order to process your security clearance. The Government of Canada uses this form to collect personal information so that it can conduct security screening verifications, inquiries and assessments.</p>
                             </div>
@@ -181,7 +225,7 @@
                     </div>
                     <div data-c-alignment="tp(right)" data-c-grid-item="tp(2of7)">
                         <a class="footer-logo" href="https://canada.ca" target="_blank" title="Government of Canada Logotype" rel="noopener noreferrer">
-                            <img alt="Government of Canada Logotype" class="" src="/images/logo_canada_colour.png">
+                            <img alt="Government of Canada Logotype" class="" src="$ROOT/img/logo_canada_colour.png">
                         </a>
                     </div>
                 </div>
@@ -199,9 +243,7 @@
         {% include "demos/reliability/templates/dialogs/record" %}
 
         {# Clone's JavaScript #}
-        <script async defer
-            src="https://cdn.jsdelivr.net/npm/clone-framework/dist/js/clone.min.js">
-        </script>
+        <script async defer src="https://cdn.jsdelivr.net/npm/clone-framework/dist/js/clone.min.js"></script>
 
         {# Your JavaScript #}
         <script src="/js/reliability.js"></script>

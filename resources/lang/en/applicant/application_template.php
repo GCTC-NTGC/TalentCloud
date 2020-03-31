@@ -101,9 +101,6 @@ return [
     'veterans_title' => 'Veterans Claim',
     'veterans_content' => 'Are you a veteran or a member of the Canadian Armed Forces?',
     'veterans_label' => 'Select One',
-    'language_title' => 'Language Requirement',
-    'language_copy' => 'Which language would you prefer for this application process?',
-    'language_label' => 'Select One',
     /* Step 02 */
     'step_02_title' => 'Talent Cloud | Applicant: Apply Now - Step 2',
     'experience' => [
@@ -139,13 +136,15 @@ return [
     'essential_answer_1' => 'Sorry, you really do need all of them, and at the right level.',
     'essential_question_2' => 'Q. What if I stretch the truth a little? Once I’m interviewed they’ll change their mind for sure!',
     'essential_answer_2' => 'Don’t do it. These will be assessed, and you’re better than that.',
-    'essential_sidebar_label' => 'Skills Checklist',
 
     'asset_title' => 'Skills That Are Nice to Have',
     'asset_context' => 'You can apply for this job if you don’t have any of these skills. These are assets that the hiring manager thinks will help with the work. They’re often used to help select the best candidate amongst all those who meet all the “Need to Have” criteria. So if you do have these skills, now is the time to let the hiring manager know.',
     'asset_start_button_title' => 'Scroll to begin filling out the skills that are nice to have.',
     'skills_start_button_label' => 'Get Started',
-    'asset_sidebar_label' => 'Skills Checklist',
+
+    /* Step 3&4 */
+    'skill_sidebar_label' => 'Skills Checklist',
+
     /* Step 05 */
     'step_05_title' => 'Talent Cloud | Applicant: Apply Now - Step 5',
     'preview' => [
@@ -182,7 +181,7 @@ return [
     /* Step 06 (Integrity Check) */
     'integrity' => [
         'title' => 'Application Confirmation',
-        'confirmation_copy' => 'By signing your name below, you’re confirming:',
+        'confirmation_copy' => 'By signing my name below, I confirm:',
         'confirmation_01' => 'I’ve reviewed what I wrote in my application.',
         'confirmation_02' => 'I understand that I am part of a community of people who trust each other.',
         'confirmation_03' => 'I promise that the information I am providing is true.',
@@ -206,4 +205,40 @@ return [
         'faq_title' => 'Go to the Talent Cloud FAQ.',
         'faq_label' => 'View the FAQ',
     ],
+
+    'strategic_response' => [
+        'required_information' => 'Required Information',
+        'gov_email_copy' => 'What is your active GC email account? (must end in .ca)',
+        'gov_email_label' => 'GC email',
+        'physical_office_willing_copy' => 'Are you willing to come to work in a physical office?',
+        'physical_office_willing_label' => 'Check for Yes',
+        'security_clearance_copy' => 'What is your current security clearance level?',
+        'security_clearance_label' => 'Select One',
+        'director_name_label' => 'Director Name',
+        'director_title_label' => 'Director Title',
+        'director_email_label' => 'Director Email',
+        'reference_name_label' => 'Reference Name',
+        'reference_title_label' => 'Reference Title',
+        'reference_email_label' => 'Reference Email',
+        'director_copy' => 'What is your current director’s name and email? (We’ll need approval that you can be loaned to another team for a bit to help out.)',
+        'reference_copy' => 'What is the name and email of an additional reference who can confirm your skill set? (Preferably a current or recent Government of Canada supervisor.)',
+        'experience_title' => 'My Education',
+        'experience_description' => 'Add education if it’s relevant to the skill requirements for this job.',
+        'essential_context_1' => 'You\'re amazing for applying. Thanks for offering to help out. These skills are what departments need right now. <strong>Super important:</strong> if you want to be of genuine help, <strong>these are skills you must already have.</strong>',
+        'essential_context_2' => 'You\'ll be dropped into a different team - one that might be under pressure or tight timelines to deliver support for Canadians. If you\'re strong in these skills and you\'re the kind of person who steps up, you\'re a right fit for this. (If you\'re not strong in these skills but want to help, check out some of the other calls for talent.)',
+        'asset_context' => 'This isn\'t required for the job you might be placed in. You can learn it as you go. But it would be great if you already had the skill(s) listed below.',
+        'skill_prompt' => 'Share a few high level bullet points about your work experience:',
+        'skill_placeholder' => 'Tell us a bit about your skills, like where you worked, what your role was, and what you delivered.',
+        'preview_security_clearance_label' => 'Security Clearance',
+        'preview_physical_office_yes' => '<strong>Yes</strong>, I am willing to come to work in a physical office.',
+        'preview_physical_office_no' => '<strong>No</strong>, I am not willing to come to work in a physical office.',
+        'confirmations' => [
+            'That I am part of a community of people who trust each other.',
+            'People will be relying on me to do this job in this time of great need and I promise that the information I am providing is true.',
+        ],
+        'complete_title' => 'Success!',
+        'complete_copy_1' => 'You\'re awesome.',
+        'complete_copy_2' => 'Thanks for putting your name forward.The GC Talent Reserve team will be in touch in a few days with next steps.',
+        'complete_return_label' => 'Back to Homepage',
+    ]
 ];

@@ -37,6 +37,12 @@ return [
         'sign_off' => 'Au plaisir de vous voir en 2020!',
         'signature' => 'L’équipe du Nuage de talents'
     ],
+    'response' => [
+        'title' => 'Nous améliorons la plate-forme.',
+        'main_message' => 'En raison de l\'évolution de la situation autour de COVID-19, nous allons faire une pause sur la publication de nouvelles opportunités sur ce site.',
+        'sign_off' => 'Pour plus d\'opportunités, visitez le site',
+        'link' => '<a href="https://psjobs-emploisfp.psc-cfp.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=fr" title="" target="_blank">Emplois GC</a>'
+    ],
     'hiw' => [
         'title' => 'Comment fonctionne le Nuage de talents',
         'steps' => [

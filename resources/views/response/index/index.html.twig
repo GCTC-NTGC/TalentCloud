@@ -7,23 +7,23 @@
 
 ============================================================================= #}
 {% extends "layouts/base" %}
-{% block title %}GC Talent Reserve{% endblock %}
+{% block title %}{{ response.page_title }}{% endblock %}
 {% block body %}
     {# Government of Canada Banner #}
     {% include "common/goc" %}
     <div data-clone>
         {# Beta Banner #}
-        {% include "common/response/beta-banner" %}
+        {% include "response/beta-banner" %}
         {# Menu #}
-        {% include "common/response/menu" %}
+        {% include "response/menu" %}
         {# Header #}
-        {% include "common/response/index/header" %}
+        {% include "response/index/header" %}
         {# Content #}
-        {% include "common/response/index/content" %}
+        {% include "response/index/content" %}
         {# Job List #}
-        {% include "common/response/index/job-list" %}
+        {% include "response/index/job-list" %}
         {# How to Apply #}
-        {% include "common/response/index/how" %}
+        {% include "response/index/how" %}
     </div>
 {% endblock %}
 

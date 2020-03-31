@@ -12,8 +12,7 @@ import {
 } from "formik";
 import { array, object, string } from "yup";
 import nprogress from "nprogress";
-import nanoid from "nanoid";
-
+import { v4 as uuidv4 } from "uuid";
 import Modal from "../../Modal";
 import { validationMessages } from "../../Form/Messages";
 import TextAreaInput from "../../Form/TextAreaInput";
@@ -328,7 +327,7 @@ export const JobTasks: React.FunctionComponent<JobTasksProps> = ({
                       </div>
                     ) : null;
 
-                  const tempId = nanoid(10);
+                  const tempId = uuidv4();
 
                   return (
                     <>
