@@ -11,7 +11,7 @@
         <p data-c-margin="bottom(1)">Applicant: <span data-c-font-weight="bold">{{ applicant.user.first_name }} {{ applicant.user.last_name }}</a></p>
     {% endif %}
     {# Citizenship #}
-    <p>
+    <p data-c-margin="bottom(.25)">
         {% if job_application.citizenship_declaration_id != false %}
             <i class="fas fa-check" data-c-color="go" data-c-margin="right(.5)"></i>{{ citizenship_declaration_template[job_application.citizenship_declaration.name] }}
         {% else %}
@@ -19,123 +19,65 @@
         {% endif %}
     </p>
     {# Veteran Status #}
-    <p>
+    <p data-c-margin="bottom(.25)">
         {% if job_application.veteran_status_id != false %}
             <i class="fas fa-check" data-c-color="go" data-c-margin="right(.5)"></i>{{ veteran_status_template[job_application.veteran_status.name] }}
         {% else %}
             <i class="fas fa-times" data-c-color="stop" data-c-margin="right(.5)"></i>{{ application_template.preview.veteran_null_copy }}
         {% endif %}
     </p>
-</section>
-
-<a
-    aria-hidden="true"
-    class="application__view-anchor"
-    id="applicationView01">
-</a>
-
-<section
-    class="application-preview__section-01">
-
-        <div
-            class="application-preview__status">
-            {% if job_application.veteran_status_id != false %}
-                <i class="fas fa-check"></i>
-                <span>
-                        {{ veteran_status_template[job_application.veteran_status.name] }}
-                </span>
-            {% else %}
-                <i class="fas fa-times"></i>
-                <span>{{ application_template.preview.veteran_null_copy }}</span>
-            {% endif %}
-        </div>
-
     {# Language Confirmation Status #}
-
-        {% if job.language_requirement.id == 1 %}
-            {# English Essential #}
-            {% set language_requirement = application_template.english_essential %}
-        {% elseif job.language_requirement.id == 2 %}
-            {# French Essential #}
-            {% set language_requirement = application_template.french_essential %}
-        {% elseif job.language_requirement.id == 3 %}
-            {# Bilingual Intermediate #}
-            {% set language_requirement = application_template.bilingual_intermediate %}
-        {% elseif job.language_requirement.id == 4 %}
-            {# Bilingual Advanced #}
-            {% set language_requirement = application_template.bilingual_advanced %}
-        {% elseif job.language_requirement.id == 5 %}
-            {# English or French #}
-            {% set language_requirement = application_template.english_or_french %}
-        {% else %}
-            {# nothing #}
-        {% endif %}
-
-        <div
-            class="application-preview__status">
-            <i class="fas fa-{{ job.language_requirement.id ? 'check' : 'times' }}"></i>
-            <span>
-                {{ language_requirement }}
-            </span>
-        </div>
-
+    {% if job.language_requirement.id == 1 %}
+        {# English Essential #}
+        {% set language_requirement = application_template.english_essential %}
+    {% elseif job.language_requirement.id == 2 %}
+        {# French Essential #}
+        {% set language_requirement = application_template.french_essential %}
+    {% elseif job.language_requirement.id == 3 %}
+        {# Bilingual Intermediate #}
+        {% set language_requirement = application_template.bilingual_intermediate %}
+    {% elseif job.language_requirement.id == 4 %}
+        {# Bilingual Advanced #}
+        {% set language_requirement = application_template.bilingual_advanced %}
+    {% elseif job.language_requirement.id == 5 %}
+        {# English or French #}
+        {% set language_requirement = application_template.english_or_french %}
+    {% else %}
+        {# nothing #}
+    {% endif %}
+    <p data-c-margin="bottom(.25)"><i class="fas fa-{{ job_application.preferred_language_id ? 'check' : 'times' }}" data-c-color="{{ job_application.preferred_language_id ? 'go' : 'stop' }}" data-c-margin="right(.5)"></i>{{ language_requirement }}</p>
     {# Language Choice #}
-
-        {% if job_application.preferred_language_id == 1 %}
-            {# English #}
-            {% set language_choice = application_template.preview.english_choice %}
-        {% elseif job_application.preferred_language_id == 2 %}
-            {# French #}
-            {% set language_choice = application_template.preview.french_choice %}
-        {% else %}
-            {% set language_choice = application_template.preview.language_null_copy %}
-        {% endif %}
-
-        <div
-            class="application-preview__status">
-                <i class="fas fa-{{ job_application.preferred_language_id ? 'check' : 'times' }}"></i>
-                <span>
-                    {{ language_choice|raw|nl2br }}
-                </span>
-        </div>
-
+    {% if job_application.preferred_language_id == 1 %}
+        {# English #}
+        {% set language_choice = application_template.preview.english_choice %}
+    {% elseif job_application.preferred_language_id == 2 %}
+        {# French #}
+        {% set language_choice = application_template.preview.french_choice %}
+    {% else %}
+        {% set language_choice = application_template.preview.language_null_copy %}
+    {% endif %}
+    <p data-c-margin="bottom(.25)"><i class="fas fa-{{ job_application.preferred_language_id ? 'check' : 'times' }}" data-c-color="{{ job_application.preferred_language_id ? 'go' : 'stop' }}" data-c-margin="right(.5)"></i>{{ language_choice|raw|nl2br }}</p>
     {# Long Form Questions #}
-
-        {% for question in job.job_poster_questions %}
-
-            <div
-                class="application-preview__long-question">
-
-                <span>
-                    {{ question.question }}
-                </span>
-
-                <p>
-
-                    {% set questionCounter = 0 %}
-
-                    {% for applicantQuestion in application_template.application.questions %}
-                        {% if applicantQuestion.id == question.id %}
-                            {% set questionCounter = questionCounter + 1 %}
-                            {{ applicantQuestion.answer }}
-                        {% endif %}
-                    {% endfor %}
-
-                    {% for userAnswer in job_application.job_application_answers %}
-                        {% if userAnswer.job_poster_question.id == question.id %}
-                            {% set questionCounter = questionCounter + 1 %}
-                            {{ userAnswer.answer|nl2br }}
-                        {% endif %}
-                    {% endfor %}
-
-                    {% if questionCounter == 0 %}
-                        {{ application_template.preview.long_question_null }}
-                    {% endif %}
-
-                </p>
-
-            </div>
-
-        {% endfor %}
-
+    <h4 data-c-heading="h4" data-c-margin="top(2) bottom(1)">My Fit</h4>
+    {% for question in job.job_poster_questions %}
+        <p data-c-margin="top(1) bottom(.5)" data-c-font-weight="bold">{{ question.question }}</p>
+        <p>
+            {% set questionCounter = 0 %}
+            {% for applicantQuestion in application_template.application.questions %}
+                {% if applicantQuestion.id == question.id %}
+                    {% set questionCounter = questionCounter + 1 %}
+                    {{ applicantQuestion.answer }}
+                {% endif %}
+            {% endfor %}
+            {% for userAnswer in job_application.job_application_answers %}
+                {% if userAnswer.job_poster_question.id == question.id %}
+                    {% set questionCounter = questionCounter + 1 %}
+                    {{ userAnswer.answer|nl2br }}
+                {% endif %}
+            {% endfor %}
+            {% if questionCounter == 0 %}
+                {{ application_template.preview.long_question_null }}
+            {% endif %}
+        </p>
+    {% endfor %}
 </section>

@@ -17,7 +17,7 @@ return [
     'level_label' => 'My Level',
     'level_link_title' => 'Learn more about finding your skill level.',
     'level_link_label' => "(Don't know your level? Find out here.)",
-    'knowledge_label' => 'Your Experience with this Skill',
+    'knowledge_label' => 'My Experience with this Skill',
     'knowledge_link_label' => '(Need help? See example.)',
     'knowledge_prompt' => 'This is your opportunity to shine! Please share some high-level bullet points about your experience using this skill at the required level.',
     'skill_status_null_label' => 'Status: Skill Unclaimed',

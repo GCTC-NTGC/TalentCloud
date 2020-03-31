@@ -146,7 +146,7 @@
                                 {{ skill_template.skill_status_label }} {{ skill_template.status[skill_declaration.skill_status.name] }}
                             {% endif %}
                         </p> #}
-                        <p data-c-margin="bottom(.25)" data-c-font-weight="bold" data-c-color="c1">{{ skill_template.level_label }}</p>
+                        <p data-c-margin="bottom(.25)" data-c-font-weight="bold">{{ skill_template.level_label }}</p>
                         <p>
                             {% if skill_declaration == false %}
                                 {{ skill_template.skill_level_null }}
@@ -158,7 +158,7 @@
                                 {% endfor %}
                             {% endif %}
                         </p>
-                        <p data-c-font-weight="bold" data-c-color="c1" data-c-margin="top(1) bottom(.25)">{{ skill_template.knowledge_label }}</p>
+                        <p data-c-font-weight="bold" data-c-margin="top(1) bottom(.25)">{{ skill_template.knowledge_label }}</p>
                         <p>
                             {% if skill_declaration == false %}
                                 {{ skill_template.skill_description_null }}

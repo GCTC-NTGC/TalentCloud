@@ -17,7 +17,7 @@ return [
     'level_label' => 'Mon niveau de compétence',
     'level_link_title' => 'En savoir plus sur la façon d\'identifier votre niveau de compétence.',
     'level_link_label' => '(Vous ne connaissez pas votre niveau? Découvrez ici.)',
-    'knowledge_label' => 'Votre expérience avec cette compétence',
+    'knowledge_label' => 'Mon expérience avec cette compétence',
     'knowledge_link_label' => "(Besoin d'aide? Voir exemple.)",
     'knowledge_prompt' => 'C’est votre chance de vous faire valoir! Veuillez partager quelques points importants sur votre expérience de l\'utilisation de cette compétence au niveau requis.',
     'skill_status_null_label' => 'Statut : compétence pas ajouté',
