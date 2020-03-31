@@ -4,20 +4,10 @@
     Application: Success Message
 
 ============================================================================= #}
-{% extends "layouts/base" %}
+{% extends "response/response-base" %}
 {% block title %}
     {{ application_template.complete.step_06_title }}
 {% endblock %}
 {% block body %}
-    {# Government of Canada Block #}
-    {% include "common/goc" %}
-    <div data-clone>
-        {% include "response/beta-banner" %}
-        {% include "response/menu" %}
-        {% set job_title = ":specialty - :level"|replace({':specialty': job.talent_stream_category.name, ':level': job.job_skill_level.name}) %}
-        {% include "response/header" with {'header': {'title': ":title: :job"|replace({':title': application_template.title, ':job': job_title})}} %}
-        <a id="skipLink"></a>
-        {# Page Content #}
-        {% include "applicant/strategic_response_application/complete" %}
-    </div>
+    {% include "applicant/strategic_response_application/complete" %}
 {% endblock %}
