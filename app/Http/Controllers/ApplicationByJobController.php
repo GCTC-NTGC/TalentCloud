@@ -96,6 +96,12 @@ class ApplicationByJobController extends Controller
         $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
             ? 'applicant/strategic_response_application/application_post_01'
             : 'applicant/application_post_01';
+
+        $jobTitle = $jobPoster->isInStrategicResponseDepartment()
+            ? "{$jobPoster->talent_stream_category->name} - {$jobPoster->job_skill_level->name}"
+            : $jobPoster->title;
+        $headerTitle = Lang::get('applicant/application_template')['title'] . ": {$jobTitle}";
+
         return view(
             $viewTemplate,
             [
@@ -109,6 +115,9 @@ class ApplicationByJobController extends Controller
                 'preferred_language_template' => Lang::get('common/preferred_language'),
                 'citizenship_declaration_template' => Lang::get('common/citizenship_declaration'),
                 'veteran_status_template' => Lang::get('common/veteran_status'),
+                'header' => [
+                    'title' => $headerTitle,
+                ],
                 // Job Data.
                 'job' => $jobPoster,
                 // Applicant Data.
@@ -138,12 +147,21 @@ class ApplicationByJobController extends Controller
         $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
             ? 'applicant/strategic_response_application/application_post_02'
             : 'applicant/application_post_02';
+
+        $jobTitle = $jobPoster->isInStrategicResponseDepartment()
+            ? "{$jobPoster->talent_stream_category->name} - {$jobPoster->job_skill_level->name}"
+            : $jobPoster->title;
+        $headerTitle = Lang::get('applicant/application_template')['title'] . ": {$jobTitle}";
+
         return view(
             $viewTemplate,
             [
                 // Application Template Data.
                 'application_step' => 2,
                 'application_template' => Lang::get('applicant/application_template'),
+                'header' => [
+                    'title' => $headerTitle,
+                ],
                 // Job Data.
                 'job' => $jobPoster,
                 // Applicant Data.
@@ -178,12 +196,21 @@ class ApplicationByJobController extends Controller
         $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
             ? 'applicant/strategic_response_application/application_post_03'
             : 'applicant/application_post_03';
+
+        $jobTitle = $jobPoster->isInStrategicResponseDepartment()
+            ? "{$jobPoster->talent_stream_category->name} - {$jobPoster->job_skill_level->name}"
+            : $jobPoster->title;
+        $headerTitle = Lang::get('applicant/application_template')['title'] . ": {$jobTitle}";
+
         return view(
             $viewTemplate,
             [
                 // Application Template Data.
                 'application_step' => 3,
                 'application_template' => Lang::get('applicant/application_template'),
+                'header' => [
+                    'title' => $headerTitle,
+                ],
                 // Job Data.
                 'job' => $jobPoster,
                 // Skills Data.
@@ -223,12 +250,21 @@ class ApplicationByJobController extends Controller
         $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
             ? 'applicant/strategic_response_application/application_post_04'
             : 'applicant/application_post_04';
+
+        $jobTitle = $jobPoster->isInStrategicResponseDepartment()
+            ? "{$jobPoster->talent_stream_category->name} - {$jobPoster->job_skill_level->name}"
+            : $jobPoster->title;
+        $headerTitle = Lang::get('applicant/application_template')['title'] . ": {$jobTitle}";
+
         return view(
             $viewTemplate,
             [
                 // Application Template Data.
                 'application_step' => 4,
                 'application_template' => Lang::get('applicant/application_template'),
+                'header' => [
+                    'title' => $headerTitle,
+                ],
                 // Job Data.
                 'job' => $jobPoster,
                 // Skills Data.
@@ -282,6 +318,11 @@ class ApplicationByJobController extends Controller
         $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
             ? 'applicant/strategic_response_application/application_post_05'
             : 'applicant/application_post_05';
+        $jobTitle = $jobPoster->isInStrategicResponseDepartment()
+            ? "{$jobPoster->talent_stream_category->name} - {$jobPoster->job_skill_level->name}"
+            : $jobPoster->title;
+        $headerTitle = Lang::get('applicant/application_template')['title'] . ": {$jobTitle}";
+
         return view(
             $viewTemplate,
             [
@@ -291,6 +332,9 @@ class ApplicationByJobController extends Controller
                 'preferred_language_template' => Lang::get('common/preferred_language'),
                 'citizenship_declaration_template' => Lang::get('common/citizenship_declaration'),
                 'veteran_status_template' => Lang::get('common/veteran_status'),
+                'header' => [
+                    'title' => $headerTitle,
+                ],
                 // Job Data.
                 'job' => $jobPoster,
                 // Skills Data.
@@ -327,12 +371,20 @@ class ApplicationByJobController extends Controller
         $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
             ? 'applicant/strategic_response_application/application_post_06'
             : 'applicant/application_post_06';
+        $jobTitle = $jobPoster->isInStrategicResponseDepartment()
+            ? "{$jobPoster->talent_stream_category->name} - {$jobPoster->job_skill_level->name}"
+            : $jobPoster->title;
+        $headerTitle = Lang::get('applicant/application_template')['title'] . ": {$jobTitle}";
+
         return view(
             $viewTemplate,
             [
                 // Application Template Data.
                 'application_step' => 6,
                 'application_template' => Lang::get('applicant/application_template'),
+                'header' => [
+                    'title' => $headerTitle,
+                ],
                 // Used by tracker partial.
                 'job' => $jobPoster,
                 'job_application' => $application,
@@ -361,11 +413,20 @@ class ApplicationByJobController extends Controller
         $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
             ? 'applicant/strategic_response_application/application_post_complete'
             : 'applicant/application_post_complete';
+
+        $jobTitle = $jobPoster->isInStrategicResponseDepartment()
+            ? "{$jobPoster->talent_stream_category->name} - {$jobPoster->job_skill_level->name}"
+            : $jobPoster->title;
+        $headerTitle = Lang::get('applicant/application_template')['title'] . ": {$jobTitle}";
+
         return view(
             $viewTemplate,
             [
                 // Application Template Data.
                 'application_template' => Lang::get('applicant/application_template'),
+                'header' => [
+                    'title' => $headerTitle,
+                ],
                 // Job Data.
                 'job' => $jobPoster,
                 // Applicant Data.
