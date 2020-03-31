@@ -149,7 +149,7 @@ return [
             ],
             3 => [
                 'title' => 'Step 03: Get placed in a pool called “Ready to Allocate”',
-                'body' => 'After your reference check is done, you’ll be placed on a list of people who are ready to be sent to departments that have critical needs in the area(s) you applied to. You may get called up immediately or you may not get called at all. We’ll also let you know when you’re no longer needed in reserve, so you’re not left wondering. While you’re in this pool, please make sure to ((email the team)) if you have to withdraw your name for any reason. We want to make sure we only send the names of people currently available to departments in need.',
+                'body' => 'After your reference check is done, you’ll be placed on a list of people who are ready to be sent to departments that have critical needs in the area(s) you applied to. You may get called up immediately or you may not get called at all. We’ll also let you know when you’re no longer needed in reserve, so you’re not left wondering. While you’re in this pool, please make sure to <a href="mailto::email_address" title="Send Talent Cloud an email." target="_blank">email us</a> if you have to withdraw your name for any reason. We want to make sure we only send the names of people currently available to departments in need.',
             ],
             4 => [
                 'title' => 'Step 04: Get sent to a department!',
