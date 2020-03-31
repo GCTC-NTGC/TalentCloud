@@ -26,44 +26,23 @@
             </div>
         </div>
     </div>
+    {# Applicant Specific Actions #}
+    {% if is_manager_view %}
+    {% else %}
+        <div data-c-container="medium(center)">
+            <hr data-c-hr="thin(gray)" data-c-margin="tb(2)">
+            <div data-c-grid="gutter(all, 1)">
+                <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">
+                    <a href="{{ route('applications.index') }}" data-c-button="outline(c1)" data-c-radius="rounded" title="{{ application_template.save_quit_button_label }}">
+                        {{ application_template.save_quit_button_label }}
+                    </a>
+                </div>
+                <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(right)">
+                    <a href="{{ route('job.application.edit.6', job) }}" data-c-button="solid(c1)" data-c-radius="rounded" title="{{ application_template.save_continue_button_label }}">
+                        {{ application_template.save_continue_button_label }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 </div>
-<section class="{% if is_draft %} application-post__skills-layout {% endif %}">
-    {# {% if is_draft %}
-        <div class="container--copy">
-
-            <h3>{{ application_template.preview.title }}</h3>
-
-            <p>{{ application_template.integrity.review }}</p>
-
-        </div>
-    {% endif %} #}
-
-    <div
-        class="container--layout">
-
-        <div
-            class="flex-grid">
-
-            {# Include Sidebar #}
-
-                {# {% include "common/application/view/view_sidebar" %} #}
-
-            {# Preview Content #}
-
-                {# <div id="canvas_div_pdf" class="application__view-content-wrapper box lg-3of4">
-
-                    {% include "common/application/view/view_01_about" %}
-
-                    {% include "common/application/view/view_02_experience" %}
-
-                    {% include "common/application/view/view_03_essential" %}
-
-                    {% include "common/application/view/view_04_asset" %}
-
-                </div> #}
-
-        </div>
-
-    </div>
-
-</section>
