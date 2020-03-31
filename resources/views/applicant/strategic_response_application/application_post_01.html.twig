@@ -1,0 +1,23 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Apply - Step 01
+
+============================================================================= #}
+{% extends "layouts/base" %}
+{% block title %}
+	{{ application_template.step_01_title }}
+{% endblock %}
+{% block body %}
+	{% include "common/goc" %}
+	{% include "common/alert" %}
+	{% include "common/header" with {'header': {'title': ":title: :job"|replace({':title': application_template.title, ':job': job.title})}} %}
+	<a id="skipLink"></a>
+	{# Form containing all about_me editable elements #}
+	<form action="{{ form_submit_action }}" method="post">
+		{% include "applicant/strategic_response_application/common/tracker" %}
+		{# Builds an input field for CSRF token validation #}
+		{{ csrf_field() }}
+		{% include "applicant/strategic_response_application/step_01/questions" %}
+	</form>
+{% endblock %}

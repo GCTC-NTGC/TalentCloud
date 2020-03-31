@@ -1,0 +1,55 @@
+{# =============================================================================
+
+    Talent Cloud
+    Application View - Step 04
+
+============================================================================= #}
+<a
+    aria-hidden="true"
+    class="application__view-anchor"
+    id="{{ anchor_id }}">
+</a>
+
+<section>
+
+    <h4>
+        {{ section_title }}
+    </h4>
+
+    {# Profile Element List #}
+
+    <div>
+
+        {% for criterion in criteria %}
+
+            {# Get User Skill #}
+
+                {% set skill_declaration = false %}
+
+                {% for skillDeclaration in skill_declarations %}
+
+                    {% if criterion.skill.id == skillDeclaration.skill_id %}
+
+                        {% set skill_declaration = skillDeclaration %}
+
+                    {% endif %}
+
+                {% endfor %}
+
+            {# Get Skill Type #}
+
+                {% set skillType = criterion.skill.skill_type.name %}
+
+            {# Import Skill Template #}
+
+                <a
+                    class="application-post__anchor"
+                    id="skill{{ criterion.skill.id }}"></a>
+
+                {% include "applicant/strategic_response_application/common/skill-view" %}
+
+        {% endfor %}
+
+    </div>
+
+</section>
