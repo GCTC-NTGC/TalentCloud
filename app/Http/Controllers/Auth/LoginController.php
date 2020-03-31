@@ -79,7 +79,6 @@ class LoginController extends AuthController
      */
     public function showLoginForm()
     {
-        $routes = $this->auth_routes();
         if (WhichPortal::isManagerPortal()) {
             $home_url = route('manager.home');
         } elseif (WhichPortal::isHrPortal()) {
@@ -97,7 +96,7 @@ class LoginController extends AuthController
         }
 
         return view('auth/login', [
-            'routes' => $routes,
+            'routes' => $this->auth_routes(),
             'login' => Lang::get('common/auth/login'),
             'home_url' => $home_url,
         ]);
