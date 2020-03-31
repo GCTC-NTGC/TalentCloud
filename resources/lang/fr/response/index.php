@@ -141,7 +141,7 @@ return [
       'list_content' => [
         1 => [
           'title' => 'Étape 01 : Pour remplir le processus de demande',
-          'body' => 'Pour que vous puissiez démarrer dès que vous vous joignez à une équipe qui a besoin d’aide essentielle, nous avons créé un processus très court et facile pour trouver les options qui vous conviennent le mieux. Cette demande devrait vous prendre 20 minutes à remplir. Prenez une bonne boisson chaude et inscrivez-vous pour faire votre part. Avant de le faire, assurez-vous que votre manager et votre équipe soutiennent votre démarche potentielle.',
+          'body' => 'Nous voulons que vous soyez en mesure de démarrer rapidement lorsque vous vous joignez à une équipe qui a besoin d\'une aide essentielle. Pour cette raison, nous avons créé un processus très court et facile pour vous trouver les placements qui vous convient le mieux. Cette application devrait vous prendre 20 minutes. Prenez une bonne boisson chaude et inscrivez-vous pour faire votre part. Avant de faire, assurez-vous que votre gestionnaire et l\'équipe soutiendraient votre déménagement potentiel.',
         ],
         2 => [
           'title' => 'Étape 02 : Pour recevoir un courriel sur les prochaines étapes',
