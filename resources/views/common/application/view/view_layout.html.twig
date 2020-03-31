@@ -1,12 +1,34 @@
 {# =============================================================================
 
     Talent Cloud
-    Applicant: Application Post - Tracker
+    Recurring Elements: Review an Application - UI layout
 
 ============================================================================= #}
-
+<div data-c-border="bottom(thin, solid, gray)" data-c-padding="bottom(3)">
+    <div data-c-container="large(center)">
+        <div data-c-grid="gutter(all, 2)">
+            <div data-c-grid-item="tl(1of4)">
+                {% include "common/application/view/view_sidebar" %}
+            </div>
+            <div data-c-grid-item="tl(3of4)">
+                <div data-c-container="medium(left)">
+                    {% if is_draft %}
+                        <h2 data-c-heading="h2" data-c-padding="top(3)" data-c-margin="bottom(1)">{{ application_template.preview.title }}</h2>
+                        <p>{{ application_template.integrity.review }}</p>
+                    {% endif %}
+                    <div id="canvas_div_pdf">
+                        {% include "common/application/view/view_01_about" %}
+                        {% include "common/application/view/view_02_experience" %}
+                        {% include "common/application/view/view_03_essential" %}
+                        {% include "common/application/view/view_04_asset" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <section class="{% if is_draft %} application-post__skills-layout {% endif %}">
-    {% if is_draft %}
+    {# {% if is_draft %}
         <div class="container--copy">
 
             <h3>{{ application_template.preview.title }}</h3>
@@ -14,7 +36,7 @@
             <p>{{ application_template.integrity.review }}</p>
 
         </div>
-    {% endif %}
+    {% endif %} #}
 
     <div
         class="container--layout">
@@ -24,11 +46,11 @@
 
             {# Include Sidebar #}
 
-                {% include "common/application/view/view_sidebar" %}
+                {# {% include "common/application/view/view_sidebar" %} #}
 
             {# Preview Content #}
 
-                <div id="canvas_div_pdf" class="application__view-content-wrapper box lg-3of4">
+                {# <div id="canvas_div_pdf" class="application__view-content-wrapper box lg-3of4">
 
                     {% include "common/application/view/view_01_about" %}
 
@@ -38,7 +60,7 @@
 
                     {% include "common/application/view/view_04_asset" %}
 
-                </div>
+                </div> #}
 
         </div>
 
