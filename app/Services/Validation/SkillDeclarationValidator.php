@@ -31,7 +31,7 @@ class SkillDeclarationValidator
                 'exists:skill_statuses,id',
             ],
             'skill_level_id' => [
-                'required',
+                'nullable',
                 'exists:skill_levels,id',
             ],
             'description' => 'required|string',

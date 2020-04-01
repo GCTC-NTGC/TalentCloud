@@ -4,90 +4,48 @@
     Applicant: Submit an Application - Skills Layout
 
 ============================================================================= #}
-<div data-c-border="bottom(thin, solid, gray)" data-c-padding="bottom(3)">
-    <div data-c-container="large(center)">
-        <div data-c-grid="gutter(all, 2)">
-            <div data-c-grid-item="tl(1of4)">
-                {% include "applicant/application_post/common/sidebar" %}
-            </div>
-            <div data-c-grid-item="tl(3of4)">
-                <div data-c-container="medium(left)">
-                    {% if application_step == "3" %}
-                        <h2 data-c-heading="h2" data-c-padding="top(3)" data-c-margin="bottom(1)">{{ application_template.essential_title }}</h2>
-                        <p data-c-margin="bottom(1)">{{ application_template.essential_subtitle }}</p>
-                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ application_template.essential_question_1 }}</p>
-                        <p data-c-margin="bottom(1)">{{ application_template.essential_answer_1 }}</p>
-                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ application_template.essential_question_2 }}</p>
-                        <p data-c-margin="bottom(1)">{{ application_template.essential_answer_2 }}</p>
-                        <p>Please note that skills with a <i class="fas fa-exclamation" data-c-color="slow" data-c-margin="rl(.25)"></i> icon are incomplete and require your attention. Skills with a <i class="fas fa-check" data-c-color="go" data-c-margin="rl(.25)"></i> are ready to submit or have been pre-populated from your profile. You're welcome to edit these if you need to.</p>
-                    {% elseif application_step == "4" %}
-                        <h2 data-c-heading="h2" data-c-padding="top(3)" data-c-margin="bottom(1)">{{ application_template.asset_title }}</h2>
-                        <p data-c-margin="bottom(1)">{{ application_template.asset_context }}</p>
-                        <p>Please note that skills with a <i class="fas fa-exclamation" data-c-color="slow" data-c-margin="rl(.25)"></i> icon are incomplete and require your attention. Skills with a <i class="fas fa-check" data-c-color="go" data-c-margin="rl(.25)"></i> are ready to submit or have been pre-populated from your profile. You're welcome to edit these if you need to.</p>
+{# Set Locale #}
+{% set locale = "application" %}
+{# Skill List #}
+<div data-c-padding="top(1)">
+    <div class="profile-element-list {{ application_step == "3" ? "step3" : "" }}">
+        {# Essential Skills #}
+        {% if application_step == "3" %}
+            {% for criterion in criteria %}
+                {# Get User Skill #}
+                {% set skill_declaration = false %}
+                {% for skillDeclaration in applicant.skill_declarations %}
+                    {% if criterion.skill.id == skillDeclaration.skill_id %}
+                        {% set skill_declaration = skillDeclaration %}
                     {% endif %}
-                    {# Set Locale #}
-                    {% set locale = "application" %}
-                    {# Skill List #}
-                    <div data-c-padding="top(1)">
-                        <div class="profile-element-list {{ application_step == "3" ? "step3" : "" }}">
-                            {# Essential Skills #}
-                            {% if application_step == "3" %}
-                                {% set locale = "application" %}
-                                {% for criterion in criteria.essential %}
-                                    {# Get User Skill #}
-                                    {% set skill_declaration = false %}
-                                    {% for skillDeclaration in applicant.skill_declarations %}
-                                        {% if criterion.skill.id == skillDeclaration.skill_id %}
-                                            {% set skill_declaration = skillDeclaration %}
-                                        {% endif %}
-                                    {% endfor %}
-                                    {# Get Skill Type #}
-                                    {% set skillType = criterion.skill.skill_type.name %}
-                                    {# Import Skill Template #}
-                                    <a aria-hidden="true" id="skill{{ criterion.skill.id }}"></a>
-                                    <div data-c-accordion-group>
-                                        {% include "common/skill" %}
-                                    </div>
-                                {% endfor %}
-                            {% endif %}
-                            {# Asset Skills #}
-                            {% if application_step == "4" %}
-                                {% for criterion in criteria.asset %}
-                                    {# Get User Skill #}
-                                    {% set skill_declaration = false %}
-                                    {% for skillDeclaration in applicant.skill_declarations %}
-                                        {% if criterion.skill.id == skillDeclaration.skill_id %}
-                                            {% set skill_declaration = skillDeclaration %}
-                                        {% endif %}
-                                    {% endfor %}
-                                    {# Get Skill Type #}
-                                    {% set skillType = criterion.skill.skill_type.name %}
-                                    {# Import Skill Template #}
-                                    <a aria-hidden="true" id="skill{{ criterion.skill.id }}"></a>
-                                    <div data-c-accordion-group>
-                                        {% include "common/skill" %}
-                                    </div>
-                                {% endfor %}
-                            {% endif %}
-                        </div>
-                    </div>
+                {% endfor %}
+                {# Get Skill Type #}
+                {% set skillType = criterion.skill.skill_type.name %}
+                {# Import Skill Template #}
+                <a aria-hidden="true" id="skill{{ criterion.skill.id }}"></a>
+                <div data-c-accordion-group>
+                    {% include "common/skill" %}
                 </div>
-            </div>
-        </div>
-    </div>
-    <div data-c-container="medium(center)">
-        <hr data-c-hr="thin(gray)" data-c-margin="tb(2)">
-        <div data-c-grid="gutter(all, 1)">
-            <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">
-                <button data-c-button="outline(c1)" data-c-radius="rounded" type="submit" name="submit" value="save_and_quit">
-                    {{ application_template.save_quit_button_label }}
-                </button>
-            </div>
-            <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(right)">
-                <button data-c-button="solid(c1)" data-c-radius="rounded" type="submit" name="submit" value="save_and_continue">
-                    {{ application_template.save_continue_button_label }}
-                </button>
-            </div>
-        </div>
+            {% endfor %}
+        {% endif %}
+        {# Asset Skills #}
+        {% if application_step == "4" %}
+            {% for criterion in criteria.asset %}
+                {# Get User Skill #}
+                {% set skill_declaration = false %}
+                {% for skillDeclaration in applicant.skill_declarations %}
+                    {% if criterion.skill.id == skillDeclaration.skill_id %}
+                        {% set skill_declaration = skillDeclaration %}
+                    {% endif %}
+                {% endfor %}
+                {# Get Skill Type #}
+                {% set skillType = criterion.skill.skill_type.name %}
+                {# Import Skill Template #}
+                <a aria-hidden="true" id="skill{{ criterion.skill.id }}"></a>
+                <div data-c-accordion-group>
+                    {% include "common/skill" %}
+                </div>
+            {% endfor %}
+        {% endif %}
     </div>
 </div>

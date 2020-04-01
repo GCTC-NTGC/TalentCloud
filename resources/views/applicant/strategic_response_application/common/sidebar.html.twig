@@ -1,0 +1,31 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Application - Post: Sidebar
+
+============================================================================= #}
+<div
+    class="application-post__subnav-wrapper box lg-1of4">
+
+    <nav
+        class="application-post__subnav-sticky-wrapper">
+
+        <h4
+            class="application-post_subnav-label">
+            {{ application_template.skill_sidebar_label }}
+        </h4>
+
+        {% for criterion in criteria %}
+
+            <a
+                class="application-post__subnav-item"
+                href="#skill{{ criterion.skill.id }}"
+                title="{{ application_template.sidebar_item_title }}">
+                {{ criterion.skill.name }}
+            </a>
+
+        {% endfor %}
+
+    </nav>
+
+</div>

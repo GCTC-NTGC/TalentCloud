@@ -8,14 +8,14 @@ fixture(`Smoke Tests - Hello World`).page(HOMEPAGE).meta("travis", "run");
 // Skip when writing new tests
 // fixture.skip(`Smoke`);
 
-test("Hello World - Static Page Access", async t => {
+test("Hello World - Static Page Access", async (t) => {
   await t
     .expect(Selector("#home-heading").visible)
     .ok()
     .expect(Selector("a").withText("Login").visible)
     .ok()
     .click(Selector("a").withText("Browse Jobs"))
-    .expect(Selector("section.browse__index").visible)
+    .expect(Selector("section.browse-jobs").visible)
     .ok()
     .click(Selector("a").withText("FAQ"))
     .expect(Selector("section.faq").visible)
@@ -25,14 +25,14 @@ test("Hello World - Static Page Access", async t => {
     .ok();
 });
 
-test("Hello World - Guest Cannot Access Profile", async t => {
+test("Hello World - Guest Cannot Access Profile", async (t) => {
   await t
     .navigateTo("/profile/about")
     .expect(Selector("form button[type=submit]").withText("Login").visible)
     .ok();
 });
 
-test("Hello World - Language Toggle", async t => {
+test("Hello World - Language Toggle", async (t) => {
   const frenchLink = Selector("a").withText("Français");
   const englishLink = Selector("a").withText("English");
   await t
@@ -50,7 +50,7 @@ test("Hello World - Language Toggle", async t => {
     .ok();
 });
 
-test("Hello World - Applicant Portal", async t => {
+test("Hello World - Applicant Portal", async (t) => {
   await t
     .click(Selector("a").withText("Login"))
     .typeText("#email", "applicant@test.com")
@@ -70,7 +70,7 @@ test("Hello World - Applicant Portal", async t => {
     .ok();
 });
 
-test("Hello World - Manager Portal", async t => {
+test("Hello World - Manager Portal", async (t) => {
   await t
     .useRole(managerUser)
     .navigateTo("/manager")
@@ -80,7 +80,7 @@ test("Hello World - Manager Portal", async t => {
     .ok();
 });
 
-test("Hello World - Admin Portal", async t => {
+test("Hello World - Admin Portal", async (t) => {
   await t
     .useRole(adminUser)
     .navigateTo("/admin")
@@ -88,26 +88,19 @@ test("Hello World - Admin Portal", async t => {
     .ok();
 });
 
-test("Hello World - Applicant Job Posters", async t => {
+test("Hello World - Applicant Job Posters", async (t) => {
   await t
     .expect(Selector("a").withText("Browse Jobs").visible)
     .ok()
     .click(Selector("a").withText("Browse Jobs"))
-    .expect(Selector(".browse__index").visible)
+    .expect(Selector(".browse-jobs").visible)
     .ok()
-    .click(
-      Selector(".browse__index-job-card")
-        .find("div")
-        .withText("View Job"),
-    )
-    .expect(
-      Selector('.job-post__apply-button[title="Log in to apply for this job."]')
-        .visible,
-    )
+    .click(Selector(".job-card").find("p").withText("View This Job"))
+    .expect(Selector(".job-post-apply-button").visible)
     .ok();
 });
 
-test("Hello World - Manager Job Posters", async t => {
+test("Hello World - Manager Job Posters", async (t) => {
   await t
     .useRole(managerUser)
     .navigateTo("/manager/jobs")
@@ -115,7 +108,7 @@ test("Hello World - Manager Job Posters", async t => {
     .ok();
 });
 
-test("Hello World - HR Job Posters", async t => {
+test("Hello World - HR Job Posters", async (t) => {
   await t
     .useRole(hrUser)
     .navigateTo("/hr/jobs")

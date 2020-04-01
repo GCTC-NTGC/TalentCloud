@@ -101,7 +101,7 @@ class SkillDeclarationController extends Controller
         // Fill variable values.
         $skillDeclaration->fill([
             'description' => $request->input('description'),
-            'skill_level_id' => $request->input('skill_level_id'),
+            'skill_level_id' => $request->input('skill_level_id', null),
         ]);
 
         // Validate before saving.

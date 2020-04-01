@@ -1,0 +1,178 @@
+{# =============================================================================
+
+    Talent Cloud
+    Skill
+
+============================================================================= #}
+{% if prefix %}
+	{% set name_prefix = prefix ~ "[skill_declarations][:template][:skill_type][:id]"|replace({":skill_type": skillType ? skillType:"all_types"}) %}
+	{% set id_prefix = name_prefix %}
+{% else %}
+	{% set name_prefix = "skill_declarations[:template][:skill_type][:id]"|replace({":skill_type": skillType ? skillType:"all_types"}) %}
+	{% set id_prefix = name_prefix %}
+{% endif %}
+
+
+{# application skills will never be templates. #}
+{# New items should index themselves by criterion_id #}
+{% if skill_declaration %}
+	{% set name_prefix = name_prefix|replace({":template":"old", ":id":skill_declaration.id}) %}
+	{% set id_prefix = id_prefix|replace({":template":"old", ":id":skill_declaration.id}) %}
+{% else %}
+	{% set name_prefix = name_prefix|replace({":template":"new", ":id":criterion.id}) %}
+	{% set id_prefix = id_prefix|replace({":template":"new", ":id":criterion.id}) %}
+{% endif %}
+
+
+{# NOTE: AJAX Form Submission #}
+{#
+    This template contains a form meant to be submitted through AJAX. A number
+     of elements make this work.
+    First, the parent div must have the class 'ajax-form', which triggers the
+     js handlers.
+    This parent div mus also have the following data- attributes:
+        data-item-saved: this should be "true" if this item is represented on
+         server, and empty otherwise. (NOTE that the string "false" still
+         evaluates to True in js because it is not empty.)
+        data-item-url: this should be the api url for this resource. A POST to
+         this url should create a resource, a PUT to 'url/id' should update
+         the resource with that id, and a DELETE to 'url/id' should delete the
+         resource.
+        data-item-id: if data-item-saved is True, this must be the primary id
+         of the resource according to the server. Otherwise, it is ignored.
+
+        NOTE: data-item-saved and data-item-id are modified by javascript when
+         the item is saved with AJAX
+
+    Any element with the class "remove-on-save" will be removed from the DOM
+     when the form is successfully submitted.
+    Any element with the class "reveal-on-save" will have the "hidden" class
+     removed when the form is successfully submitted.
+
+    Add an empty div with the "form-error" to contain errors returned by the
+     server. NOTE: the contents of this div will be removed on successful
+     submission.
+
+    The 'skill' class in the parent div is used to determine that skill-specific
+     logic should run when this item is saved. (Updating the UI.)
+
+#}
+<div
+	class="profile-element accordion skill ajax-form
+		{% if skill_declaration %}complete{% endif %}
+		modal-target-object"
+    data-item-saved="{{ skill_declaration ? "true" : "" }}"
+    data-item-url="{{ route("skill_declarations.destroy", ":id") }}"
+    data-item-id="{{ skill_declaration ? skill_declaration.id : 0 }}">
+
+	{# Accordion Trigger #}
+
+	<button
+        aria-expanded={{ skill_declaration ? "false" : "true" }}
+        class="accordion-trigger"
+        tabindex="0"
+        type="button">
+
+        <span class="accordion-status">
+            <i class="fas fa-check"></i>
+            <i class="fas fa-exclamation-circle"></i>
+        </span>
+
+		<span class="accordion-title">
+            {{ criterion.skill.name }}
+		</span>
+
+		<span class="invisible">{{ skill_template.accordion_sr_helper }}</span>
+
+		<i class="fas fa-chevron-up"></i>
+
+	</button>
+
+	{# Accordion Content #}
+
+	<div {% if skill_declaration == false %} aria-hidden="false" {% else %} aria-hidden="true" {% endif %} class="accordion-content">
+
+		<form action="{{ skill_declaration ? route("skill_declarations.update", skill_declaration) : route("skill_declarations.create") }}" method="POST">
+
+            {# Builds an input field for CSRF token validation #}
+            {{ csrf_field() }}
+
+            <input name="_method" type="hidden" value="{{ skill_declaration ? "PUT" : "POST" }}">
+
+            <div class="form__wrapper">
+
+                <div
+                    class="flex-grid">
+
+                    {# Holds errors from ajax form submission #}
+                    <div class="form-error box"></div>
+
+                    {# Application Skill Description #}
+
+                    <div class="box full">
+
+                        <p class="skill__description">{{ criterion.skill.description|nl2br }}</p>
+
+                        {% if skill_declaration == true %}
+                            <input type='hidden' name='skill_declaration_id' value={{ skill_declaration.id }} />
+                        {% else %}
+
+                            <input type='hidden' name='skill_id' value={{ criterion.skill.id }} />
+
+                        {% endif %}
+
+                    </div>
+
+                    {# Skill Form Elements #}
+
+                    <div class="box full">
+
+                        <div class="skill-textarea-prompt box">
+                            <p>{{ application_template.strategic_response.skill_prompt }}</p>
+                        </div>
+
+                        <div class="skill-textarea-label box inline-right">
+                            <button data-c-dialog-id="skill-need-help-modal" data-c-dialog-action="open" class="skill-context-button" type="button">
+                                {{ skill_template.knowledge_link_label }}
+                            </button>
+                        </div>
+
+                        <div class="form__input-wrapper--float {% if skill_declaration.description != null %}active{% endif %}">
+
+                            <label class="form__label" for="{{ id_prefix }}skillDescription">
+                                {{ application_template.strategic_response.skill_placeholder }}
+                            </label>
+
+                            <textarea class="form__textarea" id="{{ id_prefix }}skillDescription" name="description" required>{{ skill_declaration.description }}</textarea>
+
+                        </div>
+
+                        {# Word Counter #}
+                        <div data-word-counter-id></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="accordion-actions flex-grid">
+
+                <div class="box med-1of2">
+                </div>
+
+                <div class="box med-1of2">
+                    <button class="button--blue light-bg" name="submit" type="submit" value="{{ name_prefix }}">
+                        <span class="submit-default">{{ skill_template.action_02 }}</span>
+                        <span class="submit-working">{{ skill_template.action_02_working }}</span>
+                        <span class="submit-saved">{{ skill_template.action_02_saved }}</span>
+                    </button>
+                </div>
+
+            </div>
+
+		</form>
+
+	</div>
+
+</div>

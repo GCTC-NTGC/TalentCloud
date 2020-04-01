@@ -26,13 +26,13 @@ class ViewComposerServiceProvider extends ServiceProvider
 
         // Governement of Canada header bar.
         View::composer(
-            ['common/goc', 'common/header'],
+            ['common/goc', 'common/header', 'response/header'],
             'App\Http\ViewComposers\GocComposer'
         );
 
         // Nav menu.
         View::composer(
-            '*',
+            ['common/menu', 'response/menu'],
             'App\Http\ViewComposers\MenuComposer'
         );
 
@@ -63,8 +63,10 @@ class ViewComposerServiceProvider extends ServiceProvider
         );
 
         View::composer(
-            ['common/relatives','common/reference','common/relatives-projects',
-                'common/sample', 'common/skill', 'common/modals/create_reference'],
+            [
+                'common/relatives', 'common/reference', 'common/relatives-projects',
+                'common/sample', 'common/skill', 'common/modals/create_reference'
+            ],
             'App\Http\ViewComposers\RelativeComposer'
         );
 
@@ -74,7 +76,13 @@ class ViewComposerServiceProvider extends ServiceProvider
         );
 
         View::composer(
-            ['applicant/application_post/common/tracker', 'applicant/application_post/common/tracker-ajax'],
+            [
+                'applicant/application_post/common/tracker',
+                'applicant/application_post/common/tracker-ajax',
+                'applicant/strategic_response_application/common/tracker',
+                'applicant/strategic_response_application/common/tracker-ajax',
+
+            ],
             'App\Http\ViewComposers\ApplicationTrackerComposer'
         );
 
@@ -118,6 +126,16 @@ class ViewComposerServiceProvider extends ServiceProvider
             'common/breadcrumbs',
             'App\Http\ViewComposers\BreadcrumbsComposer'
         );
+
+        View::composer(
+            'response/menu',
+            'App\Http\ViewComposers\StrategicResponseMenuComposer'
+        );
+
+        View::composer(
+            'response/beta-banner',
+            'App\Http\ViewComposers\StrategicResponseBannerComposer'
+        );
     }
 
     /**
@@ -125,7 +143,7 @@ class ViewComposerServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register() : void
+    public function register(): void
     {
         $this->app->singleton(\App\Http\ViewComposers\CourseComposer::class);
         $this->app->singleton(\App\Http\ViewComposers\DegreeComposer::class);

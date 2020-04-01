@@ -38,18 +38,22 @@ class ApplicationController extends Controller
      */
     public function show(JobApplication $application)
     {
-        $criteria = [
-            'essential' => $application->job_poster->criteria->filter(function ($value, $key) {
-                return $value->criteria_type->name == 'essential';
-            }),
-            'asset' => $application->job_poster->criteria->filter(function ($value, $key) {
-                return $value->criteria_type->name == 'asset';
-            }),
-        ];
+        $essential_criteria = $application->job_poster->criteria->filter(function ($value, $key) {
+            return $value->criteria_type->name == 'essential'
+                && $value->skill->skill_type->name == 'hard';
+        });
+        $asset_criteria = $application->job_poster->criteria->filter(function ($value, $key) {
+            return $value->criteria_type->name == 'asset'
+                && $value->skill->skill_type->name == 'hard';
+        });
 
         // Display slightly different views on different portals.
         $view = WhichPortal::isManagerPortal() || WhichPortal::isHrPortal() ?
             'manager/application_post' : 'applicant/application_preview';
+
+        $application_view = $application->job_poster->isInStrategicResponseDepartment()
+            ? 'applicant/strategic_response_application/application_view/application_layout'
+            : 'common/application/view/view_layout';
 
         if (WhichPortal::isManagerPortal() || WhichPortal::isHrPortal()) {
             // Load things required for review component.
@@ -74,6 +78,7 @@ class ApplicationController extends Controller
         return view(
             $view,
             [
+                'application_view_template' => $application_view,
                 // Localized strings.
                 'post' => Lang::get('manager/application_post'), // Change text
                 'is_manager_view' => WhichPortal::isManagerPortal(),
@@ -89,7 +94,8 @@ class ApplicationController extends Controller
                 'skill_template' => Lang::get('common/skills'),
                 'reference_template' => Lang::get('common/references'),
                 'sample_template' => Lang::get('common/work_samples'),
-                'criteria' => $criteria,
+                'essential_criteria' => $essential_criteria,
+                'asset_criteria' => $asset_criteria,
                 // Applicant Data.
                 'applicant' => $application->applicant,
                 'job_application' => $application,

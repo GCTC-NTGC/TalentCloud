@@ -9,7 +9,7 @@
     {# Set Locale #}
     {% set locale = "application-view" %}
     <div data-c-accordion-group>
-        {% for criterion in criteria.asset %}
+        {% for criterion in asset_criteria %}
             {# Get User Skill #}
             {% set skill_declaration = false %}
             {% for skillDeclaration in skill_declarations %}

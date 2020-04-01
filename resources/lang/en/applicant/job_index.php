@@ -27,6 +27,7 @@ return [
             'link' => 'https://psjobs-emploisfp.psc-cfp.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&amp;toggleLanguage=en',
             'link_title' => 'GC Jobs',
         ],
+        'section_title' => 'All Available Jobs:',
         'view_title' => 'View the job post for',
         'location_label' => 'Location',
         'salary_label' => 'Annual Salary Range',
@@ -47,6 +48,6 @@ return [
         'job_closed' => 'Job has closed',
         'days_remaining_label' => ':count day until close.|:count days until close.',
         'applicants_label' => 'Applicant to Date|Applicants to Date',
-        'button_label' => 'View Job'
+        'button_label' => 'View This Job'
     ]
 ];

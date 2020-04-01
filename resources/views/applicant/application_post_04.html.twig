@@ -15,7 +15,40 @@
         {% include "applicant/application_post/common/header" %}
         <a id="skipLink"></a>
         {% include "applicant/application_post/common/tracker-ajax" %}
-        {% include "applicant/application_post/common/skill-layout" %}
+        <div data-c-border="bottom(thin, solid, gray)" data-c-padding="bottom(3)">
+            <div data-c-container="large(center)">
+                <div data-c-grid="gutter(all, 2)">
+                    <div data-c-grid-item="tl(1of4)">
+                        {% include "applicant/application_post/common/sidebar" %}
+                    </div>
+                    <div data-c-grid-item="tl(3of4)">
+                        <div data-c-container="medium(left)">
+                            <h2 data-c-heading="h2" data-c-padding="top(3)" data-c-margin="bottom(1)">{{ application_template.asset_title }}</h2>
+                            <p data-c-margin="bottom(1)">{{ application_template.asset_context }}</p>
+                            <p>Please note that skills with a <i class="fas fa-exclamation" data-c-color="slow" data-c-margin="rl(.25)"></i> icon are incomplete and require your attention. Skills with a <i class="fas fa-check" data-c-color="go" data-c-margin="rl(.25)"></i> are ready to submit or have been pre-populated from your profile. You're welcome to edit these if you need to.</p>
+                            {% include "applicant/application_post/common/skill-layout" %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-c-container="medium(center)">
+                <hr data-c-hr="thin(gray)" data-c-margin="tb(2)">
+                <div data-c-grid="gutter(all, 1)">
+                    <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">
+                        <button class="ajax-submit-all" data-c-button="outline(c1)" data-c-radius="rounded" type="button" name="submit" value="save_and_quit" data-on-success-url="{{ route('applications.index') }}">
+                            <span class="submit-default">{{ application_template.save_quit_button_label }}</span>
+                            <span class="submit-working">{{ application_template.save_button_working }}</span>
+                        </button>
+                    </div>
+                    <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(right)">
+                        <button class="ajax-submit-all" data-c-button="solid(c1)" data-c-radius="rounded" type="button" name="submit" value="save_and_continue" data-on-success-url="{{ route('job.application.edit.5', job) }}">
+                            <span class="submit-default">{{ application_template.save_continue_button_label }}</span>
+                            <span class="submit-working">{{ application_template.save_button_working }}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
         {# Modals #}
         {% include "common/modal" with {"page": application} %}
         {% include "common/modals/skills_need_help" %}

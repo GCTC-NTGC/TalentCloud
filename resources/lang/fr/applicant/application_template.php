@@ -96,19 +96,16 @@ return [
     'bilingual_intermediate' => 'Je possède des compétences intermédiaires ou mieux en lecture, en rédaction et en communication verbale en français et en anglais.',
     'bilingual_advanced' => 'Je possède de solides compétences en lecture, en rédaction et en communication verbale en français et en anglais.',
     'language_declaration_error_message' => 'Cette case doit être cochée pour continuer.',
-    'language_title' => 'Sélection de la langue',
+    'language_title' => 'Exigence linguistique',
     'language_copy' => 'Quelle langue officielle préféreriez-vous pour ce processus de candidature?',
     'language_label' => 'En choisir un',
+    'communication_title' => 'Contact et communication',
     'citizenship_title' => 'Statut de citoyenneté',
     'citizenship_content' => "Lequel des cas suivants s'applique à vous?",
     'citizenship_label' => 'En choisir un',
     'veterans_title' => 'Statut Vétéran',
     'veterans_content' => 'Êtes-vous membre des Forces armées canadiennes?',
     'veterans_label' => 'En choisir un',
-    'language_title' => 'Exigence linguistique',
-    'language_copy' => 'Quelle langue officielle préféreriez-vous pour ce processus de candidature?',
-    'language_label' => 'En choisir un',
-    'communication_title' => 'Contact et communication',
     /* Step 02 */
     'step_02_title' => 'Nuage de talents | Candidat : Postuler maintenant - Étape 2',
     'experience' => [
@@ -144,13 +141,14 @@ return [
     'essential_answer_1' => 'Désolé, vous devez vraiment toutes les posséder, et au niveau adéquat.',
     'essential_question_2' => 'Q. Et si j’étirais un peu la vérité? Une fois qu’ils m’auront interviewé, ils changeront d’avis, c’est certain!',
     'essential_answer_2' => 'Ne le faites pas. Ces compétences seront évaluées, et vous valez mieux que ça.',
-    'essential_sidebar_label' => 'Liste de compétences',
 
     'asset_title' => "Les compétences qu'il est bon à avoir",
     'asset_context' => "Vous pouvez postuler à cet emploi si vous ne possédez aucune de ces compétences. Ce sont des atouts qui, selon le responsable du recrutement, viendraient faciliter le travail. Ces compétences servent souvent pour sélectionner le ou la meilleur(e) candidat(e) parmi tous ceux et toutes celles qui répondent à tous les critères du « Besoin d’avoir ». Donc, si vous avez ces compétences, le moment est venu d'en informer le responsable du recrutement.",
     'asset_start_button_title' => "Faites défiler pour commencer à remplir les compétences qu'il est bon à avoir.",
     'skills_start_button_label' => 'Commencer',
-    'asset_sidebar_label' => 'Liste de compétences',
+
+    /* Step 3&4 */
+    'skill_sidebar_label' => 'Liste de compétences',
 
     /* Step 05 */
     'step_05_title' => 'Nuage de talents | Candidat : Postuler maintenant - Étape 5',
@@ -188,7 +186,7 @@ return [
     /* Step 06 (Integrity Check) */
     'integrity' => [
         'title' => 'Confirmation de candidature',
-        'confirmation_copy' => 'En signant votre nom ci-dessous, vous confirmez:',
+        'confirmation_copy' => 'En signant mon nom ci-dessous, je confirme:',
         'confirmation_01' => "J'ai examiné ce que j'ai écrit dans ma candidature.",
         'confirmation_02' => "Je comprends que je fais partie d'une collectivité de gens qui se font confiance.",
         'confirmation_03' => 'Je jure que l’information que je fournis est vraie.',
@@ -212,4 +210,40 @@ return [
         'faq_title' => 'Accéder à la foire aux questions du Talent Cloud.',
         'faq_label' => 'Voir la foire aux questions',
     ],
+
+    'strategic_response' => [
+        'required_information' => 'Informations requises',
+        'gov_email_copy' => 'Quel est votre compte courriel actif du GC? (doit se terminer par .ca)',
+        'gov_email_label' => 'Courriel du GC',
+        'physical_office_willing_copy' => 'Êtes-vous prêt à venir au travail dans un réel bureau?',
+        'physical_office_willing_label' => 'Cochez si oui',
+        'security_clearance_copy' => 'Quel est votre niveau d’autorisation de sécurité actuel?',
+        'security_clearance_label' => 'En choisir un',
+        'director_name_label' => 'Nom du directeur',
+        'director_title_label' => 'Titre du directeur',
+        'director_email_label' => 'Courriel du directeur',
+        'reference_name_label' => 'Nom de référence',
+        'reference_title_label' => 'Titre de référence',
+        'reference_email_label' => 'Courriel de référence',
+        'director_copy' => 'Quels sont le nom et l’adresse courriel de votre directeur actuel? (Nous aurons besoin de l’approbation indiquant que vous pouvez être prêté à une autre équipe pendant un certain temps pour aider.)',
+        'reference_copy' => 'Quels sont le nom et l’adresse courriel d’un autre répondant qui peut confirmer votre ensemble de compétences? (De préférence un superviseur actuel ou récent du gouvernement du Canada.)',
+        'experience_title' => 'Mon éducation',
+        'experience_description' => 'Ajoutez les études si elles sont pertinentes par rapport aux compétences requises pour cet emploi.',
+        'essential_context_1' => 'Nous vous remercions d’avoir répondu à la demande et de proposer de nous aider. Vous êtes formidable. Ces compétences sont ce dont les ministères ont besoin en ce moment. <strong>Super important</strong> : si vous voulez vraiment aider, <strong>il faut absolument que vous possédiez ces compétences</strong>.',
+        'essential_context_2' => 'Vous serez placé dans une équipe différente, soit une équipe qui devra travailler sous pression ou respecter des délais serrés pour apporter son soutien aux Canadiens. Si vous avez de solides compétences dans ces domaines et que vous êtes le genre de personne qui s’engage à fond, vous êtes la personne pour le poste. (Si vous ne possédez pas de solides compétences dans ces domaines, mais que vous voulez tout de même aider, consultez les autres demandes de compétences).',
+        'asset_context' => 'Cela n’est pas nécessaire pour l’emploi que vous pourriez occuper. Vous pouvez l’apprendre au fur et à mesure. Mais ce serait bien si vous possédiez déjà la ou les compétences énumérées ci-dessous.',
+        'skill_prompt' => 'Communiquez quelques points de haut niveau sur votre expérience professionnelle :',
+        'skill_placeholder' => 'Parlez-nous brièvement de vos compétences, par exemple où vous les avez acquises et dans quel rôle vous les avez acquises, et de ce que vous avez accompli.',
+        'preview_security_clearance_label' => 'Niveau d’autorisation de sécurité',
+        'preview_physical_office_yes' => '<strong>Oui</strong>, je suis prêt à venir travailler dans un bureau physique.',
+        'preview_physical_office_no' => '<strong>Non</strong>, je ne suis pas disposé à venir travailler dans un bureau physique.',
+        'confirmations' => [
+            'Que je fais partie d’une communauté de personnes qui se font confiance.',
+            'Les gens compteront sur moi pour faire ce travail en cette période de grand besoin et j’atteste que les informations que j’ai fournies sont exactes.',
+        ],
+        'complete_title' => 'Réussite!',
+        'complete_copy_1' => 'Vous êtes génial.',
+        'complete_copy_2' => 'Merci d’avoir soumis votre candidature. L’équipe de la Réserve de talents du GC vous contactera dans quelques jours pour vous informer des prochaines étapes.',
+        'complete_return_label' => 'Retour à la page d\'accueil',
+    ]
 ];

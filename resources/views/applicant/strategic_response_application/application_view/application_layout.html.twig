@@ -1,0 +1,59 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Application Post - Tracker
+
+============================================================================= #}
+
+<section class="{% if is_draft %} application-post__skills-layout {% endif %}">
+    {% if is_draft %}
+        <div class="container--copy">
+
+            <h3>{{ application_template.preview.title }}</h3>
+
+            <p>{{ application_template.integrity.review }}</p>
+
+        </div>
+    {% endif %}
+
+    <div
+        class="container--layout">
+
+        <div
+            class="flex-grid">
+
+            {# Include Sidebar #}
+
+                {% include "applicant/strategic_response_application/application_view/application_sidebar" %}
+
+            {# Preview Content #}
+
+                <div id="canvas_div_pdf" class="application__view-content-wrapper box lg-3of4">
+
+                    {% include "applicant/strategic_response_application/application_view/application_01_about" %}
+
+                    {% include "applicant/strategic_response_application/application_view/application_02_experience" %}
+
+                    {% include "applicant/strategic_response_application/application_view/application_skill_section"
+                        with {
+                            anchor_id: "applicationView03",
+                            section_title: application_template.preview.section_03_title,
+                            criteria: essential_criteria
+                        }
+                    %}
+
+                    {% include "applicant/strategic_response_application/application_view/application_skill_section"
+                        with {
+                            anchor_id: "applicationView04",
+                            section_title: application_template.preview.section_04_title,
+                            criteria: asset_criteria
+                        }
+                    %}
+
+                </div>
+
+        </div>
+
+    </div>
+
+</section>
