@@ -12,8 +12,9 @@ return [
     'title' => 'Soumettre une application',
     'view_title' => 'Application',
     'job_context_copy' => 'Vous postulez pour :',
+    'save_return_button_label' => 'Sauvegarde et retour',
     'save_quit_button_label' => 'Sauvegarder et quitter',
-    'save_continue_button_label' => 'Sauvegarder & continuer',
+    'save_continue_button_label' => 'Sauvegarder et continuer',
     'save_button_working' => 'Actif...',
     'submit_button_label' => 'Soumettre',
     'pilot' => 'BETA / Projet pilote',
@@ -194,7 +195,7 @@ return [
         'date_label' => "La date d'aujourd'hui",
         'review' => "Voici votre dernière occasion d'examiner votre candidature avant de la soumettre. Faites défiler vers le bas pour l'examiner. Si vous souhaitez changer quelque chose, le moment est venu.",
         'save_label' => 'Sauvegarder et quitter',
-        'submit_label' => 'Soumettre',
+        'submit_label' => 'Soumettre ma candidature',
     ],
     /* Step 07 (Complete) */
     'complete' => [

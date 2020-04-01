@@ -12,6 +12,7 @@ return [
     'title' => 'Submit an Application',
     'view_title' => 'Application',
     'job_context_copy' => 'You are applying for:',
+    'save_return_button_label' => 'Save & Go Back',
     'save_quit_button_label' => 'Save & Quit',
     'save_continue_button_label' => 'Save & Continue',
     'save_button_working' => 'Saving...',
@@ -193,7 +194,7 @@ return [
         'date_label' => "Today's Date",
         'review' => 'This is your final chance to review your application before submitting. If there’s anything you’d like to change, feel free to go back and do so now.',
         'save_label' => 'Save & Quit',
-        'submit_label' => 'Submit',
+        'submit_label' => 'Submit My Application',
     ],
     /* Step 07 (Complete) */
     'complete' => [

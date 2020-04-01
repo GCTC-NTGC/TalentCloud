@@ -49,11 +49,15 @@
                     <hr data-c-hr="thin(gray)" data-c-margin="top(1) bottom(2)">
                     <div data-c-grid="gutter(all, 1)">
                         <div data-c-grid-item="tp(1of2)" class="button-prevent-multiple-submit" data-c-align="base(center) tp(left)">
-                            <button id="save_and_quit" data-c-button="outline(c1)" data-c-radius="rounded" type="submit" name="submit" value="save_and_quit">
-                                {{ application_template.integrity.save_label }}
+                            <!-- Can we make sure this button functions as intended? -->
+                            <button id="save_and_return" data-c-button="outline(c1)" data-c-radius="rounded" type="submit" name="submit" value="save_and_return">
+                                {{ application_template.save_return_button_label }}
                             </button>
                         </div>
                         <div data-c-grid-item="tp(1of2)" class="button-prevent-multiple-submit" data-c-align="base(center) tp(right)">
+                            <button id="save_and_quit" data-c-button="outline(c1)" data-c-radius="rounded" type="submit" name="submit" value="save_and_quit">
+                                {{ application_template.integrity.save_label }}
+                            </button>
                             <button data-c-button="solid(go)" data-c-radius="rounded" type="submit" name="submit" value="submit">
                                 {{ application_template.integrity.submit_label }}
                             </button>

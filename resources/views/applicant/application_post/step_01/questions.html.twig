@@ -144,11 +144,14 @@
         <hr data-c-hr="thin(gray)" data-c-margin="tb(2)">
         <div data-c-grid="gutter(all, 1)">
             <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">
-                <button data-c-button="outline(c1)" data-c-radius="rounded" type="submit" name="submit" value="save_and_quit">
-                    {{ application_template.save_quit_button_label }}
+                <button data-c-button="outline(gray)" disabled data-c-radius="rounded" type="submit" name="submit" value="save_and_return">
+                    {{ application_template.save_return_button_label }}
                 </button>
             </div>
             <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(right)">
+                <button data-c-button="outline(c1)" data-c-radius="rounded" type="submit" name="submit" value="save_and_quit">
+                    {{ application_template.save_quit_button_label }}
+                </button>
                 <button data-c-button="solid(c1)" data-c-radius="rounded" type="submit" name="submit" value="save_and_continue">
                     {{ application_template.save_continue_button_label }}
                 </button>
