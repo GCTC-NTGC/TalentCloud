@@ -1,5 +1,4 @@
 import {
-  Application,
   ApplicationNormalized,
   ApplicationReview,
 } from "../../models/types";
