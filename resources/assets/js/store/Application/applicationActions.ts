@@ -13,7 +13,6 @@ import {
   getApplicationReviewEndpoint,
   parseApplicationReview,
 } from "../../api/application";
-import ApplicationReview from "../../components/ApplicationReview/ApplicationReview";
 
 export const FETCH_APPLICATION_STARTED = "APPLICATION: GET STARTED";
 export const FETCH_APPLICATION_SUCCEEDED = "APPLICATION: GET SUCCEEDED";

@@ -121,6 +121,7 @@ export const fakeApplication2 = (): Application => ({
   },
   application_review: {
     id: 1,
+    job_application_id: 2,
     review_status_id: 6,
     notes: "Here's some notes.",
     created_at: new Date("2020-01-02"),
@@ -192,6 +193,7 @@ export const fakeApplication3 = (): Application => ({
   },
   application_review: {
     id: 2,
+    job_application_id: 3,
     review_status_id: 4,
     notes: "Here's some notes.",
     created_at: new Date("2020-01-02"),
