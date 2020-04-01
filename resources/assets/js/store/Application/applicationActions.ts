@@ -1,11 +1,19 @@
-import { AsyncFsaActions, RSAActionTemplate, asyncGet } from "../asyncAction";
-import { Application } from "../../models/types";
+import {
+  AsyncFsaActions,
+  RSAActionTemplate,
+  asyncGet,
+  asyncPut,
+} from "../asyncAction";
+import { Application, ApplicationReview } from "../../models/types";
 import {
   getApplicationEndpoint,
   parseApplication,
   getApplicationsForJobEndpoint,
   parseApplicationsForJob,
+  getApplicationReviewEndpoint,
+  parseApplicationReview,
 } from "../../api/application";
+import ApplicationReview from "../../components/ApplicationReview/ApplicationReview";
 
 export const FETCH_APPLICATION_STARTED = "APPLICATION: GET STARTED";
 export const FETCH_APPLICATION_SUCCEEDED = "APPLICATION: GET SUCCEEDED";
@@ -70,6 +78,44 @@ export const fetchApplicationsForJob = (
     { jobId },
   );
 
+export const UPDATE_APPLICATION_REVIEW_STARTED =
+  "APPLICATION: UPDATE REVIEW STARTED";
+export const UPDATE_APPLICATION_REVIEW_SUCCEEDED =
+  "APPLICATION: UPDATE REVIEW SUCCEEDED";
+export const UPDATE_APPLICATION_REVIEW_FAILED =
+  "APPLICATION: UPDATE REVIEW FAILED";
+
+export type UpdateApplicationReview = AsyncFsaActions<
+  typeof UPDATE_APPLICATION_REVIEW_STARTED,
+  typeof UPDATE_APPLICATION_REVIEW_SUCCEEDED,
+  typeof UPDATE_APPLICATION_REVIEW_FAILED,
+  ApplicationReview,
+  { id: number; applicationId: number }
+>;
+
+export const updateApplicationReview = (
+  applicationReview: ApplicationReview,
+): RSAActionTemplate<
+  typeof UPDATE_APPLICATION_REVIEW_STARTED,
+  typeof UPDATE_APPLICATION_REVIEW_SUCCEEDED,
+  typeof UPDATE_APPLICATION_REVIEW_FAILED,
+  ApplicationReview,
+  { id: number; applicationId: number }
+> =>
+  asyncPut(
+    getApplicationReviewEndpoint(applicationReview.job_application_id),
+    applicationReview,
+    UPDATE_APPLICATION_REVIEW_STARTED,
+    UPDATE_APPLICATION_REVIEW_SUCCEEDED,
+    UPDATE_APPLICATION_REVIEW_FAILED,
+    parseApplicationReview,
+    {
+      id: applicationReview.id,
+      applicationId: applicationReview.job_application_id,
+    },
+  );
+
 export type ApplicationAction =
   | FetchApplicationAction
-  | FetchApplicationsForJobAction;
+  | FetchApplicationsForJobAction
+  | UpdateApplicationReview;

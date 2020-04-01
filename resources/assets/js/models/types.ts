@@ -19,7 +19,7 @@ export interface Applicant {
   user: User;
 }
 
-export interface Application {
+export type Application {
   id: number;
   job_poster_id: number;
   application_status_id: number;
@@ -40,8 +40,11 @@ export interface Application {
   meets_essential_criteria: boolean;
 }
 
+export type ApplicationNormalized = Exclude<Application, "application_review">
+
 export interface ApplicationReview {
   id: number;
+  job_application_id: number;
   review_status_id: ReviewStatusId | ResponseReviewStatusId | null;
   notes: string | null;
   created_at: Date;
