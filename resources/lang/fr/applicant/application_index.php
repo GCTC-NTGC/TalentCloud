@@ -23,7 +23,7 @@ return [
     "post_label" => "Affiche d'emploi :",
     "post_link_title" => "Voir l'affiche pour cette application",
     "post_link_label" => "Voir l'affiche",
-    "manager_label" => "Gestionnaire :",
+    "manager_label" => "Votre gestionnaire :",
     "manager_profile_link_title" => "Voir le profil de ce superviseur.",
     "manager_profile_link_label" => "Voir profil",
     "draft_link_title" => "Modifier cette application.",

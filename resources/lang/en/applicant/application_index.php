@@ -23,7 +23,7 @@ return [
     "post_label" => "Job Poster:",
     "post_link_title" => "View the job post for this application",
     "post_link_label" => "View Job",
-    "manager_label" => "Hiring Manager:",
+    "manager_label" => "Your Manager:",
     "manager_profile_link_title" => "Visit this manager's profile.",
     "manager_profile_link_label" => "View Profile",
     "draft_link_title" => "Edit this application.",
