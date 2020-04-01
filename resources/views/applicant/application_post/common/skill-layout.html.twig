@@ -9,43 +9,21 @@
 {# Skill List #}
 <div data-c-padding="top(1)">
     <div class="profile-element-list {{ application_step == "3" ? "step3" : "" }}">
-        {# Essential Skills #}
-        {% if application_step == "3" %}
-            {% for criterion in criteria %}
-                {# Get User Skill #}
-                {% set skill_declaration = false %}
-                {% for skillDeclaration in applicant.skill_declarations %}
-                    {% if criterion.skill.id == skillDeclaration.skill_id %}
-                        {% set skill_declaration = skillDeclaration %}
-                    {% endif %}
-                {% endfor %}
-                {# Get Skill Type #}
-                {% set skillType = criterion.skill.skill_type.name %}
-                {# Import Skill Template #}
-                <a aria-hidden="true" id="skill{{ criterion.skill.id }}"></a>
-                <div data-c-accordion-group>
-                    {% include "common/skill" %}
-                </div>
+        {% for criterion in criteria %}
+            {# Get User Skill #}
+            {% set skill_declaration = false %}
+            {% for skillDeclaration in applicant.skill_declarations %}
+                {% if criterion.skill.id == skillDeclaration.skill_id %}
+                    {% set skill_declaration = skillDeclaration %}
+                {% endif %}
             {% endfor %}
-        {% endif %}
-        {# Asset Skills #}
-        {% if application_step == "4" %}
-            {% for criterion in criteria.asset %}
-                {# Get User Skill #}
-                {% set skill_declaration = false %}
-                {% for skillDeclaration in applicant.skill_declarations %}
-                    {% if criterion.skill.id == skillDeclaration.skill_id %}
-                        {% set skill_declaration = skillDeclaration %}
-                    {% endif %}
-                {% endfor %}
-                {# Get Skill Type #}
-                {% set skillType = criterion.skill.skill_type.name %}
-                {# Import Skill Template #}
-                <a aria-hidden="true" id="skill{{ criterion.skill.id }}"></a>
-                <div data-c-accordion-group>
-                    {% include "common/skill" %}
-                </div>
-            {% endfor %}
-        {% endif %}
+            {# Get Skill Type #}
+            {% set skillType = criterion.skill.skill_type.name %}
+            {# Import Skill Template #}
+            <a aria-hidden="true" id="skill{{ criterion.skill.id }}"></a>
+            <div data-c-accordion-group>
+                {% include "common/skill" %}
+            </div>
+        {% endfor %}
     </div>
 </div>
