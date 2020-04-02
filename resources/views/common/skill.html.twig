@@ -80,7 +80,7 @@
         {% if skill_declaration %}complete{% endif %}
         modal-target-object"
     data-item-saved="{{ skill_declaration ? "true" : "" }}" data-item-url="{{ route("skill_declarations.destroy", ":id") }}" data-item-id="{{ skill_declaration ? skill_declaration.id : 0 }}">
-    <button data-c-accordion-trigger tabindex="0" type="button"
+    <button class="accordion-trigger" data-c-accordion-trigger tabindex="0" type="button"
         {% if skill_declaration == false %}
             aria-expanded="true"
         {% else %}
@@ -266,7 +266,7 @@
                             {% endif %}
                             <div data-c-input="textarea" data-c-grid-item="base(1of1)">
                                 <label for="{{ id_prefix }}skillDescription">{{ skill_template.knowledge_label }}</label>
-                                <span>Required <span data-c-color="black">(<span>100</span> words left)</span></span>
+                                <span>Required <span data-c-color="black">( <span><span data-c-font-weight="bold" data-word-counter-id data-id="{{ id_prefix }}skillDescription" data-max-words="100" data-min-words="0"></span></span> words left )</span></span>
                                 <div>
                                     <textarea id="{{ id_prefix }}skillDescription" name="description" placeholder="Tell us a bit about your skills, like where you worked, what your role was, what you delivered, and what tools you used." required>{{ skill_declaration.description }}</textarea>
                                 </div>
