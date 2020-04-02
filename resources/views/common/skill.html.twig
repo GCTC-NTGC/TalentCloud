@@ -101,9 +101,9 @@
                 <div data-c-padding="tb(1)">
                     <!-- Title -->
                     {% if locale == "profile" and skill_declaration == false %}
-                        <p data-c-font-weight="bold">{{ skill_template.new_skill_title }}</p>
+                        <p data-c-font-weight="bold" data-c-padding="left(1)">{{ skill_template.new_skill_title }}</p>
                     {% elseif locale == "profile" and skill_declaration == true %}
-                        <p data-c-font-weight="bold">{{ skill_declaration.skill.name }}</p>
+                        <p data-c-font-weight="bold" data-c-padding="left(1)">{{ skill_declaration.skill.name }}</p>
                     {% elseif locale == "application" %}
                         <p data-c-font-weight="bold">{{ criterion.skill.name }}</p>
                         <p data-c-margin="top(.25)" data-c-colour="c1">Level Required: {{ skill_template.skill_levels[criterion.skill.skill_type.name][criterion.skill_level.name]|title }}</p>

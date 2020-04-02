@@ -11,12 +11,146 @@
     {% set name_prefix = "references[:id]" %}
     {% set id_prefix = name_prefix %}
 {% endif %}
-
 {% if reference %}
     {% set name_prefix = name_prefix|replace({":id":reference.id}) %}
     {% set id_prefix = id_prefix|replace({":id":reference.id}) %}
 {% endif %}
-
+<!-- Accordion -->
+<div data-c-accordion data-c-card data-c-margin="top(.5)" class="clone-accordion profile-element reference ajax-form {% if template %}template active{% endif %} modal-target-object" data-item-saved="{{ reference ? "true" : "" }}" data-item-url="{{ route("references.destroy", ":id") }}" data-item-id="{{ reference ? reference.id : 0 }}">
+    <button data-c-accordion-trigger tabindex="0" type="button"
+        {% if reference == false %}
+            aria-expanded="true"
+        {% else %}
+            aria-expanded="false"
+        {% endif %}>
+        <div data-c-padding="all(1)">
+            <p data-c-font-weight="bold">
+                {% if reference == false %}
+                    {{ reference_template.new_reference_title }}
+                {% else %}
+                    {{ reference.name }}
+                {% endif %}
+            </p>
+        </div>
+        <span data-c-visibility="invisible">Click to view...</span>
+        <i aria-hidden="true" data-c-color="c1" data-c-accordion-add data-c-font-size="h3" data-c-font-weight="bold">+</i>
+        <i aria-hidden="true" data-c-color="c1" data-c-accordion-remove data-c-font-size="h3" data-c-font-weight="bold">-</i>
+    </button>
+    <div data-c-accordion-content
+        {% if reference == false %}
+            aria-hidden="false"
+        {% else %}
+            aria-hidden="true"
+        {% endif %}>
+        <form action="{{ reference ? route("references.update", reference) : route("references.create") }}" method="POST">
+            <hr data-c-hr="thin(gray)">
+            <div data-c-padding="all(1)">
+                <div class="form-error"></div>
+                {# Builds an input field for CSRF token validation #}
+                {{ csrf_field() }}
+                <input name="_method" type="hidden" value="{{ reference ? "PUT" : "POST" }}">
+                <div data-c-grid="gutter(all, 1)">
+                {# Name #}
+                <div data-c-input="text" data-c-grid-item="tl(1of2)">
+                    <label for="{{ id_prefix }}referenceName">{{ reference_template.name_label }}</label>
+                    <span>Required</span>
+                    <div>
+                        <input id="{{ id_prefix }}referenceName" name="name" required value="{{ reference.name }}" type="text" />
+                    </div>
+                    <span>This input has an error.</span>
+                </div>
+                {# Relationship #}
+                <div data-c-input="select">
+                    <label for="{{ id_prefix }}referenceRelationship">My Preferred Partner</label>
+                    <span>Required</span>
+                    <div>
+                        <i class="fas fa-caret-down">\</i>
+                        <select required id="{{ id_prefix }}referenceRelationship">
+                            <option disabled selected>Select a partner...</option>
+                            <option>Aquaman</option>
+                            <option>Atom</option>
+                            <option>Booster Gold</option>
+                            <option>The Flash</option>
+                            <option>Green Lantern</option>
+                            <option>Hawkgirl</option>
+                            <option>Martian Manhunter</option>
+                            <option>Zatanna</option>
+                        </select>
+                    </div>
+                    <span>This input has an error.</span>
+                </div>
+                {# Email #}
+                {# Descrption #}
+                </div>
+            </div>
+            {# Linked Skills #}
+            <hr data-c-hr="thin(gray)">
+            <div data-c-padding="all(1)">
+                <div data-c-grid="gutter(all, 1) middle">
+                    {% if applicant.skill_declarations|length > 0 %}
+                        <div data-c-grid-item="base(1of1) tl(1of2)" data-c-align="base(center) tl(left)">
+                    {% else %}
+                        <div data-c-grid-item="base(1of1)">
+                    {% endif %}
+                        <p data-c-font-weight="bold"><i class="fas fa-link"data-c-color="c1" data-c-margin="right(.5)"></i>{{ relative_template.skill.title }}</p>
+                    </div>
+                    {# Add a Work Sample Trigger #}
+                    {% if applicant.skill_declarations|length > 0 %}
+                        <div data-c-grid-item="base(1of1) tl(1of2)" data-c-align="base(center) tl(right)">
+                            <button class="profile-relative__add-trigger" data-c-button="outline(c1)" data-c-radius="rounded" type="button">
+                                {{ relative_template.skill.add_label }}
+                            </button>
+                        </div>
+                    {% endif %}
+                </div>
+                {# Skill Selection Template #}
+                {# no-prefix marks that partials in this div aren't passed an id prefix. #}
+                {# This is used in app.js individualizeFormIdsAndNames() to avoid overwriting :id in template id. #}
+                <div class="no-prefix">
+                    {% include "common/relatives" with {"template":true, "relativeToken": "skills", "prefix": id_prefix } %}
+                </div>
+                {# Skill List #}
+                {% set relativeCounter = 0 %}
+                <div class="profile-relative-list__wrapper">
+                    {% for relative in sample.skill_declarations %}
+                        {% set relativeCounter = relativeCounter + 1 %}
+                        {% include "common/relatives" with {"relativeToken": "skills"} %}
+                    {% endfor %}
+                </div>
+                {# Skill Null State #}
+                <div class="profile-relative__add-trigger-wrapper">
+                    {% if applicant.skill_declarations|length > 0 %}
+                        {% if relativeCounter == 0 %}
+                            <p class="profile-relative__null active" data-c-background="gray(20)" data-c-border="all(thin, solid, gray)" data-c-radius="rounded" data-c-margin="top(1)" data-c-padding="all(1)" data-c-align="base(center)" data-c-color="gray">You can attach this work sample as evidence for one of your skills using the button above.</p>
+                        {% endif %}
+                    {% else %}
+                        <p class="profile-relative__null active" data-c-background="gray(20)" data-c-border="all(thin, solid, gray)" data-c-radius="rounded" data-c-margin="top(1)" data-c-padding="all(1)" data-c-align="base(center)" data-c-color="gray">{{ relative_template.skill.null_copy }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            {# Skill Action Buttons #}
+            <hr data-c-hr="thin(gray)">
+            <div data-c-padding="all(1)">
+                <div data-c-grid="gutter(all, 1)">
+                    <div data-c-grid-item="base(1of1) pl(1of2)" data-c-align="base(center) pl(left)">
+                        <button class="modal-trigger" data-modal-id="deleteSample" data-c-button="outline(stop)" data-c-radius="rounded" type="button">
+                            <span>{{ sample_template.action_01 }}</span>
+                        </button>
+                    </div>
+                    <div data-c-grid-item="base(1of1) pl(1of2)" data-c-align="base(center) pl(right)">
+                        <button data-c-button="solid(c1)" data-c-radius="rounded" name="submit" type="submit" value="{{ name_prefix }}">
+                            <span>
+                                <span class="submit-default">{{ sample_template.action_02 }}</span>
+                                <span class="submit-working">{{ sample_template.action_02_working }}</span>
+                                <span class="submit-saved">{{ sample_template.action_02_saved }}</span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 <div
     class="profile-element accordion reference ajax-form {% if template %}template active{% endif %} modal-target-object"
     data-item-saved="{{ reference ? "true" : "" }}"
@@ -67,36 +201,16 @@
 
     {# Accordion Content #}
 
-        <div
-            {% if reference == false %}
-                aria-hidden="false"
-            {% else %}
-                aria-hidden="true"
-            {% endif %}
-            class="accordion-content">
-
-            <form
-            action="{{ reference ? route("references.update", reference) : route("references.create") }}"
-            method="POST">
-
+        <div class="accordion-content">
+            <form action="{{ reference ? route("references.update", reference) : route("references.create") }}" method="POST">
              {# Builds an input field for CSRF token validation #}
                 {{ csrf_field() }}
-
                 <input name="_method" type="hidden" value="{{ reference ? "PUT" : "POST" }}">
-
-
-                <div
-                    class="form__wrapper">
-
+                <div class="form__wrapper">
                     {# Holds errors from ajax form submission #}
                     <div class="form-error box"></div>
-
-                    <div
-                        class="flex-grid">
-
-                        <div
-                            class="box med-1of2">
-
+                    <div class="flex-grid">
+                        <div class="box med-1of2">
                             <div class="form__input-wrapper--float {% if reference.name == true %}active{% endif %}">
                                 <label class="form__label" for="{{ id_prefix }}referenceName">
                                     {{ reference_template.name_label }}

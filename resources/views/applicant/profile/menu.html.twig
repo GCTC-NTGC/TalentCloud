@@ -1,38 +1,21 @@
 {# =============================================================================
 
     Talent Cloud
-    Applicant: Profile - Submenu
+    Applicant: Profile - Navigation Sidebar
 
 ============================================================================= #}
-<section
-    class="applicant-profile__sticky-menu">
-
-    <div
-        class="container--layout">
-
-        <nav>
-
-            <ul>
-
-                {% for item in profile_menu %}
-
-                    <li>
-
-                        <a
-                            class="{% if item.active == true %}active{% endif %}"
-                            href="{{ item.link }}"
-                            title="{{ item.title }}">
-                            {{ item.label }}
-                        </a>
-
-                    </li>
-
-                {% endfor %}
-
-            </ul>
-
-        </nav>
-
-    </div>
-
-</section>
+<div class="sidebar" data-c-padding="top(3)">
+    <nav>
+        <p data-c-font-weight="bold" data-c-font-size="h4" data-c-margin="bottom(1)">On your profile:</p>
+        <ul>
+            {% for item in profile_menu %}
+                <li>
+                    <a href="{{ item.link }}" title="{{ item.title }}" {% if item.active == true %}data-c-font-weight="bold" data-c-color="c2"{% endif %}>{{ item.label }}</a>
+                </li>
+            {% endfor %}
+            <li>
+                <a href="{{ route('settings.edit') }}" title="Edit your account settings.">Account Settings</a>
+            </li>
+        </ul>
+    </nav>
+</div>

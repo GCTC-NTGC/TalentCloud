@@ -4,84 +4,32 @@
     Applicant: Profile - Skills Index
 
 ============================================================================= #}
-<section
-    class="applicant-profile__portfolio">
-
-    <div
-        class="container--layout">
-
-            {% include "errors/form_errors" %}
-
-        {# Profile List (Soft Skills) #}
-
-            <div
-                class="profile-list">
-
-                {# Profile List Header #}
-
-                    <div
-                        class="profile-list__header flex-grid middle">
-
-                        <div
-                            class="box med-1of2">
-
-                            <h2>{{ profile.skills_section.soft_title }}</h2>
-
-                        </div>
-
-                        <div
-                            class="box med-1of2">
-
-                            <button
-                                id="add-soft-skill"
-                                type="button"
-                                class="profile-list__add-element-trigger">
-                                {{ profile.skills_section.add_soft_button_label }}
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                {% include "applicant/profile/skills/skill_list" with {"skillType":'soft'} %}
-
-            </div>
-
-        {# Profile List (Hard Skills) #}
-
-            <div
-                class="profile-list">
-
-                {# Profile List Header #}
-
-                    <div
-                        class="profile-list__header flex-grid middle">
-
-                        <div
-                            class="box med-1of2">
-
-                            <h2>{{ profile.skills_section.hard_title }}</h2>
-
-                        </div>
-
-                        <div
-                            class="box med-1of2">
-
-                            <button
-                                id="add-hard-skill"
-                                type="button"
-                                class="profile-list__add-element-trigger">
-                                {{ profile.skills_section.add_hard_button_label }}
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                {% include "applicant/profile/skills/skill_list" with {"skillType":'hard'} %}
-
-            </div>
-
+{% include "errors/form_errors" %}
+{# Profile List (Soft Skills) #}
+<div data-c-grid="gutter(all, 1)" class="profile-list">
+    <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(left)">
+        <h2 data-c-heading="h2">{{ profile.skills_section.soft_title }}</h2>
     </div>
-
-</section>
+    <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(right)">
+        <button data-c-button="outline(c1)" data-c-radius="rounded" class="profile-list__add-element-trigger" type="button">
+            {{ profile.skills_section.add_soft_button_label }}
+        </button>
+    </div>
+    <div data-c-grid-item="base(1of1)">
+        {% include "applicant/profile/skills/skill_list" with {"skillType":'soft'} %}
+    </div>
+</div>
+{# Profile List (Hard Skills) #}
+<div data-c-grid="gutter(all, 1)" class="profile-list">
+    <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(left)">
+        <h2 data-c-heading="h2">{{ profile.skills_section.hard_title }}</h2>
+    </div>
+    <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(right)">
+        <button data-c-button="outline(c1)" data-c-radius="rounded" class="profile-list__add-element-trigger" type="button">
+            {{ profile.skills_section.add_hard_button_label }}
+        </button>
+    </div>
+    <div data-c-grid-item="base(1of1)">
+        {% include "applicant/profile/skills/skill_list" with {"skillType":'hard'} %}
+    </div>
+</div>

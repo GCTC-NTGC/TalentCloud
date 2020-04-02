@@ -1,80 +1,34 @@
 {# =============================================================================
+
     Talent Cloud
-    Applicant: Profile - References Index
+    Applicant: Profile - Reference Index
+
 ============================================================================= #}
-<section
-    class="applicant-profile__portfolio">
-
-    <div
-        class="container--layout">
-
-        {# Profile List #}
-
-        <div
-            class="profile-list">
-
-            {# Profile List Header #}
-
-                <div
-                    class="profile-list__header flex-grid middle">
-
-                    <div
-                        class="box med-1of2">
-
-                        <h2>{{ profile.reference_section.section_title }}</h2>
-
-                    </div>
-
-                    <div
-                        class="box med-1of2">
-
-                        <button
-                            class="profile-list__add-element-trigger"
-                            type="button">
-                            {{ profile.reference_section.add_button_label }}
-                        </button>
-
-                    </div>
-
-                    <div
-                        class="box full">
-
-                        <p>{{ profile.reference_section.section_description }}</p>
-
-                    </div>
-
-                </div>
-
-            {# Set Locale #}
-
-                {% set locale = "profile" %}
-
-            {# Profile Element Template (Sample) #}
-
-                {% include "common/reference" with {'template': true} %}
-
-            {# Profile Element List #}
-
-                <div
-                    class="profile-element-list">
-
-                    <div
-                        class="profile-null {% if (applicant.references|length) == 0 %}active{% endif %}">
-
-                        <p>{{ profile.reference_section.null_copy }}</p>
-
-                    </div>
-
-                    {% for reference in applicant.references %}
-
-                        {% include "common/reference" %}
-
-                    {% endfor %}
-
-                </div>
-
+<div class="profile-list">
+    <div data-c-grid="gutter(all, 1)" class="profile-list">
+        <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(left)">
+            <h2 data-c-heading="h2">{{ profile.reference_section.section_title }}</h2>
         </div>
-
+        <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(right)">
+            <button data-c-button="outline(c1)" data-c-radius="rounded" class="profile-list__add-element-trigger" type="button">
+                {{ profile.reference_section.add_button_label }}
+            </button>
+        </div>
+        <div data-c-grid-item="base(1of1)">
+            <p data-c-margin="bottom(1)">{{ profile.reference_section.section_description }}</p>
+            {# Set Locale #}
+            {% set locale = "profile" %}
+            {# Profile Element Template (Sample) #}
+            {% include "common/reference" with {"template": true} %}
+            {# Profile Element List #}
+            <div class="profile-element-list" data-c-accordion-group>
+                <div class="profile-null {% if (applicant.references|length) == 0 %}active{% endif %}" data-c-border="all(thin, solid, gray)" data-c-background="gray(20)" data-c-padding="all(1)" data-c-align="base(center)" data-c-color="gray" data-c-radius="rounded">
+                    <p>{{ profile.reference_section.null_copy }}</p>
+                </div>
+                {% for reference in applicant.references %}
+                    {% include "common/reference" %}
+                {% endfor %}
+            </div>
+        </div>
     </div>
-
-</section>
+</div>
