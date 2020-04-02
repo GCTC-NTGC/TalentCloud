@@ -1,22 +1,45 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import * as React from "react";
 import ReactDOM from "react-dom";
+import { defineMessages, useIntl } from "react-intl";
 import IntlContainer from "../../IntlContainer";
 import WordCounter, { WordCounterProps } from "../WordCounter/WordCounter";
 
 type SkillsWordCounterProps = WordCounterProps;
+
+const messages = defineMessages({
+  underLimit: {
+    id: "skillWordCounter.wordsLeft",
+    defaultMessage: "words left",
+    description:
+      "Message displayed on word counter when users under/matching the limit.",
+  },
+  overLimit: {
+    id: "skillWordCounter.afterText",
+    defaultMessage: "words over limit",
+    description:
+      "Message displayed on word counter when user passes the limit.",
+  },
+});
 
 const SkillsWordCounter: React.FunctionComponent<SkillsWordCounterProps> = ({
   elementId,
   minWords,
   maxWords,
 }): React.ReactElement => {
+  const intl = useIntl();
   return (
-    <WordCounter
-      elementId={elementId}
-      minWords={minWords}
-      maxWords={maxWords}
-    />
+    <span>
+      <WordCounter
+        elementId={elementId}
+        minWords={minWords}
+        maxWords={maxWords}
+        absoluteValue
+        beforeText="( "
+        underMaxMessage={`${intl.formatMessage(messages.underLimit)} )`}
+        overMaxMessage={`${intl.formatMessage(messages.overLimit)} )`}
+      />
+    </span>
   );
 };
 
