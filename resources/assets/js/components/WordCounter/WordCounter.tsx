@@ -1,58 +1,50 @@
-import React from "react";
-import ProgressRing from "../ProgressRing";
+import React, { useState, useEffect } from "react";
+import { countNumberOfWords } from "./helpers";
 
 export interface WordCounterProps {
-  /** The current number of words in textarea element */
-  numOfWords: number;
+  /** Id of textarea element */
+  elementId: string;
   /** Maximum amount of words before passing the optimal range. The Progress Ring color correlates with this number. */
   maxWords: number;
   /** Minimum amount of words to reach the optimal range. The Progress Ring color correlates with this number. */
   minWords: number;
-  /** Message to be displayed next to Progress Ring. When a word count is reached it informs the user with a corresponding message. */
-  message: string;
-  /** Hard cap on word counter. The user cannot add any more words after reaching this number. */
-  wordLimit: number;
-  /** Let's you specify example text that appears in word counter element when empty  */
-  placeholder?: string;
-  /** The hue of the progress ring. Corresponds to the current number of words */
-  strokeColor: string;
 }
 
 const WordCounter: React.FunctionComponent<WordCounterProps> = ({
-  numOfWords,
+  elementId,
   minWords,
   maxWords,
-  message,
-  placeholder,
-  strokeColor,
 }): React.ReactElement => {
+  const [numOfWords, setNumOfWords] = useState(0);
+
+  useEffect((): (() => void) => {
+    const element: HTMLTextAreaElement = document.getElementById(
+      elementId,
+    ) as HTMLTextAreaElement;
+
+    setNumOfWords(countNumberOfWords(element.value));
+
+    const handleInputChange = (e: Event): void => {
+      const target = e.target as HTMLTextAreaElement;
+      setNumOfWords(countNumberOfWords(target.value));
+    };
+
+    element.addEventListener("input", handleInputChange);
+
+    return function cleanup(): void {
+      element.removeEventListener("input", handleInputChange, false);
+    };
+  }, [elementId]);
+
   return (
-    <div
-      className="word-counter"
+    <span
       role="progressbar"
       aria-valuenow={numOfWords}
       aria-valuemin={minWords}
       aria-valuemax={maxWords}
     >
-      <div>
-        <ProgressRing
-          radius={15}
-          stroke={3}
-          progress={numOfWords}
-          strokeColor={strokeColor}
-          max={minWords}
-        />
-      </div>
-      {/* <span className="word-counter__progress">{`(${numOfWords} / ${wordLimit})`}</span> */}
-      <span
-        className="word-counter__message"
-        style={numOfWords === 0 ? { color: "grey" } : {}}
-      >
-        {numOfWords === 0 && placeholder
-          ? placeholder
-          : numOfWords > 0 && message}
-      </span>
-    </div>
+      {maxWords - numOfWords}
+    </span>
   );
 };
 

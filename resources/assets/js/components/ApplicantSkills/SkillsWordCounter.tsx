@@ -1,90 +1,21 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import * as React from "react";
 import ReactDOM from "react-dom";
-import { injectIntl, defineMessages, WrappedComponentProps } from "react-intl";
-import WordCounterWrapper from "../WordCounter/WordCounterWrapper";
 import IntlContainer from "../../IntlContainer";
+import WordCounter, { WordCounterProps } from "../WordCounter/WordCounter";
 
-export const wordCounterMessages = defineMessages({
-  skillsPlaceholder: {
-    id: "wordCounter.skills.placeholder",
-    defaultMessage: "Start typing your answer above.",
-    description: "Placeholder text for an empty input.",
-  },
-  veryShortMessage: {
-    id: "wordCounter.skills.veryShortMessage",
-    defaultMessage:
-      "This seems too short. Did you include examples or lessons learned?",
-    description: "Message displayed to user when the word count is very low.",
-  },
-  shortMessage: {
-    id: "wordCounter.skills.shortMessage",
-    defaultMessage:
-      "This seems a bit short. Do you have another example or lesson learned to add?",
-    description: "Message displayed to user when the word count is low.",
-  },
-  slightlyLongMessage: {
-    id: "wordCounter.skills.slightlyLongMessage",
-    defaultMessage: "This is starting to get a bit long.",
-    description:
-      "Message displayed to user when the word count is a little high.",
-  },
-  longMessage: {
-    id: "wordCounter.skills.longMessage",
-    defaultMessage:
-      "This looks too long. Can you summarize some of your response?",
-    description: "Message displayed to user when the word count is high.",
-  },
-  veryLongMessage: {
-    id: "wordCounter.skills.veryLongMessage",
-    defaultMessage:
-      "Word limit reached. This is way too long. Check out one of our examples to see what a concise skill description looks like.",
-    description: "Message displayed to user when the word count is very high.",
-  },
-});
+type SkillsWordCounterProps = WordCounterProps;
 
-interface SkillsWordCounterProps {
-  elementId: string;
-}
-
-const SkillsWordCounter: React.FunctionComponent<
-  SkillsWordCounterProps & WrappedComponentProps
-> = ({ elementId, intl }): React.ReactElement => {
-  const placeholder = intl.formatMessage(wordCounterMessages.skillsPlaceholder);
-  const messages = [
-    {
-      count: 1,
-      message: intl.formatMessage(wordCounterMessages.veryShortMessage),
-    },
-    {
-      count: 25,
-      message: intl.formatMessage(wordCounterMessages.shortMessage),
-    },
-    { count: 50, message: "" },
-    {
-      count: 150,
-      message: intl.formatMessage(wordCounterMessages.slightlyLongMessage),
-    },
-    {
-      count: 200,
-      message: intl.formatMessage(wordCounterMessages.longMessage),
-    },
-    {
-      count: 250,
-      message: intl.formatMessage(wordCounterMessages.veryLongMessage),
-    },
-  ];
-  const minWords = 50;
-  const maxWords = 150;
-  const wordLimit = 250;
+const SkillsWordCounter: React.FunctionComponent<SkillsWordCounterProps> = ({
+  elementId,
+  minWords,
+  maxWords,
+}): React.ReactElement => {
   return (
-    <WordCounterWrapper
+    <WordCounter
       elementId={elementId}
-      messages={messages}
-      wordLimit={wordLimit}
       minWords={minWords}
       maxWords={maxWords}
-      placeholder={placeholder}
     />
   );
 };
@@ -110,27 +41,28 @@ const updateWordCounters = (): void => {
   }
 
   // Find all skills textarea elements
-  if (document.querySelectorAll("div[data-word-counter-id]")) {
-    const wordCounters = document.querySelectorAll("div[data-word-counter-id]");
+  if (document.querySelectorAll("span[data-word-counter-id]")) {
+    const wordCounters = document.querySelectorAll(
+      "span[data-word-counter-id]",
+    );
 
     wordCounters.forEach((wordCounter): void => {
       if (
         wordCounter !== null &&
         wordCounter.hasAttribute("data-word-counter-id")
       ) {
-        const { previousElementSibling } = wordCounter;
+        const elementId = String(wordCounter.getAttribute("data-id"));
+        const maxWords = Number(wordCounter.getAttribute("data-max-words"));
+        const minWords = Number(wordCounter.getAttribute("data-min-words"));
 
-        const textarea =
-          previousElementSibling && previousElementSibling.lastElementChild;
-        const elementId: string = textarea
-          ? textarea.id
-          : "error element is null";
-
-        const SkillsWordCounterIntl = injectIntl(SkillsWordCounter);
         const locale = document.documentElement.lang;
         ReactDOM.render(
           <IntlContainer locale={locale}>
-            <SkillsWordCounterIntl elementId={elementId} />
+            <SkillsWordCounter
+              elementId={elementId}
+              maxWords={maxWords}
+              minWords={minWords}
+            />
           </IntlContainer>,
           wordCounter,
         );
@@ -141,4 +73,4 @@ const updateWordCounters = (): void => {
 
 updateWordCounters();
 
-export default injectIntl(SkillsWordCounter);
+export default SkillsWordCounter;
