@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature\Api;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -8,9 +8,28 @@ use App\Models\JobPoster;
 use App\Models\HrAdvisor;
 use App\Models\User;
 
-class ClaimJobApiControllerTest extends TestCase
+class ClaimJobControllerTest extends TestCase
 {
     use RefreshDatabase;
+
+    /**
+     * Base route for the API calls.
+     *
+     * @var string
+     */
+    protected $baseUrl;
+
+    /**
+     * Run parent setup and set global values.
+     *
+     * @return void
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->baseUrl = 'api/v1';
+    }
 
     public function testClaimAndUnclaim(): void
     {
@@ -29,7 +48,7 @@ class ClaimJobApiControllerTest extends TestCase
         // Claim job poster.
         $response = $this->followingRedirects()
             ->actingAs($hrAdvisor->user)
-            ->json('put', "api/jobs/$job->id/claim");
+            ->json('put', "$this->baseUrl/jobs/$job->id/claim");
         $response->assertOk();
         $expectedIds = array_merge(
             ['job_poster_id' => $job->id],
@@ -40,7 +59,7 @@ class ClaimJobApiControllerTest extends TestCase
         // Unclaim job poster.
         $response = $this->followingRedirects()
             ->actingAs($hrAdvisor->user)
-            ->json('delete', "api/jobs/$job->id/claim");
+            ->json('delete', "$this->baseUrl/jobs/$job->id/claim");
         $response->assertOk();
         $this->assertDatabaseMissing('claimed_jobs', $expectedIds);
     }
@@ -61,7 +80,7 @@ class ClaimJobApiControllerTest extends TestCase
         // Claim job poster.
         $response = $this->followingRedirects()
             ->actingAs($hrAdvisor->user)
-            ->json('put', "api/hr-advisors/$hrAdvisor->id/claims/$job->id");
+            ->json('put', "$this->baseUrl/hr-advisors/$hrAdvisor->id/claims/$job->id");
         $response->assertOk();
         $expectedIds = array_merge(
             ['job_poster_id' => $job->id],
@@ -72,7 +91,7 @@ class ClaimJobApiControllerTest extends TestCase
         // Unclaim job poster.
         $response = $this->followingRedirects()
             ->actingAs($hrAdvisor->user)
-            ->json('delete', "api/hr-advisors/$hrAdvisor->id/claims/$job->id");
+            ->json('delete', "$this->baseUrl/hr-advisors/$hrAdvisor->id/claims/$job->id");
         $response->assertOk();
         $this->assertDatabaseMissing('claimed_jobs', $expectedIds);
     }
@@ -93,12 +112,12 @@ class ClaimJobApiControllerTest extends TestCase
         // Claim job poster.
         $response = $this->followingRedirects()
             ->actingAs($hrAdvisor->user)
-            ->json('put', "api/jobs/$job->id/claim");
+            ->json('put', "$this->baseUrl/jobs/$job->id/claim");
         $response->assertStatus(403);
 
         $advisorSpecificResponse = $this->followingRedirects()
             ->actingAs($hrAdvisor->user)
-            ->json('put', "api/hr-advisors/$hrAdvisor->id/claims/$job->id");
+            ->json('put', "$this->baseUrl/hr-advisors/$hrAdvisor->id/claims/$job->id");
         $advisorSpecificResponse->assertStatus(403);
     }
 
@@ -120,19 +139,19 @@ class ClaimJobApiControllerTest extends TestCase
         // Claim job poster, logged in as different user.
         $response = $this->followingRedirects()
             ->actingAs($otherUser->user)
-            ->json('put', "api/hr-advisors/$hrAdvisor->id/claims/$job->id");
+            ->json('put', "$this->baseUrl/hr-advisors/$hrAdvisor->id/claims/$job->id");
         $response->assertStatus(403);
 
         // Add a job claim that we can unclaim
         $response = $this->followingRedirects()
             ->actingAs($hrAdvisor->user)
-            ->json('put', "api/hr-advisors/$hrAdvisor->id/claims/$job->id");
+            ->json('put', "$this->baseUrl/hr-advisors/$hrAdvisor->id/claims/$job->id");
         $response->assertOk();
 
         // Unclaim job poster, logged in as different user.
         $response = $this->followingRedirects()
             ->actingAs($otherUser->user)
-            ->json('delete', "api/hr-advisors/$hrAdvisor->id/claims/$job->id");
+            ->json('delete', "$this->baseUrl/hr-advisors/$hrAdvisor->id/claims/$job->id");
         $response->assertStatus(403);
     }
 }

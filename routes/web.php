@@ -777,7 +777,7 @@ Route::group(
 /* ALL NON-LOCALIZED ROUTES **/
 
 /* API routes - currently using same default http auth, but not localized */
-Route::group(['prefix' => 'api'], function (): void {
+Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
     // Protected by a gate in the controller, instead of policy middleware.
     Route::get('jobs/{jobPoster}/assessment-plan', 'AssessmentPlanController@getForJob')
         ->middleware('can:viewAssessmentPlan,jobPoster')
@@ -827,25 +827,25 @@ Route::group(['prefix' => 'api'], function (): void {
     )
         ->middleware('can:manage,jobPoster')
         ->where('jobPoster', '[0-9]+')
-        ->name('api.jobs.setJobStatus');
+        ->name('jobs.setJobStatus');
     Route::resource('jobs', 'Api\JobController')->only([
         'show', 'store', 'update', 'index'
     ])->names([ // Specify custom names because default names collied with existing routes.
-        'show' => 'api.jobs.show',
-        'store' => 'api.jobs.store',
-        'update' => 'api.jobs.update',
-        'index' => 'api.jobs.index'
+        'show' => 'jobs.show',
+        'store' => 'jobs.store',
+        'update' => 'jobs.update',
+        'index' => 'jobs.index'
     ]);
 
     Route::put('applications/{application}/review', 'ApplicationReviewController@updateForApplication')
         ->middleware('can:review,application')
-        ->name('api.application_reviews.update');
+        ->name('application_reviews.update');
 
     Route::resource('managers', 'Api\ManagerController')->only([
         'show', 'update'
     ])->names([ // Specify custom names because default names collied with existing routes.
-        'show' => 'api.managers.show',
-        'update' => 'api.managers.update'
+        'show' => 'managers.show',
+        'update' => 'managers.update'
     ]);
 
     // User must be logged in to user currentuser routes
@@ -879,4 +879,9 @@ Route::group(['prefix' => 'api'], function (): void {
         ->middleware('can:update,hrAdvisor')
         ->where('hrAdvisor', '[0-9]+')
         ->where('job', '[0-9]+');
+});
+Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
+    Route::put('applications/{application}/review', 'Api\ApplicationController@updateForApplication')
+        ->middleware('can:review,application')
+        ->name('application.review.update');
 });
