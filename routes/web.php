@@ -881,7 +881,16 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->where('job', '[0-9]+');
 });
 Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
-    Route::put('applications/{application}/review', 'Api\ApplicationController@updateForApplication')
+    Route::get('applications/{application}', 'Api\ApplicationController@show')
+        ->where('application', '[0-9]+')
+        ->middleware('can:view,application')
+        ->name('application.show');
+    Route::get('jobs/{jobPoster}/applications', 'Api\ApplicationController@index')
+        ->where('jobPoster', '[0-9]+')
+        ->middleware('can:reviewApplicationsFor,jobPoster')
+        ->name('jobs.applications');
+    Route::put('applications/{application}/review', 'Api\ApplicationController@updateReview')
+        ->where('application', '[0-9]+')
         ->middleware('can:review,application')
         ->name('application.review.update');
 });
