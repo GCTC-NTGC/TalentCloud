@@ -83,7 +83,7 @@
         "snyk": "^1.305.0",
         "storybook-addon-intl": "^2.4.1",
         "testcafe": "^1.8.3",
-        "ts-jest": "^25.3.0",
+        "ts-jest": "^25.3.1",
         "ts-loader": "^6.2.2",
         "typescript": "^3.8.3",
         "uuid": "^7.0.3",
