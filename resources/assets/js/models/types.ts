@@ -38,7 +38,7 @@ export type Application = {
   applicant: Applicant;
   application_review: ApplicationReview | undefined;
   meets_essential_criteria: boolean;
-}
+};
 
 export type ApplicationNormalized = Omit<Application, "application_review">;
 
