@@ -9,8 +9,8 @@
         <div class="home-hiw" data-c-grid="gutter">
             <div data-c-grid-item="tl(1of3)">
                 {% for button in response.how.button_list %}
-                <button class="{% if loop.index == 1 %}active{% endif %}" {% if loop.index != 1 %}data-c-margin="top(.5)"{% endif %} data-c-align="centre" data-c-button="solid(c2)" data-c-radius="rounded" data-tc-hiw-id="0{{ loop.index }}" data-tc-hiw-trigger>
-                    <span data-c-colour="white" data-c-font-size="h4" data-c-font-weight="bold">
+                <button class="{% if loop.index == 1 %}active{% endif %}" {% if loop.index != 1 %}data-c-margin="top(.5)"{% endif %} data-c-align="centre" data-c-button="solid(c2)" data-c-radius="rounded" data-tc-hiw-id="0{{ loop.index }}" data-c-hover-color="c5" data-c-color="white" data-tc-hiw-trigger>
+                    <span data-c-font-size="h4" data-c-font-weight="bold">
                         {{ button }}
                     </span>
                 </button>
@@ -22,7 +22,7 @@
                     <span data-c-colour="white" data-c-font-size="h4" data-c-font-weight="bold" data-c-margin="bottom(normal)">
                         {{ content.title }}
                     </span>
-                    <p data-c-margin="top(normal)" data-c-colour="white">{{ content.body }}</p>
+                    <p data-c-margin="top(normal)" data-c-colour="white">{{ content.body|replace({':email_address': config('mail.admin_address')})|raw }}</p>
                 </div>
                 {% endfor %}
             </div>

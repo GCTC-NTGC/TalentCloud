@@ -51,6 +51,13 @@ class LoginController extends AuthController
         } else {
             $redirectTo = route('home');
         }
+
+        // Redirect to Response landing page if user logged in from that page.
+        $previous_url = session()->get('response.index');
+        if ($previous_url == route('response.index')) {
+            $redirectTo = route('response.index');
+        }
+
         return $redirectTo;
     }
 
@@ -80,6 +87,14 @@ class LoginController extends AuthController
             $home_url = route('home');
         };
 
+        // If user came from response landing page then save url to session.
+        // Set the "Return home" link back to Response page.
+        $previous_url = session()->get('_previous')['url'];
+        if ($previous_url == route('response.index')) {
+            session()->put('response.index', route('response.index'));
+            $home_url = route('response.index');
+        }
+
         return view('auth/login', [
             'routes' => $this->auth_routes(),
             'login' => Lang::get('common/auth/login'),
@@ -97,6 +112,13 @@ class LoginController extends AuthController
     public function logout(Request $request)
     {
         $this->guard()->logout();
+
+        // Redirect user back to Response landing page on logout and flush the session data.
+        $previous_url = session()->get('response.index');
+        if ($previous_url == route('response.index')) {
+            $request->session()->invalidate();
+            return redirect(route('response.index'));
+        }
 
         $request->session()->invalidate();
 

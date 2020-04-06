@@ -1,28 +1,66 @@
 <?php
 return [
-    'page_title' => 'Réserve de talents du GC',
+    /*
+    |--------------------------------------------------------------------------
+    | Strategic Response: Beta Banner
+    |--------------------------------------------------------------------------
+    |
+    */
+    'page_title' => 'Réserve de talents du GC : Soutenir les besoins prioritaires en talents pour la communauté numérique et technologique du GC',
+    'beta_banner' => [
+        'message' => 'Dans notre tentative de rendre ce site opérationnel rapidement, nous nous attendons à ce quelques problèmes surviennent. ',
+        'need_help' => [
+            'text' => 'Besoin d’aide? Communiquez avec nous.',
+            'title' => 'Cliquez ici pour obtenir de l’aide.',
+        ]
+    ],
+
+    'menu' => [
+        'home' => [
+            'text' => 'Accueil',
+            'title' => 'Visitez la page d’accueil Réponse rapide pour les solutions en matière de talent.'
+        ],
+        'apply' => [
+            'text' => 'Postuler',
+            'title' => 'Visualisez les domaines d’expertise disponibles qui sont nécessaires.'
+        ],
+        'info' => [
+            'text' => 'Information sur la COVID-19',
+            'title' => 'Pour en apprendre davantage sur la COVID-19.'
+        ],
+        'faq' => [
+            'text' => 'FAQ',
+            'title' => 'Pour en apprendre davantage sur le fonctionnement du Nuage de talents'
+        ],
+    ],
 
     'header' => [
         'title' => 'Réserve de talents du GC',
         'blurb' => 'Les circonstances exceptionnelles nécessitent des personnes exceptionnelles, travaillant là où elles sont le plus nécessaires.',
+        'blurb2' => 'Aidez à soutenir les besoins prioritaires en talents de la communauté numérique et technologique du GC pendant COVID-19.',
         'beta' => 'BÊTA et projet-pilote',
+        'cta' => 'Employé du GC? Vous voulez offrir votre aide?',
+        'cta_link' => [
+            'title' => 'Cliquez ici pour voir les possibilités.',
+            'label' => 'Découvrez les domaines de compétence qui ont besoin d\'aide',
+        ],
     ],
 
     'content' => [
         'title' => 'But du présent site',
         'offer_help' => [
-            'text' => 'Proposer de l’aide',
-            'title' => 'Pour en connaître davantage sur la façon dont vous pouvez aider en cas d’urgence'
+            'text' => 'Voir les opportunités',
+            'title' => 'Pour en connaître davantage sur la façon dont vous pouvez aider.'
         ],
-        'body' => 'La pandémie COVID-19 a exercé une pression énorme sur les citoyens et les gouvernements dans le monde entier. En période de perturbation extrême, les organisations ont des besoins de talents différents. Les gouvernements peuvent connaître une pénurie critique de talents dans certains domaines et un excédent dans d’autres. Une réponse forte et coordonnée nécessite une méthode pour cerner les lacunes en matière de talents et pour amener les personnes compétentes là où elles sont le plus rapidement et efficacement nécessaires.',
+        'body' => 'La communauté numérique et technologique du gouvernement du Canada travaille fort pour soutenir les opérations du gouvernement du Canada durant la pandémie COVID-19. Certaines équipes auront besoin d\'un soutien supplémentaire pendant cette période, car elles travaillent dans des domaines prioritaires. Cet outil est conçu pour identifier les employés actuels et qualifiés du gouvernement du Canada qui pourraient être en mesure de répondre temporairement à ces besoins.',
         'designed_to_header' => 'Ce site est conçu pour :',
         'designed_to_list' => [
-            1 => 'Fournir un guichet unique et pangouvernemental pour la mobilisation des talents en situation de crise',
+            1 => 'Fournir un outil pour la mobilisation temporaire des talents numériques et technologiques au sein du gouvernement du Canada en situation de crise',
             2 => 'Permettre le flux de talents des domaines de moindre priorité vers les domaines de besoin essentiel, appuyé par un suivi de données et une coordination centrale',
             3 => 'Donner aux fonctionnaires un moyen d’utiliser leurs compétences là où l’aide est la plus nécessaire',
-            4 => 'Offrir aux ministères un outil rapide et efficace pour trouver des talents qualifiés et disponibles',
+            4 => 'Offrir aux ministères un mécanisme rapide et efficace pour trouver des talents numériques et technologiques qualifiés et disponibles',
         ],
-        'shared_effort' => 'Cet exercice est un effort commun auquel participent plusieurs ministères et organismes du gouvernement du Canada et est coordonné de façon centrale par l’intermédiaire du Secrétariat du Conseil du Trésor.',
+        'shared_effort' => 'Cet exercice est géré par le bureau du directeur de l\'information avec le soutien du Nuage de talents et du bureau de gestion communautaire.',
         'code_for_site' => 'Le code de ce site et les renseignements connexes sont disponibles pour d’autres gouvernements et administrations. ',
         'github_url' => [
             'text' => 'Visitez le Nuage de talents sur Github',
@@ -43,28 +81,30 @@ return [
         ],
         'need_help' => [
             'title' => 'Votre ministère a-t-il besoin d’une aide supplémentaire?',
-            'body' => 'Si votre ministère a relevé une pénurie de talents actuelle ou anticipée dans un domaine essentiel, contactez-nous pour demander de l’aide supplémentaire. Si votre ministère a un besoin unique dans un domaine spécialisé, nous pouvons lancer un nouvel appel.',
+            'body1' => 'Cet outil est actuellement disponible pour la communauté numérique et technologique.',
+            'body2' => 'Si votre ministère a relevé une pénurie de talents actuelle ou anticipée dans un domaine essentiel, contactez-nous pour demander de l’aide supplémentaire. Si votre ministère a un besoin unique dans un domaine spécialisé, nous pouvons lancer un nouvel appel.',
             'learn_more' => [
                 'text' => 'Apprenez-en davantage.',
                 'title' => 'Cliquez ici pour en apprendre davantage sur la façon de nous joindre.',
             ],
         ],
-        'apply_list_title' => 'Vous pouvez demander de faire partie de la réserve de talents du GC si :',
+        'apply_list_title' => 'Vous pouvez demander de faire partie de la Réserve de talents du GC si :',
         'apply_list' => [
-            1 => 'Vous voulez aider les Canadiens en allant là où votre présence est le plus nécessaire',
-            2 => 'Vous êtes actuellement un employé du gouvernement du Canada (pour une période indéterminée ou déterminée)',
-            3 => 'Vous avez des compétences spécialisées à partager (voir la liste ci-dessous)',
-            4 => 'Vous voulez appuyer vos collègues dans d’autres équipes ou ministères',
-            5 => 'Vous êtes capable de vous adapter à un nouvel environnement et à de nouveaux processus',
-            6 =>  "Vous êtes dans une fonction essentielle dans votre propre ministère et que votre gestionnaire appuie un placement temporaire",
+            1 =>  "Vous êtes dans une fonction essentielle dans votre propre ministère et que votre gestionnaire appuie un placement temporaire",
+            2 => 'Vous voulez aider les Canadiens en allant là où votre présence est le plus nécessaire',
+            3 => 'Vous êtes actuellement un employé du gouvernement du Canada (pour une période indéterminée ou déterminée)',
+            4 => 'Vous avez des compétences spécialisées à partager (voir la liste ci-dessous)',
+            5 => 'Vous voulez appuyer vos collègues dans d’autres équipes ou ministères',
+            6 => 'Vous êtes capable de vous adapter à un nouvel environnement et à de nouveaux processus',
         ],
-        'not_apply_list_title' => 'Vous NE devriez PAS demander de faire partie de la réserve de talents du GC si :',
+        'not_apply_list_title' => 'Vous NE devriez PAS demander de faire partie de la Réserve de talents du GC si :',
         'not_apply_list' => [
             1 => "Vous n’êtes pas actuellement un employé du gouvernement du Canada (pour une période indéterminée ou déterminée). Désolé, aucune exception.",
             2 => 'Vous n’avez pas les compétences requises (voir ci-dessous)',
-            3 => "Vous cherchez un nouvel emploi permanent",
-            4 => "Vous cherchez une nomination intérimaire promotionnelle",
-            5 => 'Vous avez du mal à vous adapter à un nouvel environnement ou à de nouveaux processus',
+            3 => 'Vous n\'êtes disponible que pour une durée très précise et limitée',
+            4 => "Vous cherchez un nouvel emploi permanent",
+            5 => "Vous cherchez une nomination intérimaire promotionnelle",
+            6 => 'Vous avez du mal à vous adapter à un nouvel environnement ou à de nouveaux processus',
         ],
     ],
 
@@ -73,7 +113,19 @@ return [
         'expand_sections' => 'Agrandir toutes les sections',
         'collapse_sections' => 'Réduire toutes les sections',
         'have_skills' => 'Avez-vous des compétences dans l’un des domaines de besoins essentiels suivants? (Puisque vous aidez dans des circonstances exceptionnelles, n’oubliez pas d’être réaliste à propos de vos capacités.)',
-        'impact_position' => 'Soyez rassuré(e), cette démarche n’aura aucune incidence sur votre poste ou votre salaire actuel. Il s’agit d’un placement temporaire flexible afin que nous puissions prêter main-forte là où c’est le plus nécessaire. Les dispositions concernant les personnes choisies seront prises par les RH au cas par cas. Les ministères d’attache et les ministères hôtes travailleront ensemble pour permettre des solutions rapides et appropriées. La plupart des options permettront le télétravail. Certains placements peuvent durer quelques jours, d’autres, plusieurs semaines.',
+        'instructions' => 'Vous trouverez ci-dessous les catégories de travail qui nécessitent une aide supplémentaire. En cliquant dessus pour les développer, vous pouvez parcourir diverses sous-catégories qui sont définies par un ensemble particulier de compétences. Une fois que vous avez trouvé une catégorie dans laquelle vous pouvez offrir votre aide,',
+        'instructions_bold' => 'cliquez sur le niveau de compétence dont vous disposez pour commencer la procédure de candidature',
+        'learn_more_copy1' => 'Vous souhaitez obtenir plus de détails avant de déposer votre candidature ? Consultez notre',
+        'learn_more_copy2' => 'ou notre',
+        'learn_more_faq_link' => [
+            'title' => 'Ouvrez la FAQ dans une nouvelle fenêtre ou un nouvel onglet.',
+            'label' => 'FAQ',
+        ],
+        'learn_more_how_link' => [
+            'title' => 'En savoir plus sur le processus.',
+            'label' => 'guide de demande',
+        ],
+        'impact_position' => 'Il s\'agit d\'un placement flexible et temporaire qui nous permet de donner un coup de main là où il est le plus nécessaire. Les dispositions en matière de ressources humaines pour les personnes sélectionnées seront prises au cas par cas. Les ministères d\'origine et d\'accueil travailleront ensemble pour garantir des solutions rapides et appropriées. Certaines peuvent durer quelques jours, d\'autres plusieurs semaines.',
         'dont_have_skills' => "Vous n’avez pas ces compétences, mais vous voulez aider? Nous faisons continuellement des mises à jour et ajoutons des emplois. Veuillez vérifier tous les 2 ou 3 jours.",
     ],
 
@@ -89,7 +141,7 @@ return [
         'list_content' => [
             1 => [
                 'title' => 'Étape 01 : Pour remplir le processus de demande',
-                'body' => 'Pour que vous puissiez démarrer dès que vous vous joignez à une équipe qui a besoin d’aide essentielle, nous avons créé un processus très court et facile pour trouver les options qui vous conviennent le mieux. Cette demande devrait vous prendre 20 minutes à remplir. Prenez une bonne boisson chaude et inscrivez-vous pour faire votre part.',
+                'body' => 'Nous voulons que vous soyez en mesure de démarrer rapidement lorsque vous vous joignez à une équipe qui a besoin d\'une aide essentielle. Pour cette raison, nous avons créé un processus très court et facile pour vous trouver les placements qui vous convient le mieux. Cette application devrait vous prendre 20 minutes. Prenez une bonne boisson chaude et inscrivez-vous pour faire votre part. Avant de faire, assurez-vous que votre gestionnaire et l\'équipe soutiendraient votre déménagement potentiel.',
             ],
             2 => [
                 'title' => 'Étape 02 : Pour recevoir un courriel sur les prochaines étapes',
@@ -97,7 +149,7 @@ return [
             ],
             3 => [
                 'title' => 'Étape 03 : Pour être placé dans une réserve appelée « Prêt à affecter »',
-                'body' => 'Une fois votre vérification des références terminée, vous serez placé sur une liste de personnes prêtes à être envoyées aux ministères qui a des besoins essentiels dans les domaines pour lesquels vous avez présenté une demande. Vous pouvez être appelé immédiatement ou ne pas être appelé du tout. Nous vous informerons également lorsque vous n’aurez plus besoin d’être dans la réserve pour pas que vous restiez dans le flou. Pendant que vous êtes dans cette réserve, assurez-vous (d’envoyer un courriel à l’équipe) si vous devez retirer votre nom pour une raison quelconque. Nous voulons être sûrs de seulement envoyer les noms des personnes actuellement disponibles aux ministères dans le besoin.',
+                'body' => 'Une fois votre vérification des références terminée, vous serez placé sur une liste de personnes prêtes à être envoyées aux ministères qui a des besoins essentiels dans les domaines pour lesquels vous avez présenté une demande. Vous pouvez être appelé immédiatement ou ne pas être appelé du tout. Nous vous informerons également lorsque vous n’aurez plus besoin d’être dans la réserve pour pas que vous restiez dans le flou. Pendant que vous êtes dans cette réserve, assurez-vous <a href="mailto::email_address" title="Envoyer un courriel au Nuage de talents." target="_blank">envoyez-nous un courriel</a> si vous devez retirer votre nom pour une raison quelconque. Nous voulons être sûrs de seulement envoyer les noms des personnes actuellement disponibles aux ministères dans le besoin.',
             ],
             4 => [
                 'title' => 'Étape 04 : Pour être envoyé à un ministère!',
@@ -107,6 +159,9 @@ return [
     ],
 
     'stream' => [
+        'view' => 'Voir les',
+        'instruction' => 'Trouvez votre domaine d\'expertise et cliquez sur votre niveau de compétence pour commencer.',
+        'position_label' => 'Positions en',
         'click_to_view' => 'Cliquez pour voir...',
         'offer_support' => 'Cliquez pour offrir du soutien',
         'no_jobs' => 'Une aide pas encore demandée',
