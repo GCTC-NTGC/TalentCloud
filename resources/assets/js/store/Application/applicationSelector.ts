@@ -51,12 +51,13 @@ export const getApplicationsByJob = createCachedSelector(
   (state: RootState, ownProps: { jobId: number }): number => ownProps.jobId,
   (applications, applicationReviews, jobId): Application[] => {
     const applicationIds = Object.values(applications)
-      .filter(application => application.job_poster_id === jobId)
+      .filter((application) => application.job_poster_id === jobId)
       .map(getId);
+    console.log(applicationIds);
     return applicationIds
-      .map(id =>
+      .map((id) =>
         constructNonNormalizedApplication(applications, applicationReviews, id),
       )
       .filter(notEmpty);
   },
-);
+)((state, ownProps): number => ownProps.jobId);
