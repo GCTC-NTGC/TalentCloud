@@ -46,9 +46,11 @@ export interface ApplicationReview {
   id: number;
   job_application_id: number;
   review_status_id: ReviewStatusId | ResponseReviewStatusId | null;
+  department_id: number | null;
   notes: string | null;
   created_at: Date;
   updated_at: Date;
+  department: Department | null;
   review_status: ReviewStatus | ResponseReviewStatus | null;
 }
 
