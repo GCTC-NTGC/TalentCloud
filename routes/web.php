@@ -80,6 +80,8 @@ Route::group(
             Route::view('response', 'common/response/index/index')->middleware('localOnly')->name('response');
             /* Response Screening */
             Route::view('response-screening', 'common/response/screening/index')->middleware('localOnly')->name('responseScreening');
+            /* Response FAQ */
+            Route::view('response-faq', 'response/faq/index', ['response_faq' => Lang::get('response/faq')])->middleware('localOnly')->name('responseFaq');
 
             Route::view('response/api-test', 'applicant/str_api_test')->middleware('localOnly');
         });
