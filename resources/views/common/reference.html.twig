@@ -1,7 +1,7 @@
 {# =============================================================================
 
     Talent Cloud
-    Reference
+    Recurring Elements: Reference Accordion
 
 ============================================================================= #}
 {% if prefix %}
@@ -50,99 +50,103 @@
                 {{ csrf_field() }}
                 <input name="_method" type="hidden" value="{{ reference ? "PUT" : "POST" }}">
                 <div data-c-grid="gutter(all, 1)">
-                {# Name #}
-                <div data-c-input="text" data-c-grid-item="tl(1of2)">
-                    <label for="{{ id_prefix }}referenceName">{{ reference_template.name_label }}</label>
-                    <span>Required</span>
-                    <div>
-                        <input id="{{ id_prefix }}referenceName" name="name" required value="{{ reference.name }}" type="text" />
+                    {# Name #}
+                    <div data-c-input="text" data-c-grid-item="tl(1of2)">
+                        <label for="{{ id_prefix }}referenceName">{{ reference_template.name_label }}</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="{{ id_prefix }}referenceName" name="name" required value="{{ reference.name }}" type="text" />
+                        </div>
+                        <span>This input has an error.</span>
                     </div>
-                    <span>This input has an error.</span>
-                </div>
-                {# Relationship #}
-                <div data-c-input="select">
-                    <label for="{{ id_prefix }}referenceRelationship">My Preferred Partner</label>
-                    <span>Required</span>
-                    <div>
-                        <i class="fas fa-caret-down">\</i>
-                        <select required id="{{ id_prefix }}referenceRelationship">
-                            <option disabled selected>Select a partner...</option>
-                            <option>Aquaman</option>
-                            <option>Atom</option>
-                            <option>Booster Gold</option>
-                            <option>The Flash</option>
-                            <option>Green Lantern</option>
-                            <option>Hawkgirl</option>
-                            <option>Martian Manhunter</option>
-                            <option>Zatanna</option>
-                        </select>
+                    {# Relationship #}
+                    <div data-c-input="select" data-c-grid-item="tl(1of2)">
+                        <label for="{{ id_prefix }}referenceRelationship">{{ reference_template.relationship_label }}</label>
+                        <span>Required</span>
+                        <div>
+                            <i class="fas fa-caret-down"></i>
+                            <select name="relationship_id" required id="{{ id_prefix }}referenceRelationship" {% if template %}disabled{% endif %}>
+                                <option value="" disabled {% if reference.relationship_id == relationship.id %}selected{% endif %}>{{ reference_template.relationship_default_option }}</option>
+                                {% for relationship in relationships %}
+                                    <option
+                                        value="{{ relationship.id }}"
+                                        {% if reference.relationship_id == relationship.id %}selected="selected"{% endif %}
+                                        >{{ reference_template.relationships[relationship.name] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <span>This input has an error.</span>
                     </div>
-                    <span>This input has an error.</span>
-                </div>
-                {# Email #}
-                {# Descrption #}
+                    {# Email #}
+                    <div data-c-input="email" data-c-grid-item="base(1of1)">
+                        <label for="{{ id_prefix }}referenceEmail">{{ reference_template.email_label }}</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="{{ id_prefix }}referenceEmail" {% if template %}disabled{% endif %} type="email" name="email" required value="{{ reference.email }}" />
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    {# Descrption #}
+                    <div data-c-input="textarea" data-form-id="experience-description" data-c-grid-item="base(1of1)">
+                        <label for="{{ id_prefix }}referenceDescription">{{ reference_template.description_label }}</label>
+                        <span>Required</span>
+                        <div>
+                            <textarea id="{{ id_prefix }}referenceDescription" id="{{ id_prefix }}referenceDescription" {% if template %}disabled{% endif %} name="description" required >{{ reference.description }}</textarea>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
                 </div>
             </div>
             {# Linked Skills #}
             <hr data-c-hr="thin(gray)">
-            <div data-c-padding="all(1)">
+            <div data-c-padding="all(1)" class="application-relative-list">
                 <div data-c-grid="gutter(all, 1) middle">
-                    {% if applicant.skill_declarations|length > 0 %}
-                        <div data-c-grid-item="base(1of1) tl(1of2)" data-c-align="base(center) tl(left)">
-                    {% else %}
-                        <div data-c-grid-item="base(1of1)">
-                    {% endif %}
-                        <p data-c-font-weight="bold"><i class="fas fa-link"data-c-color="c1" data-c-margin="right(.5)"></i>{{ relative_template.skill.title }}</p>
+                    <div data-c-grid-item="base(1of1) tl(1of2)" data-c-align="base(center) tl(left)">
+                        <p data-c-font-weight="bold"><i class="fas fa-link"data-c-color="c1" data-c-margin="right(.5)"></i>{{ relative_template.project.title }}</p>
                     </div>
                     {# Add a Work Sample Trigger #}
-                    {% if applicant.skill_declarations|length > 0 %}
-                        <div data-c-grid-item="base(1of1) tl(1of2)" data-c-align="base(center) tl(right)">
-                            <button class="profile-relative__add-trigger" data-c-button="outline(c1)" data-c-radius="rounded" type="button">
-                                {{ relative_template.skill.add_label }}
-                            </button>
-                        </div>
-                    {% endif %}
+                    <div data-c-grid-item="base(1of1) tl(1of2)" data-c-align="base(center) tl(right)">
+                        <button class="profile-relative__add-trigger" data-c-button="outline(c1)" data-c-radius="rounded" type="button">
+                            {{ relative_template.project.add_label }}
+                        </button>
+                    </div>
                 </div>
-                {# Skill Selection Template #}
+                {# Project Template #}
                 {# no-prefix marks that partials in this div aren't passed an id prefix. #}
                 {# This is used in app.js individualizeFormIdsAndNames() to avoid overwriting :id in template id. #}
                 <div class="no-prefix">
-                    {% include "common/relatives" with {"template":true, "relativeToken": "skills", "prefix": id_prefix } %}
+                    {% include "common/relatives-projects" with {"template": true, "prefix": id_prefix} %}
                 </div>
-                {# Skill List #}
+                {# Project List #}
                 {% set relativeCounter = 0 %}
-                <div class="profile-relative-list__wrapper">
-                    {% for relative in sample.skill_declarations %}
+                <div class="profile-relative-list__wrapper" data-c-margin="top(1)">
+                    {% for relative in reference.projects %}
                         {% set relativeCounter = relativeCounter + 1 %}
-                        {% include "common/relatives" with {"relativeToken": "skills"} %}
+                        {% include "common/relatives-projects" with {"relativeToken": "projects"} %}
                     {% endfor %}
                 </div>
-                {# Skill Null State #}
-                <div class="profile-relative__add-trigger-wrapper">
-                    {% if applicant.skill_declarations|length > 0 %}
-                        {% if relativeCounter == 0 %}
-                            <p class="profile-relative__null active" data-c-background="gray(20)" data-c-border="all(thin, solid, gray)" data-c-radius="rounded" data-c-margin="top(1)" data-c-padding="all(1)" data-c-align="base(center)" data-c-color="gray">You can attach this work sample as evidence for one of your skills using the button above.</p>
-                        {% endif %}
-                    {% else %}
-                        <p class="profile-relative__null active" data-c-background="gray(20)" data-c-border="all(thin, solid, gray)" data-c-radius="rounded" data-c-margin="top(1)" data-c-padding="all(1)" data-c-align="base(center)" data-c-color="gray">{{ relative_template.skill.null_copy }}</p>
+                {# Project State #}
+                {% if reference.projects|length == 0 %}
+                    {% if relativeCounter == 0 %}
+                        <p class="profile-relative__null active" data-c-background="gray(20)" data-c-border="all(thin, solid, gray)" data-c-radius="rounded" data-c-margin="top(1)" data-c-padding="all(1)" data-c-align="base(center)" data-c-color="gray">You haven't added any projects to this reference. Use the button above to add one.</p>
                     {% endif %}
-                </div>
+                {% endif %}
             </div>
             {# Skill Action Buttons #}
             <hr data-c-hr="thin(gray)">
             <div data-c-padding="all(1)">
                 <div data-c-grid="gutter(all, 1)">
                     <div data-c-grid-item="base(1of1) pl(1of2)" data-c-align="base(center) pl(left)">
-                        <button class="modal-trigger" data-modal-id="deleteSample" data-c-button="outline(stop)" data-c-radius="rounded" type="button">
-                            <span>{{ sample_template.action_01 }}</span>
+                        <button class="modal-trigger" data-modal-id="deleteReference" data-c-button="outline(stop)" data-c-radius="rounded" type="button">
+                            <span>{{ reference_template.action_01 }}</span>
                         </button>
                     </div>
                     <div data-c-grid-item="base(1of1) pl(1of2)" data-c-align="base(center) pl(right)">
                         <button data-c-button="solid(c1)" data-c-radius="rounded" name="submit" type="submit" value="{{ name_prefix }}">
                             <span>
-                                <span class="submit-default">{{ sample_template.action_02 }}</span>
-                                <span class="submit-working">{{ sample_template.action_02_working }}</span>
-                                <span class="submit-saved">{{ sample_template.action_02_saved }}</span>
+                                <span class="submit-default">{{ reference_template.action_02 }}</span>
+                                <span class="submit-working">{{ reference_template.action_02_working }}</span>
+                                <span class="submit-saved">{{ reference_template.action_02_saved }}</span>
                             </span>
                         </button>
                     </div>
@@ -150,255 +154,4 @@
             </div>
         </form>
     </div>
-</div>
-<div
-    class="profile-element accordion reference ajax-form {% if template %}template active{% endif %} modal-target-object"
-    data-item-saved="{{ reference ? "true" : "" }}"
-    data-item-url="{{ route("references.destroy", ":id") }}"
-    data-item-id="{{ reference ? reference.id : 0 }}">
-
-    {# Accordion Trigger #}
-
-        <button
-            {% if reference == false %}
-                aria-expanded="true"
-            {% else %}
-                aria-expanded="false"
-            {% endif %}
-            class="accordion-trigger"
-            tabindex="0"
-            type="button">
-
-            {% if locale == "profile" %}
-
-            {% else %}
-
-                <span
-                    class="accordion-status">
-
-                    <i class="fas fa-check"></i>
-
-                    <i class="fas fa-exclamation-circle"></i>
-
-                </span>
-
-            {% endif %}
-
-            <span
-                class="accordion-title">
-                {% if reference == false %}
-                    {{ reference_template.new_reference_title }}
-                {% else %}
-                    {{ reference.name }}
-                {% endif %}
-            </span>
-
-            <span class="invisible">{{ reference_template.accordion_sr_helper }}</span>
-
-            <i class="fas fa-chevron-up"></i>
-
-        </button>
-
-    {# Accordion Content #}
-
-        <div class="accordion-content">
-            <form action="{{ reference ? route("references.update", reference) : route("references.create") }}" method="POST">
-             {# Builds an input field for CSRF token validation #}
-                {{ csrf_field() }}
-                <input name="_method" type="hidden" value="{{ reference ? "PUT" : "POST" }}">
-                <div class="form__wrapper">
-                    {# Holds errors from ajax form submission #}
-                    <div class="form-error box"></div>
-                    <div class="flex-grid">
-                        <div class="box med-1of2">
-                            <div class="form__input-wrapper--float {% if reference.name == true %}active{% endif %}">
-                                <label class="form__label" for="{{ id_prefix }}referenceName">
-                                    {{ reference_template.name_label }}
-                                </label>
-                                <input
-                                    class="form__input"
-                                    id="{{ id_prefix }}referenceName"
-
-                                    type="text"
-                                    name="name"
-                                    required
-                                    value="{{ reference.name }}" />
-                            </div>
-
-                        </div>
-
-                        <div
-                            class="box med-1of2">
-
-                            <div class="form__input-wrapper--select">
-                                <label class="form__label" for="{{ id_prefix }}referenceRelationship">
-                                    {{ reference_template.relationship_label }}
-                                </label>
-                                <div
-                                    class="form__select-wrapper fas fa-chevron-down">
-                                    <select
-                                        id="{{ id_prefix }}referenceRelationship"
-                                        class="form__input"
-                                        {% if template %}disabled{% endif %}
-                                        name="relationship_id"
-                                        required>
-                                        <option value="" disabled {% if reference.relationship_id == relationship.id %}selected{% endif %}>{{ reference_template.relationship_default_option }}</option>
-                                        {% for relationship in relationships %}
-                                            <option
-                                                value="{{ relationship.id }}"
-                                                {% if reference.relationship_id == relationship.id %}selected="selected"{% endif %}
-                                                >{{ reference_template.relationships[relationship.name] }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div
-                            class="box full">
-
-                            <div class="form__input-wrapper--float {% if reference.email == true %}active{% endif %}">
-                                <label class="form__label" for="{{ id_prefix }}referenceEmail">
-                                    {{ reference_template.email_label }}
-                                </label>
-                                <input
-                                    class="form__input"
-                                    id="{{ id_prefix }}referenceEmail"
-                                    {% if template %}disabled{% endif %}
-                                    type="email"
-                                    name="email"
-                                    required
-                                    value="{{ reference.email }}" />
-                            </div>
-
-                        </div>
-
-                        <div
-                            class="box full">
-
-                            <div
-                                class="form__input-wrapper--float {% if reference.description != null%}active{% endif %}"
-                                data-form-id="experience-description">
-
-                                <label
-                                    class="form__label"
-                                    for="{{ id_prefix }}referenceDescription">
-                                    {{ reference_template.description_label }}
-                                </label>
-
-                                <textarea
-                                    class="form__textarea"
-                                    id="{{ id_prefix }}referenceDescription"
-                                    {% if template %}disabled{% endif %}
-                                    name="description"
-                                    required
-                                    >{{ reference.description }}</textarea>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    {# Relatives (Projects) #}
-
-                        <div
-                            class="profile-relative-list">
-
-                            {# Relative List Title & Creation Trigger #}
-
-                                <div
-                                    class="profile-relative-list__header flex-grid middle">
-
-                                    <div
-                                        class="box small-1of2">
-
-                                        <span
-                                            class="profile-relative-list__label">
-                                            {{ relative_template.project.title }}
-                                        </span>
-
-                                    </div>
-
-                                    <div
-                                        class="box small-1of2">
-
-                                    </div>
-
-                                </div>
-
-                            {# Relative Template #}
-
-                            {# no-prefix marks that partials in this div aren't passed an id prefix. #}
-                            {# This is used in app.js individualizeFormIdsAndNames() to avoid overwriting :id in template id. #}
-                            <div class="no-prefix">
-                                {% include "common/relatives-projects" with {"template": true, "prefix": id_prefix} %}
-                            </div>
-
-                            {# Relative List #}
-
-                                {% set relativeCounter = 0 %}
-
-                                <div
-                                    class="profile-relative-list__wrapper">
-
-                                    {% for relative in reference.projects %}
-
-                                        {% set relativeCounter = relativeCounter + 1 %}
-
-                                        {% include "common/relatives-projects" with {"relativeToken": "projects"} %}
-
-                                    {% endfor %}
-
-                                </div>
-
-                            {# Add Relative Trigger #}
-
-                                <div
-                                    class="profile-relative__add-trigger-wrapper">
-
-                                    <button
-                                        class="profile-relative__add-trigger">
-                                        {{ relative_template.project.add_label }}
-                                    </button>
-
-                                </div>
-
-                        </div>
-
-                </div>
-
-                <div
-                    class="accordion-actions flex-grid">
-
-                    <div
-                        class="box med-1of2">
-                        <button
-                            class="button--red light-bg modal-trigger"
-                            data-modal-id="deleteReference"
-                            type="button">
-                            {{ reference_template.action_01 }}
-                        </button>
-                    </div>
-
-                    <div
-                        class="box med-1of2">
-                        <button
-                            class="button--blue light-bg"
-                            type="submit"
-                            name="submit"
-                            value="{{ name_prefix }}">
-                            <span class="submit-default">{{ reference_template.action_02 }}</span>
-                            <span class="submit-working">{{ reference_template.action_02_working }}</span>
-                            <span class="submit-saved">{{ reference_template.action_02_saved }}</span>
-                        </button>
-                    </div>
-
-                </div>
-
-            </form>
-
-        </div>
-
 </div>

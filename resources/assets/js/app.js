@@ -993,7 +993,7 @@
     function addProfileRelative(trigger) {
       var clone = cloneRepeatingElement(
         trigger,
-        ".application-work-sample-list",
+        ".application-relative-list",
         ".profile-relative-list__wrapper",
         ".profile-relative__null",
         ".profile-relative.template",
