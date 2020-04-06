@@ -185,16 +185,16 @@
         },
         {
             "name": "codezero/laravel-unique-translation",
-            "version": "3.1.0",
+            "version": "3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codezero-be/laravel-unique-translation.git",
-                "reference": "da16b1e081e0f79275a315049047f13b846ea4fb"
+                "reference": "1bf82dceacf3244953d1a68564381f5709795d81"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codezero-be/laravel-unique-translation/zipball/da16b1e081e0f79275a315049047f13b846ea4fb",
-                "reference": "da16b1e081e0f79275a315049047f13b846ea4fb",
+                "url": "https://api.github.com/repos/codezero-be/laravel-unique-translation/zipball/1bf82dceacf3244953d1a68564381f5709795d81",
+                "reference": "1bf82dceacf3244953d1a68564381f5709795d81",
                 "shasum": ""
             },
             "require": {
@@ -242,7 +242,7 @@
                 "validation",
                 "validator"
             ],
-            "time": "2020-03-03T19:47:23+00:00"
+            "time": "2020-04-06T16:14:10+00:00"
         },
         {
             "name": "creativeorange/gravatar",
