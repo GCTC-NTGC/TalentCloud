@@ -116,12 +116,12 @@
                 <div data-c-grid="gutter(all, 1)">
 
                     {# Type of Degree #}
-                    <div data-c-input="select" data-c-grid-item="base(1of1)">
+                    <div data-c-input="select" data-c-grid-item="base(1of1)" data-c-required>
                         <label for="{{ id_prefix }}degreeType">{{ degree_template.type_label }}</label>
                         <span>{{ degree_template.required_label }}</span>
                         <div>
                             <i class="fas fa-caret-down"></i>
-                            <select required id="{{ id_prefix }}degreeType" name="{{ name_prefix }}[degree_type_id]">
+                            <select {{degree ? required : "data-required" }} id="{{ id_prefix }}degreeType" name="{{ name_prefix }}[degree_type_id]">
                                 <option value="" disabled {% if degree.degree_type.id == degree_type.id %}selected{% endif %}>{{ degree_template.type_default_option }}</option>
                                 {% for degree_type in degree_types %}
                                     <option
@@ -135,21 +135,21 @@
                     </div>
 
                     {# Area of Study #}
-                    <div data-c-input="text" data-c-grid-item="base(1of1) tl(1of2)">
+                    <div data-c-input="text" data-c-grid-item="base(1of1) tl(1of2)" data-c-required>
                         <label for="{{ id_prefix }}degreeArea">{{ degree_template.aoe_label }}</label>
                         <span>{{ degree_template.required_label }}</span>
                         <div>
-                            <input id="{{ id_prefix }}degreeArea" name="{{ name_prefix }}[area_of_study]" value="{{ degree.area_of_study }}" required type="text" />
+                            <input {{degree ? required : "data-required" }}  id="{{ id_prefix }}degreeArea" name="{{ name_prefix }}[area_of_study]" value="{{ degree.area_of_study }}" type="text" />
                         </div>
                         <span>{{ degree_template.input_error }}</span>
                     </div>
 
                     {# Institution #}
-                    <div data-c-input="text" data-c-grid-item="base(1of1) tl(1of2)">
+                    <div data-c-input="text" data-c-grid-item="base(1of1) tl(1of2)" data-c-required>
                         <label for="{{ id_prefix }}degreeInstitution">{{ degree_template.institution_label }}</label>
                         <span>{{ degree_template.required_label }}</span>
                         <div>
-                            <input id="{{ id_prefix }}degreeInstitution" name="{{ name_prefix }}[institution]" value="{{ degree.institution }}" required type="text" />
+                            <input {{degree ? required : "data-required" }}  id="{{ id_prefix }}degreeInstitution" name="{{ name_prefix }}[institution]" value="{{ degree.institution }}" type="text" />
                         </div>
                         <span>{{ degree_template.input_error }}</span>
                     </div>
