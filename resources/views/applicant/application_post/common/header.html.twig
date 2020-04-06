@@ -9,7 +9,7 @@
         {% include "common/menu" %}
         <div data-c-container="large" data-c-padding="top(3)" id="home-heading">
             <h1 data-c-heading="h1">{{ application_template.title }}</h1>
-            <p data-c-color="white" data-c-margin="top(1)">You're applying to: <span data-c-font-weight="bold">{{ job.title }}</span> at <span data-c-font-weight="bold">{{ job.department.name }}</span></p>
+            <p data-c-color="white" data-c-margin="top(1)">{{ application_template.applying_to }} <span data-c-font-weight="bold">{{ job.title }}</span> {{ application_template.applying_to_bridge }} <span data-c-font-weight="bold">{{ job.department.name }}</span></p>
             <div data-c-margin="top(2)">
                 <div data-c-grid="gutter(all, 1)">
                     <div data-c-grid-item="tl(1of2)">

@@ -15,8 +15,11 @@
     {% set name_prefix = name_prefix|replace({":template":"old", ":id":degree.id}) %}
     {% set id_prefix = id_prefix|replace({":template":"old", ":id":degree.id}) %}
 {% endif %}
+
 <!-- Accordion -->
 <div data-c-accordion data-c-card data-c-margin="top(.5)" class="clone-accordion profile-element degree {% if degree == false %}template active{% endif %} modal-target-object" data-item-saved="{{ degree ? "true" : "" }}" data-item-url="{{ route("degrees.destroy", ":id") }}" data-item-id="{{ degree ? degree.id : 0 }}">
+
+    <!-- Accordion Trigger -->
     <button data-c-accordion-trigger tabindex="0" type="button"
         {% if degree == false %}
             aria-expanded="true"
@@ -31,21 +34,25 @@
                 <p data-c-color="c2">{{ degree.institution|title }}</p>
             {% endif %}
         </div>
-        <span data-c-visibility="invisible">Click to view...</span>
+        <span data-c-visibility="invisible">{{ degree_template.accordion_helper }}</span>
         <i aria-hidden="true" data-c-color="c1" data-c-accordion-add data-c-font-size="h3" data-c-font-weight="bold">+</i>
         <i aria-hidden="true" data-c-color="c1" data-c-accordion-remove data-c-font-size="h3" data-c-font-weight="bold">-</i>
     </button>
+
+    <!-- Accordion Content -->
     <div data-c-accordion-content
         {% if course == false %}
             aria-hidden="false"
         {% else %}
             aria-hidden="true"
         {% endif %}>
-        <hr data-c-hr="thin(gray)">
-        <div data-c-padding="all(1)">
-            {# Degree (Readable) #}
-            {% if locale == "application-view" %}
+
+        {# Degree (Readable) #}
+        {% if locale == "application-view" %}
+            <hr data-c-hr="thin(gray)">
+            <div data-c-padding="all(1)" data-c-background="gray(20)">
                 <div data-c-grid="gutter(all, 1)">
+
                     {# Degree Type #}
                     <div data-c-grid-item="base(1of1)">
                         <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ degree_template.type_label }}</p>
@@ -55,16 +62,19 @@
                             {% endfor %}
                         </p>
                     </div>
+
                     {# Area of Study #}
                     <div data-c-grid-item="base(1of1) tl(1of2)">
                         <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ degree_template.aoe_label }}</p>
                         <p>{{ degree.area_of_study }}</p>
                     </div>
+
                     {# Institution #}
                     <div data-c-grid-item="base(1of1) tl(1of2)">
                         <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ degree_template.institution_label }}</p>
                         <p>{{ degree.institution }}</p>
                     </div>
+
                     {# Thesis #}
                     <div data-c-grid-item="base(1of1)">
                         <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ degree_template.thesis_label }}</p>
@@ -74,6 +84,7 @@
                             <p data-c-color="gray">N/A</p>
                         {% endif %}
                     </div>
+
                     {# Blockcert Link #}
                     <div data-c-grid-item="base(1of1)">
                         <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ degree_template.blockcert_label }}</p>
@@ -83,24 +94,31 @@
                             <p data-c-color="gray">N/A</p>
                         {% endif %}
                     </div>
+
                     {# Start Date #}
                     <div data-c-grid-item="base(1of1) tl(1of2)">
                         <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ degree_template.start_date_label }}</p>
                         <p>{{ degree.start_date|date("Y-m-d") }}</p>
                     </div>
+
                     {# End Date #}
                     <div data-c-grid-item="base(1of1) tl(1of2)">
                         <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ degree_template.end_date_label }}</p>
                         <p>{{ degree.end_date|date("Y-m-d") }}</p>
                     </div>
                 </div>
-            {# Degree (Editable) #}
-            {% else %}
+            </div>
+
+        {# Degree (Editable) #}
+        {% else %}
+            <hr data-c-hr="thin(gray)">
+            <div data-c-padding="all(1)" data-c-background="gray(20)">
                 <div data-c-grid="gutter(all, 1)">
+
                     {# Type of Degree #}
                     <div data-c-input="select" data-c-grid-item="base(1of1)">
                         <label for="{{ id_prefix }}degreeType">{{ degree_template.type_label }}</label>
-                        <span>Required</span>
+                        <span>{{ degree_template.required_label }}</span>
                         <div>
                             <i class="fas fa-caret-down"></i>
                             <select required id="{{ id_prefix }}degreeType" name="{{ name_prefix }}[degree_type_id]">
@@ -113,65 +131,74 @@
                                 {% endfor %}
                             </select>
                         </div>
-                        <span>This input has an error.</span>
+                        <span>{{ degree_template.input_error }}</span>
                     </div>
+
                     {# Area of Study #}
                     <div data-c-input="text" data-c-grid-item="base(1of1) tl(1of2)">
                         <label for="{{ id_prefix }}degreeArea">{{ degree_template.aoe_label }}</label>
-                        <span>Required</span>
+                        <span>{{ degree_template.required_label }}</span>
                         <div>
                             <input id="{{ id_prefix }}degreeArea" name="{{ name_prefix }}[area_of_study]" value="{{ degree.area_of_study }}" required type="text" />
                         </div>
-                        <span>This input has an error.</span>
+                        <span>{{ degree_template.input_error }}</span>
                     </div>
+
                     {# Institution #}
                     <div data-c-input="text" data-c-grid-item="base(1of1) tl(1of2)">
                         <label for="{{ id_prefix }}degreeInstitution">{{ degree_template.institution_label }}</label>
-                        <span>Required</span>
+                        <span>{{ degree_template.required_label }}</span>
                         <div>
                             <input id="{{ id_prefix }}degreeInstitution" name="{{ name_prefix }}[institution]" value="{{ degree.institution }}" required type="text" />
                         </div>
-                        <span>This input has an error.</span>
+                        <span>{{ degree_template.input_error }}</span>
                     </div>
+
                     {# Thesis #}
                     <div data-c-input="text" data-c-grid-item="base(1of1) tl(1of2)">
                         <label for="{{ id_prefix }}degreeThesis">{{ degree_template.thesis_label }}</label>
-                        <span>Required</span>
+                        <span>{{ degree_template.required_label }}</span>
                         <div>
                             <input id="{{ id_prefix }}degreeThesis" name="{{ name_prefix }}[thesis]" value="{{ degree.thesis }}" type="text" />
                         </div>
-                        <span>This input has an error.</span>
+                        <span>{{ degree_template.input_error }}</span>
                     </div>
+
                     {# Blockcert URL #}
                     <div data-c-input="url" data-c-grid-item="base(1of1) tl(1of2)">
                         <label for="{{ id_prefix }}degreeBlockcertUrl">{{ degree_template.blockcert_label }}</label>
-                        <span>Required</span>
+                        <span>{{ degree_template.required_label }}</span>
                         <div>
                             <input id="{{ id_prefix }}degreeBlockcertUrl" name="{{ name_prefix }}[blockcert_url]" type="url" value="{{ degree.blockcert_url }}" />
                         </div>
-                        <span>This input has an error.</span>
+                        <span>{{ degree_template.input_error }}</span>
                     </div>
+
                     {# Start Date #}
                     <div data-c-input="date" data-c-grid-item="base(1of1) tl(1of2)">
                         <label for="{{ id_prefix }}degreeStartDate">{{ degree_template.start_date_label }}</label>
-                        <span>Required</span>
+                        <span>{{ degree_template.required_label }}</span>
                         <div>
                             <input id="{{ id_prefix }}degreeStartDate" type="date" required placeholder="yyyy-mm-dd" name="{{ name_prefix }}[start_date]" value="{{ degree.start_date|date("Y-m-d") }}"/>
                         </div>
-                        <span>This input has an error.</span>
+                        <span>{{ degree_template.input_error }}</span>
                     </div>
+
                     {# End Date #}
                     <div data-c-input="date" data-c-grid-item="base(1of1) tl(1of2)">
                         <label for="{{ id_prefix }}degreeEndDate">{{ degree_template.end_date_label }}</label>
-                        <span>Required</span>
+                        <span>{{ degree_template.required_label }}</span>
                         <div>
                             <input id="{{ id_prefix }}degreeEndDate" type="date" required placeholder="yyyy-mm-dd" name="{{ name_prefix }}[end_date]" value="{{ degree.end_date|date("Y-m-d") }}"/>
                         </div>
-                        <span>This input has an error.</span>
+                        <span>{{ degree_template.input_error }}</span>
                     </div>
-                    <div data-c-grid-item="base(1of1)">
-                        <hr data-c-hr="thin(gray)" data-c-margin="bottom(.5)">
-                    </div>
+                </div>
+            </div>
+            <!-- Degree Actions -->
+            <hr data-c-hr="thin(gray)">
+            <div data-c-padding="all(1)">
+                <div data-c-grid="gutter(all, 1)">
                     <div data-c-grid-item="base(1of1) tl(1of2)" data-c-align="base(left) tl(left)">
                         <button class="modal-trigger" data-c-button="outline(stop)" data-c-radius="rounded" data-modal-id="deleteDegree" type="button">
                             {{ degree_template.action_01 }}
@@ -183,7 +210,7 @@
                         </button>
                     </div>
                 </div>
-            {% endif %}
-        </div>
+            </div>
+        {% endif %}
     </div>
 </div>

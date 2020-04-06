@@ -41,10 +41,10 @@
         {% else %}
             aria-hidden="true"
         {% endif %}>
-        <hr data-c-hr="thin(gray)">
-        <div data-c-padding="all(1)">
-            {# Work Experience (Readable) #}
-            {% if locale == "application-view" %}
+        {# Work Experience (Readable) #}
+        {% if locale == "application-view" %}
+            <hr data-c-hr="thin(gray)">
+            <div data-c-padding="all(1)" data-c-background="gray(20)">
                 <div data-c-grid="gutter(all, 1)">
                     {# Role #}
                     <div data-c-grid-item="base(1of1) tl(1of2)">
@@ -72,8 +72,11 @@
                         <p>{{ work.end_date|date("Y-m-d") }}</p>
                     </div>
                 </div>
-            {# Work Experience (Editable) #}
-            {% else %}
+            </div>
+        {# Work Experience (Editable) #}
+        {% else %}
+            <hr data-c-hr="thin(gray)">
+            <div data-c-padding="all(1)" data-c-background="gray(20)">
                 <div data-c-grid="gutter(all, 1)">
                     {# Role #}
                     <div data-c-input="text" data-c-grid-item="base(1of1) tl(1of2)">
@@ -120,9 +123,11 @@
                         </div>
                         <span>This input has an error.</span>
                     </div>
-                    <div data-c-grid-item="base(1of1)">
-                        <hr data-c-hr="thin(gray)" data-c-margin="bottom(.5)">
-                    </div>
+                </div>
+            </div>
+            <hr data-c-hr="thin(gray)">
+            <div data-c-padding="all(1)">
+                <div data-c-grid="gutter(all, 1)">
                     <div data-c-grid-item="base(1of1) tl(1of2)" data-c-align="base(left) tl(left)">
                         <button class="modal-trigger" data-c-button="outline(stop)" data-c-radius="rounded" data-modal-id="deleteWork" type="button">
                             {{ work_template.action_01 }}
@@ -134,7 +139,7 @@
                         </button>
                     </div>
                 </div>
-            {% endif %}
-        </div>
+            </div>
+        {% endif %}
     </div>
 </div>

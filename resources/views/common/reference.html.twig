@@ -44,7 +44,7 @@
         {% endif %}>
         <form action="{{ reference ? route("references.update", reference) : route("references.create") }}" method="POST">
             <hr data-c-hr="thin(gray)">
-            <div data-c-padding="all(1)">
+            <div data-c-padding="all(1)" data-c-background="gray(20)">
                 <div class="form-error"></div>
                 {# Builds an input field for CSRF token validation #}
                 {{ csrf_field() }}

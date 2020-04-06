@@ -31,7 +31,7 @@
                 <p data-c-color="c2">{{ course.institution|title }}</p>
             {% endif %}
         </div>
-        <span data-c-visibility="invisible">Click to view...</span>
+        <span data-c-visibility="invisible">{{ course_template.accordion_helper }}</span>
         <i aria-hidden="true" data-c-color="c1" data-c-accordion-add data-c-font-size="h3" data-c-font-weight="bold">+</i>
         <i aria-hidden="true" data-c-color="c1" data-c-accordion-remove data-c-font-size="h3" data-c-font-weight="bold">-</i>
     </button>
@@ -41,10 +41,10 @@
         {% else %}
             aria-hidden="true"
         {% endif %}>
-        <hr data-c-hr="thin(gray)">
-        <div data-c-padding="all(1)">
-            {# Course (Readable) #}
-            {% if locale == "application-view" %}
+        {# Course (Readable) #}
+        {% if locale == "application-view" %}
+            <hr data-c-hr="thin(gray)">
+            <div data-c-padding="all(1)" data-c-background="gray(20)">
                 <div data-c-grid="gutter(all, 1)">
                     {# Course Name #}
                     <div data-c-grid-item="base(1of1) tl(1of2)">
@@ -76,31 +76,34 @@
                         <p>{{ course.end_date|date("Y-m-d") }}</p>
                     </div>
                 </div>
-            {# Course (Editable) #}
-            {% else %}
+            </div>
+        {# Course (Editable) #}
+        {% else %}
+            <hr data-c-hr="thin(gray)">
+            <div data-c-padding="all(1)" data-c-background="gray(20)">
                 <div data-c-grid="gutter(all, 1)">
                     {# Course Name #}
                     <div data-c-input="text" data-c-grid-item="base(1of1) tl(1of2)">
                         <label for="{{ id_prefix }}courseName">{{ course_template.name_label }}</label>
-                        <span>Required</span>
+                        <span>{{ course_template.required_label }}</span>
                         <div>
                             <input id="{{ id_prefix }}courseName" name="{{ name_prefix }}[name]" value="{{ course.name }}" required type="text" />
                         </div>
-                        <span>This input has an error.</span>
+                        <span>{{ course_template.input_error }}</span>
                     </div>
                     {# Institution #}
                     <div data-c-input="text" data-c-grid-item="base(1of1) tl(1of2)">
                         <label for="{{ id_prefix }}courseInstitution">{{ course_template.institution_label }}</label>
-                        <span>Required</span>
+                        <span>{{ course_template.required_label }}</span>
                         <div>
                             <input id="{{ id_prefix }}courseInstitution" name="{{ name_prefix }}[institution]" value="{{ course.institution }}" required type="text" />
                         </div>
-                        <span>This input has an error.</span>
+                        <span>{{ course_template.input_error }}</span>
                     </div>
                     {# Status #}
                     <div data-c-input="select" data-c-grid-item="base(1of1)">
                         <label for="{{ id_prefix }}courseStatus">{{ course_template.status_label }}</label>
-                        <span>Required</span>
+                        <span>{{ course_template.required_label }}</span>
                         <div>
                             <i class="fas fa-caret-down"></i>
                             <select required id="{{ id_prefix }}courseStatus" name="{{ name_prefix }}[course_status_id]">
@@ -112,29 +115,31 @@
                                 {% endfor %}
                             </select>
                         </div>
-                        <span>This input has an error.</span>
+                        <span>{{ course_template.input_error }}</span>
                     </div>
                     {# Start Date #}
                     <div data-c-input="date" data-c-grid-item="base(1of1) tl(1of2)">
                         <label for="{{ id_prefix }}courseStartDate">{{ course_template.start_date_label }}</label>
-                        <span>Required</span>
+                        <span>{{ course_template.required_label }}</span>
                         <div>
                             <input id="{{ id_prefix }}courseStartDate" type="date" required placeholder="yyyy-mm-dd" name="{{ name_prefix }}[start_date]" value="{{ course.start_date|date("Y-m-d") }}"/>
                         </div>
-                        <span>This input has an error.</span>
+                        <span>{{ course_template.input_error }}</span>
                     </div>
                     {# End Date #}
                     <div data-c-input="date" data-c-grid-item="base(1of1) tl(1of2)">
                         <label for="{{ id_prefix }}courseEndDate">{{ course_template.end_date_label }}</label>
-                        <span>Required</span>
+                        <span>{{ course_template.required_label }}</span>
                         <div>
                             <input id="{{ id_prefix }}courseEndDate" type="date" required placeholder="yyyy-mm-dd" name="{{ name_prefix }}[end_date]" value="{{ course.end_date|date("Y-m-d") }}"/>
                         </div>
-                        <span>This input has an error.</span>
+                        <span>{{ course_template.input_error }}</span>
                     </div>
-                    <div data-c-grid-item="base(1of1)">
-                        <hr data-c-hr="thin(gray)" data-c-margin="bottom(.5)">
-                    </div>
+                </div>
+            </div>
+            <hr data-c-hr="thin(gray)">
+            <div data-c-padding="all(1)">
+                <div data-c-grid="gutter(all, 1)">
                     <div data-c-grid-item="base(1of1) tl(1of2)" data-c-align="base(left) tl(left)">
                         <button class="modal-trigger" data-c-button="outline(stop)" data-c-radius="rounded" data-modal-id="deleteCourse" type="button">
                             {{ course_template.action_01 }}
@@ -146,7 +151,7 @@
                         </button>
                     </div>
                 </div>
-            {% endif %}
-        </div>
+            </div>
+        {% endif %}
     </div>
 </div>

@@ -17,7 +17,11 @@ return [
     'save_continue_button_label' => 'Save & Continue',
     'save_button_working' => 'Saving...',
     'submit_button_label' => 'Submit',
+    'applying_to' => 'You\'re applying to:',
+    'applying_to_bridge' => 'at',
     "pilot" => "BETA / Pilot Project",
+    'sidebar_label' => 'On this page:',
+    'accordion_helper' => 'Click to view...',
     'required_label' => 'Required',
     'input_error' => 'This input has an error.',
     /* Tracker */
@@ -110,6 +114,7 @@ return [
     'step_02_title' => 'Talent Cloud | Applicant: Apply Now - Step 2',
     'experience' => [
         'title' => 'My Experience',
+        'step_02_requirement_label' => 'Required Experience',
         'description' => 'The job you’re about to apply to requires the following minimum education or experience. You can’t be considered for this job unless you have this. Even if you’re really awesome. Managers are not allowed to hire you for this job in this classification without this education or experience.',
     ],
     'experience_section' => [

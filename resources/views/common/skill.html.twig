@@ -131,7 +131,7 @@
             method="POST">
                 {# Skill Content (Readable) #}
                 {% if locale == "application-view" %}
-                    <div data-c-padding="all(1)">
+                    <div data-c-padding="all(1)" data-c-background="gray(20)">
                         <p data-c-margin="bottom(1)">
                             {% if criterion.description == false %}
                                 {{ criterion.skill.description|nl2br }}
@@ -173,7 +173,7 @@
                     {{ csrf_field() }}
                     <input name="_method" type="hidden" value="{{ skill_declaration ? "PUT" : "POST" }}">
                     <div class="form-error"></div>
-                    <div data-c-padding="all(1)">
+                    <div data-c-padding="all(1)" data-c-background="gray(20)">
                         <div data-c-grid="gutter(all, 1)">
                             {# Profile Content #}
                                 {# Profile Template #}
@@ -239,7 +239,7 @@
                             <div data-c-input="radio" data-c-grid-item="full">
                                 <label for="skillLevelRadioGroup{{id_prefix}}">{{ skill_template.level_label }}</label>
                                 <span>Required</span>
-                                <div id="skillLevelRadioGroup{{id_prefix}}" role="radiogroup">
+                                <div id="skillLevelRadioGroup{{id_prefix}}" role="radiogroup" data-c-background="white(100)">
                                     {% set counter = 0 %}
                                     {% for level in skill_levels %}
                                         {% set counter = counter + 1 %}

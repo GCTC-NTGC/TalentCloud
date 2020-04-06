@@ -4,10 +4,10 @@
 ============================================================================= #}
 <div class="sidebar" data-c-padding="top(3)">
     <nav>
-        <p data-c-font-weight="bold" data-c-font-size="h4" data-c-margin="bottom(1)">On this page:</p>
+        <p data-c-font-weight="bold" data-c-font-size="h4" data-c-margin="bottom(1)">{{ application_template.sidebar_label }}</p>
         <ul>
             <li>
-                <a href="#requirements" title="">Requirements</a>
+                <a href="#requirements" title="{{ application_template.step_02_requirement_label }}">{{ application_template.step_02_requirement_label }}</a>
             </li>
             <li>
                 <a href="#degrees" title="{{ application_template.experience_section.section_degree_title }}">{{ application_template.experience_section.section_degree_title }}</a>

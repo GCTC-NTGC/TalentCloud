@@ -18,7 +18,7 @@
     {% set name_prefix = name_prefix|replace({":id":item_id}) %}
     {% set id_prefix = id_prefix|replace({":id":item_id}) %}
 {% endif %}
-<div data-c-border="all(thin, solid, gray)" data-c-radius="rounded" data-c-padding="all(1)" data-c-margin="top(.5)" class="profile-relative project {% if template %}template{% endif %}" data-item-id="{{ relative ? relative.id : 0 }}">
+<div data-c-border="all(thin, solid, gray)" data-c-background="gray(20)" data-c-radius="rounded" data-c-padding="all(1)" data-c-margin="top(.5)" class="profile-relative project {% if template %}template{% endif %}" data-item-id="{{ relative ? relative.id : 0 }}">
     <div data-c-grid="gutter(all, 1)">
         <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">
             <p data-c-margin="bottom(.5)" data-c-color="c1">Project Information</p>

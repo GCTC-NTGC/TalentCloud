@@ -17,7 +17,11 @@ return [
     'save_continue_button_label' => 'Sauvegarder et continuer',
     'save_button_working' => 'Actif...',
     'submit_button_label' => 'Soumettre',
+    'applying_to' => 'Vous postulez pour :',
+    'applying_to_bridge' => 'chez',
     'pilot' => 'BETA / Projet pilote',
+    'sidebar_label' => 'Sur cette page :',
+    'accordion_helper' => 'Cliquez pour voir...',
     'required_label' => 'Requis',
     'input_error' => 'Cette entrée comporte une erreur.',
     /* Tracker */
@@ -109,6 +113,7 @@ return [
     'veterans_label' => 'En choisir un',
     /* Step 02 */
     'step_02_title' => 'Nuage de talents | Candidat : Postuler maintenant - Étape 2',
+    'step_02_requirement_label' => 'Expérience nécessaire',
     'experience' => [
         'title' => 'Mon expérience',
         'description' => "Le poste auquel vous êtes sur le point de postuler requiert les études ou l'expérience minimales suivantes. Vous ne pouvez pas être considéré(e) pour ce travail à moins que vous ayez celles-ci, même si vous êtes vraiment génial(e). Les gestionnaires ne sont pas autorisés à vous engager pour cet emploi dans cette classification sans cette éducation ou cette expérience.",

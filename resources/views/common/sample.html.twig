@@ -44,7 +44,7 @@
         {% endif %}>
         <form action="{{ sample ? route("work_samples.update", sample) : route("work_samples.create") }}" method="POST">
             <hr data-c-hr="thin(gray)">
-            <div data-c-padding="all(1)">
+            <div data-c-padding="all(1)" data-c-background="gray(20)">
                 <div class="form-error"></div>
                 {# Builds an input field for CSRF token validation #}
                 {{ csrf_field() }}
@@ -99,7 +99,7 @@
             </div>
             {# Linked Skills #}
             <hr data-c-hr="thin(gray)">
-            <div data-c-padding="all(1)">
+            <div data-c-padding="all(1)" class="application-relative-list">
                 <div data-c-grid="gutter(all, 1) middle">
                     {% if applicant.skill_declarations|length > 0 %}
                         <div data-c-grid-item="base(1of1) tl(1of2)" data-c-align="base(center) tl(left)">
