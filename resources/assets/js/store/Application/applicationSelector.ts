@@ -1,11 +1,10 @@
+/* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
+import createCachedSelector from "re-reselect";
 import { RootState } from "../store";
 import { EntityState, UiState } from "./applicationReducer";
-import {
-  Application,
-} from "../../models/types";
+import { Application } from "../../models/types";
 import { PropType } from "../../models/app";
-import createCachedSelector from "re-reselect";
-import { find, hasKey, getId, notEmpty } from "../../helpers/queries";
+import { hasKey, getId, notEmpty } from "../../helpers/queries";
 
 const entities = (state: RootState): EntityState => state.applications.entities;
 const ui = (state: RootState): UiState => state.applications.ui;
@@ -32,12 +31,11 @@ const constructNonNormalizedApplication = (
       ...applicationNormalized,
       application_review: applicationReviews.byId[reviewId],
     };
-  } else {
-    return {
-      ...applicationNormalized,
-      application_review: undefined,
-    };
   }
+  return {
+    ...applicationNormalized,
+    application_review: undefined,
+  };
 };
 
 export const getApplicationById = createCachedSelector(
@@ -53,10 +51,10 @@ export const getApplicationsByJob = createCachedSelector(
   (state: RootState, ownProps: { jobId: number }): number => ownProps.jobId,
   (applications, applicationReviews, jobId): Application[] => {
     const applicationIds = Object.values(applications)
-      .filter((application) => application.job_poster_id == jobId)
+      .filter(application => application.job_poster_id === jobId)
       .map(getId);
     return applicationIds
-      .map((id) =>
+      .map(id =>
         constructNonNormalizedApplication(applications, applicationReviews, id),
       )
       .filter(notEmpty);
