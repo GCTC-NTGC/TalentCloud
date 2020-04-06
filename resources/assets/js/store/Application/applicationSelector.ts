@@ -7,6 +7,7 @@ import { PropType } from "../../models/app";
 import { hasKey, getId, notEmpty } from "../../helpers/queries";
 
 const entities = (state: RootState): EntityState => state.applications.entities;
+// eslint-disable-next-line
 const ui = (state: RootState): UiState => state.applications.ui;
 
 const getApplicationState = (state: RootState) => entities(state).applications;
