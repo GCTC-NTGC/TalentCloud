@@ -74,7 +74,7 @@
         "jest-junit": "^10.0.0",
         "laravel-mix": "^5.0.4",
         "node-sass": "^4.13.1",
-        "prettier": "^2.0.2",
+        "prettier": "^2.0.4",
         "react-docgen-typescript-loader": "^3.7.2",
         "react-intl-translations-manager": "^5.0.3",
         "redux-mock-store": "^1.5.4",
