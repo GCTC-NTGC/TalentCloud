@@ -39,7 +39,7 @@
                             {% set degreeCounter = 0 %}
                             {% for degree in applicant.degrees %}
                                 {% set degreeCounter = degreeCounter + 1 %}
-                                {% include "common/degree" %}
+                                {% include "common/degree" with {"required": "required"} %}
                             {% endfor %}
                             <div data-c-padding="all(1)" data-c-border="all(thin, solid, gray)" data-c-radius="rounded" data-c-background="gray(20)" data-c-align="base(center)" class="profile-null {% if degreeCounter == 0 %}active{% endif %}">
                                 <p data-c-color="gray">{{ application_template.experience_section.null_degree_copy }}</p>
@@ -65,7 +65,7 @@
                             {% set courseCounter = 0 %}
                             {% for course in applicant.courses %}
                                 {% set courseCounter = courseCounter + 1 %}
-                                {% include "common/course" %}
+                                {% include "common/course" with {"required": "required"} %}
                             {% endfor %}
                             <div data-c-padding="all(1)" data-c-border="all(thin, solid, gray)" data-c-radius="rounded" data-c-background="gray(20)" data-c-align="base(center)" class="profile-null {% if courseCounter == 0 %}active{% endif %}">
                                 <p data-c-color="gray">{{ application_template.experience_section.null_degree_copy }}</p>
@@ -91,7 +91,7 @@
                             {% set workCounter = 0 %}
                             {% for work in applicant.work_experiences %}
                                 {% set workCounter = workCounter + 1 %}
-                                {% include "common/work" %}
+                                {% include "common/work" with {"required": "required"} %}
                             {% endfor %}
                             <div data-c-padding="all(1)" data-c-border="all(thin, solid, gray)" data-c-radius="rounded" data-c-background="gray(20)" data-c-align="base(center)" class="profile-null {% if workCounter == 0 %}active{% endif %}">
                                 <p data-c-color="gray">{{ application_template.experience_section.null_degree_copy }}</p>

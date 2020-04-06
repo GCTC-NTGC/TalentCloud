@@ -883,6 +883,10 @@
         .find(":input")
         .not(".template :input")
         .removeAttr("disabled");
+
+      // Set all data-required elements to required
+      template.find("[data-required]").prop("required", true);
+
       //Set ids and form names to be unique
       individualizeFormIdsAndNames(template, wrapper);
       // Add Clone to the Wrapper

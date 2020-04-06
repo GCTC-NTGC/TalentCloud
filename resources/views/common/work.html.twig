@@ -76,29 +76,29 @@
             {% else %}
                 <div data-c-grid="gutter(all, 1)">
                     {# Role #}
-                    <div data-c-input="text" data-c-grid-item="base(1of1) tl(1of2)">
+                    <div data-c-input="text" data-c-grid-item="base(1of1) tl(1of2)" data-c-required>
                         <label for="{{ id_prefix }}workRole">{{ work_template.role_label }}</label>
                         <span>Required</span>
                         <div>
-                            <input id="{{ id_prefix }}workRole" name="{{ name_prefix }}[role]" value="{{ work.role }}" required type="text" />
+                            <input id="{{ id_prefix }}workRole" name="{{ name_prefix }}[role]" value="{{ work.role }}" {{work ? required : "data-required" }} type="text" />
                         </div>
                         <span>This input has an error.</span>
                     </div>
                     {# Company #}
-                    <div data-c-input="text" data-c-grid-item="base(1of1) tl(1of2)">
+                    <div data-c-input="text" data-c-grid-item="base(1of1) tl(1of2)" data-c-required>
                         <label for="{{ id_prefix }}workCompany">{{ work_template.company_label }}</label>
                         <span>Required</span>
                         <div>
-                            <input id="{{ id_prefix }}workCompany" name="{{ name_prefix }}[company]" value="{{ work.company }}" required type="text" />
+                            <input id="{{ id_prefix }}workCompany" name="{{ name_prefix }}[company]" value="{{ work.company }}" {{work ? required : "data-required" }} type="text" />
                         </div>
                         <span>This input has an error.</span>
                     </div>
                     {# Description #}
-                    <div data-c-input="textarea" data-c-grid-item="base(1of1)">
+                    <div data-c-input="textarea" data-c-grid-item="base(1of1)" data-c-required>
                         <label for="{{ id_prefix }}workDescription">{{ work_template.description_label }}</label>
                         <span>Required</span>
                         <div>
-                            <textarea id="{{ id_prefix }}workDescription" name="{{ name_prefix }}[description]" required>{{ work.description }}</textarea>
+                            <textarea id="{{ id_prefix }}workDescription" name="{{ name_prefix }}[description]" {{work ? required : "data-required" }}>{{ work.description }}</textarea>
                         </div>
                         <span>This input has an error.</span>
                     </div>

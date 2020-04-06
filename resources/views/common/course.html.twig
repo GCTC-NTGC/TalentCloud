@@ -80,30 +80,30 @@
             {% else %}
                 <div data-c-grid="gutter(all, 1)">
                     {# Course Name #}
-                    <div data-c-input="text" data-c-grid-item="base(1of1) tl(1of2)">
+                    <div data-c-input="text" data-c-grid-item="base(1of1) tl(1of2)" data-c-required>
                         <label for="{{ id_prefix }}courseName">{{ course_template.name_label }}</label>
                         <span>Required</span>
                         <div>
-                            <input id="{{ id_prefix }}courseName" name="{{ name_prefix }}[name]" value="{{ course.name }}" required type="text" />
+                            <input id="{{ id_prefix }}courseName" name="{{ name_prefix }}[name]" value="{{ course.name }}" {{course ? required : "data-required" }} type="text" />
                         </div>
                         <span>This input has an error.</span>
                     </div>
                     {# Institution #}
-                    <div data-c-input="text" data-c-grid-item="base(1of1) tl(1of2)">
+                    <div data-c-input="text" data-c-grid-item="base(1of1) tl(1of2)" data-c-required>
                         <label for="{{ id_prefix }}courseInstitution">{{ course_template.institution_label }}</label>
                         <span>Required</span>
                         <div>
-                            <input id="{{ id_prefix }}courseInstitution" name="{{ name_prefix }}[institution]" value="{{ course.institution }}" required type="text" />
+                            <input id="{{ id_prefix }}courseInstitution" name="{{ name_prefix }}[institution]" value="{{ course.institution }}" {{course ? required : "data-required" }} type="text" />
                         </div>
                         <span>This input has an error.</span>
                     </div>
                     {# Status #}
-                    <div data-c-input="select" data-c-grid-item="base(1of1)">
+                    <div data-c-input="select" data-c-grid-item="base(1of1)" data-c-required>
                         <label for="{{ id_prefix }}courseStatus">{{ course_template.status_label }}</label>
                         <span>Required</span>
                         <div>
                             <i class="fas fa-caret-down"></i>
-                            <select required id="{{ id_prefix }}courseStatus" name="{{ name_prefix }}[course_status_id]">
+                            <select id="{{ id_prefix }}courseStatus" name="{{ name_prefix }}[course_status_id]" {{course ? required : "data-required" }}>
                                 <option value="" disabled {% if course.course_status.id == status.id %}selected{% endif %}>{{ course_template.status_default_option }}</option>
                                 {% for status in course_status %}
                                     <option
