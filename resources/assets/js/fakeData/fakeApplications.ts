@@ -1,7 +1,9 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
 import { Application } from "../models/types";
 
-export const fakeApplication1 = (): Application => ({
+export const fakeApplication1 = (
+  overrides: Partial<Application> = {},
+): Application => ({
   id: 1,
   job_poster_id: 1,
   application_status_id: 1,
@@ -60,9 +62,12 @@ export const fakeApplication1 = (): Application => ({
   },
   application_review: undefined,
   meets_essential_criteria: true,
+  ...overrides,
 });
 
-export const fakeApplication2 = (): Application => ({
+export const fakeApplication2 = (
+  overrides: Partial<Application> = {},
+): Application => ({
   id: 2,
   job_poster_id: 1,
   application_status_id: 1,
@@ -130,11 +135,16 @@ export const fakeApplication2 = (): Application => ({
       id: 6,
       name: "assessment_required",
     },
+    department_id: null,
+    department: null,
   },
   meets_essential_criteria: true,
+  ...overrides,
 });
 
-export const fakeApplication3 = (): Application => ({
+export const fakeApplication3 = (
+  overrides: Partial<Application> = {},
+): Application => ({
   id: 3,
   job_poster_id: 1,
   application_status_id: 1,
@@ -202,8 +212,11 @@ export const fakeApplication3 = (): Application => ({
       id: 4,
       name: "ready_for_reference",
     },
+    department_id: null,
+    department: null,
   },
   meets_essential_criteria: true,
+  ...overrides,
 });
 
 const fakeApplications = (): Application[] => [
