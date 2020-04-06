@@ -3,7 +3,11 @@ import React, { useState } from "react";
 import { defineMessages, FormattedMessage, useIntl } from "react-intl";
 import { FastField, Formik, Form } from "formik";
 import SelectInput from "../../Form/SelectInput";
-import { Application } from "../../../models/types";
+import {
+  Application,
+  Department,
+  ApplicationReview,
+} from "../../../models/types";
 import { Portal } from "../../../models/app";
 import * as routes from "../../../helpers/routes";
 import {
@@ -11,6 +15,7 @@ import {
   ResponseReviewStatuses,
 } from "../../../models/localizedConstants";
 import { ResponseScreeningBuckets as ResponseBuckets } from "../../../models/lookupConstants";
+import { localizeFieldNonNull, getLocale } from "../../../helpers/localize";
 
 const displayMessages = defineMessages({
   viewApplication: {
@@ -86,18 +91,24 @@ const StatusIcon: React.FC<StatusIconProps> = ({
   );
 };
 
-interface ApplicationReviewProps {
+interface ApplicationRowProps {
   application: Application;
   departmentEditable: boolean;
+  departments: Department[];
+  handleUpdateReview: (review: ApplicationReview) => void;
   portal: Portal;
 }
 
-const ApplicationReview: React.FC<ApplicationReviewProps> = ({
+const ApplicationRow: React.FC<ApplicationRowProps> = ({
   application,
   departmentEditable,
+  departments,
+  handleUpdateReview,
   portal,
 }): React.ReactElement => {
   const intl = useIntl();
+  const locale = getLocale(intl.locale);
+
   const applicantUrlMap: { [key in typeof portal]: string } = {
     hr: routes.hrApplicantShow(intl.locale, application.id),
     manager: routes.managerApplicantShow(intl.locale, application.id),
@@ -115,6 +126,11 @@ const ApplicationReview: React.FC<ApplicationReviewProps> = ({
   } => ({
     value: status.id,
     label: intl.formatMessage(status.name),
+  }));
+
+  const departmentOptions = departments.map(department => ({
+    value: department.id,
+    label: localizeFieldNonNull(locale, department, "name"),
   }));
 
   let rowIcon: React.ReactElement;
@@ -138,16 +154,47 @@ const ApplicationReview: React.FC<ApplicationReviewProps> = ({
       );
   }
 
+  const emptyReview: ApplicationReview = {
+    id: 0,
+    job_application_id: application.id,
+    review_status_id: null,
+    department_id: null,
+    notes: null,
+    created_at: new Date(),
+    updated_at: new Date(),
+    department: null,
+    review_status: null,
+  };
+
+  const updateApplicationReview = (
+    oldReview: ApplicationReview,
+    values,
+  ): ApplicationReview => {
+    const applicationReview: ApplicationReview = {
+      ...oldReview,
+      review_status_id: values.reviewStatus,
+      department_id: values.department,
+      notes: values.notes,
+    };
+    return applicationReview;
+  };
+
   return (
     <div className="applicant">
       <Formik
         initialValues={{
           reviewStatus:
             application.application_review?.review_status_id || null,
-          department: null,
+          department: application.application_review?.department_id || null,
+          notes: application.application_review?.notes || null,
         }}
         onSubmit={(values, { setSubmitting }) => {
-          console.log(values);
+          handleUpdateReview(
+            updateApplicationReview(
+              application.application_review || emptyReview,
+              values,
+            ),
+          );
           setSubmitting(false);
         }}
       >
@@ -201,10 +248,7 @@ const ApplicationReview: React.FC<ApplicationReviewProps> = ({
               nullSelection={intl.formatMessage(
                 displayMessages.selectDepartmentDefault,
               )}
-              options={[
-                { label: "Health Canada", value: 1 },
-                { label: "Department of Defense", value: 2 },
-              ]}
+              options={departmentOptions}
             />
           )}
           <div data-c-grid-item="base(1of4)" data-c-align="base(right)">
@@ -235,14 +279,18 @@ const ApplicationReview: React.FC<ApplicationReviewProps> = ({
 };
 
 interface ApplicantBucketProps {
-  bucket: string;
   applications: Application[];
+  bucket: string;
+  departments: Department[];
+  handleUpdateReview: (review: ApplicationReview) => void;
   portal: Portal;
 }
 
 const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
-  bucket,
   applications,
+  bucket,
+  departments,
+  handleUpdateReview,
   portal,
 }): React.ReactElement => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -332,9 +380,12 @@ const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
       >
         <div data-c-padding="bottom(normal)">
           {applications.map(application => (
-            <ApplicationReview
+            <ApplicationRow
+              key={application.id}
               application={application}
               departmentEditable={bucket === ResponseBuckets.Allocated}
+              departments={departments}
+              handleUpdateReview={handleUpdateReview}
               portal={portal}
             />
           ))}
