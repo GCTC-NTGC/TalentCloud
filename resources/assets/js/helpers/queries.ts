@@ -145,10 +145,7 @@ export function getOrThrowError<T>(
 }
 
 /** Return a copy of the object with specific property removed */
-export function deleteProperty<T>(
-  obj: IndexedObject<T>,
-  key: string | number,
-): IndexedObject<T> {
+export function deleteProperty<T, K extends keyof T>(obj: T, key: K): Omit<T, K> {
   const { [key]: _, ...newObj } = obj;
   return newObj;
 }
