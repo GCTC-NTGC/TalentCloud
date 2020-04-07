@@ -1,7 +1,7 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { defineMessages, FormattedMessage, useIntl } from "react-intl";
-import { FastField, Formik, Form } from "formik";
+import { FastField, Formik, Form, useFormikContext } from "formik";
 import Swal from "sweetalert2";
 import SelectInput from "../../Form/SelectInput";
 import {
@@ -114,6 +114,30 @@ const StatusIcon: React.FC<StatusIconProps> = ({
   );
 };
 
+// Kinda weird "empty" component that hooks into Formik's
+// context, listens to the 'dirty' prop, and registers
+// a beforeunload listener to fire if a user attempts to
+// leave with unsaved work.
+// https://github.com/jaredpalmer/formik/issues/1657#issuecomment-509388871
+const AlertWhenUnsaved = (): React.ReactElement => {
+  const { dirty } = useFormikContext();
+  const handleUnload = (event: BeforeUnloadEvent): void => {
+    event.preventDefault();
+    event.returnValue = "Things are unsaved.";
+  };
+
+  useEffect(() => {
+    if (dirty) {
+      window.addEventListener("beforeunload", handleUnload);
+    }
+    return (): void => {
+      window.removeEventListener("beforeunload", handleUnload);
+    };
+  }, [dirty]);
+
+  return <></>;
+};
+
 interface ApplicationRowProps {
   application: Application;
   departmentEditable: boolean;
@@ -121,6 +145,10 @@ interface ApplicationRowProps {
   handleUpdateReview: (review: ApplicationReview) => Promise<ApplicationReview>;
   portal: Portal;
 }
+
+// TODO: Sort applications by status/note content
+// Add an alert when leaving the page with "dirty" forms
+// Sort out Allocated vs Unavailable across Job Posters.
 
 const ApplicationRow: React.FC<ApplicationRowProps> = ({
   application,
@@ -205,16 +233,13 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
   };
 
   const handleNotesButtonClick = (
+    notes: string,
     updateField: (
       field: string,
       value: any,
       shouldValidate?: boolean | undefined,
     ) => void,
   ): void => {
-    const notes =
-      application.application_review && application.application_review.notes
-        ? application.application_review.notes
-        : "";
     Swal.fire({
       title: intl.formatMessage(displayMessages.notes),
       icon: "info",
@@ -257,8 +282,14 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
             });
         }}
       >
-        {({ dirty, isSubmitting, setFieldValue }): React.ReactElement => (
+        {({
+          values,
+          dirty,
+          isSubmitting,
+          setFieldValue,
+        }): React.ReactElement => (
           <Form data-c-grid="gutter(all, 1) middle">
+            <AlertWhenUnsaved />
             <div data-c-grid-item="base(1of4)">
               <div>
                 {rowIcon}
@@ -319,7 +350,9 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
                 data-c-button="outline(c1)"
                 type="button"
                 data-c-radius="rounded"
-                onClick={(): void => handleNotesButtonClick(setFieldValue)}
+                onClick={(): void =>
+                  handleNotesButtonClick(values.notes, setFieldValue)
+                }
               >
                 <i className="fas fa-plus" />
                 <span>
