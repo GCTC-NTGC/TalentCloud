@@ -132,10 +132,6 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl.locale);
 
-  const [localNotes, setLocalNotes] = useState(
-    application.application_review?.notes || "",
-  );
-
   const applicantUrlMap: { [key in typeof portal]: string } = {
     hr: routes.hrApplicantShow(intl.locale, application.id),
     manager: routes.managerApplicantShow(intl.locale, application.id),
@@ -203,12 +199,18 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
         ? Number(values.reviewStatus)
         : null,
       department_id: values.department ? Number(values.department) : null,
-      notes: localNotes,
+      notes: values.notes || null,
     };
     return applicationReview;
   };
 
-  const handleNotesButtonClick = (): void => {
+  const handleNotesButtonClick = (
+    updateField: (
+      field: string,
+      value: any,
+      shouldValidate?: boolean | undefined,
+    ) => void,
+  ): void => {
     const notes =
       application.application_review && application.application_review.notes
         ? application.application_review.notes
@@ -226,7 +228,7 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
     }).then(result => {
       if (result && result.value !== undefined) {
         const value = result.value ? result.value : "";
-        setLocalNotes(value);
+        updateField("notes", value);
       }
     });
   };
@@ -255,7 +257,7 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
             });
         }}
       >
-        {({ dirty, isSubmitting }): React.ReactElement => (
+        {({ dirty, isSubmitting, setFieldValue }): React.ReactElement => (
           <Form data-c-grid="gutter(all, 1) middle">
             <div data-c-grid-item="base(1of4)">
               <div>
@@ -317,7 +319,7 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
                 data-c-button="outline(c1)"
                 type="button"
                 data-c-radius="rounded"
-                onClick={handleNotesButtonClick}
+                onClick={(): void => handleNotesButtonClick(setFieldValue)}
               >
                 <i className="fas fa-plus" />
                 <span>
