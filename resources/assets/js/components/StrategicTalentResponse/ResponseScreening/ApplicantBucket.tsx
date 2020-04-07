@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { defineMessages, FormattedMessage, useIntl } from "react-intl";
 import { FastField, Formik, Form } from "formik";
+import Swal from "sweetalert2";
 import SelectInput from "../../Form/SelectInput";
 import {
   Application,
@@ -38,6 +39,17 @@ const displayMessages = defineMessages({
     defaultMessage: "Save Changes",
     description: "Label for 'Save Changes' button.",
   },
+  saving: {
+    id: "responseScreening.bucket.savingLabel",
+    defaultMessage: "Saving...",
+    description:
+      "Label for 'Save Changes' button when form submission is in progress.",
+  },
+  cancel: {
+    id: "responseScreening.bucket.cancelLabel",
+    defaultMessage: "Cancel",
+    description: "Label for 'Cancel' button.",
+  },
   selectStatusDefault: {
     id: "responseScreening.bucket.selectStatusDefault",
     defaultMessage: "Select a status...",
@@ -62,6 +74,11 @@ const displayMessages = defineMessages({
     id: "responseScreening.bucket.accessibleViewLabel",
     defaultMessage: "Click to view...",
     description: "Accessible text for screen reading accordion elements.",
+  },
+  noApplicants: {
+    id: "responseScreening.bucket.noApplicants",
+    defaultMessage: "There are currently no applicants in this bucket.",
+    description: "Fallback label for a bucket with no applicants.",
   },
 });
 
@@ -108,6 +125,10 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
 }): React.ReactElement => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
+
+  const [localNotes, setLocalNotes] = useState(
+    application.application_review?.notes || "",
+  );
 
   const applicantUrlMap: { [key in typeof portal]: string } = {
     hr: routes.hrApplicantShow(intl.locale, application.id),
@@ -172,11 +193,36 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
   ): ApplicationReview => {
     const applicationReview: ApplicationReview = {
       ...oldReview,
-      review_status_id: values.reviewStatus,
-      department_id: values.department,
-      notes: values.notes,
+      review_status_id: values.reviewStatus
+        ? Number(values.reviewStatus)
+        : null,
+      department_id: values.department ? Number(values.department) : null,
+      notes: localNotes,
     };
     return applicationReview;
+  };
+
+  const handleNotesButtonClick = (): void => {
+    const notes =
+      application.application_review && application.application_review.notes
+        ? application.application_review.notes
+        : "";
+    Swal.fire({
+      title: intl.formatMessage(displayMessages.notes),
+      icon: "info",
+      input: "textarea",
+      showCancelButton: true,
+      confirmButtonColor: "#0A6CBC",
+      cancelButtonColor: "#F94D4D",
+      cancelButtonText: intl.formatMessage(displayMessages.cancel),
+      confirmButtonText: intl.formatMessage(displayMessages.save),
+      inputValue: notes,
+    }).then(result => {
+      if (result && result.value !== undefined) {
+        const value = result.value ? result.value : "";
+        setLocalNotes(value);
+      }
+    });
   };
 
   return (
@@ -186,93 +232,103 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
           reviewStatus:
             application.application_review?.review_status_id || null,
           department: application.application_review?.department_id || null,
-          notes: application.application_review?.notes || null,
+          notes: application.application_review?.notes || "",
         }}
-        onSubmit={(values, { setSubmitting }) => {
-          handleUpdateReview(
-            updateApplicationReview(
-              application.application_review || emptyReview,
-              values,
-            ),
+        onSubmit={(values, { setSubmitting }): void => {
+          const review = updateApplicationReview(
+            application.application_review || emptyReview,
+            values,
           );
+          handleUpdateReview(review);
           setSubmitting(false);
         }}
       >
-        <Form data-c-grid="gutter(all, 1) middle">
-          <div data-c-grid-item="base(1of4)">
-            <div>
-              {rowIcon}
+        {({ isSubmitting }): React.ReactElement => (
+          <Form data-c-grid="gutter(all, 1) middle">
+            <div data-c-grid-item="base(1of4)">
               <div>
-                <p data-c-font-weight="bold" data-c-font-size="h4">
-                  {application.applicant.user.full_name}
-                </p>
-                <p data-c-margin="bottom(.5)">
-                  <a
-                    href={`mailto:${application.applicant.user.email}`}
-                    title=""
-                  >
-                    {application.applicant.user.email}
-                  </a>
-                </p>
-                <p data-c-font-size="small">
-                  <a href={applicationUrl} title="" data-c-margin="right(.5)">
-                    <FormattedMessage {...displayMessages.viewApplication} />
-                  </a>
-                  <a href={applicantUrl} title="">
-                    <FormattedMessage {...displayMessages.viewProfile} />
-                  </a>
-                </p>
+                {rowIcon}
+                <div>
+                  <p data-c-font-weight="bold" data-c-font-size="h4">
+                    {application.applicant.user.full_name}
+                  </p>
+                  <p data-c-margin="bottom(.5)">
+                    <a
+                      href={`mailto:${application.applicant.user.email}`}
+                      title=""
+                    >
+                      {application.applicant.user.email}
+                    </a>
+                  </p>
+                  <p data-c-font-size="small">
+                    <a href={applicationUrl} title="" data-c-margin="right(.5)">
+                      <FormattedMessage {...displayMessages.viewApplication} />
+                    </a>
+                    <a href={applicantUrl} title="">
+                      <FormattedMessage {...displayMessages.viewProfile} />
+                    </a>
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-          <FastField
-            id={`review-status-select-${application.applicant_id}`}
-            name="reviewStatus"
-            label={intl.formatMessage(displayMessages.selectStatusLabel)}
-            grid="base(1of4)"
-            component={SelectInput}
-            required
-            nullSelection={intl.formatMessage(
-              displayMessages.selectStatusDefault,
-            )}
-            options={reviewOptions}
-          />
-          {departmentEditable && (
             <FastField
-              id={`department-allocation-select-${application.applicant_id}`}
-              name="department"
-              label={intl.formatMessage(displayMessages.selectDepartmentLabel)}
+              id={`review-status-select-${application.applicant_id}`}
+              name="reviewStatus"
+              label={intl.formatMessage(displayMessages.selectStatusLabel)}
               grid="base(1of4)"
               component={SelectInput}
-              required
               nullSelection={intl.formatMessage(
-                displayMessages.selectDepartmentDefault,
+                displayMessages.selectStatusDefault,
               )}
-              options={departmentOptions}
+              options={reviewOptions}
             />
-          )}
-          <div data-c-grid-item="base(1of4)" data-c-align="base(right)">
-            <button
-              data-c-button="outline(c1)"
-              type="button"
-              data-c-radius="rounded"
+            {departmentEditable && (
+              <FastField
+                id={`department-allocation-select-${application.applicant_id}`}
+                name="department"
+                label={intl.formatMessage(
+                  displayMessages.selectDepartmentLabel,
+                )}
+                grid="base(1of4)"
+                component={SelectInput}
+                nullSelection={intl.formatMessage(
+                  displayMessages.selectDepartmentDefault,
+                )}
+                options={departmentOptions}
+              />
+            )}
+            <div
+              data-c-grid-item={`base(${departmentEditable ? 1 : 2}of4)`}
+              data-c-align="base(right)"
             >
-              <i className="fas fa-plus" />
-              <span>
-                <FormattedMessage {...displayMessages.notes} />
-              </span>
-            </button>
-            <button
-              data-c-button="solid(c1)"
-              type="submit"
-              data-c-radius="rounded"
-            >
-              <span>
-                <FormattedMessage {...displayMessages.save} />
-              </span>
-            </button>
-          </div>
-        </Form>
+              <button
+                data-c-button="outline(c1)"
+                type="button"
+                data-c-radius="rounded"
+                onClick={handleNotesButtonClick}
+              >
+                <i className="fas fa-plus" />
+                <span>
+                  <FormattedMessage {...displayMessages.notes} />
+                </span>
+              </button>
+              <button
+                data-c-button="solid(c1)"
+                type="submit"
+                data-c-radius="rounded"
+                disabled={isSubmitting}
+              >
+                <span>
+                  {isSubmitting ? (
+                    <FormattedMessage {...displayMessages.saving} />
+                  ) : (
+                    <FormattedMessage {...displayMessages.save} />
+                  )}
+                </span>
+              </button>
+            </div>
+          </Form>
+        )}
       </Formik>
     </div>
   );
@@ -313,7 +369,7 @@ const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
     >
       <button
         aria-expanded={isExpanded}
-        data-c-accordion-trigger=""
+        data-c-accordion-trigger
         tabIndex={0}
         type="button"
         onClick={handleExpandClick}
@@ -379,16 +435,33 @@ const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
         data-c-padding="right(normal) left(normal)"
       >
         <div data-c-padding="bottom(normal)">
-          {applications.map(application => (
-            <ApplicationRow
-              key={application.id}
-              application={application}
-              departmentEditable={bucket === ResponseBuckets.Allocated}
-              departments={departments}
-              handleUpdateReview={handleUpdateReview}
-              portal={portal}
-            />
-          ))}
+          {isExpanded &&
+            applications.length > 0 &&
+            applications.map(application => (
+              <ApplicationRow
+                key={application.id}
+                application={application}
+                departmentEditable={bucket === ResponseBuckets.Allocated}
+                departments={departments}
+                handleUpdateReview={handleUpdateReview}
+                portal={portal}
+              />
+            ))}
+          {isExpanded && applications.length === 0 && (
+            <div data-c-padding="bottom(normal)">
+              <div
+                data-c-border="all(thin, solid, gray)"
+                data-c-background="gray(10)"
+                data-c-padding="all(1)"
+                data-c-radius="rounded"
+                data-c-align="base(center)"
+              >
+                <p data-c-color="gray">
+                  <FormattedMessage {...displayMessages.noApplicants} />
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -28,6 +28,13 @@ use App\Models\Lookup\ReviewDecision;
  **/
 class ApplicationReview extends Model
 {
+    protected $casts = [
+        'job_application_id' => 'int',
+        'review_status_id' => 'int',
+        'department_id' => 'int',
+        'notes' => 'string',
+    ];
+
     protected $fillable = [
         'review_status_id',
         'department_id',

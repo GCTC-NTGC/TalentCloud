@@ -36,58 +36,57 @@ const ResponseScreeningPage: React.FC<ResponseScreeningPageProps> = ({
   departments,
   handleUpdateReview,
   portal,
-}): React.ReactElement => {
-  return (
-    <>
-      {Object.keys(ResponseScreeningBuckets).map(bucket => {
-        const bucketApplications = applications.filter(application => {
-          if (bucket === BucketTypes.ReadyToAllocate) {
-            return (
-              application.application_review?.review_status_id ===
-              ResponseReviewStatusId.ReadyToAllocate
-            );
-          }
-          if (bucket === BucketTypes.Allocated) {
-            return (
-              application.application_review?.review_status_id ===
-              ResponseReviewStatusId.Allocated
-            );
-          }
-          if (bucket === BucketTypes.Unavailable) {
-            return (
-              application.application_review?.review_status_id ===
-              ResponseReviewStatusId.NotAvailable
-            );
-          }
-          if (bucket === BucketTypes.DoesNotQualify) {
-            return (
-              application.application_review?.review_status_id ===
-              ResponseReviewStatusId.ScreenedOut
-            );
-          }
-          // Multiple statuses appear in the "Under Consideration" bucket
+}): React.ReactElement => (
+  <>
+    {Object.keys(ResponseScreeningBuckets).map(bucket => {
+      const bucketApplications = applications.filter(application => {
+        if (bucket === BucketTypes.ReadyToAllocate) {
           return (
-            application.application_review === null ||
             application.application_review?.review_status_id ===
-              ResponseReviewStatusId.AssessmentRequired ||
-            application.application_review?.review_status_id ===
-              ResponseReviewStatusId.ReadyForReference
+            ResponseReviewStatusId.ReadyToAllocate
           );
-        });
-
+        }
+        if (bucket === BucketTypes.Allocated) {
+          return (
+            application.application_review?.review_status_id ===
+            ResponseReviewStatusId.Allocated
+          );
+        }
+        if (bucket === BucketTypes.Unavailable) {
+          return (
+            application.application_review?.review_status_id ===
+            ResponseReviewStatusId.NotAvailable
+          );
+        }
+        if (bucket === BucketTypes.DoesNotQualify) {
+          return (
+            application.application_review?.review_status_id ===
+            ResponseReviewStatusId.ScreenedOut
+          );
+        }
+        // Multiple statuses appear in the "Under Consideration" bucket
         return (
-          <ApplicantBucket
-            applications={bucketApplications}
-            bucket={bucket}
-            departments={departments}
-            handleUpdateReview={handleUpdateReview}
-            portal={portal}
-          />
+          application.application_review === undefined ||
+          application.application_review?.review_status_id ===
+            ResponseReviewStatusId.AssessmentRequired ||
+          application.application_review?.review_status_id ===
+            ResponseReviewStatusId.ReadyForReference
         );
-      })}
-    </>
-  );
-};
+      });
+
+      return (
+        <ApplicantBucket
+          key={bucket}
+          applications={bucketApplications}
+          bucket={bucket}
+          departments={departments}
+          handleUpdateReview={handleUpdateReview}
+          portal={portal}
+        />
+      );
+    })}
+  </>
+);
 
 interface ResponseScreeningDataFetcherProps {
   jobId: number;
@@ -114,7 +113,7 @@ const ResponseScreeningDataFetcher: React.FC<ResponseScreeningDataFetcherProps> 
   }, [dispatch]);
   const departments = useSelector(getDepartments);
 
-  const updateApplicationReview = (review: ApplicationReview) => {
+  const updateApplicationReview = (review: ApplicationReview): void => {
     dispatch(updateApplicationReviewAction(review));
   };
 
@@ -128,7 +127,7 @@ const ResponseScreeningDataFetcher: React.FC<ResponseScreeningDataFetcherProps> 
   );
 };
 
-const container = document.getElementById("job-index-hr");
+const container = document.getElementById("response-screening-wrapper");
 if (container !== null) {
   if ("jobId" in container.dataset && "portal" in container.dataset) {
     const jobId = Number(container.dataset.jobId as string);

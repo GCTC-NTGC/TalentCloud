@@ -7,10 +7,10 @@ export const parseApplicationsForJob = (data: any): Application[] =>
   data.map(parseApplication);
 
 export const getApplicationEndpoint = (id: number): string =>
-  `${baseUrl()}/applications/${id}}`;
+  `${baseUrl(2)}/applications/${id}`;
 
 export const getApplicationReviewEndpoint = (applicationId: number): string =>
   `${getApplicationEndpoint(applicationId)}/review`;
 
 export const getApplicationsForJobEndpoint = (jobId: number): string =>
-  `${baseUrl()}/jobs/${jobId}/applications`;
+  `${baseUrl(2)}/jobs/${jobId}/applications`;
