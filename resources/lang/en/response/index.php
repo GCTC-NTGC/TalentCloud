@@ -90,9 +90,9 @@ return [
         ],
         'apply_list_title' => 'You should apply to be in the GC Talent Reserve if:',
         'apply_list' => [
-            1 =>  "You're not currently in a critical role in your own department, and your manager would support a temporary placement.",
-            2 => 'You want to help Canadians by going where you’re most needed',
-            3 => 'You’re currently a Government of Canada employee (indeterminate or term)',
+            1 => 'You’re currently a Government of Canada employee (indeterminate or term)',
+            2 => "You're not currently in a critical role in your own department, and your manager would support a temporary placement.",
+            3 => 'You want to help Canadians by going where you’re most needed',
             4 => 'You have specialized skills to share (see list below)',
             5 => 'You want to support your colleagues in other teams or departments',
             6 => 'You’re good at adapting to new environments and processes',
