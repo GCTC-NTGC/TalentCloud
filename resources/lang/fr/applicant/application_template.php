@@ -134,6 +134,8 @@ return [
     'step_04_title' => 'Nuage de talents | Candidat : Postuler maintenant - Étape 4',
     'sidebar_item_title' => "Faites défiler jusqu'à cette compétence",
     'skills_section' => [
+        'helper_text' => 'Veuillez noter que les compétences signalées par un <span data-c-visibility="invisible">point d\'exclamation</span><i class="fas fa-exclamation" data-c-color="slow" data-c-margin="rl(.25)"></i> sont incomplètes et requièrent votre attention. Les compétences signalées par une <span data-c-visibility="invisible">coche</span><i class="fas fa-check" data-c-color="go" data-c-margin="rl(.25)"></i> sont prêtes à être soumises ou ont été pré-remplies à partir de votre profil. Vous pouvez les modifier si nécessaire.',
+        'asset_null_text' => 'Il semble qu\'il n\'y ait pas d\'autres compétences qui soient un atout pour ce poste. Veuillez utiliser le bouton ci-dessous pour passer à l\'étape suivante.',
         'essential_title' => "Nécessaire d'avoir",
         'asset_title' => 'Bon à avoir',
         'add_soft_button_label' => 'Ajouter une compétence non spécialisées',

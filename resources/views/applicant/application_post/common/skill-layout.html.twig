@@ -11,7 +11,7 @@
     <div class="profile-element-list {{ application_step == "3" ? "step3" : "" }}">
         {% if criteria|length == 0 %}
             <div data-c-background="gray(20)" data-c-border="all(thin, solid, gray)" data-c-color="gray" data-c-padding="all(1)" data-c-radius="rounded" data-c-align="base(center)" data-c-margin="top(.5)">
-                <p>Looks like there aren't any other skills that are an asset for this position. Please use the button below to continue to the next step.</p>
+                <p>{{ application_template.skills_section.asset_null_text }}</p>
             </div>
         {% endif %}
         {% for criterion in criteria %}

@@ -25,7 +25,7 @@
                         <div data-c-container="medium(left)">
                             <h2 data-c-heading="h2" data-c-padding="top(3)" data-c-margin="bottom(1)">{{ application_template.asset_title }}</h2>
                             <p data-c-margin="bottom(1)">{{ application_template.asset_context }}</p>
-                            <p>Please note that skills with a <i class="fas fa-exclamation" data-c-color="slow" data-c-margin="rl(.25)"></i> icon are incomplete and require your attention. Skills with a <i class="fas fa-check" data-c-color="go" data-c-margin="rl(.25)"></i> are ready to submit or have been pre-populated from your profile. You're welcome to edit these if you need to.</p>
+                            <p>{{ application_template.skills_section.helper_text|raw }}</p>
                             {% include "applicant/application_post/common/skill-layout" %}
                         </div>
                     </div>

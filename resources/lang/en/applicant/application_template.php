@@ -133,6 +133,8 @@ return [
     'step_04_title' => 'Talent Cloud | Applicant: Apply Now - Step 4',
     'sidebar_item_title' => 'Scroll to this skill.',
     'skills_section' => [
+        'helper_text' => 'Please note that skills with an <span data-c-visibility="invisible">exclamation mark</span><i class="fas fa-exclamation" data-c-color="slow" data-c-margin="rl(.25)"></i> are incomplete and require your attention. Skills with a <span data-c-visibility="invisible">checkmark</span><i class="fas fa-check" data-c-color="go" data-c-margin="rl(.25)"></i> are ready to submit or have been pre-populated from your profile. You\'re welcome to edit these if you need to.',
+        'asset_null_text' => 'Looks like there aren\'t any other skills that are an asset for this position. Please use the button below to continue to the next step.',
         'essential_title' => 'Need to Have',
         'asset_title' => 'Nice to Have',
         'add_soft_button_label' => 'Add soft skill',
