@@ -155,17 +155,19 @@ class JobController extends Controller
         }
 
         // TODO: replace route('manager.show',manager.id) in templates with link using slug.
+        $essential = $jobPoster->criteria->filter(
+            function ($value, $key) {
+                return $value->criteria_type->name == 'essential';
+            }
+        )->sortBy('id');
+        $asset = $jobPoster->criteria->filter(
+            function ($value, $key) {
+                return $value->criteria_type->name == 'asset';
+            }
+        )->sortBy('id');
         $criteria = [
-            'essential' => $jobPoster->criteria->filter(
-                function ($value, $key) {
-                    return $value->criteria_type->name == 'essential';
-                }
-            ),
-            'asset' => $jobPoster->criteria->filter(
-                function ($value, $key) {
-                    return $value->criteria_type->name == 'asset';
-                }
-            ),
+            'essential' => $essential,
+            'asset' => $asset,
         ];
 
         $jobLang = Lang::get('applicant/job_post');

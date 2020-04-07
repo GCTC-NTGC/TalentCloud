@@ -25,6 +25,7 @@ return [
             false => 'Travail à distance non autorisé',
         ],
         'sidebar_label' => 'À propos de l\'emploi:',
+        'pilot' => 'BETA / Projet pilote'
     ],
     'basics' => [
         'sidebar_title' => 'Voir les renseignements généraux pour cet emploi.',

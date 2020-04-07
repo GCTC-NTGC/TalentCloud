@@ -1,50 +1,38 @@
 {# =============================================================================
 
     Talent Cloud
-    Applicant: Jobs - Post: Header
+    Applicant: Response Job Poster - Heading Information
+
+    This UI provides the most basic metadata about the job the applicant is
+    viewing.
 
 ============================================================================= #}
-<header
-    class="job-post__header">
-
-    <div
-        class="container--layout">
-
-        <div
-            class="flex-grid bottom">
-
-            <div
-                class="box lg-2of3">
-
-                <h2 class="job-post__job-title">{{ job.title }}</h2>
-
-                <div class="job-post__department">
-
-                    <span>
-                        {{ job_post.strategic_response.various_departments }}
-                    </span>
-
-                    <br>
-
-                    <div>
-                        <i aria-hidden="true" class="fas fa-home"></i>
-                        <span>{{ job_post.header.remote_work_allowed[true] }}</span>
-                    </div>
-
+<header>
+    <div data-c-overlay="white(80)" style="background-image: url('/images/response-wall.jpg')">
+        <div data-c-container="large" data-c-padding="tb(3)" data-c-align="base(center) tl(left)">
+            <h1 data-c-heading="h1" data-c-color="black" data-c-margin="bottom(1)">
+                {{ job.talent_stream_category.name }}
+                -
+                {{ job.job_skill_level.name }}</h1>
+            <div data-c-grid="gutter(all, 1)">
+                <div data-c-grid-item="tl(2of3)" data-c-align="base(center) tl(left)">
+                    <p data-c-color="black">{{ job_post.strategic_response.various_departments }}</p>
                 </div>
-
+                <div data-c-grid-item="tl(1of3)" data-c-align="base(center) tl(right)">
+                    <span data-c-color="black">{{ job_post.header.pilot }}</span>
+                </div>
             </div>
-
-            <div
-                class="box lg-1of3">
-                <p
-                    class="job-post__reference-id">
-                    <span>{{ job_post.header.reference_id|replace({':id':job.id}) }}</span>
-                </p>
+            <div data-c-grid="gutter(all, 1)">
+                <div data-c-grid-item="tl(2of3)">
+                    <p data-c-color="black">
+                        <i class="fas fa-home" data-c-color="c2" data-c-margin="right(.25)"></i>
+                        {{ job_post.header.remote_work_allowed[job.remote_work_allowed] }}
+                    </p>
+                </div>
+                <div data-c-grid-item="tl(1of3)" data-c-align="base(center) tl(right)">
+                    <p data-c-color="black">{{ job_post.header.reference_id|replace({':id':job.id}) }}</p>
+                </div>
             </div>
-
         </div>
-
     </div>
-
 </header>

@@ -14,7 +14,27 @@
 	{% include "common/header" with {'header': {'title': ":title: :job"|replace({':title': application_template.title, ':job': job.title})}} %}
 	<a id="skipLink"></a>
 	{% include "applicant/application_post/common/tracker-ajax" %}
-	{% include "applicant/application_post/common/skill-layout" %}
+
+    <section class="application-post__skills-layout">
+        <div class="container--copy">
+            <h2>
+                {{ application_template.essential_title }}
+            </h2>
+            <p class="bold">{{ application_template.essential_subtitle }}</p>
+            <ul>
+                <li>
+                    <p class="italics">{{ application_template.essential_question_1 }}</p>
+                    <p class="bold">{{ application_template.essential_answer_1 }}</p>
+                </li>
+                <li>
+                    <p>{{ application_template.essential_question_2 }}</p>
+                    <p class="bold">{{ application_template.essential_answer_2 }}</p>
+                </li>
+            </ul>
+        </div>
+	    {% include "applicant/application_post/common/skill-layout" %}
+    </section>
+
 	{# Modals #}
 	{% include "common/modal" with {"page": application} %}
 	{% include "common/modals/skills_need_help" %}

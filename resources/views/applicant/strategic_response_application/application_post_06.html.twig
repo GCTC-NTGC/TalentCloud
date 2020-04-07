@@ -1,0 +1,63 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Application Step 06
+
+============================================================================= #}
+{% extends "response/response-base" %}
+{% block title %}
+    {{ application_template.complete.step_06_title }}
+{% endblock %}
+{% block body %}
+    {% include "applicant/strategic_response_application/common/tracker-ajax" %}
+    {# Body #}
+    <form
+        class="form-prevent-multiple-submit" action="{{ form_submit_action }}" method="post">
+        {# Builds an input field for CSRF token validation #}
+        {{ csrf_field() }}
+        {# Sections #}
+        <section class="application-06__wrapper">
+            <div class="container--copy">
+                <h3>{{ application_template.integrity.title }}</h3>
+                <p>{{ application_template.integrity.confirmation_copy }}</p>
+                <ul>
+                    {% for confirmation in application_template.strategic_response.confirmations %}
+                        <li>{{ confirmation }}</li>
+                    {% endfor %}
+                </ul>
+                {% include "errors/form_errors" %}
+                <div class="flex-grid gutter">
+                    <div class="box med-1of2">
+                        <div class="form__input-wrapper--signature">
+                            <label class="form__label" for="applicationReviewSignature">
+                                {{ application_template.integrity.signature_label }}
+                            </label>
+                            <input class="form__input" id="applicationReviewSignature" name="submission_signature" required type="text"/>
+                        </div>
+                    </div>
+                    <div class="box med-1of2">
+                        <div class="form__input-wrapper--date">
+                            <label class="form__label" for="applicationReviewDate">
+                                {{ application_template.integrity.date_label }}
+                            </label>
+                            <input class="form__input" id="applicationReviewDate" name="submission_date" type="date" value={{ "now"|date("Y-m-d") }} required/>
+                        </div>
+                    </div>
+                </div>
+                {# <p>{{ application_template.integrity.review }}</p> #}
+                <div class="flex-grid middle application-post__action-wrapper">
+                    <div class="box med-1of2">
+                        <button id="save_and_quit" class="button--blue light-bg button-prevent-multiple-submit" type="submit" name="submit" value="save_and_quit">
+                            {{ application_template.integrity.save_label }}
+                        </button>
+                    </div>
+                    <div class="box med-1of2">
+                        <button class="button--blue light-bg button-prevent-multiple-submit" type="submit" name="submit" value="submit">
+                            {{ application_template.integrity.submit_label }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+{% endblock %}

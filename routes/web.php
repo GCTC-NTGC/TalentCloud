@@ -115,6 +115,14 @@ Route::group(
                     ->middleware('can:view,jobPoster')
                     ->name('jobs.show');
 
+                /* Response Home */
+                Route::get('response', 'StrategicResponseController@index')->name('response.index');
+
+                /* Reserve Redirect */
+                Route::get('reserve', function () {
+                    return redirect('response');
+                });
+
                 /* Require being logged in as applicant */
                 Route::middleware(['auth', 'role:applicant'])->group(function (): void {
 
