@@ -75,6 +75,11 @@ const displayMessages = defineMessages({
     defaultMessage: "Click to view...",
     description: "Accessible text for screen reading accordion elements.",
   },
+  noApplicants: {
+    id: "responseScreening.bucket.noApplicants",
+    defaultMessage: "There are currently no applicants in this bucket.",
+    description: "Fallback label for a bucket with no applicants.",
+  },
 });
 
 enum IconStatus {
@@ -431,6 +436,7 @@ const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
       >
         <div data-c-padding="bottom(normal)">
           {isExpanded &&
+            applications.length > 0 &&
             applications.map(application => (
               <ApplicationRow
                 key={application.id}
@@ -441,6 +447,21 @@ const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
                 portal={portal}
               />
             ))}
+          {isExpanded && applications.length === 0 && (
+            <div data-c-padding="bottom(normal)">
+              <div
+                data-c-border="all(thin, solid, gray)"
+                data-c-background="gray(10)"
+                data-c-padding="all(1)"
+                data-c-radius="rounded"
+                data-c-align="base(center)"
+              >
+                <p data-c-color="gray">
+                  <FormattedMessage {...displayMessages.noApplicants} />
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
