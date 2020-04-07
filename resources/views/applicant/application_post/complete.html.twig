@@ -6,28 +6,28 @@
 ============================================================================= #}
 <div data-c-border="bottom(thin, solid, gray)" data-c-padding="bottom(3)">
     <div data-c-container="medium(center)">
-        <h2 id="requirements" data-c-heading="h2" data-c-padding="top(3)" data-c-margin="bottom(1)">Next Steps</h2>
+        <h2 id="requirements" data-c-heading="h2" data-c-padding="top(3)" data-c-margin="bottom(1)">{{ application_template.complete.next_steps }}</h2>
         <div data-c-grid="gutter(all, 2)">
             <div data-c-grid-item="tl(4of7)">
-                <p data-c-margin="bottom(1)">While you're waiting to hear about your application, there are a couple of things you can proactively do to help speed up the process. The position you just applied to requires a "<span data-c-font-weight="bold">{{ job.security_clearance_id ? job.security_clearance.value : noInfo }}</span>" level security clearance. To help speed up the process, <a href="{{ route('faq') }}#post-application" title="Learn more about obtaining security clearance.">find out more about the process to obtain this security clearance on our FAQ</a>.</p>
-                <p data-c-margin="bottom(1)"><span data-c-font-weight="bold" data-c-color="c2">Reminder:</span> this position will continue to accept other applications until {{ humanizeLastDay(job.close_date_time) }}.</p>
-                <p><a href="{{ route('applications.show', job_application.id) }}" title="View your submitted application." target="_blank" data-c-button="solid(c1)" data-c-radius="rounded">View your submitted application</a></p>
+                <p data-c-margin="bottom(1)">{{ application_template.complete.next_step_copy_1 }} "<span data-c-font-weight="bold">{{ job.security_clearance_id ? job.security_clearance.value : noInfo }}</span>" {{ application_template.complete.next_step_copy_2 }} <a href="{{ route('faq') }}#post-application" title="{{ application_template.complete.next_step_copy_faq_link_title }}">{{ application_template.complete.next_step_copy_faq_link_label }}</a>.</p>
+                <p data-c-margin="bottom(1)"><span data-c-font-weight="bold" data-c-color="c2">{{ application_template.complete.reminder }}</span> {{ application_template.complete.reminder_copy }} {{ humanizeLastDay(job.close_date_time) }}.</p>
+                <p><a href="{{ route('applications.show', job_application.id) }}" title="{{ application_template.complete.view_application_title }}" target="_blank" data-c-button="solid(c1)" data-c-radius="rounded">{{ application_template.complete.view_application_label }}</a></p>
             </div>
             <div data-c-grid-item="tl(3of7)">
                 <div data-c-background="c1(10)" data-c-color="c1" data-c-border="all(thin, solid, c1)" data-c-radius="rounded" data-c-padding="all(1)">
-                    <h3 data-c-font-size="h4" data-c-font-weight="bold" data-c-margin="bottom(1)">Other Resources</h3>
+                    <h3 data-c-font-size="h4" data-c-font-weight="bold" data-c-margin="bottom(1)">{{ application_template.complete.other_resources }}</h3>
                     <ul>
                         <li>
-                            <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Submit feedback about Talent Cloud via email.">Submit feedback on your experience</a>
+                            <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="{{ application_template.complete.submit_feedback_link_title }}">{{ application_template.complete.submit_feedback_link_label }}</a>
                         </li>
                         <li>
-                            <a href="{{ route('profile.about.edit', applicant.id) }}" title="Open your profile.">Update your profile</a>
+                            <a href="{{ route('profile.about.edit', applicant.id) }}" title="{{ application_template.complete.update_profile_link_title }}">{{ application_template.complete.update_profile_link_label }}</a>
                         </li>
                         <li>
-                            <a href="{{ route('jobs.index') }}" title="Browse other jobs.">Browse other jobs</a>
+                            <a href="{{ route('jobs.index') }}" title="{{ application_template.complete.browse_jobs_title }}">{{ application_template.complete.browse_jobs_label }}</a>
                         </li>
                         <li>
-                            <a href="{{ route('faq') }}#applicants" title="Learn more about the hiring process.">Learn about the hiring process</a>
+                            <a href="{{ route('faq') }}#applicants" title="{{ application_template.complete.faq_link_title }}">{{ application_template.complete.faq_link_label }}</a>
                         </li>
                     </ul>
                 </div>

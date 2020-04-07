@@ -9,6 +9,11 @@
 */
 return [
     'title' => 'À propos de moi',
+    'profile_sidebar_label' => 'Sur votre profil :',
+    'account_settings_title' => 'Modifiez les paramètres de votre compte.',
+    'account_settings_label' => 'Paramètres du compte',
+    'required_label' => 'Requis',
+    'input_error' => 'Cette entrée comporte une erreur.',
     'about_section' => [
         'about_title' => 'Mes renseignements',
         'profile_title' => 'Nuage de talents | Candidat : Profil - À propos de moi',
@@ -30,11 +35,11 @@ return [
         'other_form_legend' => 'Autres renseignements',
         'tagline_label' => 'Mon accroche',
         'save_button_label' => 'Enregistrer ma réponse',
-        'answer_label' => 'Votre réponse',
+        'answer_label' => 'Ma réponse',
         'twitter_link_title' => 'Visiter mon profil Twitter',
         'linkedin_link_title' => 'Visiter mon profil LinkedIn',
         'questions_title' => 'Choses à savoir de moi',
-        'applicant_profile_question_section_title' => 'Votre histoire',
+        'applicant_profile_question_section_title' => 'Mon histoire',
         'applicant_profile_question_context' => 'Ne pas inclure d\'informations personnelles sensibles.'
     ]
 ];

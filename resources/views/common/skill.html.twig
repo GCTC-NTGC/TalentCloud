@@ -313,7 +313,7 @@
                         <div class="profile-relative__add-trigger-wrapper">
                             {% if applicant.work_samples|length > 0 %}
                                 {% if relativeCounter == 0 %}
-                                    <p class="profile-relative__null active" data-c-background="gray(20)" data-c-border="all(thin, solid, gray)" data-c-radius="rounded" data-c-margin="top(1)" data-c-padding="all(1)" data-c-align="base(center)" data-c-color="gray">You can add one of your Work Samples as evidence for this skill using the button above.</p>
+                                    <p class="profile-relative__null active" data-c-background="gray(20)" data-c-border="all(thin, solid, gray)" data-c-radius="rounded" data-c-margin="top(1)" data-c-padding="all(1)" data-c-align="base(center)" data-c-color="gray">{{ skill_template.work_sample_null }}</p>
                                 {% endif %}
                             {% else %}
                                 <p class="profile-relative__null active" data-c-background="gray(20)" data-c-border="all(thin, solid, gray)" data-c-radius="rounded" data-c-margin="top(1)" data-c-padding="all(1)" data-c-align="base(center)" data-c-color="gray">{{ relative_template.sample.null_copy }}</p>

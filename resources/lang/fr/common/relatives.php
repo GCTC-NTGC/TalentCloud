@@ -8,6 +8,8 @@ return [
     * The following language lines are used on the 'relatives' forms
     *
     */
+    'required_label' => 'Requis',
+    'input_error' => 'Cette entrée comporte une erreur.',
     "skill" => [
         "title" => "Compétences liées",
         "create_title" => "Créer une nouvelle compétence.",

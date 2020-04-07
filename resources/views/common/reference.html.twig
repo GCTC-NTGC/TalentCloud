@@ -32,7 +32,7 @@
                 {% endif %}
             </p>
         </div>
-        <span data-c-visibility="invisible">Click to view...</span>
+        <span data-c-visibility="invisible">{{ reference_template.accordion_sr_helper }}</span>
         <i aria-hidden="true" data-c-color="c1" data-c-accordion-add data-c-font-size="h3" data-c-font-weight="bold">+</i>
         <i aria-hidden="true" data-c-color="c1" data-c-accordion-remove data-c-font-size="h3" data-c-font-weight="bold">-</i>
     </button>
@@ -53,16 +53,16 @@
                     {# Name #}
                     <div data-c-input="text" data-c-grid-item="tl(1of2)">
                         <label for="{{ id_prefix }}referenceName">{{ reference_template.name_label }}</label>
-                        <span>Required</span>
+                        <span>{{ reference_template.required_label }}</span>
                         <div>
                             <input id="{{ id_prefix }}referenceName" name="name" required value="{{ reference.name }}" type="text" />
                         </div>
-                        <span>This input has an error.</span>
+                        <span>{{ reference_template.input_error }}</span>
                     </div>
                     {# Relationship #}
                     <div data-c-input="select" data-c-grid-item="tl(1of2)">
                         <label for="{{ id_prefix }}referenceRelationship">{{ reference_template.relationship_label }}</label>
-                        <span>Required</span>
+                        <span>{{ reference_template.required_label }}</span>
                         <div>
                             <i class="fas fa-caret-down"></i>
                             <select name="relationship_id" required id="{{ id_prefix }}referenceRelationship" {% if template %}disabled{% endif %}>
@@ -75,25 +75,25 @@
                                 {% endfor %}
                             </select>
                         </div>
-                        <span>This input has an error.</span>
+                        <span>{{ reference_template.input_error }}</span>
                     </div>
                     {# Email #}
                     <div data-c-input="email" data-c-grid-item="base(1of1)">
                         <label for="{{ id_prefix }}referenceEmail">{{ reference_template.email_label }}</label>
-                        <span>Required</span>
+                        <span>{{ reference_template.required_label }}</span>
                         <div>
                             <input id="{{ id_prefix }}referenceEmail" {% if template %}disabled{% endif %} type="email" name="email" required value="{{ reference.email }}" />
                         </div>
-                        <span>This input has an error.</span>
+                        <span>{{ reference_template.input_error }}</span>
                     </div>
                     {# Descrption #}
                     <div data-c-input="textarea" data-form-id="experience-description" data-c-grid-item="base(1of1)">
                         <label for="{{ id_prefix }}referenceDescription">{{ reference_template.description_label }}</label>
-                        <span>Required</span>
+                        <span>{{ reference_template.required_label }}</span>
                         <div>
                             <textarea id="{{ id_prefix }}referenceDescription" id="{{ id_prefix }}referenceDescription" {% if template %}disabled{% endif %} name="description" required >{{ reference.description }}</textarea>
                         </div>
-                        <span>This input has an error.</span>
+                        <span>{{ reference_template.input_error }}</span>
                     </div>
                 </div>
             </div>

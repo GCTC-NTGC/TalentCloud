@@ -32,7 +32,7 @@
                 {% endif %}
             </p>
         </div>
-        <span data-c-visibility="invisible">Click to view...</span>
+        <span data-c-visibility="invisible">{{ sample_template.accordion_sr_helper }}</span>
         <i aria-hidden="true" data-c-color="c1" data-c-accordion-add data-c-font-size="h3" data-c-font-weight="bold">+</i>
         <i aria-hidden="true" data-c-color="c1" data-c-accordion-remove data-c-font-size="h3" data-c-font-weight="bold">-</i>
     </button>
@@ -53,16 +53,16 @@
                     {# Name #}
                     <div data-c-input="text" data-c-grid-item="base(1of1)">
                         <label for="{{ id_prefix }}sampleName">{{ sample_template.name_label }}</label>
-                        <span>Required</span>
+                        <span>{{ sample_template.required_label }}</span>
                         <div>
                             <input id="{{ id_prefix }}sampleName" name="name" required type="text" {% if template %}disabled{% endif %} value="{{ sample.name }}" />
                         </div>
-                        <span>This input has an error.</span>
+                        <span>{{ sample_template.input_error }}</span>
                     </div>
                     {# Project Type #}
                     <div data-c-input="select" data-c-grid-item="tl(1of2)">
                         <label for="{{ id_prefix }}sampleType">{{ sample_template.type_label }}</label>
-                        <span>Required</span>
+                        <span>{{ sample_template.required_label }}</span>
                         <div>
                             <i class="fas fa-caret-down"> </i>
                             <select required id="{{ id_prefix }}sampleType" {% if template %}disabled{% endif %} name="file_type_id">
@@ -75,25 +75,25 @@
                                 {% endfor %}
                             </select>
                         </div>
-                        <span>This input has an error.</span>
+                        <span>{{ sample_template.input_error }}</span>
                     </div>
                     {# Sample Link #}
                     <div data-c-input="url" data-c-grid-item="tl(1of2)">
                         <label for="{{ id_prefix }}sampleLink">{{ sample_template.link_label }}</label>
-                        <span>Required</span>
+                        <span>{{ sample_template.required_label }}</span>
                         <div>
                             <input id="{{ id_prefix }}sampleLink" placeholder="e.g. https://talent.canada.ca" required type="url" name="url" {% if template %}disabled{% endif %} value="{{ sample.url }}"/>
                         </div>
-                        <span>This input has an error.</span>
+                        <span>{{ sample_template.input_error }}</span>
                     </div>
                     {# Description #}
                     <div data-c-input="textarea" data-c-grid-item="base(1of1)">
                         <label for="{{ id_prefix }}sampleDescription">{{ sample_template.description_label }}</label>
-                        <span>Required</span>
+                        <span>{{ sample_template.required_label }}</span>
                         <div>
                             <textarea id="{{ id_prefix }}sampleDescription" required name="description" {% if template %}disabled{% endif %}>{{ sample.description }}</textarea>
                         </div>
-                        <span>This input has an error.</span>
+                        <span>{{ sample_template.input_error }}</span>
                     </div>
                 </div>
             </div>

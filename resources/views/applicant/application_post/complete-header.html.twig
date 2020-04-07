@@ -8,8 +8,8 @@
     <header data-c-align="base(center) tl(left)" data-c-overlay="black(70)" data-c-padding="bottom(3)" style="background-image: url('/images/bg_flag.jpg');">
         {% include "common/menu" %}
         <div data-c-container="large" data-c-padding="top(3)" data-c-align="base(center)">
-            <h1 data-c-heading="h1">Thanks for Applying!</h1>
-            <p data-c-color="white" data-c-margin="top(1)">You've successfully applied to: <span data-c-font-weight="bold">{{ job.title }}</span> at <span data-c-font-weight="bold">{{ job.department.name }}</span></p>
+            <h1 data-c-heading="h1">{{ application_template.complete.title }}</h1>
+            <p data-c-color="white" data-c-margin="top(1)">{{ application_template.application_success }} <span data-c-font-weight="bold">{{ job.title }}</span> {{ application_template.applying_to_bridge }} <span data-c-font-weight="bold">{{ job.department.name }}</span></p>
         </div>
     </header>
 </div>

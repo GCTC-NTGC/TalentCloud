@@ -10,31 +10,31 @@
     <div data-c-grid="gutter(all, 1)">
         <div data-c-input="text" data-c-grid-item="tl(1of2)">
             <label for="editProfileTwitter">{{ profile.about_section.twitter_label }}</label>
-            <span>Required</span>
+            <span>{{ profile.required_label }}</span>
             <div>
                 <input id="editProfileTwitter" name="twitter_username" pattern="{{ twitterHandlePattern }}" value="{{ applicant.twitter_username }}" autocomplete="off" type="text" />
             </div>
-            <span>This input has an error.</span>
+            <span>{{ profile.input_error }}</span>
         </div>
         <div data-c-input="url" data-c-grid-item="tl(1of2)">
             <label for="editProfileLinkedin">{{ profile.about_section.linkedin_label }}</label>
-            <span>Required</span>
+            <span>{{ profile.required_label }}</span>
             <div>
                 <input id="editProfileLinkedin" placeholder="e.g. https://www.linkedin.com/username" name="linkedin_url" pattern="{{ linkedInUrlPattern }}" value="{{ applicant.linkedin_url }}" autocomplete="off" type="url" />
             </div>
-            <span>This input has an error.</span>
+            <span>{{ profile.input_error }}</span>
         </div>
         <div data-c-input="text" data-c-grid-item="base(1of1)">
             <label for="editProfileTagline">{{ profile.about_section.tagline_label }}</label>
-            <span>Required</span>
+            <span>{{ profile.required_label }}</span>
             <div>
                 <input id="editProfileTagline" name="tagline" value="{{ applicant.tagline }}" type="text" />
             </div>
-            <span>This input has an error.</span>
+            <span>{{ profile.input_error }}</span>
         </div>
         <div data-c-grid-item="base(1of1)" data-c-align="base(right)">
             <button data-c-button="solid(c1)" data-c-radius="rounded" name="submit" type="submit" value="about">
-                Save Changes
+                {{ profile.about_section.save_button_label }}
             </button>
         </div>
     </div>

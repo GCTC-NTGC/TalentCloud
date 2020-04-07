@@ -24,6 +24,7 @@ return [
     'knowledge_label' => 'Mon expérience avec cette compétence',
     'knowledge_link_label' => "(Besoin d'aide? Voir exemple.)",
     'knowledge_prompt' => 'C’est votre chance de vous faire valoir! Veuillez partager quelques points importants sur votre expérience de l\'utilisation de cette compétence au niveau requis.',
+    'work_sample_null' => 'Vous pouvez ajouter un de vos échantillons de travail comme preuve de cette compétence en utilisant le bouton ci-dessus.',
     'skill_status_null_label' => 'Statut : compétence pas ajouté',
     'skill_status_label' => 'Statut : ',
     'skill_level_null' => 'Aucun niveau de compétence n\'a été sélectionné.',

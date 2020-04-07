@@ -10,6 +10,11 @@ return [
     *
     */
     'title' => 'Mes compétences',
+    'profile_sidebar_label' => 'Sur votre profil :',
+    'account_settings_title' => 'Modifiez les paramètres de votre compte.',
+    'account_settings_label' => 'Paramètres du compte',
+    'required_label' => 'Requis',
+    'input_error' => 'Cette entrée comporte une erreur.',
     'skills_section' => [
         'skills_title' => 'Nuage de talents | Candidat : Profil - Mes compétences',
         'soft_title' => 'Mes compétences non spécialisées',

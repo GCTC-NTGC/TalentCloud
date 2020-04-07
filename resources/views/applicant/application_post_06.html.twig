@@ -31,19 +31,19 @@
                     <div data-c-grid="gutter(all, 1)">
                         <div data-c-input="text" data-c-grid-item="tl(1of2)">
                             <label for="applicationReviewSignature">{{ application_template.integrity.signature_label }}</label>
-                            <span>Required</span>
+                            <span>{{ application_template.required_label }}</span>
                             <div>
                                 <input id="applicationReviewSignature" name="submission_signature" required type="text" />
                             </div>
-                            <span>This input has an error.</span>
+                            <span>{{ application_template.input_error }}</span>
                         </div>
                         <div data-c-input="date" data-c-grid-item="tl(1of2)">
                             <label for="applicationReviewDate">{{ application_template.integrity.date_label }}</label>
-                            <span>Required</span>
+                            <span>{{ application_template.required_label }}</span>
                             <div>
                                 <input id="applicationReviewDate" type="date" required name="submission_date" placeholder="yyyy-mm-dd"/>
                             </div>
-                            <span>This input has an error.</span>
+                            <span>{{ application_template.input_error }}</span>
                         </div>
                     </div>
                     <hr data-c-hr="thin(gray)" data-c-margin="top(1) bottom(2)">

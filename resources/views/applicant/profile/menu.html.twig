@@ -6,7 +6,7 @@
 ============================================================================= #}
 <div class="sidebar" data-c-padding="top(3)">
     <nav>
-        <p data-c-font-weight="bold" data-c-font-size="h4" data-c-margin="bottom(1)">On your profile:</p>
+        <p data-c-font-weight="bold" data-c-font-size="h4" data-c-margin="bottom(1)">{{ profile.profile_sidebar_label }}</p>
         <ul>
             {% for item in profile_menu %}
                 <li>
@@ -14,7 +14,7 @@
                 </li>
             {% endfor %}
             <li>
-                <a href="{{ route('settings.edit') }}" title="Edit your account settings.">Account Settings</a>
+                <a href="{{ route('settings.edit') }}" title="{{ profile.account_settings_title }}">{{ profile.account_settings_label }}</a>
             </li>
         </ul>
     </nav>

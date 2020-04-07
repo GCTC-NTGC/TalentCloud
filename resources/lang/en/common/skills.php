@@ -24,6 +24,7 @@ return [
     'knowledge_label' => 'My Experience with this Skill',
     'knowledge_link_label' => '(Need help? See example.)',
     'knowledge_prompt' => 'This is your opportunity to shine! Please share some high-level bullet points about your experience using this skill at the required level.',
+    'work_sample_null' => 'You can add one of your Work Samples as evidence for this skill using the button above.',
     'skill_status_null_label' => 'Status: Skill Unclaimed',
     'skill_status_label' => 'Status:',
     'skill_level_null' => 'No level has been selected.',

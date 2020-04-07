@@ -21,7 +21,7 @@
 <div data-c-border="all(thin, solid, gray)" data-c-background="gray(20)" data-c-radius="rounded" data-c-padding="all(1)" data-c-margin="top(.5)" class="profile-relative project {% if template %}template{% endif %}" data-item-id="{{ relative ? relative.id : 0 }}">
     <div data-c-grid="gutter(all, 1)">
         <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">
-            <p data-c-margin="bottom(.5)" data-c-color="c1">Project Information</p>
+            <p data-c-margin="bottom(.5)" data-c-color="c1">{{ relative_template.project.title }}</p>
         </div>
         <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(right)">
             <button data-c-button="reset" data-c-radius="rounded" class="profile-relative__remove-trigger" title="{{ relative_template.project.delete_title }}" type="button">
@@ -31,27 +31,27 @@
         </div>
         <div data-c-input="text" data-c-grid-item="base(1of1)">
             <label for="{{ id_prefix }}projectName">{{ relative_template.project.name_label }}</label>
-            <span>Required</span>
+            <span>{{ relative_template.required_label }}</span>
             <div>
                 <input id="{{ id_prefix }}projectName" required name="{{ name_prefix }}[name]" {% if template %}disabled{% endif %} value="{{ relative.name }}" type="text" />
             </div>
-            <span>This input has an error.</span>
+            <span>{{ relative_template.input_error }}</span>
         </div>
         <div data-c-input="date" data-c-grid-item="tl(1of2)">
             <label for="{{ id_prefix }}relativeStartDate">{{ relative_template.project.start_date_label }}</label>
-            <span>Required</span>
+            <span>{{ relative_template.required_label }}</span>
             <div>
                 <input id="{{ id_prefix }}relativeStartDate" type="date" placeholder="yyyy-mm-dd" required name="{{ name_prefix }}[start_date]" {% if template %}disabled{% endif %} value="{{ relative.start_date|date("Y-m-d") }}"/>
             </div>
-            <span>This input has an error.</span>
+            <span>{{ relative_template.input_error }}</span>
         </div>
         <div data-c-input="date" data-c-grid-item="tl(1of2)">
             <label for="{{ id_prefix }}relativeEndDate">{{ relative_template.project.end_date_label }}</label>
-            <span>Required</span>
+            <span>{{ relative_template.required_label }}</span>
             <div>
                 <input id="{{ id_prefix }}relativeEndDate" type="date" placeholder="yyyy-mm-dd" required name="{{ name_prefix }}[end_date]" value="{{ relative.end_date|date("Y-m-d") }}"/>
             </div>
-            <span>This input has an error.</span>
+            <span>{{ relative_template.input_error }}</span>
         </div>
     </div>
 </div>
