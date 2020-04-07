@@ -102,6 +102,7 @@ export const fakeApplication = (
   return {
     ...fakeApplicationNormalized(normalizedOverrides),
     application_review: fakeApplicationReview(reviewOverrides),
+    ...overrides,
   };
 };
 
