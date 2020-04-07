@@ -25,7 +25,7 @@ export const fakeApplicationReview = (
 
 export const fakeApplicationNormalized = (
   overrides: Partial<ApplicationNormalized> = {},
-): Application => ({
+): ApplicationNormalized => ({
   id: 1,
   job_poster_id: 1,
   application_status_id: 1,
@@ -82,7 +82,6 @@ export const fakeApplicationNormalized = (
       },
     },
   },
-  application_review: undefined,
   meets_essential_criteria: true,
   ...overrides,
 });

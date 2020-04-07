@@ -6,6 +6,7 @@ import {
 import {
   fakeApplication,
   fakeApplicationReview,
+  fakeApplicationNormalized,
 } from "../../fakeData/fakeApplications";
 import { initStateWithApplications } from "./applicationSelector.test";
 import {
@@ -16,9 +17,8 @@ import {
 describe("applicationReducer tests", (): void => {
   describe("EntitiesReducer", (): void => {
     it("Splits fetched application into ApplicationNormalized and ApplicationReview correctly", (): void => {
-      const application = fakeApplication({
+      const application = fakeApplicationNormalized({
         id: 100,
-        application_review: undefined,
       });
       const review = fakeApplicationReview({
         id: 999,
@@ -46,5 +46,23 @@ describe("applicationReducer tests", (): void => {
       };
       expect(entitiesReducer(initialState, action)).toEqual(expectState);
     });
+    it("Correctly handles a fetched application without a review.", (): void => {
+      const application = fakeApplicationNormalized({
+        id: 100,
+      });
+      const initialState = initEntities();
+      const expectState: EntityState = {
+        ...initEntities(),
+        applications: {
+          [application.id]: application,
+        },
+      };
+      const action: FetchApplicationAction = {
+        type: FETCH_APPLICATION_SUCCEEDED,
+        payload: { ...application, application_review: undefined },
+        meta: { id: application.id },
+      };
+      expect(entitiesReducer(initialState, action)).toEqual(expectState);
+    })
   });
 });
