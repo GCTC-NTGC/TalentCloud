@@ -13,15 +13,17 @@ const stories = storiesOf(
 
 stories.add(
   "Consideration",
-  (): React.ReactElement => (
-    <div data-c-accordion-group="" className="response-accordion-group">
-      <ApplicantBucket
-        applications={fakeApplications()}
-        bucket="consideration"
-        departments={fakeDepartments()}
-        handleUpdateReview={action("Update Review")}
-        portal="manager"
-      />
-    </div>
-  ),
+  (): React.ReactElement => {
+    return (
+      <div data-c-accordion-group="" className="response-accordion-group">
+        <ApplicantBucket
+          applications={fakeApplications()}
+          bucket="consideration"
+          departments={fakeDepartments()}
+          handleUpdateReview={action("Update Review")}
+          portal="manager"
+        />
+      </div>
+    );
+  },
 );

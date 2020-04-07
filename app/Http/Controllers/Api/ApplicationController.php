@@ -4,9 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\JobApplication as JobApplicationResource;
+use App\Models\ApplicationReview;
 use App\Models\JobApplication;
 use App\Models\JobPoster;
+use App\Models\Lookup\Department;
+use App\Models\Lookup\ReviewStatus;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Validation\Rule;
 
 class ApplicationController extends Controller
 {
@@ -59,6 +64,10 @@ class ApplicationController extends Controller
                 'nullable',
                 Rule::in(ReviewStatus::all()->pluck('id')->toArray())
             ],
+            'department_id' => [
+                'nullable',
+                Rule::in(Department::all()->pluck('id')->toArray())
+            ],
             'notes' => 'nullable|string'
         ]);
 
@@ -69,13 +78,12 @@ class ApplicationController extends Controller
         }
         $review->fill([
             'review_status_id' => $request->input('review_status_id'),
+            'department_id' => $request->input('department_id'),
             'notes' => $request->input('notes'),
         ]);
         $review->save();
+        $review->fresh();
 
-        $application->loadMissing('applicant', 'application_review', 'citizenship_declaration', 'veteran_status');
-        $application->fresh();
-
-        return new JobApplicationResource($application);
+        return new JsonResource($review);
     }
 }

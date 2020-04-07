@@ -37,6 +37,13 @@ class ApplicationByJobController extends Controller
      */
     public function index(JobPoster $jobPoster)
     {
+        $view = 'manager/review_applications';
+        $disableCloneJs = false;
+        if ($jobPoster->department_id === config('app.strategic_response_department_id')) {
+            $view = 'response/screening/index';
+            // Hacky workaround for Accordion JS firing on the screening page.
+            $disableCloneJs = true;
+        }
         $applications = $jobPoster->submitted_applications()
             ->with([
                 'veteran_status',
@@ -46,16 +53,25 @@ class ApplicationByJobController extends Controller
                 'job_poster.criteria',
             ])
             ->get();
-        return view('manager/review_applications', [
+
+        $viewData = [
             // Localization Strings.
             'jobs_l10n' => Lang::get('manager/job_index'),
             // Data.
             'job' => new JsonResource($jobPoster),
+            'job_id' => $jobPoster->id,
             'is_hr_portal' => WhichPortal::isHrPortal(),
+            'portal' => WhichPortal::isHrPortal() ? 'hr' : 'manager',
             'applications' => $applications,
             'review_statuses' => ReviewStatus::all(),
             'isHrAdvisor' => Auth::user()->isHrAdvisor(),
-        ]);
+        ];
+
+        if ($disableCloneJs) {
+            $viewData['disable_clone_js'] = true;
+        }
+
+        return view($view, $viewData);
     }
 
     /**
