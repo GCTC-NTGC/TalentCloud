@@ -1,7 +1,4 @@
-import {
-  ApplicationNormalized,
-  ApplicationReview,
-} from "../../models/types";
+import { ApplicationNormalized, ApplicationReview } from "../../models/types";
 import {
   ApplicationAction,
   FETCH_APPLICATION_SUCCEEDED,
@@ -20,6 +17,7 @@ import {
   getId,
   notEmpty,
   mapToObjectTrans,
+  deleteProperty,
 } from "../../helpers/queries";
 
 export interface EntityState {
@@ -76,7 +74,10 @@ export const entitiesReducer = (
         ...state,
         applications: {
           ...state.applications,
-          [action.payload.id]: action.payload,
+          [action.payload.id]: deleteProperty(
+            action.payload,
+            "application_review",
+          ),
         },
         applicationReviews:
           action.payload.application_review !== undefined
@@ -98,7 +99,12 @@ export const entitiesReducer = (
         ...state,
         applications: {
           ...state.applications,
-          ...mapToObject(action.payload, getId),
+          ...mapToObjectTrans(
+            action.payload,
+            getId,
+            (application): ApplicationNormalized =>
+              deleteProperty(application, "application_review"),
+          ),
         },
         applicationReviews: {
           byId: {

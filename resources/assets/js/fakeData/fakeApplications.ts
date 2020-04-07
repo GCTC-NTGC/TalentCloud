@@ -1,7 +1,31 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
-import { Application } from "../models/types";
+import {
+  Application,
+  ApplicationNormalized,
+  ApplicationReview,
+} from "../models/types";
 
-export const fakeApplication1 = (): Application => ({
+export const fakeApplicationReview = (
+  overrides: Partial<ApplicationReview> = {},
+): ApplicationReview => ({
+  id: 1,
+  job_application_id: 1,
+  review_status_id: 6,
+  notes: "Here's some notes.",
+  created_at: new Date("2020-01-02"),
+  updated_at: new Date("2020-01-02"),
+  review_status: {
+    id: 6,
+    name: "assessment_required",
+  },
+  department_id: null,
+  department: null,
+  ...overrides,
+});
+
+export const fakeApplicationNormalized = (
+  overrides: Partial<ApplicationNormalized> = {},
+): ApplicationNormalized => ({
   id: 1,
   job_poster_id: 1,
   application_status_id: 1,
@@ -58,157 +82,56 @@ export const fakeApplication1 = (): Application => ({
       },
     },
   },
-  application_review: undefined,
   meets_essential_criteria: true,
+  ...overrides,
 });
 
-export const fakeApplication2 = (): Application => ({
-  id: 2,
-  job_poster_id: 1,
-  application_status_id: 1,
-  citizenship_declaration_id: 1,
-  veteran_status_id: 1,
-  preferred_language_id: 1,
-  applicant_id: 2,
-  applicant_snapshot_id: 2,
-  submission_signature: "signed",
-  submission_date: "2020-01-01",
-  experience_saved: true,
-  created_at: new Date("2020-01-01"),
-  updated_at: new Date("2020-01-01"),
-  veteran_status: {
+export const fakeApplication = (
+  overrides: Partial<Application> = {},
+): Application => {
+  const normalizedOverrides = {
     id: 1,
-    name: "none",
-  },
-  citizenship_declaration: {
-    id: 1,
-    name: "citizen",
-  },
-  applicant: {
+    ...overrides,
+  };
+  const reviewOverrides = {
+    id: normalizedOverrides.id,
+    job_application_id: normalizedOverrides.id,
+    ...(normalizedOverrides.application_review ?? {}),
+  };
+  return {
+    ...fakeApplicationNormalized(normalizedOverrides),
+    application_review: fakeApplicationReview(reviewOverrides),
+    ...overrides,
+  };
+};
+
+export const fakeApplication1 = (
+  overrides: Partial<Application> = {},
+): Application => {
+  return fakeApplication({ id: 1, ...overrides });
+};
+
+export const fakeApplication2 = (
+  overrides: Partial<Application> = {},
+): Application => {
+  return fakeApplication({
     id: 2,
-    personal_website: "www.somesite.com",
-    tagline: "Tagline",
-    twitter_username: "someperson",
-    linkedin_url: "linkedin.com/someperson",
-    user_id: 2,
-    created_at: new Date("2019-12-31"),
-    updated_at: new Date("2019-12-31"),
-    user: {
-      id: 2,
-      first_name: "Mervin",
-      last_name: "Greenfelder",
-      full_name: "Mervin Greenfelder",
-      email: "mervin.greenfelder@canada.ca",
-      is_confirmed: true,
-      user_role_id: 1,
-      created_at: new Date("2019-12-31"),
-      updated_at: new Date("2019-12-31"),
-      is_priority: false,
-      not_in_gov: false,
-      gov_email: "mervin.greenfelder@canada.ca",
-      department_id: 2,
-      user_role: {
-        id: 1,
-        key: "basic",
-        created_at: new Date("2019-01-01"),
-        updated_at: new Date("2019-01-01"),
-        name: {
-          en: "Applicant",
-          fr: "Applicant",
-        },
-      },
-    },
-  },
-  application_review: {
-    id: 1,
-    job_application_id: 2,
-    review_status_id: 6,
-    department_id: null,
-    department: null,
-    notes: "Here's some notes.",
-    created_at: new Date("2020-01-02"),
-    updated_at: new Date("2020-01-02"),
-    review_status: {
-      id: 6,
-      name: "assessment_required",
-    },
-  },
-  meets_essential_criteria: true,
-});
+    job_poster_id: 2,
+    applicant_id: 2,
+    ...overrides,
+  });
+};
 
-export const fakeApplication3 = (): Application => ({
-  id: 3,
-  job_poster_id: 1,
-  application_status_id: 1,
-  citizenship_declaration_id: 1,
-  veteran_status_id: 1,
-  preferred_language_id: 1,
-  applicant_id: 3,
-  applicant_snapshot_id: 2,
-  submission_signature: "signed",
-  submission_date: "2020-01-01",
-  experience_saved: true,
-  created_at: new Date("2020-01-01"),
-  updated_at: new Date("2020-01-01"),
-  veteran_status: {
-    id: 1,
-    name: "none",
-  },
-  citizenship_declaration: {
-    id: 1,
-    name: "citizen",
-  },
-  applicant: {
+export const fakeApplication3 = (
+  overrides: Partial<Application> = {},
+): Application => {
+  return fakeApplication({
     id: 3,
-    personal_website: "www.somesite.com",
-    tagline: "Tagline",
-    twitter_username: "someperson",
-    linkedin_url: "linkedin.com/someperson",
-    user_id: 3,
-    created_at: new Date("2019-12-31"),
-    updated_at: new Date("2019-12-31"),
-    user: {
-      id: 3,
-      first_name: "Ledner",
-      last_name: "Rudy",
-      full_name: "Ledner Rudy",
-      email: "ledner.rudy@canada.ca",
-      is_confirmed: true,
-      user_role_id: 1,
-      created_at: new Date("2019-12-31"),
-      updated_at: new Date("2019-12-31"),
-      is_priority: false,
-      not_in_gov: false,
-      gov_email: "ledner.rudy@canada.ca",
-      department_id: 2,
-      user_role: {
-        id: 1,
-        key: "basic",
-        created_at: new Date("2019-01-01"),
-        updated_at: new Date("2019-01-01"),
-        name: {
-          en: "Applicant",
-          fr: "Applicant",
-        },
-      },
-    },
-  },
-  application_review: {
-    id: 2,
-    job_application_id: 3,
-    review_status_id: 4,
-    department_id: null,
-    department: null,
-    notes: "Here's some notes.",
-    created_at: new Date("2020-01-02"),
-    updated_at: new Date("2020-01-02"),
-    review_status: {
-      id: 4,
-      name: "ready_for_reference",
-    },
-  },
-  meets_essential_criteria: true,
-});
+    job_poster_id: 3,
+    applicant_id: 3,
+    ...overrides,
+  });
+};
 
 const fakeApplications = (): Application[] => [
   fakeApplication1(),
