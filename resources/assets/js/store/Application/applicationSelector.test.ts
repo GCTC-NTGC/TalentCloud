@@ -19,7 +19,7 @@ import {
 } from "../../helpers/queries";
 import { Application } from "../../models/types";
 
-export const initStateWithApplications = (applications: Application[]): RootState => {
+const initStateWithApplications = (applications: Application[]): RootState => {
   const applicationReviews = applications
     .map((application) => application.application_review)
     .filter(notEmpty);

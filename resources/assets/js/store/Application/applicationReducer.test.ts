@@ -4,11 +4,9 @@ import {
   EntityState,
 } from "./applicationReducer";
 import {
-  fakeApplication,
   fakeApplicationReview,
   fakeApplicationNormalized,
 } from "../../fakeData/fakeApplications";
-import { initStateWithApplications } from "./applicationSelector.test";
 import {
   FetchApplicationAction,
   FETCH_APPLICATION_SUCCEEDED,
