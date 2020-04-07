@@ -37,13 +37,19 @@ const displayMessages = defineMessages({
   save: {
     id: "responseScreening.bucket.saveLabel",
     defaultMessage: "Save Changes",
-    description: "Label for 'Save Changes' button.",
+    description: "Label for 'Save Changes' button when changes are unsaved.",
   },
   saving: {
     id: "responseScreening.bucket.savingLabel",
     defaultMessage: "Saving...",
     description:
       "Label for 'Save Changes' button when form submission is in progress.",
+  },
+  saved: {
+    id: "responseScreening.bucket.savedLabel",
+    defaultMessage: "Saved",
+    description:
+      "Label for 'Save Changes' button when form submission succeeded.",
   },
   cancel: {
     id: "responseScreening.bucket.cancelLabel",
@@ -112,7 +118,7 @@ interface ApplicationRowProps {
   application: Application;
   departmentEditable: boolean;
   departments: Department[];
-  handleUpdateReview: (review: ApplicationReview) => void;
+  handleUpdateReview: (review: ApplicationReview) => Promise<ApplicationReview>;
   portal: Portal;
 }
 
@@ -234,16 +240,22 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
           department: application.application_review?.department_id || null,
           notes: application.application_review?.notes || "",
         }}
-        onSubmit={(values, { setSubmitting }): void => {
+        onSubmit={(values, { setSubmitting, resetForm }): void => {
           const review = updateApplicationReview(
             application.application_review || emptyReview,
             values,
           );
-          handleUpdateReview(review);
-          setSubmitting(false);
+          handleUpdateReview(review)
+            .then(() => {
+              setSubmitting(false);
+              resetForm();
+            })
+            .catch(() => {
+              setSubmitting(false);
+            });
         }}
       >
-        {({ isSubmitting }): React.ReactElement => (
+        {({ dirty, isSubmitting }): React.ReactElement => (
           <Form data-c-grid="gutter(all, 1) middle">
             <div data-c-grid-item="base(1of4)">
               <div>
@@ -319,10 +331,10 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
                 disabled={isSubmitting}
               >
                 <span>
-                  {isSubmitting ? (
-                    <FormattedMessage {...displayMessages.saving} />
-                  ) : (
+                  {dirty ? (
                     <FormattedMessage {...displayMessages.save} />
+                  ) : (
+                    <FormattedMessage {...displayMessages.saved} />
                   )}
                 </span>
               </button>
@@ -338,7 +350,7 @@ interface ApplicantBucketProps {
   applications: Application[];
   bucket: string;
   departments: Department[];
-  handleUpdateReview: (review: ApplicationReview) => void;
+  handleUpdateReview: (review: ApplicationReview) => Promise<ApplicationReview>;
   portal: Portal;
 }
 

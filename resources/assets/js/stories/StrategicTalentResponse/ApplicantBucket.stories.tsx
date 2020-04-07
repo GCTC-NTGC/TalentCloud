@@ -1,10 +1,14 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
 import { withIntl } from "storybook-addon-intl";
 import ApplicantBucket from "../../components/StrategicTalentResponse/ResponseScreening/ApplicantBucket";
 import fakeApplications from "../../fakeData/fakeApplications";
 import fakeDepartments from "../../fakeData/fakeDepartments";
+import { ApplicationReview } from "../../models/types";
+
+const handleUpdateReview = (
+  review: ApplicationReview,
+): Promise<ApplicationReview> => Promise.resolve(review);
 
 const stories = storiesOf(
   "Strategic Talent Response|Bucket",
@@ -20,7 +24,7 @@ stories.add(
           applications={fakeApplications()}
           bucket="consideration"
           departments={fakeDepartments()}
-          handleUpdateReview={action("Update Review")}
+          handleUpdateReview={handleUpdateReview}
           portal="manager"
         />
       </div>

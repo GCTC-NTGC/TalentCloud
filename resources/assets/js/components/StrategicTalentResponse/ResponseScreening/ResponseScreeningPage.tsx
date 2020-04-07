@@ -27,7 +27,7 @@ import { getDepartments } from "../../../store/Department/deptSelector";
 interface ResponseScreeningPageProps {
   applications: Application[];
   departments: Department[];
-  handleUpdateReview: (review: ApplicationReview) => void;
+  handleUpdateReview: (review: ApplicationReview) => Promise<ApplicationReview>;
   portal: Portal;
 }
 
@@ -113,8 +113,15 @@ const ResponseScreeningDataFetcher: React.FC<ResponseScreeningDataFetcherProps> 
   }, [dispatch]);
   const departments = useSelector(getDepartments);
 
-  const updateApplicationReview = (review: ApplicationReview): void => {
-    dispatch(updateApplicationReviewAction(review));
+  const updateApplicationReview = async (
+    review: ApplicationReview,
+  ): Promise<ApplicationReview> => {
+    const result = await dispatch(updateApplicationReviewAction(review));
+    if (!result.error) {
+      const resultReview = await result.payload;
+      return resultReview;
+    }
+    return Promise.reject(result.payload);
   };
 
   return (
