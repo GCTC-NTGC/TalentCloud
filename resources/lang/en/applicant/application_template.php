@@ -115,7 +115,7 @@ return [
     'step_02_title' => 'Talent Cloud | Applicant: Apply Now - Step 2',
     'experience' => [
         'title' => 'My Experience',
-        'step_02_requirement_label' => 'Required Experience',
+        'step_02_requirement_label' => 'Education Requirements',
         'description' => 'The job you’re about to apply to requires the following minimum education or experience. You can’t be considered for this job unless you have this. Even if you’re really awesome. Managers are not allowed to hire you for this job in this classification without this education or experience.',
     ],
     'experience_section' => [
