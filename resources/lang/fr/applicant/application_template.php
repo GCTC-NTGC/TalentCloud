@@ -105,7 +105,7 @@ return [
     'language_title' => 'Exigence linguistique',
     'language_copy' => 'Quelle langue officielle préféreriez-vous pour ce processus de candidature?',
     'language_label' => 'En choisir un',
-    'communication_title' => 'Contact et communication',
+    'communication_title' => 'Communication',
     'citizenship_title' => 'Statut de citoyenneté',
     'citizenship_content' => "Lequel des cas suivants s'applique à vous?",
     'citizenship_label' => 'En choisir un',
@@ -114,7 +114,7 @@ return [
     'veterans_label' => 'En choisir un',
     /* Step 02 */
     'step_02_title' => 'Nuage de talents | Candidat : Postuler maintenant - Étape 2',
-    'step_02_requirement_label' => 'Expérience nécessaire',
+    'step_02_requirement_label' => 'Exigences d\'éducation',
     'experience' => [
         'title' => 'Mon expérience',
         'description' => "Le poste auquel vous êtes sur le point de postuler requiert les études ou l'expérience minimales suivantes. Vous ne pouvez pas être considéré(e) pour ce travail à moins que vous ayez celles-ci, même si vous êtes vraiment génial(e). Les gestionnaires ne sont pas autorisés à vous engager pour cet emploi dans cette classification sans cette éducation ou cette expérience.",
@@ -135,7 +135,7 @@ return [
     'step_04_title' => 'Nuage de talents | Candidat : Postuler maintenant - Étape 4',
     'sidebar_item_title' => "Faites défiler jusqu'à cette compétence",
     'skills_section' => [
-        'helper_text' => 'Veuillez noter que les compétences signalées par un <span data-c-visibility="invisible">point d\'exclamation</span><i class="fas fa-exclamation" data-c-color="slow" data-c-margin="rl(.25)"></i> sont incomplètes et requièrent votre attention. Les compétences signalées par une <span data-c-visibility="invisible">coche</span><i class="fas fa-check" data-c-color="go" data-c-margin="rl(.25)"></i> sont prêtes à être soumises ou ont été pré-remplies à partir de votre profil. Vous pouvez les modifier si nécessaire.',
+        'helper_text' => 'Veuillez noter que les compétences signalées par un <span data-c-visibility="invisible">point d\'exclamation</span><i class="fas fa-exclamation" data-c-color="slow" data-c-margin="rl(.25)"></i> sont incomplètes et ont besoin de votre attention. Les compétences signalées par une <span data-c-visibility="invisible">coche</span><i class="fas fa-check" data-c-color="go" data-c-margin="rl(.25)"></i> sont prêtes à être soumises ou ont été pré-remplies à partir de votre profil. Vous pouvez les modifier au besoin.',
         'asset_null_text' => 'Il semble qu\'il n\'y ait pas d\'autres compétences qui soient un atout pour ce poste. Veuillez utiliser le bouton ci-dessous pour passer à l\'étape suivante.',
         'essential_title' => "Nécessaire d'avoir",
         'asset_title' => 'Bon à avoir',
