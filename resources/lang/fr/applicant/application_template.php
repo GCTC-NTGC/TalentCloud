@@ -19,7 +19,7 @@ return [
     'submit_button_label' => 'Soumettre',
     'applying_to' => 'Vous postulez pour :',
     'application_success' => 'Vous avez postulé avec succès à :',
-    'applying_to_bridge' => 'chez',
+    'applying_to_bridge' => '-',
     'pilot' => 'BETA / Projet pilote',
     'sidebar_label' => 'Sur cette page :',
     'accordion_helper' => 'Cliquez pour voir...',
