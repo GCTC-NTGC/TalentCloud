@@ -77,9 +77,9 @@ Route::group(
             Route::view('resources', 'common/resources')->middleware('localOnly')->name('resources');
 
             /* Response Home */
-            Route::view('response', 'common/response/index/index')->middleware('localOnly')->name('response');
+            Route::view('response', 'response/index/index')->middleware('localOnly')->name('response');
             /* Response Screening */
-            Route::view('response-screening', 'common/response/screening/index')->middleware('localOnly')->name('responseScreening');
+            Route::view('response-screening', 'response/screening/index')->middleware('localOnly')->name('responseScreening');
 
             Route::view('response/api-test', 'applicant/str_api_test')->middleware('localOnly');
         });
@@ -782,7 +782,7 @@ Route::group(
 /* ALL NON-LOCALIZED ROUTES **/
 
 /* API routes - currently using same default http auth, but not localized */
-Route::group(['prefix' => 'api'], function (): void {
+Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
     // Protected by a gate in the controller, instead of policy middleware.
     Route::get('jobs/{jobPoster}/assessment-plan', 'AssessmentPlanController@getForJob')
         ->middleware('can:viewAssessmentPlan,jobPoster')
@@ -832,19 +832,19 @@ Route::group(['prefix' => 'api'], function (): void {
     )
         ->middleware('can:manage,jobPoster')
         ->where('jobPoster', '[0-9]+')
-        ->name('api.jobs.setJobStatus');
+        ->name('jobs.setJobStatus');
     Route::resource('jobs', 'Api\JobController')->only([
         'show', 'store', 'update', 'index'
     ])->names([ // Specify custom names because default names collied with existing routes.
-        'show' => 'api.jobs.show',
-        'store' => 'api.jobs.store',
-        'update' => 'api.jobs.update',
-        'index' => 'api.jobs.index'
+        'show' => 'jobs.show',
+        'store' => 'jobs.store',
+        'update' => 'jobs.update',
+        'index' => 'jobs.index'
     ]);
 
     Route::put('applications/{application}/review', 'ApplicationReviewController@updateForApplication')
         ->middleware('can:review,application')
-        ->name('api.application_reviews.update');
+        ->name('application_reviews.update');
 
     Route::get('applications/{application}/reference-mail/director', 'Api\MicroReferenceController@showDirectorEmail')
         ->middleware('can:review,application')
@@ -862,8 +862,8 @@ Route::group(['prefix' => 'api'], function (): void {
     Route::resource('managers', 'Api\ManagerController')->only([
         'show', 'update'
     ])->names([ // Specify custom names because default names collied with existing routes.
-        'show' => 'api.managers.show',
-        'update' => 'api.managers.update'
+        'show' => 'managers.show',
+        'update' => 'managers.update'
     ]);
 
     // User must be logged in to user currentuser routes
@@ -897,4 +897,18 @@ Route::group(['prefix' => 'api'], function (): void {
         ->middleware('can:update,hrAdvisor')
         ->where('hrAdvisor', '[0-9]+')
         ->where('job', '[0-9]+');
+});
+Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
+    Route::get('applications/{application}', 'Api\ApplicationController@show')
+        ->where('application', '[0-9]+')
+        ->middleware('can:view,application')
+        ->name('application.show');
+    Route::get('jobs/{jobPoster}/applications', 'Api\ApplicationController@index')
+        ->where('jobPoster', '[0-9]+')
+        ->middleware('can:reviewApplicationsFor,jobPoster')
+        ->name('jobs.applications');
+    Route::put('applications/{application}/review', 'Api\ApplicationController@updateReview')
+        ->where('application', '[0-9]+')
+        ->middleware('can:review,application')
+        ->name('application.review.update');
 });

@@ -90,7 +90,7 @@ const makeJobAction = (
   intl: IntlShape,
   locale: Locales,
   job: Job,
-  jobPosterStatuses: JobPosterStatus[]
+  jobPosterStatuses: JobPosterStatus[],
 ): JobCardProps => {
   const jobTitle = localizeField(locale, job, "title");
   return {
@@ -295,7 +295,7 @@ const JobIndexHrDataFetcher: React.FC<JobIndexHrDataFetcherProps> = ({
   const jobPosterStatuses = useSelector(getJobStatuses);
   const isJobStatusesLoading = useSelector(jobStatusesLoading);
   useEffect(() => {
-    if (jobPosterStatuses.length == 0 && !isJobStatusesLoading) {
+    if (jobPosterStatuses.length === 0 && !isJobStatusesLoading) {
       dispatch(fetchJobPosterStatuses());
     }
   }, [dispatch, jobPosterStatuses, isJobStatusesLoading]);
