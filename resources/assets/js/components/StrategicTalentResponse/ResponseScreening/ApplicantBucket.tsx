@@ -386,21 +386,52 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
 
 const applicationSort = (locale: Locales) => {
   return (first: Application, second: Application): number => {
-    // Unreviewed Applications should appear first
+    // Applications without a review status should appear first
     if (
-      first.application_review === null &&
-      second.application_review !== null
+      first.application_review === undefined &&
+      second.application_review !== undefined
     ) {
       return -1;
     }
     if (
-      first.application_review !== null &&
-      second.application_review === null
+      first.application_review !== undefined &&
+      second.application_review === undefined
     ) {
       return 1;
     }
-    // Applications with a Department set should be grouped by Department
+    // Applications with a review status should be grouped by status
     if (first.application_review && second.application_review) {
+      if (
+        first.application_review.review_status_id &&
+        second.application_review.review_status_id
+      ) {
+        if (
+          first.application_review.review_status_id <
+          second.application_review.review_status_id
+        ) {
+          return -1;
+        }
+        if (
+          first.application_review.review_status_id >
+          second.application_review.review_status_id
+        ) {
+          return 1;
+        }
+      }
+      // Applications without a Department should appear first
+      if (
+        first.application_review.department === null &&
+        second.application_review.department !== null
+      ) {
+        return -1;
+      }
+      if (
+        first.application_review.department !== null &&
+        second.application_review.department === null
+      ) {
+        return 1;
+      }
+      // Applications with a Department set should be grouped by Department
       if (
         first.application_review.department &&
         second.application_review.department
@@ -415,10 +446,10 @@ const applicationSort = (locale: Locales) => {
           second.application_review.department,
           "name",
         ).toUpperCase();
-        if (firstDepartmentName > secondDepartmentName) {
+        if (firstDepartmentName < secondDepartmentName) {
           return -1;
         }
-        if (firstDepartmentName < secondDepartmentName) {
+        if (firstDepartmentName > secondDepartmentName) {
           return 1;
         }
         return 0;
