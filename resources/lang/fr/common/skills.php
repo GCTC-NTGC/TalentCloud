@@ -11,7 +11,7 @@ return [
     'new_skill_title' => 'Nouvelle compétence',
     'accordion_sr_helper' => 'cliquez pour modifier',
     'required_label' => 'Requis',
-    'input_error' => 'Cette entrée comporte une erreur.',
+    'input_error' => 'Cette entrée contient une erreur.',
     'level_required' => 'Niveau requis :',
     'name_label' => 'Nom du projet',
     'type_label' => 'Type du projet',
