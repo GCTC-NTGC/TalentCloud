@@ -16,7 +16,11 @@ import {
   ResponseReviewStatuses,
 } from "../../../models/localizedConstants";
 import { ResponseScreeningBuckets as ResponseBuckets } from "../../../models/lookupConstants";
-import { localizeFieldNonNull, getLocale } from "../../../helpers/localize";
+import {
+  localizeFieldNonNull,
+  getLocale,
+  Locales,
+} from "../../../helpers/localize";
 
 const displayMessages = defineMessages({
   viewApplication: {
@@ -123,7 +127,7 @@ const AlertWhenUnsaved = (): React.ReactElement => {
   const { dirty } = useFormikContext();
   const handleUnload = (event: BeforeUnloadEvent): void => {
     event.preventDefault();
-    event.returnValue = "Things are unsaved.";
+    event.returnValue = "Are you sure you want to leave with unsaved changes?";
   };
 
   useEffect(() => {
@@ -147,7 +151,6 @@ interface ApplicationRowProps {
 }
 
 // TODO: Sort applications by status/note content
-// Add an alert when leaving the page with "dirty" forms
 // Sort out Allocated vs Unavailable across Job Posters.
 
 const ApplicationRow: React.FC<ApplicationRowProps> = ({
@@ -381,6 +384,50 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
   );
 };
 
+const applicationSort = (locale: Locales) => {
+  return (first: Application, second: Application): number => {
+    // Unreviewed Applications should appear first
+    if (
+      first.application_review === null &&
+      second.application_review !== null
+    ) {
+      return -1;
+    }
+    if (
+      first.application_review !== null &&
+      second.application_review === null
+    ) {
+      return 1;
+    }
+    // Applications with a Department set should be grouped by Department
+    if (first.application_review && second.application_review) {
+      if (
+        first.application_review.department &&
+        second.application_review.department
+      ) {
+        const firstDepartmentName = localizeFieldNonNull(
+          locale,
+          first.application_review.department,
+          "name",
+        ).toUpperCase();
+        const secondDepartmentName = localizeFieldNonNull(
+          locale,
+          second.application_review.department,
+          "name",
+        ).toUpperCase();
+        if (firstDepartmentName > secondDepartmentName) {
+          return -1;
+        }
+        if (firstDepartmentName < secondDepartmentName) {
+          return 1;
+        }
+        return 0;
+      }
+    }
+    return 0;
+  };
+};
+
 interface ApplicantBucketProps {
   applications: Application[];
   bucket: string;
@@ -396,6 +443,9 @@ const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
   handleUpdateReview,
   portal,
 }): React.ReactElement => {
+  const intl = useIntl();
+  const locale = getLocale(intl.locale);
+
   const [isExpanded, setIsExpanded] = useState(false);
   const {
     title: bucketTitle,
@@ -484,16 +534,18 @@ const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
         <div data-c-padding="bottom(normal)">
           {isExpanded &&
             applications.length > 0 &&
-            applications.map(application => (
-              <ApplicationRow
-                key={application.id}
-                application={application}
-                departmentEditable={bucket === ResponseBuckets.Allocated}
-                departments={departments}
-                handleUpdateReview={handleUpdateReview}
-                portal={portal}
-              />
-            ))}
+            applications
+              .sort(applicationSort(locale))
+              .map(application => (
+                <ApplicationRow
+                  key={application.id}
+                  application={application}
+                  departmentEditable={bucket === ResponseBuckets.Allocated}
+                  departments={departments}
+                  handleUpdateReview={handleUpdateReview}
+                  portal={portal}
+                />
+              ))}
           {isExpanded && applications.length === 0 && (
             <div data-c-padding="bottom(normal)">
               <div
