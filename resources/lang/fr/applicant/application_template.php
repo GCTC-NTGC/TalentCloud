@@ -24,7 +24,7 @@ return [
     'sidebar_label' => 'Sur cette page :',
     'accordion_helper' => 'Cliquez pour voir...',
     'required_label' => 'Requis',
-    'input_error' => 'Cette entrée comporte une erreur.',
+    'input_error' => 'Cette entrée contient une erreur.',
     /* Tracker */
     'tracker_label' => 'Étape',
     'tracker_previous_title' => "Aller à l'étape précédente de l'application.",
