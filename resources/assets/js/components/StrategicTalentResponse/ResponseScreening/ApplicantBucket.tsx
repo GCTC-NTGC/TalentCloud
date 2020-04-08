@@ -15,7 +15,11 @@ import {
   ResponseScreeningBuckets,
   ResponseReviewStatuses,
 } from "../../../models/localizedConstants";
-import { ResponseScreeningBuckets as ResponseBuckets } from "../../../models/lookupConstants";
+import {
+  ResponseScreeningBuckets as ResponseBuckets,
+  ResponseReviewStatusId,
+  ReviewStatusId,
+} from "../../../models/lookupConstants";
 import {
   localizeFieldNonNull,
   getLocale,
@@ -90,6 +94,31 @@ const displayMessages = defineMessages({
     defaultMessage: "There are currently no applicants in this bucket.",
     description: "Fallback label for a bucket with no applicants.",
   },
+  setAllocated: {
+    id: "responseScreening.bucket.confirmSetAllocated",
+    defaultMessage:
+      "Setting this candidate to allocated will mark them as currently unavailable for all other streams. Are you sure you want to continue?",
+    description:
+      "Confirmation text when attempting to set a candidate as Allocated.",
+  },
+  setUnavailable: {
+    id: "responseScreening.bucket.confirmSetUnavailable",
+    defaultMessage:
+      "Setting this candidate to not available will mark them as currently unavailable for all other streams. Are you sure you want to continue?",
+    description:
+      "Confirmation text when attempting to set a candidate as Not Available.",
+  },
+  confirmAction: {
+    id: "responseScreening.bucket.confirmAction",
+    defaultMessage: "Please confirm this action",
+    description:
+      "Title for the confirmation dialog when making changes with side effects.",
+  },
+  yes: {
+    id: "responseScreening.bucket.yes",
+    defaultMessage: "Yes",
+    description: "Confirmation button text for dialog",
+  },
 });
 
 enum IconStatus {
@@ -142,6 +171,12 @@ const AlertWhenUnsaved = (): React.ReactElement => {
   return <></>;
 };
 
+interface FormValues {
+  reviewStatus: ReviewStatusId | ResponseReviewStatusId | null;
+  department: number | null;
+  notes: string;
+}
+
 interface ApplicationRowProps {
   application: Application;
   departmentEditable: boolean;
@@ -149,9 +184,6 @@ interface ApplicationRowProps {
   handleUpdateReview: (review: ApplicationReview) => Promise<ApplicationReview>;
   portal: Portal;
 }
-
-// TODO: Sort applications by status/note content
-// Sort out Allocated vs Unavailable across Job Posters.
 
 const ApplicationRow: React.FC<ApplicationRowProps> = ({
   application,
@@ -220,9 +252,15 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
     review_status: null,
   };
 
+  const initialValues: FormValues = {
+    reviewStatus: application.application_review?.review_status_id || null,
+    department: application.application_review?.department_id || null,
+    notes: application.application_review?.notes || "",
+  };
+
   const updateApplicationReview = (
     oldReview: ApplicationReview,
-    values,
+    values: FormValues,
   ): ApplicationReview => {
     const applicationReview: ApplicationReview = {
       ...oldReview,
@@ -264,25 +302,70 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
   return (
     <div className="applicant">
       <Formik
-        initialValues={{
-          reviewStatus:
-            application.application_review?.review_status_id || null,
-          department: application.application_review?.department_id || null,
-          notes: application.application_review?.notes || "",
-        }}
+        initialValues={initialValues}
         onSubmit={(values, { setSubmitting, resetForm }): void => {
           const review = updateApplicationReview(
             application.application_review || emptyReview,
             values,
           );
-          handleUpdateReview(review)
-            .then(() => {
-              setSubmitting(false);
-              resetForm();
-            })
-            .catch(() => {
-              setSubmitting(false);
+          const performUpdate = (): void => {
+            handleUpdateReview(review)
+              .then(() => {
+                setSubmitting(false);
+                resetForm();
+              })
+              .catch(() => {
+                setSubmitting(false);
+              });
+          };
+          // Changing an application's status to Allocated
+          if (
+            Number(values.reviewStatus) ===
+              Number(ResponseReviewStatusId.Allocated) &&
+            values.reviewStatus !== initialValues.reviewStatus
+          ) {
+            Swal.fire({
+              title: intl.formatMessage(displayMessages.confirmAction),
+              text: intl.formatMessage(displayMessages.setAllocated),
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#0A6CBC",
+              cancelButtonColor: "#F94D4D",
+              cancelButtonText: intl.formatMessage(displayMessages.cancel),
+              confirmButtonText: intl.formatMessage(displayMessages.yes),
+            }).then(result => {
+              if (result.value === undefined) {
+                setSubmitting(false);
+              } else {
+                performUpdate();
+              }
             });
+            // Changing an Application's status to Unavailable
+          } else if (
+            Number(values.reviewStatus) ===
+              Number(ResponseReviewStatusId.NotAvailable) &&
+            values.reviewStatus !== initialValues.reviewStatus
+          ) {
+            Swal.fire({
+              title: intl.formatMessage(displayMessages.confirmAction),
+              text: intl.formatMessage(displayMessages.setUnavailable),
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#0A6CBC",
+              cancelButtonColor: "#F94D4D",
+              cancelButtonText: intl.formatMessage(displayMessages.cancel),
+              confirmButtonText: intl.formatMessage(displayMessages.yes),
+            }).then(result => {
+              if (result.value === undefined) {
+                setSubmitting(false);
+              } else {
+                performUpdate();
+              }
+            });
+            // Everything else
+          } else {
+            performUpdate();
+          }
         }}
       >
         {({
