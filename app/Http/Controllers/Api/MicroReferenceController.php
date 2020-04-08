@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Mail\MicroReferenceMail;
+use App\Models\ApplicationReview;
 use App\Models\JobApplication;
 use Illuminate\Support\Facades\Mail;
 
@@ -27,6 +28,15 @@ class MicroReferenceController extends Controller
     {
         $mail = new MicroReferenceMail($application, true);
         Mail::send($mail->build());
+
+        $review = $application->application_review;
+        if ($review === null) {
+            $review = new ApplicationReview();
+            $review->job_application()->associate($application);
+        }
+        $review->director_email_sent = true;
+        $review->save();
+
         return response()->json($mail->build()->toArray());
     }
 
@@ -47,6 +57,15 @@ class MicroReferenceController extends Controller
     {
         $mail = new MicroReferenceMail($application, false);
         Mail::send($mail->build());
+
+        $review = $application->application_review;
+        if ($review === null) {
+            $review = new ApplicationReview();
+            $review->job_application()->associate($application);
+        }
+        $review->reference_email_sent = true;
+        $review->save();
+
         return response()->json($mail->build()->toArray());
     }
 }
