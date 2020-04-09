@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
-import { RootContainer } from "../RootContainer";
+import { useIntl } from "react-intl";
 import ReactDOM from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { RootContainer } from "../RootContainer";
 import { fetchJobIndex } from "../../store/Job/jobActions";
 import { getAllJobsInDept } from "../../store/Job/jobSelector";
 import { RootState } from "../../store/store";
 import { localizeField, getLocale } from "../../helpers/localize";
 import { Job } from "../../models/types";
-import { useIntl } from "react-intl";
+
 import JobIndexHrPage from "../HRPortal/JobIndexHrPage";
 
 const StrJobListing: React.FC<{ jobs: Job[] }> = ({ jobs }) => {
@@ -15,14 +16,14 @@ const StrJobListing: React.FC<{ jobs: Job[] }> = ({ jobs }) => {
   const locale = getLocale(intl.locale);
   return (
     <>
-    <h1>{`${jobs.length} jobs loaded.`}</h1>
-    <ul>
-      {jobs.map(job => (
-        <li key={job.id}>
-          <p>{localizeField(locale, job, "title")}</p>
-        </li>
-      ))}
-    </ul>
+      <h1>{`${jobs.length} jobs loaded.`}</h1>
+      <ul>
+        {jobs.map(job => (
+          <li key={job.id}>
+            <p>{localizeField(locale, job, "title")}</p>
+          </li>
+        ))}
+      </ul>
     </>
   );
 };
