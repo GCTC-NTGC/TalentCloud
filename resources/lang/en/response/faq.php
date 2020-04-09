@@ -7,6 +7,8 @@ return [
     |
     */
     'page_title' => 'GC Talent Reserve: FAQ',
+    'pilot' => 'BETA / Pilot Project',
+    'sidebar_label' => 'On this page:',
     'content' => [
         [
             'id' => 'sectionID',
