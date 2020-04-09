@@ -7,6 +7,7 @@ use App\Http\Resources\JobApplication as JobApplicationResource;
 use App\Models\ApplicationReview;
 use App\Models\JobApplication;
 use App\Models\JobPoster;
+use App\Models\Lookup\ApplicationStatus;
 use App\Models\Lookup\Department;
 use App\Models\Lookup\ReviewStatus;
 use Illuminate\Http\Request;
@@ -40,7 +41,7 @@ class ApplicationController extends Controller
         $applications = $jobPoster->submitted_applications()
             ->with([
                 'applicant.user',
-                'application_review',
+                'application_review.department',
                 'citizenship_declaration',
                 'veteran_status'
             ])
@@ -59,6 +60,9 @@ class ApplicationController extends Controller
      */
     public function updateReview(Request $request, JobApplication $application)
     {
+        $strategicResponseDepartmentId = config('app.strategic_response_department_id');
+        $availabilityStatuses = ReviewStatus::whereIn('name', ['allocated', 'not_available'])->get()->pluck('id');
+
         $request->validate([
             'review_status_id' => [
                 'nullable',
@@ -82,8 +86,44 @@ class ApplicationController extends Controller
             'notes' => $request->input('notes'),
         ]);
         $review->save();
+
+        if ($application->job_poster->department_id === $strategicResponseDepartmentId
+            && in_array($review->review_status_id, $availabilityStatuses->toArray())
+        ) {
+            $this->setAvailability($application);
+        }
+
         $review->fresh();
+        $review->loadMissing('department');
 
         return new JsonResource($review);
+    }
+
+    /**
+     * Sets the review status for any other application reviews
+     * belonging to a given Applicant. Designed to be used for the
+     * Strategic Talent Response screening, but could be repurposed.
+     *
+     * @param JobApplication $application Incoming Job Application object.
+     *
+     * @return void
+     */
+    protected function setAvailability(JobApplication $application)
+    {
+        $departmentId = $application->job_poster->department_id;
+        $submittedStatusId = ApplicationStatus::where('name', 'submitted')->value('id');
+        $unavailableStatusId = ReviewStatus::where('name', 'not_available')->value('id');
+
+        // This is kinda gross, but it seems to filter out the correct subset, and allows a single database call
+        // to perform the update. Seems better than returning a result set, looping, and pushing individual changes.
+        ApplicationReview::whereHas('job_application.job_poster', function ($query) use ($departmentId) {
+            $query->where('department_id', $departmentId);
+        })->whereHas('job_application', function ($query) use ($application, $submittedStatusId) {
+            $query->where([
+                ['id', '<>', $application->id],
+                ['application_status_id', $submittedStatusId],
+                ['applicant_id', $application->applicant->id]
+            ]);
+        })->update(['review_status_id' => $unavailableStatusId]);
     }
 }
