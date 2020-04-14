@@ -995,8 +995,8 @@ export const specificLocationOption = (locationId: string): MessageDescriptor =>
     "Invalid LocationId",
   );
 
-export const ResponseScreeningBuckets = defineMessages({
-  [ResponseBuckets.Consideration]: {
+export const ResponseScreeningBuckets = {
+  [ResponseBuckets.Consideration]: defineMessages({
     title: {
       id: "responseScreening.buckets.consideration.title",
       defaultMessage: "Employees Under Consideration",
@@ -1010,8 +1010,8 @@ export const ResponseScreeningBuckets = defineMessages({
       description:
         "Descriptive text for the 'Under Consideration' response screening bucket. Takes three icons (iconReceived, iconReady, and iconAssessment) as input.",
     },
-  },
-  [ResponseBuckets.ReadyToAllocate]: {
+  }),
+  [ResponseBuckets.ReadyToAllocate]: defineMessages({
     title: {
       id: "responseScreening.buckets.readyToAllocate.title",
       defaultMessage: "Ready to Allocate",
@@ -1025,8 +1025,8 @@ export const ResponseScreeningBuckets = defineMessages({
       description:
         "Descriptive text for the 'Ready to Allocate' response screening bucket.",
     },
-  },
-  [ResponseBuckets.Allocated]: {
+  }),
+  [ResponseBuckets.Allocated]: defineMessages({
     title: {
       id: "responseScreening.buckets.allocated.title",
       defaultMessage: "Allocated",
@@ -1039,8 +1039,8 @@ export const ResponseScreeningBuckets = defineMessages({
       description:
         "Descriptive text for the 'Allocated' response screening bucket.",
     },
-  },
-  [ResponseBuckets.Unavailable]: {
+  }),
+  [ResponseBuckets.Unavailable]: defineMessages({
     title: {
       id: "responseScreening.buckets.unavailable.title",
       defaultMessage: "Currently Unavailable",
@@ -1053,8 +1053,8 @@ export const ResponseScreeningBuckets = defineMessages({
       description:
         "Descriptive text for the 'Currently Unavailable' response screening bucket.",
     },
-  },
-  [ResponseBuckets.DoesNotQualify]: {
+  }),
+  [ResponseBuckets.DoesNotQualify]: defineMessages({
     title: {
       id: "responseScreening.buckets.doesNotQualify.title",
       defaultMessage: "Does Not Qualify",
@@ -1068,8 +1068,8 @@ export const ResponseScreeningBuckets = defineMessages({
       description:
         "Descriptive text for the 'Does Not Qualify' response screening bucket.",
     },
-  },
-});
+  }),
+};
 
 export const ResponseReviewStatusMessages = defineMessages({
   screened_out: {
