@@ -268,3 +268,16 @@ export interface JobPosterStatus {
   name: localizedFieldNonNull;
   description: localizedFieldNonNull;
 }
+
+export interface EmailAddress {
+  name: string;
+  address: string; // Email.
+}
+export interface Email {
+  from: EmailAddress[];
+  to: EmailAddress[];
+  cc: EmailAddress[];
+  bcc: EmailAddress[];
+  subject: string;
+  body: string;
+}

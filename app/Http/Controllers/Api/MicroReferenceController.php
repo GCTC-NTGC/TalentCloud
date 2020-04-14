@@ -12,6 +12,24 @@ class MicroReferenceController extends Controller
 {
 
     /**
+     * Get all reference emails created for an application.
+     *
+     * @param JobApplication $application The application the references are for.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(JobApplication $application)
+    {
+        $directorMail = new MicroReferenceMail($application, true);
+        $referenceMail = new MicroReferenceMail($application, false);
+        $mails = [
+            'director' => $directorMail->build()->toArray(),
+            'secondary' => $referenceMail->build()->toArray(),
+        ];
+        return response()->json($mails);
+    }
+
+    /**
      * Get email created to be sent to an application's Director reference.
      *
      * @param JobApplication $application The application the reference is for.

@@ -12,6 +12,9 @@ import {
   parseApplicationsForJob,
   getApplicationReviewEndpoint,
   parseApplicationReview,
+  ReferenceEmailResponse,
+  getReferenceEmailsEndpoint,
+  parseReferenceEmails,
 } from "../../api/application";
 
 export const FETCH_APPLICATION_STARTED = "APPLICATION: GET STARTED";
@@ -114,7 +117,41 @@ export const updateApplicationReview = (
     },
   );
 
+export const FETCH_REFERENCE_EMAILS_STARTED =
+  "APPLICATION: GET REFERENCE EMAILS STARTED";
+export const FETCH_REFERENCE_EMAILS_SUCCEEDED =
+  "APPLICATION: GET REFERENCE EMAILS SUCCEEDED";
+export const FETCH_REFERENCE_EMAILS_FAILED =
+  "APPLICATION: GET REFERENCE EMAILS FAILED";
+
+export type FetchReferenceEmailsAction = AsyncFsaActions<
+  typeof FETCH_REFERENCE_EMAILS_STARTED,
+  typeof FETCH_REFERENCE_EMAILS_SUCCEEDED,
+  typeof FETCH_REFERENCE_EMAILS_FAILED,
+  ReferenceEmailResponse,
+  { applicationId: number }
+>;
+
+export const fetchReferenceEmails = (
+  applicationId: number,
+): RSAActionTemplate<
+  typeof FETCH_REFERENCE_EMAILS_STARTED,
+  typeof FETCH_REFERENCE_EMAILS_SUCCEEDED,
+  typeof FETCH_REFERENCE_EMAILS_FAILED,
+  ReferenceEmailResponse,
+  { applicationId: number }
+> =>
+  asyncGet(
+    getReferenceEmailsEndpoint(applicationId),
+    FETCH_REFERENCE_EMAILS_STARTED,
+    FETCH_REFERENCE_EMAILS_SUCCEEDED,
+    FETCH_REFERENCE_EMAILS_FAILED,
+    parseReferenceEmails,
+    { applicationId },
+  );
+
 export type ApplicationAction =
   | FetchApplicationAction
   | FetchApplicationsForJobAction
-  | UpdateApplicationReview;
+  | UpdateApplicationReview
+  | FetchReferenceEmailsAction;

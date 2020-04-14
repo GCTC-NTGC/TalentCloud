@@ -1,4 +1,9 @@
-import { ApplicationNormalized, ApplicationReview } from "../../models/types";
+import { combineReducers } from "redux";
+import {
+  ApplicationNormalized,
+  ApplicationReview,
+  Email,
+} from "../../models/types";
 import {
   ApplicationAction,
   FETCH_APPLICATION_SUCCEEDED,
@@ -10,8 +15,8 @@ import {
   UPDATE_APPLICATION_REVIEW_SUCCEEDED,
   UPDATE_APPLICATION_REVIEW_STARTED,
   UPDATE_APPLICATION_REVIEW_FAILED,
+  FETCH_REFERENCE_EMAILS_SUCCEEDED,
 } from "./applicationActions";
-import { combineReducers } from "redux";
 import {
   mapToObject,
   getId,
@@ -30,6 +35,18 @@ export interface EntityState {
     };
     idByApplicationId: {
       [applicationId: number]: number;
+    };
+  };
+  microReferenceEmails: {
+    director: {
+      byApplicationId: {
+        [applicationId: number]: Email;
+      };
+    };
+    secondary: {
+      byApplicationId: {
+        [applicationId: number]: Email;
+      };
     };
   };
 }
@@ -51,6 +68,14 @@ export const initEntities = (): EntityState => ({
   applicationReviews: {
     byId: {},
     idByApplicationId: {},
+  },
+  microReferenceEmails: {
+    director: {
+      byApplicationId: {},
+    },
+    secondary: {
+      byApplicationId: {},
+    },
   },
 });
 
@@ -139,6 +164,20 @@ export const entitiesReducer = (
           idByApplicationId: {
             ...state.applicationReviews.idByApplicationId,
             [action.payload.job_application_id]: action.payload.id,
+          },
+        },
+      };
+    case FETCH_REFERENCE_EMAILS_SUCCEEDED:
+      return {
+        ...state,
+        microReferenceEmails: {
+          director: {
+            ...state.microReferenceEmails.director,
+            [action.meta.applicationId]: action.payload.director,
+          },
+          secondary: {
+            ...state.microReferenceEmails.secondary,
+            [action.meta.applicationId]: action.payload.secondary,
           },
         },
       };
