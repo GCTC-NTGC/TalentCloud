@@ -1,6 +1,6 @@
 <nav aria-label="breadcrumb" data-c-breadcrumbs data-c-colour="white">
 	<ol>
-		{% for key, url in breadcrumbs %}
+		{% for key, url in custom_breadcrumbs ?: breadcrumbs %}
 			{% if loop.first %}
 				<li>
 					<a href="{{ url(url) }}">{{ breadcrumbs_lang.home }}</a>
