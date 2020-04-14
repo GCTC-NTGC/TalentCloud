@@ -328,7 +328,7 @@ Route::group(
                         Route::get('profile', 'ManagerProfileController@editAuthenticated')->name('manager.profile');
 
                         /* Profile */
-                        Route::get('profile/{manager}/edit', 'ManagerProfileController@edit')
+                        Route::get('profile/{manager}', 'ManagerProfileController@edit')
                             ->middleware('can:view,manager')
                             ->middleware('can:update,manager')
                             ->name('manager.profile.edit');
@@ -358,14 +358,14 @@ Route::group(
                         Route::get('jobs', 'JobController@managerIndex')->name('manager.jobs.index');
 
                         /* View Job Poster */
-                        Route::get('jobs/{jobPoster}', 'JobController@show')
+                        Route::get('jobs/{jobPoster}/preview', 'JobController@show')
                             ->where('jobPoster', '[0-9]+')
                             ->middleware('can:view,jobPoster')
-                            ->name('manager.jobs.show');
+                            ->name('manager.jobs.preview');
 
                         /* View Job Summary */
-                        Route::get('jobs/{job}/summary', 'JobSummaryController@show')
-                            ->middleware('can:manage,job')
+                        Route::get('jobs/{jobPoster}', 'JobSummaryController@show')
+                            ->middleware('can:manage,jobPoster')
                             ->name('manager.jobs.summary')
                             ->where('jobPoster', '[0-9]+');
 
@@ -376,57 +376,48 @@ Route::group(
                         )->name('manager.jobs.create');
 
                         Route::get(
-                            'jobs/{jobId}/builder',
+                            'jobs/{jobPoster}/builder',
                             'JobBuilderController@show'
                         )
                             ->where('jobPoster', '[0-9]+')
                             ->name('manager.jobs.edit');
 
                         Route::get(
-                            'jobs/{jobId}/builder/intro',
+                            'jobs/{jobPoster}/builder/intro',
                             'JobBuilderController@show'
                         )->where('jobPoster', '[0-9]+');
 
                         Route::get(
-                            'jobs/{jobId}/builder/details',
+                            'jobs/{jobPoster}/builder/details',
                             'JobBuilderController@show'
                         )->where('jobPoster', '[0-9]+');
 
                         Route::get(
-                            'jobs/{jobId}/builder/environment',
+                            'jobs/{jobPoster}/builder/environment',
                             'JobBuilderController@show'
                         )->where('jobPoster', '[0-9]+');
 
                         Route::get(
-                            'jobs/{jobId}/builder/impact',
+                            'jobs/{jobPoster}/builder/impact',
                             'JobBuilderController@show'
                         )->where('jobPoster', '[0-9]+');
 
                         Route::get(
-                            'jobs/{jobId}/builder/tasks',
+                            'jobs/{jobPoster}/builder/tasks',
                             'JobBuilderController@show'
                         )->where('jobPoster', '[0-9]+');
 
                         Route::get(
-                            'jobs/{jobId}/builder/skills',
+                            'jobs/{jobPoster}/builder/skills',
                             'JobBuilderController@show'
                         )->where('jobPoster', '[0-9]+');
 
                         Route::get(
-                            'jobs/{jobId}/builder/review',
+                            'jobs/{jobPoster}/builder/review',
                             'JobBuilderController@show'
                         )
                             ->where('jobPoster', '[0-9]+')
                             ->name('manager.jobs.review');
-
-                        /* Job Preview */
-                        Route::get(
-                            'jobs/{job}',
-                            'JobController@show'
-                        )
-                            ->middleware('can:view,job')
-                            ->where('jobPoster', '[0-9]+')
-                            ->name('manager.jobs.preview');
 
                         /* Delete Job */
                         Route::delete('jobs/{jobPoster}', 'JobController@destroy')
@@ -638,8 +629,8 @@ Route::group(
                             ->middleware('can:view,applicant')
                             ->name('hr_advisor.applicants.show');
 
-                        Route::get('jobs/{job}/summary', 'JobSummaryController@show')
-                            ->middleware('can:manage,job')
+                        Route::get('jobs/{jobPoster}', 'JobSummaryController@show')
+                            ->middleware('can:manage,jobPoster')
                             ->name('hr_advisor.jobs.summary')
                             ->where('jobPoster', '[0-9]+');
 
@@ -657,15 +648,15 @@ Route::group(
                             ->name('hr_advisor.jobs.screening_plan');
 
                         Route::get(
-                            'jobs/{job}/review',
+                            'jobs/{jobPoster}/review',
                             'JobBuilderController@hrReview'
                         )
-                            ->middleware('can:manage,job')
+                            ->middleware('can:manage,jobPoster')
                             ->where('job', '[0-9]+')
                             ->name('hr_advisor.jobs.review');
 
                         Route::get(
-                            'jobs/{jobPoster}',
+                            'jobs/{jobPoster}/preview',
                             'JobController@show'
                         )
                             ->middleware('can:view,jobPoster')

@@ -113,7 +113,7 @@ class MenuComposer
                     $menu['items']['home']['active'] = true;
                     break;
                 case 'manager.jobs.index':
-                case 'manager.jobs.show':
+                case 'manager.jobs.preview':
                 case 'manager.jobs.applications':
                 case 'manager.applications.show':
                 case 'manager.applicants.show':
