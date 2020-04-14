@@ -36,8 +36,12 @@ export function managerJobIndex(locale: string): string {
   return `/${locale}/manager/jobs`;
 }
 
-export function managerJobShow(locale: string, jobId: number): string {
+export function managerJobSummary(locale: string, jobId: number): string {
   return `/${locale}/manager/jobs/${jobId}`;
+}
+
+export function managerJobPreview(locale: string, jobId: number): string {
+  return `/${locale}/manager/jobs/${jobId}/preview`;
 }
 
 export function managerJobApplications(locale: string, jobId: number): string {
