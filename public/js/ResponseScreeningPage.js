@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 16);
+/******/ 	return __webpack_require__(__webpack_require__.s = 18);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -220,26 +220,6 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 }
 
 module.exports = _objectWithoutPropertiesLoose;
-
-/***/ }),
-
-/***/ "./node_modules/@babel/runtime/helpers/taggedTemplateLiteralLoose.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/taggedTemplateLiteralLoose.js ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _taggedTemplateLiteralLoose(strings, raw) {
-  if (!raw) {
-    raw = strings.slice(0);
-  }
-
-  strings.raw = raw;
-  return strings;
-}
-
-module.exports = _taggedTemplateLiteralLoose;
 
 /***/ }),
 
@@ -3331,30 +3311,6 @@ if (!IS_PURE && typeof NativePromise == 'function' && !NativePromise.prototype['
 /***/ (function(module, exports, __webpack_require__) {
 
 !function(t,n){ true?module.exports=n():undefined}(this,function(){"use strict";var t="millisecond",n="second",e="minute",r="hour",i="day",s="week",u="month",o="quarter",a="year",h=/^(\d{4})-?(\d{1,2})-?(\d{0,2})[^0-9]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?.?(\d{1,3})?$/,f=/\[([^\]]+)]|Y{2,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g,c=function(t,n,e){var r=String(t);return!r||r.length>=n?t:""+Array(n+1-r.length).join(e)+t},d={s:c,z:function(t){var n=-t.utcOffset(),e=Math.abs(n),r=Math.floor(e/60),i=e%60;return(n<=0?"+":"-")+c(r,2,"0")+":"+c(i,2,"0")},m:function(t,n){var e=12*(n.year()-t.year())+(n.month()-t.month()),r=t.clone().add(e,u),i=n-r<0,s=t.clone().add(e+(i?-1:1),u);return Number(-(e+(n-r)/(i?r-s:s-r))||0)},a:function(t){return t<0?Math.ceil(t)||0:Math.floor(t)},p:function(h){return{M:u,y:a,w:s,d:i,D:"date",h:r,m:e,s:n,ms:t,Q:o}[h]||String(h||"").toLowerCase().replace(/s$/,"")},u:function(t){return void 0===t}},$={name:"en",weekdays:"Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),months:"January_February_March_April_May_June_July_August_September_October_November_December".split("_")},l="en",m={};m[l]=$;var y=function(t){return t instanceof v},M=function(t,n,e){var r;if(!t)return l;if("string"==typeof t)m[t]&&(r=t),n&&(m[t]=n,r=t);else{var i=t.name;m[i]=t,r=i}return!e&&r&&(l=r),r||!e&&l},g=function(t,n,e){if(y(t))return t.clone();var r=n?"string"==typeof n?{format:n,pl:e}:n:{};return r.date=t,new v(r)},D=d;D.l=M,D.i=y,D.w=function(t,n){return g(t,{locale:n.$L,utc:n.$u,$offset:n.$offset})};var v=function(){function c(t){this.$L=this.$L||M(t.locale,null,!0),this.parse(t)}var d=c.prototype;return d.parse=function(t){this.$d=function(t){var n=t.date,e=t.utc;if(null===n)return new Date(NaN);if(D.u(n))return new Date;if(n instanceof Date)return new Date(n);if("string"==typeof n&&!/Z$/i.test(n)){var r=n.match(h);if(r)return e?new Date(Date.UTC(r[1],r[2]-1,r[3]||1,r[4]||0,r[5]||0,r[6]||0,r[7]||0)):new Date(r[1],r[2]-1,r[3]||1,r[4]||0,r[5]||0,r[6]||0,r[7]||0)}return new Date(n)}(t),this.init()},d.init=function(){var t=this.$d;this.$y=t.getFullYear(),this.$M=t.getMonth(),this.$D=t.getDate(),this.$W=t.getDay(),this.$H=t.getHours(),this.$m=t.getMinutes(),this.$s=t.getSeconds(),this.$ms=t.getMilliseconds()},d.$utils=function(){return D},d.isValid=function(){return!("Invalid Date"===this.$d.toString())},d.isSame=function(t,n){var e=g(t);return this.startOf(n)<=e&&e<=this.endOf(n)},d.isAfter=function(t,n){return g(t)<this.startOf(n)},d.isBefore=function(t,n){return this.endOf(n)<g(t)},d.$g=function(t,n,e){return D.u(t)?this[n]:this.set(e,t)},d.year=function(t){return this.$g(t,"$y",a)},d.month=function(t){return this.$g(t,"$M",u)},d.day=function(t){return this.$g(t,"$W",i)},d.date=function(t){return this.$g(t,"$D","date")},d.hour=function(t){return this.$g(t,"$H",r)},d.minute=function(t){return this.$g(t,"$m",e)},d.second=function(t){return this.$g(t,"$s",n)},d.millisecond=function(n){return this.$g(n,"$ms",t)},d.unix=function(){return Math.floor(this.valueOf()/1e3)},d.valueOf=function(){return this.$d.getTime()},d.startOf=function(t,o){var h=this,f=!!D.u(o)||o,c=D.p(t),d=function(t,n){var e=D.w(h.$u?Date.UTC(h.$y,n,t):new Date(h.$y,n,t),h);return f?e:e.endOf(i)},$=function(t,n){return D.w(h.toDate()[t].apply(h.toDate(),(f?[0,0,0,0]:[23,59,59,999]).slice(n)),h)},l=this.$W,m=this.$M,y=this.$D,M="set"+(this.$u?"UTC":"");switch(c){case a:return f?d(1,0):d(31,11);case u:return f?d(1,m):d(0,m+1);case s:var g=this.$locale().weekStart||0,v=(l<g?l+7:l)-g;return d(f?y-v:y+(6-v),m);case i:case"date":return $(M+"Hours",0);case r:return $(M+"Minutes",1);case e:return $(M+"Seconds",2);case n:return $(M+"Milliseconds",3);default:return this.clone()}},d.endOf=function(t){return this.startOf(t,!1)},d.$set=function(s,o){var h,f=D.p(s),c="set"+(this.$u?"UTC":""),d=(h={},h[i]=c+"Date",h.date=c+"Date",h[u]=c+"Month",h[a]=c+"FullYear",h[r]=c+"Hours",h[e]=c+"Minutes",h[n]=c+"Seconds",h[t]=c+"Milliseconds",h)[f],$=f===i?this.$D+(o-this.$W):o;if(f===u||f===a){var l=this.clone().set("date",1);l.$d[d]($),l.init(),this.$d=l.set("date",Math.min(this.$D,l.daysInMonth())).toDate()}else d&&this.$d[d]($);return this.init(),this},d.set=function(t,n){return this.clone().$set(t,n)},d.get=function(t){return this[D.p(t)]()},d.add=function(t,o){var h,f=this;t=Number(t);var c=D.p(o),d=function(n){var e=g(f);return D.w(e.date(e.date()+Math.round(n*t)),f)};if(c===u)return this.set(u,this.$M+t);if(c===a)return this.set(a,this.$y+t);if(c===i)return d(1);if(c===s)return d(7);var $=(h={},h[e]=6e4,h[r]=36e5,h[n]=1e3,h)[c]||1,l=this.$d.getTime()+t*$;return D.w(l,this)},d.subtract=function(t,n){return this.add(-1*t,n)},d.format=function(t){var n=this;if(!this.isValid())return"Invalid Date";var e=t||"YYYY-MM-DDTHH:mm:ssZ",r=D.z(this),i=this.$locale(),s=this.$H,u=this.$m,o=this.$M,a=i.weekdays,h=i.months,c=function(t,r,i,s){return t&&(t[r]||t(n,e))||i[r].substr(0,s)},d=function(t){return D.s(s%12||12,t,"0")},$=i.meridiem||function(t,n,e){var r=t<12?"AM":"PM";return e?r.toLowerCase():r},l={YY:String(this.$y).slice(-2),YYYY:this.$y,M:o+1,MM:D.s(o+1,2,"0"),MMM:c(i.monthsShort,o,h,3),MMMM:h[o]||h(this,e),D:this.$D,DD:D.s(this.$D,2,"0"),d:String(this.$W),dd:c(i.weekdaysMin,this.$W,a,2),ddd:c(i.weekdaysShort,this.$W,a,3),dddd:a[this.$W],H:String(s),HH:D.s(s,2,"0"),h:d(1),hh:d(2),a:$(s,u,!0),A:$(s,u,!1),m:String(u),mm:D.s(u,2,"0"),s:String(this.$s),ss:D.s(this.$s,2,"0"),SSS:D.s(this.$ms,3,"0"),Z:r};return e.replace(f,function(t,n){return n||l[t]||r.replace(":","")})},d.utcOffset=function(){return 15*-Math.round(this.$d.getTimezoneOffset()/15)},d.diff=function(t,h,f){var c,d=D.p(h),$=g(t),l=6e4*($.utcOffset()-this.utcOffset()),m=this-$,y=D.m(this,$);return y=(c={},c[a]=y/12,c[u]=y,c[o]=y/3,c[s]=(m-l)/6048e5,c[i]=(m-l)/864e5,c[r]=m/36e5,c[e]=m/6e4,c[n]=m/1e3,c)[d]||m,f?y:D.a(y)},d.daysInMonth=function(){return this.endOf(u).$D},d.$locale=function(){return m[this.$L]},d.locale=function(t,n){if(!t)return this.$L;var e=this.clone(),r=M(t,n,!0);return r&&(e.$L=r),e},d.clone=function(){return D.w(this.$d,this)},d.toDate=function(){return new Date(this.valueOf())},d.toJSON=function(){return this.isValid()?this.toISOString():null},d.toISOString=function(){return this.$d.toISOString()},d.toString=function(){return this.$d.toUTCString()},c}();return g.prototype=v.prototype,g.extend=function(t,n){return t(n,v,g),g},g.locale=M,g.isDayjs=y,g.unix=function(t){return g(1e3*t)},g.en=m[l],g.Ls=m,g});
-
-
-/***/ }),
-
-/***/ "./node_modules/dayjs/locale/fr.js":
-/*!*****************************************!*\
-  !*** ./node_modules/dayjs/locale/fr.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-!function(e,_){ true?module.exports=_(__webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js")):undefined}(this,function(e){"use strict";e=e&&e.hasOwnProperty("default")?e.default:e;var _={name:"fr",weekdays:"dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi".split("_"),weekdaysShort:"dim._lun._mar._mer._jeu._ven._sam.".split("_"),weekdaysMin:"di_lu_ma_me_je_ve_sa".split("_"),months:"janvier_février_mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre".split("_"),monthsShort:"janv._févr._mars_avr._mai_juin_juil._août_sept._oct._nov._déc.".split("_"),weekStart:1,formats:{LT:"HH:mm",LTS:"HH:mm:ss",L:"DD/MM/YYYY",LL:"D MMMM YYYY",LLL:"D MMMM YYYY HH:mm",LLLL:"dddd D MMMM YYYY HH:mm"},relativeTime:{future:"dans %s",past:"il y a %s",s:"quelques secondes",m:"une minute",mm:"%d minutes",h:"une heure",hh:"%d heures",d:"un jour",dd:"%d jours",M:"un mois",MM:"%d mois",y:"un an",yy:"%d ans"},ordinal:function(e){return""+e+(1===e?"er":"")}};return e.locale(_,null,!0),_});
-
-
-/***/ }),
-
-/***/ "./node_modules/dayjs/plugin/localizedFormat.js":
-/*!******************************************************!*\
-  !*** ./node_modules/dayjs/plugin/localizedFormat.js ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-!function(e,t){ true?module.exports=t():undefined}(this,function(){"use strict";return function(e,t,o){var n=t.prototype,r=n.format,M={LTS:"h:mm:ss A",LT:"h:mm A",L:"MM/DD/YYYY",LL:"MMMM D, YYYY",LLL:"MMMM D, YYYY h:mm A",LLLL:"dddd, MMMM D, YYYY h:mm A"};o.en.formats=M;n.format=function(e){void 0===e&&(e="YYYY-MM-DDTHH:mm:ssZ");var t=this.$locale().formats,o=void 0===t?{}:t,n=e.replace(/(\[[^\]]+])|(LTS?|l{1,4}|L{1,4})/g,function(e,t,n){var r=n&&n.toUpperCase();return t||o[n]||M[n]||o[r].replace(/(\[[^\]]+])|(MMMM|MM|DD|dddd)/g,function(e,t,o){return t||o.slice(1)})});return r.call(this,n)}}});
 
 
 /***/ }),
@@ -10390,43 +10346,6 @@ module.exports = arrayPush;
 
 /***/ }),
 
-/***/ "./node_modules/lodash/_arrayReduce.js":
-/*!*********************************************!*\
-  !*** ./node_modules/lodash/_arrayReduce.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * A specialized version of `_.reduce` for arrays without support for
- * iteratee shorthands.
- *
- * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @param {*} [accumulator] The initial value.
- * @param {boolean} [initAccum] Specify using the first element of `array` as
- *  the initial value.
- * @returns {*} Returns the accumulated value.
- */
-function arrayReduce(array, iteratee, accumulator, initAccum) {
-  var index = -1,
-      length = array == null ? 0 : array.length;
-
-  if (initAccum && length) {
-    accumulator = array[++index];
-  }
-  while (++index < length) {
-    accumulator = iteratee(accumulator, array[index], index, array);
-  }
-  return accumulator;
-}
-
-module.exports = arrayReduce;
-
-
-/***/ }),
-
 /***/ "./node_modules/lodash/_arraySome.js":
 /*!*******************************************!*\
   !*** ./node_modules/lodash/_arraySome.js ***!
@@ -10457,55 +10376,6 @@ function arraySome(array, predicate) {
 }
 
 module.exports = arraySome;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_asciiToArray.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/_asciiToArray.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Converts an ASCII `string` to an array.
- *
- * @private
- * @param {string} string The string to convert.
- * @returns {Array} Returns the converted array.
- */
-function asciiToArray(string) {
-  return string.split('');
-}
-
-module.exports = asciiToArray;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_asciiWords.js":
-/*!********************************************!*\
-  !*** ./node_modules/lodash/_asciiWords.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/** Used to match words composed of alphanumeric characters. */
-var reAsciiWord = /[^\x00-\x2f\x3a-\x40\x5b-\x60\x7b-\x7f]+/g;
-
-/**
- * Splits an ASCII `string` into an array of its words.
- *
- * @private
- * @param {string} The string to inspect.
- * @returns {Array} Returns the words of `string`.
- */
-function asciiWords(string) {
-  return string.match(reAsciiWord) || [];
-}
-
-module.exports = asciiWords;
 
 
 /***/ }),
@@ -10925,95 +10795,6 @@ module.exports = baseFindIndex;
 
 /***/ }),
 
-/***/ "./node_modules/lodash/_baseFor.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/_baseFor.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var createBaseFor = __webpack_require__(/*! ./_createBaseFor */ "./node_modules/lodash/_createBaseFor.js");
-
-/**
- * The base implementation of `baseForOwn` which iterates over `object`
- * properties returned by `keysFunc` and invokes `iteratee` for each property.
- * Iteratee functions may exit iteration early by explicitly returning `false`.
- *
- * @private
- * @param {Object} object The object to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @param {Function} keysFunc The function to get the keys of `object`.
- * @returns {Object} Returns `object`.
- */
-var baseFor = createBaseFor();
-
-module.exports = baseFor;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseForOwn.js":
-/*!********************************************!*\
-  !*** ./node_modules/lodash/_baseForOwn.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseFor = __webpack_require__(/*! ./_baseFor */ "./node_modules/lodash/_baseFor.js"),
-    keys = __webpack_require__(/*! ./keys */ "./node_modules/lodash/keys.js");
-
-/**
- * The base implementation of `_.forOwn` without support for iteratee shorthands.
- *
- * @private
- * @param {Object} object The object to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Object} Returns `object`.
- */
-function baseForOwn(object, iteratee) {
-  return object && baseFor(object, iteratee, keys);
-}
-
-module.exports = baseForOwn;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseGet.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/_baseGet.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var castPath = __webpack_require__(/*! ./_castPath */ "./node_modules/lodash/_castPath.js"),
-    toKey = __webpack_require__(/*! ./_toKey */ "./node_modules/lodash/_toKey.js");
-
-/**
- * The base implementation of `_.get` without support for default values.
- *
- * @private
- * @param {Object} object The object to query.
- * @param {Array|string} path The path of the property to get.
- * @returns {*} Returns the resolved value.
- */
-function baseGet(object, path) {
-  path = castPath(path, object);
-
-  var index = 0,
-      length = path.length;
-
-  while (object != null && index < length) {
-    object = object[toKey(path[index++])];
-  }
-  return (index && index == length) ? object : undefined;
-}
-
-module.exports = baseGet;
-
-
-/***/ }),
-
 /***/ "./node_modules/lodash/_baseGetAllKeys.js":
 /*!************************************************!*\
   !*** ./node_modules/lodash/_baseGetAllKeys.js ***!
@@ -11080,60 +10861,6 @@ function baseGetTag(value) {
 }
 
 module.exports = baseGetTag;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseHas.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/_baseHas.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * The base implementation of `_.has` without support for deep paths.
- *
- * @private
- * @param {Object} [object] The object to query.
- * @param {Array|string} key The key to check.
- * @returns {boolean} Returns `true` if `key` exists, else `false`.
- */
-function baseHas(object, key) {
-  return object != null && hasOwnProperty.call(object, key);
-}
-
-module.exports = baseHas;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseHasIn.js":
-/*!*******************************************!*\
-  !*** ./node_modules/lodash/_baseHasIn.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * The base implementation of `_.hasIn` without support for deep paths.
- *
- * @private
- * @param {Object} [object] The object to query.
- * @param {Array|string} key The key to check.
- * @returns {boolean} Returns `true` if `key` exists, else `false`.
- */
-function baseHasIn(object, key) {
-  return object != null && key in Object(object);
-}
-
-module.exports = baseHasIn;
 
 
 /***/ }),
@@ -11360,79 +11087,6 @@ module.exports = baseIsMap;
 
 /***/ }),
 
-/***/ "./node_modules/lodash/_baseIsMatch.js":
-/*!*********************************************!*\
-  !*** ./node_modules/lodash/_baseIsMatch.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Stack = __webpack_require__(/*! ./_Stack */ "./node_modules/lodash/_Stack.js"),
-    baseIsEqual = __webpack_require__(/*! ./_baseIsEqual */ "./node_modules/lodash/_baseIsEqual.js");
-
-/** Used to compose bitmasks for value comparisons. */
-var COMPARE_PARTIAL_FLAG = 1,
-    COMPARE_UNORDERED_FLAG = 2;
-
-/**
- * The base implementation of `_.isMatch` without support for iteratee shorthands.
- *
- * @private
- * @param {Object} object The object to inspect.
- * @param {Object} source The object of property values to match.
- * @param {Array} matchData The property names, values, and compare flags to match.
- * @param {Function} [customizer] The function to customize comparisons.
- * @returns {boolean} Returns `true` if `object` is a match, else `false`.
- */
-function baseIsMatch(object, source, matchData, customizer) {
-  var index = matchData.length,
-      length = index,
-      noCustomizer = !customizer;
-
-  if (object == null) {
-    return !length;
-  }
-  object = Object(object);
-  while (index--) {
-    var data = matchData[index];
-    if ((noCustomizer && data[2])
-          ? data[1] !== object[data[0]]
-          : !(data[0] in object)
-        ) {
-      return false;
-    }
-  }
-  while (++index < length) {
-    data = matchData[index];
-    var key = data[0],
-        objValue = object[key],
-        srcValue = data[1];
-
-    if (noCustomizer && data[2]) {
-      if (objValue === undefined && !(key in object)) {
-        return false;
-      }
-    } else {
-      var stack = new Stack;
-      if (customizer) {
-        var result = customizer(objValue, srcValue, key, object, source, stack);
-      }
-      if (!(result === undefined
-            ? baseIsEqual(srcValue, objValue, COMPARE_PARTIAL_FLAG | COMPARE_UNORDERED_FLAG, customizer, stack)
-            : result
-          )) {
-        return false;
-      }
-    }
-  }
-  return true;
-}
-
-module.exports = baseIsMatch;
-
-
-/***/ }),
-
 /***/ "./node_modules/lodash/_baseIsNaN.js":
 /*!*******************************************!*\
   !*** ./node_modules/lodash/_baseIsNaN.js ***!
@@ -11614,48 +11268,6 @@ module.exports = baseIsTypedArray;
 
 /***/ }),
 
-/***/ "./node_modules/lodash/_baseIteratee.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/_baseIteratee.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseMatches = __webpack_require__(/*! ./_baseMatches */ "./node_modules/lodash/_baseMatches.js"),
-    baseMatchesProperty = __webpack_require__(/*! ./_baseMatchesProperty */ "./node_modules/lodash/_baseMatchesProperty.js"),
-    identity = __webpack_require__(/*! ./identity */ "./node_modules/lodash/identity.js"),
-    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
-    property = __webpack_require__(/*! ./property */ "./node_modules/lodash/property.js");
-
-/**
- * The base implementation of `_.iteratee`.
- *
- * @private
- * @param {*} [value=_.identity] The value to convert to an iteratee.
- * @returns {Function} Returns the iteratee.
- */
-function baseIteratee(value) {
-  // Don't store the `typeof` result in a variable to avoid a JIT bug in Safari 9.
-  // See https://bugs.webkit.org/show_bug.cgi?id=156034 for more details.
-  if (typeof value == 'function') {
-    return value;
-  }
-  if (value == null) {
-    return identity;
-  }
-  if (typeof value == 'object') {
-    return isArray(value)
-      ? baseMatchesProperty(value[0], value[1])
-      : baseMatches(value);
-  }
-  return property(value);
-}
-
-module.exports = baseIteratee;
-
-
-/***/ }),
-
 /***/ "./node_modules/lodash/_baseKeys.js":
 /*!******************************************!*\
   !*** ./node_modules/lodash/_baseKeys.js ***!
@@ -11737,202 +11349,6 @@ function baseKeysIn(object) {
 }
 
 module.exports = baseKeysIn;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseMatches.js":
-/*!*********************************************!*\
-  !*** ./node_modules/lodash/_baseMatches.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseIsMatch = __webpack_require__(/*! ./_baseIsMatch */ "./node_modules/lodash/_baseIsMatch.js"),
-    getMatchData = __webpack_require__(/*! ./_getMatchData */ "./node_modules/lodash/_getMatchData.js"),
-    matchesStrictComparable = __webpack_require__(/*! ./_matchesStrictComparable */ "./node_modules/lodash/_matchesStrictComparable.js");
-
-/**
- * The base implementation of `_.matches` which doesn't clone `source`.
- *
- * @private
- * @param {Object} source The object of property values to match.
- * @returns {Function} Returns the new spec function.
- */
-function baseMatches(source) {
-  var matchData = getMatchData(source);
-  if (matchData.length == 1 && matchData[0][2]) {
-    return matchesStrictComparable(matchData[0][0], matchData[0][1]);
-  }
-  return function(object) {
-    return object === source || baseIsMatch(object, source, matchData);
-  };
-}
-
-module.exports = baseMatches;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseMatchesProperty.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/lodash/_baseMatchesProperty.js ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseIsEqual = __webpack_require__(/*! ./_baseIsEqual */ "./node_modules/lodash/_baseIsEqual.js"),
-    get = __webpack_require__(/*! ./get */ "./node_modules/lodash/get.js"),
-    hasIn = __webpack_require__(/*! ./hasIn */ "./node_modules/lodash/hasIn.js"),
-    isKey = __webpack_require__(/*! ./_isKey */ "./node_modules/lodash/_isKey.js"),
-    isStrictComparable = __webpack_require__(/*! ./_isStrictComparable */ "./node_modules/lodash/_isStrictComparable.js"),
-    matchesStrictComparable = __webpack_require__(/*! ./_matchesStrictComparable */ "./node_modules/lodash/_matchesStrictComparable.js"),
-    toKey = __webpack_require__(/*! ./_toKey */ "./node_modules/lodash/_toKey.js");
-
-/** Used to compose bitmasks for value comparisons. */
-var COMPARE_PARTIAL_FLAG = 1,
-    COMPARE_UNORDERED_FLAG = 2;
-
-/**
- * The base implementation of `_.matchesProperty` which doesn't clone `srcValue`.
- *
- * @private
- * @param {string} path The path of the property to get.
- * @param {*} srcValue The value to match.
- * @returns {Function} Returns the new spec function.
- */
-function baseMatchesProperty(path, srcValue) {
-  if (isKey(path) && isStrictComparable(srcValue)) {
-    return matchesStrictComparable(toKey(path), srcValue);
-  }
-  return function(object) {
-    var objValue = get(object, path);
-    return (objValue === undefined && objValue === srcValue)
-      ? hasIn(object, path)
-      : baseIsEqual(srcValue, objValue, COMPARE_PARTIAL_FLAG | COMPARE_UNORDERED_FLAG);
-  };
-}
-
-module.exports = baseMatchesProperty;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseProperty.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/_baseProperty.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * The base implementation of `_.property` without support for deep paths.
- *
- * @private
- * @param {string} key The key of the property to get.
- * @returns {Function} Returns the new accessor function.
- */
-function baseProperty(key) {
-  return function(object) {
-    return object == null ? undefined : object[key];
-  };
-}
-
-module.exports = baseProperty;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_basePropertyDeep.js":
-/*!**************************************************!*\
-  !*** ./node_modules/lodash/_basePropertyDeep.js ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseGet = __webpack_require__(/*! ./_baseGet */ "./node_modules/lodash/_baseGet.js");
-
-/**
- * A specialized version of `baseProperty` which supports deep paths.
- *
- * @private
- * @param {Array|string} path The path of the property to get.
- * @returns {Function} Returns the new accessor function.
- */
-function basePropertyDeep(path) {
-  return function(object) {
-    return baseGet(object, path);
-  };
-}
-
-module.exports = basePropertyDeep;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_basePropertyOf.js":
-/*!************************************************!*\
-  !*** ./node_modules/lodash/_basePropertyOf.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * The base implementation of `_.propertyOf` without support for deep paths.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Function} Returns the new accessor function.
- */
-function basePropertyOf(object) {
-  return function(key) {
-    return object == null ? undefined : object[key];
-  };
-}
-
-module.exports = basePropertyOf;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseSlice.js":
-/*!*******************************************!*\
-  !*** ./node_modules/lodash/_baseSlice.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * The base implementation of `_.slice` without an iteratee call guard.
- *
- * @private
- * @param {Array} array The array to slice.
- * @param {number} [start=0] The start position.
- * @param {number} [end=array.length] The end position.
- * @returns {Array} Returns the slice of `array`.
- */
-function baseSlice(array, start, end) {
-  var index = -1,
-      length = array.length;
-
-  if (start < 0) {
-    start = -start > length ? 0 : (length + start);
-  }
-  end = end > length ? length : end;
-  if (end < 0) {
-    end += length;
-  }
-  length = start > end ? 0 : ((end - start) >>> 0);
-  start >>>= 0;
-
-  var result = Array(length);
-  while (++index < length) {
-    result[index] = array[index + start];
-  }
-  return result;
-}
-
-module.exports = baseSlice;
 
 
 /***/ }),
@@ -12124,36 +11540,6 @@ module.exports = baseUniq;
 
 /***/ }),
 
-/***/ "./node_modules/lodash/_baseValues.js":
-/*!********************************************!*\
-  !*** ./node_modules/lodash/_baseValues.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayMap = __webpack_require__(/*! ./_arrayMap */ "./node_modules/lodash/_arrayMap.js");
-
-/**
- * The base implementation of `_.values` and `_.valuesIn` which creates an
- * array of `object` property values corresponding to the property names
- * of `props`.
- *
- * @private
- * @param {Object} object The object to query.
- * @param {Array} props The property names to get values for.
- * @returns {Object} Returns the array of property values.
- */
-function baseValues(object, props) {
-  return arrayMap(props, function(key) {
-    return object[key];
-  });
-}
-
-module.exports = baseValues;
-
-
-/***/ }),
-
 /***/ "./node_modules/lodash/_cacheHas.js":
 /*!******************************************!*\
   !*** ./node_modules/lodash/_cacheHas.js ***!
@@ -12174,67 +11560,6 @@ function cacheHas(cache, key) {
 }
 
 module.exports = cacheHas;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_castPath.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/_castPath.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
-    isKey = __webpack_require__(/*! ./_isKey */ "./node_modules/lodash/_isKey.js"),
-    stringToPath = __webpack_require__(/*! ./_stringToPath */ "./node_modules/lodash/_stringToPath.js"),
-    toString = __webpack_require__(/*! ./toString */ "./node_modules/lodash/toString.js");
-
-/**
- * Casts `value` to a path array if it's not one.
- *
- * @private
- * @param {*} value The value to inspect.
- * @param {Object} [object] The object to query keys on.
- * @returns {Array} Returns the cast property path array.
- */
-function castPath(value, object) {
-  if (isArray(value)) {
-    return value;
-  }
-  return isKey(value, object) ? [value] : stringToPath(toString(value));
-}
-
-module.exports = castPath;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_castSlice.js":
-/*!*******************************************!*\
-  !*** ./node_modules/lodash/_castSlice.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseSlice = __webpack_require__(/*! ./_baseSlice */ "./node_modules/lodash/_baseSlice.js");
-
-/**
- * Casts `array` to a slice if it's needed.
- *
- * @private
- * @param {Array} array The array to inspect.
- * @param {number} start The start position.
- * @param {number} [end=array.length] The end position.
- * @returns {Array} Returns the cast slice.
- */
-function castSlice(array, start, end) {
-  var length = array.length;
-  end = end === undefined ? length : end;
-  return (!start && end >= length) ? array : baseSlice(array, start, end);
-}
-
-module.exports = castSlice;
 
 
 /***/ }),
@@ -12577,121 +11902,6 @@ module.exports = coreJsData;
 
 /***/ }),
 
-/***/ "./node_modules/lodash/_createBaseFor.js":
-/*!***********************************************!*\
-  !*** ./node_modules/lodash/_createBaseFor.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Creates a base function for methods like `_.forIn` and `_.forOwn`.
- *
- * @private
- * @param {boolean} [fromRight] Specify iterating from right to left.
- * @returns {Function} Returns the new base function.
- */
-function createBaseFor(fromRight) {
-  return function(object, iteratee, keysFunc) {
-    var index = -1,
-        iterable = Object(object),
-        props = keysFunc(object),
-        length = props.length;
-
-    while (length--) {
-      var key = props[fromRight ? length : ++index];
-      if (iteratee(iterable[key], key, iterable) === false) {
-        break;
-      }
-    }
-    return object;
-  };
-}
-
-module.exports = createBaseFor;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_createCaseFirst.js":
-/*!*************************************************!*\
-  !*** ./node_modules/lodash/_createCaseFirst.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var castSlice = __webpack_require__(/*! ./_castSlice */ "./node_modules/lodash/_castSlice.js"),
-    hasUnicode = __webpack_require__(/*! ./_hasUnicode */ "./node_modules/lodash/_hasUnicode.js"),
-    stringToArray = __webpack_require__(/*! ./_stringToArray */ "./node_modules/lodash/_stringToArray.js"),
-    toString = __webpack_require__(/*! ./toString */ "./node_modules/lodash/toString.js");
-
-/**
- * Creates a function like `_.lowerFirst`.
- *
- * @private
- * @param {string} methodName The name of the `String` case method to use.
- * @returns {Function} Returns the new case function.
- */
-function createCaseFirst(methodName) {
-  return function(string) {
-    string = toString(string);
-
-    var strSymbols = hasUnicode(string)
-      ? stringToArray(string)
-      : undefined;
-
-    var chr = strSymbols
-      ? strSymbols[0]
-      : string.charAt(0);
-
-    var trailing = strSymbols
-      ? castSlice(strSymbols, 1).join('')
-      : string.slice(1);
-
-    return chr[methodName]() + trailing;
-  };
-}
-
-module.exports = createCaseFirst;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_createCompounder.js":
-/*!**************************************************!*\
-  !*** ./node_modules/lodash/_createCompounder.js ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayReduce = __webpack_require__(/*! ./_arrayReduce */ "./node_modules/lodash/_arrayReduce.js"),
-    deburr = __webpack_require__(/*! ./deburr */ "./node_modules/lodash/deburr.js"),
-    words = __webpack_require__(/*! ./words */ "./node_modules/lodash/words.js");
-
-/** Used to compose unicode capture groups. */
-var rsApos = "['\u2019]";
-
-/** Used to match apostrophes. */
-var reApos = RegExp(rsApos, 'g');
-
-/**
- * Creates a function like `_.camelCase`.
- *
- * @private
- * @param {Function} callback The function to combine each word.
- * @returns {Function} Returns the new compounder function.
- */
-function createCompounder(callback) {
-  return function(string) {
-    return arrayReduce(words(deburr(string).replace(reApos, '')), callback, '');
-  };
-}
-
-module.exports = createCompounder;
-
-
-/***/ }),
-
 /***/ "./node_modules/lodash/_createSet.js":
 /*!*******************************************!*\
   !*** ./node_modules/lodash/_createSet.js ***!
@@ -12718,88 +11928,6 @@ var createSet = !(Set && (1 / setToArray(new Set([,-0]))[1]) == INFINITY) ? noop
 };
 
 module.exports = createSet;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_deburrLetter.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/_deburrLetter.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var basePropertyOf = __webpack_require__(/*! ./_basePropertyOf */ "./node_modules/lodash/_basePropertyOf.js");
-
-/** Used to map Latin Unicode letters to basic Latin letters. */
-var deburredLetters = {
-  // Latin-1 Supplement block.
-  '\xc0': 'A',  '\xc1': 'A', '\xc2': 'A', '\xc3': 'A', '\xc4': 'A', '\xc5': 'A',
-  '\xe0': 'a',  '\xe1': 'a', '\xe2': 'a', '\xe3': 'a', '\xe4': 'a', '\xe5': 'a',
-  '\xc7': 'C',  '\xe7': 'c',
-  '\xd0': 'D',  '\xf0': 'd',
-  '\xc8': 'E',  '\xc9': 'E', '\xca': 'E', '\xcb': 'E',
-  '\xe8': 'e',  '\xe9': 'e', '\xea': 'e', '\xeb': 'e',
-  '\xcc': 'I',  '\xcd': 'I', '\xce': 'I', '\xcf': 'I',
-  '\xec': 'i',  '\xed': 'i', '\xee': 'i', '\xef': 'i',
-  '\xd1': 'N',  '\xf1': 'n',
-  '\xd2': 'O',  '\xd3': 'O', '\xd4': 'O', '\xd5': 'O', '\xd6': 'O', '\xd8': 'O',
-  '\xf2': 'o',  '\xf3': 'o', '\xf4': 'o', '\xf5': 'o', '\xf6': 'o', '\xf8': 'o',
-  '\xd9': 'U',  '\xda': 'U', '\xdb': 'U', '\xdc': 'U',
-  '\xf9': 'u',  '\xfa': 'u', '\xfb': 'u', '\xfc': 'u',
-  '\xdd': 'Y',  '\xfd': 'y', '\xff': 'y',
-  '\xc6': 'Ae', '\xe6': 'ae',
-  '\xde': 'Th', '\xfe': 'th',
-  '\xdf': 'ss',
-  // Latin Extended-A block.
-  '\u0100': 'A',  '\u0102': 'A', '\u0104': 'A',
-  '\u0101': 'a',  '\u0103': 'a', '\u0105': 'a',
-  '\u0106': 'C',  '\u0108': 'C', '\u010a': 'C', '\u010c': 'C',
-  '\u0107': 'c',  '\u0109': 'c', '\u010b': 'c', '\u010d': 'c',
-  '\u010e': 'D',  '\u0110': 'D', '\u010f': 'd', '\u0111': 'd',
-  '\u0112': 'E',  '\u0114': 'E', '\u0116': 'E', '\u0118': 'E', '\u011a': 'E',
-  '\u0113': 'e',  '\u0115': 'e', '\u0117': 'e', '\u0119': 'e', '\u011b': 'e',
-  '\u011c': 'G',  '\u011e': 'G', '\u0120': 'G', '\u0122': 'G',
-  '\u011d': 'g',  '\u011f': 'g', '\u0121': 'g', '\u0123': 'g',
-  '\u0124': 'H',  '\u0126': 'H', '\u0125': 'h', '\u0127': 'h',
-  '\u0128': 'I',  '\u012a': 'I', '\u012c': 'I', '\u012e': 'I', '\u0130': 'I',
-  '\u0129': 'i',  '\u012b': 'i', '\u012d': 'i', '\u012f': 'i', '\u0131': 'i',
-  '\u0134': 'J',  '\u0135': 'j',
-  '\u0136': 'K',  '\u0137': 'k', '\u0138': 'k',
-  '\u0139': 'L',  '\u013b': 'L', '\u013d': 'L', '\u013f': 'L', '\u0141': 'L',
-  '\u013a': 'l',  '\u013c': 'l', '\u013e': 'l', '\u0140': 'l', '\u0142': 'l',
-  '\u0143': 'N',  '\u0145': 'N', '\u0147': 'N', '\u014a': 'N',
-  '\u0144': 'n',  '\u0146': 'n', '\u0148': 'n', '\u014b': 'n',
-  '\u014c': 'O',  '\u014e': 'O', '\u0150': 'O',
-  '\u014d': 'o',  '\u014f': 'o', '\u0151': 'o',
-  '\u0154': 'R',  '\u0156': 'R', '\u0158': 'R',
-  '\u0155': 'r',  '\u0157': 'r', '\u0159': 'r',
-  '\u015a': 'S',  '\u015c': 'S', '\u015e': 'S', '\u0160': 'S',
-  '\u015b': 's',  '\u015d': 's', '\u015f': 's', '\u0161': 's',
-  '\u0162': 'T',  '\u0164': 'T', '\u0166': 'T',
-  '\u0163': 't',  '\u0165': 't', '\u0167': 't',
-  '\u0168': 'U',  '\u016a': 'U', '\u016c': 'U', '\u016e': 'U', '\u0170': 'U', '\u0172': 'U',
-  '\u0169': 'u',  '\u016b': 'u', '\u016d': 'u', '\u016f': 'u', '\u0171': 'u', '\u0173': 'u',
-  '\u0174': 'W',  '\u0175': 'w',
-  '\u0176': 'Y',  '\u0177': 'y', '\u0178': 'Y',
-  '\u0179': 'Z',  '\u017b': 'Z', '\u017d': 'Z',
-  '\u017a': 'z',  '\u017c': 'z', '\u017e': 'z',
-  '\u0132': 'IJ', '\u0133': 'ij',
-  '\u0152': 'Oe', '\u0153': 'oe',
-  '\u0149': "'n", '\u017f': 's'
-};
-
-/**
- * Used by `_.deburr` to convert Latin-1 Supplement and Latin Extended-A
- * letters to basic Latin letters.
- *
- * @private
- * @param {string} letter The matched letter to deburr.
- * @returns {string} Returns the deburred letter.
- */
-var deburrLetter = basePropertyOf(deburredLetters);
-
-module.exports = deburrLetter;
 
 
 /***/ }),
@@ -13243,41 +12371,6 @@ module.exports = getMapData;
 
 /***/ }),
 
-/***/ "./node_modules/lodash/_getMatchData.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/_getMatchData.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var isStrictComparable = __webpack_require__(/*! ./_isStrictComparable */ "./node_modules/lodash/_isStrictComparable.js"),
-    keys = __webpack_require__(/*! ./keys */ "./node_modules/lodash/keys.js");
-
-/**
- * Gets the property names, values, and compare flags of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the match data of `object`.
- */
-function getMatchData(object) {
-  var result = keys(object),
-      length = result.length;
-
-  while (length--) {
-    var key = result[length],
-        value = object[key];
-
-    result[length] = [key, value, isStrictComparable(value)];
-  }
-  return result;
-}
-
-module.exports = getMatchData;
-
-
-/***/ }),
-
 /***/ "./node_modules/lodash/_getNative.js":
 /*!*******************************************!*\
   !*** ./node_modules/lodash/_getNative.js ***!
@@ -13546,119 +12639,6 @@ function getValue(object, key) {
 }
 
 module.exports = getValue;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_hasPath.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/_hasPath.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var castPath = __webpack_require__(/*! ./_castPath */ "./node_modules/lodash/_castPath.js"),
-    isArguments = __webpack_require__(/*! ./isArguments */ "./node_modules/lodash/isArguments.js"),
-    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
-    isIndex = __webpack_require__(/*! ./_isIndex */ "./node_modules/lodash/_isIndex.js"),
-    isLength = __webpack_require__(/*! ./isLength */ "./node_modules/lodash/isLength.js"),
-    toKey = __webpack_require__(/*! ./_toKey */ "./node_modules/lodash/_toKey.js");
-
-/**
- * Checks if `path` exists on `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @param {Array|string} path The path to check.
- * @param {Function} hasFunc The function to check properties.
- * @returns {boolean} Returns `true` if `path` exists, else `false`.
- */
-function hasPath(object, path, hasFunc) {
-  path = castPath(path, object);
-
-  var index = -1,
-      length = path.length,
-      result = false;
-
-  while (++index < length) {
-    var key = toKey(path[index]);
-    if (!(result = object != null && hasFunc(object, key))) {
-      break;
-    }
-    object = object[key];
-  }
-  if (result || ++index != length) {
-    return result;
-  }
-  length = object == null ? 0 : object.length;
-  return !!length && isLength(length) && isIndex(key, length) &&
-    (isArray(object) || isArguments(object));
-}
-
-module.exports = hasPath;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_hasUnicode.js":
-/*!********************************************!*\
-  !*** ./node_modules/lodash/_hasUnicode.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/** Used to compose unicode character classes. */
-var rsAstralRange = '\\ud800-\\udfff',
-    rsComboMarksRange = '\\u0300-\\u036f',
-    reComboHalfMarksRange = '\\ufe20-\\ufe2f',
-    rsComboSymbolsRange = '\\u20d0-\\u20ff',
-    rsComboRange = rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange,
-    rsVarRange = '\\ufe0e\\ufe0f';
-
-/** Used to compose unicode capture groups. */
-var rsZWJ = '\\u200d';
-
-/** Used to detect strings with [zero-width joiners or code points from the astral planes](http://eev.ee/blog/2015/09/12/dark-corners-of-unicode/). */
-var reHasUnicode = RegExp('[' + rsZWJ + rsAstralRange  + rsComboRange + rsVarRange + ']');
-
-/**
- * Checks if `string` contains Unicode symbols.
- *
- * @private
- * @param {string} string The string to inspect.
- * @returns {boolean} Returns `true` if a symbol is found, else `false`.
- */
-function hasUnicode(string) {
-  return reHasUnicode.test(string);
-}
-
-module.exports = hasUnicode;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_hasUnicodeWord.js":
-/*!************************************************!*\
-  !*** ./node_modules/lodash/_hasUnicodeWord.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/** Used to detect strings that need a more robust regexp to match words. */
-var reHasUnicodeWord = /[a-z][A-Z]|[A-Z]{2}[a-z]|[0-9][a-zA-Z]|[a-zA-Z][0-9]|[^a-zA-Z0-9 ]/;
-
-/**
- * Checks if `string` contains a word composed of Unicode symbols.
- *
- * @private
- * @param {string} string The string to inspect.
- * @returns {boolean} Returns `true` if a word is found, else `false`.
- */
-function hasUnicodeWord(string) {
-  return reHasUnicodeWord.test(string);
-}
-
-module.exports = hasUnicodeWord;
 
 
 /***/ }),
@@ -14016,46 +12996,6 @@ module.exports = isIndex;
 
 /***/ }),
 
-/***/ "./node_modules/lodash/_isKey.js":
-/*!***************************************!*\
-  !*** ./node_modules/lodash/_isKey.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
-    isSymbol = __webpack_require__(/*! ./isSymbol */ "./node_modules/lodash/isSymbol.js");
-
-/** Used to match property names within property paths. */
-var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/,
-    reIsPlainProp = /^\w*$/;
-
-/**
- * Checks if `value` is a property name and not a property path.
- *
- * @private
- * @param {*} value The value to check.
- * @param {Object} [object] The object to query keys on.
- * @returns {boolean} Returns `true` if `value` is a property name, else `false`.
- */
-function isKey(value, object) {
-  if (isArray(value)) {
-    return false;
-  }
-  var type = typeof value;
-  if (type == 'number' || type == 'symbol' || type == 'boolean' ||
-      value == null || isSymbol(value)) {
-    return true;
-  }
-  return reIsPlainProp.test(value) || !reIsDeepProp.test(value) ||
-    (object != null && value in Object(object));
-}
-
-module.exports = isKey;
-
-
-/***/ }),
-
 /***/ "./node_modules/lodash/_isKeyable.js":
 /*!*******************************************!*\
   !*** ./node_modules/lodash/_isKeyable.js ***!
@@ -14138,61 +13078,6 @@ function isPrototype(value) {
 }
 
 module.exports = isPrototype;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_isStrictComparable.js":
-/*!****************************************************!*\
-  !*** ./node_modules/lodash/_isStrictComparable.js ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js");
-
-/**
- * Checks if `value` is suitable for strict equality comparisons, i.e. `===`.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` if suitable for strict
- *  equality comparisons, else `false`.
- */
-function isStrictComparable(value) {
-  return value === value && !isObject(value);
-}
-
-module.exports = isStrictComparable;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_iteratorToArray.js":
-/*!*************************************************!*\
-  !*** ./node_modules/lodash/_iteratorToArray.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Converts `iterator` to an array.
- *
- * @private
- * @param {Object} iterator The iterator to convert.
- * @returns {Array} Returns the converted array.
- */
-function iteratorToArray(iterator) {
-  var data,
-      result = [];
-
-  while (!(data = iterator.next()).done) {
-    result.push(data.value);
-  }
-  return result;
-}
-
-module.exports = iteratorToArray;
 
 
 /***/ }),
@@ -14534,37 +13419,6 @@ function mapToArray(map) {
 }
 
 module.exports = mapToArray;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_matchesStrictComparable.js":
-/*!*********************************************************!*\
-  !*** ./node_modules/lodash/_matchesStrictComparable.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * A specialized version of `matchesProperty` for source values suitable
- * for strict equality comparisons, i.e. `===`.
- *
- * @private
- * @param {string} key The key of the property to get.
- * @param {*} srcValue The value to match.
- * @returns {Function} Returns the new spec function.
- */
-function matchesStrictComparable(key, srcValue) {
-  return function(object) {
-    if (object == null) {
-      return false;
-    }
-    return object[key] === srcValue &&
-      (srcValue !== undefined || (key in Object(object)));
-  };
-}
-
-module.exports = matchesStrictComparable;
 
 
 /***/ }),
@@ -15060,35 +13914,6 @@ module.exports = strictIndexOf;
 
 /***/ }),
 
-/***/ "./node_modules/lodash/_stringToArray.js":
-/*!***********************************************!*\
-  !*** ./node_modules/lodash/_stringToArray.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var asciiToArray = __webpack_require__(/*! ./_asciiToArray */ "./node_modules/lodash/_asciiToArray.js"),
-    hasUnicode = __webpack_require__(/*! ./_hasUnicode */ "./node_modules/lodash/_hasUnicode.js"),
-    unicodeToArray = __webpack_require__(/*! ./_unicodeToArray */ "./node_modules/lodash/_unicodeToArray.js");
-
-/**
- * Converts `string` to an array.
- *
- * @private
- * @param {string} string The string to convert.
- * @returns {Array} Returns the converted array.
- */
-function stringToArray(string) {
-  return hasUnicode(string)
-    ? unicodeToArray(string)
-    : asciiToArray(string);
-}
-
-module.exports = stringToArray;
-
-
-/***/ }),
-
 /***/ "./node_modules/lodash/_stringToPath.js":
 /*!**********************************************!*\
   !*** ./node_modules/lodash/_stringToPath.js ***!
@@ -15196,211 +14021,6 @@ module.exports = toSource;
 
 /***/ }),
 
-/***/ "./node_modules/lodash/_unicodeToArray.js":
-/*!************************************************!*\
-  !*** ./node_modules/lodash/_unicodeToArray.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/** Used to compose unicode character classes. */
-var rsAstralRange = '\\ud800-\\udfff',
-    rsComboMarksRange = '\\u0300-\\u036f',
-    reComboHalfMarksRange = '\\ufe20-\\ufe2f',
-    rsComboSymbolsRange = '\\u20d0-\\u20ff',
-    rsComboRange = rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange,
-    rsVarRange = '\\ufe0e\\ufe0f';
-
-/** Used to compose unicode capture groups. */
-var rsAstral = '[' + rsAstralRange + ']',
-    rsCombo = '[' + rsComboRange + ']',
-    rsFitz = '\\ud83c[\\udffb-\\udfff]',
-    rsModifier = '(?:' + rsCombo + '|' + rsFitz + ')',
-    rsNonAstral = '[^' + rsAstralRange + ']',
-    rsRegional = '(?:\\ud83c[\\udde6-\\uddff]){2}',
-    rsSurrPair = '[\\ud800-\\udbff][\\udc00-\\udfff]',
-    rsZWJ = '\\u200d';
-
-/** Used to compose unicode regexes. */
-var reOptMod = rsModifier + '?',
-    rsOptVar = '[' + rsVarRange + ']?',
-    rsOptJoin = '(?:' + rsZWJ + '(?:' + [rsNonAstral, rsRegional, rsSurrPair].join('|') + ')' + rsOptVar + reOptMod + ')*',
-    rsSeq = rsOptVar + reOptMod + rsOptJoin,
-    rsSymbol = '(?:' + [rsNonAstral + rsCombo + '?', rsCombo, rsRegional, rsSurrPair, rsAstral].join('|') + ')';
-
-/** Used to match [string symbols](https://mathiasbynens.be/notes/javascript-unicode). */
-var reUnicode = RegExp(rsFitz + '(?=' + rsFitz + ')|' + rsSymbol + rsSeq, 'g');
-
-/**
- * Converts a Unicode `string` to an array.
- *
- * @private
- * @param {string} string The string to convert.
- * @returns {Array} Returns the converted array.
- */
-function unicodeToArray(string) {
-  return string.match(reUnicode) || [];
-}
-
-module.exports = unicodeToArray;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_unicodeWords.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/_unicodeWords.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/** Used to compose unicode character classes. */
-var rsAstralRange = '\\ud800-\\udfff',
-    rsComboMarksRange = '\\u0300-\\u036f',
-    reComboHalfMarksRange = '\\ufe20-\\ufe2f',
-    rsComboSymbolsRange = '\\u20d0-\\u20ff',
-    rsComboRange = rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange,
-    rsDingbatRange = '\\u2700-\\u27bf',
-    rsLowerRange = 'a-z\\xdf-\\xf6\\xf8-\\xff',
-    rsMathOpRange = '\\xac\\xb1\\xd7\\xf7',
-    rsNonCharRange = '\\x00-\\x2f\\x3a-\\x40\\x5b-\\x60\\x7b-\\xbf',
-    rsPunctuationRange = '\\u2000-\\u206f',
-    rsSpaceRange = ' \\t\\x0b\\f\\xa0\\ufeff\\n\\r\\u2028\\u2029\\u1680\\u180e\\u2000\\u2001\\u2002\\u2003\\u2004\\u2005\\u2006\\u2007\\u2008\\u2009\\u200a\\u202f\\u205f\\u3000',
-    rsUpperRange = 'A-Z\\xc0-\\xd6\\xd8-\\xde',
-    rsVarRange = '\\ufe0e\\ufe0f',
-    rsBreakRange = rsMathOpRange + rsNonCharRange + rsPunctuationRange + rsSpaceRange;
-
-/** Used to compose unicode capture groups. */
-var rsApos = "['\u2019]",
-    rsBreak = '[' + rsBreakRange + ']',
-    rsCombo = '[' + rsComboRange + ']',
-    rsDigits = '\\d+',
-    rsDingbat = '[' + rsDingbatRange + ']',
-    rsLower = '[' + rsLowerRange + ']',
-    rsMisc = '[^' + rsAstralRange + rsBreakRange + rsDigits + rsDingbatRange + rsLowerRange + rsUpperRange + ']',
-    rsFitz = '\\ud83c[\\udffb-\\udfff]',
-    rsModifier = '(?:' + rsCombo + '|' + rsFitz + ')',
-    rsNonAstral = '[^' + rsAstralRange + ']',
-    rsRegional = '(?:\\ud83c[\\udde6-\\uddff]){2}',
-    rsSurrPair = '[\\ud800-\\udbff][\\udc00-\\udfff]',
-    rsUpper = '[' + rsUpperRange + ']',
-    rsZWJ = '\\u200d';
-
-/** Used to compose unicode regexes. */
-var rsMiscLower = '(?:' + rsLower + '|' + rsMisc + ')',
-    rsMiscUpper = '(?:' + rsUpper + '|' + rsMisc + ')',
-    rsOptContrLower = '(?:' + rsApos + '(?:d|ll|m|re|s|t|ve))?',
-    rsOptContrUpper = '(?:' + rsApos + '(?:D|LL|M|RE|S|T|VE))?',
-    reOptMod = rsModifier + '?',
-    rsOptVar = '[' + rsVarRange + ']?',
-    rsOptJoin = '(?:' + rsZWJ + '(?:' + [rsNonAstral, rsRegional, rsSurrPair].join('|') + ')' + rsOptVar + reOptMod + ')*',
-    rsOrdLower = '\\d*(?:1st|2nd|3rd|(?![123])\\dth)(?=\\b|[A-Z_])',
-    rsOrdUpper = '\\d*(?:1ST|2ND|3RD|(?![123])\\dTH)(?=\\b|[a-z_])',
-    rsSeq = rsOptVar + reOptMod + rsOptJoin,
-    rsEmoji = '(?:' + [rsDingbat, rsRegional, rsSurrPair].join('|') + ')' + rsSeq;
-
-/** Used to match complex or compound words. */
-var reUnicodeWord = RegExp([
-  rsUpper + '?' + rsLower + '+' + rsOptContrLower + '(?=' + [rsBreak, rsUpper, '$'].join('|') + ')',
-  rsMiscUpper + '+' + rsOptContrUpper + '(?=' + [rsBreak, rsUpper + rsMiscLower, '$'].join('|') + ')',
-  rsUpper + '?' + rsMiscLower + '+' + rsOptContrLower,
-  rsUpper + '+' + rsOptContrUpper,
-  rsOrdUpper,
-  rsOrdLower,
-  rsDigits,
-  rsEmoji
-].join('|'), 'g');
-
-/**
- * Splits a Unicode `string` into an array of its words.
- *
- * @private
- * @param {string} The string to inspect.
- * @returns {Array} Returns the words of `string`.
- */
-function unicodeWords(string) {
-  return string.match(reUnicodeWord) || [];
-}
-
-module.exports = unicodeWords;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/camelCase.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/camelCase.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var capitalize = __webpack_require__(/*! ./capitalize */ "./node_modules/lodash/capitalize.js"),
-    createCompounder = __webpack_require__(/*! ./_createCompounder */ "./node_modules/lodash/_createCompounder.js");
-
-/**
- * Converts `string` to [camel case](https://en.wikipedia.org/wiki/CamelCase).
- *
- * @static
- * @memberOf _
- * @since 3.0.0
- * @category String
- * @param {string} [string=''] The string to convert.
- * @returns {string} Returns the camel cased string.
- * @example
- *
- * _.camelCase('Foo Bar');
- * // => 'fooBar'
- *
- * _.camelCase('--foo-bar--');
- * // => 'fooBar'
- *
- * _.camelCase('__FOO_BAR__');
- * // => 'fooBar'
- */
-var camelCase = createCompounder(function(result, word, index) {
-  word = word.toLowerCase();
-  return result + (index ? capitalize(word) : word);
-});
-
-module.exports = camelCase;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/capitalize.js":
-/*!*******************************************!*\
-  !*** ./node_modules/lodash/capitalize.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var toString = __webpack_require__(/*! ./toString */ "./node_modules/lodash/toString.js"),
-    upperFirst = __webpack_require__(/*! ./upperFirst */ "./node_modules/lodash/upperFirst.js");
-
-/**
- * Converts the first character of `string` to upper case and the remaining
- * to lower case.
- *
- * @static
- * @memberOf _
- * @since 3.0.0
- * @category String
- * @param {string} [string=''] The string to capitalize.
- * @returns {string} Returns the capitalized string.
- * @example
- *
- * _.capitalize('FRED');
- * // => 'Fred'
- */
-function capitalize(string) {
-  return upperFirst(toString(string).toLowerCase());
-}
-
-module.exports = capitalize;
-
-
-/***/ }),
-
 /***/ "./node_modules/lodash/clone.js":
 /*!**************************************!*\
   !*** ./node_modules/lodash/clone.js ***!
@@ -15488,113 +14108,6 @@ module.exports = cloneDeep;
 
 /***/ }),
 
-/***/ "./node_modules/lodash/cloneDeepWith.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/cloneDeepWith.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseClone = __webpack_require__(/*! ./_baseClone */ "./node_modules/lodash/_baseClone.js");
-
-/** Used to compose bitmasks for cloning. */
-var CLONE_DEEP_FLAG = 1,
-    CLONE_SYMBOLS_FLAG = 4;
-
-/**
- * This method is like `_.cloneWith` except that it recursively clones `value`.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to recursively clone.
- * @param {Function} [customizer] The function to customize cloning.
- * @returns {*} Returns the deep cloned value.
- * @see _.cloneWith
- * @example
- *
- * function customizer(value) {
- *   if (_.isElement(value)) {
- *     return value.cloneNode(true);
- *   }
- * }
- *
- * var el = _.cloneDeepWith(document.body, customizer);
- *
- * console.log(el === document.body);
- * // => false
- * console.log(el.nodeName);
- * // => 'BODY'
- * console.log(el.childNodes.length);
- * // => 20
- */
-function cloneDeepWith(value, customizer) {
-  customizer = typeof customizer == 'function' ? customizer : undefined;
-  return baseClone(value, CLONE_DEEP_FLAG | CLONE_SYMBOLS_FLAG, customizer);
-}
-
-module.exports = cloneDeepWith;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/deburr.js":
-/*!***************************************!*\
-  !*** ./node_modules/lodash/deburr.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var deburrLetter = __webpack_require__(/*! ./_deburrLetter */ "./node_modules/lodash/_deburrLetter.js"),
-    toString = __webpack_require__(/*! ./toString */ "./node_modules/lodash/toString.js");
-
-/** Used to match Latin Unicode letters (excluding mathematical operators). */
-var reLatin = /[\xc0-\xd6\xd8-\xf6\xf8-\xff\u0100-\u017f]/g;
-
-/** Used to compose unicode character classes. */
-var rsComboMarksRange = '\\u0300-\\u036f',
-    reComboHalfMarksRange = '\\ufe20-\\ufe2f',
-    rsComboSymbolsRange = '\\u20d0-\\u20ff',
-    rsComboRange = rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange;
-
-/** Used to compose unicode capture groups. */
-var rsCombo = '[' + rsComboRange + ']';
-
-/**
- * Used to match [combining diacritical marks](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks) and
- * [combining diacritical marks for symbols](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks_for_Symbols).
- */
-var reComboMark = RegExp(rsCombo, 'g');
-
-/**
- * Deburrs `string` by converting
- * [Latin-1 Supplement](https://en.wikipedia.org/wiki/Latin-1_Supplement_(Unicode_block)#Character_table)
- * and [Latin Extended-A](https://en.wikipedia.org/wiki/Latin_Extended-A)
- * letters to basic Latin letters and removing
- * [combining diacritical marks](https://en.wikipedia.org/wiki/Combining_Diacritical_Marks).
- *
- * @static
- * @memberOf _
- * @since 3.0.0
- * @category String
- * @param {string} [string=''] The string to deburr.
- * @returns {string} Returns the deburred string.
- * @example
- *
- * _.deburr('déjà vu');
- * // => 'deja vu'
- */
-function deburr(string) {
-  string = toString(string);
-  return string && string.replace(reLatin, deburrLetter).replace(reComboMark, '');
-}
-
-module.exports = deburr;
-
-
-/***/ }),
-
 /***/ "./node_modules/lodash/eq.js":
 /*!***********************************!*\
   !*** ./node_modules/lodash/eq.js ***!
@@ -15639,173 +14152,6 @@ function eq(value, other) {
 }
 
 module.exports = eq;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/get.js":
-/*!************************************!*\
-  !*** ./node_modules/lodash/get.js ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseGet = __webpack_require__(/*! ./_baseGet */ "./node_modules/lodash/_baseGet.js");
-
-/**
- * Gets the value at `path` of `object`. If the resolved value is
- * `undefined`, the `defaultValue` is returned in its place.
- *
- * @static
- * @memberOf _
- * @since 3.7.0
- * @category Object
- * @param {Object} object The object to query.
- * @param {Array|string} path The path of the property to get.
- * @param {*} [defaultValue] The value returned for `undefined` resolved values.
- * @returns {*} Returns the resolved value.
- * @example
- *
- * var object = { 'a': [{ 'b': { 'c': 3 } }] };
- *
- * _.get(object, 'a[0].b.c');
- * // => 3
- *
- * _.get(object, ['a', '0', 'b', 'c']);
- * // => 3
- *
- * _.get(object, 'a.b.c', 'default');
- * // => 'default'
- */
-function get(object, path, defaultValue) {
-  var result = object == null ? undefined : baseGet(object, path);
-  return result === undefined ? defaultValue : result;
-}
-
-module.exports = get;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/has.js":
-/*!************************************!*\
-  !*** ./node_modules/lodash/has.js ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseHas = __webpack_require__(/*! ./_baseHas */ "./node_modules/lodash/_baseHas.js"),
-    hasPath = __webpack_require__(/*! ./_hasPath */ "./node_modules/lodash/_hasPath.js");
-
-/**
- * Checks if `path` is a direct property of `object`.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Object
- * @param {Object} object The object to query.
- * @param {Array|string} path The path to check.
- * @returns {boolean} Returns `true` if `path` exists, else `false`.
- * @example
- *
- * var object = { 'a': { 'b': 2 } };
- * var other = _.create({ 'a': _.create({ 'b': 2 }) });
- *
- * _.has(object, 'a');
- * // => true
- *
- * _.has(object, 'a.b');
- * // => true
- *
- * _.has(object, ['a', 'b']);
- * // => true
- *
- * _.has(other, 'a');
- * // => false
- */
-function has(object, path) {
-  return object != null && hasPath(object, path, baseHas);
-}
-
-module.exports = has;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/hasIn.js":
-/*!**************************************!*\
-  !*** ./node_modules/lodash/hasIn.js ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseHasIn = __webpack_require__(/*! ./_baseHasIn */ "./node_modules/lodash/_baseHasIn.js"),
-    hasPath = __webpack_require__(/*! ./_hasPath */ "./node_modules/lodash/_hasPath.js");
-
-/**
- * Checks if `path` is a direct or inherited property of `object`.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Object
- * @param {Object} object The object to query.
- * @param {Array|string} path The path to check.
- * @returns {boolean} Returns `true` if `path` exists, else `false`.
- * @example
- *
- * var object = _.create({ 'a': _.create({ 'b': 2 }) });
- *
- * _.hasIn(object, 'a');
- * // => true
- *
- * _.hasIn(object, 'a.b');
- * // => true
- *
- * _.hasIn(object, ['a', 'b']);
- * // => true
- *
- * _.hasIn(object, 'b');
- * // => false
- */
-function hasIn(object, path) {
-  return object != null && hasPath(object, path, baseHasIn);
-}
-
-module.exports = hasIn;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/identity.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/identity.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * This method returns the first argument it receives.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Util
- * @param {*} value Any value.
- * @returns {*} Returns `value`.
- * @example
- *
- * var object = { 'a': 1 };
- *
- * console.log(_.identity(object) === object);
- * // => true
- */
-function identity(value) {
-  return value;
-}
-
-module.exports = identity;
 
 
 /***/ }),
@@ -16359,47 +14705,6 @@ module.exports = isSet;
 
 /***/ }),
 
-/***/ "./node_modules/lodash/isString.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/isString.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ "./node_modules/lodash/_baseGetTag.js"),
-    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
-    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
-
-/** `Object#toString` result references. */
-var stringTag = '[object String]';
-
-/**
- * Checks if `value` is classified as a `String` primitive or object.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a string, else `false`.
- * @example
- *
- * _.isString('abc');
- * // => true
- *
- * _.isString(1);
- * // => false
- */
-function isString(value) {
-  return typeof value == 'string' ||
-    (!isArray(value) && isObjectLike(value) && baseGetTag(value) == stringTag);
-}
-
-module.exports = isString;
-
-
-/***/ }),
-
 /***/ "./node_modules/lodash/isSymbol.js":
 /*!*****************************************!*\
   !*** ./node_modules/lodash/isSymbol.js ***!
@@ -16569,107 +14874,6 @@ module.exports = keysIn;
 
 /***/ }),
 
-/***/ "./node_modules/lodash/mapKeys.js":
-/*!****************************************!*\
-  !*** ./node_modules/lodash/mapKeys.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseAssignValue = __webpack_require__(/*! ./_baseAssignValue */ "./node_modules/lodash/_baseAssignValue.js"),
-    baseForOwn = __webpack_require__(/*! ./_baseForOwn */ "./node_modules/lodash/_baseForOwn.js"),
-    baseIteratee = __webpack_require__(/*! ./_baseIteratee */ "./node_modules/lodash/_baseIteratee.js");
-
-/**
- * The opposite of `_.mapValues`; this method creates an object with the
- * same values as `object` and keys generated by running each own enumerable
- * string keyed property of `object` thru `iteratee`. The iteratee is invoked
- * with three arguments: (value, key, object).
- *
- * @static
- * @memberOf _
- * @since 3.8.0
- * @category Object
- * @param {Object} object The object to iterate over.
- * @param {Function} [iteratee=_.identity] The function invoked per iteration.
- * @returns {Object} Returns the new mapped object.
- * @see _.mapValues
- * @example
- *
- * _.mapKeys({ 'a': 1, 'b': 2 }, function(value, key) {
- *   return key + value;
- * });
- * // => { 'a1': 1, 'b2': 2 }
- */
-function mapKeys(object, iteratee) {
-  var result = {};
-  iteratee = baseIteratee(iteratee, 3);
-
-  baseForOwn(object, function(value, key, object) {
-    baseAssignValue(result, iteratee(value, key, object), value);
-  });
-  return result;
-}
-
-module.exports = mapKeys;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/mapValues.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/mapValues.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseAssignValue = __webpack_require__(/*! ./_baseAssignValue */ "./node_modules/lodash/_baseAssignValue.js"),
-    baseForOwn = __webpack_require__(/*! ./_baseForOwn */ "./node_modules/lodash/_baseForOwn.js"),
-    baseIteratee = __webpack_require__(/*! ./_baseIteratee */ "./node_modules/lodash/_baseIteratee.js");
-
-/**
- * Creates an object with the same keys as `object` and values generated
- * by running each own enumerable string keyed property of `object` thru
- * `iteratee`. The iteratee is invoked with three arguments:
- * (value, key, object).
- *
- * @static
- * @memberOf _
- * @since 2.4.0
- * @category Object
- * @param {Object} object The object to iterate over.
- * @param {Function} [iteratee=_.identity] The function invoked per iteration.
- * @returns {Object} Returns the new mapped object.
- * @see _.mapKeys
- * @example
- *
- * var users = {
- *   'fred':    { 'user': 'fred',    'age': 40 },
- *   'pebbles': { 'user': 'pebbles', 'age': 1 }
- * };
- *
- * _.mapValues(users, function(o) { return o.age; });
- * // => { 'fred': 40, 'pebbles': 1 } (iteration order is not guaranteed)
- *
- * // The `_.property` iteratee shorthand.
- * _.mapValues(users, 'age');
- * // => { 'fred': 40, 'pebbles': 1 } (iteration order is not guaranteed)
- */
-function mapValues(object, iteratee) {
-  var result = {};
-  iteratee = baseIteratee(iteratee, 3);
-
-  baseForOwn(object, function(value, key, object) {
-    baseAssignValue(result, key, iteratee(value, key, object));
-  });
-  return result;
-}
-
-module.exports = mapValues;
-
-
-/***/ }),
-
 /***/ "./node_modules/lodash/memoize.js":
 /*!****************************************!*\
   !*** ./node_modules/lodash/memoize.js ***!
@@ -16782,88 +14986,6 @@ module.exports = noop;
 
 /***/ }),
 
-/***/ "./node_modules/lodash/property.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/property.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseProperty = __webpack_require__(/*! ./_baseProperty */ "./node_modules/lodash/_baseProperty.js"),
-    basePropertyDeep = __webpack_require__(/*! ./_basePropertyDeep */ "./node_modules/lodash/_basePropertyDeep.js"),
-    isKey = __webpack_require__(/*! ./_isKey */ "./node_modules/lodash/_isKey.js"),
-    toKey = __webpack_require__(/*! ./_toKey */ "./node_modules/lodash/_toKey.js");
-
-/**
- * Creates a function that returns the value at `path` of a given object.
- *
- * @static
- * @memberOf _
- * @since 2.4.0
- * @category Util
- * @param {Array|string} path The path of the property to get.
- * @returns {Function} Returns the new accessor function.
- * @example
- *
- * var objects = [
- *   { 'a': { 'b': 2 } },
- *   { 'a': { 'b': 1 } }
- * ];
- *
- * _.map(objects, _.property('a.b'));
- * // => [2, 1]
- *
- * _.map(_.sortBy(objects, _.property(['a', 'b'])), 'a.b');
- * // => [1, 2]
- */
-function property(path) {
-  return isKey(path) ? baseProperty(toKey(path)) : basePropertyDeep(path);
-}
-
-module.exports = property;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/snakeCase.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/snakeCase.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var createCompounder = __webpack_require__(/*! ./_createCompounder */ "./node_modules/lodash/_createCompounder.js");
-
-/**
- * Converts `string` to
- * [snake case](https://en.wikipedia.org/wiki/Snake_case).
- *
- * @static
- * @memberOf _
- * @since 3.0.0
- * @category String
- * @param {string} [string=''] The string to convert.
- * @returns {string} Returns the snake cased string.
- * @example
- *
- * _.snakeCase('Foo Bar');
- * // => 'foo_bar'
- *
- * _.snakeCase('fooBar');
- * // => 'foo_bar'
- *
- * _.snakeCase('--FOO-BAR--');
- * // => 'foo_bar'
- */
-var snakeCase = createCompounder(function(result, word, index) {
-  return result + (index ? '_' : '') + word.toLowerCase();
-});
-
-module.exports = snakeCase;
-
-
-/***/ }),
-
 /***/ "./node_modules/lodash/stubArray.js":
 /*!******************************************!*\
   !*** ./node_modules/lodash/stubArray.js ***!
@@ -16923,75 +15045,6 @@ function stubFalse() {
 }
 
 module.exports = stubFalse;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/toArray.js":
-/*!****************************************!*\
-  !*** ./node_modules/lodash/toArray.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Symbol = __webpack_require__(/*! ./_Symbol */ "./node_modules/lodash/_Symbol.js"),
-    copyArray = __webpack_require__(/*! ./_copyArray */ "./node_modules/lodash/_copyArray.js"),
-    getTag = __webpack_require__(/*! ./_getTag */ "./node_modules/lodash/_getTag.js"),
-    isArrayLike = __webpack_require__(/*! ./isArrayLike */ "./node_modules/lodash/isArrayLike.js"),
-    isString = __webpack_require__(/*! ./isString */ "./node_modules/lodash/isString.js"),
-    iteratorToArray = __webpack_require__(/*! ./_iteratorToArray */ "./node_modules/lodash/_iteratorToArray.js"),
-    mapToArray = __webpack_require__(/*! ./_mapToArray */ "./node_modules/lodash/_mapToArray.js"),
-    setToArray = __webpack_require__(/*! ./_setToArray */ "./node_modules/lodash/_setToArray.js"),
-    stringToArray = __webpack_require__(/*! ./_stringToArray */ "./node_modules/lodash/_stringToArray.js"),
-    values = __webpack_require__(/*! ./values */ "./node_modules/lodash/values.js");
-
-/** `Object#toString` result references. */
-var mapTag = '[object Map]',
-    setTag = '[object Set]';
-
-/** Built-in value references. */
-var symIterator = Symbol ? Symbol.iterator : undefined;
-
-/**
- * Converts `value` to an array.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Lang
- * @param {*} value The value to convert.
- * @returns {Array} Returns the converted array.
- * @example
- *
- * _.toArray({ 'a': 1, 'b': 2 });
- * // => [1, 2]
- *
- * _.toArray('abc');
- * // => ['a', 'b', 'c']
- *
- * _.toArray(1);
- * // => []
- *
- * _.toArray(null);
- * // => []
- */
-function toArray(value) {
-  if (!value) {
-    return [];
-  }
-  if (isArrayLike(value)) {
-    return isString(value) ? stringToArray(value) : copyArray(value);
-  }
-  if (symIterator && value[symIterator]) {
-    return iteratorToArray(value[symIterator]());
-  }
-  var tag = getTag(value),
-      func = tag == mapTag ? mapToArray : (tag == setTag ? setToArray : values);
-
-  return func(value);
-}
-
-module.exports = toArray;
 
 
 /***/ }),
@@ -17111,130 +15164,6 @@ function uniq(array) {
 }
 
 module.exports = uniq;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/upperFirst.js":
-/*!*******************************************!*\
-  !*** ./node_modules/lodash/upperFirst.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var createCaseFirst = __webpack_require__(/*! ./_createCaseFirst */ "./node_modules/lodash/_createCaseFirst.js");
-
-/**
- * Converts the first character of `string` to upper case.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category String
- * @param {string} [string=''] The string to convert.
- * @returns {string} Returns the converted string.
- * @example
- *
- * _.upperFirst('fred');
- * // => 'Fred'
- *
- * _.upperFirst('FRED');
- * // => 'FRED'
- */
-var upperFirst = createCaseFirst('toUpperCase');
-
-module.exports = upperFirst;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/values.js":
-/*!***************************************!*\
-  !*** ./node_modules/lodash/values.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseValues = __webpack_require__(/*! ./_baseValues */ "./node_modules/lodash/_baseValues.js"),
-    keys = __webpack_require__(/*! ./keys */ "./node_modules/lodash/keys.js");
-
-/**
- * Creates an array of the own enumerable string keyed property values of `object`.
- *
- * **Note:** Non-object values are coerced to objects.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Object
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property values.
- * @example
- *
- * function Foo() {
- *   this.a = 1;
- *   this.b = 2;
- * }
- *
- * Foo.prototype.c = 3;
- *
- * _.values(new Foo);
- * // => [1, 2] (iteration order is not guaranteed)
- *
- * _.values('hi');
- * // => ['h', 'i']
- */
-function values(object) {
-  return object == null ? [] : baseValues(object, keys(object));
-}
-
-module.exports = values;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/words.js":
-/*!**************************************!*\
-  !*** ./node_modules/lodash/words.js ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var asciiWords = __webpack_require__(/*! ./_asciiWords */ "./node_modules/lodash/_asciiWords.js"),
-    hasUnicodeWord = __webpack_require__(/*! ./_hasUnicodeWord */ "./node_modules/lodash/_hasUnicodeWord.js"),
-    toString = __webpack_require__(/*! ./toString */ "./node_modules/lodash/toString.js"),
-    unicodeWords = __webpack_require__(/*! ./_unicodeWords */ "./node_modules/lodash/_unicodeWords.js");
-
-/**
- * Splits `string` into an array of its words.
- *
- * @static
- * @memberOf _
- * @since 3.0.0
- * @category String
- * @param {string} [string=''] The string to inspect.
- * @param {RegExp|string} [pattern] The pattern to match words.
- * @param- {Object} [guard] Enables use as an iteratee for methods like `_.map`.
- * @returns {Array} Returns the words of `string`.
- * @example
- *
- * _.words('fred, barney, & pebbles');
- * // => ['fred', 'barney', 'pebbles']
- *
- * _.words('fred, barney, & pebbles', /[^, ]+/g);
- * // => ['fred', 'barney', '&', 'pebbles']
- */
-function words(string, pattern, guard) {
-  string = toString(string);
-  pattern = guard ? undefined : pattern;
-
-  if (pattern === undefined) {
-    return hasUnicodeWord(string) ? unicodeWords(string) : asciiWords(string);
-  }
-  return string.match(pattern) || [];
-}
-
-module.exports = words;
 
 
 /***/ }),
@@ -18299,165 +16228,6 @@ if (true) {
 var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 
 module.exports = ReactPropTypesSecret;
-
-
-/***/ }),
-
-/***/ "./node_modules/property-expr/index.js":
-/*!*********************************************!*\
-  !*** ./node_modules/property-expr/index.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/**
- * Based on Kendo UI Core expression code <https://github.com/telerik/kendo-ui-core#license-information>
- */
-
-
-function Cache(maxSize) {
-  this._maxSize = maxSize
-  this.clear()
-}
-Cache.prototype.clear = function() {
-  this._size = 0
-  this._values = Object.create(null)
-}
-Cache.prototype.get = function(key) {
-  return this._values[key]
-}
-Cache.prototype.set = function(key, value) {
-  this._size >= this._maxSize && this.clear()
-  if (!(key in this._values)) this._size++
-
-  return (this._values[key] = value)
-}
-
-var SPLIT_REGEX = /[^.^\]^[]+|(?=\[\]|\.\.)/g,
-  DIGIT_REGEX = /^\d+$/,
-  LEAD_DIGIT_REGEX = /^\d/,
-  SPEC_CHAR_REGEX = /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g,
-  CLEAN_QUOTES_REGEX = /^\s*(['"]?)(.*?)(\1)\s*$/,
-  MAX_CACHE_SIZE = 512
-
-var pathCache = new Cache(MAX_CACHE_SIZE),
-  setCache = new Cache(MAX_CACHE_SIZE),
-  getCache = new Cache(MAX_CACHE_SIZE)
-
-var config
-
-module.exports = {
-  Cache: Cache,
-
-  split: split,
-
-  normalizePath: normalizePath,
-
-  setter: function(path) {
-    var parts = normalizePath(path)
-
-    return (
-      setCache.get(path) ||
-      setCache.set(path, function setter(data, value) {
-        var index = 0,
-          len = parts.length
-        while (index < len - 1) {
-          data = data[parts[index++]]
-        }
-        data[parts[index]] = value
-      })
-    )
-  },
-
-  getter: function(path, safe) {
-    var parts = normalizePath(path)
-    return (
-      getCache.get(path) ||
-      getCache.set(path, function getter(data) {
-        var index = 0,
-          len = parts.length
-        while (index < len) {
-          if (data != null || !safe) data = data[parts[index++]]
-          else return
-        }
-        return data
-      })
-    )
-  },
-
-  join: function(segments) {
-    return segments.reduce(function(path, part) {
-      return (
-        path +
-        (isQuoted(part) || DIGIT_REGEX.test(part)
-          ? '[' + part + ']'
-          : (path ? '.' : '') + part)
-      )
-    }, '')
-  },
-
-  forEach: function(path, cb, thisArg) {
-    forEach(Array.isArray(path) ? path : split(path), cb, thisArg)
-  }
-}
-
-function normalizePath(path) {
-  return (
-    pathCache.get(path) ||
-    pathCache.set(
-      path,
-      split(path).map(function(part) {
-        return part.replace(CLEAN_QUOTES_REGEX, '$2')
-      })
-    )
-  )
-}
-
-function split(path) {
-  return path.match(SPLIT_REGEX)
-}
-
-function forEach(parts, iter, thisArg) {
-  var len = parts.length,
-    part,
-    idx,
-    isArray,
-    isBracket
-
-  for (idx = 0; idx < len; idx++) {
-    part = parts[idx]
-
-    if (part) {
-      if (shouldBeQuoted(part)) {
-        part = '"' + part + '"'
-      }
-
-      isBracket = isQuoted(part)
-      isArray = !isBracket && /^\d+$/.test(part)
-
-      iter.call(thisArg, part, isBracket, isArray, idx, parts)
-    }
-  }
-}
-
-function isQuoted(str) {
-  return (
-    typeof str === 'string' && str && ["'", '"'].indexOf(str.charAt(0)) !== -1
-  )
-}
-
-function hasLeadingNumber(part) {
-  return part.match(LEAD_DIGIT_REGEX) && !part.match(DIGIT_REGEX)
-}
-
-function hasSpecialChars(part) {
-  return SPEC_CHAR_REGEX.test(part)
-}
-
-function shouldBeQuoted(part) {
-  return !isQuoted(part) && (hasLeadingNumber(part) || hasSpecialChars(part))
-}
 
 
 /***/ }),
@@ -56300,6 +54070,3116 @@ module.exports = shallowEqualObjects;
 
 /***/ }),
 
+/***/ "./node_modules/sweetalert2/dist/sweetalert2.all.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/sweetalert2/dist/sweetalert2.all.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*!
+* sweetalert2 v9.10.11
+* Released under the MIT License.
+*/
+(function (global, factory) {
+   true ? module.exports = factory() :
+  undefined;
+}(this, function () { 'use strict';
+
+  function _typeof(obj) {
+    "@babel/helpers - typeof";
+
+    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+      _typeof = function (obj) {
+        return typeof obj;
+      };
+    } else {
+      _typeof = function (obj) {
+        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+      };
+    }
+
+    return _typeof(obj);
+  }
+
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
+
+  function _defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  function _createClass(Constructor, protoProps, staticProps) {
+    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) _defineProperties(Constructor, staticProps);
+    return Constructor;
+  }
+
+  function _extends() {
+    _extends = Object.assign || function (target) {
+      for (var i = 1; i < arguments.length; i++) {
+        var source = arguments[i];
+
+        for (var key in source) {
+          if (Object.prototype.hasOwnProperty.call(source, key)) {
+            target[key] = source[key];
+          }
+        }
+      }
+
+      return target;
+    };
+
+    return _extends.apply(this, arguments);
+  }
+
+  function _inherits(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+      throw new TypeError("Super expression must either be null or a function");
+    }
+
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+      constructor: {
+        value: subClass,
+        writable: true,
+        configurable: true
+      }
+    });
+    if (superClass) _setPrototypeOf(subClass, superClass);
+  }
+
+  function _getPrototypeOf(o) {
+    _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+      return o.__proto__ || Object.getPrototypeOf(o);
+    };
+    return _getPrototypeOf(o);
+  }
+
+  function _setPrototypeOf(o, p) {
+    _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+      o.__proto__ = p;
+      return o;
+    };
+
+    return _setPrototypeOf(o, p);
+  }
+
+  function _isNativeReflectConstruct() {
+    if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+    if (Reflect.construct.sham) return false;
+    if (typeof Proxy === "function") return true;
+
+    try {
+      Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function _construct(Parent, args, Class) {
+    if (_isNativeReflectConstruct()) {
+      _construct = Reflect.construct;
+    } else {
+      _construct = function _construct(Parent, args, Class) {
+        var a = [null];
+        a.push.apply(a, args);
+        var Constructor = Function.bind.apply(Parent, a);
+        var instance = new Constructor();
+        if (Class) _setPrototypeOf(instance, Class.prototype);
+        return instance;
+      };
+    }
+
+    return _construct.apply(null, arguments);
+  }
+
+  function _assertThisInitialized(self) {
+    if (self === void 0) {
+      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+
+    return self;
+  }
+
+  function _possibleConstructorReturn(self, call) {
+    if (call && (typeof call === "object" || typeof call === "function")) {
+      return call;
+    }
+
+    return _assertThisInitialized(self);
+  }
+
+  function _createSuper(Derived) {
+    return function () {
+      var Super = _getPrototypeOf(Derived),
+          result;
+
+      if (_isNativeReflectConstruct()) {
+        var NewTarget = _getPrototypeOf(this).constructor;
+
+        result = Reflect.construct(Super, arguments, NewTarget);
+      } else {
+        result = Super.apply(this, arguments);
+      }
+
+      return _possibleConstructorReturn(this, result);
+    };
+  }
+
+  function _superPropBase(object, property) {
+    while (!Object.prototype.hasOwnProperty.call(object, property)) {
+      object = _getPrototypeOf(object);
+      if (object === null) break;
+    }
+
+    return object;
+  }
+
+  function _get(target, property, receiver) {
+    if (typeof Reflect !== "undefined" && Reflect.get) {
+      _get = Reflect.get;
+    } else {
+      _get = function _get(target, property, receiver) {
+        var base = _superPropBase(target, property);
+
+        if (!base) return;
+        var desc = Object.getOwnPropertyDescriptor(base, property);
+
+        if (desc.get) {
+          return desc.get.call(receiver);
+        }
+
+        return desc.value;
+      };
+    }
+
+    return _get(target, property, receiver || target);
+  }
+
+  var consolePrefix = 'SweetAlert2:';
+  /**
+   * Filter the unique values into a new array
+   * @param arr
+   */
+
+  var uniqueArray = function uniqueArray(arr) {
+    var result = [];
+
+    for (var i = 0; i < arr.length; i++) {
+      if (result.indexOf(arr[i]) === -1) {
+        result.push(arr[i]);
+      }
+    }
+
+    return result;
+  };
+  /**
+   * Capitalize the first letter of a string
+   * @param str
+   */
+
+  var capitalizeFirstLetter = function capitalizeFirstLetter(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+  /**
+   * Returns the array ob object values (Object.values isn't supported in IE11)
+   * @param obj
+   */
+
+  var objectValues = function objectValues(obj) {
+    return Object.keys(obj).map(function (key) {
+      return obj[key];
+    });
+  };
+  /**
+   * Convert NodeList to Array
+   * @param nodeList
+   */
+
+  var toArray = function toArray(nodeList) {
+    return Array.prototype.slice.call(nodeList);
+  };
+  /**
+   * Standardise console warnings
+   * @param message
+   */
+
+  var warn = function warn(message) {
+    console.warn("".concat(consolePrefix, " ").concat(message));
+  };
+  /**
+   * Standardise console errors
+   * @param message
+   */
+
+  var error = function error(message) {
+    console.error("".concat(consolePrefix, " ").concat(message));
+  };
+  /**
+   * Private global state for `warnOnce`
+   * @type {Array}
+   * @private
+   */
+
+  var previousWarnOnceMessages = [];
+  /**
+   * Show a console warning, but only if it hasn't already been shown
+   * @param message
+   */
+
+  var warnOnce = function warnOnce(message) {
+    if (!(previousWarnOnceMessages.indexOf(message) !== -1)) {
+      previousWarnOnceMessages.push(message);
+      warn(message);
+    }
+  };
+  /**
+   * Show a one-time console warning about deprecated params/methods
+   */
+
+  var warnAboutDepreation = function warnAboutDepreation(deprecatedParam, useInstead) {
+    warnOnce("\"".concat(deprecatedParam, "\" is deprecated and will be removed in the next major release. Please use \"").concat(useInstead, "\" instead."));
+  };
+  /**
+   * If `arg` is a function, call it (with no arguments or context) and return the result.
+   * Otherwise, just pass the value through
+   * @param arg
+   */
+
+  var callIfFunction = function callIfFunction(arg) {
+    return typeof arg === 'function' ? arg() : arg;
+  };
+  var isPromise = function isPromise(arg) {
+    return arg && Promise.resolve(arg) === arg;
+  };
+
+  var DismissReason = Object.freeze({
+    cancel: 'cancel',
+    backdrop: 'backdrop',
+    close: 'close',
+    esc: 'esc',
+    timer: 'timer'
+  });
+
+  var isJqueryElement = function isJqueryElement(elem) {
+    return _typeof(elem) === 'object' && elem.jquery;
+  };
+
+  var isElement = function isElement(elem) {
+    return elem instanceof Element || isJqueryElement(elem);
+  };
+
+  var argsToParams = function argsToParams(args) {
+    var params = {};
+
+    if (_typeof(args[0]) === 'object' && !isElement(args[0])) {
+      _extends(params, args[0]);
+    } else {
+      ['title', 'html', 'icon'].forEach(function (name, index) {
+        var arg = args[index];
+
+        if (typeof arg === 'string' || isElement(arg)) {
+          params[name] = arg;
+        } else if (arg !== undefined) {
+          error("Unexpected type of ".concat(name, "! Expected \"string\" or \"Element\", got ").concat(_typeof(arg)));
+        }
+      });
+    }
+
+    return params;
+  };
+
+  var swalPrefix = 'swal2-';
+  var prefix = function prefix(items) {
+    var result = {};
+
+    for (var i in items) {
+      result[items[i]] = swalPrefix + items[i];
+    }
+
+    return result;
+  };
+  var swalClasses = prefix(['container', 'shown', 'height-auto', 'iosfix', 'popup', 'modal', 'no-backdrop', 'no-transition', 'toast', 'toast-shown', 'toast-column', 'show', 'hide', 'close', 'title', 'header', 'content', 'html-container', 'actions', 'confirm', 'cancel', 'footer', 'icon', 'icon-content', 'image', 'input', 'file', 'range', 'select', 'radio', 'checkbox', 'label', 'textarea', 'inputerror', 'validation-message', 'progress-steps', 'active-progress-step', 'progress-step', 'progress-step-line', 'loading', 'styled', 'top', 'top-start', 'top-end', 'top-left', 'top-right', 'center', 'center-start', 'center-end', 'center-left', 'center-right', 'bottom', 'bottom-start', 'bottom-end', 'bottom-left', 'bottom-right', 'grow-row', 'grow-column', 'grow-fullscreen', 'rtl', 'timer-progress-bar', 'timer-progress-bar-container', 'scrollbar-measure', 'icon-success', 'icon-warning', 'icon-info', 'icon-question', 'icon-error']);
+  var iconTypes = prefix(['success', 'warning', 'info', 'question', 'error']);
+
+  var getContainer = function getContainer() {
+    return document.body.querySelector(".".concat(swalClasses.container));
+  };
+  var elementBySelector = function elementBySelector(selectorString) {
+    var container = getContainer();
+    return container ? container.querySelector(selectorString) : null;
+  };
+
+  var elementByClass = function elementByClass(className) {
+    return elementBySelector(".".concat(className));
+  };
+
+  var getPopup = function getPopup() {
+    return elementByClass(swalClasses.popup);
+  };
+  var getIcons = function getIcons() {
+    var popup = getPopup();
+    return toArray(popup.querySelectorAll(".".concat(swalClasses.icon)));
+  };
+  var getIcon = function getIcon() {
+    var visibleIcon = getIcons().filter(function (icon) {
+      return isVisible(icon);
+    });
+    return visibleIcon.length ? visibleIcon[0] : null;
+  };
+  var getTitle = function getTitle() {
+    return elementByClass(swalClasses.title);
+  };
+  var getContent = function getContent() {
+    return elementByClass(swalClasses.content);
+  };
+  var getHtmlContainer = function getHtmlContainer() {
+    return elementByClass(swalClasses['html-container']);
+  };
+  var getImage = function getImage() {
+    return elementByClass(swalClasses.image);
+  };
+  var getProgressSteps = function getProgressSteps() {
+    return elementByClass(swalClasses['progress-steps']);
+  };
+  var getValidationMessage = function getValidationMessage() {
+    return elementByClass(swalClasses['validation-message']);
+  };
+  var getConfirmButton = function getConfirmButton() {
+    return elementBySelector(".".concat(swalClasses.actions, " .").concat(swalClasses.confirm));
+  };
+  var getCancelButton = function getCancelButton() {
+    return elementBySelector(".".concat(swalClasses.actions, " .").concat(swalClasses.cancel));
+  };
+  var getActions = function getActions() {
+    return elementByClass(swalClasses.actions);
+  };
+  var getHeader = function getHeader() {
+    return elementByClass(swalClasses.header);
+  };
+  var getFooter = function getFooter() {
+    return elementByClass(swalClasses.footer);
+  };
+  var getTimerProgressBar = function getTimerProgressBar() {
+    return elementByClass(swalClasses['timer-progress-bar']);
+  };
+  var getCloseButton = function getCloseButton() {
+    return elementByClass(swalClasses.close);
+  }; // https://github.com/jkup/focusable/blob/master/index.js
+
+  var focusable = "\n  a[href],\n  area[href],\n  input:not([disabled]),\n  select:not([disabled]),\n  textarea:not([disabled]),\n  button:not([disabled]),\n  iframe,\n  object,\n  embed,\n  [tabindex=\"0\"],\n  [contenteditable],\n  audio[controls],\n  video[controls],\n  summary\n";
+  var getFocusableElements = function getFocusableElements() {
+    var focusableElementsWithTabindex = toArray(getPopup().querySelectorAll('[tabindex]:not([tabindex="-1"]):not([tabindex="0"])')) // sort according to tabindex
+    .sort(function (a, b) {
+      a = parseInt(a.getAttribute('tabindex'));
+      b = parseInt(b.getAttribute('tabindex'));
+
+      if (a > b) {
+        return 1;
+      } else if (a < b) {
+        return -1;
+      }
+
+      return 0;
+    });
+    var otherFocusableElements = toArray(getPopup().querySelectorAll(focusable)).filter(function (el) {
+      return el.getAttribute('tabindex') !== '-1';
+    });
+    return uniqueArray(focusableElementsWithTabindex.concat(otherFocusableElements)).filter(function (el) {
+      return isVisible(el);
+    });
+  };
+  var isModal = function isModal() {
+    return !isToast() && !document.body.classList.contains(swalClasses['no-backdrop']);
+  };
+  var isToast = function isToast() {
+    return document.body.classList.contains(swalClasses['toast-shown']);
+  };
+  var isLoading = function isLoading() {
+    return getPopup().hasAttribute('data-loading');
+  };
+
+  var states = {
+    previousBodyPadding: null
+  };
+  var setInnerHtml = function setInnerHtml(elem, html) {
+    // #1926
+    elem.textContent = '';
+
+    if (html) {
+      var parser = new DOMParser();
+      var parsed = parser.parseFromString(html, "text/html");
+      toArray(parsed.querySelector('head').childNodes).forEach(function (child) {
+        elem.appendChild(child);
+      });
+      toArray(parsed.querySelector('body').childNodes).forEach(function (child) {
+        elem.appendChild(child);
+      });
+    }
+  };
+  var hasClass = function hasClass(elem, className) {
+    if (!className) {
+      return false;
+    }
+
+    var classList = className.split(/\s+/);
+
+    for (var i = 0; i < classList.length; i++) {
+      if (!elem.classList.contains(classList[i])) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+
+  var removeCustomClasses = function removeCustomClasses(elem, params) {
+    toArray(elem.classList).forEach(function (className) {
+      if (!(objectValues(swalClasses).indexOf(className) !== -1) && !(objectValues(iconTypes).indexOf(className) !== -1) && !(objectValues(params.showClass).indexOf(className) !== -1)) {
+        elem.classList.remove(className);
+      }
+    });
+  };
+
+  var applyCustomClass = function applyCustomClass(elem, params, className) {
+    removeCustomClasses(elem, params);
+
+    if (params.customClass && params.customClass[className]) {
+      if (typeof params.customClass[className] !== 'string' && !params.customClass[className].forEach) {
+        return warn("Invalid type of customClass.".concat(className, "! Expected string or iterable object, got \"").concat(_typeof(params.customClass[className]), "\""));
+      }
+
+      addClass(elem, params.customClass[className]);
+    }
+  };
+  function getInput(content, inputType) {
+    if (!inputType) {
+      return null;
+    }
+
+    switch (inputType) {
+      case 'select':
+      case 'textarea':
+      case 'file':
+        return getChildByClass(content, swalClasses[inputType]);
+
+      case 'checkbox':
+        return content.querySelector(".".concat(swalClasses.checkbox, " input"));
+
+      case 'radio':
+        return content.querySelector(".".concat(swalClasses.radio, " input:checked")) || content.querySelector(".".concat(swalClasses.radio, " input:first-child"));
+
+      case 'range':
+        return content.querySelector(".".concat(swalClasses.range, " input"));
+
+      default:
+        return getChildByClass(content, swalClasses.input);
+    }
+  }
+  var focusInput = function focusInput(input) {
+    input.focus(); // place cursor at end of text in text input
+
+    if (input.type !== 'file') {
+      // http://stackoverflow.com/a/2345915
+      var val = input.value;
+      input.value = '';
+      input.value = val;
+    }
+  };
+  var toggleClass = function toggleClass(target, classList, condition) {
+    if (!target || !classList) {
+      return;
+    }
+
+    if (typeof classList === 'string') {
+      classList = classList.split(/\s+/).filter(Boolean);
+    }
+
+    classList.forEach(function (className) {
+      if (target.forEach) {
+        target.forEach(function (elem) {
+          condition ? elem.classList.add(className) : elem.classList.remove(className);
+        });
+      } else {
+        condition ? target.classList.add(className) : target.classList.remove(className);
+      }
+    });
+  };
+  var addClass = function addClass(target, classList) {
+    toggleClass(target, classList, true);
+  };
+  var removeClass = function removeClass(target, classList) {
+    toggleClass(target, classList, false);
+  };
+  var getChildByClass = function getChildByClass(elem, className) {
+    for (var i = 0; i < elem.childNodes.length; i++) {
+      if (hasClass(elem.childNodes[i], className)) {
+        return elem.childNodes[i];
+      }
+    }
+  };
+  var applyNumericalStyle = function applyNumericalStyle(elem, property, value) {
+    if (value || parseInt(value) === 0) {
+      elem.style[property] = typeof value === 'number' ? "".concat(value, "px") : value;
+    } else {
+      elem.style.removeProperty(property);
+    }
+  };
+  var show = function show(elem) {
+    var display = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'flex';
+    elem.style.opacity = '';
+    elem.style.display = display;
+  };
+  var hide = function hide(elem) {
+    elem.style.opacity = '';
+    elem.style.display = 'none';
+  };
+  var toggle = function toggle(elem, condition, display) {
+    condition ? show(elem, display) : hide(elem);
+  }; // borrowed from jquery $(elem).is(':visible') implementation
+
+  var isVisible = function isVisible(elem) {
+    return !!(elem && (elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length));
+  };
+  /* istanbul ignore next */
+
+  var isScrollable = function isScrollable(elem) {
+    return !!(elem.scrollHeight > elem.clientHeight);
+  }; // borrowed from https://stackoverflow.com/a/46352119
+
+  var hasCssAnimation = function hasCssAnimation(elem) {
+    var style = window.getComputedStyle(elem);
+    var animDuration = parseFloat(style.getPropertyValue('animation-duration') || '0');
+    var transDuration = parseFloat(style.getPropertyValue('transition-duration') || '0');
+    return animDuration > 0 || transDuration > 0;
+  };
+  var contains = function contains(haystack, needle) {
+    if (typeof haystack.contains === 'function') {
+      return haystack.contains(needle);
+    }
+  };
+  var animateTimerProgressBar = function animateTimerProgressBar(timer) {
+    var reset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+    var timerProgressBar = getTimerProgressBar();
+
+    if (isVisible(timerProgressBar)) {
+      if (reset) {
+        timerProgressBar.style.transition = 'none';
+        timerProgressBar.style.width = '100%';
+      }
+
+      setTimeout(function () {
+        timerProgressBar.style.transition = "width ".concat(timer / 1000, "s linear");
+        timerProgressBar.style.width = '0%';
+      }, 10);
+    }
+  };
+  var stopTimerProgressBar = function stopTimerProgressBar() {
+    var timerProgressBar = getTimerProgressBar();
+    var timerProgressBarWidth = parseInt(window.getComputedStyle(timerProgressBar).width);
+    timerProgressBar.style.removeProperty('transition');
+    timerProgressBar.style.width = '100%';
+    var timerProgressBarFullWidth = parseInt(window.getComputedStyle(timerProgressBar).width);
+    var timerProgressBarPercent = parseInt(timerProgressBarWidth / timerProgressBarFullWidth * 100);
+    timerProgressBar.style.removeProperty('transition');
+    timerProgressBar.style.width = "".concat(timerProgressBarPercent, "%");
+  };
+
+  // Detect Node env
+  var isNodeEnv = function isNodeEnv() {
+    return typeof window === 'undefined' || typeof document === 'undefined';
+  };
+
+  var sweetHTML = "\n <div aria-labelledby=\"".concat(swalClasses.title, "\" aria-describedby=\"").concat(swalClasses.content, "\" class=\"").concat(swalClasses.popup, "\" tabindex=\"-1\">\n   <div class=\"").concat(swalClasses.header, "\">\n     <ul class=\"").concat(swalClasses['progress-steps'], "\"></ul>\n     <div class=\"").concat(swalClasses.icon, " ").concat(iconTypes.error, "\"></div>\n     <div class=\"").concat(swalClasses.icon, " ").concat(iconTypes.question, "\"></div>\n     <div class=\"").concat(swalClasses.icon, " ").concat(iconTypes.warning, "\"></div>\n     <div class=\"").concat(swalClasses.icon, " ").concat(iconTypes.info, "\"></div>\n     <div class=\"").concat(swalClasses.icon, " ").concat(iconTypes.success, "\"></div>\n     <img class=\"").concat(swalClasses.image, "\" />\n     <h2 class=\"").concat(swalClasses.title, "\" id=\"").concat(swalClasses.title, "\"></h2>\n     <button type=\"button\" class=\"").concat(swalClasses.close, "\"></button>\n   </div>\n   <div class=\"").concat(swalClasses.content, "\">\n     <div id=\"").concat(swalClasses.content, "\" class=\"").concat(swalClasses['html-container'], "\"></div>\n     <input class=\"").concat(swalClasses.input, "\" />\n     <input type=\"file\" class=\"").concat(swalClasses.file, "\" />\n     <div class=\"").concat(swalClasses.range, "\">\n       <input type=\"range\" />\n       <output></output>\n     </div>\n     <select class=\"").concat(swalClasses.select, "\"></select>\n     <div class=\"").concat(swalClasses.radio, "\"></div>\n     <label for=\"").concat(swalClasses.checkbox, "\" class=\"").concat(swalClasses.checkbox, "\">\n       <input type=\"checkbox\" />\n       <span class=\"").concat(swalClasses.label, "\"></span>\n     </label>\n     <textarea class=\"").concat(swalClasses.textarea, "\"></textarea>\n     <div class=\"").concat(swalClasses['validation-message'], "\" id=\"").concat(swalClasses['validation-message'], "\"></div>\n   </div>\n   <div class=\"").concat(swalClasses.actions, "\">\n     <button type=\"button\" class=\"").concat(swalClasses.confirm, "\">OK</button>\n     <button type=\"button\" class=\"").concat(swalClasses.cancel, "\">Cancel</button>\n   </div>\n   <div class=\"").concat(swalClasses.footer, "\"></div>\n   <div class=\"").concat(swalClasses['timer-progress-bar-container'], "\">\n     <div class=\"").concat(swalClasses['timer-progress-bar'], "\"></div>\n   </div>\n </div>\n").replace(/(^|\n)\s*/g, '');
+
+  var resetOldContainer = function resetOldContainer() {
+    var oldContainer = getContainer();
+
+    if (!oldContainer) {
+      return false;
+    }
+
+    oldContainer.parentNode.removeChild(oldContainer);
+    removeClass([document.documentElement, document.body], [swalClasses['no-backdrop'], swalClasses['toast-shown'], swalClasses['has-column']]);
+    return true;
+  };
+
+  var oldInputVal; // IE11 workaround, see #1109 for details
+
+  var resetValidationMessage = function resetValidationMessage(e) {
+    if (Swal.isVisible() && oldInputVal !== e.target.value) {
+      Swal.resetValidationMessage();
+    }
+
+    oldInputVal = e.target.value;
+  };
+
+  var addInputChangeListeners = function addInputChangeListeners() {
+    var content = getContent();
+    var input = getChildByClass(content, swalClasses.input);
+    var file = getChildByClass(content, swalClasses.file);
+    var range = content.querySelector(".".concat(swalClasses.range, " input"));
+    var rangeOutput = content.querySelector(".".concat(swalClasses.range, " output"));
+    var select = getChildByClass(content, swalClasses.select);
+    var checkbox = content.querySelector(".".concat(swalClasses.checkbox, " input"));
+    var textarea = getChildByClass(content, swalClasses.textarea);
+    input.oninput = resetValidationMessage;
+    file.onchange = resetValidationMessage;
+    select.onchange = resetValidationMessage;
+    checkbox.onchange = resetValidationMessage;
+    textarea.oninput = resetValidationMessage;
+
+    range.oninput = function (e) {
+      resetValidationMessage(e);
+      rangeOutput.value = range.value;
+    };
+
+    range.onchange = function (e) {
+      resetValidationMessage(e);
+      range.nextSibling.value = range.value;
+    };
+  };
+
+  var getTarget = function getTarget(target) {
+    return typeof target === 'string' ? document.querySelector(target) : target;
+  };
+
+  var setupAccessibility = function setupAccessibility(params) {
+    var popup = getPopup();
+    popup.setAttribute('role', params.toast ? 'alert' : 'dialog');
+    popup.setAttribute('aria-live', params.toast ? 'polite' : 'assertive');
+
+    if (!params.toast) {
+      popup.setAttribute('aria-modal', 'true');
+    }
+  };
+
+  var setupRTL = function setupRTL(targetElement) {
+    if (window.getComputedStyle(targetElement).direction === 'rtl') {
+      addClass(getContainer(), swalClasses.rtl);
+    }
+  };
+  /*
+   * Add modal + backdrop to DOM
+   */
+
+
+  var init = function init(params) {
+    // Clean up the old popup container if it exists
+    var oldContainerExisted = resetOldContainer();
+    /* istanbul ignore if */
+
+    if (isNodeEnv()) {
+      error('SweetAlert2 requires document to initialize');
+      return;
+    }
+
+    var container = document.createElement('div');
+    container.className = swalClasses.container;
+
+    if (oldContainerExisted) {
+      addClass(container, swalClasses['no-transition']);
+    }
+
+    setInnerHtml(container, sweetHTML);
+    var targetElement = getTarget(params.target);
+    targetElement.appendChild(container);
+    setupAccessibility(params);
+    setupRTL(targetElement);
+    addInputChangeListeners();
+  };
+
+  var parseHtmlToContainer = function parseHtmlToContainer(param, target) {
+    // DOM element
+    if (param instanceof HTMLElement) {
+      target.appendChild(param); // Object
+    } else if (_typeof(param) === 'object') {
+      handleObject(param, target); // Plain string
+    } else if (param) {
+      setInnerHtml(target, param);
+    }
+  };
+
+  var handleObject = function handleObject(param, target) {
+    // JQuery element(s)
+    if (param.jquery) {
+      handleJqueryElem(target, param); // For other objects use their string representation
+    } else {
+      setInnerHtml(target, param.toString());
+    }
+  };
+
+  var handleJqueryElem = function handleJqueryElem(target, elem) {
+    target.textContent = '';
+
+    if (0 in elem) {
+      for (var i = 0; (i in elem); i++) {
+        target.appendChild(elem[i].cloneNode(true));
+      }
+    } else {
+      target.appendChild(elem.cloneNode(true));
+    }
+  };
+
+  var animationEndEvent = function () {
+    // Prevent run in Node env
+
+    /* istanbul ignore if */
+    if (isNodeEnv()) {
+      return false;
+    }
+
+    var testEl = document.createElement('div');
+    var transEndEventNames = {
+      WebkitAnimation: 'webkitAnimationEnd',
+      OAnimation: 'oAnimationEnd oanimationend',
+      animation: 'animationend'
+    };
+
+    for (var i in transEndEventNames) {
+      if (Object.prototype.hasOwnProperty.call(transEndEventNames, i) && typeof testEl.style[i] !== 'undefined') {
+        return transEndEventNames[i];
+      }
+    }
+
+    return false;
+  }();
+
+  // https://github.com/twbs/bootstrap/blob/master/js/src/modal.js
+
+  var measureScrollbar = function measureScrollbar() {
+    var scrollDiv = document.createElement('div');
+    scrollDiv.className = swalClasses['scrollbar-measure'];
+    document.body.appendChild(scrollDiv);
+    var scrollbarWidth = scrollDiv.getBoundingClientRect().width - scrollDiv.clientWidth;
+    document.body.removeChild(scrollDiv);
+    return scrollbarWidth;
+  };
+
+  var renderActions = function renderActions(instance, params) {
+    var actions = getActions();
+    var confirmButton = getConfirmButton();
+    var cancelButton = getCancelButton(); // Actions (buttons) wrapper
+
+    if (!params.showConfirmButton && !params.showCancelButton) {
+      hide(actions);
+    } // Custom class
+
+
+    applyCustomClass(actions, params, 'actions'); // Render confirm button
+
+    renderButton(confirmButton, 'confirm', params); // render Cancel Button
+
+    renderButton(cancelButton, 'cancel', params);
+
+    if (params.buttonsStyling) {
+      handleButtonsStyling(confirmButton, cancelButton, params);
+    } else {
+      removeClass([confirmButton, cancelButton], swalClasses.styled);
+      confirmButton.style.backgroundColor = confirmButton.style.borderLeftColor = confirmButton.style.borderRightColor = '';
+      cancelButton.style.backgroundColor = cancelButton.style.borderLeftColor = cancelButton.style.borderRightColor = '';
+    }
+
+    if (params.reverseButtons) {
+      confirmButton.parentNode.insertBefore(cancelButton, confirmButton);
+    }
+  };
+
+  function handleButtonsStyling(confirmButton, cancelButton, params) {
+    addClass([confirmButton, cancelButton], swalClasses.styled); // Buttons background colors
+
+    if (params.confirmButtonColor) {
+      confirmButton.style.backgroundColor = params.confirmButtonColor;
+    }
+
+    if (params.cancelButtonColor) {
+      cancelButton.style.backgroundColor = params.cancelButtonColor;
+    } // Loading state
+
+
+    var confirmButtonBackgroundColor = window.getComputedStyle(confirmButton).getPropertyValue('background-color');
+    confirmButton.style.borderLeftColor = confirmButtonBackgroundColor;
+    confirmButton.style.borderRightColor = confirmButtonBackgroundColor;
+  }
+
+  function renderButton(button, buttonType, params) {
+    toggle(button, params["show".concat(capitalizeFirstLetter(buttonType), "Button")], 'inline-block');
+    setInnerHtml(button, params["".concat(buttonType, "ButtonText")]); // Set caption text
+
+    button.setAttribute('aria-label', params["".concat(buttonType, "ButtonAriaLabel")]); // ARIA label
+    // Add buttons custom classes
+
+    button.className = swalClasses[buttonType];
+    applyCustomClass(button, params, "".concat(buttonType, "Button"));
+    addClass(button, params["".concat(buttonType, "ButtonClass")]);
+  }
+
+  function handleBackdropParam(container, backdrop) {
+    if (typeof backdrop === 'string') {
+      container.style.background = backdrop;
+    } else if (!backdrop) {
+      addClass([document.documentElement, document.body], swalClasses['no-backdrop']);
+    }
+  }
+
+  function handlePositionParam(container, position) {
+    if (position in swalClasses) {
+      addClass(container, swalClasses[position]);
+    } else {
+      warn('The "position" parameter is not valid, defaulting to "center"');
+      addClass(container, swalClasses.center);
+    }
+  }
+
+  function handleGrowParam(container, grow) {
+    if (grow && typeof grow === 'string') {
+      var growClass = "grow-".concat(grow);
+
+      if (growClass in swalClasses) {
+        addClass(container, swalClasses[growClass]);
+      }
+    }
+  }
+
+  var renderContainer = function renderContainer(instance, params) {
+    var container = getContainer();
+
+    if (!container) {
+      return;
+    }
+
+    handleBackdropParam(container, params.backdrop);
+
+    if (!params.backdrop && params.allowOutsideClick) {
+      warn('"allowOutsideClick" parameter requires `backdrop` parameter to be set to `true`');
+    }
+
+    handlePositionParam(container, params.position);
+    handleGrowParam(container, params.grow); // Custom class
+
+    applyCustomClass(container, params, 'container'); // Set queue step attribute for getQueueStep() method
+
+    var queueStep = document.body.getAttribute('data-swal2-queue-step');
+
+    if (queueStep) {
+      container.setAttribute('data-queue-step', queueStep);
+      document.body.removeAttribute('data-swal2-queue-step');
+    }
+  };
+
+  /**
+   * This module containts `WeakMap`s for each effectively-"private  property" that a `Swal` has.
+   * For example, to set the private property "foo" of `this` to "bar", you can `privateProps.foo.set(this, 'bar')`
+   * This is the approach that Babel will probably take to implement private methods/fields
+   *   https://github.com/tc39/proposal-private-methods
+   *   https://github.com/babel/babel/pull/7555
+   * Once we have the changes from that PR in Babel, and our core class fits reasonable in *one module*
+   *   then we can use that language feature.
+   */
+  var privateProps = {
+    promise: new WeakMap(),
+    innerParams: new WeakMap(),
+    domCache: new WeakMap()
+  };
+
+  var inputTypes = ['input', 'file', 'range', 'select', 'radio', 'checkbox', 'textarea'];
+  var renderInput = function renderInput(instance, params) {
+    var content = getContent();
+    var innerParams = privateProps.innerParams.get(instance);
+    var rerender = !innerParams || params.input !== innerParams.input;
+    inputTypes.forEach(function (inputType) {
+      var inputClass = swalClasses[inputType];
+      var inputContainer = getChildByClass(content, inputClass); // set attributes
+
+      setAttributes(inputType, params.inputAttributes); // set class
+
+      inputContainer.className = inputClass;
+
+      if (rerender) {
+        hide(inputContainer);
+      }
+    });
+
+    if (params.input) {
+      if (rerender) {
+        showInput(params);
+      } // set custom class
+
+
+      setCustomClass(params);
+    }
+  };
+
+  var showInput = function showInput(params) {
+    if (!renderInputType[params.input]) {
+      return error("Unexpected type of input! Expected \"text\", \"email\", \"password\", \"number\", \"tel\", \"select\", \"radio\", \"checkbox\", \"textarea\", \"file\" or \"url\", got \"".concat(params.input, "\""));
+    }
+
+    var inputContainer = getInputContainer(params.input);
+    var input = renderInputType[params.input](inputContainer, params);
+    show(input); // input autofocus
+
+    setTimeout(function () {
+      focusInput(input);
+    });
+  };
+
+  var removeAttributes = function removeAttributes(input) {
+    for (var i = 0; i < input.attributes.length; i++) {
+      var attrName = input.attributes[i].name;
+
+      if (!(['type', 'value', 'style'].indexOf(attrName) !== -1)) {
+        input.removeAttribute(attrName);
+      }
+    }
+  };
+
+  var setAttributes = function setAttributes(inputType, inputAttributes) {
+    var input = getInput(getContent(), inputType);
+
+    if (!input) {
+      return;
+    }
+
+    removeAttributes(input);
+
+    for (var attr in inputAttributes) {
+      // Do not set a placeholder for <input type="range">
+      // it'll crash Edge, #1298
+      if (inputType === 'range' && attr === 'placeholder') {
+        continue;
+      }
+
+      input.setAttribute(attr, inputAttributes[attr]);
+    }
+  };
+
+  var setCustomClass = function setCustomClass(params) {
+    var inputContainer = getInputContainer(params.input);
+
+    if (params.customClass) {
+      addClass(inputContainer, params.customClass.input);
+    }
+  };
+
+  var setInputPlaceholder = function setInputPlaceholder(input, params) {
+    if (!input.placeholder || params.inputPlaceholder) {
+      input.placeholder = params.inputPlaceholder;
+    }
+  };
+
+  var getInputContainer = function getInputContainer(inputType) {
+    var inputClass = swalClasses[inputType] ? swalClasses[inputType] : swalClasses.input;
+    return getChildByClass(getContent(), inputClass);
+  };
+
+  var renderInputType = {};
+
+  renderInputType.text = renderInputType.email = renderInputType.password = renderInputType.number = renderInputType.tel = renderInputType.url = function (input, params) {
+    if (typeof params.inputValue === 'string' || typeof params.inputValue === 'number') {
+      input.value = params.inputValue;
+    } else if (!isPromise(params.inputValue)) {
+      warn("Unexpected type of inputValue! Expected \"string\", \"number\" or \"Promise\", got \"".concat(_typeof(params.inputValue), "\""));
+    }
+
+    setInputPlaceholder(input, params);
+    input.type = params.input;
+    return input;
+  };
+
+  renderInputType.file = function (input, params) {
+    setInputPlaceholder(input, params);
+    return input;
+  };
+
+  renderInputType.range = function (range, params) {
+    var rangeInput = range.querySelector('input');
+    var rangeOutput = range.querySelector('output');
+    rangeInput.value = params.inputValue;
+    rangeInput.type = params.input;
+    rangeOutput.value = params.inputValue;
+    return range;
+  };
+
+  renderInputType.select = function (select, params) {
+    select.textContent = '';
+
+    if (params.inputPlaceholder) {
+      var placeholder = document.createElement('option');
+      setInnerHtml(placeholder, params.inputPlaceholder);
+      placeholder.value = '';
+      placeholder.disabled = true;
+      placeholder.selected = true;
+      select.appendChild(placeholder);
+    }
+
+    return select;
+  };
+
+  renderInputType.radio = function (radio) {
+    radio.textContent = '';
+    return radio;
+  };
+
+  renderInputType.checkbox = function (checkboxContainer, params) {
+    var checkbox = getInput(getContent(), 'checkbox');
+    checkbox.value = 1;
+    checkbox.id = swalClasses.checkbox;
+    checkbox.checked = Boolean(params.inputValue);
+    var label = checkboxContainer.querySelector('span');
+    setInnerHtml(label, params.inputPlaceholder);
+    return checkboxContainer;
+  };
+
+  renderInputType.textarea = function (textarea, params) {
+    textarea.value = params.inputValue;
+    setInputPlaceholder(textarea, params);
+
+    if ('MutationObserver' in window) {
+      // #1699
+      var initialPopupWidth = parseInt(window.getComputedStyle(getPopup()).width);
+      var popupPadding = parseInt(window.getComputedStyle(getPopup()).paddingLeft) + parseInt(window.getComputedStyle(getPopup()).paddingRight);
+
+      var outputsize = function outputsize() {
+        var contentWidth = textarea.offsetWidth + popupPadding;
+
+        if (contentWidth > initialPopupWidth) {
+          getPopup().style.width = "".concat(contentWidth, "px");
+        } else {
+          getPopup().style.width = null;
+        }
+      };
+
+      new MutationObserver(outputsize).observe(textarea, {
+        attributes: true,
+        attributeFilter: ['style']
+      });
+    }
+
+    return textarea;
+  };
+
+  var renderContent = function renderContent(instance, params) {
+    var content = getContent().querySelector("#".concat(swalClasses.content)); // Content as HTML
+
+    if (params.html) {
+      parseHtmlToContainer(params.html, content);
+      show(content, 'block'); // Content as plain text
+    } else if (params.text) {
+      content.textContent = params.text;
+      show(content, 'block'); // No content
+    } else {
+      hide(content);
+    }
+
+    renderInput(instance, params); // Custom class
+
+    applyCustomClass(getContent(), params, 'content');
+  };
+
+  var renderFooter = function renderFooter(instance, params) {
+    var footer = getFooter();
+    toggle(footer, params.footer);
+
+    if (params.footer) {
+      parseHtmlToContainer(params.footer, footer);
+    } // Custom class
+
+
+    applyCustomClass(footer, params, 'footer');
+  };
+
+  var renderCloseButton = function renderCloseButton(instance, params) {
+    var closeButton = getCloseButton();
+    setInnerHtml(closeButton, params.closeButtonHtml); // Custom class
+
+    applyCustomClass(closeButton, params, 'closeButton');
+    toggle(closeButton, params.showCloseButton);
+    closeButton.setAttribute('aria-label', params.closeButtonAriaLabel);
+  };
+
+  var renderIcon = function renderIcon(instance, params) {
+    var innerParams = privateProps.innerParams.get(instance); // if the give icon already rendered, apply the custom class without re-rendering the icon
+
+    if (innerParams && params.icon === innerParams.icon && getIcon()) {
+      applyCustomClass(getIcon(), params, 'icon');
+      return;
+    }
+
+    hideAllIcons();
+
+    if (!params.icon) {
+      return;
+    }
+
+    if (Object.keys(iconTypes).indexOf(params.icon) !== -1) {
+      var icon = elementBySelector(".".concat(swalClasses.icon, ".").concat(iconTypes[params.icon]));
+      show(icon); // Custom or default content
+
+      setContent(icon, params);
+      adjustSuccessIconBackgoundColor(); // Custom class
+
+      applyCustomClass(icon, params, 'icon'); // Animate icon
+
+      addClass(icon, params.showClass.icon);
+    } else {
+      error("Unknown icon! Expected \"success\", \"error\", \"warning\", \"info\" or \"question\", got \"".concat(params.icon, "\""));
+    }
+  };
+
+  var hideAllIcons = function hideAllIcons() {
+    var icons = getIcons();
+
+    for (var i = 0; i < icons.length; i++) {
+      hide(icons[i]);
+    }
+  }; // Adjust success icon background color to match the popup background color
+
+
+  var adjustSuccessIconBackgoundColor = function adjustSuccessIconBackgoundColor() {
+    var popup = getPopup();
+    var popupBackgroundColor = window.getComputedStyle(popup).getPropertyValue('background-color');
+    var successIconParts = popup.querySelectorAll('[class^=swal2-success-circular-line], .swal2-success-fix');
+
+    for (var i = 0; i < successIconParts.length; i++) {
+      successIconParts[i].style.backgroundColor = popupBackgroundColor;
+    }
+  };
+
+  var setContent = function setContent(icon, params) {
+    icon.textContent = '';
+
+    if (params.iconHtml) {
+      setInnerHtml(icon, iconContent(params.iconHtml));
+    } else if (params.icon === 'success') {
+      setInnerHtml(icon, "\n      <div class=\"swal2-success-circular-line-left\"></div>\n      <span class=\"swal2-success-line-tip\"></span> <span class=\"swal2-success-line-long\"></span>\n      <div class=\"swal2-success-ring\"></div> <div class=\"swal2-success-fix\"></div>\n      <div class=\"swal2-success-circular-line-right\"></div>\n    ");
+    } else if (params.icon === 'error') {
+      setInnerHtml(icon, "\n      <span class=\"swal2-x-mark\">\n        <span class=\"swal2-x-mark-line-left\"></span>\n        <span class=\"swal2-x-mark-line-right\"></span>\n      </span>\n    ");
+    } else {
+      var defaultIconHtml = {
+        question: '?',
+        warning: '!',
+        info: 'i'
+      };
+      setInnerHtml(icon, iconContent(defaultIconHtml[params.icon]));
+    }
+  };
+
+  var iconContent = function iconContent(content) {
+    return "<div class=\"".concat(swalClasses['icon-content'], "\">").concat(content, "</div>");
+  };
+
+  var renderImage = function renderImage(instance, params) {
+    var image = getImage();
+
+    if (!params.imageUrl) {
+      return hide(image);
+    }
+
+    show(image); // Src, alt
+
+    image.setAttribute('src', params.imageUrl);
+    image.setAttribute('alt', params.imageAlt); // Width, height
+
+    applyNumericalStyle(image, 'width', params.imageWidth);
+    applyNumericalStyle(image, 'height', params.imageHeight); // Class
+
+    image.className = swalClasses.image;
+    applyCustomClass(image, params, 'image');
+  };
+
+  var currentSteps = [];
+  /*
+   * Global function for chaining sweetAlert popups
+   */
+
+  var queue = function queue(steps) {
+    var Swal = this;
+    currentSteps = steps;
+
+    var resetAndResolve = function resetAndResolve(resolve, value) {
+      currentSteps = [];
+      resolve(value);
+    };
+
+    var queueResult = [];
+    return new Promise(function (resolve) {
+      (function step(i, callback) {
+        if (i < currentSteps.length) {
+          document.body.setAttribute('data-swal2-queue-step', i);
+          Swal.fire(currentSteps[i]).then(function (result) {
+            if (typeof result.value !== 'undefined') {
+              queueResult.push(result.value);
+              step(i + 1, callback);
+            } else {
+              resetAndResolve(resolve, {
+                dismiss: result.dismiss
+              });
+            }
+          });
+        } else {
+          resetAndResolve(resolve, {
+            value: queueResult
+          });
+        }
+      })(0);
+    });
+  };
+  /*
+   * Global function for getting the index of current popup in queue
+   */
+
+  var getQueueStep = function getQueueStep() {
+    return getContainer() && getContainer().getAttribute('data-queue-step');
+  };
+  /*
+   * Global function for inserting a popup to the queue
+   */
+
+  var insertQueueStep = function insertQueueStep(step, index) {
+    if (index && index < currentSteps.length) {
+      return currentSteps.splice(index, 0, step);
+    }
+
+    return currentSteps.push(step);
+  };
+  /*
+   * Global function for deleting a popup from the queue
+   */
+
+  var deleteQueueStep = function deleteQueueStep(index) {
+    if (typeof currentSteps[index] !== 'undefined') {
+      currentSteps.splice(index, 1);
+    }
+  };
+
+  var createStepElement = function createStepElement(step) {
+    var stepEl = document.createElement('li');
+    addClass(stepEl, swalClasses['progress-step']);
+    setInnerHtml(stepEl, step);
+    return stepEl;
+  };
+
+  var createLineElement = function createLineElement(params) {
+    var lineEl = document.createElement('li');
+    addClass(lineEl, swalClasses['progress-step-line']);
+
+    if (params.progressStepsDistance) {
+      lineEl.style.width = params.progressStepsDistance;
+    }
+
+    return lineEl;
+  };
+
+  var renderProgressSteps = function renderProgressSteps(instance, params) {
+    var progressStepsContainer = getProgressSteps();
+
+    if (!params.progressSteps || params.progressSteps.length === 0) {
+      return hide(progressStepsContainer);
+    }
+
+    show(progressStepsContainer);
+    progressStepsContainer.textContent = '';
+    var currentProgressStep = parseInt(params.currentProgressStep === undefined ? getQueueStep() : params.currentProgressStep);
+
+    if (currentProgressStep >= params.progressSteps.length) {
+      warn('Invalid currentProgressStep parameter, it should be less than progressSteps.length ' + '(currentProgressStep like JS arrays starts from 0)');
+    }
+
+    params.progressSteps.forEach(function (step, index) {
+      var stepEl = createStepElement(step);
+      progressStepsContainer.appendChild(stepEl);
+
+      if (index === currentProgressStep) {
+        addClass(stepEl, swalClasses['active-progress-step']);
+      }
+
+      if (index !== params.progressSteps.length - 1) {
+        var lineEl = createLineElement(step);
+        progressStepsContainer.appendChild(lineEl);
+      }
+    });
+  };
+
+  var renderTitle = function renderTitle(instance, params) {
+    var title = getTitle();
+    toggle(title, params.title || params.titleText);
+
+    if (params.title) {
+      parseHtmlToContainer(params.title, title);
+    }
+
+    if (params.titleText) {
+      title.innerText = params.titleText;
+    } // Custom class
+
+
+    applyCustomClass(title, params, 'title');
+  };
+
+  var renderHeader = function renderHeader(instance, params) {
+    var header = getHeader(); // Custom class
+
+    applyCustomClass(header, params, 'header'); // Progress steps
+
+    renderProgressSteps(instance, params); // Icon
+
+    renderIcon(instance, params); // Image
+
+    renderImage(instance, params); // Title
+
+    renderTitle(instance, params); // Close button
+
+    renderCloseButton(instance, params);
+  };
+
+  var renderPopup = function renderPopup(instance, params) {
+    var popup = getPopup(); // Width
+
+    applyNumericalStyle(popup, 'width', params.width); // Padding
+
+    applyNumericalStyle(popup, 'padding', params.padding); // Background
+
+    if (params.background) {
+      popup.style.background = params.background;
+    } // Classes
+
+
+    addClasses(popup, params);
+  };
+
+  var addClasses = function addClasses(popup, params) {
+    // Default Class + showClass when updating Swal.update({})
+    popup.className = "".concat(swalClasses.popup, " ").concat(isVisible(popup) ? params.showClass.popup : '');
+
+    if (params.toast) {
+      addClass([document.documentElement, document.body], swalClasses['toast-shown']);
+      addClass(popup, swalClasses.toast);
+    } else {
+      addClass(popup, swalClasses.modal);
+    } // Custom class
+
+
+    applyCustomClass(popup, params, 'popup');
+
+    if (typeof params.customClass === 'string') {
+      addClass(popup, params.customClass);
+    } // Icon class (#1842)
+
+
+    if (params.icon) {
+      addClass(popup, swalClasses["icon-".concat(params.icon)]);
+    }
+  };
+
+  var render = function render(instance, params) {
+    renderPopup(instance, params);
+    renderContainer(instance, params);
+    renderHeader(instance, params);
+    renderContent(instance, params);
+    renderActions(instance, params);
+    renderFooter(instance, params);
+
+    if (typeof params.onRender === 'function') {
+      params.onRender(getPopup());
+    }
+  };
+
+  /*
+   * Global function to determine if SweetAlert2 popup is shown
+   */
+
+  var isVisible$1 = function isVisible$$1() {
+    return isVisible(getPopup());
+  };
+  /*
+   * Global function to click 'Confirm' button
+   */
+
+  var clickConfirm = function clickConfirm() {
+    return getConfirmButton() && getConfirmButton().click();
+  };
+  /*
+   * Global function to click 'Cancel' button
+   */
+
+  var clickCancel = function clickCancel() {
+    return getCancelButton() && getCancelButton().click();
+  };
+
+  function fire() {
+    var Swal = this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _construct(Swal, args);
+  }
+
+  /**
+   * Returns an extended version of `Swal` containing `params` as defaults.
+   * Useful for reusing Swal configuration.
+   *
+   * For example:
+   *
+   * Before:
+   * const textPromptOptions = { input: 'text', showCancelButton: true }
+   * const {value: firstName} = await Swal.fire({ ...textPromptOptions, title: 'What is your first name?' })
+   * const {value: lastName} = await Swal.fire({ ...textPromptOptions, title: 'What is your last name?' })
+   *
+   * After:
+   * const TextPrompt = Swal.mixin({ input: 'text', showCancelButton: true })
+   * const {value: firstName} = await TextPrompt('What is your first name?')
+   * const {value: lastName} = await TextPrompt('What is your last name?')
+   *
+   * @param mixinParams
+   */
+  function mixin(mixinParams) {
+    var MixinSwal = /*#__PURE__*/function (_this) {
+      _inherits(MixinSwal, _this);
+
+      var _super = _createSuper(MixinSwal);
+
+      function MixinSwal() {
+        _classCallCheck(this, MixinSwal);
+
+        return _super.apply(this, arguments);
+      }
+
+      _createClass(MixinSwal, [{
+        key: "_main",
+        value: function _main(params) {
+          return _get(_getPrototypeOf(MixinSwal.prototype), "_main", this).call(this, _extends({}, mixinParams, params));
+        }
+      }]);
+
+      return MixinSwal;
+    }(this);
+
+    return MixinSwal;
+  }
+
+  /**
+   * Show spinner instead of Confirm button
+   */
+
+  var showLoading = function showLoading() {
+    var popup = getPopup();
+
+    if (!popup) {
+      Swal.fire();
+    }
+
+    popup = getPopup();
+    var actions = getActions();
+    var confirmButton = getConfirmButton();
+    show(actions);
+    show(confirmButton, 'inline-block');
+    addClass([popup, actions], swalClasses.loading);
+    confirmButton.disabled = true;
+    popup.setAttribute('data-loading', true);
+    popup.setAttribute('aria-busy', true);
+    popup.focus();
+  };
+
+  var RESTORE_FOCUS_TIMEOUT = 100;
+
+  var globalState = {};
+
+  var focusPreviousActiveElement = function focusPreviousActiveElement() {
+    if (globalState.previousActiveElement && globalState.previousActiveElement.focus) {
+      globalState.previousActiveElement.focus();
+      globalState.previousActiveElement = null;
+    } else if (document.body) {
+      document.body.focus();
+    }
+  }; // Restore previous active (focused) element
+
+
+  var restoreActiveElement = function restoreActiveElement() {
+    return new Promise(function (resolve) {
+      var x = window.scrollX;
+      var y = window.scrollY;
+      globalState.restoreFocusTimeout = setTimeout(function () {
+        focusPreviousActiveElement();
+        resolve();
+      }, RESTORE_FOCUS_TIMEOUT); // issues/900
+
+      /* istanbul ignore if */
+
+      if (typeof x !== 'undefined' && typeof y !== 'undefined') {
+        // IE doesn't have scrollX/scrollY support
+        window.scrollTo(x, y);
+      }
+    });
+  };
+
+  /**
+   * If `timer` parameter is set, returns number of milliseconds of timer remained.
+   * Otherwise, returns undefined.
+   */
+
+  var getTimerLeft = function getTimerLeft() {
+    return globalState.timeout && globalState.timeout.getTimerLeft();
+  };
+  /**
+   * Stop timer. Returns number of milliseconds of timer remained.
+   * If `timer` parameter isn't set, returns undefined.
+   */
+
+  var stopTimer = function stopTimer() {
+    if (globalState.timeout) {
+      stopTimerProgressBar();
+      return globalState.timeout.stop();
+    }
+  };
+  /**
+   * Resume timer. Returns number of milliseconds of timer remained.
+   * If `timer` parameter isn't set, returns undefined.
+   */
+
+  var resumeTimer = function resumeTimer() {
+    if (globalState.timeout) {
+      var remaining = globalState.timeout.start();
+      animateTimerProgressBar(remaining);
+      return remaining;
+    }
+  };
+  /**
+   * Resume timer. Returns number of milliseconds of timer remained.
+   * If `timer` parameter isn't set, returns undefined.
+   */
+
+  var toggleTimer = function toggleTimer() {
+    var timer = globalState.timeout;
+    return timer && (timer.running ? stopTimer() : resumeTimer());
+  };
+  /**
+   * Increase timer. Returns number of milliseconds of an updated timer.
+   * If `timer` parameter isn't set, returns undefined.
+   */
+
+  var increaseTimer = function increaseTimer(n) {
+    if (globalState.timeout) {
+      var remaining = globalState.timeout.increase(n);
+      animateTimerProgressBar(remaining, true);
+      return remaining;
+    }
+  };
+  /**
+   * Check if timer is running. Returns true if timer is running
+   * or false if timer is paused or stopped.
+   * If `timer` parameter isn't set, returns undefined
+   */
+
+  var isTimerRunning = function isTimerRunning() {
+    return globalState.timeout && globalState.timeout.isRunning();
+  };
+
+  var defaultParams = {
+    title: '',
+    titleText: '',
+    text: '',
+    html: '',
+    footer: '',
+    icon: undefined,
+    iconHtml: undefined,
+    toast: false,
+    animation: true,
+    showClass: {
+      popup: 'swal2-show',
+      backdrop: 'swal2-backdrop-show',
+      icon: 'swal2-icon-show'
+    },
+    hideClass: {
+      popup: 'swal2-hide',
+      backdrop: 'swal2-backdrop-hide',
+      icon: 'swal2-icon-hide'
+    },
+    customClass: undefined,
+    target: 'body',
+    backdrop: true,
+    heightAuto: true,
+    allowOutsideClick: true,
+    allowEscapeKey: true,
+    allowEnterKey: true,
+    stopKeydownPropagation: true,
+    keydownListenerCapture: false,
+    showConfirmButton: true,
+    showCancelButton: false,
+    preConfirm: undefined,
+    confirmButtonText: 'OK',
+    confirmButtonAriaLabel: '',
+    confirmButtonColor: undefined,
+    cancelButtonText: 'Cancel',
+    cancelButtonAriaLabel: '',
+    cancelButtonColor: undefined,
+    buttonsStyling: true,
+    reverseButtons: false,
+    focusConfirm: true,
+    focusCancel: false,
+    showCloseButton: false,
+    closeButtonHtml: '&times;',
+    closeButtonAriaLabel: 'Close this dialog',
+    showLoaderOnConfirm: false,
+    imageUrl: undefined,
+    imageWidth: undefined,
+    imageHeight: undefined,
+    imageAlt: '',
+    timer: undefined,
+    timerProgressBar: false,
+    width: undefined,
+    padding: undefined,
+    background: undefined,
+    input: undefined,
+    inputPlaceholder: '',
+    inputValue: '',
+    inputOptions: {},
+    inputAutoTrim: true,
+    inputAttributes: {},
+    inputValidator: undefined,
+    validationMessage: undefined,
+    grow: false,
+    position: 'center',
+    progressSteps: [],
+    currentProgressStep: undefined,
+    progressStepsDistance: undefined,
+    onBeforeOpen: undefined,
+    onOpen: undefined,
+    onRender: undefined,
+    onClose: undefined,
+    onAfterClose: undefined,
+    onDestroy: undefined,
+    scrollbarPadding: true
+  };
+  var updatableParams = ['title', 'titleText', 'text', 'html', 'icon', 'hideClass', 'customClass', 'allowOutsideClick', 'allowEscapeKey', 'showConfirmButton', 'showCancelButton', 'confirmButtonText', 'confirmButtonAriaLabel', 'confirmButtonColor', 'cancelButtonText', 'cancelButtonAriaLabel', 'cancelButtonColor', 'buttonsStyling', 'reverseButtons', 'imageUrl', 'imageWidth', 'imageHeight', 'imageAlt', 'progressSteps', 'currentProgressStep'];
+  var deprecatedParams = {
+    animation: 'showClass" and "hideClass'
+  };
+  var toastIncompatibleParams = ['allowOutsideClick', 'allowEnterKey', 'backdrop', 'focusConfirm', 'focusCancel', 'heightAuto', 'keydownListenerCapture'];
+  /**
+   * Is valid parameter
+   * @param {String} paramName
+   */
+
+  var isValidParameter = function isValidParameter(paramName) {
+    return Object.prototype.hasOwnProperty.call(defaultParams, paramName);
+  };
+  /**
+   * Is valid parameter for Swal.update() method
+   * @param {String} paramName
+   */
+
+  var isUpdatableParameter = function isUpdatableParameter(paramName) {
+    return updatableParams.indexOf(paramName) !== -1;
+  };
+  /**
+   * Is deprecated parameter
+   * @param {String} paramName
+   */
+
+  var isDeprecatedParameter = function isDeprecatedParameter(paramName) {
+    return deprecatedParams[paramName];
+  };
+
+  var checkIfParamIsValid = function checkIfParamIsValid(param) {
+    if (!isValidParameter(param)) {
+      warn("Unknown parameter \"".concat(param, "\""));
+    }
+  };
+
+  var checkIfToastParamIsValid = function checkIfToastParamIsValid(param) {
+    if (toastIncompatibleParams.indexOf(param) !== -1) {
+      warn("The parameter \"".concat(param, "\" is incompatible with toasts"));
+    }
+  };
+
+  var checkIfParamIsDeprecated = function checkIfParamIsDeprecated(param) {
+    if (isDeprecatedParameter(param)) {
+      warnAboutDepreation(param, isDeprecatedParameter(param));
+    }
+  };
+  /**
+   * Show relevant warnings for given params
+   *
+   * @param params
+   */
+
+
+  var showWarningsForParams = function showWarningsForParams(params) {
+    for (var param in params) {
+      checkIfParamIsValid(param);
+
+      if (params.toast) {
+        checkIfToastParamIsValid(param);
+      }
+
+      checkIfParamIsDeprecated(param);
+    }
+  };
+
+
+
+  var staticMethods = /*#__PURE__*/Object.freeze({
+    isValidParameter: isValidParameter,
+    isUpdatableParameter: isUpdatableParameter,
+    isDeprecatedParameter: isDeprecatedParameter,
+    argsToParams: argsToParams,
+    isVisible: isVisible$1,
+    clickConfirm: clickConfirm,
+    clickCancel: clickCancel,
+    getContainer: getContainer,
+    getPopup: getPopup,
+    getTitle: getTitle,
+    getContent: getContent,
+    getHtmlContainer: getHtmlContainer,
+    getImage: getImage,
+    getIcon: getIcon,
+    getIcons: getIcons,
+    getCloseButton: getCloseButton,
+    getActions: getActions,
+    getConfirmButton: getConfirmButton,
+    getCancelButton: getCancelButton,
+    getHeader: getHeader,
+    getFooter: getFooter,
+    getTimerProgressBar: getTimerProgressBar,
+    getFocusableElements: getFocusableElements,
+    getValidationMessage: getValidationMessage,
+    isLoading: isLoading,
+    fire: fire,
+    mixin: mixin,
+    queue: queue,
+    getQueueStep: getQueueStep,
+    insertQueueStep: insertQueueStep,
+    deleteQueueStep: deleteQueueStep,
+    showLoading: showLoading,
+    enableLoading: showLoading,
+    getTimerLeft: getTimerLeft,
+    stopTimer: stopTimer,
+    resumeTimer: resumeTimer,
+    toggleTimer: toggleTimer,
+    increaseTimer: increaseTimer,
+    isTimerRunning: isTimerRunning
+  });
+
+  /**
+   * Enables buttons and hide loader.
+   */
+
+  function hideLoading() {
+    // do nothing if popup is closed
+    var innerParams = privateProps.innerParams.get(this);
+
+    if (!innerParams) {
+      return;
+    }
+
+    var domCache = privateProps.domCache.get(this);
+
+    if (!innerParams.showConfirmButton) {
+      hide(domCache.confirmButton);
+
+      if (!innerParams.showCancelButton) {
+        hide(domCache.actions);
+      }
+    }
+
+    removeClass([domCache.popup, domCache.actions], swalClasses.loading);
+    domCache.popup.removeAttribute('aria-busy');
+    domCache.popup.removeAttribute('data-loading');
+    domCache.confirmButton.disabled = false;
+    domCache.cancelButton.disabled = false;
+  }
+
+  function getInput$1(instance) {
+    var innerParams = privateProps.innerParams.get(instance || this);
+    var domCache = privateProps.domCache.get(instance || this);
+
+    if (!domCache) {
+      return null;
+    }
+
+    return getInput(domCache.content, innerParams.input);
+  }
+
+  var fixScrollbar = function fixScrollbar() {
+    // for queues, do not do this more than once
+    if (states.previousBodyPadding !== null) {
+      return;
+    } // if the body has overflow
+
+
+    if (document.body.scrollHeight > window.innerHeight) {
+      // add padding so the content doesn't shift after removal of scrollbar
+      states.previousBodyPadding = parseInt(window.getComputedStyle(document.body).getPropertyValue('padding-right'));
+      document.body.style.paddingRight = "".concat(states.previousBodyPadding + measureScrollbar(), "px");
+    }
+  };
+  var undoScrollbar = function undoScrollbar() {
+    if (states.previousBodyPadding !== null) {
+      document.body.style.paddingRight = "".concat(states.previousBodyPadding, "px");
+      states.previousBodyPadding = null;
+    }
+  };
+
+  /* istanbul ignore file */
+
+  var iOSfix = function iOSfix() {
+    var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream || navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
+
+    if (iOS && !hasClass(document.body, swalClasses.iosfix)) {
+      var offset = document.body.scrollTop;
+      document.body.style.top = "".concat(offset * -1, "px");
+      addClass(document.body, swalClasses.iosfix);
+      lockBodyScroll();
+    }
+  };
+
+  var lockBodyScroll = function lockBodyScroll() {
+    // #1246
+    var container = getContainer();
+    var preventTouchMove;
+
+    container.ontouchstart = function (e) {
+      preventTouchMove = shouldPreventTouchMove(e.target);
+    };
+
+    container.ontouchmove = function (e) {
+      if (preventTouchMove) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    };
+  };
+
+  var shouldPreventTouchMove = function shouldPreventTouchMove(target) {
+    var container = getContainer();
+
+    if (target === container) {
+      return true;
+    }
+
+    if (!isScrollable(container) && target.tagName !== 'INPUT' && // #1603
+    !(isScrollable(getContent()) && // #1944
+    getContent().contains(target))) {
+      return true;
+    }
+
+    return false;
+  };
+
+  var undoIOSfix = function undoIOSfix() {
+    if (hasClass(document.body, swalClasses.iosfix)) {
+      var offset = parseInt(document.body.style.top, 10);
+      removeClass(document.body, swalClasses.iosfix);
+      document.body.style.top = '';
+      document.body.scrollTop = offset * -1;
+    }
+  };
+
+  /* istanbul ignore file */
+
+  var isIE11 = function isIE11() {
+    return !!window.MSInputMethodContext && !!document.documentMode;
+  }; // Fix IE11 centering sweetalert2/issues/933
+
+
+  var fixVerticalPositionIE = function fixVerticalPositionIE() {
+    var container = getContainer();
+    var popup = getPopup();
+    container.style.removeProperty('align-items');
+
+    if (popup.offsetTop < 0) {
+      container.style.alignItems = 'flex-start';
+    }
+  };
+
+  var IEfix = function IEfix() {
+    if (typeof window !== 'undefined' && isIE11()) {
+      fixVerticalPositionIE();
+      window.addEventListener('resize', fixVerticalPositionIE);
+    }
+  };
+  var undoIEfix = function undoIEfix() {
+    if (typeof window !== 'undefined' && isIE11()) {
+      window.removeEventListener('resize', fixVerticalPositionIE);
+    }
+  };
+
+  // Adding aria-hidden="true" to elements outside of the active modal dialog ensures that
+  // elements not within the active modal dialog will not be surfaced if a user opens a screen
+  // reader’s list of elements (headings, form controls, landmarks, etc.) in the document.
+
+  var setAriaHidden = function setAriaHidden() {
+    var bodyChildren = toArray(document.body.children);
+    bodyChildren.forEach(function (el) {
+      if (el === getContainer() || contains(el, getContainer())) {
+        return;
+      }
+
+      if (el.hasAttribute('aria-hidden')) {
+        el.setAttribute('data-previous-aria-hidden', el.getAttribute('aria-hidden'));
+      }
+
+      el.setAttribute('aria-hidden', 'true');
+    });
+  };
+  var unsetAriaHidden = function unsetAriaHidden() {
+    var bodyChildren = toArray(document.body.children);
+    bodyChildren.forEach(function (el) {
+      if (el.hasAttribute('data-previous-aria-hidden')) {
+        el.setAttribute('aria-hidden', el.getAttribute('data-previous-aria-hidden'));
+        el.removeAttribute('data-previous-aria-hidden');
+      } else {
+        el.removeAttribute('aria-hidden');
+      }
+    });
+  };
+
+  /**
+   * This module containts `WeakMap`s for each effectively-"private  property" that a `Swal` has.
+   * For example, to set the private property "foo" of `this` to "bar", you can `privateProps.foo.set(this, 'bar')`
+   * This is the approach that Babel will probably take to implement private methods/fields
+   *   https://github.com/tc39/proposal-private-methods
+   *   https://github.com/babel/babel/pull/7555
+   * Once we have the changes from that PR in Babel, and our core class fits reasonable in *one module*
+   *   then we can use that language feature.
+   */
+  var privateMethods = {
+    swalPromiseResolve: new WeakMap()
+  };
+
+  /*
+   * Instance method to close sweetAlert
+   */
+
+  function removePopupAndResetState(instance, container, isToast$$1, onAfterClose) {
+    if (isToast$$1) {
+      triggerOnAfterCloseAndDispose(instance, onAfterClose);
+    } else {
+      restoreActiveElement().then(function () {
+        return triggerOnAfterCloseAndDispose(instance, onAfterClose);
+      });
+      globalState.keydownTarget.removeEventListener('keydown', globalState.keydownHandler, {
+        capture: globalState.keydownListenerCapture
+      });
+      globalState.keydownHandlerAdded = false;
+    }
+
+    if (container.parentNode && !document.body.getAttribute('data-swal2-queue-step')) {
+      container.parentNode.removeChild(container);
+    }
+
+    if (isModal()) {
+      undoScrollbar();
+      undoIOSfix();
+      undoIEfix();
+      unsetAriaHidden();
+    }
+
+    removeBodyClasses();
+  }
+
+  function removeBodyClasses() {
+    removeClass([document.documentElement, document.body], [swalClasses.shown, swalClasses['height-auto'], swalClasses['no-backdrop'], swalClasses['toast-shown'], swalClasses['toast-column']]);
+  }
+
+  function close(resolveValue) {
+    var popup = getPopup();
+
+    if (!popup) {
+      return;
+    }
+
+    var innerParams = privateProps.innerParams.get(this);
+
+    if (!innerParams || hasClass(popup, innerParams.hideClass.popup)) {
+      return;
+    }
+
+    var swalPromiseResolve = privateMethods.swalPromiseResolve.get(this);
+    removeClass(popup, innerParams.showClass.popup);
+    addClass(popup, innerParams.hideClass.popup);
+    var backdrop = getContainer();
+    removeClass(backdrop, innerParams.showClass.backdrop);
+    addClass(backdrop, innerParams.hideClass.backdrop);
+    handlePopupAnimation(this, popup, innerParams); // Resolve Swal promise
+
+    swalPromiseResolve(resolveValue || {});
+  }
+
+  var handlePopupAnimation = function handlePopupAnimation(instance, popup, innerParams) {
+    var container = getContainer(); // If animation is supported, animate
+
+    var animationIsSupported = animationEndEvent && hasCssAnimation(popup);
+    var onClose = innerParams.onClose,
+        onAfterClose = innerParams.onAfterClose;
+
+    if (onClose !== null && typeof onClose === 'function') {
+      onClose(popup);
+    }
+
+    if (animationIsSupported) {
+      animatePopup(instance, popup, container, onAfterClose);
+    } else {
+      // Otherwise, remove immediately
+      removePopupAndResetState(instance, container, isToast(), onAfterClose);
+    }
+  };
+
+  var animatePopup = function animatePopup(instance, popup, container, onAfterClose) {
+    globalState.swalCloseEventFinishedCallback = removePopupAndResetState.bind(null, instance, container, isToast(), onAfterClose);
+    popup.addEventListener(animationEndEvent, function (e) {
+      if (e.target === popup) {
+        globalState.swalCloseEventFinishedCallback();
+        delete globalState.swalCloseEventFinishedCallback;
+      }
+    });
+  };
+
+  var triggerOnAfterCloseAndDispose = function triggerOnAfterCloseAndDispose(instance, onAfterClose) {
+    setTimeout(function () {
+      if (typeof onAfterClose === 'function') {
+        onAfterClose();
+      }
+
+      instance._destroy();
+    });
+  };
+
+  function setButtonsDisabled(instance, buttons, disabled) {
+    var domCache = privateProps.domCache.get(instance);
+    buttons.forEach(function (button) {
+      domCache[button].disabled = disabled;
+    });
+  }
+
+  function setInputDisabled(input, disabled) {
+    if (!input) {
+      return false;
+    }
+
+    if (input.type === 'radio') {
+      var radiosContainer = input.parentNode.parentNode;
+      var radios = radiosContainer.querySelectorAll('input');
+
+      for (var i = 0; i < radios.length; i++) {
+        radios[i].disabled = disabled;
+      }
+    } else {
+      input.disabled = disabled;
+    }
+  }
+
+  function enableButtons() {
+    setButtonsDisabled(this, ['confirmButton', 'cancelButton'], false);
+  }
+  function disableButtons() {
+    setButtonsDisabled(this, ['confirmButton', 'cancelButton'], true);
+  }
+  function enableInput() {
+    return setInputDisabled(this.getInput(), false);
+  }
+  function disableInput() {
+    return setInputDisabled(this.getInput(), true);
+  }
+
+  function showValidationMessage(error) {
+    var domCache = privateProps.domCache.get(this);
+    setInnerHtml(domCache.validationMessage, error);
+    var popupComputedStyle = window.getComputedStyle(domCache.popup);
+    domCache.validationMessage.style.marginLeft = "-".concat(popupComputedStyle.getPropertyValue('padding-left'));
+    domCache.validationMessage.style.marginRight = "-".concat(popupComputedStyle.getPropertyValue('padding-right'));
+    show(domCache.validationMessage);
+    var input = this.getInput();
+
+    if (input) {
+      input.setAttribute('aria-invalid', true);
+      input.setAttribute('aria-describedBy', swalClasses['validation-message']);
+      focusInput(input);
+      addClass(input, swalClasses.inputerror);
+    }
+  } // Hide block with validation message
+
+  function resetValidationMessage$1() {
+    var domCache = privateProps.domCache.get(this);
+
+    if (domCache.validationMessage) {
+      hide(domCache.validationMessage);
+    }
+
+    var input = this.getInput();
+
+    if (input) {
+      input.removeAttribute('aria-invalid');
+      input.removeAttribute('aria-describedBy');
+      removeClass(input, swalClasses.inputerror);
+    }
+  }
+
+  function getProgressSteps$1() {
+    var domCache = privateProps.domCache.get(this);
+    return domCache.progressSteps;
+  }
+
+  var Timer = /*#__PURE__*/function () {
+    function Timer(callback, delay) {
+      _classCallCheck(this, Timer);
+
+      this.callback = callback;
+      this.remaining = delay;
+      this.running = false;
+      this.start();
+    }
+
+    _createClass(Timer, [{
+      key: "start",
+      value: function start() {
+        if (!this.running) {
+          this.running = true;
+          this.started = new Date();
+          this.id = setTimeout(this.callback, this.remaining);
+        }
+
+        return this.remaining;
+      }
+    }, {
+      key: "stop",
+      value: function stop() {
+        if (this.running) {
+          this.running = false;
+          clearTimeout(this.id);
+          this.remaining -= new Date() - this.started;
+        }
+
+        return this.remaining;
+      }
+    }, {
+      key: "increase",
+      value: function increase(n) {
+        var running = this.running;
+
+        if (running) {
+          this.stop();
+        }
+
+        this.remaining += n;
+
+        if (running) {
+          this.start();
+        }
+
+        return this.remaining;
+      }
+    }, {
+      key: "getTimerLeft",
+      value: function getTimerLeft() {
+        if (this.running) {
+          this.stop();
+          this.start();
+        }
+
+        return this.remaining;
+      }
+    }, {
+      key: "isRunning",
+      value: function isRunning() {
+        return this.running;
+      }
+    }]);
+
+    return Timer;
+  }();
+
+  var defaultInputValidators = {
+    email: function email(string, validationMessage) {
+      return /^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9-]{2,24}$/.test(string) ? Promise.resolve() : Promise.resolve(validationMessage || 'Invalid email address');
+    },
+    url: function url(string, validationMessage) {
+      // taken from https://stackoverflow.com/a/3809435 with a small change from #1306
+      return /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,63}\b([-a-zA-Z0-9@:%_+.~#?&/=]*)$/.test(string) ? Promise.resolve() : Promise.resolve(validationMessage || 'Invalid URL');
+    }
+  };
+
+  function setDefaultInputValidators(params) {
+    // Use default `inputValidator` for supported input types if not provided
+    if (!params.inputValidator) {
+      Object.keys(defaultInputValidators).forEach(function (key) {
+        if (params.input === key) {
+          params.inputValidator = defaultInputValidators[key];
+        }
+      });
+    }
+  }
+
+  function validateCustomTargetElement(params) {
+    // Determine if the custom target element is valid
+    if (!params.target || typeof params.target === 'string' && !document.querySelector(params.target) || typeof params.target !== 'string' && !params.target.appendChild) {
+      warn('Target parameter is not valid, defaulting to "body"');
+      params.target = 'body';
+    }
+  }
+  /**
+   * Set type, text and actions on popup
+   *
+   * @param params
+   * @returns {boolean}
+   */
+
+
+  function setParameters(params) {
+    setDefaultInputValidators(params); // showLoaderOnConfirm && preConfirm
+
+    if (params.showLoaderOnConfirm && !params.preConfirm) {
+      warn('showLoaderOnConfirm is set to true, but preConfirm is not defined.\n' + 'showLoaderOnConfirm should be used together with preConfirm, see usage example:\n' + 'https://sweetalert2.github.io/#ajax-request');
+    } // params.animation will be actually used in renderPopup.js
+    // but in case when params.animation is a function, we need to call that function
+    // before popup (re)initialization, so it'll be possible to check Swal.isVisible()
+    // inside the params.animation function
+
+
+    params.animation = callIfFunction(params.animation);
+    validateCustomTargetElement(params); // Replace newlines with <br> in title
+
+    if (typeof params.title === 'string') {
+      params.title = params.title.split('\n').join('<br />');
+    }
+
+    init(params);
+  }
+
+  /**
+   * Open popup, add necessary classes and styles, fix scrollbar
+   *
+   * @param {Array} params
+   */
+
+  var openPopup = function openPopup(params) {
+    var container = getContainer();
+    var popup = getPopup();
+
+    if (typeof params.onBeforeOpen === 'function') {
+      params.onBeforeOpen(popup);
+    }
+
+    addClasses$1(container, popup, params); // scrolling is 'hidden' until animation is done, after that 'auto'
+
+    setScrollingVisibility(container, popup);
+
+    if (isModal()) {
+      fixScrollContainer(container, params.scrollbarPadding);
+    }
+
+    if (!isToast() && !globalState.previousActiveElement) {
+      globalState.previousActiveElement = document.activeElement;
+    }
+
+    if (typeof params.onOpen === 'function') {
+      setTimeout(function () {
+        return params.onOpen(popup);
+      });
+    }
+
+    removeClass(container, swalClasses['no-transition']);
+  };
+
+  function swalOpenAnimationFinished(event) {
+    var popup = getPopup();
+
+    if (event.target !== popup) {
+      return;
+    }
+
+    var container = getContainer();
+    popup.removeEventListener(animationEndEvent, swalOpenAnimationFinished);
+    container.style.overflowY = 'auto';
+  }
+
+  var setScrollingVisibility = function setScrollingVisibility(container, popup) {
+    if (animationEndEvent && hasCssAnimation(popup)) {
+      container.style.overflowY = 'hidden';
+      popup.addEventListener(animationEndEvent, swalOpenAnimationFinished);
+    } else {
+      container.style.overflowY = 'auto';
+    }
+  };
+
+  var fixScrollContainer = function fixScrollContainer(container, scrollbarPadding) {
+    iOSfix();
+    IEfix();
+    setAriaHidden();
+
+    if (scrollbarPadding) {
+      fixScrollbar();
+    } // sweetalert2/issues/1247
+
+
+    setTimeout(function () {
+      container.scrollTop = 0;
+    });
+  };
+
+  var addClasses$1 = function addClasses(container, popup, params) {
+    addClass(container, params.showClass.backdrop);
+    show(popup); // Animate popup right after showing it
+
+    addClass(popup, params.showClass.popup);
+    addClass([document.documentElement, document.body], swalClasses.shown);
+
+    if (params.heightAuto && params.backdrop && !params.toast) {
+      addClass([document.documentElement, document.body], swalClasses['height-auto']);
+    }
+  };
+
+  var handleInputOptionsAndValue = function handleInputOptionsAndValue(instance, params) {
+    if (params.input === 'select' || params.input === 'radio') {
+      handleInputOptions(instance, params);
+    } else if (['text', 'email', 'number', 'tel', 'textarea'].indexOf(params.input) !== -1 && isPromise(params.inputValue)) {
+      handleInputValue(instance, params);
+    }
+  };
+  var getInputValue = function getInputValue(instance, innerParams) {
+    var input = instance.getInput();
+
+    if (!input) {
+      return null;
+    }
+
+    switch (innerParams.input) {
+      case 'checkbox':
+        return getCheckboxValue(input);
+
+      case 'radio':
+        return getRadioValue(input);
+
+      case 'file':
+        return getFileValue(input);
+
+      default:
+        return innerParams.inputAutoTrim ? input.value.trim() : input.value;
+    }
+  };
+
+  var getCheckboxValue = function getCheckboxValue(input) {
+    return input.checked ? 1 : 0;
+  };
+
+  var getRadioValue = function getRadioValue(input) {
+    return input.checked ? input.value : null;
+  };
+
+  var getFileValue = function getFileValue(input) {
+    return input.files.length ? input.getAttribute('multiple') !== null ? input.files : input.files[0] : null;
+  };
+
+  var handleInputOptions = function handleInputOptions(instance, params) {
+    var content = getContent();
+
+    var processInputOptions = function processInputOptions(inputOptions) {
+      return populateInputOptions[params.input](content, formatInputOptions(inputOptions), params);
+    };
+
+    if (isPromise(params.inputOptions)) {
+      showLoading();
+      params.inputOptions.then(function (inputOptions) {
+        instance.hideLoading();
+        processInputOptions(inputOptions);
+      });
+    } else if (_typeof(params.inputOptions) === 'object') {
+      processInputOptions(params.inputOptions);
+    } else {
+      error("Unexpected type of inputOptions! Expected object, Map or Promise, got ".concat(_typeof(params.inputOptions)));
+    }
+  };
+
+  var handleInputValue = function handleInputValue(instance, params) {
+    var input = instance.getInput();
+    hide(input);
+    params.inputValue.then(function (inputValue) {
+      input.value = params.input === 'number' ? parseFloat(inputValue) || 0 : "".concat(inputValue);
+      show(input);
+      input.focus();
+      instance.hideLoading();
+    })["catch"](function (err) {
+      error("Error in inputValue promise: ".concat(err));
+      input.value = '';
+      show(input);
+      input.focus();
+      instance.hideLoading();
+    });
+  };
+
+  var populateInputOptions = {
+    select: function select(content, inputOptions, params) {
+      var select = getChildByClass(content, swalClasses.select);
+      inputOptions.forEach(function (inputOption) {
+        var optionValue = inputOption[0];
+        var optionLabel = inputOption[1];
+        var option = document.createElement('option');
+        option.value = optionValue;
+        setInnerHtml(option, optionLabel);
+
+        if (params.inputValue.toString() === optionValue.toString()) {
+          option.selected = true;
+        }
+
+        select.appendChild(option);
+      });
+      select.focus();
+    },
+    radio: function radio(content, inputOptions, params) {
+      var radio = getChildByClass(content, swalClasses.radio);
+      inputOptions.forEach(function (inputOption) {
+        var radioValue = inputOption[0];
+        var radioLabel = inputOption[1];
+        var radioInput = document.createElement('input');
+        var radioLabelElement = document.createElement('label');
+        radioInput.type = 'radio';
+        radioInput.name = swalClasses.radio;
+        radioInput.value = radioValue;
+
+        if (params.inputValue.toString() === radioValue.toString()) {
+          radioInput.checked = true;
+        }
+
+        var label = document.createElement('span');
+        setInnerHtml(label, radioLabel);
+        label.className = swalClasses.label;
+        radioLabelElement.appendChild(radioInput);
+        radioLabelElement.appendChild(label);
+        radio.appendChild(radioLabelElement);
+      });
+      var radios = radio.querySelectorAll('input');
+
+      if (radios.length) {
+        radios[0].focus();
+      }
+    }
+  };
+  /**
+   * Converts `inputOptions` into an array of `[value, label]`s
+   * @param inputOptions
+   */
+
+  var formatInputOptions = function formatInputOptions(inputOptions) {
+    var result = [];
+
+    if (typeof Map !== 'undefined' && inputOptions instanceof Map) {
+      inputOptions.forEach(function (value, key) {
+        result.push([key, value]);
+      });
+    } else {
+      Object.keys(inputOptions).forEach(function (key) {
+        result.push([key, inputOptions[key]]);
+      });
+    }
+
+    return result;
+  };
+
+  var handleConfirmButtonClick = function handleConfirmButtonClick(instance, innerParams) {
+    instance.disableButtons();
+
+    if (innerParams.input) {
+      handleConfirmWithInput(instance, innerParams);
+    } else {
+      confirm(instance, innerParams, true);
+    }
+  };
+  var handleCancelButtonClick = function handleCancelButtonClick(instance, dismissWith) {
+    instance.disableButtons();
+    dismissWith(DismissReason.cancel);
+  };
+
+  var handleConfirmWithInput = function handleConfirmWithInput(instance, innerParams) {
+    var inputValue = getInputValue(instance, innerParams);
+
+    if (innerParams.inputValidator) {
+      instance.disableInput();
+      var validationPromise = Promise.resolve().then(function () {
+        return innerParams.inputValidator(inputValue, innerParams.validationMessage);
+      });
+      validationPromise.then(function (validationMessage) {
+        instance.enableButtons();
+        instance.enableInput();
+
+        if (validationMessage) {
+          instance.showValidationMessage(validationMessage);
+        } else {
+          confirm(instance, innerParams, inputValue);
+        }
+      });
+    } else if (!instance.getInput().checkValidity()) {
+      instance.enableButtons();
+      instance.showValidationMessage(innerParams.validationMessage);
+    } else {
+      confirm(instance, innerParams, inputValue);
+    }
+  };
+
+  var succeedWith = function succeedWith(instance, value) {
+    instance.closePopup({
+      value: value
+    });
+  };
+
+  var confirm = function confirm(instance, innerParams, value) {
+    if (innerParams.showLoaderOnConfirm) {
+      showLoading(); // TODO: make showLoading an *instance* method
+    }
+
+    if (innerParams.preConfirm) {
+      instance.resetValidationMessage();
+      var preConfirmPromise = Promise.resolve().then(function () {
+        return innerParams.preConfirm(value, innerParams.validationMessage);
+      });
+      preConfirmPromise.then(function (preConfirmValue) {
+        if (isVisible(getValidationMessage()) || preConfirmValue === false) {
+          instance.hideLoading();
+        } else {
+          succeedWith(instance, typeof preConfirmValue === 'undefined' ? value : preConfirmValue);
+        }
+      });
+    } else {
+      succeedWith(instance, value);
+    }
+  };
+
+  var addKeydownHandler = function addKeydownHandler(instance, globalState, innerParams, dismissWith) {
+    if (globalState.keydownTarget && globalState.keydownHandlerAdded) {
+      globalState.keydownTarget.removeEventListener('keydown', globalState.keydownHandler, {
+        capture: globalState.keydownListenerCapture
+      });
+      globalState.keydownHandlerAdded = false;
+    }
+
+    if (!innerParams.toast) {
+      globalState.keydownHandler = function (e) {
+        return keydownHandler(instance, e, dismissWith);
+      };
+
+      globalState.keydownTarget = innerParams.keydownListenerCapture ? window : getPopup();
+      globalState.keydownListenerCapture = innerParams.keydownListenerCapture;
+      globalState.keydownTarget.addEventListener('keydown', globalState.keydownHandler, {
+        capture: globalState.keydownListenerCapture
+      });
+      globalState.keydownHandlerAdded = true;
+    }
+  }; // Focus handling
+
+  var setFocus = function setFocus(innerParams, index, increment) {
+    var focusableElements = getFocusableElements(); // search for visible elements and select the next possible match
+
+    for (var i = 0; i < focusableElements.length; i++) {
+      index = index + increment; // rollover to first item
+
+      if (index === focusableElements.length) {
+        index = 0; // go to last item
+      } else if (index === -1) {
+        index = focusableElements.length - 1;
+      }
+
+      return focusableElements[index].focus();
+    } // no visible focusable elements, focus the popup
+
+
+    getPopup().focus();
+  };
+  var arrowKeys = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Left', 'Right', 'Up', 'Down' // IE11
+  ];
+  var escKeys = ['Escape', 'Esc' // IE11
+  ];
+
+  var keydownHandler = function keydownHandler(instance, e, dismissWith) {
+    var innerParams = privateProps.innerParams.get(instance);
+
+    if (innerParams.stopKeydownPropagation) {
+      e.stopPropagation();
+    } // ENTER
+
+
+    if (e.key === 'Enter') {
+      handleEnter(instance, e, innerParams); // TAB
+    } else if (e.key === 'Tab') {
+      handleTab(e, innerParams); // ARROWS - switch focus between buttons
+    } else if (arrowKeys.indexOf(e.key) !== -1) {
+      handleArrows(); // ESC
+    } else if (escKeys.indexOf(e.key) !== -1) {
+      handleEsc(e, innerParams, dismissWith);
+    }
+  };
+
+  var handleEnter = function handleEnter(instance, e, innerParams) {
+    // #720 #721
+    if (e.isComposing) {
+      return;
+    }
+
+    if (e.target && instance.getInput() && e.target.outerHTML === instance.getInput().outerHTML) {
+      if (['textarea', 'file'].indexOf(innerParams.input) !== -1) {
+        return; // do not submit
+      }
+
+      clickConfirm();
+      e.preventDefault();
+    }
+  };
+
+  var handleTab = function handleTab(e, innerParams) {
+    var targetElement = e.target;
+    var focusableElements = getFocusableElements();
+    var btnIndex = -1;
+
+    for (var i = 0; i < focusableElements.length; i++) {
+      if (targetElement === focusableElements[i]) {
+        btnIndex = i;
+        break;
+      }
+    }
+
+    if (!e.shiftKey) {
+      // Cycle to the next button
+      setFocus(innerParams, btnIndex, 1);
+    } else {
+      // Cycle to the prev button
+      setFocus(innerParams, btnIndex, -1);
+    }
+
+    e.stopPropagation();
+    e.preventDefault();
+  };
+
+  var handleArrows = function handleArrows() {
+    var confirmButton = getConfirmButton();
+    var cancelButton = getCancelButton(); // focus Cancel button if Confirm button is currently focused
+
+    if (document.activeElement === confirmButton && isVisible(cancelButton)) {
+      cancelButton.focus(); // and vice versa
+    } else if (document.activeElement === cancelButton && isVisible(confirmButton)) {
+      confirmButton.focus();
+    }
+  };
+
+  var handleEsc = function handleEsc(e, innerParams, dismissWith) {
+    if (callIfFunction(innerParams.allowEscapeKey)) {
+      e.preventDefault();
+      dismissWith(DismissReason.esc);
+    }
+  };
+
+  var handlePopupClick = function handlePopupClick(instance, domCache, dismissWith) {
+    var innerParams = privateProps.innerParams.get(instance);
+
+    if (innerParams.toast) {
+      handleToastClick(instance, domCache, dismissWith);
+    } else {
+      // Ignore click events that had mousedown on the popup but mouseup on the container
+      // This can happen when the user drags a slider
+      handleModalMousedown(domCache); // Ignore click events that had mousedown on the container but mouseup on the popup
+
+      handleContainerMousedown(domCache);
+      handleModalClick(instance, domCache, dismissWith);
+    }
+  };
+
+  var handleToastClick = function handleToastClick(instance, domCache, dismissWith) {
+    // Closing toast by internal click
+    domCache.popup.onclick = function () {
+      var innerParams = privateProps.innerParams.get(instance);
+
+      if (innerParams.showConfirmButton || innerParams.showCancelButton || innerParams.showCloseButton || innerParams.input) {
+        return;
+      }
+
+      dismissWith(DismissReason.close);
+    };
+  };
+
+  var ignoreOutsideClick = false;
+
+  var handleModalMousedown = function handleModalMousedown(domCache) {
+    domCache.popup.onmousedown = function () {
+      domCache.container.onmouseup = function (e) {
+        domCache.container.onmouseup = undefined; // We only check if the mouseup target is the container because usually it doesn't
+        // have any other direct children aside of the popup
+
+        if (e.target === domCache.container) {
+          ignoreOutsideClick = true;
+        }
+      };
+    };
+  };
+
+  var handleContainerMousedown = function handleContainerMousedown(domCache) {
+    domCache.container.onmousedown = function () {
+      domCache.popup.onmouseup = function (e) {
+        domCache.popup.onmouseup = undefined; // We also need to check if the mouseup target is a child of the popup
+
+        if (e.target === domCache.popup || domCache.popup.contains(e.target)) {
+          ignoreOutsideClick = true;
+        }
+      };
+    };
+  };
+
+  var handleModalClick = function handleModalClick(instance, domCache, dismissWith) {
+    domCache.container.onclick = function (e) {
+      var innerParams = privateProps.innerParams.get(instance);
+
+      if (ignoreOutsideClick) {
+        ignoreOutsideClick = false;
+        return;
+      }
+
+      if (e.target === domCache.container && callIfFunction(innerParams.allowOutsideClick)) {
+        dismissWith(DismissReason.backdrop);
+      }
+    };
+  };
+
+  function _main(userParams) {
+    showWarningsForParams(userParams);
+
+    if (globalState.currentInstance) {
+      globalState.currentInstance._destroy();
+    }
+
+    globalState.currentInstance = this;
+    var innerParams = prepareParams(userParams);
+    setParameters(innerParams);
+    Object.freeze(innerParams); // clear the previous timer
+
+    if (globalState.timeout) {
+      globalState.timeout.stop();
+      delete globalState.timeout;
+    } // clear the restore focus timeout
+
+
+    clearTimeout(globalState.restoreFocusTimeout);
+    var domCache = populateDomCache(this);
+    render(this, innerParams);
+    privateProps.innerParams.set(this, innerParams);
+    return swalPromise(this, domCache, innerParams);
+  }
+
+  var prepareParams = function prepareParams(userParams) {
+    var showClass = _extends({}, defaultParams.showClass, userParams.showClass);
+
+    var hideClass = _extends({}, defaultParams.hideClass, userParams.hideClass);
+
+    var params = _extends({}, defaultParams, userParams);
+
+    params.showClass = showClass;
+    params.hideClass = hideClass; // @deprecated
+
+    if (userParams.animation === false) {
+      params.showClass = {
+        popup: 'swal2-noanimation',
+        backdrop: 'swal2-noanimation'
+      };
+      params.hideClass = {};
+    }
+
+    return params;
+  };
+
+  var swalPromise = function swalPromise(instance, domCache, innerParams) {
+    return new Promise(function (resolve) {
+      // functions to handle all closings/dismissals
+      var dismissWith = function dismissWith(dismiss) {
+        instance.closePopup({
+          dismiss: dismiss
+        });
+      };
+
+      privateMethods.swalPromiseResolve.set(instance, resolve);
+
+      domCache.confirmButton.onclick = function () {
+        return handleConfirmButtonClick(instance, innerParams);
+      };
+
+      domCache.cancelButton.onclick = function () {
+        return handleCancelButtonClick(instance, dismissWith);
+      };
+
+      domCache.closeButton.onclick = function () {
+        return dismissWith(DismissReason.close);
+      };
+
+      handlePopupClick(instance, domCache, dismissWith);
+      addKeydownHandler(instance, globalState, innerParams, dismissWith);
+
+      if (innerParams.toast && (innerParams.input || innerParams.footer || innerParams.showCloseButton)) {
+        addClass(document.body, swalClasses['toast-column']);
+      } else {
+        removeClass(document.body, swalClasses['toast-column']);
+      }
+
+      handleInputOptionsAndValue(instance, innerParams);
+      openPopup(innerParams);
+      setupTimer(globalState, innerParams, dismissWith);
+      initFocus(domCache, innerParams); // Scroll container to top on open (#1247)
+
+      domCache.container.scrollTop = 0;
+    });
+  };
+
+  var populateDomCache = function populateDomCache(instance) {
+    var domCache = {
+      popup: getPopup(),
+      container: getContainer(),
+      content: getContent(),
+      actions: getActions(),
+      confirmButton: getConfirmButton(),
+      cancelButton: getCancelButton(),
+      closeButton: getCloseButton(),
+      validationMessage: getValidationMessage(),
+      progressSteps: getProgressSteps()
+    };
+    privateProps.domCache.set(instance, domCache);
+    return domCache;
+  };
+
+  var setupTimer = function setupTimer(globalState$$1, innerParams, dismissWith) {
+    var timerProgressBar = getTimerProgressBar();
+    hide(timerProgressBar);
+
+    if (innerParams.timer) {
+      globalState$$1.timeout = new Timer(function () {
+        dismissWith('timer');
+        delete globalState$$1.timeout;
+      }, innerParams.timer);
+
+      if (innerParams.timerProgressBar) {
+        show(timerProgressBar);
+        setTimeout(function () {
+          if (globalState$$1.timeout.running) {
+            // timer can be already stopped at this point
+            animateTimerProgressBar(innerParams.timer);
+          }
+        });
+      }
+    }
+  };
+
+  var initFocus = function initFocus(domCache, innerParams) {
+    if (innerParams.toast) {
+      return;
+    }
+
+    if (!callIfFunction(innerParams.allowEnterKey)) {
+      return blurActiveElement();
+    }
+
+    if (innerParams.focusCancel && isVisible(domCache.cancelButton)) {
+      return domCache.cancelButton.focus();
+    }
+
+    if (innerParams.focusConfirm && isVisible(domCache.confirmButton)) {
+      return domCache.confirmButton.focus();
+    }
+
+    setFocus(innerParams, -1, 1);
+  };
+
+  var blurActiveElement = function blurActiveElement() {
+    if (document.activeElement && typeof document.activeElement.blur === 'function') {
+      document.activeElement.blur();
+    }
+  };
+
+  /**
+   * Updates popup parameters.
+   */
+
+  function update(params) {
+    var popup = getPopup();
+    var innerParams = privateProps.innerParams.get(this);
+
+    if (!popup || hasClass(popup, innerParams.hideClass.popup)) {
+      return warn("You're trying to update the closed or closing popup, that won't work. Use the update() method in preConfirm parameter or show a new popup.");
+    }
+
+    var validUpdatableParams = {}; // assign valid params from `params` to `defaults`
+
+    Object.keys(params).forEach(function (param) {
+      if (Swal.isUpdatableParameter(param)) {
+        validUpdatableParams[param] = params[param];
+      } else {
+        warn("Invalid parameter to update: \"".concat(param, "\". Updatable params are listed here: https://github.com/sweetalert2/sweetalert2/blob/master/src/utils/params.js"));
+      }
+    });
+
+    var updatedParams = _extends({}, innerParams, validUpdatableParams);
+
+    render(this, updatedParams);
+    privateProps.innerParams.set(this, updatedParams);
+    Object.defineProperties(this, {
+      params: {
+        value: _extends({}, this.params, params),
+        writable: false,
+        enumerable: true
+      }
+    });
+  }
+
+  function _destroy() {
+    var domCache = privateProps.domCache.get(this);
+    var innerParams = privateProps.innerParams.get(this);
+
+    if (!innerParams) {
+      return; // This instance has already been destroyed
+    } // Check if there is another Swal closing
+
+
+    if (domCache.popup && globalState.swalCloseEventFinishedCallback) {
+      globalState.swalCloseEventFinishedCallback();
+      delete globalState.swalCloseEventFinishedCallback;
+    } // Check if there is a swal disposal defer timer
+
+
+    if (globalState.deferDisposalTimer) {
+      clearTimeout(globalState.deferDisposalTimer);
+      delete globalState.deferDisposalTimer;
+    }
+
+    if (typeof innerParams.onDestroy === 'function') {
+      innerParams.onDestroy();
+    }
+
+    disposeSwal(this);
+  }
+
+  var disposeSwal = function disposeSwal(instance) {
+    // Unset this.params so GC will dispose it (#1569)
+    delete instance.params; // Unset globalState props so GC will dispose globalState (#1569)
+
+    delete globalState.keydownHandler;
+    delete globalState.keydownTarget; // Unset WeakMaps so GC will be able to dispose them (#1569)
+
+    unsetWeakMaps(privateProps);
+    unsetWeakMaps(privateMethods);
+  };
+
+  var unsetWeakMaps = function unsetWeakMaps(obj) {
+    for (var i in obj) {
+      obj[i] = new WeakMap();
+    }
+  };
+
+
+
+  var instanceMethods = /*#__PURE__*/Object.freeze({
+    hideLoading: hideLoading,
+    disableLoading: hideLoading,
+    getInput: getInput$1,
+    close: close,
+    closePopup: close,
+    closeModal: close,
+    closeToast: close,
+    enableButtons: enableButtons,
+    disableButtons: disableButtons,
+    enableInput: enableInput,
+    disableInput: disableInput,
+    showValidationMessage: showValidationMessage,
+    resetValidationMessage: resetValidationMessage$1,
+    getProgressSteps: getProgressSteps$1,
+    _main: _main,
+    update: update,
+    _destroy: _destroy
+  });
+
+  var currentInstance; // SweetAlert constructor
+
+  function SweetAlert() {
+    // Prevent run in Node env
+
+    /* istanbul ignore if */
+    if (typeof window === 'undefined') {
+      return;
+    } // Check for the existence of Promise
+
+    /* istanbul ignore if */
+
+
+    if (typeof Promise === 'undefined') {
+      error('This package requires a Promise library, please include a shim to enable it in this browser (See: https://github.com/sweetalert2/sweetalert2/wiki/Migration-from-SweetAlert-to-SweetAlert2#1-ie-support)');
+    }
+
+    currentInstance = this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    var outerParams = Object.freeze(this.constructor.argsToParams(args));
+    Object.defineProperties(this, {
+      params: {
+        value: outerParams,
+        writable: false,
+        enumerable: true,
+        configurable: true
+      }
+    });
+
+    var promise = this._main(this.params);
+
+    privateProps.promise.set(this, promise);
+  } // `catch` cannot be the name of a module export, so we define our thenable methods here instead
+
+
+  SweetAlert.prototype.then = function (onFulfilled) {
+    var promise = privateProps.promise.get(this);
+    return promise.then(onFulfilled);
+  };
+
+  SweetAlert.prototype["finally"] = function (onFinally) {
+    var promise = privateProps.promise.get(this);
+    return promise["finally"](onFinally);
+  }; // Assign instance methods from src/instanceMethods/*.js to prototype
+
+
+  _extends(SweetAlert.prototype, instanceMethods); // Assign static methods from src/staticMethods/*.js to constructor
+
+
+  _extends(SweetAlert, staticMethods); // Proxy to instance methods to constructor, for now, for backwards compatibility
+
+
+  Object.keys(instanceMethods).forEach(function (key) {
+    SweetAlert[key] = function () {
+      if (currentInstance) {
+        var _currentInstance;
+
+        return (_currentInstance = currentInstance)[key].apply(_currentInstance, arguments);
+      }
+    };
+  });
+  SweetAlert.DismissReason = DismissReason;
+  SweetAlert.version = '9.10.11';
+
+  var Swal = SweetAlert;
+  Swal["default"] = Swal;
+
+  return Swal;
+
+}));
+if (typeof this !== 'undefined' && this.Sweetalert2){  this.swal = this.sweetAlert = this.Swal = this.SweetAlert = this.Sweetalert2}
+
+"undefined"!=typeof document&&function(e,t){var n=e.createElement("style");if(e.getElementsByTagName("head")[0].appendChild(n),n.styleSheet)n.styleSheet.disabled||(n.styleSheet.cssText=t);else try{n.innerHTML=t}catch(e){n.innerText=t}}(document,".swal2-popup.swal2-toast{flex-direction:row;align-items:center;width:auto;padding:.625em;overflow-y:hidden;background:#fff;box-shadow:0 0 .625em #d9d9d9}.swal2-popup.swal2-toast .swal2-header{flex-direction:row}.swal2-popup.swal2-toast .swal2-title{flex-grow:1;justify-content:flex-start;margin:0 .6em;font-size:1em}.swal2-popup.swal2-toast .swal2-footer{margin:.5em 0 0;padding:.5em 0 0;font-size:.8em}.swal2-popup.swal2-toast .swal2-close{position:static;width:.8em;height:.8em;line-height:.8}.swal2-popup.swal2-toast .swal2-content{justify-content:flex-start;font-size:1em}.swal2-popup.swal2-toast .swal2-icon{width:2em;min-width:2em;height:2em;margin:0}.swal2-popup.swal2-toast .swal2-icon .swal2-icon-content{display:flex;align-items:center;font-size:1.8em;font-weight:700}@media all and (-ms-high-contrast:none),(-ms-high-contrast:active){.swal2-popup.swal2-toast .swal2-icon .swal2-icon-content{font-size:.25em}}.swal2-popup.swal2-toast .swal2-icon.swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-popup.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line]{top:.875em;width:1.375em}.swal2-popup.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=left]{left:.3125em}.swal2-popup.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=right]{right:.3125em}.swal2-popup.swal2-toast .swal2-actions{flex-basis:auto!important;width:auto;height:auto;margin:0 .3125em}.swal2-popup.swal2-toast .swal2-styled{margin:0 .3125em;padding:.3125em .625em;font-size:1em}.swal2-popup.swal2-toast .swal2-styled:focus{box-shadow:0 0 0 1px #fff,0 0 0 3px rgba(50,100,150,.4)}.swal2-popup.swal2-toast .swal2-success{border-color:#a5dc86}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-circular-line]{position:absolute;width:1.6em;height:3em;transform:rotate(45deg);border-radius:50%}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=left]{top:-.8em;left:-.5em;transform:rotate(-45deg);transform-origin:2em 2em;border-radius:4em 0 0 4em}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=right]{top:-.25em;left:.9375em;transform-origin:0 1.5em;border-radius:0 4em 4em 0}.swal2-popup.swal2-toast .swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-popup.swal2-toast .swal2-success .swal2-success-fix{top:0;left:.4375em;width:.4375em;height:2.6875em}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-line]{height:.3125em}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-line][class$=tip]{top:1.125em;left:.1875em;width:.75em}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-line][class$=long]{top:.9375em;right:.1875em;width:1.375em}.swal2-popup.swal2-toast .swal2-success.swal2-icon-show .swal2-success-line-tip{-webkit-animation:swal2-toast-animate-success-line-tip .75s;animation:swal2-toast-animate-success-line-tip .75s}.swal2-popup.swal2-toast .swal2-success.swal2-icon-show .swal2-success-line-long{-webkit-animation:swal2-toast-animate-success-line-long .75s;animation:swal2-toast-animate-success-line-long .75s}.swal2-popup.swal2-toast.swal2-show{-webkit-animation:swal2-toast-show .5s;animation:swal2-toast-show .5s}.swal2-popup.swal2-toast.swal2-hide{-webkit-animation:swal2-toast-hide .1s forwards;animation:swal2-toast-hide .1s forwards}.swal2-container{display:flex;position:fixed;z-index:1060;top:0;right:0;bottom:0;left:0;flex-direction:row;align-items:center;justify-content:center;padding:.625em;overflow-x:hidden;transition:background-color .1s;-webkit-overflow-scrolling:touch}.swal2-container.swal2-backdrop-show,.swal2-container.swal2-noanimation{background:rgba(0,0,0,.4)}.swal2-container.swal2-backdrop-hide{background:0 0!important}.swal2-container.swal2-top{align-items:flex-start}.swal2-container.swal2-top-left,.swal2-container.swal2-top-start{align-items:flex-start;justify-content:flex-start}.swal2-container.swal2-top-end,.swal2-container.swal2-top-right{align-items:flex-start;justify-content:flex-end}.swal2-container.swal2-center{align-items:center}.swal2-container.swal2-center-left,.swal2-container.swal2-center-start{align-items:center;justify-content:flex-start}.swal2-container.swal2-center-end,.swal2-container.swal2-center-right{align-items:center;justify-content:flex-end}.swal2-container.swal2-bottom{align-items:flex-end}.swal2-container.swal2-bottom-left,.swal2-container.swal2-bottom-start{align-items:flex-end;justify-content:flex-start}.swal2-container.swal2-bottom-end,.swal2-container.swal2-bottom-right{align-items:flex-end;justify-content:flex-end}.swal2-container.swal2-bottom-end>:first-child,.swal2-container.swal2-bottom-left>:first-child,.swal2-container.swal2-bottom-right>:first-child,.swal2-container.swal2-bottom-start>:first-child,.swal2-container.swal2-bottom>:first-child{margin-top:auto}.swal2-container.swal2-grow-fullscreen>.swal2-modal{display:flex!important;flex:1;align-self:stretch;justify-content:center}.swal2-container.swal2-grow-row>.swal2-modal{display:flex!important;flex:1;align-content:center;justify-content:center}.swal2-container.swal2-grow-column{flex:1;flex-direction:column}.swal2-container.swal2-grow-column.swal2-bottom,.swal2-container.swal2-grow-column.swal2-center,.swal2-container.swal2-grow-column.swal2-top{align-items:center}.swal2-container.swal2-grow-column.swal2-bottom-left,.swal2-container.swal2-grow-column.swal2-bottom-start,.swal2-container.swal2-grow-column.swal2-center-left,.swal2-container.swal2-grow-column.swal2-center-start,.swal2-container.swal2-grow-column.swal2-top-left,.swal2-container.swal2-grow-column.swal2-top-start{align-items:flex-start}.swal2-container.swal2-grow-column.swal2-bottom-end,.swal2-container.swal2-grow-column.swal2-bottom-right,.swal2-container.swal2-grow-column.swal2-center-end,.swal2-container.swal2-grow-column.swal2-center-right,.swal2-container.swal2-grow-column.swal2-top-end,.swal2-container.swal2-grow-column.swal2-top-right{align-items:flex-end}.swal2-container.swal2-grow-column>.swal2-modal{display:flex!important;flex:1;align-content:center;justify-content:center}.swal2-container.swal2-no-transition{transition:none!important}.swal2-container:not(.swal2-top):not(.swal2-top-start):not(.swal2-top-end):not(.swal2-top-left):not(.swal2-top-right):not(.swal2-center-start):not(.swal2-center-end):not(.swal2-center-left):not(.swal2-center-right):not(.swal2-bottom):not(.swal2-bottom-start):not(.swal2-bottom-end):not(.swal2-bottom-left):not(.swal2-bottom-right):not(.swal2-grow-fullscreen)>.swal2-modal{margin:auto}@media all and (-ms-high-contrast:none),(-ms-high-contrast:active){.swal2-container .swal2-modal{margin:0!important}}.swal2-popup{display:none;position:relative;box-sizing:border-box;flex-direction:column;justify-content:center;width:32em;max-width:100%;padding:1.25em;border:none;border-radius:.3125em;background:#fff;font-family:inherit;font-size:1rem}.swal2-popup:focus{outline:0}.swal2-popup.swal2-loading{overflow-y:hidden}.swal2-header{display:flex;flex-direction:column;align-items:center}.swal2-title{position:relative;max-width:100%;margin:0 0 .4em;padding:0;color:#595959;font-size:1.875em;font-weight:600;text-align:center;text-transform:none;word-wrap:break-word}.swal2-actions{display:flex;z-index:1;flex-wrap:wrap;align-items:center;justify-content:center;width:100%;margin:1.25em auto 0}.swal2-actions:not(.swal2-loading) .swal2-styled[disabled]{opacity:.4}.swal2-actions:not(.swal2-loading) .swal2-styled:hover{background-image:linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,.1))}.swal2-actions:not(.swal2-loading) .swal2-styled:active{background-image:linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.2))}.swal2-actions.swal2-loading .swal2-styled.swal2-confirm{box-sizing:border-box;width:2.5em;height:2.5em;margin:.46875em;padding:0;-webkit-animation:swal2-rotate-loading 1.5s linear 0s infinite normal;animation:swal2-rotate-loading 1.5s linear 0s infinite normal;border:.25em solid transparent;border-radius:100%;border-color:transparent;background-color:transparent!important;color:transparent!important;cursor:default;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.swal2-actions.swal2-loading .swal2-styled.swal2-cancel{margin-right:30px;margin-left:30px}.swal2-actions.swal2-loading :not(.swal2-styled).swal2-confirm::after{content:\"\";display:inline-block;width:15px;height:15px;margin-left:5px;-webkit-animation:swal2-rotate-loading 1.5s linear 0s infinite normal;animation:swal2-rotate-loading 1.5s linear 0s infinite normal;border:3px solid #999;border-radius:50%;border-right-color:transparent;box-shadow:1px 1px 1px #fff}.swal2-styled{margin:.3125em;padding:.625em 2em;box-shadow:none;font-weight:500}.swal2-styled:not([disabled]){cursor:pointer}.swal2-styled.swal2-confirm{border:0;border-radius:.25em;background:initial;background-color:#3085d6;color:#fff;font-size:1.0625em}.swal2-styled.swal2-cancel{border:0;border-radius:.25em;background:initial;background-color:#aaa;color:#fff;font-size:1.0625em}.swal2-styled:focus{outline:0;box-shadow:0 0 0 1px #fff,0 0 0 3px rgba(50,100,150,.4)}.swal2-styled::-moz-focus-inner{border:0}.swal2-footer{justify-content:center;margin:1.25em 0 0;padding:1em 0 0;border-top:1px solid #eee;color:#545454;font-size:1em}.swal2-timer-progress-bar-container{position:absolute;right:0;bottom:0;left:0;height:.25em;overflow:hidden;border-bottom-right-radius:.3125em;border-bottom-left-radius:.3125em}.swal2-timer-progress-bar{width:100%;height:.25em;background:rgba(0,0,0,.2)}.swal2-image{max-width:100%;margin:1.25em auto}.swal2-close{position:absolute;z-index:2;top:0;right:0;align-items:center;justify-content:center;width:1.2em;height:1.2em;padding:0;overflow:hidden;transition:color .1s ease-out;border:none;border-radius:0;background:0 0;color:#ccc;font-family:serif;font-size:2.5em;line-height:1.2;cursor:pointer}.swal2-close:hover{transform:none;background:0 0;color:#f27474}.swal2-close::-moz-focus-inner{border:0}.swal2-content{z-index:1;justify-content:center;margin:0;padding:0;color:#545454;font-size:1.125em;font-weight:400;line-height:normal;text-align:center;word-wrap:break-word}.swal2-checkbox,.swal2-file,.swal2-input,.swal2-radio,.swal2-select,.swal2-textarea{margin:1em auto}.swal2-file,.swal2-input,.swal2-textarea{box-sizing:border-box;width:100%;transition:border-color .3s,box-shadow .3s;border:1px solid #d9d9d9;border-radius:.1875em;background:inherit;box-shadow:inset 0 1px 1px rgba(0,0,0,.06);color:inherit;font-size:1.125em}.swal2-file.swal2-inputerror,.swal2-input.swal2-inputerror,.swal2-textarea.swal2-inputerror{border-color:#f27474!important;box-shadow:0 0 2px #f27474!important}.swal2-file:focus,.swal2-input:focus,.swal2-textarea:focus{border:1px solid #b4dbed;outline:0;box-shadow:0 0 3px #c4e6f5}.swal2-file::-webkit-input-placeholder,.swal2-input::-webkit-input-placeholder,.swal2-textarea::-webkit-input-placeholder{color:#ccc}.swal2-file::-moz-placeholder,.swal2-input::-moz-placeholder,.swal2-textarea::-moz-placeholder{color:#ccc}.swal2-file:-ms-input-placeholder,.swal2-input:-ms-input-placeholder,.swal2-textarea:-ms-input-placeholder{color:#ccc}.swal2-file::-ms-input-placeholder,.swal2-input::-ms-input-placeholder,.swal2-textarea::-ms-input-placeholder{color:#ccc}.swal2-file::placeholder,.swal2-input::placeholder,.swal2-textarea::placeholder{color:#ccc}.swal2-range{margin:1em auto;background:#fff}.swal2-range input{width:80%}.swal2-range output{width:20%;color:inherit;font-weight:600;text-align:center}.swal2-range input,.swal2-range output{height:2.625em;padding:0;font-size:1.125em;line-height:2.625em}.swal2-input{height:2.625em;padding:0 .75em}.swal2-input[type=number]{max-width:10em}.swal2-file{background:inherit;font-size:1.125em}.swal2-textarea{height:6.75em;padding:.75em}.swal2-select{min-width:50%;max-width:100%;padding:.375em .625em;background:inherit;color:inherit;font-size:1.125em}.swal2-checkbox,.swal2-radio{align-items:center;justify-content:center;background:#fff;color:inherit}.swal2-checkbox label,.swal2-radio label{margin:0 .6em;font-size:1.125em}.swal2-checkbox input,.swal2-radio input{margin:0 .4em}.swal2-validation-message{display:none;align-items:center;justify-content:center;padding:.625em;overflow:hidden;background:#f0f0f0;color:#666;font-size:1em;font-weight:300}.swal2-validation-message::before{content:\"!\";display:inline-block;width:1.5em;min-width:1.5em;height:1.5em;margin:0 .625em;border-radius:50%;background-color:#f27474;color:#fff;font-weight:600;line-height:1.5em;text-align:center}.swal2-icon{position:relative;box-sizing:content-box;justify-content:center;width:5em;height:5em;margin:1.25em auto 1.875em;border:.25em solid transparent;border-radius:50%;font-family:inherit;line-height:5em;cursor:default;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.swal2-icon .swal2-icon-content{display:flex;align-items:center;font-size:3.75em}.swal2-icon.swal2-error{border-color:#f27474;color:#f27474}.swal2-icon.swal2-error .swal2-x-mark{position:relative;flex-grow:1}.swal2-icon.swal2-error [class^=swal2-x-mark-line]{display:block;position:absolute;top:2.3125em;width:2.9375em;height:.3125em;border-radius:.125em;background-color:#f27474}.swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=left]{left:1.0625em;transform:rotate(45deg)}.swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=right]{right:1em;transform:rotate(-45deg)}.swal2-icon.swal2-error.swal2-icon-show{-webkit-animation:swal2-animate-error-icon .5s;animation:swal2-animate-error-icon .5s}.swal2-icon.swal2-error.swal2-icon-show .swal2-x-mark{-webkit-animation:swal2-animate-error-x-mark .5s;animation:swal2-animate-error-x-mark .5s}.swal2-icon.swal2-warning{border-color:#facea8;color:#f8bb86}.swal2-icon.swal2-info{border-color:#9de0f6;color:#3fc3ee}.swal2-icon.swal2-question{border-color:#c9dae1;color:#87adbd}.swal2-icon.swal2-success{border-color:#a5dc86;color:#a5dc86}.swal2-icon.swal2-success [class^=swal2-success-circular-line]{position:absolute;width:3.75em;height:7.5em;transform:rotate(45deg);border-radius:50%}.swal2-icon.swal2-success [class^=swal2-success-circular-line][class$=left]{top:-.4375em;left:-2.0635em;transform:rotate(-45deg);transform-origin:3.75em 3.75em;border-radius:7.5em 0 0 7.5em}.swal2-icon.swal2-success [class^=swal2-success-circular-line][class$=right]{top:-.6875em;left:1.875em;transform:rotate(-45deg);transform-origin:0 3.75em;border-radius:0 7.5em 7.5em 0}.swal2-icon.swal2-success .swal2-success-ring{position:absolute;z-index:2;top:-.25em;left:-.25em;box-sizing:content-box;width:100%;height:100%;border:.25em solid rgba(165,220,134,.3);border-radius:50%}.swal2-icon.swal2-success .swal2-success-fix{position:absolute;z-index:1;top:.5em;left:1.625em;width:.4375em;height:5.625em;transform:rotate(-45deg)}.swal2-icon.swal2-success [class^=swal2-success-line]{display:block;position:absolute;z-index:2;height:.3125em;border-radius:.125em;background-color:#a5dc86}.swal2-icon.swal2-success [class^=swal2-success-line][class$=tip]{top:2.875em;left:.8125em;width:1.5625em;transform:rotate(45deg)}.swal2-icon.swal2-success [class^=swal2-success-line][class$=long]{top:2.375em;right:.5em;width:2.9375em;transform:rotate(-45deg)}.swal2-icon.swal2-success.swal2-icon-show .swal2-success-line-tip{-webkit-animation:swal2-animate-success-line-tip .75s;animation:swal2-animate-success-line-tip .75s}.swal2-icon.swal2-success.swal2-icon-show .swal2-success-line-long{-webkit-animation:swal2-animate-success-line-long .75s;animation:swal2-animate-success-line-long .75s}.swal2-icon.swal2-success.swal2-icon-show .swal2-success-circular-line-right{-webkit-animation:swal2-rotate-success-circular-line 4.25s ease-in;animation:swal2-rotate-success-circular-line 4.25s ease-in}.swal2-progress-steps{align-items:center;margin:0 0 1.25em;padding:0;background:inherit;font-weight:600}.swal2-progress-steps li{display:inline-block;position:relative}.swal2-progress-steps .swal2-progress-step{z-index:20;width:2em;height:2em;border-radius:2em;background:#3085d6;color:#fff;line-height:2em;text-align:center}.swal2-progress-steps .swal2-progress-step.swal2-active-progress-step{background:#3085d6}.swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step{background:#add8e6;color:#fff}.swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step-line{background:#add8e6}.swal2-progress-steps .swal2-progress-step-line{z-index:10;width:2.5em;height:.4em;margin:0 -1px;background:#3085d6}[class^=swal2]{-webkit-tap-highlight-color:transparent}.swal2-show{-webkit-animation:swal2-show .3s;animation:swal2-show .3s}.swal2-hide{-webkit-animation:swal2-hide .15s forwards;animation:swal2-hide .15s forwards}.swal2-noanimation{transition:none}.swal2-scrollbar-measure{position:absolute;top:-9999px;width:50px;height:50px;overflow:scroll}.swal2-rtl .swal2-close{right:auto;left:0}.swal2-rtl .swal2-timer-progress-bar{right:0;left:auto}@supports (-ms-accelerator:true){.swal2-range input{width:100%!important}.swal2-range output{display:none}}@media all and (-ms-high-contrast:none),(-ms-high-contrast:active){.swal2-range input{width:100%!important}.swal2-range output{display:none}}@-moz-document url-prefix(){.swal2-close:focus{outline:2px solid rgba(50,100,150,.4)}}@-webkit-keyframes swal2-toast-show{0%{transform:translateY(-.625em) rotateZ(2deg)}33%{transform:translateY(0) rotateZ(-2deg)}66%{transform:translateY(.3125em) rotateZ(2deg)}100%{transform:translateY(0) rotateZ(0)}}@keyframes swal2-toast-show{0%{transform:translateY(-.625em) rotateZ(2deg)}33%{transform:translateY(0) rotateZ(-2deg)}66%{transform:translateY(.3125em) rotateZ(2deg)}100%{transform:translateY(0) rotateZ(0)}}@-webkit-keyframes swal2-toast-hide{100%{transform:rotateZ(1deg);opacity:0}}@keyframes swal2-toast-hide{100%{transform:rotateZ(1deg);opacity:0}}@-webkit-keyframes swal2-toast-animate-success-line-tip{0%{top:.5625em;left:.0625em;width:0}54%{top:.125em;left:.125em;width:0}70%{top:.625em;left:-.25em;width:1.625em}84%{top:1.0625em;left:.75em;width:.5em}100%{top:1.125em;left:.1875em;width:.75em}}@keyframes swal2-toast-animate-success-line-tip{0%{top:.5625em;left:.0625em;width:0}54%{top:.125em;left:.125em;width:0}70%{top:.625em;left:-.25em;width:1.625em}84%{top:1.0625em;left:.75em;width:.5em}100%{top:1.125em;left:.1875em;width:.75em}}@-webkit-keyframes swal2-toast-animate-success-line-long{0%{top:1.625em;right:1.375em;width:0}65%{top:1.25em;right:.9375em;width:0}84%{top:.9375em;right:0;width:1.125em}100%{top:.9375em;right:.1875em;width:1.375em}}@keyframes swal2-toast-animate-success-line-long{0%{top:1.625em;right:1.375em;width:0}65%{top:1.25em;right:.9375em;width:0}84%{top:.9375em;right:0;width:1.125em}100%{top:.9375em;right:.1875em;width:1.375em}}@-webkit-keyframes swal2-show{0%{transform:scale(.7)}45%{transform:scale(1.05)}80%{transform:scale(.95)}100%{transform:scale(1)}}@keyframes swal2-show{0%{transform:scale(.7)}45%{transform:scale(1.05)}80%{transform:scale(.95)}100%{transform:scale(1)}}@-webkit-keyframes swal2-hide{0%{transform:scale(1);opacity:1}100%{transform:scale(.5);opacity:0}}@keyframes swal2-hide{0%{transform:scale(1);opacity:1}100%{transform:scale(.5);opacity:0}}@-webkit-keyframes swal2-animate-success-line-tip{0%{top:1.1875em;left:.0625em;width:0}54%{top:1.0625em;left:.125em;width:0}70%{top:2.1875em;left:-.375em;width:3.125em}84%{top:3em;left:1.3125em;width:1.0625em}100%{top:2.8125em;left:.8125em;width:1.5625em}}@keyframes swal2-animate-success-line-tip{0%{top:1.1875em;left:.0625em;width:0}54%{top:1.0625em;left:.125em;width:0}70%{top:2.1875em;left:-.375em;width:3.125em}84%{top:3em;left:1.3125em;width:1.0625em}100%{top:2.8125em;left:.8125em;width:1.5625em}}@-webkit-keyframes swal2-animate-success-line-long{0%{top:3.375em;right:2.875em;width:0}65%{top:3.375em;right:2.875em;width:0}84%{top:2.1875em;right:0;width:3.4375em}100%{top:2.375em;right:.5em;width:2.9375em}}@keyframes swal2-animate-success-line-long{0%{top:3.375em;right:2.875em;width:0}65%{top:3.375em;right:2.875em;width:0}84%{top:2.1875em;right:0;width:3.4375em}100%{top:2.375em;right:.5em;width:2.9375em}}@-webkit-keyframes swal2-rotate-success-circular-line{0%{transform:rotate(-45deg)}5%{transform:rotate(-45deg)}12%{transform:rotate(-405deg)}100%{transform:rotate(-405deg)}}@keyframes swal2-rotate-success-circular-line{0%{transform:rotate(-45deg)}5%{transform:rotate(-45deg)}12%{transform:rotate(-405deg)}100%{transform:rotate(-405deg)}}@-webkit-keyframes swal2-animate-error-x-mark{0%{margin-top:1.625em;transform:scale(.4);opacity:0}50%{margin-top:1.625em;transform:scale(.4);opacity:0}80%{margin-top:-.375em;transform:scale(1.15)}100%{margin-top:0;transform:scale(1);opacity:1}}@keyframes swal2-animate-error-x-mark{0%{margin-top:1.625em;transform:scale(.4);opacity:0}50%{margin-top:1.625em;transform:scale(.4);opacity:0}80%{margin-top:-.375em;transform:scale(1.15)}100%{margin-top:0;transform:scale(1);opacity:1}}@-webkit-keyframes swal2-animate-error-icon{0%{transform:rotateX(100deg);opacity:0}100%{transform:rotateX(0);opacity:1}}@keyframes swal2-animate-error-icon{0%{transform:rotateX(100deg);opacity:0}100%{transform:rotateX(0);opacity:1}}@-webkit-keyframes swal2-rotate-loading{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes swal2-rotate-loading{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown){overflow:hidden}body.swal2-height-auto{height:auto!important}body.swal2-no-backdrop .swal2-container{top:auto;right:auto;bottom:auto;left:auto;max-width:calc(100% - .625em * 2);background-color:transparent!important}body.swal2-no-backdrop .swal2-container>.swal2-modal{box-shadow:0 0 10px rgba(0,0,0,.4)}body.swal2-no-backdrop .swal2-container.swal2-top{top:0;left:50%;transform:translateX(-50%)}body.swal2-no-backdrop .swal2-container.swal2-top-left,body.swal2-no-backdrop .swal2-container.swal2-top-start{top:0;left:0}body.swal2-no-backdrop .swal2-container.swal2-top-end,body.swal2-no-backdrop .swal2-container.swal2-top-right{top:0;right:0}body.swal2-no-backdrop .swal2-container.swal2-center{top:50%;left:50%;transform:translate(-50%,-50%)}body.swal2-no-backdrop .swal2-container.swal2-center-left,body.swal2-no-backdrop .swal2-container.swal2-center-start{top:50%;left:0;transform:translateY(-50%)}body.swal2-no-backdrop .swal2-container.swal2-center-end,body.swal2-no-backdrop .swal2-container.swal2-center-right{top:50%;right:0;transform:translateY(-50%)}body.swal2-no-backdrop .swal2-container.swal2-bottom{bottom:0;left:50%;transform:translateX(-50%)}body.swal2-no-backdrop .swal2-container.swal2-bottom-left,body.swal2-no-backdrop .swal2-container.swal2-bottom-start{bottom:0;left:0}body.swal2-no-backdrop .swal2-container.swal2-bottom-end,body.swal2-no-backdrop .swal2-container.swal2-bottom-right{right:0;bottom:0}@media print{body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown){overflow-y:scroll!important}body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown)>[aria-hidden=true]{display:none}body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) .swal2-container{position:static!important}}body.swal2-toast-shown .swal2-container{background-color:transparent}body.swal2-toast-shown .swal2-container.swal2-top{top:0;right:auto;bottom:auto;left:50%;transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-top-end,body.swal2-toast-shown .swal2-container.swal2-top-right{top:0;right:0;bottom:auto;left:auto}body.swal2-toast-shown .swal2-container.swal2-top-left,body.swal2-toast-shown .swal2-container.swal2-top-start{top:0;right:auto;bottom:auto;left:0}body.swal2-toast-shown .swal2-container.swal2-center-left,body.swal2-toast-shown .swal2-container.swal2-center-start{top:50%;right:auto;bottom:auto;left:0;transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-center{top:50%;right:auto;bottom:auto;left:50%;transform:translate(-50%,-50%)}body.swal2-toast-shown .swal2-container.swal2-center-end,body.swal2-toast-shown .swal2-container.swal2-center-right{top:50%;right:0;bottom:auto;left:auto;transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-left,body.swal2-toast-shown .swal2-container.swal2-bottom-start{top:auto;right:auto;bottom:0;left:0}body.swal2-toast-shown .swal2-container.swal2-bottom{top:auto;right:auto;bottom:0;left:50%;transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-end,body.swal2-toast-shown .swal2-container.swal2-bottom-right{top:auto;right:0;bottom:0;left:auto}body.swal2-toast-column .swal2-toast{flex-direction:column;align-items:stretch}body.swal2-toast-column .swal2-toast .swal2-actions{flex:1;align-self:stretch;height:2.2em;margin-top:.3125em}body.swal2-toast-column .swal2-toast .swal2-loading{justify-content:center}body.swal2-toast-column .swal2-toast .swal2-input{height:2em;margin:.3125em auto;font-size:1em}body.swal2-toast-column .swal2-toast .swal2-validation-message{font-size:1em}");
+
+/***/ }),
+
 /***/ "./node_modules/symbol-observable/lib/index.js":
 /*!*****************************************************!*\
   !*** ./node_modules/symbol-observable/lib/index.js ***!
@@ -56373,382 +57253,6 @@ function symbolObservablePonyfill(root) {
 
 /***/ }),
 
-/***/ "./node_modules/synchronous-promise/index.js":
-/*!***************************************************!*\
-  !*** ./node_modules/synchronous-promise/index.js ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* jshint node: true */
-
-function makeArrayFrom(obj) {
-  return Array.prototype.slice.apply(obj);
-}
-var
-  PENDING = "pending",
-  RESOLVED = "resolved",
-  REJECTED = "rejected";
-
-function SynchronousPromise(handler) {
-  this.status = PENDING;
-  this._continuations = [];
-  this._parent = null;
-  this._paused = false;
-  if (handler) {
-    handler.call(
-      this,
-      this._continueWith.bind(this),
-      this._failWith.bind(this)
-    );
-  }
-}
-
-function looksLikeAPromise(obj) {
-  return obj && typeof (obj.then) === "function";
-}
-
-SynchronousPromise.prototype = {
-  then: function (nextFn, catchFn) {
-    var next = SynchronousPromise.unresolved()._setParent(this);
-    if (this._isRejected()) {
-      if (this._paused) {
-        this._continuations.push({
-          promise: next,
-          nextFn: nextFn,
-          catchFn: catchFn
-        });
-        return next;
-      }
-      if (catchFn) {
-        try {
-          var catchResult = catchFn(this._error);
-          if (looksLikeAPromise(catchResult)) {
-            this._chainPromiseData(catchResult, next);
-            return next;
-          } else {
-            return SynchronousPromise.resolve(catchResult)._setParent(this);
-          }
-        } catch (e) {
-          return SynchronousPromise.reject(e)._setParent(this);
-        }
-      }
-      return SynchronousPromise.reject(this._error)._setParent(this);
-    }
-    this._continuations.push({
-      promise: next,
-      nextFn: nextFn,
-      catchFn: catchFn
-    });
-    this._runResolutions();
-    return next;
-  },
-  catch: function (handler) {
-    if (this._isResolved()) {
-      return SynchronousPromise.resolve(this._data)._setParent(this);
-    }
-    var next = SynchronousPromise.unresolved()._setParent(this);
-    this._continuations.push({
-      promise: next,
-      catchFn: handler
-    });
-    this._runRejections();
-    return next;
-  },
-  finally: function(callback) {
-    var ran = false;
-    function runFinally() {
-      if (!ran) {
-        ran = true;
-        return callback();
-      }
-    }
-    return this.then(runFinally)
-      .catch(runFinally);
-  },
-  pause: function () {
-    this._paused = true;
-    return this;
-  },
-  resume: function () {
-    var firstPaused = this._findFirstPaused();
-    if (firstPaused) {
-      firstPaused._paused = false;
-      firstPaused._runResolutions();
-      firstPaused._runRejections();
-    }
-    return this;
-  },
-  _findAncestry: function () {
-    return this._continuations.reduce(function (acc, cur) {
-      if (cur.promise) {
-        var node = {
-          promise: cur.promise,
-          children: cur.promise._findAncestry()
-        };
-        acc.push(node);
-      }
-      return acc;
-    }, []);
-  },
-  _setParent: function (parent) {
-    if (this._parent) {
-      throw new Error("parent already set");
-    }
-    this._parent = parent;
-    return this;
-  },
-  _continueWith: function (data) {
-    var firstPending = this._findFirstPending();
-    if (firstPending) {
-      firstPending._data = data;
-      firstPending._setResolved();
-    }
-  },
-  _findFirstPending: function () {
-    return this._findFirstAncestor(function (test) {
-      return test._isPending && test._isPending();
-    });
-  },
-  _findFirstPaused: function () {
-    return this._findFirstAncestor(function (test) {
-      return test._paused;
-    });
-  },
-  _findFirstAncestor: function (matching) {
-    var test = this;
-    var result;
-    while (test) {
-      if (matching(test)) {
-        result = test;
-      }
-      test = test._parent;
-    }
-    return result;
-  },
-  _failWith: function (error) {
-    var firstRejected = this._findFirstPending();
-    if (firstRejected) {
-      firstRejected._error = error;
-      firstRejected._setRejected();
-    }
-  },
-  _takeContinuations: function () {
-    return this._continuations.splice(0, this._continuations.length);
-  },
-  _runRejections: function () {
-    if (this._paused || !this._isRejected()) {
-      return;
-    }
-    var
-      error = this._error,
-      continuations = this._takeContinuations(),
-      self = this;
-    continuations.forEach(function (cont) {
-      if (cont.catchFn) {
-        try {
-          var catchResult = cont.catchFn(error);
-          self._handleUserFunctionResult(catchResult, cont.promise);
-        } catch (e) {
-          var message = e.message;
-          cont.promise.reject(e);
-        }
-      } else {
-        cont.promise.reject(error);
-      }
-    });
-  },
-  _runResolutions: function () {
-    if (this._paused || !this._isResolved() || this._isPending()) {
-      return;
-    }
-    var continuations = this._takeContinuations();
-    if (looksLikeAPromise(this._data)) {
-      return this._handleWhenResolvedDataIsPromise(this._data);
-    }
-    var data = this._data;
-    var self = this;
-    continuations.forEach(function (cont) {
-      if (cont.nextFn) {
-        try {
-          var result = cont.nextFn(data);
-          self._handleUserFunctionResult(result, cont.promise);
-        } catch (e) {
-          self._handleResolutionError(e, cont);
-        }
-      } else if (cont.promise) {
-        cont.promise.resolve(data);
-      }
-    });
-  },
-  _handleResolutionError: function (e, continuation) {
-    this._setRejected();
-    if (continuation.catchFn) {
-      try {
-        continuation.catchFn(e);
-        return;
-      } catch (e2) {
-        e = e2;
-      }
-    }
-    if (continuation.promise) {
-      continuation.promise.reject(e);
-    }
-  },
-  _handleWhenResolvedDataIsPromise: function (data) {
-    var self = this;
-    return data.then(function (result) {
-      self._data = result;
-      self._runResolutions();
-    }).catch(function (error) {
-      self._error = error;
-      self._setRejected();
-      self._runRejections();
-    });
-  },
-  _handleUserFunctionResult: function (data, nextSynchronousPromise) {
-    if (looksLikeAPromise(data)) {
-      this._chainPromiseData(data, nextSynchronousPromise);
-    } else {
-      nextSynchronousPromise.resolve(data);
-    }
-  },
-  _chainPromiseData: function (promiseData, nextSynchronousPromise) {
-    promiseData.then(function (newData) {
-      nextSynchronousPromise.resolve(newData);
-    }).catch(function (newError) {
-      nextSynchronousPromise.reject(newError);
-    });
-  },
-  _setResolved: function () {
-    this.status = RESOLVED;
-    if (!this._paused) {
-      this._runResolutions();
-    }
-  },
-  _setRejected: function () {
-    this.status = REJECTED;
-    if (!this._paused) {
-      this._runRejections();
-    }
-  },
-  _isPending: function () {
-    return this.status === PENDING;
-  },
-  _isResolved: function () {
-    return this.status === RESOLVED;
-  },
-  _isRejected: function () {
-    return this.status === REJECTED;
-  }
-};
-
-SynchronousPromise.resolve = function (result) {
-  return new SynchronousPromise(function (resolve, reject) {
-    if (looksLikeAPromise(result)) {
-      result.then(function (newResult) {
-        resolve(newResult);
-      }).catch(function (error) {
-        reject(error);
-      });
-    } else {
-      resolve(result);
-    }
-  });
-};
-
-SynchronousPromise.reject = function (result) {
-  return new SynchronousPromise(function (resolve, reject) {
-    reject(result);
-  });
-};
-
-SynchronousPromise.unresolved = function () {
-  return new SynchronousPromise(function (resolve, reject) {
-    this.resolve = resolve;
-    this.reject = reject;
-  });
-};
-
-SynchronousPromise.all = function () {
-  var args = makeArrayFrom(arguments);
-  if (Array.isArray(args[0])) {
-    args = args[0];
-  }
-  if (!args.length) {
-    return SynchronousPromise.resolve([]);
-  }
-  return new SynchronousPromise(function (resolve, reject) {
-    var
-      allData = [],
-      numResolved = 0,
-      doResolve = function () {
-        if (numResolved === args.length) {
-          resolve(allData);
-        }
-      },
-      rejected = false,
-      doReject = function (err) {
-        if (rejected) {
-          return;
-        }
-        rejected = true;
-        reject(err);
-      };
-    args.forEach(function (arg, idx) {
-      SynchronousPromise.resolve(arg).then(function (thisResult) {
-        allData[idx] = thisResult;
-        numResolved += 1;
-        doResolve();
-      }).catch(function (err) {
-        doReject(err);
-      });
-    });
-  });
-};
-
-/* jshint ignore:start */
-if (Promise === SynchronousPromise) {
-  throw new Error("Please use SynchronousPromise.installGlobally() to install globally");
-}
-var RealPromise = Promise;
-SynchronousPromise.installGlobally = function(__awaiter) {
-  if (Promise === SynchronousPromise) {
-    return __awaiter;
-  }
-  var result = patchAwaiterIfRequired(__awaiter);
-  Promise = SynchronousPromise;
-  return result;
-};
-
-SynchronousPromise.uninstallGlobally = function() {
-  if (Promise === SynchronousPromise) {
-    Promise = RealPromise;
-  }
-};
-
-function patchAwaiterIfRequired(__awaiter) {
-  if (typeof(__awaiter) === "undefined" || __awaiter.__patched) {
-    return __awaiter;
-  }
-  var originalAwaiter = __awaiter;
-  __awaiter = function() {
-    var Promise = RealPromise;
-    originalAwaiter.apply(this, makeArrayFrom(arguments));
-  };
-  __awaiter.__patched = true;
-  return __awaiter;
-}
-/* jshint ignore:end */
-
-module.exports = {
-  SynchronousPromise: SynchronousPromise
-};
-
-
-/***/ }),
-
 /***/ "./node_modules/tiny-warning/dist/tiny-warning.cjs.js":
 /*!************************************************************!*\
   !*** ./node_modules/tiny-warning/dist/tiny-warning.cjs.js ***!
@@ -56779,115 +57283,6 @@ function warning(condition, message) {
 }
 
 module.exports = warning;
-
-
-/***/ }),
-
-/***/ "./node_modules/toposort/index.js":
-/*!****************************************!*\
-  !*** ./node_modules/toposort/index.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
-/**
- * Topological sorting function
- *
- * @param {Array} edges
- * @returns {Array}
- */
-
-module.exports = function(edges) {
-  return toposort(uniqueNodes(edges), edges)
-}
-
-module.exports.array = toposort
-
-function toposort(nodes, edges) {
-  var cursor = nodes.length
-    , sorted = new Array(cursor)
-    , visited = {}
-    , i = cursor
-    // Better data structures make algorithm much faster.
-    , outgoingEdges = makeOutgoingEdges(edges)
-    , nodesHash = makeNodesHash(nodes)
-
-  // check for unknown nodes
-  edges.forEach(function(edge) {
-    if (!nodesHash.has(edge[0]) || !nodesHash.has(edge[1])) {
-      throw new Error('Unknown node. There is an unknown node in the supplied edges.')
-    }
-  })
-
-  while (i--) {
-    if (!visited[i]) visit(nodes[i], i, new Set())
-  }
-
-  return sorted
-
-  function visit(node, i, predecessors) {
-    if(predecessors.has(node)) {
-      var nodeRep
-      try {
-        nodeRep = ", node was:" + JSON.stringify(node)
-      } catch(e) {
-        nodeRep = ""
-      }
-      throw new Error('Cyclic dependency' + nodeRep)
-    }
-
-    if (!nodesHash.has(node)) {
-      throw new Error('Found unknown node. Make sure to provided all involved nodes. Unknown node: '+JSON.stringify(node))
-    }
-
-    if (visited[i]) return;
-    visited[i] = true
-
-    var outgoing = outgoingEdges.get(node) || new Set()
-    outgoing = Array.from(outgoing)
-
-    if (i = outgoing.length) {
-      predecessors.add(node)
-      do {
-        var child = outgoing[--i]
-        visit(child, nodesHash.get(child), predecessors)
-      } while (i)
-      predecessors.delete(node)
-    }
-
-    sorted[--cursor] = node
-  }
-}
-
-function uniqueNodes(arr){
-  var res = new Set()
-  for (var i = 0, len = arr.length; i < len; i++) {
-    var edge = arr[i]
-    res.add(edge[0])
-    res.add(edge[1])
-  }
-  return Array.from(res)
-}
-
-function makeOutgoingEdges(arr){
-  var edges = new Map()
-  for (var i = 0, len = arr.length; i < len; i++) {
-    var edge = arr[i]
-    if (!edges.has(edge[0])) edges.set(edge[0], new Set())
-    if (!edges.has(edge[1])) edges.set(edge[1], new Set())
-    edges.get(edge[0]).add(edge[1])
-  }
-  return edges
-}
-
-function makeNodesHash(arr){
-  var res = new Map()
-  for (var i = 0, len = arr.length; i < len; i++) {
-    res.set(arr[i], i)
-  }
-  return res
-}
 
 
 /***/ }),
@@ -56953,2967 +57348,6 @@ module.exports = function(module) {
 	return module;
 };
 
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/Condition.js":
-/*!*******************************************!*\
-  !*** ./node_modules/yup/lib/Condition.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _has = _interopRequireDefault(__webpack_require__(/*! lodash/has */ "./node_modules/lodash/has.js"));
-
-var _isSchema = _interopRequireDefault(__webpack_require__(/*! ./util/isSchema */ "./node_modules/yup/lib/util/isSchema.js"));
-
-var Condition = /*#__PURE__*/function () {
-  function Condition(refs, options) {
-    this.refs = refs;
-
-    if (typeof options === 'function') {
-      this.fn = options;
-      return;
-    }
-
-    if (!(0, _has.default)(options, 'is')) throw new TypeError('`is:` is required for `when()` conditions');
-    if (!options.then && !options.otherwise) throw new TypeError('either `then:` or `otherwise:` is required for `when()` conditions');
-    var is = options.is,
-        then = options.then,
-        otherwise = options.otherwise;
-    var check = typeof is === 'function' ? is : function () {
-      for (var _len = arguments.length, values = new Array(_len), _key = 0; _key < _len; _key++) {
-        values[_key] = arguments[_key];
-      }
-
-      return values.every(function (value) {
-        return value === is;
-      });
-    };
-
-    this.fn = function () {
-      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-        args[_key2] = arguments[_key2];
-      }
-
-      var options = args.pop();
-      var schema = args.pop();
-      var branch = check.apply(void 0, args) ? then : otherwise;
-      if (!branch) return undefined;
-      if (typeof branch === 'function') return branch(schema);
-      return schema.concat(branch.resolve(options));
-    };
-  }
-
-  var _proto = Condition.prototype;
-
-  _proto.resolve = function resolve(base, options) {
-    var values = this.refs.map(function (ref) {
-      return ref.getValue(options);
-    });
-    var schema = this.fn.apply(base, values.concat(base, options));
-    if (schema === undefined || schema === base) return base;
-    if (!(0, _isSchema.default)(schema)) throw new TypeError('conditions must return a schema object');
-    return schema.resolve(options);
-  };
-
-  return Condition;
-}();
-
-var _default = Condition;
-exports.default = _default;
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/Lazy.js":
-/*!**************************************!*\
-  !*** ./node_modules/yup/lib/Lazy.js ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _isSchema = _interopRequireDefault(__webpack_require__(/*! ./util/isSchema */ "./node_modules/yup/lib/util/isSchema.js"));
-
-var Lazy = /*#__PURE__*/function () {
-  function Lazy(mapFn) {
-    this._resolve = function (value, options) {
-      var schema = mapFn(value, options);
-      if (!(0, _isSchema.default)(schema)) throw new TypeError('lazy() functions must return a valid schema');
-      return schema.resolve(options);
-    };
-  }
-
-  var _proto = Lazy.prototype;
-
-  _proto.resolve = function resolve(options) {
-    return this._resolve(options.value, options);
-  };
-
-  _proto.cast = function cast(value, options) {
-    return this._resolve(value, options).cast(value, options);
-  };
-
-  _proto.validate = function validate(value, options) {
-    return this._resolve(value, options).validate(value, options);
-  };
-
-  _proto.validateSync = function validateSync(value, options) {
-    return this._resolve(value, options).validateSync(value, options);
-  };
-
-  _proto.validateAt = function validateAt(path, value, options) {
-    return this._resolve(value, options).validateAt(path, value, options);
-  };
-
-  _proto.validateSyncAt = function validateSyncAt(path, value, options) {
-    return this._resolve(value, options).validateSyncAt(path, value, options);
-  };
-
-  return Lazy;
-}();
-
-Lazy.prototype.__isYupSchema__ = true;
-var _default = Lazy;
-exports.default = _default;
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/Reference.js":
-/*!*******************************************!*\
-  !*** ./node_modules/yup/lib/Reference.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js"));
-
-var _propertyExpr = __webpack_require__(/*! property-expr */ "./node_modules/property-expr/index.js");
-
-var prefixes = {
-  context: '$',
-  value: '.'
-};
-
-var Reference = /*#__PURE__*/function () {
-  function Reference(key, options) {
-    if (options === void 0) {
-      options = {};
-    }
-
-    if (typeof key !== 'string') throw new TypeError('ref must be a string, got: ' + key);
-    this.key = key.trim();
-    if (key === '') throw new TypeError('ref must be a non-empty string');
-    this.isContext = this.key[0] === prefixes.context;
-    this.isValue = this.key[0] === prefixes.value;
-    this.isSibling = !this.isContext && !this.isValue;
-    var prefix = this.isContext ? prefixes.context : this.isValue ? prefixes.value : '';
-    this.path = this.key.slice(prefix.length);
-    this.getter = this.path && (0, _propertyExpr.getter)(this.path, true);
-    this.map = options.map;
-  }
-
-  var _proto = Reference.prototype;
-
-  _proto.getValue = function getValue(options) {
-    var result = this.isContext ? options.context : this.isValue ? options.value : options.parent;
-    if (this.getter) result = this.getter(result || {});
-    if (this.map) result = this.map(result);
-    return result;
-  };
-
-  _proto.cast = function cast(value, options) {
-    return this.getValue((0, _extends2.default)({}, options, {
-      value: value
-    }));
-  };
-
-  _proto.resolve = function resolve() {
-    return this;
-  };
-
-  _proto.describe = function describe() {
-    return {
-      type: 'ref',
-      key: this.key
-    };
-  };
-
-  _proto.toString = function toString() {
-    return "Ref(" + this.key + ")";
-  };
-
-  Reference.isRef = function isRef(value) {
-    return value && value.__isYupRef;
-  };
-
-  return Reference;
-}();
-
-exports.default = Reference;
-Reference.prototype.__isYupRef = true;
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/ValidationError.js":
-/*!*************************************************!*\
-  !*** ./node_modules/yup/lib/ValidationError.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = ValidationError;
-
-var _printValue = _interopRequireDefault(__webpack_require__(/*! ./util/printValue */ "./node_modules/yup/lib/util/printValue.js"));
-
-var strReg = /\$\{\s*(\w+)\s*\}/g;
-
-var replace = function replace(str) {
-  return function (params) {
-    return str.replace(strReg, function (_, key) {
-      return (0, _printValue.default)(params[key]);
-    });
-  };
-};
-
-function ValidationError(errors, value, field, type) {
-  var _this = this;
-
-  this.name = 'ValidationError';
-  this.value = value;
-  this.path = field;
-  this.type = type;
-  this.errors = [];
-  this.inner = [];
-  if (errors) [].concat(errors).forEach(function (err) {
-    _this.errors = _this.errors.concat(err.errors || err);
-    if (err.inner) _this.inner = _this.inner.concat(err.inner.length ? err.inner : err);
-  });
-  this.message = this.errors.length > 1 ? this.errors.length + " errors occurred" : this.errors[0];
-  if (Error.captureStackTrace) Error.captureStackTrace(this, ValidationError);
-}
-
-ValidationError.prototype = Object.create(Error.prototype);
-ValidationError.prototype.constructor = ValidationError;
-
-ValidationError.isError = function (err) {
-  return err && err.name === 'ValidationError';
-};
-
-ValidationError.formatError = function (message, params) {
-  if (typeof message === 'string') message = replace(message);
-
-  var fn = function fn(params) {
-    params.path = params.label || params.path || 'this';
-    return typeof message === 'function' ? message(params) : message;
-  };
-
-  return arguments.length === 1 ? fn : fn(params);
-};
-
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/array.js":
-/*!***************************************!*\
-  !*** ./node_modules/yup/lib/array.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireWildcard = __webpack_require__(/*! @babel/runtime/helpers/interopRequireWildcard */ "./node_modules/@babel/runtime/helpers/interopRequireWildcard.js");
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _taggedTemplateLiteralLoose2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteralLoose */ "./node_modules/@babel/runtime/helpers/taggedTemplateLiteralLoose.js"));
-
-var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js"));
-
-var _inherits = _interopRequireDefault(__webpack_require__(/*! ./util/inherits */ "./node_modules/yup/lib/util/inherits.js"));
-
-var _isAbsent = _interopRequireDefault(__webpack_require__(/*! ./util/isAbsent */ "./node_modules/yup/lib/util/isAbsent.js"));
-
-var _isSchema = _interopRequireDefault(__webpack_require__(/*! ./util/isSchema */ "./node_modules/yup/lib/util/isSchema.js"));
-
-var _makePath = _interopRequireDefault(__webpack_require__(/*! ./util/makePath */ "./node_modules/yup/lib/util/makePath.js"));
-
-var _printValue = _interopRequireDefault(__webpack_require__(/*! ./util/printValue */ "./node_modules/yup/lib/util/printValue.js"));
-
-var _mixed = _interopRequireDefault(__webpack_require__(/*! ./mixed */ "./node_modules/yup/lib/mixed.js"));
-
-var _locale = __webpack_require__(/*! ./locale */ "./node_modules/yup/lib/locale.js");
-
-var _runValidations = _interopRequireWildcard(__webpack_require__(/*! ./util/runValidations */ "./node_modules/yup/lib/util/runValidations.js"));
-
-function _templateObject2() {
-  var data = (0, _taggedTemplateLiteralLoose2.default)(["", "[", "]"]);
-
-  _templateObject2 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject() {
-  var data = (0, _taggedTemplateLiteralLoose2.default)(["", "[", "]"]);
-
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-
-var _default = ArraySchema;
-exports.default = _default;
-
-function ArraySchema(type) {
-  var _this = this;
-
-  if (!(this instanceof ArraySchema)) return new ArraySchema(type);
-
-  _mixed.default.call(this, {
-    type: 'array'
-  }); // `undefined` specifically means uninitialized, as opposed to
-  // "no subtype"
-
-
-  this._subType = undefined;
-  this.withMutation(function () {
-    _this.transform(function (values) {
-      if (typeof values === 'string') try {
-        values = JSON.parse(values);
-      } catch (err) {
-        values = null;
-      }
-      return this.isType(values) ? values : null;
-    });
-
-    if (type) _this.of(type);
-  });
-}
-
-(0, _inherits.default)(ArraySchema, _mixed.default, {
-  _typeCheck: function _typeCheck(v) {
-    return Array.isArray(v);
-  },
-  _cast: function _cast(_value, _opts) {
-    var _this2 = this;
-
-    var value = _mixed.default.prototype._cast.call(this, _value, _opts); //should ignore nulls here
-
-
-    if (!this._typeCheck(value) || !this._subType) return value;
-    var isChanged = false;
-    var castArray = value.map(function (v, idx) {
-      var castElement = _this2._subType.cast(v, (0, _extends2.default)({}, _opts, {
-        path: (0, _makePath.default)(_templateObject(), _opts.path, idx)
-      }));
-
-      if (castElement !== v) {
-        isChanged = true;
-      }
-
-      return castElement;
-    });
-    return isChanged ? castArray : value;
-  },
-  _validate: function _validate(_value, options) {
-    var _this3 = this;
-
-    if (options === void 0) {
-      options = {};
-    }
-
-    var errors = [];
-    var sync = options.sync;
-    var path = options.path;
-    var subType = this._subType;
-
-    var endEarly = this._option('abortEarly', options);
-
-    var recursive = this._option('recursive', options);
-
-    var originalValue = options.originalValue != null ? options.originalValue : _value;
-    return _mixed.default.prototype._validate.call(this, _value, options).catch((0, _runValidations.propagateErrors)(endEarly, errors)).then(function (value) {
-      if (!recursive || !subType || !_this3._typeCheck(value)) {
-        if (errors.length) throw errors[0];
-        return value;
-      }
-
-      originalValue = originalValue || value;
-      var validations = value.map(function (item, idx) {
-        var path = (0, _makePath.default)(_templateObject2(), options.path, idx); // object._validate note for isStrict explanation
-
-        var innerOptions = (0, _extends2.default)({}, options, {
-          path: path,
-          strict: true,
-          parent: value,
-          originalValue: originalValue[idx]
-        });
-        if (subType.validate) return subType.validate(item, innerOptions);
-        return true;
-      });
-      return (0, _runValidations.default)({
-        sync: sync,
-        path: path,
-        value: value,
-        errors: errors,
-        endEarly: endEarly,
-        validations: validations
-      });
-    });
-  },
-  _isPresent: function _isPresent(value) {
-    return _mixed.default.prototype._cast.call(this, value) && value.length > 0;
-  },
-  of: function of(schema) {
-    var next = this.clone();
-    if (schema !== false && !(0, _isSchema.default)(schema)) throw new TypeError('`array.of()` sub-schema must be a valid yup schema, or `false` to negate a current sub-schema. ' + 'not: ' + (0, _printValue.default)(schema));
-    next._subType = schema;
-    return next;
-  },
-  min: function min(_min, message) {
-    message = message || _locale.array.min;
-    return this.test({
-      message: message,
-      name: 'min',
-      exclusive: true,
-      params: {
-        min: _min
-      },
-      test: function test(value) {
-        return (0, _isAbsent.default)(value) || value.length >= this.resolve(_min);
-      }
-    });
-  },
-  max: function max(_max, message) {
-    message = message || _locale.array.max;
-    return this.test({
-      message: message,
-      name: 'max',
-      exclusive: true,
-      params: {
-        max: _max
-      },
-      test: function test(value) {
-        return (0, _isAbsent.default)(value) || value.length <= this.resolve(_max);
-      }
-    });
-  },
-  ensure: function ensure() {
-    var _this4 = this;
-
-    return this.default(function () {
-      return [];
-    }).transform(function (val, original) {
-      // We don't want to return `null` for nullable schema
-      if (_this4._typeCheck(val)) return val;
-      return original == null ? [] : [].concat(original);
-    });
-  },
-  compact: function compact(rejector) {
-    var reject = !rejector ? function (v) {
-      return !!v;
-    } : function (v, i, a) {
-      return !rejector(v, i, a);
-    };
-    return this.transform(function (values) {
-      return values != null ? values.filter(reject) : values;
-    });
-  },
-  describe: function describe() {
-    var base = _mixed.default.prototype.describe.call(this);
-
-    if (this._subType) base.innerType = this._subType.describe();
-    return base;
-  }
-});
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/boolean.js":
-/*!*****************************************!*\
-  !*** ./node_modules/yup/lib/boolean.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _inherits = _interopRequireDefault(__webpack_require__(/*! ./util/inherits */ "./node_modules/yup/lib/util/inherits.js"));
-
-var _mixed = _interopRequireDefault(__webpack_require__(/*! ./mixed */ "./node_modules/yup/lib/mixed.js"));
-
-var _default = BooleanSchema;
-exports.default = _default;
-
-function BooleanSchema() {
-  var _this = this;
-
-  if (!(this instanceof BooleanSchema)) return new BooleanSchema();
-
-  _mixed.default.call(this, {
-    type: 'boolean'
-  });
-
-  this.withMutation(function () {
-    _this.transform(function (value) {
-      if (!this.isType(value)) {
-        if (/^(true|1)$/i.test(value)) return true;
-        if (/^(false|0)$/i.test(value)) return false;
-      }
-
-      return value;
-    });
-  });
-}
-
-(0, _inherits.default)(BooleanSchema, _mixed.default, {
-  _typeCheck: function _typeCheck(v) {
-    if (v instanceof Boolean) v = v.valueOf();
-    return typeof v === 'boolean';
-  }
-});
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/date.js":
-/*!**************************************!*\
-  !*** ./node_modules/yup/lib/date.js ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _mixed = _interopRequireDefault(__webpack_require__(/*! ./mixed */ "./node_modules/yup/lib/mixed.js"));
-
-var _inherits = _interopRequireDefault(__webpack_require__(/*! ./util/inherits */ "./node_modules/yup/lib/util/inherits.js"));
-
-var _isodate = _interopRequireDefault(__webpack_require__(/*! ./util/isodate */ "./node_modules/yup/lib/util/isodate.js"));
-
-var _locale = __webpack_require__(/*! ./locale */ "./node_modules/yup/lib/locale.js");
-
-var _isAbsent = _interopRequireDefault(__webpack_require__(/*! ./util/isAbsent */ "./node_modules/yup/lib/util/isAbsent.js"));
-
-var _Reference = _interopRequireDefault(__webpack_require__(/*! ./Reference */ "./node_modules/yup/lib/Reference.js"));
-
-var invalidDate = new Date('');
-
-var isDate = function isDate(obj) {
-  return Object.prototype.toString.call(obj) === '[object Date]';
-};
-
-var _default = DateSchema;
-exports.default = _default;
-
-function DateSchema() {
-  var _this = this;
-
-  if (!(this instanceof DateSchema)) return new DateSchema();
-
-  _mixed.default.call(this, {
-    type: 'date'
-  });
-
-  this.withMutation(function () {
-    _this.transform(function (value) {
-      if (this.isType(value)) return value;
-      value = (0, _isodate.default)(value); // 0 is a valid timestamp equivalent to 1970-01-01T00:00:00Z(unix epoch) or before.
-
-      return !isNaN(value) ? new Date(value) : invalidDate;
-    });
-  });
-}
-
-(0, _inherits.default)(DateSchema, _mixed.default, {
-  _typeCheck: function _typeCheck(v) {
-    return isDate(v) && !isNaN(v.getTime());
-  },
-  min: function min(_min, message) {
-    if (message === void 0) {
-      message = _locale.date.min;
-    }
-
-    var limit = _min;
-
-    if (!_Reference.default.isRef(limit)) {
-      limit = this.cast(_min);
-      if (!this._typeCheck(limit)) throw new TypeError('`min` must be a Date or a value that can be `cast()` to a Date');
-    }
-
-    return this.test({
-      message: message,
-      name: 'min',
-      exclusive: true,
-      params: {
-        min: _min
-      },
-      test: function test(value) {
-        return (0, _isAbsent.default)(value) || value >= this.resolve(limit);
-      }
-    });
-  },
-  max: function max(_max, message) {
-    if (message === void 0) {
-      message = _locale.date.max;
-    }
-
-    var limit = _max;
-
-    if (!_Reference.default.isRef(limit)) {
-      limit = this.cast(_max);
-      if (!this._typeCheck(limit)) throw new TypeError('`max` must be a Date or a value that can be `cast()` to a Date');
-    }
-
-    return this.test({
-      message: message,
-      name: 'max',
-      exclusive: true,
-      params: {
-        max: _max
-      },
-      test: function test(value) {
-        return (0, _isAbsent.default)(value) || value <= this.resolve(limit);
-      }
-    });
-  }
-});
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/index.js":
-/*!***************************************!*\
-  !*** ./node_modules/yup/lib/index.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.addMethod = addMethod;
-exports.lazy = exports.ref = exports.boolean = void 0;
-
-var _mixed = _interopRequireDefault(__webpack_require__(/*! ./mixed */ "./node_modules/yup/lib/mixed.js"));
-
-exports.mixed = _mixed.default;
-
-var _boolean = _interopRequireDefault(__webpack_require__(/*! ./boolean */ "./node_modules/yup/lib/boolean.js"));
-
-exports.bool = _boolean.default;
-
-var _string = _interopRequireDefault(__webpack_require__(/*! ./string */ "./node_modules/yup/lib/string.js"));
-
-exports.string = _string.default;
-
-var _number = _interopRequireDefault(__webpack_require__(/*! ./number */ "./node_modules/yup/lib/number.js"));
-
-exports.number = _number.default;
-
-var _date = _interopRequireDefault(__webpack_require__(/*! ./date */ "./node_modules/yup/lib/date.js"));
-
-exports.date = _date.default;
-
-var _object = _interopRequireDefault(__webpack_require__(/*! ./object */ "./node_modules/yup/lib/object.js"));
-
-exports.object = _object.default;
-
-var _array = _interopRequireDefault(__webpack_require__(/*! ./array */ "./node_modules/yup/lib/array.js"));
-
-exports.array = _array.default;
-
-var _Reference = _interopRequireDefault(__webpack_require__(/*! ./Reference */ "./node_modules/yup/lib/Reference.js"));
-
-var _Lazy = _interopRequireDefault(__webpack_require__(/*! ./Lazy */ "./node_modules/yup/lib/Lazy.js"));
-
-var _ValidationError = _interopRequireDefault(__webpack_require__(/*! ./ValidationError */ "./node_modules/yup/lib/ValidationError.js"));
-
-exports.ValidationError = _ValidationError.default;
-
-var _reach = _interopRequireDefault(__webpack_require__(/*! ./util/reach */ "./node_modules/yup/lib/util/reach.js"));
-
-exports.reach = _reach.default;
-
-var _isSchema = _interopRequireDefault(__webpack_require__(/*! ./util/isSchema */ "./node_modules/yup/lib/util/isSchema.js"));
-
-exports.isSchema = _isSchema.default;
-
-var _setLocale = _interopRequireDefault(__webpack_require__(/*! ./setLocale */ "./node_modules/yup/lib/setLocale.js"));
-
-exports.setLocale = _setLocale.default;
-var boolean = _boolean.default;
-exports.boolean = boolean;
-
-var ref = function ref(key, options) {
-  return new _Reference.default(key, options);
-};
-
-exports.ref = ref;
-
-var lazy = function lazy(fn) {
-  return new _Lazy.default(fn);
-};
-
-exports.lazy = lazy;
-
-function addMethod(schemaType, name, fn) {
-  if (!schemaType || !(0, _isSchema.default)(schemaType.prototype)) throw new TypeError('You must provide a yup schema constructor function');
-  if (typeof name !== 'string') throw new TypeError('A Method name must be provided');
-  if (typeof fn !== 'function') throw new TypeError('Method function must be provided');
-  schemaType.prototype[name] = fn;
-}
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/locale.js":
-/*!****************************************!*\
-  !*** ./node_modules/yup/lib/locale.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = exports.array = exports.object = exports.boolean = exports.date = exports.number = exports.string = exports.mixed = void 0;
-
-var _printValue = _interopRequireDefault(__webpack_require__(/*! ./util/printValue */ "./node_modules/yup/lib/util/printValue.js"));
-
-var mixed = {
-  default: '${path} is invalid',
-  required: '${path} is a required field',
-  oneOf: '${path} must be one of the following values: ${values}',
-  notOneOf: '${path} must not be one of the following values: ${values}',
-  notType: function notType(_ref) {
-    var path = _ref.path,
-        type = _ref.type,
-        value = _ref.value,
-        originalValue = _ref.originalValue;
-    var isCast = originalValue != null && originalValue !== value;
-    var msg = path + " must be a `" + type + "` type, " + ("but the final value was: `" + (0, _printValue.default)(value, true) + "`") + (isCast ? " (cast from the value `" + (0, _printValue.default)(originalValue, true) + "`)." : '.');
-
-    if (value === null) {
-      msg += "\n If \"null\" is intended as an empty value be sure to mark the schema as `.nullable()`";
-    }
-
-    return msg;
-  },
-  defined: '${path} must be defined'
-};
-exports.mixed = mixed;
-var string = {
-  length: '${path} must be exactly ${length} characters',
-  min: '${path} must be at least ${min} characters',
-  max: '${path} must be at most ${max} characters',
-  matches: '${path} must match the following: "${regex}"',
-  email: '${path} must be a valid email',
-  url: '${path} must be a valid URL',
-  trim: '${path} must be a trimmed string',
-  lowercase: '${path} must be a lowercase string',
-  uppercase: '${path} must be a upper case string'
-};
-exports.string = string;
-var number = {
-  min: '${path} must be greater than or equal to ${min}',
-  max: '${path} must be less than or equal to ${max}',
-  lessThan: '${path} must be less than ${less}',
-  moreThan: '${path} must be greater than ${more}',
-  notEqual: '${path} must be not equal to ${notEqual}',
-  positive: '${path} must be a positive number',
-  negative: '${path} must be a negative number',
-  integer: '${path} must be an integer'
-};
-exports.number = number;
-var date = {
-  min: '${path} field must be later than ${min}',
-  max: '${path} field must be at earlier than ${max}'
-};
-exports.date = date;
-var boolean = {};
-exports.boolean = boolean;
-var object = {
-  noUnknown: '${path} field cannot have keys not specified in the object shape'
-};
-exports.object = object;
-var array = {
-  min: '${path} field must have at least ${min} items',
-  max: '${path} field must have less than or equal to ${max} items'
-};
-exports.array = array;
-var _default = {
-  mixed: mixed,
-  string: string,
-  number: number,
-  date: date,
-  object: object,
-  array: array,
-  boolean: boolean
-};
-exports.default = _default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/mixed.js":
-/*!***************************************!*\
-  !*** ./node_modules/yup/lib/mixed.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = SchemaType;
-
-var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js"));
-
-var _has = _interopRequireDefault(__webpack_require__(/*! lodash/has */ "./node_modules/lodash/has.js"));
-
-var _cloneDeepWith = _interopRequireDefault(__webpack_require__(/*! lodash/cloneDeepWith */ "./node_modules/lodash/cloneDeepWith.js"));
-
-var _toArray2 = _interopRequireDefault(__webpack_require__(/*! lodash/toArray */ "./node_modules/lodash/toArray.js"));
-
-var _locale = __webpack_require__(/*! ./locale */ "./node_modules/yup/lib/locale.js");
-
-var _Condition = _interopRequireDefault(__webpack_require__(/*! ./Condition */ "./node_modules/yup/lib/Condition.js"));
-
-var _runValidations = _interopRequireDefault(__webpack_require__(/*! ./util/runValidations */ "./node_modules/yup/lib/util/runValidations.js"));
-
-var _prependDeep = _interopRequireDefault(__webpack_require__(/*! ./util/prependDeep */ "./node_modules/yup/lib/util/prependDeep.js"));
-
-var _isSchema = _interopRequireDefault(__webpack_require__(/*! ./util/isSchema */ "./node_modules/yup/lib/util/isSchema.js"));
-
-var _createValidation = _interopRequireDefault(__webpack_require__(/*! ./util/createValidation */ "./node_modules/yup/lib/util/createValidation.js"));
-
-var _printValue = _interopRequireDefault(__webpack_require__(/*! ./util/printValue */ "./node_modules/yup/lib/util/printValue.js"));
-
-var _Reference = _interopRequireDefault(__webpack_require__(/*! ./Reference */ "./node_modules/yup/lib/Reference.js"));
-
-var _reach = __webpack_require__(/*! ./util/reach */ "./node_modules/yup/lib/util/reach.js");
-
-var RefSet = /*#__PURE__*/function () {
-  function RefSet() {
-    this.list = new Set();
-    this.refs = new Map();
-  }
-
-  var _proto = RefSet.prototype;
-
-  _proto.toArray = function toArray() {
-    return (0, _toArray2.default)(this.list).concat((0, _toArray2.default)(this.refs.values()));
-  };
-
-  _proto.add = function add(value) {
-    _Reference.default.isRef(value) ? this.refs.set(value.key, value) : this.list.add(value);
-  };
-
-  _proto.delete = function _delete(value) {
-    _Reference.default.isRef(value) ? this.refs.delete(value.key) : this.list.delete(value);
-  };
-
-  _proto.has = function has(value, resolve) {
-    if (this.list.has(value)) return true;
-    var item,
-        values = this.refs.values();
-
-    while (item = values.next(), !item.done) {
-      if (resolve(item.value) === value) return true;
-    }
-
-    return false;
-  };
-
-  _proto.clone = function clone() {
-    var next = new RefSet();
-    next.list = new Set(this.list);
-    next.refs = new Map(this.refs);
-    return next;
-  };
-
-  _proto.merge = function merge(newItems, removeItems) {
-    var next = this.clone();
-    newItems.list.forEach(function (value) {
-      return next.add(value);
-    });
-    newItems.refs.forEach(function (value) {
-      return next.add(value);
-    });
-    removeItems.list.forEach(function (value) {
-      return next.delete(value);
-    });
-    removeItems.refs.forEach(function (value) {
-      return next.delete(value);
-    });
-    return next;
-  };
-
-  return RefSet;
-}();
-
-function SchemaType(options) {
-  var _this = this;
-
-  if (options === void 0) {
-    options = {};
-  }
-
-  if (!(this instanceof SchemaType)) return new SchemaType();
-  this._deps = [];
-  this._conditions = [];
-  this._options = {
-    abortEarly: true,
-    recursive: true
-  };
-  this._exclusive = Object.create(null);
-  this._whitelist = new RefSet();
-  this._blacklist = new RefSet();
-  this.tests = [];
-  this.transforms = [];
-  this.withMutation(function () {
-    _this.typeError(_locale.mixed.notType);
-  });
-  if ((0, _has.default)(options, 'default')) this._defaultDefault = options.default;
-  this._type = options.type || 'mixed';
-}
-
-var proto = SchemaType.prototype = {
-  __isYupSchema__: true,
-  constructor: SchemaType,
-  clone: function clone() {
-    var _this2 = this;
-
-    if (this._mutate) return this; // if the nested value is a schema we can skip cloning, since
-    // they are already immutable
-
-    return (0, _cloneDeepWith.default)(this, function (value) {
-      if ((0, _isSchema.default)(value) && value !== _this2) return value;
-    });
-  },
-  label: function label(_label) {
-    var next = this.clone();
-    next._label = _label;
-    return next;
-  },
-  meta: function meta(obj) {
-    if (arguments.length === 0) return this._meta;
-    var next = this.clone();
-    next._meta = (0, _extends2.default)(next._meta || {}, obj);
-    return next;
-  },
-  withMutation: function withMutation(fn) {
-    var before = this._mutate;
-    this._mutate = true;
-    var result = fn(this);
-    this._mutate = before;
-    return result;
-  },
-  concat: function concat(schema) {
-    if (!schema || schema === this) return this;
-    if (schema._type !== this._type && this._type !== 'mixed') throw new TypeError("You cannot `concat()` schema's of different types: " + this._type + " and " + schema._type);
-    var next = (0, _prependDeep.default)(schema.clone(), this); // new undefined default is overridden by old non-undefined one, revert
-
-    if ((0, _has.default)(schema, '_default')) next._default = schema._default;
-    next.tests = this.tests;
-    next._exclusive = this._exclusive; // manually merge the blacklist/whitelist (the other `schema` takes
-    // precedence in case of conflicts)
-
-    next._whitelist = this._whitelist.merge(schema._whitelist, schema._blacklist);
-    next._blacklist = this._blacklist.merge(schema._blacklist, schema._whitelist); // manually add the new tests to ensure
-    // the deduping logic is consistent
-
-    next.withMutation(function (next) {
-      schema.tests.forEach(function (fn) {
-        next.test(fn.OPTIONS);
-      });
-    });
-    return next;
-  },
-  isType: function isType(v) {
-    if (this._nullable && v === null) return true;
-    return !this._typeCheck || this._typeCheck(v);
-  },
-  resolve: function resolve(options) {
-    var schema = this;
-
-    if (schema._conditions.length) {
-      var conditions = schema._conditions;
-      schema = schema.clone();
-      schema._conditions = [];
-      schema = conditions.reduce(function (schema, condition) {
-        return condition.resolve(schema, options);
-      }, schema);
-      schema = schema.resolve(options);
-    }
-
-    return schema;
-  },
-  cast: function cast(value, options) {
-    if (options === void 0) {
-      options = {};
-    }
-
-    var resolvedSchema = this.resolve((0, _extends2.default)({}, options, {
-      value: value
-    }));
-
-    var result = resolvedSchema._cast(value, options);
-
-    if (value !== undefined && options.assert !== false && resolvedSchema.isType(result) !== true) {
-      var formattedValue = (0, _printValue.default)(value);
-      var formattedResult = (0, _printValue.default)(result);
-      throw new TypeError("The value of " + (options.path || 'field') + " could not be cast to a value " + ("that satisfies the schema type: \"" + resolvedSchema._type + "\". \n\n") + ("attempted value: " + formattedValue + " \n") + (formattedResult !== formattedValue ? "result of cast: " + formattedResult : ''));
-    }
-
-    return result;
-  },
-  _cast: function _cast(rawValue) {
-    var _this3 = this;
-
-    var value = rawValue === undefined ? rawValue : this.transforms.reduce(function (value, fn) {
-      return fn.call(_this3, value, rawValue);
-    }, rawValue);
-
-    if (value === undefined && (0, _has.default)(this, '_default')) {
-      value = this.default();
-    }
-
-    return value;
-  },
-  _validate: function _validate(_value, options) {
-    var _this4 = this;
-
-    if (options === void 0) {
-      options = {};
-    }
-
-    var value = _value;
-    var originalValue = options.originalValue != null ? options.originalValue : _value;
-
-    var isStrict = this._option('strict', options);
-
-    var endEarly = this._option('abortEarly', options);
-
-    var sync = options.sync;
-    var path = options.path;
-    var label = this._label;
-
-    if (!isStrict) {
-      value = this._cast(value, (0, _extends2.default)({
-        assert: false
-      }, options));
-    } // value is cast, we can check if it meets type requirements
-
-
-    var validationParams = {
-      value: value,
-      path: path,
-      schema: this,
-      options: options,
-      label: label,
-      originalValue: originalValue,
-      sync: sync
-    };
-    var initialTests = [];
-    if (this._typeError) initialTests.push(this._typeError(validationParams));
-    if (this._whitelistError) initialTests.push(this._whitelistError(validationParams));
-    if (this._blacklistError) initialTests.push(this._blacklistError(validationParams));
-    return (0, _runValidations.default)({
-      validations: initialTests,
-      endEarly: endEarly,
-      value: value,
-      path: path,
-      sync: sync
-    }).then(function (value) {
-      return (0, _runValidations.default)({
-        path: path,
-        sync: sync,
-        value: value,
-        endEarly: endEarly,
-        validations: _this4.tests.map(function (fn) {
-          return fn(validationParams);
-        })
-      });
-    });
-  },
-  validate: function validate(value, options) {
-    if (options === void 0) {
-      options = {};
-    }
-
-    var schema = this.resolve((0, _extends2.default)({}, options, {
-      value: value
-    }));
-    return schema._validate(value, options);
-  },
-  validateSync: function validateSync(value, options) {
-    if (options === void 0) {
-      options = {};
-    }
-
-    var schema = this.resolve((0, _extends2.default)({}, options, {
-      value: value
-    }));
-    var result, err;
-
-    schema._validate(value, (0, _extends2.default)({}, options, {
-      sync: true
-    })).then(function (r) {
-      return result = r;
-    }).catch(function (e) {
-      return err = e;
-    });
-
-    if (err) throw err;
-    return result;
-  },
-  isValid: function isValid(value, options) {
-    return this.validate(value, options).then(function () {
-      return true;
-    }).catch(function (err) {
-      if (err.name === 'ValidationError') return false;
-      throw err;
-    });
-  },
-  isValidSync: function isValidSync(value, options) {
-    try {
-      this.validateSync(value, options);
-      return true;
-    } catch (err) {
-      if (err.name === 'ValidationError') return false;
-      throw err;
-    }
-  },
-  getDefault: function getDefault(options) {
-    if (options === void 0) {
-      options = {};
-    }
-
-    var schema = this.resolve(options);
-    return schema.default();
-  },
-  default: function _default(def) {
-    if (arguments.length === 0) {
-      var defaultValue = (0, _has.default)(this, '_default') ? this._default : this._defaultDefault;
-      return typeof defaultValue === 'function' ? defaultValue.call(this) : (0, _cloneDeepWith.default)(defaultValue);
-    }
-
-    var next = this.clone();
-    next._default = def;
-    return next;
-  },
-  strict: function strict(isStrict) {
-    if (isStrict === void 0) {
-      isStrict = true;
-    }
-
-    var next = this.clone();
-    next._options.strict = isStrict;
-    return next;
-  },
-  _isPresent: function _isPresent(value) {
-    return value != null;
-  },
-  required: function required(message) {
-    if (message === void 0) {
-      message = _locale.mixed.required;
-    }
-
-    return this.test({
-      message: message,
-      name: 'required',
-      exclusive: true,
-      test: function test(value) {
-        return this.schema._isPresent(value);
-      }
-    });
-  },
-  notRequired: function notRequired() {
-    var next = this.clone();
-    next.tests = next.tests.filter(function (test) {
-      return test.OPTIONS.name !== 'required';
-    });
-    return next;
-  },
-  nullable: function nullable(isNullable) {
-    if (isNullable === void 0) {
-      isNullable = true;
-    }
-
-    var next = this.clone();
-    next._nullable = isNullable;
-    return next;
-  },
-  transform: function transform(fn) {
-    var next = this.clone();
-    next.transforms.push(fn);
-    return next;
-  },
-
-  /**
-   * Adds a test function to the schema's queue of tests.
-   * tests can be exclusive or non-exclusive.
-   *
-   * - exclusive tests, will replace any existing tests of the same name.
-   * - non-exclusive: can be stacked
-   *
-   * If a non-exclusive test is added to a schema with an exclusive test of the same name
-   * the exclusive test is removed and further tests of the same name will be stacked.
-   *
-   * If an exclusive test is added to a schema with non-exclusive tests of the same name
-   * the previous tests are removed and further tests of the same name will replace each other.
-   */
-  test: function test() {
-    var opts;
-
-    if (arguments.length === 1) {
-      if (typeof (arguments.length <= 0 ? undefined : arguments[0]) === 'function') {
-        opts = {
-          test: arguments.length <= 0 ? undefined : arguments[0]
-        };
-      } else {
-        opts = arguments.length <= 0 ? undefined : arguments[0];
-      }
-    } else if (arguments.length === 2) {
-      opts = {
-        name: arguments.length <= 0 ? undefined : arguments[0],
-        test: arguments.length <= 1 ? undefined : arguments[1]
-      };
-    } else {
-      opts = {
-        name: arguments.length <= 0 ? undefined : arguments[0],
-        message: arguments.length <= 1 ? undefined : arguments[1],
-        test: arguments.length <= 2 ? undefined : arguments[2]
-      };
-    }
-
-    if (opts.message === undefined) opts.message = _locale.mixed.default;
-    if (typeof opts.test !== 'function') throw new TypeError('`test` is a required parameters');
-    var next = this.clone();
-    var validate = (0, _createValidation.default)(opts);
-    var isExclusive = opts.exclusive || opts.name && next._exclusive[opts.name] === true;
-
-    if (opts.exclusive && !opts.name) {
-      throw new TypeError('Exclusive tests must provide a unique `name` identifying the test');
-    }
-
-    next._exclusive[opts.name] = !!opts.exclusive;
-    next.tests = next.tests.filter(function (fn) {
-      if (fn.OPTIONS.name === opts.name) {
-        if (isExclusive) return false;
-        if (fn.OPTIONS.test === validate.OPTIONS.test) return false;
-      }
-
-      return true;
-    });
-    next.tests.push(validate);
-    return next;
-  },
-  when: function when(keys, options) {
-    if (arguments.length === 1) {
-      options = keys;
-      keys = '.';
-    }
-
-    var next = this.clone(),
-        deps = [].concat(keys).map(function (key) {
-      return new _Reference.default(key);
-    });
-    deps.forEach(function (dep) {
-      if (dep.isSibling) next._deps.push(dep.key);
-    });
-
-    next._conditions.push(new _Condition.default(deps, options));
-
-    return next;
-  },
-  typeError: function typeError(message) {
-    var next = this.clone();
-    next._typeError = (0, _createValidation.default)({
-      message: message,
-      name: 'typeError',
-      test: function test(value) {
-        if (value !== undefined && !this.schema.isType(value)) return this.createError({
-          params: {
-            type: this.schema._type
-          }
-        });
-        return true;
-      }
-    });
-    return next;
-  },
-  oneOf: function oneOf(enums, message) {
-    if (message === void 0) {
-      message = _locale.mixed.oneOf;
-    }
-
-    var next = this.clone();
-    enums.forEach(function (val) {
-      next._whitelist.add(val);
-
-      next._blacklist.delete(val);
-    });
-    next._whitelistError = (0, _createValidation.default)({
-      message: message,
-      name: 'oneOf',
-      test: function test(value) {
-        if (value === undefined) return true;
-        var valids = this.schema._whitelist;
-        return valids.has(value, this.resolve) ? true : this.createError({
-          params: {
-            values: valids.toArray().join(', ')
-          }
-        });
-      }
-    });
-    return next;
-  },
-  notOneOf: function notOneOf(enums, message) {
-    if (message === void 0) {
-      message = _locale.mixed.notOneOf;
-    }
-
-    var next = this.clone();
-    enums.forEach(function (val) {
-      next._blacklist.add(val);
-
-      next._whitelist.delete(val);
-    });
-    next._blacklistError = (0, _createValidation.default)({
-      message: message,
-      name: 'notOneOf',
-      test: function test(value) {
-        var invalids = this.schema._blacklist;
-        if (invalids.has(value, this.resolve)) return this.createError({
-          params: {
-            values: invalids.toArray().join(', ')
-          }
-        });
-        return true;
-      }
-    });
-    return next;
-  },
-  strip: function strip(_strip) {
-    if (_strip === void 0) {
-      _strip = true;
-    }
-
-    var next = this.clone();
-    next._strip = _strip;
-    return next;
-  },
-  _option: function _option(key, overrides) {
-    return (0, _has.default)(overrides, key) ? overrides[key] : this._options[key];
-  },
-  describe: function describe() {
-    var next = this.clone();
-    return {
-      type: next._type,
-      meta: next._meta,
-      label: next._label,
-      tests: next.tests.map(function (fn) {
-        return {
-          name: fn.OPTIONS.name,
-          params: fn.OPTIONS.params
-        };
-      }).filter(function (n, idx, list) {
-        return list.findIndex(function (c) {
-          return c.name === n.name;
-        }) === idx;
-      })
-    };
-  },
-  defined: function defined(message) {
-    if (message === void 0) {
-      message = _locale.mixed.defined;
-    }
-
-    return this.nullable().test({
-      message: message,
-      name: 'defined',
-      exclusive: true,
-      test: function test(value) {
-        return value !== undefined;
-      }
-    });
-  }
-};
-
-var _loop = function _loop() {
-  var method = _arr[_i];
-
-  proto[method + "At"] = function (path, value, options) {
-    if (options === void 0) {
-      options = {};
-    }
-
-    var _getIn = (0, _reach.getIn)(this, path, value, options.context),
-        parent = _getIn.parent,
-        parentPath = _getIn.parentPath,
-        schema = _getIn.schema;
-
-    return schema[method](parent && parent[parentPath], (0, _extends2.default)({}, options, {
-      parent: parent,
-      path: path
-    }));
-  };
-};
-
-for (var _i = 0, _arr = ['validate', 'validateSync']; _i < _arr.length; _i++) {
-  _loop();
-}
-
-for (var _i2 = 0, _arr2 = ['equals', 'is']; _i2 < _arr2.length; _i2++) {
-  var alias = _arr2[_i2];
-  proto[alias] = proto.oneOf;
-}
-
-for (var _i3 = 0, _arr3 = ['not', 'nope']; _i3 < _arr3.length; _i3++) {
-  var _alias = _arr3[_i3];
-  proto[_alias] = proto.notOneOf;
-}
-
-proto.optional = proto.notRequired;
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/number.js":
-/*!****************************************!*\
-  !*** ./node_modules/yup/lib/number.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = NumberSchema;
-
-var _inherits = _interopRequireDefault(__webpack_require__(/*! ./util/inherits */ "./node_modules/yup/lib/util/inherits.js"));
-
-var _mixed = _interopRequireDefault(__webpack_require__(/*! ./mixed */ "./node_modules/yup/lib/mixed.js"));
-
-var _locale = __webpack_require__(/*! ./locale */ "./node_modules/yup/lib/locale.js");
-
-var _isAbsent = _interopRequireDefault(__webpack_require__(/*! ./util/isAbsent */ "./node_modules/yup/lib/util/isAbsent.js"));
-
-var isNaN = function isNaN(value) {
-  return value != +value;
-};
-
-function NumberSchema() {
-  var _this = this;
-
-  if (!(this instanceof NumberSchema)) return new NumberSchema();
-
-  _mixed.default.call(this, {
-    type: 'number'
-  });
-
-  this.withMutation(function () {
-    _this.transform(function (value) {
-      var parsed = value;
-
-      if (typeof parsed === 'string') {
-        parsed = parsed.replace(/\s/g, '');
-        if (parsed === '') return NaN; // don't use parseFloat to avoid positives on alpha-numeric strings
-
-        parsed = +parsed;
-      }
-
-      if (this.isType(parsed)) return parsed;
-      return parseFloat(parsed);
-    });
-  });
-}
-
-(0, _inherits.default)(NumberSchema, _mixed.default, {
-  _typeCheck: function _typeCheck(value) {
-    if (value instanceof Number) value = value.valueOf();
-    return typeof value === 'number' && !isNaN(value);
-  },
-  min: function min(_min, message) {
-    if (message === void 0) {
-      message = _locale.number.min;
-    }
-
-    return this.test({
-      message: message,
-      name: 'min',
-      exclusive: true,
-      params: {
-        min: _min
-      },
-      test: function test(value) {
-        return (0, _isAbsent.default)(value) || value >= this.resolve(_min);
-      }
-    });
-  },
-  max: function max(_max, message) {
-    if (message === void 0) {
-      message = _locale.number.max;
-    }
-
-    return this.test({
-      message: message,
-      name: 'max',
-      exclusive: true,
-      params: {
-        max: _max
-      },
-      test: function test(value) {
-        return (0, _isAbsent.default)(value) || value <= this.resolve(_max);
-      }
-    });
-  },
-  lessThan: function lessThan(less, message) {
-    if (message === void 0) {
-      message = _locale.number.lessThan;
-    }
-
-    return this.test({
-      message: message,
-      name: 'max',
-      exclusive: true,
-      params: {
-        less: less
-      },
-      test: function test(value) {
-        return (0, _isAbsent.default)(value) || value < this.resolve(less);
-      }
-    });
-  },
-  moreThan: function moreThan(more, message) {
-    if (message === void 0) {
-      message = _locale.number.moreThan;
-    }
-
-    return this.test({
-      message: message,
-      name: 'min',
-      exclusive: true,
-      params: {
-        more: more
-      },
-      test: function test(value) {
-        return (0, _isAbsent.default)(value) || value > this.resolve(more);
-      }
-    });
-  },
-  positive: function positive(msg) {
-    if (msg === void 0) {
-      msg = _locale.number.positive;
-    }
-
-    return this.moreThan(0, msg);
-  },
-  negative: function negative(msg) {
-    if (msg === void 0) {
-      msg = _locale.number.negative;
-    }
-
-    return this.lessThan(0, msg);
-  },
-  integer: function integer(message) {
-    if (message === void 0) {
-      message = _locale.number.integer;
-    }
-
-    return this.test({
-      name: 'integer',
-      message: message,
-      test: function test(val) {
-        return (0, _isAbsent.default)(val) || Number.isInteger(val);
-      }
-    });
-  },
-  truncate: function truncate() {
-    return this.transform(function (value) {
-      return !(0, _isAbsent.default)(value) ? value | 0 : value;
-    });
-  },
-  round: function round(method) {
-    var avail = ['ceil', 'floor', 'round', 'trunc'];
-    method = method && method.toLowerCase() || 'round'; // this exists for symemtry with the new Math.trunc
-
-    if (method === 'trunc') return this.truncate();
-    if (avail.indexOf(method.toLowerCase()) === -1) throw new TypeError('Only valid options for round() are: ' + avail.join(', '));
-    return this.transform(function (value) {
-      return !(0, _isAbsent.default)(value) ? Math[method](value) : value;
-    });
-  }
-});
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/object.js":
-/*!****************************************!*\
-  !*** ./node_modules/yup/lib/object.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireWildcard = __webpack_require__(/*! @babel/runtime/helpers/interopRequireWildcard */ "./node_modules/@babel/runtime/helpers/interopRequireWildcard.js");
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = ObjectSchema;
-
-var _taggedTemplateLiteralLoose2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteralLoose */ "./node_modules/@babel/runtime/helpers/taggedTemplateLiteralLoose.js"));
-
-var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js"));
-
-var _has = _interopRequireDefault(__webpack_require__(/*! lodash/has */ "./node_modules/lodash/has.js"));
-
-var _snakeCase2 = _interopRequireDefault(__webpack_require__(/*! lodash/snakeCase */ "./node_modules/lodash/snakeCase.js"));
-
-var _camelCase2 = _interopRequireDefault(__webpack_require__(/*! lodash/camelCase */ "./node_modules/lodash/camelCase.js"));
-
-var _mapKeys = _interopRequireDefault(__webpack_require__(/*! lodash/mapKeys */ "./node_modules/lodash/mapKeys.js"));
-
-var _mapValues = _interopRequireDefault(__webpack_require__(/*! lodash/mapValues */ "./node_modules/lodash/mapValues.js"));
-
-var _propertyExpr = __webpack_require__(/*! property-expr */ "./node_modules/property-expr/index.js");
-
-var _mixed = _interopRequireDefault(__webpack_require__(/*! ./mixed */ "./node_modules/yup/lib/mixed.js"));
-
-var _locale = __webpack_require__(/*! ./locale.js */ "./node_modules/yup/lib/locale.js");
-
-var _sortFields = _interopRequireDefault(__webpack_require__(/*! ./util/sortFields */ "./node_modules/yup/lib/util/sortFields.js"));
-
-var _sortByKeyOrder = _interopRequireDefault(__webpack_require__(/*! ./util/sortByKeyOrder */ "./node_modules/yup/lib/util/sortByKeyOrder.js"));
-
-var _inherits = _interopRequireDefault(__webpack_require__(/*! ./util/inherits */ "./node_modules/yup/lib/util/inherits.js"));
-
-var _makePath = _interopRequireDefault(__webpack_require__(/*! ./util/makePath */ "./node_modules/yup/lib/util/makePath.js"));
-
-var _runValidations = _interopRequireWildcard(__webpack_require__(/*! ./util/runValidations */ "./node_modules/yup/lib/util/runValidations.js"));
-
-var _synchronousPromise = __webpack_require__(/*! synchronous-promise */ "./node_modules/synchronous-promise/index.js");
-
-function _templateObject3() {
-  var data = (0, _taggedTemplateLiteralLoose2.default)(["", "[\"", "\"]"]);
-
-  _templateObject3 = function _templateObject3() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject2() {
-  var data = (0, _taggedTemplateLiteralLoose2.default)(["", ".", ""]);
-
-  _templateObject2 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject() {
-  var data = (0, _taggedTemplateLiteralLoose2.default)(["", ".", ""]);
-
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-
-var isObject = function isObject(obj) {
-  return Object.prototype.toString.call(obj) === '[object Object]';
-};
-
-var promise = function promise(sync) {
-  return sync ? _synchronousPromise.SynchronousPromise : Promise;
-};
-
-function unknown(ctx, value) {
-  var known = Object.keys(ctx.fields);
-  return Object.keys(value).filter(function (key) {
-    return known.indexOf(key) === -1;
-  });
-}
-
-function ObjectSchema(spec) {
-  var _this2 = this;
-
-  if (!(this instanceof ObjectSchema)) return new ObjectSchema(spec);
-
-  _mixed.default.call(this, {
-    type: 'object',
-    default: function _default() {
-      var _this = this;
-
-      if (!this._nodes.length) return undefined;
-      var dft = {};
-
-      this._nodes.forEach(function (key) {
-        dft[key] = _this.fields[key].default ? _this.fields[key].default() : undefined;
-      });
-
-      return dft;
-    }
-  });
-
-  this.fields = Object.create(null);
-  this._nodes = [];
-  this._excludedEdges = [];
-  this.withMutation(function () {
-    _this2.transform(function coerce(value) {
-      if (typeof value === 'string') {
-        try {
-          value = JSON.parse(value);
-        } catch (err) {
-          value = null;
-        }
-      }
-
-      if (this.isType(value)) return value;
-      return null;
-    });
-
-    if (spec) {
-      _this2.shape(spec);
-    }
-  });
-}
-
-(0, _inherits.default)(ObjectSchema, _mixed.default, {
-  _typeCheck: function _typeCheck(value) {
-    return isObject(value) || typeof value === 'function';
-  },
-  _cast: function _cast(_value, options) {
-    var _this3 = this;
-
-    if (options === void 0) {
-      options = {};
-    }
-
-    var value = _mixed.default.prototype._cast.call(this, _value, options); //should ignore nulls here
-
-
-    if (value === undefined) return this.default();
-    if (!this._typeCheck(value)) return value;
-    var fields = this.fields;
-    var strip = this._option('stripUnknown', options) === true;
-
-    var props = this._nodes.concat(Object.keys(value).filter(function (v) {
-      return _this3._nodes.indexOf(v) === -1;
-    }));
-
-    var intermediateValue = {}; // is filled during the transform below
-
-    var innerOptions = (0, _extends2.default)({}, options, {
-      parent: intermediateValue,
-      __validating: false
-    });
-    var isChanged = false;
-    props.forEach(function (prop) {
-      var field = fields[prop];
-      var exists = (0, _has.default)(value, prop);
-
-      if (field) {
-        var fieldValue;
-        var strict = field._options && field._options.strict; // safe to mutate since this is fired in sequence
-
-        innerOptions.path = (0, _makePath.default)(_templateObject(), options.path, prop);
-        innerOptions.value = value[prop];
-        field = field.resolve(innerOptions);
-
-        if (field._strip === true) {
-          isChanged = isChanged || prop in value;
-          return;
-        }
-
-        fieldValue = !options.__validating || !strict ? field.cast(value[prop], innerOptions) : value[prop];
-        if (fieldValue !== undefined) intermediateValue[prop] = fieldValue;
-      } else if (exists && !strip) intermediateValue[prop] = value[prop];
-
-      if (intermediateValue[prop] !== value[prop]) isChanged = true;
-    });
-    return isChanged ? intermediateValue : value;
-  },
-  _validate: function _validate(_value, opts) {
-    var _this4 = this;
-
-    if (opts === void 0) {
-      opts = {};
-    }
-
-    var endEarly, recursive;
-    var sync = opts.sync;
-    var errors = [];
-    var originalValue = opts.originalValue != null ? opts.originalValue : _value;
-    endEarly = this._option('abortEarly', opts);
-    recursive = this._option('recursive', opts);
-    opts = (0, _extends2.default)({}, opts, {
-      __validating: true,
-      originalValue: originalValue
-    });
-    return _mixed.default.prototype._validate.call(this, _value, opts).catch((0, _runValidations.propagateErrors)(endEarly, errors)).then(function (value) {
-      if (!recursive || !isObject(value)) {
-        // only iterate though actual objects
-        if (errors.length) throw errors[0];
-        return value;
-      }
-
-      originalValue = originalValue || value;
-
-      var validations = _this4._nodes.map(function (key) {
-        var path = key.indexOf('.') === -1 ? (0, _makePath.default)(_templateObject2(), opts.path, key) : (0, _makePath.default)(_templateObject3(), opts.path, key);
-        var field = _this4.fields[key];
-        var innerOptions = (0, _extends2.default)({}, opts, {
-          path: path,
-          parent: value,
-          originalValue: originalValue[key]
-        });
-
-        if (field && field.validate) {
-          // inner fields are always strict:
-          // 1. this isn't strict so the casting will also have cast inner values
-          // 2. this is strict in which case the nested values weren't cast either
-          innerOptions.strict = true;
-          return field.validate(value[key], innerOptions);
-        }
-
-        return promise(sync).resolve(true);
-      });
-
-      return (0, _runValidations.default)({
-        sync: sync,
-        validations: validations,
-        value: value,
-        errors: errors,
-        endEarly: endEarly,
-        path: opts.path,
-        sort: (0, _sortByKeyOrder.default)(_this4.fields)
-      });
-    });
-  },
-  concat: function concat(schema) {
-    var next = _mixed.default.prototype.concat.call(this, schema);
-
-    next._nodes = (0, _sortFields.default)(next.fields, next._excludedEdges);
-    return next;
-  },
-  shape: function shape(schema, excludes) {
-    if (excludes === void 0) {
-      excludes = [];
-    }
-
-    var next = this.clone();
-    var fields = (0, _extends2.default)(next.fields, schema);
-    next.fields = fields;
-
-    if (excludes.length) {
-      if (!Array.isArray(excludes[0])) excludes = [excludes];
-      var keys = excludes.map(function (_ref) {
-        var first = _ref[0],
-            second = _ref[1];
-        return first + "-" + second;
-      });
-      next._excludedEdges = next._excludedEdges.concat(keys);
-    }
-
-    next._nodes = (0, _sortFields.default)(fields, next._excludedEdges);
-    return next;
-  },
-  from: function from(_from, to, alias) {
-    var fromGetter = (0, _propertyExpr.getter)(_from, true);
-    return this.transform(function (obj) {
-      if (obj == null) return obj;
-      var newObj = obj;
-
-      if ((0, _has.default)(obj, _from)) {
-        newObj = (0, _extends2.default)({}, obj);
-        if (!alias) delete newObj[_from];
-        newObj[to] = fromGetter(obj);
-      }
-
-      return newObj;
-    });
-  },
-  noUnknown: function noUnknown(noAllow, message) {
-    if (noAllow === void 0) {
-      noAllow = true;
-    }
-
-    if (message === void 0) {
-      message = _locale.object.noUnknown;
-    }
-
-    if (typeof noAllow === 'string') {
-      message = noAllow;
-      noAllow = true;
-    }
-
-    var next = this.test({
-      name: 'noUnknown',
-      exclusive: true,
-      message: message,
-      test: function test(value) {
-        return value == null || !noAllow || unknown(this.schema, value).length === 0;
-      }
-    });
-    next._options.stripUnknown = noAllow;
-    return next;
-  },
-  unknown: function unknown(allow, message) {
-    if (allow === void 0) {
-      allow = true;
-    }
-
-    if (message === void 0) {
-      message = _locale.object.noUnknown;
-    }
-
-    return this.noUnknown(!allow, message);
-  },
-  transformKeys: function transformKeys(fn) {
-    return this.transform(function (obj) {
-      return obj && (0, _mapKeys.default)(obj, function (_, key) {
-        return fn(key);
-      });
-    });
-  },
-  camelCase: function camelCase() {
-    return this.transformKeys(_camelCase2.default);
-  },
-  snakeCase: function snakeCase() {
-    return this.transformKeys(_snakeCase2.default);
-  },
-  constantCase: function constantCase() {
-    return this.transformKeys(function (key) {
-      return (0, _snakeCase2.default)(key).toUpperCase();
-    });
-  },
-  describe: function describe() {
-    var base = _mixed.default.prototype.describe.call(this);
-
-    base.fields = (0, _mapValues.default)(this.fields, function (value) {
-      return value.describe();
-    });
-    return base;
-  }
-});
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/setLocale.js":
-/*!*******************************************!*\
-  !*** ./node_modules/yup/lib/setLocale.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = setLocale;
-
-var _locale = _interopRequireDefault(__webpack_require__(/*! ./locale */ "./node_modules/yup/lib/locale.js"));
-
-function setLocale(custom) {
-  Object.keys(custom).forEach(function (type) {
-    Object.keys(custom[type]).forEach(function (method) {
-      _locale.default[type][method] = custom[type][method];
-    });
-  });
-}
-
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/string.js":
-/*!****************************************!*\
-  !*** ./node_modules/yup/lib/string.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = StringSchema;
-
-var _inherits = _interopRequireDefault(__webpack_require__(/*! ./util/inherits */ "./node_modules/yup/lib/util/inherits.js"));
-
-var _mixed = _interopRequireDefault(__webpack_require__(/*! ./mixed */ "./node_modules/yup/lib/mixed.js"));
-
-var _locale = __webpack_require__(/*! ./locale */ "./node_modules/yup/lib/locale.js");
-
-var _isAbsent = _interopRequireDefault(__webpack_require__(/*! ./util/isAbsent */ "./node_modules/yup/lib/util/isAbsent.js"));
-
-// eslint-disable-next-line
-var rEmail = /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$/i; // eslint-disable-next-line
-
-var rUrl = /^((https?|ftp):)?\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;
-
-var isTrimmed = function isTrimmed(value) {
-  return (0, _isAbsent.default)(value) || value === value.trim();
-};
-
-function StringSchema() {
-  var _this = this;
-
-  if (!(this instanceof StringSchema)) return new StringSchema();
-
-  _mixed.default.call(this, {
-    type: 'string'
-  });
-
-  this.withMutation(function () {
-    _this.transform(function (value) {
-      if (this.isType(value)) return value;
-      return value != null && value.toString ? value.toString() : value;
-    });
-  });
-}
-
-(0, _inherits.default)(StringSchema, _mixed.default, {
-  _typeCheck: function _typeCheck(value) {
-    if (value instanceof String) value = value.valueOf();
-    return typeof value === 'string';
-  },
-  _isPresent: function _isPresent(value) {
-    return _mixed.default.prototype._cast.call(this, value) && value.length > 0;
-  },
-  length: function length(_length, message) {
-    if (message === void 0) {
-      message = _locale.string.length;
-    }
-
-    return this.test({
-      message: message,
-      name: 'length',
-      exclusive: true,
-      params: {
-        length: _length
-      },
-      test: function test(value) {
-        return (0, _isAbsent.default)(value) || value.length === this.resolve(_length);
-      }
-    });
-  },
-  min: function min(_min, message) {
-    if (message === void 0) {
-      message = _locale.string.min;
-    }
-
-    return this.test({
-      message: message,
-      name: 'min',
-      exclusive: true,
-      params: {
-        min: _min
-      },
-      test: function test(value) {
-        return (0, _isAbsent.default)(value) || value.length >= this.resolve(_min);
-      }
-    });
-  },
-  max: function max(_max, message) {
-    if (message === void 0) {
-      message = _locale.string.max;
-    }
-
-    return this.test({
-      name: 'max',
-      exclusive: true,
-      message: message,
-      params: {
-        max: _max
-      },
-      test: function test(value) {
-        return (0, _isAbsent.default)(value) || value.length <= this.resolve(_max);
-      }
-    });
-  },
-  matches: function matches(regex, options) {
-    var excludeEmptyString = false;
-    var message;
-    var name;
-
-    if (options) {
-      if (typeof options === 'string') message = options;
-
-      if (typeof options === 'object') {
-        excludeEmptyString = options.excludeEmptyString;
-        message = options.message;
-        name = options.name;
-      }
-    }
-
-    return this.test({
-      name: name || 'matches',
-      message: message || _locale.string.matches,
-      params: {
-        regex: regex
-      },
-      test: function test(value) {
-        return (0, _isAbsent.default)(value) || value === '' && excludeEmptyString || value.search(regex) !== -1;
-      }
-    });
-  },
-  email: function email(message) {
-    if (message === void 0) {
-      message = _locale.string.email;
-    }
-
-    return this.matches(rEmail, {
-      name: 'email',
-      message: message,
-      excludeEmptyString: true
-    });
-  },
-  url: function url(message) {
-    if (message === void 0) {
-      message = _locale.string.url;
-    }
-
-    return this.matches(rUrl, {
-      name: 'url',
-      message: message,
-      excludeEmptyString: true
-    });
-  },
-  //-- transforms --
-  ensure: function ensure() {
-    return this.default('').transform(function (val) {
-      return val === null ? '' : val;
-    });
-  },
-  trim: function trim(message) {
-    if (message === void 0) {
-      message = _locale.string.trim;
-    }
-
-    return this.transform(function (val) {
-      return val != null ? val.trim() : val;
-    }).test({
-      message: message,
-      name: 'trim',
-      test: isTrimmed
-    });
-  },
-  lowercase: function lowercase(message) {
-    if (message === void 0) {
-      message = _locale.string.lowercase;
-    }
-
-    return this.transform(function (value) {
-      return !(0, _isAbsent.default)(value) ? value.toLowerCase() : value;
-    }).test({
-      message: message,
-      name: 'string_case',
-      exclusive: true,
-      test: function test(value) {
-        return (0, _isAbsent.default)(value) || value === value.toLowerCase();
-      }
-    });
-  },
-  uppercase: function uppercase(message) {
-    if (message === void 0) {
-      message = _locale.string.uppercase;
-    }
-
-    return this.transform(function (value) {
-      return !(0, _isAbsent.default)(value) ? value.toUpperCase() : value;
-    }).test({
-      message: message,
-      name: 'string_case',
-      exclusive: true,
-      test: function test(value) {
-        return (0, _isAbsent.default)(value) || value === value.toUpperCase();
-      }
-    });
-  }
-});
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/util/createValidation.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/yup/lib/util/createValidation.js ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.createErrorFactory = createErrorFactory;
-exports.default = createValidation;
-
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js"));
-
-var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js"));
-
-var _mapValues = _interopRequireDefault(__webpack_require__(/*! lodash/mapValues */ "./node_modules/lodash/mapValues.js"));
-
-var _ValidationError = _interopRequireDefault(__webpack_require__(/*! ../ValidationError */ "./node_modules/yup/lib/ValidationError.js"));
-
-var _Reference = _interopRequireDefault(__webpack_require__(/*! ../Reference */ "./node_modules/yup/lib/Reference.js"));
-
-var _synchronousPromise = __webpack_require__(/*! synchronous-promise */ "./node_modules/synchronous-promise/index.js");
-
-var formatError = _ValidationError.default.formatError;
-
-var thenable = function thenable(p) {
-  return p && typeof p.then === 'function' && typeof p.catch === 'function';
-};
-
-function runTest(testFn, ctx, value, sync) {
-  var result = testFn.call(ctx, value);
-  if (!sync) return Promise.resolve(result);
-
-  if (thenable(result)) {
-    throw new Error("Validation test of type: \"" + ctx.type + "\" returned a Promise during a synchronous validate. " + "This test will finish after the validate call has returned");
-  }
-
-  return _synchronousPromise.SynchronousPromise.resolve(result);
-}
-
-function resolveParams(oldParams, newParams, resolve) {
-  return (0, _mapValues.default)((0, _extends2.default)({}, oldParams, {}, newParams), resolve);
-}
-
-function createErrorFactory(_ref) {
-  var value = _ref.value,
-      label = _ref.label,
-      resolve = _ref.resolve,
-      originalValue = _ref.originalValue,
-      opts = (0, _objectWithoutPropertiesLoose2.default)(_ref, ["value", "label", "resolve", "originalValue"]);
-  return function createError(_temp) {
-    var _ref2 = _temp === void 0 ? {} : _temp,
-        _ref2$path = _ref2.path,
-        path = _ref2$path === void 0 ? opts.path : _ref2$path,
-        _ref2$message = _ref2.message,
-        message = _ref2$message === void 0 ? opts.message : _ref2$message,
-        _ref2$type = _ref2.type,
-        type = _ref2$type === void 0 ? opts.name : _ref2$type,
-        params = _ref2.params;
-
-    params = (0, _extends2.default)({
-      path: path,
-      value: value,
-      originalValue: originalValue,
-      label: label
-    }, resolveParams(opts.params, params, resolve));
-    return (0, _extends2.default)(new _ValidationError.default(formatError(message, params), value, path, type), {
-      params: params
-    });
-  };
-}
-
-function createValidation(options) {
-  var name = options.name,
-      message = options.message,
-      test = options.test,
-      params = options.params;
-
-  function validate(_ref3) {
-    var value = _ref3.value,
-        path = _ref3.path,
-        label = _ref3.label,
-        options = _ref3.options,
-        originalValue = _ref3.originalValue,
-        sync = _ref3.sync,
-        rest = (0, _objectWithoutPropertiesLoose2.default)(_ref3, ["value", "path", "label", "options", "originalValue", "sync"]);
-    var parent = options.parent;
-
-    var resolve = function resolve(item) {
-      return _Reference.default.isRef(item) ? item.getValue({
-        value: value,
-        parent: parent,
-        context: options.context
-      }) : item;
-    };
-
-    var createError = createErrorFactory({
-      message: message,
-      path: path,
-      value: value,
-      originalValue: originalValue,
-      params: params,
-      label: label,
-      resolve: resolve,
-      name: name
-    });
-    var ctx = (0, _extends2.default)({
-      path: path,
-      parent: parent,
-      type: name,
-      createError: createError,
-      resolve: resolve,
-      options: options
-    }, rest);
-    return runTest(test, ctx, value, sync).then(function (validOrError) {
-      if (_ValidationError.default.isError(validOrError)) throw validOrError;else if (!validOrError) throw createError();
-    });
-  }
-
-  validate.OPTIONS = options;
-  return validate;
-}
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/util/inherits.js":
-/*!***********************************************!*\
-  !*** ./node_modules/yup/lib/util/inherits.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = inherits;
-
-var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js"));
-
-function inherits(ctor, superCtor, spec) {
-  ctor.prototype = Object.create(superCtor.prototype, {
-    constructor: {
-      value: ctor,
-      enumerable: false,
-      writable: true,
-      configurable: true
-    }
-  });
-  (0, _extends2.default)(ctor.prototype, spec);
-}
-
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/util/isAbsent.js":
-/*!***********************************************!*\
-  !*** ./node_modules/yup/lib/util/isAbsent.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _default = function _default(value) {
-  return value == null;
-};
-
-exports.default = _default;
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/util/isSchema.js":
-/*!***********************************************!*\
-  !*** ./node_modules/yup/lib/util/isSchema.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.default = void 0;
-
-var _default = function _default(obj) {
-  return obj && obj.__isYupSchema__;
-};
-
-exports.default = _default;
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/util/isodate.js":
-/*!**********************************************!*\
-  !*** ./node_modules/yup/lib/util/isodate.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.default = parseIsoDate;
-
-/* eslint-disable */
-
-/**
- *
- * Date.parse with progressive enhancement for ISO 8601 <https://github.com/csnover/js-iso8601>
- * NON-CONFORMANT EDITION.
- * © 2011 Colin Snover <http://zetafleet.com>
- * Released under MIT license.
- */
-//              1 YYYY                 2 MM        3 DD              4 HH     5 mm        6 ss            7 msec         8 Z 9 ±    10 tzHH    11 tzmm
-var isoReg = /^(\d{4}|[+\-]\d{6})(?:-?(\d{2})(?:-?(\d{2}))?)?(?:[ T]?(\d{2}):?(\d{2})(?::?(\d{2})(?:[,\.](\d{1,}))?)?(?:(Z)|([+\-])(\d{2})(?::?(\d{2}))?)?)?$/;
-
-function parseIsoDate(date) {
-  var numericKeys = [1, 4, 5, 6, 7, 10, 11],
-      minutesOffset = 0,
-      timestamp,
-      struct;
-
-  if (struct = isoReg.exec(date)) {
-    // avoid NaN timestamps caused by “undefined” values being passed to Date.UTC
-    for (var i = 0, k; k = numericKeys[i]; ++i) {
-      struct[k] = +struct[k] || 0;
-    } // allow undefined days and months
-
-
-    struct[2] = (+struct[2] || 1) - 1;
-    struct[3] = +struct[3] || 1; // allow arbitrary sub-second precision beyond milliseconds
-
-    struct[7] = struct[7] ? String(struct[7]).substr(0, 3) : 0; // timestamps without timezone identifiers should be considered local time
-
-    if ((struct[8] === undefined || struct[8] === '') && (struct[9] === undefined || struct[9] === '')) timestamp = +new Date(struct[1], struct[2], struct[3], struct[4], struct[5], struct[6], struct[7]);else {
-      if (struct[8] !== 'Z' && struct[9] !== undefined) {
-        minutesOffset = struct[10] * 60 + struct[11];
-        if (struct[9] === '+') minutesOffset = 0 - minutesOffset;
-      }
-
-      timestamp = Date.UTC(struct[1], struct[2], struct[3], struct[4], struct[5] + minutesOffset, struct[6], struct[7]);
-    }
-  } else timestamp = Date.parse ? Date.parse(date) : NaN;
-
-  return timestamp;
-}
-
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/util/makePath.js":
-/*!***********************************************!*\
-  !*** ./node_modules/yup/lib/util/makePath.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.default = makePath;
-
-function makePath(strings) {
-  for (var _len = arguments.length, values = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-    values[_key - 1] = arguments[_key];
-  }
-
-  var path = strings.reduce(function (str, next) {
-    var value = values.shift();
-    return str + (value == null ? '' : value) + next;
-  });
-  return path.replace(/^\./, '');
-}
-
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/util/prependDeep.js":
-/*!**************************************************!*\
-  !*** ./node_modules/yup/lib/util/prependDeep.js ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = prependDeep;
-
-var _has = _interopRequireDefault(__webpack_require__(/*! lodash/has */ "./node_modules/lodash/has.js"));
-
-var _isSchema = _interopRequireDefault(__webpack_require__(/*! ./isSchema */ "./node_modules/yup/lib/util/isSchema.js"));
-
-var isObject = function isObject(obj) {
-  return Object.prototype.toString.call(obj) === '[object Object]';
-};
-
-function prependDeep(target, source) {
-  for (var key in source) {
-    if ((0, _has.default)(source, key)) {
-      var sourceVal = source[key],
-          targetVal = target[key];
-
-      if (targetVal === undefined) {
-        target[key] = sourceVal;
-      } else if (targetVal === sourceVal) {
-        continue;
-      } else if ((0, _isSchema.default)(targetVal)) {
-        if ((0, _isSchema.default)(sourceVal)) target[key] = sourceVal.concat(targetVal);
-      } else if (isObject(targetVal)) {
-        if (isObject(sourceVal)) target[key] = prependDeep(targetVal, sourceVal);
-      } else if (Array.isArray(targetVal)) {
-        if (Array.isArray(sourceVal)) target[key] = sourceVal.concat(targetVal);
-      }
-    }
-  }
-
-  return target;
-}
-
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/util/printValue.js":
-/*!*************************************************!*\
-  !*** ./node_modules/yup/lib/util/printValue.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.default = printValue;
-var toString = Object.prototype.toString;
-var errorToString = Error.prototype.toString;
-var regExpToString = RegExp.prototype.toString;
-var symbolToString = typeof Symbol !== 'undefined' ? Symbol.prototype.toString : function () {
-  return '';
-};
-var SYMBOL_REGEXP = /^Symbol\((.*)\)(.*)$/;
-
-function printNumber(val) {
-  if (val != +val) return 'NaN';
-  var isNegativeZero = val === 0 && 1 / val < 0;
-  return isNegativeZero ? '-0' : '' + val;
-}
-
-function printSimpleValue(val, quoteStrings) {
-  if (quoteStrings === void 0) {
-    quoteStrings = false;
-  }
-
-  if (val == null || val === true || val === false) return '' + val;
-  var typeOf = typeof val;
-  if (typeOf === 'number') return printNumber(val);
-  if (typeOf === 'string') return quoteStrings ? "\"" + val + "\"" : val;
-  if (typeOf === 'function') return '[Function ' + (val.name || 'anonymous') + ']';
-  if (typeOf === 'symbol') return symbolToString.call(val).replace(SYMBOL_REGEXP, 'Symbol($1)');
-  var tag = toString.call(val).slice(8, -1);
-  if (tag === 'Date') return isNaN(val.getTime()) ? '' + val : val.toISOString(val);
-  if (tag === 'Error' || val instanceof Error) return '[' + errorToString.call(val) + ']';
-  if (tag === 'RegExp') return regExpToString.call(val);
-  return null;
-}
-
-function printValue(value, quoteStrings) {
-  var result = printSimpleValue(value, quoteStrings);
-  if (result !== null) return result;
-  return JSON.stringify(value, function (key, value) {
-    var result = printSimpleValue(this[key], quoteStrings);
-    if (result !== null) return result;
-    return value;
-  }, 2);
-}
-
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/util/reach.js":
-/*!********************************************!*\
-  !*** ./node_modules/yup/lib/util/reach.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.getIn = getIn;
-exports.default = void 0;
-
-var _propertyExpr = __webpack_require__(/*! property-expr */ "./node_modules/property-expr/index.js");
-
-var _has = _interopRequireDefault(__webpack_require__(/*! lodash/has */ "./node_modules/lodash/has.js"));
-
-var trim = function trim(part) {
-  return part.substr(0, part.length - 1).substr(1);
-};
-
-function getIn(schema, path, value, context) {
-  var parent, lastPart, lastPartDebug; // if only one "value" arg then use it for both
-
-  context = context || value;
-  if (!path) return {
-    parent: parent,
-    parentPath: path,
-    schema: schema
-  };
-  (0, _propertyExpr.forEach)(path, function (_part, isBracket, isArray) {
-    var part = isBracket ? trim(_part) : _part;
-
-    if (isArray || (0, _has.default)(schema, '_subType')) {
-      // we skipped an array: foo[].bar
-      var idx = isArray ? parseInt(part, 10) : 0;
-      schema = schema.resolve({
-        context: context,
-        parent: parent,
-        value: value
-      })._subType;
-
-      if (value) {
-        if (isArray && idx >= value.length) {
-          throw new Error("Yup.reach cannot resolve an array item at index: " + _part + ", in the path: " + path + ". " + "because there is no value at that index. ");
-        }
-
-        value = value[idx];
-      }
-    }
-
-    if (!isArray) {
-      schema = schema.resolve({
-        context: context,
-        parent: parent,
-        value: value
-      });
-      if (!(0, _has.default)(schema, 'fields') || !(0, _has.default)(schema.fields, part)) throw new Error("The schema does not contain the path: " + path + ". " + ("(failed at: " + lastPartDebug + " which is a type: \"" + schema._type + "\") "));
-      schema = schema.fields[part];
-      parent = value;
-      value = value && value[part];
-      lastPart = part;
-      lastPartDebug = isBracket ? '[' + _part + ']' : '.' + _part;
-    }
-  });
-  return {
-    schema: schema,
-    parent: parent,
-    parentPath: lastPart
-  };
-}
-
-var reach = function reach(obj, path, value, context) {
-  return getIn(obj, path, value, context).schema;
-};
-
-var _default = reach;
-exports.default = _default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/util/runValidations.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/yup/lib/util/runValidations.js ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.propagateErrors = propagateErrors;
-exports.settled = settled;
-exports.collectErrors = collectErrors;
-exports.default = runValidations;
-
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js"));
-
-var _synchronousPromise = __webpack_require__(/*! synchronous-promise */ "./node_modules/synchronous-promise/index.js");
-
-var _ValidationError = _interopRequireDefault(__webpack_require__(/*! ../ValidationError */ "./node_modules/yup/lib/ValidationError.js"));
-
-var promise = function promise(sync) {
-  return sync ? _synchronousPromise.SynchronousPromise : Promise;
-};
-
-var unwrapError = function unwrapError(errors) {
-  if (errors === void 0) {
-    errors = [];
-  }
-
-  return errors.inner && errors.inner.length ? errors.inner : [].concat(errors);
-};
-
-function scopeToValue(promises, value, sync) {
-  //console.log('scopeToValue', promises, value)
-  var p = promise(sync).all(promises); //console.log('scopeToValue B', p)
-
-  var b = p.catch(function (err) {
-    if (err.name === 'ValidationError') err.value = value;
-    throw err;
-  }); //console.log('scopeToValue c', b)
-
-  var c = b.then(function () {
-    return value;
-  }); //console.log('scopeToValue d', c)
-
-  return c;
-}
-/**
- * If not failing on the first error, catch the errors
- * and collect them in an array
- */
-
-
-function propagateErrors(endEarly, errors) {
-  return endEarly ? null : function (err) {
-    errors.push(err);
-    return err.value;
-  };
-}
-
-function settled(promises, sync) {
-  var Promise = promise(sync);
-  return Promise.all(promises.map(function (p) {
-    return Promise.resolve(p).then(function (value) {
-      return {
-        fulfilled: true,
-        value: value
-      };
-    }, function (value) {
-      return {
-        fulfilled: false,
-        value: value
-      };
-    });
-  }));
-}
-
-function collectErrors(_ref) {
-  var validations = _ref.validations,
-      value = _ref.value,
-      path = _ref.path,
-      sync = _ref.sync,
-      errors = _ref.errors,
-      sort = _ref.sort;
-  errors = unwrapError(errors);
-  return settled(validations, sync).then(function (results) {
-    var nestedErrors = results.filter(function (r) {
-      return !r.fulfilled;
-    }).reduce(function (arr, _ref2) {
-      var error = _ref2.value;
-
-      // we are only collecting validation errors
-      if (!_ValidationError.default.isError(error)) {
-        throw error;
-      }
-
-      return arr.concat(error);
-    }, []);
-    if (sort) nestedErrors.sort(sort); //show parent errors after the nested ones: name.first, name
-
-    errors = nestedErrors.concat(errors);
-    if (errors.length) throw new _ValidationError.default(errors, value, path);
-    return value;
-  });
-}
-
-function runValidations(_ref3) {
-  var endEarly = _ref3.endEarly,
-      options = (0, _objectWithoutPropertiesLoose2.default)(_ref3, ["endEarly"]);
-  if (endEarly) return scopeToValue(options.validations, options.value, options.sync);
-  return collectErrors(options);
-}
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/util/sortByKeyOrder.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/yup/lib/util/sortByKeyOrder.js ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.default = sortByKeyOrder;
-
-function findIndex(arr, err) {
-  var idx = Infinity;
-  arr.some(function (key, ii) {
-    if (err.path.indexOf(key) !== -1) {
-      idx = ii;
-      return true;
-    }
-  });
-  return idx;
-}
-
-function sortByKeyOrder(fields) {
-  var keys = Object.keys(fields);
-  return function (a, b) {
-    return findIndex(keys, a) - findIndex(keys, b);
-  };
-}
-
-module.exports = exports.default;
-
-/***/ }),
-
-/***/ "./node_modules/yup/lib/util/sortFields.js":
-/*!*************************************************!*\
-  !*** ./node_modules/yup/lib/util/sortFields.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
-exports.__esModule = true;
-exports.default = sortFields;
-
-var _has = _interopRequireDefault(__webpack_require__(/*! lodash/has */ "./node_modules/lodash/has.js"));
-
-var _toposort = _interopRequireDefault(__webpack_require__(/*! toposort */ "./node_modules/toposort/index.js"));
-
-var _propertyExpr = __webpack_require__(/*! property-expr */ "./node_modules/property-expr/index.js");
-
-var _Reference = _interopRequireDefault(__webpack_require__(/*! ../Reference */ "./node_modules/yup/lib/Reference.js"));
-
-var _isSchema = _interopRequireDefault(__webpack_require__(/*! ./isSchema */ "./node_modules/yup/lib/util/isSchema.js"));
-
-function sortFields(fields, excludes) {
-  if (excludes === void 0) {
-    excludes = [];
-  }
-
-  var edges = [],
-      nodes = [];
-
-  function addNode(depPath, key) {
-    var node = (0, _propertyExpr.split)(depPath)[0];
-    if (!~nodes.indexOf(node)) nodes.push(node);
-    if (!~excludes.indexOf(key + "-" + node)) edges.push([key, node]);
-  }
-
-  for (var key in fields) {
-    if ((0, _has.default)(fields, key)) {
-      var value = fields[key];
-      if (!~nodes.indexOf(key)) nodes.push(key);
-      if (_Reference.default.isRef(value) && value.isSibling) addNode(value.path, key);else if ((0, _isSchema.default)(value) && value._deps) value._deps.forEach(function (path) {
-        return addNode(path, key);
-      });
-    }
-  }
-
-  return _toposort.default.array(nodes, edges).reverse();
-}
-
-module.exports = exports.default;
 
 /***/ }),
 
@@ -60495,501 +57929,6 @@ exports.getUserEndpoint = function (id) {
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/Activity.tsx":
-/*!*****************************************************!*\
-  !*** ./resources/assets/js/components/Activity.tsx ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
-var dates_1 = __webpack_require__(/*! ../helpers/dates */ "./resources/assets/js/helpers/dates.ts");
-var localize_1 = __webpack_require__(/*! ../helpers/localize */ "./resources/assets/js/helpers/localize.ts");
-var Activity = function (_a) {
-    var name = _a.name, userRole = _a.userRole, time = _a.time, type = _a.type, comment = _a.comment, location = _a.location, link = _a.link;
-    var intl = react_intl_1.useIntl();
-    var locale = localize_1.getLocale(intl.locale);
-    return (React.createElement("div", null,
-        React.createElement("a", { href: link.url, title: link.title, target: "_blank", rel: "noopener noreferrer", className: "tc-job-activity-comment", "data-c-card": true, "data-c-background": "white(100)", "data-c-radius": "rounded", "data-c-padding": "all(1)", "data-c-margin": "bottom(.5)" },
-            React.createElement("p", { "data-c-margin": "bottom(.5)", "data-c-color": "black", "data-c-font-size": "small" },
-                React.createElement(react_intl_1.FormattedMessage, { id: "activity.commentMetadata", description: "Text with additional information on comment.", defaultMessage: "{name} ({userRole}) commented at {time}.", values: {
-                        name: name,
-                        userRole: userRole,
-                        time: dates_1.readableDateTime(locale, time),
-                    } })),
-            React.createElement("p", { "data-c-margin": "bottom(.5)", "data-c-color": "black" },
-                React.createElement("span", { "data-c-font-weight": "bold" },
-                    type,
-                    ":"),
-                " ",
-                comment),
-            React.createElement("div", { "data-c-grid": "gutter(all, 1)" },
-                React.createElement("div", { "data-c-grid-item": "tp(1of2) ds(2of3)" },
-                    React.createElement("p", { "data-c-font-size": "small", "data-c-color": "black" },
-                        React.createElement(react_intl_1.FormattedMessage, { id: "activity.commentLocation.label", defaultMessage: "Comment Located", description: "The label used before the comment location." }),
-                        ": ",
-                        " ",
-                        location)),
-                React.createElement("div", { "data-c-grid-item": "tp(1of2) ds(1of3)", "data-c-align": "base(center) tp(right)" },
-                    React.createElement("p", { "data-c-font-size": "small", "data-c-font-style": "underline", "data-c-color": "c1" },
-                        React.createElement(react_intl_1.FormattedMessage, { id: "activity.viewComment.label", defaultMessage: "View Comment", description: "The text displayed on the activity link to view comment." })))))));
-};
-exports.default = Activity;
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/ActivityList.tsx":
-/*!*********************************************************!*\
-  !*** ./resources/assets/js/components/ActivityList.tsx ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
-};
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-/* eslint-disable camelcase */
-/* eslint-disable @typescript-eslint/camelcase */
-var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-var react_redux_1 = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/lib/index.js");
-var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
-var Activity_1 = __importDefault(__webpack_require__(/*! ./Activity */ "./resources/assets/js/components/Activity.tsx"));
-var jobActions_1 = __webpack_require__(/*! ../store/Job/jobActions */ "./resources/assets/js/store/Job/jobActions.ts");
-var userActions_1 = __webpack_require__(/*! ../store/User/userActions */ "./resources/assets/js/store/User/userActions.ts");
-var jobSelector_1 = __webpack_require__(/*! ../store/Job/jobSelector */ "./resources/assets/js/store/Job/jobSelector.ts");
-var userSelector_1 = __webpack_require__(/*! ../store/User/userSelector */ "./resources/assets/js/store/User/userSelector.ts");
-var CommentForm_1 = __webpack_require__(/*! ./CommentForm */ "./resources/assets/js/components/CommentForm.tsx");
-var localizedConstants_1 = __webpack_require__(/*! ../models/localizedConstants */ "./resources/assets/js/models/localizedConstants.tsx");
-var jobUtil_1 = __webpack_require__(/*! ../models/jobUtil */ "./resources/assets/js/models/jobUtil.ts");
-var lookupConstants_1 = __webpack_require__(/*! ../models/lookupConstants */ "./resources/assets/js/models/lookupConstants.ts");
-var localize_1 = __webpack_require__(/*! ../helpers/localize */ "./resources/assets/js/helpers/localize.ts");
-var queries_1 = __webpack_require__(/*! ../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
-var messages = react_intl_1.defineMessages({
-    unknownUser: {
-        id: "activity.unknownUser",
-        defaultMessage: "User not found",
-        description: "Error message displayed when a user id is unknown.",
-    },
-});
-exports.ActivityList = function (_a) {
-    var jobId = _a.jobId, comments = _a.comments, users = _a.users, handleFetchComments = _a.handleFetchComments, handleFetchUsers = _a.handleFetchUsers, isHrAdvisor = _a.isHrAdvisor;
-    var intl = react_intl_1.useIntl();
-    var locale = localize_1.getLocale(intl.locale);
-    var activities = __spreadArrays(comments);
-    var _b = react_1.useState(false), loadingActivities = _b[0], setLoadingActivities = _b[1];
-    var _c = react_1.useState(false), loadingUsers = _c[0], setLoadingUsers = _c[1];
-    var _d = react_1.useState(false), isError = _d[0], setIsError = _d[1];
-    react_1.useEffect(function () {
-        setLoadingActivities(true);
-        handleFetchComments(jobId)
-            .then(function () {
-            setLoadingActivities(false);
-        })
-            .catch(function () {
-            setLoadingActivities(false);
-            setIsError(true);
-        });
-    }, [handleFetchComments, jobId]);
-    react_1.useEffect(function () {
-        setLoadingUsers(true);
-        if (comments.length > 0) {
-            var userIds_1 = [];
-            // eslint-disable-next-line array-callback-return
-            comments.map(function (comment) {
-                if (userIds_1.indexOf(comment.user_id) === -1) {
-                    userIds_1.push(comment.user_id);
-                }
-            });
-            handleFetchUsers(userIds_1.join(","))
-                .then(function () {
-                setLoadingUsers(false);
-            })
-                .catch(function () {
-                setLoadingUsers(false);
-                setIsError(true);
-            });
-        }
-        else {
-            setLoadingUsers(false);
-        }
-    }, [comments, handleFetchUsers]);
-    var activityType = function (type) {
-        switch (type) {
-            case 1:
-                return intl.formatMessage(CommentForm_1.commentTypeMessages.question);
-            case 2:
-                return intl.formatMessage(CommentForm_1.commentTypeMessages.recommendation);
-            case 3:
-                return intl.formatMessage(CommentForm_1.commentTypeMessages.requiredAction);
-            default:
-                return intl.formatMessage(CommentForm_1.commentTypeMessages.comment);
-        }
-    };
-    var isValidLocation = function (locationStr) {
-        var validLocations = Object.values(lookupConstants_1.LocationId);
-        return validLocations.includes(locationStr);
-    };
-    var getLocation = function (locationStr) {
-        return isValidLocation(locationStr)
-            ? intl.formatMessage(localizedConstants_1.generalLocationOption(locationStr)) + " > " + intl.formatMessage(localizedConstants_1.specificLocationOption(locationStr))
-            : "";
-    };
-    return (react_1.default.createElement("section", { "data-c-padding": "top(1)" },
-        react_1.default.createElement("h3", { "data-c-font-size": "h3", "data-c-color": "c2", "data-c-margin": "bottom(1)" },
-            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "activityfeed.title", defaultMessage: "Activities", description: "Title of activity feed." })),
-        isError && (react_1.default.createElement("p", null,
-            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "activityfeed.error", defaultMessage: "Something went wrong...", description: "Error fetching activities." }))),
-        !isError &&
-            (loadingActivities || loadingUsers) &&
-            activities.length === 0 ? (react_1.default.createElement("div", { "data-c-container": "form", "data-c-padding": "top(1) bottom(1)" },
-            react_1.default.createElement("div", { "data-c-background": "white(100)", "data-c-card": true, "data-c-padding": "all(double)", "data-c-radius": "rounded", "data-c-align": "base(centre)" },
-                react_1.default.createElement("p", null,
-                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "activityfeed.loading", defaultMessage: "Your activities are loading...", description: "Message indicating that the activity feed is still being loaded." }))))) : (react_1.default.createElement(react_1.default.Fragment, null, !isError && activities && activities.length !== 0
-            ? activities.map(function (_a) {
-                var id = _a.id, comment = _a.comment, location = _a.location, created_at = _a.created_at, type_id = _a.type_id, user_id = _a.user_id;
-                var _b;
-                var user = queries_1.find(users, user_id);
-                var fullName = (_b = user === null || user === void 0 ? void 0 : user.full_name) !== null && _b !== void 0 ? _b : intl.formatMessage(messages.unknownUser);
-                var userRole = user === null || user === void 0 ? void 0 : user.user_role;
-                var displayRole = "?";
-                if (userRole !== undefined) {
-                    displayRole = localize_1.localizeFieldNonNull(locale, userRole, "name");
-                }
-                return (react_1.default.createElement(Activity_1.default, { key: id, name: fullName, userRole: displayRole, comment: comment, location: getLocation(location), time: created_at, type: activityType(type_id), link: {
-                        url: jobUtil_1.activityLocationUrl(isHrAdvisor, location, jobId, locale),
-                        text: "",
-                        title: "",
-                    } }));
-            })
-            : !isError && (react_1.default.createElement("p", null,
-                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "activityfeed.noActivities", defaultMessage: "No activities.", description: "Message displayed when activities is empty." })))))));
-};
-var mapStateToProps = function (state, ownProps) { return ({
-    comments: jobSelector_1.getSortedFilteredComments(state, ownProps),
-    users: userSelector_1.getUsers(state),
-}); };
-var mapDispatchToProps = function (dispatch) { return ({
-    handleFetchComments: function (jobId) { return __awaiter(void 0, void 0, void 0, function () {
-        var result;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, dispatch(jobActions_1.fetchComments(jobId))];
-                case 1:
-                    result = _a.sent();
-                    if (!result.error) {
-                        return [2 /*return*/, Promise.resolve()];
-                    }
-                    return [2 /*return*/, Promise.reject(result.error)];
-            }
-        });
-    }); },
-    handleFetchUsers: function (ids) {
-        if (ids === void 0) { ids = ""; }
-        return __awaiter(void 0, void 0, void 0, function () {
-            var result;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, dispatch(userActions_1.fetchAllUsers(ids))];
-                    case 1:
-                        result = _a.sent();
-                        if (!result.error) {
-                            return [2 /*return*/, Promise.resolve()];
-                        }
-                        return [2 /*return*/, Promise.reject(result.error)];
-                }
-            });
-        });
-    },
-}); };
-exports.default = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(exports.ActivityList);
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/CommentForm.tsx":
-/*!********************************************************!*\
-  !*** ./resources/assets/js/components/CommentForm.tsx ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-/* eslint-disable @typescript-eslint/camelcase, camelcase */
-var React = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-var react_redux_1 = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/lib/index.js");
-var formik_1 = __webpack_require__(/*! formik */ "./node_modules/formik/dist/index.js");
-var Yup = __importStar(__webpack_require__(/*! yup */ "./node_modules/yup/lib/index.js"));
-var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
-var Messages_1 = __webpack_require__(/*! ./Form/Messages */ "./resources/assets/js/components/Form/Messages.tsx");
-var lookupConstants_1 = __webpack_require__(/*! ../models/lookupConstants */ "./resources/assets/js/models/lookupConstants.ts");
-var TextAreaInput_1 = __importDefault(__webpack_require__(/*! ./Form/TextAreaInput */ "./resources/assets/js/components/Form/TextAreaInput.tsx"));
-var SelectInput_1 = __importDefault(__webpack_require__(/*! ./Form/SelectInput */ "./resources/assets/js/components/Form/SelectInput.tsx"));
-var jobActions_1 = __webpack_require__(/*! ../store/Job/jobActions */ "./resources/assets/js/store/Job/jobActions.ts");
-var jobUtil_1 = __webpack_require__(/*! ../models/jobUtil */ "./resources/assets/js/models/jobUtil.ts");
-var formMessages = react_intl_1.defineMessages({
-    commentLabel: {
-        id: "commentForm.comment.label",
-        defaultMessage: "Add a Comment",
-        description: "The label displayed for the comment input field.",
-    },
-    commentPlaceholder: {
-        id: "commentForm.comment.placeholder",
-        defaultMessage: "eg. Enter your question, recommendation, etc.",
-        description: "The placeholder displayed for the comment input field.",
-    },
-    commentTypeLabel: {
-        id: "commentForm.commentType.label",
-        defaultMessage: "Type of Comment",
-        description: "The label displayed for the comment type select box.",
-    },
-    commentTypeNullSelection: {
-        id: "commentForm.commentType.nullSelection",
-        defaultMessage: "Select a comment type...",
-        description: "Null selection from list of comment types",
-    },
-    commentLocationLabel: {
-        id: "commentForm.commentLocation.label",
-        defaultMessage: "Location of Comment",
-        description: "The label displayed for the location select box.",
-    },
-    commentLocationNullSelection: {
-        id: "commentForm.commentLocation.nullSelection",
-        defaultMessage: "Select a location...",
-        description: "Null selection from list of comment locations",
-    },
-});
-exports.commentTypeMessages = react_intl_1.defineMessages({
-    question: {
-        id: "commentType.question",
-        defaultMessage: "Question",
-        description: "Comment type from list of comment types",
-    },
-    recommendation: {
-        id: "commentType.recommendation",
-        defaultMessage: "Recommendation",
-        description: "Comment type from list of comment types",
-    },
-    requiredAction: {
-        id: "commentType.requiredAction",
-        defaultMessage: "Required Action",
-        description: "Comment type from list of comment types",
-    },
-    comment: {
-        id: "commentType.comment",
-        defaultMessage: "Comment",
-        description: "Comment type from list of comment types",
-    },
-});
-exports.CommentForm = function (_a) {
-    var isHrAdvisor = _a.isHrAdvisor, handleCreateComment = _a.handleCreateComment, jobId = _a.jobId, location = _a.location, locationOptions = _a.locationOptions;
-    var intl = react_intl_1.useIntl();
-    var initialValues = {
-        comment: "",
-        commentType: "",
-        commentLocation: "",
-    };
-    var commentSchema = Yup.object().shape(__assign(__assign({ comment: Yup.string().required(intl.formatMessage(Messages_1.validationMessages.required)) }, (isHrAdvisor && {
-        commentType: Yup.number()
-            .oneOf(Object.values(lookupConstants_1.CommentTypeId), intl.formatMessage(Messages_1.validationMessages.invalidSelection))
-            .required(intl.formatMessage(Messages_1.validationMessages.required)),
-    })), (locationOptions && {
-        commentLocation: Yup.string()
-            .oneOf(Object.values(lookupConstants_1.LocationId), intl.formatMessage(Messages_1.validationMessages.invalidSelection))
-            .required(intl.formatMessage(Messages_1.validationMessages.required)),
-    })));
-    return (React.createElement("section", null,
-        React.createElement(formik_1.Formik, { initialValues: initialValues, validationSchema: commentSchema, onSubmit: function (values, _a) {
-                var setSubmitting = _a.setSubmitting, resetForm = _a.resetForm;
-                var newComment = __assign(__assign({}, jobUtil_1.emptyComment()), { location: values.commentLocation
-                        ? values.commentLocation
-                        : location, comment: values.comment, type_id: isHrAdvisor ? Number(values.commentType) : null });
-                handleCreateComment(jobId, newComment)
-                    .then(function () {
-                    setSubmitting(false);
-                    resetForm();
-                })
-                    .catch(function () {
-                    setSubmitting(false);
-                });
-            } }, function (_a) {
-            var isSubmitting = _a.isSubmitting;
-            return (React.createElement(formik_1.Form, { "data-c-grid": "gutter(all, 1) middle" },
-                React.createElement(formik_1.FastField, { id: "comment_form_input", type: "text", name: "comment", component: TextAreaInput_1.default, required: true, grid: "tl(1of1)", label: intl.formatMessage(formMessages.commentLabel), placeholder: intl.formatMessage(formMessages.commentPlaceholder) }),
-                locationOptions && (React.createElement(formik_1.FastField, { name: "commentLocation", id: "comment_form_location", label: intl.formatMessage(formMessages.commentLocationLabel), grid: locationOptions && isHrAdvisor ? "tl(1of2)" : "tl(2of3)", component: SelectInput_1.default, required: true, nullSelection: intl.formatMessage(formMessages.commentLocationNullSelection), options: locationOptions.map(function (_a) {
-                        var value = _a.value, label = _a.label;
-                        return ({
-                            value: value,
-                            label: label,
-                        });
-                    }) })),
-                isHrAdvisor && (React.createElement(formik_1.FastField, { id: "comment_form_type", name: "commentType", component: SelectInput_1.default, required: true, grid: locationOptions && isHrAdvisor ? "tl(1of2)" : "tl(2of3)", nullSelection: intl.formatMessage(formMessages.commentTypeNullSelection), label: intl.formatMessage(formMessages.commentTypeLabel), options: [
-                        {
-                            value: lookupConstants_1.CommentTypeId.question,
-                            label: intl.formatMessage(exports.commentTypeMessages.question),
-                        },
-                        {
-                            value: lookupConstants_1.CommentTypeId.recommendation,
-                            label: intl.formatMessage(exports.commentTypeMessages.recommendation),
-                        },
-                        {
-                            value: lookupConstants_1.CommentTypeId.requiredAction,
-                            label: intl.formatMessage(exports.commentTypeMessages.requiredAction),
-                        },
-                    ] })),
-                React.createElement("div", { "data-c-grid-item": (locationOptions && isHrAdvisor) || !isHrAdvisor
-                        ? "tl(1of1)"
-                        : "tl(1of3)", "data-c-align": "base(center) tl(right)" },
-                    React.createElement("button", { type: "submit", disabled: isSubmitting, "data-c-button": "solid(c1)", "data-c-radius": "rounded" },
-                        React.createElement(react_intl_1.FormattedMessage, { id: "commentForm.submitButton.label", defaultMessage: "Submit Comment", description: "The text displayed on the submit button in the comment form." })))));
-        })));
-};
-var mapDispatchToProps = function (dispatch) { return ({
-    handleCreateComment: function (jobId, newComment) { return __awaiter(void 0, void 0, void 0, function () {
-        var result, resultComment;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, dispatch(jobActions_1.createComment(jobId, newComment))];
-                case 1:
-                    result = _a.sent();
-                    if (!!result.error) return [3 /*break*/, 3];
-                    return [4 /*yield*/, result.payload];
-                case 2:
-                    resultComment = _a.sent();
-                    return [2 /*return*/, resultComment];
-                case 3: return [2 /*return*/, Promise.reject(result.payload)];
-            }
-        });
-    }); },
-}); };
-exports.default = react_redux_1.connect(function () { return ({}); }, mapDispatchToProps)(exports.CommentForm);
-
-
-/***/ }),
-
 /***/ "./resources/assets/js/components/ErrorToast.tsx":
 /*!*******************************************************!*\
   !*** ./resources/assets/js/components/ErrorToast.tsx ***!
@@ -61139,103 +58078,6 @@ exports.default = SelectInput;
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/Form/TextAreaInput.tsx":
-/*!***************************************************************!*\
-  !*** ./resources/assets/js/components/Form/TextAreaInput.tsx ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-var formik_1 = __webpack_require__(/*! formik */ "./node_modules/formik/dist/index.js");
-var TextArea_1 = __importDefault(__webpack_require__(/*! ../TextArea */ "./resources/assets/js/components/TextArea.tsx"));
-var TextAreaInput = function (_a) {
-    var id = _a.id, label = _a.label, className = _a.className, grid = _a.grid, required = _a.required, placeholder = _a.placeholder, _b = _a.field, name = _b.name, value = _b.value, onChange = _b.onChange, onBlur = _b.onBlur, _c = _a.form, errors = _c.errors, touched = _c.touched, props = __rest(_a, ["id", "label", "className", "grid", "required", "placeholder", "field", "form"]);
-    var specificError = errors ? formik_1.getIn(errors, name) : null;
-    var errorText = specificError ? specificError.toString() : undefined;
-    var invalid = formik_1.getIn(touched, name) && specificError ? true : null;
-    return (react_1.default.createElement(TextArea_1.default, __assign({ id: id, label: label, className: className, grid: grid, required: required, placeholder: placeholder, name: name, value: value, errorText: errorText, invalid: invalid, onChange: onChange, onBlur: onBlur }, props)));
-};
-exports.default = TextAreaInput;
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/components/HRPortal/JobSummaryActivityFeed.tsx":
-/*!****************************************************************************!*\
-  !*** ./resources/assets/js/components/HRPortal/JobSummaryActivityFeed.tsx ***!
-  \****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
-var react_dom_1 = __importDefault(__webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js"));
-var RootContainer_1 = __importDefault(__webpack_require__(/*! ../RootContainer */ "./resources/assets/js/components/RootContainer.tsx"));
-var CommentForm_1 = __importDefault(__webpack_require__(/*! ../CommentForm */ "./resources/assets/js/components/CommentForm.tsx"));
-var ActivityList_1 = __importDefault(__webpack_require__(/*! ../ActivityList */ "./resources/assets/js/components/ActivityList.tsx"));
-var lookupConstants_1 = __webpack_require__(/*! ../../models/lookupConstants */ "./resources/assets/js/models/lookupConstants.ts");
-var JobSummaryActivityFeed = function (_a) {
-    var jobId = _a.jobId, portal = _a.portal;
-    return (React.createElement(React.Fragment, null,
-        React.createElement(CommentForm_1.default, { jobId: jobId, isHrAdvisor: portal === "hr", location: lookupConstants_1.LocationId.summary }),
-        React.createElement("hr", { "data-c-hr": "thin(black)", "data-c-margin": "top(1)" }),
-        React.createElement(ActivityList_1.default, { generalLocation: lookupConstants_1.LocationId.summary, jobId: jobId, isHrAdvisor: portal === "hr" })));
-};
-exports.default = JobSummaryActivityFeed;
-var container = document.getElementById("summary-hr-activity-feed");
-if (container !== null) {
-    if ("jobId" in container.dataset) {
-        var jobId = Number(container.dataset.jobId);
-        var portal = container.dataset.portal;
-        react_dom_1.default.render(React.createElement(RootContainer_1.default, null,
-            React.createElement(JobSummaryActivityFeed, { jobId: jobId, portal: portal })), container);
-    }
-}
-
-
-/***/ }),
-
 /***/ "./resources/assets/js/components/RootContainer.tsx":
 /*!**********************************************************!*\
   !*** ./resources/assets/js/components/RootContainer.tsx ***!
@@ -61317,10 +58159,10 @@ exports.default = Select;
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/TextArea.tsx":
-/*!*****************************************************!*\
-  !*** ./resources/assets/js/components/TextArea.tsx ***!
-  \*****************************************************/
+/***/ "./resources/assets/js/components/StrategicTalentResponse/ResponseScreening/ApplicantBucket.tsx":
+/*!******************************************************************************************************!*\
+  !*** ./resources/assets/js/components/StrategicTalentResponse/ResponseScreening/ApplicantBucket.tsx ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -61337,24 +58179,546 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+/* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
+var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
-var Messages_1 = __webpack_require__(/*! ./Form/Messages */ "./resources/assets/js/components/Form/Messages.tsx");
-var TextArea = function (_a) {
-    var id = _a.id, name = _a.name, label = _a.label, className = _a.className, required = _a.required, invalid = _a.invalid, placeholder = _a.placeholder, value = _a.value, errorText = _a.errorText, grid = _a.grid, minLength = _a.minLength, maxLength = _a.maxLength, onChange = _a.onChange, onBlur = _a.onBlur;
-    return (react_1.default.createElement("div", { className: className, "data-c-grid-item": grid, "data-c-input": "textarea", "data-c-required": required || null, "data-c-invalid": invalid || null },
-        react_1.default.createElement("label", { htmlFor: id }, label),
-        react_1.default.createElement("span", null,
-            react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, Messages_1.inputMessages.required))),
-        react_1.default.createElement("div", null,
-            react_1.default.createElement("textarea", { id: id, name: name, required: required, placeholder: placeholder, minLength: minLength, maxLength: maxLength, onChange: onChange, onBlur: onBlur, value: value })),
-        react_1.default.createElement("span", null, errorText || react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, Messages_1.inputMessages.error)))));
+var formik_1 = __webpack_require__(/*! formik */ "./node_modules/formik/dist/index.js");
+var sweetalert2_1 = __importDefault(__webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js"));
+var SelectInput_1 = __importDefault(__webpack_require__(/*! ../../Form/SelectInput */ "./resources/assets/js/components/Form/SelectInput.tsx"));
+var routes = __importStar(__webpack_require__(/*! ../../../helpers/routes */ "./resources/assets/js/helpers/routes.ts"));
+var localizedConstants_1 = __webpack_require__(/*! ../../../models/localizedConstants */ "./resources/assets/js/models/localizedConstants.tsx");
+var lookupConstants_1 = __webpack_require__(/*! ../../../models/lookupConstants */ "./resources/assets/js/models/lookupConstants.ts");
+var localize_1 = __webpack_require__(/*! ../../../helpers/localize */ "./resources/assets/js/helpers/localize.ts");
+var displayMessages = react_intl_1.defineMessages({
+    viewApplication: {
+        id: "responseScreening.bucket.viewApplicationLabel",
+        defaultMessage: "View Application",
+        description: "Label for 'View Application' link.",
+    },
+    viewProfile: {
+        id: "responseScreening.bucket.viewProfileLabel",
+        defaultMessage: "View Profile",
+        description: "Label for 'View Profile' link.",
+    },
+    notes: {
+        id: "responseScreening.bucket.notesLabel",
+        defaultMessage: "Add/Edit Notes",
+        description: "Label for 'Add/Edit Notes' button.",
+    },
+    save: {
+        id: "responseScreening.bucket.saveLabel",
+        defaultMessage: "Save Changes",
+        description: "Label for 'Save Changes' button when changes are unsaved.",
+    },
+    saving: {
+        id: "responseScreening.bucket.savingLabel",
+        defaultMessage: "Saving...",
+        description: "Label for 'Save Changes' button when form submission is in progress.",
+    },
+    saved: {
+        id: "responseScreening.bucket.savedLabel",
+        defaultMessage: "Saved",
+        description: "Label for 'Save Changes' button when form submission succeeded.",
+    },
+    cancel: {
+        id: "responseScreening.bucket.cancelLabel",
+        defaultMessage: "Cancel",
+        description: "Label for 'Cancel' button.",
+    },
+    selectStatusDefault: {
+        id: "responseScreening.bucket.selectStatusDefault",
+        defaultMessage: "Select a status...",
+        description: "Default option text for the Status dropdown.",
+    },
+    selectStatusLabel: {
+        id: "responseScreening.bucket.selectStatusLabel",
+        defaultMessage: "Review Status",
+        description: "Label for the Status dropdown.",
+    },
+    selectDepartmentDefault: {
+        id: "responseScreening.bucket.selectDepartmentDefault",
+        defaultMessage: "Select a department...",
+        description: "Default option text for the Department dropdown.",
+    },
+    selectDepartmentLabel: {
+        id: "responseScreening.bucket.selectDepartmentLabel",
+        defaultMessage: "Department Allocation",
+        description: "Label for the Department dropdown.",
+    },
+    clickView: {
+        id: "responseScreening.bucket.accessibleViewLabel",
+        defaultMessage: "Click to view...",
+        description: "Accessible text for screen reading accordion elements.",
+    },
+    noApplicants: {
+        id: "responseScreening.bucket.noApplicants",
+        defaultMessage: "There are currently no applicants in this bucket.",
+        description: "Fallback label for a bucket with no applicants.",
+    },
+    setAllocated: {
+        id: "responseScreening.bucket.confirmSetAllocated",
+        defaultMessage: "Setting this candidate to allocated will mark them as currently unavailable for all other streams. Are you sure you want to continue?",
+        description: "Confirmation text when attempting to set a candidate as Allocated.",
+    },
+    setUnavailable: {
+        id: "responseScreening.bucket.confirmSetUnavailable",
+        defaultMessage: "Setting this candidate to not available will mark them as currently unavailable for all other streams. Are you sure you want to continue?",
+        description: "Confirmation text when attempting to set a candidate as Not Available.",
+    },
+    confirmAction: {
+        id: "responseScreening.bucket.confirmAction",
+        defaultMessage: "Please confirm this action",
+        description: "Title for the confirmation dialog when making changes with side effects.",
+    },
+    yes: {
+        id: "responseScreening.bucket.yes",
+        defaultMessage: "Yes",
+        description: "Confirmation button text for dialog",
+    },
+});
+var IconStatus;
+(function (IconStatus) {
+    IconStatus["ASSESSMENT"] = "question";
+    IconStatus["READY"] = "check";
+    IconStatus["RECEIVED"] = "exclamation";
+})(IconStatus || (IconStatus = {}));
+var StatusIcon = function (_a) {
+    var status = _a.status, color = _a.color, small = _a.small;
+    return (react_1.default.createElement("i", { className: "fas fa-" + status + "-circle", "data-c-color": color, "data-c-font-size": small ? "small" : "" }));
 };
-exports.default = TextArea;
+// Kinda weird "empty" component that hooks into Formik's
+// context, listens to the 'dirty' prop, and registers
+// a beforeunload listener to fire if a user attempts to
+// leave with unsaved work.
+// https://github.com/jaredpalmer/formik/issues/1657#issuecomment-509388871
+var AlertWhenUnsaved = function () {
+    var dirty = formik_1.useFormikContext().dirty;
+    var handleUnload = function (event) {
+        event.preventDefault();
+        event.returnValue = "Are you sure you want to leave with unsaved changes?";
+    };
+    react_1.useEffect(function () {
+        if (dirty) {
+            window.addEventListener("beforeunload", handleUnload);
+        }
+        return function () {
+            window.removeEventListener("beforeunload", handleUnload);
+        };
+    }, [dirty]);
+    return react_1.default.createElement(react_1.default.Fragment, null);
+};
+var ApplicationRow = function (_a) {
+    var application = _a.application, departmentEditable = _a.departmentEditable, departments = _a.departments, handleUpdateReview = _a.handleUpdateReview, portal = _a.portal;
+    var _b, _c, _d, _e;
+    var intl = react_intl_1.useIntl();
+    var locale = localize_1.getLocale(intl.locale);
+    var applicantUrlMap = {
+        hr: routes.hrApplicantShow(intl.locale, application.id),
+        manager: routes.managerApplicantShow(intl.locale, application.id),
+    };
+    var applicationUrlMap = {
+        hr: routes.hrApplicationShow(intl.locale, application.id),
+        manager: routes.managerApplicationShow(intl.locale, application.id),
+    };
+    var applicantUrl = applicantUrlMap[portal];
+    var applicationUrl = applicationUrlMap[portal];
+    var reviewOptions = Object.values(localizedConstants_1.ResponseReviewStatuses).map(function (status) { return ({
+        value: status.id,
+        label: intl.formatMessage(status.name),
+    }); });
+    var departmentOptions = departments.map(function (department) { return ({
+        value: department.id,
+        label: localize_1.localizeFieldNonNull(locale, department, "name"),
+    }); });
+    var rowIcon;
+    switch ((_b = application.application_review) === null || _b === void 0 ? void 0 : _b.review_status_id) {
+        case 4:
+        case 5:
+        case 7:
+            rowIcon = (react_1.default.createElement(StatusIcon, { status: IconStatus.READY, color: "go", small: false }));
+            break;
+        case 6:
+            rowIcon = (react_1.default.createElement(StatusIcon, { status: IconStatus.ASSESSMENT, color: "slow", small: false }));
+            break;
+        default:
+            rowIcon = (react_1.default.createElement(StatusIcon, { status: IconStatus.RECEIVED, color: "c1", small: false }));
+    }
+    var emptyReview = {
+        id: 0,
+        job_application_id: application.id,
+        review_status_id: null,
+        department_id: null,
+        notes: null,
+        created_at: new Date(),
+        updated_at: new Date(),
+        department: null,
+        review_status: null,
+    };
+    var initialValues = {
+        reviewStatus: ((_c = application.application_review) === null || _c === void 0 ? void 0 : _c.review_status_id) || null,
+        department: ((_d = application.application_review) === null || _d === void 0 ? void 0 : _d.department_id) || null,
+        notes: ((_e = application.application_review) === null || _e === void 0 ? void 0 : _e.notes) || "",
+    };
+    var updateApplicationReview = function (oldReview, values) {
+        var applicationReview = __assign(__assign({}, oldReview), { review_status_id: values.reviewStatus
+                ? Number(values.reviewStatus)
+                : null, department_id: values.department ? Number(values.department) : null, notes: values.notes || null });
+        return applicationReview;
+    };
+    var handleNotesButtonClick = function (notes, updateField) {
+        sweetalert2_1.default.fire({
+            title: intl.formatMessage(displayMessages.notes),
+            icon: "info",
+            input: "textarea",
+            showCancelButton: true,
+            confirmButtonColor: "#0A6CBC",
+            cancelButtonColor: "#F94D4D",
+            cancelButtonText: intl.formatMessage(displayMessages.cancel),
+            confirmButtonText: intl.formatMessage(displayMessages.save),
+            inputValue: notes,
+        }).then(function (result) {
+            if (result && result.value !== undefined) {
+                var value = result.value ? result.value : "";
+                updateField("notes", value);
+            }
+        });
+    };
+    return (react_1.default.createElement("div", { className: "applicant" },
+        react_1.default.createElement(formik_1.Formik, { initialValues: initialValues, onSubmit: function (values, _a) {
+                var setSubmitting = _a.setSubmitting, resetForm = _a.resetForm;
+                var review = updateApplicationReview(application.application_review || emptyReview, values);
+                var performUpdate = function () {
+                    handleUpdateReview(review)
+                        .then(function () {
+                        setSubmitting(false);
+                        resetForm();
+                    })
+                        .catch(function () {
+                        setSubmitting(false);
+                    });
+                };
+                // Changing an application's status to Allocated
+                if (Number(values.reviewStatus) ===
+                    Number(lookupConstants_1.ResponseReviewStatusId.Allocated) &&
+                    values.reviewStatus !== initialValues.reviewStatus) {
+                    sweetalert2_1.default.fire({
+                        title: intl.formatMessage(displayMessages.confirmAction),
+                        text: intl.formatMessage(displayMessages.setAllocated),
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#0A6CBC",
+                        cancelButtonColor: "#F94D4D",
+                        cancelButtonText: intl.formatMessage(displayMessages.cancel),
+                        confirmButtonText: intl.formatMessage(displayMessages.yes),
+                    }).then(function (result) {
+                        if (result.value === undefined) {
+                            setSubmitting(false);
+                        }
+                        else {
+                            performUpdate();
+                        }
+                    });
+                    // Changing an Application's status to Unavailable
+                }
+                else if (Number(values.reviewStatus) ===
+                    Number(lookupConstants_1.ResponseReviewStatusId.NotAvailable) &&
+                    values.reviewStatus !== initialValues.reviewStatus) {
+                    sweetalert2_1.default.fire({
+                        title: intl.formatMessage(displayMessages.confirmAction),
+                        text: intl.formatMessage(displayMessages.setUnavailable),
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#0A6CBC",
+                        cancelButtonColor: "#F94D4D",
+                        cancelButtonText: intl.formatMessage(displayMessages.cancel),
+                        confirmButtonText: intl.formatMessage(displayMessages.yes),
+                    }).then(function (result) {
+                        if (result.value === undefined) {
+                            setSubmitting(false);
+                        }
+                        else {
+                            performUpdate();
+                        }
+                    });
+                    // Everything else
+                }
+                else {
+                    performUpdate();
+                }
+            } }, function (_a) {
+            var values = _a.values, dirty = _a.dirty, isSubmitting = _a.isSubmitting, setFieldValue = _a.setFieldValue;
+            return (react_1.default.createElement(formik_1.Form, { "data-c-grid": "gutter(all, 1) middle" },
+                react_1.default.createElement(AlertWhenUnsaved, null),
+                react_1.default.createElement("div", { "data-c-grid-item": "base(1of4)" },
+                    react_1.default.createElement("div", null,
+                        rowIcon,
+                        react_1.default.createElement("div", null,
+                            react_1.default.createElement("p", { "data-c-font-weight": "bold", "data-c-font-size": "h4" }, application.applicant.user.full_name),
+                            react_1.default.createElement("p", { "data-c-margin": "bottom(.5)" },
+                                react_1.default.createElement("a", { href: "mailto:" + application.applicant.user.email, title: "" }, application.applicant.user.email)),
+                            react_1.default.createElement("p", { "data-c-font-size": "small" },
+                                react_1.default.createElement("a", { href: applicationUrl, title: "", "data-c-margin": "right(.5)" },
+                                    react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, displayMessages.viewApplication))),
+                                react_1.default.createElement("a", { href: applicantUrl, title: "" },
+                                    react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, displayMessages.viewProfile))))))),
+                react_1.default.createElement(formik_1.FastField, { id: "review-status-select-" + application.applicant_id, name: "reviewStatus", label: intl.formatMessage(displayMessages.selectStatusLabel), grid: "base(1of4)", component: SelectInput_1.default, nullSelection: intl.formatMessage(displayMessages.selectStatusDefault), options: reviewOptions }),
+                departmentEditable && (react_1.default.createElement(formik_1.FastField, { id: "department-allocation-select-" + application.applicant_id, name: "department", label: intl.formatMessage(displayMessages.selectDepartmentLabel), grid: "base(1of4)", component: SelectInput_1.default, nullSelection: intl.formatMessage(displayMessages.selectDepartmentDefault), options: departmentOptions })),
+                react_1.default.createElement("div", { "data-c-grid-item": "base(" + (departmentEditable ? 1 : 2) + "of4)", "data-c-align": "base(right)" },
+                    react_1.default.createElement("button", { "data-c-button": "outline(c1)", type: "button", "data-c-radius": "rounded", onClick: function () {
+                            return handleNotesButtonClick(values.notes, setFieldValue);
+                        } },
+                        react_1.default.createElement("i", { className: "fas fa-plus" }),
+                        react_1.default.createElement("span", null,
+                            react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, displayMessages.notes)))),
+                    react_1.default.createElement("button", { "data-c-button": "solid(c1)", type: "submit", "data-c-radius": "rounded", disabled: isSubmitting },
+                        react_1.default.createElement("span", null, dirty ? (react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, displayMessages.save))) : (react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, displayMessages.saved))))))));
+        })));
+};
+var applicationSort = function (locale) {
+    return function (first, second) {
+        // Applications without a review status should appear first
+        if (first.application_review === undefined &&
+            second.application_review !== undefined) {
+            return -1;
+        }
+        if (first.application_review !== undefined &&
+            second.application_review === undefined) {
+            return 1;
+        }
+        // Applications with a review status should be grouped by status
+        if (first.application_review && second.application_review) {
+            if (first.application_review.review_status_id &&
+                second.application_review.review_status_id) {
+                if (first.application_review.review_status_id <
+                    second.application_review.review_status_id) {
+                    return -1;
+                }
+                if (first.application_review.review_status_id >
+                    second.application_review.review_status_id) {
+                    return 1;
+                }
+            }
+            // Applications without a Department should appear first
+            if (first.application_review.department === null &&
+                second.application_review.department !== null) {
+                return -1;
+            }
+            if (first.application_review.department !== null &&
+                second.application_review.department === null) {
+                return 1;
+            }
+            // Applications with a Department set should be grouped by Department
+            if (first.application_review.department &&
+                second.application_review.department) {
+                var firstDepartmentName = localize_1.localizeFieldNonNull(locale, first.application_review.department, "name").toUpperCase();
+                var secondDepartmentName = localize_1.localizeFieldNonNull(locale, second.application_review.department, "name").toUpperCase();
+                if (firstDepartmentName < secondDepartmentName) {
+                    return -1;
+                }
+                if (firstDepartmentName > secondDepartmentName) {
+                    return 1;
+                }
+                return 0;
+            }
+        }
+        return 0;
+    };
+};
+var ApplicantBucket = function (_a) {
+    var applications = _a.applications, bucket = _a.bucket, departments = _a.departments, handleUpdateReview = _a.handleUpdateReview, portal = _a.portal;
+    var intl = react_intl_1.useIntl();
+    var locale = localize_1.getLocale(intl.locale);
+    var _b = react_1.useState(false), isExpanded = _b[0], setIsExpanded = _b[1];
+    var _c = localizedConstants_1.ResponseScreeningBuckets[bucket], bucketTitle = _c.title, bucketDescription = _c.description;
+    var handleExpandClick = function () {
+        setIsExpanded(!isExpanded);
+    };
+    return (react_1.default.createElement("div", { "data-c-accordion": "", "data-c-background": "white(100)", "data-c-margin": "top(.5)", "data-c-card": "", className: isExpanded ? "active" : "" },
+        react_1.default.createElement("button", { "aria-expanded": isExpanded, "data-c-accordion-trigger": true, tabIndex: 0, type: "button", onClick: handleExpandClick },
+            react_1.default.createElement("div", { "data-c-padding": "top(normal) right bottom(normal) left(normal)" },
+                react_1.default.createElement("p", { "data-c-font-weight": "bold", "data-c-font-size": "h3" },
+                    react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, bucketTitle)),
+                    " (",
+                    applications.length,
+                    ")"),
+                react_1.default.createElement("p", { "data-c-margin": "top(quarter)", "data-c-colour": "gray" }, bucket === lookupConstants_1.ResponseScreeningBuckets.Consideration ? (react_1.default.createElement(react_intl_1.FormattedMessage, { id: localizedConstants_1.ResponseScreeningBuckets.consideration.title.id, defaultMessage: localizedConstants_1.ResponseScreeningBuckets.consideration.description
+                        .defaultMessage, description: localizedConstants_1.ResponseScreeningBuckets.consideration.description.description, values: {
+                        iconAssessment: (react_1.default.createElement(StatusIcon, { status: IconStatus.ASSESSMENT, color: "slow", small: true })),
+                        iconReady: (react_1.default.createElement(StatusIcon, { status: IconStatus.READY, color: "go", small: true })),
+                        iconReceived: (react_1.default.createElement(StatusIcon, { status: IconStatus.RECEIVED, color: "c1", small: true })),
+                    } })) : (react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, bucketDescription))))),
+            react_1.default.createElement("span", { "data-c-visibility": "invisible" },
+                react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, displayMessages.clickView))),
+            isExpanded ? (react_1.default.createElement("i", { "aria-hidden": "true", className: "fas fa-minus", "data-c-accordion-remove": "", "data-c-colour": "black" })) : (react_1.default.createElement("i", { "aria-hidden": "true", className: "fas fa-plus", "data-c-accordion-add": "", "data-c-colour": "black" }))),
+        react_1.default.createElement("div", { "aria-hidden": !isExpanded, "data-c-accordion-content": "", "data-c-padding": "right(normal) left(normal)" },
+            react_1.default.createElement("div", { "data-c-padding": "bottom(normal)" },
+                isExpanded &&
+                    applications.length > 0 &&
+                    applications
+                        .sort(applicationSort(locale))
+                        .map(function (application) { return (react_1.default.createElement(ApplicationRow, { key: application.id, application: application, departmentEditable: bucket === lookupConstants_1.ResponseScreeningBuckets.Allocated, departments: departments, handleUpdateReview: handleUpdateReview, portal: portal })); }),
+                isExpanded && applications.length === 0 && (react_1.default.createElement("div", { "data-c-padding": "bottom(normal)" },
+                    react_1.default.createElement("div", { "data-c-border": "all(thin, solid, gray)", "data-c-background": "gray(10)", "data-c-padding": "all(1)", "data-c-radius": "rounded", "data-c-align": "base(center)" },
+                        react_1.default.createElement("p", { "data-c-color": "gray" },
+                            react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, displayMessages.noApplicants))))))))));
+};
+exports.default = ApplicantBucket;
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/StrategicTalentResponse/ResponseScreening/ResponseScreeningPage.tsx":
+/*!************************************************************************************************************!*\
+  !*** ./resources/assets/js/components/StrategicTalentResponse/ResponseScreening/ResponseScreeningPage.tsx ***!
+  \************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
+var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+var react_dom_1 = __importDefault(__webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js"));
+var react_redux_1 = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/lib/index.js");
+var RootContainer_1 = __importDefault(__webpack_require__(/*! ../../RootContainer */ "./resources/assets/js/components/RootContainer.tsx"));
+var lookupConstants_1 = __webpack_require__(/*! ../../../models/lookupConstants */ "./resources/assets/js/models/lookupConstants.ts");
+var localizedConstants_1 = __webpack_require__(/*! ../../../models/localizedConstants */ "./resources/assets/js/models/localizedConstants.tsx");
+var deptActions_1 = __webpack_require__(/*! ../../../store/Department/deptActions */ "./resources/assets/js/store/Department/deptActions.ts");
+var ApplicantBucket_1 = __importDefault(__webpack_require__(/*! ./ApplicantBucket */ "./resources/assets/js/components/StrategicTalentResponse/ResponseScreening/ApplicantBucket.tsx"));
+var applicationActions_1 = __webpack_require__(/*! ../../../store/Application/applicationActions */ "./resources/assets/js/store/Application/applicationActions.ts");
+var applicationSelector_1 = __webpack_require__(/*! ../../../store/Application/applicationSelector */ "./resources/assets/js/store/Application/applicationSelector.ts");
+var deptSelector_1 = __webpack_require__(/*! ../../../store/Department/deptSelector */ "./resources/assets/js/store/Department/deptSelector.ts");
+var ResponseScreeningPage = function (_a) {
+    var applications = _a.applications, departments = _a.departments, handleUpdateReview = _a.handleUpdateReview, portal = _a.portal;
+    return (react_1.default.createElement(react_1.default.Fragment, null, Object.keys(localizedConstants_1.ResponseScreeningBuckets).map(function (bucket) {
+        var bucketApplications = applications.filter(function (application) {
+            var _a, _b, _c, _d, _e, _f;
+            if (bucket === lookupConstants_1.ResponseScreeningBuckets.ReadyToAllocate) {
+                return (((_a = application.application_review) === null || _a === void 0 ? void 0 : _a.review_status_id) ===
+                    lookupConstants_1.ResponseReviewStatusId.ReadyToAllocate);
+            }
+            if (bucket === lookupConstants_1.ResponseScreeningBuckets.Allocated) {
+                return (((_b = application.application_review) === null || _b === void 0 ? void 0 : _b.review_status_id) ===
+                    lookupConstants_1.ResponseReviewStatusId.Allocated);
+            }
+            if (bucket === lookupConstants_1.ResponseScreeningBuckets.Unavailable) {
+                return (((_c = application.application_review) === null || _c === void 0 ? void 0 : _c.review_status_id) ===
+                    lookupConstants_1.ResponseReviewStatusId.NotAvailable);
+            }
+            if (bucket === lookupConstants_1.ResponseScreeningBuckets.DoesNotQualify) {
+                return (((_d = application.application_review) === null || _d === void 0 ? void 0 : _d.review_status_id) ===
+                    lookupConstants_1.ResponseReviewStatusId.ScreenedOut);
+            }
+            // Multiple statuses appear in the "Under Consideration" bucket
+            return (application.application_review === undefined ||
+                ((_e = application.application_review) === null || _e === void 0 ? void 0 : _e.review_status_id) ===
+                    lookupConstants_1.ResponseReviewStatusId.AssessmentRequired ||
+                ((_f = application.application_review) === null || _f === void 0 ? void 0 : _f.review_status_id) ===
+                    lookupConstants_1.ResponseReviewStatusId.ReadyForReference);
+        });
+        return (react_1.default.createElement(ApplicantBucket_1.default, { key: bucket, applications: bucketApplications, bucket: bucket, departments: departments, handleUpdateReview: handleUpdateReview, portal: portal }));
+    })));
+};
+var ResponseScreeningDataFetcher = function (_a) {
+    var jobId = _a.jobId, portal = _a.portal;
+    var dispatch = react_redux_1.useDispatch();
+    // Load Applications for provided Job
+    react_1.useEffect(function () {
+        dispatch(applicationActions_1.fetchApplicationsForJob(jobId));
+    }, [dispatch, jobId]);
+    var applications = react_redux_1.useSelector(function (state) {
+        return applicationSelector_1.getApplicationsByJob(state, { jobId: jobId });
+    });
+    // Load all departments
+    react_1.useEffect(function () {
+        dispatch(deptActions_1.getDepartments());
+    }, [dispatch]);
+    var departments = react_redux_1.useSelector(deptSelector_1.getDepartments);
+    var updateApplicationReview = function (review) { return __awaiter(void 0, void 0, void 0, function () {
+        var result, resultReview;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, dispatch(applicationActions_1.updateApplicationReview(review))];
+                case 1:
+                    result = _a.sent();
+                    if (!!result.error) return [3 /*break*/, 3];
+                    return [4 /*yield*/, result.payload];
+                case 2:
+                    resultReview = _a.sent();
+                    return [2 /*return*/, resultReview];
+                case 3: return [2 /*return*/, Promise.reject(result.payload)];
+            }
+        });
+    }); };
+    return (react_1.default.createElement(ResponseScreeningPage, { applications: applications, departments: departments, handleUpdateReview: updateApplicationReview, portal: portal }));
+};
+var container = document.getElementById("response-screening-wrapper");
+if (container !== null) {
+    if ("jobId" in container.dataset && "portal" in container.dataset) {
+        var jobId = Number(container.dataset.jobId);
+        var portal = container.dataset.portal;
+        react_dom_1.default.render(react_1.default.createElement(RootContainer_1.default, null,
+            react_1.default.createElement(ResponseScreeningDataFetcher, { jobId: jobId, portal: portal })), container);
+    }
+}
 
 
 /***/ }),
@@ -61391,30 +58755,6 @@ exports.configureStore = function () {
     return redux_1.createStore(reducer, middleware);
 };
 exports.default = exports.configureStore;
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/helpers/dates.ts":
-/*!**********************************************!*\
-  !*** ./resources/assets/js/helpers/dates.ts ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var dayjs_1 = __importDefault(__webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js"));
-var localizedFormat_1 = __importDefault(__webpack_require__(/*! dayjs/plugin/localizedFormat */ "./node_modules/dayjs/plugin/localizedFormat.js"));
-__webpack_require__(/*! dayjs/locale/fr */ "./node_modules/dayjs/locale/fr.js");
-dayjs_1.default.extend(localizedFormat_1.default);
-exports.readableDateTime = function (locale, date) {
-    return dayjs_1.default(date).locale(locale).format("LLLL");
-};
 
 
 /***/ }),
@@ -61731,195 +59071,6 @@ function accountSettings(locale) {
     return "/" + locale + "/settings";
 }
 exports.accountSettings = accountSettings;
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/models/jobUtil.ts":
-/*!***********************************************!*\
-  !*** ./resources/assets/js/models/jobUtil.ts ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var lookupConstants_1 = __webpack_require__(/*! ./lookupConstants */ "./resources/assets/js/models/lookupConstants.ts");
-var localizedConstants_1 = __webpack_require__(/*! ./localizedConstants */ "./resources/assets/js/models/localizedConstants.tsx");
-var routes_1 = __webpack_require__(/*! ../helpers/routes */ "./resources/assets/js/helpers/routes.ts");
-var queries_1 = __webpack_require__(/*! ../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
-var pad = function (n, width, z) {
-    if (z === void 0) { z = "0"; }
-    return (String(z).repeat(width) + String(n)).slice(String(n).length);
-};
-exports.classificationString = function (job) {
-    return job.classification_id && job.classification_level
-        ? lookupConstants_1.getKeyByValue(lookupConstants_1.ClassificationId, job.classification_id) + "-" + pad(job.classification_level, 2)
-        : "";
-};
-exports.emptyJob = function () {
-    return {
-        id: 0,
-        manager_id: 0,
-        chosen_lang: null,
-        term_qty: null,
-        open_date_time: null,
-        close_date_time: null,
-        start_date_time: null,
-        department_id: null,
-        job_poster_status_id: 1,
-        province_id: null,
-        salary_min: null,
-        salary_max: null,
-        noc: null,
-        classification_id: null,
-        classification_level: null,
-        security_clearance_id: null,
-        language_requirement_id: null,
-        remote_work_allowed: true,
-        team_size: null,
-        work_env_features: null,
-        fast_vs_steady: null,
-        horizontal_vs_vertical: null,
-        experimental_vs_ongoing: null,
-        citizen_facing_vs_back_office: null,
-        collaborative_vs_independent: null,
-        telework_allowed_frequency_id: null,
-        flexible_hours_frequency_id: null,
-        travel_requirement_id: null,
-        overtime_requirement_id: null,
-        created_at: new Date(),
-        city: {
-            en: "",
-            fr: "",
-        },
-        title: {
-            en: "",
-            fr: "",
-        },
-        dept_impact: {
-            en: "",
-            fr: "",
-        },
-        team_impact: {
-            en: "",
-            fr: "",
-        },
-        hire_impact: {
-            en: "",
-            fr: "",
-        },
-        division: {
-            en: "",
-            fr: "",
-        },
-        education: {
-            en: "",
-            fr: "",
-        },
-        work_env_description: {
-            en: "",
-            fr: "",
-        },
-        culture_summary: {
-            en: "",
-            fr: "",
-        },
-        culture_special: {
-            en: "",
-            fr: "",
-        },
-    };
-};
-exports.emptyTasks = function () { return [
-    {
-        id: 0,
-        job_poster_id: 0,
-        description: {
-            en: "",
-            fr: "",
-        },
-    },
-]; };
-exports.getSkillLevelName = function (_a, _b) {
-    var skill_level_id = _a.skill_level_id, criteria_type_id = _a.criteria_type_id;
-    var skill_type_id = _b.skill_type_id;
-    if (criteria_type_id === lookupConstants_1.CriteriaTypeId.Asset) {
-        return localizedConstants_1.assetSkillName();
-    }
-    return localizedConstants_1.skillLevelName(skill_level_id, skill_type_id);
-};
-exports.emptyComment = function () { return ({
-    id: 0,
-    job_poster_id: 0,
-    user_id: 0,
-    comment: "",
-    location: "",
-    type_id: null,
-    created_at: new Date(),
-}); };
-exports.emptyJobPosterStatus = function () { return ({
-    id: 1,
-    key: lookupConstants_1.JobStatus.Draft,
-    name: { en: "Draft", fr: "Provisoire" },
-    description: {
-        en: "This is a draft.",
-        fr: "Il s'agit d'un premier projet.",
-    },
-}); };
-exports.activityLocationUrl = function (isHrAdvisor, location, jobId, locale) {
-    var _a, _b;
-    var hrAdvisorUrls = (_a = {},
-        /* Job Poster Review Page */
-        _a[lookupConstants_1.LocationId.jobGeneric] = routes_1.hrJobReview(locale, jobId),
-        _a[lookupConstants_1.LocationId.heading] = routes_1.hrJobReview(locale, jobId),
-        _a[lookupConstants_1.LocationId.basicInfo] = routes_1.hrJobReview(locale, jobId),
-        _a[lookupConstants_1.LocationId.impact] = routes_1.hrJobReview(locale, jobId),
-        _a[lookupConstants_1.LocationId.tasks] = routes_1.hrJobReview(locale, jobId),
-        _a[lookupConstants_1.LocationId.skills] = routes_1.hrJobReview(locale, jobId),
-        _a[lookupConstants_1.LocationId.langRequirements] = routes_1.hrJobReview(locale, jobId),
-        _a[lookupConstants_1.LocationId.environment] = routes_1.hrJobReview(locale, jobId),
-        /* Applicant Review Page */
-        _a[lookupConstants_1.LocationId.applicantsGeneric] = routes_1.hrJobApplications(locale, jobId),
-        _a[lookupConstants_1.LocationId.underConsideration] = routes_1.hrJobApplications(locale, jobId),
-        _a[lookupConstants_1.LocationId.optionalConsideration] = routes_1.hrJobApplications(locale, jobId),
-        _a[lookupConstants_1.LocationId.notUnderConsideration] = routes_1.hrJobApplications(locale, jobId),
-        /* Screening Plan Builder */
-        _a[lookupConstants_1.LocationId.screeningPlan] = routes_1.hrScreeningPlan(locale, jobId),
-        _a[lookupConstants_1.LocationId.screeningPlanBuilder] = routes_1.hrScreeningPlan(locale, jobId),
-        _a[lookupConstants_1.LocationId.screeningPlanSummary] = routes_1.hrScreeningPlan(locale, jobId),
-        _a[lookupConstants_1.LocationId.screeningPlanRatings] = routes_1.hrScreeningPlan(locale, jobId),
-        _a[lookupConstants_1.LocationId.summary] = routes_1.hrJobSummary(locale, jobId),
-        _a[lookupConstants_1.LocationId.preview] = routes_1.hrJobPreview(locale, jobId),
-        _a);
-    var managerUrls = (_b = {},
-        /* Job Poster Review Page */
-        _b[lookupConstants_1.LocationId.jobGeneric] = routes_1.jobBuilderReview(locale, jobId),
-        _b[lookupConstants_1.LocationId.heading] = routes_1.jobBuilderDetails(locale, jobId),
-        _b[lookupConstants_1.LocationId.basicInfo] = routes_1.jobBuilderDetails(locale, jobId),
-        _b[lookupConstants_1.LocationId.impact] = routes_1.jobBuilderImpact(locale, jobId),
-        _b[lookupConstants_1.LocationId.tasks] = routes_1.jobBuilderTasks(locale, jobId),
-        _b[lookupConstants_1.LocationId.skills] = routes_1.jobBuilderSkills(locale, jobId),
-        _b[lookupConstants_1.LocationId.langRequirements] = routes_1.jobBuilderDetails(locale, jobId),
-        _b[lookupConstants_1.LocationId.environment] = routes_1.jobBuilderEnv(locale, jobId),
-        /* Applicant Review Page */
-        _b[lookupConstants_1.LocationId.applicantsGeneric] = routes_1.managerJobApplications(locale, jobId),
-        _b[lookupConstants_1.LocationId.underConsideration] = routes_1.managerJobApplications(locale, jobId),
-        _b[lookupConstants_1.LocationId.optionalConsideration] = routes_1.managerJobApplications(locale, jobId),
-        _b[lookupConstants_1.LocationId.notUnderConsideration] = routes_1.managerJobApplications(locale, jobId),
-        /* Screening Plan Builder */
-        _b[lookupConstants_1.LocationId.screeningPlan] = routes_1.managerScreeningPlan(locale, jobId),
-        _b[lookupConstants_1.LocationId.screeningPlanBuilder] = routes_1.managerScreeningPlan(locale, jobId),
-        _b[lookupConstants_1.LocationId.screeningPlanSummary] = routes_1.managerScreeningPlan(locale, jobId),
-        _b[lookupConstants_1.LocationId.screeningPlanRatings] = routes_1.managerScreeningPlan(locale, jobId),
-        _b[lookupConstants_1.LocationId.summary] = routes_1.jobBuilderReview(locale, jobId),
-        _b[lookupConstants_1.LocationId.preview] = routes_1.managerJobShow(locale, jobId),
-        _b);
-    var urlMap = isHrAdvisor ? hrAdvisorUrls : managerUrls;
-    var backupUrl = "/";
-    return queries_1.hasKey(urlMap, location) ? urlMap[location] : backupUrl;
-};
 
 
 /***/ }),
@@ -63221,6 +60372,69 @@ exports.default = exports.applicationReducer;
 
 /***/ }),
 
+/***/ "./resources/assets/js/store/Application/applicationSelector.ts":
+/*!**********************************************************************!*\
+  !*** ./resources/assets/js/store/Application/applicationSelector.ts ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
+var re_reselect_1 = __importDefault(__webpack_require__(/*! re-reselect */ "./node_modules/re-reselect/dist/index.js"));
+var queries_1 = __webpack_require__(/*! ../../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
+var entities = function (state) { return state.applications.entities; };
+// eslint-disable-next-line
+var ui = function (state) { return state.applications.ui; };
+var getApplicationState = function (state) { return entities(state).applications; };
+var getApplicationReviewState = function (state) {
+    return entities(state).applicationReviews;
+};
+var constructNonNormalizedApplication = function (applications, applicationReviews, id) {
+    var applicationNormalized = queries_1.hasKey(applications, id)
+        ? applications[id]
+        : null;
+    if (applicationNormalized === null) {
+        return null;
+    }
+    if (queries_1.hasKey(applicationReviews.idByApplicationId, id)) {
+        var reviewId = applicationReviews.idByApplicationId[id];
+        return __assign(__assign({}, applicationNormalized), { application_review: applicationReviews.byId[reviewId] });
+    }
+    return __assign(__assign({}, applicationNormalized), { application_review: undefined });
+};
+exports.getApplicationById = re_reselect_1.default(getApplicationState, getApplicationReviewState, function (state, ownProps) { return ownProps.id; }, constructNonNormalizedApplication)(function (state, ownProps) { return ownProps.id; });
+exports.getApplicationsByJob = re_reselect_1.default(getApplicationState, getApplicationReviewState, function (state, ownProps) { return ownProps.jobId; }, function (applications, applicationReviews, jobId) {
+    var applicationIds = Object.values(applications)
+        .filter(function (application) { return application.job_poster_id === jobId; })
+        .map(queries_1.getId);
+    console.log(applicationIds);
+    return applicationIds
+        .map(function (id) {
+        return constructNonNormalizedApplication(applications, applicationReviews, id);
+    })
+        .filter(queries_1.notEmpty);
+})(function (state, ownProps) { return ownProps.jobId; });
+
+
+/***/ }),
+
 /***/ "./resources/assets/js/store/Assessment/assessmentActions.ts":
 /*!*******************************************************************!*\
   !*** ./resources/assets/js/store/Assessment/assessmentActions.ts ***!
@@ -63804,6 +61018,29 @@ exports.default = deptReducer;
 
 /***/ }),
 
+/***/ "./resources/assets/js/store/Department/deptSelector.ts":
+/*!**************************************************************!*\
+  !*** ./resources/assets/js/store/Department/deptSelector.ts ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var reselect_1 = __webpack_require__(/*! reselect */ "./node_modules/reselect/lib/index.js");
+var queries_1 = __webpack_require__(/*! ../../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
+exports.getDeptState = function (state) {
+    return state.department.byId;
+};
+exports.getDepartments = reselect_1.createSelector(exports.getDeptState, function (deptState) { return Object.values(deptState); });
+exports.getDepartmentById = function (state, id) {
+    return queries_1.hasKey(exports.getDeptState(state), id) ? exports.getDeptState(state)[id] : null;
+};
+
+
+/***/ }),
+
 /***/ "./resources/assets/js/store/Error/errorActions.ts":
 /*!*********************************************************!*\
   !*** ./resources/assets/js/store/Error/errorActions.ts ***!
@@ -64279,121 +61516,6 @@ exports.jobsReducer = redux_1.combineReducers({
     ui: exports.uiReducer,
 });
 exports.default = exports.jobsReducer;
-
-
-/***/ }),
-
-/***/ "./resources/assets/js/store/Job/jobSelector.ts":
-/*!******************************************************!*\
-  !*** ./resources/assets/js/store/Job/jobSelector.ts ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var isEqual_1 = __importDefault(__webpack_require__(/*! lodash/isEqual */ "./node_modules/lodash/isEqual.js"));
-var reselect_1 = __webpack_require__(/*! reselect */ "./node_modules/reselect/lib/index.js");
-var re_reselect_1 = __importDefault(__webpack_require__(/*! re-reselect */ "./node_modules/re-reselect/dist/index.js"));
-var queries_1 = __webpack_require__(/*! ../../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
-var entities = function (state) { return state.jobs.entities; };
-var ui = function (state) { return state.jobs.ui; };
-var getJobState = function (state) {
-    return entities(state).jobs.byId;
-};
-var getJobEditState = function (state) {
-    return entities(state).jobEdits;
-};
-var getJobUpdatingState = function (state) {
-    return ui(state).jobUpdating;
-};
-exports.getCriteriaState = function (state) { return entities(state).criteria.byId; };
-var getTaskState = function (state) { return entities(state).tasks.byJobId; };
-var getCriteriaForJobUpdatingState = function (state) { return ui(state).criteriaUpdatingByJob; };
-var getTasksForJobUpdatingState = function (state) { return ui(state).tasksUpdatingByJob; };
-exports.getAllJobs = reselect_1.createSelector(getJobState, function (jobState) {
-    return Object.values(jobState);
-});
-exports.getAllJobsInDept = re_reselect_1.default(exports.getAllJobs, function (state, ownProps) {
-    return ownProps.departmentId;
-}, function (jobs, departmentId) {
-    return jobs.filter(function (job) { return job.department_id === departmentId; });
-})(function (state, ownProps) { return ownProps.departmentId; });
-exports.getJob = re_reselect_1.default(getJobState, function (state, ownProps) { return ownProps.jobId; }, function (jobState, jobId) {
-    return queries_1.hasKey(jobState, jobId) ? jobState[jobId] : null;
-})(function (state, ownProps) { return ownProps.jobId; });
-exports.getSelectedJob = function (state) {
-    var selectedId = ui(state).selectedJobId;
-    return selectedId ? exports.getJob(state, { jobId: selectedId }) : null;
-};
-exports.getEditJob = re_reselect_1.default(getJobEditState, function (state, ownProps) { return ownProps.jobId; }, function (jobState, jobId) {
-    return queries_1.hasKey(jobState, jobId) ? jobState[jobId] : null;
-})(function (state, ownProps) { return ownProps.jobId; });
-exports.getJobIndexIsUpdating = function (state) {
-    return ui(state).jobIndexUpdating;
-};
-exports.getJobIsUpdating = function (state, id) {
-    var updating = getJobUpdatingState(state);
-    return (exports.getJobIndexIsUpdating(state) ||
-        (queries_1.hasKey(updating, id) ? updating[id] : false));
-};
-exports.getJobIsEdited = re_reselect_1.default(exports.getJob, exports.getEditJob, function (canon, edited) { return edited !== null && !isEqual_1.default(canon, edited); })(function (state, ownProps) { return ownProps.jobId; });
-exports.getCriteria = reselect_1.createSelector(exports.getCriteriaState, function (criteriaState) { return Object.values(criteriaState); });
-exports.getCriteriaById = function (state, _a) {
-    var criterionId = _a.criterionId;
-    return queries_1.hasKey(entities(state).criteria.byId, criterionId)
-        ? entities(state).criteria.byId[criterionId]
-        : null;
-};
-exports.getCreatingJob = function (state) {
-    return ui(state).creatingJob;
-};
-exports.getCriteriaByJob = re_reselect_1.default(exports.getCriteria, function (state, ownProps) { return ownProps.jobId; }, function (criteria, jobId) {
-    return criteria.filter(function (criterion) { return criterion.job_poster_id === jobId; });
-})(function (state, ownProps) { return ownProps.jobId; });
-exports.getCriteriaOfTypeByJob = re_reselect_1.default(exports.getCriteriaByJob, function (state, props) {
-    return props.criteriaTypeId;
-}, function (criteria, criteriaTypeId) {
-    return criteria.filter(function (criterion) {
-        return criterion.criteria_type_id === criteriaTypeId;
-    });
-})(function (state, props) { return props.jobId + ":" + props.criteriaTypeId; });
-exports.getCriteriaIdsOfTypeByJob = re_reselect_1.default(exports.getCriteriaOfTypeByJob, function (criteria) { return criteria.map(queries_1.getId); })(function (state, props) { return props.jobId + ":" + props.criteriaTypeId; });
-exports.getCriteriaIdsByJob = re_reselect_1.default(exports.getCriteriaByJob, function (criteria) { return criteria.map(queries_1.getId); })(function (state, ownProps) { return ownProps.jobId; });
-exports.getCriteriaForJobIsUpdating = function (state, id) {
-    var updating = getCriteriaForJobUpdatingState(state);
-    return queries_1.hasKey(updating, id) ? updating[id] : false;
-};
-exports.getTasksForJobIsUpdating = function (state, id) {
-    var updating = getTasksForJobUpdatingState(state);
-    return queries_1.hasKey(updating, id) ? updating[id] : false;
-};
-exports.getTasksByJob = re_reselect_1.default(getTaskState, function (state, ownProps) { return ownProps.jobId; }, function (tasksByJob, jobId) {
-    return queries_1.hasKey(tasksByJob, jobId) ? tasksByJob[jobId] : [];
-})(function (state, ownProps) { return ownProps.jobId; });
-exports.getCommentsState = function (state) {
-    return state.jobs.entities.comments.byJobId;
-};
-exports.getComments = reselect_1.createSelector(exports.getCommentsState, function (commentsState) { return Object.values(commentsState); });
-exports.sortComments = function (comments) {
-    var comparator = function (a, b) {
-        return b.created_at.getTime() - a.created_at.getTime();
-    };
-    return comments.sort(comparator);
-};
-exports.getSortedComments = reselect_1.createSelector(exports.getComments, exports.sortComments);
-exports.getSortedFilteredComments = re_reselect_1.default(exports.getSortedComments, function (state, ownProps) { return ownProps.filterComments; }, function (comments, filterComments) {
-    return filterComments !== undefined
-        ? comments.filter(filterComments)
-        : comments;
-})(function (state, ownProps) { return ownProps.generalLocation; });
-exports.fetchingComments = function (state) {
-    return ui(state).fetchingComments;
-};
 
 
 /***/ }),
@@ -65574,33 +62696,6 @@ exports.userReducer = function (state, action) {
 
 /***/ }),
 
-/***/ "./resources/assets/js/store/User/userSelector.ts":
-/*!********************************************************!*\
-  !*** ./resources/assets/js/store/User/userSelector.ts ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var reselect_1 = __webpack_require__(/*! reselect */ "./node_modules/reselect/lib/index.js");
-var queries_1 = __webpack_require__(/*! ../../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
-var getUsersById = function (state) {
-    return state.users.usersById;
-};
-exports.getUsers = reselect_1.createSelector(getUsersById, function (usersById) {
-    return Object.values(usersById);
-});
-exports.getUserById = function (state, _a) {
-    var userId = _a.userId;
-    var usersById = getUsersById(state);
-    return queries_1.hasKey(usersById, userId) ? usersById[userId] : null;
-};
-
-
-/***/ }),
-
 /***/ "./resources/assets/js/store/asyncAction.ts":
 /*!**************************************************!*\
   !*** ./resources/assets/js/store/asyncAction.ts ***!
@@ -65811,14 +62906,14 @@ module.exports = JSON.parse("{\"activity.commentLocation.label\":\"Commentaire t
 
 /***/ }),
 
-/***/ 16:
-/*!**********************************************************************************!*\
-  !*** multi ./resources/assets/js/components/HRPortal/JobSummaryActivityFeed.tsx ***!
-  \**********************************************************************************/
+/***/ 18:
+/*!******************************************************************************************************************!*\
+  !*** multi ./resources/assets/js/components/StrategicTalentResponse/ResponseScreening/ResponseScreeningPage.tsx ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\dev\TalentCloud\resources\assets\js\components\HRPortal\JobSummaryActivityFeed.tsx */"./resources/assets/js/components/HRPortal/JobSummaryActivityFeed.tsx");
+module.exports = __webpack_require__(/*! C:\dev\TalentCloud\resources\assets\js\components\StrategicTalentResponse\ResponseScreening\ResponseScreeningPage.tsx */"./resources/assets/js/components/StrategicTalentResponse/ResponseScreening/ResponseScreeningPage.tsx");
 
 
 /***/ })

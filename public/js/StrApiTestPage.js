@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 14);
+/******/ 	return __webpack_require__(__webpack_require__.s = 17);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -50319,6 +50319,70 @@ exports.default = exports.RootContainer;
 
 /***/ }),
 
+/***/ "./resources/assets/js/components/StrategicTalentResponse/StrApiTestPage.tsx":
+/*!***********************************************************************************!*\
+  !*** ./resources/assets/js/components/StrategicTalentResponse/StrApiTestPage.tsx ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
+var react_dom_1 = __importDefault(__webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js"));
+var react_redux_1 = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/lib/index.js");
+var RootContainer_1 = __webpack_require__(/*! ../RootContainer */ "./resources/assets/js/components/RootContainer.tsx");
+var jobActions_1 = __webpack_require__(/*! ../../store/Job/jobActions */ "./resources/assets/js/store/Job/jobActions.ts");
+var jobSelector_1 = __webpack_require__(/*! ../../store/Job/jobSelector */ "./resources/assets/js/store/Job/jobSelector.ts");
+var localize_1 = __webpack_require__(/*! ../../helpers/localize */ "./resources/assets/js/helpers/localize.ts");
+var JobIndexHrPage_1 = __importDefault(__webpack_require__(/*! ../HRPortal/JobIndexHrPage */ "./resources/assets/js/components/HRPortal/JobIndexHrPage.tsx"));
+var StrJobListing = function (_a) {
+    var jobs = _a.jobs;
+    var intl = react_intl_1.useIntl();
+    var locale = localize_1.getLocale(intl.locale);
+    return (react_1.default.createElement(react_1.default.Fragment, null,
+        react_1.default.createElement("h1", null, jobs.length + " jobs loaded."),
+        react_1.default.createElement("ul", null, jobs.map(function (job) { return (react_1.default.createElement("li", { key: job.id },
+            react_1.default.createElement("p", null, localize_1.localizeField(locale, job, "title")))); }))));
+};
+var StrJobFetcher = function (_a) {
+    var strDeptId = _a.strDeptId;
+    var dispatch = react_redux_1.useDispatch();
+    react_1.useEffect(function () {
+        var jobFilter = new Map();
+        jobFilter.set("department_id", strDeptId);
+        dispatch(jobActions_1.fetchJobIndex(jobFilter));
+    }, [strDeptId, dispatch]);
+    var jobs = react_redux_1.useSelector(function (state) {
+        return jobSelector_1.getAllJobsInDept(state, { departmentId: strDeptId });
+    });
+    return react_1.default.createElement(StrJobListing, { jobs: jobs });
+};
+var container = document.getElementById("str-api-test");
+if (container !== null) {
+    if ("strDeptId" in container.dataset) {
+        var strDeptId = Number(container.dataset.strDeptId);
+        react_dom_1.default.render(react_1.default.createElement(RootContainer_1.RootContainer, null,
+            react_1.default.createElement(StrJobFetcher, { strDeptId: strDeptId })), container);
+    }
+}
+exports.default = JobIndexHrPage_1.default;
+
+
+/***/ }),
+
 /***/ "./resources/assets/js/components/UnclaimedJobCard.tsx":
 /*!*************************************************************!*\
   !*** ./resources/assets/js/components/UnclaimedJobCard.tsx ***!
@@ -54950,14 +55014,14 @@ module.exports = JSON.parse("{\"activity.commentLocation.label\":\"Commentaire t
 
 /***/ }),
 
-/***/ 14:
-/*!**************************************************************************!*\
-  !*** multi ./resources/assets/js/components/HRPortal/JobIndexHrPage.tsx ***!
-  \**************************************************************************/
+/***/ 17:
+/*!*****************************************************************************************!*\
+  !*** multi ./resources/assets/js/components/StrategicTalentResponse/StrApiTestPage.tsx ***!
+  \*****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\dev\TalentCloud\resources\assets\js\components\HRPortal\JobIndexHrPage.tsx */"./resources/assets/js/components/HRPortal/JobIndexHrPage.tsx");
+module.exports = __webpack_require__(/*! C:\dev\TalentCloud\resources\assets\js\components\StrategicTalentResponse\StrApiTestPage.tsx */"./resources/assets/js/components/StrategicTalentResponse/StrApiTestPage.tsx");
 
 
 /***/ })

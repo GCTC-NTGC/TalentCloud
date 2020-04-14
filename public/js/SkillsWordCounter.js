@@ -86,881 +86,6 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/@formatjs/intl-utils/dist/aliases.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/@formatjs/intl-utils/dist/aliases.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-/* @generated */
-// prettier-ignore  
-exports.default = { "aa-SAAHO": "ssy", "aam": "aas", "aar": "aa", "abk": "ab", "adp": "dz", "afr": "af", "aju": "jrb", "aka": "ak", "alb": "sq", "als": "sq", "amh": "am", "ara": "ar", "arb": "ar", "arg": "an", "arm": "hy", "art-lojban": "jbo", "asd": "snz", "asm": "as", "aue": "ktz", "ava": "av", "ave": "ae", "aym": "ay", "ayr": "ay", "ayx": "nun", "az-AZ": "az-Latn-AZ", "aze": "az", "azj": "az", "bak": "ba", "bam": "bm", "baq": "eu", "bcc": "bal", "bcl": "bik", "bel": "be", "ben": "bn", "bgm": "bcg", "bh": "bho", "bih": "bho", "bis": "bi", "bjd": "drl", "bod": "bo", "bos": "bs", "bre": "br", "bs-BA": "bs-Latn-BA", "bul": "bg", "bur": "my", "bxk": "luy", "bxr": "bua", "cat": "ca", "ccq": "rki", "cel-gaulish": "xtg-x-cel-gaulish", "ces": "cs", "cha": "ch", "che": "ce", "chi": "zh", "chu": "cu", "chv": "cv", "cjr": "mom", "cka": "cmr", "cld": "syr", "cmk": "xch", "cmn": "zh", "cnr": "sr-ME", "cor": "kw", "cos": "co", "coy": "pij", "cqu": "quh", "cre": "cr", "cwd": "cr", "cym": "cy", "cze": "cs", "dan": "da", "deu": "de", "dgo": "doi", "dhd": "mwr", "dik": "din", "diq": "zza", "dit": "dif", "div": "dv", "drh": "mn", "drw": "fa-af", "dut": "nl", "dzo": "dz", "ekk": "et", "ell": "el", "emk": "man", "eng": "en", "epo": "eo", "esk": "ik", "est": "et", "eus": "eu", "ewe": "ee", "fao": "fo", "fas": "fa", "fat": "ak", "fij": "fj", "fin": "fi", "fra": "fr", "fre": "fr", "fry": "fy", "fuc": "ff", "ful": "ff", "gav": "dev", "gaz": "om", "gbo": "grb", "geo": "ka", "ger": "de", "gfx": "vaj", "ggn": "gvr", "gla": "gd", "gle": "ga", "glg": "gl", "glv": "gv", "gno": "gon", "gre": "el", "grn": "gn", "gti": "nyc", "gug": "gn", "guj": "gu", "guv": "duz", "gya": "gba", "ha-Latn-GH": "ha-GH", "ha-Latn-NE": "ha-NE", "ha-Latn-NG": "ha-NG", "hat": "ht", "hau": "ha", "hbs": "sr-Latn", "hdn": "hai", "hea": "hmn", "heb": "he", "her": "hz", "him": "srx", "hin": "hi", "hmo": "ho", "hrr": "jal", "hrv": "hr", "hun": "hu", "hye": "hy", "i-ami": "ami", "i-bnn": "bnn", "i-hak": "hak", "i-klingon": "tlh", "i-lux": "lb", "i-navajo": "nv", "i-pwn": "pwn", "i-tao": "tao", "i-tay": "tay", "i-tsu": "tsu", "i-default": "en-x-i-default", "i-enochian": "und-x-i-enochian", "i-mingo": "see-x-i-mingo", "ibi": "opa", "ibo": "ig", "ice": "is", "ido": "io", "iii": "ii", "ike": "iu", "iku": "iu", "ile": "ie", "ilw": "gal", "in": "id", "ina": "ia", "ind": "id", "ipk": "ik", "isl": "is", "ita": "it", "iw": "he", "jav": "jv", "jeg": "oyb", "ji": "yi", "jpn": "ja", "jw": "jv", "kal": "kl", "kan": "kn", "kas": "ks", "kat": "ka", "kau": "kr", "kaz": "kk", "kgc": "tdf", "kgh": "kml", "khk": "mn", "khm": "km", "kik": "ki", "kin": "rw", "kir": "ky", "kk-Cyrl-KZ": "kk-KZ", "kmr": "ku", "knc": "kr", "kng": "kg", "knn": "kok", "koj": "kwv", "kom": "kv", "kon": "kg", "kor": "ko", "kpv": "kv", "krm": "bmf", "ks-Arab-IN": "ks-IN", "ktr": "dtp", "kua": "kj", "kur": "ku", "kvs": "gdj", "kwq": "yam", "kxe": "tvd", "ky-Cyrl-KG": "ky-KG", "kzj": "dtp", "kzt": "dtp", "lao": "lo", "lat": "la", "lav": "lv", "lbk": "bnc", "lii": "raq", "lim": "li", "lin": "ln", "lit": "lt", "llo": "ngt", "lmm": "rmx", "ltz": "lb", "lub": "lu", "lug": "lg", "lvs": "lv", "mac": "mk", "mah": "mh", "mal": "ml", "mao": "mi", "mar": "mr", "may": "ms", "meg": "cir", "mhr": "chm", "mkd": "mk", "mlg": "mg", "mlt": "mt", "mn-Cyrl-MN": "mn-MN", "mnk": "man", "mo": "ro", "mol": "ro", "mon": "mn", "mri": "mi", "ms-Latn-BN": "ms-BN", "ms-Latn-MY": "ms-MY", "ms-Latn-SG": "ms-SG", "msa": "ms", "mst": "mry", "mup": "raj", "mwj": "vaj", "mya": "my", "myd": "aog", "myt": "mry", "nad": "xny", "nau": "na", "nav": "nv", "nbl": "nr", "ncp": "kdz", "nde": "nd", "ndo": "ng", "nep": "ne", "nld": "nl", "nno": "nn", "nns": "nbr", "nnx": "ngv", "no": "nb", "no-bok": "nb", "no-BOKMAL": "nb", "no-nyn": "nn", "no-NYNORSK": "nn", "nob": "nb", "nor": "nb", "npi": "ne", "nts": "pij", "nya": "ny", "oci": "oc", "ojg": "oj", "oji": "oj", "ori": "or", "orm": "om", "ory": "or", "oss": "os", "oun": "vaj", "pa-IN": "pa-Guru-IN", "pa-PK": "pa-Arab-PK", "pan": "pa", "pbu": "ps", "pcr": "adx", "per": "fa", "pes": "fa", "pli": "pi", "plt": "mg", "pmc": "huw", "pmu": "phr", "pnb": "lah", "pol": "pl", "por": "pt", "ppa": "bfy", "ppr": "lcq", "prs": "fa-AF", "pry": "prt", "pus": "ps", "puz": "pub", "que": "qu", "quz": "qu", "rmy": "rom", "roh": "rm", "ron": "ro", "rum": "ro", "run": "rn", "rus": "ru", "sag": "sg", "san": "sa", "sca": "hle", "scc": "sr", "scr": "hr", "sgn-BE-FR": "sfb", "sgn-BE-NL": "vgt", "sgn-CH-DE": "sgg", "sh": "sr-Latn", "shi-MA": "shi-Tfng-MA", "sin": "si", "skk": "oyb", "slk": "sk", "slo": "sk", "slv": "sl", "sme": "se", "smo": "sm", "sna": "sn", "snd": "sd", "som": "so", "sot": "st", "spa": "es", "spy": "kln", "sqi": "sq", "sr-BA": "sr-Cyrl-BA", "sr-ME": "sr-Latn-ME", "sr-RS": "sr-Cyrl-RS", "sr-XK": "sr-Cyrl-XK", "src": "sc", "srd": "sc", "srp": "sr", "ssw": "ss", "sun": "su", "swa": "sw", "swc": "sw-CD", "swe": "sv", "swh": "sw", "tah": "ty", "tam": "ta", "tat": "tt", "tdu": "dtp", "tel": "te", "tgk": "tg", "tgl": "fil", "tha": "th", "thc": "tpo", "thx": "oyb", "tib": "bo", "tie": "ras", "tir": "ti", "tkk": "twm", "tl": "fil", "tlw": "weo", "tmp": "tyj", "tne": "kak", "tnf": "fa-af", "ton": "to", "tsf": "taj", "tsn": "tn", "tso": "ts", "ttq": "tmh", "tuk": "tk", "tur": "tr", "tw": "ak", "twi": "ak", "tzm-Latn-MA": "tzm-MA", "ug-Arab-CN": "ug-CN", "uig": "ug", "ukr": "uk", "umu": "del", "uok": "ema", "urd": "ur", "uz-AF": "uz-Arab-AF", "uz-UZ": "uz-Latn-UZ", "uzb": "uz", "uzn": "uz", "vai-LR": "vai-Vaii-LR", "ven": "ve", "vie": "vi", "vol": "vo", "wel": "cy", "wln": "wa", "wol": "wo", "xba": "cax", "xho": "xh", "xia": "acn", "xkh": "waw", "xpe": "kpe", "xsj": "suj", "xsl": "den", "ybd": "rki", "ydd": "yi", "yid": "yi", "yma": "lrr", "ymt": "mtm", "yor": "yo", "yos": "zom", "yue-CN": "yue-Hans-CN", "yue-HK": "yue-Hant-HK", "yuu": "yug", "zai": "zap", "zh-CN": "zh-Hans-CN", "zh-guoyu": "zh", "zh-hakka": "hak", "zh-HK": "zh-Hant-HK", "zh-min-nan": "nan", "zh-MO": "zh-Hant-MO", "zh-SG": "zh-Hans-SG", "zh-TW": "zh-Hant-TW", "zh-xiang": "hsn", "zh-min": "nan-x-zh-min", "zha": "za", "zho": "zh", "zsm": "ms", "zul": "zu", "zyb": "za" };
-
-
-/***/ }),
-
-/***/ "./node_modules/@formatjs/intl-utils/dist/diff.js":
-/*!********************************************************!*\
-  !*** ./node_modules/@formatjs/intl-utils/dist/diff.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var MS_PER_SECOND = 1e3;
-var SECS_PER_MIN = 60;
-var SECS_PER_HOUR = SECS_PER_MIN * 60;
-var SECS_PER_DAY = SECS_PER_HOUR * 24;
-var SECS_PER_WEEK = SECS_PER_DAY * 7;
-function selectUnit(from, to, thresholds) {
-    if (to === void 0) { to = Date.now(); }
-    if (thresholds === void 0) { thresholds = {}; }
-    var resolvedThresholds = __assign(__assign({}, exports.DEFAULT_THRESHOLDS), (thresholds || {}));
-    var secs = (+from - +to) / MS_PER_SECOND;
-    if (Math.abs(secs) < resolvedThresholds.second) {
-        return {
-            value: Math.round(secs),
-            unit: 'second',
-        };
-    }
-    var mins = secs / SECS_PER_MIN;
-    if (Math.abs(mins) < resolvedThresholds.minute) {
-        return {
-            value: Math.round(mins),
-            unit: 'minute',
-        };
-    }
-    var hours = secs / SECS_PER_HOUR;
-    if (Math.abs(hours) < resolvedThresholds.hour) {
-        return {
-            value: Math.round(hours),
-            unit: 'hour',
-        };
-    }
-    var days = secs / SECS_PER_DAY;
-    if (Math.abs(days) < resolvedThresholds.day) {
-        return {
-            value: Math.round(days),
-            unit: 'day',
-        };
-    }
-    var fromDate = new Date(from);
-    var toDate = new Date(to);
-    var years = fromDate.getFullYear() - toDate.getFullYear();
-    if (Math.round(Math.abs(years)) > 0) {
-        return {
-            value: Math.round(years),
-            unit: 'year',
-        };
-    }
-    var months = years * 12 + fromDate.getMonth() - toDate.getMonth();
-    if (Math.round(Math.abs(months)) > 0) {
-        return {
-            value: Math.round(months),
-            unit: 'month',
-        };
-    }
-    var weeks = secs / SECS_PER_WEEK;
-    return {
-        value: Math.round(weeks),
-        unit: 'week',
-    };
-}
-exports.selectUnit = selectUnit;
-exports.DEFAULT_THRESHOLDS = {
-    second: 45,
-    minute: 45,
-    hour: 22,
-    day: 5,
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/@formatjs/intl-utils/dist/get-canonical-locales.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-utils/dist/get-canonical-locales.js ***!
-  \*************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * IE11-safe version of getCanonicalLocales since it's ES2016
- * @param locales locales
- */
-function getCanonicalLocales(locales) {
-    // IE11
-    var getCanonicalLocales = Intl.getCanonicalLocales;
-    if (typeof getCanonicalLocales === 'function') {
-        return getCanonicalLocales(locales);
-    }
-    return Intl.NumberFormat.supportedLocalesOf(locales || '');
-}
-exports.getCanonicalLocales = getCanonicalLocales;
-
-
-/***/ }),
-
-/***/ "./node_modules/@formatjs/intl-utils/dist/index.js":
-/*!*********************************************************!*\
-  !*** ./node_modules/@formatjs/intl-utils/dist/index.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
-Object.defineProperty(exports, "__esModule", { value: true });
-var diff_1 = __webpack_require__(/*! ./diff */ "./node_modules/@formatjs/intl-utils/dist/diff.js");
-exports.selectUnit = diff_1.selectUnit;
-var polyfill_utils_1 = __webpack_require__(/*! ./polyfill-utils */ "./node_modules/@formatjs/intl-utils/dist/polyfill-utils.js");
-exports.defaultNumberOption = polyfill_utils_1.defaultNumberOption;
-exports.getAliasesByLang = polyfill_utils_1.getAliasesByLang;
-exports.getInternalSlot = polyfill_utils_1.getInternalSlot;
-exports.getMultiInternalSlots = polyfill_utils_1.getMultiInternalSlots;
-exports.getNumberOption = polyfill_utils_1.getNumberOption;
-exports.getOption = polyfill_utils_1.getOption;
-exports.getParentLocalesByLang = polyfill_utils_1.getParentLocalesByLang;
-exports.isLiteralPart = polyfill_utils_1.isLiteralPart;
-exports.partitionPattern = polyfill_utils_1.partitionPattern;
-exports.setInternalSlot = polyfill_utils_1.setInternalSlot;
-exports.setMultiInternalSlots = polyfill_utils_1.setMultiInternalSlots;
-exports.setNumberFormatDigitOptions = polyfill_utils_1.setNumberFormatDigitOptions;
-exports.toObject = polyfill_utils_1.toObject;
-exports.objectIs = polyfill_utils_1.objectIs;
-exports.isWellFormedCurrencyCode = polyfill_utils_1.isWellFormedCurrencyCode;
-exports.toString = polyfill_utils_1.toString;
-var resolve_locale_1 = __webpack_require__(/*! ./resolve-locale */ "./node_modules/@formatjs/intl-utils/dist/resolve-locale.js");
-exports.createResolveLocale = resolve_locale_1.createResolveLocale;
-exports.getLocaleHierarchy = resolve_locale_1.getLocaleHierarchy;
-exports.supportedLocales = resolve_locale_1.supportedLocales;
-exports.unpackData = resolve_locale_1.unpackData;
-exports.isMissingLocaleDataError = resolve_locale_1.isMissingLocaleDataError;
-__export(__webpack_require__(/*! ./units */ "./node_modules/@formatjs/intl-utils/dist/units.js"));
-__export(__webpack_require__(/*! ./number-types */ "./node_modules/@formatjs/intl-utils/dist/number-types.js"));
-var get_canonical_locales_1 = __webpack_require__(/*! ./get-canonical-locales */ "./node_modules/@formatjs/intl-utils/dist/get-canonical-locales.js");
-exports.getCanonicalLocales = get_canonical_locales_1.getCanonicalLocales;
-var invariant_1 = __webpack_require__(/*! ./invariant */ "./node_modules/@formatjs/intl-utils/dist/invariant.js");
-exports.invariant = invariant_1.invariant;
-
-
-/***/ }),
-
-/***/ "./node_modules/@formatjs/intl-utils/dist/invariant.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-utils/dist/invariant.js ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-function invariant(condition, message, Err) {
-    if (Err === void 0) { Err = Error; }
-    if (!condition) {
-        throw new Err(message);
-    }
-}
-exports.invariant = invariant;
-
-
-/***/ }),
-
-/***/ "./node_modules/@formatjs/intl-utils/dist/number-types.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-utils/dist/number-types.js ***!
-  \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var InternalSlotToken;
-(function (InternalSlotToken) {
-    // To prevent collision with {0} in CLDR
-    InternalSlotToken["compactName"] = "compactName";
-    InternalSlotToken["compactSymbol"] = "compactSymbol";
-    InternalSlotToken["currencyCode"] = "currencyCode";
-    InternalSlotToken["currencyName"] = "currencyName";
-    InternalSlotToken["currencyNarrowSymbol"] = "currencyNarrowSymbol";
-    InternalSlotToken["currencySymbol"] = "currencySymbol";
-    InternalSlotToken["minusSign"] = "minusSign";
-    InternalSlotToken["number"] = "number";
-    InternalSlotToken["percentSign"] = "percentSign";
-    InternalSlotToken["plusSign"] = "plusSign";
-    InternalSlotToken["scientificExponent"] = "scientificExponent";
-    InternalSlotToken["scientificSeparator"] = "scientificSeparator";
-    InternalSlotToken["unitName"] = "unitName";
-    InternalSlotToken["unitNarrowSymbol"] = "unitNarrowSymbol";
-    InternalSlotToken["unitSymbol"] = "unitSymbol";
-})(InternalSlotToken = exports.InternalSlotToken || (exports.InternalSlotToken = {}));
-
-
-/***/ }),
-
-/***/ "./node_modules/@formatjs/intl-utils/dist/parentLocales.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-utils/dist/parentLocales.js ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-/* @generated */
-// prettier-ignore  
-exports.default = { "en-150": "en-001", "en-AG": "en-001", "en-AI": "en-001", "en-AU": "en-001", "en-BB": "en-001", "en-BM": "en-001", "en-BS": "en-001", "en-BW": "en-001", "en-BZ": "en-001", "en-CA": "en-001", "en-CC": "en-001", "en-CK": "en-001", "en-CM": "en-001", "en-CX": "en-001", "en-CY": "en-001", "en-DG": "en-001", "en-DM": "en-001", "en-ER": "en-001", "en-FJ": "en-001", "en-FK": "en-001", "en-FM": "en-001", "en-GB": "en-001", "en-GD": "en-001", "en-GG": "en-001", "en-GH": "en-001", "en-GI": "en-001", "en-GM": "en-001", "en-GY": "en-001", "en-HK": "en-001", "en-IE": "en-001", "en-IL": "en-001", "en-IM": "en-001", "en-IN": "en-001", "en-IO": "en-001", "en-JE": "en-001", "en-JM": "en-001", "en-KE": "en-001", "en-KI": "en-001", "en-KN": "en-001", "en-KY": "en-001", "en-LC": "en-001", "en-LR": "en-001", "en-LS": "en-001", "en-MG": "en-001", "en-MO": "en-001", "en-MS": "en-001", "en-MT": "en-001", "en-MU": "en-001", "en-MW": "en-001", "en-MY": "en-001", "en-NA": "en-001", "en-NF": "en-001", "en-NG": "en-001", "en-NR": "en-001", "en-NU": "en-001", "en-NZ": "en-001", "en-PG": "en-001", "en-PH": "en-001", "en-PK": "en-001", "en-PN": "en-001", "en-PW": "en-001", "en-RW": "en-001", "en-SB": "en-001", "en-SC": "en-001", "en-SD": "en-001", "en-SG": "en-001", "en-SH": "en-001", "en-SL": "en-001", "en-SS": "en-001", "en-SX": "en-001", "en-SZ": "en-001", "en-TC": "en-001", "en-TK": "en-001", "en-TO": "en-001", "en-TT": "en-001", "en-TV": "en-001", "en-TZ": "en-001", "en-UG": "en-001", "en-VC": "en-001", "en-VG": "en-001", "en-VU": "en-001", "en-WS": "en-001", "en-ZA": "en-001", "en-ZM": "en-001", "en-ZW": "en-001", "en-AT": "en-150", "en-BE": "en-150", "en-CH": "en-150", "en-DE": "en-150", "en-DK": "en-150", "en-FI": "en-150", "en-NL": "en-150", "en-SE": "en-150", "en-SI": "en-150", "es-AR": "es-419", "es-BO": "es-419", "es-BR": "es-419", "es-BZ": "es-419", "es-CL": "es-419", "es-CO": "es-419", "es-CR": "es-419", "es-CU": "es-419", "es-DO": "es-419", "es-EC": "es-419", "es-GT": "es-419", "es-HN": "es-419", "es-MX": "es-419", "es-NI": "es-419", "es-PA": "es-419", "es-PE": "es-419", "es-PR": "es-419", "es-PY": "es-419", "es-SV": "es-419", "es-US": "es-419", "es-UY": "es-419", "es-VE": "es-419", "pt-AO": "pt-PT", "pt-CH": "pt-PT", "pt-CV": "pt-PT", "pt-FR": "pt-PT", "pt-GQ": "pt-PT", "pt-GW": "pt-PT", "pt-LU": "pt-PT", "pt-MO": "pt-PT", "pt-MZ": "pt-PT", "pt-ST": "pt-PT", "pt-TL": "pt-PT", "zh-Hant-MO": "zh-Hant-HK" };
-
-
-/***/ }),
-
-/***/ "./node_modules/@formatjs/intl-utils/dist/polyfill-utils.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-utils/dist/polyfill-utils.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var aliases_1 = __webpack_require__(/*! ./aliases */ "./node_modules/@formatjs/intl-utils/dist/aliases.js");
-var parentLocales_1 = __webpack_require__(/*! ./parentLocales */ "./node_modules/@formatjs/intl-utils/dist/parentLocales.js");
-var invariant_1 = __webpack_require__(/*! ./invariant */ "./node_modules/@formatjs/intl-utils/dist/invariant.js");
-/**
- * https://tc39.es/ecma262/#sec-toobject
- * @param arg
- */
-function toObject(arg) {
-    if (arg == null) {
-        throw new TypeError('undefined/null cannot be converted to object');
-    }
-    return Object(arg);
-}
-exports.toObject = toObject;
-/**
- * https://tc39.es/ecma262/#sec-tostring
- */
-function toString(o) {
-    // Only symbol is irregular...
-    if (typeof o === 'symbol') {
-        throw TypeError('Cannot convert a Symbol value to a string');
-    }
-    return String(o);
-}
-exports.toString = toString;
-/**
- * https://tc39.es/ecma402/#sec-getoption
- * @param opts
- * @param prop
- * @param type
- * @param values
- * @param fallback
- */
-function getOption(opts, prop, type, values, fallback) {
-    // const descriptor = Object.getOwnPropertyDescriptor(opts, prop);
-    var value = opts[prop];
-    if (value !== undefined) {
-        if (type !== 'boolean' && type !== 'string') {
-            throw new TypeError('invalid type');
-        }
-        if (type === 'boolean') {
-            value = Boolean(value);
-        }
-        if (type === 'string') {
-            value = toString(value);
-        }
-        if (values !== undefined && !values.filter(function (val) { return val == value; }).length) {
-            throw new RangeError(value + " is not within " + values.join(', '));
-        }
-        return value;
-    }
-    return fallback;
-}
-exports.getOption = getOption;
-/**
- * https://tc39.es/ecma402/#sec-defaultnumberoption
- * @param val
- * @param min
- * @param max
- * @param fallback
- */
-function defaultNumberOption(val, min, max, fallback) {
-    if (val !== undefined) {
-        val = Number(val);
-        if (isNaN(val) || val < min || val > max) {
-            throw new RangeError(val + " is outside of range [" + min + ", " + max + "]");
-        }
-        return Math.floor(val);
-    }
-    return fallback;
-}
-exports.defaultNumberOption = defaultNumberOption;
-/**
- * https://tc39.es/ecma402/#sec-getnumberoption
- * @param options
- * @param property
- * @param min
- * @param max
- * @param fallback
- */
-function getNumberOption(options, property, minimum, maximum, fallback) {
-    var val = options[property];
-    return defaultNumberOption(val, minimum, maximum, fallback);
-}
-exports.getNumberOption = getNumberOption;
-function getAliasesByLang(lang) {
-    return Object.keys(aliases_1.default).reduce(function (all, locale) {
-        if (locale.split('-')[0] === lang) {
-            all[locale] = aliases_1.default[locale];
-        }
-        return all;
-    }, {});
-}
-exports.getAliasesByLang = getAliasesByLang;
-function getParentLocalesByLang(lang) {
-    return Object.keys(parentLocales_1.default).reduce(function (all, locale) {
-        if (locale.split('-')[0] === lang) {
-            all[locale] = parentLocales_1.default[locale];
-        }
-        return all;
-    }, {});
-}
-exports.getParentLocalesByLang = getParentLocalesByLang;
-function setInternalSlot(map, pl, field, value) {
-    if (!map.get(pl)) {
-        map.set(pl, Object.create(null));
-    }
-    var slots = map.get(pl);
-    slots[field] = value;
-}
-exports.setInternalSlot = setInternalSlot;
-function setMultiInternalSlots(map, pl, props) {
-    for (var _i = 0, _a = Object.keys(props); _i < _a.length; _i++) {
-        var k = _a[_i];
-        setInternalSlot(map, pl, k, props[k]);
-    }
-}
-exports.setMultiInternalSlots = setMultiInternalSlots;
-function getInternalSlot(map, pl, field) {
-    return getMultiInternalSlots(map, pl, field)[field];
-}
-exports.getInternalSlot = getInternalSlot;
-function getMultiInternalSlots(map, pl) {
-    var fields = [];
-    for (var _i = 2; _i < arguments.length; _i++) {
-        fields[_i - 2] = arguments[_i];
-    }
-    var slots = map.get(pl);
-    if (!slots) {
-        throw new TypeError(pl + " InternalSlot has not been initialized");
-    }
-    return fields.reduce(function (all, f) {
-        all[f] = slots[f];
-        return all;
-    }, Object.create(null));
-}
-exports.getMultiInternalSlots = getMultiInternalSlots;
-function isLiteralPart(patternPart) {
-    return patternPart.type === 'literal';
-}
-exports.isLiteralPart = isLiteralPart;
-function partitionPattern(pattern) {
-    var result = [];
-    var beginIndex = pattern.indexOf('{');
-    var endIndex = 0;
-    var nextIndex = 0;
-    var length = pattern.length;
-    while (beginIndex < pattern.length && beginIndex > -1) {
-        endIndex = pattern.indexOf('}', beginIndex);
-        invariant_1.invariant(endIndex > beginIndex, "Invalid pattern " + pattern);
-        if (beginIndex > nextIndex) {
-            result.push({
-                type: 'literal',
-                value: pattern.substring(nextIndex, beginIndex),
-            });
-        }
-        result.push({
-            type: pattern.substring(beginIndex + 1, endIndex),
-            value: undefined,
-        });
-        nextIndex = endIndex + 1;
-        beginIndex = pattern.indexOf('{', nextIndex);
-    }
-    if (nextIndex < length) {
-        result.push({
-            type: 'literal',
-            value: pattern.substring(nextIndex, length),
-        });
-    }
-    return result;
-}
-exports.partitionPattern = partitionPattern;
-/**
- * https://tc39.es/ecma402/#sec-setnfdigitoptions
- * https://tc39.es/proposal-unified-intl-numberformat/section11/numberformat_diff_out.html#sec-setnfdigitoptions
- * @param intlObj
- * @param opts
- * @param mnfdDefault
- * @param mxfdDefault
- */
-function setNumberFormatDigitOptions(internalSlotMap, intlObj, opts, mnfdDefault, mxfdDefault) {
-    var mnid = getNumberOption(opts, 'minimumIntegerDigits', 1, 21, 1);
-    var mnfd = opts.minimumFractionDigits;
-    var mxfd = opts.maximumFractionDigits;
-    var mnsd = opts.minimumSignificantDigits;
-    var mxsd = opts.maximumSignificantDigits;
-    setInternalSlot(internalSlotMap, intlObj, 'minimumIntegerDigits', mnid);
-    if (mnsd !== undefined || mxsd !== undefined) {
-        setInternalSlot(internalSlotMap, intlObj, 'roundingType', 'significantDigits');
-        mnsd = defaultNumberOption(mnsd, 1, 21, 1);
-        mxsd = defaultNumberOption(mxsd, mnsd, 21, 21);
-        setInternalSlot(internalSlotMap, intlObj, 'minimumSignificantDigits', mnsd);
-        setInternalSlot(internalSlotMap, intlObj, 'maximumSignificantDigits', mxsd);
-    }
-    else if (mnfd !== undefined || mxfd !== undefined) {
-        setInternalSlot(internalSlotMap, intlObj, 'roundingType', 'fractionDigits');
-        mnfd = defaultNumberOption(mnfd, 0, 20, mnfdDefault);
-        var mxfdActualDefault = Math.max(mnfd, mxfdDefault);
-        mxfd = defaultNumberOption(mxfd, mnfd, 20, mxfdActualDefault);
-        setInternalSlot(internalSlotMap, intlObj, 'minimumFractionDigits', mnfd);
-        setInternalSlot(internalSlotMap, intlObj, 'maximumFractionDigits', mxfd);
-    }
-    else if (getInternalSlot(internalSlotMap, intlObj, 'notation') === 'compact') {
-        setInternalSlot(internalSlotMap, intlObj, 'roundingType', 'compactRounding');
-    }
-    else {
-        setInternalSlot(internalSlotMap, intlObj, 'roundingType', 'fractionDigits');
-        setInternalSlot(internalSlotMap, intlObj, 'minimumFractionDigits', mnfdDefault);
-        setInternalSlot(internalSlotMap, intlObj, 'maximumFractionDigits', mxfdDefault);
-    }
-}
-exports.setNumberFormatDigitOptions = setNumberFormatDigitOptions;
-function objectIs(x, y) {
-    if (Object.is) {
-        return Object.is(x, y);
-    }
-    // SameValue algorithm
-    if (x === y) {
-        // Steps 1-5, 7-10
-        // Steps 6.b-6.e: +0 != -0
-        return x !== 0 || 1 / x === 1 / y;
-    }
-    // Step 6.a: NaN == NaN
-    return x !== x && y !== y;
-}
-exports.objectIs = objectIs;
-var NOT_A_Z_REGEX = /[^A-Z]/;
-/**
- * This follows https://tc39.es/ecma402/#sec-case-sensitivity-and-case-mapping
- * @param str string to convert
- */
-function toUpperCase(str) {
-    return str.replace(/([a-z])/g, function (_, c) { return c.toUpperCase(); });
-}
-/**
- * https://tc39.es/proposal-unified-intl-numberformat/section6/locales-currencies-tz_proposed_out.html#sec-iswellformedcurrencycode
- * @param currency
- */
-function isWellFormedCurrencyCode(currency) {
-    currency = toUpperCase(currency);
-    if (currency.length !== 3) {
-        return false;
-    }
-    if (NOT_A_Z_REGEX.test(currency)) {
-        return false;
-    }
-    return true;
-}
-exports.isWellFormedCurrencyCode = isWellFormedCurrencyCode;
-
-
-/***/ }),
-
-/***/ "./node_modules/@formatjs/intl-utils/dist/resolve-locale.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-utils/dist/resolve-locale.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var get_canonical_locales_1 = __webpack_require__(/*! ./get-canonical-locales */ "./node_modules/@formatjs/intl-utils/dist/get-canonical-locales.js");
-var invariant_1 = __webpack_require__(/*! ./invariant */ "./node_modules/@formatjs/intl-utils/dist/invariant.js");
-var polyfill_utils_1 = __webpack_require__(/*! ./polyfill-utils */ "./node_modules/@formatjs/intl-utils/dist/polyfill-utils.js");
-function createResolveLocale(getDefaultLocale) {
-    var lookupMatcher = createLookupMatcher(getDefaultLocale);
-    var bestFitMatcher = createBestFitMatcher(getDefaultLocale);
-    /**
-     * https://tc39.es/ecma402/#sec-resolvelocale
-     */
-    return function resolveLocale(availableLocales, requestedLocales, options, relevantExtensionKeys, localeData) {
-        var matcher = options.localeMatcher;
-        var r;
-        if (matcher === 'lookup') {
-            r = lookupMatcher(availableLocales, requestedLocales);
-        }
-        else {
-            r = bestFitMatcher(availableLocales, requestedLocales);
-        }
-        var foundLocale = r.locale;
-        var result = { locale: '', dataLocale: foundLocale };
-        var supportedExtension = '-u';
-        for (var _i = 0, relevantExtensionKeys_1 = relevantExtensionKeys; _i < relevantExtensionKeys_1.length; _i++) {
-            var key = relevantExtensionKeys_1[_i];
-            var foundLocaleData = localeData[foundLocale];
-            invariant_1.invariant(typeof foundLocaleData === 'object' && foundLocaleData !== null, "locale data " + key + " must be an object");
-            var keyLocaleData = foundLocaleData[key];
-            invariant_1.invariant(Array.isArray(keyLocaleData), "keyLocaleData for " + key + " must be an array");
-            var value = keyLocaleData[0];
-            invariant_1.invariant(typeof value === 'string' || value === null, 'value must be string or null');
-            var supportedExtensionAddition = '';
-            if (r.extension) {
-                var requestedValue = unicodeExtensionValue(r.extension, key);
-                if (requestedValue !== undefined) {
-                    if (requestedValue !== '') {
-                        if (~keyLocaleData.indexOf(requestedValue)) {
-                            value = requestedValue;
-                            supportedExtensionAddition = "-" + key + "-" + value;
-                        }
-                    }
-                    else if (~requestedValue.indexOf('true')) {
-                        value = 'true';
-                        supportedExtensionAddition = "-" + key;
-                    }
-                }
-            }
-            if (key in options) {
-                var optionsValue = options[key];
-                invariant_1.invariant(typeof optionsValue === 'string' ||
-                    typeof optionsValue === 'undefined' ||
-                    optionsValue === null, 'optionsValue must be String, Undefined or Null');
-                if (~keyLocaleData.indexOf(optionsValue)) {
-                    if (optionsValue !== value) {
-                        value = optionsValue;
-                        supportedExtensionAddition = '';
-                    }
-                }
-            }
-            result[key] = value;
-            supportedExtension += supportedExtensionAddition;
-        }
-        if (supportedExtension.length > 2) {
-            var privateIndex = foundLocale.indexOf('-x-');
-            if (privateIndex === -1) {
-                foundLocale = foundLocale + supportedExtension;
-            }
-            else {
-                var preExtension = foundLocale.slice(0, privateIndex);
-                var postExtension = foundLocale.slice(privateIndex, foundLocale.length);
-                foundLocale = preExtension + supportedExtension + postExtension;
-            }
-            foundLocale = get_canonical_locales_1.getCanonicalLocales(foundLocale)[0];
-        }
-        result.locale = foundLocale;
-        return result;
-    };
-}
-exports.createResolveLocale = createResolveLocale;
-/**
- * https://tc39.es/ecma402/#sec-unicodeextensionvalue
- * @param extension
- * @param key
- */
-function unicodeExtensionValue(extension, key) {
-    invariant_1.invariant(key.length === 2, 'key must have 2 elements');
-    var size = extension.length;
-    var searchValue = "-" + key + "-";
-    var pos = extension.indexOf(searchValue);
-    if (pos !== -1) {
-        var start = pos + 4;
-        var end = start;
-        var k = start;
-        var done = false;
-        while (!done) {
-            var e = extension.indexOf('-', k);
-            var len = void 0;
-            if (e === -1) {
-                len = size - k;
-            }
-            else {
-                len = e - k;
-            }
-            if (len === 2) {
-                done = true;
-            }
-            else if (e === -1) {
-                end = size;
-                done = true;
-            }
-            else {
-                end = e;
-                k = e + 1;
-            }
-        }
-        return extension.slice(start, end);
-    }
-    searchValue = "-" + key;
-    pos = extension.indexOf(searchValue);
-    if (pos !== -1 && pos + 3 === size) {
-        return '';
-    }
-    return undefined;
-}
-var UNICODE_EXTENSION_SEQUENCE_REGEX = /-u(?:-[0-9a-z]{2,8})+/gi;
-/**
- * https://tc39.es/ecma402/#sec-bestavailablelocale
- * @param availableLocales
- * @param locale
- */
-function bestAvailableLocale(availableLocales, locale) {
-    var candidate = locale;
-    while (true) {
-        if (~availableLocales.indexOf(candidate)) {
-            return candidate;
-        }
-        var pos = candidate.lastIndexOf('-');
-        if (!~pos) {
-            return undefined;
-        }
-        if (pos >= 2 && candidate[pos - 2] === '-') {
-            pos -= 2;
-        }
-        candidate = candidate.slice(0, pos);
-    }
-}
-function createLookupMatcher(getDefaultLocale) {
-    /**
-     * https://tc39.es/ecma402/#sec-lookupmatcher
-     */
-    return function lookupMatcher(availableLocales, requestedLocales) {
-        var result = { locale: '' };
-        for (var _i = 0, requestedLocales_1 = requestedLocales; _i < requestedLocales_1.length; _i++) {
-            var locale = requestedLocales_1[_i];
-            var noExtensionLocale = locale.replace(UNICODE_EXTENSION_SEQUENCE_REGEX, '');
-            var availableLocale = bestAvailableLocale(availableLocales, noExtensionLocale);
-            if (availableLocale) {
-                result.locale = availableLocale;
-                if (locale !== noExtensionLocale) {
-                    result.extension = locale.slice(noExtensionLocale.length + 1, locale.length);
-                }
-                return result;
-            }
-        }
-        result.locale = getDefaultLocale();
-        return result;
-    };
-}
-function createBestFitMatcher(getDefaultLocale) {
-    return function bestFitMatcher(availableLocales, requestedLocales) {
-        var result = { locale: '' };
-        for (var _i = 0, requestedLocales_2 = requestedLocales; _i < requestedLocales_2.length; _i++) {
-            var locale = requestedLocales_2[_i];
-            var noExtensionLocale = locale.replace(UNICODE_EXTENSION_SEQUENCE_REGEX, '');
-            var availableLocale = bestAvailableLocale(availableLocales, noExtensionLocale);
-            if (availableLocale) {
-                result.locale = availableLocale;
-                if (locale !== noExtensionLocale) {
-                    result.extension = locale.slice(noExtensionLocale.length + 1, locale.length);
-                }
-                return result;
-            }
-        }
-        result.locale = getDefaultLocale();
-        return result;
-    };
-}
-function getLocaleHierarchy(locale, aliases, parentLocales) {
-    var results = [locale];
-    if (aliases[locale]) {
-        locale = aliases[locale];
-        results.push(locale);
-    }
-    var parentLocale = parentLocales[locale];
-    if (parentLocale) {
-        results.push(parentLocale);
-    }
-    var localeParts = locale.split('-');
-    for (var i = localeParts.length; i > 1; i--) {
-        results.push(localeParts.slice(0, i - 1).join('-'));
-    }
-    return results;
-}
-exports.getLocaleHierarchy = getLocaleHierarchy;
-function lookupSupportedLocales(availableLocales, requestedLocales) {
-    var subset = [];
-    for (var _i = 0, requestedLocales_3 = requestedLocales; _i < requestedLocales_3.length; _i++) {
-        var locale = requestedLocales_3[_i];
-        var noExtensionLocale = locale.replace(UNICODE_EXTENSION_SEQUENCE_REGEX, '');
-        var availableLocale = bestAvailableLocale(availableLocales, noExtensionLocale);
-        if (availableLocale) {
-            subset.push(availableLocale);
-        }
-    }
-    return subset;
-}
-function supportedLocales(availableLocales, requestedLocales, options) {
-    var matcher = 'best fit';
-    if (options !== undefined) {
-        options = polyfill_utils_1.toObject(options);
-        matcher = polyfill_utils_1.getOption(options, 'localeMatcher', 'string', ['lookup', 'best fit'], 'best fit');
-    }
-    if (matcher === 'best fit') {
-        return lookupSupportedLocales(availableLocales, requestedLocales);
-    }
-    return lookupSupportedLocales(availableLocales, requestedLocales);
-}
-exports.supportedLocales = supportedLocales;
-var MissingLocaleDataError = /** @class */ (function (_super) {
-    __extends(MissingLocaleDataError, _super);
-    function MissingLocaleDataError() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.type = 'MISSING_LOCALE_DATA';
-        return _this;
-    }
-    return MissingLocaleDataError;
-}(Error));
-function isMissingLocaleDataError(e) {
-    return e.type === 'MISSING_LOCALE_DATA';
-}
-exports.isMissingLocaleDataError = isMissingLocaleDataError;
-function unpackData(locale, localeData, 
-/** By default shallow merge the dictionaries. */
-reducer) {
-    if (reducer === void 0) { reducer = function (all, d) { return (__assign(__assign({}, all), d)); }; }
-    var localeHierarchy = getLocaleHierarchy(locale, localeData.aliases, localeData.parentLocales);
-    var dataToMerge = localeHierarchy
-        .map(function (l) { return localeData.data[l]; })
-        .filter(Boolean);
-    if (!dataToMerge.length) {
-        throw new MissingLocaleDataError("Missing locale data for \"" + locale + "\", lookup hierarchy: " + localeHierarchy.join(', '));
-    }
-    dataToMerge.reverse();
-    return dataToMerge.reduce(reducer, {});
-}
-exports.unpackData = unpackData;
-
-
-/***/ }),
-
-/***/ "./node_modules/@formatjs/intl-utils/dist/units.js":
-/*!*********************************************************!*\
-  !*** ./node_modules/@formatjs/intl-utils/dist/units.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-// https://tc39.es/proposal-unified-intl-numberformat/section6/locales-currencies-tz_diff_out.html#sec-issanctionedsimpleunitidentifier
-exports.SANCTIONED_UNITS = [
-    'angle-degree',
-    'area-acre',
-    'area-hectare',
-    'concentr-percent',
-    'digital-bit',
-    'digital-byte',
-    'digital-gigabit',
-    'digital-gigabyte',
-    'digital-kilobit',
-    'digital-kilobyte',
-    'digital-megabit',
-    'digital-megabyte',
-    'digital-petabyte',
-    'digital-terabit',
-    'digital-terabyte',
-    'duration-day',
-    'duration-hour',
-    'duration-millisecond',
-    'duration-minute',
-    'duration-month',
-    'duration-second',
-    'duration-week',
-    'duration-year',
-    'length-centimeter',
-    'length-foot',
-    'length-inch',
-    'length-kilometer',
-    'length-meter',
-    'length-mile-scandinavian',
-    'length-mile',
-    'length-millimeter',
-    'length-yard',
-    'mass-gram',
-    'mass-kilogram',
-    'mass-ounce',
-    'mass-pound',
-    'mass-stone',
-    'temperature-celsius',
-    'temperature-fahrenheit',
-    'volume-fluid-ounce',
-    'volume-gallon',
-    'volume-liter',
-    'volume-milliliter',
-];
-// In CLDR, the unit name always follows the form `namespace-unit` pattern.
-// For example: `digital-bit` instead of `bit`. This function removes the namespace prefix.
-function removeUnitNamespace(unit) {
-    return unit.replace(/^(.*?)-/, '');
-}
-exports.removeUnitNamespace = removeUnitNamespace;
-
-
-/***/ }),
-
 /***/ "./node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js":
 /*!**********************************************************************************!*\
   !*** ./node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js ***!
@@ -1132,14 +257,490 @@ var memoizeFormatConstructor = function (FormatConstructor, cache) {
     };
 };
 exports.default = memoizeFormatConstructor;
-
+//# sourceMappingURL=index.js.map
 
 /***/ }),
 
-/***/ "./node_modules/intl-messageformat-parser/dist/index.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/intl-messageformat-parser/dist/index.js ***!
-  \**************************************************************/
+/***/ "./node_modules/intl-messageformat/dist/core.js":
+/*!******************************************************!*\
+  !*** ./node_modules/intl-messageformat/dist/core.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/*
+Copyright (c) 2014, Yahoo! Inc. All rights reserved.
+Copyrights licensed under the New BSD License.
+See the accompanying LICENSE file for terms.
+*/
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var intl_messageformat_parser_1 = __webpack_require__(/*! intl-messageformat-parser */ "./node_modules/intl-messageformat/node_modules/intl-messageformat-parser/dist/index.js");
+var intl_format_cache_1 = __webpack_require__(/*! intl-format-cache */ "./node_modules/intl-format-cache/dist/index.js");
+var formatters_1 = __webpack_require__(/*! ./formatters */ "./node_modules/intl-messageformat/dist/formatters.js");
+// -- MessageFormat --------------------------------------------------------
+function mergeConfig(c1, c2) {
+    if (!c2) {
+        return c1;
+    }
+    return __assign(__assign(__assign({}, (c1 || {})), (c2 || {})), Object.keys(c1).reduce(function (all, k) {
+        all[k] = __assign(__assign({}, c1[k]), (c2[k] || {}));
+        return all;
+    }, {}));
+}
+function mergeConfigs(defaultConfig, configs) {
+    if (!configs) {
+        return defaultConfig;
+    }
+    return Object.keys(defaultConfig).reduce(function (all, k) {
+        all[k] = mergeConfig(defaultConfig[k], configs[k]);
+        return all;
+    }, __assign({}, defaultConfig));
+}
+function createDefaultFormatters(cache) {
+    if (cache === void 0) { cache = {
+        number: {},
+        dateTime: {},
+        pluralRules: {},
+    }; }
+    return {
+        getNumberFormat: intl_format_cache_1.default(Intl.NumberFormat, cache.number),
+        getDateTimeFormat: intl_format_cache_1.default(Intl.DateTimeFormat, cache.dateTime),
+        getPluralRules: intl_format_cache_1.default(Intl.PluralRules, cache.pluralRules),
+    };
+}
+exports.createDefaultFormatters = createDefaultFormatters;
+var IntlMessageFormat = /** @class */ (function () {
+    function IntlMessageFormat(message, locales, overrideFormats, opts) {
+        var _this = this;
+        if (locales === void 0) { locales = IntlMessageFormat.defaultLocale; }
+        this.formatterCache = {
+            number: {},
+            dateTime: {},
+            pluralRules: {},
+        };
+        this.format = function (values) {
+            var parts = _this.formatToParts(values);
+            // Hot path for straight simple msg translations
+            if (parts.length === 1) {
+                return parts[0].value;
+            }
+            var result = parts.reduce(function (all, part) {
+                if (!all.length ||
+                    part.type !== 0 /* literal */ ||
+                    typeof all[all.length - 1] !== 'string') {
+                    all.push(part.value);
+                }
+                else {
+                    all[all.length - 1] += part.value;
+                }
+                return all;
+            }, []);
+            if (result.length <= 1) {
+                return result[0] || '';
+            }
+            return result;
+        };
+        this.formatToParts = function (values) {
+            return formatters_1.formatToParts(_this.ast, _this.locales, _this.formatters, _this.formats, values, undefined, _this.message);
+        };
+        this.resolvedOptions = function () { return ({
+            locale: Intl.NumberFormat.supportedLocalesOf(_this.locales)[0],
+        }); };
+        this.getAst = function () { return _this.ast; };
+        if (typeof message === 'string') {
+            this.message = message;
+            if (!IntlMessageFormat.__parse) {
+                throw new TypeError('IntlMessageFormat.__parse must be set to process `message` of type `string`');
+            }
+            // Parse string messages into an AST.
+            this.ast = IntlMessageFormat.__parse(message, {
+                normalizeHashtagInPlural: false,
+            });
+        }
+        else {
+            this.ast = message;
+        }
+        if (!Array.isArray(this.ast)) {
+            throw new TypeError('A message must be provided as a String or AST.');
+        }
+        // Creates a new object with the specified `formats` merged with the default
+        // formats.
+        this.formats = mergeConfigs(IntlMessageFormat.formats, overrideFormats);
+        // Defined first because it's used to build the format pattern.
+        this.locales = locales;
+        this.formatters =
+            (opts && opts.formatters) || createDefaultFormatters(this.formatterCache);
+    }
+    IntlMessageFormat.defaultLocale = new Intl.NumberFormat().resolvedOptions().locale;
+    IntlMessageFormat.__parse = intl_messageformat_parser_1.parse;
+    // Default format options used as the prototype of the `formats` provided to the
+    // constructor. These are used when constructing the internal Intl.NumberFormat
+    // and Intl.DateTimeFormat instances.
+    IntlMessageFormat.formats = {
+        number: {
+            currency: {
+                style: 'currency',
+            },
+            percent: {
+                style: 'percent',
+            },
+        },
+        date: {
+            short: {
+                month: 'numeric',
+                day: 'numeric',
+                year: '2-digit',
+            },
+            medium: {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric',
+            },
+            long: {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric',
+            },
+            full: {
+                weekday: 'long',
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric',
+            },
+        },
+        time: {
+            short: {
+                hour: 'numeric',
+                minute: 'numeric',
+            },
+            medium: {
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric',
+            },
+            long: {
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric',
+                timeZoneName: 'short',
+            },
+            full: {
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric',
+                timeZoneName: 'short',
+            },
+        },
+    };
+    return IntlMessageFormat;
+}());
+exports.IntlMessageFormat = IntlMessageFormat;
+exports.default = IntlMessageFormat;
+//# sourceMappingURL=core.js.map
+
+/***/ }),
+
+/***/ "./node_modules/intl-messageformat/dist/error.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/intl-messageformat/dist/error.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var ErrorCode;
+(function (ErrorCode) {
+    // When we have a placeholder but no value to format
+    ErrorCode["MISSING_VALUE"] = "MISSING_VALUE";
+    // When value supplied is invalid
+    ErrorCode["INVALID_VALUE"] = "INVALID_VALUE";
+    // When we need specific Intl API but it's not available
+    ErrorCode["MISSING_INTL_API"] = "MISSING_INTL_API";
+})(ErrorCode = exports.ErrorCode || (exports.ErrorCode = {}));
+var FormatError = /** @class */ (function (_super) {
+    __extends(FormatError, _super);
+    function FormatError(msg, code, originalMessage) {
+        var _this = _super.call(this, msg) || this;
+        _this.code = code;
+        _this.originalMessage = originalMessage;
+        return _this;
+    }
+    FormatError.prototype.toString = function () {
+        return "[formatjs Error: " + this.code + "] " + this.message;
+    };
+    return FormatError;
+}(Error));
+exports.FormatError = FormatError;
+var InvalidValueError = /** @class */ (function (_super) {
+    __extends(InvalidValueError, _super);
+    function InvalidValueError(variableId, value, options, originalMessage) {
+        return _super.call(this, "Invalid values for \"" + variableId + "\": \"" + value + "\". Options are \"" + Object.keys(options).join('", "') + "\"", "INVALID_VALUE" /* INVALID_VALUE */, originalMessage) || this;
+    }
+    return InvalidValueError;
+}(FormatError));
+exports.InvalidValueError = InvalidValueError;
+var InvalidValueTypeError = /** @class */ (function (_super) {
+    __extends(InvalidValueTypeError, _super);
+    function InvalidValueTypeError(value, type, originalMessage) {
+        return _super.call(this, "Value for \"" + value + "\" must be of type " + type, "INVALID_VALUE" /* INVALID_VALUE */, originalMessage) || this;
+    }
+    return InvalidValueTypeError;
+}(FormatError));
+exports.InvalidValueTypeError = InvalidValueTypeError;
+var MissingValueError = /** @class */ (function (_super) {
+    __extends(MissingValueError, _super);
+    function MissingValueError(variableId, originalMessage) {
+        return _super.call(this, "The intl string context variable \"" + variableId + "\" was not provided to the string \"" + originalMessage + "\"", "MISSING_VALUE" /* MISSING_VALUE */, originalMessage) || this;
+    }
+    return MissingValueError;
+}(FormatError));
+exports.MissingValueError = MissingValueError;
+//# sourceMappingURL=error.js.map
+
+/***/ }),
+
+/***/ "./node_modules/intl-messageformat/dist/formatters.js":
+/*!************************************************************!*\
+  !*** ./node_modules/intl-messageformat/dist/formatters.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var intl_messageformat_parser_1 = __webpack_require__(/*! intl-messageformat-parser */ "./node_modules/intl-messageformat/node_modules/intl-messageformat-parser/dist/index.js");
+var error_1 = __webpack_require__(/*! ./error */ "./node_modules/intl-messageformat/dist/error.js");
+var PART_TYPE;
+(function (PART_TYPE) {
+    PART_TYPE[PART_TYPE["literal"] = 0] = "literal";
+    PART_TYPE[PART_TYPE["object"] = 1] = "object";
+})(PART_TYPE = exports.PART_TYPE || (exports.PART_TYPE = {}));
+function mergeLiteral(parts) {
+    if (parts.length < 2) {
+        return parts;
+    }
+    return parts.reduce(function (all, part) {
+        var lastPart = all[all.length - 1];
+        if (!lastPart ||
+            lastPart.type !== 0 /* literal */ ||
+            part.type !== 0 /* literal */) {
+            all.push(part);
+        }
+        else {
+            lastPart.value += part.value;
+        }
+        return all;
+    }, []);
+}
+function isFormatXMLElementFn(el) {
+    return typeof el === 'function';
+}
+// TODO(skeleton): add skeleton support
+function formatToParts(els, locales, formatters, formats, values, currentPluralValue, 
+// For debugging
+originalMessage) {
+    // Hot path for straight simple msg translations
+    if (els.length === 1 && intl_messageformat_parser_1.isLiteralElement(els[0])) {
+        return [
+            {
+                type: 0 /* literal */,
+                value: els[0].value,
+            },
+        ];
+    }
+    var result = [];
+    for (var _i = 0, els_1 = els; _i < els_1.length; _i++) {
+        var el = els_1[_i];
+        // Exit early for string parts.
+        if (intl_messageformat_parser_1.isLiteralElement(el)) {
+            result.push({
+                type: 0 /* literal */,
+                value: el.value,
+            });
+            continue;
+        }
+        // TODO: should this part be literal type?
+        // Replace `#` in plural rules with the actual numeric value.
+        if (intl_messageformat_parser_1.isPoundElement(el)) {
+            if (typeof currentPluralValue === 'number') {
+                result.push({
+                    type: 0 /* literal */,
+                    value: formatters.getNumberFormat(locales).format(currentPluralValue),
+                });
+            }
+            continue;
+        }
+        var varName = el.value;
+        // Enforce that all required values are provided by the caller.
+        if (!(values && varName in values)) {
+            throw new error_1.MissingValueError(varName, originalMessage);
+        }
+        var value = values[varName];
+        if (intl_messageformat_parser_1.isArgumentElement(el)) {
+            if (!value || typeof value === 'string' || typeof value === 'number') {
+                value =
+                    typeof value === 'string' || typeof value === 'number'
+                        ? String(value)
+                        : '';
+            }
+            result.push({
+                type: typeof value === 'string' ? 0 /* literal */ : 1 /* object */,
+                value: value,
+            });
+            continue;
+        }
+        // Recursively format plural and select parts' option — which can be a
+        // nested pattern structure. The choosing of the option to use is
+        // abstracted-by and delegated-to the part helper object.
+        if (intl_messageformat_parser_1.isDateElement(el)) {
+            var style = typeof el.style === 'string' ? formats.date[el.style] : undefined;
+            result.push({
+                type: 0 /* literal */,
+                value: formatters
+                    .getDateTimeFormat(locales, style)
+                    .format(value),
+            });
+            continue;
+        }
+        if (intl_messageformat_parser_1.isTimeElement(el)) {
+            var style = typeof el.style === 'string'
+                ? formats.time[el.style]
+                : intl_messageformat_parser_1.isDateTimeSkeleton(el.style)
+                    ? intl_messageformat_parser_1.parseDateTimeSkeleton(el.style.pattern)
+                    : undefined;
+            result.push({
+                type: 0 /* literal */,
+                value: formatters
+                    .getDateTimeFormat(locales, style)
+                    .format(value),
+            });
+            continue;
+        }
+        if (intl_messageformat_parser_1.isNumberElement(el)) {
+            var style = typeof el.style === 'string'
+                ? formats.number[el.style]
+                : intl_messageformat_parser_1.isNumberSkeleton(el.style)
+                    ? intl_messageformat_parser_1.convertNumberSkeletonToNumberFormatOptions(el.style.tokens)
+                    : undefined;
+            result.push({
+                type: 0 /* literal */,
+                value: formatters
+                    .getNumberFormat(locales, style)
+                    .format(value),
+            });
+            continue;
+        }
+        if (intl_messageformat_parser_1.isTagElement(el)) {
+            var children = el.children, value_1 = el.value;
+            var formatFn = values[value_1];
+            if (!isFormatXMLElementFn(formatFn)) {
+                throw new error_1.InvalidValueTypeError(value_1, 'function', originalMessage);
+            }
+            var parts = formatToParts(children, locales, formatters, formats, values);
+            var chunks = formatFn.apply(void 0, parts.map(function (p) { return p.value; }));
+            if (!Array.isArray(chunks)) {
+                chunks = [chunks];
+            }
+            result.push.apply(result, chunks.map(function (c) {
+                return {
+                    type: typeof c === 'string' ? 0 /* literal */ : 1 /* object */,
+                    value: c,
+                };
+            }));
+        }
+        if (intl_messageformat_parser_1.isSelectElement(el)) {
+            var opt = el.options[value] || el.options.other;
+            if (!opt) {
+                throw new error_1.InvalidValueError(el.value, value, Object.keys(el.options), originalMessage);
+            }
+            result.push.apply(result, formatToParts(opt.value, locales, formatters, formats, values));
+            continue;
+        }
+        if (intl_messageformat_parser_1.isPluralElement(el)) {
+            var opt = el.options["=" + value];
+            if (!opt) {
+                if (!Intl.PluralRules) {
+                    throw new error_1.FormatError("Intl.PluralRules is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-pluralrules\"\n", "MISSING_INTL_API" /* MISSING_INTL_API */, originalMessage);
+                }
+                var rule = formatters
+                    .getPluralRules(locales, { type: el.pluralType })
+                    .select(value - (el.offset || 0));
+                opt = el.options[rule] || el.options.other;
+            }
+            if (!opt) {
+                throw new error_1.InvalidValueError(el.value, value, Object.keys(el.options), originalMessage);
+            }
+            result.push.apply(result, formatToParts(opt.value, locales, formatters, formats, values, value - (el.offset || 0)));
+            continue;
+        }
+    }
+    return mergeLiteral(result);
+}
+exports.formatToParts = formatToParts;
+//# sourceMappingURL=formatters.js.map
+
+/***/ }),
+
+/***/ "./node_modules/intl-messageformat/dist/index.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/intl-messageformat/dist/index.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/*
+Copyright (c) 2014, Yahoo! Inc. All rights reserved.
+Copyrights licensed under the New BSD License.
+See the accompanying LICENSE file for terms.
+*/
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__(/*! ./core */ "./node_modules/intl-messageformat/dist/core.js");
+__export(__webpack_require__(/*! ./formatters */ "./node_modules/intl-messageformat/dist/formatters.js"));
+__export(__webpack_require__(/*! ./core */ "./node_modules/intl-messageformat/dist/core.js"));
+__export(__webpack_require__(/*! ./error */ "./node_modules/intl-messageformat/dist/error.js"));
+exports.default = core_1.default;
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ "./node_modules/intl-messageformat/node_modules/intl-messageformat-parser/dist/index.js":
+/*!**********************************************************************************************!*\
+  !*** ./node_modules/intl-messageformat/node_modules/intl-messageformat-parser/dist/index.js ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1149,11 +750,11 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-var parser_1 = __webpack_require__(/*! ./parser */ "./node_modules/intl-messageformat-parser/dist/parser.js");
-var normalize_1 = __webpack_require__(/*! ./normalize */ "./node_modules/intl-messageformat-parser/dist/normalize.js");
-__export(__webpack_require__(/*! ./types */ "./node_modules/intl-messageformat-parser/dist/types.js"));
-__export(__webpack_require__(/*! ./parser */ "./node_modules/intl-messageformat-parser/dist/parser.js"));
-__export(__webpack_require__(/*! ./skeleton */ "./node_modules/intl-messageformat-parser/dist/skeleton.js"));
+var parser_1 = __webpack_require__(/*! ./parser */ "./node_modules/intl-messageformat/node_modules/intl-messageformat-parser/dist/parser.js");
+var normalize_1 = __webpack_require__(/*! ./normalize */ "./node_modules/intl-messageformat/node_modules/intl-messageformat-parser/dist/normalize.js");
+__export(__webpack_require__(/*! ./types */ "./node_modules/intl-messageformat/node_modules/intl-messageformat-parser/dist/types.js"));
+__export(__webpack_require__(/*! ./parser */ "./node_modules/intl-messageformat/node_modules/intl-messageformat-parser/dist/parser.js"));
+__export(__webpack_require__(/*! ./skeleton */ "./node_modules/intl-messageformat/node_modules/intl-messageformat-parser/dist/skeleton.js"));
 function parse(input, opts) {
     var els = parser_1.pegParse(input, opts);
     if (!opts || opts.normalizeHashtagInPlural !== false) {
@@ -1162,14 +763,14 @@ function parse(input, opts) {
     return els;
 }
 exports.parse = parse;
-
+//# sourceMappingURL=index.js.map
 
 /***/ }),
 
-/***/ "./node_modules/intl-messageformat-parser/dist/normalize.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/intl-messageformat-parser/dist/normalize.js ***!
-  \******************************************************************/
+/***/ "./node_modules/intl-messageformat/node_modules/intl-messageformat-parser/dist/normalize.js":
+/*!**************************************************************************************************!*\
+  !*** ./node_modules/intl-messageformat/node_modules/intl-messageformat-parser/dist/normalize.js ***!
+  \**************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1183,8 +784,8 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(/*! ./types */ "./node_modules/intl-messageformat-parser/dist/types.js");
-var parser_1 = __webpack_require__(/*! ./parser */ "./node_modules/intl-messageformat-parser/dist/parser.js");
+var types_1 = __webpack_require__(/*! ./types */ "./node_modules/intl-messageformat/node_modules/intl-messageformat-parser/dist/types.js");
+var parser_1 = __webpack_require__(/*! ./parser */ "./node_modules/intl-messageformat/node_modules/intl-messageformat-parser/dist/parser.js");
 var PLURAL_HASHTAG_REGEX = /(^|[^\\])#/g;
 /**
  * Whether to convert `#` in plural rule options
@@ -1224,14 +825,14 @@ function normalizeHashtagInPlural(els) {
     });
 }
 exports.normalizeHashtagInPlural = normalizeHashtagInPlural;
-
+//# sourceMappingURL=normalize.js.map
 
 /***/ }),
 
-/***/ "./node_modules/intl-messageformat-parser/dist/parser.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/intl-messageformat-parser/dist/parser.js ***!
-  \***************************************************************/
+/***/ "./node_modules/intl-messageformat/node_modules/intl-messageformat-parser/dist/parser.js":
+/*!***********************************************************************************************!*\
+  !*** ./node_modules/intl-messageformat/node_modules/intl-messageformat-parser/dist/parser.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1273,7 +874,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // Generated by PEG.js v. 0.10.0 (ts-pegjs plugin v. 0.2.6 )
 //
 // https://pegjs.org/   https://github.com/metadevpro/ts-pegjs
-var types_1 = __webpack_require__(/*! ./types */ "./node_modules/intl-messageformat-parser/dist/types.js");
+var types_1 = __webpack_require__(/*! ./types */ "./node_modules/intl-messageformat/node_modules/intl-messageformat-parser/dist/types.js");
 var SyntaxError = /** @class */ (function (_super) {
     __extends(SyntaxError, _super);
     function SyntaxError(message, expected, found, location) {
@@ -4281,14 +3882,14 @@ function peg$parse(input, options) {
     }
 }
 exports.pegParse = peg$parse;
-
+//# sourceMappingURL=parser.js.map
 
 /***/ }),
 
-/***/ "./node_modules/intl-messageformat-parser/dist/skeleton.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/intl-messageformat-parser/dist/skeleton.js ***!
-  \*****************************************************************/
+/***/ "./node_modules/intl-messageformat/node_modules/intl-messageformat-parser/dist/skeleton.js":
+/*!*************************************************************************************************!*\
+  !*** ./node_modules/intl-messageformat/node_modules/intl-messageformat-parser/dist/skeleton.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4604,14 +4205,14 @@ function convertNumberSkeletonToNumberFormatOptions(tokens) {
     return result;
 }
 exports.convertNumberSkeletonToNumberFormatOptions = convertNumberSkeletonToNumberFormatOptions;
-
+//# sourceMappingURL=skeleton.js.map
 
 /***/ }),
 
-/***/ "./node_modules/intl-messageformat-parser/dist/types.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/intl-messageformat-parser/dist/types.js ***!
-  \**************************************************************/
+/***/ "./node_modules/intl-messageformat/node_modules/intl-messageformat-parser/dist/types.js":
+/*!**********************************************************************************************!*\
+  !*** ./node_modules/intl-messageformat/node_modules/intl-messageformat-parser/dist/types.js ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4658,6 +4259,11 @@ var TYPE;
      */
     TYPE[TYPE["tag"] = 8] = "tag";
 })(TYPE = exports.TYPE || (exports.TYPE = {}));
+var SKELETON_TYPE;
+(function (SKELETON_TYPE) {
+    SKELETON_TYPE[SKELETON_TYPE["number"] = 0] = "number";
+    SKELETON_TYPE[SKELETON_TYPE["dateTime"] = 1] = "dateTime";
+})(SKELETON_TYPE = exports.SKELETON_TYPE || (exports.SKELETON_TYPE = {}));
 /**
  * Type Guards
  */
@@ -4720,483 +4326,7 @@ function createNumberElement(value, style) {
     };
 }
 exports.createNumberElement = createNumberElement;
-
-
-/***/ }),
-
-/***/ "./node_modules/intl-messageformat/dist/core.js":
-/*!******************************************************!*\
-  !*** ./node_modules/intl-messageformat/dist/core.js ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/*
-Copyright (c) 2014, Yahoo! Inc. All rights reserved.
-Copyrights licensed under the New BSD License.
-See the accompanying LICENSE file for terms.
-*/
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var intl_messageformat_parser_1 = __webpack_require__(/*! intl-messageformat-parser */ "./node_modules/intl-messageformat-parser/dist/index.js");
-var intl_format_cache_1 = __webpack_require__(/*! intl-format-cache */ "./node_modules/intl-format-cache/dist/index.js");
-var formatters_1 = __webpack_require__(/*! ./formatters */ "./node_modules/intl-messageformat/dist/formatters.js");
-// -- MessageFormat --------------------------------------------------------
-function mergeConfig(c1, c2) {
-    if (!c2) {
-        return c1;
-    }
-    return __assign(__assign(__assign({}, (c1 || {})), (c2 || {})), Object.keys(c1).reduce(function (all, k) {
-        all[k] = __assign(__assign({}, c1[k]), (c2[k] || {}));
-        return all;
-    }, {}));
-}
-function mergeConfigs(defaultConfig, configs) {
-    if (!configs) {
-        return defaultConfig;
-    }
-    return Object.keys(defaultConfig).reduce(function (all, k) {
-        all[k] = mergeConfig(defaultConfig[k], configs[k]);
-        return all;
-    }, __assign({}, defaultConfig));
-}
-function createDefaultFormatters(cache) {
-    if (cache === void 0) { cache = {
-        number: {},
-        dateTime: {},
-        pluralRules: {},
-    }; }
-    return {
-        getNumberFormat: intl_format_cache_1.default(Intl.NumberFormat, cache.number),
-        getDateTimeFormat: intl_format_cache_1.default(Intl.DateTimeFormat, cache.dateTime),
-        getPluralRules: intl_format_cache_1.default(Intl.PluralRules, cache.pluralRules),
-    };
-}
-exports.createDefaultFormatters = createDefaultFormatters;
-var IntlMessageFormat = /** @class */ (function () {
-    function IntlMessageFormat(message, locales, overrideFormats, opts) {
-        var _this = this;
-        if (locales === void 0) { locales = IntlMessageFormat.defaultLocale; }
-        this.formatterCache = {
-            number: {},
-            dateTime: {},
-            pluralRules: {},
-        };
-        this.format = function (values) {
-            var parts = _this.formatToParts(values);
-            // Hot path for straight simple msg translations
-            if (parts.length === 1) {
-                return parts[0].value;
-            }
-            var result = parts.reduce(function (all, part) {
-                if (!all.length ||
-                    part.type !== 0 /* literal */ ||
-                    typeof all[all.length - 1] !== 'string') {
-                    all.push(part.value);
-                }
-                else {
-                    all[all.length - 1] += part.value;
-                }
-                return all;
-            }, []);
-            if (result.length <= 1) {
-                return result[0] || '';
-            }
-            return result;
-        };
-        this.formatToParts = function (values) {
-            return formatters_1.formatToParts(_this.ast, _this.locales, _this.formatters, _this.formats, values, undefined, _this.message);
-        };
-        this.resolvedOptions = function () { return ({
-            locale: Intl.NumberFormat.supportedLocalesOf(_this.locales)[0],
-        }); };
-        this.getAst = function () { return _this.ast; };
-        if (typeof message === 'string') {
-            this.message = message;
-            if (!IntlMessageFormat.__parse) {
-                throw new TypeError('IntlMessageFormat.__parse must be set to process `message` of type `string`');
-            }
-            // Parse string messages into an AST.
-            this.ast = IntlMessageFormat.__parse(message, {
-                normalizeHashtagInPlural: false,
-            });
-        }
-        else {
-            this.ast = message;
-        }
-        if (!Array.isArray(this.ast)) {
-            throw new TypeError('A message must be provided as a String or AST.');
-        }
-        // Creates a new object with the specified `formats` merged with the default
-        // formats.
-        this.formats = mergeConfigs(IntlMessageFormat.formats, overrideFormats);
-        // Defined first because it's used to build the format pattern.
-        this.locales = locales;
-        this.formatters =
-            (opts && opts.formatters) || createDefaultFormatters(this.formatterCache);
-    }
-    IntlMessageFormat.defaultLocale = new Intl.NumberFormat().resolvedOptions().locale;
-    IntlMessageFormat.__parse = intl_messageformat_parser_1.parse;
-    // Default format options used as the prototype of the `formats` provided to the
-    // constructor. These are used when constructing the internal Intl.NumberFormat
-    // and Intl.DateTimeFormat instances.
-    IntlMessageFormat.formats = {
-        number: {
-            currency: {
-                style: 'currency',
-            },
-            percent: {
-                style: 'percent',
-            },
-        },
-        date: {
-            short: {
-                month: 'numeric',
-                day: 'numeric',
-                year: '2-digit',
-            },
-            medium: {
-                month: 'short',
-                day: 'numeric',
-                year: 'numeric',
-            },
-            long: {
-                month: 'long',
-                day: 'numeric',
-                year: 'numeric',
-            },
-            full: {
-                weekday: 'long',
-                month: 'long',
-                day: 'numeric',
-                year: 'numeric',
-            },
-        },
-        time: {
-            short: {
-                hour: 'numeric',
-                minute: 'numeric',
-            },
-            medium: {
-                hour: 'numeric',
-                minute: 'numeric',
-                second: 'numeric',
-            },
-            long: {
-                hour: 'numeric',
-                minute: 'numeric',
-                second: 'numeric',
-                timeZoneName: 'short',
-            },
-            full: {
-                hour: 'numeric',
-                minute: 'numeric',
-                second: 'numeric',
-                timeZoneName: 'short',
-            },
-        },
-    };
-    return IntlMessageFormat;
-}());
-exports.IntlMessageFormat = IntlMessageFormat;
-exports.default = IntlMessageFormat;
-
-
-/***/ }),
-
-/***/ "./node_modules/intl-messageformat/dist/error.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/intl-messageformat/dist/error.js ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var ErrorCode;
-(function (ErrorCode) {
-    // When we have a placeholder but no value to format
-    ErrorCode["MISSING_VALUE"] = "MISSING_VALUE";
-    // When value supplied is invalid
-    ErrorCode["INVALID_VALUE"] = "INVALID_VALUE";
-    // When we need specific Intl API but it's not available
-    ErrorCode["MISSING_INTL_API"] = "MISSING_INTL_API";
-})(ErrorCode = exports.ErrorCode || (exports.ErrorCode = {}));
-var FormatError = /** @class */ (function (_super) {
-    __extends(FormatError, _super);
-    function FormatError(msg, code, originalMessage) {
-        var _this = _super.call(this, msg) || this;
-        _this.code = code;
-        _this.originalMessage = originalMessage;
-        return _this;
-    }
-    FormatError.prototype.toString = function () {
-        return "[formatjs Error: " + this.code + "] " + this.message;
-    };
-    return FormatError;
-}(Error));
-exports.FormatError = FormatError;
-var InvalidValueError = /** @class */ (function (_super) {
-    __extends(InvalidValueError, _super);
-    function InvalidValueError(variableId, value, options, originalMessage) {
-        return _super.call(this, "Invalid values for \"" + variableId + "\": \"" + value + "\". Options are \"" + Object.keys(options).join('", "') + "\"", "INVALID_VALUE" /* INVALID_VALUE */, originalMessage) || this;
-    }
-    return InvalidValueError;
-}(FormatError));
-exports.InvalidValueError = InvalidValueError;
-var InvalidValueTypeError = /** @class */ (function (_super) {
-    __extends(InvalidValueTypeError, _super);
-    function InvalidValueTypeError(value, type, originalMessage) {
-        return _super.call(this, "Value for \"" + value + "\" must be of type " + type, "INVALID_VALUE" /* INVALID_VALUE */, originalMessage) || this;
-    }
-    return InvalidValueTypeError;
-}(FormatError));
-exports.InvalidValueTypeError = InvalidValueTypeError;
-var MissingValueError = /** @class */ (function (_super) {
-    __extends(MissingValueError, _super);
-    function MissingValueError(variableId, originalMessage) {
-        return _super.call(this, "The intl string context variable \"" + variableId + "\" was not provided to the string \"" + originalMessage + "\"", "MISSING_VALUE" /* MISSING_VALUE */, originalMessage) || this;
-    }
-    return MissingValueError;
-}(FormatError));
-exports.MissingValueError = MissingValueError;
-
-
-/***/ }),
-
-/***/ "./node_modules/intl-messageformat/dist/formatters.js":
-/*!************************************************************!*\
-  !*** ./node_modules/intl-messageformat/dist/formatters.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var intl_messageformat_parser_1 = __webpack_require__(/*! intl-messageformat-parser */ "./node_modules/intl-messageformat-parser/dist/index.js");
-var error_1 = __webpack_require__(/*! ./error */ "./node_modules/intl-messageformat/dist/error.js");
-var PART_TYPE;
-(function (PART_TYPE) {
-    PART_TYPE[PART_TYPE["literal"] = 0] = "literal";
-    PART_TYPE[PART_TYPE["object"] = 1] = "object";
-})(PART_TYPE = exports.PART_TYPE || (exports.PART_TYPE = {}));
-function mergeLiteral(parts) {
-    if (parts.length < 2) {
-        return parts;
-    }
-    return parts.reduce(function (all, part) {
-        var lastPart = all[all.length - 1];
-        if (!lastPart ||
-            lastPart.type !== 0 /* literal */ ||
-            part.type !== 0 /* literal */) {
-            all.push(part);
-        }
-        else {
-            lastPart.value += part.value;
-        }
-        return all;
-    }, []);
-}
-function isFormatXMLElementFn(el) {
-    return typeof el === 'function';
-}
-// TODO(skeleton): add skeleton support
-function formatToParts(els, locales, formatters, formats, values, currentPluralValue, 
-// For debugging
-originalMessage) {
-    // Hot path for straight simple msg translations
-    if (els.length === 1 && intl_messageformat_parser_1.isLiteralElement(els[0])) {
-        return [
-            {
-                type: 0 /* literal */,
-                value: els[0].value,
-            },
-        ];
-    }
-    var result = [];
-    for (var _i = 0, els_1 = els; _i < els_1.length; _i++) {
-        var el = els_1[_i];
-        // Exit early for string parts.
-        if (intl_messageformat_parser_1.isLiteralElement(el)) {
-            result.push({
-                type: 0 /* literal */,
-                value: el.value,
-            });
-            continue;
-        }
-        // TODO: should this part be literal type?
-        // Replace `#` in plural rules with the actual numeric value.
-        if (intl_messageformat_parser_1.isPoundElement(el)) {
-            if (typeof currentPluralValue === 'number') {
-                result.push({
-                    type: 0 /* literal */,
-                    value: formatters.getNumberFormat(locales).format(currentPluralValue),
-                });
-            }
-            continue;
-        }
-        var varName = el.value;
-        // Enforce that all required values are provided by the caller.
-        if (!(values && varName in values)) {
-            throw new error_1.MissingValueError(varName, originalMessage);
-        }
-        var value = values[varName];
-        if (intl_messageformat_parser_1.isArgumentElement(el)) {
-            if (!value || typeof value === 'string' || typeof value === 'number') {
-                value =
-                    typeof value === 'string' || typeof value === 'number'
-                        ? String(value)
-                        : '';
-            }
-            result.push({
-                type: typeof value === 'string' ? 0 /* literal */ : 1 /* object */,
-                value: value,
-            });
-            continue;
-        }
-        // Recursively format plural and select parts' option — which can be a
-        // nested pattern structure. The choosing of the option to use is
-        // abstracted-by and delegated-to the part helper object.
-        if (intl_messageformat_parser_1.isDateElement(el)) {
-            var style = typeof el.style === 'string' ? formats.date[el.style] : undefined;
-            result.push({
-                type: 0 /* literal */,
-                value: formatters
-                    .getDateTimeFormat(locales, style)
-                    .format(value),
-            });
-            continue;
-        }
-        if (intl_messageformat_parser_1.isTimeElement(el)) {
-            var style = typeof el.style === 'string'
-                ? formats.time[el.style]
-                : intl_messageformat_parser_1.isDateTimeSkeleton(el.style)
-                    ? intl_messageformat_parser_1.parseDateTimeSkeleton(el.style.pattern)
-                    : undefined;
-            result.push({
-                type: 0 /* literal */,
-                value: formatters
-                    .getDateTimeFormat(locales, style)
-                    .format(value),
-            });
-            continue;
-        }
-        if (intl_messageformat_parser_1.isNumberElement(el)) {
-            var style = typeof el.style === 'string'
-                ? formats.number[el.style]
-                : intl_messageformat_parser_1.isNumberSkeleton(el.style)
-                    ? intl_messageformat_parser_1.convertNumberSkeletonToNumberFormatOptions(el.style.tokens)
-                    : undefined;
-            result.push({
-                type: 0 /* literal */,
-                value: formatters
-                    .getNumberFormat(locales, style)
-                    .format(value),
-            });
-            continue;
-        }
-        if (intl_messageformat_parser_1.isTagElement(el)) {
-            var children = el.children, value_1 = el.value;
-            var formatFn = values[value_1];
-            if (!isFormatXMLElementFn(formatFn)) {
-                throw new error_1.InvalidValueTypeError(value_1, 'function', originalMessage);
-            }
-            var parts = formatToParts(children, locales, formatters, formats, values);
-            var chunks = formatFn.apply(void 0, parts.map(function (p) { return p.value; }));
-            if (!Array.isArray(chunks)) {
-                chunks = [chunks];
-            }
-            result.push.apply(result, chunks.map(function (c) {
-                return {
-                    type: typeof c === 'string' ? 0 /* literal */ : 1 /* object */,
-                    value: c,
-                };
-            }));
-        }
-        if (intl_messageformat_parser_1.isSelectElement(el)) {
-            var opt = el.options[value] || el.options.other;
-            if (!opt) {
-                throw new error_1.InvalidValueError(el.value, value, Object.keys(el.options), originalMessage);
-            }
-            result.push.apply(result, formatToParts(opt.value, locales, formatters, formats, values));
-            continue;
-        }
-        if (intl_messageformat_parser_1.isPluralElement(el)) {
-            var opt = el.options["=" + value];
-            if (!opt) {
-                if (!Intl.PluralRules) {
-                    throw new error_1.FormatError("Intl.PluralRules is not available in this environment.\nTry polyfilling it using \"@formatjs/intl-pluralrules\"\n", "MISSING_INTL_API" /* MISSING_INTL_API */, originalMessage);
-                }
-                var rule = formatters
-                    .getPluralRules(locales, { type: el.pluralType })
-                    .select(value - (el.offset || 0));
-                opt = el.options[rule] || el.options.other;
-            }
-            if (!opt) {
-                throw new error_1.InvalidValueError(el.value, value, Object.keys(el.options), originalMessage);
-            }
-            result.push.apply(result, formatToParts(opt.value, locales, formatters, formats, values, value - (el.offset || 0)));
-            continue;
-        }
-    }
-    return mergeLiteral(result);
-}
-exports.formatToParts = formatToParts;
-
-
-/***/ }),
-
-/***/ "./node_modules/intl-messageformat/dist/index.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/intl-messageformat/dist/index.js ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/*
-Copyright (c) 2014, Yahoo! Inc. All rights reserved.
-Copyrights licensed under the New BSD License.
-See the accompanying LICENSE file for terms.
-*/
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
-Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = __webpack_require__(/*! ./core */ "./node_modules/intl-messageformat/dist/core.js");
-__export(__webpack_require__(/*! ./formatters */ "./node_modules/intl-messageformat/dist/formatters.js"));
-__export(__webpack_require__(/*! ./core */ "./node_modules/intl-messageformat/dist/core.js"));
-__export(__webpack_require__(/*! ./error */ "./node_modules/intl-messageformat/dist/error.js"));
-exports.default = core_1.default;
-
+//# sourceMappingURL=types.js.map
 
 /***/ }),
 
@@ -31899,9 +31029,8 @@ function injectIntl(WrappedComponent, options) {
         if (enforceContext) {
             utils_1.invariantIntlContext(intl);
         }
-        return (React.createElement(WrappedComponent, __assign({}, props, (_a = {},
-            _a[intlPropName] = intl,
-            _a), { ref: forwardRef ? props.forwardedRef : null })));
+        var intlProp = (_a = {}, _a[intlPropName] = intl, _a);
+        return (React.createElement(WrappedComponent, __assign({}, props, intlProp, { ref: forwardRef ? props.forwardedRef : null })));
     })); };
     WithIntl.displayName = "injectIntl(" + getDisplayName(WrappedComponent) + ")";
     WithIntl.WrappedComponent = WrappedComponent;
@@ -32241,7 +31370,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var injectIntl_1 = __webpack_require__(/*! ./injectIntl */ "./node_modules/react-intl/dist/components/injectIntl.js");
 var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
-var intl_utils_1 = __webpack_require__(/*! @formatjs/intl-utils */ "./node_modules/@formatjs/intl-utils/dist/index.js");
+var intl_utils_1 = __webpack_require__(/*! @formatjs/intl-utils */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/index.js");
 var MINUTE = 60;
 var HOUR = 60 * 60;
 var DAY = 60 * 60 * 24;
@@ -32720,7 +31849,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-var intl_utils_1 = __webpack_require__(/*! @formatjs/intl-utils */ "./node_modules/@formatjs/intl-utils/dist/index.js");
+var intl_utils_1 = __webpack_require__(/*! @formatjs/intl-utils */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/index.js");
 var intl_messageformat_1 = __webpack_require__(/*! intl-messageformat */ "./node_modules/intl-messageformat/dist/index.js");
 var error_1 = __webpack_require__(/*! ../error */ "./node_modules/react-intl/dist/error.js");
 function setTimeZoneInOptions(opts, timeZone) {
@@ -32976,6 +32105,10 @@ function defineMessages(msgs) {
     return msgs;
 }
 exports.defineMessages = defineMessages;
+function defineMessage(msg) {
+    return msg;
+}
+exports.defineMessage = defineMessage;
 var createFormattedComponent_1 = __webpack_require__(/*! ./components/createFormattedComponent */ "./node_modules/react-intl/dist/components/createFormattedComponent.js");
 var injectIntl_1 = __webpack_require__(/*! ./components/injectIntl */ "./node_modules/react-intl/dist/components/injectIntl.js");
 exports.injectIntl = injectIntl_1.default;
@@ -33034,7 +32167,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var intl_messageformat_1 = __webpack_require__(/*! intl-messageformat */ "./node_modules/intl-messageformat/dist/index.js");
 var intl_format_cache_1 = __webpack_require__(/*! intl-format-cache */ "./node_modules/intl-format-cache/dist/index.js");
-var intl_utils_1 = __webpack_require__(/*! @formatjs/intl-utils */ "./node_modules/@formatjs/intl-utils/dist/index.js");
+var intl_utils_1 = __webpack_require__(/*! @formatjs/intl-utils */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/index.js");
 var error_1 = __webpack_require__(/*! ./error */ "./node_modules/react-intl/dist/error.js");
 function filterProps(props, whitelist, defaults) {
     if (defaults === void 0) { defaults = {}; }
@@ -33114,6 +32247,884 @@ function getNamedFormat(formats, type, name, onError) {
 }
 exports.getNamedFormat = getNamedFormat;
 
+
+/***/ }),
+
+/***/ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/aliases.js":
+/*!***********************************************************************************!*\
+  !*** ./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/aliases.js ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/* @generated */
+// prettier-ignore  
+exports.default = { "aa-SAAHO": "ssy", "aam": "aas", "aar": "aa", "abk": "ab", "adp": "dz", "afr": "af", "aju": "jrb", "aka": "ak", "alb": "sq", "als": "sq", "amh": "am", "ara": "ar", "arb": "ar", "arg": "an", "arm": "hy", "art-lojban": "jbo", "asd": "snz", "asm": "as", "aue": "ktz", "ava": "av", "ave": "ae", "aym": "ay", "ayr": "ay", "ayx": "nun", "az-AZ": "az-Latn-AZ", "aze": "az", "azj": "az", "bak": "ba", "bam": "bm", "baq": "eu", "bcc": "bal", "bcl": "bik", "bel": "be", "ben": "bn", "bgm": "bcg", "bh": "bho", "bih": "bho", "bis": "bi", "bjd": "drl", "bod": "bo", "bos": "bs", "bre": "br", "bs-BA": "bs-Latn-BA", "bul": "bg", "bur": "my", "bxk": "luy", "bxr": "bua", "cat": "ca", "ccq": "rki", "cel-gaulish": "xtg-x-cel-gaulish", "ces": "cs", "cha": "ch", "che": "ce", "chi": "zh", "chu": "cu", "chv": "cv", "cjr": "mom", "cka": "cmr", "cld": "syr", "cmk": "xch", "cmn": "zh", "cnr": "sr-ME", "cor": "kw", "cos": "co", "coy": "pij", "cqu": "quh", "cre": "cr", "cwd": "cr", "cym": "cy", "cze": "cs", "dan": "da", "deu": "de", "dgo": "doi", "dhd": "mwr", "dik": "din", "diq": "zza", "dit": "dif", "div": "dv", "drh": "mn", "drw": "fa-af", "dut": "nl", "dzo": "dz", "ekk": "et", "ell": "el", "emk": "man", "eng": "en", "epo": "eo", "esk": "ik", "est": "et", "eus": "eu", "ewe": "ee", "fao": "fo", "fas": "fa", "fat": "ak", "fij": "fj", "fin": "fi", "fra": "fr", "fre": "fr", "fry": "fy", "fuc": "ff", "ful": "ff", "gav": "dev", "gaz": "om", "gbo": "grb", "geo": "ka", "ger": "de", "gfx": "vaj", "ggn": "gvr", "gla": "gd", "gle": "ga", "glg": "gl", "glv": "gv", "gno": "gon", "gre": "el", "grn": "gn", "gti": "nyc", "gug": "gn", "guj": "gu", "guv": "duz", "gya": "gba", "ha-Latn-GH": "ha-GH", "ha-Latn-NE": "ha-NE", "ha-Latn-NG": "ha-NG", "hat": "ht", "hau": "ha", "hbs": "sr-Latn", "hdn": "hai", "hea": "hmn", "heb": "he", "her": "hz", "him": "srx", "hin": "hi", "hmo": "ho", "hrr": "jal", "hrv": "hr", "hun": "hu", "hye": "hy", "i-ami": "ami", "i-bnn": "bnn", "i-hak": "hak", "i-klingon": "tlh", "i-lux": "lb", "i-navajo": "nv", "i-pwn": "pwn", "i-tao": "tao", "i-tay": "tay", "i-tsu": "tsu", "i-default": "en-x-i-default", "i-enochian": "und-x-i-enochian", "i-mingo": "see-x-i-mingo", "ibi": "opa", "ibo": "ig", "ice": "is", "ido": "io", "iii": "ii", "ike": "iu", "iku": "iu", "ile": "ie", "ilw": "gal", "in": "id", "ina": "ia", "ind": "id", "ipk": "ik", "isl": "is", "ita": "it", "iw": "he", "jav": "jv", "jeg": "oyb", "ji": "yi", "jpn": "ja", "jw": "jv", "kal": "kl", "kan": "kn", "kas": "ks", "kat": "ka", "kau": "kr", "kaz": "kk", "kgc": "tdf", "kgh": "kml", "khk": "mn", "khm": "km", "kik": "ki", "kin": "rw", "kir": "ky", "kk-Cyrl-KZ": "kk-KZ", "kmr": "ku", "knc": "kr", "kng": "kg", "knn": "kok", "koj": "kwv", "kom": "kv", "kon": "kg", "kor": "ko", "kpv": "kv", "krm": "bmf", "ks-Arab-IN": "ks-IN", "ktr": "dtp", "kua": "kj", "kur": "ku", "kvs": "gdj", "kwq": "yam", "kxe": "tvd", "ky-Cyrl-KG": "ky-KG", "kzj": "dtp", "kzt": "dtp", "lao": "lo", "lat": "la", "lav": "lv", "lbk": "bnc", "lii": "raq", "lim": "li", "lin": "ln", "lit": "lt", "llo": "ngt", "lmm": "rmx", "ltz": "lb", "lub": "lu", "lug": "lg", "lvs": "lv", "mac": "mk", "mah": "mh", "mal": "ml", "mao": "mi", "mar": "mr", "may": "ms", "meg": "cir", "mhr": "chm", "mkd": "mk", "mlg": "mg", "mlt": "mt", "mn-Cyrl-MN": "mn-MN", "mnk": "man", "mo": "ro", "mol": "ro", "mon": "mn", "mri": "mi", "ms-Latn-BN": "ms-BN", "ms-Latn-MY": "ms-MY", "ms-Latn-SG": "ms-SG", "msa": "ms", "mst": "mry", "mup": "raj", "mwj": "vaj", "mya": "my", "myd": "aog", "myt": "mry", "nad": "xny", "nau": "na", "nav": "nv", "nbl": "nr", "ncp": "kdz", "nde": "nd", "ndo": "ng", "nep": "ne", "nld": "nl", "nno": "nn", "nns": "nbr", "nnx": "ngv", "no": "nb", "no-bok": "nb", "no-BOKMAL": "nb", "no-nyn": "nn", "no-NYNORSK": "nn", "nob": "nb", "nor": "nb", "npi": "ne", "nts": "pij", "nya": "ny", "oci": "oc", "ojg": "oj", "oji": "oj", "ori": "or", "orm": "om", "ory": "or", "oss": "os", "oun": "vaj", "pa-IN": "pa-Guru-IN", "pa-PK": "pa-Arab-PK", "pan": "pa", "pbu": "ps", "pcr": "adx", "per": "fa", "pes": "fa", "pli": "pi", "plt": "mg", "pmc": "huw", "pmu": "phr", "pnb": "lah", "pol": "pl", "por": "pt", "ppa": "bfy", "ppr": "lcq", "prs": "fa-AF", "pry": "prt", "pus": "ps", "puz": "pub", "que": "qu", "quz": "qu", "rmy": "rom", "roh": "rm", "ron": "ro", "rum": "ro", "run": "rn", "rus": "ru", "sag": "sg", "san": "sa", "sca": "hle", "scc": "sr", "scr": "hr", "sgn-BE-FR": "sfb", "sgn-BE-NL": "vgt", "sgn-CH-DE": "sgg", "sh": "sr-Latn", "shi-MA": "shi-Tfng-MA", "sin": "si", "skk": "oyb", "slk": "sk", "slo": "sk", "slv": "sl", "sme": "se", "smo": "sm", "sna": "sn", "snd": "sd", "som": "so", "sot": "st", "spa": "es", "spy": "kln", "sqi": "sq", "sr-BA": "sr-Cyrl-BA", "sr-ME": "sr-Latn-ME", "sr-RS": "sr-Cyrl-RS", "sr-XK": "sr-Cyrl-XK", "src": "sc", "srd": "sc", "srp": "sr", "ssw": "ss", "sun": "su", "swa": "sw", "swc": "sw-CD", "swe": "sv", "swh": "sw", "tah": "ty", "tam": "ta", "tat": "tt", "tdu": "dtp", "tel": "te", "tgk": "tg", "tgl": "fil", "tha": "th", "thc": "tpo", "thx": "oyb", "tib": "bo", "tie": "ras", "tir": "ti", "tkk": "twm", "tl": "fil", "tlw": "weo", "tmp": "tyj", "tne": "kak", "tnf": "fa-af", "ton": "to", "tsf": "taj", "tsn": "tn", "tso": "ts", "ttq": "tmh", "tuk": "tk", "tur": "tr", "tw": "ak", "twi": "ak", "tzm-Latn-MA": "tzm-MA", "ug-Arab-CN": "ug-CN", "uig": "ug", "ukr": "uk", "umu": "del", "uok": "ema", "urd": "ur", "uz-AF": "uz-Arab-AF", "uz-UZ": "uz-Latn-UZ", "uzb": "uz", "uzn": "uz", "vai-LR": "vai-Vaii-LR", "ven": "ve", "vie": "vi", "vol": "vo", "wel": "cy", "wln": "wa", "wol": "wo", "xba": "cax", "xho": "xh", "xia": "acn", "xkh": "waw", "xpe": "kpe", "xsj": "suj", "xsl": "den", "ybd": "rki", "ydd": "yi", "yid": "yi", "yma": "lrr", "ymt": "mtm", "yor": "yo", "yos": "zom", "yue-CN": "yue-Hans-CN", "yue-HK": "yue-Hant-HK", "yuu": "yug", "zai": "zap", "zh-CN": "zh-Hans-CN", "zh-guoyu": "zh", "zh-hakka": "hak", "zh-HK": "zh-Hant-HK", "zh-min-nan": "nan", "zh-MO": "zh-Hant-MO", "zh-SG": "zh-Hans-SG", "zh-TW": "zh-Hant-TW", "zh-xiang": "hsn", "zh-min": "nan-x-zh-min", "zha": "za", "zho": "zh", "zsm": "ms", "zul": "zu", "zyb": "za" };
+//# sourceMappingURL=aliases.js.map
+
+/***/ }),
+
+/***/ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/diff.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/diff.js ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var MS_PER_SECOND = 1e3;
+var SECS_PER_MIN = 60;
+var SECS_PER_HOUR = SECS_PER_MIN * 60;
+var SECS_PER_DAY = SECS_PER_HOUR * 24;
+var SECS_PER_WEEK = SECS_PER_DAY * 7;
+function selectUnit(from, to, thresholds) {
+    if (to === void 0) { to = Date.now(); }
+    if (thresholds === void 0) { thresholds = {}; }
+    var resolvedThresholds = __assign(__assign({}, exports.DEFAULT_THRESHOLDS), (thresholds || {}));
+    var secs = (+from - +to) / MS_PER_SECOND;
+    if (Math.abs(secs) < resolvedThresholds.second) {
+        return {
+            value: Math.round(secs),
+            unit: 'second',
+        };
+    }
+    var mins = secs / SECS_PER_MIN;
+    if (Math.abs(mins) < resolvedThresholds.minute) {
+        return {
+            value: Math.round(mins),
+            unit: 'minute',
+        };
+    }
+    var hours = secs / SECS_PER_HOUR;
+    if (Math.abs(hours) < resolvedThresholds.hour) {
+        return {
+            value: Math.round(hours),
+            unit: 'hour',
+        };
+    }
+    var days = secs / SECS_PER_DAY;
+    if (Math.abs(days) < resolvedThresholds.day) {
+        return {
+            value: Math.round(days),
+            unit: 'day',
+        };
+    }
+    var fromDate = new Date(from);
+    var toDate = new Date(to);
+    var years = fromDate.getFullYear() - toDate.getFullYear();
+    if (Math.round(Math.abs(years)) > 0) {
+        return {
+            value: Math.round(years),
+            unit: 'year',
+        };
+    }
+    var months = years * 12 + fromDate.getMonth() - toDate.getMonth();
+    if (Math.round(Math.abs(months)) > 0) {
+        return {
+            value: Math.round(months),
+            unit: 'month',
+        };
+    }
+    var weeks = secs / SECS_PER_WEEK;
+    return {
+        value: Math.round(weeks),
+        unit: 'week',
+    };
+}
+exports.selectUnit = selectUnit;
+exports.DEFAULT_THRESHOLDS = {
+    second: 45,
+    minute: 45,
+    hour: 22,
+    day: 5,
+};
+//# sourceMappingURL=diff.js.map
+
+/***/ }),
+
+/***/ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/get-canonical-locales.js":
+/*!*************************************************************************************************!*\
+  !*** ./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/get-canonical-locales.js ***!
+  \*************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * IE11-safe version of getCanonicalLocales since it's ES2016
+ * @param locales locales
+ */
+function getCanonicalLocales(locales) {
+    // IE11
+    var getCanonicalLocales = Intl.getCanonicalLocales;
+    if (typeof getCanonicalLocales === 'function') {
+        return getCanonicalLocales(locales);
+    }
+    // NOTE: we must NOT call `supportedLocalesOf` of a formatjs polyfill, or their implementation
+    // will even eventually call this method recursively. Here we use `Intl.DateTimeFormat` since it
+    // is not polyfilled by `@formatjs`.
+    return Intl.DateTimeFormat.supportedLocalesOf(locales || '');
+}
+exports.getCanonicalLocales = getCanonicalLocales;
+//# sourceMappingURL=get-canonical-locales.js.map
+
+/***/ }),
+
+/***/ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/index.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/index.js ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+Object.defineProperty(exports, "__esModule", { value: true });
+var diff_1 = __webpack_require__(/*! ./diff */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/diff.js");
+exports.selectUnit = diff_1.selectUnit;
+var polyfill_utils_1 = __webpack_require__(/*! ./polyfill-utils */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/polyfill-utils.js");
+exports.defaultNumberOption = polyfill_utils_1.defaultNumberOption;
+exports.getAliasesByLang = polyfill_utils_1.getAliasesByLang;
+exports.getInternalSlot = polyfill_utils_1.getInternalSlot;
+exports.getMultiInternalSlots = polyfill_utils_1.getMultiInternalSlots;
+exports.getNumberOption = polyfill_utils_1.getNumberOption;
+exports.getOption = polyfill_utils_1.getOption;
+exports.getParentLocalesByLang = polyfill_utils_1.getParentLocalesByLang;
+exports.isLiteralPart = polyfill_utils_1.isLiteralPart;
+exports.partitionPattern = polyfill_utils_1.partitionPattern;
+exports.setInternalSlot = polyfill_utils_1.setInternalSlot;
+exports.setMultiInternalSlots = polyfill_utils_1.setMultiInternalSlots;
+exports.setNumberFormatDigitOptions = polyfill_utils_1.setNumberFormatDigitOptions;
+exports.toObject = polyfill_utils_1.toObject;
+exports.objectIs = polyfill_utils_1.objectIs;
+exports.isWellFormedCurrencyCode = polyfill_utils_1.isWellFormedCurrencyCode;
+exports.toString = polyfill_utils_1.toString;
+var resolve_locale_1 = __webpack_require__(/*! ./resolve-locale */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/resolve-locale.js");
+exports.createResolveLocale = resolve_locale_1.createResolveLocale;
+exports.getLocaleHierarchy = resolve_locale_1.getLocaleHierarchy;
+exports.supportedLocales = resolve_locale_1.supportedLocales;
+exports.unpackData = resolve_locale_1.unpackData;
+exports.isMissingLocaleDataError = resolve_locale_1.isMissingLocaleDataError;
+__export(__webpack_require__(/*! ./units */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/units.js"));
+__export(__webpack_require__(/*! ./number-types */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/number-types.js"));
+var get_canonical_locales_1 = __webpack_require__(/*! ./get-canonical-locales */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/get-canonical-locales.js");
+exports.getCanonicalLocales = get_canonical_locales_1.getCanonicalLocales;
+var invariant_1 = __webpack_require__(/*! ./invariant */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/invariant.js");
+exports.invariant = invariant_1.invariant;
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/invariant.js":
+/*!*************************************************************************************!*\
+  !*** ./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/invariant.js ***!
+  \*************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+function invariant(condition, message, Err) {
+    if (Err === void 0) { Err = Error; }
+    if (!condition) {
+        throw new Err(message);
+    }
+}
+exports.invariant = invariant;
+//# sourceMappingURL=invariant.js.map
+
+/***/ }),
+
+/***/ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/number-types.js":
+/*!****************************************************************************************!*\
+  !*** ./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/number-types.js ***!
+  \****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var InternalSlotToken;
+(function (InternalSlotToken) {
+    // To prevent collision with {0} in CLDR
+    InternalSlotToken["compactName"] = "compactName";
+    InternalSlotToken["compactSymbol"] = "compactSymbol";
+    InternalSlotToken["currencyCode"] = "currencyCode";
+    InternalSlotToken["currencyName"] = "currencyName";
+    InternalSlotToken["currencyNarrowSymbol"] = "currencyNarrowSymbol";
+    InternalSlotToken["currencySymbol"] = "currencySymbol";
+    InternalSlotToken["minusSign"] = "minusSign";
+    InternalSlotToken["number"] = "number";
+    InternalSlotToken["percentSign"] = "percentSign";
+    InternalSlotToken["plusSign"] = "plusSign";
+    InternalSlotToken["scientificExponent"] = "scientificExponent";
+    InternalSlotToken["scientificSeparator"] = "scientificSeparator";
+    InternalSlotToken["unitName"] = "unitName";
+    InternalSlotToken["unitNarrowSymbol"] = "unitNarrowSymbol";
+    InternalSlotToken["unitSymbol"] = "unitSymbol";
+})(InternalSlotToken = exports.InternalSlotToken || (exports.InternalSlotToken = {}));
+//# sourceMappingURL=number-types.js.map
+
+/***/ }),
+
+/***/ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/parentLocales.js":
+/*!*****************************************************************************************!*\
+  !*** ./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/parentLocales.js ***!
+  \*****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/* @generated */
+// prettier-ignore  
+exports.default = { "en-150": "en-001", "en-AG": "en-001", "en-AI": "en-001", "en-AU": "en-001", "en-BB": "en-001", "en-BM": "en-001", "en-BS": "en-001", "en-BW": "en-001", "en-BZ": "en-001", "en-CA": "en-001", "en-CC": "en-001", "en-CK": "en-001", "en-CM": "en-001", "en-CX": "en-001", "en-CY": "en-001", "en-DG": "en-001", "en-DM": "en-001", "en-ER": "en-001", "en-FJ": "en-001", "en-FK": "en-001", "en-FM": "en-001", "en-GB": "en-001", "en-GD": "en-001", "en-GG": "en-001", "en-GH": "en-001", "en-GI": "en-001", "en-GM": "en-001", "en-GY": "en-001", "en-HK": "en-001", "en-IE": "en-001", "en-IL": "en-001", "en-IM": "en-001", "en-IN": "en-001", "en-IO": "en-001", "en-JE": "en-001", "en-JM": "en-001", "en-KE": "en-001", "en-KI": "en-001", "en-KN": "en-001", "en-KY": "en-001", "en-LC": "en-001", "en-LR": "en-001", "en-LS": "en-001", "en-MG": "en-001", "en-MO": "en-001", "en-MS": "en-001", "en-MT": "en-001", "en-MU": "en-001", "en-MW": "en-001", "en-MY": "en-001", "en-NA": "en-001", "en-NF": "en-001", "en-NG": "en-001", "en-NR": "en-001", "en-NU": "en-001", "en-NZ": "en-001", "en-PG": "en-001", "en-PH": "en-001", "en-PK": "en-001", "en-PN": "en-001", "en-PW": "en-001", "en-RW": "en-001", "en-SB": "en-001", "en-SC": "en-001", "en-SD": "en-001", "en-SG": "en-001", "en-SH": "en-001", "en-SL": "en-001", "en-SS": "en-001", "en-SX": "en-001", "en-SZ": "en-001", "en-TC": "en-001", "en-TK": "en-001", "en-TO": "en-001", "en-TT": "en-001", "en-TV": "en-001", "en-TZ": "en-001", "en-UG": "en-001", "en-VC": "en-001", "en-VG": "en-001", "en-VU": "en-001", "en-WS": "en-001", "en-ZA": "en-001", "en-ZM": "en-001", "en-ZW": "en-001", "en-AT": "en-150", "en-BE": "en-150", "en-CH": "en-150", "en-DE": "en-150", "en-DK": "en-150", "en-FI": "en-150", "en-NL": "en-150", "en-SE": "en-150", "en-SI": "en-150", "es-AR": "es-419", "es-BO": "es-419", "es-BR": "es-419", "es-BZ": "es-419", "es-CL": "es-419", "es-CO": "es-419", "es-CR": "es-419", "es-CU": "es-419", "es-DO": "es-419", "es-EC": "es-419", "es-GT": "es-419", "es-HN": "es-419", "es-MX": "es-419", "es-NI": "es-419", "es-PA": "es-419", "es-PE": "es-419", "es-PR": "es-419", "es-PY": "es-419", "es-SV": "es-419", "es-US": "es-419", "es-UY": "es-419", "es-VE": "es-419", "pt-AO": "pt-PT", "pt-CH": "pt-PT", "pt-CV": "pt-PT", "pt-FR": "pt-PT", "pt-GQ": "pt-PT", "pt-GW": "pt-PT", "pt-LU": "pt-PT", "pt-MO": "pt-PT", "pt-MZ": "pt-PT", "pt-ST": "pt-PT", "pt-TL": "pt-PT", "zh-Hant-MO": "zh-Hant-HK" };
+//# sourceMappingURL=parentLocales.js.map
+
+/***/ }),
+
+/***/ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/polyfill-utils.js":
+/*!******************************************************************************************!*\
+  !*** ./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/polyfill-utils.js ***!
+  \******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var aliases_1 = __webpack_require__(/*! ./aliases */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/aliases.js");
+var parentLocales_1 = __webpack_require__(/*! ./parentLocales */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/parentLocales.js");
+var invariant_1 = __webpack_require__(/*! ./invariant */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/invariant.js");
+/**
+ * https://tc39.es/ecma262/#sec-toobject
+ * @param arg
+ */
+function toObject(arg) {
+    if (arg == null) {
+        throw new TypeError('undefined/null cannot be converted to object');
+    }
+    return Object(arg);
+}
+exports.toObject = toObject;
+/**
+ * https://tc39.es/ecma262/#sec-tostring
+ */
+function toString(o) {
+    // Only symbol is irregular...
+    if (typeof o === 'symbol') {
+        throw TypeError('Cannot convert a Symbol value to a string');
+    }
+    return String(o);
+}
+exports.toString = toString;
+/**
+ * https://tc39.es/ecma402/#sec-getoption
+ * @param opts
+ * @param prop
+ * @param type
+ * @param values
+ * @param fallback
+ */
+function getOption(opts, prop, type, values, fallback) {
+    // const descriptor = Object.getOwnPropertyDescriptor(opts, prop);
+    var value = opts[prop];
+    if (value !== undefined) {
+        if (type !== 'boolean' && type !== 'string') {
+            throw new TypeError('invalid type');
+        }
+        if (type === 'boolean') {
+            value = Boolean(value);
+        }
+        if (type === 'string') {
+            value = toString(value);
+        }
+        if (values !== undefined && !values.filter(function (val) { return val == value; }).length) {
+            throw new RangeError(value + " is not within " + values.join(', '));
+        }
+        return value;
+    }
+    return fallback;
+}
+exports.getOption = getOption;
+/**
+ * https://tc39.es/ecma402/#sec-defaultnumberoption
+ * @param val
+ * @param min
+ * @param max
+ * @param fallback
+ */
+function defaultNumberOption(val, min, max, fallback) {
+    if (val !== undefined) {
+        val = Number(val);
+        if (isNaN(val) || val < min || val > max) {
+            throw new RangeError(val + " is outside of range [" + min + ", " + max + "]");
+        }
+        return Math.floor(val);
+    }
+    return fallback;
+}
+exports.defaultNumberOption = defaultNumberOption;
+/**
+ * https://tc39.es/ecma402/#sec-getnumberoption
+ * @param options
+ * @param property
+ * @param min
+ * @param max
+ * @param fallback
+ */
+function getNumberOption(options, property, minimum, maximum, fallback) {
+    var val = options[property];
+    return defaultNumberOption(val, minimum, maximum, fallback);
+}
+exports.getNumberOption = getNumberOption;
+function getAliasesByLang(lang) {
+    return Object.keys(aliases_1.default).reduce(function (all, locale) {
+        if (locale.split('-')[0] === lang) {
+            all[locale] = aliases_1.default[locale];
+        }
+        return all;
+    }, {});
+}
+exports.getAliasesByLang = getAliasesByLang;
+function getParentLocalesByLang(lang) {
+    return Object.keys(parentLocales_1.default).reduce(function (all, locale) {
+        if (locale.split('-')[0] === lang) {
+            all[locale] = parentLocales_1.default[locale];
+        }
+        return all;
+    }, {});
+}
+exports.getParentLocalesByLang = getParentLocalesByLang;
+function setInternalSlot(map, pl, field, value) {
+    if (!map.get(pl)) {
+        map.set(pl, Object.create(null));
+    }
+    var slots = map.get(pl);
+    slots[field] = value;
+}
+exports.setInternalSlot = setInternalSlot;
+function setMultiInternalSlots(map, pl, props) {
+    for (var _i = 0, _a = Object.keys(props); _i < _a.length; _i++) {
+        var k = _a[_i];
+        setInternalSlot(map, pl, k, props[k]);
+    }
+}
+exports.setMultiInternalSlots = setMultiInternalSlots;
+function getInternalSlot(map, pl, field) {
+    return getMultiInternalSlots(map, pl, field)[field];
+}
+exports.getInternalSlot = getInternalSlot;
+function getMultiInternalSlots(map, pl) {
+    var fields = [];
+    for (var _i = 2; _i < arguments.length; _i++) {
+        fields[_i - 2] = arguments[_i];
+    }
+    var slots = map.get(pl);
+    if (!slots) {
+        throw new TypeError(pl + " InternalSlot has not been initialized");
+    }
+    return fields.reduce(function (all, f) {
+        all[f] = slots[f];
+        return all;
+    }, Object.create(null));
+}
+exports.getMultiInternalSlots = getMultiInternalSlots;
+function isLiteralPart(patternPart) {
+    return patternPart.type === 'literal';
+}
+exports.isLiteralPart = isLiteralPart;
+function partitionPattern(pattern) {
+    var result = [];
+    var beginIndex = pattern.indexOf('{');
+    var endIndex = 0;
+    var nextIndex = 0;
+    var length = pattern.length;
+    while (beginIndex < pattern.length && beginIndex > -1) {
+        endIndex = pattern.indexOf('}', beginIndex);
+        invariant_1.invariant(endIndex > beginIndex, "Invalid pattern " + pattern);
+        if (beginIndex > nextIndex) {
+            result.push({
+                type: 'literal',
+                value: pattern.substring(nextIndex, beginIndex),
+            });
+        }
+        result.push({
+            type: pattern.substring(beginIndex + 1, endIndex),
+            value: undefined,
+        });
+        nextIndex = endIndex + 1;
+        beginIndex = pattern.indexOf('{', nextIndex);
+    }
+    if (nextIndex < length) {
+        result.push({
+            type: 'literal',
+            value: pattern.substring(nextIndex, length),
+        });
+    }
+    return result;
+}
+exports.partitionPattern = partitionPattern;
+/**
+ * https://tc39.es/ecma402/#sec-setnfdigitoptions
+ * https://tc39.es/proposal-unified-intl-numberformat/section11/numberformat_diff_out.html#sec-setnfdigitoptions
+ * @param intlObj
+ * @param opts
+ * @param mnfdDefault
+ * @param mxfdDefault
+ */
+function setNumberFormatDigitOptions(internalSlotMap, intlObj, opts, mnfdDefault, mxfdDefault) {
+    var mnid = getNumberOption(opts, 'minimumIntegerDigits', 1, 21, 1);
+    var mnfd = opts.minimumFractionDigits;
+    var mxfd = opts.maximumFractionDigits;
+    var mnsd = opts.minimumSignificantDigits;
+    var mxsd = opts.maximumSignificantDigits;
+    setInternalSlot(internalSlotMap, intlObj, 'minimumIntegerDigits', mnid);
+    if (mnsd !== undefined || mxsd !== undefined) {
+        setInternalSlot(internalSlotMap, intlObj, 'roundingType', 'significantDigits');
+        mnsd = defaultNumberOption(mnsd, 1, 21, 1);
+        mxsd = defaultNumberOption(mxsd, mnsd, 21, 21);
+        setInternalSlot(internalSlotMap, intlObj, 'minimumSignificantDigits', mnsd);
+        setInternalSlot(internalSlotMap, intlObj, 'maximumSignificantDigits', mxsd);
+    }
+    else if (mnfd !== undefined || mxfd !== undefined) {
+        setInternalSlot(internalSlotMap, intlObj, 'roundingType', 'fractionDigits');
+        mnfd = defaultNumberOption(mnfd, 0, 20, mnfdDefault);
+        var mxfdActualDefault = Math.max(mnfd, mxfdDefault);
+        mxfd = defaultNumberOption(mxfd, mnfd, 20, mxfdActualDefault);
+        setInternalSlot(internalSlotMap, intlObj, 'minimumFractionDigits', mnfd);
+        setInternalSlot(internalSlotMap, intlObj, 'maximumFractionDigits', mxfd);
+    }
+    else if (getInternalSlot(internalSlotMap, intlObj, 'notation') === 'compact') {
+        setInternalSlot(internalSlotMap, intlObj, 'roundingType', 'compactRounding');
+    }
+    else {
+        setInternalSlot(internalSlotMap, intlObj, 'roundingType', 'fractionDigits');
+        setInternalSlot(internalSlotMap, intlObj, 'minimumFractionDigits', mnfdDefault);
+        setInternalSlot(internalSlotMap, intlObj, 'maximumFractionDigits', mxfdDefault);
+    }
+}
+exports.setNumberFormatDigitOptions = setNumberFormatDigitOptions;
+function objectIs(x, y) {
+    if (Object.is) {
+        return Object.is(x, y);
+    }
+    // SameValue algorithm
+    if (x === y) {
+        // Steps 1-5, 7-10
+        // Steps 6.b-6.e: +0 != -0
+        return x !== 0 || 1 / x === 1 / y;
+    }
+    // Step 6.a: NaN == NaN
+    return x !== x && y !== y;
+}
+exports.objectIs = objectIs;
+var NOT_A_Z_REGEX = /[^A-Z]/;
+/**
+ * This follows https://tc39.es/ecma402/#sec-case-sensitivity-and-case-mapping
+ * @param str string to convert
+ */
+function toUpperCase(str) {
+    return str.replace(/([a-z])/g, function (_, c) { return c.toUpperCase(); });
+}
+/**
+ * https://tc39.es/proposal-unified-intl-numberformat/section6/locales-currencies-tz_proposed_out.html#sec-iswellformedcurrencycode
+ * @param currency
+ */
+function isWellFormedCurrencyCode(currency) {
+    currency = toUpperCase(currency);
+    if (currency.length !== 3) {
+        return false;
+    }
+    if (NOT_A_Z_REGEX.test(currency)) {
+        return false;
+    }
+    return true;
+}
+exports.isWellFormedCurrencyCode = isWellFormedCurrencyCode;
+//# sourceMappingURL=polyfill-utils.js.map
+
+/***/ }),
+
+/***/ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/resolve-locale.js":
+/*!******************************************************************************************!*\
+  !*** ./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/resolve-locale.js ***!
+  \******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var get_canonical_locales_1 = __webpack_require__(/*! ./get-canonical-locales */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/get-canonical-locales.js");
+var invariant_1 = __webpack_require__(/*! ./invariant */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/invariant.js");
+var polyfill_utils_1 = __webpack_require__(/*! ./polyfill-utils */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/polyfill-utils.js");
+function createResolveLocale(getDefaultLocale) {
+    var lookupMatcher = createLookupMatcher(getDefaultLocale);
+    var bestFitMatcher = createBestFitMatcher(getDefaultLocale);
+    /**
+     * https://tc39.es/ecma402/#sec-resolvelocale
+     */
+    return function resolveLocale(availableLocales, requestedLocales, options, relevantExtensionKeys, localeData) {
+        var matcher = options.localeMatcher;
+        var r;
+        if (matcher === 'lookup') {
+            r = lookupMatcher(availableLocales, requestedLocales);
+        }
+        else {
+            r = bestFitMatcher(availableLocales, requestedLocales);
+        }
+        var foundLocale = r.locale;
+        var result = { locale: '', dataLocale: foundLocale };
+        var supportedExtension = '-u';
+        for (var _i = 0, relevantExtensionKeys_1 = relevantExtensionKeys; _i < relevantExtensionKeys_1.length; _i++) {
+            var key = relevantExtensionKeys_1[_i];
+            var foundLocaleData = localeData[foundLocale];
+            invariant_1.invariant(typeof foundLocaleData === 'object' && foundLocaleData !== null, "locale data " + key + " must be an object");
+            var keyLocaleData = foundLocaleData[key];
+            invariant_1.invariant(Array.isArray(keyLocaleData), "keyLocaleData for " + key + " must be an array");
+            var value = keyLocaleData[0];
+            invariant_1.invariant(typeof value === 'string' || value === null, 'value must be string or null');
+            var supportedExtensionAddition = '';
+            if (r.extension) {
+                var requestedValue = unicodeExtensionValue(r.extension, key);
+                if (requestedValue !== undefined) {
+                    if (requestedValue !== '') {
+                        if (~keyLocaleData.indexOf(requestedValue)) {
+                            value = requestedValue;
+                            supportedExtensionAddition = "-" + key + "-" + value;
+                        }
+                    }
+                    else if (~requestedValue.indexOf('true')) {
+                        value = 'true';
+                        supportedExtensionAddition = "-" + key;
+                    }
+                }
+            }
+            if (key in options) {
+                var optionsValue = options[key];
+                invariant_1.invariant(typeof optionsValue === 'string' ||
+                    typeof optionsValue === 'undefined' ||
+                    optionsValue === null, 'optionsValue must be String, Undefined or Null');
+                if (~keyLocaleData.indexOf(optionsValue)) {
+                    if (optionsValue !== value) {
+                        value = optionsValue;
+                        supportedExtensionAddition = '';
+                    }
+                }
+            }
+            result[key] = value;
+            supportedExtension += supportedExtensionAddition;
+        }
+        if (supportedExtension.length > 2) {
+            var privateIndex = foundLocale.indexOf('-x-');
+            if (privateIndex === -1) {
+                foundLocale = foundLocale + supportedExtension;
+            }
+            else {
+                var preExtension = foundLocale.slice(0, privateIndex);
+                var postExtension = foundLocale.slice(privateIndex, foundLocale.length);
+                foundLocale = preExtension + supportedExtension + postExtension;
+            }
+            foundLocale = get_canonical_locales_1.getCanonicalLocales(foundLocale)[0];
+        }
+        result.locale = foundLocale;
+        return result;
+    };
+}
+exports.createResolveLocale = createResolveLocale;
+/**
+ * https://tc39.es/ecma402/#sec-unicodeextensionvalue
+ * @param extension
+ * @param key
+ */
+function unicodeExtensionValue(extension, key) {
+    invariant_1.invariant(key.length === 2, 'key must have 2 elements');
+    var size = extension.length;
+    var searchValue = "-" + key + "-";
+    var pos = extension.indexOf(searchValue);
+    if (pos !== -1) {
+        var start = pos + 4;
+        var end = start;
+        var k = start;
+        var done = false;
+        while (!done) {
+            var e = extension.indexOf('-', k);
+            var len = void 0;
+            if (e === -1) {
+                len = size - k;
+            }
+            else {
+                len = e - k;
+            }
+            if (len === 2) {
+                done = true;
+            }
+            else if (e === -1) {
+                end = size;
+                done = true;
+            }
+            else {
+                end = e;
+                k = e + 1;
+            }
+        }
+        return extension.slice(start, end);
+    }
+    searchValue = "-" + key;
+    pos = extension.indexOf(searchValue);
+    if (pos !== -1 && pos + 3 === size) {
+        return '';
+    }
+    return undefined;
+}
+var UNICODE_EXTENSION_SEQUENCE_REGEX = /-u(?:-[0-9a-z]{2,8})+/gi;
+/**
+ * https://tc39.es/ecma402/#sec-bestavailablelocale
+ * @param availableLocales
+ * @param locale
+ */
+function bestAvailableLocale(availableLocales, locale) {
+    var candidate = locale;
+    while (true) {
+        if (~availableLocales.indexOf(candidate)) {
+            return candidate;
+        }
+        var pos = candidate.lastIndexOf('-');
+        if (!~pos) {
+            return undefined;
+        }
+        if (pos >= 2 && candidate[pos - 2] === '-') {
+            pos -= 2;
+        }
+        candidate = candidate.slice(0, pos);
+    }
+}
+function createLookupMatcher(getDefaultLocale) {
+    /**
+     * https://tc39.es/ecma402/#sec-lookupmatcher
+     */
+    return function lookupMatcher(availableLocales, requestedLocales) {
+        var result = { locale: '' };
+        for (var _i = 0, requestedLocales_1 = requestedLocales; _i < requestedLocales_1.length; _i++) {
+            var locale = requestedLocales_1[_i];
+            var noExtensionLocale = locale.replace(UNICODE_EXTENSION_SEQUENCE_REGEX, '');
+            var availableLocale = bestAvailableLocale(availableLocales, noExtensionLocale);
+            if (availableLocale) {
+                result.locale = availableLocale;
+                if (locale !== noExtensionLocale) {
+                    result.extension = locale.slice(noExtensionLocale.length + 1, locale.length);
+                }
+                return result;
+            }
+        }
+        result.locale = getDefaultLocale();
+        return result;
+    };
+}
+function createBestFitMatcher(getDefaultLocale) {
+    return function bestFitMatcher(availableLocales, requestedLocales) {
+        var result = { locale: '' };
+        for (var _i = 0, requestedLocales_2 = requestedLocales; _i < requestedLocales_2.length; _i++) {
+            var locale = requestedLocales_2[_i];
+            var noExtensionLocale = locale.replace(UNICODE_EXTENSION_SEQUENCE_REGEX, '');
+            var availableLocale = bestAvailableLocale(availableLocales, noExtensionLocale);
+            if (availableLocale) {
+                result.locale = availableLocale;
+                if (locale !== noExtensionLocale) {
+                    result.extension = locale.slice(noExtensionLocale.length + 1, locale.length);
+                }
+                return result;
+            }
+        }
+        result.locale = getDefaultLocale();
+        return result;
+    };
+}
+function getLocaleHierarchy(locale, aliases, parentLocales) {
+    var results = [locale];
+    if (aliases[locale]) {
+        locale = aliases[locale];
+        results.push(locale);
+    }
+    var parentLocale = parentLocales[locale];
+    if (parentLocale) {
+        results.push(parentLocale);
+    }
+    var localeParts = locale.split('-');
+    for (var i = localeParts.length; i > 1; i--) {
+        results.push(localeParts.slice(0, i - 1).join('-'));
+    }
+    return results;
+}
+exports.getLocaleHierarchy = getLocaleHierarchy;
+function lookupSupportedLocales(availableLocales, requestedLocales) {
+    var subset = [];
+    for (var _i = 0, requestedLocales_3 = requestedLocales; _i < requestedLocales_3.length; _i++) {
+        var locale = requestedLocales_3[_i];
+        var noExtensionLocale = locale.replace(UNICODE_EXTENSION_SEQUENCE_REGEX, '');
+        var availableLocale = bestAvailableLocale(availableLocales, noExtensionLocale);
+        if (availableLocale) {
+            subset.push(availableLocale);
+        }
+    }
+    return subset;
+}
+function supportedLocales(availableLocales, requestedLocales, options) {
+    var matcher = 'best fit';
+    if (options !== undefined) {
+        options = polyfill_utils_1.toObject(options);
+        matcher = polyfill_utils_1.getOption(options, 'localeMatcher', 'string', ['lookup', 'best fit'], 'best fit');
+    }
+    if (matcher === 'best fit') {
+        return lookupSupportedLocales(availableLocales, requestedLocales);
+    }
+    return lookupSupportedLocales(availableLocales, requestedLocales);
+}
+exports.supportedLocales = supportedLocales;
+var MissingLocaleDataError = /** @class */ (function (_super) {
+    __extends(MissingLocaleDataError, _super);
+    function MissingLocaleDataError() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.type = 'MISSING_LOCALE_DATA';
+        return _this;
+    }
+    return MissingLocaleDataError;
+}(Error));
+function isMissingLocaleDataError(e) {
+    return e.type === 'MISSING_LOCALE_DATA';
+}
+exports.isMissingLocaleDataError = isMissingLocaleDataError;
+function unpackData(locale, localeData, 
+/** By default shallow merge the dictionaries. */
+reducer) {
+    if (reducer === void 0) { reducer = function (all, d) { return (__assign(__assign({}, all), d)); }; }
+    var localeHierarchy = getLocaleHierarchy(locale, localeData.aliases, localeData.parentLocales);
+    var dataToMerge = localeHierarchy
+        .map(function (l) { return localeData.data[l]; })
+        .filter(Boolean);
+    if (!dataToMerge.length) {
+        throw new MissingLocaleDataError("Missing locale data for \"" + locale + "\", lookup hierarchy: " + localeHierarchy.join(', '));
+    }
+    dataToMerge.reverse();
+    return dataToMerge.reduce(reducer, {});
+}
+exports.unpackData = unpackData;
+//# sourceMappingURL=resolve-locale.js.map
+
+/***/ }),
+
+/***/ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/units.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/units.js ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+// https://tc39.es/proposal-unified-intl-numberformat/section6/locales-currencies-tz_diff_out.html#sec-issanctionedsimpleunitidentifier
+exports.SANCTIONED_UNITS = [
+    'angle-degree',
+    'area-acre',
+    'area-hectare',
+    'concentr-percent',
+    'digital-bit',
+    'digital-byte',
+    'digital-gigabit',
+    'digital-gigabyte',
+    'digital-kilobit',
+    'digital-kilobyte',
+    'digital-megabit',
+    'digital-megabyte',
+    'digital-petabyte',
+    'digital-terabit',
+    'digital-terabyte',
+    'duration-day',
+    'duration-hour',
+    'duration-millisecond',
+    'duration-minute',
+    'duration-month',
+    'duration-second',
+    'duration-week',
+    'duration-year',
+    'length-centimeter',
+    'length-foot',
+    'length-inch',
+    'length-kilometer',
+    'length-meter',
+    'length-mile-scandinavian',
+    'length-mile',
+    'length-millimeter',
+    'length-yard',
+    'mass-gram',
+    'mass-kilogram',
+    'mass-ounce',
+    'mass-pound',
+    'mass-stone',
+    'temperature-celsius',
+    'temperature-fahrenheit',
+    'volume-fluid-ounce',
+    'volume-gallon',
+    'volume-liter',
+    'volume-milliliter',
+];
+// In CLDR, the unit name always follows the form `namespace-unit` pattern.
+// For example: `digital-bit` instead of `bit`. This function removes the namespace prefix.
+function removeUnitNamespace(unit) {
+    return unit.replace(/^(.*?)-/, '');
+}
+exports.removeUnitNamespace = removeUnitNamespace;
+//# sourceMappingURL=units.js.map
 
 /***/ }),
 

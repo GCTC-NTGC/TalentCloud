@@ -286,7 +286,7 @@ try {
 catch (ex) {
     // Meta fixes for test262
 }
-
+//# sourceMappingURL=core.js.map
 
 /***/ }),
 
@@ -354,7 +354,7 @@ if (typeof Intl.PluralRules === 'undefined' ||
         configurable: true,
     });
 }
-
+//# sourceMappingURL=polyfill.js.map
 
 /***/ }),
 
@@ -371,7 +371,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /* @generated */
 // prettier-ignore  
 exports.default = { "aa-SAAHO": "ssy", "aam": "aas", "aar": "aa", "abk": "ab", "adp": "dz", "afr": "af", "aju": "jrb", "aka": "ak", "alb": "sq", "als": "sq", "amh": "am", "ara": "ar", "arb": "ar", "arg": "an", "arm": "hy", "art-lojban": "jbo", "asd": "snz", "asm": "as", "aue": "ktz", "ava": "av", "ave": "ae", "aym": "ay", "ayr": "ay", "ayx": "nun", "az-AZ": "az-Latn-AZ", "aze": "az", "azj": "az", "bak": "ba", "bam": "bm", "baq": "eu", "bcc": "bal", "bcl": "bik", "bel": "be", "ben": "bn", "bgm": "bcg", "bh": "bho", "bih": "bho", "bis": "bi", "bjd": "drl", "bod": "bo", "bos": "bs", "bre": "br", "bs-BA": "bs-Latn-BA", "bul": "bg", "bur": "my", "bxk": "luy", "bxr": "bua", "cat": "ca", "ccq": "rki", "cel-gaulish": "xtg-x-cel-gaulish", "ces": "cs", "cha": "ch", "che": "ce", "chi": "zh", "chu": "cu", "chv": "cv", "cjr": "mom", "cka": "cmr", "cld": "syr", "cmk": "xch", "cmn": "zh", "cnr": "sr-ME", "cor": "kw", "cos": "co", "coy": "pij", "cqu": "quh", "cre": "cr", "cwd": "cr", "cym": "cy", "cze": "cs", "dan": "da", "deu": "de", "dgo": "doi", "dhd": "mwr", "dik": "din", "diq": "zza", "dit": "dif", "div": "dv", "drh": "mn", "drw": "fa-af", "dut": "nl", "dzo": "dz", "ekk": "et", "ell": "el", "emk": "man", "eng": "en", "epo": "eo", "esk": "ik", "est": "et", "eus": "eu", "ewe": "ee", "fao": "fo", "fas": "fa", "fat": "ak", "fij": "fj", "fin": "fi", "fra": "fr", "fre": "fr", "fry": "fy", "fuc": "ff", "ful": "ff", "gav": "dev", "gaz": "om", "gbo": "grb", "geo": "ka", "ger": "de", "gfx": "vaj", "ggn": "gvr", "gla": "gd", "gle": "ga", "glg": "gl", "glv": "gv", "gno": "gon", "gre": "el", "grn": "gn", "gti": "nyc", "gug": "gn", "guj": "gu", "guv": "duz", "gya": "gba", "ha-Latn-GH": "ha-GH", "ha-Latn-NE": "ha-NE", "ha-Latn-NG": "ha-NG", "hat": "ht", "hau": "ha", "hbs": "sr-Latn", "hdn": "hai", "hea": "hmn", "heb": "he", "her": "hz", "him": "srx", "hin": "hi", "hmo": "ho", "hrr": "jal", "hrv": "hr", "hun": "hu", "hye": "hy", "i-ami": "ami", "i-bnn": "bnn", "i-hak": "hak", "i-klingon": "tlh", "i-lux": "lb", "i-navajo": "nv", "i-pwn": "pwn", "i-tao": "tao", "i-tay": "tay", "i-tsu": "tsu", "i-default": "en-x-i-default", "i-enochian": "und-x-i-enochian", "i-mingo": "see-x-i-mingo", "ibi": "opa", "ibo": "ig", "ice": "is", "ido": "io", "iii": "ii", "ike": "iu", "iku": "iu", "ile": "ie", "ilw": "gal", "in": "id", "ina": "ia", "ind": "id", "ipk": "ik", "isl": "is", "ita": "it", "iw": "he", "jav": "jv", "jeg": "oyb", "ji": "yi", "jpn": "ja", "jw": "jv", "kal": "kl", "kan": "kn", "kas": "ks", "kat": "ka", "kau": "kr", "kaz": "kk", "kgc": "tdf", "kgh": "kml", "khk": "mn", "khm": "km", "kik": "ki", "kin": "rw", "kir": "ky", "kk-Cyrl-KZ": "kk-KZ", "kmr": "ku", "knc": "kr", "kng": "kg", "knn": "kok", "koj": "kwv", "kom": "kv", "kon": "kg", "kor": "ko", "kpv": "kv", "krm": "bmf", "ks-Arab-IN": "ks-IN", "ktr": "dtp", "kua": "kj", "kur": "ku", "kvs": "gdj", "kwq": "yam", "kxe": "tvd", "ky-Cyrl-KG": "ky-KG", "kzj": "dtp", "kzt": "dtp", "lao": "lo", "lat": "la", "lav": "lv", "lbk": "bnc", "lii": "raq", "lim": "li", "lin": "ln", "lit": "lt", "llo": "ngt", "lmm": "rmx", "ltz": "lb", "lub": "lu", "lug": "lg", "lvs": "lv", "mac": "mk", "mah": "mh", "mal": "ml", "mao": "mi", "mar": "mr", "may": "ms", "meg": "cir", "mhr": "chm", "mkd": "mk", "mlg": "mg", "mlt": "mt", "mn-Cyrl-MN": "mn-MN", "mnk": "man", "mo": "ro", "mol": "ro", "mon": "mn", "mri": "mi", "ms-Latn-BN": "ms-BN", "ms-Latn-MY": "ms-MY", "ms-Latn-SG": "ms-SG", "msa": "ms", "mst": "mry", "mup": "raj", "mwj": "vaj", "mya": "my", "myd": "aog", "myt": "mry", "nad": "xny", "nau": "na", "nav": "nv", "nbl": "nr", "ncp": "kdz", "nde": "nd", "ndo": "ng", "nep": "ne", "nld": "nl", "nno": "nn", "nns": "nbr", "nnx": "ngv", "no": "nb", "no-bok": "nb", "no-BOKMAL": "nb", "no-nyn": "nn", "no-NYNORSK": "nn", "nob": "nb", "nor": "nb", "npi": "ne", "nts": "pij", "nya": "ny", "oci": "oc", "ojg": "oj", "oji": "oj", "ori": "or", "orm": "om", "ory": "or", "oss": "os", "oun": "vaj", "pa-IN": "pa-Guru-IN", "pa-PK": "pa-Arab-PK", "pan": "pa", "pbu": "ps", "pcr": "adx", "per": "fa", "pes": "fa", "pli": "pi", "plt": "mg", "pmc": "huw", "pmu": "phr", "pnb": "lah", "pol": "pl", "por": "pt", "ppa": "bfy", "ppr": "lcq", "prs": "fa-AF", "pry": "prt", "pus": "ps", "puz": "pub", "que": "qu", "quz": "qu", "rmy": "rom", "roh": "rm", "ron": "ro", "rum": "ro", "run": "rn", "rus": "ru", "sag": "sg", "san": "sa", "sca": "hle", "scc": "sr", "scr": "hr", "sgn-BE-FR": "sfb", "sgn-BE-NL": "vgt", "sgn-CH-DE": "sgg", "sh": "sr-Latn", "shi-MA": "shi-Tfng-MA", "sin": "si", "skk": "oyb", "slk": "sk", "slo": "sk", "slv": "sl", "sme": "se", "smo": "sm", "sna": "sn", "snd": "sd", "som": "so", "sot": "st", "spa": "es", "spy": "kln", "sqi": "sq", "sr-BA": "sr-Cyrl-BA", "sr-ME": "sr-Latn-ME", "sr-RS": "sr-Cyrl-RS", "sr-XK": "sr-Cyrl-XK", "src": "sc", "srd": "sc", "srp": "sr", "ssw": "ss", "sun": "su", "swa": "sw", "swc": "sw-CD", "swe": "sv", "swh": "sw", "tah": "ty", "tam": "ta", "tat": "tt", "tdu": "dtp", "tel": "te", "tgk": "tg", "tgl": "fil", "tha": "th", "thc": "tpo", "thx": "oyb", "tib": "bo", "tie": "ras", "tir": "ti", "tkk": "twm", "tl": "fil", "tlw": "weo", "tmp": "tyj", "tne": "kak", "tnf": "fa-af", "ton": "to", "tsf": "taj", "tsn": "tn", "tso": "ts", "ttq": "tmh", "tuk": "tk", "tur": "tr", "tw": "ak", "twi": "ak", "tzm-Latn-MA": "tzm-MA", "ug-Arab-CN": "ug-CN", "uig": "ug", "ukr": "uk", "umu": "del", "uok": "ema", "urd": "ur", "uz-AF": "uz-Arab-AF", "uz-UZ": "uz-Latn-UZ", "uzb": "uz", "uzn": "uz", "vai-LR": "vai-Vaii-LR", "ven": "ve", "vie": "vi", "vol": "vo", "wel": "cy", "wln": "wa", "wol": "wo", "xba": "cax", "xho": "xh", "xia": "acn", "xkh": "waw", "xpe": "kpe", "xsj": "suj", "xsl": "den", "ybd": "rki", "ydd": "yi", "yid": "yi", "yma": "lrr", "ymt": "mtm", "yor": "yo", "yos": "zom", "yue-CN": "yue-Hans-CN", "yue-HK": "yue-Hant-HK", "yuu": "yug", "zai": "zap", "zh-CN": "zh-Hans-CN", "zh-guoyu": "zh", "zh-hakka": "hak", "zh-HK": "zh-Hant-HK", "zh-min-nan": "nan", "zh-MO": "zh-Hant-MO", "zh-SG": "zh-Hans-SG", "zh-TW": "zh-Hant-TW", "zh-xiang": "hsn", "zh-min": "nan-x-zh-min", "zha": "za", "zho": "zh", "zsm": "ms", "zul": "zu", "zyb": "za" };
-
+//# sourceMappingURL=aliases.js.map
 
 /***/ }),
 
@@ -462,7 +462,7 @@ exports.DEFAULT_THRESHOLDS = {
     hour: 22,
     day: 5,
 };
-
+//# sourceMappingURL=diff.js.map
 
 /***/ }),
 
@@ -492,7 +492,7 @@ function getCanonicalLocales(locales) {
     return Intl.DateTimeFormat.supportedLocalesOf(locales || '');
 }
 exports.getCanonicalLocales = getCanonicalLocales;
-
+//# sourceMappingURL=get-canonical-locales.js.map
 
 /***/ }),
 
@@ -540,7 +540,7 @@ var get_canonical_locales_1 = __webpack_require__(/*! ./get-canonical-locales */
 exports.getCanonicalLocales = get_canonical_locales_1.getCanonicalLocales;
 var invariant_1 = __webpack_require__(/*! ./invariant */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/intl-utils/dist/invariant.js");
 exports.invariant = invariant_1.invariant;
-
+//# sourceMappingURL=index.js.map
 
 /***/ }),
 
@@ -561,7 +561,7 @@ function invariant(condition, message, Err) {
     }
 }
 exports.invariant = invariant;
-
+//# sourceMappingURL=invariant.js.map
 
 /***/ }),
 
@@ -594,7 +594,7 @@ var InternalSlotToken;
     InternalSlotToken["unitNarrowSymbol"] = "unitNarrowSymbol";
     InternalSlotToken["unitSymbol"] = "unitSymbol";
 })(InternalSlotToken = exports.InternalSlotToken || (exports.InternalSlotToken = {}));
-
+//# sourceMappingURL=number-types.js.map
 
 /***/ }),
 
@@ -611,7 +611,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /* @generated */
 // prettier-ignore  
 exports.default = { "en-150": "en-001", "en-AG": "en-001", "en-AI": "en-001", "en-AU": "en-001", "en-BB": "en-001", "en-BM": "en-001", "en-BS": "en-001", "en-BW": "en-001", "en-BZ": "en-001", "en-CA": "en-001", "en-CC": "en-001", "en-CK": "en-001", "en-CM": "en-001", "en-CX": "en-001", "en-CY": "en-001", "en-DG": "en-001", "en-DM": "en-001", "en-ER": "en-001", "en-FJ": "en-001", "en-FK": "en-001", "en-FM": "en-001", "en-GB": "en-001", "en-GD": "en-001", "en-GG": "en-001", "en-GH": "en-001", "en-GI": "en-001", "en-GM": "en-001", "en-GY": "en-001", "en-HK": "en-001", "en-IE": "en-001", "en-IL": "en-001", "en-IM": "en-001", "en-IN": "en-001", "en-IO": "en-001", "en-JE": "en-001", "en-JM": "en-001", "en-KE": "en-001", "en-KI": "en-001", "en-KN": "en-001", "en-KY": "en-001", "en-LC": "en-001", "en-LR": "en-001", "en-LS": "en-001", "en-MG": "en-001", "en-MO": "en-001", "en-MS": "en-001", "en-MT": "en-001", "en-MU": "en-001", "en-MW": "en-001", "en-MY": "en-001", "en-NA": "en-001", "en-NF": "en-001", "en-NG": "en-001", "en-NR": "en-001", "en-NU": "en-001", "en-NZ": "en-001", "en-PG": "en-001", "en-PH": "en-001", "en-PK": "en-001", "en-PN": "en-001", "en-PW": "en-001", "en-RW": "en-001", "en-SB": "en-001", "en-SC": "en-001", "en-SD": "en-001", "en-SG": "en-001", "en-SH": "en-001", "en-SL": "en-001", "en-SS": "en-001", "en-SX": "en-001", "en-SZ": "en-001", "en-TC": "en-001", "en-TK": "en-001", "en-TO": "en-001", "en-TT": "en-001", "en-TV": "en-001", "en-TZ": "en-001", "en-UG": "en-001", "en-VC": "en-001", "en-VG": "en-001", "en-VU": "en-001", "en-WS": "en-001", "en-ZA": "en-001", "en-ZM": "en-001", "en-ZW": "en-001", "en-AT": "en-150", "en-BE": "en-150", "en-CH": "en-150", "en-DE": "en-150", "en-DK": "en-150", "en-FI": "en-150", "en-NL": "en-150", "en-SE": "en-150", "en-SI": "en-150", "es-AR": "es-419", "es-BO": "es-419", "es-BR": "es-419", "es-BZ": "es-419", "es-CL": "es-419", "es-CO": "es-419", "es-CR": "es-419", "es-CU": "es-419", "es-DO": "es-419", "es-EC": "es-419", "es-GT": "es-419", "es-HN": "es-419", "es-MX": "es-419", "es-NI": "es-419", "es-PA": "es-419", "es-PE": "es-419", "es-PR": "es-419", "es-PY": "es-419", "es-SV": "es-419", "es-US": "es-419", "es-UY": "es-419", "es-VE": "es-419", "pt-AO": "pt-PT", "pt-CH": "pt-PT", "pt-CV": "pt-PT", "pt-FR": "pt-PT", "pt-GQ": "pt-PT", "pt-GW": "pt-PT", "pt-LU": "pt-PT", "pt-MO": "pt-PT", "pt-MZ": "pt-PT", "pt-ST": "pt-PT", "pt-TL": "pt-PT", "zh-Hant-MO": "zh-Hant-HK" };
-
+//# sourceMappingURL=parentLocales.js.map
 
 /***/ }),
 
@@ -874,7 +874,7 @@ function isWellFormedCurrencyCode(currency) {
     return true;
 }
 exports.isWellFormedCurrencyCode = isWellFormedCurrencyCode;
-
+//# sourceMappingURL=polyfill-utils.js.map
 
 /***/ }),
 
@@ -1166,7 +1166,7 @@ reducer) {
     return dataToMerge.reduce(reducer, {});
 }
 exports.unpackData = unpackData;
-
+//# sourceMappingURL=resolve-locale.js.map
 
 /***/ }),
 
@@ -1232,7 +1232,7 @@ function removeUnitNamespace(unit) {
     return unit.replace(/^(.*?)-/, '');
 }
 exports.removeUnitNamespace = removeUnitNamespace;
-
+//# sourceMappingURL=units.js.map
 
 /***/ }),
 
@@ -1620,7 +1620,7 @@ try {
 catch (e) {
     // Meta fix so we're test262-compliant, not important
 }
-
+//# sourceMappingURL=core.js.map
 
 /***/ }),
 
@@ -1673,7 +1673,7 @@ if (!('RelativeTimeFormat' in Intl)) {
         configurable: true,
     });
 }
-
+//# sourceMappingURL=polyfill.js.map
 
 /***/ }),
 
@@ -1690,7 +1690,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /* @generated */
 // prettier-ignore  
 exports.default = { "aa-SAAHO": "ssy", "aam": "aas", "aar": "aa", "abk": "ab", "adp": "dz", "afr": "af", "aju": "jrb", "aka": "ak", "alb": "sq", "als": "sq", "amh": "am", "ara": "ar", "arb": "ar", "arg": "an", "arm": "hy", "art-lojban": "jbo", "asd": "snz", "asm": "as", "aue": "ktz", "ava": "av", "ave": "ae", "aym": "ay", "ayr": "ay", "ayx": "nun", "az-AZ": "az-Latn-AZ", "aze": "az", "azj": "az", "bak": "ba", "bam": "bm", "baq": "eu", "bcc": "bal", "bcl": "bik", "bel": "be", "ben": "bn", "bgm": "bcg", "bh": "bho", "bih": "bho", "bis": "bi", "bjd": "drl", "bod": "bo", "bos": "bs", "bre": "br", "bs-BA": "bs-Latn-BA", "bul": "bg", "bur": "my", "bxk": "luy", "bxr": "bua", "cat": "ca", "ccq": "rki", "cel-gaulish": "xtg-x-cel-gaulish", "ces": "cs", "cha": "ch", "che": "ce", "chi": "zh", "chu": "cu", "chv": "cv", "cjr": "mom", "cka": "cmr", "cld": "syr", "cmk": "xch", "cmn": "zh", "cnr": "sr-ME", "cor": "kw", "cos": "co", "coy": "pij", "cqu": "quh", "cre": "cr", "cwd": "cr", "cym": "cy", "cze": "cs", "dan": "da", "deu": "de", "dgo": "doi", "dhd": "mwr", "dik": "din", "diq": "zza", "dit": "dif", "div": "dv", "drh": "mn", "drw": "fa-af", "dut": "nl", "dzo": "dz", "ekk": "et", "ell": "el", "emk": "man", "eng": "en", "epo": "eo", "esk": "ik", "est": "et", "eus": "eu", "ewe": "ee", "fao": "fo", "fas": "fa", "fat": "ak", "fij": "fj", "fin": "fi", "fra": "fr", "fre": "fr", "fry": "fy", "fuc": "ff", "ful": "ff", "gav": "dev", "gaz": "om", "gbo": "grb", "geo": "ka", "ger": "de", "gfx": "vaj", "ggn": "gvr", "gla": "gd", "gle": "ga", "glg": "gl", "glv": "gv", "gno": "gon", "gre": "el", "grn": "gn", "gti": "nyc", "gug": "gn", "guj": "gu", "guv": "duz", "gya": "gba", "ha-Latn-GH": "ha-GH", "ha-Latn-NE": "ha-NE", "ha-Latn-NG": "ha-NG", "hat": "ht", "hau": "ha", "hbs": "sr-Latn", "hdn": "hai", "hea": "hmn", "heb": "he", "her": "hz", "him": "srx", "hin": "hi", "hmo": "ho", "hrr": "jal", "hrv": "hr", "hun": "hu", "hye": "hy", "i-ami": "ami", "i-bnn": "bnn", "i-hak": "hak", "i-klingon": "tlh", "i-lux": "lb", "i-navajo": "nv", "i-pwn": "pwn", "i-tao": "tao", "i-tay": "tay", "i-tsu": "tsu", "i-default": "en-x-i-default", "i-enochian": "und-x-i-enochian", "i-mingo": "see-x-i-mingo", "ibi": "opa", "ibo": "ig", "ice": "is", "ido": "io", "iii": "ii", "ike": "iu", "iku": "iu", "ile": "ie", "ilw": "gal", "in": "id", "ina": "ia", "ind": "id", "ipk": "ik", "isl": "is", "ita": "it", "iw": "he", "jav": "jv", "jeg": "oyb", "ji": "yi", "jpn": "ja", "jw": "jv", "kal": "kl", "kan": "kn", "kas": "ks", "kat": "ka", "kau": "kr", "kaz": "kk", "kgc": "tdf", "kgh": "kml", "khk": "mn", "khm": "km", "kik": "ki", "kin": "rw", "kir": "ky", "kk-Cyrl-KZ": "kk-KZ", "kmr": "ku", "knc": "kr", "kng": "kg", "knn": "kok", "koj": "kwv", "kom": "kv", "kon": "kg", "kor": "ko", "kpv": "kv", "krm": "bmf", "ks-Arab-IN": "ks-IN", "ktr": "dtp", "kua": "kj", "kur": "ku", "kvs": "gdj", "kwq": "yam", "kxe": "tvd", "ky-Cyrl-KG": "ky-KG", "kzj": "dtp", "kzt": "dtp", "lao": "lo", "lat": "la", "lav": "lv", "lbk": "bnc", "lii": "raq", "lim": "li", "lin": "ln", "lit": "lt", "llo": "ngt", "lmm": "rmx", "ltz": "lb", "lub": "lu", "lug": "lg", "lvs": "lv", "mac": "mk", "mah": "mh", "mal": "ml", "mao": "mi", "mar": "mr", "may": "ms", "meg": "cir", "mhr": "chm", "mkd": "mk", "mlg": "mg", "mlt": "mt", "mn-Cyrl-MN": "mn-MN", "mnk": "man", "mo": "ro", "mol": "ro", "mon": "mn", "mri": "mi", "ms-Latn-BN": "ms-BN", "ms-Latn-MY": "ms-MY", "ms-Latn-SG": "ms-SG", "msa": "ms", "mst": "mry", "mup": "raj", "mwj": "vaj", "mya": "my", "myd": "aog", "myt": "mry", "nad": "xny", "nau": "na", "nav": "nv", "nbl": "nr", "ncp": "kdz", "nde": "nd", "ndo": "ng", "nep": "ne", "nld": "nl", "nno": "nn", "nns": "nbr", "nnx": "ngv", "no": "nb", "no-bok": "nb", "no-BOKMAL": "nb", "no-nyn": "nn", "no-NYNORSK": "nn", "nob": "nb", "nor": "nb", "npi": "ne", "nts": "pij", "nya": "ny", "oci": "oc", "ojg": "oj", "oji": "oj", "ori": "or", "orm": "om", "ory": "or", "oss": "os", "oun": "vaj", "pa-IN": "pa-Guru-IN", "pa-PK": "pa-Arab-PK", "pan": "pa", "pbu": "ps", "pcr": "adx", "per": "fa", "pes": "fa", "pli": "pi", "plt": "mg", "pmc": "huw", "pmu": "phr", "pnb": "lah", "pol": "pl", "por": "pt", "ppa": "bfy", "ppr": "lcq", "prs": "fa-AF", "pry": "prt", "pus": "ps", "puz": "pub", "que": "qu", "quz": "qu", "rmy": "rom", "roh": "rm", "ron": "ro", "rum": "ro", "run": "rn", "rus": "ru", "sag": "sg", "san": "sa", "sca": "hle", "scc": "sr", "scr": "hr", "sgn-BE-FR": "sfb", "sgn-BE-NL": "vgt", "sgn-CH-DE": "sgg", "sh": "sr-Latn", "shi-MA": "shi-Tfng-MA", "sin": "si", "skk": "oyb", "slk": "sk", "slo": "sk", "slv": "sl", "sme": "se", "smo": "sm", "sna": "sn", "snd": "sd", "som": "so", "sot": "st", "spa": "es", "spy": "kln", "sqi": "sq", "sr-BA": "sr-Cyrl-BA", "sr-ME": "sr-Latn-ME", "sr-RS": "sr-Cyrl-RS", "sr-XK": "sr-Cyrl-XK", "src": "sc", "srd": "sc", "srp": "sr", "ssw": "ss", "sun": "su", "swa": "sw", "swc": "sw-CD", "swe": "sv", "swh": "sw", "tah": "ty", "tam": "ta", "tat": "tt", "tdu": "dtp", "tel": "te", "tgk": "tg", "tgl": "fil", "tha": "th", "thc": "tpo", "thx": "oyb", "tib": "bo", "tie": "ras", "tir": "ti", "tkk": "twm", "tl": "fil", "tlw": "weo", "tmp": "tyj", "tne": "kak", "tnf": "fa-af", "ton": "to", "tsf": "taj", "tsn": "tn", "tso": "ts", "ttq": "tmh", "tuk": "tk", "tur": "tr", "tw": "ak", "twi": "ak", "tzm-Latn-MA": "tzm-MA", "ug-Arab-CN": "ug-CN", "uig": "ug", "ukr": "uk", "umu": "del", "uok": "ema", "urd": "ur", "uz-AF": "uz-Arab-AF", "uz-UZ": "uz-Latn-UZ", "uzb": "uz", "uzn": "uz", "vai-LR": "vai-Vaii-LR", "ven": "ve", "vie": "vi", "vol": "vo", "wel": "cy", "wln": "wa", "wol": "wo", "xba": "cax", "xho": "xh", "xia": "acn", "xkh": "waw", "xpe": "kpe", "xsj": "suj", "xsl": "den", "ybd": "rki", "ydd": "yi", "yid": "yi", "yma": "lrr", "ymt": "mtm", "yor": "yo", "yos": "zom", "yue-CN": "yue-Hans-CN", "yue-HK": "yue-Hant-HK", "yuu": "yug", "zai": "zap", "zh-CN": "zh-Hans-CN", "zh-guoyu": "zh", "zh-hakka": "hak", "zh-HK": "zh-Hant-HK", "zh-min-nan": "nan", "zh-MO": "zh-Hant-MO", "zh-SG": "zh-Hans-SG", "zh-TW": "zh-Hant-TW", "zh-xiang": "hsn", "zh-min": "nan-x-zh-min", "zha": "za", "zho": "zh", "zsm": "ms", "zul": "zu", "zyb": "za" };
-
+//# sourceMappingURL=aliases.js.map
 
 /***/ }),
 
@@ -1781,7 +1781,7 @@ exports.DEFAULT_THRESHOLDS = {
     hour: 22,
     day: 5,
 };
-
+//# sourceMappingURL=diff.js.map
 
 /***/ }),
 
@@ -1811,7 +1811,7 @@ function getCanonicalLocales(locales) {
     return Intl.DateTimeFormat.supportedLocalesOf(locales || '');
 }
 exports.getCanonicalLocales = getCanonicalLocales;
-
+//# sourceMappingURL=get-canonical-locales.js.map
 
 /***/ }),
 
@@ -1859,7 +1859,7 @@ var get_canonical_locales_1 = __webpack_require__(/*! ./get-canonical-locales */
 exports.getCanonicalLocales = get_canonical_locales_1.getCanonicalLocales;
 var invariant_1 = __webpack_require__(/*! ./invariant */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/intl-utils/dist/invariant.js");
 exports.invariant = invariant_1.invariant;
-
+//# sourceMappingURL=index.js.map
 
 /***/ }),
 
@@ -1880,7 +1880,7 @@ function invariant(condition, message, Err) {
     }
 }
 exports.invariant = invariant;
-
+//# sourceMappingURL=invariant.js.map
 
 /***/ }),
 
@@ -1913,7 +1913,7 @@ var InternalSlotToken;
     InternalSlotToken["unitNarrowSymbol"] = "unitNarrowSymbol";
     InternalSlotToken["unitSymbol"] = "unitSymbol";
 })(InternalSlotToken = exports.InternalSlotToken || (exports.InternalSlotToken = {}));
-
+//# sourceMappingURL=number-types.js.map
 
 /***/ }),
 
@@ -1930,7 +1930,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /* @generated */
 // prettier-ignore  
 exports.default = { "en-150": "en-001", "en-AG": "en-001", "en-AI": "en-001", "en-AU": "en-001", "en-BB": "en-001", "en-BM": "en-001", "en-BS": "en-001", "en-BW": "en-001", "en-BZ": "en-001", "en-CA": "en-001", "en-CC": "en-001", "en-CK": "en-001", "en-CM": "en-001", "en-CX": "en-001", "en-CY": "en-001", "en-DG": "en-001", "en-DM": "en-001", "en-ER": "en-001", "en-FJ": "en-001", "en-FK": "en-001", "en-FM": "en-001", "en-GB": "en-001", "en-GD": "en-001", "en-GG": "en-001", "en-GH": "en-001", "en-GI": "en-001", "en-GM": "en-001", "en-GY": "en-001", "en-HK": "en-001", "en-IE": "en-001", "en-IL": "en-001", "en-IM": "en-001", "en-IN": "en-001", "en-IO": "en-001", "en-JE": "en-001", "en-JM": "en-001", "en-KE": "en-001", "en-KI": "en-001", "en-KN": "en-001", "en-KY": "en-001", "en-LC": "en-001", "en-LR": "en-001", "en-LS": "en-001", "en-MG": "en-001", "en-MO": "en-001", "en-MS": "en-001", "en-MT": "en-001", "en-MU": "en-001", "en-MW": "en-001", "en-MY": "en-001", "en-NA": "en-001", "en-NF": "en-001", "en-NG": "en-001", "en-NR": "en-001", "en-NU": "en-001", "en-NZ": "en-001", "en-PG": "en-001", "en-PH": "en-001", "en-PK": "en-001", "en-PN": "en-001", "en-PW": "en-001", "en-RW": "en-001", "en-SB": "en-001", "en-SC": "en-001", "en-SD": "en-001", "en-SG": "en-001", "en-SH": "en-001", "en-SL": "en-001", "en-SS": "en-001", "en-SX": "en-001", "en-SZ": "en-001", "en-TC": "en-001", "en-TK": "en-001", "en-TO": "en-001", "en-TT": "en-001", "en-TV": "en-001", "en-TZ": "en-001", "en-UG": "en-001", "en-VC": "en-001", "en-VG": "en-001", "en-VU": "en-001", "en-WS": "en-001", "en-ZA": "en-001", "en-ZM": "en-001", "en-ZW": "en-001", "en-AT": "en-150", "en-BE": "en-150", "en-CH": "en-150", "en-DE": "en-150", "en-DK": "en-150", "en-FI": "en-150", "en-NL": "en-150", "en-SE": "en-150", "en-SI": "en-150", "es-AR": "es-419", "es-BO": "es-419", "es-BR": "es-419", "es-BZ": "es-419", "es-CL": "es-419", "es-CO": "es-419", "es-CR": "es-419", "es-CU": "es-419", "es-DO": "es-419", "es-EC": "es-419", "es-GT": "es-419", "es-HN": "es-419", "es-MX": "es-419", "es-NI": "es-419", "es-PA": "es-419", "es-PE": "es-419", "es-PR": "es-419", "es-PY": "es-419", "es-SV": "es-419", "es-US": "es-419", "es-UY": "es-419", "es-VE": "es-419", "pt-AO": "pt-PT", "pt-CH": "pt-PT", "pt-CV": "pt-PT", "pt-FR": "pt-PT", "pt-GQ": "pt-PT", "pt-GW": "pt-PT", "pt-LU": "pt-PT", "pt-MO": "pt-PT", "pt-MZ": "pt-PT", "pt-ST": "pt-PT", "pt-TL": "pt-PT", "zh-Hant-MO": "zh-Hant-HK" };
-
+//# sourceMappingURL=parentLocales.js.map
 
 /***/ }),
 
@@ -2193,7 +2193,7 @@ function isWellFormedCurrencyCode(currency) {
     return true;
 }
 exports.isWellFormedCurrencyCode = isWellFormedCurrencyCode;
-
+//# sourceMappingURL=polyfill-utils.js.map
 
 /***/ }),
 
@@ -2485,7 +2485,7 @@ reducer) {
     return dataToMerge.reduce(reducer, {});
 }
 exports.unpackData = unpackData;
-
+//# sourceMappingURL=resolve-locale.js.map
 
 /***/ }),
 
@@ -2551,7 +2551,7 @@ function removeUnitNamespace(unit) {
     return unit.replace(/^(.*?)-/, '');
 }
 exports.removeUnitNamespace = removeUnitNamespace;
-
+//# sourceMappingURL=units.js.map
 
 /***/ }),
 
@@ -9925,7 +9925,7 @@ var store = __webpack_require__(/*! ../internals/shared-store */ "./node_modules
 (module.exports = function (key, value) {
   return store[key] || (store[key] = value !== undefined ? value : {});
 })('versions', []).push({
-  version: '3.6.4',
+  version: '3.6.5',
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2020 Denis Pushkarev (zloirock.ru)'
 });
@@ -10427,7 +10427,13 @@ if (!set || !clear) {
     defer = bind(port.postMessage, port, 1);
   // Browsers with postMessage, skip WebWorkers
   // IE8 has postMessage, but it's sync & typeof its postMessage is 'object'
-  } else if (global.addEventListener && typeof postMessage == 'function' && !global.importScripts && !fails(post)) {
+  } else if (
+    global.addEventListener &&
+    typeof postMessage == 'function' &&
+    !global.importScripts &&
+    !fails(post) &&
+    location.protocol !== 'file:'
+  ) {
     defer = post;
     global.addEventListener('message', listener, false);
   // IE8-
@@ -22438,7 +22444,7 @@ var INVALID_HOST = 'Invalid host';
 var INVALID_PORT = 'Invalid port';
 
 var ALPHA = /[A-Za-z]/;
-var ALPHANUMERIC = /[\d+\-.A-Za-z]/;
+var ALPHANUMERIC = /[\d+-.A-Za-z]/;
 var DIGIT = /\d/;
 var HEX_START = /^(0x|0X)/;
 var OCT = /^[0-7]+$/;
