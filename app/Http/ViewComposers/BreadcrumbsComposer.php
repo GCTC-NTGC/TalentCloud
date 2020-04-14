@@ -6,6 +6,7 @@ use Facades\App\Services\WhichPortal;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Log;
 
 class BreadcrumbsComposer
 {
@@ -36,14 +37,12 @@ class BreadcrumbsComposer
     public function compose(View $view)
     {
         $segments = $this->parseSegments();
-        $breadcrumbs_lang = Lang::get('common/breadcrumbs')['applicant'];
+        $breadcrumbs_lang = Lang::get('common/breadcrumbs');
 
         if (WhichPortal::isManagerPortal()) {
             $segments = $segments->slice(1);
-            $breadcrumbs_lang = Lang::get('common/breadcrumbs')['manager'];
         } elseif (WhichPortal::isHrPortal()) {
             $segments = $segments->slice(1);
-            $breadcrumbs_lang = Lang::get('common/breadcrumbs')['hr'];
         }
 
         $view->with('breadcrumbs', $segments);
@@ -58,6 +57,9 @@ class BreadcrumbsComposer
     protected function parseSegments()
     {
         return collect($this->request->segments())->mapWithKeys(function ($segment, $key) {
+            if ($this->request->jobPoster && $this->request->jobPoster->id == $segment) {
+                $segment = $this->request->jobPoster->title;
+            }
             return [
                 $segment => implode('/', array_slice($this->request->segments(), 0, $key + 1)),
             ];
