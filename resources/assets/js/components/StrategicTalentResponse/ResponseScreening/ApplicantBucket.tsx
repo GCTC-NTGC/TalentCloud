@@ -214,7 +214,7 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
     label: intl.formatMessage(status.name),
   }));
 
-  const departmentOptions = departments.map(department => ({
+  const departmentOptions = departments.map((department) => ({
     value: department.id,
     label: localizeFieldNonNull(locale, department, "name"),
   }));
@@ -291,7 +291,7 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
       cancelButtonText: intl.formatMessage(displayMessages.cancel),
       confirmButtonText: intl.formatMessage(displayMessages.save),
       inputValue: notes,
-    }).then(result => {
+    }).then((result) => {
       if (result && result.value !== undefined) {
         const value = result.value ? result.value : "";
         updateField("notes", value);
@@ -333,7 +333,7 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
               cancelButtonColor: "#F94D4D",
               cancelButtonText: intl.formatMessage(displayMessages.cancel),
               confirmButtonText: intl.formatMessage(displayMessages.yes),
-            }).then(result => {
+            }).then((result) => {
               if (result.value === undefined) {
                 setSubmitting(false);
               } else {
@@ -355,7 +355,7 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
               cancelButtonColor: "#F94D4D",
               cancelButtonText: intl.formatMessage(displayMessages.cancel),
               confirmButtonText: intl.formatMessage(displayMessages.yes),
-            }).then(result => {
+            }).then((result) => {
               if (result.value === undefined) {
                 setSubmitting(false);
               } else {
@@ -650,7 +650,7 @@ const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
             applications.length > 0 &&
             applications
               .sort(applicationSort(locale))
-              .map(application => (
+              .map((application) => (
                 <ApplicationRow
                   key={application.id}
                   application={application}
