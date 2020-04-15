@@ -27,7 +27,7 @@ return [
                     'id' => 'q2',
                     'question' => 'Who built GC Talent Reserve?',
                     'answers' => [
-                        'GC Talent Reserve has been built by the Talent Cloud team, with the support of the Community Management Office and the Office of the Chief Information Officer (OCIO) at the Treasury Board Secretariat (TBS). <a href="" title="">You can learn more about Talent Cloud here</a>.',
+                        'GC Talent Reserve has been built by the Talent Cloud team, with the support of the Community Management Office and the Office of the Chief Information Officer (OCIO) at the Treasury Board Secretariat (TBS). <a href="https://talent.canada.ca/" title="Learn more about Talent Cloud.">You can learn more about Talent Cloud here</a>.',
                         'Because of the urgent nature of the situation, the whole site has been built in less than two weeks, and many features have been repurposed. This means that there will be glitches, especially early on. We’re on it! And we appreciate your patience.'
                     ]
                 ],
@@ -144,7 +144,7 @@ return [
                     'id' => 'q18',
                     'question' => 'What if something changes after I apply?',
                     'answers' => [
-                        'It’s possible that something in your personal or work life could change after you submit your application. If for any reason you are no longer able to move to a temporary role, <a href="mailto:" title="Email the GC Talent Reserve.">email us</a> to let us know. We can either permanently or temporarily remove your application, depending on what you ask us to do.'
+                        'It’s possible that something in your personal or work life could change after you submit your application. If for any reason you are no longer able to move to a temporary role, <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Email the GC Talent Reserve.">email us</a> to let us know. We can either permanently or temporarily remove your application, depending on what you ask us to do.'
                     ]
                 ],
                 [
@@ -165,7 +165,7 @@ return [
                     'id' => 'q21',
                     'question' => 'My department needs help in a critical need area not listed here. Can the GC Reserve Portal help?',
                     'answers' => [
-                        'At the moment, the GC Reserve Portal is only available for the digital and technology community. If your department has identified a current or anticipated talent shortage in a critical area pertaining to digital or technology needs, please <a href="mailto:" title="Email the GC Talent Reserve.">get in touch with us</a> to request some extra help. If you would like to use this tool for another area (outside of digital or technology needs) please get in touch with your head of community and <a href="mailto:" title="Email the GC Talent Reserve.">let us know</a>.'
+                        'At the moment, the GC Reserve Portal is only available for the digital and technology community. If your department has identified a current or anticipated talent shortage in a critical area pertaining to digital or technology needs, please <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Email the GC Talent Reserve.">get in touch with us</a> to request some extra help. If you would like to use this tool for another area (outside of digital or technology needs) please get in touch with your head of community and <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Email the GC Talent Reserve.">let us know</a>.'
                     ]
                 ],
                 [
