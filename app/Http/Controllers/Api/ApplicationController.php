@@ -87,7 +87,8 @@ class ApplicationController extends Controller
         ]);
         $review->save();
 
-        if ($application->job_poster->department_id === $strategicResponseDepartmentId
+        if (
+            $application->job_poster->department_id === $strategicResponseDepartmentId
             && in_array($review->review_status_id, $availabilityStatuses->toArray())
         ) {
             $this->setAvailability($application);
@@ -101,8 +102,9 @@ class ApplicationController extends Controller
 
     /**
      * Sets the review status for any other application reviews
-     * belonging to a given Applicant. Designed to be used for the
-     * Strategic Talent Response screening, but could be repurposed.
+     * belonging to a given Applicant to `not_available`.
+     * Designed to be used for the Strategic Talent Response screening,
+     * but could be repurposed.
      *
      * @param JobApplication $application Incoming Job Application object.
      *

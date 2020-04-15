@@ -65,4 +65,15 @@ class StrategicResponseController extends Controller
             'streams' => $streams,
         ]);
     }
+
+    /**
+     * Show the strategic response faq page.
+     * @return \Illuminate\Http\Response
+     */
+    public function faq()
+    {
+        return view('response/faq/index', [
+            'response_faq' => Lang::get('response/faq'),
+        ]);
+    }
 }

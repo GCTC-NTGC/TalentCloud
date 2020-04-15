@@ -1,6 +1,6 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
 import React, { useState, useEffect } from "react";
-import { defineMessages, FormattedMessage, useIntl } from "react-intl";
+import { defineMessages, useIntl } from "react-intl";
 import { FastField, Formik, Form, useFormikContext } from "formik";
 import Swal from "sweetalert2";
 import SelectInput from "../../Form/SelectInput";
@@ -9,7 +9,7 @@ import {
   Department,
   ApplicationReview,
 } from "../../../models/types";
-import { Portal } from "../../../models/app";
+import { Portal, ValuesOf } from "../../../models/app";
 import * as routes from "../../../helpers/routes";
 import {
   ResponseScreeningBuckets,
@@ -214,7 +214,7 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
     label: intl.formatMessage(status.name),
   }));
 
-  const departmentOptions = departments.map(department => ({
+  const departmentOptions = departments.map((department) => ({
     value: department.id,
     label: localizeFieldNonNull(locale, department, "name"),
   }));
@@ -291,7 +291,7 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
       cancelButtonText: intl.formatMessage(displayMessages.cancel),
       confirmButtonText: intl.formatMessage(displayMessages.save),
       inputValue: notes,
-    }).then(result => {
+    }).then((result) => {
       if (result && result.value !== undefined) {
         const value = result.value ? result.value : "";
         updateField("notes", value);
@@ -333,7 +333,7 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
               cancelButtonColor: "#F94D4D",
               cancelButtonText: intl.formatMessage(displayMessages.cancel),
               confirmButtonText: intl.formatMessage(displayMessages.yes),
-            }).then(result => {
+            }).then((result) => {
               if (result.value === undefined) {
                 setSubmitting(false);
               } else {
@@ -355,7 +355,7 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
               cancelButtonColor: "#F94D4D",
               cancelButtonText: intl.formatMessage(displayMessages.cancel),
               confirmButtonText: intl.formatMessage(displayMessages.yes),
-            }).then(result => {
+            }).then((result) => {
               if (result.value === undefined) {
                 setSubmitting(false);
               } else {
@@ -393,10 +393,10 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
                   </p>
                   <p data-c-font-size="small">
                     <a href={applicationUrl} title="" data-c-margin="right(.5)">
-                      <FormattedMessage {...displayMessages.viewApplication} />
+                      {intl.formatMessage(displayMessages.viewApplication)}
                     </a>
                     <a href={applicantUrl} title="">
-                      <FormattedMessage {...displayMessages.viewProfile} />
+                      {intl.formatMessage(displayMessages.viewProfile)}
                     </a>
                   </p>
                 </div>
@@ -441,9 +441,7 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
                 }
               >
                 <i className="fas fa-plus" />
-                <span>
-                  <FormattedMessage {...displayMessages.notes} />
-                </span>
+                <span>{intl.formatMessage(displayMessages.notes)}</span>
               </button>
               <button
                 data-c-button="solid(c1)"
@@ -452,11 +450,9 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
                 disabled={isSubmitting}
               >
                 <span>
-                  {dirty ? (
-                    <FormattedMessage {...displayMessages.save} />
-                  ) : (
-                    <FormattedMessage {...displayMessages.saved} />
-                  )}
+                  {dirty
+                    ? intl.formatMessage(displayMessages.save)
+                    : intl.formatMessage(displayMessages.saved)}
                 </span>
               </button>
             </div>
@@ -564,7 +560,9 @@ const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
   const {
     title: bucketTitle,
     description: bucketDescription,
-  } = ResponseScreeningBuckets[bucket];
+  }: ValuesOf<typeof ResponseScreeningBuckets> = ResponseScreeningBuckets[
+    bucket
+  ];
 
   const handleExpandClick = (): void => {
     setIsExpanded(!isExpanded);
@@ -587,42 +585,37 @@ const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
       >
         <div data-c-padding="top(normal) right bottom(normal) left(normal)">
           <p data-c-font-weight="bold" data-c-font-size="h3">
-            <FormattedMessage {...bucketTitle} /> ({applications.length})
+            {intl.formatMessage(bucketTitle)} ({applications.length})
           </p>
           <p data-c-margin="top(quarter)" data-c-colour="gray">
-            {bucket === ResponseBuckets.Consideration ? (
-              <FormattedMessage
-                id={ResponseScreeningBuckets.consideration.title.id}
-                defaultMessage={
-                  ResponseScreeningBuckets.consideration.description
-                    .defaultMessage
-                }
-                description={
-                  ResponseScreeningBuckets.consideration.description.description
-                }
-                values={{
-                  iconAssessment: (
-                    <StatusIcon
-                      status={IconStatus.ASSESSMENT}
-                      color="slow"
-                      small
-                    />
-                  ),
-                  iconReady: (
-                    <StatusIcon status={IconStatus.READY} color="go" small />
-                  ),
-                  iconReceived: (
-                    <StatusIcon status={IconStatus.RECEIVED} color="c1" small />
-                  ),
-                }}
-              />
-            ) : (
-              <FormattedMessage {...bucketDescription} />
-            )}
+            {bucket === ResponseBuckets.Consideration
+              ? intl.formatMessage(
+                  ResponseScreeningBuckets.consideration.description,
+                  {
+                    iconAssessment: (
+                      <StatusIcon
+                        status={IconStatus.ASSESSMENT}
+                        color="slow"
+                        small
+                      />
+                    ),
+                    iconReady: (
+                      <StatusIcon status={IconStatus.READY} color="go" small />
+                    ),
+                    iconReceived: (
+                      <StatusIcon
+                        status={IconStatus.RECEIVED}
+                        color="c1"
+                        small
+                      />
+                    ),
+                  },
+                )
+              : intl.formatMessage(bucketDescription)}
           </p>
         </div>
         <span data-c-visibility="invisible">
-          <FormattedMessage {...displayMessages.clickView} />
+          {intl.formatMessage(displayMessages.clickView)}
         </span>
         {isExpanded ? (
           <i
@@ -650,7 +643,7 @@ const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
             applications.length > 0 &&
             applications
               .sort(applicationSort(locale))
-              .map(application => (
+              .map((application) => (
                 <ApplicationRow
                   key={application.id}
                   application={application}
@@ -670,7 +663,7 @@ const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
                 data-c-align="base(center)"
               >
                 <p data-c-color="gray">
-                  <FormattedMessage {...displayMessages.noApplicants} />
+                  {intl.formatMessage(displayMessages.noApplicants)}
                 </p>
               </div>
             </div>
