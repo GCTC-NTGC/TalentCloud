@@ -1,4 +1,4 @@
-<nav aria-label="breadcrumb" data-c-breadcrumbs data-c-colour="white">
+<nav aria-label="breadcrumb" data-c-breadcrumbs data-c-colour={{ font_color ?: "white" }}>
 	<ol>
 		{% for key, url in breadcrumbs %}
 			{% if loop.first %}
