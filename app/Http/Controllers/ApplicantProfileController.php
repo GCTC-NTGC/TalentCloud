@@ -85,6 +85,11 @@ class ApplicantProfileController extends Controller
         $linkedInUrlPattern = LinkedInUrlRule::PATTERN;
         $twitterHandlePattern = TwitterHandleRule::PATTERN;
 
+        $custom_breadcrumbs = [
+            'home' => route('home'),
+            'profile' => '',
+        ];
+
         return view(
             'applicant/profile_01_about',
             [
@@ -99,6 +104,7 @@ class ApplicantProfileController extends Controller
                 'form_submit_action' => route('profile.about.update', $applicant),
                 'linkedInUrlPattern' => $linkedInUrlPattern,
                 'twitterHandlePattern' => $twitterHandlePattern,
+                'custom_breadcrumbs' => $custom_breadcrumbs,
             ]
         );
     }
