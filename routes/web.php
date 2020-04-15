@@ -106,7 +106,10 @@ Route::group(
                 Route::post('/2fa', 'Auth\TwoFactorController@redirectToExpected')->name('2fa');
 
                 /* Home */
-                Route::get('/', 'HomepageController@applicant')->name('home');
+                // Route::get('/', 'HomepageController@applicant')->name('home');
+                Route::get('/', function () {
+                    return redirect()->route('response.index');
+                })->name('home');
 
                 /* Jobs */
                 Route::get('jobs', 'JobController@index')->name('jobs.index');
