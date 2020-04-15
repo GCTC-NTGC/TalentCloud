@@ -6,16 +6,7 @@
                 <div data-c-grid-item="tl(2of3)" data-c-align="base(center) tl(left)">
                     {# Breadcrumbs #}
                     <div data-c-alignment="base(center) tl(left)" data-c-color="black">
-                        <nav aria-label="breadcrumb" data-c-breadcrumbs>
-                            <ol>
-                                <li>
-                                    <a href="/response" title="Return to the response homepage.">Home</a><i>/</i>
-                                </li>
-                                <li>
-                                    <span aria-current="page">FAQ</span><i>/</i>
-                                </li>
-                            </ol>
-                        </nav>
+                        {% include "common/breadcrumbs" with {"font_color": "black"} %}
                     </div>
                 </div>
                 <div data-c-grid-item="tl(1of3)" data-c-align="base(center) tl(right)">
