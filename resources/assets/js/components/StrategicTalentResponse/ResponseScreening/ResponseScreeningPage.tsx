@@ -38,8 +38,8 @@ const ResponseScreeningPage: React.FC<ResponseScreeningPageProps> = ({
   portal,
 }): React.ReactElement => (
   <>
-    {Object.keys(ResponseScreeningBuckets).map(bucket => {
-      const bucketApplications = applications.filter(application => {
+    {Object.keys(ResponseScreeningBuckets).map((bucket) => {
+      const bucketApplications = applications.filter((application) => {
         if (bucket === BucketTypes.ReadyToAllocate) {
           return (
             application.application_review?.review_status_id ===
@@ -67,6 +67,7 @@ const ResponseScreeningPage: React.FC<ResponseScreeningPageProps> = ({
         // Multiple statuses appear in the "Under Consideration" bucket
         return (
           application.application_review === undefined ||
+          application.application_review?.review_status_id === null ||
           application.application_review?.review_status_id ===
             ResponseReviewStatusId.AssessmentRequired ||
           application.application_review?.review_status_id ===

@@ -1,6 +1,6 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
 import React, { useState, useEffect } from "react";
-import { defineMessages, FormattedMessage, useIntl } from "react-intl";
+import { defineMessages, useIntl } from "react-intl";
 import { FastField, Formik, Form, useFormikContext } from "formik";
 import Swal from "sweetalert2";
 import SelectInput from "../../Form/SelectInput";
@@ -9,13 +9,17 @@ import {
   Department,
   ApplicationReview,
 } from "../../../models/types";
-import { Portal } from "../../../models/app";
+import { Portal, ValuesOf } from "../../../models/app";
 import * as routes from "../../../helpers/routes";
 import {
   ResponseScreeningBuckets,
   ResponseReviewStatuses,
 } from "../../../models/localizedConstants";
-import { ResponseScreeningBuckets as ResponseBuckets } from "../../../models/lookupConstants";
+import {
+  ResponseScreeningBuckets as ResponseBuckets,
+  ResponseReviewStatusId,
+  ReviewStatusId,
+} from "../../../models/lookupConstants";
 import {
   localizeFieldNonNull,
   getLocale,
@@ -90,6 +94,31 @@ const displayMessages = defineMessages({
     defaultMessage: "There are currently no applicants in this bucket.",
     description: "Fallback label for a bucket with no applicants.",
   },
+  setAllocated: {
+    id: "responseScreening.bucket.confirmSetAllocated",
+    defaultMessage:
+      "Setting this candidate to allocated will mark them as currently unavailable for all other streams. Are you sure you want to continue?",
+    description:
+      "Confirmation text when attempting to set a candidate as Allocated.",
+  },
+  setUnavailable: {
+    id: "responseScreening.bucket.confirmSetUnavailable",
+    defaultMessage:
+      "Setting this candidate to not available will mark them as currently unavailable for all other streams. Are you sure you want to continue?",
+    description:
+      "Confirmation text when attempting to set a candidate as Not Available.",
+  },
+  confirmAction: {
+    id: "responseScreening.bucket.confirmAction",
+    defaultMessage: "Please confirm this action",
+    description:
+      "Title for the confirmation dialog when making changes with side effects.",
+  },
+  yes: {
+    id: "responseScreening.bucket.yes",
+    defaultMessage: "Yes",
+    description: "Confirmation button text for dialog",
+  },
 });
 
 enum IconStatus {
@@ -142,6 +171,12 @@ const AlertWhenUnsaved = (): React.ReactElement => {
   return <></>;
 };
 
+interface FormValues {
+  reviewStatus: ReviewStatusId | ResponseReviewStatusId | null;
+  department: number | null;
+  notes: string;
+}
+
 interface ApplicationRowProps {
   application: Application;
   departmentEditable: boolean;
@@ -149,9 +184,6 @@ interface ApplicationRowProps {
   handleUpdateReview: (review: ApplicationReview) => Promise<ApplicationReview>;
   portal: Portal;
 }
-
-// TODO: Sort applications by status/note content
-// Sort out Allocated vs Unavailable across Job Posters.
 
 const ApplicationRow: React.FC<ApplicationRowProps> = ({
   application,
@@ -182,7 +214,7 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
     label: intl.formatMessage(status.name),
   }));
 
-  const departmentOptions = departments.map(department => ({
+  const departmentOptions = departments.map((department) => ({
     value: department.id,
     label: localizeFieldNonNull(locale, department, "name"),
   }));
@@ -220,9 +252,15 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
     review_status: null,
   };
 
+  const initialValues: FormValues = {
+    reviewStatus: application.application_review?.review_status_id || null,
+    department: application.application_review?.department_id || null,
+    notes: application.application_review?.notes || "",
+  };
+
   const updateApplicationReview = (
     oldReview: ApplicationReview,
-    values,
+    values: FormValues,
   ): ApplicationReview => {
     const applicationReview: ApplicationReview = {
       ...oldReview,
@@ -253,7 +291,7 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
       cancelButtonText: intl.formatMessage(displayMessages.cancel),
       confirmButtonText: intl.formatMessage(displayMessages.save),
       inputValue: notes,
-    }).then(result => {
+    }).then((result) => {
       if (result && result.value !== undefined) {
         const value = result.value ? result.value : "";
         updateField("notes", value);
@@ -264,25 +302,70 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
   return (
     <div className="applicant">
       <Formik
-        initialValues={{
-          reviewStatus:
-            application.application_review?.review_status_id || null,
-          department: application.application_review?.department_id || null,
-          notes: application.application_review?.notes || "",
-        }}
+        initialValues={initialValues}
         onSubmit={(values, { setSubmitting, resetForm }): void => {
           const review = updateApplicationReview(
             application.application_review || emptyReview,
             values,
           );
-          handleUpdateReview(review)
-            .then(() => {
-              setSubmitting(false);
-              resetForm();
-            })
-            .catch(() => {
-              setSubmitting(false);
+          const performUpdate = (): void => {
+            handleUpdateReview(review)
+              .then(() => {
+                setSubmitting(false);
+                resetForm();
+              })
+              .catch(() => {
+                setSubmitting(false);
+              });
+          };
+          // Changing an application's status to Allocated
+          if (
+            Number(values.reviewStatus) ===
+              Number(ResponseReviewStatusId.Allocated) &&
+            values.reviewStatus !== initialValues.reviewStatus
+          ) {
+            Swal.fire({
+              title: intl.formatMessage(displayMessages.confirmAction),
+              text: intl.formatMessage(displayMessages.setAllocated),
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#0A6CBC",
+              cancelButtonColor: "#F94D4D",
+              cancelButtonText: intl.formatMessage(displayMessages.cancel),
+              confirmButtonText: intl.formatMessage(displayMessages.yes),
+            }).then((result) => {
+              if (result.value === undefined) {
+                setSubmitting(false);
+              } else {
+                performUpdate();
+              }
             });
+            // Changing an Application's status to Unavailable
+          } else if (
+            Number(values.reviewStatus) ===
+              Number(ResponseReviewStatusId.NotAvailable) &&
+            values.reviewStatus !== initialValues.reviewStatus
+          ) {
+            Swal.fire({
+              title: intl.formatMessage(displayMessages.confirmAction),
+              text: intl.formatMessage(displayMessages.setUnavailable),
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#0A6CBC",
+              cancelButtonColor: "#F94D4D",
+              cancelButtonText: intl.formatMessage(displayMessages.cancel),
+              confirmButtonText: intl.formatMessage(displayMessages.yes),
+            }).then((result) => {
+              if (result.value === undefined) {
+                setSubmitting(false);
+              } else {
+                performUpdate();
+              }
+            });
+            // Everything else
+          } else {
+            performUpdate();
+          }
         }}
       >
         {({
@@ -310,10 +393,10 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
                   </p>
                   <p data-c-font-size="small">
                     <a href={applicationUrl} title="" data-c-margin="right(.5)">
-                      <FormattedMessage {...displayMessages.viewApplication} />
+                      {intl.formatMessage(displayMessages.viewApplication)}
                     </a>
                     <a href={applicantUrl} title="">
-                      <FormattedMessage {...displayMessages.viewProfile} />
+                      {intl.formatMessage(displayMessages.viewProfile)}
                     </a>
                   </p>
                 </div>
@@ -358,9 +441,7 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
                 }
               >
                 <i className="fas fa-plus" />
-                <span>
-                  <FormattedMessage {...displayMessages.notes} />
-                </span>
+                <span>{intl.formatMessage(displayMessages.notes)}</span>
               </button>
               <button
                 data-c-button="solid(c1)"
@@ -369,11 +450,9 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
                 disabled={isSubmitting}
               >
                 <span>
-                  {dirty ? (
-                    <FormattedMessage {...displayMessages.save} />
-                  ) : (
-                    <FormattedMessage {...displayMessages.saved} />
-                  )}
+                  {dirty
+                    ? intl.formatMessage(displayMessages.save)
+                    : intl.formatMessage(displayMessages.saved)}
                 </span>
               </button>
             </div>
@@ -481,7 +560,9 @@ const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
   const {
     title: bucketTitle,
     description: bucketDescription,
-  } = ResponseScreeningBuckets[bucket];
+  }: ValuesOf<typeof ResponseScreeningBuckets> = ResponseScreeningBuckets[
+    bucket
+  ];
 
   const handleExpandClick = (): void => {
     setIsExpanded(!isExpanded);
@@ -504,42 +585,37 @@ const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
       >
         <div data-c-padding="top(normal) right bottom(normal) left(normal)">
           <p data-c-font-weight="bold" data-c-font-size="h3">
-            <FormattedMessage {...bucketTitle} /> ({applications.length})
+            {intl.formatMessage(bucketTitle)} ({applications.length})
           </p>
           <p data-c-margin="top(quarter)" data-c-colour="gray">
-            {bucket === ResponseBuckets.Consideration ? (
-              <FormattedMessage
-                id={ResponseScreeningBuckets.consideration.title.id}
-                defaultMessage={
-                  ResponseScreeningBuckets.consideration.description
-                    .defaultMessage
-                }
-                description={
-                  ResponseScreeningBuckets.consideration.description.description
-                }
-                values={{
-                  iconAssessment: (
-                    <StatusIcon
-                      status={IconStatus.ASSESSMENT}
-                      color="slow"
-                      small
-                    />
-                  ),
-                  iconReady: (
-                    <StatusIcon status={IconStatus.READY} color="go" small />
-                  ),
-                  iconReceived: (
-                    <StatusIcon status={IconStatus.RECEIVED} color="c1" small />
-                  ),
-                }}
-              />
-            ) : (
-              <FormattedMessage {...bucketDescription} />
-            )}
+            {bucket === ResponseBuckets.Consideration
+              ? intl.formatMessage(
+                  ResponseScreeningBuckets.consideration.description,
+                  {
+                    iconAssessment: (
+                      <StatusIcon
+                        status={IconStatus.ASSESSMENT}
+                        color="slow"
+                        small
+                      />
+                    ),
+                    iconReady: (
+                      <StatusIcon status={IconStatus.READY} color="go" small />
+                    ),
+                    iconReceived: (
+                      <StatusIcon
+                        status={IconStatus.RECEIVED}
+                        color="c1"
+                        small
+                      />
+                    ),
+                  },
+                )
+              : intl.formatMessage(bucketDescription)}
           </p>
         </div>
         <span data-c-visibility="invisible">
-          <FormattedMessage {...displayMessages.clickView} />
+          {intl.formatMessage(displayMessages.clickView)}
         </span>
         {isExpanded ? (
           <i
@@ -567,7 +643,7 @@ const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
             applications.length > 0 &&
             applications
               .sort(applicationSort(locale))
-              .map(application => (
+              .map((application) => (
                 <ApplicationRow
                   key={application.id}
                   application={application}
@@ -587,7 +663,7 @@ const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
                 data-c-align="base(center)"
               >
                 <p data-c-color="gray">
-                  <FormattedMessage {...displayMessages.noApplicants} />
+                  {intl.formatMessage(displayMessages.noApplicants)}
                 </p>
               </div>
             </div>
