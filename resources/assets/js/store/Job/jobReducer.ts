@@ -184,7 +184,7 @@ export const entitiesReducer = (
     case CLEAR_JOB_EDIT:
       return {
         ...state,
-        jobEdits: deleteProperty<Job>(state.jobEdits, action.payload),
+        jobEdits: deleteProperty(state.jobEdits, action.payload),
       };
     case FETCH_JOB_TASKS_SUCCEEDED:
     case BATCH_UPDATE_JOB_TASKS_SUCCEEDED:

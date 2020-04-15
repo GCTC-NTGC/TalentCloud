@@ -7,11 +7,7 @@
 {% extends "layouts/base" %}
 {% block title %}
 	{{ jobs_l10n.review_applicants }}:
-	{% if (App.getLocale()) == 'en' %}
-		{{ job.title.en }}
-	{% else %}
-		{{ job.title.fr}}
-	{% endif %}
+	{{ job.title }}
 {% endblock %}
 {% block body %}
 	{% include "common/goc" %}
