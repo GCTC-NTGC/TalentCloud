@@ -104,13 +104,13 @@ export function hrJobIndex(locale: string): string {
   return `/${locale}/hr/jobs`;
 }
 export function hrJobSummary(locale: string, jobId: number): string {
-  return `/${locale}/hr/jobs/${jobId}/summary`;
+  return `/${locale}/hr/jobs/${jobId}`;
 }
 export function hrJobReview(locale: string, jobId: number): string {
   return `/${locale}/hr/jobs/${jobId}/review`;
 }
 export function hrJobPreview(locale: string, jobId: number): string {
-  return `/${locale}/hr/jobs/${jobId}`;
+  return `/${locale}/hr/jobs/${jobId}/preview`;
 }
 export function hrScreeningPlan(locale: string, jobId: number): string {
   return `/${locale}/hr/jobs/${jobId}/assessment-plan`;
