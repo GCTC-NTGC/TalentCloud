@@ -19,6 +19,7 @@ use App\Models\Skill;
 use App\Models\SkillDeclaration;
 use App\Models\WorkExperience;
 use App\Services\Validation\ApplicationValidator;
+use App\Services\Validation\Rules\GovernmentEmailRule;
 use App\Services\Validation\StrategicResponseApplicationValidator;
 use Facades\App\Services\WhichPortal;
 use Illuminate\Http\Request;
@@ -140,7 +141,8 @@ class ApplicationByJobController extends Controller
                 'applicant' => $applicant,
                 'job_application' => $application,
                 // Submission.
-                'form_submit_action' => route('job.application.update.1', $jobPoster)
+                'form_submit_action' => route('job.application.update.1', $jobPoster),
+                'gov_email_pattern' => GovernmentEmailRule::PATTERN
             ]
         );
     }

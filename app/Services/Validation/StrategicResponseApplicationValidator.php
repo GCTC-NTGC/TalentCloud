@@ -2,6 +2,8 @@
 
 namespace App\Services\Validation;
 
+use App\Services\Validation\Rules\GovernmentEmailRule;
+
 class StrategicResponseApplicationValidator extends ApplicationValidator
 {
     /**
@@ -19,7 +21,7 @@ class StrategicResponseApplicationValidator extends ApplicationValidator
             'reference_name' => ['required', 'string'],
             'reference_title' => ['required', 'string'],
             'reference_email' => ['required', 'email:rfc', 'max:191'],
-            'gov_email' => 'required|email',
+            'gov_email' => ['required', new GovernmentEmailRule],
             'physical_office_willing' => 'required|boolean',
             'security_clearance_id' => ['required', 'exists:security_clearances,id'],
         ];

@@ -56,7 +56,7 @@ $factory->state(JobApplication::class, 'strategic_response', function (Faker\Gen
         'reference_name' => $faker->name(),
         'reference_title' => $faker->jobTitle(),
         'reference_email' => $faker->email(),
-        'gov_email' => $faker->email(),
+        'gov_email' => $faker->firstName() . '@canada.ca',
         'physical_office_willing' => $faker->boolean(),
         'security_clearance_id' => SecurityClearance::inRandomOrder()->first()->id,
     ];
