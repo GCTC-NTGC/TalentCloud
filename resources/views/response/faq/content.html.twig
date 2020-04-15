@@ -16,7 +16,7 @@
                                         <div data-c-padding="all(1)">
                                             <p data-c-font-weight="bold">{{ question.question|raw }}</p>
                                         </div>
-                                        <span data-c-visibility="invisible">Click to view...</span>
+                                        <span data-c-visibility="invisible">{{ section.click_to_view }}</span>
                                         <i aria-hidden="true" data-c-color="c1" data-c-accordion-add data-c-font-size="h3" data-c-font-weight="bold">+</i>
                                         <i aria-hidden="true" data-c-color="c1" data-c-accordion-remove data-c-font-size="h3" data-c-font-weight="bold">-</i>
                                     </button>
@@ -24,7 +24,12 @@
                                         <hr data-c-hr="thin(gray)">
                                         <div data-c-padding="rl(1) bottom(1)">
                                             {% for answer in question.answers %}
-                                                <p data-c-margin="top(1)">{{ answer|raw }}</p>
+                                                <p data-c-margin="top(1)">
+                                                    {{ answer|replace({
+                                                        ':email_address': config('mail.admin_address'),
+                                                        ':home_url': route('home')
+                                                    })|raw }}
+                                                </p>
                                             {% endfor %}
                                         </div>
                                     </div>
