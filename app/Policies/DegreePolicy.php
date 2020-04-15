@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Applicant;
 use App\Models\User;
 use App\Models\Degree;
 use App\Policies\BasePolicy;

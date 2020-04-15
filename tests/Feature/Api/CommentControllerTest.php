@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature\Api;
 
 use App\Models\Comment;
 use App\Models\HrAdvisor;
@@ -9,9 +9,28 @@ use App\Models\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class CommentApiControllerTest extends TestCase
+class CommentControllerTest extends TestCase
 {
     use RefreshDatabase;
+
+    /**
+     * Base route for the API calls.
+     *
+     * @var string
+     */
+    protected $baseUrl;
+
+    /**
+     * Run parent setup and set global values.
+     *
+     * @return void
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->baseUrl = 'api/v1';
+    }
 
     /**
      * Manager should be able to get index of comments on job poster.
@@ -27,7 +46,7 @@ class CommentApiControllerTest extends TestCase
         // Get comments from job poster.
         $response = $this->followingRedirects()
             ->actingAs($job->manager->user)
-            ->json('get', "api/jobs/$job->id/comments");
+            ->json('get', "$this->baseUrl/jobs/$job->id/comments");
         $response->assertOk();
         $expectedComments = Comment::where('job_poster_id', $job->id)->get()->toArray();
         $response->assertJson($expectedComments);
@@ -58,7 +77,7 @@ class CommentApiControllerTest extends TestCase
         // Get comments from job poster.
         $response = $this->followingRedirects()
             ->actingAs($job->hr_advisors->first()->user)
-            ->json('get', "api/jobs/$job->id/comments");
+            ->json('get', "$this->baseUrl/jobs/$job->id/comments");
         $response->assertOk();
         $expectedComments = Comment::where('job_poster_id', $job->id)->get()->toArray();
         $response->assertJson($expectedComments);
@@ -77,7 +96,7 @@ class CommentApiControllerTest extends TestCase
 
         // Get comments from job poster.
         $response = $this->followingRedirects()
-            ->json('get', "api/jobs/$job->id/comments");
+            ->json('get', "$this->baseUrl/jobs/$job->id/comments");
         $response->assertStatus(403);
     }
 
@@ -87,7 +106,7 @@ class CommentApiControllerTest extends TestCase
         $newComment = factory(Comment::class)->make(['job_poster_id' => $job->id, 'user_id' => $job->manager->user->id])->toArray();
 
         $response = $this->actingAs($job->manager->user)
-            ->json('post', "api/jobs/$job->id/comments", $newComment);
+            ->json('post', "$this->baseUrl/jobs/$job->id/comments", $newComment);
         $response->assertOk();
         $this->assertDatabaseHas('comments', $newComment);
     }
@@ -113,7 +132,7 @@ class CommentApiControllerTest extends TestCase
         ])->toArray();
 
         $response = $this->actingAs($job->hr_advisors->first()->user)
-            ->json('post', "api/jobs/$job->id/comments", $newComment);
+            ->json('post', "$this->baseUrl/jobs/$job->id/comments", $newComment);
         $response->assertOk();
         $this->assertDatabaseHas('comments', $newComment);
     }
@@ -125,7 +144,7 @@ class CommentApiControllerTest extends TestCase
         $newComment = factory(Comment::class)->make(['job_poster_id' => $job->id, 'user_id' => $job->manager->user->id])->toArray();
 
         // Store comment in db with unauthorized user
-        $response = $this->json('post', "api/jobs/$job->id/comments", $newComment);
+        $response = $this->json('post', "$this->baseUrl/jobs/$job->id/comments", $newComment);
         $response->assertStatus(403);
     }
 }
