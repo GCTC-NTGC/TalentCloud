@@ -924,7 +924,7 @@ class ApplicationByJobController extends Controller
     }
 
     /**
-     * Submit the Application for the specified job.
+     * Custom breadcrumbs for application process.
      *
      * @param  \App\Models\JobPoster $jobPoster        Incoming Job Poster object.
      * @param  string                $application_step Current step in application.
