@@ -27,7 +27,7 @@ return [
                     'id' => 'q2',
                     'question' => 'Qui a bâti la Réserve de talents du GC?',
                     'answers' => [
-                        'La Réserve de talents du GC a été mise sur pied par l’équipe Nuage de talent, avec l’appui du Bureau de gestion des collectivités et du Bureau du dirigeant principal de l’information (BDPI) au sein du Secrétariat du Conseil du Trésor du Canada (SCT). <a href="" title="">Pour en savoir plus sur le Nuage de talents, cliquez ici</a>.',
+                        'La Réserve de talents du GC a été mise sur pied par l’équipe Nuage de talent, avec l’appui du Bureau de gestion des collectivités et du Bureau du dirigeant principal de l’information (BDPI) au sein du Secrétariat du Conseil du Trésor du Canada (SCT). <a href="https://talent.canada.ca/" title="Pour en savoir plus sur le Nuage de talents, cliquez ici">Pour en savoir plus sur le Nuage de talents, cliquez ici</a>.',
                         'Étant donné la nature urgente de la situation, le site en entier a été construit en moins de deux semaines et de nombreuses fonctions ont été réaffectées. Cela signifie qu’il y aura des problèmes techniques, surtout dans les premiers temps. On y travaille! Et nous vous remercions de votre patience.'
                     ]
                 ],
@@ -145,7 +145,7 @@ return [
                     'id' => 'q18',
                     'question' => 'Que se passera-t-il si un changement survient après que je me suis porté volontaire?',
                     'answers' => [
-                        'Il est possible que votre vie personnelle ou professionnelle change après que vous vous soyez porté volontaire. Si vous n’êtes plus en mesure d’accepter un rôle temporaire pour une raison quelconque, <a href="mailto:" title="Email the GC Talent Reserve.">envoyez-nous un courriel</a> afin de nous en informer. Nous pouvons à votre convenance supprimer votre demande de façon permanente ou temporaire.'
+                        'Il est possible que votre vie personnelle ou professionnelle change après que vous vous soyez porté volontaire. Si vous n’êtes plus en mesure d’accepter un rôle temporaire pour une raison quelconque, <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Envoyez-nous un courriel.">envoyez-nous un courriel</a> afin de nous en informer. Nous pouvons à votre convenance supprimer votre demande de façon permanente ou temporaire.'
                     ]
                 ],
                 [
@@ -166,7 +166,7 @@ return [
                     'id' => 'q21',
                     'question' => 'Mon ministère a besoin d’aide dans un secteur où les besoins sont urgents, mais ce secteur n’est pas indiqué ici. La Réserve de talents du GC peut-elle nous aider?',
                     'answers' => [
-                        'Pour le moment, la Réserve de talents du GC n’est disponible que pour la collectivité du secteur numérique et technologique. Si votre ministère a cerné une pénurie de talents actuelle ou prévue dans un domaine essentiel lié aux besoins numériques ou technologiques, veuillez <a href="mailto:" title="Email the GC Talent Reserve.">communiquer avec nous</a> pour demander de l’aide supplémentaire. Si vous souhaitez utiliser cet outil pour un autre domaine (en dehors des besoins numériques ou technologiques), veuillez communiquer avec le chef de votre collectivité et <a href="mailto:" title="Email the GC Talent Reserve.">nous le faire savoir</a>.'
+                        'Pour le moment, la Réserve de talents du GC n’est disponible que pour la collectivité du secteur numérique et technologique. Si votre ministère a cerné une pénurie de talents actuelle ou prévue dans un domaine essentiel lié aux besoins numériques ou technologiques, veuillez <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Envoyez-nous un courriel.">communiquer avec nous</a> pour demander de l’aide supplémentaire. Si vous souhaitez utiliser cet outil pour un autre domaine (en dehors des besoins numériques ou technologiques), veuillez communiquer avec le chef de votre collectivité et <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Envoyez-nous un courriel.">nous le faire savoir</a>.'
                     ]
                 ],
                 [
