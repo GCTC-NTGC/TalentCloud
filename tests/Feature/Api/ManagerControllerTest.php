@@ -12,6 +12,13 @@ class ManagerControllerTest extends TestCase
     use RefreshDatabase;
 
     /**
+     * Base route for the API calls.
+     *
+     * @var string
+     */
+    protected $baseUrl;
+
+    /**
      * Run parent setup and provide reusable factories.
      *
      * @return void
@@ -19,6 +26,8 @@ class ManagerControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        $this->baseUrl = 'api/v1';
 
         $this->faker = \Faker\Factory::create();
     }
@@ -70,7 +79,7 @@ class ManagerControllerTest extends TestCase
     public function testGetAsPublic()
     {
         $manager = factory(Manager::class)->create();
-        $response = $this->json('get', "api/managers/$manager->id");
+        $response = $this->json('get', "$this->baseUrl/managers/$manager->id");
         $response->assertForbidden();
     }
 
@@ -78,21 +87,21 @@ class ManagerControllerTest extends TestCase
     {
         $manager = factory(Manager::class)->create();
         $applicantUser = factory(User::class)->state('applicant')->create();
-        $response = $this->actingAs($applicantUser)->json('get', "api/managers/$manager->id");
+        $response = $this->actingAs($applicantUser)->json('get', "$this->baseUrl/managers/$manager->id");
         $response->assertOk();
         $response->assertJsonFragment(array_merge($manager->toArray(), $manager->getTranslations()));
     }
 
     public function testCurrentManagerAsGuest()
     {
-        $response = $this->json('get', 'api/currentuser/manager');
+        $response = $this->json('get', "$this->baseUrl/currentuser/manager");
         $response->assertUnauthorized();
     }
 
     public function testCurrentManagerAsManager()
     {
         $manager = factory(Manager::class)->create();
-        $response = $this->actingAs($manager->user)->json('get', 'api/currentuser/manager');
+        $response = $this->actingAs($manager->user)->json('get', "$this->baseUrl/currentuser/manager");
         $response->assertOk();
         $response->assertJsonFragment($manager->fresh()->toArray());
     }
@@ -108,7 +117,7 @@ class ManagerControllerTest extends TestCase
         $managerUpdate = $this->generateFrontendManager();
         $response = $this->followingRedirects()
             ->actingAs($manager->user)
-            ->json('put', "api/managers/$manager->id", $managerUpdate);
+            ->json('put', "$this->baseUrl/managers/$manager->id", $managerUpdate);
         $response->assertOk();
         $expectedDb = array_merge(
             collect($managerUpdate)->except(['en', 'fr'])->toArray(),
@@ -126,7 +135,7 @@ class ManagerControllerTest extends TestCase
         $otherManager = factory(Manager::class)->create();
         $managerUpdate = $this->generateFrontendManager();
         $response = $this->actingAs($otherManager->user)
-            ->json('put', "api/managers/$manager->id", $managerUpdate);
+            ->json('put', "$this->baseUrl/managers/$manager->id", $managerUpdate);
         $response->assertForbidden();
     }
 
@@ -136,7 +145,7 @@ class ManagerControllerTest extends TestCase
         $managerUpdate = $this->generateFrontendManager();
         $managerUpdate['department_id'] = 999; // Not a valid department id
         $response = $this->actingAs($manager->user)
-            ->json('put', "api/managers/$manager->id", $managerUpdate);
+            ->json('put', "$this->baseUrl/managers/$manager->id", $managerUpdate);
         $response->assertStatus(422);
     }
 
@@ -152,7 +161,7 @@ class ManagerControllerTest extends TestCase
         $user->save();
 
         $applicantUser = factory(User::class)->state('applicant')->create();
-        $response = $this->actingAs($applicantUser)->json('get', "api/managers/$manager->id");
+        $response = $this->actingAs($applicantUser)->json('get', "$this->baseUrl/managers/$manager->id");
         $response->assertOk();
 
         $response->assertJsonFragment([

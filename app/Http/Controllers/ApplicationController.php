@@ -41,6 +41,12 @@ class ApplicationController extends Controller
      */
     public function show(JobPoster $jobPoster, JobApplication $application)
     {
+        $response_poster = false;
+
+        if ($application->job_poster->isInStrategicResponseDepartment()) {
+            $response_poster = true;
+        }
+
         $essential_criteria = $application->job_poster->criteria->filter(function ($value, $key) {
             return $value->criteria_type->name == 'essential'
                 && $value->skill->skill_type->name == 'hard';
@@ -54,7 +60,7 @@ class ApplicationController extends Controller
         $view = WhichPortal::isManagerPortal() || WhichPortal::isHrPortal() ?
             'manager/application_post' : 'applicant/application_preview';
 
-        $application_view = $application->job_poster->isInStrategicResponseDepartment()
+        $application_view = $response_poster
             ? 'applicant/strategic_response_application/application_view/application_layout'
             : 'common/application/view/view_layout';
 
@@ -64,7 +70,8 @@ class ApplicationController extends Controller
         }
 
 
-        // If the application status is draft then get data through the applicant model. Else, grab the data from the application itself.
+        // If the application status is draft then get data through the applicant model.
+        // Else, grab the data from the application itself.
         if ($application->isDraft()) {
             $source = $application->applicant;
         } else {
@@ -118,6 +125,7 @@ class ApplicationController extends Controller
                 'work_samples' => $work_samples,
                 'review_statuses' => ReviewStatus::all(),
                 'custom_breadcrumbs' => $custom_breadcrumbs,
+                'response_poster' => $response_poster,
             ]
         );
     }

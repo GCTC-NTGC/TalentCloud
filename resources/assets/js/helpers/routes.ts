@@ -1,3 +1,5 @@
+import { baseUrl } from "../api/base";
+
 function applicationShow(
   locale: string,
   prefix: string,
@@ -60,7 +62,7 @@ export function applicationReviewUpdate(
   locale: string,
   applicationId: number,
 ): string {
-  return `/api/applications/${applicationId}/review`;
+  return `${baseUrl()}/applications/${applicationId}/review`;
 }
 
 export function jobBuilderIntro(locale: string, jobId?: number): string {
