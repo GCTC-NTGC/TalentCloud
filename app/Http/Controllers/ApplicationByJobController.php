@@ -936,7 +936,7 @@ class ApplicationByJobController extends Controller
         return [
             'home' => route('home'),
             'jobs' => route('jobs.index'),
-            $jobPoster->title => route('jobs.show', $jobPoster),
+            $jobPoster->title => route('jobs.summary', $jobPoster),
             $step_lang . ' ' . $application_step => ''
         ];
     }
