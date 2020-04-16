@@ -350,7 +350,7 @@ Route::group(
                             ->name('manager.applications.show');
 
                         /* View Applicant Profile */
-                        Route::get('applicants/{applicant}', 'ApplicantProfileController@show')
+                        Route::get('jobs/{jobPoster}/applicants/{applicant}', 'ApplicantProfileController@show')
                             ->middleware('can:view,applicant')
                             ->name('manager.applicants.show');
 
