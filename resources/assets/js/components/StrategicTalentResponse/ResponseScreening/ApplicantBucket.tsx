@@ -196,12 +196,28 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
   const locale = getLocale(intl.locale);
 
   const applicantUrlMap: { [key in typeof portal]: string } = {
-    hr: routes.hrApplicantShow(intl.locale, application.id),
-    manager: routes.managerApplicantShow(intl.locale, application.id),
+    hr: routes.hrApplicantShow(
+      intl.locale,
+      application.id,
+      application.job_poster_id,
+    ),
+    manager: routes.managerApplicantShow(
+      intl.locale,
+      application.id,
+      application.job_poster_id,
+    ),
   };
   const applicationUrlMap: { [key in typeof portal]: string } = {
-    hr: routes.hrApplicationShow(intl.locale, application.id),
-    manager: routes.managerApplicationShow(intl.locale, application.id),
+    hr: routes.hrApplicationShow(
+      intl.locale,
+      application.id,
+      application.job_poster_id,
+    ),
+    manager: routes.managerApplicationShow(
+      intl.locale,
+      application.id,
+      application.job_poster_id,
+    ),
   };
   const applicantUrl = applicantUrlMap[portal];
   const applicationUrl = applicationUrlMap[portal];
