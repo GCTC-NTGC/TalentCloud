@@ -36,14 +36,10 @@ class BreadcrumbsComposer
     public function compose(View $view)
     {
         $segments = $this->parseSegments();
-        $breadcrumbs_lang = Lang::get('common/breadcrumbs')['applicant'];
+        $breadcrumbs_lang = Lang::get('common/breadcrumbs');
 
-        if (WhichPortal::isManagerPortal()) {
+        if (WhichPortal::isManagerPortal() || WhichPortal::isHrPortal()) {
             $segments = $segments->slice(1);
-            $breadcrumbs_lang = Lang::get('common/breadcrumbs')['manager'];
-        } elseif (WhichPortal::isHrPortal()) {
-            $segments = $segments->slice(1);
-            $breadcrumbs_lang = Lang::get('common/breadcrumbs')['hr'];
         }
 
         $view->with('breadcrumbs', $segments);

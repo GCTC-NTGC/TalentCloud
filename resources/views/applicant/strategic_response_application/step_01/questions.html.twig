@@ -33,11 +33,11 @@
                                         </option>
                                     {% endfor %}
                                 </select>
-                                <br><br>
                             </div>
                         </div>
                     </div>
                 </div>
+                <br><br>
                 <div class="flex-grid">
                     <p>
                         {{ application_template.strategic_response.gov_email_copy }}
@@ -47,8 +47,7 @@
                             <label class="form__label" for="gov_email">
                                 {{ application_template.strategic_response.gov_email_label }}
                             </label>
-                            <input class="form__input" id="gov_email" name="gov_email" required type="email" value="{{ job_application.gov_email }}"/>
-                            <br><br>
+                            <input class="form__input" id="gov_email" name="gov_email" required type="email" value="{{ job_application.gov_email }}" pattern="{{ gov_email_pattern }}" />
                         </div>
                     </div>
                 </div>
@@ -72,11 +71,11 @@
                                         </option>
                                     {% endfor %}
                                 </select>
-                                <br><br>
                             </div>
                         </div>
                     </div>
                 </div>
+                <br>
                 <div class="application-post__language-declaration">
                     <span>
                         {{ application_template.strategic_response.physical_office_willing_copy }}

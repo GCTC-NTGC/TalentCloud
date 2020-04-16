@@ -123,6 +123,9 @@ Route::group(
                     return redirect('response');
                 });
 
+            /* Response Home */
+                Route::get('response/faq', 'StrategicResponseController@faq')->name('response.faq');
+
                 /* Require being logged in as applicant */
                 Route::middleware(['auth', 'role:applicant'])->group(function (): void {
 
