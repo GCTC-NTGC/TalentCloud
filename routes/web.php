@@ -113,7 +113,7 @@ Route::group(
 
                 Route::get('jobs/{jobPoster}', 'JobController@show')
                     ->middleware('can:view,jobPoster')
-                    ->name('jobs.show');
+                    ->name('jobs.summary');
 
                 /* Response Home */
                 Route::get('response', 'StrategicResponseController@index')->name('response.index');

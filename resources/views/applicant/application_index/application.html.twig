@@ -30,7 +30,7 @@
 		</div>
 		<div class="box lg-2of9">
 			<span>{{ application_index.post_label }}</span>
-			<a href="{{ route('jobs.show', item.job_poster) }}" target="_blank" title="{{ application_index.post_link_title }}">
+			<a href="{{ route('jobs.summary', item.job_poster) }}" target="_blank" title="{{ application_index.post_link_title }}">
 				{{ application_index.post_link_label }}
 			</a>
 		</div>
@@ -39,7 +39,7 @@
 				{{ item.job_poster.manager.user.first_name }}
 				{{ item.job_poster.manager.user.last_name }}
 			</span>
-			<a href="{{ route('managers.show', item.job_poster.manager) }}" target="_blank" title="{{ application_index.manager_profile_link_title }}">
+			<a href="{{ route('managers.show', item.job_poster, item.job_poster.manager) }}" target="_blank" title="{{ application_index.manager_profile_link_title }}">
 				{{ application_index.manager_profile_link_label }}
 			</a>
 		</div>

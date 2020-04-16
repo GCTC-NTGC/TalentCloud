@@ -89,7 +89,7 @@
 											<div data-c-card data-c-background="white(100)" data-c-radius="rounded">
 												<div data-c-background="black(100)" data-c-padding="normal">
 													<h3>
-														<a data-c-colour="white" data-c-font-size="h3" data-c-font-weight="bold" href="{{ route('jobs.show', jobs[i].id) }}" title="{{ jobs[i].title }}">
+														<a data-c-colour="white" data-c-font-size="h3" data-c-font-weight="bold" href="{{ route('jobs.summary', jobs[i].id) }}" title="{{ jobs[i].title }}">
 															{{ jobs[i].title }}
 														</a>
 													</h3>
@@ -137,7 +137,7 @@
                                                             ) }}</p>
 														</div>
 														<div data-c-align="base(right)" data-c-grid-item="base(1of1)">
-															<a href="{{ route('jobs.show', jobs[i].id) }}" title="{{ jobs[i].title }}">
+															<a href="{{ route('jobs.preview', jobs[i].id) }}" title="{{ jobs[i].title }}">
 																{{ home.slogan.link.label }}
 															</a>
 														</div>
