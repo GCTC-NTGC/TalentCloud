@@ -65,6 +65,11 @@ class ManagerProfileController extends Controller
             ]
         ];
 
+        $custom_breadcrumbs = [
+            'home' => route('home'),
+            'profile' => ''
+        ];
+
         return view('applicant/manager', [
             'manager_profile' => $manager_profile,
             'urls' => Lang::get('common/urls'),
@@ -72,6 +77,7 @@ class ManagerProfileController extends Controller
             'manager_profile_photo_url' => '/images/user.png', // TODO get real photo.
             'manager_profile_sections' => $manager_profile_sections,
             'noInfo' => $manager_profile['no_info'],
+            'custom_breadcrumbs' => $custom_breadcrumbs
         ]);
     }
 
@@ -96,6 +102,7 @@ class ManagerProfileController extends Controller
      */
     public function edit(Request $request, Manager $manager)
     {
+        $manager_profile = Lang::get('manager/profile');
         // TODO: Improve workplace photos, and reference them in template direction from WorkEnvironment model.
         $workplacePhotos = [];
 
@@ -103,9 +110,14 @@ class ManagerProfileController extends Controller
         $linkedInUrlPattern = LinkedInUrlRule::PATTERN;
         $twitterHandlePattern = TwitterHandleRule::PATTERN;
 
+        $custom_breadcrumbs = [
+            'home' => route('home'),
+            'profile' => ''
+        ];
+
         return view('manager/profile', [
             // Localization.
-            'profile_l10n' => Lang::get('manager/profile'),
+            'profile_l10n' => $manager_profile,
             // Data.
             'urls' => Lang::get('common/urls'),
             'user' => $manager->user,
@@ -119,6 +131,7 @@ class ManagerProfileController extends Controller
             'translations' => $manager->getTranslations(),
             'linkedInUrlPattern' => $linkedInUrlPattern,
             'twitterHandlePattern' => $twitterHandlePattern,
+            'custom_breadcrumbs' => $custom_breadcrumbs
         ]);
     }
 
