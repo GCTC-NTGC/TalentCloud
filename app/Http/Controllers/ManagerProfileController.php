@@ -7,11 +7,13 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateManagerProfileRequest;
+use App\Models\JobPoster;
 use App\Models\Lookup\Frequency;
 use App\Models\Lookup\Department;
 use App\Models\Manager;
 use App\Services\Validation\Rules\LinkedInUrlRule;
 use App\Services\Validation\Rules\TwitterHandleRule;
+use Facades\App\Services\WhichPortal;
 use Illuminate\Support\Facades\Hash;
 
 class ManagerProfileController extends Controller
@@ -21,10 +23,11 @@ class ManagerProfileController extends Controller
      * Show a manager profile
      *
      * @param  \Illuminate\Http\Request $request Incoming Request.
+     * @param  \App\Models\JobPoster    $jobPoster Incoming JobPoster object.
      * @param  \App\Models\Manager      $manager Incoming Manager.
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Manager $manager)
+    public function show(Request $request, JobPoster $jobPoster, Manager $manager)
     {
         $manager_profile = Lang::get('applicant/manager_profile');
 
@@ -67,7 +70,9 @@ class ManagerProfileController extends Controller
 
         $custom_breadcrumbs = [
             'home' => route('home'),
-            'profile' => ''
+            'jobs' => route(WhichPortal::prefixRoute('jobs.index')),
+            $jobPoster->title => route(WhichPortal::prefixRoute('jobs.summary'), $jobPoster),
+            'profile' => '',
         ];
 
         return view('applicant/manager', [

@@ -93,7 +93,7 @@ Route::group(
             Route::middleware(['auth'])->group(function (): void {
 
                 /* Managers */
-                Route::get('managers/{manager}', 'ManagerProfileController@show')
+                Route::get('jobs/{jobPoster}/manager/{manager}', 'ManagerProfileController@show')
                     ->middleware('can:view,manager')
                     ->name('managers.show');
             });
