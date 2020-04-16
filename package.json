@@ -94,7 +94,7 @@
         "@formatjs/intl-pluralrules": "^1.5.5",
         "@formatjs/intl-relativetimeformat": "^4.5.12",
         "axios": "^0.19.2",
-        "babel-plugin-react-intl": "^7.1.0",
+        "babel-plugin-react-intl": "^7.5.0",
         "classnames": "^2.2.6",
         "clone-framework": "^2.4.18",
         "core-js": "^3.6.5",
