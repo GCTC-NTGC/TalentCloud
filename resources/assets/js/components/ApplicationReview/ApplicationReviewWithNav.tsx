@@ -199,8 +199,16 @@ class ApplicationReviewWithNav extends React.Component<
       ),
     };
     const applicationUrlMap: { [key in typeof portal]: string } = {
-      hr: routes.hrApplicationShow(intl.locale, application.id),
-      manager: routes.managerApplicationShow(intl.locale, application.id),
+      hr: routes.hrApplicationShow(
+        intl.locale,
+        application.id,
+        application.job_poster_id,
+      ),
+      manager: routes.managerApplicationShow(
+        intl.locale,
+        application.id,
+        application.job_poster_id,
+      ),
     };
     const jobUrlMap: { [key in typeof portal]: string } = {
       hr: routes.hrJobPreview(intl.locale, application.job_poster_id),

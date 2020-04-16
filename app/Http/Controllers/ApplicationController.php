@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Auth;
 use App\Models\JobApplication;
+use App\Models\JobPoster;
 use App\Models\Skill;
 use App\Models\Lookup\ReviewStatus;
 use Facades\App\Services\WhichPortal;
@@ -34,10 +35,11 @@ class ApplicationController extends Controller
     /**
      * Display specified application
      *
+     * @param  \App\Models\JobPoster    $jobPoster Incoming JobPoster object.
      * @param  \App\Models\JobApplication $application Incoming Application object.
      * @return \Illuminate\Http\Response
      */
-    public function show(JobApplication $application)
+    public function show(JobPoster $jobPoster, JobApplication $application)
     {
         $essential_criteria = $application->job_poster->criteria->filter(function ($value, $key) {
             return $value->criteria_type->name == 'essential'
@@ -76,6 +78,14 @@ class ApplicationController extends Controller
         $references = $source->references;
         $work_samples = $source->work_samples;
 
+        $custom_breadcrumbs = [
+            'home' => route('home'),
+            'jobs' => route(WhichPortal::prefixRoute('jobs.index')),
+            $jobPoster->title => route(WhichPortal::prefixRoute('jobs.summary'), $jobPoster),
+            'applications' =>  route(WhichPortal::prefixRoute('jobs.applications'), $jobPoster),
+            'application' => '',
+        ];
+
         return view(
             $view,
             [
@@ -107,6 +117,7 @@ class ApplicationController extends Controller
                 'references' => $references,
                 'work_samples' => $work_samples,
                 'review_statuses' => ReviewStatus::all(),
+                'custom_breadcrumbs' => $custom_breadcrumbs,
             ]
         );
     }

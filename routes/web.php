@@ -345,7 +345,8 @@ Route::group(
                             ->name('manager.jobs.applications');
 
                         /* View Application */
-                        Route::get('applications/{application}', 'ApplicationController@show')
+                        Route::get('jobs/{jobPoster}/applications/{application}', 'ApplicationController@show')
+                            ->middleware('can:manage,jobPoster')
                             ->middleware('can:view,application')
                             ->name('manager.applications.show');
 
@@ -621,7 +622,8 @@ Route::group(
                             ->name('hr_advisor.jobs.applications');
 
                         /* View Application */
-                        Route::get('applications/{application}', 'ApplicationController@show')
+                        Route::get('jobs/{jobPoster}/applications/{application}', 'ApplicationController@show')
+                            ->middleware('can:manage,jobPoster')
                             ->middleware('can:view,application')
                             ->name('hr_advisor.applications.show');
 
