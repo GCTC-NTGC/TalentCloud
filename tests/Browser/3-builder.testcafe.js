@@ -3,19 +3,18 @@ import { managerUser } from "./helpers/roles";
 
 const HOMEPAGE = "https://talent.test";
 
-fixture(`Critical - Job Poster Builder`)
-  .page(HOMEPAGE)
-  .meta("travis", "run");
+fixture(`Critical - Job Poster Builder`).page(HOMEPAGE).meta("travis", "run");
 
 // Skip when writing new tests
 // fixture.skip(`Critical - Job Poster Builder`);
 
-test("Job Poster Builder - New Job", async t => {
+test("Job Poster Builder - New Job", async (t) => {
   await t
     // Login as manager.
     .useRole(managerUser)
     // Go to Job Poster Builder.
     .navigateTo("/manager/jobs/builder")
+    .wait(3000)
     .expect(
       Selector("h3").withText("Welcome to the Job Poster Builder").visible,
     )
