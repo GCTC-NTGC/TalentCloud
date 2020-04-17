@@ -3,7 +3,7 @@ import UniversalRouter, { Routes } from "universal-router";
 import React, { useState, useEffect, useMemo, ReactElement } from "react";
 import { IntlShape, MessageDescriptor } from "react-intl";
 import { useStore, useSelector } from "react-redux";
-import { getSelectedJob } from "../store/Job/jobSelector";
+import { getSelectedJob, getJobIsUpdating } from "../store/Job/jobSelector";
 import { localizeField, getLocale } from "./localize";
 import { managerJobSummary } from "./routes";
 import { RootState } from "../store/store";
@@ -57,6 +57,9 @@ export const useRouter = (
   const router = useMemo(() => new UniversalRouter(routes), [routes]);
   const [component, setComponent] = useState<React.ReactElement | null>(null);
   const job = useSelector((state: RootState) => getSelectedJob(state));
+  const jobLoading = useSelector(
+    (state: RootState) => state.jobs.ui.jobUpdating,
+  );
 
   const jobBreadcrumbId = "job-title-breadcrumb";
   const addJobBreadcrumb = (jobBreadcrumb: Job | null): void => {
@@ -101,20 +104,20 @@ export const useRouter = (
       const jobBreadcrumb: HTMLAnchorElement | null = document.querySelector(
         `#${jobBreadcrumbId}`,
       );
-      if (job && jobBreadcrumb) {
+      if (jobLoading && !jobBreadcrumb) {
+        addJobBreadcrumb(null);
+      } else if (job && jobBreadcrumb) {
         jobBreadcrumb.href = managerJobSummary(locale, job.id);
         jobBreadcrumb.innerText =
           localizeField(locale, job, "title") ||
           `{ ${intl.formatMessage(messages.titleMissing)} }`;
       } else if (job) {
         addJobBreadcrumb(job);
-      } else {
-        addJobBreadcrumb(null);
       }
 
       setComponent(result.component);
     });
-  }, [intl, location, router, job]);
+  }, [intl, location, router, job, jobLoading]);
 
   return component;
 };
