@@ -14,7 +14,6 @@ test("Job Poster Builder - New Job", async (t) => {
     .useRole(managerUser)
     // Go to Job Poster Builder.
     .navigateTo("/manager/jobs/builder")
-    .wait(3000)
     .expect(
       Selector("h3").withText("Welcome to the Job Poster Builder").visible,
     )
