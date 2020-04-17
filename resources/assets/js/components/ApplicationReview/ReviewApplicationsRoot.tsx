@@ -20,6 +20,7 @@ import { classificationString } from "../../models/jobUtil";
 import { axios } from "../../api/base";
 import RootContainer from "../RootContainer";
 import { Portal } from "../../models/app";
+import { ReviewStatusId } from "../../models/lookupConstants";
 
 interface ReviewApplicationsProps {
   job: Job;
@@ -206,10 +207,12 @@ class ReviewApplicationsRoot extends React.Component<
     const { applications, savingStatuses } = this.state;
     const { reviewStatuses, job, portal, intl } = this.props;
 
-    const reviewStatusOptions = reviewStatuses.map(status => ({
-      value: status.id,
-      label: camelCase(status.name),
-    }));
+    const reviewStatusOptions = reviewStatuses
+      .filter(status => status.id in ReviewStatusId)
+      .map(status => ({
+        value: status.id,
+        label: camelCase(status.name),
+      }));
 
     return (
       <ReviewApplications

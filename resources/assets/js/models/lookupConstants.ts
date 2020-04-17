@@ -6,6 +6,28 @@ export enum ReviewStatusId {
 
 export type ReviewStatusName = "screened_out" | "still_thinking" | "still_in";
 
+export enum ResponseReviewStatusId {
+  ScreenedOut = 1,
+  ReadyForReference = 4,
+  ReadyToAllocate = 5,
+  AssessmentRequired = 6,
+  Allocated = 7,
+  NotAvailable = 8,
+}
+
+export type ResponseReviewStatusName =
+  | "screened_out"
+  | "ready_for_reference"
+  | "ready_to_allocate"
+  | "assessment_required"
+  | "allocated"
+  | "not_available";
+
+export type ResponseReviewStatus = {
+  id: ResponseReviewStatusId;
+  name: ResponseReviewStatusName;
+};
+
 export enum CriteriaTypeId {
   Essential = 1,
   Asset = 2,
@@ -143,6 +165,14 @@ export enum JobStatus {
   Live = "live",
   Assessment = "assessment",
   Completed = "completed",
+}
+
+export enum ResponseScreeningBuckets {
+  Consideration = "consideration",
+  ReadyToAllocate = "ready_to_allocate",
+  Allocated = "allocated",
+  Unavailable = "unavailable",
+  DoesNotQualify = "does_not_qualify",
 }
 
 export function getKeyByValue(object, value): string {

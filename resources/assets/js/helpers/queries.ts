@@ -32,7 +32,7 @@ export function find<T extends { id: number }>(
   objs: T[],
   id: number,
 ): T | null {
-  const found = objs.filter(item => item.id === id);
+  const found = objs.filter((item) => item.id === id);
   return found.length > 0 ? found[0] : null;
 }
 
@@ -47,7 +47,7 @@ export function where<T, K extends keyof T>(
   prop: K,
   value: any,
 ): T[] {
-  return objs.filter(obj => prop in obj && obj[prop] === value);
+  return objs.filter((obj) => prop in obj && obj[prop] === value);
 }
 
 /**
@@ -124,7 +124,7 @@ export function hasKey<T>(
   object: { [key: string]: T },
   key: string | number,
 ): boolean {
-  return Object.prototype.hasOwnProperty.call(object, key);
+  return object[key] !== undefined;
 }
 
 /**
@@ -145,10 +145,7 @@ export function getOrThrowError<T>(
 }
 
 /** Return a copy of the object with specific property removed */
-export function deleteProperty<T>(
-  obj: IndexedObject<T>,
-  key: string | number,
-): IndexedObject<T> {
+export function deleteProperty<T, K extends keyof T>(obj: T, key: K): Omit<T, K> {
   const { [key]: _, ...newObj } = obj;
   return newObj;
 }
