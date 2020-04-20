@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { defineMessages, useIntl, FormattedMessage } from "react-intl";
 import { FastField, Formik, Form, useFormikContext } from "formik";
 import Swal from "sweetalert2";
+import ReactMarkdown from "react-markdown";
 import SelectInput from "../../Form/SelectInput";
 import {
   Application,
@@ -196,97 +197,119 @@ const ReferenceEmailModal: React.FC<ReferenceEmailModalProps> = ({
   const renderAddresses = (adrs: EmailAddress[]): string =>
     adrs.map(renderAddress).join(", ");
   return (
-    <Modal
-      id={id}
-      parentElement={parent}
-      visible={visible}
-      onModalConfirm={onConfirm}
-      onModalCancel={onCancel}
-    >
-      <Modal.Header>
-        <div
-          data-c-background="c1(100)"
-          data-c-border="bottom(thin, solid, black)"
-          data-c-padding="normal"
-        >
-          <h5 data-c-colour="white" data-c-font-size="h4">
+    <>
+      <div data-c-dialog-overlay={visible ? "active" : ""} />
+      <Modal
+        id={id}
+        parentElement={parent}
+        visible={visible}
+        onModalConfirm={onConfirm}
+        onModalCancel={onCancel}
+      >
+        <Modal.Header>
+          <div
+            data-c-background="c1(100)"
+            data-c-border="bottom(thin, solid, black)"
+            data-c-padding="normal"
+          >
+            <h5 data-c-colour="white" data-c-font-size="h4">
+              <FormattedMessage
+                id="referenceEmailModal.title"
+                defaultMessage="Email for Reference Check"
+                description="Text displayed on the title of the MicroReference Email modal."
+              />
+            </h5>
+          </div>
+        </Modal.Header>
+        <Modal.Body>
+          <div data-c-border="bottom(thin, solid, black)">
+            <div
+              data-c-border="bottom(thin, solid, black)"
+              data-c-padding="normal"
+            >
+              <p>
+                <span>
+                  <strong>
+                    <FormattedMessage
+                      id="referenceEmailModal.toLabel"
+                      defaultMessage="To:"
+                    />
+                  </strong>
+                </span>
+                {` `}
+                <span>{renderAddresses(email?.to ?? [])}</span>
+              </p>
+              <p>
+                <span>
+                  <strong>
+                    <FormattedMessage
+                      id="referenceEmailModal.fromLabel"
+                      defaultMessage="From:"
+                    />
+                  </strong>
+                </span>
+                {` `}
+                <span>{renderAddresses(email?.from ?? [])}</span>
+              </p>
+              <p>
+                <span>
+                  <strong>
+                    <FormattedMessage
+                      id="referenceEmailModal.ccLabel"
+                      defaultMessage="CC:"
+                    />
+                  </strong>
+                </span>
+                {` `}
+                <span>{renderAddresses(email?.cc ?? [])}</span>
+              </p>
+              <p>
+                <span>
+                  <strong>
+                    <FormattedMessage
+                      id="referenceEmailModal.bccLabel"
+                      defaultMessage="BCC:"
+                    />
+                  </strong>
+                </span>
+                {` `}
+                <span>{renderAddresses(email?.bcc ?? [])}</span>
+              </p>
+            </div>
+            <div data-c-background="grey(20)" data-c-padding="normal">
+              <div
+                data-c-background="white(100)"
+                data-c-padding="normal"
+                data-c-radius="rounded"
+              >
+                {email ? (
+                  <ReactMarkdown source={email.body} />
+                ) : (
+                  <FormattedMessage
+                    id="referenceEmailModal.nullState"
+                    defaultMessage="No email provided."
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Modal.FooterCancelBtn>
             <FormattedMessage
-              id="referenceEmailModal.title"
-              defaultMessage="Email for Reference Check"
-              description="Text displayed on the title of the MicroReference Email modal."
+              id="referenceEmailModal.cancel"
+              defaultMessage="Cancel"
             />
-          </h5>
-        </div>
-      </Modal.Header>
-      <Modal.Body>
-        <div data-c-border="bottom(thin, solid, black)" data-c-padding="normal">
-          <p>
-            <span>
-              <strong>
-                <FormattedMessage
-                  id="referenceEmailModal.toLabel"
-                  defaultMessage="To:"
-                />
-              </strong>
-            </span>
-            {` `}
-            <span>{renderAddresses(email?.to ?? [])}</span>
-          </p>
-          <p>
-            <span>
-              <strong>
-                <FormattedMessage
-                  id="referenceEmailModal.fromLabel"
-                  defaultMessage="From:"
-                />
-              </strong>
-            </span>
-            {` `}
-            <span>{renderAddresses(email?.from ?? [])}</span>
-          </p>
-          <p>
-            <span>
-              <strong>
-                <FormattedMessage
-                  id="referenceEmailModal.ccLabel"
-                  defaultMessage="CC:"
-                />
-              </strong>
-            </span>
-            {` `}
-            <span>{renderAddresses(email?.cc ?? [])}</span>
-          </p>
-          <p>
-            <span>
-              <strong>
-                <FormattedMessage
-                  id="referenceEmailModal.bccLabel"
-                  defaultMessage="BCC:"
-                />
-              </strong>
-            </span>
-            {` `}
-            <span>{renderAddresses(email?.bcc ?? [])}</span>
-          </p>
-
-          {email?.body}
-        </div>
-      </Modal.Body>
-      <Modal.Footer>
-        <Modal.FooterCancelBtn>
-          <FormattedMessage
-            id="referenceEmailModal.cancel"
-            defaultMessage="Cancel"
-          />
-        </Modal.FooterCancelBtn>
-        <Modal.FooterConfirmBtn>
-          <FormattedMessage
-            id="referenceEmailModal.confirm"
-            defaultMessage="Send Email"
-          />
-        </Modal.FooterConfirmBtn>
-      </Modal.Footer>
-    </Modal>
+          </Modal.FooterCancelBtn>
+          <Modal.FooterConfirmBtn>
+            <FormattedMessage
+              id="referenceEmailModal.confirm"
+              defaultMessage="Send Email"
+            />
+          </Modal.FooterConfirmBtn>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 };
 
