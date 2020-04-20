@@ -675,13 +675,9 @@
 
     //Update ui for Skill object to reflect that it has been setItem
     function setSkillSaved(object, response) {
-      var levelRequirement =
-        $(object)
-          .find(".accordion-title span")
-          .prop("outerHTML") || "";
       $(object)
-        .find(".accordion-title")
-        .html(response.data.skill.name[docLocale] + levelRequirement);
+        .find(".skill-title")
+        .html(response.data.skill.name[docLocale]);
       $(object)
         .find(".skill__description")
         .text(response.data.skill.description[docLocale]);
@@ -693,14 +689,14 @@
     //Update ui for Reference object to reflect that it has been setItem
     function setReferenceSaved(object, response) {
       $(object)
-        .find(".accordion-title")
+        .find(".reference-title")
         .text(response.data.name);
     }
 
     //Update ui for WorkSample object to reflect that it has been setItem
     function setSampleSaved(object, response) {
       $(object)
-        .find(".accordion-title")
+        .find(".sample-title")
         .text(response.data.name);
     }
 

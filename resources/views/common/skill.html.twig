@@ -101,7 +101,7 @@
                 <div data-c-padding="tb(1)">
                     <!-- Title -->
                     {% if locale == "profile" and skill_declaration == false %}
-                        <p data-c-font-weight="bold" data-c-padding="left(1)">{{ skill_template.new_skill_title }}</p>
+                        <p class="skill-title" data-c-font-weight="bold" data-c-padding="left(1)">{{ skill_template.new_skill_title }}</p>
                     {% elseif locale == "profile" and skill_declaration == true %}
                         <p data-c-font-weight="bold" data-c-padding="left(1)">{{ skill_declaration.skill.name }}</p>
                     {% elseif locale == "application" %}
