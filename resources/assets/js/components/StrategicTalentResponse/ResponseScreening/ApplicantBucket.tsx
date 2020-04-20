@@ -275,6 +275,18 @@ const ReferenceEmailModal: React.FC<ReferenceEmailModalProps> = ({
                 {` `}
                 <span>{renderAddresses(email?.bcc ?? [])}</span>
               </p>
+              <p>
+                <span>
+                  <strong>
+                    <FormattedMessage
+                      id="referenceEmailModal.subjectLabel"
+                      defaultMessage="Subject:"
+                    />
+                  </strong>
+                </span>
+                {` `}
+                <span>{email?.subject}</span>
+              </p>
             </div>
             <div data-c-background="grey(20)" data-c-padding="normal">
               <div
@@ -615,9 +627,48 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
           </Form>
         )}
       </Formik>
-      <button type="button" onClick={showDirectorEmail}>
-        Show director email.
-      </button>
+      <div>
+        <span data-c-margin="right(normal)">
+          <i
+            className="fa fa-check-circle"
+            data-c-color="go"
+            data-c-font-size="small"
+            data-c-margin="right(.5)"
+          />
+          <button
+            data-c-button="outline(black)"
+            data-c-radius="rounded"
+            type="button"
+            data-c-font-size="small"
+            onClick={showDirectorEmail}
+          >
+            <FormattedMessage
+              id="responseScreening.applicant.direct orEmailButton"
+              defaultMessage="Show director email."
+            />
+          </button>
+        </span>
+        <span data-c-margin="right(normal)">
+          <i
+            className="fa fa-check-circle"
+            data-c-color="go"
+            data-c-font-size="small"
+            data-c-margin="right(.5)"
+          />
+          <button
+            data-c-button="outline(black)"
+            data-c-radius="rounded"
+            type="button"
+            data-c-font-size="small"
+            onClick={showSecondaryEmail}
+          >
+            <FormattedMessage
+              id="responseScreening.applicant.secondaryEmailButton"
+              defaultMessage="Show reference email."
+            />
+          </button>
+        </span>
+      </div>
       <ReferenceEmailModal
         id={`referenceEmailModal_application${application.id}`}
         parent={modalParentRef.current}
