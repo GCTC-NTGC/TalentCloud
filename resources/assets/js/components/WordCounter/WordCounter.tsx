@@ -52,25 +52,20 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
   }, [elementId]);
 
   return (
-    <>
-      <span
-        role="progressbar"
-        aria-valuenow={numOfWords}
-        aria-valuemin={minWords}
-        aria-valuemax={maxWords}
-      >
-        {beforeText && <span>{beforeText} </span>}
-        <span data-c-color={`${numOfWords <= maxWords ? "go" : "stop"}`}>
-          {absoluteValue
-            ? Math.abs(maxWords - numOfWords)
-            : maxWords - numOfWords}
-        </span>
-        <span>
-          {" "}
-          {numOfWords <= maxWords ? underMaxMessage : overMaxMessage}
-        </span>
+    <span
+      role="progressbar"
+      aria-valuenow={numOfWords}
+      aria-valuemin={minWords}
+      aria-valuemax={maxWords}
+    >
+      {beforeText && <span>{beforeText} </span>}
+      <span data-c-color={`${numOfWords <= maxWords ? "go" : "stop"}`}>
+        {absoluteValue
+          ? Math.abs(maxWords - numOfWords)
+          : maxWords - numOfWords}
       </span>
-    </>
+      <span> {numOfWords <= maxWords ? underMaxMessage : overMaxMessage}</span>
+    </span>
   );
 };
 
