@@ -13,6 +13,7 @@ import {
   Application,
   Department,
   ApplicationReview,
+  Email,
 } from "../../../models/types";
 import ApplicantBucket from "./ApplicantBucket";
 import { Portal } from "../../../models/app";
@@ -23,12 +24,25 @@ import {
 import { getApplicationsByJob } from "../../../store/Application/applicationSelector";
 import { RootState } from "../../../store/store";
 import { getDepartments } from "../../../store/Department/deptSelector";
+import { fakeReferenceEmail } from "../../../fakeData/fakeApplications";
 
 interface ResponseScreeningPageProps {
   applications: Application[];
   departments: Department[];
   handleUpdateReview: (review: ApplicationReview) => Promise<ApplicationReview>;
   portal: Portal;
+  referenceEmails: {
+    director: {
+      byApplicationId: {
+        [applicationId: number]: Email;
+      };
+    };
+    secondary: {
+      byApplicationId: {
+        [applicationId: number]: Email;
+      };
+    };
+  };
 }
 
 const ResponseScreeningPage: React.FC<ResponseScreeningPageProps> = ({
@@ -36,6 +50,7 @@ const ResponseScreeningPage: React.FC<ResponseScreeningPageProps> = ({
   departments,
   handleUpdateReview,
   portal,
+  referenceEmails,
 }): React.ReactElement => (
   <>
     {Object.keys(ResponseScreeningBuckets).map((bucket) => {
@@ -83,6 +98,7 @@ const ResponseScreeningPage: React.FC<ResponseScreeningPageProps> = ({
           departments={departments}
           handleUpdateReview={handleUpdateReview}
           portal={portal}
+          referenceEmails={referenceEmails}
         />
       );
     })}
@@ -125,12 +141,34 @@ const ResponseScreeningDataFetcher: React.FC<ResponseScreeningDataFetcherProps> 
     return Promise.reject(result.payload);
   };
 
+  // TODO: load these
+  const referenceEmails = applications.reduce(
+    (accum, application) => {
+      accum.director.byApplicationId[application.id] = fakeReferenceEmail({
+        subject: "Director Reference Email",
+      });
+      accum.secondary.byApplicationId[application.id] = fakeReferenceEmail({
+        subject: "Secondary Reference Email",
+      });
+      return accum;
+    },
+    {
+      director: {
+        byApplicationId: {},
+      },
+      secondary: {
+        byApplicationId: {},
+      },
+    },
+  );
+
   return (
     <ResponseScreeningPage
       applications={applications}
       departments={departments}
       handleUpdateReview={updateApplicationReview}
       portal={portal}
+      referenceEmails={referenceEmails}
     />
   );
 };

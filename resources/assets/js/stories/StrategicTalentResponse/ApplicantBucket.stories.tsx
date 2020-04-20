@@ -2,7 +2,9 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import ApplicantBucket from "../../components/StrategicTalentResponse/ResponseScreening/ApplicantBucket";
-import fakeApplications from "../../fakeData/fakeApplications";
+import fakeApplications, {
+  fakeReferenceEmail,
+} from "../../fakeData/fakeApplications";
 import fakeDepartments from "../../fakeData/fakeDepartments";
 import { ApplicationReview } from "../../models/types";
 
@@ -18,14 +20,35 @@ const stories = storiesOf(
 stories.add(
   "Consideration",
   (): React.ReactElement => {
+    const applications = fakeApplications();
+    const referenceEmails = applications.reduce(
+      (accum, application) => {
+        accum.director.byApplicationId[application.id] = fakeReferenceEmail({
+          subject: "Director Reference Email",
+        });
+        accum.secondary.byApplicationId[application.id] = fakeReferenceEmail({
+          subject: "Secondary Reference Email",
+        });
+        return accum;
+      },
+      {
+        director: {
+          byApplicationId: {},
+        },
+        secondary: {
+          byApplicationId: {},
+        },
+      },
+    );
     return (
       <div data-c-accordion-group="" className="response-accordion-group">
         <ApplicantBucket
-          applications={fakeApplications()}
+          applications={applications}
           bucket="consideration"
           departments={fakeDepartments()}
           handleUpdateReview={handleUpdateReview}
           portal="manager"
+          referenceEmails={referenceEmails}
         />
       </div>
     );

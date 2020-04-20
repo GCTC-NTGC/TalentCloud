@@ -1,6 +1,6 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
-import React, { useState, useEffect } from "react";
-import { defineMessages, useIntl } from "react-intl";
+import React, { useState, useEffect, useRef } from "react";
+import { defineMessages, useIntl, FormattedMessage } from "react-intl";
 import { FastField, Formik, Form, useFormikContext } from "formik";
 import Swal from "sweetalert2";
 import SelectInput from "../../Form/SelectInput";
@@ -8,6 +8,8 @@ import {
   Application,
   Department,
   ApplicationReview,
+  Email,
+  EmailAddress,
 } from "../../../models/types";
 import { Portal, ValuesOf } from "../../../models/app";
 import * as routes from "../../../helpers/routes";
@@ -25,6 +27,7 @@ import {
   getLocale,
   Locales,
 } from "../../../helpers/localize";
+import Modal from "../../Modal";
 
 const displayMessages = defineMessages({
   viewApplication: {
@@ -171,6 +174,122 @@ const AlertWhenUnsaved = (): React.ReactElement => {
   return <></>;
 };
 
+interface ReferenceEmailModalProps {
+  id: string;
+  parent: Element | null;
+  email: Email | null;
+  visible: boolean;
+  onConfirm: () => void;
+  onCancel: () => void;
+}
+
+const ReferenceEmailModal: React.FC<ReferenceEmailModalProps> = ({
+  id,
+  parent,
+  email,
+  visible,
+  onConfirm,
+  onCancel,
+}): React.ReactElement => {
+  const renderAddress = (adr: EmailAddress): string =>
+    `${adr.name} <${adr.address}>`.trim();
+  const renderAddresses = (adrs: EmailAddress[]): string =>
+    adrs.map(renderAddress).join(", ");
+  return (
+    <Modal
+      id={id}
+      parentElement={parent}
+      visible={visible}
+      onModalConfirm={onConfirm}
+      onModalCancel={onCancel}
+    >
+      <Modal.Header>
+        <div
+          data-c-background="c1(100)"
+          data-c-border="bottom(thin, solid, black)"
+          data-c-padding="normal"
+        >
+          <h5 data-c-colour="white" data-c-font-size="h4">
+            <FormattedMessage
+              id="referenceEmailModal.title"
+              defaultMessage="Email for Reference Check"
+              description="Text displayed on the title of the MicroReference Email modal."
+            />
+          </h5>
+        </div>
+      </Modal.Header>
+      <Modal.Body>
+        <div data-c-border="bottom(thin, solid, black)" data-c-padding="normal">
+          <p>
+            <span>
+              <strong>
+                <FormattedMessage
+                  id="referenceEmailModal.toLabel"
+                  defaultMessage="To:"
+                />
+              </strong>
+            </span>
+            {` `}
+            <span>{renderAddresses(email?.to ?? [])}</span>
+          </p>
+          <p>
+            <span>
+              <strong>
+                <FormattedMessage
+                  id="referenceEmailModal.fromLabel"
+                  defaultMessage="From:"
+                />
+              </strong>
+            </span>
+            {` `}
+            <span>{renderAddresses(email?.from ?? [])}</span>
+          </p>
+          <p>
+            <span>
+              <strong>
+                <FormattedMessage
+                  id="referenceEmailModal.ccLabel"
+                  defaultMessage="CC:"
+                />
+              </strong>
+            </span>
+            {` `}
+            <span>{renderAddresses(email?.cc ?? [])}</span>
+          </p>
+          <p>
+            <span>
+              <strong>
+                <FormattedMessage
+                  id="referenceEmailModal.bccLabel"
+                  defaultMessage="BCC:"
+                />
+              </strong>
+            </span>
+            {` `}
+            <span>{renderAddresses(email?.bcc ?? [])}</span>
+          </p>
+
+          {email?.body}
+        </div>
+      </Modal.Body>
+      <Modal.Footer>
+        <Modal.FooterCancelBtn>
+          <FormattedMessage
+            id="referenceEmailModal.cancel"
+            defaultMessage="Cancel"
+          />
+        </Modal.FooterCancelBtn>
+        <Modal.FooterConfirmBtn>
+          <FormattedMessage
+            id="referenceEmailModal.confirm"
+            defaultMessage="Send Email"
+          />
+        </Modal.FooterConfirmBtn>
+      </Modal.Footer>
+    </Modal>
+  );
+};
+
 interface FormValues {
   reviewStatus: ReviewStatusId | ResponseReviewStatusId | null;
   department: number | null;
@@ -183,6 +302,8 @@ interface ApplicationRowProps {
   departments: Department[];
   handleUpdateReview: (review: ApplicationReview) => Promise<ApplicationReview>;
   portal: Portal;
+  directorReferenceEmail: Email | null;
+  secondaryReferenceEmail: Email | null;
 }
 
 const ApplicationRow: React.FC<ApplicationRowProps> = ({
@@ -191,6 +312,8 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
   departments,
   handleUpdateReview,
   portal,
+  directorReferenceEmail,
+  secondaryReferenceEmail,
 }): React.ReactElement => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -299,8 +422,18 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
     });
   };
 
+  // MicroReferences
+  const [showingEmail, setShowingEmail] = useState<Email | null>(null);
+  const showDirectorEmail = () => setShowingEmail(directorReferenceEmail);
+  const showSecondaryEmail = () => setShowingEmail(secondaryReferenceEmail);
+  const hideEmail = () => setShowingEmail(null);
+  const onConfirm = () => {
+    console.log("Confirm send");
+  };
+  const modalParentRef = useRef<HTMLDivElement>(null);
+
   return (
-    <div className="applicant">
+    <div className="applicant" ref={modalParentRef}>
       <Formik
         initialValues={initialValues}
         onSubmit={(values, { setSubmitting, resetForm }): void => {
@@ -459,6 +592,17 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
           </Form>
         )}
       </Formik>
+      <button type="button" onClick={showDirectorEmail}>
+        Show director email.
+      </button>
+      <ReferenceEmailModal
+        id={`referenceEmailModal_application${application.id}`}
+        parent={modalParentRef.current}
+        visible={showingEmail !== null}
+        email={showingEmail}
+        onConfirm={onConfirm}
+        onCancel={hideEmail}
+      />
     </div>
   );
 };
@@ -544,6 +688,18 @@ interface ApplicantBucketProps {
   departments: Department[];
   handleUpdateReview: (review: ApplicationReview) => Promise<ApplicationReview>;
   portal: Portal;
+  referenceEmails: {
+    director: {
+      byApplicationId: {
+        [applicationId: number]: Email;
+      };
+    };
+    secondary: {
+      byApplicationId: {
+        [applicationId: number]: Email;
+      };
+    };
+  };
 }
 
 const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
@@ -552,6 +708,7 @@ const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
   departments,
   handleUpdateReview,
   portal,
+  referenceEmails,
 }): React.ReactElement => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -651,6 +808,14 @@ const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
                   departments={departments}
                   handleUpdateReview={handleUpdateReview}
                   portal={portal}
+                  directorReferenceEmail={
+                    referenceEmails.director.byApplicationId[application.id] ??
+                    null
+                  }
+                  secondaryReferenceEmail={
+                    referenceEmails.secondary.byApplicationId[application.id] ??
+                    null
+                  }
                 />
               ))}
           {isExpanded && applications.length === 0 && (
