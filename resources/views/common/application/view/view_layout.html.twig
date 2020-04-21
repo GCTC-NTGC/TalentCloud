@@ -37,11 +37,11 @@
                         <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">
                             <!-- Can we make sure this button functions as intended? -->
                             <a href="{{ route('job.application.edit.4', job) }}" data-c-button="outline(c1)" data-c-radius="rounded" title="{{ application_template.save_return_button_label }}">
-                                {{ application_template.save_return_button_label }}
+                                {{ application_template.save_return_button_label|replace({":step_id": application_step - 1}) }}
                             </a>
                         </div>
                         <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(right)">
-                            <a href="{{ route('applications.index') }}" data-c-button="outline(c1)" data-c-radius="rounded" title="{{ application_template.save_quit_button_label }}">
+                            <a href="{{ route('applications.index') }}" data-c-button="outline(c1)" data-c-radius="rounded" data-c-margin="right(half)" title="{{ application_template.save_quit_button_label }}">
                                 {{ application_template.save_quit_button_label }}
                             </a>
                             <a href="{{ route('job.application.edit.6', job) }}" data-c-button="solid(c1)" data-c-radius="rounded" title="{{ application_template.save_continue_button_label }}">
