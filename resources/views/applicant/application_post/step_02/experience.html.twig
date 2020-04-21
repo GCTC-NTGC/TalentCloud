@@ -35,13 +35,13 @@
                         {# Profile Element Template #}
                         {% include "common/degree" %}
                         {# Profile Element List #}
-                        <div class="profile-element-list" data-c-accordion-group>
+                        <div class="profile-element-list" data-c-accordion-group data-c-margin="top(1)">
                             {% set degreeCounter = 0 %}
                             {% for degree in applicant.degrees %}
                                 {% set degreeCounter = degreeCounter + 1 %}
                                 {% include "common/degree" with {"required": "required"} %}
                             {% endfor %}
-                            <div data-c-padding="all(1)" data-c-border="all(thin, solid, gray)" data-c-radius="rounded" data-c-background="gray(20)" data-c-align="base(center)" class="profile-null {% if degreeCounter == 0 %}active{% endif %}">
+                            <div data-c-margin="top(1)" data-c-padding="all(1)" data-c-border="all(thin, solid, gray)" data-c-radius="rounded" data-c-background="gray(20)" data-c-align="base(center)" class="profile-null {% if degreeCounter == 0 %}active{% endif %}">
                                 <p data-c-color="gray">{{ application_template.experience_section.null_degree_copy }}</p>
                             </div>
                         </div>
@@ -61,13 +61,13 @@
                         {# Profile Element Template #}
                         {% include "common/course" %}
                         {# Profile Element List #}
-                        <div class="profile-element-list" data-c-accordion-group>
+                        <div class="profile-element-list" data-c-accordion-group data-c-margin="top(1)">
                             {% set courseCounter = 0 %}
                             {% for course in applicant.courses %}
                                 {% set courseCounter = courseCounter + 1 %}
                                 {% include "common/course" with {"required": "required"} %}
                             {% endfor %}
-                            <div data-c-padding="all(1)" data-c-border="all(thin, solid, gray)" data-c-radius="rounded" data-c-background="gray(20)" data-c-align="base(center)" class="profile-null {% if courseCounter == 0 %}active{% endif %}">
+                            <div data-c-margin="top(1)" data-c-padding="all(1)" data-c-border="all(thin, solid, gray)" data-c-radius="rounded" data-c-background="gray(20)" data-c-align="base(center)" class="profile-null {% if courseCounter == 0 %}active{% endif %}">
                                 <p data-c-color="gray">{{ application_template.experience_section.null_degree_copy }}</p>
                             </div>
                         </div>
@@ -87,13 +87,13 @@
                         {# Profile Element Template #}
                         {% include "common/work" %}
                         {# Profile Element List #}
-                        <div class="profile-element-list" data-c-accordion-group>
+                        <div class="profile-element-list" data-c-accordion-group data-c-margin="top(1)">
                             {% set workCounter = 0 %}
                             {% for work in applicant.work_experiences %}
                                 {% set workCounter = workCounter + 1 %}
                                 {% include "common/work" with {"required": "required"} %}
                             {% endfor %}
-                            <div data-c-padding="all(1)" data-c-border="all(thin, solid, gray)" data-c-radius="rounded" data-c-background="gray(20)" data-c-align="base(center)" class="profile-null {% if workCounter == 0 %}active{% endif %}">
+                            <div data-c-margin="top(1)" data-c-padding="all(1)" data-c-border="all(thin, solid, gray)" data-c-radius="rounded" data-c-background="gray(20)" data-c-align="base(center)" class="profile-null {% if workCounter == 0 %}active{% endif %}">
                                 <p data-c-color="gray">{{ application_template.experience_section.null_degree_copy }}</p>
                             </div>
                         </div>
