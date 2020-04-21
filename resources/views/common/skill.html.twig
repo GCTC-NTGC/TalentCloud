@@ -101,20 +101,20 @@
                 <div data-c-padding="tb(1)">
                     <!-- Title -->
                     {% if locale == "profile" and skill_declaration == false %}
-                        <p data-c-font-weight="bold" data-c-padding="left(1)">{{ skill_template.new_skill_title }}</p>
+                        <p class="skill-title" data-c-font-weight="bold" data-c-padding="left(1)">{{ skill_template.new_skill_title }}</p>
                     {% elseif locale == "profile" and skill_declaration == true %}
                         <p data-c-font-weight="bold" data-c-padding="left(1)">{{ skill_declaration.skill.name }}</p>
                     {% elseif locale == "application" %}
                         <p data-c-font-weight="bold">{{ criterion.skill.name }}</p>
-                        <p data-c-margin="top(.25)" data-c-colour="c1">Level Required: {{ skill_template.skill_levels[criterion.skill.skill_type.name][criterion.skill_level.name]|title }}</p>
+                        <p data-c-margin="top(.25)" data-c-colour="c1">{{ skill_template.level_required }} {{ skill_template.skill_levels[criterion.skill.skill_type.name][criterion.skill_level.name]|title }}</p>
                     {% elseif locale == "application-view" %}
                         <p data-c-font-weight="bold">{{ criterion.skill.name }}</p>
-                        <p data-c-margin="top(.25)" data-c-colour="c1">Level Required: {{ skill_template.skill_levels[criterion.skill.skill_type.name][criterion.skill_level.name]|title }}</p>
+                        <p data-c-margin="top(.25)" data-c-colour="c1">{{ skill_template.level_required }} {{ skill_template.skill_levels[criterion.skill.skill_type.name][criterion.skill_level.name]|title }}</p>
                     {% endif %}
                 </div>
             </div>
         </div>
-        <span data-c-visibility="invisible">Click to view...</span>
+        <span data-c-visibility="invisible">{{ skill_template.accordion_sr_helper }}</span>
         <i aria-hidden="true" data-c-accordion-add data-c-colour="c1" data-c-font-size="h3" data-c-font-weight="bold">+</i>
         <i aria-hidden="true" data-c-accordion-remove data-c-colour="c1" data-c-font-size="h3" data-c-font-weight="bold">-</i>
     </button>
@@ -181,7 +181,7 @@
                                     {# Skill Selection Dropdown #}
                                     <div data-c-input="select" data-c-grid-item="base(1of1)" class="remove-on-save">
                                         <label for="{{ id_prefix }}skillSelection">{{ skill_template.skill_selection_label }}</label>
-                                        <span>Required</span>
+                                        <span>{{ skill_template.required_label }}</span>
                                         <div>
                                             <i class="fas fa-caret-down"></i>
                                             <select required id="{{ id_prefix }}skillSelection" name="skill_id">
@@ -201,7 +201,7 @@
                                                 {% endfor %}
                                             </select>
                                         </div>
-                                        <span>This input has an error.</span>
+                                        <span>{{ skill_template.input_error }}</span>
                                     </div>
                                     <div data-c-grid-item="base(1of1)">
                                         <p>{{ skill_declaration.skill.description|nl2br }}</p>
@@ -232,13 +232,13 @@
                             {# Skill Form #}
                             <div data-c-grid-item="full">
                                 <p>
-                                    Select your skill level below.&nbsp;
+                                    {{ skill_template.select_level_label }}&nbsp;
                                     <a href="/faq#levels" title="{{ skill_template.level_link_title }}" target="_blank">{{ skill_template.level_link_label }}</a>
                                 </p>
                             </div>
                             <div data-c-input="radio" data-c-grid-item="full">
                                 <label for="skillLevelRadioGroup{{id_prefix}}">{{ skill_template.level_label }}</label>
-                                <span>Required</span>
+                                <span>{{ skill_template.required_label }}</span>
                                 <div id="skillLevelRadioGroup{{id_prefix}}" role="radiogroup" data-c-background="white(100)">
                                     {% set counter = 0 %}
                                     {% for level in skill_levels %}
@@ -252,7 +252,7 @@
                                     </label>
                                     {% endfor %}
                                 </div>
-                                <span>This input has an error.</span>
+                                <span>{{ skill_template.input_error }}</span>
                             </div>
                             {% if skill_declaration.description  %}
                                 <div data-c-grid-item="full">
@@ -266,11 +266,11 @@
                             {% endif %}
                             <div data-c-input="textarea" data-c-grid-item="base(1of1)">
                                 <label for="{{ id_prefix }}skillDescription">{{ skill_template.knowledge_label }}</label>
-                                <span>Required <span data-c-font-weight="bold" data-c-color="black" data-word-counter-id data-id="{{ id_prefix }}skillDescription" data-max-words="100" data-min-words="0"></span></span>
+                                <span>Required <span id="wordCounter{{ id_prefix }}skillDescription" data-c-font-weight="bold" data-c-color="black" data-word-counter-id  data-max-words="100" data-min-words="0"></span></span>
                                 <div>
                                     <textarea id="{{ id_prefix }}skillDescription" name="description" placeholder="Tell us a bit about your skills, like where you worked, what your role was, what you delivered, and what tools you used." required>{{ skill_declaration.description }}</textarea>
                                 </div>
-                                <span>This input has an error.</span>
+                                <span>{{ skill_template.input_error }}</span>
                             </div>
                         </div>
                     </div>
@@ -313,7 +313,7 @@
                         <div class="profile-relative__add-trigger-wrapper">
                             {% if applicant.work_samples|length > 0 %}
                                 {% if relativeCounter == 0 %}
-                                    <p class="profile-relative__null active" data-c-background="gray(20)" data-c-border="all(thin, solid, gray)" data-c-radius="rounded" data-c-margin="top(1)" data-c-padding="all(1)" data-c-align="base(center)" data-c-color="gray">You can add one of your Work Samples as evidence for this skill using the button above.</p>
+                                    <p class="profile-relative__null active" data-c-background="gray(20)" data-c-border="all(thin, solid, gray)" data-c-radius="rounded" data-c-margin="top(1)" data-c-padding="all(1)" data-c-align="base(center)" data-c-color="gray">{{ skill_template.work_sample_null }}</p>
                                 {% endif %}
                             {% else %}
                                 <p class="profile-relative__null active" data-c-background="gray(20)" data-c-border="all(thin, solid, gray)" data-c-radius="rounded" data-c-margin="top(1)" data-c-padding="all(1)" data-c-align="base(center)" data-c-color="gray">{{ relative_template.sample.null_copy }}</p>

@@ -8,7 +8,7 @@
     <h3 data-c-heading="h3" data-c-padding="bottom(1)" data-c-margin="bottom(1)">{{ application_template.preview.section_01_title }}</h3>
     {# Manager-specific Information ab/ the Applicant #}
     {% if is_manager_view %}
-        <p data-c-margin="bottom(1)">Applicant: <span data-c-font-weight="bold">{{ applicant.user.first_name }} {{ applicant.user.last_name }}</a></p>
+        <p data-c-margin="bottom(1)">{{ application_template.preview.applicant_label }} <span data-c-font-weight="bold">{{ applicant.user.first_name }} {{ applicant.user.last_name }}</a></p>
     {% endif %}
     {# Citizenship #}
     <p data-c-margin="bottom(.25)">
@@ -58,7 +58,7 @@
     {% endif %}
     <p data-c-margin="bottom(.25)"><i class="fas fa-{{ job_application.preferred_language_id ? 'check' : 'times' }}" data-c-color="{{ job_application.preferred_language_id ? 'go' : 'stop' }}" data-c-margin="right(.5)"></i>{{ language_choice|raw|nl2br }}</p>
     {# Long Form Questions #}
-    <h4 data-c-heading="h4" data-c-margin="top(2) bottom(1)">My Fit</h4>
+    <h4 data-c-heading="h4" data-c-margin="top(2) bottom(1)">{{ application_template.question_title }}</h4>
     {% for question in job.job_poster_questions %}
         <p data-c-margin="top(1) bottom(.5)" data-c-font-weight="bold">{{ question.question }}</p>
         <p>

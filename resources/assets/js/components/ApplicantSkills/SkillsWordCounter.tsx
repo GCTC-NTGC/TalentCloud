@@ -29,17 +29,15 @@ const SkillsWordCounter: React.FunctionComponent<SkillsWordCounterProps> = ({
 }): React.ReactElement => {
   const intl = useIntl();
   return (
-    <span>
-      <WordCounter
-        elementId={elementId}
-        minWords={minWords}
-        maxWords={maxWords}
-        absoluteValue
-        beforeText="( "
-        underMaxMessage={`${intl.formatMessage(messages.underLimit)} )`}
-        overMaxMessage={`${intl.formatMessage(messages.overLimit)} )`}
-      />
-    </span>
+    <WordCounter
+      elementId={elementId}
+      minWords={minWords}
+      maxWords={maxWords}
+      absoluteValue
+      beforeText="( "
+      underMaxMessage={`${intl.formatMessage(messages.underLimit)} )`}
+      overMaxMessage={`${intl.formatMessage(messages.overLimit)} )`}
+    />
   );
 };
 
@@ -74,10 +72,9 @@ const updateWordCounters = (): void => {
         wordCounter !== null &&
         wordCounter.hasAttribute("data-word-counter-id")
       ) {
-        const elementId = String(wordCounter.getAttribute("data-id"));
+        const elementId = String(wordCounter.id.replace("wordCounter", ""));
         const maxWords = Number(wordCounter.getAttribute("data-max-words"));
         const minWords = Number(wordCounter.getAttribute("data-min-words"));
-
         const locale = document.documentElement.lang;
         ReactDOM.render(
           <IntlContainer locale={locale}>

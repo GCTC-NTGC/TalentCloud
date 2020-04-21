@@ -29,7 +29,7 @@
                             <p data-c-margin="bottom(1)">{{ application_template.essential_answer_1 }}</p>
                             <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ application_template.essential_question_2 }}</p>
                             <p data-c-margin="bottom(1)">{{ application_template.essential_answer_2 }}</p>
-                            <p>Please note that skills with a <i class="fas fa-exclamation" data-c-color="slow" data-c-margin="rl(.25)"></i> icon are incomplete and require your attention. Skills with a <i class="fas fa-check" data-c-color="go" data-c-margin="rl(.25)"></i> are ready to submit or have been pre-populated from your profile. You're welcome to edit these if you need to.</p>
+                            <p>{{ application_template.skills_section.helper_text|raw }}</p>
                             {% include "applicant/application_post/common/skill-layout" %}
                         </div>
                     </div>
@@ -41,12 +41,12 @@
                     <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">
                         <!-- Can we make sure this button functions as intended? -->
                         <button class="ajax-submit-all" data-c-button="outline(c1)" data-c-radius="rounded" type="button" name="submit" value="save_and_return" data-on-success-url="{{ route('job.application.edit.2', job) }}">
-                            <span class="submit-default">{{ application_template.save_return_button_label }}</span>
+                            <span class="submit-default">{{ application_template.save_return_button_label|replace({":step_id": application_step - 1}) }}</span>
                             <span class="submit-working">{{ application_template.save_button_working }}</span>
                         </button>
                     </div>
                     <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(right)">
-                        <button class="ajax-submit-all" data-c-button="outline(c1)" data-c-radius="rounded" type="button" name="submit" value="save_and_quit" data-on-success-url="{{ route('applications.index') }}">
+                        <button class="ajax-submit-all" data-c-button="outline(c1)" data-c-margin="right(half)" data-c-radius="rounded" type="button" name="submit" value="save_and_quit" data-on-success-url="{{ route('applications.index') }}">
                             <span class="submit-default">{{ application_template.save_quit_button_label }}</span>
                             <span class="submit-working">{{ application_template.save_button_working }}</span>
                         </button>

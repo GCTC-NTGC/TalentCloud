@@ -12,11 +12,11 @@
         <p data-c-margin="bottom(1)">{{ question.description }}</p>
         <div data-c-input="textarea">
             <label for="{{ question.input_name }}">{{ question.answer_label }}</label>
-            <span>Required</span>
+            <span>{{ profile.required_label }}</span>
             <div>
                 <textarea id="{{ question.input_name }}" name="{{ question.input_name }}">{% if question.answer != null %}{{ question.answer }}{% endif %}</textarea>
             </div>
-            <span>This input has an error.</span>
+            <span>{{ profile.input_error }}</span>
         </div>
         <div data-c-align="base(right)">
             <button data-c-button="solid(c1)" data-c-radius="rounded" type="submit" name="submit" value="question[{{ question.id }}]">

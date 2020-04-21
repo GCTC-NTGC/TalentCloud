@@ -27,7 +27,7 @@
                     {{ relative_template.sample.label }}
                 {% endif %}
             </label>
-            <span>Required</span>
+            <span>{{ relative_template.required_label }}</span>
             <div>
                 <i class="fas fa-caret-down"></i>
                 <select id="{{ id_prefix }}_relativeId" {% if template %}disabled{% endif %}
@@ -64,7 +64,7 @@
                     {% endif %}
                 </select>
             </div>
-            <span>This input has an error.</span>
+            <span>{{ relative_template.input_error }}</span>
         </div>
         {# Delete Button #}
         <div data-c-grid-item="base(1of4) tl(1of5) ds(1of6)" data-c-align="base(center)">

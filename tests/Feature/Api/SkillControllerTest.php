@@ -11,7 +11,7 @@ class SkillControllerTest extends TestCase
 
     public function testIndex()
     {
-        $response = $this->json('get', 'api/skills');
+        $response = $this->json('get', 'api/v1/skills');
         $response->assertOk();
         // This is one of the skills added by migrations. Should always be present after refreshing database
         $exampleSkill = [

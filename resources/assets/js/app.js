@@ -213,7 +213,7 @@
       // .one() unbinds the event handler once it triggers
       // This is important because this modal is reused to delete
       //  different items.
-      $(".modal-delete-trigger").one("click", function(e) {
+      modal.one("click", function(e) {
         //TODO: when items are saved with ajax too, the check
         // will become more complicated than checking for a
         // delete url
@@ -234,6 +234,7 @@
               closeModal(trigger);
               $(object).remove();
               $(modal).removeClass("working");
+              profileListNullState();
             })
             .catch(function(error) {
               $(modal).removeClass("working");
@@ -246,9 +247,19 @@
         } else {
           //If item isn't saved on server yet, simply delete the
           // object and close the modal.
-
           closeModal(trigger);
           $(object).remove();
+          profileListNullState();
+        }
+      });
+    }
+
+    // Activate null state for empty profile lists
+    function profileListNullState() {
+      var elementsList = document.querySelectorAll(".profile-element-list");
+      elementsList.forEach(element => {
+        if($(element).find(".profile-element").length == 0) {
+          $(element).find(".profile-null").addClass("active");
         }
       });
     }
@@ -664,13 +675,9 @@
 
     //Update ui for Skill object to reflect that it has been setItem
     function setSkillSaved(object, response) {
-      var levelRequirement =
-        $(object)
-          .find(".accordion-title span")
-          .prop("outerHTML") || "";
       $(object)
-        .find(".accordion-title")
-        .html(response.data.skill.name[docLocale] + levelRequirement);
+        .find(".skill-title")
+        .html(response.data.skill.name[docLocale]);
       $(object)
         .find(".skill__description")
         .text(response.data.skill.description[docLocale]);
@@ -682,14 +689,14 @@
     //Update ui for Reference object to reflect that it has been setItem
     function setReferenceSaved(object, response) {
       $(object)
-        .find(".accordion-title")
+        .find(".reference-title")
         .text(response.data.name);
     }
 
     //Update ui for WorkSample object to reflect that it has been setItem
     function setSampleSaved(object, response) {
       $(object)
-        .find(".accordion-title")
+        .find(".sample-title")
         .text(response.data.name);
     }
 

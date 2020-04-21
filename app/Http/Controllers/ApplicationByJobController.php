@@ -19,6 +19,7 @@ use App\Models\Skill;
 use App\Models\SkillDeclaration;
 use App\Models\WorkExperience;
 use App\Services\Validation\ApplicationValidator;
+use App\Services\Validation\Rules\GovernmentEmailRule;
 use App\Services\Validation\StrategicResponseApplicationValidator;
 use Facades\App\Services\WhichPortal;
 use Illuminate\Http\Request;
@@ -37,6 +38,13 @@ class ApplicationByJobController extends Controller
      */
     public function index(JobPoster $jobPoster)
     {
+        $view = 'manager/review_applications';
+        $disableCloneJs = false;
+        if ($jobPoster->department_id === config('app.strategic_response_department_id')) {
+            $view = 'response/screening/index';
+            // Hacky workaround for Accordion JS firing on the screening page.
+            $disableCloneJs = true;
+        }
         $applications = $jobPoster->submitted_applications()
             ->with([
                 'veteran_status',
@@ -46,16 +54,25 @@ class ApplicationByJobController extends Controller
                 'job_poster.criteria',
             ])
             ->get();
-        return view('manager/review_applications', [
+
+        $viewData = [
             // Localization Strings.
             'jobs_l10n' => Lang::get('manager/job_index'),
             // Data.
             'job' => new JsonResource($jobPoster),
+            'job_id' => $jobPoster->id,
             'is_hr_portal' => WhichPortal::isHrPortal(),
+            'portal' => WhichPortal::isHrPortal() ? 'hr' : 'manager',
             'applications' => $applications,
             'review_statuses' => ReviewStatus::all(),
             'isHrAdvisor' => Auth::user()->isHrAdvisor(),
-        ]);
+        ];
+
+        if ($disableCloneJs) {
+            $viewData['disable_clone_js'] = true;
+        }
+
+        return view($view, $viewData);
     }
 
     /**
@@ -124,7 +141,8 @@ class ApplicationByJobController extends Controller
                 'applicant' => $applicant,
                 'job_application' => $application,
                 // Submission.
-                'form_submit_action' => route('job.application.update.1', $jobPoster)
+                'form_submit_action' => route('job.application.update.1', $jobPoster),
+                'gov_email_pattern' => GovernmentEmailRule::PATTERN
             ]
         );
     }
@@ -491,7 +509,7 @@ class ApplicationByJobController extends Controller
         // Redirect to correct page.
         switch ($request->input('submit')) {
             case 'save_and_quit':
-            case 'previous':
+            case 'save_and_return':
                 return redirect()->route('applications.index');
                 break;
             case 'save_and_continue':
@@ -672,7 +690,7 @@ class ApplicationByJobController extends Controller
             case 'next':
                 return redirect()->route('job.application.edit.3', $jobPoster);
                 break;
-            case 'previous':
+            case 'save_and_return':
                 return redirect()->route('job.application.edit.1', $jobPoster);
                 break;
             default:
@@ -755,7 +773,7 @@ class ApplicationByJobController extends Controller
             case 'next':
                 return redirect()->route('job.application.edit.4', $jobPoster);
                 break;
-            case 'previous':
+            case 'save_and_return':
                 return redirect()->route('job.application.edit.2', $jobPoster);
                 break;
             default:
@@ -838,7 +856,7 @@ class ApplicationByJobController extends Controller
             case 'next':
                 return redirect()->route('job.application.edit.5', $jobPoster);
                 break;
-            case 'previous':
+            case 'save_and_return':
                 return redirect()->route('job.application.edit.3', $jobPoster);
                 break;
             default:
@@ -909,7 +927,7 @@ class ApplicationByJobController extends Controller
             case 'submit':
                 return redirect()->route('job.application.complete', $jobPoster);
                 break;
-            case 'previous':
+            case 'save_and_return':
                 return redirect()->route('job.application.edit.4', $jobPoster);
                 break;
             default:

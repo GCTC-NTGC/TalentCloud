@@ -17,6 +17,13 @@ class JobControllerTest extends TestCase
     use RefreshDatabase;
 
     /**
+     * Base route for the API calls.
+     *
+     * @var string
+     */
+    protected $baseUrl;
+
+    /**
      * Run parent setup and provide reusable factories.
      *
      * @return void
@@ -24,6 +31,8 @@ class JobControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        $this->baseUrl = 'api/v1';
 
         $this->faker = \Faker\Factory::create();
     }
@@ -119,7 +128,7 @@ class JobControllerTest extends TestCase
     public function testGetAsPublic(): void
     {
         $job = factory(JobPoster::class)->state('live')->create();
-        $response = $this->json('get', "api/jobs/$job->id");
+        $response = $this->json('get', "$this->baseUrl/jobs/$job->id");
         $response->assertOk();
         $expected = array_merge($job->toArray(), $job->getTranslations());
         $response->assertJson($expected);
@@ -136,7 +145,7 @@ class JobControllerTest extends TestCase
         $jobUpdate = $this->generateFrontendJob($job->manager_id, false);
         $response = $this->followingRedirects()
             ->actingAs($job->manager->user)
-            ->json('put', "api/jobs/$job->id", $jobUpdate);
+            ->json('put', "$this->baseUrl/jobs/$job->id", $jobUpdate);
         $response->assertOk();
         $expectedDb = array_merge(
             collect($jobUpdate)->except(['en', 'fr', 'work_env_features'])->toArray(),
@@ -164,7 +173,7 @@ class JobControllerTest extends TestCase
         $otherManager = factory(User::class)->state('upgradedManager')->create();
         $jobUpdate = $this->generateFrontendJob($job->manager_id, false);
         $response = $this->actingAs($otherManager)
-            ->json('put', "api/jobs/$job->id", $jobUpdate);
+            ->json('put', "$this->baseUrl/jobs/$job->id", $jobUpdate);
         $response->assertForbidden();
     }
 
@@ -180,7 +189,7 @@ class JobControllerTest extends TestCase
         $jobUpdate = $this->generateFrontendJob($job->manager_id, false);
         $jobUpdate['term_qty'] = 'three months'; // String is invalid here.
         $response = $this->actingAs($job->manager->user)
-            ->json('put', "api/jobs/$job->id", $jobUpdate);
+            ->json('put', "$this->baseUrl/jobs/$job->id", $jobUpdate);
         $response->assertStatus(422);
     }
 
@@ -201,7 +210,7 @@ class JobControllerTest extends TestCase
             'invalid_feature' => 'hello world'
         ];
         $response = $this->actingAs($job->manager->user)
-            ->json('put', "api/jobs/$job->id", $jobUpdate);
+            ->json('put', "$this->baseUrl/jobs/$job->id", $jobUpdate);
         $response->assertStatus(422);
     }
 
@@ -218,7 +227,7 @@ class JobControllerTest extends TestCase
         $jobUpdate['job_poster_status_id'] = $job->job_poster_status_id + 1;
         $response = $this->followingRedirects()
             ->actingAs($job->manager->user)
-            ->json('put', "api/jobs/$job->id", $jobUpdate);
+            ->json('put', "$this->baseUrl/jobs/$job->id", $jobUpdate);
         $response->assertOk();
         $newJob = $job->fresh();
         $this->assertEquals($job->job_poster_status_id, $newJob->job_poster_status_id);
@@ -232,11 +241,11 @@ class JobControllerTest extends TestCase
     public function testManagerCanStoreEmptyJob(): void
     {
         $manager = factory(Manager::class)->create();
-        $response = $this->followingRedirects()
+        $response = $this
             ->actingAs($manager->user)
-            ->json('post', 'api/jobs');
+            ->json('post', "$this->baseUrl/jobs");
         $this->assertAuthenticatedAs($manager->user);
-        $response->assertOk();
+        $response->assertStatus(201);
         $this->assertDatabaseHas('job_posters', ['manager_id' => $manager->id]);
     }
 
@@ -246,7 +255,7 @@ class JobControllerTest extends TestCase
         $job = factory(JobPoster::class)->state('live')->create([
             'classification_id' => $classification->id
         ]);
-        $response = $this->json('get', "api/jobs/$job->id");
+        $response = $this->json('get', "$this->baseUrl/jobs/$job->id");
         $response->assertOk();
         $response->assertJsonFragment(['classification_id' => $classification->id]);
     }
@@ -272,27 +281,27 @@ class JobControllerTest extends TestCase
         $closedJson = $this->jobToArray($closedJob);
 
         // A guest receives open and closed jobs
-        $guestResponse = $this->json('get', route('api.jobs.index'));
+        $guestResponse = $this->json('get', route('api.v1.jobs.index'));
         $guestResponse->assertJsonCount(2);
         $guestResponse->assertJsonFragment($openJson);
         $guestResponse->assertJsonFragment($closedJson);
 
         // An demo manager (ie applicant) can see open/closed jobs, and its own demo jobs
-        $applicantResponse = $this->actingAs($demoJob->manager->user)->json('get', route('api.jobs.index'));
+        $applicantResponse = $this->actingAs($demoJob->manager->user)->json('get', route('api.v1.jobs.index'));
         $applicantResponse->assertJsonCount(3);
         $applicantResponse->assertJsonFragment($demoJson);
         $applicantResponse->assertJsonFragment($openJson);
         $applicantResponse->assertJsonFragment($closedJson);
 
         // A manager can view its own draft job, and open/closed jobs
-        $draftManagerResponse = $this->actingAs($draftJob->manager->user)->json('get', route('api.jobs.index'));
+        $draftManagerResponse = $this->actingAs($draftJob->manager->user)->json('get', route('api.v1.jobs.index'));
         $draftManagerResponse->assertJsonCount(3);
         $draftManagerResponse->assertJsonFragment($draftJson);
         $draftManagerResponse->assertJsonFragment($openJson);
         $draftManagerResponse->assertJsonFragment($closedJson);
 
         // A manager can also view its on job in review
-        $reviewManagerResponse = $this->actingAs($reviewJob->manager->user)->json('get', route('api.jobs.index'));
+        $reviewManagerResponse = $this->actingAs($reviewJob->manager->user)->json('get', route('api.v1.jobs.index'));
         $reviewManagerResponse->assertJsonCount(3);
         $reviewManagerResponse->assertJsonFragment($reviewJson);
         $reviewManagerResponse->assertJsonFragment($openJson);
@@ -300,7 +309,7 @@ class JobControllerTest extends TestCase
 
         // An admin can view all jobs
         $adminUser = factory(User::class)->state('admin')->create();
-        $adminResponse = $this->actingAs($adminUser)->json('get', route('api.jobs.index'));
+        $adminResponse = $this->actingAs($adminUser)->json('get', route('api.v1.jobs.index'));
         $adminResponse->assertJsonCount(6);
     }
 
@@ -352,7 +361,7 @@ class JobControllerTest extends TestCase
         $openJob = factory(JobPoster::class)->states(['live', 'byUpgradedManager'])->create();
         $closedJob = factory(JobPoster::class)->states(['closed', 'byUpgradedManager'])->create();
 
-        $hrResponse = $this->actingAs($hrAdvisor->user)->json('get', route('api.jobs.index'));
+        $hrResponse = $this->actingAs($hrAdvisor->user)->json('get', route('api.v1.jobs.index'));
 
         $hrResponse->assertJsonMissingExact($this->jobToArray($draftInDept));
         $hrResponse->assertJsonMissingExact($this->jobToArray($draftOtherDept));
@@ -390,7 +399,7 @@ class JobControllerTest extends TestCase
             'manager_id' => $managerOtherDept->id,
         ]);
 
-        $response = $this->json('get', route('api.jobs.index', ['department_id' => $deptId]));
+        $response = $this->json('get', route('api.v1.jobs.index', ['department_id' => $deptId]));
         $response->assertJsonFragment($this->jobToArray($inDept));
         $response->assertJsonMissingExact($this->jobToArray($otherDept));
     }

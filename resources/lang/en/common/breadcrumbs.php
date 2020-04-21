@@ -10,17 +10,8 @@ return [
      *
      */
 
-    'hr' => [
-        'home' => 'Home',
-        'faq' => 'FAQ',
-        'job-index' => 'Job Index'
-    ],
-    'manager' => [
-        'home' => 'Home',
-        'faq' => 'FAQ',
-    ],
-    'applicant' => [
-        'home' => 'Home',
-        'faq' => 'FAQ',
-    ],
+    'home' => 'Home',
+    'faq' => 'FAQ',
+    'job-index' => 'Job Index',
+    'response' => 'GC Talent Reserve',
 ];

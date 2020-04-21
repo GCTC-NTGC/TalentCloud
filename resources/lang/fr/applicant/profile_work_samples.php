@@ -9,6 +9,11 @@ return [
     *
     */
     "title" => "Mes échantillons de travail",
+    'profile_sidebar_label' => 'Sur votre profil :',
+    'account_settings_title' => 'Modifiez les paramètres de votre compte.',
+    'account_settings_label' => 'Paramètres du compte',
+    'required_label' => 'Requis',
+    'input_error' => 'Cette entrée comporte une erreur.',
     "sample_section" => [
         "sample_title" => "Nuage de talents | Candidat : Profil - Mes échantillons de travail",
         "section_title" => "Mes échantillons de travail",

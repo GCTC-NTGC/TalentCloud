@@ -31,32 +31,32 @@
                     <div data-c-grid="gutter(all, 1)">
                         <div data-c-input="text" data-c-grid-item="tl(1of2)">
                             <label for="applicationReviewSignature">{{ application_template.integrity.signature_label }}</label>
-                            <span>Required</span>
+                            <span>{{ application_template.required_label }}</span>
                             <div>
                                 <input id="applicationReviewSignature" name="submission_signature" required type="text" />
                             </div>
-                            <span>This input has an error.</span>
+                            <span>{{ application_template.input_error }}</span>
                         </div>
                         <div data-c-input="date" data-c-grid-item="tl(1of2)">
                             <label for="applicationReviewDate">{{ application_template.integrity.date_label }}</label>
-                            <span>Required</span>
+                            <span>{{ application_template.required_label }}</span>
                             <div>
                                 <input id="applicationReviewDate" type="date" required name="submission_date" placeholder="yyyy-mm-dd"/>
                             </div>
-                            <span>This input has an error.</span>
+                            <span>{{ application_template.input_error }}</span>
                         </div>
                     </div>
                     <hr data-c-hr="thin(gray)" data-c-margin="top(1) bottom(2)">
                     <div data-c-grid="gutter(all, 1)">
-                        <div data-c-grid-item="tp(1of2)" class="button-prevent-multiple-submit" data-c-align="base(center) tp(left)">
+                        <div data-c-grid-item="tl(1of3)" class="button-prevent-multiple-submit" data-c-align="base(center) tl(left)">
                             <!-- Can we make sure this button functions as intended? -->
-                            <button id="save_and_return" data-c-button="outline(c1)" data-c-radius="rounded" type="submit" name="submit" value="save_and_return">
-                                {{ application_template.save_return_button_label }}
-                            </button>
+                            <a href="{{ route('job.application.edit.5', job) }}" data-c-button="outline(c1)" data-c-radius="rounded" title="{{ application_template.save_return_button_label }}">
+                                {{ application_template.save_return_button_label|replace({":step_id": application_step - 1}) }}
+                            </a>
                         </div>
-                        <div data-c-grid-item="tp(1of2)" class="button-prevent-multiple-submit" data-c-align="base(center) tp(right)">
-                            <button id="save_and_quit" data-c-button="outline(c1)" data-c-radius="rounded" type="submit" name="submit" value="save_and_quit">
-                                {{ application_template.integrity.save_label }}
+                        <div data-c-grid-item="tl(2of3)" class="button-prevent-multiple-submit" data-c-align="base(center) tl(right)">
+                            <button id="save_and_quit" data-c-button="outline(c1)" data-c-margin="right(half)" data-c-radius="rounded" type="submit" name="submit" value="save_and_quit">
+                                {{ application_template.save_return_to_applications }}
                             </button>
                             <button data-c-button="solid(go)" data-c-radius="rounded" type="submit" name="submit" value="submit">
                                 {{ application_template.integrity.submit_label }}

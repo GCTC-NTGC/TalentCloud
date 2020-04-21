@@ -7,14 +7,14 @@
                         <a href="{{ route('response.index') }}" title="{{ response.menu.home.title }}" data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">{{ response.menu.home.text }}</a>
                     </li>
                     <li>
-                        <a href="#apply" title="{{ response.menu.apply.title }}" data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">{{ response.menu.apply.text }}</a>
+                        <a href="{{ route('response.index') }}#apply" title="{{ response.menu.apply.title }}" data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">{{ response.menu.apply.text }}</a>
                     </li>
                     <li>
                         <a href="https://canada.ca/coronavirus" title="{{ response.menu.info.title }}" target="_blank" data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">{{ response.menu.info.text }}</a>
                     </li>
-                    {# <li>
-                        <a href="/faq#covid19" title="{{ response.menu.faq.title }}" target="_blank" data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">{{ response.menu.faq.text }}</a>
-                    </li> #}
+                    <li>
+                        <a href="{{ route('response.faq') }}" title="{{ response.menu.faq.title }}" data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">{{ response.menu.faq.text }}</a>
+                    </li>
                 </ul>
             </div>
             <div data-c-grid-item="base(1of1) tl(2of4)">

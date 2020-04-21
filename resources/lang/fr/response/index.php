@@ -90,9 +90,9 @@ return [
         ],
         'apply_list_title' => 'Vous pouvez demander de faire partie de la Réserve de talents du GC si :',
         'apply_list' => [
-            1 =>  "Vous êtes dans une fonction essentielle dans votre propre ministère et que votre gestionnaire appuie un placement temporaire",
-            2 => 'Vous voulez aider les Canadiens en allant là où votre présence est le plus nécessaire',
-            3 => 'Vous êtes actuellement un employé du gouvernement du Canada (pour une période indéterminée ou déterminée)',
+            1 => 'Vous êtes actuellement un employé du gouvernement du Canada (pour une période indéterminée ou déterminée)',
+            2 =>  "Vous êtes dans une fonction essentielle dans votre propre ministère et que votre gestionnaire appuie un placement temporaire",
+            3 => 'Vous voulez aider les Canadiens en allant là où votre présence est le plus nécessaire',
             4 => 'Vous avez des compétences spécialisées à partager (voir la liste ci-dessous)',
             5 => 'Vous voulez appuyer vos collègues dans d’autres équipes ou ministères',
             6 => 'Vous êtes capable de vous adapter à un nouvel environnement et à de nouveaux processus',
