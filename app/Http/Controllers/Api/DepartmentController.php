@@ -15,8 +15,6 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $strategicDepartmentId = config('app.strategic_response_department_id');
-        $departments = Department::where('id', '<>', $strategicDepartmentId)->get();
-        return JsonResource::collection($departments);
+        return JsonResource::collection(Department::all());
     }
 }
