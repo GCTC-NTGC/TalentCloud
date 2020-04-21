@@ -6,6 +6,7 @@ import RootContainer from "../../RootContainer";
 import {
   ResponseScreeningBuckets as BucketTypes,
   ResponseReviewStatusId,
+  ExcludedDepartments,
 } from "../../../models/lookupConstants";
 import { ResponseScreeningBuckets } from "../../../models/localizedConstants";
 import { getDepartments as getDepartmentsAction } from "../../../store/Department/deptActions";
@@ -112,7 +113,10 @@ const ResponseScreeningDataFetcher: React.FC<ResponseScreeningDataFetcherProps> 
   useEffect(() => {
     dispatch(getDepartmentsAction());
   }, [dispatch]);
-  const departments = useSelector(getDepartments);
+  const departments = useSelector(getDepartments).filter(
+    (department) =>
+      department.id !== ExcludedDepartments.StrategicTalentResponse,
+  );
 
   const updateApplicationReview = async (
     review: ApplicationReview,
