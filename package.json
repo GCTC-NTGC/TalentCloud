@@ -88,7 +88,7 @@
         "typescript": "^3.8.3",
         "uuid": "^7.0.3",
         "vue-template-compiler": "^2.6.11",
-        "webpack": "^4.42.1"
+        "webpack": "^4.43.0"
     },
     "dependencies": {
         "@formatjs/intl-pluralrules": "^1.5.5",
