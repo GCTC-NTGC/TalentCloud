@@ -21,6 +21,8 @@ export const fakeApplicationReview = (
   },
   department_id: null,
   department: null,
+  director_email_sent: false,
+  reference_email_sent: false,
   ...overrides,
 });
 

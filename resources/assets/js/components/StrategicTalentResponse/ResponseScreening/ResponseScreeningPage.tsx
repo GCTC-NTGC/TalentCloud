@@ -1,5 +1,5 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import ReactDOM from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import RootContainer from "../../RootContainer";
@@ -20,11 +20,17 @@ import { Portal } from "../../../models/app";
 import {
   fetchApplicationsForJob,
   updateApplicationReview as updateApplicationReviewAction,
+  fetchReferenceEmails,
 } from "../../../store/Application/applicationActions";
-import { getApplicationsByJob } from "../../../store/Application/applicationSelector";
+import {
+  getApplicationsByJob,
+  allIsFetchingReferenceEmailsByApplication,
+  getAllReferenceEmails,
+} from "../../../store/Application/applicationSelector";
 import { RootState } from "../../../store/store";
 import { getDepartments } from "../../../store/Department/deptSelector";
 import { fakeReferenceEmail } from "../../../fakeData/fakeApplications";
+import { hasKey } from "../../../helpers/queries";
 
 interface ResponseScreeningPageProps {
   applications: Application[];
@@ -43,6 +49,7 @@ interface ResponseScreeningPageProps {
       };
     };
   };
+  requestReferenceEmails: (applicationId: number) => void;
 }
 
 const ResponseScreeningPage: React.FC<ResponseScreeningPageProps> = ({
@@ -51,6 +58,7 @@ const ResponseScreeningPage: React.FC<ResponseScreeningPageProps> = ({
   handleUpdateReview,
   portal,
   referenceEmails,
+  requestReferenceEmails,
 }): React.ReactElement => (
   <>
     {Object.keys(ResponseScreeningBuckets).map((bucket) => {
@@ -99,6 +107,7 @@ const ResponseScreeningPage: React.FC<ResponseScreeningPageProps> = ({
           handleUpdateReview={handleUpdateReview}
           portal={portal}
           referenceEmails={referenceEmails}
+          requestReferenceEmails={requestReferenceEmails}
         />
       );
     })}
@@ -141,26 +150,23 @@ const ResponseScreeningDataFetcher: React.FC<ResponseScreeningDataFetcherProps> 
     return Promise.reject(result.payload);
   };
 
-  // TODO: load these
-  const referenceEmails = applications.reduce(
-    (accum, application) => {
-      accum.director.byApplicationId[application.id] = fakeReferenceEmail({
-        subject: "Director Reference Email",
-      });
-      accum.secondary.byApplicationId[application.id] = fakeReferenceEmail({
-        subject: "Secondary Reference Email",
-      });
-      return accum;
-    },
-    {
-      director: {
-        byApplicationId: {},
-      },
-      secondary: {
-        byApplicationId: {},
-      },
-    },
+  // Load micro-reference emails
+  const referenceEmails = useSelector(getAllReferenceEmails);
+  const isFetchingReferenceEmails = useSelector(
+    allIsFetchingReferenceEmailsByApplication,
   );
+  const requestReferenceEmails = (applicationId: number): void => {
+    if (isFetchingReferenceEmails[applicationId]) {
+      return;
+    }
+    if (
+      hasKey(referenceEmails.director.byApplicationId, applicationId) &&
+      hasKey(referenceEmails.secondary.byApplicationId, applicationId)
+    ) {
+      return;
+    }
+    dispatch(fetchReferenceEmails(applicationId));
+  };
 
   return (
     <ResponseScreeningPage
@@ -169,6 +175,7 @@ const ResponseScreeningDataFetcher: React.FC<ResponseScreeningDataFetcherProps> 
       handleUpdateReview={updateApplicationReview}
       portal={portal}
       referenceEmails={referenceEmails}
+      requestReferenceEmails={requestReferenceEmails}
     />
   );
 };

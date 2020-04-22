@@ -22,4 +22,4 @@ export const getApplicationsForJobEndpoint = (jobId: number): string =>
   `${baseUrl(2)}/jobs/${jobId}/applications`;
 
 export const getReferenceEmailsEndpoint = (applicationId: number): string =>
-  `${getApplicationEndpoint(applicationId)}/reference-emails/`;
+  `${baseUrl()}/applications/${applicationId}/reference-emails/`;

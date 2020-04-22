@@ -16,6 +16,8 @@ import {
   UPDATE_APPLICATION_REVIEW_STARTED,
   UPDATE_APPLICATION_REVIEW_FAILED,
   FETCH_REFERENCE_EMAILS_SUCCEEDED,
+  FETCH_REFERENCE_EMAILS_STARTED,
+  FETCH_REFERENCE_EMAILS_FAILED,
 } from "./applicationActions";
 import {
   mapToObject,
@@ -56,6 +58,9 @@ export interface UiState {
     [id: number]: boolean;
   };
   fetchingApplications: boolean;
+  fetchingReferenceEmailsForApplication: {
+    [applicationId: number]: boolean;
+  };
 }
 
 export interface ApplicationState {
@@ -82,6 +87,7 @@ export const initEntities = (): EntityState => ({
 export const initUi = (): UiState => ({
   applicationIsUpdating: {},
   fetchingApplications: false,
+  fetchingReferenceEmailsForApplication: {},
 });
 
 export const initApplicationState = (): ApplicationState => ({
@@ -172,12 +178,16 @@ export const entitiesReducer = (
         ...state,
         microReferenceEmails: {
           director: {
-            ...state.microReferenceEmails.director,
-            [action.meta.applicationId]: action.payload.director,
+            byApplicationId: {
+              ...state.microReferenceEmails.director.byApplicationId,
+              [action.meta.applicationId]: action.payload.director,
+            },
           },
           secondary: {
-            ...state.microReferenceEmails.secondary,
-            [action.meta.applicationId]: action.payload.secondary,
+            byApplicationId: {
+              ...state.microReferenceEmails.secondary.byApplicationId,
+              [action.meta.applicationId]: action.payload.secondary,
+            },
           },
         },
       };
@@ -233,6 +243,23 @@ export const uiReducer = (
         ...state,
         applicationIsUpdating: {
           ...state.applicationIsUpdating,
+          [action.meta.applicationId]: false,
+        },
+      };
+    case FETCH_REFERENCE_EMAILS_STARTED:
+      return {
+        ...state,
+        fetchingReferenceEmailsForApplication: {
+          ...state.fetchingReferenceEmailsForApplication,
+          [action.meta.applicationId]: true,
+        },
+      };
+    case FETCH_REFERENCE_EMAILS_SUCCEEDED:
+    case FETCH_REFERENCE_EMAILS_FAILED:
+      return {
+        ...state,
+        fetchingReferenceEmailsForApplication: {
+          ...state.fetchingReferenceEmailsForApplication,
           [action.meta.applicationId]: false,
         },
       };

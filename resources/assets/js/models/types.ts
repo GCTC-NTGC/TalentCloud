@@ -52,6 +52,8 @@ export interface ApplicationReview {
   updated_at: Date;
   department: Department | null;
   review_status: ReviewStatus | ResponseReviewStatus | null;
+  director_email_sent: boolean;
+  reference_email_sent: boolean;
 }
 
 export interface Assessment {

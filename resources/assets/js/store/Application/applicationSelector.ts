@@ -2,7 +2,7 @@
 import createCachedSelector from "re-reselect";
 import { RootState } from "../store";
 import { EntityState, UiState } from "./applicationReducer";
-import { Application } from "../../models/types";
+import { Application, Email } from "../../models/types";
 import { PropType } from "../../models/app";
 import { hasKey, getId, notEmpty } from "../../helpers/queries";
 
@@ -62,3 +62,33 @@ export const getApplicationsByJob = createCachedSelector(
       .filter(notEmpty);
   },
 )((state, ownProps): number => ownProps.jobId);
+
+export const getAllReferenceEmails = (
+  state: RootState,
+): {
+  director: {
+    byApplicationId: { [applicationId: number]: Email };
+  };
+  secondary: {
+    byApplicationId: { [applicationId: number]: Email };
+  };
+} => entities(state).microReferenceEmails;
+
+export const isFetchingReferenceEmailsForApplication = (
+  state: RootState,
+  props: { applicationId: number },
+): boolean => {
+  const uiState = ui(state);
+  return (
+    hasKey(
+      uiState.fetchingReferenceEmailsForApplication,
+      props.applicationId,
+    ) && uiState.fetchingReferenceEmailsForApplication[props.applicationId]
+  );
+};
+
+export const allIsFetchingReferenceEmailsByApplication = (
+  state: RootState,
+): { [applicationId: number]: boolean } => {
+  return ui(state).fetchingReferenceEmailsForApplication;
+};

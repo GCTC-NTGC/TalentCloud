@@ -1,6 +1,7 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
+import { action } from "@storybook/addon-actions";
 import ApplicantBucket from "../../components/StrategicTalentResponse/ResponseScreening/ApplicantBucket";
 import fakeApplications, {
   fakeReferenceEmail,
@@ -49,6 +50,7 @@ stories.add(
           handleUpdateReview={handleUpdateReview}
           portal="manager"
           referenceEmails={referenceEmails}
+          requestReferenceEmails={action("Fetch Reference Emails")}
         />
       </div>
     );
