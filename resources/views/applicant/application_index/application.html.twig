@@ -39,7 +39,7 @@
 				{{ item.job_poster.manager.user.first_name }}
 				{{ item.job_poster.manager.user.last_name }}
 			</span>
-			<a href="{{ route('managers.show', item.job_poster, item.job_poster.manager) }}" target="_blank" title="{{ application_index.manager_profile_link_title }}">
+			<a href="{{ route('managers.show',{'jobPoster': item.job_poster, 'manager': item.job_poster.manager}) }}" target="_blank" title="{{ application_index.manager_profile_link_title }}">
 				{{ application_index.manager_profile_link_label }}
 			</a>
 		</div>
