@@ -57,12 +57,10 @@ export const useRouter = (
   const router = useMemo(() => new UniversalRouter(routes), [routes]);
   const [component, setComponent] = useState<React.ReactElement | null>(null);
   const job = useSelector((state: RootState) => getSelectedJob(state));
-  const jobLoading = useSelector(
-    (state: RootState) => state.jobs.ui.jobUpdating,
-  );
 
+  // Dynamically update the breadcrumbs on step changes
   const jobBreadcrumbId = "job-title-breadcrumb";
-  const addJobBreadcrumb = (jobBreadcrumb: Job | null): void => {
+  const addJobBreadcrumb = (jobBreadcrumb: Job): void => {
     const breadcrumbs: HTMLOListElement | null = document.querySelector(
       "#jpb-breadcrumbs",
     );
@@ -70,16 +68,11 @@ export const useRouter = (
     const anchor = document.createElement("a");
     const icon = document.createElement("i");
 
-    if (jobBreadcrumb) {
-      anchor.id = jobBreadcrumbId;
-      anchor.href = managerJobSummary(locale, jobBreadcrumb.id);
-      anchor.innerText =
-        localizeField(locale, jobBreadcrumb, "title") ||
-        `{ ${intl.formatMessage(messages.titleMissing)} }`;
-    } else {
-      anchor.id = jobBreadcrumbId;
-      anchor.innerText = intl.formatMessage(messages.loadingManager);
-    }
+    anchor.id = jobBreadcrumbId;
+    anchor.href = managerJobSummary(locale, jobBreadcrumb.id);
+    anchor.innerText =
+      localizeField(locale, jobBreadcrumb, "title") ||
+      `{ ${intl.formatMessage(messages.titleMissing)} }`;
 
     icon.classList.add("fas", "fa-caret-right");
     breadcrumb.append(anchor);
@@ -100,24 +93,24 @@ export const useRouter = (
       const h1 = document.querySelector("h1");
       if (h1) h1.innerHTML = title;
 
-      // Dynamically update the breadcrumbs on step changes
       const jobBreadcrumb: HTMLAnchorElement | null = document.querySelector(
         `#${jobBreadcrumbId}`,
       );
-      if (jobLoading && !jobBreadcrumb) {
-        addJobBreadcrumb(null);
-      } else if (job && jobBreadcrumb) {
-        jobBreadcrumb.href = managerJobSummary(locale, job.id);
-        jobBreadcrumb.innerText =
-          localizeField(locale, job, "title") ||
-          `{ ${intl.formatMessage(messages.titleMissing)} }`;
-      } else if (job) {
-        addJobBreadcrumb(job);
+
+      if (job) {
+        if (jobBreadcrumb) {
+          jobBreadcrumb.href = managerJobSummary(locale, job.id);
+          jobBreadcrumb.innerText =
+            localizeField(locale, job, "title") ||
+            `{ ${intl.formatMessage(messages.titleMissing)} }`;
+        } else {
+          addJobBreadcrumb(job);
+        }
       }
 
       setComponent(result.component);
     });
-  }, [intl, location, router, job, jobLoading]);
+  }, [intl, location, router, job]);
 
   return component;
 };
