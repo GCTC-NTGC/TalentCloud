@@ -80,6 +80,22 @@ test("Hello World - Manager Portal", async (t) => {
     .ok();
 });
 
+test("Hello World - Manager Job Posters", async (t) => {
+  await t
+    .useRole(managerUser)
+    .navigateTo("/manager/jobs")
+    .expect(Selector("h1").withText("My Job Posters").visible)
+    .ok();
+});
+
+test("Hello World - HR Job Posters", async (t) => {
+  await t
+    .useRole(hrUser)
+    .navigateTo("/hr/jobs")
+    .expect(Selector("h1").withText("Job Index").visible)
+    .ok();
+});
+
 test("Hello World - Admin Portal", async (t) => {
   await t
     .useRole(adminUser)
@@ -97,21 +113,5 @@ test("Hello World - Applicant Job Posters", async (t) => {
     .ok()
     .click(Selector(".job-card").find("p").withText("View This Job"))
     .expect(Selector(".job-post-apply-button").visible)
-    .ok();
-});
-
-test("Hello World - Manager Job Posters", async (t) => {
-  await t
-    .useRole(managerUser)
-    .navigateTo("/manager/jobs")
-    .expect(Selector("h1").withText("My Job Posters").visible)
-    .ok();
-});
-
-test("Hello World - HR Job Posters", async (t) => {
-  await t
-    .useRole(hrUser)
-    .navigateTo("/hr/jobs")
-    .expect(Selector("h1").withText("Job Index").visible)
     .ok();
 });
