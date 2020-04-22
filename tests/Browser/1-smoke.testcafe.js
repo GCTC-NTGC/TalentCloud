@@ -104,7 +104,7 @@ test("Hello World - Manager Job Posters", async (t) => {
   await t
     .useRole(managerUser)
     .navigateTo("/manager/jobs")
-    .expect(Selector(".manager-poster-index").visible)
+    .expect(Selector("h1").withText("My Job Posters").visible)
     .ok();
 });
 
