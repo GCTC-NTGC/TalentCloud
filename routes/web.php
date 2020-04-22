@@ -94,6 +94,7 @@ Route::group(
 
                 /* Managers */
                 Route::get('jobs/{jobPoster}/manager/{manager}', 'ManagerProfileController@show')
+                    ->middleware('can:view,jobPoster')
                     ->middleware('can:view,manager')
                     ->name('managers.show');
             });
