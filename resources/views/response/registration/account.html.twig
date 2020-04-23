@@ -1,0 +1,153 @@
+{# =============================================================================
+
+    Talent Cloud
+    COVID-19 Response Registration (Step 01)
+    This UI is the first step in creating an account on the Talent Reserve.
+
+============================================================================= #}
+{% extends "layouts/base" %}
+{% block title %}GC Talent Reserve: Registration{% endblock %}
+{% block body %}
+    {# Government of Canada Banner #}
+    {% include "common/goc" %}
+    <div data-clone>
+        {# Beta Banner #}
+        {% include "response/beta-banner" %}
+        {# Menu #}
+        {% include "response/menu" %}
+        {# Header #}
+        {% include "response/registration/header" %}
+        {# Content #}
+        <a id="skipLink"></a>
+        <div data-c-border="bottom(thin, solid, gray)">
+            <div data-c-container="medium(center)" data-c-padding="bottom(3)">
+                <form>
+                    <h2 data-c-heading="h2" data-c-padding="top(3)" data-c-margin="bottom(1)">Account Registration</h2>
+                    <p>Thanks for your interest in volunteering for the GC Talent Reserve!</p>
+                    <h3 data-c-heading="h3" data-c-padding="top(3) bottom(1)" data-c-margin="bottom(1)">Account Information</h3>
+                    <div data-c-grid="gutter(all, 1)">
+                        {# First Name #}
+                        <div data-c-input="text" data-c-grid-item="tl(1of2)">
+                            <label for="responseRegisFirstName">My First Name</label>
+                            <span>Required</span>
+                            <div>
+                                <input id="responseRegisFirstName" required type="text" />
+                            </div>
+                            <span>This input has an error.</span>
+                        </div>
+                        {# Last Name #}
+                        <div data-c-input="text" data-c-grid-item="tl(1of2)">
+                            <label for="responseRegisLastName">My Last Name</label>
+                            <span>Required</span>
+                            <div>
+                                <input id="responseRegisLastName" required type="text" />
+                            </div>
+                            <span>This input has an error.</span>
+                        </div>
+                        {# Gov Email #}
+                        <div data-c-input="email" data-c-grid-item="tl(1of2)">
+                            <label for="responseRegisGovEmail">My Government Email</label>
+                            <span>Required</span>
+                            <div>
+                                <input id="responseRegisGovEmail" required type="email" />
+                            </div>
+                            <span>This input has an error.</span>
+                        </div>
+                        {# Work Phone # #}
+                        <div data-c-input="telephone" data-c-grid-item="tl(1of2)">
+                            <label for="responseRegisWorkPhone">My Work Phone</label>
+                            <span>Required</span>
+                            <div>
+                                <input id="responseRegisWorkPhone" placeholder="e.g. 555-555-5555" required type="tel" />
+                            </div>
+                            <span>This input has an error.</span>
+                        </div>
+                        {# Personal Info Blurb #}
+                        <div data-c-grid-item="base(1of1)">
+                            <p data-c-margin="top(.5) bottom(1)">We recognize that due to unforeseen circumstances not everyone has immediate access to their government email accounts and phones. If you would also like us to communicate with you through a personal email or phone number, please share it with us below.</p>
+                        </div>
+                        {# Personal Email #}
+                        <div data-c-input="email" data-c-grid-item="tl(1of2)">
+                            <label for="responseRegisPersonalEmail">My Personal Email <span data-c-color="gray">(Optional)</span></label>
+                            <span>Required</span>
+                            <div>
+                                <input id="responseRegisPersonalEmail" type="email" />
+                            </div>
+                            <span>This input has an error.</span>
+                        </div>
+                        {# Personal Phone # #}
+                        <div data-c-input="telephone" data-c-grid-item="tl(1of2)">
+                            <label for="responseRegisPersonalPhone">My Personal Phone <span data-c-color="gray">(Optional)</span></label>
+                            <span>Required</span>
+                            <div>
+                                <input id="responseRegisPersonalPhone" placeholder="e.g. 555-555-5555" type="tel" />
+                            </div>
+                            <span>This input has an error.</span>
+                        </div>
+                        {# Contact Confirmation #}
+                        <div data-c-input="checkbox(single)">
+                            <span>Required</span>
+                            <div>
+                                <label for="responseRegisContactConsent">
+                                    <input
+                                        id="responseRegisContactConsent"
+                                        type="checkbox"
+                                        required/>
+                                    <span>I consent to the GC Talent Reserve contacting me about relevant opportunities using either my government email or personal email (if provided).</span>
+                                </label>
+                            </div>
+                            <span>This input has an error.</span>
+                        </div>
+                        {# Password #}
+                        <div data-c-grid-item="base(1of1)">
+                            <h3 data-c-heading="h3" data-c-padding="top(3) bottom(1)" data-c-margin="bottom(1)">Choose a Password</h3>
+                            <p data-c-margin="bottom(.5)">Please ensure that your password contains:</p>
+                            <ul data-c-margin="bottom(1)">
+                                <li>a minimum of 8 characters</li>
+                                <li>at least 1 lower-case character (a-z)</li>
+                                <li>at least 1 upper-case character (A-Z)</li>
+                                <li>at least 1 digit (0-9)</li>
+                                <li>at least 1 non-alphanumeric symbol (%, $, !, etc.)</li>
+                            </ul>
+                        </div>
+                        <div data-c-input="password" data-c-grid-item="tl(1of2)">
+                            <label for="responseRegisPassword">My Password</label>
+                            <span>Required</span>
+                            <div>
+                                <input id="responseRegisPassword" required type="password" />
+                                <button type="button">
+                                    <i class="fas fa-eye"></i>
+                                    <i class="fas fa-eye-slash"></i>
+                                </button>
+                            </div>
+                            <span>This input has an error.</span>
+                        </div>
+                        <div data-c-input="password" data-c-grid-item="tl(1of2)">
+                            <label for="responseRegisPasswordRepeat">Repeat Password</label>
+                            <span>Required</span>
+                            <div>
+                                <input id="responseRegisPasswordRepeat" required type="password" />
+                                <button type="button">
+                                    <i class="fas fa-eye"></i>
+                                    <i class="fas fa-eye-slash"></i>
+                                </button>
+                            </div>
+                            <span>This input has an error.</span>
+                        </div>
+                        {# Form Actions #}
+                        <div data-c-grid-item="base(1of2)" data-c-align="base(left)">
+                            <button data-c-button="outline(c1)" data-c-radius="rounded" type="button">
+                                <span>Cancel</span>
+                            </button>
+                        </div>
+                        <div data-c-grid-item="base(1of2)" data-c-align="base(right)">
+                            <button data-c-button="solid(c1)" data-c-radius="rounded" type="button">
+                                <span>Register</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

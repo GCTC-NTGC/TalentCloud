@@ -80,6 +80,10 @@ Route::group(
             Route::view('response', 'response/index/index')->middleware('localOnly')->name('response');
             /* Response Screening */
             Route::view('response-screening', 'response/screening/index')->middleware('localOnly')->name('responseScreening');
+            /* Response Registration Step 01 */
+            Route::view('response-reg-1', 'response/registration/account')->middleware('localOnly')->name('responseReg1');
+            /* Response Registration Step 02 */
+            Route::view('response-reg-2', 'response/registration/profile')->middleware('localOnly')->name('responseReg2');
 
             Route::view('response/api-test', 'applicant/str_api_test')->middleware('localOnly');
         });
