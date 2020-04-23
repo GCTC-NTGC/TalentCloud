@@ -1,130 +1,34 @@
 {# =============================================================================
 
     Talent Cloud
-    Applicant: Application Post - Tracker
+    Applicant: Submit an Application - Skills Layout
 
 ============================================================================= #}
-
-
-<div
-    class="container--layout">
-
-    <div
-        class="flex-grid">
-
-        {# Include Sidebar #}
-
-            {% include "applicant/strategic_response_application/common/sidebar" %}
-
-        {# Skills Content #}
-
-            <div class="application-post__content-wrapper box lg-3of4">
-
-                <a
-                    aria-hidden="true"
-                    class="application-post__anchor"
-                    id="begin">
-                </a>
-
-                {# Skills Layout #}
-
-                    {# Profile List (Soft Skills) #}
-
-                        <div
-                            class="profile-list">
-
-                            {# Set Locale #}
-
-                                {% set locale = "application" %}
-
-                            {# Profile Element List #}
-
-                                <div
-                                    class="profile-element-list {{ application_step == "3" ? "step3" : "" }}">
-
-                                    {% for criterion in criteria %}
-
-                                        {# Get User Skill #}
-
-                                            {% set skill_declaration = false %}
-
-                                            {% for skillDeclaration in applicant.skill_declarations %}
-
-                                                {% if criterion.skill.id == skillDeclaration.skill_id %}
-
-                                                    {% set skill_declaration = skillDeclaration %}
-
-                                                {% endif %}
-
-                                            {% endfor %}
-
-                                        {# Get Skill Type #}
-
-                                            {% set skillType = criterion.skill.skill_type.name %}
-
-                                        {# Import Skill Template #}
-
-                                            <a
-                                                class="application-post__anchor"
-                                                id="skill{{ criterion.skill.id }}"></a>
-
-                                            {% include "common/skill" %}
-
-                                    {% endfor %}
-
-                                </div>
-
-                        </div>
-
+{# Set Locale #}
+{% set locale = "application" %}
+{# Skill List #}
+<div data-c-padding="top(1)">
+    <div class="profile-element-list {{ application_step == "3" ? "step3" : "" }}">
+        {% if criteria|length == 0 %}
+            <div data-c-background="gray(20)" data-c-border="all(thin, solid, gray)" data-c-color="gray" data-c-padding="all(1)" data-c-radius="rounded" data-c-align="base(center)" data-c-margin="top(.5)">
+                <p>{{ application_template.skills_section.asset_null_text }}</p>
             </div>
-
+        {% endif %}
+        {% for criterion in criteria %}
+            {# Get User Skill #}
+            {% set skill_declaration = false %}
+            {% for skillDeclaration in applicant.skill_declarations %}
+                {% if criterion.skill.id == skillDeclaration.skill_id %}
+                    {% set skill_declaration = skillDeclaration %}
+                {% endif %}
+            {% endfor %}
+            {# Get Skill Type #}
+            {% set skillType = criterion.skill.skill_type.name %}
+            {# Import Skill Template #}
+            <a aria-hidden="true" id="skill{{ criterion.skill.id }}"></a>
+            <div data-c-accordion-group>
+                {% include "common/skill" %}
+            </div>
+        {% endfor %}
     </div>
-
-</div>
-
-<div
-    class="container--copy">
-
-    {# Save Buttons #}
-
-        <div
-            class="flex-grid middle application-post__action-wrapper">
-
-            <div
-                class="box med-1of2">
-
-                <button
-                    class="button--blue light-bg ajax-submit-all"
-                    type="button"
-                    name="submit"
-                    value="save_and_quit"
-                    data-on-success-url="{{ route('applications.index') }}">
-                    <span class="submit-default">{{ application_template.save_quit_button_label }}</span>
-                    <span class="submit-working">{{ application_template.save_button_working }}</span>
-                </button>
-
-            </div>
-
-            <div
-                class="box med-1of2">
-
-                <button
-                    class="button--blue light-bg ajax-submit-all"
-                    type="button"
-                    name="submit"
-                    value="save_and_continue"
-                    {% if application_step == "3" %}
-                        data-on-success-url="{{ route('job.application.edit.4', job) }}"
-                    {% elseif application_step == "4" %}
-                        data-on-success-url="{{ route('job.application.edit.5', job) }}"
-                    {% endif %}
-                    >
-                    <span class="submit-default">{{ application_template.save_continue_button_label }}</span>
-                    <span class="submit-working">{{ application_template.save_button_working }}</span>
-                </button>
-
-            </div>
-
-        </div>
-
 </div>

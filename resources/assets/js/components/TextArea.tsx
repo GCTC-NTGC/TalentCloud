@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { FormattedMessage } from "react-intl";
 import { inputMessages } from "./Form/Messages";
 
@@ -13,6 +13,8 @@ export interface TextAreaProps {
   className?: string;
   /** boolean indicating if input must have a value, or not */
   required?: boolean;
+  /** Holds message for right hand side, after required warning */
+  rightMessage?: string | ReactElement;
   /** Boolean that sets the select input to invalid */
   invalid?: boolean | null;
   /** Let's you specify example text that appears in input element when empty */
@@ -39,6 +41,7 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
   label,
   className,
   required,
+  rightMessage,
   invalid,
   placeholder,
   value,
@@ -58,7 +61,7 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
   >
     <label htmlFor={id}>{label}</label>
     <span>
-      <FormattedMessage {...inputMessages.required} />
+      <FormattedMessage {...inputMessages.required} /> {rightMessage}
     </span>
     <div>
       <textarea

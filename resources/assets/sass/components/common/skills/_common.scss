@@ -3,6 +3,95 @@
 // Skills - Common Features
 
 // =============================================================================
+.clone-accordion.profile-element {
+    >button[data-c-accordion-trigger] {
+        display: block;
+        >div {
+            padding-right: 0 !important;
+        }
+    }
+    .accordion-status {
+        position: relative;
+        >div {
+            border-width: 5px !important;
+            height: 3rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 3rem;
+            i {
+                margin-top: .05rem;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                &.fa-check {
+                    display: none;
+                }
+                &.fa-exclamation-circle {
+                    display: block;
+                }
+            }
+        }
+    }
+    button {
+        .submit-default {
+            display: block;
+        }
+        .submit-working {
+            display: none;
+        }
+        .submit-saved {
+            display: none;
+        }
+        &.working {
+            .submit-default {
+                display: none;
+            }
+            .submit-working {
+                display: block;
+            }
+            .submit-saved {
+                display: none;
+            }
+        }
+        &.saved {
+            .submit-default {
+                display: none;
+            }
+            .submit-working {
+                display: none;
+            }
+            .submit-saved {
+                display: block;
+            }
+        }
+    }
+    .profile-relative__null {
+        display: none;
+        &.active {
+            display: block;
+        }
+    }
+    &.complete {
+        .accordion-status {
+            >div {
+                border-color: $clone-go !important;
+                i {
+                    &.fa-check {
+                        display: block;
+                    }
+                    &.fa-exclamation {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
 
 // Lists ===================================================================
 .profile-list {
@@ -96,20 +185,7 @@
 
 // Null State ==========================================================
 .profile-null {
-  background: $palette--white;
-  border-radius: 3px;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
   display: none;
-  padding: calc(#{$unit} * 2);
-  text-align: center;
-
-  p {
-    color: $palette--font-black;
-    font-family: $font--sans;
-    font-size: $font-scale--h4;
-    font-weight: 400;
-  }
-
   &.active {
     display: block;
   }
@@ -117,7 +193,7 @@
 
 // Elements ============================================================
 .profile-element-list {
-  padding: 2rem 0 0 0;
+//   padding: 2rem 0 0 0;
 
   &.step3 {
     padding-top: 0;

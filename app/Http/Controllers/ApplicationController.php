@@ -26,7 +26,6 @@ class ApplicationController extends Controller
             [
                 'application_index' => Lang::get('applicant/application_index'),
                 'applications' => $applications,
-                'departments_template' => Lang::get('common/lookup/departments'),
                 'manager_profile_photo' => '/images/user.png', // TODO: get real photo.
             ]
         );
@@ -80,7 +79,7 @@ class ApplicationController extends Controller
 
         $degrees = $source->degrees;
         $courses = $source->courses;
-        $work_experience = $source->work_experience;
+        $work_experiences = $source->work_experiences;
         $skill_declarations = $source->skill_declarations;
         $references = $source->references;
         $work_samples = $source->work_samples;
@@ -119,7 +118,7 @@ class ApplicationController extends Controller
                 'job_application' => $application,
                 'degrees' => $degrees,
                 'courses' => $courses,
-                'work_experience' => $work_experience,
+                'work_experiences' => $work_experiences,
                 'skill_declarations' => $skill_declarations,
                 'references' => $references,
                 'work_samples' => $work_samples,
