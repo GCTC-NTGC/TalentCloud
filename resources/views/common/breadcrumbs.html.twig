@@ -3,7 +3,7 @@
 		{% for key, url in breadcrumbs %}
 			{% if loop.first %}
 				<li>
-					<a href="{{ url(url) }}">{{ breadcrumbs_lang.home }}</a>
+					<a href="/">{{ breadcrumbs_lang.home }}</a>
 					<i class="fas fa-caret-right"></i>
 				</li>
 			{% elseif loop.last %}
@@ -13,7 +13,7 @@
 				</li>
 			{% else %}
 				<li>
-					<a href="{{ url(url) }}">{{ portal_specific_lang[key] ?: breadcrumbs_lang[key] ?: key|title }}</a>
+					<a href="/">{{ portal_specific_lang[key] ?: breadcrumbs_lang[key] ?: key|title }}</a>
 					<i class="fas fa-caret-right"></i>
 				</li>
 			{% endif %}
