@@ -38,19 +38,19 @@ class BreadcrumbsComposer
     {
         $segments = $this->parseSegments();
         $breadcrumbs_lang = Lang::get('common/breadcrumbs');
-        $portal_specific_lang = [];
-        $view->with('breadcrumbs_lang', $breadcrumbs_lang);
+        // $portal_specific_lang = [];
 
         if (WhichPortal::isManagerPortal()) {
             $segments = $segments->slice(1);
-            $portal_specific_lang = Lang::get('common/breadcrumbs')['manager'];
+            // $portal_specific_lang = Lang::get('common/breadcrumbs')['manager'];
         } elseif (WhichPortal::isHrPortal()) {
             $segments = $segments->slice(1);
-            $portal_specific_lang = Lang::get('common/breadcrumbs')['hr'];
+            // $portal_specific_lang = Lang::get('common/breadcrumbs')['hr'];
         }
 
+        $view->with('breadcrumbs_lang', $breadcrumbs_lang);
         $view->with('breadcrumbs', $segments);
-        $view->with('portal_specific_lang', $portal_specific_lang);
+        // $view->with('portal_specific_lang', $portal_specific_lang);
     }
 
     /**
