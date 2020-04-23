@@ -7,16 +7,32 @@ use App\Models\SkillDeclaration;
 use App\Services\Validation\Rules\PolyExistsRule;
 use App\Services\Validation\Rules\UniqueSkillDeclarationRule;
 use App\Services\Validation\Rules\WordLimitRule;
+use Illuminate\Validation\Validator as ValidationValidator;
 
 class SkillDeclarationValidator
 {
     /**
-     * Maximum amount of words for skill description.
+     * The maximum amount of words the skill description can reach.
      *
      * @var number
-    */
-    const MAXWORDS = 100;
+     */
+    protected $description_max_words;
 
+    /**
+     * Skill declaration validator constructor.
+     * @param number $description_max_words Max amount of words for skill description.
+     * @return void
+     */
+    public function __construct($description_max_words = 100)
+    {
+        $this->description_max_words = $description_max_words;
+    }
+
+    /**
+     * Skill declaration validator constructor.
+     * @param SkillDeclaration $skillDeclaration The skill declaration input data.
+     * @return ValidationValidator
+    */
     public function validator(SkillDeclaration $skillDeclaration)
     {
         $uniqueSkillRule = new UniqueSkillDeclarationRule($skillDeclaration->skillable->skill_declarations, $skillDeclaration->id);
@@ -44,7 +60,7 @@ class SkillDeclarationValidator
             'description' => [
                 'required',
                 'string',
-                new WordLimitRule(self::MAXWORDS),
+                new WordLimitRule($this->description_max_words),
             ],
         ]);
         return $validator;

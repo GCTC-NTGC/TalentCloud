@@ -28,6 +28,10 @@ export type ResponseReviewStatus = {
   name: ResponseReviewStatusName;
 };
 
+export enum ExcludedDepartments {
+  StrategicTalentResponse = 18,
+}
+
 export enum CriteriaTypeId {
   Essential = 1,
   Asset = 2,
@@ -177,15 +181,15 @@ export enum ResponseScreeningBuckets {
 
 export function getKeyByValue(object, value): string {
   return (
-    Object.keys(object).find(key => object[key] === parseInt(value, 10)) || ""
+    Object.keys(object).find((key) => object[key] === parseInt(value, 10)) || ""
   );
 }
 
 export function enumToIds(enumType: object): number[] {
   const enumVals = Object.values(enumType);
   // Note: this first array includes the list of ids as strings, followed by the list of names as strings
-  const enumIds = enumVals.filter(item => !Number.isNaN(Number(item)));
-  return enumIds.map(id => Number(id));
+  const enumIds = enumVals.filter((item) => !Number.isNaN(Number(item)));
+  return enumIds.map((id) => Number(id));
 }
 
 export const SkillLevelIdValues = enumToIds(SkillLevelId);
