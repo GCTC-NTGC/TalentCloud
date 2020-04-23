@@ -1,5 +1,5 @@
 <nav aria-label="breadcrumb" data-c-breadcrumbs data-c-colour="{{ font_color ?: 'white' }}">
-	<ol id="{{ breadcrumbs_id ?: "breadcrumbs" }}">
+	<ol id="{{ breadcrumbs_id }}">
 		{% for key, url in custom_breadcrumbs ?: breadcrumbs %}
 			{% if loop.first %}
 				<li>
