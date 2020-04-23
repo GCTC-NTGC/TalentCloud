@@ -3,17 +3,17 @@
 		{% for key, url in breadcrumbs %}
 			{% if loop.first %}
 				<li>
-					<a href="{{ url(url) }}"></a>
+					<a href="{{ url(url) }}">{{ breadcrumbs_lang.home }}</a>
 					<i class="fas fa-caret-right"></i>
 				</li>
 			{% elseif loop.last %}
 				<li>
-					<span aria-current="page"></span>
+					<span aria-current="page">{{ portal_specific_lang[key] ?: breadcrumbs_lang[key] ?: key }}</span>
 					<i class="fas fa-caret-right"></i>
 				</li>
 			{% else %}
 				<li>
-					<a href="{{ url(url) }}"></a>
+					<a href="{{ url(url) }}">{{ portal_specific_lang[key] ?: breadcrumbs_lang[key] ?: key }}</a>
 					<i class="fas fa-caret-right"></i>
 				</li>
 			{% endif %}
