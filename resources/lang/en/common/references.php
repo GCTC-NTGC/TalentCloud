@@ -10,6 +10,8 @@ return [
     */
     "new_reference_title" => "New Reference",
     "accordion_sr_helper" => "Click to edit...",
+    'required_label' => 'Required',
+    'input_error' => 'This input has an error.',
     "name_label" => "Reference's Name",
     "relationship_label" => "Your Relationship",
     "relationship_default_option" => "Select your relationship...",

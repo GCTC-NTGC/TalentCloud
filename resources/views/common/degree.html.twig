@@ -1,7 +1,7 @@
 {# =============================================================================
 
     Talent Cloud
-    Degree
+    Recurring Elements: Degree Accordion
 
 ============================================================================= #}
 {% if prefix %}
@@ -11,350 +11,206 @@
     {% set name_prefix = "degrees[:template][:id]" %}
     {% set id_prefix = name_prefix %}
 {% endif %}
-
 {% if degree %}
     {% set name_prefix = name_prefix|replace({":template":"old", ":id":degree.id}) %}
     {% set id_prefix = id_prefix|replace({":template":"old", ":id":degree.id}) %}
 {% endif %}
 
-<div
-    class="profile-element accordion degree {% if degree == false %}template active{% endif %} modal-target-object"
-    data-item-saved="{{ degree ? "true" : "" }}"
-    data-item-url="{{ route("degrees.destroy", ":id") }}"
-    data-item-id="{{ degree ? degree.id : 0 }}">
+<!-- Accordion -->
+<div data-c-accordion data-c-card data-c-margin="top(.5)" class="clone-accordion profile-element degree {% if degree == false %}template active{% endif %} modal-target-object" data-item-saved="{{ degree ? "true" : "" }}" data-item-url="{{ route("degrees.destroy", ":id") }}" data-item-id="{{ degree ? degree.id : 0 }}">
 
-    {# Accordion Trigger #}
-
-        <button
+    <!-- Accordion Trigger -->
+    <button data-c-accordion-trigger tabindex="0" type="button"
+        {% if degree == false %}
+            aria-expanded="true"
+        {% else %}
+            aria-expanded="false"
+        {% endif %}>
+        <div data-c-padding="all(1)">
             {% if degree == false %}
-                aria-expanded="true"
+                <p data-c-font-weight="bold" data-c-font-size="h4">{{ degree_template.new_degree_label }}</p>
             {% else %}
-                aria-expanded="false"
+                <p data-c-font-weight="bold" data-c-font-size="h4" data-c-margin="bottom(.25)">{{ degree_template.types[degree.degree_type.name]|title }}, {{ degree.area_of_study }}</p>
+                <p data-c-color="c2">{{ degree.institution|title }}</p>
             {% endif %}
-            class="accordion-trigger"
-            tabindex="0"
-            type="button">
+        </div>
+        <span data-c-visibility="invisible">{{ degree_template.accordion_helper }}</span>
+        <i aria-hidden="true" data-c-color="c1" data-c-accordion-add data-c-font-size="h3" data-c-font-weight="bold">+</i>
+        <i aria-hidden="true" data-c-color="c1" data-c-accordion-remove data-c-font-size="h3" data-c-font-weight="bold">-</i>
+    </button>
 
-            <span
-                class="accordion-title">
-                {% if degree == false %}
-                    {{ degree_template.new_degree_label }}
-                {% else %}
-                    {{ degree_template.types[degree.degree_type.name]|title }}, {{ degree.area_of_study }}
-                {% endif %}
-            </span>
+    <!-- Accordion Content -->
+    <div data-c-accordion-content
+        {% if course == false %}
+            aria-hidden="false"
+        {% else %}
+            aria-hidden="true"
+        {% endif %}>
 
-            <span class="invisible">{{ degree_template.accordion_sr_helper }}</span>
+        {# Degree (Readable) #}
+        {% if locale == "application-view" %}
+            <hr data-c-hr="thin(gray)">
+            <div data-c-padding="all(1)" data-c-background="gray(20)">
+                <div data-c-grid="gutter(all, 1)">
 
-            <i class="fas fa-chevron-up"></i>
-
-        </button>
-
-    {# Accordion Content #}
-
-        <div
-            {% if degree == false %}
-                aria-hidden="false"
-            {% else %}
-                aria-hidden="true"
-            {% endif %}
-            class="accordion-content">
-
-            {% if locale == "application-view" %}
-
-                <div
-                    class="profile-element__preview flex-grid">
-
-                    <div
-                        class="box full">
-
-                        <span>
-                            {{ degree_template.type_label }}
-                        </span>
-
+                    {# Degree Type #}
+                    <div data-c-grid-item="base(1of1)">
+                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ degree_template.type_label }}</p>
                         <p>
                             {% for degree_type in degree_types %}
                                 {% if degree.degree_type.id == degree_type.id %}{{ degree_template.types[degree_type.name] }}{% endif %}
                             {% endfor %}
                         </p>
-
                     </div>
 
-                    <div
-                        class="box med-1of2">
-
-                        <span>
-                            {{ degree_template.aoe_label }}
-                        </span>
-
-                        <p>
-                            {{ degree.area_of_study }}
-                        </p>
-
+                    {# Area of Study #}
+                    <div data-c-grid-item="base(1of1) tl(1of2)">
+                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ degree_template.aoe_label }}</p>
+                        <p>{{ degree.area_of_study }}</p>
                     </div>
 
-                    <div
-                        class="box med-1of2">
-
-                        <span>
-                            {{ degree_template.institution_label }}
-                        </span>
-
-                        <p>
-                            {{ degree.institution }}
-                        </p>
-
+                    {# Institution #}
+                    <div data-c-grid-item="base(1of1) tl(1of2)">
+                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ degree_template.institution_label }}</p>
+                        <p>{{ degree.institution }}</p>
                     </div>
 
-                    <div
-                        class="box med-1of2">
-
-                        <span>
-                            {{ degree_template.thesis_label }}
-                        </span>
-
-                        <p>
-                            {{ degree.thesis }}
-                        </p>
-
+                    {# Thesis #}
+                    <div data-c-grid-item="base(1of1)">
+                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ degree_template.thesis_label }}</p>
+                        {% if degree.thesis %}
+                            <p>{{ degree.thesis }}</p>
+                        {% else %}
+                            <p data-c-color="gray">N/A</p>
+                        {% endif %}
                     </div>
 
-                    <div
-                        class="box med-1of2">
-
-                        <span>
-                            {{ degree_template.blockcert_label }}
-                        </span>
-
-                        <p>
-                            {{ degree.blockcert_url }}
-                        </p>
-
+                    {# Blockcert Link #}
+                    <div data-c-grid-item="base(1of1)">
+                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ degree_template.blockcert_label }}</p>
+                        {% if degree.blockcert_url %}
+                            <p>{{ degree.blockcert_url }}</p>
+                        {% else %}
+                            <p data-c-color="gray">N/A</p>
+                        {% endif %}
                     </div>
 
-                    <div
-                        class="box med-1of2">
-
-                        <span>
-                            {{ degree_template.start_date_label }}
-                        </span>
-
-                        <p>
-                            {{ degree.start_date|date("Y-m-d") }}
-                        </p>
-
+                    {# Start Date #}
+                    <div data-c-grid-item="base(1of1) tl(1of2)">
+                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ degree_template.start_date_label }}</p>
+                        <p>{{ degree.start_date|date("Y-m-d") }}</p>
                     </div>
 
-                    <div
-                        class="box med-1of2">
-
-                        <span>
-                            {{ degree_template.end_date_label }}
-                        </span>
-
-                        <p>
-                            {{ degree.end_date|date("Y-m-d") }}
-                        </p>
-
+                    {# End Date #}
+                    <div data-c-grid-item="base(1of1) tl(1of2)">
+                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ degree_template.end_date_label }}</p>
+                        <p>{{ degree.end_date|date("Y-m-d") }}</p>
                     </div>
-
                 </div>
+            </div>
 
-            {% else %}
+        {# Degree (Editable) #}
+        {% else %}
+            <hr data-c-hr="thin(gray)">
+            <div data-c-padding="all(1)" data-c-background="gray(20)">
+                <div data-c-grid="gutter(all, 1)">
 
-                <div
-                    class="form__wrapper">
-
-                    <div
-                        class="flex-grid">
-
-                        <div
-                            class="box full">
-
-                            <div
-                                class="form__input-wrapper--select">
-                                <label
-                                    class="form__label"
-                                    for="{{ id_prefix }}degreeType">
-                                    {{ degree_template.type_label }}
-                                </label>
-                                <div
-                                    class="form__select-wrapper fas fa-chevron-down">
-                                    <select
-                                        class="form__input"
-                                        id="{{ id_prefix }}degreeType"
-                                        name="{{ name_prefix }}[degree_type_id]">
-                                        <option value="" disabled {% if degree.degree_type.id == degree_type.id %}selected{% endif %}>{{ degree_template.type_default_option }}</option>
-                                        {% for degree_type in degree_types %}
-                                            <option
-                                                {% if degree.degree_type.id == degree_type.id %}selected="selected"{% endif %}
-                                                value="{{ degree_type.id }}"
-                                                >{{ degree_template.types[degree_type.name] }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
-
+                    {# Type of Degree #}
+                    <div data-c-input="select" data-c-grid-item="base(1of1)" data-c-required>
+                        <label for="{{ id_prefix }}degreeType">{{ degree_template.type_label }}</label>
+                        <span>{{ degree_template.required_label }}</span>
+                        <div>
+                            <i class="fas fa-caret-down"></i>
+                            <select {{degree ? required : "data-required" }} id="{{ id_prefix }}degreeType" name="{{ name_prefix }}[degree_type_id]">
+                                <option value="" disabled {% if degree.degree_type.id == degree_type.id %}selected{% endif %}>{{ degree_template.type_default_option }}</option>
+                                {% for degree_type in degree_types %}
+                                    <option
+                                        {% if degree.degree_type.id == degree_type.id %}selected="selected"{% endif %}
+                                        value="{{ degree_type.id }}"
+                                        >{{ degree_template.types[degree_type.name] }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
-
-                        <div
-                            class="box med-1of2">
-
-                            <div
-                                class="form__input-wrapper--float {% if degree.area_of_study == true %}active{% endif %}">
-                                <label
-                                    class="form__label"
-                                    for="{{ id_prefix }}degreeArea">
-                                    {{ degree_template.aoe_label }}
-                                </label>
-                                <input
-                                    class="form__input"
-                                    id="{{ id_prefix }}degreeArea"
-                                    type="text"
-                                    name="{{ name_prefix }}[area_of_study]"
-                                    value="{{ degree.area_of_study }}" />
-                            </div>
-
-                        </div>
-
-                        <div
-                            class="box med-1of2">
-
-                            <div
-                                class="form__input-wrapper--float {% if degree.institution == true %}active{% endif %}">
-                                <label
-                                    class="form__label"
-                                    for="{{ id_prefix }}degreeInstitution">
-                                    {{ degree_template.institution_label }}
-                                </label>
-                                <input
-                                    class="form__input"
-                                    id="{{ id_prefix }}degreeInstitution"
-                                    type="text"
-                                    name="{{ name_prefix }}[institution]"
-                                    value="{{ degree.institution }}" />
-                            </div>
-
-                        </div>
-
-                        <div
-                            class="box med-1of2">
-
-                            <div
-                                class="form__input-wrapper--float {% if degree.thesis == true %}active{% endif %}">
-                                <label
-                                    class="form__label"
-                                    for="{{ id_prefix }}degreeThesis">
-                                    {{ degree_template.thesis_label }}
-                                </label>
-                                <input
-                                    class="form__input"
-                                    id="{{ id_prefix }}degreeThesis"
-                                    type="text"
-                                    name="{{ name_prefix }}[thesis]"
-                                    value="{{ degree.thesis }}" />
-                            </div>
-
-                        </div>
-
-                        <div
-                            class="box med-1of2">
-
-                            <div
-                                class="form__input-wrapper--float {% if degree.blockcert_url == true %}active{% endif %}">
-                                <label
-                                    class="form__label"
-                                    for="{{ id_prefix }}degreeBlockcertUrl">
-                                    {{ degree_template.blockcert_label }}
-                                </label>
-                                <input
-                                    class="form__input"
-                                    id="{{ id_prefix }}degreeBlockcertUrl"
-                                    type="url"
-                                    name="{{ name_prefix }}[blockcert_url]"
-                                    value="{{ degree.blockcert_url }}" />
-                            </div>
-
-                        </div>
-
-                        <div
-                            class="box med-1of2">
-
-                            <div
-                                class="form__input-wrapper--date">
-
-                                <label
-                                    class="form__label"
-                                    for="{{ id_prefix }}degreeStartDate">
-                                    {{ degree_template.start_date_label }}
-                                </label>
-
-                                <input
-                                    class="form__input"
-                                    id="{{ id_prefix }}degreeStartDate"
-                                    type="date"
-                                    name="{{ name_prefix }}[start_date]"
-                                    value="{{ degree.start_date|date("Y-m-d") }}">
-
-                            </div>
-
-                        </div>
-
-                        <div
-                            class="box med-1of2">
-
-                            <div
-                                class="form__input-wrapper--date">
-
-                                <label
-                                    class="form__label"
-                                    for="{{ id_prefix }}degreeEndDate">
-                                    {{ degree_template.end_date_label }}
-                                </label>
-
-                                <input
-                                    class="form__input"
-                                    id="{{ id_prefix }}degreeEndDate"
-                                    type="date"
-                                    name="{{ name_prefix }}[end_date]"
-                                    value="{{ degree.end_date|date("Y-m-d") }}">
-
-                            </div>
-
-                        </div>
-
+                        <span>{{ degree_template.input_error }}</span>
                     </div>
 
+                    {# Area of Study #}
+                    <div data-c-input="text" data-c-grid-item="base(1of1) tl(1of2)" data-c-required>
+                        <label for="{{ id_prefix }}degreeArea">{{ degree_template.aoe_label }}</label>
+                        <span>{{ degree_template.required_label }}</span>
+                        <div>
+                            <input {{degree ? required : "data-required" }}  id="{{ id_prefix }}degreeArea" name="{{ name_prefix }}[area_of_study]" value="{{ degree.area_of_study }}" type="text" />
+                        </div>
+                        <span>{{ degree_template.input_error }}</span>
+                    </div>
+
+                    {# Institution #}
+                    <div data-c-input="text" data-c-grid-item="base(1of1) tl(1of2)" data-c-required>
+                        <label for="{{ id_prefix }}degreeInstitution">{{ degree_template.institution_label }}</label>
+                        <span>{{ degree_template.required_label }}</span>
+                        <div>
+                            <input {{degree ? required : "data-required" }}  id="{{ id_prefix }}degreeInstitution" name="{{ name_prefix }}[institution]" value="{{ degree.institution }}" type="text" />
+                        </div>
+                        <span>{{ degree_template.input_error }}</span>
+                    </div>
+
+                    {# Thesis #}
+                    <div data-c-input="text" data-c-grid-item="base(1of1) tl(1of2)">
+                        <label for="{{ id_prefix }}degreeThesis">{{ degree_template.thesis_label }}</label>
+                        <span>{{ degree_template.required_label }}</span>
+                        <div>
+                            <input id="{{ id_prefix }}degreeThesis" name="{{ name_prefix }}[thesis]" value="{{ degree.thesis }}" type="text" />
+                        </div>
+                        <span>{{ degree_template.input_error }}</span>
+                    </div>
+
+                    {# Blockcert URL #}
+                    <div data-c-input="url" data-c-grid-item="base(1of1) tl(1of2)">
+                        <label for="{{ id_prefix }}degreeBlockcertUrl">{{ degree_template.blockcert_label }}</label>
+                        <span>{{ degree_template.required_label }}</span>
+                        <div>
+                            <input id="{{ id_prefix }}degreeBlockcertUrl" name="{{ name_prefix }}[blockcert_url]" type="url" value="{{ degree.blockcert_url }}" />
+                        </div>
+                        <span>{{ degree_template.input_error }}</span>
+                    </div>
+
+                    {# Start Date #}
+                    <div data-c-input="date" data-c-grid-item="base(1of1) tl(1of2)">
+                        <label for="{{ id_prefix }}degreeStartDate">{{ degree_template.start_date_label }}</label>
+                        <span>{{ degree_template.required_label }}</span>
+                        <div>
+                            <input id="{{ id_prefix }}degreeStartDate" type="date" required placeholder="yyyy-mm-dd" name="{{ name_prefix }}[start_date]" value="{{ degree.start_date|date("Y-m-d") }}"/>
+                        </div>
+                        <span>{{ degree_template.input_error }}</span>
+                    </div>
+
+                    {# End Date #}
+                    <div data-c-input="date" data-c-grid-item="base(1of1) tl(1of2)">
+                        <label for="{{ id_prefix }}degreeEndDate">{{ degree_template.end_date_label }}</label>
+                        <span>{{ degree_template.required_label }}</span>
+                        <div>
+                            <input id="{{ id_prefix }}degreeEndDate" type="date" required placeholder="yyyy-mm-dd" name="{{ name_prefix }}[end_date]" value="{{ degree.end_date|date("Y-m-d") }}"/>
+                        </div>
+                        <span>{{ degree_template.input_error }}</span>
+                    </div>
                 </div>
-
-                <div
-                    class="accordion-actions flex-grid">
-
-                    <div
-                        class="box med-1of2">
-                        <button
-                            class="button--red light-bg modal-trigger"
-                            data-modal-id="deleteDegree"
-                            type="button">
+            </div>
+            <!-- Degree Actions -->
+            <hr data-c-hr="thin(gray)">
+            <div data-c-padding="all(1)">
+                <div data-c-grid="gutter(all, 1)">
+                    <div data-c-grid-item="base(1of1) tl(1of2)" data-c-align="base(left) tl(left)">
+                        <button class="modal-trigger" data-c-button="outline(stop)" data-c-radius="rounded" data-modal-id="deleteDegree" type="button">
                             {{ degree_template.action_01 }}
                         </button>
                     </div>
-
-                    <div
-                        class="box med-1of2">
-                        <button
-                            class="button--blue light-bg"
-                            type="submit"
-                            name="submit"
-                            value="{{ name_prefix }}">
+                    <div data-c-grid-item="base(1of1) tl(1of2)" data-c-align="base(left) tl(right)">
+                        <button data-c-button="solid(c1)" data-c-radius="rounded" type="submit" name="submit" value="{{ name_prefix }}">
                             {{ degree_template.action_02 }}
                         </button>
                     </div>
-
                 </div>
-
-            {% endif %}
-
-        </div>
-
+            </div>
+        {% endif %}
+    </div>
 </div>

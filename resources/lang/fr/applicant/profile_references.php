@@ -9,6 +9,11 @@ return [
     *
     */
     "title" => "Mes références",
+    'profile_sidebar_label' => 'Sur votre profil :',
+    'account_settings_title' => 'Modifiez les paramètres de votre compte.',
+    'account_settings_label' => 'Paramètres du compte',
+    'required_label' => 'Requis',
+    'input_error' => 'Cette entrée comporte une erreur.',
     "reference_section" => [
         "reference_title" => "Nuage de talents | Candidat : Profil - Mes références",
         "section_title" => "Mes références",

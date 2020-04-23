@@ -155,7 +155,8 @@ return [
         'job_poster_question' => [
             'required' => 'The Question field must be filled out.',
             'string' => 'The Question field must be text.'
-        ]
+        ],
+        'word_limit' => 'The description must be less than :max_words words.'
     ],
 
     /*
