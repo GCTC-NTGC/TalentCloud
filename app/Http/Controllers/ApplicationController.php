@@ -86,11 +86,19 @@ class ApplicationController extends Controller
 
         $custom_breadcrumbs = [
             'home' => route('home'),
-            'jobs' => route(WhichPortal::prefixRoute('jobs.index')),
-            $jobPoster->title => route(WhichPortal::prefixRoute('jobs.summary'), $jobPoster),
-            'applications' =>  route(WhichPortal::prefixRoute('jobs.applications'), $jobPoster),
+            'applications' =>  route('applications.show', $application),
             'application' => '',
         ];
+
+        if (WhichPortal::isManagerPortal() || WhichPortal::isHrPortal()) {
+            $custom_breadcrumbs = [
+                'home' => route('home'),
+                'jobs' => route(WhichPortal::prefixRoute('jobs.index')),
+                $jobPoster->title => route(WhichPortal::prefixRoute('jobs.summary'), $jobPoster),
+                'applications' =>  route(WhichPortal::prefixRoute('jobs.applications'), $jobPoster),
+                'application' => '',
+            ];
+        }
 
         return view(
             $view,
