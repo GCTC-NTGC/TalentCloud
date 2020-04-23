@@ -341,7 +341,11 @@ interface ApplicationRowProps {
   portal: Portal;
   directorReferenceEmail: Email | null;
   secondaryReferenceEmail: Email | null;
-  requestReferenceEmails: () => void;
+  requestReferenceEmails: (applicationId: number) => void;
+  sendReferenceEmail: (
+    applicationId: number,
+    referenceType: "director" | "secondary",
+  ) => Promise<void>;
 }
 
 const ApplicationRow: React.FC<ApplicationRowProps> = ({
@@ -353,6 +357,7 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
   directorReferenceEmail,
   secondaryReferenceEmail,
   requestReferenceEmails,
+  sendReferenceEmail,
 }): React.ReactElement => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -467,26 +472,32 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
   const [showingEmail, setShowingEmail] = useState<"director" | "secondary">(
     "director",
   );
+  const [sendingEmail, setSendingEmail] = useState<
+    "director" | "secondary" | null
+  >(null);
   const emailOptions = {
     director: directorReferenceEmail,
     secondary: secondaryReferenceEmail,
   };
   const [emailModalVisible, setEmailModalVisible] = useState(false);
   const showDirectorEmail = (): void => {
-    requestReferenceEmails();
+    requestReferenceEmails(application.id);
     setShowingEmail("director");
     setEmailModalVisible(true);
   };
   const showSecondaryEmail = (): void => {
-    requestReferenceEmails();
+    requestReferenceEmails(application.id);
     setShowingEmail("secondary");
     setEmailModalVisible(true);
   };
   const hideEmail = (): void => {
     setEmailModalVisible(false);
   };
-  const onConfirm = (): void => {
-    console.log("Confirm send");
+  const onConfirm = async (): Promise<void> => {
+    hideEmail();
+    setSendingEmail(showingEmail);
+    await sendReferenceEmail(application.id, showingEmail);
+    setSendingEmail(null);
   };
   const modalParentRef = useRef<HTMLDivElement>(null);
 
@@ -669,11 +680,19 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
             type="button"
             data-c-font-size="small"
             onClick={showDirectorEmail}
+            disabled={sendingEmail === "director"}
           >
-            <FormattedMessage
-              id="responseScreening.applicant.direct orEmailButton"
-              defaultMessage="Show director email."
-            />
+            {sendingEmail === "director" ? (
+              <FormattedMessage
+                id="responseScreening.applicant.directorEmailSending"
+                defaultMessage="Sending email..."
+              />
+            ) : (
+              <FormattedMessage
+                id="responseScreening.applicant.directorEmailButton"
+                defaultMessage="Show director email."
+              />
+            )}
           </button>
         </span>
         <span data-c-margin="right(normal)">
@@ -694,11 +713,19 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
             type="button"
             data-c-font-size="small"
             onClick={showSecondaryEmail}
+            disabled={sendingEmail === "secondary"}
           >
-            <FormattedMessage
-              id="responseScreening.applicant.secondaryEmailButton"
-              defaultMessage="Show reference email."
-            />
+            {sendingEmail === "secondary" ? (
+              <FormattedMessage
+                id="responseScreening.applicant.secondaryEmailSending"
+                defaultMessage="Sending email..."
+              />
+            ) : (
+              <FormattedMessage
+                id="responseScreening.applicant.secondaryEmailButton"
+                defaultMessage="Show reference email."
+              />
+            )}
           </button>
         </span>
       </div>
@@ -808,6 +835,10 @@ interface ApplicantBucketProps {
     };
   };
   requestReferenceEmails: (applicationId: number) => void;
+  sendReferenceEmail: (
+    applicationId: number,
+    referenceType: "director" | "secondary",
+  ) => Promise<void>;
 }
 
 const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
@@ -818,6 +849,7 @@ const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
   portal,
   referenceEmails,
   requestReferenceEmails,
+  sendReferenceEmail,
 }): React.ReactElement => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -925,9 +957,8 @@ const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
                     referenceEmails.secondary.byApplicationId[application.id] ??
                     null
                   }
-                  requestReferenceEmails={(): void =>
-                    requestReferenceEmails(application.id)
-                  }
+                  requestReferenceEmails={requestReferenceEmails}
+                  sendReferenceEmail={sendReferenceEmail}
                 />
               ))}
           {isExpanded && applications.length === 0 && (

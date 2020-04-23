@@ -11,6 +11,7 @@ export interface ReferenceEmailResponse {
   secondary: Email;
 }
 export const parseReferenceEmails = (data: any): ReferenceEmailResponse => data;
+export const parseSingleReferenceEmail = (data: any): Email => data;
 
 export const getApplicationEndpoint = (id: number): string =>
   `${baseUrl(2)}/applications/${id}`;
@@ -23,3 +24,9 @@ export const getApplicationsForJobEndpoint = (jobId: number): string =>
 
 export const getReferenceEmailsEndpoint = (applicationId: number): string =>
   `${baseUrl()}/applications/${applicationId}/reference-emails/`;
+
+export const getSendReferenceEmailEndpoint = (
+  applicationId: number,
+  referenceType: "director" | "secondary",
+): string =>
+  `${baseUrl()}/applications/${applicationId}/reference-emails/${referenceType}/send`;

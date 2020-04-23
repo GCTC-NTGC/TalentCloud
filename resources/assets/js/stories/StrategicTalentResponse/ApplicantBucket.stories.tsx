@@ -51,6 +51,7 @@ stories.add(
           portal="manager"
           referenceEmails={referenceEmails}
           requestReferenceEmails={action("Fetch Reference Emails")}
+          sendReferenceEmail={async () => action("Send reference email")()}
         />
       </div>
     );

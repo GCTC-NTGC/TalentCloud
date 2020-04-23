@@ -21,6 +21,8 @@ import {
   fetchApplicationsForJob,
   updateApplicationReview as updateApplicationReviewAction,
   fetchReferenceEmails,
+  sendReferenceEmail as sendReferenceEmailAction,
+  fetchApplication,
 } from "../../../store/Application/applicationActions";
 import {
   getApplicationsByJob,
@@ -50,6 +52,10 @@ interface ResponseScreeningPageProps {
     };
   };
   requestReferenceEmails: (applicationId: number) => void;
+  sendReferenceEmail: (
+    applicationId: number,
+    referenceType: "director" | "secondary",
+  ) => Promise<void>;
 }
 
 const ResponseScreeningPage: React.FC<ResponseScreeningPageProps> = ({
@@ -59,6 +65,7 @@ const ResponseScreeningPage: React.FC<ResponseScreeningPageProps> = ({
   portal,
   referenceEmails,
   requestReferenceEmails,
+  sendReferenceEmail,
 }): React.ReactElement => (
   <>
     {Object.keys(ResponseScreeningBuckets).map((bucket) => {
@@ -108,6 +115,7 @@ const ResponseScreeningPage: React.FC<ResponseScreeningPageProps> = ({
           portal={portal}
           referenceEmails={referenceEmails}
           requestReferenceEmails={requestReferenceEmails}
+          sendReferenceEmail={sendReferenceEmail}
         />
       );
     })}
@@ -167,6 +175,15 @@ const ResponseScreeningDataFetcher: React.FC<ResponseScreeningDataFetcherProps> 
     }
     dispatch(fetchReferenceEmails(applicationId));
   };
+  // Sending Emails
+  const sendReferenceEmail = async (
+    applicationId: number,
+    refernceType: "director" | "secondary",
+  ): Promise<void> => {
+    await dispatch(sendReferenceEmailAction(applicationId, refernceType));
+    // Reload application after sending email to sync the "email_sent" fields of the ApplicationReview.
+    return dispatch(fetchApplication(applicationId));
+  };
 
   return (
     <ResponseScreeningPage
@@ -176,6 +193,7 @@ const ResponseScreeningDataFetcher: React.FC<ResponseScreeningDataFetcherProps> 
       portal={portal}
       referenceEmails={referenceEmails}
       requestReferenceEmails={requestReferenceEmails}
+      sendReferenceEmail={sendReferenceEmail}
     />
   );
 };

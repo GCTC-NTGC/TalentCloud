@@ -18,6 +18,9 @@ import {
   FETCH_REFERENCE_EMAILS_SUCCEEDED,
   FETCH_REFERENCE_EMAILS_STARTED,
   FETCH_REFERENCE_EMAILS_FAILED,
+  SEND_REFERENCE_EMAIL_STARTED,
+  SEND_REFERENCE_EMAIL_SUCCEEDED,
+  SEND_REFERENCE_EMAIL_FAILED,
 } from "./applicationActions";
 import {
   mapToObject,
@@ -61,6 +64,9 @@ export interface UiState {
   fetchingReferenceEmailsForApplication: {
     [applicationId: number]: boolean;
   };
+  sendingReferenceEmailForApplication: {
+    [applicationId: number]: boolean;
+  };
 }
 
 export interface ApplicationState {
@@ -88,6 +94,7 @@ export const initUi = (): UiState => ({
   applicationIsUpdating: {},
   fetchingApplications: false,
   fetchingReferenceEmailsForApplication: {},
+  sendingReferenceEmailForApplication: {},
 });
 
 export const initApplicationState = (): ApplicationState => ({
@@ -260,6 +267,23 @@ export const uiReducer = (
         ...state,
         fetchingReferenceEmailsForApplication: {
           ...state.fetchingReferenceEmailsForApplication,
+          [action.meta.applicationId]: false,
+        },
+      };
+    case SEND_REFERENCE_EMAIL_STARTED:
+      return {
+        ...state,
+        sendingReferenceEmailForApplication: {
+          ...state.sendingReferenceEmailForApplication,
+          [action.meta.applicationId]: true,
+        },
+      };
+    case SEND_REFERENCE_EMAIL_SUCCEEDED:
+    case SEND_REFERENCE_EMAIL_FAILED:
+      return {
+        ...state,
+        sendingReferenceEmailForApplication: {
+          ...state.sendingReferenceEmailForApplication,
           [action.meta.applicationId]: false,
         },
       };

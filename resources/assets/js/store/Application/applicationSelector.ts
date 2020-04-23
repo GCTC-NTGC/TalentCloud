@@ -92,3 +92,9 @@ export const allIsFetchingReferenceEmailsByApplication = (
 ): { [applicationId: number]: boolean } => {
   return ui(state).fetchingReferenceEmailsForApplication;
 };
+
+export const allIsSendingReferenceEmailByApplication = (
+  state: RootState,
+): { [applicationId: number]: boolean } => {
+  return ui(state).sendingReferenceEmailForApplication;
+};
