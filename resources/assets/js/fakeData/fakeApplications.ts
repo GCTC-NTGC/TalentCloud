@@ -20,7 +20,7 @@ export const fakeApplicationReview = (
     name: "assessment_required",
   },
   department_id: null,
-  department: null,
+  department: undefined,
   director_email_sent: false,
   reference_email_sent: false,
   ...overrides,

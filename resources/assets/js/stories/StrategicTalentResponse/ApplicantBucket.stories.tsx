@@ -18,6 +18,15 @@ const stories = storiesOf(
   module,
 ).addDecorator(withIntl);
 
+function sleep(ms): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function sendReferenceEmail(): Promise<void> {
+  action("Send reference email")();
+  return sleep(1000);
+}
+
 stories.add(
   "Consideration",
   (): React.ReactElement => {
@@ -51,7 +60,7 @@ stories.add(
           portal="manager"
           referenceEmails={referenceEmails}
           requestReferenceEmails={action("Fetch Reference Emails")}
-          sendReferenceEmail={async () => action("Send reference email")()}
+          sendReferenceEmail={sendReferenceEmail}
         />
       </div>
     );

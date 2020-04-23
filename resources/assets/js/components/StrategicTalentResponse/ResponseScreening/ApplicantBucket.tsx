@@ -29,6 +29,7 @@ import {
   Locales,
 } from "../../../helpers/localize";
 import Modal from "../../Modal";
+import { notEmpty, empty } from "../../../helpers/queries";
 
 const displayMessages = defineMessages({
   viewApplication: {
@@ -415,8 +416,8 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
     notes: null,
     created_at: new Date(),
     updated_at: new Date(),
-    department: null,
-    review_status: null,
+    department: undefined,
+    review_status: undefined,
     director_email_sent: false,
     reference_email_sent: false,
   };
@@ -469,12 +470,13 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
   };
 
   // MicroReferences
+  // A single modal component is used for both emails, since only one will appear at a time.
   const [showingEmail, setShowingEmail] = useState<"director" | "secondary">(
     "director",
   );
-  const [sendingEmail, setSendingEmail] = useState<
-    "director" | "secondary" | null
-  >(null);
+  // But each email needs its own 'sending' flag, because its possible have both sending at the same time.
+  const [sendingDirectorEmail, setSendingDirectorEmail] = useState(false);
+  const [sendingSecondaryEmail, setSendingSecondaryEmail] = useState(false);
   const emailOptions = {
     director: directorReferenceEmail,
     secondary: secondaryReferenceEmail,
@@ -495,9 +497,13 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
   };
   const onConfirm = async (): Promise<void> => {
     hideEmail();
-    setSendingEmail(showingEmail);
+    const setSendingEmail = {
+      director: setSendingDirectorEmail,
+      secondary: setSendingSecondaryEmail,
+    }[showingEmail];
+    setSendingEmail(true);
     await sendReferenceEmail(application.id, showingEmail);
-    setSendingEmail(null);
+    setSendingEmail(false);
   };
   const modalParentRef = useRef<HTMLDivElement>(null);
 
@@ -680,9 +686,9 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
             type="button"
             data-c-font-size="small"
             onClick={showDirectorEmail}
-            disabled={sendingEmail === "director"}
+            disabled={sendingDirectorEmail}
           >
-            {sendingEmail === "director" ? (
+            {sendingDirectorEmail ? (
               <FormattedMessage
                 id="responseScreening.applicant.directorEmailSending"
                 defaultMessage="Sending email..."
@@ -713,9 +719,9 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
             type="button"
             data-c-font-size="small"
             onClick={showSecondaryEmail}
-            disabled={sendingEmail === "secondary"}
+            disabled={sendingSecondaryEmail}
           >
-            {sendingEmail === "secondary" ? (
+            {sendingSecondaryEmail ? (
               <FormattedMessage
                 id="responseScreening.applicant.secondaryEmailSending"
                 defaultMessage="Sending email..."
@@ -745,19 +751,22 @@ const applicationSort = (locale: Locales) => {
   return (first: Application, second: Application): number => {
     // Applications without a review status should appear first
     if (
-      first.application_review === undefined &&
-      second.application_review !== undefined
+      empty(first.application_review?.review_status_id) &&
+      notEmpty(second.application_review?.review_status_id)
     ) {
       return -1;
     }
     if (
-      first.application_review !== undefined &&
-      second.application_review === undefined
+      notEmpty(first.application_review?.review_status_id) &&
+      empty(second.application_review?.review_status_id)
     ) {
       return 1;
     }
     // Applications with a review status should be grouped by status
-    if (first.application_review && second.application_review) {
+    if (
+      notEmpty(first.application_review) &&
+      notEmpty(second.application_review)
+    ) {
       if (
         first.application_review.review_status_id &&
         second.application_review.review_status_id
@@ -777,14 +786,14 @@ const applicationSort = (locale: Locales) => {
       }
       // Applications without a Department should appear first
       if (
-        first.application_review.department === null &&
-        second.application_review.department !== null
+        empty(first.application_review.department) &&
+        notEmpty(second.application_review.department)
       ) {
         return -1;
       }
       if (
-        first.application_review.department !== null &&
-        second.application_review.department === null
+        notEmpty(first.application_review.department) &&
+        empty(second.application_review.department)
       ) {
         return 1;
       }
@@ -809,10 +818,11 @@ const applicationSort = (locale: Locales) => {
         if (firstDepartmentName > secondDepartmentName) {
           return 1;
         }
-        return 0;
       }
     }
-    return 0;
+    return first.applicant.user.full_name.localeCompare(
+      second.applicant.user.full_name,
+    );
   };
 };
 

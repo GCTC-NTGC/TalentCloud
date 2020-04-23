@@ -50,8 +50,8 @@ export interface ApplicationReview {
   notes: string | null;
   created_at: Date;
   updated_at: Date;
-  department: Department | null;
-  review_status: ReviewStatus | ResponseReviewStatus | null;
+  department: Department | undefined;
+  review_status: ReviewStatus | ResponseReviewStatus | undefined;
   director_email_sent: boolean;
   reference_email_sent: boolean;
 }
