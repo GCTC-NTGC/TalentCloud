@@ -20,10 +20,10 @@ return [
     'assessment-plan' => 'Concepteur de plans d’évaluation',
     'job-title-missing' => "'Titre manquant'",
     'review' => 'Revue',
-    'manager' => [
+    'managerPortal' => [
         'applications' => 'Réviser les candidats',
     ],
-    'hr' => [
+    'hrPortal' => [
         'applications' => 'Réviser les candidats',
     ],
 ];
