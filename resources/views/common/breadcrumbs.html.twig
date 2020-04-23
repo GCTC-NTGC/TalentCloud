@@ -1,1 +1,22 @@
-
+<nav aria-label="breadcrumb" data-c-breadcrumbs data-c-colour="{{ font_color ?: 'white' }}">
+	<ol id="{{ breadcrumbs_id }}">
+		{% for key, url in breadcrumbs %}
+			{% if loop.first %}
+				<li>
+					<a href="{{ url(url) }}">{{ breadcrumbs_lang.home }}</a>
+					<i class="fas fa-caret-right"></i>
+				</li>
+			{% elseif loop.last %}
+				<li>
+					<span aria-current="page">{{ portal_specific_lang[key] ?: breadcrumbs_lang[key] ?: key|title }}</span>
+					<i class="fas fa-caret-right"></i>
+				</li>
+			{% else %}
+				<li>
+					<a href="{{ url(url) }}">{{ portal_specific_lang[key] ?: breadcrumbs_lang[key] ?: key|title }}</a>
+					<i class="fas fa-caret-right"></i>
+				</li>
+			{% endif %}
+		{% endfor %}
+	</ol>
+</nav>
