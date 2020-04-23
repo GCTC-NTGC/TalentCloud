@@ -9,7 +9,6 @@ return [
      * The following language lines are used in the breadcrumbs section in the header.
      *
      */
-
     'home' => 'Home',
     'profile' => 'Profile',
     'faq' => 'FAQ',
@@ -20,10 +19,10 @@ return [
     'assessment-plan' => 'Assessment Plan Builder',
     'job-title-missing' => "'TItle Missing'",
     'review' => 'Review',
-    // 'manager' => [
-    //     'applications' => 'Review Applicants',
-    // ],
-    // 'hr' => [
-    //     'applications' => 'Review Applicants',
-    // ],
+    'managerPortal' => [
+        'applications' => 'Review Applicants',
+    ],
+    'hrPortal' => [
+        'applications' => 'Review Applicants',
+    ],
 ];

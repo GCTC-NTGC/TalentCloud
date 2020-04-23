@@ -42,10 +42,10 @@ class BreadcrumbsComposer
 
         if (WhichPortal::isManagerPortal()) {
             $segments = $segments->slice(1);
-            // $portal_specific_lang = $breadcrumbs_lang['manager'];
+            $portal_specific_lang = $breadcrumbs_lang['managerPortal'];
         } elseif (WhichPortal::isHrPortal()) {
             $segments = $segments->slice(1);
-            // $portal_specific_lang = $breadcrumbs_lang['hr'];
+            $portal_specific_lang = $breadcrumbs_lang['hrPortal'];
         }
 
         $view->with('breadcrumbs', $segments);
