@@ -41,7 +41,7 @@ class BreadcrumbsComposer
         $portal_specific_lang = [];
         $view->with('breadcrumbs_lang', $breadcrumbs_lang);
 
-        if (WhichPortal::isManagerPortal() || WhichPortal::isHrPortal()) {
+        if (WhichPortal::isManagerPortal()) {
             $segments = $segments->slice(1);
             $portal_specific_lang = $breadcrumbs_lang['manager'];
         } elseif (WhichPortal::isHrPortal()) {
@@ -62,18 +62,18 @@ class BreadcrumbsComposer
     {
         return collect($this->request->segments())->mapWithKeys(function ($segment, $key) {
             // Replaces any segment ID in url with the objects name or title.
-            // if ($this->request->jobPoster && $this->request->jobPoster->id == $segment) {
-            //     $segment = $this->request->jobPoster->title;
-            // }
-            // if ($this->request->manager && $this->request->manager->id == $segment) {
-            //     $segment = $this->request->manager->user->full_name;
-            // }
-            // if ($this->request->applicant && $this->request->applicant->id == $segment) {
-            //     $segment = $this->request->applicant->user->full_name;
-            // }
-            // if ($this->request->application && $this->request->application->id == $segment) {
-            //     $segment = $this->request->application->user_name;
-            // }
+            if ($this->request->jobPoster && $this->request->jobPoster->id == $segment) {
+                $segment = $this->request->jobPoster->title;
+            }
+            if ($this->request->manager && $this->request->manager->id == $segment) {
+                $segment = $this->request->manager->user->full_name;
+            }
+            if ($this->request->applicant && $this->request->applicant->id == $segment) {
+                $segment = $this->request->applicant->user->full_name;
+            }
+            if ($this->request->application && $this->request->application->id == $segment) {
+                $segment = $this->request->application->user_name;
+            }
             return [
                 $segment => implode('/', array_slice($this->request->segments(), 0, $key + 1)),
             ];
