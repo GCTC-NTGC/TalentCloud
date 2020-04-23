@@ -20,10 +20,10 @@ return [
     'assessment-plan' => 'Assessment Plan Builder',
     'job-title-missing' => "'TItle Missing'",
     'review' => 'Review',
-    'manager' => [
-        'applications' => 'Review Applicants',
-    ],
-    'hr' => [
-        'applications' => 'Review Applicants',
-    ],
+    // 'manager' => [
+    //     'applications' => 'Review Applicants',
+    // ],
+    // 'hr' => [
+    //     'applications' => 'Review Applicants',
+    // ],
 ];
