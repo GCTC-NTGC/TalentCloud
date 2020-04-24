@@ -1,3 +1,9 @@
+{# =============================================================================
+
+    Talent Cloud
+    Recurring Elements: Evidence Dropdown
+
+============================================================================= #}
 {% if prefix %}
     {% set name_prefix = "relatives[:relativeType][:id]"|replace({":relativeType":relativeToken}) %}
     {% set id_prefix = prefix ~ "_relatives_:relativeType_:id"|replace({":relativeType":relativeToken}) %}
@@ -5,36 +11,28 @@
     {% set name_prefix = "relatives[:relativeType][:id]"|replace({":relativeType":relativeToken}) %}
     {% set id_prefix = "relatives_:relativeType_:id"|replace({":relativeType":relativeToken}) %}
 {% endif %}
-
 {% if relative %}
     {% set name_prefix = name_prefix|replace({":id":relative.id}) %}
     {% set id_prefix = id_prefix|replace({":id":relative.id}) %}
 {% endif %}
-
-<div
-    class="profile-relative {% if template %}template{% endif %}"
-    data-item-id="{{ relative ? relative.id : 0 }}">
-    <div class="form__input-wrapper--select">
-        <label
-            class="form__label"
-            for="{{ id_prefix }}_relativeId">
-            {% if relativeToken == "skills" %}
-                {{ relative_template.skill.label }}
-            {% elseif relativeToken == "references" %}
-                {{ relative_template.reference.label }}
-            {% elseif relativeToken == "samples" %}
-                {{ relative_template.sample.label }}
-            {% endif %}
-        </label>
-        <div
-            class="form__select-wrapper fas fa-chevron-down">
-            <select
-                class="form__input"
-                id="{{ id_prefix }}_relativeId"
-                {% if template %}disabled{% endif %}
-                name="{{ name_prefix }}[id]">
-
-                {# Skills #}
+<div class="profile-relative {% if template %}template{% endif %}" data-item-id="{{ relative ? relative.id : 0 }}">
+    <div data-c-grid="gutter(all, 1) middle">
+        <div data-c-input="select" data-c-grid-item="base(3of4) tl(4of5) ds(5of6)">
+            <label for="{{ id_prefix }}_relativeId">
+                {% if relativeToken == "skills" %}
+                    {{ relative_template.skill.label }}
+                {% elseif relativeToken == "references" %}
+                    {{ relative_template.reference.label }}
+                {% elseif relativeToken == "samples" %}
+                    {{ relative_template.sample.label }}
+                {% endif %}
+            </label>
+            <span>{{ relative_template.required_label }}</span>
+            <div>
+                <i class="fas fa-caret-down"></i>
+                <select id="{{ id_prefix }}_relativeId" {% if template %}disabled{% endif %}
+                    name="{{ name_prefix }}[id]">
+                    {# Skills #}
                     {% if relativeToken == "skills" %}
                         <option value="" disabled {% if relative.id == skillDeclaration.id %}selected{% endif %}>{{ relative_template.skill.default_option }}</option>
                         {% for skillDeclaration in applicant.skill_declarations %}
@@ -44,8 +42,7 @@
                                 >{{ skillDeclaration.skill.name }}</option>
                         {% endfor %}
                     {% endif %}
-
-                {# References #}
+                    {# References #}
                     {% if relativeToken == "references" %}
                         <option value="" disabled {% if relative.id == userReference.id %}selected{% endif %}>{{ relative_template.reference.default_option }}</option>
                         {% for userReference in applicant.references %}
@@ -55,8 +52,7 @@
                                 >{{ userReference.name }}</option>
                         {% endfor %}
                     {% endif %}
-
-                {# Samples #}
+                    {# Samples #}
                     {% if relativeToken == "samples" %}
                         <option value="" disabled {% if relative.id == userSample.id %}selected{% endif %}>{{ relative_template.sample.default_option }}</option>
                         {% for userSample in applicant.work_samples %}
@@ -66,32 +62,30 @@
                                 >{{ userSample.name }}</option>
                         {% endfor %}
                     {% endif %}
-
-            </select>
+                </select>
+            </div>
+            <span>{{ relative_template.input_error }}</span>
+        </div>
+        {# Delete Button #}
+        <div data-c-grid-item="base(1of4) tl(1of5) ds(1of6)" data-c-align="base(center)">
+            <button data-c-button="reset" data-c-padding="all(1)" data-c-hover-color="stop" class="profile-relative__remove-trigger"
+                {% if relativeToken == "skills" %}
+                    title="{{ relative_template.skill.delete_title }}"
+                {% elseif relativeToken == "references" %}
+                    title="{{ relative_template.reference.delete_title }}"
+                {% elseif relativetoken == "samples" %}
+                    title="{{ relative_template.sample.delete_title }}"
+                {% endif %}
+                type="button">
+                <i class="fas fa-times"></i>
+                {% if relativeToken == "skills" %}
+                    <span class="invisible">{{ relative_template.skill.delete_title }}</span>
+                {% elseif relativeToken == "references" %}
+                    <span class="invisible">{{ relative_template.reference.delete_title }}</span>
+                {% elseif relativetoken == "samples" %}
+                    <span class="invisible">{{ relative_template.sample.delete_title }}</span>
+                {% endif %}
+            </button>
         </div>
     </div>
-
-    <button
-        class="profile-relative__remove-trigger"
-        {% if relativeToken == "skills" %}
-            title="{{ relative_template.skill.delete_title }}"
-        {% elseif relativeToken == "references" %}
-            title="{{ relative_template.reference.delete_title }}"
-        {% elseif relativetoken == "samples" %}
-            title="{{ relative_template.sample.delete_title }}"
-        {% endif %}
-        type="button">
-
-        <i class="fas fa-times"></i>
-
-        {% if relativeToken == "skills" %}
-            <span class="invisible">{{ relative_template.skill.delete_title }}</span>
-        {% elseif relativeToken == "references" %}
-            <span class="invisible">{{ relative_template.reference.delete_title }}</span>
-        {% elseif relativetoken == "samples" %}
-            <span class="invisible">{{ relative_template.sample.delete_title }}</span>
-        {% endif %}
-
-    </button>
-
 </div>

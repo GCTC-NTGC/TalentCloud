@@ -241,11 +241,11 @@ class JobControllerTest extends TestCase
     public function testManagerCanStoreEmptyJob(): void
     {
         $manager = factory(Manager::class)->create();
-        $response = $this->followingRedirects()
+        $response = $this
             ->actingAs($manager->user)
             ->json('post', "$this->baseUrl/jobs");
         $this->assertAuthenticatedAs($manager->user);
-        $response->assertOk();
+        $response->assertStatus(201);
         $this->assertDatabaseHas('job_posters', ['manager_id' => $manager->id]);
     }
 

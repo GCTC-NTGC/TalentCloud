@@ -509,7 +509,7 @@ class ApplicationByJobController extends Controller
         // Redirect to correct page.
         switch ($request->input('submit')) {
             case 'save_and_quit':
-            case 'previous':
+            case 'save_and_return':
                 return redirect()->route('applications.index');
                 break;
             case 'save_and_continue':
@@ -690,7 +690,7 @@ class ApplicationByJobController extends Controller
             case 'next':
                 return redirect()->route('job.application.edit.3', $jobPoster);
                 break;
-            case 'previous':
+            case 'save_and_return':
                 return redirect()->route('job.application.edit.1', $jobPoster);
                 break;
             default:
@@ -773,7 +773,7 @@ class ApplicationByJobController extends Controller
             case 'next':
                 return redirect()->route('job.application.edit.4', $jobPoster);
                 break;
-            case 'previous':
+            case 'save_and_return':
                 return redirect()->route('job.application.edit.2', $jobPoster);
                 break;
             default:
@@ -856,7 +856,7 @@ class ApplicationByJobController extends Controller
             case 'next':
                 return redirect()->route('job.application.edit.5', $jobPoster);
                 break;
-            case 'previous':
+            case 'save_and_return':
                 return redirect()->route('job.application.edit.3', $jobPoster);
                 break;
             default:
@@ -927,7 +927,7 @@ class ApplicationByJobController extends Controller
             case 'submit':
                 return redirect()->route('job.application.complete', $jobPoster);
                 break;
-            case 'previous':
+            case 'save_and_return':
                 return redirect()->route('job.application.edit.4', $jobPoster);
                 break;
             default:
