@@ -2510,16 +2510,16 @@
         },
         {
             "name": "prologue/alerts",
-            "version": "0.4.6",
+            "version": "0.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/prologuephp/alerts.git",
-                "reference": "4c621a541a7f16631deda9d1b2b075c182d251d1"
+                "reference": "631896b583129b2873df09b5295809c1244eddb1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/prologuephp/alerts/zipball/4c621a541a7f16631deda9d1b2b075c182d251d1",
-                "reference": "4c621a541a7f16631deda9d1b2b075c182d251d1",
+                "url": "https://api.github.com/repos/prologuephp/alerts/zipball/631896b583129b2873df09b5295809c1244eddb1",
+                "reference": "631896b583129b2873df09b5295809c1244eddb1",
                 "shasum": ""
             },
             "require": {
@@ -2572,7 +2572,7 @@
                 "laravel",
                 "messages"
             ],
-            "time": "2020-03-03T08:33:38+00:00"
+            "time": "2020-04-24T06:00:16+00:00"
         },
         {
             "name": "psr/container",
