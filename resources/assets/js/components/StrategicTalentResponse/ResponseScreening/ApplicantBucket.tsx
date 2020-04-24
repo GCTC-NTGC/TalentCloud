@@ -294,6 +294,7 @@ const ReferenceEmailModal: React.FC<ReferenceEmailModalProps> = ({
                 data-c-background="white(100)"
                 data-c-padding="normal"
                 data-c-radius="rounded"
+                className="spaced-paragraphs"
               >
                 {email ? (
                   <ReactMarkdown source={email.body} />

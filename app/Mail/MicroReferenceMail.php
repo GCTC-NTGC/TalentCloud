@@ -43,6 +43,7 @@ class MicroReferenceMail extends Mailable implements ShouldQueue
      */
     public function build()
     {
+        $essential_criteria = $this->application->job_poster->criteria->where('criteria_type.name', 'essential');
         return $this->subject('TODO') // TODO:
             ->from(config('mail.from.address'), config('mail.from.name'))
             ->to(config('mail.from.address'), 'WAITING FOR NAME') // TODO:
@@ -50,6 +51,8 @@ class MicroReferenceMail extends Mailable implements ShouldQueue
                 'reference_name' => 'WAITING FOR FIELD', // TODO: waiting for new fields
                 'homepage_url' => route('home'), // TODO: waiting for new route
                 'applicant_name' => $this->application->applicant->user->full_name,
+                'is_director' => $this->is_director,
+                'criteria' => $essential_criteria,
             ]);
     }
 }
