@@ -1509,16 +1509,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "1.4.1",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "c995966d35424bae20f76f8b31248099487a3f57"
+                "reference": "9e780d972185e4f737a03bade0fd34a9e67bbf31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/c995966d35424bae20f76f8b31248099487a3f57",
-                "reference": "c995966d35424bae20f76f8b31248099487a3f57",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/9e780d972185e4f737a03bade0fd34a9e67bbf31",
+                "reference": "9e780d972185e4f737a03bade0fd34a9e67bbf31",
                 "shasum": ""
             },
             "require": {
@@ -1579,7 +1579,7 @@
                 "md",
                 "parser"
             ],
-            "time": "2020-04-20T13:36:51+00:00"
+            "time": "2020-04-24T13:39:56+00:00"
         },
         {
             "name": "league/flysystem",
@@ -5616,12 +5616,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laracasts/Laravel-5-Generators-Extended.git",
-                "reference": "6d628e0bbcaf913e10024be43231969e8f039432"
+                "reference": "d205e09bf31f571d6dd842350383f9fa9dda57f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laracasts/Laravel-5-Generators-Extended/zipball/6d628e0bbcaf913e10024be43231969e8f039432",
-                "reference": "6d628e0bbcaf913e10024be43231969e8f039432",
+                "url": "https://api.github.com/repos/laracasts/Laravel-5-Generators-Extended/zipball/d205e09bf31f571d6dd842350383f9fa9dda57f7",
+                "reference": "d205e09bf31f571d6dd842350383f9fa9dda57f7",
                 "shasum": ""
             },
             "require": {
@@ -5659,7 +5659,7 @@
                 "generators",
                 "laravel"
             ],
-            "time": "2020-03-29T05:06:14+00:00"
+            "time": "2020-04-24T08:39:21+00:00"
         },
         {
             "name": "maximebf/debugbar",
