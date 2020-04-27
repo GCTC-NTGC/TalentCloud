@@ -8,6 +8,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class MicroReferenceMail extends Mailable implements ShouldQueue
 {
@@ -50,6 +51,7 @@ class MicroReferenceMail extends Mailable implements ShouldQueue
             ->markdown('emails.micro_reference', [
                 'reference_name' => 'WAITING FOR FIELD', // TODO: waiting for new fields
                 'homepage_url' => route('home'), // TODO: waiting for new route
+                'homepage_url_fr' => LaravelLocalization::getURLFromRouteNameTranslated('fr', 'home'), // TODO: waiting for new route
                 'applicant_name' => $this->application->applicant->user->full_name,
                 'is_director' => $this->is_director,
                 'criteria' => $essential_criteria,
