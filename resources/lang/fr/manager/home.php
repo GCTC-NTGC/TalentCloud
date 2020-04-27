@@ -8,6 +8,7 @@ return [
      * Route: /manager/
      * View: views/manager/home.html.twig
      */
+    'home_title' => 'Nuage de talents | Gestionnaire : Accueil',
     'hero' => [
         'heading' => 'Nuage de talents',
         'heading_alt' => 'Feuille d\'érable canadienne.',
