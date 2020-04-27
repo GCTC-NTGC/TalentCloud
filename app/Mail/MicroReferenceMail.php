@@ -45,13 +45,21 @@ class MicroReferenceMail extends Mailable implements ShouldQueue
     public function build()
     {
         $essential_criteria = $this->application->job_poster->criteria->where('criteria_type.name', 'essential');
-        return $this->subject('TODO') // TODO:
+        $reference_email = $this->is_director
+            ? $this->application->director_email
+            : $this->application->reference_email;
+        $reference_email = isset($eference_email) ? $reference_email : 'null';
+        $reference_name = $this->is_director
+            ? $this->application->director_name
+            : $this->application->reference_name;
+        $reference_name = isset($reference_name) ? $reference_name : 'null';
+        return $this->subject('Reference Requested - GC Talent Reserve | Référence demandée – Réserve de talents du GC')
             ->from(config('mail.from.address'), config('mail.from.name'))
-            ->to(config('mail.from.address'), 'WAITING FOR NAME') // TODO:
+            ->to($reference_email, $reference_name)
             ->markdown('emails.micro_reference', [
-                'reference_name' => 'WAITING FOR FIELD', // TODO: waiting for new fields
-                'homepage_url' => route('home'), // TODO: waiting for new route
-                'homepage_url_fr' => LaravelLocalization::getURLFromRouteNameTranslated('fr', 'home'), // TODO: waiting for new route
+                'reference_name' => $reference_name,
+                'homepage_url' => route('response.index'),
+                'homepage_url_fr' => LaravelLocalization::getURLFromRouteNameTranslated('fr', 'response.index'),
                 'applicant_name' => $this->application->applicant->user->full_name,
                 'is_director' => $this->is_director,
                 'criteria' => $essential_criteria,

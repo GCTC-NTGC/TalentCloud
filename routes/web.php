@@ -77,7 +77,7 @@ Route::group(
             Route::view('resources', 'common/resources')->middleware('localOnly')->name('resources');
 
             /* Response Home */
-            Route::view('response', 'response/index/index')->middleware('localOnly')->name('response');
+            Route::view('response', 'response/index/index')->middleware('localOnly')->name('response.test');
             /* Response Screening */
             Route::view('response-screening', 'response/screening/index')->middleware('localOnly')->name('responseScreening');
 
