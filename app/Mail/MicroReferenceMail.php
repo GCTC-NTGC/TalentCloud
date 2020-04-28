@@ -48,7 +48,7 @@ class MicroReferenceMail extends Mailable implements ShouldQueue
         $reference_email = $this->is_director
             ? $this->application->director_email
             : $this->application->reference_email;
-        $reference_email = isset($eference_email) ? $reference_email : 'null';
+        $reference_email = isset($reference_email) ? $reference_email : 'null';
         $reference_name = $this->is_director
             ? $this->application->director_name
             : $this->application->reference_name;
