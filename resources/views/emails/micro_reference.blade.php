@@ -50,7 +50,7 @@ Thank you for helping the Government of Canada to navigate this exceptional circ
 
 If you have any questions, do not hesitate to email us (<talent.cloud-nuage.de.talents@tbs-sct.gc.ca>) at any time.
 
-Best regards,  
+Best regards,
 The GC Talent Reserve team
 
 
@@ -107,6 +107,7 @@ Nous vous remercions d'aider le gouvernement du Canada à traverser cette situat
 
 Si vous avez des questions, veuillez communiquer avec nous en tout temps à l'adresse <talent.cloud-nuage.de.talents@tbs-sct.gc.ca>.
 
-Nous vous prions d'agréer l'expression de nos sentiments les meilleurs.  
+Nous vous prions d'agréer l'expression de nos sentiments les meilleurs.
 Équipe responsable de la Réserve de talents du GC
 
+@endcomponent
