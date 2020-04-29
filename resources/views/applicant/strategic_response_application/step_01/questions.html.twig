@@ -4,175 +4,204 @@
     Applicant: Application Post - Questions
 
 ============================================================================= #}
-<div class="application-post__questions">
-    <div
-        class="container--copy">
-        {# Language for Process #}
-        <div class="application-post__veterans">
-            <div class="form_wrapper">
-                <div class="flex-grid">
-                    <h2>
-                        {{ application_template.strategic_response.required_information }}
-                    </h2>
-                    <p>
-                        {{ application_template.language_copy }}
-                    </p>
-                    <div class="box full">
-                        <div class="form__input-wrapper--select">
-                            <label class="form__label" for="preferred_language_id">
-                                {{ application_template.language_label }}
-                            </label>
-                            <div class="form__select-wrapper fas fa-chevron-down">
-                                <select id="preferred_language_id" class="form__input" required name="preferred_language_id">
-                                    <option value="" disabled {% if not job_application.preferred_language_id %} selected {% endif %}>
-                                        {{ application_template.select_default_option }}
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Submit an Application - Basic Information
+
+============================================================================= #}
+<div data-c-border="bottom(thin, solid, gray)" data-c-padding="bottom(3)">
+    <div data-c-container="large(center)">
+        <div data-c-grid="gutter(all, 2)">
+            <div data-c-grid-item="tl(1of4)">
+                {% include "applicant/strategic_response_application/step_01/sidebar" %}
+            </div>
+            <div data-c-grid-item="tl(3of4)">
+                <div data-c-container="medium(left)">
+                    <h2 id="basic" data-c-heading="h2" data-c-padding="top(3)" data-c-margin="bottom(1)">{{ application_template.strategic_response.required_information }}</h2>
+                    {# Language Process #}
+                    <div data-c-input="select">
+                        <label for="preferred_language_id">{{ application_template.language_copy }}</label>
+                        <span>{{ application_template.required_label }}</span>
+                        <div>
+                            <i class="fas fa-caret-down"></i>
+                            <select required id="preferred_language_id" name="preferred_language_id">
+                                <option
+                                    value=""
+                                    disabled
+                                    {% if not job_application.preferred_language_id %}selected{% endif %}>
+                                    {{ application_template.select_default_option }}
+                                </option>
+                                {% for option in language_options %}
+                                    <option
+                                        value="{{ option.id }}" {% if option.id == job_application.preferred_language_id %} selected
+                                        {% endif %}>
+                                        {{ preferred_language_template[option.name] }}
                                     </option>
-                                    {% for option in language_options %}
-                                        <option value="{{ option.id }}" {% if option.id == job_application.preferred_language_id %} selected {% endif %}>
-                                            {{ preferred_language_template[option.name] }}
-                                        </option>
-                                    {% endfor %}
-                                </select>
-                            </div>
+                                {% endfor %}
+                            </select>
                         </div>
+                        <span>{{ application_template.input_error }}</span>
                     </div>
-                </div>
-                <br><br>
-                <div class="flex-grid">
-                    <p>
-                        {{ application_template.strategic_response.gov_email_copy }}
-                    </p>
-                    <div class="box full">
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="gov_email">
-                                {{ application_template.strategic_response.gov_email_label }}
-                            </label>
-                            <input class="form__input" id="gov_email" name="gov_email" required type="email" value="{{ job_application.gov_email }}" pattern="{{ gov_email_pattern }}" />
+                    {# GC Email #}
+                    <div data-c-grid-item="base(1of1)" data-c-input="email">
+                        <label for="gov_email">{{ application_template.strategic_response.gov_email_copy }}</label>
+                        <span>{{ application_template.required_label }}</span>
+                        <div>
+                            <input id="gov_email" name="gov_email" required type="email" value="{{ job_application.gov_email }}" pattern="{{ gov_email_pattern }}"/>
                         </div>
+                        <span>{{ application_template.input_error }}</span>
                     </div>
-                </div>
-                <div class="flex-grid">
-                    <p>
-                        {{ application_template.strategic_response.security_clearance_copy }}
-                    </p>
-                    <div class="box full">
-                        <div class="form__input-wrapper--select">
-                            <label class="form__label" for="security_clearance_id">
-                                {{ application_template.strategic_response.security_clearance_label }}
-                            </label>
-                            <div class="form__select-wrapper fas fa-chevron-down">
-                                <select id="security_clearance_id" class="form__input" required name="security_clearance_id">
-                                    <option value="" disabled {% if not job_application.security_clearance_id %} selected {% endif %}>
-                                        {{ application_template.select_default_option }}
+                    {# Security Clearence #}
+                    <div data-c-input="select">
+                        <label for="security_clearance_id">{{ application_template.strategic_response.security_clearance_copy }}</label>
+                        <span>{{ application_template.required_label }}</span>
+                        <div>
+                            <i class="fas fa-caret-down"></i>
+                            <select required id="security_clearance_id" name="security_clearance_id">
+                                <option
+                                    value=""
+                                    disabled
+                                    {% if not job_application.security_clearance_id %}selected{% endif %}>
+                                    {{ application_template.select_default_option }}
+                                </option>
+                                {% for option in security_clearance_options %}
+                                    <option
+                                        value="{{ option.id }}" {% if option.id == job_application.security_clearance_id %} selected
+                                        {% endif %}>
+                                        {{ option.value }}
                                     </option>
-                                    {% for option in security_clearance_options %}
-                                        <option value="{{ option.id }}" {% if option.id == job_application.security_clearance_id %} selected {% endif %}>
-                                            {{ option.value }}
-                                        </option>
-                                    {% endfor %}
-                                </select>
-                            </div>
+                                {% endfor %}
+                            </select>
                         </div>
+                        <span>{{ application_template.input_error }}</span>
                     </div>
-                </div>
-                <br>
-                <div class="application-post__language-declaration">
-                    <span>
-                        {{ application_template.strategic_response.physical_office_willing_copy }}
-                    </span>
-                    <div class="form__input-wrapper--checkbox">
-                        <label class="form-label" for="physical_office_willing">
-                            <input id="physical_office_willing" name="physical_office_willing" type="checkbox" {{ job_application.physical_office_willing ? 'checked' : '' }}/>
-                            <span class="checkbox__wrapper">
-                                <span class="checkbox__content">
-                                    <i class="fa fa-check"></i>
+                    {# Physical Office #}
+                    <p>{{ application_template.strategic_response.physical_office_willing_copy }}</p>
+                    <div data-c-input="checkbox(single)" data-c-margin="left(1)">
+                        <span>{{ application_template.required_label }}</span>
+                        <div>
+                            <label for="physical_office_willing">
+                                <input
+                                    id="physical_office_willing"
+                                    name="physical_office_willing"
+                                    type="checkbox"
+                                    {{ job_application.physical_office_willing ? 'checked' : '' }}/>
+                                <span>
+                                    {{ application_template.strategic_response.physical_office_willing_label }}
                                 </span>
-                            </span>
+                            </label>
+                        </div>
+                    </div>
+                    <div data-c-margin="top(2)" data-c-alert="warning" data-c-radius="rounded" role="alert">
+                        <div data-c-padding="all(half)">
+                            <p data-c-font-weight="bold" data-c-margin="bottom(half)">
+                                <i class="fa fa-exclamation-circle" data-c-padding="right(quarter)" aria-hidden="true"></i>
+                                {{ application_template.strategic_response.director_alert.heading }}
+                            </p>
+                            <p data-c-margin="bottom(half)">{{ application_template.strategic_response.director_alert.ask_manager }}</p>
+                            <p data-c-margin="bottom(half)">{{ application_template.strategic_response.director_alert.screened_in }}</p>
+                        </div>
+                    </div>
+                    {# Director Info #}
+                     <h3 id="director" data-c-heading="h3" data-c-margin="bottom(1)" data-c-padding="top(2) bottom(1)">Director Info (copy + translate)</h3>
+                    <p data-c-margin="bottom(1)">{{ application_template.strategic_response.director_copy }}</p>
+                    <div data-c-grid-item="base(1of1)" data-c-input="text">
+                        <label for="director_name">
+                            {{ application_template.strategic_response.director_name_label }}
                         </label>
-                        <p class="box fit">
-                            {{ application_template.strategic_response.physical_office_willing_label }}
-                        </p>
+                        <span>{{ application_template.required_label }}</span>
+                        <div>
+                            <input id="director_name" name="director_name" required type="text" value="{{ job_application.director_name }}"/>
+                        </div>
+                        <span>{{ application_template.input_error }}</span>
                     </div>
-                </div>
-                {# Director / Reference #}
-                <div class="flex-grid">
-                    <br><br>
-                    <p>
-                        {{ application_template.strategic_response.director_copy }}
-                    </p>
-                    <div class="box full">
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="director_name">
-                                {{ application_template.strategic_response.director_name_label }}
-                            </label>
-                            <input class="form__input" i="director_name" name="director_name" required type="text" value="{{ job_application.director_name }}"/>
+                    <div data-c-grid-item="base(1of1)" data-c-input="text">
+                        <label for="director_title">
+                            {{ application_template.strategic_response.director_title_label }}
+                        </label>
+                        <span>{{ application_template.required_label }}</span>
+                        <div>
+                            <input id="director_title" name="director_title" required type="text" value="{{ job_application.director_title }}"/>
                         </div>
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="director_title">
-                                {{ application_template.strategic_response.director_title_label }}
-                            </label>
-                            <input class="form__input" id="director_title" name="director_title" required type="text" value="{{ job_application.director_title }}"/>
-                        </div>
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="director_email">
-                                {{ application_template.strategic_response.director_email_label }}
-                            </label>
-                            <input class="form__input" id="director_email" name="director_email" required type="email" value="{{ job_application.director_email }}"/>
-                            <br><br>
-                        </div>
+                        <span>{{ application_template.input_error }}</span>
                     </div>
-                    <p>
-                        {{ application_template.strategic_response.reference_copy }}
-                    </p>
-                    <div class="box full">
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="reference_name">
-                                {{ application_template.strategic_response.reference_name_label }}
-                            </label>
-                            <input class="form__input" id="reference_name" name="reference_name" required type="text" value="{{ job_application.reference_name }}"/>
+                    <div data-c-grid-item="base(1of1)" data-c-input="email">
+                        <label for="director_email">
+                            {{ application_template.strategic_response.director_email_label }}
+                        </label>
+                        <span>{{ application_template.required_label }}</span>
+                        <div>
+                            <input id="director_email" name="director_email" required type="email" value="{{ job_application.director_email }}"/>
                         </div>
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="reference_title">
-                                {{ application_template.strategic_response.reference_title_label }}
-                            </label>
-                            <input class="form__input" id="reference_title" name="reference_title" required type="text" value="{{ job_application.reference_title }}"/>
-                        </div>
-                        <div class="form__input-wrapper--float">
-                            <label class="form__label" for="reference_email">
-                                {{ application_template.strategic_response.reference_email_label }}
-                            </label>
-                            <input class="form__input" id="reference_email" name="reference_email" required type="email" value="{{ job_application.reference_email }}"/>
-                            <br><br>
-                        </div>
+                        <span>{{ application_template.input_error }}</span>
                     </div>
+
+                    {# Reference Info #}
+                     <h3 id="reference" data-c-heading="h3" data-c-margin="bottom(1)" data-c-padding="top(3) bottom(1)">Reference Info (copy + translate)</h3>
+                    <p data-c-margin="bottom(1)">{{ application_template.strategic_response.reference_copy }}</p>
+                    <div data-c-grid-item="base(1of1)" data-c-input="text">
+                        <label for="reference_name">
+                            {{ application_template.strategic_response.reference_name_label }}
+                        </label>
+                        <span>{{ application_template.required_label }}</span>
+                        <div>
+                            <input id="reference_name" name="reference_name" required type="text" value="{{ job_application.reference_name }}"/>
+                        </div>
+                        <span>{{ application_template.input_error }}</span>
+                    </div>
+                    <div data-c-grid-item="base(1of1)" data-c-input="text">
+                        <label for="reference_title">
+                            {{ application_template.strategic_response.reference_title_label }}
+                        </label>
+                        <span>{{ application_template.required_label }}</span>
+                        <div>
+                            <input id="reference_title" name="reference_title" required type="text" value="{{ job_application.reference_title }}"/>
+                        </div>
+                        <span>{{ application_template.input_error }}</span>
+                    </div>
+                    <div data-c-grid-item="base(1of1)" data-c-input="email">
+                        <label for="reference_email">
+                            {{ application_template.strategic_response.reference_email_label }}
+                        </label>
+                        <span>{{ application_template.required_label }}</span>
+                        <div>
+                            <input id="reference_email" name="reference_email" required type="email" value="{{ job_application.reference_email }}"/>
+                        </div>
+                        <span>{{ application_template.input_error }}</span>
+                    </div>
+
+                    {# My Fit #}
+                    <h2 id="fit" data-c-heading="h2" data-c-margin="bottom(1)" data-c-padding="top(3)">{{ application_template.question_title }}</h2>
+                    {% for question in job.job_poster_questions %}
+                        <p data-c-font-weight="bold" data-c-color="c2" data-c-margin="top(1) bottom(.5)">{{ question.question }}</p>
+                        <p data-c-margin="bottom(1)">{{ question.description }}</p>
+                        <div data-c-input="textarea">
+                            <label for="questions[{{ question.id }}]">{{ application_template.question_label }}</label>
+                            <span>{{ application_template.required_label }}</span>
+                            <div>
+                                <textarea id="questions[{{ question.id }}]" name="questions[{{ question.id }}]" required>{% for userAnswer in job_application.job_application_answers %}{% if userAnswer.job_poster_question.id == question.id %}{{ userAnswer.answer }}{% endif %}{% endfor %}</textarea>
+                            </div>
+                            <span>{{ application_template.input_error }}</span>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
-        {% for question in job.job_poster_questions %}
-            <div class="application-post__long-form-question">
-                <span>
-                    {{ question.question }}
-                </span>
-                <p>
-                    {{ question.description }}
-                </p>
-                <div class="form__input-wrapper--float {% for userAnswer in job_application.job_application_answers %}{% if userAnswer.job_poster_question.id == question.id %}active{% endif %}{% endfor %}">
-                    <label class="form__label" for="questions[{{ question.id }}]">
-                        {{ application_template.question_label }}
-                    </label>
-                    <textarea id="questions[{{ question.id }}]" class="form__textarea" name="questions[{{ question.id }}]" required
-                        >{% for userAnswer in job_application.job_application_answers %}{% if userAnswer.job_poster_question.id == question.id %}{{ userAnswer.answer }}{% endif %}{% endfor %}</textarea>
-                </div>
-            </div>
-        {% endfor %}
-        <div class="flex-grid middle application-post__action-wrapper">
-            <div class="box med-1of2">
-                <button class="button--blue light-bg" type="submit" name="submit" value="save_and_quit">
-                    {{ application_template.save_quit_button_label }}
+    </div>
+    <div data-c-container="medium(center)">
+        <hr data-c-hr="thin(gray)" data-c-margin="tb(2)">
+        <div data-c-grid="gutter(all, 1)">
+            <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(left)">
+                <button data-c-button="outline(c1)" data-c-radius="rounded" type="submit" name="submit" value="save_and_return">
+                    {{ application_template.save_return_to_applications }}
                 </button>
             </div>
-            <div class="box med-1of2">
-                <button class="button--blue light-bg" type="submit" name="submit" value="save_and_continue">
+            <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(right)">
+                <button data-c-button="outline(c1)" data-c-radius="rounded" data-c-margin="right(half)" type="submit" name="submit" value="save_and_quit">
+                    {{ application_template.save_quit_button_label }}
+                </button>
+                <button data-c-button="solid(c1)" data-c-radius="rounded" type="submit" name="submit" value="save_and_continue">
                     {{ application_template.save_continue_button_label }}
                 </button>
             </div>

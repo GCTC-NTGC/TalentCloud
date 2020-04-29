@@ -249,9 +249,16 @@ return [
         'physical_office_willing_label' => 'Check for Yes',
         'security_clearance_copy' => 'What is your current security clearance level?',
         'security_clearance_label' => 'Select One',
+        'director_alert' => [
+            'heading' => 'When will your Director and Reference be contacted?',
+            'ask_manager' => 'Ask your Manager and Director for approval to be loaned to another team for a bit to help out.',
+            'screened_in' => 'If your application is screened in, we will send your Director and Reference an email for a reference check.'
+        ],
+        'director_title' => 'Director Information',
         'director_name_label' => 'Director Name',
         'director_title_label' => 'Director Title',
         'director_email_label' => 'Director Email',
+        'reference_title' => 'Reference Information',
         'reference_name_label' => 'Reference Name',
         'reference_title_label' => 'Reference Title',
         'reference_email_label' => 'Reference Email',
