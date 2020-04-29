@@ -471,6 +471,16 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
   };
 
   // MicroReferences
+  const bucketsWithReferences: any = [
+    ResponseReviewStatusId.ReadyForReference,
+    ResponseReviewStatusId.ReadyToAllocate,
+    ResponseReviewStatusId.Allocated,
+  ];
+  const showReferences: boolean =
+    notEmpty(application.application_review?.review_status_id) &&
+    bucketsWithReferences.includes(
+      application.application_review?.review_status_id,
+    );
   // A single modal component is used for both emails, since only one will appear at a time.
   const [showingEmail, setShowingEmail] = useState<"director" | "secondary">(
     "director",
@@ -608,6 +618,76 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
                       {intl.formatMessage(displayMessages.viewProfile)}
                     </a>
                   </p>
+                  {showReferences && (
+                    <>
+                      <p>
+                        <i
+                          className="fa fa-check-circle"
+                          data-c-color="go"
+                          data-c-visibility={
+                            application.application_review?.director_email_sent
+                              ? "visible"
+                              : "invisible"
+                          }
+                          data-c-font-size="small"
+                          data-c-margin="right(.5)"
+                        />
+                        <button
+                          data-c-button="reset"
+                          data-c-font-style="underline"
+                          data-c-font-size="small"
+                          type="button"
+                          onClick={showDirectorEmail}
+                          disabled={sendingDirectorEmail}
+                        >
+                          {sendingDirectorEmail ? (
+                            <FormattedMessage
+                              id="responseScreening.applicant.directorEmailSending"
+                              defaultMessage="Sending email..."
+                            />
+                          ) : (
+                            <FormattedMessage
+                              id="responseScreening.applicant.directorEmailButton"
+                              defaultMessage="Director email."
+                            />
+                          )}
+                        </button>
+                      </p>
+                      <p>
+                        <i
+                          className="fa fa-check-circle"
+                          data-c-color="go"
+                          data-c-visibility={
+                            application.application_review?.reference_email_sent
+                              ? "visible"
+                              : "invisible"
+                          }
+                          data-c-font-size="small"
+                          data-c-margin="right(.5)"
+                        />
+                        <button
+                          data-c-button="reset"
+                          data-c-font-style="underline"
+                          data-c-font-size="small"
+                          type="button"
+                          onClick={showSecondaryEmail}
+                          disabled={sendingSecondaryEmail}
+                        >
+                          {sendingSecondaryEmail ? (
+                            <FormattedMessage
+                              id="responseScreening.applicant.secondaryEmailSending"
+                              defaultMessage="Sending email..."
+                            />
+                          ) : (
+                            <FormattedMessage
+                              id="responseScreening.applicant.secondaryEmailButton"
+                              defaultMessage="Reference email."
+                            />
+                          )}
+                        </button>
+                      </p>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
@@ -668,82 +748,16 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
           </Form>
         )}
       </Formik>
-      <div>
-        <span data-c-margin="right(normal)">
-          <i
-            className="fa fa-check-circle"
-            data-c-color="go"
-            data-c-visibility={
-              application.application_review?.director_email_sent
-                ? "visible"
-                : "invisible"
-            }
-            data-c-font-size="small"
-            data-c-margin="right(.5)"
-          />
-          <button
-            data-c-button="outline(black)"
-            data-c-radius="rounded"
-            type="button"
-            data-c-font-size="small"
-            onClick={showDirectorEmail}
-            disabled={sendingDirectorEmail}
-          >
-            {sendingDirectorEmail ? (
-              <FormattedMessage
-                id="responseScreening.applicant.directorEmailSending"
-                defaultMessage="Sending email..."
-              />
-            ) : (
-              <FormattedMessage
-                id="responseScreening.applicant.directorEmailButton"
-                defaultMessage="Show director email."
-              />
-            )}
-          </button>
-        </span>
-        <span data-c-margin="right(normal)">
-          <i
-            className="fa fa-check-circle"
-            data-c-color="go"
-            data-c-visibility={
-              application.application_review?.reference_email_sent
-                ? "visible"
-                : "invisible"
-            }
-            data-c-font-size="small"
-            data-c-margin="right(.5)"
-          />
-          <button
-            data-c-button="outline(black)"
-            data-c-radius="rounded"
-            type="button"
-            data-c-font-size="small"
-            onClick={showSecondaryEmail}
-            disabled={sendingSecondaryEmail}
-          >
-            {sendingSecondaryEmail ? (
-              <FormattedMessage
-                id="responseScreening.applicant.secondaryEmailSending"
-                defaultMessage="Sending email..."
-              />
-            ) : (
-              <FormattedMessage
-                id="responseScreening.applicant.secondaryEmailButton"
-                defaultMessage="Show reference email."
-              />
-            )}
-          </button>
-        </span>
-      </div>
-      <ReferenceEmailModal
-        id={`referenceEmailModal_application${application.id}`}
-        parent={modalParentRef.current}
-        visible={emailModalVisible}
-        email={emailOptions[showingEmail]}
-        onConfirm={onConfirm}
-        onCancel={hideEmail}
-      />
+      {showReferences && (
+        <ReferenceEmailModal
+          id={`referenceEmailModal_application${application.id}`}
+          parent={modalParentRef.current}
+          visible={emailModalVisible}
+          email={emailOptions[showingEmail]}
+          onConfirm={onConfirm}
+          onCancel={hideEmail}
+        />
+      )}
     </div>
   );
 };
