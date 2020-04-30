@@ -38,6 +38,12 @@ class ApplicationController extends Controller
      */
     public function show(JobApplication $application)
     {
+        $response_poster = false;
+
+        if ($application->job_poster->isInStrategicResponseDepartment()) {
+            $response_poster = true;
+        }
+
         $essential_criteria = $application->job_poster->criteria->filter(function ($value, $key) {
             return $value->criteria_type->name == 'essential'
                 && $value->skill->skill_type->name == 'hard';
@@ -51,7 +57,7 @@ class ApplicationController extends Controller
         $view = WhichPortal::isManagerPortal() || WhichPortal::isHrPortal() ?
             'manager/application_post' : 'applicant/application_preview';
 
-        $application_view = $application->job_poster->isInStrategicResponseDepartment()
+        $application_view = $response_poster
             ? 'applicant/strategic_response_application/application_view/application_layout'
             : 'common/application/view/view_layout';
 
@@ -61,7 +67,8 @@ class ApplicationController extends Controller
         }
 
 
-        // If the application status is draft then get data through the applicant model. Else, grab the data from the application itself.
+        // If the application status is draft then get data through the applicant model.
+        // Else, grab the data from the application itself.
         if ($application->isDraft()) {
             $source = $application->applicant;
         } else {
@@ -70,7 +77,7 @@ class ApplicationController extends Controller
 
         $degrees = $source->degrees;
         $courses = $source->courses;
-        $work_experience = $source->work_experience;
+        $work_experiences = $source->work_experiences;
         $skill_declarations = $source->skill_declarations;
         $references = $source->references;
         $work_samples = $source->work_samples;
@@ -101,11 +108,12 @@ class ApplicationController extends Controller
                 'job_application' => $application,
                 'degrees' => $degrees,
                 'courses' => $courses,
-                'work_experience' => $work_experience,
+                'work_experiences' => $work_experiences,
                 'skill_declarations' => $skill_declarations,
                 'references' => $references,
                 'work_samples' => $work_samples,
                 'review_statuses' => ReviewStatus::all(),
+                'response_poster' => $response_poster,
             ]
         );
     }

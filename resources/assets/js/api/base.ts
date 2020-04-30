@@ -8,8 +8,8 @@ export interface ApiResponse {
   data: ResponseData;
 }
 
-export const baseUrl = (): string => {
-  return `/api`;
+export const baseUrl = (version = 1): string => {
+  return `/api/v${version}`;
 };
 
 export const parseDateStrict = (date: string): Date => dayjs(date).toDate();

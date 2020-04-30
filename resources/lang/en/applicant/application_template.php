@@ -12,7 +12,8 @@ return [
     'title' => 'Submit an Application',
     'view_title' => 'Application',
     'job_context_copy' => 'You are applying for:',
-    'save_return_button_label' => 'Save & Go Back',
+    'save_return_button_label' => 'Save & Go Back to Step :step_id',
+    'save_return_to_applications' => 'Save & Go to My Applications',
     'save_quit_button_label' => 'Save & Quit',
     'save_continue_button_label' => 'Save & Continue',
     'save_button_working' => 'Saving...',
@@ -113,9 +114,9 @@ return [
     'veterans_label' => 'Select One',
     /* Step 02 */
     'step_02_title' => 'Talent Cloud | Applicant: Apply Now - Step 2',
+    'step_02_requirement_label' => 'Required Experience',
     'experience' => [
         'title' => 'My Experience',
-        'step_02_requirement_label' => 'Education Requirements',
         'description' => 'The job you’re about to apply to requires the following minimum education or experience. You can’t be considered for this job unless you have this. Even if you’re really awesome. Managers are not allowed to hire you for this job in this classification without this education or experience.',
     ],
     'experience_section' => [
@@ -183,11 +184,11 @@ return [
         'experience' => [
             'requirement_label' => 'Experience required for this position:',
             'degree_label' => 'My Diplomas / Degrees',
-            'null_degree_copy' => 'You have no diplomas or degrees added to your profile.',
+            'null_degree_copy' => 'You have no diplomas or degrees added to your application.',
             'course_label' => 'My Courses / Certifications',
-            'null_course_copy' => 'You have no courses or certifications added to your profile.',
+            'null_course_copy' => 'You have no courses or certifications added to your application.',
             'work_label' => 'My Equivalent Experience',
-            'null_work_copy' => 'You have no equivalent experience added to your profile.',
+            'null_work_copy' => 'You have no equivalent experience added to your application.',
         ],
         'section_03_title' => 'Skills I Need to Have',
         'section_04_title' => 'Skills That Are Nice to Have',

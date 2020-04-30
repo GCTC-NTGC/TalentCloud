@@ -49,7 +49,7 @@
             <label for="{{ id_prefix }}relativeEndDate">{{ relative_template.project.end_date_label }}</label>
             <span>{{ relative_template.required_label }}</span>
             <div>
-                <input id="{{ id_prefix }}relativeEndDate" type="date" placeholder="yyyy-mm-dd" required name="{{ name_prefix }}[end_date]" value="{{ relative.end_date|date("Y-m-d") }}"/>
+                <input id="{{ id_prefix }}relativeEndDate" type="date" placeholder="yyyy-mm-dd" required name="{{ name_prefix }}[end_date]" {% if template %}disabled{% endif %} value="{{ relative.end_date|date("Y-m-d") }}"/>
             </div>
             <span>{{ relative_template.input_error }}</span>
         </div>

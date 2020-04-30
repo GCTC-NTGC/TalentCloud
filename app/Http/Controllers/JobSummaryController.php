@@ -70,8 +70,10 @@ class JobSummaryController extends Controller
         $portal = '';
         if (WhichPortal::isHrPortal()) {
             $portal = 'hr';
+            $menuLang = Lang::get('hr_advisor/menu');
         } elseif (WhichPortal::isManagerPortal()) {
             $portal = 'manager';
+            $menuLang = Lang::get('manager/menu');
         }
 
         $transitionManager = new JobStatusTransitionManager();
@@ -110,6 +112,7 @@ class JobSummaryController extends Controller
         $data = [
             // Localized strings.
             'summary' => $summaryLang,
+            'menu' => $menuLang,
             'job_status' => $status,
             'job_status_description' => $status_description,
             'is_claimed' => $jobIsClaimed,

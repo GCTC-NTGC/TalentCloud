@@ -1,3 +1,4 @@
+/* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
 import { defineMessages, MessageDescriptor } from "react-intl";
 import {
   AssessmentTypeId,
@@ -16,6 +17,7 @@ import {
   TravelRequirementId,
   ClassificationId,
   LocationId,
+  ResponseScreeningBuckets as ResponseBuckets,
 } from "./lookupConstants";
 import { getOrThrowError } from "../helpers/queries";
 
@@ -992,3 +994,142 @@ export const specificLocationOption = (locationId: string): MessageDescriptor =>
     locationId,
     "Invalid LocationId",
   );
+
+export const ResponseScreeningBuckets = {
+  [ResponseBuckets.Consideration]: defineMessages({
+    title: {
+      id: "responseScreening.buckets.consideration.title",
+      defaultMessage: "Employees Under Consideration",
+      description:
+        "Label for the 'Under Consideration' response screening bucket.",
+    },
+    description: {
+      id: "responseScreening.buckets.consideration.description",
+      defaultMessage:
+        "Employees in this category have volunteered to be placed in a team with a critical needs shortage. Employees in this category are: Pending initial application review ({iconReceived}), indicating that a submission has been received, but it has not yet been assessed by a member of the review team; Ready for reference checks and home-department approval ({iconReady}), indicating that the employee is heading to the Ready to Allocate category if references and approval are in order; and Further Assessment Required ({iconAssessment}), indicating that the review team is unsure of their qualifications for this role and is undertaking further assessment.",
+      description:
+        "Descriptive text for the 'Under Consideration' response screening bucket. Takes three icons (iconReceived, iconReady, and iconAssessment) as input.",
+    },
+  }),
+  [ResponseBuckets.ReadyToAllocate]: defineMessages({
+    title: {
+      id: "responseScreening.buckets.readyToAllocate.title",
+      defaultMessage: "Ready to Allocate",
+      description:
+        "Label for the 'Ready to Allocate' response screening bucket.",
+    },
+    description: {
+      id: "responseScreening.buckets.readyToAllocate.description",
+      defaultMessage:
+        "Employees in this category have the necessary skills for this stream of work, have successfully completed reference checks and have been given preliminary authorization to participate by a member of their management team. They are currently working in their substantive position, awaiting a request from a department with a critical talent gap.",
+      description:
+        "Descriptive text for the 'Ready to Allocate' response screening bucket.",
+    },
+  }),
+  [ResponseBuckets.Allocated]: defineMessages({
+    title: {
+      id: "responseScreening.buckets.allocated.title",
+      defaultMessage: "Allocated",
+      description: "Label for the 'Allocated' response screening bucket.",
+    },
+    description: {
+      id: "responseScreening.buckets.allocated.description",
+      defaultMessage:
+        'Employees in this category have been allocated to a department. Their name has been removed from all other GC Reserve processes to which they have applied (and will appear in those processes under "Not Currently Available".) Following the completion of an allocation, employees may elect to be placed back in the Ready to Allocate category, should they be needed again.',
+      description:
+        "Descriptive text for the 'Allocated' response screening bucket.",
+    },
+  }),
+  [ResponseBuckets.Unavailable]: defineMessages({
+    title: {
+      id: "responseScreening.buckets.unavailable.title",
+      defaultMessage: "Currently Unavailable",
+      description: "Label for the 'Unavailable' response screening bucket.",
+    },
+    description: {
+      id: "responseScreening.buckets.unavailable.description",
+      defaultMessage:
+        "Employees in this stream have been allocated to a department in need or have temporarily removed their names from consideration for a specific period of time (e.g. illness, family care needs), and wish to be considered for allocation at a later date. Employees in this category have been qualified for this talent stream, and will be placed back into the Ready to Allocate when they become available again. (If an employee permanently withdraws their name, their submission will be removed from the GC Talent Reserve.)",
+      description:
+        "Descriptive text for the 'Currently Unavailable' response screening bucket.",
+    },
+  }),
+  [ResponseBuckets.DoesNotQualify]: defineMessages({
+    title: {
+      id: "responseScreening.buckets.doesNotQualify.title",
+      defaultMessage: "Does Not Qualify",
+      description:
+        "Label for the 'Does Not Qualify' response screening bucket.",
+    },
+    description: {
+      id: "responseScreening.buckets.doesNotQualify.description",
+      defaultMessage:
+        "Employees in this category have volunteered their names, but a review of their application and/or reference checks has led the review team to conclude that the employee would not be an asset to a department needing to fill a critical talent gap in this field of work. This determination is, in no way, reflected in the employee's performance status with their home department, and does not affect their evaluation for other GC Reserve talent streams to which they may have applied.",
+      description:
+        "Descriptive text for the 'Does Not Qualify' response screening bucket.",
+    },
+  }),
+};
+
+export const ResponseReviewStatusMessages = defineMessages({
+  screened_out: {
+    id: "responseReviewStatus.screenedOut",
+    defaultMessage: "Does Not Qualify",
+    description: "Select option text for the 'Does Not Qualify' review status.",
+  },
+  ready_for_reference: {
+    id: "responseReviewStatus.readyForReference",
+    defaultMessage: "Ready for Reference Check",
+    description:
+      "Select option text for the 'Ready for Reference Check' review status.",
+  },
+  ready_to_allocate: {
+    id: "responseReviewStatus.readyToAllocate",
+    defaultMessage: "Ready to Allocate",
+    description:
+      "Select option text for the 'Ready to Allocate' review status.",
+  },
+  assessment_required: {
+    id: "responseReviewStatus.assessmentRequired",
+    defaultMessage: "Further Assessment Required",
+    description:
+      "Select option text for the 'Further Assessment Required' review status.",
+  },
+  allocated: {
+    id: "responseReviewStatus.allocated",
+    defaultMessage: "Allocated",
+    description: "Select option text for the 'Allocated' review status.",
+  },
+  not_available: {
+    id: "responseReviewStatus.notAvailable",
+    defaultMessage: "Not Available",
+    description: "Select option text for the 'Not Available' review status.",
+  },
+});
+
+export const ResponseReviewStatuses = {
+  assessment_required: {
+    id: 6,
+    name: ResponseReviewStatusMessages.assessment_required,
+  },
+  ready_for_reference: {
+    id: 4,
+    name: ResponseReviewStatusMessages.ready_for_reference,
+  },
+  ready_to_allocate: {
+    id: 5,
+    name: ResponseReviewStatusMessages.ready_to_allocate,
+  },
+  allocated: {
+    id: 7,
+    name: ResponseReviewStatusMessages.allocated,
+  },
+  not_available: {
+    id: 8,
+    name: ResponseReviewStatusMessages.not_available,
+  },
+  screened_out: {
+    id: 1,
+    name: ResponseReviewStatusMessages.screened_out,
+  },
+};

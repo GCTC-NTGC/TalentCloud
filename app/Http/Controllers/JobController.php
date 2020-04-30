@@ -2,12 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\JobApplication;
-use Carbon\Carbon;
 use App\Models\JobPoster;
 use App\Models\JobPosterQuestion;
 use App\Models\Lookup\ApplicationStatus;
@@ -16,11 +12,15 @@ use App\Models\Lookup\JobPosterStatus;
 use App\Models\Lookup\VeteranStatus;
 use App\Models\Manager;
 use App\Services\JobPosterDefaultQuestions;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Services\Validation\JobPosterValidator;
+use Carbon\Carbon;
 use Facades\App\Services\WhichPortal;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class JobController extends Controller
 {
@@ -107,7 +107,7 @@ class JobController extends Controller
     {
         $hrAdvisor = $request->user()->hr_advisor;
         return view('hr_advisor/job_index', [
-            'title' => Lang::get('hr_advisor/job_index.title'),
+            'jobs_l10n' => Lang::get('hr_advisor/job_index'),
             'hr_advisor_id' => $hrAdvisor->id
         ]);
     }
@@ -155,33 +155,19 @@ class JobController extends Controller
         }
 
         // TODO: replace route('manager.show',manager.id) in templates with link using slug.
-        $essential_hard = $jobPoster->criteria->filter(
+        $essential = $jobPoster->criteria->filter(
             function ($value, $key) {
-                return $value->criteria_type->name == 'essential' &&
-                    $value->skill->skill_type->name == 'hard';
+                return $value->criteria_type->name == 'essential';
             }
-        )->sortBy('skill.name');
-        $essential_soft = $jobPoster->criteria->filter(
+        )->sortBy('id');
+        $asset = $jobPoster->criteria->filter(
             function ($value, $key) {
-                return $value->criteria_type->name == 'essential' &&
-                    $value->skill->skill_type->name == 'soft';
+                return $value->criteria_type->name == 'asset';
             }
-        )->sortBy('skill.name');
-        $asset_hard = $jobPoster->criteria->filter(
-            function ($value, $key) {
-                return $value->criteria_type->name == 'asset' &&
-                    $value->skill->skill_type->name == 'hard';
-            }
-        )->sortBy('skill.name');
-        $asset_soft = $jobPoster->criteria->filter(
-            function ($value, $key) {
-                return $value->criteria_type->name == 'asset' &&
-                    $value->skill->skill_type->name == 'soft';
-            }
-        )->sortBy('skill.name');
+        )->sortBy('id');
         $criteria = [
-            'essential' => $essential_hard->merge($essential_soft),
-            'asset' => $asset_hard->merge($asset_soft),
+            'essential' => $essential,
+            'asset' => $asset,
         ];
 
         $jobLang = Lang::get('applicant/job_post');

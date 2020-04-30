@@ -78,7 +78,7 @@ const deleteEditedIfIdentical = (
     hasKey(editedAssessments, id) &&
     isEqual(editedAssessments[id], assessment)
   ) {
-    return deleteProperty<Assessment>(editedAssessments, id);
+    return deleteProperty(editedAssessments, id);
   }
   return editedAssessments;
 };
@@ -209,11 +209,8 @@ export const assessmentReducer = (
       // ...For now, I don't know of any situations where we wouldn't want both.
       return {
         ...state,
-        assessments: deleteProperty<Assessment>(
-          state.assessments,
-          action.payload.id,
-        ),
-        editedAssessments: deleteProperty<Assessment>(
+        assessments: deleteProperty(state.assessments, action.payload.id),
+        editedAssessments: deleteProperty(
           state.editedAssessments,
           action.payload.id,
         ),
@@ -247,7 +244,7 @@ export const assessmentReducer = (
     case DELETE_TEMP_ASSESSMENT:
       return {
         ...state,
-        tempAssessments: deleteProperty<TempAssessment>(
+        tempAssessments: deleteProperty(
           state.tempAssessments,
           action.payload.id,
         ),
@@ -267,7 +264,7 @@ export const assessmentReducer = (
           ...state.assessments,
           [action.payload.assessment.id]: action.payload.assessment,
         },
-        tempAssessmentSaving: deleteProperty<boolean>(
+        tempAssessmentSaving: deleteProperty(
           state.tempAssessmentSaving,
           action.payload.oldAssessment.id,
         ),
@@ -290,7 +287,7 @@ export const assessmentReducer = (
                   action.payload.assessment.assessment_type_id,
               },
             },
-        tempAssessments: deleteProperty<TempAssessment>(
+        tempAssessments: deleteProperty(
           state.tempAssessments,
           action.payload.oldAssessment.id,
         ),
