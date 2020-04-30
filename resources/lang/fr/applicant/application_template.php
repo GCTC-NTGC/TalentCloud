@@ -290,5 +290,6 @@ return [
         'complete_copy_1' => 'Vous êtes génial.',
         'complete_copy_2' => 'Merci d’avoir soumis votre candidature. L’équipe de la Réserve de talents du GC vous contactera dans quelques jours pour vous informer des prochaines étapes.',
         'complete_return_label' => 'Retour à la page d\'accueil',
+        'no_info' => 'Aucun critère supplémentaire requis.'
     ]
 ];
