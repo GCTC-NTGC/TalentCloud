@@ -270,9 +270,12 @@ return [
             'heading' =>  'These skills are what departments need right now.',
             'context' => 'If you want to be of genuine help, <strong>these are skills you must already have.</strong>'
         ],
-        'essential_context_1' => 'Thanks so much for raising your hand in this time of need, you really are amazing for applying.',
-        'essential_context_2' => "Placements are temporary and vary in range. For example, if you're selected you might be placed within a different team; one that might be under pressure or tight timelines to deliver support for Canadians. Some may last a couple days where others may last a couple of weeks. So, if you're ready to make a difference let's get started or feel to look into other calls for talent.",
-        'asset_context' => 'This isn\'t required for the job you might be placed in. You can learn it as you go. But it would be great if you already had the skill(s) listed below.',
+        'essential_context_1' => ' Thanks for offering to help out. These skills are what departments need right now.',
+        'essential_context_2' => "You'll be dropped into a different team - one that might be under pressure or tight timelines to deliver support for Canadians. If you're strong in these skills and you're the kind of person who steps up, you're a right fit for this. (If you're not strong in these skills but want to help, check out some of the other calls for talent.)",
+        'asset_alert' => [
+            'heading' => 'These skills would be nice to have.',
+            'context' => 'This isn\'t required for the job you might be placed in. You can learn it as you go. But it would be great if you already had the skill(s) listed below.',
+        ],
         'skill_prompt' => 'Share a few high level bullet points about your work experience.',
         'skill_placeholder' => 'Tell us a bit about your skills, like where you worked, what your role was, and what you delivered.',
         'preview_security_clearance_label' => 'Security Clearance',

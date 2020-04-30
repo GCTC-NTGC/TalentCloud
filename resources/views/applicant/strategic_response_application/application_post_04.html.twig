@@ -6,25 +6,65 @@
 ============================================================================= #}
 {% extends "response/response-base" %}
 {% block title %}
-    {{ application_template.step_04_title }}
+	{{ application_template.step_04_title }}
 {% endblock %}
 {% block body %}
-    {% include "applicant/strategic_response_application/common/tracker-ajax" %}
-    <section class="application-post__skills-layout">
-        <div class="container--copy">
-            <h2>
-                {{ application_template.asset_title }}
-            </h2>
-            <p>
-                {{ application_template.strategic_response.asset_context }}
-            </p>
+	<div data-clone>
+        {% include "applicant/strategic_response_application/common/tracker-ajax" %}
+        <div data-c-border="bottom(thin, solid, gray)" data-c-padding="bottom(3)">
+            <div data-c-container="large(center)">
+                <div data-c-grid="gutter(all, 2)">
+                    <div data-c-grid-item="tl(1of4)">
+                        {% include "applicant/strategic_response_application/common/sidebar" %}
+                    </div>
+                    <div data-c-grid-item="tl(3of4)">
+                        <div data-c-container="medium(left)">
+                            <h2 data-c-heading="h2" data-c-padding="top(3)" data-c-margin="bottom(1)">
+                                {{ application_template.asset_title }}
+                            </h2>
+                            <div data-c-margin="top(2) bottom(1)" data-c-alert="warning" data-c-radius="rounded" role="alert">
+                                <div data-c-padding="all(half)">
+                                    <p data-c-font-weight="bold" data-c-margin="bottom(half)">
+                                        <i class="fa fa-exclamation-circle" data-c-padding="right(quarter)" aria-hidden="true"></i>
+                                        {{ application_template.strategic_response.asset_alert.heading }}
+                                    </p>
+                                    <p data-c-margin="bottom(half)">{{ application_template.strategic_response.asset_alert.context | raw }}</p>
+                                </div>
+                            </div>
+                            {% include "applicant/strategic_response_application/common/skill-layout" %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-c-container="medium(center)">
+                <hr data-c-hr="thin(gray)" data-c-margin="tb(2)">
+                <div data-c-grid="gutter(all, 1)">
+                    <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">
+                        <!-- Can we make sure this button functions as intended? -->
+                        <button class="ajax-submit-all" data-c-button="outline(c1)" data-c-radius="rounded" type="button" name="submit" value="save_and_return" data-on-success-url="{{ route('job.application.edit.2', job) }}">
+                            <span class="submit-default">{{ application_template.save_return_button_label|replace({":step_id": application_step - 1}) }}</span>
+                            <span class="submit-working">{{ application_template.save_button_working }}</span>
+                        </button>
+                    </div>
+                    <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(right)">
+                        <button class="ajax-submit-all" data-c-button="outline(c1)" data-c-margin="right(half)" data-c-radius="rounded" type="button" name="submit" value="save_and_quit" data-on-success-url="{{ route('applications.index') }}">
+                            <span class="submit-default">{{ application_template.save_quit_button_label }}</span>
+                            <span class="submit-working">{{ application_template.save_button_working }}</span>
+                        </button>
+                        <button class="ajax-submit-all" data-c-button="solid(c1)" data-c-radius="rounded" type="button" name="submit" value="save_and_continue" data-on-success-url="{{ route('job.application.edit.4', job) }}">
+                            <span class="submit-default">{{ application_template.save_continue_button_label }}</span>
+                            <span class="submit-working">{{ application_template.save_button_working }}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-        {% include "applicant/strategic_response_application/common/skill-layout" %}
-    </section>
-    {# Modals #}
-    {% include "common/modal" with {"page": application} %}
-    {% include "common/modals/skills_need_help" %}
+        {# Modals #}
+        {% include "common/modal" with {"page": application} %}
+        {% include "common/modals/skills_need_help" %}
+    </div>
 {% endblock %}
 {% block scripts %}
-    <script async defer src="{{ mix('/js/SkillsWordCounter.js') }}"></script>
+	<script async defer src="{{ mix('/js/SkillsWordCounter.js') }}"></script>
 {% endblock %}
+
