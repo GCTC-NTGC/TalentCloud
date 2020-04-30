@@ -99,18 +99,7 @@
                 <div data-c-grid-item="base(3of4) tl(5of6)">
             {% endif %}
                 <div data-c-padding="tb(1)">
-                    <!-- Title -->
-                    {% if locale == "profile" and skill_declaration == false %}
-                        <p class="skill-title" data-c-font-weight="bold" data-c-padding="left(1)">{{ skill_template.new_skill_title }}</p>
-                    {% elseif locale == "profile" and skill_declaration == true %}
-                        <p data-c-font-weight="bold" data-c-padding="left(1)">{{ skill_declaration.skill.name }}</p>
-                    {% elseif locale == "application" %}
-                        <p data-c-font-weight="bold">{{ criterion.skill.name }}</p>
-                        <p data-c-margin="top(.25)" data-c-colour="c1">{{ skill_template.level_required }} {{ skill_template.skill_levels[criterion.skill.skill_type.name][criterion.skill_level.name]|title }}</p>
-                    {% elseif locale == "application-view" %}
-                        <p data-c-font-weight="bold">{{ criterion.skill.name }}</p>
-                        <p data-c-margin="top(.25)" data-c-colour="c1">{{ skill_template.level_required }} {{ skill_template.skill_levels[criterion.skill.skill_type.name][criterion.skill_level.name]|title }}</p>
-                    {% endif %}
+                    <p data-c-font-weight="bold">{{ criterion.skill.name }}</p>
                 </div>
             </div>
         </div>
