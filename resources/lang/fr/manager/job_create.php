@@ -90,7 +90,7 @@ return [
 
         ]
     ],
-    /* Localizations for Default questions fuction in controller */
+    /* Localizations for Default questions function in controller */
     'questions' => [
         '00' => 'Pourquoi êtes-vous intéressé par ce travail?',
         '01' => 'Pourquoi pensez-vous que vous serez un bon candidat pour ce poste?'
@@ -101,7 +101,6 @@ return [
         'Quel est votre lieu de travail actuel? (Ville, Province)',
         'Quels sont votre ministère d\'attache et votre direction générale? (Ministère, Direction générale)',
         'Pouvez-vous travailler à temps plein? Si ce n’est pas le cas, veuillez indiquer votre disponibilité.',
-        'L\'équipe que vous aidez devra-t-elle fournir des mesures d\'adaptation supplémentaires pour que vous puissiez appliquer vos compétences au travail requis?',
         'Avez-vous de l\'expérience ou des compétences (autres que celles requises pour ce poste) qui peuvent être un atout à l\'équipe dans les circonstances actuelles?',
     ]
 ];
