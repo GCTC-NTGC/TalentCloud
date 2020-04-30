@@ -84,6 +84,14 @@ Route::group(
             Route::view('response-reg-1', 'response/registration/account')->middleware('localOnly')->name('responseReg1');
             /* Response Registration Step 02 */
             Route::view('response-reg-2', 'response/registration/profile')->middleware('localOnly')->name('responseReg2');
+            /* Response Profile Information */
+            Route::view('response-profile', 'response/profile/index')->middleware('localOnly')->name('responseProfile');
+            /* Response Profile Areas of Expertise */
+            Route::view('response-profile-aoe', 'response/profile/aoe')->middleware('localOnly')->name('responseProfileAOE');
+            /* Response Profile Areas of Interest */
+            Route::view('response-profile-aoi', 'response/profile/aoi')->middleware('localOnly')->name('responseProfileAOI');
+            /* Response Application Profile Revision */
+            Route::view('response-application-profile-review', 'response/application/step0')->middleware('localOnly')->name('responseApplicationProfileReview');
 
             Route::view('response/api-test', 'applicant/str_api_test')->middleware('localOnly');
         });
