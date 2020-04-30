@@ -267,10 +267,14 @@ return [
         'reference_copy' => 'Quels sont le nom et l’adresse courriel d’un autre répondant qui peut confirmer votre ensemble de compétences? (De préférence un superviseur actuel ou récent du gouvernement du Canada.)',
         'experience_title' => 'Mon éducation',
         'experience_description' => 'Ajoutez les études si elles sont pertinentes par rapport aux compétences requises pour cet emploi.',
-        'essential_context_1' => 'Nous vous remercions d’avoir répondu à la demande et de proposer de nous aider. Vous êtes formidable. Ces compétences sont ce dont les ministères ont besoin en ce moment. <strong>Super important</strong> : si vous voulez vraiment aider, <strong>il faut absolument que vous possédiez ces compétences</strong>.',
-        'essential_context_2' => 'Vous serez placé dans une équipe différente, soit une équipe qui devra travailler sous pression ou respecter des délais serrés pour apporter son soutien aux Canadiens. Si vous avez de solides compétences dans ces domaines et que vous êtes le genre de personne qui s’engage à fond, vous êtes la personne pour le poste. (Si vous ne possédez pas de solides compétences dans ces domaines, mais que vous voulez tout de même aider, consultez les autres demandes de compétences).',
+        'essential_alert' => [
+            'heading' =>  'These skills are what departments need right now.',
+            'context' => 'If you want to be of genuine help, <strong>these are skills you must already have.</strong>'
+        ],
+        'essential_context_1' => 'Thanks so much for raising your hand in this time of need, you really are amazing for applying.',
+        'essential_context_2' => "Placements are temporary and vary in range. For example, if you're selected you might be placed within a different team; one that might be under pressure or tight timelines to deliver support for Canadians. Some may last a couple days where others may last a couple of weeks. So, if you're ready to make a difference let's get started or feel to look into other calls for talent.",
         'asset_context' => 'Cela n’est pas nécessaire pour l’emploi que vous pourriez occuper. Vous pouvez l’apprendre au fur et à mesure. Mais ce serait bien si vous possédiez déjà la ou les compétences énumérées ci-dessous.',
-        'skill_prompt' => 'Communiquez quelques points de haut niveau sur votre expérience professionnelle :',
+        'skill_prompt' => 'Communiquez quelques points de haut niveau sur votre expérience professionnelle.',
         'skill_placeholder' => 'Parlez-nous brièvement de vos compétences, par exemple où vous les avez acquises et dans quel rôle vous les avez acquises, et de ce que vous avez accompli.',
         'preview_security_clearance_label' => 'Niveau d’autorisation de sécurité',
         'preview_physical_office_yes' => '<strong>Oui</strong>, je suis prêt à venir travailler dans un bureau physique.',
