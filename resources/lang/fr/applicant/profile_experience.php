@@ -15,7 +15,7 @@ return [
     'account_settings_title' => 'Modifiez les paramètres de votre compte.',
     'account_settings_label' => 'Paramètres du compte',
     'required_label' => 'Requis',
-    'input_error' => 'Cette entrée comporte une erreur.',
+    'input_error' => 'Cette entrée contient une erreur.',
     "experience_section" => [
         "experience_title" => "Nuage de talents | Candidat : Profil - Mon expérience",
         "section_degree_title" => "Mes diplômes",

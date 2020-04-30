@@ -13,7 +13,7 @@ return [
     'type_label' => 'Type',
     'accordion_helper' => 'Cliquez pour modifier...',
     'required_label' => 'Requis',
-    'input_error' => 'Cette entrée comporte une erreur.',
+    'input_error' => 'Cette entrée contient une erreur.',
     'types' => [
         'diploma' => 'Diplôme',
         'bachelors' => 'Baccalauréat',
