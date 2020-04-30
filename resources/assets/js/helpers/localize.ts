@@ -13,7 +13,10 @@ export function localizeField<T>(
   model: T,
   field: TranslatableKeys<T>,
 ): string | null {
-  return model[field][locale];
+  if (model[field] && model[field][locale]) {
+    return model[field][locale];
+  }
+  return null;
 }
 export function localizeFieldNonNull<T>(
   locale: Locales,
