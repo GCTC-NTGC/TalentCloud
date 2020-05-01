@@ -122,55 +122,48 @@ return [
                 ],
                 [
                     'id' => 'q15',
-                    'question' => 'I have in-demand skills but I need accomodation. Can I still apply?',
-                    'answers' => [
-                        'Yes! We have a field on the application form for you to let us know about any accommodation you may need so that we can make sure you’re able to contribute effectively in your placement.'
-                    ]
-                ],
-                [
-                    'id' => 'q16',
                     'question' => 'I have skills that I don’t use in my current job. But I think they could be useful for filling a critical need area. What should I do?',
                     'answers' => [
                         'You should apply. Even if you’re not using an in-demand skill in your current role, if you have demonstrable previous experience using these skills you should indicate them on your application. We have a question during the application dedicated to exactly this!'
                     ]
                 ],
                 [
-                    'id' => 'q17',
+                    'id' => 'q16',
                     'question' => 'I don’t have the skills that you have listed here but I have other skills and I want to help!',
                     'answers' => [
                         'Thank you, and we’d love your help. We will continue to add new categories of jobs with skill shortages, so please do check the site every 2-3 days for updates.'
                     ]
                 ],
                 [
-                    'id' => 'q18',
+                    'id' => 'q17',
                     'question' => 'What if something changes after I apply?',
                     'answers' => [
                         'It’s possible that something in your personal or work life could change after you submit your application. If for any reason you are no longer able to move to a temporary role, <a href="mailto::email_address" title="Email the GC Talent Reserve.">email us</a> to let us know. We can either permanently or temporarily remove your application, depending on what you ask us to do.'
                     ]
                 ],
                 [
-                    'id' => 'q19',
+                    'id' => 'q18',
                     'question' => 'How will my participation in this effort be acknowledged?',
                     'answers' => [
                         'We’re still figuring out the details, but we are big believers in recognizing people for doing good things!'
                     ]
                 ],
                 [
-                    'id' => 'q20',
+                    'id' => 'q19',
                     'question' => 'What if I am sent to a team I have trouble working with?',
                     'answers' => [
                         'Challenging times call for flexibility, and disruption can cause stress for you and the team you may get sent to help. Remember, you’re there to be an asset to a team with a critical need. A little period of adjustment beginning is to be expected, so allow yourself and your team time to get used to each other. But if the nature of the working relationship ends up in a place where you’re not able to be useful, we will work with your home and host departments to find a resolution. If you find that you’re experiencing stress in your new position and need support, make sure to also reach out to the support services in your home department even if you’re temporarily helping somewhere else.'
                     ]
                 ],
                 [
-                    'id' => 'q21',
+                    'id' => 'q20',
                     'question' => 'My department needs help in a critical need area not listed here. Can the GC Reserve Portal help?',
                     'answers' => [
                         'At the moment, the GC Reserve Portal is only available for the digital and technology community. If your department has identified a current or anticipated talent shortage in a critical area pertaining to digital or technology needs, please <a href="mailto::email_address" title="Email the GC Talent Reserve.">get in touch with us</a> to request some extra help. If you would like to use this tool for another area (outside of digital or technology needs) please get in touch with your head of community and <a href="mailto::email_address" title="Email the GC Talent Reserve.">let us know</a>.'
                     ]
                 ],
                 [
-                    'id' => 'q22',
+                    'id' => 'q21',
                     'question' => 'Can other people use GC Talent Reserve?',
                     'answers' => [
                         'We have made the code for GC Talent Reserve open source, as it could be useful to other federal and international jurisdictions looking for similar functionality in the face of the current challenge.'
