@@ -12,7 +12,7 @@ return [
     "new_course_label" => "Nouveau cours ou certificat",
     'accordion_helper' => 'Cliquez pour modifier...',
     'required_label' => 'Requis',
-    'input_error' => 'Cette entrée comporte une erreur.',
+    'input_error' => 'Cette entrée contient une erreur.',
     "name_label" => "Nom du cours ou de la certification",
     "institution_label" => "Institution",
     "status_label" => "Statut",

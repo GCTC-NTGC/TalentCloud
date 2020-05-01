@@ -8,6 +8,7 @@ return [
      * Route: /manager/
      * View: views/manager/home.html.twig
      */
+    'home_title' => 'Talent Cloud | Manager: Home',
     'hero' => [
         'heading' => 'Talent Cloud',
         'heading_alt' => 'Canadian Maple Leaf',

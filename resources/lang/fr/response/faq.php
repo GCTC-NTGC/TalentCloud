@@ -123,55 +123,48 @@ return [
                 ],
                 [
                     'id' => 'q15',
-                    'question' => 'Je possède des compétences recherchées, mais j’ai besoin de mesures d’adaptation. Puis-je tout de même me porter volontaire?',
-                    'answers' => [
-                        'Oui. Le formulaire de candidature comprend un champ qui vous permet de nous indiquer les mesures d’adaptation dont vous avez besoin. Nous nous assurerons ainsi que vous pouvez contribuer efficacement au travail pendant votre déploiement.'
-                    ]
-                ],
-                [
-                    'id' => 'q16',
                     'question' => 'Je possède des compétences que je n’utilise pas dans le cadre de mon emploi actuel. Je crois toutefois qu’elles pourraient être utiles pour travailler dans un secteur où les besoins sont urgents. Que dois-je faire?',
                     'answers' => [
                         'Vous devriez vous porter volontaire. Même si vous n’utilisez pas de compétences recherchées dans votre rôle actuel, vous devriez indiquer que vous les possédez dans votre formulaire de candidature, si vous avez une expérience préalable et démontrable de leur utilisation. Le formulaire de candidature comprend une question sur ce sujet précis!'
                     ]
                 ],
                 [
-                    'id' => 'q17',
+                    'id' => 'q16',
                     'question' => 'Je ne possède pas les compétences que vous avez énumérées ici, mais j’en ai d’autres et je veux aider!',
                     'answers' => [
                         'Merci, nous aimerions obtenir votre aide. Nous continuerons d’ajouter de nouvelles catégories dans lesquelles des pénuries de compétences existent; nous vous invitons donc à visiter le site tous les deux ou trois jours pour obtenir des mises à jour.'
                     ]
                 ],
                 [
-                    'id' => 'q18',
+                    'id' => 'q17',
                     'question' => 'Que se passera-t-il si un changement survient après que je me suis porté volontaire?',
                     'answers' => [
                         'Il est possible que votre vie personnelle ou professionnelle change après que vous vous soyez porté volontaire. Si vous n’êtes plus en mesure d’accepter un rôle temporaire pour une raison quelconque, <a href="mailto::email_address" title="Envoyez-nous un courriel.">envoyez-nous un courriel</a> afin de nous en informer. Nous pouvons à votre convenance supprimer votre demande de façon permanente ou temporaire.'
                     ]
                 ],
                 [
-                    'id' => 'q19',
+                    'id' => 'q18',
                     'question' => 'Comment reconnaîtra-t-on ma participation à cet effort?',
                     'answers' => [
                         'Nous sommes encore à mettre au point les détails, mais nous croyons fermement à la reconnaissance des personnes qui accomplissent de bonnes choses!'
                     ]
                 ],
                 [
-                    'id' => 'q20',
+                    'id' => 'q19',
                     'question' => 'Que dois-je faire si on m’envoie dans une équipe avec laquelle j’éprouve de la difficulté à travailler?',
                     'answers' => [
                         'En ces temps difficiles, il est essentiel de faire preuve de souplesse. Les perturbations peuvent être stressantes, tant pour vous que pour l’équipe où vous êtes envoyé en renfort. N’oubliez pas, vous êtes là pour être un atout au sein d’une équipe ayant un besoin critique. Une courte période d’ajustement est à prévoir dans les premiers temps. Accordez tant à vous-même qu’à votre équipe le temps nécessaire pour vous habituer les uns aux autres. Mais si la nature de la relation de travail fait en sorte que vous n’êtes pas en mesure de prêter main-forte, nous travaillerons avec vos ministères d’attache et d’accueil pour trouver une solution. Si vous constatez que vous ressentez du stress dans votre nouveau poste et que vous avez besoin de soutien, assurez-vous également de vous adresser aux services de soutien de votre ministère d’attache, même si vous aidez temporairement un autre endroit.'
                     ]
                 ],
                 [
-                    'id' => 'q21',
+                    'id' => 'q20',
                     'question' => 'Mon ministère a besoin d’aide dans un secteur où les besoins sont urgents, mais ce secteur n’est pas indiqué ici. La Réserve de talents du GC peut-elle nous aider?',
                     'answers' => [
                         'Pour le moment, la Réserve de talents du GC n’est disponible que pour la collectivité du secteur numérique et technologique. Si votre ministère a cerné une pénurie de talents actuelle ou prévue dans un domaine essentiel lié aux besoins numériques ou technologiques, veuillez <a href="mailto::email_address" title="Envoyez-nous un courriel.">communiquer avec nous</a> pour demander de l’aide supplémentaire. Si vous souhaitez utiliser cet outil pour un autre domaine (en dehors des besoins numériques ou technologiques), veuillez communiquer avec le chef de votre collectivité et <a href="mailto::email_address" title="Envoyez-nous un courriel.">nous le faire savoir</a>.'
                     ]
                 ],
                 [
-                    'id' => 'q22',
+                    'id' => 'q21',
                     'question' => 'Est-ce que d’autres personnes peuvent utiliser la Réserve de talents du GC?',
                     'answers' => [
                         'Le codage pour la Réserve de talents du GC est ouvert, étant donné qu’il pourrait être utile à d’autres administrations fédérales et internationales qui cherchent des fonctionnalités similaires pour faire face au défi actuel.'
