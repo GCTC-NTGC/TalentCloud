@@ -43,8 +43,8 @@
                 <div data-c-grid="gutter(all, 1)">
                     <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">
                         <!-- Can we make sure this button functions as intended? -->
-                        <button class="ajax-submit-all" data-c-button="outline(c1)" data-c-radius="rounded" type="button" name="submit" value="save_and_return" data-on-success-url="{{ route('job.application.edit.2', job) }}">
-                            <span class="submit-default">{{ application_template.save_return_button_label|replace({":step_id": application_step - 1}) }}</span>
+                        <button class="ajax-submit-all" data-c-button="outline(c1)" data-c-radius="rounded" type="button" name="submit" value="save_and_return" data-on-success-url="{{ route('job.application.edit.1', job) }}">
+                            <span class="submit-default">{{ application_template.save_return_button_label|replace({":step_id": application_step - 2}) }}</span>
                             <span class="submit-working">{{ application_template.save_button_working }}</span>
                         </button>
                     </div>
