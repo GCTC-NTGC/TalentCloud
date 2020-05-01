@@ -514,7 +514,8 @@ class ApplicationByJobController extends Controller
                 break;
             case 'save_and_continue':
             case 'next':
-                return redirect()->route('job.application.edit.2', $jobPoster);
+                $next_step = $jobPoster->isInStrategicResponseDepartment() ? 3 : 2;
+                return redirect()->route("job.application.edit.${next_step}", $jobPoster);
                 break;
             default:
                 return redirect()->back()->withInput();

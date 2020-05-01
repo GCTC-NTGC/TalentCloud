@@ -297,6 +297,18 @@
           display: none;
         }
       }
+      &.null {
+        .fa-times-circle {
+          display: none;
+        }
+        .fa-circle {
+          color: $clone-grey;
+          display: block;
+        }
+        .fa-check-circle {
+          display: none;
+        }
+      }
       &:hover {
         .fa-times-circle {
           color: $clone-white;
@@ -309,6 +321,12 @@
         .fa-check-circle {
           color: $clone-white;
           transition: all 0.2s ease;
+        }
+        &.null {
+          .fa-circle {
+            color: $clone-grey;
+            transition: all 0.2s ease;
+          }
         }
       }
     }
