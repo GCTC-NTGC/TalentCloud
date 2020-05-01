@@ -17,7 +17,8 @@
             {{ csrf_field() }}
             <section>
                 <div data-c-container="medium(center)">
-                    <h2 data-c-heading="h2" data-c-padding="top(3)" data-c-margin="bottom(1)">{{ application_template.integrity.title }}</h2>
+                    <section data-c-margin="top(2)">{% include "errors/form_errors" %}</section>
+                    <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">{{ application_template.integrity.title }}</h2>
                     <p data-c-margin="bottom(1)">{{ application_template.integrity.confirmation_copy }}</p>
                     <ul data-c-margin="bottom(1)">
                         {% for confirmation in application_template.strategic_response.confirmations %}
