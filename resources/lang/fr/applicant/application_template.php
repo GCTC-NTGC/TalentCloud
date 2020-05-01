@@ -251,9 +251,9 @@ return [
         'security_clearance_copy' => 'Quel est votre niveau d’autorisation de sécurité actuel?',
         'security_clearance_label' => 'En choisir un',
         'director_alert' => [
-            'heading' => 'When will your Director and Reference be contacted?',
-            'ask_manager' => 'Ask your Manager and Director for approval to be loaned to another team for a bit to help out.',
-            'screened_in' => 'If your application is screened in, we will send your Director and Reference an email for a reference check.'
+            'heading' => 'Quand votre directeur et votre référence seront-ils contactés ?',
+            'ask_manager' => 'Demandez à votre (gestionnaire et à votre) directeur de vous prêter à une autre équipe pour les aider pendant un certain temps.',
+            'screened_in' => 'Si votre candidature est retenue, nous enverrons à votre directeur et à votre référent un courriel pour une vérification des références.'
         ],
         'director_title' => 'Informations de directeur',
         'director_name_label' => 'Nom du directeur',
