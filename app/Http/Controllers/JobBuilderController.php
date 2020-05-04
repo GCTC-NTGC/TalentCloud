@@ -14,7 +14,7 @@ class JobBuilderController extends Controller
      * Show the Job Builder mini SPA
      * @return \Illuminate\Http\Response
      */
-    public function show(JobPoster $jobPoster)
+    public function show()
     {
         $custom_breadcrumbs = [
             'home' => route(WhichPortal::prefixRoute('home')),
