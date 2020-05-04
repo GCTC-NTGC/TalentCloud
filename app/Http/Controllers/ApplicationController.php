@@ -32,25 +32,46 @@ class ApplicationController extends Controller
     }
 
     /**
-     * Display specified application
+     * Determine whether the user can view the jobApplication.
      *
      * @param  \App\Models\JobPoster    $jobPoster Incoming JobPoster object.
      * @param  \App\Models\JobApplication $application Incoming Application object.
      * @return \Illuminate\Http\Response
      */
-    public function show(JobPoster $jobPoster, JobApplication $application)
+    public function showWithJob(JobPoster $jobPoster, JobApplication $application)
+    {
+        $custom_breadcrumbs = [
+            'home' => route('home'),
+            'error' => ''
+        ];
+
+        if ($jobPoster->job_applications->contains($application)) {
+            return $this->show($application);
+        } else {
+            return abort(404);
+        }
+    }
+
+    /**
+     * Display specified application
+     *
+     * @param  \App\Models\JobApplication $application Incoming Application object.
+     * @return \Illuminate\Http\Response
+     */
+    public function show(JobApplication $application)
     {
         $response_poster = false;
+        $jobPoster = $application->job_poster;
 
-        if ($application->job_poster->isInStrategicResponseDepartment()) {
+        if ($jobPoster->isInStrategicResponseDepartment()) {
             $response_poster = true;
         }
 
-        $essential_criteria = $application->job_poster->criteria->filter(function ($value, $key) {
+        $essential_criteria = $jobPoster->criteria->filter(function ($value, $key) {
             return $value->criteria_type->name == 'essential'
                 && $value->skill->skill_type->name == 'hard';
         });
-        $asset_criteria = $application->job_poster->criteria->filter(function ($value, $key) {
+        $asset_criteria = $jobPoster->criteria->filter(function ($value, $key) {
             return $value->criteria_type->name == 'asset'
                 && $value->skill->skill_type->name == 'hard';
         });
@@ -86,7 +107,7 @@ class ApplicationController extends Controller
 
         $custom_breadcrumbs = [
             'home' => route('home'),
-            'applications' =>  route('applications.show', $application),
+            'applications' =>  route('applications.index'),
             'application' => '',
         ];
 
@@ -113,7 +134,7 @@ class ApplicationController extends Controller
                 'citizenship_declaration_template' => Lang::get('common/citizenship_declaration'),
                 'veteran_status_template' => Lang::get('common/veteran_status'),
                 // Job Data.
-                'job' => $application->job_poster,
+                'job' => $jobPoster,
                 // Skills Data.
                 'skills' => Skill::all(),
                 'skill_template' => Lang::get('common/skills'),
