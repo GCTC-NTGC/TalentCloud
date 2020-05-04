@@ -18,8 +18,9 @@ return [
     'resources' => 'Resources',
     'preview' => 'Preview',
     'assessment-plan' => 'Assessment Plan Builder',
-    'job-title-missing' => "'TItle Missing'",
+    'job-title-missing' => "'Title Missing'",
     'review' => 'Review',
+    'builder' => 'Job Builder',
     'managerPortal' => [
         'applications' => 'Review Applicants',
     ],

@@ -20,6 +20,7 @@ return [
     'assessment-plan' => 'Concepteur de plans d’évaluation',
     'job-title-missing' => "'Titre manquant'",
     'review' => 'Revue',
+    'builder' => "Constructeur d'affiches",
     'managerPortal' => [
         'applications' => 'Réviser les candidats',
     ],

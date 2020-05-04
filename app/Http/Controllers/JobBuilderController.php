@@ -19,7 +19,7 @@ class JobBuilderController extends Controller
         $custom_breadcrumbs = [
             'home' => route(WhichPortal::prefixRoute('home')),
             'jobs' => route(WhichPortal::prefixRoute('jobs.index')),
-            'job-builder' => '',
+            'builder' => '',
         ];
 
         return view(
