@@ -40,11 +40,6 @@ class ApplicationController extends Controller
      */
     public function showWithJob(JobPoster $jobPoster, JobApplication $application)
     {
-        $custom_breadcrumbs = [
-            'home' => route('home'),
-            'error' => ''
-        ];
-
         if ($jobPoster->job_applications->contains($application)) {
             return $this->show($application);
         } else {
