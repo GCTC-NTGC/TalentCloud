@@ -169,6 +169,13 @@ return [
                         'We have made the code for GC Talent Reserve open source, as it could be useful to other federal and international jurisdictions looking for similar functionality in the face of the current challenge.'
                     ]
                 ],
+                [
+                    'id' => 'q22',
+                    'question' => 'I already have an account on Talent Cloud, do I need to create an account for GC Talent Reserve?',
+                    'answers' => [
+                        'GC Talent Reserve is a completely separate platform built for a purpose that is distinctly different from the regular Talent Cloud platform. In an effort to protect everyone’s privacy, we did not copy over any user information. You will need to register for a new account in order to use GC Talent Reserve. We recognize this is not ideal as we worked to get the new platform up and running as soon as possible in response to the COVID19 crisis. Going forward, we are exploring the option to let users carry over information between Talent Cloud and GC Talent reserve.'
+                    ]
+                ],
             ]
         ]
     ]
