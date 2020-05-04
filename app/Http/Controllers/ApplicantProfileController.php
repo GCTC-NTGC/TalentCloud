@@ -24,32 +24,36 @@ class ApplicantProfileController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \Illuminate\Http\Request $request   Incoming Request object.
      * @param  \App\Models\JobPoster    $jobPoster Incoming JobPoster object.
      * @param  \App\Models\Applicant    $applicant Incoming Applicant object.
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, JobPoster $jobPoster, Applicant $applicant)
+    public function show(JobPoster $jobPoster, Applicant $applicant)
     {
-        $custom_breadcrumbs = [
-            'home' => route('home'),
-            'jobs' => route(WhichPortal::prefixRoute('jobs.index')),
-            $jobPoster->title => route(WhichPortal::prefixRoute('jobs.summary'), $jobPoster),
-            'applications' =>  route(WhichPortal::prefixRoute('jobs.applications'), $jobPoster),
-            'profile' => '',
-        ];
 
-        return view(
-            'manager/applicant_profile',
-            [
-                // Localized strings.
-                'profile' => Lang::get('manager/applicant_profile'), // Change text
-                // Applicant data.
-                'applicant' => $applicant,
-                'profile_photo_url' => '/images/user.png', // TODO: get real photos.
-                'custom_breadcrumbs' => $custom_breadcrumbs,
-            ]
-        );
+        if ($jobPoster->submitted_applications->firstWhere('applicant_id', '==', $applicant->id)) {
+            $custom_breadcrumbs = [
+                'home' => route('home'),
+                'jobs' => route(WhichPortal::prefixRoute('jobs.index')),
+                $jobPoster->title => route(WhichPortal::prefixRoute('jobs.summary'), $jobPoster),
+                'applications' =>  route(WhichPortal::prefixRoute('jobs.applications'), $jobPoster),
+                'profile' => '',
+            ];
+
+            return view(
+                'manager/applicant_profile',
+                [
+                    // Localized strings.
+                    'profile' => Lang::get('manager/applicant_profile'), // Change text
+                    // Applicant data.
+                    'applicant' => $applicant,
+                    'profile_photo_url' => '/images/user.png', // TODO: get real photos.
+                    'custom_breadcrumbs' => $custom_breadcrumbs,
+                ]
+            );
+        } else {
+            return abort(404);
+        }
     }
 
     /**
