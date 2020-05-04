@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7020f9f6b142f03dc49b30cbcfce835a",
+    "content-hash": "80f7c5b6b579e3667fab95be0b7f8cb4",
     "packages": [
         {
             "name": "backpack/crud",
@@ -1181,25 +1181,23 @@
         },
         {
             "name": "jenssegers/date",
-            "version": "v3.5.0",
+            "version": "v4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jenssegers/date.git",
-                "reference": "58393b0544fc2525b3fcd02aa4c989857107e05a"
+                "reference": "506f86096e0b512f9ece6ad0ccae62b03c125771"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jenssegers/date/zipball/58393b0544fc2525b3fcd02aa4c989857107e05a",
-                "reference": "58393b0544fc2525b3fcd02aa4c989857107e05a",
+                "url": "https://api.github.com/repos/jenssegers/date/zipball/506f86096e0b512f9ece6ad0ccae62b03c125771",
+                "reference": "506f86096e0b512f9ece6ad0ccae62b03c125771",
                 "shasum": ""
             },
             "require": {
-                "nesbot/carbon": "^1.0|^2.0",
-                "php": ">=5.6",
-                "symfony/translation": "^2.7|^3.0|^4.0"
+                "nesbot/carbon": "^2.16"
             },
             "require-dev": {
-                "phpunit/phpunit": "^5.0|^6.0|^7.0",
+                "phpunit/phpunit": "^7.5",
                 "satooshi/php-coveralls": "^2.0"
             },
             "type": "library",
@@ -1242,7 +1240,7 @@
                 "time",
                 "translation"
             ],
-            "time": "2019-03-10T08:50:58+00:00"
+            "time": "2020-04-28T06:35:54+00:00"
         },
         {
             "name": "laravel/framework",
@@ -2771,16 +2769,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.10.3",
+            "version": "v0.10.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "2bde2fa03e05dff0aee834598b951d6fc7c6fe02"
+                "reference": "a8aec1b2981ab66882a01cce36a49b6317dc3560"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/2bde2fa03e05dff0aee834598b951d6fc7c6fe02",
-                "reference": "2bde2fa03e05dff0aee834598b951d6fc7c6fe02",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/a8aec1b2981ab66882a01cce36a49b6317dc3560",
+                "reference": "a8aec1b2981ab66882a01cce36a49b6317dc3560",
                 "shasum": ""
             },
             "require": {
@@ -2839,7 +2837,7 @@
                 "interactive",
                 "shell"
             ],
-            "time": "2020-04-07T06:44:48+00:00"
+            "time": "2020-05-03T19:32:03+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -4718,20 +4716,20 @@
         },
         {
             "name": "vlucas/phpdotenv",
-            "version": "v3.6.3",
+            "version": "v3.6.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/phpdotenv.git",
-                "reference": "1b3103013797f04521c6cae5560f604649484066"
+                "reference": "10d3f853fdf1f3a6b3c7ea0c4620d2f699713db5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/1b3103013797f04521c6cae5560f604649484066",
-                "reference": "1b3103013797f04521c6cae5560f604649484066",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/10d3f853fdf1f3a6b3c7ea0c4620d2f699713db5",
+                "reference": "10d3f853fdf1f3a6b3c7ea0c4620d2f699713db5",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.4 || ^7.0",
+                "php": "^5.4 || ^7.0 || ^8.0",
                 "phpoption/phpoption": "^1.5",
                 "symfony/polyfill-ctype": "^1.9"
             },
@@ -4777,7 +4775,7 @@
                 "env",
                 "environment"
             ],
-            "time": "2020-04-12T15:18:03+00:00"
+            "time": "2020-05-02T13:46:13+00:00"
         }
     ],
     "packages-dev": [
