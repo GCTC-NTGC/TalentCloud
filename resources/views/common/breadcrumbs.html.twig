@@ -2,6 +2,7 @@
 	<ol {{ breadcrumbs_id ? "id=#{breadcrumbs_id}" }}>
 		{% for key, url in custom_breadcrumbs ?: breadcrumbs %}
 			{% if loop.first %}
+				{# Replaces en/fr key with a link to Home. #}
 				<li>
 					<a href="{{ url(url) }}">{{ breadcrumbs_lang.home }}</a>
 					<i class="fas fa-caret-right"></i>
