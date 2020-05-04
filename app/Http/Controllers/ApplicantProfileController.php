@@ -31,7 +31,7 @@ class ApplicantProfileController extends Controller
     public function show(JobPoster $jobPoster, Applicant $applicant)
     {
 
-        if ($jobPoster->submitted_applications->firstWhere('applicant_id', '==', $applicant->id)) {
+        if ($jobPoster->submitted_applications->firstWhere('applicant_id', '==', $applicant->id) !== null) {
             $custom_breadcrumbs = [
                 'home' => route('home'),
                 'jobs' => route(WhichPortal::prefixRoute('jobs.index')),
