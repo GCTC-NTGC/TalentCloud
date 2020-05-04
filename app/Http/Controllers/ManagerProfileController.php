@@ -24,13 +24,13 @@ class ManagerProfileController extends Controller
      *
      * @param  \Illuminate\Http\Request $request Incoming Request.
      * @param  \App\Models\JobPoster    $jobPoster Incoming JobPoster object.
-     * @param  \App\Models\Manager      $manager Incoming Manager.
+
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, JobPoster $jobPoster, Manager $manager)
+    public function show(Request $request, JobPoster $jobPoster)
     {
+        $manager = $jobPoster->manager;
         $manager_profile = Lang::get('applicant/manager_profile');
-
         $manager_profile_sections = [
             [
                 'title' => $manager_profile['section_titles']['approach'],
