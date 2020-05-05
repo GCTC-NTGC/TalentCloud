@@ -1244,16 +1244,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v6.18.11",
+            "version": "v6.18.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "73bc10bb23aab7539c8ffae6d5dc3c4b277de557"
+                "reference": "39519d03237a81380e2126d667e898e2922db444"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/73bc10bb23aab7539c8ffae6d5dc3c4b277de557",
-                "reference": "73bc10bb23aab7539c8ffae6d5dc3c4b277de557",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/39519d03237a81380e2126d667e898e2922db444",
+                "reference": "39519d03237a81380e2126d667e898e2922db444",
                 "shasum": ""
             },
             "require": {
@@ -1386,7 +1386,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2020-04-28T15:18:58+00:00"
+            "time": "2020-05-05T15:53:49+00:00"
         },
         {
             "name": "laravel/helpers",
