@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "backpack/crud",
-            "version": "4.0.60",
+            "version": "4.0.61",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Laravel-Backpack/CRUD.git",
-                "reference": "3c6116bce3c90ef9850d3d07de5c7b8f41a7b6cd"
+                "reference": "1977e0cc52fa7cf9547eaeadf03f5cd88402b574"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/3c6116bce3c90ef9850d3d07de5c7b8f41a7b6cd",
-                "reference": "3c6116bce3c90ef9850d3d07de5c7b8f41a7b6cd",
+                "url": "https://api.github.com/repos/Laravel-Backpack/CRUD/zipball/1977e0cc52fa7cf9547eaeadf03f5cd88402b574",
+                "reference": "1977e0cc52fa7cf9547eaeadf03f5cd88402b574",
                 "shasum": ""
             },
             "require": {
@@ -91,7 +91,7 @@
                 "read",
                 "update"
             ],
-            "time": "2020-04-21T07:54:06+00:00"
+            "time": "2020-05-06T15:48:26+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
