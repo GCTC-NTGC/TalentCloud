@@ -1,0 +1,201 @@
+{# =============================================================================
+
+    Talent Cloud
+    COVID-19 Response Applicant Profile (Review)
+    This UI allows the user to modify their basic profile information.
+
+============================================================================= #}
+{% extends "layouts/base" %}
+{% block title %}GC Talent Reserve: Applicant Profile - Areas of Interest{% endblock %}
+{% block body %}
+    {# Government of Canada Banner #}
+    {% include "common/goc" %}
+    <div data-clone>
+        {# Beta Banner #}
+        {% include "response/beta-banner" %}
+        {# Menu #}
+        {% include "response/menu" %}
+        {# Header #}
+        {# Dev: Include the appropriate header depending on the circumstance. For example, if it's a part of the application, include the application header with the tracker. If this view is being used as a manager view, include a standard header, etc.
+        It will also require action buttons that match the application in that particular step. These can be included at the bottom.
+        For information that IS required that isn't filled in yet, I've included an error state for each field that y'all can hide/show. This error state has a link to the profile which will require the proper Twig route when the profile is set up. #}
+        {# Content #}
+        <a id="skipLink"></a>
+        <div data-c-border="bottom(thin, solid, gray)" data-c-padding="bottom(3)">
+            <div data-c-container="large(center)">
+                <div data-c-grid="gutter(all, 2)">
+                    <div data-c-grid-item="tl(1of4)">
+                        {% include "response/profile/profile-review-sidebar" %}
+                    </div>
+                    <div data-c-grid-item="tl(3of4)">
+                        <div data-c-container="medium(left)" data-c-padding="bottom(3)">
+                            <h2 data-c-heading="h2" data-c-padding="top(3)" data-c-margin="bottom(1)">Review Profile Information</h2>
+                            {# Dev: note that this requires the proper profile route once its ready. #}
+                            <p>Below is a summary of your profile that will be sent along with your application. We'd like to quickly review this information before moving to the next step to ensure the information is up-to-date. If you'd like to edit this information, you can do so <a href="/profile" title="Edit your profile information in a new tab." target="_blank">on your profile</a>.</p>
+                            <h3 id="basicInfo" data-c-heading="h3" data-c-padding="top(3) bottom(1)">My Basic Info</h3>
+                            <h4 data-c-heading="h4" data-c-padding="top(3)" data-c-margin="bottom(1)">Department Information</h4>
+                            <div data-c-background="gray(20)" data-c-padding="all(1)" data-c-radius="rounded">
+                                <p data-c-font-weight="bold" data-c-margin="bottom(.25)">Departmental Location</p>
+                                <p>[USER SELECTION]</p>
+                                <p data-c-color="stop">This information is required. <a href="/profile" title="Open your profile in a new tab to edit this information." target="_blank">Click here to add it on your profile</a>.</p>
+                            </div>
+                            <h5 data-c-heading="h5" data-c-padding="top(3) bottom(1)" data-c-margin="bottom(1)">Home Department</h5>
+                            <div data-c-background="gray(20)" data-c-padding="all(1)" data-c-radius="rounded">
+                                <div data-c-grid="gutter(all, 1)">
+                                    <div data-c-grid-item="base(1of1)">
+                                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">My Home Department</p>
+                                        <p>[USER SELECTION]</p>
+                                        <p data-c-color="stop">This information is required. <a href="/profile" title="Open your profile in a new tab to edit this information." target="_blank">Click here to add it on your profile</a>.</p>
+                                    </div>
+                                    <div data-c-grid-item="tl(1of2)">
+                                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">My Home Classification</p>
+                                        {# Dev: This should combine their classification selection and their classification level selection. #}
+                                        <p>[USER SELECTION] - [USER SELECTION]</p>
+                                        <p data-c-color="stop">This information is required. <a href="/profile" title="Open your profile in a new tab to edit this information." target="_blank">Click here to add it on your profile</a>.</p>
+                                    </div>
+                                    <div data-c-grid-item="tl(1of2)">
+                                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">My Job Status</p>
+                                        <p>[USER SELECTION]</p>
+                                        <p data-c-color="stop">This information is required. <a href="/profile" title="Open your profile in a new tab to edit this information." target="_blank">Click here to add it on your profile</a>.</p>
+                                    </div>
+                                    <div data-c-grid-item="tl(1of2)">
+                                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">My Home Manager's Name</p>
+                                        <p>[USER SELECTION]</p>
+                                        <p data-c-color="stop">This information is required. <a href="/profile" title="Open your profile in a new tab to edit this information." target="_blank">Click here to add it on your profile</a>.</p>
+                                    </div>
+                                    <div data-c-grid-item="tl(1of2)">
+                                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">My Home Manager's Email</p>
+                                        <p>[USER SELECTION]</p>
+                                        <p data-c-color="stop">This information is required. <a href="/profile" title="Open your profile in a new tab to edit this information." target="_blank">Click here to add it on your profile</a>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            {# Dev: this section is only applicable when someone has selected that they are on assignment/secondment. #}
+                            <h5 data-c-heading="h5" data-c-padding="top(3) bottom(1)" data-c-margin="bottom(1)">Assignment / Secondment Department</h5>
+                            <div data-c-background="gray(20)" data-c-padding="all(1)" data-c-radius="rounded">
+                                <div data-c-grid="gutter(all, 1)">
+                                    <div data-c-grid-item="base(1of1)">
+                                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">My Assignment / Secondment Department</p>
+                                        <p>[USER SELECTION]</p>
+                                        <p data-c-color="stop">This information is required. <a href="/profile" title="Open your profile in a new tab to edit this information." target="_blank">Click here to add it on your profile</a>.</p>
+                                    </div>
+                                    <div data-c-grid-item="base(1of1)">
+                                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">My Assignment / Secondment Classification</p>
+                                        {# Dev: This should combine their classification selection and their classification level selection. #}
+                                        <p>[USER SELECTION] - [USER SELECTION]</p>
+                                        <p data-c-color="stop">This information is required. <a href="/profile" title="Open your profile in a new tab to edit this information." target="_blank">Click here to add it on your profile</a>.</p>
+                                    </div>
+                                    <div data-c-grid-item="tl(1of2)">
+                                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">My Assignment / Secondment Manager's Name</p>
+                                        <p>[USER SELECTION]</p>
+                                        <p data-c-color="stop">This information is required. <a href="/profile" title="Open your profile in a new tab to edit this information." target="_blank">Click here to add it on your profile</a>.</p>
+                                    </div>
+                                    <div data-c-grid-item="tl(1of2)">
+                                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">My Assignment / Secondment Manager's Email</p>
+                                        <p>[USER SELECTION]</p>
+                                        <p data-c-color="stop">This information is required. <a href="/profile" title="Open your profile in a new tab to edit this information." target="_blank">Click here to add it on your profile</a>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <h4 data-c-heading="h4" data-c-padding="top(3)" data-c-margin="bottom(1)">My Availability</h4>
+                            <div data-c-background="gray(20)" data-c-padding="all(1)" data-c-radius="rounded">
+                                <div data-c-grid="gutter(all, 1)">
+                                    <div data-c-grid-item="tl(1of2)">
+                                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">My General Availability</p>
+                                        <p>[USER SELECTION]</p>
+                                        <p data-c-color="stop">This information is required. <a href="/profile" title="Open your profile in a new tab to edit this information." target="_blank">Click here to add it on your profile</a>.</p>
+                                    </div>
+                                    <div data-c-grid-item="tl(1of2)">
+                                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">My Specific Availability</p>
+                                        {# These are optional. Null states have been included below. #}
+                                        <p>[USER SELECTION]</p>
+                                        <p data-c-color="gray">This optional information is not provided.</p>
+                                    </div>
+                                    <div data-c-grid-item="base(1of1)">
+                                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">Other Availability Information</p>
+                                        {# These are optional. Null states have been included below. #}
+                                        <p>[USER SELECTION]</p>
+                                        <p data-c-color="gray">This optional information is not provided.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <h4 data-c-heading="h4" data-c-padding="top(3)" data-c-margin="bottom(1)">Language Information</h4>
+                            <div data-c-background="gray(20)" data-c-padding="all(1)" data-c-radius="rounded">
+                                <div data-c-grid="gutter(all, 1)">
+                                    <div data-c-grid-item="base(1of1)">
+                                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">My Primary Language of Communication</p>
+                                        <p>[USER SELECTION]</p>
+                                        <p data-c-color="stop">This information is required. <a href="/profile" title="Open your profile in a new tab to edit this information." target="_blank">Click here to add it on your profile</a>.</p>
+                                    </div>
+                                    <div data-c-grid-item="tl(1of2)">
+                                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">My Language Levels</p>
+                                        {# These are optional. Null states have been included below. #}
+                                        <p>[USER SELECTION]</p>
+                                        <p data-c-color="gray">This optional information is not provided.</p>
+                                    </div>
+                                    <div data-c-grid-item="tl(1of2)">
+                                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">Expiry Date of Language Levels</p>
+                                        {# These are optional. Null states have been included below. #}
+                                        <p>[USER SELECTION]</p>
+                                        <p data-c-color="gray">This optional information is not provided.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 id="aoe" data-c-heading="h3" data-c-padding="top(3) bottom(1)" data-c-margin="bottom(1)">Areas of Expertise</h3>
+                            <p data-c-margin="bottom(1)">Below are the areas in which you indicated you have expertise:</p>
+                            <div data-c-grid="gutter(all, 1)">
+                                {# Dev: repeat the object below as necessary. There is an example null state in the "areas of interest" section. #}
+                                <div data-c-grid-item="tl(1of2) ds(1of3)">
+                                    <div data-c-card data-c-radius="rounded" data-c-padding="all(1)">
+                                        <p data-c-font-size="h4" data-c-color="c1" data-c-font-weight="bold" data-c-margin="bottom(1)">[STREAM NAME]</p>
+                                        <ul>
+                                            <li>[SUBCATEGORY]</li>
+                                            <li>[SUBCATEGORY]</li>
+                                            <li>[SUBCATEGORY]</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                {# Dev: I've repeated them for visual's sake, but the repeated items below this line can be deleted. #}
+                                <div data-c-grid-item="tl(1of2) ds(1of3)">
+                                    <div data-c-card data-c-radius="rounded" data-c-padding="all(1)">
+                                        <p data-c-font-size="h4" data-c-color="c1" data-c-font-weight="bold" data-c-margin="bottom(1)">[STREAM NAME]</p>
+                                        <ul>
+                                            <li>[SUBCATEGORY]</li>
+                                            <li>[SUBCATEGORY]</li>
+                                            <li>[SUBCATEGORY]</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div data-c-grid-item="tl(1of2) ds(1of3)">
+                                    <div data-c-card data-c-radius="rounded" data-c-padding="all(1)">
+                                        <p data-c-font-size="h4" data-c-color="c1" data-c-font-weight="bold" data-c-margin="bottom(1)">[STREAM NAME]</p>
+                                        <ul>
+                                            <li>[SUBCATEGORY]</li>
+                                            <li>[SUBCATEGORY]</li>
+                                            <li>[SUBCATEGORY]</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div data-c-grid-item="tl(1of2) ds(1of3)">
+                                    <div data-c-card data-c-radius="rounded" data-c-padding="all(1)">
+                                        <p data-c-font-size="h4" data-c-color="c1" data-c-font-weight="bold" data-c-margin="bottom(1)">[STREAM NAME]</p>
+                                        <ul>
+                                            <li>[SUBCATEGORY]</li>
+                                            <li>[SUBCATEGORY]</li>
+                                            <li>[SUBCATEGORY]</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 id="aoi" data-c-heading="h3" data-c-padding="top(3) bottom(1)" data-c-margin="bottom(1)">Areas of Interest</h3>
+                            <p data-c-margin="bottom(1)">Below are the areas in which you indicated you have interest:</p>
+                            <div data-c-background="gray(20)" data-c-padding="all(1)" data-c-radius="rounded" data-c-align="base(center)">
+                                <p data-c-color="gray">No areas of interest have been added to your profile.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

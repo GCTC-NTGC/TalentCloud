@@ -91,7 +91,7 @@ Route::group(
             /* Response Profile Areas of Interest */
             Route::view('response-profile-aoi', 'response/profile/aoi')->middleware('localOnly')->name('responseProfileAOI');
             /* Response Application Profile Revision */
-            Route::view('response-application-profile-review', 'response/application/step0')->middleware('localOnly')->name('responseApplicationProfileReview');
+            Route::view('response-profile-review', 'response/profile/review')->middleware('localOnly')->name('responseApplicationProfileReview');
 
             Route::view('response/api-test', 'applicant/str_api_test')->middleware('localOnly');
         });
