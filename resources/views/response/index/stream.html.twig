@@ -7,11 +7,7 @@
             data-c-accordion-trigger
             tabindex="0"
             type="button">
-            {% set specialtyCount = 0 %}
-            {% for specialty in stream.specialties %}
-                {% set specialtyCount = specialtyCount + 1 %}
-            {% endfor %}
-            <h3 data-c-font-size="h4"><span data-c-font-weight="bold">{{response.stream.view}} {{ stream.title }}</span> ({{ specialtyCount }})</h4>
+            <h3 data-c-font-size="h4"><span data-c-font-weight="bold">{{response.stream.view}} {{ stream.title }}</span> ({{ stream.count }})</h4>
             <span data-c-visibility="invisible">
                 {{ response.stream.click_to_view }}
             </span>
