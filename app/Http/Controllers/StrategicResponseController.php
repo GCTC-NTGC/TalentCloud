@@ -24,7 +24,9 @@ class StrategicResponseController extends Controller
         $job_skill_levels = JobSkillLevel::all();
 
         $strategic_response_id = config('app.strategic_response_department_id');
-        $strategic_response_jobs = JobPoster::where('department_id', $strategic_response_id)->get();
+        $strategic_response_jobs = JobPoster::where('department_id', $strategic_response_id)
+            ->where('job_poster_status_id', JobPosterStatus::where('key', 'live')->first()->id)
+            ->get();
 
         $streams = [];
         // Iterate through all talent streams.
