@@ -22,7 +22,7 @@ class StrategicResponseController extends Controller
 
         $stream_names = TalentStream::all();
         $stream_specialties = TalentStreamCategory::all();
-        $job_skill_levels = JobSkillLevel::all();
+        $job_skill_levels = JobSkillLevel::orderBy('id', 'asc')->get();
 
         $strategic_response_id = config('app.strategic_response_department_id');
         $strategic_response_jobs = JobPoster::where('department_id', $strategic_response_id)
