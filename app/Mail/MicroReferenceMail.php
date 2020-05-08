@@ -8,6 +8,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Lang;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class MicroReferenceMail extends Mailable implements ShouldQueue
@@ -53,7 +54,7 @@ class MicroReferenceMail extends Mailable implements ShouldQueue
             ? $this->application->director_name
             : $this->application->reference_name;
         $reference_name = isset($reference_name) ? $reference_name : 'null';
-        return $this->subject('Reference Requested - GC Talent Reserve | Référence demandée – Réserve de talents du GC')
+        return $this->subject(Lang::get('manager/micro_reference_mail.subject'))
             ->from(config('mail.from.address'), config('mail.from.name'))
             ->to($reference_email, $reference_name)
             ->markdown('emails.micro_reference', [
