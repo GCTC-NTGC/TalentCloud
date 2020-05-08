@@ -1,4 +1,3 @@
-import { number } from "@storybook/addon-knobs";
 import {
   AsyncFsaActions,
   RSAActionTemplate,

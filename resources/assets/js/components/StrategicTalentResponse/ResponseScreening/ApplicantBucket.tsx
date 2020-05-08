@@ -194,7 +194,7 @@ const ReferenceEmailModal: React.FC<ReferenceEmailModalProps> = ({
   onCancel,
 }): React.ReactElement => {
   const renderAddress = (adr: EmailAddress): string =>
-    `${adr.name} <${adr.address}>`.trim();
+    `${adr.name} <${adr.address}>`;
   const renderAddresses = (adrs: EmailAddress[]): string =>
     adrs.map(renderAddress).join(", ");
   return (
