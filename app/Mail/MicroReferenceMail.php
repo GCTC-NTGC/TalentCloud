@@ -49,14 +49,11 @@ class MicroReferenceMail extends Mailable implements ShouldQueue
         $reference_email = $this->is_director
             ? $this->application->director_email
             : $this->application->reference_email;
-        $reference_email = isset($reference_email) ? $reference_email : 'null';
         $reference_name = $this->is_director
             ? $this->application->director_name
             : $this->application->reference_name;
-        $reference_name = isset($reference_name) ? $reference_name : 'null';
-        return $this->subject(Lang::get('manager/micro_reference_mail.subject'))
+        $mail = $this->subject(Lang::get('manager/micro_reference_mail.subject'))
             ->from(config('mail.from.address'), config('mail.from.name'))
-            ->to($reference_email, $reference_name)
             ->markdown('emails.micro_reference', [
                 'reference_name' => $reference_name,
                 'homepage_url' => route('response.index'),
@@ -65,5 +62,9 @@ class MicroReferenceMail extends Mailable implements ShouldQueue
                 'is_director' => $this->is_director,
                 'criteria' => $essential_criteria,
             ]);
+        if (isset($reference_email)) {
+            $mail->to($reference_email, $reference_name ?? null);
+        }
+        return $mail;
     }
 }
