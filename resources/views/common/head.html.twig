@@ -35,6 +35,10 @@
             content="{{ csrf_token() }}"
             name="csrf-token">
 
+    {# Base url for relative links #}
+        <base href="{{ str_finish(config("app.url"), '/') }}">
+
+
 {# Stylesheets #}
 
     {# App #}
