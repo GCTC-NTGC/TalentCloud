@@ -197,6 +197,7 @@ const ReferenceEmailModal: React.FC<ReferenceEmailModalProps> = ({
     `${adr.name} <${adr.address}>`;
   const renderAddresses = (adrs: EmailAddress[]): string =>
     adrs.map(renderAddress).join(", ");
+  const noDeliveryAdr = email == null || email.to.length == 0;
   return (
     <>
       <div data-c-dialog-overlay={visible ? "active" : ""} />
@@ -317,11 +318,18 @@ const ReferenceEmailModal: React.FC<ReferenceEmailModalProps> = ({
               defaultMessage="Cancel"
             />
           </Modal.FooterCancelBtn>
-          <Modal.FooterConfirmBtn>
-            <FormattedMessage
-              id="referenceEmailModal.confirm"
-              defaultMessage="Send Email"
-            />
+          <Modal.FooterConfirmBtn disabled={noDeliveryAdr}>
+            {noDeliveryAdr ? (
+              <FormattedMessage
+                id="referenceEmailModal.noDeliveryAddress"
+                defaultMessage="No Delivery Address"
+              />
+            ) : (
+              <FormattedMessage
+                id="referenceEmailModal.confirm"
+                defaultMessage="Send Email"
+              />
+            )}
           </Modal.FooterConfirmBtn>
         </Modal.Footer>
       </Modal>

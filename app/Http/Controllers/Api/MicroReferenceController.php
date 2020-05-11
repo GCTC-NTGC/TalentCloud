@@ -47,6 +47,7 @@ class MicroReferenceController extends Controller
     public function sendDirectorEmail(JobApplication $application)
     {
         $mail = new MicroReferenceMail($application, true);
+        $mail->build();
         if ($mail->to === []) {
             throw new SendEmailException(Lang::get('errors.email_missing_delivery_address'));
         }
@@ -61,6 +62,8 @@ class MicroReferenceController extends Controller
         $review->director_email_sent = true;
         $review->save();
 
+        // Recreate the mail, because being calling ->toArray() after ->build() can cause some fields to double.
+        $mail = new MicroReferenceMail($application, true);
         return response()->json($mail->toArray());
     }
 
@@ -80,6 +83,7 @@ class MicroReferenceController extends Controller
     public function sendSecondaryReferenceEmail(JobApplication $application)
     {
         $mail = new MicroReferenceMail($application, false);
+        $mail->build();
         if ($mail->to === []) {
             throw new SendEmailException(Lang::get('errors.email_missing_delivery_address'));
         }
@@ -94,6 +98,8 @@ class MicroReferenceController extends Controller
         $review->reference_email_sent = true;
         $review->save();
 
+        // Recreate the mail, because being calling ->toArray() after ->build() can cause some fields to double.
+        $mail = new MicroReferenceMail($application, false);
         return response()->json($mail->toArray());
     }
 }
