@@ -13,7 +13,7 @@ trait ApiMailable
     public function getPlainText()
     {
         return $this->withLocale($this->locale, function () {
-            $this->build();
+            Container::getInstance()->call([$this, 'build']);
             return $this->buildView()['text']->toHtml();
         });
     }
