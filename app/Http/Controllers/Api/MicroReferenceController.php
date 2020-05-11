@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exceptions\SendEmailException;
 use App\Http\Controllers\Controller;
 use App\Mail\MicroReferenceMail;
 use App\Models\ApplicationReview;
 use App\Models\JobApplication;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Mail;
 
 class MicroReferenceController extends Controller
@@ -45,6 +47,10 @@ class MicroReferenceController extends Controller
     public function sendDirectorEmail(JobApplication $application)
     {
         $mail = new MicroReferenceMail($application, true);
+        if ($mail->to === []) {
+            throw new SendEmailException(Lang::get('errors.email_missing_delivery_address'));
+        }
+
         Mail::send($mail);
 
         $review = $application->application_review;
@@ -74,6 +80,10 @@ class MicroReferenceController extends Controller
     public function sendSecondaryReferenceEmail(JobApplication $application)
     {
         $mail = new MicroReferenceMail($application, false);
+        if ($mail->to === []) {
+            throw new SendEmailException(Lang::get('errors.email_missing_delivery_address'));
+        }
+
         Mail::send($mail);
 
         $review = $application->application_review;
