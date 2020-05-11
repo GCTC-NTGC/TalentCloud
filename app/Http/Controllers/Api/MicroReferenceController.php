@@ -23,8 +23,8 @@ class MicroReferenceController extends Controller
         $directorMail = new MicroReferenceMail($application, true);
         $referenceMail = new MicroReferenceMail($application, false);
         $mails = [
-            'director' => $directorMail->build()->toArray(),
-            'secondary' => $referenceMail->build()->toArray(),
+            'director' => $directorMail->toArray(),
+            'secondary' => $referenceMail->toArray(),
         ];
         return response()->json($mails);
     }
@@ -39,13 +39,13 @@ class MicroReferenceController extends Controller
     public function showDirectorEmail(JobApplication $application)
     {
         $mail = new MicroReferenceMail($application, true);
-        return response()->json($mail->build()->toArray());
+        return response()->json($mail->toArray());
     }
 
     public function sendDirectorEmail(JobApplication $application)
     {
         $mail = new MicroReferenceMail($application, true);
-        Mail::send($mail->build());
+        Mail::send($mail);
 
         $review = $application->application_review;
         if ($review === null) {
@@ -55,7 +55,7 @@ class MicroReferenceController extends Controller
         $review->director_email_sent = true;
         $review->save();
 
-        return response()->json($mail->build()->toArray());
+        return response()->json($mail->toArray());
     }
 
     /**
@@ -68,13 +68,13 @@ class MicroReferenceController extends Controller
     public function showSecondaryReferenceEmail(JobApplication $application)
     {
         $mail = new MicroReferenceMail($application, false);
-        return response()->json($mail->build()->toArray());
+        return response()->json($mail->toArray());
     }
 
     public function sendSecondaryReferenceEmail(JobApplication $application)
     {
         $mail = new MicroReferenceMail($application, false);
-        Mail::send($mail->build());
+        Mail::send($mail);
 
         $review = $application->application_review;
         if ($review === null) {
@@ -84,6 +84,6 @@ class MicroReferenceController extends Controller
         $review->reference_email_sent = true;
         $review->save();
 
-        return response()->json($mail->build()->toArray());
+        return response()->json($mail->toArray());
     }
 }
