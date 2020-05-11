@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Lookup\ApplicationStatus;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -66,5 +67,28 @@ class JobApplicationCrudController extends CrudController
                 });
             }
         ]);
+
+        $this->crud->addColumn([
+            'name' => 'application_status.name',
+            'type' => 'text',
+            'label' => 'Application Status',
+        ]);
+
+        $this->crud->addFilter([
+            'name' => 'application_status',
+            'key' => 'application_status_filter',
+            'type' => 'select2_multiple',
+            'label' => 'Filter by Application Status'
+        ], function () {
+            // The options that show up in the select2.
+            return ApplicationStatus::all()->pluck('name', 'id')->toArray();
+        }, function ($values) {
+            // If the filter is active.
+            foreach (json_decode($values) as $key => $value) {
+                $this->crud->query = $this->crud->query->orWhereHas('application_status', function ($query) use ($value) {
+                    $query->where('id', $value);
+                });
+            }
+        });
     }
 }
