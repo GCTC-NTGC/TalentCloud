@@ -11,5 +11,5 @@
 	<div data-clone="" id="job-builder-root"></div>
 {% endblock %}
 {% block scripts %}
-	<script async defer src="{{ mix('/js/JobBuilderRoot.js') }}"></script>
+	<script async defer src="{{ asset(asset(mix('js/JobBuilderRoot.js'))) }}"></script>
 {% endblock %}
