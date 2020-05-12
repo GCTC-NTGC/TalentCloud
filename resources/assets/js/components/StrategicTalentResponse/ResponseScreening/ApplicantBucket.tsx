@@ -618,84 +618,103 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
                       {application.applicant.user.email}
                     </a>
                   </p>
-                  <p data-c-font-size="small">
-                    <a href={applicationUrl} title="" data-c-margin="right(.5)">
+                  <div
+                    data-c-font-size="small"
+                    data-c-grid="gutter(all, 1) middle"
+                  >
+                    <a
+                      href={applicationUrl}
+                      title=""
+                      data-c-grid-item="base(1of2)"
+                    >
                       {intl.formatMessage(displayMessages.viewApplication)}
                     </a>
-                    <a href={applicantUrl} title="">
+                    <a
+                      href={applicantUrl}
+                      title=""
+                      data-c-grid-item="base(1of2)"
+                    >
                       {intl.formatMessage(displayMessages.viewProfile)}
                     </a>
-                  </p>
-                  {showReferences && (
-                    <>
-                      <p>
-                        <i
-                          className="fa fa-check-circle"
-                          data-c-color="go"
-                          data-c-visibility={
-                            application.application_review?.director_email_sent
-                              ? "visible"
-                              : "invisible"
-                          }
-                          data-c-font-size="small"
-                          data-c-margin="right(.5)"
-                        />
-                        <button
-                          data-c-button="reset"
-                          data-c-font-style="underline"
-                          data-c-font-size="small"
-                          type="button"
-                          onClick={showDirectorEmail}
-                          disabled={sendingDirectorEmail}
+                    {showReferences && (
+                      <>
+                        <div
+                          className="email-reference-wrapper"
+                          data-c-grid-item="base(1of2)"
                         >
-                          {sendingDirectorEmail ? (
-                            <FormattedMessage
-                              id="responseScreening.applicant.directorEmailSending"
-                              defaultMessage="Sending email..."
-                            />
-                          ) : (
-                            <FormattedMessage
-                              id="responseScreening.applicant.directorEmailButton"
-                              defaultMessage="Director email."
-                            />
-                          )}
-                        </button>
-                      </p>
-                      <p>
-                        <i
-                          className="fa fa-check-circle"
-                          data-c-color="go"
-                          data-c-visibility={
-                            application.application_review?.reference_email_sent
-                              ? "visible"
-                              : "invisible"
-                          }
-                          data-c-font-size="small"
-                          data-c-margin="right(.5)"
-                        />
-                        <button
-                          data-c-button="reset"
-                          data-c-font-style="underline"
-                          data-c-font-size="small"
-                          type="button"
-                          onClick={showSecondaryEmail}
-                          disabled={sendingSecondaryEmail}
+                          <i
+                            className="fa fa-check-circle"
+                            data-c-color="go"
+                            data-c-visibility={
+                              application.application_review
+                                ?.director_email_sent
+                                ? "visible"
+                                : "invisible"
+                            }
+                            data-c-font-size="small"
+                            data-c-margin="right(.5)"
+                          />
+                          <button
+                            data-c-button="reset"
+                            data-c-font-style="underline"
+                            data-c-font-size="small"
+                            type="button"
+                            onClick={showDirectorEmail}
+                            disabled={sendingDirectorEmail}
+                          >
+                            {sendingDirectorEmail ? (
+                              <FormattedMessage
+                                id="responseScreening.applicant.directorEmailSending"
+                                defaultMessage="Sending email..."
+                              />
+                            ) : (
+                              <FormattedMessage
+                                id="responseScreening.applicant.directorEmailButton"
+                                defaultMessage="Director email."
+                              />
+                            )}
+                          </button>
+                        </div>
+                        <div
+                          data-c-grid-item="base(1of2)"
+                          className="email-reference-wrapper"
                         >
-                          {sendingSecondaryEmail ? (
-                            <FormattedMessage
-                              id="responseScreening.applicant.secondaryEmailSending"
-                              defaultMessage="Sending email..."
-                            />
-                          ) : (
-                            <FormattedMessage
-                              id="responseScreening.applicant.secondaryEmailButton"
-                              defaultMessage="Reference email."
-                            />
-                          )}
-                        </button>
-                      </p>
-                    </>
-                  )}
+                          <i
+                            className="fa fa-check-circle"
+                            data-c-color="go"
+                            data-c-visibility={
+                              application.application_review
+                                ?.reference_email_sent
+                                ? "visible"
+                                : "invisible"
+                            }
+                            data-c-font-size="small"
+                            data-c-margin="right(.5)"
+                          />
+                          <button
+                            data-c-button="reset"
+                            data-c-font-style="underline"
+                            data-c-font-size="small"
+                            type="button"
+                            onClick={showSecondaryEmail}
+                            disabled={sendingSecondaryEmail}
+                          >
+                            {sendingSecondaryEmail ? (
+                              <FormattedMessage
+                                id="responseScreening.applicant.secondaryEmailSending"
+                                defaultMessage="Sending email..."
+                              />
+                            ) : (
+                              <FormattedMessage
+                                id="responseScreening.applicant.secondaryEmailButton"
+                                defaultMessage="Reference email."
+                              />
+                            )}
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -733,6 +752,7 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
                 data-c-button="outline(c1)"
                 type="button"
                 data-c-radius="rounded"
+                data-c-margin="right(1)"
                 onClick={(): void =>
                   handleNotesButtonClick(values.notes, setFieldValue)
                 }
