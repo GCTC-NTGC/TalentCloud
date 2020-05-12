@@ -257,8 +257,7 @@
                             {% if skill_declaration.description  %}
                                 <div data-c-grid-item="full">
                                     <p>
-                                        {{ skill_template.knowledge_prompt }}&nbsp;({% if locale == "application" %}{{ skill_template.skill_levels[criterion.skill.skill_type.name][criterion.skill_level.name]|title }}{% elseif locale == "application-view" %}{{ skill_template.skill_levels[criterion.skill.skill_type.name][criterion.skill_level.name]|title }}{% endif %})&nbsp;
-                                        <button data-c-button="reset" data-c-font-size="regular" data-c-font-style="underline" data-c-dialog-id="skill-need-help-modal" data-c-dialog-action="open" type="button">
+                                        {{ skill_template.knowledge_prompt }} {% if locale == "application" or locale == "application-view" %}({{ skill_template.skill_levels[criterion.skill.skill_type.name][criterion.skill_level.name]|title }}){% endif %} <button data-c-button="reset" data-c-font-size="regular" data-c-font-style="underline" data-c-dialog-id="skill-need-help-modal" data-c-dialog-action="open" type="button">
                                             {{ skill_template.knowledge_link_label }}
                                         </button>
                                     </p>
