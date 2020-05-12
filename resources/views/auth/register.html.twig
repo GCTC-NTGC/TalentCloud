@@ -28,7 +28,9 @@
 						<input data-c-visibility="hidden" id="website" type="text" name="website" value="" />
 						<div data-c-background="white(100)" data-c-padding="all(1)">
 							<div>
-								{% include "errors/form_errors" %}
+								<div class="form-error">
+									{% include "errors/form_errors" %}
+								</div>
 								{# Form Inputs #}
 								<div
 									data-c-grid="gutter middle">
@@ -102,7 +104,7 @@
 									</a>
 								</div>
 								<div data-c-grid-item="base(1of2)" data-c-align="base(right)">
-									<button data-c-button="solid(c1)" data-c-radius="rounded" type="submit">
+									<button id="register-submit" data-c-button="solid(c1)" data-c-radius="rounded" type="submit">
 										{{ register.register }}
 									</button>
 								</div>
