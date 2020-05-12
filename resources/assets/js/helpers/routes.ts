@@ -1,4 +1,22 @@
-import { baseUrl } from "../api/base";
+function stripTrailingSlash(str: string): string {
+  return str.endsWith("/") ? str.slice(0, -1) : str;
+}
+
+export function baseUrl(): string {
+  const base = document.querySelector("head base");
+  if (base !== null) {
+    return stripTrailingSlash(base.getAttribute("href") ?? "");
+  }
+  return "";
+}
+
+export function basePathname(): string {
+  return (new URL(baseUrl())).pathname;
+}
+
+export function baseApiUrl(version = 1): string {
+  return `${baseUrl()}/api/v${version}`;
+}
 
 function applicationShow(
   locale: string,
@@ -54,7 +72,7 @@ export function applicationReviewUpdate(
   locale: string,
   applicationId: number,
 ): string {
-  return `${baseUrl()}/applications/${applicationId}/review`;
+  return `${baseApiUrl()}/applications/${applicationId}/review`;
 }
 
 export function jobBuilderIntro(locale: string, jobId?: number): string {

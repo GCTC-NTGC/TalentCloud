@@ -2,14 +2,16 @@ import { createBrowserHistory, Location } from "history";
 import UniversalRouter, { Routes } from "universal-router";
 import React, { useState, useEffect, useMemo, ReactElement } from "react";
 import { IntlShape, MessageDescriptor } from "react-intl";
+import { basePathname } from "./routes";
 
-const HISTORY = createBrowserHistory();
+const HISTORY = createBrowserHistory({ basename: basePathname() });
 
 // Current implementation adapted from https://codesandbox.io/s/vyx8q7jvk7
 
 export const useLocation = (): Location<any> => {
   const history = HISTORY;
   const [location, setLocation] = useState(history.location);
+  history.location.state;
   useEffect((): (() => void) => {
     const unListen = history.listen((newLocation): void =>
       setLocation(newLocation),
@@ -48,10 +50,10 @@ export const useRouter = (
   const location = useLocation();
   const router = useMemo(() => new UniversalRouter(routes), [routes]);
   const [component, setComponent] = useState<React.ReactElement | null>(null);
-
+  const path = location.pathname;
   // Render the result of routing
   useEffect((): void => {
-    router.resolve(location.pathname).then((result): void => {
+    router.resolve(path).then((result): void => {
       const title = intl.formatMessage(result.title);
       document.title = title;
       const h1 = document.querySelector("h1");

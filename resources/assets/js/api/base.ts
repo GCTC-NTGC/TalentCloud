@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import rootAxios from "axios";
+import { baseApiUrl } from "../helpers/routes";
 
 export interface ResponseData {
   [key: string]: string & ResponseData & [ResponseData];
@@ -8,9 +9,7 @@ export interface ApiResponse {
   data: ResponseData;
 }
 
-export const baseUrl = (version = 1): string => {
-  return `/api/v${version}`;
-};
+export const baseUrl = baseApiUrl;
 
 export const parseDateStrict = (date: string): Date => dayjs(date).toDate();
 
