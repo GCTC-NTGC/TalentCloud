@@ -156,7 +156,10 @@ return [
             'required' => 'Le champ de la question doit être rempli.',
             'string' => 'Le champ question doit être du texte.'
         ],
-        'word_limit' => 'La description doit contenir moins de :max_words mots.'
+        'word_limit' => 'La description doit contenir moins de :max_words mots.',
+        'website' => [
+            'size' => 'Your submission looks like a bot might have filled it out! Only fill out the required fields.',
+        ],
     ],
     /*
     |--------------------------------------------------------------------------
