@@ -57,7 +57,7 @@ class MicroReferenceMail extends Mailable implements ShouldQueue
             ->markdown('emails.micro_reference', [
                 'reference_name' => $reference_name,
                 'homepage_url' => route('response.index'),
-                'homepage_url_fr' => LaravelLocalization::getURLFromRouteNameTranslated('fr', 'response.index'),
+                'homepage_url_fr' => LaravelLocalization::getLocalizedURL('fr', route('response.index')),
                 'applicant_name' => $this->application->applicant->user->full_name,
                 'is_director' => $this->is_director,
                 'criteria' => $essential_criteria,
