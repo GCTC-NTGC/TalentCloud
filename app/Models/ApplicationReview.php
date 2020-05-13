@@ -16,6 +16,8 @@ use App\Models\Lookup\ReviewDecision;
  * @property int $review_status_id
  * @property int $department_id
  * @property string $notes
+ * @property boolean $director_email_sent
+ * @property boolean $reference _email_sent
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -33,6 +35,8 @@ class ApplicationReview extends Model
         'review_status_id' => 'int',
         'department_id' => 'int',
         'notes' => 'string',
+        'director_email_sent' => 'boolean',
+        'reference_email_sent' => 'boolean',
     ];
 
     protected $fillable = [

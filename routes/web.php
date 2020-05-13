@@ -77,7 +77,7 @@ Route::group(
             Route::view('resources', 'common/resources')->middleware('localOnly')->name('resources');
 
             /* Response Home */
-            Route::view('response', 'response/index/index')->middleware('localOnly')->name('response');
+            Route::view('response', 'response/index/index')->middleware('localOnly')->name('response.test');
             /* Response Screening */
             Route::view('response-screening', 'response/screening/index')->middleware('localOnly')->name('responseScreening');
 
@@ -848,6 +848,22 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
     Route::put('applications/{application}/review', 'ApplicationReviewController@updateForApplication')
         ->middleware('can:review,application')
         ->name('application_reviews.update');
+
+    Route::get('applications/{application}/reference-emails/', 'Api\MicroReferenceController@index')
+        ->middleware('can:review,application')
+        ->name('api.application.reference_mail.index');
+    Route::get('applications/{application}/reference-emails/director', 'Api\MicroReferenceController@showDirectorEmail')
+        ->middleware('can:review,application')
+        ->name('api.application.reference_mail.director.show');
+    Route::post('applications/{application}/reference-emails/director/send', 'Api\MicroReferenceController@sendDirectorEmail')
+        ->middleware('can:review,application')
+        ->name('api.application.reference_mail.director.send');
+    Route::get('applications/{application}/reference-emails/secondary', 'Api\MicroReferenceController@showSecondaryReferenceEmail')
+        ->middleware('can:review,application')
+        ->name('api.application.reference_mail.secondary.show');
+    Route::post('applications/{application}/reference-emails/secondary/send', 'Api\MicroReferenceController@sendSecondaryReferenceEmail')
+        ->middleware('can:review,application')
+        ->name('api.application.reference_mail.secondary.send');
 
     Route::resource('managers', 'Api\ManagerController')->only([
         'show', 'update'

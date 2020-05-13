@@ -131,6 +131,9 @@ class Handler extends ExceptionHandler
         if ($exception instanceof StateMachineException) {
             return parent::render($request, new HttpException(400, $exception->getMessage()));
         }
+        if ($exception instanceof SendEmailException) {
+            return parent::render($request, new HttpException(400, $exception->getMessage()));
+        }
         return parent::render($request, $exception);
     }
 
