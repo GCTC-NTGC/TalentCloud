@@ -10,7 +10,6 @@ use Facades\App\Services\WhichPortal;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Log;
 
 class BreadcrumbsComposer
 {
@@ -66,36 +65,36 @@ class BreadcrumbsComposer
     {
         return collect($this->request->segments())->mapWithKeys(function ($segment, $key) {
             // Replaces any segment ID in url with the objects name or title.
-            if ($this->request->jobPoster === $segment) {
+            if ($this->request->jobPoster == $segment) {
                 $poster = JobPoster::find($this->request->jobPoster);
-                if ($poster !== null) {
+                if ($poster != null) {
                     $segment = $poster->title;
                 }
-            } elseif (is_object($this->request->jobPoster) && $this->request->jobPoster->id === $segment) {
+            } elseif (is_object($this->request->jobPoster) && $this->request->jobPoster->id == $segment) {
                 $segment = $this->request->jobPoster->title;
             }
-            if ($this->request->manager === $segment) {
+            if ($this->request->manager == $segment) {
                 $manager = Manager::find($this->request->manager);
-                if ($manager !== null) {
+                if ($manager != null) {
                     $segment = $manager->user->full_name;
                 }
-            } elseif (is_object($this->request->manager) && $this->request->manager->id === $segment) {
+            } elseif (is_object($this->request->manager) && $this->request->manager->id == $segment) {
                 $segment = $this->request->manager->user->full_name;
             }
-            if ($this->request->applicant === $segment) {
+            if ($this->request->applicant == $segment) {
                 $applicant = Applicant::find($this->request->applicant);
-                if ($applicant !== null) {
+                if ($applicant != null) {
                     $segment = $applicant->user->full_name;
                 }
-            } elseif (is_object($this->request->applicant) && $this->request->applicant->id === $segment) {
+            } elseif (is_object($this->request->applicant) && $this->request->applicant->id == $segment) {
                 $segment = $this->request->applicant->user->full_name;
             }
-            if ($this->request->application === $segment) {
+            if ($this->request->application == $segment) {
                 $application = JobApplication::find($this->request->application);
-                if ($application !== null) {
+                if ($application != null) {
                     $segment = $application->user_name;
                 }
-            } elseif (is_object($this->request->application) && $this->request->application->id === $segment) {
+            } elseif (is_object($this->request->application) && $this->request->application->id == $segment) {
                 $segment = $this->request->application->user_name;
             }
             return [
