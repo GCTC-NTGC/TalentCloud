@@ -2,6 +2,10 @@
 
 namespace App\Http\ViewComposers;
 
+use App\Models\Applicant;
+use App\Models\JobApplication;
+use App\Models\JobPoster;
+use App\Models\Manager;
 use Facades\App\Services\WhichPortal;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -62,17 +66,37 @@ class BreadcrumbsComposer
     {
         return collect($this->request->segments())->mapWithKeys(function ($segment, $key) {
             // Replaces any segment ID in url with the objects name or title.
-            if ($this->request->jobPoster && $this->request->jobPoster->id == $segment) {
+            if ($this->request->jobPoster === $segment) {
+                $poster = JobPoster::find($this->request->jobPoster);
+                if ($poster !== null) {
+                    $segment = $poster->title;
+                }
+            } elseif (is_object($this->request->jobPoster) && $this->request->jobPoster->id == $segment) {
                 $segment = $this->request->jobPoster->title;
             }
-            if ($this->request->manager && $this->request->manager->id == $segment) {
-                $segment = $this->request->manager->user->full_name;
+            if ($this->request->manager === $segment) {
+                $poster = Manager::find($this->request->manager);
+                if ($poster !== null) {
+                    $segment = $poster->title;
+                }
+            } elseif (is_object($this->request->manager) && $this->request->manager->id == $segment) {
+                $segment = $this->request->manager->title;
             }
-            if ($this->request->applicant && $this->request->applicant->id == $segment) {
-                $segment = $this->request->applicant->user->full_name;
+            if ($this->request->applicant === $segment) {
+                $poster = Applicant::find($this->request->applicant);
+                if ($poster !== null) {
+                    $segment = $poster->title;
+                }
+            } elseif (is_object($this->request->applicant) && $this->request->applicant->id == $segment) {
+                $segment = $this->request->applicant->title;
             }
-            if ($this->request->application && $this->request->application->id == $segment) {
-                $segment = $this->request->application->user_name;
+            if ($this->request->application === $segment) {
+                $poster = JobApplication::find($this->request->application);
+                if ($poster !== null) {
+                    $segment = $poster->title;
+                }
+            } elseif (is_object($this->request->application) && $this->request->application->id == $segment) {
+                $segment = $this->request->application->title;
             }
             return [
                 $segment => implode('/', array_slice($this->request->segments(), 0, $key + 1)),
