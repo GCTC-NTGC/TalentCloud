@@ -59,6 +59,15 @@ a.response-job-listing {
                         margin-left: 3rem;
                     }
                 }
+
+                .email-reference-wrapper {
+                    position: relative;
+                    i {
+                        position: absolute;
+                        top: 40%;
+                        left: -5%;
+                    }
+                }
             }
         }
     }

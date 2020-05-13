@@ -1,13 +1,16 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
-import React, { useState, useEffect } from "react";
-import { defineMessages, useIntl } from "react-intl";
+import React, { useState, useEffect, useRef } from "react";
+import { defineMessages, useIntl, FormattedMessage } from "react-intl";
 import { FastField, Formik, Form, useFormikContext } from "formik";
 import Swal from "sweetalert2";
+import ReactMarkdown from "react-markdown";
 import SelectInput from "../../Form/SelectInput";
 import {
   Application,
   Department,
   ApplicationReview,
+  Email,
+  EmailAddress,
 } from "../../../models/types";
 import { Portal, ValuesOf } from "../../../models/app";
 import * as routes from "../../../helpers/routes";
@@ -25,6 +28,8 @@ import {
   getLocale,
   Locales,
 } from "../../../helpers/localize";
+import Modal from "../../Modal";
+import { notEmpty, empty } from "../../../helpers/queries";
 
 const displayMessages = defineMessages({
   viewApplication: {
@@ -171,6 +176,167 @@ const AlertWhenUnsaved = (): React.ReactElement => {
   return <></>;
 };
 
+interface ReferenceEmailModalProps {
+  id: string;
+  parent: Element | null;
+  email: Email | null;
+  visible: boolean;
+  onConfirm: () => void;
+  onCancel: () => void;
+}
+
+const ReferenceEmailModal: React.FC<ReferenceEmailModalProps> = ({
+  id,
+  parent,
+  email,
+  visible,
+  onConfirm,
+  onCancel,
+}): React.ReactElement => {
+  const renderAddress = (adr: EmailAddress): string =>
+    `${adr.name} <${adr.address}>`;
+  const renderAddresses = (adrs: EmailAddress[]): string =>
+    adrs.map(renderAddress).join(", ");
+  const noDeliveryAdr = email == null || email.to.length == 0;
+  return (
+    <>
+      <div data-c-dialog-overlay={visible ? "active" : ""} />
+      <Modal
+        id={id}
+        parentElement={parent}
+        visible={visible}
+        onModalConfirm={onConfirm}
+        onModalCancel={onCancel}
+      >
+        <Modal.Header>
+          <div
+            data-c-background="c1(100)"
+            data-c-border="bottom(thin, solid, black)"
+            data-c-padding="normal"
+          >
+            <h5 data-c-colour="white" data-c-font-size="h4">
+              <FormattedMessage
+                id="referenceEmailModal.title"
+                defaultMessage="Email for Reference Check"
+                description="Text displayed on the title of the MicroReference Email modal."
+              />
+            </h5>
+          </div>
+        </Modal.Header>
+        <Modal.Body>
+          <div data-c-border="bottom(thin, solid, black)">
+            <div
+              data-c-border="bottom(thin, solid, black)"
+              data-c-padding="normal"
+            >
+              <p>
+                <span>
+                  <strong>
+                    <FormattedMessage
+                      id="referenceEmailModal.toLabel"
+                      defaultMessage="To:"
+                    />
+                  </strong>
+                </span>
+                {` `}
+                <span>{renderAddresses(email?.to ?? [])}</span>
+              </p>
+              <p>
+                <span>
+                  <strong>
+                    <FormattedMessage
+                      id="referenceEmailModal.fromLabel"
+                      defaultMessage="From:"
+                    />
+                  </strong>
+                </span>
+                {` `}
+                <span>{renderAddresses(email?.from ?? [])}</span>
+              </p>
+              <p>
+                <span>
+                  <strong>
+                    <FormattedMessage
+                      id="referenceEmailModal.ccLabel"
+                      defaultMessage="CC:"
+                    />
+                  </strong>
+                </span>
+                {` `}
+                <span>{renderAddresses(email?.cc ?? [])}</span>
+              </p>
+              <p>
+                <span>
+                  <strong>
+                    <FormattedMessage
+                      id="referenceEmailModal.bccLabel"
+                      defaultMessage="BCC:"
+                    />
+                  </strong>
+                </span>
+                {` `}
+                <span>{renderAddresses(email?.bcc ?? [])}</span>
+              </p>
+              <p>
+                <span>
+                  <strong>
+                    <FormattedMessage
+                      id="referenceEmailModal.subjectLabel"
+                      defaultMessage="Subject:"
+                    />
+                  </strong>
+                </span>
+                {` `}
+                <span>{email?.subject}</span>
+              </p>
+            </div>
+            <div data-c-background="grey(20)" data-c-padding="normal">
+              <div
+                data-c-background="white(100)"
+                data-c-padding="normal"
+                data-c-radius="rounded"
+                className="spaced-paragraphs"
+              >
+                {email ? (
+                  <ReactMarkdown source={email.body} />
+                ) : (
+                  <p>
+                    <FormattedMessage
+                      id="referenceEmailModal.nullState"
+                      defaultMessage="Loading reference email..."
+                    />
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Modal.FooterCancelBtn>
+            <FormattedMessage
+              id="referenceEmailModal.cancel"
+              defaultMessage="Cancel"
+            />
+          </Modal.FooterCancelBtn>
+          <Modal.FooterConfirmBtn disabled={noDeliveryAdr}>
+            {noDeliveryAdr ? (
+              <FormattedMessage
+                id="referenceEmailModal.noDeliveryAddress"
+                defaultMessage="No Delivery Address"
+              />
+            ) : (
+              <FormattedMessage
+                id="referenceEmailModal.confirm"
+                defaultMessage="Send Email"
+              />
+            )}
+          </Modal.FooterConfirmBtn>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+};
+
 interface FormValues {
   reviewStatus: ReviewStatusId | ResponseReviewStatusId | null;
   department: number | null;
@@ -183,6 +349,13 @@ interface ApplicationRowProps {
   departments: Department[];
   handleUpdateReview: (review: ApplicationReview) => Promise<ApplicationReview>;
   portal: Portal;
+  directorReferenceEmail: Email | null;
+  secondaryReferenceEmail: Email | null;
+  requestReferenceEmails: (applicationId: number) => void;
+  sendReferenceEmail: (
+    applicationId: number,
+    referenceType: "director" | "secondary",
+  ) => Promise<void>;
 }
 
 const ApplicationRow: React.FC<ApplicationRowProps> = ({
@@ -191,6 +364,10 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
   departments,
   handleUpdateReview,
   portal,
+  directorReferenceEmail,
+  secondaryReferenceEmail,
+  requestReferenceEmails,
+  sendReferenceEmail,
 }): React.ReactElement => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -264,8 +441,10 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
     notes: null,
     created_at: new Date(),
     updated_at: new Date(),
-    department: null,
-    review_status: null,
+    department: undefined,
+    review_status: undefined,
+    director_email_sent: false,
+    reference_email_sent: false,
   };
 
   const initialValues: FormValues = {
@@ -315,8 +494,56 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
     });
   };
 
+  // MicroReferences
+  const bucketsWithReferences: any = [
+    ResponseReviewStatusId.ReadyForReference,
+    ResponseReviewStatusId.ReadyToAllocate,
+    ResponseReviewStatusId.Allocated,
+  ];
+  const showReferences: boolean =
+    notEmpty(application.application_review?.review_status_id) &&
+    bucketsWithReferences.includes(
+      application.application_review?.review_status_id,
+    );
+  // A single modal component is used for both emails, since only one will appear at a time.
+  const [showingEmail, setShowingEmail] = useState<"director" | "secondary">(
+    "director",
+  );
+  // But each email needs its own 'sending' flag, because its possible have both sending at the same time.
+  const [sendingDirectorEmail, setSendingDirectorEmail] = useState(false);
+  const [sendingSecondaryEmail, setSendingSecondaryEmail] = useState(false);
+  const emailOptions = {
+    director: directorReferenceEmail,
+    secondary: secondaryReferenceEmail,
+  };
+  const [emailModalVisible, setEmailModalVisible] = useState(false);
+  const showDirectorEmail = (): void => {
+    requestReferenceEmails(application.id);
+    setShowingEmail("director");
+    setEmailModalVisible(true);
+  };
+  const showSecondaryEmail = (): void => {
+    requestReferenceEmails(application.id);
+    setShowingEmail("secondary");
+    setEmailModalVisible(true);
+  };
+  const hideEmail = (): void => {
+    setEmailModalVisible(false);
+  };
+  const onConfirm = async (): Promise<void> => {
+    hideEmail();
+    const setSendingEmail = {
+      director: setSendingDirectorEmail,
+      secondary: setSendingSecondaryEmail,
+    }[showingEmail];
+    setSendingEmail(true);
+    await sendReferenceEmail(application.id, showingEmail);
+    setSendingEmail(false);
+  };
+  const modalParentRef = useRef<HTMLDivElement>(null);
+
   return (
-    <div className="applicant">
+    <div className="applicant" ref={modalParentRef}>
       <Formik
         initialValues={initialValues}
         onSubmit={(values, { setSubmitting, resetForm }): void => {
@@ -407,14 +634,103 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
                       {application.applicant.user.email}
                     </a>
                   </p>
-                  <p data-c-font-size="small">
-                    <a href={applicationUrl} title="" data-c-margin="right(.5)">
+                  <div
+                    data-c-font-size="small"
+                    data-c-grid="gutter(all, 1) middle"
+                  >
+                    <a
+                      href={applicationUrl}
+                      title=""
+                      data-c-grid-item="base(1of2)"
+                    >
                       {intl.formatMessage(displayMessages.viewApplication)}
                     </a>
-                    <a href={applicantUrl} title="">
+                    <a
+                      href={applicantUrl}
+                      title=""
+                      data-c-grid-item="base(1of2)"
+                    >
                       {intl.formatMessage(displayMessages.viewProfile)}
                     </a>
-                  </p>
+                    {showReferences && (
+                      <>
+                        <div
+                          className="email-reference-wrapper"
+                          data-c-grid-item="base(1of2)"
+                        >
+                          <i
+                            className="fa fa-check-circle"
+                            data-c-color="go"
+                            data-c-visibility={
+                              application.application_review
+                                ?.director_email_sent
+                                ? "visible"
+                                : "invisible"
+                            }
+                            data-c-font-size="small"
+                            data-c-margin="right(.5)"
+                          />
+                          <button
+                            data-c-button="reset"
+                            data-c-font-style="underline"
+                            data-c-font-size="small"
+                            type="button"
+                            onClick={showDirectorEmail}
+                            disabled={sendingDirectorEmail}
+                          >
+                            {sendingDirectorEmail ? (
+                              <FormattedMessage
+                                id="responseScreening.applicant.directorEmailSending"
+                                defaultMessage="Sending email..."
+                              />
+                            ) : (
+                              <FormattedMessage
+                                id="responseScreening.applicant.directorEmailButton"
+                                defaultMessage="Director email."
+                              />
+                            )}
+                          </button>
+                        </div>
+                        <div
+                          data-c-grid-item="base(1of2)"
+                          className="email-reference-wrapper"
+                        >
+                          <i
+                            className="fa fa-check-circle"
+                            data-c-color="go"
+                            data-c-visibility={
+                              application.application_review
+                                ?.reference_email_sent
+                                ? "visible"
+                                : "invisible"
+                            }
+                            data-c-font-size="small"
+                            data-c-margin="right(.5)"
+                          />
+                          <button
+                            data-c-button="reset"
+                            data-c-font-style="underline"
+                            data-c-font-size="small"
+                            type="button"
+                            onClick={showSecondaryEmail}
+                            disabled={sendingSecondaryEmail}
+                          >
+                            {sendingSecondaryEmail ? (
+                              <FormattedMessage
+                                id="responseScreening.applicant.secondaryEmailSending"
+                                defaultMessage="Sending email..."
+                              />
+                            ) : (
+                              <FormattedMessage
+                                id="responseScreening.applicant.secondaryEmailButton"
+                                defaultMessage="Reference email."
+                              />
+                            )}
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -452,6 +768,7 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
                 data-c-button="outline(c1)"
                 type="button"
                 data-c-radius="rounded"
+                data-c-margin="right(1)"
                 onClick={(): void =>
                   handleNotesButtonClick(values.notes, setFieldValue)
                 }
@@ -475,6 +792,16 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
           </Form>
         )}
       </Formik>
+      {showReferences && (
+        <ReferenceEmailModal
+          id={`referenceEmailModal_application${application.id}`}
+          parent={modalParentRef.current}
+          visible={emailModalVisible}
+          email={emailOptions[showingEmail]}
+          onConfirm={onConfirm}
+          onCancel={hideEmail}
+        />
+      )}
     </div>
   );
 };
@@ -483,19 +810,22 @@ const applicationSort = (locale: Locales) => {
   return (first: Application, second: Application): number => {
     // Applications without a review status should appear first
     if (
-      first.application_review === undefined &&
-      second.application_review !== undefined
+      empty(first.application_review?.review_status_id) &&
+      notEmpty(second.application_review?.review_status_id)
     ) {
       return -1;
     }
     if (
-      first.application_review !== undefined &&
-      second.application_review === undefined
+      notEmpty(first.application_review?.review_status_id) &&
+      empty(second.application_review?.review_status_id)
     ) {
       return 1;
     }
     // Applications with a review status should be grouped by status
-    if (first.application_review && second.application_review) {
+    if (
+      notEmpty(first.application_review) &&
+      notEmpty(second.application_review)
+    ) {
       if (
         first.application_review.review_status_id &&
         second.application_review.review_status_id
@@ -515,14 +845,14 @@ const applicationSort = (locale: Locales) => {
       }
       // Applications without a Department should appear first
       if (
-        first.application_review.department === null &&
-        second.application_review.department !== null
+        empty(first.application_review.department) &&
+        notEmpty(second.application_review.department)
       ) {
         return -1;
       }
       if (
-        first.application_review.department !== null &&
-        second.application_review.department === null
+        notEmpty(first.application_review.department) &&
+        empty(second.application_review.department)
       ) {
         return 1;
       }
@@ -547,10 +877,11 @@ const applicationSort = (locale: Locales) => {
         if (firstDepartmentName > secondDepartmentName) {
           return 1;
         }
-        return 0;
       }
     }
-    return 0;
+    return first.applicant.user.full_name.localeCompare(
+      second.applicant.user.full_name,
+    );
   };
 };
 
@@ -560,6 +891,23 @@ interface ApplicantBucketProps {
   departments: Department[];
   handleUpdateReview: (review: ApplicationReview) => Promise<ApplicationReview>;
   portal: Portal;
+  referenceEmails: {
+    director: {
+      byApplicationId: {
+        [applicationId: number]: Email;
+      };
+    };
+    secondary: {
+      byApplicationId: {
+        [applicationId: number]: Email;
+      };
+    };
+  };
+  requestReferenceEmails: (applicationId: number) => void;
+  sendReferenceEmail: (
+    applicationId: number,
+    referenceType: "director" | "secondary",
+  ) => Promise<void>;
 }
 
 const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
@@ -568,6 +916,9 @@ const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
   departments,
   handleUpdateReview,
   portal,
+  referenceEmails,
+  requestReferenceEmails,
+  sendReferenceEmail,
 }): React.ReactElement => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -667,6 +1018,16 @@ const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
                   departments={departments}
                   handleUpdateReview={handleUpdateReview}
                   portal={portal}
+                  directorReferenceEmail={
+                    referenceEmails.director.byApplicationId[application.id] ??
+                    null
+                  }
+                  secondaryReferenceEmail={
+                    referenceEmails.secondary.byApplicationId[application.id] ??
+                    null
+                  }
+                  requestReferenceEmails={requestReferenceEmails}
+                  sendReferenceEmail={sendReferenceEmail}
                 />
               ))}
           {isExpanded && applications.length === 0 && (
