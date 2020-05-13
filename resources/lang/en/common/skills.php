@@ -43,6 +43,7 @@ return [
         ],
     ],
     'skill_description_null' => 'You have not yet described how this skill applies to you.',
+    'skill_description_placeholder' => "Tell us a bit about your skills, like where you worked, what your role was, the tools you've used and what you delivered.",
     'action_01' => 'Delete Skill',
     'action_02' => 'Save Skill',
     'action_02_working' => 'Saving...',
