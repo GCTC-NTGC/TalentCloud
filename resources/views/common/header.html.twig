@@ -15,8 +15,7 @@
             <div data-c-margin="top(2)">
                 <div data-c-grid="gutter(all, 1)">
                     <div data-c-grid-item="tl(3of4)">
-                        {% if hide_breadcrumbs %}
-                        {% else %}
+                        {% if not hide_breadcrumbs %}
                             {% include "common/breadcrumbs" %}
                         {% endif %}
                     </div>
