@@ -31,29 +31,29 @@ class ApplicantProfileController extends Controller
     public function show(JobPoster $jobPoster, Applicant $applicant)
     {
 
-        if ($jobPoster->submitted_applications->firstWhere('applicant_id', '==', $applicant->id) !== null) {
-            $custom_breadcrumbs = [
-                'home' => route('home'),
-                'jobs' => route(WhichPortal::prefixRoute('jobs.index')),
-                $jobPoster->title => route(WhichPortal::prefixRoute('jobs.summary'), $jobPoster),
-                'applications' =>  route(WhichPortal::prefixRoute('jobs.applications'), $jobPoster),
-                'profile' => '',
-            ];
-
-            return view(
-                'manager/applicant_profile',
-                [
-                    // Localized strings.
-                    'profile' => Lang::get('manager/applicant_profile'), // Change text
-                    // Applicant data.
-                    'applicant' => $applicant,
-                    'profile_photo_url' => '/images/user.png', // TODO: get real photos.
-                    'custom_breadcrumbs' => $custom_breadcrumbs,
-                ]
-            );
-        } else {
+        // Viewing this page is only possible if the applicant has applied to the specified job.
+        if ($jobPoster->submitted_applications->firstWhere('applicant_id', '==', $applicant->id) === null) {
             return abort(404);
         }
+        $custom_breadcrumbs = [
+            'home' => route('home'),
+            'jobs' => route(WhichPortal::prefixRoute('jobs.index')),
+            $jobPoster->title => route(WhichPortal::prefixRoute('jobs.summary'), $jobPoster),
+            'applications' =>  route(WhichPortal::prefixRoute('jobs.applications'), $jobPoster),
+            'profile' => '',
+        ];
+
+        return view(
+            'manager/applicant_profile',
+            [
+                // Localized strings.
+                'profile' => Lang::get('manager/applicant_profile'), // Change text
+                // Applicant data.
+                'applicant' => $applicant,
+                'profile_photo_url' => '/images/user.png', // TODO: get real photos.
+                'custom_breadcrumbs' => $custom_breadcrumbs,
+            ]
+        );
     }
 
     /**
