@@ -170,6 +170,13 @@ return [
                         'Le codage pour la Réserve de talents du GC est ouvert, étant donné qu’il pourrait être utile à d’autres administrations fédérales et internationales qui cherchent des fonctionnalités similaires pour faire face au défi actuel.'
                     ]
                 ],
+                [
+                    'id' => 'q22',
+                    'question' => 'J\'ai déjà un compte dans le Nuage de talents. Dois-je également créer un compte dans la Réserve de talents du GC?',
+                    'answers' => [
+                        'La Réserve de talents du GC est une plateforme entièrement distincte, construite pour un objectif qui diffère nettement de celui de la plateforme habituelle du Nuages de talents. Dans le but de protéger la vie privée de tout le monde, nous n\'avons copié aucun renseignement ayant trait aux utilisateurs. Vous aurez besoin de vous inscrire pour créer un nouveau compte afin d\'utiliser la Réserve de talents du GC. Nous reconnaissons que ce n\'est pas idéal, car nous avons travaillé à la mise en place et à l’opération de la nouvelle plateforme le plus rapidement possible en réponse à la pandémie de la COVID19. Dorénavant, nous étudions la possibilité de permettre aux utilisateurs de transférer des renseignements entre le Nuage de talents et la Réserve de talents du GC.'
+                    ]
+                ],
             ]
         ]
     ]
