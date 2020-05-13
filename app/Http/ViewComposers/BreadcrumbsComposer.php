@@ -75,28 +75,28 @@ class BreadcrumbsComposer
                 $segment = $this->request->jobPoster->title;
             }
             if ($this->request->manager === $segment) {
-                $poster = Manager::find($this->request->manager);
-                if ($poster !== null) {
-                    $segment = $poster->title;
+                $manager = Manager::find($this->request->manager);
+                if ($manager !== null) {
+                    $segment = $manager->user->full_name;
                 }
             } elseif (is_object($this->request->manager) && $this->request->manager->id === $segment) {
-                $segment = $this->request->manager->title;
+                $segment = $this->request->manager->user->full_name;
             }
             if ($this->request->applicant === $segment) {
-                $poster = Applicant::find($this->request->applicant);
-                if ($poster !== null) {
-                    $segment = $poster->title;
+                $applicant = Applicant::find($this->request->applicant);
+                if ($applicant !== null) {
+                    $segment = $applicant->user->full_name;
                 }
             } elseif (is_object($this->request->applicant) && $this->request->applicant->id === $segment) {
-                $segment = $this->request->applicant->title;
+                $segment = $this->request->applicant->user->full_name;
             }
             if ($this->request->application === $segment) {
-                $poster = JobApplication::find($this->request->application);
-                if ($poster !== null) {
-                    $segment = $poster->title;
+                $application = JobApplication::find($this->request->application);
+                if ($application !== null) {
+                    $segment = $application->user_name;
                 }
             } elseif (is_object($this->request->application) && $this->request->application->id === $segment) {
-                $segment = $this->request->application->title;
+                $segment = $this->request->application->user_name;
             }
             return [
                 $segment => implode('/', array_slice($this->request->segments(), 0, $key + 1)),
