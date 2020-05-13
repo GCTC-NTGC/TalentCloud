@@ -71,7 +71,7 @@ class BreadcrumbsComposer
                 if ($poster !== null) {
                     $segment = $poster->title;
                 }
-            } elseif (is_object($this->request->jobPoster) && $this->request->jobPoster->id == $segment) {
+            } elseif (is_object($this->request->jobPoster) && $this->request->jobPoster->id === $segment) {
                 $segment = $this->request->jobPoster->title;
             }
             if ($this->request->manager === $segment) {
@@ -79,7 +79,7 @@ class BreadcrumbsComposer
                 if ($poster !== null) {
                     $segment = $poster->title;
                 }
-            } elseif (is_object($this->request->manager) && $this->request->manager->id == $segment) {
+            } elseif (is_object($this->request->manager) && $this->request->manager->id === $segment) {
                 $segment = $this->request->manager->title;
             }
             if ($this->request->applicant === $segment) {
@@ -87,7 +87,7 @@ class BreadcrumbsComposer
                 if ($poster !== null) {
                     $segment = $poster->title;
                 }
-            } elseif (is_object($this->request->applicant) && $this->request->applicant->id == $segment) {
+            } elseif (is_object($this->request->applicant) && $this->request->applicant->id === $segment) {
                 $segment = $this->request->applicant->title;
             }
             if ($this->request->application === $segment) {
@@ -95,7 +95,7 @@ class BreadcrumbsComposer
                 if ($poster !== null) {
                     $segment = $poster->title;
                 }
-            } elseif (is_object($this->request->application) && $this->request->application->id == $segment) {
+            } elseif (is_object($this->request->application) && $this->request->application->id === $segment) {
                 $segment = $this->request->application->title;
             }
             return [
