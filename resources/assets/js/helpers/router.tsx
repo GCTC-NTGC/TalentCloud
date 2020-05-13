@@ -2,13 +2,6 @@ import { createBrowserHistory, Location } from "history";
 import UniversalRouter, { Routes } from "universal-router";
 import React, { useState, useEffect, useMemo, ReactElement } from "react";
 import { IntlShape, MessageDescriptor } from "react-intl";
-import { useStore, useSelector } from "react-redux";
-import { getSelectedJob, getJobIsUpdating } from "../store/Job/jobSelector";
-import { localizeField, getLocale } from "./localize";
-import { managerJobSummary } from "./routes";
-import { RootState } from "../store/store";
-import { Job } from "../models/types";
-import { messages } from "../components/HRPortal/JobIndexHrPage";
 
 const HISTORY = createBrowserHistory();
 
@@ -52,37 +45,9 @@ export const useRouter = (
   routes: Routes<any, RouterResult>,
   intl: IntlShape,
 ): React.ReactElement | null => {
-  const locale = getLocale(intl.locale);
   const location = useLocation();
   const router = useMemo(() => new UniversalRouter(routes), [routes]);
   const [component, setComponent] = useState<React.ReactElement | null>(null);
-  const job = useSelector((state: RootState) => getSelectedJob(state));
-
-  // Dynamically update the breadcrumbs on step changes
-  const jobBreadcrumbId = "job-title-breadcrumb";
-  const addJobBreadcrumb = (jobBreadcrumb: Job): void => {
-    const breadcrumbs: HTMLOListElement | null = document.querySelector(
-      "#jpb-breadcrumbs",
-    );
-    const breadcrumb: HTMLLIElement = document.createElement("li");
-    const anchor = document.createElement("a");
-    const icon = document.createElement("i");
-
-    anchor.id = jobBreadcrumbId;
-    anchor.href = managerJobSummary(locale, jobBreadcrumb.id);
-    anchor.innerText =
-      localizeField(locale, jobBreadcrumb, "title") ||
-      `{ ${intl.formatMessage(messages.titleMissing)} }`;
-
-    icon.classList.add("fas", "fa-caret-right");
-    breadcrumb.append(anchor);
-    breadcrumb.append(icon);
-
-    if (breadcrumbs) {
-      const lastBreadcrumb = breadcrumbs.lastElementChild;
-      breadcrumbs.insertBefore(breadcrumb, lastBreadcrumb);
-    }
-  };
 
   // Render the result of routing
   useEffect((): void => {
@@ -92,25 +57,9 @@ export const useRouter = (
       document.title = title;
       const h1 = document.querySelector("h1");
       if (h1) h1.innerHTML = title;
-
-      const jobBreadcrumb: HTMLAnchorElement | null = document.querySelector(
-        `#${jobBreadcrumbId}`,
-      );
-
-      if (job) {
-        if (jobBreadcrumb) {
-          jobBreadcrumb.href = managerJobSummary(locale, job.id);
-          jobBreadcrumb.innerText =
-            localizeField(locale, job, "title") ||
-            `{ ${intl.formatMessage(messages.titleMissing)} }`;
-        } else {
-          addJobBreadcrumb(job);
-        }
-      }
-
       setComponent(result.component);
     });
-  }, [intl, location, router, job]);
+  }, [intl, location, router]);
 
   return component;
 };
