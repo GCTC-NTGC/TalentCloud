@@ -158,7 +158,7 @@ return [
         ],
         'word_limit' => 'La description doit contenir moins de :max_words mots.',
         'website' => [
-            'size' => 'Your submission looks like a bot might have filled it out! Only fill out the required fields.',
+            'size' => 'Votre soumission semble avoir été remplie par un robot ! Ne remplissez que les champs obligatoires.',
         ],
     ],
     /*
