@@ -38,12 +38,18 @@ class ApplicationByJobController extends Controller
      */
     public function index(JobPoster $jobPoster)
     {
+        $jobPoster->loadMissing(['criteria', 'talent_stream_category', 'job_skill_level']);
+
         $view = 'manager/review_applications';
+        $jobTitle = $jobPoster->title;
         $disableCloneJs = false;
         if ($jobPoster->department_id === config('app.strategic_response_department_id')) {
             $view = 'response/screening/index';
             // Hacky workaround for Accordion JS firing on the screening page.
             $disableCloneJs = true;
+            if ($jobPoster->talent_stream_category && $jobPoster->job_skill_level) {
+                $jobTitle = $jobPoster->talent_stream_category->name . ' - ' . $jobPoster->job_skill_level->name;
+            }
         }
         $applications = $jobPoster->submitted_applications()
             ->with([
@@ -51,15 +57,16 @@ class ApplicationByJobController extends Controller
                 'citizenship_declaration',
                 'application_review',
                 'applicant.user',
-                'job_poster.criteria',
             ])
             ->get();
 
         $viewData = [
             // Localization Strings.
             'jobs_l10n' => Lang::get('manager/job_index'),
+            'response' => Lang::get('response/screening'),
             // Data.
             'job' => new JsonResource($jobPoster),
+            'response_job_title' => $jobTitle,
             'job_id' => $jobPoster->id,
             'is_hr_portal' => WhichPortal::isHrPortal(),
             'portal' => WhichPortal::isHrPortal() ? 'hr' : 'manager',
