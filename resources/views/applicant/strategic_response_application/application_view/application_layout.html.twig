@@ -41,9 +41,7 @@
             </div>
         </div>
         {# Applicant Specific Actions #}
-        {% if is_manager_view %}
-        {% else %}
-            {% if submitted != "true" %}
+        {% if (not is_manager_view) and (submitted != "true") %}
                 <div data-c-container="medium(center)">
                     <hr data-c-hr="thin(gray)" data-c-margin="tb(2)">
                     <div data-c-grid="gutter(all, 1)">
@@ -63,7 +61,6 @@
                         </div>
                     </div>
                 </div>
-            {% endif %}
         {% endif %}
     </div>
 </div>
