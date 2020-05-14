@@ -30,7 +30,7 @@
 			{% endif %}
 			{% if job.isPublic() %}
 				<h3 class="heading--04 poster-title--link">
-					<a href="{{ route('manager.jobs.show', job) }}" title="{{ jobs_l10n.view_this_job_poster }}">
+					<a href="{{ route('manager.jobs.preview', job) }}" title="{{ jobs_l10n.view_this_job_poster }}">
 						{{ job.title }}
 					</a>
 				</h3>

@@ -135,6 +135,7 @@ class ApplicationByJobController extends Controller
                 'header' => [
                     'title' => $headerTitle,
                 ],
+                'custom_breadcrumbs' => $this->customBreadcrumbs($jobPoster, 1),
                 // Job Data.
                 'job' => $jobPoster,
                 // Applicant Data.
@@ -180,6 +181,7 @@ class ApplicationByJobController extends Controller
                 'header' => [
                     'title' => $headerTitle,
                 ],
+                'custom_breadcrumbs' => $this->customBreadcrumbs($jobPoster, 2),
                 // Job Data.
                 'job' => $jobPoster,
                 // Applicant Data.
@@ -229,6 +231,7 @@ class ApplicationByJobController extends Controller
                 'header' => [
                     'title' => $headerTitle,
                 ],
+                'custom_breadcrumbs' => $this->customBreadcrumbs($jobPoster, 3),
                 // Job Data.
                 'job' => $jobPoster,
                 // Skills Data.
@@ -283,6 +286,7 @@ class ApplicationByJobController extends Controller
                 'header' => [
                     'title' => $headerTitle,
                 ],
+                'custom_breadcrumbs' => $this->customBreadcrumbs($jobPoster, 4),
                 // Job Data.
                 'job' => $jobPoster,
                 // Skills Data.
@@ -353,6 +357,7 @@ class ApplicationByJobController extends Controller
                 'header' => [
                     'title' => $headerTitle,
                 ],
+                'custom_breadcrumbs' => $this->customBreadcrumbs($jobPoster, 5),
                 // Job Data.
                 'job' => $jobPoster,
                 // Skills Data.
@@ -403,6 +408,7 @@ class ApplicationByJobController extends Controller
                 'header' => [
                     'title' => $headerTitle,
                 ],
+                'custom_breadcrumbs' => $this->customBreadcrumbs($jobPoster, 6),
                 // Used by tracker partial.
                 'job' => $jobPoster,
                 'job_application' => $application,
@@ -933,5 +939,23 @@ class ApplicationByJobController extends Controller
             default:
                 return redirect()->back()->withInput();
         }
+    }
+
+    /**
+     * Custom breadcrumbs for application process.
+     *
+     * @param  \App\Models\JobPoster $jobPoster        Incoming Job Poster object.
+     * @param  string                $application_step Current step in application.
+     * @return array
+    */
+    public function customBreadcrumbs(JobPoster $jobPoster, string $application_step)
+    {
+        $step_lang = Lang::get('applicant/application_template.tracker_label');
+        return [
+            'home' => route('home'),
+            'jobs' => route('jobs.index'),
+            $jobPoster->title => route('jobs.summary', $jobPoster),
+            $step_lang . ' ' . $application_step => ''
+        ];
     }
 }

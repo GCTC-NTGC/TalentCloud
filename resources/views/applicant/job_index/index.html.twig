@@ -26,7 +26,7 @@
                 </div>
                 {% for job in jobs %}
                     <div class="job-card" data-c-grid-item="tp(1of2) ds(1of3) equal-col">
-                        <a class="job-card-apply-button" href="{{ route('jobs.show', job.id) }}" title="{{ job_index.index.view_title }} {{ job.title }}." data-c-display="flex" data-c-radius="rounded" data-c-card data-c-hover-color="black">
+                        <a class="job-card-apply-button" href="{{ route('jobs.summary', job.id) }}" title="{{ job_index.index.view_title }} {{ job.title }}." data-c-display="flex" data-c-radius="rounded" data-c-card data-c-hover-color="black">
                             <div data-c-background="black(90)" data-c-padding="all(.5)">
                                 <h3 data-c-font-size="h4" data-c-color="white" data-c-margin="bottom(.25)" data-c-font-weight="bold">{{ job.title }}</h3>
                                 <p data-c-color="white" data-c-font-size="small">{{ job.department.name }}</p>

@@ -11,7 +11,20 @@ return [
      */
 
     'home' => 'Home',
+    'profile' => 'Profile',
     'faq' => 'FAQ',
+    'jobs' => 'Jobs',
     'job-index' => 'Job Index',
-    'response' => 'GC Talent Reserve',
+    'resources' => 'Resources',
+    'preview' => 'Preview',
+    'assessment-plan' => 'Assessment Plan Builder',
+    'job-title-missing' => "'Title Missing'",
+    'review' => 'Review',
+    'builder' => 'Job Builder',
+    'managerPortal' => [
+        'applications' => 'Review Applicants',
+    ],
+    'hrPortal' => [
+        'applications' => 'Review Applicants',
+    ],
 ];

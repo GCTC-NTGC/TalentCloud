@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Auth;
 use App\Models\JobApplication;
+use App\Models\JobPoster;
 use App\Models\Skill;
 use App\Models\Lookup\ReviewStatus;
 use Facades\App\Services\WhichPortal;
@@ -31,6 +32,22 @@ class ApplicationController extends Controller
     }
 
     /**
+     * Determine whether the user can view the jobApplication.
+     *
+     * @param  \App\Models\JobPoster    $jobPoster Incoming JobPoster object.
+     * @param  \App\Models\JobApplication $application Incoming Application object.
+     * @return \Illuminate\Http\Response
+     */
+    public function showWithJob(JobPoster $jobPoster, JobApplication $application)
+    {
+        if ($jobPoster->job_applications->contains($application)) {
+            return $this->show($application);
+        } else {
+            return abort(404);
+        }
+    }
+
+    /**
      * Display specified application
      *
      * @param  \App\Models\JobApplication $application Incoming Application object.
@@ -39,16 +56,17 @@ class ApplicationController extends Controller
     public function show(JobApplication $application)
     {
         $response_poster = false;
+        $jobPoster = $application->job_poster;
 
-        if ($application->job_poster->isInStrategicResponseDepartment()) {
+        if ($jobPoster->isInStrategicResponseDepartment()) {
             $response_poster = true;
         }
 
-        $essential_criteria = $application->job_poster->criteria->filter(function ($value, $key) {
+        $essential_criteria = $jobPoster->criteria->filter(function ($value, $key) {
             return $value->criteria_type->name == 'essential'
                 && $value->skill->skill_type->name == 'hard';
         });
-        $asset_criteria = $application->job_poster->criteria->filter(function ($value, $key) {
+        $asset_criteria = $jobPoster->criteria->filter(function ($value, $key) {
             return $value->criteria_type->name == 'asset'
                 && $value->skill->skill_type->name == 'hard';
         });
@@ -82,6 +100,22 @@ class ApplicationController extends Controller
         $references = $source->references;
         $work_samples = $source->work_samples;
 
+        $custom_breadcrumbs = [
+            'home' => route('home'),
+            'applications' =>  route('applications.index'),
+            'application' => '',
+        ];
+
+        if (WhichPortal::isManagerPortal() || WhichPortal::isHrPortal()) {
+            $custom_breadcrumbs = [
+                'home' => route('home'),
+                'jobs' => route(WhichPortal::prefixRoute('jobs.index')),
+                $jobPoster->title => route(WhichPortal::prefixRoute('jobs.summary'), $jobPoster),
+                'applications' =>  route(WhichPortal::prefixRoute('jobs.applications'), $jobPoster),
+                'application' => '',
+            ];
+        }
+
         return view(
             $view,
             [
@@ -95,7 +129,7 @@ class ApplicationController extends Controller
                 'citizenship_declaration_template' => Lang::get('common/citizenship_declaration'),
                 'veteran_status_template' => Lang::get('common/veteran_status'),
                 // Job Data.
-                'job' => $application->job_poster,
+                'job' => $jobPoster,
                 // Skills Data.
                 'skills' => Skill::all(),
                 'skill_template' => Lang::get('common/skills'),
@@ -113,6 +147,7 @@ class ApplicationController extends Controller
                 'references' => $references,
                 'work_samples' => $work_samples,
                 'review_statuses' => ReviewStatus::all(),
+                'custom_breadcrumbs' => $custom_breadcrumbs,
                 'response_poster' => $response_poster,
             ]
         );

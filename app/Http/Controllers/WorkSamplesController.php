@@ -32,6 +32,11 @@ class WorkSamplesController extends Controller
      */
     public function edit(Request $request, Applicant $applicant)
     {
+        $custom_breadcrumbs = [
+            'home' => route('home'),
+            'profile' => '',
+        ];
+
         $applicant->load([
             'work_samples',
             'skill_declarations.skill',
@@ -40,6 +45,7 @@ class WorkSamplesController extends Controller
         return view('applicant/profile_05_portfolio', [
             'applicant' => $applicant,
             'profile' => Lang::get('applicant/profile_work_samples'),
+            'custom_breadcrumbs' => $custom_breadcrumbs,
         ]);
     }
 
