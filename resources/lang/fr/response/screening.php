@@ -9,9 +9,9 @@ return [
     */
 
     'header' => [
-        'title' => 'Employee Availability Tracker - Emergency Response',
-        'beta' => 'BETA / Pilot Project',
-        'job_prefix' => 'You are reviewing applicants for: '
+        'title' => 'Suivi de la disponibilité des employés - Réserve de talents du GC',
+        'beta' => 'BÊTA et projet-pilote',
+        'job_prefix' => 'Vous êtes en train d\'examiner les candidatures pour : '
     ],
-    'page_title' => 'GC Talent Response Screening'
+    'page_title' => 'Filtrage des réponses - Réserve de talents du GC'
 ];
