@@ -24,11 +24,37 @@ class ApplicantProfileController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  \App\Models\Applicant    $applicant Incoming Applicant object.
+     * @return \Illuminate\Http\Response
+     */
+    public function profile(Applicant $applicant)
+    {
+        $custom_breadcrumbs = [
+            'home' => route('home'),
+            $applicant->user->full_name => '',
+        ];
+
+        return view(
+            'manager/applicant_profile',
+            [
+                // Localized strings.
+                'profile' => Lang::get('manager/applicant_profile'), // Change text
+                // Applicant data.
+                'applicant' => $applicant,
+                'profile_photo_url' => '/images/user.png', // TODO: get real photos.
+                'custom_breadcrumbs' => $custom_breadcrumbs,
+            ]
+        );
+    }
+
+    /**
+     * Display the specified resource.
+     *
      * @param  \App\Models\JobPoster    $jobPoster Incoming JobPoster object.
      * @param  \App\Models\Applicant    $applicant Incoming Applicant object.
      * @return \Illuminate\Http\Response
      */
-    public function show(JobPoster $jobPoster, Applicant $applicant)
+    public function showWithJob(JobPoster $jobPoster, Applicant $applicant)
     {
 
         // Viewing this page is only possible if the applicant has applied to the specified job.
