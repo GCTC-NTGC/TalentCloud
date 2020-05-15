@@ -15,7 +15,7 @@
 
     <section
         class="application__view-layout submitted">
-        {% if not response_poster and job_application.application_status.name != "draft" %}
+        {% if show_review %}
         <div id="{{ is_hr_portal
                 ? "application-review-container-hr"
                 : "application-review-container" }}"

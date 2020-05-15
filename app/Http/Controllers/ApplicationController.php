@@ -39,9 +39,11 @@ class ApplicationController extends Controller
     public function show(JobApplication $application)
     {
         $response_poster = false;
+        $show_review = true;
 
         if ($application->job_poster->isInStrategicResponseDepartment()) {
             $response_poster = true;
+            $show_review = false;
         }
 
         $essential_criteria = $application->job_poster->criteria->filter(function ($value, $key) {
@@ -71,6 +73,7 @@ class ApplicationController extends Controller
         // Else, grab the data from the application itself.
         if ($application->isDraft()) {
             $source = $application->applicant;
+            $show_review = false;
         } else {
             $source = $application;
         }
@@ -114,6 +117,7 @@ class ApplicationController extends Controller
                 'work_samples' => $work_samples,
                 'review_statuses' => ReviewStatus::all(),
                 'response_poster' => $response_poster,
+                'show_review' => $show_review,
             ]
         );
     }
