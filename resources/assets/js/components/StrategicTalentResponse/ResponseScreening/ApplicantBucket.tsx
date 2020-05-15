@@ -603,44 +603,57 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
         }): React.ReactElement => (
           <Form data-c-grid="gutter(all, 1) middle">
             <AlertWhenUnsaved />
-            <div data-c-grid-item="base(1of4)">
-              <div>
-                {rowIcon}
-                <div>
-                  <p data-c-font-weight="bold" data-c-font-size="h4">
+            <div
+              data-c-grid-item="base(1of1) tl(1of4)"
+              data-c-align="base(center) tl(left)"
+            >
+              <div className="applicant-info-wrapper">
+                <p data-c-font-weight="bold" data-c-font-size="h4">
+                  {rowIcon}
+                  <span data-c-padding="left(.5)">
                     {application.applicant.user.full_name}
-                  </p>
-                  <p data-c-margin="bottom(.5)">
-                    <a
-                      href={`mailto:${application.applicant.user.email}`}
-                      title=""
-                    >
-                      {application.applicant.user.email}
-                    </a>
-                  </p>
-                  <div
-                    data-c-font-size="small"
-                    data-c-grid="gutter(all, 1) middle"
+                  </span>
+                </p>
+                <p data-c-margin="bottom(.5)">
+                  <a
+                    className="applicant-info-email"
+                    href={`mailto:${application.applicant.user.email}`}
+                    title=""
                   >
-                    <a
-                      href={applicationUrl}
-                      title=""
-                      data-c-grid-item="base(1of2)"
-                    >
+                    {application.applicant.user.email}
+                  </a>
+                </p>
+                <div
+                  data-c-font-size="small"
+                  data-c-grid="gutter(all, 1) middle"
+                >
+                  <span
+                    data-c-grid-item="base(1of2)"
+                    data-c-align="base(center) tl(left)"
+                  >
+                    <a href={applicationUrl} title="">
                       {intl.formatMessage(displayMessages.viewApplication)}
                     </a>
-                    <a
-                      href={applicantUrl}
-                      title=""
-                      data-c-grid-item="base(1of2)"
-                    >
+                  </span>
+                  <span
+                    data-c-grid-item="base(1of2)"
+                    data-c-align="base(center) tl(left)"
+                  >
+                    <a href={applicantUrl} title="">
                       {intl.formatMessage(displayMessages.viewProfile)}
                     </a>
-                    {showReferences && (
-                      <>
-                        <div
-                          className="email-reference-wrapper"
-                          data-c-grid-item="base(1of2)"
+                  </span>
+                  {showReferences && (
+                    <>
+                      <div data-c-grid-item="base(1of2)">
+                        <button
+                          className="email-reference-button"
+                          data-c-button="reset"
+                          data-c-font-style="underline"
+                          data-c-font-size="small"
+                          type="button"
+                          onClick={showDirectorEmail}
+                          disabled={sendingDirectorEmail}
                         >
                           <i
                             className="fa fa-check-circle"
@@ -654,30 +667,31 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
                             data-c-font-size="small"
                             data-c-margin="right(.5)"
                           />
-                          <button
-                            data-c-button="reset"
-                            data-c-font-style="underline"
-                            data-c-font-size="small"
-                            type="button"
-                            onClick={showDirectorEmail}
-                            disabled={sendingDirectorEmail}
-                          >
-                            {sendingDirectorEmail ? (
-                              <FormattedMessage
-                                id="responseScreening.applicant.directorEmailSending"
-                                defaultMessage="Sending email..."
-                              />
-                            ) : (
-                              <FormattedMessage
-                                id="responseScreening.applicant.directorEmailButton"
-                                defaultMessage="Director email."
-                              />
-                            )}
-                          </button>
-                        </div>
-                        <div
-                          data-c-grid-item="base(1of2)"
-                          className="email-reference-wrapper"
+                          {sendingDirectorEmail ? (
+                            <FormattedMessage
+                              id="responseScreening.applicant.directorEmailSending"
+                              defaultMessage="Sending email..."
+                            />
+                          ) : (
+                            <FormattedMessage
+                              id="responseScreening.applicant.directorEmailButton"
+                              defaultMessage="Director email."
+                            />
+                          )}
+                        </button>
+                      </div>
+                      <div
+                        className="applicant-buttons"
+                        data-c-grid-item="base(1of2)"
+                      >
+                        <button
+                          className="email-reference-button"
+                          data-c-button="reset"
+                          data-c-font-style="underline"
+                          data-c-font-size="small"
+                          type="button"
+                          onClick={showSecondaryEmail}
+                          disabled={sendingSecondaryEmail}
                         >
                           <i
                             className="fa fa-check-circle"
@@ -691,68 +705,66 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
                             data-c-font-size="small"
                             data-c-margin="right(.5)"
                           />
-                          <button
-                            data-c-button="reset"
-                            data-c-font-style="underline"
-                            data-c-font-size="small"
-                            type="button"
-                            onClick={showSecondaryEmail}
-                            disabled={sendingSecondaryEmail}
-                          >
-                            {sendingSecondaryEmail ? (
-                              <FormattedMessage
-                                id="responseScreening.applicant.secondaryEmailSending"
-                                defaultMessage="Sending email..."
-                              />
-                            ) : (
-                              <FormattedMessage
-                                id="responseScreening.applicant.secondaryEmailButton"
-                                defaultMessage="Reference email."
-                              />
-                            )}
-                          </button>
-                        </div>
-                      </>
-                    )}
-                  </div>
+                          {sendingSecondaryEmail ? (
+                            <FormattedMessage
+                              id="responseScreening.applicant.secondaryEmailSending"
+                              defaultMessage="Sending email..."
+                            />
+                          ) : (
+                            <FormattedMessage
+                              id="responseScreening.applicant.secondaryEmailButton"
+                              defaultMessage="Reference email."
+                            />
+                          )}
+                        </button>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
-            <FastField
-              id={`review-status-select-${application.applicant_id}`}
-              name="reviewStatus"
-              label={intl.formatMessage(displayMessages.selectStatusLabel)}
-              grid="base(1of4)"
-              component={SelectInput}
-              nullSelection={intl.formatMessage(
-                displayMessages.selectStatusDefault,
-              )}
-              options={reviewOptions}
-            />
-            {departmentEditable && (
+            <div
+              className="review-status-wrapper"
+              data-c-grid-item="base(1of1) tp(2of4) tl(1of4)"
+            >
               <FastField
-                id={`department-allocation-select-${application.applicant_id}`}
-                name="department"
-                label={intl.formatMessage(
-                  displayMessages.selectDepartmentLabel,
-                )}
-                grid="base(1of4)"
+                id={`review-status-select-${application.applicant_id}`}
+                name="reviewStatus"
+                label={intl.formatMessage(displayMessages.selectStatusLabel)}
                 component={SelectInput}
                 nullSelection={intl.formatMessage(
-                  displayMessages.selectDepartmentDefault,
+                  displayMessages.selectStatusDefault,
                 )}
-                options={departmentOptions}
+                options={reviewOptions}
               />
+            </div>
+            {departmentEditable && (
+              <div data-c-grid-item="base(1of1) tp(2of4) tl(1of4)">
+                <FastField
+                  id={`department-allocation-select-${application.applicant_id}`}
+                  name="department"
+                  label={intl.formatMessage(
+                    displayMessages.selectDepartmentLabel,
+                  )}
+                  component={SelectInput}
+                  nullSelection={intl.formatMessage(
+                    displayMessages.selectDepartmentDefault,
+                  )}
+                  options={departmentOptions}
+                />
+              </div>
             )}
             <div
-              data-c-grid-item={`base(${departmentEditable ? 1 : 2}of4)`}
-              data-c-align="base(right)"
+              className="applicant-buttons-wrapper"
+              data-c-grid-item={`base(1of1) tl(${
+                departmentEditable ? 1 : 2
+              }of4)`}
+              data-c-align="base(center) tp(center) tl(right)"
             >
               <button
                 data-c-button="outline(c1)"
                 type="button"
                 data-c-radius="rounded"
-                data-c-margin="right(1)"
                 onClick={(): void =>
                   handleNotesButtonClick(values.notes, setFieldValue)
                 }
@@ -764,6 +776,7 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
                 data-c-button="solid(c1)"
                 type="submit"
                 data-c-radius="rounded"
+                data-c-margin="left(.5)"
                 disabled={isSubmitting}
               >
                 <span>
