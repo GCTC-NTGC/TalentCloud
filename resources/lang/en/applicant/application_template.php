@@ -249,9 +249,16 @@ return [
         'physical_office_willing_label' => 'Check for Yes',
         'security_clearance_copy' => 'What is your current security clearance level?',
         'security_clearance_label' => 'Select One',
+        'director_alert' => [
+            'heading' => 'When will your Director and Reference be contacted?',
+            'ask_manager' => 'Ask your Manager and Director for approval to be loaned to another team for a bit to help out.',
+            'screened_in' => 'If your application is screened in, we will send your Director and Reference an email for a reference check.'
+        ],
+        'director_title' => 'Director Information',
         'director_name_label' => 'Director Name',
         'director_title_label' => 'Director Title',
         'director_email_label' => 'Director Email',
+        'reference_title' => 'Reference Information',
         'reference_name_label' => 'Reference Name',
         'reference_title_label' => 'Reference Title',
         'reference_email_label' => 'Reference Email',
@@ -259,10 +266,17 @@ return [
         'reference_copy' => 'What is the name and email of an additional reference who can confirm your skill set? (Preferably a current or recent Government of Canada supervisor.)',
         'experience_title' => 'My Education',
         'experience_description' => 'Add education if it’s relevant to the skill requirements for this job.',
-        'essential_context_1' => 'You\'re amazing for applying. Thanks for offering to help out. These skills are what departments need right now. <strong>Super important:</strong> if you want to be of genuine help, <strong>these are skills you must already have.</strong>',
-        'essential_context_2' => 'You\'ll be dropped into a different team - one that might be under pressure or tight timelines to deliver support for Canadians. If you\'re strong in these skills and you\'re the kind of person who steps up, you\'re a right fit for this. (If you\'re not strong in these skills but want to help, check out some of the other calls for talent.)',
-        'asset_context' => 'This isn\'t required for the job you might be placed in. You can learn it as you go. But it would be great if you already had the skill(s) listed below.',
-        'skill_prompt' => 'Share a few high level bullet points about your work experience:',
+        'essential_alert' => [
+            'heading' =>  'These skills are what departments need right now.',
+            'context' => 'If you want to be of genuine help, <strong>these are skills you must already have.</strong>'
+        ],
+        'essential_context_1' => ' Thanks for offering to help out. These skills are what departments need right now.',
+        'essential_context_2' => "You'll be dropped into a different team - one that might be under pressure or tight timelines to deliver support for Canadians. If you're strong in these skills and you're the kind of person who steps up, you're a right fit for this. (If you're not strong in these skills but want to help, check out some of the other calls for talent.)",
+        'asset_alert' => [
+            'heading' => 'These skills would be nice to have.',
+            'context' => 'This isn\'t required for the job you might be placed in. You can learn it as you go. But it would be great if you already had the skill(s) listed below.',
+        ],
+        'skill_prompt' => 'Share a few high level bullet points about your work experience.',
         'skill_placeholder' => 'Tell us a bit about your skills, like where you worked, what your role was, and what you delivered.',
         'preview_security_clearance_label' => 'Security Clearance',
         'preview_physical_office_yes' => '<strong>Yes</strong>, I am willing to come to work in a physical office.',
@@ -275,5 +289,6 @@ return [
         'complete_copy_1' => 'You\'re awesome.',
         'complete_copy_2' => 'Thanks for putting your name forward.The GC Talent Reserve team will be in touch in a few days with next steps.',
         'complete_return_label' => 'Back to Homepage',
+        'no_info' => 'No information provided.',
     ]
 ];

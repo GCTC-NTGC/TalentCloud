@@ -47,17 +47,61 @@ a.response-job-listing {
                     padding-top: 2rem;
                     margin-top: 2rem;
                 }
-                >form >div:first-child >div {
+
+                .applicant-info-wrapper {
+                    @media #{$clone-tablet-portrait} {
+                        margin: auto;
+                        width: 50%;
+                    }
+
+                    @media #{$clone-tablet-landscape} {
+                        margin: initial;
+                        width: 100%;
+                    }
+
+                    margin: auto;
+                    width: 100%;
+
+                    .applicant-info-email {
+                        word-break: break-all;
+                    }
+                }
+
+                .row-icon-wrapper {
                     position: relative;
-                    >i {
-                        font-size: 1.1rem;
+                    i {
                         position: absolute;
-                        top: .45rem;
-                        left: .2rem;
+                        top: .3rem;
+                        left: -2rem;
                     }
-                    >div {
-                        margin-left: 3rem;
+                }
+
+                .review-status-wrapper {
+                    margin: auto;
+                    @media #{$clone-tablet-landscape} {
+                        margin: initial;
                     }
+                }
+
+                .email-reference-button {
+                    position: relative;
+                    i {
+                        position: absolute;
+                        top: 20%;
+                        left: -20%;
+                    }
+                }
+
+                .applicant-buttons-wrapper {
+                    @media screen and (max-width: 82.5em) {
+                        button:first-child {
+                            margin-bottom: .5rem;
+                        }
+                    }
+                }
+
+                label {
+                    padding-right: 0;
                 }
             }
         }

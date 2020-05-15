@@ -264,6 +264,13 @@ span.center {
   }
 }
 
+.spaced-paragraphs {
+  p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
