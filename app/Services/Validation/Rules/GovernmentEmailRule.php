@@ -12,7 +12,7 @@ class GovernmentEmailRule implements Rule
      *
      * @var string
      */
-    const PATTERN = '^[a-zA-Z0-9._%+-]+@(?:[a-zA-Z0-9-_]+\.)+ca$';
+    const PATTERN = '^.+@.+\.ca$';
 
     /**
      *

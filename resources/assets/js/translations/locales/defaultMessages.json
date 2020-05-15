@@ -3312,6 +3312,59 @@
         "defaultMessage": "Yes",
         "description": "Confirmation button text for dialog",
         "id": "responseScreening.bucket.yes"
+      },
+      {
+        "defaultMessage": "Email for Reference Check",
+        "description": "Text displayed on the title of the MicroReference Email modal.",
+        "id": "referenceEmailModal.title"
+      },
+      {
+        "defaultMessage": "To:",
+        "id": "referenceEmailModal.toLabel"
+      },
+      {
+        "defaultMessage": "From:",
+        "id": "referenceEmailModal.fromLabel"
+      },
+      {
+        "defaultMessage": "CC:",
+        "id": "referenceEmailModal.ccLabel"
+      },
+      {
+        "defaultMessage": "BCC:",
+        "id": "referenceEmailModal.bccLabel"
+      },
+      {
+        "defaultMessage": "Subject:",
+        "id": "referenceEmailModal.subjectLabel"
+      },
+      {
+        "defaultMessage": "Loading reference email...",
+        "id": "referenceEmailModal.nullState"
+      },
+      {
+        "defaultMessage": "Cancel",
+        "id": "referenceEmailModal.cancel"
+      },
+      {
+        "defaultMessage": "Send Email",
+        "id": "referenceEmailModal.confirm"
+      },
+      {
+        "defaultMessage": "Sending email...",
+        "id": "responseScreening.applicant.directorEmailSending"
+      },
+      {
+        "defaultMessage": "Director email.",
+        "id": "responseScreening.applicant.directorEmailButton"
+      },
+      {
+        "defaultMessage": "Sending email...",
+        "id": "responseScreening.applicant.secondaryEmailSending"
+      },
+      {
+        "defaultMessage": "Reference email.",
+        "id": "responseScreening.applicant.secondaryEmailButton"
       }
     ],
     "path": "resources/assets/js/components/StrategicTalentResponse/ResponseScreening/ApplicantBucket.json"

@@ -38,7 +38,7 @@
                             {% for level in specialty.levels %}
                                 {% if level.job_id != null %}
                                 <div data-c-grid-item="base(1of2) tp(1of3) tl(1of{{ specialty.levels|length }}) equal-col">
-                                    <a href="{{ route('jobs.show', level.job_id) }}" title="{{ response.stream.view_job_title }}" class="response-job-listing" data-c-border="all(thin, solid, c1)" data-c-background="c1(10)" data-c-display="block" data-c-radius="rounded" data-c-hover-color="black" data-c-align="base(center)" data-c-padding="tb(1) rl(.5)" data-c-border="all(thin, solid, white)">
+                                    <a href="{{ route('jobs.summary', level.job_id) }}" title="{{ response.stream.view_job_title }}" class="response-job-listing" data-c-border="all(thin, solid, c1)" data-c-background="c1(10)" data-c-display="block" data-c-radius="rounded" data-c-hover-color="black" data-c-align="base(center)" data-c-padding="tb(1) rl(.5)" data-c-border="all(thin, solid, white)">
                                         <p data-c-font-weight="bold" data-c-color="c1" data-c-font-style="underline">{{ level.title }}</p>
                                         <p>{{ response.stream.offer_support}}</p>
                                     </a>

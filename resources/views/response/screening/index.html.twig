@@ -1,13 +1,11 @@
 {# =============================================================================
 
     Talent Cloud
-    COVID-19 Response: Screening Demo
-    Purpose: This is a demo page for what we'd like screening to functionally
-    appear as once the response project is far enough along.
+    COVID-19 Response: Screening
 
 ============================================================================= #}
 {% extends "layouts/base" %}
-{% block title %}GC Talent Reserve - Screening Demo{% endblock %}
+{% block title %}{{ response_job_title }} | {{ response.page_title }}{% endblock %}
 {% block body %}
     {# Government of Canada Banner #}
     {% include "common/goc" %}

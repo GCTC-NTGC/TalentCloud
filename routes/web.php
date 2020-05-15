@@ -77,7 +77,7 @@ Route::group(
             Route::view('resources', 'common/resources')->middleware('localOnly')->name('resources');
 
             /* Response Home */
-            Route::view('response', 'response/index/index')->middleware('localOnly')->name('response');
+            Route::view('response', 'response/index/index')->middleware('localOnly')->name('response.test');
             /* Response Screening */
             Route::view('response-screening', 'response/screening/index')->middleware('localOnly')->name('responseScreening');
 
@@ -93,8 +93,8 @@ Route::group(
             Route::middleware(['auth'])->group(function (): void {
 
                 /* Managers */
-                Route::get('managers/{manager}', 'ManagerProfileController@show')
-                    ->middleware('can:view,manager')
+                Route::get('jobs/{jobPoster}/manager', 'ManagerProfileController@show')
+                    ->middleware('can:view,jobPoster')
                     ->name('managers.show');
             });
 
@@ -113,7 +113,7 @@ Route::group(
 
                 Route::get('jobs/{jobPoster}', 'JobController@show')
                     ->middleware('can:view,jobPoster')
-                    ->name('jobs.show');
+                    ->name('jobs.summary');
 
                 /* Response Home */
                 Route::get('response', 'StrategicResponseController@index')->name('response.index');
@@ -331,7 +331,7 @@ Route::group(
                         Route::get('profile', 'ManagerProfileController@editAuthenticated')->name('manager.profile');
 
                         /* Profile */
-                        Route::get('profile/{manager}/edit', 'ManagerProfileController@edit')
+                        Route::get('profile/{manager}', 'ManagerProfileController@edit')
                             ->middleware('can:view,manager')
                             ->middleware('can:update,manager')
                             ->name('manager.profile.edit');
@@ -348,12 +348,14 @@ Route::group(
                             ->name('manager.jobs.applications');
 
                         /* View Application */
-                        Route::get('applications/{application}', 'ApplicationController@show')
+                        Route::get('jobs/{jobPoster}/applications/{application}', 'ApplicationController@showWithJob')
+                            ->middleware('can:manage,jobPoster')
                             ->middleware('can:view,application')
                             ->name('manager.applications.show');
 
                         /* View Applicant Profile */
-                        Route::get('applicants/{applicant}', 'ApplicantProfileController@show')
+                        Route::get('jobs/{jobPoster}/applicants/{applicant}', 'ApplicantProfileController@show')
+                            ->middleware('can:manage,jobPoster')
                             ->middleware('can:view,applicant')
                             ->name('manager.applicants.show');
 
@@ -361,14 +363,14 @@ Route::group(
                         Route::get('jobs', 'JobController@managerIndex')->name('manager.jobs.index');
 
                         /* View Job Poster */
-                        Route::get('jobs/{jobPoster}', 'JobController@show')
+                        Route::get('jobs/{jobPoster}/preview', 'JobController@show')
                             ->where('jobPoster', '[0-9]+')
                             ->middleware('can:view,jobPoster')
-                            ->name('manager.jobs.show');
+                            ->name('manager.jobs.preview');
 
                         /* View Job Summary */
-                        Route::get('jobs/{job}/summary', 'JobSummaryController@show')
-                            ->middleware('can:manage,job')
+                        Route::get('jobs/{jobPoster}', 'JobSummaryController@show')
+                            ->middleware('can:manage,jobPoster')
                             ->name('manager.jobs.summary')
                             ->where('jobPoster', '[0-9]+');
 
@@ -379,57 +381,48 @@ Route::group(
                         )->name('manager.jobs.create');
 
                         Route::get(
-                            'jobs/{jobId}/builder',
+                            'jobs/{jobPoster}/builder',
                             'JobBuilderController@show'
                         )
                             ->where('jobPoster', '[0-9]+')
                             ->name('manager.jobs.edit');
 
                         Route::get(
-                            'jobs/{jobId}/builder/intro',
+                            'jobs/{jobPoster}/builder/intro',
                             'JobBuilderController@show'
                         )->where('jobPoster', '[0-9]+');
 
                         Route::get(
-                            'jobs/{jobId}/builder/details',
+                            'jobs/{jobPoster}/builder/details',
                             'JobBuilderController@show'
                         )->where('jobPoster', '[0-9]+');
 
                         Route::get(
-                            'jobs/{jobId}/builder/environment',
+                            'jobs/{jobPoster}/builder/environment',
                             'JobBuilderController@show'
                         )->where('jobPoster', '[0-9]+');
 
                         Route::get(
-                            'jobs/{jobId}/builder/impact',
+                            'jobs/{jobPoster}/builder/impact',
                             'JobBuilderController@show'
                         )->where('jobPoster', '[0-9]+');
 
                         Route::get(
-                            'jobs/{jobId}/builder/tasks',
+                            'jobs/{jobPoster}/builder/tasks',
                             'JobBuilderController@show'
                         )->where('jobPoster', '[0-9]+');
 
                         Route::get(
-                            'jobs/{jobId}/builder/skills',
+                            'jobs/{jobPoster}/builder/skills',
                             'JobBuilderController@show'
                         )->where('jobPoster', '[0-9]+');
 
                         Route::get(
-                            'jobs/{jobId}/builder/review',
+                            'jobs/{jobPoster}/builder/review',
                             'JobBuilderController@show'
                         )
                             ->where('jobPoster', '[0-9]+')
                             ->name('manager.jobs.review');
-
-                        /* Job Preview */
-                        Route::get(
-                            'jobs/{job}',
-                            'JobController@show'
-                        )
-                            ->middleware('can:view,job')
-                            ->where('jobPoster', '[0-9]+')
-                            ->name('manager.jobs.preview');
 
                         /* Delete Job */
                         Route::delete('jobs/{jobPoster}', 'JobController@destroy')
@@ -632,17 +625,19 @@ Route::group(
                             ->name('hr_advisor.jobs.applications');
 
                         /* View Application */
-                        Route::get('applications/{application}', 'ApplicationController@show')
+                        Route::get('jobs/{jobPoster}/applications/{application}', 'ApplicationController@showWithJob')
+                            ->middleware('can:manage,jobPoster')
                             ->middleware('can:view,application')
                             ->name('hr_advisor.applications.show');
 
                         /* View Applicant Profile */
-                        Route::get('applicants/{applicant}', 'ApplicantProfileController@show')
+                        Route::get('jobs/{jobPoster}/applicants/{applicant}', 'ApplicantProfileController@show')
+                            ->middleware('can:manage,jobPoster')
                             ->middleware('can:view,applicant')
                             ->name('hr_advisor.applicants.show');
 
-                        Route::get('jobs/{job}/summary', 'JobSummaryController@show')
-                            ->middleware('can:manage,job')
+                        Route::get('jobs/{jobPoster}', 'JobSummaryController@show')
+                            ->middleware('can:manage,jobPoster')
                             ->name('hr_advisor.jobs.summary')
                             ->where('jobPoster', '[0-9]+');
 
@@ -660,15 +655,15 @@ Route::group(
                             ->name('hr_advisor.jobs.screening_plan');
 
                         Route::get(
-                            'jobs/{job}/review',
+                            'jobs/{jobPoster}/review',
                             'JobBuilderController@hrReview'
                         )
-                            ->middleware('can:manage,job')
+                            ->middleware('can:manage,jobPoster')
                             ->where('job', '[0-9]+')
                             ->name('hr_advisor.jobs.review');
 
                         Route::get(
-                            'jobs/{jobPoster}',
+                            'jobs/{jobPoster}/preview',
                             'JobController@show'
                         )
                             ->middleware('can:view,jobPoster')
@@ -848,6 +843,22 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
     Route::put('applications/{application}/review', 'ApplicationReviewController@updateForApplication')
         ->middleware('can:review,application')
         ->name('application_reviews.update');
+
+    Route::get('applications/{application}/reference-emails/', 'Api\MicroReferenceController@index')
+        ->middleware('can:review,application')
+        ->name('api.application.reference_mail.index');
+    Route::get('applications/{application}/reference-emails/director', 'Api\MicroReferenceController@showDirectorEmail')
+        ->middleware('can:review,application')
+        ->name('api.application.reference_mail.director.show');
+    Route::post('applications/{application}/reference-emails/director/send', 'Api\MicroReferenceController@sendDirectorEmail')
+        ->middleware('can:review,application')
+        ->name('api.application.reference_mail.director.send');
+    Route::get('applications/{application}/reference-emails/secondary', 'Api\MicroReferenceController@showSecondaryReferenceEmail')
+        ->middleware('can:review,application')
+        ->name('api.application.reference_mail.secondary.show');
+    Route::post('applications/{application}/reference-emails/secondary/send', 'Api\MicroReferenceController@sendSecondaryReferenceEmail')
+        ->middleware('can:review,application')
+        ->name('api.application.reference_mail.secondary.send');
 
     Route::resource('managers', 'Api\ManagerController')->only([
         'show', 'update'

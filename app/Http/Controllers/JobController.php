@@ -85,7 +85,7 @@ class JobController extends Controller
             }
 
             // Always preview and edit in the chosen language.
-            $job->preview_link = LaravelLocalization::getLocalizedURL($chosen_lang, route('manager.jobs.show', $job));
+            $job->preview_link = LaravelLocalization::getLocalizedURL($chosen_lang, route('manager.jobs.preview', $job));
             $job->edit_link = LaravelLocalization::getLocalizedURL($chosen_lang, route('manager.jobs.edit', $job));
         }
 
@@ -370,7 +370,7 @@ class JobController extends Controller
 
         $this->fillAndSaveJobPosterQuestions($input, $jobPoster, true);
 
-        return redirect(route('manager.jobs.show', $jobPoster->id));
+        return redirect(route('manager.jobs.preview', $jobPoster->id));
     }
 
     /**

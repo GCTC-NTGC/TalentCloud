@@ -1,55 +1,28 @@
 {# =============================================================================
 
     Talent Cloud
-    Application View - Step 04
+    Recurring Elements: Review an Application - Education and Experience
 
 ============================================================================= #}
-<a
-    aria-hidden="true"
-    class="application__view-anchor"
-    id="{{ anchor_id }}">
-</a>
-
-<section>
-
-    <h4>
-        {{ section_title }}
-    </h4>
-
-    {# Profile Element List #}
-
-    <div>
-
+<section id="{{ anchor_id }}" data-c-padding="top(3)">
+    <h3 data-c-heading="h3" data-c-padding="bottom(1)" data-c-margin="bottom(1)">{{ section_title }}</h3>
+    {# Set Locale #}
+    {% set locale = "application-view" %}
+    <div data-c-accordion-group>
         {% for criterion in criteria %}
-
             {# Get User Skill #}
-
-                {% set skill_declaration = false %}
-
-                {% for skillDeclaration in skill_declarations %}
-
-                    {% if criterion.skill.id == skillDeclaration.skill_id %}
-
-                        {% set skill_declaration = skillDeclaration %}
-
-                    {% endif %}
-
-                {% endfor %}
-
+            {% set skill_declaration = false %}
+            {% for skillDeclaration in skill_declarations %}
+                {% if criterion.skill.id == skillDeclaration.skill_id %}
+                    {% set skill_declaration = skillDeclaration %}
+                {% endif %}
+            {% endfor %}
             {# Get Skill Type #}
-
-                {% set skillType = criterion.skill.skill_type.name %}
-
+            {% set skillType = criterion.skill.skill_type.name %}
             {# Import Skill Template #}
-
-                <a
-                    class="application-post__anchor"
-                    id="skill{{ criterion.skill.id }}"></a>
-
-                {% include "applicant/strategic_response_application/common/skill-view" %}
-
+            <a aria-hidden="true" id="skill{{ criterion.skill.id }}"></a>
+            {% include "common/skill" %}
         {% endfor %}
-
     </div>
-
 </section>
+

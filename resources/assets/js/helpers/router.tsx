@@ -52,6 +52,7 @@ export const useRouter = (
   // Render the result of routing
   useEffect((): void => {
     router.resolve(location.pathname).then((result): void => {
+      // Dynamically update the page title and header on step changes
       const title = intl.formatMessage(result.title);
       document.title = title;
       const h1 = document.querySelector("h1");

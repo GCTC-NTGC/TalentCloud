@@ -1,29 +1,34 @@
-<section
-	class="application__complete">
+{# =============================================================================
 
-	<div
-		class="container--copy">
+    Talent Cloud
+    Applicant: Complete
 
-		<h3>{{ application_template.strategic_response.complete_title }}</h3>
-
-		<p><strong>{{ application_template.strategic_response.complete_copy_1 }}</strong></p>
-
-		<p>{{ application_template.strategic_response.complete_copy_2 }}</p>
-
-		<div
-			class="flex-grid">
-
-			<div
-				class="box med-1of2">
-				<a
-					class="button--blue light-bg"
-					href="{{ route('response.index') }}">
-					{{ application_template.strategic_response.complete_return_label }}
-				</a>
-			</div>
-
-		</div>
-
-	</div>
-
-</section>
+============================================================================= #}
+<div data-c-border="bottom(thin, solid, gray)" data-c-padding="bottom(3)">
+    <div data-c-container="medium(center)">
+        <h2 id="requirements" data-c-heading="h2" data-c-padding="top(3)" data-c-margin="bottom(1)">{{ application_template.strategic_response.complete_title }}</h2>
+        <div data-c-grid="gutter(all, 2)">
+            <div data-c-grid-item="tl(4of7)">
+                <p data-c-margin="bottom(1)">{{ application_template.strategic_response.complete_copy_1 }}</p>
+                <p data-c-margin="bottom(1)">{{ application_template.strategic_response.complete_copy_2 }}</p>
+                <p><a href="{{ route('response.index') }}" data-c-button="solid(c1)" data-c-radius="rounded">{{ application_template.strategic_response.complete_return_label }}</a></p>
+            </div>
+            <div data-c-grid-item="tl(3of7)">
+                <div data-c-background="c1(10)" data-c-color="c1" data-c-border="all(thin, solid, c1)" data-c-radius="rounded" data-c-padding="all(1)">
+                    <h3 data-c-font-size="h4" data-c-font-weight="bold" data-c-margin="bottom(1)">{{ application_template.complete.other_resources }}</h3>
+                    <ul>
+                        <li>
+                            <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="{{ application_template.complete.submit_feedback_link_title }}">{{ application_template.complete.submit_feedback_link_label }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('profile.about.edit', applicant.id) }}" title="{{ application_template.complete.update_profile_link_title }}">{{ application_template.complete.update_profile_link_label }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('response.index') }}#apply" title="{{ application_template.complete.browse_jobs_title }}">{{ application_template.complete.browse_jobs_label }}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

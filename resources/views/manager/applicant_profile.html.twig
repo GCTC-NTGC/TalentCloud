@@ -21,7 +21,7 @@
 	{# Content #}
 	<section class="applicant-profile-preview">
 		<div class="container--copy">
-			<h2>{{ profile.content.whose_profile|replace({":name": applicant.user.first_name}) }}</h2>
+			<h2>{{ profile.content.whose_profile|replace({":name": applicant.user.full_name}) }}</h2>
 			{# {{ applicant }} #}
 			{% if applicant.applicant_profile_answers is empty %}
 				<p>{{ profile.content.no_applicant_answers }}</p>
