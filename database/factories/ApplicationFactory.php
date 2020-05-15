@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Applicant;
+use App\Models\ApplicationReview;
 use App\Models\JobApplication;
 use App\Models\JobApplicationAnswer;
 use App\Models\JobPoster;
@@ -79,6 +80,10 @@ $factory->afterCreating(JobApplication::class, function ($application): void {
 
         $application->user_name = $application->applicant->user->full_name;
         $application->user_email = $application->applicant->user->email;
+
+        $review = new ApplicationReview();
+        $review->job_application()->associate($application);
+        $review->save();
     }
     $application->save();
     foreach ($application->job_poster->criteria as $criterion) {

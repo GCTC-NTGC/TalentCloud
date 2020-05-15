@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ApplicationReview;
 use App\Models\Course;
 use App\Models\Criteria;
 use App\Models\Degree;
@@ -929,6 +930,14 @@ class ApplicationByJobController extends Controller
             // Change status to 'submitted'.
             $application->application_status_id = ApplicationStatus::where('name', 'submitted')->firstOrFail()->id;
             $application->saveProfileSnapshot();
+
+            // Create empty application review.
+            $review = $application->application_review;
+            if ($review === null) {
+                $review = new ApplicationReview();
+                $review->job_application()->associate($application);
+            }
+            $review->save();
         }
 
         $application->save();
