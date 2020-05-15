@@ -354,15 +354,10 @@ Route::group(
                             ->name('manager.applications.show');
 
                         /* View Applicant Profile with Job */
-                        Route::get('jobs/applicants/{applicant}', 'ApplicantProfileController@showWithJob')
+                        Route::get('jobs/{jobPoster}/applicants/{applicant}', 'ApplicantProfileController@showWithJob')
                             ->middleware('can:manage,jobPoster')
                             ->middleware('can:view,applicant')
                             ->name('manager.applicants.show');
-
-                        /* View Applicant Profile */
-                        Route::get('applicants/{applicant}', 'ApplicantProfileController@profile')
-                            ->middleware('can:view,applicant')
-                            ->name('manager.applicants.profile');
 
                         /* Job Index */
                         Route::get('jobs', 'JobController@managerIndex')->name('manager.jobs.index');
@@ -777,6 +772,11 @@ Route::group(
                 Route::get('{jobPoster}/download-applicants', 'JobController@downloadApplicants')
                     ->middleware('can:downloadApplicants,jobPoster')
                     ->name('admin.jobs.download.applicants');
+
+                 /* View Applicant Profile */
+                 Route::get('applicants/{applicant}', 'ApplicantProfileController@profile')
+                    ->middleware('can:view,applicant')
+                    ->name('admin.applicants.profile');
             }
         );
     }

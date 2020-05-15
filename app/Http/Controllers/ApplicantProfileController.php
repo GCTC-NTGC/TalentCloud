@@ -31,7 +31,7 @@ class ApplicantProfileController extends Controller
     {
         $custom_breadcrumbs = [
             'home' => route('home'),
-            'profile' => '',
+            $applicant->user->full_name => '',
         ];
 
         return view(
