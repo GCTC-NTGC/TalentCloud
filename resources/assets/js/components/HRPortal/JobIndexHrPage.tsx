@@ -68,7 +68,7 @@ const buttonMessages = defineMessages({
   },
 });
 
-const messages = defineMessages({
+export const messages = defineMessages({
   loadingManager: {
     id: "hrJobIndex.managerLoading",
     defaultMessage: "Loading...",

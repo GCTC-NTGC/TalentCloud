@@ -20,12 +20,12 @@ return [
     'submit_button_label' => 'Soumettre',
     'applying_to' => 'Vous postulez pour :',
     'application_success' => 'Vous avez postulé avec succès à :',
-    'applying_to_bridge' => 'chez',
+    'applying_to_bridge' => '-',
     'pilot' => 'BETA / Projet pilote',
     'sidebar_label' => 'Sur cette page :',
     'accordion_helper' => 'Cliquez pour voir...',
     'required_label' => 'Requis',
-    'input_error' => 'Cette entrée comporte une erreur.',
+    'input_error' => 'Cette entrée contient une erreur.',
     /* Tracker */
     'tracker_label' => 'Étape',
     'tracker_previous_title' => "Aller à l'étape précédente de l'application.",
@@ -106,7 +106,7 @@ return [
     'language_title' => 'Exigence linguistique',
     'language_copy' => 'Quelle langue officielle préféreriez-vous pour ce processus de candidature?',
     'language_label' => 'En choisir un',
-    'communication_title' => 'Contact et communication',
+    'communication_title' => 'Communication',
     'citizenship_title' => 'Statut de citoyenneté',
     'citizenship_content' => "Lequel des cas suivants s'applique à vous?",
     'citizenship_label' => 'En choisir un',
@@ -115,7 +115,7 @@ return [
     'veterans_label' => 'En choisir un',
     /* Step 02 */
     'step_02_title' => 'Nuage de talents | Candidat : Postuler maintenant - Étape 2',
-    'step_02_requirement_label' => 'Expérience nécessaire',
+    'step_02_requirement_label' => 'Exigences d\'éducation',
     'experience' => [
         'title' => 'Mon expérience',
         'description' => "Le poste auquel vous êtes sur le point de postuler requiert les études ou l'expérience minimales suivantes. Vous ne pouvez pas être considéré(e) pour ce travail à moins que vous ayez celles-ci, même si vous êtes vraiment génial(e). Les gestionnaires ne sont pas autorisés à vous engager pour cet emploi dans cette classification sans cette éducation ou cette expérience.",
@@ -136,7 +136,7 @@ return [
     'step_04_title' => 'Nuage de talents | Candidat : Postuler maintenant - Étape 4',
     'sidebar_item_title' => "Faites défiler jusqu'à cette compétence",
     'skills_section' => [
-        'helper_text' => 'Veuillez noter que les compétences signalées par un <span data-c-visibility="invisible">point d\'exclamation</span><i class="fas fa-exclamation" data-c-color="slow" data-c-margin="rl(.25)"></i> sont incomplètes et requièrent votre attention. Les compétences signalées par une <span data-c-visibility="invisible">coche</span><i class="fas fa-check" data-c-color="go" data-c-margin="rl(.25)"></i> sont prêtes à être soumises ou ont été pré-remplies à partir de votre profil. Vous pouvez les modifier si nécessaire.',
+        'helper_text' => 'Veuillez noter que les compétences signalées par un <span data-c-visibility="invisible">point d\'exclamation</span><i class="fas fa-exclamation" data-c-color="slow" data-c-margin="rl(.25)"></i> sont incomplètes et ont besoin de votre attention. Les compétences signalées par une <span data-c-visibility="invisible">coche</span><i class="fas fa-check" data-c-color="go" data-c-margin="rl(.25)"></i> sont prêtes à être soumises ou ont été pré-remplies à partir de votre profil. Vous pouvez les modifier au besoin.',
         'asset_null_text' => 'Il semble qu\'il n\'y ait pas d\'autres compétences qui soient un atout pour ce poste. Veuillez utiliser le bouton ci-dessous pour passer à l\'étape suivante.',
         'essential_title' => "Nécessaire d'avoir",
         'asset_title' => 'Bon à avoir',
@@ -250,9 +250,16 @@ return [
         'physical_office_willing_label' => 'Cochez si oui',
         'security_clearance_copy' => 'Quel est votre niveau d’autorisation de sécurité actuel?',
         'security_clearance_label' => 'En choisir un',
+        'director_alert' => [
+            'heading' => 'Quand votre directeur et votre référence seront-ils contactés ?',
+            'ask_manager' => 'Demandez à votre (gestionnaire et à votre) directeur de vous prêter à une autre équipe pour les aider pendant un certain temps.',
+            'screened_in' => 'Si votre candidature est retenue, nous enverrons à votre directeur et à votre référent un courriel pour une vérification des références.'
+        ],
+        'director_title' => 'Informations de directeur',
         'director_name_label' => 'Nom du directeur',
         'director_title_label' => 'Titre du directeur',
         'director_email_label' => 'Courriel du directeur',
+        'reference_title' => 'Informations de référence',
         'reference_name_label' => 'Nom de référence',
         'reference_title_label' => 'Titre de référence',
         'reference_email_label' => 'Courriel de référence',
@@ -260,10 +267,17 @@ return [
         'reference_copy' => 'Quels sont le nom et l’adresse courriel d’un autre répondant qui peut confirmer votre ensemble de compétences? (De préférence un superviseur actuel ou récent du gouvernement du Canada.)',
         'experience_title' => 'Mon éducation',
         'experience_description' => 'Ajoutez les études si elles sont pertinentes par rapport aux compétences requises pour cet emploi.',
-        'essential_context_1' => 'Nous vous remercions d’avoir répondu à la demande et de proposer de nous aider. Vous êtes formidable. Ces compétences sont ce dont les ministères ont besoin en ce moment. <strong>Super important</strong> : si vous voulez vraiment aider, <strong>il faut absolument que vous possédiez ces compétences</strong>.',
-        'essential_context_2' => 'Vous serez placé dans une équipe différente, soit une équipe qui devra travailler sous pression ou respecter des délais serrés pour apporter son soutien aux Canadiens. Si vous avez de solides compétences dans ces domaines et que vous êtes le genre de personne qui s’engage à fond, vous êtes la personne pour le poste. (Si vous ne possédez pas de solides compétences dans ces domaines, mais que vous voulez tout de même aider, consultez les autres demandes de compétences).',
-        'asset_context' => 'Cela n’est pas nécessaire pour l’emploi que vous pourriez occuper. Vous pouvez l’apprendre au fur et à mesure. Mais ce serait bien si vous possédiez déjà la ou les compétences énumérées ci-dessous.',
-        'skill_prompt' => 'Communiquez quelques points de haut niveau sur votre expérience professionnelle :',
+        'essential_alert' => [
+            'heading' => 'Ces compétences sont ce dont les ministères ont besoin en ce moment.',
+            'context' => 'Si vous voulez vraiment aider, <strong>il faut absolument que vous possédiez ces compétences</strong>.'
+        ],
+        'essential_context_1' => 'Nous vous remercions d’avoir répondu à la demande et de proposer de nous aider. Vous êtes formidable.',
+        'essential_context_2' => "Vous serez placé dans une équipe différente, soit une équipe qui devra travailler sous pression ou respecter des délais serrés pour apporter son soutien aux Canadiens. Si vous avez de solides compétences dans ces domaines et que vous êtes le genre de personne qui s’engage à fond, vous êtes la personne pour le poste. (Si vous ne possédez pas de solides compétences dans ces domaines, mais que vous voulez tout de même aider, consultez les autres demandes de compétences).",
+        'asset_alert' => [
+            'heading' => "Ces compétences seraient bien d'avoir",
+            'context' => 'Cela n’est pas nécessaire pour l’emploi que vous pourriez occuper. Vous pouvez l’apprendre au fur et à mesure. Mais ce serait bien si vous possédiez déjà la ou les compétences énumérées ci-dessous.',
+        ],
+        'skill_prompt' => 'Communiquez quelques points de haut niveau sur votre expérience professionnelle.',
         'skill_placeholder' => 'Parlez-nous brièvement de vos compétences, par exemple où vous les avez acquises et dans quel rôle vous les avez acquises, et de ce que vous avez accompli.',
         'preview_security_clearance_label' => 'Niveau d’autorisation de sécurité',
         'preview_physical_office_yes' => '<strong>Oui</strong>, je suis prêt à venir travailler dans un bureau physique.',
@@ -276,5 +290,6 @@ return [
         'complete_copy_1' => 'Vous êtes génial.',
         'complete_copy_2' => 'Merci d’avoir soumis votre candidature. L’équipe de la Réserve de talents du GC vous contactera dans quelques jours pour vous informer des prochaines étapes.',
         'complete_return_label' => 'Retour à la page d\'accueil',
+        'no_info' => 'Aucun critère supplémentaire requis.'
     ]
 ];

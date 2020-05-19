@@ -11,7 +11,7 @@ export function identity<T>(value: T): T {
 }
 
 /**
- * Returns true as long as the value passed to it is not null or undefined.
+ * Returns true if value is not null or undefined.
  * Can be used to filter nulls and undefined values out of an array.
  * @param item
  */
@@ -21,6 +21,16 @@ export function notEmpty<T>(value: T | null | undefined): value is T {
 
 export function stringNotEmpty(value: string | null): value is string {
   return notEmpty(value) && value.length > 0;
+}
+
+/**
+ * Returns true if value id null OR undefined.
+ * @param item
+ */
+export function empty<T>(
+  value: T | null | undefined,
+): value is null | undefined {
+  return value === null || value === undefined;
 }
 
 /**
@@ -145,7 +155,10 @@ export function getOrThrowError<T>(
 }
 
 /** Return a copy of the object with specific property removed */
-export function deleteProperty<T, K extends keyof T>(obj: T, key: K): Omit<T, K> {
+export function deleteProperty<T, K extends keyof T>(
+  obj: T,
+  key: K,
+): Omit<T, K> {
   const { [key]: _, ...newObj } = obj;
   return newObj;
 }

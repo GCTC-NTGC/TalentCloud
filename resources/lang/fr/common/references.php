@@ -11,7 +11,7 @@ return [
     "new_reference_title" => "Nouvelle référence",
     "accordion_sr_helper" => "cliquez pour modifier",
     'required_label' => 'Requis',
-    'input_error' => 'Cette entrée comporte une erreur.',
+    'input_error' => 'Cette entrée contient une erreur.',
     "name_label" => "Nom de référence",
     "relationship_label" => "Votre relation avec votre référence",
     "relationship_default_option" => "Sélectionner votre relation ...",

@@ -4,10 +4,14 @@
     Application: Success Message
 
 ============================================================================= #}
+{% set application_complete_header = true %}
 {% extends "response/response-base" %}
 {% block title %}
-    {{ application_template.complete.step_06_title }}
+	{{ application_template.complete.step_06_title }}
 {% endblock %}
 {% block body %}
-    {% include "applicant/strategic_response_application/complete" %}
+	<div data-clone>
+        {# Page Content #}
+        {% include "applicant/strategic_response_application/complete" %}
+    </div>
 {% endblock %}

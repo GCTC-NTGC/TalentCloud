@@ -11,7 +11,20 @@ return [
      */
 
     'home' => 'Accueil',
+    'profile' => 'Profil',
     'faq' => 'FAQ',
+    'jobs' => 'Emplois',
     'job-index' => 'Index des emplois',
-    'response' => 'Réserve de talents du GC'
+    'resources' => 'Ressources',
+    'preview' => 'Aperçu',
+    'assessment-plan' => 'Concepteur de plans d’évaluation',
+    'job-title-missing' => "'Titre manquant'",
+    'review' => 'Revue',
+    'builder' => "Constructeur d'affiches",
+    'managerPortal' => [
+        'applications' => 'Réviser les candidats',
+    ],
+    'hrPortal' => [
+        'applications' => 'Réviser les candidats',
+    ],
 ];

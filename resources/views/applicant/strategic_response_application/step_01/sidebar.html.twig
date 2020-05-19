@@ -1,0 +1,27 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Application - Basic Information Sidebar
+
+============================================================================= #}
+<div class="sidebar" data-c-padding="top(3)">
+    <nav>
+        <p data-c-font-weight="bold" data-c-font-size="h4" data-c-margin="bottom(1)">{{ application_template.sidebar_label }}</p>
+        <ul>
+            <li>
+                <a href="#basic" title="{{ application_template.strategic_response.required_information }}">{{ application_template.strategic_response.required_information }}</a>
+                <ul>
+                    <li>
+                        <a href="#director" title="{{ application_template.strategic_response.director_title }}">{{ application_template.strategic_response.director_title }}</a>
+                    </li>
+                    <li>
+                        <a href="#reference" title="{{ application_template.strategic_response.reference_title }}">{{ application_template.strategic_response.reference_title }}</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#fit" title="{{ application_template.question_title }}">{{ application_template.question_title }}</a>
+            </li>
+        </ul>
+    </nav>
+</div>

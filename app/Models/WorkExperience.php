@@ -26,6 +26,18 @@ namespace App\Models;
  */
 class WorkExperience extends BaseModel
 {
+    /**
+     * The table associated with the model.
+     *
+     * An update to the underlying pluralization library Laravel
+     * uses is causing this model to not be associated with a table
+     * properly.
+     *
+     * https://github.com/laravel/framework/pull/32734
+     *
+     * @var string
+     */
+    protected $table = 'work_experiences';
 
     protected $casts = [
         'role' => 'string',

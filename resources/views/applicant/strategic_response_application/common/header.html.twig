@@ -1,0 +1,35 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Submit an Application - Header
+
+============================================================================= #}
+{% if not application_complete_header %}
+<div data-clone>
+    <header data-c-align="base(center) tl(left)" data-c-padding="bottom(3)" data-c-overlay="white(80)" style="background-image: url('/images/response-wall.jpg')">
+        <div data-c-container="large" data-c-padding="top(3)" id="home-heading">
+            <h1 data-c-heading="h1" data-c-color="black" >{{ application_template.title }}</h1>
+            <p data-c-color="black" data-c-margin="top(1)">{{ application_template.applying_to }} <span data-c-font-weight="bold">{{ job.title }}</span> {{ application_template.applying_to_bridge }} <span data-c-font-weight="bold">{{ job.department.name }}</span></p>
+            <div data-c-margin="top(2)">
+                <div data-c-grid="gutter(all, 1)">
+                    <div data-c-grid-item="tl(1of2)">
+                        {% include "common/breadcrumbs" with { font_color: "black" } %}
+                    </div>
+                    <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(right)">
+                        <span data-c-colour="black">{{ application_template.pilot }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+</div>
+{% else %}
+<div data-clone>
+    <header data-c-align="base(center) tl(left)" data-c-padding="bottom(3)" data-c-overlay="white(80)" style="background-image: url('/images/response-wall.jpg')">
+        <div data-c-container="large" data-c-padding="top(3)" data-c-align="base(center)">
+            <h1 data-c-heading="h1" data-c-color="black">{{ application_template.complete.title }}</h1>
+            <p data-c-color="black" data-c-margin="top(1)">{{ application_template.application_success }} <span data-c-font-weight="bold">{{ job.title }}</span> {{ application_template.applying_to_bridge }} <span data-c-font-weight="bold">{{ job.department.name }}</span></p>
+        </div>
+    </header>
+</div>
+{% endif %}

@@ -25,6 +25,8 @@ const TextInput: React.FunctionComponent<TextInputProps> = ({
   const specificError = errors ? errors[name] : null;
   const errorText = specificError ? specificError.toString() : undefined;
   const invalid = touched[name] && errors[name] ? true : null;
+  // Workaround for new TS error https://github.com/microsoft/TypeScript/issues/37559
+  const { name: passedName, onChange: passedChange, ...otherProps } = props;
 
   return (
     <Input
@@ -41,7 +43,7 @@ const TextInput: React.FunctionComponent<TextInputProps> = ({
       onBlur={onBlur}
       errorText={errorText}
       invalid={invalid}
-      {...props}
+      {...otherProps}
     />
   );
 };
