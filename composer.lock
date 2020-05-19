@@ -1254,16 +1254,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v6.18.14",
+            "version": "v6.18.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "503d1511d6792b0b8d0a4bfed47f7c2f29634e1c"
+                "reference": "a1fa3ddc0bb5285cafa6844b443633f7627d75dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/503d1511d6792b0b8d0a4bfed47f7c2f29634e1c",
-                "reference": "503d1511d6792b0b8d0a4bfed47f7c2f29634e1c",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/a1fa3ddc0bb5285cafa6844b443633f7627d75dc",
+                "reference": "a1fa3ddc0bb5285cafa6844b443633f7627d75dc",
                 "shasum": ""
             },
             "require": {
@@ -1288,6 +1288,7 @@
                 "symfony/finder": "^4.3.4",
                 "symfony/http-foundation": "^4.3.4",
                 "symfony/http-kernel": "^4.3.4",
+                "symfony/polyfill-php73": "^1.17",
                 "symfony/process": "^4.3.4",
                 "symfony/routing": "^4.3.4",
                 "symfony/var-dumper": "^4.3.4",
@@ -1396,7 +1397,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2020-05-12T14:41:15+00:00"
+            "time": "2020-05-19T17:03:02+00:00"
         },
         {
             "name": "laravel/helpers",
