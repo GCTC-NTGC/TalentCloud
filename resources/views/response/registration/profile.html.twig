@@ -1,7 +1,7 @@
 {# =============================================================================
 
     Talent Cloud
-    COVID-19 Response Registration (Step 01)
+    COVID-19 Response Registration (Step 02)
     This UI is the first step in creating an account on the Talent Reserve.
 
 ============================================================================= #}
@@ -25,37 +25,37 @@
                     <h2 data-c-heading="h2" data-c-padding="top(3)" data-c-margin="bottom(1)">Profile Information</h2>
                     <p>Now that your account has been created, please complete the required information below.</p>
                     <h3 data-c-heading="h3" data-c-padding="top(3) bottom(1)" data-c-margin="bottom(1)">Department Information</h3>
-                    <p data-c-margin="bottom(1)">Are you currently employed with your substantive home department or are you on an assignment or secondment?</p>
+                    <p data-c-margin="bottom(1)">Are you currently on assignment, on secondment or on leave?</p>
                     <div data-c-input="radio">
                         <label for="responseRegisJobStatusGroup">Indicate your current status:</label>
                         <span>Required</span>
                         <div id="responseRegisJobStatusGroup" role="radiogroup">
                             <label for="responseRegisJobStatusItem1">
                                 <input id="responseRegisJobStatusItem1" required name="responseRegisJobStatusGroup" type="radio" />
-                                <span>I currently work with my substantive home department.</span>
+                                <span>No, I am currently working with my substantive home department.</span>
                             </label>
                             <label for="responseRegisJobStatusItem2">
                                 <input id="responseRegisJobStatusItem2" required name="responseRegisJobStatusGroup" type="radio" />
-                                <span>I am currently on an assignment or secondment.</span>
+                                <span>Yes, I am currently on assignment or secondment.</span>
                             </label>
                             <label for="responseRegisJobStatusItem3">
                                 <input id="responseRegisJobStatusItem3" required name="responseRegisJobStatusGroup" type="radio" />
-                                <span>I am currently on leave from the government.</span>
+                                <span>Yes, I am currently on leave from the government.</span>
                             </label>
                         </div>
                         <span>This input has an error.</span>
                     </div>
                     <div data-c-grid="gutter(all, 1)">
-                        {# Home Department Info #}
+                        {# Current Department Info #}
                         <div data-c-grid-item="base(1of1)">
-                            <h4 data-c-heading="h4" data-c-padding="top(2)" data-c-margin="bottom(1)">Home Department Information</h4>
+                            <h4 data-c-heading="h4" data-c-padding="top(2)" data-c-margin="bottom(1)">Current Department Information</h4>
                         </div>
                         <div data-c-input="select" data-c-grid-item="base(1of1)">
-                            <label for="responseRegisHomeDepartmentList">My Home Department</label>
+                            <label for="responseRegisCurrentDepartmentList">My Current Department</label>
                             <span>Required</span>
                             <div>
                                 <i class="fas fa-caret-down"></i>
-                                <select required id="responseRegisHomeDepartmentList">
+                                <select required id="responseRegisCurrentDepartmentList">
                                     <option disabled selected>Select a department...</option>
                                     <option>Aquaman</option>
                                     <option>Atom</option>
@@ -70,11 +70,11 @@
                             <span>This input has an error.</span>
                         </div>
                         <div data-c-input="select" data-c-grid-item="tl(1of2)">
-                            <label for="responseRegisHomeClassificationList">My Home Classification</label>
+                            <label for="responseRegisCurrentClassificationList">My Current Classification</label>
                             <span>Required</span>
                             <div>
                                 <i class="fas fa-caret-down"></i>
-                                <select required id="responseRegisHomeClassificationList">
+                                <select required id="responseRegisCurrentClassificationList">
                                     <option disabled selected>Select a classification...</option>
                                     <option>Aquaman</option>
                                     <option>Atom</option>
@@ -89,11 +89,11 @@
                             <span>This input has an error.</span>
                         </div>
                         <div data-c-input="select" data-c-grid-item="tl(1of2)">
-                            <label for="responseRegisHomeClassificationLevel">My Home Classification Level</label>
+                            <label for="responseRegisCurrentClassificationLevel">My Current Classification Level</label>
                             <span>Required</span>
                             <div>
                                 <i class="fas fa-caret-down"></i>
-                                <select required id="responseRegisHomeClassificationLevel">
+                                <select required id="responseRegisCurrentClassificationLevel">
                                     <option disabled selected>Select a level...</option>
                                     <option>Aquaman</option>
                                     <option>Atom</option>
@@ -108,11 +108,11 @@
                             <span>This input has an error.</span>
                         </div>
                         <div data-c-input="select" data-c-grid-item="base(1of1)">
-                            <label for="responseRegisHomeJobStatus">My Job Status</label>
+                            <label for="responseRegisCurrentJobStatus">My Job Status</label>
                             <span>Required</span>
                             <div>
                                 <i class="fas fa-caret-down"></i>
-                                <select required id="responseRegisHomeJobStatus">
+                                <select required id="responseRegisCurrentJobStatus">
                                     <option disabled selected>Select a status...</option>
                                     <option>Aquaman</option>
                                     <option>Atom</option>
@@ -127,32 +127,33 @@
                             <span>This input has an error.</span>
                         </div>
                         <div data-c-input="text" data-c-grid-item="tl(1of2)">
-                            <label for="responseRegisHomeManagerName">My Home Manager's Name</label>
+                            <label for="responseRegisCurrentManagerName">My Current Manager's Name</label>
                             <span>Required</span>
                             <div>
-                                <input id="responseRegisHomeManagerName" required type="text" />
+                                <input id="responseRegisCurrentManagerName" required type="text" />
                             </div>
                             <span>This input has an error.</span>
                         </div>
                         <div data-c-input="email" data-c-grid-item="tl(1of2)">
-                            <label for="responseRegisHomeManagerEmail">My Home Manager's Email</label>
+                            <label for="responseRegisCurrentManagerEmail">My Current Manager's Email</label>
                             <span>Required</span>
                             <div>
-                                <input id="responseRegisHomeManagerEmail" required type="email" />
+                                <input id="responseRegisCurrentManagerEmail" required type="email" />
                             </div>
                             <span>This input has an error.</span>
                         </div>
-                        {# Assignment/Secondment Department Info #}
+                        {# Substantive Home Department Info #}
                         {# Devs: please note that this part of the form should only show up (and therefore be required) if the user selects that they are on an assignment from the options above. #}
                         <div data-c-grid-item="base(1of1)">
-                            <h4 data-c-heading="h4" data-c-padding="top(2)" data-c-margin="bottom(1)">Assignment/Secondment Department Information</h4>
+                            <h4 data-c-heading="h4" data-c-padding="top(2)" data-c-margin="bottom(1)">Substantive Home Department Information</h4>
+                            <p data-c-margin="bottom(1)">Because you selected that you are on assignment or secondment, please fill out the following information from your original home substantive department.</p>
                         </div>
                         <div data-c-input="select" data-c-grid-item="base(1of1)">
-                            <label for="responseRegisAssignmentDepartmentList">My Assignment/Secondment Department</label>
+                            <label for="responseRegisSubstantiveDepartmentList">My Home Department <span data-c-color="gray">(Can be the same as current department)</span></label>
                             <span>Required</span>
                             <div>
                                 <i class="fas fa-caret-down"></i>
-                                <select required id="responseRegisAssignmentDepartmentList">
+                                <select id="responseRegisSubstantiveDepartmentList">
                                     <option disabled selected>Select a department...</option>
                                     <option>Aquaman</option>
                                     <option>Atom</option>
@@ -167,11 +168,11 @@
                             <span>This input has an error.</span>
                         </div>
                         <div data-c-input="select" data-c-grid-item="tl(1of2)">
-                            <label for="responseRegisAssignmentClassificationList">My Assignment/Secondment Classification</label>
+                            <label for="responseRegisSubstantiveClassificationList">My Home Department Classification</label>
                             <span>Required</span>
                             <div>
                                 <i class="fas fa-caret-down"></i>
-                                <select required id="responseRegisAssignmentClassificationList">
+                                <select id="responseRegisSubstantiveClassificationList">
                                     <option disabled selected>Select a classification...</option>
                                     <option>Aquaman</option>
                                     <option>Atom</option>
@@ -186,11 +187,11 @@
                             <span>This input has an error.</span>
                         </div>
                         <div data-c-input="select" data-c-grid-item="tl(1of2)">
-                            <label for="responseRegisAssignmentClassificationLevel">My Assignment/Secondment Classification Level</label>
+                            <label for="responseRegisSubstantiveClassificationLevel">My Home Department Classification Level</label>
                             <span>Required</span>
                             <div>
                                 <i class="fas fa-caret-down"></i>
-                                <select required id="responseRegisAssignmentClassificationLevel">
+                                <select id="responseRegisSubstantiveClassificationLevel">
                                     <option disabled selected>Select a level...</option>
                                     <option>Aquaman</option>
                                     <option>Atom</option>
@@ -205,24 +206,66 @@
                             <span>This input has an error.</span>
                         </div>
                         <div data-c-input="text" data-c-grid-item="tl(1of2)">
-                            <label for="responseRegisAssignmentManagerName">My Assignment/Secondment Manager's Name</label>
+                            <label for="responseRegisSubstantiveManagerName">My Home Department Manager's Name</label>
                             <span>Required</span>
                             <div>
-                                <input id="responseRegisAssignmentManagerName" required type="text" />
+                                <input id="responseRegisSubstantiveManagerName" type="text" />
                             </div>
                             <span>This input has an error.</span>
                         </div>
                         <div data-c-input="email" data-c-grid-item="tl(1of2)">
-                            <label for="responseRegisAssignmentManagerEmail">My Assignment/Secondment Manager's Email</label>
+                            <label for="responseRegisSubstantiveManagerEmail">My Home Department Manager's Email</label>
                             <span>Required</span>
                             <div>
-                                <input id="responseRegisAssignmentManagerEmail" required type="email" />
+                                <input id="responseRegisSubstantiveManagerEmail" type="email" />
                             </div>
                             <span>This input has an error.</span>
                         </div>
                         {# Availability #}
                         <div data-c-grid-item="base(1of1)">
                             <h3 data-c-heading="h3" data-c-padding="top(3) bottom(1)" data-c-margin="bottom(1)">My Availability</h3>
+                        </div>
+                        <div data-c-input="select" data-c-grid-item="tl(1of2)">
+                            <label for="responseRegisAvailProvince">My Province</label>
+                            <span>Required</span>
+                            <div>
+                                <i class="fas fa-caret-down"></i>
+                                <select required id="responseRegisAvailProvince">
+                                    <option disabled selected>Select a province...</option>
+                                    <option>Aquaman</option>
+                                    <option>Atom</option>
+                                    <option>Booster Gold</option>
+                                    <option>The Flash</option>
+                                    <option>Green Lantern</option>
+                                    <option>Hawkgirl</option>
+                                    <option>Martian Manhunter</option>
+                                    <option>Zatanna</option>
+                                </select>
+                            </div>
+                            <span>This input has an error.</span>
+                        </div>
+                        <div data-c-input="text" data-c-grid-item="tl(1of2)">
+                            <label for="responseRegisAvailCity">My City/Town</label>
+                            <span>Required</span>
+                            <div>
+                                <input id="responseRegisAvailCity" required type="text" />
+                            </div>
+                            <span>This input has an error.</span>
+                        </div>
+                        <div data-c-input="radio" data-c-grid-item="base(1of1)">
+                            <label for="responseRegisAvailOffice">Are you willing to come to work in a physical office?</label>
+                            <span>Required</span>
+                            <div id="responseRegisAvailOffice" role="radiogroup">
+                                <label for="responseRegisAvailOfficeItem1">
+                                    <input id="responseRegisAvailOfficeItem1" required name="responseRegisAvailOffice" type="radio" />
+                                    <span>Yes, I am willing to work from a physical office in my area.</span>
+                                </label>
+                                <label for="responseRegisAvailOfficeItem2">
+                                    <input id="responseRegisAvailOfficeItem2" required name="responseRegisAvailOffice" type="radio" />
+                                    <span>No, I'd prefer not to work in a physical office.</span>
+                                </label>
+                            </div>
+                            <span>This input has an error.</span>
                         </div>
                         <div data-c-input="radio" data-c-grid-item="base(1of1)">
                             <label for="responseRegisAvailGroup">Indicate your general availability:</label>
@@ -259,7 +302,7 @@
                             <span>This input has an error.</span>
                         </div>
                         <div data-c-input="textarea" data-c-grid-item="base(1of1)">
-                            <label for="responseRegisAvailDetails">Other Information <span data-c-color="gray">(Optional)</span></label>
+                            <label for="responseRegisAvailDetails">Other Information <span data-c-color="gray">(Optional)</span>:</label>
                             <span>Required</span>
                             <div>
                                 <textarea id="responseRegisAvailDetails"></textarea>
@@ -268,36 +311,90 @@
                         </div>
                         {# Language Information #}
                         <div data-c-grid-item="base(1of1)">
-                            <h3 data-c-heading="h3" data-c-padding="top(3) bottom(1)" data-c-margin="bottom(1)">Language Information</h3>
-                            <p data-c-margin="bottom(.5)">Please indicate your primary language of communication.</p>
+                            <h3 data-c-heading="h3" data-c-padding="top(3) bottom(.5)" data-c-margin="bottom(1)">Language Information</h3>
                         </div>
                         <div data-c-input="radio" data-c-grid-item="base(1of1)">
-                            <label for="responseRegisPreferredLangGroup">Indicate your primary official language:</label>
+                            <label for="responseRegisPreferredLangGroup">Indicate your first official language:</label>
                             <span>Required</span>
                             <div id="responseRegisPreferredLangGroup" role="radiogroup">
                                 <label for="responseRegisPreferredLangEn">
                                     <input id="responseRegisPreferredLangEn" required name="responseRegisPreferredLangGroup" type="radio" />
-                                    <span>My preferred official language is English.</span>
+                                    <span>My first official language is English.</span>
                                 </label>
                                 <label for="responseRegisPreferredLangFr">
                                     <input id="responseRegisPreferredLangFr" required name="responseRegisPreferredLangGroup" type="radio" />
-                                    <span>My preferred official language is French.</span>
+                                    <span>My first official language is French.</span>
+                                </label>
+                            </div>
+                            <span>This input has an error.</span>
+                        </div>
+                        <div data-c-input="radio" data-c-grid-item="base(1of1)">
+                            <label for="responseRegisContactLangGroup">Indicate the language you prefer to be contacted in:</label>
+                            <span>Required</span>
+                            <div id="responseRegisContactLangGroup" role="radiogroup">
+                                <label for="responseRegisContactLangEn">
+                                    <input id="responseRegisContactLangEn" required name="responseRegisContactLangGroup" type="radio" />
+                                    <span>My preferred contact language is English.</span>
+                                </label>
+                                <label for="responseRegisContactLangFr">
+                                    <input id="responseRegisContactLangFr" required name="responseRegisContactLangGroup" type="radio" />
+                                    <span>My preferred contact language is French.</span>
                                 </label>
                             </div>
                             <span>This input has an error.</span>
                         </div>
                         <div data-c-grid-item="base(1of1)">
-                            <p data-c-margin="tb(.5)">If you've been assessed in the other official language, please indicate your language levels below. If you know the expiry date of your levels, please also provide that.</p>
+                            <p data-c-margin="tb(.5)">If you've been assessed in your second official language, please indicate your language levels below. If you know the expiry date of your levels, please also provide that.</p>
                         </div>
-                        <div data-c-input="text" data-c-grid-item="tl(1of2)">
-                            <label for="responseRegisLangLevels">My Language Levels <span data-c-color="gray">(Optional)</span></label>
+                        <div data-c-input="select" data-c-grid-item="tl(1of3)">
+                            <label for="SEL2">Comprehension <span data-c-color="gray">(Optional)</span></label>
                             <span>Required</span>
                             <div>
-                                <input id="responseRegisLangLevels" placeholder="e.g. CBC" type="text" />
+                                <i class="fas fa-caret-down"></i>
+                                <select id="SEL2">
+                                    <option disabled selected>Select a level...</option>
+                                    <option>N/A</option>
+                                    <option>A</option>
+                                    <option>B</option>
+                                    <option>C</option>
+                                    <option>Exempt</option>
+                                </select>
                             </div>
                             <span>This input has an error.</span>
                         </div>
-                        <div data-c-input="date" data-c-grid-item="tl(1of2)">
+                        <div data-c-input="select" data-c-grid-item="tl(1of3)">
+                            <label for="SEL2">Writing <span data-c-color="gray">(Optional)</span></label>
+                            <span>Required</span>
+                            <div>
+                                <i class="fas fa-caret-down"></i>
+                                <select id="SEL2">
+                                    <option disabled selected>Select a level...</option>
+                                    <option>N/A</option>
+                                    <option>A</option>
+                                    <option>B</option>
+                                    <option>C</option>
+                                    <option>Exempt</option>
+                                </select>
+                            </div>
+                            <span>This input has an error.</span>
+                        </div>
+                        <div data-c-input="select" data-c-grid-item="tl(1of3)">
+                            <label for="SEL2">Oral <span data-c-color="gray">(Optional)</span></label>
+                            <span>Required</span>
+                            <div>
+                                <i class="fas fa-caret-down"></i>
+                                <select id="SEL2">
+                                    <option disabled selected>Select a level...</option>
+                                    <option>N/A</option>
+                                    <option>A</option>
+                                    <option>B</option>
+                                    <option>C</option>
+                                    <option>Exempt</option>
+                                </select>
+                            </div>
+                            <span>This input has an error.</span>
+                        </div>
+                        <div data-c-input="date" data-c-grid-item="base(1of1)">
                             <label for="responseRegisLangLevelsExpiry">Expiry Date of Language Levels <span data-c-color="gray">(Optional)</span></label>
                             <span>Required</span>
                             <div>
