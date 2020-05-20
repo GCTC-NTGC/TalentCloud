@@ -79,7 +79,7 @@
         "redux-mock-store": "^1.5.4",
         "resolve-url-loader": "^3.1.1",
         "sass-loader": "^8.0.2",
-        "snyk": "^1.323.0",
+        "snyk": "^1.323.1",
         "storybook-addon-intl": "^2.4.1",
         "testcafe": "^1.8.5",
         "ts-jest": "^25.5.1",
