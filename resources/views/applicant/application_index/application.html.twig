@@ -26,13 +26,13 @@
             </div>
             <div data-c-grid-item="tl(1of6)">
                 <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ application_index.post_label }}</p>
-                <a href="{{ route('jobs.show', item.job_poster) }}" target="_blank" title="{{ application_index.post_link_title }}">
+                <a href="{{ route('jobs.summary', item.job_poster) }}" target="_blank" title="{{ application_index.post_link_title }}">
                     {{ application_index.post_link_label }}
                 </a>
             </div>
             <div data-c-grid-item="tl(1of6)">
                 <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ application_index.manager_label }}</p>
-                <a href="{{ route('managers.show', item.job_poster.manager) }}" target="_blank" title="{{ application_index.manager_profile_link_title }}">{{ item.job_poster.manager.user.first_name }} {{ item.job_poster.manager.user.last_name }}</a>
+                <a href="{{ route('managers.show', item.job_poster) }}" target="_blank" title="{{ application_index.manager_profile_link_title }}">{{ item.job_poster.manager.user.first_name }} {{ item.job_poster.manager.user.last_name }}</a>
             </div>
             <div data-c-grid-item="tl(1of6)">
                 <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ application_index.apply_by_label|trans }}</p>

@@ -3,6 +3,7 @@ import {
   Application,
   ApplicationNormalized,
   ApplicationReview,
+  Email,
 } from "../models/types";
 
 export const fakeApplicationReview = (
@@ -19,7 +20,9 @@ export const fakeApplicationReview = (
     name: "assessment_required",
   },
   department_id: null,
-  department: null,
+  department: undefined,
+  director_email_sent: false,
+  reference_email_sent: false,
   ...overrides,
 });
 
@@ -133,10 +136,90 @@ export const fakeApplication3 = (
   });
 };
 
-const fakeApplications = (): Application[] => [
+export const fakeApplications = (): Application[] => [
   fakeApplication1(),
   fakeApplication2(),
   fakeApplication3(),
 ];
+
+const defaultEmailBody = `Dear *Name*:
+
+GC Talent Reserve [link to website](https://talent.canada.ca) is a centrally coordinated, whole-of-government platform for talent mobilization in a crisis situation.
+
+This exercise will only take 3-5 minutes of your time and will be a help to the Government of Canada in its efforts to respond to these exceptional circumstances. Please help others by reading this through and completing the questions.
+
+*Name of candidate* has put their name forward to participate in the Government of Canada’s response to COVID-19. As part of the process to help determine how their skills may be best repurposed, they have identified you as a reference and the delegated authority who can approve their participation.
+
+Do you approve *Name of candidate* for putting their name forward to the GC Talent Reserve?
+
+Please confirm if *Name of candidate* is a current indeterminate employee or a term employee.
+
+Please take 5 minutes to confirm if *Name of candidate* has the following skills by putting an “x” beside the appropriate level.
+
+Skill #1
+  * Strongly in evidence
+  * Moderately in evidence
+  * Weakly in evidence
+  * Not in evidence
+
+Skill #2
+  * Strongly in evidence
+  * Moderately in evidence
+  * Weakly in evidence
+  * Not in evidence
+
+Skill #3
+  * Strongly in evidence
+  * Moderately in evidence
+  * Weakly in evidence
+  * Not in evidence
+
+Overall, how would you feel about recommending this person for this type of work in Government? Please put an “x” beside the appropriate level.
+
+Top recommendation
+  - [ ] Strongly recommend
+  - [ ] Recommend
+  - [ ] Recommend with reservations
+  - [ ] Do not recommend
+
+Does the employee have any particular strengths you would like to highlight that might be relevant for assisting another department in critical need of talent for this type or work? (This question is optional)
+
+Does the employee have any weaknesses you feel should be mentioned that might be relevant to the employee’s ability to be an asset to a department in critical need of talent for this type or work?  (This question is optional)
+
+Thank you for helping the Government of Canada to navigate this exceptional circumstance.
+
+If you have any questions, do not hesitate to email us at any time.
+
+Best regards,
+The Talent Cloud team`;
+
+export const fakeReferenceEmail = (overrides: Partial<Email>): Email => ({
+  from: [
+    {
+      name: "Talent Cloud",
+      address: "talent.cloud@canada.test",
+    },
+  ],
+  to: [
+    {
+      name: "Sam References",
+      address: "sam.ref@person.test",
+    },
+  ],
+  cc: [
+    {
+      name: "First HrAdvisor",
+      address: "first.hr.advisor@canada.test",
+    },
+    {
+      name: "Second HrAdvisor",
+      address: "second.hr.advisor@canada.test",
+    },
+  ],
+  bcc: [],
+  subject: "Reference Requested - GC Talent Reserve",
+  body: defaultEmailBody,
+  ...overrides,
+});
 
 export default fakeApplications;

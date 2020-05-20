@@ -50,10 +50,10 @@ export const useRouter = (
   const location = useLocation();
   const router = useMemo(() => new UniversalRouter(routes), [routes]);
   const [component, setComponent] = useState<React.ReactElement | null>(null);
-  const path = location.pathname;
   // Render the result of routing
   useEffect((): void => {
-    router.resolve(path).then((result): void => {
+    router.resolve(location.pathname).then((result): void => {
+      // Dynamically update the page title and header on step changes
       const title = intl.formatMessage(result.title);
       document.title = title;
       const h1 = document.querySelector("h1");

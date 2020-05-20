@@ -43,6 +43,7 @@ return [
         ],
     ],
     'skill_description_null' => 'Vous n\'avez pas encore décrit comment cette compétence s\'applique à vous.',
+    'skill_description_placeholder' => 'Parlez-nous brièvement de vos compétences, par exemple où vous les avez acquises et dans quel rôle vous les avez acquises, les outils que vous avez utilisés, et de ce que vous avez accompli.',
     'action_01' => 'Supprimer cette compétence',
     'action_02' => 'Enregistrer cette compétence',
     'action_02_working' => 'Pensant...',

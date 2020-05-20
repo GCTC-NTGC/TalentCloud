@@ -34,11 +34,17 @@ class ExperienceController extends Controller
      */
     public function edit(Request $request, Applicant $applicant)
     {
+        $custom_breadcrumbs = [
+            'home' => route('home'),
+            'profile' => '',
+        ];
+
         return view('applicant/profile_02_experience', [
             'applicant' => $applicant,
             'profile' => Lang::get('applicant/profile_experience'),
             'work_template' => Lang::get('common/work_experience'),
-            'form_submit_action' => route('profile.experience.update', $applicant)
+            'form_submit_action' => route('profile.experience.update', $applicant),
+            'custom_breadcrumbs' => $custom_breadcrumbs,
         ]);
     }
 

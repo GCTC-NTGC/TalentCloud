@@ -50,8 +50,10 @@ export interface ApplicationReview {
   notes: string | null;
   created_at: Date;
   updated_at: Date;
-  department: Department | null;
-  review_status: ReviewStatus | ResponseReviewStatus | null;
+  department: Department | undefined;
+  review_status: ReviewStatus | ResponseReviewStatus | undefined;
+  director_email_sent: boolean;
+  reference_email_sent: boolean;
 }
 
 export interface Assessment {
@@ -267,4 +269,17 @@ export interface JobPosterStatus {
   key: string;
   name: localizedFieldNonNull;
   description: localizedFieldNonNull;
+}
+
+export interface EmailAddress {
+  name: string;
+  address: string; // Email.
+}
+export interface Email {
+  from: EmailAddress[];
+  to: EmailAddress[];
+  cc: EmailAddress[];
+  bcc: EmailAddress[];
+  subject: string;
+  body: string;
 }

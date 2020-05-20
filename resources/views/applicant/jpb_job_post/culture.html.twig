@@ -12,11 +12,11 @@
     <p data-c-margin="bottom(1)">{{ manager.position }} {{ job_post.culture.manager_department_bridge }} {{ manager.user.department.name }}</p>
     <p data-c-margin="bottom(1)">{{ manager.leadership_style|nl2br }}</p>
     {% if auth_guest() %}
-        <a href="{{ route('managers.show',{'manager': manager.id}) }}" title="{{ job_post.manager.link_title|replace({":name": manager.user.first_name}) }}" data-c-button="solid(c1)" data-c-radius="rounded">
+        <a href="{{ route('managers.show', job) }}" title="{{ job_post.manager.link_title|replace({":name": manager.user.first_name}) }}" data-c-button="solid(c1)" data-c-radius="rounded">
             {{ job_post.culture.guest_manager_link_label|replace({":name": manager.user.first_name}) }}
         </a>
     {% else %}
-        <a href="{{ route('managers.show',{'manager': manager.id}) }}" title="{{ job_post.manager.link_title|replace({":name": manager.user.first_name}) }}" data-c-button="solid(c1)" data-c-radius="rounded">
+        <a href="{{ route('managers.show', job) }}" title="{{ job_post.manager.link_title|replace({":name": manager.user.first_name}) }}" data-c-button="solid(c1)" data-c-radius="rounded">
             {{ job_post.culture.manager_link_label|replace({":name": manager.user.first_name}) }}
         </a>
     {% endif %}
