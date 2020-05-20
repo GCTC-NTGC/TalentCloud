@@ -1,0 +1,57 @@
+{# =============================================================================
+
+    Talent Cloud
+    COVID-19 Response Registration (Step 03)
+    This UI is the first step in creating an account on the Talent Reserve.
+
+============================================================================= #}
+{% extends "layouts/base" %}
+{% block title %}GC Talent Reserve: Thanks for Registering{% endblock %}
+{% block body %}
+    {# Government of Canada Banner #}
+    {% include "common/goc" %}
+    <div data-clone>
+        {# Beta Banner #}
+        {% include "response/beta-banner" %}
+        {# Menu #}
+        {% include "response/menu" %}
+        {# Header #}
+        <header>
+            <div data-c-overlay="black(80)" style="background-image: url('/images/response-wall.jpg')">
+                <div data-c-container="large" data-c-padding="tb(3)" data-c-align="base(center)">
+                    <h1 data-c-heading="h1" data-c-color="white">Thanks for Registering!</h1>
+                </div>
+            </div>
+        </header>
+        {# Content #}
+        <a id="skipLink"></a>
+        {# Dev: Please ensure that proper routes are set up for the links below. #}
+        <div data-c-border="bottom(thin, solid, gray)">
+            <div data-c-container="medium(center)" data-c-padding="bottom(3)">
+                <h2 data-c-heading="h2" data-c-padding="top(3)" data-c-margin="bottom(1)">Next Steps</h2>
+                <p>Congratulations, you're now registered on GC Talent Reserve! Thank you so much for your effort, it is greatly appreciated. We now have everything we need and can contact you if your expertise is needed for a specific position. To see what areas of expertise are in demand right now and put your name forward, browse the Areas of Need below.</p>
+                <div data-c-grid="gutter(all, 1)">
+                    <div data-c-grid-item="ds(1of2)">
+                        <h3 data-c-heading="h3" data-c-padding="top(3) bottom(1)" data-c-margin="bottom(1)">Browse Areas of Need</h3>
+                        <p data-c-margin="bottom(1)">Look for specific areas of need that suit your expertise. If you don't see a position that matches your skills, we will be sure to let you know when new opportunities are identified within your area of expertise.</p>
+                        <p>
+                            <a href="" title="Visit the browse page to look for opportunities.">Browse Areas of Need</a>
+                        </p>
+                    </div>
+                    <div data-c-grid-item="ds(1of2)">
+                        <h3 data-c-heading="h3" data-c-padding="top(3) bottom(1)" data-c-margin="bottom(1)">Complete your Profile</h3>
+                        <p data-c-margin="bottom(1)">Indicate your areas of interest on your profile, and we'll do our best to match you to jobs that present learning opportunities.</p>
+                        <p>
+                            <a href="" title="Visit your profile.">Visit your Profile</a>
+                        </p>
+                    </div>
+                </div>
+                <h3 data-c-heading="h3" data-c-padding="top(3) bottom(1)" data-c-margin="bottom(1)">Got questions?</h3>
+                <p data-c-margin="bottom(1)">If you still have questions regarding this process please feel free to visit our FAQs page or contact us directly at <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Send an email to Talent Cloud">talent.cloud-nuage.de.talents@tbs-sct.gc.ca</a>.</p>
+                <p>
+                    <a href="" title="Visit the frequently asked questions.">Visit the FAQs</a>
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
