@@ -3,9 +3,9 @@ function stripTrailingSlash(str: string): string {
 }
 
 export function baseUrl(): string {
-  const base = document.querySelector("head base");
+  const base = document.querySelector("meta[name='base-url']");
   if (base !== null) {
-    return stripTrailingSlash(base.getAttribute("href") ?? "");
+    return stripTrailingSlash(base.getAttribute("content") ?? "");
   }
   return "";
 }
