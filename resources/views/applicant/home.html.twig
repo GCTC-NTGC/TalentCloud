@@ -18,7 +18,7 @@
 			<header data-c-align="base(center) tl(left)" data-c-overlay="black(80)" data-c-padding="bottom(3)" style="background-image: url('images/bg_crowd.jpg');">
 				{% include "common/menu" %}
 				<div data-c-container="large" data-c-padding="top(3)" id="home-heading">
-					<h1 data-c-heading="h1" data-c-margin="bottom(1)">{{ home.hero.title }}<img alt="{{ home.leaf }}" class="hero-icon" src="/images/maple-leaf.svg"></h1>
+					<h1 data-c-heading="h1" data-c-margin="bottom(1)">{{ home.hero.title }}<img alt="{{ home.leaf }}" class="hero-icon" src="{{ asset("/images/maple-leaf.svg") }}"></h1>
                     <div data-c-grid="gutter(all, 1)">
                         <div data-c-grid-item="tl(1of2)">
                             <p data-c-colour="white">{{ home.hero.tagline }}</p>
@@ -52,7 +52,7 @@
 									<p data-c-color="c5">{{ home.holiday.sign_off }}<br>{{ home.holiday.signature }}</p>
 								</div>
 								<div data-c-grid-item="tl(1of3)">
-									<img src="/images/holiday-snowman.svg" alt="A decorative snowman standing joyfully in the falling snow." style="">
+									<img src="{{ asset("/images/holiday-snowman.svg") }}" alt="A decorative snowman standing joyfully in the falling snow." style="">
 								</div>
 							</div>
 						</div>
@@ -160,7 +160,7 @@
 						</div>
 					</div>
 				{% endif %}
-				<img alt="{{ home.leaf }}" class="home-browse-icon" src="/images/maple-leaf.svg">
+				<img alt="{{ home.leaf }}" class="home-browse-icon" src="{{ asset("/images/maple-leaf.svg") }}">
 			</section>
 			{# How it Works ================================================= #}
 			<a id="how"></a>
@@ -253,7 +253,7 @@
 						</div>
 					</div>
 				</div>
-				<img alt="{{ home.leaf }}" class="home-blog-icon" src="/images/maple-leaf.svg">
+				<img alt="{{ home.leaf }}" class="home-blog-icon" src="{{ asset("/images/maple-leaf.svg") }}">
 			</div>
 			{# GC Jobs Banner =============================================== #}
 			<div class="gradient-right-left" data-c-padding="tb(1)">
