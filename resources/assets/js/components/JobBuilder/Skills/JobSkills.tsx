@@ -694,7 +694,7 @@ export const JobSkills: React.FunctionComponent<JobSkillsProps> = ({
                   {/* This div appears in each step of the indicator, but we need the number inside the "span" to reflect the number of skills currently selected (within the context of the indicator, i.e. only show the number of essential skills selected in the essential indicator). */}
                   <div>
                     <img
-                      src="images\icon-smiley-arrow-bad.svg"
+                      src="\images\icon-smiley-arrow-bad.svg"
                       alt={intl.formatMessage(altMessages.unhappyArrow)}
                     />
                     <span
@@ -706,11 +706,11 @@ export const JobSkills: React.FunctionComponent<JobSkillsProps> = ({
                     </span>
                   </div>
                   <img
-                    src="images\icon-smiley-bad.svg"
+                    src="\images\icon-smiley-bad.svg"
                     alt={intl.formatMessage(altMessages.unhappySmiley)}
                   />
                   <img
-                    src="images\icon-smiley-bad-grey.svg"
+                    src="\images\icon-smiley-bad-grey.svg"
                     alt={intl.formatMessage(altMessages.unhappyGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
@@ -730,7 +730,7 @@ export const JobSkills: React.FunctionComponent<JobSkillsProps> = ({
                 >
                   <div>
                     <img
-                      src="images\icon-smiley-arrow-medium.svg"
+                      src="\images\icon-smiley-arrow-medium.svg"
                       alt={intl.formatMessage(altMessages.neutralArrow)}
                     />
                     <span
@@ -742,11 +742,11 @@ export const JobSkills: React.FunctionComponent<JobSkillsProps> = ({
                     </span>
                   </div>
                   <img
-                    src="images\icon-smiley-medium.svg"
+                    src="\images\icon-smiley-medium.svg"
                     alt={intl.formatMessage(altMessages.neutralSmiley)}
                   />
                   <img
-                    src="images\icon-smiley-medium-grey.svg"
+                    src="\images\icon-smiley-medium-grey.svg"
                     alt={intl.formatMessage(altMessages.neutralGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
@@ -766,7 +766,7 @@ export const JobSkills: React.FunctionComponent<JobSkillsProps> = ({
                 >
                   <div>
                     <img
-                      src="images\icon-smiley-arrow-good.svg"
+                      src="\images\icon-smiley-arrow-good.svg"
                       alt={intl.formatMessage(altMessages.happyArrow)}
                     />
                     <span
@@ -778,11 +778,11 @@ export const JobSkills: React.FunctionComponent<JobSkillsProps> = ({
                     </span>
                   </div>
                   <img
-                    src="images\icon-smiley-good.svg"
+                    src="\images\icon-smiley-good.svg"
                     alt={intl.formatMessage(altMessages.happySmiley)}
                   />
                   <img
-                    src="images\icon-smiley-good-grey.svg"
+                    src="\images\icon-smiley-good-grey.svg"
                     alt={intl.formatMessage(altMessages.happyGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
@@ -802,7 +802,7 @@ export const JobSkills: React.FunctionComponent<JobSkillsProps> = ({
                 >
                   <div>
                     <img
-                      src="images\icon-smiley-arrow-medium.svg"
+                      src="\images\icon-smiley-arrow-medium.svg"
                       alt={intl.formatMessage(altMessages.neutralArrow)}
                     />
                     <span
@@ -814,11 +814,11 @@ export const JobSkills: React.FunctionComponent<JobSkillsProps> = ({
                     </span>
                   </div>
                   <img
-                    src="images\icon-smiley-medium.svg"
+                    src="\images\icon-smiley-medium.svg"
                     alt={intl.formatMessage(altMessages.neutralSmiley)}
                   />
                   <img
-                    src="images\icon-smiley-medium-grey.svg"
+                    src="\images\icon-smiley-medium-grey.svg"
                     alt={intl.formatMessage(altMessages.neutralGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
@@ -839,7 +839,7 @@ export const JobSkills: React.FunctionComponent<JobSkillsProps> = ({
                   <div>
                     {/* TODO: Alt Text Translations */}
                     <img
-                      src="images\icon-smiley-arrow-bad.svg"
+                      src="\images\icon-smiley-arrow-bad.svg"
                       alt={intl.formatMessage(altMessages.unhappyArrow)}
                     />
                     <span
@@ -851,11 +851,11 @@ export const JobSkills: React.FunctionComponent<JobSkillsProps> = ({
                     </span>
                   </div>
                   <img
-                    src="images\icon-smiley-bad.svg"
+                    src="\images\icon-smiley-bad.svg"
                     alt={intl.formatMessage(altMessages.unhappySmiley)}
                   />
                   <img
-                    src="images\icon-smiley-bad-grey.svg"
+                    src="\images\icon-smiley-bad-grey.svg"
                     alt={intl.formatMessage(altMessages.unhappyGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
@@ -897,7 +897,7 @@ export const JobSkills: React.FunctionComponent<JobSkillsProps> = ({
                 >
                   <div>
                     <img
-                      src="images\icon-smiley-arrow-bad.svg"
+                      src="\images\icon-smiley-arrow-bad.svg"
                       alt={intl.formatMessage(altMessages.unhappyArrow)}
                     />
                     <span
@@ -909,11 +909,11 @@ export const JobSkills: React.FunctionComponent<JobSkillsProps> = ({
                     </span>
                   </div>
                   <img
-                    src="images\icon-smiley-bad.svg"
+                    src="\images\icon-smiley-bad.svg"
                     alt={intl.formatMessage(altMessages.unhappySmiley)}
                   />
                   <img
-                    src="images\icon-smiley-bad-grey.svg"
+                    src="\images\icon-smiley-bad-grey.svg"
                     alt={intl.formatMessage(altMessages.unhappyGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
@@ -933,7 +933,7 @@ export const JobSkills: React.FunctionComponent<JobSkillsProps> = ({
                 >
                   <div>
                     <img
-                      src="images\icon-smiley-arrow-medium.svg"
+                      src="\images\icon-smiley-arrow-medium.svg"
                       alt={intl.formatMessage(altMessages.neutralArrow)}
                     />
                     <span
@@ -945,11 +945,11 @@ export const JobSkills: React.FunctionComponent<JobSkillsProps> = ({
                     </span>
                   </div>
                   <img
-                    src="images\icon-smiley-medium.svg"
+                    src="\images\icon-smiley-medium.svg"
                     alt={intl.formatMessage(altMessages.neutralSmiley)}
                   />
                   <img
-                    src="images\icon-smiley-medium-grey.svg"
+                    src="\images\icon-smiley-medium-grey.svg"
                     alt={intl.formatMessage(altMessages.neutralGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
@@ -969,7 +969,7 @@ export const JobSkills: React.FunctionComponent<JobSkillsProps> = ({
                 >
                   <div>
                     <img
-                      src="images\icon-smiley-arrow-good.svg"
+                      src="\images\icon-smiley-arrow-good.svg"
                       alt={intl.formatMessage(altMessages.happyArrow)}
                     />
                     <span
@@ -981,11 +981,11 @@ export const JobSkills: React.FunctionComponent<JobSkillsProps> = ({
                     </span>
                   </div>
                   <img
-                    src="images\icon-smiley-good.svg"
+                    src="\images\icon-smiley-good.svg"
                     alt={intl.formatMessage(altMessages.happySmiley)}
                   />
                   <img
-                    src="images\icon-smiley-good-grey.svg"
+                    src="\images\icon-smiley-good-grey.svg"
                     alt={intl.formatMessage(altMessages.happyGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
@@ -1005,7 +1005,7 @@ export const JobSkills: React.FunctionComponent<JobSkillsProps> = ({
                 >
                   <div>
                     <img
-                      src="images\icon-smiley-arrow-medium.svg"
+                      src="\images\icon-smiley-arrow-medium.svg"
                       alt={intl.formatMessage(altMessages.neutralArrow)}
                     />
                     <span
@@ -1017,11 +1017,11 @@ export const JobSkills: React.FunctionComponent<JobSkillsProps> = ({
                     </span>
                   </div>
                   <img
-                    src="images\icon-smiley-medium.svg"
+                    src="\images\icon-smiley-medium.svg"
                     alt={intl.formatMessage(altMessages.neutralSmiley)}
                   />
                   <img
-                    src="images\icon-smiley-medium-grey.svg"
+                    src="\images\icon-smiley-medium-grey.svg"
                     alt={intl.formatMessage(altMessages.neutralGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
@@ -1041,7 +1041,7 @@ export const JobSkills: React.FunctionComponent<JobSkillsProps> = ({
                 >
                   <div>
                     <img
-                      src="images\icon-smiley-arrow-bad.svg"
+                      src="\images\icon-smiley-arrow-bad.svg"
                       alt={intl.formatMessage(altMessages.unhappyArrow)}
                     />
                     <span
@@ -1053,11 +1053,11 @@ export const JobSkills: React.FunctionComponent<JobSkillsProps> = ({
                     </span>
                   </div>
                   <img
-                    src="images\icon-smiley-bad.svg"
+                    src="\images\icon-smiley-bad.svg"
                     alt={intl.formatMessage(altMessages.unhappySmiley)}
                   />
                   <img
-                    src="images\icon-smiley-bad-grey.svg"
+                    src="\images\icon-smiley-bad-grey.svg"
                     alt={intl.formatMessage(altMessages.unhappyGraySmiley)}
                   />
                   <p data-c-font-size="small" data-c-font-weight="bold">
