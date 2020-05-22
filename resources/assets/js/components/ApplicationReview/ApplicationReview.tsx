@@ -363,7 +363,7 @@ class ApplicationReview extends React.Component<
               <span className="veteran-status">
                 <img
                   alt={intl.formatMessage(messages.veteranLogo)}
-                  src="/images/icon_veteran.svg"
+                  src={routes.imageUrl("icon_veteran.svg")}
                 />{" "}
                 {intl.formatMessage(messages.veteranStatus)}
               </span>

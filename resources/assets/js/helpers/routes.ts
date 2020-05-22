@@ -18,6 +18,13 @@ export function baseApiUrl(version = 1): string {
   return `${baseUrl()}/api/v${version}`;
 }
 
+/**
+ *
+ * @param imgFile The name of the img file, not inluding the /images/ path.
+ */
+export function imageUrl(imgFile: string): string {
+  return `${baseUrl()}/images/${imgFile}`;
+}
 
 function applicationShow(
   locale: string,
