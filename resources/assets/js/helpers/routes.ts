@@ -18,13 +18,14 @@ export function baseApiUrl(version = 1): string {
   return `${baseUrl()}/api/v${version}`;
 }
 
+
 function applicationShow(
   locale: string,
   prefix: string,
   applicationId: number,
   jobId: number,
 ): string {
-  return `/${locale}/${prefix}/jobs/${jobId}/applications/${applicationId}`;
+  return `${baseUrl()}/${locale}/${prefix}/jobs/${jobId}/applications/${applicationId}`;
 }
 
 function applicantShow(
@@ -33,7 +34,7 @@ function applicantShow(
   applicantId: number,
   jobId: number,
 ): string {
-  return `/${locale}/${prefix}/jobs/${jobId}/applicants/${applicantId}`;
+  return `${baseUrl()}/${locale}/${prefix}/jobs/${jobId}/applicants/${applicantId}`;
 }
 
 export function managerApplicationShow(
@@ -53,27 +54,27 @@ export function managerApplicantShow(
 }
 
 export function managerEditProfile(locale: string): string {
-  return `/${locale}/manager/profile`;
+  return `${baseUrl()}/${locale}/manager/profile`;
 }
 
 export function managerJobIndex(locale: string): string {
-  return `/${locale}/manager/jobs`;
+  return `${baseUrl()}/${locale}/manager/jobs`;
 }
 
 export function managerJobSummary(locale: string, jobId: number): string {
-  return `/${locale}/manager/jobs/${jobId}`;
+  return `${baseUrl()}/${locale}/manager/jobs/${jobId}`;
 }
 
 export function managerJobPreview(locale: string, jobId: number): string {
-  return `/${locale}/manager/jobs/${jobId}/preview`;
+  return `${baseUrl()}/${locale}/manager/jobs/${jobId}/preview`;
 }
 
 export function managerJobApplications(locale: string, jobId: number): string {
-  return `/${locale}/manager/jobs/${jobId}/applications`;
+  return `${baseUrl()}/${locale}/manager/jobs/${jobId}/applications`;
 }
 
 export function managerScreeningPlan(locale: string, jobId: number): string {
-  return `/${locale}/manager/jobs/${jobId}/assessment-plan`;
+  return `${baseUrl()}/${locale}/manager/jobs/${jobId}/assessment-plan`;
 }
 
 export function applicationReviewUpdate(
@@ -85,39 +86,39 @@ export function applicationReviewUpdate(
 
 export function jobBuilderIntro(locale: string, jobId?: number): string {
   if (jobId) {
-    return `/${locale}/manager/jobs/${jobId}/builder/intro`;
+    return `${baseUrl()}/${locale}/manager/jobs/${jobId}/builder/intro`;
   }
-  return `/${locale}/manager/job-builder/intro`;
+  return `${baseUrl()}/${locale}/manager/job-builder/intro`;
 }
 
 export function jobBuilderDetails(locale: string, jobId: number): string {
-  return `/${locale}/manager/jobs/${jobId}/builder/details`;
+  return `${baseUrl()}/${locale}/manager/jobs/${jobId}/builder/details`;
 }
 
 export function jobBuilderEnv(locale: string, jobId: number): string {
-  return `/${locale}/manager/jobs/${jobId}/builder/environment`;
+  return `${baseUrl()}/${locale}/manager/jobs/${jobId}/builder/environment`;
 }
 
 export function jobBuilderImpact(locale: string, jobId: number): string {
-  return `/${locale}/manager/jobs/${jobId}/builder/impact`;
+  return `${baseUrl()}/${locale}/manager/jobs/${jobId}/builder/impact`;
 }
 
 export function jobBuilderTasks(locale: string, jobId: number): string {
-  return `/${locale}/manager/jobs/${jobId}/builder/tasks`;
+  return `${baseUrl()}/${locale}/manager/jobs/${jobId}/builder/tasks`;
 }
 
 export function jobBuilderSkills(locale: string, jobId: number): string {
-  return `/${locale}/manager/jobs/${jobId}/builder/skills`;
+  return `${baseUrl()}/${locale}/manager/jobs/${jobId}/builder/skills`;
 }
 
 export function jobBuilderReview(locale: string, jobId: number): string {
-  return `/${locale}/manager/jobs/${jobId}/builder/review`;
+  return `${baseUrl()}/${locale}/manager/jobs/${jobId}/builder/review`;
 }
 
 type FaqSection = "manager-who";
 
 export function managerFaq(locale: string, faqSection?: FaqSection): string {
-  const base = `/${locale}/manager/faq`;
+  const base = `${baseUrl()}/${locale}/manager/faq`;
   if (faqSection) {
     return `${base}#${faqSection}`;
   }
@@ -125,22 +126,22 @@ export function managerFaq(locale: string, faqSection?: FaqSection): string {
 }
 
 export function hrJobIndex(locale: string): string {
-  return `/${locale}/hr/jobs`;
+  return `${baseUrl()}/${locale}/hr/jobs`;
 }
 export function hrJobSummary(locale: string, jobId: number): string {
-  return `/${locale}/hr/jobs/${jobId}`;
+  return `${baseUrl()}/${locale}/hr/jobs/${jobId}`;
 }
 export function hrJobReview(locale: string, jobId: number): string {
-  return `/${locale}/hr/jobs/${jobId}/review`;
+  return `${baseUrl()}/${locale}/hr/jobs/${jobId}/review`;
 }
 export function hrJobPreview(locale: string, jobId: number): string {
-  return `/${locale}/hr/jobs/${jobId}/preview`;
+  return `${baseUrl()}/${locale}/hr/jobs/${jobId}/preview`;
 }
 export function hrScreeningPlan(locale: string, jobId: number): string {
-  return `/${locale}/hr/jobs/${jobId}/assessment-plan`;
+  return `${baseUrl()}/${locale}/hr/jobs/${jobId}/assessment-plan`;
 }
 export function hrJobApplications(locale: string, jobId: number): string {
-  return `/${locale}/hr/jobs/${jobId}/applications`;
+  return `${baseUrl()}/${locale}/hr/jobs/${jobId}/applications`;
 }
 export const hrApplicationShow = (
   locale: string,
@@ -154,5 +155,5 @@ export const hrApplicantShow = (
 ): string => applicantShow(locale, "hr", applicantId, jobId);
 
 export function accountSettings(locale: string): string {
-  return `/${locale}/settings`;
+  return `${baseUrl()}/${locale}/settings`;
 }
