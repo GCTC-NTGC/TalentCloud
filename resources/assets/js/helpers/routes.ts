@@ -26,6 +26,22 @@ export function imageUrl(imgFile: string): string {
   return `${baseUrl()}/images/${imgFile}`;
 }
 
+/**
+ * Removes the base url or base pathname if the given url starts with them.
+ * @param url
+ */
+export function removeBaseUrl(url: string): string {
+  const base = baseUrl();
+  if (url.startsWith(base)) {
+    return url.substr(base.length);
+  }
+  const basePath = basePathname();
+  if (url.startsWith(basePath)) {
+    return url.substr(basePath.length);
+  }
+  return url;
+}
+
 function applicationShow(
   locale: string,
   prefix: string,
