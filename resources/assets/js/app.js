@@ -127,10 +127,10 @@
           accordions.each(function() {
             $(this).attr("aria-expanded", "false");
             $(this)
-              .parent(".accordion")
+              .parent(".clone-accordion")
               .removeClass("active");
             $(this)
-              .parent(".accordion")
+              .parent(".clone-accordion")
               .find(".accordion-content")
               .attr("aria-hidden", "true");
           });
@@ -142,10 +142,10 @@
           accordions.each(function() {
             $(this).attr("aria-expanded", "true");
             $(this)
-              .parent(".accordion")
+              .parent(".clone-accordion")
               .addClass("active");
             $(this)
-              .parent(".accordion")
+              .parent(".clone-accordion")
               .find(".accordion-content")
               .attr("aria-hidden", "false");
           });
@@ -303,6 +303,25 @@
     }
 
     // Form Handlers =======================================================
+
+    // Honeypot check
+    if ($("section.tc-auth")) {
+      $("section.tc-auth form").on("submit", function(e) {
+        if ($("input#website").val().length !== 0) {
+          showFormErrors(
+            $("section.tc-auth form"),
+            { data:
+              { errors:
+                { "client error":
+                  ["Uh oh, your submission looks like a bot might have filled it out! Only fill out the required fields."] // TODO: Localize
+                }
+              }
+            }
+          );
+          return false;
+        }
+      });
+    }
 
     // Required Fields
 
@@ -675,13 +694,9 @@
 
     //Update ui for Skill object to reflect that it has been setItem
     function setSkillSaved(object, response) {
-      var levelRequirement =
-        $(object)
-          .find(".accordion-title span")
-          .prop("outerHTML") || "";
       $(object)
-        .find(".accordion-title")
-        .html(response.data.skill.name[docLocale] + levelRequirement);
+        .find(".skill-title")
+        .html(response.data.skill.name[docLocale]);
       $(object)
         .find(".skill__description")
         .text(response.data.skill.description[docLocale]);
@@ -693,14 +708,14 @@
     //Update ui for Reference object to reflect that it has been setItem
     function setReferenceSaved(object, response) {
       $(object)
-        .find(".accordion-title")
+        .find(".reference-title")
         .text(response.data.name);
     }
 
     //Update ui for WorkSample object to reflect that it has been setItem
     function setSampleSaved(object, response) {
       $(object)
-        .find(".accordion-title")
+        .find(".sample-title")
         .text(response.data.name);
     }
 
@@ -894,6 +909,10 @@
         .find(":input")
         .not(".template :input")
         .removeAttr("disabled");
+
+      // Set all data-required elements to required
+      template.find("[data-required]").prop("required", true);
+
       //Set ids and form names to be unique
       individualizeFormIdsAndNames(template, wrapper);
       // Add Clone to the Wrapper
@@ -1000,9 +1019,9 @@
     function addProfileRelative(trigger) {
       var clone = cloneRepeatingElement(
         trigger,
-        ".profile-relative-list",
+        ".application-relative-list",
         ".profile-relative-list__wrapper",
-        ".profile-null",
+        ".profile-relative__null",
         ".profile-relative.template",
         false
       );

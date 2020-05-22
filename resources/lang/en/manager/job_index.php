@@ -8,6 +8,7 @@ return [
     * Controller: Controllers\JobController.php
     * View: views/manager/job_index.html.twig
     */
+    'job_index_title' => 'Talent Cloud | Manager: My Job Posters',
     'title' => 'My Job Posters',
     'legend' => 'Legend:',
     'draft_poster' => 'Draft Poster',

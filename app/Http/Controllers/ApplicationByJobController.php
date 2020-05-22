@@ -38,12 +38,18 @@ class ApplicationByJobController extends Controller
      */
     public function index(JobPoster $jobPoster)
     {
+        $jobPoster->loadMissing(['criteria', 'talent_stream_category', 'job_skill_level']);
+
         $view = 'manager/review_applications';
+        $jobTitle = $jobPoster->title;
         $disableCloneJs = false;
         if ($jobPoster->department_id === config('app.strategic_response_department_id')) {
             $view = 'response/screening/index';
             // Hacky workaround for Accordion JS firing on the screening page.
             $disableCloneJs = true;
+            if ($jobPoster->talent_stream_category && $jobPoster->job_skill_level) {
+                $jobTitle = $jobPoster->talent_stream_category->name . ' - ' . $jobPoster->job_skill_level->name;
+            }
         }
         $applications = $jobPoster->submitted_applications()
             ->with([
@@ -51,15 +57,16 @@ class ApplicationByJobController extends Controller
                 'citizenship_declaration',
                 'application_review',
                 'applicant.user',
-                'job_poster.criteria',
             ])
             ->get();
 
         $viewData = [
             // Localization Strings.
             'jobs_l10n' => Lang::get('manager/job_index'),
+            'response' => Lang::get('response/screening'),
             // Data.
             'job' => new JsonResource($jobPoster),
+            'response_job_title' => $jobTitle,
             'job_id' => $jobPoster->id,
             'is_hr_portal' => WhichPortal::isHrPortal(),
             'portal' => WhichPortal::isHrPortal() ? 'hr' : 'manager',
@@ -135,6 +142,7 @@ class ApplicationByJobController extends Controller
                 'header' => [
                     'title' => $headerTitle,
                 ],
+                'custom_breadcrumbs' => $this->customBreadcrumbs($jobPoster, 1),
                 // Job Data.
                 'job' => $jobPoster,
                 // Applicant Data.
@@ -180,6 +188,7 @@ class ApplicationByJobController extends Controller
                 'header' => [
                     'title' => $headerTitle,
                 ],
+                'custom_breadcrumbs' => $this->customBreadcrumbs($jobPoster, 2),
                 // Job Data.
                 'job' => $jobPoster,
                 // Applicant Data.
@@ -229,6 +238,7 @@ class ApplicationByJobController extends Controller
                 'header' => [
                     'title' => $headerTitle,
                 ],
+                'custom_breadcrumbs' => $this->customBreadcrumbs($jobPoster, 3),
                 // Job Data.
                 'job' => $jobPoster,
                 // Skills Data.
@@ -283,6 +293,7 @@ class ApplicationByJobController extends Controller
                 'header' => [
                     'title' => $headerTitle,
                 ],
+                'custom_breadcrumbs' => $this->customBreadcrumbs($jobPoster, 4),
                 // Job Data.
                 'job' => $jobPoster,
                 // Skills Data.
@@ -353,6 +364,7 @@ class ApplicationByJobController extends Controller
                 'header' => [
                     'title' => $headerTitle,
                 ],
+                'custom_breadcrumbs' => $this->customBreadcrumbs($jobPoster, 5),
                 // Job Data.
                 'job' => $jobPoster,
                 // Skills Data.
@@ -403,6 +415,7 @@ class ApplicationByJobController extends Controller
                 'header' => [
                     'title' => $headerTitle,
                 ],
+                'custom_breadcrumbs' => $this->customBreadcrumbs($jobPoster, 6),
                 // Used by tracker partial.
                 'job' => $jobPoster,
                 'job_application' => $application,
@@ -509,12 +522,13 @@ class ApplicationByJobController extends Controller
         // Redirect to correct page.
         switch ($request->input('submit')) {
             case 'save_and_quit':
-            case 'previous':
+            case 'save_and_return':
                 return redirect()->route('applications.index');
                 break;
             case 'save_and_continue':
             case 'next':
-                return redirect()->route('job.application.edit.2', $jobPoster);
+                $next_step = $jobPoster->isInStrategicResponseDepartment() ? 3 : 2;
+                return redirect()->route("job.application.edit.${next_step}", $jobPoster);
                 break;
             default:
                 return redirect()->back()->withInput();
@@ -690,7 +704,7 @@ class ApplicationByJobController extends Controller
             case 'next':
                 return redirect()->route('job.application.edit.3', $jobPoster);
                 break;
-            case 'previous':
+            case 'save_and_return':
                 return redirect()->route('job.application.edit.1', $jobPoster);
                 break;
             default:
@@ -773,7 +787,7 @@ class ApplicationByJobController extends Controller
             case 'next':
                 return redirect()->route('job.application.edit.4', $jobPoster);
                 break;
-            case 'previous':
+            case 'save_and_return':
                 return redirect()->route('job.application.edit.2', $jobPoster);
                 break;
             default:
@@ -856,7 +870,7 @@ class ApplicationByJobController extends Controller
             case 'next':
                 return redirect()->route('job.application.edit.5', $jobPoster);
                 break;
-            case 'previous':
+            case 'save_and_return':
                 return redirect()->route('job.application.edit.3', $jobPoster);
                 break;
             default:
@@ -927,11 +941,29 @@ class ApplicationByJobController extends Controller
             case 'submit':
                 return redirect()->route('job.application.complete', $jobPoster);
                 break;
-            case 'previous':
+            case 'save_and_return':
                 return redirect()->route('job.application.edit.4', $jobPoster);
                 break;
             default:
                 return redirect()->back()->withInput();
         }
+    }
+
+    /**
+     * Custom breadcrumbs for application process.
+     *
+     * @param  \App\Models\JobPoster $jobPoster        Incoming Job Poster object.
+     * @param  string                $application_step Current step in application.
+     * @return array
+    */
+    public function customBreadcrumbs(JobPoster $jobPoster, string $application_step)
+    {
+        $step_lang = Lang::get('applicant/application_template.tracker_label');
+        return [
+            'home' => route('home'),
+            'jobs' => route('jobs.index'),
+            $jobPoster->title => route('jobs.summary', $jobPoster),
+            $step_lang . ' ' . $application_step => ''
+        ];
     }
 }

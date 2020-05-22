@@ -2,12 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\JobApplication;
-use Carbon\Carbon;
 use App\Models\JobPoster;
 use App\Models\JobPosterQuestion;
 use App\Models\Lookup\ApplicationStatus;
@@ -16,11 +12,15 @@ use App\Models\Lookup\JobPosterStatus;
 use App\Models\Lookup\VeteranStatus;
 use App\Models\Manager;
 use App\Services\JobPosterDefaultQuestions;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Services\Validation\JobPosterValidator;
+use Carbon\Carbon;
 use Facades\App\Services\WhichPortal;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class JobController extends Controller
 {
@@ -85,7 +85,7 @@ class JobController extends Controller
             }
 
             // Always preview and edit in the chosen language.
-            $job->preview_link = LaravelLocalization::getLocalizedURL($chosen_lang, route('manager.jobs.show', $job));
+            $job->preview_link = LaravelLocalization::getLocalizedURL($chosen_lang, route('manager.jobs.preview', $job));
             $job->edit_link = LaravelLocalization::getLocalizedURL($chosen_lang, route('manager.jobs.edit', $job));
         }
 
@@ -107,7 +107,7 @@ class JobController extends Controller
     {
         $hrAdvisor = $request->user()->hr_advisor;
         return view('hr_advisor/job_index', [
-            'title' => Lang::get('hr_advisor/job_index.title'),
+            'jobs_l10n' => Lang::get('hr_advisor/job_index'),
             'hr_advisor_id' => $hrAdvisor->id
         ]);
     }
@@ -370,7 +370,7 @@ class JobController extends Controller
 
         $this->fillAndSaveJobPosterQuestions($input, $jobPoster, true);
 
-        return redirect(route('manager.jobs.show', $jobPoster->id));
+        return redirect(route('manager.jobs.preview', $jobPoster->id));
     }
 
     /**

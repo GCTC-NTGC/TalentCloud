@@ -3,8 +3,9 @@ import {
   RSAActionTemplate,
   asyncGet,
   asyncPut,
+  asyncPost,
 } from "../asyncAction";
-import { Application, ApplicationReview } from "../../models/types";
+import { Application, ApplicationReview, Email } from "../../models/types";
 import {
   getApplicationEndpoint,
   parseApplication,
@@ -12,6 +13,11 @@ import {
   parseApplicationsForJob,
   getApplicationReviewEndpoint,
   parseApplicationReview,
+  ReferenceEmailResponse,
+  getReferenceEmailsEndpoint,
+  parseReferenceEmails,
+  getSendReferenceEmailEndpoint,
+  parseSingleReferenceEmail,
 } from "../../api/application";
 
 export const FETCH_APPLICATION_STARTED = "APPLICATION: GET STARTED";
@@ -114,7 +120,77 @@ export const updateApplicationReview = (
     },
   );
 
+export const FETCH_REFERENCE_EMAILS_STARTED =
+  "APPLICATION: GET REFERENCE EMAILS STARTED";
+export const FETCH_REFERENCE_EMAILS_SUCCEEDED =
+  "APPLICATION: GET REFERENCE EMAILS SUCCEEDED";
+export const FETCH_REFERENCE_EMAILS_FAILED =
+  "APPLICATION: GET REFERENCE EMAILS FAILED";
+
+export type FetchReferenceEmailsAction = AsyncFsaActions<
+  typeof FETCH_REFERENCE_EMAILS_STARTED,
+  typeof FETCH_REFERENCE_EMAILS_SUCCEEDED,
+  typeof FETCH_REFERENCE_EMAILS_FAILED,
+  ReferenceEmailResponse,
+  { applicationId: number }
+>;
+
+export const fetchReferenceEmails = (
+  applicationId: number,
+): RSAActionTemplate<
+  typeof FETCH_REFERENCE_EMAILS_STARTED,
+  typeof FETCH_REFERENCE_EMAILS_SUCCEEDED,
+  typeof FETCH_REFERENCE_EMAILS_FAILED,
+  ReferenceEmailResponse,
+  { applicationId: number }
+> =>
+  asyncGet(
+    getReferenceEmailsEndpoint(applicationId),
+    FETCH_REFERENCE_EMAILS_STARTED,
+    FETCH_REFERENCE_EMAILS_SUCCEEDED,
+    FETCH_REFERENCE_EMAILS_FAILED,
+    parseReferenceEmails,
+    { applicationId },
+  );
+
+export const SEND_REFERENCE_EMAIL_STARTED =
+  "APPLICATION: SEND REFERENCE EMAIL STARTED";
+export const SEND_REFERENCE_EMAIL_SUCCEEDED =
+  "APPLICATION: SEND REFERENCE EMAIL SUCCEEDED";
+export const SEND_REFERENCE_EMAIL_FAILED =
+  "APPLICATION: SEND REFERENCE EMAIL FAILED";
+
+export type SendReferenceEmailAction = AsyncFsaActions<
+  typeof SEND_REFERENCE_EMAIL_STARTED,
+  typeof SEND_REFERENCE_EMAIL_SUCCEEDED,
+  typeof SEND_REFERENCE_EMAIL_FAILED,
+  Email,
+  { applicationId: number; referenceType: "director" | "secondary" }
+>;
+
+export const sendReferenceEmail = (
+  applicationId: number,
+  referenceType: "director" | "secondary",
+): RSAActionTemplate<
+  typeof SEND_REFERENCE_EMAIL_STARTED,
+  typeof SEND_REFERENCE_EMAIL_SUCCEEDED,
+  typeof SEND_REFERENCE_EMAIL_FAILED,
+  Email,
+  { applicationId: number; referenceType: "director" | "secondary" }
+> =>
+  asyncPost(
+    getSendReferenceEmailEndpoint(applicationId, referenceType),
+    "",
+    SEND_REFERENCE_EMAIL_STARTED,
+    SEND_REFERENCE_EMAIL_SUCCEEDED,
+    SEND_REFERENCE_EMAIL_FAILED,
+    parseSingleReferenceEmail,
+    { applicationId, referenceType },
+  );
+
 export type ApplicationAction =
   | FetchApplicationAction
   | FetchApplicationsForJobAction
-  | UpdateApplicationReview;
+  | UpdateApplicationReview
+  | FetchReferenceEmailsAction
+  | SendReferenceEmailAction;

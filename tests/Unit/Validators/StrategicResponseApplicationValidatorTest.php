@@ -58,17 +58,11 @@ class StrategicResponseApplicationValidatorTest extends TestCase
 
     public function testExperienceComplete(): void
     {
+        // Experience step should have no rules set and always return true
         $validator = new StrategicResponseApplicationValidator();
 
-        // For experience step to be complete, 'experienc_saved' simply needs to be true.
-        $application = factory(JobApplication::class)->state('strategic_response')->create([
-            'experience_saved' => false
-        ]);
-        $this->assertFalse($validator->experienceComplete($application));
+        $completeApp = factory(JobApplication::class)->state('strategic_response')->create();
 
-        $completeApp = factory(JobApplication::class)->state('strategic_response')->create([
-            'experience_saved' => true
-        ]);
         $this->assertTrue($validator->experienceComplete($completeApp));
     }
 

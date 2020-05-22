@@ -35,6 +35,11 @@ class ApplicationTrackerComposer
                 }
             }
         }
+
+        if ($view->getData()['job']->isInStrategicResponseDepartment()) {
+            $app_tracker['items']['experience']['status'] = 'null';
+        }
+
         $view->with('application_tracker', $app_tracker);
     }
 }

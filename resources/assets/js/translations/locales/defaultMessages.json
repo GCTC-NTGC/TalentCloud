@@ -72,34 +72,14 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Start typing your answer above.",
-        "description": "Placeholder text for an empty input.",
-        "id": "wordCounter.skills.placeholder"
+        "defaultMessage": "words left",
+        "description": "Message displayed on word counter when users under/matching the limit.",
+        "id": "skillWordCounter.wordsLeft"
       },
       {
-        "defaultMessage": "This seems too short. Did you include examples or lessons learned?",
-        "description": "Message displayed to user when the word count is very low.",
-        "id": "wordCounter.skills.veryShortMessage"
-      },
-      {
-        "defaultMessage": "This seems a bit short. Do you have another example or lesson learned to add?",
-        "description": "Message displayed to user when the word count is low.",
-        "id": "wordCounter.skills.shortMessage"
-      },
-      {
-        "defaultMessage": "This is starting to get a bit long.",
-        "description": "Message displayed to user when the word count is a little high.",
-        "id": "wordCounter.skills.slightlyLongMessage"
-      },
-      {
-        "defaultMessage": "This looks too long. Can you summarize some of your response?",
-        "description": "Message displayed to user when the word count is high.",
-        "id": "wordCounter.skills.longMessage"
-      },
-      {
-        "defaultMessage": "Word limit reached. This is way too long. Check out one of our examples to see what a concise skill description looks like.",
-        "description": "Message displayed to user when the word count is very high.",
-        "id": "wordCounter.skills.veryLongMessage"
+        "defaultMessage": "words over limit",
+        "description": "Message displayed on word counter when user passes the limit.",
+        "id": "skillWordCounter.afterText"
       }
     ],
     "path": "resources/assets/js/components/ApplicantSkills/SkillsWordCounter.json"
@@ -3332,6 +3312,59 @@
         "defaultMessage": "Yes",
         "description": "Confirmation button text for dialog",
         "id": "responseScreening.bucket.yes"
+      },
+      {
+        "defaultMessage": "Email for Reference Check",
+        "description": "Text displayed on the title of the MicroReference Email modal.",
+        "id": "referenceEmailModal.title"
+      },
+      {
+        "defaultMessage": "To:",
+        "id": "referenceEmailModal.toLabel"
+      },
+      {
+        "defaultMessage": "From:",
+        "id": "referenceEmailModal.fromLabel"
+      },
+      {
+        "defaultMessage": "CC:",
+        "id": "referenceEmailModal.ccLabel"
+      },
+      {
+        "defaultMessage": "BCC:",
+        "id": "referenceEmailModal.bccLabel"
+      },
+      {
+        "defaultMessage": "Subject:",
+        "id": "referenceEmailModal.subjectLabel"
+      },
+      {
+        "defaultMessage": "Loading reference email...",
+        "id": "referenceEmailModal.nullState"
+      },
+      {
+        "defaultMessage": "Cancel",
+        "id": "referenceEmailModal.cancel"
+      },
+      {
+        "defaultMessage": "Send Email",
+        "id": "referenceEmailModal.confirm"
+      },
+      {
+        "defaultMessage": "Sending email...",
+        "id": "responseScreening.applicant.directorEmailSending"
+      },
+      {
+        "defaultMessage": "Director email.",
+        "id": "responseScreening.applicant.directorEmailButton"
+      },
+      {
+        "defaultMessage": "Sending email...",
+        "id": "responseScreening.applicant.secondaryEmailSending"
+      },
+      {
+        "defaultMessage": "Reference email.",
+        "id": "responseScreening.applicant.secondaryEmailButton"
       }
     ],
     "path": "resources/assets/js/components/StrategicTalentResponse/ResponseScreening/ApplicantBucket.json"

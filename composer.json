@@ -11,7 +11,7 @@
         "codezero/laravel-unique-translation": "^3.0",
         "doctrine/dbal": "^2.9",
         "fideloper/proxy": "^4.1",
-        "jenssegers/date": "^3.4",
+        "jenssegers/date": "^4.0",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^2.0",
         "mcamara/laravel-localization": "^1.3",

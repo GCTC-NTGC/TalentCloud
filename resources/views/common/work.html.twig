@@ -1,7 +1,7 @@
 {# =============================================================================
 
     Talent Cloud
-    Work
+    Recurring Elements: Work Experience Accordion
 
 ============================================================================= #}
 {% if prefix %}
@@ -11,274 +11,135 @@
     {% set name_prefix = "work_experiences[:template][:id]" %}
     {% set id_prefix = name_prefix %}
 {% endif %}
-
 {% if work %}
     {% set name_prefix = name_prefix|replace({":template":"old", ":id":work.id}) %}
     {% set id_prefix = id_prefix|replace({":template":"old", ":id":work.id}) %}
 {% endif %}
-
-<div
-    class="profile-element accordion work {% if work == false %}template active{% endif %} modal-target-object"
-    data-item-saved="{{ work ? "true" : "" }}"
-    data-item-url="{{ route("work_experiences.destroy", ":id") }}"
-    data-item-id="{{ work ? work.id : 0 }}">
-
-    {# Accordion Trigger #}
-
-        <button
+<!-- Accordion -->
+<div data-c-accordion data-c-card data-c-margin="top(.5)" class="clone-accordion profile-element work {% if work == false %}template active{% endif %} modal-target-object" data-item-saved="{{ work ? "true" : "" }}" data-item-url="{{ route("work_experiences.destroy", ":id") }}" data-item-id="{{ work ? work.id : 0 }}">
+    <button data-c-accordion-trigger tabindex="0" type="button"
+        {% if work == false %}
+            aria-expanded="true"
+        {% else %}
+            aria-expanded="false"
+        {% endif %}>
+        <div data-c-padding="all(1)">
             {% if work == false %}
-                aria-expanded="true"
+                <p data-c-font-weight="bold" data-c-font-size="h4">{{ work_template.new_work_label }}</p>
             {% else %}
-                aria-expanded="false"
+                <p data-c-font-weight="bold" data-c-font-size="h4" data-c-margin="bottom(.25)">{{ work.role }}</p>
+                <p data-c-color="c2">{{ work.company|title }}</p>
             {% endif %}
-            class="accordion-trigger"
-            tabindex="0"
-            type="button">
-
-            <span
-                class="accordion-title">
-                {% if work == false %}
-                    {{ work_template.new_work_label }}
-                {% else %}
-                    {{ work.role }}, {{ work.company }}
-                {% endif %}
-            </span>
-
-            <span class="invisible">{{ work_template.accordion_sr_helper }}</span>
-
-            <i class="fas fa-chevron-up"></i>
-
-        </button>
-
-    {# Accordion Content #}
-
-        <div
-            {% if work == false %}
-                aria-hidden="false"
-            {% else %}
-                aria-hidden="true"
-            {% endif %}
-            class="accordion-content">
-
-            {% if locale == "application-view" %}
-
-                <div
-                    class="profile-element__preview flex-grid">
-
-                    <div
-                        class="box med-1of2">
-
-                        <span>
-                            {{ work_template.role_label }}
-                        </span>
-
-                        <p>
-                            {{ work.role }}
-                        </p>
-
+        </div>
+        <span data-c-visibility="invisible">Click to view...</span>
+        <i aria-hidden="true" data-c-color="c1" data-c-accordion-add data-c-font-size="h3" data-c-font-weight="bold">+</i>
+        <i aria-hidden="true" data-c-color="c1" data-c-accordion-remove data-c-font-size="h3" data-c-font-weight="bold">-</i>
+    </button>
+    <div data-c-accordion-content
+        {% if work == false %}
+            aria-hidden="false"
+        {% else %}
+            aria-hidden="true"
+        {% endif %}>
+        {# Work Experience (Readable) #}
+        {% if locale == "application-view" %}
+            <hr data-c-hr="thin(gray)">
+            <div data-c-padding="all(1)" data-c-background="gray(20)">
+                <div data-c-grid="gutter(all, 1)">
+                    {# Role #}
+                    <div data-c-grid-item="base(1of1) tl(1of2)">
+                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ work_template.role_label }}</p>
+                        <p>{{ work.role }}</p>
                     </div>
-
-                    <div
-                        class="box med-1of2">
-
-                        <span>
-                            {{ work_template.company_label }}
-                        </span>
-
-                        <p>
-                            {{ work.company }}
-                        </p>
-
+                    {# Company #}
+                    <div data-c-grid-item="base(1of1) tl(1of2)">
+                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ work_template.company_label }}</p>
+                        <p>{{ work.company }}</p>
                     </div>
-
-                    <div
-                        class="box full">
-
-                        <span>
-                            {{ work_template.description_label }}
-                        </span>
-
-                        <p>
-                            {{ work.description|nl2br }}
-                        </p>
-
+                    {# Description #}
+                    <div data-c-grid-item="base(1of1)">
+                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ work_template.description_label }}</p>
+                        <p>{{ work.description|nl2br }}</p>
                     </div>
-
-                    <div
-                        class="box med-1of2">
-
-                        <span>
-                            {{ work_template.start_date_label }}
-                        </span>
-
-                        <p>
-                            {{ work.start_date|date("Y-m-d") }}
-                        </p>
-
+                    {# Start Date #}
+                    <div data-c-grid-item="base(1of1) tl(1of2)">
+                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ work_template.start_date_label }}</p>
+                        <p>{{ work.start_date|date("Y-m-d") }}</p>
                     </div>
-
-                    <div
-                        class="box med-1of2">
-
-                        <span>
-                            {{ work_template.end_date_label }}
-                        </span>
-
-                        <p>
-                            {{ work.end_date|date("Y-m-d") }}
-                        </p>
-
+                    {# End Date #}
+                    <div data-c-grid-item="base(1of1) tl(1of2)">
+                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ work_template.end_date_label }}</p>
+                        <p>{{ work.end_date|date("Y-m-d") }}</p>
                     </div>
-
                 </div>
-
-            {% else %}
-
-                <div
-                    class="form__wrapper">
-
-                    <div
-                        class="flex-grid">
-
-                        <div
-                            class="box med-1of2">
-
-                            <div
-                                class="form__input-wrapper--float {% if work.role == true %}active{% endif %}">
-                                <label
-                                    class="form__label"
-                                    for="{{ id_prefix }}workRole">
-                                    {{ work_template.role_label }}
-                                </label>
-                                <input
-                                    class="form__input"
-                                    id="{{ id_prefix }}workRole"
-                                    type="text"
-                                    name="{{ name_prefix }}[role]"
-                                    value="{{ work.role }}" />
-                            </div>
-
+            </div>
+        {# Work Experience (Editable) #}
+        {% else %}
+            <hr data-c-hr="thin(gray)">
+            <div data-c-padding="all(1)" data-c-background="gray(20)">
+                <div data-c-grid="gutter(all, 1)">
+                    {# Role #}
+                    <div data-c-input="text" data-c-grid-item="base(1of1) tl(1of2)" data-c-required>
+                        <label for="{{ id_prefix }}workRole">{{ work_template.role_label }}</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="{{ id_prefix }}workRole" name="{{ name_prefix }}[role]" value="{{ work.role }}" {{work ? required : "data-required" }} type="text" />
                         </div>
-
-                        <div
-                            class="box med-1of2">
-
-                            <div
-                                class="form__input-wrapper--float {% if work.company == true %}active{% endif %}">
-                                <label
-                                    class="form__label"
-                                    for="{{ id_prefix }}workCompany">
-                                    {{ work_template.company_label }}
-                                </label>
-                                <input
-                                    class="form__input"
-                                    id="{{ id_prefix }}workCompany"
-                                    type="text"
-                                    name="{{ name_prefix }}[company]"
-                                    value="{{ work.company }}" />
-                            </div>
-
-                        </div>
-
-                        <div
-                            class="box full">
-
-                            <div
-                                class="form__input-wrapper--float {% if work.description != null%}active{% endif %}">
-
-                                <label
-                                    class="form__label"
-                                    for="{{ id_prefix }}workDescription">
-                                    {{ work_template.description_label }}
-                                </label>
-
-                                <textarea
-                                    class="form__textarea"
-                                    id="{{ id_prefix }}workDescription"
-                                    name="{{ name_prefix }}[description]">{{ work.description }}</textarea>
-
-                            </div>
-
-                        </div>
-
-                        <div
-                            class="box med-1of2">
-
-                            <div
-                                class="form__input-wrapper--date">
-
-                                <label
-                                    class="form__label"
-                                    for="{{ id_prefix }}workStartDate">
-                                    {{ work_template.start_date_label }}
-                                </label>
-
-                                <input
-                                    class="form__input"
-                                    id="{{ id_prefix }}workStartDate"
-                                    type="date"
-                                    name="{{ name_prefix }}[start_date]"
-                                    value="{{ work.start_date|date("Y-m-d") }}">
-
-                            </div>
-
-                        </div>
-
-                        <div
-                            class="box med-1of2">
-
-                            <div
-                                class="form__input-wrapper--date">
-
-                                <label
-                                    class="form__label"
-                                    for="{{ id_prefix }}workEndDate">
-                                    {{ work_template.end_date_label }}
-                                </label>
-
-                                <input
-                                    class="form__input"
-                                    id="{{ id_prefix }}workEndDate"
-                                    type="date"
-                                    name="{{ name_prefix }}[end_date]"
-                                    value="{{ work.end_date|date("Y-m-d") }}">
-
-                            </div>
-
-                        </div>
-
+                        <span>This input has an error.</span>
                     </div>
-
+                    {# Company #}
+                    <div data-c-input="text" data-c-grid-item="base(1of1) tl(1of2)" data-c-required>
+                        <label for="{{ id_prefix }}workCompany">{{ work_template.company_label }}</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="{{ id_prefix }}workCompany" name="{{ name_prefix }}[company]" value="{{ work.company }}" {{work ? required : "data-required" }} type="text" />
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    {# Description #}
+                    <div data-c-input="textarea" data-c-grid-item="base(1of1)" data-c-required>
+                        <label for="{{ id_prefix }}workDescription">{{ work_template.description_label }}</label>
+                        <span>Required</span>
+                        <div>
+                            <textarea id="{{ id_prefix }}workDescription" name="{{ name_prefix }}[description]" {{work ? required : "data-required" }}>{{ work.description }}</textarea>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    {# Start Date #}
+                    <div data-c-input="date" data-c-grid-item="base(1of1) tl(1of2)">
+                        <label for="{{ id_prefix }}workStartDate">{{ work_template.start_date_label }}</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="{{ id_prefix }}workStartDate" type="date" required placeholder="yyyy-mm-dd" name="{{ name_prefix }}[start_date]" value="{{ work.start_date|date("Y-m-d") }}"/>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
+                    {# End Date #}
+                    <div data-c-input="date" data-c-grid-item="base(1of1) tl(1of2)">
+                        <label for="{{ id_prefix }}workEndDate">{{ work_template.end_date_label }}</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="{{ id_prefix }}workEndDate" type="date" required placeholder="yyyy-mm-dd" name="{{ name_prefix }}[end_date]" value="{{ work.end_date|date("Y-m-d") }}"/>
+                        </div>
+                        <span>This input has an error.</span>
+                    </div>
                 </div>
-
-                <div
-                    class="accordion-actions flex-grid">
-
-                    <div
-                        class="box med-1of2">
-                        <button
-                            class="button--red light-bg modal-trigger"
-                            data-modal-id="deleteWork"
-                            type="button">
+            </div>
+            <hr data-c-hr="thin(gray)">
+            <div data-c-padding="all(1)">
+                <div data-c-grid="gutter(all, 1)">
+                    <div data-c-grid-item="base(1of1) tl(1of2)" data-c-align="base(left) tl(left)">
+                        <button class="modal-trigger" data-c-button="outline(stop)" data-c-radius="rounded" data-modal-id="deleteWork" type="button">
                             {{ work_template.action_01 }}
                         </button>
                     </div>
-
-                    <div
-                        class="box med-1of2">
-                        <button
-                            class="button--blue light-bg"
-                            type="submit"
-                            name="submit"
-                            value="{{ name_prefix }}">
+                    <div data-c-grid-item="base(1of1) tl(1of2)" data-c-align="base(left) tl(right)">
+                        <button data-c-button="solid(c1)" data-c-radius="rounded" type="submit" name="submit" value="{{ name_prefix }}">
                             {{ work_template.action_02 }}
                         </button>
                     </div>
-
                 </div>
-
-            {% endif %}
-
-        </div>
-
+            </div>
+        {% endif %}
+    </div>
 </div>

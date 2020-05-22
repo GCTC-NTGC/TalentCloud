@@ -122,7 +122,6 @@ table thead a:visited {
     }
 }
 
-
 .clone-sidebar-wrapper {
     position: relative;
   }
@@ -262,6 +261,13 @@ span.center {
     left: 0;
     transition: none;
     width: 100%;
+  }
+}
+
+.spaced-paragraphs {
+  p {
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 }
 
