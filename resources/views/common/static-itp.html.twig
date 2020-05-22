@@ -15,7 +15,7 @@
         <div
             data-c-background="white(100)">
             {# ITP Heading ================================================== #}
-            <header data-c-align="base(center) tl(left)" data-c-overlay="black(80)" data-c-padding="bottom(3)" style="background-image: url('images/bg-mountains.jpg');">
+            <header data-c-align="base(center) tl(left)" data-c-overlay="black(80)" data-c-padding="bottom(3)" style="background-image: url('{{ asset("/images/bg-mountains.jpg") }}');">
 				{% include "common/menu" %}
 				<div data-c-container="large" data-c-padding="top(3)" id="home-heading">
 					<h1 data-c-heading="h1" data-c-margin="bottom(1)">{{ itp.itp_hero.title }}<img alt="{{ itp.leaf }}" class="hero-icon" src="{{ asset("/images/maple-leaf.svg") }}"></h1>
@@ -94,7 +94,7 @@
                 </div>
             </div>
             {# Who ========================================================== #}
-            <div data-c-overlay="black(80)" data-c-padding="top(triple) bottom(triple)" style="background-image: url('images/kz.jpg');">
+            <div data-c-overlay="black(80)" data-c-padding="top(triple) bottom(triple)" style="background-image: url('{{ asset("/images/kz.jpg") }}');">
                 <div data-c-container="large">
                     <h2 data-c-colour="white" data-c-font-size="h2" data-c-margin="bottom(normal)">
                         {{ itp.itp_who.title_01 }}
@@ -103,7 +103,7 @@
                         <div data-c-grid-item="equal-col tl(3of5)">
                             <div data-c-background="white(100)" data-c-radius="rounded">
                                 <div data-c-grid>
-                                    <div class="itp-profile-photo" data-c-grid-item="tp(2of5)" data-c-overlay="white(0)" style="background-image: url('images/profile-meagan.jpg');"></div>
+                                    <div class="itp-profile-photo" data-c-grid-item="tp(2of5)" data-c-overlay="white(0)" style="background-image: url('{{ asset("/images/profile-meagan.jpg") }}');"></div>
                                     <div data-c-grid-item="tp(3of5)">
                                         <div data-c-background="white(100)" data-c-padding="all(double)">
                                             <h3 data-c-colour="c3" data-c-font-size="h3" data-c-font-weight="700" data-c-margin="bottom(normal)">
