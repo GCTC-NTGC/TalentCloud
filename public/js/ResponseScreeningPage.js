@@ -2063,6 +2063,69 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/bail/index.js":
+/*!************************************!*\
+  !*** ./node_modules/bail/index.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = bail
+
+function bail(err) {
+  if (err) {
+    throw err
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/character-entities-legacy/index.json":
+/*!***********************************************************!*\
+  !*** ./node_modules/character-entities-legacy/index.json ***!
+  \***********************************************************/
+/*! exports provided: AElig, AMP, Aacute, Acirc, Agrave, Aring, Atilde, Auml, COPY, Ccedil, ETH, Eacute, Ecirc, Egrave, Euml, GT, Iacute, Icirc, Igrave, Iuml, LT, Ntilde, Oacute, Ocirc, Ograve, Oslash, Otilde, Ouml, QUOT, REG, THORN, Uacute, Ucirc, Ugrave, Uuml, Yacute, aacute, acirc, acute, aelig, agrave, amp, aring, atilde, auml, brvbar, ccedil, cedil, cent, copy, curren, deg, divide, eacute, ecirc, egrave, eth, euml, frac12, frac14, frac34, gt, iacute, icirc, iexcl, igrave, iquest, iuml, laquo, lt, macr, micro, middot, nbsp, not, ntilde, oacute, ocirc, ograve, ordf, ordm, oslash, otilde, ouml, para, plusmn, pound, quot, raquo, reg, sect, shy, sup1, sup2, sup3, szlig, thorn, times, uacute, ucirc, ugrave, uml, uuml, yacute, yen, yuml, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"AElig\":\"Æ\",\"AMP\":\"&\",\"Aacute\":\"Á\",\"Acirc\":\"Â\",\"Agrave\":\"À\",\"Aring\":\"Å\",\"Atilde\":\"Ã\",\"Auml\":\"Ä\",\"COPY\":\"©\",\"Ccedil\":\"Ç\",\"ETH\":\"Ð\",\"Eacute\":\"É\",\"Ecirc\":\"Ê\",\"Egrave\":\"È\",\"Euml\":\"Ë\",\"GT\":\">\",\"Iacute\":\"Í\",\"Icirc\":\"Î\",\"Igrave\":\"Ì\",\"Iuml\":\"Ï\",\"LT\":\"<\",\"Ntilde\":\"Ñ\",\"Oacute\":\"Ó\",\"Ocirc\":\"Ô\",\"Ograve\":\"Ò\",\"Oslash\":\"Ø\",\"Otilde\":\"Õ\",\"Ouml\":\"Ö\",\"QUOT\":\"\\\"\",\"REG\":\"®\",\"THORN\":\"Þ\",\"Uacute\":\"Ú\",\"Ucirc\":\"Û\",\"Ugrave\":\"Ù\",\"Uuml\":\"Ü\",\"Yacute\":\"Ý\",\"aacute\":\"á\",\"acirc\":\"â\",\"acute\":\"´\",\"aelig\":\"æ\",\"agrave\":\"à\",\"amp\":\"&\",\"aring\":\"å\",\"atilde\":\"ã\",\"auml\":\"ä\",\"brvbar\":\"¦\",\"ccedil\":\"ç\",\"cedil\":\"¸\",\"cent\":\"¢\",\"copy\":\"©\",\"curren\":\"¤\",\"deg\":\"°\",\"divide\":\"÷\",\"eacute\":\"é\",\"ecirc\":\"ê\",\"egrave\":\"è\",\"eth\":\"ð\",\"euml\":\"ë\",\"frac12\":\"½\",\"frac14\":\"¼\",\"frac34\":\"¾\",\"gt\":\">\",\"iacute\":\"í\",\"icirc\":\"î\",\"iexcl\":\"¡\",\"igrave\":\"ì\",\"iquest\":\"¿\",\"iuml\":\"ï\",\"laquo\":\"«\",\"lt\":\"<\",\"macr\":\"¯\",\"micro\":\"µ\",\"middot\":\"·\",\"nbsp\":\" \",\"not\":\"¬\",\"ntilde\":\"ñ\",\"oacute\":\"ó\",\"ocirc\":\"ô\",\"ograve\":\"ò\",\"ordf\":\"ª\",\"ordm\":\"º\",\"oslash\":\"ø\",\"otilde\":\"õ\",\"ouml\":\"ö\",\"para\":\"¶\",\"plusmn\":\"±\",\"pound\":\"£\",\"quot\":\"\\\"\",\"raquo\":\"»\",\"reg\":\"®\",\"sect\":\"§\",\"shy\":\"­\",\"sup1\":\"¹\",\"sup2\":\"²\",\"sup3\":\"³\",\"szlig\":\"ß\",\"thorn\":\"þ\",\"times\":\"×\",\"uacute\":\"ú\",\"ucirc\":\"û\",\"ugrave\":\"ù\",\"uml\":\"¨\",\"uuml\":\"ü\",\"yacute\":\"ý\",\"yen\":\"¥\",\"yuml\":\"ÿ\"}");
+
+/***/ }),
+
+/***/ "./node_modules/character-reference-invalid/index.json":
+/*!*************************************************************!*\
+  !*** ./node_modules/character-reference-invalid/index.json ***!
+  \*************************************************************/
+/*! exports provided: 0, 128, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 142, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 158, 159, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"0\":\"�\",\"128\":\"€\",\"130\":\"‚\",\"131\":\"ƒ\",\"132\":\"„\",\"133\":\"…\",\"134\":\"†\",\"135\":\"‡\",\"136\":\"ˆ\",\"137\":\"‰\",\"138\":\"Š\",\"139\":\"‹\",\"140\":\"Œ\",\"142\":\"Ž\",\"145\":\"‘\",\"146\":\"’\",\"147\":\"“\",\"148\":\"”\",\"149\":\"•\",\"150\":\"–\",\"151\":\"—\",\"152\":\"˜\",\"153\":\"™\",\"154\":\"š\",\"155\":\"›\",\"156\":\"œ\",\"158\":\"ž\",\"159\":\"Ÿ\"}");
+
+/***/ }),
+
+/***/ "./node_modules/collapse-white-space/index.js":
+/*!****************************************************!*\
+  !*** ./node_modules/collapse-white-space/index.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = collapse
+
+// `collapse(' \t\nbar \nbaz\t') // ' bar baz '`
+function collapse(value) {
+  return String(value).replace(/\s+/g, ' ')
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/internals/a-function.js":
 /*!******************************************************!*\
   !*** ./node_modules/core-js/internals/a-function.js ***!
@@ -3310,7 +3373,7 @@ if (!IS_PURE && typeof NativePromise == 'function' && !NativePromise.prototype['
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-!function(t,n){ true?module.exports=n():undefined}(this,function(){"use strict";var t="millisecond",n="second",e="minute",r="hour",i="day",s="week",u="month",o="quarter",a="year",h=/^(\d{4})-?(\d{1,2})-?(\d{0,2})[^0-9]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?.?(\d{1,3})?$/,f=/\[([^\]]+)]|Y{2,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g,c=function(t,n,e){var r=String(t);return!r||r.length>=n?t:""+Array(n+1-r.length).join(e)+t},d={s:c,z:function(t){var n=-t.utcOffset(),e=Math.abs(n),r=Math.floor(e/60),i=e%60;return(n<=0?"+":"-")+c(r,2,"0")+":"+c(i,2,"0")},m:function(t,n){var e=12*(n.year()-t.year())+(n.month()-t.month()),r=t.clone().add(e,u),i=n-r<0,s=t.clone().add(e+(i?-1:1),u);return Number(-(e+(n-r)/(i?r-s:s-r))||0)},a:function(t){return t<0?Math.ceil(t)||0:Math.floor(t)},p:function(h){return{M:u,y:a,w:s,d:i,D:"date",h:r,m:e,s:n,ms:t,Q:o}[h]||String(h||"").toLowerCase().replace(/s$/,"")},u:function(t){return void 0===t}},$={name:"en",weekdays:"Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),months:"January_February_March_April_May_June_July_August_September_October_November_December".split("_")},l="en",m={};m[l]=$;var y=function(t){return t instanceof v},M=function(t,n,e){var r;if(!t)return l;if("string"==typeof t)m[t]&&(r=t),n&&(m[t]=n,r=t);else{var i=t.name;m[i]=t,r=i}return!e&&r&&(l=r),r||!e&&l},g=function(t,n,e){if(y(t))return t.clone();var r=n?"string"==typeof n?{format:n,pl:e}:n:{};return r.date=t,new v(r)},D=d;D.l=M,D.i=y,D.w=function(t,n){return g(t,{locale:n.$L,utc:n.$u,$offset:n.$offset})};var v=function(){function c(t){this.$L=this.$L||M(t.locale,null,!0),this.parse(t)}var d=c.prototype;return d.parse=function(t){this.$d=function(t){var n=t.date,e=t.utc;if(null===n)return new Date(NaN);if(D.u(n))return new Date;if(n instanceof Date)return new Date(n);if("string"==typeof n&&!/Z$/i.test(n)){var r=n.match(h);if(r)return e?new Date(Date.UTC(r[1],r[2]-1,r[3]||1,r[4]||0,r[5]||0,r[6]||0,r[7]||0)):new Date(r[1],r[2]-1,r[3]||1,r[4]||0,r[5]||0,r[6]||0,r[7]||0)}return new Date(n)}(t),this.init()},d.init=function(){var t=this.$d;this.$y=t.getFullYear(),this.$M=t.getMonth(),this.$D=t.getDate(),this.$W=t.getDay(),this.$H=t.getHours(),this.$m=t.getMinutes(),this.$s=t.getSeconds(),this.$ms=t.getMilliseconds()},d.$utils=function(){return D},d.isValid=function(){return!("Invalid Date"===this.$d.toString())},d.isSame=function(t,n){var e=g(t);return this.startOf(n)<=e&&e<=this.endOf(n)},d.isAfter=function(t,n){return g(t)<this.startOf(n)},d.isBefore=function(t,n){return this.endOf(n)<g(t)},d.$g=function(t,n,e){return D.u(t)?this[n]:this.set(e,t)},d.year=function(t){return this.$g(t,"$y",a)},d.month=function(t){return this.$g(t,"$M",u)},d.day=function(t){return this.$g(t,"$W",i)},d.date=function(t){return this.$g(t,"$D","date")},d.hour=function(t){return this.$g(t,"$H",r)},d.minute=function(t){return this.$g(t,"$m",e)},d.second=function(t){return this.$g(t,"$s",n)},d.millisecond=function(n){return this.$g(n,"$ms",t)},d.unix=function(){return Math.floor(this.valueOf()/1e3)},d.valueOf=function(){return this.$d.getTime()},d.startOf=function(t,o){var h=this,f=!!D.u(o)||o,c=D.p(t),d=function(t,n){var e=D.w(h.$u?Date.UTC(h.$y,n,t):new Date(h.$y,n,t),h);return f?e:e.endOf(i)},$=function(t,n){return D.w(h.toDate()[t].apply(h.toDate(),(f?[0,0,0,0]:[23,59,59,999]).slice(n)),h)},l=this.$W,m=this.$M,y=this.$D,M="set"+(this.$u?"UTC":"");switch(c){case a:return f?d(1,0):d(31,11);case u:return f?d(1,m):d(0,m+1);case s:var g=this.$locale().weekStart||0,v=(l<g?l+7:l)-g;return d(f?y-v:y+(6-v),m);case i:case"date":return $(M+"Hours",0);case r:return $(M+"Minutes",1);case e:return $(M+"Seconds",2);case n:return $(M+"Milliseconds",3);default:return this.clone()}},d.endOf=function(t){return this.startOf(t,!1)},d.$set=function(s,o){var h,f=D.p(s),c="set"+(this.$u?"UTC":""),d=(h={},h[i]=c+"Date",h.date=c+"Date",h[u]=c+"Month",h[a]=c+"FullYear",h[r]=c+"Hours",h[e]=c+"Minutes",h[n]=c+"Seconds",h[t]=c+"Milliseconds",h)[f],$=f===i?this.$D+(o-this.$W):o;if(f===u||f===a){var l=this.clone().set("date",1);l.$d[d]($),l.init(),this.$d=l.set("date",Math.min(this.$D,l.daysInMonth())).toDate()}else d&&this.$d[d]($);return this.init(),this},d.set=function(t,n){return this.clone().$set(t,n)},d.get=function(t){return this[D.p(t)]()},d.add=function(t,o){var h,f=this;t=Number(t);var c=D.p(o),d=function(n){var e=g(f);return D.w(e.date(e.date()+Math.round(n*t)),f)};if(c===u)return this.set(u,this.$M+t);if(c===a)return this.set(a,this.$y+t);if(c===i)return d(1);if(c===s)return d(7);var $=(h={},h[e]=6e4,h[r]=36e5,h[n]=1e3,h)[c]||1,l=this.$d.getTime()+t*$;return D.w(l,this)},d.subtract=function(t,n){return this.add(-1*t,n)},d.format=function(t){var n=this;if(!this.isValid())return"Invalid Date";var e=t||"YYYY-MM-DDTHH:mm:ssZ",r=D.z(this),i=this.$locale(),s=this.$H,u=this.$m,o=this.$M,a=i.weekdays,h=i.months,c=function(t,r,i,s){return t&&(t[r]||t(n,e))||i[r].substr(0,s)},d=function(t){return D.s(s%12||12,t,"0")},$=i.meridiem||function(t,n,e){var r=t<12?"AM":"PM";return e?r.toLowerCase():r},l={YY:String(this.$y).slice(-2),YYYY:this.$y,M:o+1,MM:D.s(o+1,2,"0"),MMM:c(i.monthsShort,o,h,3),MMMM:h[o]||h(this,e),D:this.$D,DD:D.s(this.$D,2,"0"),d:String(this.$W),dd:c(i.weekdaysMin,this.$W,a,2),ddd:c(i.weekdaysShort,this.$W,a,3),dddd:a[this.$W],H:String(s),HH:D.s(s,2,"0"),h:d(1),hh:d(2),a:$(s,u,!0),A:$(s,u,!1),m:String(u),mm:D.s(u,2,"0"),s:String(this.$s),ss:D.s(this.$s,2,"0"),SSS:D.s(this.$ms,3,"0"),Z:r};return e.replace(f,function(t,n){return n||l[t]||r.replace(":","")})},d.utcOffset=function(){return 15*-Math.round(this.$d.getTimezoneOffset()/15)},d.diff=function(t,h,f){var c,d=D.p(h),$=g(t),l=6e4*($.utcOffset()-this.utcOffset()),m=this-$,y=D.m(this,$);return y=(c={},c[a]=y/12,c[u]=y,c[o]=y/3,c[s]=(m-l)/6048e5,c[i]=(m-l)/864e5,c[r]=m/36e5,c[e]=m/6e4,c[n]=m/1e3,c)[d]||m,f?y:D.a(y)},d.daysInMonth=function(){return this.endOf(u).$D},d.$locale=function(){return m[this.$L]},d.locale=function(t,n){if(!t)return this.$L;var e=this.clone(),r=M(t,n,!0);return r&&(e.$L=r),e},d.clone=function(){return D.w(this.$d,this)},d.toDate=function(){return new Date(this.valueOf())},d.toJSON=function(){return this.isValid()?this.toISOString():null},d.toISOString=function(){return this.$d.toISOString()},d.toString=function(){return this.$d.toUTCString()},c}();return g.prototype=v.prototype,g.extend=function(t,n){return t(n,v,g),g},g.locale=M,g.isDayjs=y,g.unix=function(t){return g(1e3*t)},g.en=m[l],g.Ls=m,g});
+!function(t,e){ true?module.exports=e():undefined}(this,function(){"use strict";var t="millisecond",e="second",n="minute",r="hour",i="day",s="week",u="month",o="quarter",a="year",h=/^(\d{4})-?(\d{1,2})-?(\d{0,2})[^0-9]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?.?(\d{1,3})?$/,f=/\[([^\]]+)]|Y{2,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g,c=function(t,e,n){var r=String(t);return!r||r.length>=e?t:""+Array(e+1-r.length).join(n)+t},d={s:c,z:function(t){var e=-t.utcOffset(),n=Math.abs(e),r=Math.floor(n/60),i=n%60;return(e<=0?"+":"-")+c(r,2,"0")+":"+c(i,2,"0")},m:function(t,e){var n=12*(e.year()-t.year())+(e.month()-t.month()),r=t.clone().add(n,u),i=e-r<0,s=t.clone().add(n+(i?-1:1),u);return Number(-(n+(e-r)/(i?r-s:s-r))||0)},a:function(t){return t<0?Math.ceil(t)||0:Math.floor(t)},p:function(h){return{M:u,y:a,w:s,d:i,D:"date",h:r,m:n,s:e,ms:t,Q:o}[h]||String(h||"").toLowerCase().replace(/s$/,"")},u:function(t){return void 0===t}},$={name:"en",weekdays:"Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),months:"January_February_March_April_May_June_July_August_September_October_November_December".split("_")},l="en",m={};m[l]=$;var y=function(t){return t instanceof v},M=function(t,e,n){var r;if(!t)return l;if("string"==typeof t)m[t]&&(r=t),e&&(m[t]=e,r=t);else{var i=t.name;m[i]=t,r=i}return!n&&r&&(l=r),r||!n&&l},g=function(t,e){if(y(t))return t.clone();var n="object"==typeof e?e:{};return n.date=t,n.args=arguments,new v(n)},D=d;D.l=M,D.i=y,D.w=function(t,e){return g(t,{locale:e.$L,utc:e.$u,$offset:e.$offset})};var v=function(){function c(t){this.$L=this.$L||M(t.locale,null,!0),this.parse(t)}var d=c.prototype;return d.parse=function(t){this.$d=function(t){var e=t.date,n=t.utc;if(null===e)return new Date(NaN);if(D.u(e))return new Date;if(e instanceof Date)return new Date(e);if("string"==typeof e&&!/Z$/i.test(e)){var r=e.match(h);if(r)return n?new Date(Date.UTC(r[1],r[2]-1,r[3]||1,r[4]||0,r[5]||0,r[6]||0,r[7]||0)):new Date(r[1],r[2]-1,r[3]||1,r[4]||0,r[5]||0,r[6]||0,r[7]||0)}return new Date(e)}(t),this.init()},d.init=function(){var t=this.$d;this.$y=t.getFullYear(),this.$M=t.getMonth(),this.$D=t.getDate(),this.$W=t.getDay(),this.$H=t.getHours(),this.$m=t.getMinutes(),this.$s=t.getSeconds(),this.$ms=t.getMilliseconds()},d.$utils=function(){return D},d.isValid=function(){return!("Invalid Date"===this.$d.toString())},d.isSame=function(t,e){var n=g(t);return this.startOf(e)<=n&&n<=this.endOf(e)},d.isAfter=function(t,e){return g(t)<this.startOf(e)},d.isBefore=function(t,e){return this.endOf(e)<g(t)},d.$g=function(t,e,n){return D.u(t)?this[e]:this.set(n,t)},d.year=function(t){return this.$g(t,"$y",a)},d.month=function(t){return this.$g(t,"$M",u)},d.day=function(t){return this.$g(t,"$W",i)},d.date=function(t){return this.$g(t,"$D","date")},d.hour=function(t){return this.$g(t,"$H",r)},d.minute=function(t){return this.$g(t,"$m",n)},d.second=function(t){return this.$g(t,"$s",e)},d.millisecond=function(e){return this.$g(e,"$ms",t)},d.unix=function(){return Math.floor(this.valueOf()/1e3)},d.valueOf=function(){return this.$d.getTime()},d.startOf=function(t,o){var h=this,f=!!D.u(o)||o,c=D.p(t),d=function(t,e){var n=D.w(h.$u?Date.UTC(h.$y,e,t):new Date(h.$y,e,t),h);return f?n:n.endOf(i)},$=function(t,e){return D.w(h.toDate()[t].apply(h.toDate("s"),(f?[0,0,0,0]:[23,59,59,999]).slice(e)),h)},l=this.$W,m=this.$M,y=this.$D,M="set"+(this.$u?"UTC":"");switch(c){case a:return f?d(1,0):d(31,11);case u:return f?d(1,m):d(0,m+1);case s:var g=this.$locale().weekStart||0,v=(l<g?l+7:l)-g;return d(f?y-v:y+(6-v),m);case i:case"date":return $(M+"Hours",0);case r:return $(M+"Minutes",1);case n:return $(M+"Seconds",2);case e:return $(M+"Milliseconds",3);default:return this.clone()}},d.endOf=function(t){return this.startOf(t,!1)},d.$set=function(s,o){var h,f=D.p(s),c="set"+(this.$u?"UTC":""),d=(h={},h[i]=c+"Date",h.date=c+"Date",h[u]=c+"Month",h[a]=c+"FullYear",h[r]=c+"Hours",h[n]=c+"Minutes",h[e]=c+"Seconds",h[t]=c+"Milliseconds",h)[f],$=f===i?this.$D+(o-this.$W):o;if(f===u||f===a){var l=this.clone().set("date",1);l.$d[d]($),l.init(),this.$d=l.set("date",Math.min(this.$D,l.daysInMonth())).toDate()}else d&&this.$d[d]($);return this.init(),this},d.set=function(t,e){return this.clone().$set(t,e)},d.get=function(t){return this[D.p(t)]()},d.add=function(t,o){var h,f=this;t=Number(t);var c=D.p(o),d=function(e){var n=g(f);return D.w(n.date(n.date()+Math.round(e*t)),f)};if(c===u)return this.set(u,this.$M+t);if(c===a)return this.set(a,this.$y+t);if(c===i)return d(1);if(c===s)return d(7);var $=(h={},h[n]=6e4,h[r]=36e5,h[e]=1e3,h)[c]||1,l=this.$d.getTime()+t*$;return D.w(l,this)},d.subtract=function(t,e){return this.add(-1*t,e)},d.format=function(t){var e=this;if(!this.isValid())return"Invalid Date";var n=t||"YYYY-MM-DDTHH:mm:ssZ",r=D.z(this),i=this.$locale(),s=this.$H,u=this.$m,o=this.$M,a=i.weekdays,h=i.months,c=function(t,r,i,s){return t&&(t[r]||t(e,n))||i[r].substr(0,s)},d=function(t){return D.s(s%12||12,t,"0")},$=i.meridiem||function(t,e,n){var r=t<12?"AM":"PM";return n?r.toLowerCase():r},l={YY:String(this.$y).slice(-2),YYYY:this.$y,M:o+1,MM:D.s(o+1,2,"0"),MMM:c(i.monthsShort,o,h,3),MMMM:c(h,o),D:this.$D,DD:D.s(this.$D,2,"0"),d:String(this.$W),dd:c(i.weekdaysMin,this.$W,a,2),ddd:c(i.weekdaysShort,this.$W,a,3),dddd:a[this.$W],H:String(s),HH:D.s(s,2,"0"),h:d(1),hh:d(2),a:$(s,u,!0),A:$(s,u,!1),m:String(u),mm:D.s(u,2,"0"),s:String(this.$s),ss:D.s(this.$s,2,"0"),SSS:D.s(this.$ms,3,"0"),Z:r};return n.replace(f,function(t,e){return e||l[t]||r.replace(":","")})},d.utcOffset=function(){return 15*-Math.round(this.$d.getTimezoneOffset()/15)},d.diff=function(t,h,f){var c,d=D.p(h),$=g(t),l=6e4*($.utcOffset()-this.utcOffset()),m=this-$,y=D.m(this,$);return y=(c={},c[a]=y/12,c[u]=y,c[o]=y/3,c[s]=(m-l)/6048e5,c[i]=(m-l)/864e5,c[r]=m/36e5,c[n]=m/6e4,c[e]=m/1e3,c)[d]||m,f?y:D.a(y)},d.daysInMonth=function(){return this.endOf(u).$D},d.$locale=function(){return m[this.$L]},d.locale=function(t,e){if(!t)return this.$L;var n=this.clone(),r=M(t,e,!0);return r&&(n.$L=r),n},d.clone=function(){return D.w(this.$d,this)},d.toDate=function(){return new Date(this.valueOf())},d.toJSON=function(){return this.isValid()?this.toISOString():null},d.toISOString=function(){return this.$d.toISOString()},d.toString=function(){return this.$d.toUTCString()},c}();return g.prototype=v.prototype,g.extend=function(t,e){return t(e,v,g),g},g.locale=M,g.isDayjs=y,g.unix=function(t){return g(1e3*t)},g.en=m[l],g.Ls=m,g});
 
 
 /***/ }),
@@ -3418,6 +3481,135 @@ var deepmerge_1 = deepmerge;
 return deepmerge_1;
 
 })));
+
+
+/***/ }),
+
+/***/ "./node_modules/extend/index.js":
+/*!**************************************!*\
+  !*** ./node_modules/extend/index.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var hasOwn = Object.prototype.hasOwnProperty;
+var toStr = Object.prototype.toString;
+var defineProperty = Object.defineProperty;
+var gOPD = Object.getOwnPropertyDescriptor;
+
+var isArray = function isArray(arr) {
+	if (typeof Array.isArray === 'function') {
+		return Array.isArray(arr);
+	}
+
+	return toStr.call(arr) === '[object Array]';
+};
+
+var isPlainObject = function isPlainObject(obj) {
+	if (!obj || toStr.call(obj) !== '[object Object]') {
+		return false;
+	}
+
+	var hasOwnConstructor = hasOwn.call(obj, 'constructor');
+	var hasIsPrototypeOf = obj.constructor && obj.constructor.prototype && hasOwn.call(obj.constructor.prototype, 'isPrototypeOf');
+	// Not own constructor property must be Object
+	if (obj.constructor && !hasOwnConstructor && !hasIsPrototypeOf) {
+		return false;
+	}
+
+	// Own properties are enumerated firstly, so to speed up,
+	// if last one is own, then all properties are own.
+	var key;
+	for (key in obj) { /**/ }
+
+	return typeof key === 'undefined' || hasOwn.call(obj, key);
+};
+
+// If name is '__proto__', and Object.defineProperty is available, define __proto__ as an own property on target
+var setProperty = function setProperty(target, options) {
+	if (defineProperty && options.name === '__proto__') {
+		defineProperty(target, options.name, {
+			enumerable: true,
+			configurable: true,
+			value: options.newValue,
+			writable: true
+		});
+	} else {
+		target[options.name] = options.newValue;
+	}
+};
+
+// Return undefined instead of __proto__ if '__proto__' is not an own property
+var getProperty = function getProperty(obj, name) {
+	if (name === '__proto__') {
+		if (!hasOwn.call(obj, name)) {
+			return void 0;
+		} else if (gOPD) {
+			// In early versions of node, obj['__proto__'] is buggy when obj has
+			// __proto__ as an own property. Object.getOwnPropertyDescriptor() works.
+			return gOPD(obj, name).value;
+		}
+	}
+
+	return obj[name];
+};
+
+module.exports = function extend() {
+	var options, name, src, copy, copyIsArray, clone;
+	var target = arguments[0];
+	var i = 1;
+	var length = arguments.length;
+	var deep = false;
+
+	// Handle a deep copy situation
+	if (typeof target === 'boolean') {
+		deep = target;
+		target = arguments[1] || {};
+		// skip the boolean and the target
+		i = 2;
+	}
+	if (target == null || (typeof target !== 'object' && typeof target !== 'function')) {
+		target = {};
+	}
+
+	for (; i < length; ++i) {
+		options = arguments[i];
+		// Only deal with non-null/undefined values
+		if (options != null) {
+			// Extend the base object
+			for (name in options) {
+				src = getProperty(target, name);
+				copy = getProperty(options, name);
+
+				// Prevent never-ending loop
+				if (target !== copy) {
+					// Recurse if we're merging plain objects or arrays
+					if (deep && copy && (isPlainObject(copy) || (copyIsArray = isArray(copy)))) {
+						if (copyIsArray) {
+							copyIsArray = false;
+							clone = src && isArray(src) ? src : [];
+						} else {
+							clone = src && isPlainObject(src) ? src : {};
+						}
+
+						// Never move original objects, clone them
+						setProperty(target, { name: name, newValue: extend(deep, clone, copy) });
+
+					// Don't bring in undefined values
+					} else if (typeof copy !== 'undefined') {
+						setProperty(target, { name: name, newValue: copy });
+					}
+				}
+			}
+		}
+	}
+
+	// Return the modified object
+	return target;
+};
 
 
 /***/ }),
@@ -5635,6 +5827,44 @@ module.exports = hoistNonReactStatics;
 
 /***/ }),
 
+/***/ "./node_modules/inherits/inherits_browser.js":
+/*!***************************************************!*\
+  !*** ./node_modules/inherits/inherits_browser.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+if (typeof Object.create === 'function') {
+  // implementation from standard node.js 'util' module
+  module.exports = function inherits(ctor, superCtor) {
+    if (superCtor) {
+      ctor.super_ = superCtor
+      ctor.prototype = Object.create(superCtor.prototype, {
+        constructor: {
+          value: ctor,
+          enumerable: false,
+          writable: true,
+          configurable: true
+        }
+      })
+    }
+  };
+} else {
+  // old school shim for old browsers
+  module.exports = function inherits(ctor, superCtor) {
+    if (superCtor) {
+      ctor.super_ = superCtor
+      var TempCtor = function () {}
+      TempCtor.prototype = superCtor.prototype
+      ctor.prototype = new TempCtor()
+      ctor.prototype.constructor = ctor
+    }
+  }
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/intl-format-cache/dist/index.js":
 /*!******************************************************!*\
   !*** ./node_modules/intl-format-cache/dist/index.js ***!
@@ -5818,7 +6048,17 @@ var IntlMessageFormat = /** @class */ (function () {
         this.formatters =
             (opts && opts.formatters) || createDefaultFormatters(this.formatterCache);
     }
-    IntlMessageFormat.defaultLocale = new Intl.NumberFormat().resolvedOptions().locale;
+    Object.defineProperty(IntlMessageFormat, "defaultLocale", {
+        get: function () {
+            if (!IntlMessageFormat.memoizedDefaultLocale) {
+                IntlMessageFormat.memoizedDefaultLocale = new Intl.NumberFormat().resolvedOptions().locale;
+            }
+            return IntlMessageFormat.memoizedDefaultLocale;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    IntlMessageFormat.memoizedDefaultLocale = null;
     IntlMessageFormat.__parse = intl_messageformat_parser_1.parse;
     // Default format options used as the prototype of the `formats` provided to the
     // constructor. These are used when constructing the internal Intl.NumberFormat
@@ -6056,7 +6296,11 @@ originalMessage) {
         // nested pattern structure. The choosing of the option to use is
         // abstracted-by and delegated-to the part helper object.
         if (intl_messageformat_parser_1.isDateElement(el)) {
-            var style = typeof el.style === 'string' ? formats.date[el.style] : undefined;
+            var style = typeof el.style === 'string'
+                ? formats.date[el.style]
+                : intl_messageformat_parser_1.isDateTimeSkeleton(el.style)
+                    ? intl_messageformat_parser_1.parseDateTimeSkeleton(el.style.pattern)
+                    : undefined;
             result.push({
                 type: 0 /* literal */,
                 value: formatters
@@ -6099,7 +6343,7 @@ originalMessage) {
             if (!isFormatXMLElementFn(formatFn)) {
                 throw new error_1.InvalidValueTypeError(value_1, 'function', originalMessage);
             }
-            var parts = formatToParts(children, locales, formatters, formats, values);
+            var parts = formatToParts(children, locales, formatters, formats, values, currentPluralValue);
             var chunks = formatFn.apply(void 0, parts.map(function (p) { return p.value; }));
             if (!Array.isArray(chunks)) {
                 chunks = [chunks];
@@ -9466,7 +9710,7 @@ exports.parseDateTimeSkeleton = parseDateTimeSkeleton;
 function icuUnitToEcma(unit) {
     return unit.replace(/^(.*?)-/, '');
 }
-var FRACTION_PRECISION_REGEX = /^\.(?:(0+)(\+|#+)?)?$/g;
+var FRACTION_PRECISION_REGEX = /^\.(?:(0+)(\*)?|(#+)|(0+)(#+))$/g;
 var SIGNIFICANT_PRECISION_REGEX = /^(@+)?(\+|#+)?$/g;
 function parseSignificantPrecision(str) {
     var result = {};
@@ -9555,6 +9799,7 @@ function convertNumberSkeletonToNumberFormatOptions(tokens) {
                 result.useGrouping = false;
                 continue;
             case 'precision-integer':
+            case '.':
                 result.maximumFractionDigits = 0;
                 continue;
             case 'measure-unit':
@@ -9597,28 +9842,28 @@ function convertNumberSkeletonToNumberFormatOptions(tokens) {
         }
         // Precision
         // https://github.com/unicode-org/icu/blob/master/docs/userguide/format_parse/numbers/skeletons.md#fraction-precision
+        // precision-integer case
         if (FRACTION_PRECISION_REGEX.test(token.stem)) {
             if (token.options.length > 1) {
                 throw new RangeError('Fraction-precision stems only accept a single optional option');
             }
-            token.stem.replace(FRACTION_PRECISION_REGEX, function (match, g1, g2) {
-                // precision-integer case
-                if (match === '.') {
-                    result.maximumFractionDigits = 0;
-                }
-                // .000+ case
-                else if (g2 === '+') {
-                    result.minimumFractionDigits = g2.length;
+            token.stem.replace(FRACTION_PRECISION_REGEX, function (match, g1, g2, g3, g4, g5) {
+                // .000* case (before ICU67 it was .000+)
+                if (g2 === '*') {
+                    result.minimumFractionDigits = g1.length;
                 }
                 // .### case
-                else if (g1[0] === '#') {
-                    result.maximumFractionDigits = g1.length;
+                else if (g3 && g3[0] === '#') {
+                    result.maximumFractionDigits = g3.length;
                 }
-                // .00## or .000 case
+                // .00## case
+                else if (g4 && g5) {
+                    result.minimumFractionDigits = g4.length;
+                    result.maximumFractionDigits = g4.length + g5.length;
+                }
                 else {
                     result.minimumFractionDigits = g1.length;
-                    result.maximumFractionDigits =
-                        g1.length + (typeof g2 === 'string' ? g2.length : 0);
+                    result.maximumFractionDigits = g1.length;
                 }
                 return '';
             });
@@ -9761,6 +10006,209 @@ function createNumberElement(value, style) {
 }
 exports.createNumberElement = createNumberElement;
 //# sourceMappingURL=types.js.map
+
+/***/ }),
+
+/***/ "./node_modules/is-alphabetical/index.js":
+/*!***********************************************!*\
+  !*** ./node_modules/is-alphabetical/index.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = alphabetical
+
+// Check if the given character code, or the character code at the first
+// character, is alphabetical.
+function alphabetical(character) {
+  var code = typeof character === 'string' ? character.charCodeAt(0) : character
+
+  return (
+    (code >= 97 && code <= 122) /* a-z */ ||
+    (code >= 65 && code <= 90) /* A-Z */
+  )
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/is-alphanumerical/index.js":
+/*!*************************************************!*\
+  !*** ./node_modules/is-alphanumerical/index.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var alphabetical = __webpack_require__(/*! is-alphabetical */ "./node_modules/is-alphabetical/index.js")
+var decimal = __webpack_require__(/*! is-decimal */ "./node_modules/is-decimal/index.js")
+
+module.exports = alphanumerical
+
+// Check if the given character code, or the character code at the first
+// character, is alphanumerical.
+function alphanumerical(character) {
+  return alphabetical(character) || decimal(character)
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/is-buffer/index.js":
+/*!*****************************************!*\
+  !*** ./node_modules/is-buffer/index.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*!
+ * Determine if an object is a Buffer
+ *
+ * @author   Feross Aboukhadijeh <https://feross.org>
+ * @license  MIT
+ */
+
+// The _isBuffer check is for Safari 5-7 support, because it's missing
+// Object.prototype.constructor. Remove this eventually
+module.exports = function (obj) {
+  return obj != null && (isBuffer(obj) || isSlowBuffer(obj) || !!obj._isBuffer)
+}
+
+function isBuffer (obj) {
+  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
+}
+
+// For Node v0.10 support. Remove this eventually.
+function isSlowBuffer (obj) {
+  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/is-decimal/index.js":
+/*!******************************************!*\
+  !*** ./node_modules/is-decimal/index.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = decimal
+
+// Check if the given character code, or the character code at the first
+// character, is decimal.
+function decimal(character) {
+  var code = typeof character === 'string' ? character.charCodeAt(0) : character
+
+  return code >= 48 && code <= 57 /* 0-9 */
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/is-hexadecimal/index.js":
+/*!**********************************************!*\
+  !*** ./node_modules/is-hexadecimal/index.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = hexadecimal
+
+// Check if the given character code, or the character code at the first
+// character, is hexadecimal.
+function hexadecimal(character) {
+  var code = typeof character === 'string' ? character.charCodeAt(0) : character
+
+  return (
+    (code >= 97 /* a */ && code <= 102) /* z */ ||
+    (code >= 65 /* A */ && code <= 70) /* Z */ ||
+    (code >= 48 /* A */ && code <= 57) /* Z */
+  )
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/is-plain-obj/index.js":
+/*!********************************************!*\
+  !*** ./node_modules/is-plain-obj/index.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var toString = Object.prototype.toString;
+
+module.exports = function (x) {
+	var prototype;
+	return toString.call(x) === '[object Object]' && (prototype = Object.getPrototypeOf(x), prototype === null || prototype === Object.getPrototypeOf({}));
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/is-whitespace-character/index.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/is-whitespace-character/index.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = whitespace
+
+var fromCode = String.fromCharCode
+var re = /\s/
+
+// Check if the given character code, or the character code at the first
+// character, is a whitespace character.
+function whitespace(character) {
+  return re.test(
+    typeof character === 'number' ? fromCode(character) : character.charAt(0)
+  )
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/is-word-character/index.js":
+/*!*************************************************!*\
+  !*** ./node_modules/is-word-character/index.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = wordCharacter
+
+var fromCode = String.fromCharCode
+var re = /\w/
+
+// Check if the given character code, or the character code at the first
+// character, is a word character.
+function wordCharacter(character) {
+  return re.test(
+    typeof character === 'number' ? fromCode(character) : character.charAt(0)
+  )
+}
+
 
 /***/ }),
 
@@ -15168,6 +15616,107 @@ module.exports = uniq;
 
 /***/ }),
 
+/***/ "./node_modules/markdown-escapes/index.js":
+/*!************************************************!*\
+  !*** ./node_modules/markdown-escapes/index.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = escapes
+
+var defaults = [
+  '\\',
+  '`',
+  '*',
+  '{',
+  '}',
+  '[',
+  ']',
+  '(',
+  ')',
+  '#',
+  '+',
+  '-',
+  '.',
+  '!',
+  '_',
+  '>'
+]
+
+var gfm = defaults.concat(['~', '|'])
+
+var commonmark = gfm.concat([
+  '\n',
+  '"',
+  '$',
+  '%',
+  '&',
+  "'",
+  ',',
+  '/',
+  ':',
+  ';',
+  '<',
+  '=',
+  '?',
+  '@',
+  '^'
+])
+
+escapes.default = defaults
+escapes.gfm = gfm
+escapes.commonmark = commonmark
+
+// Get markdown escapes.
+function escapes(options) {
+  var settings = options || {}
+
+  if (settings.commonmark) {
+    return commonmark
+  }
+
+  return settings.gfm ? gfm : defaults
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/mdast-add-list-metadata/index.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/mdast-add-list-metadata/index.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var visitWithParents = __webpack_require__(/*! unist-util-visit-parents */ "./node_modules/unist-util-visit-parents/index.js");
+
+function addListMetadata() {
+  return function (ast) {
+    visitWithParents(ast, 'list', function (listNode, parents) {
+      var depth = 0, i, n;
+      for (i = 0, n = parents.length; i < n; i++) {
+        if (parents[i].type === 'list') depth += 1;
+      }
+      for (i = 0, n = listNode.children.length; i < n; i++) {
+        var child = listNode.children[i];
+        child.index = i;
+        child.ordered = listNode.ordered;
+      }
+      listNode.depth = depth;
+    });
+    return ast;
+  };
+}
+
+module.exports = addListMetadata;
+
+
+/***/ }),
+
 /***/ "./node_modules/object-assign/index.js":
 /*!*********************************************!*\
   !*** ./node_modules/object-assign/index.js ***!
@@ -15267,6 +15816,824 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 	return to;
 };
 
+
+/***/ }),
+
+/***/ "./node_modules/parse-entities/decode-entity.browser.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/parse-entities/decode-entity.browser.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/* eslint-env browser */
+
+var el
+
+var semicolon = 59 //  ';'
+
+module.exports = decodeEntity
+
+function decodeEntity(characters) {
+  var entity = '&' + characters + ';'
+  var char
+
+  el = el || document.createElement('i')
+  el.innerHTML = entity
+  char = el.textContent
+
+  // Some entities do not require the closing semicolon (`&not` - for instance),
+  // which leads to situations where parsing the assumed entity of &notit; will
+  // result in the string `¬it;`.  When we encounter a trailing semicolon after
+  // parsing and the entity to decode was not a semicolon (`&semi;`), we can
+  // assume that the matching was incomplete
+  if (char.charCodeAt(char.length - 1) === semicolon && characters !== 'semi') {
+    return false
+  }
+
+  // If the decoded string is equal to the input, the entity was not valid
+  return char === entity ? false : char
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/parse-entities/index.js":
+/*!**********************************************!*\
+  !*** ./node_modules/parse-entities/index.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var legacy = __webpack_require__(/*! character-entities-legacy */ "./node_modules/character-entities-legacy/index.json")
+var invalid = __webpack_require__(/*! character-reference-invalid */ "./node_modules/character-reference-invalid/index.json")
+var decimal = __webpack_require__(/*! is-decimal */ "./node_modules/is-decimal/index.js")
+var hexadecimal = __webpack_require__(/*! is-hexadecimal */ "./node_modules/is-hexadecimal/index.js")
+var alphanumerical = __webpack_require__(/*! is-alphanumerical */ "./node_modules/is-alphanumerical/index.js")
+var decodeEntity = __webpack_require__(/*! ./decode-entity */ "./node_modules/parse-entities/decode-entity.browser.js")
+
+module.exports = parseEntities
+
+var own = {}.hasOwnProperty
+var fromCharCode = String.fromCharCode
+var noop = Function.prototype
+
+// Default settings.
+var defaults = {
+  warning: null,
+  reference: null,
+  text: null,
+  warningContext: null,
+  referenceContext: null,
+  textContext: null,
+  position: {},
+  additional: null,
+  attribute: false,
+  nonTerminated: true
+}
+
+// Characters.
+var tab = 9 // '\t'
+var lineFeed = 10 // '\n'
+var formFeed = 12 //  '\f'
+var space = 32 // ' '
+var ampersand = 38 //  '&'
+var semicolon = 59 //  ';'
+var lessThan = 60 //  '<'
+var equalsTo = 61 //  '='
+var numberSign = 35 //  '#'
+var uppercaseX = 88 //  'X'
+var lowercaseX = 120 //  'x'
+var replacementCharacter = 65533 // '�'
+
+// Reference types.
+var name = 'named'
+var hexa = 'hexadecimal'
+var deci = 'decimal'
+
+// Map of bases.
+var bases = {}
+
+bases[hexa] = 16
+bases[deci] = 10
+
+// Map of types to tests.
+// Each type of character reference accepts different characters.
+// This test is used to detect whether a reference has ended (as the semicolon
+// is not strictly needed).
+var tests = {}
+
+tests[name] = alphanumerical
+tests[deci] = decimal
+tests[hexa] = hexadecimal
+
+// Warning types.
+var namedNotTerminated = 1
+var numericNotTerminated = 2
+var namedEmpty = 3
+var numericEmpty = 4
+var namedUnknown = 5
+var numericDisallowed = 6
+var numericProhibited = 7
+
+// Warning messages.
+var messages = {}
+
+messages[namedNotTerminated] =
+  'Named character references must be terminated by a semicolon'
+messages[numericNotTerminated] =
+  'Numeric character references must be terminated by a semicolon'
+messages[namedEmpty] = 'Named character references cannot be empty'
+messages[numericEmpty] = 'Numeric character references cannot be empty'
+messages[namedUnknown] = 'Named character references must be known'
+messages[numericDisallowed] =
+  'Numeric character references cannot be disallowed'
+messages[numericProhibited] =
+  'Numeric character references cannot be outside the permissible Unicode range'
+
+// Wrap to ensure clean parameters are given to `parse`.
+function parseEntities(value, options) {
+  var settings = {}
+  var option
+  var key
+
+  if (!options) {
+    options = {}
+  }
+
+  for (key in defaults) {
+    option = options[key]
+    settings[key] =
+      option === null || option === undefined ? defaults[key] : option
+  }
+
+  if (settings.position.indent || settings.position.start) {
+    settings.indent = settings.position.indent || []
+    settings.position = settings.position.start
+  }
+
+  return parse(value, settings)
+}
+
+// Parse entities.
+// eslint-disable-next-line complexity
+function parse(value, settings) {
+  var additional = settings.additional
+  var nonTerminated = settings.nonTerminated
+  var handleText = settings.text
+  var handleReference = settings.reference
+  var handleWarning = settings.warning
+  var textContext = settings.textContext
+  var referenceContext = settings.referenceContext
+  var warningContext = settings.warningContext
+  var pos = settings.position
+  var indent = settings.indent || []
+  var length = value.length
+  var index = 0
+  var lines = -1
+  var column = pos.column || 1
+  var line = pos.line || 1
+  var queue = ''
+  var result = []
+  var entityCharacters
+  var namedEntity
+  var terminated
+  var characters
+  var character
+  var reference
+  var following
+  var warning
+  var reason
+  var output
+  var entity
+  var begin
+  var start
+  var type
+  var test
+  var prev
+  var next
+  var diff
+  var end
+
+  if (typeof additional === 'string') {
+    additional = additional.charCodeAt(0)
+  }
+
+  // Cache the current point.
+  prev = now()
+
+  // Wrap `handleWarning`.
+  warning = handleWarning ? parseError : noop
+
+  // Ensure the algorithm walks over the first character and the end (inclusive).
+  index--
+  length++
+
+  while (++index < length) {
+    // If the previous character was a newline.
+    if (character === lineFeed) {
+      column = indent[lines] || 1
+    }
+
+    character = value.charCodeAt(index)
+
+    if (character === ampersand) {
+      following = value.charCodeAt(index + 1)
+
+      // The behaviour depends on the identity of the next character.
+      if (
+        following === tab ||
+        following === lineFeed ||
+        following === formFeed ||
+        following === space ||
+        following === ampersand ||
+        following === lessThan ||
+        following !== following ||
+        (additional && following === additional)
+      ) {
+        // Not a character reference.
+        // No characters are consumed, and nothing is returned.
+        // This is not an error, either.
+        queue += fromCharCode(character)
+        column++
+
+        continue
+      }
+
+      start = index + 1
+      begin = start
+      end = start
+
+      if (following === numberSign) {
+        // Numerical entity.
+        end = ++begin
+
+        // The behaviour further depends on the next character.
+        following = value.charCodeAt(end)
+
+        if (following === uppercaseX || following === lowercaseX) {
+          // ASCII hex digits.
+          type = hexa
+          end = ++begin
+        } else {
+          // ASCII digits.
+          type = deci
+        }
+      } else {
+        // Named entity.
+        type = name
+      }
+
+      entityCharacters = ''
+      entity = ''
+      characters = ''
+      test = tests[type]
+      end--
+
+      while (++end < length) {
+        following = value.charCodeAt(end)
+
+        if (!test(following)) {
+          break
+        }
+
+        characters += fromCharCode(following)
+
+        // Check if we can match a legacy named reference.
+        // If so, we cache that as the last viable named reference.
+        // This ensures we do not need to walk backwards later.
+        if (type === name && own.call(legacy, characters)) {
+          entityCharacters = characters
+          entity = legacy[characters]
+        }
+      }
+
+      terminated = value.charCodeAt(end) === semicolon
+
+      if (terminated) {
+        end++
+
+        namedEntity = type === name ? decodeEntity(characters) : false
+
+        if (namedEntity) {
+          entityCharacters = characters
+          entity = namedEntity
+        }
+      }
+
+      diff = 1 + end - start
+
+      if (!terminated && !nonTerminated) {
+        // Empty.
+      } else if (!characters) {
+        // An empty (possible) entity is valid, unless it’s numeric (thus an
+        // ampersand followed by an octothorp).
+        if (type !== name) {
+          warning(numericEmpty, diff)
+        }
+      } else if (type === name) {
+        // An ampersand followed by anything unknown, and not terminated, is
+        // invalid.
+        if (terminated && !entity) {
+          warning(namedUnknown, 1)
+        } else {
+          // If theres something after an entity name which is not known, cap
+          // the reference.
+          if (entityCharacters !== characters) {
+            end = begin + entityCharacters.length
+            diff = 1 + end - begin
+            terminated = false
+          }
+
+          // If the reference is not terminated, warn.
+          if (!terminated) {
+            reason = entityCharacters ? namedNotTerminated : namedEmpty
+
+            if (settings.attribute) {
+              following = value.charCodeAt(end)
+
+              if (following === equalsTo) {
+                warning(reason, diff)
+                entity = null
+              } else if (alphanumerical(following)) {
+                entity = null
+              } else {
+                warning(reason, diff)
+              }
+            } else {
+              warning(reason, diff)
+            }
+          }
+        }
+
+        reference = entity
+      } else {
+        if (!terminated) {
+          // All non-terminated numeric entities are not rendered, and trigger a
+          // warning.
+          warning(numericNotTerminated, diff)
+        }
+
+        // When terminated and number, parse as either hexadecimal or decimal.
+        reference = parseInt(characters, bases[type])
+
+        // Trigger a warning when the parsed number is prohibited, and replace
+        // with replacement character.
+        if (prohibited(reference)) {
+          warning(numericProhibited, diff)
+          reference = fromCharCode(replacementCharacter)
+        } else if (reference in invalid) {
+          // Trigger a warning when the parsed number is disallowed, and replace
+          // by an alternative.
+          warning(numericDisallowed, diff)
+          reference = invalid[reference]
+        } else {
+          // Parse the number.
+          output = ''
+
+          // Trigger a warning when the parsed number should not be used.
+          if (disallowed(reference)) {
+            warning(numericDisallowed, diff)
+          }
+
+          // Stringify the number.
+          if (reference > 0xffff) {
+            reference -= 0x10000
+            output += fromCharCode((reference >>> (10 & 0x3ff)) | 0xd800)
+            reference = 0xdc00 | (reference & 0x3ff)
+          }
+
+          reference = output + fromCharCode(reference)
+        }
+      }
+
+      // Found it!
+      // First eat the queued characters as normal text, then eat an entity.
+      if (reference) {
+        flush()
+
+        prev = now()
+        index = end - 1
+        column += end - start + 1
+        result.push(reference)
+        next = now()
+        next.offset++
+
+        if (handleReference) {
+          handleReference.call(
+            referenceContext,
+            reference,
+            {start: prev, end: next},
+            value.slice(start - 1, end)
+          )
+        }
+
+        prev = next
+      } else {
+        // If we could not find a reference, queue the checked characters (as
+        // normal characters), and move the pointer to their end.
+        // This is possible because we can be certain neither newlines nor
+        // ampersands are included.
+        characters = value.slice(start - 1, end)
+        queue += characters
+        column += characters.length
+        index = end - 1
+      }
+    } else {
+      // Handle anything other than an ampersand, including newlines and EOF.
+      if (
+        character === 10 // Line feed
+      ) {
+        line++
+        lines++
+        column = 0
+      }
+
+      if (character === character) {
+        queue += fromCharCode(character)
+        column++
+      } else {
+        flush()
+      }
+    }
+  }
+
+  // Return the reduced nodes, and any possible warnings.
+  return result.join('')
+
+  // Get current position.
+  function now() {
+    return {
+      line: line,
+      column: column,
+      offset: index + (pos.offset || 0)
+    }
+  }
+
+  // “Throw” a parse-error: a warning.
+  function parseError(code, offset) {
+    var position = now()
+
+    position.column += offset
+    position.offset += offset
+
+    handleWarning.call(warningContext, messages[code], position, code)
+  }
+
+  // Flush `queue` (normal text).
+  // Macro invoked before each entity and at the end of `value`.
+  // Does nothing when `queue` is empty.
+  function flush() {
+    if (queue) {
+      result.push(queue)
+
+      if (handleText) {
+        handleText.call(textContext, queue, {start: prev, end: now()})
+      }
+
+      queue = ''
+    }
+  }
+}
+
+// Check if `character` is outside the permissible unicode range.
+function prohibited(code) {
+  return (code >= 0xd800 && code <= 0xdfff) || code > 0x10ffff
+}
+
+// Check if `character` is disallowed.
+function disallowed(code) {
+  return (
+    (code >= 0x0001 && code <= 0x0008) ||
+    code === 0x000b ||
+    (code >= 0x000d && code <= 0x001f) ||
+    (code >= 0x007f && code <= 0x009f) ||
+    (code >= 0xfdd0 && code <= 0xfdef) ||
+    (code & 0xffff) === 0xffff ||
+    (code & 0xffff) === 0xfffe
+  )
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/path-browserify/index.js":
+/*!***********************************************!*\
+  !*** ./node_modules/path-browserify/index.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process) {// .dirname, .basename, and .extname methods are extracted from Node.js v8.11.1,
+// backported and transplited with Babel, with backwards-compat fixes
+
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+// resolves . and .. elements in a path array with directory names there
+// must be no slashes, empty elements, or device names (c:\) in the array
+// (so also no leading and trailing slashes - it does not distinguish
+// relative and absolute paths)
+function normalizeArray(parts, allowAboveRoot) {
+  // if the path tries to go above the root, `up` ends up > 0
+  var up = 0;
+  for (var i = parts.length - 1; i >= 0; i--) {
+    var last = parts[i];
+    if (last === '.') {
+      parts.splice(i, 1);
+    } else if (last === '..') {
+      parts.splice(i, 1);
+      up++;
+    } else if (up) {
+      parts.splice(i, 1);
+      up--;
+    }
+  }
+
+  // if the path is allowed to go above the root, restore leading ..s
+  if (allowAboveRoot) {
+    for (; up--; up) {
+      parts.unshift('..');
+    }
+  }
+
+  return parts;
+}
+
+// path.resolve([from ...], to)
+// posix version
+exports.resolve = function() {
+  var resolvedPath = '',
+      resolvedAbsolute = false;
+
+  for (var i = arguments.length - 1; i >= -1 && !resolvedAbsolute; i--) {
+    var path = (i >= 0) ? arguments[i] : process.cwd();
+
+    // Skip empty and invalid entries
+    if (typeof path !== 'string') {
+      throw new TypeError('Arguments to path.resolve must be strings');
+    } else if (!path) {
+      continue;
+    }
+
+    resolvedPath = path + '/' + resolvedPath;
+    resolvedAbsolute = path.charAt(0) === '/';
+  }
+
+  // At this point the path should be resolved to a full absolute path, but
+  // handle relative paths to be safe (might happen when process.cwd() fails)
+
+  // Normalize the path
+  resolvedPath = normalizeArray(filter(resolvedPath.split('/'), function(p) {
+    return !!p;
+  }), !resolvedAbsolute).join('/');
+
+  return ((resolvedAbsolute ? '/' : '') + resolvedPath) || '.';
+};
+
+// path.normalize(path)
+// posix version
+exports.normalize = function(path) {
+  var isAbsolute = exports.isAbsolute(path),
+      trailingSlash = substr(path, -1) === '/';
+
+  // Normalize the path
+  path = normalizeArray(filter(path.split('/'), function(p) {
+    return !!p;
+  }), !isAbsolute).join('/');
+
+  if (!path && !isAbsolute) {
+    path = '.';
+  }
+  if (path && trailingSlash) {
+    path += '/';
+  }
+
+  return (isAbsolute ? '/' : '') + path;
+};
+
+// posix version
+exports.isAbsolute = function(path) {
+  return path.charAt(0) === '/';
+};
+
+// posix version
+exports.join = function() {
+  var paths = Array.prototype.slice.call(arguments, 0);
+  return exports.normalize(filter(paths, function(p, index) {
+    if (typeof p !== 'string') {
+      throw new TypeError('Arguments to path.join must be strings');
+    }
+    return p;
+  }).join('/'));
+};
+
+
+// path.relative(from, to)
+// posix version
+exports.relative = function(from, to) {
+  from = exports.resolve(from).substr(1);
+  to = exports.resolve(to).substr(1);
+
+  function trim(arr) {
+    var start = 0;
+    for (; start < arr.length; start++) {
+      if (arr[start] !== '') break;
+    }
+
+    var end = arr.length - 1;
+    for (; end >= 0; end--) {
+      if (arr[end] !== '') break;
+    }
+
+    if (start > end) return [];
+    return arr.slice(start, end - start + 1);
+  }
+
+  var fromParts = trim(from.split('/'));
+  var toParts = trim(to.split('/'));
+
+  var length = Math.min(fromParts.length, toParts.length);
+  var samePartsLength = length;
+  for (var i = 0; i < length; i++) {
+    if (fromParts[i] !== toParts[i]) {
+      samePartsLength = i;
+      break;
+    }
+  }
+
+  var outputParts = [];
+  for (var i = samePartsLength; i < fromParts.length; i++) {
+    outputParts.push('..');
+  }
+
+  outputParts = outputParts.concat(toParts.slice(samePartsLength));
+
+  return outputParts.join('/');
+};
+
+exports.sep = '/';
+exports.delimiter = ':';
+
+exports.dirname = function (path) {
+  if (typeof path !== 'string') path = path + '';
+  if (path.length === 0) return '.';
+  var code = path.charCodeAt(0);
+  var hasRoot = code === 47 /*/*/;
+  var end = -1;
+  var matchedSlash = true;
+  for (var i = path.length - 1; i >= 1; --i) {
+    code = path.charCodeAt(i);
+    if (code === 47 /*/*/) {
+        if (!matchedSlash) {
+          end = i;
+          break;
+        }
+      } else {
+      // We saw the first non-path separator
+      matchedSlash = false;
+    }
+  }
+
+  if (end === -1) return hasRoot ? '/' : '.';
+  if (hasRoot && end === 1) {
+    // return '//';
+    // Backwards-compat fix:
+    return '/';
+  }
+  return path.slice(0, end);
+};
+
+function basename(path) {
+  if (typeof path !== 'string') path = path + '';
+
+  var start = 0;
+  var end = -1;
+  var matchedSlash = true;
+  var i;
+
+  for (i = path.length - 1; i >= 0; --i) {
+    if (path.charCodeAt(i) === 47 /*/*/) {
+        // If we reached a path separator that was not part of a set of path
+        // separators at the end of the string, stop now
+        if (!matchedSlash) {
+          start = i + 1;
+          break;
+        }
+      } else if (end === -1) {
+      // We saw the first non-path separator, mark this as the end of our
+      // path component
+      matchedSlash = false;
+      end = i + 1;
+    }
+  }
+
+  if (end === -1) return '';
+  return path.slice(start, end);
+}
+
+// Uses a mixed approach for backwards-compatibility, as ext behavior changed
+// in new Node.js versions, so only basename() above is backported here
+exports.basename = function (path, ext) {
+  var f = basename(path);
+  if (ext && f.substr(-1 * ext.length) === ext) {
+    f = f.substr(0, f.length - ext.length);
+  }
+  return f;
+};
+
+exports.extname = function (path) {
+  if (typeof path !== 'string') path = path + '';
+  var startDot = -1;
+  var startPart = 0;
+  var end = -1;
+  var matchedSlash = true;
+  // Track the state of characters (if any) we see before our first dot and
+  // after any path separator we find
+  var preDotState = 0;
+  for (var i = path.length - 1; i >= 0; --i) {
+    var code = path.charCodeAt(i);
+    if (code === 47 /*/*/) {
+        // If we reached a path separator that was not part of a set of path
+        // separators at the end of the string, stop now
+        if (!matchedSlash) {
+          startPart = i + 1;
+          break;
+        }
+        continue;
+      }
+    if (end === -1) {
+      // We saw the first non-path separator, mark this as the end of our
+      // extension
+      matchedSlash = false;
+      end = i + 1;
+    }
+    if (code === 46 /*.*/) {
+        // If this is our first dot, mark it as the start of our extension
+        if (startDot === -1)
+          startDot = i;
+        else if (preDotState !== 1)
+          preDotState = 1;
+    } else if (startDot !== -1) {
+      // We saw a non-dot and non-path separator before our dot, so we should
+      // have a good chance at having a non-empty extension
+      preDotState = -1;
+    }
+  }
+
+  if (startDot === -1 || end === -1 ||
+      // We saw a non-dot character immediately before the dot
+      preDotState === 0 ||
+      // The (right-most) trimmed path component is exactly '..'
+      preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
+    return '';
+  }
+  return path.slice(startDot, end);
+};
+
+function filter (xs, f) {
+    if (xs.filter) return xs.filter(f);
+    var res = [];
+    for (var i = 0; i < xs.length; i++) {
+        if (f(xs[i], i, xs)) res.push(xs[i]);
+    }
+    return res;
+}
+
+// String.prototype.substr - negative index don't work in IE8
+var substr = 'ab'.substr(-1) === 'b'
+    ? function (str, start, len) { return str.substr(start, len) }
+    : function (str, start, len) {
+        if (start < 0) start = str.length + start;
+        return str.substr(start, len);
+    }
+;
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../process/browser.js */ "./node_modules/process/browser.js")))
 
 /***/ }),
 
@@ -43164,7 +44531,7 @@ function createFormattedComponent(name) {
     return Component;
 }
 exports.createFormattedComponent = createFormattedComponent;
-
+//# sourceMappingURL=createFormattedComponent.js.map
 
 /***/ }),
 
@@ -43223,7 +44590,7 @@ function injectIntl(WrappedComponent, options) {
     return hoistNonReactStatics(WithIntl, WrappedComponent);
 }
 exports.default = injectIntl;
-
+//# sourceMappingURL=injectIntl.js.map
 
 /***/ }),
 
@@ -43338,7 +44705,7 @@ var FormattedMessage = /** @class */ (function (_super) {
     return FormattedMessage;
 }(React.Component));
 exports.default = FormattedMessage;
-
+//# sourceMappingURL=message.js.map
 
 /***/ }),
 
@@ -43377,7 +44744,7 @@ FormattedPlural.defaultProps = {
 };
 FormattedPlural.displayName = 'FormattedPlural';
 exports.default = injectIntl_1.default(FormattedPlural);
-
+//# sourceMappingURL=plural.js.map
 
 /***/ }),
 
@@ -43443,6 +44810,7 @@ function processIntlConfig(config) {
         defaultLocale: config.defaultLocale,
         defaultFormats: config.defaultFormats,
         onError: config.onError,
+        wrapRichTextChunksInFragment: config.wrapRichTextChunksInFragment,
     };
 }
 /**
@@ -43456,7 +44824,7 @@ function createIntl(config, cache) {
     var locale = resolvedConfig.locale, defaultLocale = resolvedConfig.defaultLocale, onError = resolvedConfig.onError;
     if (!locale) {
         if (onError) {
-            onError(new error_1.ReactIntlError("INVALID_CONFIG" /* INVALID_CONFIG */, "\"locale\" was not configured, using \"" + defaultLocale + "\" as fallback. See https://github.com/formatjs/react-intl/blob/master/docs/API.md#intlshape for more details"));
+            onError(new error_1.ReactIntlError("INVALID_CONFIG" /* INVALID_CONFIG */, "\"locale\" was not configured, using \"" + defaultLocale + "\" as fallback. See https://formatjs.io/docs/react-intl/api#intlshape for more details"));
         }
         // Since there's no registered locale data for `locale`, this will
         // fallback to the `defaultLocale` to make sure things can render.
@@ -43466,11 +44834,11 @@ function createIntl(config, cache) {
         resolvedConfig.locale = resolvedConfig.defaultLocale || 'en';
     }
     else if (!Intl.NumberFormat.supportedLocalesOf(locale).length && onError) {
-        onError(new error_1.ReactIntlError("MISSING_DATA" /* MISSING_DATA */, "Missing locale data for locale: \"" + locale + "\" in Intl.NumberFormat. Using default locale: \"" + defaultLocale + "\" as fallback. See https://github.com/formatjs/react-intl/blob/master/docs/Getting-Started.md#runtime-requirements for more details"));
+        onError(new error_1.ReactIntlError("MISSING_DATA" /* MISSING_DATA */, "Missing locale data for locale: \"" + locale + "\" in Intl.NumberFormat. Using default locale: \"" + defaultLocale + "\" as fallback. See https://formatjs.io/docs/react-intl#runtime-requirements for more details"));
     }
     else if (!Intl.DateTimeFormat.supportedLocalesOf(locale).length &&
         onError) {
-        onError(new error_1.ReactIntlError("MISSING_DATA" /* MISSING_DATA */, "Missing locale data for locale: \"" + locale + "\" in Intl.DateTimeFormat. Using default locale: \"" + defaultLocale + "\" as fallback. See https://github.com/formatjs/react-intl/blob/master/docs/Getting-Started.md#runtime-requirements for more details"));
+        onError(new error_1.ReactIntlError("MISSING_DATA" /* MISSING_DATA */, "Missing locale data for locale: \"" + locale + "\" in Intl.DateTimeFormat. Using default locale: \"" + defaultLocale + "\" as fallback. See https://formatjs.io/docs/react-intl#runtime-requirements for more details"));
     }
     return __assign(__assign({}, resolvedConfig), { formatters: formatters, formatNumber: number_1.formatNumber.bind(null, resolvedConfig, formatters.getNumberFormat), formatNumberToParts: number_1.formatNumberToParts.bind(null, resolvedConfig, formatters.getNumberFormat), formatRelativeTime: relativeTime_1.formatRelativeTime.bind(null, resolvedConfig, formatters.getRelativeTimeFormat), formatDate: dateTime_1.formatDate.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatDateToParts: dateTime_1.formatDateToParts.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatTime: dateTime_1.formatTime.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatTimeToParts: dateTime_1.formatTimeToParts.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatPlural: plural_1.formatPlural.bind(null, resolvedConfig, formatters.getPluralRules), formatMessage: message_1.formatMessage.bind(null, resolvedConfig, formatters), formatList: list_1.formatList.bind(null, resolvedConfig, formatters.getListFormat), formatDisplayName: displayName_1.formatDisplayName.bind(null, resolvedConfig, formatters.getDisplayNames) });
 }
@@ -43507,7 +44875,7 @@ var IntlProvider = /** @class */ (function (_super) {
     return IntlProvider;
 }(React.PureComponent));
 exports.default = IntlProvider;
-
+//# sourceMappingURL=provider.js.map
 
 /***/ }),
 
@@ -43704,7 +45072,7 @@ var FormattedRelativeTime = /** @class */ (function (_super) {
 }(React.PureComponent));
 exports.FormattedRelativeTime = FormattedRelativeTime;
 exports.default = FormattedRelativeTime;
-
+//# sourceMappingURL=relative.js.map
 
 /***/ }),
 
@@ -43718,16 +45086,16 @@ exports.default = FormattedRelativeTime;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var injectIntl_1 = __webpack_require__(/*! ./injectIntl */ "./node_modules/react-intl/dist/components/injectIntl.js");
 var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
 function useIntl() {
-    var intl = react_1.useContext(injectIntl_1.Context);
+    var intl = React.useContext(injectIntl_1.Context);
     utils_1.invariantIntlContext(intl);
     return intl;
 }
 exports.default = useIntl;
-
+//# sourceMappingURL=useIntl.js.map
 
 /***/ }),
 
@@ -43764,10 +45132,9 @@ var ReactIntlErrorCode;
 })(ReactIntlErrorCode = exports.ReactIntlErrorCode || (exports.ReactIntlErrorCode = {}));
 var ReactIntlError = /** @class */ (function (_super) {
     __extends(ReactIntlError, _super);
-    function ReactIntlError(code, message, descriptor, exception) {
-        var _this = _super.call(this, "[React Intl Error " + code + "] " + message + " " + (exception ? "\n" + exception.stack : '')) || this;
+    function ReactIntlError(code, message, exception) {
+        var _this = _super.call(this, "[React Intl Error " + code + "] " + message + " \n" + (exception ? "\n" + exception.stack : '')) || this;
         _this.code = code;
-        _this.descriptor = descriptor;
         if (typeof Error.captureStackTrace === 'function') {
             Error.captureStackTrace(_this, ReactIntlError);
         }
@@ -43776,7 +45143,27 @@ var ReactIntlError = /** @class */ (function (_super) {
     return ReactIntlError;
 }(Error));
 exports.ReactIntlError = ReactIntlError;
-
+var MessageFormatError = /** @class */ (function (_super) {
+    __extends(MessageFormatError, _super);
+    function MessageFormatError(message, locale, descriptor, exception) {
+        var _this = _super.call(this, "FORMAT_ERROR" /* FORMAT_ERROR */, message + " \nLocale: " + locale + "\nMessageID: " + (descriptor === null || descriptor === void 0 ? void 0 : descriptor.id) + "\nDefault Message: " + (descriptor === null || descriptor === void 0 ? void 0 : descriptor.defaultMessage) + "\nDescription: " + (descriptor === null || descriptor === void 0 ? void 0 : descriptor.description) + " \n", exception) || this;
+        _this.descriptor = descriptor;
+        return _this;
+    }
+    return MessageFormatError;
+}(ReactIntlError));
+exports.MessageFormatError = MessageFormatError;
+var MissingTranslationError = /** @class */ (function (_super) {
+    __extends(MissingTranslationError, _super);
+    function MissingTranslationError(descriptor, locale) {
+        var _this = _super.call(this, "MISSING_TRANSLATION" /* MISSING_TRANSLATION */, "Missing message: \"" + descriptor.id + "\" for locale \"" + locale + "\", using " + (descriptor.defaultMessage ? 'default message' : 'id') + " as fallback.") || this;
+        _this.descriptor = descriptor;
+        return _this;
+    }
+    return MissingTranslationError;
+}(ReactIntlError));
+exports.MissingTranslationError = MissingTranslationError;
+//# sourceMappingURL=error.js.map
 
 /***/ }),
 
@@ -43887,7 +45274,7 @@ function formatTimeToParts(config, getDateTimeFormat, value, options) {
     return [];
 }
 exports.formatTimeToParts = formatTimeToParts;
-
+//# sourceMappingURL=dateTime.js.map
 
 /***/ }),
 
@@ -43926,7 +45313,7 @@ function formatDisplayName(_a, getDisplayNames, value, options) {
     }
 }
 exports.formatDisplayName = formatDisplayName;
-
+//# sourceMappingURL=displayName.js.map
 
 /***/ }),
 
@@ -43994,7 +45381,7 @@ function formatList(_a, getListFormat, values, options) {
     return values;
 }
 exports.formatList = formatList;
-
+//# sourceMappingURL=list.js.map
 
 /***/ }),
 
@@ -44055,8 +45442,9 @@ function deepMergeFormatsAndSetTimeZone(f1, timeZone) {
     var mfFormats = intl_messageformat_1.default.formats;
     return __assign(__assign(__assign({}, mfFormats), f1), { date: deepMergeOptions(setTimeZoneInOptions(mfFormats.date, timeZone), setTimeZoneInOptions(f1.date || {}, timeZone)), time: deepMergeOptions(setTimeZoneInOptions(mfFormats.time, timeZone), setTimeZoneInOptions(f1.time || {}, timeZone)) });
 }
-function prepareIntlMessageFormatHtmlOutput(chunks) {
-    return React.createElement.apply(React, __spreadArrays([React.Fragment, null], chunks));
+function prepareIntlMessageFormatHtmlOutput(chunks, shouldWrap) {
+    return Array.isArray(chunks) && shouldWrap
+        ? React.createElement.apply(React, __spreadArrays([React.Fragment, null], chunks)) : chunks;
 }
 function formatMessage(_a, state, messageDescriptor, values) {
     var locale = _a.locale, formats = _a.formats, messages = _a.messages, defaultLocale = _a.defaultLocale, defaultFormats = _a.defaultFormats, onError = _a.onError, timeZone = _a.timeZone, wrapRichTextChunksInFragment = _a.wrapRichTextChunksInFragment;
@@ -44068,54 +45456,49 @@ function formatMessage(_a, state, messageDescriptor, values) {
     var message = messages && messages[String(id)];
     formats = deepMergeFormatsAndSetTimeZone(formats, timeZone);
     defaultFormats = deepMergeFormatsAndSetTimeZone(defaultFormats, timeZone);
-    var formattedMessageParts = '';
-    if (message) {
-        try {
-            var formatter = state.getMessageFormat(message, locale, formats, {
-                formatters: state,
-            });
-            formattedMessageParts = formatter.format(values);
+    if (!message) {
+        if (!defaultMessage ||
+            (locale && locale.toLowerCase() !== defaultLocale.toLowerCase())) {
+            // This prevents warnings from littering the console in development
+            // when no `messages` are passed into the <IntlProvider> for the
+            // default locale.
+            onError(new error_1.MissingTranslationError(messageDescriptor, locale));
         }
-        catch (e) {
-            onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, "Error formatting message: \"" + id + "\" for locale: \"" + locale + "\"" +
-                (defaultMessage ? ', using default message as fallback.' : ''), messageDescriptor, e));
+        if (defaultMessage) {
+            try {
+                var formatter = state.getMessageFormat(defaultMessage, defaultLocale, defaultFormats);
+                return prepareIntlMessageFormatHtmlOutput(formatter.format(values), wrapRichTextChunksInFragment);
+            }
+            catch (e) {
+                onError(new error_1.MessageFormatError("Error formatting default message for: \"" + id + "\", rendering default message verbatim", locale, messageDescriptor, e));
+                return defaultMessage;
+            }
         }
+        return id;
     }
-    else if (!defaultMessage ||
-        (locale && locale.toLowerCase() !== defaultLocale.toLowerCase())) {
-        // This prevents warnings from littering the console in development
-        // when no `messages` are passed into the <IntlProvider> for the
-        // default locale.
-        onError(new error_1.ReactIntlError("MISSING_TRANSLATION" /* MISSING_TRANSLATION */, "Missing message: \"" + id + "\" for locale: \"" + locale + "\"" +
-            (defaultMessage ? ', using default message as fallback.' : ''), messageDescriptor));
+    // We have the translated message
+    try {
+        var formatter = state.getMessageFormat(message, locale, formats, {
+            formatters: state,
+        });
+        return prepareIntlMessageFormatHtmlOutput(formatter.format(values), wrapRichTextChunksInFragment);
     }
-    if (!formattedMessageParts && defaultMessage) {
+    catch (e) {
+        onError(new error_1.MessageFormatError("Error formatting message: \"" + id + "\", using " + (defaultMessage ? 'default message' : 'id') + " as fallback.", locale, messageDescriptor, e));
+    }
+    if (defaultMessage) {
         try {
             var formatter = state.getMessageFormat(defaultMessage, defaultLocale, defaultFormats);
-            formattedMessageParts = formatter.format(values);
+            return prepareIntlMessageFormatHtmlOutput(formatter.format(values), wrapRichTextChunksInFragment);
         }
         catch (e) {
-            onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, "Error formatting the default message for: \"" + id + "\"", messageDescriptor, e));
+            onError(new error_1.MessageFormatError("Error formatting the default message for: \"" + id + "\", rendering message verbatim", locale, messageDescriptor, e));
         }
     }
-    if (!formattedMessageParts) {
-        onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, "Cannot format message: \"" + id + "\", " +
-            ("using message " + (message || defaultMessage ? 'source' : 'id') + " as fallback."), messageDescriptor));
-        if (typeof message === 'string') {
-            return message || defaultMessage || String(id);
-        }
-        return defaultMessage || String(id);
-    }
-    if (Array.isArray(formattedMessageParts)) {
-        if (wrapRichTextChunksInFragment) {
-            return prepareIntlMessageFormatHtmlOutput(formattedMessageParts);
-        }
-        return formattedMessageParts;
-    }
-    return formattedMessageParts;
+    return message || defaultMessage || id;
 }
 exports.formatMessage = formatMessage;
-
+//# sourceMappingURL=message.js.map
 
 /***/ }),
 
@@ -44186,7 +45569,7 @@ function formatNumberToParts(config, getNumberFormat, value, options) {
     return [];
 }
 exports.formatNumberToParts = formatNumberToParts;
-
+//# sourceMappingURL=number.js.map
 
 /***/ }),
 
@@ -44223,7 +45606,7 @@ function formatPlural(_a, getPluralRules, value, options) {
     return 'other';
 }
 exports.formatPlural = formatPlural;
-
+//# sourceMappingURL=plural.js.map
 
 /***/ }),
 
@@ -44240,10 +45623,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
 var intl_messageformat_1 = __webpack_require__(/*! intl-messageformat */ "./node_modules/intl-messageformat/dist/index.js");
 var error_1 = __webpack_require__(/*! ../error */ "./node_modules/react-intl/dist/error.js");
-var RELATIVE_TIME_FORMAT_OPTIONS = [
-    'numeric',
-    'style',
-];
+var RELATIVE_TIME_FORMAT_OPTIONS = ['numeric', 'style'];
 function getFormatter(_a, getRelativeTimeFormat, options) {
     var locale = _a.locale, formats = _a.formats, onError = _a.onError;
     if (options === void 0) { options = {}; }
@@ -44270,7 +45650,7 @@ function formatRelativeTime(config, getRelativeTimeFormat, value, unit, options)
     return String(value);
 }
 exports.formatRelativeTime = formatRelativeTime;
-
+//# sourceMappingURL=relativeTime.js.map
 
 /***/ }),
 
@@ -44323,7 +45703,7 @@ exports.createIntlCache = utils_1.createIntlCache;
 var error_1 = __webpack_require__(/*! ./error */ "./node_modules/react-intl/dist/error.js");
 exports.ReactIntlError = error_1.ReactIntlError;
 exports.ReactIntlErrorCode = error_1.ReactIntlErrorCode;
-
+//# sourceMappingURL=index.js.map
 
 /***/ }),
 
@@ -44429,7 +45809,7 @@ function getNamedFormat(formats, type, name, onError) {
     onError(new error_1.ReactIntlError("UNSUPPORTED_FORMATTER" /* UNSUPPORTED_FORMATTER */, "No " + type + " format named: " + name));
 }
 exports.getNamedFormat = getNamedFormat;
-
+//# sourceMappingURL=utils.js.map
 
 /***/ }),
 
@@ -44564,7 +45944,8 @@ function getCanonicalLocales(locales) {
     // NOTE: we must NOT call `supportedLocalesOf` of a formatjs polyfill, or their implementation
     // will even eventually call this method recursively. Here we use `Intl.DateTimeFormat` since it
     // is not polyfilled by `@formatjs`.
-    return Intl.DateTimeFormat.supportedLocalesOf(locales || '');
+    // TODO: Fix TypeScript type def for this bc undefined is just fine
+    return Intl.DateTimeFormat.supportedLocalesOf(locales);
 }
 exports.getCanonicalLocales = getCanonicalLocales;
 //# sourceMappingURL=get-canonical-locales.js.map
@@ -45518,6 +46899,886 @@ if (false) {} else {
   module.exports = __webpack_require__(/*! ./cjs/react-is.development.js */ "./node_modules/react-is/cjs/react-is.development.js");
 }
 
+
+/***/ }),
+
+/***/ "./node_modules/react-markdown/lib/ast-to-react.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/react-markdown/lib/ast-to-react.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var xtend = __webpack_require__(/*! xtend */ "./node_modules/xtend/immutable.js");
+
+var ReactIs = __webpack_require__(/*! react-is */ "./node_modules/react-is/index.js");
+
+var defaultNodePosition = {
+  start: {
+    line: 1,
+    column: 1,
+    offset: 0
+  },
+  end: {
+    line: 1,
+    column: 1,
+    offset: 0
+  }
+};
+
+function astToReact(node, options) {
+  var parent = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var index = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+  var renderer = options.renderers[node.type]; // nodes generated by plugins may not have position data
+  // much of the code after this point will attempt to access properties of the node.position
+  // this will set the node position to the parent node's position to prevent errors
+
+  if (node.position === undefined) {
+    node.position = parent.node && parent.node.position || defaultNodePosition;
+  }
+
+  var pos = node.position.start;
+  var key = [node.type, pos.line, pos.column, index].join('-');
+
+  if (!ReactIs.isValidElementType(renderer)) {
+    throw new Error("Renderer for type `".concat(node.type, "` not defined or is not renderable"));
+  }
+
+  var nodeProps = getNodeProps(node, key, options, renderer, parent, index);
+  return React.createElement(renderer, nodeProps, nodeProps.children || resolveChildren() || undefined);
+
+  function resolveChildren() {
+    return node.children && node.children.map(function (childNode, i) {
+      return astToReact(childNode, options, {
+        node: node,
+        props: nodeProps
+      }, i);
+    });
+  }
+} // eslint-disable-next-line max-params, complexity
+
+
+function getNodeProps(node, key, opts, renderer, parent, index) {
+  var props = {
+    key: key
+  };
+  var isTagRenderer = typeof renderer === 'string'; // `sourcePos` is true if the user wants source information (line/column info from markdown source)
+
+  if (opts.sourcePos && node.position) {
+    props['data-sourcepos'] = flattenPosition(node.position);
+  }
+
+  if (opts.rawSourcePos && !isTagRenderer) {
+    props.sourcePosition = node.position;
+  } // If `includeNodeIndex` is true, pass node index info to all non-tag renderers
+
+
+  if (opts.includeNodeIndex && parent.node && parent.node.children && !isTagRenderer) {
+    props.index = parent.node.children.indexOf(node);
+    props.parentChildCount = parent.node.children.length;
+  }
+
+  var ref = node.identifier !== null && node.identifier !== undefined ? opts.definitions[node.identifier] || {} : null;
+
+  switch (node.type) {
+    case 'root':
+      assignDefined(props, {
+        className: opts.className
+      });
+      break;
+
+    case 'text':
+      props.nodeKey = key;
+      props.children = node.value;
+      break;
+
+    case 'heading':
+      props.level = node.depth;
+      break;
+
+    case 'list':
+      props.start = node.start;
+      props.ordered = node.ordered;
+      props.tight = !node.loose;
+      props.depth = node.depth;
+      break;
+
+    case 'listItem':
+      props.checked = node.checked;
+      props.tight = !node.loose;
+      props.ordered = node.ordered;
+      props.index = node.index;
+      props.children = getListItemChildren(node, parent).map(function (childNode, i) {
+        return astToReact(childNode, opts, {
+          node: node,
+          props: props
+        }, i);
+      });
+      break;
+
+    case 'definition':
+      assignDefined(props, {
+        identifier: node.identifier,
+        title: node.title,
+        url: node.url
+      });
+      break;
+
+    case 'code':
+      assignDefined(props, {
+        language: node.lang && node.lang.split(/\s/, 1)[0]
+      });
+      break;
+
+    case 'inlineCode':
+      props.children = node.value;
+      props.inline = true;
+      break;
+
+    case 'link':
+      assignDefined(props, {
+        title: node.title || undefined,
+        target: typeof opts.linkTarget === 'function' ? opts.linkTarget(node.url, node.children, node.title) : opts.linkTarget,
+        href: opts.transformLinkUri ? opts.transformLinkUri(node.url, node.children, node.title) : node.url
+      });
+      break;
+
+    case 'image':
+      assignDefined(props, {
+        alt: node.alt || undefined,
+        title: node.title || undefined,
+        src: opts.transformImageUri ? opts.transformImageUri(node.url, node.children, node.title, node.alt) : node.url
+      });
+      break;
+
+    case 'linkReference':
+      assignDefined(props, xtend(ref, {
+        href: opts.transformLinkUri ? opts.transformLinkUri(ref.href) : ref.href
+      }));
+      break;
+
+    case 'imageReference':
+      assignDefined(props, {
+        src: opts.transformImageUri && ref.href ? opts.transformImageUri(ref.href, node.children, ref.title, node.alt) : ref.href,
+        title: ref.title || undefined,
+        alt: node.alt || undefined
+      });
+      break;
+
+    case 'table':
+    case 'tableHead':
+    case 'tableBody':
+      props.columnAlignment = node.align;
+      break;
+
+    case 'tableRow':
+      props.isHeader = parent.node.type === 'tableHead';
+      props.columnAlignment = parent.props.columnAlignment;
+      break;
+
+    case 'tableCell':
+      assignDefined(props, {
+        isHeader: parent.props.isHeader,
+        align: parent.props.columnAlignment[index]
+      });
+      break;
+
+    case 'virtualHtml':
+      props.tag = node.tag;
+      break;
+
+    case 'html':
+      // @todo find a better way than this
+      props.isBlock = node.position.start.line !== node.position.end.line;
+      props.escapeHtml = opts.escapeHtml;
+      props.skipHtml = opts.skipHtml;
+      break;
+
+    case 'parsedHtml':
+      {
+        var parsedChildren;
+
+        if (node.children) {
+          parsedChildren = node.children.map(function (child, i) {
+            return astToReact(child, opts, {
+              node: node,
+              props: props
+            }, i);
+          });
+        }
+
+        props.escapeHtml = opts.escapeHtml;
+        props.skipHtml = opts.skipHtml;
+        props.element = mergeNodeChildren(node, parsedChildren);
+        break;
+      }
+
+    default:
+      assignDefined(props, xtend(node, {
+        type: undefined,
+        position: undefined,
+        children: undefined
+      }));
+  }
+
+  if (!isTagRenderer && node.value) {
+    props.value = node.value;
+  }
+
+  return props;
+}
+
+function assignDefined(target, attrs) {
+  for (var key in attrs) {
+    if (typeof attrs[key] !== 'undefined') {
+      target[key] = attrs[key];
+    }
+  }
+}
+
+function mergeNodeChildren(node, parsedChildren) {
+  var el = node.element;
+
+  if (Array.isArray(el)) {
+    var Fragment = React.Fragment || 'div';
+    return React.createElement(Fragment, null, el);
+  }
+
+  if (el.props.children || parsedChildren) {
+    var children = React.Children.toArray(el.props.children).concat(parsedChildren);
+    return React.cloneElement(el, null, children);
+  }
+
+  return React.cloneElement(el, null);
+}
+
+function flattenPosition(pos) {
+  return [pos.start.line, ':', pos.start.column, '-', pos.end.line, ':', pos.end.column].map(String).join('');
+}
+
+function getListItemChildren(node, parent) {
+  if (node.loose) {
+    return node.children;
+  }
+
+  if (parent.node && node.index > 0 && parent.node.children[node.index - 1].loose) {
+    return node.children;
+  }
+
+  return unwrapParagraphs(node);
+}
+
+function unwrapParagraphs(node) {
+  return node.children.reduce(function (array, child) {
+    return array.concat(child.type === 'paragraph' ? child.children || [] : [child]);
+  }, []);
+}
+
+module.exports = astToReact;
+
+/***/ }),
+
+/***/ "./node_modules/react-markdown/lib/get-definitions.js":
+/*!************************************************************!*\
+  !*** ./node_modules/react-markdown/lib/get-definitions.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function getDefinitions(node) {
+  var defs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  return (node.children || []).reduce(function (definitions, child) {
+    if (child.type === 'definition') {
+      definitions[child.identifier] = {
+        href: child.url,
+        title: child.title
+      };
+    }
+
+    return getDefinitions(child, definitions);
+  }, defs);
+};
+
+/***/ }),
+
+/***/ "./node_modules/react-markdown/lib/plugins/disallow-node.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/react-markdown/lib/plugins/disallow-node.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var visit = __webpack_require__(/*! unist-util-visit */ "./node_modules/unist-util-visit/index.js");
+
+exports.ofType = function (types, mode) {
+  return function (node) {
+    types.forEach(function (type) {
+      return visit(node, type, disallow, true);
+    });
+    return node;
+  };
+
+  function disallow(node, index, parent) {
+    if (parent) {
+      untangle(node, index, parent, mode);
+    }
+  }
+};
+
+exports.ifNotMatch = function (allowNode, mode) {
+  return function (node) {
+    visit(node, disallow, true);
+    return node;
+  };
+
+  function disallow(node, index, parent) {
+    if (parent && !allowNode(node, index, parent)) {
+      untangle(node, index, parent, mode);
+    }
+  }
+};
+
+function untangle(node, index, parent, mode) {
+  if (mode === 'remove') {
+    parent.children.splice(index, 1);
+  } else if (mode === 'unwrap') {
+    var args = [index, 1];
+
+    if (node.children) {
+      args = args.concat(node.children);
+    }
+
+    Array.prototype.splice.apply(parent.children, args);
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-markdown/lib/plugins/naive-html.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/react-markdown/lib/plugins/naive-html.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Naive, simple plugin to match inline nodes without attributes
+ * This allows say <strong>foo</strong>, but not <strong class="very">foo</strong>
+ * For proper HTML support, you'll want a different plugin
+ **/
+var visit = __webpack_require__(/*! unist-util-visit */ "./node_modules/unist-util-visit/index.js");
+
+var type = 'virtualHtml';
+var selfClosingRe = /^<(area|base|br|col|embed|hr|img|input|keygen|link|meta|param|source|track|wbr)\s*\/?>$/i;
+var simpleTagRe = /^<(\/?)([a-z]+)\s*>$/;
+
+module.exports = function (tree) {
+  var open;
+  var currentParent;
+  visit(tree, 'html', function (node, index, parent) {
+    if (currentParent !== parent) {
+      open = [];
+      currentParent = parent;
+    }
+
+    var selfClosing = getSelfClosing(node);
+
+    if (selfClosing) {
+      parent.children.splice(index, 1, {
+        type: type,
+        tag: selfClosing,
+        position: node.position
+      });
+      return true;
+    }
+
+    var current = getSimpleTag(node, parent);
+
+    if (!current) {
+      return true;
+    }
+
+    var matching = findAndPull(open, current.tag);
+
+    if (matching) {
+      parent.children.splice(index, 0, virtual(current, matching, parent));
+    } else if (!current.opening) {
+      open.push(current);
+    }
+
+    return true;
+  }, true // Iterate in reverse
+  );
+  return tree;
+};
+
+function findAndPull(open, matchingTag) {
+  var i = open.length;
+
+  while (i--) {
+    if (open[i].tag === matchingTag) {
+      return open.splice(i, 1)[0];
+    }
+  }
+
+  return false;
+}
+
+function getSimpleTag(node, parent) {
+  var match = node.value.match(simpleTagRe);
+  return match ? {
+    tag: match[2],
+    opening: !match[1],
+    node: node
+  } : false;
+}
+
+function getSelfClosing(node) {
+  var match = node.value.match(selfClosingRe);
+  return match ? match[1] : false;
+}
+
+function virtual(fromNode, toNode, parent) {
+  var fromIndex = parent.children.indexOf(fromNode.node);
+  var toIndex = parent.children.indexOf(toNode.node);
+  var extracted = parent.children.splice(fromIndex, toIndex - fromIndex + 1);
+  var children = extracted.slice(1, -1);
+  return {
+    type: type,
+    children: children,
+    tag: fromNode.tag,
+    position: {
+      start: fromNode.node.position.start,
+      end: toNode.node.position.end,
+      indent: []
+    }
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-markdown/lib/react-markdown.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/react-markdown/lib/react-markdown.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+var xtend = __webpack_require__(/*! xtend */ "./node_modules/xtend/immutable.js");
+
+var unified = __webpack_require__(/*! unified */ "./node_modules/unified/index.js");
+
+var parse = __webpack_require__(/*! remark-parse */ "./node_modules/remark-parse/index.js");
+
+var PropTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var addListMetadata = __webpack_require__(/*! mdast-add-list-metadata */ "./node_modules/mdast-add-list-metadata/index.js");
+
+var naiveHtml = __webpack_require__(/*! ./plugins/naive-html */ "./node_modules/react-markdown/lib/plugins/naive-html.js");
+
+var disallowNode = __webpack_require__(/*! ./plugins/disallow-node */ "./node_modules/react-markdown/lib/plugins/disallow-node.js");
+
+var astToReact = __webpack_require__(/*! ./ast-to-react */ "./node_modules/react-markdown/lib/ast-to-react.js");
+
+var wrapTableRows = __webpack_require__(/*! ./wrap-table-rows */ "./node_modules/react-markdown/lib/wrap-table-rows.js");
+
+var getDefinitions = __webpack_require__(/*! ./get-definitions */ "./node_modules/react-markdown/lib/get-definitions.js");
+
+var uriTransformer = __webpack_require__(/*! ./uri-transformer */ "./node_modules/react-markdown/lib/uri-transformer.js");
+
+var defaultRenderers = __webpack_require__(/*! ./renderers */ "./node_modules/react-markdown/lib/renderers.js");
+
+var symbols = __webpack_require__(/*! ./symbols */ "./node_modules/react-markdown/lib/symbols.js");
+
+var allTypes = Object.keys(defaultRenderers);
+
+var ReactMarkdown = function ReactMarkdown(props) {
+  var src = props.source || props.children || '';
+  var parserOptions = props.parserOptions;
+
+  if (props.allowedTypes && props.disallowedTypes) {
+    throw new Error('Only one of `allowedTypes` and `disallowedTypes` should be defined');
+  }
+
+  var renderers = xtend(defaultRenderers, props.renderers);
+  var plugins = [[parse, parserOptions]].concat(props.plugins || []);
+  var parser = plugins.reduce(applyParserPlugin, unified());
+  var rawAst = parser.parse(src);
+  var renderProps = xtend(props, {
+    renderers: renderers,
+    definitions: getDefinitions(rawAst)
+  });
+  var astPlugins = determineAstPlugins(props); // eslint-disable-next-line no-sync
+
+  var transformedAst = parser.runSync(rawAst);
+  var ast = astPlugins.reduce(function (node, plugin) {
+    return plugin(node, renderProps);
+  }, transformedAst);
+  return astToReact(ast, renderProps);
+};
+
+function applyParserPlugin(parser, plugin) {
+  return Array.isArray(plugin) ? parser.use.apply(parser, _toConsumableArray(plugin)) : parser.use(plugin);
+}
+
+function determineAstPlugins(props) {
+  var plugins = [wrapTableRows, addListMetadata()];
+  var disallowedTypes = props.disallowedTypes;
+
+  if (props.allowedTypes) {
+    disallowedTypes = allTypes.filter(function (type) {
+      return type !== 'root' && props.allowedTypes.indexOf(type) === -1;
+    });
+  }
+
+  var removalMethod = props.unwrapDisallowed ? 'unwrap' : 'remove';
+
+  if (disallowedTypes && disallowedTypes.length > 0) {
+    plugins.push(disallowNode.ofType(disallowedTypes, removalMethod));
+  }
+
+  if (props.allowNode) {
+    plugins.push(disallowNode.ifNotMatch(props.allowNode, removalMethod));
+  }
+
+  var renderHtml = !props.escapeHtml && !props.skipHtml;
+  var hasHtmlParser = (props.astPlugins || []).some(function (item) {
+    var plugin = Array.isArray(item) ? item[0] : item;
+    return plugin.identity === symbols.HtmlParser;
+  });
+
+  if (renderHtml && !hasHtmlParser) {
+    plugins.push(naiveHtml);
+  }
+
+  return props.astPlugins ? plugins.concat(props.astPlugins) : plugins;
+}
+
+ReactMarkdown.defaultProps = {
+  renderers: {},
+  escapeHtml: true,
+  skipHtml: false,
+  sourcePos: false,
+  rawSourcePos: false,
+  transformLinkUri: uriTransformer,
+  astPlugins: [],
+  plugins: [],
+  parserOptions: {}
+};
+ReactMarkdown.propTypes = {
+  className: PropTypes.string,
+  source: PropTypes.string,
+  children: PropTypes.string,
+  sourcePos: PropTypes.bool,
+  rawSourcePos: PropTypes.bool,
+  escapeHtml: PropTypes.bool,
+  skipHtml: PropTypes.bool,
+  allowNode: PropTypes.func,
+  allowedTypes: PropTypes.arrayOf(PropTypes.oneOf(allTypes)),
+  disallowedTypes: PropTypes.arrayOf(PropTypes.oneOf(allTypes)),
+  transformLinkUri: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+  linkTarget: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+  transformImageUri: PropTypes.func,
+  astPlugins: PropTypes.arrayOf(PropTypes.func),
+  unwrapDisallowed: PropTypes.bool,
+  renderers: PropTypes.object,
+  plugins: PropTypes.array,
+  parserOptions: PropTypes.object
+};
+ReactMarkdown.types = allTypes;
+ReactMarkdown.renderers = defaultRenderers;
+ReactMarkdown.uriTransformer = uriTransformer;
+module.exports = ReactMarkdown;
+
+/***/ }),
+
+/***/ "./node_modules/react-markdown/lib/renderers.js":
+/*!******************************************************!*\
+  !*** ./node_modules/react-markdown/lib/renderers.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* eslint-disable react/prop-types, react/no-multi-comp */
+
+
+var xtend = __webpack_require__(/*! xtend */ "./node_modules/xtend/immutable.js");
+
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var supportsStringRender = parseInt((React.version || '16').slice(0, 2), 10) >= 16;
+var createElement = React.createElement;
+module.exports = {
+  break: 'br',
+  paragraph: 'p',
+  emphasis: 'em',
+  strong: 'strong',
+  thematicBreak: 'hr',
+  blockquote: 'blockquote',
+  delete: 'del',
+  link: 'a',
+  image: 'img',
+  linkReference: 'a',
+  imageReference: 'img',
+  table: SimpleRenderer.bind(null, 'table'),
+  tableHead: SimpleRenderer.bind(null, 'thead'),
+  tableBody: SimpleRenderer.bind(null, 'tbody'),
+  tableRow: SimpleRenderer.bind(null, 'tr'),
+  tableCell: TableCell,
+  root: Root,
+  text: TextRenderer,
+  list: List,
+  listItem: ListItem,
+  definition: NullRenderer,
+  heading: Heading,
+  inlineCode: InlineCode,
+  code: CodeBlock,
+  html: Html,
+  virtualHtml: VirtualHtml,
+  parsedHtml: ParsedHtml
+};
+
+function TextRenderer(props) {
+  return supportsStringRender ? props.children : createElement('span', null, props.children);
+}
+
+function Root(props) {
+  var useFragment = !props.className;
+  var root = useFragment ? React.Fragment || 'div' : 'div';
+  return createElement(root, useFragment ? null : props, props.children);
+}
+
+function SimpleRenderer(tag, props) {
+  return createElement(tag, getCoreProps(props), props.children);
+}
+
+function TableCell(props) {
+  var style = props.align ? {
+    textAlign: props.align
+  } : undefined;
+  var coreProps = getCoreProps(props);
+  return createElement(props.isHeader ? 'th' : 'td', style ? xtend({
+    style: style
+  }, coreProps) : coreProps, props.children);
+}
+
+function Heading(props) {
+  return createElement("h".concat(props.level), getCoreProps(props), props.children);
+}
+
+function List(props) {
+  var attrs = getCoreProps(props);
+
+  if (props.start !== null && props.start !== 1 && props.start !== undefined) {
+    attrs.start = props.start.toString();
+  }
+
+  return createElement(props.ordered ? 'ol' : 'ul', attrs, props.children);
+}
+
+function ListItem(props) {
+  var checkbox = null;
+
+  if (props.checked !== null && props.checked !== undefined) {
+    var checked = props.checked;
+    checkbox = createElement('input', {
+      type: 'checkbox',
+      checked: checked,
+      readOnly: true
+    });
+  }
+
+  return createElement('li', getCoreProps(props), checkbox, props.children);
+}
+
+function CodeBlock(props) {
+  var className = props.language && "language-".concat(props.language);
+  var code = createElement('code', className ? {
+    className: className
+  } : null, props.value);
+  return createElement('pre', getCoreProps(props), code);
+}
+
+function InlineCode(props) {
+  return createElement('code', getCoreProps(props), props.children);
+}
+
+function Html(props) {
+  if (props.skipHtml) {
+    return null;
+  }
+
+  var tag = props.isBlock ? 'div' : 'span';
+
+  if (props.escapeHtml) {
+    var comp = React.Fragment || tag;
+    return createElement(comp, null, props.value);
+  }
+
+  var nodeProps = {
+    dangerouslySetInnerHTML: {
+      __html: props.value
+    }
+  };
+  return createElement(tag, nodeProps);
+}
+
+function ParsedHtml(props) {
+  return props['data-sourcepos'] ? React.cloneElement(props.element, {
+    'data-sourcepos': props['data-sourcepos']
+  }) : props.element;
+}
+
+function VirtualHtml(props) {
+  return createElement(props.tag, getCoreProps(props), props.children);
+}
+
+function NullRenderer() {
+  return null;
+}
+
+function getCoreProps(props) {
+  return props['data-sourcepos'] ? {
+    'data-sourcepos': props['data-sourcepos']
+  } : {};
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-markdown/lib/symbols.js":
+/*!****************************************************!*\
+  !*** ./node_modules/react-markdown/lib/symbols.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var HtmlParser = '__RMD_HTML_PARSER__';
+exports.HtmlParser = typeof Symbol === 'undefined' ? HtmlParser : Symbol(HtmlParser);
+
+/***/ }),
+
+/***/ "./node_modules/react-markdown/lib/uri-transformer.js":
+/*!************************************************************!*\
+  !*** ./node_modules/react-markdown/lib/uri-transformer.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var protocols = ['http', 'https', 'mailto', 'tel'];
+
+module.exports = function uriTransformer(uri) {
+  var url = (uri || '').trim();
+  var first = url.charAt(0);
+
+  if (first === '#' || first === '/') {
+    return url;
+  }
+
+  var colon = url.indexOf(':');
+
+  if (colon === -1) {
+    return url;
+  }
+
+  var length = protocols.length;
+  var index = -1;
+
+  while (++index < length) {
+    var protocol = protocols[index];
+
+    if (colon === protocol.length && url.slice(0, protocol.length).toLowerCase() === protocol) {
+      return url;
+    }
+  }
+
+  index = url.indexOf('?');
+
+  if (index !== -1 && colon > index) {
+    return url;
+  }
+
+  index = url.indexOf('#');
+
+  if (index !== -1 && colon > index) {
+    return url;
+  } // eslint-disable-next-line no-script-url
+
+
+  return 'javascript:void(0)';
+};
+
+/***/ }),
+
+/***/ "./node_modules/react-markdown/lib/wrap-table-rows.js":
+/*!************************************************************!*\
+  !*** ./node_modules/react-markdown/lib/wrap-table-rows.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var visit = __webpack_require__(/*! unist-util-visit */ "./node_modules/unist-util-visit/index.js");
+
+module.exports = function (node) {
+  visit(node, 'table', wrap);
+  return node;
+};
+
+function wrap(table) {
+  var children = table.children;
+  table.children = [{
+    type: 'tableHead',
+    align: table.align,
+    children: [children[0]],
+    position: children[0].position
+  }];
+
+  if (children.length > 1) {
+    table.children.push({
+      type: 'tableBody',
+      align: table.align,
+      children: children.slice(1),
+      position: {
+        start: children[1].position.start,
+        end: children[children.length - 1].position.end
+      }
+    });
+  }
+}
 
 /***/ }),
 
@@ -52957,6 +55218,5366 @@ exports.createStore = createStore;
 
 /***/ }),
 
+/***/ "./node_modules/remark-parse/index.js":
+/*!********************************************!*\
+  !*** ./node_modules/remark-parse/index.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var unherit = __webpack_require__(/*! unherit */ "./node_modules/unherit/index.js");
+var xtend = __webpack_require__(/*! xtend */ "./node_modules/xtend/immutable.js");
+var Parser = __webpack_require__(/*! ./lib/parser.js */ "./node_modules/remark-parse/lib/parser.js");
+
+module.exports = parse;
+parse.Parser = Parser;
+
+function parse(options) {
+  var Local = unherit(Parser);
+  Local.prototype.options = xtend(Local.prototype.options, this.data('settings'), options);
+  this.Parser = Local;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/block-elements.json":
+/*!***********************************************************!*\
+  !*** ./node_modules/remark-parse/lib/block-elements.json ***!
+  \***********************************************************/
+/*! exports provided: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("[\"address\",\"article\",\"aside\",\"base\",\"basefont\",\"blockquote\",\"body\",\"caption\",\"center\",\"col\",\"colgroup\",\"dd\",\"details\",\"dialog\",\"dir\",\"div\",\"dl\",\"dt\",\"fieldset\",\"figcaption\",\"figure\",\"footer\",\"form\",\"frame\",\"frameset\",\"h1\",\"h2\",\"h3\",\"h4\",\"h5\",\"h6\",\"head\",\"header\",\"hgroup\",\"hr\",\"html\",\"iframe\",\"legend\",\"li\",\"link\",\"main\",\"menu\",\"menuitem\",\"meta\",\"nav\",\"noframes\",\"ol\",\"optgroup\",\"option\",\"p\",\"param\",\"pre\",\"section\",\"source\",\"title\",\"summary\",\"table\",\"tbody\",\"td\",\"tfoot\",\"th\",\"thead\",\"title\",\"tr\",\"track\",\"ul\"]");
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/decode.js":
+/*!*************************************************!*\
+  !*** ./node_modules/remark-parse/lib/decode.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var xtend = __webpack_require__(/*! xtend */ "./node_modules/xtend/immutable.js");
+var entities = __webpack_require__(/*! parse-entities */ "./node_modules/parse-entities/index.js");
+
+module.exports = factory;
+
+/* Factory to create an entity decoder. */
+function factory(ctx) {
+  decoder.raw = decodeRaw;
+
+  return decoder;
+
+  /* Normalize `position` to add an `indent`. */
+  function normalize(position) {
+    var offsets = ctx.offset;
+    var line = position.line;
+    var result = [];
+
+    while (++line) {
+      if (!(line in offsets)) {
+        break;
+      }
+
+      result.push((offsets[line] || 0) + 1);
+    }
+
+    return {
+      start: position,
+      indent: result
+    };
+  }
+
+  /* Handle a warning.
+   * See https://github.com/wooorm/parse-entities
+   * for the warnings. */
+  function handleWarning(reason, position, code) {
+    if (code === 3) {
+      return;
+    }
+
+    ctx.file.message(reason, position);
+  }
+
+  /* Decode `value` (at `position`) into text-nodes. */
+  function decoder(value, position, handler) {
+    entities(value, {
+      position: normalize(position),
+      warning: handleWarning,
+      text: handler,
+      reference: handler,
+      textContext: ctx,
+      referenceContext: ctx
+    });
+  }
+
+  /* Decode `value` (at `position`) into a string. */
+  function decodeRaw(value, position, options) {
+    return entities(value, xtend(options, {
+      position: normalize(position),
+      warning: handleWarning
+    }));
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/defaults.js":
+/*!***************************************************!*\
+  !*** ./node_modules/remark-parse/lib/defaults.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+  position: true,
+  gfm: true,
+  commonmark: false,
+  footnotes: false,
+  pedantic: false,
+  blocks: __webpack_require__(/*! ./block-elements.json */ "./node_modules/remark-parse/lib/block-elements.json")
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/locate/break.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/remark-parse/lib/locate/break.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = locate;
+
+function locate(value, fromIndex) {
+  var index = value.indexOf('\n', fromIndex);
+
+  while (index > fromIndex) {
+    if (value.charAt(index - 1) !== ' ') {
+      break;
+    }
+
+    index--;
+  }
+
+  return index;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/locate/code-inline.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/remark-parse/lib/locate/code-inline.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = locate;
+
+function locate(value, fromIndex) {
+  return value.indexOf('`', fromIndex);
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/locate/delete.js":
+/*!********************************************************!*\
+  !*** ./node_modules/remark-parse/lib/locate/delete.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = locate;
+
+function locate(value, fromIndex) {
+  return value.indexOf('~~', fromIndex);
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/locate/emphasis.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/remark-parse/lib/locate/emphasis.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = locate;
+
+function locate(value, fromIndex) {
+  var asterisk = value.indexOf('*', fromIndex);
+  var underscore = value.indexOf('_', fromIndex);
+
+  if (underscore === -1) {
+    return asterisk;
+  }
+
+  if (asterisk === -1) {
+    return underscore;
+  }
+
+  return underscore < asterisk ? underscore : asterisk;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/locate/escape.js":
+/*!********************************************************!*\
+  !*** ./node_modules/remark-parse/lib/locate/escape.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = locate;
+
+function locate(value, fromIndex) {
+  return value.indexOf('\\', fromIndex);
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/locate/link.js":
+/*!******************************************************!*\
+  !*** ./node_modules/remark-parse/lib/locate/link.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = locate;
+
+function locate(value, fromIndex) {
+  var link = value.indexOf('[', fromIndex);
+  var image = value.indexOf('![', fromIndex);
+
+  if (image === -1) {
+    return link;
+  }
+
+  /* Link can never be `-1` if an image is found, so we don’t need
+   * to check for that :) */
+  return link < image ? link : image;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/locate/strong.js":
+/*!********************************************************!*\
+  !*** ./node_modules/remark-parse/lib/locate/strong.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = locate;
+
+function locate(value, fromIndex) {
+  var asterisk = value.indexOf('**', fromIndex);
+  var underscore = value.indexOf('__', fromIndex);
+
+  if (underscore === -1) {
+    return asterisk;
+  }
+
+  if (asterisk === -1) {
+    return underscore;
+  }
+
+  return underscore < asterisk ? underscore : asterisk;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/locate/tag.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/remark-parse/lib/locate/tag.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = locate;
+
+function locate(value, fromIndex) {
+  return value.indexOf('<', fromIndex);
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/locate/url.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/remark-parse/lib/locate/url.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = locate;
+
+var PROTOCOLS = ['https://', 'http://', 'mailto:'];
+
+function locate(value, fromIndex) {
+  var length = PROTOCOLS.length;
+  var index = -1;
+  var min = -1;
+  var position;
+
+  if (!this.options.gfm) {
+    return -1;
+  }
+
+  while (++index < length) {
+    position = value.indexOf(PROTOCOLS[index], fromIndex);
+
+    if (position !== -1 && (position < min || min === -1)) {
+      min = position;
+    }
+  }
+
+  return min;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/parse.js":
+/*!************************************************!*\
+  !*** ./node_modules/remark-parse/lib/parse.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var xtend = __webpack_require__(/*! xtend */ "./node_modules/xtend/immutable.js");
+var removePosition = __webpack_require__(/*! unist-util-remove-position */ "./node_modules/unist-util-remove-position/index.js");
+
+module.exports = parse;
+
+var C_NEWLINE = '\n';
+var EXPRESSION_LINE_BREAKS = /\r\n|\r/g;
+
+/* Parse the bound file. */
+function parse() {
+  var self = this;
+  var value = String(self.file);
+  var start = {line: 1, column: 1, offset: 0};
+  var content = xtend(start);
+  var node;
+
+  /* Clean non-unix newlines: `\r\n` and `\r` are all
+   * changed to `\n`.  This should not affect positional
+   * information. */
+  value = value.replace(EXPRESSION_LINE_BREAKS, C_NEWLINE);
+
+  if (value.charCodeAt(0) === 0xFEFF) {
+    value = value.slice(1);
+
+    content.column++;
+    content.offset++;
+  }
+
+  node = {
+    type: 'root',
+    children: self.tokenizeBlock(value, content),
+    position: {
+      start: start,
+      end: self.eof || xtend(start)
+    }
+  };
+
+  if (!self.options.position) {
+    removePosition(node, true);
+  }
+
+  return node;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/parser.js":
+/*!*************************************************!*\
+  !*** ./node_modules/remark-parse/lib/parser.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var xtend = __webpack_require__(/*! xtend */ "./node_modules/xtend/immutable.js");
+var toggle = __webpack_require__(/*! state-toggle */ "./node_modules/state-toggle/index.js");
+var vfileLocation = __webpack_require__(/*! vfile-location */ "./node_modules/vfile-location/index.js");
+var unescape = __webpack_require__(/*! ./unescape */ "./node_modules/remark-parse/lib/unescape.js");
+var decode = __webpack_require__(/*! ./decode */ "./node_modules/remark-parse/lib/decode.js");
+var tokenizer = __webpack_require__(/*! ./tokenizer */ "./node_modules/remark-parse/lib/tokenizer.js");
+
+module.exports = Parser;
+
+function Parser(doc, file) {
+  this.file = file;
+  this.offset = {};
+  this.options = xtend(this.options);
+  this.setOptions({});
+
+  this.inList = false;
+  this.inBlock = false;
+  this.inLink = false;
+  this.atStart = true;
+
+  this.toOffset = vfileLocation(file).toOffset;
+  this.unescape = unescape(this, 'escape');
+  this.decode = decode(this);
+}
+
+var proto = Parser.prototype;
+
+/* Expose core. */
+proto.setOptions = __webpack_require__(/*! ./set-options */ "./node_modules/remark-parse/lib/set-options.js");
+proto.parse = __webpack_require__(/*! ./parse */ "./node_modules/remark-parse/lib/parse.js");
+
+/* Expose `defaults`. */
+proto.options = __webpack_require__(/*! ./defaults */ "./node_modules/remark-parse/lib/defaults.js");
+
+/* Enter and exit helpers. */
+proto.exitStart = toggle('atStart', true);
+proto.enterList = toggle('inList', false);
+proto.enterLink = toggle('inLink', false);
+proto.enterBlock = toggle('inBlock', false);
+
+/* Nodes that can interupt a paragraph:
+ *
+ * ```markdown
+ * A paragraph, followed by a thematic break.
+ * ___
+ * ```
+ *
+ * In the above example, the thematic break “interupts”
+ * the paragraph. */
+proto.interruptParagraph = [
+  ['thematicBreak'],
+  ['atxHeading'],
+  ['fencedCode'],
+  ['blockquote'],
+  ['html'],
+  ['setextHeading', {commonmark: false}],
+  ['definition', {commonmark: false}],
+  ['footnote', {commonmark: false}]
+];
+
+/* Nodes that can interupt a list:
+ *
+ * ```markdown
+ * - One
+ * ___
+ * ```
+ *
+ * In the above example, the thematic break “interupts”
+ * the list. */
+proto.interruptList = [
+  ['atxHeading', {pedantic: false}],
+  ['fencedCode', {pedantic: false}],
+  ['thematicBreak', {pedantic: false}],
+  ['definition', {commonmark: false}],
+  ['footnote', {commonmark: false}]
+];
+
+/* Nodes that can interupt a blockquote:
+ *
+ * ```markdown
+ * > A paragraph.
+ * ___
+ * ```
+ *
+ * In the above example, the thematic break “interupts”
+ * the blockquote. */
+proto.interruptBlockquote = [
+  ['indentedCode', {commonmark: true}],
+  ['fencedCode', {commonmark: true}],
+  ['atxHeading', {commonmark: true}],
+  ['setextHeading', {commonmark: true}],
+  ['thematicBreak', {commonmark: true}],
+  ['html', {commonmark: true}],
+  ['list', {commonmark: true}],
+  ['definition', {commonmark: false}],
+  ['footnote', {commonmark: false}]
+];
+
+/* Handlers. */
+proto.blockTokenizers = {
+  newline: __webpack_require__(/*! ./tokenize/newline */ "./node_modules/remark-parse/lib/tokenize/newline.js"),
+  indentedCode: __webpack_require__(/*! ./tokenize/code-indented */ "./node_modules/remark-parse/lib/tokenize/code-indented.js"),
+  fencedCode: __webpack_require__(/*! ./tokenize/code-fenced */ "./node_modules/remark-parse/lib/tokenize/code-fenced.js"),
+  blockquote: __webpack_require__(/*! ./tokenize/blockquote */ "./node_modules/remark-parse/lib/tokenize/blockquote.js"),
+  atxHeading: __webpack_require__(/*! ./tokenize/heading-atx */ "./node_modules/remark-parse/lib/tokenize/heading-atx.js"),
+  thematicBreak: __webpack_require__(/*! ./tokenize/thematic-break */ "./node_modules/remark-parse/lib/tokenize/thematic-break.js"),
+  list: __webpack_require__(/*! ./tokenize/list */ "./node_modules/remark-parse/lib/tokenize/list.js"),
+  setextHeading: __webpack_require__(/*! ./tokenize/heading-setext */ "./node_modules/remark-parse/lib/tokenize/heading-setext.js"),
+  html: __webpack_require__(/*! ./tokenize/html-block */ "./node_modules/remark-parse/lib/tokenize/html-block.js"),
+  footnote: __webpack_require__(/*! ./tokenize/footnote-definition */ "./node_modules/remark-parse/lib/tokenize/footnote-definition.js"),
+  definition: __webpack_require__(/*! ./tokenize/definition */ "./node_modules/remark-parse/lib/tokenize/definition.js"),
+  table: __webpack_require__(/*! ./tokenize/table */ "./node_modules/remark-parse/lib/tokenize/table.js"),
+  paragraph: __webpack_require__(/*! ./tokenize/paragraph */ "./node_modules/remark-parse/lib/tokenize/paragraph.js")
+};
+
+proto.inlineTokenizers = {
+  escape: __webpack_require__(/*! ./tokenize/escape */ "./node_modules/remark-parse/lib/tokenize/escape.js"),
+  autoLink: __webpack_require__(/*! ./tokenize/auto-link */ "./node_modules/remark-parse/lib/tokenize/auto-link.js"),
+  url: __webpack_require__(/*! ./tokenize/url */ "./node_modules/remark-parse/lib/tokenize/url.js"),
+  html: __webpack_require__(/*! ./tokenize/html-inline */ "./node_modules/remark-parse/lib/tokenize/html-inline.js"),
+  link: __webpack_require__(/*! ./tokenize/link */ "./node_modules/remark-parse/lib/tokenize/link.js"),
+  reference: __webpack_require__(/*! ./tokenize/reference */ "./node_modules/remark-parse/lib/tokenize/reference.js"),
+  strong: __webpack_require__(/*! ./tokenize/strong */ "./node_modules/remark-parse/lib/tokenize/strong.js"),
+  emphasis: __webpack_require__(/*! ./tokenize/emphasis */ "./node_modules/remark-parse/lib/tokenize/emphasis.js"),
+  deletion: __webpack_require__(/*! ./tokenize/delete */ "./node_modules/remark-parse/lib/tokenize/delete.js"),
+  code: __webpack_require__(/*! ./tokenize/code-inline */ "./node_modules/remark-parse/lib/tokenize/code-inline.js"),
+  break: __webpack_require__(/*! ./tokenize/break */ "./node_modules/remark-parse/lib/tokenize/break.js"),
+  text: __webpack_require__(/*! ./tokenize/text */ "./node_modules/remark-parse/lib/tokenize/text.js")
+};
+
+/* Expose precedence. */
+proto.blockMethods = keys(proto.blockTokenizers);
+proto.inlineMethods = keys(proto.inlineTokenizers);
+
+/* Tokenizers. */
+proto.tokenizeBlock = tokenizer('block');
+proto.tokenizeInline = tokenizer('inline');
+proto.tokenizeFactory = tokenizer;
+
+/* Get all keys in `value`. */
+function keys(value) {
+  var result = [];
+  var key;
+
+  for (key in value) {
+    result.push(key);
+  }
+
+  return result;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/set-options.js":
+/*!******************************************************!*\
+  !*** ./node_modules/remark-parse/lib/set-options.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var xtend = __webpack_require__(/*! xtend */ "./node_modules/xtend/immutable.js");
+var escapes = __webpack_require__(/*! markdown-escapes */ "./node_modules/markdown-escapes/index.js");
+var defaults = __webpack_require__(/*! ./defaults */ "./node_modules/remark-parse/lib/defaults.js");
+
+module.exports = setOptions;
+
+function setOptions(options) {
+  var self = this;
+  var current = self.options;
+  var key;
+  var value;
+
+  if (options == null) {
+    options = {};
+  } else if (typeof options === 'object') {
+    options = xtend(options);
+  } else {
+    throw new Error(
+      'Invalid value `' + options + '` ' +
+      'for setting `options`'
+    );
+  }
+
+  for (key in defaults) {
+    value = options[key];
+
+    if (value == null) {
+      value = current[key];
+    }
+
+    if (
+      (key !== 'blocks' && typeof value !== 'boolean') ||
+      (key === 'blocks' && typeof value !== 'object')
+    ) {
+      throw new Error('Invalid value `' + value + '` for setting `options.' + key + '`');
+    }
+
+    options[key] = value;
+  }
+
+  self.options = options;
+  self.escape = escapes(options);
+
+  return self;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/tokenize/auto-link.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/remark-parse/lib/tokenize/auto-link.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var whitespace = __webpack_require__(/*! is-whitespace-character */ "./node_modules/is-whitespace-character/index.js");
+var decode = __webpack_require__(/*! parse-entities */ "./node_modules/parse-entities/index.js");
+var locate = __webpack_require__(/*! ../locate/tag */ "./node_modules/remark-parse/lib/locate/tag.js");
+
+module.exports = autoLink;
+autoLink.locator = locate;
+autoLink.notInLink = true;
+
+var C_LT = '<';
+var C_GT = '>';
+var C_AT_SIGN = '@';
+var C_SLASH = '/';
+var MAILTO = 'mailto:';
+var MAILTO_LENGTH = MAILTO.length;
+
+/* Tokenise a link. */
+function autoLink(eat, value, silent) {
+  var self;
+  var subvalue;
+  var length;
+  var index;
+  var queue;
+  var character;
+  var hasAtCharacter;
+  var link;
+  var now;
+  var content;
+  var tokenizers;
+  var exit;
+
+  if (value.charAt(0) !== C_LT) {
+    return;
+  }
+
+  self = this;
+  subvalue = '';
+  length = value.length;
+  index = 0;
+  queue = '';
+  hasAtCharacter = false;
+  link = '';
+
+  index++;
+  subvalue = C_LT;
+
+  while (index < length) {
+    character = value.charAt(index);
+
+    if (
+      whitespace(character) ||
+      character === C_GT ||
+      character === C_AT_SIGN ||
+      (character === ':' && value.charAt(index + 1) === C_SLASH)
+    ) {
+      break;
+    }
+
+    queue += character;
+    index++;
+  }
+
+  if (!queue) {
+    return;
+  }
+
+  link += queue;
+  queue = '';
+
+  character = value.charAt(index);
+  link += character;
+  index++;
+
+  if (character === C_AT_SIGN) {
+    hasAtCharacter = true;
+  } else {
+    if (
+      character !== ':' ||
+      value.charAt(index + 1) !== C_SLASH
+    ) {
+      return;
+    }
+
+    link += C_SLASH;
+    index++;
+  }
+
+  while (index < length) {
+    character = value.charAt(index);
+
+    if (whitespace(character) || character === C_GT) {
+      break;
+    }
+
+    queue += character;
+    index++;
+  }
+
+  character = value.charAt(index);
+
+  if (!queue || character !== C_GT) {
+    return;
+  }
+
+  /* istanbul ignore if - never used (yet) */
+  if (silent) {
+    return true;
+  }
+
+  link += queue;
+  content = link;
+  subvalue += link + character;
+  now = eat.now();
+  now.column++;
+  now.offset++;
+
+  if (hasAtCharacter) {
+    if (link.slice(0, MAILTO_LENGTH).toLowerCase() === MAILTO) {
+      content = content.substr(MAILTO_LENGTH);
+      now.column += MAILTO_LENGTH;
+      now.offset += MAILTO_LENGTH;
+    } else {
+      link = MAILTO + link;
+    }
+  }
+
+  /* Temporarily remove all tokenizers except text in autolinks. */
+  tokenizers = self.inlineTokenizers;
+  self.inlineTokenizers = {text: tokenizers.text};
+
+  exit = self.enterLink();
+
+  content = self.tokenizeInline(content, now);
+
+  self.inlineTokenizers = tokenizers;
+  exit();
+
+  return eat(subvalue)({
+    type: 'link',
+    title: null,
+    url: decode(link, {nonTerminated: false}),
+    children: content
+  });
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/tokenize/blockquote.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/remark-parse/lib/tokenize/blockquote.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var trim = __webpack_require__(/*! trim */ "./node_modules/trim/index.js");
+var interrupt = __webpack_require__(/*! ../util/interrupt */ "./node_modules/remark-parse/lib/util/interrupt.js");
+
+module.exports = blockquote;
+
+var C_NEWLINE = '\n';
+var C_TAB = '\t';
+var C_SPACE = ' ';
+var C_GT = '>';
+
+/* Tokenise a blockquote. */
+function blockquote(eat, value, silent) {
+  var self = this;
+  var offsets = self.offset;
+  var tokenizers = self.blockTokenizers;
+  var interruptors = self.interruptBlockquote;
+  var now = eat.now();
+  var currentLine = now.line;
+  var length = value.length;
+  var values = [];
+  var contents = [];
+  var indents = [];
+  var add;
+  var index = 0;
+  var character;
+  var rest;
+  var nextIndex;
+  var content;
+  var line;
+  var startIndex;
+  var prefixed;
+  var exit;
+
+  while (index < length) {
+    character = value.charAt(index);
+
+    if (character !== C_SPACE && character !== C_TAB) {
+      break;
+    }
+
+    index++;
+  }
+
+  if (value.charAt(index) !== C_GT) {
+    return;
+  }
+
+  if (silent) {
+    return true;
+  }
+
+  index = 0;
+
+  while (index < length) {
+    nextIndex = value.indexOf(C_NEWLINE, index);
+    startIndex = index;
+    prefixed = false;
+
+    if (nextIndex === -1) {
+      nextIndex = length;
+    }
+
+    while (index < length) {
+      character = value.charAt(index);
+
+      if (character !== C_SPACE && character !== C_TAB) {
+        break;
+      }
+
+      index++;
+    }
+
+    if (value.charAt(index) === C_GT) {
+      index++;
+      prefixed = true;
+
+      if (value.charAt(index) === C_SPACE) {
+        index++;
+      }
+    } else {
+      index = startIndex;
+    }
+
+    content = value.slice(index, nextIndex);
+
+    if (!prefixed && !trim(content)) {
+      index = startIndex;
+      break;
+    }
+
+    if (!prefixed) {
+      rest = value.slice(index);
+
+      /* Check if the following code contains a possible
+       * block. */
+      if (interrupt(interruptors, tokenizers, self, [eat, rest, true])) {
+        break;
+      }
+    }
+
+    line = startIndex === index ? content : value.slice(startIndex, nextIndex);
+
+    indents.push(index - startIndex);
+    values.push(line);
+    contents.push(content);
+
+    index = nextIndex + 1;
+  }
+
+  index = -1;
+  length = indents.length;
+  add = eat(values.join(C_NEWLINE));
+
+  while (++index < length) {
+    offsets[currentLine] = (offsets[currentLine] || 0) + indents[index];
+    currentLine++;
+  }
+
+  exit = self.enterBlock();
+  contents = self.tokenizeBlock(contents.join(C_NEWLINE), now);
+  exit();
+
+  return add({
+    type: 'blockquote',
+    children: contents
+  });
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/tokenize/break.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/remark-parse/lib/tokenize/break.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var locate = __webpack_require__(/*! ../locate/break */ "./node_modules/remark-parse/lib/locate/break.js");
+
+module.exports = hardBreak;
+hardBreak.locator = locate;
+
+var MIN_BREAK_LENGTH = 2;
+
+function hardBreak(eat, value, silent) {
+  var length = value.length;
+  var index = -1;
+  var queue = '';
+  var character;
+
+  while (++index < length) {
+    character = value.charAt(index);
+
+    if (character === '\n') {
+      if (index < MIN_BREAK_LENGTH) {
+        return;
+      }
+
+      /* istanbul ignore if - never used (yet) */
+      if (silent) {
+        return true;
+      }
+
+      queue += character;
+
+      return eat(queue)({type: 'break'});
+    }
+
+    if (character !== ' ') {
+      return;
+    }
+
+    queue += character;
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/tokenize/code-fenced.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/remark-parse/lib/tokenize/code-fenced.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var trim = __webpack_require__(/*! trim-trailing-lines */ "./node_modules/trim-trailing-lines/index.js");
+
+module.exports = fencedCode;
+
+var C_NEWLINE = '\n';
+var C_TAB = '\t';
+var C_SPACE = ' ';
+var C_TILDE = '~';
+var C_TICK = '`';
+
+var MIN_FENCE_COUNT = 3;
+var CODE_INDENT_COUNT = 4;
+
+function fencedCode(eat, value, silent) {
+  var self = this;
+  var settings = self.options;
+  var length = value.length + 1;
+  var index = 0;
+  var subvalue = '';
+  var fenceCount;
+  var marker;
+  var character;
+  var flag;
+  var queue;
+  var content;
+  var exdentedContent;
+  var closing;
+  var exdentedClosing;
+  var indent;
+  var now;
+
+  if (!settings.gfm) {
+    return;
+  }
+
+  /* Eat initial spacing. */
+  while (index < length) {
+    character = value.charAt(index);
+
+    if (character !== C_SPACE && character !== C_TAB) {
+      break;
+    }
+
+    subvalue += character;
+    index++;
+  }
+
+  indent = index;
+
+  /* Eat the fence. */
+  character = value.charAt(index);
+
+  if (character !== C_TILDE && character !== C_TICK) {
+    return;
+  }
+
+  index++;
+  marker = character;
+  fenceCount = 1;
+  subvalue += character;
+
+  while (index < length) {
+    character = value.charAt(index);
+
+    if (character !== marker) {
+      break;
+    }
+
+    subvalue += character;
+    fenceCount++;
+    index++;
+  }
+
+  if (fenceCount < MIN_FENCE_COUNT) {
+    return;
+  }
+
+  /* Eat spacing before flag. */
+  while (index < length) {
+    character = value.charAt(index);
+
+    if (character !== C_SPACE && character !== C_TAB) {
+      break;
+    }
+
+    subvalue += character;
+    index++;
+  }
+
+  /* Eat flag. */
+  flag = '';
+  queue = '';
+
+  while (index < length) {
+    character = value.charAt(index);
+
+    if (
+      character === C_NEWLINE ||
+      character === C_TILDE ||
+      character === C_TICK
+    ) {
+      break;
+    }
+
+    if (character === C_SPACE || character === C_TAB) {
+      queue += character;
+    } else {
+      flag += queue + character;
+      queue = '';
+    }
+
+    index++;
+  }
+
+  character = value.charAt(index);
+
+  if (character && character !== C_NEWLINE) {
+    return;
+  }
+
+  if (silent) {
+    return true;
+  }
+
+  now = eat.now();
+  now.column += subvalue.length;
+  now.offset += subvalue.length;
+
+  subvalue += flag;
+  flag = self.decode.raw(self.unescape(flag), now);
+
+  if (queue) {
+    subvalue += queue;
+  }
+
+  queue = '';
+  closing = '';
+  exdentedClosing = '';
+  content = '';
+  exdentedContent = '';
+
+  /* Eat content. */
+  while (index < length) {
+    character = value.charAt(index);
+    content += closing;
+    exdentedContent += exdentedClosing;
+    closing = '';
+    exdentedClosing = '';
+
+    if (character !== C_NEWLINE) {
+      content += character;
+      exdentedClosing += character;
+      index++;
+      continue;
+    }
+
+    /* Add the newline to `subvalue` if its the first
+     * character.  Otherwise, add it to the `closing`
+     * queue. */
+    if (content) {
+      closing += character;
+      exdentedClosing += character;
+    } else {
+      subvalue += character;
+    }
+
+    queue = '';
+    index++;
+
+    while (index < length) {
+      character = value.charAt(index);
+
+      if (character !== C_SPACE) {
+        break;
+      }
+
+      queue += character;
+      index++;
+    }
+
+    closing += queue;
+    exdentedClosing += queue.slice(indent);
+
+    if (queue.length >= CODE_INDENT_COUNT) {
+      continue;
+    }
+
+    queue = '';
+
+    while (index < length) {
+      character = value.charAt(index);
+
+      if (character !== marker) {
+        break;
+      }
+
+      queue += character;
+      index++;
+    }
+
+    closing += queue;
+    exdentedClosing += queue;
+
+    if (queue.length < fenceCount) {
+      continue;
+    }
+
+    queue = '';
+
+    while (index < length) {
+      character = value.charAt(index);
+
+      if (character !== C_SPACE && character !== C_TAB) {
+        break;
+      }
+
+      closing += character;
+      exdentedClosing += character;
+      index++;
+    }
+
+    if (!character || character === C_NEWLINE) {
+      break;
+    }
+  }
+
+  subvalue += content + closing;
+
+  return eat(subvalue)({
+    type: 'code',
+    lang: flag || null,
+    value: trim(exdentedContent)
+  });
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/tokenize/code-indented.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/remark-parse/lib/tokenize/code-indented.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var repeat = __webpack_require__(/*! repeat-string */ "./node_modules/repeat-string/index.js");
+var trim = __webpack_require__(/*! trim-trailing-lines */ "./node_modules/trim-trailing-lines/index.js");
+
+module.exports = indentedCode;
+
+var C_NEWLINE = '\n';
+var C_TAB = '\t';
+var C_SPACE = ' ';
+
+var CODE_INDENT_COUNT = 4;
+var CODE_INDENT = repeat(C_SPACE, CODE_INDENT_COUNT);
+
+/* Tokenise indented code. */
+function indentedCode(eat, value, silent) {
+  var index = -1;
+  var length = value.length;
+  var subvalue = '';
+  var content = '';
+  var subvalueQueue = '';
+  var contentQueue = '';
+  var character;
+  var blankQueue;
+  var indent;
+
+  while (++index < length) {
+    character = value.charAt(index);
+
+    if (indent) {
+      indent = false;
+
+      subvalue += subvalueQueue;
+      content += contentQueue;
+      subvalueQueue = '';
+      contentQueue = '';
+
+      if (character === C_NEWLINE) {
+        subvalueQueue = character;
+        contentQueue = character;
+      } else {
+        subvalue += character;
+        content += character;
+
+        while (++index < length) {
+          character = value.charAt(index);
+
+          if (!character || character === C_NEWLINE) {
+            contentQueue = character;
+            subvalueQueue = character;
+            break;
+          }
+
+          subvalue += character;
+          content += character;
+        }
+      }
+    } else if (
+      character === C_SPACE &&
+      value.charAt(index + 1) === character &&
+      value.charAt(index + 2) === character &&
+      value.charAt(index + 3) === character
+    ) {
+      subvalueQueue += CODE_INDENT;
+      index += 3;
+      indent = true;
+    } else if (character === C_TAB) {
+      subvalueQueue += character;
+      indent = true;
+    } else {
+      blankQueue = '';
+
+      while (character === C_TAB || character === C_SPACE) {
+        blankQueue += character;
+        character = value.charAt(++index);
+      }
+
+      if (character !== C_NEWLINE) {
+        break;
+      }
+
+      subvalueQueue += blankQueue + character;
+      contentQueue += character;
+    }
+  }
+
+  if (content) {
+    if (silent) {
+      return true;
+    }
+
+    return eat(subvalue)({
+      type: 'code',
+      lang: null,
+      value: trim(content)
+    });
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/tokenize/code-inline.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/remark-parse/lib/tokenize/code-inline.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var whitespace = __webpack_require__(/*! is-whitespace-character */ "./node_modules/is-whitespace-character/index.js");
+var locate = __webpack_require__(/*! ../locate/code-inline */ "./node_modules/remark-parse/lib/locate/code-inline.js");
+
+module.exports = inlineCode;
+inlineCode.locator = locate;
+
+var C_TICK = '`';
+
+/* Tokenise inline code. */
+function inlineCode(eat, value, silent) {
+  var length = value.length;
+  var index = 0;
+  var queue = '';
+  var tickQueue = '';
+  var contentQueue;
+  var subqueue;
+  var count;
+  var openingCount;
+  var subvalue;
+  var character;
+  var found;
+  var next;
+
+  while (index < length) {
+    if (value.charAt(index) !== C_TICK) {
+      break;
+    }
+
+    queue += C_TICK;
+    index++;
+  }
+
+  if (!queue) {
+    return;
+  }
+
+  subvalue = queue;
+  openingCount = index;
+  queue = '';
+  next = value.charAt(index);
+  count = 0;
+
+  while (index < length) {
+    character = next;
+    next = value.charAt(index + 1);
+
+    if (character === C_TICK) {
+      count++;
+      tickQueue += character;
+    } else {
+      count = 0;
+      queue += character;
+    }
+
+    if (count && next !== C_TICK) {
+      if (count === openingCount) {
+        subvalue += queue + tickQueue;
+        found = true;
+        break;
+      }
+
+      queue += tickQueue;
+      tickQueue = '';
+    }
+
+    index++;
+  }
+
+  if (!found) {
+    if (openingCount % 2 !== 0) {
+      return;
+    }
+
+    queue = '';
+  }
+
+  /* istanbul ignore if - never used (yet) */
+  if (silent) {
+    return true;
+  }
+
+  contentQueue = '';
+  subqueue = '';
+  length = queue.length;
+  index = -1;
+
+  while (++index < length) {
+    character = queue.charAt(index);
+
+    if (whitespace(character)) {
+      subqueue += character;
+      continue;
+    }
+
+    if (subqueue) {
+      if (contentQueue) {
+        contentQueue += subqueue;
+      }
+
+      subqueue = '';
+    }
+
+    contentQueue += character;
+  }
+
+  return eat(subvalue)({
+    type: 'inlineCode',
+    value: contentQueue
+  });
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/tokenize/definition.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/remark-parse/lib/tokenize/definition.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var whitespace = __webpack_require__(/*! is-whitespace-character */ "./node_modules/is-whitespace-character/index.js");
+var normalize = __webpack_require__(/*! ../util/normalize */ "./node_modules/remark-parse/lib/util/normalize.js");
+
+module.exports = definition;
+definition.notInList = true;
+definition.notInBlock = true;
+
+var C_DOUBLE_QUOTE = '"';
+var C_SINGLE_QUOTE = '\'';
+var C_BACKSLASH = '\\';
+var C_NEWLINE = '\n';
+var C_TAB = '\t';
+var C_SPACE = ' ';
+var C_BRACKET_OPEN = '[';
+var C_BRACKET_CLOSE = ']';
+var C_PAREN_OPEN = '(';
+var C_PAREN_CLOSE = ')';
+var C_COLON = ':';
+var C_LT = '<';
+var C_GT = '>';
+
+function definition(eat, value, silent) {
+  var self = this;
+  var commonmark = self.options.commonmark;
+  var index = 0;
+  var length = value.length;
+  var subvalue = '';
+  var beforeURL;
+  var beforeTitle;
+  var queue;
+  var character;
+  var test;
+  var identifier;
+  var url;
+  var title;
+
+  while (index < length) {
+    character = value.charAt(index);
+
+    if (character !== C_SPACE && character !== C_TAB) {
+      break;
+    }
+
+    subvalue += character;
+    index++;
+  }
+
+  character = value.charAt(index);
+
+  if (character !== C_BRACKET_OPEN) {
+    return;
+  }
+
+  index++;
+  subvalue += character;
+  queue = '';
+
+  while (index < length) {
+    character = value.charAt(index);
+
+    if (character === C_BRACKET_CLOSE) {
+      break;
+    } else if (character === C_BACKSLASH) {
+      queue += character;
+      index++;
+      character = value.charAt(index);
+    }
+
+    queue += character;
+    index++;
+  }
+
+  if (
+    !queue ||
+    value.charAt(index) !== C_BRACKET_CLOSE ||
+    value.charAt(index + 1) !== C_COLON
+  ) {
+    return;
+  }
+
+  identifier = queue;
+  subvalue += queue + C_BRACKET_CLOSE + C_COLON;
+  index = subvalue.length;
+  queue = '';
+
+  while (index < length) {
+    character = value.charAt(index);
+
+    if (
+      character !== C_TAB &&
+      character !== C_SPACE &&
+      character !== C_NEWLINE
+    ) {
+      break;
+    }
+
+    subvalue += character;
+    index++;
+  }
+
+  character = value.charAt(index);
+  queue = '';
+  beforeURL = subvalue;
+
+  if (character === C_LT) {
+    index++;
+
+    while (index < length) {
+      character = value.charAt(index);
+
+      if (!isEnclosedURLCharacter(character)) {
+        break;
+      }
+
+      queue += character;
+      index++;
+    }
+
+    character = value.charAt(index);
+
+    if (character === isEnclosedURLCharacter.delimiter) {
+      subvalue += C_LT + queue + character;
+      index++;
+    } else {
+      if (commonmark) {
+        return;
+      }
+
+      index -= queue.length + 1;
+      queue = '';
+    }
+  }
+
+  if (!queue) {
+    while (index < length) {
+      character = value.charAt(index);
+
+      if (!isUnclosedURLCharacter(character)) {
+        break;
+      }
+
+      queue += character;
+      index++;
+    }
+
+    subvalue += queue;
+  }
+
+  if (!queue) {
+    return;
+  }
+
+  url = queue;
+  queue = '';
+
+  while (index < length) {
+    character = value.charAt(index);
+
+    if (
+      character !== C_TAB &&
+      character !== C_SPACE &&
+      character !== C_NEWLINE
+    ) {
+      break;
+    }
+
+    queue += character;
+    index++;
+  }
+
+  character = value.charAt(index);
+  test = null;
+
+  if (character === C_DOUBLE_QUOTE) {
+    test = C_DOUBLE_QUOTE;
+  } else if (character === C_SINGLE_QUOTE) {
+    test = C_SINGLE_QUOTE;
+  } else if (character === C_PAREN_OPEN) {
+    test = C_PAREN_CLOSE;
+  }
+
+  if (!test) {
+    queue = '';
+    index = subvalue.length;
+  } else if (queue) {
+    subvalue += queue + character;
+    index = subvalue.length;
+    queue = '';
+
+    while (index < length) {
+      character = value.charAt(index);
+
+      if (character === test) {
+        break;
+      }
+
+      if (character === C_NEWLINE) {
+        index++;
+        character = value.charAt(index);
+
+        if (character === C_NEWLINE || character === test) {
+          return;
+        }
+
+        queue += C_NEWLINE;
+      }
+
+      queue += character;
+      index++;
+    }
+
+    character = value.charAt(index);
+
+    if (character !== test) {
+      return;
+    }
+
+    beforeTitle = subvalue;
+    subvalue += queue + character;
+    index++;
+    title = queue;
+    queue = '';
+  } else {
+    return;
+  }
+
+  while (index < length) {
+    character = value.charAt(index);
+
+    if (character !== C_TAB && character !== C_SPACE) {
+      break;
+    }
+
+    subvalue += character;
+    index++;
+  }
+
+  character = value.charAt(index);
+
+  if (!character || character === C_NEWLINE) {
+    if (silent) {
+      return true;
+    }
+
+    beforeURL = eat(beforeURL).test().end;
+    url = self.decode.raw(self.unescape(url), beforeURL, {nonTerminated: false});
+
+    if (title) {
+      beforeTitle = eat(beforeTitle).test().end;
+      title = self.decode.raw(self.unescape(title), beforeTitle);
+    }
+
+    return eat(subvalue)({
+      type: 'definition',
+      identifier: normalize(identifier),
+      title: title || null,
+      url: url
+    });
+  }
+}
+
+/* Check if `character` can be inside an enclosed URI. */
+function isEnclosedURLCharacter(character) {
+  return character !== C_GT &&
+    character !== C_BRACKET_OPEN &&
+    character !== C_BRACKET_CLOSE;
+}
+
+isEnclosedURLCharacter.delimiter = C_GT;
+
+/* Check if `character` can be inside an unclosed URI. */
+function isUnclosedURLCharacter(character) {
+  return character !== C_BRACKET_OPEN &&
+    character !== C_BRACKET_CLOSE &&
+    !whitespace(character);
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/tokenize/delete.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/remark-parse/lib/tokenize/delete.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var whitespace = __webpack_require__(/*! is-whitespace-character */ "./node_modules/is-whitespace-character/index.js");
+var locate = __webpack_require__(/*! ../locate/delete */ "./node_modules/remark-parse/lib/locate/delete.js");
+
+module.exports = strikethrough;
+strikethrough.locator = locate;
+
+var C_TILDE = '~';
+var DOUBLE = '~~';
+
+function strikethrough(eat, value, silent) {
+  var self = this;
+  var character = '';
+  var previous = '';
+  var preceding = '';
+  var subvalue = '';
+  var index;
+  var length;
+  var now;
+
+  if (
+    !self.options.gfm ||
+    value.charAt(0) !== C_TILDE ||
+    value.charAt(1) !== C_TILDE ||
+    whitespace(value.charAt(2))
+  ) {
+    return;
+  }
+
+  index = 1;
+  length = value.length;
+  now = eat.now();
+  now.column += 2;
+  now.offset += 2;
+
+  while (++index < length) {
+    character = value.charAt(index);
+
+    if (
+      character === C_TILDE &&
+      previous === C_TILDE &&
+      (!preceding || !whitespace(preceding))
+    ) {
+      /* istanbul ignore if - never used (yet) */
+      if (silent) {
+        return true;
+      }
+
+      return eat(DOUBLE + subvalue + DOUBLE)({
+        type: 'delete',
+        children: self.tokenizeInline(subvalue, now)
+      });
+    }
+
+    subvalue += previous;
+    preceding = previous;
+    previous = character;
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/tokenize/emphasis.js":
+/*!************************************************************!*\
+  !*** ./node_modules/remark-parse/lib/tokenize/emphasis.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var trim = __webpack_require__(/*! trim */ "./node_modules/trim/index.js");
+var word = __webpack_require__(/*! is-word-character */ "./node_modules/is-word-character/index.js");
+var whitespace = __webpack_require__(/*! is-whitespace-character */ "./node_modules/is-whitespace-character/index.js");
+var locate = __webpack_require__(/*! ../locate/emphasis */ "./node_modules/remark-parse/lib/locate/emphasis.js");
+
+module.exports = emphasis;
+emphasis.locator = locate;
+
+var C_ASTERISK = '*';
+var C_UNDERSCORE = '_';
+
+function emphasis(eat, value, silent) {
+  var self = this;
+  var index = 0;
+  var character = value.charAt(index);
+  var now;
+  var pedantic;
+  var marker;
+  var queue;
+  var subvalue;
+  var length;
+  var prev;
+
+  if (character !== C_ASTERISK && character !== C_UNDERSCORE) {
+    return;
+  }
+
+  pedantic = self.options.pedantic;
+  subvalue = character;
+  marker = character;
+  length = value.length;
+  index++;
+  queue = '';
+  character = '';
+
+  if (pedantic && whitespace(value.charAt(index))) {
+    return;
+  }
+
+  while (index < length) {
+    prev = character;
+    character = value.charAt(index);
+
+    if (character === marker && (!pedantic || !whitespace(prev))) {
+      character = value.charAt(++index);
+
+      if (character !== marker) {
+        if (!trim(queue) || prev === marker) {
+          return;
+        }
+
+        if (!pedantic && marker === C_UNDERSCORE && word(character)) {
+          queue += marker;
+          continue;
+        }
+
+        /* istanbul ignore if - never used (yet) */
+        if (silent) {
+          return true;
+        }
+
+        now = eat.now();
+        now.column++;
+        now.offset++;
+
+        return eat(subvalue + queue + marker)({
+          type: 'emphasis',
+          children: self.tokenizeInline(queue, now)
+        });
+      }
+
+      queue += marker;
+    }
+
+    if (!pedantic && character === '\\') {
+      queue += character;
+      character = value.charAt(++index);
+    }
+
+    queue += character;
+    index++;
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/tokenize/escape.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/remark-parse/lib/tokenize/escape.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var locate = __webpack_require__(/*! ../locate/escape */ "./node_modules/remark-parse/lib/locate/escape.js");
+
+module.exports = escape;
+escape.locator = locate;
+
+function escape(eat, value, silent) {
+  var self = this;
+  var character;
+  var node;
+
+  if (value.charAt(0) === '\\') {
+    character = value.charAt(1);
+
+    if (self.escape.indexOf(character) !== -1) {
+      /* istanbul ignore if - never used (yet) */
+      if (silent) {
+        return true;
+      }
+
+      if (character === '\n') {
+        node = {type: 'break'};
+      } else {
+        node = {
+          type: 'text',
+          value: character
+        };
+      }
+
+      return eat('\\' + character)(node);
+    }
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/tokenize/footnote-definition.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/remark-parse/lib/tokenize/footnote-definition.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var whitespace = __webpack_require__(/*! is-whitespace-character */ "./node_modules/is-whitespace-character/index.js");
+var normalize = __webpack_require__(/*! ../util/normalize */ "./node_modules/remark-parse/lib/util/normalize.js");
+
+module.exports = footnoteDefinition;
+footnoteDefinition.notInList = true;
+footnoteDefinition.notInBlock = true;
+
+var C_BACKSLASH = '\\';
+var C_NEWLINE = '\n';
+var C_TAB = '\t';
+var C_SPACE = ' ';
+var C_BRACKET_OPEN = '[';
+var C_BRACKET_CLOSE = ']';
+var C_CARET = '^';
+var C_COLON = ':';
+
+var EXPRESSION_INITIAL_TAB = /^( {4}|\t)?/gm;
+
+function footnoteDefinition(eat, value, silent) {
+  var self = this;
+  var offsets = self.offset;
+  var index;
+  var length;
+  var subvalue;
+  var now;
+  var currentLine;
+  var content;
+  var queue;
+  var subqueue;
+  var character;
+  var identifier;
+  var add;
+  var exit;
+
+  if (!self.options.footnotes) {
+    return;
+  }
+
+  index = 0;
+  length = value.length;
+  subvalue = '';
+  now = eat.now();
+  currentLine = now.line;
+
+  while (index < length) {
+    character = value.charAt(index);
+
+    if (!whitespace(character)) {
+      break;
+    }
+
+    subvalue += character;
+    index++;
+  }
+
+  if (
+    value.charAt(index) !== C_BRACKET_OPEN ||
+    value.charAt(index + 1) !== C_CARET
+  ) {
+    return;
+  }
+
+  subvalue += C_BRACKET_OPEN + C_CARET;
+  index = subvalue.length;
+  queue = '';
+
+  while (index < length) {
+    character = value.charAt(index);
+
+    if (character === C_BRACKET_CLOSE) {
+      break;
+    } else if (character === C_BACKSLASH) {
+      queue += character;
+      index++;
+      character = value.charAt(index);
+    }
+
+    queue += character;
+    index++;
+  }
+
+  if (
+    !queue ||
+    value.charAt(index) !== C_BRACKET_CLOSE ||
+    value.charAt(index + 1) !== C_COLON
+  ) {
+    return;
+  }
+
+  if (silent) {
+    return true;
+  }
+
+  identifier = normalize(queue);
+  subvalue += queue + C_BRACKET_CLOSE + C_COLON;
+  index = subvalue.length;
+
+  while (index < length) {
+    character = value.charAt(index);
+
+    if (character !== C_TAB && character !== C_SPACE) {
+      break;
+    }
+
+    subvalue += character;
+    index++;
+  }
+
+  now.column += subvalue.length;
+  now.offset += subvalue.length;
+  queue = '';
+  content = '';
+  subqueue = '';
+
+  while (index < length) {
+    character = value.charAt(index);
+
+    if (character === C_NEWLINE) {
+      subqueue = character;
+      index++;
+
+      while (index < length) {
+        character = value.charAt(index);
+
+        if (character !== C_NEWLINE) {
+          break;
+        }
+
+        subqueue += character;
+        index++;
+      }
+
+      queue += subqueue;
+      subqueue = '';
+
+      while (index < length) {
+        character = value.charAt(index);
+
+        if (character !== C_SPACE) {
+          break;
+        }
+
+        subqueue += character;
+        index++;
+      }
+
+      if (subqueue.length === 0) {
+        break;
+      }
+
+      queue += subqueue;
+    }
+
+    if (queue) {
+      content += queue;
+      queue = '';
+    }
+
+    content += character;
+    index++;
+  }
+
+  subvalue += content;
+
+  content = content.replace(EXPRESSION_INITIAL_TAB, function (line) {
+    offsets[currentLine] = (offsets[currentLine] || 0) + line.length;
+    currentLine++;
+
+    return '';
+  });
+
+  add = eat(subvalue);
+
+  exit = self.enterBlock();
+  content = self.tokenizeBlock(content, now);
+  exit();
+
+  return add({
+    type: 'footnoteDefinition',
+    identifier: identifier,
+    children: content
+  });
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/tokenize/heading-atx.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/remark-parse/lib/tokenize/heading-atx.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = atxHeading;
+
+var C_NEWLINE = '\n';
+var C_TAB = '\t';
+var C_SPACE = ' ';
+var C_HASH = '#';
+
+var MAX_ATX_COUNT = 6;
+
+function atxHeading(eat, value, silent) {
+  var self = this;
+  var settings = self.options;
+  var length = value.length + 1;
+  var index = -1;
+  var now = eat.now();
+  var subvalue = '';
+  var content = '';
+  var character;
+  var queue;
+  var depth;
+
+  /* Eat initial spacing. */
+  while (++index < length) {
+    character = value.charAt(index);
+
+    if (character !== C_SPACE && character !== C_TAB) {
+      index--;
+      break;
+    }
+
+    subvalue += character;
+  }
+
+  /* Eat hashes. */
+  depth = 0;
+
+  while (++index <= length) {
+    character = value.charAt(index);
+
+    if (character !== C_HASH) {
+      index--;
+      break;
+    }
+
+    subvalue += character;
+    depth++;
+  }
+
+  if (depth > MAX_ATX_COUNT) {
+    return;
+  }
+
+  if (
+    !depth ||
+    (!settings.pedantic && value.charAt(index + 1) === C_HASH)
+  ) {
+    return;
+  }
+
+  length = value.length + 1;
+
+  /* Eat intermediate white-space. */
+  queue = '';
+
+  while (++index < length) {
+    character = value.charAt(index);
+
+    if (character !== C_SPACE && character !== C_TAB) {
+      index--;
+      break;
+    }
+
+    queue += character;
+  }
+
+  /* Exit when not in pedantic mode without spacing. */
+  if (
+    !settings.pedantic &&
+    queue.length === 0 &&
+    character &&
+    character !== C_NEWLINE
+  ) {
+    return;
+  }
+
+  if (silent) {
+    return true;
+  }
+
+  /* Eat content. */
+  subvalue += queue;
+  queue = '';
+  content = '';
+
+  while (++index < length) {
+    character = value.charAt(index);
+
+    if (!character || character === C_NEWLINE) {
+      break;
+    }
+
+    if (
+      character !== C_SPACE &&
+      character !== C_TAB &&
+      character !== C_HASH
+    ) {
+      content += queue + character;
+      queue = '';
+      continue;
+    }
+
+    while (character === C_SPACE || character === C_TAB) {
+      queue += character;
+      character = value.charAt(++index);
+    }
+
+    while (character === C_HASH) {
+      queue += character;
+      character = value.charAt(++index);
+    }
+
+    while (character === C_SPACE || character === C_TAB) {
+      queue += character;
+      character = value.charAt(++index);
+    }
+
+    index--;
+  }
+
+  now.column += subvalue.length;
+  now.offset += subvalue.length;
+  subvalue += content + queue;
+
+  return eat(subvalue)({
+    type: 'heading',
+    depth: depth,
+    children: self.tokenizeInline(content, now)
+  });
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/tokenize/heading-setext.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/remark-parse/lib/tokenize/heading-setext.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = setextHeading;
+
+var C_NEWLINE = '\n';
+var C_TAB = '\t';
+var C_SPACE = ' ';
+var C_EQUALS = '=';
+var C_DASH = '-';
+
+var MAX_HEADING_INDENT = 3;
+
+/* Map of characters which can be used to mark setext
+ * headers, mapping to their corresponding depth. */
+var SETEXT_MARKERS = {};
+
+SETEXT_MARKERS[C_EQUALS] = 1;
+SETEXT_MARKERS[C_DASH] = 2;
+
+function setextHeading(eat, value, silent) {
+  var self = this;
+  var now = eat.now();
+  var length = value.length;
+  var index = -1;
+  var subvalue = '';
+  var content;
+  var queue;
+  var character;
+  var marker;
+  var depth;
+
+  /* Eat initial indentation. */
+  while (++index < length) {
+    character = value.charAt(index);
+
+    if (character !== C_SPACE || index >= MAX_HEADING_INDENT) {
+      index--;
+      break;
+    }
+
+    subvalue += character;
+  }
+
+  /* Eat content. */
+  content = '';
+  queue = '';
+
+  while (++index < length) {
+    character = value.charAt(index);
+
+    if (character === C_NEWLINE) {
+      index--;
+      break;
+    }
+
+    if (character === C_SPACE || character === C_TAB) {
+      queue += character;
+    } else {
+      content += queue + character;
+      queue = '';
+    }
+  }
+
+  now.column += subvalue.length;
+  now.offset += subvalue.length;
+  subvalue += content + queue;
+
+  /* Ensure the content is followed by a newline and a
+   * valid marker. */
+  character = value.charAt(++index);
+  marker = value.charAt(++index);
+
+  if (character !== C_NEWLINE || !SETEXT_MARKERS[marker]) {
+    return;
+  }
+
+  subvalue += character;
+
+  /* Eat Setext-line. */
+  queue = marker;
+  depth = SETEXT_MARKERS[marker];
+
+  while (++index < length) {
+    character = value.charAt(index);
+
+    if (character !== marker) {
+      if (character !== C_NEWLINE) {
+        return;
+      }
+
+      index--;
+      break;
+    }
+
+    queue += character;
+  }
+
+  if (silent) {
+    return true;
+  }
+
+  return eat(subvalue + queue)({
+    type: 'heading',
+    depth: depth,
+    children: self.tokenizeInline(content, now)
+  });
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/tokenize/html-block.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/remark-parse/lib/tokenize/html-block.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var openCloseTag = __webpack_require__(/*! ../util/html */ "./node_modules/remark-parse/lib/util/html.js").openCloseTag;
+
+module.exports = blockHTML;
+
+var C_TAB = '\t';
+var C_SPACE = ' ';
+var C_NEWLINE = '\n';
+var C_LT = '<';
+
+function blockHTML(eat, value, silent) {
+  var self = this;
+  var blocks = self.options.blocks;
+  var length = value.length;
+  var index = 0;
+  var next;
+  var line;
+  var offset;
+  var character;
+  var count;
+  var sequence;
+  var subvalue;
+
+  var sequences = [
+    [/^<(script|pre|style)(?=(\s|>|$))/i, /<\/(script|pre|style)>/i, true],
+    [/^<!--/, /-->/, true],
+    [/^<\?/, /\?>/, true],
+    [/^<![A-Za-z]/, />/, true],
+    [/^<!\[CDATA\[/, /\]\]>/, true],
+    [new RegExp('^</?(' + blocks.join('|') + ')(?=(\\s|/?>|$))', 'i'), /^$/, true],
+    [new RegExp(openCloseTag.source + '\\s*$'), /^$/, false]
+  ];
+
+  /* Eat initial spacing. */
+  while (index < length) {
+    character = value.charAt(index);
+
+    if (character !== C_TAB && character !== C_SPACE) {
+      break;
+    }
+
+    index++;
+  }
+
+  if (value.charAt(index) !== C_LT) {
+    return;
+  }
+
+  next = value.indexOf(C_NEWLINE, index + 1);
+  next = next === -1 ? length : next;
+  line = value.slice(index, next);
+  offset = -1;
+  count = sequences.length;
+
+  while (++offset < count) {
+    if (sequences[offset][0].test(line)) {
+      sequence = sequences[offset];
+      break;
+    }
+  }
+
+  if (!sequence) {
+    return;
+  }
+
+  if (silent) {
+    return sequence[2];
+  }
+
+  index = next;
+
+  if (!sequence[1].test(line)) {
+    while (index < length) {
+      next = value.indexOf(C_NEWLINE, index + 1);
+      next = next === -1 ? length : next;
+      line = value.slice(index + 1, next);
+
+      if (sequence[1].test(line)) {
+        if (line) {
+          index = next;
+        }
+
+        break;
+      }
+
+      index = next;
+    }
+  }
+
+  subvalue = value.slice(0, index);
+
+  return eat(subvalue)({type: 'html', value: subvalue});
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/tokenize/html-inline.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/remark-parse/lib/tokenize/html-inline.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var alphabetical = __webpack_require__(/*! is-alphabetical */ "./node_modules/is-alphabetical/index.js");
+var locate = __webpack_require__(/*! ../locate/tag */ "./node_modules/remark-parse/lib/locate/tag.js");
+var tag = __webpack_require__(/*! ../util/html */ "./node_modules/remark-parse/lib/util/html.js").tag;
+
+module.exports = inlineHTML;
+inlineHTML.locator = locate;
+
+var EXPRESSION_HTML_LINK_OPEN = /^<a /i;
+var EXPRESSION_HTML_LINK_CLOSE = /^<\/a>/i;
+
+function inlineHTML(eat, value, silent) {
+  var self = this;
+  var length = value.length;
+  var character;
+  var subvalue;
+
+  if (value.charAt(0) !== '<' || length < 3) {
+    return;
+  }
+
+  character = value.charAt(1);
+
+  if (
+    !alphabetical(character) &&
+    character !== '?' &&
+    character !== '!' &&
+    character !== '/'
+  ) {
+    return;
+  }
+
+  subvalue = value.match(tag);
+
+  if (!subvalue) {
+    return;
+  }
+
+  /* istanbul ignore if - not used yet. */
+  if (silent) {
+    return true;
+  }
+
+  subvalue = subvalue[0];
+
+  if (!self.inLink && EXPRESSION_HTML_LINK_OPEN.test(subvalue)) {
+    self.inLink = true;
+  } else if (self.inLink && EXPRESSION_HTML_LINK_CLOSE.test(subvalue)) {
+    self.inLink = false;
+  }
+
+  return eat(subvalue)({type: 'html', value: subvalue});
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/tokenize/link.js":
+/*!********************************************************!*\
+  !*** ./node_modules/remark-parse/lib/tokenize/link.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var whitespace = __webpack_require__(/*! is-whitespace-character */ "./node_modules/is-whitespace-character/index.js");
+var locate = __webpack_require__(/*! ../locate/link */ "./node_modules/remark-parse/lib/locate/link.js");
+
+module.exports = link;
+link.locator = locate;
+
+var own = {}.hasOwnProperty;
+
+var C_BACKSLASH = '\\';
+var C_BRACKET_OPEN = '[';
+var C_BRACKET_CLOSE = ']';
+var C_PAREN_OPEN = '(';
+var C_PAREN_CLOSE = ')';
+var C_LT = '<';
+var C_GT = '>';
+var C_TICK = '`';
+var C_DOUBLE_QUOTE = '"';
+var C_SINGLE_QUOTE = '\'';
+
+/* Map of characters, which can be used to mark link
+ * and image titles. */
+var LINK_MARKERS = {};
+
+LINK_MARKERS[C_DOUBLE_QUOTE] = C_DOUBLE_QUOTE;
+LINK_MARKERS[C_SINGLE_QUOTE] = C_SINGLE_QUOTE;
+
+/* Map of characters, which can be used to mark link
+ * and image titles in commonmark-mode. */
+var COMMONMARK_LINK_MARKERS = {};
+
+COMMONMARK_LINK_MARKERS[C_DOUBLE_QUOTE] = C_DOUBLE_QUOTE;
+COMMONMARK_LINK_MARKERS[C_SINGLE_QUOTE] = C_SINGLE_QUOTE;
+COMMONMARK_LINK_MARKERS[C_PAREN_OPEN] = C_PAREN_CLOSE;
+
+function link(eat, value, silent) {
+  var self = this;
+  var subvalue = '';
+  var index = 0;
+  var character = value.charAt(0);
+  var pedantic = self.options.pedantic;
+  var commonmark = self.options.commonmark;
+  var gfm = self.options.gfm;
+  var closed;
+  var count;
+  var opening;
+  var beforeURL;
+  var beforeTitle;
+  var subqueue;
+  var hasMarker;
+  var markers;
+  var isImage;
+  var content;
+  var marker;
+  var length;
+  var title;
+  var depth;
+  var queue;
+  var url;
+  var now;
+  var exit;
+  var node;
+
+  /* Detect whether this is an image. */
+  if (character === '!') {
+    isImage = true;
+    subvalue = character;
+    character = value.charAt(++index);
+  }
+
+  /* Eat the opening. */
+  if (character !== C_BRACKET_OPEN) {
+    return;
+  }
+
+  /* Exit when this is a link and we’re already inside
+   * a link. */
+  if (!isImage && self.inLink) {
+    return;
+  }
+
+  subvalue += character;
+  queue = '';
+  index++;
+
+  /* Eat the content. */
+  length = value.length;
+  now = eat.now();
+  depth = 0;
+
+  now.column += index;
+  now.offset += index;
+
+  while (index < length) {
+    character = value.charAt(index);
+    subqueue = character;
+
+    if (character === C_TICK) {
+      /* Inline-code in link content. */
+      count = 1;
+
+      while (value.charAt(index + 1) === C_TICK) {
+        subqueue += character;
+        index++;
+        count++;
+      }
+
+      if (!opening) {
+        opening = count;
+      } else if (count >= opening) {
+        opening = 0;
+      }
+    } else if (character === C_BACKSLASH) {
+      /* Allow brackets to be escaped. */
+      index++;
+      subqueue += value.charAt(index);
+    /* In GFM mode, brackets in code still count.
+     * In all other modes, they don’t.  This empty
+     * block prevents the next statements are
+     * entered. */
+    } else if ((!opening || gfm) && character === C_BRACKET_OPEN) {
+      depth++;
+    } else if ((!opening || gfm) && character === C_BRACKET_CLOSE) {
+      if (depth) {
+        depth--;
+      } else {
+        /* Allow white-space between content and
+         * url in GFM mode. */
+        if (!pedantic) {
+          while (index < length) {
+            character = value.charAt(index + 1);
+
+            if (!whitespace(character)) {
+              break;
+            }
+
+            subqueue += character;
+            index++;
+          }
+        }
+
+        if (value.charAt(index + 1) !== C_PAREN_OPEN) {
+          return;
+        }
+
+        subqueue += C_PAREN_OPEN;
+        closed = true;
+        index++;
+
+        break;
+      }
+    }
+
+    queue += subqueue;
+    subqueue = '';
+    index++;
+  }
+
+  /* Eat the content closing. */
+  if (!closed) {
+    return;
+  }
+
+  content = queue;
+  subvalue += queue + subqueue;
+  index++;
+
+  /* Eat white-space. */
+  while (index < length) {
+    character = value.charAt(index);
+
+    if (!whitespace(character)) {
+      break;
+    }
+
+    subvalue += character;
+    index++;
+  }
+
+  /* Eat the URL. */
+  character = value.charAt(index);
+  markers = commonmark ? COMMONMARK_LINK_MARKERS : LINK_MARKERS;
+  queue = '';
+  beforeURL = subvalue;
+
+  if (character === C_LT) {
+    index++;
+    beforeURL += C_LT;
+
+    while (index < length) {
+      character = value.charAt(index);
+
+      if (character === C_GT) {
+        break;
+      }
+
+      if (commonmark && character === '\n') {
+        return;
+      }
+
+      queue += character;
+      index++;
+    }
+
+    if (value.charAt(index) !== C_GT) {
+      return;
+    }
+
+    subvalue += C_LT + queue + C_GT;
+    url = queue;
+    index++;
+  } else {
+    character = null;
+    subqueue = '';
+
+    while (index < length) {
+      character = value.charAt(index);
+
+      if (subqueue && own.call(markers, character)) {
+        break;
+      }
+
+      if (whitespace(character)) {
+        if (!pedantic) {
+          break;
+        }
+
+        subqueue += character;
+      } else {
+        if (character === C_PAREN_OPEN) {
+          depth++;
+        } else if (character === C_PAREN_CLOSE) {
+          if (depth === 0) {
+            break;
+          }
+
+          depth--;
+        }
+
+        queue += subqueue;
+        subqueue = '';
+
+        if (character === C_BACKSLASH) {
+          queue += C_BACKSLASH;
+          character = value.charAt(++index);
+        }
+
+        queue += character;
+      }
+
+      index++;
+    }
+
+    subvalue += queue;
+    url = queue;
+    index = subvalue.length;
+  }
+
+  /* Eat white-space. */
+  queue = '';
+
+  while (index < length) {
+    character = value.charAt(index);
+
+    if (!whitespace(character)) {
+      break;
+    }
+
+    queue += character;
+    index++;
+  }
+
+  character = value.charAt(index);
+  subvalue += queue;
+
+  /* Eat the title. */
+  if (queue && own.call(markers, character)) {
+    index++;
+    subvalue += character;
+    queue = '';
+    marker = markers[character];
+    beforeTitle = subvalue;
+
+    /* In commonmark-mode, things are pretty easy: the
+     * marker cannot occur inside the title.
+     *
+     * Non-commonmark does, however, support nested
+     * delimiters. */
+    if (commonmark) {
+      while (index < length) {
+        character = value.charAt(index);
+
+        if (character === marker) {
+          break;
+        }
+
+        if (character === C_BACKSLASH) {
+          queue += C_BACKSLASH;
+          character = value.charAt(++index);
+        }
+
+        index++;
+        queue += character;
+      }
+
+      character = value.charAt(index);
+
+      if (character !== marker) {
+        return;
+      }
+
+      title = queue;
+      subvalue += queue + character;
+      index++;
+
+      while (index < length) {
+        character = value.charAt(index);
+
+        if (!whitespace(character)) {
+          break;
+        }
+
+        subvalue += character;
+        index++;
+      }
+    } else {
+      subqueue = '';
+
+      while (index < length) {
+        character = value.charAt(index);
+
+        if (character === marker) {
+          if (hasMarker) {
+            queue += marker + subqueue;
+            subqueue = '';
+          }
+
+          hasMarker = true;
+        } else if (!hasMarker) {
+          queue += character;
+        } else if (character === C_PAREN_CLOSE) {
+          subvalue += queue + marker + subqueue;
+          title = queue;
+          break;
+        } else if (whitespace(character)) {
+          subqueue += character;
+        } else {
+          queue += marker + subqueue + character;
+          subqueue = '';
+          hasMarker = false;
+        }
+
+        index++;
+      }
+    }
+  }
+
+  if (value.charAt(index) !== C_PAREN_CLOSE) {
+    return;
+  }
+
+  /* istanbul ignore if - never used (yet) */
+  if (silent) {
+    return true;
+  }
+
+  subvalue += C_PAREN_CLOSE;
+
+  url = self.decode.raw(self.unescape(url), eat(beforeURL).test().end, {nonTerminated: false});
+
+  if (title) {
+    beforeTitle = eat(beforeTitle).test().end;
+    title = self.decode.raw(self.unescape(title), beforeTitle);
+  }
+
+  node = {
+    type: isImage ? 'image' : 'link',
+    title: title || null,
+    url: url
+  };
+
+  if (isImage) {
+    node.alt = self.decode.raw(self.unescape(content), now) || null;
+  } else {
+    exit = self.enterLink();
+    node.children = self.tokenizeInline(content, now);
+    exit();
+  }
+
+  return eat(subvalue)(node);
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/tokenize/list.js":
+/*!********************************************************!*\
+  !*** ./node_modules/remark-parse/lib/tokenize/list.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/* eslint-disable max-params */
+
+var trim = __webpack_require__(/*! trim */ "./node_modules/trim/index.js");
+var repeat = __webpack_require__(/*! repeat-string */ "./node_modules/repeat-string/index.js");
+var decimal = __webpack_require__(/*! is-decimal */ "./node_modules/is-decimal/index.js");
+var getIndent = __webpack_require__(/*! ../util/get-indentation */ "./node_modules/remark-parse/lib/util/get-indentation.js");
+var removeIndent = __webpack_require__(/*! ../util/remove-indentation */ "./node_modules/remark-parse/lib/util/remove-indentation.js");
+var interrupt = __webpack_require__(/*! ../util/interrupt */ "./node_modules/remark-parse/lib/util/interrupt.js");
+
+module.exports = list;
+
+var C_ASTERISK = '*';
+var C_UNDERSCORE = '_';
+var C_PLUS = '+';
+var C_DASH = '-';
+var C_DOT = '.';
+var C_SPACE = ' ';
+var C_NEWLINE = '\n';
+var C_TAB = '\t';
+var C_PAREN_CLOSE = ')';
+var C_X_LOWER = 'x';
+
+var TAB_SIZE = 4;
+var EXPRESSION_LOOSE_LIST_ITEM = /\n\n(?!\s*$)/;
+var EXPRESSION_TASK_ITEM = /^\[([ \t]|x|X)][ \t]/;
+var EXPRESSION_BULLET = /^([ \t]*)([*+-]|\d+[.)])( {1,4}(?! )| |\t|$|(?=\n))([^\n]*)/;
+var EXPRESSION_PEDANTIC_BULLET = /^([ \t]*)([*+-]|\d+[.)])([ \t]+)/;
+var EXPRESSION_INITIAL_INDENT = /^( {1,4}|\t)?/gm;
+
+/* Map of characters which can be used to mark
+ * list-items. */
+var LIST_UNORDERED_MARKERS = {};
+
+LIST_UNORDERED_MARKERS[C_ASTERISK] = true;
+LIST_UNORDERED_MARKERS[C_PLUS] = true;
+LIST_UNORDERED_MARKERS[C_DASH] = true;
+
+/* Map of characters which can be used to mark
+ * list-items after a digit. */
+var LIST_ORDERED_MARKERS = {};
+
+LIST_ORDERED_MARKERS[C_DOT] = true;
+
+/* Map of characters which can be used to mark
+ * list-items after a digit. */
+var LIST_ORDERED_COMMONMARK_MARKERS = {};
+
+LIST_ORDERED_COMMONMARK_MARKERS[C_DOT] = true;
+LIST_ORDERED_COMMONMARK_MARKERS[C_PAREN_CLOSE] = true;
+
+function list(eat, value, silent) {
+  var self = this;
+  var commonmark = self.options.commonmark;
+  var pedantic = self.options.pedantic;
+  var tokenizers = self.blockTokenizers;
+  var interuptors = self.interruptList;
+  var markers;
+  var index = 0;
+  var length = value.length;
+  var start = null;
+  var size = 0;
+  var queue;
+  var ordered;
+  var character;
+  var marker;
+  var nextIndex;
+  var startIndex;
+  var prefixed;
+  var currentMarker;
+  var content;
+  var line;
+  var prevEmpty;
+  var empty;
+  var items;
+  var allLines;
+  var emptyLines;
+  var item;
+  var enterTop;
+  var exitBlockquote;
+  var isLoose;
+  var node;
+  var now;
+  var end;
+  var indented;
+
+  while (index < length) {
+    character = value.charAt(index);
+
+    if (character === C_TAB) {
+      size += TAB_SIZE - (size % TAB_SIZE);
+    } else if (character === C_SPACE) {
+      size++;
+    } else {
+      break;
+    }
+
+    index++;
+  }
+
+  if (size >= TAB_SIZE) {
+    return;
+  }
+
+  character = value.charAt(index);
+
+  markers = commonmark ?
+    LIST_ORDERED_COMMONMARK_MARKERS :
+    LIST_ORDERED_MARKERS;
+
+  if (LIST_UNORDERED_MARKERS[character] === true) {
+    marker = character;
+    ordered = false;
+  } else {
+    ordered = true;
+    queue = '';
+
+    while (index < length) {
+      character = value.charAt(index);
+
+      if (!decimal(character)) {
+        break;
+      }
+
+      queue += character;
+      index++;
+    }
+
+    character = value.charAt(index);
+
+    if (!queue || markers[character] !== true) {
+      return;
+    }
+
+    start = parseInt(queue, 10);
+    marker = character;
+  }
+
+  character = value.charAt(++index);
+
+  if (character !== C_SPACE && character !== C_TAB) {
+    return;
+  }
+
+  if (silent) {
+    return true;
+  }
+
+  index = 0;
+  items = [];
+  allLines = [];
+  emptyLines = [];
+
+  while (index < length) {
+    nextIndex = value.indexOf(C_NEWLINE, index);
+    startIndex = index;
+    prefixed = false;
+    indented = false;
+
+    if (nextIndex === -1) {
+      nextIndex = length;
+    }
+
+    end = index + TAB_SIZE;
+    size = 0;
+
+    while (index < length) {
+      character = value.charAt(index);
+
+      if (character === C_TAB) {
+        size += TAB_SIZE - (size % TAB_SIZE);
+      } else if (character === C_SPACE) {
+        size++;
+      } else {
+        break;
+      }
+
+      index++;
+    }
+
+    if (size >= TAB_SIZE) {
+      indented = true;
+    }
+
+    if (item && size >= item.indent) {
+      indented = true;
+    }
+
+    character = value.charAt(index);
+    currentMarker = null;
+
+    if (!indented) {
+      if (LIST_UNORDERED_MARKERS[character] === true) {
+        currentMarker = character;
+        index++;
+        size++;
+      } else {
+        queue = '';
+
+        while (index < length) {
+          character = value.charAt(index);
+
+          if (!decimal(character)) {
+            break;
+          }
+
+          queue += character;
+          index++;
+        }
+
+        character = value.charAt(index);
+        index++;
+
+        if (queue && markers[character] === true) {
+          currentMarker = character;
+          size += queue.length + 1;
+        }
+      }
+
+      if (currentMarker) {
+        character = value.charAt(index);
+
+        if (character === C_TAB) {
+          size += TAB_SIZE - (size % TAB_SIZE);
+          index++;
+        } else if (character === C_SPACE) {
+          end = index + TAB_SIZE;
+
+          while (index < end) {
+            if (value.charAt(index) !== C_SPACE) {
+              break;
+            }
+
+            index++;
+            size++;
+          }
+
+          if (index === end && value.charAt(index) === C_SPACE) {
+            index -= TAB_SIZE - 1;
+            size -= TAB_SIZE - 1;
+          }
+        } else if (character !== C_NEWLINE && character !== '') {
+          currentMarker = null;
+        }
+      }
+    }
+
+    if (currentMarker) {
+      if (!pedantic && marker !== currentMarker) {
+        break;
+      }
+
+      prefixed = true;
+    } else {
+      if (!commonmark && !indented && value.charAt(startIndex) === C_SPACE) {
+        indented = true;
+      } else if (commonmark && item) {
+        indented = size >= item.indent || size > TAB_SIZE;
+      }
+
+      prefixed = false;
+      index = startIndex;
+    }
+
+    line = value.slice(startIndex, nextIndex);
+    content = startIndex === index ? line : value.slice(index, nextIndex);
+
+    if (
+      currentMarker === C_ASTERISK ||
+      currentMarker === C_UNDERSCORE ||
+      currentMarker === C_DASH
+    ) {
+      if (tokenizers.thematicBreak.call(self, eat, line, true)) {
+        break;
+      }
+    }
+
+    prevEmpty = empty;
+    empty = !trim(content).length;
+
+    if (indented && item) {
+      item.value = item.value.concat(emptyLines, line);
+      allLines = allLines.concat(emptyLines, line);
+      emptyLines = [];
+    } else if (prefixed) {
+      if (emptyLines.length !== 0) {
+        item.value.push('');
+        item.trail = emptyLines.concat();
+      }
+
+      item = {
+        value: [line],
+        indent: size,
+        trail: []
+      };
+
+      items.push(item);
+      allLines = allLines.concat(emptyLines, line);
+      emptyLines = [];
+    } else if (empty) {
+      if (prevEmpty) {
+        break;
+      }
+
+      emptyLines.push(line);
+    } else {
+      if (prevEmpty) {
+        break;
+      }
+
+      if (interrupt(interuptors, tokenizers, self, [eat, line, true])) {
+        break;
+      }
+
+      item.value = item.value.concat(emptyLines, line);
+      allLines = allLines.concat(emptyLines, line);
+      emptyLines = [];
+    }
+
+    index = nextIndex + 1;
+  }
+
+  node = eat(allLines.join(C_NEWLINE)).reset({
+    type: 'list',
+    ordered: ordered,
+    start: start,
+    loose: null,
+    children: []
+  });
+
+  enterTop = self.enterList();
+  exitBlockquote = self.enterBlock();
+  isLoose = false;
+  index = -1;
+  length = items.length;
+
+  while (++index < length) {
+    item = items[index].value.join(C_NEWLINE);
+    now = eat.now();
+
+    item = eat(item)(listItem(self, item, now), node);
+
+    if (item.loose) {
+      isLoose = true;
+    }
+
+    item = items[index].trail.join(C_NEWLINE);
+
+    if (index !== length - 1) {
+      item += C_NEWLINE;
+    }
+
+    eat(item);
+  }
+
+  enterTop();
+  exitBlockquote();
+
+  node.loose = isLoose;
+
+  return node;
+}
+
+function listItem(ctx, value, position) {
+  var offsets = ctx.offset;
+  var fn = ctx.options.pedantic ? pedanticListItem : normalListItem;
+  var checked = null;
+  var task;
+  var indent;
+
+  value = fn.apply(null, arguments);
+
+  if (ctx.options.gfm) {
+    task = value.match(EXPRESSION_TASK_ITEM);
+
+    if (task) {
+      indent = task[0].length;
+      checked = task[1].toLowerCase() === C_X_LOWER;
+      offsets[position.line] += indent;
+      value = value.slice(indent);
+    }
+  }
+
+  return {
+    type: 'listItem',
+    loose: EXPRESSION_LOOSE_LIST_ITEM.test(value) ||
+      value.charAt(value.length - 1) === C_NEWLINE,
+    checked: checked,
+    children: ctx.tokenizeBlock(value, position)
+  };
+}
+
+/* Create a list-item using overly simple mechanics. */
+function pedanticListItem(ctx, value, position) {
+  var offsets = ctx.offset;
+  var line = position.line;
+
+  /* Remove the list-item’s bullet. */
+  value = value.replace(EXPRESSION_PEDANTIC_BULLET, replacer);
+
+  /* The initial line was also matched by the below, so
+   * we reset the `line`. */
+  line = position.line;
+
+  return value.replace(EXPRESSION_INITIAL_INDENT, replacer);
+
+  /* A simple replacer which removed all matches,
+   * and adds their length to `offset`. */
+  function replacer($0) {
+    offsets[line] = (offsets[line] || 0) + $0.length;
+    line++;
+
+    return '';
+  }
+}
+
+/* Create a list-item using sane mechanics. */
+function normalListItem(ctx, value, position) {
+  var offsets = ctx.offset;
+  var line = position.line;
+  var max;
+  var bullet;
+  var rest;
+  var lines;
+  var trimmedLines;
+  var index;
+  var length;
+
+  /* Remove the list-item’s bullet. */
+  value = value.replace(EXPRESSION_BULLET, replacer);
+
+  lines = value.split(C_NEWLINE);
+
+  trimmedLines = removeIndent(value, getIndent(max).indent).split(C_NEWLINE);
+
+  /* We replaced the initial bullet with something
+   * else above, which was used to trick
+   * `removeIndentation` into removing some more
+   * characters when possible.  However, that could
+   * result in the initial line to be stripped more
+   * than it should be. */
+  trimmedLines[0] = rest;
+
+  offsets[line] = (offsets[line] || 0) + bullet.length;
+  line++;
+
+  index = 0;
+  length = lines.length;
+
+  while (++index < length) {
+    offsets[line] = (offsets[line] || 0) +
+      lines[index].length - trimmedLines[index].length;
+    line++;
+  }
+
+  return trimmedLines.join(C_NEWLINE);
+
+  function replacer($0, $1, $2, $3, $4) {
+    bullet = $1 + $2 + $3;
+    rest = $4;
+
+    /* Make sure that the first nine numbered list items
+     * can indent with an extra space.  That is, when
+     * the bullet did not receive an extra final space. */
+    if (Number($2) < 10 && bullet.length % 2 === 1) {
+      $2 = C_SPACE + $2;
+    }
+
+    max = $1 + repeat(C_SPACE, $2.length) + $3;
+
+    return max + rest;
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/tokenize/newline.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/remark-parse/lib/tokenize/newline.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var whitespace = __webpack_require__(/*! is-whitespace-character */ "./node_modules/is-whitespace-character/index.js");
+
+module.exports = newline;
+
+/* Tokenise newline. */
+function newline(eat, value, silent) {
+  var character = value.charAt(0);
+  var length;
+  var subvalue;
+  var queue;
+  var index;
+
+  if (character !== '\n') {
+    return;
+  }
+
+  /* istanbul ignore if - never used (yet) */
+  if (silent) {
+    return true;
+  }
+
+  index = 1;
+  length = value.length;
+  subvalue = character;
+  queue = '';
+
+  while (index < length) {
+    character = value.charAt(index);
+
+    if (!whitespace(character)) {
+      break;
+    }
+
+    queue += character;
+
+    if (character === '\n') {
+      subvalue += queue;
+      queue = '';
+    }
+
+    index++;
+  }
+
+  eat(subvalue);
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/tokenize/paragraph.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/remark-parse/lib/tokenize/paragraph.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var trim = __webpack_require__(/*! trim */ "./node_modules/trim/index.js");
+var decimal = __webpack_require__(/*! is-decimal */ "./node_modules/is-decimal/index.js");
+var trimTrailingLines = __webpack_require__(/*! trim-trailing-lines */ "./node_modules/trim-trailing-lines/index.js");
+var interrupt = __webpack_require__(/*! ../util/interrupt */ "./node_modules/remark-parse/lib/util/interrupt.js");
+
+module.exports = paragraph;
+
+var C_NEWLINE = '\n';
+var C_TAB = '\t';
+var C_SPACE = ' ';
+
+var TAB_SIZE = 4;
+
+/* Tokenise paragraph. */
+function paragraph(eat, value, silent) {
+  var self = this;
+  var settings = self.options;
+  var commonmark = settings.commonmark;
+  var gfm = settings.gfm;
+  var tokenizers = self.blockTokenizers;
+  var interruptors = self.interruptParagraph;
+  var index = value.indexOf(C_NEWLINE);
+  var length = value.length;
+  var position;
+  var subvalue;
+  var character;
+  var size;
+  var now;
+
+  while (index < length) {
+    /* Eat everything if there’s no following newline. */
+    if (index === -1) {
+      index = length;
+      break;
+    }
+
+    /* Stop if the next character is NEWLINE. */
+    if (value.charAt(index + 1) === C_NEWLINE) {
+      break;
+    }
+
+    /* In commonmark-mode, following indented lines
+     * are part of the paragraph. */
+    if (commonmark) {
+      size = 0;
+      position = index + 1;
+
+      while (position < length) {
+        character = value.charAt(position);
+
+        if (character === C_TAB) {
+          size = TAB_SIZE;
+          break;
+        } else if (character === C_SPACE) {
+          size++;
+        } else {
+          break;
+        }
+
+        position++;
+      }
+
+      if (size >= TAB_SIZE) {
+        index = value.indexOf(C_NEWLINE, index + 1);
+        continue;
+      }
+    }
+
+    subvalue = value.slice(index + 1);
+
+    /* Check if the following code contains a possible
+     * block. */
+    if (interrupt(interruptors, tokenizers, self, [eat, subvalue, true])) {
+      break;
+    }
+
+    /* Break if the following line starts a list, when
+     * already in a list, or when in commonmark, or when
+     * in gfm mode and the bullet is *not* numeric. */
+    if (
+      tokenizers.list.call(self, eat, subvalue, true) &&
+      (
+        self.inList ||
+        commonmark ||
+        (gfm && !decimal(trim.left(subvalue).charAt(0)))
+      )
+    ) {
+      break;
+    }
+
+    position = index;
+    index = value.indexOf(C_NEWLINE, index + 1);
+
+    if (index !== -1 && trim(value.slice(position, index)) === '') {
+      index = position;
+      break;
+    }
+  }
+
+  subvalue = value.slice(0, index);
+
+  if (trim(subvalue) === '') {
+    eat(subvalue);
+
+    return null;
+  }
+
+  /* istanbul ignore if - never used (yet) */
+  if (silent) {
+    return true;
+  }
+
+  now = eat.now();
+  subvalue = trimTrailingLines(subvalue);
+
+  return eat(subvalue)({
+    type: 'paragraph',
+    children: self.tokenizeInline(subvalue, now)
+  });
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/tokenize/reference.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/remark-parse/lib/tokenize/reference.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var whitespace = __webpack_require__(/*! is-whitespace-character */ "./node_modules/is-whitespace-character/index.js");
+var locate = __webpack_require__(/*! ../locate/link */ "./node_modules/remark-parse/lib/locate/link.js");
+var normalize = __webpack_require__(/*! ../util/normalize */ "./node_modules/remark-parse/lib/util/normalize.js");
+
+module.exports = reference;
+reference.locator = locate;
+
+var T_LINK = 'link';
+var T_IMAGE = 'image';
+var T_FOOTNOTE = 'footnote';
+var REFERENCE_TYPE_SHORTCUT = 'shortcut';
+var REFERENCE_TYPE_COLLAPSED = 'collapsed';
+var REFERENCE_TYPE_FULL = 'full';
+var C_CARET = '^';
+var C_BACKSLASH = '\\';
+var C_BRACKET_OPEN = '[';
+var C_BRACKET_CLOSE = ']';
+
+function reference(eat, value, silent) {
+  var self = this;
+  var character = value.charAt(0);
+  var index = 0;
+  var length = value.length;
+  var subvalue = '';
+  var intro = '';
+  var type = T_LINK;
+  var referenceType = REFERENCE_TYPE_SHORTCUT;
+  var content;
+  var identifier;
+  var now;
+  var node;
+  var exit;
+  var queue;
+  var bracketed;
+  var depth;
+
+  /* Check whether we’re eating an image. */
+  if (character === '!') {
+    type = T_IMAGE;
+    intro = character;
+    character = value.charAt(++index);
+  }
+
+  if (character !== C_BRACKET_OPEN) {
+    return;
+  }
+
+  index++;
+  intro += character;
+  queue = '';
+
+  /* Check whether we’re eating a footnote. */
+  if (self.options.footnotes && value.charAt(index) === C_CARET) {
+    /* Exit if `![^` is found, so the `!` will be seen as text after this,
+     * and we’ll enter this function again when `[^` is found. */
+    if (type === T_IMAGE) {
+      return;
+    }
+
+    intro += C_CARET;
+    index++;
+    type = T_FOOTNOTE;
+  }
+
+  /* Eat the text. */
+  depth = 0;
+
+  while (index < length) {
+    character = value.charAt(index);
+
+    if (character === C_BRACKET_OPEN) {
+      bracketed = true;
+      depth++;
+    } else if (character === C_BRACKET_CLOSE) {
+      if (!depth) {
+        break;
+      }
+
+      depth--;
+    }
+
+    if (character === C_BACKSLASH) {
+      queue += C_BACKSLASH;
+      character = value.charAt(++index);
+    }
+
+    queue += character;
+    index++;
+  }
+
+  subvalue = queue;
+  content = queue;
+  character = value.charAt(index);
+
+  if (character !== C_BRACKET_CLOSE) {
+    return;
+  }
+
+  index++;
+  subvalue += character;
+  queue = '';
+
+  while (index < length) {
+    character = value.charAt(index);
+
+    if (!whitespace(character)) {
+      break;
+    }
+
+    queue += character;
+    index++;
+  }
+
+  character = value.charAt(index);
+
+  /* Inline footnotes cannot have an identifier. */
+  if (type !== T_FOOTNOTE && character === C_BRACKET_OPEN) {
+    identifier = '';
+    queue += character;
+    index++;
+
+    while (index < length) {
+      character = value.charAt(index);
+
+      if (character === C_BRACKET_OPEN || character === C_BRACKET_CLOSE) {
+        break;
+      }
+
+      if (character === C_BACKSLASH) {
+        identifier += C_BACKSLASH;
+        character = value.charAt(++index);
+      }
+
+      identifier += character;
+      index++;
+    }
+
+    character = value.charAt(index);
+
+    if (character === C_BRACKET_CLOSE) {
+      referenceType = identifier ? REFERENCE_TYPE_FULL : REFERENCE_TYPE_COLLAPSED;
+      queue += identifier + character;
+      index++;
+    } else {
+      identifier = '';
+    }
+
+    subvalue += queue;
+    queue = '';
+  } else {
+    if (!content) {
+      return;
+    }
+
+    identifier = content;
+  }
+
+  /* Brackets cannot be inside the identifier. */
+  if (referenceType !== REFERENCE_TYPE_FULL && bracketed) {
+    return;
+  }
+
+  subvalue = intro + subvalue;
+
+  if (type === T_LINK && self.inLink) {
+    return null;
+  }
+
+  /* istanbul ignore if - never used (yet) */
+  if (silent) {
+    return true;
+  }
+
+  if (type === T_FOOTNOTE && content.indexOf(' ') !== -1) {
+    return eat(subvalue)({
+      type: 'footnote',
+      children: this.tokenizeInline(content, eat.now())
+    });
+  }
+
+  now = eat.now();
+  now.column += intro.length;
+  now.offset += intro.length;
+  identifier = referenceType === REFERENCE_TYPE_FULL ? identifier : content;
+
+  node = {
+    type: type + 'Reference',
+    identifier: normalize(identifier)
+  };
+
+  if (type === T_LINK || type === T_IMAGE) {
+    node.referenceType = referenceType;
+  }
+
+  if (type === T_LINK) {
+    exit = self.enterLink();
+    node.children = self.tokenizeInline(content, now);
+    exit();
+  } else if (type === T_IMAGE) {
+    node.alt = self.decode.raw(self.unescape(content), now) || null;
+  }
+
+  return eat(subvalue)(node);
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/tokenize/strong.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/remark-parse/lib/tokenize/strong.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var trim = __webpack_require__(/*! trim */ "./node_modules/trim/index.js");
+var whitespace = __webpack_require__(/*! is-whitespace-character */ "./node_modules/is-whitespace-character/index.js");
+var locate = __webpack_require__(/*! ../locate/strong */ "./node_modules/remark-parse/lib/locate/strong.js");
+
+module.exports = strong;
+strong.locator = locate;
+
+var C_ASTERISK = '*';
+var C_UNDERSCORE = '_';
+
+function strong(eat, value, silent) {
+  var self = this;
+  var index = 0;
+  var character = value.charAt(index);
+  var now;
+  var pedantic;
+  var marker;
+  var queue;
+  var subvalue;
+  var length;
+  var prev;
+
+  if (
+    (character !== C_ASTERISK && character !== C_UNDERSCORE) ||
+    value.charAt(++index) !== character
+  ) {
+    return;
+  }
+
+  pedantic = self.options.pedantic;
+  marker = character;
+  subvalue = marker + marker;
+  length = value.length;
+  index++;
+  queue = '';
+  character = '';
+
+  if (pedantic && whitespace(value.charAt(index))) {
+    return;
+  }
+
+  while (index < length) {
+    prev = character;
+    character = value.charAt(index);
+
+    if (
+      character === marker &&
+      value.charAt(index + 1) === marker &&
+      (!pedantic || !whitespace(prev))
+    ) {
+      character = value.charAt(index + 2);
+
+      if (character !== marker) {
+        if (!trim(queue)) {
+          return;
+        }
+
+        /* istanbul ignore if - never used (yet) */
+        if (silent) {
+          return true;
+        }
+
+        now = eat.now();
+        now.column += 2;
+        now.offset += 2;
+
+        return eat(subvalue + queue + subvalue)({
+          type: 'strong',
+          children: self.tokenizeInline(queue, now)
+        });
+      }
+    }
+
+    if (!pedantic && character === '\\') {
+      queue += character;
+      character = value.charAt(++index);
+    }
+
+    queue += character;
+    index++;
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/tokenize/table.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/remark-parse/lib/tokenize/table.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var whitespace = __webpack_require__(/*! is-whitespace-character */ "./node_modules/is-whitespace-character/index.js");
+
+module.exports = table;
+
+var C_BACKSLASH = '\\';
+var C_TICK = '`';
+var C_DASH = '-';
+var C_PIPE = '|';
+var C_COLON = ':';
+var C_SPACE = ' ';
+var C_NEWLINE = '\n';
+var C_TAB = '\t';
+
+var MIN_TABLE_COLUMNS = 1;
+var MIN_TABLE_ROWS = 2;
+
+var TABLE_ALIGN_LEFT = 'left';
+var TABLE_ALIGN_CENTER = 'center';
+var TABLE_ALIGN_RIGHT = 'right';
+var TABLE_ALIGN_NONE = null;
+
+function table(eat, value, silent) {
+  var self = this;
+  var index;
+  var alignments;
+  var alignment;
+  var subvalue;
+  var row;
+  var length;
+  var lines;
+  var queue;
+  var character;
+  var hasDash;
+  var align;
+  var cell;
+  var preamble;
+  var count;
+  var opening;
+  var now;
+  var position;
+  var lineCount;
+  var line;
+  var rows;
+  var table;
+  var lineIndex;
+  var pipeIndex;
+  var first;
+
+  /* Exit when not in gfm-mode. */
+  if (!self.options.gfm) {
+    return;
+  }
+
+  /* Get the rows.
+   * Detecting tables soon is hard, so there are some
+   * checks for performance here, such as the minimum
+   * number of rows, and allowed characters in the
+   * alignment row. */
+  index = 0;
+  lineCount = 0;
+  length = value.length + 1;
+  lines = [];
+
+  while (index < length) {
+    lineIndex = value.indexOf(C_NEWLINE, index);
+    pipeIndex = value.indexOf(C_PIPE, index + 1);
+
+    if (lineIndex === -1) {
+      lineIndex = value.length;
+    }
+
+    if (pipeIndex === -1 || pipeIndex > lineIndex) {
+      if (lineCount < MIN_TABLE_ROWS) {
+        return;
+      }
+
+      break;
+    }
+
+    lines.push(value.slice(index, lineIndex));
+    lineCount++;
+    index = lineIndex + 1;
+  }
+
+  /* Parse the alignment row. */
+  subvalue = lines.join(C_NEWLINE);
+  alignments = lines.splice(1, 1)[0] || [];
+  index = 0;
+  length = alignments.length;
+  lineCount--;
+  alignment = false;
+  align = [];
+
+  while (index < length) {
+    character = alignments.charAt(index);
+
+    if (character === C_PIPE) {
+      hasDash = null;
+
+      if (alignment === false) {
+        if (first === false) {
+          return;
+        }
+      } else {
+        align.push(alignment);
+        alignment = false;
+      }
+
+      first = false;
+    } else if (character === C_DASH) {
+      hasDash = true;
+      alignment = alignment || TABLE_ALIGN_NONE;
+    } else if (character === C_COLON) {
+      if (alignment === TABLE_ALIGN_LEFT) {
+        alignment = TABLE_ALIGN_CENTER;
+      } else if (hasDash && alignment === TABLE_ALIGN_NONE) {
+        alignment = TABLE_ALIGN_RIGHT;
+      } else {
+        alignment = TABLE_ALIGN_LEFT;
+      }
+    } else if (!whitespace(character)) {
+      return;
+    }
+
+    index++;
+  }
+
+  if (alignment !== false) {
+    align.push(alignment);
+  }
+
+  /* Exit when without enough columns. */
+  if (align.length < MIN_TABLE_COLUMNS) {
+    return;
+  }
+
+  /* istanbul ignore if - never used (yet) */
+  if (silent) {
+    return true;
+  }
+
+  /* Parse the rows. */
+  position = -1;
+  rows = [];
+
+  table = eat(subvalue).reset({
+    type: 'table',
+    align: align,
+    children: rows
+  });
+
+  while (++position < lineCount) {
+    line = lines[position];
+    row = {type: 'tableRow', children: []};
+
+    /* Eat a newline character when this is not the
+     * first row. */
+    if (position) {
+      eat(C_NEWLINE);
+    }
+
+    /* Eat the row. */
+    eat(line).reset(row, table);
+
+    length = line.length + 1;
+    index = 0;
+    queue = '';
+    cell = '';
+    preamble = true;
+    count = null;
+    opening = null;
+
+    while (index < length) {
+      character = line.charAt(index);
+
+      if (character === C_TAB || character === C_SPACE) {
+        if (cell) {
+          queue += character;
+        } else {
+          eat(character);
+        }
+
+        index++;
+        continue;
+      }
+
+      if (character === '' || character === C_PIPE) {
+        if (preamble) {
+          eat(character);
+        } else {
+          if (character && opening) {
+            queue += character;
+            index++;
+            continue;
+          }
+
+          if ((cell || character) && !preamble) {
+            subvalue = cell;
+
+            if (queue.length > 1) {
+              if (character) {
+                subvalue += queue.slice(0, queue.length - 1);
+                queue = queue.charAt(queue.length - 1);
+              } else {
+                subvalue += queue;
+                queue = '';
+              }
+            }
+
+            now = eat.now();
+
+            eat(subvalue)({
+              type: 'tableCell',
+              children: self.tokenizeInline(cell, now)
+            }, row);
+          }
+
+          eat(queue + character);
+
+          queue = '';
+          cell = '';
+        }
+      } else {
+        if (queue) {
+          cell += queue;
+          queue = '';
+        }
+
+        cell += character;
+
+        if (character === C_BACKSLASH && index !== length - 2) {
+          cell += line.charAt(index + 1);
+          index++;
+        }
+
+        if (character === C_TICK) {
+          count = 1;
+
+          while (line.charAt(index + 1) === character) {
+            cell += character;
+            index++;
+            count++;
+          }
+
+          if (!opening) {
+            opening = count;
+          } else if (count >= opening) {
+            opening = 0;
+          }
+        }
+      }
+
+      preamble = false;
+      index++;
+    }
+
+    /* Eat the alignment row. */
+    if (!position) {
+      eat(C_NEWLINE + alignments);
+    }
+  }
+
+  return table;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/tokenize/text.js":
+/*!********************************************************!*\
+  !*** ./node_modules/remark-parse/lib/tokenize/text.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = text;
+
+function text(eat, value, silent) {
+  var self = this;
+  var methods;
+  var tokenizers;
+  var index;
+  var length;
+  var subvalue;
+  var position;
+  var tokenizer;
+  var name;
+  var min;
+  var now;
+
+  /* istanbul ignore if - never used (yet) */
+  if (silent) {
+    return true;
+  }
+
+  methods = self.inlineMethods;
+  length = methods.length;
+  tokenizers = self.inlineTokenizers;
+  index = -1;
+  min = value.length;
+
+  while (++index < length) {
+    name = methods[index];
+
+    if (name === 'text' || !tokenizers[name]) {
+      continue;
+    }
+
+    tokenizer = tokenizers[name].locator;
+
+    if (!tokenizer) {
+      eat.file.fail('Missing locator: `' + name + '`');
+    }
+
+    position = tokenizer.call(self, value, 1);
+
+    if (position !== -1 && position < min) {
+      min = position;
+    }
+  }
+
+  subvalue = value.slice(0, min);
+  now = eat.now();
+
+  self.decode(subvalue, now, function (content, position, source) {
+    eat(source || content)({
+      type: 'text',
+      value: content
+    });
+  });
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/tokenize/thematic-break.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/remark-parse/lib/tokenize/thematic-break.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = thematicBreak;
+
+var C_NEWLINE = '\n';
+var C_TAB = '\t';
+var C_SPACE = ' ';
+var C_ASTERISK = '*';
+var C_UNDERSCORE = '_';
+var C_DASH = '-';
+
+var THEMATIC_BREAK_MARKER_COUNT = 3;
+
+function thematicBreak(eat, value, silent) {
+  var index = -1;
+  var length = value.length + 1;
+  var subvalue = '';
+  var character;
+  var marker;
+  var markerCount;
+  var queue;
+
+  while (++index < length) {
+    character = value.charAt(index);
+
+    if (character !== C_TAB && character !== C_SPACE) {
+      break;
+    }
+
+    subvalue += character;
+  }
+
+  if (
+    character !== C_ASTERISK &&
+    character !== C_DASH &&
+    character !== C_UNDERSCORE
+  ) {
+    return;
+  }
+
+  marker = character;
+  subvalue += character;
+  markerCount = 1;
+  queue = '';
+
+  while (++index < length) {
+    character = value.charAt(index);
+
+    if (character === marker) {
+      markerCount++;
+      subvalue += queue + marker;
+      queue = '';
+    } else if (character === C_SPACE) {
+      queue += character;
+    } else if (
+      markerCount >= THEMATIC_BREAK_MARKER_COUNT &&
+      (!character || character === C_NEWLINE)
+    ) {
+      subvalue += queue;
+
+      if (silent) {
+        return true;
+      }
+
+      return eat(subvalue)({type: 'thematicBreak'});
+    } else {
+      return;
+    }
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/tokenize/url.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/remark-parse/lib/tokenize/url.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var decode = __webpack_require__(/*! parse-entities */ "./node_modules/parse-entities/index.js");
+var whitespace = __webpack_require__(/*! is-whitespace-character */ "./node_modules/is-whitespace-character/index.js");
+var locate = __webpack_require__(/*! ../locate/url */ "./node_modules/remark-parse/lib/locate/url.js");
+
+module.exports = url;
+url.locator = locate;
+url.notInLink = true;
+
+var C_BRACKET_OPEN = '[';
+var C_BRACKET_CLOSE = ']';
+var C_PAREN_OPEN = '(';
+var C_PAREN_CLOSE = ')';
+var C_LT = '<';
+var C_AT_SIGN = '@';
+
+var HTTP_PROTOCOL = 'http://';
+var HTTPS_PROTOCOL = 'https://';
+var MAILTO_PROTOCOL = 'mailto:';
+
+var PROTOCOLS = [
+  HTTP_PROTOCOL,
+  HTTPS_PROTOCOL,
+  MAILTO_PROTOCOL
+];
+
+var PROTOCOLS_LENGTH = PROTOCOLS.length;
+
+function url(eat, value, silent) {
+  var self = this;
+  var subvalue;
+  var content;
+  var character;
+  var index;
+  var position;
+  var protocol;
+  var match;
+  var length;
+  var queue;
+  var parenCount;
+  var nextCharacter;
+  var exit;
+
+  if (!self.options.gfm) {
+    return;
+  }
+
+  subvalue = '';
+  index = -1;
+  length = PROTOCOLS_LENGTH;
+
+  while (++index < length) {
+    protocol = PROTOCOLS[index];
+    match = value.slice(0, protocol.length);
+
+    if (match.toLowerCase() === protocol) {
+      subvalue = match;
+      break;
+    }
+  }
+
+  if (!subvalue) {
+    return;
+  }
+
+  index = subvalue.length;
+  length = value.length;
+  queue = '';
+  parenCount = 0;
+
+  while (index < length) {
+    character = value.charAt(index);
+
+    if (whitespace(character) || character === C_LT) {
+      break;
+    }
+
+    if (
+      character === '.' ||
+      character === ',' ||
+      character === ':' ||
+      character === ';' ||
+      character === '"' ||
+      character === '\'' ||
+      character === ')' ||
+      character === ']'
+    ) {
+      nextCharacter = value.charAt(index + 1);
+
+      if (!nextCharacter || whitespace(nextCharacter)) {
+        break;
+      }
+    }
+
+    if (character === C_PAREN_OPEN || character === C_BRACKET_OPEN) {
+      parenCount++;
+    }
+
+    if (character === C_PAREN_CLOSE || character === C_BRACKET_CLOSE) {
+      parenCount--;
+
+      if (parenCount < 0) {
+        break;
+      }
+    }
+
+    queue += character;
+    index++;
+  }
+
+  if (!queue) {
+    return;
+  }
+
+  subvalue += queue;
+  content = subvalue;
+
+  if (protocol === MAILTO_PROTOCOL) {
+    position = queue.indexOf(C_AT_SIGN);
+
+    if (position === -1 || position === length - 1) {
+      return;
+    }
+
+    content = content.substr(MAILTO_PROTOCOL.length);
+  }
+
+  /* istanbul ignore if - never used (yet) */
+  if (silent) {
+    return true;
+  }
+
+  exit = self.enterLink();
+  content = self.tokenizeInline(content, eat.now());
+  exit();
+
+  return eat(subvalue)({
+    type: 'link',
+    title: null,
+    url: decode(subvalue, {nonTerminated: false}),
+    children: content
+  });
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/tokenizer.js":
+/*!****************************************************!*\
+  !*** ./node_modules/remark-parse/lib/tokenizer.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = factory;
+
+var MERGEABLE_NODES = {
+  text: mergeText,
+  blockquote: mergeBlockquote
+};
+
+/* Check whether a node is mergeable with adjacent nodes. */
+function mergeable(node) {
+  var start;
+  var end;
+
+  if (node.type !== 'text' || !node.position) {
+    return true;
+  }
+
+  start = node.position.start;
+  end = node.position.end;
+
+  /* Only merge nodes which occupy the same size as their
+   * `value`. */
+  return start.line !== end.line ||
+      end.column - start.column === node.value.length;
+}
+
+/* Merge two text nodes: `node` into `prev`. */
+function mergeText(prev, node) {
+  prev.value += node.value;
+
+  return prev;
+}
+
+/* Merge two blockquotes: `node` into `prev`, unless in
+ * CommonMark mode. */
+function mergeBlockquote(prev, node) {
+  if (this.options.commonmark) {
+    return node;
+  }
+
+  prev.children = prev.children.concat(node.children);
+
+  return prev;
+}
+
+/* Construct a tokenizer.  This creates both
+ * `tokenizeInline` and `tokenizeBlock`. */
+function factory(type) {
+  return tokenize;
+
+  /* Tokenizer for a bound `type`. */
+  function tokenize(value, location) {
+    var self = this;
+    var offset = self.offset;
+    var tokens = [];
+    var methods = self[type + 'Methods'];
+    var tokenizers = self[type + 'Tokenizers'];
+    var line = location.line;
+    var column = location.column;
+    var index;
+    var length;
+    var method;
+    var name;
+    var matched;
+    var valueLength;
+
+    /* Trim white space only lines. */
+    if (!value) {
+      return tokens;
+    }
+
+    /* Expose on `eat`. */
+    eat.now = now;
+    eat.file = self.file;
+
+    /* Sync initial offset. */
+    updatePosition('');
+
+    /* Iterate over `value`, and iterate over all
+     * tokenizers.  When one eats something, re-iterate
+     * with the remaining value.  If no tokenizer eats,
+     * something failed (should not happen) and an
+     * exception is thrown. */
+    while (value) {
+      index = -1;
+      length = methods.length;
+      matched = false;
+
+      while (++index < length) {
+        name = methods[index];
+        method = tokenizers[name];
+
+        if (
+          method &&
+          /* istanbul ignore next */ (!method.onlyAtStart || self.atStart) &&
+          (!method.notInList || !self.inList) &&
+          (!method.notInBlock || !self.inBlock) &&
+          (!method.notInLink || !self.inLink)
+        ) {
+          valueLength = value.length;
+
+          method.apply(self, [eat, value]);
+
+          matched = valueLength !== value.length;
+
+          if (matched) {
+            break;
+          }
+        }
+      }
+
+      /* istanbul ignore if */
+      if (!matched) {
+        self.file.fail(new Error('Infinite loop'), eat.now());
+      }
+    }
+
+    self.eof = now();
+
+    return tokens;
+
+    /* Update line, column, and offset based on
+     * `value`. */
+    function updatePosition(subvalue) {
+      var lastIndex = -1;
+      var index = subvalue.indexOf('\n');
+
+      while (index !== -1) {
+        line++;
+        lastIndex = index;
+        index = subvalue.indexOf('\n', index + 1);
+      }
+
+      if (lastIndex === -1) {
+        column += subvalue.length;
+      } else {
+        column = subvalue.length - lastIndex;
+      }
+
+      if (line in offset) {
+        if (lastIndex !== -1) {
+          column += offset[line];
+        } else if (column <= offset[line]) {
+          column = offset[line] + 1;
+        }
+      }
+    }
+
+    /* Get offset.  Called before the first character is
+     * eaten to retrieve the range's offsets. */
+    function getOffset() {
+      var indentation = [];
+      var pos = line + 1;
+
+      /* Done.  Called when the last character is
+       * eaten to retrieve the range’s offsets. */
+      return function () {
+        var last = line + 1;
+
+        while (pos < last) {
+          indentation.push((offset[pos] || 0) + 1);
+
+          pos++;
+        }
+
+        return indentation;
+      };
+    }
+
+    /* Get the current position. */
+    function now() {
+      var pos = {line: line, column: column};
+
+      pos.offset = self.toOffset(pos);
+
+      return pos;
+    }
+
+    /* Store position information for a node. */
+    function Position(start) {
+      this.start = start;
+      this.end = now();
+    }
+
+    /* Throw when a value is incorrectly eaten.
+     * This shouldn’t happen but will throw on new,
+     * incorrect rules. */
+    function validateEat(subvalue) {
+      /* istanbul ignore if */
+      if (value.substring(0, subvalue.length) !== subvalue) {
+        /* Capture stack-trace. */
+        self.file.fail(
+          new Error(
+            'Incorrectly eaten value: please report this ' +
+            'warning on http://git.io/vg5Ft'
+          ),
+          now()
+        );
+      }
+    }
+
+    /* Mark position and patch `node.position`. */
+    function position() {
+      var before = now();
+
+      return update;
+
+      /* Add the position to a node. */
+      function update(node, indent) {
+        var prev = node.position;
+        var start = prev ? prev.start : before;
+        var combined = [];
+        var n = prev && prev.end.line;
+        var l = before.line;
+
+        node.position = new Position(start);
+
+        /* If there was already a `position`, this
+         * node was merged.  Fixing `start` wasn’t
+         * hard, but the indent is different.
+         * Especially because some information, the
+         * indent between `n` and `l` wasn’t
+         * tracked.  Luckily, that space is
+         * (should be?) empty, so we can safely
+         * check for it now. */
+        if (prev && indent && prev.indent) {
+          combined = prev.indent;
+
+          if (n < l) {
+            while (++n < l) {
+              combined.push((offset[n] || 0) + 1);
+            }
+
+            combined.push(before.column);
+          }
+
+          indent = combined.concat(indent);
+        }
+
+        node.position.indent = indent || [];
+
+        return node;
+      }
+    }
+
+    /* Add `node` to `parent`s children or to `tokens`.
+     * Performs merges where possible. */
+    function add(node, parent) {
+      var children = parent ? parent.children : tokens;
+      var prev = children[children.length - 1];
+
+      if (
+        prev &&
+        node.type === prev.type &&
+        node.type in MERGEABLE_NODES &&
+        mergeable(prev) &&
+        mergeable(node)
+      ) {
+        node = MERGEABLE_NODES[node.type].call(self, prev, node);
+      }
+
+      if (node !== prev) {
+        children.push(node);
+      }
+
+      if (self.atStart && tokens.length !== 0) {
+        self.exitStart();
+      }
+
+      return node;
+    }
+
+    /* Remove `subvalue` from `value`.
+     * `subvalue` must be at the start of `value`. */
+    function eat(subvalue) {
+      var indent = getOffset();
+      var pos = position();
+      var current = now();
+
+      validateEat(subvalue);
+
+      apply.reset = reset;
+      reset.test = test;
+      apply.test = test;
+
+      value = value.substring(subvalue.length);
+
+      updatePosition(subvalue);
+
+      indent = indent();
+
+      return apply;
+
+      /* Add the given arguments, add `position` to
+       * the returned node, and return the node. */
+      function apply(node, parent) {
+        return pos(add(pos(node), parent), indent);
+      }
+
+      /* Functions just like apply, but resets the
+       * content:  the line and column are reversed,
+       * and the eaten value is re-added.
+       * This is useful for nodes with a single
+       * type of content, such as lists and tables.
+       * See `apply` above for what parameters are
+       * expected. */
+      function reset() {
+        var node = apply.apply(null, arguments);
+
+        line = current.line;
+        column = current.column;
+        value = subvalue + value;
+
+        return node;
+      }
+
+      /* Test the position, after eating, and reverse
+       * to a not-eaten state. */
+      function test() {
+        var result = pos({});
+
+        line = current.line;
+        column = current.column;
+        value = subvalue + value;
+
+        return result.position;
+      }
+    }
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/unescape.js":
+/*!***************************************************!*\
+  !*** ./node_modules/remark-parse/lib/unescape.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = factory;
+
+/* Factory to de-escape a value, based on a list at `key`
+ * in `ctx`. */
+function factory(ctx, key) {
+  return unescape;
+
+  /* De-escape a string using the expression at `key`
+   * in `ctx`. */
+  function unescape(value) {
+    var prev = 0;
+    var index = value.indexOf('\\');
+    var escape = ctx[key];
+    var queue = [];
+    var character;
+
+    while (index !== -1) {
+      queue.push(value.slice(prev, index));
+      prev = index + 1;
+      character = value.charAt(prev);
+
+      /* If the following character is not a valid escape,
+       * add the slash. */
+      if (!character || escape.indexOf(character) === -1) {
+        queue.push('\\');
+      }
+
+      index = value.indexOf('\\', prev);
+    }
+
+    queue.push(value.slice(prev));
+
+    return queue.join('');
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/util/get-indentation.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/remark-parse/lib/util/get-indentation.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = indentation;
+
+/* Map of characters, and their column length,
+ * which can be used as indentation. */
+var characters = {' ': 1, '\t': 4};
+
+/* Gets indentation information for a line. */
+function indentation(value) {
+  var index = 0;
+  var indent = 0;
+  var character = value.charAt(index);
+  var stops = {};
+  var size;
+
+  while (character in characters) {
+    size = characters[character];
+
+    indent += size;
+
+    if (size > 1) {
+      indent = Math.floor(indent / size) * size;
+    }
+
+    stops[indent] = index;
+
+    character = value.charAt(++index);
+  }
+
+  return {indent: indent, stops: stops};
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/util/html.js":
+/*!****************************************************!*\
+  !*** ./node_modules/remark-parse/lib/util/html.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var attributeName = '[a-zA-Z_:][a-zA-Z0-9:._-]*';
+var unquoted = '[^"\'=<>`\\u0000-\\u0020]+';
+var singleQuoted = '\'[^\']*\'';
+var doubleQuoted = '"[^"]*"';
+var attributeValue = '(?:' + unquoted + '|' + singleQuoted + '|' + doubleQuoted + ')';
+var attribute = '(?:\\s+' + attributeName + '(?:\\s*=\\s*' + attributeValue + ')?)';
+var openTag = '<[A-Za-z][A-Za-z0-9\\-]*' + attribute + '*\\s*\\/?>';
+var closeTag = '<\\/[A-Za-z][A-Za-z0-9\\-]*\\s*>';
+var comment = '<!---->|<!--(?:-?[^>-])(?:-?[^-])*-->';
+var processing = '<[?].*?[?]>';
+var declaration = '<![A-Za-z]+\\s+[^>]*>';
+var cdata = '<!\\[CDATA\\[[\\s\\S]*?\\]\\]>';
+
+exports.openCloseTag = new RegExp('^(?:' + openTag + '|' + closeTag + ')');
+
+exports.tag = new RegExp('^(?:' +
+  openTag + '|' +
+  closeTag + '|' +
+  comment + '|' +
+  processing + '|' +
+  declaration + '|' +
+  cdata +
+')');
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/util/interrupt.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/remark-parse/lib/util/interrupt.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = interrupt;
+
+function interrupt(interruptors, tokenizers, ctx, params) {
+  var bools = ['pedantic', 'commonmark'];
+  var count = bools.length;
+  var length = interruptors.length;
+  var index = -1;
+  var interruptor;
+  var config;
+  var fn;
+  var offset;
+  var bool;
+  var ignore;
+
+  while (++index < length) {
+    interruptor = interruptors[index];
+    config = interruptor[1] || {};
+    fn = interruptor[0];
+    offset = -1;
+    ignore = false;
+
+    while (++offset < count) {
+      bool = bools[offset];
+
+      if (config[bool] !== undefined && config[bool] !== ctx.options[bool]) {
+        ignore = true;
+        break;
+      }
+    }
+
+    if (ignore) {
+      continue;
+    }
+
+    if (tokenizers[fn].apply(ctx, params)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/util/normalize.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/remark-parse/lib/util/normalize.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var collapseWhiteSpace = __webpack_require__(/*! collapse-white-space */ "./node_modules/collapse-white-space/index.js");
+
+module.exports = normalize;
+
+/* Normalize an identifier.  Collapses multiple white space
+ * characters into a single space, and removes casing. */
+function normalize(value) {
+  return collapseWhiteSpace(value).toLowerCase();
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/remark-parse/lib/util/remove-indentation.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/remark-parse/lib/util/remove-indentation.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var trim = __webpack_require__(/*! trim */ "./node_modules/trim/index.js");
+var repeat = __webpack_require__(/*! repeat-string */ "./node_modules/repeat-string/index.js");
+var getIndent = __webpack_require__(/*! ./get-indentation */ "./node_modules/remark-parse/lib/util/get-indentation.js");
+
+module.exports = indentation;
+
+var C_SPACE = ' ';
+var C_NEWLINE = '\n';
+var C_TAB = '\t';
+
+/* Remove the minimum indent from every line in `value`.
+ * Supports both tab, spaced, and mixed indentation (as
+ * well as possible). */
+function indentation(value, maximum) {
+  var values = value.split(C_NEWLINE);
+  var position = values.length + 1;
+  var minIndent = Infinity;
+  var matrix = [];
+  var index;
+  var indentation;
+  var stops;
+  var padding;
+
+  values.unshift(repeat(C_SPACE, maximum) + '!');
+
+  while (position--) {
+    indentation = getIndent(values[position]);
+
+    matrix[position] = indentation.stops;
+
+    if (trim(values[position]).length === 0) {
+      continue;
+    }
+
+    if (indentation.indent) {
+      if (indentation.indent > 0 && indentation.indent < minIndent) {
+        minIndent = indentation.indent;
+      }
+    } else {
+      minIndent = Infinity;
+
+      break;
+    }
+  }
+
+  if (minIndent !== Infinity) {
+    position = values.length;
+
+    while (position--) {
+      stops = matrix[position];
+      index = minIndent;
+
+      while (index && !(index in stops)) {
+        index--;
+      }
+
+      if (
+        trim(values[position]).length !== 0 &&
+        minIndent &&
+        index !== minIndent
+      ) {
+        padding = C_TAB;
+      } else {
+        padding = '';
+      }
+
+      values[position] = padding + values[position].slice(
+        index in stops ? stops[index] + 1 : 0
+      );
+    }
+  }
+
+  values.shift();
+
+  return values.join(C_NEWLINE);
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/repeat-string/index.js":
+/*!*********************************************!*\
+  !*** ./node_modules/repeat-string/index.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*!
+ * repeat-string <https://github.com/jonschlinkert/repeat-string>
+ *
+ * Copyright (c) 2014-2015, Jon Schlinkert.
+ * Licensed under the MIT License.
+ */
+
+
+
+/**
+ * Results cache
+ */
+
+var res = '';
+var cache;
+
+/**
+ * Expose `repeat`
+ */
+
+module.exports = repeat;
+
+/**
+ * Repeat the given `string` the specified `number`
+ * of times.
+ *
+ * **Example:**
+ *
+ * ```js
+ * var repeat = require('repeat-string');
+ * repeat('A', 5);
+ * //=> AAAAA
+ * ```
+ *
+ * @param {String} `string` The string to repeat
+ * @param {Number} `number` The number of times to repeat the string
+ * @return {String} Repeated string
+ * @api public
+ */
+
+function repeat(str, num) {
+  if (typeof str !== 'string') {
+    throw new TypeError('expected a string');
+  }
+
+  // cover common, quick use cases
+  if (num === 1) return str;
+  if (num === 2) return str + str;
+
+  var max = str.length * num;
+  if (cache !== str || typeof cache === 'undefined') {
+    cache = str;
+    res = '';
+  } else if (res.length >= max) {
+    return res.substr(0, max);
+  }
+
+  while (max > res.length && num > 1) {
+    if (num & 1) {
+      res += str;
+    }
+
+    num >>= 1;
+    str += str;
+  }
+
+  res += str;
+  res = res.substr(0, max);
+  return res;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/replace-ext/index.js":
+/*!*******************************************!*\
+  !*** ./node_modules/replace-ext/index.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var path = __webpack_require__(/*! path */ "./node_modules/path-browserify/index.js");
+
+function replaceExt(npath, ext) {
+  if (typeof npath !== 'string') {
+    return npath;
+  }
+
+  if (npath.length === 0) {
+    return npath;
+  }
+
+  var nFileName = path.basename(npath, path.extname(npath)) + ext;
+  return path.join(path.dirname(npath), nFileName);
+}
+
+module.exports = replaceExt;
+
+
+/***/ }),
+
 /***/ "./node_modules/reselect/lib/index.js":
 /*!********************************************!*\
   !*** ./node_modules/reselect/lib/index.js ***!
@@ -54070,6 +61691,41 @@ module.exports = shallowEqualObjects;
 
 /***/ }),
 
+/***/ "./node_modules/state-toggle/index.js":
+/*!********************************************!*\
+  !*** ./node_modules/state-toggle/index.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = factory
+
+// Construct a state `toggler`: a function which inverses `property` in context
+// based on its current value.
+// The by `toggler` returned function restores that value.
+function factory(key, state, ctx) {
+  return enter
+
+  function enter() {
+    var context = ctx || this
+    var current = context[key]
+
+    context[key] = !state
+
+    return exit
+
+    function exit() {
+      context[key] = current
+    }
+  }
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/sweetalert2/dist/sweetalert2.all.js":
 /*!**********************************************************!*\
   !*** ./node_modules/sweetalert2/dist/sweetalert2.all.js ***!
@@ -54078,7 +61734,7 @@ module.exports = shallowEqualObjects;
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
-* sweetalert2 v9.10.11
+* sweetalert2 v9.13.0
 * Released under the MIT License.
 */
 (function (global, factory) {
@@ -54220,11 +61876,13 @@ module.exports = shallowEqualObjects;
   }
 
   function _createSuper(Derived) {
+    var hasNativeReflectConstruct = _isNativeReflectConstruct();
+
     return function () {
       var Super = _getPrototypeOf(Derived),
           result;
 
-      if (_isNativeReflectConstruct()) {
+      if (hasNativeReflectConstruct) {
         var NewTarget = _getPrototypeOf(this).constructor;
 
         result = Reflect.construct(Super, arguments, NewTarget);
@@ -54907,9 +62565,11 @@ module.exports = shallowEqualObjects;
     } // Loading state
 
 
-    var confirmButtonBackgroundColor = window.getComputedStyle(confirmButton).getPropertyValue('background-color');
-    confirmButton.style.borderLeftColor = confirmButtonBackgroundColor;
-    confirmButton.style.borderRightColor = confirmButtonBackgroundColor;
+    if (!isLoading()) {
+      var confirmButtonBackgroundColor = window.getComputedStyle(confirmButton).getPropertyValue('background-color');
+      confirmButton.style.borderLeftColor = confirmButtonBackgroundColor;
+      confirmButton.style.borderRightColor = confirmButtonBackgroundColor;
+    }
   }
 
   function renderButton(button, buttonType, params) {
@@ -55763,7 +63423,7 @@ module.exports = shallowEqualObjects;
     onDestroy: undefined,
     scrollbarPadding: true
   };
-  var updatableParams = ['title', 'titleText', 'text', 'html', 'icon', 'hideClass', 'customClass', 'allowOutsideClick', 'allowEscapeKey', 'showConfirmButton', 'showCancelButton', 'confirmButtonText', 'confirmButtonAriaLabel', 'confirmButtonColor', 'cancelButtonText', 'cancelButtonAriaLabel', 'cancelButtonColor', 'buttonsStyling', 'reverseButtons', 'imageUrl', 'imageWidth', 'imageHeight', 'imageAlt', 'progressSteps', 'currentProgressStep'];
+  var updatableParams = ['title', 'titleText', 'text', 'html', 'footer', 'icon', 'hideClass', 'customClass', 'allowOutsideClick', 'allowEscapeKey', 'showConfirmButton', 'showCancelButton', 'confirmButtonText', 'confirmButtonAriaLabel', 'confirmButtonColor', 'cancelButtonText', 'cancelButtonAriaLabel', 'cancelButtonColor', 'buttonsStyling', 'reverseButtons', 'imageUrl', 'imageWidth', 'imageHeight', 'imageAlt', 'progressSteps', 'currentProgressStep', 'onClose', 'onAfterClose', 'onDestroy'];
   var deprecatedParams = {
     animation: 'showClass" and "hideClass'
   };
@@ -56114,7 +63774,18 @@ module.exports = shallowEqualObjects;
     var backdrop = getContainer();
     removeClass(backdrop, innerParams.showClass.backdrop);
     addClass(backdrop, innerParams.hideClass.backdrop);
-    handlePopupAnimation(this, popup, innerParams); // Resolve Swal promise
+    handlePopupAnimation(this, popup, innerParams);
+
+    if (typeof resolveValue !== 'undefined') {
+      resolveValue.isDismissed = typeof resolveValue.dismiss !== 'undefined';
+      resolveValue.isConfirmed = typeof resolveValue.dismiss === 'undefined';
+    } else {
+      resolveValue = {
+        isDismissed: true,
+        isConfirmed: false
+      };
+    } // Resolve Swal promise
+
 
     swalPromiseResolve(resolveValue || {});
   }
@@ -56929,9 +64600,11 @@ module.exports = shallowEqualObjects;
       handleInputOptionsAndValue(instance, innerParams);
       openPopup(innerParams);
       setupTimer(globalState, innerParams, dismissWith);
-      initFocus(domCache, innerParams); // Scroll container to top on open (#1247)
+      initFocus(domCache, innerParams); // Scroll container to top on open (#1247, #1946)
 
-      domCache.container.scrollTop = 0;
+      setTimeout(function () {
+        domCache.container.scrollTop = 0;
+      });
     });
   };
 
@@ -57100,54 +64773,60 @@ module.exports = shallowEqualObjects;
     _destroy: _destroy
   });
 
-  var currentInstance; // SweetAlert constructor
+  var currentInstance;
 
-  function SweetAlert() {
-    // Prevent run in Node env
+  var SweetAlert = /*#__PURE__*/function () {
+    function SweetAlert() {
+      _classCallCheck(this, SweetAlert);
 
-    /* istanbul ignore if */
-    if (typeof window === 'undefined') {
-      return;
-    } // Check for the existence of Promise
-
-    /* istanbul ignore if */
+      // Prevent run in Node env
+      if (typeof window === 'undefined') {
+        return;
+      } // Check for the existence of Promise
 
 
-    if (typeof Promise === 'undefined') {
-      error('This package requires a Promise library, please include a shim to enable it in this browser (See: https://github.com/sweetalert2/sweetalert2/wiki/Migration-from-SweetAlert-to-SweetAlert2#1-ie-support)');
-    }
-
-    currentInstance = this;
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    var outerParams = Object.freeze(this.constructor.argsToParams(args));
-    Object.defineProperties(this, {
-      params: {
-        value: outerParams,
-        writable: false,
-        enumerable: true,
-        configurable: true
+      if (typeof Promise === 'undefined') {
+        error('This package requires a Promise library, please include a shim to enable it in this browser (See: https://github.com/sweetalert2/sweetalert2/wiki/Migration-from-SweetAlert-to-SweetAlert2#1-ie-support)');
       }
-    });
 
-    var promise = this._main(this.params);
+      currentInstance = this;
 
-    privateProps.promise.set(this, promise);
-  } // `catch` cannot be the name of a module export, so we define our thenable methods here instead
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      var outerParams = Object.freeze(this.constructor.argsToParams(args));
+      Object.defineProperties(this, {
+        params: {
+          value: outerParams,
+          writable: false,
+          enumerable: true,
+          configurable: true
+        }
+      });
+
+      var promise = this._main(this.params);
+
+      privateProps.promise.set(this, promise);
+    } // `catch` cannot be the name of a module export, so we define our thenable methods here instead
 
 
-  SweetAlert.prototype.then = function (onFulfilled) {
-    var promise = privateProps.promise.get(this);
-    return promise.then(onFulfilled);
-  };
+    _createClass(SweetAlert, [{
+      key: "then",
+      value: function then(onFulfilled) {
+        var promise = privateProps.promise.get(this);
+        return promise.then(onFulfilled);
+      }
+    }, {
+      key: "finally",
+      value: function _finally(onFinally) {
+        var promise = privateProps.promise.get(this);
+        return promise["finally"](onFinally);
+      }
+    }]);
 
-  SweetAlert.prototype["finally"] = function (onFinally) {
-    var promise = privateProps.promise.get(this);
-    return promise["finally"](onFinally);
-  }; // Assign instance methods from src/instanceMethods/*.js to prototype
+    return SweetAlert;
+  }(); // Assign instance methods from src/instanceMethods/*.js to prototype
 
 
   _extends(SweetAlert.prototype, instanceMethods); // Assign static methods from src/staticMethods/*.js to constructor
@@ -57166,7 +64845,7 @@ module.exports = shallowEqualObjects;
     };
   });
   SweetAlert.DismissReason = DismissReason;
-  SweetAlert.version = '9.10.11';
+  SweetAlert.version = '9.13.0';
 
   var Swal = SweetAlert;
   Swal["default"] = Swal;
@@ -57287,6 +64966,1582 @@ module.exports = warning;
 
 /***/ }),
 
+/***/ "./node_modules/trim-trailing-lines/index.js":
+/*!***************************************************!*\
+  !*** ./node_modules/trim-trailing-lines/index.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = trimTrailingLines
+
+var line = '\n'
+
+// Remove final newline characters from `value`.
+function trimTrailingLines(value) {
+  var val = String(value)
+  var index = val.length
+
+  while (val.charAt(--index) === line) {
+    // Empty
+  }
+
+  return val.slice(0, index + 1)
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/trim/index.js":
+/*!************************************!*\
+  !*** ./node_modules/trim/index.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+exports = module.exports = trim;
+
+function trim(str){
+  return str.replace(/^\s*|\s*$/g, '');
+}
+
+exports.left = function(str){
+  return str.replace(/^\s*/, '');
+};
+
+exports.right = function(str){
+  return str.replace(/\s*$/, '');
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/trough/index.js":
+/*!**************************************!*\
+  !*** ./node_modules/trough/index.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var wrap = __webpack_require__(/*! ./wrap.js */ "./node_modules/trough/wrap.js")
+
+module.exports = trough
+
+trough.wrap = wrap
+
+var slice = [].slice
+
+// Create new middleware.
+function trough() {
+  var fns = []
+  var middleware = {}
+
+  middleware.run = run
+  middleware.use = use
+
+  return middleware
+
+  // Run `fns`.  Last argument must be a completion handler.
+  function run() {
+    var index = -1
+    var input = slice.call(arguments, 0, -1)
+    var done = arguments[arguments.length - 1]
+
+    if (typeof done !== 'function') {
+      throw new Error('Expected function as last argument, not ' + done)
+    }
+
+    next.apply(null, [null].concat(input))
+
+    // Run the next `fn`, if any.
+    function next(err) {
+      var fn = fns[++index]
+      var params = slice.call(arguments, 0)
+      var values = params.slice(1)
+      var length = input.length
+      var pos = -1
+
+      if (err) {
+        done(err)
+        return
+      }
+
+      // Copy non-nully input into values.
+      while (++pos < length) {
+        if (values[pos] === null || values[pos] === undefined) {
+          values[pos] = input[pos]
+        }
+      }
+
+      input = values
+
+      // Next or done.
+      if (fn) {
+        wrap(fn, next).apply(null, input)
+      } else {
+        done.apply(null, [null].concat(input))
+      }
+    }
+  }
+
+  // Add `fn` to the list.
+  function use(fn) {
+    if (typeof fn !== 'function') {
+      throw new Error('Expected `fn` to be a function, not ' + fn)
+    }
+
+    fns.push(fn)
+
+    return middleware
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/trough/wrap.js":
+/*!*************************************!*\
+  !*** ./node_modules/trough/wrap.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var slice = [].slice
+
+module.exports = wrap
+
+// Wrap `fn`.
+// Can be sync or async; return a promise, receive a completion handler, return
+// new values and errors.
+function wrap(fn, callback) {
+  var invoked
+
+  return wrapped
+
+  function wrapped() {
+    var params = slice.call(arguments, 0)
+    var callback = fn.length > params.length
+    var result
+
+    if (callback) {
+      params.push(done)
+    }
+
+    try {
+      result = fn.apply(null, params)
+    } catch (error) {
+      // Well, this is quite the pickle.
+      // `fn` received a callback and invoked it (thus continuing the pipeline),
+      // but later also threw an error.
+      // We’re not about to restart the pipeline again, so the only thing left
+      // to do is to throw the thing instead.
+      if (callback && invoked) {
+        throw error
+      }
+
+      return done(error)
+    }
+
+    if (!callback) {
+      if (result && typeof result.then === 'function') {
+        result.then(then, done)
+      } else if (result instanceof Error) {
+        done(result)
+      } else {
+        then(result)
+      }
+    }
+  }
+
+  // Invoke `next`, only once.
+  function done() {
+    if (!invoked) {
+      invoked = true
+
+      callback.apply(null, arguments)
+    }
+  }
+
+  // Invoke `done` with one value.
+  // Tracks if an error is passed, too.
+  function then(value) {
+    done(null, value)
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/unherit/index.js":
+/*!***************************************!*\
+  !*** ./node_modules/unherit/index.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var xtend = __webpack_require__(/*! xtend */ "./node_modules/xtend/immutable.js")
+var inherits = __webpack_require__(/*! inherits */ "./node_modules/inherits/inherits_browser.js")
+
+module.exports = unherit
+
+// Create a custom constructor which can be modified without affecting the
+// original class.
+function unherit(Super) {
+  var result
+  var key
+  var value
+
+  inherits(Of, Super)
+  inherits(From, Of)
+
+  // Clone values.
+  result = Of.prototype
+
+  for (key in result) {
+    value = result[key]
+
+    if (value && typeof value === 'object') {
+      result[key] = 'concat' in value ? value.concat() : xtend(value)
+    }
+  }
+
+  return Of
+
+  // Constructor accepting a single argument, which itself is an `arguments`
+  // object.
+  function From(parameters) {
+    return Super.apply(this, parameters)
+  }
+
+  // Constructor accepting variadic arguments.
+  function Of() {
+    if (!(this instanceof Of)) {
+      return new From(arguments)
+    }
+
+    return Super.apply(this, arguments)
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/unified/index.js":
+/*!***************************************!*\
+  !*** ./node_modules/unified/index.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/* Dependencies. */
+var extend = __webpack_require__(/*! extend */ "./node_modules/extend/index.js")
+var bail = __webpack_require__(/*! bail */ "./node_modules/bail/index.js")
+var vfile = __webpack_require__(/*! vfile */ "./node_modules/vfile/index.js")
+var trough = __webpack_require__(/*! trough */ "./node_modules/trough/index.js")
+var string = __webpack_require__(/*! x-is-string */ "./node_modules/x-is-string/index.js")
+var plain = __webpack_require__(/*! is-plain-obj */ "./node_modules/is-plain-obj/index.js")
+
+/* Expose a frozen processor. */
+module.exports = unified().freeze()
+
+var slice = [].slice
+var own = {}.hasOwnProperty
+
+/* Process pipeline. */
+var pipeline = trough()
+  .use(pipelineParse)
+  .use(pipelineRun)
+  .use(pipelineStringify)
+
+function pipelineParse(p, ctx) {
+  ctx.tree = p.parse(ctx.file)
+}
+
+function pipelineRun(p, ctx, next) {
+  p.run(ctx.tree, ctx.file, done)
+
+  function done(err, tree, file) {
+    if (err) {
+      next(err)
+    } else {
+      ctx.tree = tree
+      ctx.file = file
+      next()
+    }
+  }
+}
+
+function pipelineStringify(p, ctx) {
+  ctx.file.contents = p.stringify(ctx.tree, ctx.file)
+}
+
+/* Function to create the first processor. */
+function unified() {
+  var attachers = []
+  var transformers = trough()
+  var namespace = {}
+  var frozen = false
+  var freezeIndex = -1
+
+  /* Data management. */
+  processor.data = data
+
+  /* Lock. */
+  processor.freeze = freeze
+
+  /* Plug-ins. */
+  processor.attachers = attachers
+  processor.use = use
+
+  /* API. */
+  processor.parse = parse
+  processor.stringify = stringify
+  processor.run = run
+  processor.runSync = runSync
+  processor.process = process
+  processor.processSync = processSync
+
+  /* Expose. */
+  return processor
+
+  /* Create a new processor based on the processor
+   * in the current scope. */
+  function processor() {
+    var destination = unified()
+    var length = attachers.length
+    var index = -1
+
+    while (++index < length) {
+      destination.use.apply(null, attachers[index])
+    }
+
+    destination.data(extend(true, {}, namespace))
+
+    return destination
+  }
+
+  /* Freeze: used to signal a processor that has finished
+   * configuration.
+   *
+   * For example, take unified itself.  It’s frozen.
+   * Plug-ins should not be added to it.  Rather, it should
+   * be extended, by invoking it, before modifying it.
+   *
+   * In essence, always invoke this when exporting a
+   * processor. */
+  function freeze() {
+    var values
+    var plugin
+    var options
+    var transformer
+
+    if (frozen) {
+      return processor
+    }
+
+    while (++freezeIndex < attachers.length) {
+      values = attachers[freezeIndex]
+      plugin = values[0]
+      options = values[1]
+      transformer = null
+
+      if (options === false) {
+        continue
+      }
+
+      if (options === true) {
+        values[1] = undefined
+      }
+
+      transformer = plugin.apply(processor, values.slice(1))
+
+      if (typeof transformer === 'function') {
+        transformers.use(transformer)
+      }
+    }
+
+    frozen = true
+    freezeIndex = Infinity
+
+    return processor
+  }
+
+  /* Data management.
+   * Getter / setter for processor-specific informtion. */
+  function data(key, value) {
+    if (string(key)) {
+      /* Set `key`. */
+      if (arguments.length === 2) {
+        assertUnfrozen('data', frozen)
+
+        namespace[key] = value
+
+        return processor
+      }
+
+      /* Get `key`. */
+      return (own.call(namespace, key) && namespace[key]) || null
+    }
+
+    /* Set space. */
+    if (key) {
+      assertUnfrozen('data', frozen)
+      namespace = key
+      return processor
+    }
+
+    /* Get space. */
+    return namespace
+  }
+
+  /* Plug-in management.
+   *
+   * Pass it:
+   * *   an attacher and options,
+   * *   a preset,
+   * *   a list of presets, attachers, and arguments (list
+   *     of attachers and options). */
+  function use(value) {
+    var settings
+
+    assertUnfrozen('use', frozen)
+
+    if (value === null || value === undefined) {
+      /* Empty */
+    } else if (typeof value === 'function') {
+      addPlugin.apply(null, arguments)
+    } else if (typeof value === 'object') {
+      if ('length' in value) {
+        addList(value)
+      } else {
+        addPreset(value)
+      }
+    } else {
+      throw new Error('Expected usable value, not `' + value + '`')
+    }
+
+    if (settings) {
+      namespace.settings = extend(namespace.settings || {}, settings)
+    }
+
+    return processor
+
+    function addPreset(result) {
+      addList(result.plugins)
+
+      if (result.settings) {
+        settings = extend(settings || {}, result.settings)
+      }
+    }
+
+    function add(value) {
+      if (typeof value === 'function') {
+        addPlugin(value)
+      } else if (typeof value === 'object') {
+        if ('length' in value) {
+          addPlugin.apply(null, value)
+        } else {
+          addPreset(value)
+        }
+      } else {
+        throw new Error('Expected usable value, not `' + value + '`')
+      }
+    }
+
+    function addList(plugins) {
+      var length
+      var index
+
+      if (plugins === null || plugins === undefined) {
+        /* Empty */
+      } else if (typeof plugins === 'object' && 'length' in plugins) {
+        length = plugins.length
+        index = -1
+
+        while (++index < length) {
+          add(plugins[index])
+        }
+      } else {
+        throw new Error('Expected a list of plugins, not `' + plugins + '`')
+      }
+    }
+
+    function addPlugin(plugin, value) {
+      var entry = find(plugin)
+
+      if (entry) {
+        if (plain(entry[1]) && plain(value)) {
+          value = extend(entry[1], value)
+        }
+
+        entry[1] = value
+      } else {
+        attachers.push(slice.call(arguments))
+      }
+    }
+  }
+
+  function find(plugin) {
+    var length = attachers.length
+    var index = -1
+    var entry
+
+    while (++index < length) {
+      entry = attachers[index]
+
+      if (entry[0] === plugin) {
+        return entry
+      }
+    }
+  }
+
+  /* Parse a file (in string or VFile representation)
+   * into a Unist node using the `Parser` on the
+   * processor. */
+  function parse(doc) {
+    var file = vfile(doc)
+    var Parser
+
+    freeze()
+    Parser = processor.Parser
+    assertParser('parse', Parser)
+
+    if (newable(Parser)) {
+      return new Parser(String(file), file).parse()
+    }
+
+    return Parser(String(file), file) // eslint-disable-line new-cap
+  }
+
+  /* Run transforms on a Unist node representation of a file
+   * (in string or VFile representation), async. */
+  function run(node, file, cb) {
+    assertNode(node)
+    freeze()
+
+    if (!cb && typeof file === 'function') {
+      cb = file
+      file = null
+    }
+
+    if (!cb) {
+      return new Promise(executor)
+    }
+
+    executor(null, cb)
+
+    function executor(resolve, reject) {
+      transformers.run(node, vfile(file), done)
+
+      function done(err, tree, file) {
+        tree = tree || node
+        if (err) {
+          reject(err)
+        } else if (resolve) {
+          resolve(tree)
+        } else {
+          cb(null, tree, file)
+        }
+      }
+    }
+  }
+
+  /* Run transforms on a Unist node representation of a file
+   * (in string or VFile representation), sync. */
+  function runSync(node, file) {
+    var complete = false
+    var result
+
+    run(node, file, done)
+
+    assertDone('runSync', 'run', complete)
+
+    return result
+
+    function done(err, tree) {
+      complete = true
+      bail(err)
+      result = tree
+    }
+  }
+
+  /* Stringify a Unist node representation of a file
+   * (in string or VFile representation) into a string
+   * using the `Compiler` on the processor. */
+  function stringify(node, doc) {
+    var file = vfile(doc)
+    var Compiler
+
+    freeze()
+    Compiler = processor.Compiler
+    assertCompiler('stringify', Compiler)
+    assertNode(node)
+
+    if (newable(Compiler)) {
+      return new Compiler(node, file).compile()
+    }
+
+    return Compiler(node, file) // eslint-disable-line new-cap
+  }
+
+  /* Parse a file (in string or VFile representation)
+   * into a Unist node using the `Parser` on the processor,
+   * then run transforms on that node, and compile the
+   * resulting node using the `Compiler` on the processor,
+   * and store that result on the VFile. */
+  function process(doc, cb) {
+    freeze()
+    assertParser('process', processor.Parser)
+    assertCompiler('process', processor.Compiler)
+
+    if (!cb) {
+      return new Promise(executor)
+    }
+
+    executor(null, cb)
+
+    function executor(resolve, reject) {
+      var file = vfile(doc)
+
+      pipeline.run(processor, {file: file}, done)
+
+      function done(err) {
+        if (err) {
+          reject(err)
+        } else if (resolve) {
+          resolve(file)
+        } else {
+          cb(null, file)
+        }
+      }
+    }
+  }
+
+  /* Process the given document (in string or VFile
+   * representation), sync. */
+  function processSync(doc) {
+    var complete = false
+    var file
+
+    freeze()
+    assertParser('processSync', processor.Parser)
+    assertCompiler('processSync', processor.Compiler)
+    file = vfile(doc)
+
+    process(file, done)
+
+    assertDone('processSync', 'process', complete)
+
+    return file
+
+    function done(err) {
+      complete = true
+      bail(err)
+    }
+  }
+}
+
+/* Check if `func` is a constructor. */
+function newable(value) {
+  return typeof value === 'function' && keys(value.prototype)
+}
+
+/* Check if `value` is an object with keys. */
+function keys(value) {
+  var key
+  for (key in value) {
+    return true
+  }
+  return false
+}
+
+/* Assert a parser is available. */
+function assertParser(name, Parser) {
+  if (typeof Parser !== 'function') {
+    throw new Error('Cannot `' + name + '` without `Parser`')
+  }
+}
+
+/* Assert a compiler is available. */
+function assertCompiler(name, Compiler) {
+  if (typeof Compiler !== 'function') {
+    throw new Error('Cannot `' + name + '` without `Compiler`')
+  }
+}
+
+/* Assert the processor is not frozen. */
+function assertUnfrozen(name, frozen) {
+  if (frozen) {
+    throw new Error(
+      [
+        'Cannot invoke `' + name + '` on a frozen processor.\nCreate a new ',
+        'processor first, by invoking it: use `processor()` instead of ',
+        '`processor`.'
+      ].join('')
+    )
+  }
+}
+
+/* Assert `node` is a Unist node. */
+function assertNode(node) {
+  if (!node || !string(node.type)) {
+    throw new Error('Expected node, got `' + node + '`')
+  }
+}
+
+/* Assert that `complete` is `true`. */
+function assertDone(name, asyncName, complete) {
+  if (!complete) {
+    throw new Error(
+      '`' + name + '` finished async. Use `' + asyncName + '` instead'
+    )
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/unist-util-is/convert.js":
+/*!***********************************************!*\
+  !*** ./node_modules/unist-util-is/convert.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = convert
+
+function convert(test) {
+  if (typeof test === 'string') {
+    return typeFactory(test)
+  }
+
+  if (test === null || test === undefined) {
+    return ok
+  }
+
+  if (typeof test === 'object') {
+    return ('length' in test ? anyFactory : matchesFactory)(test)
+  }
+
+  if (typeof test === 'function') {
+    return test
+  }
+
+  throw new Error('Expected function, string, or object as test')
+}
+
+function convertAll(tests) {
+  var results = []
+  var length = tests.length
+  var index = -1
+
+  while (++index < length) {
+    results[index] = convert(tests[index])
+  }
+
+  return results
+}
+
+// Utility assert each property in `test` is represented in `node`, and each
+// values are strictly equal.
+function matchesFactory(test) {
+  return matches
+
+  function matches(node) {
+    var key
+
+    for (key in test) {
+      if (node[key] !== test[key]) {
+        return false
+      }
+    }
+
+    return true
+  }
+}
+
+function anyFactory(tests) {
+  var checks = convertAll(tests)
+  var length = checks.length
+
+  return matches
+
+  function matches() {
+    var index = -1
+
+    while (++index < length) {
+      if (checks[index].apply(this, arguments)) {
+        return true
+      }
+    }
+
+    return false
+  }
+}
+
+// Utility to convert a string into a function which checks a given node’s type
+// for said string.
+function typeFactory(test) {
+  return type
+
+  function type(node) {
+    return Boolean(node && node.type === test)
+  }
+}
+
+// Utility to return true.
+function ok() {
+  return true
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/unist-util-remove-position/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/unist-util-remove-position/index.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var visit = __webpack_require__(/*! unist-util-visit */ "./node_modules/unist-util-visit/index.js")
+
+module.exports = removePosition
+
+function removePosition(node, force) {
+  visit(node, force ? hard : soft)
+  return node
+}
+
+function hard(node) {
+  delete node.position
+}
+
+function soft(node) {
+  node.position = undefined
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/unist-util-stringify-position/index.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/unist-util-stringify-position/index.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var own = {}.hasOwnProperty
+
+module.exports = stringify
+
+function stringify(value) {
+  /* Nothing. */
+  if (!value || typeof value !== 'object') {
+    return null
+  }
+
+  /* Node. */
+  if (own.call(value, 'position') || own.call(value, 'type')) {
+    return position(value.position)
+  }
+
+  /* Position. */
+  if (own.call(value, 'start') || own.call(value, 'end')) {
+    return position(value)
+  }
+
+  /* Point. */
+  if (own.call(value, 'line') || own.call(value, 'column')) {
+    return point(value)
+  }
+
+  /* ? */
+  return null
+}
+
+function point(point) {
+  if (!point || typeof point !== 'object') {
+    point = {}
+  }
+
+  return index(point.line) + ':' + index(point.column)
+}
+
+function position(pos) {
+  if (!pos || typeof pos !== 'object') {
+    pos = {}
+  }
+
+  return point(pos.start) + '-' + point(pos.end)
+}
+
+function index(value) {
+  return value && typeof value === 'number' ? value : 1
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/unist-util-visit-parents/index.js":
+/*!********************************************************!*\
+  !*** ./node_modules/unist-util-visit-parents/index.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/* Expose. */
+module.exports = visitParents
+
+/* Visit. */
+function visitParents(tree, type, visitor) {
+  var stack = []
+
+  if (typeof type === 'function') {
+    visitor = type
+    type = null
+  }
+
+  one(tree)
+
+  /* Visit a single node. */
+  function one(node) {
+    var result
+
+    if (!type || node.type === type) {
+      result = visitor(node, stack.concat())
+    }
+
+    if (node.children && result !== false) {
+      return all(node.children, node)
+    }
+
+    return result
+  }
+
+  /* Visit children in `parent`. */
+  function all(children, parent) {
+    var length = children.length
+    var index = -1
+    var child
+
+    stack.push(parent)
+
+    while (++index < length) {
+      child = children[index]
+
+      if (child && one(child) === false) {
+        return false
+      }
+    }
+
+    stack.pop()
+
+    return true
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/unist-util-visit/index.js":
+/*!************************************************!*\
+  !*** ./node_modules/unist-util-visit/index.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = visit
+
+var visitParents = __webpack_require__(/*! unist-util-visit-parents */ "./node_modules/unist-util-visit/node_modules/unist-util-visit-parents/index.js")
+
+var CONTINUE = visitParents.CONTINUE
+var SKIP = visitParents.SKIP
+var EXIT = visitParents.EXIT
+
+visit.CONTINUE = CONTINUE
+visit.SKIP = SKIP
+visit.EXIT = EXIT
+
+function visit(tree, test, visitor, reverse) {
+  if (typeof test === 'function' && typeof visitor !== 'function') {
+    reverse = visitor
+    visitor = test
+    test = null
+  }
+
+  visitParents(tree, test, overload, reverse)
+
+  function overload(node, parents) {
+    var parent = parents[parents.length - 1]
+    var index = parent ? parent.children.indexOf(node) : null
+    return visitor(node, index, parent)
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/unist-util-visit/node_modules/unist-util-visit-parents/index.js":
+/*!**************************************************************************************!*\
+  !*** ./node_modules/unist-util-visit/node_modules/unist-util-visit-parents/index.js ***!
+  \**************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = visitParents
+
+var convert = __webpack_require__(/*! unist-util-is/convert */ "./node_modules/unist-util-is/convert.js")
+
+var CONTINUE = true
+var SKIP = 'skip'
+var EXIT = false
+
+visitParents.CONTINUE = CONTINUE
+visitParents.SKIP = SKIP
+visitParents.EXIT = EXIT
+
+function visitParents(tree, test, visitor, reverse) {
+  var is
+
+  if (typeof test === 'function' && typeof visitor !== 'function') {
+    reverse = visitor
+    visitor = test
+    test = null
+  }
+
+  is = convert(test)
+
+  one(tree, null, [])
+
+  // Visit a single node.
+  function one(node, index, parents) {
+    var result = []
+    var subresult
+
+    if (!test || is(node, index, parents[parents.length - 1] || null)) {
+      result = toResult(visitor(node, parents))
+
+      if (result[0] === EXIT) {
+        return result
+      }
+    }
+
+    if (node.children && result[0] !== SKIP) {
+      subresult = toResult(all(node.children, parents.concat(node)))
+      return subresult[0] === EXIT ? subresult : result
+    }
+
+    return result
+  }
+
+  // Visit children in `parent`.
+  function all(children, parents) {
+    var min = -1
+    var step = reverse ? -1 : 1
+    var index = (reverse ? children.length : min) + step
+    var result
+
+    while (index > min && index < children.length) {
+      result = one(children[index], index, parents)
+
+      if (result[0] === EXIT) {
+        return result
+      }
+
+      index = typeof result[1] === 'number' ? result[1] : index + step
+    }
+  }
+}
+
+function toResult(value) {
+  if (value !== null && typeof value === 'object' && 'length' in value) {
+    return value
+  }
+
+  if (typeof value === 'number') {
+    return [CONTINUE, value]
+  }
+
+  return [value]
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/vfile-location/index.js":
+/*!**********************************************!*\
+  !*** ./node_modules/vfile-location/index.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = factory
+
+function factory(file) {
+  var contents = indices(String(file))
+
+  return {
+    toPosition: offsetToPositionFactory(contents),
+    toOffset: positionToOffsetFactory(contents)
+  }
+}
+
+// Factory to get the line and column-based `position` for `offset` in the bound
+// indices.
+function offsetToPositionFactory(indices) {
+  return offsetToPosition
+
+  // Get the line and column-based `position` for `offset` in the bound indices.
+  function offsetToPosition(offset) {
+    var index = -1
+    var length = indices.length
+
+    if (offset < 0) {
+      return {}
+    }
+
+    while (++index < length) {
+      if (indices[index] > offset) {
+        return {
+          line: index + 1,
+          column: offset - (indices[index - 1] || 0) + 1,
+          offset: offset
+        }
+      }
+    }
+
+    return {}
+  }
+}
+
+// Factory to get the `offset` for a line and column-based `position` in the
+// bound indices.
+function positionToOffsetFactory(indices) {
+  return positionToOffset
+
+  // Get the `offset` for a line and column-based `position` in the bound
+  // indices.
+  function positionToOffset(position) {
+    var line = position && position.line
+    var column = position && position.column
+
+    if (!isNaN(line) && !isNaN(column) && line - 1 in indices) {
+      return (indices[line - 2] || 0) + column - 1 || 0
+    }
+
+    return -1
+  }
+}
+
+// Get indices of line-breaks in `value`.
+function indices(value) {
+  var result = []
+  var index = value.indexOf('\n')
+
+  while (index !== -1) {
+    result.push(index + 1)
+    index = value.indexOf('\n', index + 1)
+  }
+
+  result.push(value.length + 1)
+
+  return result
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/vfile-message/index.js":
+/*!*********************************************!*\
+  !*** ./node_modules/vfile-message/index.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var stringify = __webpack_require__(/*! unist-util-stringify-position */ "./node_modules/unist-util-stringify-position/index.js")
+
+module.exports = VMessage
+
+// Inherit from `Error#`.
+function VMessagePrototype() {}
+VMessagePrototype.prototype = Error.prototype
+VMessage.prototype = new VMessagePrototype()
+
+// Message properties.
+var proto = VMessage.prototype
+
+proto.file = ''
+proto.name = ''
+proto.reason = ''
+proto.message = ''
+proto.stack = ''
+proto.fatal = null
+proto.column = null
+proto.line = null
+
+// Construct a new VMessage.
+//
+// Note: We cannot invoke `Error` on the created context, as that adds readonly
+// `line` and `column` attributes on Safari 9, thus throwing and failing the
+// data.
+function VMessage(reason, position, origin) {
+  var parts
+  var range
+  var location
+
+  if (typeof position === 'string') {
+    origin = position
+    position = null
+  }
+
+  parts = parseOrigin(origin)
+  range = stringify(position) || '1:1'
+
+  location = {
+    start: {line: null, column: null},
+    end: {line: null, column: null}
+  }
+
+  // Node.
+  if (position && position.position) {
+    position = position.position
+  }
+
+  if (position) {
+    // Position.
+    if (position.start) {
+      location = position
+      position = position.start
+    } else {
+      // Point.
+      location.start = position
+    }
+  }
+
+  if (reason.stack) {
+    this.stack = reason.stack
+    reason = reason.message
+  }
+
+  this.message = reason
+  this.name = range
+  this.reason = reason
+  this.line = position ? position.line : null
+  this.column = position ? position.column : null
+  this.location = location
+  this.source = parts[0]
+  this.ruleId = parts[1]
+}
+
+function parseOrigin(origin) {
+  var result = [null, null]
+  var index
+
+  if (typeof origin === 'string') {
+    index = origin.indexOf(':')
+
+    if (index === -1) {
+      result[1] = origin
+    } else {
+      result[0] = origin.slice(0, index)
+      result[1] = origin.slice(index + 1)
+    }
+  }
+
+  return result
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/vfile/core.js":
+/*!************************************!*\
+  !*** ./node_modules/vfile/core.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+var path = __webpack_require__(/*! path */ "./node_modules/path-browserify/index.js");
+var replace = __webpack_require__(/*! replace-ext */ "./node_modules/replace-ext/index.js");
+var buffer = __webpack_require__(/*! is-buffer */ "./node_modules/is-buffer/index.js");
+
+module.exports = VFile;
+
+var own = {}.hasOwnProperty;
+var proto = VFile.prototype;
+
+proto.toString = toString;
+
+/* Order of setting (least specific to most), we need this because
+ * otherwise `{stem: 'a', path: '~/b.js'}` would throw, as a path
+ * is needed before a stem can be set. */
+var order = [
+  'history',
+  'path',
+  'basename',
+  'stem',
+  'extname',
+  'dirname'
+];
+
+/* Construct a new file. */
+function VFile(options) {
+  var prop;
+  var index;
+  var length;
+
+  if (!options) {
+    options = {};
+  } else if (typeof options === 'string' || buffer(options)) {
+    options = {contents: options};
+  } else if ('message' in options && 'messages' in options) {
+    return options;
+  }
+
+  if (!(this instanceof VFile)) {
+    return new VFile(options);
+  }
+
+  this.data = {};
+  this.messages = [];
+  this.history = [];
+  this.cwd = process.cwd();
+
+  /* Set path related properties in the correct order. */
+  index = -1;
+  length = order.length;
+
+  while (++index < length) {
+    prop = order[index];
+
+    if (own.call(options, prop)) {
+      this[prop] = options[prop];
+    }
+  }
+
+  /* Set non-path related properties. */
+  for (prop in options) {
+    if (order.indexOf(prop) === -1) {
+      this[prop] = options[prop];
+    }
+  }
+}
+
+/* Access full path (`~/index.min.js`). */
+Object.defineProperty(proto, 'path', {
+  get: function () {
+    return this.history[this.history.length - 1];
+  },
+  set: function (path) {
+    assertNonEmpty(path, 'path');
+
+    if (path !== this.path) {
+      this.history.push(path);
+    }
+  }
+});
+
+/* Access parent path (`~`). */
+Object.defineProperty(proto, 'dirname', {
+  get: function () {
+    return typeof this.path === 'string' ? path.dirname(this.path) : undefined;
+  },
+  set: function (dirname) {
+    assertPath(this.path, 'dirname');
+    this.path = path.join(dirname || '', this.basename);
+  }
+});
+
+/* Access basename (`index.min.js`). */
+Object.defineProperty(proto, 'basename', {
+  get: function () {
+    return typeof this.path === 'string' ? path.basename(this.path) : undefined;
+  },
+  set: function (basename) {
+    assertNonEmpty(basename, 'basename');
+    assertPart(basename, 'basename');
+    this.path = path.join(this.dirname || '', basename);
+  }
+});
+
+/* Access extname (`.js`). */
+Object.defineProperty(proto, 'extname', {
+  get: function () {
+    return typeof this.path === 'string' ? path.extname(this.path) : undefined;
+  },
+  set: function (extname) {
+    var ext = extname || '';
+
+    assertPart(ext, 'extname');
+    assertPath(this.path, 'extname');
+
+    if (ext) {
+      if (ext.charAt(0) !== '.') {
+        throw new Error('`extname` must start with `.`');
+      }
+
+      if (ext.indexOf('.', 1) !== -1) {
+        throw new Error('`extname` cannot contain multiple dots');
+      }
+    }
+
+    this.path = replace(this.path, ext);
+  }
+});
+
+/* Access stem (`index.min`). */
+Object.defineProperty(proto, 'stem', {
+  get: function () {
+    return typeof this.path === 'string' ? path.basename(this.path, this.extname) : undefined;
+  },
+  set: function (stem) {
+    assertNonEmpty(stem, 'stem');
+    assertPart(stem, 'stem');
+    this.path = path.join(this.dirname || '', stem + (this.extname || ''));
+  }
+});
+
+/* Get the value of the file. */
+function toString(encoding) {
+  var value = this.contents || '';
+  return buffer(value) ? value.toString(encoding) : String(value);
+}
+
+/* Assert that `part` is not a path (i.e., does
+ * not contain `path.sep`). */
+function assertPart(part, name) {
+  if (part.indexOf(path.sep) !== -1) {
+    throw new Error('`' + name + '` cannot be a path: did not expect `' + path.sep + '`');
+  }
+}
+
+/* Assert that `part` is not empty. */
+function assertNonEmpty(part, name) {
+  if (!part) {
+    throw new Error('`' + name + '` cannot be empty');
+  }
+}
+
+/* Assert `path` exists. */
+function assertPath(path, name) {
+  if (!path) {
+    throw new Error('Setting `' + name + '` requires `path` to be set too');
+  }
+}
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../process/browser.js */ "./node_modules/process/browser.js")))
+
+/***/ }),
+
+/***/ "./node_modules/vfile/index.js":
+/*!*************************************!*\
+  !*** ./node_modules/vfile/index.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var VMessage = __webpack_require__(/*! vfile-message */ "./node_modules/vfile-message/index.js");
+var VFile = __webpack_require__(/*! ./core.js */ "./node_modules/vfile/core.js");
+
+module.exports = VFile;
+
+var proto = VFile.prototype;
+
+proto.message = message;
+proto.info = info;
+proto.fail = fail;
+
+/* Slight backwards compatibility.  Remove in the future. */
+proto.warn = message;
+
+/* Create a message with `reason` at `position`.
+ * When an error is passed in as `reason`, copies the stack. */
+function message(reason, position, origin) {
+  var filePath = this.path;
+  var message = new VMessage(reason, position, origin);
+
+  if (filePath) {
+    message.name = filePath + ':' + message.name;
+    message.file = filePath;
+  }
+
+  message.fatal = false;
+
+  this.messages.push(message);
+
+  return message;
+}
+
+/* Fail. Creates a vmessage, associates it with the file,
+ * and throws it. */
+function fail() {
+  var message = this.message.apply(this, arguments);
+
+  message.fatal = true;
+
+  throw message;
+}
+
+/* Info. Creates a vmessage, associates it with the file,
+ * and marks the fatality as null. */
+function info() {
+  var message = this.message.apply(this, arguments);
+
+  message.fatal = null;
+
+  return message;
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/webpack/buildin/global.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -57351,6 +66606,54 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./node_modules/x-is-string/index.js":
+/*!*******************************************!*\
+  !*** ./node_modules/x-is-string/index.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var toString = Object.prototype.toString
+
+module.exports = isString
+
+function isString(obj) {
+    return toString.call(obj) === "[object String]"
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/xtend/immutable.js":
+/*!*****************************************!*\
+  !*** ./node_modules/xtend/immutable.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = extend
+
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+
+function extend() {
+    var target = {}
+
+    for (var i = 0; i < arguments.length; i++) {
+        var source = arguments[i]
+
+        for (var key in source) {
+            if (hasOwnProperty.call(source, key)) {
+                target[key] = source[key]
+            }
+        }
+    }
+
+    return target
+}
+
+
+/***/ }),
+
 /***/ "./resources/assets/js/IntlContainer.tsx":
 /*!***********************************************!*\
   !*** ./resources/assets/js/IntlContainer.tsx ***!
@@ -57390,12 +66693,15 @@ exports.default = IntlContainer;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getSendReferenceEmailEndpoint = exports.getReferenceEmailsEndpoint = exports.getApplicationsForJobEndpoint = exports.getApplicationReviewEndpoint = exports.getApplicationEndpoint = exports.parseSingleReferenceEmail = exports.parseReferenceEmails = exports.parseApplicationsForJob = exports.parseApplicationReview = exports.parseApplication = void 0;
 var base_1 = __webpack_require__(/*! ./base */ "./resources/assets/js/api/base.ts");
 exports.parseApplication = function (data) { return data; };
 exports.parseApplicationReview = function (data) { return data; };
 exports.parseApplicationsForJob = function (data) {
     return data.map(exports.parseApplication);
 };
+exports.parseReferenceEmails = function (data) { return data; };
+exports.parseSingleReferenceEmail = function (data) { return data; };
 exports.getApplicationEndpoint = function (id) {
     return base_1.baseUrl(2) + "/applications/" + id;
 };
@@ -57404,6 +66710,12 @@ exports.getApplicationReviewEndpoint = function (applicationId) {
 };
 exports.getApplicationsForJobEndpoint = function (jobId) {
     return base_1.baseUrl(2) + "/jobs/" + jobId + "/applications";
+};
+exports.getReferenceEmailsEndpoint = function (applicationId) {
+    return base_1.baseUrl() + "/applications/" + applicationId + "/reference-emails/";
+};
+exports.getSendReferenceEmailEndpoint = function (applicationId, referenceType) {
+    return base_1.baseUrl() + "/applications/" + applicationId + "/reference-emails/" + referenceType + "/send";
 };
 
 
@@ -57455,6 +66767,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteAssessment = exports.createAssessment = exports.updateAssessment = exports.parseAssessment = void 0;
 /* eslint-disable @typescript-eslint/camelcase */
 var base_1 = __webpack_require__(/*! ./base */ "./resources/assets/js/api/base.ts");
 exports.parseAssessment = function (data) { return ({
@@ -57500,6 +66813,7 @@ exports.deleteAssessment = function (id) { return __awaiter(void 0, void 0, void
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getAssessmentPlan = void 0;
 /* eslint-disable @typescript-eslint/camelcase */
 var base_1 = __webpack_require__(/*! ./base */ "./resources/assets/js/api/base.ts");
 var assessment_1 = __webpack_require__(/*! ./assessment */ "./resources/assets/js/api/assessment.ts");
@@ -57555,6 +66869,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.updateAssessmentPlanNotification = exports.getAssessmentPlanNotificationsByJob = exports.parseAssessmentPlanNotification = void 0;
 /* eslint-disable @typescript-eslint/camelcase */
 var base_1 = __webpack_require__(/*! ./base */ "./resources/assets/js/api/base.ts");
 exports.parseAssessmentPlanNotification = function (data) { return (__assign(__assign({}, data), { created_at: base_1.parseDateStrict(data.created_at) })); };
@@ -57592,6 +66907,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.axios = exports.addQueryParameters = exports.parseDate = exports.parseDateStrict = exports.baseUrl = void 0;
 var dayjs_1 = __importDefault(__webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js"));
 var axios_1 = __importDefault(__webpack_require__(/*! axios */ "./node_modules/axios/index.js"));
 exports.baseUrl = function (version) {
@@ -57644,6 +66960,7 @@ exports.default = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getDepartmentsEndpoint = exports.parseDepartmentsResponse = void 0;
 var base_1 = __webpack_require__(/*! ./base */ "./resources/assets/js/api/base.ts");
 // TODO: verify schema
 exports.parseDepartmentsResponse = function (data) { return data; };
@@ -57662,6 +66979,7 @@ exports.getDepartmentsEndpoint = function () { return base_1.baseUrl() + "/depar
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getClaimJobEndpoint = exports.getHrAdvisorEndpoint = void 0;
 var base_1 = __webpack_require__(/*! ./base */ "./resources/assets/js/api/base.ts");
 exports.getHrAdvisorEndpoint = function (id) {
     return base_1.baseUrl() + "/hr-advisors/" + id;
@@ -57695,6 +67013,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getCommentEndpoint = exports.getCriteriaEndpoint = exports.getTasksEndpoint = exports.getSubmitJobEndpoint = exports.getJobEndpoint = exports.parseCommentsResponse = exports.parseCommentResponse = exports.parseCriteriaResponse = exports.parseTasksResponse = exports.parseJobIndexResponse = exports.parseJobResponse = exports.parseJob = void 0;
 var base_1 = __webpack_require__(/*! ./base */ "./resources/assets/js/api/base.ts");
 var parseCriterion = function (data) { return data; };
 exports.parseJob = function (data) { return (__assign(__assign({}, data), { open_date_time: base_1.parseDate(data.open_date_time), close_date_time: base_1.parseDate(data.close_date_time), start_date_time: base_1.parseDate(data.start_date_time), created_at: base_1.parseDate(data.created_at) })); };
@@ -57746,6 +67065,7 @@ exports.getCommentEndpoint = function (jobId) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getJobPosterStatusEndpoint = void 0;
 var base_1 = __webpack_require__(/*! ./base */ "./resources/assets/js/api/base.ts");
 exports.getJobPosterStatusEndpoint = function () {
     return base_1.baseUrl() + "/job-poster-statuses";
@@ -57764,6 +67084,7 @@ exports.getJobPosterStatusEndpoint = function () {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getCurrentManagerEndpoint = exports.getManagerEndpoint = void 0;
 var base_1 = __webpack_require__(/*! ./base */ "./resources/assets/js/api/base.ts");
 exports.getManagerEndpoint = function (id) {
     return base_1.baseUrl() + "/managers/" + id;
@@ -57822,6 +67143,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteRatingGuideQuestion = exports.deleteRatingGuideAnswer = exports.createRatingGuideQuestion = exports.createRatingGuideAnswer = exports.updateRatingGuideQuestion = exports.updateRatingGuideAnswer = exports.parseRatingGuideQuestion = exports.parseRatingGuideAnswer = void 0;
 /* eslint-disable @typescript-eslint/camelcase */
 var base_1 = __webpack_require__(/*! ./base */ "./resources/assets/js/api/base.ts");
 exports.parseRatingGuideAnswer = function (data) { return ({
@@ -57898,6 +67220,7 @@ exports.deleteRatingGuideQuestion = function (id) { return __awaiter(void 0, voi
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.parseSkill = exports.parseSkillsResponse = exports.getSkillsEndpoint = void 0;
 var base_1 = __webpack_require__(/*! ./base */ "./resources/assets/js/api/base.ts");
 exports.getSkillsEndpoint = function () { return base_1.baseUrl() + "/skills"; };
 exports.parseSkillsResponse = function (data) { return data; };
@@ -57916,6 +67239,7 @@ exports.parseSkill = function (data) { return data; };
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getUserEndpoint = exports.parseAllUsersResponse = exports.getAllUsersEndpoint = void 0;
 var base_1 = __webpack_require__(/*! ./base */ "./resources/assets/js/api/base.ts");
 exports.getAllUsersEndpoint = function (ids) {
     if (ids === void 0) { ids = ""; }
@@ -57938,11 +67262,23 @@ exports.getUserEndpoint = function (id) {
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -58007,6 +67343,7 @@ exports.default = ErrorToastContainer;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.inputMessages = exports.validationMessages = void 0;
 var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
 exports.validationMessages = react_intl_1.defineMessages({
     required: {
@@ -58078,6 +67415,158 @@ exports.default = SelectInput;
 
 /***/ }),
 
+/***/ "./resources/assets/js/components/Modal.tsx":
+/*!**************************************************!*\
+  !*** ./resources/assets/js/components/Modal.tsx ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+var react_dom_1 = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+// Partial helper allows empty defaults in the createContext call:
+// https://fettblog.eu/typescript-react/context/#context-without-default-values
+var modalContext = react_1.createContext({});
+function Modal(_a) {
+    var id = _a.id, parentElement = _a.parentElement, visible = _a.visible, children = _a.children, onModalConfirm = _a.onModalConfirm, onModalMiddle = _a.onModalMiddle, onModalCancel = _a.onModalCancel;
+    // Set up div ref to measure modal height
+    var modalRef = react_1.useRef(null);
+    var handleTabKey = function (e) {
+        if (modalRef && modalRef.current) {
+            var focusableModalElements = modalRef.current.querySelectorAll('a[href], button, textarea, input[type="text"], input[type="email"], input[type="radio"], select');
+            var firstElement = focusableModalElements[0];
+            var lastElement = focusableModalElements[focusableModalElements.length - 1];
+            var focusableModalElementsArray = Array.from(focusableModalElements);
+            if (document.activeElement &&
+                !focusableModalElementsArray.includes(document.activeElement)) {
+                firstElement.focus();
+                e.preventDefault();
+            }
+            if (!e.shiftKey && document.activeElement === lastElement) {
+                firstElement.focus();
+                e.preventDefault();
+            }
+            if (e.shiftKey && document.activeElement === firstElement) {
+                lastElement.focus();
+                e.preventDefault();
+            }
+        }
+    };
+    // Collection of key codes and event listeners
+    var keyListenersMap = new Map([
+        [27, onModalCancel],
+        [9, handleTabKey],
+    ]);
+    // Runs every time visible changes to set the overflow on the modal and update the body overflow
+    react_1.useEffect(function () {
+        function setBodyStyle() {
+            document.body.style.overflow = visible ? "hidden" : "visible";
+        }
+        setBodyStyle();
+        // Runs on component unmount
+        return function () {
+            setBodyStyle();
+        };
+    }, [visible]);
+    // Adds various key commands to the modal
+    react_1.useEffect(function () {
+        var keyListener;
+        if (visible) {
+            keyListener = function (e) {
+                var listener = keyListenersMap.get(e.keyCode);
+                return listener && listener(e);
+            };
+            document.addEventListener("keydown", keyListener);
+        }
+        return function () {
+            if (keyListener !== undefined) {
+                document.removeEventListener("keydown", keyListener);
+            }
+        };
+    }, [keyListenersMap, visible]);
+    if (parentElement !== null) {
+        return react_dom_1.createPortal(react_1.default.createElement("div", { "aria-describedby": id + "-description", "aria-hidden": !visible, "aria-labelledby": id + "-title", "data-c-dialog": visible ? "active--overflowing" : "", "data-c-padding": "top(double) bottom(double)", role: "dialog", ref: modalRef },
+            react_1.default.createElement("div", { "data-c-background": "white(100)", "data-c-radius": "rounded" },
+                react_1.default.createElement(modalContext.Provider, { value: {
+                        id: id,
+                        parentElement: parentElement,
+                        visible: visible,
+                        onModalConfirm: onModalConfirm,
+                        onModalMiddle: onModalMiddle,
+                        onModalCancel: onModalCancel,
+                    } }, children))), parentElement);
+    }
+    return null;
+}
+exports.default = Modal;
+Modal.Header = function ModalHeader(props) {
+    return props.children;
+};
+Modal.Body = function ModalBody(props) {
+    var children = props.children;
+    return react_1.default.createElement("div", { "data-c-border": "bottom(thin, solid, black)" }, children);
+};
+Modal.Footer = function ModalFooter(props) {
+    var children = props.children;
+    return (react_1.default.createElement("div", { "data-c-padding": "normal" },
+        react_1.default.createElement("div", { "data-c-grid": "gutter middle" }, Array.isArray(children) && children.length > 0
+            ? children.map(function (btn, index) { return (react_1.default.createElement("div", { 
+                // eslint-disable-next-line react/no-array-index-key
+                key: index, "data-c-grid-item": "base(1of" + children.length + ")" }, btn)); })
+            : children)));
+};
+Modal.FooterConfirmBtn = function ConfirmBtn(props) {
+    var onModalConfirm = react_1.useContext(modalContext).onModalConfirm;
+    return (react_1.default.createElement("div", { "data-c-alignment": "base(right)" },
+        react_1.default.createElement("button", __assign({}, props, { "data-c-button": "solid(c1)", "data-c-dialog-action": "close", "data-c-radius": "rounded", type: "button", onClick: onModalConfirm }))));
+};
+Modal.FooterCancelBtn = function CancelBtn(props) {
+    var onModalCancel = react_1.useContext(modalContext).onModalCancel;
+    return (react_1.default.createElement("div", null,
+        react_1.default.createElement("button", __assign({}, props, { "data-c-button": "outline(c1)", "data-c-dialog-action": "close", "data-c-radius": "rounded", type: "button", onClick: onModalCancel }))));
+};
+Modal.FooterMiddleBtn = function MiddleBtn(props) {
+    var onModalMiddle = react_1.useContext(modalContext).onModalMiddle;
+    return (react_1.default.createElement("div", { "data-c-alignment": "base(center)" },
+        react_1.default.createElement("button", __assign({}, props, { "data-c-button": "solid(c1)", "data-c-dialog-action": "close", "data-c-radius": "rounded", type: "button", disabled: onModalMiddle === undefined, onClick: onModalMiddle }))));
+};
+
+
+/***/ }),
+
 /***/ "./resources/assets/js/components/RootContainer.tsx":
 /*!**********************************************************!*\
   !*** ./resources/assets/js/components/RootContainer.tsx ***!
@@ -58091,6 +67580,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.RootContainer = void 0;
 var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 __webpack_require__(/*! core-js/modules/es.promise.finally */ "./node_modules/core-js/modules/es.promise.finally.js");
 var react_redux_1 = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/lib/index.js");
@@ -58179,12 +67669,60 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
     return result;
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
 };
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -58195,11 +67733,14 @@ var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/reac
 var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
 var formik_1 = __webpack_require__(/*! formik */ "./node_modules/formik/dist/index.js");
 var sweetalert2_1 = __importDefault(__webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js"));
+var react_markdown_1 = __importDefault(__webpack_require__(/*! react-markdown */ "./node_modules/react-markdown/lib/react-markdown.js"));
 var SelectInput_1 = __importDefault(__webpack_require__(/*! ../../Form/SelectInput */ "./resources/assets/js/components/Form/SelectInput.tsx"));
 var routes = __importStar(__webpack_require__(/*! ../../../helpers/routes */ "./resources/assets/js/helpers/routes.ts"));
 var localizedConstants_1 = __webpack_require__(/*! ../../../models/localizedConstants */ "./resources/assets/js/models/localizedConstants.tsx");
 var lookupConstants_1 = __webpack_require__(/*! ../../../models/lookupConstants */ "./resources/assets/js/models/lookupConstants.ts");
 var localize_1 = __webpack_require__(/*! ../../../helpers/localize */ "./resources/assets/js/helpers/localize.ts");
+var Modal_1 = __importDefault(__webpack_require__(/*! ../../Modal */ "./resources/assets/js/components/Modal.tsx"));
+var queries_1 = __webpack_require__(/*! ../../../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
 var displayMessages = react_intl_1.defineMessages({
     viewApplication: {
         id: "responseScreening.bucket.viewApplicationLabel",
@@ -58318,18 +67859,71 @@ var AlertWhenUnsaved = function () {
     }, [dirty]);
     return react_1.default.createElement(react_1.default.Fragment, null);
 };
-var ApplicationRow = function (_a) {
-    var application = _a.application, departmentEditable = _a.departmentEditable, departments = _a.departments, handleUpdateReview = _a.handleUpdateReview, portal = _a.portal;
+var ReferenceEmailModal = function (_a) {
     var _b, _c, _d, _e;
+    var id = _a.id, parent = _a.parent, email = _a.email, visible = _a.visible, onConfirm = _a.onConfirm, onCancel = _a.onCancel;
+    var renderAddress = function (adr) {
+        return adr.name + " <" + adr.address + ">";
+    };
+    var renderAddresses = function (adrs) {
+        return adrs.map(renderAddress).join(", ");
+    };
+    var noDeliveryAdr = email == null || email.to.length == 0;
+    return (react_1.default.createElement(react_1.default.Fragment, null,
+        react_1.default.createElement("div", { "data-c-dialog-overlay": visible ? "active" : "" }),
+        react_1.default.createElement(Modal_1.default, { id: id, parentElement: parent, visible: visible, onModalConfirm: onConfirm, onModalCancel: onCancel },
+            react_1.default.createElement(Modal_1.default.Header, null,
+                react_1.default.createElement("div", { "data-c-background": "c1(100)", "data-c-border": "bottom(thin, solid, black)", "data-c-padding": "normal" },
+                    react_1.default.createElement("h5", { "data-c-colour": "white", "data-c-font-size": "h4" },
+                        react_1.default.createElement(react_intl_1.FormattedMessage, { id: "referenceEmailModal.title", defaultMessage: "Email for Reference Check", description: "Text displayed on the title of the MicroReference Email modal." })))),
+            react_1.default.createElement(Modal_1.default.Body, null,
+                react_1.default.createElement("div", { "data-c-border": "bottom(thin, solid, black)" },
+                    react_1.default.createElement("div", { "data-c-border": "bottom(thin, solid, black)", "data-c-padding": "normal" },
+                        react_1.default.createElement("p", null,
+                            react_1.default.createElement("span", null,
+                                react_1.default.createElement("strong", null,
+                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "referenceEmailModal.toLabel", defaultMessage: "To:" }))), " ",
+                            react_1.default.createElement("span", null, renderAddresses((_b = email === null || email === void 0 ? void 0 : email.to) !== null && _b !== void 0 ? _b : []))),
+                        react_1.default.createElement("p", null,
+                            react_1.default.createElement("span", null,
+                                react_1.default.createElement("strong", null,
+                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "referenceEmailModal.fromLabel", defaultMessage: "From:" }))), " ",
+                            react_1.default.createElement("span", null, renderAddresses((_c = email === null || email === void 0 ? void 0 : email.from) !== null && _c !== void 0 ? _c : []))),
+                        react_1.default.createElement("p", null,
+                            react_1.default.createElement("span", null,
+                                react_1.default.createElement("strong", null,
+                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "referenceEmailModal.ccLabel", defaultMessage: "CC:" }))), " ",
+                            react_1.default.createElement("span", null, renderAddresses((_d = email === null || email === void 0 ? void 0 : email.cc) !== null && _d !== void 0 ? _d : []))),
+                        react_1.default.createElement("p", null,
+                            react_1.default.createElement("span", null,
+                                react_1.default.createElement("strong", null,
+                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "referenceEmailModal.bccLabel", defaultMessage: "BCC:" }))), " ",
+                            react_1.default.createElement("span", null, renderAddresses((_e = email === null || email === void 0 ? void 0 : email.bcc) !== null && _e !== void 0 ? _e : []))),
+                        react_1.default.createElement("p", null,
+                            react_1.default.createElement("span", null,
+                                react_1.default.createElement("strong", null,
+                                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "referenceEmailModal.subjectLabel", defaultMessage: "Subject:" }))), " ",
+                            react_1.default.createElement("span", null, email === null || email === void 0 ? void 0 : email.subject))),
+                    react_1.default.createElement("div", { "data-c-background": "grey(20)", "data-c-padding": "normal" },
+                        react_1.default.createElement("div", { "data-c-background": "white(100)", "data-c-padding": "normal", "data-c-radius": "rounded", className: "spaced-paragraphs" }, email ? (react_1.default.createElement(react_markdown_1.default, { source: email.body })) : (react_1.default.createElement("p", null,
+                            react_1.default.createElement(react_intl_1.FormattedMessage, { id: "referenceEmailModal.nullState", defaultMessage: "Loading reference email..." }))))))),
+            react_1.default.createElement(Modal_1.default.Footer, null,
+                react_1.default.createElement(Modal_1.default.FooterCancelBtn, null,
+                    react_1.default.createElement(react_intl_1.FormattedMessage, { id: "referenceEmailModal.cancel", defaultMessage: "Cancel" })),
+                react_1.default.createElement(Modal_1.default.FooterConfirmBtn, { disabled: noDeliveryAdr }, noDeliveryAdr ? (react_1.default.createElement(react_intl_1.FormattedMessage, { id: "referenceEmailModal.noDeliveryAddress", defaultMessage: "No Delivery Address" })) : (react_1.default.createElement(react_intl_1.FormattedMessage, { id: "referenceEmailModal.confirm", defaultMessage: "Send Email" })))))));
+};
+var ApplicationRow = function (_a) {
+    var _b, _c, _d, _e, _f, _g;
+    var application = _a.application, departmentEditable = _a.departmentEditable, departments = _a.departments, handleUpdateReview = _a.handleUpdateReview, portal = _a.portal, directorReferenceEmail = _a.directorReferenceEmail, secondaryReferenceEmail = _a.secondaryReferenceEmail, requestReferenceEmails = _a.requestReferenceEmails, sendReferenceEmail = _a.sendReferenceEmail;
     var intl = react_intl_1.useIntl();
     var locale = localize_1.getLocale(intl.locale);
     var applicantUrlMap = {
-        hr: routes.hrApplicantShow(intl.locale, application.id),
-        manager: routes.managerApplicantShow(intl.locale, application.id),
+        hr: routes.hrApplicantShow(intl.locale, application.id, application.job_poster_id),
+        manager: routes.managerApplicantShow(intl.locale, application.id, application.job_poster_id),
     };
     var applicationUrlMap = {
-        hr: routes.hrApplicationShow(intl.locale, application.id),
-        manager: routes.managerApplicationShow(intl.locale, application.id),
+        hr: routes.hrApplicationShow(intl.locale, application.id, application.job_poster_id),
+        manager: routes.managerApplicationShow(intl.locale, application.id, application.job_poster_id),
     };
     var applicantUrl = applicantUrlMap[portal];
     var applicationUrl = applicationUrlMap[portal];
@@ -58362,8 +67956,10 @@ var ApplicationRow = function (_a) {
         notes: null,
         created_at: new Date(),
         updated_at: new Date(),
-        department: null,
-        review_status: null,
+        department: undefined,
+        review_status: undefined,
+        director_email_sent: false,
+        reference_email_sent: false,
     };
     var initialValues = {
         reviewStatus: ((_c = application.application_review) === null || _c === void 0 ? void 0 : _c.review_status_id) || null,
@@ -58394,7 +67990,58 @@ var ApplicationRow = function (_a) {
             }
         });
     };
-    return (react_1.default.createElement("div", { className: "applicant" },
+    // MicroReferences
+    var bucketsWithReferences = [
+        lookupConstants_1.ResponseReviewStatusId.ReadyForReference,
+        lookupConstants_1.ResponseReviewStatusId.ReadyToAllocate,
+        lookupConstants_1.ResponseReviewStatusId.Allocated,
+    ];
+    var showReferences = queries_1.notEmpty((_f = application.application_review) === null || _f === void 0 ? void 0 : _f.review_status_id) &&
+        bucketsWithReferences.includes((_g = application.application_review) === null || _g === void 0 ? void 0 : _g.review_status_id);
+    // A single modal component is used for both emails, since only one will appear at a time.
+    var _h = react_1.useState("director"), showingEmail = _h[0], setShowingEmail = _h[1];
+    // But each email needs its own 'sending' flag, because its possible have both sending at the same time.
+    var _j = react_1.useState(false), sendingDirectorEmail = _j[0], setSendingDirectorEmail = _j[1];
+    var _k = react_1.useState(false), sendingSecondaryEmail = _k[0], setSendingSecondaryEmail = _k[1];
+    var emailOptions = {
+        director: directorReferenceEmail,
+        secondary: secondaryReferenceEmail,
+    };
+    var _l = react_1.useState(false), emailModalVisible = _l[0], setEmailModalVisible = _l[1];
+    var showDirectorEmail = function () {
+        requestReferenceEmails(application.id);
+        setShowingEmail("director");
+        setEmailModalVisible(true);
+    };
+    var showSecondaryEmail = function () {
+        requestReferenceEmails(application.id);
+        setShowingEmail("secondary");
+        setEmailModalVisible(true);
+    };
+    var hideEmail = function () {
+        setEmailModalVisible(false);
+    };
+    var onConfirm = function () { return __awaiter(void 0, void 0, void 0, function () {
+        var setSendingEmail;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    hideEmail();
+                    setSendingEmail = {
+                        director: setSendingDirectorEmail,
+                        secondary: setSendingSecondaryEmail,
+                    }[showingEmail];
+                    setSendingEmail(true);
+                    return [4 /*yield*/, sendReferenceEmail(application.id, showingEmail)];
+                case 1:
+                    _a.sent();
+                    setSendingEmail(false);
+                    return [2 /*return*/];
+            }
+        });
+    }); };
+    var modalParentRef = react_1.useRef(null);
+    return (react_1.default.createElement("div", { className: "applicant", ref: modalParentRef },
         react_1.default.createElement(formik_1.Formik, { initialValues: initialValues, onSubmit: function (values, _a) {
                 var setSubmitting = _a.setSubmitting, resetForm = _a.resetForm;
                 var review = updateApplicationReview(application.application_review || emptyReview, values);
@@ -58457,47 +68104,65 @@ var ApplicationRow = function (_a) {
                     performUpdate();
                 }
             } }, function (_a) {
+            var _b, _c;
             var values = _a.values, dirty = _a.dirty, isSubmitting = _a.isSubmitting, setFieldValue = _a.setFieldValue;
             return (react_1.default.createElement(formik_1.Form, { "data-c-grid": "gutter(all, 1) middle" },
                 react_1.default.createElement(AlertWhenUnsaved, null),
-                react_1.default.createElement("div", { "data-c-grid-item": "base(1of4)" },
-                    react_1.default.createElement("div", null,
-                        rowIcon,
-                        react_1.default.createElement("div", null,
-                            react_1.default.createElement("p", { "data-c-font-weight": "bold", "data-c-font-size": "h4" }, application.applicant.user.full_name),
-                            react_1.default.createElement("p", { "data-c-margin": "bottom(.5)" },
-                                react_1.default.createElement("a", { href: "mailto:" + application.applicant.user.email, title: "" }, application.applicant.user.email)),
-                            react_1.default.createElement("p", { "data-c-font-size": "small" },
-                                react_1.default.createElement("a", { href: applicationUrl, title: "", "data-c-margin": "right(.5)" },
-                                    react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, displayMessages.viewApplication))),
-                                react_1.default.createElement("a", { href: applicantUrl, title: "" },
-                                    react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, displayMessages.viewProfile))))))),
-                react_1.default.createElement(formik_1.FastField, { id: "review-status-select-" + application.applicant_id, name: "reviewStatus", label: intl.formatMessage(displayMessages.selectStatusLabel), grid: "base(1of4)", component: SelectInput_1.default, nullSelection: intl.formatMessage(displayMessages.selectStatusDefault), options: reviewOptions }),
-                departmentEditable && (react_1.default.createElement(formik_1.FastField, { id: "department-allocation-select-" + application.applicant_id, name: "department", label: intl.formatMessage(displayMessages.selectDepartmentLabel), grid: "base(1of4)", component: SelectInput_1.default, nullSelection: intl.formatMessage(displayMessages.selectDepartmentDefault), options: departmentOptions })),
-                react_1.default.createElement("div", { "data-c-grid-item": "base(" + (departmentEditable ? 1 : 2) + "of4)", "data-c-align": "base(right)" },
+                react_1.default.createElement("div", { "data-c-grid-item": "base(1of1) tl(1of4)", "data-c-align": "base(center) tl(left)" },
+                    react_1.default.createElement("div", { className: "applicant-info-wrapper" },
+                        react_1.default.createElement("p", { "data-c-font-weight": "bold", "data-c-font-size": "h4" },
+                            rowIcon,
+                            react_1.default.createElement("span", { "data-c-padding": "left(.5)" }, application.applicant.user.full_name)),
+                        react_1.default.createElement("p", { "data-c-margin": "bottom(.5)" },
+                            react_1.default.createElement("a", { className: "applicant-info-email", href: "mailto:" + application.applicant.user.email, title: "" }, application.applicant.user.email)),
+                        react_1.default.createElement("div", { "data-c-font-size": "small", "data-c-grid": "gutter(all, 1) middle" },
+                            react_1.default.createElement("span", { "data-c-grid-item": "base(1of2)", "data-c-align": "base(center) tl(left)" },
+                                react_1.default.createElement("a", { href: applicationUrl, title: "" }, intl.formatMessage(displayMessages.viewApplication))),
+                            react_1.default.createElement("span", { "data-c-grid-item": "base(1of2)", "data-c-align": "base(center) tl(left)" },
+                                react_1.default.createElement("a", { href: applicantUrl, title: "" }, intl.formatMessage(displayMessages.viewProfile))),
+                            showReferences && (react_1.default.createElement(react_1.default.Fragment, null,
+                                react_1.default.createElement("div", { "data-c-grid-item": "base(1of2)" },
+                                    react_1.default.createElement("button", { className: "email-reference-button", "data-c-button": "reset", "data-c-font-style": "underline", "data-c-font-size": "small", type: "button", onClick: showDirectorEmail, disabled: sendingDirectorEmail },
+                                        react_1.default.createElement("i", { className: "fa fa-check-circle", "data-c-color": "go", "data-c-visibility": ((_b = application.application_review) === null || _b === void 0 ? void 0 : _b.director_email_sent) ? "visible"
+                                                : "invisible", "data-c-font-size": "small", "data-c-margin": "right(.5)" }),
+                                        sendingDirectorEmail ? (react_1.default.createElement(react_intl_1.FormattedMessage, { id: "responseScreening.applicant.directorEmailSending", defaultMessage: "Sending email..." })) : (react_1.default.createElement(react_intl_1.FormattedMessage, { id: "responseScreening.applicant.directorEmailButton", defaultMessage: "Director email." })))),
+                                react_1.default.createElement("div", { className: "applicant-buttons", "data-c-grid-item": "base(1of2)" },
+                                    react_1.default.createElement("button", { className: "email-reference-button", "data-c-button": "reset", "data-c-font-style": "underline", "data-c-font-size": "small", type: "button", onClick: showSecondaryEmail, disabled: sendingSecondaryEmail },
+                                        react_1.default.createElement("i", { className: "fa fa-check-circle", "data-c-color": "go", "data-c-visibility": ((_c = application.application_review) === null || _c === void 0 ? void 0 : _c.reference_email_sent) ? "visible"
+                                                : "invisible", "data-c-font-size": "small", "data-c-margin": "right(.5)" }),
+                                        sendingSecondaryEmail ? (react_1.default.createElement(react_intl_1.FormattedMessage, { id: "responseScreening.applicant.secondaryEmailSending", defaultMessage: "Sending email..." })) : (react_1.default.createElement(react_intl_1.FormattedMessage, { id: "responseScreening.applicant.secondaryEmailButton", defaultMessage: "Reference email." }))))))))),
+                react_1.default.createElement("div", { className: "review-status-wrapper", "data-c-grid-item": "base(1of1) tp(2of4) tl(1of4)" },
+                    react_1.default.createElement(formik_1.FastField, { id: "review-status-select-" + application.applicant_id, name: "reviewStatus", label: intl.formatMessage(displayMessages.selectStatusLabel), component: SelectInput_1.default, nullSelection: intl.formatMessage(displayMessages.selectStatusDefault), options: reviewOptions })),
+                departmentEditable && (react_1.default.createElement("div", { "data-c-grid-item": "base(1of1) tp(2of4) tl(1of4)" },
+                    react_1.default.createElement(formik_1.FastField, { id: "department-allocation-select-" + application.applicant_id, name: "department", label: intl.formatMessage(displayMessages.selectDepartmentLabel), component: SelectInput_1.default, nullSelection: intl.formatMessage(displayMessages.selectDepartmentDefault), options: departmentOptions }))),
+                react_1.default.createElement("div", { className: "applicant-buttons-wrapper", "data-c-grid-item": "base(1of1) tl(" + (departmentEditable ? 1 : 2) + "of4)", "data-c-align": "base(center) tp(center) tl(right)" },
                     react_1.default.createElement("button", { "data-c-button": "outline(c1)", type: "button", "data-c-radius": "rounded", onClick: function () {
                             return handleNotesButtonClick(values.notes, setFieldValue);
                         } },
                         react_1.default.createElement("i", { className: "fas fa-plus" }),
-                        react_1.default.createElement("span", null,
-                            react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, displayMessages.notes)))),
-                    react_1.default.createElement("button", { "data-c-button": "solid(c1)", type: "submit", "data-c-radius": "rounded", disabled: isSubmitting },
-                        react_1.default.createElement("span", null, dirty ? (react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, displayMessages.save))) : (react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, displayMessages.saved))))))));
-        })));
+                        react_1.default.createElement("span", null, intl.formatMessage(displayMessages.notes))),
+                    react_1.default.createElement("button", { "data-c-button": "solid(c1)", type: "submit", "data-c-radius": "rounded", "data-c-margin": "left(.5)", disabled: isSubmitting },
+                        react_1.default.createElement("span", null, dirty
+                            ? intl.formatMessage(displayMessages.save)
+                            : intl.formatMessage(displayMessages.saved))))));
+        }),
+        showReferences && (react_1.default.createElement(ReferenceEmailModal, { id: "referenceEmailModal_application" + application.id, parent: modalParentRef.current, visible: emailModalVisible, email: emailOptions[showingEmail], onConfirm: onConfirm, onCancel: hideEmail }))));
 };
 var applicationSort = function (locale) {
     return function (first, second) {
+        var _a, _b, _c, _d;
         // Applications without a review status should appear first
-        if (first.application_review === undefined &&
-            second.application_review !== undefined) {
+        if (queries_1.empty((_a = first.application_review) === null || _a === void 0 ? void 0 : _a.review_status_id) &&
+            queries_1.notEmpty((_b = second.application_review) === null || _b === void 0 ? void 0 : _b.review_status_id)) {
             return -1;
         }
-        if (first.application_review !== undefined &&
-            second.application_review === undefined) {
+        if (queries_1.notEmpty((_c = first.application_review) === null || _c === void 0 ? void 0 : _c.review_status_id) &&
+            queries_1.empty((_d = second.application_review) === null || _d === void 0 ? void 0 : _d.review_status_id)) {
             return 1;
         }
         // Applications with a review status should be grouped by status
-        if (first.application_review && second.application_review) {
+        if (queries_1.notEmpty(first.application_review) &&
+            queries_1.notEmpty(second.application_review)) {
             if (first.application_review.review_status_id &&
                 second.application_review.review_status_id) {
                 if (first.application_review.review_status_id <
@@ -58510,12 +68175,12 @@ var applicationSort = function (locale) {
                 }
             }
             // Applications without a Department should appear first
-            if (first.application_review.department === null &&
-                second.application_review.department !== null) {
+            if (queries_1.empty(first.application_review.department) &&
+                queries_1.notEmpty(second.application_review.department)) {
                 return -1;
             }
-            if (first.application_review.department !== null &&
-                second.application_review.department === null) {
+            if (queries_1.notEmpty(first.application_review.department) &&
+                queries_1.empty(second.application_review.department)) {
                 return 1;
             }
             // Applications with a Department set should be grouped by Department
@@ -58529,14 +68194,13 @@ var applicationSort = function (locale) {
                 if (firstDepartmentName > secondDepartmentName) {
                     return 1;
                 }
-                return 0;
             }
         }
-        return 0;
+        return first.applicant.user.full_name.localeCompare(second.applicant.user.full_name);
     };
 };
 var ApplicantBucket = function (_a) {
-    var applications = _a.applications, bucket = _a.bucket, departments = _a.departments, handleUpdateReview = _a.handleUpdateReview, portal = _a.portal;
+    var applications = _a.applications, bucket = _a.bucket, departments = _a.departments, handleUpdateReview = _a.handleUpdateReview, portal = _a.portal, referenceEmails = _a.referenceEmails, requestReferenceEmails = _a.requestReferenceEmails, sendReferenceEmail = _a.sendReferenceEmail;
     var intl = react_intl_1.useIntl();
     var locale = localize_1.getLocale(intl.locale);
     var _b = react_1.useState(false), isExpanded = _b[0], setIsExpanded = _b[1];
@@ -58548,18 +68212,18 @@ var ApplicantBucket = function (_a) {
         react_1.default.createElement("button", { "aria-expanded": isExpanded, "data-c-accordion-trigger": true, tabIndex: 0, type: "button", onClick: handleExpandClick },
             react_1.default.createElement("div", { "data-c-padding": "top(normal) right bottom(normal) left(normal)" },
                 react_1.default.createElement("p", { "data-c-font-weight": "bold", "data-c-font-size": "h3" },
-                    react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, bucketTitle)),
+                    intl.formatMessage(bucketTitle),
                     " (",
                     applications.length,
                     ")"),
-                react_1.default.createElement("p", { "data-c-margin": "top(quarter)", "data-c-colour": "gray" }, bucket === lookupConstants_1.ResponseScreeningBuckets.Consideration ? (react_1.default.createElement(react_intl_1.FormattedMessage, { id: localizedConstants_1.ResponseScreeningBuckets.consideration.title.id, defaultMessage: localizedConstants_1.ResponseScreeningBuckets.consideration.description
-                        .defaultMessage, description: localizedConstants_1.ResponseScreeningBuckets.consideration.description.description, values: {
+                react_1.default.createElement("p", { "data-c-margin": "top(quarter)", "data-c-colour": "gray" }, bucket === lookupConstants_1.ResponseScreeningBuckets.Consideration
+                    ? intl.formatMessage(localizedConstants_1.ResponseScreeningBuckets.consideration.description, {
                         iconAssessment: (react_1.default.createElement(StatusIcon, { status: IconStatus.ASSESSMENT, color: "slow", small: true })),
                         iconReady: (react_1.default.createElement(StatusIcon, { status: IconStatus.READY, color: "go", small: true })),
                         iconReceived: (react_1.default.createElement(StatusIcon, { status: IconStatus.RECEIVED, color: "c1", small: true })),
-                    } })) : (react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, bucketDescription))))),
-            react_1.default.createElement("span", { "data-c-visibility": "invisible" },
-                react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, displayMessages.clickView))),
+                    })
+                    : intl.formatMessage(bucketDescription))),
+            react_1.default.createElement("span", { "data-c-visibility": "invisible" }, intl.formatMessage(displayMessages.clickView)),
             isExpanded ? (react_1.default.createElement("i", { "aria-hidden": "true", className: "fas fa-minus", "data-c-accordion-remove": "", "data-c-colour": "black" })) : (react_1.default.createElement("i", { "aria-hidden": "true", className: "fas fa-plus", "data-c-accordion-add": "", "data-c-colour": "black" }))),
         react_1.default.createElement("div", { "aria-hidden": !isExpanded, "data-c-accordion-content": "", "data-c-padding": "right(normal) left(normal)" },
             react_1.default.createElement("div", { "data-c-padding": "bottom(normal)" },
@@ -58567,11 +68231,13 @@ var ApplicantBucket = function (_a) {
                     applications.length > 0 &&
                     applications
                         .sort(applicationSort(locale))
-                        .map(function (application) { return (react_1.default.createElement(ApplicationRow, { key: application.id, application: application, departmentEditable: bucket === lookupConstants_1.ResponseScreeningBuckets.Allocated, departments: departments, handleUpdateReview: handleUpdateReview, portal: portal })); }),
+                        .map(function (application) {
+                        var _a, _b;
+                        return (react_1.default.createElement(ApplicationRow, { key: application.id, application: application, departmentEditable: bucket === lookupConstants_1.ResponseScreeningBuckets.Allocated, departments: departments, handleUpdateReview: handleUpdateReview, portal: portal, directorReferenceEmail: (_a = referenceEmails.director.byApplicationId[application.id]) !== null && _a !== void 0 ? _a : null, secondaryReferenceEmail: (_b = referenceEmails.secondary.byApplicationId[application.id]) !== null && _b !== void 0 ? _b : null, requestReferenceEmails: requestReferenceEmails, sendReferenceEmail: sendReferenceEmail }));
+                    }),
                 isExpanded && applications.length === 0 && (react_1.default.createElement("div", { "data-c-padding": "bottom(normal)" },
                     react_1.default.createElement("div", { "data-c-border": "all(thin, solid, gray)", "data-c-background": "gray(10)", "data-c-padding": "all(1)", "data-c-radius": "rounded", "data-c-align": "base(center)" },
-                        react_1.default.createElement("p", { "data-c-color": "gray" },
-                            react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, displayMessages.noApplicants))))))))));
+                        react_1.default.createElement("p", { "data-c-color": "gray" }, intl.formatMessage(displayMessages.noApplicants)))))))));
 };
 exports.default = ApplicantBucket;
 
@@ -58587,6 +68253,25 @@ exports.default = ApplicantBucket;
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -58623,13 +68308,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -58646,11 +68324,12 @@ var ApplicantBucket_1 = __importDefault(__webpack_require__(/*! ./ApplicantBucke
 var applicationActions_1 = __webpack_require__(/*! ../../../store/Application/applicationActions */ "./resources/assets/js/store/Application/applicationActions.ts");
 var applicationSelector_1 = __webpack_require__(/*! ../../../store/Application/applicationSelector */ "./resources/assets/js/store/Application/applicationSelector.ts");
 var deptSelector_1 = __webpack_require__(/*! ../../../store/Department/deptSelector */ "./resources/assets/js/store/Department/deptSelector.ts");
+var queries_1 = __webpack_require__(/*! ../../../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
 var ResponseScreeningPage = function (_a) {
-    var applications = _a.applications, departments = _a.departments, handleUpdateReview = _a.handleUpdateReview, portal = _a.portal;
+    var applications = _a.applications, departments = _a.departments, handleUpdateReview = _a.handleUpdateReview, portal = _a.portal, referenceEmails = _a.referenceEmails, requestReferenceEmails = _a.requestReferenceEmails, sendReferenceEmail = _a.sendReferenceEmail;
     return (react_1.default.createElement(react_1.default.Fragment, null, Object.keys(localizedConstants_1.ResponseScreeningBuckets).map(function (bucket) {
         var bucketApplications = applications.filter(function (application) {
-            var _a, _b, _c, _d, _e, _f;
+            var _a, _b, _c, _d, _e, _f, _g;
             if (bucket === lookupConstants_1.ResponseScreeningBuckets.ReadyToAllocate) {
                 return (((_a = application.application_review) === null || _a === void 0 ? void 0 : _a.review_status_id) ===
                     lookupConstants_1.ResponseReviewStatusId.ReadyToAllocate);
@@ -58669,12 +68348,13 @@ var ResponseScreeningPage = function (_a) {
             }
             // Multiple statuses appear in the "Under Consideration" bucket
             return (application.application_review === undefined ||
-                ((_e = application.application_review) === null || _e === void 0 ? void 0 : _e.review_status_id) ===
-                    lookupConstants_1.ResponseReviewStatusId.AssessmentRequired ||
+                ((_e = application.application_review) === null || _e === void 0 ? void 0 : _e.review_status_id) === null ||
                 ((_f = application.application_review) === null || _f === void 0 ? void 0 : _f.review_status_id) ===
+                    lookupConstants_1.ResponseReviewStatusId.AssessmentRequired ||
+                ((_g = application.application_review) === null || _g === void 0 ? void 0 : _g.review_status_id) ===
                     lookupConstants_1.ResponseReviewStatusId.ReadyForReference);
         });
-        return (react_1.default.createElement(ApplicantBucket_1.default, { key: bucket, applications: bucketApplications, bucket: bucket, departments: departments, handleUpdateReview: handleUpdateReview, portal: portal }));
+        return (react_1.default.createElement(ApplicantBucket_1.default, { key: bucket, applications: bucketApplications, bucket: bucket, departments: departments, handleUpdateReview: handleUpdateReview, portal: portal, referenceEmails: referenceEmails, requestReferenceEmails: requestReferenceEmails, sendReferenceEmail: sendReferenceEmail }));
     })));
 };
 var ResponseScreeningDataFetcher = function (_a) {
@@ -58691,7 +68371,9 @@ var ResponseScreeningDataFetcher = function (_a) {
     react_1.useEffect(function () {
         dispatch(deptActions_1.getDepartments());
     }, [dispatch]);
-    var departments = react_redux_1.useSelector(deptSelector_1.getDepartments);
+    var departments = react_redux_1.useSelector(deptSelector_1.getDepartments).filter(function (department) {
+        return department.id !== lookupConstants_1.ExcludedDepartments.StrategicTalentResponse;
+    });
     var updateApplicationReview = function (review) { return __awaiter(void 0, void 0, void 0, function () {
         var result, resultReview;
         return __generator(this, function (_a) {
@@ -58708,7 +68390,32 @@ var ResponseScreeningDataFetcher = function (_a) {
             }
         });
     }); };
-    return (react_1.default.createElement(ResponseScreeningPage, { applications: applications, departments: departments, handleUpdateReview: updateApplicationReview, portal: portal }));
+    // Load micro-reference emails
+    var referenceEmails = react_redux_1.useSelector(applicationSelector_1.getAllReferenceEmails);
+    var isFetchingReferenceEmails = react_redux_1.useSelector(applicationSelector_1.allIsFetchingReferenceEmailsByApplication);
+    var requestReferenceEmails = function (applicationId) {
+        if (isFetchingReferenceEmails[applicationId]) {
+            return;
+        }
+        if (queries_1.hasKey(referenceEmails.director.byApplicationId, applicationId) &&
+            queries_1.hasKey(referenceEmails.secondary.byApplicationId, applicationId)) {
+            return;
+        }
+        dispatch(applicationActions_1.fetchReferenceEmails(applicationId));
+    };
+    // Sending Emails
+    var sendReferenceEmail = function (applicationId, refernceType) { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, dispatch(applicationActions_1.sendReferenceEmail(applicationId, refernceType))];
+                case 1:
+                    _a.sent();
+                    // Reload application after sending email to sync the "email_sent" fields of the ApplicationReview.
+                    return [2 /*return*/, dispatch(applicationActions_1.fetchApplication(applicationId))];
+            }
+        });
+    }); };
+    return (react_1.default.createElement(ResponseScreeningPage, { applications: applications, departments: departments, handleUpdateReview: updateApplicationReview, portal: portal, referenceEmails: referenceEmails, requestReferenceEmails: requestReferenceEmails, sendReferenceEmail: sendReferenceEmail }));
 };
 var container = document.getElementById("response-screening-wrapper");
 if (container !== null) {
@@ -58736,6 +68443,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.configureStore = void 0;
 var redux_1 = __webpack_require__(/*! redux */ "./node_modules/redux/lib/redux.js");
 var redux_thunk_1 = __importDefault(__webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/lib/index.js"));
 var redux_devtools_extension_1 = __webpack_require__(/*! redux-devtools-extension */ "./node_modules/redux-devtools-extension/index.js");
@@ -58769,8 +68477,12 @@ exports.default = exports.configureStore;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getLocale = exports.localizeFieldNonNull = exports.localizeField = void 0;
 function localizeField(locale, model, field) {
-    return model[field][locale];
+    if (model[field] !== null) {
+        return model[field][locale];
+    }
+    return null;
 }
 exports.localizeField = localizeField;
 function localizeFieldNonNull(locale, model, field) {
@@ -58810,6 +68522,7 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.uniq = exports.filterObjectProps = exports.deleteProperty = exports.getOrThrowError = exports.hasKey = exports.mapToObject = exports.mapToObjectTrans = exports.objectMap = exports.whereFirst = exports.where = exports.find = exports.empty = exports.stringNotEmpty = exports.notEmpty = exports.identity = exports.getId = void 0;
 /**
  * Shortcut function that returns the id attribute of an object.
  * @param item
@@ -58823,7 +68536,7 @@ function identity(value) {
 }
 exports.identity = identity;
 /**
- * Returns true as long as the value passed to it is not null or undefined.
+ * Returns true if value is not null or undefined.
  * Can be used to filter nulls and undefined values out of an array.
  * @param item
  */
@@ -58835,6 +68548,14 @@ function stringNotEmpty(value) {
     return notEmpty(value) && value.length > 0;
 }
 exports.stringNotEmpty = stringNotEmpty;
+/**
+ * Returns true if value id null OR undefined.
+ * @param item
+ */
+function empty(value) {
+    return value === null || value === undefined;
+}
+exports.empty = empty;
 /**
  * From an array of objects, return the first object with a specific id value.
  * @param objs
@@ -58961,19 +68682,20 @@ exports.uniq = uniq;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.accountSettings = exports.hrApplicantShow = exports.hrApplicationShow = exports.hrJobApplications = exports.hrScreeningPlan = exports.hrJobPreview = exports.hrJobReview = exports.hrJobSummary = exports.hrJobIndex = exports.managerFaq = exports.jobBuilderReview = exports.jobBuilderSkills = exports.jobBuilderTasks = exports.jobBuilderImpact = exports.jobBuilderEnv = exports.jobBuilderDetails = exports.jobBuilderIntro = exports.applicationReviewUpdate = exports.managerScreeningPlan = exports.managerJobApplications = exports.managerJobPreview = exports.managerJobSummary = exports.managerJobIndex = exports.managerEditProfile = exports.managerApplicantShow = exports.managerApplicationShow = void 0;
 var base_1 = __webpack_require__(/*! ../api/base */ "./resources/assets/js/api/base.ts");
-function applicationShow(locale, prefix, applicationId) {
-    return "/" + locale + "/" + prefix + "/applications/" + applicationId;
+function applicationShow(locale, prefix, applicationId, jobId) {
+    return "/" + locale + "/" + prefix + "/jobs/" + jobId + "/applications/" + applicationId;
 }
-function applicantShow(locale, prefix, applicantId) {
-    return "/" + locale + "/" + prefix + "/applicants/" + applicantId;
+function applicantShow(locale, prefix, applicantId, jobId) {
+    return "/" + locale + "/" + prefix + "/jobs/" + jobId + "/applicants/" + applicantId;
 }
-function managerApplicationShow(locale, applicationId) {
-    return applicationShow(locale, "manager", applicationId);
+function managerApplicationShow(locale, applicationId, jobId) {
+    return applicationShow(locale, "manager", applicationId, jobId);
 }
 exports.managerApplicationShow = managerApplicationShow;
-function managerApplicantShow(locale, applicantId) {
-    return applicantShow(locale, "manager", applicantId);
+function managerApplicantShow(locale, applicantId, jobId) {
+    return applicantShow(locale, "manager", applicantId, jobId);
 }
 exports.managerApplicantShow = managerApplicantShow;
 function managerEditProfile(locale) {
@@ -58984,10 +68706,14 @@ function managerJobIndex(locale) {
     return "/" + locale + "/manager/jobs";
 }
 exports.managerJobIndex = managerJobIndex;
-function managerJobShow(locale, jobId) {
+function managerJobSummary(locale, jobId) {
     return "/" + locale + "/manager/jobs/" + jobId;
 }
-exports.managerJobShow = managerJobShow;
+exports.managerJobSummary = managerJobSummary;
+function managerJobPreview(locale, jobId) {
+    return "/" + locale + "/manager/jobs/" + jobId + "/preview";
+}
+exports.managerJobPreview = managerJobPreview;
 function managerJobApplications(locale, jobId) {
     return "/" + locale + "/manager/jobs/" + jobId + "/applications";
 }
@@ -59044,7 +68770,7 @@ function hrJobIndex(locale) {
 }
 exports.hrJobIndex = hrJobIndex;
 function hrJobSummary(locale, jobId) {
-    return "/" + locale + "/hr/jobs/" + jobId + "/summary";
+    return "/" + locale + "/hr/jobs/" + jobId;
 }
 exports.hrJobSummary = hrJobSummary;
 function hrJobReview(locale, jobId) {
@@ -59052,7 +68778,7 @@ function hrJobReview(locale, jobId) {
 }
 exports.hrJobReview = hrJobReview;
 function hrJobPreview(locale, jobId) {
-    return "/" + locale + "/hr/jobs/" + jobId;
+    return "/" + locale + "/hr/jobs/" + jobId + "/preview";
 }
 exports.hrJobPreview = hrJobPreview;
 function hrScreeningPlan(locale, jobId) {
@@ -59063,10 +68789,8 @@ function hrJobApplications(locale, jobId) {
     return "/" + locale + "/hr/jobs/" + jobId + "/applications";
 }
 exports.hrJobApplications = hrJobApplications;
-exports.hrApplicationShow = function (locale, applicationId) { return applicationShow(locale, "hr", applicationId); };
-exports.hrApplicantShow = function (locale, applicantId) {
-    return applicantShow(locale, "hr", applicantId);
-};
+exports.hrApplicationShow = function (locale, applicationId, jobId) { return applicationShow(locale, "hr", applicationId, jobId); };
+exports.hrApplicantShow = function (locale, applicantId, jobId) { return applicantShow(locale, "hr", applicantId, jobId); };
 function accountSettings(locale) {
     return "/" + locale + "/settings";
 }
@@ -59097,6 +68821,7 @@ var __assign = (this && this.__assign) || function () {
 };
 var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ResponseReviewStatuses = exports.ResponseReviewStatusMessages = exports.ResponseScreeningBuckets = exports.specificLocationOption = exports.hrPortalLocations = exports.screeningPlanLocations = exports.applicantReviewLocations = exports.jobReviewLocations = exports.generalLocationOption = exports.generalLocations = exports.classificationCodeOption = exports.classificationCodes = exports.travelRequirementDescription = exports.overtimeRequirementDescription = exports.frequencyName = exports.narrativeReviewStandardAnswer = exports.narrativeReviewStandardQuestion = exports.languageRequirementContext = exports.languageRequirementDescription = exports.languageRequirement = exports.securityClearance = exports.provinceAbreviation = exports.provinceName = exports.assessmentTypeDescription = exports.criteriaType = exports.assessmentType = exports.assetSkillDescription = exports.assetSkillName = exports.skillLevelName = exports.skillLevelDescription = void 0;
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
 var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
 var lookupConstants_1 = __webpack_require__(/*! ./lookupConstants */ "./resources/assets/js/models/lookupConstants.ts");
@@ -59927,8 +69652,8 @@ exports.hrPortalLocations = (_p = {},
 exports.specificLocationOption = function (locationId) {
     return queries_1.getOrThrowError(__assign(__assign(__assign(__assign({}, exports.jobReviewLocations), exports.applicantReviewLocations), exports.hrPortalLocations), exports.screeningPlanLocations), locationId, "Invalid LocationId");
 };
-exports.ResponseScreeningBuckets = react_intl_1.defineMessages((_q = {},
-    _q[lookupConstants_1.ResponseScreeningBuckets.Consideration] = {
+exports.ResponseScreeningBuckets = (_q = {},
+    _q[lookupConstants_1.ResponseScreeningBuckets.Consideration] = react_intl_1.defineMessages({
         title: {
             id: "responseScreening.buckets.consideration.title",
             defaultMessage: "Employees Under Consideration",
@@ -59939,8 +69664,8 @@ exports.ResponseScreeningBuckets = react_intl_1.defineMessages((_q = {},
             defaultMessage: "Employees in this category have volunteered to be placed in a team with a critical needs shortage. Employees in this category are: Pending initial application review ({iconReceived}), indicating that a submission has been received, but it has not yet been assessed by a member of the review team; Ready for reference checks and home-department approval ({iconReady}), indicating that the employee is heading to the Ready to Allocate category if references and approval are in order; and Further Assessment Required ({iconAssessment}), indicating that the review team is unsure of their qualifications for this role and is undertaking further assessment.",
             description: "Descriptive text for the 'Under Consideration' response screening bucket. Takes three icons (iconReceived, iconReady, and iconAssessment) as input.",
         },
-    },
-    _q[lookupConstants_1.ResponseScreeningBuckets.ReadyToAllocate] = {
+    }),
+    _q[lookupConstants_1.ResponseScreeningBuckets.ReadyToAllocate] = react_intl_1.defineMessages({
         title: {
             id: "responseScreening.buckets.readyToAllocate.title",
             defaultMessage: "Ready to Allocate",
@@ -59951,8 +69676,8 @@ exports.ResponseScreeningBuckets = react_intl_1.defineMessages((_q = {},
             defaultMessage: "Employees in this category have the necessary skills for this stream of work, have successfully completed reference checks and have been given preliminary authorization to participate by a member of their management team. They are currently working in their substantive position, awaiting a request from a department with a critical talent gap.",
             description: "Descriptive text for the 'Ready to Allocate' response screening bucket.",
         },
-    },
-    _q[lookupConstants_1.ResponseScreeningBuckets.Allocated] = {
+    }),
+    _q[lookupConstants_1.ResponseScreeningBuckets.Allocated] = react_intl_1.defineMessages({
         title: {
             id: "responseScreening.buckets.allocated.title",
             defaultMessage: "Allocated",
@@ -59963,8 +69688,8 @@ exports.ResponseScreeningBuckets = react_intl_1.defineMessages((_q = {},
             defaultMessage: 'Employees in this category have been allocated to a department. Their name has been removed from all other GC Reserve processes to which they have applied (and will appear in those processes under "Not Currently Available".) Following the completion of an allocation, employees may elect to be placed back in the Ready to Allocate category, should they be needed again.',
             description: "Descriptive text for the 'Allocated' response screening bucket.",
         },
-    },
-    _q[lookupConstants_1.ResponseScreeningBuckets.Unavailable] = {
+    }),
+    _q[lookupConstants_1.ResponseScreeningBuckets.Unavailable] = react_intl_1.defineMessages({
         title: {
             id: "responseScreening.buckets.unavailable.title",
             defaultMessage: "Currently Unavailable",
@@ -59975,8 +69700,8 @@ exports.ResponseScreeningBuckets = react_intl_1.defineMessages((_q = {},
             defaultMessage: "Employees in this stream have been allocated to a department in need or have temporarily removed their names from consideration for a specific period of time (e.g. illness, family care needs), and wish to be considered for allocation at a later date. Employees in this category have been qualified for this talent stream, and will be placed back into the Ready to Allocate when they become available again. (If an employee permanently withdraws their name, their submission will be removed from the GC Talent Reserve.)",
             description: "Descriptive text for the 'Currently Unavailable' response screening bucket.",
         },
-    },
-    _q[lookupConstants_1.ResponseScreeningBuckets.DoesNotQualify] = {
+    }),
+    _q[lookupConstants_1.ResponseScreeningBuckets.DoesNotQualify] = react_intl_1.defineMessages({
         title: {
             id: "responseScreening.buckets.doesNotQualify.title",
             defaultMessage: "Does Not Qualify",
@@ -59987,8 +69712,8 @@ exports.ResponseScreeningBuckets = react_intl_1.defineMessages((_q = {},
             defaultMessage: "Employees in this category have volunteered their names, but a review of their application and/or reference checks has led the review team to conclude that the employee would not be an asset to a department needing to fill a critical talent gap in this field of work. This determination is, in no way, reflected in the employee's performance status with their home department, and does not affect their evaluation for other GC Reserve talent streams to which they may have applied.",
             description: "Descriptive text for the 'Does Not Qualify' response screening bucket.",
         },
-    },
-    _q));
+    }),
+    _q);
 exports.ResponseReviewStatusMessages = react_intl_1.defineMessages({
     screened_out: {
         id: "responseReviewStatus.screenedOut",
@@ -60061,6 +69786,7 @@ exports.ResponseReviewStatuses = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.CriteriaTypeIdValues = exports.AssessmentTypeIdValues = exports.SkillTypeIdValues = exports.SkillLevelIdValues = exports.enumToIds = exports.getKeyByValue = exports.ResponseScreeningBuckets = exports.JobStatus = exports.LocationId = exports.CommentTypeId = exports.ClassificationId = exports.OvertimeRequirementId = exports.TravelRequirementId = exports.FrequencyId = exports.LanguageRequirementId = exports.SecurityClearanceId = exports.ProvinceId = exports.AssessmentTypeId = exports.SkillLevelId = exports.SkillTypeId = exports.CriteriaTypeId = exports.ExcludedDepartments = exports.ResponseReviewStatusId = exports.ReviewStatusId = void 0;
 var ReviewStatusId;
 (function (ReviewStatusId) {
     ReviewStatusId[ReviewStatusId["ScreenedOut"] = 1] = "ScreenedOut";
@@ -60076,6 +69802,10 @@ var ResponseReviewStatusId;
     ResponseReviewStatusId[ResponseReviewStatusId["Allocated"] = 7] = "Allocated";
     ResponseReviewStatusId[ResponseReviewStatusId["NotAvailable"] = 8] = "NotAvailable";
 })(ResponseReviewStatusId = exports.ResponseReviewStatusId || (exports.ResponseReviewStatusId = {}));
+var ExcludedDepartments;
+(function (ExcludedDepartments) {
+    ExcludedDepartments[ExcludedDepartments["StrategicTalentResponse"] = 18] = "StrategicTalentResponse";
+})(ExcludedDepartments = exports.ExcludedDepartments || (exports.ExcludedDepartments = {}));
 var CriteriaTypeId;
 (function (CriteriaTypeId) {
     CriteriaTypeId[CriteriaTypeId["Essential"] = 1] = "Essential";
@@ -60243,6 +69973,7 @@ exports.CriteriaTypeIdValues = enumToIds(CriteriaTypeId);
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.sendReferenceEmail = exports.SEND_REFERENCE_EMAIL_FAILED = exports.SEND_REFERENCE_EMAIL_SUCCEEDED = exports.SEND_REFERENCE_EMAIL_STARTED = exports.fetchReferenceEmails = exports.FETCH_REFERENCE_EMAILS_FAILED = exports.FETCH_REFERENCE_EMAILS_SUCCEEDED = exports.FETCH_REFERENCE_EMAILS_STARTED = exports.updateApplicationReview = exports.UPDATE_APPLICATION_REVIEW_FAILED = exports.UPDATE_APPLICATION_REVIEW_SUCCEEDED = exports.UPDATE_APPLICATION_REVIEW_STARTED = exports.fetchApplicationsForJob = exports.FETCH_APPLICATIONS_FOR_JOB_FAILED = exports.FETCH_APPLICATIONS_FOR_JOB_SUCCEEDED = exports.FETCH_APPLICATIONS_FOR_JOB_STARTED = exports.fetchApplication = exports.FETCH_APPLICATION_FAILED = exports.FETCH_APPLICATION_SUCCEEDED = exports.FETCH_APPLICATION_STARTED = void 0;
 var asyncAction_1 = __webpack_require__(/*! ../asyncAction */ "./resources/assets/js/store/asyncAction.ts");
 var application_1 = __webpack_require__(/*! ../../api/application */ "./resources/assets/js/api/application.ts");
 exports.FETCH_APPLICATION_STARTED = "APPLICATION: GET STARTED";
@@ -60265,6 +69996,18 @@ exports.updateApplicationReview = function (applicationReview) {
         id: applicationReview.id,
         applicationId: applicationReview.job_application_id,
     });
+};
+exports.FETCH_REFERENCE_EMAILS_STARTED = "APPLICATION: GET REFERENCE EMAILS STARTED";
+exports.FETCH_REFERENCE_EMAILS_SUCCEEDED = "APPLICATION: GET REFERENCE EMAILS SUCCEEDED";
+exports.FETCH_REFERENCE_EMAILS_FAILED = "APPLICATION: GET REFERENCE EMAILS FAILED";
+exports.fetchReferenceEmails = function (applicationId) {
+    return asyncAction_1.asyncGet(application_1.getReferenceEmailsEndpoint(applicationId), exports.FETCH_REFERENCE_EMAILS_STARTED, exports.FETCH_REFERENCE_EMAILS_SUCCEEDED, exports.FETCH_REFERENCE_EMAILS_FAILED, application_1.parseReferenceEmails, { applicationId: applicationId });
+};
+exports.SEND_REFERENCE_EMAIL_STARTED = "APPLICATION: SEND REFERENCE EMAIL STARTED";
+exports.SEND_REFERENCE_EMAIL_SUCCEEDED = "APPLICATION: SEND REFERENCE EMAIL SUCCEEDED";
+exports.SEND_REFERENCE_EMAIL_FAILED = "APPLICATION: SEND REFERENCE EMAIL FAILED";
+exports.sendReferenceEmail = function (applicationId, referenceType) {
+    return asyncAction_1.asyncPost(application_1.getSendReferenceEmailEndpoint(applicationId, referenceType), "", exports.SEND_REFERENCE_EMAIL_STARTED, exports.SEND_REFERENCE_EMAIL_SUCCEEDED, exports.SEND_REFERENCE_EMAIL_FAILED, application_1.parseSingleReferenceEmail, { applicationId: applicationId, referenceType: referenceType });
 };
 
 
@@ -60291,8 +70034,9 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var applicationActions_1 = __webpack_require__(/*! ./applicationActions */ "./resources/assets/js/store/Application/applicationActions.ts");
+exports.applicationReducer = exports.uiReducer = exports.entitiesReducer = exports.initApplicationState = exports.initUi = exports.initEntities = void 0;
 var redux_1 = __webpack_require__(/*! redux */ "./node_modules/redux/lib/redux.js");
+var applicationActions_1 = __webpack_require__(/*! ./applicationActions */ "./resources/assets/js/store/Application/applicationActions.ts");
 var queries_1 = __webpack_require__(/*! ../../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
 exports.initEntities = function () { return ({
     applications: {},
@@ -60300,17 +70044,27 @@ exports.initEntities = function () { return ({
         byId: {},
         idByApplicationId: {},
     },
+    microReferenceEmails: {
+        director: {
+            byApplicationId: {},
+        },
+        secondary: {
+            byApplicationId: {},
+        },
+    },
 }); };
 exports.initUi = function () { return ({
     applicationIsUpdating: {},
     fetchingApplications: false,
+    fetchingReferenceEmailsForApplication: {},
+    sendingReferenceEmailForApplication: {},
 }); };
 exports.initApplicationState = function () { return ({
     entities: exports.initEntities(),
     ui: exports.initUi(),
 }); };
 exports.entitiesReducer = function (state, action) {
-    var _a, _b, _c, _d, _e;
+    var _a, _b, _c, _d, _e, _f, _g;
     if (state === void 0) { state = exports.initEntities(); }
     switch (action.type) {
         case applicationActions_1.FETCH_APPLICATION_SUCCEEDED:
@@ -60336,12 +70090,21 @@ exports.entitiesReducer = function (state, action) {
                     byId: __assign(__assign({}, state.applicationReviews.byId), (_d = {}, _d[action.payload.id] = action.payload, _d)),
                     idByApplicationId: __assign(__assign({}, state.applicationReviews.idByApplicationId), (_e = {}, _e[action.payload.job_application_id] = action.payload.id, _e)),
                 } });
+        case applicationActions_1.FETCH_REFERENCE_EMAILS_SUCCEEDED:
+            return __assign(__assign({}, state), { microReferenceEmails: {
+                    director: {
+                        byApplicationId: __assign(__assign({}, state.microReferenceEmails.director.byApplicationId), (_f = {}, _f[action.meta.applicationId] = action.payload.director, _f)),
+                    },
+                    secondary: {
+                        byApplicationId: __assign(__assign({}, state.microReferenceEmails.secondary.byApplicationId), (_g = {}, _g[action.meta.applicationId] = action.payload.secondary, _g)),
+                    },
+                } });
         default:
             return state;
     }
 };
 exports.uiReducer = function (state, action) {
-    var _a, _b, _c, _d;
+    var _a, _b, _c, _d, _e, _f, _g, _h;
     if (state === void 0) { state = exports.initUi(); }
     switch (action.type) {
         case applicationActions_1.FETCH_APPLICATION_STARTED:
@@ -60359,6 +70122,16 @@ exports.uiReducer = function (state, action) {
         case applicationActions_1.UPDATE_APPLICATION_REVIEW_SUCCEEDED:
         case applicationActions_1.UPDATE_APPLICATION_REVIEW_FAILED:
             return __assign(__assign({}, state), { applicationIsUpdating: __assign(__assign({}, state.applicationIsUpdating), (_d = {}, _d[action.meta.applicationId] = false, _d)) });
+        case applicationActions_1.FETCH_REFERENCE_EMAILS_STARTED:
+            return __assign(__assign({}, state), { fetchingReferenceEmailsForApplication: __assign(__assign({}, state.fetchingReferenceEmailsForApplication), (_e = {}, _e[action.meta.applicationId] = true, _e)) });
+        case applicationActions_1.FETCH_REFERENCE_EMAILS_SUCCEEDED:
+        case applicationActions_1.FETCH_REFERENCE_EMAILS_FAILED:
+            return __assign(__assign({}, state), { fetchingReferenceEmailsForApplication: __assign(__assign({}, state.fetchingReferenceEmailsForApplication), (_f = {}, _f[action.meta.applicationId] = false, _f)) });
+        case applicationActions_1.SEND_REFERENCE_EMAIL_STARTED:
+            return __assign(__assign({}, state), { sendingReferenceEmailForApplication: __assign(__assign({}, state.sendingReferenceEmailForApplication), (_g = {}, _g[action.meta.applicationId] = true, _g)) });
+        case applicationActions_1.SEND_REFERENCE_EMAIL_SUCCEEDED:
+        case applicationActions_1.SEND_REFERENCE_EMAIL_FAILED:
+            return __assign(__assign({}, state), { sendingReferenceEmailForApplication: __assign(__assign({}, state.sendingReferenceEmailForApplication), (_h = {}, _h[action.meta.applicationId] = false, _h)) });
         default:
             return state;
     }
@@ -60396,6 +70169,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.allIsSendingReferenceEmailByApplication = exports.allIsFetchingReferenceEmailsByApplication = exports.isFetchingReferenceEmailsForApplication = exports.getAllReferenceEmails = exports.getApplicationsByJob = exports.getApplicationById = void 0;
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
 var re_reselect_1 = __importDefault(__webpack_require__(/*! re-reselect */ "./node_modules/re-reselect/dist/index.js"));
 var queries_1 = __webpack_require__(/*! ../../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
@@ -60431,6 +70205,17 @@ exports.getApplicationsByJob = re_reselect_1.default(getApplicationState, getApp
     })
         .filter(queries_1.notEmpty);
 })(function (state, ownProps) { return ownProps.jobId; });
+exports.getAllReferenceEmails = function (state) { return entities(state).microReferenceEmails; };
+exports.isFetchingReferenceEmailsForApplication = function (state, props) {
+    var uiState = ui(state);
+    return (queries_1.hasKey(uiState.fetchingReferenceEmailsForApplication, props.applicationId) && uiState.fetchingReferenceEmailsForApplication[props.applicationId]);
+};
+exports.allIsFetchingReferenceEmailsByApplication = function (state) {
+    return ui(state).fetchingReferenceEmailsForApplication;
+};
+exports.allIsSendingReferenceEmailByApplication = function (state) {
+    return ui(state).sendingReferenceEmailForApplication;
+};
 
 
 /***/ }),
@@ -60445,6 +70230,7 @@ exports.getApplicationsByJob = re_reselect_1.default(getApplicationState, getApp
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.storeNewAssessment = exports.storeNewAssessmentFailed = exports.storeNewAssessmentSucceeded = exports.storeNewAssessmentStarted = exports.STORE_NEW_ASSESSMENT_FAILED = exports.STORE_NEW_ASSESSMENT_SUCCEEDED = exports.STORE_NEW_ASSESSMENT_STARTED = exports.deleteAssessment = exports.deleteAssessmentFailed = exports.deleteAssessmentSucceeded = exports.deleteAssessmentStarted = exports.DELETE_ASSESSMENT_FAILED = exports.DELETE_ASSESSMENT_SUCCEEDED = exports.DELETE_ASSESSMENT_STARTED = exports.updateAssessment = exports.updateAssessmentFailed = exports.updateAssessmentSucceeded = exports.updateAssessmentStarted = exports.UPDATE_ASSESSMENT_FAILED = exports.UPDATE_ASSESSMENT_SUCCEEDED = exports.UPDATE_ASSESSMENT_STARTED = exports.deleteTempAssessment = exports.editTempAssessment = exports.createTempAssessment = exports.DELETE_TEMP_ASSESSMENT = exports.EDIT_TEMP_ASSESSMENT = exports.CREATE_TEMP_ASSESSMENT = exports.editAssessment = exports.EDIT_ASSESSMENT = void 0;
 var assessment_1 = __webpack_require__(/*! ../../api/assessment */ "./resources/assets/js/api/assessment.ts");
 /** Action for editing Assessments (without saving to server) */
 exports.EDIT_ASSESSMENT = "EDIT_ASSESSMENT";
@@ -60618,6 +70404,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.assessmentReducer = exports.initState = void 0;
 /* eslint-disable @typescript-eslint/camelcase */
 var isEqual_1 = __importDefault(__webpack_require__(/*! lodash/isEqual */ "./node_modules/lodash/isEqual.js"));
 var queries_1 = __webpack_require__(/*! ../../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
@@ -60736,6 +70523,7 @@ exports.default = exports.assessmentReducer;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.fetchAssessmentPlan = exports.fetchAssessmentPlanFailed = exports.fetchAssessmentPlanSucceeded = exports.fetchAssessmentPlanStarted = exports.FETCH_ASSESSMENT_PLAN_FAILED = exports.FETCH_ASSESSMENT_PLAN_SUCCEEEDED = exports.FETCH_ASSESSMENT_PLAN_STARTED = void 0;
 var assessmentPlan_1 = __webpack_require__(/*! ../../api/assessmentPlan */ "./resources/assets/js/api/assessmentPlan.ts");
 /**
  * NOTE: There is no AssessmentPlan Reducer.
@@ -60796,6 +70584,7 @@ exports.fetchAssessmentPlan = function (jobId) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.updateAssessmentPlanNotification = exports.UPDATE_ASSESSMENT_PLAN_NOTIFICATION_FAILED = exports.UPDATE_ASSESSMENT_PLAN_NOTIFICATION_SUCCEEDED = exports.UPDATE_ASSESSMENT_PLAN_NOTIFICATION_STARTED = exports.fetchAssessmentPlanNotifications = exports.FETCH_ASSESSMENT_PLAN_NOTIFICATIONS_FAILED = exports.FETCH_ASSESSMENT_PLAN_NOTIFICATIONS_SUCCEEDED = exports.FETCH_ASSESSMENT_PLAN_NOTIFICATIONS_STARTED = void 0;
 var assessmentPlanNotifications_1 = __webpack_require__(/*! ../../api/assessmentPlanNotifications */ "./resources/assets/js/api/assessmentPlanNotifications.ts");
 /** Fetcing all Assessment Plan Notifications for a job */
 exports.FETCH_ASSESSMENT_PLAN_NOTIFICATIONS_STARTED = "FETCH_ASSESSMENT_PLAN_NOTIFICATIONS_STARTED";
@@ -60878,6 +70667,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.assessmentPlanNotificationReducer = exports.sortNotifications = exports.initState = void 0;
 var redux_1 = __webpack_require__(/*! redux */ "./node_modules/redux/lib/redux.js");
 var assessmentPlanNotificationActions_1 = __webpack_require__(/*! ./assessmentPlanNotificationActions */ "./resources/assets/js/store/AssessmentPlanNotification/assessmentPlanNotificationActions.ts");
 var queries_1 = __webpack_require__(/*! ../../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
@@ -60961,6 +70751,7 @@ exports.default = exports.assessmentPlanNotificationReducer;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getDepartments = exports.GET_DEPTS_FAILED = exports.GET_DEPTS_SUCCEEDED = exports.GET_DEPTS_STARTED = void 0;
 var asyncAction_1 = __webpack_require__(/*! ../asyncAction */ "./resources/assets/js/store/asyncAction.ts");
 var department_1 = __webpack_require__(/*! ../../api/department */ "./resources/assets/js/api/department.ts");
 exports.GET_DEPTS_STARTED = "DEPARTMENT: GET STARTED";
@@ -60994,6 +70785,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.initDeptState = void 0;
 var deptActions_1 = __webpack_require__(/*! ./deptActions */ "./resources/assets/js/store/Department/deptActions.ts");
 var queries_1 = __webpack_require__(/*! ../../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
 exports.initDeptState = function () { return ({
@@ -61028,6 +70820,7 @@ exports.default = deptReducer;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getDepartmentById = exports.getDepartments = exports.getDeptState = void 0;
 var reselect_1 = __webpack_require__(/*! reselect */ "./node_modules/reselect/lib/index.js");
 var queries_1 = __webpack_require__(/*! ../../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
 exports.getDeptState = function (state) {
@@ -61051,6 +70844,7 @@ exports.getDepartmentById = function (state, id) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.clearErrors = exports.CLEAR_ERRORS = void 0;
 exports.CLEAR_ERRORS = "CLEAR ERRORS";
 exports.clearErrors = function () { return ({
     type: exports.CLEAR_ERRORS,
@@ -61076,6 +70870,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.initState = void 0;
 var errorActions_1 = __webpack_require__(/*! ./errorActions */ "./resources/assets/js/store/Error/errorActions.ts");
 exports.initState = function () { return ({ errors: [] }); };
 var errorReducer = function (state, action) {
@@ -61113,6 +70908,7 @@ exports.default = errorReducer;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getRecentError = exports.getErrors = void 0;
 exports.getErrors = function (state) {
     return state.error.errors;
 };
@@ -61135,6 +70931,7 @@ exports.default = { getErrors: exports.getErrors };
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.unclaimJob = exports.UNCLAIM_JOB_FAILED = exports.UNCLAIM_JOB_SUCCEEDED = exports.UNCLAIM_JOB_STARTED = exports.claimJob = exports.CLAIM_JOB_FAILED = exports.CLAIM_JOB_SUCCEEDED = exports.CLAIM_JOB_STARTED = exports.getHrAdvisor = exports.GET_HR_ADVISOR_FAILED = exports.GET_HR_ADVISOR_SUCCEEDED = exports.GET_HR_ADVISOR_STARTED = void 0;
 var asyncAction_1 = __webpack_require__(/*! ../asyncAction */ "./resources/assets/js/store/asyncAction.ts");
 var hrAdvisor_1 = __webpack_require__(/*! ../../api/hrAdvisor */ "./resources/assets/js/api/hrAdvisor.ts");
 exports.GET_HR_ADVISOR_STARTED = "HR ADVISOR: GET STARTED";
@@ -61190,6 +70987,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.hrAdvisorReducer = exports.uiReducer = exports.entitiesReducer = exports.initState = exports.initUi = exports.initEntities = void 0;
 /* eslint-disable @typescript-eslint/camelcase */
 var redux_1 = __webpack_require__(/*! redux */ "./node_modules/redux/lib/redux.js");
 var hrAdvisorActions_1 = __webpack_require__(/*! ./hrAdvisorActions */ "./resources/assets/js/store/HrAdvisor/hrAdvisorActions.ts");
@@ -61273,6 +71071,7 @@ exports.default = exports.hrAdvisorReducer;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.fetchComments = exports.FETCH_COMMENTS_FAILED = exports.FETCH_COMMENTS_SUCCEEDED = exports.FETCH_COMMENTS_STARTED = exports.createComment = exports.CREATE_COMMENT_FAILED = exports.CREATE_COMMENT_SUCCEEDED = exports.CREATE_COMMENT_STARTED = exports.submitJobForReview = exports.SUBMIT_JOB_FOR_REVIEW_FAILED = exports.SUBMIT_JOB_FOR_REVIEW_SUCCEEDED = exports.SUBMIT_JOB_FOR_REVIEW_STARTED = exports.batchUpdateCriteria = exports.BATCH_UPDATE_CRITERIA_FAILED = exports.BATCH_UPDATE_CRITERIA_SUCCEEDED = exports.BATCH_UPDATE_CRITERIA_STARTED = exports.fetchCriteria = exports.FETCH_CRITERIA_FAILED = exports.FETCH_CRITERIA_SUCCEEDED = exports.FETCH_CRITERIA_STARTED = exports.batchUpdateJobTasks = exports.BATCH_UPDATE_JOB_TASKS_FAILED = exports.BATCH_UPDATE_JOB_TASKS_SUCCEEDED = exports.BATCH_UPDATE_JOB_TASKS_STARTED = exports.fetchJobTasks = exports.FETCH_JOB_TASKS_FAILED = exports.FETCH_JOB_TASKS_SUCCEEDED = exports.FETCH_JOB_TASKS_STARTED = exports.setSelectedJob = exports.SET_SELECTED_JOB = exports.clearJobEdit = exports.CLEAR_JOB_EDIT = exports.editJob = exports.EDIT_JOB = exports.updateJob = exports.UPDATE_JOB_FAILED = exports.UPDATE_JOB_SUCCEEDED = exports.UPDATE_JOB_STARTED = exports.createJob = exports.CREATE_JOB_FAILED = exports.CREATE_JOB_SUCCEEDED = exports.CREATE_JOB_STARTED = exports.fetchJobIndex = exports.FETCH_JOB_INDEX_FAILED = exports.FETCH_JOB_INDEX_SUCCEEDED = exports.FETCH_JOB_INDEX_STARTED = exports.fetchJob = exports.FETCH_JOB_FAILED = exports.FETCH_JOB_SUCCEEDED = exports.FETCH_JOB_STARTED = void 0;
 var job_1 = __webpack_require__(/*! ../../api/job */ "./resources/assets/js/api/job.ts");
 var asyncAction_1 = __webpack_require__(/*! ../asyncAction */ "./resources/assets/js/store/asyncAction.ts");
 var base_1 = __webpack_require__(/*! ../../api/base */ "./resources/assets/js/api/base.ts");
@@ -61383,6 +71182,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.jobsReducer = exports.uiReducer = exports.entitiesReducer = exports.initState = exports.initUi = exports.initEntities = void 0;
 var redux_1 = __webpack_require__(/*! redux */ "./node_modules/redux/lib/redux.js");
 var jobActions_1 = __webpack_require__(/*! ./jobActions */ "./resources/assets/js/store/Job/jobActions.ts");
 var queries_1 = __webpack_require__(/*! ../../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
@@ -61530,6 +71330,7 @@ exports.default = exports.jobsReducer;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.fetchJobPosterStatuses = exports.FETCH_JOB_POSTER_STATUSES_FAILED = exports.FETCH_JOB_POSTER_STATUSES_SUCCEEDED = exports.FETCH_JOB_POSTER_STATUSES_STARTED = void 0;
 var asyncAction_1 = __webpack_require__(/*! ../asyncAction */ "./resources/assets/js/store/asyncAction.ts");
 var jobPosterStatus_1 = __webpack_require__(/*! ../../api/jobPosterStatus */ "./resources/assets/js/api/jobPosterStatus.ts");
 exports.FETCH_JOB_POSTER_STATUSES_STARTED = "JOB POSTER STATUS: GET STARTED";
@@ -61563,6 +71364,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.initJobStatusState = void 0;
 var jobStatusActions_1 = __webpack_require__(/*! ./jobStatusActions */ "./resources/assets/js/store/JobPosterStatus/jobStatusActions.ts");
 var queries_1 = __webpack_require__(/*! ../../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
 exports.initJobStatusState = function () { return ({
@@ -61597,6 +71399,7 @@ exports.default = jobStatusReducer;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.setSelectedManager = exports.SET_SELECTED_MANAGER = exports.updateManager = exports.UPDATE_MANAGER_FAILED = exports.UPDATE_MANAGER_SUCCEEDED = exports.UPDATE_MANAGER_STARTED = exports.fetchCurrentManager = exports.FETCH_CURRENT_MANAGER_FAILED = exports.FETCH_CURRENT_MANAGER_SUCCEEDED = exports.FETCH_CURRENT_MANAGER_STARTED = exports.fetchManager = exports.FETCH_MANAGER_FAILED = exports.FETCH_MANAGER_SUCCEEDED = exports.FETCH_MANAGER_STARTED = void 0;
 var asyncAction_1 = __webpack_require__(/*! ../asyncAction */ "./resources/assets/js/store/asyncAction.ts");
 var manager_1 = __webpack_require__(/*! ../../api/manager */ "./resources/assets/js/api/manager.ts");
 exports.FETCH_MANAGER_STARTED = "MANAGER: GET STARTED";
@@ -61647,6 +71450,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.managerReducer = exports.initManagerState = void 0;
 var managerActions_1 = __webpack_require__(/*! ./managerActions */ "./resources/assets/js/store/Manager/managerActions.ts");
 exports.initManagerState = function () { return ({
     managersById: {},
@@ -61687,6 +71491,7 @@ exports.managerReducer = function (state, action) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.storeNewRatingGuideAnswer = exports.storeNewRatingGuideAnswerFailed = exports.storeNewRatingGuideAnswerSucceeded = exports.storeNewRatingGuideAnswerStarted = exports.STORE_NEW_RATING_GUIDE_ANSWER_FAILED = exports.STORE_NEW_RATING_GUIDE_ANSWER_SUCCEEDED = exports.STORE_NEW_RATING_GUIDE_ANSWER_STARTED = exports.deleteRatingGuideAnswer = exports.deleteRatingGuideAnswerFailed = exports.deleteRatingGuideAnswerSucceeded = exports.deleteRatingGuideAnswerStarted = exports.DELETE_RATING_GUIDE_ANSWER_FAILED = exports.DELETE_RATING_GUIDE_ANSWER_SUCCEEDED = exports.DELETE_RATING_GUIDE_ANSWER_STARTED = exports.updateRatingGuideAnswer = exports.updateRatingGuideAnswerFailed = exports.updateRatingGuideAnswerSucceeded = exports.updateRatingGuideAnswerStarted = exports.UPDATE_RATING_GUIDE_ANSWER_FAILED = exports.UPDATE_RATING_GUIDE_ANSWER_SUCCEEDED = exports.UPDATE_RATING_GUIDE_ANSWER_STARTED = exports.deleteTempRatingGuideAnswer = exports.editTempRatingGuideAnswer = exports.createTempRatingGuideAnswer = exports.DELETE_TEMP_RATING_GUIDE_ANSWER = exports.EDIT_TEMP_RATING_GUIDE_ANSWER = exports.CREATE_TEMP_RATING_GUIDE_ANSWER = exports.editRatingGuideAnswer = exports.EDIT_RATING_GUIDE_ANSWER = void 0;
 var ratingGuide_1 = __webpack_require__(/*! ../../api/ratingGuide */ "./resources/assets/js/api/ratingGuide.ts");
 var ratingGuideAnswerSelectors_1 = __webpack_require__(/*! ./ratingGuideAnswerSelectors */ "./resources/assets/js/store/RatingGuideAnswer/ratingGuideAnswerSelectors.ts");
 /** Action for editing Rating Guide Q&A (without saving to server) */
@@ -61871,6 +71676,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ratingGuideAnswerReducer = exports.initState = void 0;
 /* eslint-disable @typescript-eslint/camelcase */
 var isEqual_1 = __importDefault(__webpack_require__(/*! lodash/isEqual */ "./node_modules/lodash/isEqual.js"));
 var assessmentPlanActions_1 = __webpack_require__(/*! ../AssessmentPlan/assessmentPlanActions */ "./resources/assets/js/store/AssessmentPlan/assessmentPlanActions.ts");
@@ -62000,6 +71806,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.tempRatingGuideAnswerIsSaving = exports.ratingGuideAnswerIsUpdating = exports.ratingGuideAnswerIsEdited = exports.getEditRatingGuideAnswerById = exports.getCanonRatingGuideAnswerById = exports.getTempRatingGuideAnswerIdsByQuestion = exports.getTempRatingGuideAnswersByQuestion = exports.getRatingGuideAnswersByAssessment = exports.getRatingGuideAnswerIdsByQuestion = exports.getRatingGuideAnswersByQuestion = exports.getTempRatingGuideAnswerById = exports.getRatingGuideAnswerById = exports.getRatingGuideAnswersByJob = exports.getTempRatingGuideAnswers = exports.getCanonRatingGuideAnswers = exports.getCurrentRatingGuideAnswers = exports.getAnswerDeleteState = exports.getCurrentAnswerState = exports.getTempAnswerState = exports.getEditedAnswerState = exports.getCanonAnswerState = void 0;
 var reselect_1 = __webpack_require__(/*! reselect */ "./node_modules/reselect/lib/index.js");
 var re_reselect_1 = __importDefault(__webpack_require__(/*! re-reselect */ "./node_modules/re-reselect/dist/index.js"));
 var isEqual_1 = __importDefault(__webpack_require__(/*! lodash/isEqual */ "./node_modules/lodash/isEqual.js"));
@@ -62101,6 +71908,7 @@ exports.tempRatingGuideAnswerIsSaving = function (state, id) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.storeNewRatingGuideQuestion = exports.storeNewRatingGuideQuestionFailed = exports.storeNewRatingGuideQuestionSucceeded = exports.storeNewRatingGuideQuestionStarted = exports.STORE_NEW_RATING_GUIDE_QUESTION_FAILED = exports.STORE_NEW_RATING_GUIDE_QUESTION_SUCCEEDED = exports.STORE_NEW_RATING_GUIDE_QUESTION_STARTED = exports.deleteRatingGuideQuestion = exports.deleteRatingGuideQuestionFailed = exports.deleteRatingGuideQuestionSucceeded = exports.deleteRatingGuideQuestionStarted = exports.DELETE_RATING_GUIDE_QUESTION_FAILED = exports.DELETE_RATING_GUIDE_QUESTION_SUCCEEDED = exports.DELETE_RATING_GUIDE_QUESTION_STARTED = exports.updateRatingGuideQuestion = exports.updateRatingGuideQuestionFailed = exports.updateRatingGuideQuestionSucceeded = exports.updateRatingGuideQuestionStarted = exports.UPDATE_RATING_GUIDE_QUESTION_FAILED = exports.UPDATE_RATING_GUIDE_QUESTION_SUCCEEDED = exports.UPDATE_RATING_GUIDE_QUESTION_STARTED = exports.deleteTempRatingGuideQuestion = exports.editTempRatingGuideQuestion = exports.createTempRatingGuideQuestion = exports.DELETE_TEMP_RATING_GUIDE_QUESTION = exports.EDIT_TEMP_RATING_GUIDE_QUESTION = exports.CREATE_TEMP_RATING_GUIDE_QUESTION = exports.editRatingGuideQuestion = exports.EDIT_RATING_GUIDE_QUESTION = void 0;
 var ratingGuide_1 = __webpack_require__(/*! ../../api/ratingGuide */ "./resources/assets/js/api/ratingGuide.ts");
 var ratingGuideQuestionSelectors_1 = __webpack_require__(/*! ./ratingGuideQuestionSelectors */ "./resources/assets/js/store/RatingGuideQuestion/ratingGuideQuestionSelectors.ts");
 /** Action for editing Rating Guide Q&A (without saving to server) */
@@ -62281,6 +72089,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ratingGuideQuestionReducer = exports.initState = void 0;
 /* eslint-disable @typescript-eslint/camelcase */
 var isEqual_1 = __importDefault(__webpack_require__(/*! lodash/isEqual */ "./node_modules/lodash/isEqual.js"));
 var assessmentPlanActions_1 = __webpack_require__(/*! ../AssessmentPlan/assessmentPlanActions */ "./resources/assets/js/store/AssessmentPlan/assessmentPlanActions.ts");
@@ -62410,6 +72219,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ratingGuideQuestionsAreUpdatingByAssessment = exports.ratingGuideQuestionIsUpdating = exports.tempRatingGuideQuestionsAreSavingByAssessment = exports.tempRatingGuideQuestionIsSaving = exports.ratingGuideQuestionsAreEditedByAssessment = exports.ratingGuideQuestionIsEdited = exports.getTempRatingGuideQuestionIdsByAssessment = exports.getTempRatingGuideQuestionsByAssessment = exports.getRatingGuideQuestionIdsByJobAndAssessmentType = exports.getRatingGuideQuestionsByJobAndAssessmentType = exports.getRatingGuideQuestionIdsByJob = exports.getRatingGuideQuestionsByJob = exports.getTempRatingGuideQuestionById = exports.getEditRatingGuideQuestionById = exports.getCanonRatingGuideQuestionById = exports.getCurrentRatingGuideQuestionById = exports.getTempRatingGuideQuestionIds = exports.getRatingGuideQuestionIds = exports.getTempRatingGuideQuestions = exports.getCurrentRatingGuideQuestions = void 0;
 var isEqual_1 = __importDefault(__webpack_require__(/*! lodash/isEqual */ "./node_modules/lodash/isEqual.js"));
 var reselect_1 = __webpack_require__(/*! reselect */ "./node_modules/reselect/lib/index.js");
 var re_reselect_1 = __importDefault(__webpack_require__(/*! re-reselect */ "./node_modules/re-reselect/dist/index.js"));
@@ -62546,6 +72356,7 @@ exports.ratingGuideQuestionsAreUpdatingByAssessment = re_reselect_1.default(expo
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.fetchSkills = exports.FETCH_SKILLS_FAILED = exports.FETCH_SKILLS_SUCCEEDED = exports.FETCH_SKILLS_STARTED = void 0;
 var skill_1 = __webpack_require__(/*! ../../api/skill */ "./resources/assets/js/api/skill.ts");
 var asyncAction_1 = __webpack_require__(/*! ../asyncAction */ "./resources/assets/js/store/asyncAction.ts");
 exports.FETCH_SKILLS_STARTED = "FETCH_SKILLS_STARTED";
@@ -62579,6 +72390,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.skillReducer = exports.initState = void 0;
 var redux_1 = __webpack_require__(/*! redux */ "./node_modules/redux/lib/redux.js");
 var skillActions_1 = __webpack_require__(/*! ./skillActions */ "./resources/assets/js/store/Skill/skillActions.ts");
 var queries_1 = __webpack_require__(/*! ../../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
@@ -62635,6 +72447,7 @@ exports.default = exports.skillReducer;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.fetchAllUsers = exports.FETCH_ALL_USERS_FAILED = exports.FETCH_ALL_USERS_SUCCEEDED = exports.FETCH_ALL_USERS_STARTED = exports.fetchUser = exports.FETCH_USER_FAILED = exports.FETCH_USER_SUCCEEDED = exports.FETCH_USER_STARTED = void 0;
 var asyncAction_1 = __webpack_require__(/*! ../asyncAction */ "./resources/assets/js/store/asyncAction.ts");
 var user_1 = __webpack_require__(/*! ../../api/user */ "./resources/assets/js/api/user.ts");
 exports.FETCH_USER_STARTED = "USER: GET STARTED";
@@ -62675,6 +72488,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.userReducer = exports.initUserState = void 0;
 var userActions_1 = __webpack_require__(/*! ./userActions */ "./resources/assets/js/store/User/userActions.ts");
 var queries_1 = __webpack_require__(/*! ../../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
 exports.initUserState = function () { return ({
@@ -62720,6 +72534,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.asyncDelete = exports.asyncPost = exports.asyncPut = exports.asyncGet = exports.asyncAction = exports.FAILED = exports.SUCCEEDED = exports.STARTED = void 0;
 var redux_api_middleware_1 = __webpack_require__(/*! redux-api-middleware */ "./node_modules/redux-api-middleware/lib/index.umd.js"); // RSAA = '@@redux-api-middleware/RSAA'
 var dayjs_1 = __importDefault(__webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js"));
 exports.STARTED = "STARTED";
@@ -62815,6 +72630,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.deepEqualSelectorOptions = exports.createDeepEqualSelector = exports.defaultSelectorOptions = void 0;
 var reselect_1 = __webpack_require__(/*! reselect */ "./node_modules/reselect/lib/index.js");
 var isEqual_1 = __importDefault(__webpack_require__(/*! lodash/isEqual */ "./node_modules/lodash/isEqual.js"));
 exports.defaultSelectorOptions = { selectorCreator: reselect_1.createSelector };
@@ -62836,14 +72652,27 @@ exports.deepEqualSelectorOptions = {
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.rootReducer = exports.initState = void 0;
 var redux_1 = __webpack_require__(/*! redux */ "./node_modules/redux/lib/redux.js");
 var jobReducer_1 = __webpack_require__(/*! ./Job/jobReducer */ "./resources/assets/js/store/Job/jobReducer.ts");
 var assessmentReducer_1 = __importStar(__webpack_require__(/*! ./Assessment/assessmentReducer */ "./resources/assets/js/store/Assessment/assessmentReducer.ts"));
@@ -62899,10 +72728,10 @@ exports.default = exports.rootReducer;
 /*!**********************************************************!*\
   !*** ./resources/assets/js/translations/locales/fr.json ***!
   \**********************************************************/
-/*! exports provided: activity.commentLocation.label, activity.commentMetadata, activity.viewComment.label, activityfeed.accordionAccessibleLabel, activityfeed.error, activityfeed.header, activityfeed.loading, activityfeed.loadingIconText, activityfeed.locations.applicantReview.general, activityfeed.locations.applicantReview.notUnderConsideration, activityfeed.locations.applicantReview.optionalConsideration, activityfeed.locations.applicantReview.underConsideration, activityfeed.locations.applications, activityfeed.locations.hr.preview, activityfeed.locations.hr.summary, activityfeed.locations.notFound, activityfeed.locations.review, activityfeed.locations.review.basicInfo, activityfeed.locations.review.environment, activityfeed.locations.review.general, activityfeed.locations.review.heading, activityfeed.locations.review.impact, activityfeed.locations.review.langRequirements, activityfeed.locations.review.skills, activityfeed.locations.review.tasks, activityfeed.locations.screeningPlan, activityfeed.locations.screeningPlan.builder, activityfeed.locations.screeningPlan.general, activityfeed.locations.screeningPlan.ratings, activityfeed.locations.screeningPlan.summary, activityfeed.noActivities, activityfeed.review.accordionAccessibleLabel, activityfeed.review.header, activityfeed.review.loadingIconText, activityfeed.title, application.review.addNote, application.review.alert.oops, application.review.backToApplicantList, application.review.button.cancel, application.review.button.confirm, application.review.button.save, application.review.button.saved, application.review.button.saving, application.review.button.viewJobPoster, application.review.collapseAllSkills, application.review.decision, application.review.editNote, application.review.emailCandidateLinkTitle, application.review.expandAllSkills, application.review.priorityStatus.priority, application.review.priorityStatus.priorityLogoTitle, application.review.reviewSaveFailed, application.review.reviewStatus.notReviewed, application.review.reviewStatus.screenedOut, application.review.reviewStatus.stillIn, application.review.reviewStatus.stillThinking, application.review.screenInConfirm, application.review.screenOutConfirm, application.review.veteranStatus.veteran, application.review.veteranStatus.veteranLogoAlt, application.review.viewApplication, application.review.viewApplicationLinkTitle, application.review.viewProfile, application.review.viewProfileLinkTitle, assessmentPlan.addAssessmentButton, assessmentPlan.alert.checking, assessmentPlan.alert.created, assessmentPlan.alert.deleted, assessmentPlan.alert.explanation, assessmentPlan.alert.skillAndLevelUpdated, assessmentPlan.alert.skillLevelUpdated, assessmentPlan.alert.skillUpdated, assessmentPlan.alert.title, assessmentPlan.assessmentPlanBuilder.instructions, assessmentPlan.assessmentPlanBuilder.shortDescription, assessmentPlan.assessmentPlanBuilder.title, assessmentPlan.assessmentPlanSummary.shortDescription, assessmentPlan.assessmentPlanSummary.title, assessmentPlan.assessmentTypesLabel, assessmentPlan.assetCriteria.nullState, assessmentPlan.criteriaTitle, assessmentPlan.essentialCriteria.nullState, assessmentPlan.instructions.intro, assessmentPlan.instructions.narrativeNote, assessmentPlan.pageTitle, assessmentPlan.ratingGuideBuilder.shortDescription, assessmentPlan.ratingGuideBuilder.title, assessmentPlan.selectAssessment.label, assessmentPlan.selectAssessment.null, assessmentPlan.skillDescriptionLabel, assessmentPlan.skillLevelDescriptionLabel, assessmentPlan.summary.assessmentSummary.noAssessments, assessmentPlan.summary.assessmentSummary.title, assessmentPlan.summary.assessmentSummary.toolSkillCount, assessmentPlan.summary.description, assessmentPlan.summary.skillCount, assessmentPlan.summary.skillsNullState, assessmentPlan.summary.title, assessmentPlan.title, assessmentType.applicationScreeningQuestion, assessmentType.applicationScreeningQuestion.description, assessmentType.groupTest, assessmentType.groupTest.description, assessmentType.informalPhoneConversation, assessmentType.informalPhoneConversation.description, assessmentType.interview, assessmentType.interview.description, assessmentType.narrativeAssessment, assessmentType.narrativeAssessment.description, assessmentType.narrativeReview.standardAnswer, assessmentType.narrativeReview.standardQuestion, assessmentType.onSiteExam, assessmentType.onSiteExam.description, assessmentType.onlineExam, assessmentType.onlineExam.description, assessmentType.portfolioReview, assessmentType.portfolioReview.description, assessmentType.referenceCheck, assessmentType.referenceCheck.description, assessmentType.seriousGames, assessmentType.seriousGames.description, assessmentType.takeHomeExam, assessmentType.takeHomeExam.description, button.copied, button.copyEmails, button.copyToClipboard, button.toggleAccordion, commentForm.comment.label, commentForm.comment.placeholder, commentForm.commentLocation.label, commentForm.commentLocation.nullSelection, commentForm.commentType.label, commentForm.commentType.nullSelection, commentForm.submitButton.label, commentType.comment, commentType.question, commentType.recommendation, commentType.requiredAction, criteria.asset, criteria.essential, criteriaForm.skillLevelSelectionLabel, criteriaForm.skillSpecificityLabel, criteriaForm.skillSpecificityPlaceholder, criteriaType.asset, criteriaType.essential, demoSubmitJobModal.cancel, demoSubmitJobModal.explanation, demoSubmitJobModal.link, demoSubmitJobModal.link.title, demoSubmitJobModal.title, errorToast.title, formInput.error, formInput.required, formValidation.checkboxRequired, formValidation.invalidSelection, formValidation.required, formValidation.tooLong, formValidation.tooShort, hrJobIndex.departmentPlaceholder, hrJobIndex.jobTitleMissing, hrJobIndex.managerLoading, hrJobIndex.preview, hrJobIndex.reviewDraft, hrJobIndex.viewActivity, hrJobIndex.viewScreeningPlan, hrJobIndex.viewSummary, hrPortal.jobPageIndex.clickToView, hrPortal.jobPageIndex.completedJobsHeader, hrPortal.jobPageIndex.hideAccordion, hrPortal.jobPageIndex.jobActionsEmpty, hrPortal.jobPageIndex.jobActionsHeader, hrPortal.jobPageIndex.jobActionsMessage, hrPortal.jobPageIndex.noJobsCompleted, hrPortal.jobPageIndex.preDepartmentName, hrPortal.jobPageIndex.showAccordion, hrPortal.jobPageIndex.unclaimedJobsEmpty, hrPortal.jobPageIndex.unclaimedJobsMessage, job.daysSinceClosed, jobBuilder.collaborativeness.01.description, jobBuilder.collaborativeness.01.title, jobBuilder.collaborativeness.02.description, jobBuilder.collaborativeness.02.title, jobBuilder.collaborativeness.03.description, jobBuilder.collaborativeness.03.title, jobBuilder.collaborativeness.04.description, jobBuilder.collaborativeness.04.title, jobBuilder.criteriaForm.addSpecificity, jobBuilder.criteriaForm.button.add, jobBuilder.criteriaForm.button.cancel, jobBuilder.criteriaForm.chooseSkillLevel, jobBuilder.criteriaForm.or, jobBuilder.criteriaForm.removeSpecificity, jobBuilder.criteriaForm.skillDefinition, jobBuilder.criterion.requiredSkill, jobBuilder.culturePace.01.description, jobBuilder.culturePace.01.title, jobBuilder.culturePace.02.description, jobBuilder.culturePace.02.title, jobBuilder.culturePace.03.description, jobBuilder.culturePace.03.title, jobBuilder.culturePace.04.description, jobBuilder.culturePace.04.title, jobBuilder.details.SelectClassAndLvlMessage, jobBuilder.details.cityLabel, jobBuilder.details.cityPlaceholder, jobBuilder.details.classificationLabel, jobBuilder.details.classificationNullSelection, jobBuilder.details.classificationOptions.AD, jobBuilder.details.classificationOptions.AS, jobBuilder.details.classificationOptions.BI, jobBuilder.details.classificationOptions.CO, jobBuilder.details.classificationOptions.CR, jobBuilder.details.classificationOptions.CS, jobBuilder.details.classificationOptions.EC, jobBuilder.details.classificationOptions.EX, jobBuilder.details.classificationOptions.FO, jobBuilder.details.classificationOptions.IS, jobBuilder.details.classificationOptions.PC, jobBuilder.details.classificationOptions.PE, jobBuilder.details.classificationOptions.PM, jobBuilder.details.documentTitle, jobBuilder.details.educationMessages.AD, jobBuilder.details.educationMessages.AS, jobBuilder.details.educationMessages.BI, jobBuilder.details.educationMessages.CO, jobBuilder.details.educationMessages.CR, jobBuilder.details.educationMessages.CS, jobBuilder.details.educationMessages.EC, jobBuilder.details.educationMessages.EX, jobBuilder.details.educationMessages.FO, jobBuilder.details.educationMessages.IS, jobBuilder.details.educationMessages.PC, jobBuilder.details.educationMessages.PE, jobBuilder.details.educationMessages.PM, jobBuilder.details.educationRequirementCopyAndPaste, jobBuilder.details.educationRequirementHeader, jobBuilder.details.educationRequirementPlaceholder, jobBuilder.details.educationRequirementReviewChanges, jobBuilder.details.educationRequirementsLabel, jobBuilder.details.flexHoursGroupBody, jobBuilder.details.flexHoursGroupHeader, jobBuilder.details.flexHoursGroupLabel, jobBuilder.details.frequencyAlwaysLabel, jobBuilder.details.frequencyFrequentlyLabel, jobBuilder.details.frequencyNeverLabel, jobBuilder.details.frequencyOccasionallyLabel, jobBuilder.details.frequencySometimesLabel, jobBuilder.details.heading, jobBuilder.details.languageLabel, jobBuilder.details.languageNullSelection, jobBuilder.details.levelLabel, jobBuilder.details.levelNullSelection, jobBuilder.details.modalBody, jobBuilder.details.modalCancelLabel, jobBuilder.details.modalConfirmLabel, jobBuilder.details.modalHeader, jobBuilder.details.modalMiddleLabel, jobBuilder.details.overtimeFrequentlyLabel, jobBuilder.details.overtimeGroupHeader, jobBuilder.details.overtimeGroupLabel, jobBuilder.details.overtimeNoneRequiredLabel, jobBuilder.details.overtimeOpportunitiesAvailableLabel, jobBuilder.details.provinceLabel, jobBuilder.details.provinceNullSelection, jobBuilder.details.remoteWorkCanadaLabel, jobBuilder.details.remoteWorkGroupBody, jobBuilder.details.remoteWorkGroupHeader, jobBuilder.details.remoteWorkGroupLabel, jobBuilder.details.remoteWorkNoneLabel, jobBuilder.details.remoteWorkWorldLabel, jobBuilder.details.returnButtonLabel, jobBuilder.details.securityLevelLabel, jobBuilder.details.securityLevelNullSelection, jobBuilder.details.submitButtonLabel, jobBuilder.details.teleworkGroupBody, jobBuilder.details.teleworkGroupHeader, jobBuilder.details.teleworkGroupLabel, jobBuilder.details.termLengthLabel, jobBuilder.details.termLengthPlaceholder, jobBuilder.details.titleLabel, jobBuilder.details.titlePlaceholder, jobBuilder.details.travelFrequentlyLabel, jobBuilder.details.travelGroupHeader, jobBuilder.details.travelGroupLabel, jobBuilder.details.travelNoneRequiredLabel, jobBuilder.details.travelOpportunitiesAvailableLabel, jobBuilder.experimental.01.description, jobBuilder.experimental.01.title, jobBuilder.experimental.02.description, jobBuilder.experimental.02.title, jobBuilder.experimental.03.description, jobBuilder.experimental.03.title, jobBuilder.experimental.04.description, jobBuilder.experimental.04.title, jobBuilder.facing.01.description, jobBuilder.facing.01.title, jobBuilder.facing.02.description, jobBuilder.facing.02.title, jobBuilder.facing.03.description, jobBuilder.facing.03.title, jobBuilder.facing.04.description, jobBuilder.facing.04.title, jobBuilder.impact.button.goBack, jobBuilder.impact.button.next, jobBuilder.impact.button.nextStep, jobBuilder.impact.button.return, jobBuilder.impact.button.skipToReview, jobBuilder.impact.departmentsLoading, jobBuilder.impact.documentTitle, jobBuilder.impact.header.department, jobBuilder.impact.hireBody, jobBuilder.impact.hireHeader, jobBuilder.impact.hireLabel, jobBuilder.impact.hirePlaceholder, jobBuilder.impact.modalDescription, jobBuilder.impact.modalTitle, jobBuilder.impact.points.counts, jobBuilder.impact.points.highlight, jobBuilder.impact.points.opportunity, jobBuilder.impact.selectDepartment, jobBuilder.impact.teamBody, jobBuilder.impact.teamHeader, jobBuilder.impact.teamLabel, jobBuilder.impact.teamPlaceholder, jobBuilder.impact.title, jobBuilder.impact.unknownDepartment, jobBuilder.impactPreview.title, jobBuilder.intro.accountSettingsLinkText, jobBuilder.intro.accountSettingsLinkTitle, jobBuilder.intro.changeDepartment, jobBuilder.intro.completeInLanguage, jobBuilder.intro.contactUs, jobBuilder.intro.continueButtonLabelEN, jobBuilder.intro.continueButtonLabelFR, jobBuilder.intro.departmentHeader, jobBuilder.intro.departmentLabel, jobBuilder.intro.departmentNullSelection, jobBuilder.intro.divisionLabelEN, jobBuilder.intro.divisionLabelFR, jobBuilder.intro.divisionPlaceholderEN, jobBuilder.intro.divisionPlaceholderFR, jobBuilder.intro.documentTitle, jobBuilder.intro.emailLinkText, jobBuilder.intro.emailLinkTitle, jobBuilder.intro.explanation, jobBuilder.intro.explanation.boldText, jobBuilder.intro.formDescription, jobBuilder.intro.formTitle, jobBuilder.intro.jobTitleLabelEN, jobBuilder.intro.jobTitleLabelFR, jobBuilder.intro.jobTitlePlaceholderEN, jobBuilder.intro.jobTitlePlaceholderFR, jobBuilder.intro.managerLoading, jobBuilder.intro.welcome, jobBuilder.jobLoading, jobBuilder.loading, jobBuilder.mgmtStyle.01.description, jobBuilder.mgmtStyle.01.title, jobBuilder.mgmtStyle.02.description, jobBuilder.mgmtStyle.02.title, jobBuilder.mgmtStyle.03.description, jobBuilder.mgmtStyle.03.title, jobBuilder.mgmtStyle.04.description, jobBuilder.mgmtStyle.04.title, jobBuilder.preview.city, jobBuilder.preview.classification, jobBuilder.preview.classificationEducation, jobBuilder.preview.education, jobBuilder.preview.flexibleHours, jobBuilder.preview.jobInformation, jobBuilder.preview.jobTitle, jobBuilder.preview.languageProfile, jobBuilder.preview.lengthOfTheTerm, jobBuilder.preview.level, jobBuilder.preview.overtime, jobBuilder.preview.province, jobBuilder.preview.remoteWork, jobBuilder.preview.securityClearance, jobBuilder.preview.telework, jobBuilder.preview.termLength, jobBuilder.preview.travel, jobBuilder.preview.workStyles, jobBuilder.progressTracker.label.finish, jobBuilder.progressTracker.label.start, jobBuilder.progressTracker.label.step1, jobBuilder.progressTracker.label.step2, jobBuilder.progressTracker.label.step3, jobBuilder.progressTracker.label.step4, jobBuilder.progressTracker.label.step5, jobBuilder.progressTracker.title.impact, jobBuilder.progressTracker.title.jobInfo, jobBuilder.progressTracker.title.review, jobBuilder.progressTracker.title.skills, jobBuilder.progressTracker.title.tasks, jobBuilder.progressTracker.title.welcome, jobBuilder.progressTracker.title.workEnv, jobBuilder.review.GovernmentClass, jobBuilder.review.assetHeading, jobBuilder.review.averageAnnualSalary, jobBuilder.review.basicInformationHeading, jobBuilder.review.button.return, jobBuilder.review.button.submit, jobBuilder.review.comesLater, jobBuilder.review.confirm.cancel, jobBuilder.review.confirm.submit, jobBuilder.review.confirm.title, jobBuilder.review.criteriaSection, jobBuilder.review.cultureSection, jobBuilder.review.documentTitle, jobBuilder.review.duration, jobBuilder.review.educationalHeading, jobBuilder.review.headsUp, jobBuilder.review.impactEditLink, jobBuilder.review.impactHeading, jobBuilder.review.infoEditLink, jobBuilder.review.jobPageHeading, jobBuilder.review.languageHeading, jobBuilder.review.languageProfile, jobBuilder.review.managerDataLoading, jobBuilder.review.managerHeading, jobBuilder.review.managerIncomplete, jobBuilder.review.managerPosition, jobBuilder.review.managerProfileLink, jobBuilder.review.meantime, jobBuilder.review.months, jobBuilder.review.nullProvince, jobBuilder.review.or, jobBuilder.review.otherInfoHeading, jobBuilder.review.readyToSubmit, jobBuilder.review.remoteAllowed, jobBuilder.review.remoteNotAllowed, jobBuilder.review.reviewYourPoster, jobBuilder.review.securityClearance, jobBuilder.review.sendYourDraft, jobBuilder.review.skills.nullState, jobBuilder.review.skillsEditLink, jobBuilder.review.skillsHeading, jobBuilder.review.tCAdds, jobBuilder.review.targetStartDate, jobBuilder.review.tasksEditLink, jobBuilder.review.tasksHeading, jobBuilder.review.whatHappens, jobBuilder.review.workCultureHeading, jobBuilder.review.workDescription, jobBuilder.review.workEnvEditLink, jobBuilder.review.workEnvHeading, jobBuilder.root.documentTitle, jobBuilder.skills.addSkillBelow, jobBuilder.skills.alt.happyArrow, jobBuilder.skills.alt.happyGraySmiley, jobBuilder.skills.alt.happySmiley, jobBuilder.skills.alt.neutralArrow, jobBuilder.skills.alt.neutralGraySmiley, jobBuilder.skills.alt.neutralSmiley, jobBuilder.skills.alt.unhappyArrow, jobBuilder.skills.alt.unhappyGraySmiley, jobBuilder.skills.alt.unhappySmiley, jobBuilder.skills.button.keyTasks, jobBuilder.skills.button.previewSkills, jobBuilder.skills.button.returnToTasks, jobBuilder.skills.description, jobBuilder.skills.description.keepItUp, jobBuilder.skills.documentTitle, jobBuilder.skills.emailLink, jobBuilder.skills.essentialSkillRequiredError, jobBuilder.skills.instructions.missingSkills, jobBuilder.skills.listTitle, jobBuilder.skills.nullState, jobBuilder.skills.nullText.occupationalSkills, jobBuilder.skills.placeholder.otherSkills, jobBuilder.skills.previewModalCancelLabel, jobBuilder.skills.previewModalConfirmLabel, jobBuilder.skills.previewModalMiddleLabel, jobBuilder.skills.range.culturalSkills, jobBuilder.skills.range.futureSkills, jobBuilder.skills.range.occupationalSkills, jobBuilder.skills.selectSkillLabel, jobBuilder.skills.selectSkillNull, jobBuilder.skills.skillLevel, jobBuilder.skills.statusSmiley.acceptable, jobBuilder.skills.statusSmiley.almost, jobBuilder.skills.statusSmiley.awesome, jobBuilder.skills.statusSmiley.essential.acceptable, jobBuilder.skills.statusSmiley.essential.almost, jobBuilder.skills.statusSmiley.essential.awesome, jobBuilder.skills.statusSmiley.essential.tooFew, jobBuilder.skills.statusSmiley.essential.tooMany, jobBuilder.skills.statusSmiley.essentialTitle, jobBuilder.skills.statusSmiley.title, jobBuilder.skills.statusSmiley.tooFew, jobBuilder.skills.statusSmiley.tooMany, jobBuilder.skills.tasksModalCancelLabel, jobBuilder.skills.title, jobBuilder.skills.title.addASkill, jobBuilder.skills.title.assetSkills, jobBuilder.skills.title.culturalSkills, jobBuilder.skills.title.editSkill, jobBuilder.skills.title.essentialSkills, jobBuilder.skills.title.futureSkills, jobBuilder.skills.title.keepItUp, jobBuilder.skills.title.keyTasks, jobBuilder.skills.title.missingSkill, jobBuilder.skills.title.needsToHave, jobBuilder.skills.title.niceToHave, jobBuilder.skills.title.occupationalSkills, jobBuilder.skills.title.otherSkills, jobBuilder.skills.title.skillSelection, jobBuilder.tasks.addJob, jobBuilder.tasks.documentTitle, jobBuilder.tasks.heading, jobBuilder.tasks.intro.first, jobBuilder.tasks.intro.fourth, jobBuilder.tasks.intro.second, jobBuilder.tasks.intro.third, jobBuilder.tasks.modal.body, jobBuilder.tasks.modal.body.heading, jobBuilder.tasks.modal.cancelButtonLabel, jobBuilder.tasks.modal.confirmButtonLabel, jobBuilder.tasks.modal.middleButtonLabel, jobBuilder.tasks.modal.title, jobBuilder.tasks.preview, jobBuilder.tasks.previous, jobBuilder.tasks.taskCount.error.body, jobBuilder.tasks.taskCount.error.title, jobBuilder.tasks.taskCount.none, jobBuilder.tasks.taskCount.some, jobBuilder.tasks.taskLabel, jobBuilder.tasks.taskPlaceholder, jobBuilder.tasks.tasksMaximum, jobBuilder.tasks.tasksRequired, jobBuilder.workCulture.flexibleHours, jobBuilder.workCulture.flexibleHoursDescription, jobBuilder.workCulture.overtime, jobBuilder.workCulture.overtimeDescription, jobBuilder.workCulture.remoteWork, jobBuilder.workCulture.remoteWorkDescription, jobBuilder.workCulture.remoteWorkMsg.always, jobBuilder.workCulture.remoteWorkMsg.never, jobBuilder.workCulture.telework, jobBuilder.workCulture.teleworkDescription, jobBuilder.workCulture.travel, jobBuilder.workCulture.travelDescription, jobBuilder.workEnv.amenities.cafeteria, jobBuilder.workEnv.amenities.closeToTransit, jobBuilder.workEnv.amenities.downtown, jobBuilder.workEnv.amenities.fitnessCenter, jobBuilder.workEnv.amenities.parking, jobBuilder.workEnv.amenities.restaurants, jobBuilder.workEnv.amenitiesLabel, jobBuilder.workEnv.collaborativeLabel, jobBuilder.workEnv.culture, jobBuilder.workEnv.cultureSubtext1, jobBuilder.workEnv.cultureSubtext2, jobBuilder.workEnv.cultureSummary, jobBuilder.workEnv.cultureSummarySubtext, jobBuilder.workEnv.customCultureSummaryLabel, jobBuilder.workEnv.customCultureSummaryPlaceholder, jobBuilder.workEnv.documentTitle, jobBuilder.workEnv.experimentalLabel, jobBuilder.workEnv.facingLabel, jobBuilder.workEnv.fastPacedSteadyLabel, jobBuilder.workEnv.greatStart, jobBuilder.workEnv.managementLabel, jobBuilder.workEnv.moreOnWorkEnv, jobBuilder.workEnv.moreOnWorkEnvLabel, jobBuilder.workEnv.moreOnWorkEnvPlaceholder, jobBuilder.workEnv.moreOnWorkEnvSubtext, jobBuilder.workEnv.openingSentence, jobBuilder.workEnv.ourWorkEnv, jobBuilder.workEnv.ourWorkEnvDesc, jobBuilder.workEnv.physEnv.assignedSeating, jobBuilder.workEnv.physEnv.naturalLight, jobBuilder.workEnv.physEnv.openConcept, jobBuilder.workEnv.physEnv.private, jobBuilder.workEnv.physEnv.smudging, jobBuilder.workEnv.physEnv.windows, jobBuilder.workEnv.physicalEnvLabel, jobBuilder.workEnv.saveAndReturnButtonLabel, jobBuilder.workEnv.specialWorkCulture, jobBuilder.workEnv.specialWorkCultureLabel, jobBuilder.workEnv.specialWorkCultureSubtext, jobBuilder.workEnv.stepDescription, jobBuilder.workEnv.submitButtonLabel, jobBuilder.workEnv.teamSizeLabel, jobBuilder.workEnv.teamSizePlaceholder, jobBuilder.workEnv.technology.accessToExternal, jobBuilder.workEnv.technology.collaboration, jobBuilder.workEnv.technology.fileSharing, jobBuilder.workEnv.technology.taskManagement, jobBuilder.workEnv.technology.versionControl, jobBuilder.workEnv.technology.videoConferencing, jobBuilder.workEnv.technologyLabel, jobBuilder.workEnv.textAreaPlaceholder1, jobBuilder.workEnv.thisIsOptional, jobBuilder.workEnv.title, jobBuilder.workEnvModal.cancelLabel, jobBuilder.workEnvModal.confirmLabel, jobBuilder.workEnvModal.modalMiddleLabel, jobBuilder.workEnvModal.title, jobBuilder.workEnvModal.workCultureTitle, jobCard.applicants, jobCard.managerTime, jobCard.noActivity, jobCard.userTime, jobReviewHr.headsUp, jobReviewHr.loadingIconText, jobReviewHr.reviewYourPoster, jobReviewHr.summaryLink, languageRequirement.bilingualAdvanced, languageRequirement.bilingualIntermediate, languageRequirement.context.basic, languageRequirement.context.expanded, languageRequirement.description.bilingualAdvanced, languageRequirement.description.bilingualIntermediate, languageRequirement.description.english, languageRequirement.description.englishOrFrench, languageRequirement.description.french, languageRequirement.english, languageRequirement.englishOrFrench, languageRequirement.french, managerSurveyModal.explanation, managerSurveyModal.jobPosterLink, managerSurveyModal.jobPosterLinkTitle, managerSurveyModal.link, managerSurveyModal.managerSurveyLinkTitle, managerSurveyModal.title, openJobCard.claimJob, openJobCard.error, openJobCard.hiringManager, openJobCard.hrAdvisors, openJobCard.reviewRequested, openJobCard.unclaimed, progressTracker.unreachableStep, province.ab, province.ab.abreviation, province.bc, province.bc.abreviation, province.mb, province.mb.abreviation, province.nb, province.nb.abreviation, province.nl, province.nl.abreviation, province.ns, province.ns.abreviation, province.nt, province.nt.abreviation, province.nu, province.nu.abreviation, province.on, province.on.abreviation, province.pe, province.pe.abreviation, province.qc, province.qc.abreviation, province.sk, province.sk.abreviation, province.yk, province.yk.abreviation, ratingGuideAnswer.answerLabel, ratingGuideAnswer.answerPlaceholder, ratingGuideAnswer.nullSelection, ratingGuideAnswer.selectLabel, ratingGuideBuilder.addQuestion, ratingGuideBuilder.assetMissing, ratingGuideBuilder.copyButton, ratingGuideBuilder.copyInstructions, ratingGuideBuilder.criteriaName, ratingGuideBuilder.criteriaTypeHeading, ratingGuideBuilder.essentialMissing, ratingGuideBuilder.instructions, ratingGuideBuilder.narrativeSectionTitle, ratingGuideBuilder.questionHeading, ratingGuideBuilder.ratingGuideHeading, ratingGuideBuilder.sectionTitle, ratingGuideBuilder.skillDescriptionHeading, ratingGuideBuilder.skillHeading, ratingGuideBuilder.targetLevelHeading, ratingGuideBuilder.title, ratingGuideBuilder.titleHeading, ratingGuideQuestion.questionLabel, ratingGuideQuestion.questionPlaceholder, review.applications.alert.oops, review.applications.button.confirm, review.applications.indexPageTitle, review.applications.nonCitizens.description, review.applications.nonCitizens.title, review.applications.optionalConsideration.description, review.applications.optionalConsideration.title, review.applications.priorityApplicants.description, review.applications.priorityApplicants.title, review.applications.reviewSaveFailed, review.applications.screenOutAll, review.applications.screenOutAll.confirm, review.applications.screenedOut.description, review.applications.screenedOut.title, review.applications.underConsideration.description, review.applications.underConsideration.title, review.applications.unqualified.description, review.applications.unqualified.title, review.applications.veteransAndCitizens.description, review.applications.veteransAndCitizens.title, reviewLocations.jpb.basicInfo, reviewLocations.jpb.environment, reviewLocations.jpb.generic, reviewLocations.jpb.heading, reviewLocations.jpb.impact, reviewLocations.jpb.langRequirements, reviewLocations.jpb.skills, reviewLocations.jpb.tasks, securityClearance.reliability, securityClearance.secret, securityClearance.topSecret, skillLevel.asset.description, skillLevel.asset.name, skillLevel.hard.advanced.description, skillLevel.hard.advanced.name, skillLevel.hard.basic.description, skillLevel.hard.basic.name, skillLevel.hard.expert.description, skillLevel.hard.expert.name, skillLevel.hard.intermediate.description, skillLevel.hard.intermediate.name, skillLevel.soft.advanced.description, skillLevel.soft.advanced.name, skillLevel.soft.basic.description, skillLevel.soft.basic.name, skillLevel.soft.expert.description, skillLevel.soft.expert.name, skillLevel.soft.intermediate.description, skillLevel.soft.intermediate.name, wordCounter.skills.longMessage, wordCounter.skills.placeholder, wordCounter.skills.shortMessage, wordCounter.skills.slightlyLongMessage, wordCounter.skills.veryLongMessage, wordCounter.skills.veryShortMessage, default */
+/*! exports provided: activity.commentLocation.label, activity.commentMetadata, activity.unknownUser, activity.viewComment.label, activityfeed.accordionAccessibleLabel, activityfeed.error, activityfeed.header, activityfeed.loading, activityfeed.loadingIconText, activityfeed.locations.applicantReview.general, activityfeed.locations.applicantReview.notUnderConsideration, activityfeed.locations.applicantReview.optionalConsideration, activityfeed.locations.applicantReview.underConsideration, activityfeed.locations.applications, activityfeed.locations.hr.preview, activityfeed.locations.hr.summary, activityfeed.locations.notFound, activityfeed.locations.review, activityfeed.locations.review.basicInfo, activityfeed.locations.review.environment, activityfeed.locations.review.general, activityfeed.locations.review.heading, activityfeed.locations.review.impact, activityfeed.locations.review.langRequirements, activityfeed.locations.review.skills, activityfeed.locations.review.tasks, activityfeed.locations.screeningPlan, activityfeed.locations.screeningPlan.builder, activityfeed.locations.screeningPlan.general, activityfeed.locations.screeningPlan.ratings, activityfeed.locations.screeningPlan.summary, activityfeed.noActivities, activityfeed.review.accordionAccessibleLabel, activityfeed.review.header, activityfeed.review.loadingIconText, activityfeed.title, application.review.addNote, application.review.alert.oops, application.review.backToApplicantList, application.review.button.cancel, application.review.button.confirm, application.review.button.save, application.review.button.saved, application.review.button.saving, application.review.button.viewJobPoster, application.review.collapseAllSkills, application.review.decision, application.review.editNote, application.review.emailCandidateLinkTitle, application.review.expandAllSkills, application.review.priorityStatus.priority, application.review.priorityStatus.priorityLogoTitle, application.review.reviewSaveFailed, application.review.reviewStatus.notReviewed, application.review.reviewStatus.screenedOut, application.review.reviewStatus.stillIn, application.review.reviewStatus.stillThinking, application.review.screenInConfirm, application.review.screenOutConfirm, application.review.veteranStatus.veteran, application.review.veteranStatus.veteranLogoAlt, application.review.viewApplication, application.review.viewApplicationLinkTitle, application.review.viewProfile, application.review.viewProfileLinkTitle, assessmentPlan.addAssessmentButton, assessmentPlan.alert.checking, assessmentPlan.alert.created, assessmentPlan.alert.deleted, assessmentPlan.alert.explanation, assessmentPlan.alert.skillAndLevelUpdated, assessmentPlan.alert.skillLevelUpdated, assessmentPlan.alert.skillUpdated, assessmentPlan.alert.title, assessmentPlan.assessmentPlanBuilder.instructions, assessmentPlan.assessmentPlanBuilder.shortDescription, assessmentPlan.assessmentPlanBuilder.title, assessmentPlan.assessmentPlanSummary.shortDescription, assessmentPlan.assessmentPlanSummary.title, assessmentPlan.assessmentTypesLabel, assessmentPlan.assetCriteria.nullState, assessmentPlan.criteriaTitle, assessmentPlan.essentialCriteria.nullState, assessmentPlan.instructions.intro, assessmentPlan.instructions.narrativeNote, assessmentPlan.pageTitle, assessmentPlan.ratingGuideBuilder.shortDescription, assessmentPlan.ratingGuideBuilder.title, assessmentPlan.selectAssessment.label, assessmentPlan.selectAssessment.null, assessmentPlan.skillDescriptionLabel, assessmentPlan.skillLevelDescriptionLabel, assessmentPlan.summary.assessmentSummary.noAssessments, assessmentPlan.summary.assessmentSummary.title, assessmentPlan.summary.assessmentSummary.toolSkillCount, assessmentPlan.summary.description, assessmentPlan.summary.skillCount, assessmentPlan.summary.skillsNullState, assessmentPlan.summary.title, assessmentPlan.title, assessmentType.applicationScreeningQuestion, assessmentType.applicationScreeningQuestion.description, assessmentType.groupTest, assessmentType.groupTest.description, assessmentType.informalPhoneConversation, assessmentType.informalPhoneConversation.description, assessmentType.interview, assessmentType.interview.description, assessmentType.narrativeAssessment, assessmentType.narrativeAssessment.description, assessmentType.narrativeReview.standardAnswer, assessmentType.narrativeReview.standardQuestion, assessmentType.onSiteExam, assessmentType.onSiteExam.description, assessmentType.onlineExam, assessmentType.onlineExam.description, assessmentType.portfolioReview, assessmentType.portfolioReview.description, assessmentType.referenceCheck, assessmentType.referenceCheck.description, assessmentType.seriousGames, assessmentType.seriousGames.description, assessmentType.takeHomeExam, assessmentType.takeHomeExam.description, button.copied, button.copyEmails, button.copyToClipboard, button.toggleAccordion, commentForm.comment.label, commentForm.comment.placeholder, commentForm.commentLocation.label, commentForm.commentLocation.nullSelection, commentForm.commentType.label, commentForm.commentType.nullSelection, commentForm.submitButton.label, commentType.comment, commentType.question, commentType.recommendation, commentType.requiredAction, criteria.asset, criteria.essential, criteriaForm.skillLevelSelectionLabel, criteriaForm.skillSpecificityLabel, criteriaForm.skillSpecificityPlaceholder, criteriaType.asset, criteriaType.essential, demoSubmitJobModal.cancel, demoSubmitJobModal.explanation, demoSubmitJobModal.link, demoSubmitJobModal.link.title, demoSubmitJobModal.title, errorToast.title, formInput.error, formInput.required, formValidation.checkboxRequired, formValidation.invalidSelection, formValidation.required, formValidation.tooLong, formValidation.tooShort, hrJobIndex.departmentPlaceholder, hrJobIndex.jobTitleMissing, hrJobIndex.managerLoading, hrJobIndex.preview, hrJobIndex.reviewDraft, hrJobIndex.viewActivity, hrJobIndex.viewScreeningPlan, hrJobIndex.viewSummary, hrPortal.jobPageIndex.clickToView, hrPortal.jobPageIndex.completedJobsHeader, hrPortal.jobPageIndex.hideAccordion, hrPortal.jobPageIndex.jobActionsEmpty, hrPortal.jobPageIndex.jobActionsHeader, hrPortal.jobPageIndex.jobActionsMessage, hrPortal.jobPageIndex.noJobsCompleted, hrPortal.jobPageIndex.preDepartmentName, hrPortal.jobPageIndex.showAccordion, hrPortal.jobPageIndex.unclaimedJobsEmpty, hrPortal.jobPageIndex.unclaimedJobsMessage, job.daysSinceClosed, jobBuilder.collaborativeness.01.description, jobBuilder.collaborativeness.01.title, jobBuilder.collaborativeness.02.description, jobBuilder.collaborativeness.02.title, jobBuilder.collaborativeness.03.description, jobBuilder.collaborativeness.03.title, jobBuilder.collaborativeness.04.description, jobBuilder.collaborativeness.04.title, jobBuilder.criteriaForm.addSpecificity, jobBuilder.criteriaForm.button.add, jobBuilder.criteriaForm.button.cancel, jobBuilder.criteriaForm.chooseSkillLevel, jobBuilder.criteriaForm.or, jobBuilder.criteriaForm.removeSpecificity, jobBuilder.criteriaForm.skillDefinition, jobBuilder.criterion.requiredSkill, jobBuilder.culturePace.01.description, jobBuilder.culturePace.01.title, jobBuilder.culturePace.02.description, jobBuilder.culturePace.02.title, jobBuilder.culturePace.03.description, jobBuilder.culturePace.03.title, jobBuilder.culturePace.04.description, jobBuilder.culturePace.04.title, jobBuilder.details.SelectClassAndLvlMessage, jobBuilder.details.cityLabel, jobBuilder.details.cityPlaceholder, jobBuilder.details.classificationLabel, jobBuilder.details.classificationNullSelection, jobBuilder.details.classificationOptions.AD, jobBuilder.details.classificationOptions.AS, jobBuilder.details.classificationOptions.BI, jobBuilder.details.classificationOptions.CO, jobBuilder.details.classificationOptions.CR, jobBuilder.details.classificationOptions.CS, jobBuilder.details.classificationOptions.EC, jobBuilder.details.classificationOptions.EX, jobBuilder.details.classificationOptions.FO, jobBuilder.details.classificationOptions.IS, jobBuilder.details.classificationOptions.PC, jobBuilder.details.classificationOptions.PE, jobBuilder.details.classificationOptions.PM, jobBuilder.details.documentTitle, jobBuilder.details.educationMessages.AD, jobBuilder.details.educationMessages.AS, jobBuilder.details.educationMessages.BI, jobBuilder.details.educationMessages.CO, jobBuilder.details.educationMessages.CR, jobBuilder.details.educationMessages.CS, jobBuilder.details.educationMessages.EC, jobBuilder.details.educationMessages.EX, jobBuilder.details.educationMessages.FO, jobBuilder.details.educationMessages.IS, jobBuilder.details.educationMessages.PC, jobBuilder.details.educationMessages.PE, jobBuilder.details.educationMessages.PM, jobBuilder.details.educationRequirementCopyAndPaste, jobBuilder.details.educationRequirementHeader, jobBuilder.details.educationRequirementPlaceholder, jobBuilder.details.educationRequirementReviewChanges, jobBuilder.details.educationRequirementsLabel, jobBuilder.details.flexHoursGroupBody, jobBuilder.details.flexHoursGroupHeader, jobBuilder.details.flexHoursGroupLabel, jobBuilder.details.frequencyAlwaysLabel, jobBuilder.details.frequencyFrequentlyLabel, jobBuilder.details.frequencyNeverLabel, jobBuilder.details.frequencyOccasionallyLabel, jobBuilder.details.frequencySometimesLabel, jobBuilder.details.heading, jobBuilder.details.languageLabel, jobBuilder.details.languageNullSelection, jobBuilder.details.levelLabel, jobBuilder.details.levelNullSelection, jobBuilder.details.modalBody, jobBuilder.details.modalCancelLabel, jobBuilder.details.modalConfirmLabel, jobBuilder.details.modalHeader, jobBuilder.details.modalMiddleLabel, jobBuilder.details.overtimeFrequentlyLabel, jobBuilder.details.overtimeGroupHeader, jobBuilder.details.overtimeGroupLabel, jobBuilder.details.overtimeNoneRequiredLabel, jobBuilder.details.overtimeOpportunitiesAvailableLabel, jobBuilder.details.provinceLabel, jobBuilder.details.provinceNullSelection, jobBuilder.details.remoteWorkCanadaLabel, jobBuilder.details.remoteWorkGroupBody, jobBuilder.details.remoteWorkGroupHeader, jobBuilder.details.remoteWorkGroupLabel, jobBuilder.details.remoteWorkNoneLabel, jobBuilder.details.remoteWorkWorldLabel, jobBuilder.details.returnButtonLabel, jobBuilder.details.securityLevelLabel, jobBuilder.details.securityLevelNullSelection, jobBuilder.details.submitButtonLabel, jobBuilder.details.teleworkGroupBody, jobBuilder.details.teleworkGroupHeader, jobBuilder.details.teleworkGroupLabel, jobBuilder.details.termLengthLabel, jobBuilder.details.termLengthPlaceholder, jobBuilder.details.titleLabel, jobBuilder.details.titlePlaceholder, jobBuilder.details.travelFrequentlyLabel, jobBuilder.details.travelGroupHeader, jobBuilder.details.travelGroupLabel, jobBuilder.details.travelNoneRequiredLabel, jobBuilder.details.travelOpportunitiesAvailableLabel, jobBuilder.experimental.01.description, jobBuilder.experimental.01.title, jobBuilder.experimental.02.description, jobBuilder.experimental.02.title, jobBuilder.experimental.03.description, jobBuilder.experimental.03.title, jobBuilder.experimental.04.description, jobBuilder.experimental.04.title, jobBuilder.facing.01.description, jobBuilder.facing.01.title, jobBuilder.facing.02.description, jobBuilder.facing.02.title, jobBuilder.facing.03.description, jobBuilder.facing.03.title, jobBuilder.facing.04.description, jobBuilder.facing.04.title, jobBuilder.impact.button.goBack, jobBuilder.impact.button.next, jobBuilder.impact.button.nextStep, jobBuilder.impact.button.return, jobBuilder.impact.button.skipToReview, jobBuilder.impact.departmentsLoading, jobBuilder.impact.documentTitle, jobBuilder.impact.header.department, jobBuilder.impact.hireBody, jobBuilder.impact.hireHeader, jobBuilder.impact.hireLabel, jobBuilder.impact.hirePlaceholder, jobBuilder.impact.modalDescription, jobBuilder.impact.modalTitle, jobBuilder.impact.points.counts, jobBuilder.impact.points.highlight, jobBuilder.impact.points.opportunity, jobBuilder.impact.selectDepartment, jobBuilder.impact.teamBody, jobBuilder.impact.teamHeader, jobBuilder.impact.teamLabel, jobBuilder.impact.teamPlaceholder, jobBuilder.impact.title, jobBuilder.impact.unknownDepartment, jobBuilder.impactPreview.title, jobBuilder.intro.accountSettingsLinkText, jobBuilder.intro.accountSettingsLinkTitle, jobBuilder.intro.changeDepartment, jobBuilder.intro.completeInLanguage, jobBuilder.intro.contactUs, jobBuilder.intro.continueButtonLabelEN, jobBuilder.intro.continueButtonLabelFR, jobBuilder.intro.departmentHeader, jobBuilder.intro.departmentLabel, jobBuilder.intro.departmentNullSelection, jobBuilder.intro.divisionLabelEN, jobBuilder.intro.divisionLabelFR, jobBuilder.intro.divisionPlaceholderEN, jobBuilder.intro.divisionPlaceholderFR, jobBuilder.intro.documentTitle, jobBuilder.intro.emailLinkText, jobBuilder.intro.emailLinkTitle, jobBuilder.intro.explanation, jobBuilder.intro.explanation.boldText, jobBuilder.intro.formDescription, jobBuilder.intro.formTitle, jobBuilder.intro.jobTitleLabelEN, jobBuilder.intro.jobTitleLabelFR, jobBuilder.intro.jobTitlePlaceholderEN, jobBuilder.intro.jobTitlePlaceholderFR, jobBuilder.intro.managerLoading, jobBuilder.intro.welcome, jobBuilder.jobLoading, jobBuilder.loading, jobBuilder.mgmtStyle.01.description, jobBuilder.mgmtStyle.01.title, jobBuilder.mgmtStyle.02.description, jobBuilder.mgmtStyle.02.title, jobBuilder.mgmtStyle.03.description, jobBuilder.mgmtStyle.03.title, jobBuilder.mgmtStyle.04.description, jobBuilder.mgmtStyle.04.title, jobBuilder.preview.city, jobBuilder.preview.classification, jobBuilder.preview.classificationEducation, jobBuilder.preview.education, jobBuilder.preview.flexibleHours, jobBuilder.preview.jobInformation, jobBuilder.preview.jobTitle, jobBuilder.preview.languageProfile, jobBuilder.preview.lengthOfTheTerm, jobBuilder.preview.level, jobBuilder.preview.overtime, jobBuilder.preview.province, jobBuilder.preview.remoteWork, jobBuilder.preview.securityClearance, jobBuilder.preview.telework, jobBuilder.preview.termLength, jobBuilder.preview.travel, jobBuilder.preview.workStyles, jobBuilder.progressTracker.label.finish, jobBuilder.progressTracker.label.start, jobBuilder.progressTracker.label.step1, jobBuilder.progressTracker.label.step2, jobBuilder.progressTracker.label.step3, jobBuilder.progressTracker.label.step4, jobBuilder.progressTracker.label.step5, jobBuilder.progressTracker.title.impact, jobBuilder.progressTracker.title.jobInfo, jobBuilder.progressTracker.title.review, jobBuilder.progressTracker.title.skills, jobBuilder.progressTracker.title.tasks, jobBuilder.progressTracker.title.welcome, jobBuilder.progressTracker.title.workEnv, jobBuilder.review.GovernmentClass, jobBuilder.review.assetHeading, jobBuilder.review.averageAnnualSalary, jobBuilder.review.basicInformationHeading, jobBuilder.review.button.return, jobBuilder.review.button.submit, jobBuilder.review.comesLater, jobBuilder.review.confirm.cancel, jobBuilder.review.confirm.submit, jobBuilder.review.confirm.title, jobBuilder.review.criteriaSection, jobBuilder.review.cultureSection, jobBuilder.review.documentTitle, jobBuilder.review.duration, jobBuilder.review.educationalHeading, jobBuilder.review.headsUp, jobBuilder.review.impactEditLink, jobBuilder.review.impactHeading, jobBuilder.review.infoEditLink, jobBuilder.review.jobPageHeading, jobBuilder.review.languageHeading, jobBuilder.review.languageProfile, jobBuilder.review.managerDataLoading, jobBuilder.review.managerHeading, jobBuilder.review.managerIncomplete, jobBuilder.review.managerPosition, jobBuilder.review.managerProfileLink, jobBuilder.review.meantime, jobBuilder.review.months, jobBuilder.review.nullProvince, jobBuilder.review.or, jobBuilder.review.otherInfoHeading, jobBuilder.review.readyToSubmit, jobBuilder.review.remoteAllowed, jobBuilder.review.remoteNotAllowed, jobBuilder.review.reviewYourPoster, jobBuilder.review.securityClearance, jobBuilder.review.sendYourDraft, jobBuilder.review.skills.nullState, jobBuilder.review.skillsEditLink, jobBuilder.review.skillsHeading, jobBuilder.review.tCAdds, jobBuilder.review.targetStartDate, jobBuilder.review.tasksEditLink, jobBuilder.review.tasksHeading, jobBuilder.review.whatHappens, jobBuilder.review.workCultureHeading, jobBuilder.review.workDescription, jobBuilder.review.workEnvEditLink, jobBuilder.review.workEnvHeading, jobBuilder.root.documentTitle, jobBuilder.skills.addSkillBelow, jobBuilder.skills.alt.happyArrow, jobBuilder.skills.alt.happyGraySmiley, jobBuilder.skills.alt.happySmiley, jobBuilder.skills.alt.neutralArrow, jobBuilder.skills.alt.neutralGraySmiley, jobBuilder.skills.alt.neutralSmiley, jobBuilder.skills.alt.unhappyArrow, jobBuilder.skills.alt.unhappyGraySmiley, jobBuilder.skills.alt.unhappySmiley, jobBuilder.skills.button.keyTasks, jobBuilder.skills.button.previewSkills, jobBuilder.skills.button.returnToTasks, jobBuilder.skills.description, jobBuilder.skills.description.keepItUp, jobBuilder.skills.documentTitle, jobBuilder.skills.emailLink, jobBuilder.skills.essentialSkillRequiredError, jobBuilder.skills.instructions.missingSkills, jobBuilder.skills.listTitle, jobBuilder.skills.nullState, jobBuilder.skills.nullText.occupationalSkills, jobBuilder.skills.placeholder.otherSkills, jobBuilder.skills.previewModalCancelLabel, jobBuilder.skills.previewModalConfirmLabel, jobBuilder.skills.previewModalMiddleLabel, jobBuilder.skills.range.culturalSkills, jobBuilder.skills.range.futureSkills, jobBuilder.skills.range.occupationalSkills, jobBuilder.skills.selectSkillLabel, jobBuilder.skills.selectSkillNull, jobBuilder.skills.skillLevel, jobBuilder.skills.statusSmiley.acceptable, jobBuilder.skills.statusSmiley.almost, jobBuilder.skills.statusSmiley.awesome, jobBuilder.skills.statusSmiley.essential.acceptable, jobBuilder.skills.statusSmiley.essential.almost, jobBuilder.skills.statusSmiley.essential.awesome, jobBuilder.skills.statusSmiley.essential.tooFew, jobBuilder.skills.statusSmiley.essential.tooMany, jobBuilder.skills.statusSmiley.essentialTitle, jobBuilder.skills.statusSmiley.title, jobBuilder.skills.statusSmiley.tooFew, jobBuilder.skills.statusSmiley.tooMany, jobBuilder.skills.tasksModalCancelLabel, jobBuilder.skills.title, jobBuilder.skills.title.addASkill, jobBuilder.skills.title.assetSkills, jobBuilder.skills.title.culturalSkills, jobBuilder.skills.title.editSkill, jobBuilder.skills.title.essentialSkills, jobBuilder.skills.title.futureSkills, jobBuilder.skills.title.keepItUp, jobBuilder.skills.title.keyTasks, jobBuilder.skills.title.missingSkill, jobBuilder.skills.title.needsToHave, jobBuilder.skills.title.niceToHave, jobBuilder.skills.title.occupationalSkills, jobBuilder.skills.title.otherSkills, jobBuilder.skills.title.skillSelection, jobBuilder.tasks.addJob, jobBuilder.tasks.documentTitle, jobBuilder.tasks.heading, jobBuilder.tasks.intro.first, jobBuilder.tasks.intro.fourth, jobBuilder.tasks.intro.second, jobBuilder.tasks.intro.third, jobBuilder.tasks.modal.body, jobBuilder.tasks.modal.body.heading, jobBuilder.tasks.modal.cancelButtonLabel, jobBuilder.tasks.modal.confirmButtonLabel, jobBuilder.tasks.modal.middleButtonLabel, jobBuilder.tasks.modal.title, jobBuilder.tasks.preview, jobBuilder.tasks.previous, jobBuilder.tasks.taskCount.error.body, jobBuilder.tasks.taskCount.error.title, jobBuilder.tasks.taskCount.none, jobBuilder.tasks.taskCount.some, jobBuilder.tasks.taskLabel, jobBuilder.tasks.taskPlaceholder, jobBuilder.tasks.tasksMaximum, jobBuilder.tasks.tasksRequired, jobBuilder.workCulture.flexibleHours, jobBuilder.workCulture.flexibleHoursDescription, jobBuilder.workCulture.overtime, jobBuilder.workCulture.overtimeDescription, jobBuilder.workCulture.remoteWork, jobBuilder.workCulture.remoteWorkDescription, jobBuilder.workCulture.remoteWorkMsg.always, jobBuilder.workCulture.remoteWorkMsg.never, jobBuilder.workCulture.telework, jobBuilder.workCulture.teleworkDescription, jobBuilder.workCulture.travel, jobBuilder.workCulture.travelDescription, jobBuilder.workEnv.amenities.cafeteria, jobBuilder.workEnv.amenities.closeToTransit, jobBuilder.workEnv.amenities.downtown, jobBuilder.workEnv.amenities.fitnessCenter, jobBuilder.workEnv.amenities.parking, jobBuilder.workEnv.amenities.restaurants, jobBuilder.workEnv.amenitiesLabel, jobBuilder.workEnv.collaborativeLabel, jobBuilder.workEnv.culture, jobBuilder.workEnv.cultureSubtext1, jobBuilder.workEnv.cultureSubtext2, jobBuilder.workEnv.cultureSummary, jobBuilder.workEnv.cultureSummarySubtext, jobBuilder.workEnv.customCultureSummaryLabel, jobBuilder.workEnv.customCultureSummaryPlaceholder, jobBuilder.workEnv.documentTitle, jobBuilder.workEnv.experimentalLabel, jobBuilder.workEnv.facingLabel, jobBuilder.workEnv.fastPacedSteadyLabel, jobBuilder.workEnv.greatStart, jobBuilder.workEnv.managementLabel, jobBuilder.workEnv.moreOnWorkEnv, jobBuilder.workEnv.moreOnWorkEnvLabel, jobBuilder.workEnv.moreOnWorkEnvPlaceholder, jobBuilder.workEnv.moreOnWorkEnvSubtext, jobBuilder.workEnv.openingSentence, jobBuilder.workEnv.ourWorkEnv, jobBuilder.workEnv.ourWorkEnvDesc, jobBuilder.workEnv.physEnv.assignedSeating, jobBuilder.workEnv.physEnv.naturalLight, jobBuilder.workEnv.physEnv.openConcept, jobBuilder.workEnv.physEnv.private, jobBuilder.workEnv.physEnv.smudging, jobBuilder.workEnv.physEnv.windows, jobBuilder.workEnv.physicalEnvLabel, jobBuilder.workEnv.saveAndReturnButtonLabel, jobBuilder.workEnv.specialWorkCulture, jobBuilder.workEnv.specialWorkCultureLabel, jobBuilder.workEnv.specialWorkCultureSubtext, jobBuilder.workEnv.stepDescription, jobBuilder.workEnv.submitButtonLabel, jobBuilder.workEnv.teamSizeLabel, jobBuilder.workEnv.teamSizePlaceholder, jobBuilder.workEnv.technology.accessToExternal, jobBuilder.workEnv.technology.collaboration, jobBuilder.workEnv.technology.fileSharing, jobBuilder.workEnv.technology.taskManagement, jobBuilder.workEnv.technology.versionControl, jobBuilder.workEnv.technology.videoConferencing, jobBuilder.workEnv.technologyLabel, jobBuilder.workEnv.textAreaPlaceholder1, jobBuilder.workEnv.thisIsOptional, jobBuilder.workEnv.title, jobBuilder.workEnvModal.cancelLabel, jobBuilder.workEnvModal.confirmLabel, jobBuilder.workEnvModal.modalMiddleLabel, jobBuilder.workEnvModal.title, jobBuilder.workEnvModal.workCultureTitle, jobCard.applicants, jobCard.managerTime, jobCard.noActivity, jobCard.userTime, jobReviewHr.headsUp, jobReviewHr.loadingIconText, jobReviewHr.reviewYourPoster, jobReviewHr.summaryLink, languageRequirement.bilingualAdvanced, languageRequirement.bilingualIntermediate, languageRequirement.context.basic, languageRequirement.context.expanded, languageRequirement.description.bilingualAdvanced, languageRequirement.description.bilingualIntermediate, languageRequirement.description.english, languageRequirement.description.englishOrFrench, languageRequirement.description.french, languageRequirement.english, languageRequirement.englishOrFrench, languageRequirement.french, managerSurveyModal.explanation, managerSurveyModal.jobPosterLink, managerSurveyModal.jobPosterLinkTitle, managerSurveyModal.link, managerSurveyModal.managerSurveyLinkTitle, managerSurveyModal.title, openJobCard.claimJob, openJobCard.error, openJobCard.hiringManager, openJobCard.hrAdvisors, openJobCard.reviewRequested, openJobCard.unclaimed, progressTracker.unreachableStep, province.ab, province.ab.abreviation, province.bc, province.bc.abreviation, province.mb, province.mb.abreviation, province.nb, province.nb.abreviation, province.nl, province.nl.abreviation, province.ns, province.ns.abreviation, province.nt, province.nt.abreviation, province.nu, province.nu.abreviation, province.on, province.on.abreviation, province.pe, province.pe.abreviation, province.qc, province.qc.abreviation, province.sk, province.sk.abreviation, province.yk, province.yk.abreviation, ratingGuideAnswer.answerLabel, ratingGuideAnswer.answerPlaceholder, ratingGuideAnswer.nullSelection, ratingGuideAnswer.selectLabel, ratingGuideBuilder.addQuestion, ratingGuideBuilder.assetMissing, ratingGuideBuilder.copyButton, ratingGuideBuilder.copyInstructions, ratingGuideBuilder.criteriaName, ratingGuideBuilder.criteriaTypeHeading, ratingGuideBuilder.essentialMissing, ratingGuideBuilder.instructions, ratingGuideBuilder.narrativeSectionTitle, ratingGuideBuilder.questionHeading, ratingGuideBuilder.ratingGuideHeading, ratingGuideBuilder.sectionTitle, ratingGuideBuilder.skillDescriptionHeading, ratingGuideBuilder.skillHeading, ratingGuideBuilder.targetLevelHeading, ratingGuideBuilder.title, ratingGuideBuilder.titleHeading, ratingGuideQuestion.questionLabel, ratingGuideQuestion.questionPlaceholder, referenceEmailModal.bccLabel, referenceEmailModal.cancel, referenceEmailModal.ccLabel, referenceEmailModal.confirm, referenceEmailModal.fromLabel, referenceEmailModal.nullState, referenceEmailModal.subjectLabel, referenceEmailModal.title, referenceEmailModal.toLabel, responseReviewStatus.allocated, responseReviewStatus.assessmentRequired, responseReviewStatus.notAvailable, responseReviewStatus.readyForReference, responseReviewStatus.readyToAllocate, responseReviewStatus.screenedOut, responseScreening.applicant.directorEmailButton, responseScreening.applicant.directorEmailSending, responseScreening.applicant.secondaryEmailButton, responseScreening.applicant.secondaryEmailSending, responseScreening.bucket.accessibleViewLabel, responseScreening.bucket.cancelLabel, responseScreening.bucket.confirmAction, responseScreening.bucket.confirmSetAllocated, responseScreening.bucket.confirmSetUnavailable, responseScreening.bucket.noApplicants, responseScreening.bucket.notesLabel, responseScreening.bucket.saveLabel, responseScreening.bucket.savedLabel, responseScreening.bucket.savingLabel, responseScreening.bucket.selectDepartmentDefault, responseScreening.bucket.selectDepartmentLabel, responseScreening.bucket.selectStatusDefault, responseScreening.bucket.selectStatusLabel, responseScreening.bucket.viewApplicationLabel, responseScreening.bucket.viewProfileLabel, responseScreening.bucket.yes, responseScreening.buckets.allocated.description, responseScreening.buckets.allocated.title, responseScreening.buckets.consideration.description, responseScreening.buckets.consideration.title, responseScreening.buckets.doesNotQualify.description, responseScreening.buckets.doesNotQualify.title, responseScreening.buckets.readyToAllocate.description, responseScreening.buckets.readyToAllocate.title, responseScreening.buckets.unavailable.description, responseScreening.buckets.unavailable.title, review.applications.alert.oops, review.applications.button.confirm, review.applications.indexPageTitle, review.applications.nonCitizens.description, review.applications.nonCitizens.title, review.applications.optionalConsideration.description, review.applications.optionalConsideration.title, review.applications.priorityApplicants.description, review.applications.priorityApplicants.title, review.applications.reviewSaveFailed, review.applications.screenOutAll, review.applications.screenOutAll.confirm, review.applications.screenedOut.description, review.applications.screenedOut.title, review.applications.underConsideration.description, review.applications.underConsideration.title, review.applications.unqualified.description, review.applications.unqualified.title, review.applications.veteransAndCitizens.description, review.applications.veteransAndCitizens.title, reviewLocations.jpb.basicInfo, reviewLocations.jpb.environment, reviewLocations.jpb.generic, reviewLocations.jpb.heading, reviewLocations.jpb.impact, reviewLocations.jpb.langRequirements, reviewLocations.jpb.skills, reviewLocations.jpb.tasks, securityClearance.reliability, securityClearance.secret, securityClearance.topSecret, skillLevel.asset.description, skillLevel.asset.name, skillLevel.hard.advanced.description, skillLevel.hard.advanced.name, skillLevel.hard.basic.description, skillLevel.hard.basic.name, skillLevel.hard.expert.description, skillLevel.hard.expert.name, skillLevel.hard.intermediate.description, skillLevel.hard.intermediate.name, skillLevel.soft.advanced.description, skillLevel.soft.advanced.name, skillLevel.soft.basic.description, skillLevel.soft.basic.name, skillLevel.soft.expert.description, skillLevel.soft.expert.name, skillLevel.soft.intermediate.description, skillLevel.soft.intermediate.name, skillWordCounter.afterText, skillWordCounter.wordsLeft, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"activity.commentLocation.label\":\"Commentaire trouvé\",\"activity.commentMetadata\":\"{name} ({userRole}) a commenté à {time}.\",\"activity.viewComment.label\":\"Visualiser le commentaire\",\"activityfeed.accordionAccessibleLabel\":\"Cliquez pour voir...\",\"activityfeed.error\":\"Une erreur s'est produite\",\"activityfeed.header\":\"Cliquez pour voir les commentaires {totalActivities}\",\"activityfeed.loading\":\"Chargement de vos activités...\",\"activityfeed.loadingIconText\":\"Nombre d'activités est en cours de chargement...\",\"activityfeed.locations.applicantReview.general\":\"Général\",\"activityfeed.locations.applicantReview.notUnderConsideration\":\"Candidats qui ne sont plus considérés\",\"activityfeed.locations.applicantReview.optionalConsideration\":\"Candidats supplémentaires\",\"activityfeed.locations.applicantReview.underConsideration\":\"Candidats à considérée\",\"activityfeed.locations.applications\":\"Page des Réviser les candidats\",\"activityfeed.locations.hr.preview\":\"RH Page d'aperçu\",\"activityfeed.locations.hr.summary\":\"RH Résumé de l'emploi\",\"activityfeed.locations.notFound\":\"lieu non trouvé\",\"activityfeed.locations.review\":\"Constructeur d'Affiches\",\"activityfeed.locations.review.basicInfo\":\"Renseignements de base\",\"activityfeed.locations.review.environment\":\"Environnement de travail\",\"activityfeed.locations.review.general\":\"Général\",\"activityfeed.locations.review.heading\":\"Titre de la page de l’emploi\",\"activityfeed.locations.review.impact\":\"Incidence\",\"activityfeed.locations.review.langRequirements\":\"Exigences linguistiques\",\"activityfeed.locations.review.skills\":\"Compétences\",\"activityfeed.locations.review.tasks\":\"Taches\",\"activityfeed.locations.screeningPlan\":\"plan d’évaluation\",\"activityfeed.locations.screeningPlan.builder\":\"Concepteur de plans d’évaluation\",\"activityfeed.locations.screeningPlan.general\":\"Général\",\"activityfeed.locations.screeningPlan.ratings\":\"Concepteur de guides de cotation\",\"activityfeed.locations.screeningPlan.summary\":\"Sommaire du plan d’évaluation\",\"activityfeed.noActivities\":\"Aucune activité.\",\"activityfeed.review.accordionAccessibleLabel\":\"Cliquer pour afficher...\",\"activityfeed.review.header\":\"Cliquez pour voir les commentaires {totalActivities}\",\"activityfeed.review.loadingIconText\":\"Les données sont en cours de chargement...\",\"activityfeed.title\":\"Activités\",\"application.review.addNote\":\"+ Ajouter une note\",\"application.review.alert.oops\":\"Oups...\",\"application.review.backToApplicantList\":\"Sauvegarder et revenir à la liste des candidats\",\"application.review.button.cancel\":\"Annuler\",\"application.review.button.confirm\":\"Confirmer\",\"application.review.button.save\":\"Enregistrer\",\"application.review.button.saved\":\"Enregistrée\",\"application.review.button.saving\":\"Enregistre...\",\"application.review.button.viewJobPoster\":\"Voir l'affiche d'emploi\",\"application.review.collapseAllSkills\":\"Réduire les compétences\",\"application.review.decision\":\"Décision\",\"application.review.editNote\":\"Modifier la note\",\"application.review.emailCandidateLinkTitle\":\"Envoyer un courriel à ce candidat.\",\"application.review.expandAllSkills\":\"Élargir les compétences\",\"application.review.priorityStatus.priority\":\"Priorité\",\"application.review.priorityStatus.priorityLogoTitle\":\"Icône pour candidat prioritaire\",\"application.review.reviewSaveFailed\":\"Une erreur s'est produite lors de l'enregistrement d'un commentaire. Réessayez plus tard.\",\"application.review.reviewStatus.notReviewed\":\"Non révisé\",\"application.review.reviewStatus.screenedOut\":\"Éliminé\",\"application.review.reviewStatus.stillIn\":\"Encore considérée\",\"application.review.reviewStatus.stillThinking\":\"Incertain\",\"application.review.screenInConfirm\":\"Remettre le candidat dans la section à l'étude?\",\"application.review.screenOutConfirm\":\"Éliminer le candidat?\",\"application.review.veteranStatus.veteran\":\"Anciens combattants\",\"application.review.veteranStatus.veteranLogoAlt\":\"icône pour anciens combattants\",\"application.review.viewApplication\":\"Voir l'application\",\"application.review.viewApplicationLinkTitle\":\"Voir l'application de ce candidat.\",\"application.review.viewProfile\":\"Voir le profil\",\"application.review.viewProfileLinkTitle\":\"Voir le profil de ce candidat.\",\"assessmentPlan.addAssessmentButton\":\"Ajouter une évaluation\",\"assessmentPlan.alert.checking\":\"Vérifier si le poste a changé récemment...\",\"assessmentPlan.alert.created\":\"{skills} {count, plural, one {compétence a été ajoutée} other {compétences ont été ajoutées}}.\",\"assessmentPlan.alert.deleted\":\"{skills} {count, plural, one {compétence a été supprimée} other {compétences ont été supprimées}}.\",\"assessmentPlan.alert.explanation\":\"Certaines parties du plan de présélection ont été modifiées pour qu’elles concordent les unes avec les autres.\",\"assessmentPlan.alert.skillAndLevelUpdated\":\"Le champ « {oldSkill} » a été remplacé par « {newSkill} » et a fait l’objet d’une mise à jour.\",\"assessmentPlan.alert.skillLevelUpdated\":\"{skills} {count, plural, one {compétence a été mise à jour} other {compétences ont été mises à jour}}.\",\"assessmentPlan.alert.skillUpdated\":\"Le champ {oldSkill} a été remplacé par {newSkill}.\",\"assessmentPlan.alert.title\":\"Ce poste a récemment changé!\",\"assessmentPlan.assessmentPlanBuilder.instructions\":\"La première étape consiste à choisir des évaluations qui vous permettront d’évaluer les critères que vous avez sélectionnés pour votre offre d’emploi. Vous trouverez ci-dessous vos critères essentiels, suivis de vos critères constituant un atout, le cas échéant. Le concepteur sera enregistré au fur et à mesure, donc lorsque vous aurez terminé, n’hésitez pas à passer à l’étape 2 pour examiner votre travail.\",\"assessmentPlan.assessmentPlanBuilder.shortDescription\":\"(Sélectionnez vos évaluations)\",\"assessmentPlan.assessmentPlanBuilder.title\":\"Concepteur de plans d’évaluation\",\"assessmentPlan.assessmentPlanSummary.shortDescription\":\"(Passez votre plan en revue)\",\"assessmentPlan.assessmentPlanSummary.title\":\"Sommaire du plan d’évaluation\",\"assessmentPlan.assessmentTypesLabel\":\"Types d’évaluation\",\"assessmentPlan.assetCriteria.nullState\":\"Vous n’avez pas choisi de compétences constituant un atout pour cette offre d’emploi.\",\"assessmentPlan.criteriaTitle\":\"{skillName} - {skillLevel}\",\"assessmentPlan.essentialCriteria.nullState\":\"Vous n’avez pas choisi de compétences essentielles pour cette offre d’emploi.\",\"assessmentPlan.instructions.intro\":\"Cet outil vous permet d’élaborer un plan d’évaluation et un guide de cotation pour votre offre d’emploi. L’outil est utilisé en trois étapes :\",\"assessmentPlan.instructions.narrativeNote\":\"Veuillez prendre note que tous les plans d’évaluation comprendront un examen des éléments de preuve fournis par le candidat.\",\"assessmentPlan.pageTitle\":\"Élaborer un plan d’évaluation pour : {jobTitle}\",\"assessmentPlan.ratingGuideBuilder.shortDescription\":\"(Personnalisez vos évaluations)\",\"assessmentPlan.ratingGuideBuilder.title\":\"Concepteur de guides de cotation\",\"assessmentPlan.selectAssessment.label\":\"Sélectionner une évaluation\",\"assessmentPlan.selectAssessment.null\":\"Sélectionner une évaluation\",\"assessmentPlan.skillDescriptionLabel\":\"Description\",\"assessmentPlan.skillLevelDescriptionLabel\":\"Niveau de compétence sélectionné\",\"assessmentPlan.summary.assessmentSummary.noAssessments\":\"Vous n’avez pas sélectionné d’évaluations pour cette offre d’emploi. Ajoutez-les ci-dessus.\",\"assessmentPlan.summary.assessmentSummary.title\":\"Sommaire de l’évaluation\",\"assessmentPlan.summary.assessmentSummary.toolSkillCount\":\"Votre plan utilise {toolCount, plural, =0 {aucun outil} one {# outill} other {# outils}} pour évaluer {skillCount, plural, =0 {compétences} one {# compétence} other {# compétences}}.\",\"assessmentPlan.summary.description\":\"Ceci est un résumé du travail que vous avez effectué ci-dessus. Vous trouverez\\n      chaque évaluation accompagnée d'une liste consolidée des compétences essentielles\\n      et des atouts qui s'y rattachent.\",\"assessmentPlan.summary.skillCount\":\"Évaluer {count, plural, one {# compétence} other {# compétences}}.\",\"assessmentPlan.summary.skillsNullState\":\"Aucune compétence n’est évaluée par cet outil.\",\"assessmentPlan.summary.title\":\"2. Sommaire du plan d’évaluation\",\"assessmentPlan.title\":\"Concepteur de plans d’évaluation\",\"assessmentType.applicationScreeningQuestion\":\"Questions de présélection dans le cadre du processus d’embauche\",\"assessmentType.applicationScreeningQuestion.description\":\"Ces questions paraissent dans le formulaire de demande, et sont présentées dans le Nuage de talents. Elles donnent un premier aperçu de la compréhension, du processus, des connaissances ou de l’adaptation culturelle du candidat pour le poste.\",\"assessmentType.groupTest\":\"Test de groupe\",\"assessmentType.groupTest.description\":\"Les candidats effectuent ce test en temps réel conjointement avec d’autres candidats, des membres de l’équipe ou des animateurs afin de déterminer leurs compétences exceptionnelles, leur habileté à communiquer au sein d’une équipe.\",\"assessmentType.informalPhoneConversation\":\"Conversation téléphonique informelle\",\"assessmentType.informalPhoneConversation.description\":\"Une conversation informelle entre un membre du comité d’embauche et un(e) candidat(e), visant à découvrir les connaissances, les aptitudes ou les traits de personnalité du candidat; les conversations peuvent varier d’un candidat à l’autre.\",\"assessmentType.interview\":\"Entrevue\",\"assessmentType.interview.description\":\"Examen formel de questions-réponses effectué en temps réel entre le comité de sélection et le (la) candidat(e). Les questions ont pour but d'évaluer l'expertise, le niveau et l'approche des compétences. Chaque question est élaborée à l’avance et suit la même structure entre tous les candidats interrogés.\",\"assessmentType.narrativeAssessment\":\"Examen narratif\",\"assessmentType.narrativeAssessment.description\":\"Il s’agit d’une description demandée au cours du processus de demande, dans laquelle les candidats s’identifient et décrivent leur expérience et leur niveau de compétence.\",\"assessmentType.narrativeReview.standardAnswer\":\"La description fournie contient suffisamment d’éléments de preuve pour faire passer ce candidat aux étapes de présélection suivantes.\",\"assessmentType.narrativeReview.standardQuestion\":\"L’examen descriptif des compétences comprend toutes les descriptions ajoutées par le candidat dans sa demande.\",\"assessmentType.onSiteExam\":\"Épreuve sur place\",\"assessmentType.onSiteExam.description\":\"Épreuve préparée qui exige que le candidat effectue à un endroit précis et sous supervision un test visant à évaluer ses compétences et sa technique.\",\"assessmentType.onlineExam\":\"Épreuve en ligne\",\"assessmentType.onlineExam.description\":\"Épreuve préparée qui n’exige pas de supervision, qui peut être effectuée de n’importe quel endroit au moyen d’un accès à Internet, et qui doit être achevée dans un intervalle de temps défini.\",\"assessmentType.portfolioReview\":\"Examen du portefeuille\",\"assessmentType.portfolioReview.description\":\"Au cours du processus de demande, les candidats donnent accès à des échantillons de leur travail pour démontrer leur niveau de compétence et étayer leurs prétentions à cet égard.\",\"assessmentType.referenceCheck\":\"Vérification des références\",\"assessmentType.referenceCheck.description\":\"Au cours du processus de demande, les candidats fournissent les coordonnées d’une connaissance qui peut valider et confirmer leurs compétences, leurs connaissances ou leurs aptitudes.\",\"assessmentType.seriousGames\":\"Jeux sérieux\",\"assessmentType.seriousGames.description\":\"Test comprenant l’utilisation de jeux pour explorer les aptitudes en communication, la résilience et l’intelligence émotionnelle d’un(e) candidat(e), entre autres compétences générales.\",\"assessmentType.takeHomeExam\":\"Épreuve à la maison\",\"assessmentType.takeHomeExam.description\":\"Les candidats reçoivent une trousse matérielle contenant les outils d’évaluation; ils effectuent l’évaluation à un moment qui leur convient le mieux, et à un endroit de leur choix, sans supervision, et ils doivent retourner les documents avant une date limite précise.\",\"button.copied\":\"Copié!\",\"button.copyEmails\":\"Copier des emails\",\"button.copyToClipboard\":\"Copier sur le presse-papier\",\"button.toggleAccordion\":\"Basculer pour voir les candidats concernés.\",\"commentForm.comment.label\":\"Ajouter un commentaire\",\"commentForm.comment.placeholder\":\"À titre d’exemple, entrez votre question, votre recommandation, etc.\",\"commentForm.commentLocation.label\":\"Emplacement du commentaire\",\"commentForm.commentLocation.nullSelection\":\"Sélectionnez un emplacement...\",\"commentForm.commentType.label\":\"Type de commentaire\",\"commentForm.commentType.nullSelection\":\"Sélectionner un type de commentaire\",\"commentForm.submitButton.label\":\"Soumettre un commentaire\",\"commentType.comment\":\"Commentaire\",\"commentType.question\":\"Question\",\"commentType.recommendation\":\"Recommandation\",\"commentType.requiredAction\":\"Mesure requise\",\"criteria.asset\":\"Compétences constituant un atout\",\"criteria.essential\":\"Compétences essentielles\",\"criteriaForm.skillLevelSelectionLabel\":\"Choisir un niveau de compétence\",\"criteriaForm.skillSpecificityLabel\":\"Détails supplémentaires pour cette compétence\",\"criteriaForm.skillSpecificityPlaceholder\":\"Ajoutez du contexte ou des détails à la définition de cette compétence qui n'apparaîtront que sur votre affiche d'emploi. Ceci sera examiné par votre conseiller en ressources humaines.\",\"criteriaType.asset\":\"Atout\",\"criteriaType.essential\":\"Essentiel\",\"demoSubmitJobModal.cancel\":\"Retourner\",\"demoSubmitJobModal.explanation\":\"Seuls les ministères partenaires de Nuage des talents ont accès à l'examen et à la publication des avis d'emploi.\",\"demoSubmitJobModal.link\":\"<a>Savoir si vous pouvez accéder à ces fonctions</a>.\",\"demoSubmitJobModal.link.title\":\"Découvrez comment accéder aux fonctions d'examen et de publication des avis d'emploi.\",\"demoSubmitJobModal.title\":\"Il semble que vous utilisez un compte de démonstration.\",\"errorToast.title\":\"Quelque chose a mal tourné!\",\"formInput.error\":\"Cette entrée a une erreur.\",\"formInput.required\":\"Champs obligatoires\",\"formValidation.checkboxRequired\":\"Il faut cocher au moins une case.\",\"formValidation.invalidSelection\":\"Veuillez choisir parmi les options disponibles.\",\"formValidation.required\":\"Ce champ est requis.\",\"formValidation.tooLong\":\"Trop longue?\",\"formValidation.tooShort\":\"Trop courte?\",\"hrJobIndex.departmentPlaceholder\":\" [Chargement du ministère]\",\"hrJobIndex.jobTitleMissing\":\"Titre manquant \",\"hrJobIndex.managerLoading\":\"Chargement...\",\"hrJobIndex.preview\":\"Prévisualiser l’avis d’emploi \",\"hrJobIndex.reviewDraft\":\"Réviser l’ébauche \",\"hrJobIndex.viewActivity\":\"Afficher l’activité \",\"hrJobIndex.viewScreeningPlan\":\"Afficher le plan d’évaluation \",\"hrJobIndex.viewSummary\":\"Afficher le résumé \",\"hrPortal.jobPageIndex.clickToView\":\"Cliquer pour afficher...\",\"hrPortal.jobPageIndex.completedJobsHeader\":\" Mes mesures d’emploi achevées \",\"hrPortal.jobPageIndex.hideAccordion\":\" Masquer \",\"hrPortal.jobPageIndex.jobActionsEmpty\":\"Réclamer un emploi ci-dessous!\",\"hrPortal.jobPageIndex.jobActionsHeader\":\"Mes mesures d’emploi achevée\",\"hrPortal.jobPageIndex.jobActionsMessage\":\"Voici une liste de toutes les mesures d’emploi auxquelles vous participez actuellement. Vous cherchez une ancienne offre d’emploi? Cochez la section « Mes mesures d’emploi achevées » sous vos offres d’emploi actives.\",\"hrPortal.jobPageIndex.noJobsCompleted\":\"Aucune offre d’emploi achevée à l’heure actuelle!\",\"hrPortal.jobPageIndex.preDepartmentName\":\"Toutes les offres d’emploi dans\",\"hrPortal.jobPageIndex.showAccordion\":\"Afficher \",\"hrPortal.jobPageIndex.unclaimedJobsEmpty\":\"Il n’y a actuellement aucune offre d’emploi active disponible.\",\"hrPortal.jobPageIndex.unclaimedJobsMessage\":\"Voici la liste de toutes les mesures actives dans votre ministère. À partir de ce point, vous pouvez « réclamer » un emploi qui sera transféré dans votre liste d’emploi ci-dessus, ce qui vous permettra de commencer à collaborer avec le gestionnaire d’embauche pour trouver le meilleur talent possible. Si vous réclamez un emploi par erreur, ne craignez rien, car vous pouvez cliquer sur le résumé de l’emploi et retirer votre nom au moyen du bouton « Renoncer à cet emploi ».\",\"job.daysSinceClosed\":\"{dayCount, plural, =0 {Aucun jour} one {# jour} other {# jours}} depuis la fermeture\",\"jobBuilder.collaborativeness.01.description\":\"Les membres de notre équipe proviennent de divers milieux, et ont des points de vue et des compétences variés. Nous nous appuyons sur nos points forts. Collectivement, nous nous approprions les objectifs de l’équipe et nous sommes constamment à la recherche de façons de s’entraider.\",\"jobBuilder.collaborativeness.01.title\":\"Collaboratif\",\"jobBuilder.collaborativeness.02.description\":\"Notre équipe possède un ensemble de compétences diversifiées et nous reconnaissons les forces de chacun. Nous travaillons ensemble souvent et nous intervenons rapidement quand une personne demande de l’aide.\",\"jobBuilder.collaborativeness.02.title\":\"Assez collaboratif\",\"jobBuilder.collaborativeness.03.description\":\"Chaque membre de notre équipe possède une pièce du casse-tête et jouit de la liberté de choisir sa propre façon de travailler.\",\"jobBuilder.collaborativeness.03.title\":\"Assez indépendant \",\"jobBuilder.collaborativeness.04.description\":\"Chaque membre de notre équipe prend en charge sa pièce du casse-tête. La façon dont nous accomplissons notre travail importe peu, tant qu’il est de qualité supérieure.\",\"jobBuilder.collaborativeness.04.title\":\"Indépendant\",\"jobBuilder.criteriaForm.addSpecificity\":\"Je voudrais ajouter des détails à cette définition qui sont spécifiques à ce poste.\",\"jobBuilder.criteriaForm.button.add\":\"Ajouter une compétence\",\"jobBuilder.criteriaForm.button.cancel\":\"Annuler\",\"jobBuilder.criteriaForm.chooseSkillLevel\":\"Choisir un niveau de compétence\",\"jobBuilder.criteriaForm.or\":\"ou\",\"jobBuilder.criteriaForm.removeSpecificity\":\"Supprimer la particularité supplémentaire.\",\"jobBuilder.criteriaForm.skillDefinition\":\"Définition de la compétence\",\"jobBuilder.criterion.requiredSkill\":\"Compétence requise :\",\"jobBuilder.culturePace.01.description\":\"Nos échéances sont serrées, nous traitons plusieurs tâches en même temps et nos priorités changent constamment. Notre travail devrait être effectué en portant des chaussures de courses!\",\"jobBuilder.culturePace.01.title\":\"Un rythme très rapide\",\"jobBuilder.culturePace.02.description\":\"Nos échéances sont habituellement rapprochées, nous traitons plusieurs tâches en même temps et nos priorités changent régulièrement. Notre travail nous force à rester sur le qui-vive!\",\"jobBuilder.culturePace.02.title\":\"Rythme rapide\",\"jobBuilder.culturePace.03.description\":\"Nos échéances sont régulières et prévisibles, nous traitons quelques tâches à la fois et nos priorités changent de temps à autre. Nous maintenons un certain équilibre.\",\"jobBuilder.culturePace.03.title\":\"Soutenu\",\"jobBuilder.culturePace.04.description\":\"Notre travail est continu, donc il n’y a pas beaucoup d’échéances. Habituellement, nous ne sommes pas obligés d’équilibrer la répartition des tâches et nos priorités changent rarement. Nous nous sentons bien dans la routine.\",\"jobBuilder.culturePace.04.title\":\"Très soutenu\",\"jobBuilder.details.SelectClassAndLvlMessage\":\"Veuillez choisir une classification et un niveau avant de préparer\\r\\n                          les exigences en matière d’éducation.\",\"jobBuilder.details.cityLabel\":\"Dans quelle ville l'équipe est-elle située?\",\"jobBuilder.details.cityPlaceholder\":\"P. ex. Ottawa\",\"jobBuilder.details.classificationLabel\":\"Quelle est la classification?\",\"jobBuilder.details.classificationNullSelection\":\"Veuillez sélectionner la classification...\",\"jobBuilder.details.classificationOptions.AD\":\"AD - Services administratifs\",\"jobBuilder.details.classificationOptions.AS\":\"AS – Services administratifs\",\"jobBuilder.details.classificationOptions.BI\":\"BI – Sciences biologiques\",\"jobBuilder.details.classificationOptions.CO\":\"CO - Commerce\",\"jobBuilder.details.classificationOptions.CR\":\"CR - Commis aux écritures et aux règlements\",\"jobBuilder.details.classificationOptions.CS\":\"CS – Systèmes d’ordinateurs\",\"jobBuilder.details.classificationOptions.EC\":\"EC - Économique et services de sciences sociales\",\"jobBuilder.details.classificationOptions.EX\":\"EX - Direction\",\"jobBuilder.details.classificationOptions.FO\":\"FO - Sciences forestières\",\"jobBuilder.details.classificationOptions.IS\":\"IS – Services d’information\",\"jobBuilder.details.classificationOptions.PC\":\"PC – Sciences physiques\",\"jobBuilder.details.classificationOptions.PE\":\"PE – Gestion du personnel\",\"jobBuilder.details.classificationOptions.PM\":\"PM – Administration des programmes\",\"jobBuilder.details.documentTitle\":\"Constructeur d'affiches: Renseignements\",\"jobBuilder.details.educationMessages.AD\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires;\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’elle soit prise en considération. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.AS\":\"Diplôme d’études secondaires ou équivalent :\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.BI\":\"Diplôme d’études postsecondaires:\\nDiplôme d’études postsecondaires en sciences naturelles, physiques ou appliquées, avec spécialisation dans un domaine lié aux fonctions du poste.\",\"jobBuilder.details.educationMessages.CO\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.CR\":\"Deux années d’études secondaires ou l’équivalent:\\nAu moins deux années d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative aux deux années d’études secondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.CS\":\"Deux (2) ans d’études postsecondaires ou l’équivalent:\\nDeux années d’études postsecondaires en informatique, en technologie de l’information, en gestion de l’information ou dans une autre spécialité pertinente à ce poste.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente aux deux années d’études postsecondaires requises, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.EC\":\"Diplôme d’études postsecondaires:\\nun diplôme d’un établissement d’enseignement postsecondaire reconnu avec spécialisation acceptable en économique, en sociologie ou en statistique.\\n\\nLes candidats doivent toujours détenir un diplôme. Les cours de spécialisation doivent être acceptables et avoir été suivis auprès d’un établissement d’enseignement postsecondaire reconnu, mais pas nécessairement dans le cadre d’un programme de diplôme dans la spécialisation requise. La spécialisation peut également être obtenue grâce à un agencement acceptable d’études, de formation et (ou) d’expérience.\",\"jobBuilder.details.educationMessages.EX\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires, ou admissibilité à un titre professionnel reconnu dans une province ou un territoire du Canada.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.FO\":\"Diplôme d’études postsecondaires:\\nUn diplôme en foresterie ou en produits du bois d’un établissement d’enseignement postsecondaire reconnu.\\n\\nou\\n\\nUn diplôme dans une science connexe d’un établissement d’enseignement postsecondaire reconnu agencé à une expérience acceptable.\",\"jobBuilder.details.educationMessages.IS\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.PC\":\"Diplôme d’études postsecondaires:\\nDiplôme d’études postsecondaires, avec spécialisation en physique, en géologie, en chimie ou dans une autre science liée aux fonctions du poste.\",\"jobBuilder.details.educationMessages.PE\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires, avec spécialisation en gestion des ressources humaines, en relations de travail ou en relations industrielles, en psychologie, en administration publique ou en administration des affaires, en développement organisationnel, en sciences de l’éducation, en sciences sociales, en sociologie ou dans un autre domaine lié aux fonctions du poste.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.PM\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationRequirementCopyAndPaste\":\"Si vous voulez personnaliser ce paragraphe, veuillez le copier-coller dans la zone de texte ci-dessous pour le modifier. \",\"jobBuilder.details.educationRequirementHeader\":\"En fonction du niveau de classification sélectionné, le paragraphe générique suivant apparaîtra sur l’offre d’emploi. \",\"jobBuilder.details.educationRequirementPlaceholder\":\"Collez le paragraphe ici pour le modifier...\",\"jobBuilder.details.educationRequirementReviewChanges\":\"Votre conseiller en RH examinera vos changements.\",\"jobBuilder.details.educationRequirementsLabel\":\"Personnaliser les exigences en matière d’études :\",\"jobBuilder.details.flexHoursGroupBody\":\"Vous voulez appuyer un milieu de travail plus inclusif sur le plan de l’égalité des sexes? Des études montrent que l’horaire flexible est un excellent moyen d’améliorer les possibilités des femmes et des parents.\",\"jobBuilder.details.flexHoursGroupHeader\":\"À quelle fréquence les heures flexibles sont-elles permises?\",\"jobBuilder.details.flexHoursGroupLabel\":\"Choisissez les horaires souples :\",\"jobBuilder.details.frequencyAlwaysLabel\":\"Presque toujours\",\"jobBuilder.details.frequencyFrequentlyLabel\":\"Habituellement\",\"jobBuilder.details.frequencyNeverLabel\":\"Jamais\",\"jobBuilder.details.frequencyOccasionallyLabel\":\"Rarement\",\"jobBuilder.details.frequencySometimesLabel\":\"Parfois\",\"jobBuilder.details.heading\":\"Détails sur l’emploi\",\"jobBuilder.details.languageLabel\":\"Quel est le profil linguistique?\",\"jobBuilder.details.languageNullSelection\":\"Veuillez sélectionner le profil linguistique...\",\"jobBuilder.details.levelLabel\":\"Quel est le niveau?\",\"jobBuilder.details.levelNullSelection\":\" Veuillez sélectionner le niveau...\",\"jobBuilder.details.modalBody\":\"Voici un aperçu des informations sur le travail que vous venez de saisir. N'hésitez pas à revenir en arrière et à modifier des éléments ou à passer à l'étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.details.modalCancelLabel\":\"Retourner\",\"jobBuilder.details.modalConfirmLabel\":\"Étape suivante\",\"jobBuilder.details.modalHeader\":\"Vous partez du bon pied!\",\"jobBuilder.details.modalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.details.overtimeFrequentlyLabel\":\"Oui, il est souvent nécessaire de travailler des heures supplémentaires dans le cadre de ce poste.\",\"jobBuilder.details.overtimeGroupHeader\":\"Le temps supplémentaire est-il requis?\",\"jobBuilder.details.overtimeGroupLabel\":\"Sélectionner l’exigence en matière de temps supplémentaire\",\"jobBuilder.details.overtimeNoneRequiredLabel\":\"Non, le temps supplémentaire n’est pas nécessaire pour ce poste.\",\"jobBuilder.details.overtimeOpportunitiesAvailableLabel\":\"Oui, il est possible que des heures supplémentaires soient offertes aux personnes intéressées.\",\"jobBuilder.details.provinceLabel\":\"Dans quelle province l'équipe est-elle située?\",\"jobBuilder.details.provinceNullSelection\":\"Veuillez sélectionner la province...\",\"jobBuilder.details.remoteWorkCanadaLabel\":\"Oui, je suis prêt(e) à superviser des employés dans n'importe quelle province ou territoire au Canada.\",\"jobBuilder.details.remoteWorkGroupBody\":\"Vous voulez les meilleurs talents au Canada? Vous augmentez vos chances lorsque vous permettez à ceux qui se trouvent dans d’autres régions du Canada de présenter une demande. La diversité régionale ajoute également une perspective à la culture de votre équipe. Assurez-vous d’en discuter à l’avance avec votre conseiller en RH.\",\"jobBuilder.details.remoteWorkGroupHeader\":\"Le travail à distance est-il permis?\",\"jobBuilder.details.remoteWorkGroupLabel\":\"Choisissez le travail à distance :\",\"jobBuilder.details.remoteWorkNoneLabel\":\"Non, j’exige que l’employé(e) qui occupe ce poste soit dans le même lieu géographique que le bureau.\",\"jobBuilder.details.remoteWorkWorldLabel\":\"Oui, je suis prêt(e) à superviser des employés partout dans le monde.\",\"jobBuilder.details.returnButtonLabel\":\"Enregistrer et retourner à l’introduction\",\"jobBuilder.details.securityLevelLabel\":\"Quel est le niveau de sécurité?\",\"jobBuilder.details.securityLevelNullSelection\":\"Veuillez sélectionner le niveau de sécurité...\",\"jobBuilder.details.submitButtonLabel\":\"Prochain\",\"jobBuilder.details.teleworkGroupBody\":\"Démontrez que vous faites confiance à vos employés et que vous avez une culture organisationnelle positive. Autorisez le télétravail en option.\",\"jobBuilder.details.teleworkGroupHeader\":\"À quelle fréquence le télétravail est-il permis?\",\"jobBuilder.details.teleworkGroupLabel\":\"Choisissez le télétravail :\",\"jobBuilder.details.termLengthLabel\":\"Quelle est la durée du poste (en mois)?\",\"jobBuilder.details.termLengthPlaceholder\":\" P.ex. 3\",\"jobBuilder.details.titleLabel\":\"Quel est le titre du poste?\",\"jobBuilder.details.titlePlaceholder\":\"P. ex. Chercheur - utilisateurs\",\"jobBuilder.details.travelFrequentlyLabel\":\"Oui, des déplacements sont souvent exigés pour le poste.\",\"jobBuilder.details.travelGroupHeader\":\"Est-il nécessaire de voyager?\",\"jobBuilder.details.travelGroupLabel\":\"Sélectionner l’exigence des déplacements\",\"jobBuilder.details.travelNoneRequiredLabel\":\"Non, aucun déplacement n’est nécessaire pour ce poste.\",\"jobBuilder.details.travelOpportunitiesAvailableLabel\":\"Oui, des possibilités de voyage sont offertes pour ceux qui sont intéressés.\",\"jobBuilder.experimental.01.description\":\"Notre travail est défini en essayant de nouvelles idées, méthodes et activités pour aborder des problèmes persistants auxquels les approches traditionnelles ne peuvent pas remédier.\",\"jobBuilder.experimental.01.title\":\"Approche expérimentale\",\"jobBuilder.experimental.02.description\":\"Nous essayons des idées, méthodes et activités nouvelles et éprouvées pour améliorer la façon de faire notre travail.\",\"jobBuilder.experimental.02.title\":\"Approche assez expérimentale\",\"jobBuilder.experimental.03.description\":\"Notre travail comprend quelques tâches administratives qui se répètent quotidiennement. Les outils que nous utilisons nous conviennent, mais nous sommes ouverts à améliorer notre processus..\",\"jobBuilder.experimental.03.title\":\"Travail assez prévisible\",\"jobBuilder.experimental.04.description\":\"La majeure partie de notre travail comprend quelques tâches administratives qui se répètent quotidiennement. La cohérence est un facteur clé ici, donc nous suivons un processus standard avec des outils éprouvés.\",\"jobBuilder.experimental.04.title\":\"Travail prévisible\",\"jobBuilder.facing.01.description\":\"Nous représentons l’image de marque des services que nous offrons et nous passons la plupart de notre temps à interagir directement avec le public.\",\"jobBuilder.facing.01.title\":\"Services orientés vers le citoyen\",\"jobBuilder.facing.02.description\":\"Nous passons beaucoup de temps à interagir directement avec le public, mais nous travaillons également en coulisses afin d’appuyer d’autres personnes.\",\"jobBuilder.facing.02.title\":\"Services essentiellement orientés vers le citoyen\",\"jobBuilder.facing.03.description\":\" Nous travaillons généralement en coulisses et nous effectuons un travail important qui rend possible la prestation de services.\",\"jobBuilder.facing.03.title\":\"Services essentiellement administratifs\",\"jobBuilder.facing.04.description\":\" Nous travaillons en coulisses et nous effectuons un travail important qui rend possible la prestation de services. Nous nous sentons bien quand nous appuyons les autres.\",\"jobBuilder.facing.04.title\":\"Services administratifs\",\"jobBuilder.impact.button.goBack\":\"Revenir en arrière\",\"jobBuilder.impact.button.next\":\"Prochain\",\"jobBuilder.impact.button.nextStep\":\"Passer à l’étape suivante\",\"jobBuilder.impact.button.return\":\"Enregistrer et retourner à l’environnement de travail\",\"jobBuilder.impact.button.skipToReview\":\"Passer pour la révision\",\"jobBuilder.impact.departmentsLoading\":\"Chargement des données du Ministère...\",\"jobBuilder.impact.documentTitle\":\"Constructeur d’affiches: Incidences\",\"jobBuilder.impact.header.department\":\"Comment votre ministère engendre des incidences:\",\"jobBuilder.impact.hireBody\":\"Décrivez la contribution du nouvel employé dans le cadre de son rôle. Misez sur la valeur qu’il apportera et non des tâches particulières (vous les indiquerez plus loin). Par exemple « Dans ce rôle, vous contribuerez à … » ou « En tant que membre de l’équipe, vous serez responsable de nous aider à… »\",\"jobBuilder.impact.hireHeader\":\"Comment le nouvel employé engendra des incidences\",\"jobBuilder.impact.hireLabel\":\"Déclaration d'incidences des employés\",\"jobBuilder.impact.hirePlaceholder\":\"Souvenez-vous de ne pas utiliser de jargon administratif.\",\"jobBuilder.impact.modalDescription\":\"Voici un aperçu de l’énoncé des incidences que vous venez de rédiger.\\n                        N'hésitez pas à revenir en arrière pour modifier le texte.\\n                        Passez à l'étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.impact.modalTitle\":\"Excellent travail!\",\"jobBuilder.impact.points.counts\":\"La première chose que les candidats voient lorsqu’ils cliquent sur votre avis de concours est votre énoncé des incidences. Assurez-vous donc de bien le rédiger!\",\"jobBuilder.impact.points.highlight\":\"C’est votre chance de souligner en quoi votre travail est utile et intéressant.\",\"jobBuilder.impact.points.opportunity\":\"Le fait de travailler pour le gouvernement fédéral offre une importante occasion d’engendrer d’importantes incidences pour les Canadiens.\",\"jobBuilder.impact.selectDepartment\":\"Vous devez choisir un ministère pour cet emploi.\",\"jobBuilder.impact.teamBody\":\"Décrivez la valeur apportée aux Canadiens par votre équipe/service/initiative. Peu importe si votre travail consiste à offrir des services directement aux citoyens ou des services administratifs, d’innovation ou d’entretien, de priorité absolue ou continus. Décrivez comment votre travail contribue à améliorer le Canada comme si vous parliez à quelqu’un qui ne connaît rien de votre travail.\",\"jobBuilder.impact.teamHeader\":\"Comment votre équipe engendre des impacts:\",\"jobBuilder.impact.teamLabel\":\"Déclaration d’incidence d'équipe\",\"jobBuilder.impact.teamPlaceholder\":\"Employez un ton informel, franc et amical\",\"jobBuilder.impact.title\":\"Rédiger votre énoncé des incidences\",\"jobBuilder.impact.unknownDepartment\":\"Erreur : Choisissez un ministère inconnu.\",\"jobBuilder.impactPreview.title\":\"Impact\",\"jobBuilder.intro.accountSettingsLinkText\":\"les paramètres de votre compte\",\"jobBuilder.intro.accountSettingsLinkTitle\":\"Visitez la page Paramètres du compte.\",\"jobBuilder.intro.changeDepartment\":\"Pour changer de département, veuillez contacter {email}. Pour en savoir plus, visitez {accountSettings}.\",\"jobBuilder.intro.completeInLanguage\":\"Répondez à l’offre d’emploi dans la langue officielle de votre choix. Nous nous chargerons de la traduction\",\"jobBuilder.intro.contactUs\":\"Nous avons également fourni des instructions et des exemples pour vous guider tout au long du processus, mais si vous avez toujours des questions, veuillez communiquer avec le {link}\",\"jobBuilder.intro.continueButtonLabelEN\":\"Continue in English\",\"jobBuilder.intro.continueButtonLabelFR\":\"Continuer en français\",\"jobBuilder.intro.departmentHeader\":\"Informations sur le département de {name}\",\"jobBuilder.intro.departmentLabel\":\"Ministère\",\"jobBuilder.intro.departmentNullSelection\":\"Choisissez un ministère...\",\"jobBuilder.intro.divisionLabelEN\":\"La division de {name} (en anglais)\",\"jobBuilder.intro.divisionLabelFR\":\"La division de {name} (en français)\",\"jobBuilder.intro.divisionPlaceholderEN\":\"p. ex., Digital Change\",\"jobBuilder.intro.divisionPlaceholderFR\":\"p. ex., Changement numérique\",\"jobBuilder.intro.documentTitle\":\"Constructeur d'affiches: Intro\",\"jobBuilder.intro.emailLinkText\":\"Nuage de talents\",\"jobBuilder.intro.emailLinkTitle\":\"Envoyer un courriel au Nuage de talents.\",\"jobBuilder.intro.explanation\":\"Le présent outil vous aidera à créer une offre d’emploi qui vous aidera à attirer les bons talents. Avant de commencer à créer l’offre d’emploi, veuillez prendre le temps de {boldText}\",\"jobBuilder.intro.explanation.boldText\":\"confirmer l’exactitude de vos renseignements personnels ci-dessous.\",\"jobBuilder.intro.formDescription\":\"Ces renseignements apparaîtront dans l’offre d’emploi pour donner de plus amples renseignements aux candidats sur les personnes avec qui ils travailleront.\",\"jobBuilder.intro.formTitle\":\"Information du profil de {name}\",\"jobBuilder.intro.jobTitleLabelEN\":\"Le poste de {name} (en anglais)\",\"jobBuilder.intro.jobTitleLabelFR\":\"Le poste de {name} (en français)\",\"jobBuilder.intro.jobTitlePlaceholderEN\":\"Par exemple : Design Manager\",\"jobBuilder.intro.jobTitlePlaceholderFR\":\"Par exemple : Gestionnaire de la conception\",\"jobBuilder.intro.managerLoading\":\"Votre profil de gestionnaire est en cours de chargement...\",\"jobBuilder.intro.welcome\":\"Bienvenue sur le Constructeur d'Affiches\",\"jobBuilder.jobLoading\":\"Votre offre d’emploi est en train de se charger...\",\"jobBuilder.loading\":\"Votre offre d’emploi est en train de se charger...\",\"jobBuilder.mgmtStyle.01.description\":\"Il n’y a aucun cadre intermédiaire ici, donc nous prenons, nous-mêmes, la plupart des décisions importantes et vous pouvez vous attendre à interagir quotidiennement avec nos cadres supérieures.\",\"jobBuilder.mgmtStyle.01.title\":\"Horizontale\",\"jobBuilder.mgmtStyle.02.description\":\"Nous avons quelques cadres intermédiaires ici, mais nous prenons, nous-mêmes, les décisions quotidiennes. Ne soyez pas surpris d’interagir assez souvent avec nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.02.title\":\"Assez horizontale\",\"jobBuilder.mgmtStyle.03.description\":\"Notre équipe a un rôle clairement défini. Nous faisons régulièrement le point avec les cadres intermédiaires pour approuver et mettre à jour la vision stratégique de nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.03.title\":\"Assez verticale\",\"jobBuilder.mgmtStyle.04.description\":\"Notre équipe a un rôle clairement défini. Nous faisons souvent le point auprès des cadres intermédiaires pour approuver et procéder à la mise à jour de la vision stratégique de nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.04.title\":\"Verticale\",\"jobBuilder.preview.city\":\"Ville\",\"jobBuilder.preview.classification\":\"Classification\",\"jobBuilder.preview.classificationEducation\":\"Classification et éducation\",\"jobBuilder.preview.education\":\"Éducation\",\"jobBuilder.preview.flexibleHours\":\"Heures flexibles\",\"jobBuilder.preview.jobInformation\":\"Renseignements sur l’emploi\",\"jobBuilder.preview.jobTitle\":\"Titre du poste\",\"jobBuilder.preview.languageProfile\":\"Profil linguistique\",\"jobBuilder.preview.lengthOfTheTerm\":\"Durée du poste\",\"jobBuilder.preview.level\":\"Niveau\",\"jobBuilder.preview.overtime\":\"Heures supplémentaires\",\"jobBuilder.preview.province\":\"Province\",\"jobBuilder.preview.remoteWork\":\"Travail à distance\",\"jobBuilder.preview.securityClearance\":\"Cote de sécurité\",\"jobBuilder.preview.telework\":\"Télétravail\",\"jobBuilder.preview.termLength\":\"{termMonths, plural, =0 {pas de mois} other {# mois}}\",\"jobBuilder.preview.travel\":\"Voyage\",\"jobBuilder.preview.workStyles\":\"Styles de travail\",\"jobBuilder.progressTracker.label.finish\":\"Fin\",\"jobBuilder.progressTracker.label.start\":\"Début\",\"jobBuilder.progressTracker.label.step1\":\"Étape 1 / 5\",\"jobBuilder.progressTracker.label.step2\":\"Étape 2 / 5\",\"jobBuilder.progressTracker.label.step3\":\"Étape 3 / 5\",\"jobBuilder.progressTracker.label.step4\":\"Étape 4 / 5\",\"jobBuilder.progressTracker.label.step5\":\"Étape 5 / 5\",\"jobBuilder.progressTracker.title.impact\":\"Incidence\",\"jobBuilder.progressTracker.title.jobInfo\":\"Renseignements\",\"jobBuilder.progressTracker.title.review\":\"Révision\",\"jobBuilder.progressTracker.title.skills\":\"Compétences\",\"jobBuilder.progressTracker.title.tasks\":\"Tâches\",\"jobBuilder.progressTracker.title.welcome\":\"Bienvenue\",\"jobBuilder.progressTracker.title.workEnv\":\"Environnement\",\"jobBuilder.review.GovernmentClass\":\"Classification gouvernementale\",\"jobBuilder.review.assetHeading\":\"Compétences souhaitables\",\"jobBuilder.review.averageAnnualSalary\":\"Échelle de salaire annuel\",\"jobBuilder.review.basicInformationHeading\":\"Renseignements de base\",\"jobBuilder.review.button.return\":\"Enregistrer et retourner aux compétences\",\"jobBuilder.review.button.submit\":\"Cela semble bon!\",\"jobBuilder.review.comesLater\":\"Cette étape survient plus tard.\",\"jobBuilder.review.confirm.cancel\":\"Annuler\",\"jobBuilder.review.confirm.submit\":\"Oui, transmettre\",\"jobBuilder.review.confirm.title\":\"Félicitations! Êtes-vous prêt à transmettre l’offre d’emploi?\",\"jobBuilder.review.criteriaSection\":\"Critères\",\"jobBuilder.review.cultureSection\":\"Environnement et culture\",\"jobBuilder.review.documentTitle\":\"Constructeur d'affiches: Révision\",\"jobBuilder.review.duration\":\"Durée\",\"jobBuilder.review.educationalHeading\":\"Exigences relatives aux études\",\"jobBuilder.review.headsUp\":\"Un simple rappel. Nous avons réorganisé certains renseignements fournis afin de vous aider à comprendre comment le candidat verra l’information une fois publiée.\",\"jobBuilder.review.impactEditLink\":\"Modifier cet élément à l’étape 03, Incidence.\",\"jobBuilder.review.impactHeading\":\"Incidence\",\"jobBuilder.review.infoEditLink\":\"Modifier cet élément à l’étape 01, Renseignements sur le poste\",\"jobBuilder.review.jobPageHeading\":\"Titre de la page de l’emploi\",\"jobBuilder.review.languageHeading\":\"Exigences linguistiques\",\"jobBuilder.review.languageProfile\":\"Profil linguistique\",\"jobBuilder.review.managerDataLoading\":\"Les données du gestionnaire sont en cours de chargement...\",\"jobBuilder.review.managerHeading\":\"Les données du gestionnaire sont en cours de chargement...\",\"jobBuilder.review.managerIncomplete\":\"Veuillez remplir votre profil de gestionnaire.\",\"jobBuilder.review.managerPosition\":\"{position} au {department}\",\"jobBuilder.review.managerProfileLink\":\"Modifier cet élément dans votre profil\",\"jobBuilder.review.meantime\":\"Entre-temps, n’hésitez pas à créer un plan de présélection pour votre processus de sélection. Vous pouvez aussi attendre les commentaires des RH avant de passer à l’étape suivante.\",\"jobBuilder.review.months\":\"{termMonths,plural,=0{No Months} one{{termMonths, number} Month} other{{termMonths, number} Months}}\",\"jobBuilder.review.nullProvince\":\"PROVINCE MANQUANTE\",\"jobBuilder.review.or\":\"ou\",\"jobBuilder.review.otherInfoHeading\":\"Autres renseignements au sujet de l’équipe\",\"jobBuilder.review.readyToSubmit\":\"Si vous êtes prêt à soumettre votre offre, cliquez sur le bouton Soumettre ci-dessous.\",\"jobBuilder.review.remoteAllowed\":\"Travail à distance autorisé\",\"jobBuilder.review.remoteNotAllowed\":\"Travail à distance non autorisé\",\"jobBuilder.review.reviewYourPoster\":\"Examiner votre offre d’emploi pour :\",\"jobBuilder.review.securityClearance\":\"Autorisation de sécurité\",\"jobBuilder.review.sendYourDraft\":\"Le Nuage de talents enverra votre ébauche au conseiller en RH de votre ministère, et ce dernier vous informera de ses commentaires.\",\"jobBuilder.review.skills.nullState\":\"Vous n’avez pas ajouté de compétences souhaitables pour cette offre d’emploi.\",\"jobBuilder.review.skillsEditLink\":\"Modifier cet élément à l’étape 05, Compétences\",\"jobBuilder.review.skillsHeading\":\"Compétences requises\",\"jobBuilder.review.tCAdds\":\"Le Nuage de talents ajoutera l’élément.\",\"jobBuilder.review.targetStartDate\":\"Date d’entrée en fonction prévue\",\"jobBuilder.review.tasksEditLink\":\"Modifier cet élément à l’étape 04, Tâches\",\"jobBuilder.review.tasksHeading\":\"Tâches\",\"jobBuilder.review.whatHappens\":\"Quelles sont les prochaines étapes?\",\"jobBuilder.review.workCultureHeading\":\"Culture de travail\",\"jobBuilder.review.workDescription\":\"Veuillez prendre note que certains renseignements sur le milieu de travail ne seront affichés que si le candidat clique sur le bouton « Afficher le milieu de travail et la culture de l’équipe » qui apparaît sur l’offre d’emploi.\",\"jobBuilder.review.workEnvEditLink\":\"Modifier cet élément à l’étape 02, Environnement de travail\",\"jobBuilder.review.workEnvHeading\":\"Milieu de travail\",\"jobBuilder.root.documentTitle\":\"Constructeur d'Affiches\",\"jobBuilder.skills.addSkillBelow\":\"Ajoutez des compétences, ci-dessous, pour continuer.\",\"jobBuilder.skills.alt.happyArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône sourire.\",\"jobBuilder.skills.alt.happyGraySmiley\":\"émoticône sourire en gris.\",\"jobBuilder.skills.alt.happySmiley\":\"émoticône sourire en couleur.\",\"jobBuilder.skills.alt.neutralArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône neutre.\",\"jobBuilder.skills.alt.neutralGraySmiley\":\"émoticône neutre en gris.\",\"jobBuilder.skills.alt.neutralSmiley\":\"émoticône neutre en couleur.\",\"jobBuilder.skills.alt.unhappyArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône triste.\",\"jobBuilder.skills.alt.unhappyGraySmiley\":\"émoticône triste en gris.\",\"jobBuilder.skills.alt.unhappySmiley\":\"émoticône triste en couleur.\",\"jobBuilder.skills.button.keyTasks\":\"Voir les tâches principales\",\"jobBuilder.skills.button.previewSkills\":\"Sauvegarder et voir un aperçu des compétences\",\"jobBuilder.skills.button.returnToTasks\":\"Sauvegarder et retourner aux tâches\",\"jobBuilder.skills.description\":\"C’est ici que vous choisissez les critères requis pour accomplir ce travail efficacement. Vous trouverez, ci-dessous, deux barres qui indiquent la mesure du niveau de votre présente compétence sélectionnée.\",\"jobBuilder.skills.description.keepItUp\":\"Voici un aperçu des compétences que vous venez de saisir. N’hésitez pas à retourner à la page précédente et à corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait. \",\"jobBuilder.skills.documentTitle\":\"Constructeur d'affiches: Compétences\",\"jobBuilder.skills.emailLink\":\"Communiquez avec nous par courriel\",\"jobBuilder.skills.essentialSkillRequiredError\":\"Au moins une compétence essentielle est requise.\",\"jobBuilder.skills.instructions.missingSkills\":\"Le fait de dresser une liste de compétences est une tâche énorme, et il n’est pas surprenant que la liste de Nuage de talents ne contienne pas la compétence que vous cherchez. Afin de nous aider à allonger la liste des compétences, veuillez {link}. Veuillez fournir le nom de la compétence ainsi qu’une brève description pour lancer la discussion.\",\"jobBuilder.skills.listTitle\":\"Votre liste de compétences\",\"jobBuilder.skills.nullState\":\"Vous n’avez pas encore ajouté de compétences.\",\"jobBuilder.skills.nullText.occupationalSkills\":\"Vous devez retourner à Étape 1 et choisir une classification.\",\"jobBuilder.skills.placeholder.otherSkills\":\"Aucune autre compétence n’est ajoutée.\",\"jobBuilder.skills.previewModalCancelLabel\":\"Retour en arrière\",\"jobBuilder.skills.previewModalConfirmLabel\":\"Prochaine étape\",\"jobBuilder.skills.previewModalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.skills.range.culturalSkills\":\"Visez des compétences {minCulture} – {maxCulture}.\",\"jobBuilder.skills.range.futureSkills\":\"Visez des compétences {minFuture} – {maxFuture}.\",\"jobBuilder.skills.range.occupationalSkills\":\"Visez des compétences {minOccupational} – {maxOccupational}.\",\"jobBuilder.skills.selectSkillLabel\":\"Veuillez sélectionner une compétence dans notre liste.\",\"jobBuilder.skills.selectSkillNull\":\"Veuillez sélectionner une compétence\",\"jobBuilder.skills.skillLevel\":\"Niveau de compétences\",\"jobBuilder.skills.statusSmiley.acceptable\":\"Acceptable\",\"jobBuilder.skills.statusSmiley.almost\":\"Presque\",\"jobBuilder.skills.statusSmiley.awesome\":\"Fantastique\",\"jobBuilder.skills.statusSmiley.essential.acceptable\":\"Acceptable\",\"jobBuilder.skills.statusSmiley.essential.almost\":\"Presque\",\"jobBuilder.skills.statusSmiley.essential.awesome\":\"Fantastique\",\"jobBuilder.skills.statusSmiley.essential.tooFew\":\"Insuffisant\",\"jobBuilder.skills.statusSmiley.essential.tooMany\":\"Trop\",\"jobBuilder.skills.statusSmiley.essentialTitle\":\"Le nombre de compétences fondamentales est\",\"jobBuilder.skills.statusSmiley.title\":\"Le nombre total des compétences\",\"jobBuilder.skills.statusSmiley.tooFew\":\"Insuffisant\",\"jobBuilder.skills.statusSmiley.tooMany\":\"Trop\",\"jobBuilder.skills.tasksModalCancelLabel\":\"Retour aux compétences\",\"jobBuilder.skills.title\":\"Compétences\",\"jobBuilder.skills.title.addASkill\":\"Ajoutez une compétence\",\"jobBuilder.skills.title.assetSkills\":\"Compétences constituant un atout\",\"jobBuilder.skills.title.culturalSkills\":\"Compétences comportementales\",\"jobBuilder.skills.title.editSkill\":\"Modifiez une compétence\",\"jobBuilder.skills.title.essentialSkills\":\"Compétences essentielles\",\"jobBuilder.skills.title.futureSkills\":\"Compétences de la fonction publique\",\"jobBuilder.skills.title.keepItUp\":\"Ne lâchez surtout pas!\",\"jobBuilder.skills.title.keyTasks\":\"Tâches principales\",\"jobBuilder.skills.title.missingSkill\":\"Vous ne trouvez pas la compétence dont vous avez besoin?\",\"jobBuilder.skills.title.needsToHave\":\"Les compétences que l’employé(e) doit posséder\",\"jobBuilder.skills.title.niceToHave\":\"Les compétences qu’il serait souhaitable que l’employé(e) possède\",\"jobBuilder.skills.title.occupationalSkills\":\"Compétences professionnelles\",\"jobBuilder.skills.title.otherSkills\":\"Autres compétences\",\"jobBuilder.skills.title.skillSelection\":\"Choix des compétences\",\"jobBuilder.tasks.addJob\":\"Ajoutez une tâche \",\"jobBuilder.tasks.documentTitle\":\"Constructeur d'affiches: Tâches\",\"jobBuilder.tasks.heading\":\"Ajoutez des tâches principales\",\"jobBuilder.tasks.intro.first\":\"À quoi le nouveau membre de votre équipe consacrera-t-il son temps? Quelles sont les tâches à exécuter?\",\"jobBuilder.tasks.intro.fourth\":\"Une fois que vous aurez terminé d’entrer les tâches principales, vous passerez à la détermination des compétences individuelles nécessaires à l’exécution de ces tâches.\",\"jobBuilder.tasks.intro.second\":\"Mettez l’accent sur les tâches à exécuter. Vous n’avez pas à donner tous les détails de l’emploi, mais les candidats souhaitent savoir comment ils vont passer la plus grande partie de leur temps.\",\"jobBuilder.tasks.intro.third\":\"Cherchez à indiquer de quatre à six tâches principales. (Tout au long du remue-méninges, vous pouvez ajouter autant de tâches principales que vous le souhaitez ici, mais vous ne pouvez pas en inclure plus de six dans l’offre d’emploi finale.)\",\"jobBuilder.tasks.modal.body\":\"Voici un aperçu des tâches que vous venez de saisir. N’hésitez pas à retourner à la page précédente pour corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.tasks.modal.body.heading\":\"Tâches\",\"jobBuilder.tasks.modal.cancelButtonLabel\":\"Retour en arrière\",\"jobBuilder.tasks.modal.confirmButtonLabel\":\"Prochaine étape\",\"jobBuilder.tasks.modal.middleButtonLabel\":\"Passer pour la révision\",\"jobBuilder.tasks.modal.title\":\"Ne lâchez surtout pas!\",\"jobBuilder.tasks.preview\":\"Aperçu des tâches\",\"jobBuilder.tasks.previous\":\"Étape précédente\",\"jobBuilder.tasks.taskCount.error.body\":\"Vous avez dépassé le nombre maximal permis de tâches principales, mais ce n’est pas grave. Tout au long du remue-méninges, vous pouvez continuer à ajouter des tâches principales ici, mais on vous demandera de réduire votre liste à six tâches ou moins pour continuer.\",\"jobBuilder.tasks.taskCount.error.title\":\"Juste pour vous informer!\",\"jobBuilder.tasks.taskCount.none\":\"Vous n’avez pas encore ajouté de tâches!\",\"jobBuilder.tasks.taskCount.some\":\"Vous avez ajouté {taskCount, plural, one {# tâche} other {# tâches}}.\",\"jobBuilder.tasks.taskLabel\":\"Tâche\",\"jobBuilder.tasks.taskPlaceholder\":\"Essayez d’adopter un ton décontracté, franc et amical...\",\"jobBuilder.tasks.tasksMaximum\":\"Veuillez supprimer toute tâche supplémentaire avant de continuer.\",\"jobBuilder.tasks.tasksRequired\":\"Au moins une tâche est requise.\",\"jobBuilder.workCulture.flexibleHours\":\"Heures flexibles\",\"jobBuilder.workCulture.flexibleHoursDescription\":\"Précisez vos propres heures de début et de fin.\",\"jobBuilder.workCulture.overtime\":\"Heures supplémentaires\",\"jobBuilder.workCulture.overtimeDescription\":\"Heures supplémentaires le soir ou la fin de semaine.\",\"jobBuilder.workCulture.remoteWork\":\"Travail à distance\",\"jobBuilder.workCulture.remoteWorkDescription\":\"Travailler de n’importe où, en tout temps.\",\"jobBuilder.workCulture.remoteWorkMsg.always\":\"Toujours\",\"jobBuilder.workCulture.remoteWorkMsg.never\":\"Jamais\",\"jobBuilder.workCulture.telework\":\"Télétravail\",\"jobBuilder.workCulture.teleworkDescription\":\"Travailler à partir de la maison certains jours (à une distance raisonnable en voiture du bureau).\",\"jobBuilder.workCulture.travel\":\"Déplacements\",\"jobBuilder.workCulture.travelDescription\":\"Découvrez le Canada ou d’autres régions du monde.\",\"jobBuilder.workEnv.amenities.cafeteria\":\"Cafétéria sur place\",\"jobBuilder.workEnv.amenities.closeToTransit\":\"À proximité du transport en commun\",\"jobBuilder.workEnv.amenities.downtown\":\"Centre-ville\",\"jobBuilder.workEnv.amenities.fitnessCenter\":\"À proximité d’un centre de conditionnement physique\",\"jobBuilder.workEnv.amenities.parking\":\" Accès facile à un stationnement\",\"jobBuilder.workEnv.amenities.restaurants\":\"À distance de marche des restaurants et des centres commerciaux\",\"jobBuilder.workEnv.amenitiesLabel\":\"À proximité\",\"jobBuilder.workEnv.collaborativeLabel\":\"Collaboratif ou indépendant :\",\"jobBuilder.workEnv.culture\":\"Notre culture\",\"jobBuilder.workEnv.cultureSubtext1\":\"Maintenant, renseignez les candidats davantage sur la personnalité des membres de votre équipe et le type de travail que vous faites habituellement.\",\"jobBuilder.workEnv.cultureSubtext2\":\"Sur la base de vos sélections, nous allons créer un court paragraphe résumant votre culture de travail. Vous pouvez modifier ce paragraphe afin qu’il soit personnalisé selon votre équipe.\",\"jobBuilder.workEnv.cultureSummary\":\"Résumé sur la culture\",\"jobBuilder.workEnv.cultureSummarySubtext\":\"Voici le court paragraphe qui résume la culture de votre travail qui apparaîtra dans l’offre d’emploi. Copiez-le et collez-le dans le champ de saisie qui suit, si vous désirez l’adapter à la personnalité des membres de votre équipe et à votre façon de travailler.\",\"jobBuilder.workEnv.customCultureSummaryLabel\":\"Adaptez votre résumé sur la culture :\",\"jobBuilder.workEnv.customCultureSummaryPlaceholder\":\"Collez le paragraphe ici pour le modifier...\",\"jobBuilder.workEnv.documentTitle\":\"Constructeur d'affiches: Environnement\",\"jobBuilder.workEnv.experimentalLabel\":\"Toujours expérimentale contre activités en cours:\",\"jobBuilder.workEnv.facingLabel\":\"Services orientés vers le client contre services administratifs :\",\"jobBuilder.workEnv.fastPacedSteadyLabel\":\"Rythme rapide contre rythme soutenu :\",\"jobBuilder.workEnv.greatStart\":\"Vous commencez très bien!\",\"jobBuilder.workEnv.managementLabel\":\"Horizontale contre verticale :\",\"jobBuilder.workEnv.moreOnWorkEnv\":\"Voici de plus amples renseignements sur votre environnement\",\"jobBuilder.workEnv.moreOnWorkEnvLabel\":\"Voici de plus amples renseignements sur votre environnement\",\"jobBuilder.workEnv.moreOnWorkEnvPlaceholder\":\"Essayez d’adopter un ton décontracté, franc et amical.\",\"jobBuilder.workEnv.moreOnWorkEnvSubtext\":\"Souhaitez-vous ajouter quelque chose à propos de votre environnement de travail? Mettez en évidence les caractéristiques de l’environnement physique, de la technologie et des commodités propres à votre équipe.\",\"jobBuilder.workEnv.openingSentence\":\"Voici un aperçu des renseignements sur l’emploi que vous venez de saisir. N’hésitez pas à retourner à la page précédente et à corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.workEnv.ourWorkEnv\":\"Notre environnement de travail\",\"jobBuilder.workEnv.ourWorkEnvDesc\":\"Décrivez un peu votre espace physique, la technologie que les membres de votre équipe utilisent et les services qui se trouvent à proximité de votre bureau. Cochez toutes les réponses qui s’appliquent.\",\"jobBuilder.workEnv.physEnv.assignedSeating\":\"Places réservées\",\"jobBuilder.workEnv.physEnv.naturalLight\":\"Lumière naturelle\",\"jobBuilder.workEnv.physEnv.openConcept\":\"Espaces de travail à aire ouverte\",\"jobBuilder.workEnv.physEnv.private\":\"Privé\",\"jobBuilder.workEnv.physEnv.smudging\":\"Convient aux cérémonies de purification par la fumée\",\"jobBuilder.workEnv.physEnv.windows\":\"Plusieurs fenêtres\",\"jobBuilder.workEnv.physicalEnvLabel\":\"Notre environnement physique\",\"jobBuilder.workEnv.saveAndReturnButtonLabel\":\"Découvrez le Canada ou d’autres régions du monde.\",\"jobBuilder.workEnv.specialWorkCulture\":\"Y a-t-il quelque chose de spécial au sujet de votre culture de travail?\",\"jobBuilder.workEnv.specialWorkCultureLabel\":\"Voici de plus amples renseignements sur votre culture de travail.\",\"jobBuilder.workEnv.specialWorkCultureSubtext\":\"Votre équipe accorde-t-elle beaucoup d’importance à d’autres aspects? Est-elle fière de son bilan en matière de résultats? A-t-elle pris de solides engagements envers le mieux-être mental? Participe-t-elle activement à la promotion de la diversité et de l’inclusion? Ses membres se font-ils les champions des enjeux relatifs à la collectivité LGBTQ+? Voici l’occasion de faire connaître aux candidats la culture de l’équipe qu’ils pourraient intégrer.\",\"jobBuilder.workEnv.stepDescription\":\"Les candidats accordent beaucoup d’importance à l’équipe au sein de laquelle ils travailleront et à leur espace de travail physique. Le fait de communiquer de l’information à ce sujet aide les candidats à déterminer s’ils correspondent bien au profil de l’emploi, et peut réduire le nombre de demandes « illusoires » qui ralentissent le processus de présélection.\",\"jobBuilder.workEnv.submitButtonLabel\":\"Aperçu de l’environnement de travail\",\"jobBuilder.workEnv.teamSizeLabel\":\"Taille de l’équipe\",\"jobBuilder.workEnv.teamSizePlaceholder\":\"Par exemple 10\",\"jobBuilder.workEnv.technology.accessToExternal\":\"Accès à un réseau sans fil externe et non filtré\",\"jobBuilder.workEnv.technology.collaboration\":\"Collaboration (p. ex., Slack, Hangouts)\",\"jobBuilder.workEnv.technology.fileSharing\":\"Partage des dossiers (p. ex., Google Drive, Dropbox)\",\"jobBuilder.workEnv.technology.taskManagement\":\"Gestion de tâches (p. ex., Trello, Asana)\",\"jobBuilder.workEnv.technology.versionControl\":\"Gestion de versions (p. ex., Github, Gitlab)\",\"jobBuilder.workEnv.technology.videoConferencing\":\"Vidéo-conférence (p. ex., Skype, Zoom)\",\"jobBuilder.workEnv.technologyLabel\":\"Technologie\",\"jobBuilder.workEnv.textAreaPlaceholder1\":\"Essayez d’adopter un ton décontracté, franc et amical.\",\"jobBuilder.workEnv.thisIsOptional\":\"Ceci est facultatif.\",\"jobBuilder.workEnv.title\":\"Environnement de travail\",\"jobBuilder.workEnvModal.cancelLabel\":\"Retour en arrière\",\"jobBuilder.workEnvModal.confirmLabel\":\"Prochaine étape\",\"jobBuilder.workEnvModal.modalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.workEnvModal.title\":\"Environnement de travail\",\"jobBuilder.workEnvModal.workCultureTitle\":\"Culture du travail\",\"jobCard.applicants\":\"{applicants, plural,=0 {Aucun candidat} one {# candidat} other {# candidats}}\",\"jobCard.managerTime\":\"Time with Manager: {managerTime, plural, one {# day} other {# days} }\",\"jobCard.noActivity\":\"Aucune nouvelle activité\",\"jobCard.userTime\":\"Time with you: <s>{userTime, plural, one {# day} other {# days} }</s>\",\"jobReviewHr.headsUp\":\"Un simple rappel! Nous avons réorganisé certains renseignements fournis afin de vous aider à comprendre comment le candidat verra l’information une fois publiée.\",\"jobReviewHr.loadingIconText\":\"Les données sont en cours de chargement...\",\"jobReviewHr.reviewYourPoster\":\"Examiner votre offre d’emploi pour :\",\"jobReviewHr.summaryLink\":\"Revenir au résumé\",\"languageRequirement.bilingualAdvanced\":\"Bilingue - Avancé (CBC)\",\"languageRequirement.bilingualIntermediate\":\"Bilingue - Intermédiaire (BBB)\",\"languageRequirement.context.basic\":\"Vous pouvez présenter cette demande initiale dans la langue officielle de votre choix (français ou anglais).\",\"languageRequirement.context.expanded\":\"Vous pouvez suivre toutes les autres étapes de ce processus d’évaluation dans la langue officielle de votre choix, y compris la demande initiale, l’entrevue, l’examen et toute autre composante de l’évaluation.\",\"languageRequirement.description.bilingualAdvanced\":\"Ce poste nécessite une connaissance approfondie du français et de l'anglais. Cela signifie que vous pouvez assumer des tâches en français ou en anglais et que vous avez de solides compétences en lecture, en écriture et en communication verbale dans les deux langues officielles. Dans le cadre de ce processus de sélection, vos compétences linguistiques seront testées par la Commission de la fonction publique du Canada. Commission de la fonction publique du Canada.\",\"languageRequirement.description.bilingualIntermediate\":\"Ce poste nécessite une connaissance pratique du français et de l'anglais. Cela signifie que vous pouvez occuper des fonctions en français ou en anglais et que vous possédez des compétences intermédiaires en lecture, en écriture et en communication verbale dans les deux langues officielles. Dans le cadre de ce processus de sélection, vos compétences linguistiques seront testées par la Commission de la fonction publique du Canada.\",\"languageRequirement.description.english\":\"Ce poste exige une bonne maîtrise de l’anglais, tant à l’écrit que de vive voix. Dans le cadre de l’évaluation de vos compétences linguistiques, le gestionnaire d’embauche peut vous demander de suivre certaines étapes d’évaluation en anglais, comme des questions d’entrevue ou un examen.\",\"languageRequirement.description.englishOrFrench\":\"Pour ce poste, vous répondez aux exigences linguistiques si vous possédez de solides compétences en lecture, en rédaction et en communication verbale en français, en anglais ou dans les deux (bilingue).\",\"languageRequirement.description.french\":\"Ce poste exige une bonne maîtrise du français, tant à l’écrit que de vive voix. Dans le cadre de l’évaluation de vos compétences linguistiques, le gestionnaire d’embauche peut vous demander de suivre certaines étapes d’évaluation en français, comme des questions d’entrevue ou un examen.\",\"languageRequirement.english\":\"Anglais - Essentiel\",\"languageRequirement.englishOrFrench\":\"Anglais ou français\",\"languageRequirement.french\":\"Français - Essentiel\",\"managerSurveyModal.explanation\":\"Vos commentaires nous aident à améliorer nos outils! Veuillez prendre quelques minutes pour répondre à un sondage.\",\"managerSurveyModal.jobPosterLink\":\"Retour à Mes offres d'emploi\",\"managerSurveyModal.jobPosterLinkTitle\":\"Visitez Mes offres d'emploi.\",\"managerSurveyModal.link\":\"M'emmener au sondage.\",\"managerSurveyModal.managerSurveyLinkTitle\":\"Lien vers le sondage auprès des gestionnaires.\",\"managerSurveyModal.title\":\"Votre offre d'emploi a été soumise!\",\"openJobCard.claimJob\":\"Réclamer cet emploi\",\"openJobCard.error\":\"Date non disponible.\",\"openJobCard.hiringManager\":\"Gestionnaires d’embauche :\",\"openJobCard.hrAdvisors\":\"Conseillers en RH :\",\"openJobCard.reviewRequested\":\"Récupérée: \",\"openJobCard.unclaimed\":\"Non réclamé\",\"progressTracker.unreachableStep\":\"Doit compléter les étapes précédentes.\",\"province.ab\":\"Alberta\",\"province.ab.abreviation\":\"Alta.\",\"province.bc\":\"Colombie britannique\",\"province.bc.abreviation\":\"C.-B.\",\"province.mb\":\"Manitoba\",\"province.mb.abreviation\":\"Man.\",\"province.nb\":\"Nouveau-Brunswick\",\"province.nb.abreviation\":\"N.-B.\",\"province.nl\":\"Terre-Neuve-et-Labrador\",\"province.nl.abreviation\":\"T.-N.-L.\",\"province.ns\":\"Nouvelle-Écosse\",\"province.ns.abreviation\":\"N.-É.\",\"province.nt\":\"Territoires du nord-ouest\",\"province.nt.abreviation\":\"T.N.-O.\",\"province.nu\":\"Nunavut\",\"province.nu.abreviation\":\"Nt\",\"province.on\":\"Ontario\",\"province.on.abreviation\":\"Ont.\",\"province.pe\":\"Île-du-Prince-Édouard\",\"province.pe.abreviation\":\"Î.-P.-É.\",\"province.qc\":\"Québec\",\"province.qc.abreviation\":\"Qc\",\"province.sk\":\"Saskatchewan\",\"province.sk.abreviation\":\"Sask.\",\"province.yk\":\"Yukon\",\"province.yk.abreviation\":\"Yn\",\"ratingGuideAnswer.answerLabel\":\"Réponse de passage acceptable / Démonstration requise\",\"ratingGuideAnswer.answerPlaceholder\":\"Écrivez la réponse de passage attendue du candidat relativement à cette compétence...\",\"ratingGuideAnswer.nullSelection\":\"Sélectionnez une compétence...\",\"ratingGuideAnswer.selectLabel\":\"Sélectionnez une compétence\",\"ratingGuideBuilder.addQuestion\":\"Ajoutez une question\",\"ratingGuideBuilder.assetMissing\":\"{count} Atout manquant : \",\"ratingGuideBuilder.copyButton\":\"Cliquez ici pour copier ce guide de cotation dans votre presse-papiers\",\"ratingGuideBuilder.copyInstructions\":\"Maintenant que vous avez conçu votre guide de cotation, vous pouvez utiliser le bouton ci-dessous pour copier tout le contenu dans votre presse-papiers, et ainsi pouvoir coller facilement votre système de traitement de texte préféré.\",\"ratingGuideBuilder.criteriaName\":\"{skillName} - {skillLevel}\",\"ratingGuideBuilder.criteriaTypeHeading\":\"Type de critères\",\"ratingGuideBuilder.essentialMissing\":\"{count} Critères essentiels manquants : \",\"ratingGuideBuilder.instructions\":\"Vous trouverez ci-dessous votre propre guide de cotation pour vous aider à évaluer vos candidats. Cet outil vous permet d’élaborer vos propres questions pour chaque évaluation que vous avez sélectionnée ci-dessus, puis de noter les critères de ce que pourrait représenter une excellente réponse du candidat. Veuillez prendre note que l’« examen narratif » est unique en ce sens que le contenu est généré pour vous ci-dessous.\",\"ratingGuideBuilder.narrativeSectionTitle\":\"Évaluation {index}: {assessmentType}\",\"ratingGuideBuilder.questionHeading\":\"Question\",\"ratingGuideBuilder.ratingGuideHeading\":\"Guide de notation\",\"ratingGuideBuilder.sectionTitle\":\"Évaluation {index}: {assessmentType}\",\"ratingGuideBuilder.skillDescriptionHeading\":\"Description de la compétence\",\"ratingGuideBuilder.skillHeading\":\"Compétence\",\"ratingGuideBuilder.targetLevelHeading\":\"Niveau cible\",\"ratingGuideBuilder.title\":\"3. Concepteur de guides de cotation\",\"ratingGuideBuilder.titleHeading\":\"Titre\",\"ratingGuideQuestion.questionLabel\":\"Question d'entrevue\",\"ratingGuideQuestion.questionPlaceholder\":\"Écrivez votre question d'entrevue ici ...\",\"review.applications.alert.oops\":\"Enregistrer\",\"review.applications.button.confirm\":\"Confirmer\",\"review.applications.indexPageTitle\":\"Applications pour : {jobTitle} {jobClassification}\",\"review.applications.nonCitizens.description\":\" \",\"review.applications.nonCitizens.title\":\"Non-Citoyens canadiens\",\"review.applications.optionalConsideration.description\":\"Dans ce groupe, vous trouverez les candidats qui ne sont pas citoyens canadiens ou qui ne prétendent pas répondre aux critères essentiels.\",\"review.applications.optionalConsideration.title\":\"Candidats supplémentaires\",\"review.applications.priorityApplicants.description\":\"Ce sont des candidats prioritaires pour ce poste. Ils doivent être examinés et pris en compte en premier.\",\"review.applications.priorityApplicants.title\":\"Candidats prioritaire\",\"review.applications.reviewSaveFailed\":\"Une erreur s'est produite lors de l'enregistrement d'un commentaire. Réessayez plus tard.\",\"review.applications.screenOutAll\":\"Éliminer tous les candidats supplémentaires\",\"review.applications.screenOutAll.confirm\":\"Êtes-vous sûr de vouloir éliminer tous les candidats supplémentaires?\",\"review.applications.screenedOut.description\":\"Ces applications ont déjà été éliminées.\",\"review.applications.screenedOut.title\":\"Candidats qui ne sont plus considérés\",\"review.applications.underConsideration.description\":\"Examinez les candidats dans la section Anciens combattants et citoyens canadiens. Si aucun ou très peu de ces candidats ne répondent aux critères, vous pouvez toujours prendre en compte les candidatures non citoyennes dans la section Considérations facultatives.\",\"review.applications.underConsideration.title\":\"Candidats à considérée\",\"review.applications.unqualified.description\":\" \",\"review.applications.unqualified.title\":\"Ne répond pas aux critères essentiels\",\"review.applications.veteransAndCitizens.description\":\" \",\"review.applications.veteransAndCitizens.title\":\"Anciens combattants et citoyens canadiens\",\"reviewLocations.jpb.basicInfo\":\"Renseignements de base\",\"reviewLocations.jpb.environment\":\"Environnement de travail\",\"reviewLocations.jpb.generic\":\"Générique\",\"reviewLocations.jpb.heading\":\"Titre de la page de l’emploi\",\"reviewLocations.jpb.impact\":\"Impact\",\"reviewLocations.jpb.langRequirements\":\"Exigences linguistiques\",\"reviewLocations.jpb.skills\":\"Compétences\",\"reviewLocations.jpb.tasks\":\"Taches\",\"securityClearance.reliability\":\"Fiabilité\",\"securityClearance.secret\":\"Secret\",\"securityClearance.topSecret\":\"Très secret\",\"skillLevel.asset.description\":\"Cette compétence n’est pas nécessaire pour que l’employé puisse exécuter le travail, mais elle ajoute un avantage à l’ensemble de ses compétences et améliorera le rythme ou l’efficacité de son travail.\",\"skillLevel.asset.name\":\"Atout/aucun niveau requis\",\"skillLevel.hard.advanced.description\":\"Vous avez la capacité d’accomplir des tâches d’une complexité ou d’une incidence importante avec supervision. Vous donnez des conseils et des commentaires au superviseur sur l’approche à employer pour effectuer les tâches et la façon dont elles sont exécutées. Vous êtes en mesure de faire progresser la tâche, même face à des obstacles et à des complications d’envergure moyenne à importante. Au fur et à mesure que vous progressez dans cette catégorie, vous êtes être en mesure d’accomplir des tâches d’une complexité importante ou ayant une incidence plus grande avec seulement de légers niveaux de supervision, en étant effectivement le responsable de l’initiative. Vous pouvez également jouer un rôle de formation d’autres personnes dans cet ensemble de compétences ou assumer un rôle de supervision léger pour les personnes aux niveaux inférieurs. Ce niveau est habituellement associé à des tâches qui constituent la majeure partie du travail pour des postes de niveau supérieur, comme les analystes principaux ou les développeurs principaux.\",\"skillLevel.hard.advanced.name\":\"Avancé\",\"skillLevel.hard.basic.description\":\"Vous êtes capable d’accomplir des tâches de base avec une supervision régulière et une orientation claire. Les tâches qui vous sont assignées sont claires et ne sont pas très complexes. Elles ont généralement une incidence locale. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’accomplir des tâches de complexité modérée avec une supervision régulière. Vous devriez également être en mesure d’accomplir des tâches de base avec peu ou pas de supervision. Ce niveau est habituellement associé aux tâches qui constituent le gros du travail pour les postes de niveau inférieur, comme les analystes ou les développeurs de niveau débutant.\",\"skillLevel.hard.basic.name\":\"Débutant\",\"skillLevel.hard.expert.description\":\"Vous êtes en mesure d’accomplir des tâches d’une complexité ou d’une incidence importante, où vous prenez les décisions et répondez de vos décisions auprès de la haute direction de l’organisation. Vous présentez les tâches, l’approche et le plan de réalisation à la haute direction. Vous supervisez souvent d’autres personnes (personnes ou équipes) dans l’exécution de tâches très complexes ou ayant une incidence sur l’ensemble du système. Vous êtes en mesure de faire progresser ces tâches, même face à des obstacles et à des complications importants et imprévus. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’évaluer les autres à des niveaux plus subalternes, et de déterminer clairement la différence entre les tâches débutantes, intermédiaires et avancées. Vous devriez également être en mesure de pouvoir former des équipes, définir des orientations et assurer une supervision. Ce niveau est habituellement associé aux tâches qui constituent la majeure partie du travail pour les postes de direction et de direction.\",\"skillLevel.hard.expert.name\":\"Responsable\",\"skillLevel.hard.intermediate.description\":\"Vous avez la capacité d’accomplir des tâches de complexité modérée ou d’incidence modérée avec supervision. C’est le superviseur qui détermine l’approche à préconiser pour effectuer les tâches, de même que la façon dont elles sont exécutées. Vous apportez des commentaires et des conseils. Vous êtes en mesure de faire progresser la tâche, même face à des obstacles et à des complications de petite à moyenne envergure. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’accomplir des tâches d’une complexité importante ou ayant une incidence plus grande avec une supervision régulière. Vous devriez également être en mesure d’accomplir des tâches d’une complexité ou d’une incidence modérée avec peu ou pas de supervision. Ce niveau est habituellement associé aux tâches qui constituent le gros du travail pour les postes de niveau intermédiaire, comme les analystes ou les développeurs.\",\"skillLevel.hard.intermediate.name\":\"Intermédiaire\",\"skillLevel.soft.advanced.description\":\"Vous êtes capable de démontrer cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont élevés. Vos pairs et vos superviseurs reconnaissent qu’il s’agit d’une force dont vous faites preuve en milieu de travail.\",\"skillLevel.soft.advanced.name\":\"Fortement en évidence\",\"skillLevel.soft.basic.description\":\"Vous êtes en processus d’acquérir cette compétence ou cet attribut. Vous êtes capable de le démontrer dans des conditions favorables (peu de stress, difficulté minimale) et pouvez l’appliquer dans un contexte de travail de façon intermittente.\",\"skillLevel.soft.basic.name\":\"Phase de développement précoce\",\"skillLevel.soft.expert.description\":\"Il s’agit d’une partie fondamentale de qui vous êtes. Vous démontrez cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont extrêmes. Vos pairs et vos superviseurs reconnaissent qu’il s’agit d’une force importante dont vous faites preuve en milieu de travail, en donnant un exemple aux autres.\",\"skillLevel.soft.expert.name\":\"Démonstration à un niveau profond\",\"skillLevel.soft.intermediate.description\":\"Vous êtes capable de démontrer cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont bas ou modérés. Vos pairs et vos superviseurs peuvent attester le fait que vous êtes capable de démontrer cette compétence ou cet attribut de façon régulière.\",\"skillLevel.soft.intermediate.name\":\"Modérément en évidence\",\"wordCounter.skills.longMessage\":\"Ça a l'air trop long. Pouvez-vous résumer une partie de votre réponse?\",\"wordCounter.skills.placeholder\":\"Commencez à taper votre réponse ci-dessus.\",\"wordCounter.skills.shortMessage\":\"Ce paragraphe semble trop court. Avez-vous un autre exemple ou une leçon à ajouter?\",\"wordCounter.skills.slightlyLongMessage\":\"Ça commence à être un peu long.\",\"wordCounter.skills.veryLongMessage\":\"La limite des mots a été atteinte. C'est beaucoup trop long. Découvrez l'un de nos exemples pour voir à quoi ressemble une description de compétence concise.\",\"wordCounter.skills.veryShortMessage\":\"Ce paragraphe semble trop court. Avez-vous inclus des exemples ou des leçons apprises?\"}");
+module.exports = JSON.parse("{\"activity.commentLocation.label\":\"Commentaire trouvé\",\"activity.commentMetadata\":\"{name} ({userRole}) a commenté à {time}.\",\"activity.unknownUser\":\"User not found\",\"activity.viewComment.label\":\"Visualiser le commentaire\",\"activityfeed.accordionAccessibleLabel\":\"Cliquez pour voir...\",\"activityfeed.error\":\"Une erreur s'est produite\",\"activityfeed.header\":\"Cliquez pour voir les commentaires {totalActivities}\",\"activityfeed.loading\":\"Chargement de vos activités...\",\"activityfeed.loadingIconText\":\"Nombre d'activités est en cours de chargement...\",\"activityfeed.locations.applicantReview.general\":\"Général\",\"activityfeed.locations.applicantReview.notUnderConsideration\":\"Candidats qui ne sont plus considérés\",\"activityfeed.locations.applicantReview.optionalConsideration\":\"Candidats supplémentaires\",\"activityfeed.locations.applicantReview.underConsideration\":\"Candidats à considérée\",\"activityfeed.locations.applications\":\"Page des Réviser les candidats\",\"activityfeed.locations.hr.preview\":\"RH Page d'aperçu\",\"activityfeed.locations.hr.summary\":\"RH Résumé de l'emploi\",\"activityfeed.locations.notFound\":\"lieu non trouvé\",\"activityfeed.locations.review\":\"Constructeur d'Affiches\",\"activityfeed.locations.review.basicInfo\":\"Renseignements de base\",\"activityfeed.locations.review.environment\":\"Environnement de travail\",\"activityfeed.locations.review.general\":\"Général\",\"activityfeed.locations.review.heading\":\"Titre de la page de l’emploi\",\"activityfeed.locations.review.impact\":\"Incidence\",\"activityfeed.locations.review.langRequirements\":\"Exigences linguistiques\",\"activityfeed.locations.review.skills\":\"Compétences\",\"activityfeed.locations.review.tasks\":\"Taches\",\"activityfeed.locations.screeningPlan\":\"plan d’évaluation\",\"activityfeed.locations.screeningPlan.builder\":\"Concepteur de plans d’évaluation\",\"activityfeed.locations.screeningPlan.general\":\"Général\",\"activityfeed.locations.screeningPlan.ratings\":\"Concepteur de guides de cotation\",\"activityfeed.locations.screeningPlan.summary\":\"Sommaire du plan d’évaluation\",\"activityfeed.noActivities\":\"Aucune activité.\",\"activityfeed.review.accordionAccessibleLabel\":\"Cliquer pour afficher...\",\"activityfeed.review.header\":\"Cliquez pour voir les commentaires {totalActivities}\",\"activityfeed.review.loadingIconText\":\"Les données sont en cours de chargement...\",\"activityfeed.title\":\"Activités\",\"application.review.addNote\":\"+ Ajouter une note\",\"application.review.alert.oops\":\"Oups...\",\"application.review.backToApplicantList\":\"Sauvegarder et revenir à la liste des candidats\",\"application.review.button.cancel\":\"Annuler\",\"application.review.button.confirm\":\"Confirmer\",\"application.review.button.save\":\"Enregistrer\",\"application.review.button.saved\":\"Enregistrée\",\"application.review.button.saving\":\"Enregistre...\",\"application.review.button.viewJobPoster\":\"Voir l'affiche d'emploi\",\"application.review.collapseAllSkills\":\"Réduire les compétences\",\"application.review.decision\":\"Décision\",\"application.review.editNote\":\"Modifier la note\",\"application.review.emailCandidateLinkTitle\":\"Envoyer un courriel à ce candidat.\",\"application.review.expandAllSkills\":\"Élargir les compétences\",\"application.review.priorityStatus.priority\":\"Priorité\",\"application.review.priorityStatus.priorityLogoTitle\":\"Icône pour candidat prioritaire\",\"application.review.reviewSaveFailed\":\"Une erreur s'est produite lors de l'enregistrement d'un commentaire. Réessayez plus tard.\",\"application.review.reviewStatus.notReviewed\":\"Non révisé\",\"application.review.reviewStatus.screenedOut\":\"Éliminé\",\"application.review.reviewStatus.stillIn\":\"Encore considérée\",\"application.review.reviewStatus.stillThinking\":\"Incertain\",\"application.review.screenInConfirm\":\"Remettre le candidat dans la section à l'étude?\",\"application.review.screenOutConfirm\":\"Éliminer le candidat?\",\"application.review.veteranStatus.veteran\":\"Anciens combattants\",\"application.review.veteranStatus.veteranLogoAlt\":\"icône pour anciens combattants\",\"application.review.viewApplication\":\"Voir l'application\",\"application.review.viewApplicationLinkTitle\":\"Voir l'application de ce candidat.\",\"application.review.viewProfile\":\"Voir le profil\",\"application.review.viewProfileLinkTitle\":\"Voir le profil de ce candidat.\",\"assessmentPlan.addAssessmentButton\":\"Ajouter une évaluation\",\"assessmentPlan.alert.checking\":\"Vérifier si le poste a changé récemment...\",\"assessmentPlan.alert.created\":\"{skills} {count, plural, one {compétence a été ajoutée} other {compétences ont été ajoutées}}.\",\"assessmentPlan.alert.deleted\":\"{skills} {count, plural, one {compétence a été supprimée} other {compétences ont été supprimées}}.\",\"assessmentPlan.alert.explanation\":\"Certaines parties du plan de présélection ont été modifiées pour qu’elles concordent les unes avec les autres.\",\"assessmentPlan.alert.skillAndLevelUpdated\":\"Le champ « {oldSkill} » a été remplacé par « {newSkill} » et a fait l’objet d’une mise à jour.\",\"assessmentPlan.alert.skillLevelUpdated\":\"{skills} {count, plural, one {compétence a été mise à jour} other {compétences ont été mises à jour}}.\",\"assessmentPlan.alert.skillUpdated\":\"Le champ {oldSkill} a été remplacé par {newSkill}.\",\"assessmentPlan.alert.title\":\"Ce poste a récemment changé!\",\"assessmentPlan.assessmentPlanBuilder.instructions\":\"La première étape consiste à choisir des évaluations qui vous permettront d’évaluer les critères que vous avez sélectionnés pour votre offre d’emploi. Vous trouverez ci-dessous vos critères essentiels, suivis de vos critères constituant un atout, le cas échéant. Le concepteur sera enregistré au fur et à mesure, donc lorsque vous aurez terminé, n’hésitez pas à passer à l’étape 2 pour examiner votre travail.\",\"assessmentPlan.assessmentPlanBuilder.shortDescription\":\"(Sélectionnez vos évaluations)\",\"assessmentPlan.assessmentPlanBuilder.title\":\"Concepteur de plans d’évaluation\",\"assessmentPlan.assessmentPlanSummary.shortDescription\":\"(Passez votre plan en revue)\",\"assessmentPlan.assessmentPlanSummary.title\":\"Sommaire du plan d’évaluation\",\"assessmentPlan.assessmentTypesLabel\":\"Types d’évaluation\",\"assessmentPlan.assetCriteria.nullState\":\"Vous n’avez pas choisi de compétences constituant un atout pour cette offre d’emploi.\",\"assessmentPlan.criteriaTitle\":\"{skillName} - {skillLevel}\",\"assessmentPlan.essentialCriteria.nullState\":\"Vous n’avez pas choisi de compétences essentielles pour cette offre d’emploi.\",\"assessmentPlan.instructions.intro\":\"Cet outil vous permet d’élaborer un plan d’évaluation et un guide de cotation pour votre offre d’emploi. L’outil est utilisé en trois étapes :\",\"assessmentPlan.instructions.narrativeNote\":\"Veuillez prendre note que tous les plans d’évaluation comprendront un examen des éléments de preuve fournis par le candidat.\",\"assessmentPlan.pageTitle\":\"Élaborer un plan d’évaluation pour : {jobTitle}\",\"assessmentPlan.ratingGuideBuilder.shortDescription\":\"(Personnalisez vos évaluations)\",\"assessmentPlan.ratingGuideBuilder.title\":\"Concepteur de guides de cotation\",\"assessmentPlan.selectAssessment.label\":\"Sélectionner une évaluation\",\"assessmentPlan.selectAssessment.null\":\"Sélectionner une évaluation\",\"assessmentPlan.skillDescriptionLabel\":\"Description\",\"assessmentPlan.skillLevelDescriptionLabel\":\"Niveau de compétence sélectionné\",\"assessmentPlan.summary.assessmentSummary.noAssessments\":\"Vous n’avez pas sélectionné d’évaluations pour cette offre d’emploi. Ajoutez-les ci-dessus.\",\"assessmentPlan.summary.assessmentSummary.title\":\"Sommaire de l’évaluation\",\"assessmentPlan.summary.assessmentSummary.toolSkillCount\":\"Votre plan utilise {toolCount, plural, =0 {aucun outil} one {# outill} other {# outils}} pour évaluer {skillCount, plural, =0 {compétences} one {# compétence} other {# compétences}}.\",\"assessmentPlan.summary.description\":\"Ceci est un résumé du travail que vous avez effectué ci-dessus. Vous trouverez\\n      chaque évaluation accompagnée d'une liste consolidée des compétences essentielles\\n      et des atouts qui s'y rattachent.\",\"assessmentPlan.summary.skillCount\":\"Évaluer {count, plural, one {# compétence} other {# compétences}}.\",\"assessmentPlan.summary.skillsNullState\":\"Aucune compétence n’est évaluée par cet outil.\",\"assessmentPlan.summary.title\":\"2. Sommaire du plan d’évaluation\",\"assessmentPlan.title\":\"Concepteur de plans d’évaluation\",\"assessmentType.applicationScreeningQuestion\":\"Questions de présélection dans le cadre du processus d’embauche\",\"assessmentType.applicationScreeningQuestion.description\":\"Ces questions paraissent dans le formulaire de demande, et sont présentées dans le Nuage de talents. Elles donnent un premier aperçu de la compréhension, du processus, des connaissances ou de l’adaptation culturelle du candidat pour le poste.\",\"assessmentType.groupTest\":\"Test de groupe\",\"assessmentType.groupTest.description\":\"Les candidats effectuent ce test en temps réel conjointement avec d’autres candidats, des membres de l’équipe ou des animateurs afin de déterminer leurs compétences exceptionnelles, leur habileté à communiquer au sein d’une équipe.\",\"assessmentType.informalPhoneConversation\":\"Conversation téléphonique informelle\",\"assessmentType.informalPhoneConversation.description\":\"Une conversation informelle entre un membre du comité d’embauche et un(e) candidat(e), visant à découvrir les connaissances, les aptitudes ou les traits de personnalité du candidat; les conversations peuvent varier d’un candidat à l’autre.\",\"assessmentType.interview\":\"Entrevue\",\"assessmentType.interview.description\":\"Examen formel de questions-réponses effectué en temps réel entre le comité de sélection et le (la) candidat(e). Les questions ont pour but d'évaluer l'expertise, le niveau et l'approche des compétences. Chaque question est élaborée à l’avance et suit la même structure entre tous les candidats interrogés.\",\"assessmentType.narrativeAssessment\":\"Examen narratif\",\"assessmentType.narrativeAssessment.description\":\"Il s’agit d’une description demandée au cours du processus de demande, dans laquelle les candidats s’identifient et décrivent leur expérience et leur niveau de compétence.\",\"assessmentType.narrativeReview.standardAnswer\":\"La description fournie contient suffisamment d’éléments de preuve pour faire passer ce candidat aux étapes de présélection suivantes.\",\"assessmentType.narrativeReview.standardQuestion\":\"L’examen descriptif des compétences comprend toutes les descriptions ajoutées par le candidat dans sa demande.\",\"assessmentType.onSiteExam\":\"Épreuve sur place\",\"assessmentType.onSiteExam.description\":\"Épreuve préparée qui exige que le candidat effectue à un endroit précis et sous supervision un test visant à évaluer ses compétences et sa technique.\",\"assessmentType.onlineExam\":\"Épreuve en ligne\",\"assessmentType.onlineExam.description\":\"Épreuve préparée qui n’exige pas de supervision, qui peut être effectuée de n’importe quel endroit au moyen d’un accès à Internet, et qui doit être achevée dans un intervalle de temps défini.\",\"assessmentType.portfolioReview\":\"Examen du portefeuille\",\"assessmentType.portfolioReview.description\":\"Au cours du processus de demande, les candidats donnent accès à des échantillons de leur travail pour démontrer leur niveau de compétence et étayer leurs prétentions à cet égard.\",\"assessmentType.referenceCheck\":\"Vérification des références\",\"assessmentType.referenceCheck.description\":\"Au cours du processus de demande, les candidats fournissent les coordonnées d’une connaissance qui peut valider et confirmer leurs compétences, leurs connaissances ou leurs aptitudes.\",\"assessmentType.seriousGames\":\"Jeux sérieux\",\"assessmentType.seriousGames.description\":\"Test comprenant l’utilisation de jeux pour explorer les aptitudes en communication, la résilience et l’intelligence émotionnelle d’un(e) candidat(e), entre autres compétences générales.\",\"assessmentType.takeHomeExam\":\"Épreuve à la maison\",\"assessmentType.takeHomeExam.description\":\"Les candidats reçoivent une trousse matérielle contenant les outils d’évaluation; ils effectuent l’évaluation à un moment qui leur convient le mieux, et à un endroit de leur choix, sans supervision, et ils doivent retourner les documents avant une date limite précise.\",\"button.copied\":\"Copié!\",\"button.copyEmails\":\"Copier des emails\",\"button.copyToClipboard\":\"Copier sur le presse-papier\",\"button.toggleAccordion\":\"Basculer pour voir les candidats concernés.\",\"commentForm.comment.label\":\"Ajouter un commentaire\",\"commentForm.comment.placeholder\":\"À titre d’exemple, entrez votre question, votre recommandation, etc.\",\"commentForm.commentLocation.label\":\"Emplacement du commentaire\",\"commentForm.commentLocation.nullSelection\":\"Sélectionnez un emplacement...\",\"commentForm.commentType.label\":\"Type de commentaire\",\"commentForm.commentType.nullSelection\":\"Sélectionner un type de commentaire\",\"commentForm.submitButton.label\":\"Soumettre un commentaire\",\"commentType.comment\":\"Commentaire\",\"commentType.question\":\"Question\",\"commentType.recommendation\":\"Recommandation\",\"commentType.requiredAction\":\"Mesure requise\",\"criteria.asset\":\"Compétences constituant un atout\",\"criteria.essential\":\"Compétences essentielles\",\"criteriaForm.skillLevelSelectionLabel\":\"Choisir un niveau de compétence\",\"criteriaForm.skillSpecificityLabel\":\"Détails supplémentaires pour cette compétence\",\"criteriaForm.skillSpecificityPlaceholder\":\"Ajoutez du contexte ou des détails à la définition de cette compétence qui n'apparaîtront que sur votre affiche d'emploi. Ceci sera examiné par votre conseiller en ressources humaines.\",\"criteriaType.asset\":\"Atout\",\"criteriaType.essential\":\"Essentiel\",\"demoSubmitJobModal.cancel\":\"Retourner\",\"demoSubmitJobModal.explanation\":\"Seuls les ministères partenaires de Nuage des talents ont accès à l'examen et à la publication des avis d'emploi.\",\"demoSubmitJobModal.link\":\"<a>Savoir si vous pouvez accéder à ces fonctions</a>.\",\"demoSubmitJobModal.link.title\":\"Découvrez comment accéder aux fonctions d'examen et de publication des avis d'emploi.\",\"demoSubmitJobModal.title\":\"Il semble que vous utilisez un compte de démonstration.\",\"errorToast.title\":\"Quelque chose a mal tourné!\",\"formInput.error\":\"Cette entrée a une erreur.\",\"formInput.required\":\"Champs obligatoires\",\"formValidation.checkboxRequired\":\"Il faut cocher au moins une case.\",\"formValidation.invalidSelection\":\"Veuillez choisir parmi les options disponibles.\",\"formValidation.required\":\"Ce champ est requis.\",\"formValidation.tooLong\":\"Trop longue?\",\"formValidation.tooShort\":\"Trop courte?\",\"hrJobIndex.departmentPlaceholder\":\" [Chargement du ministère]\",\"hrJobIndex.jobTitleMissing\":\"Titre manquant \",\"hrJobIndex.managerLoading\":\"Chargement...\",\"hrJobIndex.preview\":\"Prévisualiser l’avis d’emploi \",\"hrJobIndex.reviewDraft\":\"Réviser l’ébauche \",\"hrJobIndex.viewActivity\":\"Afficher l’activité \",\"hrJobIndex.viewScreeningPlan\":\"Afficher le plan d’évaluation \",\"hrJobIndex.viewSummary\":\"Afficher le résumé \",\"hrPortal.jobPageIndex.clickToView\":\"Cliquer pour afficher...\",\"hrPortal.jobPageIndex.completedJobsHeader\":\" Mes mesures d’emploi achevées \",\"hrPortal.jobPageIndex.hideAccordion\":\" Masquer \",\"hrPortal.jobPageIndex.jobActionsEmpty\":\"Réclamer un emploi ci-dessous!\",\"hrPortal.jobPageIndex.jobActionsHeader\":\"Mes mesures d’emploi achevée\",\"hrPortal.jobPageIndex.jobActionsMessage\":\"Voici une liste de toutes les mesures d’emploi auxquelles vous participez actuellement. Vous cherchez une ancienne offre d’emploi? Cochez la section « Mes mesures d’emploi achevées » sous vos offres d’emploi actives.\",\"hrPortal.jobPageIndex.noJobsCompleted\":\"Aucune offre d’emploi achevée à l’heure actuelle!\",\"hrPortal.jobPageIndex.preDepartmentName\":\"Toutes les offres d’emploi dans\",\"hrPortal.jobPageIndex.showAccordion\":\"Afficher \",\"hrPortal.jobPageIndex.unclaimedJobsEmpty\":\"Il n’y a actuellement aucune offre d’emploi active disponible.\",\"hrPortal.jobPageIndex.unclaimedJobsMessage\":\"Voici la liste de toutes les mesures actives dans votre ministère. À partir de ce point, vous pouvez « réclamer » un emploi qui sera transféré dans votre liste d’emploi ci-dessus, ce qui vous permettra de commencer à collaborer avec le gestionnaire d’embauche pour trouver le meilleur talent possible. Si vous réclamez un emploi par erreur, ne craignez rien, car vous pouvez cliquer sur le résumé de l’emploi et retirer votre nom au moyen du bouton « Renoncer à cet emploi ».\",\"job.daysSinceClosed\":\"{dayCount, plural, =0 {Aucun jour} one {# jour} other {# jours}} depuis la fermeture\",\"jobBuilder.collaborativeness.01.description\":\"Les membres de notre équipe proviennent de divers milieux, et ont des points de vue et des compétences variés. Nous nous appuyons sur nos points forts. Collectivement, nous nous approprions les objectifs de l’équipe et nous sommes constamment à la recherche de façons de s’entraider.\",\"jobBuilder.collaborativeness.01.title\":\"Collaboratif\",\"jobBuilder.collaborativeness.02.description\":\"Notre équipe possède un ensemble de compétences diversifiées et nous reconnaissons les forces de chacun. Nous travaillons ensemble souvent et nous intervenons rapidement quand une personne demande de l’aide.\",\"jobBuilder.collaborativeness.02.title\":\"Assez collaboratif\",\"jobBuilder.collaborativeness.03.description\":\"Chaque membre de notre équipe possède une pièce du casse-tête et jouit de la liberté de choisir sa propre façon de travailler.\",\"jobBuilder.collaborativeness.03.title\":\"Assez indépendant \",\"jobBuilder.collaborativeness.04.description\":\"Chaque membre de notre équipe prend en charge sa pièce du casse-tête. La façon dont nous accomplissons notre travail importe peu, tant qu’il est de qualité supérieure.\",\"jobBuilder.collaborativeness.04.title\":\"Indépendant\",\"jobBuilder.criteriaForm.addSpecificity\":\"Je voudrais ajouter des détails à cette définition qui sont spécifiques à ce poste.\",\"jobBuilder.criteriaForm.button.add\":\"Ajouter une compétence\",\"jobBuilder.criteriaForm.button.cancel\":\"Annuler\",\"jobBuilder.criteriaForm.chooseSkillLevel\":\"Choisir un niveau de compétence\",\"jobBuilder.criteriaForm.or\":\"ou\",\"jobBuilder.criteriaForm.removeSpecificity\":\"Supprimer la particularité supplémentaire.\",\"jobBuilder.criteriaForm.skillDefinition\":\"Définition de la compétence\",\"jobBuilder.criterion.requiredSkill\":\"Compétence requise :\",\"jobBuilder.culturePace.01.description\":\"Nos échéances sont serrées, nous traitons plusieurs tâches en même temps et nos priorités changent constamment. Notre travail devrait être effectué en portant des chaussures de courses!\",\"jobBuilder.culturePace.01.title\":\"Un rythme très rapide\",\"jobBuilder.culturePace.02.description\":\"Nos échéances sont habituellement rapprochées, nous traitons plusieurs tâches en même temps et nos priorités changent régulièrement. Notre travail nous force à rester sur le qui-vive!\",\"jobBuilder.culturePace.02.title\":\"Rythme rapide\",\"jobBuilder.culturePace.03.description\":\"Nos échéances sont régulières et prévisibles, nous traitons quelques tâches à la fois et nos priorités changent de temps à autre. Nous maintenons un certain équilibre.\",\"jobBuilder.culturePace.03.title\":\"Soutenu\",\"jobBuilder.culturePace.04.description\":\"Notre travail est continu, donc il n’y a pas beaucoup d’échéances. Habituellement, nous ne sommes pas obligés d’équilibrer la répartition des tâches et nos priorités changent rarement. Nous nous sentons bien dans la routine.\",\"jobBuilder.culturePace.04.title\":\"Très soutenu\",\"jobBuilder.details.SelectClassAndLvlMessage\":\"Veuillez choisir une classification et un niveau avant de préparer\\r\\n                          les exigences en matière d’éducation.\",\"jobBuilder.details.cityLabel\":\"Dans quelle ville l'équipe est-elle située?\",\"jobBuilder.details.cityPlaceholder\":\"P. ex. Ottawa\",\"jobBuilder.details.classificationLabel\":\"Quelle est la classification?\",\"jobBuilder.details.classificationNullSelection\":\"Veuillez sélectionner la classification...\",\"jobBuilder.details.classificationOptions.AD\":\"AD - Services administratifs\",\"jobBuilder.details.classificationOptions.AS\":\"AS – Services administratifs\",\"jobBuilder.details.classificationOptions.BI\":\"BI – Sciences biologiques\",\"jobBuilder.details.classificationOptions.CO\":\"CO - Commerce\",\"jobBuilder.details.classificationOptions.CR\":\"CR - Commis aux écritures et aux règlements\",\"jobBuilder.details.classificationOptions.CS\":\"CS – Systèmes d’ordinateurs\",\"jobBuilder.details.classificationOptions.EC\":\"EC - Économique et services de sciences sociales\",\"jobBuilder.details.classificationOptions.EX\":\"EX - Direction\",\"jobBuilder.details.classificationOptions.FO\":\"FO - Sciences forestières\",\"jobBuilder.details.classificationOptions.IS\":\"IS – Services d’information\",\"jobBuilder.details.classificationOptions.PC\":\"PC – Sciences physiques\",\"jobBuilder.details.classificationOptions.PE\":\"PE – Gestion du personnel\",\"jobBuilder.details.classificationOptions.PM\":\"PM – Administration des programmes\",\"jobBuilder.details.documentTitle\":\"Constructeur d'affiches: Renseignements\",\"jobBuilder.details.educationMessages.AD\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires;\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’elle soit prise en considération. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.AS\":\"Diplôme d’études secondaires ou équivalent :\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.BI\":\"Diplôme d’études postsecondaires:\\nDiplôme d’études postsecondaires en sciences naturelles, physiques ou appliquées, avec spécialisation dans un domaine lié aux fonctions du poste.\",\"jobBuilder.details.educationMessages.CO\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.CR\":\"Deux années d’études secondaires ou l’équivalent:\\nAu moins deux années d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative aux deux années d’études secondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.CS\":\"Deux (2) ans d’études postsecondaires ou l’équivalent:\\nDeux années d’études postsecondaires en informatique, en technologie de l’information, en gestion de l’information ou dans une autre spécialité pertinente à ce poste.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente aux deux années d’études postsecondaires requises, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.EC\":\"Diplôme d’études postsecondaires:\\nun diplôme d’un établissement d’enseignement postsecondaire reconnu avec spécialisation acceptable en économique, en sociologie ou en statistique.\\n\\nLes candidats doivent toujours détenir un diplôme. Les cours de spécialisation doivent être acceptables et avoir été suivis auprès d’un établissement d’enseignement postsecondaire reconnu, mais pas nécessairement dans le cadre d’un programme de diplôme dans la spécialisation requise. La spécialisation peut également être obtenue grâce à un agencement acceptable d’études, de formation et (ou) d’expérience.\",\"jobBuilder.details.educationMessages.EX\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires, ou admissibilité à un titre professionnel reconnu dans une province ou un territoire du Canada.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.FO\":\"Diplôme d’études postsecondaires:\\nUn diplôme en foresterie ou en produits du bois d’un établissement d’enseignement postsecondaire reconnu.\\n\\nou\\n\\nUn diplôme dans une science connexe d’un établissement d’enseignement postsecondaire reconnu agencé à une expérience acceptable.\",\"jobBuilder.details.educationMessages.IS\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.PC\":\"Diplôme d’études postsecondaires:\\nDiplôme d’études postsecondaires, avec spécialisation en physique, en géologie, en chimie ou dans une autre science liée aux fonctions du poste.\",\"jobBuilder.details.educationMessages.PE\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires, avec spécialisation en gestion des ressources humaines, en relations de travail ou en relations industrielles, en psychologie, en administration publique ou en administration des affaires, en développement organisationnel, en sciences de l’éducation, en sciences sociales, en sociologie ou dans un autre domaine lié aux fonctions du poste.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.PM\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationRequirementCopyAndPaste\":\"Si vous voulez personnaliser ce paragraphe, veuillez le copier-coller dans la zone de texte ci-dessous pour le modifier. \",\"jobBuilder.details.educationRequirementHeader\":\"En fonction du niveau de classification sélectionné, le paragraphe générique suivant apparaîtra sur l’offre d’emploi. \",\"jobBuilder.details.educationRequirementPlaceholder\":\"Collez le paragraphe ici pour le modifier...\",\"jobBuilder.details.educationRequirementReviewChanges\":\"Votre conseiller en RH examinera vos changements.\",\"jobBuilder.details.educationRequirementsLabel\":\"Personnaliser les exigences en matière d’études :\",\"jobBuilder.details.flexHoursGroupBody\":\"Vous voulez appuyer un milieu de travail plus inclusif sur le plan de l’égalité des sexes? Des études montrent que l’horaire flexible est un excellent moyen d’améliorer les possibilités des femmes et des parents.\",\"jobBuilder.details.flexHoursGroupHeader\":\"À quelle fréquence les heures flexibles sont-elles permises?\",\"jobBuilder.details.flexHoursGroupLabel\":\"Choisissez les horaires souples :\",\"jobBuilder.details.frequencyAlwaysLabel\":\"Presque toujours\",\"jobBuilder.details.frequencyFrequentlyLabel\":\"Habituellement\",\"jobBuilder.details.frequencyNeverLabel\":\"Jamais\",\"jobBuilder.details.frequencyOccasionallyLabel\":\"Rarement\",\"jobBuilder.details.frequencySometimesLabel\":\"Parfois\",\"jobBuilder.details.heading\":\"Détails sur l’emploi\",\"jobBuilder.details.languageLabel\":\"Quel est le profil linguistique?\",\"jobBuilder.details.languageNullSelection\":\"Veuillez sélectionner le profil linguistique...\",\"jobBuilder.details.levelLabel\":\"Quel est le niveau?\",\"jobBuilder.details.levelNullSelection\":\" Veuillez sélectionner le niveau...\",\"jobBuilder.details.modalBody\":\"Voici un aperçu des informations sur le travail que vous venez de saisir. N'hésitez pas à revenir en arrière et à modifier des éléments ou à passer à l'étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.details.modalCancelLabel\":\"Retourner\",\"jobBuilder.details.modalConfirmLabel\":\"Étape suivante\",\"jobBuilder.details.modalHeader\":\"Vous partez du bon pied!\",\"jobBuilder.details.modalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.details.overtimeFrequentlyLabel\":\"Oui, il est souvent nécessaire de travailler des heures supplémentaires dans le cadre de ce poste.\",\"jobBuilder.details.overtimeGroupHeader\":\"Le temps supplémentaire est-il requis?\",\"jobBuilder.details.overtimeGroupLabel\":\"Sélectionner l’exigence en matière de temps supplémentaire\",\"jobBuilder.details.overtimeNoneRequiredLabel\":\"Non, le temps supplémentaire n’est pas nécessaire pour ce poste.\",\"jobBuilder.details.overtimeOpportunitiesAvailableLabel\":\"Oui, il est possible que des heures supplémentaires soient offertes aux personnes intéressées.\",\"jobBuilder.details.provinceLabel\":\"Dans quelle province l'équipe est-elle située?\",\"jobBuilder.details.provinceNullSelection\":\"Veuillez sélectionner la province...\",\"jobBuilder.details.remoteWorkCanadaLabel\":\"Oui, je suis prêt(e) à superviser des employés dans n'importe quelle province ou territoire au Canada.\",\"jobBuilder.details.remoteWorkGroupBody\":\"Vous voulez les meilleurs talents au Canada? Vous augmentez vos chances lorsque vous permettez à ceux qui se trouvent dans d’autres régions du Canada de présenter une demande. La diversité régionale ajoute également une perspective à la culture de votre équipe. Assurez-vous d’en discuter à l’avance avec votre conseiller en RH.\",\"jobBuilder.details.remoteWorkGroupHeader\":\"Le travail à distance est-il permis?\",\"jobBuilder.details.remoteWorkGroupLabel\":\"Choisissez le travail à distance :\",\"jobBuilder.details.remoteWorkNoneLabel\":\"Non, j’exige que l’employé(e) qui occupe ce poste soit dans le même lieu géographique que le bureau.\",\"jobBuilder.details.remoteWorkWorldLabel\":\"Oui, je suis prêt(e) à superviser des employés partout dans le monde.\",\"jobBuilder.details.returnButtonLabel\":\"Enregistrer et retourner à l’introduction\",\"jobBuilder.details.securityLevelLabel\":\"Quel est le niveau de sécurité?\",\"jobBuilder.details.securityLevelNullSelection\":\"Veuillez sélectionner le niveau de sécurité...\",\"jobBuilder.details.submitButtonLabel\":\"Prochain\",\"jobBuilder.details.teleworkGroupBody\":\"Démontrez que vous faites confiance à vos employés et que vous avez une culture organisationnelle positive. Autorisez le télétravail en option.\",\"jobBuilder.details.teleworkGroupHeader\":\"À quelle fréquence le télétravail est-il permis?\",\"jobBuilder.details.teleworkGroupLabel\":\"Choisissez le télétravail :\",\"jobBuilder.details.termLengthLabel\":\"Quelle est la durée du poste (en mois)?\",\"jobBuilder.details.termLengthPlaceholder\":\" P.ex. 3\",\"jobBuilder.details.titleLabel\":\"Quel est le titre du poste?\",\"jobBuilder.details.titlePlaceholder\":\"P. ex. Chercheur - utilisateurs\",\"jobBuilder.details.travelFrequentlyLabel\":\"Oui, des déplacements sont souvent exigés pour le poste.\",\"jobBuilder.details.travelGroupHeader\":\"Est-il nécessaire de voyager?\",\"jobBuilder.details.travelGroupLabel\":\"Sélectionner l’exigence des déplacements\",\"jobBuilder.details.travelNoneRequiredLabel\":\"Non, aucun déplacement n’est nécessaire pour ce poste.\",\"jobBuilder.details.travelOpportunitiesAvailableLabel\":\"Oui, des possibilités de voyage sont offertes pour ceux qui sont intéressés.\",\"jobBuilder.experimental.01.description\":\"Notre travail est défini en essayant de nouvelles idées, méthodes et activités pour aborder des problèmes persistants auxquels les approches traditionnelles ne peuvent pas remédier.\",\"jobBuilder.experimental.01.title\":\"Approche expérimentale\",\"jobBuilder.experimental.02.description\":\"Nous essayons des idées, méthodes et activités nouvelles et éprouvées pour améliorer la façon de faire notre travail.\",\"jobBuilder.experimental.02.title\":\"Approche assez expérimentale\",\"jobBuilder.experimental.03.description\":\"Notre travail comprend quelques tâches administratives qui se répètent quotidiennement. Les outils que nous utilisons nous conviennent, mais nous sommes ouverts à améliorer notre processus..\",\"jobBuilder.experimental.03.title\":\"Travail assez prévisible\",\"jobBuilder.experimental.04.description\":\"La majeure partie de notre travail comprend quelques tâches administratives qui se répètent quotidiennement. La cohérence est un facteur clé ici, donc nous suivons un processus standard avec des outils éprouvés.\",\"jobBuilder.experimental.04.title\":\"Travail prévisible\",\"jobBuilder.facing.01.description\":\"Nous représentons l’image de marque des services que nous offrons et nous passons la plupart de notre temps à interagir directement avec le public.\",\"jobBuilder.facing.01.title\":\"Services orientés vers le citoyen\",\"jobBuilder.facing.02.description\":\"Nous passons beaucoup de temps à interagir directement avec le public, mais nous travaillons également en coulisses afin d’appuyer d’autres personnes.\",\"jobBuilder.facing.02.title\":\"Services essentiellement orientés vers le citoyen\",\"jobBuilder.facing.03.description\":\" Nous travaillons généralement en coulisses et nous effectuons un travail important qui rend possible la prestation de services.\",\"jobBuilder.facing.03.title\":\"Services essentiellement administratifs\",\"jobBuilder.facing.04.description\":\" Nous travaillons en coulisses et nous effectuons un travail important qui rend possible la prestation de services. Nous nous sentons bien quand nous appuyons les autres.\",\"jobBuilder.facing.04.title\":\"Services administratifs\",\"jobBuilder.impact.button.goBack\":\"Revenir en arrière\",\"jobBuilder.impact.button.next\":\"Prochain\",\"jobBuilder.impact.button.nextStep\":\"Passer à l’étape suivante\",\"jobBuilder.impact.button.return\":\"Enregistrer et retourner à l’environnement de travail\",\"jobBuilder.impact.button.skipToReview\":\"Passer pour la révision\",\"jobBuilder.impact.departmentsLoading\":\"Chargement des données du Ministère...\",\"jobBuilder.impact.documentTitle\":\"Constructeur d’affiches: Incidences\",\"jobBuilder.impact.header.department\":\"Comment votre ministère engendre des incidences:\",\"jobBuilder.impact.hireBody\":\"Décrivez la contribution du nouvel employé dans le cadre de son rôle. Misez sur la valeur qu’il apportera et non des tâches particulières (vous les indiquerez plus loin). Par exemple « Dans ce rôle, vous contribuerez à … » ou « En tant que membre de l’équipe, vous serez responsable de nous aider à… »\",\"jobBuilder.impact.hireHeader\":\"Comment le nouvel employé engendra des incidences\",\"jobBuilder.impact.hireLabel\":\"Déclaration d'incidences des employés\",\"jobBuilder.impact.hirePlaceholder\":\"Souvenez-vous de ne pas utiliser de jargon administratif.\",\"jobBuilder.impact.modalDescription\":\"Voici un aperçu de l’énoncé des incidences que vous venez de rédiger.\\n                        N'hésitez pas à revenir en arrière pour modifier le texte.\\n                        Passez à l'étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.impact.modalTitle\":\"Excellent travail!\",\"jobBuilder.impact.points.counts\":\"La première chose que les candidats voient lorsqu’ils cliquent sur votre avis de concours est votre énoncé des incidences. Assurez-vous donc de bien le rédiger!\",\"jobBuilder.impact.points.highlight\":\"C’est votre chance de souligner en quoi votre travail est utile et intéressant.\",\"jobBuilder.impact.points.opportunity\":\"Le fait de travailler pour le gouvernement fédéral offre une importante occasion d’engendrer d’importantes incidences pour les Canadiens.\",\"jobBuilder.impact.selectDepartment\":\"Vous devez choisir un ministère pour cet emploi.\",\"jobBuilder.impact.teamBody\":\"Décrivez la valeur apportée aux Canadiens par votre équipe/service/initiative. Peu importe si votre travail consiste à offrir des services directement aux citoyens ou des services administratifs, d’innovation ou d’entretien, de priorité absolue ou continus. Décrivez comment votre travail contribue à améliorer le Canada comme si vous parliez à quelqu’un qui ne connaît rien de votre travail.\",\"jobBuilder.impact.teamHeader\":\"Comment votre équipe engendre des impacts:\",\"jobBuilder.impact.teamLabel\":\"Déclaration d’incidence d'équipe\",\"jobBuilder.impact.teamPlaceholder\":\"Employez un ton informel, franc et amical\",\"jobBuilder.impact.title\":\"Rédiger votre énoncé des incidences\",\"jobBuilder.impact.unknownDepartment\":\"Erreur : Choisissez un ministère inconnu.\",\"jobBuilder.impactPreview.title\":\"Impact\",\"jobBuilder.intro.accountSettingsLinkText\":\"les paramètres de votre compte\",\"jobBuilder.intro.accountSettingsLinkTitle\":\"Visitez la page Paramètres du compte.\",\"jobBuilder.intro.changeDepartment\":\"Pour changer de département, veuillez contacter {email}. Pour en savoir plus, visitez {accountSettings}.\",\"jobBuilder.intro.completeInLanguage\":\"Répondez à l’offre d’emploi dans la langue officielle de votre choix. Nous nous chargerons de la traduction\",\"jobBuilder.intro.contactUs\":\"Nous avons également fourni des instructions et des exemples pour vous guider tout au long du processus, mais si vous avez toujours des questions, veuillez communiquer avec le {link}\",\"jobBuilder.intro.continueButtonLabelEN\":\"Continue in English\",\"jobBuilder.intro.continueButtonLabelFR\":\"Continuer en français\",\"jobBuilder.intro.departmentHeader\":\"Informations sur le département de {name}\",\"jobBuilder.intro.departmentLabel\":\"Ministère\",\"jobBuilder.intro.departmentNullSelection\":\"Choisissez un ministère...\",\"jobBuilder.intro.divisionLabelEN\":\"La division de {name} (en anglais)\",\"jobBuilder.intro.divisionLabelFR\":\"La division de {name} (en français)\",\"jobBuilder.intro.divisionPlaceholderEN\":\"p. ex., Digital Change\",\"jobBuilder.intro.divisionPlaceholderFR\":\"p. ex., Changement numérique\",\"jobBuilder.intro.documentTitle\":\"Constructeur d'affiches: Intro\",\"jobBuilder.intro.emailLinkText\":\"Nuage de talents\",\"jobBuilder.intro.emailLinkTitle\":\"Envoyer un courriel au Nuage de talents.\",\"jobBuilder.intro.explanation\":\"Le présent outil vous aidera à créer une offre d’emploi qui vous aidera à attirer les bons talents. Avant de commencer à créer l’offre d’emploi, veuillez prendre le temps de {boldText}\",\"jobBuilder.intro.explanation.boldText\":\"confirmer l’exactitude de vos renseignements personnels ci-dessous.\",\"jobBuilder.intro.formDescription\":\"Ces renseignements apparaîtront dans l’offre d’emploi pour donner de plus amples renseignements aux candidats sur les personnes avec qui ils travailleront.\",\"jobBuilder.intro.formTitle\":\"Information du profil de {name}\",\"jobBuilder.intro.jobTitleLabelEN\":\"Le poste de {name} (en anglais)\",\"jobBuilder.intro.jobTitleLabelFR\":\"Le poste de {name} (en français)\",\"jobBuilder.intro.jobTitlePlaceholderEN\":\"Par exemple : Design Manager\",\"jobBuilder.intro.jobTitlePlaceholderFR\":\"Par exemple : Gestionnaire de la conception\",\"jobBuilder.intro.managerLoading\":\"Votre profil de gestionnaire est en cours de chargement...\",\"jobBuilder.intro.welcome\":\"Bienvenue sur le Constructeur d'Affiches\",\"jobBuilder.jobLoading\":\"Votre offre d’emploi est en train de se charger...\",\"jobBuilder.loading\":\"Votre offre d’emploi est en train de se charger...\",\"jobBuilder.mgmtStyle.01.description\":\"Il n’y a aucun cadre intermédiaire ici, donc nous prenons, nous-mêmes, la plupart des décisions importantes et vous pouvez vous attendre à interagir quotidiennement avec nos cadres supérieures.\",\"jobBuilder.mgmtStyle.01.title\":\"Horizontale\",\"jobBuilder.mgmtStyle.02.description\":\"Nous avons quelques cadres intermédiaires ici, mais nous prenons, nous-mêmes, les décisions quotidiennes. Ne soyez pas surpris d’interagir assez souvent avec nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.02.title\":\"Assez horizontale\",\"jobBuilder.mgmtStyle.03.description\":\"Notre équipe a un rôle clairement défini. Nous faisons régulièrement le point avec les cadres intermédiaires pour approuver et mettre à jour la vision stratégique de nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.03.title\":\"Assez verticale\",\"jobBuilder.mgmtStyle.04.description\":\"Notre équipe a un rôle clairement défini. Nous faisons souvent le point auprès des cadres intermédiaires pour approuver et procéder à la mise à jour de la vision stratégique de nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.04.title\":\"Verticale\",\"jobBuilder.preview.city\":\"Ville\",\"jobBuilder.preview.classification\":\"Classification\",\"jobBuilder.preview.classificationEducation\":\"Classification et éducation\",\"jobBuilder.preview.education\":\"Éducation\",\"jobBuilder.preview.flexibleHours\":\"Heures flexibles\",\"jobBuilder.preview.jobInformation\":\"Renseignements sur l’emploi\",\"jobBuilder.preview.jobTitle\":\"Titre du poste\",\"jobBuilder.preview.languageProfile\":\"Profil linguistique\",\"jobBuilder.preview.lengthOfTheTerm\":\"Durée du poste\",\"jobBuilder.preview.level\":\"Niveau\",\"jobBuilder.preview.overtime\":\"Heures supplémentaires\",\"jobBuilder.preview.province\":\"Province\",\"jobBuilder.preview.remoteWork\":\"Travail à distance\",\"jobBuilder.preview.securityClearance\":\"Cote de sécurité\",\"jobBuilder.preview.telework\":\"Télétravail\",\"jobBuilder.preview.termLength\":\"{termMonths, plural, =0 {pas de mois} other {# mois}}\",\"jobBuilder.preview.travel\":\"Voyage\",\"jobBuilder.preview.workStyles\":\"Styles de travail\",\"jobBuilder.progressTracker.label.finish\":\"Fin\",\"jobBuilder.progressTracker.label.start\":\"Début\",\"jobBuilder.progressTracker.label.step1\":\"Étape 1 / 5\",\"jobBuilder.progressTracker.label.step2\":\"Étape 2 / 5\",\"jobBuilder.progressTracker.label.step3\":\"Étape 3 / 5\",\"jobBuilder.progressTracker.label.step4\":\"Étape 4 / 5\",\"jobBuilder.progressTracker.label.step5\":\"Étape 5 / 5\",\"jobBuilder.progressTracker.title.impact\":\"Incidence\",\"jobBuilder.progressTracker.title.jobInfo\":\"Renseignements\",\"jobBuilder.progressTracker.title.review\":\"Révision\",\"jobBuilder.progressTracker.title.skills\":\"Compétences\",\"jobBuilder.progressTracker.title.tasks\":\"Tâches\",\"jobBuilder.progressTracker.title.welcome\":\"Bienvenue\",\"jobBuilder.progressTracker.title.workEnv\":\"Environnement\",\"jobBuilder.review.GovernmentClass\":\"Classification gouvernementale\",\"jobBuilder.review.assetHeading\":\"Compétences souhaitables\",\"jobBuilder.review.averageAnnualSalary\":\"Échelle de salaire annuel\",\"jobBuilder.review.basicInformationHeading\":\"Renseignements de base\",\"jobBuilder.review.button.return\":\"Enregistrer et retourner aux compétences\",\"jobBuilder.review.button.submit\":\"Cela semble bon!\",\"jobBuilder.review.comesLater\":\"Cette étape survient plus tard.\",\"jobBuilder.review.confirm.cancel\":\"Annuler\",\"jobBuilder.review.confirm.submit\":\"Oui, transmettre\",\"jobBuilder.review.confirm.title\":\"Félicitations! Êtes-vous prêt à transmettre l’offre d’emploi?\",\"jobBuilder.review.criteriaSection\":\"Critères\",\"jobBuilder.review.cultureSection\":\"Environnement et culture\",\"jobBuilder.review.documentTitle\":\"Constructeur d'affiches: Révision\",\"jobBuilder.review.duration\":\"Durée\",\"jobBuilder.review.educationalHeading\":\"Exigences relatives aux études\",\"jobBuilder.review.headsUp\":\"Un simple rappel. Nous avons réorganisé certains renseignements fournis afin de vous aider à comprendre comment le candidat verra l’information une fois publiée.\",\"jobBuilder.review.impactEditLink\":\"Modifier cet élément à l’étape 03, Incidence.\",\"jobBuilder.review.impactHeading\":\"Incidence\",\"jobBuilder.review.infoEditLink\":\"Modifier cet élément à l’étape 01, Renseignements sur le poste\",\"jobBuilder.review.jobPageHeading\":\"Titre de la page de l’emploi\",\"jobBuilder.review.languageHeading\":\"Exigences linguistiques\",\"jobBuilder.review.languageProfile\":\"Profil linguistique\",\"jobBuilder.review.managerDataLoading\":\"Les données du gestionnaire sont en cours de chargement...\",\"jobBuilder.review.managerHeading\":\"Les données du gestionnaire sont en cours de chargement...\",\"jobBuilder.review.managerIncomplete\":\"Veuillez remplir votre profil de gestionnaire.\",\"jobBuilder.review.managerPosition\":\"{position} au {department}\",\"jobBuilder.review.managerProfileLink\":\"Modifier cet élément dans votre profil\",\"jobBuilder.review.meantime\":\"Entre-temps, n’hésitez pas à créer un plan de présélection pour votre processus de sélection. Vous pouvez aussi attendre les commentaires des RH avant de passer à l’étape suivante.\",\"jobBuilder.review.months\":\"{termMonths,plural,=0{No Months} one{{termMonths, number} Month} other{{termMonths, number} Months}}\",\"jobBuilder.review.nullProvince\":\"PROVINCE MANQUANTE\",\"jobBuilder.review.or\":\"ou\",\"jobBuilder.review.otherInfoHeading\":\"Autres renseignements au sujet de l’équipe\",\"jobBuilder.review.readyToSubmit\":\"Si vous êtes prêt à soumettre votre offre, cliquez sur le bouton Soumettre ci-dessous.\",\"jobBuilder.review.remoteAllowed\":\"Travail à distance autorisé\",\"jobBuilder.review.remoteNotAllowed\":\"Travail à distance non autorisé\",\"jobBuilder.review.reviewYourPoster\":\"Examiner votre offre d’emploi pour :\",\"jobBuilder.review.securityClearance\":\"Autorisation de sécurité\",\"jobBuilder.review.sendYourDraft\":\"Le Nuage de talents enverra votre ébauche au conseiller en RH de votre ministère, et ce dernier vous informera de ses commentaires.\",\"jobBuilder.review.skills.nullState\":\"Vous n’avez pas ajouté de compétences souhaitables pour cette offre d’emploi.\",\"jobBuilder.review.skillsEditLink\":\"Modifier cet élément à l’étape 05, Compétences\",\"jobBuilder.review.skillsHeading\":\"Compétences requises\",\"jobBuilder.review.tCAdds\":\"Le Nuage de talents ajoutera l’élément.\",\"jobBuilder.review.targetStartDate\":\"Date d’entrée en fonction prévue\",\"jobBuilder.review.tasksEditLink\":\"Modifier cet élément à l’étape 04, Tâches\",\"jobBuilder.review.tasksHeading\":\"Tâches\",\"jobBuilder.review.whatHappens\":\"Quelles sont les prochaines étapes?\",\"jobBuilder.review.workCultureHeading\":\"Culture de travail\",\"jobBuilder.review.workDescription\":\"Veuillez prendre note que certains renseignements sur le milieu de travail ne seront affichés que si le candidat clique sur le bouton « Afficher le milieu de travail et la culture de l’équipe » qui apparaît sur l’offre d’emploi.\",\"jobBuilder.review.workEnvEditLink\":\"Modifier cet élément à l’étape 02, Environnement de travail\",\"jobBuilder.review.workEnvHeading\":\"Milieu de travail\",\"jobBuilder.root.documentTitle\":\"Constructeur d'Affiches\",\"jobBuilder.skills.addSkillBelow\":\"Ajoutez des compétences, ci-dessous, pour continuer.\",\"jobBuilder.skills.alt.happyArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône sourire.\",\"jobBuilder.skills.alt.happyGraySmiley\":\"émoticône sourire en gris.\",\"jobBuilder.skills.alt.happySmiley\":\"émoticône sourire en couleur.\",\"jobBuilder.skills.alt.neutralArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône neutre.\",\"jobBuilder.skills.alt.neutralGraySmiley\":\"émoticône neutre en gris.\",\"jobBuilder.skills.alt.neutralSmiley\":\"émoticône neutre en couleur.\",\"jobBuilder.skills.alt.unhappyArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône triste.\",\"jobBuilder.skills.alt.unhappyGraySmiley\":\"émoticône triste en gris.\",\"jobBuilder.skills.alt.unhappySmiley\":\"émoticône triste en couleur.\",\"jobBuilder.skills.button.keyTasks\":\"Voir les tâches principales\",\"jobBuilder.skills.button.previewSkills\":\"Sauvegarder et voir un aperçu des compétences\",\"jobBuilder.skills.button.returnToTasks\":\"Sauvegarder et retourner aux tâches\",\"jobBuilder.skills.description\":\"C’est ici que vous choisissez les critères requis pour accomplir ce travail efficacement. Vous trouverez, ci-dessous, deux barres qui indiquent la mesure du niveau de votre présente compétence sélectionnée.\",\"jobBuilder.skills.description.keepItUp\":\"Voici un aperçu des compétences que vous venez de saisir. N’hésitez pas à retourner à la page précédente et à corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait. \",\"jobBuilder.skills.documentTitle\":\"Constructeur d'affiches: Compétences\",\"jobBuilder.skills.emailLink\":\"Communiquez avec nous par courriel\",\"jobBuilder.skills.essentialSkillRequiredError\":\"Au moins une compétence essentielle est requise.\",\"jobBuilder.skills.instructions.missingSkills\":\"Le fait de dresser une liste de compétences est une tâche énorme, et il n’est pas surprenant que la liste de Nuage de talents ne contienne pas la compétence que vous cherchez. Afin de nous aider à allonger la liste des compétences, veuillez {link}. Veuillez fournir le nom de la compétence ainsi qu’une brève description pour lancer la discussion.\",\"jobBuilder.skills.listTitle\":\"Votre liste de compétences\",\"jobBuilder.skills.nullState\":\"Vous n’avez pas encore ajouté de compétences.\",\"jobBuilder.skills.nullText.occupationalSkills\":\"Vous devez retourner à Étape 1 et choisir une classification.\",\"jobBuilder.skills.placeholder.otherSkills\":\"Aucune autre compétence n’est ajoutée.\",\"jobBuilder.skills.previewModalCancelLabel\":\"Retour en arrière\",\"jobBuilder.skills.previewModalConfirmLabel\":\"Prochaine étape\",\"jobBuilder.skills.previewModalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.skills.range.culturalSkills\":\"Visez des compétences {minCulture} – {maxCulture}.\",\"jobBuilder.skills.range.futureSkills\":\"Visez des compétences {minFuture} – {maxFuture}.\",\"jobBuilder.skills.range.occupationalSkills\":\"Visez des compétences {minOccupational} – {maxOccupational}.\",\"jobBuilder.skills.selectSkillLabel\":\"Veuillez sélectionner une compétence dans notre liste.\",\"jobBuilder.skills.selectSkillNull\":\"Veuillez sélectionner une compétence\",\"jobBuilder.skills.skillLevel\":\"Niveau de compétences\",\"jobBuilder.skills.statusSmiley.acceptable\":\"Acceptable\",\"jobBuilder.skills.statusSmiley.almost\":\"Presque\",\"jobBuilder.skills.statusSmiley.awesome\":\"Fantastique\",\"jobBuilder.skills.statusSmiley.essential.acceptable\":\"Acceptable\",\"jobBuilder.skills.statusSmiley.essential.almost\":\"Presque\",\"jobBuilder.skills.statusSmiley.essential.awesome\":\"Fantastique\",\"jobBuilder.skills.statusSmiley.essential.tooFew\":\"Insuffisant\",\"jobBuilder.skills.statusSmiley.essential.tooMany\":\"Trop\",\"jobBuilder.skills.statusSmiley.essentialTitle\":\"Le nombre de compétences fondamentales est\",\"jobBuilder.skills.statusSmiley.title\":\"Le nombre total des compétences\",\"jobBuilder.skills.statusSmiley.tooFew\":\"Insuffisant\",\"jobBuilder.skills.statusSmiley.tooMany\":\"Trop\",\"jobBuilder.skills.tasksModalCancelLabel\":\"Retour aux compétences\",\"jobBuilder.skills.title\":\"Compétences\",\"jobBuilder.skills.title.addASkill\":\"Ajoutez une compétence\",\"jobBuilder.skills.title.assetSkills\":\"Compétences constituant un atout\",\"jobBuilder.skills.title.culturalSkills\":\"Compétences comportementales\",\"jobBuilder.skills.title.editSkill\":\"Modifiez une compétence\",\"jobBuilder.skills.title.essentialSkills\":\"Compétences essentielles\",\"jobBuilder.skills.title.futureSkills\":\"Compétences de la fonction publique\",\"jobBuilder.skills.title.keepItUp\":\"Ne lâchez surtout pas!\",\"jobBuilder.skills.title.keyTasks\":\"Tâches principales\",\"jobBuilder.skills.title.missingSkill\":\"Vous ne trouvez pas la compétence dont vous avez besoin?\",\"jobBuilder.skills.title.needsToHave\":\"Les compétences que l’employé(e) doit posséder\",\"jobBuilder.skills.title.niceToHave\":\"Les compétences qu’il serait souhaitable que l’employé(e) possède\",\"jobBuilder.skills.title.occupationalSkills\":\"Compétences professionnelles\",\"jobBuilder.skills.title.otherSkills\":\"Autres compétences\",\"jobBuilder.skills.title.skillSelection\":\"Choix des compétences\",\"jobBuilder.tasks.addJob\":\"Ajoutez une tâche \",\"jobBuilder.tasks.documentTitle\":\"Constructeur d'affiches: Tâches\",\"jobBuilder.tasks.heading\":\"Ajoutez des tâches principales\",\"jobBuilder.tasks.intro.first\":\"À quoi le nouveau membre de votre équipe consacrera-t-il son temps? Quelles sont les tâches à exécuter?\",\"jobBuilder.tasks.intro.fourth\":\"Une fois que vous aurez terminé d’entrer les tâches principales, vous passerez à la détermination des compétences individuelles nécessaires à l’exécution de ces tâches.\",\"jobBuilder.tasks.intro.second\":\"Mettez l’accent sur les tâches à exécuter. Vous n’avez pas à donner tous les détails de l’emploi, mais les candidats souhaitent savoir comment ils vont passer la plus grande partie de leur temps.\",\"jobBuilder.tasks.intro.third\":\"Cherchez à indiquer de quatre à six tâches principales. (Tout au long du remue-méninges, vous pouvez ajouter autant de tâches principales que vous le souhaitez ici, mais vous ne pouvez pas en inclure plus de six dans l’offre d’emploi finale.)\",\"jobBuilder.tasks.modal.body\":\"Voici un aperçu des tâches que vous venez de saisir. N’hésitez pas à retourner à la page précédente pour corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.tasks.modal.body.heading\":\"Tâches\",\"jobBuilder.tasks.modal.cancelButtonLabel\":\"Retour en arrière\",\"jobBuilder.tasks.modal.confirmButtonLabel\":\"Prochaine étape\",\"jobBuilder.tasks.modal.middleButtonLabel\":\"Passer pour la révision\",\"jobBuilder.tasks.modal.title\":\"Ne lâchez surtout pas!\",\"jobBuilder.tasks.preview\":\"Aperçu des tâches\",\"jobBuilder.tasks.previous\":\"Étape précédente\",\"jobBuilder.tasks.taskCount.error.body\":\"Vous avez dépassé le nombre maximal permis de tâches principales, mais ce n’est pas grave. Tout au long du remue-méninges, vous pouvez continuer à ajouter des tâches principales ici, mais on vous demandera de réduire votre liste à six tâches ou moins pour continuer.\",\"jobBuilder.tasks.taskCount.error.title\":\"Juste pour vous informer!\",\"jobBuilder.tasks.taskCount.none\":\"Vous n’avez pas encore ajouté de tâches!\",\"jobBuilder.tasks.taskCount.some\":\"Vous avez ajouté {taskCount, plural, one {# tâche} other {# tâches}}.\",\"jobBuilder.tasks.taskLabel\":\"Tâche\",\"jobBuilder.tasks.taskPlaceholder\":\"Essayez d’adopter un ton décontracté, franc et amical...\",\"jobBuilder.tasks.tasksMaximum\":\"Veuillez supprimer toute tâche supplémentaire avant de continuer.\",\"jobBuilder.tasks.tasksRequired\":\"Au moins une tâche est requise.\",\"jobBuilder.workCulture.flexibleHours\":\"Heures flexibles\",\"jobBuilder.workCulture.flexibleHoursDescription\":\"Précisez vos propres heures de début et de fin.\",\"jobBuilder.workCulture.overtime\":\"Heures supplémentaires\",\"jobBuilder.workCulture.overtimeDescription\":\"Heures supplémentaires le soir ou la fin de semaine.\",\"jobBuilder.workCulture.remoteWork\":\"Travail à distance\",\"jobBuilder.workCulture.remoteWorkDescription\":\"Travailler de n’importe où, en tout temps.\",\"jobBuilder.workCulture.remoteWorkMsg.always\":\"Toujours\",\"jobBuilder.workCulture.remoteWorkMsg.never\":\"Jamais\",\"jobBuilder.workCulture.telework\":\"Télétravail\",\"jobBuilder.workCulture.teleworkDescription\":\"Travailler à partir de la maison certains jours (à une distance raisonnable en voiture du bureau).\",\"jobBuilder.workCulture.travel\":\"Déplacements\",\"jobBuilder.workCulture.travelDescription\":\"Découvrez le Canada ou d’autres régions du monde.\",\"jobBuilder.workEnv.amenities.cafeteria\":\"Cafétéria sur place\",\"jobBuilder.workEnv.amenities.closeToTransit\":\"À proximité du transport en commun\",\"jobBuilder.workEnv.amenities.downtown\":\"Centre-ville\",\"jobBuilder.workEnv.amenities.fitnessCenter\":\"À proximité d’un centre de conditionnement physique\",\"jobBuilder.workEnv.amenities.parking\":\" Accès facile à un stationnement\",\"jobBuilder.workEnv.amenities.restaurants\":\"À distance de marche des restaurants et des centres commerciaux\",\"jobBuilder.workEnv.amenitiesLabel\":\"À proximité\",\"jobBuilder.workEnv.collaborativeLabel\":\"Collaboratif ou indépendant :\",\"jobBuilder.workEnv.culture\":\"Notre culture\",\"jobBuilder.workEnv.cultureSubtext1\":\"Maintenant, renseignez les candidats davantage sur la personnalité des membres de votre équipe et le type de travail que vous faites habituellement.\",\"jobBuilder.workEnv.cultureSubtext2\":\"Sur la base de vos sélections, nous allons créer un court paragraphe résumant votre culture de travail. Vous pouvez modifier ce paragraphe afin qu’il soit personnalisé selon votre équipe.\",\"jobBuilder.workEnv.cultureSummary\":\"Résumé sur la culture\",\"jobBuilder.workEnv.cultureSummarySubtext\":\"Voici le court paragraphe qui résume la culture de votre travail qui apparaîtra dans l’offre d’emploi. Copiez-le et collez-le dans le champ de saisie qui suit, si vous désirez l’adapter à la personnalité des membres de votre équipe et à votre façon de travailler.\",\"jobBuilder.workEnv.customCultureSummaryLabel\":\"Adaptez votre résumé sur la culture :\",\"jobBuilder.workEnv.customCultureSummaryPlaceholder\":\"Collez le paragraphe ici pour le modifier...\",\"jobBuilder.workEnv.documentTitle\":\"Constructeur d'affiches: Environnement\",\"jobBuilder.workEnv.experimentalLabel\":\"Toujours expérimentale contre activités en cours:\",\"jobBuilder.workEnv.facingLabel\":\"Services orientés vers le client contre services administratifs :\",\"jobBuilder.workEnv.fastPacedSteadyLabel\":\"Rythme rapide contre rythme soutenu :\",\"jobBuilder.workEnv.greatStart\":\"Vous commencez très bien!\",\"jobBuilder.workEnv.managementLabel\":\"Horizontale contre verticale :\",\"jobBuilder.workEnv.moreOnWorkEnv\":\"Voici de plus amples renseignements sur votre environnement\",\"jobBuilder.workEnv.moreOnWorkEnvLabel\":\"Voici de plus amples renseignements sur votre environnement\",\"jobBuilder.workEnv.moreOnWorkEnvPlaceholder\":\"Essayez d’adopter un ton décontracté, franc et amical.\",\"jobBuilder.workEnv.moreOnWorkEnvSubtext\":\"Souhaitez-vous ajouter quelque chose à propos de votre environnement de travail? Mettez en évidence les caractéristiques de l’environnement physique, de la technologie et des commodités propres à votre équipe.\",\"jobBuilder.workEnv.openingSentence\":\"Voici un aperçu des renseignements sur l’emploi que vous venez de saisir. N’hésitez pas à retourner à la page précédente et à corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.workEnv.ourWorkEnv\":\"Notre environnement de travail\",\"jobBuilder.workEnv.ourWorkEnvDesc\":\"Décrivez un peu votre espace physique, la technologie que les membres de votre équipe utilisent et les services qui se trouvent à proximité de votre bureau. Cochez toutes les réponses qui s’appliquent.\",\"jobBuilder.workEnv.physEnv.assignedSeating\":\"Places réservées\",\"jobBuilder.workEnv.physEnv.naturalLight\":\"Lumière naturelle\",\"jobBuilder.workEnv.physEnv.openConcept\":\"Espaces de travail à aire ouverte\",\"jobBuilder.workEnv.physEnv.private\":\"Privé\",\"jobBuilder.workEnv.physEnv.smudging\":\"Convient aux cérémonies de purification par la fumée\",\"jobBuilder.workEnv.physEnv.windows\":\"Plusieurs fenêtres\",\"jobBuilder.workEnv.physicalEnvLabel\":\"Notre environnement physique\",\"jobBuilder.workEnv.saveAndReturnButtonLabel\":\"Découvrez le Canada ou d’autres régions du monde.\",\"jobBuilder.workEnv.specialWorkCulture\":\"Y a-t-il quelque chose de spécial au sujet de votre culture de travail?\",\"jobBuilder.workEnv.specialWorkCultureLabel\":\"Voici de plus amples renseignements sur votre culture de travail.\",\"jobBuilder.workEnv.specialWorkCultureSubtext\":\"Votre équipe accorde-t-elle beaucoup d’importance à d’autres aspects? Est-elle fière de son bilan en matière de résultats? A-t-elle pris de solides engagements envers le mieux-être mental? Participe-t-elle activement à la promotion de la diversité et de l’inclusion? Ses membres se font-ils les champions des enjeux relatifs à la collectivité LGBTQ+? Voici l’occasion de faire connaître aux candidats la culture de l’équipe qu’ils pourraient intégrer.\",\"jobBuilder.workEnv.stepDescription\":\"Les candidats accordent beaucoup d’importance à l’équipe au sein de laquelle ils travailleront et à leur espace de travail physique. Le fait de communiquer de l’information à ce sujet aide les candidats à déterminer s’ils correspondent bien au profil de l’emploi, et peut réduire le nombre de demandes « illusoires » qui ralentissent le processus de présélection.\",\"jobBuilder.workEnv.submitButtonLabel\":\"Aperçu de l’environnement de travail\",\"jobBuilder.workEnv.teamSizeLabel\":\"Taille de l’équipe\",\"jobBuilder.workEnv.teamSizePlaceholder\":\"Par exemple 10\",\"jobBuilder.workEnv.technology.accessToExternal\":\"Accès à un réseau sans fil externe et non filtré\",\"jobBuilder.workEnv.technology.collaboration\":\"Collaboration (p. ex., Slack, Hangouts)\",\"jobBuilder.workEnv.technology.fileSharing\":\"Partage des dossiers (p. ex., Google Drive, Dropbox)\",\"jobBuilder.workEnv.technology.taskManagement\":\"Gestion de tâches (p. ex., Trello, Asana)\",\"jobBuilder.workEnv.technology.versionControl\":\"Gestion de versions (p. ex., Github, Gitlab)\",\"jobBuilder.workEnv.technology.videoConferencing\":\"Vidéo-conférence (p. ex., Skype, Zoom)\",\"jobBuilder.workEnv.technologyLabel\":\"Technologie\",\"jobBuilder.workEnv.textAreaPlaceholder1\":\"Essayez d’adopter un ton décontracté, franc et amical.\",\"jobBuilder.workEnv.thisIsOptional\":\"Ceci est facultatif.\",\"jobBuilder.workEnv.title\":\"Environnement de travail\",\"jobBuilder.workEnvModal.cancelLabel\":\"Retour en arrière\",\"jobBuilder.workEnvModal.confirmLabel\":\"Prochaine étape\",\"jobBuilder.workEnvModal.modalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.workEnvModal.title\":\"Environnement de travail\",\"jobBuilder.workEnvModal.workCultureTitle\":\"Culture du travail\",\"jobCard.applicants\":\"{applicants, plural,=0 {Aucun candidat} one {# candidat} other {# candidats}}\",\"jobCard.managerTime\":\"Time with Manager: {managerTime, plural, one {# day} other {# days} }\",\"jobCard.noActivity\":\"Aucune nouvelle activité\",\"jobCard.userTime\":\"Time with you: <s>{userTime, plural, one {# day} other {# days} }</s>\",\"jobReviewHr.headsUp\":\"Un simple rappel! Nous avons réorganisé certains renseignements fournis afin de vous aider à comprendre comment le candidat verra l’information une fois publiée.\",\"jobReviewHr.loadingIconText\":\"Les données sont en cours de chargement...\",\"jobReviewHr.reviewYourPoster\":\"Examiner votre offre d’emploi pour :\",\"jobReviewHr.summaryLink\":\"Revenir au résumé\",\"languageRequirement.bilingualAdvanced\":\"Bilingue - Avancé (CBC)\",\"languageRequirement.bilingualIntermediate\":\"Bilingue - Intermédiaire (BBB)\",\"languageRequirement.context.basic\":\"Vous pouvez présenter cette demande initiale dans la langue officielle de votre choix (français ou anglais).\",\"languageRequirement.context.expanded\":\"Vous pouvez suivre toutes les autres étapes de ce processus d’évaluation dans la langue officielle de votre choix, y compris la demande initiale, l’entrevue, l’examen et toute autre composante de l’évaluation.\",\"languageRequirement.description.bilingualAdvanced\":\"Ce poste nécessite une connaissance approfondie du français et de l'anglais. Cela signifie que vous pouvez assumer des tâches en français ou en anglais et que vous avez de solides compétences en lecture, en écriture et en communication verbale dans les deux langues officielles. Dans le cadre de ce processus de sélection, vos compétences linguistiques seront testées par la Commission de la fonction publique du Canada. Commission de la fonction publique du Canada.\",\"languageRequirement.description.bilingualIntermediate\":\"Ce poste nécessite une connaissance pratique du français et de l'anglais. Cela signifie que vous pouvez occuper des fonctions en français ou en anglais et que vous possédez des compétences intermédiaires en lecture, en écriture et en communication verbale dans les deux langues officielles. Dans le cadre de ce processus de sélection, vos compétences linguistiques seront testées par la Commission de la fonction publique du Canada.\",\"languageRequirement.description.english\":\"Ce poste exige une bonne maîtrise de l’anglais, tant à l’écrit que de vive voix. Dans le cadre de l’évaluation de vos compétences linguistiques, le gestionnaire d’embauche peut vous demander de suivre certaines étapes d’évaluation en anglais, comme des questions d’entrevue ou un examen.\",\"languageRequirement.description.englishOrFrench\":\"Pour ce poste, vous répondez aux exigences linguistiques si vous possédez de solides compétences en lecture, en rédaction et en communication verbale en français, en anglais ou dans les deux (bilingue).\",\"languageRequirement.description.french\":\"Ce poste exige une bonne maîtrise du français, tant à l’écrit que de vive voix. Dans le cadre de l’évaluation de vos compétences linguistiques, le gestionnaire d’embauche peut vous demander de suivre certaines étapes d’évaluation en français, comme des questions d’entrevue ou un examen.\",\"languageRequirement.english\":\"Anglais - Essentiel\",\"languageRequirement.englishOrFrench\":\"Anglais ou français\",\"languageRequirement.french\":\"Français - Essentiel\",\"managerSurveyModal.explanation\":\"Vos commentaires nous aident à améliorer nos outils! Veuillez prendre quelques minutes pour répondre à un sondage.\",\"managerSurveyModal.jobPosterLink\":\"Retour à Mes offres d'emploi\",\"managerSurveyModal.jobPosterLinkTitle\":\"Visitez Mes offres d'emploi.\",\"managerSurveyModal.link\":\"M'emmener au sondage.\",\"managerSurveyModal.managerSurveyLinkTitle\":\"Lien vers le sondage auprès des gestionnaires.\",\"managerSurveyModal.title\":\"Votre offre d'emploi a été soumise!\",\"openJobCard.claimJob\":\"Réclamer cet emploi\",\"openJobCard.error\":\"Date non disponible.\",\"openJobCard.hiringManager\":\"Gestionnaires d’embauche :\",\"openJobCard.hrAdvisors\":\"Conseillers en RH :\",\"openJobCard.reviewRequested\":\"Récupérée: \",\"openJobCard.unclaimed\":\"Non réclamé\",\"progressTracker.unreachableStep\":\"Doit compléter les étapes précédentes.\",\"province.ab\":\"Alberta\",\"province.ab.abreviation\":\"Alta.\",\"province.bc\":\"Colombie britannique\",\"province.bc.abreviation\":\"C.-B.\",\"province.mb\":\"Manitoba\",\"province.mb.abreviation\":\"Man.\",\"province.nb\":\"Nouveau-Brunswick\",\"province.nb.abreviation\":\"N.-B.\",\"province.nl\":\"Terre-Neuve-et-Labrador\",\"province.nl.abreviation\":\"T.-N.-L.\",\"province.ns\":\"Nouvelle-Écosse\",\"province.ns.abreviation\":\"N.-É.\",\"province.nt\":\"Territoires du nord-ouest\",\"province.nt.abreviation\":\"T.N.-O.\",\"province.nu\":\"Nunavut\",\"province.nu.abreviation\":\"Nt\",\"province.on\":\"Ontario\",\"province.on.abreviation\":\"Ont.\",\"province.pe\":\"Île-du-Prince-Édouard\",\"province.pe.abreviation\":\"Î.-P.-É.\",\"province.qc\":\"Québec\",\"province.qc.abreviation\":\"Qc\",\"province.sk\":\"Saskatchewan\",\"province.sk.abreviation\":\"Sask.\",\"province.yk\":\"Yukon\",\"province.yk.abreviation\":\"Yn\",\"ratingGuideAnswer.answerLabel\":\"Réponse de passage acceptable / Démonstration requise\",\"ratingGuideAnswer.answerPlaceholder\":\"Écrivez la réponse de passage attendue du candidat relativement à cette compétence...\",\"ratingGuideAnswer.nullSelection\":\"Sélectionnez une compétence...\",\"ratingGuideAnswer.selectLabel\":\"Sélectionnez une compétence\",\"ratingGuideBuilder.addQuestion\":\"Ajoutez une question\",\"ratingGuideBuilder.assetMissing\":\"{count} Atout manquant : \",\"ratingGuideBuilder.copyButton\":\"Cliquez ici pour copier ce guide de cotation dans votre presse-papiers\",\"ratingGuideBuilder.copyInstructions\":\"Maintenant que vous avez conçu votre guide de cotation, vous pouvez utiliser le bouton ci-dessous pour copier tout le contenu dans votre presse-papiers, et ainsi pouvoir coller facilement votre système de traitement de texte préféré.\",\"ratingGuideBuilder.criteriaName\":\"{skillName} - {skillLevel}\",\"ratingGuideBuilder.criteriaTypeHeading\":\"Type de critères\",\"ratingGuideBuilder.essentialMissing\":\"{count} Critères essentiels manquants : \",\"ratingGuideBuilder.instructions\":\"Vous trouverez ci-dessous votre propre guide de cotation pour vous aider à évaluer vos candidats. Cet outil vous permet d’élaborer vos propres questions pour chaque évaluation que vous avez sélectionnée ci-dessus, puis de noter les critères de ce que pourrait représenter une excellente réponse du candidat. Veuillez prendre note que l’« examen narratif » est unique en ce sens que le contenu est généré pour vous ci-dessous.\",\"ratingGuideBuilder.narrativeSectionTitle\":\"Évaluation {index}: {assessmentType}\",\"ratingGuideBuilder.questionHeading\":\"Question\",\"ratingGuideBuilder.ratingGuideHeading\":\"Guide de notation\",\"ratingGuideBuilder.sectionTitle\":\"Évaluation {index}: {assessmentType}\",\"ratingGuideBuilder.skillDescriptionHeading\":\"Description de la compétence\",\"ratingGuideBuilder.skillHeading\":\"Compétence\",\"ratingGuideBuilder.targetLevelHeading\":\"Niveau cible\",\"ratingGuideBuilder.title\":\"3. Concepteur de guides de cotation\",\"ratingGuideBuilder.titleHeading\":\"Titre\",\"ratingGuideQuestion.questionLabel\":\"Question d'entrevue\",\"ratingGuideQuestion.questionPlaceholder\":\"Écrivez votre question d'entrevue ici ...\",\"referenceEmailModal.bccLabel\":\"BCC:\",\"referenceEmailModal.cancel\":\"Cancel\",\"referenceEmailModal.ccLabel\":\"CC:\",\"referenceEmailModal.confirm\":\"Send Email\",\"referenceEmailModal.fromLabel\":\"From:\",\"referenceEmailModal.nullState\":\"Loading reference email...\",\"referenceEmailModal.subjectLabel\":\"Subject:\",\"referenceEmailModal.title\":\"Email for Reference Check\",\"referenceEmailModal.toLabel\":\"To:\",\"responseReviewStatus.allocated\":\"Affectation\",\"responseReviewStatus.assessmentRequired\":\"Évaluation supplémentaire nécessaire\",\"responseReviewStatus.notAvailable\":\"Non disponible\",\"responseReviewStatus.readyForReference\":\"Prêt pour la vérification des références\",\"responseReviewStatus.readyToAllocate\":\"Prêt pour l’affectation\",\"responseReviewStatus.screenedOut\":\"Ne répond pas aux conditions requises\",\"responseScreening.applicant.directorEmailButton\":\"Director email.\",\"responseScreening.applicant.directorEmailSending\":\"Sending email...\",\"responseScreening.applicant.secondaryEmailButton\":\"Reference email.\",\"responseScreening.applicant.secondaryEmailSending\":\"Sending email...\",\"responseScreening.bucket.accessibleViewLabel\":\"Cliquez pour afficher...\",\"responseScreening.bucket.cancelLabel\":\"Annuler\",\"responseScreening.bucket.confirmAction\":\"Veuillez confirmer cette action\",\"responseScreening.bucket.confirmSetAllocated\":\"L’établissement de l’état de ce candidat à affecté le rendra actuellement indisponible pour tous les autres volets. Voulez-vous vraiment continuer?\",\"responseScreening.bucket.confirmSetUnavailable\":\"L’établissement de l’état ce candidat à non accessible le rendra actuellement indisponible pour tous les autres volets. Voulez-vous vraiment continuer?\",\"responseScreening.bucket.noApplicants\":\"Il n’y a actuellement aucun candidat dans ce compartiment.\",\"responseScreening.bucket.notesLabel\":\"Ajouter/Modifier des notes\",\"responseScreening.bucket.saveLabel\":\"Enregistrement des modifications\",\"responseScreening.bucket.savedLabel\":\"Enregistré\",\"responseScreening.bucket.savingLabel\":\"Enregistrement...\",\"responseScreening.bucket.selectDepartmentDefault\":\"Choisissez un ministère...\",\"responseScreening.bucket.selectDepartmentLabel\":\"Affectation des ministères\",\"responseScreening.bucket.selectStatusDefault\":\"Sélectionner un état...\",\"responseScreening.bucket.selectStatusLabel\":\"État de l’examen\",\"responseScreening.bucket.viewApplicationLabel\":\"Afficher l’application\",\"responseScreening.bucket.viewProfileLabel\":\"Afficher le profil\",\"responseScreening.bucket.yes\":\"Oui\",\"responseScreening.buckets.allocated.description\":\"Les employés de cette catégorie ont été affectés à un ministère. Leur nom a été retiré de tous les autres processus de réserve du gouvernement du Canada (GC) pour lesquels ils ont présenté une demande (et ces noms figureront dans ces processus sous la section « Non disponible actuellement »). À l’issue d’une affectation donnée, les employés peuvent décider d’être intégrés à la catégorie « Prêt à l’affectation », si cela redevient nécessaire.\",\"responseScreening.buckets.allocated.title\":\"Affecté\",\"responseScreening.buckets.consideration.description\":\"Les employés de cette catégorie se sont portés volontaires pour être intégrés à une équipe n’arrivant pas à satisfaire ses besoins essentiels. Les employés de cette catégorie sont : En attente d’un examen initial des demandes ({iconReceived}), qui indique que la présentation a été reçue, mais qu’elle n’a pas encore été évaluée par un membre de l’équipe d’examen; Prêt pour la vérification des références et l’approbation du ministère d’origine ({iconReady}), qui indique que l’employé est dirigé vers la catégorie « Prêt à affecter » si les catégories et les approbations sont en ordre; et « Évaluation supplémentaire nécessaire » ({iconAssessment}), qui indique que l’équipe est incertaine des qualifications liées à ce rôle et qu’elle entreprend une évaluation plus approfondie.\",\"responseScreening.buckets.consideration.title\":\"Employés à l’étude\",\"responseScreening.buckets.doesNotQualify.description\":\"Les employés de cette catégorie se sont portés volontaires, mais un examen de leur demande et/ou une vérification des références amène l’équipe d’examen à conclure que leur candidature ne constituerait pas un atout au sein d’un ministère devant combler un écart de talents essentiel de ce domaine. Cette détermination n’est, en aucun cas, prise en considération dans l’établissement de l’état du rendement auprès du ministère d’attache et n’a aucune incidence sur l’évaluation des autres volets de talents de la Réserve du GC pour lesquels le demandeur a présenté une demande.\",\"responseScreening.buckets.doesNotQualify.title\":\"Ne répond pas aux conditions requises\",\"responseScreening.buckets.readyToAllocate.description\":\"Les employés de cette catégorie ont les compétences nécessaires pour effectuer ce type de travail, ont réussi les vérifications de références et ont reçu une autorisation préliminaire de participer émise par un membre de leur équipe de gestion. Ils travaillent actuellement dans un poste d’attache en attendant de recevoir une demande émise par un ministère aux prises avec des écarts de talents essentiels.\",\"responseScreening.buckets.readyToAllocate.title\":\"Prêt à l’affectation\",\"responseScreening.buckets.unavailable.description\":\"Les employés de ce volet ont été affectés à un ministère dans le besoin ou ont temporairement retiré leur demande de candidature pendant une période donnée (p. ex., maladie, obligations familiales) et souhaitent être pris en considération dans le cadre d’une affectation à une date ultérieure. Les employés de cette catégorie ont les qualifications demandées pour ce volet de talents et seront replacés dans le groupe Prêt à l’affectation dès qu’ils seront disponibles à nouveau. (Si un employé retire son nom de façon permanente, sa demande sera retirée de la réserve de talents du GC.)\",\"responseScreening.buckets.unavailable.title\":\"Actuellement indisponible\",\"review.applications.alert.oops\":\"Enregistrer\",\"review.applications.button.confirm\":\"Confirmer\",\"review.applications.indexPageTitle\":\"Applications pour : {jobTitle} {jobClassification}\",\"review.applications.nonCitizens.description\":\" \",\"review.applications.nonCitizens.title\":\"Non-Citoyens canadiens\",\"review.applications.optionalConsideration.description\":\"Dans ce groupe, vous trouverez les candidats qui ne sont pas citoyens canadiens ou qui ne prétendent pas répondre aux critères essentiels.\",\"review.applications.optionalConsideration.title\":\"Candidats supplémentaires\",\"review.applications.priorityApplicants.description\":\"Ce sont des candidats prioritaires pour ce poste. Ils doivent être examinés et pris en compte en premier.\",\"review.applications.priorityApplicants.title\":\"Candidats prioritaire\",\"review.applications.reviewSaveFailed\":\"Une erreur s'est produite lors de l'enregistrement d'un commentaire. Réessayez plus tard.\",\"review.applications.screenOutAll\":\"Éliminer tous les candidats supplémentaires\",\"review.applications.screenOutAll.confirm\":\"Êtes-vous sûr de vouloir éliminer tous les candidats supplémentaires?\",\"review.applications.screenedOut.description\":\"Ces applications ont déjà été éliminées.\",\"review.applications.screenedOut.title\":\"Candidats qui ne sont plus considérés\",\"review.applications.underConsideration.description\":\"Examinez les candidats dans la section Anciens combattants et citoyens canadiens. Si aucun ou très peu de ces candidats ne répondent aux critères, vous pouvez toujours prendre en compte les candidatures non citoyennes dans la section Considérations facultatives.\",\"review.applications.underConsideration.title\":\"Candidats à considérée\",\"review.applications.unqualified.description\":\" \",\"review.applications.unqualified.title\":\"Ne répond pas aux critères essentiels\",\"review.applications.veteransAndCitizens.description\":\" \",\"review.applications.veteransAndCitizens.title\":\"Anciens combattants et citoyens canadiens\",\"reviewLocations.jpb.basicInfo\":\"Renseignements de base\",\"reviewLocations.jpb.environment\":\"Environnement de travail\",\"reviewLocations.jpb.generic\":\"Générique\",\"reviewLocations.jpb.heading\":\"Titre de la page de l’emploi\",\"reviewLocations.jpb.impact\":\"Impact\",\"reviewLocations.jpb.langRequirements\":\"Exigences linguistiques\",\"reviewLocations.jpb.skills\":\"Compétences\",\"reviewLocations.jpb.tasks\":\"Taches\",\"securityClearance.reliability\":\"Fiabilité\",\"securityClearance.secret\":\"Secret\",\"securityClearance.topSecret\":\"Très secret\",\"skillLevel.asset.description\":\"Cette compétence n’est pas nécessaire pour que l’employé puisse exécuter le travail, mais elle ajoute un avantage à l’ensemble de ses compétences et améliorera le rythme ou l’efficacité de son travail.\",\"skillLevel.asset.name\":\"Atout/aucun niveau requis\",\"skillLevel.hard.advanced.description\":\"Vous avez la capacité d’accomplir des tâches d’une complexité ou d’une incidence importante avec supervision. Vous donnez des conseils et des commentaires au superviseur sur l’approche à employer pour effectuer les tâches et la façon dont elles sont exécutées. Vous êtes en mesure de faire progresser la tâche, même face à des obstacles et à des complications d’envergure moyenne à importante. Au fur et à mesure que vous progressez dans cette catégorie, vous êtes être en mesure d’accomplir des tâches d’une complexité importante ou ayant une incidence plus grande avec seulement de légers niveaux de supervision, en étant effectivement le responsable de l’initiative. Vous pouvez également jouer un rôle de formation d’autres personnes dans cet ensemble de compétences ou assumer un rôle de supervision léger pour les personnes aux niveaux inférieurs. Ce niveau est habituellement associé à des tâches qui constituent la majeure partie du travail pour des postes de niveau supérieur, comme les analystes principaux ou les développeurs principaux.\",\"skillLevel.hard.advanced.name\":\"Avancé\",\"skillLevel.hard.basic.description\":\"Vous êtes capable d’accomplir des tâches de base avec une supervision régulière et une orientation claire. Les tâches qui vous sont assignées sont claires et ne sont pas très complexes. Elles ont généralement une incidence locale. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’accomplir des tâches de complexité modérée avec une supervision régulière. Vous devriez également être en mesure d’accomplir des tâches de base avec peu ou pas de supervision. Ce niveau est habituellement associé aux tâches qui constituent le gros du travail pour les postes de niveau inférieur, comme les analystes ou les développeurs de niveau débutant.\",\"skillLevel.hard.basic.name\":\"Débutant\",\"skillLevel.hard.expert.description\":\"Vous êtes en mesure d’accomplir des tâches d’une complexité ou d’une incidence importante, où vous prenez les décisions et répondez de vos décisions auprès de la haute direction de l’organisation. Vous présentez les tâches, l’approche et le plan de réalisation à la haute direction. Vous supervisez souvent d’autres personnes (personnes ou équipes) dans l’exécution de tâches très complexes ou ayant une incidence sur l’ensemble du système. Vous êtes en mesure de faire progresser ces tâches, même face à des obstacles et à des complications importants et imprévus. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’évaluer les autres à des niveaux plus subalternes, et de déterminer clairement la différence entre les tâches débutantes, intermédiaires et avancées. Vous devriez également être en mesure de pouvoir former des équipes, définir des orientations et assurer une supervision. Ce niveau est habituellement associé aux tâches qui constituent la majeure partie du travail pour les postes de direction et de direction.\",\"skillLevel.hard.expert.name\":\"Responsable\",\"skillLevel.hard.intermediate.description\":\"Vous avez la capacité d’accomplir des tâches de complexité modérée ou d’incidence modérée avec supervision. C’est le superviseur qui détermine l’approche à préconiser pour effectuer les tâches, de même que la façon dont elles sont exécutées. Vous apportez des commentaires et des conseils. Vous êtes en mesure de faire progresser la tâche, même face à des obstacles et à des complications de petite à moyenne envergure. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’accomplir des tâches d’une complexité importante ou ayant une incidence plus grande avec une supervision régulière. Vous devriez également être en mesure d’accomplir des tâches d’une complexité ou d’une incidence modérée avec peu ou pas de supervision. Ce niveau est habituellement associé aux tâches qui constituent le gros du travail pour les postes de niveau intermédiaire, comme les analystes ou les développeurs.\",\"skillLevel.hard.intermediate.name\":\"Intermédiaire\",\"skillLevel.soft.advanced.description\":\"Vous êtes capable de démontrer cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont élevés. Vos pairs et vos superviseurs reconnaissent qu’il s’agit d’une force dont vous faites preuve en milieu de travail.\",\"skillLevel.soft.advanced.name\":\"Fortement en évidence\",\"skillLevel.soft.basic.description\":\"Vous êtes en processus d’acquérir cette compétence ou cet attribut. Vous êtes capable de le démontrer dans des conditions favorables (peu de stress, difficulté minimale) et pouvez l’appliquer dans un contexte de travail de façon intermittente.\",\"skillLevel.soft.basic.name\":\"Phase de développement précoce\",\"skillLevel.soft.expert.description\":\"Il s’agit d’une partie fondamentale de qui vous êtes. Vous démontrez cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont extrêmes. Vos pairs et vos superviseurs reconnaissent qu’il s’agit d’une force importante dont vous faites preuve en milieu de travail, en donnant un exemple aux autres.\",\"skillLevel.soft.expert.name\":\"Démonstration à un niveau profond\",\"skillLevel.soft.intermediate.description\":\"Vous êtes capable de démontrer cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont bas ou modérés. Vos pairs et vos superviseurs peuvent attester le fait que vous êtes capable de démontrer cette compétence ou cet attribut de façon régulière.\",\"skillLevel.soft.intermediate.name\":\"Modérément en évidence\",\"skillWordCounter.afterText\":\"mots de plus que la limite\",\"skillWordCounter.wordsLeft\":\"mots restants\"}");
 
 /***/ }),
 
@@ -62913,7 +72742,7 @@ module.exports = JSON.parse("{\"activity.commentLocation.label\":\"Commentaire t
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\dev\TalentCloud\resources\assets\js\components\StrategicTalentResponse\ResponseScreening\ResponseScreeningPage.tsx */"./resources/assets/js/components/StrategicTalentResponse/ResponseScreening/ResponseScreeningPage.tsx");
+module.exports = __webpack_require__(/*! /Users/Grant/Sites/TalentCloud/resources/assets/js/components/StrategicTalentResponse/ResponseScreening/ResponseScreeningPage.tsx */"./resources/assets/js/components/StrategicTalentResponse/ResponseScreening/ResponseScreeningPage.tsx");
 
 
 /***/ })

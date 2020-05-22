@@ -223,26 +223,6 @@ module.exports = _objectWithoutPropertiesLoose;
 
 /***/ }),
 
-/***/ "./node_modules/@babel/runtime/helpers/taggedTemplateLiteralLoose.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/taggedTemplateLiteralLoose.js ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _taggedTemplateLiteralLoose(strings, raw) {
-  if (!raw) {
-    raw = strings.slice(0);
-  }
-
-  strings.raw = raw;
-  return strings;
-}
-
-module.exports = _taggedTemplateLiteralLoose;
-
-/***/ }),
-
 /***/ "./node_modules/@babel/runtime/helpers/typeof.js":
 /*!*******************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/typeof.js ***!
@@ -3330,7 +3310,7 @@ if (!IS_PURE && typeof NativePromise == 'function' && !NativePromise.prototype['
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-!function(t,n){ true?module.exports=n():undefined}(this,function(){"use strict";var t="millisecond",n="second",e="minute",r="hour",i="day",s="week",u="month",o="quarter",a="year",h=/^(\d{4})-?(\d{1,2})-?(\d{0,2})[^0-9]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?.?(\d{1,3})?$/,f=/\[([^\]]+)]|Y{2,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g,c=function(t,n,e){var r=String(t);return!r||r.length>=n?t:""+Array(n+1-r.length).join(e)+t},d={s:c,z:function(t){var n=-t.utcOffset(),e=Math.abs(n),r=Math.floor(e/60),i=e%60;return(n<=0?"+":"-")+c(r,2,"0")+":"+c(i,2,"0")},m:function(t,n){var e=12*(n.year()-t.year())+(n.month()-t.month()),r=t.clone().add(e,u),i=n-r<0,s=t.clone().add(e+(i?-1:1),u);return Number(-(e+(n-r)/(i?r-s:s-r))||0)},a:function(t){return t<0?Math.ceil(t)||0:Math.floor(t)},p:function(h){return{M:u,y:a,w:s,d:i,D:"date",h:r,m:e,s:n,ms:t,Q:o}[h]||String(h||"").toLowerCase().replace(/s$/,"")},u:function(t){return void 0===t}},$={name:"en",weekdays:"Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),months:"January_February_March_April_May_June_July_August_September_October_November_December".split("_")},l="en",m={};m[l]=$;var y=function(t){return t instanceof v},M=function(t,n,e){var r;if(!t)return l;if("string"==typeof t)m[t]&&(r=t),n&&(m[t]=n,r=t);else{var i=t.name;m[i]=t,r=i}return!e&&r&&(l=r),r||!e&&l},g=function(t,n,e){if(y(t))return t.clone();var r=n?"string"==typeof n?{format:n,pl:e}:n:{};return r.date=t,new v(r)},D=d;D.l=M,D.i=y,D.w=function(t,n){return g(t,{locale:n.$L,utc:n.$u,$offset:n.$offset})};var v=function(){function c(t){this.$L=this.$L||M(t.locale,null,!0),this.parse(t)}var d=c.prototype;return d.parse=function(t){this.$d=function(t){var n=t.date,e=t.utc;if(null===n)return new Date(NaN);if(D.u(n))return new Date;if(n instanceof Date)return new Date(n);if("string"==typeof n&&!/Z$/i.test(n)){var r=n.match(h);if(r)return e?new Date(Date.UTC(r[1],r[2]-1,r[3]||1,r[4]||0,r[5]||0,r[6]||0,r[7]||0)):new Date(r[1],r[2]-1,r[3]||1,r[4]||0,r[5]||0,r[6]||0,r[7]||0)}return new Date(n)}(t),this.init()},d.init=function(){var t=this.$d;this.$y=t.getFullYear(),this.$M=t.getMonth(),this.$D=t.getDate(),this.$W=t.getDay(),this.$H=t.getHours(),this.$m=t.getMinutes(),this.$s=t.getSeconds(),this.$ms=t.getMilliseconds()},d.$utils=function(){return D},d.isValid=function(){return!("Invalid Date"===this.$d.toString())},d.isSame=function(t,n){var e=g(t);return this.startOf(n)<=e&&e<=this.endOf(n)},d.isAfter=function(t,n){return g(t)<this.startOf(n)},d.isBefore=function(t,n){return this.endOf(n)<g(t)},d.$g=function(t,n,e){return D.u(t)?this[n]:this.set(e,t)},d.year=function(t){return this.$g(t,"$y",a)},d.month=function(t){return this.$g(t,"$M",u)},d.day=function(t){return this.$g(t,"$W",i)},d.date=function(t){return this.$g(t,"$D","date")},d.hour=function(t){return this.$g(t,"$H",r)},d.minute=function(t){return this.$g(t,"$m",e)},d.second=function(t){return this.$g(t,"$s",n)},d.millisecond=function(n){return this.$g(n,"$ms",t)},d.unix=function(){return Math.floor(this.valueOf()/1e3)},d.valueOf=function(){return this.$d.getTime()},d.startOf=function(t,o){var h=this,f=!!D.u(o)||o,c=D.p(t),d=function(t,n){var e=D.w(h.$u?Date.UTC(h.$y,n,t):new Date(h.$y,n,t),h);return f?e:e.endOf(i)},$=function(t,n){return D.w(h.toDate()[t].apply(h.toDate(),(f?[0,0,0,0]:[23,59,59,999]).slice(n)),h)},l=this.$W,m=this.$M,y=this.$D,M="set"+(this.$u?"UTC":"");switch(c){case a:return f?d(1,0):d(31,11);case u:return f?d(1,m):d(0,m+1);case s:var g=this.$locale().weekStart||0,v=(l<g?l+7:l)-g;return d(f?y-v:y+(6-v),m);case i:case"date":return $(M+"Hours",0);case r:return $(M+"Minutes",1);case e:return $(M+"Seconds",2);case n:return $(M+"Milliseconds",3);default:return this.clone()}},d.endOf=function(t){return this.startOf(t,!1)},d.$set=function(s,o){var h,f=D.p(s),c="set"+(this.$u?"UTC":""),d=(h={},h[i]=c+"Date",h.date=c+"Date",h[u]=c+"Month",h[a]=c+"FullYear",h[r]=c+"Hours",h[e]=c+"Minutes",h[n]=c+"Seconds",h[t]=c+"Milliseconds",h)[f],$=f===i?this.$D+(o-this.$W):o;if(f===u||f===a){var l=this.clone().set("date",1);l.$d[d]($),l.init(),this.$d=l.set("date",Math.min(this.$D,l.daysInMonth())).toDate()}else d&&this.$d[d]($);return this.init(),this},d.set=function(t,n){return this.clone().$set(t,n)},d.get=function(t){return this[D.p(t)]()},d.add=function(t,o){var h,f=this;t=Number(t);var c=D.p(o),d=function(n){var e=g(f);return D.w(e.date(e.date()+Math.round(n*t)),f)};if(c===u)return this.set(u,this.$M+t);if(c===a)return this.set(a,this.$y+t);if(c===i)return d(1);if(c===s)return d(7);var $=(h={},h[e]=6e4,h[r]=36e5,h[n]=1e3,h)[c]||1,l=this.$d.getTime()+t*$;return D.w(l,this)},d.subtract=function(t,n){return this.add(-1*t,n)},d.format=function(t){var n=this;if(!this.isValid())return"Invalid Date";var e=t||"YYYY-MM-DDTHH:mm:ssZ",r=D.z(this),i=this.$locale(),s=this.$H,u=this.$m,o=this.$M,a=i.weekdays,h=i.months,c=function(t,r,i,s){return t&&(t[r]||t(n,e))||i[r].substr(0,s)},d=function(t){return D.s(s%12||12,t,"0")},$=i.meridiem||function(t,n,e){var r=t<12?"AM":"PM";return e?r.toLowerCase():r},l={YY:String(this.$y).slice(-2),YYYY:this.$y,M:o+1,MM:D.s(o+1,2,"0"),MMM:c(i.monthsShort,o,h,3),MMMM:h[o]||h(this,e),D:this.$D,DD:D.s(this.$D,2,"0"),d:String(this.$W),dd:c(i.weekdaysMin,this.$W,a,2),ddd:c(i.weekdaysShort,this.$W,a,3),dddd:a[this.$W],H:String(s),HH:D.s(s,2,"0"),h:d(1),hh:d(2),a:$(s,u,!0),A:$(s,u,!1),m:String(u),mm:D.s(u,2,"0"),s:String(this.$s),ss:D.s(this.$s,2,"0"),SSS:D.s(this.$ms,3,"0"),Z:r};return e.replace(f,function(t,n){return n||l[t]||r.replace(":","")})},d.utcOffset=function(){return 15*-Math.round(this.$d.getTimezoneOffset()/15)},d.diff=function(t,h,f){var c,d=D.p(h),$=g(t),l=6e4*($.utcOffset()-this.utcOffset()),m=this-$,y=D.m(this,$);return y=(c={},c[a]=y/12,c[u]=y,c[o]=y/3,c[s]=(m-l)/6048e5,c[i]=(m-l)/864e5,c[r]=m/36e5,c[e]=m/6e4,c[n]=m/1e3,c)[d]||m,f?y:D.a(y)},d.daysInMonth=function(){return this.endOf(u).$D},d.$locale=function(){return m[this.$L]},d.locale=function(t,n){if(!t)return this.$L;var e=this.clone(),r=M(t,n,!0);return r&&(e.$L=r),e},d.clone=function(){return D.w(this.$d,this)},d.toDate=function(){return new Date(this.valueOf())},d.toJSON=function(){return this.isValid()?this.toISOString():null},d.toISOString=function(){return this.$d.toISOString()},d.toString=function(){return this.$d.toUTCString()},c}();return g.prototype=v.prototype,g.extend=function(t,n){return t(n,v,g),g},g.locale=M,g.isDayjs=y,g.unix=function(t){return g(1e3*t)},g.en=m[l],g.Ls=m,g});
+!function(t,e){ true?module.exports=e():undefined}(this,function(){"use strict";var t="millisecond",e="second",n="minute",r="hour",i="day",s="week",u="month",o="quarter",a="year",h=/^(\d{4})-?(\d{1,2})-?(\d{0,2})[^0-9]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?.?(\d{1,3})?$/,f=/\[([^\]]+)]|Y{2,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g,c=function(t,e,n){var r=String(t);return!r||r.length>=e?t:""+Array(e+1-r.length).join(n)+t},d={s:c,z:function(t){var e=-t.utcOffset(),n=Math.abs(e),r=Math.floor(n/60),i=n%60;return(e<=0?"+":"-")+c(r,2,"0")+":"+c(i,2,"0")},m:function(t,e){var n=12*(e.year()-t.year())+(e.month()-t.month()),r=t.clone().add(n,u),i=e-r<0,s=t.clone().add(n+(i?-1:1),u);return Number(-(n+(e-r)/(i?r-s:s-r))||0)},a:function(t){return t<0?Math.ceil(t)||0:Math.floor(t)},p:function(h){return{M:u,y:a,w:s,d:i,D:"date",h:r,m:n,s:e,ms:t,Q:o}[h]||String(h||"").toLowerCase().replace(/s$/,"")},u:function(t){return void 0===t}},$={name:"en",weekdays:"Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),months:"January_February_March_April_May_June_July_August_September_October_November_December".split("_")},l="en",m={};m[l]=$;var y=function(t){return t instanceof v},M=function(t,e,n){var r;if(!t)return l;if("string"==typeof t)m[t]&&(r=t),e&&(m[t]=e,r=t);else{var i=t.name;m[i]=t,r=i}return!n&&r&&(l=r),r||!n&&l},g=function(t,e){if(y(t))return t.clone();var n="object"==typeof e?e:{};return n.date=t,n.args=arguments,new v(n)},D=d;D.l=M,D.i=y,D.w=function(t,e){return g(t,{locale:e.$L,utc:e.$u,$offset:e.$offset})};var v=function(){function c(t){this.$L=this.$L||M(t.locale,null,!0),this.parse(t)}var d=c.prototype;return d.parse=function(t){this.$d=function(t){var e=t.date,n=t.utc;if(null===e)return new Date(NaN);if(D.u(e))return new Date;if(e instanceof Date)return new Date(e);if("string"==typeof e&&!/Z$/i.test(e)){var r=e.match(h);if(r)return n?new Date(Date.UTC(r[1],r[2]-1,r[3]||1,r[4]||0,r[5]||0,r[6]||0,r[7]||0)):new Date(r[1],r[2]-1,r[3]||1,r[4]||0,r[5]||0,r[6]||0,r[7]||0)}return new Date(e)}(t),this.init()},d.init=function(){var t=this.$d;this.$y=t.getFullYear(),this.$M=t.getMonth(),this.$D=t.getDate(),this.$W=t.getDay(),this.$H=t.getHours(),this.$m=t.getMinutes(),this.$s=t.getSeconds(),this.$ms=t.getMilliseconds()},d.$utils=function(){return D},d.isValid=function(){return!("Invalid Date"===this.$d.toString())},d.isSame=function(t,e){var n=g(t);return this.startOf(e)<=n&&n<=this.endOf(e)},d.isAfter=function(t,e){return g(t)<this.startOf(e)},d.isBefore=function(t,e){return this.endOf(e)<g(t)},d.$g=function(t,e,n){return D.u(t)?this[e]:this.set(n,t)},d.year=function(t){return this.$g(t,"$y",a)},d.month=function(t){return this.$g(t,"$M",u)},d.day=function(t){return this.$g(t,"$W",i)},d.date=function(t){return this.$g(t,"$D","date")},d.hour=function(t){return this.$g(t,"$H",r)},d.minute=function(t){return this.$g(t,"$m",n)},d.second=function(t){return this.$g(t,"$s",e)},d.millisecond=function(e){return this.$g(e,"$ms",t)},d.unix=function(){return Math.floor(this.valueOf()/1e3)},d.valueOf=function(){return this.$d.getTime()},d.startOf=function(t,o){var h=this,f=!!D.u(o)||o,c=D.p(t),d=function(t,e){var n=D.w(h.$u?Date.UTC(h.$y,e,t):new Date(h.$y,e,t),h);return f?n:n.endOf(i)},$=function(t,e){return D.w(h.toDate()[t].apply(h.toDate("s"),(f?[0,0,0,0]:[23,59,59,999]).slice(e)),h)},l=this.$W,m=this.$M,y=this.$D,M="set"+(this.$u?"UTC":"");switch(c){case a:return f?d(1,0):d(31,11);case u:return f?d(1,m):d(0,m+1);case s:var g=this.$locale().weekStart||0,v=(l<g?l+7:l)-g;return d(f?y-v:y+(6-v),m);case i:case"date":return $(M+"Hours",0);case r:return $(M+"Minutes",1);case n:return $(M+"Seconds",2);case e:return $(M+"Milliseconds",3);default:return this.clone()}},d.endOf=function(t){return this.startOf(t,!1)},d.$set=function(s,o){var h,f=D.p(s),c="set"+(this.$u?"UTC":""),d=(h={},h[i]=c+"Date",h.date=c+"Date",h[u]=c+"Month",h[a]=c+"FullYear",h[r]=c+"Hours",h[n]=c+"Minutes",h[e]=c+"Seconds",h[t]=c+"Milliseconds",h)[f],$=f===i?this.$D+(o-this.$W):o;if(f===u||f===a){var l=this.clone().set("date",1);l.$d[d]($),l.init(),this.$d=l.set("date",Math.min(this.$D,l.daysInMonth())).toDate()}else d&&this.$d[d]($);return this.init(),this},d.set=function(t,e){return this.clone().$set(t,e)},d.get=function(t){return this[D.p(t)]()},d.add=function(t,o){var h,f=this;t=Number(t);var c=D.p(o),d=function(e){var n=g(f);return D.w(n.date(n.date()+Math.round(e*t)),f)};if(c===u)return this.set(u,this.$M+t);if(c===a)return this.set(a,this.$y+t);if(c===i)return d(1);if(c===s)return d(7);var $=(h={},h[n]=6e4,h[r]=36e5,h[e]=1e3,h)[c]||1,l=this.$d.getTime()+t*$;return D.w(l,this)},d.subtract=function(t,e){return this.add(-1*t,e)},d.format=function(t){var e=this;if(!this.isValid())return"Invalid Date";var n=t||"YYYY-MM-DDTHH:mm:ssZ",r=D.z(this),i=this.$locale(),s=this.$H,u=this.$m,o=this.$M,a=i.weekdays,h=i.months,c=function(t,r,i,s){return t&&(t[r]||t(e,n))||i[r].substr(0,s)},d=function(t){return D.s(s%12||12,t,"0")},$=i.meridiem||function(t,e,n){var r=t<12?"AM":"PM";return n?r.toLowerCase():r},l={YY:String(this.$y).slice(-2),YYYY:this.$y,M:o+1,MM:D.s(o+1,2,"0"),MMM:c(i.monthsShort,o,h,3),MMMM:c(h,o),D:this.$D,DD:D.s(this.$D,2,"0"),d:String(this.$W),dd:c(i.weekdaysMin,this.$W,a,2),ddd:c(i.weekdaysShort,this.$W,a,3),dddd:a[this.$W],H:String(s),HH:D.s(s,2,"0"),h:d(1),hh:d(2),a:$(s,u,!0),A:$(s,u,!1),m:String(u),mm:D.s(u,2,"0"),s:String(this.$s),ss:D.s(this.$s,2,"0"),SSS:D.s(this.$ms,3,"0"),Z:r};return n.replace(f,function(t,e){return e||l[t]||r.replace(":","")})},d.utcOffset=function(){return 15*-Math.round(this.$d.getTimezoneOffset()/15)},d.diff=function(t,h,f){var c,d=D.p(h),$=g(t),l=6e4*($.utcOffset()-this.utcOffset()),m=this-$,y=D.m(this,$);return y=(c={},c[a]=y/12,c[u]=y,c[o]=y/3,c[s]=(m-l)/6048e5,c[i]=(m-l)/864e5,c[r]=m/36e5,c[n]=m/6e4,c[e]=m/1e3,c)[d]||m,f?y:D.a(y)},d.daysInMonth=function(){return this.endOf(u).$D},d.$locale=function(){return m[this.$L]},d.locale=function(t,e){if(!t)return this.$L;var n=this.clone(),r=M(t,e,!0);return r&&(n.$L=r),n},d.clone=function(){return D.w(this.$d,this)},d.toDate=function(){return new Date(this.valueOf())},d.toJSON=function(){return this.isValid()?this.toISOString():null},d.toISOString=function(){return this.$d.toISOString()},d.toString=function(){return this.$d.toUTCString()},c}();return g.prototype=v.prototype,g.extend=function(t,e){return t(e,v,g),g},g.locale=M,g.isDayjs=y,g.unix=function(t){return g(1e3*t)},g.en=m[l],g.Ls=m,g});
 
 
 /***/ }),
@@ -5862,7 +5842,17 @@ var IntlMessageFormat = /** @class */ (function () {
         this.formatters =
             (opts && opts.formatters) || createDefaultFormatters(this.formatterCache);
     }
-    IntlMessageFormat.defaultLocale = new Intl.NumberFormat().resolvedOptions().locale;
+    Object.defineProperty(IntlMessageFormat, "defaultLocale", {
+        get: function () {
+            if (!IntlMessageFormat.memoizedDefaultLocale) {
+                IntlMessageFormat.memoizedDefaultLocale = new Intl.NumberFormat().resolvedOptions().locale;
+            }
+            return IntlMessageFormat.memoizedDefaultLocale;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    IntlMessageFormat.memoizedDefaultLocale = null;
     IntlMessageFormat.__parse = intl_messageformat_parser_1.parse;
     // Default format options used as the prototype of the `formats` provided to the
     // constructor. These are used when constructing the internal Intl.NumberFormat
@@ -6100,7 +6090,11 @@ originalMessage) {
         // nested pattern structure. The choosing of the option to use is
         // abstracted-by and delegated-to the part helper object.
         if (intl_messageformat_parser_1.isDateElement(el)) {
-            var style = typeof el.style === 'string' ? formats.date[el.style] : undefined;
+            var style = typeof el.style === 'string'
+                ? formats.date[el.style]
+                : intl_messageformat_parser_1.isDateTimeSkeleton(el.style)
+                    ? intl_messageformat_parser_1.parseDateTimeSkeleton(el.style.pattern)
+                    : undefined;
             result.push({
                 type: 0 /* literal */,
                 value: formatters
@@ -6143,7 +6137,7 @@ originalMessage) {
             if (!isFormatXMLElementFn(formatFn)) {
                 throw new error_1.InvalidValueTypeError(value_1, 'function', originalMessage);
             }
-            var parts = formatToParts(children, locales, formatters, formats, values);
+            var parts = formatToParts(children, locales, formatters, formats, values, currentPluralValue);
             var chunks = formatFn.apply(void 0, parts.map(function (p) { return p.value; }));
             if (!Array.isArray(chunks)) {
                 chunks = [chunks];
@@ -9510,7 +9504,7 @@ exports.parseDateTimeSkeleton = parseDateTimeSkeleton;
 function icuUnitToEcma(unit) {
     return unit.replace(/^(.*?)-/, '');
 }
-var FRACTION_PRECISION_REGEX = /^\.(?:(0+)(\+|#+)?)?$/g;
+var FRACTION_PRECISION_REGEX = /^\.(?:(0+)(\*)?|(#+)|(0+)(#+))$/g;
 var SIGNIFICANT_PRECISION_REGEX = /^(@+)?(\+|#+)?$/g;
 function parseSignificantPrecision(str) {
     var result = {};
@@ -9599,6 +9593,7 @@ function convertNumberSkeletonToNumberFormatOptions(tokens) {
                 result.useGrouping = false;
                 continue;
             case 'precision-integer':
+            case '.':
                 result.maximumFractionDigits = 0;
                 continue;
             case 'measure-unit':
@@ -9641,28 +9636,28 @@ function convertNumberSkeletonToNumberFormatOptions(tokens) {
         }
         // Precision
         // https://github.com/unicode-org/icu/blob/master/docs/userguide/format_parse/numbers/skeletons.md#fraction-precision
+        // precision-integer case
         if (FRACTION_PRECISION_REGEX.test(token.stem)) {
             if (token.options.length > 1) {
                 throw new RangeError('Fraction-precision stems only accept a single optional option');
             }
-            token.stem.replace(FRACTION_PRECISION_REGEX, function (match, g1, g2) {
-                // precision-integer case
-                if (match === '.') {
-                    result.maximumFractionDigits = 0;
-                }
-                // .000+ case
-                else if (g2 === '+') {
-                    result.minimumFractionDigits = g2.length;
+            token.stem.replace(FRACTION_PRECISION_REGEX, function (match, g1, g2, g3, g4, g5) {
+                // .000* case (before ICU67 it was .000+)
+                if (g2 === '*') {
+                    result.minimumFractionDigits = g1.length;
                 }
                 // .### case
-                else if (g1[0] === '#') {
-                    result.maximumFractionDigits = g1.length;
+                else if (g3 && g3[0] === '#') {
+                    result.maximumFractionDigits = g3.length;
                 }
-                // .00## or .000 case
+                // .00## case
+                else if (g4 && g5) {
+                    result.minimumFractionDigits = g4.length;
+                    result.maximumFractionDigits = g4.length + g5.length;
+                }
                 else {
                     result.minimumFractionDigits = g1.length;
-                    result.maximumFractionDigits =
-                        g1.length + (typeof g2 === 'string' ? g2.length : 0);
+                    result.maximumFractionDigits = g1.length;
                 }
                 return '';
             });
@@ -45394,7 +45389,7 @@ function createFormattedComponent(name) {
     return Component;
 }
 exports.createFormattedComponent = createFormattedComponent;
-
+//# sourceMappingURL=createFormattedComponent.js.map
 
 /***/ }),
 
@@ -45453,7 +45448,7 @@ function injectIntl(WrappedComponent, options) {
     return hoistNonReactStatics(WithIntl, WrappedComponent);
 }
 exports.default = injectIntl;
-
+//# sourceMappingURL=injectIntl.js.map
 
 /***/ }),
 
@@ -45568,7 +45563,7 @@ var FormattedMessage = /** @class */ (function (_super) {
     return FormattedMessage;
 }(React.Component));
 exports.default = FormattedMessage;
-
+//# sourceMappingURL=message.js.map
 
 /***/ }),
 
@@ -45607,7 +45602,7 @@ FormattedPlural.defaultProps = {
 };
 FormattedPlural.displayName = 'FormattedPlural';
 exports.default = injectIntl_1.default(FormattedPlural);
-
+//# sourceMappingURL=plural.js.map
 
 /***/ }),
 
@@ -45673,6 +45668,7 @@ function processIntlConfig(config) {
         defaultLocale: config.defaultLocale,
         defaultFormats: config.defaultFormats,
         onError: config.onError,
+        wrapRichTextChunksInFragment: config.wrapRichTextChunksInFragment,
     };
 }
 /**
@@ -45686,7 +45682,7 @@ function createIntl(config, cache) {
     var locale = resolvedConfig.locale, defaultLocale = resolvedConfig.defaultLocale, onError = resolvedConfig.onError;
     if (!locale) {
         if (onError) {
-            onError(new error_1.ReactIntlError("INVALID_CONFIG" /* INVALID_CONFIG */, "\"locale\" was not configured, using \"" + defaultLocale + "\" as fallback. See https://github.com/formatjs/react-intl/blob/master/docs/API.md#intlshape for more details"));
+            onError(new error_1.ReactIntlError("INVALID_CONFIG" /* INVALID_CONFIG */, "\"locale\" was not configured, using \"" + defaultLocale + "\" as fallback. See https://formatjs.io/docs/react-intl/api#intlshape for more details"));
         }
         // Since there's no registered locale data for `locale`, this will
         // fallback to the `defaultLocale` to make sure things can render.
@@ -45696,11 +45692,11 @@ function createIntl(config, cache) {
         resolvedConfig.locale = resolvedConfig.defaultLocale || 'en';
     }
     else if (!Intl.NumberFormat.supportedLocalesOf(locale).length && onError) {
-        onError(new error_1.ReactIntlError("MISSING_DATA" /* MISSING_DATA */, "Missing locale data for locale: \"" + locale + "\" in Intl.NumberFormat. Using default locale: \"" + defaultLocale + "\" as fallback. See https://github.com/formatjs/react-intl/blob/master/docs/Getting-Started.md#runtime-requirements for more details"));
+        onError(new error_1.ReactIntlError("MISSING_DATA" /* MISSING_DATA */, "Missing locale data for locale: \"" + locale + "\" in Intl.NumberFormat. Using default locale: \"" + defaultLocale + "\" as fallback. See https://formatjs.io/docs/react-intl#runtime-requirements for more details"));
     }
     else if (!Intl.DateTimeFormat.supportedLocalesOf(locale).length &&
         onError) {
-        onError(new error_1.ReactIntlError("MISSING_DATA" /* MISSING_DATA */, "Missing locale data for locale: \"" + locale + "\" in Intl.DateTimeFormat. Using default locale: \"" + defaultLocale + "\" as fallback. See https://github.com/formatjs/react-intl/blob/master/docs/Getting-Started.md#runtime-requirements for more details"));
+        onError(new error_1.ReactIntlError("MISSING_DATA" /* MISSING_DATA */, "Missing locale data for locale: \"" + locale + "\" in Intl.DateTimeFormat. Using default locale: \"" + defaultLocale + "\" as fallback. See https://formatjs.io/docs/react-intl#runtime-requirements for more details"));
     }
     return __assign(__assign({}, resolvedConfig), { formatters: formatters, formatNumber: number_1.formatNumber.bind(null, resolvedConfig, formatters.getNumberFormat), formatNumberToParts: number_1.formatNumberToParts.bind(null, resolvedConfig, formatters.getNumberFormat), formatRelativeTime: relativeTime_1.formatRelativeTime.bind(null, resolvedConfig, formatters.getRelativeTimeFormat), formatDate: dateTime_1.formatDate.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatDateToParts: dateTime_1.formatDateToParts.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatTime: dateTime_1.formatTime.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatTimeToParts: dateTime_1.formatTimeToParts.bind(null, resolvedConfig, formatters.getDateTimeFormat), formatPlural: plural_1.formatPlural.bind(null, resolvedConfig, formatters.getPluralRules), formatMessage: message_1.formatMessage.bind(null, resolvedConfig, formatters), formatList: list_1.formatList.bind(null, resolvedConfig, formatters.getListFormat), formatDisplayName: displayName_1.formatDisplayName.bind(null, resolvedConfig, formatters.getDisplayNames) });
 }
@@ -45737,7 +45733,7 @@ var IntlProvider = /** @class */ (function (_super) {
     return IntlProvider;
 }(React.PureComponent));
 exports.default = IntlProvider;
-
+//# sourceMappingURL=provider.js.map
 
 /***/ }),
 
@@ -45934,7 +45930,7 @@ var FormattedRelativeTime = /** @class */ (function (_super) {
 }(React.PureComponent));
 exports.FormattedRelativeTime = FormattedRelativeTime;
 exports.default = FormattedRelativeTime;
-
+//# sourceMappingURL=relative.js.map
 
 /***/ }),
 
@@ -45948,16 +45944,16 @@ exports.default = FormattedRelativeTime;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var react_1 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 var injectIntl_1 = __webpack_require__(/*! ./injectIntl */ "./node_modules/react-intl/dist/components/injectIntl.js");
 var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
 function useIntl() {
-    var intl = react_1.useContext(injectIntl_1.Context);
+    var intl = React.useContext(injectIntl_1.Context);
     utils_1.invariantIntlContext(intl);
     return intl;
 }
 exports.default = useIntl;
-
+//# sourceMappingURL=useIntl.js.map
 
 /***/ }),
 
@@ -45994,10 +45990,9 @@ var ReactIntlErrorCode;
 })(ReactIntlErrorCode = exports.ReactIntlErrorCode || (exports.ReactIntlErrorCode = {}));
 var ReactIntlError = /** @class */ (function (_super) {
     __extends(ReactIntlError, _super);
-    function ReactIntlError(code, message, descriptor, exception) {
-        var _this = _super.call(this, "[React Intl Error " + code + "] " + message + " " + (exception ? "\n" + exception.stack : '')) || this;
+    function ReactIntlError(code, message, exception) {
+        var _this = _super.call(this, "[React Intl Error " + code + "] " + message + " \n" + (exception ? "\n" + exception.stack : '')) || this;
         _this.code = code;
-        _this.descriptor = descriptor;
         if (typeof Error.captureStackTrace === 'function') {
             Error.captureStackTrace(_this, ReactIntlError);
         }
@@ -46006,7 +46001,27 @@ var ReactIntlError = /** @class */ (function (_super) {
     return ReactIntlError;
 }(Error));
 exports.ReactIntlError = ReactIntlError;
-
+var MessageFormatError = /** @class */ (function (_super) {
+    __extends(MessageFormatError, _super);
+    function MessageFormatError(message, locale, descriptor, exception) {
+        var _this = _super.call(this, "FORMAT_ERROR" /* FORMAT_ERROR */, message + " \nLocale: " + locale + "\nMessageID: " + (descriptor === null || descriptor === void 0 ? void 0 : descriptor.id) + "\nDefault Message: " + (descriptor === null || descriptor === void 0 ? void 0 : descriptor.defaultMessage) + "\nDescription: " + (descriptor === null || descriptor === void 0 ? void 0 : descriptor.description) + " \n", exception) || this;
+        _this.descriptor = descriptor;
+        return _this;
+    }
+    return MessageFormatError;
+}(ReactIntlError));
+exports.MessageFormatError = MessageFormatError;
+var MissingTranslationError = /** @class */ (function (_super) {
+    __extends(MissingTranslationError, _super);
+    function MissingTranslationError(descriptor, locale) {
+        var _this = _super.call(this, "MISSING_TRANSLATION" /* MISSING_TRANSLATION */, "Missing message: \"" + descriptor.id + "\" for locale \"" + locale + "\", using " + (descriptor.defaultMessage ? 'default message' : 'id') + " as fallback.") || this;
+        _this.descriptor = descriptor;
+        return _this;
+    }
+    return MissingTranslationError;
+}(ReactIntlError));
+exports.MissingTranslationError = MissingTranslationError;
+//# sourceMappingURL=error.js.map
 
 /***/ }),
 
@@ -46117,7 +46132,7 @@ function formatTimeToParts(config, getDateTimeFormat, value, options) {
     return [];
 }
 exports.formatTimeToParts = formatTimeToParts;
-
+//# sourceMappingURL=dateTime.js.map
 
 /***/ }),
 
@@ -46156,7 +46171,7 @@ function formatDisplayName(_a, getDisplayNames, value, options) {
     }
 }
 exports.formatDisplayName = formatDisplayName;
-
+//# sourceMappingURL=displayName.js.map
 
 /***/ }),
 
@@ -46224,7 +46239,7 @@ function formatList(_a, getListFormat, values, options) {
     return values;
 }
 exports.formatList = formatList;
-
+//# sourceMappingURL=list.js.map
 
 /***/ }),
 
@@ -46285,8 +46300,9 @@ function deepMergeFormatsAndSetTimeZone(f1, timeZone) {
     var mfFormats = intl_messageformat_1.default.formats;
     return __assign(__assign(__assign({}, mfFormats), f1), { date: deepMergeOptions(setTimeZoneInOptions(mfFormats.date, timeZone), setTimeZoneInOptions(f1.date || {}, timeZone)), time: deepMergeOptions(setTimeZoneInOptions(mfFormats.time, timeZone), setTimeZoneInOptions(f1.time || {}, timeZone)) });
 }
-function prepareIntlMessageFormatHtmlOutput(chunks) {
-    return React.createElement.apply(React, __spreadArrays([React.Fragment, null], chunks));
+function prepareIntlMessageFormatHtmlOutput(chunks, shouldWrap) {
+    return Array.isArray(chunks) && shouldWrap
+        ? React.createElement.apply(React, __spreadArrays([React.Fragment, null], chunks)) : chunks;
 }
 function formatMessage(_a, state, messageDescriptor, values) {
     var locale = _a.locale, formats = _a.formats, messages = _a.messages, defaultLocale = _a.defaultLocale, defaultFormats = _a.defaultFormats, onError = _a.onError, timeZone = _a.timeZone, wrapRichTextChunksInFragment = _a.wrapRichTextChunksInFragment;
@@ -46298,54 +46314,49 @@ function formatMessage(_a, state, messageDescriptor, values) {
     var message = messages && messages[String(id)];
     formats = deepMergeFormatsAndSetTimeZone(formats, timeZone);
     defaultFormats = deepMergeFormatsAndSetTimeZone(defaultFormats, timeZone);
-    var formattedMessageParts = '';
-    if (message) {
-        try {
-            var formatter = state.getMessageFormat(message, locale, formats, {
-                formatters: state,
-            });
-            formattedMessageParts = formatter.format(values);
+    if (!message) {
+        if (!defaultMessage ||
+            (locale && locale.toLowerCase() !== defaultLocale.toLowerCase())) {
+            // This prevents warnings from littering the console in development
+            // when no `messages` are passed into the <IntlProvider> for the
+            // default locale.
+            onError(new error_1.MissingTranslationError(messageDescriptor, locale));
         }
-        catch (e) {
-            onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, "Error formatting message: \"" + id + "\" for locale: \"" + locale + "\"" +
-                (defaultMessage ? ', using default message as fallback.' : ''), messageDescriptor, e));
+        if (defaultMessage) {
+            try {
+                var formatter = state.getMessageFormat(defaultMessage, defaultLocale, defaultFormats);
+                return prepareIntlMessageFormatHtmlOutput(formatter.format(values), wrapRichTextChunksInFragment);
+            }
+            catch (e) {
+                onError(new error_1.MessageFormatError("Error formatting default message for: \"" + id + "\", rendering default message verbatim", locale, messageDescriptor, e));
+                return defaultMessage;
+            }
         }
+        return id;
     }
-    else if (!defaultMessage ||
-        (locale && locale.toLowerCase() !== defaultLocale.toLowerCase())) {
-        // This prevents warnings from littering the console in development
-        // when no `messages` are passed into the <IntlProvider> for the
-        // default locale.
-        onError(new error_1.ReactIntlError("MISSING_TRANSLATION" /* MISSING_TRANSLATION */, "Missing message: \"" + id + "\" for locale: \"" + locale + "\"" +
-            (defaultMessage ? ', using default message as fallback.' : ''), messageDescriptor));
+    // We have the translated message
+    try {
+        var formatter = state.getMessageFormat(message, locale, formats, {
+            formatters: state,
+        });
+        return prepareIntlMessageFormatHtmlOutput(formatter.format(values), wrapRichTextChunksInFragment);
     }
-    if (!formattedMessageParts && defaultMessage) {
+    catch (e) {
+        onError(new error_1.MessageFormatError("Error formatting message: \"" + id + "\", using " + (defaultMessage ? 'default message' : 'id') + " as fallback.", locale, messageDescriptor, e));
+    }
+    if (defaultMessage) {
         try {
             var formatter = state.getMessageFormat(defaultMessage, defaultLocale, defaultFormats);
-            formattedMessageParts = formatter.format(values);
+            return prepareIntlMessageFormatHtmlOutput(formatter.format(values), wrapRichTextChunksInFragment);
         }
         catch (e) {
-            onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, "Error formatting the default message for: \"" + id + "\"", messageDescriptor, e));
+            onError(new error_1.MessageFormatError("Error formatting the default message for: \"" + id + "\", rendering message verbatim", locale, messageDescriptor, e));
         }
     }
-    if (!formattedMessageParts) {
-        onError(new error_1.ReactIntlError("FORMAT_ERROR" /* FORMAT_ERROR */, "Cannot format message: \"" + id + "\", " +
-            ("using message " + (message || defaultMessage ? 'source' : 'id') + " as fallback."), messageDescriptor));
-        if (typeof message === 'string') {
-            return message || defaultMessage || String(id);
-        }
-        return defaultMessage || String(id);
-    }
-    if (Array.isArray(formattedMessageParts)) {
-        if (wrapRichTextChunksInFragment) {
-            return prepareIntlMessageFormatHtmlOutput(formattedMessageParts);
-        }
-        return formattedMessageParts;
-    }
-    return formattedMessageParts;
+    return message || defaultMessage || id;
 }
 exports.formatMessage = formatMessage;
-
+//# sourceMappingURL=message.js.map
 
 /***/ }),
 
@@ -46416,7 +46427,7 @@ function formatNumberToParts(config, getNumberFormat, value, options) {
     return [];
 }
 exports.formatNumberToParts = formatNumberToParts;
-
+//# sourceMappingURL=number.js.map
 
 /***/ }),
 
@@ -46453,7 +46464,7 @@ function formatPlural(_a, getPluralRules, value, options) {
     return 'other';
 }
 exports.formatPlural = formatPlural;
-
+//# sourceMappingURL=plural.js.map
 
 /***/ }),
 
@@ -46470,10 +46481,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/react-intl/dist/utils.js");
 var intl_messageformat_1 = __webpack_require__(/*! intl-messageformat */ "./node_modules/intl-messageformat/dist/index.js");
 var error_1 = __webpack_require__(/*! ../error */ "./node_modules/react-intl/dist/error.js");
-var RELATIVE_TIME_FORMAT_OPTIONS = [
-    'numeric',
-    'style',
-];
+var RELATIVE_TIME_FORMAT_OPTIONS = ['numeric', 'style'];
 function getFormatter(_a, getRelativeTimeFormat, options) {
     var locale = _a.locale, formats = _a.formats, onError = _a.onError;
     if (options === void 0) { options = {}; }
@@ -46500,7 +46508,7 @@ function formatRelativeTime(config, getRelativeTimeFormat, value, unit, options)
     return String(value);
 }
 exports.formatRelativeTime = formatRelativeTime;
-
+//# sourceMappingURL=relativeTime.js.map
 
 /***/ }),
 
@@ -46553,7 +46561,7 @@ exports.createIntlCache = utils_1.createIntlCache;
 var error_1 = __webpack_require__(/*! ./error */ "./node_modules/react-intl/dist/error.js");
 exports.ReactIntlError = error_1.ReactIntlError;
 exports.ReactIntlErrorCode = error_1.ReactIntlErrorCode;
-
+//# sourceMappingURL=index.js.map
 
 /***/ }),
 
@@ -46659,7 +46667,7 @@ function getNamedFormat(formats, type, name, onError) {
     onError(new error_1.ReactIntlError("UNSUPPORTED_FORMATTER" /* UNSUPPORTED_FORMATTER */, "No " + type + " format named: " + name));
 }
 exports.getNamedFormat = getNamedFormat;
-
+//# sourceMappingURL=utils.js.map
 
 /***/ }),
 
@@ -46794,7 +46802,8 @@ function getCanonicalLocales(locales) {
     // NOTE: we must NOT call `supportedLocalesOf` of a formatjs polyfill, or their implementation
     // will even eventually call this method recursively. Here we use `Intl.DateTimeFormat` since it
     // is not polyfilled by `@formatjs`.
-    return Intl.DateTimeFormat.supportedLocalesOf(locales || '');
+    // TODO: Fix TypeScript type def for this bc undefined is just fine
+    return Intl.DateTimeFormat.supportedLocalesOf(locales);
 }
 exports.getCanonicalLocales = getCanonicalLocales;
 //# sourceMappingURL=get-canonical-locales.js.map
@@ -56409,6 +56418,10 @@ function looksLikeAPromise(obj) {
   return obj && typeof (obj.then) === "function";
 }
 
+function passThrough(value) {
+  return value;
+}
+
 SynchronousPromise.prototype = {
   then: function (nextFn, catchFn) {
     var next = SynchronousPromise.unresolved()._setParent(this);
@@ -56458,14 +56471,32 @@ SynchronousPromise.prototype = {
   },
   finally: function(callback) {
     var ran = false;
-    function runFinally() {
+    function runFinally(result, err) {
       if (!ran) {
         ran = true;
-        return callback();
+        if (!callback) {
+          callback = passThrough;
+        }
+        var callbackResult = callback(result);
+        if (looksLikeAPromise(callbackResult)) {
+          return callbackResult.then(function() {
+            if (err) {
+              throw err;
+            }
+            return result;
+          });
+        } else {
+          return result;
+        }
       }
     }
-    return this.then(runFinally)
-      .catch(runFinally);
+    return this
+      .then(function(result) {
+        return runFinally(result);
+      })
+      .catch(function(err) {
+        return runFinally(null, err);
+      });
   },
   pause: function () {
     this._paused = true;
@@ -56551,7 +56582,6 @@ SynchronousPromise.prototype = {
           var catchResult = cont.catchFn(error);
           self._handleUserFunctionResult(catchResult, cont.promise);
         } catch (e) {
-          var message = e.message;
           cont.promise.reject(e);
         }
       } else {
@@ -56966,7 +56996,7 @@ module.exports = function(module) {
 "use strict";
 
 
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
 exports.default = void 0;
@@ -57044,7 +57074,7 @@ module.exports = exports.default;
 "use strict";
 
 
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
 exports.default = void 0;
@@ -57106,12 +57136,12 @@ module.exports = exports.default;
 "use strict";
 
 
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
 exports.default = void 0;
 
-var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js"));
+var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/yup/node_modules/@babel/runtime/helpers/extends.js"));
 
 var _propertyExpr = __webpack_require__(/*! property-expr */ "./node_modules/property-expr/index.js");
 
@@ -57191,7 +57221,7 @@ module.exports = exports.default;
 "use strict";
 
 
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
 exports.default = ValidationError;
@@ -57257,16 +57287,16 @@ module.exports = exports.default;
 "use strict";
 
 
-var _interopRequireWildcard = __webpack_require__(/*! @babel/runtime/helpers/interopRequireWildcard */ "./node_modules/@babel/runtime/helpers/interopRequireWildcard.js");
+var _interopRequireWildcard = __webpack_require__(/*! @babel/runtime/helpers/interopRequireWildcard */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireWildcard.js");
 
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
 exports.default = void 0;
 
-var _taggedTemplateLiteralLoose2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteralLoose */ "./node_modules/@babel/runtime/helpers/taggedTemplateLiteralLoose.js"));
+var _taggedTemplateLiteralLoose2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteralLoose */ "./node_modules/yup/node_modules/@babel/runtime/helpers/taggedTemplateLiteralLoose.js"));
 
-var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js"));
+var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/yup/node_modules/@babel/runtime/helpers/extends.js"));
 
 var _inherits = _interopRequireDefault(__webpack_require__(/*! ./util/inherits */ "./node_modules/yup/lib/util/inherits.js"));
 
@@ -57319,6 +57349,7 @@ function ArraySchema(type) {
 
 
   this._subType = undefined;
+  this.innerType = undefined;
   this.withMutation(function () {
     _this.transform(function (values) {
       if (typeof values === 'string') try {
@@ -57343,10 +57374,10 @@ function ArraySchema(type) {
     var value = _mixed.default.prototype._cast.call(this, _value, _opts); //should ignore nulls here
 
 
-    if (!this._typeCheck(value) || !this._subType) return value;
+    if (!this._typeCheck(value) || !this.innerType) return value;
     var isChanged = false;
     var castArray = value.map(function (v, idx) {
-      var castElement = _this2._subType.cast(v, (0, _extends2.default)({}, _opts, {
+      var castElement = _this2.innerType.cast(v, (0, _extends2.default)({}, _opts, {
         path: (0, _makePath.default)(_templateObject(), _opts.path, idx)
       }));
 
@@ -57368,7 +57399,7 @@ function ArraySchema(type) {
     var errors = [];
     var sync = options.sync;
     var path = options.path;
-    var subType = this._subType;
+    var innerType = this.innerType;
 
     var endEarly = this._option('abortEarly', options);
 
@@ -57376,7 +57407,7 @@ function ArraySchema(type) {
 
     var originalValue = options.originalValue != null ? options.originalValue : _value;
     return _mixed.default.prototype._validate.call(this, _value, options).catch((0, _runValidations.propagateErrors)(endEarly, errors)).then(function (value) {
-      if (!recursive || !subType || !_this3._typeCheck(value)) {
+      if (!recursive || !innerType || !_this3._typeCheck(value)) {
         if (errors.length) throw errors[0];
         return value;
       }
@@ -57391,7 +57422,7 @@ function ArraySchema(type) {
           parent: value,
           originalValue: originalValue[idx]
         });
-        if (subType.validate) return subType.validate(item, innerOptions);
+        if (innerType.validate) return innerType.validate(item, innerOptions);
         return true;
       });
       return (0, _runValidations.default)({
@@ -57411,6 +57442,7 @@ function ArraySchema(type) {
     var next = this.clone();
     if (schema !== false && !(0, _isSchema.default)(schema)) throw new TypeError('`array.of()` sub-schema must be a valid yup schema, or `false` to negate a current sub-schema. ' + 'not: ' + (0, _printValue.default)(schema));
     next._subType = schema;
+    next.innerType = schema;
     return next;
   },
   min: function min(_min, message) {
@@ -57465,7 +57497,7 @@ function ArraySchema(type) {
   describe: function describe() {
     var base = _mixed.default.prototype.describe.call(this);
 
-    if (this._subType) base.innerType = this._subType.describe();
+    if (this.innerType) base.innerType = this.innerType.describe();
     return base;
   }
 });
@@ -57483,7 +57515,7 @@ module.exports = exports.default;
 "use strict";
 
 
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
 exports.default = void 0;
@@ -57536,7 +57568,7 @@ module.exports = exports.default;
 "use strict";
 
 
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
 exports.default = void 0;
@@ -57648,7 +57680,7 @@ module.exports = exports.default;
 "use strict";
 
 
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
 exports.addMethod = addMethod;
@@ -57735,7 +57767,7 @@ function addMethod(schemaType, name, fn) {
 "use strict";
 
 
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
 exports.default = exports.array = exports.object = exports.boolean = exports.date = exports.number = exports.string = exports.mixed = void 0;
@@ -57795,7 +57827,7 @@ exports.date = date;
 var boolean = {};
 exports.boolean = boolean;
 var object = {
-  noUnknown: '${path} field cannot have keys not specified in the object shape'
+  noUnknown: '${path} field has unspecified keys: ${unknown}'
 };
 exports.object = object;
 var array = {
@@ -57826,12 +57858,14 @@ exports.default = _default;
 "use strict";
 
 
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
 exports.default = SchemaType;
 
-var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js"));
+var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/yup/node_modules/@babel/runtime/helpers/extends.js"));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/yup/node_modules/@babel/runtime/helpers/createClass.js"));
 
 var _has = _interopRequireDefault(__webpack_require__(/*! lodash/has */ "./node_modules/lodash/has.js"));
 
@@ -57864,6 +57898,45 @@ var RefSet = /*#__PURE__*/function () {
   }
 
   var _proto = RefSet.prototype;
+
+  _proto.describe = function describe() {
+    var description = [];
+
+    for (var _iterator = this.list, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+      var _ref;
+
+      if (_isArray) {
+        if (_i >= _iterator.length) break;
+        _ref = _iterator[_i++];
+      } else {
+        _i = _iterator.next();
+        if (_i.done) break;
+        _ref = _i.value;
+      }
+
+      var item = _ref;
+      description.push(item);
+    }
+
+    for (var _iterator2 = this.refs, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
+      var _ref2;
+
+      if (_isArray2) {
+        if (_i2 >= _iterator2.length) break;
+        _ref2 = _iterator2[_i2++];
+      } else {
+        _i2 = _iterator2.next();
+        if (_i2.done) break;
+        _ref2 = _i2.value;
+      }
+
+      var _ref3 = _ref2,
+          ref = _ref3[1];
+      description.push(ref.describe());
+    }
+
+    return description;
+  };
 
   _proto.toArray = function toArray() {
     return (0, _toArray2.default)(this.list).concat((0, _toArray2.default)(this.refs.values()));
@@ -57913,6 +57986,12 @@ var RefSet = /*#__PURE__*/function () {
     return next;
   };
 
+  (0, _createClass2.default)(RefSet, [{
+    key: "size",
+    get: function get() {
+      return this.list.size + this.refs.size;
+    }
+  }]);
   return RefSet;
 }();
 
@@ -57939,6 +58018,8 @@ function SchemaType(options) {
     _this.typeError(_locale.mixed.notType);
   });
   if ((0, _has.default)(options, 'default')) this._defaultDefault = options.default;
+  this.type = options.type || 'mixed'; // TODO: remove
+
   this._type = options.type || 'mixed';
 }
 
@@ -58374,7 +58455,7 @@ var proto = SchemaType.prototype = {
   },
   describe: function describe() {
     var next = this.clone();
-    return {
+    var description = {
       type: next._type,
       meta: next._meta,
       label: next._label,
@@ -58389,6 +58470,9 @@ var proto = SchemaType.prototype = {
         }) === idx;
       })
     };
+    if (next._whitelist.size) description.oneOf = next._whitelist.describe();
+    if (next._blacklist.size) description.notOneOf = next._blacklist.describe();
+    return description;
   },
   defined: function defined(message) {
     if (message === void 0) {
@@ -58407,7 +58491,7 @@ var proto = SchemaType.prototype = {
 };
 
 var _loop = function _loop() {
-  var method = _arr[_i];
+  var method = _arr[_i3];
 
   proto[method + "At"] = function (path, value, options) {
     if (options === void 0) {
@@ -58426,17 +58510,17 @@ var _loop = function _loop() {
   };
 };
 
-for (var _i = 0, _arr = ['validate', 'validateSync']; _i < _arr.length; _i++) {
+for (var _i3 = 0, _arr = ['validate', 'validateSync']; _i3 < _arr.length; _i3++) {
   _loop();
 }
 
-for (var _i2 = 0, _arr2 = ['equals', 'is']; _i2 < _arr2.length; _i2++) {
-  var alias = _arr2[_i2];
+for (var _i4 = 0, _arr2 = ['equals', 'is']; _i4 < _arr2.length; _i4++) {
+  var alias = _arr2[_i4];
   proto[alias] = proto.oneOf;
 }
 
-for (var _i3 = 0, _arr3 = ['not', 'nope']; _i3 < _arr3.length; _i3++) {
-  var _alias = _arr3[_i3];
+for (var _i5 = 0, _arr3 = ['not', 'nope']; _i5 < _arr3.length; _i5++) {
+  var _alias = _arr3[_i5];
   proto[_alias] = proto.notOneOf;
 }
 
@@ -58455,7 +58539,7 @@ module.exports = exports.default;
 "use strict";
 
 
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
 exports.default = NumberSchema;
@@ -58628,16 +58712,16 @@ module.exports = exports.default;
 "use strict";
 
 
-var _interopRequireWildcard = __webpack_require__(/*! @babel/runtime/helpers/interopRequireWildcard */ "./node_modules/@babel/runtime/helpers/interopRequireWildcard.js");
+var _interopRequireWildcard = __webpack_require__(/*! @babel/runtime/helpers/interopRequireWildcard */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireWildcard.js");
 
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
 exports.default = ObjectSchema;
 
-var _taggedTemplateLiteralLoose2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteralLoose */ "./node_modules/@babel/runtime/helpers/taggedTemplateLiteralLoose.js"));
+var _taggedTemplateLiteralLoose2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteralLoose */ "./node_modules/yup/node_modules/@babel/runtime/helpers/taggedTemplateLiteralLoose.js"));
 
-var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js"));
+var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/yup/node_modules/@babel/runtime/helpers/extends.js"));
 
 var _has = _interopRequireDefault(__webpack_require__(/*! lodash/has */ "./node_modules/lodash/has.js"));
 
@@ -58783,7 +58867,7 @@ function ObjectSchema(spec) {
 
     var innerOptions = (0, _extends2.default)({}, options, {
       parent: intermediateValue,
-      __validating: false
+      __validating: options.__validating || false
     });
     var isChanged = false;
     props.forEach(function (prop) {
@@ -58930,7 +59014,13 @@ function ObjectSchema(spec) {
       exclusive: true,
       message: message,
       test: function test(value) {
-        return value == null || !noAllow || unknown(this.schema, value).length === 0;
+        if (value == null) return true;
+        var unknownKeys = unknown(this.schema, value);
+        return !noAllow || unknownKeys.length === 0 || this.createError({
+          params: {
+            unknown: unknownKeys.join(', ')
+          }
+        });
       }
     });
     next._options.stripUnknown = noAllow;
@@ -58988,7 +59078,7 @@ module.exports = exports.default;
 "use strict";
 
 
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
 exports.default = setLocale;
@@ -59017,7 +59107,7 @@ module.exports = exports.default;
 "use strict";
 
 
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
 exports.default = StringSchema;
@@ -59121,12 +59211,12 @@ function StringSchema() {
     var name;
 
     if (options) {
-      if (typeof options === 'string') message = options;
-
       if (typeof options === 'object') {
         excludeEmptyString = options.excludeEmptyString;
         message = options.message;
         name = options.name;
+      } else {
+        message = options;
       }
     }
 
@@ -59229,15 +59319,15 @@ module.exports = exports.default;
 "use strict";
 
 
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
 exports.createErrorFactory = createErrorFactory;
 exports.default = createValidation;
 
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js"));
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectWithoutPropertiesLoose */ "./node_modules/yup/node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js"));
 
-var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js"));
+var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/yup/node_modules/@babel/runtime/helpers/extends.js"));
 
 var _mapValues = _interopRequireDefault(__webpack_require__(/*! lodash/mapValues */ "./node_modules/lodash/mapValues.js"));
 
@@ -59359,12 +59449,12 @@ function createValidation(options) {
 "use strict";
 
 
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
 exports.default = inherits;
 
-var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js"));
+var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/yup/node_modules/@babel/runtime/helpers/extends.js"));
 
 function inherits(ctor, superCtor, spec) {
   ctor.prototype = Object.create(superCtor.prototype, {
@@ -59525,7 +59615,7 @@ module.exports = exports.default;
 "use strict";
 
 
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
 exports.default = prependDeep;
@@ -59633,24 +59723,23 @@ module.exports = exports.default;
 "use strict";
 
 
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
-
 exports.__esModule = true;
 exports.getIn = getIn;
 exports.default = void 0;
 
 var _propertyExpr = __webpack_require__(/*! property-expr */ "./node_modules/property-expr/index.js");
 
-var _has = _interopRequireDefault(__webpack_require__(/*! lodash/has */ "./node_modules/lodash/has.js"));
-
 var trim = function trim(part) {
   return part.substr(0, part.length - 1).substr(1);
 };
 
 function getIn(schema, path, value, context) {
-  var parent, lastPart, lastPartDebug; // if only one "value" arg then use it for both
+  if (context === void 0) {
+    context = value;
+  }
 
-  context = context || value;
+  var parent, lastPart, lastPartDebug; // root path: ''
+
   if (!path) return {
     parent: parent,
     parentPath: path,
@@ -59658,38 +59747,37 @@ function getIn(schema, path, value, context) {
   };
   (0, _propertyExpr.forEach)(path, function (_part, isBracket, isArray) {
     var part = isBracket ? trim(_part) : _part;
+    schema = schema.resolve({
+      context: context,
+      parent: parent,
+      value: value
+    });
 
-    if (isArray || (0, _has.default)(schema, '_subType')) {
-      // we skipped an array: foo[].bar
+    if (schema.innerType) {
       var idx = isArray ? parseInt(part, 10) : 0;
-      schema = schema.resolve({
-        context: context,
-        parent: parent,
-        value: value
-      })._subType;
 
-      if (value) {
-        if (isArray && idx >= value.length) {
-          throw new Error("Yup.reach cannot resolve an array item at index: " + _part + ", in the path: " + path + ". " + "because there is no value at that index. ");
-        }
-
-        value = value[idx];
+      if (value && idx >= value.length) {
+        throw new Error("Yup.reach cannot resolve an array item at index: " + _part + ", in the path: " + path + ". " + "because there is no value at that index. ");
       }
-    }
+
+      parent = value;
+      value = value && value[idx];
+      schema = schema.innerType;
+    } // sometimes the array index part of a path doesn't exist: "nested.arr.child"
+    // in these cases the current part is the next schema and should be processed
+    // in this iteration. For cases where the index signature is included this
+    // check will fail and we'll handle the `child` part on the next iteration like normal
+
 
     if (!isArray) {
-      schema = schema.resolve({
-        context: context,
-        parent: parent,
-        value: value
-      });
-      if (!(0, _has.default)(schema, 'fields') || !(0, _has.default)(schema.fields, part)) throw new Error("The schema does not contain the path: " + path + ". " + ("(failed at: " + lastPartDebug + " which is a type: \"" + schema._type + "\") "));
-      schema = schema.fields[part];
+      if (!schema.fields || !schema.fields[part]) throw new Error("The schema does not contain the path: " + path + ". " + ("(failed at: " + lastPartDebug + " which is a type: \"" + schema._type + "\")"));
       parent = value;
       value = value && value[part];
-      lastPart = part;
-      lastPartDebug = isBracket ? '[' + _part + ']' : '.' + _part;
+      schema = schema.fields[part];
     }
+
+    lastPart = part;
+    lastPartDebug = isBracket ? '[' + _part + ']' : '.' + _part;
   });
   return {
     schema: schema,
@@ -59717,7 +59805,7 @@ exports.default = _default;
 "use strict";
 
 
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
 exports.propagateErrors = propagateErrors;
@@ -59725,7 +59813,7 @@ exports.settled = settled;
 exports.collectErrors = collectErrors;
 exports.default = runValidations;
 
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js"));
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectWithoutPropertiesLoose */ "./node_modules/yup/node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js"));
 
 var _synchronousPromise = __webpack_require__(/*! synchronous-promise */ "./node_modules/synchronous-promise/index.js");
 
@@ -59871,7 +59959,7 @@ module.exports = exports.default;
 "use strict";
 
 
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
 exports.default = sortFields;
@@ -59917,6 +60005,217 @@ module.exports = exports.default;
 
 /***/ }),
 
+/***/ "./node_modules/yup/node_modules/@babel/runtime/helpers/createClass.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/yup/node_modules/@babel/runtime/helpers/createClass.js ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+module.exports = _createClass;
+
+/***/ }),
+
+/***/ "./node_modules/yup/node_modules/@babel/runtime/helpers/extends.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/yup/node_modules/@babel/runtime/helpers/extends.js ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _extends() {
+  module.exports = _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
+module.exports = _extends;
+
+/***/ }),
+
+/***/ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js":
+/*!***************************************************************************************!*\
+  !*** ./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireDefault.js ***!
+  \***************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+
+module.exports = _interopRequireDefault;
+
+/***/ }),
+
+/***/ "./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireWildcard.js":
+/*!****************************************************************************************!*\
+  !*** ./node_modules/yup/node_modules/@babel/runtime/helpers/interopRequireWildcard.js ***!
+  \****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _typeof = __webpack_require__(/*! ../helpers/typeof */ "./node_modules/yup/node_modules/@babel/runtime/helpers/typeof.js");
+
+function _getRequireWildcardCache() {
+  if (typeof WeakMap !== "function") return null;
+  var cache = new WeakMap();
+
+  _getRequireWildcardCache = function _getRequireWildcardCache() {
+    return cache;
+  };
+
+  return cache;
+}
+
+function _interopRequireWildcard(obj) {
+  if (obj && obj.__esModule) {
+    return obj;
+  }
+
+  if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") {
+    return {
+      "default": obj
+    };
+  }
+
+  var cache = _getRequireWildcardCache();
+
+  if (cache && cache.has(obj)) {
+    return cache.get(obj);
+  }
+
+  var newObj = {};
+  var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;
+
+  for (var key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;
+
+      if (desc && (desc.get || desc.set)) {
+        Object.defineProperty(newObj, key, desc);
+      } else {
+        newObj[key] = obj[key];
+      }
+    }
+  }
+
+  newObj["default"] = obj;
+
+  if (cache) {
+    cache.set(obj, newObj);
+  }
+
+  return newObj;
+}
+
+module.exports = _interopRequireWildcard;
+
+/***/ }),
+
+/***/ "./node_modules/yup/node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js":
+/*!**********************************************************************************************!*\
+  !*** ./node_modules/yup/node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js ***!
+  \**********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
+module.exports = _objectWithoutPropertiesLoose;
+
+/***/ }),
+
+/***/ "./node_modules/yup/node_modules/@babel/runtime/helpers/taggedTemplateLiteralLoose.js":
+/*!********************************************************************************************!*\
+  !*** ./node_modules/yup/node_modules/@babel/runtime/helpers/taggedTemplateLiteralLoose.js ***!
+  \********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _taggedTemplateLiteralLoose(strings, raw) {
+  if (!raw) {
+    raw = strings.slice(0);
+  }
+
+  strings.raw = raw;
+  return strings;
+}
+
+module.exports = _taggedTemplateLiteralLoose;
+
+/***/ }),
+
+/***/ "./node_modules/yup/node_modules/@babel/runtime/helpers/typeof.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/yup/node_modules/@babel/runtime/helpers/typeof.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    module.exports = _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+  } else {
+    module.exports = _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+  }
+
+  return _typeof(obj);
+}
+
+module.exports = _typeof;
+
+/***/ }),
+
 /***/ "./resources/assets/js/IntlContainer.tsx":
 /*!***********************************************!*\
   !*** ./resources/assets/js/IntlContainer.tsx ***!
@@ -59956,12 +60255,15 @@ exports.default = IntlContainer;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getSendReferenceEmailEndpoint = exports.getReferenceEmailsEndpoint = exports.getApplicationsForJobEndpoint = exports.getApplicationReviewEndpoint = exports.getApplicationEndpoint = exports.parseSingleReferenceEmail = exports.parseReferenceEmails = exports.parseApplicationsForJob = exports.parseApplicationReview = exports.parseApplication = void 0;
 var base_1 = __webpack_require__(/*! ./base */ "./resources/assets/js/api/base.ts");
 exports.parseApplication = function (data) { return data; };
 exports.parseApplicationReview = function (data) { return data; };
 exports.parseApplicationsForJob = function (data) {
     return data.map(exports.parseApplication);
 };
+exports.parseReferenceEmails = function (data) { return data; };
+exports.parseSingleReferenceEmail = function (data) { return data; };
 exports.getApplicationEndpoint = function (id) {
     return base_1.baseUrl(2) + "/applications/" + id;
 };
@@ -59970,6 +60272,12 @@ exports.getApplicationReviewEndpoint = function (applicationId) {
 };
 exports.getApplicationsForJobEndpoint = function (jobId) {
     return base_1.baseUrl(2) + "/jobs/" + jobId + "/applications";
+};
+exports.getReferenceEmailsEndpoint = function (applicationId) {
+    return base_1.baseUrl() + "/applications/" + applicationId + "/reference-emails/";
+};
+exports.getSendReferenceEmailEndpoint = function (applicationId, referenceType) {
+    return base_1.baseUrl() + "/applications/" + applicationId + "/reference-emails/" + referenceType + "/send";
 };
 
 
@@ -60021,6 +60329,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteAssessment = exports.createAssessment = exports.updateAssessment = exports.parseAssessment = void 0;
 /* eslint-disable @typescript-eslint/camelcase */
 var base_1 = __webpack_require__(/*! ./base */ "./resources/assets/js/api/base.ts");
 exports.parseAssessment = function (data) { return ({
@@ -60066,6 +60375,7 @@ exports.deleteAssessment = function (id) { return __awaiter(void 0, void 0, void
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getAssessmentPlan = void 0;
 /* eslint-disable @typescript-eslint/camelcase */
 var base_1 = __webpack_require__(/*! ./base */ "./resources/assets/js/api/base.ts");
 var assessment_1 = __webpack_require__(/*! ./assessment */ "./resources/assets/js/api/assessment.ts");
@@ -60121,6 +60431,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.updateAssessmentPlanNotification = exports.getAssessmentPlanNotificationsByJob = exports.parseAssessmentPlanNotification = void 0;
 /* eslint-disable @typescript-eslint/camelcase */
 var base_1 = __webpack_require__(/*! ./base */ "./resources/assets/js/api/base.ts");
 exports.parseAssessmentPlanNotification = function (data) { return (__assign(__assign({}, data), { created_at: base_1.parseDateStrict(data.created_at) })); };
@@ -60158,6 +60469,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.axios = exports.addQueryParameters = exports.parseDate = exports.parseDateStrict = exports.baseUrl = void 0;
 var dayjs_1 = __importDefault(__webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js"));
 var axios_1 = __importDefault(__webpack_require__(/*! axios */ "./node_modules/axios/index.js"));
 exports.baseUrl = function (version) {
@@ -60210,6 +60522,7 @@ exports.default = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getDepartmentsEndpoint = exports.parseDepartmentsResponse = void 0;
 var base_1 = __webpack_require__(/*! ./base */ "./resources/assets/js/api/base.ts");
 // TODO: verify schema
 exports.parseDepartmentsResponse = function (data) { return data; };
@@ -60228,6 +60541,7 @@ exports.getDepartmentsEndpoint = function () { return base_1.baseUrl() + "/depar
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getClaimJobEndpoint = exports.getHrAdvisorEndpoint = void 0;
 var base_1 = __webpack_require__(/*! ./base */ "./resources/assets/js/api/base.ts");
 exports.getHrAdvisorEndpoint = function (id) {
     return base_1.baseUrl() + "/hr-advisors/" + id;
@@ -60261,6 +60575,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getCommentEndpoint = exports.getCriteriaEndpoint = exports.getTasksEndpoint = exports.getSubmitJobEndpoint = exports.getJobEndpoint = exports.parseCommentsResponse = exports.parseCommentResponse = exports.parseCriteriaResponse = exports.parseTasksResponse = exports.parseJobIndexResponse = exports.parseJobResponse = exports.parseJob = void 0;
 var base_1 = __webpack_require__(/*! ./base */ "./resources/assets/js/api/base.ts");
 var parseCriterion = function (data) { return data; };
 exports.parseJob = function (data) { return (__assign(__assign({}, data), { open_date_time: base_1.parseDate(data.open_date_time), close_date_time: base_1.parseDate(data.close_date_time), start_date_time: base_1.parseDate(data.start_date_time), created_at: base_1.parseDate(data.created_at) })); };
@@ -60312,6 +60627,7 @@ exports.getCommentEndpoint = function (jobId) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getJobPosterStatusEndpoint = void 0;
 var base_1 = __webpack_require__(/*! ./base */ "./resources/assets/js/api/base.ts");
 exports.getJobPosterStatusEndpoint = function () {
     return base_1.baseUrl() + "/job-poster-statuses";
@@ -60330,6 +60646,7 @@ exports.getJobPosterStatusEndpoint = function () {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getCurrentManagerEndpoint = exports.getManagerEndpoint = void 0;
 var base_1 = __webpack_require__(/*! ./base */ "./resources/assets/js/api/base.ts");
 exports.getManagerEndpoint = function (id) {
     return base_1.baseUrl() + "/managers/" + id;
@@ -60388,6 +60705,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteRatingGuideQuestion = exports.deleteRatingGuideAnswer = exports.createRatingGuideQuestion = exports.createRatingGuideAnswer = exports.updateRatingGuideQuestion = exports.updateRatingGuideAnswer = exports.parseRatingGuideQuestion = exports.parseRatingGuideAnswer = void 0;
 /* eslint-disable @typescript-eslint/camelcase */
 var base_1 = __webpack_require__(/*! ./base */ "./resources/assets/js/api/base.ts");
 exports.parseRatingGuideAnswer = function (data) { return ({
@@ -60464,6 +60782,7 @@ exports.deleteRatingGuideQuestion = function (id) { return __awaiter(void 0, voi
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.parseSkill = exports.parseSkillsResponse = exports.getSkillsEndpoint = void 0;
 var base_1 = __webpack_require__(/*! ./base */ "./resources/assets/js/api/base.ts");
 exports.getSkillsEndpoint = function () { return base_1.baseUrl() + "/skills"; };
 exports.parseSkillsResponse = function (data) { return data; };
@@ -60482,6 +60801,7 @@ exports.parseSkill = function (data) { return data; };
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getUserEndpoint = exports.parseAllUsersResponse = exports.getAllUsersEndpoint = void 0;
 var base_1 = __webpack_require__(/*! ./base */ "./resources/assets/js/api/base.ts");
 exports.getAllUsersEndpoint = function (ids) {
     if (ids === void 0) { ids = ""; }
@@ -60504,11 +60824,23 @@ exports.getUserEndpoint = function (id) {
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -60559,6 +60891,25 @@ exports.default = Activity;
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -60602,17 +60953,11 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
             r[k] = a[j];
     return r;
 };
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ActivityList = void 0;
 /* eslint-disable camelcase */
 /* eslint-disable @typescript-eslint/camelcase */
 var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
@@ -60711,8 +61056,8 @@ exports.ActivityList = function (_a) {
                 react_1.default.createElement("p", null,
                     react_1.default.createElement(react_intl_1.FormattedMessage, { id: "activityfeed.loading", defaultMessage: "Your activities are loading...", description: "Message indicating that the activity feed is still being loaded." }))))) : (react_1.default.createElement(react_1.default.Fragment, null, !isError && activities && activities.length !== 0
             ? activities.map(function (_a) {
-                var id = _a.id, comment = _a.comment, location = _a.location, created_at = _a.created_at, type_id = _a.type_id, user_id = _a.user_id;
                 var _b;
+                var id = _a.id, comment = _a.comment, location = _a.location, created_at = _a.created_at, type_id = _a.type_id, user_id = _a.user_id;
                 var user = queries_1.find(users, user_id);
                 var fullName = (_b = user === null || user === void 0 ? void 0 : user.full_name) !== null && _b !== void 0 ? _b : intl.formatMessage(messages.unknownUser);
                 var userRole = user === null || user === void 0 ? void 0 : user.user_role;
@@ -60791,6 +61136,25 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -60827,17 +61191,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.CommentForm = exports.commentTypeMessages = void 0;
 /* eslint-disable @typescript-eslint/camelcase, camelcase */
 var React = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 var react_redux_1 = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/lib/index.js");
@@ -60999,11 +61357,23 @@ exports.default = react_redux_1.connect(function () { return ({}); }, mapDispatc
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -61068,6 +61438,7 @@ exports.default = ErrorToastContainer;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.inputMessages = exports.validationMessages = void 0;
 var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
 exports.validationMessages = react_intl_1.defineMessages({
     required: {
@@ -61182,7 +61553,9 @@ var TextAreaInput = function (_a) {
     var specificError = errors ? formik_1.getIn(errors, name) : null;
     var errorText = specificError ? specificError.toString() : undefined;
     var invalid = formik_1.getIn(touched, name) && specificError ? true : null;
-    return (react_1.default.createElement(TextArea_1.default, __assign({ id: id, label: label, className: className, grid: grid, required: required, placeholder: placeholder, name: name, value: value, errorText: errorText, invalid: invalid, onChange: onChange, onBlur: onBlur }, props)));
+    // Workaround for new TS error https://github.com/microsoft/TypeScript/issues/37559
+    var passedName = props.name, passedChange = props.onChange, otherProps = __rest(props, ["name", "onChange"]);
+    return (react_1.default.createElement(TextArea_1.default, __assign({ id: id, label: label, className: className, grid: grid, required: required, placeholder: placeholder, name: name, value: value, errorText: errorText, invalid: invalid, onChange: onChange, onBlur: onBlur }, otherProps)));
 };
 exports.default = TextAreaInput;
 
@@ -61198,11 +61571,23 @@ exports.default = TextAreaInput;
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
     return result;
 };
 var __importDefault = (this && this.__importDefault) || function (mod) {
@@ -61249,6 +61634,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.RootContainer = void 0;
 var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 __webpack_require__(/*! core-js/modules/es.promise.finally */ "./node_modules/core-js/modules/es.promise.finally.js");
 var react_redux_1 = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/lib/index.js");
@@ -61345,11 +61731,13 @@ var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/r
 var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
 var Messages_1 = __webpack_require__(/*! ./Form/Messages */ "./resources/assets/js/components/Form/Messages.tsx");
 var TextArea = function (_a) {
-    var id = _a.id, name = _a.name, label = _a.label, className = _a.className, required = _a.required, invalid = _a.invalid, placeholder = _a.placeholder, value = _a.value, errorText = _a.errorText, grid = _a.grid, minLength = _a.minLength, maxLength = _a.maxLength, onChange = _a.onChange, onBlur = _a.onBlur;
+    var id = _a.id, name = _a.name, label = _a.label, className = _a.className, required = _a.required, rightMessage = _a.rightMessage, invalid = _a.invalid, placeholder = _a.placeholder, value = _a.value, errorText = _a.errorText, grid = _a.grid, minLength = _a.minLength, maxLength = _a.maxLength, onChange = _a.onChange, onBlur = _a.onBlur;
     return (react_1.default.createElement("div", { className: className, "data-c-grid-item": grid, "data-c-input": "textarea", "data-c-required": required || null, "data-c-invalid": invalid || null },
         react_1.default.createElement("label", { htmlFor: id }, label),
         react_1.default.createElement("span", null,
-            react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, Messages_1.inputMessages.required))),
+            react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, Messages_1.inputMessages.required)),
+            " ",
+            rightMessage),
         react_1.default.createElement("div", null,
             react_1.default.createElement("textarea", { id: id, name: name, required: required, placeholder: placeholder, minLength: minLength, maxLength: maxLength, onChange: onChange, onBlur: onBlur, value: value })),
         react_1.default.createElement("span", null, errorText || react_1.default.createElement(react_intl_1.FormattedMessage, __assign({}, Messages_1.inputMessages.error)))));
@@ -61372,6 +61760,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.configureStore = void 0;
 var redux_1 = __webpack_require__(/*! redux */ "./node_modules/redux/lib/redux.js");
 var redux_thunk_1 = __importDefault(__webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/lib/index.js"));
 var redux_devtools_extension_1 = __webpack_require__(/*! redux-devtools-extension */ "./node_modules/redux-devtools-extension/index.js");
@@ -61408,6 +61797,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.readableDateTime = void 0;
 var dayjs_1 = __importDefault(__webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js"));
 var localizedFormat_1 = __importDefault(__webpack_require__(/*! dayjs/plugin/localizedFormat */ "./node_modules/dayjs/plugin/localizedFormat.js"));
 __webpack_require__(/*! dayjs/locale/fr */ "./node_modules/dayjs/locale/fr.js");
@@ -61429,8 +61819,12 @@ exports.readableDateTime = function (locale, date) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getLocale = exports.localizeFieldNonNull = exports.localizeField = void 0;
 function localizeField(locale, model, field) {
-    return model[field][locale];
+    if (model[field] !== null) {
+        return model[field][locale];
+    }
+    return null;
 }
 exports.localizeField = localizeField;
 function localizeFieldNonNull(locale, model, field) {
@@ -61470,6 +61864,7 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.uniq = exports.filterObjectProps = exports.deleteProperty = exports.getOrThrowError = exports.hasKey = exports.mapToObject = exports.mapToObjectTrans = exports.objectMap = exports.whereFirst = exports.where = exports.find = exports.empty = exports.stringNotEmpty = exports.notEmpty = exports.identity = exports.getId = void 0;
 /**
  * Shortcut function that returns the id attribute of an object.
  * @param item
@@ -61483,7 +61878,7 @@ function identity(value) {
 }
 exports.identity = identity;
 /**
- * Returns true as long as the value passed to it is not null or undefined.
+ * Returns true if value is not null or undefined.
  * Can be used to filter nulls and undefined values out of an array.
  * @param item
  */
@@ -61495,6 +61890,14 @@ function stringNotEmpty(value) {
     return notEmpty(value) && value.length > 0;
 }
 exports.stringNotEmpty = stringNotEmpty;
+/**
+ * Returns true if value id null OR undefined.
+ * @param item
+ */
+function empty(value) {
+    return value === null || value === undefined;
+}
+exports.empty = empty;
 /**
  * From an array of objects, return the first object with a specific id value.
  * @param objs
@@ -61621,19 +62024,20 @@ exports.uniq = uniq;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.accountSettings = exports.hrApplicantShow = exports.hrApplicationShow = exports.hrJobApplications = exports.hrScreeningPlan = exports.hrJobPreview = exports.hrJobReview = exports.hrJobSummary = exports.hrJobIndex = exports.managerFaq = exports.jobBuilderReview = exports.jobBuilderSkills = exports.jobBuilderTasks = exports.jobBuilderImpact = exports.jobBuilderEnv = exports.jobBuilderDetails = exports.jobBuilderIntro = exports.applicationReviewUpdate = exports.managerScreeningPlan = exports.managerJobApplications = exports.managerJobPreview = exports.managerJobSummary = exports.managerJobIndex = exports.managerEditProfile = exports.managerApplicantShow = exports.managerApplicationShow = void 0;
 var base_1 = __webpack_require__(/*! ../api/base */ "./resources/assets/js/api/base.ts");
-function applicationShow(locale, prefix, applicationId) {
-    return "/" + locale + "/" + prefix + "/applications/" + applicationId;
+function applicationShow(locale, prefix, applicationId, jobId) {
+    return "/" + locale + "/" + prefix + "/jobs/" + jobId + "/applications/" + applicationId;
 }
-function applicantShow(locale, prefix, applicantId) {
-    return "/" + locale + "/" + prefix + "/applicants/" + applicantId;
+function applicantShow(locale, prefix, applicantId, jobId) {
+    return "/" + locale + "/" + prefix + "/jobs/" + jobId + "/applicants/" + applicantId;
 }
-function managerApplicationShow(locale, applicationId) {
-    return applicationShow(locale, "manager", applicationId);
+function managerApplicationShow(locale, applicationId, jobId) {
+    return applicationShow(locale, "manager", applicationId, jobId);
 }
 exports.managerApplicationShow = managerApplicationShow;
-function managerApplicantShow(locale, applicantId) {
-    return applicantShow(locale, "manager", applicantId);
+function managerApplicantShow(locale, applicantId, jobId) {
+    return applicantShow(locale, "manager", applicantId, jobId);
 }
 exports.managerApplicantShow = managerApplicantShow;
 function managerEditProfile(locale) {
@@ -61644,10 +62048,14 @@ function managerJobIndex(locale) {
     return "/" + locale + "/manager/jobs";
 }
 exports.managerJobIndex = managerJobIndex;
-function managerJobShow(locale, jobId) {
+function managerJobSummary(locale, jobId) {
     return "/" + locale + "/manager/jobs/" + jobId;
 }
-exports.managerJobShow = managerJobShow;
+exports.managerJobSummary = managerJobSummary;
+function managerJobPreview(locale, jobId) {
+    return "/" + locale + "/manager/jobs/" + jobId + "/preview";
+}
+exports.managerJobPreview = managerJobPreview;
 function managerJobApplications(locale, jobId) {
     return "/" + locale + "/manager/jobs/" + jobId + "/applications";
 }
@@ -61704,7 +62112,7 @@ function hrJobIndex(locale) {
 }
 exports.hrJobIndex = hrJobIndex;
 function hrJobSummary(locale, jobId) {
-    return "/" + locale + "/hr/jobs/" + jobId + "/summary";
+    return "/" + locale + "/hr/jobs/" + jobId;
 }
 exports.hrJobSummary = hrJobSummary;
 function hrJobReview(locale, jobId) {
@@ -61712,7 +62120,7 @@ function hrJobReview(locale, jobId) {
 }
 exports.hrJobReview = hrJobReview;
 function hrJobPreview(locale, jobId) {
-    return "/" + locale + "/hr/jobs/" + jobId;
+    return "/" + locale + "/hr/jobs/" + jobId + "/preview";
 }
 exports.hrJobPreview = hrJobPreview;
 function hrScreeningPlan(locale, jobId) {
@@ -61723,10 +62131,8 @@ function hrJobApplications(locale, jobId) {
     return "/" + locale + "/hr/jobs/" + jobId + "/applications";
 }
 exports.hrJobApplications = hrJobApplications;
-exports.hrApplicationShow = function (locale, applicationId) { return applicationShow(locale, "hr", applicationId); };
-exports.hrApplicantShow = function (locale, applicantId) {
-    return applicantShow(locale, "hr", applicantId);
-};
+exports.hrApplicationShow = function (locale, applicationId, jobId) { return applicationShow(locale, "hr", applicationId, jobId); };
+exports.hrApplicantShow = function (locale, applicantId, jobId) { return applicantShow(locale, "hr", applicantId, jobId); };
 function accountSettings(locale) {
     return "/" + locale + "/settings";
 }
@@ -61745,6 +62151,7 @@ exports.accountSettings = accountSettings;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.activityLocationUrl = exports.emptyJobPosterStatus = exports.emptyComment = exports.getSkillLevelName = exports.emptyTasks = exports.emptyJob = exports.classificationString = void 0;
 var lookupConstants_1 = __webpack_require__(/*! ./lookupConstants */ "./resources/assets/js/models/lookupConstants.ts");
 var localizedConstants_1 = __webpack_require__(/*! ./localizedConstants */ "./resources/assets/js/models/localizedConstants.tsx");
 var routes_1 = __webpack_require__(/*! ../helpers/routes */ "./resources/assets/js/helpers/routes.ts");
@@ -61913,8 +62320,8 @@ exports.activityLocationUrl = function (isHrAdvisor, location, jobId, locale) {
         _b[lookupConstants_1.LocationId.screeningPlanBuilder] = routes_1.managerScreeningPlan(locale, jobId),
         _b[lookupConstants_1.LocationId.screeningPlanSummary] = routes_1.managerScreeningPlan(locale, jobId),
         _b[lookupConstants_1.LocationId.screeningPlanRatings] = routes_1.managerScreeningPlan(locale, jobId),
-        _b[lookupConstants_1.LocationId.summary] = routes_1.jobBuilderReview(locale, jobId),
-        _b[lookupConstants_1.LocationId.preview] = routes_1.managerJobShow(locale, jobId),
+        _b[lookupConstants_1.LocationId.summary] = routes_1.managerJobSummary(locale, jobId),
+        _b[lookupConstants_1.LocationId.preview] = routes_1.managerJobPreview(locale, jobId),
         _b);
     var urlMap = isHrAdvisor ? hrAdvisorUrls : managerUrls;
     var backupUrl = "/";
@@ -61946,6 +62353,7 @@ var __assign = (this && this.__assign) || function () {
 };
 var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ResponseReviewStatuses = exports.ResponseReviewStatusMessages = exports.ResponseScreeningBuckets = exports.specificLocationOption = exports.hrPortalLocations = exports.screeningPlanLocations = exports.applicantReviewLocations = exports.jobReviewLocations = exports.generalLocationOption = exports.generalLocations = exports.classificationCodeOption = exports.classificationCodes = exports.travelRequirementDescription = exports.overtimeRequirementDescription = exports.frequencyName = exports.narrativeReviewStandardAnswer = exports.narrativeReviewStandardQuestion = exports.languageRequirementContext = exports.languageRequirementDescription = exports.languageRequirement = exports.securityClearance = exports.provinceAbreviation = exports.provinceName = exports.assessmentTypeDescription = exports.criteriaType = exports.assessmentType = exports.assetSkillDescription = exports.assetSkillName = exports.skillLevelName = exports.skillLevelDescription = void 0;
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
 var react_intl_1 = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/dist/index.js");
 var lookupConstants_1 = __webpack_require__(/*! ./lookupConstants */ "./resources/assets/js/models/lookupConstants.ts");
@@ -62776,8 +63184,8 @@ exports.hrPortalLocations = (_p = {},
 exports.specificLocationOption = function (locationId) {
     return queries_1.getOrThrowError(__assign(__assign(__assign(__assign({}, exports.jobReviewLocations), exports.applicantReviewLocations), exports.hrPortalLocations), exports.screeningPlanLocations), locationId, "Invalid LocationId");
 };
-exports.ResponseScreeningBuckets = react_intl_1.defineMessages((_q = {},
-    _q[lookupConstants_1.ResponseScreeningBuckets.Consideration] = {
+exports.ResponseScreeningBuckets = (_q = {},
+    _q[lookupConstants_1.ResponseScreeningBuckets.Consideration] = react_intl_1.defineMessages({
         title: {
             id: "responseScreening.buckets.consideration.title",
             defaultMessage: "Employees Under Consideration",
@@ -62788,8 +63196,8 @@ exports.ResponseScreeningBuckets = react_intl_1.defineMessages((_q = {},
             defaultMessage: "Employees in this category have volunteered to be placed in a team with a critical needs shortage. Employees in this category are: Pending initial application review ({iconReceived}), indicating that a submission has been received, but it has not yet been assessed by a member of the review team; Ready for reference checks and home-department approval ({iconReady}), indicating that the employee is heading to the Ready to Allocate category if references and approval are in order; and Further Assessment Required ({iconAssessment}), indicating that the review team is unsure of their qualifications for this role and is undertaking further assessment.",
             description: "Descriptive text for the 'Under Consideration' response screening bucket. Takes three icons (iconReceived, iconReady, and iconAssessment) as input.",
         },
-    },
-    _q[lookupConstants_1.ResponseScreeningBuckets.ReadyToAllocate] = {
+    }),
+    _q[lookupConstants_1.ResponseScreeningBuckets.ReadyToAllocate] = react_intl_1.defineMessages({
         title: {
             id: "responseScreening.buckets.readyToAllocate.title",
             defaultMessage: "Ready to Allocate",
@@ -62800,8 +63208,8 @@ exports.ResponseScreeningBuckets = react_intl_1.defineMessages((_q = {},
             defaultMessage: "Employees in this category have the necessary skills for this stream of work, have successfully completed reference checks and have been given preliminary authorization to participate by a member of their management team. They are currently working in their substantive position, awaiting a request from a department with a critical talent gap.",
             description: "Descriptive text for the 'Ready to Allocate' response screening bucket.",
         },
-    },
-    _q[lookupConstants_1.ResponseScreeningBuckets.Allocated] = {
+    }),
+    _q[lookupConstants_1.ResponseScreeningBuckets.Allocated] = react_intl_1.defineMessages({
         title: {
             id: "responseScreening.buckets.allocated.title",
             defaultMessage: "Allocated",
@@ -62812,8 +63220,8 @@ exports.ResponseScreeningBuckets = react_intl_1.defineMessages((_q = {},
             defaultMessage: 'Employees in this category have been allocated to a department. Their name has been removed from all other GC Reserve processes to which they have applied (and will appear in those processes under "Not Currently Available".) Following the completion of an allocation, employees may elect to be placed back in the Ready to Allocate category, should they be needed again.',
             description: "Descriptive text for the 'Allocated' response screening bucket.",
         },
-    },
-    _q[lookupConstants_1.ResponseScreeningBuckets.Unavailable] = {
+    }),
+    _q[lookupConstants_1.ResponseScreeningBuckets.Unavailable] = react_intl_1.defineMessages({
         title: {
             id: "responseScreening.buckets.unavailable.title",
             defaultMessage: "Currently Unavailable",
@@ -62824,8 +63232,8 @@ exports.ResponseScreeningBuckets = react_intl_1.defineMessages((_q = {},
             defaultMessage: "Employees in this stream have been allocated to a department in need or have temporarily removed their names from consideration for a specific period of time (e.g. illness, family care needs), and wish to be considered for allocation at a later date. Employees in this category have been qualified for this talent stream, and will be placed back into the Ready to Allocate when they become available again. (If an employee permanently withdraws their name, their submission will be removed from the GC Talent Reserve.)",
             description: "Descriptive text for the 'Currently Unavailable' response screening bucket.",
         },
-    },
-    _q[lookupConstants_1.ResponseScreeningBuckets.DoesNotQualify] = {
+    }),
+    _q[lookupConstants_1.ResponseScreeningBuckets.DoesNotQualify] = react_intl_1.defineMessages({
         title: {
             id: "responseScreening.buckets.doesNotQualify.title",
             defaultMessage: "Does Not Qualify",
@@ -62836,8 +63244,8 @@ exports.ResponseScreeningBuckets = react_intl_1.defineMessages((_q = {},
             defaultMessage: "Employees in this category have volunteered their names, but a review of their application and/or reference checks has led the review team to conclude that the employee would not be an asset to a department needing to fill a critical talent gap in this field of work. This determination is, in no way, reflected in the employee's performance status with their home department, and does not affect their evaluation for other GC Reserve talent streams to which they may have applied.",
             description: "Descriptive text for the 'Does Not Qualify' response screening bucket.",
         },
-    },
-    _q));
+    }),
+    _q);
 exports.ResponseReviewStatusMessages = react_intl_1.defineMessages({
     screened_out: {
         id: "responseReviewStatus.screenedOut",
@@ -62910,6 +63318,7 @@ exports.ResponseReviewStatuses = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.CriteriaTypeIdValues = exports.AssessmentTypeIdValues = exports.SkillTypeIdValues = exports.SkillLevelIdValues = exports.enumToIds = exports.getKeyByValue = exports.ResponseScreeningBuckets = exports.JobStatus = exports.LocationId = exports.CommentTypeId = exports.ClassificationId = exports.OvertimeRequirementId = exports.TravelRequirementId = exports.FrequencyId = exports.LanguageRequirementId = exports.SecurityClearanceId = exports.ProvinceId = exports.AssessmentTypeId = exports.SkillLevelId = exports.SkillTypeId = exports.CriteriaTypeId = exports.ExcludedDepartments = exports.ResponseReviewStatusId = exports.ReviewStatusId = void 0;
 var ReviewStatusId;
 (function (ReviewStatusId) {
     ReviewStatusId[ReviewStatusId["ScreenedOut"] = 1] = "ScreenedOut";
@@ -62925,6 +63334,10 @@ var ResponseReviewStatusId;
     ResponseReviewStatusId[ResponseReviewStatusId["Allocated"] = 7] = "Allocated";
     ResponseReviewStatusId[ResponseReviewStatusId["NotAvailable"] = 8] = "NotAvailable";
 })(ResponseReviewStatusId = exports.ResponseReviewStatusId || (exports.ResponseReviewStatusId = {}));
+var ExcludedDepartments;
+(function (ExcludedDepartments) {
+    ExcludedDepartments[ExcludedDepartments["StrategicTalentResponse"] = 18] = "StrategicTalentResponse";
+})(ExcludedDepartments = exports.ExcludedDepartments || (exports.ExcludedDepartments = {}));
 var CriteriaTypeId;
 (function (CriteriaTypeId) {
     CriteriaTypeId[CriteriaTypeId["Essential"] = 1] = "Essential";
@@ -63092,6 +63505,7 @@ exports.CriteriaTypeIdValues = enumToIds(CriteriaTypeId);
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.sendReferenceEmail = exports.SEND_REFERENCE_EMAIL_FAILED = exports.SEND_REFERENCE_EMAIL_SUCCEEDED = exports.SEND_REFERENCE_EMAIL_STARTED = exports.fetchReferenceEmails = exports.FETCH_REFERENCE_EMAILS_FAILED = exports.FETCH_REFERENCE_EMAILS_SUCCEEDED = exports.FETCH_REFERENCE_EMAILS_STARTED = exports.updateApplicationReview = exports.UPDATE_APPLICATION_REVIEW_FAILED = exports.UPDATE_APPLICATION_REVIEW_SUCCEEDED = exports.UPDATE_APPLICATION_REVIEW_STARTED = exports.fetchApplicationsForJob = exports.FETCH_APPLICATIONS_FOR_JOB_FAILED = exports.FETCH_APPLICATIONS_FOR_JOB_SUCCEEDED = exports.FETCH_APPLICATIONS_FOR_JOB_STARTED = exports.fetchApplication = exports.FETCH_APPLICATION_FAILED = exports.FETCH_APPLICATION_SUCCEEDED = exports.FETCH_APPLICATION_STARTED = void 0;
 var asyncAction_1 = __webpack_require__(/*! ../asyncAction */ "./resources/assets/js/store/asyncAction.ts");
 var application_1 = __webpack_require__(/*! ../../api/application */ "./resources/assets/js/api/application.ts");
 exports.FETCH_APPLICATION_STARTED = "APPLICATION: GET STARTED";
@@ -63114,6 +63528,18 @@ exports.updateApplicationReview = function (applicationReview) {
         id: applicationReview.id,
         applicationId: applicationReview.job_application_id,
     });
+};
+exports.FETCH_REFERENCE_EMAILS_STARTED = "APPLICATION: GET REFERENCE EMAILS STARTED";
+exports.FETCH_REFERENCE_EMAILS_SUCCEEDED = "APPLICATION: GET REFERENCE EMAILS SUCCEEDED";
+exports.FETCH_REFERENCE_EMAILS_FAILED = "APPLICATION: GET REFERENCE EMAILS FAILED";
+exports.fetchReferenceEmails = function (applicationId) {
+    return asyncAction_1.asyncGet(application_1.getReferenceEmailsEndpoint(applicationId), exports.FETCH_REFERENCE_EMAILS_STARTED, exports.FETCH_REFERENCE_EMAILS_SUCCEEDED, exports.FETCH_REFERENCE_EMAILS_FAILED, application_1.parseReferenceEmails, { applicationId: applicationId });
+};
+exports.SEND_REFERENCE_EMAIL_STARTED = "APPLICATION: SEND REFERENCE EMAIL STARTED";
+exports.SEND_REFERENCE_EMAIL_SUCCEEDED = "APPLICATION: SEND REFERENCE EMAIL SUCCEEDED";
+exports.SEND_REFERENCE_EMAIL_FAILED = "APPLICATION: SEND REFERENCE EMAIL FAILED";
+exports.sendReferenceEmail = function (applicationId, referenceType) {
+    return asyncAction_1.asyncPost(application_1.getSendReferenceEmailEndpoint(applicationId, referenceType), "", exports.SEND_REFERENCE_EMAIL_STARTED, exports.SEND_REFERENCE_EMAIL_SUCCEEDED, exports.SEND_REFERENCE_EMAIL_FAILED, application_1.parseSingleReferenceEmail, { applicationId: applicationId, referenceType: referenceType });
 };
 
 
@@ -63140,8 +63566,9 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var applicationActions_1 = __webpack_require__(/*! ./applicationActions */ "./resources/assets/js/store/Application/applicationActions.ts");
+exports.applicationReducer = exports.uiReducer = exports.entitiesReducer = exports.initApplicationState = exports.initUi = exports.initEntities = void 0;
 var redux_1 = __webpack_require__(/*! redux */ "./node_modules/redux/lib/redux.js");
+var applicationActions_1 = __webpack_require__(/*! ./applicationActions */ "./resources/assets/js/store/Application/applicationActions.ts");
 var queries_1 = __webpack_require__(/*! ../../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
 exports.initEntities = function () { return ({
     applications: {},
@@ -63149,17 +63576,27 @@ exports.initEntities = function () { return ({
         byId: {},
         idByApplicationId: {},
     },
+    microReferenceEmails: {
+        director: {
+            byApplicationId: {},
+        },
+        secondary: {
+            byApplicationId: {},
+        },
+    },
 }); };
 exports.initUi = function () { return ({
     applicationIsUpdating: {},
     fetchingApplications: false,
+    fetchingReferenceEmailsForApplication: {},
+    sendingReferenceEmailForApplication: {},
 }); };
 exports.initApplicationState = function () { return ({
     entities: exports.initEntities(),
     ui: exports.initUi(),
 }); };
 exports.entitiesReducer = function (state, action) {
-    var _a, _b, _c, _d, _e;
+    var _a, _b, _c, _d, _e, _f, _g;
     if (state === void 0) { state = exports.initEntities(); }
     switch (action.type) {
         case applicationActions_1.FETCH_APPLICATION_SUCCEEDED:
@@ -63185,12 +63622,21 @@ exports.entitiesReducer = function (state, action) {
                     byId: __assign(__assign({}, state.applicationReviews.byId), (_d = {}, _d[action.payload.id] = action.payload, _d)),
                     idByApplicationId: __assign(__assign({}, state.applicationReviews.idByApplicationId), (_e = {}, _e[action.payload.job_application_id] = action.payload.id, _e)),
                 } });
+        case applicationActions_1.FETCH_REFERENCE_EMAILS_SUCCEEDED:
+            return __assign(__assign({}, state), { microReferenceEmails: {
+                    director: {
+                        byApplicationId: __assign(__assign({}, state.microReferenceEmails.director.byApplicationId), (_f = {}, _f[action.meta.applicationId] = action.payload.director, _f)),
+                    },
+                    secondary: {
+                        byApplicationId: __assign(__assign({}, state.microReferenceEmails.secondary.byApplicationId), (_g = {}, _g[action.meta.applicationId] = action.payload.secondary, _g)),
+                    },
+                } });
         default:
             return state;
     }
 };
 exports.uiReducer = function (state, action) {
-    var _a, _b, _c, _d;
+    var _a, _b, _c, _d, _e, _f, _g, _h;
     if (state === void 0) { state = exports.initUi(); }
     switch (action.type) {
         case applicationActions_1.FETCH_APPLICATION_STARTED:
@@ -63208,6 +63654,16 @@ exports.uiReducer = function (state, action) {
         case applicationActions_1.UPDATE_APPLICATION_REVIEW_SUCCEEDED:
         case applicationActions_1.UPDATE_APPLICATION_REVIEW_FAILED:
             return __assign(__assign({}, state), { applicationIsUpdating: __assign(__assign({}, state.applicationIsUpdating), (_d = {}, _d[action.meta.applicationId] = false, _d)) });
+        case applicationActions_1.FETCH_REFERENCE_EMAILS_STARTED:
+            return __assign(__assign({}, state), { fetchingReferenceEmailsForApplication: __assign(__assign({}, state.fetchingReferenceEmailsForApplication), (_e = {}, _e[action.meta.applicationId] = true, _e)) });
+        case applicationActions_1.FETCH_REFERENCE_EMAILS_SUCCEEDED:
+        case applicationActions_1.FETCH_REFERENCE_EMAILS_FAILED:
+            return __assign(__assign({}, state), { fetchingReferenceEmailsForApplication: __assign(__assign({}, state.fetchingReferenceEmailsForApplication), (_f = {}, _f[action.meta.applicationId] = false, _f)) });
+        case applicationActions_1.SEND_REFERENCE_EMAIL_STARTED:
+            return __assign(__assign({}, state), { sendingReferenceEmailForApplication: __assign(__assign({}, state.sendingReferenceEmailForApplication), (_g = {}, _g[action.meta.applicationId] = true, _g)) });
+        case applicationActions_1.SEND_REFERENCE_EMAIL_SUCCEEDED:
+        case applicationActions_1.SEND_REFERENCE_EMAIL_FAILED:
+            return __assign(__assign({}, state), { sendingReferenceEmailForApplication: __assign(__assign({}, state.sendingReferenceEmailForApplication), (_h = {}, _h[action.meta.applicationId] = false, _h)) });
         default:
             return state;
     }
@@ -63231,6 +63687,7 @@ exports.default = exports.applicationReducer;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.storeNewAssessment = exports.storeNewAssessmentFailed = exports.storeNewAssessmentSucceeded = exports.storeNewAssessmentStarted = exports.STORE_NEW_ASSESSMENT_FAILED = exports.STORE_NEW_ASSESSMENT_SUCCEEDED = exports.STORE_NEW_ASSESSMENT_STARTED = exports.deleteAssessment = exports.deleteAssessmentFailed = exports.deleteAssessmentSucceeded = exports.deleteAssessmentStarted = exports.DELETE_ASSESSMENT_FAILED = exports.DELETE_ASSESSMENT_SUCCEEDED = exports.DELETE_ASSESSMENT_STARTED = exports.updateAssessment = exports.updateAssessmentFailed = exports.updateAssessmentSucceeded = exports.updateAssessmentStarted = exports.UPDATE_ASSESSMENT_FAILED = exports.UPDATE_ASSESSMENT_SUCCEEDED = exports.UPDATE_ASSESSMENT_STARTED = exports.deleteTempAssessment = exports.editTempAssessment = exports.createTempAssessment = exports.DELETE_TEMP_ASSESSMENT = exports.EDIT_TEMP_ASSESSMENT = exports.CREATE_TEMP_ASSESSMENT = exports.editAssessment = exports.EDIT_ASSESSMENT = void 0;
 var assessment_1 = __webpack_require__(/*! ../../api/assessment */ "./resources/assets/js/api/assessment.ts");
 /** Action for editing Assessments (without saving to server) */
 exports.EDIT_ASSESSMENT = "EDIT_ASSESSMENT";
@@ -63404,6 +63861,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.assessmentReducer = exports.initState = void 0;
 /* eslint-disable @typescript-eslint/camelcase */
 var isEqual_1 = __importDefault(__webpack_require__(/*! lodash/isEqual */ "./node_modules/lodash/isEqual.js"));
 var queries_1 = __webpack_require__(/*! ../../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
@@ -63522,6 +63980,7 @@ exports.default = exports.assessmentReducer;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.fetchAssessmentPlan = exports.fetchAssessmentPlanFailed = exports.fetchAssessmentPlanSucceeded = exports.fetchAssessmentPlanStarted = exports.FETCH_ASSESSMENT_PLAN_FAILED = exports.FETCH_ASSESSMENT_PLAN_SUCCEEEDED = exports.FETCH_ASSESSMENT_PLAN_STARTED = void 0;
 var assessmentPlan_1 = __webpack_require__(/*! ../../api/assessmentPlan */ "./resources/assets/js/api/assessmentPlan.ts");
 /**
  * NOTE: There is no AssessmentPlan Reducer.
@@ -63582,6 +64041,7 @@ exports.fetchAssessmentPlan = function (jobId) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.updateAssessmentPlanNotification = exports.UPDATE_ASSESSMENT_PLAN_NOTIFICATION_FAILED = exports.UPDATE_ASSESSMENT_PLAN_NOTIFICATION_SUCCEEDED = exports.UPDATE_ASSESSMENT_PLAN_NOTIFICATION_STARTED = exports.fetchAssessmentPlanNotifications = exports.FETCH_ASSESSMENT_PLAN_NOTIFICATIONS_FAILED = exports.FETCH_ASSESSMENT_PLAN_NOTIFICATIONS_SUCCEEDED = exports.FETCH_ASSESSMENT_PLAN_NOTIFICATIONS_STARTED = void 0;
 var assessmentPlanNotifications_1 = __webpack_require__(/*! ../../api/assessmentPlanNotifications */ "./resources/assets/js/api/assessmentPlanNotifications.ts");
 /** Fetcing all Assessment Plan Notifications for a job */
 exports.FETCH_ASSESSMENT_PLAN_NOTIFICATIONS_STARTED = "FETCH_ASSESSMENT_PLAN_NOTIFICATIONS_STARTED";
@@ -63664,6 +64124,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.assessmentPlanNotificationReducer = exports.sortNotifications = exports.initState = void 0;
 var redux_1 = __webpack_require__(/*! redux */ "./node_modules/redux/lib/redux.js");
 var assessmentPlanNotificationActions_1 = __webpack_require__(/*! ./assessmentPlanNotificationActions */ "./resources/assets/js/store/AssessmentPlanNotification/assessmentPlanNotificationActions.ts");
 var queries_1 = __webpack_require__(/*! ../../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
@@ -63747,6 +64208,7 @@ exports.default = exports.assessmentPlanNotificationReducer;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getDepartments = exports.GET_DEPTS_FAILED = exports.GET_DEPTS_SUCCEEDED = exports.GET_DEPTS_STARTED = void 0;
 var asyncAction_1 = __webpack_require__(/*! ../asyncAction */ "./resources/assets/js/store/asyncAction.ts");
 var department_1 = __webpack_require__(/*! ../../api/department */ "./resources/assets/js/api/department.ts");
 exports.GET_DEPTS_STARTED = "DEPARTMENT: GET STARTED";
@@ -63780,6 +64242,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.initDeptState = void 0;
 var deptActions_1 = __webpack_require__(/*! ./deptActions */ "./resources/assets/js/store/Department/deptActions.ts");
 var queries_1 = __webpack_require__(/*! ../../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
 exports.initDeptState = function () { return ({
@@ -63814,6 +64277,7 @@ exports.default = deptReducer;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.clearErrors = exports.CLEAR_ERRORS = void 0;
 exports.CLEAR_ERRORS = "CLEAR ERRORS";
 exports.clearErrors = function () { return ({
     type: exports.CLEAR_ERRORS,
@@ -63839,6 +64303,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.initState = void 0;
 var errorActions_1 = __webpack_require__(/*! ./errorActions */ "./resources/assets/js/store/Error/errorActions.ts");
 exports.initState = function () { return ({ errors: [] }); };
 var errorReducer = function (state, action) {
@@ -63876,6 +64341,7 @@ exports.default = errorReducer;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getRecentError = exports.getErrors = void 0;
 exports.getErrors = function (state) {
     return state.error.errors;
 };
@@ -63898,6 +64364,7 @@ exports.default = { getErrors: exports.getErrors };
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.unclaimJob = exports.UNCLAIM_JOB_FAILED = exports.UNCLAIM_JOB_SUCCEEDED = exports.UNCLAIM_JOB_STARTED = exports.claimJob = exports.CLAIM_JOB_FAILED = exports.CLAIM_JOB_SUCCEEDED = exports.CLAIM_JOB_STARTED = exports.getHrAdvisor = exports.GET_HR_ADVISOR_FAILED = exports.GET_HR_ADVISOR_SUCCEEDED = exports.GET_HR_ADVISOR_STARTED = void 0;
 var asyncAction_1 = __webpack_require__(/*! ../asyncAction */ "./resources/assets/js/store/asyncAction.ts");
 var hrAdvisor_1 = __webpack_require__(/*! ../../api/hrAdvisor */ "./resources/assets/js/api/hrAdvisor.ts");
 exports.GET_HR_ADVISOR_STARTED = "HR ADVISOR: GET STARTED";
@@ -63953,6 +64420,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.hrAdvisorReducer = exports.uiReducer = exports.entitiesReducer = exports.initState = exports.initUi = exports.initEntities = void 0;
 /* eslint-disable @typescript-eslint/camelcase */
 var redux_1 = __webpack_require__(/*! redux */ "./node_modules/redux/lib/redux.js");
 var hrAdvisorActions_1 = __webpack_require__(/*! ./hrAdvisorActions */ "./resources/assets/js/store/HrAdvisor/hrAdvisorActions.ts");
@@ -64036,6 +64504,7 @@ exports.default = exports.hrAdvisorReducer;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.fetchComments = exports.FETCH_COMMENTS_FAILED = exports.FETCH_COMMENTS_SUCCEEDED = exports.FETCH_COMMENTS_STARTED = exports.createComment = exports.CREATE_COMMENT_FAILED = exports.CREATE_COMMENT_SUCCEEDED = exports.CREATE_COMMENT_STARTED = exports.submitJobForReview = exports.SUBMIT_JOB_FOR_REVIEW_FAILED = exports.SUBMIT_JOB_FOR_REVIEW_SUCCEEDED = exports.SUBMIT_JOB_FOR_REVIEW_STARTED = exports.batchUpdateCriteria = exports.BATCH_UPDATE_CRITERIA_FAILED = exports.BATCH_UPDATE_CRITERIA_SUCCEEDED = exports.BATCH_UPDATE_CRITERIA_STARTED = exports.fetchCriteria = exports.FETCH_CRITERIA_FAILED = exports.FETCH_CRITERIA_SUCCEEDED = exports.FETCH_CRITERIA_STARTED = exports.batchUpdateJobTasks = exports.BATCH_UPDATE_JOB_TASKS_FAILED = exports.BATCH_UPDATE_JOB_TASKS_SUCCEEDED = exports.BATCH_UPDATE_JOB_TASKS_STARTED = exports.fetchJobTasks = exports.FETCH_JOB_TASKS_FAILED = exports.FETCH_JOB_TASKS_SUCCEEDED = exports.FETCH_JOB_TASKS_STARTED = exports.setSelectedJob = exports.SET_SELECTED_JOB = exports.clearJobEdit = exports.CLEAR_JOB_EDIT = exports.editJob = exports.EDIT_JOB = exports.updateJob = exports.UPDATE_JOB_FAILED = exports.UPDATE_JOB_SUCCEEDED = exports.UPDATE_JOB_STARTED = exports.createJob = exports.CREATE_JOB_FAILED = exports.CREATE_JOB_SUCCEEDED = exports.CREATE_JOB_STARTED = exports.fetchJobIndex = exports.FETCH_JOB_INDEX_FAILED = exports.FETCH_JOB_INDEX_SUCCEEDED = exports.FETCH_JOB_INDEX_STARTED = exports.fetchJob = exports.FETCH_JOB_FAILED = exports.FETCH_JOB_SUCCEEDED = exports.FETCH_JOB_STARTED = void 0;
 var job_1 = __webpack_require__(/*! ../../api/job */ "./resources/assets/js/api/job.ts");
 var asyncAction_1 = __webpack_require__(/*! ../asyncAction */ "./resources/assets/js/store/asyncAction.ts");
 var base_1 = __webpack_require__(/*! ../../api/base */ "./resources/assets/js/api/base.ts");
@@ -64146,6 +64615,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.jobsReducer = exports.uiReducer = exports.entitiesReducer = exports.initState = exports.initUi = exports.initEntities = void 0;
 var redux_1 = __webpack_require__(/*! redux */ "./node_modules/redux/lib/redux.js");
 var jobActions_1 = __webpack_require__(/*! ./jobActions */ "./resources/assets/js/store/Job/jobActions.ts");
 var queries_1 = __webpack_require__(/*! ../../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
@@ -64296,6 +64766,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.fetchingComments = exports.getSortedFilteredComments = exports.getSortedComments = exports.sortComments = exports.getComments = exports.getCommentsState = exports.getTasksByJob = exports.getTasksForJobIsUpdating = exports.getCriteriaForJobIsUpdating = exports.getCriteriaIdsByJob = exports.getCriteriaIdsOfTypeByJob = exports.getCriteriaOfTypeByJob = exports.getCriteriaByJob = exports.getCreatingJob = exports.getCriteriaById = exports.getCriteria = exports.getJobIsEdited = exports.getJobIsUpdating = exports.getJobIndexIsUpdating = exports.getEditJob = exports.getSelectedJob = exports.getJob = exports.getAllJobsInDept = exports.getAllJobs = exports.getCriteriaState = void 0;
 var isEqual_1 = __importDefault(__webpack_require__(/*! lodash/isEqual */ "./node_modules/lodash/isEqual.js"));
 var reselect_1 = __webpack_require__(/*! reselect */ "./node_modules/reselect/lib/index.js");
 var re_reselect_1 = __importDefault(__webpack_require__(/*! re-reselect */ "./node_modules/re-reselect/dist/index.js"));
@@ -64408,6 +64879,7 @@ exports.fetchingComments = function (state) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.fetchJobPosterStatuses = exports.FETCH_JOB_POSTER_STATUSES_FAILED = exports.FETCH_JOB_POSTER_STATUSES_SUCCEEDED = exports.FETCH_JOB_POSTER_STATUSES_STARTED = void 0;
 var asyncAction_1 = __webpack_require__(/*! ../asyncAction */ "./resources/assets/js/store/asyncAction.ts");
 var jobPosterStatus_1 = __webpack_require__(/*! ../../api/jobPosterStatus */ "./resources/assets/js/api/jobPosterStatus.ts");
 exports.FETCH_JOB_POSTER_STATUSES_STARTED = "JOB POSTER STATUS: GET STARTED";
@@ -64441,6 +64913,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.initJobStatusState = void 0;
 var jobStatusActions_1 = __webpack_require__(/*! ./jobStatusActions */ "./resources/assets/js/store/JobPosterStatus/jobStatusActions.ts");
 var queries_1 = __webpack_require__(/*! ../../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
 exports.initJobStatusState = function () { return ({
@@ -64475,6 +64948,7 @@ exports.default = jobStatusReducer;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.setSelectedManager = exports.SET_SELECTED_MANAGER = exports.updateManager = exports.UPDATE_MANAGER_FAILED = exports.UPDATE_MANAGER_SUCCEEDED = exports.UPDATE_MANAGER_STARTED = exports.fetchCurrentManager = exports.FETCH_CURRENT_MANAGER_FAILED = exports.FETCH_CURRENT_MANAGER_SUCCEEDED = exports.FETCH_CURRENT_MANAGER_STARTED = exports.fetchManager = exports.FETCH_MANAGER_FAILED = exports.FETCH_MANAGER_SUCCEEDED = exports.FETCH_MANAGER_STARTED = void 0;
 var asyncAction_1 = __webpack_require__(/*! ../asyncAction */ "./resources/assets/js/store/asyncAction.ts");
 var manager_1 = __webpack_require__(/*! ../../api/manager */ "./resources/assets/js/api/manager.ts");
 exports.FETCH_MANAGER_STARTED = "MANAGER: GET STARTED";
@@ -64525,6 +64999,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.managerReducer = exports.initManagerState = void 0;
 var managerActions_1 = __webpack_require__(/*! ./managerActions */ "./resources/assets/js/store/Manager/managerActions.ts");
 exports.initManagerState = function () { return ({
     managersById: {},
@@ -64565,6 +65040,7 @@ exports.managerReducer = function (state, action) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.storeNewRatingGuideAnswer = exports.storeNewRatingGuideAnswerFailed = exports.storeNewRatingGuideAnswerSucceeded = exports.storeNewRatingGuideAnswerStarted = exports.STORE_NEW_RATING_GUIDE_ANSWER_FAILED = exports.STORE_NEW_RATING_GUIDE_ANSWER_SUCCEEDED = exports.STORE_NEW_RATING_GUIDE_ANSWER_STARTED = exports.deleteRatingGuideAnswer = exports.deleteRatingGuideAnswerFailed = exports.deleteRatingGuideAnswerSucceeded = exports.deleteRatingGuideAnswerStarted = exports.DELETE_RATING_GUIDE_ANSWER_FAILED = exports.DELETE_RATING_GUIDE_ANSWER_SUCCEEDED = exports.DELETE_RATING_GUIDE_ANSWER_STARTED = exports.updateRatingGuideAnswer = exports.updateRatingGuideAnswerFailed = exports.updateRatingGuideAnswerSucceeded = exports.updateRatingGuideAnswerStarted = exports.UPDATE_RATING_GUIDE_ANSWER_FAILED = exports.UPDATE_RATING_GUIDE_ANSWER_SUCCEEDED = exports.UPDATE_RATING_GUIDE_ANSWER_STARTED = exports.deleteTempRatingGuideAnswer = exports.editTempRatingGuideAnswer = exports.createTempRatingGuideAnswer = exports.DELETE_TEMP_RATING_GUIDE_ANSWER = exports.EDIT_TEMP_RATING_GUIDE_ANSWER = exports.CREATE_TEMP_RATING_GUIDE_ANSWER = exports.editRatingGuideAnswer = exports.EDIT_RATING_GUIDE_ANSWER = void 0;
 var ratingGuide_1 = __webpack_require__(/*! ../../api/ratingGuide */ "./resources/assets/js/api/ratingGuide.ts");
 var ratingGuideAnswerSelectors_1 = __webpack_require__(/*! ./ratingGuideAnswerSelectors */ "./resources/assets/js/store/RatingGuideAnswer/ratingGuideAnswerSelectors.ts");
 /** Action for editing Rating Guide Q&A (without saving to server) */
@@ -64749,6 +65225,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ratingGuideAnswerReducer = exports.initState = void 0;
 /* eslint-disable @typescript-eslint/camelcase */
 var isEqual_1 = __importDefault(__webpack_require__(/*! lodash/isEqual */ "./node_modules/lodash/isEqual.js"));
 var assessmentPlanActions_1 = __webpack_require__(/*! ../AssessmentPlan/assessmentPlanActions */ "./resources/assets/js/store/AssessmentPlan/assessmentPlanActions.ts");
@@ -64878,6 +65355,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.tempRatingGuideAnswerIsSaving = exports.ratingGuideAnswerIsUpdating = exports.ratingGuideAnswerIsEdited = exports.getEditRatingGuideAnswerById = exports.getCanonRatingGuideAnswerById = exports.getTempRatingGuideAnswerIdsByQuestion = exports.getTempRatingGuideAnswersByQuestion = exports.getRatingGuideAnswersByAssessment = exports.getRatingGuideAnswerIdsByQuestion = exports.getRatingGuideAnswersByQuestion = exports.getTempRatingGuideAnswerById = exports.getRatingGuideAnswerById = exports.getRatingGuideAnswersByJob = exports.getTempRatingGuideAnswers = exports.getCanonRatingGuideAnswers = exports.getCurrentRatingGuideAnswers = exports.getAnswerDeleteState = exports.getCurrentAnswerState = exports.getTempAnswerState = exports.getEditedAnswerState = exports.getCanonAnswerState = void 0;
 var reselect_1 = __webpack_require__(/*! reselect */ "./node_modules/reselect/lib/index.js");
 var re_reselect_1 = __importDefault(__webpack_require__(/*! re-reselect */ "./node_modules/re-reselect/dist/index.js"));
 var isEqual_1 = __importDefault(__webpack_require__(/*! lodash/isEqual */ "./node_modules/lodash/isEqual.js"));
@@ -64979,6 +65457,7 @@ exports.tempRatingGuideAnswerIsSaving = function (state, id) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.storeNewRatingGuideQuestion = exports.storeNewRatingGuideQuestionFailed = exports.storeNewRatingGuideQuestionSucceeded = exports.storeNewRatingGuideQuestionStarted = exports.STORE_NEW_RATING_GUIDE_QUESTION_FAILED = exports.STORE_NEW_RATING_GUIDE_QUESTION_SUCCEEDED = exports.STORE_NEW_RATING_GUIDE_QUESTION_STARTED = exports.deleteRatingGuideQuestion = exports.deleteRatingGuideQuestionFailed = exports.deleteRatingGuideQuestionSucceeded = exports.deleteRatingGuideQuestionStarted = exports.DELETE_RATING_GUIDE_QUESTION_FAILED = exports.DELETE_RATING_GUIDE_QUESTION_SUCCEEDED = exports.DELETE_RATING_GUIDE_QUESTION_STARTED = exports.updateRatingGuideQuestion = exports.updateRatingGuideQuestionFailed = exports.updateRatingGuideQuestionSucceeded = exports.updateRatingGuideQuestionStarted = exports.UPDATE_RATING_GUIDE_QUESTION_FAILED = exports.UPDATE_RATING_GUIDE_QUESTION_SUCCEEDED = exports.UPDATE_RATING_GUIDE_QUESTION_STARTED = exports.deleteTempRatingGuideQuestion = exports.editTempRatingGuideQuestion = exports.createTempRatingGuideQuestion = exports.DELETE_TEMP_RATING_GUIDE_QUESTION = exports.EDIT_TEMP_RATING_GUIDE_QUESTION = exports.CREATE_TEMP_RATING_GUIDE_QUESTION = exports.editRatingGuideQuestion = exports.EDIT_RATING_GUIDE_QUESTION = void 0;
 var ratingGuide_1 = __webpack_require__(/*! ../../api/ratingGuide */ "./resources/assets/js/api/ratingGuide.ts");
 var ratingGuideQuestionSelectors_1 = __webpack_require__(/*! ./ratingGuideQuestionSelectors */ "./resources/assets/js/store/RatingGuideQuestion/ratingGuideQuestionSelectors.ts");
 /** Action for editing Rating Guide Q&A (without saving to server) */
@@ -65159,6 +65638,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ratingGuideQuestionReducer = exports.initState = void 0;
 /* eslint-disable @typescript-eslint/camelcase */
 var isEqual_1 = __importDefault(__webpack_require__(/*! lodash/isEqual */ "./node_modules/lodash/isEqual.js"));
 var assessmentPlanActions_1 = __webpack_require__(/*! ../AssessmentPlan/assessmentPlanActions */ "./resources/assets/js/store/AssessmentPlan/assessmentPlanActions.ts");
@@ -65288,6 +65768,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ratingGuideQuestionsAreUpdatingByAssessment = exports.ratingGuideQuestionIsUpdating = exports.tempRatingGuideQuestionsAreSavingByAssessment = exports.tempRatingGuideQuestionIsSaving = exports.ratingGuideQuestionsAreEditedByAssessment = exports.ratingGuideQuestionIsEdited = exports.getTempRatingGuideQuestionIdsByAssessment = exports.getTempRatingGuideQuestionsByAssessment = exports.getRatingGuideQuestionIdsByJobAndAssessmentType = exports.getRatingGuideQuestionsByJobAndAssessmentType = exports.getRatingGuideQuestionIdsByJob = exports.getRatingGuideQuestionsByJob = exports.getTempRatingGuideQuestionById = exports.getEditRatingGuideQuestionById = exports.getCanonRatingGuideQuestionById = exports.getCurrentRatingGuideQuestionById = exports.getTempRatingGuideQuestionIds = exports.getRatingGuideQuestionIds = exports.getTempRatingGuideQuestions = exports.getCurrentRatingGuideQuestions = void 0;
 var isEqual_1 = __importDefault(__webpack_require__(/*! lodash/isEqual */ "./node_modules/lodash/isEqual.js"));
 var reselect_1 = __webpack_require__(/*! reselect */ "./node_modules/reselect/lib/index.js");
 var re_reselect_1 = __importDefault(__webpack_require__(/*! re-reselect */ "./node_modules/re-reselect/dist/index.js"));
@@ -65424,6 +65905,7 @@ exports.ratingGuideQuestionsAreUpdatingByAssessment = re_reselect_1.default(expo
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.fetchSkills = exports.FETCH_SKILLS_FAILED = exports.FETCH_SKILLS_SUCCEEDED = exports.FETCH_SKILLS_STARTED = void 0;
 var skill_1 = __webpack_require__(/*! ../../api/skill */ "./resources/assets/js/api/skill.ts");
 var asyncAction_1 = __webpack_require__(/*! ../asyncAction */ "./resources/assets/js/store/asyncAction.ts");
 exports.FETCH_SKILLS_STARTED = "FETCH_SKILLS_STARTED";
@@ -65457,6 +65939,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.skillReducer = exports.initState = void 0;
 var redux_1 = __webpack_require__(/*! redux */ "./node_modules/redux/lib/redux.js");
 var skillActions_1 = __webpack_require__(/*! ./skillActions */ "./resources/assets/js/store/Skill/skillActions.ts");
 var queries_1 = __webpack_require__(/*! ../../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
@@ -65513,6 +65996,7 @@ exports.default = exports.skillReducer;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.fetchAllUsers = exports.FETCH_ALL_USERS_FAILED = exports.FETCH_ALL_USERS_SUCCEEDED = exports.FETCH_ALL_USERS_STARTED = exports.fetchUser = exports.FETCH_USER_FAILED = exports.FETCH_USER_SUCCEEDED = exports.FETCH_USER_STARTED = void 0;
 var asyncAction_1 = __webpack_require__(/*! ../asyncAction */ "./resources/assets/js/store/asyncAction.ts");
 var user_1 = __webpack_require__(/*! ../../api/user */ "./resources/assets/js/api/user.ts");
 exports.FETCH_USER_STARTED = "USER: GET STARTED";
@@ -65553,6 +66037,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.userReducer = exports.initUserState = void 0;
 var userActions_1 = __webpack_require__(/*! ./userActions */ "./resources/assets/js/store/User/userActions.ts");
 var queries_1 = __webpack_require__(/*! ../../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
 exports.initUserState = function () { return ({
@@ -65584,6 +66069,7 @@ exports.userReducer = function (state, action) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getUserById = exports.getUsers = void 0;
 var reselect_1 = __webpack_require__(/*! reselect */ "./node_modules/reselect/lib/index.js");
 var queries_1 = __webpack_require__(/*! ../../helpers/queries */ "./resources/assets/js/helpers/queries.ts");
 var getUsersById = function (state) {
@@ -65625,6 +66111,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.asyncDelete = exports.asyncPost = exports.asyncPut = exports.asyncGet = exports.asyncAction = exports.FAILED = exports.SUCCEEDED = exports.STARTED = void 0;
 var redux_api_middleware_1 = __webpack_require__(/*! redux-api-middleware */ "./node_modules/redux-api-middleware/lib/index.umd.js"); // RSAA = '@@redux-api-middleware/RSAA'
 var dayjs_1 = __importDefault(__webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js"));
 exports.STARTED = "STARTED";
@@ -65720,6 +66207,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.deepEqualSelectorOptions = exports.createDeepEqualSelector = exports.defaultSelectorOptions = void 0;
 var reselect_1 = __webpack_require__(/*! reselect */ "./node_modules/reselect/lib/index.js");
 var isEqual_1 = __importDefault(__webpack_require__(/*! lodash/isEqual */ "./node_modules/lodash/isEqual.js"));
 exports.defaultSelectorOptions = { selectorCreator: reselect_1.createSelector };
@@ -65741,14 +66229,27 @@ exports.deepEqualSelectorOptions = {
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.rootReducer = exports.initState = void 0;
 var redux_1 = __webpack_require__(/*! redux */ "./node_modules/redux/lib/redux.js");
 var jobReducer_1 = __webpack_require__(/*! ./Job/jobReducer */ "./resources/assets/js/store/Job/jobReducer.ts");
 var assessmentReducer_1 = __importStar(__webpack_require__(/*! ./Assessment/assessmentReducer */ "./resources/assets/js/store/Assessment/assessmentReducer.ts"));
@@ -65804,10 +66305,10 @@ exports.default = exports.rootReducer;
 /*!**********************************************************!*\
   !*** ./resources/assets/js/translations/locales/fr.json ***!
   \**********************************************************/
-/*! exports provided: activity.commentLocation.label, activity.commentMetadata, activity.viewComment.label, activityfeed.accordionAccessibleLabel, activityfeed.error, activityfeed.header, activityfeed.loading, activityfeed.loadingIconText, activityfeed.locations.applicantReview.general, activityfeed.locations.applicantReview.notUnderConsideration, activityfeed.locations.applicantReview.optionalConsideration, activityfeed.locations.applicantReview.underConsideration, activityfeed.locations.applications, activityfeed.locations.hr.preview, activityfeed.locations.hr.summary, activityfeed.locations.notFound, activityfeed.locations.review, activityfeed.locations.review.basicInfo, activityfeed.locations.review.environment, activityfeed.locations.review.general, activityfeed.locations.review.heading, activityfeed.locations.review.impact, activityfeed.locations.review.langRequirements, activityfeed.locations.review.skills, activityfeed.locations.review.tasks, activityfeed.locations.screeningPlan, activityfeed.locations.screeningPlan.builder, activityfeed.locations.screeningPlan.general, activityfeed.locations.screeningPlan.ratings, activityfeed.locations.screeningPlan.summary, activityfeed.noActivities, activityfeed.review.accordionAccessibleLabel, activityfeed.review.header, activityfeed.review.loadingIconText, activityfeed.title, application.review.addNote, application.review.alert.oops, application.review.backToApplicantList, application.review.button.cancel, application.review.button.confirm, application.review.button.save, application.review.button.saved, application.review.button.saving, application.review.button.viewJobPoster, application.review.collapseAllSkills, application.review.decision, application.review.editNote, application.review.emailCandidateLinkTitle, application.review.expandAllSkills, application.review.priorityStatus.priority, application.review.priorityStatus.priorityLogoTitle, application.review.reviewSaveFailed, application.review.reviewStatus.notReviewed, application.review.reviewStatus.screenedOut, application.review.reviewStatus.stillIn, application.review.reviewStatus.stillThinking, application.review.screenInConfirm, application.review.screenOutConfirm, application.review.veteranStatus.veteran, application.review.veteranStatus.veteranLogoAlt, application.review.viewApplication, application.review.viewApplicationLinkTitle, application.review.viewProfile, application.review.viewProfileLinkTitle, assessmentPlan.addAssessmentButton, assessmentPlan.alert.checking, assessmentPlan.alert.created, assessmentPlan.alert.deleted, assessmentPlan.alert.explanation, assessmentPlan.alert.skillAndLevelUpdated, assessmentPlan.alert.skillLevelUpdated, assessmentPlan.alert.skillUpdated, assessmentPlan.alert.title, assessmentPlan.assessmentPlanBuilder.instructions, assessmentPlan.assessmentPlanBuilder.shortDescription, assessmentPlan.assessmentPlanBuilder.title, assessmentPlan.assessmentPlanSummary.shortDescription, assessmentPlan.assessmentPlanSummary.title, assessmentPlan.assessmentTypesLabel, assessmentPlan.assetCriteria.nullState, assessmentPlan.criteriaTitle, assessmentPlan.essentialCriteria.nullState, assessmentPlan.instructions.intro, assessmentPlan.instructions.narrativeNote, assessmentPlan.pageTitle, assessmentPlan.ratingGuideBuilder.shortDescription, assessmentPlan.ratingGuideBuilder.title, assessmentPlan.selectAssessment.label, assessmentPlan.selectAssessment.null, assessmentPlan.skillDescriptionLabel, assessmentPlan.skillLevelDescriptionLabel, assessmentPlan.summary.assessmentSummary.noAssessments, assessmentPlan.summary.assessmentSummary.title, assessmentPlan.summary.assessmentSummary.toolSkillCount, assessmentPlan.summary.description, assessmentPlan.summary.skillCount, assessmentPlan.summary.skillsNullState, assessmentPlan.summary.title, assessmentPlan.title, assessmentType.applicationScreeningQuestion, assessmentType.applicationScreeningQuestion.description, assessmentType.groupTest, assessmentType.groupTest.description, assessmentType.informalPhoneConversation, assessmentType.informalPhoneConversation.description, assessmentType.interview, assessmentType.interview.description, assessmentType.narrativeAssessment, assessmentType.narrativeAssessment.description, assessmentType.narrativeReview.standardAnswer, assessmentType.narrativeReview.standardQuestion, assessmentType.onSiteExam, assessmentType.onSiteExam.description, assessmentType.onlineExam, assessmentType.onlineExam.description, assessmentType.portfolioReview, assessmentType.portfolioReview.description, assessmentType.referenceCheck, assessmentType.referenceCheck.description, assessmentType.seriousGames, assessmentType.seriousGames.description, assessmentType.takeHomeExam, assessmentType.takeHomeExam.description, button.copied, button.copyEmails, button.copyToClipboard, button.toggleAccordion, commentForm.comment.label, commentForm.comment.placeholder, commentForm.commentLocation.label, commentForm.commentLocation.nullSelection, commentForm.commentType.label, commentForm.commentType.nullSelection, commentForm.submitButton.label, commentType.comment, commentType.question, commentType.recommendation, commentType.requiredAction, criteria.asset, criteria.essential, criteriaForm.skillLevelSelectionLabel, criteriaForm.skillSpecificityLabel, criteriaForm.skillSpecificityPlaceholder, criteriaType.asset, criteriaType.essential, demoSubmitJobModal.cancel, demoSubmitJobModal.explanation, demoSubmitJobModal.link, demoSubmitJobModal.link.title, demoSubmitJobModal.title, errorToast.title, formInput.error, formInput.required, formValidation.checkboxRequired, formValidation.invalidSelection, formValidation.required, formValidation.tooLong, formValidation.tooShort, hrJobIndex.departmentPlaceholder, hrJobIndex.jobTitleMissing, hrJobIndex.managerLoading, hrJobIndex.preview, hrJobIndex.reviewDraft, hrJobIndex.viewActivity, hrJobIndex.viewScreeningPlan, hrJobIndex.viewSummary, hrPortal.jobPageIndex.clickToView, hrPortal.jobPageIndex.completedJobsHeader, hrPortal.jobPageIndex.hideAccordion, hrPortal.jobPageIndex.jobActionsEmpty, hrPortal.jobPageIndex.jobActionsHeader, hrPortal.jobPageIndex.jobActionsMessage, hrPortal.jobPageIndex.noJobsCompleted, hrPortal.jobPageIndex.preDepartmentName, hrPortal.jobPageIndex.showAccordion, hrPortal.jobPageIndex.unclaimedJobsEmpty, hrPortal.jobPageIndex.unclaimedJobsMessage, job.daysSinceClosed, jobBuilder.collaborativeness.01.description, jobBuilder.collaborativeness.01.title, jobBuilder.collaborativeness.02.description, jobBuilder.collaborativeness.02.title, jobBuilder.collaborativeness.03.description, jobBuilder.collaborativeness.03.title, jobBuilder.collaborativeness.04.description, jobBuilder.collaborativeness.04.title, jobBuilder.criteriaForm.addSpecificity, jobBuilder.criteriaForm.button.add, jobBuilder.criteriaForm.button.cancel, jobBuilder.criteriaForm.chooseSkillLevel, jobBuilder.criteriaForm.or, jobBuilder.criteriaForm.removeSpecificity, jobBuilder.criteriaForm.skillDefinition, jobBuilder.criterion.requiredSkill, jobBuilder.culturePace.01.description, jobBuilder.culturePace.01.title, jobBuilder.culturePace.02.description, jobBuilder.culturePace.02.title, jobBuilder.culturePace.03.description, jobBuilder.culturePace.03.title, jobBuilder.culturePace.04.description, jobBuilder.culturePace.04.title, jobBuilder.details.SelectClassAndLvlMessage, jobBuilder.details.cityLabel, jobBuilder.details.cityPlaceholder, jobBuilder.details.classificationLabel, jobBuilder.details.classificationNullSelection, jobBuilder.details.classificationOptions.AD, jobBuilder.details.classificationOptions.AS, jobBuilder.details.classificationOptions.BI, jobBuilder.details.classificationOptions.CO, jobBuilder.details.classificationOptions.CR, jobBuilder.details.classificationOptions.CS, jobBuilder.details.classificationOptions.EC, jobBuilder.details.classificationOptions.EX, jobBuilder.details.classificationOptions.FO, jobBuilder.details.classificationOptions.IS, jobBuilder.details.classificationOptions.PC, jobBuilder.details.classificationOptions.PE, jobBuilder.details.classificationOptions.PM, jobBuilder.details.documentTitle, jobBuilder.details.educationMessages.AD, jobBuilder.details.educationMessages.AS, jobBuilder.details.educationMessages.BI, jobBuilder.details.educationMessages.CO, jobBuilder.details.educationMessages.CR, jobBuilder.details.educationMessages.CS, jobBuilder.details.educationMessages.EC, jobBuilder.details.educationMessages.EX, jobBuilder.details.educationMessages.FO, jobBuilder.details.educationMessages.IS, jobBuilder.details.educationMessages.PC, jobBuilder.details.educationMessages.PE, jobBuilder.details.educationMessages.PM, jobBuilder.details.educationRequirementCopyAndPaste, jobBuilder.details.educationRequirementHeader, jobBuilder.details.educationRequirementPlaceholder, jobBuilder.details.educationRequirementReviewChanges, jobBuilder.details.educationRequirementsLabel, jobBuilder.details.flexHoursGroupBody, jobBuilder.details.flexHoursGroupHeader, jobBuilder.details.flexHoursGroupLabel, jobBuilder.details.frequencyAlwaysLabel, jobBuilder.details.frequencyFrequentlyLabel, jobBuilder.details.frequencyNeverLabel, jobBuilder.details.frequencyOccasionallyLabel, jobBuilder.details.frequencySometimesLabel, jobBuilder.details.heading, jobBuilder.details.languageLabel, jobBuilder.details.languageNullSelection, jobBuilder.details.levelLabel, jobBuilder.details.levelNullSelection, jobBuilder.details.modalBody, jobBuilder.details.modalCancelLabel, jobBuilder.details.modalConfirmLabel, jobBuilder.details.modalHeader, jobBuilder.details.modalMiddleLabel, jobBuilder.details.overtimeFrequentlyLabel, jobBuilder.details.overtimeGroupHeader, jobBuilder.details.overtimeGroupLabel, jobBuilder.details.overtimeNoneRequiredLabel, jobBuilder.details.overtimeOpportunitiesAvailableLabel, jobBuilder.details.provinceLabel, jobBuilder.details.provinceNullSelection, jobBuilder.details.remoteWorkCanadaLabel, jobBuilder.details.remoteWorkGroupBody, jobBuilder.details.remoteWorkGroupHeader, jobBuilder.details.remoteWorkGroupLabel, jobBuilder.details.remoteWorkNoneLabel, jobBuilder.details.remoteWorkWorldLabel, jobBuilder.details.returnButtonLabel, jobBuilder.details.securityLevelLabel, jobBuilder.details.securityLevelNullSelection, jobBuilder.details.submitButtonLabel, jobBuilder.details.teleworkGroupBody, jobBuilder.details.teleworkGroupHeader, jobBuilder.details.teleworkGroupLabel, jobBuilder.details.termLengthLabel, jobBuilder.details.termLengthPlaceholder, jobBuilder.details.titleLabel, jobBuilder.details.titlePlaceholder, jobBuilder.details.travelFrequentlyLabel, jobBuilder.details.travelGroupHeader, jobBuilder.details.travelGroupLabel, jobBuilder.details.travelNoneRequiredLabel, jobBuilder.details.travelOpportunitiesAvailableLabel, jobBuilder.experimental.01.description, jobBuilder.experimental.01.title, jobBuilder.experimental.02.description, jobBuilder.experimental.02.title, jobBuilder.experimental.03.description, jobBuilder.experimental.03.title, jobBuilder.experimental.04.description, jobBuilder.experimental.04.title, jobBuilder.facing.01.description, jobBuilder.facing.01.title, jobBuilder.facing.02.description, jobBuilder.facing.02.title, jobBuilder.facing.03.description, jobBuilder.facing.03.title, jobBuilder.facing.04.description, jobBuilder.facing.04.title, jobBuilder.impact.button.goBack, jobBuilder.impact.button.next, jobBuilder.impact.button.nextStep, jobBuilder.impact.button.return, jobBuilder.impact.button.skipToReview, jobBuilder.impact.departmentsLoading, jobBuilder.impact.documentTitle, jobBuilder.impact.header.department, jobBuilder.impact.hireBody, jobBuilder.impact.hireHeader, jobBuilder.impact.hireLabel, jobBuilder.impact.hirePlaceholder, jobBuilder.impact.modalDescription, jobBuilder.impact.modalTitle, jobBuilder.impact.points.counts, jobBuilder.impact.points.highlight, jobBuilder.impact.points.opportunity, jobBuilder.impact.selectDepartment, jobBuilder.impact.teamBody, jobBuilder.impact.teamHeader, jobBuilder.impact.teamLabel, jobBuilder.impact.teamPlaceholder, jobBuilder.impact.title, jobBuilder.impact.unknownDepartment, jobBuilder.impactPreview.title, jobBuilder.intro.accountSettingsLinkText, jobBuilder.intro.accountSettingsLinkTitle, jobBuilder.intro.changeDepartment, jobBuilder.intro.completeInLanguage, jobBuilder.intro.contactUs, jobBuilder.intro.continueButtonLabelEN, jobBuilder.intro.continueButtonLabelFR, jobBuilder.intro.departmentHeader, jobBuilder.intro.departmentLabel, jobBuilder.intro.departmentNullSelection, jobBuilder.intro.divisionLabelEN, jobBuilder.intro.divisionLabelFR, jobBuilder.intro.divisionPlaceholderEN, jobBuilder.intro.divisionPlaceholderFR, jobBuilder.intro.documentTitle, jobBuilder.intro.emailLinkText, jobBuilder.intro.emailLinkTitle, jobBuilder.intro.explanation, jobBuilder.intro.explanation.boldText, jobBuilder.intro.formDescription, jobBuilder.intro.formTitle, jobBuilder.intro.jobTitleLabelEN, jobBuilder.intro.jobTitleLabelFR, jobBuilder.intro.jobTitlePlaceholderEN, jobBuilder.intro.jobTitlePlaceholderFR, jobBuilder.intro.managerLoading, jobBuilder.intro.welcome, jobBuilder.jobLoading, jobBuilder.loading, jobBuilder.mgmtStyle.01.description, jobBuilder.mgmtStyle.01.title, jobBuilder.mgmtStyle.02.description, jobBuilder.mgmtStyle.02.title, jobBuilder.mgmtStyle.03.description, jobBuilder.mgmtStyle.03.title, jobBuilder.mgmtStyle.04.description, jobBuilder.mgmtStyle.04.title, jobBuilder.preview.city, jobBuilder.preview.classification, jobBuilder.preview.classificationEducation, jobBuilder.preview.education, jobBuilder.preview.flexibleHours, jobBuilder.preview.jobInformation, jobBuilder.preview.jobTitle, jobBuilder.preview.languageProfile, jobBuilder.preview.lengthOfTheTerm, jobBuilder.preview.level, jobBuilder.preview.overtime, jobBuilder.preview.province, jobBuilder.preview.remoteWork, jobBuilder.preview.securityClearance, jobBuilder.preview.telework, jobBuilder.preview.termLength, jobBuilder.preview.travel, jobBuilder.preview.workStyles, jobBuilder.progressTracker.label.finish, jobBuilder.progressTracker.label.start, jobBuilder.progressTracker.label.step1, jobBuilder.progressTracker.label.step2, jobBuilder.progressTracker.label.step3, jobBuilder.progressTracker.label.step4, jobBuilder.progressTracker.label.step5, jobBuilder.progressTracker.title.impact, jobBuilder.progressTracker.title.jobInfo, jobBuilder.progressTracker.title.review, jobBuilder.progressTracker.title.skills, jobBuilder.progressTracker.title.tasks, jobBuilder.progressTracker.title.welcome, jobBuilder.progressTracker.title.workEnv, jobBuilder.review.GovernmentClass, jobBuilder.review.assetHeading, jobBuilder.review.averageAnnualSalary, jobBuilder.review.basicInformationHeading, jobBuilder.review.button.return, jobBuilder.review.button.submit, jobBuilder.review.comesLater, jobBuilder.review.confirm.cancel, jobBuilder.review.confirm.submit, jobBuilder.review.confirm.title, jobBuilder.review.criteriaSection, jobBuilder.review.cultureSection, jobBuilder.review.documentTitle, jobBuilder.review.duration, jobBuilder.review.educationalHeading, jobBuilder.review.headsUp, jobBuilder.review.impactEditLink, jobBuilder.review.impactHeading, jobBuilder.review.infoEditLink, jobBuilder.review.jobPageHeading, jobBuilder.review.languageHeading, jobBuilder.review.languageProfile, jobBuilder.review.managerDataLoading, jobBuilder.review.managerHeading, jobBuilder.review.managerIncomplete, jobBuilder.review.managerPosition, jobBuilder.review.managerProfileLink, jobBuilder.review.meantime, jobBuilder.review.months, jobBuilder.review.nullProvince, jobBuilder.review.or, jobBuilder.review.otherInfoHeading, jobBuilder.review.readyToSubmit, jobBuilder.review.remoteAllowed, jobBuilder.review.remoteNotAllowed, jobBuilder.review.reviewYourPoster, jobBuilder.review.securityClearance, jobBuilder.review.sendYourDraft, jobBuilder.review.skills.nullState, jobBuilder.review.skillsEditLink, jobBuilder.review.skillsHeading, jobBuilder.review.tCAdds, jobBuilder.review.targetStartDate, jobBuilder.review.tasksEditLink, jobBuilder.review.tasksHeading, jobBuilder.review.whatHappens, jobBuilder.review.workCultureHeading, jobBuilder.review.workDescription, jobBuilder.review.workEnvEditLink, jobBuilder.review.workEnvHeading, jobBuilder.root.documentTitle, jobBuilder.skills.addSkillBelow, jobBuilder.skills.alt.happyArrow, jobBuilder.skills.alt.happyGraySmiley, jobBuilder.skills.alt.happySmiley, jobBuilder.skills.alt.neutralArrow, jobBuilder.skills.alt.neutralGraySmiley, jobBuilder.skills.alt.neutralSmiley, jobBuilder.skills.alt.unhappyArrow, jobBuilder.skills.alt.unhappyGraySmiley, jobBuilder.skills.alt.unhappySmiley, jobBuilder.skills.button.keyTasks, jobBuilder.skills.button.previewSkills, jobBuilder.skills.button.returnToTasks, jobBuilder.skills.description, jobBuilder.skills.description.keepItUp, jobBuilder.skills.documentTitle, jobBuilder.skills.emailLink, jobBuilder.skills.essentialSkillRequiredError, jobBuilder.skills.instructions.missingSkills, jobBuilder.skills.listTitle, jobBuilder.skills.nullState, jobBuilder.skills.nullText.occupationalSkills, jobBuilder.skills.placeholder.otherSkills, jobBuilder.skills.previewModalCancelLabel, jobBuilder.skills.previewModalConfirmLabel, jobBuilder.skills.previewModalMiddleLabel, jobBuilder.skills.range.culturalSkills, jobBuilder.skills.range.futureSkills, jobBuilder.skills.range.occupationalSkills, jobBuilder.skills.selectSkillLabel, jobBuilder.skills.selectSkillNull, jobBuilder.skills.skillLevel, jobBuilder.skills.statusSmiley.acceptable, jobBuilder.skills.statusSmiley.almost, jobBuilder.skills.statusSmiley.awesome, jobBuilder.skills.statusSmiley.essential.acceptable, jobBuilder.skills.statusSmiley.essential.almost, jobBuilder.skills.statusSmiley.essential.awesome, jobBuilder.skills.statusSmiley.essential.tooFew, jobBuilder.skills.statusSmiley.essential.tooMany, jobBuilder.skills.statusSmiley.essentialTitle, jobBuilder.skills.statusSmiley.title, jobBuilder.skills.statusSmiley.tooFew, jobBuilder.skills.statusSmiley.tooMany, jobBuilder.skills.tasksModalCancelLabel, jobBuilder.skills.title, jobBuilder.skills.title.addASkill, jobBuilder.skills.title.assetSkills, jobBuilder.skills.title.culturalSkills, jobBuilder.skills.title.editSkill, jobBuilder.skills.title.essentialSkills, jobBuilder.skills.title.futureSkills, jobBuilder.skills.title.keepItUp, jobBuilder.skills.title.keyTasks, jobBuilder.skills.title.missingSkill, jobBuilder.skills.title.needsToHave, jobBuilder.skills.title.niceToHave, jobBuilder.skills.title.occupationalSkills, jobBuilder.skills.title.otherSkills, jobBuilder.skills.title.skillSelection, jobBuilder.tasks.addJob, jobBuilder.tasks.documentTitle, jobBuilder.tasks.heading, jobBuilder.tasks.intro.first, jobBuilder.tasks.intro.fourth, jobBuilder.tasks.intro.second, jobBuilder.tasks.intro.third, jobBuilder.tasks.modal.body, jobBuilder.tasks.modal.body.heading, jobBuilder.tasks.modal.cancelButtonLabel, jobBuilder.tasks.modal.confirmButtonLabel, jobBuilder.tasks.modal.middleButtonLabel, jobBuilder.tasks.modal.title, jobBuilder.tasks.preview, jobBuilder.tasks.previous, jobBuilder.tasks.taskCount.error.body, jobBuilder.tasks.taskCount.error.title, jobBuilder.tasks.taskCount.none, jobBuilder.tasks.taskCount.some, jobBuilder.tasks.taskLabel, jobBuilder.tasks.taskPlaceholder, jobBuilder.tasks.tasksMaximum, jobBuilder.tasks.tasksRequired, jobBuilder.workCulture.flexibleHours, jobBuilder.workCulture.flexibleHoursDescription, jobBuilder.workCulture.overtime, jobBuilder.workCulture.overtimeDescription, jobBuilder.workCulture.remoteWork, jobBuilder.workCulture.remoteWorkDescription, jobBuilder.workCulture.remoteWorkMsg.always, jobBuilder.workCulture.remoteWorkMsg.never, jobBuilder.workCulture.telework, jobBuilder.workCulture.teleworkDescription, jobBuilder.workCulture.travel, jobBuilder.workCulture.travelDescription, jobBuilder.workEnv.amenities.cafeteria, jobBuilder.workEnv.amenities.closeToTransit, jobBuilder.workEnv.amenities.downtown, jobBuilder.workEnv.amenities.fitnessCenter, jobBuilder.workEnv.amenities.parking, jobBuilder.workEnv.amenities.restaurants, jobBuilder.workEnv.amenitiesLabel, jobBuilder.workEnv.collaborativeLabel, jobBuilder.workEnv.culture, jobBuilder.workEnv.cultureSubtext1, jobBuilder.workEnv.cultureSubtext2, jobBuilder.workEnv.cultureSummary, jobBuilder.workEnv.cultureSummarySubtext, jobBuilder.workEnv.customCultureSummaryLabel, jobBuilder.workEnv.customCultureSummaryPlaceholder, jobBuilder.workEnv.documentTitle, jobBuilder.workEnv.experimentalLabel, jobBuilder.workEnv.facingLabel, jobBuilder.workEnv.fastPacedSteadyLabel, jobBuilder.workEnv.greatStart, jobBuilder.workEnv.managementLabel, jobBuilder.workEnv.moreOnWorkEnv, jobBuilder.workEnv.moreOnWorkEnvLabel, jobBuilder.workEnv.moreOnWorkEnvPlaceholder, jobBuilder.workEnv.moreOnWorkEnvSubtext, jobBuilder.workEnv.openingSentence, jobBuilder.workEnv.ourWorkEnv, jobBuilder.workEnv.ourWorkEnvDesc, jobBuilder.workEnv.physEnv.assignedSeating, jobBuilder.workEnv.physEnv.naturalLight, jobBuilder.workEnv.physEnv.openConcept, jobBuilder.workEnv.physEnv.private, jobBuilder.workEnv.physEnv.smudging, jobBuilder.workEnv.physEnv.windows, jobBuilder.workEnv.physicalEnvLabel, jobBuilder.workEnv.saveAndReturnButtonLabel, jobBuilder.workEnv.specialWorkCulture, jobBuilder.workEnv.specialWorkCultureLabel, jobBuilder.workEnv.specialWorkCultureSubtext, jobBuilder.workEnv.stepDescription, jobBuilder.workEnv.submitButtonLabel, jobBuilder.workEnv.teamSizeLabel, jobBuilder.workEnv.teamSizePlaceholder, jobBuilder.workEnv.technology.accessToExternal, jobBuilder.workEnv.technology.collaboration, jobBuilder.workEnv.technology.fileSharing, jobBuilder.workEnv.technology.taskManagement, jobBuilder.workEnv.technology.versionControl, jobBuilder.workEnv.technology.videoConferencing, jobBuilder.workEnv.technologyLabel, jobBuilder.workEnv.textAreaPlaceholder1, jobBuilder.workEnv.thisIsOptional, jobBuilder.workEnv.title, jobBuilder.workEnvModal.cancelLabel, jobBuilder.workEnvModal.confirmLabel, jobBuilder.workEnvModal.modalMiddleLabel, jobBuilder.workEnvModal.title, jobBuilder.workEnvModal.workCultureTitle, jobCard.applicants, jobCard.managerTime, jobCard.noActivity, jobCard.userTime, jobReviewHr.headsUp, jobReviewHr.loadingIconText, jobReviewHr.reviewYourPoster, jobReviewHr.summaryLink, languageRequirement.bilingualAdvanced, languageRequirement.bilingualIntermediate, languageRequirement.context.basic, languageRequirement.context.expanded, languageRequirement.description.bilingualAdvanced, languageRequirement.description.bilingualIntermediate, languageRequirement.description.english, languageRequirement.description.englishOrFrench, languageRequirement.description.french, languageRequirement.english, languageRequirement.englishOrFrench, languageRequirement.french, managerSurveyModal.explanation, managerSurveyModal.jobPosterLink, managerSurveyModal.jobPosterLinkTitle, managerSurveyModal.link, managerSurveyModal.managerSurveyLinkTitle, managerSurveyModal.title, openJobCard.claimJob, openJobCard.error, openJobCard.hiringManager, openJobCard.hrAdvisors, openJobCard.reviewRequested, openJobCard.unclaimed, progressTracker.unreachableStep, province.ab, province.ab.abreviation, province.bc, province.bc.abreviation, province.mb, province.mb.abreviation, province.nb, province.nb.abreviation, province.nl, province.nl.abreviation, province.ns, province.ns.abreviation, province.nt, province.nt.abreviation, province.nu, province.nu.abreviation, province.on, province.on.abreviation, province.pe, province.pe.abreviation, province.qc, province.qc.abreviation, province.sk, province.sk.abreviation, province.yk, province.yk.abreviation, ratingGuideAnswer.answerLabel, ratingGuideAnswer.answerPlaceholder, ratingGuideAnswer.nullSelection, ratingGuideAnswer.selectLabel, ratingGuideBuilder.addQuestion, ratingGuideBuilder.assetMissing, ratingGuideBuilder.copyButton, ratingGuideBuilder.copyInstructions, ratingGuideBuilder.criteriaName, ratingGuideBuilder.criteriaTypeHeading, ratingGuideBuilder.essentialMissing, ratingGuideBuilder.instructions, ratingGuideBuilder.narrativeSectionTitle, ratingGuideBuilder.questionHeading, ratingGuideBuilder.ratingGuideHeading, ratingGuideBuilder.sectionTitle, ratingGuideBuilder.skillDescriptionHeading, ratingGuideBuilder.skillHeading, ratingGuideBuilder.targetLevelHeading, ratingGuideBuilder.title, ratingGuideBuilder.titleHeading, ratingGuideQuestion.questionLabel, ratingGuideQuestion.questionPlaceholder, review.applications.alert.oops, review.applications.button.confirm, review.applications.indexPageTitle, review.applications.nonCitizens.description, review.applications.nonCitizens.title, review.applications.optionalConsideration.description, review.applications.optionalConsideration.title, review.applications.priorityApplicants.description, review.applications.priorityApplicants.title, review.applications.reviewSaveFailed, review.applications.screenOutAll, review.applications.screenOutAll.confirm, review.applications.screenedOut.description, review.applications.screenedOut.title, review.applications.underConsideration.description, review.applications.underConsideration.title, review.applications.unqualified.description, review.applications.unqualified.title, review.applications.veteransAndCitizens.description, review.applications.veteransAndCitizens.title, reviewLocations.jpb.basicInfo, reviewLocations.jpb.environment, reviewLocations.jpb.generic, reviewLocations.jpb.heading, reviewLocations.jpb.impact, reviewLocations.jpb.langRequirements, reviewLocations.jpb.skills, reviewLocations.jpb.tasks, securityClearance.reliability, securityClearance.secret, securityClearance.topSecret, skillLevel.asset.description, skillLevel.asset.name, skillLevel.hard.advanced.description, skillLevel.hard.advanced.name, skillLevel.hard.basic.description, skillLevel.hard.basic.name, skillLevel.hard.expert.description, skillLevel.hard.expert.name, skillLevel.hard.intermediate.description, skillLevel.hard.intermediate.name, skillLevel.soft.advanced.description, skillLevel.soft.advanced.name, skillLevel.soft.basic.description, skillLevel.soft.basic.name, skillLevel.soft.expert.description, skillLevel.soft.expert.name, skillLevel.soft.intermediate.description, skillLevel.soft.intermediate.name, wordCounter.skills.longMessage, wordCounter.skills.placeholder, wordCounter.skills.shortMessage, wordCounter.skills.slightlyLongMessage, wordCounter.skills.veryLongMessage, wordCounter.skills.veryShortMessage, default */
+/*! exports provided: activity.commentLocation.label, activity.commentMetadata, activity.unknownUser, activity.viewComment.label, activityfeed.accordionAccessibleLabel, activityfeed.error, activityfeed.header, activityfeed.loading, activityfeed.loadingIconText, activityfeed.locations.applicantReview.general, activityfeed.locations.applicantReview.notUnderConsideration, activityfeed.locations.applicantReview.optionalConsideration, activityfeed.locations.applicantReview.underConsideration, activityfeed.locations.applications, activityfeed.locations.hr.preview, activityfeed.locations.hr.summary, activityfeed.locations.notFound, activityfeed.locations.review, activityfeed.locations.review.basicInfo, activityfeed.locations.review.environment, activityfeed.locations.review.general, activityfeed.locations.review.heading, activityfeed.locations.review.impact, activityfeed.locations.review.langRequirements, activityfeed.locations.review.skills, activityfeed.locations.review.tasks, activityfeed.locations.screeningPlan, activityfeed.locations.screeningPlan.builder, activityfeed.locations.screeningPlan.general, activityfeed.locations.screeningPlan.ratings, activityfeed.locations.screeningPlan.summary, activityfeed.noActivities, activityfeed.review.accordionAccessibleLabel, activityfeed.review.header, activityfeed.review.loadingIconText, activityfeed.title, application.review.addNote, application.review.alert.oops, application.review.backToApplicantList, application.review.button.cancel, application.review.button.confirm, application.review.button.save, application.review.button.saved, application.review.button.saving, application.review.button.viewJobPoster, application.review.collapseAllSkills, application.review.decision, application.review.editNote, application.review.emailCandidateLinkTitle, application.review.expandAllSkills, application.review.priorityStatus.priority, application.review.priorityStatus.priorityLogoTitle, application.review.reviewSaveFailed, application.review.reviewStatus.notReviewed, application.review.reviewStatus.screenedOut, application.review.reviewStatus.stillIn, application.review.reviewStatus.stillThinking, application.review.screenInConfirm, application.review.screenOutConfirm, application.review.veteranStatus.veteran, application.review.veteranStatus.veteranLogoAlt, application.review.viewApplication, application.review.viewApplicationLinkTitle, application.review.viewProfile, application.review.viewProfileLinkTitle, assessmentPlan.addAssessmentButton, assessmentPlan.alert.checking, assessmentPlan.alert.created, assessmentPlan.alert.deleted, assessmentPlan.alert.explanation, assessmentPlan.alert.skillAndLevelUpdated, assessmentPlan.alert.skillLevelUpdated, assessmentPlan.alert.skillUpdated, assessmentPlan.alert.title, assessmentPlan.assessmentPlanBuilder.instructions, assessmentPlan.assessmentPlanBuilder.shortDescription, assessmentPlan.assessmentPlanBuilder.title, assessmentPlan.assessmentPlanSummary.shortDescription, assessmentPlan.assessmentPlanSummary.title, assessmentPlan.assessmentTypesLabel, assessmentPlan.assetCriteria.nullState, assessmentPlan.criteriaTitle, assessmentPlan.essentialCriteria.nullState, assessmentPlan.instructions.intro, assessmentPlan.instructions.narrativeNote, assessmentPlan.pageTitle, assessmentPlan.ratingGuideBuilder.shortDescription, assessmentPlan.ratingGuideBuilder.title, assessmentPlan.selectAssessment.label, assessmentPlan.selectAssessment.null, assessmentPlan.skillDescriptionLabel, assessmentPlan.skillLevelDescriptionLabel, assessmentPlan.summary.assessmentSummary.noAssessments, assessmentPlan.summary.assessmentSummary.title, assessmentPlan.summary.assessmentSummary.toolSkillCount, assessmentPlan.summary.description, assessmentPlan.summary.skillCount, assessmentPlan.summary.skillsNullState, assessmentPlan.summary.title, assessmentPlan.title, assessmentType.applicationScreeningQuestion, assessmentType.applicationScreeningQuestion.description, assessmentType.groupTest, assessmentType.groupTest.description, assessmentType.informalPhoneConversation, assessmentType.informalPhoneConversation.description, assessmentType.interview, assessmentType.interview.description, assessmentType.narrativeAssessment, assessmentType.narrativeAssessment.description, assessmentType.narrativeReview.standardAnswer, assessmentType.narrativeReview.standardQuestion, assessmentType.onSiteExam, assessmentType.onSiteExam.description, assessmentType.onlineExam, assessmentType.onlineExam.description, assessmentType.portfolioReview, assessmentType.portfolioReview.description, assessmentType.referenceCheck, assessmentType.referenceCheck.description, assessmentType.seriousGames, assessmentType.seriousGames.description, assessmentType.takeHomeExam, assessmentType.takeHomeExam.description, button.copied, button.copyEmails, button.copyToClipboard, button.toggleAccordion, commentForm.comment.label, commentForm.comment.placeholder, commentForm.commentLocation.label, commentForm.commentLocation.nullSelection, commentForm.commentType.label, commentForm.commentType.nullSelection, commentForm.submitButton.label, commentType.comment, commentType.question, commentType.recommendation, commentType.requiredAction, criteria.asset, criteria.essential, criteriaForm.skillLevelSelectionLabel, criteriaForm.skillSpecificityLabel, criteriaForm.skillSpecificityPlaceholder, criteriaType.asset, criteriaType.essential, demoSubmitJobModal.cancel, demoSubmitJobModal.explanation, demoSubmitJobModal.link, demoSubmitJobModal.link.title, demoSubmitJobModal.title, errorToast.title, formInput.error, formInput.required, formValidation.checkboxRequired, formValidation.invalidSelection, formValidation.required, formValidation.tooLong, formValidation.tooShort, hrJobIndex.departmentPlaceholder, hrJobIndex.jobTitleMissing, hrJobIndex.managerLoading, hrJobIndex.preview, hrJobIndex.reviewDraft, hrJobIndex.viewActivity, hrJobIndex.viewScreeningPlan, hrJobIndex.viewSummary, hrPortal.jobPageIndex.clickToView, hrPortal.jobPageIndex.completedJobsHeader, hrPortal.jobPageIndex.hideAccordion, hrPortal.jobPageIndex.jobActionsEmpty, hrPortal.jobPageIndex.jobActionsHeader, hrPortal.jobPageIndex.jobActionsMessage, hrPortal.jobPageIndex.noJobsCompleted, hrPortal.jobPageIndex.preDepartmentName, hrPortal.jobPageIndex.showAccordion, hrPortal.jobPageIndex.unclaimedJobsEmpty, hrPortal.jobPageIndex.unclaimedJobsMessage, job.daysSinceClosed, jobBuilder.collaborativeness.01.description, jobBuilder.collaborativeness.01.title, jobBuilder.collaborativeness.02.description, jobBuilder.collaborativeness.02.title, jobBuilder.collaborativeness.03.description, jobBuilder.collaborativeness.03.title, jobBuilder.collaborativeness.04.description, jobBuilder.collaborativeness.04.title, jobBuilder.criteriaForm.addSpecificity, jobBuilder.criteriaForm.button.add, jobBuilder.criteriaForm.button.cancel, jobBuilder.criteriaForm.chooseSkillLevel, jobBuilder.criteriaForm.or, jobBuilder.criteriaForm.removeSpecificity, jobBuilder.criteriaForm.skillDefinition, jobBuilder.criterion.requiredSkill, jobBuilder.culturePace.01.description, jobBuilder.culturePace.01.title, jobBuilder.culturePace.02.description, jobBuilder.culturePace.02.title, jobBuilder.culturePace.03.description, jobBuilder.culturePace.03.title, jobBuilder.culturePace.04.description, jobBuilder.culturePace.04.title, jobBuilder.details.SelectClassAndLvlMessage, jobBuilder.details.cityLabel, jobBuilder.details.cityPlaceholder, jobBuilder.details.classificationLabel, jobBuilder.details.classificationNullSelection, jobBuilder.details.classificationOptions.AD, jobBuilder.details.classificationOptions.AS, jobBuilder.details.classificationOptions.BI, jobBuilder.details.classificationOptions.CO, jobBuilder.details.classificationOptions.CR, jobBuilder.details.classificationOptions.CS, jobBuilder.details.classificationOptions.EC, jobBuilder.details.classificationOptions.EX, jobBuilder.details.classificationOptions.FO, jobBuilder.details.classificationOptions.IS, jobBuilder.details.classificationOptions.PC, jobBuilder.details.classificationOptions.PE, jobBuilder.details.classificationOptions.PM, jobBuilder.details.documentTitle, jobBuilder.details.educationMessages.AD, jobBuilder.details.educationMessages.AS, jobBuilder.details.educationMessages.BI, jobBuilder.details.educationMessages.CO, jobBuilder.details.educationMessages.CR, jobBuilder.details.educationMessages.CS, jobBuilder.details.educationMessages.EC, jobBuilder.details.educationMessages.EX, jobBuilder.details.educationMessages.FO, jobBuilder.details.educationMessages.IS, jobBuilder.details.educationMessages.PC, jobBuilder.details.educationMessages.PE, jobBuilder.details.educationMessages.PM, jobBuilder.details.educationRequirementCopyAndPaste, jobBuilder.details.educationRequirementHeader, jobBuilder.details.educationRequirementPlaceholder, jobBuilder.details.educationRequirementReviewChanges, jobBuilder.details.educationRequirementsLabel, jobBuilder.details.flexHoursGroupBody, jobBuilder.details.flexHoursGroupHeader, jobBuilder.details.flexHoursGroupLabel, jobBuilder.details.frequencyAlwaysLabel, jobBuilder.details.frequencyFrequentlyLabel, jobBuilder.details.frequencyNeverLabel, jobBuilder.details.frequencyOccasionallyLabel, jobBuilder.details.frequencySometimesLabel, jobBuilder.details.heading, jobBuilder.details.languageLabel, jobBuilder.details.languageNullSelection, jobBuilder.details.levelLabel, jobBuilder.details.levelNullSelection, jobBuilder.details.modalBody, jobBuilder.details.modalCancelLabel, jobBuilder.details.modalConfirmLabel, jobBuilder.details.modalHeader, jobBuilder.details.modalMiddleLabel, jobBuilder.details.overtimeFrequentlyLabel, jobBuilder.details.overtimeGroupHeader, jobBuilder.details.overtimeGroupLabel, jobBuilder.details.overtimeNoneRequiredLabel, jobBuilder.details.overtimeOpportunitiesAvailableLabel, jobBuilder.details.provinceLabel, jobBuilder.details.provinceNullSelection, jobBuilder.details.remoteWorkCanadaLabel, jobBuilder.details.remoteWorkGroupBody, jobBuilder.details.remoteWorkGroupHeader, jobBuilder.details.remoteWorkGroupLabel, jobBuilder.details.remoteWorkNoneLabel, jobBuilder.details.remoteWorkWorldLabel, jobBuilder.details.returnButtonLabel, jobBuilder.details.securityLevelLabel, jobBuilder.details.securityLevelNullSelection, jobBuilder.details.submitButtonLabel, jobBuilder.details.teleworkGroupBody, jobBuilder.details.teleworkGroupHeader, jobBuilder.details.teleworkGroupLabel, jobBuilder.details.termLengthLabel, jobBuilder.details.termLengthPlaceholder, jobBuilder.details.titleLabel, jobBuilder.details.titlePlaceholder, jobBuilder.details.travelFrequentlyLabel, jobBuilder.details.travelGroupHeader, jobBuilder.details.travelGroupLabel, jobBuilder.details.travelNoneRequiredLabel, jobBuilder.details.travelOpportunitiesAvailableLabel, jobBuilder.experimental.01.description, jobBuilder.experimental.01.title, jobBuilder.experimental.02.description, jobBuilder.experimental.02.title, jobBuilder.experimental.03.description, jobBuilder.experimental.03.title, jobBuilder.experimental.04.description, jobBuilder.experimental.04.title, jobBuilder.facing.01.description, jobBuilder.facing.01.title, jobBuilder.facing.02.description, jobBuilder.facing.02.title, jobBuilder.facing.03.description, jobBuilder.facing.03.title, jobBuilder.facing.04.description, jobBuilder.facing.04.title, jobBuilder.impact.button.goBack, jobBuilder.impact.button.next, jobBuilder.impact.button.nextStep, jobBuilder.impact.button.return, jobBuilder.impact.button.skipToReview, jobBuilder.impact.departmentsLoading, jobBuilder.impact.documentTitle, jobBuilder.impact.header.department, jobBuilder.impact.hireBody, jobBuilder.impact.hireHeader, jobBuilder.impact.hireLabel, jobBuilder.impact.hirePlaceholder, jobBuilder.impact.modalDescription, jobBuilder.impact.modalTitle, jobBuilder.impact.points.counts, jobBuilder.impact.points.highlight, jobBuilder.impact.points.opportunity, jobBuilder.impact.selectDepartment, jobBuilder.impact.teamBody, jobBuilder.impact.teamHeader, jobBuilder.impact.teamLabel, jobBuilder.impact.teamPlaceholder, jobBuilder.impact.title, jobBuilder.impact.unknownDepartment, jobBuilder.impactPreview.title, jobBuilder.intro.accountSettingsLinkText, jobBuilder.intro.accountSettingsLinkTitle, jobBuilder.intro.changeDepartment, jobBuilder.intro.completeInLanguage, jobBuilder.intro.contactUs, jobBuilder.intro.continueButtonLabelEN, jobBuilder.intro.continueButtonLabelFR, jobBuilder.intro.departmentHeader, jobBuilder.intro.departmentLabel, jobBuilder.intro.departmentNullSelection, jobBuilder.intro.divisionLabelEN, jobBuilder.intro.divisionLabelFR, jobBuilder.intro.divisionPlaceholderEN, jobBuilder.intro.divisionPlaceholderFR, jobBuilder.intro.documentTitle, jobBuilder.intro.emailLinkText, jobBuilder.intro.emailLinkTitle, jobBuilder.intro.explanation, jobBuilder.intro.explanation.boldText, jobBuilder.intro.formDescription, jobBuilder.intro.formTitle, jobBuilder.intro.jobTitleLabelEN, jobBuilder.intro.jobTitleLabelFR, jobBuilder.intro.jobTitlePlaceholderEN, jobBuilder.intro.jobTitlePlaceholderFR, jobBuilder.intro.managerLoading, jobBuilder.intro.welcome, jobBuilder.jobLoading, jobBuilder.loading, jobBuilder.mgmtStyle.01.description, jobBuilder.mgmtStyle.01.title, jobBuilder.mgmtStyle.02.description, jobBuilder.mgmtStyle.02.title, jobBuilder.mgmtStyle.03.description, jobBuilder.mgmtStyle.03.title, jobBuilder.mgmtStyle.04.description, jobBuilder.mgmtStyle.04.title, jobBuilder.preview.city, jobBuilder.preview.classification, jobBuilder.preview.classificationEducation, jobBuilder.preview.education, jobBuilder.preview.flexibleHours, jobBuilder.preview.jobInformation, jobBuilder.preview.jobTitle, jobBuilder.preview.languageProfile, jobBuilder.preview.lengthOfTheTerm, jobBuilder.preview.level, jobBuilder.preview.overtime, jobBuilder.preview.province, jobBuilder.preview.remoteWork, jobBuilder.preview.securityClearance, jobBuilder.preview.telework, jobBuilder.preview.termLength, jobBuilder.preview.travel, jobBuilder.preview.workStyles, jobBuilder.progressTracker.label.finish, jobBuilder.progressTracker.label.start, jobBuilder.progressTracker.label.step1, jobBuilder.progressTracker.label.step2, jobBuilder.progressTracker.label.step3, jobBuilder.progressTracker.label.step4, jobBuilder.progressTracker.label.step5, jobBuilder.progressTracker.title.impact, jobBuilder.progressTracker.title.jobInfo, jobBuilder.progressTracker.title.review, jobBuilder.progressTracker.title.skills, jobBuilder.progressTracker.title.tasks, jobBuilder.progressTracker.title.welcome, jobBuilder.progressTracker.title.workEnv, jobBuilder.review.GovernmentClass, jobBuilder.review.assetHeading, jobBuilder.review.averageAnnualSalary, jobBuilder.review.basicInformationHeading, jobBuilder.review.button.return, jobBuilder.review.button.submit, jobBuilder.review.comesLater, jobBuilder.review.confirm.cancel, jobBuilder.review.confirm.submit, jobBuilder.review.confirm.title, jobBuilder.review.criteriaSection, jobBuilder.review.cultureSection, jobBuilder.review.documentTitle, jobBuilder.review.duration, jobBuilder.review.educationalHeading, jobBuilder.review.headsUp, jobBuilder.review.impactEditLink, jobBuilder.review.impactHeading, jobBuilder.review.infoEditLink, jobBuilder.review.jobPageHeading, jobBuilder.review.languageHeading, jobBuilder.review.languageProfile, jobBuilder.review.managerDataLoading, jobBuilder.review.managerHeading, jobBuilder.review.managerIncomplete, jobBuilder.review.managerPosition, jobBuilder.review.managerProfileLink, jobBuilder.review.meantime, jobBuilder.review.months, jobBuilder.review.nullProvince, jobBuilder.review.or, jobBuilder.review.otherInfoHeading, jobBuilder.review.readyToSubmit, jobBuilder.review.remoteAllowed, jobBuilder.review.remoteNotAllowed, jobBuilder.review.reviewYourPoster, jobBuilder.review.securityClearance, jobBuilder.review.sendYourDraft, jobBuilder.review.skills.nullState, jobBuilder.review.skillsEditLink, jobBuilder.review.skillsHeading, jobBuilder.review.tCAdds, jobBuilder.review.targetStartDate, jobBuilder.review.tasksEditLink, jobBuilder.review.tasksHeading, jobBuilder.review.whatHappens, jobBuilder.review.workCultureHeading, jobBuilder.review.workDescription, jobBuilder.review.workEnvEditLink, jobBuilder.review.workEnvHeading, jobBuilder.root.documentTitle, jobBuilder.skills.addSkillBelow, jobBuilder.skills.alt.happyArrow, jobBuilder.skills.alt.happyGraySmiley, jobBuilder.skills.alt.happySmiley, jobBuilder.skills.alt.neutralArrow, jobBuilder.skills.alt.neutralGraySmiley, jobBuilder.skills.alt.neutralSmiley, jobBuilder.skills.alt.unhappyArrow, jobBuilder.skills.alt.unhappyGraySmiley, jobBuilder.skills.alt.unhappySmiley, jobBuilder.skills.button.keyTasks, jobBuilder.skills.button.previewSkills, jobBuilder.skills.button.returnToTasks, jobBuilder.skills.description, jobBuilder.skills.description.keepItUp, jobBuilder.skills.documentTitle, jobBuilder.skills.emailLink, jobBuilder.skills.essentialSkillRequiredError, jobBuilder.skills.instructions.missingSkills, jobBuilder.skills.listTitle, jobBuilder.skills.nullState, jobBuilder.skills.nullText.occupationalSkills, jobBuilder.skills.placeholder.otherSkills, jobBuilder.skills.previewModalCancelLabel, jobBuilder.skills.previewModalConfirmLabel, jobBuilder.skills.previewModalMiddleLabel, jobBuilder.skills.range.culturalSkills, jobBuilder.skills.range.futureSkills, jobBuilder.skills.range.occupationalSkills, jobBuilder.skills.selectSkillLabel, jobBuilder.skills.selectSkillNull, jobBuilder.skills.skillLevel, jobBuilder.skills.statusSmiley.acceptable, jobBuilder.skills.statusSmiley.almost, jobBuilder.skills.statusSmiley.awesome, jobBuilder.skills.statusSmiley.essential.acceptable, jobBuilder.skills.statusSmiley.essential.almost, jobBuilder.skills.statusSmiley.essential.awesome, jobBuilder.skills.statusSmiley.essential.tooFew, jobBuilder.skills.statusSmiley.essential.tooMany, jobBuilder.skills.statusSmiley.essentialTitle, jobBuilder.skills.statusSmiley.title, jobBuilder.skills.statusSmiley.tooFew, jobBuilder.skills.statusSmiley.tooMany, jobBuilder.skills.tasksModalCancelLabel, jobBuilder.skills.title, jobBuilder.skills.title.addASkill, jobBuilder.skills.title.assetSkills, jobBuilder.skills.title.culturalSkills, jobBuilder.skills.title.editSkill, jobBuilder.skills.title.essentialSkills, jobBuilder.skills.title.futureSkills, jobBuilder.skills.title.keepItUp, jobBuilder.skills.title.keyTasks, jobBuilder.skills.title.missingSkill, jobBuilder.skills.title.needsToHave, jobBuilder.skills.title.niceToHave, jobBuilder.skills.title.occupationalSkills, jobBuilder.skills.title.otherSkills, jobBuilder.skills.title.skillSelection, jobBuilder.tasks.addJob, jobBuilder.tasks.documentTitle, jobBuilder.tasks.heading, jobBuilder.tasks.intro.first, jobBuilder.tasks.intro.fourth, jobBuilder.tasks.intro.second, jobBuilder.tasks.intro.third, jobBuilder.tasks.modal.body, jobBuilder.tasks.modal.body.heading, jobBuilder.tasks.modal.cancelButtonLabel, jobBuilder.tasks.modal.confirmButtonLabel, jobBuilder.tasks.modal.middleButtonLabel, jobBuilder.tasks.modal.title, jobBuilder.tasks.preview, jobBuilder.tasks.previous, jobBuilder.tasks.taskCount.error.body, jobBuilder.tasks.taskCount.error.title, jobBuilder.tasks.taskCount.none, jobBuilder.tasks.taskCount.some, jobBuilder.tasks.taskLabel, jobBuilder.tasks.taskPlaceholder, jobBuilder.tasks.tasksMaximum, jobBuilder.tasks.tasksRequired, jobBuilder.workCulture.flexibleHours, jobBuilder.workCulture.flexibleHoursDescription, jobBuilder.workCulture.overtime, jobBuilder.workCulture.overtimeDescription, jobBuilder.workCulture.remoteWork, jobBuilder.workCulture.remoteWorkDescription, jobBuilder.workCulture.remoteWorkMsg.always, jobBuilder.workCulture.remoteWorkMsg.never, jobBuilder.workCulture.telework, jobBuilder.workCulture.teleworkDescription, jobBuilder.workCulture.travel, jobBuilder.workCulture.travelDescription, jobBuilder.workEnv.amenities.cafeteria, jobBuilder.workEnv.amenities.closeToTransit, jobBuilder.workEnv.amenities.downtown, jobBuilder.workEnv.amenities.fitnessCenter, jobBuilder.workEnv.amenities.parking, jobBuilder.workEnv.amenities.restaurants, jobBuilder.workEnv.amenitiesLabel, jobBuilder.workEnv.collaborativeLabel, jobBuilder.workEnv.culture, jobBuilder.workEnv.cultureSubtext1, jobBuilder.workEnv.cultureSubtext2, jobBuilder.workEnv.cultureSummary, jobBuilder.workEnv.cultureSummarySubtext, jobBuilder.workEnv.customCultureSummaryLabel, jobBuilder.workEnv.customCultureSummaryPlaceholder, jobBuilder.workEnv.documentTitle, jobBuilder.workEnv.experimentalLabel, jobBuilder.workEnv.facingLabel, jobBuilder.workEnv.fastPacedSteadyLabel, jobBuilder.workEnv.greatStart, jobBuilder.workEnv.managementLabel, jobBuilder.workEnv.moreOnWorkEnv, jobBuilder.workEnv.moreOnWorkEnvLabel, jobBuilder.workEnv.moreOnWorkEnvPlaceholder, jobBuilder.workEnv.moreOnWorkEnvSubtext, jobBuilder.workEnv.openingSentence, jobBuilder.workEnv.ourWorkEnv, jobBuilder.workEnv.ourWorkEnvDesc, jobBuilder.workEnv.physEnv.assignedSeating, jobBuilder.workEnv.physEnv.naturalLight, jobBuilder.workEnv.physEnv.openConcept, jobBuilder.workEnv.physEnv.private, jobBuilder.workEnv.physEnv.smudging, jobBuilder.workEnv.physEnv.windows, jobBuilder.workEnv.physicalEnvLabel, jobBuilder.workEnv.saveAndReturnButtonLabel, jobBuilder.workEnv.specialWorkCulture, jobBuilder.workEnv.specialWorkCultureLabel, jobBuilder.workEnv.specialWorkCultureSubtext, jobBuilder.workEnv.stepDescription, jobBuilder.workEnv.submitButtonLabel, jobBuilder.workEnv.teamSizeLabel, jobBuilder.workEnv.teamSizePlaceholder, jobBuilder.workEnv.technology.accessToExternal, jobBuilder.workEnv.technology.collaboration, jobBuilder.workEnv.technology.fileSharing, jobBuilder.workEnv.technology.taskManagement, jobBuilder.workEnv.technology.versionControl, jobBuilder.workEnv.technology.videoConferencing, jobBuilder.workEnv.technologyLabel, jobBuilder.workEnv.textAreaPlaceholder1, jobBuilder.workEnv.thisIsOptional, jobBuilder.workEnv.title, jobBuilder.workEnvModal.cancelLabel, jobBuilder.workEnvModal.confirmLabel, jobBuilder.workEnvModal.modalMiddleLabel, jobBuilder.workEnvModal.title, jobBuilder.workEnvModal.workCultureTitle, jobCard.applicants, jobCard.managerTime, jobCard.noActivity, jobCard.userTime, jobReviewHr.headsUp, jobReviewHr.loadingIconText, jobReviewHr.reviewYourPoster, jobReviewHr.summaryLink, languageRequirement.bilingualAdvanced, languageRequirement.bilingualIntermediate, languageRequirement.context.basic, languageRequirement.context.expanded, languageRequirement.description.bilingualAdvanced, languageRequirement.description.bilingualIntermediate, languageRequirement.description.english, languageRequirement.description.englishOrFrench, languageRequirement.description.french, languageRequirement.english, languageRequirement.englishOrFrench, languageRequirement.french, managerSurveyModal.explanation, managerSurveyModal.jobPosterLink, managerSurveyModal.jobPosterLinkTitle, managerSurveyModal.link, managerSurveyModal.managerSurveyLinkTitle, managerSurveyModal.title, openJobCard.claimJob, openJobCard.error, openJobCard.hiringManager, openJobCard.hrAdvisors, openJobCard.reviewRequested, openJobCard.unclaimed, progressTracker.unreachableStep, province.ab, province.ab.abreviation, province.bc, province.bc.abreviation, province.mb, province.mb.abreviation, province.nb, province.nb.abreviation, province.nl, province.nl.abreviation, province.ns, province.ns.abreviation, province.nt, province.nt.abreviation, province.nu, province.nu.abreviation, province.on, province.on.abreviation, province.pe, province.pe.abreviation, province.qc, province.qc.abreviation, province.sk, province.sk.abreviation, province.yk, province.yk.abreviation, ratingGuideAnswer.answerLabel, ratingGuideAnswer.answerPlaceholder, ratingGuideAnswer.nullSelection, ratingGuideAnswer.selectLabel, ratingGuideBuilder.addQuestion, ratingGuideBuilder.assetMissing, ratingGuideBuilder.copyButton, ratingGuideBuilder.copyInstructions, ratingGuideBuilder.criteriaName, ratingGuideBuilder.criteriaTypeHeading, ratingGuideBuilder.essentialMissing, ratingGuideBuilder.instructions, ratingGuideBuilder.narrativeSectionTitle, ratingGuideBuilder.questionHeading, ratingGuideBuilder.ratingGuideHeading, ratingGuideBuilder.sectionTitle, ratingGuideBuilder.skillDescriptionHeading, ratingGuideBuilder.skillHeading, ratingGuideBuilder.targetLevelHeading, ratingGuideBuilder.title, ratingGuideBuilder.titleHeading, ratingGuideQuestion.questionLabel, ratingGuideQuestion.questionPlaceholder, referenceEmailModal.bccLabel, referenceEmailModal.cancel, referenceEmailModal.ccLabel, referenceEmailModal.confirm, referenceEmailModal.fromLabel, referenceEmailModal.nullState, referenceEmailModal.subjectLabel, referenceEmailModal.title, referenceEmailModal.toLabel, responseReviewStatus.allocated, responseReviewStatus.assessmentRequired, responseReviewStatus.notAvailable, responseReviewStatus.readyForReference, responseReviewStatus.readyToAllocate, responseReviewStatus.screenedOut, responseScreening.applicant.directorEmailButton, responseScreening.applicant.directorEmailSending, responseScreening.applicant.secondaryEmailButton, responseScreening.applicant.secondaryEmailSending, responseScreening.bucket.accessibleViewLabel, responseScreening.bucket.cancelLabel, responseScreening.bucket.confirmAction, responseScreening.bucket.confirmSetAllocated, responseScreening.bucket.confirmSetUnavailable, responseScreening.bucket.noApplicants, responseScreening.bucket.notesLabel, responseScreening.bucket.saveLabel, responseScreening.bucket.savedLabel, responseScreening.bucket.savingLabel, responseScreening.bucket.selectDepartmentDefault, responseScreening.bucket.selectDepartmentLabel, responseScreening.bucket.selectStatusDefault, responseScreening.bucket.selectStatusLabel, responseScreening.bucket.viewApplicationLabel, responseScreening.bucket.viewProfileLabel, responseScreening.bucket.yes, responseScreening.buckets.allocated.description, responseScreening.buckets.allocated.title, responseScreening.buckets.consideration.description, responseScreening.buckets.consideration.title, responseScreening.buckets.doesNotQualify.description, responseScreening.buckets.doesNotQualify.title, responseScreening.buckets.readyToAllocate.description, responseScreening.buckets.readyToAllocate.title, responseScreening.buckets.unavailable.description, responseScreening.buckets.unavailable.title, review.applications.alert.oops, review.applications.button.confirm, review.applications.indexPageTitle, review.applications.nonCitizens.description, review.applications.nonCitizens.title, review.applications.optionalConsideration.description, review.applications.optionalConsideration.title, review.applications.priorityApplicants.description, review.applications.priorityApplicants.title, review.applications.reviewSaveFailed, review.applications.screenOutAll, review.applications.screenOutAll.confirm, review.applications.screenedOut.description, review.applications.screenedOut.title, review.applications.underConsideration.description, review.applications.underConsideration.title, review.applications.unqualified.description, review.applications.unqualified.title, review.applications.veteransAndCitizens.description, review.applications.veteransAndCitizens.title, reviewLocations.jpb.basicInfo, reviewLocations.jpb.environment, reviewLocations.jpb.generic, reviewLocations.jpb.heading, reviewLocations.jpb.impact, reviewLocations.jpb.langRequirements, reviewLocations.jpb.skills, reviewLocations.jpb.tasks, securityClearance.reliability, securityClearance.secret, securityClearance.topSecret, skillLevel.asset.description, skillLevel.asset.name, skillLevel.hard.advanced.description, skillLevel.hard.advanced.name, skillLevel.hard.basic.description, skillLevel.hard.basic.name, skillLevel.hard.expert.description, skillLevel.hard.expert.name, skillLevel.hard.intermediate.description, skillLevel.hard.intermediate.name, skillLevel.soft.advanced.description, skillLevel.soft.advanced.name, skillLevel.soft.basic.description, skillLevel.soft.basic.name, skillLevel.soft.expert.description, skillLevel.soft.expert.name, skillLevel.soft.intermediate.description, skillLevel.soft.intermediate.name, skillWordCounter.afterText, skillWordCounter.wordsLeft, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"activity.commentLocation.label\":\"Commentaire trouvé\",\"activity.commentMetadata\":\"{name} ({userRole}) a commenté à {time}.\",\"activity.viewComment.label\":\"Visualiser le commentaire\",\"activityfeed.accordionAccessibleLabel\":\"Cliquez pour voir...\",\"activityfeed.error\":\"Une erreur s'est produite\",\"activityfeed.header\":\"Cliquez pour voir les commentaires {totalActivities}\",\"activityfeed.loading\":\"Chargement de vos activités...\",\"activityfeed.loadingIconText\":\"Nombre d'activités est en cours de chargement...\",\"activityfeed.locations.applicantReview.general\":\"Général\",\"activityfeed.locations.applicantReview.notUnderConsideration\":\"Candidats qui ne sont plus considérés\",\"activityfeed.locations.applicantReview.optionalConsideration\":\"Candidats supplémentaires\",\"activityfeed.locations.applicantReview.underConsideration\":\"Candidats à considérée\",\"activityfeed.locations.applications\":\"Page des Réviser les candidats\",\"activityfeed.locations.hr.preview\":\"RH Page d'aperçu\",\"activityfeed.locations.hr.summary\":\"RH Résumé de l'emploi\",\"activityfeed.locations.notFound\":\"lieu non trouvé\",\"activityfeed.locations.review\":\"Constructeur d'Affiches\",\"activityfeed.locations.review.basicInfo\":\"Renseignements de base\",\"activityfeed.locations.review.environment\":\"Environnement de travail\",\"activityfeed.locations.review.general\":\"Général\",\"activityfeed.locations.review.heading\":\"Titre de la page de l’emploi\",\"activityfeed.locations.review.impact\":\"Incidence\",\"activityfeed.locations.review.langRequirements\":\"Exigences linguistiques\",\"activityfeed.locations.review.skills\":\"Compétences\",\"activityfeed.locations.review.tasks\":\"Taches\",\"activityfeed.locations.screeningPlan\":\"plan d’évaluation\",\"activityfeed.locations.screeningPlan.builder\":\"Concepteur de plans d’évaluation\",\"activityfeed.locations.screeningPlan.general\":\"Général\",\"activityfeed.locations.screeningPlan.ratings\":\"Concepteur de guides de cotation\",\"activityfeed.locations.screeningPlan.summary\":\"Sommaire du plan d’évaluation\",\"activityfeed.noActivities\":\"Aucune activité.\",\"activityfeed.review.accordionAccessibleLabel\":\"Cliquer pour afficher...\",\"activityfeed.review.header\":\"Cliquez pour voir les commentaires {totalActivities}\",\"activityfeed.review.loadingIconText\":\"Les données sont en cours de chargement...\",\"activityfeed.title\":\"Activités\",\"application.review.addNote\":\"+ Ajouter une note\",\"application.review.alert.oops\":\"Oups...\",\"application.review.backToApplicantList\":\"Sauvegarder et revenir à la liste des candidats\",\"application.review.button.cancel\":\"Annuler\",\"application.review.button.confirm\":\"Confirmer\",\"application.review.button.save\":\"Enregistrer\",\"application.review.button.saved\":\"Enregistrée\",\"application.review.button.saving\":\"Enregistre...\",\"application.review.button.viewJobPoster\":\"Voir l'affiche d'emploi\",\"application.review.collapseAllSkills\":\"Réduire les compétences\",\"application.review.decision\":\"Décision\",\"application.review.editNote\":\"Modifier la note\",\"application.review.emailCandidateLinkTitle\":\"Envoyer un courriel à ce candidat.\",\"application.review.expandAllSkills\":\"Élargir les compétences\",\"application.review.priorityStatus.priority\":\"Priorité\",\"application.review.priorityStatus.priorityLogoTitle\":\"Icône pour candidat prioritaire\",\"application.review.reviewSaveFailed\":\"Une erreur s'est produite lors de l'enregistrement d'un commentaire. Réessayez plus tard.\",\"application.review.reviewStatus.notReviewed\":\"Non révisé\",\"application.review.reviewStatus.screenedOut\":\"Éliminé\",\"application.review.reviewStatus.stillIn\":\"Encore considérée\",\"application.review.reviewStatus.stillThinking\":\"Incertain\",\"application.review.screenInConfirm\":\"Remettre le candidat dans la section à l'étude?\",\"application.review.screenOutConfirm\":\"Éliminer le candidat?\",\"application.review.veteranStatus.veteran\":\"Anciens combattants\",\"application.review.veteranStatus.veteranLogoAlt\":\"icône pour anciens combattants\",\"application.review.viewApplication\":\"Voir l'application\",\"application.review.viewApplicationLinkTitle\":\"Voir l'application de ce candidat.\",\"application.review.viewProfile\":\"Voir le profil\",\"application.review.viewProfileLinkTitle\":\"Voir le profil de ce candidat.\",\"assessmentPlan.addAssessmentButton\":\"Ajouter une évaluation\",\"assessmentPlan.alert.checking\":\"Vérifier si le poste a changé récemment...\",\"assessmentPlan.alert.created\":\"{skills} {count, plural, one {compétence a été ajoutée} other {compétences ont été ajoutées}}.\",\"assessmentPlan.alert.deleted\":\"{skills} {count, plural, one {compétence a été supprimée} other {compétences ont été supprimées}}.\",\"assessmentPlan.alert.explanation\":\"Certaines parties du plan de présélection ont été modifiées pour qu’elles concordent les unes avec les autres.\",\"assessmentPlan.alert.skillAndLevelUpdated\":\"Le champ « {oldSkill} » a été remplacé par « {newSkill} » et a fait l’objet d’une mise à jour.\",\"assessmentPlan.alert.skillLevelUpdated\":\"{skills} {count, plural, one {compétence a été mise à jour} other {compétences ont été mises à jour}}.\",\"assessmentPlan.alert.skillUpdated\":\"Le champ {oldSkill} a été remplacé par {newSkill}.\",\"assessmentPlan.alert.title\":\"Ce poste a récemment changé!\",\"assessmentPlan.assessmentPlanBuilder.instructions\":\"La première étape consiste à choisir des évaluations qui vous permettront d’évaluer les critères que vous avez sélectionnés pour votre offre d’emploi. Vous trouverez ci-dessous vos critères essentiels, suivis de vos critères constituant un atout, le cas échéant. Le concepteur sera enregistré au fur et à mesure, donc lorsque vous aurez terminé, n’hésitez pas à passer à l’étape 2 pour examiner votre travail.\",\"assessmentPlan.assessmentPlanBuilder.shortDescription\":\"(Sélectionnez vos évaluations)\",\"assessmentPlan.assessmentPlanBuilder.title\":\"Concepteur de plans d’évaluation\",\"assessmentPlan.assessmentPlanSummary.shortDescription\":\"(Passez votre plan en revue)\",\"assessmentPlan.assessmentPlanSummary.title\":\"Sommaire du plan d’évaluation\",\"assessmentPlan.assessmentTypesLabel\":\"Types d’évaluation\",\"assessmentPlan.assetCriteria.nullState\":\"Vous n’avez pas choisi de compétences constituant un atout pour cette offre d’emploi.\",\"assessmentPlan.criteriaTitle\":\"{skillName} - {skillLevel}\",\"assessmentPlan.essentialCriteria.nullState\":\"Vous n’avez pas choisi de compétences essentielles pour cette offre d’emploi.\",\"assessmentPlan.instructions.intro\":\"Cet outil vous permet d’élaborer un plan d’évaluation et un guide de cotation pour votre offre d’emploi. L’outil est utilisé en trois étapes :\",\"assessmentPlan.instructions.narrativeNote\":\"Veuillez prendre note que tous les plans d’évaluation comprendront un examen des éléments de preuve fournis par le candidat.\",\"assessmentPlan.pageTitle\":\"Élaborer un plan d’évaluation pour : {jobTitle}\",\"assessmentPlan.ratingGuideBuilder.shortDescription\":\"(Personnalisez vos évaluations)\",\"assessmentPlan.ratingGuideBuilder.title\":\"Concepteur de guides de cotation\",\"assessmentPlan.selectAssessment.label\":\"Sélectionner une évaluation\",\"assessmentPlan.selectAssessment.null\":\"Sélectionner une évaluation\",\"assessmentPlan.skillDescriptionLabel\":\"Description\",\"assessmentPlan.skillLevelDescriptionLabel\":\"Niveau de compétence sélectionné\",\"assessmentPlan.summary.assessmentSummary.noAssessments\":\"Vous n’avez pas sélectionné d’évaluations pour cette offre d’emploi. Ajoutez-les ci-dessus.\",\"assessmentPlan.summary.assessmentSummary.title\":\"Sommaire de l’évaluation\",\"assessmentPlan.summary.assessmentSummary.toolSkillCount\":\"Votre plan utilise {toolCount, plural, =0 {aucun outil} one {# outill} other {# outils}} pour évaluer {skillCount, plural, =0 {compétences} one {# compétence} other {# compétences}}.\",\"assessmentPlan.summary.description\":\"Ceci est un résumé du travail que vous avez effectué ci-dessus. Vous trouverez\\n      chaque évaluation accompagnée d'une liste consolidée des compétences essentielles\\n      et des atouts qui s'y rattachent.\",\"assessmentPlan.summary.skillCount\":\"Évaluer {count, plural, one {# compétence} other {# compétences}}.\",\"assessmentPlan.summary.skillsNullState\":\"Aucune compétence n’est évaluée par cet outil.\",\"assessmentPlan.summary.title\":\"2. Sommaire du plan d’évaluation\",\"assessmentPlan.title\":\"Concepteur de plans d’évaluation\",\"assessmentType.applicationScreeningQuestion\":\"Questions de présélection dans le cadre du processus d’embauche\",\"assessmentType.applicationScreeningQuestion.description\":\"Ces questions paraissent dans le formulaire de demande, et sont présentées dans le Nuage de talents. Elles donnent un premier aperçu de la compréhension, du processus, des connaissances ou de l’adaptation culturelle du candidat pour le poste.\",\"assessmentType.groupTest\":\"Test de groupe\",\"assessmentType.groupTest.description\":\"Les candidats effectuent ce test en temps réel conjointement avec d’autres candidats, des membres de l’équipe ou des animateurs afin de déterminer leurs compétences exceptionnelles, leur habileté à communiquer au sein d’une équipe.\",\"assessmentType.informalPhoneConversation\":\"Conversation téléphonique informelle\",\"assessmentType.informalPhoneConversation.description\":\"Une conversation informelle entre un membre du comité d’embauche et un(e) candidat(e), visant à découvrir les connaissances, les aptitudes ou les traits de personnalité du candidat; les conversations peuvent varier d’un candidat à l’autre.\",\"assessmentType.interview\":\"Entrevue\",\"assessmentType.interview.description\":\"Examen formel de questions-réponses effectué en temps réel entre le comité de sélection et le (la) candidat(e). Les questions ont pour but d'évaluer l'expertise, le niveau et l'approche des compétences. Chaque question est élaborée à l’avance et suit la même structure entre tous les candidats interrogés.\",\"assessmentType.narrativeAssessment\":\"Examen narratif\",\"assessmentType.narrativeAssessment.description\":\"Il s’agit d’une description demandée au cours du processus de demande, dans laquelle les candidats s’identifient et décrivent leur expérience et leur niveau de compétence.\",\"assessmentType.narrativeReview.standardAnswer\":\"La description fournie contient suffisamment d’éléments de preuve pour faire passer ce candidat aux étapes de présélection suivantes.\",\"assessmentType.narrativeReview.standardQuestion\":\"L’examen descriptif des compétences comprend toutes les descriptions ajoutées par le candidat dans sa demande.\",\"assessmentType.onSiteExam\":\"Épreuve sur place\",\"assessmentType.onSiteExam.description\":\"Épreuve préparée qui exige que le candidat effectue à un endroit précis et sous supervision un test visant à évaluer ses compétences et sa technique.\",\"assessmentType.onlineExam\":\"Épreuve en ligne\",\"assessmentType.onlineExam.description\":\"Épreuve préparée qui n’exige pas de supervision, qui peut être effectuée de n’importe quel endroit au moyen d’un accès à Internet, et qui doit être achevée dans un intervalle de temps défini.\",\"assessmentType.portfolioReview\":\"Examen du portefeuille\",\"assessmentType.portfolioReview.description\":\"Au cours du processus de demande, les candidats donnent accès à des échantillons de leur travail pour démontrer leur niveau de compétence et étayer leurs prétentions à cet égard.\",\"assessmentType.referenceCheck\":\"Vérification des références\",\"assessmentType.referenceCheck.description\":\"Au cours du processus de demande, les candidats fournissent les coordonnées d’une connaissance qui peut valider et confirmer leurs compétences, leurs connaissances ou leurs aptitudes.\",\"assessmentType.seriousGames\":\"Jeux sérieux\",\"assessmentType.seriousGames.description\":\"Test comprenant l’utilisation de jeux pour explorer les aptitudes en communication, la résilience et l’intelligence émotionnelle d’un(e) candidat(e), entre autres compétences générales.\",\"assessmentType.takeHomeExam\":\"Épreuve à la maison\",\"assessmentType.takeHomeExam.description\":\"Les candidats reçoivent une trousse matérielle contenant les outils d’évaluation; ils effectuent l’évaluation à un moment qui leur convient le mieux, et à un endroit de leur choix, sans supervision, et ils doivent retourner les documents avant une date limite précise.\",\"button.copied\":\"Copié!\",\"button.copyEmails\":\"Copier des emails\",\"button.copyToClipboard\":\"Copier sur le presse-papier\",\"button.toggleAccordion\":\"Basculer pour voir les candidats concernés.\",\"commentForm.comment.label\":\"Ajouter un commentaire\",\"commentForm.comment.placeholder\":\"À titre d’exemple, entrez votre question, votre recommandation, etc.\",\"commentForm.commentLocation.label\":\"Emplacement du commentaire\",\"commentForm.commentLocation.nullSelection\":\"Sélectionnez un emplacement...\",\"commentForm.commentType.label\":\"Type de commentaire\",\"commentForm.commentType.nullSelection\":\"Sélectionner un type de commentaire\",\"commentForm.submitButton.label\":\"Soumettre un commentaire\",\"commentType.comment\":\"Commentaire\",\"commentType.question\":\"Question\",\"commentType.recommendation\":\"Recommandation\",\"commentType.requiredAction\":\"Mesure requise\",\"criteria.asset\":\"Compétences constituant un atout\",\"criteria.essential\":\"Compétences essentielles\",\"criteriaForm.skillLevelSelectionLabel\":\"Choisir un niveau de compétence\",\"criteriaForm.skillSpecificityLabel\":\"Détails supplémentaires pour cette compétence\",\"criteriaForm.skillSpecificityPlaceholder\":\"Ajoutez du contexte ou des détails à la définition de cette compétence qui n'apparaîtront que sur votre affiche d'emploi. Ceci sera examiné par votre conseiller en ressources humaines.\",\"criteriaType.asset\":\"Atout\",\"criteriaType.essential\":\"Essentiel\",\"demoSubmitJobModal.cancel\":\"Retourner\",\"demoSubmitJobModal.explanation\":\"Seuls les ministères partenaires de Nuage des talents ont accès à l'examen et à la publication des avis d'emploi.\",\"demoSubmitJobModal.link\":\"<a>Savoir si vous pouvez accéder à ces fonctions</a>.\",\"demoSubmitJobModal.link.title\":\"Découvrez comment accéder aux fonctions d'examen et de publication des avis d'emploi.\",\"demoSubmitJobModal.title\":\"Il semble que vous utilisez un compte de démonstration.\",\"errorToast.title\":\"Quelque chose a mal tourné!\",\"formInput.error\":\"Cette entrée a une erreur.\",\"formInput.required\":\"Champs obligatoires\",\"formValidation.checkboxRequired\":\"Il faut cocher au moins une case.\",\"formValidation.invalidSelection\":\"Veuillez choisir parmi les options disponibles.\",\"formValidation.required\":\"Ce champ est requis.\",\"formValidation.tooLong\":\"Trop longue?\",\"formValidation.tooShort\":\"Trop courte?\",\"hrJobIndex.departmentPlaceholder\":\" [Chargement du ministère]\",\"hrJobIndex.jobTitleMissing\":\"Titre manquant \",\"hrJobIndex.managerLoading\":\"Chargement...\",\"hrJobIndex.preview\":\"Prévisualiser l’avis d’emploi \",\"hrJobIndex.reviewDraft\":\"Réviser l’ébauche \",\"hrJobIndex.viewActivity\":\"Afficher l’activité \",\"hrJobIndex.viewScreeningPlan\":\"Afficher le plan d’évaluation \",\"hrJobIndex.viewSummary\":\"Afficher le résumé \",\"hrPortal.jobPageIndex.clickToView\":\"Cliquer pour afficher...\",\"hrPortal.jobPageIndex.completedJobsHeader\":\" Mes mesures d’emploi achevées \",\"hrPortal.jobPageIndex.hideAccordion\":\" Masquer \",\"hrPortal.jobPageIndex.jobActionsEmpty\":\"Réclamer un emploi ci-dessous!\",\"hrPortal.jobPageIndex.jobActionsHeader\":\"Mes mesures d’emploi achevée\",\"hrPortal.jobPageIndex.jobActionsMessage\":\"Voici une liste de toutes les mesures d’emploi auxquelles vous participez actuellement. Vous cherchez une ancienne offre d’emploi? Cochez la section « Mes mesures d’emploi achevées » sous vos offres d’emploi actives.\",\"hrPortal.jobPageIndex.noJobsCompleted\":\"Aucune offre d’emploi achevée à l’heure actuelle!\",\"hrPortal.jobPageIndex.preDepartmentName\":\"Toutes les offres d’emploi dans\",\"hrPortal.jobPageIndex.showAccordion\":\"Afficher \",\"hrPortal.jobPageIndex.unclaimedJobsEmpty\":\"Il n’y a actuellement aucune offre d’emploi active disponible.\",\"hrPortal.jobPageIndex.unclaimedJobsMessage\":\"Voici la liste de toutes les mesures actives dans votre ministère. À partir de ce point, vous pouvez « réclamer » un emploi qui sera transféré dans votre liste d’emploi ci-dessus, ce qui vous permettra de commencer à collaborer avec le gestionnaire d’embauche pour trouver le meilleur talent possible. Si vous réclamez un emploi par erreur, ne craignez rien, car vous pouvez cliquer sur le résumé de l’emploi et retirer votre nom au moyen du bouton « Renoncer à cet emploi ».\",\"job.daysSinceClosed\":\"{dayCount, plural, =0 {Aucun jour} one {# jour} other {# jours}} depuis la fermeture\",\"jobBuilder.collaborativeness.01.description\":\"Les membres de notre équipe proviennent de divers milieux, et ont des points de vue et des compétences variés. Nous nous appuyons sur nos points forts. Collectivement, nous nous approprions les objectifs de l’équipe et nous sommes constamment à la recherche de façons de s’entraider.\",\"jobBuilder.collaborativeness.01.title\":\"Collaboratif\",\"jobBuilder.collaborativeness.02.description\":\"Notre équipe possède un ensemble de compétences diversifiées et nous reconnaissons les forces de chacun. Nous travaillons ensemble souvent et nous intervenons rapidement quand une personne demande de l’aide.\",\"jobBuilder.collaborativeness.02.title\":\"Assez collaboratif\",\"jobBuilder.collaborativeness.03.description\":\"Chaque membre de notre équipe possède une pièce du casse-tête et jouit de la liberté de choisir sa propre façon de travailler.\",\"jobBuilder.collaborativeness.03.title\":\"Assez indépendant \",\"jobBuilder.collaborativeness.04.description\":\"Chaque membre de notre équipe prend en charge sa pièce du casse-tête. La façon dont nous accomplissons notre travail importe peu, tant qu’il est de qualité supérieure.\",\"jobBuilder.collaborativeness.04.title\":\"Indépendant\",\"jobBuilder.criteriaForm.addSpecificity\":\"Je voudrais ajouter des détails à cette définition qui sont spécifiques à ce poste.\",\"jobBuilder.criteriaForm.button.add\":\"Ajouter une compétence\",\"jobBuilder.criteriaForm.button.cancel\":\"Annuler\",\"jobBuilder.criteriaForm.chooseSkillLevel\":\"Choisir un niveau de compétence\",\"jobBuilder.criteriaForm.or\":\"ou\",\"jobBuilder.criteriaForm.removeSpecificity\":\"Supprimer la particularité supplémentaire.\",\"jobBuilder.criteriaForm.skillDefinition\":\"Définition de la compétence\",\"jobBuilder.criterion.requiredSkill\":\"Compétence requise :\",\"jobBuilder.culturePace.01.description\":\"Nos échéances sont serrées, nous traitons plusieurs tâches en même temps et nos priorités changent constamment. Notre travail devrait être effectué en portant des chaussures de courses!\",\"jobBuilder.culturePace.01.title\":\"Un rythme très rapide\",\"jobBuilder.culturePace.02.description\":\"Nos échéances sont habituellement rapprochées, nous traitons plusieurs tâches en même temps et nos priorités changent régulièrement. Notre travail nous force à rester sur le qui-vive!\",\"jobBuilder.culturePace.02.title\":\"Rythme rapide\",\"jobBuilder.culturePace.03.description\":\"Nos échéances sont régulières et prévisibles, nous traitons quelques tâches à la fois et nos priorités changent de temps à autre. Nous maintenons un certain équilibre.\",\"jobBuilder.culturePace.03.title\":\"Soutenu\",\"jobBuilder.culturePace.04.description\":\"Notre travail est continu, donc il n’y a pas beaucoup d’échéances. Habituellement, nous ne sommes pas obligés d’équilibrer la répartition des tâches et nos priorités changent rarement. Nous nous sentons bien dans la routine.\",\"jobBuilder.culturePace.04.title\":\"Très soutenu\",\"jobBuilder.details.SelectClassAndLvlMessage\":\"Veuillez choisir une classification et un niveau avant de préparer\\r\\n                          les exigences en matière d’éducation.\",\"jobBuilder.details.cityLabel\":\"Dans quelle ville l'équipe est-elle située?\",\"jobBuilder.details.cityPlaceholder\":\"P. ex. Ottawa\",\"jobBuilder.details.classificationLabel\":\"Quelle est la classification?\",\"jobBuilder.details.classificationNullSelection\":\"Veuillez sélectionner la classification...\",\"jobBuilder.details.classificationOptions.AD\":\"AD - Services administratifs\",\"jobBuilder.details.classificationOptions.AS\":\"AS – Services administratifs\",\"jobBuilder.details.classificationOptions.BI\":\"BI – Sciences biologiques\",\"jobBuilder.details.classificationOptions.CO\":\"CO - Commerce\",\"jobBuilder.details.classificationOptions.CR\":\"CR - Commis aux écritures et aux règlements\",\"jobBuilder.details.classificationOptions.CS\":\"CS – Systèmes d’ordinateurs\",\"jobBuilder.details.classificationOptions.EC\":\"EC - Économique et services de sciences sociales\",\"jobBuilder.details.classificationOptions.EX\":\"EX - Direction\",\"jobBuilder.details.classificationOptions.FO\":\"FO - Sciences forestières\",\"jobBuilder.details.classificationOptions.IS\":\"IS – Services d’information\",\"jobBuilder.details.classificationOptions.PC\":\"PC – Sciences physiques\",\"jobBuilder.details.classificationOptions.PE\":\"PE – Gestion du personnel\",\"jobBuilder.details.classificationOptions.PM\":\"PM – Administration des programmes\",\"jobBuilder.details.documentTitle\":\"Constructeur d'affiches: Renseignements\",\"jobBuilder.details.educationMessages.AD\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires;\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’elle soit prise en considération. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.AS\":\"Diplôme d’études secondaires ou équivalent :\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.BI\":\"Diplôme d’études postsecondaires:\\nDiplôme d’études postsecondaires en sciences naturelles, physiques ou appliquées, avec spécialisation dans un domaine lié aux fonctions du poste.\",\"jobBuilder.details.educationMessages.CO\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.CR\":\"Deux années d’études secondaires ou l’équivalent:\\nAu moins deux années d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative aux deux années d’études secondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.CS\":\"Deux (2) ans d’études postsecondaires ou l’équivalent:\\nDeux années d’études postsecondaires en informatique, en technologie de l’information, en gestion de l’information ou dans une autre spécialité pertinente à ce poste.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente aux deux années d’études postsecondaires requises, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.EC\":\"Diplôme d’études postsecondaires:\\nun diplôme d’un établissement d’enseignement postsecondaire reconnu avec spécialisation acceptable en économique, en sociologie ou en statistique.\\n\\nLes candidats doivent toujours détenir un diplôme. Les cours de spécialisation doivent être acceptables et avoir été suivis auprès d’un établissement d’enseignement postsecondaire reconnu, mais pas nécessairement dans le cadre d’un programme de diplôme dans la spécialisation requise. La spécialisation peut également être obtenue grâce à un agencement acceptable d’études, de formation et (ou) d’expérience.\",\"jobBuilder.details.educationMessages.EX\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires, ou admissibilité à un titre professionnel reconnu dans une province ou un territoire du Canada.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.FO\":\"Diplôme d’études postsecondaires:\\nUn diplôme en foresterie ou en produits du bois d’un établissement d’enseignement postsecondaire reconnu.\\n\\nou\\n\\nUn diplôme dans une science connexe d’un établissement d’enseignement postsecondaire reconnu agencé à une expérience acceptable.\",\"jobBuilder.details.educationMessages.IS\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.PC\":\"Diplôme d’études postsecondaires:\\nDiplôme d’études postsecondaires, avec spécialisation en physique, en géologie, en chimie ou dans une autre science liée aux fonctions du poste.\",\"jobBuilder.details.educationMessages.PE\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires, avec spécialisation en gestion des ressources humaines, en relations de travail ou en relations industrielles, en psychologie, en administration publique ou en administration des affaires, en développement organisationnel, en sciences de l’éducation, en sciences sociales, en sociologie ou dans un autre domaine lié aux fonctions du poste.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.PM\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationRequirementCopyAndPaste\":\"Si vous voulez personnaliser ce paragraphe, veuillez le copier-coller dans la zone de texte ci-dessous pour le modifier. \",\"jobBuilder.details.educationRequirementHeader\":\"En fonction du niveau de classification sélectionné, le paragraphe générique suivant apparaîtra sur l’offre d’emploi. \",\"jobBuilder.details.educationRequirementPlaceholder\":\"Collez le paragraphe ici pour le modifier...\",\"jobBuilder.details.educationRequirementReviewChanges\":\"Votre conseiller en RH examinera vos changements.\",\"jobBuilder.details.educationRequirementsLabel\":\"Personnaliser les exigences en matière d’études :\",\"jobBuilder.details.flexHoursGroupBody\":\"Vous voulez appuyer un milieu de travail plus inclusif sur le plan de l’égalité des sexes? Des études montrent que l’horaire flexible est un excellent moyen d’améliorer les possibilités des femmes et des parents.\",\"jobBuilder.details.flexHoursGroupHeader\":\"À quelle fréquence les heures flexibles sont-elles permises?\",\"jobBuilder.details.flexHoursGroupLabel\":\"Choisissez les horaires souples :\",\"jobBuilder.details.frequencyAlwaysLabel\":\"Presque toujours\",\"jobBuilder.details.frequencyFrequentlyLabel\":\"Habituellement\",\"jobBuilder.details.frequencyNeverLabel\":\"Jamais\",\"jobBuilder.details.frequencyOccasionallyLabel\":\"Rarement\",\"jobBuilder.details.frequencySometimesLabel\":\"Parfois\",\"jobBuilder.details.heading\":\"Détails sur l’emploi\",\"jobBuilder.details.languageLabel\":\"Quel est le profil linguistique?\",\"jobBuilder.details.languageNullSelection\":\"Veuillez sélectionner le profil linguistique...\",\"jobBuilder.details.levelLabel\":\"Quel est le niveau?\",\"jobBuilder.details.levelNullSelection\":\" Veuillez sélectionner le niveau...\",\"jobBuilder.details.modalBody\":\"Voici un aperçu des informations sur le travail que vous venez de saisir. N'hésitez pas à revenir en arrière et à modifier des éléments ou à passer à l'étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.details.modalCancelLabel\":\"Retourner\",\"jobBuilder.details.modalConfirmLabel\":\"Étape suivante\",\"jobBuilder.details.modalHeader\":\"Vous partez du bon pied!\",\"jobBuilder.details.modalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.details.overtimeFrequentlyLabel\":\"Oui, il est souvent nécessaire de travailler des heures supplémentaires dans le cadre de ce poste.\",\"jobBuilder.details.overtimeGroupHeader\":\"Le temps supplémentaire est-il requis?\",\"jobBuilder.details.overtimeGroupLabel\":\"Sélectionner l’exigence en matière de temps supplémentaire\",\"jobBuilder.details.overtimeNoneRequiredLabel\":\"Non, le temps supplémentaire n’est pas nécessaire pour ce poste.\",\"jobBuilder.details.overtimeOpportunitiesAvailableLabel\":\"Oui, il est possible que des heures supplémentaires soient offertes aux personnes intéressées.\",\"jobBuilder.details.provinceLabel\":\"Dans quelle province l'équipe est-elle située?\",\"jobBuilder.details.provinceNullSelection\":\"Veuillez sélectionner la province...\",\"jobBuilder.details.remoteWorkCanadaLabel\":\"Oui, je suis prêt(e) à superviser des employés dans n'importe quelle province ou territoire au Canada.\",\"jobBuilder.details.remoteWorkGroupBody\":\"Vous voulez les meilleurs talents au Canada? Vous augmentez vos chances lorsque vous permettez à ceux qui se trouvent dans d’autres régions du Canada de présenter une demande. La diversité régionale ajoute également une perspective à la culture de votre équipe. Assurez-vous d’en discuter à l’avance avec votre conseiller en RH.\",\"jobBuilder.details.remoteWorkGroupHeader\":\"Le travail à distance est-il permis?\",\"jobBuilder.details.remoteWorkGroupLabel\":\"Choisissez le travail à distance :\",\"jobBuilder.details.remoteWorkNoneLabel\":\"Non, j’exige que l’employé(e) qui occupe ce poste soit dans le même lieu géographique que le bureau.\",\"jobBuilder.details.remoteWorkWorldLabel\":\"Oui, je suis prêt(e) à superviser des employés partout dans le monde.\",\"jobBuilder.details.returnButtonLabel\":\"Enregistrer et retourner à l’introduction\",\"jobBuilder.details.securityLevelLabel\":\"Quel est le niveau de sécurité?\",\"jobBuilder.details.securityLevelNullSelection\":\"Veuillez sélectionner le niveau de sécurité...\",\"jobBuilder.details.submitButtonLabel\":\"Prochain\",\"jobBuilder.details.teleworkGroupBody\":\"Démontrez que vous faites confiance à vos employés et que vous avez une culture organisationnelle positive. Autorisez le télétravail en option.\",\"jobBuilder.details.teleworkGroupHeader\":\"À quelle fréquence le télétravail est-il permis?\",\"jobBuilder.details.teleworkGroupLabel\":\"Choisissez le télétravail :\",\"jobBuilder.details.termLengthLabel\":\"Quelle est la durée du poste (en mois)?\",\"jobBuilder.details.termLengthPlaceholder\":\" P.ex. 3\",\"jobBuilder.details.titleLabel\":\"Quel est le titre du poste?\",\"jobBuilder.details.titlePlaceholder\":\"P. ex. Chercheur - utilisateurs\",\"jobBuilder.details.travelFrequentlyLabel\":\"Oui, des déplacements sont souvent exigés pour le poste.\",\"jobBuilder.details.travelGroupHeader\":\"Est-il nécessaire de voyager?\",\"jobBuilder.details.travelGroupLabel\":\"Sélectionner l’exigence des déplacements\",\"jobBuilder.details.travelNoneRequiredLabel\":\"Non, aucun déplacement n’est nécessaire pour ce poste.\",\"jobBuilder.details.travelOpportunitiesAvailableLabel\":\"Oui, des possibilités de voyage sont offertes pour ceux qui sont intéressés.\",\"jobBuilder.experimental.01.description\":\"Notre travail est défini en essayant de nouvelles idées, méthodes et activités pour aborder des problèmes persistants auxquels les approches traditionnelles ne peuvent pas remédier.\",\"jobBuilder.experimental.01.title\":\"Approche expérimentale\",\"jobBuilder.experimental.02.description\":\"Nous essayons des idées, méthodes et activités nouvelles et éprouvées pour améliorer la façon de faire notre travail.\",\"jobBuilder.experimental.02.title\":\"Approche assez expérimentale\",\"jobBuilder.experimental.03.description\":\"Notre travail comprend quelques tâches administratives qui se répètent quotidiennement. Les outils que nous utilisons nous conviennent, mais nous sommes ouverts à améliorer notre processus..\",\"jobBuilder.experimental.03.title\":\"Travail assez prévisible\",\"jobBuilder.experimental.04.description\":\"La majeure partie de notre travail comprend quelques tâches administratives qui se répètent quotidiennement. La cohérence est un facteur clé ici, donc nous suivons un processus standard avec des outils éprouvés.\",\"jobBuilder.experimental.04.title\":\"Travail prévisible\",\"jobBuilder.facing.01.description\":\"Nous représentons l’image de marque des services que nous offrons et nous passons la plupart de notre temps à interagir directement avec le public.\",\"jobBuilder.facing.01.title\":\"Services orientés vers le citoyen\",\"jobBuilder.facing.02.description\":\"Nous passons beaucoup de temps à interagir directement avec le public, mais nous travaillons également en coulisses afin d’appuyer d’autres personnes.\",\"jobBuilder.facing.02.title\":\"Services essentiellement orientés vers le citoyen\",\"jobBuilder.facing.03.description\":\" Nous travaillons généralement en coulisses et nous effectuons un travail important qui rend possible la prestation de services.\",\"jobBuilder.facing.03.title\":\"Services essentiellement administratifs\",\"jobBuilder.facing.04.description\":\" Nous travaillons en coulisses et nous effectuons un travail important qui rend possible la prestation de services. Nous nous sentons bien quand nous appuyons les autres.\",\"jobBuilder.facing.04.title\":\"Services administratifs\",\"jobBuilder.impact.button.goBack\":\"Revenir en arrière\",\"jobBuilder.impact.button.next\":\"Prochain\",\"jobBuilder.impact.button.nextStep\":\"Passer à l’étape suivante\",\"jobBuilder.impact.button.return\":\"Enregistrer et retourner à l’environnement de travail\",\"jobBuilder.impact.button.skipToReview\":\"Passer pour la révision\",\"jobBuilder.impact.departmentsLoading\":\"Chargement des données du Ministère...\",\"jobBuilder.impact.documentTitle\":\"Constructeur d’affiches: Incidences\",\"jobBuilder.impact.header.department\":\"Comment votre ministère engendre des incidences:\",\"jobBuilder.impact.hireBody\":\"Décrivez la contribution du nouvel employé dans le cadre de son rôle. Misez sur la valeur qu’il apportera et non des tâches particulières (vous les indiquerez plus loin). Par exemple « Dans ce rôle, vous contribuerez à … » ou « En tant que membre de l’équipe, vous serez responsable de nous aider à… »\",\"jobBuilder.impact.hireHeader\":\"Comment le nouvel employé engendra des incidences\",\"jobBuilder.impact.hireLabel\":\"Déclaration d'incidences des employés\",\"jobBuilder.impact.hirePlaceholder\":\"Souvenez-vous de ne pas utiliser de jargon administratif.\",\"jobBuilder.impact.modalDescription\":\"Voici un aperçu de l’énoncé des incidences que vous venez de rédiger.\\n                        N'hésitez pas à revenir en arrière pour modifier le texte.\\n                        Passez à l'étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.impact.modalTitle\":\"Excellent travail!\",\"jobBuilder.impact.points.counts\":\"La première chose que les candidats voient lorsqu’ils cliquent sur votre avis de concours est votre énoncé des incidences. Assurez-vous donc de bien le rédiger!\",\"jobBuilder.impact.points.highlight\":\"C’est votre chance de souligner en quoi votre travail est utile et intéressant.\",\"jobBuilder.impact.points.opportunity\":\"Le fait de travailler pour le gouvernement fédéral offre une importante occasion d’engendrer d’importantes incidences pour les Canadiens.\",\"jobBuilder.impact.selectDepartment\":\"Vous devez choisir un ministère pour cet emploi.\",\"jobBuilder.impact.teamBody\":\"Décrivez la valeur apportée aux Canadiens par votre équipe/service/initiative. Peu importe si votre travail consiste à offrir des services directement aux citoyens ou des services administratifs, d’innovation ou d’entretien, de priorité absolue ou continus. Décrivez comment votre travail contribue à améliorer le Canada comme si vous parliez à quelqu’un qui ne connaît rien de votre travail.\",\"jobBuilder.impact.teamHeader\":\"Comment votre équipe engendre des impacts:\",\"jobBuilder.impact.teamLabel\":\"Déclaration d’incidence d'équipe\",\"jobBuilder.impact.teamPlaceholder\":\"Employez un ton informel, franc et amical\",\"jobBuilder.impact.title\":\"Rédiger votre énoncé des incidences\",\"jobBuilder.impact.unknownDepartment\":\"Erreur : Choisissez un ministère inconnu.\",\"jobBuilder.impactPreview.title\":\"Impact\",\"jobBuilder.intro.accountSettingsLinkText\":\"les paramètres de votre compte\",\"jobBuilder.intro.accountSettingsLinkTitle\":\"Visitez la page Paramètres du compte.\",\"jobBuilder.intro.changeDepartment\":\"Pour changer de département, veuillez contacter {email}. Pour en savoir plus, visitez {accountSettings}.\",\"jobBuilder.intro.completeInLanguage\":\"Répondez à l’offre d’emploi dans la langue officielle de votre choix. Nous nous chargerons de la traduction\",\"jobBuilder.intro.contactUs\":\"Nous avons également fourni des instructions et des exemples pour vous guider tout au long du processus, mais si vous avez toujours des questions, veuillez communiquer avec le {link}\",\"jobBuilder.intro.continueButtonLabelEN\":\"Continue in English\",\"jobBuilder.intro.continueButtonLabelFR\":\"Continuer en français\",\"jobBuilder.intro.departmentHeader\":\"Informations sur le département de {name}\",\"jobBuilder.intro.departmentLabel\":\"Ministère\",\"jobBuilder.intro.departmentNullSelection\":\"Choisissez un ministère...\",\"jobBuilder.intro.divisionLabelEN\":\"La division de {name} (en anglais)\",\"jobBuilder.intro.divisionLabelFR\":\"La division de {name} (en français)\",\"jobBuilder.intro.divisionPlaceholderEN\":\"p. ex., Digital Change\",\"jobBuilder.intro.divisionPlaceholderFR\":\"p. ex., Changement numérique\",\"jobBuilder.intro.documentTitle\":\"Constructeur d'affiches: Intro\",\"jobBuilder.intro.emailLinkText\":\"Nuage de talents\",\"jobBuilder.intro.emailLinkTitle\":\"Envoyer un courriel au Nuage de talents.\",\"jobBuilder.intro.explanation\":\"Le présent outil vous aidera à créer une offre d’emploi qui vous aidera à attirer les bons talents. Avant de commencer à créer l’offre d’emploi, veuillez prendre le temps de {boldText}\",\"jobBuilder.intro.explanation.boldText\":\"confirmer l’exactitude de vos renseignements personnels ci-dessous.\",\"jobBuilder.intro.formDescription\":\"Ces renseignements apparaîtront dans l’offre d’emploi pour donner de plus amples renseignements aux candidats sur les personnes avec qui ils travailleront.\",\"jobBuilder.intro.formTitle\":\"Information du profil de {name}\",\"jobBuilder.intro.jobTitleLabelEN\":\"Le poste de {name} (en anglais)\",\"jobBuilder.intro.jobTitleLabelFR\":\"Le poste de {name} (en français)\",\"jobBuilder.intro.jobTitlePlaceholderEN\":\"Par exemple : Design Manager\",\"jobBuilder.intro.jobTitlePlaceholderFR\":\"Par exemple : Gestionnaire de la conception\",\"jobBuilder.intro.managerLoading\":\"Votre profil de gestionnaire est en cours de chargement...\",\"jobBuilder.intro.welcome\":\"Bienvenue sur le Constructeur d'Affiches\",\"jobBuilder.jobLoading\":\"Votre offre d’emploi est en train de se charger...\",\"jobBuilder.loading\":\"Votre offre d’emploi est en train de se charger...\",\"jobBuilder.mgmtStyle.01.description\":\"Il n’y a aucun cadre intermédiaire ici, donc nous prenons, nous-mêmes, la plupart des décisions importantes et vous pouvez vous attendre à interagir quotidiennement avec nos cadres supérieures.\",\"jobBuilder.mgmtStyle.01.title\":\"Horizontale\",\"jobBuilder.mgmtStyle.02.description\":\"Nous avons quelques cadres intermédiaires ici, mais nous prenons, nous-mêmes, les décisions quotidiennes. Ne soyez pas surpris d’interagir assez souvent avec nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.02.title\":\"Assez horizontale\",\"jobBuilder.mgmtStyle.03.description\":\"Notre équipe a un rôle clairement défini. Nous faisons régulièrement le point avec les cadres intermédiaires pour approuver et mettre à jour la vision stratégique de nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.03.title\":\"Assez verticale\",\"jobBuilder.mgmtStyle.04.description\":\"Notre équipe a un rôle clairement défini. Nous faisons souvent le point auprès des cadres intermédiaires pour approuver et procéder à la mise à jour de la vision stratégique de nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.04.title\":\"Verticale\",\"jobBuilder.preview.city\":\"Ville\",\"jobBuilder.preview.classification\":\"Classification\",\"jobBuilder.preview.classificationEducation\":\"Classification et éducation\",\"jobBuilder.preview.education\":\"Éducation\",\"jobBuilder.preview.flexibleHours\":\"Heures flexibles\",\"jobBuilder.preview.jobInformation\":\"Renseignements sur l’emploi\",\"jobBuilder.preview.jobTitle\":\"Titre du poste\",\"jobBuilder.preview.languageProfile\":\"Profil linguistique\",\"jobBuilder.preview.lengthOfTheTerm\":\"Durée du poste\",\"jobBuilder.preview.level\":\"Niveau\",\"jobBuilder.preview.overtime\":\"Heures supplémentaires\",\"jobBuilder.preview.province\":\"Province\",\"jobBuilder.preview.remoteWork\":\"Travail à distance\",\"jobBuilder.preview.securityClearance\":\"Cote de sécurité\",\"jobBuilder.preview.telework\":\"Télétravail\",\"jobBuilder.preview.termLength\":\"{termMonths, plural, =0 {pas de mois} other {# mois}}\",\"jobBuilder.preview.travel\":\"Voyage\",\"jobBuilder.preview.workStyles\":\"Styles de travail\",\"jobBuilder.progressTracker.label.finish\":\"Fin\",\"jobBuilder.progressTracker.label.start\":\"Début\",\"jobBuilder.progressTracker.label.step1\":\"Étape 1 / 5\",\"jobBuilder.progressTracker.label.step2\":\"Étape 2 / 5\",\"jobBuilder.progressTracker.label.step3\":\"Étape 3 / 5\",\"jobBuilder.progressTracker.label.step4\":\"Étape 4 / 5\",\"jobBuilder.progressTracker.label.step5\":\"Étape 5 / 5\",\"jobBuilder.progressTracker.title.impact\":\"Incidence\",\"jobBuilder.progressTracker.title.jobInfo\":\"Renseignements\",\"jobBuilder.progressTracker.title.review\":\"Révision\",\"jobBuilder.progressTracker.title.skills\":\"Compétences\",\"jobBuilder.progressTracker.title.tasks\":\"Tâches\",\"jobBuilder.progressTracker.title.welcome\":\"Bienvenue\",\"jobBuilder.progressTracker.title.workEnv\":\"Environnement\",\"jobBuilder.review.GovernmentClass\":\"Classification gouvernementale\",\"jobBuilder.review.assetHeading\":\"Compétences souhaitables\",\"jobBuilder.review.averageAnnualSalary\":\"Échelle de salaire annuel\",\"jobBuilder.review.basicInformationHeading\":\"Renseignements de base\",\"jobBuilder.review.button.return\":\"Enregistrer et retourner aux compétences\",\"jobBuilder.review.button.submit\":\"Cela semble bon!\",\"jobBuilder.review.comesLater\":\"Cette étape survient plus tard.\",\"jobBuilder.review.confirm.cancel\":\"Annuler\",\"jobBuilder.review.confirm.submit\":\"Oui, transmettre\",\"jobBuilder.review.confirm.title\":\"Félicitations! Êtes-vous prêt à transmettre l’offre d’emploi?\",\"jobBuilder.review.criteriaSection\":\"Critères\",\"jobBuilder.review.cultureSection\":\"Environnement et culture\",\"jobBuilder.review.documentTitle\":\"Constructeur d'affiches: Révision\",\"jobBuilder.review.duration\":\"Durée\",\"jobBuilder.review.educationalHeading\":\"Exigences relatives aux études\",\"jobBuilder.review.headsUp\":\"Un simple rappel. Nous avons réorganisé certains renseignements fournis afin de vous aider à comprendre comment le candidat verra l’information une fois publiée.\",\"jobBuilder.review.impactEditLink\":\"Modifier cet élément à l’étape 03, Incidence.\",\"jobBuilder.review.impactHeading\":\"Incidence\",\"jobBuilder.review.infoEditLink\":\"Modifier cet élément à l’étape 01, Renseignements sur le poste\",\"jobBuilder.review.jobPageHeading\":\"Titre de la page de l’emploi\",\"jobBuilder.review.languageHeading\":\"Exigences linguistiques\",\"jobBuilder.review.languageProfile\":\"Profil linguistique\",\"jobBuilder.review.managerDataLoading\":\"Les données du gestionnaire sont en cours de chargement...\",\"jobBuilder.review.managerHeading\":\"Les données du gestionnaire sont en cours de chargement...\",\"jobBuilder.review.managerIncomplete\":\"Veuillez remplir votre profil de gestionnaire.\",\"jobBuilder.review.managerPosition\":\"{position} au {department}\",\"jobBuilder.review.managerProfileLink\":\"Modifier cet élément dans votre profil\",\"jobBuilder.review.meantime\":\"Entre-temps, n’hésitez pas à créer un plan de présélection pour votre processus de sélection. Vous pouvez aussi attendre les commentaires des RH avant de passer à l’étape suivante.\",\"jobBuilder.review.months\":\"{termMonths,plural,=0{No Months} one{{termMonths, number} Month} other{{termMonths, number} Months}}\",\"jobBuilder.review.nullProvince\":\"PROVINCE MANQUANTE\",\"jobBuilder.review.or\":\"ou\",\"jobBuilder.review.otherInfoHeading\":\"Autres renseignements au sujet de l’équipe\",\"jobBuilder.review.readyToSubmit\":\"Si vous êtes prêt à soumettre votre offre, cliquez sur le bouton Soumettre ci-dessous.\",\"jobBuilder.review.remoteAllowed\":\"Travail à distance autorisé\",\"jobBuilder.review.remoteNotAllowed\":\"Travail à distance non autorisé\",\"jobBuilder.review.reviewYourPoster\":\"Examiner votre offre d’emploi pour :\",\"jobBuilder.review.securityClearance\":\"Autorisation de sécurité\",\"jobBuilder.review.sendYourDraft\":\"Le Nuage de talents enverra votre ébauche au conseiller en RH de votre ministère, et ce dernier vous informera de ses commentaires.\",\"jobBuilder.review.skills.nullState\":\"Vous n’avez pas ajouté de compétences souhaitables pour cette offre d’emploi.\",\"jobBuilder.review.skillsEditLink\":\"Modifier cet élément à l’étape 05, Compétences\",\"jobBuilder.review.skillsHeading\":\"Compétences requises\",\"jobBuilder.review.tCAdds\":\"Le Nuage de talents ajoutera l’élément.\",\"jobBuilder.review.targetStartDate\":\"Date d’entrée en fonction prévue\",\"jobBuilder.review.tasksEditLink\":\"Modifier cet élément à l’étape 04, Tâches\",\"jobBuilder.review.tasksHeading\":\"Tâches\",\"jobBuilder.review.whatHappens\":\"Quelles sont les prochaines étapes?\",\"jobBuilder.review.workCultureHeading\":\"Culture de travail\",\"jobBuilder.review.workDescription\":\"Veuillez prendre note que certains renseignements sur le milieu de travail ne seront affichés que si le candidat clique sur le bouton « Afficher le milieu de travail et la culture de l’équipe » qui apparaît sur l’offre d’emploi.\",\"jobBuilder.review.workEnvEditLink\":\"Modifier cet élément à l’étape 02, Environnement de travail\",\"jobBuilder.review.workEnvHeading\":\"Milieu de travail\",\"jobBuilder.root.documentTitle\":\"Constructeur d'Affiches\",\"jobBuilder.skills.addSkillBelow\":\"Ajoutez des compétences, ci-dessous, pour continuer.\",\"jobBuilder.skills.alt.happyArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône sourire.\",\"jobBuilder.skills.alt.happyGraySmiley\":\"émoticône sourire en gris.\",\"jobBuilder.skills.alt.happySmiley\":\"émoticône sourire en couleur.\",\"jobBuilder.skills.alt.neutralArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône neutre.\",\"jobBuilder.skills.alt.neutralGraySmiley\":\"émoticône neutre en gris.\",\"jobBuilder.skills.alt.neutralSmiley\":\"émoticône neutre en couleur.\",\"jobBuilder.skills.alt.unhappyArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône triste.\",\"jobBuilder.skills.alt.unhappyGraySmiley\":\"émoticône triste en gris.\",\"jobBuilder.skills.alt.unhappySmiley\":\"émoticône triste en couleur.\",\"jobBuilder.skills.button.keyTasks\":\"Voir les tâches principales\",\"jobBuilder.skills.button.previewSkills\":\"Sauvegarder et voir un aperçu des compétences\",\"jobBuilder.skills.button.returnToTasks\":\"Sauvegarder et retourner aux tâches\",\"jobBuilder.skills.description\":\"C’est ici que vous choisissez les critères requis pour accomplir ce travail efficacement. Vous trouverez, ci-dessous, deux barres qui indiquent la mesure du niveau de votre présente compétence sélectionnée.\",\"jobBuilder.skills.description.keepItUp\":\"Voici un aperçu des compétences que vous venez de saisir. N’hésitez pas à retourner à la page précédente et à corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait. \",\"jobBuilder.skills.documentTitle\":\"Constructeur d'affiches: Compétences\",\"jobBuilder.skills.emailLink\":\"Communiquez avec nous par courriel\",\"jobBuilder.skills.essentialSkillRequiredError\":\"Au moins une compétence essentielle est requise.\",\"jobBuilder.skills.instructions.missingSkills\":\"Le fait de dresser une liste de compétences est une tâche énorme, et il n’est pas surprenant que la liste de Nuage de talents ne contienne pas la compétence que vous cherchez. Afin de nous aider à allonger la liste des compétences, veuillez {link}. Veuillez fournir le nom de la compétence ainsi qu’une brève description pour lancer la discussion.\",\"jobBuilder.skills.listTitle\":\"Votre liste de compétences\",\"jobBuilder.skills.nullState\":\"Vous n’avez pas encore ajouté de compétences.\",\"jobBuilder.skills.nullText.occupationalSkills\":\"Vous devez retourner à Étape 1 et choisir une classification.\",\"jobBuilder.skills.placeholder.otherSkills\":\"Aucune autre compétence n’est ajoutée.\",\"jobBuilder.skills.previewModalCancelLabel\":\"Retour en arrière\",\"jobBuilder.skills.previewModalConfirmLabel\":\"Prochaine étape\",\"jobBuilder.skills.previewModalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.skills.range.culturalSkills\":\"Visez des compétences {minCulture} – {maxCulture}.\",\"jobBuilder.skills.range.futureSkills\":\"Visez des compétences {minFuture} – {maxFuture}.\",\"jobBuilder.skills.range.occupationalSkills\":\"Visez des compétences {minOccupational} – {maxOccupational}.\",\"jobBuilder.skills.selectSkillLabel\":\"Veuillez sélectionner une compétence dans notre liste.\",\"jobBuilder.skills.selectSkillNull\":\"Veuillez sélectionner une compétence\",\"jobBuilder.skills.skillLevel\":\"Niveau de compétences\",\"jobBuilder.skills.statusSmiley.acceptable\":\"Acceptable\",\"jobBuilder.skills.statusSmiley.almost\":\"Presque\",\"jobBuilder.skills.statusSmiley.awesome\":\"Fantastique\",\"jobBuilder.skills.statusSmiley.essential.acceptable\":\"Acceptable\",\"jobBuilder.skills.statusSmiley.essential.almost\":\"Presque\",\"jobBuilder.skills.statusSmiley.essential.awesome\":\"Fantastique\",\"jobBuilder.skills.statusSmiley.essential.tooFew\":\"Insuffisant\",\"jobBuilder.skills.statusSmiley.essential.tooMany\":\"Trop\",\"jobBuilder.skills.statusSmiley.essentialTitle\":\"Le nombre de compétences fondamentales est\",\"jobBuilder.skills.statusSmiley.title\":\"Le nombre total des compétences\",\"jobBuilder.skills.statusSmiley.tooFew\":\"Insuffisant\",\"jobBuilder.skills.statusSmiley.tooMany\":\"Trop\",\"jobBuilder.skills.tasksModalCancelLabel\":\"Retour aux compétences\",\"jobBuilder.skills.title\":\"Compétences\",\"jobBuilder.skills.title.addASkill\":\"Ajoutez une compétence\",\"jobBuilder.skills.title.assetSkills\":\"Compétences constituant un atout\",\"jobBuilder.skills.title.culturalSkills\":\"Compétences comportementales\",\"jobBuilder.skills.title.editSkill\":\"Modifiez une compétence\",\"jobBuilder.skills.title.essentialSkills\":\"Compétences essentielles\",\"jobBuilder.skills.title.futureSkills\":\"Compétences de la fonction publique\",\"jobBuilder.skills.title.keepItUp\":\"Ne lâchez surtout pas!\",\"jobBuilder.skills.title.keyTasks\":\"Tâches principales\",\"jobBuilder.skills.title.missingSkill\":\"Vous ne trouvez pas la compétence dont vous avez besoin?\",\"jobBuilder.skills.title.needsToHave\":\"Les compétences que l’employé(e) doit posséder\",\"jobBuilder.skills.title.niceToHave\":\"Les compétences qu’il serait souhaitable que l’employé(e) possède\",\"jobBuilder.skills.title.occupationalSkills\":\"Compétences professionnelles\",\"jobBuilder.skills.title.otherSkills\":\"Autres compétences\",\"jobBuilder.skills.title.skillSelection\":\"Choix des compétences\",\"jobBuilder.tasks.addJob\":\"Ajoutez une tâche \",\"jobBuilder.tasks.documentTitle\":\"Constructeur d'affiches: Tâches\",\"jobBuilder.tasks.heading\":\"Ajoutez des tâches principales\",\"jobBuilder.tasks.intro.first\":\"À quoi le nouveau membre de votre équipe consacrera-t-il son temps? Quelles sont les tâches à exécuter?\",\"jobBuilder.tasks.intro.fourth\":\"Une fois que vous aurez terminé d’entrer les tâches principales, vous passerez à la détermination des compétences individuelles nécessaires à l’exécution de ces tâches.\",\"jobBuilder.tasks.intro.second\":\"Mettez l’accent sur les tâches à exécuter. Vous n’avez pas à donner tous les détails de l’emploi, mais les candidats souhaitent savoir comment ils vont passer la plus grande partie de leur temps.\",\"jobBuilder.tasks.intro.third\":\"Cherchez à indiquer de quatre à six tâches principales. (Tout au long du remue-méninges, vous pouvez ajouter autant de tâches principales que vous le souhaitez ici, mais vous ne pouvez pas en inclure plus de six dans l’offre d’emploi finale.)\",\"jobBuilder.tasks.modal.body\":\"Voici un aperçu des tâches que vous venez de saisir. N’hésitez pas à retourner à la page précédente pour corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.tasks.modal.body.heading\":\"Tâches\",\"jobBuilder.tasks.modal.cancelButtonLabel\":\"Retour en arrière\",\"jobBuilder.tasks.modal.confirmButtonLabel\":\"Prochaine étape\",\"jobBuilder.tasks.modal.middleButtonLabel\":\"Passer pour la révision\",\"jobBuilder.tasks.modal.title\":\"Ne lâchez surtout pas!\",\"jobBuilder.tasks.preview\":\"Aperçu des tâches\",\"jobBuilder.tasks.previous\":\"Étape précédente\",\"jobBuilder.tasks.taskCount.error.body\":\"Vous avez dépassé le nombre maximal permis de tâches principales, mais ce n’est pas grave. Tout au long du remue-méninges, vous pouvez continuer à ajouter des tâches principales ici, mais on vous demandera de réduire votre liste à six tâches ou moins pour continuer.\",\"jobBuilder.tasks.taskCount.error.title\":\"Juste pour vous informer!\",\"jobBuilder.tasks.taskCount.none\":\"Vous n’avez pas encore ajouté de tâches!\",\"jobBuilder.tasks.taskCount.some\":\"Vous avez ajouté {taskCount, plural, one {# tâche} other {# tâches}}.\",\"jobBuilder.tasks.taskLabel\":\"Tâche\",\"jobBuilder.tasks.taskPlaceholder\":\"Essayez d’adopter un ton décontracté, franc et amical...\",\"jobBuilder.tasks.tasksMaximum\":\"Veuillez supprimer toute tâche supplémentaire avant de continuer.\",\"jobBuilder.tasks.tasksRequired\":\"Au moins une tâche est requise.\",\"jobBuilder.workCulture.flexibleHours\":\"Heures flexibles\",\"jobBuilder.workCulture.flexibleHoursDescription\":\"Précisez vos propres heures de début et de fin.\",\"jobBuilder.workCulture.overtime\":\"Heures supplémentaires\",\"jobBuilder.workCulture.overtimeDescription\":\"Heures supplémentaires le soir ou la fin de semaine.\",\"jobBuilder.workCulture.remoteWork\":\"Travail à distance\",\"jobBuilder.workCulture.remoteWorkDescription\":\"Travailler de n’importe où, en tout temps.\",\"jobBuilder.workCulture.remoteWorkMsg.always\":\"Toujours\",\"jobBuilder.workCulture.remoteWorkMsg.never\":\"Jamais\",\"jobBuilder.workCulture.telework\":\"Télétravail\",\"jobBuilder.workCulture.teleworkDescription\":\"Travailler à partir de la maison certains jours (à une distance raisonnable en voiture du bureau).\",\"jobBuilder.workCulture.travel\":\"Déplacements\",\"jobBuilder.workCulture.travelDescription\":\"Découvrez le Canada ou d’autres régions du monde.\",\"jobBuilder.workEnv.amenities.cafeteria\":\"Cafétéria sur place\",\"jobBuilder.workEnv.amenities.closeToTransit\":\"À proximité du transport en commun\",\"jobBuilder.workEnv.amenities.downtown\":\"Centre-ville\",\"jobBuilder.workEnv.amenities.fitnessCenter\":\"À proximité d’un centre de conditionnement physique\",\"jobBuilder.workEnv.amenities.parking\":\" Accès facile à un stationnement\",\"jobBuilder.workEnv.amenities.restaurants\":\"À distance de marche des restaurants et des centres commerciaux\",\"jobBuilder.workEnv.amenitiesLabel\":\"À proximité\",\"jobBuilder.workEnv.collaborativeLabel\":\"Collaboratif ou indépendant :\",\"jobBuilder.workEnv.culture\":\"Notre culture\",\"jobBuilder.workEnv.cultureSubtext1\":\"Maintenant, renseignez les candidats davantage sur la personnalité des membres de votre équipe et le type de travail que vous faites habituellement.\",\"jobBuilder.workEnv.cultureSubtext2\":\"Sur la base de vos sélections, nous allons créer un court paragraphe résumant votre culture de travail. Vous pouvez modifier ce paragraphe afin qu’il soit personnalisé selon votre équipe.\",\"jobBuilder.workEnv.cultureSummary\":\"Résumé sur la culture\",\"jobBuilder.workEnv.cultureSummarySubtext\":\"Voici le court paragraphe qui résume la culture de votre travail qui apparaîtra dans l’offre d’emploi. Copiez-le et collez-le dans le champ de saisie qui suit, si vous désirez l’adapter à la personnalité des membres de votre équipe et à votre façon de travailler.\",\"jobBuilder.workEnv.customCultureSummaryLabel\":\"Adaptez votre résumé sur la culture :\",\"jobBuilder.workEnv.customCultureSummaryPlaceholder\":\"Collez le paragraphe ici pour le modifier...\",\"jobBuilder.workEnv.documentTitle\":\"Constructeur d'affiches: Environnement\",\"jobBuilder.workEnv.experimentalLabel\":\"Toujours expérimentale contre activités en cours:\",\"jobBuilder.workEnv.facingLabel\":\"Services orientés vers le client contre services administratifs :\",\"jobBuilder.workEnv.fastPacedSteadyLabel\":\"Rythme rapide contre rythme soutenu :\",\"jobBuilder.workEnv.greatStart\":\"Vous commencez très bien!\",\"jobBuilder.workEnv.managementLabel\":\"Horizontale contre verticale :\",\"jobBuilder.workEnv.moreOnWorkEnv\":\"Voici de plus amples renseignements sur votre environnement\",\"jobBuilder.workEnv.moreOnWorkEnvLabel\":\"Voici de plus amples renseignements sur votre environnement\",\"jobBuilder.workEnv.moreOnWorkEnvPlaceholder\":\"Essayez d’adopter un ton décontracté, franc et amical.\",\"jobBuilder.workEnv.moreOnWorkEnvSubtext\":\"Souhaitez-vous ajouter quelque chose à propos de votre environnement de travail? Mettez en évidence les caractéristiques de l’environnement physique, de la technologie et des commodités propres à votre équipe.\",\"jobBuilder.workEnv.openingSentence\":\"Voici un aperçu des renseignements sur l’emploi que vous venez de saisir. N’hésitez pas à retourner à la page précédente et à corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.workEnv.ourWorkEnv\":\"Notre environnement de travail\",\"jobBuilder.workEnv.ourWorkEnvDesc\":\"Décrivez un peu votre espace physique, la technologie que les membres de votre équipe utilisent et les services qui se trouvent à proximité de votre bureau. Cochez toutes les réponses qui s’appliquent.\",\"jobBuilder.workEnv.physEnv.assignedSeating\":\"Places réservées\",\"jobBuilder.workEnv.physEnv.naturalLight\":\"Lumière naturelle\",\"jobBuilder.workEnv.physEnv.openConcept\":\"Espaces de travail à aire ouverte\",\"jobBuilder.workEnv.physEnv.private\":\"Privé\",\"jobBuilder.workEnv.physEnv.smudging\":\"Convient aux cérémonies de purification par la fumée\",\"jobBuilder.workEnv.physEnv.windows\":\"Plusieurs fenêtres\",\"jobBuilder.workEnv.physicalEnvLabel\":\"Notre environnement physique\",\"jobBuilder.workEnv.saveAndReturnButtonLabel\":\"Découvrez le Canada ou d’autres régions du monde.\",\"jobBuilder.workEnv.specialWorkCulture\":\"Y a-t-il quelque chose de spécial au sujet de votre culture de travail?\",\"jobBuilder.workEnv.specialWorkCultureLabel\":\"Voici de plus amples renseignements sur votre culture de travail.\",\"jobBuilder.workEnv.specialWorkCultureSubtext\":\"Votre équipe accorde-t-elle beaucoup d’importance à d’autres aspects? Est-elle fière de son bilan en matière de résultats? A-t-elle pris de solides engagements envers le mieux-être mental? Participe-t-elle activement à la promotion de la diversité et de l’inclusion? Ses membres se font-ils les champions des enjeux relatifs à la collectivité LGBTQ+? Voici l’occasion de faire connaître aux candidats la culture de l’équipe qu’ils pourraient intégrer.\",\"jobBuilder.workEnv.stepDescription\":\"Les candidats accordent beaucoup d’importance à l’équipe au sein de laquelle ils travailleront et à leur espace de travail physique. Le fait de communiquer de l’information à ce sujet aide les candidats à déterminer s’ils correspondent bien au profil de l’emploi, et peut réduire le nombre de demandes « illusoires » qui ralentissent le processus de présélection.\",\"jobBuilder.workEnv.submitButtonLabel\":\"Aperçu de l’environnement de travail\",\"jobBuilder.workEnv.teamSizeLabel\":\"Taille de l’équipe\",\"jobBuilder.workEnv.teamSizePlaceholder\":\"Par exemple 10\",\"jobBuilder.workEnv.technology.accessToExternal\":\"Accès à un réseau sans fil externe et non filtré\",\"jobBuilder.workEnv.technology.collaboration\":\"Collaboration (p. ex., Slack, Hangouts)\",\"jobBuilder.workEnv.technology.fileSharing\":\"Partage des dossiers (p. ex., Google Drive, Dropbox)\",\"jobBuilder.workEnv.technology.taskManagement\":\"Gestion de tâches (p. ex., Trello, Asana)\",\"jobBuilder.workEnv.technology.versionControl\":\"Gestion de versions (p. ex., Github, Gitlab)\",\"jobBuilder.workEnv.technology.videoConferencing\":\"Vidéo-conférence (p. ex., Skype, Zoom)\",\"jobBuilder.workEnv.technologyLabel\":\"Technologie\",\"jobBuilder.workEnv.textAreaPlaceholder1\":\"Essayez d’adopter un ton décontracté, franc et amical.\",\"jobBuilder.workEnv.thisIsOptional\":\"Ceci est facultatif.\",\"jobBuilder.workEnv.title\":\"Environnement de travail\",\"jobBuilder.workEnvModal.cancelLabel\":\"Retour en arrière\",\"jobBuilder.workEnvModal.confirmLabel\":\"Prochaine étape\",\"jobBuilder.workEnvModal.modalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.workEnvModal.title\":\"Environnement de travail\",\"jobBuilder.workEnvModal.workCultureTitle\":\"Culture du travail\",\"jobCard.applicants\":\"{applicants, plural,=0 {Aucun candidat} one {# candidat} other {# candidats}}\",\"jobCard.managerTime\":\"Time with Manager: {managerTime, plural, one {# day} other {# days} }\",\"jobCard.noActivity\":\"Aucune nouvelle activité\",\"jobCard.userTime\":\"Time with you: <s>{userTime, plural, one {# day} other {# days} }</s>\",\"jobReviewHr.headsUp\":\"Un simple rappel! Nous avons réorganisé certains renseignements fournis afin de vous aider à comprendre comment le candidat verra l’information une fois publiée.\",\"jobReviewHr.loadingIconText\":\"Les données sont en cours de chargement...\",\"jobReviewHr.reviewYourPoster\":\"Examiner votre offre d’emploi pour :\",\"jobReviewHr.summaryLink\":\"Revenir au résumé\",\"languageRequirement.bilingualAdvanced\":\"Bilingue - Avancé (CBC)\",\"languageRequirement.bilingualIntermediate\":\"Bilingue - Intermédiaire (BBB)\",\"languageRequirement.context.basic\":\"Vous pouvez présenter cette demande initiale dans la langue officielle de votre choix (français ou anglais).\",\"languageRequirement.context.expanded\":\"Vous pouvez suivre toutes les autres étapes de ce processus d’évaluation dans la langue officielle de votre choix, y compris la demande initiale, l’entrevue, l’examen et toute autre composante de l’évaluation.\",\"languageRequirement.description.bilingualAdvanced\":\"Ce poste nécessite une connaissance approfondie du français et de l'anglais. Cela signifie que vous pouvez assumer des tâches en français ou en anglais et que vous avez de solides compétences en lecture, en écriture et en communication verbale dans les deux langues officielles. Dans le cadre de ce processus de sélection, vos compétences linguistiques seront testées par la Commission de la fonction publique du Canada. Commission de la fonction publique du Canada.\",\"languageRequirement.description.bilingualIntermediate\":\"Ce poste nécessite une connaissance pratique du français et de l'anglais. Cela signifie que vous pouvez occuper des fonctions en français ou en anglais et que vous possédez des compétences intermédiaires en lecture, en écriture et en communication verbale dans les deux langues officielles. Dans le cadre de ce processus de sélection, vos compétences linguistiques seront testées par la Commission de la fonction publique du Canada.\",\"languageRequirement.description.english\":\"Ce poste exige une bonne maîtrise de l’anglais, tant à l’écrit que de vive voix. Dans le cadre de l’évaluation de vos compétences linguistiques, le gestionnaire d’embauche peut vous demander de suivre certaines étapes d’évaluation en anglais, comme des questions d’entrevue ou un examen.\",\"languageRequirement.description.englishOrFrench\":\"Pour ce poste, vous répondez aux exigences linguistiques si vous possédez de solides compétences en lecture, en rédaction et en communication verbale en français, en anglais ou dans les deux (bilingue).\",\"languageRequirement.description.french\":\"Ce poste exige une bonne maîtrise du français, tant à l’écrit que de vive voix. Dans le cadre de l’évaluation de vos compétences linguistiques, le gestionnaire d’embauche peut vous demander de suivre certaines étapes d’évaluation en français, comme des questions d’entrevue ou un examen.\",\"languageRequirement.english\":\"Anglais - Essentiel\",\"languageRequirement.englishOrFrench\":\"Anglais ou français\",\"languageRequirement.french\":\"Français - Essentiel\",\"managerSurveyModal.explanation\":\"Vos commentaires nous aident à améliorer nos outils! Veuillez prendre quelques minutes pour répondre à un sondage.\",\"managerSurveyModal.jobPosterLink\":\"Retour à Mes offres d'emploi\",\"managerSurveyModal.jobPosterLinkTitle\":\"Visitez Mes offres d'emploi.\",\"managerSurveyModal.link\":\"M'emmener au sondage.\",\"managerSurveyModal.managerSurveyLinkTitle\":\"Lien vers le sondage auprès des gestionnaires.\",\"managerSurveyModal.title\":\"Votre offre d'emploi a été soumise!\",\"openJobCard.claimJob\":\"Réclamer cet emploi\",\"openJobCard.error\":\"Date non disponible.\",\"openJobCard.hiringManager\":\"Gestionnaires d’embauche :\",\"openJobCard.hrAdvisors\":\"Conseillers en RH :\",\"openJobCard.reviewRequested\":\"Récupérée: \",\"openJobCard.unclaimed\":\"Non réclamé\",\"progressTracker.unreachableStep\":\"Doit compléter les étapes précédentes.\",\"province.ab\":\"Alberta\",\"province.ab.abreviation\":\"Alta.\",\"province.bc\":\"Colombie britannique\",\"province.bc.abreviation\":\"C.-B.\",\"province.mb\":\"Manitoba\",\"province.mb.abreviation\":\"Man.\",\"province.nb\":\"Nouveau-Brunswick\",\"province.nb.abreviation\":\"N.-B.\",\"province.nl\":\"Terre-Neuve-et-Labrador\",\"province.nl.abreviation\":\"T.-N.-L.\",\"province.ns\":\"Nouvelle-Écosse\",\"province.ns.abreviation\":\"N.-É.\",\"province.nt\":\"Territoires du nord-ouest\",\"province.nt.abreviation\":\"T.N.-O.\",\"province.nu\":\"Nunavut\",\"province.nu.abreviation\":\"Nt\",\"province.on\":\"Ontario\",\"province.on.abreviation\":\"Ont.\",\"province.pe\":\"Île-du-Prince-Édouard\",\"province.pe.abreviation\":\"Î.-P.-É.\",\"province.qc\":\"Québec\",\"province.qc.abreviation\":\"Qc\",\"province.sk\":\"Saskatchewan\",\"province.sk.abreviation\":\"Sask.\",\"province.yk\":\"Yukon\",\"province.yk.abreviation\":\"Yn\",\"ratingGuideAnswer.answerLabel\":\"Réponse de passage acceptable / Démonstration requise\",\"ratingGuideAnswer.answerPlaceholder\":\"Écrivez la réponse de passage attendue du candidat relativement à cette compétence...\",\"ratingGuideAnswer.nullSelection\":\"Sélectionnez une compétence...\",\"ratingGuideAnswer.selectLabel\":\"Sélectionnez une compétence\",\"ratingGuideBuilder.addQuestion\":\"Ajoutez une question\",\"ratingGuideBuilder.assetMissing\":\"{count} Atout manquant : \",\"ratingGuideBuilder.copyButton\":\"Cliquez ici pour copier ce guide de cotation dans votre presse-papiers\",\"ratingGuideBuilder.copyInstructions\":\"Maintenant que vous avez conçu votre guide de cotation, vous pouvez utiliser le bouton ci-dessous pour copier tout le contenu dans votre presse-papiers, et ainsi pouvoir coller facilement votre système de traitement de texte préféré.\",\"ratingGuideBuilder.criteriaName\":\"{skillName} - {skillLevel}\",\"ratingGuideBuilder.criteriaTypeHeading\":\"Type de critères\",\"ratingGuideBuilder.essentialMissing\":\"{count} Critères essentiels manquants : \",\"ratingGuideBuilder.instructions\":\"Vous trouverez ci-dessous votre propre guide de cotation pour vous aider à évaluer vos candidats. Cet outil vous permet d’élaborer vos propres questions pour chaque évaluation que vous avez sélectionnée ci-dessus, puis de noter les critères de ce que pourrait représenter une excellente réponse du candidat. Veuillez prendre note que l’« examen narratif » est unique en ce sens que le contenu est généré pour vous ci-dessous.\",\"ratingGuideBuilder.narrativeSectionTitle\":\"Évaluation {index}: {assessmentType}\",\"ratingGuideBuilder.questionHeading\":\"Question\",\"ratingGuideBuilder.ratingGuideHeading\":\"Guide de notation\",\"ratingGuideBuilder.sectionTitle\":\"Évaluation {index}: {assessmentType}\",\"ratingGuideBuilder.skillDescriptionHeading\":\"Description de la compétence\",\"ratingGuideBuilder.skillHeading\":\"Compétence\",\"ratingGuideBuilder.targetLevelHeading\":\"Niveau cible\",\"ratingGuideBuilder.title\":\"3. Concepteur de guides de cotation\",\"ratingGuideBuilder.titleHeading\":\"Titre\",\"ratingGuideQuestion.questionLabel\":\"Question d'entrevue\",\"ratingGuideQuestion.questionPlaceholder\":\"Écrivez votre question d'entrevue ici ...\",\"review.applications.alert.oops\":\"Enregistrer\",\"review.applications.button.confirm\":\"Confirmer\",\"review.applications.indexPageTitle\":\"Applications pour : {jobTitle} {jobClassification}\",\"review.applications.nonCitizens.description\":\" \",\"review.applications.nonCitizens.title\":\"Non-Citoyens canadiens\",\"review.applications.optionalConsideration.description\":\"Dans ce groupe, vous trouverez les candidats qui ne sont pas citoyens canadiens ou qui ne prétendent pas répondre aux critères essentiels.\",\"review.applications.optionalConsideration.title\":\"Candidats supplémentaires\",\"review.applications.priorityApplicants.description\":\"Ce sont des candidats prioritaires pour ce poste. Ils doivent être examinés et pris en compte en premier.\",\"review.applications.priorityApplicants.title\":\"Candidats prioritaire\",\"review.applications.reviewSaveFailed\":\"Une erreur s'est produite lors de l'enregistrement d'un commentaire. Réessayez plus tard.\",\"review.applications.screenOutAll\":\"Éliminer tous les candidats supplémentaires\",\"review.applications.screenOutAll.confirm\":\"Êtes-vous sûr de vouloir éliminer tous les candidats supplémentaires?\",\"review.applications.screenedOut.description\":\"Ces applications ont déjà été éliminées.\",\"review.applications.screenedOut.title\":\"Candidats qui ne sont plus considérés\",\"review.applications.underConsideration.description\":\"Examinez les candidats dans la section Anciens combattants et citoyens canadiens. Si aucun ou très peu de ces candidats ne répondent aux critères, vous pouvez toujours prendre en compte les candidatures non citoyennes dans la section Considérations facultatives.\",\"review.applications.underConsideration.title\":\"Candidats à considérée\",\"review.applications.unqualified.description\":\" \",\"review.applications.unqualified.title\":\"Ne répond pas aux critères essentiels\",\"review.applications.veteransAndCitizens.description\":\" \",\"review.applications.veteransAndCitizens.title\":\"Anciens combattants et citoyens canadiens\",\"reviewLocations.jpb.basicInfo\":\"Renseignements de base\",\"reviewLocations.jpb.environment\":\"Environnement de travail\",\"reviewLocations.jpb.generic\":\"Générique\",\"reviewLocations.jpb.heading\":\"Titre de la page de l’emploi\",\"reviewLocations.jpb.impact\":\"Impact\",\"reviewLocations.jpb.langRequirements\":\"Exigences linguistiques\",\"reviewLocations.jpb.skills\":\"Compétences\",\"reviewLocations.jpb.tasks\":\"Taches\",\"securityClearance.reliability\":\"Fiabilité\",\"securityClearance.secret\":\"Secret\",\"securityClearance.topSecret\":\"Très secret\",\"skillLevel.asset.description\":\"Cette compétence n’est pas nécessaire pour que l’employé puisse exécuter le travail, mais elle ajoute un avantage à l’ensemble de ses compétences et améliorera le rythme ou l’efficacité de son travail.\",\"skillLevel.asset.name\":\"Atout/aucun niveau requis\",\"skillLevel.hard.advanced.description\":\"Vous avez la capacité d’accomplir des tâches d’une complexité ou d’une incidence importante avec supervision. Vous donnez des conseils et des commentaires au superviseur sur l’approche à employer pour effectuer les tâches et la façon dont elles sont exécutées. Vous êtes en mesure de faire progresser la tâche, même face à des obstacles et à des complications d’envergure moyenne à importante. Au fur et à mesure que vous progressez dans cette catégorie, vous êtes être en mesure d’accomplir des tâches d’une complexité importante ou ayant une incidence plus grande avec seulement de légers niveaux de supervision, en étant effectivement le responsable de l’initiative. Vous pouvez également jouer un rôle de formation d’autres personnes dans cet ensemble de compétences ou assumer un rôle de supervision léger pour les personnes aux niveaux inférieurs. Ce niveau est habituellement associé à des tâches qui constituent la majeure partie du travail pour des postes de niveau supérieur, comme les analystes principaux ou les développeurs principaux.\",\"skillLevel.hard.advanced.name\":\"Avancé\",\"skillLevel.hard.basic.description\":\"Vous êtes capable d’accomplir des tâches de base avec une supervision régulière et une orientation claire. Les tâches qui vous sont assignées sont claires et ne sont pas très complexes. Elles ont généralement une incidence locale. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’accomplir des tâches de complexité modérée avec une supervision régulière. Vous devriez également être en mesure d’accomplir des tâches de base avec peu ou pas de supervision. Ce niveau est habituellement associé aux tâches qui constituent le gros du travail pour les postes de niveau inférieur, comme les analystes ou les développeurs de niveau débutant.\",\"skillLevel.hard.basic.name\":\"Débutant\",\"skillLevel.hard.expert.description\":\"Vous êtes en mesure d’accomplir des tâches d’une complexité ou d’une incidence importante, où vous prenez les décisions et répondez de vos décisions auprès de la haute direction de l’organisation. Vous présentez les tâches, l’approche et le plan de réalisation à la haute direction. Vous supervisez souvent d’autres personnes (personnes ou équipes) dans l’exécution de tâches très complexes ou ayant une incidence sur l’ensemble du système. Vous êtes en mesure de faire progresser ces tâches, même face à des obstacles et à des complications importants et imprévus. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’évaluer les autres à des niveaux plus subalternes, et de déterminer clairement la différence entre les tâches débutantes, intermédiaires et avancées. Vous devriez également être en mesure de pouvoir former des équipes, définir des orientations et assurer une supervision. Ce niveau est habituellement associé aux tâches qui constituent la majeure partie du travail pour les postes de direction et de direction.\",\"skillLevel.hard.expert.name\":\"Responsable\",\"skillLevel.hard.intermediate.description\":\"Vous avez la capacité d’accomplir des tâches de complexité modérée ou d’incidence modérée avec supervision. C’est le superviseur qui détermine l’approche à préconiser pour effectuer les tâches, de même que la façon dont elles sont exécutées. Vous apportez des commentaires et des conseils. Vous êtes en mesure de faire progresser la tâche, même face à des obstacles et à des complications de petite à moyenne envergure. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’accomplir des tâches d’une complexité importante ou ayant une incidence plus grande avec une supervision régulière. Vous devriez également être en mesure d’accomplir des tâches d’une complexité ou d’une incidence modérée avec peu ou pas de supervision. Ce niveau est habituellement associé aux tâches qui constituent le gros du travail pour les postes de niveau intermédiaire, comme les analystes ou les développeurs.\",\"skillLevel.hard.intermediate.name\":\"Intermédiaire\",\"skillLevel.soft.advanced.description\":\"Vous êtes capable de démontrer cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont élevés. Vos pairs et vos superviseurs reconnaissent qu’il s’agit d’une force dont vous faites preuve en milieu de travail.\",\"skillLevel.soft.advanced.name\":\"Fortement en évidence\",\"skillLevel.soft.basic.description\":\"Vous êtes en processus d’acquérir cette compétence ou cet attribut. Vous êtes capable de le démontrer dans des conditions favorables (peu de stress, difficulté minimale) et pouvez l’appliquer dans un contexte de travail de façon intermittente.\",\"skillLevel.soft.basic.name\":\"Phase de développement précoce\",\"skillLevel.soft.expert.description\":\"Il s’agit d’une partie fondamentale de qui vous êtes. Vous démontrez cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont extrêmes. Vos pairs et vos superviseurs reconnaissent qu’il s’agit d’une force importante dont vous faites preuve en milieu de travail, en donnant un exemple aux autres.\",\"skillLevel.soft.expert.name\":\"Démonstration à un niveau profond\",\"skillLevel.soft.intermediate.description\":\"Vous êtes capable de démontrer cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont bas ou modérés. Vos pairs et vos superviseurs peuvent attester le fait que vous êtes capable de démontrer cette compétence ou cet attribut de façon régulière.\",\"skillLevel.soft.intermediate.name\":\"Modérément en évidence\",\"wordCounter.skills.longMessage\":\"Ça a l'air trop long. Pouvez-vous résumer une partie de votre réponse?\",\"wordCounter.skills.placeholder\":\"Commencez à taper votre réponse ci-dessus.\",\"wordCounter.skills.shortMessage\":\"Ce paragraphe semble trop court. Avez-vous un autre exemple ou une leçon à ajouter?\",\"wordCounter.skills.slightlyLongMessage\":\"Ça commence à être un peu long.\",\"wordCounter.skills.veryLongMessage\":\"La limite des mots a été atteinte. C'est beaucoup trop long. Découvrez l'un de nos exemples pour voir à quoi ressemble une description de compétence concise.\",\"wordCounter.skills.veryShortMessage\":\"Ce paragraphe semble trop court. Avez-vous inclus des exemples ou des leçons apprises?\"}");
+module.exports = JSON.parse("{\"activity.commentLocation.label\":\"Commentaire trouvé\",\"activity.commentMetadata\":\"{name} ({userRole}) a commenté à {time}.\",\"activity.unknownUser\":\"User not found\",\"activity.viewComment.label\":\"Visualiser le commentaire\",\"activityfeed.accordionAccessibleLabel\":\"Cliquez pour voir...\",\"activityfeed.error\":\"Une erreur s'est produite\",\"activityfeed.header\":\"Cliquez pour voir les commentaires {totalActivities}\",\"activityfeed.loading\":\"Chargement de vos activités...\",\"activityfeed.loadingIconText\":\"Nombre d'activités est en cours de chargement...\",\"activityfeed.locations.applicantReview.general\":\"Général\",\"activityfeed.locations.applicantReview.notUnderConsideration\":\"Candidats qui ne sont plus considérés\",\"activityfeed.locations.applicantReview.optionalConsideration\":\"Candidats supplémentaires\",\"activityfeed.locations.applicantReview.underConsideration\":\"Candidats à considérée\",\"activityfeed.locations.applications\":\"Page des Réviser les candidats\",\"activityfeed.locations.hr.preview\":\"RH Page d'aperçu\",\"activityfeed.locations.hr.summary\":\"RH Résumé de l'emploi\",\"activityfeed.locations.notFound\":\"lieu non trouvé\",\"activityfeed.locations.review\":\"Constructeur d'Affiches\",\"activityfeed.locations.review.basicInfo\":\"Renseignements de base\",\"activityfeed.locations.review.environment\":\"Environnement de travail\",\"activityfeed.locations.review.general\":\"Général\",\"activityfeed.locations.review.heading\":\"Titre de la page de l’emploi\",\"activityfeed.locations.review.impact\":\"Incidence\",\"activityfeed.locations.review.langRequirements\":\"Exigences linguistiques\",\"activityfeed.locations.review.skills\":\"Compétences\",\"activityfeed.locations.review.tasks\":\"Taches\",\"activityfeed.locations.screeningPlan\":\"plan d’évaluation\",\"activityfeed.locations.screeningPlan.builder\":\"Concepteur de plans d’évaluation\",\"activityfeed.locations.screeningPlan.general\":\"Général\",\"activityfeed.locations.screeningPlan.ratings\":\"Concepteur de guides de cotation\",\"activityfeed.locations.screeningPlan.summary\":\"Sommaire du plan d’évaluation\",\"activityfeed.noActivities\":\"Aucune activité.\",\"activityfeed.review.accordionAccessibleLabel\":\"Cliquer pour afficher...\",\"activityfeed.review.header\":\"Cliquez pour voir les commentaires {totalActivities}\",\"activityfeed.review.loadingIconText\":\"Les données sont en cours de chargement...\",\"activityfeed.title\":\"Activités\",\"application.review.addNote\":\"+ Ajouter une note\",\"application.review.alert.oops\":\"Oups...\",\"application.review.backToApplicantList\":\"Sauvegarder et revenir à la liste des candidats\",\"application.review.button.cancel\":\"Annuler\",\"application.review.button.confirm\":\"Confirmer\",\"application.review.button.save\":\"Enregistrer\",\"application.review.button.saved\":\"Enregistrée\",\"application.review.button.saving\":\"Enregistre...\",\"application.review.button.viewJobPoster\":\"Voir l'affiche d'emploi\",\"application.review.collapseAllSkills\":\"Réduire les compétences\",\"application.review.decision\":\"Décision\",\"application.review.editNote\":\"Modifier la note\",\"application.review.emailCandidateLinkTitle\":\"Envoyer un courriel à ce candidat.\",\"application.review.expandAllSkills\":\"Élargir les compétences\",\"application.review.priorityStatus.priority\":\"Priorité\",\"application.review.priorityStatus.priorityLogoTitle\":\"Icône pour candidat prioritaire\",\"application.review.reviewSaveFailed\":\"Une erreur s'est produite lors de l'enregistrement d'un commentaire. Réessayez plus tard.\",\"application.review.reviewStatus.notReviewed\":\"Non révisé\",\"application.review.reviewStatus.screenedOut\":\"Éliminé\",\"application.review.reviewStatus.stillIn\":\"Encore considérée\",\"application.review.reviewStatus.stillThinking\":\"Incertain\",\"application.review.screenInConfirm\":\"Remettre le candidat dans la section à l'étude?\",\"application.review.screenOutConfirm\":\"Éliminer le candidat?\",\"application.review.veteranStatus.veteran\":\"Anciens combattants\",\"application.review.veteranStatus.veteranLogoAlt\":\"icône pour anciens combattants\",\"application.review.viewApplication\":\"Voir l'application\",\"application.review.viewApplicationLinkTitle\":\"Voir l'application de ce candidat.\",\"application.review.viewProfile\":\"Voir le profil\",\"application.review.viewProfileLinkTitle\":\"Voir le profil de ce candidat.\",\"assessmentPlan.addAssessmentButton\":\"Ajouter une évaluation\",\"assessmentPlan.alert.checking\":\"Vérifier si le poste a changé récemment...\",\"assessmentPlan.alert.created\":\"{skills} {count, plural, one {compétence a été ajoutée} other {compétences ont été ajoutées}}.\",\"assessmentPlan.alert.deleted\":\"{skills} {count, plural, one {compétence a été supprimée} other {compétences ont été supprimées}}.\",\"assessmentPlan.alert.explanation\":\"Certaines parties du plan de présélection ont été modifiées pour qu’elles concordent les unes avec les autres.\",\"assessmentPlan.alert.skillAndLevelUpdated\":\"Le champ « {oldSkill} » a été remplacé par « {newSkill} » et a fait l’objet d’une mise à jour.\",\"assessmentPlan.alert.skillLevelUpdated\":\"{skills} {count, plural, one {compétence a été mise à jour} other {compétences ont été mises à jour}}.\",\"assessmentPlan.alert.skillUpdated\":\"Le champ {oldSkill} a été remplacé par {newSkill}.\",\"assessmentPlan.alert.title\":\"Ce poste a récemment changé!\",\"assessmentPlan.assessmentPlanBuilder.instructions\":\"La première étape consiste à choisir des évaluations qui vous permettront d’évaluer les critères que vous avez sélectionnés pour votre offre d’emploi. Vous trouverez ci-dessous vos critères essentiels, suivis de vos critères constituant un atout, le cas échéant. Le concepteur sera enregistré au fur et à mesure, donc lorsque vous aurez terminé, n’hésitez pas à passer à l’étape 2 pour examiner votre travail.\",\"assessmentPlan.assessmentPlanBuilder.shortDescription\":\"(Sélectionnez vos évaluations)\",\"assessmentPlan.assessmentPlanBuilder.title\":\"Concepteur de plans d’évaluation\",\"assessmentPlan.assessmentPlanSummary.shortDescription\":\"(Passez votre plan en revue)\",\"assessmentPlan.assessmentPlanSummary.title\":\"Sommaire du plan d’évaluation\",\"assessmentPlan.assessmentTypesLabel\":\"Types d’évaluation\",\"assessmentPlan.assetCriteria.nullState\":\"Vous n’avez pas choisi de compétences constituant un atout pour cette offre d’emploi.\",\"assessmentPlan.criteriaTitle\":\"{skillName} - {skillLevel}\",\"assessmentPlan.essentialCriteria.nullState\":\"Vous n’avez pas choisi de compétences essentielles pour cette offre d’emploi.\",\"assessmentPlan.instructions.intro\":\"Cet outil vous permet d’élaborer un plan d’évaluation et un guide de cotation pour votre offre d’emploi. L’outil est utilisé en trois étapes :\",\"assessmentPlan.instructions.narrativeNote\":\"Veuillez prendre note que tous les plans d’évaluation comprendront un examen des éléments de preuve fournis par le candidat.\",\"assessmentPlan.pageTitle\":\"Élaborer un plan d’évaluation pour : {jobTitle}\",\"assessmentPlan.ratingGuideBuilder.shortDescription\":\"(Personnalisez vos évaluations)\",\"assessmentPlan.ratingGuideBuilder.title\":\"Concepteur de guides de cotation\",\"assessmentPlan.selectAssessment.label\":\"Sélectionner une évaluation\",\"assessmentPlan.selectAssessment.null\":\"Sélectionner une évaluation\",\"assessmentPlan.skillDescriptionLabel\":\"Description\",\"assessmentPlan.skillLevelDescriptionLabel\":\"Niveau de compétence sélectionné\",\"assessmentPlan.summary.assessmentSummary.noAssessments\":\"Vous n’avez pas sélectionné d’évaluations pour cette offre d’emploi. Ajoutez-les ci-dessus.\",\"assessmentPlan.summary.assessmentSummary.title\":\"Sommaire de l’évaluation\",\"assessmentPlan.summary.assessmentSummary.toolSkillCount\":\"Votre plan utilise {toolCount, plural, =0 {aucun outil} one {# outill} other {# outils}} pour évaluer {skillCount, plural, =0 {compétences} one {# compétence} other {# compétences}}.\",\"assessmentPlan.summary.description\":\"Ceci est un résumé du travail que vous avez effectué ci-dessus. Vous trouverez\\n      chaque évaluation accompagnée d'une liste consolidée des compétences essentielles\\n      et des atouts qui s'y rattachent.\",\"assessmentPlan.summary.skillCount\":\"Évaluer {count, plural, one {# compétence} other {# compétences}}.\",\"assessmentPlan.summary.skillsNullState\":\"Aucune compétence n’est évaluée par cet outil.\",\"assessmentPlan.summary.title\":\"2. Sommaire du plan d’évaluation\",\"assessmentPlan.title\":\"Concepteur de plans d’évaluation\",\"assessmentType.applicationScreeningQuestion\":\"Questions de présélection dans le cadre du processus d’embauche\",\"assessmentType.applicationScreeningQuestion.description\":\"Ces questions paraissent dans le formulaire de demande, et sont présentées dans le Nuage de talents. Elles donnent un premier aperçu de la compréhension, du processus, des connaissances ou de l’adaptation culturelle du candidat pour le poste.\",\"assessmentType.groupTest\":\"Test de groupe\",\"assessmentType.groupTest.description\":\"Les candidats effectuent ce test en temps réel conjointement avec d’autres candidats, des membres de l’équipe ou des animateurs afin de déterminer leurs compétences exceptionnelles, leur habileté à communiquer au sein d’une équipe.\",\"assessmentType.informalPhoneConversation\":\"Conversation téléphonique informelle\",\"assessmentType.informalPhoneConversation.description\":\"Une conversation informelle entre un membre du comité d’embauche et un(e) candidat(e), visant à découvrir les connaissances, les aptitudes ou les traits de personnalité du candidat; les conversations peuvent varier d’un candidat à l’autre.\",\"assessmentType.interview\":\"Entrevue\",\"assessmentType.interview.description\":\"Examen formel de questions-réponses effectué en temps réel entre le comité de sélection et le (la) candidat(e). Les questions ont pour but d'évaluer l'expertise, le niveau et l'approche des compétences. Chaque question est élaborée à l’avance et suit la même structure entre tous les candidats interrogés.\",\"assessmentType.narrativeAssessment\":\"Examen narratif\",\"assessmentType.narrativeAssessment.description\":\"Il s’agit d’une description demandée au cours du processus de demande, dans laquelle les candidats s’identifient et décrivent leur expérience et leur niveau de compétence.\",\"assessmentType.narrativeReview.standardAnswer\":\"La description fournie contient suffisamment d’éléments de preuve pour faire passer ce candidat aux étapes de présélection suivantes.\",\"assessmentType.narrativeReview.standardQuestion\":\"L’examen descriptif des compétences comprend toutes les descriptions ajoutées par le candidat dans sa demande.\",\"assessmentType.onSiteExam\":\"Épreuve sur place\",\"assessmentType.onSiteExam.description\":\"Épreuve préparée qui exige que le candidat effectue à un endroit précis et sous supervision un test visant à évaluer ses compétences et sa technique.\",\"assessmentType.onlineExam\":\"Épreuve en ligne\",\"assessmentType.onlineExam.description\":\"Épreuve préparée qui n’exige pas de supervision, qui peut être effectuée de n’importe quel endroit au moyen d’un accès à Internet, et qui doit être achevée dans un intervalle de temps défini.\",\"assessmentType.portfolioReview\":\"Examen du portefeuille\",\"assessmentType.portfolioReview.description\":\"Au cours du processus de demande, les candidats donnent accès à des échantillons de leur travail pour démontrer leur niveau de compétence et étayer leurs prétentions à cet égard.\",\"assessmentType.referenceCheck\":\"Vérification des références\",\"assessmentType.referenceCheck.description\":\"Au cours du processus de demande, les candidats fournissent les coordonnées d’une connaissance qui peut valider et confirmer leurs compétences, leurs connaissances ou leurs aptitudes.\",\"assessmentType.seriousGames\":\"Jeux sérieux\",\"assessmentType.seriousGames.description\":\"Test comprenant l’utilisation de jeux pour explorer les aptitudes en communication, la résilience et l’intelligence émotionnelle d’un(e) candidat(e), entre autres compétences générales.\",\"assessmentType.takeHomeExam\":\"Épreuve à la maison\",\"assessmentType.takeHomeExam.description\":\"Les candidats reçoivent une trousse matérielle contenant les outils d’évaluation; ils effectuent l’évaluation à un moment qui leur convient le mieux, et à un endroit de leur choix, sans supervision, et ils doivent retourner les documents avant une date limite précise.\",\"button.copied\":\"Copié!\",\"button.copyEmails\":\"Copier des emails\",\"button.copyToClipboard\":\"Copier sur le presse-papier\",\"button.toggleAccordion\":\"Basculer pour voir les candidats concernés.\",\"commentForm.comment.label\":\"Ajouter un commentaire\",\"commentForm.comment.placeholder\":\"À titre d’exemple, entrez votre question, votre recommandation, etc.\",\"commentForm.commentLocation.label\":\"Emplacement du commentaire\",\"commentForm.commentLocation.nullSelection\":\"Sélectionnez un emplacement...\",\"commentForm.commentType.label\":\"Type de commentaire\",\"commentForm.commentType.nullSelection\":\"Sélectionner un type de commentaire\",\"commentForm.submitButton.label\":\"Soumettre un commentaire\",\"commentType.comment\":\"Commentaire\",\"commentType.question\":\"Question\",\"commentType.recommendation\":\"Recommandation\",\"commentType.requiredAction\":\"Mesure requise\",\"criteria.asset\":\"Compétences constituant un atout\",\"criteria.essential\":\"Compétences essentielles\",\"criteriaForm.skillLevelSelectionLabel\":\"Choisir un niveau de compétence\",\"criteriaForm.skillSpecificityLabel\":\"Détails supplémentaires pour cette compétence\",\"criteriaForm.skillSpecificityPlaceholder\":\"Ajoutez du contexte ou des détails à la définition de cette compétence qui n'apparaîtront que sur votre affiche d'emploi. Ceci sera examiné par votre conseiller en ressources humaines.\",\"criteriaType.asset\":\"Atout\",\"criteriaType.essential\":\"Essentiel\",\"demoSubmitJobModal.cancel\":\"Retourner\",\"demoSubmitJobModal.explanation\":\"Seuls les ministères partenaires de Nuage des talents ont accès à l'examen et à la publication des avis d'emploi.\",\"demoSubmitJobModal.link\":\"<a>Savoir si vous pouvez accéder à ces fonctions</a>.\",\"demoSubmitJobModal.link.title\":\"Découvrez comment accéder aux fonctions d'examen et de publication des avis d'emploi.\",\"demoSubmitJobModal.title\":\"Il semble que vous utilisez un compte de démonstration.\",\"errorToast.title\":\"Quelque chose a mal tourné!\",\"formInput.error\":\"Cette entrée a une erreur.\",\"formInput.required\":\"Champs obligatoires\",\"formValidation.checkboxRequired\":\"Il faut cocher au moins une case.\",\"formValidation.invalidSelection\":\"Veuillez choisir parmi les options disponibles.\",\"formValidation.required\":\"Ce champ est requis.\",\"formValidation.tooLong\":\"Trop longue?\",\"formValidation.tooShort\":\"Trop courte?\",\"hrJobIndex.departmentPlaceholder\":\" [Chargement du ministère]\",\"hrJobIndex.jobTitleMissing\":\"Titre manquant \",\"hrJobIndex.managerLoading\":\"Chargement...\",\"hrJobIndex.preview\":\"Prévisualiser l’avis d’emploi \",\"hrJobIndex.reviewDraft\":\"Réviser l’ébauche \",\"hrJobIndex.viewActivity\":\"Afficher l’activité \",\"hrJobIndex.viewScreeningPlan\":\"Afficher le plan d’évaluation \",\"hrJobIndex.viewSummary\":\"Afficher le résumé \",\"hrPortal.jobPageIndex.clickToView\":\"Cliquer pour afficher...\",\"hrPortal.jobPageIndex.completedJobsHeader\":\" Mes mesures d’emploi achevées \",\"hrPortal.jobPageIndex.hideAccordion\":\" Masquer \",\"hrPortal.jobPageIndex.jobActionsEmpty\":\"Réclamer un emploi ci-dessous!\",\"hrPortal.jobPageIndex.jobActionsHeader\":\"Mes mesures d’emploi achevée\",\"hrPortal.jobPageIndex.jobActionsMessage\":\"Voici une liste de toutes les mesures d’emploi auxquelles vous participez actuellement. Vous cherchez une ancienne offre d’emploi? Cochez la section « Mes mesures d’emploi achevées » sous vos offres d’emploi actives.\",\"hrPortal.jobPageIndex.noJobsCompleted\":\"Aucune offre d’emploi achevée à l’heure actuelle!\",\"hrPortal.jobPageIndex.preDepartmentName\":\"Toutes les offres d’emploi dans\",\"hrPortal.jobPageIndex.showAccordion\":\"Afficher \",\"hrPortal.jobPageIndex.unclaimedJobsEmpty\":\"Il n’y a actuellement aucune offre d’emploi active disponible.\",\"hrPortal.jobPageIndex.unclaimedJobsMessage\":\"Voici la liste de toutes les mesures actives dans votre ministère. À partir de ce point, vous pouvez « réclamer » un emploi qui sera transféré dans votre liste d’emploi ci-dessus, ce qui vous permettra de commencer à collaborer avec le gestionnaire d’embauche pour trouver le meilleur talent possible. Si vous réclamez un emploi par erreur, ne craignez rien, car vous pouvez cliquer sur le résumé de l’emploi et retirer votre nom au moyen du bouton « Renoncer à cet emploi ».\",\"job.daysSinceClosed\":\"{dayCount, plural, =0 {Aucun jour} one {# jour} other {# jours}} depuis la fermeture\",\"jobBuilder.collaborativeness.01.description\":\"Les membres de notre équipe proviennent de divers milieux, et ont des points de vue et des compétences variés. Nous nous appuyons sur nos points forts. Collectivement, nous nous approprions les objectifs de l’équipe et nous sommes constamment à la recherche de façons de s’entraider.\",\"jobBuilder.collaborativeness.01.title\":\"Collaboratif\",\"jobBuilder.collaborativeness.02.description\":\"Notre équipe possède un ensemble de compétences diversifiées et nous reconnaissons les forces de chacun. Nous travaillons ensemble souvent et nous intervenons rapidement quand une personne demande de l’aide.\",\"jobBuilder.collaborativeness.02.title\":\"Assez collaboratif\",\"jobBuilder.collaborativeness.03.description\":\"Chaque membre de notre équipe possède une pièce du casse-tête et jouit de la liberté de choisir sa propre façon de travailler.\",\"jobBuilder.collaborativeness.03.title\":\"Assez indépendant \",\"jobBuilder.collaborativeness.04.description\":\"Chaque membre de notre équipe prend en charge sa pièce du casse-tête. La façon dont nous accomplissons notre travail importe peu, tant qu’il est de qualité supérieure.\",\"jobBuilder.collaborativeness.04.title\":\"Indépendant\",\"jobBuilder.criteriaForm.addSpecificity\":\"Je voudrais ajouter des détails à cette définition qui sont spécifiques à ce poste.\",\"jobBuilder.criteriaForm.button.add\":\"Ajouter une compétence\",\"jobBuilder.criteriaForm.button.cancel\":\"Annuler\",\"jobBuilder.criteriaForm.chooseSkillLevel\":\"Choisir un niveau de compétence\",\"jobBuilder.criteriaForm.or\":\"ou\",\"jobBuilder.criteriaForm.removeSpecificity\":\"Supprimer la particularité supplémentaire.\",\"jobBuilder.criteriaForm.skillDefinition\":\"Définition de la compétence\",\"jobBuilder.criterion.requiredSkill\":\"Compétence requise :\",\"jobBuilder.culturePace.01.description\":\"Nos échéances sont serrées, nous traitons plusieurs tâches en même temps et nos priorités changent constamment. Notre travail devrait être effectué en portant des chaussures de courses!\",\"jobBuilder.culturePace.01.title\":\"Un rythme très rapide\",\"jobBuilder.culturePace.02.description\":\"Nos échéances sont habituellement rapprochées, nous traitons plusieurs tâches en même temps et nos priorités changent régulièrement. Notre travail nous force à rester sur le qui-vive!\",\"jobBuilder.culturePace.02.title\":\"Rythme rapide\",\"jobBuilder.culturePace.03.description\":\"Nos échéances sont régulières et prévisibles, nous traitons quelques tâches à la fois et nos priorités changent de temps à autre. Nous maintenons un certain équilibre.\",\"jobBuilder.culturePace.03.title\":\"Soutenu\",\"jobBuilder.culturePace.04.description\":\"Notre travail est continu, donc il n’y a pas beaucoup d’échéances. Habituellement, nous ne sommes pas obligés d’équilibrer la répartition des tâches et nos priorités changent rarement. Nous nous sentons bien dans la routine.\",\"jobBuilder.culturePace.04.title\":\"Très soutenu\",\"jobBuilder.details.SelectClassAndLvlMessage\":\"Veuillez choisir une classification et un niveau avant de préparer\\r\\n                          les exigences en matière d’éducation.\",\"jobBuilder.details.cityLabel\":\"Dans quelle ville l'équipe est-elle située?\",\"jobBuilder.details.cityPlaceholder\":\"P. ex. Ottawa\",\"jobBuilder.details.classificationLabel\":\"Quelle est la classification?\",\"jobBuilder.details.classificationNullSelection\":\"Veuillez sélectionner la classification...\",\"jobBuilder.details.classificationOptions.AD\":\"AD - Services administratifs\",\"jobBuilder.details.classificationOptions.AS\":\"AS – Services administratifs\",\"jobBuilder.details.classificationOptions.BI\":\"BI – Sciences biologiques\",\"jobBuilder.details.classificationOptions.CO\":\"CO - Commerce\",\"jobBuilder.details.classificationOptions.CR\":\"CR - Commis aux écritures et aux règlements\",\"jobBuilder.details.classificationOptions.CS\":\"CS – Systèmes d’ordinateurs\",\"jobBuilder.details.classificationOptions.EC\":\"EC - Économique et services de sciences sociales\",\"jobBuilder.details.classificationOptions.EX\":\"EX - Direction\",\"jobBuilder.details.classificationOptions.FO\":\"FO - Sciences forestières\",\"jobBuilder.details.classificationOptions.IS\":\"IS – Services d’information\",\"jobBuilder.details.classificationOptions.PC\":\"PC – Sciences physiques\",\"jobBuilder.details.classificationOptions.PE\":\"PE – Gestion du personnel\",\"jobBuilder.details.classificationOptions.PM\":\"PM – Administration des programmes\",\"jobBuilder.details.documentTitle\":\"Constructeur d'affiches: Renseignements\",\"jobBuilder.details.educationMessages.AD\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires;\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’elle soit prise en considération. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.AS\":\"Diplôme d’études secondaires ou équivalent :\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.BI\":\"Diplôme d’études postsecondaires:\\nDiplôme d’études postsecondaires en sciences naturelles, physiques ou appliquées, avec spécialisation dans un domaine lié aux fonctions du poste.\",\"jobBuilder.details.educationMessages.CO\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.CR\":\"Deux années d’études secondaires ou l’équivalent:\\nAu moins deux années d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative aux deux années d’études secondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.CS\":\"Deux (2) ans d’études postsecondaires ou l’équivalent:\\nDeux années d’études postsecondaires en informatique, en technologie de l’information, en gestion de l’information ou dans une autre spécialité pertinente à ce poste.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente aux deux années d’études postsecondaires requises, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.EC\":\"Diplôme d’études postsecondaires:\\nun diplôme d’un établissement d’enseignement postsecondaire reconnu avec spécialisation acceptable en économique, en sociologie ou en statistique.\\n\\nLes candidats doivent toujours détenir un diplôme. Les cours de spécialisation doivent être acceptables et avoir été suivis auprès d’un établissement d’enseignement postsecondaire reconnu, mais pas nécessairement dans le cadre d’un programme de diplôme dans la spécialisation requise. La spécialisation peut également être obtenue grâce à un agencement acceptable d’études, de formation et (ou) d’expérience.\",\"jobBuilder.details.educationMessages.EX\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires, ou admissibilité à un titre professionnel reconnu dans une province ou un territoire du Canada.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.FO\":\"Diplôme d’études postsecondaires:\\nUn diplôme en foresterie ou en produits du bois d’un établissement d’enseignement postsecondaire reconnu.\\n\\nou\\n\\nUn diplôme dans une science connexe d’un établissement d’enseignement postsecondaire reconnu agencé à une expérience acceptable.\",\"jobBuilder.details.educationMessages.IS\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.PC\":\"Diplôme d’études postsecondaires:\\nDiplôme d’études postsecondaires, avec spécialisation en physique, en géologie, en chimie ou dans une autre science liée aux fonctions du poste.\",\"jobBuilder.details.educationMessages.PE\":\"Diplôme d’études postsecondaires ou l’équivalent:\\nDiplôme d’études postsecondaires, avec spécialisation en gestion des ressources humaines, en relations de travail ou en relations industrielles, en psychologie, en administration publique ou en administration des affaires, en développement organisationnel, en sciences de l’éducation, en sciences sociales, en sociologie ou dans un autre domaine lié aux fonctions du poste.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente à l’exigence relative au diplôme d’études postsecondaires, indiquez-le aux fins d’examen. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études postsecondaires énoncé ci-dessus.\",\"jobBuilder.details.educationMessages.PM\":\"Diplôme d’études secondaires ou l’équivalent:\\nDiplôme d’études secondaires.\\n\\nou\\n\\nExpérience équivalente:\\nSi vous avez reçu une formation en cours d’emploi ou une autre formation non traditionnelle que vous croyez équivalente au diplôme d’études secondaires requis, faites-en état afin qu’on en tienne compte. Le gestionnaire pourrait accepter une combinaison d’études, de formation et/ou d’expérience dans un domaine pertinent comme étant équivalente au niveau minimal d’études secondaires énoncé ci-dessus.\",\"jobBuilder.details.educationRequirementCopyAndPaste\":\"Si vous voulez personnaliser ce paragraphe, veuillez le copier-coller dans la zone de texte ci-dessous pour le modifier. \",\"jobBuilder.details.educationRequirementHeader\":\"En fonction du niveau de classification sélectionné, le paragraphe générique suivant apparaîtra sur l’offre d’emploi. \",\"jobBuilder.details.educationRequirementPlaceholder\":\"Collez le paragraphe ici pour le modifier...\",\"jobBuilder.details.educationRequirementReviewChanges\":\"Votre conseiller en RH examinera vos changements.\",\"jobBuilder.details.educationRequirementsLabel\":\"Personnaliser les exigences en matière d’études :\",\"jobBuilder.details.flexHoursGroupBody\":\"Vous voulez appuyer un milieu de travail plus inclusif sur le plan de l’égalité des sexes? Des études montrent que l’horaire flexible est un excellent moyen d’améliorer les possibilités des femmes et des parents.\",\"jobBuilder.details.flexHoursGroupHeader\":\"À quelle fréquence les heures flexibles sont-elles permises?\",\"jobBuilder.details.flexHoursGroupLabel\":\"Choisissez les horaires souples :\",\"jobBuilder.details.frequencyAlwaysLabel\":\"Presque toujours\",\"jobBuilder.details.frequencyFrequentlyLabel\":\"Habituellement\",\"jobBuilder.details.frequencyNeverLabel\":\"Jamais\",\"jobBuilder.details.frequencyOccasionallyLabel\":\"Rarement\",\"jobBuilder.details.frequencySometimesLabel\":\"Parfois\",\"jobBuilder.details.heading\":\"Détails sur l’emploi\",\"jobBuilder.details.languageLabel\":\"Quel est le profil linguistique?\",\"jobBuilder.details.languageNullSelection\":\"Veuillez sélectionner le profil linguistique...\",\"jobBuilder.details.levelLabel\":\"Quel est le niveau?\",\"jobBuilder.details.levelNullSelection\":\" Veuillez sélectionner le niveau...\",\"jobBuilder.details.modalBody\":\"Voici un aperçu des informations sur le travail que vous venez de saisir. N'hésitez pas à revenir en arrière et à modifier des éléments ou à passer à l'étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.details.modalCancelLabel\":\"Retourner\",\"jobBuilder.details.modalConfirmLabel\":\"Étape suivante\",\"jobBuilder.details.modalHeader\":\"Vous partez du bon pied!\",\"jobBuilder.details.modalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.details.overtimeFrequentlyLabel\":\"Oui, il est souvent nécessaire de travailler des heures supplémentaires dans le cadre de ce poste.\",\"jobBuilder.details.overtimeGroupHeader\":\"Le temps supplémentaire est-il requis?\",\"jobBuilder.details.overtimeGroupLabel\":\"Sélectionner l’exigence en matière de temps supplémentaire\",\"jobBuilder.details.overtimeNoneRequiredLabel\":\"Non, le temps supplémentaire n’est pas nécessaire pour ce poste.\",\"jobBuilder.details.overtimeOpportunitiesAvailableLabel\":\"Oui, il est possible que des heures supplémentaires soient offertes aux personnes intéressées.\",\"jobBuilder.details.provinceLabel\":\"Dans quelle province l'équipe est-elle située?\",\"jobBuilder.details.provinceNullSelection\":\"Veuillez sélectionner la province...\",\"jobBuilder.details.remoteWorkCanadaLabel\":\"Oui, je suis prêt(e) à superviser des employés dans n'importe quelle province ou territoire au Canada.\",\"jobBuilder.details.remoteWorkGroupBody\":\"Vous voulez les meilleurs talents au Canada? Vous augmentez vos chances lorsque vous permettez à ceux qui se trouvent dans d’autres régions du Canada de présenter une demande. La diversité régionale ajoute également une perspective à la culture de votre équipe. Assurez-vous d’en discuter à l’avance avec votre conseiller en RH.\",\"jobBuilder.details.remoteWorkGroupHeader\":\"Le travail à distance est-il permis?\",\"jobBuilder.details.remoteWorkGroupLabel\":\"Choisissez le travail à distance :\",\"jobBuilder.details.remoteWorkNoneLabel\":\"Non, j’exige que l’employé(e) qui occupe ce poste soit dans le même lieu géographique que le bureau.\",\"jobBuilder.details.remoteWorkWorldLabel\":\"Oui, je suis prêt(e) à superviser des employés partout dans le monde.\",\"jobBuilder.details.returnButtonLabel\":\"Enregistrer et retourner à l’introduction\",\"jobBuilder.details.securityLevelLabel\":\"Quel est le niveau de sécurité?\",\"jobBuilder.details.securityLevelNullSelection\":\"Veuillez sélectionner le niveau de sécurité...\",\"jobBuilder.details.submitButtonLabel\":\"Prochain\",\"jobBuilder.details.teleworkGroupBody\":\"Démontrez que vous faites confiance à vos employés et que vous avez une culture organisationnelle positive. Autorisez le télétravail en option.\",\"jobBuilder.details.teleworkGroupHeader\":\"À quelle fréquence le télétravail est-il permis?\",\"jobBuilder.details.teleworkGroupLabel\":\"Choisissez le télétravail :\",\"jobBuilder.details.termLengthLabel\":\"Quelle est la durée du poste (en mois)?\",\"jobBuilder.details.termLengthPlaceholder\":\" P.ex. 3\",\"jobBuilder.details.titleLabel\":\"Quel est le titre du poste?\",\"jobBuilder.details.titlePlaceholder\":\"P. ex. Chercheur - utilisateurs\",\"jobBuilder.details.travelFrequentlyLabel\":\"Oui, des déplacements sont souvent exigés pour le poste.\",\"jobBuilder.details.travelGroupHeader\":\"Est-il nécessaire de voyager?\",\"jobBuilder.details.travelGroupLabel\":\"Sélectionner l’exigence des déplacements\",\"jobBuilder.details.travelNoneRequiredLabel\":\"Non, aucun déplacement n’est nécessaire pour ce poste.\",\"jobBuilder.details.travelOpportunitiesAvailableLabel\":\"Oui, des possibilités de voyage sont offertes pour ceux qui sont intéressés.\",\"jobBuilder.experimental.01.description\":\"Notre travail est défini en essayant de nouvelles idées, méthodes et activités pour aborder des problèmes persistants auxquels les approches traditionnelles ne peuvent pas remédier.\",\"jobBuilder.experimental.01.title\":\"Approche expérimentale\",\"jobBuilder.experimental.02.description\":\"Nous essayons des idées, méthodes et activités nouvelles et éprouvées pour améliorer la façon de faire notre travail.\",\"jobBuilder.experimental.02.title\":\"Approche assez expérimentale\",\"jobBuilder.experimental.03.description\":\"Notre travail comprend quelques tâches administratives qui se répètent quotidiennement. Les outils que nous utilisons nous conviennent, mais nous sommes ouverts à améliorer notre processus..\",\"jobBuilder.experimental.03.title\":\"Travail assez prévisible\",\"jobBuilder.experimental.04.description\":\"La majeure partie de notre travail comprend quelques tâches administratives qui se répètent quotidiennement. La cohérence est un facteur clé ici, donc nous suivons un processus standard avec des outils éprouvés.\",\"jobBuilder.experimental.04.title\":\"Travail prévisible\",\"jobBuilder.facing.01.description\":\"Nous représentons l’image de marque des services que nous offrons et nous passons la plupart de notre temps à interagir directement avec le public.\",\"jobBuilder.facing.01.title\":\"Services orientés vers le citoyen\",\"jobBuilder.facing.02.description\":\"Nous passons beaucoup de temps à interagir directement avec le public, mais nous travaillons également en coulisses afin d’appuyer d’autres personnes.\",\"jobBuilder.facing.02.title\":\"Services essentiellement orientés vers le citoyen\",\"jobBuilder.facing.03.description\":\" Nous travaillons généralement en coulisses et nous effectuons un travail important qui rend possible la prestation de services.\",\"jobBuilder.facing.03.title\":\"Services essentiellement administratifs\",\"jobBuilder.facing.04.description\":\" Nous travaillons en coulisses et nous effectuons un travail important qui rend possible la prestation de services. Nous nous sentons bien quand nous appuyons les autres.\",\"jobBuilder.facing.04.title\":\"Services administratifs\",\"jobBuilder.impact.button.goBack\":\"Revenir en arrière\",\"jobBuilder.impact.button.next\":\"Prochain\",\"jobBuilder.impact.button.nextStep\":\"Passer à l’étape suivante\",\"jobBuilder.impact.button.return\":\"Enregistrer et retourner à l’environnement de travail\",\"jobBuilder.impact.button.skipToReview\":\"Passer pour la révision\",\"jobBuilder.impact.departmentsLoading\":\"Chargement des données du Ministère...\",\"jobBuilder.impact.documentTitle\":\"Constructeur d’affiches: Incidences\",\"jobBuilder.impact.header.department\":\"Comment votre ministère engendre des incidences:\",\"jobBuilder.impact.hireBody\":\"Décrivez la contribution du nouvel employé dans le cadre de son rôle. Misez sur la valeur qu’il apportera et non des tâches particulières (vous les indiquerez plus loin). Par exemple « Dans ce rôle, vous contribuerez à … » ou « En tant que membre de l’équipe, vous serez responsable de nous aider à… »\",\"jobBuilder.impact.hireHeader\":\"Comment le nouvel employé engendra des incidences\",\"jobBuilder.impact.hireLabel\":\"Déclaration d'incidences des employés\",\"jobBuilder.impact.hirePlaceholder\":\"Souvenez-vous de ne pas utiliser de jargon administratif.\",\"jobBuilder.impact.modalDescription\":\"Voici un aperçu de l’énoncé des incidences que vous venez de rédiger.\\n                        N'hésitez pas à revenir en arrière pour modifier le texte.\\n                        Passez à l'étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.impact.modalTitle\":\"Excellent travail!\",\"jobBuilder.impact.points.counts\":\"La première chose que les candidats voient lorsqu’ils cliquent sur votre avis de concours est votre énoncé des incidences. Assurez-vous donc de bien le rédiger!\",\"jobBuilder.impact.points.highlight\":\"C’est votre chance de souligner en quoi votre travail est utile et intéressant.\",\"jobBuilder.impact.points.opportunity\":\"Le fait de travailler pour le gouvernement fédéral offre une importante occasion d’engendrer d’importantes incidences pour les Canadiens.\",\"jobBuilder.impact.selectDepartment\":\"Vous devez choisir un ministère pour cet emploi.\",\"jobBuilder.impact.teamBody\":\"Décrivez la valeur apportée aux Canadiens par votre équipe/service/initiative. Peu importe si votre travail consiste à offrir des services directement aux citoyens ou des services administratifs, d’innovation ou d’entretien, de priorité absolue ou continus. Décrivez comment votre travail contribue à améliorer le Canada comme si vous parliez à quelqu’un qui ne connaît rien de votre travail.\",\"jobBuilder.impact.teamHeader\":\"Comment votre équipe engendre des impacts:\",\"jobBuilder.impact.teamLabel\":\"Déclaration d’incidence d'équipe\",\"jobBuilder.impact.teamPlaceholder\":\"Employez un ton informel, franc et amical\",\"jobBuilder.impact.title\":\"Rédiger votre énoncé des incidences\",\"jobBuilder.impact.unknownDepartment\":\"Erreur : Choisissez un ministère inconnu.\",\"jobBuilder.impactPreview.title\":\"Impact\",\"jobBuilder.intro.accountSettingsLinkText\":\"les paramètres de votre compte\",\"jobBuilder.intro.accountSettingsLinkTitle\":\"Visitez la page Paramètres du compte.\",\"jobBuilder.intro.changeDepartment\":\"Pour changer de département, veuillez contacter {email}. Pour en savoir plus, visitez {accountSettings}.\",\"jobBuilder.intro.completeInLanguage\":\"Répondez à l’offre d’emploi dans la langue officielle de votre choix. Nous nous chargerons de la traduction\",\"jobBuilder.intro.contactUs\":\"Nous avons également fourni des instructions et des exemples pour vous guider tout au long du processus, mais si vous avez toujours des questions, veuillez communiquer avec le {link}\",\"jobBuilder.intro.continueButtonLabelEN\":\"Continue in English\",\"jobBuilder.intro.continueButtonLabelFR\":\"Continuer en français\",\"jobBuilder.intro.departmentHeader\":\"Informations sur le département de {name}\",\"jobBuilder.intro.departmentLabel\":\"Ministère\",\"jobBuilder.intro.departmentNullSelection\":\"Choisissez un ministère...\",\"jobBuilder.intro.divisionLabelEN\":\"La division de {name} (en anglais)\",\"jobBuilder.intro.divisionLabelFR\":\"La division de {name} (en français)\",\"jobBuilder.intro.divisionPlaceholderEN\":\"p. ex., Digital Change\",\"jobBuilder.intro.divisionPlaceholderFR\":\"p. ex., Changement numérique\",\"jobBuilder.intro.documentTitle\":\"Constructeur d'affiches: Intro\",\"jobBuilder.intro.emailLinkText\":\"Nuage de talents\",\"jobBuilder.intro.emailLinkTitle\":\"Envoyer un courriel au Nuage de talents.\",\"jobBuilder.intro.explanation\":\"Le présent outil vous aidera à créer une offre d’emploi qui vous aidera à attirer les bons talents. Avant de commencer à créer l’offre d’emploi, veuillez prendre le temps de {boldText}\",\"jobBuilder.intro.explanation.boldText\":\"confirmer l’exactitude de vos renseignements personnels ci-dessous.\",\"jobBuilder.intro.formDescription\":\"Ces renseignements apparaîtront dans l’offre d’emploi pour donner de plus amples renseignements aux candidats sur les personnes avec qui ils travailleront.\",\"jobBuilder.intro.formTitle\":\"Information du profil de {name}\",\"jobBuilder.intro.jobTitleLabelEN\":\"Le poste de {name} (en anglais)\",\"jobBuilder.intro.jobTitleLabelFR\":\"Le poste de {name} (en français)\",\"jobBuilder.intro.jobTitlePlaceholderEN\":\"Par exemple : Design Manager\",\"jobBuilder.intro.jobTitlePlaceholderFR\":\"Par exemple : Gestionnaire de la conception\",\"jobBuilder.intro.managerLoading\":\"Votre profil de gestionnaire est en cours de chargement...\",\"jobBuilder.intro.welcome\":\"Bienvenue sur le Constructeur d'Affiches\",\"jobBuilder.jobLoading\":\"Votre offre d’emploi est en train de se charger...\",\"jobBuilder.loading\":\"Votre offre d’emploi est en train de se charger...\",\"jobBuilder.mgmtStyle.01.description\":\"Il n’y a aucun cadre intermédiaire ici, donc nous prenons, nous-mêmes, la plupart des décisions importantes et vous pouvez vous attendre à interagir quotidiennement avec nos cadres supérieures.\",\"jobBuilder.mgmtStyle.01.title\":\"Horizontale\",\"jobBuilder.mgmtStyle.02.description\":\"Nous avons quelques cadres intermédiaires ici, mais nous prenons, nous-mêmes, les décisions quotidiennes. Ne soyez pas surpris d’interagir assez souvent avec nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.02.title\":\"Assez horizontale\",\"jobBuilder.mgmtStyle.03.description\":\"Notre équipe a un rôle clairement défini. Nous faisons régulièrement le point avec les cadres intermédiaires pour approuver et mettre à jour la vision stratégique de nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.03.title\":\"Assez verticale\",\"jobBuilder.mgmtStyle.04.description\":\"Notre équipe a un rôle clairement défini. Nous faisons souvent le point auprès des cadres intermédiaires pour approuver et procéder à la mise à jour de la vision stratégique de nos cadres supérieurs.\",\"jobBuilder.mgmtStyle.04.title\":\"Verticale\",\"jobBuilder.preview.city\":\"Ville\",\"jobBuilder.preview.classification\":\"Classification\",\"jobBuilder.preview.classificationEducation\":\"Classification et éducation\",\"jobBuilder.preview.education\":\"Éducation\",\"jobBuilder.preview.flexibleHours\":\"Heures flexibles\",\"jobBuilder.preview.jobInformation\":\"Renseignements sur l’emploi\",\"jobBuilder.preview.jobTitle\":\"Titre du poste\",\"jobBuilder.preview.languageProfile\":\"Profil linguistique\",\"jobBuilder.preview.lengthOfTheTerm\":\"Durée du poste\",\"jobBuilder.preview.level\":\"Niveau\",\"jobBuilder.preview.overtime\":\"Heures supplémentaires\",\"jobBuilder.preview.province\":\"Province\",\"jobBuilder.preview.remoteWork\":\"Travail à distance\",\"jobBuilder.preview.securityClearance\":\"Cote de sécurité\",\"jobBuilder.preview.telework\":\"Télétravail\",\"jobBuilder.preview.termLength\":\"{termMonths, plural, =0 {pas de mois} other {# mois}}\",\"jobBuilder.preview.travel\":\"Voyage\",\"jobBuilder.preview.workStyles\":\"Styles de travail\",\"jobBuilder.progressTracker.label.finish\":\"Fin\",\"jobBuilder.progressTracker.label.start\":\"Début\",\"jobBuilder.progressTracker.label.step1\":\"Étape 1 / 5\",\"jobBuilder.progressTracker.label.step2\":\"Étape 2 / 5\",\"jobBuilder.progressTracker.label.step3\":\"Étape 3 / 5\",\"jobBuilder.progressTracker.label.step4\":\"Étape 4 / 5\",\"jobBuilder.progressTracker.label.step5\":\"Étape 5 / 5\",\"jobBuilder.progressTracker.title.impact\":\"Incidence\",\"jobBuilder.progressTracker.title.jobInfo\":\"Renseignements\",\"jobBuilder.progressTracker.title.review\":\"Révision\",\"jobBuilder.progressTracker.title.skills\":\"Compétences\",\"jobBuilder.progressTracker.title.tasks\":\"Tâches\",\"jobBuilder.progressTracker.title.welcome\":\"Bienvenue\",\"jobBuilder.progressTracker.title.workEnv\":\"Environnement\",\"jobBuilder.review.GovernmentClass\":\"Classification gouvernementale\",\"jobBuilder.review.assetHeading\":\"Compétences souhaitables\",\"jobBuilder.review.averageAnnualSalary\":\"Échelle de salaire annuel\",\"jobBuilder.review.basicInformationHeading\":\"Renseignements de base\",\"jobBuilder.review.button.return\":\"Enregistrer et retourner aux compétences\",\"jobBuilder.review.button.submit\":\"Cela semble bon!\",\"jobBuilder.review.comesLater\":\"Cette étape survient plus tard.\",\"jobBuilder.review.confirm.cancel\":\"Annuler\",\"jobBuilder.review.confirm.submit\":\"Oui, transmettre\",\"jobBuilder.review.confirm.title\":\"Félicitations! Êtes-vous prêt à transmettre l’offre d’emploi?\",\"jobBuilder.review.criteriaSection\":\"Critères\",\"jobBuilder.review.cultureSection\":\"Environnement et culture\",\"jobBuilder.review.documentTitle\":\"Constructeur d'affiches: Révision\",\"jobBuilder.review.duration\":\"Durée\",\"jobBuilder.review.educationalHeading\":\"Exigences relatives aux études\",\"jobBuilder.review.headsUp\":\"Un simple rappel. Nous avons réorganisé certains renseignements fournis afin de vous aider à comprendre comment le candidat verra l’information une fois publiée.\",\"jobBuilder.review.impactEditLink\":\"Modifier cet élément à l’étape 03, Incidence.\",\"jobBuilder.review.impactHeading\":\"Incidence\",\"jobBuilder.review.infoEditLink\":\"Modifier cet élément à l’étape 01, Renseignements sur le poste\",\"jobBuilder.review.jobPageHeading\":\"Titre de la page de l’emploi\",\"jobBuilder.review.languageHeading\":\"Exigences linguistiques\",\"jobBuilder.review.languageProfile\":\"Profil linguistique\",\"jobBuilder.review.managerDataLoading\":\"Les données du gestionnaire sont en cours de chargement...\",\"jobBuilder.review.managerHeading\":\"Les données du gestionnaire sont en cours de chargement...\",\"jobBuilder.review.managerIncomplete\":\"Veuillez remplir votre profil de gestionnaire.\",\"jobBuilder.review.managerPosition\":\"{position} au {department}\",\"jobBuilder.review.managerProfileLink\":\"Modifier cet élément dans votre profil\",\"jobBuilder.review.meantime\":\"Entre-temps, n’hésitez pas à créer un plan de présélection pour votre processus de sélection. Vous pouvez aussi attendre les commentaires des RH avant de passer à l’étape suivante.\",\"jobBuilder.review.months\":\"{termMonths,plural,=0{No Months} one{{termMonths, number} Month} other{{termMonths, number} Months}}\",\"jobBuilder.review.nullProvince\":\"PROVINCE MANQUANTE\",\"jobBuilder.review.or\":\"ou\",\"jobBuilder.review.otherInfoHeading\":\"Autres renseignements au sujet de l’équipe\",\"jobBuilder.review.readyToSubmit\":\"Si vous êtes prêt à soumettre votre offre, cliquez sur le bouton Soumettre ci-dessous.\",\"jobBuilder.review.remoteAllowed\":\"Travail à distance autorisé\",\"jobBuilder.review.remoteNotAllowed\":\"Travail à distance non autorisé\",\"jobBuilder.review.reviewYourPoster\":\"Examiner votre offre d’emploi pour :\",\"jobBuilder.review.securityClearance\":\"Autorisation de sécurité\",\"jobBuilder.review.sendYourDraft\":\"Le Nuage de talents enverra votre ébauche au conseiller en RH de votre ministère, et ce dernier vous informera de ses commentaires.\",\"jobBuilder.review.skills.nullState\":\"Vous n’avez pas ajouté de compétences souhaitables pour cette offre d’emploi.\",\"jobBuilder.review.skillsEditLink\":\"Modifier cet élément à l’étape 05, Compétences\",\"jobBuilder.review.skillsHeading\":\"Compétences requises\",\"jobBuilder.review.tCAdds\":\"Le Nuage de talents ajoutera l’élément.\",\"jobBuilder.review.targetStartDate\":\"Date d’entrée en fonction prévue\",\"jobBuilder.review.tasksEditLink\":\"Modifier cet élément à l’étape 04, Tâches\",\"jobBuilder.review.tasksHeading\":\"Tâches\",\"jobBuilder.review.whatHappens\":\"Quelles sont les prochaines étapes?\",\"jobBuilder.review.workCultureHeading\":\"Culture de travail\",\"jobBuilder.review.workDescription\":\"Veuillez prendre note que certains renseignements sur le milieu de travail ne seront affichés que si le candidat clique sur le bouton « Afficher le milieu de travail et la culture de l’équipe » qui apparaît sur l’offre d’emploi.\",\"jobBuilder.review.workEnvEditLink\":\"Modifier cet élément à l’étape 02, Environnement de travail\",\"jobBuilder.review.workEnvHeading\":\"Milieu de travail\",\"jobBuilder.root.documentTitle\":\"Constructeur d'Affiches\",\"jobBuilder.skills.addSkillBelow\":\"Ajoutez des compétences, ci-dessous, pour continuer.\",\"jobBuilder.skills.alt.happyArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône sourire.\",\"jobBuilder.skills.alt.happyGraySmiley\":\"émoticône sourire en gris.\",\"jobBuilder.skills.alt.happySmiley\":\"émoticône sourire en couleur.\",\"jobBuilder.skills.alt.neutralArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône neutre.\",\"jobBuilder.skills.alt.neutralGraySmiley\":\"émoticône neutre en gris.\",\"jobBuilder.skills.alt.neutralSmiley\":\"émoticône neutre en couleur.\",\"jobBuilder.skills.alt.unhappyArrow\":\"Icône « flèche » mettant en surbrillance l’émoticône triste.\",\"jobBuilder.skills.alt.unhappyGraySmiley\":\"émoticône triste en gris.\",\"jobBuilder.skills.alt.unhappySmiley\":\"émoticône triste en couleur.\",\"jobBuilder.skills.button.keyTasks\":\"Voir les tâches principales\",\"jobBuilder.skills.button.previewSkills\":\"Sauvegarder et voir un aperçu des compétences\",\"jobBuilder.skills.button.returnToTasks\":\"Sauvegarder et retourner aux tâches\",\"jobBuilder.skills.description\":\"C’est ici que vous choisissez les critères requis pour accomplir ce travail efficacement. Vous trouverez, ci-dessous, deux barres qui indiquent la mesure du niveau de votre présente compétence sélectionnée.\",\"jobBuilder.skills.description.keepItUp\":\"Voici un aperçu des compétences que vous venez de saisir. N’hésitez pas à retourner à la page précédente et à corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait. \",\"jobBuilder.skills.documentTitle\":\"Constructeur d'affiches: Compétences\",\"jobBuilder.skills.emailLink\":\"Communiquez avec nous par courriel\",\"jobBuilder.skills.essentialSkillRequiredError\":\"Au moins une compétence essentielle est requise.\",\"jobBuilder.skills.instructions.missingSkills\":\"Le fait de dresser une liste de compétences est une tâche énorme, et il n’est pas surprenant que la liste de Nuage de talents ne contienne pas la compétence que vous cherchez. Afin de nous aider à allonger la liste des compétences, veuillez {link}. Veuillez fournir le nom de la compétence ainsi qu’une brève description pour lancer la discussion.\",\"jobBuilder.skills.listTitle\":\"Votre liste de compétences\",\"jobBuilder.skills.nullState\":\"Vous n’avez pas encore ajouté de compétences.\",\"jobBuilder.skills.nullText.occupationalSkills\":\"Vous devez retourner à Étape 1 et choisir une classification.\",\"jobBuilder.skills.placeholder.otherSkills\":\"Aucune autre compétence n’est ajoutée.\",\"jobBuilder.skills.previewModalCancelLabel\":\"Retour en arrière\",\"jobBuilder.skills.previewModalConfirmLabel\":\"Prochaine étape\",\"jobBuilder.skills.previewModalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.skills.range.culturalSkills\":\"Visez des compétences {minCulture} – {maxCulture}.\",\"jobBuilder.skills.range.futureSkills\":\"Visez des compétences {minFuture} – {maxFuture}.\",\"jobBuilder.skills.range.occupationalSkills\":\"Visez des compétences {minOccupational} – {maxOccupational}.\",\"jobBuilder.skills.selectSkillLabel\":\"Veuillez sélectionner une compétence dans notre liste.\",\"jobBuilder.skills.selectSkillNull\":\"Veuillez sélectionner une compétence\",\"jobBuilder.skills.skillLevel\":\"Niveau de compétences\",\"jobBuilder.skills.statusSmiley.acceptable\":\"Acceptable\",\"jobBuilder.skills.statusSmiley.almost\":\"Presque\",\"jobBuilder.skills.statusSmiley.awesome\":\"Fantastique\",\"jobBuilder.skills.statusSmiley.essential.acceptable\":\"Acceptable\",\"jobBuilder.skills.statusSmiley.essential.almost\":\"Presque\",\"jobBuilder.skills.statusSmiley.essential.awesome\":\"Fantastique\",\"jobBuilder.skills.statusSmiley.essential.tooFew\":\"Insuffisant\",\"jobBuilder.skills.statusSmiley.essential.tooMany\":\"Trop\",\"jobBuilder.skills.statusSmiley.essentialTitle\":\"Le nombre de compétences fondamentales est\",\"jobBuilder.skills.statusSmiley.title\":\"Le nombre total des compétences\",\"jobBuilder.skills.statusSmiley.tooFew\":\"Insuffisant\",\"jobBuilder.skills.statusSmiley.tooMany\":\"Trop\",\"jobBuilder.skills.tasksModalCancelLabel\":\"Retour aux compétences\",\"jobBuilder.skills.title\":\"Compétences\",\"jobBuilder.skills.title.addASkill\":\"Ajoutez une compétence\",\"jobBuilder.skills.title.assetSkills\":\"Compétences constituant un atout\",\"jobBuilder.skills.title.culturalSkills\":\"Compétences comportementales\",\"jobBuilder.skills.title.editSkill\":\"Modifiez une compétence\",\"jobBuilder.skills.title.essentialSkills\":\"Compétences essentielles\",\"jobBuilder.skills.title.futureSkills\":\"Compétences de la fonction publique\",\"jobBuilder.skills.title.keepItUp\":\"Ne lâchez surtout pas!\",\"jobBuilder.skills.title.keyTasks\":\"Tâches principales\",\"jobBuilder.skills.title.missingSkill\":\"Vous ne trouvez pas la compétence dont vous avez besoin?\",\"jobBuilder.skills.title.needsToHave\":\"Les compétences que l’employé(e) doit posséder\",\"jobBuilder.skills.title.niceToHave\":\"Les compétences qu’il serait souhaitable que l’employé(e) possède\",\"jobBuilder.skills.title.occupationalSkills\":\"Compétences professionnelles\",\"jobBuilder.skills.title.otherSkills\":\"Autres compétences\",\"jobBuilder.skills.title.skillSelection\":\"Choix des compétences\",\"jobBuilder.tasks.addJob\":\"Ajoutez une tâche \",\"jobBuilder.tasks.documentTitle\":\"Constructeur d'affiches: Tâches\",\"jobBuilder.tasks.heading\":\"Ajoutez des tâches principales\",\"jobBuilder.tasks.intro.first\":\"À quoi le nouveau membre de votre équipe consacrera-t-il son temps? Quelles sont les tâches à exécuter?\",\"jobBuilder.tasks.intro.fourth\":\"Une fois que vous aurez terminé d’entrer les tâches principales, vous passerez à la détermination des compétences individuelles nécessaires à l’exécution de ces tâches.\",\"jobBuilder.tasks.intro.second\":\"Mettez l’accent sur les tâches à exécuter. Vous n’avez pas à donner tous les détails de l’emploi, mais les candidats souhaitent savoir comment ils vont passer la plus grande partie de leur temps.\",\"jobBuilder.tasks.intro.third\":\"Cherchez à indiquer de quatre à six tâches principales. (Tout au long du remue-méninges, vous pouvez ajouter autant de tâches principales que vous le souhaitez ici, mais vous ne pouvez pas en inclure plus de six dans l’offre d’emploi finale.)\",\"jobBuilder.tasks.modal.body\":\"Voici un aperçu des tâches que vous venez de saisir. N’hésitez pas à retourner à la page précédente pour corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.tasks.modal.body.heading\":\"Tâches\",\"jobBuilder.tasks.modal.cancelButtonLabel\":\"Retour en arrière\",\"jobBuilder.tasks.modal.confirmButtonLabel\":\"Prochaine étape\",\"jobBuilder.tasks.modal.middleButtonLabel\":\"Passer pour la révision\",\"jobBuilder.tasks.modal.title\":\"Ne lâchez surtout pas!\",\"jobBuilder.tasks.preview\":\"Aperçu des tâches\",\"jobBuilder.tasks.previous\":\"Étape précédente\",\"jobBuilder.tasks.taskCount.error.body\":\"Vous avez dépassé le nombre maximal permis de tâches principales, mais ce n’est pas grave. Tout au long du remue-méninges, vous pouvez continuer à ajouter des tâches principales ici, mais on vous demandera de réduire votre liste à six tâches ou moins pour continuer.\",\"jobBuilder.tasks.taskCount.error.title\":\"Juste pour vous informer!\",\"jobBuilder.tasks.taskCount.none\":\"Vous n’avez pas encore ajouté de tâches!\",\"jobBuilder.tasks.taskCount.some\":\"Vous avez ajouté {taskCount, plural, one {# tâche} other {# tâches}}.\",\"jobBuilder.tasks.taskLabel\":\"Tâche\",\"jobBuilder.tasks.taskPlaceholder\":\"Essayez d’adopter un ton décontracté, franc et amical...\",\"jobBuilder.tasks.tasksMaximum\":\"Veuillez supprimer toute tâche supplémentaire avant de continuer.\",\"jobBuilder.tasks.tasksRequired\":\"Au moins une tâche est requise.\",\"jobBuilder.workCulture.flexibleHours\":\"Heures flexibles\",\"jobBuilder.workCulture.flexibleHoursDescription\":\"Précisez vos propres heures de début et de fin.\",\"jobBuilder.workCulture.overtime\":\"Heures supplémentaires\",\"jobBuilder.workCulture.overtimeDescription\":\"Heures supplémentaires le soir ou la fin de semaine.\",\"jobBuilder.workCulture.remoteWork\":\"Travail à distance\",\"jobBuilder.workCulture.remoteWorkDescription\":\"Travailler de n’importe où, en tout temps.\",\"jobBuilder.workCulture.remoteWorkMsg.always\":\"Toujours\",\"jobBuilder.workCulture.remoteWorkMsg.never\":\"Jamais\",\"jobBuilder.workCulture.telework\":\"Télétravail\",\"jobBuilder.workCulture.teleworkDescription\":\"Travailler à partir de la maison certains jours (à une distance raisonnable en voiture du bureau).\",\"jobBuilder.workCulture.travel\":\"Déplacements\",\"jobBuilder.workCulture.travelDescription\":\"Découvrez le Canada ou d’autres régions du monde.\",\"jobBuilder.workEnv.amenities.cafeteria\":\"Cafétéria sur place\",\"jobBuilder.workEnv.amenities.closeToTransit\":\"À proximité du transport en commun\",\"jobBuilder.workEnv.amenities.downtown\":\"Centre-ville\",\"jobBuilder.workEnv.amenities.fitnessCenter\":\"À proximité d’un centre de conditionnement physique\",\"jobBuilder.workEnv.amenities.parking\":\" Accès facile à un stationnement\",\"jobBuilder.workEnv.amenities.restaurants\":\"À distance de marche des restaurants et des centres commerciaux\",\"jobBuilder.workEnv.amenitiesLabel\":\"À proximité\",\"jobBuilder.workEnv.collaborativeLabel\":\"Collaboratif ou indépendant :\",\"jobBuilder.workEnv.culture\":\"Notre culture\",\"jobBuilder.workEnv.cultureSubtext1\":\"Maintenant, renseignez les candidats davantage sur la personnalité des membres de votre équipe et le type de travail que vous faites habituellement.\",\"jobBuilder.workEnv.cultureSubtext2\":\"Sur la base de vos sélections, nous allons créer un court paragraphe résumant votre culture de travail. Vous pouvez modifier ce paragraphe afin qu’il soit personnalisé selon votre équipe.\",\"jobBuilder.workEnv.cultureSummary\":\"Résumé sur la culture\",\"jobBuilder.workEnv.cultureSummarySubtext\":\"Voici le court paragraphe qui résume la culture de votre travail qui apparaîtra dans l’offre d’emploi. Copiez-le et collez-le dans le champ de saisie qui suit, si vous désirez l’adapter à la personnalité des membres de votre équipe et à votre façon de travailler.\",\"jobBuilder.workEnv.customCultureSummaryLabel\":\"Adaptez votre résumé sur la culture :\",\"jobBuilder.workEnv.customCultureSummaryPlaceholder\":\"Collez le paragraphe ici pour le modifier...\",\"jobBuilder.workEnv.documentTitle\":\"Constructeur d'affiches: Environnement\",\"jobBuilder.workEnv.experimentalLabel\":\"Toujours expérimentale contre activités en cours:\",\"jobBuilder.workEnv.facingLabel\":\"Services orientés vers le client contre services administratifs :\",\"jobBuilder.workEnv.fastPacedSteadyLabel\":\"Rythme rapide contre rythme soutenu :\",\"jobBuilder.workEnv.greatStart\":\"Vous commencez très bien!\",\"jobBuilder.workEnv.managementLabel\":\"Horizontale contre verticale :\",\"jobBuilder.workEnv.moreOnWorkEnv\":\"Voici de plus amples renseignements sur votre environnement\",\"jobBuilder.workEnv.moreOnWorkEnvLabel\":\"Voici de plus amples renseignements sur votre environnement\",\"jobBuilder.workEnv.moreOnWorkEnvPlaceholder\":\"Essayez d’adopter un ton décontracté, franc et amical.\",\"jobBuilder.workEnv.moreOnWorkEnvSubtext\":\"Souhaitez-vous ajouter quelque chose à propos de votre environnement de travail? Mettez en évidence les caractéristiques de l’environnement physique, de la technologie et des commodités propres à votre équipe.\",\"jobBuilder.workEnv.openingSentence\":\"Voici un aperçu des renseignements sur l’emploi que vous venez de saisir. N’hésitez pas à retourner à la page précédente et à corriger ce que vous avez saisi ou à passer à l’étape suivante si vous en êtes satisfait(e).\",\"jobBuilder.workEnv.ourWorkEnv\":\"Notre environnement de travail\",\"jobBuilder.workEnv.ourWorkEnvDesc\":\"Décrivez un peu votre espace physique, la technologie que les membres de votre équipe utilisent et les services qui se trouvent à proximité de votre bureau. Cochez toutes les réponses qui s’appliquent.\",\"jobBuilder.workEnv.physEnv.assignedSeating\":\"Places réservées\",\"jobBuilder.workEnv.physEnv.naturalLight\":\"Lumière naturelle\",\"jobBuilder.workEnv.physEnv.openConcept\":\"Espaces de travail à aire ouverte\",\"jobBuilder.workEnv.physEnv.private\":\"Privé\",\"jobBuilder.workEnv.physEnv.smudging\":\"Convient aux cérémonies de purification par la fumée\",\"jobBuilder.workEnv.physEnv.windows\":\"Plusieurs fenêtres\",\"jobBuilder.workEnv.physicalEnvLabel\":\"Notre environnement physique\",\"jobBuilder.workEnv.saveAndReturnButtonLabel\":\"Découvrez le Canada ou d’autres régions du monde.\",\"jobBuilder.workEnv.specialWorkCulture\":\"Y a-t-il quelque chose de spécial au sujet de votre culture de travail?\",\"jobBuilder.workEnv.specialWorkCultureLabel\":\"Voici de plus amples renseignements sur votre culture de travail.\",\"jobBuilder.workEnv.specialWorkCultureSubtext\":\"Votre équipe accorde-t-elle beaucoup d’importance à d’autres aspects? Est-elle fière de son bilan en matière de résultats? A-t-elle pris de solides engagements envers le mieux-être mental? Participe-t-elle activement à la promotion de la diversité et de l’inclusion? Ses membres se font-ils les champions des enjeux relatifs à la collectivité LGBTQ+? Voici l’occasion de faire connaître aux candidats la culture de l’équipe qu’ils pourraient intégrer.\",\"jobBuilder.workEnv.stepDescription\":\"Les candidats accordent beaucoup d’importance à l’équipe au sein de laquelle ils travailleront et à leur espace de travail physique. Le fait de communiquer de l’information à ce sujet aide les candidats à déterminer s’ils correspondent bien au profil de l’emploi, et peut réduire le nombre de demandes « illusoires » qui ralentissent le processus de présélection.\",\"jobBuilder.workEnv.submitButtonLabel\":\"Aperçu de l’environnement de travail\",\"jobBuilder.workEnv.teamSizeLabel\":\"Taille de l’équipe\",\"jobBuilder.workEnv.teamSizePlaceholder\":\"Par exemple 10\",\"jobBuilder.workEnv.technology.accessToExternal\":\"Accès à un réseau sans fil externe et non filtré\",\"jobBuilder.workEnv.technology.collaboration\":\"Collaboration (p. ex., Slack, Hangouts)\",\"jobBuilder.workEnv.technology.fileSharing\":\"Partage des dossiers (p. ex., Google Drive, Dropbox)\",\"jobBuilder.workEnv.technology.taskManagement\":\"Gestion de tâches (p. ex., Trello, Asana)\",\"jobBuilder.workEnv.technology.versionControl\":\"Gestion de versions (p. ex., Github, Gitlab)\",\"jobBuilder.workEnv.technology.videoConferencing\":\"Vidéo-conférence (p. ex., Skype, Zoom)\",\"jobBuilder.workEnv.technologyLabel\":\"Technologie\",\"jobBuilder.workEnv.textAreaPlaceholder1\":\"Essayez d’adopter un ton décontracté, franc et amical.\",\"jobBuilder.workEnv.thisIsOptional\":\"Ceci est facultatif.\",\"jobBuilder.workEnv.title\":\"Environnement de travail\",\"jobBuilder.workEnvModal.cancelLabel\":\"Retour en arrière\",\"jobBuilder.workEnvModal.confirmLabel\":\"Prochaine étape\",\"jobBuilder.workEnvModal.modalMiddleLabel\":\"Passer pour la révision\",\"jobBuilder.workEnvModal.title\":\"Environnement de travail\",\"jobBuilder.workEnvModal.workCultureTitle\":\"Culture du travail\",\"jobCard.applicants\":\"{applicants, plural,=0 {Aucun candidat} one {# candidat} other {# candidats}}\",\"jobCard.managerTime\":\"Time with Manager: {managerTime, plural, one {# day} other {# days} }\",\"jobCard.noActivity\":\"Aucune nouvelle activité\",\"jobCard.userTime\":\"Time with you: <s>{userTime, plural, one {# day} other {# days} }</s>\",\"jobReviewHr.headsUp\":\"Un simple rappel! Nous avons réorganisé certains renseignements fournis afin de vous aider à comprendre comment le candidat verra l’information une fois publiée.\",\"jobReviewHr.loadingIconText\":\"Les données sont en cours de chargement...\",\"jobReviewHr.reviewYourPoster\":\"Examiner votre offre d’emploi pour :\",\"jobReviewHr.summaryLink\":\"Revenir au résumé\",\"languageRequirement.bilingualAdvanced\":\"Bilingue - Avancé (CBC)\",\"languageRequirement.bilingualIntermediate\":\"Bilingue - Intermédiaire (BBB)\",\"languageRequirement.context.basic\":\"Vous pouvez présenter cette demande initiale dans la langue officielle de votre choix (français ou anglais).\",\"languageRequirement.context.expanded\":\"Vous pouvez suivre toutes les autres étapes de ce processus d’évaluation dans la langue officielle de votre choix, y compris la demande initiale, l’entrevue, l’examen et toute autre composante de l’évaluation.\",\"languageRequirement.description.bilingualAdvanced\":\"Ce poste nécessite une connaissance approfondie du français et de l'anglais. Cela signifie que vous pouvez assumer des tâches en français ou en anglais et que vous avez de solides compétences en lecture, en écriture et en communication verbale dans les deux langues officielles. Dans le cadre de ce processus de sélection, vos compétences linguistiques seront testées par la Commission de la fonction publique du Canada. Commission de la fonction publique du Canada.\",\"languageRequirement.description.bilingualIntermediate\":\"Ce poste nécessite une connaissance pratique du français et de l'anglais. Cela signifie que vous pouvez occuper des fonctions en français ou en anglais et que vous possédez des compétences intermédiaires en lecture, en écriture et en communication verbale dans les deux langues officielles. Dans le cadre de ce processus de sélection, vos compétences linguistiques seront testées par la Commission de la fonction publique du Canada.\",\"languageRequirement.description.english\":\"Ce poste exige une bonne maîtrise de l’anglais, tant à l’écrit que de vive voix. Dans le cadre de l’évaluation de vos compétences linguistiques, le gestionnaire d’embauche peut vous demander de suivre certaines étapes d’évaluation en anglais, comme des questions d’entrevue ou un examen.\",\"languageRequirement.description.englishOrFrench\":\"Pour ce poste, vous répondez aux exigences linguistiques si vous possédez de solides compétences en lecture, en rédaction et en communication verbale en français, en anglais ou dans les deux (bilingue).\",\"languageRequirement.description.french\":\"Ce poste exige une bonne maîtrise du français, tant à l’écrit que de vive voix. Dans le cadre de l’évaluation de vos compétences linguistiques, le gestionnaire d’embauche peut vous demander de suivre certaines étapes d’évaluation en français, comme des questions d’entrevue ou un examen.\",\"languageRequirement.english\":\"Anglais - Essentiel\",\"languageRequirement.englishOrFrench\":\"Anglais ou français\",\"languageRequirement.french\":\"Français - Essentiel\",\"managerSurveyModal.explanation\":\"Vos commentaires nous aident à améliorer nos outils! Veuillez prendre quelques minutes pour répondre à un sondage.\",\"managerSurveyModal.jobPosterLink\":\"Retour à Mes offres d'emploi\",\"managerSurveyModal.jobPosterLinkTitle\":\"Visitez Mes offres d'emploi.\",\"managerSurveyModal.link\":\"M'emmener au sondage.\",\"managerSurveyModal.managerSurveyLinkTitle\":\"Lien vers le sondage auprès des gestionnaires.\",\"managerSurveyModal.title\":\"Votre offre d'emploi a été soumise!\",\"openJobCard.claimJob\":\"Réclamer cet emploi\",\"openJobCard.error\":\"Date non disponible.\",\"openJobCard.hiringManager\":\"Gestionnaires d’embauche :\",\"openJobCard.hrAdvisors\":\"Conseillers en RH :\",\"openJobCard.reviewRequested\":\"Récupérée: \",\"openJobCard.unclaimed\":\"Non réclamé\",\"progressTracker.unreachableStep\":\"Doit compléter les étapes précédentes.\",\"province.ab\":\"Alberta\",\"province.ab.abreviation\":\"Alta.\",\"province.bc\":\"Colombie britannique\",\"province.bc.abreviation\":\"C.-B.\",\"province.mb\":\"Manitoba\",\"province.mb.abreviation\":\"Man.\",\"province.nb\":\"Nouveau-Brunswick\",\"province.nb.abreviation\":\"N.-B.\",\"province.nl\":\"Terre-Neuve-et-Labrador\",\"province.nl.abreviation\":\"T.-N.-L.\",\"province.ns\":\"Nouvelle-Écosse\",\"province.ns.abreviation\":\"N.-É.\",\"province.nt\":\"Territoires du nord-ouest\",\"province.nt.abreviation\":\"T.N.-O.\",\"province.nu\":\"Nunavut\",\"province.nu.abreviation\":\"Nt\",\"province.on\":\"Ontario\",\"province.on.abreviation\":\"Ont.\",\"province.pe\":\"Île-du-Prince-Édouard\",\"province.pe.abreviation\":\"Î.-P.-É.\",\"province.qc\":\"Québec\",\"province.qc.abreviation\":\"Qc\",\"province.sk\":\"Saskatchewan\",\"province.sk.abreviation\":\"Sask.\",\"province.yk\":\"Yukon\",\"province.yk.abreviation\":\"Yn\",\"ratingGuideAnswer.answerLabel\":\"Réponse de passage acceptable / Démonstration requise\",\"ratingGuideAnswer.answerPlaceholder\":\"Écrivez la réponse de passage attendue du candidat relativement à cette compétence...\",\"ratingGuideAnswer.nullSelection\":\"Sélectionnez une compétence...\",\"ratingGuideAnswer.selectLabel\":\"Sélectionnez une compétence\",\"ratingGuideBuilder.addQuestion\":\"Ajoutez une question\",\"ratingGuideBuilder.assetMissing\":\"{count} Atout manquant : \",\"ratingGuideBuilder.copyButton\":\"Cliquez ici pour copier ce guide de cotation dans votre presse-papiers\",\"ratingGuideBuilder.copyInstructions\":\"Maintenant que vous avez conçu votre guide de cotation, vous pouvez utiliser le bouton ci-dessous pour copier tout le contenu dans votre presse-papiers, et ainsi pouvoir coller facilement votre système de traitement de texte préféré.\",\"ratingGuideBuilder.criteriaName\":\"{skillName} - {skillLevel}\",\"ratingGuideBuilder.criteriaTypeHeading\":\"Type de critères\",\"ratingGuideBuilder.essentialMissing\":\"{count} Critères essentiels manquants : \",\"ratingGuideBuilder.instructions\":\"Vous trouverez ci-dessous votre propre guide de cotation pour vous aider à évaluer vos candidats. Cet outil vous permet d’élaborer vos propres questions pour chaque évaluation que vous avez sélectionnée ci-dessus, puis de noter les critères de ce que pourrait représenter une excellente réponse du candidat. Veuillez prendre note que l’« examen narratif » est unique en ce sens que le contenu est généré pour vous ci-dessous.\",\"ratingGuideBuilder.narrativeSectionTitle\":\"Évaluation {index}: {assessmentType}\",\"ratingGuideBuilder.questionHeading\":\"Question\",\"ratingGuideBuilder.ratingGuideHeading\":\"Guide de notation\",\"ratingGuideBuilder.sectionTitle\":\"Évaluation {index}: {assessmentType}\",\"ratingGuideBuilder.skillDescriptionHeading\":\"Description de la compétence\",\"ratingGuideBuilder.skillHeading\":\"Compétence\",\"ratingGuideBuilder.targetLevelHeading\":\"Niveau cible\",\"ratingGuideBuilder.title\":\"3. Concepteur de guides de cotation\",\"ratingGuideBuilder.titleHeading\":\"Titre\",\"ratingGuideQuestion.questionLabel\":\"Question d'entrevue\",\"ratingGuideQuestion.questionPlaceholder\":\"Écrivez votre question d'entrevue ici ...\",\"referenceEmailModal.bccLabel\":\"BCC:\",\"referenceEmailModal.cancel\":\"Cancel\",\"referenceEmailModal.ccLabel\":\"CC:\",\"referenceEmailModal.confirm\":\"Send Email\",\"referenceEmailModal.fromLabel\":\"From:\",\"referenceEmailModal.nullState\":\"Loading reference email...\",\"referenceEmailModal.subjectLabel\":\"Subject:\",\"referenceEmailModal.title\":\"Email for Reference Check\",\"referenceEmailModal.toLabel\":\"To:\",\"responseReviewStatus.allocated\":\"Affectation\",\"responseReviewStatus.assessmentRequired\":\"Évaluation supplémentaire nécessaire\",\"responseReviewStatus.notAvailable\":\"Non disponible\",\"responseReviewStatus.readyForReference\":\"Prêt pour la vérification des références\",\"responseReviewStatus.readyToAllocate\":\"Prêt pour l’affectation\",\"responseReviewStatus.screenedOut\":\"Ne répond pas aux conditions requises\",\"responseScreening.applicant.directorEmailButton\":\"Director email.\",\"responseScreening.applicant.directorEmailSending\":\"Sending email...\",\"responseScreening.applicant.secondaryEmailButton\":\"Reference email.\",\"responseScreening.applicant.secondaryEmailSending\":\"Sending email...\",\"responseScreening.bucket.accessibleViewLabel\":\"Cliquez pour afficher...\",\"responseScreening.bucket.cancelLabel\":\"Annuler\",\"responseScreening.bucket.confirmAction\":\"Veuillez confirmer cette action\",\"responseScreening.bucket.confirmSetAllocated\":\"L’établissement de l’état de ce candidat à affecté le rendra actuellement indisponible pour tous les autres volets. Voulez-vous vraiment continuer?\",\"responseScreening.bucket.confirmSetUnavailable\":\"L’établissement de l’état ce candidat à non accessible le rendra actuellement indisponible pour tous les autres volets. Voulez-vous vraiment continuer?\",\"responseScreening.bucket.noApplicants\":\"Il n’y a actuellement aucun candidat dans ce compartiment.\",\"responseScreening.bucket.notesLabel\":\"Ajouter/Modifier des notes\",\"responseScreening.bucket.saveLabel\":\"Enregistrement des modifications\",\"responseScreening.bucket.savedLabel\":\"Enregistré\",\"responseScreening.bucket.savingLabel\":\"Enregistrement...\",\"responseScreening.bucket.selectDepartmentDefault\":\"Choisissez un ministère...\",\"responseScreening.bucket.selectDepartmentLabel\":\"Affectation des ministères\",\"responseScreening.bucket.selectStatusDefault\":\"Sélectionner un état...\",\"responseScreening.bucket.selectStatusLabel\":\"État de l’examen\",\"responseScreening.bucket.viewApplicationLabel\":\"Afficher l’application\",\"responseScreening.bucket.viewProfileLabel\":\"Afficher le profil\",\"responseScreening.bucket.yes\":\"Oui\",\"responseScreening.buckets.allocated.description\":\"Les employés de cette catégorie ont été affectés à un ministère. Leur nom a été retiré de tous les autres processus de réserve du gouvernement du Canada (GC) pour lesquels ils ont présenté une demande (et ces noms figureront dans ces processus sous la section « Non disponible actuellement »). À l’issue d’une affectation donnée, les employés peuvent décider d’être intégrés à la catégorie « Prêt à l’affectation », si cela redevient nécessaire.\",\"responseScreening.buckets.allocated.title\":\"Affecté\",\"responseScreening.buckets.consideration.description\":\"Les employés de cette catégorie se sont portés volontaires pour être intégrés à une équipe n’arrivant pas à satisfaire ses besoins essentiels. Les employés de cette catégorie sont : En attente d’un examen initial des demandes ({iconReceived}), qui indique que la présentation a été reçue, mais qu’elle n’a pas encore été évaluée par un membre de l’équipe d’examen; Prêt pour la vérification des références et l’approbation du ministère d’origine ({iconReady}), qui indique que l’employé est dirigé vers la catégorie « Prêt à affecter » si les catégories et les approbations sont en ordre; et « Évaluation supplémentaire nécessaire » ({iconAssessment}), qui indique que l’équipe est incertaine des qualifications liées à ce rôle et qu’elle entreprend une évaluation plus approfondie.\",\"responseScreening.buckets.consideration.title\":\"Employés à l’étude\",\"responseScreening.buckets.doesNotQualify.description\":\"Les employés de cette catégorie se sont portés volontaires, mais un examen de leur demande et/ou une vérification des références amène l’équipe d’examen à conclure que leur candidature ne constituerait pas un atout au sein d’un ministère devant combler un écart de talents essentiel de ce domaine. Cette détermination n’est, en aucun cas, prise en considération dans l’établissement de l’état du rendement auprès du ministère d’attache et n’a aucune incidence sur l’évaluation des autres volets de talents de la Réserve du GC pour lesquels le demandeur a présenté une demande.\",\"responseScreening.buckets.doesNotQualify.title\":\"Ne répond pas aux conditions requises\",\"responseScreening.buckets.readyToAllocate.description\":\"Les employés de cette catégorie ont les compétences nécessaires pour effectuer ce type de travail, ont réussi les vérifications de références et ont reçu une autorisation préliminaire de participer émise par un membre de leur équipe de gestion. Ils travaillent actuellement dans un poste d’attache en attendant de recevoir une demande émise par un ministère aux prises avec des écarts de talents essentiels.\",\"responseScreening.buckets.readyToAllocate.title\":\"Prêt à l’affectation\",\"responseScreening.buckets.unavailable.description\":\"Les employés de ce volet ont été affectés à un ministère dans le besoin ou ont temporairement retiré leur demande de candidature pendant une période donnée (p. ex., maladie, obligations familiales) et souhaitent être pris en considération dans le cadre d’une affectation à une date ultérieure. Les employés de cette catégorie ont les qualifications demandées pour ce volet de talents et seront replacés dans le groupe Prêt à l’affectation dès qu’ils seront disponibles à nouveau. (Si un employé retire son nom de façon permanente, sa demande sera retirée de la réserve de talents du GC.)\",\"responseScreening.buckets.unavailable.title\":\"Actuellement indisponible\",\"review.applications.alert.oops\":\"Enregistrer\",\"review.applications.button.confirm\":\"Confirmer\",\"review.applications.indexPageTitle\":\"Applications pour : {jobTitle} {jobClassification}\",\"review.applications.nonCitizens.description\":\" \",\"review.applications.nonCitizens.title\":\"Non-Citoyens canadiens\",\"review.applications.optionalConsideration.description\":\"Dans ce groupe, vous trouverez les candidats qui ne sont pas citoyens canadiens ou qui ne prétendent pas répondre aux critères essentiels.\",\"review.applications.optionalConsideration.title\":\"Candidats supplémentaires\",\"review.applications.priorityApplicants.description\":\"Ce sont des candidats prioritaires pour ce poste. Ils doivent être examinés et pris en compte en premier.\",\"review.applications.priorityApplicants.title\":\"Candidats prioritaire\",\"review.applications.reviewSaveFailed\":\"Une erreur s'est produite lors de l'enregistrement d'un commentaire. Réessayez plus tard.\",\"review.applications.screenOutAll\":\"Éliminer tous les candidats supplémentaires\",\"review.applications.screenOutAll.confirm\":\"Êtes-vous sûr de vouloir éliminer tous les candidats supplémentaires?\",\"review.applications.screenedOut.description\":\"Ces applications ont déjà été éliminées.\",\"review.applications.screenedOut.title\":\"Candidats qui ne sont plus considérés\",\"review.applications.underConsideration.description\":\"Examinez les candidats dans la section Anciens combattants et citoyens canadiens. Si aucun ou très peu de ces candidats ne répondent aux critères, vous pouvez toujours prendre en compte les candidatures non citoyennes dans la section Considérations facultatives.\",\"review.applications.underConsideration.title\":\"Candidats à considérée\",\"review.applications.unqualified.description\":\" \",\"review.applications.unqualified.title\":\"Ne répond pas aux critères essentiels\",\"review.applications.veteransAndCitizens.description\":\" \",\"review.applications.veteransAndCitizens.title\":\"Anciens combattants et citoyens canadiens\",\"reviewLocations.jpb.basicInfo\":\"Renseignements de base\",\"reviewLocations.jpb.environment\":\"Environnement de travail\",\"reviewLocations.jpb.generic\":\"Générique\",\"reviewLocations.jpb.heading\":\"Titre de la page de l’emploi\",\"reviewLocations.jpb.impact\":\"Impact\",\"reviewLocations.jpb.langRequirements\":\"Exigences linguistiques\",\"reviewLocations.jpb.skills\":\"Compétences\",\"reviewLocations.jpb.tasks\":\"Taches\",\"securityClearance.reliability\":\"Fiabilité\",\"securityClearance.secret\":\"Secret\",\"securityClearance.topSecret\":\"Très secret\",\"skillLevel.asset.description\":\"Cette compétence n’est pas nécessaire pour que l’employé puisse exécuter le travail, mais elle ajoute un avantage à l’ensemble de ses compétences et améliorera le rythme ou l’efficacité de son travail.\",\"skillLevel.asset.name\":\"Atout/aucun niveau requis\",\"skillLevel.hard.advanced.description\":\"Vous avez la capacité d’accomplir des tâches d’une complexité ou d’une incidence importante avec supervision. Vous donnez des conseils et des commentaires au superviseur sur l’approche à employer pour effectuer les tâches et la façon dont elles sont exécutées. Vous êtes en mesure de faire progresser la tâche, même face à des obstacles et à des complications d’envergure moyenne à importante. Au fur et à mesure que vous progressez dans cette catégorie, vous êtes être en mesure d’accomplir des tâches d’une complexité importante ou ayant une incidence plus grande avec seulement de légers niveaux de supervision, en étant effectivement le responsable de l’initiative. Vous pouvez également jouer un rôle de formation d’autres personnes dans cet ensemble de compétences ou assumer un rôle de supervision léger pour les personnes aux niveaux inférieurs. Ce niveau est habituellement associé à des tâches qui constituent la majeure partie du travail pour des postes de niveau supérieur, comme les analystes principaux ou les développeurs principaux.\",\"skillLevel.hard.advanced.name\":\"Avancé\",\"skillLevel.hard.basic.description\":\"Vous êtes capable d’accomplir des tâches de base avec une supervision régulière et une orientation claire. Les tâches qui vous sont assignées sont claires et ne sont pas très complexes. Elles ont généralement une incidence locale. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’accomplir des tâches de complexité modérée avec une supervision régulière. Vous devriez également être en mesure d’accomplir des tâches de base avec peu ou pas de supervision. Ce niveau est habituellement associé aux tâches qui constituent le gros du travail pour les postes de niveau inférieur, comme les analystes ou les développeurs de niveau débutant.\",\"skillLevel.hard.basic.name\":\"Débutant\",\"skillLevel.hard.expert.description\":\"Vous êtes en mesure d’accomplir des tâches d’une complexité ou d’une incidence importante, où vous prenez les décisions et répondez de vos décisions auprès de la haute direction de l’organisation. Vous présentez les tâches, l’approche et le plan de réalisation à la haute direction. Vous supervisez souvent d’autres personnes (personnes ou équipes) dans l’exécution de tâches très complexes ou ayant une incidence sur l’ensemble du système. Vous êtes en mesure de faire progresser ces tâches, même face à des obstacles et à des complications importants et imprévus. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’évaluer les autres à des niveaux plus subalternes, et de déterminer clairement la différence entre les tâches débutantes, intermédiaires et avancées. Vous devriez également être en mesure de pouvoir former des équipes, définir des orientations et assurer une supervision. Ce niveau est habituellement associé aux tâches qui constituent la majeure partie du travail pour les postes de direction et de direction.\",\"skillLevel.hard.expert.name\":\"Responsable\",\"skillLevel.hard.intermediate.description\":\"Vous avez la capacité d’accomplir des tâches de complexité modérée ou d’incidence modérée avec supervision. C’est le superviseur qui détermine l’approche à préconiser pour effectuer les tâches, de même que la façon dont elles sont exécutées. Vous apportez des commentaires et des conseils. Vous êtes en mesure de faire progresser la tâche, même face à des obstacles et à des complications de petite à moyenne envergure. Au fur et à mesure que vous progressez dans cette catégorie, vous devriez être en mesure d’accomplir des tâches d’une complexité importante ou ayant une incidence plus grande avec une supervision régulière. Vous devriez également être en mesure d’accomplir des tâches d’une complexité ou d’une incidence modérée avec peu ou pas de supervision. Ce niveau est habituellement associé aux tâches qui constituent le gros du travail pour les postes de niveau intermédiaire, comme les analystes ou les développeurs.\",\"skillLevel.hard.intermediate.name\":\"Intermédiaire\",\"skillLevel.soft.advanced.description\":\"Vous êtes capable de démontrer cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont élevés. Vos pairs et vos superviseurs reconnaissent qu’il s’agit d’une force dont vous faites preuve en milieu de travail.\",\"skillLevel.soft.advanced.name\":\"Fortement en évidence\",\"skillLevel.soft.basic.description\":\"Vous êtes en processus d’acquérir cette compétence ou cet attribut. Vous êtes capable de le démontrer dans des conditions favorables (peu de stress, difficulté minimale) et pouvez l’appliquer dans un contexte de travail de façon intermittente.\",\"skillLevel.soft.basic.name\":\"Phase de développement précoce\",\"skillLevel.soft.expert.description\":\"Il s’agit d’une partie fondamentale de qui vous êtes. Vous démontrez cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont extrêmes. Vos pairs et vos superviseurs reconnaissent qu’il s’agit d’une force importante dont vous faites preuve en milieu de travail, en donnant un exemple aux autres.\",\"skillLevel.soft.expert.name\":\"Démonstration à un niveau profond\",\"skillLevel.soft.intermediate.description\":\"Vous êtes capable de démontrer cette compétence ou cet attribut de façon constante en milieu de travail, y compris lorsque les conditions de difficulté ou le niveau de stress sont bas ou modérés. Vos pairs et vos superviseurs peuvent attester le fait que vous êtes capable de démontrer cette compétence ou cet attribut de façon régulière.\",\"skillLevel.soft.intermediate.name\":\"Modérément en évidence\",\"skillWordCounter.afterText\":\"mots de plus que la limite\",\"skillWordCounter.wordsLeft\":\"mots restants\"}");
 
 /***/ }),
 
@@ -65818,7 +66319,7 @@ module.exports = JSON.parse("{\"activity.commentLocation.label\":\"Commentaire t
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\dev\TalentCloud\resources\assets\js\components\HRPortal\JobSummaryActivityFeed.tsx */"./resources/assets/js/components/HRPortal/JobSummaryActivityFeed.tsx");
+module.exports = __webpack_require__(/*! /Users/Grant/Sites/TalentCloud/resources/assets/js/components/HRPortal/JobSummaryActivityFeed.tsx */"./resources/assets/js/components/HRPortal/JobSummaryActivityFeed.tsx");
 
 
 /***/ })

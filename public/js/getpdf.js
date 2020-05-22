@@ -103,14 +103,13 @@
 
 /* eslint-disable prefer-template */
 // run on Review Applicants page to export all applications to PDF
-// add bookmark to Chrome with this as the URL:
-// javascript:function clickAllApplicants(){let t=document.querySelectorAll("div.box.lg-2of11.applicant-links > a:nth-child(1)");!function(t){(t=Array.prototype.slice.call(t)).map(function(t){return t.getAttribute("href")})}(t);for(var e=0;e<t.length;e++){var l=window.open(t[e],"_blank"),n=l.document.createElement("script");n.setAttribute("src",t[e].origin+"/js/getpdf.js"),l.document.body.appendChild(n)}}clickAllApplicants();
+// add bookmark to Chrome with this as the URL: javascript:function clickAllApplicants(){let t=document.querySelectorAll("div.box.lg-2of11.applicant-links > a:nth-child(1)");!function(t){(t=Array.prototype.slice.call(t)).map(function(t){return t.getAttribute("href")})}(t);for(var e=0;e<t.length;e++){var l=window.open(t[e],"_blank"),n=l.document.createElement("script");n.setAttribute("src",t[e].origin+"/js/getpdf.js"),l.document.body.appendChild(n)}}clickAllApplicants();
 function replaceAll(subject, search, replacement) {
   return subject.split(search).join(replacement);
 }
 
 function downloadPdfs() {
-  var applicantName = document.querySelector("div.applicant-information>span").textContent;
+  var applicantName = document.querySelector("div.applicant-information > span").textContent;
   applicantName = replaceAll(applicantName, " ", "_");
   document.querySelector("#expand-all").click();
   var canvasDiv = document.querySelector("#canvas_div_pdf");
@@ -149,7 +148,7 @@ window.onload = downloadPdfs;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\dev\TalentCloud\resources\assets\js\getpdf.js */"./resources/assets/js/getpdf.js");
+module.exports = __webpack_require__(/*! /Users/Grant/Sites/TalentCloud/resources/assets/js/getpdf.js */"./resources/assets/js/getpdf.js");
 
 
 /***/ })
