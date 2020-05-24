@@ -1371,3 +1371,36 @@
 
   formPreventMultipleSubmit();
 })(jQuery);
+
+const messagesEN = {
+  "passwordsMatchError": "Passwords don't match.",
+};
+
+const messagesFR = {
+  "passwordsMatchError": "Passwords don't match."
+};
+
+const localizations = {
+  en: messagesEN,
+  fr: messagesFR,
+};
+
+function localize(locale, key) {
+  return localizations[locale][key];
+}
+
+const locale = document.documentElement.lang;
+
+var password = document.getElementById("password")
+  , confirm_password = document.getElementById("password-confirm");
+
+function validatePassword(){
+  if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity(localize(locale, "passwordsMatchError"));
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
