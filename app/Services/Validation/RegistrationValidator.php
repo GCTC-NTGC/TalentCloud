@@ -14,15 +14,21 @@ class RegistrationValidator
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'work_phone' => 'required|string',
             'password' => [
                 'required',
                 'min:8',
                 new PasswordFormatRule,
                 'confirmed'
             ],
-            'personal_email' => 'string|email|max:255|unique:users',
-            'personal_phone' => 'string'
+        ];
+    }
+
+    public static function userRegistrationExtraRules()
+    {
+        return [
+            'work_phone' => 'required|string',
+            'personal_email' => 'nullable|string|email|max:255|unique:users',
+            'personal_phone' => 'nullable|string',
         ];
     }
 
@@ -36,14 +42,15 @@ class RegistrationValidator
     }
 
     /**
-     * Get a validator for an incoming registration request.
+     * Get a validator for an incoming User registration request.
      *
      * @param  array $data Incoming registration data.
      * @return \Illuminate\Contracts\Validation\Validator
      */
     public static function userValidator(array $data)
     {
-        return Validator::make($data, self::basicRules());
+        $userRules = array_merge(self::basicRules(), self::userRegistrationExtraRules());
+        return Validator::make($data, $userRules);
     }
 
     /**
