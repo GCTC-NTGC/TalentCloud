@@ -14,12 +14,15 @@ class RegistrationValidator
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
+            'work_phone' => 'required|string',
             'password' => [
                 'required',
                 'min:8',
                 new PasswordFormatRule,
                 'confirmed'
             ],
+            'personal_email' => 'string|email|max:255|unique:users',
+            'personal_phone' => 'string'
         ];
     }
 
