@@ -10,6 +10,9 @@ sudo unzip -qq TalentCloud.zip;
 echo "Ensure storage/framework/cache/data directory exists...";
 mkdir -p TalentCloud/storage/framework/cache/data;
 
+echo "Ensure file upload directory exists...";
+mkdir -p TalentCloud/storage/app/public/resources;
+
 # Set permissions
 echo "Setting proper app permissions in TalentCloud:"
 
