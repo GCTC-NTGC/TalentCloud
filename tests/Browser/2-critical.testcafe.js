@@ -6,8 +6,7 @@ import {
   assertIsLoggedIn,
   hrUser,
 } from "./helpers/roles";
-
-const HOMEPAGE = "https://talent.test";
+import { HOMEPAGE, PROFILE_EXPERIENCE, PROFILE_REFERENCES, PROFILE_PORTFOLIO, PROFILE_SKILLS, MANAGER_REGISTER, HR_REGISTER, MANAGER_FIRST_VISIT, HR_FIRST_VISIT } from "./helpers/constants";
 
 fixture(`Critical - Applicant Profile`).page(HOMEPAGE).meta("travis", "run");
 
@@ -20,7 +19,7 @@ test("Applicant Profile - My Skills", async (t) => {
     // Logged in as admin (empty skills page).
     .useRole(adminUser)
     // Go to My Skills page.
-    .navigateTo("/profile/skills")
+    .navigateTo(PROFILE_SKILLS)
     .expect(Selector("h1").withText("My Skills").visible)
     .ok()
     // Add soft skill (Passion).
@@ -61,7 +60,7 @@ test("Applicant Profile - My Skills", async (t) => {
     )
     .pressKey("tab tab enter")
     // Save and refresh.
-    .navigateTo("/profile/skills")
+    .navigateTo(PROFILE_SKILLS)
     .expect(Selector("p").withText("Passion").visible)
     .ok()
     .expect(Selector("p").withText("Docker").visible)
@@ -73,7 +72,7 @@ test("Applicant Profile - My Experience", async (t) => {
     // Logged in as applicant.
     .useRole(emptyApplicantUser)
     // Go to My Experience page.
-    .navigateTo("/profile/experience")
+    .navigateTo(PROFILE_EXPERIENCE)
     .expect(Selector("h1").withText("My Experience").visible)
     .ok()
     // Add new diploma.
@@ -150,7 +149,7 @@ test("Applicant Profile - My References", async (t) => {
     // Logged in as applicant.
     .useRole(emptyApplicantUser)
     // Go to My References page.
-    .navigateTo("/profile/references")
+    .navigateTo(PROFILE_REFERENCES)
     .expect(Selector("h1").withText("My References").visible)
     .ok()
     .click(Selector("button").withText("Add Reference"))
@@ -182,7 +181,7 @@ test("Applicant Profile - My References", async (t) => {
       "Richard is the CEO of Cool Funny, we had some laughs.",
     )
     .click(Selector("button").withAttribute("value", "references[1]"))
-    .navigateTo("/profile/references")
+    .navigateTo(PROFILE_REFERENCES)
     .expect(Selector("p").withText("Richard Cranium").visible)
     .ok();
 });
@@ -192,7 +191,7 @@ test("Applicant Profile - My Work Samples", async (t) => {
     // Logged in as applicant.
     .useRole(emptyApplicantUser)
     // Go to My Work Samples page.
-    .navigateTo("/profile/portfolio")
+    .navigateTo(PROFILE_PORTFOLIO)
     .expect(Selector("h1").withText("My Work Samples").visible)
     .ok()
     // Add new work sample.
@@ -220,7 +219,7 @@ test("Applicant Profile - My Work Samples", async (t) => {
       "A website that is both cool and funny.",
     )
     .click(Selector("button").withAttribute("value", "work_samples[1]"))
-    .navigateTo("/profile/portfolio")
+    .navigateTo(PROFILE_PORTFOLIO)
     .expect(Selector("button").withText("Cool Funny").visible)
     .ok();
 });
@@ -268,7 +267,7 @@ test("Registration - Applicant", async (t) => {
 test("Registration - Manager", async (t) => {
   await t
     .useRole(Role.anonymous())
-    .navigateTo("/manager/register")
+    .navigateTo(MANAGER_REGISTER)
     .typeText(Selector("#first_name"), "Test")
     .typeText(Selector("#last_name"), "Cafe")
     .typeText(Selector("#email"), randomEmail())
@@ -290,7 +289,7 @@ test("Registration - Manager", async (t) => {
 test("Registration - HR Advisor", async (t) => {
   await t
     .useRole(Role.anonymous())
-    .navigateTo("/hr/register")
+    .navigateTo(HR_REGISTER)
     .typeText(Selector("#first_name"), "Test")
     .typeText(Selector("#last_name"), "Cafe")
     .typeText(Selector("#email"), randomEmail())
@@ -326,7 +325,7 @@ test("First Visit - Manager", async (t) => {
     .click(Selector("button").withText("Register"));
   await assertIsLoggedIn(t);
   await t
-    .navigateTo("/manager/first-visit")
+    .navigateTo(MANAGER_FIRST_VISIT)
     .expect(Selector("#department").visible)
     .ok()
     .click(Selector("#department"))
@@ -343,7 +342,7 @@ test("First Visit - Manager", async (t) => {
 test("First Visit - HR Advisor", async (t) => {
   await t
     .useRole(hrUser)
-    .navigateTo("/hr/first-visit")
+    .navigateTo(HR_FIRST_VISIT)
     .wait(200)
     .expect(Selector("h1").withText("HR Advisor Area").visible)
     .ok()
