@@ -12,20 +12,6 @@ if (is_dir(storage_path('app/public/' . $dir)) === false) {
 
 $resources_dir = storage_path('app/public/' . $dir);
 
-// Get a list of all of the file names in the folder.
-$files = glob($resources_dir . '/*');
-
-// Loop through the file list.
-foreach ($files as $file) {
-    // Make sure that this is a file and not a directory.
-    if (is_file($file)) {
-        // Use the unlink function to delete the file.
-
-        // Why does this remove existing files? If we want to do that, we need to clear the database as well. --Tristan
-        // unlink($file);
-    }
-}
-
 $factory->define(Resource::class, function (Faker\Generator $faker) use ($faker_fr, $resources_dir) {
 
     // Add test file to test resources folder.
