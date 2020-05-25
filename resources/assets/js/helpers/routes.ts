@@ -2,6 +2,18 @@ function stripTrailingSlash(str: string): string {
   return str.endsWith("/") ? str.slice(0, -1) : str;
 }
 
+function isValidUrl(str: string): boolean {
+  if (str.startsWith("http://") || str.startsWith("https://")) {
+    try {
+      const url = new URL(str);
+    } catch (_) {
+      return false;
+    }
+    return true;
+  }
+  return false;
+}
+
 export function baseUrl(): string {
   const base = document.querySelector("meta[name='base-url']");
   if (base !== null) {
@@ -11,7 +23,8 @@ export function baseUrl(): string {
 }
 
 export function basePathname(): string {
-  return (new URL(baseUrl())).pathname;
+  const base = baseUrl();
+  return isValidUrl(base) ? new URL(baseUrl()).pathname : "";
 }
 
 export function baseApiUrl(version = 1): string {
