@@ -7,6 +7,9 @@ sudo chmod 777 TalentCloud.zip;
 echo "Unzipping contents of TalentCloud.zip...";
 sudo unzip -qq TalentCloud.zip;
 
+echo "Ensure storage/framework/cache/data directory exists...";
+mkdir -p TalentCloud/storage/framework/cache/data;
+
 # Set permissions
 echo "Setting proper app permissions in TalentCloud:"
 
@@ -54,3 +57,6 @@ sudo php artisan migrate -n --force;
 
 echo "Restarting email queue...";
 sudo php artisan queue:restart;
+
+echo "Link file storage folder with public folder...";
+sudo php artisan storage:link;
