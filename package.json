@@ -90,11 +90,13 @@
         "webpack": "^4.43.0"
     },
     "dependencies": {
-        "@formatjs/intl-pluralrules": "^1.5.9",
+        "@formatjs/intl-getcanonicallocales": "^1.2.2",
+        "@formatjs/intl-pluralrules": "^2.1.0",
         "@formatjs/intl-relativetimeformat": "^5.1.0",
         "axios": "^0.19.2",
         "babel-plugin-react-intl": "^7.1.0",
         "classnames": "^2.2.6",
+        "cldr-core": "^36.0.0",
         "clone-framework": "^2.4.18",
         "core-js": "^3.6.5",
         "formik": "^2.1.4",
