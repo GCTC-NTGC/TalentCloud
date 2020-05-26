@@ -20,5 +20,5 @@ return [
     'remember_me' => 'Remember Me',
     'forgot_password' => 'Forgot Password',
     'login' => 'Login',
-    'auth_logo' => '/images/logo_tc_colour.png'
+    'auth_logo' => asset('/images/logo_tc_colour.png')
 ];

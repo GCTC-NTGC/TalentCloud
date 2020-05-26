@@ -25,6 +25,6 @@ return [
     'not_in_gov' => 'Not in Government',
     'gov_email' => 'Your Government Email',
     'register' => 'Register',
-    'auth_logo' => '/images/logo_tc_colour.png',
+    'auth_logo' => asset('/images/logo_tc_colour.png'),
     'already_have_account' => 'Already have an account?',
 ];

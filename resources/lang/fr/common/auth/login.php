@@ -20,5 +20,5 @@ return [
     'remember_me' => 'Se rappeler de moi',
     'forgot_password' => 'Mot de passe oublié',
     'login' => 'Ouvrir la séance',
-    'auth_logo' => '/images/logo_tc_colour_fr.png'
+    'auth_logo' => asset('/images/logo_tc_colour_fr.png')
 ];
