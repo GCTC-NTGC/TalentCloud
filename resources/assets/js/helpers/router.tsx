@@ -11,7 +11,6 @@ const HISTORY = createBrowserHistory({ basename: basePathname() });
 export const useLocation = (): Location<any> => {
   const history = HISTORY;
   const [location, setLocation] = useState(history.location);
-  history.location.state;
   useEffect((): (() => void) => {
     const unListen = history.listen((newLocation): void =>
       setLocation(newLocation),
