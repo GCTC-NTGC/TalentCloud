@@ -15,12 +15,12 @@ return [
         'label' => "Retour d'information"
     ],
     'terms' => [
-        'link' => '/tos/',
+        'link' => route('tos'),
         'title' => 'Voir nos avis.',
         'label' => 'Avis'
     ],
     'privacy' => [
-        'link' => '/privacy/',
+        'link' => route('privacy'),
         'title' => 'Voir notre politique de confidentialité.',
         'label' => 'Confidentialité'
     ],
@@ -32,5 +32,5 @@ return [
     'logo_link' => 'https://www.canada.ca/fr.html',
     'logo_link_title' => 'Visiter Canada.ca',
     'logo_alt' => 'Symbole du gouvernement du Canada.',
-    'logo_url' => '/images/logo_canada_colour.png'
+    'logo_url' => asset('/images/logo_canada_colour.png')
 ];
