@@ -18,14 +18,14 @@
                             </li>
                             <li>
                                 <a
-                                    href="{{ footer.tos_url }}"
+                                    href="{{ footer.terms.link }}"
                                     title="{{ footer.terms.title }}">
                                     {{ footer.terms.label }}
                                 </a>
                             </li>
                             <li>
                                 <a
-                                    href="{{ footer.privacy_url }}"
+                                    href="{{ footer.privacy.link }}"
                                     title="{{ footer.privacy.title }}">
                                     {{ footer.privacy.label }}
                                 </a>
@@ -43,7 +43,7 @@
                 </div>
                 <div data-c-alignment="tp(right)" data-c-grid-item="tp(2of7)">
                     <a class="footer-logo" href="{{ footer.logo_link }}" target="_blank" title="{{ footer.logo_link_title }}" rel="noopener noreferrer">
-                        <img alt="{{ footer.logo_alt }}" class="" src="{{ footer.logo_image_url }}">
+                        <img alt="{{ footer.logo_alt }}" class="" src="{{ footer.logo_url }}">
                     </a>
                 </div>
             </div>
