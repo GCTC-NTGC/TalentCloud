@@ -16,5 +16,4 @@ return [
     'email' => 'Courriel',
     'email_placeholder' => 'p. ex., courriel@siteweb.com',
     'submit' => 'Envoyer le lien de réinitialisation du mot de passe',
-    'auth_logo' => asset('/images/logo_tc_colour_fr.png')
 ];

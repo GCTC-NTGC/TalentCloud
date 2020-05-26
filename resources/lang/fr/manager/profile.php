@@ -40,7 +40,6 @@ return [
             ],
             'account_settings' => 'Pour en savoir plus, visitez',
             'account_settings_link' => [
-                'href' => route('settings.edit'),
                 'text' => 'les paramètres de votre compte',
                 'title' => 'Visitez la page Paramètres du compte.'
             ],

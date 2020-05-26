@@ -25,6 +25,5 @@ return [
     'not_in_gov' => 'Non-fonctionnaire',
     'gov_email' => 'Votre courriel gouvernemental',
     'register' => 'S\'inscrire',
-    'auth_logo' => asset('/images/logo_tc_colour_fr.png'),
     'already_have_account' => 'Vous avez déjà un compte?',
 ];
