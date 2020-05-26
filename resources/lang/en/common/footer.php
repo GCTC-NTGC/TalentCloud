@@ -15,12 +15,10 @@ return [
         'label' => 'Feedback'
     ],
     'terms' => [
-        'link' => '/tos/',
         'title' => 'View our terms and conditions.',
         'label' => 'Terms & Conditions'
     ],
     'privacy' => [
-        'link' => '/privacy/',
         'title' => 'View our privacy policy.',
         'label' => 'Privacy Policy'
     ],
@@ -32,5 +30,4 @@ return [
     'logo_link' => 'https://www.canada.ca/en.html',
     'logo_link_title' => 'Visit Canada.ca.',
     'logo_alt' => "Canada's Logo.",
-    'logo_url' => '/images/logo_canada_colour.png'
 ];
