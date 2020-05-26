@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import { Routes } from "universal-router";
 import { defineMessages, useIntl, IntlShape } from "react-intl";
+import { useSelector } from "react-redux";
 import { useRouter, RouterResult } from "../../helpers/router";
 import JobIntroPage from "./Intro/JobIntroPage";
 import RootContainer from "../RootContainer";
@@ -14,7 +15,6 @@ import JobSkillsPage from "./Skills/JobSkillsPage";
 import JobReviewPage from "./Review/JobReviewPage";
 import ScrollToTop from "../ScrollToTop";
 import RedirectPage from "./RedirectToLastIncompleteStep";
-import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { getSelectedJob } from "../../store/Job/jobSelector";
 import { Job } from "../../models/types";
@@ -160,9 +160,10 @@ const useJobBreadcrumbs = (intl: IntlShape) => {
       localizeField(locale, jobBreadcrumb, "title") ||
       `{ ${intl.formatMessage(messages.titleMissing)} }`;
 
-    icon.classList.add("fas", "fa-caret-right");
-    breadcrumb.append(anchor);
-    breadcrumb.append(icon);
+    icon.classList.add("fas");
+    icon.classList.add("fa-caret-right");
+    breadcrumb.appendChild(anchor);
+    breadcrumb.appendChild(icon);
 
     if (breadcrumbs) {
       const lastBreadcrumb = breadcrumbs.lastElementChild;
