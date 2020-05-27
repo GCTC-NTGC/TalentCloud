@@ -9,7 +9,6 @@ use App\Models\JobApplication;
 use App\Models\Skill;
 use App\Models\Lookup\ReviewStatus;
 use Facades\App\Services\WhichPortal;
-use Illuminate\Support\Facades\Log;
 
 class ApplicationController extends Controller
 {
@@ -24,8 +23,6 @@ class ApplicationController extends Controller
         $applications_in_progress = [];
         $completed_applications = [];
         $expired_applications = [];
-
-        Log::debug($applications_in_progress);
 
         foreach ($applications as $application) {
             if ($application->application_status->name == 'draft' && $application->job_poster->isOpen()) {
