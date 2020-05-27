@@ -11,7 +11,7 @@
             <div data-c-grid-item="tl(4of7)">
                 <p data-c-margin="bottom(1)">{{ application_template.strategic_response.complete_copy_1 }}</p>
                 <p data-c-margin="bottom(1)">{{ application_template.strategic_response.complete_copy_2 }}</p>
-                <p><a href="{{ route('response.index') }}" data-c-button="solid(c1)" data-c-radius="rounded">{{ application_template.strategic_response.complete_return_label }}</a></p>
+                <p><a href="{{ route('home') }}" data-c-button="solid(c1)" data-c-radius="rounded">{{ application_template.strategic_response.complete_return_label }}</a></p>
             </div>
             <div data-c-grid-item="tl(3of7)">
                 <div data-c-background="c1(10)" data-c-color="c1" data-c-border="all(thin, solid, c1)" data-c-radius="rounded" data-c-padding="all(1)">
@@ -24,7 +24,7 @@
                             <a href="{{ route('profile.about.edit', applicant.id) }}" title="{{ application_template.complete.update_profile_link_title }}">{{ application_template.complete.update_profile_link_label }}</a>
                         </li>
                         <li>
-                            <a href="{{ route('response.index') }}#apply" title="{{ application_template.complete.browse_jobs_title }}">{{ application_template.complete.browse_jobs_label }}</a>
+                            <a href="{{ route('home') }}#apply" title="{{ application_template.complete.browse_jobs_title }}">{{ application_template.complete.browse_jobs_label }}</a>
                         </li>
                     </ul>
                 </div>
