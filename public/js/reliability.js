@@ -515,7 +515,7 @@ jQuery(document).ready(function ($) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\dev\TalentCloud\resources\assets\js\reliability.js */"./resources/assets/js/reliability.js");
+module.exports = __webpack_require__(/*! C:\dev\CombinedTalentCloud\tc\resources\assets\js\reliability.js */"./resources/assets/js/reliability.js");
 
 
 /***/ })

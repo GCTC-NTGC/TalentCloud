@@ -147,7 +147,7 @@ if (deptInput !== null) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\dev\TalentCloud\resources\assets\js\managerRegistration.ts */"./resources/assets/js/managerRegistration.ts");
+module.exports = __webpack_require__(/*! C:\dev\CombinedTalentCloud\tc\resources\assets\js\managerRegistration.ts */"./resources/assets/js/managerRegistration.ts");
 
 
 /***/ })

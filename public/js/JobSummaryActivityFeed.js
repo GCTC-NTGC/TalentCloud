@@ -46307,11 +46307,14 @@ function prepareIntlMessageFormatHtmlOutput(chunks, shouldWrap) {
 function formatMessage(_a, state, messageDescriptor, values) {
     var locale = _a.locale, formats = _a.formats, messages = _a.messages, defaultLocale = _a.defaultLocale, defaultFormats = _a.defaultFormats, onError = _a.onError, timeZone = _a.timeZone, wrapRichTextChunksInFragment = _a.wrapRichTextChunksInFragment;
     if (messageDescriptor === void 0) { messageDescriptor = { id: '' }; }
-    if (values === void 0) { values = {}; }
     var id = messageDescriptor.id, defaultMessage = messageDescriptor.defaultMessage;
     // `id` is a required field of a Message Descriptor.
     intl_utils_1.invariant(!!id, '[React Intl] An `id` must be provided to format a message.');
     var message = messages && messages[String(id)];
+    // IMPORTANT: Hot path straight lookup for performance
+    if (!values && message && typeof message === 'string') {
+        return message.replace(/'\{(.*?)\}'/gi, "{$1}");
+    }
     formats = deepMergeFormatsAndSetTimeZone(formats, timeZone);
     defaultFormats = deepMergeFormatsAndSetTimeZone(defaultFormats, timeZone);
     if (!message) {
@@ -46671,23 +46674,6 @@ exports.getNamedFormat = getNamedFormat;
 
 /***/ }),
 
-/***/ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/aliases.js":
-/*!***********************************************************************************!*\
-  !*** ./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/aliases.js ***!
-  \***********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-/* @generated */
-// prettier-ignore  
-exports.default = { "aa-SAAHO": "ssy", "aam": "aas", "aar": "aa", "abk": "ab", "adp": "dz", "afr": "af", "aju": "jrb", "aka": "ak", "alb": "sq", "als": "sq", "amh": "am", "ara": "ar", "arb": "ar", "arg": "an", "arm": "hy", "art-lojban": "jbo", "asd": "snz", "asm": "as", "aue": "ktz", "ava": "av", "ave": "ae", "aym": "ay", "ayr": "ay", "ayx": "nun", "az-AZ": "az-Latn-AZ", "aze": "az", "azj": "az", "bak": "ba", "bam": "bm", "baq": "eu", "bcc": "bal", "bcl": "bik", "bel": "be", "ben": "bn", "bgm": "bcg", "bh": "bho", "bih": "bho", "bis": "bi", "bjd": "drl", "bod": "bo", "bos": "bs", "bre": "br", "bs-BA": "bs-Latn-BA", "bul": "bg", "bur": "my", "bxk": "luy", "bxr": "bua", "cat": "ca", "ccq": "rki", "cel-gaulish": "xtg-x-cel-gaulish", "ces": "cs", "cha": "ch", "che": "ce", "chi": "zh", "chu": "cu", "chv": "cv", "cjr": "mom", "cka": "cmr", "cld": "syr", "cmk": "xch", "cmn": "zh", "cnr": "sr-ME", "cor": "kw", "cos": "co", "coy": "pij", "cqu": "quh", "cre": "cr", "cwd": "cr", "cym": "cy", "cze": "cs", "dan": "da", "deu": "de", "dgo": "doi", "dhd": "mwr", "dik": "din", "diq": "zza", "dit": "dif", "div": "dv", "drh": "mn", "drw": "fa-af", "dut": "nl", "dzo": "dz", "ekk": "et", "ell": "el", "emk": "man", "eng": "en", "epo": "eo", "esk": "ik", "est": "et", "eus": "eu", "ewe": "ee", "fao": "fo", "fas": "fa", "fat": "ak", "fij": "fj", "fin": "fi", "fra": "fr", "fre": "fr", "fry": "fy", "fuc": "ff", "ful": "ff", "gav": "dev", "gaz": "om", "gbo": "grb", "geo": "ka", "ger": "de", "gfx": "vaj", "ggn": "gvr", "gla": "gd", "gle": "ga", "glg": "gl", "glv": "gv", "gno": "gon", "gre": "el", "grn": "gn", "gti": "nyc", "gug": "gn", "guj": "gu", "guv": "duz", "gya": "gba", "ha-Latn-GH": "ha-GH", "ha-Latn-NE": "ha-NE", "ha-Latn-NG": "ha-NG", "hat": "ht", "hau": "ha", "hbs": "sr-Latn", "hdn": "hai", "hea": "hmn", "heb": "he", "her": "hz", "him": "srx", "hin": "hi", "hmo": "ho", "hrr": "jal", "hrv": "hr", "hun": "hu", "hye": "hy", "i-ami": "ami", "i-bnn": "bnn", "i-hak": "hak", "i-klingon": "tlh", "i-lux": "lb", "i-navajo": "nv", "i-pwn": "pwn", "i-tao": "tao", "i-tay": "tay", "i-tsu": "tsu", "i-default": "en-x-i-default", "i-enochian": "und-x-i-enochian", "i-mingo": "see-x-i-mingo", "ibi": "opa", "ibo": "ig", "ice": "is", "ido": "io", "iii": "ii", "ike": "iu", "iku": "iu", "ile": "ie", "ilw": "gal", "in": "id", "ina": "ia", "ind": "id", "ipk": "ik", "isl": "is", "ita": "it", "iw": "he", "jav": "jv", "jeg": "oyb", "ji": "yi", "jpn": "ja", "jw": "jv", "kal": "kl", "kan": "kn", "kas": "ks", "kat": "ka", "kau": "kr", "kaz": "kk", "kgc": "tdf", "kgh": "kml", "khk": "mn", "khm": "km", "kik": "ki", "kin": "rw", "kir": "ky", "kk-Cyrl-KZ": "kk-KZ", "kmr": "ku", "knc": "kr", "kng": "kg", "knn": "kok", "koj": "kwv", "kom": "kv", "kon": "kg", "kor": "ko", "kpv": "kv", "krm": "bmf", "ks-Arab-IN": "ks-IN", "ktr": "dtp", "kua": "kj", "kur": "ku", "kvs": "gdj", "kwq": "yam", "kxe": "tvd", "ky-Cyrl-KG": "ky-KG", "kzj": "dtp", "kzt": "dtp", "lao": "lo", "lat": "la", "lav": "lv", "lbk": "bnc", "lii": "raq", "lim": "li", "lin": "ln", "lit": "lt", "llo": "ngt", "lmm": "rmx", "ltz": "lb", "lub": "lu", "lug": "lg", "lvs": "lv", "mac": "mk", "mah": "mh", "mal": "ml", "mao": "mi", "mar": "mr", "may": "ms", "meg": "cir", "mhr": "chm", "mkd": "mk", "mlg": "mg", "mlt": "mt", "mn-Cyrl-MN": "mn-MN", "mnk": "man", "mo": "ro", "mol": "ro", "mon": "mn", "mri": "mi", "ms-Latn-BN": "ms-BN", "ms-Latn-MY": "ms-MY", "ms-Latn-SG": "ms-SG", "msa": "ms", "mst": "mry", "mup": "raj", "mwj": "vaj", "mya": "my", "myd": "aog", "myt": "mry", "nad": "xny", "nau": "na", "nav": "nv", "nbl": "nr", "ncp": "kdz", "nde": "nd", "ndo": "ng", "nep": "ne", "nld": "nl", "nno": "nn", "nns": "nbr", "nnx": "ngv", "no": "nb", "no-bok": "nb", "no-BOKMAL": "nb", "no-nyn": "nn", "no-NYNORSK": "nn", "nob": "nb", "nor": "nb", "npi": "ne", "nts": "pij", "nya": "ny", "oci": "oc", "ojg": "oj", "oji": "oj", "ori": "or", "orm": "om", "ory": "or", "oss": "os", "oun": "vaj", "pa-IN": "pa-Guru-IN", "pa-PK": "pa-Arab-PK", "pan": "pa", "pbu": "ps", "pcr": "adx", "per": "fa", "pes": "fa", "pli": "pi", "plt": "mg", "pmc": "huw", "pmu": "phr", "pnb": "lah", "pol": "pl", "por": "pt", "ppa": "bfy", "ppr": "lcq", "prs": "fa-AF", "pry": "prt", "pus": "ps", "puz": "pub", "que": "qu", "quz": "qu", "rmy": "rom", "roh": "rm", "ron": "ro", "rum": "ro", "run": "rn", "rus": "ru", "sag": "sg", "san": "sa", "sca": "hle", "scc": "sr", "scr": "hr", "sgn-BE-FR": "sfb", "sgn-BE-NL": "vgt", "sgn-CH-DE": "sgg", "sh": "sr-Latn", "shi-MA": "shi-Tfng-MA", "sin": "si", "skk": "oyb", "slk": "sk", "slo": "sk", "slv": "sl", "sme": "se", "smo": "sm", "sna": "sn", "snd": "sd", "som": "so", "sot": "st", "spa": "es", "spy": "kln", "sqi": "sq", "sr-BA": "sr-Cyrl-BA", "sr-ME": "sr-Latn-ME", "sr-RS": "sr-Cyrl-RS", "sr-XK": "sr-Cyrl-XK", "src": "sc", "srd": "sc", "srp": "sr", "ssw": "ss", "sun": "su", "swa": "sw", "swc": "sw-CD", "swe": "sv", "swh": "sw", "tah": "ty", "tam": "ta", "tat": "tt", "tdu": "dtp", "tel": "te", "tgk": "tg", "tgl": "fil", "tha": "th", "thc": "tpo", "thx": "oyb", "tib": "bo", "tie": "ras", "tir": "ti", "tkk": "twm", "tl": "fil", "tlw": "weo", "tmp": "tyj", "tne": "kak", "tnf": "fa-af", "ton": "to", "tsf": "taj", "tsn": "tn", "tso": "ts", "ttq": "tmh", "tuk": "tk", "tur": "tr", "tw": "ak", "twi": "ak", "tzm-Latn-MA": "tzm-MA", "ug-Arab-CN": "ug-CN", "uig": "ug", "ukr": "uk", "umu": "del", "uok": "ema", "urd": "ur", "uz-AF": "uz-Arab-AF", "uz-UZ": "uz-Latn-UZ", "uzb": "uz", "uzn": "uz", "vai-LR": "vai-Vaii-LR", "ven": "ve", "vie": "vi", "vol": "vo", "wel": "cy", "wln": "wa", "wol": "wo", "xba": "cax", "xho": "xh", "xia": "acn", "xkh": "waw", "xpe": "kpe", "xsj": "suj", "xsl": "den", "ybd": "rki", "ydd": "yi", "yid": "yi", "yma": "lrr", "ymt": "mtm", "yor": "yo", "yos": "zom", "yue-CN": "yue-Hans-CN", "yue-HK": "yue-Hant-HK", "yuu": "yug", "zai": "zap", "zh-CN": "zh-Hans-CN", "zh-guoyu": "zh", "zh-hakka": "hak", "zh-HK": "zh-Hant-HK", "zh-min-nan": "nan", "zh-MO": "zh-Hant-MO", "zh-SG": "zh-Hans-SG", "zh-TW": "zh-Hant-TW", "zh-xiang": "hsn", "zh-min": "nan-x-zh-min", "zha": "za", "zho": "zh", "zsm": "ms", "zul": "zu", "zyb": "za" };
-//# sourceMappingURL=aliases.js.map
-
-/***/ }),
-
 /***/ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/diff.js":
 /*!********************************************************************************!*\
   !*** ./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/diff.js ***!
@@ -46779,37 +46765,6 @@ exports.DEFAULT_THRESHOLDS = {
 
 /***/ }),
 
-/***/ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/get-canonical-locales.js":
-/*!*************************************************************************************************!*\
-  !*** ./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/get-canonical-locales.js ***!
-  \*************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * IE11-safe version of getCanonicalLocales since it's ES2016
- * @param locales locales
- */
-function getCanonicalLocales(locales) {
-    // IE11
-    var getCanonicalLocales = Intl.getCanonicalLocales;
-    if (typeof getCanonicalLocales === 'function') {
-        return getCanonicalLocales(locales);
-    }
-    // NOTE: we must NOT call `supportedLocalesOf` of a formatjs polyfill, or their implementation
-    // will even eventually call this method recursively. Here we use `Intl.DateTimeFormat` since it
-    // is not polyfilled by `@formatjs`.
-    // TODO: Fix TypeScript type def for this bc undefined is just fine
-    return Intl.DateTimeFormat.supportedLocalesOf(locales);
-}
-exports.getCanonicalLocales = getCanonicalLocales;
-//# sourceMappingURL=get-canonical-locales.js.map
-
-/***/ }),
-
 /***/ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/index.js":
 /*!*********************************************************************************!*\
   !*** ./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/index.js ***!
@@ -46827,12 +46782,10 @@ var diff_1 = __webpack_require__(/*! ./diff */ "./node_modules/react-intl/node_m
 exports.selectUnit = diff_1.selectUnit;
 var polyfill_utils_1 = __webpack_require__(/*! ./polyfill-utils */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/polyfill-utils.js");
 exports.defaultNumberOption = polyfill_utils_1.defaultNumberOption;
-exports.getAliasesByLang = polyfill_utils_1.getAliasesByLang;
 exports.getInternalSlot = polyfill_utils_1.getInternalSlot;
 exports.getMultiInternalSlots = polyfill_utils_1.getMultiInternalSlots;
 exports.getNumberOption = polyfill_utils_1.getNumberOption;
 exports.getOption = polyfill_utils_1.getOption;
-exports.getParentLocalesByLang = polyfill_utils_1.getParentLocalesByLang;
 exports.isLiteralPart = polyfill_utils_1.isLiteralPart;
 exports.partitionPattern = polyfill_utils_1.partitionPattern;
 exports.setInternalSlot = polyfill_utils_1.setInternalSlot;
@@ -46842,6 +46795,14 @@ exports.toObject = polyfill_utils_1.toObject;
 exports.objectIs = polyfill_utils_1.objectIs;
 exports.isWellFormedCurrencyCode = polyfill_utils_1.isWellFormedCurrencyCode;
 exports.toString = polyfill_utils_1.toString;
+exports.formatNumericToString = polyfill_utils_1.formatNumericToString;
+exports.toRawFixed = polyfill_utils_1.toRawFixed;
+exports.toRawPrecision = polyfill_utils_1.toRawPrecision;
+exports.getMagnitude = polyfill_utils_1.getMagnitude;
+exports.repeat = polyfill_utils_1.repeat;
+exports.hasOwnProperty = polyfill_utils_1.hasOwnProperty;
+exports.isWellFormedUnitIdentifier = polyfill_utils_1.isWellFormedUnitIdentifier;
+exports.defineProperty = polyfill_utils_1.defineProperty;
 var resolve_locale_1 = __webpack_require__(/*! ./resolve-locale */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/resolve-locale.js");
 exports.createResolveLocale = resolve_locale_1.createResolveLocale;
 exports.getLocaleHierarchy = resolve_locale_1.getLocaleHierarchy;
@@ -46849,9 +46810,8 @@ exports.supportedLocales = resolve_locale_1.supportedLocales;
 exports.unpackData = resolve_locale_1.unpackData;
 exports.isMissingLocaleDataError = resolve_locale_1.isMissingLocaleDataError;
 __export(__webpack_require__(/*! ./units */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/units.js"));
-__export(__webpack_require__(/*! ./number-types */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/number-types.js"));
-var get_canonical_locales_1 = __webpack_require__(/*! ./get-canonical-locales */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/get-canonical-locales.js");
-exports.getCanonicalLocales = get_canonical_locales_1.getCanonicalLocales;
+var units_1 = __webpack_require__(/*! ./units */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/units.js");
+exports.removeUnitNamespace = units_1.removeUnitNamespace;
 var invariant_1 = __webpack_require__(/*! ./invariant */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/invariant.js");
 exports.invariant = invariant_1.invariant;
 //# sourceMappingURL=index.js.map
@@ -46879,56 +46839,6 @@ exports.invariant = invariant;
 
 /***/ }),
 
-/***/ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/number-types.js":
-/*!****************************************************************************************!*\
-  !*** ./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/number-types.js ***!
-  \****************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var InternalSlotToken;
-(function (InternalSlotToken) {
-    // To prevent collision with {0} in CLDR
-    InternalSlotToken["compactName"] = "compactName";
-    InternalSlotToken["compactSymbol"] = "compactSymbol";
-    InternalSlotToken["currencyCode"] = "currencyCode";
-    InternalSlotToken["currencyName"] = "currencyName";
-    InternalSlotToken["currencyNarrowSymbol"] = "currencyNarrowSymbol";
-    InternalSlotToken["currencySymbol"] = "currencySymbol";
-    InternalSlotToken["minusSign"] = "minusSign";
-    InternalSlotToken["number"] = "number";
-    InternalSlotToken["percentSign"] = "percentSign";
-    InternalSlotToken["plusSign"] = "plusSign";
-    InternalSlotToken["scientificExponent"] = "scientificExponent";
-    InternalSlotToken["scientificSeparator"] = "scientificSeparator";
-    InternalSlotToken["unitName"] = "unitName";
-    InternalSlotToken["unitNarrowSymbol"] = "unitNarrowSymbol";
-    InternalSlotToken["unitSymbol"] = "unitSymbol";
-})(InternalSlotToken = exports.InternalSlotToken || (exports.InternalSlotToken = {}));
-//# sourceMappingURL=number-types.js.map
-
-/***/ }),
-
-/***/ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/parentLocales.js":
-/*!*****************************************************************************************!*\
-  !*** ./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/parentLocales.js ***!
-  \*****************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-/* @generated */
-// prettier-ignore  
-exports.default = { "en-150": "en-001", "en-AG": "en-001", "en-AI": "en-001", "en-AU": "en-001", "en-BB": "en-001", "en-BM": "en-001", "en-BS": "en-001", "en-BW": "en-001", "en-BZ": "en-001", "en-CA": "en-001", "en-CC": "en-001", "en-CK": "en-001", "en-CM": "en-001", "en-CX": "en-001", "en-CY": "en-001", "en-DG": "en-001", "en-DM": "en-001", "en-ER": "en-001", "en-FJ": "en-001", "en-FK": "en-001", "en-FM": "en-001", "en-GB": "en-001", "en-GD": "en-001", "en-GG": "en-001", "en-GH": "en-001", "en-GI": "en-001", "en-GM": "en-001", "en-GY": "en-001", "en-HK": "en-001", "en-IE": "en-001", "en-IL": "en-001", "en-IM": "en-001", "en-IN": "en-001", "en-IO": "en-001", "en-JE": "en-001", "en-JM": "en-001", "en-KE": "en-001", "en-KI": "en-001", "en-KN": "en-001", "en-KY": "en-001", "en-LC": "en-001", "en-LR": "en-001", "en-LS": "en-001", "en-MG": "en-001", "en-MO": "en-001", "en-MS": "en-001", "en-MT": "en-001", "en-MU": "en-001", "en-MW": "en-001", "en-MY": "en-001", "en-NA": "en-001", "en-NF": "en-001", "en-NG": "en-001", "en-NR": "en-001", "en-NU": "en-001", "en-NZ": "en-001", "en-PG": "en-001", "en-PH": "en-001", "en-PK": "en-001", "en-PN": "en-001", "en-PW": "en-001", "en-RW": "en-001", "en-SB": "en-001", "en-SC": "en-001", "en-SD": "en-001", "en-SG": "en-001", "en-SH": "en-001", "en-SL": "en-001", "en-SS": "en-001", "en-SX": "en-001", "en-SZ": "en-001", "en-TC": "en-001", "en-TK": "en-001", "en-TO": "en-001", "en-TT": "en-001", "en-TV": "en-001", "en-TZ": "en-001", "en-UG": "en-001", "en-VC": "en-001", "en-VG": "en-001", "en-VU": "en-001", "en-WS": "en-001", "en-ZA": "en-001", "en-ZM": "en-001", "en-ZW": "en-001", "en-AT": "en-150", "en-BE": "en-150", "en-CH": "en-150", "en-DE": "en-150", "en-DK": "en-150", "en-FI": "en-150", "en-NL": "en-150", "en-SE": "en-150", "en-SI": "en-150", "es-AR": "es-419", "es-BO": "es-419", "es-BR": "es-419", "es-BZ": "es-419", "es-CL": "es-419", "es-CO": "es-419", "es-CR": "es-419", "es-CU": "es-419", "es-DO": "es-419", "es-EC": "es-419", "es-GT": "es-419", "es-HN": "es-419", "es-MX": "es-419", "es-NI": "es-419", "es-PA": "es-419", "es-PE": "es-419", "es-PR": "es-419", "es-PY": "es-419", "es-SV": "es-419", "es-US": "es-419", "es-UY": "es-419", "es-VE": "es-419", "pt-AO": "pt-PT", "pt-CH": "pt-PT", "pt-CV": "pt-PT", "pt-FR": "pt-PT", "pt-GQ": "pt-PT", "pt-GW": "pt-PT", "pt-LU": "pt-PT", "pt-MO": "pt-PT", "pt-MZ": "pt-PT", "pt-ST": "pt-PT", "pt-TL": "pt-PT", "zh-Hant-MO": "zh-Hant-HK" };
-//# sourceMappingURL=parentLocales.js.map
-
-/***/ }),
-
 /***/ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/polyfill-utils.js":
 /*!******************************************************************************************!*\
   !*** ./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/polyfill-utils.js ***!
@@ -46939,9 +46849,12 @@ exports.default = { "en-150": "en-001", "en-AG": "en-001", "en-AI": "en-001", "e
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var aliases_1 = __webpack_require__(/*! ./aliases */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/aliases.js");
-var parentLocales_1 = __webpack_require__(/*! ./parentLocales */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/parentLocales.js");
 var invariant_1 = __webpack_require__(/*! ./invariant */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/invariant.js");
+var units_1 = __webpack_require__(/*! ./units */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/units.js");
+function hasOwnProperty(o, key) {
+    return Object.prototype.hasOwnProperty.call(o, key);
+}
+exports.hasOwnProperty = hasOwnProperty;
 /**
  * https://tc39.es/ecma262/#sec-toobject
  * @param arg
@@ -47024,24 +46937,6 @@ function getNumberOption(options, property, minimum, maximum, fallback) {
     return defaultNumberOption(val, minimum, maximum, fallback);
 }
 exports.getNumberOption = getNumberOption;
-function getAliasesByLang(lang) {
-    return Object.keys(aliases_1.default).reduce(function (all, locale) {
-        if (locale.split('-')[0] === lang) {
-            all[locale] = aliases_1.default[locale];
-        }
-        return all;
-    }, {});
-}
-exports.getAliasesByLang = getAliasesByLang;
-function getParentLocalesByLang(lang) {
-    return Object.keys(parentLocales_1.default).reduce(function (all, locale) {
-        if (locale.split('-')[0] === lang) {
-            all[locale] = parentLocales_1.default[locale];
-        }
-        return all;
-    }, {});
-}
-exports.getParentLocalesByLang = getParentLocalesByLang;
 function setInternalSlot(map, pl, field, value) {
     if (!map.get(pl)) {
         map.set(pl, Object.create(null));
@@ -47113,41 +47008,36 @@ function partitionPattern(pattern) {
 exports.partitionPattern = partitionPattern;
 /**
  * https://tc39.es/ecma402/#sec-setnfdigitoptions
- * https://tc39.es/proposal-unified-intl-numberformat/section11/numberformat_diff_out.html#sec-setnfdigitoptions
- * @param intlObj
- * @param opts
- * @param mnfdDefault
- * @param mxfdDefault
  */
-function setNumberFormatDigitOptions(internalSlotMap, intlObj, opts, mnfdDefault, mxfdDefault) {
+function setNumberFormatDigitOptions(internalSlots, opts, mnfdDefault, mxfdDefault, notation) {
     var mnid = getNumberOption(opts, 'minimumIntegerDigits', 1, 21, 1);
     var mnfd = opts.minimumFractionDigits;
     var mxfd = opts.maximumFractionDigits;
     var mnsd = opts.minimumSignificantDigits;
     var mxsd = opts.maximumSignificantDigits;
-    setInternalSlot(internalSlotMap, intlObj, 'minimumIntegerDigits', mnid);
+    internalSlots.minimumIntegerDigits = mnid;
     if (mnsd !== undefined || mxsd !== undefined) {
-        setInternalSlot(internalSlotMap, intlObj, 'roundingType', 'significantDigits');
+        internalSlots.roundingType = 'significantDigits';
         mnsd = defaultNumberOption(mnsd, 1, 21, 1);
         mxsd = defaultNumberOption(mxsd, mnsd, 21, 21);
-        setInternalSlot(internalSlotMap, intlObj, 'minimumSignificantDigits', mnsd);
-        setInternalSlot(internalSlotMap, intlObj, 'maximumSignificantDigits', mxsd);
+        internalSlots.minimumSignificantDigits = mnsd;
+        internalSlots.maximumSignificantDigits = mxsd;
     }
     else if (mnfd !== undefined || mxfd !== undefined) {
-        setInternalSlot(internalSlotMap, intlObj, 'roundingType', 'fractionDigits');
+        internalSlots.roundingType = 'fractionDigits';
         mnfd = defaultNumberOption(mnfd, 0, 20, mnfdDefault);
         var mxfdActualDefault = Math.max(mnfd, mxfdDefault);
         mxfd = defaultNumberOption(mxfd, mnfd, 20, mxfdActualDefault);
-        setInternalSlot(internalSlotMap, intlObj, 'minimumFractionDigits', mnfd);
-        setInternalSlot(internalSlotMap, intlObj, 'maximumFractionDigits', mxfd);
+        internalSlots.minimumFractionDigits = mnfd;
+        internalSlots.maximumFractionDigits = mxfd;
     }
-    else if (getInternalSlot(internalSlotMap, intlObj, 'notation') === 'compact') {
-        setInternalSlot(internalSlotMap, intlObj, 'roundingType', 'compactRounding');
+    else if (notation === 'compact') {
+        internalSlots.roundingType = 'compactRounding';
     }
     else {
-        setInternalSlot(internalSlotMap, intlObj, 'roundingType', 'fractionDigits');
-        setInternalSlot(internalSlotMap, intlObj, 'minimumFractionDigits', mnfdDefault);
-        setInternalSlot(internalSlotMap, intlObj, 'maximumFractionDigits', mxfdDefault);
+        internalSlots.roundingType = 'fractionDigits';
+        internalSlots.minimumFractionDigits = mnfdDefault;
+        internalSlots.maximumFractionDigits = mxfdDefault;
     }
 }
 exports.setNumberFormatDigitOptions = setNumberFormatDigitOptions;
@@ -47174,8 +47064,7 @@ function toUpperCase(str) {
     return str.replace(/([a-z])/g, function (_, c) { return c.toUpperCase(); });
 }
 /**
- * https://tc39.es/proposal-unified-intl-numberformat/section6/locales-currencies-tz_proposed_out.html#sec-iswellformedcurrencycode
- * @param currency
+ * https://tc39.es/ecma402/#sec-iswellformedcurrencycode
  */
 function isWellFormedCurrencyCode(currency) {
     currency = toUpperCase(currency);
@@ -47188,6 +47077,233 @@ function isWellFormedCurrencyCode(currency) {
     return true;
 }
 exports.isWellFormedCurrencyCode = isWellFormedCurrencyCode;
+/**
+ * https://tc39.es/ecma402/#sec-formatnumberstring
+ * TODO: dedup with intl-pluralrules
+ */
+function formatNumericToString(internalSlots, x) {
+    var isNegative = x < 0 || objectIs(x, -0);
+    if (isNegative) {
+        x = -x;
+    }
+    var result;
+    var rourndingType = internalSlots.roundingType;
+    switch (rourndingType) {
+        case 'significantDigits':
+            result = toRawPrecision(x, internalSlots.minimumSignificantDigits, internalSlots.maximumSignificantDigits);
+            break;
+        case 'fractionDigits':
+            result = toRawFixed(x, internalSlots.minimumFractionDigits, internalSlots.maximumFractionDigits);
+            break;
+        default:
+            result = toRawPrecision(x, 1, 2);
+            if (result.integerDigitsCount > 1) {
+                result = toRawFixed(x, 0, 0);
+            }
+            break;
+    }
+    x = result.roundedNumber;
+    var string = result.formattedString;
+    var int = result.integerDigitsCount;
+    var minInteger = internalSlots.minimumIntegerDigits;
+    if (int < minInteger) {
+        var forwardZeros = repeat('0', minInteger - int);
+        string = forwardZeros + string;
+    }
+    if (isNegative) {
+        x = -x;
+    }
+    return { roundedNumber: x, formattedString: string };
+}
+exports.formatNumericToString = formatNumericToString;
+/**
+ * TODO: dedup with intl-pluralrules and support BigInt
+ * https://tc39.es/ecma402/#sec-torawfixed
+ * @param x a finite non-negative Number or BigInt
+ * @param minFraction and integer between 0 and 20
+ * @param maxFraction and integer between 0 and 20
+ */
+function toRawFixed(x, minFraction, maxFraction) {
+    var f = maxFraction;
+    var n;
+    {
+        var exactSolve = x * Math.pow(10, f);
+        var roundDown = Math.floor(exactSolve);
+        var roundUp = Math.ceil(exactSolve);
+        n = exactSolve - roundDown < roundUp - exactSolve ? roundDown : roundUp;
+    }
+    var xFinal = n / Math.pow(10, f);
+    // n is a positive integer, but it is possible to be greater than 1e21.
+    // In such case we will go the slow path.
+    // See also: https://tc39.es/ecma262/#sec-numeric-types-number-tostring
+    var m;
+    if (n < 1e21) {
+        m = n.toString();
+    }
+    else {
+        m = n.toString();
+        var idx1 = m.indexOf('.');
+        var idx2 = m.indexOf('e+');
+        var exponent = parseInt(m.substring(idx2 + 2), 10);
+        m =
+            m.substring(0, idx1) +
+                m.substring(idx1 + 1, idx2) +
+                repeat('0', exponent - (idx2 - idx1 - 1));
+    }
+    var int;
+    if (f !== 0) {
+        var k = m.length;
+        if (k <= f) {
+            var z = repeat('0', f + 1 - k);
+            m = z + m;
+            k = f + 1;
+        }
+        var a = m.slice(0, k - f);
+        var b = m.slice(k - f);
+        m = a + "." + b;
+        int = a.length;
+    }
+    else {
+        int = m.length;
+    }
+    var cut = maxFraction - minFraction;
+    while (cut > 0 && m[m.length - 1] === '0') {
+        m = m.slice(0, -1);
+        cut--;
+    }
+    if (m[m.length - 1] === '.') {
+        m = m.slice(0, -1);
+    }
+    return { formattedString: m, roundedNumber: xFinal, integerDigitsCount: int };
+}
+exports.toRawFixed = toRawFixed;
+// https://tc39.es/ecma402/#sec-torawprecision
+function toRawPrecision(x, minPrecision, maxPrecision) {
+    var p = maxPrecision;
+    var m;
+    var e;
+    var xFinal;
+    if (x === 0) {
+        m = repeat('0', p);
+        e = 0;
+        xFinal = 0;
+    }
+    else {
+        e = getMagnitude(x);
+        var n = void 0;
+        {
+            var magnitude = e - p + 1;
+            var exactSolve = 
+            // Preserve floating point precision as much as possible with multiplication.
+            magnitude < 0 ? x * Math.pow(10, -magnitude) : x / Math.pow(10, magnitude);
+            var roundDown = Math.floor(exactSolve);
+            var roundUp = Math.ceil(exactSolve);
+            n = exactSolve - roundDown < roundUp - exactSolve ? roundDown : roundUp;
+        }
+        // See: https://tc39.es/ecma262/#sec-numeric-types-number-tostring
+        // No need to worry about scientific notation because it only happens for values >= 1e21,
+        // which has 22 significant digits. So it will at least be divided by 10 here to bring the
+        // value back into non-scientific-notation range.
+        m = n.toString();
+        xFinal = n * Math.pow(10, (e - p + 1));
+    }
+    var int;
+    if (e >= p - 1) {
+        m = m + repeat('0', e - p + 1);
+        int = e + 1;
+    }
+    else if (e >= 0) {
+        m = m.slice(0, e + 1) + "." + m.slice(e + 1);
+        int = e + 1;
+    }
+    else {
+        m = "0." + repeat('0', -e - 1) + m;
+        int = 1;
+    }
+    if (m.indexOf('.') >= 0 && maxPrecision > minPrecision) {
+        var cut = maxPrecision - minPrecision;
+        while (cut > 0 && m[m.length - 1] === '0') {
+            m = m.slice(0, -1);
+            cut--;
+        }
+        if (m[m.length - 1] === '.') {
+            m = m.slice(0, -1);
+        }
+    }
+    return { formattedString: m, roundedNumber: xFinal, integerDigitsCount: int };
+}
+exports.toRawPrecision = toRawPrecision;
+function repeat(s, times) {
+    if (typeof s.repeat === 'function') {
+        return s.repeat(times);
+    }
+    var arr = new Array(times);
+    for (var i = 0; i < arr.length; i++) {
+        arr[i] = s;
+    }
+    return arr.join('');
+}
+exports.repeat = repeat;
+/**
+ * Cannot do Math.log(x) / Math.log(10) bc if IEEE floating point issue
+ * @param x number
+ */
+function getMagnitude(x) {
+    // Cannot count string length via Number.toString because it may use scientific notation
+    // for very small or very large numbers.
+    return Math.floor(Math.log(x) * Math.LOG10E);
+}
+exports.getMagnitude = getMagnitude;
+/**
+ * This follows https://tc39.es/ecma402/#sec-case-sensitivity-and-case-mapping
+ * @param str string to convert
+ */
+function toLowerCase(str) {
+    return str.replace(/([A-Z])/g, function (_, c) { return c.toLowerCase(); });
+}
+var SHORTENED_SACTION_UNITS = units_1.SANCTIONED_UNITS.map(function (unit) {
+    return unit.replace(/^(.*?)-/, '');
+});
+/**
+ * https://tc39.es/ecma402/#sec-iswellformedunitidentifier
+ * @param unit
+ */
+function isWellFormedUnitIdentifier(unit) {
+    unit = toLowerCase(unit);
+    if (SHORTENED_SACTION_UNITS.indexOf(unit) > -1) {
+        return true;
+    }
+    var units = unit.split('-per-');
+    if (units.length !== 2) {
+        return false;
+    }
+    if (SHORTENED_SACTION_UNITS.indexOf(units[0]) < 0 ||
+        SHORTENED_SACTION_UNITS.indexOf(units[1]) < 0) {
+        return false;
+    }
+    return true;
+}
+exports.isWellFormedUnitIdentifier = isWellFormedUnitIdentifier;
+/*
+  17 ECMAScript Standard Built-in Objects:
+    Every built-in Function object, including constructors, that is not
+    identified as an anonymous function has a name property whose value
+    is a String.
+
+    Unless otherwise specified, the name property of a built-in Function
+    object, if it exists, has the attributes { [[Writable]]: false,
+    [[Enumerable]]: false, [[Configurable]]: true }.
+*/
+function defineProperty(target, name, _a) {
+    var value = _a.value;
+    Object.defineProperty(target, name, {
+        configurable: true,
+        enumerable: false,
+        writable: true,
+        value: value,
+    });
+}
+exports.defineProperty = defineProperty;
 //# sourceMappingURL=polyfill-utils.js.map
 
 /***/ }),
@@ -47226,7 +47342,6 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var get_canonical_locales_1 = __webpack_require__(/*! ./get-canonical-locales */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/get-canonical-locales.js");
 var invariant_1 = __webpack_require__(/*! ./invariant */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/invariant.js");
 var polyfill_utils_1 = __webpack_require__(/*! ./polyfill-utils */ "./node_modules/react-intl/node_modules/@formatjs/intl-utils/dist/polyfill-utils.js");
 function createResolveLocale(getDefaultLocale) {
@@ -47296,7 +47411,7 @@ function createResolveLocale(getDefaultLocale) {
                 var postExtension = foundLocale.slice(privateIndex, foundLocale.length);
                 foundLocale = preExtension + supportedExtension + postExtension;
             }
-            foundLocale = get_canonical_locales_1.getCanonicalLocales(foundLocale)[0];
+            foundLocale = Intl.getCanonicalLocales(foundLocale)[0];
         }
         result.locale = foundLocale;
         return result;
@@ -47411,16 +47526,8 @@ function createBestFitMatcher(getDefaultLocale) {
         return result;
     };
 }
-function getLocaleHierarchy(locale, aliases, parentLocales) {
+function getLocaleHierarchy(locale) {
     var results = [locale];
-    if (aliases[locale]) {
-        locale = aliases[locale];
-        results.push(locale);
-    }
-    var parentLocale = parentLocales[locale];
-    if (parentLocale) {
-        results.push(parentLocale);
-    }
     var localeParts = locale.split('-');
     for (var i = localeParts.length; i > 1; i--) {
         results.push(localeParts.slice(0, i - 1).join('-'));
@@ -47469,7 +47576,7 @@ function unpackData(locale, localeData,
 /** By default shallow merge the dictionaries. */
 reducer) {
     if (reducer === void 0) { reducer = function (all, d) { return (__assign(__assign({}, all), d)); }; }
-    var localeHierarchy = getLocaleHierarchy(locale, localeData.aliases, localeData.parentLocales);
+    var localeHierarchy = getLocaleHierarchy(locale);
     var dataToMerge = localeHierarchy
         .map(function (l) { return localeData.data[l]; })
         .filter(Boolean);
@@ -47494,7 +47601,7 @@ exports.unpackData = unpackData;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-// https://tc39.es/proposal-unified-intl-numberformat/section6/locales-currencies-tz_diff_out.html#sec-issanctionedsimpleunitidentifier
+// https://tc39.es/ecma402/#sec-issanctionedsimpleunitidentifier
 exports.SANCTIONED_UNITS = [
     'angle-degree',
     'area-acre',
@@ -60472,10 +60579,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.axios = exports.addQueryParameters = exports.parseDate = exports.parseDateStrict = exports.baseUrl = void 0;
 var dayjs_1 = __importDefault(__webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js"));
 var axios_1 = __importDefault(__webpack_require__(/*! axios */ "./node_modules/axios/index.js"));
-exports.baseUrl = function (version) {
-    if (version === void 0) { version = 1; }
-    return "/api/v" + version;
-};
+var routes_1 = __webpack_require__(/*! ../helpers/routes */ "./resources/assets/js/helpers/routes.ts");
+exports.baseUrl = routes_1.baseApiUrl;
 exports.parseDateStrict = function (date) { return dayjs_1.default(date).toDate(); };
 exports.parseDate = function (date) {
     return date !== null ? exports.parseDateStrict(date) : null;
@@ -62024,13 +62129,70 @@ exports.uniq = uniq;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.accountSettings = exports.hrApplicantShow = exports.hrApplicationShow = exports.hrJobApplications = exports.hrScreeningPlan = exports.hrJobPreview = exports.hrJobReview = exports.hrJobSummary = exports.hrJobIndex = exports.managerFaq = exports.jobBuilderReview = exports.jobBuilderSkills = exports.jobBuilderTasks = exports.jobBuilderImpact = exports.jobBuilderEnv = exports.jobBuilderDetails = exports.jobBuilderIntro = exports.applicationReviewUpdate = exports.managerScreeningPlan = exports.managerJobApplications = exports.managerJobPreview = exports.managerJobSummary = exports.managerJobIndex = exports.managerEditProfile = exports.managerApplicantShow = exports.managerApplicationShow = void 0;
-var base_1 = __webpack_require__(/*! ../api/base */ "./resources/assets/js/api/base.ts");
+exports.accountSettings = exports.hrApplicantShow = exports.hrApplicationShow = exports.hrJobApplications = exports.hrScreeningPlan = exports.hrJobPreview = exports.hrJobReview = exports.hrJobSummary = exports.hrJobIndex = exports.managerFaq = exports.jobBuilderReview = exports.jobBuilderSkills = exports.jobBuilderTasks = exports.jobBuilderImpact = exports.jobBuilderEnv = exports.jobBuilderDetails = exports.jobBuilderIntro = exports.applicationReviewUpdate = exports.managerScreeningPlan = exports.managerJobApplications = exports.managerJobPreview = exports.managerJobSummary = exports.managerJobIndex = exports.managerEditProfile = exports.managerApplicantShow = exports.managerApplicationShow = exports.removeBaseUrl = exports.imageUrl = exports.baseApiUrl = exports.basePathname = exports.baseUrl = void 0;
+function stripTrailingSlash(str) {
+    return str.endsWith("/") ? str.slice(0, -1) : str;
+}
+function isValidUrl(str) {
+    if (str.startsWith("http://") || str.startsWith("https://")) {
+        try {
+            var url = new URL(str);
+        }
+        catch (_) {
+            return false;
+        }
+        return true;
+    }
+    return false;
+}
+function baseUrl() {
+    var _a;
+    var base = document.querySelector("meta[name='base-url']");
+    if (base !== null) {
+        return stripTrailingSlash((_a = base.getAttribute("content")) !== null && _a !== void 0 ? _a : "");
+    }
+    return "";
+}
+exports.baseUrl = baseUrl;
+function basePathname() {
+    var base = baseUrl();
+    return isValidUrl(base) ? new URL(baseUrl()).pathname : "";
+}
+exports.basePathname = basePathname;
+function baseApiUrl(version) {
+    if (version === void 0) { version = 1; }
+    return baseUrl() + "/api/v" + version;
+}
+exports.baseApiUrl = baseApiUrl;
+/**
+ *
+ * @param imgFile The name of the img file, not inluding the /images/ path.
+ */
+function imageUrl(imgFile) {
+    return baseUrl() + "/images/" + imgFile;
+}
+exports.imageUrl = imageUrl;
+/**
+ * Removes the base url or base pathname if the given url starts with them.
+ * @param url
+ */
+function removeBaseUrl(url) {
+    var base = baseUrl();
+    if (url.startsWith(base)) {
+        return url.substr(base.length);
+    }
+    var basePath = basePathname();
+    if (url.startsWith(basePath)) {
+        return url.substr(basePath.length);
+    }
+    return url;
+}
+exports.removeBaseUrl = removeBaseUrl;
 function applicationShow(locale, prefix, applicationId, jobId) {
-    return "/" + locale + "/" + prefix + "/jobs/" + jobId + "/applications/" + applicationId;
+    return baseUrl() + "/" + locale + "/" + prefix + "/jobs/" + jobId + "/applications/" + applicationId;
 }
 function applicantShow(locale, prefix, applicantId, jobId) {
-    return "/" + locale + "/" + prefix + "/jobs/" + jobId + "/applicants/" + applicantId;
+    return baseUrl() + "/" + locale + "/" + prefix + "/jobs/" + jobId + "/applicants/" + applicantId;
 }
 function managerApplicationShow(locale, applicationId, jobId) {
     return applicationShow(locale, "manager", applicationId, jobId);
@@ -62041,66 +62203,66 @@ function managerApplicantShow(locale, applicantId, jobId) {
 }
 exports.managerApplicantShow = managerApplicantShow;
 function managerEditProfile(locale) {
-    return "/" + locale + "/manager/profile";
+    return baseUrl() + "/" + locale + "/manager/profile";
 }
 exports.managerEditProfile = managerEditProfile;
 function managerJobIndex(locale) {
-    return "/" + locale + "/manager/jobs";
+    return baseUrl() + "/" + locale + "/manager/jobs";
 }
 exports.managerJobIndex = managerJobIndex;
 function managerJobSummary(locale, jobId) {
-    return "/" + locale + "/manager/jobs/" + jobId;
+    return baseUrl() + "/" + locale + "/manager/jobs/" + jobId;
 }
 exports.managerJobSummary = managerJobSummary;
 function managerJobPreview(locale, jobId) {
-    return "/" + locale + "/manager/jobs/" + jobId + "/preview";
+    return baseUrl() + "/" + locale + "/manager/jobs/" + jobId + "/preview";
 }
 exports.managerJobPreview = managerJobPreview;
 function managerJobApplications(locale, jobId) {
-    return "/" + locale + "/manager/jobs/" + jobId + "/applications";
+    return baseUrl() + "/" + locale + "/manager/jobs/" + jobId + "/applications";
 }
 exports.managerJobApplications = managerJobApplications;
 function managerScreeningPlan(locale, jobId) {
-    return "/" + locale + "/manager/jobs/" + jobId + "/assessment-plan";
+    return baseUrl() + "/" + locale + "/manager/jobs/" + jobId + "/assessment-plan";
 }
 exports.managerScreeningPlan = managerScreeningPlan;
 function applicationReviewUpdate(locale, applicationId) {
-    return base_1.baseUrl() + "/applications/" + applicationId + "/review";
+    return baseApiUrl() + "/applications/" + applicationId + "/review";
 }
 exports.applicationReviewUpdate = applicationReviewUpdate;
 function jobBuilderIntro(locale, jobId) {
     if (jobId) {
-        return "/" + locale + "/manager/jobs/" + jobId + "/builder/intro";
+        return baseUrl() + "/" + locale + "/manager/jobs/" + jobId + "/builder/intro";
     }
-    return "/" + locale + "/manager/job-builder/intro";
+    return baseUrl() + "/" + locale + "/manager/job-builder/intro";
 }
 exports.jobBuilderIntro = jobBuilderIntro;
 function jobBuilderDetails(locale, jobId) {
-    return "/" + locale + "/manager/jobs/" + jobId + "/builder/details";
+    return baseUrl() + "/" + locale + "/manager/jobs/" + jobId + "/builder/details";
 }
 exports.jobBuilderDetails = jobBuilderDetails;
 function jobBuilderEnv(locale, jobId) {
-    return "/" + locale + "/manager/jobs/" + jobId + "/builder/environment";
+    return baseUrl() + "/" + locale + "/manager/jobs/" + jobId + "/builder/environment";
 }
 exports.jobBuilderEnv = jobBuilderEnv;
 function jobBuilderImpact(locale, jobId) {
-    return "/" + locale + "/manager/jobs/" + jobId + "/builder/impact";
+    return baseUrl() + "/" + locale + "/manager/jobs/" + jobId + "/builder/impact";
 }
 exports.jobBuilderImpact = jobBuilderImpact;
 function jobBuilderTasks(locale, jobId) {
-    return "/" + locale + "/manager/jobs/" + jobId + "/builder/tasks";
+    return baseUrl() + "/" + locale + "/manager/jobs/" + jobId + "/builder/tasks";
 }
 exports.jobBuilderTasks = jobBuilderTasks;
 function jobBuilderSkills(locale, jobId) {
-    return "/" + locale + "/manager/jobs/" + jobId + "/builder/skills";
+    return baseUrl() + "/" + locale + "/manager/jobs/" + jobId + "/builder/skills";
 }
 exports.jobBuilderSkills = jobBuilderSkills;
 function jobBuilderReview(locale, jobId) {
-    return "/" + locale + "/manager/jobs/" + jobId + "/builder/review";
+    return baseUrl() + "/" + locale + "/manager/jobs/" + jobId + "/builder/review";
 }
 exports.jobBuilderReview = jobBuilderReview;
 function managerFaq(locale, faqSection) {
-    var base = "/" + locale + "/manager/faq";
+    var base = baseUrl() + "/" + locale + "/manager/faq";
     if (faqSection) {
         return base + "#" + faqSection;
     }
@@ -62108,33 +62270,33 @@ function managerFaq(locale, faqSection) {
 }
 exports.managerFaq = managerFaq;
 function hrJobIndex(locale) {
-    return "/" + locale + "/hr/jobs";
+    return baseUrl() + "/" + locale + "/hr/jobs";
 }
 exports.hrJobIndex = hrJobIndex;
 function hrJobSummary(locale, jobId) {
-    return "/" + locale + "/hr/jobs/" + jobId;
+    return baseUrl() + "/" + locale + "/hr/jobs/" + jobId;
 }
 exports.hrJobSummary = hrJobSummary;
 function hrJobReview(locale, jobId) {
-    return "/" + locale + "/hr/jobs/" + jobId + "/review";
+    return baseUrl() + "/" + locale + "/hr/jobs/" + jobId + "/review";
 }
 exports.hrJobReview = hrJobReview;
 function hrJobPreview(locale, jobId) {
-    return "/" + locale + "/hr/jobs/" + jobId + "/preview";
+    return baseUrl() + "/" + locale + "/hr/jobs/" + jobId + "/preview";
 }
 exports.hrJobPreview = hrJobPreview;
 function hrScreeningPlan(locale, jobId) {
-    return "/" + locale + "/hr/jobs/" + jobId + "/assessment-plan";
+    return baseUrl() + "/" + locale + "/hr/jobs/" + jobId + "/assessment-plan";
 }
 exports.hrScreeningPlan = hrScreeningPlan;
 function hrJobApplications(locale, jobId) {
-    return "/" + locale + "/hr/jobs/" + jobId + "/applications";
+    return baseUrl() + "/" + locale + "/hr/jobs/" + jobId + "/applications";
 }
 exports.hrJobApplications = hrJobApplications;
 exports.hrApplicationShow = function (locale, applicationId, jobId) { return applicationShow(locale, "hr", applicationId, jobId); };
 exports.hrApplicantShow = function (locale, applicantId, jobId) { return applicantShow(locale, "hr", applicantId, jobId); };
 function accountSettings(locale) {
-    return "/" + locale + "/settings";
+    return baseUrl() + "/" + locale + "/settings";
 }
 exports.accountSettings = accountSettings;
 
@@ -66319,7 +66481,7 @@ module.exports = JSON.parse("{\"activity.commentLocation.label\":\"Commentaire t
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/Grant/Sites/TalentCloud/resources/assets/js/components/HRPortal/JobSummaryActivityFeed.tsx */"./resources/assets/js/components/HRPortal/JobSummaryActivityFeed.tsx");
+module.exports = __webpack_require__(/*! C:\dev\CombinedTalentCloud\tc\resources\assets\js\components\HRPortal\JobSummaryActivityFeed.tsx */"./resources/assets/js/components/HRPortal/JobSummaryActivityFeed.tsx");
 
 
 /***/ })
