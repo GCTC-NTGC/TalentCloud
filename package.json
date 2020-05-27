@@ -25,10 +25,10 @@
         "translations": "npm run translations:extract && npm run translations:check"
     },
     "devDependencies": {
-        "@babel/cli": "^7.8.4",
-        "@babel/core": "^7.9.6",
-        "@babel/plugin-proposal-optional-chaining": "^7.9.0",
-        "@babel/preset-react": "^7.9.4",
+        "@babel/cli": "^7.10.0",
+        "@babel/core": "^7.10.0",
+        "@babel/plugin-proposal-optional-chaining": "^7.10.0",
+        "@babel/preset-react": "^7.10.0",
         "@babel/preset-typescript": "^7.9.0",
         "@fortawesome/fontawesome-free": "^5.13.0",
         "@storybook/addon-actions": "^5.3.19",
@@ -42,7 +42,7 @@
         "@types/fetch-mock": "^7.3.2",
         "@types/intl": "^1.2.0",
         "@types/jest": "^25.2.3",
-        "@types/lodash": "^4.14.152",
+        "@types/lodash": "^4.14.153",
         "@types/node": "^14.0.5",
         "@types/react": "^16.9.35",
         "@types/react-dom": "^16.9.8",
@@ -58,7 +58,7 @@
         "dotenv": "^8.2.0",
         "enzyme": "^3.11.0",
         "enzyme-adapter-react-16": "^1.15.2",
-        "enzyme-to-json": "^3.4.4",
+        "enzyme-to-json": "^3.5.0",
         "eslint": "^6",
         "eslint-config-airbnb": "^18.1.0",
         "eslint-config-prettier": "^6.11.0",
@@ -81,7 +81,7 @@
         "redux-mock-store": "^1.5.4",
         "resolve-url-loader": "^3.1.1",
         "sass-loader": "^8.0.2",
-        "snyk": "^1.329.0",
+        "snyk": "^1.330.0",
         "storybook-addon-intl": "^2.4.1",
         "testcafe": "^1.8.5",
         "ts-jest": "^25.5.1",
@@ -124,7 +124,7 @@
         "reselect": "^4.0.0",
         "sweetalert2": "^9.13.1",
         "universal-router": "^9.0.1",
-        "yup": "^0.29.0"
+        "yup": "^0.29.1"
     },
     "jest": {
         "preset": "ts-jest",
