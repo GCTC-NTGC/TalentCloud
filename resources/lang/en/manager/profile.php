@@ -40,7 +40,6 @@ return [
             ],
             'account_settings' => 'To learn more, visit your',
             'account_settings_link' => [
-                'href' => '/settings',
                 'text' => 'account settings',
                 'title' => 'Visit Account Settings page'
             ],
