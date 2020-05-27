@@ -21,11 +21,32 @@ class ApplicationController extends Controller
     public function index()
     {
         $applications = Auth::user()->applicant->job_applications;
+        $applications_in_progress = [];
+        $completed_applications = [];
+        $expired_applications = [];
+
+        foreach ($applications as $application) {
+            if ($application->application_status->name == 'draft' && $application->job_poster->isOpen()) {
+                array_push($applications_in_progress, $application);
+            }
+
+            if ($application->application_status->name != 'draft') {
+                array_push($completed_applications, $application);
+            }
+
+            if ($application->application_status->name == 'draft' && $application->job_poster->isClosed()) {
+                array_push($expired_applications, $application);
+            }
+        }
+
         return view(
             'applicant/application_index',
             [
                 'application_index' => Lang::get('applicant/application_index'),
                 'applications' => $applications,
+                'applications_in_progress' => $applications_in_progress,
+                'completed_applications' => $completed_applications,
+                'expired_applications' => $expired_applications,
                 'manager_profile_photo' => '/images/user.png', // TODO: get real photo.
             ]
         );
