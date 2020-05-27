@@ -106,7 +106,10 @@ Route::group(
                 Route::post('/2fa', 'Auth\TwoFactorController@redirectToExpected')->name('2fa');
 
                 /* Home */
-                Route::get('/', 'HomepageController@applicant')->name('home');
+                Route::get('/', 'StrategicResponseController@index')->name('home');
+                Route::get('response', function() {
+                    return redirect('/');
+                })->name('response.index');
 
                 /* Jobs */
                 Route::get('jobs', 'JobController@index')->name('jobs.index');
@@ -114,17 +117,6 @@ Route::group(
                 Route::get('jobs/{jobPoster}', 'JobController@show')
                     ->middleware('can:view,jobPoster')
                     ->name('jobs.summary');
-
-                /* Response Home */
-                Route::get('response', 'StrategicResponseController@index')->name('response.index');
-
-                /* Reserve Redirect */
-                Route::get('reserve', function () {
-                    return redirect('response');
-                });
-
-            /* Response Home */
-                Route::get('response/faq', 'StrategicResponseController@faq')->name('response.faq');
 
                 /* Require being logged in as applicant */
                 Route::middleware(['auth', 'role:applicant'])->group(function (): void {
@@ -265,7 +257,7 @@ Route::group(
                 });
 
                 /* Static - FAQ */
-                Route::get('faq', 'FaqController')->name('faq');
+                Route::get('faq', 'StrategicResponseController@faq')->name('faq');
 
                 /* Static - Privacy Policy */
                 Route::view('privacy', 'common/static_privacy', ['privacy' => Lang::get('common/privacy')])
