@@ -7,7 +7,7 @@ return [
     |
     */
     'beta_banner' => [
-        'message' => 'Dans notre tentative de rendre ce site opérationnel rapidement, nous nous attendons à ce quelques problèmes surviennent. ',
+        'message' => 'Le Nuage de talents a été temporairement retiré pour soutenir ce projet. Il devrait revenir avec la Réserve de talents au mois de mai. ',
         'need_help' => [
             'text' => 'Besoin d’aide? Communiquez avec nous.',
             'title' => 'Cliquez ici pour obtenir de l’aide.',

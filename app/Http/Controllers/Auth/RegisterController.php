@@ -9,6 +9,8 @@ use App\Models\Lookup\Department;
 use App\Models\Manager;
 use App\Models\User;
 use App\Services\Validation\RegistrationValidator;
+use App\Services\Validation\Rules\GovernmentEmailRule;
+use App\Services\Validation\Rules\PasswordFormatRule;
 use Facades\App\Services\WhichPortal;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -72,23 +74,12 @@ class RegisterController extends AuthController
      */
     public function showRegistrationForm()
     {
-        // If user came from response landing page then save url to session.
-        // Set the "Return home" link back to Response page.
-        $previous_url = session()->get('_previous')['url'];
-        if ($previous_url == route('response.index')) {
-            session()->put('response.index', route('response.index'));
-
-            return view('auth.register', [
-                'routes' => $this->auth_routes(),
-                'register' => Lang::get('common/auth/register'),
-                'home_url' => route('response.index'),
-            ]);
-        }
-
         return view('auth.register', [
             'routes' => $this->auth_routes(),
             'register' => Lang::get('common/auth/register'),
             'home_url' => route('home'),
+            'gov_email_pattern' => GovernmentEmailRule::PATTERN,
+            'password_pattern' => PasswordFormatRule::PATTERN,
         ]);
     }
 
@@ -169,7 +160,16 @@ class RegisterController extends AuthController
         $user->first_name = $data['first_name'];
         $user->last_name = $data['last_name'];
         $user->email = $data['email'];
+        $user->work_phone = $data['work_phone'];
         $user->password = Hash::make($data['password']);
+
+        if ($data['personal_email'] != null) {
+            $user->personal_email = $data['personal_email'];
+        }
+
+        if ($data['personal_phone'] != null) {
+            $user->personal_phone = $data['personal_phone'];
+        }
 
         // Default to basic user.
         $user->setRole('basic');

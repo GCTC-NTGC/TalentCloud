@@ -1,4 +1,9 @@
-import { ApplicationNormalized, ApplicationReview } from "../../models/types";
+import { combineReducers } from "redux";
+import {
+  ApplicationNormalized,
+  ApplicationReview,
+  Email,
+} from "../../models/types";
 import {
   ApplicationAction,
   FETCH_APPLICATION_SUCCEEDED,
@@ -10,8 +15,13 @@ import {
   UPDATE_APPLICATION_REVIEW_SUCCEEDED,
   UPDATE_APPLICATION_REVIEW_STARTED,
   UPDATE_APPLICATION_REVIEW_FAILED,
+  FETCH_REFERENCE_EMAILS_SUCCEEDED,
+  FETCH_REFERENCE_EMAILS_STARTED,
+  FETCH_REFERENCE_EMAILS_FAILED,
+  SEND_REFERENCE_EMAIL_STARTED,
+  SEND_REFERENCE_EMAIL_SUCCEEDED,
+  SEND_REFERENCE_EMAIL_FAILED,
 } from "./applicationActions";
-import { combineReducers } from "redux";
 import {
   mapToObject,
   getId,
@@ -32,6 +42,18 @@ export interface EntityState {
       [applicationId: number]: number;
     };
   };
+  microReferenceEmails: {
+    director: {
+      byApplicationId: {
+        [applicationId: number]: Email;
+      };
+    };
+    secondary: {
+      byApplicationId: {
+        [applicationId: number]: Email;
+      };
+    };
+  };
 }
 
 export interface UiState {
@@ -39,6 +61,12 @@ export interface UiState {
     [id: number]: boolean;
   };
   fetchingApplications: boolean;
+  fetchingReferenceEmailsForApplication: {
+    [applicationId: number]: boolean;
+  };
+  sendingReferenceEmailForApplication: {
+    [applicationId: number]: boolean;
+  };
 }
 
 export interface ApplicationState {
@@ -52,11 +80,21 @@ export const initEntities = (): EntityState => ({
     byId: {},
     idByApplicationId: {},
   },
+  microReferenceEmails: {
+    director: {
+      byApplicationId: {},
+    },
+    secondary: {
+      byApplicationId: {},
+    },
+  },
 });
 
 export const initUi = (): UiState => ({
   applicationIsUpdating: {},
   fetchingApplications: false,
+  fetchingReferenceEmailsForApplication: {},
+  sendingReferenceEmailForApplication: {},
 });
 
 export const initApplicationState = (): ApplicationState => ({
@@ -142,6 +180,24 @@ export const entitiesReducer = (
           },
         },
       };
+    case FETCH_REFERENCE_EMAILS_SUCCEEDED:
+      return {
+        ...state,
+        microReferenceEmails: {
+          director: {
+            byApplicationId: {
+              ...state.microReferenceEmails.director.byApplicationId,
+              [action.meta.applicationId]: action.payload.director,
+            },
+          },
+          secondary: {
+            byApplicationId: {
+              ...state.microReferenceEmails.secondary.byApplicationId,
+              [action.meta.applicationId]: action.payload.secondary,
+            },
+          },
+        },
+      };
     default:
       return state;
   }
@@ -194,6 +250,40 @@ export const uiReducer = (
         ...state,
         applicationIsUpdating: {
           ...state.applicationIsUpdating,
+          [action.meta.applicationId]: false,
+        },
+      };
+    case FETCH_REFERENCE_EMAILS_STARTED:
+      return {
+        ...state,
+        fetchingReferenceEmailsForApplication: {
+          ...state.fetchingReferenceEmailsForApplication,
+          [action.meta.applicationId]: true,
+        },
+      };
+    case FETCH_REFERENCE_EMAILS_SUCCEEDED:
+    case FETCH_REFERENCE_EMAILS_FAILED:
+      return {
+        ...state,
+        fetchingReferenceEmailsForApplication: {
+          ...state.fetchingReferenceEmailsForApplication,
+          [action.meta.applicationId]: false,
+        },
+      };
+    case SEND_REFERENCE_EMAIL_STARTED:
+      return {
+        ...state,
+        sendingReferenceEmailForApplication: {
+          ...state.sendingReferenceEmailForApplication,
+          [action.meta.applicationId]: true,
+        },
+      };
+    case SEND_REFERENCE_EMAIL_SUCCEEDED:
+    case SEND_REFERENCE_EMAIL_FAILED:
+      return {
+        ...state,
+        sendingReferenceEmailForApplication: {
+          ...state.sendingReferenceEmailForApplication,
           [action.meta.applicationId]: false,
         },
       };

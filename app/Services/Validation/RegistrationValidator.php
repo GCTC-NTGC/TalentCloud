@@ -10,6 +10,7 @@ class RegistrationValidator
     public static function basicRules()
     {
         return [
+            'website' => 'size:0', // Honeypot, hidden field needs to be empty.
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -19,6 +20,15 @@ class RegistrationValidator
                 new PasswordFormatRule,
                 'confirmed'
             ],
+        ];
+    }
+
+    public static function userRegistrationExtraRules()
+    {
+        return [
+            'work_phone' => 'required|string',
+            'personal_email' => 'nullable|string|email|max:255|unique:users',
+            'personal_phone' => 'nullable|string',
         ];
     }
 
@@ -32,14 +42,15 @@ class RegistrationValidator
     }
 
     /**
-     * Get a validator for an incoming registration request.
+     * Get a validator for an incoming User registration request.
      *
      * @param  array $data Incoming registration data.
      * @return \Illuminate\Contracts\Validation\Validator
      */
     public static function userValidator(array $data)
     {
-        return Validator::make($data, self::basicRules());
+        $userRules = array_merge(self::basicRules(), self::userRegistrationExtraRules());
+        return Validator::make($data, $userRules);
     }
 
     /**

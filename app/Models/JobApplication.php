@@ -14,6 +14,7 @@ use App\Models\ApplicationReview;
 use App\Services\Validation\ApplicationValidator;
 use App\Services\Validation\StrategicResponseApplicationValidator;
 use Illuminate\Notifications\Notifiable;
+use App\Traits\TalentCloudCrudTrait as CrudTrait;
 
 /**
  * Class JobApplication
@@ -73,6 +74,8 @@ use Illuminate\Notifications\Notifiable;
  */
 class JobApplication extends BaseModel
 {
+    // Trait for Backpack.
+    use CrudTrait;
 
     use Notifiable;
 

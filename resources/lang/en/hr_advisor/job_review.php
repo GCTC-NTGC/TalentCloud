@@ -1,4 +1,4 @@
 <?php
 return [
-    'title' => 'Job Index'
+    'title' => 'Review Poster'
 ];

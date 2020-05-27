@@ -1,115 +1,157 @@
 {# =============================================================================
 
     Talent Cloud
-    Authentication: Register
+    COVID-19 Response Registration (Step 01)
+    This UI is the first step in creating an account on the Talent Reserve.
 
 ============================================================================= #}
 {% extends "layouts/base" %}
 {% block title %}{{ register.title }}{% endblock %}
 {% block body %}
-	{% include "common/goc" %}
-	<div data-clone>
-		<section class="tc-auth" data-c-padding="top(1) bottom(2)" data-c-overlay="black(80)" style="background-image: url('/images/bg_crowd.jpg');">
-			<div
-				class="tc-auth-wrapper" data-c-container="small">
-				{# Return to the homepage link. #}
-				<a data-c-color="white" href="{{ home_url }}" title="Return Home">
-					<i class="fas fa-chevron-left" data-c-margin="right(quarter)"></i>{{ register.return }}
-				</a>
-				<div
-					data-c-radius="rounded" data-c-margin="top(normal)">
-					{# Auth UI Title Area #}
-					<div class="tc-auth-header gradient-left-right" data-c-padding="all(1)" data-c-align="base(center)">
-						<h1 data-c-font-size="h2" data-c-color="white">{{ register.header }}</h1>
-					</div>
-					{# Registration Form #}
-					<form action="{{ routes.register }}" method="POST">
-						{{ csrf_field() }}
-						<div data-c-background="white(100)" data-c-padding="all(1)">
-							<div>
-								{% include "errors/form_errors" %}
-								{# Form Inputs #}
-								<div
-									data-c-grid="gutter middle">
-									{# New First & Last Name Inputs #}
-									<div data-c-grid-item="tp(1of2)" data-c-input="text">
-										<label for="first_name">{{ register.first_name }}</label>
-										<span>{{ trans('forms.required') }}</span>
-										<div>
-											<input id="first_name" name="first_name" placeholder="" required type="text" value="{{ old('first_name') }}"/>
-										</div>
-										<span>{{ trans('forms.error') }}</span>
-									</div>
-									<div data-c-grid-item="tp(1of2)" data-c-input="text">
-										<label for="last_name">{{ register.last_name }}</label>
-										<span>{{ trans('forms.required') }}</span>
-										<div>
-											<input id="last_name" name="last_name" placeholder="" required type="text" value="{{ old('last_name') }}"/>
-										</div>
-										<span>{{ trans('forms.error') }}</span>
-									</div>
-									{# Email #}
-									<div data-c-grid-item="base(1of1)" data-c-input="email">
-										<label for="email">{{ register.email }}</label>
-										<span>{{ trans('forms.required') }}</span>
-										<div>
-											<input id="email" placeholder="{{ register.email_placeholder }}" required name="email" type="email" value="{{ old('email') }}"/>
-										</div>
-										<span>{{ trans('forms.error') }}</span>
-									</div>
-									{# A block that other registration layouts can extend to add extra fields #}
-									{% block extra_fields %}{% endblock %}
-									{# Password Requirements #}
-									<div data-c-grid-item="base(1of1)">
-										<p>{{ register.password_copy }}</p>
-									</div>
-									{# Password #}
-									<div data-c-grid-item="tp(1of2)" data-c-input="password">
-										<label for="password">{{ register.password }}</label>
-										<span>{{ trans('forms.required') }}</span>
-										<div>
-											<input id="password" required type="password" name="password" autocomplete="off"/>
-											<button type="button">
-												<i class="fas fa-eye"></i>
-												<i class="fas fa-eye-slash"></i>
-											</button>
-										</div>
-										<span>{{ trans('forms.error') }}</span>
-									</div>
-									{# Password Confirmation #}
-									<div data-c-grid-item="tp(1of2)" data-c-input="password">
-										<label for="password-confirm">{{ register.confirm_password }}</label>
-										<span>{{ trans('forms.required') }}</span>
-										<div>
-											<input id="password-confirm" required type="password" name="password_confirmation" autocomplete="off"/>
-											<button type="button">
-												<i class="fas fa-eye"></i>
-												<i class="fas fa-eye-slash"></i>
-											</button>
-										</div>
-										<span>{{ trans('forms.error') }}</span>
-									</div>
-								</div>
-							</div>
-						</div>
-						{# UI Actions #}
-						<div data-c-background="white(100)" data-c-padding="all(1)" data-c-border="top(thin, solid, grey)">
-							<div data-c-grid="middle">
-								<div data-c-grid-item="base(1of2)">
-									<a href="{{ routes.login }}" title="Login to Talent Cloud">
-										{{ register.already_have_account }}
-									</a>
-								</div>
-								<div data-c-grid-item="base(1of2)" data-c-align="base(right)">
-									<button data-c-button="solid(c1)" data-c-radius="rounded" type="submit">
-										{{ register.register }}
-									</button>
-								</div>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</section>
-	</div>
+    {# Government of Canada Banner #}
+    {% include "common/goc" %}
+    <div data-clone>
+        {# Beta Banner #}
+        {% include "response/beta-banner" %}
+        {# Menu #}
+        {% include "response/menu" %}
+        {# Header #}
+        {% include "response/registration/header" with {"header": register } %}
+        {# Content #}
+        <a id="skipLink"></a>
+        <div data-c-border="bottom(thin, solid, gray)">
+            <div data-c-container="medium(center)" data-c-padding="bottom(3)">
+                <form action="{{ routes.register }}" method="POST">
+                    <div class="form-error" data-c-margin="top(2)">
+                        {% include "errors/form_errors" %}
+                    </div>
+                	{{ csrf_field() }}
+                    <input data-c-visibility="hidden" id="website" type="text" name="website" value="" />
+                    <h2 data-c-heading="h2" data-c-padding="top(2)" data-c-margin="bottom(1)">{{ register.account_register }}</h2>
+                    <p>{{ register.thanks_for_volunteering }}</p>
+                    <h3 data-c-heading="h3" data-c-padding="top(2) bottom(1)" data-c-margin="bottom(1)">{{ register.account_info }}</h3>
+                    <div data-c-grid="gutter(all, 1)">
+                        {# First Name #}
+                        <div data-c-input="text" data-c-grid-item="tl(1of2)">
+                            <label for="first_name">{{ register.first_name }}</label>
+                            <span>{{ trans('forms.required') }}</span>
+                            <div>
+                                <input id="first_name" name="first_name" required type="text" value="{{ old('first_name') }}"/>
+                            </div>
+                            <span>{{ trans('forms.error') }}</span>
+                        </div>
+                        {# Last Name #}
+                        <div data-c-input="text" data-c-grid-item="tl(1of2)">
+                            <label for="last_name">{{ register.last_name }}</label>
+                            <span>{{ trans('forms.required') }}</span>
+                            <div>
+							    <input id="last_name" name="last_name" required type="text" value="{{ old('last_name') }}"/>
+                            </div>
+                            <span>{{ trans('forms.error') }}</span>
+                        </div>
+                        {# Gov Email #}
+                        <div data-c-input="email" data-c-grid-item="tl(1of2)">
+                            <label for="email">{{ register.email }}</label>
+                            <span>{{ trans('forms.required') }}</span>
+                            <div>
+                                <input id="email" required  name="email" type="email" value="{{ old('email') }}" placeholder="{{ register.email_placeholder }}"  pattern="{{ gov_email_pattern }}" />
+                            </div>
+                            <span>{{ trans('forms.error') }}</span>
+                        </div>
+                        {# Work Phone # #}
+                        <div data-c-input="telephone" data-c-grid-item="tl(1of2)">
+                            <label for="work_phone">{{ register.work_phone }}</label>
+                            <span>{{ trans('forms.required') }}</span>
+                            <div>
+                                <input id="work_phone" name="work_phone" placeholder="{{ register.phone_placeholder }}" required type="tel" value="{{ old('work_phone') }}" />
+                            </div>
+                            <span>{{ trans('forms.error') }}</span>
+                        </div>
+                        {# Personal Info Blurb #}
+                        <div data-c-grid-item="base(1of1)">
+                            <p data-c-margin="top(.5) bottom(1)">{{ register.personal_info_copy }}</p>
+                        </div>
+                        {# Personal Email #}
+                        <div data-c-input="email" data-c-grid-item="tl(1of2)">
+                            <label for="personal_email">{{ register.personal_email }} <span data-c-color="gray">({{ register.optional }})</span></label>
+                            <span>{{ trans('forms.required') }}</span>
+                            <div>
+                                <input id="personal_email" placeholder="{{ register.personal_email_placeholder }}" name="personal_email" type="email" value="{{ old('personal_email') }}"/>
+                            </div>
+                            <span>{{ trans('forms.error') }}</span>
+                        </div>
+                        {# Personal Phone # #}
+                        <div data-c-input="telephone" data-c-grid-item="tl(1of2)">
+                            <label for="personal_phone">{{ register.personal_phone }} <span data-c-color="gray">({{ register.optional }})</span></label>
+                            <span>{{ trans('forms.required') }}</span>
+                            <div>
+                                <input id="personal_phone" name="personal_phone" placeholder="{{ register.phone_placeholder }}" type="tel" value="{{ old('personal_phone') }}" />
+                            </div>
+                            <span>{{ trans('forms.error') }}</span>
+                        </div>
+                        {# Contact Confirmation #}
+                        <div data-c-input="checkbox(single)" data-c-grid-item="base(1of1)">
+                            <span>{{ trans('forms.required') }}</span>
+                            <div>
+                                <label for="contact_consent">
+                                    <input
+                                        id="contact_consent"
+                                        name="contact_consent"
+                                        type="checkbox"
+                                        required/>
+                                    <span>{{ register.contact_consent_label }}</span>
+                                </label>
+                            </div>
+                            <span>{{ trans('forms.error') }}</span>
+                        </div>
+                        {# Password #}
+                        <div data-c-grid-item="base(1of1)">
+                            <h3 data-c-heading="h3" data-c-padding="top(1) bottom(1)" data-c-margin="bottom(1)">{{ register.password_header }}</h3>
+                            <p data-c-margin="bottom(.5)">{{ register.password_rules.header }}</p>
+                            <ul data-c-margin="bottom(1)">
+                                {% for rule in register.password_rules.rules %}
+                                    <li>{{ rule }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div data-c-input="password" data-c-grid-item="tl(1of2)">
+                            <label for="password">{{ register.password }}</label>
+                            <span>{{ trans('forms.required') }}</span>
+                            <div>
+                                <input id="password" required type="password" name="password" autocomplete="off" pattern="{{ password_pattern }}"/>
+                                <button type="button">
+                                    <i class="fas fa-eye"></i>
+                                    <i class="fas fa-eye-slash"></i>
+                                </button>
+                            </div>
+                            <span>{{ trans('forms.error') }}</span>
+                        </div>
+                        <div data-c-input="password" data-c-grid-item="tl(1of2)">
+                            <label for="password-confirm">{{ register.confirm_password }}</label>
+                            <span>{{ trans('forms.required') }}</span>
+                            <div>
+                                <input id="password-confirm" required type="password" name="password_confirmation" autocomplete="off"/>
+                                <button type="button">
+                                    <i class="fas fa-eye"></i>
+                                    <i class="fas fa-eye-slash"></i>
+                                </button>
+                            </div>
+                            <span>{{ trans('forms.error') }}</span>
+                        </div>
+                        {# Form Actions #}
+                        <div data-c-grid-item="base(1of2)" data-c-align="base(left)">
+                            <button data-c-button="outline(c1)" data-c-radius="rounded" type="button">
+                                <span>{{ register.cancel }}</span>
+                            </button>
+                        </div>
+                        <div data-c-grid-item="base(1of2)" data-c-align="base(right)">
+                            <button id="register-submit" data-c-button="solid(c1)" data-c-radius="rounded" type="submit">
+                                <span>{{ register.register }}</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}

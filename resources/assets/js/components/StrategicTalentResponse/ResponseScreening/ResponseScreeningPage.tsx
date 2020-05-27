@@ -1,5 +1,5 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import ReactDOM from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import RootContainer from "../../RootContainer";
@@ -14,22 +14,49 @@ import {
   Application,
   Department,
   ApplicationReview,
+  Email,
 } from "../../../models/types";
 import ApplicantBucket from "./ApplicantBucket";
 import { Portal } from "../../../models/app";
 import {
   fetchApplicationsForJob,
   updateApplicationReview as updateApplicationReviewAction,
+  fetchReferenceEmails,
+  sendReferenceEmail as sendReferenceEmailAction,
+  fetchApplication,
 } from "../../../store/Application/applicationActions";
-import { getApplicationsByJob } from "../../../store/Application/applicationSelector";
+import {
+  getApplicationsByJob,
+  allIsFetchingReferenceEmailsByApplication,
+  getAllReferenceEmails,
+} from "../../../store/Application/applicationSelector";
 import { RootState } from "../../../store/store";
 import { getDepartments } from "../../../store/Department/deptSelector";
+import { fakeReferenceEmail } from "../../../fakeData/fakeApplications";
+import { hasKey } from "../../../helpers/queries";
 
 interface ResponseScreeningPageProps {
   applications: Application[];
   departments: Department[];
   handleUpdateReview: (review: ApplicationReview) => Promise<ApplicationReview>;
   portal: Portal;
+  referenceEmails: {
+    director: {
+      byApplicationId: {
+        [applicationId: number]: Email;
+      };
+    };
+    secondary: {
+      byApplicationId: {
+        [applicationId: number]: Email;
+      };
+    };
+  };
+  requestReferenceEmails: (applicationId: number) => void;
+  sendReferenceEmail: (
+    applicationId: number,
+    referenceType: "director" | "secondary",
+  ) => Promise<void>;
 }
 
 const ResponseScreeningPage: React.FC<ResponseScreeningPageProps> = ({
@@ -37,6 +64,9 @@ const ResponseScreeningPage: React.FC<ResponseScreeningPageProps> = ({
   departments,
   handleUpdateReview,
   portal,
+  referenceEmails,
+  requestReferenceEmails,
+  sendReferenceEmail,
 }): React.ReactElement => (
   <>
     {Object.keys(ResponseScreeningBuckets).map((bucket) => {
@@ -84,6 +114,9 @@ const ResponseScreeningPage: React.FC<ResponseScreeningPageProps> = ({
           departments={departments}
           handleUpdateReview={handleUpdateReview}
           portal={portal}
+          referenceEmails={referenceEmails}
+          requestReferenceEmails={requestReferenceEmails}
+          sendReferenceEmail={sendReferenceEmail}
         />
       );
     })}
@@ -129,12 +162,42 @@ const ResponseScreeningDataFetcher: React.FC<ResponseScreeningDataFetcherProps> 
     return Promise.reject(result.payload);
   };
 
+  // Load micro-reference emails
+  const referenceEmails = useSelector(getAllReferenceEmails);
+  const isFetchingReferenceEmails = useSelector(
+    allIsFetchingReferenceEmailsByApplication,
+  );
+  const requestReferenceEmails = (applicationId: number): void => {
+    if (isFetchingReferenceEmails[applicationId]) {
+      return;
+    }
+    if (
+      hasKey(referenceEmails.director.byApplicationId, applicationId) &&
+      hasKey(referenceEmails.secondary.byApplicationId, applicationId)
+    ) {
+      return;
+    }
+    dispatch(fetchReferenceEmails(applicationId));
+  };
+  // Sending Emails
+  const sendReferenceEmail = async (
+    applicationId: number,
+    refernceType: "director" | "secondary",
+  ): Promise<void> => {
+    await dispatch(sendReferenceEmailAction(applicationId, refernceType));
+    // Reload application after sending email to sync the "email_sent" fields of the ApplicationReview.
+    return dispatch(fetchApplication(applicationId));
+  };
+
   return (
     <ResponseScreeningPage
       applications={applications}
       departments={departments}
       handleUpdateReview={updateApplicationReview}
       portal={portal}
+      referenceEmails={referenceEmails}
+      requestReferenceEmails={requestReferenceEmails}
+      sendReferenceEmail={sendReferenceEmail}
     />
   );
 };

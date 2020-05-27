@@ -14,10 +14,12 @@
             {% endif %}
             <div data-c-margin="top(2)">
                 <div data-c-grid="gutter(all, 1)">
-                    <div data-c-grid-item="tl(1of2)">
-                        {% include "common/breadcrumbs" %}
+                    <div data-c-grid-item="tl(3of4)">
+                        {% if show_breadcrumbs %}
+                            {% include "common/breadcrumbs" %}
+                        {% endif %}
                     </div>
-                    <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(right)">
+                    <div data-c-grid-item="tl(1of4)" data-c-align="base(center) tl(right)">
                         <span data-c-colour="white">{{ goc.pilot }}</span>
                     </div>
                 </div>

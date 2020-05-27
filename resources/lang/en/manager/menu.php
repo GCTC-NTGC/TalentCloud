@@ -34,6 +34,7 @@ return [
     /* <title> tag content */
     'home_title' => 'Talent Cloud | Manager: Home',
     'profile_title' => 'Talent Cloud | Manager: My Profile',
+    'summary_title' => 'Talent Cloud | Manager: Job Summary',
     'job_index_title' => 'Talent Cloud | Manager: My Job Posters',
     'job_create_title' => 'Talent Cloud | Manager: Create a Job Poster',
     // Button labels.

@@ -31,6 +31,7 @@ $factory->define(User::class, function (Faker\Generator $faker) {
         'first_name' => $faker->firstName(),
         'last_name' => $faker->lastName(),
         'email' => $faker->unique()->safeEmail(),
+        'work_phone' => $faker->unique()->tollFreePhoneNumber(),
         'password' => $password ?: $password = Hash::make('password'),
         'is_confirmed' => 1,
         'user_role_id' => UserRole::where('key', 'basic')->first()->id, // Users should default to basic user role.
