@@ -1,7 +1,6 @@
 import { Selector } from "testcafe";
 import { managerUser } from "./helpers/roles";
-
-const HOMEPAGE = "https://talent.test";
+import { HOMEPAGE, JOB_BUILDER } from "./helpers/constants";
 
 fixture(`Critical - Job Poster Builder`).page(HOMEPAGE).meta("travis", "run");
 
@@ -13,7 +12,7 @@ test("Job Poster Builder - New Job", async (t) => {
     // Login as manager.
     .useRole(managerUser)
     // Go to Job Poster Builder.
-    .navigateTo("/manager/jobs/builder")
+    .navigateTo(JOB_BUILDER)
     .expect(
       Selector("h3").withText("Welcome to the Job Poster Builder").visible,
     )

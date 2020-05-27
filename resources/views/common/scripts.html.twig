@@ -6,11 +6,11 @@
 ============================================================================= #}
 
 <script async defer
-    src="{{ mix('/js/bootstrap.js') }}">
+    src="{{ asset(mix('/js/bootstrap.js')) }}">
 </script>
 
 <script async defer
-    src="{{ mix('/js/autocomplete.js') }}">
+    src="{{ asset(mix('/js/autocomplete.js')) }}">
 </script>
 
 {% if not disable_clone_js %}
@@ -20,5 +20,5 @@
 {% endif %}
 
 <script async defer
-    src="{{ mix('/js/app.js') }}">
+    src="{{ asset(mix('/js/app.js')) }}">
 </script>

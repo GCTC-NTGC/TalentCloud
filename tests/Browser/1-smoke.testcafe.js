@@ -1,7 +1,6 @@
 import { Selector } from "testcafe";
 import { managerUser, adminUser, hrUser } from "./helpers/roles";
-
-const HOMEPAGE = "https://talent.test";
+import { HOMEPAGE, PROFILE_ABOUT, MANAGER_HOME, MANAGER_JOBS, HR_JOBS, ADMIN_HOME } from "./helpers/constants";
 
 fixture(`Smoke Tests - Hello World`).page(HOMEPAGE).meta("travis", "run");
 
@@ -27,7 +26,7 @@ test("Hello World - Static Page Access", async (t) => {
 
 test("Hello World - Guest Cannot Access Profile", async (t) => {
   await t
-    .navigateTo("/profile/about")
+    .navigateTo(PROFILE_ABOUT)
     .expect(Selector("form button[type=submit]").withText("Login").visible)
     .ok();
 });
@@ -73,7 +72,7 @@ test("Hello World - Applicant Portal", async (t) => {
 test("Hello World - Manager Portal", async (t) => {
   await t
     .useRole(managerUser)
-    .navigateTo("/manager")
+    .navigateTo(MANAGER_HOME)
     .expect(
       Selector("p").withText("Hiring for government just got easier.").visible,
     )
@@ -83,7 +82,7 @@ test("Hello World - Manager Portal", async (t) => {
 test("Hello World - Manager Job Posters", async (t) => {
   await t
     .useRole(managerUser)
-    .navigateTo("/manager/jobs")
+    .navigateTo(MANAGER_JOBS)
     .expect(Selector("h1").withText("My Job Posters").visible)
     .ok();
 });
@@ -91,7 +90,7 @@ test("Hello World - Manager Job Posters", async (t) => {
 test("Hello World - HR Job Posters", async (t) => {
   await t
     .useRole(hrUser)
-    .navigateTo("/hr/jobs")
+    .navigateTo(HR_JOBS)
     .expect(Selector("h1").withText("Job Index").visible)
     .ok();
 });
@@ -99,7 +98,7 @@ test("Hello World - HR Job Posters", async (t) => {
 test("Hello World - Admin Portal", async (t) => {
   await t
     .useRole(adminUser)
-    .navigateTo("/admin")
+    .navigateTo(ADMIN_HOME)
     .expect(Selector("h1").withText("Welcome!").visible)
     .ok();
 });

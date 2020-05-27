@@ -102,7 +102,7 @@ return [
                 'copy' => 'GC Talent Cloud is an experimental initiative that relies solely on financial support from participating federal departments who are committed to helping build an alternative to the traditional HR model.',
                 'links' => [
                     '1' => [
-                        'link' => '/faq#partners',
+                        'link' => route('faq') . '#partners',
                         'title' => 'Learn more about how Talent Cloud is funded.',
                         'label' => 'Learn More'
                     ]
@@ -198,7 +198,7 @@ return [
     'how_step03_copy' => 'Find meaningful work that has an impact on Canadians... and be part of the effort to design a new platform for project-based work in Government.',
     'how_step04_title' => 'Credentialing TBD',
     'how_step04_copy' => 'Credentialing Copy TBD',
-    'how_step04_link' => '/en/credentialing',
+    // 'how_step04_link' => '/en/credentialing',
     'how_step04_link_title' => 'Learn more about credentialing on Talent Cloud.',
     'how_step04_link_label' => 'Learn More',
     'how_copy' => 'We want GC Talent Cloud to be a drive engine that allows more Canadians to have a chance to work in Government. We want diverse talent to bring new ideas that will shape programs and services across Canada.',
