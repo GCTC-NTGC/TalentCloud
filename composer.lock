@@ -3749,20 +3749,20 @@
         },
         {
             "name": "symfony/mime",
-            "version": "v4.4.8",
+            "version": "v4.4.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/mime.git",
-                "reference": "7a583ffb6c7dd5aabb5db920817a3cc39261c517"
+                "reference": "2adc53069becd0de3ea2748438646610ad0968db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/mime/zipball/7a583ffb6c7dd5aabb5db920817a3cc39261c517",
-                "reference": "7a583ffb6c7dd5aabb5db920817a3cc39261c517",
+                "url": "https://api.github.com/repos/symfony/mime/zipball/2adc53069becd0de3ea2748438646610ad0968db",
+                "reference": "2adc53069becd0de3ea2748438646610ad0968db",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1.3",
+                "php": ">=7.1.3",
                 "symfony/polyfill-intl-idn": "^1.10",
                 "symfony/polyfill-mbstring": "^1.0"
             },
@@ -3807,7 +3807,7 @@
                 "mime",
                 "mime-type"
             ],
-            "time": "2020-04-16T14:49:30+00:00"
+            "time": "2020-05-25T05:42:33+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
