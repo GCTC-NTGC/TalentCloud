@@ -12,6 +12,7 @@ return [
     'title' => 'Browse Jobs',
     'job_post_title' => 'Talent Cloud | Applicant: Job Poster - :title (Reference number: :id)',
     'header' => [
+        'empty_title' => 'Title Missing',
         'time_remaining' => ':time until close',
         'job_closed' => 'Job has closed',
         'days_remaining' => ':count day until close|:count days until close',

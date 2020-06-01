@@ -21,17 +21,17 @@
                                 {{ job_post.header.job_closed }}
                             {% endif %}
                         </span>
-                        <span data-c-color="gray">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+                        <span data-c-color="gray" data-c-padding="rl(.5)">|</span>
                         <span>
                             {{ job_post.header.applicants_so_far|trans_choice(job.submitted_applications_count()) }}
                         </span>
                     </p>
                 </div>
-                <div data-c-grid-item="tl(1of3)" data-c-align="base(left) tl(right)">
+                <div data-c-grid-item="tl(1of3)" data-c-align="base(center) tl(right)">
                     <p>{{ job_post.header.reference_id|replace({':id':job.id}) }}</p>
                 </div>
             </div>
-            <h1 data-c-heading="h1" data-c-margin="bottom(1)">{{ job.title }}</h1>
+            <h1 data-c-heading="h1" data-c-margin="bottom(1)">{{ job.title ?: job_post.header.empty_title }}</h1>
             <p data-c-margin="bottom(1)">{{ job.department.name }}</p>
             <p><i class="fas fa-map-marker-alt" data-c-color="c2" data-c-margin="right(.25)"></i>{{ job.city ?: job_post.header.city }}, {{ job.province_id ? job.province.value : job_post.header.province }}</p>
             <p><i class="fas fa-home" data-c-color="c2" data-c-margin="right(.25)"></i>{{ job_post.header.remote_work_allowed[job.remote_work_allowed] }}</p>
