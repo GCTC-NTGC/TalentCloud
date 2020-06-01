@@ -21,7 +21,7 @@
                                 {{ job_post.header.job_closed }}
                             {% endif %}
                         </span>
-                        <span data-c-color="gray">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+                        <span data-c-color="gray" data-c-padding="rl(.5)">|</span>
                         <span>
                             {{ job_post.header.applicants_so_far|trans_choice(job.submitted_applications_count()) }}
                         </span>
