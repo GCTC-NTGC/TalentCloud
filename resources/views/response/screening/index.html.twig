@@ -17,6 +17,15 @@
         {# Header #}
         {% include "response/screening/header" %}
         {# Sorting #}
-        {% include "response/screening/sorting" %}
+        <div data-c-border="tb(thin, solid, gray)" data-c-padding="tb(3)">
+            <div data-c-container="large">
+                <div data-c-accordion-group class="response-accordion-group">
+                <div id="response-screening-wrapper" data-job-id="{{ job_id }}" data-portal="{{ portal }}"></div>
+                </div>
+            </div>
+        </div>
     </div>
+{% endblock %}
+{% block scripts %}
+    <script async defer src="{{ asset(mix('/js/ResponseScreeningPage.js')) }}"></script>
 {% endblock %}
