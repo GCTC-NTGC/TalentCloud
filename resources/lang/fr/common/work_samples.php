@@ -10,6 +10,8 @@ return [
     */
     "new_sample_label" => "Nouvel échantillon de travail",
     "accordion_sr_helper" => "cliquez pour modifier",
+    'required_label' => 'Requis',
+    'input_error' => 'Cette entrée contient une erreur.',
     "name_label" => "Nom du projet",
     "type_label" => "Type du projet",
     "type_default_option" => "Sélectionner le type de fichier ...",

@@ -2,13 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\JobApplication;
-use Carbon\Carbon;
 use App\Models\JobPoster;
 use App\Models\JobPosterQuestion;
 use App\Models\Lookup\ApplicationStatus;
@@ -16,11 +11,16 @@ use App\Models\Lookup\CitizenshipDeclaration;
 use App\Models\Lookup\JobPosterStatus;
 use App\Models\Lookup\VeteranStatus;
 use App\Models\Manager;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use App\Services\JobPosterDefaultQuestions;
 use App\Services\Validation\JobPosterValidator;
+use Carbon\Carbon;
 use Facades\App\Services\WhichPortal;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class JobController extends Controller
 {
@@ -31,13 +31,15 @@ class JobController extends Controller
      */
     public function index()
     {
-        $now = Carbon::now();
+        // If true, show the Paused due to COVID-19 message.
+        $emergency_response = config('seasonal.is_covid_emergency');
 
         // Find published jobs that are currently open for applications.
         // Eager load required relationships: Department, Province, JobTerm.
         // Eager load the count of submitted applications, to prevent the relationship
         // from being actually loaded and firing off events.
         $jobs = JobPoster::where('internal_only', false)
+            ->where('department_id', '!=', config('app.strategic_response_department_id'))
             ->where('job_poster_status_id', JobPosterStatus::where('key', 'live')->first()->id)
             ->with([
                 'department',
@@ -48,8 +50,13 @@ class JobController extends Controller
                 'submitted_applications',
             ])
             ->get();
+
+        $null_alert = $emergency_response
+            ? Lang::get('applicant/job_index.index.covid_null_alert')
+            : Lang::get('applicant/job_index.index.null_alert');
         return view('applicant/job_index', [
             'job_index' => Lang::get('applicant/job_index'),
+            'null_alert' => $null_alert,
             'jobs' => $jobs
         ]);
     }
@@ -69,7 +76,8 @@ class JobController extends Controller
             ->get();
 
         foreach ($jobs as &$job) {
-            $chosen_lang = $job->chosen_lang;
+            // If the chosen language is null then set to english.
+            $chosen_lang = $job->chosen_lang ?: 'en';
 
             // Show chosen lang title if current title is empty.
             if (empty($job->title)) {
@@ -78,7 +86,7 @@ class JobController extends Controller
             }
 
             // Always preview and edit in the chosen language.
-            $job->preview_link = LaravelLocalization::getLocalizedURL($chosen_lang, route('manager.jobs.show', $job));
+            $job->preview_link = LaravelLocalization::getLocalizedURL($chosen_lang, route('manager.jobs.preview', $job));
             $job->edit_link = LaravelLocalization::getLocalizedURL($chosen_lang, route('manager.jobs.edit', $job));
         }
 
@@ -100,7 +108,7 @@ class JobController extends Controller
     {
         $hrAdvisor = $request->user()->hr_advisor;
         return view('hr_advisor/job_index', [
-            'title' => Lang::get('hr_advisor/job_index.title'),
+            'jobs_l10n' => Lang::get('hr_advisor/job_index'),
             'hr_advisor_id' => $hrAdvisor->id
         ]);
     }
@@ -148,17 +156,19 @@ class JobController extends Controller
         }
 
         // TODO: replace route('manager.show',manager.id) in templates with link using slug.
+        $essential = $jobPoster->criteria->filter(
+            function ($value, $key) {
+                return $value->criteria_type->name == 'essential';
+            }
+        )->sortBy('id');
+        $asset = $jobPoster->criteria->filter(
+            function ($value, $key) {
+                return $value->criteria_type->name == 'asset';
+            }
+        )->sortBy('id');
         $criteria = [
-            'essential' => $jobPoster->criteria->filter(
-                function ($value, $key) {
-                    return $value->criteria_type->name == 'essential';
-                }
-            ),
-            'asset' => $jobPoster->criteria->filter(
-                function ($value, $key) {
-                    return $value->criteria_type->name == 'asset';
-                }
-            ),
+            'essential' => $essential,
+            'asset' => $asset,
         ];
 
         $jobLang = Lang::get('applicant/job_post');
@@ -218,10 +228,32 @@ class JobController extends Controller
         $jpb_release_date = strtotime('2019-08-21 16:18:17');
         $job_created_at = strtotime($jobPoster->created_at);
 
-        // If the job poster is created after the release of the JPB.
+        $custom_breadcrumbs = [
+            'home' => route('home'),
+            'jobs' => route(WhichPortal::prefixRoute('jobs.index')),
+            $jobPoster->title ?: 'job-title-missing' => route(WhichPortal::prefixRoute('jobs.summary'), $jobPoster),
+            'preview' => '',
+        ];
+
+        // If the poster is part of the Strategic Talent Response dept, use the talent stream template.
+        // Else, If the job poster is created after the release of the JPB.
         // Then, render with updated poster template.
         // Else, render with old poster template.
-        if ($job_created_at > $jpb_release_date) {
+        if ($jobPoster->isInStrategicResponseDepartment()) {
+            return view(
+                'applicant/strategic_response_job_post',
+                [
+                    'job_post' => $jobLang,
+                    'frequencies' => Lang::get('common/lookup/frequency'),
+                    'skill_template' => Lang::get('common/skills'),
+                    'job' => $jobPoster,
+                    'manager' => $jobPoster->manager,
+                    'criteria' => $criteria,
+                    'apply_button' => $applyButton,
+                    'custom_breadcrumbs' => $custom_breadcrumbs,
+                ]
+            );
+        } elseif ($job_created_at > $jpb_release_date) {
             // Updated job poster (JPB).
             return view(
                 'applicant/jpb_job_post',
@@ -233,6 +265,7 @@ class JobController extends Controller
                     'manager' => $jobPoster->manager,
                     'criteria' => $criteria,
                     'apply_button' => $applyButton,
+                    'custom_breadcrumbs' => $custom_breadcrumbs,
                 ]
             );
         } else {
@@ -251,6 +284,7 @@ class JobController extends Controller
                     'criteria' => $criteria,
                     'apply_button' => $applyButton,
                     'skill_template' => Lang::get('common/skills'),
+                    'custom_breadcrumbs' => $custom_breadcrumbs,
                 ]
             );
         }
@@ -268,10 +302,8 @@ class JobController extends Controller
     {
         $manager = $jobPoster->manager;
 
-        if ($jobPoster->job_poster_questions === null || $jobPoster->job_poster_questions->count() === 0) {
-            $jobPoster->job_poster_questions()->saveMany($this->populateDefaultQuestions());
-            $jobPoster->refresh();
-        }
+        $defaultQuestionManager = new JobPosterDefaultQuestions();
+        $defaultQuestionManager->initializeQuestionsIfEmpty($jobPoster);
 
         return view(
             'manager/job_create',
@@ -349,7 +381,7 @@ class JobController extends Controller
 
         $this->fillAndSaveJobPosterQuestions($input, $jobPoster, true);
 
-        return redirect(route('manager.jobs.show', $jobPoster->id));
+        return redirect(route('manager.jobs.preview', $jobPoster->id));
     }
 
     /**
@@ -389,41 +421,6 @@ class JobController extends Controller
             $jobPoster->save();
             $jobQuestion->save();
         }
-    }
-
-    /**
-     * Get the localized default questions and add them to an array.
-     *
-     * @return mixed[]|void
-     */
-    protected function populateDefaultQuestions()
-    {
-        $defaultQuestions = [
-            'en' => array_values(Lang::get('manager/job_create', [], 'en')['questions']),
-            'fr' => array_values(Lang::get('manager/job_create', [], 'fr')['questions']),
-        ];
-
-        if (count($defaultQuestions['en']) !== count($defaultQuestions['fr'])) {
-            Log::warning('There must be the same number of French and English default questions for a Job Poster.');
-            return;
-        }
-
-        $jobQuestions = [];
-
-        for ($i = 0; $i < count($defaultQuestions['en']); $i++) {
-            $jobQuestion = new JobPosterQuestion();
-            $jobQuestion->fill(
-                [
-                    'question' => [
-                        'en' => $defaultQuestions['en'][$i],
-                        'fr' => $defaultQuestions['fr'][$i],
-                    ]
-                ]
-            );
-            $jobQuestions[] = $jobQuestion;
-        }
-
-        return $jobQuestions;
     }
 
     /**

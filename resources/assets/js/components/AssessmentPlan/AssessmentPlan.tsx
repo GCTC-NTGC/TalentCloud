@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import {
   injectIntl,
   WrappedComponentProps,
@@ -32,6 +32,11 @@ const AssessmentPlan: React.FunctionComponent<AssessmentPlanProps &
     <span data-c-colour="c5" data-c-font-size="h3">
       {job && ` ${job.title[intl.locale]}`}
     </span>
+  );
+  const filterComments = useCallback(
+    (comment: Comment): boolean =>
+      hasKey(screeningPlanLocations, comment.location),
+    [],
   );
   return (
     <section data-clone>
@@ -118,9 +123,7 @@ const AssessmentPlan: React.FunctionComponent<AssessmentPlanProps &
               isHrAdvisor={portal === "hr"}
               locationMessages={screeningPlanLocations}
               generalLocation={LocationId.screeningPlan}
-              filterComments={(comment: Comment): boolean =>
-                hasKey(screeningPlanLocations, comment.location)
-              }
+              filterComments={filterComments}
             />
             <AssessmentPlanBuilder jobId={job.id} />
             <AssessmentPlanTable jobId={job.id} />

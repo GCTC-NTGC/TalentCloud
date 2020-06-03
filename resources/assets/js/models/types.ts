@@ -1,5 +1,10 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
-import { ReviewStatusId, ReviewStatusName } from "./lookupConstants";
+import {
+  ReviewStatusId,
+  ReviewStatusName,
+  ResponseReviewStatusId,
+  ResponseReviewStatusName,
+} from "./lookupConstants";
 import { localizedField, localizedFieldNonNull } from "./app";
 
 export interface Applicant {
@@ -14,7 +19,7 @@ export interface Applicant {
   user: User;
 }
 
-export interface Application {
+export type Application = {
   id: number;
   job_poster_id: number;
   application_status_id: number;
@@ -33,15 +38,22 @@ export interface Application {
   applicant: Applicant;
   application_review: ApplicationReview | undefined;
   meets_essential_criteria: boolean;
-}
+};
+
+export type ApplicationNormalized = Omit<Application, "application_review">;
 
 export interface ApplicationReview {
   id: number;
-  review_status_id: ReviewStatusId | null;
+  job_application_id: number;
+  review_status_id: ReviewStatusId | ResponseReviewStatusId | null;
+  department_id: number | null;
   notes: string | null;
   created_at: Date;
   updated_at: Date;
-  review_status: ReviewStatus | null;
+  department: Department | undefined;
+  review_status: ReviewStatus | ResponseReviewStatus | undefined;
+  director_email_sent: boolean;
+  reference_email_sent: boolean;
 }
 
 export interface Assessment {
@@ -196,6 +208,11 @@ export interface RatingGuideQuestion {
   question: string | null;
 }
 
+export interface ResponseReviewStatus {
+  id: ResponseReviewStatusId;
+  name: ResponseReviewStatusName;
+}
+
 export interface ReviewStatus {
   id: ReviewStatusId;
   name: ReviewStatusName;
@@ -304,4 +321,17 @@ export interface ExperiencePersonal {
   is_active: boolean;
   start_date: Date;
   end_date: Date | null;
+}
+
+export interface EmailAddress {
+  name: string;
+  address: string; // Email.
+}
+export interface Email {
+  from: EmailAddress[];
+  to: EmailAddress[];
+  cc: EmailAddress[];
+  bcc: EmailAddress[];
+  subject: string;
+  body: string;
 }

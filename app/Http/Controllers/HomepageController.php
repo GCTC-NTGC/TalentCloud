@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Lang;
 use App\Http\Controllers\Controller;
 use App\Models\JobPoster;
 use App\Models\Lookup\JobPosterStatus;
-use Carbon\Carbon;
 
 class HomepageController extends Controller
 {
@@ -16,11 +15,16 @@ class HomepageController extends Controller
      */
     public function applicant()
     {
-        $now = Carbon::now();
+        // If true, show the Closed for the Holidays message (complete with snowman).
+        $christmas_time = config('seasonal.is_christmas_holiday');
+
+        // If true, show the Paused due to COVID-19 message.
+        $emergency_response = config('seasonal.is_covid_emergency');
 
         // Find three most recent published jobs that are currently open for applications.
         // Eager load required relationships: Department, Province, JobTerm.
         $jobs = JobPoster::where('internal_only', false)
+            ->where('department_id', '!=', config('app.strategic_response_department_id'))
             ->where('job_poster_status_id', JobPosterStatus::where('key', 'live')->first()->id)
             ->with([
                 'department',
@@ -35,7 +39,9 @@ class HomepageController extends Controller
             'job_index' => Lang::get('applicant/job_index'),
             'job_post' => Lang::get('applicant/job_post'),
             'jobs' => $jobs,
-            'job_count' => count($jobs)
+            'job_count' => count($jobs),
+            'christmas_time' => $christmas_time,
+            'emergency_response' => $emergency_response,
         ]);
     }
 

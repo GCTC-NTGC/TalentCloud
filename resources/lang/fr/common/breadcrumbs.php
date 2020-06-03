@@ -10,17 +10,21 @@ return [
      *
      */
 
-    'hr' => [
-        'home' => 'Accueil',
-        'faq' => 'FAQ',
-        'job-index' => 'Index des emplois'
+    'home' => 'Accueil',
+    'profile' => 'Profil',
+    'faq' => 'FAQ',
+    'jobs' => 'Emplois',
+    'job-index' => 'Index des emplois',
+    'resources' => 'Ressources',
+    'preview' => 'Aperçu',
+    'assessment-plan' => 'Concepteur de plans d’évaluation',
+    'job-title-missing' => "'Titre manquant'",
+    'review' => 'Revue',
+    'builder' => "Constructeur d'affiches",
+    'managerPortal' => [
+        'applications' => 'Réviser les candidats',
     ],
-    'manager' => [
-        'home' => 'Accueil',
-        'faq' => 'FAQ',
-    ],
-    'applicant' => [
-        'home' => 'Accueil',
-        'faq' => 'FAQ',
+    'hrPortal' => [
+        'applications' => 'Réviser les candidats',
     ],
 ];

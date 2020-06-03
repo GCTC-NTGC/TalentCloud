@@ -20,6 +20,11 @@ Route::group([
     Route::crud('classification', 'ClassificationCrudController');
     Route::crud('job-poster-status', 'JobPosterStatusCrudController');
     Route::crud('job-poster-status-transition', 'JobPosterStatusTransitionCrudController');
+    Route::crud('talent-stream', 'TalentStreamCrudController');
+    Route::crud('talent-stream-category', 'TalentStreamCategoryCrudController');
+    Route::crud('job-skill-level', 'JobSkillLevelCrudController');
     Route::crud('resource', 'ResourcesCrudController');
     Route::crud('2fa', 'TwoFactorCrudController');
+    Route::crud('applicant', 'ApplicantCrudController');
+    Route::crud('job-application', 'JobApplicationCrudController');
 });

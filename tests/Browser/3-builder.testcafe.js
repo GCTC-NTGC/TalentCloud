@@ -1,56 +1,47 @@
 import { Selector } from "testcafe";
 import { managerUser } from "./helpers/roles";
+import { HOMEPAGE, JOB_BUILDER } from "./helpers/constants";
 
-const HOMEPAGE = "https://talent.test";
-
-fixture(`Critical - Job Poster Builder`).page(HOMEPAGE);
+fixture(`Critical - Job Poster Builder`).page(HOMEPAGE).meta("travis", "run");
 
 // Skip when writing new tests
 // fixture.skip(`Critical - Job Poster Builder`);
 
-test("Job Poster Builder - New Job", async t => {
+test("Job Poster Builder - New Job", async (t) => {
   await t
     // Login as manager.
     .useRole(managerUser)
     // Go to Job Poster Builder.
-    .navigateTo("/manager/jobs/builder")
+    .navigateTo(JOB_BUILDER)
     .expect(
       Selector("h3").withText("Welcome to the Job Poster Builder").visible,
     )
     .ok()
     // Welcome page.
-    .selectText(
-      Selector("input").withAttribute("id", "builder01ManagerPositionEn"),
-    )
+    .selectText(Selector("input").withAttribute("id", "managerPositionEn"))
     .pressKey("delete")
     .typeText(
-      Selector("input").withAttribute("id", "builder01ManagerPositionEn"),
+      Selector("input").withAttribute("id", "managerPositionEn"),
       "Design Manager",
     )
-    .selectText(
-      Selector("input").withAttribute("id", "builder01ManagerPositionFr"),
-    )
+    .selectText(Selector("input").withAttribute("id", "managerPositionFr"))
     .pressKey("delete")
     .typeText(
-      Selector("input").withAttribute("id", "builder01ManagerPositionFr"),
+      Selector("input").withAttribute("id", "managerPositionFr"),
       "Gestionnaire de la conception",
     )
     .expect(Selector("span").withAttribute("id", "department").visible)
     .ok()
-    .selectText(
-      Selector("input").withAttribute("id", "builder01ManagerDivisionEN"),
-    )
+    .selectText(Selector("input").withAttribute("id", "divisionEN"))
     .pressKey("delete")
     .typeText(
-      Selector("input").withAttribute("id", "builder01ManagerDivisionEN"),
+      Selector("input").withAttribute("id", "divisionEN"),
       "Digital Change",
     )
-    .selectText(
-      Selector("input").withAttribute("id", "builder01ManagerDivisionFR"),
-    )
+    .selectText(Selector("input").withAttribute("id", "divisionFR"))
     .pressKey("delete")
     .typeText(
-      Selector("input").withAttribute("id", "builder01ManagerDivisionFR"),
+      Selector("input").withAttribute("id", "divisionFR"),
       "Changement numérique",
     )
     .click(Selector("button").withText("Continue in English"))

@@ -1,0 +1,25 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Submit an Application - Header
+
+============================================================================= #}
+<div data-clone>
+    <header data-c-align="base(center) tl(left)" data-c-overlay="black(70)" data-c-padding="bottom(3)" style="background-image: url('{{ asset("/images/bg_flag.jpg") }}');">
+        {% include "common/menu" %}
+        <div data-c-container="large" data-c-padding="top(3)" id="home-heading">
+            <h1 data-c-heading="h1">{{ application_template.title }}</h1>
+            <p data-c-color="white" data-c-margin="top(1)">{{ application_template.applying_to }} <span data-c-font-weight="bold">{{ job.title }}</span> {{ application_template.applying_to_bridge }} <span data-c-font-weight="bold">{{ job.department.name }}</span></p>
+            <div data-c-margin="top(2)">
+                <div data-c-grid="gutter(all, 1)">
+                    <div data-c-grid-item="tl(1of2)">
+                        {% include "common/breadcrumbs" %}
+                    </div>
+                    <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(right)">
+                        <span data-c-colour="white">{{ application_template.pilot }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+</div>

@@ -13,7 +13,7 @@
             {% if step == 1 %}
             {% elseif step == 3 %}
                 <a
-                    href="/demo/application-02"
+                    href="{{ asset("/demo/application-02") }}"
                     data-c-button="outline(c1)"
                     data-c-radius="rounded"
                     type="button">
@@ -23,7 +23,7 @@
                 </a>
             {% elseif step == 5 %}
                 <a
-                    href="/demo/application-04"
+                    href="{{ asset("/demo/application-04") }}"
                     data-c-button="outline(c1)"
                     data-c-radius="rounded"
                     type="button">
@@ -34,17 +34,17 @@
             {% else %}
                 <a
                     {% if step == 2 %}
-                        href="/demo/application-01"
+                        href="{{ asset("/demo/application-01") }}"
                     {% elseif step == 4 %}
-                        href="/demo/application-03"
+                        href="{{ asset("/demo/application-03") }}"
                     {% elseif step == 6 %}
-                        href="/demo/application-05"
+                        href="{{ asset("/demo/application-05") }}"
                     {% elseif step == 7 %}
-                        href="/demo/application-06"
+                        href="{{ asset("/demo/application-06") }}"
                     {% elseif step == 8 %}
-                        href="/demo/application-07"
+                        href="{{ asset("/demo/application-07") }}"
                     {% elseif step == 9 %}
-                        href="/demo/application-08"
+                        href="{{ asset("/demo/application-08") }}"
                     {% endif %}
                     data-c-button="outline(c1)"
                     data-c-radius="rounded"
@@ -68,7 +68,7 @@
             {% endif %}
             {% if step == 1 %}
                 <a
-                    href="/demo/application-02"
+                    href="{{ asset("/demo/application-02") }}"
                     data-c-button="solid(c1)"
                     data-c-radius="rounded"
                     type="button">
@@ -78,7 +78,7 @@
                 </a>
             {% elseif step == 3 %}
                 <a
-                    href="/demo/application-04"
+                    href="{{ asset("/demo/application-04") }}"
                     data-c-button="solid(c1)"
                     data-c-radius="rounded"
                     type="button">
@@ -88,7 +88,7 @@
                 </a>
             {% elseif step == 5 %}
                 <a
-                    href="/demo/application-06"
+                    href="{{ asset("/demo/application-06") }}"
                     data-c-button="solid(c1)"
                     data-c-radius="rounded"
                     type="button">
@@ -98,7 +98,7 @@
                 </a>
             {% elseif step == 9 %}
                 <a
-                    href="/demo/application-10"
+                    href="{{ asset("/demo/application-10") }}"
                     data-c-button="solid(c1)"
                     data-c-radius="rounded"
                     type="button">
@@ -109,15 +109,15 @@
             {% else %}
                 <a
                     {% if step == 2 %}
-                        href="/demo/application-03"
+                        href="{{ asset("/demo/application-03") }}"
                     {% elseif step == 4 %}
-                        href="/demo/application-05"
+                        href="{{ asset("/demo/application-05") }}"
                     {% elseif step == 6 %}
-                        href="/demo/application-07"
+                        href="{{ asset("/demo/application-07") }}"
                     {% elseif step == 7 %}
-                        href="/demo/application-08"
+                        href="{{ asset("/demo/application-08") }}"
                     {% elseif step == 8 %}
-                        href="/demo/application-09"
+                        href="{{ asset("/demo/application-09") }}"
                     {% endif %}
                     data-c-button="solid(c1)"
                     data-c-radius="rounded"

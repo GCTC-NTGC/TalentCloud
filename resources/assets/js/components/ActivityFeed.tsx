@@ -119,6 +119,7 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
             />
             <hr data-c-hr="thin(black)" data-c-margin="top(1)" />
             <ActivityList
+              generalLocation={generalLocation}
               jobId={jobId}
               isHrAdvisor={isHrAdvisor}
               filterComments={filterComments}

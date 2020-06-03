@@ -23,9 +23,10 @@
         {# Application Progress Bar #}
         {% include "applicant/application/progress-bar" with {"step": 4} %}
         <div data-c-container="medium">
-            <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">Defining Your Experience</h2>
-            <p data-c-margin="bottom(1)">As you create each of your experiences, we're going to ask you to associate that experience with one or more of the skills required for this job. As a refresher, we've outlined them for you below:</p>
+            <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">My Experience</h2>
+            <p data-c-margin="bottom(1)">Use the buttons below to add experiences you want to share with the manager. Experiences you have added in the past also appear below, and you can edit them to link them to skills required for this job when necessary.</p>
             <div data-c-grid="gutter(all, 1)">
+                {# All essential skills. #}
                 <div data-c-grid-item="tl(1of2)">
                     <p data-c-margin="bottom(.5)">This job <span data-c-font-weight="bold" data-c-color="c2">requires</span> the following skills:</p>
                     <ul data-c-margin="bottom(1)">
@@ -36,6 +37,7 @@
                         <li>Essential Skill 5</li>
                     </ul>
                 </div>
+                {# All asset skills. #}
                 <div data-c-grid-item="tl(1of2)">
                     <p data-c-margin="bottom(.5)">These skills are beneficial, but not required:</p>
                     <ul data-c-margin="bottom(1)">
@@ -45,6 +47,8 @@
                     </ul>
                 </div>
             </div>
+            {# The list below should include all soft skills, as we are no
+            longer evaluating them during the application process. #}
             <p data-c-color="gray" data-c-margin="bottom(2)">Don't forget, <span data-c-font-weight="bold">Collaboration</span>, and <span data-c-font-weight="bold">Networking</span> will be evaluated later in the hiring process.</p>
             <div data-c-grid="gutter(all, 1)">
                 <div data-c-grid-item="base(1of2) tp(1of3) tl(1of5)">
@@ -78,15 +82,14 @@
                     </button>
                 </div>
             </div>
-            <h3 data-c-heading="h3" data-c-margin="top(3) bottom(1)" data-c-padding="bottom(1)">My Experience</h3>
             {# Experience Null State #}
-            <div data-c-background="gray(10)" data-c-radius="rounded" data-c-border="all(thin, solid, gray)" data-c-padding="all(1)">
+            <div data-c-background="gray(10)" data-c-radius="rounded" data-c-border="all(thin, solid, gray)"  data-c-margin="top(2)"data-c-padding="all(1)">
                 <div data-c-align="base(center)">
                     <p data-c-color="gray">Looks like you don't have any experience added yet. Use the buttons above to add experience. Don't forget that experience will always be saved to your profile so that you can use it on future applications!</p>
                 </div>
             </div>
             {# Experience Objects #}
-            <div class="experience-list">
+            <div class="experience-list" data-c-margin="top(2)">
                 <div data-c-accordion-group>
                     {# Education Example w/ Edu, End Date, Skill Display false, 2 Related Skills, 1 Extra Skills, Actions Showing #}
                     {% include "applicant/application/experience" with {"experienceType": "education", "educationReq": true, "skillDisplay": false, "experienceEducationType": "Bachelor's Degree", "experienceAreaOfStudy": "Paleontology", "experienceInstitution": "McGill University", "experienceStatus": "Successful Completion (Certificate Awarded)", "experienceStartDate": "January 2018", "experienceEndDate": "January 2019", "experienceCurrent": false, "experienceThesisTitle": null, "experienceBlockcertLink": "http://google.com", "relatedSkills": {"1": {"name": "Research Methods", "relevant": true, "claim": "Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in."}, "2": {"name": "Dinosaurs", "relevant": true, "claim": "Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in."}, "3": {"name": "Product Design", "relevant": false, "claim": "Massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere ac ut consequat semper viverra nam libero justo laoreet sit amet cursus sit amet dictum sit amet justo donec enim diam vulputate ut pharetra sit amet aliquam id diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in."}}, "actionDisplay": true } %}
@@ -102,7 +105,7 @@
             </div>
             {# Missing Skills Notification #}
             {# This guy only shows up if there are required skills that have no related experience attached to them. When the page loads for the first time, we probably shouldn't show this - only show it once at least one experience has been added.If the user is applying to a job with pre-existing experience, show this notification with the correct skills when they load the page. #}
-            <p data-c-color="stop" data-c-margin="top(2)">Just a heads up! The following required skills are missing experience: <span data-c-tag="stop" data-c-radius="pill" data-c-font-size="small">CSS3</span> <span data-c-tag="stop" data-c-radius="pill" data-c-font-size="small">Web Programming</span></p>
+            <p data-c-color="stop" data-c-margin="top(2)">The following required skill(s) are not connected to your experience: <span data-c-tag="stop" data-c-radius="pill" data-c-font-size="small">CSS3</span> <span data-c-tag="stop" data-c-radius="pill" data-c-font-size="small">Web Programming</span></p>
         </div>
         {# Application Action Buttons #}
         {% include "applicant/application/action-buttons" with {"step": 4} %}

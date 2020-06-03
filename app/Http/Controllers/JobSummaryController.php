@@ -20,15 +20,15 @@ class JobSummaryController extends Controller
      * @param  \App\Models\JobPoster $job Job Poster object.
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, JobPoster $job)
+    public function show(Request $request, JobPoster $jobPoster)
     {
         $user = Auth::user();
 
-        $applications = $job->submitted_applications;
+        $applications = $jobPoster->submitted_applications;
         $advisor = $user->hr_advisor;
         $jobIsClaimed = ($advisor !== null) &&
-            $advisor->claimed_job_ids->contains($job->id);
-        $hr_advisors = $job->hr_advisors;
+            $advisor->claimed_job_ids->contains($jobPoster->id);
+        $hr_advisors = $jobPoster->hr_advisors;
 
         $summaryLang = Lang::get('hr_advisor/job_summary');
 
@@ -36,7 +36,7 @@ class JobSummaryController extends Controller
             'imgSrc' => '/images/job-process-summary-tool-edit.svg',
             'imgAlt' => "{$summaryLang['edit_poster_icon']} {$summaryLang['flat_icons']}",
             'text' => $summaryLang['edit_poster_button'],
-            'url' => route(WhichPortal::prefixRoute('jobs.review'), $job),
+            'url' => route(WhichPortal::prefixRoute('jobs.review'), $jobPoster),
             'disabled' => false,
         ];
 
@@ -44,7 +44,7 @@ class JobSummaryController extends Controller
             'imgSrc' => '/images/job-process-summary-tool-view.svg',
             'imgAlt' => "{$summaryLang['view_poster_icon']} {$summaryLang['flat_icons']}",
             'text' => $summaryLang['view_poster_button'],
-            'url' => route(WhichPortal::prefixRoute('jobs.preview'), $job),
+            'url' => route(WhichPortal::prefixRoute('jobs.preview'), $jobPoster),
             'disabled' => false,
         ];
 
@@ -52,7 +52,7 @@ class JobSummaryController extends Controller
             'imgSrc' => '/images/job-process-summary-tool-screen.svg',
             'imgAlt' => "{$summaryLang['screening_plan_icon']} {$summaryLang['flat_icons']}",
             'text' => $summaryLang['screening_plan_button'],
-            'url' => route(WhichPortal::prefixRoute('jobs.screening_plan'), $job),
+            'url' => route(WhichPortal::prefixRoute('jobs.screening_plan'), $jobPoster),
             'disabled' => false
         ];
 
@@ -60,26 +60,28 @@ class JobSummaryController extends Controller
             'imgSrc' => '/images/job-process-summary-tool-applicants.svg',
             'imgAlt' => "{$summaryLang['view_applicants_icon']} {$summaryLang['flat_icons']}",
             'text' => $summaryLang['view_applicants_button'],
-            'url' => route(WhichPortal::prefixRoute('jobs.applications'), $job),
-            'disabled' => !$job->isClosed(),
+            'url' => route(WhichPortal::prefixRoute('jobs.applications'), $jobPoster),
+            'disabled' => !$user->can('reviewApplicationsFor', $jobPoster),
         ];
 
-        $status = $job->job_poster_status->name;
-        $status_description = $job->job_poster_status->description;
+        $status = $jobPoster->job_poster_status->name;
+        $status_description = $jobPoster->job_poster_status->description;
 
         $portal = '';
         if (WhichPortal::isHrPortal()) {
             $portal = 'hr';
+            $menuLang = Lang::get('hr_advisor/menu');
         } elseif (WhichPortal::isManagerPortal()) {
             $portal = 'manager';
+            $menuLang = Lang::get('manager/menu');
         }
 
         $transitionManager = new JobStatusTransitionManager();
-        $transitionToButton = function (JobPosterStatusTransition $transition) use ($user, $job, $transitionManager) {
+        $transitionToButton = function (JobPosterStatusTransition $transition) use ($user, $jobPoster, $transitionManager) {
             return [
                 'text' => $transition->name,
                 'url' => route(WhichPortal::prefixRoute('jobs.setJobStatus'), [
-                    'jobPoster' => $job,
+                    'jobPoster' => $jobPoster,
                     'status' => $transition->to->key
                 ]),
                 'style' => array_key_exists('button_style', $transition->metadata)
@@ -91,7 +93,7 @@ class JobSummaryController extends Controller
         $unclaimButton = [
             'unclaim_job' => [
                 'text' => Lang::get('hr_advisor/job_summary.relinquish_button'),
-                'url' => route('hr_advisor.jobs.unclaim', $job),
+                'url' => route('hr_advisor.jobs.unclaim', $jobPoster),
                 'style' => 'stop',
                 'disabled' => !$jobIsClaimed,
             ]
@@ -99,7 +101,7 @@ class JobSummaryController extends Controller
 
         $buttonGroups = [];
 
-        $transitionButtons = $transitionManager->legalTransitions($job->job_poster_status->key)
+        $transitionButtons = $transitionManager->legalTransitions($jobPoster->job_poster_status->key)
             ->map($transitionToButton);
         array_push($buttonGroups, $transitionButtons);
 
@@ -110,6 +112,7 @@ class JobSummaryController extends Controller
         $data = [
             // Localized strings.
             'summary' => $summaryLang,
+            'menu' => $menuLang,
             'job_status' => $status,
             'job_status_description' => $status_description,
             'is_claimed' => $jobIsClaimed,
@@ -118,7 +121,7 @@ class JobSummaryController extends Controller
             // HR Advisor data.
             'hr_advisors' => $hr_advisors,
             // Job Poster data.
-            'job' => $job,
+            'job' => $jobPoster,
             // Application data.
             'applications' => $applications,
             'side_button_groups' => $buttonGroups,

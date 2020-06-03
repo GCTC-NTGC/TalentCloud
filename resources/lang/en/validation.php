@@ -155,7 +155,11 @@ return [
         'job_poster_question' => [
             'required' => 'The Question field must be filled out.',
             'string' => 'The Question field must be text.'
-        ]
+        ],
+        'word_limit' => 'The description must be less than :max_words words.',
+        'website' => [
+            'size' => 'Your submission looks like a bot might have filled it out! Only fill out the required fields.',
+        ],
     ],
 
     /*

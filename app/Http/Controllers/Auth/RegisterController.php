@@ -45,6 +45,7 @@ class RegisterController extends AuthController
         } else {
             $redirectTo = route('home');
         }
+
         return $redirectTo;
     }
 

@@ -12,6 +12,13 @@ class JobPosterKeyTaskControllerTest extends TestCase
     use RefreshDatabase;
 
     /**
+     * Base route for the API calls.
+     *
+     * @var string
+     */
+    protected $baseUrl;
+
+    /**
      *  Converts a JobPosterKeyTask to shape sent and received through the api.
      *
      * @var callable
@@ -27,6 +34,8 @@ class JobPosterKeyTaskControllerTest extends TestCase
     {
         parent::setUp();
 
+        $this->baseUrl = 'api/v1';
+
         $this->toApiArray = function (JobPosterKeyTask $model) {
             return array_merge($model->toArray(), $model->getTranslations());
         };
@@ -39,7 +48,7 @@ class JobPosterKeyTaskControllerTest extends TestCase
         $this->assertNotEmpty($job->job_poster_key_tasks);
 
         $expected = $job->job_poster_key_tasks->map($this->toApiArray)->toArray();
-        $response = $this->json('get', "api/jobs/$job->id/tasks");
+        $response = $this->json('get', "$this->baseUrl/jobs/$job->id/tasks");
         $response->assertOk();
         $response->assertJson($expected);
     }
@@ -51,7 +60,7 @@ class JobPosterKeyTaskControllerTest extends TestCase
         $newTasks = factory(JobPosterKeyTask::class, 3)->make(['job_poster_id' => $job->id, 'id' => null]);
         $newTaskArray = collect($newTasks)->map($this->toApiArray);
         $response = $this->actingAs($job->manager->user)
-            ->json('put', "api/jobs/$job->id/tasks", $newTaskArray->toArray());
+            ->json('put', "$this->baseUrl/jobs/$job->id/tasks", $newTaskArray->toArray());
         $response->assertOk();
 
         foreach ($newTasks as $task) {
@@ -78,7 +87,7 @@ class JobPosterKeyTaskControllerTest extends TestCase
 
         $newTaskArray = collect([$task1, $task2])->map($this->toApiArray); // The updated tasks don't include task0.
         $response = $this->actingAs($job->manager->user)
-            ->json('put', "api/jobs/$job->id/tasks", $newTaskArray->toArray());
+            ->json('put', "$this->baseUrl/jobs/$job->id/tasks", $newTaskArray->toArray());
         $response->assertOk();
 
         // Task1 should be present, unchanged.
@@ -122,7 +131,7 @@ class JobPosterKeyTaskControllerTest extends TestCase
             ]
         ];
         $response = $this->actingAs($job->manager->user)
-            ->json('put', "api/jobs/$job->id/tasks", $newTaskArray);
+            ->json('put', "$this->baseUrl/jobs/$job->id/tasks", $newTaskArray);
         $response->assertOk();
 
         // Task1 should be present, but with updated description.
@@ -162,7 +171,7 @@ class JobPosterKeyTaskControllerTest extends TestCase
         $newTaskArray = [$task0, $task1];
 
         $response = $this->actingAs($job->manager->user)
-            ->json('put', "api/jobs/$job->id/tasks", $newTaskArray);
+            ->json('put', "$this->baseUrl/jobs/$job->id/tasks", $newTaskArray);
         $response->assertOk();
 
         foreach ($newTaskArray as $task) {

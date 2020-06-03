@@ -80,7 +80,7 @@ const deleteEditedIfIdentical = (
     hasKey(editedRatingGuideQuestions, id) &&
     isEqual(editedRatingGuideQuestions[id], ratingGuideQuestion)
   ) {
-    return deleteProperty<RatingGuideQuestion>(editedRatingGuideQuestions, id);
+    return deleteProperty(editedRatingGuideQuestions, id);
   }
   return editedRatingGuideQuestions;
 };
@@ -215,11 +215,11 @@ export const ratingGuideQuestionReducer = (
       // ...For now, I don't know of any situations where we wouldn't want both.
       return {
         ...state,
-        ratingGuideQuestions: deleteProperty<RatingGuideQuestion>(
+        ratingGuideQuestions: deleteProperty(
           state.ratingGuideQuestions,
           action.payload.id,
         ),
-        editedRatingGuideQuestions: deleteProperty<RatingGuideQuestion>(
+        editedRatingGuideQuestions: deleteProperty(
           state.editedRatingGuideQuestions,
           action.payload.id,
         ),
@@ -255,7 +255,7 @@ export const ratingGuideQuestionReducer = (
     case DELETE_TEMP_RATING_GUIDE_QUESTION:
       return {
         ...state,
-        tempRatingGuideQuestions: deleteProperty<RatingGuideQuestion>(
+        tempRatingGuideQuestions: deleteProperty(
           state.tempRatingGuideQuestions,
           action.payload.id,
         ),
@@ -276,7 +276,7 @@ export const ratingGuideQuestionReducer = (
           [action.payload.ratingGuideQuestion.id]:
             action.payload.ratingGuideQuestion,
         },
-        tempRatingGuideQuestionSaving: deleteProperty<boolean>(
+        tempRatingGuideQuestionSaving: deleteProperty(
           state.tempRatingGuideQuestionSaving,
           action.payload.oldRatingGuideQuestion.id,
         ),
@@ -296,7 +296,7 @@ export const ratingGuideQuestionReducer = (
                 id: action.payload.ratingGuideQuestion.id,
               },
             },
-        tempRatingGuideQuestions: deleteProperty<RatingGuideQuestion>(
+        tempRatingGuideQuestions: deleteProperty(
           state.tempRatingGuideQuestions,
           action.payload.oldRatingGuideQuestion.id,
         ),

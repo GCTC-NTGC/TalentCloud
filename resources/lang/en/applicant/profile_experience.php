@@ -11,6 +11,11 @@ return [
     */
 
     "title" => "My Experience",
+    'profile_sidebar_label' => 'On your profile:',
+    'account_settings_title' => 'Edit your account settings.',
+    'account_settings_label' => 'Account Settings',
+    'required_label' => 'Required',
+    'input_error' => 'This input has an error.',
     "experience_section" => [
         "experience_title" => "Talent Cloud | Applicant: Profile - My Experience",
         "section_degree_title" => "My Diplomas/Degrees",

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import {
   injectIntl,
   WrappedComponentProps,
@@ -23,6 +23,7 @@ import {
   jobBuilderSkills,
   managerEditProfile,
   jobBuilderEnv,
+  imageUrl,
 } from "../../../helpers/routes";
 import {
   find,
@@ -45,7 +46,7 @@ import {
   LocationId,
 } from "../../../models/lookupConstants";
 import Criterion from "../Criterion";
-import JobWorkEnv from "../WorkEnv/JobWorkEnv";
+import JobWorkEnv from "../WorkEnv/WorkEnvFeatures";
 import JobWorkCulture from "../JobWorkCulture";
 import Modal from "../../Modal";
 import { textToParagraphs } from "../../../helpers/textToParagraphs";
@@ -255,8 +256,8 @@ const sectionTitle = (title: string): React.ReactElement => {
 const languageRequirementIcons = (
   languageRequirementId: number,
 ): React.ReactElement => {
-  const enIcon = <img src="/images/icon_english_requirement.svg" alt="" />;
-  const frIcon = <img src="/images/icon_french_requirement.svg" alt="" />;
+  const enIcon = <img src={imageUrl("icon_english_requirement.svg")} alt="" />;
+  const frIcon = <img src={imageUrl("icon_french_requirement.svg")} alt="" />;
   switch (languageRequirementId) {
     case LanguageRequirementId.bilingualIntermediate:
     case LanguageRequirementId.bilingualAdvanced:
@@ -774,6 +775,11 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
   const modalId = "job-review-modal";
   const modalParentRef = useRef<HTMLDivElement>(null);
 
+  const filterComments = useCallback(
+    (comment: Comment): boolean => hasKey(jobReviewLocations, comment.location),
+    [],
+  );
+
   return (
     <>
       <div
@@ -806,9 +812,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
           isHrAdvisor={false}
           generalLocation={LocationId.jobGeneric}
           locationMessages={jobReviewLocations}
-          filterComments={(comment: Comment): boolean =>
-            hasKey(jobReviewLocations, comment.location)
-          }
+          filterComments={filterComments}
         />
         <JobReviewDisplay
           job={job}

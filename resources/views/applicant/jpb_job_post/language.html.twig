@@ -1,70 +1,40 @@
 {# =============================================================================
 
     Talent Cloud
-    Job Poster: Language Declaration
+    Applicant: Job Poster - Language Requirements
 
 ============================================================================= #}
-<a
-    aria-hidden="true"
-    class="job-post__anchor"
-    id="language">
-</a>
-
-<section class="job-poster__language">
-
-    <h3 class="job-poster__language-title">
-        {{ job_post.language.title }}
-    </h3>
-
-    {# This new UI is strictly displaying information. #}
-
-    {% if job.language_requirement.id == 1 %}
-        <span><img src="/images/icon_english_requirement.svg" alt=""> {{ job.language_requirement.value|title }}</span>
-    {% elseif job.language_requirement.id == 2 %}
-        <span><img src="/images/icon_french_requirement.svg" alt=""> {{ job.language_requirement.value|title }}</span>
-
-    {# Added aria-hidden and empty alt attributes to ensure decorative images and punctuation are ignored by screen readers. #}
-
-    {% elseif job.language_requirement.id == 3 %}
-        <span>
-            <img src="/images/icon_english_requirement.svg" alt="">
-            <span aria-hidden="true"> &amp; </span>
-            <img src="/images/icon_french_requirement.svg" alt="">
+<section id="language">
+    <h3 data-c-heading="h3" data-c-margin="bottom(1)" data-c-padding="top(3) bottom(1)">{{ job_post.language.title }}</h3>
+    <p data-c-heading="h4" data-c-margin="top(2) bottom(1)">
+        {% if job.language_requirement.id == 1 %}
             {{ job.language_requirement.value|title }}
-        </span>
-    {% elseif job.language_requirement.id == 4 %}
-        <span>
-            <img src="/images/icon_english_requirement.svg" alt="">
-            <span aria-hidden="true"> &amp; </span>
-            <img src="/images/icon_french_requirement.svg" alt="">
+        {% elseif job.language_requirement.id == 2 %}
             {{ job.language_requirement.value|title }}
-        </span>
-    {% elseif job.language_requirement.id == 5 %}
-        <span>
-            <img src="/images/icon_english_requirement.svg" alt="">
-            <span aria-hidden="true"> / </span>
-            <img src="/images/icon_french_requirement.svg" alt="">
+        {% elseif job.language_requirement.id == 3 %}
+            {{ job.language_requirement.value|title }}
+        {% elseif job.language_requirement.id == 4 %}
+            {{ job.language_requirement.value|title }}
+        {% elseif job.language_requirement.id == 5 %}
             {{ job.language_requirement.value }}
-        </span>
-    {% endif %}
-
+        {% endif %}
+    </p>
     {% if job.language_requirement.id == 1 %}
-        <p>{{ job_post.language.english_essential_context_01 }}</p>
+        <p data-c-margin="bottom(.5)">{{ job_post.language.english_essential_context_01 }}</p>
         <p>{{ job_post.language.english_essential_context_02 }}</p>
     {% elseif job.language_requirement.id == 2 %}
-        <p>{{ job_post.language.french_essential_context_01 }}</p>
+        <p data-c-margin="bottom(.5)">{{ job_post.language.french_essential_context_01 }}</p>
         <p>{{ job_post.language.french_essential_context_02 }}</p>
     {% elseif job.language_requirement.id == 3 %}
-        <p>{{ job_post.language.bilingual_intermediate_context_01|replace({'%proficiency%': '<a href="' ~ job_post.language.proficiency_link ~ '"> ' ~ job_post.language.proficiency_copy ~'</a>'})|raw }}</p>
+        <p data-c-margin="bottom(.5)">{{ job_post.language.bilingual_intermediate_context_01|replace({'%proficiency%': '<a href="' ~ job_post.language.proficiency_link ~ '"> ' ~ job_post.language.proficiency_copy ~'</a>'})|raw }}</p>
         <p>{{ job_post.language.bilingual_intermediate_context_02 }}</p>
     {% elseif job.language_requirement.id == 4 %}
-        <p>{{ job_post.language.bilingual_advanced_context_01|replace({'%proficiency%': '<a href="' ~ job_post.language.proficiency_link ~ '"> ' ~ job_post.language.proficiency_copy ~'</a>'})|raw }}</p>
+        <p data-c-margin="bottom(.5)">{{ job_post.language.bilingual_advanced_context_01|replace({'%proficiency%': '<a href="' ~ job_post.language.proficiency_link ~ '"> ' ~ job_post.language.proficiency_copy ~'</a>'})|raw }}</p>
         <p>{{ job_post.language.bilingual_advanced_context_02 }}</p>
     {% elseif job.language_requirement.id == 5 %}
-        <p>{{ job_post.language.english_or_french_context_01 }}</p>
+        <p data-c-margin="bottom(.5)">{{ job_post.language.english_or_french_context_01 }}</p>
         <p>{{ job_post.language.english_or_french_context_02 }}</p>
     {% else %}
         <p>{{ noInfo }}</p>
     {% endif %}
-
 </section>

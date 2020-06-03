@@ -90,9 +90,17 @@ return [
 
         ]
     ],
-    /* Localizations for Default questions fuction in controller */
+    /* Localizations for Default questions function in controller */
     'questions' => [
         '00' => 'Why are you interested in this job?',
         '01' => 'Why do you think you would be a good fit for this job?'
+    ],
+    'strategic_response_questions' => [
+        'What is your current classification and level? (e.g. IS-03)',
+        'What are your current levels in English and French? (e.g. BBB/BBB)',
+        'What is your current work location? (City, Province)',
+        'What is your home department and branch? (Department, Branch)',
+        'Can you work full time? If not, please indicate your availability',
+        'Do you have any experience or skills (other than those required for this position) that might be an asset to a team under the current circumstances?',
     ]
 ];
