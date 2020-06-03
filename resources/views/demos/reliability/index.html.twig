@@ -32,16 +32,16 @@
 
         {# Your CSS #}
         <link
-            href="/css/reliability.css"
+            href="{{ asset("/css/reliability.css") }}"
             rel="stylesheet"
             type="text/css" />
 
         {# Favicons #}
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-        <link rel="manifest" href="/site.webmanifest">
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#b91d47">
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset("/apple-touch-icon.png") }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset("/favicon-32x32.png") }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset("/favicon-16x16.png") }}">
+        <link rel="manifest" href="{{ asset("/site.webmanifest") }}">
+        <link rel="mask-icon" href="{{ asset("/safari-pinned-tab.svg") }}" color="#b91d47">
         <meta name="msapplication-TileColor" content="#b91d47">
         <meta name="theme-color" content="#b91d47">
 
@@ -246,7 +246,7 @@
         <script async defer src="https://cdn.jsdelivr.net/npm/clone-framework/dist/js/clone.min.js"></script>
 
         {# Your JavaScript #}
-        <script src="/js/reliability.js"></script>
+        <script src="{{ asset("/js/reliability.js") }}"></script>
 
     </body>
 

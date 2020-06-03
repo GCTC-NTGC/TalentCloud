@@ -53,11 +53,11 @@ class MicroReferenceMail extends Mailable implements ShouldQueue
             ? $this->application->director_name
             : $this->application->reference_name;
         $mail = $this->subject(Lang::get('manager/micro_reference_mail.subject'))
-            ->from(config('mail.from.address'), config('mail.from.name'))
+            ->from(config('mail.admin_address'), config('mail.from.name'))
             ->markdown('emails.micro_reference', [
                 'reference_name' => $reference_name,
-                'homepage_url' => route('response.index'),
-                'homepage_url_fr' => LaravelLocalization::getLocalizedURL('fr', route('response.index')),
+                'homepage_url' => route('home'),
+                'homepage_url_fr' => LaravelLocalization::getLocalizedURL('fr', route('home')),
                 'applicant_name' => $this->application->applicant->user->full_name,
                 'is_director' => $this->is_director,
                 'criteria' => $essential_criteria,

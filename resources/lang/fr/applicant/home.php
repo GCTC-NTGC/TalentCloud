@@ -96,7 +96,7 @@ return [
                 'copy' => 'Le Nuage de talents du gouvernement du Canada est une initiative expérimentale qui repose uniquement sur l’aide financière des ministères fédéraux participants qui s’engagent à créer une solution de rechange au modèle traditionnel des RH.',
                 'links' => [
                     '1' => [
-                        'link' => '/faq#partners',
+                        'link' => route('faq') . '#partners',
                         'title' => 'Apprenez-en davantage sur le financement du Nuage de talents.',
                         'label' => 'Pour en savoir davantage'
                     ]
@@ -192,7 +192,7 @@ return [
     'how_step03_copy' => "Trouvez un travail significatif qui aura un impact sur la vie des Canadiens et faites partie intégrante de l'effort de conception d'une nouvelle plateforme pour le travail par projet au gouvernement.",
     'how_step04_title' => 'FR Credentialing TBD',
     'how_step04_copy' => 'FR Credentialing Copy TBD',
-    'how_step04_link' => '/fr/credentialing',
+    // 'how_step04_link' => '/fr/credentialing',
     'how_step04_link_title' => 'FR Learn more about credentialing on Talent Cloud.',
     'how_step04_link_label' => 'FR Learn More',
     'how_copy' => "Nous désirons que le Nuage de talent permette à un plus grand nombre de Canadiens d'avoir la chance de travailler au gouvernement. Nous souhaitons que la diversité des talents apporte de nouvelles idées qui façonneront les programmes et les services partout au Canada.",

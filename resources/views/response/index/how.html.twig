@@ -1,9 +1,9 @@
 <div data-c-padding="tb(3)" id="how" class="flourish-wrapper" data-c-border="tb(thin, solid, gray)">
-    <img alt="{{ response.canadian_maple_leaf_alt }}" class="flourish-icon-right" src="/images/maple-leaf.svg">
+    <img alt="{{ response.canadian_maple_leaf_alt }}" class="flourish-icon-right" src="{{ asset("/images/maple-leaf.svg") }}">
     <div data-c-container="large">
         <h2 data-c-heading="h2" data-c-margin="bottom(1)">{{ response.how.title }}</h2>
         <div class="response-list-item">
-            <img src="/images/canadian-flag.svg" alt="{{ response.how.canadian_maple_leaf_icon }}">
+            <img src="{{ asset("/images/canadian-flag.svg") }}" alt="{{ response.how.canadian_maple_leaf_icon }}">
             <p data-c-margin="bottom(1)" class="response-copy-container">{{ response.how.canadians_helping }}</p>
         </div>
         <div class="home-hiw" data-c-grid="gutter">

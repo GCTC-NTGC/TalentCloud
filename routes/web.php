@@ -116,15 +116,15 @@ Route::group(
                     ->name('jobs.summary');
 
                 /* Response Home */
-                Route::get('response', 'StrategicResponseController@index')->name('response.index');
+                // Redirect /en/response to /response so it reaches the Talent Reserve app.
+                Route::get('response', function () {
+                    return redirect(URL::to('/response'));
+                });
 
                 /* Reserve Redirect */
                 Route::get('reserve', function () {
                     return redirect('response');
                 });
-
-            /* Response Home */
-                Route::get('response/faq', 'StrategicResponseController@faq')->name('response.faq');
 
                 /* Require being logged in as applicant */
                 Route::middleware(['auth', 'role:applicant'])->group(function (): void {
