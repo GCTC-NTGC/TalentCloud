@@ -122,10 +122,7 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
             <div data-c-padding="all(1)">
               <div data-c-grid="middle">
                 <div data-c-grid-item="tl(3of4)">{title}</div>
-                <div
-                  data-c-grid-item="tl(1of4)"
-                  data-c-align="base(left) tl(right)"
-                >
+                <div data-c-grid-item="tl(1of4)" data-c-align="base(left)">
                   <FormattedMessage
                     id="baseExperienceAccordion.skillCount"
                     defaultMessage="{skillCount, plural, =0 {No related skills} one {# related skill} other {# related skills}} {isEducationJustification, select, true {/ Education Requirement} false {}}"
