@@ -15,6 +15,14 @@ const groupIds = {
   switches: "Switches",
 };
 
+const iconClassOptions = {
+  education: "fa-book",
+  work: "fa-briefcase",
+  community: "fa-people-carry",
+  personal: "fa-mountain",
+  award: "fa-trophy",
+};
+
 stories.add(
   "Base Experience Modal",
   (): React.ReactElement => {
@@ -30,6 +38,18 @@ stories.add(
           <BaseExperienceModal
             id="base-experience-modal"
             title={text("Title", "Base Experience", groupIds.details)}
+            iconClass={select(
+              "Icon",
+              iconClassOptions,
+              "education",
+              groupIds.type,
+            )}
+            jobId={number("Job Id", 1, undefined, groupIds.details)}
+            description={text(
+              "Description",
+              "Got creds? Share your degree, certificates, online courses, a trade apprenticeship, licences or alternative credentials. If you've learned something from a recognized educational provider, include your experiences here.  (Learned something from your community or on your own? Share this as a 'Community Experience' or 'Personal Experience'.",
+              groupIds.details,
+            )}
             parentElement={modalParent}
             visible={isModalVisible}
             onModalConfirm={action("Confirmed")}
