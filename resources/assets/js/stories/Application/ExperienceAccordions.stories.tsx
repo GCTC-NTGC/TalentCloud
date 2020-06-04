@@ -17,10 +17,9 @@ import ExperienceCommunityAccordion from "../../components/Application/Experienc
 import ExperienceAwardAccordion from "../../components/Application/Experience/ExperienceAwardAccordion";
 import ExperiencePersonalAccordion from "../../components/Application/Experience/ExperiencePersonalAccordion";
 
-const stories = storiesOf(
-  "Application|Experience Accordions",
-  module,
-).addDecorator(withIntl);
+const stories = storiesOf("Application|Experience Accordions", module)
+  .addDecorator(withIntl)
+  .addDecorator((storyFn) => <div data-c-container="medium">{storyFn()}</div>);
 
 const iconClassOptions = {
   education: "fa-book",
