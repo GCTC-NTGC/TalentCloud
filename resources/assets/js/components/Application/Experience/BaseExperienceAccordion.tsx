@@ -14,7 +14,7 @@ export const titleBarDateRange = (
   endDate: Date | null,
   isActive: boolean,
   locale: Locales,
-) => (
+): React.ReactElement => (
   <p data-c-margin="top(quarter)" data-c-colour="c1" data-c-font-size="small">
     {isActive || endDate === null ? (
       <FormattedMessage
@@ -39,13 +39,11 @@ export const titleBarDateRange = (
   </p>
 );
 
-
-
 export const baseExperienceMessages = defineMessages({
   notApplicable: {
     id: "baseExperienceAccordion.notApplicable",
     defaultMessage: "N/A",
-    description: "Used for any un-set fields in experience accordions."
+    description: "Used for any un-set fields in experience accordions.",
   },
   experienceTypeLabel: {
     id: "baseExperienceAccordion.experienceTypeLabel",
@@ -53,16 +51,16 @@ export const baseExperienceMessages = defineMessages({
   },
   startDateLabel: {
     id: "baseExperienceAccordion.startDateLabel",
-    defaultMessage: "Start Date:"
+    defaultMessage: "Start Date:",
   },
   endDateLabel: {
     id: "baseExperienceAccordion.endDateLabel",
-    defaultMessage: "End Date:"
+    defaultMessage: "End Date:",
   },
   ongoing: {
     id: "baseExperienceAccordion.ongoing",
-    defaultMessage: "Ongoing"
-  }
+    defaultMessage: "Ongoing",
+  },
 });
 
 interface BaseExperienceAccordionProps {
@@ -117,7 +115,7 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
                 className={`fas ${iconClass}`}
                 data-c-color="c1"
                 data-c-font-size="h4"
-              ></i>
+              />
             </div>
           </div>
           <div data-c-grid-item="base(3of4) tl(5of6)">
@@ -154,13 +152,13 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
           className="fas fa-angle-down"
           data-c-accordion-add=""
           data-c-colour="black"
-        ></i>
+        />
         <i
           aria-hidden="true"
           className="fas fa-angle-up"
           data-c-accordion-remove=""
           data-c-colour="black"
-        ></i>
+        />
       </button>
       <div
         aria-hidden="true"
@@ -199,7 +197,7 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
               </h4>
               <div data-c-grid="gutter(all, 1)">
                 {showSkillDetails ? (
-                  relevantSkills.map(skill => (
+                  relevantSkills.map((skill) => (
                     <div key={skill.id} data-c-grid-item="base(1of1)">
                       <p>
                         <span
@@ -217,7 +215,7 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
                   ))
                 ) : (
                   <div data-c-grid-item="base(1of1)">
-                    {relevantSkills.map(skill => (
+                    {relevantSkills.map((skill) => (
                       <span
                         key={skill.id}
                         data-c-tag="c1"
@@ -274,7 +272,7 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
                     className="fas fa-check-circle"
                     data-c-margin="right(.25)"
                     data-c-color="go"
-                  ></i>
+                  />
                   <FormattedMessage
                     id="baseExperienceAccordion.educationRequirement"
                     defaultMessage="Education Requirement"

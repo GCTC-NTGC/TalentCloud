@@ -17,7 +17,6 @@ interface ExperienceEducationAccordionProps {
   startDate: Date;
   endDate: Date | null;
   isActive: boolean;
-
   relevantSkills: ExperienceSkill[];
   irrelevantSkillCount: number;
   isEducationJustification: boolean;
@@ -150,7 +149,6 @@ export const ExperienceEducationAccordion: React.FC<ExperienceEducationAccordion
   startDate,
   endDate,
   isActive,
-
   relevantSkills,
   irrelevantSkillCount,
   isEducationJustification,
@@ -172,7 +170,7 @@ export const ExperienceEducationAccordion: React.FC<ExperienceEducationAccordion
             educationType,
             areaOfStudy,
             institution,
-            b: value => <span data-c-font-weight="bold">{value}</span>,
+            b: (value) => <span data-c-font-weight="bold">{value}</span>,
           }}
         />
       </p>

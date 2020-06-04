@@ -16,7 +16,6 @@ interface ExperienceAwardAccordionProps {
   scope: string;
   awardedDate: Date;
   awardLink: Link;
-
   relevantSkills: ExperienceSkill[];
   irrelevantSkillCount: number;
   isEducationJustification: boolean;
@@ -126,7 +125,12 @@ const experienceAwardDetails = ({
         </p>
         {awardLink && awardLink.url ? (
           <p>
-            <a href={awardLink.url} title={awardLink.title} target="_blank">
+            <a
+              href={awardLink.url}
+              title={awardLink.title}
+              target="_blank"
+              rel="noreferrer"
+            >
               {awardLink.text}
             </a>
           </p>
@@ -145,7 +149,6 @@ export const ExperienceAwardAccordion: React.FC<ExperienceAwardAccordionProps> =
   scope,
   awardedDate,
   awardLink,
-
   relevantSkills,
   irrelevantSkillCount,
   isEducationJustification,
@@ -166,7 +169,7 @@ export const ExperienceAwardAccordion: React.FC<ExperienceAwardAccordionProps> =
           values={{
             title,
             institution: issuer,
-            b: value => <span data-c-font-weight="bold">{value}</span>,
+            b: (value) => <span data-c-font-weight="bold">{value}</span>,
           }}
         />
       </p>

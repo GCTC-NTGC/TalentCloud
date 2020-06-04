@@ -16,7 +16,6 @@ interface ExperienceCommunityAccordionProps {
   startDate: Date;
   endDate: Date;
   isActive: boolean;
-
   relevantSkills: ExperienceSkill[];
   irrelevantSkillCount: number;
   isEducationJustification: boolean;
@@ -136,7 +135,6 @@ export const ExperienceCommunityAccordion: React.FC<ExperienceCommunityAccordion
   startDate,
   endDate,
   isActive,
-
   relevantSkills,
   irrelevantSkillCount,
   isEducationJustification,
@@ -157,7 +155,7 @@ export const ExperienceCommunityAccordion: React.FC<ExperienceCommunityAccordion
           values={{
             title,
             group,
-            b: value => <span data-c-font-weight="bold">{value}</span>,
+            b: (value) => <span data-c-font-weight="bold">{value}</span>,
           }}
         />
       </p>

@@ -8,7 +8,6 @@ import {
 } from "./BaseExperienceAccordion";
 import { Locales, getLocale } from "../../../helpers/localize";
 import { readableDate } from "../../../helpers/dates";
-import { Link } from "../../../models/app";
 
 interface ExperiencePersonalAccordionProps {
   title: string;
@@ -17,7 +16,6 @@ interface ExperiencePersonalAccordionProps {
   startDate: Date;
   endDate: Date | null;
   isActive: boolean;
-
   relevantSkills: ExperienceSkill[];
   irrelevantSkillCount: number;
   isEducationJustification: boolean;
@@ -105,7 +103,7 @@ const experiencePersonalDetails = ({
               className="fas fa-check-circle"
               data-c-color="go"
               data-c-margin="right(.25)"
-            ></i>
+            />
             <FormattedMessage
               id="experiencePersonalAccordion.isShareable"
               defaultMessage="Sharing Approved"
@@ -118,7 +116,7 @@ const experiencePersonalDetails = ({
               className="fas fa-check-circle"
               data-c-color="stop"
               data-c-margin="right(.25)"
-            ></i>
+            />
             <FormattedMessage
               id="experiencePersonalAccordion.isNotShareable"
               defaultMessage="Sharing Restricted"
@@ -154,7 +152,6 @@ export const ExperiencePersonalAccordion: React.FC<ExperiencePersonalAccordionPr
   startDate,
   endDate,
   isActive,
-
   relevantSkills,
   irrelevantSkillCount,
   isEducationJustification,

@@ -1,9 +1,9 @@
-import React, { ReactElement, createElement } from "react";
+import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
+import { action } from "@storybook/addon-actions";
 import { select, text, number, boolean, date } from "@storybook/addon-knobs";
 import { BaseExperienceAccordion } from "../../components/Application/Experience/BaseExperienceAccordion";
-import { action } from "@storybook/addon-actions";
 import { ExperienceWorkAccordion } from "../../components/Application/Experience/ExperienceWorkAccordion";
 import {
   fakeExperienceWork,
@@ -30,8 +30,12 @@ const iconClassOptions = {
   award: "fa-trophy",
 };
 
-function myDateKnob(name, defaultValue, groupId) {
-  const stringTimestamp = date(name, defaultValue, groupId);
+function myDateKnob(
+  name: string,
+  defaultValue: Date | null,
+  groupId: string,
+): Date {
+  const stringTimestamp = date(name, defaultValue || undefined, groupId);
   return new Date(stringTimestamp);
 }
 
@@ -44,7 +48,7 @@ const educationDetails = (
           className="fas fa-book"
           data-c-color="c1"
           data-c-margin="right(.25)"
-        ></i>
+        />
         Education Experience
       </p>
     </div>
@@ -67,7 +71,7 @@ const workDetails = (
           className="fas fa-briefcase"
           data-c-color="c1"
           data-c-margin="right(.25)"
-        ></i>
+        />
         Work Experience
       </p>
     </div>
@@ -396,8 +400,16 @@ stories.add(
               experience.start_date,
               groupIds.details,
             )}
-            endDate={myDateKnob("End Date", experience.end_date, groupIds.details)}
-            isActive={boolean("Is Active", experience.is_active, groupIds.details)}
+            endDate={myDateKnob(
+              "End Date",
+              experience.end_date,
+              groupIds.details,
+            )}
+            isActive={boolean(
+              "Is Active",
+              experience.is_active,
+              groupIds.details,
+            )}
             relevantSkills={skillClaims}
             irrelevantSkillCount={number(
               "Irrelevant Skill count",
