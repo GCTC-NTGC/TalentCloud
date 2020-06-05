@@ -9,17 +9,22 @@ import React from "react";
 export const textToParagraphs = (
   text: string,
   props?: any,
+  specificProps?: object,
 ): React.ReactFragment => {
   const items = text.split("\n");
   return (
     <>
       {items.map(
-        (item, index): React.ReactElement => (
-          // eslint-disable-next-line react/no-array-index-key
-          <p key={index} {...props}>
-            {item.trim().length > 0 ? item : <br />}
-          </p>
-        ),
+        (item, index): React.ReactElement => {
+          const getSpecificProps =
+            specificProps && specificProps[index] ? specificProps[index] : "";
+          return (
+            // eslint-disable-next-line react/no-array-index-key
+            <p key={index} {...props} {...getSpecificProps}>
+              {item.trim().length > 0 ? item : <br />}
+            </p>
+          );
+        },
       )}
     </>
   );
