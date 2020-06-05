@@ -8,4 +8,7 @@ const stories = storiesOf("Applicant Timeline|Basic Info", module).addDecorator(
   withIntl,
 );
 
-stories.add("New Job", (): React.ReactElement => <BasicInfo job={fakeJob()} />);
+stories.add(
+  "New Application",
+  (): React.ReactElement => <BasicInfo job={fakeJob()} />,
+);
