@@ -19,7 +19,8 @@ export default defineMessages({
   },
   veteranStatusLabel: {
     id: "applicantTimeline.basicInfo.veteranStatusLabel",
-    defaultMessage: "Are you a veteran or member of the Canadian Armed Forces?",
+    defaultMessage:
+      "Are you a veteran or a member of the Canadian Armed Forces?",
     description: "Label for the veteran status select box.",
   },
   languageRequirementsHeader: {
@@ -56,7 +57,7 @@ export default defineMessages({
   },
   nullSelectOption: {
     id: "applicantTimeline.basicInfo.nullSelectOption",
-    defaultMessage: "Select an option...",
+    defaultMessage: "Select from the following...",
     description: "The default selection option displayed on select box.",
   },
 });
@@ -189,7 +190,7 @@ const languageRequirementLabels = defineMessages({
   [LanguageRequirementId.bilingualIntermediate]: {
     id: "applicantTimeline.languageRequirement.label.bilingualIntermediate",
     defaultMessage:
-      "I have strong reading, writing and verbal communication skills in English OR French.",
+      "I have intermediate or better reading, writing and verbal communication skills in English and French.",
     description:
       "Text for 'Bilingual Intermediate' language requirement on the applicant timeline form.",
   },
@@ -203,7 +204,7 @@ const languageRequirementLabels = defineMessages({
   [LanguageRequirementId.englishOrFrench]: {
     id: "applicantTimeline.languageRequirement.label.englishOrFrench",
     defaultMessage:
-      "I have strong reading, writing and verbal communication skills in English and French.",
+      "I have strong reading, writing and verbal communication skills in English OR French.",
     description:
       "Text for 'English or French' language requirement on the applicant timeline form.",
   },

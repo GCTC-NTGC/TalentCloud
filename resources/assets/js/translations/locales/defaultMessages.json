@@ -87,6 +87,166 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Save & Return to Previous Step",
+        "description": "The text displayed on the Save & Return button of the Applicant Timeline form.",
+        "id": "applicantTimeline.returnButtonLabel"
+      },
+      {
+        "defaultMessage": "Save & Quit",
+        "description": "The text displayed on the Save & Return button of the Applicant Timeline form.",
+        "id": "applicantTimeline.quitButtonLabel"
+      },
+      {
+        "defaultMessage": "Save & Continue",
+        "description": "The text displayed on the submit button for the Job Details form.",
+        "id": "applicantTimeline.submitButtonLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicantTimeline/BasicInfo/BasicInfo.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "My Basic Information",
+        "description": "Header for the Applicant Timeline form.",
+        "id": "applicantTimeline.basicInfo.header"
+      },
+      {
+        "defaultMessage": "Which citizenship status applies to you?",
+        "description": "Label for the citizenship status select box.",
+        "id": "applicantTimeline.basicInfo.citizenshipLabel"
+      },
+      {
+        "defaultMessage": "Are you a veteran or a member of the Canadian Armed Forces?",
+        "description": "Label for the veteran status select box.",
+        "id": "applicantTimeline.basicInfo.veteranStatusLabel"
+      },
+      {
+        "defaultMessage": "Language Requirements",
+        "description": "Header for language requirements section in applicant timeline form.",
+        "id": "applicantTimeline.basicInfo.languageRequirementsHeader"
+      },
+      {
+        "defaultMessage": "I understand that my second language proficiency will be tested as part of this process.",
+        "description": "Label for language test checkbox in applicant timeline form.",
+        "id": "applicantTimeline.basicInfo.languageTestLabel"
+      },
+      {
+        "defaultMessage": "Education Requirements",
+        "description": "Header for education requirement section in applicant timeline form.",
+        "id": "applicantTimeline.basicInfo.educationRequirementHeader"
+      },
+      {
+        "defaultMessage": "Based on the information outlined below, do you meet the minimum experience or education requirements for this position?",
+        "description": "Text for education requirement section in applicant timeline form.",
+        "id": "applicantTimeline.basicInfo.meetEducationRequirement"
+      },
+      {
+        "defaultMessage": "I meet this requirement and will provide details in the application.",
+        "description": "Label for education requirement section in applicant timeline form.",
+        "id": "applicantTimeline.basicInfo.educationRequirementLabel"
+      },
+      {
+        "defaultMessage": "Select from the following...",
+        "description": "The default selection option displayed on select box.",
+        "id": "applicantTimeline.basicInfo.nullSelectOption"
+      },
+      {
+        "defaultMessage": "Canadian Citizen",
+        "description": "Select option text for the 'Citizen' citizen declarations.",
+        "id": "applicantTimeline.citizenshipDeclaration.citizen"
+      },
+      {
+        "defaultMessage": "Permanent Resident of Canada",
+        "description": "Select option text for the 'Permanent Resident of Canada' citizen declarations.",
+        "id": "applicantTimeline.citizenshipDeclaration.permanentResident"
+      },
+      {
+        "defaultMessage": "I have a permit that allows me to work anywhere in Canada",
+        "description": "Select option text for the 'Work Permit Open' citizen declarations.",
+        "id": "applicantTimeline.citizenshipDeclaration.workPermitOpen"
+      },
+      {
+        "defaultMessage": "I have a permit that only allows me to work for a specific organization",
+        "description": "Select option text for the 'Work Permit Closed' citizen declarations.",
+        "id": "applicantTimeline.citizenshipDeclaration.workPermitClosed"
+      },
+      {
+        "defaultMessage": "I am currently not entitled to work in Canada",
+        "description": "Select option text for the 'Not Entitled' citizen declarations.",
+        "id": "applicantTimeline.citizenshipDeclaration.notEntitled"
+      },
+      {
+        "defaultMessage": "No - I am not a veteran or a member of the Canadian Armed Forces.",
+        "description": "Select option text for the 'None' veteran status.",
+        "id": "applicantTimeline.veteranStatus.none"
+      },
+      {
+        "defaultMessage": "Yes - I am currently a member of the Canadian Armed Forces.",
+        "description": "Select option text for the 'Current' veteran status.",
+        "id": "applicantTimeline.veteranStatus.current"
+      },
+      {
+        "defaultMessage": "Yes - I am a veteran.",
+        "description": "Select option text for the 'Past' veteran status.",
+        "id": "applicantTimeline.veteranStatus.past"
+      },
+      {
+        "defaultMessage": "This position requires advanced knowledge of English.",
+        "description": "Description for the 'English' language requirement on the applicant timeline form.",
+        "id": "applicantTimeline.languageRequirement.english"
+      },
+      {
+        "defaultMessage": "This position requires advanced knowledge of French.",
+        "description": "Description for the 'French' language requirement on the applicant timeline form.",
+        "id": "applicantTimeline.languageRequirement.french"
+      },
+      {
+        "defaultMessage": "This position requires advanced knowledge of either French or English.",
+        "description": "Description for the 'Bilingual Intermediate' language requirement on the applicant timeline form.",
+        "id": "applicantTimeline.languageRequirement.bilingualIntermediate"
+      },
+      {
+        "defaultMessage": "This position requires working knowledge of both French and English. As part of this process, your language abilities will be tested by the Public Service Commission of Canada (the proficiency requirement for this position is BBB).",
+        "description": "Description for the 'Bilingual Advanced' language requirement on the applicant timeline form.",
+        "id": "applicantTimeline.languageRequirement.bilingualAdvanced"
+      },
+      {
+        "defaultMessage": "This position requires advanced knowledge of both French and English. As part of this process, your language abilities will be tested by the Public Service Commission of Canada (the proficiency requirement for this position is CBC).",
+        "description": "Description for the 'English or French' language requirement on the applicant timeline form.",
+        "id": "applicantTimeline.languageRequirement.englishOrFrench"
+      },
+      {
+        "defaultMessage": "I have strong reading, writing and verbal communication skills in English.",
+        "description": "Label for 'English' language requirement on the applicant timeline form.",
+        "id": "applicantTimeline.languageRequirement.label.english"
+      },
+      {
+        "defaultMessage": "I have strong reading, writing and verbal communication skills in French.",
+        "description": "Text for 'French' language requirement on the applicant timeline form.",
+        "id": "applicantTimeline.languageRequirement.label.french"
+      },
+      {
+        "defaultMessage": "I have intermediate or better reading, writing and verbal communication skills in English and French.",
+        "description": "Text for 'Bilingual Intermediate' language requirement on the applicant timeline form.",
+        "id": "applicantTimeline.languageRequirement.label.bilingualIntermediate"
+      },
+      {
+        "defaultMessage": "I have intermediate or better reading, writing and verbal communication skills in English and French.",
+        "description": "Text for 'Bilingual Advanced' language requirement on the applicant timeline form.",
+        "id": "applicantTimeline.languageRequirement.label.bilingualAdvanced"
+      },
+      {
+        "defaultMessage": "I have strong reading, writing and verbal communication skills in English OR French.",
+        "description": "Text for 'English or French' language requirement on the applicant timeline form.",
+        "id": "applicantTimeline.languageRequirement.label.englishOrFrench"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicantTimeline/BasicInfo/BasicInfoMessages.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Toggle this step to view relevant applicants.",
         "description": "Instructions to reveal hidden list data.",
         "id": "button.toggleAccordion"
@@ -1262,7 +1422,7 @@
         "id": "jobBuilder.details.educationRequirementPlaceholder"
       },
       {
-        "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.\n    ",
+        "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.",
         "description": "Job Classification message from list of Classifications",
         "id": "jobBuilder.details.educationMessages.AS"
       },
@@ -1297,7 +1457,7 @@
         "id": "jobBuilder.details.educationMessages.EX"
       },
       {
-        "defaultMessage": "Post-secondary degree:\nGraduation with a degree in forestry or wood science from a recognized post-secondary institution.\n\nor\n\nGraduation with a degree in a related science from a recognized post-secondary institution combined with acceptable experience.",
+        "defaultMessage": "Post-secondary degree:\nGraduation with a degree in forestry or wood science from a recognized post-secondary institution.\n\nor\n\nEquivalent experience:\nGraduation with a degree in a related science from a recognized post-secondary institution combined with acceptable experience.",
         "description": "Job Classification message from list of Classifications",
         "id": "jobBuilder.details.educationMessages.FO"
       },
@@ -3345,6 +3505,10 @@
       {
         "defaultMessage": "Cancel",
         "id": "referenceEmailModal.cancel"
+      },
+      {
+        "defaultMessage": "No Delivery Address",
+        "id": "referenceEmailModal.noDeliveryAddress"
       },
       {
         "defaultMessage": "Send Email",

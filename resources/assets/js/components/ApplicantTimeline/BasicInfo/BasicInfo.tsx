@@ -244,7 +244,7 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({ job }) => {
                   }}
                 >
                   <FormattedMessage
-                    id="applicantTimeline.returnButtonLabel"
+                    id="applicantTimeline.quitButtonLabel"
                     defaultMessage="Save & Quit"
                     description="The text displayed on the Save & Return button of the Applicant Timeline form."
                   />
@@ -257,7 +257,7 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({ job }) => {
                   disabled={isSubmitting}
                 >
                   <FormattedMessage
-                    id="jobBuilder.details.submitButtonLabel"
+                    id="applicantTimeline.submitButtonLabel"
                     defaultMessage="Save & Continue"
                     description="The text displayed on the submit button for the Job Details form."
                   />
