@@ -49,6 +49,7 @@ import TextAreaInput from "../../Form/TextAreaInput";
 import { formMessages, educationMessages } from "./JobDetailsMessages";
 import { hasKey } from "../../../helpers/queries";
 import { localizeField, getLocale } from "../../../helpers/localize";
+import textToParagraphs from "../../../helpers/textToParagraphs";
 
 interface JobDetailsProps {
   // Optional Job to prepopulate form values from.
@@ -572,9 +573,16 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                       <div>
                         <ContextBlockItem
                           wrapperMargin="bottom(normal)"
-                          subtext={getEducationMsgForClassification(
-                            values.classification,
-                            intl,
+                          subtext={textToParagraphs(
+                            getEducationMsgForClassification(
+                              values.classification,
+                              intl,
+                            ),
+                            {},
+                            {
+                              "0": { "data-c-font-weight": "bold" },
+                              "5": { "data-c-font-weight": "bold" },
+                            },
                           )}
                         />
                       </div>
