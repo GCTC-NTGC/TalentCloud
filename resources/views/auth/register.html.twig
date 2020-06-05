@@ -60,6 +60,36 @@
 										</div>
 										<span>{{ trans('forms.error') }}</span>
 									</div>
+                                    {# Language Selection #}
+                                    <div data-c-input="select" data-c-grid-item="base(1of1)">
+                                        <label for="lang">Which language would you prefer to be contacted in?</label>
+                                        <span>Required</span>
+                                        <div>
+                                            <i class="fas fa-caret-down"></i>
+                                            <select required id="lang">
+                                                <option disabled selected>Select a language...</option>
+                                                <option>English</option>
+                                                <option>French</option>
+                                            </select>
+                                        </div>
+                                        <span>This input has an error.</span>
+                                    </div>
+                                    {# Contact Preference #}
+                                    <div data-c-grid-item="base(1of1)">
+                                        <p>By default, Talent Cloud will perdiodically contact you about opportunities that are similar to those that you apply to. If you would like to opt out of these communication emails, please check the box below. <span data-c-color="gray">(This can be changed later in your account settings.)</span></p>
+                                        <div data-c-input="checkbox(single)" data-c-margin="left(2)">
+                                            <span>Required</span>
+                                            <div>
+                                                <label for="langReq">
+                                                    <input
+                                                        id="langReq"
+                                                        type="checkbox"/>
+                                                    <span>I do not want Talent Cloud to contact me about jobs related to the ones I apply to.</span>
+                                                </label>
+                                            </div>
+                                            <span>This input has an error.</span>
+                                        </div>
+                                    </div>
 									{# A block that other registration layouts can extend to add extra fields #}
 									{% block extra_fields %}{% endblock %}
 									{# Password Requirements #}

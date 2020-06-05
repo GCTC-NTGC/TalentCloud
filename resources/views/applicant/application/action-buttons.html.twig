@@ -9,6 +9,25 @@
 <div data-c-container="medium" data-c-padding="tb(2)">
     <hr data-c-hr="thin(c1)" data-c-margin="bottom(2)">
     <div data-c-grid="gutter(all, 1)">
+        {% if step == 8 %}
+            <div data-c-grid-item="base(1of1)">
+                <p>Do you give Talent Cloud permission to share your application with other Government of Canada managers who may be looking for a similar set of skills?</p>
+            </div>
+            <div data-c-grid-item="base(1of1)">
+                <div data-c-input="checkbox(single)" data-c-margin="left(2)">
+                    <span>Required</span>
+                    <div>
+                        <label for="langReq">
+                            <input
+                                id="langReq"
+                                type="checkbox"/>
+                            <span>I would like Talent Cloud to share my application with other Government of Canada managers looking for similar sets of skills.</span>
+                        </label>
+                    </div>
+                    <span>This input has an error.</span>
+                </div>
+            </div>
+        {% endif %}
         <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(left)">
             {% if step == 1 %}
             {% elseif step == 3 %}
