@@ -197,6 +197,11 @@ stories.add(
             )}
             endDate={myDateKnob("End date", education.end_date, "details")}
             isActive={boolean("Is Active", education.is_active, "details")}
+            thesisTitle={text(
+              "Thesis Title",
+              education.thesis_title || "",
+              groupIds.details,
+            )}
             relevantSkills={skillClaims}
             irrelevantSkillCount={number(
               "Irrelevant Skill count",

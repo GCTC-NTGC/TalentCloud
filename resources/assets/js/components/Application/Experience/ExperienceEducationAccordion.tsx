@@ -17,6 +17,7 @@ interface ExperienceEducationAccordionProps {
   startDate: Date;
   endDate: Date | null;
   isActive: boolean;
+  thesisTitle: string | null;
   relevantSkills: ExperienceSkill[];
   irrelevantSkillCount: number;
   isEducationJustification: boolean;
@@ -36,6 +37,7 @@ const experienceEducationDetails = ({
   startDate,
   endDate,
   isActive,
+  thesisTitle,
 }: {
   locale: Locales;
   intl: IntlShape;
@@ -46,6 +48,7 @@ const experienceEducationDetails = ({
   startDate: Date;
   endDate: Date | null;
   isActive: boolean;
+  thesisTitle: string | null;
 }): React.ReactElement => {
   const notApplicable = (
     <p data-c-color="gray">
@@ -81,8 +84,8 @@ const experienceEducationDetails = ({
             id="experienceEducationAccordion.educationTypeLabel"
             defaultMessage="Type of Education:"
           />
-          {educationType ? <p>{educationType}</p> : { notApplicable }}
         </p>
+        {educationType ? <p>{educationType}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
@@ -91,7 +94,7 @@ const experienceEducationDetails = ({
             defaultMessage="Area of Study:"
           />
         </p>
-        {areaOfStudy ? <p>{areaOfStudy}</p> : { notApplicable }}
+        {areaOfStudy ? <p>{areaOfStudy}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
@@ -100,7 +103,7 @@ const experienceEducationDetails = ({
             defaultMessage="Institution:"
           />
         </p>
-        {institution ? <p>{institution}</p> : { notApplicable }}
+        {institution ? <p>{institution}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
@@ -109,7 +112,7 @@ const experienceEducationDetails = ({
             defaultMessage="Status:"
           />
         </p>
-        {status ? <p>{status}</p> : { notApplicable }}
+        {status ? <p>{status}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
@@ -137,6 +140,15 @@ const experienceEducationDetails = ({
           endDateOrNa
         )}
       </div>
+      <div data-c-grid-item="base(1of2) tl(1of3)">
+        <p data-c-font-weight="bold">
+          <FormattedMessage
+            id="experienceEducationAccordion.thesisLabel"
+            defaultMessage="Thesis Title:"
+          />
+        </p>
+        {thesisTitle ? <p>{thesisTitle}</p> : notApplicable}
+      </div>
     </>
   );
 };
@@ -149,6 +161,7 @@ export const ExperienceEducationAccordion: React.FC<ExperienceEducationAccordion
   startDate,
   endDate,
   isActive,
+  thesisTitle,
   relevantSkills,
   irrelevantSkillCount,
   isEducationJustification,
@@ -194,6 +207,7 @@ export const ExperienceEducationAccordion: React.FC<ExperienceEducationAccordion
         startDate,
         endDate,
         isActive,
+        thesisTitle,
       })}
       showSkillDetails={showSkillDetails}
       showButtons={showButtons}
