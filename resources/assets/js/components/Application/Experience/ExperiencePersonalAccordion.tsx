@@ -81,7 +81,7 @@ const experiencePersonalDetails = ({
           {title ? <p>{title}</p> : notApplicable}
         </p>
       </div>
-      <div data-c-grid-item="base(1of2) tl(1of3)">
+      <div data-c-grid-item="base(1of1)">
         <p data-c-font-weight="bold">
           <FormattedMessage
             id="experiencePersonalAccordion.descriptionLabel"
