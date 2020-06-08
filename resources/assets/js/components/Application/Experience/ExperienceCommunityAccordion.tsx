@@ -101,15 +101,6 @@ const experienceCommunityDetails = ({
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experienceCommunityAccordion.statusLabel"
-            defaultMessage="Status:"
-          />
-        </p>
-        {status ? <p>{status}</p> : notApplicable}
-      </div>
-      <div data-c-grid-item="base(1of2) tl(1of3)">
-        <p data-c-font-weight="bold">
           {intl.formatMessage(baseExperienceMessages.startDateLabel)}
         </p>
         {startDate ? <p>{readableDate(locale, startDate)}</p> : notApplicable}
