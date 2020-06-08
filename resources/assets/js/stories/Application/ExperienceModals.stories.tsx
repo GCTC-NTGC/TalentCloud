@@ -1,7 +1,7 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
-import { select, text, number, boolean, date } from "@storybook/addon-knobs";
+import { select, text, number, boolean, array } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import BaseExperienceModal from "../../components/Application/ExperienceModals/BaseExperienceModal";
 
@@ -48,6 +48,30 @@ stories.add(
             description={text(
               "Description",
               "Got creds? Share your degree, certificates, online courses, a trade apprenticeship, licences or alternative credentials. If you've learned something from a recognized educational provider, include your experiences here.  (Learned something from your community or on your own? Share this as a 'Community Experience' or 'Personal Experience'.",
+              groupIds.details,
+            )}
+            requiredSkills={array(
+              "Required Skills",
+              ["HTML", "React", "CSS", "Database Management", "Hacking"],
+              ",",
+              groupIds.details,
+            )}
+            savedRequiredSkills={array(
+              "Saved Required Skills",
+              ["HTML", "React", "Hacking"],
+              ",",
+              groupIds.details,
+            )}
+            optionalSkills={array(
+              "Optional Skills",
+              ["Networking", "Conflict Resolution", "Resilience"],
+              ",",
+              groupIds.details,
+            )}
+            savedOptionalSkills={array(
+              "Saved Optional Skills",
+              ["Resilience"],
+              ",",
               groupIds.details,
             )}
             parentElement={modalParent}
