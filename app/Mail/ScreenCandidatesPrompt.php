@@ -94,8 +94,8 @@ class ScreenCandidatesPrompt extends Mailable implements ShouldQueue
                         'num_of_veterans' => $num_of_veterans,
                         'position' => $position,
                         'position_link' => [
-                            'en' => route('jobs.show', $this->job->id),
-                            'fr' => LaravelLocalization::getLocalizedURL('fr', route('jobs.show', $this->job->id)),
+                            'en' => route('jobs.summary', $this->job->id),
+                            'fr' => LaravelLocalization::getLocalizedURL('fr', route('jobs.summary', $this->job->id)),
                         ],
                         'talent_cloud_email' => config('mail.admin_address'),
                     ]);
