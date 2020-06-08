@@ -5,7 +5,9 @@ import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
 import Input from "../components/Input";
 
-const stories = storiesOf("Components|Input", module).addDecorator(withIntl);
+const stories = storiesOf("Form Components|Input", module).addDecorator(
+  withIntl,
+);
 
 stories
   .add(
