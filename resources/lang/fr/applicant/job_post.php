@@ -12,6 +12,7 @@ return [
     'title' => 'Parcourir les emplois',
     'job_post_title' => 'Nuage de talents | Candidat : Affiche d\'emploi - :title (Numéro de référence : :id)',
     'header' => [
+        'empty_title' => 'Titre manquant',
         'time_remaining' => ':time jusqu\'à la date de clôture',
         'job_closed' => "L'affiche est fermée",
         'days_remaining' => ':count jour jusqu\'à la date de clôture|:count jours jusqu\'à la date de clôture',

@@ -1,7 +1,7 @@
 import React from "react";
 import { injectIntl, WrappedComponentProps, defineMessages } from "react-intl";
 import className from "classnames";
-import Swal from "sweetalert2";
+import Swal, { SweetAlertResult } from "sweetalert2";
 import * as routes from "../../helpers/routes";
 import Select, { SelectOption } from "../Select";
 import { Application } from "../../models/types";
@@ -207,7 +207,7 @@ class ApplicationReview extends React.Component<
         cancelButtonColor: "#F94D4D",
         confirmButtonText: intl.formatMessage(messages.confirmButton),
         cancelButtonText: intl.formatMessage(messages.cancelButton),
-      }).then((result) => {
+      }).then((result: SweetAlertResult) => {
         if (result.value) {
           onStatusChange(application.id, status);
         }
@@ -233,7 +233,7 @@ class ApplicationReview extends React.Component<
       cancelButtonText: intl.formatMessage(messages.cancelButton),
       confirmButtonText: intl.formatMessage(messages.save),
       inputValue: notes,
-    }).then((result) => {
+    }).then((result: SweetAlertResult) => {
       if (result && result.value !== undefined) {
         const value = result.value ? result.value : null;
         onNotesChange(application.id, value);
