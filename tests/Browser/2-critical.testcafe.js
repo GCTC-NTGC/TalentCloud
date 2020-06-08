@@ -6,21 +6,20 @@ import {
   assertIsLoggedIn,
   hrUser,
 } from "./helpers/roles";
-
-const HOMEPAGE = "https://talent.test";
+import { HOMEPAGE, PROFILE_EXPERIENCE, PROFILE_REFERENCES, PROFILE_PORTFOLIO, PROFILE_SKILLS, MANAGER_REGISTER, HR_REGISTER, MANAGER_FIRST_VISIT, HR_FIRST_VISIT } from "./helpers/constants";
 
 fixture(`Critical - Applicant Profile`).page(HOMEPAGE).meta("travis", "run");
 
 // Skip when writing new tests
 // fixture.skip(`Critical - Applicant Profile`);
 
-test("Applicant Profile - My Skills", async t => {
+test("Applicant Profile - My Skills", async (t) => {
   await t
     // TODO: Applicant user account without prepopulated skills.
     // Logged in as admin (empty skills page).
     .useRole(adminUser)
     // Go to My Skills page.
-    .navigateTo("/profile/skills")
+    .navigateTo(PROFILE_SKILLS)
     .expect(Selector("h1").withText("My Skills").visible)
     .ok()
     // Add soft skill (Passion).
@@ -33,18 +32,14 @@ test("Applicant Profile - My Skills", async t => {
         .withText("Passion"),
     )
     .click(
-      Selector(".form__radio-group-span").withText("Deep Level Demonstration"),
+      Selector('[role="radiogroup"]')
+        .find("span")
+        .withText("Deep Level Demonstration"),
     )
     .typeText(
       Selector("textarea").withAttribute("name", "description"),
       "Eating lots of passionfruit.",
     )
-    // Check skill help modal before saving.
-    .click(Selector("button").withText("(Need help? See example.)"))
-    .expect(Selector("h3").withText("Writing my application").visible)
-    .ok()
-    .click(Selector("button").withText("Got it!"))
-    .wait(500)
     .click(Selector("button").withText("Save Skill"))
     // Add hard skill (Docker).
     .click(Selector("button").withText("Add hard skill"))
@@ -55,7 +50,7 @@ test("Applicant Profile - My Skills", async t => {
       ),
     )
     .click(Selector("option").withAttribute("value", "12"))
-    .click(Selector(".form__radio-group-span").withText("Advanced"))
+    .click(Selector('[role="radiogroup"]').find("span").withText("Advanced"))
     .typeText(
       Selector("textarea").withAttribute(
         "id",
@@ -65,19 +60,19 @@ test("Applicant Profile - My Skills", async t => {
     )
     .pressKey("tab tab enter")
     // Save and refresh.
-    .navigateTo("/profile/skills")
-    .expect(Selector("span").withText("Passion").visible)
+    .navigateTo(PROFILE_SKILLS)
+    .expect(Selector("p").withText("Passion").visible)
     .ok()
-    .expect(Selector("span").withText("Docker").visible)
+    .expect(Selector("p").withText("Docker").visible)
     .ok();
 });
 
-test("Applicant Profile - My Experience", async t => {
+test("Applicant Profile - My Experience", async (t) => {
   await t
     // Logged in as applicant.
     .useRole(emptyApplicantUser)
     // Go to My Experience page.
-    .navigateTo("/profile/experience")
+    .navigateTo(PROFILE_EXPERIENCE)
     .expect(Selector("h1").withText("My Experience").visible)
     .ok()
     // Add new diploma.
@@ -98,7 +93,7 @@ test("Applicant Profile - My Experience", async t => {
       "University of Phoenix",
     )
     .click(Selector("button").withAttribute("value", "degrees[new][1]"))
-    .expect(Selector("span").withText("Phd, Computer Science").visible)
+    .expect(Selector("p").withText("Phd, Computer Science").visible)
     .ok()
     // Add new course.
     .click(Selector("button").withText("Add Course/Certification"))
@@ -120,7 +115,7 @@ test("Applicant Profile - My Experience", async t => {
         .withAttribute("value", "2"),
     )
     .click(Selector("button").withAttribute("value", "courses[new][1]"))
-    .expect(Selector("span").withText("Advanced Memes").visible)
+    .expect(Selector("p").withText("Advanced Memes").visible)
     .ok()
     // Add new experience.
     .click(Selector("button").withText("Add Equivalent Experience"))
@@ -145,16 +140,16 @@ test("Applicant Profile - My Experience", async t => {
     .click(
       Selector("button").withAttribute("value", "work_experiences[new][1]"),
     )
-    .expect(Selector("span").withText("The boss, My house").visible)
+    .expect(Selector("p").withText("The boss").visible)
     .ok();
 });
 
-test("Applicant Profile - My References", async t => {
+test("Applicant Profile - My References", async (t) => {
   await t
     // Logged in as applicant.
     .useRole(emptyApplicantUser)
     // Go to My References page.
-    .navigateTo("/profile/references")
+    .navigateTo(PROFILE_REFERENCES)
     .expect(Selector("h1").withText("My References").visible)
     .ok()
     .click(Selector("button").withText("Add Reference"))
@@ -186,17 +181,17 @@ test("Applicant Profile - My References", async t => {
       "Richard is the CEO of Cool Funny, we had some laughs.",
     )
     .click(Selector("button").withAttribute("value", "references[1]"))
-    .navigateTo("/profile/references")
-    .expect(Selector("button").withText("Richard Cranium").visible)
+    .navigateTo(PROFILE_REFERENCES)
+    .expect(Selector("p").withText("Richard Cranium").visible)
     .ok();
 });
 
-test("Applicant Profile - My Work Samples", async t => {
+test("Applicant Profile - My Work Samples", async (t) => {
   await t
     // Logged in as applicant.
     .useRole(emptyApplicantUser)
     // Go to My Work Samples page.
-    .navigateTo("/profile/portfolio")
+    .navigateTo(PROFILE_PORTFOLIO)
     .expect(Selector("h1").withText("My Work Samples").visible)
     .ok()
     // Add new work sample.
@@ -224,7 +219,7 @@ test("Applicant Profile - My Work Samples", async t => {
       "A website that is both cool and funny.",
     )
     .click(Selector("button").withAttribute("value", "work_samples[1]"))
-    .navigateTo("/profile/portfolio")
+    .navigateTo(PROFILE_PORTFOLIO)
     .expect(Selector("button").withText("Cool Funny").visible)
     .ok();
 });
@@ -256,7 +251,7 @@ fixture(`Critical - Registration`).page(HOMEPAGE).meta("travis", "run");
 // Skip when writing new tests
 // fixture.skip(`Critical - Registration`);
 
-test("Registration - Applicant", async t => {
+test("Registration - Applicant", async (t) => {
   await t
     .useRole(Role.anonymous())
     .click(Selector("a").withText("Register"))
@@ -269,10 +264,10 @@ test("Registration - Applicant", async t => {
   await assertIsLoggedIn(t);
 });
 
-test("Registration - Manager", async t => {
+test("Registration - Manager", async (t) => {
   await t
     .useRole(Role.anonymous())
-    .navigateTo("/manager/register")
+    .navigateTo(MANAGER_REGISTER)
     .typeText(Selector("#first_name"), "Test")
     .typeText(Selector("#last_name"), "Cafe")
     .typeText(Selector("#email"), randomEmail())
@@ -291,10 +286,10 @@ test("Registration - Manager", async t => {
   await assertIsLoggedIn(t);
 });
 
-test("Registration - HR Advisor", async t => {
+test("Registration - HR Advisor", async (t) => {
   await t
     .useRole(Role.anonymous())
-    .navigateTo("/hr/register")
+    .navigateTo(HR_REGISTER)
     .typeText(Selector("#first_name"), "Test")
     .typeText(Selector("#last_name"), "Cafe")
     .typeText(Selector("#email"), randomEmail())
@@ -318,7 +313,7 @@ const getPageUrl = ClientFunction(() => window.location.href);
 
 fixture(`Critical - First Visit`).page(HOMEPAGE);
 
-test("First Visit - Manager", async t => {
+test("First Visit - Manager", async (t) => {
   await t
     .useRole(Role.anonymous())
     .click(Selector("a").withText("Register"))
@@ -330,15 +325,11 @@ test("First Visit - Manager", async t => {
     .click(Selector("button").withText("Register"));
   await assertIsLoggedIn(t);
   await t
-    .navigateTo("/manager/first-visit")
+    .navigateTo(MANAGER_FIRST_VISIT)
     .expect(Selector("#department").visible)
     .ok()
     .click(Selector("#department"))
-    .click(
-      Selector("#department")
-        .find("option")
-        .withText("Not in Government"),
-    )
+    .click(Selector("#department").find("option").withText("Not in Government"))
     // Gov email field should be visible after selecting a department
     .expect(Selector("#gov_email").visible)
     .notOk()
@@ -348,18 +339,16 @@ test("First Visit - Manager", async t => {
     .match(/\/manager$/);
 });
 
-test("First Visit - HR Advisor", async t => {
+test("First Visit - HR Advisor", async (t) => {
   await t
     .useRole(hrUser)
-    .navigateTo("/hr/first-visit")
+    .navigateTo(HR_FIRST_VISIT)
     .wait(200)
     .expect(Selector("h1").withText("HR Advisor Area").visible)
     .ok()
     .click(Selector("#department"))
     .click(
-      Selector("#department")
-        .find("option")
-        .withText("Global Affairs Canada"),
+      Selector("#department").find("option").withText("Global Affairs Canada"),
     )
     // Gov email field should be visible after selecting a department
     .expect(Selector("#gov_email").visible)

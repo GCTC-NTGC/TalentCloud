@@ -1,16 +1,10 @@
 import React from "react";
 import { addParameters, configure, addDecorator } from "@storybook/react";
 import { themes } from "@storybook/theming";
-import { withInfo } from "@storybook/addon-info";
 import { withKnobs } from "@storybook/addon-knobs";
 import { setIntlConfig } from "storybook-addon-intl";
 import messagesFr from "../resources/assets/js/translations/locales/fr.json";
 
-addDecorator(withInfo({
-  inline: true,
-  header: false,
-  source: false, // Source isn't displaying well with clone.
-}));
 addDecorator(withKnobs);
 
 // Option defaults.

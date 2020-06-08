@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import { Routes } from "universal-router";
-import { defineMessages, useIntl } from "react-intl";
+import { defineMessages, useIntl, IntlShape } from "react-intl";
+import { useSelector } from "react-redux";
 import { useRouter, RouterResult } from "../../helpers/router";
 import JobIntroPage from "./Intro/JobIntroPage";
 import RootContainer from "../RootContainer";
@@ -14,6 +15,12 @@ import JobSkillsPage from "./Skills/JobSkillsPage";
 import JobReviewPage from "./Review/JobReviewPage";
 import ScrollToTop from "../ScrollToTop";
 import RedirectPage from "./RedirectToLastIncompleteStep";
+import { RootState } from "../../store/store";
+import { getSelectedJob } from "../../store/Job/jobSelector";
+import { Job } from "../../models/types";
+import { managerJobSummary } from "../../helpers/routes";
+import { getLocale, localizeField } from "../../helpers/localize";
+import { messages } from "../HRPortal/JobIndexHrPage";
 
 const titles = defineMessages({
   rootTitle: {
@@ -134,12 +141,71 @@ const routes: Routes<{}, RouterResult> = [
   },
 ];
 
+const useJobBreadcrumbs = (intl: IntlShape) => {
+  const locale = getLocale(intl.locale);
+  const job = useSelector((state: RootState) => getSelectedJob(state));
+  const jobBreadcrumbId = "job-title-breadcrumb";
+
+  const addJobBreadcrumb = (jobBreadcrumb: Job): void => {
+    const breadcrumbs: HTMLOListElement | null = document.querySelector(
+      "#jpb-breadcrumbs",
+    );
+    const breadcrumb: HTMLLIElement = document.createElement("li");
+    const anchor = document.createElement("a");
+    const icon = document.createElement("i");
+
+    anchor.id = jobBreadcrumbId;
+    anchor.href = managerJobSummary(locale, jobBreadcrumb.id);
+    anchor.innerText =
+      localizeField(locale, jobBreadcrumb, "title") ||
+      `{ ${intl.formatMessage(messages.titleMissing)} }`;
+
+    icon.classList.add("fas");
+    icon.classList.add("fa-caret-right");
+    breadcrumb.appendChild(anchor);
+    breadcrumb.appendChild(icon);
+
+    if (breadcrumbs) {
+      const lastBreadcrumb = breadcrumbs.lastElementChild;
+      breadcrumbs.insertBefore(breadcrumb, lastBreadcrumb);
+    }
+  };
+
+  const jobBreadcrumb: HTMLAnchorElement | null = document.querySelector(
+    `#${jobBreadcrumbId}`,
+  );
+
+  useEffect(() => {
+    if (job) {
+      if (jobBreadcrumb) {
+        jobBreadcrumb.href = managerJobSummary(locale, job.id);
+        jobBreadcrumb.innerText =
+          localizeField(locale, job, "title") ||
+          `{ ${intl.formatMessage(messages.titleMissing)} }`;
+      } else {
+        addJobBreadcrumb(job);
+      }
+    }
+  }, [
+    job,
+    jobBreadcrumb,
+    locale,
+    messages,
+    managerJobSummary,
+    addJobBreadcrumb,
+  ]);
+};
+
 const Route: React.FunctionComponent = () => {
   const intl = useIntl();
   const match = useRouter(routes, intl);
   const tracker: HTMLElement | null = document.getElementById(
     "job-builder-root",
   );
+
+  // Dynamically update the breadcrumbs on step changes
+  useJobBreadcrumbs(intl);
+
   const trackerOffsetTop: number = tracker ? tracker.offsetTop : 0;
 
   return (

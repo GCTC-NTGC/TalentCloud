@@ -13,8 +13,11 @@ use App\Models\JobPosterQuestion;
 use App\Models\Lookup\Frequency;
 use App\Models\Classification;
 use App\Models\Lookup\JobPosterStatus;
+use App\Models\Lookup\JobSkillLevel;
 use App\Models\Lookup\TravelRequirement;
 use App\Models\Lookup\OvertimeRequirement;
+use App\Models\Lookup\TalentStream;
+use App\Models\Lookup\TalentStreamCategory;
 
 $faker_fr = Faker\Factory::create('fr');
 
@@ -119,10 +122,16 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
 
 $factory->afterCreating(JobPoster::class, function ($jp): void {
     // Save at least one of each kind of criteria.
-    $jp->criteria()->save(factory(Criteria::class)->state('essential')->make([
+    $jp->criteria()->save(factory(Criteria::class)->states(['essential', 'hard'])->make([
         'job_poster_id' => $jp->id
     ]));
-    $jp->criteria()->save(factory(Criteria::class)->state('asset')->make([
+    $jp->criteria()->save(factory(Criteria::class)->states(['essential', 'soft'])->make([
+        'job_poster_id' => $jp->id
+    ]));
+    $jp->criteria()->save(factory(Criteria::class)->states(['asset', 'hard'])->make([
+        'job_poster_id' => $jp->id
+    ]));
+    $jp->criteria()->save(factory(Criteria::class)->states(['asset', 'soft'])->make([
         'job_poster_id' => $jp->id
     ]));
     // Other criteria divided randomly between essential and asset.
@@ -190,6 +199,20 @@ $factory->state(
             'job_poster_status_id' => JobPosterStatus::where('key', 'draft')->first()->id,
             'open_date_time' => ptDayStartToUtcTime($faker->dateTimeBetween('5 days', '10 days')->format('Y-m-d')),
             'close_date_time' => ptDayEndToUtcTime($faker->dateTimeBetween('3 weeks', '5 weeks')->format('Y-m-d')),
+        ];
+    }
+);
+
+$factory->state(
+    JobPoster::class,
+    'strategic_response',
+    function () {
+        return [
+            'department_id' => config('app.strategic_response_department_id'),
+            'close_date_time' => null,
+            'talent_stream_id' => TalentStream::inRandomOrder()->first()->id,
+            'talent_stream_category_id' => TalentStreamCategory::inRandomOrder()->first()->id,
+            'job_skill_level_id' => JobSkillLevel::inRandomOrder()->first()->id,
         ];
     }
 );

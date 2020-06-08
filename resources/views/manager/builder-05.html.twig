@@ -14,7 +14,7 @@
     <div data-clone>
         <div data-c-background="white(100)">
             <!-- Heading (see step 00 for info) -->
-            <div style="background-image: url('/images/bg_crowd.jpg');" data-c-overlay="black(80)" data-c-padding="bottom(triple)">
+            <div style="background-image: url('{{ asset("/images/bg_crowd.jpg") }}');" data-c-overlay="black(80)" data-c-padding="bottom(triple)">
                 <div data-c-margin="bottom(triple)">
                     {% include "common/menu" %}
                 </div>
@@ -354,7 +354,7 @@
                             <hr data-c-margin="top(normal) bottom(normal)">
                         </div>
                         <div data-c-alignment="base(centre) tp(left)" data-c-grid-item="tp(1of2)">
-                            <a href="/builder-04" data-c-button="outline(c2)" data-c-radius="rounded" type="button">
+                            <a href="{{ asset("/builder-04") }}" data-c-button="outline(c2)" data-c-radius="rounded" type="button">
                                 Previous Step
                             </a>
                         </div>
@@ -405,7 +405,7 @@
                             </button>
                         </div>
                         <div data-c-alignment="base(right)" data-c-grid-item="base(1of2)">
-                            <a href="/builder-06" data-c-button="solid(c2)" data-c-radius="rounded">
+                            <a href="{{ asset("/builder-06") }}" data-c-button="solid(c2)" data-c-radius="rounded">
                                 Next Step
                             </a>
                         </div>

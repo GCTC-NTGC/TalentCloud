@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FormattedMessage, defineMessages, useIntl } from "react-intl";
-import Swal from "sweetalert2";
+import Swal, { SweetAlertResult } from "sweetalert2";
 import { Application } from "../../models/types";
 import { SelectOption } from "../Select";
 import { applicationBucket } from "./helpers";
@@ -104,7 +104,7 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = ({
   }
 
   const screenOutAll = (): void => {
-    const applicationIds = applications.map(application => application.id);
+    const applicationIds = applications.map((application) => application.id);
     onBulkStatusChange(applicationIds, ReviewStatusId.ScreenedOut);
   };
 
@@ -116,7 +116,7 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = ({
       confirmButtonColor: "#0A6CBC",
       cancelButtonColor: "#F94D4D",
       confirmButtonText: intl.formatMessage(messages.confirmButton),
-    }).then(result => {
+    }).then((result: SweetAlertResult) => {
       if (result.value) {
         screenOutAll();
       }
@@ -129,7 +129,7 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = ({
       title: intl.formatMessage(messages.priorityApplicantsTitle),
       description: intl.formatMessage(messages.priorityApplicantsDescription),
       applications: applications.filter(
-        application => applicationBucket(application) === "priority",
+        (application) => applicationBucket(application) === "priority",
       ),
     },
     {
@@ -137,7 +137,7 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = ({
       title: intl.formatMessage(messages.veteransAndCitizensTitle),
       description: intl.formatMessage(messages.veteransAndCitizensDescriptions),
       applications: applications.filter(
-        application => applicationBucket(application) === "citizen",
+        (application) => applicationBucket(application) === "citizen",
       ),
     },
     {
@@ -145,7 +145,7 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = ({
       title: intl.formatMessage(messages.nonCitizensTitle),
       description: intl.formatMessage(messages.nonCitizensDescription),
       applications: applications.filter(
-        application => applicationBucket(application) === "non-citizen",
+        (application) => applicationBucket(application) === "non-citizen",
       ),
     },
     {
@@ -153,13 +153,13 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = ({
       title: intl.formatMessage(messages.unqualifiedTitle),
       description: intl.formatMessage(messages.unqualifiedDescription),
       applications: applications.filter(
-        application => applicationBucket(application) === "unqualified",
+        (application) => applicationBucket(application) === "unqualified",
       ),
     },
   ];
 
   /* Code related to copying emails to clipboard */
-  const nameEmails = applications.map(application => {
+  const nameEmails = applications.map((application) => {
     const { first_name, last_name, email } = application.applicant.user; // eslint-disable-line
     return `${first_name} ${last_name} <${email}>`; // eslint-disable-line
   });
@@ -218,7 +218,7 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = ({
         </div>
       </div>
 
-      {buckets.map(bucket => (
+      {buckets.map((bucket) => (
         <ApplicantBucket
           key={bucket.id}
           {...bucket}

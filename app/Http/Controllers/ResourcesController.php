@@ -29,7 +29,7 @@ class ResourcesController extends Controller
             $files = Resource::all();
             foreach ($files as $file) {
                 array_push($resources, [
-                  'link' => Storage::url($file->file),
+                  'link' => asset(Storage::url($file->file)),
                   'title' => '',
                   'text' => $file->name,
                 ]);

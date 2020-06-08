@@ -42,6 +42,11 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "User not found",
+        "description": "Error message displayed when a user id is unknown.",
+        "id": "activity.unknownUser"
+      },
+      {
         "defaultMessage": "Activities",
         "description": "Title of activity feed.",
         "id": "activityfeed.title"
@@ -67,34 +72,14 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Start typing your answer above.",
-        "description": "Placeholder text for an empty input.",
-        "id": "wordCounter.skills.placeholder"
+        "defaultMessage": "words left",
+        "description": "Message displayed on word counter when users under/matching the limit.",
+        "id": "skillWordCounter.wordsLeft"
       },
       {
-        "defaultMessage": "This seems too short. Did you include examples or lessons learned?",
-        "description": "Message displayed to user when the word count is very low.",
-        "id": "wordCounter.skills.veryShortMessage"
-      },
-      {
-        "defaultMessage": "This seems a bit short. Do you have another example or lesson learned to add?",
-        "description": "Message displayed to user when the word count is low.",
-        "id": "wordCounter.skills.shortMessage"
-      },
-      {
-        "defaultMessage": "This is starting to get a bit long.",
-        "description": "Message displayed to user when the word count is a little high.",
-        "id": "wordCounter.skills.slightlyLongMessage"
-      },
-      {
-        "defaultMessage": "This looks too long. Can you summarize some of your response?",
-        "description": "Message displayed to user when the word count is high.",
-        "id": "wordCounter.skills.longMessage"
-      },
-      {
-        "defaultMessage": "500 word limit reached. This is way too long. Check out one of our examples to see what a concise skill description looks like.",
-        "description": "Message displayed to user when the word count is very high.",
-        "id": "wordCounter.skills.veryLongMessage"
+        "defaultMessage": "words over limit",
+        "description": "Message displayed on word counter when user passes the limit.",
+        "id": "skillWordCounter.afterText"
       }
     ],
     "path": "resources/assets/js/components/ApplicantSkills/SkillsWordCounter.json"
@@ -1466,16 +1451,6 @@
       }
     ],
     "path": "resources/assets/js/components/JobBuilder/Impact/JobImpact.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "Impact",
-        "description": "Heading for Impact preview on modal dialog.",
-        "id": "jobBuilder.impactPreview.title"
-      }
-    ],
-    "path": "resources/assets/js/components/JobBuilder/Impact/JobImpactPreview.json"
   },
   {
     "descriptors": [
@@ -3254,6 +3229,149 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "View Application",
+        "description": "Label for 'View Application' link.",
+        "id": "responseScreening.bucket.viewApplicationLabel"
+      },
+      {
+        "defaultMessage": "View Profile",
+        "description": "Label for 'View Profile' link.",
+        "id": "responseScreening.bucket.viewProfileLabel"
+      },
+      {
+        "defaultMessage": "Add/Edit Notes",
+        "description": "Label for 'Add/Edit Notes' button.",
+        "id": "responseScreening.bucket.notesLabel"
+      },
+      {
+        "defaultMessage": "Save Changes",
+        "description": "Label for 'Save Changes' button when changes are unsaved.",
+        "id": "responseScreening.bucket.saveLabel"
+      },
+      {
+        "defaultMessage": "Saving...",
+        "description": "Label for 'Save Changes' button when form submission is in progress.",
+        "id": "responseScreening.bucket.savingLabel"
+      },
+      {
+        "defaultMessage": "Saved",
+        "description": "Label for 'Save Changes' button when form submission succeeded.",
+        "id": "responseScreening.bucket.savedLabel"
+      },
+      {
+        "defaultMessage": "Cancel",
+        "description": "Label for 'Cancel' button.",
+        "id": "responseScreening.bucket.cancelLabel"
+      },
+      {
+        "defaultMessage": "Select a status...",
+        "description": "Default option text for the Status dropdown.",
+        "id": "responseScreening.bucket.selectStatusDefault"
+      },
+      {
+        "defaultMessage": "Review Status",
+        "description": "Label for the Status dropdown.",
+        "id": "responseScreening.bucket.selectStatusLabel"
+      },
+      {
+        "defaultMessage": "Select a department...",
+        "description": "Default option text for the Department dropdown.",
+        "id": "responseScreening.bucket.selectDepartmentDefault"
+      },
+      {
+        "defaultMessage": "Department Allocation",
+        "description": "Label for the Department dropdown.",
+        "id": "responseScreening.bucket.selectDepartmentLabel"
+      },
+      {
+        "defaultMessage": "Click to view...",
+        "description": "Accessible text for screen reading accordion elements.",
+        "id": "responseScreening.bucket.accessibleViewLabel"
+      },
+      {
+        "defaultMessage": "There are currently no applicants in this bucket.",
+        "description": "Fallback label for a bucket with no applicants.",
+        "id": "responseScreening.bucket.noApplicants"
+      },
+      {
+        "defaultMessage": "Setting this candidate to allocated will mark them as currently unavailable for all other streams. Are you sure you want to continue?",
+        "description": "Confirmation text when attempting to set a candidate as Allocated.",
+        "id": "responseScreening.bucket.confirmSetAllocated"
+      },
+      {
+        "defaultMessage": "Setting this candidate to not available will mark them as currently unavailable for all other streams. Are you sure you want to continue?",
+        "description": "Confirmation text when attempting to set a candidate as Not Available.",
+        "id": "responseScreening.bucket.confirmSetUnavailable"
+      },
+      {
+        "defaultMessage": "Please confirm this action",
+        "description": "Title for the confirmation dialog when making changes with side effects.",
+        "id": "responseScreening.bucket.confirmAction"
+      },
+      {
+        "defaultMessage": "Yes",
+        "description": "Confirmation button text for dialog",
+        "id": "responseScreening.bucket.yes"
+      },
+      {
+        "defaultMessage": "Email for Reference Check",
+        "description": "Text displayed on the title of the MicroReference Email modal.",
+        "id": "referenceEmailModal.title"
+      },
+      {
+        "defaultMessage": "To:",
+        "id": "referenceEmailModal.toLabel"
+      },
+      {
+        "defaultMessage": "From:",
+        "id": "referenceEmailModal.fromLabel"
+      },
+      {
+        "defaultMessage": "CC:",
+        "id": "referenceEmailModal.ccLabel"
+      },
+      {
+        "defaultMessage": "BCC:",
+        "id": "referenceEmailModal.bccLabel"
+      },
+      {
+        "defaultMessage": "Subject:",
+        "id": "referenceEmailModal.subjectLabel"
+      },
+      {
+        "defaultMessage": "Loading reference email...",
+        "id": "referenceEmailModal.nullState"
+      },
+      {
+        "defaultMessage": "Cancel",
+        "id": "referenceEmailModal.cancel"
+      },
+      {
+        "defaultMessage": "Send Email",
+        "id": "referenceEmailModal.confirm"
+      },
+      {
+        "defaultMessage": "Sending email...",
+        "id": "responseScreening.applicant.directorEmailSending"
+      },
+      {
+        "defaultMessage": "Director email.",
+        "id": "responseScreening.applicant.directorEmailButton"
+      },
+      {
+        "defaultMessage": "Sending email...",
+        "id": "responseScreening.applicant.secondaryEmailSending"
+      },
+      {
+        "defaultMessage": "Reference email.",
+        "id": "responseScreening.applicant.secondaryEmailButton"
+      }
+    ],
+    "path": "resources/assets/js/components/StrategicTalentResponse/ResponseScreening/ApplicantBucket.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Received: ",
         "description": "Header for when Job Poster was created.",
         "id": "openJobCard.reviewRequested"
@@ -3901,6 +4019,86 @@
         "defaultMessage": "Ratings Guide Builder",
         "description": "Location of the activity.",
         "id": "activityfeed.locations.screeningPlan.ratings"
+      },
+      {
+        "defaultMessage": "Employees Under Consideration",
+        "description": "Label for the 'Under Consideration' response screening bucket.",
+        "id": "responseScreening.buckets.consideration.title"
+      },
+      {
+        "defaultMessage": "Employees in this category have volunteered to be placed in a team with a critical needs shortage. Employees in this category are: Pending initial application review ({iconReceived}), indicating that a submission has been received, but it has not yet been assessed by a member of the review team; Ready for reference checks and home-department approval ({iconReady}), indicating that the employee is heading to the Ready to Allocate category if references and approval are in order; and Further Assessment Required ({iconAssessment}), indicating that the review team is unsure of their qualifications for this role and is undertaking further assessment.",
+        "description": "Descriptive text for the 'Under Consideration' response screening bucket. Takes three icons (iconReceived, iconReady, and iconAssessment) as input.",
+        "id": "responseScreening.buckets.consideration.description"
+      },
+      {
+        "defaultMessage": "Ready to Allocate",
+        "description": "Label for the 'Ready to Allocate' response screening bucket.",
+        "id": "responseScreening.buckets.readyToAllocate.title"
+      },
+      {
+        "defaultMessage": "Employees in this category have the necessary skills for this stream of work, have successfully completed reference checks and have been given preliminary authorization to participate by a member of their management team. They are currently working in their substantive position, awaiting a request from a department with a critical talent gap.",
+        "description": "Descriptive text for the 'Ready to Allocate' response screening bucket.",
+        "id": "responseScreening.buckets.readyToAllocate.description"
+      },
+      {
+        "defaultMessage": "Allocated",
+        "description": "Label for the 'Allocated' response screening bucket.",
+        "id": "responseScreening.buckets.allocated.title"
+      },
+      {
+        "defaultMessage": "Employees in this category have been allocated to a department. Their name has been removed from all other GC Reserve processes to which they have applied (and will appear in those processes under \"Not Currently Available\".) Following the completion of an allocation, employees may elect to be placed back in the Ready to Allocate category, should they be needed again.",
+        "description": "Descriptive text for the 'Allocated' response screening bucket.",
+        "id": "responseScreening.buckets.allocated.description"
+      },
+      {
+        "defaultMessage": "Currently Unavailable",
+        "description": "Label for the 'Unavailable' response screening bucket.",
+        "id": "responseScreening.buckets.unavailable.title"
+      },
+      {
+        "defaultMessage": "Employees in this stream have been allocated to a department in need or have temporarily removed their names from consideration for a specific period of time (e.g. illness, family care needs), and wish to be considered for allocation at a later date. Employees in this category have been qualified for this talent stream, and will be placed back into the Ready to Allocate when they become available again. (If an employee permanently withdraws their name, their submission will be removed from the GC Talent Reserve.)",
+        "description": "Descriptive text for the 'Currently Unavailable' response screening bucket.",
+        "id": "responseScreening.buckets.unavailable.description"
+      },
+      {
+        "defaultMessage": "Does Not Qualify",
+        "description": "Label for the 'Does Not Qualify' response screening bucket.",
+        "id": "responseScreening.buckets.doesNotQualify.title"
+      },
+      {
+        "defaultMessage": "Employees in this category have volunteered their names, but a review of their application and/or reference checks has led the review team to conclude that the employee would not be an asset to a department needing to fill a critical talent gap in this field of work. This determination is, in no way, reflected in the employee's performance status with their home department, and does not affect their evaluation for other GC Reserve talent streams to which they may have applied.",
+        "description": "Descriptive text for the 'Does Not Qualify' response screening bucket.",
+        "id": "responseScreening.buckets.doesNotQualify.description"
+      },
+      {
+        "defaultMessage": "Does Not Qualify",
+        "description": "Select option text for the 'Does Not Qualify' review status.",
+        "id": "responseReviewStatus.screenedOut"
+      },
+      {
+        "defaultMessage": "Ready for Reference Check",
+        "description": "Select option text for the 'Ready for Reference Check' review status.",
+        "id": "responseReviewStatus.readyForReference"
+      },
+      {
+        "defaultMessage": "Ready to Allocate",
+        "description": "Select option text for the 'Ready to Allocate' review status.",
+        "id": "responseReviewStatus.readyToAllocate"
+      },
+      {
+        "defaultMessage": "Further Assessment Required",
+        "description": "Select option text for the 'Further Assessment Required' review status.",
+        "id": "responseReviewStatus.assessmentRequired"
+      },
+      {
+        "defaultMessage": "Allocated",
+        "description": "Select option text for the 'Allocated' review status.",
+        "id": "responseReviewStatus.allocated"
+      },
+      {
+        "defaultMessage": "Not Available",
+        "description": "Select option text for the 'Not Available' review status.",
+        "id": "responseReviewStatus.notAvailable"
       }
     ],
     "path": "resources/assets/js/models/localizedConstants.json"

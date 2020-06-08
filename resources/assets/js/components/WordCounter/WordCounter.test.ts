@@ -2,7 +2,6 @@ import {
   countNumberOfWords,
   stringEndsInWhitespace,
   truncateWords,
-  sortMessages,
 } from "./helpers";
 
 describe("WordCounter component", (): void => {
@@ -57,50 +56,6 @@ describe("WordCounter component", (): void => {
       const value = "one two     thre \n four five six seven";
       const expected = "one two     thre \n four ";
       expect(truncateWords(value, 4)).toEqual(expected);
-    });
-  });
-
-  describe("Sort messages", (): void => {
-    it("Sort messages in decending order", (): void => {
-      const value = [
-        { count: 10, message: "Seems short, try adding an example or two." },
-        {
-          count: 1,
-          message:
-            "This is too short, try including examples or lessons learned.",
-        },
-        { count: 20, message: "Looks good." },
-        {
-          count: 100,
-          message: "This looks really long, try summarizing some text.",
-        },
-        { count: 80, message: "This is starting to get too long." },
-        {
-          count: 130,
-          message:
-            "This is way too long, try deleting irrelevant content, or see an example.",
-        },
-      ];
-      const expected = [
-        {
-          count: 130,
-          message:
-            "This is way too long, try deleting irrelevant content, or see an example.",
-        },
-        {
-          count: 100,
-          message: "This looks really long, try summarizing some text.",
-        },
-        { count: 80, message: "This is starting to get too long." },
-        { count: 20, message: "Looks good." },
-        { count: 10, message: "Seems short, try adding an example or two." },
-        {
-          count: 1,
-          message:
-            "This is too short, try including examples or lessons learned.",
-        },
-      ];
-      expect(sortMessages(value)).toEqual(expected);
     });
   });
 });

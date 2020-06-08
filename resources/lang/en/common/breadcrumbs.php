@@ -10,17 +10,21 @@ return [
      *
      */
 
-    'hr' => [
-        'home' => 'Home',
-        'faq' => 'FAQ',
-        'job-index' => 'Job Index'
+    'home' => 'Home',
+    'profile' => 'Profile',
+    'faq' => 'FAQ',
+    'jobs' => 'Jobs',
+    'job-index' => 'Job Index',
+    'resources' => 'Resources',
+    'preview' => 'Preview',
+    'assessment-plan' => 'Assessment Plan Builder',
+    'job-title-missing' => "'Title Missing'",
+    'review' => 'Review',
+    'builder' => 'Job Builder',
+    'managerPortal' => [
+        'applications' => 'Review Applicants',
     ],
-    'manager' => [
-        'home' => 'Home',
-        'faq' => 'FAQ',
-    ],
-    'applicant' => [
-        'home' => 'Home',
-        'faq' => 'FAQ',
+    'hrPortal' => [
+        'applications' => 'Review Applicants',
     ],
 ];

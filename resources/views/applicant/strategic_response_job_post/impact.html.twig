@@ -1,0 +1,21 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Job Poster - Impact Statement
+
+============================================================================= #}
+<div data-c-alert="error" data-c-radius="rounded" role="alert" data-c-margin="top(3)">
+    <div data-c-padding="all(.5)">
+        <p data-c-margin="bottom(.5)" data-c-font-weight="bold">
+            <i aria-hidden="true" class="fas fa-flag" data-c-margin="right(.25)"></i>
+            {{ job_post.strategic_response.heads_up }}
+        </p>
+        <p>{{ job_post.strategic_response.current_employee_alert }}</p>
+    </div>
+</div>
+<section id="impact">
+    <h3 data-c-heading="h3" data-c-margin="bottom(1)" data-c-padding="top(3) bottom(1)">{{ job_post.impact.title }}</h3>
+    <p data-c-margin="bottom(1)">{{ job.dept_impact ? job.dept_impact|nl2br : noInfo }}</p>
+    <p data-c-margin="bottom(1)">{{ job.team_impact ? job.team_impact|nl2br : noInfo }}</p>
+    <p>{{ job.hire_impact ? job.hire_impact|nl2br : noInfo }}</p>
+</section>

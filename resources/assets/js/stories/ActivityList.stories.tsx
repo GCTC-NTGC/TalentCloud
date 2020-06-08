@@ -74,6 +74,7 @@ stories
     (): React.ReactElement => (
       <section data-c-padding="all(3)">
         <ActivityList
+          generalLocation="general"
           jobId={1}
           isHrAdvisor
           comments={comments}

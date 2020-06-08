@@ -80,7 +80,7 @@ const deleteEditedIfIdentical = (
     hasKey(editedRatingGuideAnswers, id) &&
     isEqual(editedRatingGuideAnswers[id], ratingGuideAnswer)
   ) {
-    return deleteProperty<RatingGuideAnswer>(editedRatingGuideAnswers, id);
+    return deleteProperty(editedRatingGuideAnswers, id);
   }
   return editedRatingGuideAnswers;
 };
@@ -215,11 +215,11 @@ export const ratingGuideAnswerReducer = (
       // ...For now, I don't know of any situations where we wouldn't want both.
       return {
         ...state,
-        ratingGuideAnswers: deleteProperty<RatingGuideAnswer>(
+        ratingGuideAnswers: deleteProperty(
           state.ratingGuideAnswers,
           action.payload.id,
         ),
-        editedRatingGuideAnswers: deleteProperty<RatingGuideAnswer>(
+        editedRatingGuideAnswers: deleteProperty(
           state.editedRatingGuideAnswers,
           action.payload.id,
         ),
@@ -255,7 +255,7 @@ export const ratingGuideAnswerReducer = (
     case DELETE_TEMP_RATING_GUIDE_ANSWER:
       return {
         ...state,
-        tempRatingGuideAnswers: deleteProperty<RatingGuideAnswer>(
+        tempRatingGuideAnswers: deleteProperty(
           state.tempRatingGuideAnswers,
           action.payload.id,
         ),
@@ -276,7 +276,7 @@ export const ratingGuideAnswerReducer = (
           [action.payload.ratingGuideAnswer.id]:
             action.payload.ratingGuideAnswer,
         },
-        tempRatingGuideAnswerSaving: deleteProperty<boolean>(
+        tempRatingGuideAnswerSaving: deleteProperty(
           state.tempRatingGuideAnswerSaving,
           action.payload.oldRatingGuideAnswer.id,
         ),
@@ -296,7 +296,7 @@ export const ratingGuideAnswerReducer = (
                 id: action.payload.ratingGuideAnswer.id,
               },
             },
-        tempRatingGuideAnswers: deleteProperty<RatingGuideAnswer>(
+        tempRatingGuideAnswers: deleteProperty(
           state.tempRatingGuideAnswers,
           action.payload.oldRatingGuideAnswer.id,
         ),

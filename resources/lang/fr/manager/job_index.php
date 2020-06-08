@@ -8,6 +8,7 @@ return [
     * Controller: Controllers\JobController.php
     * View: views/manager/job_index.html.twig
     */
+    'job_index_title' => "Nuage de talents | Gestionnaire : Mes affiches d'emploi",
     'title' => 'Mes affiches d\'emploi',
     'legend' => 'Légende:',
     'draft_poster' => 'Ébauche de l’affiche',

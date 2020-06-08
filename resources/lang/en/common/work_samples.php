@@ -10,6 +10,8 @@ return [
     */
     "new_sample_label" => "New Work Sample",
     "accordion_sr_helper" => "Click to edit...",
+    'required_label' => 'Required',
+    'input_error' => 'This input has an error.',
     "name_label" => "Project Name",
     "type_label" => "Project Type",
     "type_default_option" => "Select a file type...",

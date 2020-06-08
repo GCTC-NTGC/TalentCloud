@@ -34,6 +34,11 @@ class SkillDeclarationController extends Controller
      */
     public function edit(Request $request, Applicant $applicant)
     {
+        $custom_breadcrumbs = [
+            'home' => route('home'),
+            'profile' => '',
+        ];
+
         $applicant->load([
             'skill_declarations.skill.skill_type',
             'skill_declarations.skill_status',
@@ -44,6 +49,7 @@ class SkillDeclarationController extends Controller
             'applicant' => $applicant,
             'profile' => Lang::get('applicant/profile_skills'),
             'skills_modals' => Lang::get('common/skills_modals'),
+            'custom_breadcrumbs' => $custom_breadcrumbs,
         ]);
     }
 
@@ -101,7 +107,7 @@ class SkillDeclarationController extends Controller
         // Fill variable values.
         $skillDeclaration->fill([
             'description' => $request->input('description'),
-            'skill_level_id' => $request->input('skill_level_id'),
+            'skill_level_id' => $request->input('skill_level_id', null),
         ]);
 
         // Validate before saving.

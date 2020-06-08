@@ -155,7 +155,11 @@ return [
         'job_poster_question' => [
             'required' => 'Le champ de la question doit être rempli.',
             'string' => 'Le champ question doit être du texte.'
-        ]
+        ],
+        'word_limit' => 'La description doit contenir moins de :max_words mots.',
+        'website' => [
+            'size' => 'Votre soumission semble avoir été remplie par un robot ! Ne remplissez que les champs obligatoires.',
+        ],
     ],
     /*
     |--------------------------------------------------------------------------

@@ -3,11 +3,9 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-use Doctrine\Common\Cache\VoidCache;
 use App\Models\User;
 
 class RegisterControllerTest extends TestCase
@@ -105,5 +103,27 @@ class RegisterControllerTest extends TestCase
         $response = $this->post(route('login'), $loginCredentials);
         $response->assertRedirect(route('home'));
         $this->assertAuthenticatedAs($registeredUser);
+    }
+
+    /**
+     * Ensure the register form honeypot fails validation.
+     *
+     * @return void
+     */
+    public function testRegisterHoneypot() : void
+    {
+        $user = factory(User::class)->make();
+        $credentials = [
+            'website' => 'Random bot nonsense',
+            'first_name' => $user->first_name,
+            'last_name' => $user->last_name,
+            'email' => $user->email,
+            'password' => 'Test123!',
+            'password_confirmation' => 'Test123!'
+        ];
+        $response = $this->post(route('register'), $credentials);
+        unset($credentials['website']);
+        $response->assertSessionHasErrors(['website']);
+        $this->assertInvalidCredentials($credentials);
     }
 }
