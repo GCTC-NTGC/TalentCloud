@@ -74,6 +74,37 @@ stories.add(
               ",",
               groupIds.details,
             )}
+            experienceRequirments={{
+              educationRequirement: {
+                title: text(
+                  "Education Requirment Title",
+                  "2 Years Post-secondary",
+                  groupIds.details,
+                ),
+                description: text(
+                  "Education Requirment Description",
+                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, officiis delectus excepturi voluptate laudantium omnis nesciunt consectetur eum sapiente aliquid ipsam obcaecati expedita odio id eligendi voluptatum. Consequuntur, quibusdam voluptates.",
+                  groupIds.details,
+                ),
+              },
+              equivalentRequirment: {
+                title: text(
+                  "Equivalent Experience requirment Title",
+                  "Equivalent Experience",
+                  groupIds.details,
+                ),
+                description: text(
+                  "Equivalent Experience requirment Description",
+                  "ELorem ipsum dolor sit amet consectetur adipisicing elit. Saepe accusamus animi consequatur dolorem voluptatum earum iure doloremque, facere est asperiores, dignissimos quae architecto vero unde vitae quis excepturi! Totam, libero.",
+                  groupIds.details,
+                ),
+              },
+            }}
+            useAsEducationRequirement={boolean(
+              "Use As Education Requirment",
+              false,
+              groupIds.details,
+            )}
             parentElement={modalParent}
             visible={isModalVisible}
             onModalConfirm={action("Confirmed")}

@@ -4,6 +4,11 @@ import { Formik, Form } from "formik";
 import Modal from "../../Modal";
 import { getLocale } from "../../../helpers/localize";
 import SkillSubform, { SkillFormValues } from "./SkillSubform";
+import {
+  EducationSubform,
+  EducationSubformProps,
+  EducationFormValues,
+} from "./EducationSubform";
 
 interface BaseExperienceModalProps {
   id: string;
@@ -15,6 +20,8 @@ interface BaseExperienceModalProps {
   savedRequiredSkills: string[];
   optionalSkills: string[];
   savedOptionalSkills: string[];
+  experienceRequirments: EducationSubformProps;
+  useAsEducationRequirement: boolean;
   parentElement: Element | null;
   visible: boolean;
   onModalCancel: () => void;
@@ -31,6 +38,8 @@ export const BaseExperienceModal: React.FC<BaseExperienceModalProps> = ({
   savedRequiredSkills,
   optionalSkills,
   savedOptionalSkills,
+  experienceRequirments,
+  useAsEducationRequirement,
   parentElement,
   visible,
   onModalCancel,
@@ -40,9 +49,10 @@ export const BaseExperienceModal: React.FC<BaseExperienceModalProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl.locale);
 
-  const initialSkillValues: SkillFormValues = {
+  const initialFormValues: SkillFormValues & EducationFormValues = {
     requiredSkills: savedRequiredSkills,
     optionalSkills: savedOptionalSkills,
+    useAsEducationRequirement,
   };
 
   return (
@@ -78,7 +88,7 @@ export const BaseExperienceModal: React.FC<BaseExperienceModalProps> = ({
         </div>
       </Modal.Header>
       <Formik
-        initialValues={initialSkillValues}
+        initialValues={initialFormValues}
         onSubmit={(values, actions): void => {
           // TODO: do something with values
           onModalConfirm(values);
@@ -115,28 +125,7 @@ export const BaseExperienceModal: React.FC<BaseExperienceModalProps> = ({
                   jobOptionalSkills={optionalSkills}
                   formikProps={formikProps}
                 />
-                <div data-c-container="medium">
-                  <p
-                    data-c-margin="top(1) bottom(1)"
-                    data-c-font-size="h4"
-                    data-c-font-weight="bold"
-                    data-c-color="c3"
-                  >
-                    <FormattedMessage
-                      id="experienceModal.educationSubtitle"
-                      defaultMessage="Use This Experience as an Education Requirement"
-                      description="Subtitle for the use-as-Education-Requirement section."
-                    />
-                  </p>
-                  <p data-c-margin="bottom(1)">
-                    <FormattedMessage
-                      id="experienceModal.educationDescription"
-                      defaultMessage="You can select the option below if you feel that this experience helps you meet some or all of the specific education requirements for this job. We've included the requirements below to help refresh your memory."
-                      description="Explanation for the use-as-Education-Requirement section."
-                    />
-                  </p>
-                </div>
-                {/* {% include "applicant/application/dialogs/education-selection" %} */}
+                <EducationSubform {...experienceRequirments} />
               </div>
             </Modal.Body>
             <Modal.Footer>
