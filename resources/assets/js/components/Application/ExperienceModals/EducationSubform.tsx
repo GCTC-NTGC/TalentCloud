@@ -1,6 +1,6 @@
 import React from "react";
 import { FormattedMessage, useIntl, defineMessages } from "react-intl";
-import { Field } from "formik";
+import { Field, FastField } from "formik";
 import * as Yup from "yup";
 import CheckboxInput from "../../Form/CheckboxInput";
 
@@ -67,7 +67,7 @@ export function EducationSubform({
         <div data-c-container="medium">
           <div data-c-grid="gutter(all, 1) middle">
             <div data-c-input="checkbox(group)" data-c-grid-item="base(1of1)">
-              <Field
+              <FastField
                 key={checkboxKey}
                 id={checkboxKey}
                 name={checkboxKey}

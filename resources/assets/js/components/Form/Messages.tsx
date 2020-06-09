@@ -30,6 +30,12 @@ export const validationMessages = defineMessages({
     description:
       "Error message displayed when a required checkbox group or radio group is empty.",
   },
+  endDateRequiredIfNotOngoing: {
+    id: "formValidation.endDateRequiredIfNotOngoing",
+    defaultMessage: "If activity is not ongoing, End Date is required.",
+    description:
+      "Error message displayed when a date is required due to activity no longer being ongoing.",
+  },
 });
 
 export const inputMessages = defineMessages({
