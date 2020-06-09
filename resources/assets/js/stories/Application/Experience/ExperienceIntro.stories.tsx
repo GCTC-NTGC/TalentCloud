@@ -11,6 +11,6 @@ const stories = storiesOf("Application|Experience", module).addDecorator(
 stories.add(
   "Experience Intro Page",
   (): React.ReactElement => (
-    <ExperienceIntro handleStart={action("Continue to Education Step")} />
+    <ExperienceIntro handleStart={action("Continue to Experience Step")} />
   ),
 );
