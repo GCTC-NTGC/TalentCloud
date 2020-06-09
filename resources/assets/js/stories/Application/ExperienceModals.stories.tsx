@@ -36,7 +36,7 @@ stories.add(
         />
         <div>
           <BaseExperienceModal
-            id="base-experience-modal"
+            modalId="base-experience-modal"
             title={text("Title", "Base Experience", groupIds.details)}
             iconClass={select(
               "Icon",

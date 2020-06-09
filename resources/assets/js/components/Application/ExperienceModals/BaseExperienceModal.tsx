@@ -11,7 +11,7 @@ import {
 } from "./EducationSubform";
 
 interface BaseExperienceModalProps {
-  id: string;
+  modalId: string;
   title: string;
   iconClass: string;
   description: string;
@@ -29,7 +29,7 @@ interface BaseExperienceModalProps {
 }
 
 export const BaseExperienceModal: React.FC<BaseExperienceModalProps> = ({
-  id,
+  modalId,
   title,
   iconClass,
   description,
@@ -57,7 +57,7 @@ export const BaseExperienceModal: React.FC<BaseExperienceModalProps> = ({
 
   return (
     <Modal
-      id={id}
+      id={modalId}
       parentElement={parentElement}
       visible={visible}
       onModalCancel={onModalCancel}
@@ -123,7 +123,6 @@ export const BaseExperienceModal: React.FC<BaseExperienceModalProps> = ({
                   jobId={jobId}
                   jobRequiredSkills={requiredSkills}
                   jobOptionalSkills={optionalSkills}
-                  formikProps={formikProps}
                 />
                 <EducationSubform {...experienceRequirments} />
               </div>

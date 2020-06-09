@@ -1,11 +1,16 @@
 import React from "react";
 import { FormattedMessage, useIntl, defineMessages } from "react-intl";
 import { Field } from "formik";
+import * as Yup from "yup";
 import CheckboxInput from "../../Form/CheckboxInput";
 
 export interface EducationFormValues {
   useAsEducationRequirement: boolean;
 }
+
+export const validationShape = {
+  useAsEducationRequirement: Yup.boolean(),
+};
 
 export interface EducationSubformProps {
   educationRequirement: {

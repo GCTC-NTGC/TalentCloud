@@ -1,6 +1,7 @@
 import React from "react";
 import { FormattedMessage, useIntl, defineMessages } from "react-intl";
-import { Field, FormikProps, FormikErrors, FormikTouched } from "formik";
+import { Field, useFormikContext } from "formik";
+import * as Yup from "yup";
 import { jobShow } from "../../../helpers/routes";
 import { getLocale } from "../../../helpers/localize";
 import CheckboxGroup from "../../Form/CheckboxGroup";
@@ -25,28 +26,28 @@ export interface SkillFormValues {
   optionalSkills: string[];
 }
 
-interface SkillSubformProps<T extends SkillFormValues> {
+export const validationShape = {
+  requiredSkills: Yup.array().of(Yup.string()),
+  optionalSkills: Yup.array().of(Yup.string()),
+};
+
+export interface SkillSubformProps {
   jobId: number;
   jobRequiredSkills: string[];
   jobOptionalSkills: string[];
-  formikProps: FormikProps<T>;
 }
 
-export function SkillSubform<T extends SkillFormValues>({
+export function SkillSubform({
   jobId,
   jobRequiredSkills,
   jobOptionalSkills,
-  formikProps,
-}: SkillSubformProps<T>): React.ReactElement {
+}: SkillSubformProps): React.ReactElement {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
-  const {
-    errors,
-    touched,
-  }: {
-    errors: FormikErrors<SkillFormValues>;
-    touched: FormikTouched<SkillFormValues>;
-  } = formikProps;
+
+  const formikContext = useFormikContext();
+  const requiredMeta = formikContext.getFieldMeta<string[]>("requiredSkills");
+  const optionalMeta = formikContext.getFieldMeta<string[]>("optionalSkills");
 
   const linkToJob = (text): React.ReactElement => (
     <a
@@ -110,11 +111,11 @@ export function SkillSubform<T extends SkillFormValues>({
             id="requiredSkills"
             label={intl.formatMessage(messages.skillCheckboxGroupLabel)}
             grid="base(1of1)"
-            value={formikProps.values.requiredSkills}
-            error={errors.requiredSkills}
-            touched={touched.requiredSkills}
-            onChange={formikProps.setFieldValue}
-            onBlur={formikProps.setFieldTouched}
+            value={requiredMeta.value}
+            error={requiredMeta.error}
+            touched={requiredMeta.touched}
+            onChange={formikContext.setFieldValue}
+            onBlur={formikContext.setFieldTouched}
           >
             {jobRequiredSkills.map(
               (name): React.ReactElement => {
@@ -148,11 +149,11 @@ export function SkillSubform<T extends SkillFormValues>({
             id="optionalSkills"
             label={intl.formatMessage(messages.skillCheckboxGroupLabel)}
             grid="base(1of1)"
-            value={formikProps.values.optionalSkills}
-            error={errors.optionalSkills}
-            touched={touched.optionalSkills}
-            onChange={formikProps.setFieldValue}
-            onBlur={formikProps.setFieldTouched}
+            value={optionalMeta.value}
+            error={optionalMeta.error}
+            touched={optionalMeta.touched}
+            onChange={formikContext.setFieldValue}
+            onBlur={formikContext.setFieldTouched}
           >
             {jobOptionalSkills.map(
               (name): React.ReactElement => {
