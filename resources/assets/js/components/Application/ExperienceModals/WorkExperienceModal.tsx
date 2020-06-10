@@ -1,19 +1,32 @@
 import React from "react";
-import { FastField, Field } from "formik";
+import { FastField, Field, Formik, Form } from "formik";
 import { defineMessages, useIntl, IntlShape } from "react-intl";
 import * as Yup from "yup";
-import { EducationSubformProps } from "./EducationSubform";
+import {
+  EducationSubformProps,
+  EducationFormValues,
+  EducationSubform,
+} from "./EducationSubform";
 import BaseExperienceModal from "./BaseExperienceModal";
 import TextInput from "../../Form/TextInput";
 import Input from "../../Input";
 import CheckboxInput from "../../Form/CheckboxInput";
 import { validationMessages } from "../../Form/Messages";
+import SkillSubform, { SkillFormValues } from "./SkillSubform";
+import { ExperienceWork } from "../../../models/types";
+import {
+  ExperienceModalHeader,
+  ExperienceDetailsIntro,
+  ExperienceModalFooter,
+} from "./ExperienceModalCommon";
+import Modal from "../../Modal";
 
 interface WorkExperienceModalProps {
   modalId: string;
   title: string;
   iconClass: string;
   description: string;
+  experienceWork: ExperienceWork;
   jobId: number;
   requiredSkills: string[];
   savedRequiredSkills: string[];
@@ -71,6 +84,15 @@ const messages = defineMessages({
   },
 });
 
+export interface WorkDetailsFormValues {
+  title: string;
+  organization: string;
+  group: string;
+  startDate: Date;
+  isActive: boolean;
+  endDate: Date | null;
+}
+
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const validationShape = (intl: IntlShape) => {
   const requiredMsg = intl.formatMessage(validationMessages.required);
@@ -96,6 +118,7 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
   title,
   iconClass,
   description,
+  experienceWork,
   jobId,
   requiredSkills,
   savedRequiredSkills,
@@ -107,91 +130,121 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
   visible,
   onModalCancel,
   onModalConfirm,
-  children,
 }) => {
   const intl = useIntl();
+
+  const initialFormValues: SkillFormValues &
+    EducationFormValues &
+    WorkDetailsFormValues = {
+    requiredSkills: savedRequiredSkills,
+    optionalSkills: savedOptionalSkills,
+    useAsEducationRequirement,
+    title: experienceWork.title,
+    organization: experienceWork.organization,
+    group: experienceWork.group,
+    startDate: experienceWork.start_date,
+    isActive: experienceWork.is_active,
+    endDate: experienceWork.end_date,
+  };
+
+  const detailsSubform = (
+    <div data-c-container="medium">
+      <div data-c-grid="gutter(all, 1) middle">
+        <FastField
+          id="title"
+          type="text"
+          name="title"
+          component={TextInput}
+          required
+          grid="base(1of1)"
+          label={intl.formatMessage(messages.jobTitleLabel)}
+          placeholder={intl.formatMessage(messages.jobTitlePlaceholder)}
+        />
+        <FastField
+          id="organization"
+          type="text"
+          name="organization"
+          component={TextInput}
+          required
+          grid="base(1of2)"
+          label={intl.formatMessage(messages.orgNameLabel)}
+          placeholder={intl.formatMessage(messages.orgNamePlaceholder)}
+        />
+        <FastField
+          id="group"
+          type="text"
+          name="group"
+          component={TextInput}
+          required
+          grid="base(1of2)"
+          label={intl.formatMessage(messages.groupLabel)}
+          placeholder={intl.formatMessage(messages.groupPlaceholder)}
+        />
+        <FastField
+          id="startDate"
+          type="date"
+          name="startDate"
+          component={Input}
+          required
+          grid="base(1of1)"
+          label={intl.formatMessage(messages.startDateLabel)}
+          placeholder={intl.formatMessage(messages.datePlaceholder)}
+        />
+        <Field
+          id="isActive"
+          name="isActive"
+          component={CheckboxInput}
+          grid="tl(1of2)"
+          label={intl.formatMessage(messages.isActiveLabel)}
+        />
+        <FastField
+          id="endDate"
+          type="date"
+          name="endDate"
+          component={Input}
+          grid="base(1of2)"
+          label={intl.formatMessage(messages.endDateLabel)}
+          placeholder={intl.formatMessage(messages.datePlaceholder)}
+        />
+      </div>
+    </div>
+  );
+
   return (
-    <BaseExperienceModal
-      modalId={modalId}
-      title={title}
-      iconClass={iconClass}
-      description={description}
-      jobId={jobId}
-      requiredSkills={requiredSkills}
-      savedRequiredSkills={savedRequiredSkills}
-      optionalSkills={optionalSkills}
-      savedOptionalSkills={savedOptionalSkills}
-      experienceRequirments={experienceRequirments}
-      useAsEducationRequirement={useAsEducationRequirement}
+    <Modal
+      id={modalId}
       parentElement={parentElement}
       visible={visible}
       onModalCancel={onModalCancel}
       onModalConfirm={onModalConfirm}
+      className="application-experience-dialog"
     >
-      <div data-c-padding="">
-        <div data-c-container="medium">
-          <div data-c-grid="gutter(all, 1) middle">
-            <FastField
-              id="title"
-              type="text"
-              name="title"
-              component={TextInput}
-              required
-              grid="base(1of1)"
-              label={intl.formatMessage(messages.jobTitleLabel)}
-              placeholder={intl.formatMessage(messages.jobTitlePlaceholder)}
-            />
-            <FastField
-              id="organization"
-              type="text"
-              name="organization"
-              component={TextInput}
-              required
-              grid="base(1of2)"
-              label={intl.formatMessage(messages.orgNameLabel)}
-              placeholder={intl.formatMessage(messages.orgNamePlaceholder)}
-            />
-            <FastField
-              id="group"
-              type="text"
-              name="group"
-              component={TextInput}
-              required
-              grid="base(1of2)"
-              label={intl.formatMessage(messages.groupLabel)}
-              placeholder={intl.formatMessage(messages.groupPlaceholder)}
-            />
-            <FastField
-              id="startDate"
-              type="date"
-              name="startDate"
-              component={Input}
-              required
-              grid="base(1of1)"
-              label={intl.formatMessage(messages.startDateLabel)}
-              placeholder={intl.formatMessage(messages.datePlaceholder)}
-            />
-            <Field
-              id="isActive"
-              name="isActive"
-              component={CheckboxInput}
-              grid="tl(1of2)"
-              label={intl.formatMessage(messages.isActiveLabel)}
-            />
-            <FastField
-              id="endDate"
-              type="date"
-              name="endDate"
-              component={Input}
-              grid="base(1of2)"
-              label={intl.formatMessage(messages.endDateLabel)}
-              placeholder={intl.formatMessage(messages.datePlaceholder)}
-            />
-          </div>
-        </div>
-      </div>
-      {children}
-    </BaseExperienceModal>
+      <ExperienceModalHeader title={title} iconClass={iconClass} />
+      <Formik
+        initialValues={initialFormValues}
+        onSubmit={(values, actions): void => {
+          // TODO: do something with values
+          onModalConfirm(values);
+          actions.setSubmitting(false);
+        }}
+      >
+        {(formikProps): React.ReactElement => (
+          <Form>
+            <Modal.Body>
+              <ExperienceDetailsIntro description={description} />
+              {detailsSubform}
+              <SkillSubform
+                jobId={jobId}
+                jobRequiredSkills={requiredSkills}
+                jobOptionalSkills={optionalSkills}
+              />
+              <EducationSubform {...experienceRequirments} />
+            </Modal.Body>
+            <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
+          </Form>
+        )}
+      </Formik>
+    </Modal>
   );
 };
 
