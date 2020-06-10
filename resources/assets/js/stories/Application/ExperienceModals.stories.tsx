@@ -38,15 +38,8 @@ stories.add(
         <div>
           <WorkExperienceModal
             modalId="work-experience-modal"
-            title={text("Title", "Add Work Experience", groupIds.details)}
-            iconClass={select("Icon", iconClassOptions, "work", groupIds.type)}
             experienceWork={fakeExperienceWork()}
             jobId={number("Job Id", 1, undefined, groupIds.details)}
-            description={text(
-              "Description",
-              "Did work? Share your experiences gained from full-time positions, part-time positions, self-employment, fellowships or internships.  (Did some volunteering? Share this as a “Community Experience”.)",
-              groupIds.details,
-            )}
             requiredSkills={array(
               "Required Skills",
               ["HTML", "React", "CSS", "Database Management", "Hacking"],

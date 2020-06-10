@@ -6,13 +6,15 @@ import {
   EducationSubformProps,
   EducationFormValues,
   EducationSubform,
+  validationShape as educationValidationShape,
 } from "./EducationSubform";
-import BaseExperienceModal from "./BaseExperienceModal";
 import TextInput from "../../Form/TextInput";
-import Input from "../../Input";
 import CheckboxInput from "../../Form/CheckboxInput";
 import { validationMessages } from "../../Form/Messages";
-import SkillSubform, { SkillFormValues } from "./SkillSubform";
+import SkillSubform, {
+  SkillFormValues,
+  validationShape as skillValidationShape,
+} from "./SkillSubform";
 import { ExperienceWork } from "../../../models/types";
 import {
   ExperienceModalHeader,
@@ -20,12 +22,11 @@ import {
   ExperienceModalFooter,
 } from "./ExperienceModalCommon";
 import Modal from "../../Modal";
+import DateInput from "../../Form/DateInput";
+import { toInputDateString } from "../../../helpers/dates";
 
 interface WorkExperienceModalProps {
   modalId: string;
-  title: string;
-  iconClass: string;
-  description: string;
   experienceWork: ExperienceWork;
   jobId: number;
   requiredSkills: string[];
@@ -41,6 +42,15 @@ interface WorkExperienceModalProps {
 }
 
 const messages = defineMessages({
+  modalTitle: {
+    id: "workExperienceModal.modalTitle",
+    defaultMessage: "Add Work Experience",
+  },
+  modalDescription: {
+    id: "workExperienceModal.modalDescription",
+    defaultMessage:
+      'Did work? Share your experiences gained from full-time positions, part-time positions, self-employment, fellowships or internships.  (Did some volunteering? Share this as a "Community Experience".)',
+  },
   jobTitleLabel: {
     id: "workExperienceModal.jobTitleLabel",
     defaultMessage: "My Role/Job Title",
@@ -88,9 +98,9 @@ export interface WorkDetailsFormValues {
   title: string;
   organization: string;
   group: string;
-  startDate: Date;
+  startDate: string;
   isActive: boolean;
-  endDate: Date | null;
+  endDate: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -99,25 +109,28 @@ export const validationShape = (intl: IntlShape) => {
   const conditionalRequiredMsg = intl.formatMessage(
     validationMessages.endDateRequiredIfNotOngoing,
   );
+  const inPastMsg = intl.formatMessage(validationMessages.dateMustBePast);
+  const afterStartDateMsg = intl.formatMessage(
+    validationMessages.endDateAfterStart,
+  );
   return {
     title: Yup.string().required(requiredMsg),
     organization: Yup.string().required(requiredMsg),
     group: Yup.string().required(requiredMsg),
-    startDate: Yup.date().required(requiredMsg),
+    startDate: Yup.date().required(requiredMsg).max(new Date(), inPastMsg),
     isActive: Yup.boolean(),
     endDate: Yup.date().when("isActive", {
       is: false,
-      then: Yup.date().required(conditionalRequiredMsg),
-      otherwise: Yup.date(),
+      then: Yup.date()
+        .required(conditionalRequiredMsg)
+        .min(Yup.ref("startDate"), afterStartDateMsg),
+      otherwise: Yup.date().min(Yup.ref("startDate"), afterStartDateMsg),
     }),
   };
 };
 
 export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
   modalId,
-  title,
-  iconClass,
-  description,
   experienceWork,
   jobId,
   requiredSkills,
@@ -142,10 +155,18 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
     title: experienceWork.title,
     organization: experienceWork.organization,
     group: experienceWork.group,
-    startDate: experienceWork.start_date,
+    startDate: toInputDateString(experienceWork.start_date),
     isActive: experienceWork.is_active,
-    endDate: experienceWork.end_date,
+    endDate: experienceWork.end_date
+      ? toInputDateString(experienceWork.end_date)
+      : "",
   };
+
+  const validationSchema = Yup.object().shape({
+    ...skillValidationShape,
+    ...educationValidationShape,
+    ...validationShape(intl),
+  });
 
   const detailsSubform = (
     <div data-c-container="medium">
@@ -182,9 +203,8 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
         />
         <FastField
           id="startDate"
-          type="date"
           name="startDate"
-          component={Input}
+          component={DateInput}
           required
           grid="base(1of1)"
           label={intl.formatMessage(messages.startDateLabel)}
@@ -199,9 +219,8 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
         />
         <FastField
           id="endDate"
-          type="date"
           name="endDate"
-          component={Input}
+          component={DateInput}
           grid="base(1of2)"
           label={intl.formatMessage(messages.endDateLabel)}
           placeholder={intl.formatMessage(messages.datePlaceholder)}
@@ -219,7 +238,10 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
       onModalConfirm={onModalConfirm}
       className="application-experience-dialog"
     >
-      <ExperienceModalHeader title={title} iconClass={iconClass} />
+      <ExperienceModalHeader
+        title={intl.formatMessage(messages.modalTitle)}
+        iconClass="fa-briefcase"
+      />
       <Formik
         initialValues={initialFormValues}
         onSubmit={(values, actions): void => {
@@ -227,11 +249,14 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
           onModalConfirm(values);
           actions.setSubmitting(false);
         }}
+        validationSchema={validationSchema}
       >
         {(formikProps): React.ReactElement => (
           <Form>
             <Modal.Body>
-              <ExperienceDetailsIntro description={description} />
+              <ExperienceDetailsIntro
+                description={intl.formatMessage(messages.modalDescription)}
+              />
               {detailsSubform}
               <SkillSubform
                 jobId={jobId}
