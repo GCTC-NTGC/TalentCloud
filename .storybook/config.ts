@@ -18,7 +18,7 @@ addParameters({
 const req = require.context(
   "../resources/assets/js/stories",
   true,
-  /\.stories\.tsx$/
+  /\.stories\.tsx$/,
 );
 
 // Create a parent element for modals.
@@ -39,15 +39,14 @@ const messages = {
   en: null, // default
   fr: messagesFr,
 };
-const getMessages = (locale) => messages[locale];
+const getMessages = locale => messages[locale];
 // Set intl configuration
 setIntlConfig({
-    locales: ["en", "fr"],
-    defaultLocale: "en",
-    getMessages,
-    textComponent: React.Fragment,
+  locales: ["en", "fr"],
+  defaultLocale: "en",
+  getMessages,
+  textComponent: React.Fragment,
 });
-
 
 function loadStories() {
   req.keys().forEach(req);

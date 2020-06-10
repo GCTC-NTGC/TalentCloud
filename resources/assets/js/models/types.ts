@@ -271,6 +271,58 @@ export interface JobPosterStatus {
   description: localizedFieldNonNull;
 }
 
+export interface ExperienceWork {
+  id: number;
+  title: string;
+  organization: string;
+  group: string;
+  is_active: boolean;
+  start_date: Date;
+  end_date: Date | null;
+}
+
+export interface ExperienceEducation {
+  id: number;
+  education_type_id: number;
+  area_of_study: string;
+  institution: string;
+  education_status_id: number;
+  is_active: boolean;
+  start_date: Date;
+  end_date: Date | null;
+  thesis_title: string | null;
+  has_blockcert: boolean;
+}
+
+export interface ExperienceCommunity {
+  id: number;
+  title: string;
+  group: string;
+  project: string;
+  is_active: boolean;
+  start_date: Date;
+  end_date: Date | null;
+}
+
+export interface ExperienceAward {
+  id: number;
+  title: string;
+  award_recipient_type_id: number;
+  issued_by: string;
+  award_recognition_type_id: number;
+  awarded_date: Date;
+}
+
+export interface ExperiencePersonal {
+  id: number;
+  title: string;
+  description: string;
+  is_shareable: boolean;
+  is_active: boolean;
+  start_date: Date;
+  end_date: Date | null;
+}
+
 export interface EmailAddress {
   name: string;
   address: string; // Email.
