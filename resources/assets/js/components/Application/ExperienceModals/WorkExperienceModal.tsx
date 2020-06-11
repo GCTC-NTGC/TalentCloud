@@ -15,7 +15,7 @@ import SkillSubform, {
   SkillFormValues,
   validationShape as skillValidationShape,
 } from "./SkillSubform";
-import { ExperienceWork } from "../../../models/types";
+import { ExperienceWork, Skill } from "../../../models/types";
 import {
   ExperienceModalHeader,
   ExperienceDetailsIntro,
@@ -23,22 +23,29 @@ import {
 } from "./ExperienceModalCommon";
 import Modal from "../../Modal";
 import DateInput from "../../Form/DateInput";
-import { toInputDateString } from "../../../helpers/dates";
+import { toInputDateString, fromInputDateString } from "../../../helpers/dates";
+import {
+  Locales,
+  localizeFieldNonNull,
+  getLocale,
+} from "../../../helpers/localize";
+import ExperienceWorkAccordion from "../Experience/ExperienceWorkAccordion";
+import { notEmpty } from "../../../helpers/queries";
 
 interface WorkExperienceModalProps {
   modalId: string;
-  experienceWork: ExperienceWork;
+  experienceWork: ExperienceWork | null;
   jobId: number;
-  requiredSkills: string[];
-  savedRequiredSkills: string[];
-  optionalSkills: string[];
-  savedOptionalSkills: string[];
+  requiredSkills: Skill[];
+  savedRequiredSkills: Skill[];
+  optionalSkills: Skill[];
+  savedOptionalSkills: Skill[];
   experienceRequirments: EducationSubformProps;
   useAsEducationRequirement: boolean;
   parentElement: Element | null;
   visible: boolean;
   onModalCancel: () => void;
-  onModalConfirm: (data: any) => void;
+  onModalConfirm: (data: WorkExperienceSubmitData) => Promise<void>;
 }
 
 const messages = defineMessages({
@@ -103,6 +110,16 @@ export interface WorkDetailsFormValues {
   endDate: string;
 }
 
+type WorkExperienceFormValues = SkillFormValues &
+  EducationFormValues &
+  WorkDetailsFormValues;
+interface WorkExperienceSubmitData {
+  experienceWork: ExperienceWork;
+  savedRequiredSkills: Skill[];
+  savedOptionalSkills: Skill[];
+  useAsEducationRequirement: boolean;
+}
+
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const validationShape = (intl: IntlShape) => {
   const requiredMsg = intl.formatMessage(validationMessages.required);
@@ -129,6 +146,79 @@ export const validationShape = (intl: IntlShape) => {
   };
 };
 
+const dataToFormValues = (
+  data: WorkExperienceSubmitData,
+  locale: Locales,
+): WorkExperienceFormValues => {
+  const {
+    experienceWork,
+    savedRequiredSkills,
+    savedOptionalSkills,
+    useAsEducationRequirement,
+  } = data;
+  const skillToName = (skill: Skill): string =>
+    localizeFieldNonNull(locale, skill, "name");
+  return {
+    requiredSkills: savedRequiredSkills.map(skillToName),
+    optionalSkills: savedOptionalSkills.map(skillToName),
+    useAsEducationRequirement,
+    title: experienceWork.title,
+    organization: experienceWork.organization,
+    group: experienceWork.group,
+    startDate: toInputDateString(experienceWork.start_date),
+    isActive: experienceWork.is_active,
+    endDate: experienceWork.end_date
+      ? toInputDateString(experienceWork.end_date)
+      : "",
+  };
+};
+
+/* eslint-disable @typescript-eslint/camelcase */
+const formValuesToData = (
+  formValues: WorkExperienceFormValues,
+  originalExperience: ExperienceWork,
+  locale: Locales,
+  skills: Skill[],
+): WorkExperienceSubmitData => {
+  const nameToSkill = (name: string): Skill | null => {
+    const matchingSkills = skills.filter(
+      (skill) => localizeFieldNonNull(locale, skill, "name") === name,
+    );
+    return matchingSkills.length > 0 ? matchingSkills[0] : null;
+  };
+  return {
+    experienceWork: {
+      ...originalExperience,
+      title: formValues.title,
+      organization: formValues.organization,
+      group: formValues.group,
+      start_date: fromInputDateString(formValues.startDate),
+      is_active: formValues.isActive,
+      end_date: formValues.endDate
+        ? fromInputDateString(formValues.endDate)
+        : null,
+    },
+    useAsEducationRequirement: formValues.useAsEducationRequirement,
+    savedRequiredSkills: formValues.requiredSkills
+      .map(nameToSkill)
+      .filter(notEmpty),
+    savedOptionalSkills: formValues.optionalSkills
+      .map(nameToSkill)
+      .filter(notEmpty),
+  };
+};
+
+const newExperienceWork = (): ExperienceWork => ({
+  id: 0,
+  title: "",
+  organization: "",
+  group: "",
+  is_active: false,
+  start_date: new Date(),
+  end_date: null,
+});
+/* eslint-enable @typescript-eslint/camelcase */
+
 export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
   modalId,
   experienceWork,
@@ -145,22 +235,22 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
   onModalConfirm,
 }) => {
   const intl = useIntl();
+  const locale = getLocale(intl.locale);
 
-  const initialFormValues: SkillFormValues &
-    EducationFormValues &
-    WorkDetailsFormValues = {
-    requiredSkills: savedRequiredSkills,
-    optionalSkills: savedOptionalSkills,
-    useAsEducationRequirement,
-    title: experienceWork.title,
-    organization: experienceWork.organization,
-    group: experienceWork.group,
-    startDate: toInputDateString(experienceWork.start_date),
-    isActive: experienceWork.is_active,
-    endDate: experienceWork.end_date
-      ? toInputDateString(experienceWork.end_date)
-      : "",
-  };
+  const originalExperience = experienceWork ?? newExperienceWork();
+
+  const skillToName = (skill: Skill): string =>
+    localizeFieldNonNull(locale, skill, "name");
+
+  const initialFormValues = dataToFormValues(
+    {
+      experienceWork: originalExperience,
+      savedRequiredSkills,
+      savedOptionalSkills,
+      useAsEducationRequirement,
+    },
+    locale,
+  );
 
   const validationSchema = Yup.object().shape({
     ...skillValidationShape,
@@ -235,7 +325,7 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
       parentElement={parentElement}
       visible={visible}
       onModalCancel={onModalCancel}
-      onModalConfirm={onModalConfirm}
+      onModalConfirm={onModalCancel}
       className="application-experience-dialog"
     >
       <ExperienceModalHeader
@@ -243,10 +333,15 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
         iconClass="fa-briefcase"
       />
       <Formik
+        enableReinitialize
         initialValues={initialFormValues}
-        onSubmit={(values, actions): void => {
-          // TODO: do something with values
-          onModalConfirm(values);
+        onSubmit={async (values, actions): Promise<void> => {
+          await onModalConfirm(
+            formValuesToData(values, originalExperience, locale, [
+              ...requiredSkills,
+              ...optionalSkills,
+            ]),
+          );
           actions.setSubmitting(false);
         }}
         validationSchema={validationSchema}
@@ -260,8 +355,8 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
               {detailsSubform}
               <SkillSubform
                 jobId={jobId}
-                jobRequiredSkills={requiredSkills}
-                jobOptionalSkills={optionalSkills}
+                jobRequiredSkills={requiredSkills.map(skillToName)}
+                jobOptionalSkills={optionalSkills.map(skillToName)}
               />
               <EducationSubform {...experienceRequirments} />
             </Modal.Body>

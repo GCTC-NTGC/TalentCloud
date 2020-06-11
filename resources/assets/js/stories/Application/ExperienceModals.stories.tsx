@@ -5,6 +5,12 @@ import { select, text, number, boolean, array } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import WorkExperienceModal from "../../components/Application/ExperienceModals/WorkExperienceModal";
 import { fakeExperienceWork } from "../../fakeData/fakeExperience";
+import {
+  fakeSkill,
+  fakeSkill2,
+  fakeSkill3,
+  fakeSkill4,
+} from "../../fakeData/fakeSkills";
 
 const stories = storiesOf("Application|Experience Modals", module).addDecorator(
   withIntl,
@@ -16,19 +22,54 @@ const groupIds = {
   switches: "Switches",
 };
 
-const iconClassOptions = {
-  education: "fa-book",
-  work: "fa-briefcase",
-  community: "fa-people-carry",
-  personal: "fa-mountain",
-  award: "fa-trophy",
-};
+function sleep(ms): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 stories.add(
   "Work Experience Modal",
   (): React.ReactElement => {
     const isModalVisible = boolean("Visible", true, groupIds.switches);
     const modalParent = document.querySelector("#modal-root");
+
+    const requiredSkills = [
+      fakeSkill({
+        id: 1,
+      }),
+      fakeSkill2({
+        id: 2,
+      }),
+      fakeSkill3({
+        id: 3,
+      }),
+      fakeSkill4({
+        id: 4,
+      }),
+    ];
+    const optionalSkills = [
+      fakeSkill({
+        id: 11,
+        name: {
+          en: "Networking",
+          fr: "Mise en réseau",
+        },
+      }),
+      fakeSkill2({
+        id: 12,
+        name: {
+          en: "Conflict Resolution",
+          fr: "Résolution des conflits",
+        },
+      }),
+      fakeSkill3({
+        id: 13,
+        name: {
+          en: "Resilience",
+          fr: "Résilience",
+        },
+      }),
+    ];
+
     return (
       <div id="work-modal-container">
         <div
@@ -40,30 +81,10 @@ stories.add(
             modalId="work-experience-modal"
             experienceWork={fakeExperienceWork()}
             jobId={number("Job Id", 1, undefined, groupIds.details)}
-            requiredSkills={array(
-              "Required Skills",
-              ["HTML", "React", "CSS", "Database Management", "Hacking"],
-              ",",
-              groupIds.details,
-            )}
-            savedRequiredSkills={array(
-              "Saved Required Skills",
-              ["HTML", "React", "Hacking"],
-              ",",
-              groupIds.details,
-            )}
-            optionalSkills={array(
-              "Optional Skills",
-              ["Networking", "Conflict Resolution", "Resilience"],
-              ",",
-              groupIds.details,
-            )}
-            savedOptionalSkills={array(
-              "Saved Optional Skills",
-              ["Resilience"],
-              ",",
-              groupIds.details,
-            )}
+            requiredSkills={requiredSkills}
+            savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
+            optionalSkills={optionalSkills}
+            savedOptionalSkills={[optionalSkills[0]]}
             experienceRequirments={{
               educationRequirement: {
                 title: text(
@@ -97,7 +118,10 @@ stories.add(
             )}
             parentElement={modalParent}
             visible={isModalVisible}
-            onModalConfirm={action("Confirmed")}
+            onModalConfirm={async (x) => {
+              await sleep(2000);
+              action("Confirmed")(x);
+            }}
             onModalCancel={action("Cancelled")}
           />
         </div>

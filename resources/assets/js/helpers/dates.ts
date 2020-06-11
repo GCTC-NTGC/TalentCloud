@@ -15,3 +15,7 @@ export const readableDate = (locale: Locales, date: Date): string => {
 export const toInputDateString = (date: Date): string => {
   return dayjs(date).format("YYYY-MM-DD");
 };
+
+export const fromInputDateString = (dateStr: string): Date => {
+  return dayjs(dateStr).toDate();
+};
