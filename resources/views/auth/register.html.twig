@@ -60,36 +60,40 @@
 										</div>
 										<span>{{ trans('forms.error') }}</span>
 									</div>
-                                    {# Language Selection #}
-                                    <div data-c-input="select" data-c-grid-item="base(1of1)">
-                                        <label for="lang">Which language would you prefer to be contacted in?</label>
-                                        <span>Required</span>
-                                        <div>
-                                            <i class="fas fa-caret-down"></i>
-                                            <select required id="lang">
-                                                <option disabled selected>Select a language...</option>
-                                                <option>English</option>
-                                                <option>French</option>
-                                            </select>
-                                        </div>
-                                        <span>This input has an error.</span>
-                                    </div>
-                                    {# Contact Preference #}
-                                    <div data-c-grid-item="base(1of1)">
-                                        <p>By default, Talent Cloud will occasionally contact you about opportunities that are similar to those that you apply to. If you would like to opt out of these communication emails, please check the box below. <span data-c-color="gray">(This can be changed later in your account settings.)</span></p>
-                                        <div data-c-input="checkbox(single)" data-c-margin="left(2)">
-                                            <span>Required</span>
-                                            <div>
-                                                <label for="langReq">
-                                                    <input
-                                                        id="langReq"
-                                                        type="checkbox"/>
-                                                    <span>I do not want Talent Cloud to contact me about jobs related to the ones I apply to.</span>
-                                                </label>
-                                            </div>
-                                            <span>This input has an error.</span>
-                                        </div>
-                                    </div>
+									{# Contact Language #}
+									<div data-c-input="select" data-c-grid-item="base(1of1)">
+											<label for="contact_language">{{ register.contact_language_label }}</label>
+											<span>{{ trans('forms.required') }}</span>
+											<div>
+													<i class="fas fa-caret-down"></i>
+													<select id="contact_language" name="contact_language" required>
+															<option disabled {% if user.contact_language == null %} selected {% endif %}>{{ register.contact_language_null_selection }}</option>
+															{% for key, lang in register.contact_languages %}
+																	{% if user.contact_language == key or old('contact_language') == key %}
+																			<option selected value="{{ key }}">{{ lang }}</option>
+																	{% else %}
+																			<option value="{{ key }}">{{ lang }}</option>
+																	{% endif %}
+															{% endfor %}
+													</select>
+											</div>
+											<span>{{ trans('forms.error') }}</span>
+									</div>
+									{# Contact Preference #}
+									<div data-c-grid-item="base(1of1)">
+											<p>{{ register.job_alerts_copy }} <span data-c-color="gray">{{ register.job_alerts_change_later }}</span></p>
+											<div data-c-input="checkbox(single)" data-c-margin="left(2)">
+													<span>{{ trans('forms.required') }}</span>
+													<div>
+															<label for="job_alerts">
+																	<input name="job_alerts" type="hidden" value="1" />
+																	<input id="job_alerts" name="job_alerts" type="checkbox" value="0" />
+																	<span>{{ register.job_alerts_label }}</span>
+															</label>
+													</div>
+													<span>{{ trans('forms.error') }}</span>
+											</div>
+									</div>
 									{# A block that other registration layouts can extend to add extra fields #}
 									{% block extra_fields %}{% endblock %}
 									{# Password Requirements #}
