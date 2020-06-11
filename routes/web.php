@@ -909,6 +909,14 @@ Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
         ->where('application', '[0-9]+')
         ->middleware('can:view,application')
         ->name('application.show');
+    Route::get('applications/{application}/basic', 'Api\ApplicationController@getBasic')
+        ->where('application', '[0-9]+')
+        ->middleware('can:view,application')
+        ->name('application.basic');
+    Route::post('applications/{application}/basic', 'Api\ApplicationController@updateBasic')
+        ->where('application', '[0-9]+')
+        ->middleware('can:view,application')
+        ->name('application.basic.update');
     Route::get('jobs/{jobPoster}/applications', 'Api\ApplicationController@index')
         ->where('jobPoster', '[0-9]+')
         ->middleware('can:reviewApplicationsFor,jobPoster')
