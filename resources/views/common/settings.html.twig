@@ -154,39 +154,42 @@
                                 <hr data-c-hr="thin(gray)" data-c-margin="top(2)">
                             {% endif %}
                             {# Contact & Communication Preferences #}
-                            <form>
-                                <h2 id="contact" data-c-heading="h2" data-c-padding="top(3)" data-c-margin="bottom(1)">Contact Preferences</h2>
-                                <p data-c-margin="bottom(2)">Below are a few preferences for how Talent Cloud communicated with you:</p>
+                            <form action="{{ submit_contact_preferences }}" method="POST">
+                                {{ csrf_field() }}
+                                <h2 id="contact" data-c-heading="h2" data-c-padding="top(3)" data-c-margin="bottom(1)">{{ settings.contact_preferences }}</h2>
+                                <p data-c-margin="bottom(2)">{{ settings.contact_preferences_copy }}</p>
                                 <div data-c-input="select">
-                                    <label for="lang">Which language would you prefer to be contacted in?</label>
-                                    <span>Required</span>
+                                    <label for="lang">{{ settings.contact_language_label }}</label>
+                                    <span>{{ trans('forms.required') }}</span>
                                     <div>
                                         <i class="fas fa-caret-down"></i>
-                                        <select required id="lang">
-                                            <option disabled selected>Select a language...</option>
-                                            <option>English</option>
-                                            <option>French</option>
+                                        <select id="contact_language" name="contact_language" required>
+                                            <option disabled {% if user.contact_language == null %} selected {% endif %}>{{ settings.contact_language_null_selection }}</option>
+                                            {% for key, lang in settings.contact_languages %}
+                                                {% if user.contact_language == key %}
+                                                    <option selected value="{{ key }}">{{ lang }}</option>
+                                                {% else %}
+                                                    <option value="{{ key }}">{{ lang }}</option>
+                                                {% endif %}
+                                            {% endfor %}
                                         </select>
                                     </div>
-                                    <span>This input has an error.</span>
+                                    <span>{{ trans('forms.error') }}</span>
                                 </div>
-                                <p data-c-margin="top(1)">By default Talent Cloud will occasionally contact you about opportunities that are similar to those that you apply to. If you would like to opt out of these communication emails, please check the box below.</p>
+                                <p data-c-margin="top(1)">{{ settings.job_alerts_copy }}</p>
                                 <div data-c-input="checkbox(single)" data-c-margin="left(2)">
-                                    <span>Required</span>
+                                    <span>{{ trans('forms.required') }}</span>
                                     <div>
-                                        <label for="langReq">
-                                            <input
-                                                id="langReq"
-                                                type="checkbox"/>
-                                            <span>I do not want Talent Cloud to contact me about jobs related to the ones I apply to.</span>
+                                        <label for="job_alerts">
+                                            <input name="job_alerts" type="hidden" value="1" />
+											<input id="job_alerts" name="job_alerts" type="checkbox" value="0" {% if user.job_alerts == false %} checked {% endif %} />
+                                            <span>{{ settings.job_alerts_label }}</span>
                                         </label>
                                     </div>
-                                    <span>This input has an error.</span>
+                                    <span>{{ trans('forms.error') }}</span>
                                 </div>
                                 <div data-c-align="base(center) tl(right)">
-                                    <button data-c-button="solid(c1)" data-c-radius="rounded" type="submit" name="password">
-                                        Save Contact Preferences
-                                    </button>
+                                    <button data-c-button="solid(c1)" data-c-radius="rounded" type="submit" name="password">{{ settings.save_contact_preferences }}</button>
                                 </div>
                                 <hr data-c-hr="thin(gray)" data-c-margin="top(2)">
                             </form>

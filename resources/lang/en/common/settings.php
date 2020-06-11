@@ -37,6 +37,17 @@ return [
      ],
      'gov_email_label' => 'Government Email',
      'government_save' => 'Save Government Information',
+     'contact_preferences' => 'Contact Preferences',
+     'contact_preferences_copy' => 'Below are a few preferences for how Talent Cloud communicated with you:',
+     'contact_language_label' => 'Which language would you prefer to be contacted in?',
+     'contact_language_null_selection' => 'Select a language...',
+     'contact_languages' => [
+        'en' => 'English',
+        'fr' => 'French',
+     ],
+     'job_alerts_copy' => 'By default, Talent Cloud will occasionally contact you about opportunities that are similar to those that you apply to. If you would like to opt out of these communication emails, please check the box below.',
+     'job_alerts_label' => 'I do not want Talent Cloud to contact me about jobs related to the ones I apply to.',
+     'save_contact_preferences' => 'Save Contact Preferences',
      'password_copy' => [
         'one' => 'You can use this section to change your password. Passwords must contain 1 character from each of the following criteria:',
         'two' => 'Lower-case characters (a-z)',

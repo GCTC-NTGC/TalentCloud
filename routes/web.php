@@ -275,6 +275,14 @@ Route::group(
                         ->middleware('can:update,user')
                         ->name('settings.government.update');
 
+                    Route::post(
+                        'settings/{user}/contact-preferences/update',
+                        'SettingsController@updateContactPreferences'
+                    )
+                        ->middleware('can:view,user')
+                        ->middleware('can:update,user')
+                        ->name('settings.contact_preferences.update');
+
                     /* 2FA Settings */
                     Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('two_factor.activate');
                     Route::post('two-factor/deactivate', 'Auth\TwoFactorController@deactivate')->name('two_factor.deactivate');
