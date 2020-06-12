@@ -33,3 +33,15 @@ export function getLocale(locale: string): Locales {
   console.log("Warning: unknown locale. Defaulting to en.");
   return "en";
 }
+
+export function matchValueToModel<T>(
+  locale: Locales,
+  field: TranslatableKeys<T>,
+  value: string,
+  possibilities: T[],
+): T | null {
+  const matching = possibilities.filter(
+    (model) => localizeField(locale, model, field) === value,
+  );
+  return matching.length > 0 ? matching[0] : null;
+}

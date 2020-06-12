@@ -1,6 +1,6 @@
 import React from "react";
 import { FormattedMessage, useIntl, defineMessages } from "react-intl";
-import { Field, FastField } from "formik";
+import { FastField } from "formik";
 import * as Yup from "yup";
 import CheckboxInput from "../../Form/CheckboxInput";
 

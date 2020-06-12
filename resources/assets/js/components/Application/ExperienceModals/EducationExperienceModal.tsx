@@ -15,7 +15,7 @@ import SkillSubform, {
   SkillFormValues,
   validationShape as skillValidationShape,
 } from "./SkillSubform";
-import { ExperienceWork, Skill } from "../../../models/types";
+import { Skill, ExperienceEducation } from "../../../models/types";
 import {
   ExperienceModalHeader,
   ExperienceDetailsIntro,
@@ -31,10 +31,24 @@ import {
   matchValueToModel,
 } from "../../../helpers/localize";
 import { notEmpty } from "../../../helpers/queries";
+import { localizedFieldNonNull } from "../../../models/app";
+import SelectInput from "../../Form/SelectInput";
+
+interface EducationType {
+  id: number;
+  name: localizedFieldNonNull;
+}
+
+interface EducationStatus {
+  id: number;
+  name: localizedFieldNonNull;
+}
 
 interface WorkExperienceModalProps {
   modalId: string;
-  experienceWork: ExperienceWork | null;
+  experienceEducation: ExperienceEducation | null;
+  educationTypes: EducationType[];
+  educationStatuses: EducationStatus[];
   jobId: number;
   requiredSkills: Skill[];
   savedRequiredSkills: Skill[];
@@ -45,76 +59,105 @@ interface WorkExperienceModalProps {
   parentElement: Element | null;
   visible: boolean;
   onModalCancel: () => void;
-  onModalConfirm: (data: WorkExperienceSubmitData) => Promise<void>;
+  onModalConfirm: (data: EducationExperienceSubmitData) => Promise<void>;
 }
 
 const messages = defineMessages({
   modalTitle: {
-    id: "workExperienceModal.modalTitle",
-    defaultMessage: "Add Work Experience",
+    id: "educationExperienceModal.modalTitle",
+    defaultMessage: "Add Edcuation Experience",
   },
   modalDescription: {
-    id: "workExperienceModal.modalDescription",
+    id: "educationExperienceModal.modalDescription",
     defaultMessage:
-      'Did work? Share your experiences gained from full-time positions, part-time positions, self-employment, fellowships or internships.  (Did some volunteering? Share this as a "Community Experience".)',
+      'Got creds? Share your degree, certificates, online courses, a trade apprenticeship, licences or alternative credentials. If you’ve learned something from a recognized educational provider, include your experiences here.  (Learned something from your community or on your own? Share this as a "Community Experience" or "Personal Experience".)',
   },
-  jobTitleLabel: {
-    id: "workExperienceModal.jobTitleLabel",
-    defaultMessage: "My Role/Job Title",
+  educationTypelabel: {
+    id: "educationExperienceModal.educationTypeLabel",
+    defaultMessage: "Type of Education",
   },
-  jobTitlePlaceholder: {
-    id: "workExperienceModal.jobTitlePlaceholder",
-    defaultMessage: "e.g. Front-end Development",
+  educationTypeDefault: {
+    id: "educationExperienceModal.educationTypeDefault",
+    defaultMessage: "Select an education type...",
+    description: "Default selection in the Education Type dropdown menu.",
   },
-  orgNameLabel: {
-    id: "workExperienceModal.orgNameLabel",
-    defaultMessage: "Organization/Company",
+  areaStudylabel: {
+    id: "educationExperienceModal.areaStudyLabel",
+    defaultMessage: "Area of Study",
   },
-  orgNamePlaceholder: {
-    id: "workExperienceModal.orgNamePlaceholder",
-    defaultMessage: "e.g. Government of Canada",
+  areaStudyPlaceholder: {
+    id: "educationExperienceModal.areaStudyPlaceholder",
+    defaultMessage: "e.g. Organic Chemistry",
   },
-  groupLabel: {
-    id: "workExperienceModal.groupLabel",
-    defaultMessage: "Team, Group, or Division",
+  institutionLabel: {
+    id: "educationExperienceModal.institutionLabel",
+    defaultMessage: "Institution",
   },
-  groupPlaceholder: {
-    id: "workExperienceModal.groupPlaceholder",
-    defaultMessage: "e.g. Talent Cloud",
+  institutionPlaceholder: {
+    id: "educationExperienceModal.institutionPlaceholder",
+    defaultMessage: "e.g. Bishop's University",
+  },
+  completionLabel: {
+    id: "educationExperienceModal.completionLabel",
+    defaultMessage: "Completion Status",
+  },
+  completionDefault: {
+    id: "educationExperienceModal.completionDefault",
+    defaultMessage: "Select a completion status...",
+  },
+  thesisLabel: {
+    id: "educationExperienceModal.thesisLabel",
+    defaultMessage: "Thesis Title (Optional)",
+  },
+  thesisPlaceholder: {
+    id: "educationExperienceModal.thesisPlaceholder",
+    defaultMessage: "e.g. How bats navigate between each other during flight",
+  },
+  blockcertLabel: {
+    id: "educationExperienceModal.blockcertLabel",
+    defaultMessage: "Blockcert Link (Optional)",
+  },
+  blockcertInlineLabel: {
+    id: "educationExperienceModal.blockcertInlineLabel",
+    defaultMessage:
+      "I have a Blockcert and can provide it on request. (Optional)",
   },
   startDateLabel: {
-    id: "workExperienceModal.startDateLabel",
+    id: "educationExperienceModal.startDateLabel",
     defaultMessage: "Select a Start Date",
   },
   datePlaceholder: {
-    id: "workExperienceModal.datePlaceholder",
+    id: "educationExperienceModal.datePlaceholder",
     defaultMessage: "yyyy-mm-dd",
   },
   isActiveLabel: {
-    id: "workExperienceModal.isActiveLabel",
+    id: "educationExperienceModal.isActiveLabel",
     defaultMessage: "This experience is still ongoing, or...",
     description: "Label for checkbox that indicates work is still ongoing.",
   },
   endDateLabel: {
-    id: "workExperienceModal.endDateLabel",
+    id: "educationExperienceModal.endDateLabel",
     defaultMessage: "Select an End Date",
   },
 });
 
-export interface WorkDetailsFormValues {
-  title: string;
-  organization: string;
-  group: string;
+export interface EducationDetailsFormValues {
+  educationTypeId: number | null;
+  areaOfStudy: string;
+  institution: string;
+  educationStatusId: number | null;
+  thesisTitle: string;
   startDate: string;
   isActive: boolean;
   endDate: string;
+  hasBlockcert: boolean;
 }
 
-type WorkExperienceFormValues = SkillFormValues &
+type EducationExperienceFormValues = SkillFormValues &
   EducationFormValues &
-  WorkDetailsFormValues;
-interface WorkExperienceSubmitData {
-  experienceWork: ExperienceWork;
+  EducationDetailsFormValues;
+interface EducationExperienceSubmitData {
+  experienceEducation: ExperienceEducation;
   savedRequiredSkills: Skill[];
   savedOptionalSkills: Skill[];
   useAsEducationRequirement: boolean;
@@ -131,9 +174,12 @@ export const validationShape = (intl: IntlShape) => {
     validationMessages.endDateAfterStart,
   );
   return {
-    title: Yup.string().required(requiredMsg),
-    organization: Yup.string().required(requiredMsg),
-    group: Yup.string().required(requiredMsg),
+    educationTypeId: Yup.number().required(requiredMsg),
+    areaOfStudy: Yup.string().required(requiredMsg),
+    institution: Yup.string().required(requiredMsg),
+    educationStatusId: Yup.number().required(requiredMsg),
+    thesisTitle: Yup.string(),
+    hasBlockcert: Yup.boolean(),
     startDate: Yup.date().required(requiredMsg).max(new Date(), inPastMsg),
     isActive: Yup.boolean(),
     endDate: Yup.date().when("isActive", {
@@ -147,11 +193,12 @@ export const validationShape = (intl: IntlShape) => {
 };
 
 const dataToFormValues = (
-  data: WorkExperienceSubmitData,
+  data: EducationExperienceSubmitData,
   locale: Locales,
-): WorkExperienceFormValues => {
+  creatingNew: boolean,
+): EducationExperienceFormValues => {
   const {
-    experienceWork,
+    experienceEducation,
     savedRequiredSkills,
     savedOptionalSkills,
     useAsEducationRequirement,
@@ -162,32 +209,40 @@ const dataToFormValues = (
     requiredSkills: savedRequiredSkills.map(skillToName),
     optionalSkills: savedOptionalSkills.map(skillToName),
     useAsEducationRequirement,
-    title: experienceWork.title,
-    organization: experienceWork.organization,
-    group: experienceWork.group,
-    startDate: toInputDateString(experienceWork.start_date),
-    isActive: experienceWork.is_active,
-    endDate: experienceWork.end_date
-      ? toInputDateString(experienceWork.end_date)
+    educationTypeId: creatingNew ? null : experienceEducation.education_type_id,
+    areaOfStudy: experienceEducation.area_of_study,
+    institution: experienceEducation.institution,
+    educationStatusId: creatingNew
+      ? null
+      : experienceEducation.education_status_id,
+    thesisTitle: experienceEducation.thesis_title ?? "",
+    hasBlockcert: experienceEducation.has_blockcert,
+    startDate: toInputDateString(experienceEducation.start_date),
+    isActive: experienceEducation.is_active,
+    endDate: experienceEducation.end_date
+      ? toInputDateString(experienceEducation.end_date)
       : "",
   };
 };
 
 /* eslint-disable @typescript-eslint/camelcase */
 const formValuesToData = (
-  formValues: WorkExperienceFormValues,
-  originalExperience: ExperienceWork,
+  formValues: EducationExperienceFormValues,
+  originalExperience: ExperienceEducation,
   locale: Locales,
   skills: Skill[],
-): WorkExperienceSubmitData => {
+): EducationExperienceSubmitData => {
   const nameToSkill = (name: string): Skill | null =>
     matchValueToModel(locale, "name", name, skills);
   return {
-    experienceWork: {
+    experienceEducation: {
       ...originalExperience,
-      title: formValues.title,
-      organization: formValues.organization,
-      group: formValues.group,
+      education_type_id: Number(formValues.educationTypeId) ?? 1,
+      area_of_study: formValues.areaOfStudy,
+      institution: formValues.institution,
+      education_status_id: Number(formValues.educationStatusId) ?? 1,
+      thesis_title: formValues.thesisTitle ? formValues.thesisTitle : null,
+      has_blockcert: formValues.hasBlockcert,
       start_date: fromInputDateString(formValues.startDate),
       is_active: formValues.isActive,
       end_date: formValues.endDate
@@ -204,20 +259,25 @@ const formValuesToData = (
   };
 };
 
-const newExperienceWork = (): ExperienceWork => ({
+const newExperienceEducation = (): ExperienceEducation => ({
   id: 0,
-  title: "",
-  organization: "",
-  group: "",
+  education_type_id: 0,
+  area_of_study: "",
+  institution: "",
+  education_status_id: 0,
+  thesis_title: null,
+  has_blockcert: false,
   is_active: false,
   start_date: new Date(),
   end_date: null,
 });
 /* eslint-enable @typescript-eslint/camelcase */
 
-export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
+export const EducationExperienceModal: React.FC<WorkExperienceModalProps> = ({
   modalId,
-  experienceWork,
+  experienceEducation,
+  educationTypes,
+  educationStatuses,
   jobId,
   requiredSkills,
   savedRequiredSkills,
@@ -233,19 +293,20 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl.locale);
 
-  const originalExperience = experienceWork ?? newExperienceWork();
+  const originalExperience = experienceEducation ?? newExperienceEducation();
 
   const skillToName = (skill: Skill): string =>
     localizeFieldNonNull(locale, skill, "name");
 
   const initialFormValues = dataToFormValues(
     {
-      experienceWork: originalExperience,
+      experienceEducation: originalExperience,
       savedRequiredSkills,
       savedOptionalSkills,
       useAsEducationRequirement,
     },
     locale,
+    experienceEducation === null,
   );
 
   const validationSchema = Yup.object().shape({
@@ -258,34 +319,50 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
     <div data-c-container="medium">
       <div data-c-grid="gutter(all, 1) middle">
         <FastField
-          id="title"
-          type="text"
-          name="title"
-          component={TextInput}
+          id="educationTypeId"
+          name="educationTypeId"
+          label={intl.formatMessage(messages.educationTypelabel)}
+          grid="tl(1of2)"
+          component={SelectInput}
           required
-          grid="base(1of1)"
-          label={intl.formatMessage(messages.jobTitleLabel)}
-          placeholder={intl.formatMessage(messages.jobTitlePlaceholder)}
+          nullSelection={intl.formatMessage(messages.educationTypeDefault)}
+          options={educationTypes.map((type) => ({
+            value: type.id,
+            label: localizeFieldNonNull(locale, type, "name"),
+          }))}
         />
         <FastField
-          id="organization"
+          id="areaOfStudy"
           type="text"
-          name="organization"
+          name="areaOfStudy"
           component={TextInput}
           required
-          grid="base(1of2)"
-          label={intl.formatMessage(messages.orgNameLabel)}
-          placeholder={intl.formatMessage(messages.orgNamePlaceholder)}
+          grid="tl(1of2)"
+          label={intl.formatMessage(messages.areaStudylabel)}
+          placeholder={intl.formatMessage(messages.areaStudyPlaceholder)}
         />
         <FastField
-          id="group"
+          id="institution"
           type="text"
-          name="group"
+          name="institution"
           component={TextInput}
           required
-          grid="base(1of2)"
-          label={intl.formatMessage(messages.groupLabel)}
-          placeholder={intl.formatMessage(messages.groupPlaceholder)}
+          grid="tl(1of2)"
+          label={intl.formatMessage(messages.institutionLabel)}
+          placeholder={intl.formatMessage(messages.institutionPlaceholder)}
+        />
+        <FastField
+          id="educationStatusId"
+          name="educationStatusId"
+          label={intl.formatMessage(messages.completionLabel)}
+          grid="tl(1of2)"
+          component={SelectInput}
+          required
+          nullSelection={intl.formatMessage(messages.completionDefault)}
+          options={educationStatuses.map((status) => ({
+            value: status.id,
+            label: localizeFieldNonNull(locale, status, "name"),
+          }))}
         />
         <FastField
           id="startDate"
@@ -311,6 +388,26 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
           label={intl.formatMessage(messages.endDateLabel)}
           placeholder={intl.formatMessage(messages.datePlaceholder)}
         />
+        <FastField
+          id="thesisTitle"
+          type="text"
+          name="thesisTitle"
+          component={TextInput}
+          grid="base(1of1)"
+          label={intl.formatMessage(messages.thesisLabel)}
+          placeholder={intl.formatMessage(messages.thesisPlaceholder)}
+        />
+        <div data-c-input="checkbox(group)" data-c-grid-item="base(1of1)">
+          <label>{intl.formatMessage(messages.blockcertLabel)}</label>
+          <FastField
+            id="hasBlockcert"
+            type="text"
+            name="hasBlockcert"
+            component={CheckboxInput}
+            grid="base(1of1)"
+            label={intl.formatMessage(messages.blockcertInlineLabel)}
+          />
+        </div>
       </div>
     </div>
   );
@@ -326,7 +423,7 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
     >
       <ExperienceModalHeader
         title={intl.formatMessage(messages.modalTitle)}
-        iconClass="fa-briefcase"
+        iconClass="fa-book"
       />
       <Formik
         enableReinitialize
@@ -364,4 +461,4 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
   );
 };
 
-export default WorkExperienceModal;
+export default EducationExperienceModal;
