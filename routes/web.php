@@ -504,6 +504,14 @@ Route::group(
                             ->middleware('can:update,user')
                             ->name('manager.settings.government.update');
 
+                        Route::post(
+                            'settings/{user}/contact-preferences/update',
+                            'SettingsController@updateContactPreferences'
+                        )
+                            ->middleware('can:view,user')
+                            ->middleware('can:update,user')
+                            ->name('manager.settings.contact_preferences.update');
+
                         Route::get('resources', 'ResourcesController@show')
                             ->middleware('can:view-resources')
                             ->name('manager.resources');
@@ -735,6 +743,14 @@ Route::group(
                             ->middleware('can:view,user')
                             ->middleware('can:update,user')
                             ->name('hr_advisor.settings.government.update');
+
+                        Route::post(
+                            'settings/{user}/contact-preferences/update',
+                            'SettingsController@updateContactPreferences'
+                        )
+                            ->middleware('can:view,user')
+                            ->middleware('can:update,user')
+                            ->name('hr_advisor.settings.contact_preferences.update');
 
                         Route::get('resources', 'ResourcesController@show')
                             ->middleware('can:view-resources')
