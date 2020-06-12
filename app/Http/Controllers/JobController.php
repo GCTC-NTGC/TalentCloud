@@ -84,12 +84,7 @@ class JobController extends Controller
                 $job->title = $job->getTranslation('title', $chosen_lang);
                 $job->trans_required = true;
             }
-
-            // Always preview and edit in the chosen language.
-            $job->preview_link = LaravelLocalization::getLocalizedURL($chosen_lang, route('manager.jobs.preview', $job));
-            $job->edit_link = LaravelLocalization::getLocalizedURL($chosen_lang, route('manager.jobs.edit', $job));
         }
-
 
         return view('manager/job_index', [
             // Localization Strings.
