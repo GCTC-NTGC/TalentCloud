@@ -8,6 +8,7 @@ import {
   fakeExperienceWork,
   fakeExperienceEducation,
   fakeExperienceCommunity,
+  fakeExperiencePersonal,
 } from "../../fakeData/fakeExperience";
 import {
   fakeSkill,
@@ -17,6 +18,7 @@ import {
 } from "../../fakeData/fakeSkills";
 import EducationExperienceModal from "../../components/Application/ExperienceModals/EducationExperienceModal";
 import CommunityExperienceModal from "../../components/Application/ExperienceModals/CommunityExperienceModal";
+import PersonalExperienceModal from "../../components/Application/ExperienceModals/PersonalExperienceModal";
 
 const stories = storiesOf("Application|Experience Modals", module).addDecorator(
   withIntl,
@@ -194,7 +196,7 @@ stories.add(
         />
         <div>
           <EducationExperienceModal
-            modalId="work-experience-modal"
+            modalId="education-experience-modal"
             experienceEducation={fakeExperienceEducation()}
             educationTypes={educationTypes}
             educationStatuses={educationStatuses}
@@ -261,7 +263,7 @@ stories.add(
         />
         <div>
           <EducationExperienceModal
-            modalId="work-experience-modal"
+            modalId="education-experience-modal"
             experienceEducation={null}
             educationTypes={educationTypes}
             educationStatuses={educationStatuses}
@@ -328,8 +330,73 @@ stories.add(
         />
         <div>
           <CommunityExperienceModal
-            modalId="work-experience-modal"
+            modalId="community-experience-modal"
             experienceCommunity={fakeExperienceCommunity()}
+            jobId={number("Job Id", 1, undefined, groupIds.details)}
+            requiredSkills={requiredSkills}
+            savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
+            optionalSkills={optionalSkills}
+            savedOptionalSkills={[optionalSkills[0]]}
+            experienceRequirments={{
+              educationRequirement: {
+                title: text(
+                  "Education Requirment Title",
+                  "2 Years Post-secondary",
+                  groupIds.details,
+                ),
+                description: text(
+                  "Education Requirment Description",
+                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, officiis delectus excepturi voluptate laudantium omnis nesciunt consectetur eum sapiente aliquid ipsam obcaecati expedita odio id eligendi voluptatum. Consequuntur, quibusdam voluptates.",
+                  groupIds.details,
+                ),
+              },
+              equivalentRequirment: {
+                title: text(
+                  "Equivalent Experience requirment Title",
+                  "Equivalent Experience",
+                  groupIds.details,
+                ),
+                description: text(
+                  "Equivalent Experience requirment Description",
+                  "ELorem ipsum dolor sit amet consectetur adipisicing elit. Saepe accusamus animi consequatur dolorem voluptatum earum iure doloremque, facere est asperiores, dignissimos quae architecto vero unde vitae quis excepturi! Totam, libero.",
+                  groupIds.details,
+                ),
+              },
+            }}
+            useAsEducationRequirement={boolean(
+              "Use As Education Requirment",
+              false,
+              groupIds.details,
+            )}
+            parentElement={modalParent}
+            visible={isModalVisible}
+            onModalConfirm={async (x) => {
+              await sleep(2000);
+              action("Confirmed")(x);
+            }}
+            onModalCancel={action("Cancelled")}
+          />
+        </div>
+      </div>
+    );
+  },
+);
+stories.add(
+  "Personal Experience Modal",
+  (): React.ReactElement => {
+    const isModalVisible = boolean("Visible", true, groupIds.switches);
+    const modalParent = document.querySelector("#modal-root");
+
+    return (
+      <div id="personal-modal-container">
+        <div
+          id="personal-modal-overlay"
+          data-c-dialog-overlay={isModalVisible ? "active" : ""}
+        />
+        <div>
+          <PersonalExperienceModal
+            modalId="personal-experience-modal"
+            experiencePersonal={fakeExperiencePersonal()}
             jobId={number("Job Id", 1, undefined, groupIds.details)}
             requiredSkills={requiredSkills}
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
