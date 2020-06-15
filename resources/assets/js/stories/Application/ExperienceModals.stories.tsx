@@ -9,6 +9,7 @@ import {
   fakeExperienceEducation,
   fakeExperienceCommunity,
   fakeExperiencePersonal,
+  fakeExperienceAward,
 } from "../../fakeData/fakeExperience";
 import {
   fakeSkill,
@@ -19,6 +20,7 @@ import {
 import EducationExperienceModal from "../../components/Application/ExperienceModals/EducationExperienceModal";
 import CommunityExperienceModal from "../../components/Application/ExperienceModals/CommunityExperienceModal";
 import PersonalExperienceModal from "../../components/Application/ExperienceModals/PersonalExperienceModal";
+import AwardExperienceModal from "../../components/Application/ExperienceModals/AwardExperienceModal";
 
 const stories = storiesOf("Application|Experience Modals", module).addDecorator(
   withIntl,
@@ -114,6 +116,28 @@ const educationStatuses = [
   {
     id: 5,
     name: { en: "Did Not Complete", fr: "N'a pas complété" },
+  },
+];
+
+const recipientTypes = [
+  { id: 1, name: { en: "Me", fr: "Moi" } },
+  { id: 2, name: { en: "My Team", fr: "Mon équipe" } },
+  { id: 3, name: { en: "My Project", fr: "Mon projet" } },
+  { id: 4, name: { en: "My Organization", fr: "Mon organization" } },
+];
+const recogntitionTypes = [
+  { id: 1, name: { en: "International", fr: "International" } },
+  { id: 2, name: { en: "National", fr: "National" } },
+  { id: 3, name: { en: "Provincial", fr: "Provincial" } },
+  { id: 4, name: { en: "Local", fr: "Local" } },
+  { id: 5, name: { en: "Community", fr: "Communauté" } },
+  { id: 6, name: { en: "Organizational", fr: "Organisation" } },
+  {
+    id: 7,
+    name: {
+      en: "Sub-Organizational (Branch)",
+      fr: "Sous-Organisation (Branche)",
+    },
   },
 ];
 
@@ -397,6 +421,140 @@ stories.add(
           <PersonalExperienceModal
             modalId="personal-experience-modal"
             experiencePersonal={fakeExperiencePersonal()}
+            jobId={number("Job Id", 1, undefined, groupIds.details)}
+            requiredSkills={requiredSkills}
+            savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
+            optionalSkills={optionalSkills}
+            savedOptionalSkills={[optionalSkills[0]]}
+            experienceRequirments={{
+              educationRequirement: {
+                title: text(
+                  "Education Requirment Title",
+                  "2 Years Post-secondary",
+                  groupIds.details,
+                ),
+                description: text(
+                  "Education Requirment Description",
+                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, officiis delectus excepturi voluptate laudantium omnis nesciunt consectetur eum sapiente aliquid ipsam obcaecati expedita odio id eligendi voluptatum. Consequuntur, quibusdam voluptates.",
+                  groupIds.details,
+                ),
+              },
+              equivalentRequirment: {
+                title: text(
+                  "Equivalent Experience requirment Title",
+                  "Equivalent Experience",
+                  groupIds.details,
+                ),
+                description: text(
+                  "Equivalent Experience requirment Description",
+                  "ELorem ipsum dolor sit amet consectetur adipisicing elit. Saepe accusamus animi consequatur dolorem voluptatum earum iure doloremque, facere est asperiores, dignissimos quae architecto vero unde vitae quis excepturi! Totam, libero.",
+                  groupIds.details,
+                ),
+              },
+            }}
+            useAsEducationRequirement={boolean(
+              "Use As Education Requirment",
+              false,
+              groupIds.details,
+            )}
+            parentElement={modalParent}
+            visible={isModalVisible}
+            onModalConfirm={async (x) => {
+              await sleep(2000);
+              action("Confirmed")(x);
+            }}
+            onModalCancel={action("Cancelled")}
+          />
+        </div>
+      </div>
+    );
+  },
+);
+stories.add(
+  "Award Experience Modal",
+  (): React.ReactElement => {
+    const isModalVisible = boolean("Visible", true, groupIds.switches);
+    const modalParent = document.querySelector("#modal-root");
+
+    return (
+      <div id="award-modal-container">
+        <div
+          id="award-modal-overlay"
+          data-c-dialog-overlay={isModalVisible ? "active" : ""}
+        />
+        <div>
+          <AwardExperienceModal
+            modalId="award-experience-modal"
+            experienceAward={fakeExperienceAward()}
+            recipientTypes={recipientTypes}
+            recognitionTypes={recogntitionTypes}
+            jobId={number("Job Id", 1, undefined, groupIds.details)}
+            requiredSkills={requiredSkills}
+            savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
+            optionalSkills={optionalSkills}
+            savedOptionalSkills={[optionalSkills[0]]}
+            experienceRequirments={{
+              educationRequirement: {
+                title: text(
+                  "Education Requirment Title",
+                  "2 Years Post-secondary",
+                  groupIds.details,
+                ),
+                description: text(
+                  "Education Requirment Description",
+                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, officiis delectus excepturi voluptate laudantium omnis nesciunt consectetur eum sapiente aliquid ipsam obcaecati expedita odio id eligendi voluptatum. Consequuntur, quibusdam voluptates.",
+                  groupIds.details,
+                ),
+              },
+              equivalentRequirment: {
+                title: text(
+                  "Equivalent Experience requirment Title",
+                  "Equivalent Experience",
+                  groupIds.details,
+                ),
+                description: text(
+                  "Equivalent Experience requirment Description",
+                  "ELorem ipsum dolor sit amet consectetur adipisicing elit. Saepe accusamus animi consequatur dolorem voluptatum earum iure doloremque, facere est asperiores, dignissimos quae architecto vero unde vitae quis excepturi! Totam, libero.",
+                  groupIds.details,
+                ),
+              },
+            }}
+            useAsEducationRequirement={boolean(
+              "Use As Education Requirment",
+              false,
+              groupIds.details,
+            )}
+            parentElement={modalParent}
+            visible={isModalVisible}
+            onModalConfirm={async (x) => {
+              await sleep(2000);
+              action("Confirmed")(x);
+            }}
+            onModalCancel={action("Cancelled")}
+          />
+        </div>
+      </div>
+    );
+  },
+);
+stories.add(
+  "Award Experience Modal (New)",
+  (): React.ReactElement => {
+    const isModalVisible = boolean("Visible", true, groupIds.switches);
+    const modalParent = document.querySelector("#modal-root");
+
+    return (
+      <div id="award-new-modal-container">
+        <div
+          id="award-new-modal-overlay"
+          data-c-dialog-overlay={isModalVisible ? "active" : ""}
+        />
+        <div>
+          <AwardExperienceModal
+            modalId="award-new-experience-modal"
+            experienceAward={null}
+            recipientTypes={recipientTypes}
+            recognitionTypes={recogntitionTypes}
             jobId={number("Job Id", 1, undefined, groupIds.details)}
             requiredSkills={requiredSkills}
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}

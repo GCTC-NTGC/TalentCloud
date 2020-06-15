@@ -44,7 +44,7 @@ interface EducationStatus {
   name: localizedFieldNonNull;
 }
 
-interface WorkExperienceModalProps {
+interface EducationExperienceModalProps {
   modalId: string;
   experienceEducation: ExperienceEducation | null;
   educationTypes: EducationType[];
@@ -72,7 +72,7 @@ const messages = defineMessages({
     defaultMessage:
       'Got creds? Share your degree, certificates, online courses, a trade apprenticeship, licences or alternative credentials. If you’ve learned something from a recognized educational provider, include your experiences here.  (Learned something from your community or on your own? Share this as a "Community Experience" or "Personal Experience".)',
   },
-  educationTypelabel: {
+  educationTypeLabel: {
     id: "educationExperienceModal.educationTypeLabel",
     defaultMessage: "Type of Education",
   },
@@ -81,7 +81,7 @@ const messages = defineMessages({
     defaultMessage: "Select an education type...",
     description: "Default selection in the Education Type dropdown menu.",
   },
-  areaStudylabel: {
+  areaStudyLabel: {
     id: "educationExperienceModal.areaStudyLabel",
     defaultMessage: "Area of Study",
   },
@@ -237,10 +237,14 @@ const formValuesToData = (
   return {
     experienceEducation: {
       ...originalExperience,
-      education_type_id: Number(formValues.educationTypeId) ?? 1,
+      education_type_id: formValues.educationTypeId
+        ? Number(formValues.educationTypeId)
+        : 1,
       area_of_study: formValues.areaOfStudy,
       institution: formValues.institution,
-      education_status_id: Number(formValues.educationStatusId) ?? 1,
+      education_status_id: formValues.educationStatusId
+        ? Number(formValues.educationStatusId)
+        : 1,
       thesis_title: formValues.thesisTitle ? formValues.thesisTitle : null,
       has_blockcert: formValues.hasBlockcert,
       start_date: fromInputDateString(formValues.startDate),
@@ -273,7 +277,7 @@ const newExperienceEducation = (): ExperienceEducation => ({
 });
 /* eslint-enable @typescript-eslint/camelcase */
 
-export const EducationExperienceModal: React.FC<WorkExperienceModalProps> = ({
+export const EducationExperienceModal: React.FC<EducationExperienceModalProps> = ({
   modalId,
   experienceEducation,
   educationTypes,
@@ -321,7 +325,7 @@ export const EducationExperienceModal: React.FC<WorkExperienceModalProps> = ({
         <FastField
           id="educationTypeId"
           name="educationTypeId"
-          label={intl.formatMessage(messages.educationTypelabel)}
+          label={intl.formatMessage(messages.educationTypeLabel)}
           grid="tl(1of2)"
           component={SelectInput}
           required
@@ -338,7 +342,7 @@ export const EducationExperienceModal: React.FC<WorkExperienceModalProps> = ({
           component={TextInput}
           required
           grid="tl(1of2)"
-          label={intl.formatMessage(messages.areaStudylabel)}
+          label={intl.formatMessage(messages.areaStudyLabel)}
           placeholder={intl.formatMessage(messages.areaStudyPlaceholder)}
         />
         <FastField
@@ -401,7 +405,6 @@ export const EducationExperienceModal: React.FC<WorkExperienceModalProps> = ({
           <label>{intl.formatMessage(messages.blockcertLabel)}</label>
           <FastField
             id="hasBlockcert"
-            type="text"
             name="hasBlockcert"
             component={CheckboxInput}
             grid="base(1of1)"
