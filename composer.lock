@@ -5466,16 +5466,16 @@
         },
         {
             "name": "filp/whoops",
-            "version": "2.7.2",
+            "version": "2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "17d0d3f266c8f925ebd035cd36f83cf802b47d4a"
+                "reference": "5d5fe9bb3d656b514d455645b3addc5f7ba7714d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/17d0d3f266c8f925ebd035cd36f83cf802b47d4a",
-                "reference": "17d0d3f266c8f925ebd035cd36f83cf802b47d4a",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/5d5fe9bb3d656b514d455645b3addc5f7ba7714d",
+                "reference": "5d5fe9bb3d656b514d455645b3addc5f7ba7714d",
                 "shasum": ""
             },
             "require": {
@@ -5523,7 +5523,7 @@
                 "throwable",
                 "whoops"
             ],
-            "time": "2020-05-05T12:28:07+00:00"
+            "time": "2020-06-14T09:00:00+00:00"
         },
         {
             "name": "fzaninotto/faker",
@@ -5695,12 +5695,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laracasts/Laravel-5-Generators-Extended.git",
-                "reference": "d205e09bf31f571d6dd842350383f9fa9dda57f7"
+                "reference": "63ebe766234d71831fb3d7cf9bd3c6096f5990f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laracasts/Laravel-5-Generators-Extended/zipball/d205e09bf31f571d6dd842350383f9fa9dda57f7",
-                "reference": "d205e09bf31f571d6dd842350383f9fa9dda57f7",
+                "url": "https://api.github.com/repos/laracasts/Laravel-5-Generators-Extended/zipball/63ebe766234d71831fb3d7cf9bd3c6096f5990f4",
+                "reference": "63ebe766234d71831fb3d7cf9bd3c6096f5990f4",
                 "shasum": ""
             },
             "require": {
@@ -5738,7 +5738,7 @@
                 "generators",
                 "laravel"
             ],
-            "time": "2020-04-24T08:39:21+00:00"
+            "time": "2020-06-13T05:41:12+00:00"
         },
         {
             "name": "maximebf/debugbar",
