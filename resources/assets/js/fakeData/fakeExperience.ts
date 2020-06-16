@@ -1,3 +1,5 @@
+/* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
+import dayjs from "dayjs";
 import {
   ExperienceWork,
   ExperienceEducation,
@@ -5,7 +7,6 @@ import {
   ExperienceAward,
   ExperiencePersonal,
 } from "../models/types";
-import dayjs from "dayjs";
 
 export const fakeExperienceWork = (
   overrides: Partial<ExperienceWork> = {},
@@ -72,4 +73,5 @@ export const fakeExperiencePersonal = (
   is_active: true,
   start_date: dayjs("04/01/2013").toDate(),
   end_date: null,
+  ...overrides,
 });

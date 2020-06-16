@@ -4,22 +4,29 @@ use Jenssegers\Date\Date;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Log;
 
 if (!function_exists('humanizeDate')) {
     /**
      * Computes a human readable localized date.
      *
      * @param Date $datetime DateTime object to translate.
+     * @param string $locale Locale the date should be formatted in.
      *
      * @return string
      */
-    function humanizeDate(Date $datetime) : string
+    function humanizeDate(Date $datetime, string $locale = null) : string
     {
         $dateFormat = Config::get('app.date_format');
+        if ($locale !== null) {
+            App::setLocale($locale);
+        }
         $locale = App::getLocale();
+
         $timezone = Config::get('app.local_timezone');
 
         $datetime->setTimezone(new \DateTimeZone($timezone));
+
 
         return $datetime->format($dateFormat[$locale]);
     }
@@ -97,14 +104,15 @@ if (!function_exists('humanizeLastDay')) {
      * Returns the date of the last full day a person has before a deadline time.
      *
      * @param Date $datetime DateTime object to transform to date of last day.
+     * @param string $locale Locale the date should be formatted in.
      *
      * @return string
      */
-    function humanizeLastDay(Date $datetime) : string
+    function humanizeLastDay(Date $datetime, string $locale = null) : string
     {
         $lastday = $datetime->sub('1 day');
 
-        return humanizeDate($lastday);
+        return humanizeDate($lastday, $locale);
     }
 }
 

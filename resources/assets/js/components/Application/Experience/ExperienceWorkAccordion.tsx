@@ -16,7 +16,6 @@ interface ExperienceWorkAccordionProps {
   startDate: Date;
   endDate: Date | null;
   isActive: boolean;
-
   relevantSkills: ExperienceSkill[];
   irrelevantSkillCount: number;
   isEducationJustification: boolean;
@@ -96,7 +95,9 @@ const experienceWorkDetails = ({
         {group ? <p>{group}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
-        <p data-c-font-weight="bold">{intl.formatMessage(baseExperienceMessages.startDateLabel)}</p>
+        <p data-c-font-weight="bold">
+          {intl.formatMessage(baseExperienceMessages.startDateLabel)}
+        </p>
         {startDate ? <p>{readableDate(locale, startDate)}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
@@ -104,9 +105,7 @@ const experienceWorkDetails = ({
           {intl.formatMessage(baseExperienceMessages.endDateLabel)}
         </p>
         {isActive && (
-          <p>
-            {intl.formatMessage(baseExperienceMessages.ongoing)}
-          </p>
+          <p>{intl.formatMessage(baseExperienceMessages.ongoing)}</p>
         )}
         {!isActive && endDate ? (
           <p>{readableDate(locale, endDate)}</p>

@@ -1,8 +1,8 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
-import { select, text, number, boolean, date } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
+import { select, text, number, boolean, date } from "@storybook/addon-knobs";
 import { BaseExperienceAccordion } from "../../components/Application/Experience/BaseExperienceAccordion";
 import { ExperienceWorkAccordion } from "../../components/Application/Experience/ExperienceWorkAccordion";
 import {
@@ -17,10 +17,9 @@ import ExperienceCommunityAccordion from "../../components/Application/Experienc
 import ExperienceAwardAccordion from "../../components/Application/Experience/ExperienceAwardAccordion";
 import ExperiencePersonalAccordion from "../../components/Application/Experience/ExperiencePersonalAccordion";
 
-const stories = storiesOf(
-  "Application|Experience Accordions",
-  module,
-).addDecorator(withIntl);
+const stories = storiesOf("Application|Experience Accordions", module)
+  .addDecorator(withIntl)
+  .addDecorator((storyFn) => <div data-c-container="medium">{storyFn()}</div>);
 
 const iconClassOptions = {
   education: "fa-book",
@@ -30,8 +29,12 @@ const iconClassOptions = {
   award: "fa-trophy",
 };
 
-function myDateKnob(name, defaultValue, groupId) {
-  const stringTimestamp = date(name, defaultValue, groupId);
+function myDateKnob(
+  name: string,
+  defaultValue: Date | null,
+  groupId: string,
+): Date {
+  const stringTimestamp = date(name, defaultValue || undefined, groupId);
   return new Date(stringTimestamp);
 }
 
@@ -194,6 +197,11 @@ stories.add(
             )}
             endDate={myDateKnob("End date", education.end_date, "details")}
             isActive={boolean("Is Active", education.is_active, "details")}
+            thesisTitle={text(
+              "Thesis Title",
+              education.thesis_title || "",
+              groupIds.details,
+            )}
             relevantSkills={skillClaims}
             irrelevantSkillCount={number(
               "Irrelevant Skill count",

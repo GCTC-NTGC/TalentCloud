@@ -20,7 +20,7 @@
 		<div class="box med-4of12">
 			{% if not job.isPublic() %}
 				<h3 class="heading--04 poster-title--preview">
-					<a href="{{ job.preview_link }}" title="{{ jobs_l10n.view_preview_job_poster }}">
+					<a href="{{ route('manager.jobs.summary', job) }}" title="{{ jobs_l10n.view_summary_title }}">
 						{{ job.trans_required ? jobs_l10n.trans_title_placeholder ~ ' - ' }}
 						{{ not job.title ? jobs_l10n.empty_title ~ ' - ' }}
 						{{ job.title }}
@@ -30,7 +30,7 @@
 			{% endif %}
 			{% if job.isPublic() %}
 				<h3 class="heading--04 poster-title--link">
-					<a href="{{ route('manager.jobs.preview', job) }}" title="{{ jobs_l10n.view_this_job_poster }}">
+					<a href="{{ route('manager.jobs.summary', job) }}" title="{{ jobs_l10n.view_summary_title }}">
 						{{ job.title }}
 					</a>
 				</h3>

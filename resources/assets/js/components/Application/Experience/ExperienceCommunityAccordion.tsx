@@ -16,7 +16,6 @@ interface ExperienceCommunityAccordionProps {
   startDate: Date;
   endDate: Date;
   isActive: boolean;
-
   relevantSkills: ExperienceSkill[];
   irrelevantSkillCount: number;
   isEducationJustification: boolean;
@@ -102,15 +101,6 @@ const experienceCommunityDetails = ({
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experienceCommunityAccordion.statusLabel"
-            defaultMessage="Status:"
-          />
-        </p>
-        {status ? <p>{status}</p> : notApplicable}
-      </div>
-      <div data-c-grid-item="base(1of2) tl(1of3)">
-        <p data-c-font-weight="bold">
           {intl.formatMessage(baseExperienceMessages.startDateLabel)}
         </p>
         {startDate ? <p>{readableDate(locale, startDate)}</p> : notApplicable}
@@ -136,7 +126,6 @@ export const ExperienceCommunityAccordion: React.FC<ExperienceCommunityAccordion
   startDate,
   endDate,
   isActive,
-
   relevantSkills,
   irrelevantSkillCount,
   isEducationJustification,
@@ -157,7 +146,7 @@ export const ExperienceCommunityAccordion: React.FC<ExperienceCommunityAccordion
           values={{
             title,
             group,
-            b: value => <span data-c-font-weight="bold">{value}</span>,
+            b: (value) => <span data-c-font-weight="bold">{value}</span>,
           }}
         />
       </p>
