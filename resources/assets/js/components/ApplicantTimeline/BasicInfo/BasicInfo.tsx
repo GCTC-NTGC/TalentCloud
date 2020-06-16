@@ -24,6 +24,9 @@ import textToParagraphs from "../../../helpers/textToParagraphs";
 
 interface BasicInfoProps {
   job: Job;
+  handleContinue: (values: BasicInfoFormValues) => void;
+  handleReturn: () => void;
+  handleQuit: () => void;
 }
 
 interface BasicInfoFormValues {
@@ -34,7 +37,12 @@ interface BasicInfoFormValues {
   educationRequirement: boolean;
 }
 
-export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({ job }) => {
+export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
+  job,
+  handleContinue,
+  handleReturn,
+  handleQuit,
+}) => {
   const intl = useIntl();
   const classification: string = getKeyByValue(
     ClassificationId,
@@ -84,7 +92,8 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({ job }) => {
           const basicInfoFormValues: BasicInfoFormValues = {
             ...values,
           };
-          console.log("Save and Continue", basicInfoFormValues);
+
+          handleContinue(basicInfoFormValues);
         }}
       >
         {({ errors, touched, isSubmitting, values }): React.ReactElement => (
@@ -216,9 +225,9 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({ job }) => {
                   type="button"
                   disabled={isSubmitting}
                   onClick={(): void => {
-                    console.log("Save and Return to Previous Step");
                     // Add saveAndReturn Method here
                     // Method should save the current data and return user to the previous step
+                    handleReturn();
                   }}
                 >
                   <FormattedMessage
@@ -240,7 +249,7 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({ job }) => {
                   onClick={(): void => {
                     // Add saveAndQuit Method here
                     // Method should save the current data and return user to My Applications page
-                    console.log("Save and Quit");
+                    handleQuit();
                   }}
                 >
                   <FormattedMessage
