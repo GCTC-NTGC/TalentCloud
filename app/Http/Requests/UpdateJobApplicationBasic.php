@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use App\Models\Lookup\CitizenshipDeclaration;
-use App\Models\Lookup\PreferredLanguage;
 use App\Models\Lookup\VeteranStatus;
 use App\Services\Validation\Rules\ValidIdRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -39,12 +38,6 @@ class UpdateJobApplicationBasic extends FormRequest
                 'required',
                 'numeric',
                 new ValidIdRule(VeteranStatus::class)
-            ],
-            'preferred_language_id' => [
-                'bail',
-                'required',
-                'numeric',
-                new ValidIdRule(PreferredLanguage::class)
             ],
             'language_requirement_confirmed' => 'required|boolean',
             'language_test_confirmed' => 'required|boolean',

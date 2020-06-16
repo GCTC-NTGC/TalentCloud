@@ -7,7 +7,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Applicant;
 use App\Models\JobApplication;
 use App\Models\Lookup\CitizenshipDeclaration;
-use App\Models\Lookup\PreferredLanguage;
 use App\Models\Lookup\VeteranStatus;
 
 class ApplicationControllerTest extends TestCase
@@ -48,7 +47,6 @@ class ApplicationControllerTest extends TestCase
             'application_status_id',
             'citizenship_declaration_id',
             'veteran_status_id',
-            'preferred_language_id',
             'applicant_id',
             'applicant_snapshot_id',
             'language_requirement_confirmed',
@@ -77,13 +75,11 @@ class ApplicationControllerTest extends TestCase
         ]);
 
         $citizenship = CitizenshipDeclaration::where('name', 'citizen')->value('id');
-        $preferredLanguage = PreferredLanguage::where('name', 'en')->value('id');
         $veteranStatus = VeteranStatus::where('name', 'none')->value('id');
 
         $expected = [
             'citizenship_declaration_id' => $citizenship,
             'veteran_status_id' => $veteranStatus,
-            'preferred_language_id' => $preferredLanguage,
             'language_requirement_confirmed' => true,
             'language_test_confirmed' => true,
             'education_requirement_confirmed' => true,
@@ -104,7 +100,6 @@ class ApplicationControllerTest extends TestCase
 
         $invalid = [
             'citizenship_declaration_id' => 'text',
-            'preferred_language_id' => 17,
             'language_requirement_confirmed' => 2,
             'education_requirement_confirmed' => 'text',
         ];

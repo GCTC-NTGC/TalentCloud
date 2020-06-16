@@ -22,7 +22,6 @@ class JobApplicationBasic extends JsonResource
             'application_status_id' => $this->application_status_id,
             'citizenship_declaration_id' => $this->citizenship_declaration_id,
             'veteran_status_id' => $this->veteran_status_id,
-            'preferred_language_id' => $this->preferred_language_id,
             'applicant_id' => $this->applicant_id,
             'applicant_snapshot_id' => $this->applicant_snapshot_id,
             'language_requirement_confirmed' => $this->language_requirement_confirmed,
