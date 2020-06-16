@@ -30,7 +30,7 @@ import {
   getLocale,
   matchValueToModel,
 } from "../../../helpers/localize";
-import { notEmpty, castStringToNum } from "../../../helpers/queries";
+import { notEmpty } from "../../../helpers/queries";
 import { localizedFieldNonNull } from "../../../models/app";
 import SelectInput from "../../Form/SelectInput";
 

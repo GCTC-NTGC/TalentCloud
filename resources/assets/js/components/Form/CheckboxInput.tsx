@@ -11,14 +11,12 @@ interface CheckboxInputProps
 const CheckboxInput: React.FunctionComponent<CheckboxInputProps> = ({
   id,
   label,
-  checked,
   grid,
   field: { name, value, onChange, onBlur },
   ...props
 }): React.ReactElement => {
   // Workaround for new TS error https://github.com/microsoft/TypeScript/issues/37559
   const { name: passedName, onChange: passedChange, ...otherProps } = props;
-
   return (
     <Checkbox
       id={id}
@@ -26,7 +24,7 @@ const CheckboxInput: React.FunctionComponent<CheckboxInputProps> = ({
       label={label}
       value={value}
       grid={grid}
-      checked={checked}
+      checked={value}
       onChange={onChange}
       onBlur={onBlur}
       {...otherProps}
