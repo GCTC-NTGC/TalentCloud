@@ -32,6 +32,8 @@ import {
 } from "../../../helpers/localize";
 import { notEmpty } from "../../../helpers/queries";
 import TextAreaInput from "../../Form/TextAreaInput";
+import WordCounter from "../../WordCounter/WordCounter";
+import { countNumberOfWords } from "../../WordCounter/helpers";
 
 interface PersonalExperienceModalProps {
   modalId: string;
@@ -101,6 +103,18 @@ const messages = defineMessages({
     id: "personalExperienceModal.endDateLabel",
     defaultMessage: "Select an End Date",
   },
+  underLimit: {
+    id: "personalExperienceModal.wordsUnderLimit",
+    defaultMessage: "words left",
+    description:
+      "Message displayed on word counter when user is under/matching the limit.",
+  },
+  overLimit: {
+    id: "personalExperienceModal.wordsOverLimit",
+    defaultMessage: "words over limit",
+    description:
+      "Message displayed on word counter when user passes the limit.",
+  },
 });
 
 export interface PersonalDetailsFormValues {
@@ -122,6 +136,8 @@ interface PersonalExperienceSubmitData {
   useAsEducationRequirement: boolean;
 }
 
+const DESCRIPTION_WORD_LIMIT = 100;
+
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const validationShape = (intl: IntlShape) => {
   const requiredMsg = intl.formatMessage(validationMessages.required);
@@ -132,9 +148,16 @@ export const validationShape = (intl: IntlShape) => {
   const afterStartDateMsg = intl.formatMessage(
     validationMessages.endDateAfterStart,
   );
+  const tooLong = intl.formatMessage(validationMessages.tooLong);
   return {
     title: Yup.string().required(requiredMsg),
-    description: Yup.string().required(requiredMsg),
+    description: Yup.string()
+      .required(requiredMsg)
+      .test(
+        "under-word-limit",
+        tooLong,
+        (value: string) => countNumberOfWords(value) <= DESCRIPTION_WORD_LIMIT,
+      ),
     isShareable: Yup.boolean(),
     startDate: Yup.date().required(requiredMsg).max(new Date(), inPastMsg),
     isActive: Yup.boolean(),
@@ -269,16 +292,29 @@ export const PersonalExperienceModal: React.FC<PersonalExperienceModalProps> = (
           label={intl.formatMessage(messages.titleLabel)}
           placeholder={intl.formatMessage(messages.titlePlaceholder)}
         />
-        <FastField
-          id="description"
-          type="text"
-          name="description"
-          component={TextAreaInput}
-          required
-          grid="tl(1of1)"
-          label={intl.formatMessage(messages.descriptionLabel)}
-          placeholder={intl.formatMessage(messages.descriptionPlaceholder)}
-        />
+        <div data-c-grid-item="base(1of1)">
+          <FastField
+            id="description"
+            type="text"
+            name="description"
+            component={TextAreaInput}
+            required
+            grid="tl(1of1)"
+            label={intl.formatMessage(messages.descriptionLabel)}
+            placeholder={intl.formatMessage(messages.descriptionPlaceholder)}
+          />
+          <p data-c-align="base(right)">
+            <WordCounter
+              elementId="description"
+              minWords={0}
+              maxWords={DESCRIPTION_WORD_LIMIT}
+              absoluteValue
+              beforeText="( "
+              underMaxMessage={`${intl.formatMessage(messages.underLimit)} )`}
+              overMaxMessage={`${intl.formatMessage(messages.overLimit)} )`}
+            />
+          </p>
+        </div>
         <div data-c-input="checkbox(group)" data-c-grid-item="base(1of1)">
           <label>{intl.formatMessage(messages.isShareableLabel)}</label>
           <FastField
