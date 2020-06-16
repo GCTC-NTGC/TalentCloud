@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateJobApplicationBasic;
 use App\Http\Resources\JobApplication as JobApplicationResource;
+use App\Http\Resources\JobApplicationBasic as JobApplicationBasicResource;
 use App\Models\ApplicationReview;
 use App\Models\JobApplication;
 use App\Models\JobPoster;
@@ -16,6 +18,41 @@ use Illuminate\Validation\Rule;
 
 class ApplicationController extends Controller
 {
+    /**
+     * Retrieve Application properties, not including relationships.
+     *
+     * @param JobApplication $application Incoming Job Application object.
+     *
+     * @return mixed
+     */
+    public function getBasic(JobApplication $application)
+    {
+        return new JobApplicationBasicResource($application);
+    }
+
+    /**
+     * Update Application properties, not including relationships.
+     *
+     * @param UpdateJobApplicationBasic $request     Form Validation casted request object.
+     * @param JobApplication            $application Incoming Job Application object.
+     *
+     * @return mixed
+     */
+    public function updateBasic(UpdateJobApplicationBasic $request, JobApplication $application)
+    {
+        $request->validated();
+        $application->fill([
+            'citizenship_declaration_id' => $request->input('citizenship_declaration_id'),
+            'veteran_status_id' => $request->input('veteran_status_id'),
+            'language_requirement_confirmed' => $request->input('language_requirement_confirmed', false),
+            'language_test_confirmed' => $request->input('language_test_confirmed', false),
+            'education_requirement_confirmed' => $request->input('education_requirement_confirmed', false),
+        ]);
+        $application->save();
+
+        return new JobApplicationBasicResource($application);
+    }
+
     /**
      * Return a single Job Application.
      *
@@ -87,8 +124,7 @@ class ApplicationController extends Controller
         ]);
         $review->save();
 
-        if (
-            $application->job_poster->department_id === $strategicResponseDepartmentId
+        if ($application->job_poster->department_id === $strategicResponseDepartmentId
             && in_array($review->review_status_id, $availabilityStatuses->toArray())
         ) {
             $this->setAvailability($application);

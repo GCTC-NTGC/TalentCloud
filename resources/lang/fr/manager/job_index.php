@@ -34,7 +34,7 @@ return [
     'edit_screening_plans' => 'Modifier le plan d\'évaluation',
     'send_for_review' => 'Envoyer à des fins de révision',
     'send_this_review' => 'Envoyez cette affiche pour révision.',
-    'view_job_summary' => 'Voir le sommaire de l\'emploi',
+    'view_job_summary' => 'Voir l\'emploi et les outils',
     'view_summary_title' => 'Voir le sommaire de cette affiche d\'emploi.',
     'review_applicants' => 'Réviser les candidats',
     'review_this_applicants' => 'Révisez les candidats qui ont postulé à cet emploi.',
