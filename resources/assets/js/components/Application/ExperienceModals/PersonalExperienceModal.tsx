@@ -103,18 +103,6 @@ const messages = defineMessages({
     id: "personalExperienceModal.endDateLabel",
     defaultMessage: "Select an End Date",
   },
-  underLimit: {
-    id: "personalExperienceModal.wordsUnderLimit",
-    defaultMessage: "words left",
-    description:
-      "Message displayed on word counter when user is under/matching the limit.",
-  },
-  overLimit: {
-    id: "personalExperienceModal.wordsOverLimit",
-    defaultMessage: "words over limit",
-    description:
-      "Message displayed on word counter when user passes the limit.",
-  },
 });
 
 export interface PersonalDetailsFormValues {
@@ -292,29 +280,17 @@ export const PersonalExperienceModal: React.FC<PersonalExperienceModalProps> = (
           label={intl.formatMessage(messages.titleLabel)}
           placeholder={intl.formatMessage(messages.titlePlaceholder)}
         />
-        <div data-c-grid-item="base(1of1)">
-          <FastField
-            id="description"
-            type="text"
-            name="description"
-            component={TextAreaInput}
-            required
-            grid="tl(1of1)"
-            label={intl.formatMessage(messages.descriptionLabel)}
-            placeholder={intl.formatMessage(messages.descriptionPlaceholder)}
-          />
-          <p data-c-align="base(right)">
-            <WordCounter
-              elementId="description"
-              minWords={0}
-              maxWords={DESCRIPTION_WORD_LIMIT}
-              absoluteValue
-              beforeText="( "
-              underMaxMessage={`${intl.formatMessage(messages.underLimit)} )`}
-              overMaxMessage={`${intl.formatMessage(messages.overLimit)} )`}
-            />
-          </p>
-        </div>
+        <FastField
+          id="description"
+          type="text"
+          name="description"
+          component={TextAreaInput}
+          required
+          grid="tl(1of1)"
+          label={intl.formatMessage(messages.descriptionLabel)}
+          placeholder={intl.formatMessage(messages.descriptionPlaceholder)}
+          wordLimit={DESCRIPTION_WORD_LIMIT}
+        />
         <div data-c-input="checkbox(group)" data-c-grid-item="base(1of1)">
           <label>{intl.formatMessage(messages.isShareableLabel)}</label>
           <FastField
