@@ -37,6 +37,18 @@ const stepNames = defineMessages({
   },
 });
 
+export const ProgressBarStepId = {
+  welcome: 1,
+  basicInfo: 2,
+  experienceTutorial: 3,
+  experience: 4,
+  skillsTutorial: 5,
+  skills: 6,
+  myFit: 7,
+  review: 8,
+  finalSubmission: 9,
+};
+
 // Returns the list item element that corresponds to the steps status.
 const createStep = (
   link: Link,
@@ -71,7 +83,7 @@ const createStep = (
   }
   if (isCurrent) {
     return (
-      <li key={link.title}>
+      <li key={link.title} title={link.title}>
         <span data-c-visibility="invisible">
           <FormattedMessage
             id="applicationTimeline.progressbar.currentStepLabel"
@@ -164,15 +176,17 @@ const ProgressBar: React.FunctionComponent<ProgressBarProps> = ({
 
   // There are nine steps throughout the timeline, some steps using the same title (informational steps). This maps the step number to its corresponding title.
   const getStepName = {
-    1: intl.formatMessage(stepNames.welcome),
-    2: intl.formatMessage(stepNames.step01),
-    3: intl.formatMessage(stepNames.step02),
-    4: intl.formatMessage(stepNames.step02),
-    5: intl.formatMessage(stepNames.step03),
-    6: intl.formatMessage(stepNames.step03),
-    7: intl.formatMessage(stepNames.step04),
-    8: intl.formatMessage(stepNames.step05),
-    9: intl.formatMessage(stepNames.step06),
+    [ProgressBarStepId.welcome]: intl.formatMessage(stepNames.welcome),
+    [ProgressBarStepId.basicInfo]: intl.formatMessage(stepNames.step01),
+    [ProgressBarStepId.experienceTutorial]: intl.formatMessage(
+      stepNames.step02,
+    ),
+    [ProgressBarStepId.experience]: intl.formatMessage(stepNames.step02),
+    [ProgressBarStepId.skillsTutorial]: intl.formatMessage(stepNames.step03),
+    [ProgressBarStepId.skills]: intl.formatMessage(stepNames.step03),
+    [ProgressBarStepId.myFit]: intl.formatMessage(stepNames.step04),
+    [ProgressBarStepId.review]: intl.formatMessage(stepNames.step05),
+    [ProgressBarStepId.finalSubmission]: intl.formatMessage(stepNames.step06),
   };
 
   const icons: {

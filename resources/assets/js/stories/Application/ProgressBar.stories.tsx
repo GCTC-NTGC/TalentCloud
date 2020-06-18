@@ -1,19 +1,16 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
-import { number, object, text } from "@storybook/addon-knobs";
 import ProgressBar, {
   ProgressBarStepStatus,
+  ProgressBarStepId,
 } from "../../components/Application/ProgressBar/ProgressBar";
 import { Link } from "../../models/app";
 
 const steps: { link: Link; status: ProgressBarStepStatus }[] = [
-  {
-    link: { url: "/", text: "Step 1", title: text("step 1", "Step 1") },
-    status: "default",
-  },
-  { link: { url: "/", text: "Step 2", title: "Step 2" }, status: "default" },
-  { link: { url: "/", text: "Step 3", title: "Step 3" }, status: "default" },
+  { link: { url: "/", text: "Step 1", title: "Step 1" }, status: "complete" },
+  { link: { url: "/", text: "Step 2", title: "Step 2" }, status: "error" },
+  { link: { url: "/", text: "Step 3", title: "Step 3" }, status: "current" },
   { link: { url: "/", text: "Step 4", title: "Step 4" }, status: "default" },
   { link: { url: "/", text: "Step 5", title: "Step 5" }, status: "default" },
   { link: { url: "/", text: "Step 6", title: "Step 6" }, status: "default" },
@@ -27,11 +24,11 @@ const stories = storiesOf("Application|Progress Bar", module).addDecorator(
 );
 
 stories.add(
-  "Tracker",
+  "Progress Bar",
   (): React.ReactElement => (
     <ProgressBar
       closeDateTime={twoWeeksFromNow}
-      stepNumber={number("Step Number", 1)}
+      stepNumber={ProgressBarStepId.skillsTutorial}
       steps={steps}
     />
   ),
