@@ -127,6 +127,7 @@ export const ClassificationId = {
   PE: 11,
   PM: 12,
   AD: 13,
+  EN: 14,
 };
 
 export const CommentTypeId = {

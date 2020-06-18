@@ -3911,6 +3911,11 @@
         "id": "jobBuilder.details.classificationOptions.AD"
       },
       {
+        "defaultMessage": "EN-ENG - Engineering",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.EN"
+      },
+      {
         "defaultMessage": "Job Poster Builder",
         "description": "Location where the activity is located.",
         "id": "activityfeed.locations.review"
