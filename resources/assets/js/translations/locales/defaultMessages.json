@@ -1329,7 +1329,7 @@
       {
         "defaultMessage": "Post-secondary degree:\nSuccessful completion of post-secondary degree in mechanical engineering, civil engineering, electrical engineering, aeronautical engineering, geological engineering, naval architecture or some other engineering specialty relevant to the duties of the position.",
         "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.EN"
+        "id": "jobBuilder.details.educationMessages.EN-ENG"
       }
     ],
     "path": "resources/assets/js/components/JobBuilder/Details/JobDetailsMessages.json"
@@ -3918,7 +3918,7 @@
       {
         "defaultMessage": "EN-ENG - Engineering",
         "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.EN"
+        "id": "jobBuilder.details.classificationOptions.EN-ENG"
       },
       {
         "defaultMessage": "Job Poster Builder",
