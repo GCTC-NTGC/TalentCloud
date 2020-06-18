@@ -87,6 +87,305 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "{startDate} - Current",
+        "description": "Shows the date range for the title bar (assuming activity is ongoing).",
+        "id": "experiencePersonalAccordion.startDateToCurrent"
+      },
+      {
+        "defaultMessage": "{startDate} - {endDate}",
+        "description": "Shows the date range for the title bar (assuming activity has an end date).",
+        "id": "experiencePersonalAccordion.startDateToEndDate"
+      },
+      {
+        "defaultMessage": "N/A",
+        "description": "Used for any un-set fields in experience accordions.",
+        "id": "baseExperienceAccordion.notApplicable"
+      },
+      {
+        "defaultMessage": "Type of Experience:",
+        "id": "baseExperienceAccordion.experienceTypeLabel"
+      },
+      {
+        "defaultMessage": "Start Date:",
+        "id": "baseExperienceAccordion.startDateLabel"
+      },
+      {
+        "defaultMessage": "End Date:",
+        "id": "baseExperienceAccordion.endDateLabel"
+      },
+      {
+        "defaultMessage": "Ongoing",
+        "id": "baseExperienceAccordion.ongoing"
+      },
+      {
+        "defaultMessage": "{skillCount, plural, =0 {No related skills} one {# related skill} other {# related skills}} {isEducationJustification, select, true {/ Education Requirement} false {}}",
+        "description": "Displays the number of required skills this relates to, and whether it's used to meed education requirements.",
+        "id": "baseExperienceAccordion.skillCount"
+      },
+      {
+        "defaultMessage": "Click to view.",
+        "description": "Instructions for interacting with accordion, for accessibility devices.",
+        "id": "baseExperienceAccordion.clickToView"
+      },
+      {
+        "defaultMessage": "Details of this Experience",
+        "description": "Subtitle of the details section.",
+        "id": "baseExperienceAccordion.detailsTitle"
+      },
+      {
+        "defaultMessage": "Skills for this Job",
+        "description": "Subtitle of the skills section.",
+        "id": "baseExperienceAccordion.skillsTitle"
+      },
+      {
+        "defaultMessage": "There {skillCount, plural, one {is <b>#</b> other unrelated skill} other {are <b>#</b> other unrelated skills}} attached to this experience. You can see {skillCount, plural, one {it} other {them}} on your profile.",
+        "description": "Say how many skills unrelated to this job are associated with this experience.",
+        "id": "baseExperienceAccordion.irrelevantSkillCount"
+      },
+      {
+        "defaultMessage": "You don't have any skills attached to this experience.",
+        "description": "Message to show if experience has no associated skills at all.",
+        "id": "baseExperienceAccordion.noSkills"
+      },
+      {
+        "defaultMessage": "Education Requirement",
+        "id": "baseExperienceAccordion.educationRequirement"
+      },
+      {
+        "defaultMessage": "You've selected this experience as an indicator of how you meet the education requirements for this job.",
+        "description": "Explanation of what it means that this experience meets an education requirement.",
+        "id": "baseExperienceAccordion.educationRequirmentDescription"
+      },
+      {
+        "defaultMessage": "Delete Experience",
+        "id": "baseExperienceAccordion.deleteButton"
+      },
+      {
+        "defaultMessage": "Edit Experience",
+        "id": "baseExperienceAccordion.editButton"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/Experience/BaseExperienceAccordion.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Award Experience",
+        "id": "experienceAwardAccordion.experienceTypeTitle"
+      },
+      {
+        "defaultMessage": "Award Title:",
+        "id": "experienceAwardAccordion.awardTitleLabel"
+      },
+      {
+        "defaultMessage": "Awarded to:",
+        "id": "experienceAwardAccordion.recipientLabel"
+      },
+      {
+        "defaultMessage": "Issuing Organization / Institution:",
+        "id": "experienceAwardAccordion.issuerLabel"
+      },
+      {
+        "defaultMessage": "Award Eligibility / Scope:",
+        "id": "experienceAwardAccordion.scopeLabel"
+      },
+      {
+        "defaultMessage": "Date Awarded:",
+        "id": "experienceAwardAccordion.awardedDateLabel"
+      },
+      {
+        "defaultMessage": "Link to award Date:",
+        "id": "experienceAwardAccordion.linkLabel"
+      },
+      {
+        "defaultMessage": "<b>{title}</b> - {institution}",
+        "description": "Title of Award Experience accordion (this is the visible text when accordion is closed).",
+        "id": "experienceAwardAccordion.title"
+      },
+      {
+        "defaultMessage": "Awarded on: {date}",
+        "description": "Shows the awarded date in the accordion title bar.",
+        "id": "experienceAwardAccordion.titleDate"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/Experience/ExperienceAwardAccordion.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Community Experience",
+        "id": "experienceCommunityAccordion.experienceTypeTitle"
+      },
+      {
+        "defaultMessage": "Role / Job Title:",
+        "id": "experienceCommunityAccordion.roleLabel"
+      },
+      {
+        "defaultMessage": "Group / Organization / Community:",
+        "id": "experienceCommunityAccordion.organizationLabel"
+      },
+      {
+        "defaultMessage": "Project / Product:",
+        "id": "experienceCommunityAccordion.projectLabel"
+      },
+      {
+        "defaultMessage": "<b>{title}</b> - {group}",
+        "description": "Title of Community Experience accordion (this is the visible text when accordion is closed).",
+        "id": "experienceCommunityAccordion.title"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/Experience/ExperienceCommunityAccordion.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Education Experience",
+        "id": "experienceEducationAccordion.experienceTypeTitle"
+      },
+      {
+        "defaultMessage": "Type of Education:",
+        "id": "experienceEducationAccordion.educationTypeLabel"
+      },
+      {
+        "defaultMessage": "Area of Study:",
+        "id": "experienceEducationAccordion.areaOfStudyLabel"
+      },
+      {
+        "defaultMessage": "Institution:",
+        "id": "experienceEducationAccordion.institutionLabel"
+      },
+      {
+        "defaultMessage": "Status:",
+        "id": "experienceEducationAccordion.statusLabel"
+      },
+      {
+        "defaultMessage": "Start Date:",
+        "id": "experienceEducationAccordion.startDate"
+      },
+      {
+        "defaultMessage": "End Date:",
+        "id": "experienceEducationAccordion.endDate"
+      },
+      {
+        "defaultMessage": "Thesis Title:",
+        "id": "experienceEducationAccordion.thesisLabel"
+      },
+      {
+        "defaultMessage": "<b>{educationType} in {areaOfStudy}</b> - {institution}",
+        "description": "Title of education accordion (this is the visible text when accordion is closed).",
+        "id": "experienceEducationAccordion.title"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/Experience/ExperienceEducationAccordion.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Personal Experience",
+        "id": "experiencePersonalAccordion.experienceTypeTitle"
+      },
+      {
+        "defaultMessage": "Title of Experience:",
+        "id": "experiencePersonalAccordion.titleLabel"
+      },
+      {
+        "defaultMessage": "Description:",
+        "id": "experiencePersonalAccordion.descriptionLabel"
+      },
+      {
+        "defaultMessage": "Consent to Share:",
+        "id": "experiencePersonalAccordion.shareableLabel"
+      },
+      {
+        "defaultMessage": "Sharing Approved",
+        "description": "Text shown when user has consented to share this experience.",
+        "id": "experiencePersonalAccordion.isShareable"
+      },
+      {
+        "defaultMessage": "Sharing Restricted",
+        "description": "Text shown when user has NOT consented to share this experience.",
+        "id": "experiencePersonalAccordion.isNotShareable"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/Experience/ExperiencePersonalAccordion.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Work Experience",
+        "id": "experienceWorkAccordion.experienceTypeTitle"
+      },
+      {
+        "defaultMessage": "Role / Job Title:",
+        "id": "experienceWorkAccordion.roleLabel"
+      },
+      {
+        "defaultMessage": "Organization / Company:",
+        "id": "experienceWorkAccordion.organizationLabel"
+      },
+      {
+        "defaultMessage": "Team / Group:",
+        "id": "experienceWorkAccordion.teamLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/Experience/ExperienceWorkAccordion.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Welcome",
+        "id": "applicationTimeline.progressBar.welcome"
+      },
+      {
+        "defaultMessage": "Step 1/6",
+        "id": "applicationTimeline.progressBar.step01"
+      },
+      {
+        "defaultMessage": "Step 2/6",
+        "id": "applicationTimeline.progressBar.step02"
+      },
+      {
+        "defaultMessage": "Step 3/6",
+        "id": "applicationTimeline.progressBar.step03"
+      },
+      {
+        "defaultMessage": "Step 4/6",
+        "id": "applicationTimeline.progressBar.step04"
+      },
+      {
+        "defaultMessage": "Step 5/6",
+        "id": "applicationTimeline.progressBar.step05"
+      },
+      {
+        "defaultMessage": "Step 6/6",
+        "id": "applicationTimeline.progressBar.step06"
+      },
+      {
+        "defaultMessage": "Completed: ",
+        "description": "Visually hidden text used to indicate the completed steps.",
+        "id": "applicationTimeline.progressbar.completedStepLabel"
+      },
+      {
+        "defaultMessage": "Current: ",
+        "description": "Visually hidden text used to indicate the current steps.",
+        "id": "applicationTimeline.progressbar.currentStepLabel"
+      },
+      {
+        "defaultMessage": "Error: ",
+        "description": "Visually hidden text used to indicate the steps with errors.",
+        "id": "applicationTimeline.progressbar.errorStepLabel"
+      },
+      {
+        "defaultMessage": "Application Deadline: {timeLeft}",
+        "description": "Label for the application deadline",
+        "id": "applicationTimeline.progressbar.applicationDeadline"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/ProgressBar/ProgressBar.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Toggle this step to view relevant applicants.",
         "description": "Instructions to reveal hidden list data.",
         "id": "button.toggleAccordion"
@@ -3345,6 +3644,10 @@
       {
         "defaultMessage": "Cancel",
         "id": "referenceEmailModal.cancel"
+      },
+      {
+        "defaultMessage": "No Delivery Address",
+        "id": "referenceEmailModal.noDeliveryAddress"
       },
       {
         "defaultMessage": "Send Email",
