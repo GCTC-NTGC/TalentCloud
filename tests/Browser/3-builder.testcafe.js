@@ -266,6 +266,6 @@ test("Job Poster Builder - New Job", async (t) => {
     // Taken back to the Job index page
     .expect(Selector("h1").withText("My Job Posters").visible)
     .ok()
-    .expect(Selector("a").withText("Product Designer (Preview)").visible)
+    .expect(Selector("a").withText("Product Designer").visible)
     .ok();
 });
