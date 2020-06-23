@@ -2,7 +2,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { withIntl } from "storybook-addon-intl";
-import ApplicationIntro from "../../components/Application/Intro/ApplicationIntro";
+import ApplicationIntro from "../../components/Application/Intro/Intro";
 
 const stories = storiesOf("Application|Intro", module).addDecorator(withIntl);
 
