@@ -199,8 +199,8 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
                 intl.formatMessage(educationMessages[classification]),
                 {},
                 {
-                  "0": { "data-c-font-weight": "bold" },
-                  "5": { "data-c-font-weight": "bold" },
+                  0: { "data-c-font-weight": "bold" },
+                  5: { "data-c-font-weight": "bold" },
                 },
               )}
             </div>

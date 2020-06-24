@@ -580,8 +580,8 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                             ),
                             {},
                             {
-                              "0": { "data-c-font-weight": "bold" },
-                              "5": { "data-c-font-weight": "bold" },
+                              0: { "data-c-font-weight": "bold" },
+                              5: { "data-c-font-weight": "bold" },
                             },
                           )}
                         />
