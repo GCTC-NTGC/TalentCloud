@@ -31,6 +31,9 @@ export type Application = {
   submission_signature: string;
   submission_date: string;
   experience_saved: boolean;
+  language_requirement_confirmed: boolean;
+  language_test_confirmed: boolean;
+  education_requirement_confirmed: boolean;
   created_at: Date;
   updated_at: Date;
   veteran_status: VeteranStatus;
@@ -271,7 +274,13 @@ export interface JobPosterStatus {
   description: localizedFieldNonNull;
 }
 
-export interface ExperienceWork {
+interface ExperienceBase {
+  experienceable_id: number;
+  experienceable_type: "applicant" | "application";
+  is_education_requirement: boolean;
+}
+
+export interface ExperienceWork extends ExperienceBase {
   id: number;
   title: string;
   organization: string;
@@ -281,20 +290,20 @@ export interface ExperienceWork {
   end_date: Date | null;
 }
 
-export interface ExperienceEducation {
+export interface ExperienceEducation extends ExperienceBase {
   id: number;
   education_type_id: number;
   area_of_study: string;
   institution: string;
   education_status_id: number;
   is_active: boolean;
+  thesis_title: string;
+  has_blockcert: boolean;
   start_date: Date;
   end_date: Date | null;
-  thesis_title: string | null;
-  has_blockcert: boolean;
 }
 
-export interface ExperienceCommunity {
+export interface ExperienceCommunity extends ExperienceBase {
   id: number;
   title: string;
   group: string;
@@ -304,7 +313,7 @@ export interface ExperienceCommunity {
   end_date: Date | null;
 }
 
-export interface ExperienceAward {
+export interface ExperienceAward extends ExperienceBase {
   id: number;
   title: string;
   award_recipient_type_id: number;
@@ -313,7 +322,7 @@ export interface ExperienceAward {
   awarded_date: Date;
 }
 
-export interface ExperiencePersonal {
+export interface ExperiencePersonal extends ExperienceBase {
   id: number;
   title: string;
   description: string;
@@ -322,6 +331,13 @@ export interface ExperiencePersonal {
   start_date: Date;
   end_date: Date | null;
 }
+
+export type Experience =
+  | (ExperienceWork & { type: "work" })
+  | (ExperienceEducation & { type: "education" })
+  | (ExperienceCommunity & { type: "community" })
+  | (ExperienceAward & { type: "award" })
+  | (ExperiencePersonal & { type: "personal" });
 
 export interface EmailAddress {
   name: string;

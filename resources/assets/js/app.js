@@ -127,10 +127,10 @@
           accordions.each(function() {
             $(this).attr("aria-expanded", "false");
             $(this)
-              .parent(".accordion")
+              .parent(".clone-accordion")
               .removeClass("active");
             $(this)
-              .parent(".accordion")
+              .parent(".clone-accordion")
               .find(".accordion-content")
               .attr("aria-hidden", "true");
           });
@@ -142,10 +142,10 @@
           accordions.each(function() {
             $(this).attr("aria-expanded", "true");
             $(this)
-              .parent(".accordion")
+              .parent(".clone-accordion")
               .addClass("active");
             $(this)
-              .parent(".accordion")
+              .parent(".clone-accordion")
               .find(".accordion-content")
               .attr("aria-hidden", "false");
           });

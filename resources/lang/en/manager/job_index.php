@@ -18,7 +18,6 @@ return [
     'create_job_poster' => 'Create a new job poster.',
     'active_posters' => 'My Active Posters',
     'no_active_posters' => "You don't currently have any active posters! Create a new one using the button above.",
-    'preview' => '(Preview)',
     'empty_title' => 'Title Missing',
     'trans_title_placeholder' => 'Translation Required',
     'created_on' => 'Created On:',

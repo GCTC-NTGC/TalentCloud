@@ -1,4 +1,6 @@
 import React from "react";
+import { FormattedMessage } from "react-intl";
+import { inputMessages } from "./Form/Messages";
 
 export interface CheckboxProps {
   /** HTML id of the input element */
@@ -13,6 +15,12 @@ export interface CheckboxProps {
   checked?: boolean;
   /** The value of the input */
   value?: string | number | string[];
+  /** boolean indicating if input must have a value, or not */
+  required?: boolean;
+  /** Error text that appers underneath if error occurs (eg. required) */
+  errorText?: string;
+  /** Boolean that sets the select input to invalid */
+  invalid?: boolean | null;
   /** Event listener which fires when a change event occurs (varies on input type) */
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   /** Event listener which fires when an input loses focus */
@@ -26,22 +34,37 @@ const Checkbox: React.FunctionComponent<CheckboxProps> = ({
   grid,
   checked,
   value,
+  required,
+  errorText,
+  invalid,
   onBlur,
   onChange,
 }): React.ReactElement => (
-  <div data-c-grid-item={grid}>
-    <label>
-      <input
-        id={id}
-        name={name}
-        type="checkbox"
-        checked={checked}
-        value={value}
-        onChange={onChange}
-        onBlur={onBlur}
-      />
-      <span>{label}</span>
-    </label>
+  <div
+    data-c-input="checkbox(single)"
+    data-c-grid-item={grid}
+    data-c-required={required || null}
+    data-c-invalid={invalid || null}
+  >
+    <span>
+      <FormattedMessage {...inputMessages.required} />
+    </span>
+    <div>
+      <label htmlFor={id}>
+        <input
+          id={id}
+          name={name}
+          type="checkbox"
+          checked={checked}
+          value={value}
+          onChange={onChange}
+          onBlur={onBlur}
+          required={required}
+        />
+        <span>{label}</span>
+      </label>
+    </div>
+    <span>{errorText || <FormattedMessage {...inputMessages.error} />}</span>
   </div>
 );
 

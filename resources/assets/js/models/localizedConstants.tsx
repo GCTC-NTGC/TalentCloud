@@ -809,6 +809,11 @@ export const classificationCodes = defineMessages({
     defaultMessage: "AD - Administrative Services",
     description: "Job Classification from list of Classifications",
   },
+  [ClassificationId["EN-ENG"]]: {
+    id: "jobBuilder.details.classificationOptions.EN-ENG",
+    defaultMessage: "EN-ENG - Engineering",
+    description: "Job Classification from list of Classifications",
+  },
 });
 
 export const classificationCodeOption = (
