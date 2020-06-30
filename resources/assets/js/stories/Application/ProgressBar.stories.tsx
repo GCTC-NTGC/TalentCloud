@@ -1,6 +1,7 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
+import { date } from "@storybook/addon-knobs";
 import ProgressBar, {
   ProgressBarStepStatus,
   ProgressBarStepId,
@@ -23,11 +24,15 @@ const stories = storiesOf("Application|Progress Bar", module).addDecorator(
   withIntl,
 );
 
+function myDateKnob(name, defaultValue) {
+  const stringTimestamp = date(name, defaultValue);
+  return new Date(stringTimestamp);
+}
 stories.add(
   "Progress Bar",
   (): React.ReactElement => (
     <ProgressBar
-      closeDateTime={twoWeeksFromNow}
+      closeDateTime={myDateKnob("Application Deadline", twoWeeksFromNow)}
       stepNumber={ProgressBarStepId.skillsTutorial}
       steps={steps}
     />
