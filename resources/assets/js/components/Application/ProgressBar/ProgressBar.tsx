@@ -5,6 +5,8 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import utc from "dayjs/plugin/utc";
 import { Link } from "../../../models/app";
 import { getLocale } from "../../../helpers/localize";
+import { navigate } from "../../../helpers/router";
+import { relativeTimeConfig } from "../../../helpers/dates";
 
 const stepNames = defineMessages({
   welcome: {
@@ -71,7 +73,14 @@ const createStep = (
             description="Visually hidden text used to indicate the completed steps."
           />
         </span>
-        <a href={link.url} title={link.title}>
+        <a
+          href={link.url}
+          title={link.title}
+          onClick={(e) => {
+            e.preventDefault();
+            navigate(link.url);
+          }}
+        >
           <span data-c-visibility="invisible">{link.text}</span>
           <i
             className={icons[status].className}
@@ -153,25 +162,7 @@ const ProgressBar: React.FunctionComponent<ProgressBarProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl.locale);
 
-  // dayjs() relativeTime API plugin configuration https://day.js.org/docs/en/display/from-now.
-  const config = {
-    thresholds: [
-      { l: "s", r: 1 },
-      { l: "ss", r: 59, d: "second" },
-      { l: "m", r: 1 },
-      { l: "mm", r: 59, d: "minute" },
-      { l: "h", r: 1 },
-      { l: "hh", r: 23, d: "hour" },
-      { l: "d", r: 1 },
-      { l: "dd", r: 29, d: "day" },
-      { l: "M", r: 1 },
-      { l: "MM", r: 11, d: "month" },
-      { l: "y" },
-      { l: "yy", d: "year" },
-    ],
-    rounding: Math.floor,
-  };
-  dayjs.extend(relativeTime, config);
+  dayjs.extend(relativeTime, relativeTimeConfig());
   dayjs.extend(utc);
 
   // There are nine steps throughout the timeline, some steps using the same title (informational steps). This maps the step number to its corresponding title.
