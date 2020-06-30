@@ -192,7 +192,7 @@ export type DeleteExperienceAction = AsyncFsaActions<
   typeof DELETE_EXPERIENCE_STARTED,
   typeof DELETE_EXPERIENCE_SUCCEEDED,
   typeof DELETE_EXPERIENCE_FAILED,
-  Experience,
+  {},
   { id: number; type: Experience["type"] }
 >;
 

@@ -253,7 +253,8 @@ function setExperience<T extends keyof EntityState>(
 ): EntityState[T] {
   const subState = state[type];
   if (
-    action.type !== CREATE_EXPERIENCE_SUCCEEDED ||
+    (action.type !== CREATE_EXPERIENCE_SUCCEEDED &&
+      action.type !== UPDATE_EXPERIENCE_SUCCEEDED) ||
     action.meta.type !== type
   ) {
     return subState;
@@ -264,7 +265,10 @@ function setExperience<T extends keyof EntityState>(
     experience.experienceable_type === "applicant"
       ? {
           ...subState.idsByApplicant,
-          [ownerId]: uniq([...subState.idsByApplicant[ownerId], experience.id]),
+          [ownerId]: uniq([
+            ...(subState.idsByApplicant[ownerId] ?? []),
+            experience.id,
+          ]),
         }
       : subState.idsByApplicant;
   const idsByApplication =
@@ -272,7 +276,7 @@ function setExperience<T extends keyof EntityState>(
       ? {
           ...subState.idsByApplication,
           [ownerId]: uniq([
-            ...subState.idsByApplication[ownerId],
+            ...(subState.idsByApplication[ownerId] ?? []),
             experience.id,
           ]),
         }
