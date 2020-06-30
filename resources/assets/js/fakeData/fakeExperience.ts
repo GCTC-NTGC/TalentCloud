@@ -6,11 +6,12 @@ import {
   ExperienceCommunity,
   ExperienceAward,
   ExperiencePersonal,
+  Experience,
 } from "../models/types";
 
 export const fakeExperienceWork = (
   overrides: Partial<ExperienceWork> = {},
-): ExperienceWork => ({
+): ExperienceWork & Experience => ({
   id: 1,
   title: "Applied Researched",
   organization: "ACME Labs.",
@@ -21,12 +22,13 @@ export const fakeExperienceWork = (
   experienceable_id: 1,
   experienceable_type: "applicant",
   is_education_requirement: false,
+  type: "work",
   ...overrides,
 });
 
 export const fakeExperienceEducation = (
   overrides: Partial<ExperienceEducation> = {},
-): ExperienceEducation => ({
+): ExperienceEducation & Experience => ({
   id: 1,
   education_type_id: 1,
   area_of_study: "Engineering",
@@ -40,12 +42,13 @@ export const fakeExperienceEducation = (
   experienceable_id: 1,
   experienceable_type: "applicant",
   is_education_requirement: false,
+  type: "education",
   ...overrides,
 });
 
 export const fakeExperienceCommunity = (
   overrides: Partial<ExperienceCommunity> = {},
-): ExperienceCommunity => ({
+): ExperienceCommunity & Experience => ({
   id: 1,
   title: "Volunteer",
   group: "SPCA Ottawa",
@@ -56,12 +59,13 @@ export const fakeExperienceCommunity = (
   experienceable_id: 1,
   experienceable_type: "applicant",
   is_education_requirement: false,
+  type: "community",
   ...overrides,
 });
 
 export const fakeExperienceAward = (
   overrides: Partial<ExperienceAward> = {},
-): ExperienceAward => ({
+): ExperienceAward & Experience => ({
   id: 1,
   title: "Governor General's Award (Gold)",
   award_recipient_type_id: 1,
@@ -71,12 +75,13 @@ export const fakeExperienceAward = (
   experienceable_id: 1,
   experienceable_type: "applicant",
   is_education_requirement: false,
+  type: "award",
   ...overrides,
 });
 
 export const fakeExperiencePersonal = (
   overrides: Partial<ExperiencePersonal> = {},
-): ExperiencePersonal => ({
+): ExperiencePersonal & Experience => ({
   id: 1,
   title: "Parenting",
   description:
@@ -88,5 +93,6 @@ export const fakeExperiencePersonal = (
   experienceable_id: 1,
   experienceable_type: "applicant",
   is_education_requirement: false,
+  type: "personal",
   ...overrides,
 });

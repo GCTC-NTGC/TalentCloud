@@ -214,3 +214,10 @@ export const deleteExperience = (
     () => ({}),
     { id, type },
   );
+
+export type ExperienceAction =
+  | FetchExperienceByApplicantAction
+  | FetchExperienceByApplicationAction
+  | CreateExperienceAction
+  | UpdateExperienceAction
+  | DeleteExperienceAction;

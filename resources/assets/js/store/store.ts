@@ -57,6 +57,10 @@ import applicationReducer, {
   ApplicationState,
   initApplicationState,
 } from "./Application/applicationReducer";
+import experienceReducer, {
+  initExperienceState,
+  ExperienceState,
+} from "./Experience/experienceReducer";
 
 export type AppAction =
   | JobAction
@@ -85,6 +89,7 @@ export interface RootState {
   hrAdvisor: HrAdvisorState;
   jobStatuses: JobStatusState;
   applications: ApplicationState;
+  experience: ExperienceState;
 }
 
 export const initState = (): RootState => ({
@@ -101,6 +106,7 @@ export const initState = (): RootState => ({
   hrAdvisor: initHrAdvisorState(),
   jobStatuses: initJobStatusState(),
   applications: initApplicationState(),
+  experience: initExperienceState(),
 });
 
 export const rootReducer = (): Reducer<RootState> =>
@@ -118,6 +124,7 @@ export const rootReducer = (): Reducer<RootState> =>
     hrAdvisor: hrAdvisorReducer,
     jobStatuses: jobStatusReducer,
     applications: applicationReducer,
+    experience: experienceReducer,
   });
 
 export default rootReducer;
