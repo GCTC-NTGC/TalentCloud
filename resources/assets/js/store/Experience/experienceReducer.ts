@@ -31,62 +31,24 @@ import {
   mapObjectValues,
 } from "../../helpers/queries";
 
+export interface ExperienceSection<T> {
+  byId: {
+    [id: number]: T;
+  };
+  idsByApplicant: {
+    [applicantId: number]: number[];
+  };
+  idsByApplication: {
+    [applicationId: number]: number[];
+  };
+}
+
 export interface EntityState {
-  work: {
-    byId: {
-      [id: number]: ExperienceWork;
-    };
-    idsByApplicant: {
-      [applicantId: number]: number[];
-    };
-    idsByApplication: {
-      [applicationId: number]: number[];
-    };
-  };
-  education: {
-    byId: {
-      [id: number]: ExperienceEducation;
-    };
-    idsByApplicant: {
-      [applicantId: number]: number[];
-    };
-    idsByApplication: {
-      [applicationId: number]: number[];
-    };
-  };
-  community: {
-    byId: {
-      [id: number]: ExperienceCommunity;
-    };
-    idsByApplicant: {
-      [applicantId: number]: number[];
-    };
-    idsByApplication: {
-      [applicationId: number]: number[];
-    };
-  };
-  award: {
-    byId: {
-      [id: number]: ExperienceAward;
-    };
-    idsByApplicant: {
-      [applicantId: number]: number[];
-    };
-    idsByApplication: {
-      [applicationId: number]: number[];
-    };
-  };
-  personal: {
-    byId: {
-      [id: number]: ExperiencePersonal;
-    };
-    idsByApplicant: {
-      [applicantId: number]: number[];
-    };
-    idsByApplication: {
-      [applicationId: number]: number[];
-    };
-  };
+  work: ExperienceSection<ExperienceWork>;
+  education: ExperienceSection<ExperienceEducation>;
+  community: ExperienceSection<ExperienceCommunity>;
+  award: ExperienceSection<ExperienceAward>;
+  personal: ExperienceSection<ExperiencePersonal>;
 }
 
 export interface UiState {
