@@ -1,12 +1,9 @@
 import * as React from "react";
 import { defineMessages, FormattedMessage, useIntl } from "react-intl";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import utc from "dayjs/plugin/utc";
 import { Link } from "../../../models/app";
 import { getLocale } from "../../../helpers/localize";
 import { navigate } from "../../../helpers/router";
-import { relativeTimeConfig } from "../../../helpers/dates";
+import { readableTimeFromNow } from "../../../helpers/dates";
 
 const stepNames = defineMessages({
   welcome: {
@@ -162,9 +159,6 @@ const ProgressBar: React.FunctionComponent<ProgressBarProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl.locale);
 
-  dayjs.extend(relativeTime, relativeTimeConfig());
-  dayjs.extend(utc);
-
   // There are nine steps throughout the timeline, some steps using the same title (informational steps). This maps the step number to its corresponding title.
   const getStepName = {
     [ProgressBarStepId.welcome]: intl.formatMessage(stepNames.welcome),
@@ -224,7 +218,7 @@ const ProgressBar: React.FunctionComponent<ProgressBarProps> = ({
                 defaultMessage="Application Deadline: {timeLeft}"
                 description="Label for the application deadline"
                 values={{
-                  timeLeft: dayjs(closeDateTime).utc().locale(locale).fromNow(),
+                  timeLeft: readableTimeFromNow(locale, closeDateTime),
                 }}
               />
             </span>
