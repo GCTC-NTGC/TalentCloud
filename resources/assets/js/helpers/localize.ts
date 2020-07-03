@@ -23,7 +23,9 @@ export function localizeFieldNonNull<T>(
   model: T,
   field: TranslatableKeysNonNull<T>,
 ): string {
-  return model[field][locale];
+  // Even though we assume field is non-null... check anyway to avoid crashes.
+  const value = model[field] ? model[field][locale] : null;
+  return value ?? "TRANSLATION MISSING";
 }
 
 export function getLocale(locale: string): Locales {
