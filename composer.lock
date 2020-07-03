@@ -3130,16 +3130,16 @@
         },
         {
             "name": "rcrowe/twigbridge",
-            "version": "v0.12.0",
+            "version": "v0.12.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rcrowe/TwigBridge.git",
-                "reference": "dd018dae10addee5ef03e437546149fd1fa2e12b"
+                "reference": "c7e4acdfb3d55a055508b9d3cc8cf71c00329e90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rcrowe/TwigBridge/zipball/dd018dae10addee5ef03e437546149fd1fa2e12b",
-                "reference": "dd018dae10addee5ef03e437546149fd1fa2e12b",
+                "url": "https://api.github.com/repos/rcrowe/TwigBridge/zipball/c7e4acdfb3d55a055508b9d3cc8cf71c00329e90",
+                "reference": "c7e4acdfb3d55a055508b9d3cc8cf71c00329e90",
                 "shasum": ""
             },
             "require": {
@@ -3162,7 +3162,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.11-dev"
+                    "dev-master": "0.12-dev"
                 },
                 "laravel": {
                     "providers": [
@@ -3198,7 +3198,7 @@
                 "laravel",
                 "twig"
             ],
-            "time": "2020-06-24T10:05:01+00:00"
+            "time": "2020-07-03T08:55:51+00:00"
         },
         {
             "name": "spatie/laravel-translatable",
