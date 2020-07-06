@@ -172,9 +172,23 @@ export interface Job {
   culture_special: localizedField;
 }
 
+export interface JobApplicationAnswer {
+  id: number;
+  job_poster_questions_id: number;
+  job_application_id: number;
+  answer: localizedFieldNonNull;
+}
+
 export interface JobPosterKeyTask {
   id: number;
   job_poster_id: number;
+  description: localizedFieldNonNull;
+}
+
+export interface JobPosterQuestion {
+  id: number;
+  job_poster_id: number;
+  question: localizedFieldNonNull;
   description: localizedFieldNonNull;
 }
 
