@@ -30,6 +30,12 @@ export const validationMessages = defineMessages({
     description:
       "Error message displayed when a required checkbox group or radio group is empty.",
   },
+  overMaxWords: {
+    id: "formValidation.overMaxWords",
+    defaultMessage: "Must be under 250 words",
+    description:
+      "Error message displayed when surpassing the maximum words allowed.",
+  },
 });
 
 export const inputMessages = defineMessages({
