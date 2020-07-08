@@ -1,5 +1,5 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
-import { defineMessages, MessageDescriptor } from "react-intl";
+import { defineMessages, MessageDescriptor, IntlShape } from "react-intl";
 import {
   AssessmentTypeId,
   AssessmentTypeIdValues,
@@ -20,6 +20,7 @@ import {
   ResponseScreeningBuckets as ResponseBuckets,
 } from "./lookupConstants";
 import { getOrThrowError } from "../helpers/queries";
+import { Experience } from "./types";
 
 const skillLevelDescriptions = defineMessages({
   hardBasic: {
@@ -1137,4 +1138,238 @@ export const ResponseReviewStatuses = {
     id: 1,
     name: ResponseReviewStatusMessages.screened_out,
   },
+};
+
+const experienceHeadings = defineMessages({
+  award: {
+    id: "application.skills.awardHeading",
+    defaultMessage: "{title} from {issuedBy}",
+    description: "Accordion heading for experience on the Skills page.",
+  },
+  community: {
+    id: "application.skills.communityHeading",
+    defaultMessage: "{title} with {group}",
+    description: "Accordion heading for experience on the Skills page.",
+  },
+  education: {
+    id: "application.skills.educationHeading",
+    defaultMessage: "{areaOfStudy} at {institution}",
+    description: "Accordion heading for experience on the Skills page.",
+  },
+  personal: {
+    id: "application.skills.personalHeading",
+    defaultMessage: "{title}",
+    description: "Accordion heading for experience on the Skills page.",
+  },
+  work: {
+    id: "application.skills.workHeading",
+    defaultMessage: "{title} at {organization}",
+    description: "Accordion heading for experience on the Skills page.",
+  },
+  unknown: {
+    id: "application.skills.unknownHeading",
+    defaultMessage: "Error: Unknown experience type.",
+    description:
+      "Accordion heading error when an unknown experience type is used.",
+  },
+});
+
+/**
+ * Returns a formatted localized heading for the accordion on
+ * the Skill UI page of the Job Application. Makes use of experienceHeadings
+ * messages defined above.
+ *
+ * @param experience Given Experience of multiple types defined by the user to apply to a certain Criteria.
+ * @param intl react-intl object used in formatting messages.
+ *
+ * @returns Formatted localized string.
+ */
+export const getExperienceHeading = (
+  experience: Experience,
+  intl: IntlShape,
+): string => {
+  let heading: string;
+
+  switch (experience.type) {
+    case "award":
+      heading = intl.formatMessage(experienceHeadings.award, {
+        title: experience.title,
+        issuedBy: experience.issued_by,
+      });
+      break;
+    case "community":
+      heading = intl.formatMessage(experienceHeadings.community, {
+        title: experience.title,
+        group: experience.group,
+      });
+      break;
+    case "education":
+      heading = intl.formatMessage(experienceHeadings.education, {
+        areaOfStudy: experience.area_of_study,
+        institution: experience.institution,
+      });
+      break;
+    case "personal":
+      heading = intl.formatMessage(experienceHeadings.personal, {
+        title: experience.title,
+      });
+      break;
+    case "work":
+      heading = intl.formatMessage(experienceHeadings.work, {
+        title: experience.title,
+        organization: experience.organization,
+      });
+      break;
+    default:
+      heading = intl.formatMessage(experienceHeadings.unknown);
+  }
+
+  return heading;
+};
+
+/**
+ * Returns a formatted localized subheading for the accordion on
+ * the Skill UI page of the Job Application. Makes use of date formatting
+ * to provide a range.
+ *
+ * @param experience Given Experience of multiple types defined by the user to apply to a certain Criteria.
+ * @param intl react-intl object used in formatting messages.
+ *
+ * @returns Formatted localized string.
+ */
+export const getExperienceSubheading = (
+  experience: Experience,
+  intl: IntlShape,
+): string => {
+  let subHeading: string;
+  let startDate: string;
+  let endDate: string;
+
+  switch (experience.type) {
+    case "award":
+      subHeading = intl.formatDate(experience.awarded_date, {
+        month: "short",
+        year: "numeric",
+      });
+      break;
+    case "community":
+    case "education":
+    case "personal":
+    case "work":
+      startDate = intl.formatDate(experience.start_date, {
+        month: "short",
+        year: "numeric",
+      });
+
+      if (experience.end_date !== null && !experience.is_active) {
+        endDate = intl.formatDate(experience.end_date, {
+          month: "short",
+          year: "numeric",
+        });
+      } else {
+        endDate = intl.formatMessage({
+          id: "application.skills.currentSubheading",
+          defaultMessage: "Current",
+          description:
+            "Text for the end date of a current experience on the Skills page.",
+        });
+      }
+
+      subHeading = `${startDate} - ${endDate}`;
+      break;
+    default:
+      subHeading = intl.formatMessage(experienceHeadings.unknown);
+  }
+
+  return subHeading;
+};
+
+const experienceJustificationLabels = defineMessages({
+  award: {
+    id: "application.skills.awardJustificationLabel",
+    defaultMessage: "How I used {skillName} to achieve {title}",
+    description: "Accordion heading for experience on the Skills page.",
+  },
+  community: {
+    id: "application.skills.communityJustificationLabel",
+    defaultMessage: "How I used {skillName} with {group}",
+    description: "Accordion heading for experience on the Skills page.",
+  },
+  education: {
+    id: "application.skills.educationJustificationLabel",
+    defaultMessage: "How I used {skillName} at {institution}",
+    description: "Accordion heading for experience on the Skills page.",
+  },
+  personal: {
+    id: "application.skills.personalJustificationLabel",
+    defaultMessage: "How I used {skillName} for {title}",
+    description: "Accordion heading for experience on the Skills page.",
+  },
+  work: {
+    id: "application.skills.workJustificationLabel",
+    defaultMessage: "How I used {skillName} at {organization}",
+    description: "Accordion heading for experience on the Skills page.",
+  },
+  unknown: {
+    id: "application.skills.unknownJustificationLabel",
+    defaultMessage: "Error: Unknown experience type.",
+    description:
+      "Accordion heading error when an unknown experience type is used.",
+  },
+});
+
+/**
+ * Returns a formatted localized input label for the text area
+ * inside the experience accordion on the Skill UI page of the
+ * Job Application. Makes use of experienceJustificationLabels
+ * messages defined above.
+ *
+ * @param experience Given Experience of multiple types defined by the user to apply to a certain Criteria.
+ * @param intl react-intl object used in formatting messages.
+ *
+ * @returns Formatted localized string.
+ */
+export const getExperienceJustificationLabel = (
+  experience: Experience,
+  intl: IntlShape,
+  skillName: string,
+): string => {
+  let label: string;
+
+  switch (experience.type) {
+    case "award":
+      label = intl.formatMessage(experienceJustificationLabels.award, {
+        skillName,
+        title: experience.title,
+      });
+      break;
+    case "community":
+      label = intl.formatMessage(experienceJustificationLabels.community, {
+        skillName,
+        group: experience.group,
+      });
+      break;
+    case "education":
+      label = intl.formatMessage(experienceJustificationLabels.education, {
+        skillName,
+        institution: experience.institution,
+      });
+      break;
+    case "personal":
+      label = intl.formatMessage(experienceJustificationLabels.personal, {
+        skillName,
+        title: experience.title,
+      });
+      break;
+    case "work":
+      label = intl.formatMessage(experienceJustificationLabels.work, {
+        skillName,
+        organization: experience.organization,
+      });
+      break;
+    default:
+      label = intl.formatMessage(experienceHeadings.unknown);
+  }
+
+  return label;
 };

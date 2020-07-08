@@ -1,10 +1,11 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { defineMessages, useIntl, FormattedMessage } from "react-intl";
-import { FastField, Formik, Form, useFormikContext } from "formik";
+import { FastField, Formik, Form } from "formik";
 import Swal, { SweetAlertResult } from "sweetalert2";
 import ReactMarkdown from "react-markdown";
 import SelectInput from "../../Form/SelectInput";
+import AlertWhenUnsaved from "../../Form/AlertWhenUnsaved";
 import {
   Application,
   Department,
@@ -152,30 +153,6 @@ const StatusIcon: React.FC<StatusIconProps> = ({
   );
 };
 
-// Kinda weird "empty" component that hooks into Formik's
-// context, listens to the 'dirty' prop, and registers
-// a beforeunload listener to fire if a user attempts to
-// leave with unsaved work.
-// https://github.com/jaredpalmer/formik/issues/1657#issuecomment-509388871
-const AlertWhenUnsaved = (): React.ReactElement => {
-  const { dirty } = useFormikContext();
-  const handleUnload = (event: BeforeUnloadEvent): void => {
-    event.preventDefault();
-    event.returnValue = "Are you sure you want to leave with unsaved changes?";
-  };
-
-  useEffect(() => {
-    if (dirty) {
-      window.addEventListener("beforeunload", handleUnload);
-    }
-    return (): void => {
-      window.removeEventListener("beforeunload", handleUnload);
-    };
-  }, [dirty]);
-
-  return <></>;
-};
-
 interface ReferenceEmailModalProps {
   id: string;
   parent: Element | null;
@@ -197,7 +174,7 @@ const ReferenceEmailModal: React.FC<ReferenceEmailModalProps> = ({
     `${adr.name} <${adr.address}>`;
   const renderAddresses = (adrs: EmailAddress[]): string =>
     adrs.map(renderAddress).join(", ");
-  const noDeliveryAdr = email == null || email.to.length == 0;
+  const noDeliveryAdr = email == null || email.to.length === 0;
   return (
     <>
       <div data-c-dialog-overlay={visible ? "active" : ""} />

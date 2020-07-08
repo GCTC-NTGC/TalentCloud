@@ -15,5 +15,15 @@
     "source.fixAll.eslint": true
   },
   "editor.formatOnSave": false,
-  "editor.codeActionsOnSaveTimeout": 1500
+  "editor.codeActionsOnSaveTimeout": 1500,
+  "workbench.colorCustomizations": {
+    "[One Dark Pro]": {
+      "titleBar.activeBackground": "#5b1647",
+      "titleBar.activeForeground": "#ffffff"
+    }
+  },
+  "window.titleBarStyle": "custom",
+  "[php]": {
+    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+  }
 }

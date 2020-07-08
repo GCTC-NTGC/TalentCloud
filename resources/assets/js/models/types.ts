@@ -288,6 +288,7 @@ export interface ExperienceWork extends ExperienceBase {
   is_active: boolean;
   start_date: Date;
   end_date: Date | null;
+  type: "work";
 }
 
 export interface ExperienceEducation extends ExperienceBase {
@@ -301,6 +302,7 @@ export interface ExperienceEducation extends ExperienceBase {
   has_blockcert: boolean;
   start_date: Date;
   end_date: Date | null;
+  type: "education";
 }
 
 export interface ExperienceCommunity extends ExperienceBase {
@@ -311,6 +313,7 @@ export interface ExperienceCommunity extends ExperienceBase {
   is_active: boolean;
   start_date: Date;
   end_date: Date | null;
+  type: "community";
 }
 
 export interface ExperienceAward extends ExperienceBase {
@@ -320,6 +323,7 @@ export interface ExperienceAward extends ExperienceBase {
   issued_by: string;
   award_recognition_type_id: number;
   awarded_date: Date;
+  type: "award";
 }
 
 export interface ExperiencePersonal extends ExperienceBase {
@@ -330,6 +334,7 @@ export interface ExperiencePersonal extends ExperienceBase {
   is_active: boolean;
   start_date: Date;
   end_date: Date | null;
+  type: "personal";
 }
 
 export type Experience =
@@ -338,6 +343,16 @@ export type Experience =
   | (ExperienceCommunity & { type: "community" })
   | (ExperienceAward & { type: "award" })
   | (ExperiencePersonal & { type: "personal" });
+
+export interface ExperienceSkill {
+  skill_id: number;
+  experience_id: number;
+  experience_type: string;
+  experience: Experience | null;
+  justification: string;
+  created_at: Date;
+  updated_at: Date;
+}
 
 export interface EmailAddress {
   name: string;
