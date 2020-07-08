@@ -106,7 +106,7 @@
         "intl": "^1.2.5",
         "isomorphic-fetch": "^2.2.1",
         "jquery": "^3.5.1",
-        "lodash": "^4.17.15",
+        "lodash": "^4.17.17",
         "nprogress": "^0.2.0",
         "re-reselect": "^3.4.0",
         "react": "^16.13.1",
