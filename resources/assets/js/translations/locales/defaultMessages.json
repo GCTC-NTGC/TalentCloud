@@ -493,6 +493,59 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Welcome",
+        "id": "applicationTimeline.progressBar.welcome"
+      },
+      {
+        "defaultMessage": "Step 1/6",
+        "id": "applicationTimeline.progressBar.step01"
+      },
+      {
+        "defaultMessage": "Step 2/6",
+        "id": "applicationTimeline.progressBar.step02"
+      },
+      {
+        "defaultMessage": "Step 3/6",
+        "id": "applicationTimeline.progressBar.step03"
+      },
+      {
+        "defaultMessage": "Step 4/6",
+        "id": "applicationTimeline.progressBar.step04"
+      },
+      {
+        "defaultMessage": "Step 5/6",
+        "id": "applicationTimeline.progressBar.step05"
+      },
+      {
+        "defaultMessage": "Step 6/6",
+        "id": "applicationTimeline.progressBar.step06"
+      },
+      {
+        "defaultMessage": "Completed: ",
+        "description": "Visually hidden text used to indicate the completed steps.",
+        "id": "applicationTimeline.progressbar.completedStepLabel"
+      },
+      {
+        "defaultMessage": "Current: ",
+        "description": "Visually hidden text used to indicate the current steps.",
+        "id": "applicationTimeline.progressbar.currentStepLabel"
+      },
+      {
+        "defaultMessage": "Error: ",
+        "description": "Visually hidden text used to indicate the steps with errors.",
+        "id": "applicationTimeline.progressbar.errorStepLabel"
+      },
+      {
+        "defaultMessage": "Application Deadline: {timeLeft}",
+        "description": "Label for the application deadline",
+        "id": "applicationTimeline.progressbar.applicationDeadline"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/ProgressBar/ProgressBar.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Start Your Application",
         "description": "Heading text on the intro step of the Application Timeline.",
         "id": "application.intro.heading"
