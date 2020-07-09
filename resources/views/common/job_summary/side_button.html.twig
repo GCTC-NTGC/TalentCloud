@@ -27,6 +27,9 @@
                 <h5 data-c-colour="white" data-c-font-size="h4" id="{{ button.text|replace({' & ': '-', ' ': '-'}) }}-title">{{ confirmation_modal.title }}</h5>
             </div>
             <div data-c-border="bottom(thin, solid, black)" data-c-padding="normal">
+                {% if is_unclaim_job %}
+                    <p data-c-font-size="h4">{{ confirmation_modal.relinquish_job }} <span data-c-font-weight="bold">{{ button.text }}</span></p>
+                {% else %}
                     <p data-c-font-size="h4">{{ confirmation_modal.change_job_status }}</p>
                     <p data-c-grid="gutter middle" data-c-padding="normal">
                         <span data-c-alignment="base(right)" data-c-grid-item="base(2of5)" data-c-font-size="h4" data-c-font-weight="bold">{{ job_status }}</span>
@@ -34,6 +37,7 @@
                         <span data-c-visibility="invisible">{{ confirmation_modal.to }}</span>
                         <span data-c-alignment="base(left)" data-c-grid-item="base(2of5)" data-c-font-size="h4" data-c-font-weight="bold">{{ button.text }}</span>
                     </p>
+                {% endif %}
             </div>
             <div data-c-padding="normal">
                 <div data-c-grid="gutter middle">
