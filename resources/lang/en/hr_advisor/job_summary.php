@@ -38,5 +38,12 @@ return [
     'view_poster_icon' => 'An icon depicting a completed document, representing viewing a completed job poster.',
     'screening_plan_icon' => 'An icon depicting a hand making a selection from four different options, representing a manager screening through applicants.',
     'view_applicants_icon' => 'An icon depicting four users placed in a pie chart, representing the ability to view the applicants who have applied to this job process.',
-    'flat_icons' => 'Icon supplied by Flat Icons.'
+    'flat_icons' => 'Icon supplied by Flat Icons.',
+    'confirmation_modal' => [
+        'title' => 'Are you sure?',
+        'change_job_status' => 'This will change the job poster from:',
+        'to' => 'to',
+        'confirm' => 'Confirm',
+        'cancel' => 'Cancel'
+    ],
 ];

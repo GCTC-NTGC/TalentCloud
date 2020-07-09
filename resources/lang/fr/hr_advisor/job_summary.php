@@ -38,5 +38,12 @@ return [
     'view_poster_icon' => 'Une icône représentant un document terminé indique que l\'affichage d\'un avis d\'emploi achevé est en cours.',
     'screening_plan_icon' => 'Une icône représentant une main en train de faire un choix parmi quatre options indique que la présélection des candidats par un gestionnaire est en cours.',
     'view_applicants_icon' => 'Une icône représentant quatre utilisateurs dans un diagramme circulaire indique la capacité d\'afficher les candidats qui participent au processus d\'emploi.',
-    'flat_icons' => 'Icône fournie par Flat Icons'
+    'flat_icons' => 'Icône fournie par Flat Icons',
+    'confirmation_modal' => [
+        'title' => 'Are you sure?',
+        'change_job_status' => 'This will change the job poster from:',
+        'to' => 'to',
+        'confirm' => 'Confirm',
+        'cancel' => 'Cancel'
+    ],
 ];
