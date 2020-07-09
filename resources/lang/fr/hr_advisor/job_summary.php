@@ -40,10 +40,11 @@ return [
     'view_applicants_icon' => 'Une icône représentant quatre utilisateurs dans un diagramme circulaire indique la capacité d\'afficher les candidats qui participent au processus d\'emploi.',
     'flat_icons' => 'Icône fournie par Flat Icons',
     'confirmation_modal' => [
-        'title' => 'Are you sure?',
-        'change_job_status' => 'This will change the job poster from:',
-        'to' => 'to',
-        'confirm' => 'Confirm',
-        'cancel' => 'Cancel'
+        'title' => 'Êtes-vous sûr ?',
+        'change_job_status' => "L'offre d'emploi passera ainsi de :",
+        'relinquish_job' => 'Oui, je souhaite',
+        'to' => 'à',
+        'confirm' => 'Confirmer',
+        'cancel' => 'Annuler'
     ],
 ];

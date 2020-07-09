@@ -42,6 +42,7 @@ return [
     'confirmation_modal' => [
         'title' => 'Are you sure?',
         'change_job_status' => 'This will change the job poster from:',
+        'relinquish_job' => 'Yes, I would like to',
         'to' => 'to',
         'confirm' => 'Confirm',
         'cancel' => 'Cancel'
