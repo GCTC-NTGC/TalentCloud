@@ -3,16 +3,16 @@
     <button
     type="button"
     data-c-dialog-id="{{ button.text|replace({' & ': '-', ' ': '-'}) }}"
-    {% if style == "stop" %}
+    {% if button.style == "stop" %}
         data-c-button="outline(stop)"
-    {% elseif style == "go" %}
+    {% elseif button.style == "go" %}
         data-c-button="solid(go)"
     {% else %}
         data-c-button="solid(c1)"
     {% endif %}
         data-c-radius="rounded"
         data-c-margin="bottom(1)"
-    {% if disabled %}
+    {% if button.disabled %}
         disabled
     {% endif %}
     >
