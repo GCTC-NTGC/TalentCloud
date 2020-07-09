@@ -1,8 +1,12 @@
 <form action="{{ button.url }}" method="POST" id="{{ button.text|replace({' & ': '-', ' ': '-'}) }}-form">
     {{ csrf_field() }}
     <button
-    type="button"
-    data-c-dialog-id="{{ button.text|replace({' & ': '-', ' ': '-'}) }}"
+    {% if is_unclaim_job %}
+        type="submit"
+    {% else %}
+        type="button"
+        data-c-dialog-id="{{ button.text|replace({' & ': '-', ' ': '-'}) }}"
+    {% endif %}
     {% if button.style == "stop" %}
         data-c-button="outline(stop)"
     {% elseif button.style == "go" %}
@@ -21,23 +25,21 @@
 
     </form>
 
+    {% if not is_unclaim_job %}
     <div aria-hidden="true" aria-labelledby="{{ button.text|replace({' & ': '-', ' ': '-'}) }}-title" data-c-dialog data-c-dialog-escapable data-c-dialog-id="{{ button.text|replace({' & ': '-', ' ': '-'}) }}" data-c-padding="top(double) bottom(double)" role="dialog">
         <div data-c-background="white(100)" data-c-radius="rounded">
             <div data-c-background="c1(100)" data-c-border="bottom(thin, solid, black)" data-c-padding="normal">
-                <h5 data-c-colour="white" data-c-font-size="h4" id="{{ button.text|replace({' & ': '-', ' ': '-'}) }}-title">{{ confirmation_modal.title }}</h5>
+                <h5 data-c-colour="white" data-c-font-size="h4" id="{{ button.text|replace({' & ': '-', ' ': '-'}) }}-title">{{ button.text }}</h5>
             </div>
             <div data-c-border="bottom(thin, solid, black)" data-c-padding="normal">
-                {% if is_unclaim_job %}
-                    <p data-c-font-size="h4">{{ confirmation_modal.relinquish_job }} <span data-c-font-weight="bold">{{ button.text }}</span></p>
-                {% else %}
                     <p data-c-font-size="h4">{{ confirmation_modal.change_job_status }}</p>
                     <p data-c-grid="gutter middle" data-c-padding="normal">
-                        <span data-c-alignment="base(right)" data-c-grid-item="base(2of5)" data-c-font-size="h4" data-c-font-weight="bold">{{ job_status }}</span>
+                        <span data-c-alignment="base(right)" data-c-grid-item="base(2of5)" data-c-font-size="h4" data-c-font-weight="bold">{{ button.from_status }}</span>
                         <i data-c-grid-item="base(1of5)" aria-hidden="true" class="fas fa-arrow-right" title="to"></i>
                         <span data-c-visibility="invisible">{{ confirmation_modal.to }}</span>
-                        <span data-c-alignment="base(left)" data-c-grid-item="base(2of5)" data-c-font-size="h4" data-c-font-weight="bold">{{ button.text }}</span>
+                        <span data-c-alignment="base(left)" data-c-grid-item="base(2of5)" data-c-font-size="h4" data-c-font-weight="bold">{{ button.to_status }}</span>
                     </p>
-                {% endif %}
+
             </div>
             <div data-c-padding="normal">
                 <div data-c-grid="gutter middle">
@@ -59,5 +61,6 @@
             </div>
         </div>
     </div>
+    {% endif %}
 
 

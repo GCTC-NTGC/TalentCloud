@@ -40,11 +40,10 @@ return [
     'view_applicants_icon' => 'An icon depicting four users placed in a pie chart, representing the ability to view the applicants who have applied to this job process.',
     'flat_icons' => 'Icon supplied by Flat Icons.',
     'confirmation_modal' => [
-        'title' => 'Are you sure?',
         'change_job_status' => 'This will change the job poster from:',
-        'relinquish_job' => 'Yes, I would like to',
         'to' => 'to',
         'confirm' => 'Confirm',
         'cancel' => 'Cancel'
     ],
 ];
+
