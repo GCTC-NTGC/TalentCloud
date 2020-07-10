@@ -28,9 +28,10 @@ export function localizeFieldNonNull<T>(
 ): string {
   // Even though we assume field is non-null... check anyway to avoid crashes.
   const value = model[field] ? model[field][locale] : null;
-  return value ?? locale === "en"
-    ? "TRANSLATION MISSING"
-    : "TRADUCTION MANQUANTE";
+  if (value) {
+    return value;
+  }
+  return locale === "en" ? "TRANSLATION MISSING" : "TRADUCTION MANQUANTE";
 }
 
 export function getLocale(locale: string): Locales {
