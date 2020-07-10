@@ -1,6 +1,13 @@
 import { Selector } from "testcafe";
 import { managerUser, adminUser, hrUser } from "./helpers/roles";
-import { HOMEPAGE, PROFILE_ABOUT, MANAGER_HOME, MANAGER_JOBS, HR_JOBS, ADMIN_HOME } from "./helpers/constants";
+import {
+  HOMEPAGE,
+  PROFILE_ABOUT,
+  MANAGER_HOME,
+  MANAGER_JOBS,
+  HR_JOBS,
+  ADMIN_HOME,
+} from "./helpers/constants";
 
 fixture(`Smoke Tests - Hello World`).page(HOMEPAGE).meta("travis", "run");
 
@@ -39,12 +46,13 @@ test("Hello World - Language Toggle", async (t) => {
     .expect(
       Selector("p").withText(
         "Il est désormais plus facile de postuler un emploi au gouvernement.",
-      ),
+      ).exists,
     )
     .ok()
     .click(englishLink)
     .expect(
-      Selector("p").withText("Applying to government jobs just got easier."),
+      Selector("p").withText("Applying to government jobs just got easier.")
+        .exists,
     )
     .ok();
 });
