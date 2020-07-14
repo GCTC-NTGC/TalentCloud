@@ -7,27 +7,27 @@ interface ExperienceIntroProps {
 
 const typesOfExperience = defineMessages({
   education: {
-    id: "applicationTimeline.experience.intro.educationExperience",
+    id: "application.experience.intro.educationExperience",
     defaultMessage: "Education Experience",
     description: "Type of experience: Education Experience.",
   },
   work: {
-    id: "applicationTimeline.experience.intro.workExperience",
+    id: "application.experience.intro.workExperience",
     defaultMessage: "Work Experience",
     description: "Type of experience: Work Experience.",
   },
   community: {
-    id: "applicationTimeline.experience.intro.communityExperience",
+    id: "application.experience.intro.communityExperience",
     defaultMessage: "Community Experience",
     description: "Type of experience: Community Experience.",
   },
   personal: {
-    id: "applicationTimeline.experience.intro.personalExperience",
+    id: "application.experience.intro.personalExperience",
     defaultMessage: "Personal Experience",
     description: "Type of experience: Personal Experience.",
   },
   awards: {
-    id: "applicationTimeline.experience.intro.awards",
+    id: "application.experience.intro.awards",
     defaultMessage: "Awards",
     description: "Type of experience: Personal Experience.",
   },
@@ -42,21 +42,21 @@ const ExperienceIntro: React.FunctionComponent<ExperienceIntroProps> = ({
       <div data-c-container="medium">
         <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">
           <FormattedMessage
-            id="applicationTimeline.experience.intro.header"
+            id="application.experience.intro.header"
             defaultMessage="Defining Your Experience"
             description="Header for the Experience Intro step."
           />
         </h2>
         <p data-c-margin="bottom(1)">
           <FormattedMessage
-            id="applicationTimeline.experience.intro.explanation"
+            id="application.experience.intro.explanation"
             defaultMessage="The next step in your application is to tell us about the experiences you've had that make you a good fit for this job."
             description="Paragraph explaining what to expect on the Experience step."
           />
         </p>
         <p data-c-margin="bottom(1)">
           <FormattedMessage
-            id="applicationTimeline.experience.intro.typesOfExperiences"
+            id="application.experience.intro.typesOfExperiences"
             defaultMessage="On Talent Cloud, you can add these types of experiences:"
             description="Paragraph before list of possible experience types."
           />
@@ -68,7 +68,7 @@ const ExperienceIntro: React.FunctionComponent<ExperienceIntroProps> = ({
         </ul>
         <p>
           <FormattedMessage
-            id="applicationTimeline.experience.intro.saveToProfile"
+            id="application.experience.intro.saveToProfile"
             defaultMessage="The best part is that as you add these experiences, the information gets saved to your profile. The next time you go to apply to a job, you'll be able to select from the work you've done to help speed up the process."
             description="Paragraph explaining how experiences will be saved to profile."
           />
@@ -86,7 +86,7 @@ const ExperienceIntro: React.FunctionComponent<ExperienceIntroProps> = ({
             >
               <span>
                 <FormattedMessage
-                  id="applicationTimeline.intro.letsGo"
+                  id="application.intro.letsGo"
                   defaultMessage="Let's Go"
                   description="Button text for continuing to next step in Application Form."
                 />

@@ -89,52 +89,52 @@
       {
         "defaultMessage": "Education Experience",
         "description": "Type of experience: Education Experience.",
-        "id": "applicationTimeline.experience.intro.educationExperience"
+        "id": "application.experience.intro.educationExperience"
       },
       {
         "defaultMessage": "Work Experience",
         "description": "Type of experience: Work Experience.",
-        "id": "applicationTimeline.experience.intro.workExperience"
+        "id": "application.experience.intro.workExperience"
       },
       {
         "defaultMessage": "Community Experience",
         "description": "Type of experience: Community Experience.",
-        "id": "applicationTimeline.experience.intro.communityExperience"
+        "id": "application.experience.intro.communityExperience"
       },
       {
         "defaultMessage": "Personal Experience",
         "description": "Type of experience: Personal Experience.",
-        "id": "applicationTimeline.experience.intro.personalExperience"
+        "id": "application.experience.intro.personalExperience"
       },
       {
         "defaultMessage": "Awards",
         "description": "Type of experience: Personal Experience.",
-        "id": "applicationTimeline.experience.intro.awards"
+        "id": "application.experience.intro.awards"
       },
       {
         "defaultMessage": "Defining Your Experience",
         "description": "Header for the Experience Intro step.",
-        "id": "applicationTimeline.experience.intro.header"
+        "id": "application.experience.intro.header"
       },
       {
         "defaultMessage": "The next step in your application is to tell us about the experiences you've had that make you a good fit for this job.",
         "description": "Paragraph explaining what to expect on the Experience step.",
-        "id": "applicationTimeline.experience.intro.explanation"
+        "id": "application.experience.intro.explanation"
       },
       {
         "defaultMessage": "On Talent Cloud, you can add these types of experiences:",
         "description": "Paragraph before list of possible experience types.",
-        "id": "applicationTimeline.experience.intro.typesOfExperiences"
+        "id": "application.experience.intro.typesOfExperiences"
       },
       {
         "defaultMessage": "The best part is that as you add these experiences, the information gets saved to your profile. The next time you go to apply to a job, you'll be able to select from the work you've done to help speed up the process.",
         "description": "Paragraph explaining how experiences will be saved to profile.",
-        "id": "applicationTimeline.experience.intro.saveToProfile"
+        "id": "application.experience.intro.saveToProfile"
       },
       {
         "defaultMessage": "Let's Go",
         "description": "Button text for continuing to next step in Application Form.",
-        "id": "applicationTimeline.intro.letsGo"
+        "id": "application.intro.letsGo"
       }
     ],
     "path": "resources/assets/js/components/Application/Experience/ExperienceIntro.json"
