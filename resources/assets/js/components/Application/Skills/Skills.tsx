@@ -1,13 +1,9 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
 import React, { useState } from "react";
-import {
-  FormattedMessage,
-  useIntl,
-  defineMessages,
-  IntlShape,
-} from "react-intl";
+import { FormattedMessage, useIntl, IntlShape } from "react-intl";
 import { Formik, Form, FastField } from "formik";
 import * as Yup from "yup";
+import { useReducer } from "@storybook/addons";
 import { ExperienceSkill, Skill, Criteria } from "../../../models/types";
 import { slugify } from "../../../helpers/routes";
 import { getLocale, localizeFieldNonNull } from "../../../helpers/localize";
@@ -17,87 +13,28 @@ import {
   getExperienceSubheading,
   getExperienceJustificationLabel,
 } from "../../../models/localizedConstants";
-import { getId, hasKey, mapToObject } from "../../../helpers/queries";
 import { getSkillLevelName } from "../../../models/jobUtil";
+import StatusIcon, { IconStatus } from "../../StatusIcon";
 import AlertWhenUnsaved from "../../Form/AlertWhenUnsaved";
 import TextAreaInput from "../../Form/TextAreaInput";
 import WordCounter from "../../WordCounter/WordCounter";
 import { countNumberOfWords } from "../../WordCounter/helpers";
-
-const displayMessages = defineMessages({
-  sidebarLinkTitle: {
-    id: "application.skills.sidebarLinkTitle",
-    defaultMessage: "Go to this skill.",
-    description: "Title attribute for sidebar links.",
-  },
-  accessibleAccordionButtonText: {
-    id: "application.skills.accessibleAccordionButtonText",
-    defaultMessage: "Click to view...",
-    description: "Hidden accordion button text for accessibility.",
-  },
-  save: {
-    id: "application.skills.saveButtonText",
-    defaultMessage: "Save",
-    description: "Button text for saving an experience skill justification.",
-  },
-  saved: {
-    id: "application.skills.savedButtonText",
-    defaultMessage: "Saved",
-    description:
-      "Button text for after an experience skill justification is saved.",
-  },
-  wordCountUnderMax: {
-    id: "application.skills.wordCountUnderMax",
-    defaultMessage: " words left.",
-    description:
-      "Message displayed next to word counter when user is under the maximum count.",
-  },
-  wordCountOverMax: {
-    id: "application.skills.wordCountOverMax",
-    defaultMessage: " words over the limit.",
-    description:
-      "Message displayed next to word counter when user is over the maximum count.",
-  },
-});
+import displayMessages from "./SkillsMessages";
+import {
+  getSkillOfCriteria,
+  getExperiencesOfSkill,
+  statusReducer,
+  initialStatus,
+  computeParentStatus,
+  SkillStatus,
+} from "./SkillsHelpers";
 
 const JUSTIFICATION_WORD_LIMIT = 100;
 
-enum IconStatus {
-  COMPLETE = "fas fa-check-circle",
-  DEFAULT = "far fa-circle",
-  ERROR = "fas fa-exclamation-circle",
-}
-
-interface StatusIconProps {
-  status: IconStatus;
-  size: string;
-}
-
-const StatusIcon: React.FC<StatusIconProps> = ({
-  status,
-  size,
-}): React.ReactElement => {
-  let color: string;
-  switch (status) {
-    case IconStatus.COMPLETE:
-      color = "go";
-      break;
-    case IconStatus.ERROR:
-      color = "stop";
-      break;
-    default:
-      color = "c1";
-  }
-
-  return <i className={status} data-c-color={color} data-c-font-size={size} />;
-};
-
 interface SidebarProps {
-  menuSkills: string[];
+  menuSkills: { [x: number]: string };
   intl: IntlShape;
-  status: {
-    [k: string]: IconStatus;
-  };
+  status: SkillStatus;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ menuSkills, intl, status }) => {
@@ -115,14 +52,17 @@ const Sidebar: React.FC<SidebarProps> = ({ menuSkills, intl, status }) => {
         />
       </p>
       <ul>
-        {menuSkills.map((skillName: string) => (
-          <li key={slugify(skillName)}>
-            <StatusIcon status={status[slugify(skillName)]} size="" />
+        {Object.keys(menuSkills).map((skillId) => (
+          <li key={skillId}>
+            <StatusIcon
+              status={computeParentStatus(status, Number(skillId))}
+              size=""
+            />
             <a
-              href={`#${slugify(skillName)}`}
+              href={`#${slugify(menuSkills[skillId])}`}
               title={intl.formatMessage(displayMessages.sidebarLinkTitle)}
             >
-              {skillName}
+              {menuSkills[skillId]}
             </a>
           </li>
         ))}
@@ -134,18 +74,18 @@ const Sidebar: React.FC<SidebarProps> = ({ menuSkills, intl, status }) => {
 interface ExperienceAccordionProps {
   experienceSkill: ExperienceSkill;
   intl: IntlShape;
-  status: {
-    [k: string]: IconStatus;
-  };
+  status: SkillStatus;
   skillName: string;
   handleUpdateExperienceJustification: (
     experience: ExperienceSkill,
   ) => Promise<ExperienceSkill>;
-  handleUpdateStatus: React.Dispatch<
-    React.SetStateAction<{
-      [k: string]: IconStatus;
-    }>
-  >;
+  handleUpdateStatus: (action: {
+    payload: {
+      skillId: number;
+      experienceId: number;
+      status: IconStatus;
+    };
+  }) => void;
 }
 
 interface ExperienceSkillFormValues {
@@ -218,8 +158,11 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
         handleUpdateExperienceJustification(experienceJustification)
           .then(() => {
             handleUpdateStatus({
-              ...status,
-              [slugify(skillName)]: IconStatus.COMPLETE,
+              payload: {
+                skillId: experienceSkill.skill_id,
+                experienceId: experienceSkill.experience_id,
+                status: IconStatus.COMPLETE,
+              },
             });
             setSubmitting(false);
             resetForm();
@@ -229,7 +172,7 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
           });
       }}
     >
-      {({ dirty, isSubmitting }): React.ReactElement => (
+      {({ dirty, isSubmitting, isValid, submitForm }): React.ReactElement => (
         <div
           data-c-accordion=""
           data-c-background="white(100)"
@@ -249,7 +192,14 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
             <div data-c-grid="">
               <div data-c-grid-item="base(1of4) tl(1of6) equal-col">
                 <div className="skill-status-indicator">
-                  <StatusIcon status={status[slugify(skillName)]} size="h4" />
+                  <StatusIcon
+                    status={
+                      status[experienceSkill.skill_id].experiences[
+                        experienceSkill.experience_id
+                      ]
+                    }
+                    size="h4"
+                  />
                 </div>
               </div>
               <div data-c-grid-item="base(3of4) tl(5of6)">
@@ -365,8 +315,21 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
                       <button
                         data-c-button="solid(c1)"
                         data-c-radius="rounded"
-                        type="submit"
+                        type="button"
                         disabled={!dirty || isSubmitting}
+                        onClick={() => {
+                          if (!isValid) {
+                            handleUpdateStatus({
+                              payload: {
+                                skillId: experienceSkill.skill_id,
+                                experienceId: experienceSkill.experience_id,
+                                status: IconStatus.ERROR,
+                              },
+                            });
+                          } else {
+                            submitForm();
+                          }
+                        }}
                       >
                         <span>
                           {dirty
@@ -404,39 +367,30 @@ const Skills: React.FC<SkillsProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl.locale);
 
-  const skillsById = mapToObject(skills, getId);
-  const getSkillOfCriteria = (criterion: Criteria): Skill | null => {
-    return hasKey(skillsById, criterion.skill_id)
-      ? skillsById[criterion.skill_id]
-      : null;
-  };
+  const initial = initialStatus(experiences);
 
-  const getExperiencesOfSkill = (skill: Skill): ExperienceSkill[] =>
-    experiences.filter((experience) => experience.skill_id === skill.id);
+  const [status, dispatchStatus] = useReducer(statusReducer, initial);
 
-  const menuSkills = criteria.flatMap((criterion: Criteria) => {
-    const skill = getSkillOfCriteria(criterion);
-    if (skill) {
-      return [localizeFieldNonNull(locale, skill, "name")];
-    }
-    return [];
-  });
-
-  const [experienceSkillStatus, setExperienceSkillStatus] = useState(
-    Object.fromEntries(
-      menuSkills.map((menuSkill) => [slugify(menuSkill), IconStatus.DEFAULT]),
-    ),
+  const menuSkills = criteria.reduce(
+    (collection: { [x: number]: string }, criterion: Criteria) => {
+      const skill = getSkillOfCriteria(criterion, skills);
+      if (skill && !collection[criterion.skill_id]) {
+        collection[criterion.skill_id] = localizeFieldNonNull(
+          locale,
+          skill,
+          "name",
+        );
+      }
+      return collection;
+    },
+    [],
   );
 
   return (
     <div data-c-container="large">
       <div data-c-grid="gutter(all, 1)">
         <div data-c-grid-item="tl(1of4)">
-          <Sidebar
-            menuSkills={menuSkills}
-            intl={intl}
-            status={experienceSkillStatus}
-          />
+          <Sidebar menuSkills={menuSkills} intl={intl} status={status} />
         </div>
         <div data-c-grid-item="tl(3of4)">
           <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">
@@ -473,7 +427,7 @@ const Skills: React.FC<SkillsProps> = ({
           </p>
           <div className="skills-list">
             {criteria.map((criterion) => {
-              const skill = getSkillOfCriteria(criterion);
+              const skill = getSkillOfCriteria(criterion, skills);
               if (skill === null) {
                 return null;
               }
@@ -508,7 +462,7 @@ const Skills: React.FC<SkillsProps> = ({
                       {intl.formatMessage(getSkillLevelName(criterion, skill))}
                     </button>
                   </h3>
-                  {getExperiencesOfSkill(skill).length === 0 ? (
+                  {getExperiencesOfSkill(skill, experiences).length === 0 ? (
                     <div
                       data-c-background="gray(10)"
                       data-c-radius="rounded"
@@ -527,19 +481,21 @@ const Skills: React.FC<SkillsProps> = ({
                     </div>
                   ) : (
                     <div data-c-accordion-group="">
-                      {getExperiencesOfSkill(skill).map((experienceSkill) => (
-                        <ExperienceAccordion
-                          key={`experience-skill-textarea-${experienceSkill.experience_type}-${experienceSkill.skill_id}-${experienceSkill.experience_id}`}
-                          experienceSkill={experienceSkill}
-                          intl={intl}
-                          status={experienceSkillStatus}
-                          handleUpdateStatus={setExperienceSkillStatus}
-                          skillName={skillName}
-                          handleUpdateExperienceJustification={
-                            handleUpdateExperienceJustification
-                          }
-                        />
-                      ))}
+                      {getExperiencesOfSkill(skill, experiences).map(
+                        (experienceSkill) => (
+                          <ExperienceAccordion
+                            key={`experience-skill-textarea-${experienceSkill.experience_type}-${experienceSkill.skill_id}-${experienceSkill.experience_id}`}
+                            experienceSkill={experienceSkill}
+                            intl={intl}
+                            status={status}
+                            handleUpdateStatus={dispatchStatus}
+                            skillName={skillName}
+                            handleUpdateExperienceJustification={
+                              handleUpdateExperienceJustification
+                            }
+                          />
+                        ),
+                      )}
                     </div>
                   )}
                 </>

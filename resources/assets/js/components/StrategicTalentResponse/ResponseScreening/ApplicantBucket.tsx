@@ -4,6 +4,7 @@ import { defineMessages, useIntl, FormattedMessage } from "react-intl";
 import { FastField, Formik, Form } from "formik";
 import Swal, { SweetAlertResult } from "sweetalert2";
 import ReactMarkdown from "react-markdown";
+import StatusIcon, { IconStatus } from "../../StatusIcon";
 import SelectInput from "../../Form/SelectInput";
 import AlertWhenUnsaved from "../../Form/AlertWhenUnsaved";
 import {
@@ -126,32 +127,6 @@ const displayMessages = defineMessages({
     description: "Confirmation button text for dialog",
   },
 });
-
-enum IconStatus {
-  ASSESSMENT = "question",
-  READY = "check",
-  RECEIVED = "exclamation",
-}
-
-interface StatusIconProps {
-  status: IconStatus;
-  color: string;
-  small: boolean;
-}
-
-const StatusIcon: React.FC<StatusIconProps> = ({
-  status,
-  color,
-  small,
-}): React.ReactElement => {
-  return (
-    <i
-      className={`fas fa-${status}-circle`}
-      data-c-color={color}
-      data-c-font-size={small ? "small" : ""}
-    />
-  );
-};
 
 interface ReferenceEmailModalProps {
   id: string;
@@ -395,19 +370,13 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
     case 4:
     case 5:
     case 7:
-      rowIcon = (
-        <StatusIcon status={IconStatus.READY} color="go" small={false} />
-      );
+      rowIcon = <StatusIcon status={IconStatus.READY} size="" />;
       break;
     case 6:
-      rowIcon = (
-        <StatusIcon status={IconStatus.ASSESSMENT} color="slow" small={false} />
-      );
+      rowIcon = <StatusIcon status={IconStatus.ASSESSMENT} size="" />;
       break;
     default:
-      rowIcon = (
-        <StatusIcon status={IconStatus.RECEIVED} color="c1" small={false} />
-      );
+      rowIcon = <StatusIcon status={IconStatus.RECEIVED} size="" />;
   }
 
   const emptyReview: ApplicationReview = {
@@ -950,21 +919,13 @@ const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
                   ResponseScreeningBuckets.consideration.description,
                   {
                     iconAssessment: (
-                      <StatusIcon
-                        status={IconStatus.ASSESSMENT}
-                        color="slow"
-                        small
-                      />
+                      <StatusIcon status={IconStatus.ASSESSMENT} size="small" />
                     ),
                     iconReady: (
-                      <StatusIcon status={IconStatus.READY} color="go" small />
+                      <StatusIcon status={IconStatus.READY} size="small" />
                     ),
                     iconReceived: (
-                      <StatusIcon
-                        status={IconStatus.RECEIVED}
-                        color="c1"
-                        small
-                      />
+                      <StatusIcon status={IconStatus.RECEIVED} size="small" />
                     ),
                   },
                 )
