@@ -66,14 +66,13 @@ export function EducationSubform({
       <div data-c-padding="bottom(1)">
         <div data-c-container="medium">
           <div data-c-grid="gutter(all, 1) middle">
-            <div data-c-input="checkbox(group)" data-c-grid-item="base(1of1)">
+            <div data-c-grid-item="base(1of1)">
               <FastField
                 key={checkboxKey}
                 id={checkboxKey}
                 name={checkboxKey}
                 label={intl.formatMessage(messages.educationJustificationLabel)}
                 component={CheckboxInput}
-                grid="base(1of2"
               />
             </div>
           </div>

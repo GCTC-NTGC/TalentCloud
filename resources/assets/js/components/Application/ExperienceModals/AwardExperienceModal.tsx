@@ -117,9 +117,9 @@ const messages = defineMessages({
 
 export interface AwardDetailsFormValues {
   title: string;
-  recipientTypeId: number | null;
+  recipientTypeId: number | "";
   issuedBy: string;
-  recognitionTypeId: number | null;
+  recognitionTypeId: number | "";
   awardedDate: string;
 }
 
@@ -164,12 +164,10 @@ const dataToFormValues = (
     optionalSkills: savedOptionalSkills.map(skillToName),
     useAsEducationRequirement,
     title: experienceAward.title,
-    recipientTypeId: creatingNew
-      ? null
-      : experienceAward.award_recipient_type_id,
+    recipientTypeId: creatingNew ? "" : experienceAward.award_recipient_type_id,
     issuedBy: experienceAward.issued_by,
     recognitionTypeId: creatingNew
-      ? null
+      ? ""
       : experienceAward.award_recognition_type_id,
     awardedDate: toInputDateString(experienceAward.awarded_date),
   };

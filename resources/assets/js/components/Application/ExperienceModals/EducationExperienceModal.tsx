@@ -142,10 +142,10 @@ const messages = defineMessages({
 });
 
 export interface EducationDetailsFormValues {
-  educationTypeId: number | null;
+  educationTypeId: number | "";
   areaOfStudy: string;
   institution: string;
-  educationStatusId: number | null;
+  educationStatusId: number | "";
   thesisTitle: string;
   startDate: string;
   isActive: boolean;
@@ -209,11 +209,11 @@ const dataToFormValues = (
     requiredSkills: savedRequiredSkills.map(skillToName),
     optionalSkills: savedOptionalSkills.map(skillToName),
     useAsEducationRequirement,
-    educationTypeId: creatingNew ? null : experienceEducation.education_type_id,
+    educationTypeId: creatingNew ? "" : experienceEducation.education_type_id,
     areaOfStudy: experienceEducation.area_of_study,
     institution: experienceEducation.institution,
     educationStatusId: creatingNew
-      ? null
+      ? ""
       : experienceEducation.education_status_id,
     thesisTitle: experienceEducation.thesis_title ?? "",
     hasBlockcert: experienceEducation.has_blockcert,

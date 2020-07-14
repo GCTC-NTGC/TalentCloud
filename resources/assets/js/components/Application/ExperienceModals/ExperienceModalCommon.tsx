@@ -8,6 +8,7 @@ export const ExperienceModalHeader: React.FC<{
 }> = ({ title, iconClass }) => {
   return (
     <div
+      className="dialog-header"
       data-c-background="c1(100)"
       data-c-border="bottom(thin, solid, black)"
       data-c-padding="tb(1)"
