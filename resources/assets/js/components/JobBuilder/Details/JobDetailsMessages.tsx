@@ -148,8 +148,7 @@ export const formMessages = defineMessages({
 export const educationMessages = defineMessages({
   AS: {
     id: "jobBuilder.details.educationMessages.AS",
-    defaultMessage: `Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.
-    `,
+    defaultMessage: `Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.`,
     description: "Job Classification message from list of Classifications",
   },
   BI: {
@@ -184,7 +183,7 @@ export const educationMessages = defineMessages({
   },
   FO: {
     id: "jobBuilder.details.educationMessages.FO",
-    defaultMessage: `Post-secondary degree:\nGraduation with a degree in forestry or wood science from a recognized post-secondary institution.\n\nor\n\nGraduation with a degree in a related science from a recognized post-secondary institution combined with acceptable experience.`,
+    defaultMessage: `Post-secondary degree:\nGraduation with a degree in forestry or wood science from a recognized post-secondary institution.\n\nor\n\nEquivalent experience:\nGraduation with a degree in a related science from a recognized post-secondary institution combined with acceptable experience.`,
     description: "Job Classification message from list of Classifications",
   },
   IS: {
@@ -210,6 +209,11 @@ export const educationMessages = defineMessages({
   AD: {
     id: "jobBuilder.details.educationMessages.AD",
     defaultMessage: `Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.`,
+    description: "Job Classification message from list of Classifications",
+  },
+  "EN-ENG": {
+    id: "jobBuilder.details.educationMessages.EN-ENG",
+    defaultMessage: `Post-secondary degree:\nSuccessful completion of post-secondary degree in mechanical engineering, civil engineering, electrical engineering, aeronautical engineering, geological engineering, naval architecture or some other engineering specialty relevant to the duties of the position.`,
     description: "Job Classification message from list of Classifications",
   },
 });
