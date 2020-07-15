@@ -1,9 +1,8 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import { FormattedMessage, useIntl, IntlShape } from "react-intl";
 import { Formik, Form, FastField } from "formik";
 import * as Yup from "yup";
-import { useReducer } from "@storybook/addons";
 import { ExperienceSkill, Skill, Criteria } from "../../../models/types";
 import { slugify } from "../../../helpers/routes";
 import { getLocale, localizeFieldNonNull } from "../../../helpers/localize";
@@ -366,7 +365,6 @@ const Skills: React.FC<SkillsProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
-
   const initial = initialStatus(experiences);
 
   const [status, dispatchStatus] = useReducer(statusReducer, initial);

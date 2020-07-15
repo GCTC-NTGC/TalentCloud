@@ -2,6 +2,13 @@ import { Criteria, ExperienceSkill, Skill } from "../../../models/types";
 import { mapToObject, getId, hasKey } from "../../../helpers/queries";
 import { IconStatus } from "../../StatusIcon";
 
+/**
+ * Retrieves Skill associated to Criterion by ID.
+ *
+ * @param criterion Criteria object.
+ * @param skills Array of Skill objects.
+ * @returns null if not found or Skill object.
+ */
 export const getSkillOfCriteria = (
   criterion: Criteria,
   skills: Skill[],
@@ -12,6 +19,13 @@ export const getSkillOfCriteria = (
     : null;
 };
 
+/**
+ * Retrieves array of ExperienceSkill objects associated to
+ * Skill by ID.
+ * @param skill Skill object.
+ * @param experiences Array of ExperienceSkill objects.
+ * @returns Array of ExperienceSkill objects.
+ */
 export const getExperiencesOfSkill = (
   skill: Skill,
   experiences: ExperienceSkill[],
@@ -26,6 +40,13 @@ export interface SkillStatus {
   };
 }
 
+/**
+ * Constructs an initial state object to pass to the reducer function.
+ * Accepts an array of experiences and creates an object of shape SkillStatus.
+ *
+ * @param experiences Array of ExperienceSkill.
+ * @returns SkillStatus.
+ */
 export const initialStatus = (experiences: ExperienceSkill[]): SkillStatus =>
   experiences.reduce((status, experience: ExperienceSkill) => {
     if (!status[experience.skill_id]) {
@@ -80,6 +101,14 @@ export const computeParentStatus = (
   return IconStatus.DEFAULT;
 };
 
+/**
+ * Updates a slice of the status state based on provided payload.
+ * Requires the Skill ID, Experience ID, and new status.
+ *
+ * @param state SkillStatus state object.
+ * @param action Object with a payload of skillId, experienceId, and status.
+ * @returns SkillStatus.
+ */
 export const statusReducer = (
   state: SkillStatus,
   action: {
