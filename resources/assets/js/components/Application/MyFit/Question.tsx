@@ -4,7 +4,11 @@ import { Formik, Form, FastField } from "formik";
 import * as Yup from "yup";
 import { useIntl, FormattedMessage, defineMessages } from "react-intl";
 import { JobPosterQuestion, JobApplicationAnswer } from "../../../models/types";
-import { getLocale, localizeFieldNonNull } from "../../../helpers/localize";
+import {
+  getLocale,
+  localizeFieldNonNull,
+  localizeField,
+} from "../../../helpers/localize";
 import { validationMessages } from "../../Form/Messages";
 import { countNumberOfWords } from "../../WordCounter/helpers";
 import TextAreaInput from "../../Form/TextAreaInput";
@@ -59,7 +63,7 @@ const answerToValues = (
   id: applicationAnswer.id,
   jobPosterQuestionsId: applicationAnswer.job_poster_questions_id,
   jobApplicationId: applicationAnswer.job_application_id,
-  answer: localizeFieldNonNull(locale, applicationAnswer, "answer"),
+  answer: localizeField(locale, applicationAnswer, "answer") || "",
 });
 
 const updateAnswerWithValues = (
@@ -115,7 +119,6 @@ const Question: React.FunctionComponent<QuestionProps> = ({
         );
 
         await handleSubmit(newApplicationAnswer);
-        console.log("test");
         setSubmitting(false);
       }}
     >
@@ -135,7 +138,7 @@ const Question: React.FunctionComponent<QuestionProps> = ({
                   index: index + 1,
                 }}
               />{" "}
-              {localizeFieldNonNull(locale, question, "question")}
+              {localizeField(locale, question, "question")}
             </p>
             <FastField
               id={`answer-${applicationAnswer.id}`}

@@ -176,7 +176,7 @@ export interface JobApplicationAnswer {
   id: number;
   job_poster_questions_id: number;
   job_application_id: number;
-  answer: localizedFieldNonNull;
+  answer: localizedField;
 }
 
 export interface JobPosterKeyTask {
@@ -188,8 +188,8 @@ export interface JobPosterKeyTask {
 export interface JobPosterQuestion {
   id: number;
   job_poster_id: number;
-  question: localizedFieldNonNull;
-  description: localizedFieldNonNull;
+  question: localizedField;
+  description: localizedField;
 }
 
 export interface Manager {
