@@ -36,9 +36,10 @@ stories.add(
     <MyFit
       jobQuestions={fakeJobQuestions()}
       appAnswers={fakeJobApplicationAnswers}
-      handleContinue={action("Save and Continue")}
-      handleQuit={action("Save and Quit")}
-      handleReturn={action("Save and Return to Previous Step")}
+      handleSubmit={async (x) => {
+        await new Promise((resolve) => setTimeout(resolve, 3000));
+        action("Confirmed")(x);
+      }}
     />
   ),
 );

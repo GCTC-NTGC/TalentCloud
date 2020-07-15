@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import React, { createRef, MutableRefObject } from "react";
+import React, { createRef, MutableRefObject, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import _ from "lodash";
 import { FormikProps } from "formik";
@@ -11,9 +11,7 @@ interface MyFitProps {
   /** List of job poster questions. */
   jobQuestions: JobPosterQuestion[];
   appAnswers: JobApplicationAnswer[];
-  handleContinue: (values: JobApplicationAnswer[]) => void;
-  handleQuit: () => void;
-  handleReturn: () => void;
+  handleSubmit: (values: JobApplicationAnswer) => Promise<void>;
 }
 
 interface MyFitValues {
@@ -26,10 +24,9 @@ interface MyFitValues {
 export const MyFit: React.FunctionComponent<MyFitProps> = ({
   jobQuestions,
   appAnswers,
-  handleContinue,
-  handleQuit,
-  handleReturn,
+  handleSubmit,
 }) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const focusOnElement = (id: string): void => {
     const element = document.getElementById(id);
     if (element) {
@@ -89,9 +86,11 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
   ): Promise<void> =>
     validateAllForms(refs).then((response) => {
       if (response) {
+        setIsSubmitting(true);
         submitAllForms(refs).finally(() => {
           // navigate(nextStepUrl);
           console.log("navigate to next step");
+          setIsSubmitting(false);
         });
       }
     });
@@ -117,10 +116,12 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
         />
       </p>
       {jobQuestions.map((question, index) => {
-        formRefs.current = [
-          ...formRefs.current,
-          formRefs.current[index] || createRef(),
-        ];
+        if (!formRefs.current.includes(formRefs.current[index])) {
+          formRefs.current = [
+            ...formRefs.current,
+            formRefs.current[index] || createRef(),
+          ];
+        }
 
         return (
           <Question
@@ -138,7 +139,7 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
             }
             index={index}
             question={question}
-            handleSubmit={async () => {}}
+            handleSubmit={handleSubmit}
             formRef={formRefs.current[index]}
           />
         );
@@ -154,6 +155,7 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
               data-c-button="outline(c2)"
               data-c-radius="rounded"
               type="button"
+              disabled={isSubmitting}
               onClick={() =>
                 validateAndSubmit(formRefs, "ReplaceWithUrlOfPreviousStep")
               }
@@ -173,6 +175,7 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
               data-c-button="outline(c2)"
               data-c-radius="rounded"
               type="button"
+              disabled={isSubmitting}
               onClick={() =>
                 validateAndSubmit(formRefs, "ReplaceWithUrlOfMyApplications")
               }
@@ -188,6 +191,7 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
               data-c-radius="rounded"
               data-c-margin="left(1)"
               type="button"
+              disabled={isSubmitting}
               onClick={() =>
                 validateAndSubmit(formRefs, "ReplaceWithUrlOfNextStep")
               }

@@ -42,7 +42,7 @@ interface QuestionProps {
   formRef: any;
   index: number;
   question: JobPosterQuestion;
-  handleSubmit: (value: JobApplicationAnswer) => Promise<void>;
+  handleSubmit: (data: JobApplicationAnswer) => Promise<void>;
 }
 
 export interface QuestionValues {
@@ -86,9 +86,6 @@ const Question: React.FunctionComponent<QuestionProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl.locale);
   const ANSWER_WORD_LIMIT = 250;
-  const [saveButtonText, setSaveButtonText] = React.useState(
-    intl.formatMessage(saveButtonMessages.default),
-  );
 
   const initialValues: QuestionValues = answerToValues(
     applicationAnswer,
@@ -110,26 +107,16 @@ const Question: React.FunctionComponent<QuestionProps> = ({
       innerRef={formRef}
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting }): void => {
+      onSubmit={async (values, { setSubmitting }): Promise<void> => {
         const newApplicationAnswer = updateAnswerWithValues(
           applicationAnswer,
           locale,
           values,
         );
 
-        handleSubmit(newApplicationAnswer)
-          .then(() => {})
-          .finally(() => {
-            setSubmitting(false);
-          });
-
-        setSaveButtonText(intl.formatMessage(saveButtonMessages.saving));
-        setTimeout(() => {
-          setSaveButtonText(intl.formatMessage(saveButtonMessages.saved));
-        }, 1000);
-        setTimeout(() => {
-          setSaveButtonText(intl.formatMessage(saveButtonMessages.default));
-        }, 2000);
+        await handleSubmit(newApplicationAnswer);
+        console.log("test");
+        setSubmitting(false);
       }}
     >
       {({ isSubmitting }): React.ReactElement => (
@@ -172,9 +159,14 @@ const Question: React.FunctionComponent<QuestionProps> = ({
                 id={`save-button-${question.id}`}
                 data-c-button="solid(c1)"
                 data-c-radius="rounded"
+                disabled={isSubmitting}
                 type="submit"
               >
-                <span>{saveButtonText}</span>
+                <FormattedMessage
+                  id="application.myfit.saveAnswerButton.default"
+                  defaultMessage="Save Answer"
+                  description="Default message displayed on save answer button."
+                />
               </button>
             </div>
           </div>
