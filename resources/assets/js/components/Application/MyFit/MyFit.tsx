@@ -6,6 +6,7 @@ import { FormikProps } from "formik";
 import { JobPosterQuestion, JobApplicationAnswer } from "../../../models/types";
 import Question, { QuestionValues } from "./Question";
 import { navigate } from "../../../helpers/router";
+import { validateAllForms, submitAllForms } from "../../../helpers/forms";
 
 interface MyFitProps {
   /** List of job poster questions. */
@@ -14,80 +15,24 @@ interface MyFitProps {
   handleSubmit: (values: JobApplicationAnswer) => Promise<void>;
 }
 
-interface MyFitValues {
-  id: number;
-  jobPosterQuestionsId: number;
-  jobApplicationId: number;
-  answer: string;
-}
-
 export const MyFit: React.FunctionComponent<MyFitProps> = ({
   jobQuestions,
   appAnswers,
   handleSubmit,
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const focusOnElement = (id: string): void => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.focus();
-    }
-  };
-
-  const validateAllForms = async (
-    refs: React.MutableRefObject<
-      React.MutableRefObject<FormikProps<QuestionValues>>[]
-    >,
-  ): Promise<boolean> => {
-    for (let i = 0; i < refs.current.length; i += 1) {
-      let ref = refs.current[i].current;
-      // eslint-disable-next-line no-await-in-loop
-      const isFormValid = await refs.current[i].current
-        .validateForm()
-        .then(() => {
-          ref = refs.current[i].current;
-          if (!_.isEmpty(ref.errors) && !ref.isSubmitting && !ref.isValid) {
-            return false;
-          }
-          return true;
-        });
-      if (!isFormValid) {
-        focusOnElement(`answer-${ref.values.id}`);
-        break;
-      }
-    }
-
-    const invalidForm = refs.current.some(
-      (ref: MutableRefObject<FormikProps<QuestionValues>>) =>
-        !ref.current.isValid,
-    );
-
-    return invalidForm ? Promise.resolve(false) : Promise.resolve(true);
-  };
-
-  const submitAllForms = async (
-    refs: React.MutableRefObject<
-      React.MutableRefObject<FormikProps<QuestionValues>>[]
-    >,
-  ): Promise<void[]> => {
-    return Promise.all(
-      refs.current.map((ref: MutableRefObject<FormikProps<QuestionValues>>) =>
-        // TODO: Might need make one mass submission by combining all values into an array.
-        ref.current.submitForm(),
-      ),
-    );
-  };
 
   const validateAndSubmit = (
     refs: React.MutableRefObject<
       React.MutableRefObject<FormikProps<QuestionValues>>[]
     >,
-    nextStep: string,
+    nextStepUrl: string,
   ): Promise<void> =>
-    validateAllForms(refs).then((response) => {
+    validateAllForms(refs, "answer-").then((response) => {
       if (response) {
         setIsSubmitting(true);
         submitAllForms(refs).finally(() => {
+          // TODO: Uncomment navigate when routes have been established.
           // navigate(nextStepUrl);
           console.log("navigate to next step");
           setIsSubmitting(false);
