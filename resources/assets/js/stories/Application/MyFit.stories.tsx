@@ -15,7 +15,7 @@ const fakeJobApplicationAnswers: JobApplicationAnswer[] = [
     job_application_id: 1,
     job_poster_questions_id: 1,
     answer: {
-      en: "fdsaffda",
+      en: "",
       fr: "",
     },
   },
@@ -23,6 +23,15 @@ const fakeJobApplicationAnswers: JobApplicationAnswer[] = [
     id: 2,
     job_application_id: 1,
     job_poster_questions_id: 2,
+    answer: {
+      en: "",
+      fr: "",
+    },
+  },
+  {
+    id: 3,
+    job_application_id: 1,
+    job_poster_questions_id: 3,
     answer: {
       en: "",
       fr: "",

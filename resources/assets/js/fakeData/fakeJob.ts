@@ -320,6 +320,20 @@ export const fakeJobQuestions = (jobId = 1): JobPosterQuestion[] => [
         "Y a-t-il d'autres compétences que vous apportez à l'emploi et que vous souhaitez mettre en valeur auprès du responsable ?",
     },
   },
+  {
+    id: 3,
+    job_poster_id: jobId,
+    description: {
+      en: "e.g. I have a few other skills...",
+      fr: "e.g. j'ai quelques autres compétences...",
+    },
+    question: {
+      en:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi exercitationem ipsa distinctio dolore in iure? Nisi ratione architecto velit quos.?",
+      fr:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi exercitationem ipsa distinctio dolore in iure? Nisi ratione architecto velit quos. ?",
+    },
+  },
 ];
 
 export default fakeJob;
