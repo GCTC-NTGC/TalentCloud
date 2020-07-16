@@ -4,40 +4,21 @@ import { Formik, Form, FastField } from "formik";
 import * as Yup from "yup";
 import { useIntl, FormattedMessage, defineMessages } from "react-intl";
 import { JobPosterQuestion, JobApplicationAnswer } from "../../../models/types";
-import {
-  getLocale,
-  localizeFieldNonNull,
-  localizeField,
-} from "../../../helpers/localize";
+import { getLocale, localizeField } from "../../../helpers/localize";
 import { validationMessages } from "../../Form/Messages";
 import { countNumberOfWords } from "../../WordCounter/helpers";
 import TextAreaInput from "../../Form/TextAreaInput";
 
 const saveButtonMessages = defineMessages({
-  default: {
+  save: {
     id: "application.myfit.saveAnswerButton.default",
     defaultMessage: "Save Answer",
     description: "Default message displayed on save answer button.",
   },
-  saving: {
-    id: "application.myfit.saveAnswerButton.saving",
-    defaultMessage: "Saving...",
-    description: "Message displayed on button when data is saving.",
-  },
   saved: {
     id: "application.myfit.saveAnswerButton.saved",
-    defaultMessage: "Saved!",
+    defaultMessage: "Saved",
     description: "Message displayed on button when data is saved.",
-  },
-  cancel: {
-    id: "application.myfit.saveAnswerButton.cancel",
-    defaultMessage: "Cancel",
-    description: "Cancel button for modal dialogue box.",
-  },
-  confirm: {
-    id: "application.myfit.saveAnswerButton.confirm",
-    defaultMessage: "Overwrite Answer",
-    description: "Confirm button for modal dialogue box.",
   },
 });
 
@@ -111,18 +92,24 @@ const Question: React.FunctionComponent<QuestionProps> = ({
       innerRef={formRef}
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={async (values, { setSubmitting }): Promise<void> => {
+      onSubmit={(values, { setSubmitting, resetForm }) => {
         const newApplicationAnswer = updateAnswerWithValues(
           applicationAnswer,
           locale,
           values,
         );
 
-        await handleSubmit(newApplicationAnswer);
-        setSubmitting(false);
+        handleSubmit(newApplicationAnswer)
+          .then(() => {
+            resetForm();
+            setSubmitting(false);
+          })
+          .catch(() => {
+            setSubmitting(false);
+          });
       }}
     >
-      {({ isSubmitting }): React.ReactElement => (
+      {({ dirty, isSubmitting }): React.ReactElement => (
         <Form>
           <div key={question.id}>
             <p
@@ -162,14 +149,14 @@ const Question: React.FunctionComponent<QuestionProps> = ({
                 id={`save-button-${question.id}`}
                 data-c-button="solid(c1)"
                 data-c-radius="rounded"
-                disabled={isSubmitting}
+                disabled={!dirty || isSubmitting}
                 type="submit"
               >
-                <FormattedMessage
-                  id="application.myfit.saveAnswerButton.default"
-                  defaultMessage="Save Answer"
-                  description="Default message displayed on save answer button."
-                />
+                <span>
+                  {dirty
+                    ? intl.formatMessage(saveButtonMessages.save)
+                    : intl.formatMessage(saveButtonMessages.saved)}
+                </span>
               </button>
             </div>
           </div>
