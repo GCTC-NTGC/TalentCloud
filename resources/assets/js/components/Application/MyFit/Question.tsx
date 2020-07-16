@@ -23,7 +23,7 @@ const saveButtonMessages = defineMessages({
 });
 
 interface QuestionProps {
-  applicationAnswer: JobApplicationAnswer;
+  jobApplicationAnswer: JobApplicationAnswer;
   formRef: any;
   index: number;
   question: JobPosterQuestion;
@@ -62,7 +62,7 @@ const updateAnswerWithValues = (
 });
 
 const Question: React.FunctionComponent<QuestionProps> = ({
-  applicationAnswer,
+  jobApplicationAnswer,
   formRef,
   index,
   question,
@@ -73,7 +73,7 @@ const Question: React.FunctionComponent<QuestionProps> = ({
   const ANSWER_WORD_LIMIT = 250;
 
   const initialValues: QuestionValues = answerToValues(
-    applicationAnswer,
+    jobApplicationAnswer,
     locale,
   );
 
@@ -93,13 +93,13 @@ const Question: React.FunctionComponent<QuestionProps> = ({
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting, resetForm }) => {
-        const newApplicationAnswer = updateAnswerWithValues(
-          applicationAnswer,
+        const newjobApplicationAnswer = updateAnswerWithValues(
+          jobApplicationAnswer,
           locale,
           values,
         );
 
-        handleSubmit(newApplicationAnswer)
+        handleSubmit(newjobApplicationAnswer)
           .then(() => {
             resetForm();
             setSubmitting(false);
@@ -128,7 +128,7 @@ const Question: React.FunctionComponent<QuestionProps> = ({
               {localizeField(locale, question, "question")}
             </p>
             <FastField
-              id={`answer-${applicationAnswer.id}`}
+              id={`answer-${jobApplicationAnswer.id}`}
               name="answer"
               component={TextAreaInput}
               required

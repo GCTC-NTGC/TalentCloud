@@ -11,13 +11,13 @@ import { validateAllForms, submitAllForms } from "../../../helpers/forms";
 interface MyFitProps {
   /** List of job poster questions. */
   jobQuestions: JobPosterQuestion[];
-  appAnswers: JobApplicationAnswer[];
+  jobApplicationAnswers: JobApplicationAnswer[];
   handleSubmit: (values: JobApplicationAnswer) => Promise<void>;
 }
 
 export const MyFit: React.FunctionComponent<MyFitProps> = ({
   jobQuestions,
-  appAnswers,
+  jobApplicationAnswers,
   handleSubmit,
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -71,8 +71,8 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
         return (
           <Question
             key={question.id}
-            applicationAnswer={
-              appAnswers.find(
+            jobApplicationAnswer={
+              jobApplicationAnswers.find(
                 (appAnswer) =>
                   appAnswer.job_poster_questions_id === question.id,
               ) ?? {
