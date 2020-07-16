@@ -37,8 +37,12 @@ sudo chcon -Rt httpd_sys_rw_content_t $SRC/storage;
 echo "Setting nginx as onwer of all files...";
 sudo chown -Rf nginx:nginx $SRC;
 
+# Move the old Storage folder so it doesn't get deleted
+echo "Saving previous Storage folder...";
+sudo mv $APP_DIR/storage ./storage_backup;
+
 # Copy to APP_DIR
-echo "Updating app with contents of $SRC:"
+echo "Updating app with contents of $SRC:";
 
 echo "Deleting contents of app directory...";
 sudo rm -Rf $APP_DIR/*;
@@ -46,7 +50,11 @@ sudo rm -Rf $APP_DIR/*;
 echo "Moving contents of $SRC to app directory...";
 sudo mv $SRC/* $APP_DIR/;
 
-echo "Deleting empty $SRC...";
+echo "Moving old Storage files back into new app directory...";
+sudo mv ./storage_backup/* $APP_DIR/storage;
+sudo rm ./storage_backup;
+
+echo "Deleting empty src directory...";
 sudo rm -R $SRC;
 
 # Migrations and optimizing Laravel
