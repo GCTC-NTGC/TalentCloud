@@ -4,6 +4,7 @@ import {
   Criteria,
   JobPosterKeyTask,
   JobPosterQuestion,
+  JobApplicationAnswer,
 } from "../models/types";
 
 export const fakeJob = (id = 1): Job => ({
@@ -332,6 +333,38 @@ export const fakeJobQuestions = (jobId = 1): JobPosterQuestion[] => [
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi exercitationem ipsa distinctio dolore in iure? Nisi ratione architecto velit quos.?",
       fr:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi exercitationem ipsa distinctio dolore in iure? Nisi ratione architecto velit quos. ?",
+    },
+  },
+];
+
+export const fakeJobApplicationAnswers = (
+  jobApplicationId = 1,
+): JobApplicationAnswer[] => [
+  {
+    id: 1,
+    job_application_id: jobApplicationId,
+    job_poster_questions_id: 1,
+    answer: {
+      en: "",
+      fr: "",
+    },
+  },
+  {
+    id: 2,
+    job_application_id: jobApplicationId,
+    job_poster_questions_id: 2,
+    answer: {
+      en: "",
+      fr: "",
+    },
+  },
+  {
+    id: 3,
+    job_application_id: jobApplicationId,
+    job_poster_questions_id: 3,
+    answer: {
+      en: "",
+      fr: "",
     },
   },
 ];
