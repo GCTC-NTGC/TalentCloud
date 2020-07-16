@@ -37,11 +37,8 @@ sudo chcon -Rt httpd_sys_rw_content_t $SRC/storage;
 echo "Setting nginx as onwer of all files...";
 sudo chown -Rf nginx:nginx $SRC;
 
-# Backup and copy to /var/www
+# Copy to APP_DIR
 echo "Updating app with contents of $SRC:"
-
-echo "Copying $SRC to backup...";
-sudo cp -a $SRC "$SRC_Backup";
 
 echo "Deleting contents of app directory...";
 sudo rm -Rf $APP_DIR/*;
