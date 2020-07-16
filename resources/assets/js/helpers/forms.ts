@@ -13,23 +13,18 @@ export const validateAllForms = async (
   refs: MutableRefObject<MutableRefObject<FormikProps<FormikValues>>[]>,
   formBaseId: string,
 ): Promise<boolean> => {
-  for (let i = 0; i < refs.current.length; i += 1) {
-    let ref = refs.current[i].current;
-    // eslint-disable-next-line no-await-in-loop
-    const isFormValid = await refs.current[i].current
-      .validateForm()
-      .then(() => {
-        ref = refs.current[i].current;
-        if (!_.isEmpty(ref.errors) && !ref.isSubmitting && !ref.isValid) {
-          return false;
-        }
-        return true;
-      });
-    if (!isFormValid) {
-      focusOnElement(`${formBaseId}${ref.values.id}`);
-      break;
+  await Promise.all(
+    refs.current.map((ref: MutableRefObject<FormikProps<FormikValues>>) =>
+      ref.current.validateForm(),
+    ),
+  ).then((errors) => {
+    for (let i = 0; i < errors.length; i += 1) {
+      if (!_.isEmpty(errors[i])) {
+        focusOnElement(`${formBaseId}${refs.current[i].current.values.id}`);
+        break;
+      }
     }
-  }
+  });
 
   const invalidForm = refs.current.some(
     (ref: MutableRefObject<FormikProps<FormikValues>>) => !ref.current.isValid,
@@ -45,7 +40,7 @@ export const submitAllForms = async (
 ): Promise<void[]> => {
   return Promise.all(
     refs.current.map((ref: MutableRefObject<FormikProps<FormikValues>>) =>
-      // TODO: Might need make one mass submission by combining all values into an array.
+      // TODO: Might need to make one mass submission by combining all values into an array.
       ref.current.submitForm(),
     ),
   );
