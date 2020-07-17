@@ -176,7 +176,7 @@ export interface JobApplicationAnswer {
   id: number;
   job_poster_questions_id: number;
   job_application_id: number;
-  answer: localizedField;
+  answer: string | null;
 }
 
 export interface JobPosterKeyTask {

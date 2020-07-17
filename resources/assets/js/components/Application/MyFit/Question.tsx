@@ -31,34 +31,19 @@ interface QuestionProps {
 }
 
 export interface QuestionValues {
-  id: number;
-  jobPosterQuestionsId: number;
-  jobApplicationId: number;
   answer: string;
 }
 
-const answerToValues = (
-  applicationAnswer: JobApplicationAnswer,
-  locale: "en" | "fr",
-): QuestionValues => ({
-  id: applicationAnswer.id,
-  jobPosterQuestionsId: applicationAnswer.job_poster_questions_id,
-  jobApplicationId: applicationAnswer.job_application_id,
-  answer: localizeField(locale, applicationAnswer, "answer") || "",
+const answerToValues = ({ answer }: JobApplicationAnswer): QuestionValues => ({
+  answer: answer ?? "",
 });
 
 const updateAnswerWithValues = (
   applicationAnswer: JobApplicationAnswer,
-  locale: "en" | "fr",
-  { id, jobPosterQuestionsId, jobApplicationId, answer }: QuestionValues,
+  { answer }: QuestionValues,
 ): JobApplicationAnswer => ({
-  id,
-  job_poster_questions_id: jobPosterQuestionsId,
-  job_application_id: jobApplicationId,
-  answer: {
-    ...applicationAnswer.answer,
-    [locale]: answer,
-  },
+  ...applicationAnswer,
+  answer,
 });
 
 const Question: React.FunctionComponent<QuestionProps> = ({
@@ -72,10 +57,7 @@ const Question: React.FunctionComponent<QuestionProps> = ({
   const locale = getLocale(intl.locale);
   const ANSWER_WORD_LIMIT = 250;
 
-  const initialValues: QuestionValues = answerToValues(
-    jobApplicationAnswer,
-    locale,
-  );
+  const initialValues: QuestionValues = answerToValues(jobApplicationAnswer);
 
   const validationSchema = Yup.object({
     answer: Yup.string()
@@ -95,7 +77,6 @@ const Question: React.FunctionComponent<QuestionProps> = ({
       onSubmit={(values, { setSubmitting, resetForm }) => {
         const newjobApplicationAnswer = updateAnswerWithValues(
           jobApplicationAnswer,
-          locale,
           values,
         );
 
@@ -128,7 +109,7 @@ const Question: React.FunctionComponent<QuestionProps> = ({
               {localizeField(locale, question, "question")}
             </p>
             <FastField
-              id={`answer-${jobApplicationAnswer.id}`}
+              id={`answer-${question.id}`}
               name="answer"
               component={TextAreaInput}
               required
