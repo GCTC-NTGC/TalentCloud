@@ -814,6 +814,11 @@ export const classificationCodes = defineMessages({
     defaultMessage: "EN-ENG - Engineering",
     description: "Job Classification from list of Classifications",
   },
+  [ClassificationId.FI]: {
+    id: "jobBuilder.details.classificationOptions.FI",
+    defaultMessage: "FI - Financial Management",
+    description: "Job Classification from list of Classifications",
+  },
 });
 
 export const classificationCodeOption = (
