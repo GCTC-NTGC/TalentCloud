@@ -86,6 +86,9 @@ export const fakeApplicationNormalized = (
     },
   },
   meets_essential_criteria: true,
+  language_requirement_confirmed: true,
+  language_test_confirmed: true,
+  education_requirement_confirmed: true,
   ...overrides,
 });
 

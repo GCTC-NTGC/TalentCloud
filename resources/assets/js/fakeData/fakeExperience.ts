@@ -18,6 +18,9 @@ export const fakeExperienceWork = (
   is_active: false,
   start_date: dayjs("01/07/2015").toDate(),
   end_date: dayjs("12/13/2019").toDate(),
+  experienceable_id: 1,
+  experienceable_type: "applicant",
+  is_education_requirement: false,
   ...overrides,
 });
 
@@ -34,6 +37,9 @@ export const fakeExperienceEducation = (
   end_date: dayjs("04/30/2015").toDate(),
   thesis_title: "How do concrete structures withstand hurricane wind stress?",
   has_blockcert: true,
+  experienceable_id: 1,
+  experienceable_type: "applicant",
+  is_education_requirement: false,
   ...overrides,
 });
 
@@ -47,6 +53,9 @@ export const fakeExperienceCommunity = (
   is_active: true,
   start_date: dayjs("04/01/2018").toDate(),
   end_date: null,
+  experienceable_id: 1,
+  experienceable_type: "applicant",
+  is_education_requirement: false,
   ...overrides,
 });
 
@@ -59,6 +68,9 @@ export const fakeExperienceAward = (
   issued_by: "McGill University",
   award_recognition_type_id: 1,
   awarded_date: dayjs("01/27/2016").toDate(),
+  experienceable_id: 1,
+  experienceable_type: "applicant",
+  is_education_requirement: false,
   ...overrides,
 });
 
@@ -73,5 +85,8 @@ export const fakeExperiencePersonal = (
   is_active: true,
   start_date: dayjs("04/01/2013").toDate(),
   end_date: null,
+  experienceable_id: 1,
+  experienceable_type: "applicant",
+  is_education_requirement: false,
   ...overrides,
 });
