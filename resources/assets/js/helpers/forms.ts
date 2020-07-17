@@ -1,5 +1,5 @@
 import { FormikProps, FormikValues } from "formik";
-import _ from "lodash";
+import isEmpty from "lodash/isEmpty";
 import { MutableRefObject } from "react";
 
 export const focusOnElement = (id: string): void => {
@@ -19,7 +19,7 @@ export const validateAllForms = async (
     ),
   ).then((errors) => {
     for (let i = 0; i < errors.length; i += 1) {
-      if (!_.isEmpty(errors[i])) {
+      if (!isEmpty(errors[i])) {
         focusOnElement(`${formBaseId}${refs.current[i].current.values.id}`);
         break;
       }
