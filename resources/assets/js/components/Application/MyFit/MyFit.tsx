@@ -78,7 +78,7 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
               ) ?? {
                 id: 0,
                 job_application_id: 0,
-                answer: { en: "", fr: "" },
+                answer: "",
                 job_poster_questions_id: 0,
               }
             }
