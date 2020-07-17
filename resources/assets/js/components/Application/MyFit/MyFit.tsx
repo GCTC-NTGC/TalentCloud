@@ -5,7 +5,11 @@ import { FormikProps } from "formik";
 import { JobPosterQuestion, JobApplicationAnswer } from "../../../models/types";
 import Question, { QuestionValues } from "./Question";
 import { navigate } from "../../../helpers/router";
-import { validateAllForms, submitAllForms } from "../../../helpers/forms";
+import {
+  validateAllForms,
+  submitAllForms,
+  focusOnElement,
+} from "../../../helpers/forms";
 
 interface MyFitProps {
   /** List of job poster questions. */
@@ -22,20 +26,34 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validateAndSubmit = (
-    refs: React.MutableRefObject<FormikProps<QuestionValues>>[],
+    refMap: Map<number, React.MutableRefObject<FormikProps<QuestionValues>>>,
     nextStepUrl: string,
-  ): Promise<void> =>
-    validateAllForms(refs, "answer-").then((response) => {
-      if (response) {
-        setIsSubmitting(true);
-        submitAllForms(refs).finally(() => {
-          // TODO: Uncomment navigate when routes have been established.
-          // navigate(nextStepUrl);
-          console.log("navigate to next step");
-          setIsSubmitting(false);
-        });
-      }
-    });
+  ): Promise<void> => {
+    setIsSubmitting(true);
+    const refs = Array.from(refMap.values());
+    return validateAllForms(refs)
+      .then((response) => {
+        if (response) {
+          submitAllForms(refs).finally(() => {
+            // TODO: Uncomment navigate when routes have been established.
+            // navigate(nextStepUrl);
+            console.log("navigate to next step");
+          });
+        } else {
+          // Focus on the first invalid answer input.
+          // eslint-disable-next-line no-restricted-syntax
+          for (const [questionId, formRef] of Array.from(refMap.entries())) {
+            if (!formRef.current.isValid) {
+              focusOnElement(`answer-${questionId}`);
+              break;
+            }
+          }
+        }
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
+  };
 
   const formRefs = React.useRef<
     Map<number, React.MutableRefObject<FormikProps<QuestionValues>>>
@@ -100,7 +118,7 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
               disabled={isSubmitting}
               onClick={() =>
                 validateAndSubmit(
-                  Array.from(formRefs.current.values()),
+                  formRefs.current,
                   "ReplaceWithUrlOfPreviousStep",
                 )
               }
@@ -123,7 +141,7 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
               disabled={isSubmitting}
               onClick={() =>
                 validateAndSubmit(
-                  Array.from(formRefs.current.values()),
+                  formRefs.current,
                   "ReplaceWithUrlOfMyApplications",
                 )
               }
@@ -141,10 +159,7 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
               type="button"
               disabled={isSubmitting}
               onClick={() =>
-                validateAndSubmit(
-                  Array.from(formRefs.current.values()),
-                  "ReplaceWithUrlOfNextStep",
-                )
+                validateAndSubmit(formRefs.current, "ReplaceWithUrlOfNextStep")
               }
             >
               <FormattedMessage

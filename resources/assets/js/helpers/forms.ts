@@ -9,28 +9,19 @@ export const focusOnElement = (id: string): void => {
   }
 };
 
+/**
+ * Runs validation on all forms, then returns true if they are all valid.
+ * TODO: Figure out how to focus the first (or last) invalid input, if any.
+ * @param refs
+ */
 export const validateAllForms = async (
   refs: MutableRefObject<FormikProps<FormikValues>>[],
-  formBaseId: string,
 ): Promise<boolean> => {
-  await Promise.all(
+  return Promise.all(
     refs.map((ref: MutableRefObject<FormikProps<FormikValues>>) =>
       ref.current.validateForm(),
     ),
-  ).then((errors) => {
-    for (let i = 0; i < errors.length; i += 1) {
-      if (!isEmpty(errors[i])) {
-        focusOnElement(`${formBaseId}${refs[i].current.values.id}`);
-        break;
-      }
-    }
-  });
-
-  const invalidForm = refs.some(
-    (ref: MutableRefObject<FormikProps<FormikValues>>) => !ref.current.isValid,
-  );
-
-  return invalidForm ? Promise.resolve(false) : Promise.resolve(true);
+  ).then((errors) => errors.every(isEmpty));
 };
 
 export const submitAllForms = async (
