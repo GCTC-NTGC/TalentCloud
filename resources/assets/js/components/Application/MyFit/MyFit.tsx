@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import React, { createRef, MutableRefObject, useState } from "react";
+import React, { createRef, useState, MutableRefObject } from "react";
 import { FormattedMessage } from "react-intl";
-import _ from "lodash";
 import { FormikProps } from "formik";
 import { JobPosterQuestion, JobApplicationAnswer } from "../../../models/types";
 import Question, { QuestionValues } from "./Question";
@@ -23,9 +22,7 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validateAndSubmit = (
-    refs: React.MutableRefObject<
-      React.MutableRefObject<FormikProps<QuestionValues>>[]
-    >,
+    refs: React.MutableRefObject<FormikProps<QuestionValues>>[],
     nextStepUrl: string,
   ): Promise<void> =>
     validateAllForms(refs, "answer-").then((response) => {
@@ -41,8 +38,8 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
     });
 
   const formRefs = React.useRef<
-    MutableRefObject<FormikProps<QuestionValues>>[]
-  >([]);
+    Map<number, React.MutableRefObject<FormikProps<QuestionValues>>>
+  >(new Map());
 
   return (
     <section data-c-container="medium">
@@ -61,11 +58,11 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
         />
       </p>
       {jobQuestions.map((question, index) => {
-        if (!formRefs.current.includes(formRefs.current[index])) {
-          formRefs.current = [
-            ...formRefs.current,
-            formRefs.current[index] || createRef(),
-          ];
+        if (!formRefs.current.has(question.id)) {
+          const ref = createRef() as MutableRefObject<
+            FormikProps<QuestionValues>
+          >;
+          formRefs.current.set(question.id, ref);
         }
 
         return (
@@ -85,7 +82,7 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
             index={index}
             question={question}
             handleSubmit={handleSubmit}
-            formRef={formRefs.current[index]}
+            formRef={formRefs.current.get(question.id)}
           />
         );
       })}
@@ -102,7 +99,10 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
               type="button"
               disabled={isSubmitting}
               onClick={() =>
-                validateAndSubmit(formRefs, "ReplaceWithUrlOfPreviousStep")
+                validateAndSubmit(
+                  Array.from(formRefs.current.values()),
+                  "ReplaceWithUrlOfPreviousStep",
+                )
               }
             >
               <FormattedMessage
@@ -122,7 +122,10 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
               type="button"
               disabled={isSubmitting}
               onClick={() =>
-                validateAndSubmit(formRefs, "ReplaceWithUrlOfMyApplications")
+                validateAndSubmit(
+                  Array.from(formRefs.current.values()),
+                  "ReplaceWithUrlOfMyApplications",
+                )
               }
             >
               <FormattedMessage
@@ -138,7 +141,10 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
               type="button"
               disabled={isSubmitting}
               onClick={() =>
-                validateAndSubmit(formRefs, "ReplaceWithUrlOfNextStep")
+                validateAndSubmit(
+                  Array.from(formRefs.current.values()),
+                  "ReplaceWithUrlOfNextStep",
+                )
               }
             >
               <FormattedMessage
