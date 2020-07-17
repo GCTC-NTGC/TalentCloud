@@ -142,7 +142,7 @@ export const validationShape = (intl: IntlShape) => {
     recipientTypeId: Yup.number().required(requiredMsg),
     issuedBy: Yup.string().required(requiredMsg),
     recognitionTypeId: Yup.number().required(requiredMsg),
-    awardDate: Yup.date().required(requiredMsg).max(new Date(), inPastMsg),
+    awardedDate: Yup.date().required(requiredMsg).max(new Date(), inPastMsg),
   };
 };
 
