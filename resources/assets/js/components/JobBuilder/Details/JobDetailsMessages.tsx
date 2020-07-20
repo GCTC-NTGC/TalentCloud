@@ -216,4 +216,19 @@ export const educationMessages = defineMessages({
     defaultMessage: `Post-secondary degree:\nSuccessful completion of post-secondary degree in mechanical engineering, civil engineering, electrical engineering, aeronautical engineering, geological engineering, naval architecture or some other engineering specialty relevant to the duties of the position.`,
     description: "Job Classification message from list of Classifications",
   },
+  FI: {
+    id: "jobBuilder.details.educationMessages.FI",
+    defaultMessage: `For FI-01 positions only:
+
+    Successful completion of two years of a post-secondary program with specialization in accounting, finance, business administration, commerce or economics; or
+    Possession of the Government of Canada Financial Management Certificate.
+
+    For FI-02 or above:
+    Successful completion of post-secondary degree with specialization in accounting, finance, business administration, commerce or economics AND experience related to positions in the Financial Management Group;
+
+    or
+
+    Eligibility for a recognized professional accounting designation. The recognized professional accounting designations are Chartered Professional Accountant (CPA), Chartered Accountant (CA), Certified Management Accountant (CMA), Certified General Accountant (CGA)`,
+    description: "Job Classification message from list of Classifications",
+  },
 });

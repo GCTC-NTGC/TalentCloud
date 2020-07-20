@@ -441,6 +441,61 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Education Experience",
+        "description": "Type of experience: Education Experience.",
+        "id": "application.experience.intro.educationExperience"
+      },
+      {
+        "defaultMessage": "Work Experience",
+        "description": "Type of experience: Work Experience.",
+        "id": "application.experience.intro.workExperience"
+      },
+      {
+        "defaultMessage": "Community Experience",
+        "description": "Type of experience: Community Experience.",
+        "id": "application.experience.intro.communityExperience"
+      },
+      {
+        "defaultMessage": "Personal Experience",
+        "description": "Type of experience: Personal Experience.",
+        "id": "application.experience.intro.personalExperience"
+      },
+      {
+        "defaultMessage": "Awards",
+        "description": "Type of experience: Personal Experience.",
+        "id": "application.experience.intro.awards"
+      },
+      {
+        "defaultMessage": "Defining Your Experience",
+        "description": "Header for the Experience Intro step.",
+        "id": "application.experience.intro.header"
+      },
+      {
+        "defaultMessage": "The next step in your application is to tell us about the experiences you've had that make you a good fit for this job.",
+        "description": "Paragraph explaining what to expect on the Experience step.",
+        "id": "application.experience.intro.explanation"
+      },
+      {
+        "defaultMessage": "On Talent Cloud, you can add these types of experiences:",
+        "description": "Paragraph before list of possible experience types.",
+        "id": "application.experience.intro.typesOfExperiences"
+      },
+      {
+        "defaultMessage": "The best part is that as you add these experiences, the information gets saved to your profile. The next time you go to apply to a job, you'll be able to select from the work you've done to help speed up the process.",
+        "description": "Paragraph explaining how experiences will be saved to profile.",
+        "id": "application.experience.intro.saveToProfile"
+      },
+      {
+        "defaultMessage": "Let's Go",
+        "description": "Button text for continuing to next step in Application Form.",
+        "id": "application.intro.letsGo"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/Experience/ExperienceIntro.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Personal Experience",
         "id": "experiencePersonalAccordion.experienceTypeTitle"
       },
@@ -534,6 +589,59 @@
       }
     ],
     "path": "resources/assets/js/components/Application/Intro/Intro.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Welcome",
+        "id": "applicationTimeline.progressBar.welcome"
+      },
+      {
+        "defaultMessage": "Step 1/6",
+        "id": "applicationTimeline.progressBar.step01"
+      },
+      {
+        "defaultMessage": "Step 2/6",
+        "id": "applicationTimeline.progressBar.step02"
+      },
+      {
+        "defaultMessage": "Step 3/6",
+        "id": "applicationTimeline.progressBar.step03"
+      },
+      {
+        "defaultMessage": "Step 4/6",
+        "id": "applicationTimeline.progressBar.step04"
+      },
+      {
+        "defaultMessage": "Step 5/6",
+        "id": "applicationTimeline.progressBar.step05"
+      },
+      {
+        "defaultMessage": "Step 6/6",
+        "id": "applicationTimeline.progressBar.step06"
+      },
+      {
+        "defaultMessage": "Completed: ",
+        "description": "Visually hidden text used to indicate the completed steps.",
+        "id": "applicationTimeline.progressbar.completedStepLabel"
+      },
+      {
+        "defaultMessage": "Current: ",
+        "description": "Visually hidden text used to indicate the current steps.",
+        "id": "applicationTimeline.progressbar.currentStepLabel"
+      },
+      {
+        "defaultMessage": "Error: ",
+        "description": "Visually hidden text used to indicate the steps with errors.",
+        "id": "applicationTimeline.progressbar.errorStepLabel"
+      },
+      {
+        "defaultMessage": "Application Deadline: {timeLeft}",
+        "description": "Label for the application deadline",
+        "id": "applicationTimeline.progressbar.applicationDeadline"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/ProgressBar/ProgressBar.json"
   },
   {
     "descriptors": [
@@ -1781,6 +1889,11 @@
         "defaultMessage": "Post-secondary degree:\nSuccessful completion of post-secondary degree in mechanical engineering, civil engineering, electrical engineering, aeronautical engineering, geological engineering, naval architecture or some other engineering specialty relevant to the duties of the position.",
         "description": "Job Classification message from list of Classifications",
         "id": "jobBuilder.details.educationMessages.EN-ENG"
+      },
+      {
+        "defaultMessage": "For FI-01 positions only:\n\n    Successful completion of two years of a post-secondary program with specialization in accounting, finance, business administration, commerce or economics; or\n    Possession of the Government of Canada Financial Management Certificate.\n\n    For FI-02 or above:\n    Successful completion of post-secondary degree with specialization in accounting, finance, business administration, commerce or economics AND experience related to positions in the Financial Management Group;\n\n    or\n\n    Eligibility for a recognized professional accounting designation. The recognized professional accounting designations are Chartered Professional Accountant (CPA), Chartered Accountant (CA), Certified Management Accountant (CMA), Certified General Accountant (CGA)",
+        "description": "Job Classification message from list of Classifications",
+        "id": "jobBuilder.details.educationMessages.FI"
       }
     ],
     "path": "resources/assets/js/components/JobBuilder/Details/JobDetailsMessages.json"
@@ -4374,6 +4487,11 @@
         "defaultMessage": "EN-ENG - Engineering",
         "description": "Job Classification from list of Classifications",
         "id": "jobBuilder.details.classificationOptions.EN-ENG"
+      },
+      {
+        "defaultMessage": "FI - Financial Management",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.FI"
       },
       {
         "defaultMessage": "Job Poster Builder",
