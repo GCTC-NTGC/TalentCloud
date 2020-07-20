@@ -34,24 +34,28 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
     refMap: Map<number, React.MutableRefObject<FormikProps<QuestionValues>>>,
   ): Promise<void> => {
     const refs = Array.from(refMap.values());
-    return validateAllForms(refs).then((response) => {
-      const formsAreValid: boolean = response;
-      if (formsAreValid) {
-        setIsSubmitting(true);
-        submitAllForms(refs).finally(() => {
-          setIsSubmitting(false);
-        });
-      } else {
-        Array.from(refMap.entries()).some((ref) => {
-          const [questionId, formRef] = ref;
-          if (!formRef.current.isValid) {
-            focusOnElement(`answer-${questionId}`);
-            return true;
-          }
-          return false;
-        });
-      }
-    });
+    setIsSubmitting(true);
+    return validateAllForms(refs)
+      .then(async (response) => {
+        const formsAreValid: boolean = response;
+        if (formsAreValid) {
+          await submitAllForms(refs).finally(() => {
+            setIsSubmitting(false);
+          });
+        } else {
+          Array.from(refMap.entries()).some((ref) => {
+            const [questionId, formRef] = ref;
+            if (!formRef.current.isValid) {
+              focusOnElement(`answer-${questionId}`);
+              return true;
+            }
+            return false;
+          });
+        }
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   };
 
   const formRefs = React.useRef<
