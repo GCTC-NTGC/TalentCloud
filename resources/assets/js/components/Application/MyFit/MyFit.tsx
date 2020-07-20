@@ -33,15 +33,16 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
   const validateAndSubmit = (
     refMap: Map<number, React.MutableRefObject<FormikProps<QuestionValues>>>,
   ): Promise<void> => {
+    setIsSubmitting(true);
     const refs = Array.from(refMap.values());
     return validateAllForms(refs).then((response) => {
       const formsAreValid: boolean = response;
       if (formsAreValid) {
-        setIsSubmitting(true);
         submitAllForms(refs).finally(() => {
           setIsSubmitting(false);
         });
       } else {
+        setIsSubmitting(false);
         Array.from(refMap.entries()).some((ref) => {
           const [questionId, formRef] = ref;
           if (!formRef.current.isValid) {
