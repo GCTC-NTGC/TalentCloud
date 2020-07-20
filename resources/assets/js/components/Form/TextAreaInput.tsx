@@ -17,6 +17,10 @@ const TextAreaInput: React.FunctionComponent<TextAreaInputProps> = ({
   grid,
   required,
   placeholder,
+  minLength,
+  maxLength,
+  wordLimit,
+  rightMessage,
   field: { name, value, onChange, onBlur },
   form: { errors, touched },
   ...props
@@ -41,6 +45,10 @@ const TextAreaInput: React.FunctionComponent<TextAreaInputProps> = ({
       invalid={invalid}
       onChange={onChange}
       onBlur={onBlur}
+      minLength={minLength}
+      maxLength={maxLength}
+      wordLimit={wordLimit}
+      rightMessage={rightMessage}
       {...otherProps}
     />
   );
