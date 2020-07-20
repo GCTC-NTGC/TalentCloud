@@ -4,7 +4,11 @@ import { FormattedMessage } from "react-intl";
 import { FormikProps } from "formik";
 import { JobPosterQuestion, JobApplicationAnswer } from "../../../models/types";
 import Question, { QuestionValues } from "./Question";
-import { validateAllForms, submitAllForms } from "../../../helpers/forms";
+import {
+  validateAllForms,
+  submitAllForms,
+  focusOnElement,
+} from "../../../helpers/forms";
 
 interface MyFitProps {
   /** List of job poster questions. */
@@ -27,16 +31,28 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validateAndSubmit = (
-    refs: React.MutableRefObject<FormikProps<QuestionValues>>[],
-  ): Promise<void> =>
-    validateAllForms(refs, "answer-").then((response) => {
-      if (response) {
+    refMap: Map<number, React.MutableRefObject<FormikProps<QuestionValues>>>,
+  ): Promise<void> => {
+    const refs = Array.from(refMap.values());
+    return validateAllForms(refs).then((response) => {
+      const formsAreValid: boolean = response;
+      if (formsAreValid) {
         setIsSubmitting(true);
         submitAllForms(refs).finally(() => {
           setIsSubmitting(false);
         });
+      } else {
+        Array.from(refMap.entries()).some((ref) => {
+          const [questionId, formRef] = ref;
+          if (!formRef.current.isValid) {
+            focusOnElement(`answer-${questionId}`);
+            return true;
+          }
+          return false;
+        });
       }
     });
+  };
 
   const formRefs = React.useRef<
     Map<number, React.MutableRefObject<FormikProps<QuestionValues>>>
@@ -99,10 +115,8 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
               data-c-radius="rounded"
               type="button"
               disabled={isSubmitting}
-              onClick={() =>
-                validateAndSubmit(Array.from(formRefs.current.values())).then(
-                  handleReturn,
-                )
+              onClick={(): Promise<void> =>
+                validateAndSubmit(formRefs.current).then(handleReturn)
               }
             >
               <FormattedMessage
@@ -121,10 +135,8 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
               data-c-radius="rounded"
               type="button"
               disabled={isSubmitting}
-              onClick={() =>
-                validateAndSubmit(Array.from(formRefs.current.values())).then(
-                  handleQuit,
-                )
+              onClick={(): Promise<void> =>
+                validateAndSubmit(formRefs.current).then(handleQuit)
               }
             >
               <FormattedMessage
@@ -139,10 +151,8 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
               data-c-margin="left(1)"
               type="button"
               disabled={isSubmitting}
-              onClick={() =>
-                validateAndSubmit(Array.from(formRefs.current.values())).then(
-                  handleContinue,
-                )
+              onClick={(): Promise<void> =>
+                validateAndSubmit(formRefs.current).then(handleContinue)
               }
             >
               <FormattedMessage
