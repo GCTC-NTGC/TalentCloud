@@ -30,29 +30,38 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const validateAndSubmit = (
+  /**
+   *
+   * @param refMap A map of question id to formik Form ref
+   * @returns A promise that resolves if submission succeeds, and rejects if validation or submission fails.
+   */
+  const validateAndSubmit = async (
     refMap: Map<number, React.MutableRefObject<FormikProps<QuestionValues>>>,
   ): Promise<void> => {
     setIsSubmitting(true);
     const refs = Array.from(refMap.values());
-    return validateAllForms(refs).then((response) => {
-      const formsAreValid: boolean = response;
-      if (formsAreValid) {
-        submitAllForms(refs).finally(() => {
-          setIsSubmitting(false);
-        });
-      } else {
+    const formsAreValid = await validateAllForms(refs);
+    if (formsAreValid) {
+      try {
+        await submitAllForms(refs);
         setIsSubmitting(false);
-        Array.from(refMap.entries()).some((ref) => {
-          const [questionId, formRef] = ref;
-          if (!formRef.current.isValid) {
-            focusOnElement(`answer-${questionId}`);
-            return true;
-          }
-          return false;
-        });
+        return Promise.resolve();
+      } catch {
+        setIsSubmitting(false);
+        return Promise.reject();
       }
-    });
+    } else {
+      Array.from(refMap.entries()).some((ref) => {
+        const [questionId, formRef] = ref;
+        if (!formRef.current.isValid) {
+          focusOnElement(`answer-${questionId}`);
+          return true;
+        }
+        return false;
+      });
+      setIsSubmitting(false);
+      return Promise.reject();
+    }
   };
 
   const formRefs = React.useRef<
