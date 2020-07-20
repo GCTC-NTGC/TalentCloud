@@ -74,13 +74,13 @@ const Question: React.FunctionComponent<QuestionProps> = ({
       innerRef={formRef}
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting, resetForm }) => {
+      onSubmit={async (values, { setSubmitting, resetForm }) => {
         const newjobApplicationAnswer = updateAnswerWithValues(
           jobApplicationAnswer,
           values,
         );
 
-        handleSubmit(newjobApplicationAnswer)
+        await handleSubmit(newjobApplicationAnswer)
           .then(() => {
             resetForm();
             setSubmitting(false);
