@@ -4,7 +4,6 @@ import { FormattedMessage } from "react-intl";
 import { FormikProps } from "formik";
 import { JobPosterQuestion, JobApplicationAnswer } from "../../../models/types";
 import Question, { QuestionValues } from "./Question";
-import { navigate } from "../../../helpers/router";
 import { validateAllForms, submitAllForms } from "../../../helpers/forms";
 
 interface MyFitProps {
@@ -12,26 +11,28 @@ interface MyFitProps {
   jobQuestions: JobPosterQuestion[];
   jobApplicationAnswers: JobApplicationAnswer[];
   handleSubmit: (values: JobApplicationAnswer) => Promise<void>;
+  handleContinue: () => void;
+  handleQuit: () => void;
+  handleReturn: () => void;
 }
 
 export const MyFit: React.FunctionComponent<MyFitProps> = ({
   jobQuestions,
   jobApplicationAnswers,
   handleSubmit,
+  handleContinue,
+  handleQuit,
+  handleReturn,
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validateAndSubmit = (
     refs: React.MutableRefObject<FormikProps<QuestionValues>>[],
-    nextStepUrl: string,
   ): Promise<void> =>
     validateAllForms(refs, "answer-").then((response) => {
       if (response) {
         setIsSubmitting(true);
         submitAllForms(refs).finally(() => {
-          // TODO: Uncomment navigate when routes have been established.
-          // navigate(nextStepUrl);
-          console.log("navigate to next step");
           setIsSubmitting(false);
         });
       }
@@ -99,9 +100,8 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
               type="button"
               disabled={isSubmitting}
               onClick={() =>
-                validateAndSubmit(
-                  Array.from(formRefs.current.values()),
-                  "ReplaceWithUrlOfPreviousStep",
+                validateAndSubmit(Array.from(formRefs.current.values())).then(
+                  handleReturn,
                 )
               }
             >
@@ -122,9 +122,8 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
               type="button"
               disabled={isSubmitting}
               onClick={() =>
-                validateAndSubmit(
-                  Array.from(formRefs.current.values()),
-                  "ReplaceWithUrlOfMyApplications",
+                validateAndSubmit(Array.from(formRefs.current.values())).then(
+                  handleQuit,
                 )
               }
             >
@@ -141,9 +140,8 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
               type="button"
               disabled={isSubmitting}
               onClick={() =>
-                validateAndSubmit(
-                  Array.from(formRefs.current.values()),
-                  "ReplaceWithUrlOfNextStep",
+                validateAndSubmit(Array.from(formRefs.current.values())).then(
+                  handleContinue,
                 )
               }
             >

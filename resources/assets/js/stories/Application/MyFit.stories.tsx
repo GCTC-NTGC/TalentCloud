@@ -21,6 +21,9 @@ stories.add(
         await new Promise((resolve) => setTimeout(resolve, 3000));
         action("Confirmed")(x);
       }}
+      handleContinue={action("Save and Continue")}
+      handleQuit={action("Save and Quit")}
+      handleReturn={action("Save and Return")}
     />
   ),
 );
