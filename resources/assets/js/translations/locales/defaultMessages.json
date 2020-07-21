@@ -593,6 +593,61 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "My Fit",
+        "description": "Heading for the My Fit step in the Application Timeline",
+        "id": "application.myfit.heading"
+      },
+      {
+        "defaultMessage": "The manager has included a few further questions that they'd like you to answer in order to be considered for this position. Questions that require an answer are marked, while all others are optional.",
+        "description": "Paragraph for the My Fit step in the Application Timeline",
+        "id": "application.myfit.firstParagraph"
+      },
+      {
+        "defaultMessage": "Save & Return to Previous Step",
+        "description": "The text displayed on the Save & Return button of the Applicant Timeline form.",
+        "id": "application.returnButtonLabel"
+      },
+      {
+        "defaultMessage": "Save & Quit",
+        "description": "The text displayed on the Save & Return button of the Applicant Timeline form.",
+        "id": "application.quitButtonLabel"
+      },
+      {
+        "defaultMessage": "Save & Continue",
+        "description": "The text displayed on the submit button for the Job Details form.",
+        "id": "application.submitButtonLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/MyFit/MyFit.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Save Answer",
+        "description": "Default message displayed on save answer button.",
+        "id": "application.myfit.saveAnswerButton.default"
+      },
+      {
+        "defaultMessage": "Saved",
+        "description": "Message displayed on button when data is saved.",
+        "id": "application.myfit.saveAnswerButton.saved"
+      },
+      {
+        "defaultMessage": "Question {index}:",
+        "description": "Label for the question on the My Fit step.",
+        "id": "application.myfit.question"
+      },
+      {
+        "defaultMessage": "My Answer to Question {index}",
+        "description": "Label before the users answer on the My Fit step.",
+        "id": "application.myfit.questionLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/MyFit/Question.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Welcome",
         "id": "applicationTimeline.progressBar.welcome"
       },
@@ -848,12 +903,22 @@
       {
         "defaultMessage": "Applications for: {jobTitle} {jobClassification}",
         "description": "Welcome header on Job Applications index page",
-        "id": "review.applications.indexPageTitle"
+        "id": "review.applications.applicationsAfterClosed"
       },
       {
-        "defaultMessage": "{dayCount, plural,\r\n              =0 {No Days}\r\n            one {# Day}\r\n          other {# Days}\r\n        } Since Close",
-        "description": "Welcome header on app main page",
-        "id": "job.daysSinceClosed"
+        "defaultMessage": "Applications to date: {jobTitle} {jobClassification}",
+        "description": "Welcome header on Job Applications index page",
+        "id": "review.applications.applicationsBeforeClosed"
+      },
+      {
+        "defaultMessage": "{dayCount, plural,\r\n              =0 {Closes Today}\r\n            one {# Day Since Close}\r\n          other {# Days Since Close}\r\n        }",
+        "description": "Shows the number of days after the job closed.",
+        "id": "job.daysAfterClosed"
+      },
+      {
+        "defaultMessage": "{dayCount, plural,\r\n            one {# Day}\r\n          other {# Days}\r\n        } Until Close",
+        "description": "Shows the number of days before the job closes.",
+        "id": "job.daysBeforeClosed"
       }
     ],
     "path": "resources/assets/js/components/ApplicationReview/ReviewApplications.json"
@@ -1419,6 +1484,11 @@
         "defaultMessage": "At least one checkbox is required.",
         "description": "Error message displayed when a required checkbox group or radio group is empty.",
         "id": "formValidation.checkboxRequired"
+      },
+      {
+        "defaultMessage": "Must be under 250 words",
+        "description": "Error message displayed when surpassing the maximum words allowed.",
+        "id": "formValidation.overMaxWords"
       },
       {
         "defaultMessage": "Something went wrong.",
@@ -3941,6 +4011,21 @@
       }
     ],
     "path": "resources/assets/js/components/StrategicTalentResponse/ResponseScreening/ApplicantBucket.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "words left",
+        "description": "Message displayed on word counter when user is under/matching the limit.",
+        "id": "textArea.wordsUnderLimit"
+      },
+      {
+        "defaultMessage": "words over limit",
+        "description": "Message displayed on word counter when user passes the limit.",
+        "id": "textArea.wordsOverLimit"
+      }
+    ],
+    "path": "resources/assets/js/components/TextArea.json"
   },
   {
     "descriptors": [
