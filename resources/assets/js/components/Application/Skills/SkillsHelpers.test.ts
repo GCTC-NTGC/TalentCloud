@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import {
   SkillStatus,
   initialStatus,
@@ -19,37 +20,37 @@ describe("Skills Helpers tests", (): void => {
   const sampleState: SkillStatus = {
     1: {
       experiences: {
-        1: IconStatus.ERROR,
-        2: IconStatus.COMPLETE,
-        3: IconStatus.DEFAULT,
+        experience_work_1: IconStatus.ERROR,
+        experience_award_2: IconStatus.COMPLETE,
+        experience_community_3: IconStatus.DEFAULT,
       },
     },
     2: {
       experiences: {
-        1: IconStatus.ERROR,
-        3: IconStatus.DEFAULT,
-        6: IconStatus.COMPLETE,
+        experience_personal_1: IconStatus.ERROR,
+        experience_community_3: IconStatus.DEFAULT,
+        experience_award_6: IconStatus.COMPLETE,
       },
     },
     3: {
       experiences: {
-        1: IconStatus.COMPLETE,
-        2: IconStatus.COMPLETE,
-        3: IconStatus.COMPLETE,
+        experience_award_1: IconStatus.COMPLETE,
+        experience_work_1: IconStatus.COMPLETE,
+        experience_work_3: IconStatus.COMPLETE,
       },
     },
     4: {
       experiences: {
-        1: IconStatus.DEFAULT,
-        2: IconStatus.COMPLETE,
-        3: IconStatus.COMPLETE,
+        experience_personal_1: IconStatus.DEFAULT,
+        experience_community_1: IconStatus.COMPLETE,
+        experience_award_2: IconStatus.COMPLETE,
       },
     },
     5: {
       experiences: {
-        1: IconStatus.DEFAULT,
-        2: IconStatus.DEFAULT,
-        3: IconStatus.DEFAULT,
+        experience_work_1: IconStatus.DEFAULT,
+        experience_work_2: IconStatus.DEFAULT,
+        experience_education_3: IconStatus.DEFAULT,
       },
     },
   };
@@ -58,19 +59,29 @@ describe("Skills Helpers tests", (): void => {
       const expectState: SkillStatus = {
         [fakeSkills()[0].id]: {
           experiences: {
-            [fakeExperienceEducation().id]: IconStatus.DEFAULT,
-            [fakeExperienceWork().id]: IconStatus.DEFAULT,
+            [`experience_${fakeExperienceEducation().type}_${
+              fakeExperienceEducation().id
+            }`]: IconStatus.DEFAULT,
+            [`experience_${fakeExperienceWork().type}_${
+              fakeExperienceWork().id
+            }`]: IconStatus.DEFAULT,
           },
         },
         [fakeSkills()[3].id]: {
           experiences: {
-            [fakeExperiencePersonal().id]: IconStatus.DEFAULT,
-            [fakeExperienceCommunity().id]: IconStatus.DEFAULT,
+            [`experience_${fakeExperiencePersonal().type}_${
+              fakeExperiencePersonal().id
+            }`]: IconStatus.DEFAULT,
+            [`experience_${fakeExperienceCommunity().type}_${
+              fakeExperienceCommunity().id
+            }`]: IconStatus.DEFAULT,
           },
         },
         [fakeSkills()[2].id]: {
           experiences: {
-            [fakeExperienceAward().id]: IconStatus.DEFAULT,
+            [`experience_${fakeExperienceAward().type}_${
+              fakeExperienceAward().id
+            }`]: IconStatus.DEFAULT,
           },
         },
       };
@@ -93,47 +104,57 @@ describe("Skills Helpers tests", (): void => {
   describe("Status Reducer", (): void => {
     it("Updates the expected experience status with the provided status.", (): void => {
       const addError = {
-        payload: { skillId: 3, experienceId: 1, status: IconStatus.ERROR },
+        payload: {
+          skillId: 3,
+          experienceId: 1,
+          experienceType: "experience_award",
+          status: IconStatus.ERROR,
+        },
       };
 
       const addComplete = {
-        payload: { skillId: 4, experienceId: 1, status: IconStatus.COMPLETE },
+        payload: {
+          skillId: 4,
+          experienceId: 1,
+          experienceType: "experience_personal",
+          status: IconStatus.COMPLETE,
+        },
       };
 
       const expectedStateError: SkillStatus = {
         1: {
           experiences: {
-            1: IconStatus.ERROR,
-            2: IconStatus.COMPLETE,
-            3: IconStatus.DEFAULT,
+            experience_work_1: IconStatus.ERROR,
+            experience_award_2: IconStatus.COMPLETE,
+            experience_community_3: IconStatus.DEFAULT,
           },
         },
         2: {
           experiences: {
-            1: IconStatus.ERROR,
-            3: IconStatus.DEFAULT,
-            6: IconStatus.COMPLETE,
+            experience_personal_1: IconStatus.ERROR,
+            experience_community_3: IconStatus.DEFAULT,
+            experience_award_6: IconStatus.COMPLETE,
           },
         },
         3: {
           experiences: {
-            1: IconStatus.ERROR,
-            2: IconStatus.COMPLETE,
-            3: IconStatus.COMPLETE,
+            experience_award_1: IconStatus.ERROR,
+            experience_work_1: IconStatus.COMPLETE,
+            experience_work_3: IconStatus.COMPLETE,
           },
         },
         4: {
           experiences: {
-            1: IconStatus.DEFAULT,
-            2: IconStatus.COMPLETE,
-            3: IconStatus.COMPLETE,
+            experience_personal_1: IconStatus.DEFAULT,
+            experience_community_1: IconStatus.COMPLETE,
+            experience_award_2: IconStatus.COMPLETE,
           },
         },
         5: {
           experiences: {
-            1: IconStatus.DEFAULT,
-            2: IconStatus.DEFAULT,
-            3: IconStatus.DEFAULT,
+            experience_work_1: IconStatus.DEFAULT,
+            experience_work_2: IconStatus.DEFAULT,
+            experience_education_3: IconStatus.DEFAULT,
           },
         },
       };
@@ -141,37 +162,37 @@ describe("Skills Helpers tests", (): void => {
       const expectedStateComplete: SkillStatus = {
         1: {
           experiences: {
-            1: IconStatus.ERROR,
-            2: IconStatus.COMPLETE,
-            3: IconStatus.DEFAULT,
+            experience_work_1: IconStatus.ERROR,
+            experience_award_2: IconStatus.COMPLETE,
+            experience_community_3: IconStatus.DEFAULT,
           },
         },
         2: {
           experiences: {
-            1: IconStatus.ERROR,
-            3: IconStatus.DEFAULT,
-            6: IconStatus.COMPLETE,
+            experience_personal_1: IconStatus.ERROR,
+            experience_community_3: IconStatus.DEFAULT,
+            experience_award_6: IconStatus.COMPLETE,
           },
         },
         3: {
           experiences: {
-            1: IconStatus.COMPLETE,
-            2: IconStatus.COMPLETE,
-            3: IconStatus.COMPLETE,
+            experience_award_1: IconStatus.COMPLETE,
+            experience_work_1: IconStatus.COMPLETE,
+            experience_work_3: IconStatus.COMPLETE,
           },
         },
         4: {
           experiences: {
-            1: IconStatus.COMPLETE,
-            2: IconStatus.COMPLETE,
-            3: IconStatus.COMPLETE,
+            experience_personal_1: IconStatus.COMPLETE,
+            experience_community_1: IconStatus.COMPLETE,
+            experience_award_2: IconStatus.COMPLETE,
           },
         },
         5: {
           experiences: {
-            1: IconStatus.DEFAULT,
-            2: IconStatus.DEFAULT,
-            3: IconStatus.DEFAULT,
+            experience_work_1: IconStatus.DEFAULT,
+            experience_work_2: IconStatus.DEFAULT,
+            experience_education_3: IconStatus.DEFAULT,
           },
         },
       };

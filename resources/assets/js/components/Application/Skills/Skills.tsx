@@ -82,6 +82,7 @@ interface ExperienceAccordionProps {
     payload: {
       skillId: number;
       experienceId: number;
+      experienceType: string;
       status: IconStatus;
     };
   }) => void;
@@ -160,6 +161,7 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
               payload: {
                 skillId: experienceSkill.skill_id,
                 experienceId: experienceSkill.experience_id,
+                experienceType: experienceSkill.experience_type,
                 status: IconStatus.COMPLETE,
               },
             });
@@ -194,7 +196,7 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
                   <StatusIcon
                     status={
                       status[experienceSkill.skill_id].experiences[
-                        experienceSkill.experience_id
+                        `${experienceSkill.experience_type}_${experienceSkill.experience_id}`
                       ]
                     }
                     size="h4"
@@ -322,6 +324,7 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
                               payload: {
                                 skillId: experienceSkill.skill_id,
                                 experienceId: experienceSkill.experience_id,
+                                experienceType: experienceSkill.experience_type,
                                 status: IconStatus.ERROR,
                               },
                             });

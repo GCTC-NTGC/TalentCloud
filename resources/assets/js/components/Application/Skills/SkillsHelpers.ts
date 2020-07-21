@@ -41,7 +41,7 @@ export interface SkillStatus {
 }
 
 /**
- * Constructs an initial state object to pass to the reducer function.
+ * Constructs an initial state object to pass to the statusReducer function.
  * Accepts an array of experiences and creates an object of shape SkillStatus.
  *
  * @param experiences Array of ExperienceSkill.
@@ -52,13 +52,14 @@ export const initialStatus = (experiences: ExperienceSkill[]): SkillStatus =>
     if (!status[experience.skill_id]) {
       status[experience.skill_id] = {
         experiences: {
-          [experience.experience_id]: IconStatus.DEFAULT,
+          [`${experience.experience_type}_${experience.experience_id}`]: IconStatus.DEFAULT,
         },
       };
     }
 
-    status[experience.skill_id].experiences[experience.experience_id] =
-      IconStatus.DEFAULT;
+    status[experience.skill_id].experiences[
+      `${experience.experience_type}_${experience.experience_id}`
+    ] = IconStatus.DEFAULT;
     return status;
   }, {});
 
@@ -112,7 +113,12 @@ export const computeParentStatus = (
 export const statusReducer = (
   state: SkillStatus,
   action: {
-    payload: { skillId: number; experienceId: number; status: IconStatus };
+    payload: {
+      skillId: number;
+      experienceId: number;
+      experienceType: string;
+      status: IconStatus;
+    };
   },
 ): SkillStatus => {
   return {
@@ -120,7 +126,8 @@ export const statusReducer = (
     [action.payload.skillId]: {
       experiences: {
         ...state[action.payload.skillId].experiences,
-        [action.payload.experienceId]: action.payload.status,
+        [`${action.payload.experienceType}_${action.payload.experienceId}`]: action
+          .payload.status,
       },
     },
   };
