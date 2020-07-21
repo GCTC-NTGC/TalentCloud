@@ -108,7 +108,7 @@ class JobPolicy extends BasePolicy
             return $jobPoster->isPublic() && ($authManager || $authHr);
         }
 
-        return $jobPoster->isClosed() && ($authManager || $authHr);
+        return $jobPoster->isPublic() && $authManager || $jobPoster->isClosed() &&  $authHr;
     }
 
     /**
