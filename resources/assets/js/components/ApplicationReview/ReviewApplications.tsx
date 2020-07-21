@@ -84,7 +84,7 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
       description: intl.formatMessage(messages.underConsiderationDescription),
       showScreenOutAll: false,
       applications: applications.filter(
-        application => applicationCategory(application) === "primary",
+        (application) => applicationCategory(application) === "primary",
       ),
       prioritizeVeterans: false,
     },
@@ -120,42 +120,70 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
     [],
   );
 
+  // TODO: Think more carefully about how to handle null fields
+  const dayCount = dayjs().diff(
+    closeDateTime ? dayjs(closeDateTime) : dayjs(),
+    "day",
+  );
+
   return (
     <section className="applicant-review container--layout-xl">
       <div className="flex-grid gutter">
         <div className="box med-1of2 job-title-wrapper">
           <span>
-            <FormattedMessage
-              id="review.applications.indexPageTitle"
-              defaultMessage="Applications for: {jobTitle} {jobClassification}"
-              description="Welcome header on Job Applications index page"
-              values={{
-                jobTitle: title,
-                jobClassification: classification,
-              }}
-            />
+            {dayCount > 0 ? (
+              <FormattedMessage
+                id="review.applications.applicationsAfterClosed"
+                defaultMessage="Applications for: {jobTitle} {jobClassification}"
+                description="Welcome header on Job Applications index page"
+                values={{
+                  jobTitle: title,
+                  jobClassification: classification,
+                }}
+              />
+            ) : (
+              <FormattedMessage
+                id="review.applications.applicationsBeforeClosed"
+                defaultMessage="Applications to date: {jobTitle} {jobClassification}"
+                description="Welcome header on Job Applications index page"
+                values={{
+                  jobTitle: title,
+                  jobClassification: classification,
+                }}
+              />
+            )}
           </span>
         </div>
 
         <div className="box med-1of2 timer-wrapper">
           <i className="fas fa-stopwatch" />
-          &nbsp;
-          <FormattedMessage
-            id="job.daysSinceClosed"
-            defaultMessage="{dayCount, plural,
-              =0 {No Days}
+          {` `}
+          {dayCount >= 0 ? (
+            <FormattedMessage
+              id="job.daysAfterClosed"
+              defaultMessage="{dayCount, plural,
+              =0 {Closes Today}
+            one {# Day Since Close}
+          other {# Days Since Close}
+        }"
+              description="Shows the number of days after the job closed."
+              values={{
+                dayCount: Math.abs(dayCount),
+              }}
+            />
+          ) : (
+            <FormattedMessage
+              id="job.daysBeforeClosed"
+              defaultMessage="{dayCount, plural,
             one {# Day}
           other {# Days}
-        } Since Close"
-            description="Welcome header on app main page"
-            values={{
-              // TODO: Think more carefully about how to handle null fields
-              dayCount: dayjs().diff(
-                closeDateTime ? dayjs(closeDateTime) : dayjs(),
-                "day",
-              ),
-            }}
-          />
+          } Until Close"
+              description="Shows the number of days before the job closes."
+              values={{
+                dayCount: Math.abs(dayCount),
+              }}
+            />
+          )}
         </div>
       </div>
       <div data-clone>
