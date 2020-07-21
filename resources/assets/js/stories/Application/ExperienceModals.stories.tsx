@@ -188,11 +188,8 @@ stories.add(
                 ),
               },
             }}
-            useAsEducationRequirement={boolean(
-              "Use As Education Requirment",
-              false,
-              groupIds.details,
-            )}
+            experienceableId={1}
+            experienceableType="application"
             parentElement={modalParent}
             visible={isModalVisible}
             onModalConfirm={async (x) => {
@@ -255,11 +252,8 @@ stories.add(
                 ),
               },
             }}
-            useAsEducationRequirement={boolean(
-              "Use As Education Requirment",
-              false,
-              groupIds.details,
-            )}
+            experienceableId={1}
+            experienceableType="application"
             parentElement={modalParent}
             visible={isModalVisible}
             onModalConfirm={async (x) => {
@@ -322,11 +316,8 @@ stories.add(
                 ),
               },
             }}
-            useAsEducationRequirement={boolean(
-              "Use As Education Requirment",
-              false,
-              groupIds.details,
-            )}
+            experienceableId={1}
+            experienceableType="application"
             parentElement={modalParent}
             visible={isModalVisible}
             onModalConfirm={async (x) => {
@@ -387,11 +378,8 @@ stories.add(
                 ),
               },
             }}
-            useAsEducationRequirement={boolean(
-              "Use As Education Requirment",
-              false,
-              groupIds.details,
-            )}
+            experienceableId={1}
+            experienceableType="application"
             parentElement={modalParent}
             visible={isModalVisible}
             onModalConfirm={async (x) => {
@@ -452,11 +440,8 @@ stories.add(
                 ),
               },
             }}
-            useAsEducationRequirement={boolean(
-              "Use As Education Requirment",
-              false,
-              groupIds.details,
-            )}
+            experienceableId={1}
+            experienceableType="application"
             parentElement={modalParent}
             visible={isModalVisible}
             onModalConfirm={async (x) => {
@@ -519,11 +504,8 @@ stories.add(
                 ),
               },
             }}
-            useAsEducationRequirement={boolean(
-              "Use As Education Requirment",
-              false,
-              groupIds.details,
-            )}
+            experienceableId={1}
+            experienceableType="application"
             parentElement={modalParent}
             visible={isModalVisible}
             onModalConfirm={async (x) => {
@@ -542,7 +524,6 @@ stories.add(
   (): React.ReactElement => {
     const isModalVisible = boolean("Visible", true, groupIds.switches);
     const modalParent = document.querySelector("#modal-root");
-
     return (
       <div id="award-new-modal-container">
         <div
@@ -586,11 +567,8 @@ stories.add(
                 ),
               },
             }}
-            useAsEducationRequirement={boolean(
-              "Use As Education Requirment",
-              false,
-              groupIds.details,
-            )}
+            experienceableId={1}
+            experienceableType="application"
             parentElement={modalParent}
             visible={isModalVisible}
             onModalConfirm={async (x) => {

@@ -41,7 +41,8 @@ interface WorkExperienceModalProps {
   optionalSkills: Skill[];
   savedOptionalSkills: Skill[];
   experienceRequirments: EducationSubformProps;
-  useAsEducationRequirement: boolean;
+  experienceableId: number;
+  experienceableType: ExperienceWork["experienceable_type"];
   parentElement: Element | null;
   visible: boolean;
   onModalCancel: () => void;
@@ -117,7 +118,6 @@ interface WorkExperienceSubmitData {
   experienceWork: ExperienceWork;
   savedRequiredSkills: Skill[];
   savedOptionalSkills: Skill[];
-  useAsEducationRequirement: boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -150,18 +150,13 @@ const dataToFormValues = (
   data: WorkExperienceSubmitData,
   locale: Locales,
 ): WorkExperienceFormValues => {
-  const {
-    experienceWork,
-    savedRequiredSkills,
-    savedOptionalSkills,
-    useAsEducationRequirement,
-  } = data;
+  const { experienceWork, savedRequiredSkills, savedOptionalSkills } = data;
   const skillToName = (skill: Skill): string =>
     localizeFieldNonNull(locale, skill, "name");
   return {
     requiredSkills: savedRequiredSkills.map(skillToName),
     optionalSkills: savedOptionalSkills.map(skillToName),
-    useAsEducationRequirement,
+    useAsEducationRequirement: experienceWork.is_education_requirement,
     title: experienceWork.title,
     organization: experienceWork.organization,
     group: experienceWork.group,
@@ -193,8 +188,8 @@ const formValuesToData = (
       end_date: formValues.endDate
         ? fromInputDateString(formValues.endDate)
         : null,
+      is_education_requirement: formValues.useAsEducationRequirement,
     },
-    useAsEducationRequirement: formValues.useAsEducationRequirement,
     savedRequiredSkills: formValues.requiredSkills
       .map(nameToSkill)
       .filter(notEmpty),
@@ -204,7 +199,10 @@ const formValuesToData = (
   };
 };
 
-const newExperienceWork = (): ExperienceWork => ({
+const newExperienceWork = (
+  experienceableId: number,
+  experienceableType: ExperienceWork["experienceable_type"],
+): ExperienceWork => ({
   id: 0,
   title: "",
   organization: "",
@@ -212,6 +210,9 @@ const newExperienceWork = (): ExperienceWork => ({
   is_active: false,
   start_date: new Date(),
   end_date: null,
+  is_education_requirement: false,
+  experienceable_id: experienceableId,
+  experienceable_type: experienceableType,
 });
 /* eslint-enable @typescript-eslint/camelcase */
 
@@ -224,7 +225,8 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
   optionalSkills,
   savedOptionalSkills,
   experienceRequirments,
-  useAsEducationRequirement,
+  experienceableId,
+  experienceableType,
   parentElement,
   visible,
   onModalCancel,
@@ -233,7 +235,8 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl.locale);
 
-  const originalExperience = experienceWork ?? newExperienceWork();
+  const originalExperience =
+    experienceWork ?? newExperienceWork(experienceableId, experienceableType);
 
   const skillToName = (skill: Skill): string =>
     localizeFieldNonNull(locale, skill, "name");
@@ -243,7 +246,6 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
       experienceWork: originalExperience,
       savedRequiredSkills,
       savedOptionalSkills,
-      useAsEducationRequirement,
     },
     locale,
   );

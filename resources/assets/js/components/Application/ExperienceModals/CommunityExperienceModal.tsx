@@ -41,7 +41,8 @@ interface CommunityExperienceModalProps {
   optionalSkills: Skill[];
   savedOptionalSkills: Skill[];
   experienceRequirments: EducationSubformProps;
-  useAsEducationRequirement: boolean;
+  experienceableId: number;
+  experienceableType: ExperienceCommunity["experienceable_type"];
   parentElement: Element | null;
   visible: boolean;
   onModalCancel: () => void;
@@ -117,7 +118,6 @@ interface CommunityExperienceSubmitData {
   experienceCommunity: ExperienceCommunity;
   savedRequiredSkills: Skill[];
   savedOptionalSkills: Skill[];
-  useAsEducationRequirement: boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -154,14 +154,13 @@ const dataToFormValues = (
     experienceCommunity,
     savedRequiredSkills,
     savedOptionalSkills,
-    useAsEducationRequirement,
   } = data;
   const skillToName = (skill: Skill): string =>
     localizeFieldNonNull(locale, skill, "name");
   return {
     requiredSkills: savedRequiredSkills.map(skillToName),
     optionalSkills: savedOptionalSkills.map(skillToName),
-    useAsEducationRequirement,
+    useAsEducationRequirement: experienceCommunity.is_education_requirement,
     title: experienceCommunity.title,
     group: experienceCommunity.group,
     project: experienceCommunity.project,
@@ -193,8 +192,8 @@ const formValuesToData = (
       end_date: formValues.endDate
         ? fromInputDateString(formValues.endDate)
         : null,
+      is_education_requirement: formValues.useAsEducationRequirement,
     },
-    useAsEducationRequirement: formValues.useAsEducationRequirement,
     savedRequiredSkills: formValues.requiredSkills
       .map(nameToSkill)
       .filter(notEmpty),
@@ -204,7 +203,10 @@ const formValuesToData = (
   };
 };
 
-const newCommunityExperience = (): ExperienceCommunity => ({
+const newCommunityExperience = (
+  experienceableId: number,
+  experienceableType: ExperienceCommunity["experienceable_type"],
+): ExperienceCommunity => ({
   id: 0,
   title: "",
   group: "",
@@ -212,6 +214,9 @@ const newCommunityExperience = (): ExperienceCommunity => ({
   is_active: false,
   start_date: new Date(),
   end_date: null,
+  is_education_requirement: false,
+  experienceable_id: experienceableId,
+  experienceable_type: experienceableType,
 });
 /* eslint-enable @typescript-eslint/camelcase */
 
@@ -224,7 +229,8 @@ export const CommunityExperienceModal: React.FC<CommunityExperienceModalProps> =
   optionalSkills,
   savedOptionalSkills,
   experienceRequirments,
-  useAsEducationRequirement,
+  experienceableId,
+  experienceableType,
   parentElement,
   visible,
   onModalCancel,
@@ -233,7 +239,9 @@ export const CommunityExperienceModal: React.FC<CommunityExperienceModalProps> =
   const intl = useIntl();
   const locale = getLocale(intl.locale);
 
-  const originalExperience = experienceCommunity ?? newCommunityExperience();
+  const originalExperience =
+    experienceCommunity ??
+    newCommunityExperience(experienceableId, experienceableType);
 
   const skillToName = (skill: Skill): string =>
     localizeFieldNonNull(locale, skill, "name");
@@ -243,7 +251,6 @@ export const CommunityExperienceModal: React.FC<CommunityExperienceModalProps> =
       experienceCommunity: originalExperience,
       savedRequiredSkills,
       savedOptionalSkills,
-      useAsEducationRequirement,
     },
     locale,
   );

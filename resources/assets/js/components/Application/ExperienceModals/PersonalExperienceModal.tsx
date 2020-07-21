@@ -32,7 +32,6 @@ import {
 } from "../../../helpers/localize";
 import { notEmpty } from "../../../helpers/queries";
 import TextAreaInput from "../../Form/TextAreaInput";
-import WordCounter from "../../WordCounter/WordCounter";
 import { countNumberOfWords } from "../../WordCounter/helpers";
 
 interface PersonalExperienceModalProps {
@@ -44,7 +43,8 @@ interface PersonalExperienceModalProps {
   optionalSkills: Skill[];
   savedOptionalSkills: Skill[];
   experienceRequirments: EducationSubformProps;
-  useAsEducationRequirement: boolean;
+  experienceableId: number;
+  experienceableType: ExperiencePersonal["experienceable_type"];
   parentElement: Element | null;
   visible: boolean;
   onModalCancel: () => void;
@@ -121,7 +121,6 @@ interface PersonalExperienceSubmitData {
   experiencePersonal: ExperiencePersonal;
   savedRequiredSkills: Skill[];
   savedOptionalSkills: Skill[];
-  useAsEducationRequirement: boolean;
 }
 
 const DESCRIPTION_WORD_LIMIT = 100;
@@ -163,18 +162,13 @@ const dataToFormValues = (
   data: PersonalExperienceSubmitData,
   locale: Locales,
 ): PersonalExperienceFormValues => {
-  const {
-    experiencePersonal,
-    savedRequiredSkills,
-    savedOptionalSkills,
-    useAsEducationRequirement,
-  } = data;
+  const { experiencePersonal, savedRequiredSkills, savedOptionalSkills } = data;
   const skillToName = (skill: Skill): string =>
     localizeFieldNonNull(locale, skill, "name");
   return {
     requiredSkills: savedRequiredSkills.map(skillToName),
     optionalSkills: savedOptionalSkills.map(skillToName),
-    useAsEducationRequirement,
+    useAsEducationRequirement: experiencePersonal.is_education_requirement,
     title: experiencePersonal.title,
     description: experiencePersonal.description,
     isShareable: experiencePersonal.is_shareable,
@@ -206,8 +200,8 @@ const formValuesToData = (
       end_date: formValues.endDate
         ? fromInputDateString(formValues.endDate)
         : null,
+      is_education_requirement: formValues.useAsEducationRequirement,
     },
-    useAsEducationRequirement: formValues.useAsEducationRequirement,
     savedRequiredSkills: formValues.requiredSkills
       .map(nameToSkill)
       .filter(notEmpty),
@@ -217,7 +211,10 @@ const formValuesToData = (
   };
 };
 
-const newPersonalExperience = (): ExperiencePersonal => ({
+const newPersonalExperience = (
+  experienceableId: number,
+  experienceableType: ExperiencePersonal["experienceable_type"],
+): ExperiencePersonal => ({
   id: 0,
   title: "",
   description: "",
@@ -225,6 +222,9 @@ const newPersonalExperience = (): ExperiencePersonal => ({
   is_active: false,
   start_date: new Date(),
   end_date: null,
+  is_education_requirement: false,
+  experienceable_id: experienceableId,
+  experienceable_type: experienceableType,
 });
 /* eslint-enable @typescript-eslint/camelcase */
 
@@ -237,7 +237,8 @@ export const PersonalExperienceModal: React.FC<PersonalExperienceModalProps> = (
   optionalSkills,
   savedOptionalSkills,
   experienceRequirments,
-  useAsEducationRequirement,
+  experienceableId,
+  experienceableType,
   parentElement,
   visible,
   onModalCancel,
@@ -246,7 +247,9 @@ export const PersonalExperienceModal: React.FC<PersonalExperienceModalProps> = (
   const intl = useIntl();
   const locale = getLocale(intl.locale);
 
-  const originalExperience = experiencePersonal ?? newPersonalExperience();
+  const originalExperience =
+    experiencePersonal ??
+    newPersonalExperience(experienceableId, experienceableType);
 
   const skillToName = (skill: Skill): string =>
     localizeFieldNonNull(locale, skill, "name");
@@ -256,7 +259,6 @@ export const PersonalExperienceModal: React.FC<PersonalExperienceModalProps> = (
       experiencePersonal: originalExperience,
       savedRequiredSkills,
       savedOptionalSkills,
-      useAsEducationRequirement,
     },
     locale,
   );

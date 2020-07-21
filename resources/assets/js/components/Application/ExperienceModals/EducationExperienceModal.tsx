@@ -55,7 +55,8 @@ interface EducationExperienceModalProps {
   optionalSkills: Skill[];
   savedOptionalSkills: Skill[];
   experienceRequirments: EducationSubformProps;
-  useAsEducationRequirement: boolean;
+  experienceableId: number;
+  experienceableType: ExperienceEducation["experienceable_type"];
   parentElement: Element | null;
   visible: boolean;
   onModalCancel: () => void;
@@ -160,7 +161,6 @@ interface EducationExperienceSubmitData {
   experienceEducation: ExperienceEducation;
   savedRequiredSkills: Skill[];
   savedOptionalSkills: Skill[];
-  useAsEducationRequirement: boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -201,14 +201,13 @@ const dataToFormValues = (
     experienceEducation,
     savedRequiredSkills,
     savedOptionalSkills,
-    useAsEducationRequirement,
   } = data;
   const skillToName = (skill: Skill): string =>
     localizeFieldNonNull(locale, skill, "name");
   return {
     requiredSkills: savedRequiredSkills.map(skillToName),
     optionalSkills: savedOptionalSkills.map(skillToName),
-    useAsEducationRequirement,
+    useAsEducationRequirement: experienceEducation.is_education_requirement,
     educationTypeId: creatingNew ? "" : experienceEducation.education_type_id,
     areaOfStudy: experienceEducation.area_of_study,
     institution: experienceEducation.institution,
@@ -245,15 +244,15 @@ const formValuesToData = (
       education_status_id: formValues.educationStatusId
         ? Number(formValues.educationStatusId)
         : 1,
-      thesis_title: formValues.thesisTitle ? formValues.thesisTitle : null,
+      thesis_title: formValues.thesisTitle ? formValues.thesisTitle : "",
       has_blockcert: formValues.hasBlockcert,
       start_date: fromInputDateString(formValues.startDate),
       is_active: formValues.isActive,
       end_date: formValues.endDate
         ? fromInputDateString(formValues.endDate)
         : null,
+      is_education_requirement: formValues.useAsEducationRequirement,
     },
-    useAsEducationRequirement: formValues.useAsEducationRequirement,
     savedRequiredSkills: formValues.requiredSkills
       .map(nameToSkill)
       .filter(notEmpty),
@@ -263,17 +262,23 @@ const formValuesToData = (
   };
 };
 
-const newExperienceEducation = (): ExperienceEducation => ({
+const newExperienceEducation = (
+  experienceableId: number,
+  experienceableType: ExperienceEducation["experienceable_type"],
+): ExperienceEducation => ({
   id: 0,
   education_type_id: 0,
   area_of_study: "",
   institution: "",
   education_status_id: 0,
-  thesis_title: null,
+  thesis_title: "",
   has_blockcert: false,
   is_active: false,
   start_date: new Date(),
   end_date: null,
+  is_education_requirement: false,
+  experienceable_id: experienceableId,
+  experienceable_type: experienceableType,
 });
 /* eslint-enable @typescript-eslint/camelcase */
 
@@ -288,7 +293,8 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
   optionalSkills,
   savedOptionalSkills,
   experienceRequirments,
-  useAsEducationRequirement,
+  experienceableId,
+  experienceableType,
   parentElement,
   visible,
   onModalCancel,
@@ -297,7 +303,9 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
   const intl = useIntl();
   const locale = getLocale(intl.locale);
 
-  const originalExperience = experienceEducation ?? newExperienceEducation();
+  const originalExperience =
+    experienceEducation ??
+    newExperienceEducation(experienceableId, experienceableType);
 
   const skillToName = (skill: Skill): string =>
     localizeFieldNonNull(locale, skill, "name");
@@ -307,7 +315,6 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
       experienceEducation: originalExperience,
       savedRequiredSkills,
       savedOptionalSkills,
-      useAsEducationRequirement,
     },
     locale,
     experienceEducation === null,

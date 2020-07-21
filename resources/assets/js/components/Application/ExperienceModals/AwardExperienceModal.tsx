@@ -1,5 +1,5 @@
 import React from "react";
-import { FastField, Field, Formik, Form } from "formik";
+import { FastField, Formik, Form } from "formik";
 import { defineMessages, useIntl, IntlShape } from "react-intl";
 import * as Yup from "yup";
 import {
@@ -9,7 +9,6 @@ import {
   validationShape as educationValidationShape,
 } from "./EducationSubform";
 import TextInput from "../../Form/TextInput";
-import CheckboxInput from "../../Form/CheckboxInput";
 import { validationMessages } from "../../Form/Messages";
 import SkillSubform, {
   SkillFormValues,
@@ -55,7 +54,8 @@ interface AwardExperienceModalProps {
   optionalSkills: Skill[];
   savedOptionalSkills: Skill[];
   experienceRequirments: EducationSubformProps;
-  useAsEducationRequirement: boolean;
+  experienceableId: number;
+  experienceableType: ExperienceAward["experienceable_type"];
   parentElement: Element | null;
   visible: boolean;
   onModalCancel: () => void;
@@ -130,7 +130,6 @@ interface AwardExperienceSubmitData {
   experienceAward: ExperienceAward;
   savedRequiredSkills: Skill[];
   savedOptionalSkills: Skill[];
-  useAsEducationRequirement: boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -151,18 +150,13 @@ const dataToFormValues = (
   locale: Locales,
   creatingNew: boolean,
 ): AwardExperienceFormValues => {
-  const {
-    experienceAward,
-    savedRequiredSkills,
-    savedOptionalSkills,
-    useAsEducationRequirement,
-  } = data;
+  const { experienceAward, savedRequiredSkills, savedOptionalSkills } = data;
   const skillToName = (skill: Skill): string =>
     localizeFieldNonNull(locale, skill, "name");
   return {
     requiredSkills: savedRequiredSkills.map(skillToName),
     optionalSkills: savedOptionalSkills.map(skillToName),
-    useAsEducationRequirement,
+    useAsEducationRequirement: experienceAward.is_education_requirement,
     title: experienceAward.title,
     recipientTypeId: creatingNew ? "" : experienceAward.award_recipient_type_id,
     issuedBy: experienceAward.issued_by,
@@ -194,8 +188,8 @@ const formValuesToData = (
         ? Number(formValues.recognitionTypeId)
         : 1,
       awarded_date: fromInputDateString(formValues.awardedDate),
+      is_education_requirement: formValues.useAsEducationRequirement,
     },
-    useAsEducationRequirement: formValues.useAsEducationRequirement,
     savedRequiredSkills: formValues.requiredSkills
       .map(nameToSkill)
       .filter(notEmpty),
@@ -205,13 +199,19 @@ const formValuesToData = (
   };
 };
 
-const newExperienceAward = (): ExperienceAward => ({
+const newExperienceAward = (
+  experienceableId: number,
+  experienceableType: ExperienceAward["experienceable_type"],
+): ExperienceAward => ({
   id: 0,
   title: "",
   award_recipient_type_id: 0,
   issued_by: "",
   award_recognition_type_id: 0,
   awarded_date: new Date(),
+  is_education_requirement: false,
+  experienceable_id: experienceableId,
+  experienceable_type: experienceableType,
 });
 /* eslint-enable @typescript-eslint/camelcase */
 
@@ -226,7 +226,8 @@ export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
   optionalSkills,
   savedOptionalSkills,
   experienceRequirments,
-  useAsEducationRequirement,
+  experienceableId,
+  experienceableType,
   parentElement,
   visible,
   onModalCancel,
@@ -235,7 +236,8 @@ export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl.locale);
 
-  const originalExperience = experienceAward ?? newExperienceAward();
+  const originalExperience =
+    experienceAward ?? newExperienceAward(experienceableId, experienceableType);
 
   const skillToName = (skill: Skill): string =>
     localizeFieldNonNull(locale, skill, "name");
@@ -245,7 +247,6 @@ export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
       experienceAward: originalExperience,
       savedRequiredSkills,
       savedOptionalSkills,
-      useAsEducationRequirement,
     },
     locale,
     experienceAward === null,
