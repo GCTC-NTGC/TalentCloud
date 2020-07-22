@@ -6,7 +6,17 @@ import {
   assertIsLoggedIn,
   hrUser,
 } from "./helpers/roles";
-import { HOMEPAGE, PROFILE_EXPERIENCE, PROFILE_REFERENCES, PROFILE_PORTFOLIO, PROFILE_SKILLS, MANAGER_REGISTER, HR_REGISTER, MANAGER_FIRST_VISIT, HR_FIRST_VISIT } from "./helpers/constants";
+import {
+  HOMEPAGE,
+  PROFILE_EXPERIENCE,
+  PROFILE_REFERENCES,
+  PROFILE_PORTFOLIO,
+  PROFILE_SKILLS,
+  MANAGER_REGISTER,
+  HR_REGISTER,
+  MANAGER_FIRST_VISIT,
+  HR_FIRST_VISIT,
+} from "./helpers/constants";
 
 fixture(`Critical - Applicant Profile`).page(HOMEPAGE).meta("travis", "run");
 

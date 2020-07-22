@@ -1,6 +1,13 @@
 import { Selector } from "testcafe";
 import { managerUser, adminUser, hrUser } from "./helpers/roles";
-import { HOMEPAGE, PROFILE_ABOUT, MANAGER_HOME, MANAGER_JOBS, HR_JOBS, ADMIN_HOME } from "./helpers/constants";
+import {
+  HOMEPAGE,
+  PROFILE_ABOUT,
+  MANAGER_HOME,
+  MANAGER_JOBS,
+  HR_JOBS,
+  ADMIN_HOME,
+} from "./helpers/constants";
 
 fixture(`Smoke Tests - Hello World`).page(HOMEPAGE).meta("travis", "run");
 

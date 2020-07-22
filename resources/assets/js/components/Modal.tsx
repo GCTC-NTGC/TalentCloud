@@ -107,6 +107,11 @@ export default function Modal({
         data-c-padding="top(double) bottom(double)"
         role="dialog"
         ref={modalRef}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
       >
         <div data-c-background="white(100)" data-c-radius="rounded">
           <modalContext.Provider

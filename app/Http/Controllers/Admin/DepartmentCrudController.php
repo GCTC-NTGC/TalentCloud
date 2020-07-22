@@ -22,6 +22,13 @@ class DepartmentCrudController extends CrudController
      */
     public function setup() : void
     {
+        // Required for order logic.
+        $locale = 'en';
+        if (null !== $this->request->input('locale')) {
+            $locale = $this->request->input('locale');
+        }
+        App::setLocale($locale);
+
         // Eloquent model to associate with this collection of views and controller actions.
         $this->crud->setModel('App\Models\Lookup\Department');
         // Custom backpack route.
