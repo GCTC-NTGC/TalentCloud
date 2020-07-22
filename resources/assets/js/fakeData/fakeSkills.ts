@@ -4,7 +4,7 @@ import { SkillTypeId } from "../models/lookupConstants";
 
 // Classifications used: CS, EX
 
-export const fakeSkill = (): Skill => ({
+export const fakeSkill = (overrides: Partial<Skill> = {}): Skill => ({
   id: 1,
   skill_type_id: SkillTypeId.Hard,
   name: {
@@ -19,9 +19,10 @@ export const fakeSkill = (): Skill => ({
   is_future_skill: false,
   is_culture_skill: false,
   classifications: [{ key: "CS" }],
+  ...overrides,
 });
 
-export const fakeSkill2 = (): Skill => ({
+export const fakeSkill2 = (overrides: Partial<Skill> = {}): Skill => ({
   id: 2,
   skill_type_id: SkillTypeId.Hard,
   name: {
@@ -37,9 +38,10 @@ export const fakeSkill2 = (): Skill => ({
   is_future_skill: false,
   is_culture_skill: false,
   classifications: [{ key: "CS" }],
+  ...overrides,
 });
 
-export const fakeSkill3 = (): Skill => ({
+export const fakeSkill3 = (overrides: Partial<Skill> = {}): Skill => ({
   id: 15,
   skill_type_id: SkillTypeId.Hard,
   name: {
@@ -55,9 +57,10 @@ export const fakeSkill3 = (): Skill => ({
   is_future_skill: true,
   is_culture_skill: false,
   classifications: [{ key: "CS" }, { key: "EX" }],
+  ...overrides,
 });
 
-export const fakeSkill4 = (): Skill => ({
+export const fakeSkill4 = (overrides: Partial<Skill> = {}): Skill => ({
   id: 20,
   skill_type_id: SkillTypeId.Soft,
   name: {
@@ -77,6 +80,7 @@ export const fakeSkill4 = (): Skill => ({
       key: "EX",
     },
   ],
+  ...overrides,
 });
 
 export const fakeSkills = (): Skill[] => [

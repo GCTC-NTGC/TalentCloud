@@ -4,5 +4,6 @@ resources/assets/js/@types/*
 resources/assets/js/**/*.json
 resources/assets/js/**/*.test.tsx.snap
 
+public/
 public/packages/
 vendor/

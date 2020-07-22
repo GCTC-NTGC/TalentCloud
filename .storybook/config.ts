@@ -30,7 +30,7 @@ if (document.querySelector("#modal-root") === null) {
   const modalRoot = document.createElement("div");
   modalRoot.setAttribute("id", "modal-root");
   modalRoot.setAttribute("data-clone", "");
-  document.body.append(modalRoot);
+  document.body.appendChild(modalRoot);
 }
 
 // Set up react-intl localization

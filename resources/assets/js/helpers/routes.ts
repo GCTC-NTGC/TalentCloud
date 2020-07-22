@@ -55,6 +55,10 @@ export function removeBaseUrl(url: string): string {
   return url;
 }
 
+export function jobShow(locale: string, jobId: number): string {
+  return `${baseUrl()}/${locale}/jobs/${jobId}`;
+}
+
 function applicationShow(
   locale: string,
   prefix: string,

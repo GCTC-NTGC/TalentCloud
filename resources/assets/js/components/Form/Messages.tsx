@@ -30,6 +30,23 @@ export const validationMessages = defineMessages({
     description:
       "Error message displayed when a required checkbox group or radio group is empty.",
   },
+  endDateRequiredIfNotOngoing: {
+    id: "formValidation.endDateRequiredIfNotOngoing",
+    defaultMessage: "If activity is not ongoing, End Date is required.",
+    description:
+      "Error message displayed when a date is required due to activity no longer being ongoing.",
+  },
+  dateMustBePast: {
+    id: "formValidation.dateMustBePast",
+    defaultMessage: "Please select a date in the past.",
+    description: "Error message displayed when selected date is in the future.",
+  },
+  endDateAfterStart: {
+    id: "formValidation.endDateAfterStart",
+    defaultMessage: "Please select an End Date that is after the Start Date",
+    description:
+      "Error message displayed when a selected End Date is earlier than the Start date.",
+  },
   overMaxWords: {
     id: "formValidation.overMaxWords",
     defaultMessage: "Must be under 250 words",
