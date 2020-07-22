@@ -15,7 +15,7 @@ stories.add(
     const addWordLimit = boolean("Add Word Limit", false);
     const wordLimit = number("Word Limit", 100);
     return (
-      <div data-c-grid="gutter" data-c-padding="left(double)">
+      <div data-c-margin="top(triple) rl(double)">
         <TextArea
           id={text("ID", "sample-input")}
           name={text("Name", "What a name")}
@@ -23,7 +23,7 @@ stories.add(
           required={boolean("Required", false)}
           invalid={boolean("Invalid", false)}
           placeholder={text("Placeholder", "Put some text in this area.")}
-          grid="base(1of1) tl(1of3)"
+          grid="base(1of1)"
           minLength={number("Minimum Length", 0)}
           maxLength={number("Maximum Length", 30)}
           value={text("Value", "")}

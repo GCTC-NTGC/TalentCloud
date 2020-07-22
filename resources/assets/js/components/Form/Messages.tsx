@@ -47,6 +47,12 @@ export const validationMessages = defineMessages({
     description:
       "Error message displayed when a selected End Date is earlier than the Start date.",
   },
+  overMaxWords: {
+    id: "formValidation.overMaxWords",
+    defaultMessage: "Must be under 250 words",
+    description:
+      "Error message displayed when surpassing the maximum words allowed.",
+  },
 });
 
 export const inputMessages = defineMessages({
