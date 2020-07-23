@@ -23,6 +23,8 @@ use App\Models\BaseModel;
  * @property \App\Models\Applicant|\App\Models\JobApplication $experienceable
  * @property \Illuminate\Database\Eloquent\Collection $skills
  * @property \Illuminate\Database\Eloquent\Collection $experience_skills
+ *
+ * @method string experienceTypeName
  */
 class ExperienceWork extends BaseModel
 {
@@ -61,5 +63,14 @@ class ExperienceWork extends BaseModel
     public function experience_skills() //phpcs:ignore
     {
         return $this->morphMany(\App\Models\ExperienceSkill::class, 'experience');
+    }
+
+    /**
+     * Returns the name of this experience type. Used to distinguish from other Experience models.
+     * @return string Returns the string 'work'.
+     */
+    public function experienceTypeName(): string
+    {
+        return 'work';
     }
 }

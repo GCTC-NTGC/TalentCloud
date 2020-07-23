@@ -924,6 +924,10 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->middleware('can:update,hrAdvisor')
         ->where('hrAdvisor', '[0-9]+')
         ->where('job', '[0-9]+');
+
+    Route::get('applicants/{applicant}/experience', 'Api\ExperienceController@showForApplicant')
+        ->where('applicant', '[0-9]+')
+        ->name('applicant.experience.show');
 });
 Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
     Route::get('applications/{application}', 'Api\ApplicationController@show')
@@ -946,4 +950,8 @@ Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
         ->where('application', '[0-9]+')
         ->middleware('can:review,application')
         ->name('application.review.update');
+
+    Route::get('applications/{application}/experience', 'Api\ExperienceController@showForApplication')
+        ->where('application', '[0-9]+')
+        ->name('application.experience.show');
 });
