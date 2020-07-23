@@ -1,41 +1,23 @@
 {# =============================================================================
 
-    Talent Cloud
-    Application Template
+    Talent Cloud / Base Layout
 
 ============================================================================= #}
-
 <!DOCTYPE html>
-
-<html
-    lang="{{ appLocale }}">
-
-    {# Note that the </head> and <body> tags are located inside the common/head file due to Google Tag Manager being required on all pages. #}
-
+<html lang="{{ appLocale }}">
+    {# Note that the </head> and <body> tags are located inside the common/head
+    file due to Google Tag Manager being required on all pages. #}
     <head>
-
         <title>{% block title %}{% endblock %}</title>
-
         {% block socialMeta %}{% endblock %}
-
         {% include "common/head" %}
-
     {# /head #}
-
-    {# body #}
-
-        {% block body %}{% endblock %}
-
-        {# Footer #}
-
-            {% include "common/footer" %}
-
-        {# Scripts #}
-
-            {% include "common/scripts" %}
-
-        {% block scripts %}{% endblock %}
-
+    {# Page Body #}
+    {% block body %}{% endblock %}
+    {# Footer #}
+    {% include "common/footer" %}
+    {# Scripts #}
+    {% include "common/scripts" %}
+    {% block scripts %}{% endblock %}
     </body>
-
 </html>

@@ -1,5 +1,10 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
-import { ReviewStatusId, ReviewStatusName } from "./lookupConstants";
+import {
+  ReviewStatusId,
+  ReviewStatusName,
+  ResponseReviewStatusId,
+  ResponseReviewStatusName,
+} from "./lookupConstants";
 import { localizedField, localizedFieldNonNull } from "./app";
 
 export interface Applicant {
@@ -14,7 +19,7 @@ export interface Applicant {
   user: User;
 }
 
-export interface Application {
+export type Application = {
   id: number;
   job_poster_id: number;
   application_status_id: number;
@@ -33,15 +38,22 @@ export interface Application {
   applicant: Applicant;
   application_review: ApplicationReview | undefined;
   meets_essential_criteria: boolean;
-}
+};
+
+export type ApplicationNormalized = Omit<Application, "application_review">;
 
 export interface ApplicationReview {
   id: number;
-  review_status_id: ReviewStatusId | null;
+  job_application_id: number;
+  review_status_id: ReviewStatusId | ResponseReviewStatusId | null;
+  department_id: number | null;
   notes: string | null;
   created_at: Date;
   updated_at: Date;
-  review_status: ReviewStatus | null;
+  department: Department | undefined;
+  review_status: ReviewStatus | ResponseReviewStatus | undefined;
+  director_email_sent: boolean;
+  reference_email_sent: boolean;
 }
 
 export interface Assessment {
@@ -111,7 +123,6 @@ export interface HrAdvisor {
   user_id: number;
   first_name: string;
   last_name: string;
-  department_id: number;
   claimed_job_ids: number[];
 }
 
@@ -128,14 +139,12 @@ export interface Job {
   salary_min: number | null;
   salary_max: number | null;
   noc: number | null;
-  job_status_id: number;
+  job_poster_status_id: number;
   classification_id: number | null;
   classification_level: number | null;
   security_clearance_id: number | null;
   language_requirement_id: number | null;
   remote_work_allowed: boolean;
-  published_at: Date | null;
-  review_requested_at: Date | null;
   team_size: number | null;
   work_env_features: { [feature: string]: boolean } | null;
   fast_vs_steady: number | null;
@@ -172,7 +181,6 @@ export interface Manager {
   full_name: string;
   first_name: string;
   last_name: string;
-  department_id: number | null;
   twitter_username: string | null;
   linkedin_url: string | null;
   is_demo_manager: boolean;
@@ -198,6 +206,11 @@ export interface RatingGuideQuestion {
   job_poster_id: number;
   assessment_type_id: number;
   question: string | null;
+}
+
+export interface ResponseReviewStatus {
+  id: ResponseReviewStatusId;
+  name: ResponseReviewStatusName;
 }
 
 export interface ReviewStatus {
@@ -235,6 +248,7 @@ export interface User {
   is_priority: boolean;
   not_in_gov: boolean;
   gov_email: string;
+  department_id: number | null;
   user_role: {
     id: number;
     key: string;
@@ -248,4 +262,24 @@ type VeteranStatusName = "none" | "current" | "past";
 export interface VeteranStatus {
   id: number;
   name: VeteranStatusName;
+}
+
+export interface JobPosterStatus {
+  id: number;
+  key: string;
+  name: localizedFieldNonNull;
+  description: localizedFieldNonNull;
+}
+
+export interface EmailAddress {
+  name: string;
+  address: string; // Email.
+}
+export interface Email {
+  from: EmailAddress[];
+  to: EmailAddress[];
+  cc: EmailAddress[];
+  bcc: EmailAddress[];
+  subject: string;
+  body: string;
 }

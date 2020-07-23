@@ -90,9 +90,17 @@ return [
 
         ]
     ],
-    /* Localizations for Default questions fuction in controller */
+    /* Localizations for Default questions function in controller */
     'questions' => [
         '00' => 'Pourquoi êtes-vous intéressé par ce travail?',
         '01' => 'Pourquoi pensez-vous que vous serez un bon candidat pour ce poste?'
+    ],
+    'strategic_response_questions' => [
+        'Quel est votre classification et votre niveau actuel? (par exemple, IS-03)',
+        'Quel est votre niveau actuel en français et en anglais? (par exemple, BBB/BBB)',
+        'Quel est votre lieu de travail actuel? (Ville, Province)',
+        'Quels sont votre ministère d\'attache et votre direction générale? (Ministère, Direction générale)',
+        'Pouvez-vous travailler à temps plein? Si ce n’est pas le cas, veuillez indiquer votre disponibilité.',
+        'Avez-vous de l\'expérience ou des compétences (autres que celles requises pour ce poste) qui peuvent être un atout à l\'équipe dans les circonstances actuelles?',
     ]
 ];

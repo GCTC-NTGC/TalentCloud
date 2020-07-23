@@ -2,15 +2,14 @@
 # .scrutinizer.yml
 
 build:
-  environment:
-    php: "7.2"
-    node: "v12.13.1"
-  dependencies:
-    override: true
-  project_setup:
-    override: true
   nodes:
-    scans:
+    analysis:
+      dependencies:
+        override: true
+      project_setup:
+        override: true
+      environment:
+        php: "7.2"
       tests:
         override:
           - php-scrutinizer-run
@@ -29,5 +28,5 @@ filter:
     - resources/assets/js/autocomplete.js
     - resources/assets/js/bootstrap.js
     - resources/assets/js/getpdf.js
-    - resources/assets/js/jquery-ui.min.js
+    - resources/assets/js/jest.setup.js
     - resources/assets/js/modernizr.js

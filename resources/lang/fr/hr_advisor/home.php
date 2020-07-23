@@ -12,7 +12,9 @@ return [
         'heading_alt' => 'La feuille d\'érable canadienne.',
         'button' => [
             'text' => 'Inscrivez-vous',
-        ]
+        ],
+        'subheading' => 'Il est maintenant plus facile d’embaucher pour le gouvernement.',
+        'pilot' => 'BETA / Projet pilote'
     ],
     'banner' => [
         'content' => 'Vous visitez le portail des RH. Êtes-vous à la recherche du portail des demandeurs?',

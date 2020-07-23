@@ -60,7 +60,7 @@ class ManagerCrudController extends CrudController
             'label' => 'Government Email'
         ]);
         $this->crud->addColumn([
-            'name' => 'manager.department.name',
+            'name' => 'department.name',
             'key' => 'manager_department',
             'type' => 'text',
             'label' => 'Department',

@@ -69,7 +69,20 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
             "url": "https://google.ca",
           }
         }
-        status={1}
+        status={
+          Object {
+            "description": Object {
+              "en": "This is a draft.",
+              "fr": "This is a draft (FR).",
+            },
+            "id": 1,
+            "key": "draft",
+            "name": Object {
+              "en": "Draft",
+              "fr": "Provisoire",
+            },
+          }
+        }
         summary={
           Object {
             "text": "Visit Job Summary",
@@ -107,7 +120,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
         preview={
           Object {
             "text": "View Poster",
-            "title": "View the published Job Poster.",
+            "title": "View the live Job Poster.",
             "url": "https://google.ca",
           }
         }
@@ -118,7 +131,20 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
             "url": "https://google.ca",
           }
         }
-        status={4}
+        status={
+          Object {
+            "description": Object {
+              "en": "This job has has gone live, and will accept applications between its open and closing dates.",
+              "fr": "This job has has gone live, and will accept applications between its open and closing dates. (FR).",
+            },
+            "id": 9,
+            "key": "live",
+            "name": Object {
+              "en": "Live",
+              "fr": "En ligne",
+            },
+          }
+        }
         summary={
           Object {
             "text": "Visit Job Summary",
@@ -161,7 +187,18 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
                 "title": "View the screening plan for this Job Poster.",
                 "url": "https://google.ca",
               },
-              "status": 6,
+              "status": Object {
+                "description": Object {
+                  "en": "The process of this job poster has been completed.",
+                  "fr": "The process of this job poster has been completed (FR).",
+                },
+                "id": 10,
+                "key": "completed",
+                "name": Object {
+                  "en": "Completed",
+                  "fr": "Terminé",
+                },
+              },
               "summary": Object {
                 "text": "Visit Job Summary",
                 "title": "View the Job Summary for this Job Poster.",
@@ -216,7 +253,20 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
           }
           key="8"
           reviewRequested={2020-02-11T06:24:00.000Z}
-          status={2}
+          status={
+            Object {
+              "description": Object {
+                "en": "This is in review by managers.",
+                "fr": "This is in review by HR (FR).",
+              },
+              "id": 3,
+              "key": "review_hr",
+              "name": Object {
+                "en": "In Review (HR)",
+                "fr": "En revue (HR)",
+              },
+            }
+          }
         />
         <UnclaimedJobCard
           handleClaimJob={[Function]}
@@ -237,7 +287,20 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
           }
           key="7"
           reviewRequested={2020-02-10T09:24:00.000Z}
-          status={1}
+          status={
+            Object {
+              "description": Object {
+                "en": "This is a draft.",
+                "fr": "This is a draft (FR).",
+              },
+              "id": 1,
+              "key": "draft",
+              "name": Object {
+                "en": "Draft",
+                "fr": "Provisoire",
+              },
+            }
+          }
         />
         <UnclaimedJobCard
           handleClaimJob={[Function]}
@@ -253,7 +316,20 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
           }
           key="6"
           reviewRequested={2020-02-08T08:24:00.000Z}
-          status={2}
+          status={
+            Object {
+              "description": Object {
+                "en": "This is in review by managers.",
+                "fr": "This is in review by HR (FR).",
+              },
+              "id": 3,
+              "key": "review_hr",
+              "name": Object {
+                "en": "In Review (HR)",
+                "fr": "En revue (HR)",
+              },
+            }
+          }
         />
         <UnclaimedJobCard
           handleClaimJob={[Function]}
@@ -274,7 +350,20 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
           }
           key="5"
           reviewRequested={1995-01-17T10:54:00.000Z}
-          status={1}
+          status={
+            Object {
+              "description": Object {
+                "en": "This is a draft.",
+                "fr": "This is a draft (FR).",
+              },
+              "id": 1,
+              "key": "draft",
+              "name": Object {
+                "en": "Draft",
+                "fr": "Provisoire",
+              },
+            }
+          }
         />
         <UnclaimedJobCard
           handleClaimJob={[Function]}
@@ -290,7 +379,20 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
           }
           key="4"
           reviewRequested={1990-12-17T08:24:00.000Z}
-          status={1}
+          status={
+            Object {
+              "description": Object {
+                "en": "This is a draft.",
+                "fr": "This is a draft (FR).",
+              },
+              "id": 1,
+              "key": "draft",
+              "name": Object {
+                "en": "Draft",
+                "fr": "Provisoire",
+              },
+            }
+          }
         />
       </section>
     </div>

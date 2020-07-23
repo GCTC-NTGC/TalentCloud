@@ -275,7 +275,6 @@ class LangFilesTest extends BaseTranslationTest
         'BETA',
         '#how',
         '/jobs',
-        '/faq#partners',
         'https://github.com/GCTC-NTGC/TalentCloud',
         '/indigenous',
         'https://gccollab.ca/blog/view/2325565/enwe-did-it-canadas-free-agents-receive-validated-skill-credentials-anchored-on-the-blockchainfrlearning-machine-et-le-nuage-de-talents-u00e9mettent-des-justificatifs-du2019identitu00e9-ancru00e9s-dans-une-chau00eene-de-blocs-aux-agents-libres-du-canada-u00e0-titre-de-validation-de-principe',
@@ -286,7 +285,6 @@ class LangFilesTest extends BaseTranslationTest
         'https://gccollab.ca/groups/profile/19750/entalent-cloud-nuage-de-talentsfrnuage-de-talents-talent-cloud',
         'mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca',
         '#upgrade',
-        '/images/logo_tc_colour.png',
         'benefits',
         'TBD',
         'applicants',
@@ -314,7 +312,6 @@ class LangFilesTest extends BaseTranslationTest
         'manager-others',
         'hr',
         'hr-coming-soon',
-        '/settings'
     ];
 
     /**
@@ -325,6 +322,8 @@ class LangFilesTest extends BaseTranslationTest
      */
     public function testAllLangValuesDifferentInFrenchAndEnglish() : void
     {
+        array_push($this->permittedEqual, route('faq') . '#partners');
+
         $identicalEntries = [];
         foreach ($this->getAllLangPaths() as $path) {
             $prevValues = [];

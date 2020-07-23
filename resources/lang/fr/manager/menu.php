@@ -23,6 +23,9 @@ return [
         ],
         'settings' => [
             'name' => 'Paramètres'
+        ],
+        'resources' => [
+            'name' => 'Ressources'
         ]
     ],
     'register' => 'Inscription',
@@ -31,6 +34,7 @@ return [
     /* <title> tag content */
     'home_title' => 'Nuage de talents | Gestionnaire : Accueil',
     'profile_title' => 'Nuage de talents | Gestionnaire : Mon profil',
+    'summary_title' => 'Nuage de talents | Gestionnaire : Résumé de l\'emploi',
     'job_index_title' => "Nuage de talents | Gestionnaire : Mes affiches d'emploi",
     'job_create_title' => "Nuage de talents | Gestionnaire : Créer une affiche d'emploi",
     // Button labels.

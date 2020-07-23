@@ -7,7 +7,7 @@
     overflow: hidden;
     position: relative;
     .home-browse-icon {
-        opacity: .05;
+        opacity: .1;
         position: absolute;
         right: 0;
         bottom: 0;
@@ -69,11 +69,38 @@
     }
 }
 
+.flourish-wrapper {
+    overflow: hidden;
+    position: relative;
+    >div {
+        position: relative;
+        z-index: 2;
+    }
+    .flourish-icon-left {
+        opacity: .1;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        transform: translate(-35%, 35%) rotate(45deg);
+        width: 50vw;
+        z-index: 1;
+    }
+    .flourish-icon-right {
+        opacity: .1;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        transform: translate(35%, 35%) rotate(-45deg);
+        width: 50vw;
+        z-index: 1;
+    }
+}
+
 .home-blog {
     overflow: hidden;
     position: relative;
     .home-blog-icon {
-        opacity: .05;
+        opacity: .1;
         position: absolute;
         left: 0;
         bottom: 0;

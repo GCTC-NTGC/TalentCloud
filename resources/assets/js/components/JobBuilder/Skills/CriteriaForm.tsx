@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import {
-  WrappedComponentProps,
-  injectIntl,
   MessageDescriptor,
   FormattedMessage,
   defineMessages,
+  useIntl,
 } from "react-intl";
 import * as Yup from "yup";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, FastField } from "formik";
 import { Criteria, Skill } from "../../../models/types";
 import { validationMessages } from "../../Form/Messages";
 import TextAreaInput from "../../Form/TextAreaInput";
@@ -168,15 +167,14 @@ const newCriteria = (jobPosterId: number, skillId: number): Criteria => ({
 });
 /* eslint-enable @typescript-eslint/camelcase */
 
-export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
-  WrappedComponentProps> = ({
+export const CriteriaForm: React.FunctionComponent<CriteriaFormProps> = ({
   jobPosterId,
   criteria,
   skill,
   handleSubmit,
   handleCancel,
-  intl,
 }): React.ReactElement => {
+  const intl = useIntl();
   const locale = getLocale(intl.locale);
   const stringNotEmpty = (value: string | null): boolean =>
     value !== null && (value as string).length !== 0;
@@ -221,7 +219,8 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
         handleSubmit(updatedCriteria);
         setSubmitting(false);
       }}
-      render={({
+    >
+      {({
         errors,
         touched,
         isSubmitting,
@@ -248,7 +247,7 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
                 </p>
                 {showSpecificity ? (
                   <>
-                    <Field
+                    <FastField
                       id="skillSpecificity"
                       type="textarea"
                       name="specificity"
@@ -298,98 +297,100 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
               </div>
             </div>
             {/* Skill Level */}
-            <div data-c-padding="all(normal)">
-              <div className="job-builder-culture-block">
-                <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
-                  <FormattedMessage
-                    id="jobBuilder.criteriaForm.chooseSkillLevel"
-                    defaultMessage="Choose a Skill Level"
-                    description="Label for 'Choose a Skill Level' radio group heading on Add Skill modal."
-                  />
-                </p>
-                <div data-c-grid="gutter">
-                  <RadioGroup
-                    id="skillLevelSelection"
-                    label={intl.formatMessage(
-                      criteriaFormMessages.skillLevelSelectionLabel,
-                    )}
-                    required
-                    touched={touched.level}
-                    error={errors.level}
-                    value={values.level}
-                    grid="base(1of1) tl(1of3)"
-                  >
-                    {Object.entries(
-                      essentialSkillLevels(skill.skill_type_id),
-                    ).map(
-                      ([key, { name }]): React.ReactElement => {
-                        return (
-                          <Field
-                            key={key}
-                            id={key}
-                            name="level"
-                            component={RadioInput}
-                            label={intl.formatMessage(name)}
-                            value={key}
-                            trigger
-                          />
-                        );
-                      },
-                    )}
-                    <div
-                      className="job-builder-skill-level-or-block"
-                      data-c-alignment="base(centre)"
-                    >
-                      {/** This empty div is required for CSS magic */}
-                      <div />
-                      <span>
-                        <FormattedMessage
-                          id="jobBuilder.criteriaForm.or"
-                          defaultMessage="or"
-                          description="Label for 'or' between essential/asset levels on Add Skill modal."
+            <div
+              className="job-builder-culture-block"
+              data-c-grid-item="base(1of1)"
+              data-c-padding="all(normal)"
+            >
+              <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
+                <FormattedMessage
+                  id="jobBuilder.criteriaForm.chooseSkillLevel"
+                  defaultMessage="Choose a Skill Level"
+                  description="Label for 'Choose a Skill Level' radio group heading on Add Skill modal."
+                />
+              </p>
+              <div data-c-grid="gutter">
+                <RadioGroup
+                  id="skillLevelSelection"
+                  label={intl.formatMessage(
+                    criteriaFormMessages.skillLevelSelectionLabel,
+                  )}
+                  required
+                  touched={touched.level}
+                  error={errors.level}
+                  value={values.level}
+                  grid="base(1of1) tl(1of3)"
+                >
+                  {Object.entries(
+                    essentialSkillLevels(skill.skill_type_id),
+                  ).map(
+                    ([key, { name }]): React.ReactElement => {
+                      return (
+                        <FastField
+                          key={key}
+                          id={key}
+                          name="level"
+                          component={RadioInput}
+                          label={intl.formatMessage(name)}
+                          value={key}
+                          trigger
                         />
-                      </span>
-                    </div>
-                    <Field
-                      key="asset"
-                      id="asset"
-                      name="level"
-                      component={RadioInput}
-                      label={intl.formatMessage(assetSkillName())}
-                      value="asset"
-                      trigger
-                    />
-                  </RadioGroup>
-                  <ContextBlock
-                    className="job-builder-context-block"
-                    grid="base(1of1) tl(2of3)"
+                      );
+                    },
+                  )}
+                  <div
+                    className="job-builder-skill-level-or-block"
+                    data-c-alignment="base(centre)"
                   >
-                    {Object.entries(
-                      essentialSkillLevels(skill.skill_type_id),
-                    ).map(
-                      ([key, { name, context }]): React.ReactElement => {
-                        return (
-                          <ContextBlockItem
-                            key={key}
-                            contextId={key}
-                            title={intl.formatMessage(name)}
-                            subtext={intl.formatMessage(context)}
-                            className="job-builder-context-item"
-                            active={values.level === key}
-                          />
-                        );
-                      },
-                    )}
-                    <ContextBlockItem
-                      key="asset"
-                      contextId="asset"
-                      title={intl.formatMessage(assetSkillName())}
-                      subtext={intl.formatMessage(assetSkillDescription())}
-                      className="job-builder-context-item"
-                      active={values.level === "asset"}
-                    />
-                  </ContextBlock>
-                </div>
+                    {/** This empty div is required for CSS magic */}
+                    <div />
+                    <span>
+                      <FormattedMessage
+                        id="jobBuilder.criteriaForm.or"
+                        defaultMessage="or"
+                        description="Label for 'or' between essential/asset levels on Add Skill modal."
+                      />
+                    </span>
+                  </div>
+                  <FastField
+                    key="asset"
+                    id="asset"
+                    name="level"
+                    component={RadioInput}
+                    label={intl.formatMessage(assetSkillName())}
+                    value="asset"
+                    trigger
+                  />
+                </RadioGroup>
+                <ContextBlock
+                  className="job-builder-context-block"
+                  grid="base(1of1) tl(2of3)"
+                >
+                  {Object.entries(
+                    essentialSkillLevels(skill.skill_type_id),
+                  ).map(
+                    ([key, { name, context }]): React.ReactElement => {
+                      return (
+                        <ContextBlockItem
+                          key={key}
+                          contextId={key}
+                          title={intl.formatMessage(name)}
+                          subtext={intl.formatMessage(context)}
+                          className="job-builder-context-item"
+                          active={values.level === key}
+                        />
+                      );
+                    },
+                  )}
+                  <ContextBlockItem
+                    key="asset"
+                    contextId="asset"
+                    title={intl.formatMessage(assetSkillName())}
+                    subtext={intl.formatMessage(assetSkillDescription())}
+                    className="job-builder-context-item"
+                    active={values.level === "asset"}
+                  />
+                </ContextBlock>
               </div>
             </div>
             <div data-c-padding="normal">
@@ -431,8 +432,8 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
           </Form>
         </>
       )}
-    />
+    </Formik>
   );
 };
 
-export default injectIntl(CriteriaForm);
+export default CriteriaForm;

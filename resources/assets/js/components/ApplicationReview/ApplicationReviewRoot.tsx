@@ -17,6 +17,7 @@ import ApplicationReviewWithNav from "./ApplicationReviewWithNav";
 import { axios } from "../../api/base";
 import IntlContainer from "../../IntlContainer";
 import { Portal } from "../../models/app";
+import { ReviewStatusId } from "../../models/lookupConstants";
 
 interface ApplicationReviewRootProps {
   initApplication: Application;
@@ -130,10 +131,12 @@ class ApplicationReviewRoot extends React.Component<
   public render(): React.ReactElement {
     const { reviewStatuses, portal } = this.props;
     const { application, isSaving } = this.state;
-    const reviewStatusOptions = reviewStatuses.map(status => ({
-      value: status.id,
-      label: camelCase(status.name),
-    }));
+    const reviewStatusOptions = reviewStatuses
+      .filter(status => status.id in ReviewStatusId)
+      .map(status => ({
+        value: status.id,
+        label: camelCase(status.name),
+      }));
     return (
       <div className="applicant-review container--layout-xl">
         <ApplicationReviewWithNav

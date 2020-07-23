@@ -18,6 +18,25 @@ class UserControllerTest extends TestCase
     use RefreshDatabase;
 
     /**
+     * Base route for the API calls.
+     *
+     * @var string
+     */
+    protected $baseUrl;
+
+    /**
+     * Run parent setup and set global values.
+     *
+     * @return void
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->baseUrl = 'api/v1';
+    }
+
+    /**
      * Anonymous Users can't view any User accounts.
      *
      * @return void
@@ -25,10 +44,10 @@ class UserControllerTest extends TestCase
     public function testGuestAccess(): void
     {
         $applicant = factory(Applicant::class)->create();
-        $response = $this->json('get', 'api/users');
+        $response = $this->json('get', "$this->baseUrl/users");
         $response->assertStatus(403);
         $response->assertJsonFragment(['message' => 'This action is unauthorized.']);
-        $response = $this->json('get', 'api/users/' . $applicant->user->id);
+        $response = $this->json('get', "$this->baseUrl/users/" . $applicant->user->id);
         $response->assertStatus(403);
         $response->assertJsonFragment(['message' => 'This action is unauthorized.']);
     }
@@ -44,8 +63,13 @@ class UserControllerTest extends TestCase
 
         $transportCanada = Department::find(3); // Transport Canada.
 
+        $user = factory(User::class)->create([
+            'department_id' => $transportCanada->id,
+            'user_role_id' => 2
+        ]);
+
         $deptManager = factory(Manager::class)->state('upgraded')->create([
-            'department_id' => $transportCanada->id
+            'user_id' => $user->id
         ]);
 
         $job = factory(JobPoster::class)->state('closed')->create([
@@ -58,8 +82,13 @@ class UserControllerTest extends TestCase
             $application->applicant_id = $randomUsers[$key]->id;
         });
 
+        $hrUser = factory(User::class)->create([
+            'department_id' => $transportCanada->id,
+            'user_role_id' => 4
+        ]);
+
         $hrManager = factory(HrAdvisor::class)->create([
-            'department_id' => $transportCanada->id
+            'user_id' => $hrUser->id
         ]);
         $hrManager->claimed_jobs()->attach($job);
 
@@ -68,7 +97,7 @@ class UserControllerTest extends TestCase
 
         $response = $this->followingRedirects()
             ->actingAs($admin)
-            ->json('get', 'api/users');
+            ->json('get', "$this->baseUrl/users");
         $response->assertOk();
 
         // For some reason this first $admin->toArray() was
@@ -85,27 +114,27 @@ class UserControllerTest extends TestCase
 
         $response = $this->followingRedirects()
             ->actingAs($admin)
-            ->json('get', 'api/users/' . $admin->id);
+            ->json('get', "$this->baseUrl/users/" . $admin->id);
         $response->assertOk();
 
         $response = $this->followingRedirects()
             ->actingAs($admin)
-            ->json('get', 'api/users/' . $otherAdmin->id);
+            ->json('get', "$this->baseUrl/users/" . $otherAdmin->id);
         $response->assertOk();
 
         $response = $this->followingRedirects()
             ->actingAs($admin)
-            ->json('get', 'api/users/' . $deptManager->user->id);
+            ->json('get', "$this->baseUrl/users/" . $deptManager->user->id);
         $response->assertOk();
 
         $response = $this->followingRedirects()
             ->actingAs($admin)
-            ->json('get', 'api/users/' . $hrManager->user->id);
+            ->json('get', "$this->baseUrl/users/" . $hrManager->user->id);
         $response->assertOk();
 
         $response = $this->followingRedirects()
             ->actingAs($admin)
-            ->json('get', 'api/users/' . $randomUsers[0]->user->id);
+            ->json('get', "$this->baseUrl/users/" . $randomUsers[0]->user->id);
         $response->assertOk();
     }
 
@@ -126,16 +155,26 @@ class UserControllerTest extends TestCase
         $randomUsers = factory(Applicant::class, 5)->create();
         $otherUsers = factory(Applicant::class, 3)->create();
 
+        $deptUser = factory(User::class)->create([
+            'department_id' => $transportCanada->id,
+            'user_role_id' => 2
+        ]);
+
+        $otherDeptUser = factory(User::class)->create([
+            'department_id' => $healthCanada->id,
+            'user_role_id' => 2
+        ]);
+
         $deptManager = factory(Manager::class)->state('upgraded')->create([
-            'department_id' => $transportCanada->id
+            'user_id' => $deptUser->id
         ]);
 
         $otherDeptManager = factory(Manager::class)->state('upgraded')->create([
-            'department_id' => $healthCanada->id
+            'user_id' => $otherDeptUser->id
         ]);
 
         $job = factory(JobPoster::class)->state('closed')->create([
-            'department_id'=> $transportCanada->id,
+            'department_id' => $transportCanada->id,
             'manager_id' => $deptManager->id
         ]);
         $job->job_applications()->saveMany(factory(JobApplication::class, 5)->create([
@@ -154,18 +193,27 @@ class UserControllerTest extends TestCase
             $application->applicant_id = $otherUsers[$key]->id;
         }));
 
+        $hrUser = factory(User::class)->create([
+            'department_id' => $transportCanada->id,
+            'user_role_id' => 4
+        ]);
+
         $hrManager = factory(HrAdvisor::class)->create([
-            'department_id' => $transportCanada->id
+            'user_id' => $hrUser->id
         ]);
         $hrManager->claimed_jobs()->attach($job);
 
-        $otherHrManager = factory(HrAdvisor::class)->create([
+        $otherHrUser = factory(User::class)->create([
             'department_id' => $healthCanada->id,
+            'user_role_id' => 4
+        ]);
+        $otherHrManager = factory(HrAdvisor::class)->create([
+            'user_id' => $otherHrUser->id
         ]);
 
         $response = $this->followingRedirects()
             ->actingAs($hrManager->user)
-            ->json('get', 'api/users');
+            ->json('get', "$this->baseUrl/users");
         $response->assertOk();
 
         foreach ($otherUsers as $otherUser) {
@@ -191,42 +239,42 @@ class UserControllerTest extends TestCase
 
         $response = $this->followingRedirects()
             ->actingAs($hrManager->user)
-            ->json('get', 'api/users/' . $admin->id);
+            ->json('get', "$this->baseUrl/users/" . $admin->id);
         $response->assertStatus(403);
         $response->assertJsonFragment(['message' => 'This action is unauthorized.']);
 
         $response = $this->followingRedirects()
             ->actingAs($hrManager->user)
-            ->json('get', 'api/users/' . $otherHrManager->user->id);
+            ->json('get', "$this->baseUrl/users/" . $otherHrManager->user->id);
         $response->assertStatus(403);
         $response->assertJsonFragment(['message' => 'This action is unauthorized.']);
 
         $response = $this->followingRedirects()
             ->actingAs($hrManager->user)
-            ->json('get', 'api/users/' . $deptManager->user->id);
+            ->json('get', "$this->baseUrl/users/" . $deptManager->user->id);
         $response->assertOk();
 
         $response = $this->followingRedirects()
             ->actingAs($hrManager->user)
-            ->json('get', 'api/users/' . $otherDeptManager->user->id);
+            ->json('get', "$this->baseUrl/users/" . $otherDeptManager->user->id);
         $response->assertOk();
 
         $response = $this->followingRedirects()
             ->actingAs($hrManager->user)
-            ->json('get', 'api/users/' . $otherUsers[0]->user->id);
+            ->json('get', "$this->baseUrl/users/" . $otherUsers[0]->user->id);
         $response->assertStatus(403);
         $response->assertJsonFragment(['message' => 'This action is unauthorized.']);
 
         $response = $this->followingRedirects()
             ->actingAs($hrManager->user)
-            ->json('get', 'api/users/' . $randomUsers[0]->user->id);
+            ->json('get', "$this->baseUrl/users/" . $randomUsers[0]->user->id);
         $response->assertOk();
 
         $hrManager->claimed_jobs()->detach($job);
 
         $response = $this->followingRedirects()
-        ->actingAs($hrManager->user)
-        ->json('get', 'api/users/' . $randomUsers[0]->user->id);
+            ->actingAs($hrManager->user)
+            ->json('get', "$this->baseUrl/users/" . $randomUsers[0]->user->id);
         $response->assertStatus(403);
         $response->assertJsonFragment(['message' => 'This action is unauthorized.']);
     }
@@ -248,16 +296,26 @@ class UserControllerTest extends TestCase
         $randomUsers = factory(Applicant::class, 5)->create();
         $otherUsers = factory(Applicant::class, 3)->create();
 
+        $deptUser = factory(User::class)->create([
+            'department_id' => $transportCanada->id,
+            'user_role_id' => 2
+        ]);
+
+        $otherDeptUser = factory(User::class)->create([
+            'department_id' => $healthCanada->id,
+            'user_role_id' => 2
+        ]);
+
         $deptManager = factory(Manager::class)->state('upgraded')->create([
-            'department_id' => $transportCanada->id
+            'user_id' => $deptUser->id
         ]);
 
         $otherDeptManager = factory(Manager::class)->state('upgraded')->create([
-            'department_id' => $healthCanada->id
+            'user_id' => $otherDeptUser->id
         ]);
 
         $job = factory(JobPoster::class)->state('closed')->create([
-            'department_id'=> $transportCanada->id,
+            'department_id' => $transportCanada->id,
             'manager_id' => $deptManager->id
         ]);
         $job->job_applications()->saveMany(factory(JobApplication::class, 5)->create([
@@ -278,7 +336,7 @@ class UserControllerTest extends TestCase
 
         $response = $this->followingRedirects()
             ->actingAs($deptManager->user)
-            ->json('get', 'api/users');
+            ->json('get', "$this->baseUrl/users");
         $response->assertOk();
 
         foreach ($otherUsers as $otherUser) {
@@ -297,40 +355,45 @@ class UserControllerTest extends TestCase
 
         $response = $this->followingRedirects()
             ->actingAs($deptManager->user)
-            ->json('get', 'api/users/' . $deptManager->user->id);
+            ->json('get', "$this->baseUrl/users/" . $deptManager->user->id);
         $response->assertOk();
 
         $response = $this->followingRedirects()
             ->actingAs($deptManager->user)
-            ->json('get', 'api/users/' . $otherDeptManager->user->id);
+            ->json('get', "$this->baseUrl/users/" . $otherDeptManager->user->id);
         $response->assertOk();
 
         $response = $this->followingRedirects()
             ->actingAs($deptManager->user)
-            ->json('get', 'api/users/' . $otherUsers[0]->user->id);
+            ->json('get', "$this->baseUrl/users/" . $otherUsers[0]->user->id);
         $response->assertStatus(403);
         $response->assertJsonFragment(['message' => 'This action is unauthorized.']);
 
         $response = $this->followingRedirects()
             ->actingAs($deptManager->user)
-            ->json('get', 'api/users/' . $randomUsers[0]->user->id);
+            ->json('get', "$this->baseUrl/users/" . $randomUsers[0]->user->id);
         $response->assertOk();
 
         $admin = factory(User::class)->state('admin')->create();
 
         $response = $this->followingRedirects()
             ->actingAs($deptManager->user)
-            ->json('get', 'api/users/' . $admin->id);
+            ->json('get', "$this->baseUrl/users/" . $admin->id);
         $response->assertStatus(403);
         $response->assertJsonFragment(['message' => 'This action is unauthorized.']);
 
+        $hrUser = factory(User::class)->create([
+            'department_id' => $transportCanada->id,
+            'user_role_id' => 4
+        ]);
+
         $hrManager = factory(HrAdvisor::class)->create([
-            'department_id' => $transportCanada->id
+            'user_id' => $hrUser->id
         ]);
 
         $response = $this->followingRedirects()
             ->actingAs($deptManager->user)
-            ->json('get', 'api/users/' . $hrManager->user->id);
+            ->json('get', "$this->baseUrl/users/" . $hrManager->user->id);
         $response->assertOk();
     }
 
@@ -349,29 +412,29 @@ class UserControllerTest extends TestCase
 
         $response = $this->followingRedirects()
             ->actingAs($applicant->user)
-            ->json('get', 'api/users/' . $applicant->user->id);
+            ->json('get', "$this->baseUrl/users/" . $applicant->user->id);
         $response->assertOk();
 
         $response = $this->followingRedirects()
             ->actingAs($applicant->user)
-            ->json('get', 'api/users/' . $admin->id);
+            ->json('get', "$this->baseUrl/users/" . $admin->id);
         $response->assertStatus(403);
         $response->assertJsonFragment(['message' => 'This action is unauthorized.']);
 
         $response = $this->followingRedirects()
             ->actingAs($applicant->user)
-            ->json('get', 'api/users/' . $otherApplicant->user->id);
+            ->json('get', "$this->baseUrl/users/" . $otherApplicant->user->id);
         $response->assertStatus(403);
         $response->assertJsonFragment(['message' => 'This action is unauthorized.']);
 
         $response = $this->followingRedirects()
             ->actingAs($applicant->user)
-            ->json('get', 'api/users/' . $manager->user->id);
+            ->json('get', "$this->baseUrl/users/" . $manager->user->id);
         $response->assertOk();
 
         $response = $this->followingRedirects()
             ->actingAs($applicant->user)
-            ->json('get', 'api/users/' . $hrAdvisor->user->id);
+            ->json('get', "$this->baseUrl/users/" . $hrAdvisor->user->id);
         $response->assertStatus(403);
         $response->assertJsonFragment(['message' => 'This action is unauthorized.']);
     }

@@ -117,7 +117,7 @@ export const messages = defineMessages({
   screenOutConfirm: {
     id: "application.review.screenOutConfirm",
     defaultMessage: "Screen out the candidate?",
-    description: "Are you sure you want to screen out the candidate worning",
+    description: "Are you sure you want to screen out the candidate warning",
   },
   screenInConfirm: {
     id: "application.review.screenInConfirm",
@@ -207,7 +207,7 @@ class ApplicationReview extends React.Component<
         cancelButtonColor: "#F94D4D",
         confirmButtonText: intl.formatMessage(messages.confirmButton),
         cancelButtonText: intl.formatMessage(messages.cancelButton),
-      }).then(result => {
+      }).then((result) => {
         if (result.value) {
           onStatusChange(application.id, status);
         }
@@ -233,7 +233,7 @@ class ApplicationReview extends React.Component<
       cancelButtonText: intl.formatMessage(messages.cancelButton),
       confirmButtonText: intl.formatMessage(messages.save),
       inputValue: notes,
-    }).then(result => {
+    }).then((result) => {
       if (result && result.value !== undefined) {
         const value = result.value ? result.value : null;
         onNotesChange(application.id, value);
@@ -249,7 +249,7 @@ class ApplicationReview extends React.Component<
       intl,
       portal,
     } = this.props;
-    const l10nReviewStatusOptions = reviewStatusOptions.map(status => ({
+    const l10nReviewStatusOptions = reviewStatusOptions.map((status) => ({
       value: status.value,
       label: intl.formatMessage(messages[status.label]),
     }));
@@ -266,12 +266,28 @@ class ApplicationReview extends React.Component<
       "fa-exclamation-circle": reviewStatus === null,
     });
     const applicantUrlMap: { [key in typeof portal]: string } = {
-      hr: routes.hrApplicantShow(intl.locale, application.id),
-      manager: routes.managerApplicantShow(intl.locale, application.id),
+      hr: routes.hrApplicantShow(
+        intl.locale,
+        application.id,
+        application.job_poster_id,
+      ),
+      manager: routes.managerApplicantShow(
+        intl.locale,
+        application.id,
+        application.job_poster_id,
+      ),
     };
     const applicationUrlMap: { [key in typeof portal]: string } = {
-      hr: routes.hrApplicationShow(intl.locale, application.id),
-      manager: routes.managerApplicationShow(intl.locale, application.id),
+      hr: routes.hrApplicationShow(
+        intl.locale,
+        application.id,
+        application.job_poster_id,
+      ),
+      manager: routes.managerApplicationShow(
+        intl.locale,
+        application.id,
+        application.job_poster_id,
+      ),
     };
     const applicantUrl = applicantUrlMap[portal];
     const applicationUrl = applicationUrlMap[portal];
@@ -347,7 +363,7 @@ class ApplicationReview extends React.Component<
               <span className="veteran-status">
                 <img
                   alt={intl.formatMessage(messages.veteranLogo)}
-                  src="/images/icon_veteran.svg"
+                  src={routes.imageUrl("icon_veteran.svg")}
                 />{" "}
                 {intl.formatMessage(messages.veteranStatus)}
               </span>

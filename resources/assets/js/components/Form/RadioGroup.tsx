@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FormikErrors, FormikTouched } from "formik";
 import { FormattedMessage } from "react-intl";
 import { inputMessages } from "./Messages";
@@ -29,6 +29,13 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
   touched,
   children,
 }): React.ReactElement => {
+  // Add a temporary style when radiogroup is focused, until it's added to clone.
+  const [focus, setFocus] = useState(false);
+  const focusStyle = {
+    boxShadow:
+      "-3px -3px 0 #0a6cbc, 3px -3px 0 #0a6cbc, 3px 3px 0 #0a6cbc, -3px 3px 0 #0a6cbc",
+    transition: "all .2s ease",
+  };
   const hasError = !!error && touched;
   return (
     <div
@@ -41,7 +48,13 @@ const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
       <span>
         <FormattedMessage {...inputMessages.required} />
       </span>
-      <div id={id} role="radiogroup">
+      <div
+        id={id}
+        role="radiogroup"
+        onFocus={(): void => setFocus(true)}
+        onBlur={(): void => setFocus(false)}
+        style={focus && !!error ? focusStyle : {}}
+      >
         {children}
       </div>
       <span>{error}</span>

@@ -42,6 +42,11 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "User not found",
+        "description": "Error message displayed when a user id is unknown.",
+        "id": "activity.unknownUser"
+      },
+      {
         "defaultMessage": "Activities",
         "description": "Title of activity feed.",
         "id": "activityfeed.title"
@@ -67,34 +72,14 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Start typing your answer above.",
-        "description": "Placeholder text for an empty input.",
-        "id": "wordCounter.skills.placeholder"
+        "defaultMessage": "words left",
+        "description": "Message displayed on word counter when users under/matching the limit.",
+        "id": "skillWordCounter.wordsLeft"
       },
       {
-        "defaultMessage": "This seems too short. Did you include examples or lessons learned?",
-        "description": "Message displayed to user when the word count is very low.",
-        "id": "wordCounter.skills.veryShortMessage"
-      },
-      {
-        "defaultMessage": "This seems a bit short. Do you have another example or lesson learned to add?",
-        "description": "Message displayed to user when the word count is low.",
-        "id": "wordCounter.skills.shortMessage"
-      },
-      {
-        "defaultMessage": "This is starting to get a bit long.",
-        "description": "Message displayed to user when the word count is a little high.",
-        "id": "wordCounter.skills.slightlyLongMessage"
-      },
-      {
-        "defaultMessage": "This looks too long. Can you summarize some of your response?",
-        "description": "Message displayed to user when the word count is high.",
-        "id": "wordCounter.skills.longMessage"
-      },
-      {
-        "defaultMessage": "500 word limit reached. This is way too long. Check out one of our examples to see what a concise skill description looks like.",
-        "description": "Message displayed to user when the word count is very high.",
-        "id": "wordCounter.skills.veryLongMessage"
+        "defaultMessage": "words over limit",
+        "description": "Message displayed on word counter when user passes the limit.",
+        "id": "skillWordCounter.afterText"
       }
     ],
     "path": "resources/assets/js/components/ApplicantSkills/SkillsWordCounter.json"
@@ -218,7 +203,7 @@
       },
       {
         "defaultMessage": "Screen out the candidate?",
-        "description": "Are you sure you want to screen out the candidate worning",
+        "description": "Are you sure you want to screen out the candidate warning",
         "id": "application.review.screenOutConfirm"
       },
       {
@@ -247,7 +232,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "< Save and Go Back to Applicant List",
+        "defaultMessage": "Save and Go Back to Applicant List",
         "description": "Back Button text",
         "id": "application.review.backToApplicantList"
       },
@@ -1447,9 +1432,14 @@
         "id": "jobBuilder.impact.modalDescription"
       },
       {
-        "defaultMessage": "Government Classification",
-        "description": "Placeholder for information that comes later",
-        "id": "jobBuilder.review.GovernmentClass"
+        "defaultMessage": "Impact",
+        "description": "Heading for Impact preview on modal dialog.",
+        "id": "jobBuilder.impactPreview.title"
+      },
+      {
+        "defaultMessage": "Go Back",
+        "description": "Label for Go Back button on Impact review modal.",
+        "id": "jobBuilder.impact.button.goBack"
       },
       {
         "defaultMessage": "You haven't added any Nice to Have skills to this poster.",
@@ -1462,17 +1452,7 @@
         "id": "jobBuilder.impact.button.nextStep"
       }
     ],
-    "path": "resources/assets/js/components/JobBuilder/Impact/JobBuilderImpact.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "Impact",
-        "description": "Heading for Impact preview on modal dialog.",
-        "id": "jobBuilder.impactPreview.title"
-      }
-    ],
-    "path": "resources/assets/js/components/JobBuilder/Impact/JobImpactPreview.json"
+    "path": "resources/assets/js/components/JobBuilder/Impact/JobImpact.json"
   },
   {
     "descriptors": [
@@ -1611,7 +1591,7 @@
         "id": "activityfeed.review.accordionAccessibleLabel"
       }
     ],
-    "path": "resources/assets/js/components/JobBuilder/Intro/IntroForm.json"
+    "path": "resources/assets/js/components/JobBuilder/Intro/JobIntro.json"
   },
   {
     "descriptors": [
@@ -1646,47 +1626,7 @@
         "id": "managerSurveyModal.jobPosterLinkTitle"
       }
     ],
-    "path": "resources/assets/js/components/JobBuilder/Intro/JobBuilderIntro.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "{termMonths, plural, =0 {no months} one {# month} other {# months}}",
-        "description": "Calculated term length in months",
-        "id": "jobBuilder.preview.termLength"
-      },
-      {
-        "defaultMessage": "Job Title",
-        "description": "Job Poster Card Information Label",
-        "id": "jobBuilder.preview.jobTitle"
-      },
-      {
-        "defaultMessage": "Length of the Term",
-        "description": "Job Poster Card Information Label",
-        "id": "jobBuilder.preview.lengthOfTheTerm"
-      },
-      {
-        "defaultMessage": "Security Clearance",
-        "description": "Job Poster Card Information Label",
-        "id": "jobBuilder.preview.securityClearance"
-      },
-      {
-        "defaultMessage": "Language Profile",
-        "description": "Job Poster Card Information Label",
-        "id": "jobBuilder.preview.languageProfile"
-      },
-      {
-        "defaultMessage": "City",
-        "description": "Job Poster Card Information Label",
-        "id": "jobBuilder.preview.city"
-      },
-      {
-        "defaultMessage": "Province",
-        "description": "Job Poster Card Information Label",
-        "id": "jobBuilder.preview.province"
-      }
-    ],
-    "path": "resources/assets/js/components/JobBuilder/JobBasicInfo.json"
+    "path": "resources/assets/js/components/JobBuilder/Intro/JobIntroPage.json"
   },
   {
     "descriptors": [
@@ -2124,7 +2064,7 @@
       {
         "defaultMessage": "If you're ready to submit your poster, click the Submit button below.",
         "description": "Instructions on how to submit",
-        "id": "jobBuilder.review.readyTosubmit"
+        "id": "jobBuilder.review.readyToSubmit"
       },
       {
         "defaultMessage": "What happens next?",
@@ -2232,7 +2172,7 @@
         "id": "managerSurveyModal.managerSurveyLinkTitle"
       },
       {
-        "defaultMessage": "<a>Take me to the survey</>.",
+        "defaultMessage": "Take me to the survey.",
         "description": "Link to manager survey.",
         "id": "managerSurveyModal.link"
       },
@@ -2601,7 +2541,7 @@
         "id": "jobBuilder.skills.previewModalConfirmLabel"
       }
     ],
-    "path": "resources/assets/js/components/JobBuilder/Skills/JobBuilderSkills.json"
+    "path": "resources/assets/js/components/JobBuilder/Skills/JobSkills.json"
   },
   {
     "descriptors": [
@@ -2721,94 +2661,44 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Open Concept",
-        "description": "Physical Environment checkbox group 'open concept' option.",
-        "id": "jobBuilder.workEnv.physEnv.openConcept"
+        "defaultMessage": "Work Environment",
+        "description": "Header of job poster builder work environment step.",
+        "id": "jobBuilder.workEnv.title"
       },
       {
-        "defaultMessage": "Private",
-        "description": "Physical Environment checkbox group 'private' option.",
-        "id": "jobBuilder.workEnv.physEnv.private"
+        "defaultMessage": "Applicants care a lot about the team they'll be working with and the physical workspace as well. Sharing information about these things help applicants determine if they'll be a good fit, and can reduce the number of \"wishful thinking\" applications that slow down the screening process.",
+        "description": "Description of job poster builder work environment step.",
+        "id": "jobBuilder.workEnv.stepDescription"
       },
       {
-        "defaultMessage": "Assigned Seating",
-        "description": "Physical Environment checkbox group 'assigned seating' option.",
-        "id": "jobBuilder.workEnv.physEnv.assignedSeating"
+        "defaultMessage": "Our Work Environment",
+        "description": "Section 1 of Job Poster Builder Work Environment Step",
+        "id": "jobBuilder.workEnv.ourWorkEnv"
       },
       {
-        "defaultMessage": "Lots of Windows",
-        "description": "Physical Environment checkbox group 'windows' option.",
-        "id": "jobBuilder.workEnv.physEnv.windows"
+        "defaultMessage": "Now let applicants know more about the personality of your team and the type of work that you usually do.",
+        "description": "Subtext 1 displayed of the our culture section.",
+        "id": "jobBuilder.workEnv.cultureSubtext1"
       },
       {
-        "defaultMessage": "Natural Light",
-        "description": "Physical Environment checkbox group 'natural light' option.",
-        "id": "jobBuilder.workEnv.physEnv.naturalLight"
+        "defaultMessage": "Copy to Clipboard",
+        "description": "Button to copy text to clipboard.",
+        "id": "button.copyToClipboard"
       },
       {
-        "defaultMessage": "Suitable for Smudging",
-        "description": "Physical Environment checkbox group 'suitable for smudging' option.",
-        "id": "jobBuilder.workEnv.physEnv.smudging"
+        "defaultMessage": "Copied!",
+        "description": "Confirmation for Button to copy text to clipboard.",
+        "id": "button.copied"
       },
       {
-        "defaultMessage": "Video Conferencing (e.g. Skype, Zoom)",
-        "description": "Technology checkbox group 'video conferencing' option.",
-        "id": "jobBuilder.workEnv.technology.videoConferencing"
+        "defaultMessage": "Save & Return to Job Details",
+        "description": "Label for Save & Return button on Work Environment form.",
+        "id": "jobBuilder.workEnv.saveAndReturnButtonLabel"
       },
       {
-        "defaultMessage": "Collaboration (e.g. Slack, Hangouts)",
-        "description": "Technology checkbox group 'collaboration' option.",
-        "id": "jobBuilder.workEnv.technology.collaboration"
-      },
-      {
-        "defaultMessage": "File Sharing (e.g. Google Drive, Dropbox)",
-        "description": "Technology checkbox group 'file sharing' option.",
-        "id": "jobBuilder.workEnv.technology.fileSharing"
-      },
-      {
-        "defaultMessage": "Task Management (e.g. Trello, Asana)",
-        "description": "Technology checkbox group 'task management' option.",
-        "id": "jobBuilder.workEnv.technology.taskManagement"
-      },
-      {
-        "defaultMessage": "Version Control (e.g. Github, Gitlab)",
-        "description": "Technology checkbox group 'version control' option.",
-        "id": "jobBuilder.workEnv.technology.versionControl"
-      },
-      {
-        "defaultMessage": "Access to external, unfiltered Wi-Fi.",
-        "description": "Technology checkbox group 'access to external' option.",
-        "id": "jobBuilder.workEnv.technology.accessToExternal"
-      },
-      {
-        "defaultMessage": "Cafeteria On-site",
-        "description": "Amenities checkbox group 'cafeteria' option.",
-        "id": "jobBuilder.workEnv.amenities.cafeteria"
-      },
-      {
-        "defaultMessage": "Close to Transit",
-        "description": "Amenities checkbox group 'close to transit' option.",
-        "id": "jobBuilder.workEnv.amenities.closeToTransit"
-      },
-      {
-        "defaultMessage": "Walking Distance to Restaurants/Malls",
-        "description": "Amenities checkbox group 'restaurants' option.",
-        "id": "jobBuilder.workEnv.amenities.restaurants"
-      },
-      {
-        "defaultMessage": "Downtown",
-        "description": "Amenities checkbox group 'downtown' option.",
-        "id": "jobBuilder.workEnv.amenities.downtown"
-      },
-      {
-        "defaultMessage": "Nearby Fitness Centre",
-        "description": "Amenities checkbox group 'nearby fitness centre' option.",
-        "id": "jobBuilder.workEnv.amenities.fitnessCenter"
-      },
-      {
-        "defaultMessage": "Easy Access to Parking",
-        "description": "Amenities checkbox group 'parking' option.",
-        "id": "jobBuilder.workEnv.amenities.parking"
+        "defaultMessage": "Save & Preview",
+        "description": "Label for work environment submit button.",
+        "id": "jobBuilder.workEnv.submitButtonLabel"
       }
     ],
     "path": "resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnv.json"
@@ -3104,49 +2994,9 @@
       {
         "defaultMessage": "Members of our team own their piece of the puzzle. It doesn't really matter how we get our work done as long as it's high quality.",
         "id": "jobBuilder.collaborativeness.04.description"
-      },
-      {
-        "defaultMessage": "Work Environment",
-        "description": "Header of job poster builder work environment step.",
-        "id": "jobBuilder.workEnv.title"
-      },
-      {
-        "defaultMessage": "Applicants care a lot about the team they'll be working with and the physical workspace as well. Sharing information about these things help applicants determine if they'll be a good fit, and can reduce the number of \"wishful thinking\" applications that slow down the screening process.",
-        "description": "Description of job poster builder work environment step.",
-        "id": "jobBuilder.workEnv.stepDescription"
-      },
-      {
-        "defaultMessage": "Our Work Environment",
-        "description": "Section 1 of Job Poster Builder Work Environment Step",
-        "id": "jobBuilder.workEnv.ourWorkEnv"
-      },
-      {
-        "defaultMessage": "Now let applicants know more about the personality of your team and the type of work that you usually do.",
-        "description": "Subtext 1 displayed of the our culture section.",
-        "id": "jobBuilder.workEnv.cultureSubtext1"
-      },
-      {
-        "defaultMessage": "Copy to Clipboard",
-        "description": "Button to copy text to clipboard.",
-        "id": "button.copyToClipboard"
-      },
-      {
-        "defaultMessage": "Copied!",
-        "description": "Confirmation for Button to copy text to clipboard.",
-        "id": "button.copied"
-      },
-      {
-        "defaultMessage": "Save & Return to Job Details",
-        "description": "Label for Save & Return button on Work Environment form.",
-        "id": "jobBuilder.workEnv.saveAndReturnButtonLabel"
-      },
-      {
-        "defaultMessage": "Save & Preview",
-        "description": "Label for work environment submit button.",
-        "id": "jobBuilder.workEnv.submitButtonLabel"
       }
     ],
-    "path": "resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvForm.json"
+    "path": "resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnvMessages.json"
   },
   {
     "descriptors": [
@@ -3186,7 +3036,102 @@
         "id": "jobBuilder.workEnvModal.confirmLabel"
       }
     ],
-    "path": "resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvModal.json"
+    "path": "resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnvModal.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Open Concept",
+        "description": "Physical Environment checkbox group 'open concept' option.",
+        "id": "jobBuilder.workEnv.physEnv.openConcept"
+      },
+      {
+        "defaultMessage": "Private",
+        "description": "Physical Environment checkbox group 'private' option.",
+        "id": "jobBuilder.workEnv.physEnv.private"
+      },
+      {
+        "defaultMessage": "Assigned Seating",
+        "description": "Physical Environment checkbox group 'assigned seating' option.",
+        "id": "jobBuilder.workEnv.physEnv.assignedSeating"
+      },
+      {
+        "defaultMessage": "Lots of Windows",
+        "description": "Physical Environment checkbox group 'windows' option.",
+        "id": "jobBuilder.workEnv.physEnv.windows"
+      },
+      {
+        "defaultMessage": "Natural Light",
+        "description": "Physical Environment checkbox group 'natural light' option.",
+        "id": "jobBuilder.workEnv.physEnv.naturalLight"
+      },
+      {
+        "defaultMessage": "Suitable for Smudging",
+        "description": "Physical Environment checkbox group 'suitable for smudging' option.",
+        "id": "jobBuilder.workEnv.physEnv.smudging"
+      },
+      {
+        "defaultMessage": "Video Conferencing (e.g. Skype, Zoom)",
+        "description": "Technology checkbox group 'video conferencing' option.",
+        "id": "jobBuilder.workEnv.technology.videoConferencing"
+      },
+      {
+        "defaultMessage": "Collaboration (e.g. Slack, Hangouts)",
+        "description": "Technology checkbox group 'collaboration' option.",
+        "id": "jobBuilder.workEnv.technology.collaboration"
+      },
+      {
+        "defaultMessage": "File Sharing (e.g. Google Drive, Dropbox)",
+        "description": "Technology checkbox group 'file sharing' option.",
+        "id": "jobBuilder.workEnv.technology.fileSharing"
+      },
+      {
+        "defaultMessage": "Task Management (e.g. Trello, Asana)",
+        "description": "Technology checkbox group 'task management' option.",
+        "id": "jobBuilder.workEnv.technology.taskManagement"
+      },
+      {
+        "defaultMessage": "Version Control (e.g. Github, Gitlab)",
+        "description": "Technology checkbox group 'version control' option.",
+        "id": "jobBuilder.workEnv.technology.versionControl"
+      },
+      {
+        "defaultMessage": "Access to external, unfiltered Wi-Fi.",
+        "description": "Technology checkbox group 'access to external' option.",
+        "id": "jobBuilder.workEnv.technology.accessToExternal"
+      },
+      {
+        "defaultMessage": "Cafeteria On-site",
+        "description": "Amenities checkbox group 'cafeteria' option.",
+        "id": "jobBuilder.workEnv.amenities.cafeteria"
+      },
+      {
+        "defaultMessage": "Close to Transit",
+        "description": "Amenities checkbox group 'close to transit' option.",
+        "id": "jobBuilder.workEnv.amenities.closeToTransit"
+      },
+      {
+        "defaultMessage": "Walking Distance to Restaurants/Malls",
+        "description": "Amenities checkbox group 'restaurants' option.",
+        "id": "jobBuilder.workEnv.amenities.restaurants"
+      },
+      {
+        "defaultMessage": "Downtown",
+        "description": "Amenities checkbox group 'downtown' option.",
+        "id": "jobBuilder.workEnv.amenities.downtown"
+      },
+      {
+        "defaultMessage": "Nearby Fitness Centre",
+        "description": "Amenities checkbox group 'nearby fitness centre' option.",
+        "id": "jobBuilder.workEnv.amenities.fitnessCenter"
+      },
+      {
+        "defaultMessage": "Easy Access to Parking",
+        "description": "Amenities checkbox group 'parking' option.",
+        "id": "jobBuilder.workEnv.amenities.parking"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvFeatures.json"
   },
   {
     "descriptors": [
@@ -3317,6 +3262,149 @@
       }
     ],
     "path": "resources/assets/js/components/ProgressTracker/ProgressTrackerItem.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "View Application",
+        "description": "Label for 'View Application' link.",
+        "id": "responseScreening.bucket.viewApplicationLabel"
+      },
+      {
+        "defaultMessage": "View Profile",
+        "description": "Label for 'View Profile' link.",
+        "id": "responseScreening.bucket.viewProfileLabel"
+      },
+      {
+        "defaultMessage": "Add/Edit Notes",
+        "description": "Label for 'Add/Edit Notes' button.",
+        "id": "responseScreening.bucket.notesLabel"
+      },
+      {
+        "defaultMessage": "Save Changes",
+        "description": "Label for 'Save Changes' button when changes are unsaved.",
+        "id": "responseScreening.bucket.saveLabel"
+      },
+      {
+        "defaultMessage": "Saving...",
+        "description": "Label for 'Save Changes' button when form submission is in progress.",
+        "id": "responseScreening.bucket.savingLabel"
+      },
+      {
+        "defaultMessage": "Saved",
+        "description": "Label for 'Save Changes' button when form submission succeeded.",
+        "id": "responseScreening.bucket.savedLabel"
+      },
+      {
+        "defaultMessage": "Cancel",
+        "description": "Label for 'Cancel' button.",
+        "id": "responseScreening.bucket.cancelLabel"
+      },
+      {
+        "defaultMessage": "Select a status...",
+        "description": "Default option text for the Status dropdown.",
+        "id": "responseScreening.bucket.selectStatusDefault"
+      },
+      {
+        "defaultMessage": "Review Status",
+        "description": "Label for the Status dropdown.",
+        "id": "responseScreening.bucket.selectStatusLabel"
+      },
+      {
+        "defaultMessage": "Select a department...",
+        "description": "Default option text for the Department dropdown.",
+        "id": "responseScreening.bucket.selectDepartmentDefault"
+      },
+      {
+        "defaultMessage": "Department Allocation",
+        "description": "Label for the Department dropdown.",
+        "id": "responseScreening.bucket.selectDepartmentLabel"
+      },
+      {
+        "defaultMessage": "Click to view...",
+        "description": "Accessible text for screen reading accordion elements.",
+        "id": "responseScreening.bucket.accessibleViewLabel"
+      },
+      {
+        "defaultMessage": "There are currently no applicants in this bucket.",
+        "description": "Fallback label for a bucket with no applicants.",
+        "id": "responseScreening.bucket.noApplicants"
+      },
+      {
+        "defaultMessage": "Setting this candidate to allocated will mark them as currently unavailable for all other streams. Are you sure you want to continue?",
+        "description": "Confirmation text when attempting to set a candidate as Allocated.",
+        "id": "responseScreening.bucket.confirmSetAllocated"
+      },
+      {
+        "defaultMessage": "Setting this candidate to not available will mark them as currently unavailable for all other streams. Are you sure you want to continue?",
+        "description": "Confirmation text when attempting to set a candidate as Not Available.",
+        "id": "responseScreening.bucket.confirmSetUnavailable"
+      },
+      {
+        "defaultMessage": "Please confirm this action",
+        "description": "Title for the confirmation dialog when making changes with side effects.",
+        "id": "responseScreening.bucket.confirmAction"
+      },
+      {
+        "defaultMessage": "Yes",
+        "description": "Confirmation button text for dialog",
+        "id": "responseScreening.bucket.yes"
+      },
+      {
+        "defaultMessage": "Email for Reference Check",
+        "description": "Text displayed on the title of the MicroReference Email modal.",
+        "id": "referenceEmailModal.title"
+      },
+      {
+        "defaultMessage": "To:",
+        "id": "referenceEmailModal.toLabel"
+      },
+      {
+        "defaultMessage": "From:",
+        "id": "referenceEmailModal.fromLabel"
+      },
+      {
+        "defaultMessage": "CC:",
+        "id": "referenceEmailModal.ccLabel"
+      },
+      {
+        "defaultMessage": "BCC:",
+        "id": "referenceEmailModal.bccLabel"
+      },
+      {
+        "defaultMessage": "Subject:",
+        "id": "referenceEmailModal.subjectLabel"
+      },
+      {
+        "defaultMessage": "Loading reference email...",
+        "id": "referenceEmailModal.nullState"
+      },
+      {
+        "defaultMessage": "Cancel",
+        "id": "referenceEmailModal.cancel"
+      },
+      {
+        "defaultMessage": "Send Email",
+        "id": "referenceEmailModal.confirm"
+      },
+      {
+        "defaultMessage": "Sending email...",
+        "id": "responseScreening.applicant.directorEmailSending"
+      },
+      {
+        "defaultMessage": "Director email.",
+        "id": "responseScreening.applicant.directorEmailButton"
+      },
+      {
+        "defaultMessage": "Sending email...",
+        "id": "responseScreening.applicant.secondaryEmailSending"
+      },
+      {
+        "defaultMessage": "Reference email.",
+        "id": "responseScreening.applicant.secondaryEmailButton"
+      }
+    ],
+    "path": "resources/assets/js/components/StrategicTalentResponse/ResponseScreening/ApplicantBucket.json"
   },
   {
     "descriptors": [
@@ -3860,30 +3948,6 @@
         "id": "jobBuilder.details.classificationOptions.AD"
       },
       {
-        "defaultMessage": "Draft",
-        "id": "jobStatus.draft"
-      },
-      {
-        "defaultMessage": "In Review",
-        "id": "jobStatus.review"
-      },
-      {
-        "defaultMessage": "Approved",
-        "id": "jobStatus.approved"
-      },
-      {
-        "defaultMessage": "Open",
-        "id": "jobStatus.open"
-      },
-      {
-        "defaultMessage": "Closed",
-        "id": "jobStatus.closed"
-      },
-      {
-        "defaultMessage": "Complete",
-        "id": "jobStatus.complete"
-      },
-      {
         "defaultMessage": "Job Poster Builder",
         "description": "Location where the activity is located.",
         "id": "activityfeed.locations.review"
@@ -3901,7 +3965,12 @@
       {
         "defaultMessage": "Applicant Review Page",
         "description": "Location where the activity is located.",
-        "id": "activityfeed.locations.applications.generic"
+        "id": "activityfeed.locations.applications"
+      },
+      {
+        "defaultMessage": "Assessment Plan",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.screeningPlan"
       },
       {
         "defaultMessage": "Location not found",
@@ -3910,43 +3979,63 @@
       },
       {
         "defaultMessage": "General",
-        "description": "Location where the activity is located.",
-        "id": "activityfeed.locations.review.details"
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.review.general"
       },
       {
         "defaultMessage": "Job Page Heading",
-        "description": "Location where the activity is located.",
+        "description": "Location of the activity.",
         "id": "activityfeed.locations.review.heading"
       },
       {
         "defaultMessage": "Basic Information",
-        "description": "Location where the activity is located.",
+        "description": "Location of the activity.",
         "id": "activityfeed.locations.review.basicInfo"
       },
       {
         "defaultMessage": "Impact",
-        "description": "Location where the activity is located.",
+        "description": "Location of the activity.",
         "id": "activityfeed.locations.review.impact"
       },
       {
         "defaultMessage": "Tasks",
-        "description": "Location where the activity is located.",
+        "description": "Location of the activity.",
         "id": "activityfeed.locations.review.tasks"
       },
       {
         "defaultMessage": "Skills",
-        "description": "Location where the activity is located.",
+        "description": "Location of the activity.",
         "id": "activityfeed.locations.review.skills"
       },
       {
         "defaultMessage": "Language Requirements",
-        "description": "Location where the activity is located.",
+        "description": "Location of the activity.",
         "id": "activityfeed.locations.review.langRequirements"
       },
       {
         "defaultMessage": "Environment",
-        "description": "Location where the activity is located.",
+        "description": "Location of the activity.",
         "id": "activityfeed.locations.review.environment"
+      },
+      {
+        "defaultMessage": "General",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.applicantReview.general"
+      },
+      {
+        "defaultMessage": "Under Consideration",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.applicantReview.underConsideration"
+      },
+      {
+        "defaultMessage": "Optional Consideration",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.applicantReview.optionalConsideration"
+      },
+      {
+        "defaultMessage": "No Longer Under Consideration",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.applicantReview.notUnderConsideration"
       },
       {
         "defaultMessage": "General",
@@ -3969,24 +4058,84 @@
         "id": "activityfeed.locations.screeningPlan.ratings"
       },
       {
-        "defaultMessage": "General",
-        "description": "Location of the activity.",
-        "id": "activityfeed.locations.applicantReview.general"
+        "defaultMessage": "Employees Under Consideration",
+        "description": "Label for the 'Under Consideration' response screening bucket.",
+        "id": "responseScreening.buckets.consideration.title"
       },
       {
-        "defaultMessage": "Under Consideration",
-        "description": "Location of the activity.",
-        "id": "activityfeed.locations.applicantReview.underConsideration"
+        "defaultMessage": "Employees in this category have volunteered to be placed in a team with a critical needs shortage. Employees in this category are: Pending initial application review ({iconReceived}), indicating that a submission has been received, but it has not yet been assessed by a member of the review team; Ready for reference checks and home-department approval ({iconReady}), indicating that the employee is heading to the Ready to Allocate category if references and approval are in order; and Further Assessment Required ({iconAssessment}), indicating that the review team is unsure of their qualifications for this role and is undertaking further assessment.",
+        "description": "Descriptive text for the 'Under Consideration' response screening bucket. Takes three icons (iconReceived, iconReady, and iconAssessment) as input.",
+        "id": "responseScreening.buckets.consideration.description"
       },
       {
-        "defaultMessage": "Optional Consideration",
-        "description": "Location of the activity.",
-        "id": "activityfeed.locations.applicantReview.optionalConsideration"
+        "defaultMessage": "Ready to Allocate",
+        "description": "Label for the 'Ready to Allocate' response screening bucket.",
+        "id": "responseScreening.buckets.readyToAllocate.title"
       },
       {
-        "defaultMessage": "No Longer Under Consideration",
-        "description": "Location of the activity.",
-        "id": "activityfeed.locations.applicantReview.notUnderConsideration"
+        "defaultMessage": "Employees in this category have the necessary skills for this stream of work, have successfully completed reference checks and have been given preliminary authorization to participate by a member of their management team. They are currently working in their substantive position, awaiting a request from a department with a critical talent gap.",
+        "description": "Descriptive text for the 'Ready to Allocate' response screening bucket.",
+        "id": "responseScreening.buckets.readyToAllocate.description"
+      },
+      {
+        "defaultMessage": "Allocated",
+        "description": "Label for the 'Allocated' response screening bucket.",
+        "id": "responseScreening.buckets.allocated.title"
+      },
+      {
+        "defaultMessage": "Employees in this category have been allocated to a department. Their name has been removed from all other GC Reserve processes to which they have applied (and will appear in those processes under \"Not Currently Available\".) Following the completion of an allocation, employees may elect to be placed back in the Ready to Allocate category, should they be needed again.",
+        "description": "Descriptive text for the 'Allocated' response screening bucket.",
+        "id": "responseScreening.buckets.allocated.description"
+      },
+      {
+        "defaultMessage": "Currently Unavailable",
+        "description": "Label for the 'Unavailable' response screening bucket.",
+        "id": "responseScreening.buckets.unavailable.title"
+      },
+      {
+        "defaultMessage": "Employees in this stream have been allocated to a department in need or have temporarily removed their names from consideration for a specific period of time (e.g. illness, family care needs), and wish to be considered for allocation at a later date. Employees in this category have been qualified for this talent stream, and will be placed back into the Ready to Allocate when they become available again. (If an employee permanently withdraws their name, their submission will be removed from the GC Talent Reserve.)",
+        "description": "Descriptive text for the 'Currently Unavailable' response screening bucket.",
+        "id": "responseScreening.buckets.unavailable.description"
+      },
+      {
+        "defaultMessage": "Does Not Qualify",
+        "description": "Label for the 'Does Not Qualify' response screening bucket.",
+        "id": "responseScreening.buckets.doesNotQualify.title"
+      },
+      {
+        "defaultMessage": "Employees in this category have volunteered their names, but a review of their application and/or reference checks has led the review team to conclude that the employee would not be an asset to a department needing to fill a critical talent gap in this field of work. This determination is, in no way, reflected in the employee's performance status with their home department, and does not affect their evaluation for other GC Reserve talent streams to which they may have applied.",
+        "description": "Descriptive text for the 'Does Not Qualify' response screening bucket.",
+        "id": "responseScreening.buckets.doesNotQualify.description"
+      },
+      {
+        "defaultMessage": "Does Not Qualify",
+        "description": "Select option text for the 'Does Not Qualify' review status.",
+        "id": "responseReviewStatus.screenedOut"
+      },
+      {
+        "defaultMessage": "Ready for Reference Check",
+        "description": "Select option text for the 'Ready for Reference Check' review status.",
+        "id": "responseReviewStatus.readyForReference"
+      },
+      {
+        "defaultMessage": "Ready to Allocate",
+        "description": "Select option text for the 'Ready to Allocate' review status.",
+        "id": "responseReviewStatus.readyToAllocate"
+      },
+      {
+        "defaultMessage": "Further Assessment Required",
+        "description": "Select option text for the 'Further Assessment Required' review status.",
+        "id": "responseReviewStatus.assessmentRequired"
+      },
+      {
+        "defaultMessage": "Allocated",
+        "description": "Select option text for the 'Allocated' review status.",
+        "id": "responseReviewStatus.allocated"
+      },
+      {
+        "defaultMessage": "Not Available",
+        "description": "Select option text for the 'Not Available' review status.",
+        "id": "responseReviewStatus.notAvailable"
       }
     ],
     "path": "resources/assets/js/models/localizedConstants.json"

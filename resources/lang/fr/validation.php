@@ -126,6 +126,8 @@ return [
     'password_correct' => 'Le mot de passe actuel n\'est pas correct',
     'user_owns_skill_declaration' => ':attribute doit spécifier une déclaration de compétence qui appartient à l\' utilisateur actuel',
     'invalid_id' => ":attribute n'est pas un identifiant valide.",
+    'job_unpublished' => 'Impossible de mettre à jour une offre d\'emploi qui a été mise en ligne.',
+
 
     /*
     |--------------------------------------------------------------------------
@@ -146,17 +148,18 @@ return [
             'accepted' => 'L\'étape 1 doit être complétée',
         ],
         'application_step_3' => [
-            'accepted' => 'L\'étape 3 doit être complétée',
-        ],
-        'published' => [
-            'in' => 'Vous ne pouvez pas modifier une affiche d\'emploi qui a été publié'
+            'accepted' => 'L\'étape 3 doit être complet. Si l\'étape 3 semble complet, veuillez consulter la page de compétences de votre profil pour les compétences en double. Des copies multiples d\'une compétence sur votre profil peut également provoquer cette erreur. Nous travaillons pour résoudre ce problème.',
         ],
         'twitter_handle' => 'Ce n\'est pas une poignée Twitter valide.',
         'linkedin_url' => 'Ce n\'est pas une url linkedIn valide.',
         'job_poster_question' => [
             'required' => 'Le champ de la question doit être rempli.',
             'string' => 'Le champ question doit être du texte.'
-        ]
+        ],
+        'word_limit' => 'La description doit contenir moins de :max_words mots.',
+        'website' => [
+            'size' => 'Votre soumission semble avoir été remplie par un robot ! Ne remplissez que les champs obligatoires.',
+        ],
     ],
     /*
     |--------------------------------------------------------------------------

@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Applicant;
 use App\Models\User;
 use App\Services\Validation\Rules\PasswordCorrectRule;
 use App\Services\Validation\Rules\PasswordFormatRule;
 use Facades\App\Services\WhichPortal;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\Rule;
 
 class SettingsController extends Controller
@@ -109,7 +108,7 @@ class SettingsController extends Controller
         ]);
 
         if ($validData) {
-            $user->update(['password'=> Hash::make($validData['new_password'])]);
+            $user->update(['password' => Hash::make($validData['new_password'])]);
         }
 
         return redirect()->route(WhichPortal::prefixRoute('settings.edit'))->withSuccess(Lang::get('success.update_password'));
@@ -126,7 +125,7 @@ class SettingsController extends Controller
     {
         $validData = $request->validate([
             'gov_email' => 'nullable|required_unless:department,0|email:rfc|max:191',
-                            Rule::unique('users', 'gov_email')->ignore($user->id)
+            Rule::unique('users', 'gov_email')->ignore($user->id)
         ]);
 
         if ($validData) {

@@ -1,16 +1,15 @@
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-import { JobStatus } from "../models/lookupConstants";
-import { jobStatus } from "../models/localizedConstants";
 import { Link } from "../models/app";
 import { readableDateTime } from "../helpers/dates";
-import { getLocale } from "../helpers/localize";
+import { getLocale, localizeFieldNonNull } from "../helpers/localize";
+import { JobPosterStatus } from "../models/types";
 
 export interface UnclaimedJobCardProps {
   id: number;
   jobLink: Link;
   reviewRequested?: Date;
-  status: JobStatus;
+  status: JobPosterStatus;
   hiringManager: string;
   hrAdvisors: string[];
   handleClaimJob: () => void;
@@ -74,7 +73,7 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
                   data-c-font-size="small"
                   data-c-radius="pill"
                 >
-                  {intl.formatMessage(jobStatus(status))}
+                  {localizeFieldNonNull(locale, status, "name")}
                 </span>
               </div>
             </div>

@@ -1,100 +1,83 @@
 {# =============================================================================
 
     Talent Cloud
-    Applicant: Browse - Index
+    Applicant: Browse Jobs
+
+    This UI allows applicants to browse all available jobs on the platform, and
+    offers a message when there are no jobs available.
 
 ============================================================================= #}
-<section class="browse__index">
-	<div class="container--layout-xl">
-		{% if jobs is empty %}
-			<div class="container--copy browse__index-job-null">
-				<div class="null-alert">
-					<h2>{{ job_index.index.null_alert.title }}</h2>
-					<p>{{ job_index.index.null_alert.copy_01 }}</p>
-					<hr>
-					<p>{{ job_index.index.null_alert.copy_02|replace({'%link%': '<a href="' ~ job_index.index.null_alert.link ~ '"> ' ~ job_index.index.null_alert.link_title ~'</a>'})|raw }}</p>
-				</div>
-			</div>
-		{% endif %}
-		<div id="react-jobs" class="flex-grid">
-			{% for job in jobs %}
-				<a class="browse__index-job box med-1of2 lg-1of3" href="{{ route('jobs.show', job.id) }}" title="{{ job_index.index.view_title }} {{ job.title }}.">
-					<div class="browse__index-job-card">
-						<div class="browse__index-job-card-title">
-							<h2 class="heading--03">
-								{{ job.title }}
-							</h2>
-							<span>
-								{{ job.department.name }}
-							</span>
-						</div>
-						<div class="browse__index-job-card-content flex-grid">
-							<div class="box small-1of2">
-								<span>
-									{{ job_index.index.location_label }}
-								</span>
-								<p>
-									{{ job.city }},
-									{{ job.province.value }}
-								</p>
-							</div>
-							<div class="box small-1of2">
-								<span>
-									{{ job_index.index.salary_label }}
-								</span>
-								{% if (app.getLocale() == "en") %}
-									<p>
-										${{ job.salary_min|number_format }}
-										- ${{ job.salary_max|number_format }}
-									</p>
-								{% else %}
-									<p>
-										{{ job.salary_min|number_format('0',' ',' ') }}&nbsp;$ -
-										{{ job.salary_max|number_format('0',' ',' ') }}&nbsp;$
-									</p>
-								{% endif %}
-							</div>
-							<div class="box small-1of2">
-								<span>
-									{{ job_index.index.duration_label }}
-								</span>
-								<p>
-									{{ job_index.index.duration[job.job_term.name]|trans_choice(job.term_qty) }}
-								</p>
-							</div>
-							<div class="box small-1of2">
-								<span>
-									{{ job_index.index.remote_label }}
-								</span>
-								<p>
-									{{ job_index.index.remote_work_allowed[job.remote_work_allowed] }}
-								</p>
-							</div>
-						</div>
-						<div class="browse__index-job-card-metadata flex-grid">
-							<div class="box small-1of2">
-								<span>{{ job_index.index.apply_by_label|trans }}</span>
-								{% if job.close_date_time.isFuture() %}
-									<p>
-										<i class="fas fa-calendar"></i>
-										{{ humanizeLastDay(job.close_date_time) }}</p>
-								{% else %}
-									{{ job_index.index.job_closed }}
-								{% endif %}
-							</div>
-							<div class="box small-1of2">
-								<span>
-									{{ job_index.index.applicants_label|trans_choice(job.submitted_applications_count) }}
-								</span>
-								<p>{{ job.submitted_applications_count }}</p>
-							</div>
-						</div>
-						<div class="browse__index-job-card-cta">
-							{{ job_index.index.button_label }}
-						</div>
-					</div>
-				</a>
-			{% endfor %}
-		</div>
-	</div>
+<section class="browse-jobs" data-clone>
+    <div data-c-border="bottom(thin, solid, gray)">
+    {% if jobs is empty %}
+        <div data-c-container="small" data-c-padding="tb(3)">
+            <div data-c-border="all(thin, solid, gray)" data-c-background="gray(20)" data-c-radius="rounded" data-c-padding="all(1)">
+                <h2 data-c-font-size="h2" data-c-color="gray" data-c-margin="bottom(1)">{{ null_alert.title }}</h2>
+                <p data-c-color="gray">{{ null_alert.copy_01 }}</p>
+                <hr data-c-hr="thin(gray)" data-c-margin="tb(1)">
+                <p data-c-color="gray">{{ null_alert.copy_02|replace({'%link%': '<a href="' ~ null_alert.link ~ '"> ' ~ null_alert.link_title ~'</a>'})|raw }}</p>
+            </div>
+        </div>
+    {% else %}
+        <div data-c-container="large" data-c-padding="tb(3)">
+            <div data-c-grid="gutter(1)" class="tc-applicant-job-list" id="react-jobs">
+                <div data-c-grid-item="base(1of1)">
+                    <h2 data-c-heading="h2" data-c-margin="bottom(.25)">{{ job_index.index.section_title }}</h2>
+                </div>
+                {% for job in jobs %}
+                    <div class="job-card" data-c-grid-item="tp(1of2) ds(1of3) equal-col">
+                        <a class="job-card-apply-button" href="{{ route('jobs.summary', job.id) }}" title="{{ job_index.index.view_title }} {{ job.title }}." data-c-display="flex" data-c-radius="rounded" data-c-card data-c-hover-color="black">
+                            <div data-c-background="black(90)" data-c-padding="all(.5)">
+                                <h3 data-c-font-size="h4" data-c-color="white" data-c-margin="bottom(.25)" data-c-font-weight="bold">{{ job.title }}</h3>
+                                <p data-c-color="white" data-c-font-size="small">{{ job.department.name }}</p>
+                            </div>
+                            <div data-c-background="white(100)" data-c-padding="all(.5)">
+                                <div data-c-grid="gutter(.5)">
+                                    <div data-c-grid-item="base(1of2)">
+                                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ job_index.index.location_label }}</p>
+                                        <p>{{ job.city }}, {{ job.province.value }}</p>
+                                    </div>
+                                    <div data-c-grid-item="base(1of2)">
+                                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ job_index.index.salary_label }}</p>
+                                        {% if (app.getLocale() == "en") %}
+                                            <p>${{ job.salary_min|number_format }} - ${{ job.salary_max|number_format }}</p>
+                                        {% else %}
+                                            <p>{{ job.salary_min|number_format('0',' ',' ') }}&nbsp;$ - {{ job.salary_max|number_format('0',' ',' ') }}&nbsp;$</p>
+                                        {% endif %}
+                                    </div>
+                                    <div data-c-grid-item="base(1of2)">
+                                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ job_index.index.duration_label }}</p>
+                                        <p>{{ job_index.index.duration[job.job_term.name]|trans_choice(job.term_qty) }}</p>
+                                    </div>
+                                    <div data-c-grid-item="base(1of2)">
+                                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ job_index.index.remote_label }}</p>
+                                        <p>{{ job_index.index.remote_work_allowed[job.remote_work_allowed] }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-c-background="white(100)" data-c-padding="all(.5)" data-c-border="top(thin, solid, gray)">
+                                <div data-c-grid="gutter(.5)">
+                                    <div data-c-grid-item="base(1of2)">
+                                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ job_index.index.apply_by_label|trans }}</p>
+                                        {% if job.close_date_time.isFuture() %}
+                                            <p><i class="fas fa-calendar" data-c-color="c1" data-c-margin="right(.25)"></i>{{ humanizeLastDay(job.close_date_time) }}</p>
+                                        {% else %}
+                                            <p data-c-color="gray">{{ job_index.index.job_closed }}</p>
+                                        {% endif %}
+                                    </div>
+                                    <div data-c-grid-item="base(1of2)">
+                                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ job_index.index.applicants_label|trans_choice(job.submitted_applications_count) }}</p>
+                                        <p>{{ job.submitted_applications_count }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-c-background="c1(10)" data-c-padding="all(.5)" data-c-border="top(thin, solid, c1)" data-c-align="base(right)">
+                                <p data-c-color="c1" data-c-font-style="underline" data-c-font-weight="bold">{{ job_index.index.button_label }}</p>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
 </section>

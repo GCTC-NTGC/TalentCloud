@@ -13,34 +13,8 @@
 	{% include "common/goc" %}
 	{# BETA Alert Banner #}
 	{% include "common/alert" %}
-
 	{# Page Header #}
-	<header data-clone>
-		<div data-c-overlay="black(80)" data-c-padding="bottom(triple)" style="background-image: url('/images/sean-pollock.jpg');">
-			{% include "common/menu" %}
-			<div data-c-container="large" data-c-padding="tb(triple)">
-				<h1 class="logotype" data-c-font-size="h1" data-c-font-weight="600" data-c-color="white" data-c-margin="bottom(double)">
-					{{ settings.title }}
-				</h1>
-				<div
-					data-c-color="white">
-					{# DEV: replace with breadcrumb component #}
-					<nav aria-label="breadcrumb" data-c-breadcrumbs>
-						<ol>
-							<li>
-								<a href="/" title="{{ settings.home_title }}">{{ settings.home_text }}</a>
-								<i class="fas fa-caret-right"></i>
-							</li>
-							<li>
-								<span aria-current="page">{{ settings.title }}</span>
-								<i class="fas fa-caret-right"></i>
-							</li>
-						</ol>
-					</nav>
-				</div>
-			</div>
-		</div>
-	</header>
+    {% include "common/header" with {"header": settings} %}
 	<div
 		data-clone>
 		{# Error alert #}
@@ -49,7 +23,6 @@
 				{% include "errors/form_errors" %}
 			</div>
 		{% endif %}
-
 		{# Success alert #}
 		{% if session_has('success') %}
 			<div data-c-alert="information" data-c-container="medium" data-c-radius="rounded" role="alert" data-c-margin="top(1)">
@@ -64,7 +37,6 @@
 				</div>
 			</div>
 		{% endif %}
-
 		{# Page Container #}
 		<div data-c-container="large">
 			<div
@@ -148,8 +120,8 @@
 												<p data-c-margin="bottom(half)" data-c-heading="h6" data-c-font-weight="bold">
 													<i class="fas fa-exclamation-circle"></i>
 													{{ settings.government_dept }}
-													{% if user.manager.department %}
-														{{ user.manager.department.name }}
+													{% if user.department %}
+														{{ user.department.name }}
 													{% else %}
 														{{ settings.no_department }}
 													{% endif %}
@@ -178,7 +150,6 @@
 							</div>
 							<hr data-c-margin="top(triple)">
 						{% endif %}
-
 						{# Password Reset #}
 						<form action="{{ submit_password }}" method="POST">
 							{{ csrf_field() }}
@@ -234,7 +205,6 @@
 								</div>
 							</div>
 						</form>
-
 						{# 2FA #}
 						<hr data-c-margin="top(triple)">
 						<h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="auth">{{ settings.heading.two_factor }}</h2>

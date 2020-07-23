@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useIntl, FormattedMessage, defineMessages } from "react-intl";
 import { useDispatch, useSelector } from "react-redux";
 import ReactDOM from "react-dom";
@@ -10,6 +10,7 @@ import {
   Skill,
   Manager,
   Department,
+  User,
   Comment,
 } from "../../models/types";
 import { hrJobSummary } from "../../helpers/routes";
@@ -36,6 +37,8 @@ import ActivityFeed from "../ActivityFeed";
 import { jobReviewLocations } from "../../models/localizedConstants";
 import { LocationId } from "../../models/lookupConstants";
 import { localizeField } from "../../helpers/localize";
+import { getUserById } from "../../store/User/userSelector";
+import { fetchUser } from "../../store/User/userActions";
 import { hasKey } from "../../helpers/queries";
 
 interface JobReviewHrPageProps {
@@ -46,6 +49,7 @@ interface JobReviewHrPageProps {
   criteria: Criteria[];
   departments: Department[];
   manager: Manager | null;
+  user: User | null;
 }
 
 const messages = defineMessages({
@@ -64,12 +68,17 @@ const JobReviewHrPage: React.FunctionComponent<JobReviewHrPageProps> = ({
   criteria,
   departments,
   manager,
+  user,
 }): React.ReactElement => {
   const intl = useIntl();
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw new Error("Unexpected locale");
   }
+  const filterComments = useCallback(
+    (comment: Comment): boolean => hasKey(jobReviewLocations, comment.location),
+    [],
+  );
   return (
     <div data-c-container="form" data-c-padding="top(triple) bottom(triple)">
       {job !== null ? (
@@ -100,13 +109,12 @@ const JobReviewHrPage: React.FunctionComponent<JobReviewHrPageProps> = ({
             isHrAdvisor
             generalLocation={LocationId.jobGeneric}
             locationMessages={jobReviewLocations}
-            filterComments={(comment: Comment): boolean =>
-              hasKey(jobReviewLocations, comment.location)
-            }
+            filterComments={filterComments}
           />
           <JobReviewDisplay
             job={job}
             manager={manager}
+            user={user}
             tasks={keyTasks}
             criteria={criteria}
             skills={skills}
@@ -193,11 +201,24 @@ const JobReviewHrDataFetcher: React.FC<{ jobId: number }> = ({ jobId }) => {
     managerId ? getManagerById(state, { managerId }) : null,
   );
 
+  // Load user after manager has loaded
+  // eslint-disable-next-line camelcase
+  const userId = manager?.user_id;
+  useEffect(() => {
+    if (userId) {
+      dispatch(fetchUser(userId));
+    }
+  }, [dispatch, userId]);
+  const user = useSelector((state: RootState) =>
+    userId ? getUserById(state, { userId }) : null,
+  );
+
   return (
     <JobReviewHrPage
       jobId={jobId}
       job={job}
       manager={manager}
+      user={user}
       keyTasks={tasks}
       criteria={criteria}
       skills={skills}

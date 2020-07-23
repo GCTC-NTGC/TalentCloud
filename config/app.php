@@ -161,6 +161,17 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Strategic Talent Response constants
+    |--------------------------------------------------------------------------
+    |
+    | Constants used for our emergencey Strategic Talent Response.
+    |
+    */
+    'strategic_response_department_id' => env('STRATEGIC_RESPONSE_DEPT_ID', 18),
+
+
+    /*
+    |--------------------------------------------------------------------------
     | Autoloaded Service Providers
     |--------------------------------------------------------------------------
     |

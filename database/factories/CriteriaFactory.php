@@ -5,6 +5,7 @@ use App\Models\Lookup\CriteriaType;
 use App\Models\JobPoster;
 use App\Models\Skill;
 use App\Models\Lookup\SkillLevel;
+use App\Models\Lookup\SkillType;
 use Faker\Factory;
 use Faker\Generator;
 
@@ -35,4 +36,14 @@ $factory->state(Criteria::class, 'essential', [
 
 $factory->state(Criteria::class, 'asset', [
     'criteria_type_id' => CriteriaType::where('name', 'asset')->first()->id
+]);
+
+$factory->state(Criteria::class, 'hard', [
+    'skill_id' => Skill::where('skill_type_id', SkillType::firstWhere('name', 'hard')->id)
+        ->inRandomOrder()->first()->id,
+]);
+
+$factory->state(Criteria::class, 'soft', [
+    'skill_id' => Skill::where('skill_type_id', SkillType::firstWhere('name', 'soft')->id)
+        ->inRandomOrder()->first()->id,
 ]);

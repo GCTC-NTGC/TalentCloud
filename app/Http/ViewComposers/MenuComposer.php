@@ -27,7 +27,7 @@ class MenuComposer
                     $menu['items']['home']['active'] = true;
                     break;
                 case 'jobs.index':
-                case 'jobs.show':
+                case 'jobs.summary':
                 case 'managers.show':
                     $menu['items']['jobs']['active'] = true;
                     break;
@@ -113,7 +113,7 @@ class MenuComposer
                     $menu['items']['home']['active'] = true;
                     break;
                 case 'manager.jobs.index':
-                case 'manager.jobs.show':
+                case 'manager.jobs.preview':
                 case 'manager.jobs.applications':
                 case 'manager.applications.show':
                 case 'manager.applicants.show':
@@ -146,6 +146,9 @@ class MenuComposer
                 case 'manager.settings.edit':
                     $menu['items']['settings']['active'] = true;
                     break;
+                case 'manager.resources':
+                    $menu['items']['resources']['active'] = true;
+                    break;
                 default:
                     // No menu item will be active.
                     break;
@@ -159,6 +162,7 @@ class MenuComposer
             $menu['items']['profile']['link'] = route('manager.profile');
             $menu['items']['faq']['link'] = route('manager.faq.section');
             $menu['items']['settings']['link'] = route('manager.settings.edit');
+            $menu['items']['resources']['link'] = route('manager.resources');
 
             // Check if use is logged in, and remove invalid menu items.
             if (Auth::check()) {
@@ -170,7 +174,12 @@ class MenuComposer
                 unset($menu['items']['jobs']);
                 unset($menu['items']['create_job']);
                 unset($menu['items']['profile']);
+                unset($menu['items']['resources']);
                 unset($menu['items']['settings']);
+            }
+
+            if (Auth::user() && !Auth::user()->isUpgradedManager()) {
+                unset($menu['items']['resources']);
             }
         } elseif (WhichPortal::isHrPortal()) {
             $menu = Lang::get('hr_advisor/menu');
@@ -186,8 +195,8 @@ class MenuComposer
                 case 'hr_advisor.settings.edit':
                     $menu['items']['settings']['active'] = true;
                     break;
-                case 'hr_advisor.jobs.index':
-                    $menu['items']['jobs']['active'] = true;
+                case 'hr_advisor.resources':
+                    $menu['items']['resources']['active'] = true;
                     break;
                 case 'register':
                     $menu['items']['register']['active'] = true;
@@ -207,6 +216,7 @@ class MenuComposer
             $menu['items']['home']['link'] = route('hr_advisor.home');
             $menu['items']['jobs']['link'] = route('hr_advisor.jobs.index');
             $menu['items']['settings']['link'] = route('hr_advisor.settings.edit');
+            $menu['items']['resources']['link'] = route('hr_advisor.resources');
 
             // Check if use is logged in, and remove invalid menu items.
             if (Auth::check()) {
@@ -216,6 +226,11 @@ class MenuComposer
                 unset($menu['items']['logout']);
                 unset($menu['items']['jobs']);
                 unset($menu['items']['settings']);
+                unset($menu['items']['resources']);
+            }
+
+            if (Auth::user() && !Auth::user()->isHrAdvisor()) {
+                unset($menu['items']['resources']);
             }
         } elseif (WhichPortal::isAdminPortal()) {
             // Use the manager menu, keeping only.

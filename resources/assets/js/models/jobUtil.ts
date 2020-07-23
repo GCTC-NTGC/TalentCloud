@@ -6,13 +6,13 @@ import {
   Criteria,
   Skill,
   Comment,
+  JobPosterStatus,
 } from "./types";
 import {
   CriteriaTypeId,
   getKeyByValue,
   ClassificationId,
   JobStatus,
-  enumToIds,
   LocationId,
 } from "./lookupConstants";
 import { assetSkillName, skillLevelName } from "./localizedConstants";
@@ -28,9 +28,10 @@ import {
   hrJobSummary,
   hrJobPreview,
   jobBuilderTasks,
-  managerJobShow,
+  managerJobPreview,
   hrJobApplications,
   managerJobApplications,
+  managerJobSummary,
 } from "../helpers/routes";
 import { hasKey } from "../helpers/queries";
 
@@ -57,7 +58,7 @@ export const emptyJob = (): Job => {
     close_date_time: null,
     start_date_time: null,
     department_id: null,
-    job_status_id: JobStatus.Draft,
+    job_poster_status_id: 1,
     province_id: null,
     salary_min: null,
     salary_max: null,
@@ -67,8 +68,6 @@ export const emptyJob = (): Job => {
     security_clearance_id: null,
     language_requirement_id: null,
     remote_work_allowed: true,
-    published_at: null,
-    review_requested_at: null,
     team_size: null,
     work_env_features: null,
     fast_vs_steady: null,
@@ -154,13 +153,16 @@ export const emptyComment = (): Comment => ({
   type_id: null,
   created_at: new Date(),
 });
-// TODO: allow for Complete status.
-export const jobStatus = (job: Job): JobStatus => {
-  if (enumToIds(JobStatus).includes(job.job_status_id)) {
-    return job.job_status_id;
-  }
-  return JobStatus.Draft;
-};
+
+export const emptyJobPosterStatus = (): JobPosterStatus => ({
+  id: 1,
+  key: JobStatus.Draft,
+  name: { en: "Draft", fr: "Provisoire" },
+  description: {
+    en: "This is a draft.",
+    fr: "Il s'agit d'un premier projet.",
+  },
+});
 
 export const activityLocationUrl = (
   isHrAdvisor: boolean,
@@ -217,8 +219,8 @@ export const activityLocationUrl = (
     [LocationId.screeningPlanSummary]: managerScreeningPlan(locale, jobId),
     [LocationId.screeningPlanRatings]: managerScreeningPlan(locale, jobId),
 
-    [LocationId.summary]: jobBuilderReview(locale, jobId), // TODO: change to summary page, once managers have it
-    [LocationId.preview]: managerJobShow(locale, jobId),
+    [LocationId.summary]: managerJobSummary(locale, jobId),
+    [LocationId.preview]: managerJobPreview(locale, jobId),
   };
   const urlMap = isHrAdvisor ? hrAdvisorUrls : managerUrls;
   const backupUrl = "/";

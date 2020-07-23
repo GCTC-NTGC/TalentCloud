@@ -104,7 +104,7 @@ class ApplicationReviewWithNav extends React.Component<
         cancelButtonColor: "#F94D4D",
         confirmButtonText: intl.formatMessage(messages.confirmButton),
         cancelButtonText: intl.formatMessage(messages.cancelButton),
-      }).then(result => {
+      }).then((result) => {
         if (result.value) {
           return onStatusChange(application.id, status);
         }
@@ -130,7 +130,7 @@ class ApplicationReviewWithNav extends React.Component<
       cancelButtonText: intl.formatMessage(messages.cancelButton),
       confirmButtonText: intl.formatMessage(messages.save),
       inputValue: notes,
-    }).then(result => {
+    }).then((result) => {
       if (result && result.value !== undefined) {
         const value = result.value ? result.value : null;
         onNotesChange(application.id, value);
@@ -170,7 +170,7 @@ class ApplicationReviewWithNav extends React.Component<
       intl,
       portal,
     } = this.props;
-    const l10nReviewStatusOptions = reviewStatusOptions.map(status => ({
+    const l10nReviewStatusOptions = reviewStatusOptions.map((status) => ({
       value: status.value,
       label: intl.formatMessage(messages[status.label]),
     }));
@@ -187,16 +187,32 @@ class ApplicationReviewWithNav extends React.Component<
       "fa-exclamation-circle": reviewStatus === null,
     });
     const applicantUrlMap: { [key in typeof portal]: string } = {
-      hr: routes.hrApplicantShow(intl.locale, application.id),
-      manager: routes.managerApplicantShow(intl.locale, application.id),
+      hr: routes.hrApplicantShow(
+        intl.locale,
+        application.id,
+        application.job_poster_id,
+      ),
+      manager: routes.managerApplicantShow(
+        intl.locale,
+        application.id,
+        application.job_poster_id,
+      ),
     };
     const applicationUrlMap: { [key in typeof portal]: string } = {
-      hr: routes.hrApplicationShow(intl.locale, application.id),
-      manager: routes.managerApplicationShow(intl.locale, application.id),
+      hr: routes.hrApplicationShow(
+        intl.locale,
+        application.id,
+        application.job_poster_id,
+      ),
+      manager: routes.managerApplicationShow(
+        intl.locale,
+        application.id,
+        application.job_poster_id,
+      ),
     };
     const jobUrlMap: { [key in typeof portal]: string } = {
       hr: routes.hrJobPreview(intl.locale, application.job_poster_id),
-      manager: routes.managerJobShow(intl.locale, application.job_poster_id),
+      manager: routes.managerJobPreview(intl.locale, application.job_poster_id),
     };
     const jobApplicationsUrlMap: { [key in typeof portal]: string } = {
       hr: routes.hrJobApplications(intl.locale, application.job_poster_id),
@@ -234,25 +250,26 @@ class ApplicationReviewWithNav extends React.Component<
                 type="button"
                 onClick={() => this.handleLinkClicked(jobApplicationsUrl)}
               >
+                {`< `}
                 <FormattedMessage
                   id="application.review.backToApplicantList"
-                  defaultMessage="< Save and Go Back to Applicant List"
+                  defaultMessage="Save and Go Back to Applicant List"
                   description="Back Button text"
                 />
               </button>
             </div>
             <div className="box small-2of3">
-              <button
+              <a
                 className="button--blue light-bg"
-                type="button"
-                onClick={() => this.handleLinkClicked(jobUrl)}
+                href={jobUrl}
+                style={{ marginRight: ".5rem" }}
               >
                 <FormattedMessage
                   id="application.review.button.viewJobPoster"
                   defaultMessage="View Job Poster"
                   description="View Job Poster Button text"
                 />
-              </button>
+              </a>
               <button
                 className="button--blue light-bg"
                 data-button-type="expand-all"
@@ -303,7 +320,7 @@ class ApplicationReviewWithNav extends React.Component<
                 <span className="veteran-status">
                   <img
                     alt={intl.formatMessage(messages.viewApplicationTitle)}
-                    src="/images/icon_veteran.svg"
+                    src={routes.imageUrl("icon_veteran.svg")}
                   />{" "}
                   {intl.formatMessage(messages.veteranStatus)}
                 </span>

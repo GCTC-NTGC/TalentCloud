@@ -14,7 +14,6 @@ use Spatie\Translatable\HasTranslations;
  * Class Manager
  *
  * @property int $id
- * @property int $department_id
  * @property int $work_review_frequency_id
  * @property int $stay_late_frequency_id
  * @property int $engage_team_frequency_id
@@ -28,7 +27,6 @@ use Spatie\Translatable\HasTranslations;
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\User $user
- * @property \App\Models\Lookup\Department $department
  * @property \Illuminate\Database\Eloquent\Collection $job_posters
  * @property \App\Models\WorkEnvironment $work_environment
  * @property \App\Models\TeamCulture $team_culture
@@ -74,11 +72,9 @@ class Manager extends BaseModel
         'learning_path'
     ];
     protected $casts = [
-        'department_id' => 'int',
         'user_id' => 'int'
     ];
     protected $fillable = [
-        'department_id',
         'twitter_username',
         'linkedin_url',
         'work_review_frequency_id',
@@ -117,7 +113,6 @@ class Manager extends BaseModel
         'first_name',
         'last_name',
         'full_name',
-        'department_id',
         'twitter_username',
         'linkedin_url',
         'is_demo_manager',
@@ -136,11 +131,6 @@ class Manager extends BaseModel
     public function user()
     {
         return $this->belongsTo(\App\Models\User::class);
-    }
-
-    public function department()
-    {
-        return $this->belongsTo(\App\Models\Lookup\Department::class);
     }
 
     public function job_posters() //phpcs:ignore

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase, camelcase */
 import * as React from "react";
 import { connect } from "react-redux";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, FastField } from "formik";
 import * as Yup from "yup";
 import { useIntl, defineMessages, FormattedMessage } from "react-intl";
 import { validationMessages } from "./Form/Messages";
@@ -142,9 +142,10 @@ export const CommentForm: React.FunctionComponent<CommentFormProps> = ({
               setSubmitting(false);
             });
         }}
-        render={({ isSubmitting }): React.ReactElement => (
+      >
+        {({ isSubmitting }): React.ReactElement => (
           <Form data-c-grid="gutter(all, 1) middle">
-            <Field
+            <FastField
               id="comment_form_input"
               type="text"
               name="comment"
@@ -155,7 +156,7 @@ export const CommentForm: React.FunctionComponent<CommentFormProps> = ({
               placeholder={intl.formatMessage(formMessages.commentPlaceholder)}
             />
             {locationOptions && (
-              <Field
+              <FastField
                 name="commentLocation"
                 id="comment_form_location"
                 label={intl.formatMessage(formMessages.commentLocationLabel)}
@@ -172,7 +173,7 @@ export const CommentForm: React.FunctionComponent<CommentFormProps> = ({
               />
             )}
             {isHrAdvisor && (
-              <Field
+              <FastField
                 id="comment_form_type"
                 name="commentType"
                 component={SelectInput}
@@ -225,7 +226,7 @@ export const CommentForm: React.FunctionComponent<CommentFormProps> = ({
             </div>
           </Form>
         )}
-      />
+      </Formik>
     </section>
   );
 };

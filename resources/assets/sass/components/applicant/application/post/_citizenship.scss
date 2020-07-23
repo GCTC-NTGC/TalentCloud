@@ -44,7 +44,7 @@
 }
 
 .application-post__language-declaration {
-  margin: 4rem 0;
+  margin: 2rem 0;
 
   .form__input-wrapper--checkbox {
     display: flex;
@@ -64,7 +64,13 @@
     }
 
     p {
-      margin: 0 0 0 1rem;
+      margin: 0 0 0 1rem !important;
+      color: $palette--font-black;
+      display: block;
+      font-family: $font--sans;
+      font-size: $font-scale--regular;
+      font-weight: 400;
+      width: 100%;
     }
 
     .error-message {
@@ -106,6 +112,12 @@
 
     input:focus + .checkbox__wrapper .checkbox__content {
       border-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .checkbox__wrapper .checkbox__content {
+        i {
+        opacity: 0;
+      }
     }
 
     input:checked + .checkbox__wrapper .checkbox__content {

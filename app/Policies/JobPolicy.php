@@ -19,17 +19,16 @@ class JobPolicy extends BasePolicy
      */
     public function view(?User $user, JobPoster $jobPoster)
     {
-        // Anyone can view a published job
-        // Only the manager that created it can view an unpublished job
-        // Hr Advisors can view all jobs.
-        return $jobPoster->status() == 'published' ||
-            $jobPoster->status() == 'closed' ||
+        // Anyone can view a published job past the open date
+        // Managers can always view jobs they created.
+        // Hr Advisors can view all jobs in their department.
+        return $jobPoster->isPublic() ||
             ($user &&
                 $user->isManager() &&
                 $jobPoster->manager->user_id == $user->id) ||
             ($user &&
                 $user->isHrAdvisor() &&
-                $user->hr_advisor->department_id === $jobPoster->department_id &&
+                $user->department_id === $jobPoster->department_id &&
                 $jobPoster->isVisibleToHr());
     }
 
@@ -69,7 +68,7 @@ class JobPolicy extends BasePolicy
         // Only managers can edit jobs, and only their own, managers can't publish jobs or edit published jobs.
         return $user->isManager() &&
             $jobPoster->manager->user->id == $user->id &&
-            !$jobPoster->published;
+            $jobPoster->isEditable();
     }
 
     /**
@@ -86,24 +85,9 @@ class JobPolicy extends BasePolicy
         // state, and only by managers that created them.
         return $user->isManager() &&
             $jobPoster->manager->user->id == $user->id &&
-            !$jobPoster->published;
+            $jobPoster->isEditable();
     }
 
-    /**
-     * Determine whether the user can submit a job poster for review.
-     *
-     * @param \App\Models\User      $user      User object making the request.
-     * @param \App\Models\JobPoster $jobPoster Job Poster object being acted upon.
-     * @return mixed
-     */
-    public function submitForReview(User $user, JobPoster $jobPoster)
-    {
-        // Only upgradedManagers can submit jobs for review, only their own jobs, and only if they're still drafts.
-        // NOTE: this is one of the only permissions to require an upgradedManager, as opposed to a demoManager.
-        return $user->isUpgradedManager() &&
-            $jobPoster->manager->user->id == $user->id &&
-            $jobPoster->status() === 'draft';
-    }
     /**
      * Determine whether the user can review applications to the job poster.
      *
@@ -118,6 +102,11 @@ class JobPolicy extends BasePolicy
         // The job must always be closed.
         $authManager = $user->isManager() && $jobPoster->manager->user->id == $user->id;
         $authHr = $user->isHrAdvisor() && $this->manage($user, $jobPoster);
+
+        // If the job is in Emergency Response department then it does not need to be closed to be viewed.
+        if ($jobPoster->isInStrategicResponseDepartment()) {
+            return $jobPoster->isPublic() && ($authManager || $authHr);
+        }
 
         return $jobPoster->isClosed() && ($authManager || $authHr);
     }
@@ -200,8 +189,8 @@ class JobPolicy extends BasePolicy
     public function viewAssessmentPlan(User $user, JobPoster $jobPoster): bool
     {
         return $user->isAdmin() ||
-        $user->isManager() && $jobPoster->manager->user_id === $user->id ||
-        $user->isHrAdvisor() && $jobPoster->hr_advisors->contains('user_id', $user->id);
+            $user->isManager() && $jobPoster->manager->user_id === $user->id ||
+            $user->isHrAdvisor() && $jobPoster->hr_advisors->contains('user_id', $user->id);
     }
 
     /**
@@ -213,7 +202,6 @@ class JobPolicy extends BasePolicy
      */
     public function downloadApplicants(User $user, JobPoster $jobPoster): bool
     {
-        return $user->isAdmin() && ( $jobPoster->status() == 'published' || $jobPoster->status() == 'closed' );
+        return $user->isAdmin() && $jobPoster->isPublic();
     }
-
 }
