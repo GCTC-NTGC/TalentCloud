@@ -49,8 +49,9 @@ const messages = defineMessages({
   },
 });
 
-const JobPreview: React.FunctionComponent<JobPreviewProps &
-  WrappedComponentProps> = ({
+const JobPreview: React.FunctionComponent<
+  JobPreviewProps & WrappedComponentProps
+> = ({
   title,
   city,
   education,

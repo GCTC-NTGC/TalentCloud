@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { defineMessages, useIntl, FormattedMessage } from "react-intl";
 import { FastField, Formik, Form, useFormikContext } from "formik";
-import Swal from "sweetalert2";
+import Swal, { SweetAlertResult } from "sweetalert2";
 import ReactMarkdown from "react-markdown";
 import SelectInput from "../../Form/SelectInput";
 import {
@@ -486,7 +486,7 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
       cancelButtonText: intl.formatMessage(displayMessages.cancel),
       confirmButtonText: intl.formatMessage(displayMessages.save),
       inputValue: notes,
-    }).then((result) => {
+    }).then((result: SweetAlertResult) => {
       if (result && result.value !== undefined) {
         const value = result.value ? result.value : "";
         updateField("notes", value);
@@ -576,7 +576,7 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
               cancelButtonColor: "#F94D4D",
               cancelButtonText: intl.formatMessage(displayMessages.cancel),
               confirmButtonText: intl.formatMessage(displayMessages.yes),
-            }).then((result) => {
+            }).then((result: SweetAlertResult) => {
               if (result.value === undefined) {
                 setSubmitting(false);
               } else {
@@ -598,7 +598,7 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
               cancelButtonColor: "#F94D4D",
               cancelButtonText: intl.formatMessage(displayMessages.cancel),
               confirmButtonText: intl.formatMessage(displayMessages.yes),
-            }).then((result) => {
+            }).then((result: SweetAlertResult) => {
               if (result.value === undefined) {
                 setSubmitting(false);
               } else {

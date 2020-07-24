@@ -5,7 +5,7 @@ import {
   FormattedMessage,
 } from "react-intl";
 import className from "classnames";
-import Swal from "sweetalert2";
+import Swal, { SweetAlertResult } from "sweetalert2";
 import * as routes from "../../helpers/routes";
 import Select, { SelectOption } from "../Select";
 import { Application } from "../../models/types";
@@ -104,7 +104,7 @@ class ApplicationReviewWithNav extends React.Component<
         cancelButtonColor: "#F94D4D",
         confirmButtonText: intl.formatMessage(messages.confirmButton),
         cancelButtonText: intl.formatMessage(messages.cancelButton),
-      }).then((result) => {
+      }).then((result: SweetAlertResult) => {
         if (result.value) {
           return onStatusChange(application.id, status);
         }
@@ -130,7 +130,7 @@ class ApplicationReviewWithNav extends React.Component<
       cancelButtonText: intl.formatMessage(messages.cancelButton),
       confirmButtonText: intl.formatMessage(messages.save),
       inputValue: notes,
-    }).then((result) => {
+    }).then((result: SweetAlertResult) => {
       if (result && result.value !== undefined) {
         const value = result.value ? result.value : null;
         onNotesChange(application.id, value);

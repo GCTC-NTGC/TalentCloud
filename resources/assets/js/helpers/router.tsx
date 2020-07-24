@@ -2,9 +2,9 @@ import { createBrowserHistory, Location } from "history";
 import UniversalRouter, { Routes } from "universal-router";
 import React, { useState, useEffect, useMemo, ReactElement } from "react";
 import { IntlShape, MessageDescriptor } from "react-intl";
-import { basePathname, removeBaseUrl } from "./routes";
+import { removeBaseUrl } from "./routes";
 
-const HISTORY = createBrowserHistory({ basename: basePathname() });
+const HISTORY = createBrowserHistory();
 
 // Current implementation adapted from https://codesandbox.io/s/vyx8q7jvk7
 
@@ -12,7 +12,7 @@ export const useLocation = (): Location<any> => {
   const history = HISTORY;
   const [location, setLocation] = useState(history.location);
   useEffect((): (() => void) => {
-    const unListen = history.listen((newLocation): void =>
+    const unListen = history.listen(({ location: newLocation }): void =>
       setLocation(newLocation),
     );
     return (): void => unListen();
@@ -68,14 +68,12 @@ export const useRouter = (
 export const navigate = (url: string): void => {
   // The history object has been initialized with the app's base url, so ensure it's not also part of the specified url.
   const path = removeBaseUrl(url);
-  console.log(`navigate to ${path}`);
   HISTORY.push(path);
 };
 
 export const redirect = (url: string): void => {
   // The history object has been initialized with the app's base url, so ensure it's not also part of the specified url.
   const path = removeBaseUrl(url);
-  console.log(`redirect to ${path}`);
   HISTORY.replace(path);
 };
 
