@@ -70,7 +70,7 @@
         "eslint-plugin-react": "^7.20.3",
         "eslint-plugin-react-hooks": "^4.0.8",
         "eslint-plugin-testcafe": "^0.2.1",
-        "fetch-mock": "^9.10.4",
+        "fetch-mock": "^9.10.5",
         "jest": "^25.5.4",
         "jest-junit": "^11.0.1",
         "laravel-mix": "^5.0.4",
