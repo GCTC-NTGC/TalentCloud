@@ -72,7 +72,7 @@
         "eslint-plugin-testcafe": "^0.2.1",
         "fetch-mock": "^9.10.5",
         "jest": "^25.5.4",
-        "jest-junit": "^11.0.1",
+        "jest-junit": "^11.1.0",
         "laravel-mix": "^5.0.4",
         "node-sass": "^4.14.1",
         "prettier": "^2.0.5",
