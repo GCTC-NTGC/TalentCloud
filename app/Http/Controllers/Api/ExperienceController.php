@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Experience as ExperienceResource;
 use App\Models\Applicant;
+use App\Models\ExperienceWork;
 use App\Models\JobApplication;
+use Illuminate\Http\Request;
 
 class ExperienceController extends Controller
 {
@@ -15,7 +17,7 @@ class ExperienceController extends Controller
      * @param JobApplication $application
      * @return void
      */
-    public function showForApplication(JobApplication $application)
+    public function indexForApplication(JobApplication $application)
     {
         $application->load([
             'experiences_work.experience_skills',
@@ -41,7 +43,7 @@ class ExperienceController extends Controller
      * @param Applicant $applicant
      * @return void
      */
-    public function showForApplicant(Applicant $applicant)
+    public function indexForApplicant(Applicant $applicant)
     {
         $applicant->load([
             'experiences_work.experience_skills',
@@ -60,4 +62,13 @@ class ExperienceController extends Controller
 
         return $experiences;
     }
+
+    public function storeWork(Request $request, Applicant $applicant)
+    {
+        $data = $request->input();
+        $work = new ExperienceWork($data);
+        $applicant->experiences_work()->save($work);
+        return new ExperienceResource($work->fresh());
+    }
+
 }

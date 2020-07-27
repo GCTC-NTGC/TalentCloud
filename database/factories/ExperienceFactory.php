@@ -20,10 +20,11 @@ $factory->define(ExperienceWork::class, function (Faker $faker) {
         'is_active' => false,
         'start_date' => $faker->dateTimeBetween('-3 years', '-1 years'),
         'end_date' => $faker->dateTimeBetween('-1 years', '-1 day'),
+        'is_education_requirement' => $faker->boolean(),
         'experienceable_id' => function () {
             return Applicant::inRandomOrder()->first()->id;
         },
-        'experienceable_type' => 'applicant'
+        'experienceable_type' => 'applicant',
     ];
 });
 
@@ -35,6 +36,7 @@ $factory->define(ExperiencePersonal::class, function (Faker $faker) {
         'is_active' => false,
         'start_date' => $faker->dateTimeBetween('-3 years', '-1 years'),
         'end_date' => $faker->dateTimeBetween('-1 years', '-1 day'),
+        'is_education_requirement' => $faker->boolean(),
         'experienceable_id' => function () {
             return Applicant::inRandomOrder()->first()->id;
         },
@@ -51,6 +53,7 @@ $factory->define(ExperienceEducation::class, function (Faker $faker) {
         'is_active' => false,
         'start_date' => $faker->dateTimeBetween('-3 years', '-1 years'),
         'end_date' => $faker->dateTimeBetween('-1 years', '-1 day'),
+        'is_education_requirement' => $faker->boolean(),
         'experienceable_id' => function () {
             return Applicant::inRandomOrder()->first()->id;
         },
@@ -67,6 +70,7 @@ $factory->define(ExperienceAward::class, function (Faker $faker) {
         'issued_by' => $faker->company(),
         'award_recognition_type_id' => AwardRecognitionType::inRandomOrder()->first()->id,
         'awarded_date' => $faker->dateTimeBetween('-3 years', '-1 years'),
+        'is_education_requirement' => $faker->boolean(),
         'experienceable_id' => function () {
             return Applicant::inRandomOrder()->first()->id;
         },
@@ -82,6 +86,7 @@ $factory->define(ExperienceCommunity::class, function (Faker $faker) {
         'is_active' => false,
         'start_date' => $faker->dateTimeBetween('-3 years', '-1 years'),
         'end_date' => $faker->dateTimeBetween('-1 years', '-1 day'),
+        'is_education_requirement' => $faker->boolean(),
         'experienceable_id' => function () {
             return Applicant::inRandomOrder()->first()->id;
         },

@@ -925,9 +925,19 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->where('hrAdvisor', '[0-9]+')
         ->where('job', '[0-9]+');
 
-    Route::get('applicants/{applicant}/experience', 'Api\ExperienceController@showForApplicant')
+    Route::get('applicants/{applicant}/experience', 'Api\ExperienceController@indexForApplicant')
         ->where('applicant', '[0-9]+')
-        ->name('applicant.experience.show');
+        ->middleware('can:view,applicant')
+        ->name('applicant.experience.index');
+
+    Route::post('applicants/{applicant}/experience-work', 'Api\ExperienceController@storeWork')
+        ->where('applicant', '[0-9]+')
+        ->middleware('can:update,applicant')
+        ->name('applicant.experience-work.store');
+    // Route::post('applicants/{applicant}/experience-personal', 'Api\ExperienceController@storePersonal')
+    // Route::post('applicants/{applicant}/experience-education', 'Api\ExperienceController@storeEducation')
+    // Route::post('applicants/{applicant}/experience-award', 'Api\ExperienceController@storeAward')
+    // Route::post('applicants/{applicant}/experience-community', 'Api\ExperienceController@storeCommunity')
 });
 Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
     Route::get('applications/{application}', 'Api\ApplicationController@show')
@@ -951,7 +961,8 @@ Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
         ->middleware('can:review,application')
         ->name('application.review.update');
 
-    Route::get('applications/{application}/experience', 'Api\ExperienceController@showForApplication')
+    Route::get('applications/{application}/experience', 'Api\ExperienceController@indexForApplication')
         ->where('application', '[0-9]+')
-        ->name('application.experience.show');
+        ->middleware('can:view,application')
+        ->name('application.experience.index');
 });
