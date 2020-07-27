@@ -538,6 +538,95 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "On this page:",
+        "description": "Heading for the sidebar on the Skills page.",
+        "id": "application.skills.sidebarHeading"
+      },
+      {
+        "defaultMessage": "Missing Information",
+        "description": "Accordion heading error that displays when the justification is empty.",
+        "id": "application.skills.justificationMissing"
+      },
+      {
+        "defaultMessage": "Remove Experience From Skill",
+        "description": "Text for the delete experience button.",
+        "id": "application.skills.deleteExperienceButtonText"
+      },
+      {
+        "defaultMessage": "How You Used Each Skill",
+        "description": "Heading text on the Skills step.",
+        "id": "application.skills.heading"
+      },
+      {
+        "defaultMessage": "<bold>This is the most important part of your application.</bold> Each box only needs a couple of sentences, but make them good ones!",
+        "description": "Heading for the instruction section on the Skills step.",
+        "id": "application.skills.instructionHeading"
+      },
+      {
+        "defaultMessage": "Try answering one or two of the following questions:",
+        "description": "Paragraph before the instruction list on the Skills step.",
+        "id": "application.skills.instructionListStart"
+      },
+      {
+        "defaultMessage": "<bullet>What did you accomplish, create, or deliver using this skill?</bullet><bullet>What tasks or activities did you do that relate to this skill?</bullet><bullet>Were there any special techniques or approaches that you used?</bullet><bullet>How much responsibility did you have in this role?</bullet>",
+        "description": "List of potential justification helpers on the Skills step.",
+        "id": "application.skills.instructionList"
+      },
+      {
+        "defaultMessage": "If a skill is only loosely connected to an experience, consider removing it. This can help the manager focus on your best examples.",
+        "description": "Paragraph after the instruction list on the Skills step.",
+        "id": "application.skills.instructionListEnd"
+      },
+      {
+        "defaultMessage": "Looks like you don't have any experiences linked to this skill. You can link experiences to skills in the previous step.",
+        "description": "Text displayed under a skill section with no experiences.",
+        "id": "application.skills.noLinkedExperiences"
+      },
+      {
+        "defaultMessage": "Okay",
+        "id": "application.skills.modal.confirmButton"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/Skills/Skills.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Go to this skill.",
+        "description": "Title attribute for sidebar links.",
+        "id": "application.skills.sidebarLinkTitle"
+      },
+      {
+        "defaultMessage": "Click to view...",
+        "description": "Hidden accordion button text for accessibility.",
+        "id": "application.skills.accessibleAccordionButtonText"
+      },
+      {
+        "defaultMessage": "Save",
+        "description": "Button text for saving an experience skill justification.",
+        "id": "application.skills.saveButtonText"
+      },
+      {
+        "defaultMessage": "Saved",
+        "description": "Button text for after an experience skill justification is saved.",
+        "id": "application.skills.savedButtonText"
+      },
+      {
+        "defaultMessage": " words left.",
+        "description": "Message displayed next to word counter when user is under the maximum count.",
+        "id": "application.skills.wordCountUnderMax"
+      },
+      {
+        "defaultMessage": " words over the limit.",
+        "description": "Message displayed next to word counter when user is over the maximum count.",
+        "id": "application.skills.wordCountOverMax"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/Skills/SkillsMessages.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Toggle this step to view relevant applicants.",
         "description": "Instructions to reveal hidden list data.",
         "id": "button.toggleAccordion"
@@ -1311,6 +1400,11 @@
         "defaultMessage": "At least one checkbox is required.",
         "description": "Error message displayed when a required checkbox group or radio group is empty.",
         "id": "formValidation.checkboxRequired"
+      },
+      {
+        "defaultMessage": "Word limit of {numberOfWords} exceeded.",
+        "description": "Error message displayed when a field value is above a given word count.",
+        "id": "formValidation.overMaxWords"
       },
       {
         "defaultMessage": "Something went wrong.",

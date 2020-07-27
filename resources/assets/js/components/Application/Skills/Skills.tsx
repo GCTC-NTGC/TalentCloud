@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars, @typescript-eslint/no-unused-vars */
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
-import React, { useState, useReducer } from "react";
+import React, { useState, useReducer, useRef } from "react";
 import { FormattedMessage, useIntl, IntlShape } from "react-intl";
 import { Formik, Form, FastField } from "formik";
 import * as Yup from "yup";
@@ -27,6 +28,7 @@ import {
   computeParentStatus,
   SkillStatus,
 } from "./SkillsHelpers";
+import Modal from "../../Modal";
 
 const JUSTIFICATION_WORD_LIMIT = 100;
 
@@ -372,10 +374,17 @@ const Skills: React.FC<SkillsProps> = ({
 
   const [status, dispatchStatus] = useReducer(statusReducer, initial);
 
+  const modalId = "skill-description";
+  const [visible, setVisible] = useState(false);
+  const [modalHeading, setModalHeading] = useState("");
+  const [modalBody, setModalBody] = useState("");
+  const modalParentRef = useRef<HTMLDivElement>(null);
+
   const menuSkills = criteria.reduce(
     (collection: { [x: number]: string }, criterion: Criteria) => {
       const skill = getSkillOfCriteria(criterion, skills);
       if (skill && !collection[criterion.skill_id]) {
+        // eslint-disable-next-line no-param-reassign
         collection[criterion.skill_id] = localizeFieldNonNull(
           locale,
           skill,
@@ -388,7 +397,7 @@ const Skills: React.FC<SkillsProps> = ({
   );
 
   return (
-    <div data-c-container="large">
+    <div data-c-container="large" ref={modalParentRef}>
       <div data-c-grid="gutter(all, 1)">
         <div data-c-grid-item="tl(1of4)">
           <Sidebar menuSkills={menuSkills} intl={intl} status={status} />
@@ -402,29 +411,40 @@ const Skills: React.FC<SkillsProps> = ({
             />
           </h2>
           <p data-c-margin="bottom(1)">
-            <span data-c-font-weight="bold">
-              This is the most important part of your application.
-            </span>{" "}
-            Each box only needs a couple of sentences, but make them good ones!
+            <FormattedMessage
+              id="application.skills.instructionHeading"
+              defaultMessage="<bold>This is the most important part of your application.</bold> Each box only needs a couple of sentences, but make them good ones!"
+              description="Heading for the instruction section on the Skills step."
+              values={{
+                bold: (chunks) => (
+                  <span data-c-font-weight="bold">{chunks}</span>
+                ),
+              }}
+            />
           </p>
           <p data-c-margin="bottom(.5)">
-            Try answering one or two of the following questions:
+            <FormattedMessage
+              id="application.skills.instructionListStart"
+              defaultMessage="Try answering one or two of the following questions:"
+              description="Paragraph before the instruction list on the Skills step."
+            />
           </p>
           <ul data-c-margin="bottom(1)">
-            <li>
-              What did you accomplish, create, or deliver using this skill?
-            </li>
-            <li>
-              What tasks or activities did you do that relate to this skill?
-            </li>
-            <li>
-              Were there any special techniques or approaches that you used?
-            </li>
-            <li>How much responsibility did you have in this role?</li>
+            <FormattedMessage
+              id="application.skills.instructionList"
+              defaultMessage="<bullet>What did you accomplish, create, or deliver using this skill?</bullet><bullet>What tasks or activities did you do that relate to this skill?</bullet><bullet>Were there any special techniques or approaches that you used?</bullet><bullet>How much responsibility did you have in this role?</bullet>"
+              description="List of potential justification helpers on the Skills step."
+              values={{
+                bullet: (chunks) => <li>{chunks}</li>,
+              }}
+            />
           </ul>
           <p>
-            If a skill is only loosely connected to an experience, consider
-            removing it. This can help the manager focus on your best examples.
+            <FormattedMessage
+              id="application.skills.instructionListEnd"
+              defaultMessage="If a skill is only loosely connected to an experience, consider removing it. This can help the manager focus on your best examples."
+              description="Paragraph after the instruction list on the Skills step."
+            />
           </p>
           <div className="skills-list">
             {criteria.map((criterion) => {
@@ -433,6 +453,11 @@ const Skills: React.FC<SkillsProps> = ({
                 return null;
               }
               const skillName = localizeFieldNonNull(locale, skill, "name");
+              const skillDescription = localizeFieldNonNull(
+                locale,
+                skill,
+                "description",
+              );
               const skillHtmlId = slugify(skillName);
 
               return (
@@ -446,22 +471,24 @@ const Skills: React.FC<SkillsProps> = ({
                   >
                     <button
                       data-c-font-size="h3"
-                      data-c-dialog-id="skill-description"
+                      data-c-dialog-id={modalId}
                       type="button"
-                      data-c-dialog-action="open"
+                      onClick={(e): void => {
+                        setModalHeading(skillName);
+                        setModalBody(skillDescription);
+                        setVisible(true);
+                      }}
                     >
                       {skillName}
                     </button>
                     <br />
-                    <button
+                    <a
                       data-c-font-size="normal"
                       data-c-font-weight="bold"
-                      data-c-dialog-id="level-description"
-                      type="button"
-                      data-c-dialog-action="open"
+                      href="/faq#levels"
                     >
                       {intl.formatMessage(getSkillLevelName(criterion, skill))}
-                    </button>
+                    </a>
                   </h3>
                   {getExperiencesOfSkill(skill, experiences).length === 0 ? (
                     <div
@@ -505,6 +532,62 @@ const Skills: React.FC<SkillsProps> = ({
           </div>
         </div>
       </div>
+      <div data-c-dialog-overlay={visible ? "active" : ""} />
+      <Modal
+        id={modalId}
+        parentElement={modalParentRef.current}
+        visible={visible}
+        onModalConfirm={(e): void => setVisible(false)}
+        onModalCancel={(e): void => setVisible(false)}
+      >
+        <Modal.Header>
+          <div
+            data-c-padding="tb(1)"
+            data-c-border="bottom(thin, solid, black)"
+            data-c-background="c1(100)"
+            className="dialog-header"
+          >
+            <div data-c-container="medium">
+              <h5
+                data-c-font-size="h3"
+                data-c-font-weight="bold"
+                id={`${modalId}-title`}
+                data-c-dialog-focus=""
+                data-c-color="white"
+              >
+                {modalHeading}
+              </h5>
+              <button
+                data-c-dialog-action="close"
+                data-c-dialog-id={`${modalId}`}
+                type="button"
+                data-c-color="white"
+                tabIndex={0}
+                onClick={(e): void => setVisible(false)}
+              >
+                <i className="fas fa-times" />
+              </button>
+            </div>
+          </div>
+        </Modal.Header>
+        <Modal.Body>
+          <div data-c-border="bottom(thin, solid, black)">
+            <div id={`${modalId}-description`}>
+              <div data-c-container="medium" data-c-padding="tb(1)">
+                <p>{modalBody}</p>
+              </div>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Modal.FooterConfirmBtn>
+            <FormattedMessage
+              id="application.skills.modal.confirmButton"
+              defaultMessage="Okay"
+            />
+          </Modal.FooterConfirmBtn>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
