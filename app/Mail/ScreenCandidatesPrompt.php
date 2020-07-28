@@ -59,23 +59,25 @@ class ScreenCandidatesPrompt extends Mailable implements ShouldQueue
         $date_in_two_weeks_fr = humanizeLastDay($this->job->close_date_time->addWeeks(2), 'fr');
 
         // Number of applicants.
-        $num_of_applicants = $this->job->job_applications->count();
+        $num_of_applicants = $this->job->submitted_applications->count();
 
         // Number of non-citizens.
         $canadian_citizen = CitizenshipDeclaration::where('name', 'citizen')->first()->id;
-        $num_of_noncitizens = $this->job->job_applications
+        $num_of_noncitizens = $this->job->submitted_applications
                                 ->where('citizenship_declaration_id', '!=', $canadian_citizen)
                                 ->count();
 
         // Number of veterans.
         $non_veteran = VeteranStatus::where('name', 'none')->first()->id;
-        $num_of_veterans = $this->job->job_applications
+        $num_of_veterans = $this->job->submitted_applications
                             ->where('veteran_status_id', '!=', $non_veteran)
                             ->count();
 
         $position = $this->job->getTranslations('title');
         $classification = $this->job->getClassificationMessageAttribute();
-        $subject = Lang::get('common/notifications/screen_candidates.subject', [ 'position' => $position['en'], 'classification' => $classification ]) . ' / ' . Lang::get('common/notifications/screen_candidates.subject', [ 'position' => $position['fr'], 'classification' => $classification ], 'fr');
+        $subject = Lang::get('common/notifications/screen_candidates.subject', [ 'position' => $position['en'], 'classification' => $classification ], 'en')
+            . ' / '
+            . Lang::get('common/notifications/screen_candidates.subject', [ 'position' => $position['fr'], 'classification' => $classification ], 'fr');
 
         return $this->subject($subject)
                     ->cc($hr_advisors_emails)
@@ -86,7 +88,7 @@ class ScreenCandidatesPrompt extends Mailable implements ShouldQueue
                             'fr' => $date_in_two_weeks_fr,
                         ],
                         'manager_portal_link' => [
-                            'en' => route('manager.home'),
+                            'en' => LaravelLocalization::getLocalizedURL('en', route('manager.home')),
                             'fr' => LaravelLocalization::getLocalizedURL('fr', route('manager.home')),
                         ],
                         'num_of_applicants' => $num_of_applicants,
@@ -94,7 +96,7 @@ class ScreenCandidatesPrompt extends Mailable implements ShouldQueue
                         'num_of_veterans' => $num_of_veterans,
                         'position' => $position,
                         'position_link' => [
-                            'en' => route('jobs.summary', $this->job->id),
+                            'en' => LaravelLocalization::getLocalizedURL('en', route('jobs.summary', $this->job->id)),
                             'fr' => LaravelLocalization::getLocalizedURL('fr', route('jobs.summary', $this->job->id)),
                         ],
                         'talent_cloud_email' => config('mail.admin_address'),
