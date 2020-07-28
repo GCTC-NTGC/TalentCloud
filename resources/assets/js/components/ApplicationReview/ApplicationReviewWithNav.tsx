@@ -189,12 +189,12 @@ class ApplicationReviewWithNav extends React.Component<
     const applicantUrlMap: { [key in typeof portal]: string } = {
       hr: routes.hrApplicantShow(
         intl.locale,
-        application.id,
+        application.applicant_id,
         application.job_poster_id,
       ),
       manager: routes.managerApplicantShow(
         intl.locale,
-        application.id,
+        application.applicant_id,
         application.job_poster_id,
       ),
     };
