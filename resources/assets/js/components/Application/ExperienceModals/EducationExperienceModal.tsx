@@ -279,6 +279,7 @@ const newExperienceEducation = (
   is_education_requirement: false,
   experienceable_id: experienceableId,
   experienceable_type: experienceableType,
+  type: "education",
 });
 /* eslint-enable @typescript-eslint/camelcase */
 

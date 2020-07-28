@@ -213,6 +213,7 @@ const newExperienceWork = (
   is_education_requirement: false,
   experienceable_id: experienceableId,
   experienceable_type: experienceableType,
+  type: "work",
 });
 /* eslint-enable @typescript-eslint/camelcase */
 
