@@ -34,7 +34,7 @@ import Modal from "../../Modal";
 const JUSTIFICATION_WORD_LIMIT = 100;
 
 interface SidebarProps {
-  menuSkills: { [x: number]: string };
+  menuSkills: { [skillId: number]: string };
   intl: IntlShape;
   status: SkillStatus;
 }
@@ -406,7 +406,7 @@ const Skills: React.FC<SkillsProps> = ({
   const modalParentRef = useRef<HTMLDivElement>(null);
 
   const menuSkills = criteria.reduce(
-    (collection: { [x: number]: string }, criterion: Criteria) => {
+    (collection: { [skillId: number]: string }, criterion: Criteria) => {
       const skill = getSkillOfCriteria(criterion, skills);
       if (skill && !collection[criterion.skill_id]) {
         // eslint-disable-next-line no-param-reassign
