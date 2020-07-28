@@ -117,11 +117,7 @@ const JobIntroPage: React.FunctionComponent<JobIntroPageProps> = ({
     if (locale === chosenLang) {
       navigate(jobBuilderDetails(chosenLang, newJob.id));
     } else {
-      const baseUrl = window.location.origin;
-      window.location.href = `${baseUrl}${jobBuilderDetails(
-        chosenLang,
-        newJob.id,
-      )}`;
+      window.location.href = `${jobBuilderDetails(chosenLang, newJob.id)}`;
     }
   };
 

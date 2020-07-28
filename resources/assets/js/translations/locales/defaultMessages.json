@@ -441,6 +441,61 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Education Experience",
+        "description": "Type of experience: Education Experience.",
+        "id": "application.experience.intro.educationExperience"
+      },
+      {
+        "defaultMessage": "Work Experience",
+        "description": "Type of experience: Work Experience.",
+        "id": "application.experience.intro.workExperience"
+      },
+      {
+        "defaultMessage": "Community Experience",
+        "description": "Type of experience: Community Experience.",
+        "id": "application.experience.intro.communityExperience"
+      },
+      {
+        "defaultMessage": "Personal Experience",
+        "description": "Type of experience: Personal Experience.",
+        "id": "application.experience.intro.personalExperience"
+      },
+      {
+        "defaultMessage": "Awards",
+        "description": "Type of experience: Personal Experience.",
+        "id": "application.experience.intro.awards"
+      },
+      {
+        "defaultMessage": "Defining Your Experience",
+        "description": "Header for the Experience Intro step.",
+        "id": "application.experience.intro.header"
+      },
+      {
+        "defaultMessage": "The next step in your application is to tell us about the experiences you've had that make you a good fit for this job.",
+        "description": "Paragraph explaining what to expect on the Experience step.",
+        "id": "application.experience.intro.explanation"
+      },
+      {
+        "defaultMessage": "On Talent Cloud, you can add these types of experiences:",
+        "description": "Paragraph before list of possible experience types.",
+        "id": "application.experience.intro.typesOfExperiences"
+      },
+      {
+        "defaultMessage": "The best part is that as you add these experiences, the information gets saved to your profile. The next time you go to apply to a job, you'll be able to select from the work you've done to help speed up the process.",
+        "description": "Paragraph explaining how experiences will be saved to profile.",
+        "id": "application.experience.intro.saveToProfile"
+      },
+      {
+        "defaultMessage": "Let's Go",
+        "description": "Button text for continuing to next step in Application Form.",
+        "id": "application.intro.letsGo"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/Experience/ExperienceIntro.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Personal Experience",
         "id": "experiencePersonalAccordion.experienceTypeTitle"
       },
@@ -493,6 +548,386 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Add an Award",
+        "id": "awardExperienceModal.modalTitle"
+      },
+      {
+        "defaultMessage": "Did you get recognized for going above and beyond? There are many ways to get recognized, awards are just one of them. (Here’s an opportunity to share how you’ve been recognized.)",
+        "id": "awardExperienceModal.modalDescription"
+      },
+      {
+        "defaultMessage": "Award Title",
+        "id": "awardExperienceModal.titleLabel"
+      },
+      {
+        "defaultMessage": "e.g. My Award",
+        "id": "awardExperienceModal.titlePlaceholder"
+      },
+      {
+        "defaultMessage": "Awarded to...",
+        "id": "awardExperienceModal.recipientTypeLabel"
+      },
+      {
+        "defaultMessage": "Select an option...",
+        "description": "Default selection in the Recipient Type dropdown menu.",
+        "id": "awardExperienceModal.recipientTypePlaceholder"
+      },
+      {
+        "defaultMessage": "Issuing Organization or Institution",
+        "id": "awardExperienceModal.issuerLabel"
+      },
+      {
+        "defaultMessage": "e.g. Government of Canada",
+        "id": "awardExperienceModal.issuerPlaceholder"
+      },
+      {
+        "defaultMessage": "Scope of the Award",
+        "id": "awardExperienceModal.recognitionTypeLabel"
+      },
+      {
+        "defaultMessage": "Select a scope...",
+        "id": "awardExperienceModal.recognitionTypePlaceholder"
+      },
+      {
+        "defaultMessage": "Date Awarded",
+        "id": "awardExperienceModal.awardedDateLabel"
+      },
+      {
+        "defaultMessage": "yyyy-mm-dd",
+        "id": "awardExperienceModal.datePlaceholder"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/ExperienceModals/AwardExperienceModal.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Add Community Experience",
+        "id": "communityExperienceModal.modalTitle"
+      },
+      {
+        "defaultMessage": "Gained experience by being part of or giving back to a community? People learn skills from a wide range of experiences like volunteering or being part of non-profit organizations, indigenous communities, or virtual collaborations. (Here’s an opportunity to share the skills that your community has helped you develop.)",
+        "id": "communityExperienceModal.modalDescription"
+      },
+      {
+        "defaultMessage": "My Role / Job Title",
+        "id": "communityExperienceModal.titleLabel"
+      },
+      {
+        "defaultMessage": "e.g. Front-end Development",
+        "id": "communityExperienceModal.titlePlaceholder"
+      },
+      {
+        "defaultMessage": "Group / Organization / Community",
+        "id": "communityExperienceModal.groupLabel"
+      },
+      {
+        "defaultMessage": "e.g. Government of Canada",
+        "id": "communityExperienceModal.groupPlaceholder"
+      },
+      {
+        "defaultMessage": "Project / Product Name",
+        "id": "communityExperienceModal.projectLabel"
+      },
+      {
+        "defaultMessage": "e.g. Talent Cloud",
+        "id": "communityExperienceModal.projectPlaceholder"
+      },
+      {
+        "defaultMessage": "Select a Start Date",
+        "id": "communityExperienceModal.startDateLabel"
+      },
+      {
+        "defaultMessage": "yyyy-mm-dd",
+        "id": "communityExperienceModal.datePlaceholder"
+      },
+      {
+        "defaultMessage": "This experience is still ongoing, or...",
+        "description": "Label for checkbox that indicates work is still ongoing.",
+        "id": "communityExperienceModal.isActiveLabel"
+      },
+      {
+        "defaultMessage": "Select an End Date",
+        "id": "communityExperienceModal.endDateLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/ExperienceModals/CommunityExperienceModal.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Add Edcuation Experience",
+        "id": "educationExperienceModal.modalTitle"
+      },
+      {
+        "defaultMessage": "Got creds? Share your degree, certificates, online courses, a trade apprenticeship, licences or alternative credentials. If you’ve learned something from a recognized educational provider, include your experiences here.  (Learned something from your community or on your own? Share this as a \"Community Experience\" or \"Personal Experience\".)",
+        "id": "educationExperienceModal.modalDescription"
+      },
+      {
+        "defaultMessage": "Type of Education",
+        "id": "educationExperienceModal.educationTypeLabel"
+      },
+      {
+        "defaultMessage": "Select an education type...",
+        "description": "Default selection in the Education Type dropdown menu.",
+        "id": "educationExperienceModal.educationTypeDefault"
+      },
+      {
+        "defaultMessage": "Area of Study",
+        "id": "educationExperienceModal.areaStudyLabel"
+      },
+      {
+        "defaultMessage": "e.g. Organic Chemistry",
+        "id": "educationExperienceModal.areaStudyPlaceholder"
+      },
+      {
+        "defaultMessage": "Institution",
+        "id": "educationExperienceModal.institutionLabel"
+      },
+      {
+        "defaultMessage": "e.g. Bishop's University",
+        "id": "educationExperienceModal.institutionPlaceholder"
+      },
+      {
+        "defaultMessage": "Completion Status",
+        "id": "educationExperienceModal.completionLabel"
+      },
+      {
+        "defaultMessage": "Select a completion status...",
+        "id": "educationExperienceModal.completionDefault"
+      },
+      {
+        "defaultMessage": "Thesis Title (Optional)",
+        "id": "educationExperienceModal.thesisLabel"
+      },
+      {
+        "defaultMessage": "e.g. How bats navigate between each other during flight",
+        "id": "educationExperienceModal.thesisPlaceholder"
+      },
+      {
+        "defaultMessage": "Blockcert Link (Optional)",
+        "id": "educationExperienceModal.blockcertLabel"
+      },
+      {
+        "defaultMessage": "I have a Blockcert and can provide it on request. (Optional)",
+        "id": "educationExperienceModal.blockcertInlineLabel"
+      },
+      {
+        "defaultMessage": "Select a Start Date",
+        "id": "educationExperienceModal.startDateLabel"
+      },
+      {
+        "defaultMessage": "yyyy-mm-dd",
+        "id": "educationExperienceModal.datePlaceholder"
+      },
+      {
+        "defaultMessage": "This experience is still ongoing, or...",
+        "description": "Label for checkbox that indicates work is still ongoing.",
+        "id": "educationExperienceModal.isActiveLabel"
+      },
+      {
+        "defaultMessage": "Select an End Date",
+        "id": "educationExperienceModal.endDateLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/ExperienceModals/EducationExperienceModal.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Yes, this experience helps me meet the education requirements outlined below.",
+        "description": "Label for the checkbox that checks whether to use this experience to as education justification.",
+        "id": "experienceModal.educationSubform.educationJustificationLabel"
+      },
+      {
+        "defaultMessage": "Use This Experience as an Education Requirement",
+        "description": "Subtitle for the use-as-Education-Requirement section.",
+        "id": "experienceModal.educationSubtitle"
+      },
+      {
+        "defaultMessage": "You can select the option below if you feel that this experience helps you meet some or all of the specific education requirements for this job. We've included the requirements below to help refresh your memory.",
+        "description": "Explanation for the use-as-Education-Requirement section.",
+        "id": "experienceModal.educationDescription"
+      },
+      {
+        "defaultMessage": "OR",
+        "description": "Conjunction used to join alternative experience requirements (ie Experience OR Equivalent Experience).",
+        "id": "experienceModal.educationSubform.or"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/ExperienceModals/EducationSubform.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Experience Details",
+        "description": "Subtitle of Experience Details section.",
+        "id": "experienceModal.detailsSubtitle"
+      },
+      {
+        "defaultMessage": "Cancel",
+        "description": "Cancel button text",
+        "id": "experienceModal.cancel"
+      },
+      {
+        "defaultMessage": "Save Experience",
+        "description": "Save button text",
+        "id": "experienceModal.save"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/ExperienceModals/ExperienceModalCommon.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Add Personal Experience",
+        "id": "personalExperienceModal.modalTitle"
+      },
+      {
+        "defaultMessage": "People are more than just education and work experiences. We want to make space for you to share your learning from other experiences. To protect your privacy, please don't share sensitive information about yourself or others. A good measure would be if you are comfortable with all your colleagues knowing it. (Hint: Focus on the skills for the job when you decide on what examples to share.)",
+        "id": "personalExperienceModal.modalDescription"
+      },
+      {
+        "defaultMessage": "Give this experience a title:",
+        "id": "personalExperienceModal.titleLabel"
+      },
+      {
+        "defaultMessage": "e.g. My Parenting Experience",
+        "id": "personalExperienceModal.titlePlaceholder"
+      },
+      {
+        "defaultMessage": "Describe the project or activity:",
+        "id": "personalExperienceModal.descriptionLabel"
+      },
+      {
+        "defaultMessage": "e.g. I have extensive experience in...",
+        "id": "personalExperienceModal.descriptionPlaceholder"
+      },
+      {
+        "defaultMessage": "Sharing Consent",
+        "id": "personalExperienceModal.isShareableLabel"
+      },
+      {
+        "defaultMessage": "This information is not sensitive in nature and I am comfortable sharing it with the staff managing this job application.",
+        "id": "personalExperienceModal.isShareableInlineLabel"
+      },
+      {
+        "defaultMessage": "Select a Start Date",
+        "id": "personalExperienceModal.startDateLabel"
+      },
+      {
+        "defaultMessage": "yyyy-mm-dd",
+        "id": "personalExperienceModal.datePlaceholder"
+      },
+      {
+        "defaultMessage": "This experience is still ongoing, or...",
+        "description": "Label for checkbox that indicates work is still ongoing.",
+        "id": "personalExperienceModal.isActiveLabel"
+      },
+      {
+        "defaultMessage": "Select an End Date",
+        "id": "personalExperienceModal.endDateLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/ExperienceModals/PersonalExperienceModal.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Open the job poster in a new tab or window to review the definition of skills.",
+        "description": "Title attribute for the link back to the job.",
+        "id": "experienceModal.linkToJob.title"
+      },
+      {
+        "defaultMessage": "Select all that apply:",
+        "description": "Label for the Skills checkbox groups.",
+        "id": "experienceModal.skillCheckboxGroupLabel"
+      },
+      {
+        "defaultMessage": "Connect This Experience to the Job",
+        "description": "Subtitle of Connect-to-skills section.",
+        "id": "experienceModal.connectSubtitle"
+      },
+      {
+        "defaultMessage": "Below you can select which of the job skills you used during this experience. Later on, you’ll be asked to provide a few sentences to help managers understand how you used this skill. You can <a>review the definitions</a> of the skills on the job poster.",
+        "description": "Explanation for Connect-to-skills section.",
+        "id": "experienceModal.connectDescription"
+      },
+      {
+        "defaultMessage": "If none of the skills apply to this experience, feel free to save it without any skills selected.",
+        "description": "Explanation that you can save an experience without connecting it to skills yet.",
+        "id": "experienceModal.connectDescription.noSkillsOkay"
+      },
+      {
+        "defaultMessage": "Please indicate which of the following <a>required skills</a> (if any) you used in this experience.",
+        "description": "Title for the Required Skills checkbox.",
+        "id": "experienceModal.requiredSkillsSubtitle"
+      },
+      {
+        "defaultMessage": "Please indicate which of the following <a>optional skills</a> (if any) you used in this experience.",
+        "description": "Title for the Optional Skills checkbox.",
+        "id": "experienceModal.optionalSkillsSubtitle"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/ExperienceModals/SkillSubform.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Add Work Experience",
+        "id": "workExperienceModal.modalTitle"
+      },
+      {
+        "defaultMessage": "Did work? Share your experiences gained from full-time positions, part-time positions, self-employment, fellowships or internships.  (Did some volunteering? Share this as a \"Community Experience\".)",
+        "id": "workExperienceModal.modalDescription"
+      },
+      {
+        "defaultMessage": "My Role/Job Title",
+        "id": "workExperienceModal.jobTitleLabel"
+      },
+      {
+        "defaultMessage": "e.g. Front-end Development",
+        "id": "workExperienceModal.jobTitlePlaceholder"
+      },
+      {
+        "defaultMessage": "Organization/Company",
+        "id": "workExperienceModal.orgNameLabel"
+      },
+      {
+        "defaultMessage": "e.g. Government of Canada",
+        "id": "workExperienceModal.orgNamePlaceholder"
+      },
+      {
+        "defaultMessage": "Team, Group, or Division",
+        "id": "workExperienceModal.groupLabel"
+      },
+      {
+        "defaultMessage": "e.g. Talent Cloud",
+        "id": "workExperienceModal.groupPlaceholder"
+      },
+      {
+        "defaultMessage": "Select a Start Date",
+        "id": "workExperienceModal.startDateLabel"
+      },
+      {
+        "defaultMessage": "yyyy-mm-dd",
+        "id": "workExperienceModal.datePlaceholder"
+      },
+      {
+        "defaultMessage": "This experience is still ongoing, or...",
+        "description": "Label for checkbox that indicates work is still ongoing.",
+        "id": "workExperienceModal.isActiveLabel"
+      },
+      {
+        "defaultMessage": "Select an End Date",
+        "id": "workExperienceModal.endDateLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/ExperienceModals/WorkExperienceModal.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Start Your Application",
         "description": "Heading text on the intro step of the Application Timeline.",
         "id": "application.intro.heading"
@@ -534,6 +969,114 @@
       }
     ],
     "path": "resources/assets/js/components/Application/Intro/Intro.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "My Fit",
+        "description": "Heading for the My Fit step in the Application Timeline",
+        "id": "application.myfit.heading"
+      },
+      {
+        "defaultMessage": "The manager has included a few further questions that they'd like you to answer in order to be considered for this position. Questions that require an answer are marked, while all others are optional.",
+        "description": "Paragraph for the My Fit step in the Application Timeline",
+        "id": "application.myfit.firstParagraph"
+      },
+      {
+        "defaultMessage": "Save & Return to Previous Step",
+        "description": "The text displayed on the Save & Return button of the Applicant Timeline form.",
+        "id": "application.returnButtonLabel"
+      },
+      {
+        "defaultMessage": "Save & Quit",
+        "description": "The text displayed on the Save & Return button of the Applicant Timeline form.",
+        "id": "application.quitButtonLabel"
+      },
+      {
+        "defaultMessage": "Save & Continue",
+        "description": "The text displayed on the submit button for the Job Details form.",
+        "id": "application.submitButtonLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/MyFit/MyFit.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Save Answer",
+        "description": "Default message displayed on save answer button.",
+        "id": "application.myfit.saveAnswerButton.default"
+      },
+      {
+        "defaultMessage": "Saved",
+        "description": "Message displayed on button when data is saved.",
+        "id": "application.myfit.saveAnswerButton.saved"
+      },
+      {
+        "defaultMessage": "Question {index}:",
+        "description": "Label for the question on the My Fit step.",
+        "id": "application.myfit.question"
+      },
+      {
+        "defaultMessage": "My Answer to Question {index}",
+        "description": "Label before the users answer on the My Fit step.",
+        "id": "application.myfit.questionLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/MyFit/Question.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Welcome",
+        "id": "applicationTimeline.progressBar.welcome"
+      },
+      {
+        "defaultMessage": "Step 1/6",
+        "id": "applicationTimeline.progressBar.step01"
+      },
+      {
+        "defaultMessage": "Step 2/6",
+        "id": "applicationTimeline.progressBar.step02"
+      },
+      {
+        "defaultMessage": "Step 3/6",
+        "id": "applicationTimeline.progressBar.step03"
+      },
+      {
+        "defaultMessage": "Step 4/6",
+        "id": "applicationTimeline.progressBar.step04"
+      },
+      {
+        "defaultMessage": "Step 5/6",
+        "id": "applicationTimeline.progressBar.step05"
+      },
+      {
+        "defaultMessage": "Step 6/6",
+        "id": "applicationTimeline.progressBar.step06"
+      },
+      {
+        "defaultMessage": "Completed: ",
+        "description": "Visually hidden text used to indicate the completed steps.",
+        "id": "applicationTimeline.progressbar.completedStepLabel"
+      },
+      {
+        "defaultMessage": "Current: ",
+        "description": "Visually hidden text used to indicate the current steps.",
+        "id": "applicationTimeline.progressbar.currentStepLabel"
+      },
+      {
+        "defaultMessage": "Error: ",
+        "description": "Visually hidden text used to indicate the steps with errors.",
+        "id": "applicationTimeline.progressbar.errorStepLabel"
+      },
+      {
+        "defaultMessage": "Application Deadline: {timeLeft}",
+        "description": "Label for the application deadline",
+        "id": "applicationTimeline.progressbar.applicationDeadline"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/ProgressBar/ProgressBar.json"
   },
   {
     "descriptors": [
@@ -832,7 +1375,7 @@
         "id": "review.applications.indexPageTitle"
       },
       {
-        "defaultMessage": "{dayCount, plural,\r\n              =0 {No Days}\r\n            one {# Day}\r\n          other {# Days}\r\n        } Since Close",
+        "defaultMessage": "{dayCount, plural,\n              =0 {No Days}\n            one {# Day}\n          other {# Days}\n        } Since Close",
         "description": "Welcome header on app main page",
         "id": "job.daysSinceClosed"
       }
@@ -1402,8 +1945,23 @@
         "id": "formValidation.checkboxRequired"
       },
       {
-        "defaultMessage": "Word limit of {numberOfWords} exceeded.",
-        "description": "Error message displayed when a field value is above a given word count.",
+        "defaultMessage": "If activity is not ongoing, End Date is required.",
+        "description": "Error message displayed when a date is required due to activity no longer being ongoing.",
+        "id": "formValidation.endDateRequiredIfNotOngoing"
+      },
+      {
+        "defaultMessage": "Please select a date in the past.",
+        "description": "Error message displayed when selected date is in the future.",
+        "id": "formValidation.dateMustBePast"
+      },
+      {
+        "defaultMessage": "Please select an End Date that is after the Start Date",
+        "description": "Error message displayed when a selected End Date is earlier than the Start date.",
+        "id": "formValidation.endDateAfterStart"
+      },
+      {
+        "defaultMessage": "Must be under {numberOfWords} words",
+        "description": "Error message displayed when surpassing the maximum words allowed.",
         "id": "formValidation.overMaxWords"
       },
       {
@@ -1875,6 +2433,11 @@
         "defaultMessage": "Post-secondary degree:\nSuccessful completion of post-secondary degree in mechanical engineering, civil engineering, electrical engineering, aeronautical engineering, geological engineering, naval architecture or some other engineering specialty relevant to the duties of the position.",
         "description": "Job Classification message from list of Classifications",
         "id": "jobBuilder.details.educationMessages.EN-ENG"
+      },
+      {
+        "defaultMessage": "For FI-01 positions only:\n\n    Successful completion of two years of a post-secondary program with specialization in accounting, finance, business administration, commerce or economics; or\n    Possession of the Government of Canada Financial Management Certificate.\n\n    For FI-02 or above:\n    Successful completion of post-secondary degree with specialization in accounting, finance, business administration, commerce or economics AND experience related to positions in the Financial Management Group;\n\n    or\n\n    Eligibility for a recognized professional accounting designation. The recognized professional accounting designations are Chartered Professional Accountant (CPA), Chartered Accountant (CA), Certified Management Accountant (CMA), Certified General Accountant (CGA)",
+        "description": "Job Classification message from list of Classifications",
+        "id": "jobBuilder.details.educationMessages.FI"
       }
     ],
     "path": "resources/assets/js/components/JobBuilder/Details/JobDetailsMessages.json"
@@ -2555,7 +3118,7 @@
         "id": "jobBuilder.review.reviewYourPoster"
       },
       {
-        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\r\n            understand how an applicant will see it once published.",
+        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\n            understand how an applicant will see it once published.",
         "description": "Description under primary title of review section",
         "id": "jobBuilder.review.headsUp"
       },
@@ -3926,6 +4489,21 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "words left",
+        "description": "Message displayed on word counter when user is under/matching the limit.",
+        "id": "textArea.wordsUnderLimit"
+      },
+      {
+        "defaultMessage": "words over limit",
+        "description": "Message displayed on word counter when user passes the limit.",
+        "id": "textArea.wordsOverLimit"
+      }
+    ],
+    "path": "resources/assets/js/components/TextArea.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Received: ",
         "description": "Header for when Job Poster was created.",
         "id": "openJobCard.reviewRequested"
@@ -4470,6 +5048,11 @@
         "id": "jobBuilder.details.classificationOptions.EN-ENG"
       },
       {
+        "defaultMessage": "FI - Financial Management",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.FI"
+      },
+      {
         "defaultMessage": "Job Poster Builder",
         "description": "Location where the activity is located.",
         "id": "activityfeed.locations.review"
@@ -4658,6 +5241,66 @@
         "defaultMessage": "Not Available",
         "description": "Select option text for the 'Not Available' review status.",
         "id": "responseReviewStatus.notAvailable"
+      },
+      {
+        "defaultMessage": "{title} from {issuedBy}",
+        "description": "Accordion heading for experience on the Skills page.",
+        "id": "application.skills.awardHeading"
+      },
+      {
+        "defaultMessage": "{title} with {group}",
+        "description": "Accordion heading for experience on the Skills page.",
+        "id": "application.skills.communityHeading"
+      },
+      {
+        "defaultMessage": "{areaOfStudy} at {institution}",
+        "description": "Accordion heading for experience on the Skills page.",
+        "id": "application.skills.educationHeading"
+      },
+      {
+        "defaultMessage": "{title}",
+        "description": "Accordion heading for experience on the Skills page.",
+        "id": "application.skills.personalHeading"
+      },
+      {
+        "defaultMessage": "{title} at {organization}",
+        "description": "Accordion heading for experience on the Skills page.",
+        "id": "application.skills.workHeading"
+      },
+      {
+        "defaultMessage": "Error: Unknown experience type.",
+        "description": "Accordion heading error when an unknown experience type is used.",
+        "id": "application.skills.unknownHeading"
+      },
+      {
+        "defaultMessage": "How I used {skillName} to achieve {title}",
+        "description": "Accordion heading for experience on the Skills page.",
+        "id": "application.skills.awardJustificationLabel"
+      },
+      {
+        "defaultMessage": "How I used {skillName} with {group}",
+        "description": "Accordion heading for experience on the Skills page.",
+        "id": "application.skills.communityJustificationLabel"
+      },
+      {
+        "defaultMessage": "How I used {skillName} at {institution}",
+        "description": "Accordion heading for experience on the Skills page.",
+        "id": "application.skills.educationJustificationLabel"
+      },
+      {
+        "defaultMessage": "How I used {skillName} for {title}",
+        "description": "Accordion heading for experience on the Skills page.",
+        "id": "application.skills.personalJustificationLabel"
+      },
+      {
+        "defaultMessage": "How I used {skillName} at {organization}",
+        "description": "Accordion heading for experience on the Skills page.",
+        "id": "application.skills.workJustificationLabel"
+      },
+      {
+        "defaultMessage": "Error: Unknown experience type.",
+        "description": "Accordion heading error when an unknown experience type is used.",
+        "id": "application.skills.unknownJustificationLabel"
       }
     ],
     "path": "resources/assets/js/models/localizedConstants.json"

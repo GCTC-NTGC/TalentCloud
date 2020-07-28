@@ -14,6 +14,9 @@ export function localizeField<T>(
   field: TranslatableKeys<T>,
 ): string | null {
   if (model[field] !== null) {
+    if (model[field][locale] === ("" || null || undefined)) {
+      return locale === "en" ? "TRANSLATION MISSING" : "TRADUCTION MANQUANTE";
+    }
     return model[field][locale];
   }
   return null;
@@ -23,7 +26,12 @@ export function localizeFieldNonNull<T>(
   model: T,
   field: TranslatableKeysNonNull<T>,
 ): string {
-  return model[field][locale];
+  // Even though we assume field is non-null... check anyway to avoid crashes.
+  const value = model[field] ? model[field][locale] : null;
+  if (value) {
+    return value;
+  }
+  return locale === "en" ? "TRANSLATION MISSING" : "TRADUCTION MANQUANTE";
 }
 
 export function getLocale(locale: string): Locales {
@@ -32,4 +40,16 @@ export function getLocale(locale: string): Locales {
   }
   console.log("Warning: unknown locale. Defaulting to en.");
   return "en";
+}
+
+export function matchValueToModel<T>(
+  locale: Locales,
+  field: TranslatableKeys<T>,
+  value: string,
+  possibilities: T[],
+): T | null {
+  const matching = possibilities.filter(
+    (model) => localizeField(locale, model, field) === value,
+  );
+  return matching.length > 0 ? matching[0] : null;
 }

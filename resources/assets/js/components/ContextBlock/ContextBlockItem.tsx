@@ -52,7 +52,7 @@ const ContextBlockItem: React.FunctionComponent<ContextBlockItemProps> = ({
           {title}
         </p>
       )}
-      {subtext && subtext}
+      {subtext && <p data-c-font-size={fontSize || "small"}>{subtext}</p>}
     </div>
   );
 };

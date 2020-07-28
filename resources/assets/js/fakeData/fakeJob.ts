@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { Job, Criteria, JobPosterKeyTask } from "../models/types";
+import {
+  Job,
+  Criteria,
+  JobPosterKeyTask,
+  JobPosterQuestion,
+  JobApplicationAnswer,
+} from "../models/types";
 
 export const fakeJob = (id = 1): Job => ({
   id,
@@ -285,6 +291,72 @@ export const fakeJobTasks = (jobId = 1): JobPosterKeyTask[] => [
       en: "This is an example of a task that has exceeded the limit.",
       fr: "Voici un exemple de tâche ayant dépassé la limite.",
     },
+  },
+];
+
+export const fakeJobQuestions = (jobId = 1): JobPosterQuestion[] => [
+  {
+    id: 1,
+    job_poster_id: jobId,
+    description: {
+      en: "Describe why you are interested in this job.",
+      fr: "Décrivez pourquoi vous êtes intéressé par cet emploi.",
+    },
+    question: {
+      en: "Why are you interested in this job?",
+      fr: "Pourquoi êtes-vous intéressé par cet emploi ?",
+    },
+  },
+  {
+    id: 2,
+    job_poster_id: jobId,
+    description: {
+      en: "e.g. I have a few other skills...",
+      fr: "e.g. j'ai quelques autres compétences...",
+    },
+    question: {
+      en:
+        "Are there any other skills that you bring to the job that you want to highlight to the manager?",
+      fr:
+        "Y a-t-il d'autres compétences que vous apportez à l'emploi et que vous souhaitez mettre en valeur auprès du responsable ?",
+    },
+  },
+  {
+    id: 3,
+    job_poster_id: jobId,
+    description: {
+      en: "e.g. I have a few other skills...",
+      fr: "e.g. j'ai quelques autres compétences...",
+    },
+    question: {
+      en:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi exercitationem ipsa distinctio dolore in iure? Nisi ratione architecto velit quos.?",
+      fr:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi exercitationem ipsa distinctio dolore in iure? Nisi ratione architecto velit quos. ?",
+    },
+  },
+];
+
+export const fakeJobApplicationAnswers = (
+  jobApplicationId = 1,
+): JobApplicationAnswer[] => [
+  {
+    id: 1,
+    job_application_id: jobApplicationId,
+    job_poster_questions_id: 1,
+    answer: "Here is my answer.",
+  },
+  {
+    id: 2,
+    job_application_id: jobApplicationId,
+    job_poster_questions_id: 2,
+    answer: "Please read my answers and see that I am an excellent candidate.",
+  },
+  {
+    id: 3,
+    job_application_id: jobApplicationId,
+    job_poster_questions_id: 3,
+    answer: "Je pourrais ecrire ce reponse en francais si je vourrais.",
   },
 ];
 
