@@ -13,7 +13,7 @@ return [
     'view_title' => 'Application',
     'job_context_copy' => 'Vous postulez pour :',
     'save_return_button_label' => "Sauvegarde et retour à l'étape :step_id",
-    'save_return_to_applications' => "Sauvegarder et aller à Mes applications",
+    'save_return_to_applications' => 'Sauvegarder et aller à Mes applications',
     'save_quit_button_label' => 'Sauvegarder et quitter',
     'save_continue_button_label' => 'Sauvegarder et continuer',
     'save_button_working' => 'Actif...',
@@ -190,6 +190,8 @@ return [
             'null_course_copy' => "Vous n'avez actuellement aucun cours ou certification sur votre application.",
             'work_label' => 'Mon expérience équivalente',
             'null_work_copy' => "Vous n'avez actuellement aucune expérience équivalente listée dans votre application.",
+            'sample_label' => 'My Work Samples',
+            'null_sample_copy' => 'You have no work samples added to your application.',
         ],
         'section_03_title' => 'Les compétences que vous devez avoir',
         'section_04_title' => "Des compétences qu'il est bon à avoir",
@@ -272,7 +274,7 @@ return [
             'context' => 'Si vous voulez vraiment aider, <strong>il faut absolument que vous possédiez ces compétences</strong>.'
         ],
         'essential_context_1' => 'Nous vous remercions d’avoir répondu à la demande et de proposer de nous aider. Vous êtes formidable.',
-        'essential_context_2' => "Vous serez placé dans une équipe différente, soit une équipe qui devra travailler sous pression ou respecter des délais serrés pour apporter son soutien aux Canadiens. Si vous avez de solides compétences dans ces domaines et que vous êtes le genre de personne qui s’engage à fond, vous êtes la personne pour le poste. (Si vous ne possédez pas de solides compétences dans ces domaines, mais que vous voulez tout de même aider, consultez les autres demandes de compétences).",
+        'essential_context_2' => 'Vous serez placé dans une équipe différente, soit une équipe qui devra travailler sous pression ou respecter des délais serrés pour apporter son soutien aux Canadiens. Si vous avez de solides compétences dans ces domaines et que vous êtes le genre de personne qui s’engage à fond, vous êtes la personne pour le poste. (Si vous ne possédez pas de solides compétences dans ces domaines, mais que vous voulez tout de même aider, consultez les autres demandes de compétences).',
         'asset_alert' => [
             'heading' => "Ces compétences seraient bien d'avoir",
             'context' => 'Cela n’est pas nécessaire pour l’emploi que vous pourriez occuper. Vous pouvez l’apprendre au fur et à mesure. Mais ce serait bien si vous possédiez déjà la ou les compétences énumérées ci-dessous.',

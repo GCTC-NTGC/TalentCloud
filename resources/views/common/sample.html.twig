@@ -28,7 +28,8 @@
                 {% if sample == false %}
                     {{ sample_template.new_sample_label }}
                 {% else %}
-                    {{ sample.name }}
+                    <p data-c-font-weight="bold" data-c-font-size="h4" data-c-margin="bottom(.25)">{{ sample.name }}</p>
+                    <p data-c-color="c2">{{ sample.file_type.value }}</p>
                 {% endif %}
             </p>
         </div>
@@ -42,13 +43,42 @@
         {% else %}
             aria-hidden="true"
         {% endif %}>
+        {# Work Sample (Readable) #}
+        {% if locale == "application-view" %}
+            <hr data-c-hr="thin(gray)">
+            <div data-c-padding="all(1)" data-c-background="gray(20)">
+                <div data-c-grid="gutter(all, 1)">
+                    {# Name #}
+                    <div data-c-grid-item="base(1of1) tl(1of2)">
+                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ sample_template.name_label }}</p>
+                        <p>{{ sample.name }}</p>
+                    </div>
+                    {# Description #}
+                    <div data-c-grid-item="base(1of1)">
+                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ sample_template.description_label }}</p>
+                        <p>{{ sample.description|nl2br }}</p>
+                    </div>
+                    {# URL #}
+                    <div data-c-grid-item="base(1of1) tl(1of2)">
+                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ sample_template.link_label }}</p>
+                        <p><a href="{{ sample.url }}">{{ sample.url }}</a></p>
+                    </div>
+                    {# Date Created #}
+                    <div data-c-grid-item="base(1of1) tl(1of2)">
+                        <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ sample_template.date_created_label }}</p>
+                        <p>{{ sample.date_created|date("Y-m-d") }}</p>
+                    </div>
+                </div>
+            </div>
+        {# Work Sample (Editable) #}
+        {% else %}
         <form action="{{ sample ? route("work_samples.update", sample) : route("work_samples.create") }}" method="POST">
             <hr data-c-hr="thin(gray)">
             <div data-c-padding="all(1)" data-c-background="gray(20)">
                 <div class="form-error"></div>
                 {# Builds an input field for CSRF token validation #}
                 {{ csrf_field() }}
-                <input name="_method" type="hidden" value="{{ refesamplerence ? "PUT" : "POST" }}">
+                <input name="_method" type="hidden" value="{{ sample ? "PUT" : "POST" }}">
                 <div data-c-grid="gutter(all, 1)">
                     {# Name #}
                     <div data-c-input="text" data-c-grid-item="base(1of1)">
@@ -163,5 +193,6 @@
                 </div>
             </div>
         </form>
+        {% endif %}
     </div>
 </div>
