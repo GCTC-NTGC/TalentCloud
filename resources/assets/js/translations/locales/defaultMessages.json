@@ -1163,6 +1163,26 @@
         "defaultMessage": " words over the limit.",
         "description": "Message displayed next to word counter when user is over the maximum count.",
         "id": "application.skills.wordCountOverMax"
+      },
+      {
+        "defaultMessage": "Cancel",
+        "description": "Button text for cancelling the confirmation modal.",
+        "id": "application.skills.cancelButtonText"
+      },
+      {
+        "defaultMessage": "Are you sure?",
+        "description": "Heading text of the confirmation modal on the Skills page.",
+        "id": "application.skills.modalConfirmHeading"
+      },
+      {
+        "defaultMessage": "You're about to remove the link between this experience and the chosen skill. Any text you've provided for this skill will disappear from this experience everywhere on the site. Are you sure you want to remove this link?",
+        "description": "Body text of the confirmation modal on the Skills page.",
+        "id": "application.skills.modalConfirmBody"
+      },
+      {
+        "defaultMessage": "Confirm Removal",
+        "description": "Button text for confirming the confirmation modal.",
+        "id": "application.skills.confirmButtonText"
       }
     ],
     "path": "resources/assets/js/components/Application/Skills/SkillsMessages.json"

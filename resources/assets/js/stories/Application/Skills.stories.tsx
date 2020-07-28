@@ -17,6 +17,13 @@ const handleUpdateExperienceJustification = (
   return Promise.resolve(experience);
 };
 
+const handleRemoveExperienceJustification = (
+  experience: ExperienceSkill,
+): Promise<ExperienceSkill> => {
+  action("Removed")();
+  return Promise.resolve(experience);
+};
+
 stories.add(
   "Skills Page",
   (): React.ReactElement => (
@@ -25,6 +32,7 @@ stories.add(
       experiences={fakeExperienceSkills()}
       skills={fakeSkills()}
       handleUpdateExperienceJustification={handleUpdateExperienceJustification}
+      handleRemoveExperienceJustification={handleRemoveExperienceJustification}
     />
   ),
 );

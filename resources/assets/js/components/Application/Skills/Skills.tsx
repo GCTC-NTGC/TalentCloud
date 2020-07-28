@@ -4,6 +4,7 @@ import React, { useState, useReducer, useRef } from "react";
 import { FormattedMessage, useIntl, IntlShape } from "react-intl";
 import { Formik, Form, FastField } from "formik";
 import * as Yup from "yup";
+import Swal, { SweetAlertResult } from "sweetalert2";
 import { ExperienceSkill, Skill, Criteria } from "../../../models/types";
 import { slugify } from "../../../helpers/routes";
 import { getLocale, localizeFieldNonNull } from "../../../helpers/localize";
@@ -88,6 +89,9 @@ interface ExperienceAccordionProps {
       status: IconStatus;
     };
   }) => void;
+  handleRemoveExperience: (
+    experience: ExperienceSkill,
+  ) => Promise<ExperienceSkill>;
 }
 
 interface ExperienceSkillFormValues {
@@ -101,6 +105,7 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
   skillName,
   handleUpdateExperienceJustification,
   handleUpdateStatus,
+  handleRemoveExperience,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   let heading = "";
@@ -135,6 +140,23 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
 
   const handleExpandClick = (): void => {
     setIsExpanded(!isExpanded);
+  };
+
+  const handleRemoveButtonClick = (): void => {
+    Swal.fire({
+      title: intl.formatMessage(displayMessages.modalConfirmHeading),
+      text: intl.formatMessage(displayMessages.modalConfirmBody),
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#0A6CBC",
+      cancelButtonColor: "#F94D4D",
+      cancelButtonText: intl.formatMessage(displayMessages.cancel),
+      confirmButtonText: intl.formatMessage(displayMessages.confirm),
+    }).then((result: SweetAlertResult) => {
+      if (result && result.value !== undefined) {
+        handleRemoveExperience(experienceSkill);
+      }
+    });
   };
 
   const updateExperienceSkill = (
@@ -285,9 +307,8 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
                       <button
                         data-c-button="outline(c1)"
                         data-c-radius="rounded"
-                        data-c-dialog-id="confirm-deletion"
                         type="button"
-                        data-c-dialog-action="open"
+                        onClick={handleRemoveButtonClick}
                       >
                         <span>
                           <FormattedMessage
@@ -360,6 +381,9 @@ interface SkillsProps {
   handleUpdateExperienceJustification: (
     experience: ExperienceSkill,
   ) => Promise<ExperienceSkill>;
+  handleRemoveExperienceJustification: (
+    experience: ExperienceSkill,
+  ) => Promise<ExperienceSkill>;
 }
 
 const Skills: React.FC<SkillsProps> = ({
@@ -367,6 +391,7 @@ const Skills: React.FC<SkillsProps> = ({
   experiences,
   skills,
   handleUpdateExperienceJustification,
+  handleRemoveExperienceJustification,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -520,6 +545,9 @@ const Skills: React.FC<SkillsProps> = ({
                             skillName={skillName}
                             handleUpdateExperienceJustification={
                               handleUpdateExperienceJustification
+                            }
+                            handleRemoveExperience={
+                              handleRemoveExperienceJustification
                             }
                           />
                         ),
