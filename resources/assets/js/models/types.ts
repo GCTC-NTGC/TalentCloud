@@ -352,11 +352,11 @@ export interface ExperiencePersonal extends ExperienceBase {
 }
 
 export type Experience =
-  | (ExperienceWork & { type: "work" })
-  | (ExperienceEducation & { type: "education" })
-  | (ExperienceCommunity & { type: "community" })
-  | (ExperienceAward & { type: "award" })
-  | (ExperiencePersonal & { type: "personal" });
+  | ExperienceWork
+  | ExperienceEducation
+  | ExperienceCommunity
+  | ExperienceAward
+  | ExperiencePersonal;
 
 export interface ExperienceSkill {
   skill_id: number;
