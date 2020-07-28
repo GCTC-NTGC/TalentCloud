@@ -76,7 +76,7 @@ const Sidebar: React.FC<SidebarProps> = ({ menuSkills, intl, status }) => {
 interface ExperienceAccordionProps {
   experienceSkill: ExperienceSkill;
   intl: IntlShape;
-  status: SkillStatus;
+  status: IconStatus;
   skillName: string;
   handleUpdateExperienceJustification: (
     experience: ExperienceSkill,
@@ -171,115 +171,109 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={experienceSkillSchema}
-      onSubmit={(values, { setSubmitting, resetForm }): void => {
-        const experienceJustification = updateExperienceSkill(
-          experienceSkill,
-          values,
-        );
-        handleUpdateExperienceJustification(experienceJustification)
-          .then(() => {
-            handleUpdateStatus({
-              payload: {
-                skillId: experienceSkill.skill_id,
-                experienceId: experienceSkill.experience_id,
-                experienceType: experienceSkill.experience_type,
-                status: IconStatus.COMPLETE,
-              },
-            });
-            setSubmitting(false);
-            resetForm();
-          })
-          .catch(() => {
-            setSubmitting(false);
-          });
-      }}
+    <div
+      data-c-accordion=""
+      data-c-background="white(100)"
+      data-c-card=""
+      data-c-margin="bottom(.5)"
+      className={`application-skill-explanation${isExpanded ? " active" : ""}`}
     >
-      {({ dirty, isSubmitting, isValid, submitForm }): React.ReactElement => (
-        <div
-          data-c-accordion=""
-          data-c-background="white(100)"
-          data-c-card=""
-          data-c-margin="bottom(.5)"
-          className={`application-skill-explanation${
-            isExpanded ? " active" : ""
-          }`}
-        >
-          <button
-            aria-expanded={isExpanded ? "true" : "false"}
-            data-c-accordion-trigger=""
-            tabIndex={0}
-            type="button"
-            onClick={handleExpandClick}
-          >
-            <div data-c-grid="">
-              <div data-c-grid-item="base(1of4) tl(1of6) equal-col">
-                <div className="skill-status-indicator">
-                  <StatusIcon
-                    status={
-                      status[experienceSkill.skill_id].experiences[
-                        `${experienceSkill.experience_type}_${experienceSkill.experience_id}`
-                      ]
-                    }
-                    size="h4"
-                  />
+      <button
+        aria-expanded={isExpanded ? "true" : "false"}
+        data-c-accordion-trigger=""
+        tabIndex={0}
+        type="button"
+        onClick={handleExpandClick}
+      >
+        <div data-c-grid="">
+          <div data-c-grid-item="base(1of4) tl(1of6) equal-col">
+            <div className="skill-status-indicator">
+              <StatusIcon status={status} size="h4" />
+            </div>
+          </div>
+          <div data-c-grid-item="base(3of4) tl(5of6)">
+            <div data-c-padding="all(1)">
+              <div data-c-grid="middle">
+                <div data-c-grid-item="tl(3of4)">
+                  <p>{heading}</p>
+                  <p
+                    data-c-margin="top(quarter)"
+                    data-c-colour="c1"
+                    data-c-font-size="small"
+                  >
+                    {subHeading}
+                  </p>
                 </div>
-              </div>
-              <div data-c-grid-item="base(3of4) tl(5of6)">
-                <div data-c-padding="all(1)">
-                  <div data-c-grid="middle">
-                    <div data-c-grid-item="tl(3of4)">
-                      <p>{heading}</p>
-                      <p
-                        data-c-margin="top(quarter)"
-                        data-c-colour="c1"
-                        data-c-font-size="small"
-                      >
-                        {subHeading}
-                      </p>
-                    </div>
-                    <div
-                      data-c-grid-item="tl(1of4)"
-                      data-c-align="base(left) tl(center)"
-                    >
-                      {experienceSkill.justification.length === 0 && (
-                        <span data-c-color="stop" className="missing-info">
-                          <FormattedMessage
-                            id="application.skills.justificationMissing"
-                            defaultMessage="Missing Information"
-                            description="Accordion heading error that displays when the justification is empty."
-                          />
-                        </span>
-                      )}
-                    </div>
-                  </div>
+                <div
+                  data-c-grid-item="tl(1of4)"
+                  data-c-align="base(left) tl(center)"
+                >
+                  {experienceSkill.justification.length === 0 && (
+                    <span data-c-color="stop" className="missing-info">
+                      <FormattedMessage
+                        id="application.skills.justificationMissing"
+                        defaultMessage="Missing Information"
+                        description="Accordion heading error that displays when the justification is empty."
+                      />
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
-            <span data-c-visibility="invisible">
-              {intl.formatMessage(
-                displayMessages.accessibleAccordionButtonText,
-              )}
-            </span>
-            {isExpanded ? (
-              <i
-                aria-hidden="true"
-                className="fas fa-angle-up"
-                data-c-colour="black"
-                data-c-accordion-remove=""
-              />
-            ) : (
-              <i
-                aria-hidden="true"
-                className="fas fa-angle-down"
-                data-c-colour="black"
-                data-c-accordion-add=""
-              />
-            )}
-          </button>
-          {isExpanded && (
+          </div>
+        </div>
+        <span data-c-visibility="invisible">
+          {intl.formatMessage(displayMessages.accessibleAccordionButtonText)}
+        </span>
+        {isExpanded ? (
+          <i
+            aria-hidden="true"
+            className="fas fa-angle-up"
+            data-c-colour="black"
+            data-c-accordion-remove=""
+          />
+        ) : (
+          <i
+            aria-hidden="true"
+            className="fas fa-angle-down"
+            data-c-colour="black"
+            data-c-accordion-add=""
+          />
+        )}
+      </button>
+      {isExpanded && (
+        <Formik
+          initialValues={initialValues}
+          validationSchema={experienceSkillSchema}
+          onSubmit={(values, { setSubmitting, resetForm }): void => {
+            const experienceJustification = updateExperienceSkill(
+              experienceSkill,
+              values,
+            );
+            handleUpdateExperienceJustification(experienceJustification)
+              .then(() => {
+                handleUpdateStatus({
+                  payload: {
+                    skillId: experienceSkill.skill_id,
+                    experienceId: experienceSkill.experience_id,
+                    experienceType: experienceSkill.experience_type,
+                    status: IconStatus.COMPLETE,
+                  },
+                });
+                setSubmitting(false);
+                resetForm();
+              })
+              .catch(() => {
+                setSubmitting(false);
+              });
+          }}
+        >
+          {({
+            dirty,
+            isSubmitting,
+            isValid,
+            submitForm,
+          }): React.ReactElement => (
             <div
               aria-hidden={isExpanded ? "false" : "true"}
               data-c-accordion-content=""
@@ -368,9 +362,9 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
               </Form>
             </div>
           )}
-        </div>
+        </Formik>
       )}
-    </Formik>
+    </div>
   );
 };
 
@@ -486,7 +480,7 @@ const Skills: React.FC<SkillsProps> = ({
               const skillHtmlId = slugify(skillName);
 
               return (
-                <>
+                <div key={skill.id}>
                   <h3
                     className="application-skill-title"
                     data-c-heading="h3"
@@ -535,26 +529,32 @@ const Skills: React.FC<SkillsProps> = ({
                   ) : (
                     <div data-c-accordion-group="">
                       {getExperiencesOfSkill(skill, experiences).map(
-                        (experienceSkill) => (
-                          <ExperienceAccordion
-                            key={`experience-skill-textarea-${experienceSkill.experience_type}-${experienceSkill.skill_id}-${experienceSkill.experience_id}`}
-                            experienceSkill={experienceSkill}
-                            intl={intl}
-                            status={status}
-                            handleUpdateStatus={dispatchStatus}
-                            skillName={skillName}
-                            handleUpdateExperienceJustification={
-                              handleUpdateExperienceJustification
-                            }
-                            handleRemoveExperience={
-                              handleRemoveExperienceJustification
-                            }
-                          />
-                        ),
+                        (experienceSkill) => {
+                          const experienceStatus =
+                            status[experienceSkill.skill_id].experiences[
+                              `${experienceSkill.experience_type}_${experienceSkill.experience_id}`
+                            ];
+                          return (
+                            <ExperienceAccordion
+                              key={`experience-skill-textarea-${experienceSkill.experience_type}-${experienceSkill.skill_id}-${experienceSkill.experience_id}`}
+                              experienceSkill={experienceSkill}
+                              intl={intl}
+                              status={experienceStatus}
+                              handleUpdateStatus={dispatchStatus}
+                              skillName={skillName}
+                              handleUpdateExperienceJustification={
+                                handleUpdateExperienceJustification
+                              }
+                              handleRemoveExperience={
+                                handleRemoveExperienceJustification
+                              }
+                            />
+                          );
+                        },
                       )}
                     </div>
                   )}
-                </>
+                </div>
               );
             })}
           </div>
