@@ -10,6 +10,7 @@ use App\Models\ExperiencePersonal;
 use App\Models\ExperienceWork;
 use App\Http\Resources\Experience as ExperienceResource;
 use App\Models\JobApplication;
+use App\Models\Lookup\EducationType;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -124,6 +125,82 @@ class ExperienceControllerTest extends TestCase
         $response->assertOk();
 
         $expectData = collect($workData)
+            ->except(['id'])
+            ->merge([
+                'experienceable_id' => $applicant->id,
+                'experienceable_type' => 'applicant',
+            ])->all();
+        $response->assertJsonFragment($expectData);
+        $this->assertTrue($response->decodeResponseJson('id') !== 0);
+    }
+
+    public function testStorePersonal()
+    {
+        $faker = \Faker\Factory::create();
+
+        // Id, experienceable_id, and experienceable_type should be ignored by the store request.
+        $personalData = [
+            'id' => 0,
+            'title' => $faker->jobTitle(),
+            'description' => $faker->paragraph(),
+            'is_shareable' => $faker->boolean(),
+            'is_active' => $faker->boolean(),
+            'start_date' => $faker->dateTimeBetween('-3 years', '-1 years')
+                ->setTime(0, 0, 0, 0)->format($this->DATE_FORMAT),
+            'end_date' => $faker->dateTimeBetween('-1 years', '-1 day')
+                ->setTime(0, 0, 0, 0)->format($this->DATE_FORMAT),
+            'is_education_requirement' => $faker->boolean(),
+            'experienceable_id' => 0,
+            'experienceable_type' => '',
+        ];
+
+        $applicant = factory(Applicant::class)->create();
+        $response = $this->actingAs($applicant->user)->json(
+            'post',
+            route('api.v1.applicant.experience-personal.store', $applicant->id),
+            $personalData
+        );
+        $response->assertOk();
+
+        $expectData = collect($personalData)
+            ->except(['id'])
+            ->merge([
+                'experienceable_id' => $applicant->id,
+                'experienceable_type' => 'applicant',
+            ])->all();
+        $response->assertJsonFragment($expectData);
+        $this->assertTrue($response->decodeResponseJson('id') !== 0);
+    }
+
+    public function testStoreEducation()
+    {
+        $faker = \Faker\Factory::create();
+
+        // Id, experienceable_id, and experienceable_type should be ignored by the store request.
+        $educationData = [
+            'id' => 0,
+            'education_type_id' => EducationType::inRandomOrder()->first->id,
+            'description' => $faker->paragraph(),
+            'is_shareable' => $faker->boolean(),
+            'is_active' => $faker->boolean(),
+            'start_date' => $faker->dateTimeBetween('-3 years', '-1 years')
+                ->setTime(0, 0, 0, 0)->format($this->DATE_FORMAT),
+            'end_date' => $faker->dateTimeBetween('-1 years', '-1 day')
+                ->setTime(0, 0, 0, 0)->format($this->DATE_FORMAT),
+            'is_education_requirement' => $faker->boolean(),
+            'experienceable_id' => 0,
+            'experienceable_type' => '',
+        ];
+
+        $applicant = factory(Applicant::class)->create();
+        $response = $this->actingAs($applicant->user)->json(
+            'post',
+            route('api.v1.applicant.experience-personal.store', $applicant->id),
+            $educationData
+        );
+        $response->assertOk();
+
+        $expectData = collect($educationData)
             ->except(['id'])
             ->merge([
                 'experienceable_id' => $applicant->id,
