@@ -59,27 +59,27 @@ describe("Skills Helpers tests", (): void => {
       const expectState: SkillStatus = {
         [fakeSkills()[0].id]: {
           experiences: {
-            [`experience_${fakeExperienceEducation().type}_${
+            [`${fakeExperienceEducation().type}_${
               fakeExperienceEducation().id
             }`]: IconStatus.DEFAULT,
-            [`experience_${fakeExperienceWork().type}_${
+            [`${fakeExperienceWork().type}_${
               fakeExperienceWork().id
             }`]: IconStatus.DEFAULT,
           },
         },
         [fakeSkills()[3].id]: {
           experiences: {
-            [`experience_${fakeExperiencePersonal().type}_${
+            [`${fakeExperiencePersonal().type}_${
               fakeExperiencePersonal().id
             }`]: IconStatus.DEFAULT,
-            [`experience_${fakeExperienceCommunity().type}_${
+            [`${fakeExperienceCommunity().type}_${
               fakeExperienceCommunity().id
             }`]: IconStatus.DEFAULT,
           },
         },
         [fakeSkills()[2].id]: {
           experiences: {
-            [`experience_${fakeExperienceAward().type}_${
+            [`${fakeExperienceAward().type}_${
               fakeExperienceAward().id
             }`]: IconStatus.DEFAULT,
           },
