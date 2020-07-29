@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Experience as ExperienceResource;
 use App\Models\Applicant;
+use App\Models\ExperienceAward;
+use App\Models\ExperienceCommunity;
+use App\Models\ExperienceEducation;
+use App\Models\ExperiencePersonal;
 use App\Models\ExperienceWork;
 use App\Models\JobApplication;
 use Illuminate\Http\Request;
@@ -69,6 +73,38 @@ class ExperienceController extends Controller
         $work = new ExperienceWork($data);
         $applicant->experiences_work()->save($work);
         return new ExperienceResource($work->fresh());
+    }
+
+    public function storePersonal(Request $request, Applicant $applicant)
+    {
+        $data = $request->input();
+        $personal = new ExperiencePersonal($data);
+        $applicant->experiences_personal()->save($personal);
+        return new ExperienceResource($personal->fresh());
+    }
+
+    public function storeEducation(Request $request, Applicant $applicant)
+    {
+        $data = $request->input();
+        $education = new ExperienceEducation($data);
+        $applicant->experiences_education()->save($education);
+        return new ExperienceResource($education->fresh());
+    }
+
+    public function storeAward(Request $request, Applicant $applicant)
+    {
+        $data = $request->input();
+        $award = new ExperienceAward($data);
+        $applicant->experiences_award()->save($award);
+        return new ExperienceResource($award->fresh());
+    }
+
+    public function storeCommunity(Request $request, Applicant $applicant)
+    {
+        $data = $request->input();
+        $community = new ExperienceCommunity($data);
+        $applicant->experiences_community()->save($community);
+        return new ExperienceResource($community->fresh());
     }
 
 }

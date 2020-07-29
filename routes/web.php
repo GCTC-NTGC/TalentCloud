@@ -934,10 +934,22 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->where('applicant', '[0-9]+')
         ->middleware('can:update,applicant')
         ->name('applicant.experience-work.store');
-    // Route::post('applicants/{applicant}/experience-personal', 'Api\ExperienceController@storePersonal')
-    // Route::post('applicants/{applicant}/experience-education', 'Api\ExperienceController@storeEducation')
-    // Route::post('applicants/{applicant}/experience-award', 'Api\ExperienceController@storeAward')
-    // Route::post('applicants/{applicant}/experience-community', 'Api\ExperienceController@storeCommunity')
+    Route::post('applicants/{applicant}/experience-personal', 'Api\ExperienceController@storePersonal')
+        ->where('applicant', '[0-9]+')
+        ->middleware('can:update,applicant')
+        ->name('applicant.experience-personal.store');
+    Route::post('applicants/{applicant}/experience-education', 'Api\ExperienceController@storeEducation')
+        ->where('applicant', '[0-9]+')
+        ->middleware('can:update,applicant')
+        ->name('applicant.experience-education.store');
+    Route::post('applicants/{applicant}/experience-award', 'Api\ExperienceController@storeAward')
+        ->where('applicant', '[0-9]+')
+        ->middleware('can:update,applicant')
+        ->name('applicant.experience-award.store');
+    Route::post('applicants/{applicant}/experience-community', 'Api\ExperienceController@storeCommunity')
+        ->where('applicant', '[0-9]+')
+        ->middleware('can:update,applicant')
+        ->name('applicant.experience-community.store');
 });
 Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
     Route::get('applications/{application}', 'Api\ApplicationController@show')
