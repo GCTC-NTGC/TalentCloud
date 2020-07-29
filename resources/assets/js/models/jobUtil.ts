@@ -28,9 +28,10 @@ import {
   hrJobSummary,
   hrJobPreview,
   jobBuilderTasks,
-  managerJobShow,
+  managerJobPreview,
   hrJobApplications,
   managerJobApplications,
+  managerJobSummary,
 } from "../helpers/routes";
 import { hasKey } from "../helpers/queries";
 
@@ -218,8 +219,8 @@ export const activityLocationUrl = (
     [LocationId.screeningPlanSummary]: managerScreeningPlan(locale, jobId),
     [LocationId.screeningPlanRatings]: managerScreeningPlan(locale, jobId),
 
-    [LocationId.summary]: jobBuilderReview(locale, jobId), // TODO: change to summary page, once managers have it
-    [LocationId.preview]: managerJobShow(locale, jobId),
+    [LocationId.summary]: managerJobSummary(locale, jobId),
+    [LocationId.preview]: managerJobPreview(locale, jobId),
   };
   const urlMap = isHrAdvisor ? hrAdvisorUrls : managerUrls;
   const backupUrl = "/";

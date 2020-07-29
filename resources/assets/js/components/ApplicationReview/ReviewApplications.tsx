@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import dayjs from "dayjs";
 import { FormattedMessage, defineMessages, useIntl } from "react-intl";
 import { Application, Comment } from "../../models/types";
@@ -114,6 +114,12 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
     },
   ];
 
+  const filterComments = useCallback(
+    (comment: Comment): boolean =>
+      hasKey(applicantReviewLocations, comment.location),
+    [],
+  );
+
   return (
     <section className="applicant-review container--layout-xl">
       <div className="flex-grid gutter">
@@ -159,9 +165,7 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
             isHrAdvisor={portal === "hr"}
             generalLocation={LocationId.applicantsGeneric}
             locationMessages={applicantReviewLocations}
-            filterComments={(comment: Comment): boolean =>
-              hasKey(applicantReviewLocations, comment.location)
-            }
+            filterComments={filterComments}
           />
         </div>
       </div>

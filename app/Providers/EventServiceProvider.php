@@ -24,7 +24,9 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\LogUserUpdated',
         ],
         'App\Events\JobSaved' => [
+            'App\Listeners\SendScreenCandidatesEmail',
             'App\Listeners\RecordJobStatusTransition',
+            'App\Listeners\JobPosterQuestionInitializer',
         ],
         'App\Events\ApplicationRetrieved' => [
             'App\Listeners\LogApplicationRetrieved',

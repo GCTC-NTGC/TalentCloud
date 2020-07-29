@@ -27,7 +27,7 @@ export const managerSurveyMessages = defineMessages({
   },
   managerSurveyLink: {
     id: "managerSurveyModal.link",
-    defaultMessage: "<a>Take me to the survey</>.",
+    defaultMessage: "Take me to the survey.",
     description: "Link to manager survey.",
   },
   jobPosterLink: {
@@ -80,20 +80,16 @@ export const ManagerSurveyModal: React.FC<ManagerSurveyModalProps> = ({
               )}
             </p>
             <p data-c-margin="top(normal)">
-              {intl.formatMessage(managerSurveyMessages.managerSurveyLink, {
-                a: msg => (
-                  <a
-                    href="https://talentcloud1.typeform.com/to/MrOkgK"
-                    title={intl.formatMessage(
-                      managerSurveyMessages.managerSurveyLinkTitle,
-                    )}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                  >
-                    {msg}
-                  </a>
-                ),
-              })}
+              <a
+                href="https://talentcloud1.typeform.com/to/MrOkgK"
+                title={intl.formatMessage(
+                  managerSurveyMessages.managerSurveyLinkTitle,
+                )}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                {intl.formatMessage(managerSurveyMessages.managerSurveyLink)}
+              </a>
             </p>
           </div>
         </div>

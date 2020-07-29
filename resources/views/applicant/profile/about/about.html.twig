@@ -1,107 +1,41 @@
 {# =============================================================================
 
-Talent Cloud
-Applicant: Profile - About
+    Talent Cloud
+    Applicant: Profile - About
 
 ============================================================================= #}
-<div
-	class="applicant-profile__about"
-	data-clone>
-	<div
-		data-c-container="medium">
-		<div
-			class="form__wrapper">
-			<div
-				class="applicant-profile__data-wrapper">
-				<h2>
-					{{ profile.about_section.about_title }}
-				</h2>
-				{% include "errors/form_errors" %}
-			</div>
-			{# Social Media #}
-			<fieldset
-				class="form__fieldset">
-				<legend
-					class="form__legend">
-					{{ profile.about_section.social_media_form_legend }}
-				</legend>
-				<div
-					class="flex-grid">
-					<div
-						class="box med-1of2">
-						<div
-							class="form__input-wrapper--float {% if applicant.twitter_username %}active{% endif %}">
-							<label
-								class="form__label"
-								for="editProfileTwitter">
-								{{ profile.about_section.twitter_label }}
-							</label>
-                            <input
-                                class="form__input"
-                                id="editProfileTwitter"
-                                type="text"
-                                name="twitter_username"
-                                pattern="{{ twitterHandlePattern }}"
-                                value="{{ applicant.twitter_username }}"
-                                autocomplete="off" />
-						</div>
-					</div>
-					<div
-						class="box med-1of2">
-                        <div class="form__input-wrapper--float {% if applicant.linkedin_url %}active{% endif %}">
-                            <label class="form__label" for="editProfileLinkedin">
-                                {{ profile.about_section.linkedin_label }}
-                            </label>
-                            <input
-                                class="form__input"
-                                id="editProfileLinkedin"
-                                type="text"
-                                name="linkedin_url"
-                                pattern="{{ linkedInUrlPattern }}"
-                                value="{{ applicant.linkedin_url }}"
-                                autocomplete="off" />
-                        </div>
-					</div>
-				</div>
-			</fieldset>
-			{# Other Info #}
-			<fieldset
-				class="form__fieldset">
-				<legend
-					class="form__legend">
-					{{ profile.about_section.other_form_legend }}
-				</legend>
-				<div
-					class="flex-grid">
-					<div
-						class="box full">
-						<div
-							class="form__input-wrapper--float {% if applicant.tagline == true %}active{% endif %}">
-							<label
-								class="form__label"
-								for="editProfileTagline">
-								{{ profile.about_section.tagline_label }}
-							</label>
-							<input
-								class="form__input"
-								id="editProfileTagline"
-								type="text"
-								name="tagline"
-								value="{{ applicant.tagline }}"/>
-						</div>
-					</div>
-				</div>
-			</fieldset>
-			<span
-				class="centre">
-				<button
-					class="button--blue light-bg"
-					name="submit"
-					type="submit"
-					value="about">
-					Save Changes
-				</button>
-			</span>
-		</div>
-	</div>
-</div>
+<section>
+    <h2 data-c-heading="h2" data-c-padding="top(3)" data-c-margin="bottom(2)">{{ profile.about_section.about_title }}</h2>
+    {% include "errors/form_errors" %}
+    <div data-c-grid="gutter(all, 1)">
+        <div data-c-input="text" data-c-grid-item="tl(1of2)">
+            <label for="editProfileTwitter">{{ profile.about_section.twitter_label }}</label>
+            <span>{{ profile.required_label }}</span>
+            <div>
+                <input id="editProfileTwitter" name="twitter_username" pattern="{{ twitterHandlePattern }}" value="{{ applicant.twitter_username }}" autocomplete="off" type="text" />
+            </div>
+            <span>{{ profile.input_error }}</span>
+        </div>
+        <div data-c-input="url" data-c-grid-item="tl(1of2)">
+            <label for="editProfileLinkedin">{{ profile.about_section.linkedin_label }}</label>
+            <span>{{ profile.required_label }}</span>
+            <div>
+                <input id="editProfileLinkedin" placeholder="e.g. https://www.linkedin.com/username" name="linkedin_url" pattern="{{ linkedInUrlPattern }}" value="{{ applicant.linkedin_url }}" autocomplete="off" type="url" />
+            </div>
+            <span>{{ profile.input_error }}</span>
+        </div>
+        <div data-c-input="text" data-c-grid-item="base(1of1)">
+            <label for="editProfileTagline">{{ profile.about_section.tagline_label }}</label>
+            <span>{{ profile.required_label }}</span>
+            <div>
+                <input id="editProfileTagline" name="tagline" value="{{ applicant.tagline }}" type="text" />
+            </div>
+            <span>{{ profile.input_error }}</span>
+        </div>
+        <div data-c-grid-item="base(1of1)" data-c-align="base(right)">
+            <button data-c-button="solid(c1)" data-c-radius="rounded" name="submit" type="submit" value="about">
+                {{ profile.about_section.save_button_label }}
+            </button>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,21 @@
+<header>
+    <div data-c-overlay="white(80)" style="background-image: url('images/response-wall.jpg')">
+        <div data-c-container="large" data-c-padding="tb(3)" data-c-align="base(center) tl(left)">
+            <h1 data-c-heading="h1" data-c-color="black" data-c-margin="bottom(1)">{{ response.header.title }}</h1>
+            <div data-c-grid="gutter(all, 1) bottom">
+                <div data-c-grid-item="tl(2of3)" data-c-align="base(center) tl(left)">
+                    <p data-c-color="black" data-c-margin="bottom(.25)">{{ response.header.blurb }}</p>
+                    <p data-c-color="black">{{ response.header.blurb2 }}</p>
+                </div>
+                <div data-c-grid-item="tl(1of3)" data-c-align="base(center) tl(right)">
+                    <span data-c-color="black">{{ response.header.beta }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="tc-gradient-lr">
+    <div data-c-container="large(center)" data-c-align="base(center)" data-c-padding="tb(1)">
+        <p data-c-color="white">{{ response.header.cta }} <a href="#apply" title="{{ response.header.cta_link.title }}">{{ response.header.cta_link.label }}</a>.</p>
+    </div>
+</div>

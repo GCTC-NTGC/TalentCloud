@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { connect } from "react-redux";
 import { WrappedComponentProps, injectIntl } from "react-intl";
 import { Job, JobPosterKeyTask, Criteria } from "../../../models/types";
-import { JobDetailsIntl } from "./JobDetails";
+import { JobDetails } from "./JobDetails";
 import { RootState } from "../../../store/store";
 import { DispatchType } from "../../../configureStore";
 import { updateJob } from "../../../store/Job/jobActions";
@@ -66,7 +66,7 @@ const JobDetailsPage: React.FunctionComponent<JobDetailsPageProps &
   return (
     <JobBuilderStepContainer jobId={jobId} currentPage="details">
       {job !== null && (
-        <JobDetailsIntl
+        <JobDetails
           job={job}
           handleSubmit={handleSubmit}
           handleReturn={handleReturn}

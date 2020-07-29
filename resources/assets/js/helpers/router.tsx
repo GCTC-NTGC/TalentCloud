@@ -2,6 +2,7 @@ import { createBrowserHistory, Location } from "history";
 import UniversalRouter, { Routes } from "universal-router";
 import React, { useState, useEffect, useMemo, ReactElement } from "react";
 import { IntlShape, MessageDescriptor } from "react-intl";
+import { removeBaseUrl } from "./routes";
 
 const HISTORY = createBrowserHistory();
 
@@ -11,7 +12,7 @@ export const useLocation = (): Location<any> => {
   const history = HISTORY;
   const [location, setLocation] = useState(history.location);
   useEffect((): (() => void) => {
-    const unListen = history.listen((newLocation): void =>
+    const unListen = history.listen(({ location: newLocation }): void =>
       setLocation(newLocation),
     );
     return (): void => unListen();
@@ -48,10 +49,11 @@ export const useRouter = (
   const location = useLocation();
   const router = useMemo(() => new UniversalRouter(routes), [routes]);
   const [component, setComponent] = useState<React.ReactElement | null>(null);
-
+  const path = location.pathname;
   // Render the result of routing
   useEffect((): void => {
-    router.resolve(location.pathname).then((result): void => {
+    router.resolve(path).then((result): void => {
+      // Dynamically update the page title and header on step changes
       const title = intl.formatMessage(result.title);
       document.title = title;
       const h1 = document.querySelector("h1");
@@ -64,11 +66,15 @@ export const useRouter = (
 };
 
 export const navigate = (url: string): void => {
-  HISTORY.push(url);
+  // The history object has been initialized with the app's base url, so ensure it's not also part of the specified url.
+  const path = removeBaseUrl(url);
+  HISTORY.push(path);
 };
 
 export const redirect = (url: string): void => {
-  HISTORY.replace(url);
+  // The history object has been initialized with the app's base url, so ensure it's not also part of the specified url.
+  const path = removeBaseUrl(url);
+  HISTORY.replace(path);
 };
 
 export const Link: React.FC<{ href: string; title: string }> = ({

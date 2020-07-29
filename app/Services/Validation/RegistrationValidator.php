@@ -10,6 +10,7 @@ class RegistrationValidator
     public static function basicRules()
     {
         return [
+            'website' => 'size:0', // Honeypot, hidden field needs to be empty.
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',

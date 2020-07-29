@@ -54,6 +54,14 @@ mix
     "resources/assets/js/components/HRPortal/JobSummaryActivityFeed.tsx",
     "public/js",
   )
+  .ts(
+    "resources/assets/js/components/StrategicTalentResponse/StrApiTestPage.tsx",
+    "public/js",
+  )
+  .ts(
+    "resources/assets/js/components/StrategicTalentResponse/ResponseScreening/ResponseScreeningPage.tsx",
+    "public/js",
+  )
   .sass("resources/assets/sass/app.scss", "public/css", {
     implementation: sass,
     sassOptions: {

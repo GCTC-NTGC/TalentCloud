@@ -1,13 +1,14 @@
 <?php
 
+use App\Models\Applicant;
 use App\Models\JobApplication;
+use App\Models\JobApplicationAnswer;
 use App\Models\JobPoster;
 use App\Models\Lookup\ApplicationStatus;
 use App\Models\Lookup\CitizenshipDeclaration;
-use App\Models\Lookup\VeteranStatus;
 use App\Models\Lookup\PreferredLanguage;
-use App\Models\Applicant;
-use App\Models\JobApplicationAnswer;
+use App\Models\Lookup\SecurityClearance;
+use App\Models\Lookup\VeteranStatus;
 use App\Models\SkillDeclaration;
 
 $factory->define(JobApplication::class, function (Faker\Generator $faker) {
@@ -44,7 +45,24 @@ $factory->state(JobApplication::class, 'submitted', function (Faker\Generator $f
     ];
 });
 
-$factory->afterCreating(JobApplication::class, function ($application) : void {
+$factory->state(JobApplication::class, 'strategic_response', function (Faker\Generator $faker) {
+    return [
+        'citizenship_declaration_id' => null,
+        'veteran_status_id' => null,
+        'language_requirement_confirmed' => false,
+        'director_name' => $faker->name(),
+        'director_title' => $faker->jobTitle(),
+        'director_email' => $faker->email(),
+        'reference_name' => $faker->name(),
+        'reference_title' => $faker->jobTitle(),
+        'reference_email' => $faker->email(),
+        'gov_email' => $faker->firstName() . '@canada.ca',
+        'physical_office_willing' => $faker->boolean(),
+        'security_clearance_id' => SecurityClearance::inRandomOrder()->first()->id,
+    ];
+});
+
+$factory->afterCreating(JobApplication::class, function ($application): void {
     foreach ($application->job_poster->job_poster_questions as $question) {
         $answer = factory(JobApplicationAnswer::class)->create([
             'job_poster_question_id' => $question->id,

@@ -19,12 +19,15 @@ use App\Models\BaseModel;
  * @property boolean $has_blockcert
  * @property int $experienceable_id
  * @property string $experienceable_type
+ * @property boolean $is_education_requirement
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\Lookup\EducationType $education_type
  * @property \App\Models\Lookup\EducationStatus $education_status
  * @property \App\Models\Applicant|\App\Models\JobApplication $experienceable
+ * @property \Illuminate\Database\Eloquent\Collection $skills
+ * @property \Illuminate\Database\Eloquent\Collection $experience_skills
  */
 class ExperienceEducation extends BaseModel
 {
@@ -37,7 +40,8 @@ class ExperienceEducation extends BaseModel
         'start_date' => 'date',
         'end_date' => 'date',
         'thesis_title' => 'string',
-        'has_blockcert' => 'boolean'
+        'has_blockcert' => 'boolean',
+        'is_education_requirement' => 'boolean'
     ];
 
     protected $fillable = [
@@ -49,7 +53,8 @@ class ExperienceEducation extends BaseModel
         'start_date',
         'end_date',
         'thesis_title',
-        'has_blockcert'
+        'has_blockcert',
+        'is_education_requirement'
     ];
 
     protected $table = 'experiences_education';
@@ -67,5 +72,15 @@ class ExperienceEducation extends BaseModel
     public function experienceable() //phpcs:ignore
     {
         return $this->morphTo();
+    }
+
+    public function skills()
+    {
+        return $this->morphToMany(\App\Models\Skill::class, 'experience', 'experience_skills');
+    }
+
+    public function experience_skills() //phpcs:ignore
+    {
+        return $this->morphMany(\App\Models\ExperienceSkill::class, 'experience');
     }
 }

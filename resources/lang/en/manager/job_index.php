@@ -8,6 +8,7 @@ return [
     * Controller: Controllers\JobController.php
     * View: views/manager/job_index.html.twig
     */
+    'job_index_title' => 'Talent Cloud | Manager: My Job Posters',
     'title' => 'My Job Posters',
     'legend' => 'Legend:',
     'draft_poster' => 'Draft Poster',
@@ -17,7 +18,6 @@ return [
     'create_job_poster' => 'Create a new job poster.',
     'active_posters' => 'My Active Posters',
     'no_active_posters' => "You don't currently have any active posters! Create a new one using the button above.",
-    'preview' => '(Preview)',
     'empty_title' => 'Title Missing',
     'trans_title_placeholder' => 'Translation Required',
     'created_on' => 'Created On:',
@@ -33,7 +33,7 @@ return [
     'edit_screening_plans' => 'Edit Screening Plans',
     'send_for_review' => 'Send for Review',
     'send_this_review' => 'Send this job poster for submission review..',
-    'view_job_summary' => 'View Job Summary',
+    'view_job_summary' => 'View Job and Tools',
     'view_summary_title' => 'View a summary of this job poster.',
     'review_applicants' => 'Review Applicants',
     'review_this_applicants' => 'Review the applicants who applied to this job.',

@@ -1,14 +1,12 @@
 {# =============================================================================
 
     Talent Cloud
-    Applicant: Application Index - Null State
+    Applicant: My Applications - Null State
+
+    This UI appears when no jobs appear in a particular category on the
+    applicant's application list.
 
 ============================================================================= #}
-<div
-    class="application-index__null-state">
-
-    <span>
-        {{ application_index.null.title }}
-    </span>
-
+<div data-c-background="gray(20)" data-c-border="all(thin, solid, gray)" data-c-padding="all(1)" data-c-align="base(center)" data-c-color="gray" data-c-radius="rounded">
+    <p>{{ application_index.null.title }}</p>
 </div>

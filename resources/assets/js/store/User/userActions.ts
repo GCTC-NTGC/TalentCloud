@@ -48,7 +48,9 @@ export type FetchAllUsersAction = AsyncFsaActions<
   {}
 >;
 
-export const fetchAllUsers = (): RSAActionTemplate<
+export const fetchAllUsers = (
+  ids = "",
+): RSAActionTemplate<
   typeof FETCH_ALL_USERS_STARTED,
   typeof FETCH_ALL_USERS_SUCCEEDED,
   typeof FETCH_ALL_USERS_FAILED,
@@ -56,7 +58,7 @@ export const fetchAllUsers = (): RSAActionTemplate<
   {}
 > =>
   asyncGet(
-    getAllUsersEndpoint(),
+    getAllUsersEndpoint(ids),
     FETCH_ALL_USERS_STARTED,
     FETCH_ALL_USERS_SUCCEEDED,
     FETCH_ALL_USERS_FAILED,

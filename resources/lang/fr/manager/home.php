@@ -8,6 +8,7 @@ return [
      * Route: /manager/
      * View: views/manager/home.html.twig
      */
+    'home_title' => 'Nuage de talents | Gestionnaire : Accueil',
     'hero' => [
         'heading' => 'Nuage de talents',
         'heading_alt' => 'Feuille d\'érable canadienne.',
@@ -15,7 +16,8 @@ return [
         'button' => [
             'text' => 'Inscrivez-vous',
             'title' => 'Inscrivez-vous à titre de gestionnaire pour faire l’essai du portail des gestionnaires du Nuage de talents.'
-        ]
+        ],
+        'pilot' => 'BETA / Projet pilote'
     ],
     'banner' => [
         'content' => 'Bienvenue au Portail des :open gestionnaires :close du Nuage de talents.',

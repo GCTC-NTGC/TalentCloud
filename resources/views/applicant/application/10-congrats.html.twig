@@ -1,0 +1,60 @@
+{# =============================================================================
+
+    Talent Cloud / Application Submission
+
+    The purpose of this UI is to have the applicant sign off on their final
+    application and submit it for review by the manager.
+
+============================================================================= #}
+{# Default Page Layout #}
+{% extends "layouts/base-test" %}
+{# HTML Page Title #}
+{% block title %}
+	Apply Now: Congratulations!
+{% endblock %}
+{# Page Header #}
+{% block header %}
+    {% include "applicant/application/application-header" with {"step": 10} %}
+{% endblock %}
+{# Page Contents #}
+{% block body %}
+	<div data-clone>
+        {# Step Content #}
+        <div data-c-container="medium" data-c-padding="tb(3)">
+            <h2 data-c-heading="h2" data-c-margin="bottom(1)">Next Steps</h2>
+            <div data-c-grid="gutter(all, 1)">
+                <div data-c-grid-item="tl(3of5)">
+                    {# So ideally this text will change to reflect the actual
+                    security clearance required, and will subsequently only show
+                    the correct documents needed in the following list. #}
+                    <p data-c-margin="bottom(1)">While you're waiting to hear about your application, there are a couple of things you can proactively do to help speed up the process. The position you just applied to requires a "secret" level security clearance. This means you'll need to complete and hold onto the following form(s):</p>
+                    <ul data-c-margin="bottom(1)">
+                        <li><a href="" title="">Reliability Clearance Form</a></li>
+                        <li><a href="" title="">Secret Clearance Form</a></li>
+                    </ul>
+                    <p data-c-margin="bottom(1)">Have you lived outside of Canada for longer than 6 months? <a href="{{ asset("/faq#post-application") }}" title="Learn more about international securite checks on the FAQ." target="_blank">Find out more about what else you can do to prepare for this job application.</a></p>
+                    {# This requires the application's close date. #}
+                    <p  data-c-margin="bottom(1)"><span data-c-font-weight="bold" data-c-color="c2">Reminder:</span> this position will continue to accept other applications until March 15th, 2020.</p>
+                    <p><a href="" title="" target="_blank">View your submitted application</a>.</p>
+                </div>
+                <div data-c-grid-item="tl(2of5)">
+                    <div data-c-background="c1(10)" data-c-border="all(thin, solid, c1)" data-c-padding="all(1)" data-c-radius="rounded">
+                        <h2 data-c-font-size="h3" data-c-margin="bottom(.5)" data-c-color="c1">Other Resources</h2>
+                        <p data-c-margin="bottom(.5)" data-c-color="c1">Don't forget! All the work you've done is saved in your profile for future applications. Here are a few useful links:</p>
+                        <ul data-c-color="c1">
+                            {# Link to email or new feedback form if it's ready
+                            for the launch of the application form. #}
+                            <li><a href="" title="">Submit feedback on your experience</a></li>
+                            {# Link to the user's profile. #}
+                            <li><a href="" title="">Keep your profile up-to-date</a></li>
+                            {# Link to the browse jobs page. #}
+                            <li><a href="{{ asset("/jobs") }}" title="View jobs posted to Talent Cloud.">Browse other jobs</a></li>
+                            {# Link to the FAQ. #}
+                            <li><a href="{{ asset("/faq") }}" title="Learn more about Talent Cloud on the FAQ.">Learn about the hiring process</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

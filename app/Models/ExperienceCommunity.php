@@ -16,10 +16,13 @@ use App\Models\BaseModel;
  * @property \Jenssegers\Date\Date $end_date
  * @property int $experienceable_id
  * @property string $experienceable_type
+ * @property boolean $is_education_requirement
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\Applicant|\App\Models\JobApplication $experienceable
+ * @property \Illuminate\Database\Eloquent\Collection $skills
+ * @property \Illuminate\Database\Eloquent\Collection $experience_skills
  */
 class ExperienceCommunity extends BaseModel
 {
@@ -29,7 +32,8 @@ class ExperienceCommunity extends BaseModel
         'project' => 'string',
         'is_active' => 'boolean',
         'start_date' => 'date',
-        'end_date' => 'date'
+        'end_date' => 'date',
+        'is_education_requirement' => 'boolean'
     ];
 
     protected $fillable = [
@@ -38,7 +42,8 @@ class ExperienceCommunity extends BaseModel
         'project',
         'is_active',
         'start_date',
-        'end_date'
+        'end_date',
+        'is_education_requirement'
     ];
 
     protected $table = 'experiences_community';
@@ -46,5 +51,15 @@ class ExperienceCommunity extends BaseModel
     public function experienceable() //phpcs:ignore
     {
         return $this->morphTo();
+    }
+
+    public function skills()
+    {
+        return $this->morphToMany(\App\Models\Skill::class, 'experience', 'experience_skills');
+    }
+
+    public function experience_skills() //phpcs:ignore
+    {
+        return $this->morphMany(\App\Models\ExperienceSkill::class, 'experience');
     }
 }

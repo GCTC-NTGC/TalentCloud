@@ -1,0 +1,22 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Apply - Step 02
+
+============================================================================= #}
+{% extends "response/response-base" %}
+{% block title %}
+    {{ application_template.step_02_title }}
+{% endblock %}
+{% block body %}
+    {# Form containing all about_me editable elements #}
+    <form action="{{ form_submit_action }}" method="post">
+        {% include "applicant/strategic_response_application/common/tracker" %}
+        {% include "errors/form_errors" %}
+        {# Builds an input field for CSRF token validation #}
+        {{ csrf_field() }}
+        {% include "applicant/strategic_response_application/step_02/experience" %}
+    </form>
+    {# Modals #}
+    {% include "common/modal" with {"page": application_template } %}
+{% endblock %}

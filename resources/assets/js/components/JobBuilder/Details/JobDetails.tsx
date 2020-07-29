@@ -1,13 +1,12 @@
 /* eslint-disable jsx-a11y/label-has-associated-control, camelcase, @typescript-eslint/camelcase */
 import React, { useState, useRef } from "react";
 import {
-  injectIntl,
-  WrappedComponentProps,
   FormattedMessage,
   MessageDescriptor,
   IntlShape,
+  useIntl,
 } from "react-intl";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, FastField } from "formik";
 import nprogress from "nprogress";
 import * as Yup from "yup";
 import { connect } from "react-redux";
@@ -49,7 +48,8 @@ import CopyToClipboardButton from "../../CopyToClipboardButton";
 import TextAreaInput from "../../Form/TextAreaInput";
 import { formMessages, educationMessages } from "./JobDetailsMessages";
 import { hasKey } from "../../../helpers/queries";
-import { localizeField } from "../../../helpers/localize";
+import { localizeField, getLocale } from "../../../helpers/localize";
+import textToParagraphs from "../../../helpers/textToParagraphs";
 
 interface JobDetailsProps {
   // Optional Job to prepopulate form values from.
@@ -300,8 +300,7 @@ const updateJobWithValues = (
   },
 });
 
-const JobDetails: React.FunctionComponent<JobDetailsProps &
-  WrappedComponentProps> = ({
+export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
   job,
   handleSubmit,
   handleReturn,
@@ -309,12 +308,11 @@ const JobDetails: React.FunctionComponent<JobDetailsProps &
   handleModalConfirm,
   jobIsComplete,
   handleSkipToReview,
-  intl,
-}: JobDetailsProps & WrappedComponentProps): React.ReactElement => {
+}: JobDetailsProps): React.ReactElement => {
+  const intl = useIntl();
+  const locale = getLocale(intl.locale);
   const [isModalVisible, setIsModalVisible] = useState(false);
-
   const modalParentRef = useRef<HTMLDivElement>(null);
-  const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
   }
@@ -333,7 +331,6 @@ const JobDetails: React.FunctionComponent<JobDetailsProps &
   const jobSchema = Yup.object().shape({
     title: Yup.string()
       .min(2, intl.formatMessage(validationMessages.tooShort))
-      .max(50, intl.formatMessage(validationMessages.tooLong))
       .required(intl.formatMessage(validationMessages.required)),
     termLength: Yup.number()
       .min(1, intl.formatMessage(validationMessages.tooShort))
@@ -474,47 +471,39 @@ const JobDetails: React.FunctionComponent<JobDetailsProps &
                 actions.setSubmitting(false); // Required by Formik to finish the submission cycle
               });
           }}
-          render={({
-            errors,
-            touched,
-            isSubmitting,
-            values,
-          }): React.ReactElement => (
+        >
+          {({ errors, touched, isSubmitting, values }): React.ReactElement => (
             <section>
-              <Form
-                id="job-information"
-                data-c-container="form"
-                data-c-grid="gutter"
-              >
-                <Field
+              <Form id="job-information" data-c-grid="gutter">
+                <FastField
+                  id="builder02JobTitle"
                   type="text"
                   name="title"
                   component={TextInput}
                   required
                   grid="tl(1of2)"
-                  id="builder02JobTitle"
                   label={intl.formatMessage(formMessages.titleLabel)}
                   placeholder={intl.formatMessage(
                     formMessages.titlePlaceholder,
                   )}
                 />
-                <Field
+                <FastField
+                  id="builder02TermLength"
                   type="number"
                   name="termLength"
                   component={NumberInput}
-                  placeholder={intl.formatMessage(
-                    formMessages.termLengthPlaceholder,
-                  )}
                   min={1}
                   max={36}
                   required
                   grid="tl(1of2)"
-                  id="builder02TermLength"
                   label={intl.formatMessage(formMessages.termLengthLabel)}
+                  placeholder={intl.formatMessage(
+                    formMessages.termLengthPlaceholder,
+                  )}
                 />
-                <Field
-                  name="classification"
+                <FastField
                   id="builder02Classification"
+                  name="classification"
                   label={intl.formatMessage(formMessages.classificationLabel)}
                   grid="tl(1of2)"
                   component={SelectInput}
@@ -530,7 +519,7 @@ const JobDetails: React.FunctionComponent<JobDetailsProps &
                     label: intl.formatMessage(classificationCodeOption(id)),
                   }))}
                 />
-                <Field
+                <FastField
                   name="level"
                   id="builder02Level"
                   component={SelectInput}
@@ -584,9 +573,16 @@ const JobDetails: React.FunctionComponent<JobDetailsProps &
                       <div>
                         <ContextBlockItem
                           wrapperMargin="bottom(normal)"
-                          subtext={getEducationMsgForClassification(
-                            values.classification,
-                            intl,
+                          subtext={textToParagraphs(
+                            getEducationMsgForClassification(
+                              values.classification,
+                              intl,
+                            ),
+                            {},
+                            {
+                              0: { "data-c-font-weight": "bold" },
+                              5: { "data-c-font-weight": "bold" },
+                            },
                           )}
                         />
                       </div>
@@ -651,7 +647,7 @@ const JobDetails: React.FunctionComponent<JobDetailsProps &
                     </>
                   )}
                 </div>
-                <Field
+                <FastField
                   name="securityLevel"
                   id="builder02SecurityLevel"
                   component={SelectInput}
@@ -668,7 +664,7 @@ const JobDetails: React.FunctionComponent<JobDetailsProps &
                     }),
                   )}
                 />
-                <Field
+                <FastField
                   name="language"
                   id="builder02Language"
                   component={SelectInput}
@@ -685,7 +681,7 @@ const JobDetails: React.FunctionComponent<JobDetailsProps &
                     }),
                   )}
                 />
-                <Field
+                <FastField
                   name="city"
                   type="text"
                   component={TextInput}
@@ -695,7 +691,7 @@ const JobDetails: React.FunctionComponent<JobDetailsProps &
                   label={intl.formatMessage(formMessages.cityLabel)}
                   placeholder={intl.formatMessage(formMessages.cityPlaceholder)}
                 />
-                <Field
+                <FastField
                   name="province"
                   id="builder02Province"
                   component={SelectInput}
@@ -739,7 +735,7 @@ const JobDetails: React.FunctionComponent<JobDetailsProps &
                   {Object.keys(remoteWorkMessages).map(
                     (key): React.ReactElement => {
                       return (
-                        <Field
+                        <FastField
                           key={key}
                           name="remoteWork"
                           component={RadioInput}
@@ -776,7 +772,7 @@ const JobDetails: React.FunctionComponent<JobDetailsProps &
                   {Object.keys(teleworkMessages).map(
                     (key): React.ReactElement => {
                       return (
-                        <Field
+                        <FastField
                           key={key}
                           name="telework"
                           component={RadioInput}
@@ -814,7 +810,7 @@ const JobDetails: React.FunctionComponent<JobDetailsProps &
                   {Object.keys(flexHourMessages).map(
                     (key): React.ReactElement => {
                       return (
-                        <Field
+                        <FastField
                           key={key}
                           name="flexHours"
                           component={RadioInput}
@@ -844,7 +840,7 @@ const JobDetails: React.FunctionComponent<JobDetailsProps &
                   {Object.keys(travelMessages).map(
                     (key): React.ReactElement => {
                       return (
-                        <Field
+                        <FastField
                           key={key}
                           name="travel"
                           component={RadioInput}
@@ -874,7 +870,7 @@ const JobDetails: React.FunctionComponent<JobDetailsProps &
                   {Object.keys(overtimeMessages).map(
                     (key): React.ReactElement => {
                       return (
-                        <Field
+                        <FastField
                           key={key}
                           name="overtime"
                           component={RadioInput}
@@ -1072,14 +1068,12 @@ const JobDetails: React.FunctionComponent<JobDetailsProps &
               </Modal>
             </section>
           )}
-        />
+        </Formik>
       </div>
       <div data-c-dialog-overlay={isModalVisible ? "active" : ""} />
     </section>
   );
 };
-
-export const JobDetailsIntl = injectIntl(JobDetails);
 
 interface JobDetailsContainerProps {
   jobId: number | null;
@@ -1116,6 +1110,6 @@ const mapDispatchToProps = (
 export const JobDetailsContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(injectIntl(JobDetails));
+)(JobDetails);
 
 export default JobDetailsContainer;

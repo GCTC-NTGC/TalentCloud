@@ -1,5 +1,10 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
-import { ReviewStatusId, ReviewStatusName } from "./lookupConstants";
+import {
+  ReviewStatusId,
+  ReviewStatusName,
+  ResponseReviewStatusId,
+  ResponseReviewStatusName,
+} from "./lookupConstants";
 import { localizedField, localizedFieldNonNull } from "./app";
 
 export interface Applicant {
@@ -14,7 +19,7 @@ export interface Applicant {
   user: User;
 }
 
-export interface Application {
+export type Application = {
   id: number;
   job_poster_id: number;
   application_status_id: number;
@@ -26,6 +31,9 @@ export interface Application {
   submission_signature: string;
   submission_date: string;
   experience_saved: boolean;
+  language_requirement_confirmed: boolean;
+  language_test_confirmed: boolean;
+  education_requirement_confirmed: boolean;
   created_at: Date;
   updated_at: Date;
   veteran_status: VeteranStatus;
@@ -33,15 +41,22 @@ export interface Application {
   applicant: Applicant;
   application_review: ApplicationReview | undefined;
   meets_essential_criteria: boolean;
-}
+};
+
+export type ApplicationNormalized = Omit<Application, "application_review">;
 
 export interface ApplicationReview {
   id: number;
-  review_status_id: ReviewStatusId | null;
+  job_application_id: number;
+  review_status_id: ReviewStatusId | ResponseReviewStatusId | null;
+  department_id: number | null;
   notes: string | null;
   created_at: Date;
   updated_at: Date;
-  review_status: ReviewStatus | null;
+  department: Department | undefined;
+  review_status: ReviewStatus | ResponseReviewStatus | undefined;
+  director_email_sent: boolean;
+  reference_email_sent: boolean;
 }
 
 export interface Assessment {
@@ -157,10 +172,24 @@ export interface Job {
   culture_special: localizedField;
 }
 
+export interface JobApplicationAnswer {
+  id: number;
+  job_poster_questions_id: number;
+  job_application_id: number;
+  answer: string | null;
+}
+
 export interface JobPosterKeyTask {
   id: number;
   job_poster_id: number;
   description: localizedFieldNonNull;
+}
+
+export interface JobPosterQuestion {
+  id: number;
+  job_poster_id: number;
+  question: localizedField;
+  description: localizedField;
 }
 
 export interface Manager {
@@ -194,6 +223,11 @@ export interface RatingGuideQuestion {
   job_poster_id: number;
   assessment_type_id: number;
   question: string | null;
+}
+
+export interface ResponseReviewStatus {
+  id: ResponseReviewStatusId;
+  name: ResponseReviewStatusName;
 }
 
 export interface ReviewStatus {
@@ -252,4 +286,96 @@ export interface JobPosterStatus {
   key: string;
   name: localizedFieldNonNull;
   description: localizedFieldNonNull;
+}
+
+interface ExperienceBase {
+  experienceable_id: number;
+  experienceable_type: "applicant" | "application";
+  is_education_requirement: boolean;
+}
+
+export interface ExperienceWork extends ExperienceBase {
+  id: number;
+  title: string;
+  organization: string;
+  group: string;
+  is_active: boolean;
+  start_date: Date;
+  end_date: Date | null;
+  type: "experience_work";
+}
+
+export interface ExperienceEducation extends ExperienceBase {
+  id: number;
+  education_type_id: number;
+  area_of_study: string;
+  institution: string;
+  education_status_id: number;
+  is_active: boolean;
+  thesis_title: string;
+  has_blockcert: boolean;
+  start_date: Date;
+  end_date: Date | null;
+  type: "experience_education";
+}
+
+export interface ExperienceCommunity extends ExperienceBase {
+  id: number;
+  title: string;
+  group: string;
+  project: string;
+  is_active: boolean;
+  start_date: Date;
+  end_date: Date | null;
+  type: "experience_community";
+}
+
+export interface ExperienceAward extends ExperienceBase {
+  id: number;
+  title: string;
+  award_recipient_type_id: number;
+  issued_by: string;
+  award_recognition_type_id: number;
+  awarded_date: Date;
+  type: "experience_award";
+}
+
+export interface ExperiencePersonal extends ExperienceBase {
+  id: number;
+  title: string;
+  description: string;
+  is_shareable: boolean;
+  is_active: boolean;
+  start_date: Date;
+  end_date: Date | null;
+  type: "experience_personal";
+}
+
+export type Experience =
+  | ExperienceWork
+  | ExperienceEducation
+  | ExperienceCommunity
+  | ExperienceAward
+  | ExperiencePersonal;
+
+export interface ExperienceSkill {
+  skill_id: number;
+  experience_id: number;
+  experience_type: string;
+  justification: string;
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface EmailAddress {
+  name: string;
+  address: string; // Email.
+}
+export interface Email {
+  from: EmailAddress[];
+  to: EmailAddress[];
+  cc: EmailAddress[];
+  bcc: EmailAddress[];
+  subject: string;
+  body: string;
 }

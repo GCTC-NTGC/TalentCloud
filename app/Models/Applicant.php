@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Traits\TalentCloudCrudTrait as CrudTrait;
+
 /**
  * Class Applicant
  *
@@ -37,6 +39,9 @@ namespace App\Models;
  */
 class Applicant extends BaseModel
 {
+    // Trait for Backpack.
+    use CrudTrait;
+
     protected $casts = [
         'user_id' => 'int',
         'personal_website' => 'string',

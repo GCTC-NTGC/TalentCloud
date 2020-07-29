@@ -23,3 +23,5 @@ export interface localizedFieldNonNull {
   en: string;
   fr: string;
 }
+
+export type PropType<TObj, TProp extends keyof TObj> = TObj[TProp];

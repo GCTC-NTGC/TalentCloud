@@ -7,6 +7,11 @@
 
 {# Meta #}
 
+    {# Prevent Search Engines From Indexing #}
+    {% if config('seasonal.is_covid_emergency') %}
+        <meta name="robots" content="noindex, nofollow" />
+    {% endif %}
+
     {# Charset #}
 
         <meta
@@ -30,12 +35,18 @@
             content="{{ csrf_token() }}"
             name="csrf-token">
 
+    {# Base url for relative links #}
+        <meta
+            name="base-url"
+            content="{{ config("app.url") }}">
+
+
 {# Stylesheets #}
 
     {# App #}
 
     <link
-        href="{{ mix('/css/app.css') }}"
+        href="{{ asset(mix('/css/app.css')) }}"
         rel="stylesheet"
         type="text/css"/>
 
@@ -75,7 +86,7 @@
 
     <script
         async defer
-        src="{{ mix('/js/modernizr.js') }}">
+        src="{{ asset(mix('/js/modernizr.js')) }}">
     </script>
 
 {# jQuery & UI #}
@@ -94,11 +105,7 @@
 
 {# jsPDF / html2canvas #}
 
-    <script
-        src="https://html2canvas.hertzen.com/dist/html2canvas.js"
-        integrity="sha384-RVXYF8cJzF0+cYnU1oa6U7cObl8jOgvscLkD+PfUNStV1zntYqZniOR4XkVhGgNF"
-        crossorigin="anonymous">
-    </script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.js" integrity="sha384-RvQi5s+2Kcod0rRkkJEMHolbZI9p7QZO9XE28vQbCjzUPI7/B7LCozjsIYVRZFn+" crossorigin="anonymous"></script>
 
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"
@@ -108,11 +115,11 @@
 
 {# Favicons #}
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#d03e3e">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset("/apple-touch-icon.png") }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset("/favicon-32x32.png") }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset("/favicon-16x16.png") }}">
+    <link rel="manifest" href="{{ asset("/site.webmanifest") }}">
+    <link rel="mask-icon" href="{{ asset("/safari-pinned-tab.svg") }}" color="#d03e3e">
     <meta name="msapplication-TileColor" content="#d03e3e">
     <meta name="theme-color" content="#ffffff">
 

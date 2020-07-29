@@ -3,6 +3,23 @@
     // Buttons
 
 // =============================================================================
+.ajax-submit-all {
+    .submit-default {
+        display: block;
+    }
+    .submit-working {
+        display: none;
+    }
+    &.working {
+        .submit-default {
+            display: none;
+        }
+        .submit-working {
+            display: block;
+        }
+    }
+}
+
 [class*="button--"] {
     border: none;
     border-radius: 5px;

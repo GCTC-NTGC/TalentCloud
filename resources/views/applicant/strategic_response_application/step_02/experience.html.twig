@@ -1,0 +1,121 @@
+<div
+    class="application-post__experience">
+
+    <div
+        class="container--copy">
+
+        <h2>
+            {{ application_template.strategic_response.experience_title }}
+        </h2>
+
+        <p>
+            {{ application_template.strategic_response.experience_description }}
+        </p>
+
+    </div>
+
+    <div
+        class="container--layout">
+
+        {# Profile List (Degrees) #}
+
+            <div
+                class="profile-list">
+
+                {# Profile List Header #}
+
+                    <div
+                        class="profile-list__header flex-grid middle">
+
+                        <div
+                            class="box med-1of2">
+
+                            <h2>{{ application_template.experience_section.section_degree_title }}</h2>
+
+                        </div>
+
+                        <div
+                            class="box med-1of2">
+
+                            <button
+                                class="profile-list__add-element-trigger"
+                                type="button">
+                                {{ application_template.experience_section.add_degree_label }}
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                {# Set Locale #}
+
+                    {% set locale = "profile" %}
+
+                {# Profile Element Template #}
+
+                    {% include "common/degree" %}
+
+                {# Profile Element List #}
+
+                    <div
+                        class="profile-element-list">
+
+                        {% set degreeCounter = 0 %}
+
+                        {% for degree in applicant.degrees %}
+
+                            {% set degreeCounter = degreeCounter + 1 %}
+
+                            {% include "common/degree" %}
+
+                        {% endfor %}
+
+                        <div
+                            class="profile-null {% if degreeCounter == 0 %}active{% endif %}">
+
+                            <p>{{ application_template.experience_section.null_degree_copy }}</p>
+
+                        </div>
+
+                    </div>
+
+            </div>
+
+    </div>
+
+    <div class="container--copy">
+
+        <div
+            class="flex-grid middle application-post__action-wrapper">
+
+            <div
+                class="box med-1of2">
+
+                <button
+                    class="button--blue light-bg"
+                    type="submit"
+                    name="submit"
+                    value="save_and_quit">
+                    {{ application_template.save_quit_button_label }}
+                </button>
+
+            </div>
+
+            <div
+                class="box med-1of2">
+
+                <button
+                    class="button--blue light-bg"
+                    type="submit"
+                    name="submit"
+                    value="save_and_continue">
+                    {{ application_template.save_continue_button_label }}
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
