@@ -12,6 +12,7 @@ use App\Http\Resources\Experience as ExperienceResource;
 use App\Models\JobApplication;
 use App\Models\Lookup\AwardRecipientType;
 use App\Models\Lookup\AwardRecognitionType;
+use App\Models\Lookup\EducationStatus;
 use App\Models\Lookup\EducationType;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -88,9 +89,10 @@ class ExperienceControllerTest extends TestCase
         // Id, experienceable_id, and experienceable_type should be ignored by the store request.
         return [
             'id' => 0,
-            'education_type_id' => EducationType::inRandomOrder()->first->id,
-            'description' => $faker->paragraph(),
-            'is_shareable' => $faker->boolean(),
+            'education_type_id' => EducationType::inRandomOrder()->first()->id,
+            'area_of_study' => $faker->words(3, true),
+            'institution' => $faker->company(),
+            'education_status_id' => EducationStatus::inRandomOrder()->first()->id,
             'is_active' => $faker->boolean(),
             'start_date' => $faker->dateTimeBetween('-3 years', '-1 years')
                 ->setTime(0, 0, 0, 0)->format($this->DATE_FORMAT),
@@ -251,7 +253,7 @@ class ExperienceControllerTest extends TestCase
         $applicant = factory(Applicant::class)->create();
         $response = $this->actingAs($applicant->user)->json(
             'post',
-            route('api.v1.applicant.experience-personal.store', $applicant->id),
+            route('api.v1.applicant.experience-education.store', $applicant->id),
             $educationData
         );
         $response->assertOk();
@@ -308,5 +310,156 @@ class ExperienceControllerTest extends TestCase
             ])->all();
         $response->assertJsonFragment($expectData);
         $this->assertTrue($response->decodeResponseJson('id') !== 0);
+    }
+
+    public function testUpdateWork()
+    {
+        $work = factory(ExperienceWork::class)->create();
+        $updateData = $this->makeWorkData();
+        $response = $this->actingAs($work->experience->user)->json(
+            'put',
+            route('api.v1.experience-work.update', $work->id),
+            $updateData
+        );
+        $expectData = collect($updateData)
+            ->merge([
+                'id' => $work->id,
+                'experienceable_id' => $work->experienceable->id,
+                'experienceable_type' => 'applicant',
+            ])->all();
+        $response->assertOk();
+        $response->assertJsonFragment($expectData);
+        $this->assertEquals($expectData, (new ExperienceResource($work))->resolve());
+    }
+
+    public function testUpdatePersonal()
+    {
+        $personal = factory(ExperiencePersonal::class)->create();
+        $updateData = $this->makePersonalData();
+        $response = $this->actingAs($personal->experience->user)->json(
+            'put',
+            route('api.v1.experience-personal.update', $personal->id),
+            $updateData
+        );
+        $expectData = collect($updateData)
+            ->merge([
+                'id' => $personal->id,
+                'experienceable_id' => $personal->experienceable->id,
+                'experienceable_type' => 'applicant',
+            ])->all();
+        $response->assertOk();
+        $response->assertJsonFragment($expectData);
+        $this->assertEquals($expectData, (new ExperienceResource($personal))->resolve());
+    }
+
+    public function testUpdateEducation()
+    {
+        $education = factory(ExperienceEducation::class)->create();
+        $updateData = $this->makePersonalData();
+        $response = $this->actingAs($education->experience->user)->json(
+            'put',
+            route('api.v1.experience-education.update', $education->id),
+            $updateData
+        );
+        $expectData = collect($updateData)
+            ->merge([
+                'id' => $education->id,
+                'experienceable_id' => $education->experienceable->id,
+                'experienceable_type' => 'applicant',
+            ])->all();
+        $response->assertOk();
+        $response->assertJsonFragment($expectData);
+        $this->assertEquals($expectData, (new ExperienceResource($education))->resolve());
+    }
+
+    public function testUpdateAward()
+    {
+        $award = factory(ExperienceAward::class)->create();
+        $updateData = $this->makePersonalData();
+        $response = $this->actingAs($award->experience->user)->json(
+            'put',
+            route('api.v1.experience-award.update', $award->id),
+            $updateData
+        );
+        $expectData = collect($updateData)
+            ->merge([
+                'id' => $award->id,
+                'experienceable_id' => $award->experienceable->id,
+                'experienceable_type' => 'applicant',
+            ])->all();
+        $response->assertOk();
+        $response->assertJsonFragment($expectData);
+        $this->assertEquals($expectData, (new ExperienceResource($award))->resolve());
+    }
+
+    public function testUpdateCommunity()
+    {
+        $community = factory(ExperienceCommunity::class)->create();
+        $updateData = $this->makePersonalData();
+        $response = $this->actingAs($community->experience->user)->json(
+            'put',
+            route('api.v1.experience-community.update', $community->id),
+            $updateData
+        );
+        $expectData = collect($updateData)
+            ->merge([
+                'id' => $community->id,
+                'experienceable_id' => $community->experienceable->id,
+                'experienceable_type' => 'applicant',
+            ])->all();
+        $response->assertOk();
+        $response->assertJsonFragment($expectData);
+        $this->assertEquals($expectData, (new ExperienceResource($community))->resolve());
+    }
+
+    public function testDeleteWork()
+    {
+        $work = factory(ExperienceWork::class)->create();
+        $response = $this->actingAs($work->experience->user)->json(
+            'delete',
+            route('api.v1.experience-work.delete', $work->id)
+        );
+        $response->assertOk();
+        $this->assertNull(ExperienceWork::find($work->id));
+    }
+    public function testDeletePersonal()
+    {
+        $personal = factory(ExperiencePersonal::class)->create();
+        $response = $this->actingAs($personal->experience->user)->json(
+            'delete',
+            route('api.v1.experience-personal.delete', $personal->id)
+        );
+        $response->assertOk();
+        $this->assertNull(ExperiencePersonal::find($personal->id));
+    }
+    public function testDeleteEducation()
+    {
+        $education = factory(ExperienceEducation::class)->create();
+        $response = $this->actingAs($education->experience->user)->json(
+            'delete',
+            route('api.v1.experience-education.delete', $education->id)
+        );
+        $response->assertOk();
+        $this->assertNull(ExperienceEducation::find($education->id));
+    }
+    public function testDeleteAward()
+    {
+        $award = factory(ExperienceAward::class)->create();
+        $response = $this->actingAs($award->experience->user)->json(
+            'delete',
+            route('api.v1.experience-award.delete', $award->id)
+        );
+        $response->assertOk();
+        $this->assertNull(ExperienceAward::find($award->id));
+    }
+    public function testDeleteCommunity()
+    {
+        $community = factory(ExperienceCommunity::class)->create();
+        $response = $this->actingAs($community->experience->user)->json(
+            'delete',
+            route('api.v1.experience-community.delete', $community->id)
+        );
+        $response->assertOk();
+        $this->assertNull(ExperienceCommunity::find($community->id));
     }
 }
