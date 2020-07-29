@@ -63,7 +63,9 @@ const Question: React.FunctionComponent<QuestionProps> = ({
     answer: Yup.string()
       .test(
         "wordCount",
-        intl.formatMessage(validationMessages.overMaxWords),
+        intl.formatMessage(validationMessages.overMaxWords, {
+          numberOfWords: ANSWER_WORD_LIMIT,
+        }),
         (value) => countNumberOfWords(value) <= ANSWER_WORD_LIMIT,
       )
       .required(intl.formatMessage(validationMessages.required)),
