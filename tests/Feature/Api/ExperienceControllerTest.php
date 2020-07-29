@@ -10,6 +10,8 @@ use App\Models\ExperiencePersonal;
 use App\Models\ExperienceWork;
 use App\Http\Resources\Experience as ExperienceResource;
 use App\Models\JobApplication;
+use App\Models\Lookup\AwardRecipientType;
+use App\Models\Lookup\AwardRecognitionType;
 use App\Models\Lookup\EducationType;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -35,6 +37,109 @@ class ExperienceControllerTest extends TestCase
     {
         parent::setUp();
         $this->DATE_FORMAT = config('app.api_datetime_format');
+    }
+
+    protected function makeWorkData()
+    {
+        $faker = \Faker\Factory::create();
+
+        // Id, experienceable_id, and experienceable_type should be ignored by the store request.
+        return [
+            'id' => 0,
+            'title' => $faker->jobTitle(),
+            'organization' => $faker->company(),
+            'group' => $faker->company(),
+            'is_active' => $faker->boolean(),
+            'start_date' => $faker->dateTimeBetween('-3 years', '-1 years')
+                ->setTime(0, 0, 0, 0)->format($this->DATE_FORMAT),
+            'end_date' => $faker->dateTimeBetween('-1 years', '-1 day')
+                ->setTime(0, 0, 0, 0)->format($this->DATE_FORMAT),
+            'is_education_requirement' => $faker->boolean(),
+            'experienceable_id' => 0,
+            'experienceable_type' => '',
+        ];
+    }
+
+    protected function makePersonalData()
+    {
+        $faker = \Faker\Factory::create();
+
+        // Id, experienceable_id, and experienceable_type should be ignored by the store request.
+        return [
+            'id' => 0,
+            'title' => $faker->jobTitle(),
+            'description' => $faker->paragraph(),
+            'is_shareable' => $faker->boolean(),
+            'is_active' => $faker->boolean(),
+            'start_date' => $faker->dateTimeBetween('-3 years', '-1 years')
+                ->setTime(0, 0, 0, 0)->format($this->DATE_FORMAT),
+            'end_date' => $faker->dateTimeBetween('-1 years', '-1 day')
+                ->setTime(0, 0, 0, 0)->format($this->DATE_FORMAT),
+            'is_education_requirement' => $faker->boolean(),
+            'experienceable_id' => 0,
+            'experienceable_type' => '',
+        ];
+    }
+
+    protected function makeEducationData()
+    {
+        $faker = \Faker\Factory::create();
+
+        // Id, experienceable_id, and experienceable_type should be ignored by the store request.
+        return [
+            'id' => 0,
+            'education_type_id' => EducationType::inRandomOrder()->first->id,
+            'description' => $faker->paragraph(),
+            'is_shareable' => $faker->boolean(),
+            'is_active' => $faker->boolean(),
+            'start_date' => $faker->dateTimeBetween('-3 years', '-1 years')
+                ->setTime(0, 0, 0, 0)->format($this->DATE_FORMAT),
+            'end_date' => $faker->dateTimeBetween('-1 years', '-1 day')
+                ->setTime(0, 0, 0, 0)->format($this->DATE_FORMAT),
+            'is_education_requirement' => $faker->boolean(),
+            'experienceable_id' => 0,
+            'experienceable_type' => '',
+        ];
+    }
+
+    protected function makeAwardData()
+    {
+        $faker = \Faker\Factory::create();
+
+        // Id, experienceable_id, and experienceable_type should be ignored by the store request.
+        return [
+            'id' => 0,
+            'title' => $faker->words(3, true),
+            'award_recipient_type_id' => AwardRecipientType::inRandomOrder()->first()->id,
+            'issued_by' => $faker->company(),
+            'award_recognition_type_id' => AwardRecognitionType::inRandomOrder()->first()->id,
+            'awarded_date' => $faker->dateTimeBetween('-3 years', '-1 years')
+                ->setTime(0, 0, 0, 0)->format($this->DATE_FORMAT),
+            'is_education_requirement' => $faker->boolean(),
+            'experienceable_id' => 0,
+            'experienceable_type' => 'applicant',
+        ];
+    }
+
+    protected function makeCommunityData()
+    {
+        $faker = \Faker\Factory::create();
+
+        // Id, experienceable_id, and experienceable_type should be ignored by the store request.
+        return [
+            'id' => 0,
+            'title' => $faker->words(3, true),
+            'group' => $faker->company(),
+            'project' => $faker->sentence(),
+            'is_active' => false,
+            'start_date' => $faker->dateTimeBetween('-3 years', '-1 years')
+                ->setTime(0, 0, 0, 0)->format($this->DATE_FORMAT),
+            'end_date' => $faker->dateTimeBetween('-1 years', '-1 day')
+                ->setTime(0, 0, 0, 0)->format($this->DATE_FORMAT),
+            'is_education_requirement' => $faker->boolean(),
+            'experienceable_id' => 0,
+            'experienceable_type' => 'applicant',
+        ];
     }
 
     protected function runGetIndexTest($experienceableData, $actingAsUser, $route)
@@ -98,24 +203,7 @@ class ExperienceControllerTest extends TestCase
 
     public function testStoreWork()
     {
-        $faker = \Faker\Factory::create();
-
-        // Id, experienceable_id, and experienceable_type should be ignored by the store request.
-        $workData = [
-            'id' => 0,
-            'title' => $faker->jobTitle(),
-            'organization' => $faker->company(),
-            'group' => $faker->company(),
-            'is_active' => $faker->boolean(),
-            'start_date' => $faker->dateTimeBetween('-3 years', '-1 years')
-                ->setTime(0, 0, 0, 0)->format($this->DATE_FORMAT),
-            'end_date' => $faker->dateTimeBetween('-1 years', '-1 day')
-                ->setTime(0, 0, 0, 0)->format($this->DATE_FORMAT),
-            'is_education_requirement' => $faker->boolean(),
-            'experienceable_id' => 0,
-            'experienceable_type' => '',
-        ];
-
+        $workData = $this->makeWorkData();
         $applicant = factory(Applicant::class)->create();
         $response = $this->actingAs($applicant->user)->json(
             'post',
@@ -136,23 +224,7 @@ class ExperienceControllerTest extends TestCase
 
     public function testStorePersonal()
     {
-        $faker = \Faker\Factory::create();
-
-        // Id, experienceable_id, and experienceable_type should be ignored by the store request.
-        $personalData = [
-            'id' => 0,
-            'title' => $faker->jobTitle(),
-            'description' => $faker->paragraph(),
-            'is_shareable' => $faker->boolean(),
-            'is_active' => $faker->boolean(),
-            'start_date' => $faker->dateTimeBetween('-3 years', '-1 years')
-                ->setTime(0, 0, 0, 0)->format($this->DATE_FORMAT),
-            'end_date' => $faker->dateTimeBetween('-1 years', '-1 day')
-                ->setTime(0, 0, 0, 0)->format($this->DATE_FORMAT),
-            'is_education_requirement' => $faker->boolean(),
-            'experienceable_id' => 0,
-            'experienceable_type' => '',
-        ];
+        $personalData = $this->makePersonalData();
 
         $applicant = factory(Applicant::class)->create();
         $response = $this->actingAs($applicant->user)->json(
@@ -174,23 +246,7 @@ class ExperienceControllerTest extends TestCase
 
     public function testStoreEducation()
     {
-        $faker = \Faker\Factory::create();
-
-        // Id, experienceable_id, and experienceable_type should be ignored by the store request.
-        $educationData = [
-            'id' => 0,
-            'education_type_id' => EducationType::inRandomOrder()->first->id,
-            'description' => $faker->paragraph(),
-            'is_shareable' => $faker->boolean(),
-            'is_active' => $faker->boolean(),
-            'start_date' => $faker->dateTimeBetween('-3 years', '-1 years')
-                ->setTime(0, 0, 0, 0)->format($this->DATE_FORMAT),
-            'end_date' => $faker->dateTimeBetween('-1 years', '-1 day')
-                ->setTime(0, 0, 0, 0)->format($this->DATE_FORMAT),
-            'is_education_requirement' => $faker->boolean(),
-            'experienceable_id' => 0,
-            'experienceable_type' => '',
-        ];
+        $educationData = $this->makeEducationData();
 
         $applicant = factory(Applicant::class)->create();
         $response = $this->actingAs($applicant->user)->json(
@@ -201,6 +257,50 @@ class ExperienceControllerTest extends TestCase
         $response->assertOk();
 
         $expectData = collect($educationData)
+            ->except(['id'])
+            ->merge([
+                'experienceable_id' => $applicant->id,
+                'experienceable_type' => 'applicant',
+            ])->all();
+        $response->assertJsonFragment($expectData);
+        $this->assertTrue($response->decodeResponseJson('id') !== 0);
+    }
+
+    public function testStoreAward()
+    {
+        $awardData = $this->makeAwardData();
+
+        $applicant = factory(Applicant::class)->create();
+        $response = $this->actingAs($applicant->user)->json(
+            'post',
+            route('api.v1.applicant.experience-award.store', $applicant->id),
+            $awardData
+        );
+        $response->assertOk();
+
+        $expectData = collect($awardData)
+            ->except(['id'])
+            ->merge([
+                'experienceable_id' => $applicant->id,
+                'experienceable_type' => 'applicant',
+            ])->all();
+        $response->assertJsonFragment($expectData);
+        $this->assertTrue($response->decodeResponseJson('id') !== 0);
+    }
+
+    public function testStoreCommunity()
+    {
+        $communityData = $this->makeCommunityData();
+
+        $applicant = factory(Applicant::class)->create();
+        $response = $this->actingAs($applicant->user)->json(
+            'post',
+            route('api.v1.applicant.experience-community.store', $applicant->id),
+            $communityData
+        );
+        $response->assertOk();
+
+        $expectData = collect($communityData)
             ->except(['id'])
             ->merge([
                 'experienceable_id' => $applicant->id,
