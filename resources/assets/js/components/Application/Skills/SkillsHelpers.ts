@@ -1,4 +1,9 @@
-import { Criteria, ExperienceSkill, Skill } from "../../../models/types";
+import {
+  Criteria,
+  ExperienceSkill,
+  Skill,
+  Experience,
+} from "../../../models/types";
 import { mapToObject, getId, hasKey } from "../../../helpers/queries";
 import { IconStatus } from "../../StatusIcon";
 
@@ -33,12 +38,32 @@ export const getExperiencesOfSkill = (
   experiences.filter((experience) => experience.skill_id === skill.id);
 
 export interface SkillStatus {
-  [x: string]: {
+  [skillId: string]: {
     experiences: {
-      [k: string]: IconStatus;
+      [experienceTypeAndId: string]: IconStatus;
     };
   };
 }
+
+/**
+ * Retrieves Experience associated to ExperienceSkill by Type and ID.
+ *
+ * @param experienceSkill ExperienceSkill object.
+ * @param experiences Array of ExperienceSkill objects.
+ * @returns null if not found or Experience object.
+ */
+export const getExperienceOfExperienceSkills = (
+  experienceSkill: ExperienceSkill,
+  experiences: Experience[],
+): Experience | null => {
+  const experiencesByType = experiences.filter(
+    (experience) => experience.type === experienceSkill.experience_type,
+  );
+  const experiencesById = mapToObject(experiencesByType, getId);
+  return hasKey(experiencesById, experienceSkill.experience_id)
+    ? experiencesById[experienceSkill.experience_id]
+    : null;
+};
 
 /**
  * Constructs an initial state object to pass to the statusReducer function.

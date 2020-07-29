@@ -217,7 +217,7 @@ const newCommunityExperience = (
   is_education_requirement: false,
   experienceable_id: experienceableId,
   experienceable_type: experienceableType,
-  type: "community",
+  type: "experience_community",
 });
 /* eslint-enable @typescript-eslint/camelcase */
 

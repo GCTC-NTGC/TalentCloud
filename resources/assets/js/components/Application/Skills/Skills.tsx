@@ -5,7 +5,12 @@ import { FormattedMessage, useIntl, IntlShape } from "react-intl";
 import { Formik, Form, FastField } from "formik";
 import * as Yup from "yup";
 import Swal, { SweetAlertResult } from "sweetalert2";
-import { ExperienceSkill, Skill, Criteria } from "../../../models/types";
+import {
+  ExperienceSkill,
+  Skill,
+  Criteria,
+  Experience,
+} from "../../../models/types";
 import { slugify, applicantFaq } from "../../../helpers/routes";
 import { getLocale, localizeFieldNonNull } from "../../../helpers/localize";
 import { validationMessages } from "../../Form/Messages";
@@ -28,6 +33,7 @@ import {
   initialStatus,
   computeParentStatus,
   SkillStatus,
+  getExperienceOfExperienceSkills,
 } from "./SkillsHelpers";
 import Modal from "../../Modal";
 
@@ -73,7 +79,8 @@ const Sidebar: React.FC<SidebarProps> = ({ menuSkills, intl, status }) => {
   );
 };
 
-interface ExperienceAccordionProps {
+interface ExperienceSkillAccordionProps {
+  experience: Experience;
   experienceSkill: ExperienceSkill;
   intl: IntlShape;
   status: IconStatus;
@@ -98,7 +105,8 @@ interface ExperienceSkillFormValues {
   justification: string;
 }
 
-const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
+const ExperienceSkillAccordion: React.FC<ExperienceSkillAccordionProps> = ({
+  experience,
   experienceSkill,
   intl,
   status,
@@ -128,14 +136,10 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
       .required(intl.formatMessage(validationMessages.required)),
   });
 
-  if (experienceSkill.experience !== null) {
-    heading = getExperienceHeading(experienceSkill.experience, intl);
-    subHeading = getExperienceSubheading(experienceSkill.experience, intl);
-    label = getExperienceJustificationLabel(
-      experienceSkill.experience,
-      intl,
-      skillName,
-    );
+  if (experience !== null) {
+    heading = getExperienceHeading(experience, intl);
+    subHeading = getExperienceSubheading(experience, intl);
+    label = getExperienceJustificationLabel(experience, intl, skillName);
   }
 
   const handleExpandClick = (): void => {
@@ -160,11 +164,11 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
   };
 
   const updateExperienceSkill = (
-    oldExperience: ExperienceSkill,
+    oldExperienceSkill: ExperienceSkill,
     values: ExperienceSkillFormValues,
   ): ExperienceSkill => {
     const experienceJustification: ExperienceSkill = {
-      ...oldExperience,
+      ...oldExperienceSkill,
       justification: values.justification || "",
     };
     return experienceJustification;
@@ -246,11 +250,11 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
           initialValues={initialValues}
           validationSchema={experienceSkillSchema}
           onSubmit={(values, { setSubmitting, resetForm }): void => {
-            const experienceJustification = updateExperienceSkill(
+            const experienceSkillJustification = updateExperienceSkill(
               experienceSkill,
               values,
             );
-            handleUpdateExperienceJustification(experienceJustification)
+            handleUpdateExperienceJustification(experienceSkillJustification)
               .then(() => {
                 handleUpdateStatus({
                   payload: {
@@ -370,7 +374,8 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
 
 interface SkillsProps {
   criteria: Criteria[];
-  experiences: ExperienceSkill[];
+  experiences: Experience[];
+  experienceSkills: ExperienceSkill[];
   skills: Skill[];
   handleUpdateExperienceJustification: (
     experience: ExperienceSkill,
@@ -383,13 +388,14 @@ interface SkillsProps {
 const Skills: React.FC<SkillsProps> = ({
   criteria,
   experiences,
+  experienceSkills,
   skills,
   handleUpdateExperienceJustification,
   handleRemoveExperienceJustification,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
-  const initial = initialStatus(experiences);
+  const initial = initialStatus(experienceSkills);
 
   const [status, dispatchStatus] = useReducer(statusReducer, initial);
 
@@ -509,7 +515,8 @@ const Skills: React.FC<SkillsProps> = ({
                       {intl.formatMessage(getSkillLevelName(criterion, skill))}
                     </a>
                   </h3>
-                  {getExperiencesOfSkill(skill, experiences).length === 0 ? (
+                  {getExperiencesOfSkill(skill, experienceSkills).length ===
+                  0 ? (
                     <div
                       data-c-background="gray(10)"
                       data-c-radius="rounded"
@@ -528,15 +535,42 @@ const Skills: React.FC<SkillsProps> = ({
                     </div>
                   ) : (
                     <div data-c-accordion-group="">
-                      {getExperiencesOfSkill(skill, experiences).map(
+                      {getExperiencesOfSkill(skill, experienceSkills).map(
                         (experienceSkill) => {
                           const experienceStatus =
                             status[experienceSkill.skill_id].experiences[
                               `${experienceSkill.experience_type}_${experienceSkill.experience_id}`
                             ];
+                          const relevantExperience = getExperienceOfExperienceSkills(
+                            experienceSkill,
+                            experiences,
+                          );
+
+                          if (relevantExperience === null) {
+                            return (
+                              <div
+                                data-c-background="gray(10)"
+                                data-c-radius="rounded"
+                                data-c-border="all(thin, solid, gray)"
+                                data-c-padding="all(1)"
+                              >
+                                <div data-c-align="base(center)">
+                                  <p data-c-color="gray">
+                                    <FormattedMessage
+                                      id="application.skills.missingExperience"
+                                      defaultMessage="Looks like something went wrong on our end and your experience can't be displayed. Please try again later."
+                                      description="Text displayed under a skill section with a missing linked experience."
+                                    />
+                                  </p>
+                                </div>
+                              </div>
+                            );
+                          }
+
                           return (
-                            <ExperienceAccordion
+                            <ExperienceSkillAccordion
                               key={`experience-skill-textarea-${experienceSkill.experience_type}-${experienceSkill.skill_id}-${experienceSkill.experience_id}`}
+                              experience={relevantExperience}
                               experienceSkill={experienceSkill}
                               intl={intl}
                               status={experienceStatus}

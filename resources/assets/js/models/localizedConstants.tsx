@@ -1196,30 +1196,30 @@ export const getExperienceHeading = (
   let heading: string;
 
   switch (experience.type) {
-    case "award":
+    case "experience_award":
       heading = intl.formatMessage(experienceHeadings.award, {
         title: experience.title,
         issuedBy: experience.issued_by,
       });
       break;
-    case "community":
+    case "experience_community":
       heading = intl.formatMessage(experienceHeadings.community, {
         title: experience.title,
         group: experience.group,
       });
       break;
-    case "education":
+    case "experience_education":
       heading = intl.formatMessage(experienceHeadings.education, {
         areaOfStudy: experience.area_of_study,
         institution: experience.institution,
       });
       break;
-    case "personal":
+    case "experience_personal":
       heading = intl.formatMessage(experienceHeadings.personal, {
         title: experience.title,
       });
       break;
-    case "work":
+    case "experience_work":
       heading = intl.formatMessage(experienceHeadings.work, {
         title: experience.title,
         organization: experience.organization,
@@ -1251,16 +1251,16 @@ export const getExperienceSubheading = (
   let endDate: string;
 
   switch (experience.type) {
-    case "award":
+    case "experience_award":
       subHeading = intl.formatDate(experience.awarded_date, {
         month: "short",
         year: "numeric",
       });
       break;
-    case "community":
-    case "education":
-    case "personal":
-    case "work":
+    case "experience_community":
+    case "experience_education":
+    case "experience_personal":
+    case "experience_work":
       startDate = intl.formatDate(experience.start_date, {
         month: "short",
         year: "numeric",
@@ -1342,31 +1342,31 @@ export const getExperienceJustificationLabel = (
   let label: string;
 
   switch (experience.type) {
-    case "award":
+    case "experience_award":
       label = intl.formatMessage(experienceJustificationLabels.award, {
         skillName,
         title: experience.title,
       });
       break;
-    case "community":
+    case "experience_community":
       label = intl.formatMessage(experienceJustificationLabels.community, {
         skillName,
         group: experience.group,
       });
       break;
-    case "education":
+    case "experience_education":
       label = intl.formatMessage(experienceJustificationLabels.education, {
         skillName,
         institution: experience.institution,
       });
       break;
-    case "personal":
+    case "experience_personal":
       label = intl.formatMessage(experienceJustificationLabels.personal, {
         skillName,
         title: experience.title,
       });
       break;
-    case "work":
+    case "experience_work":
       label = intl.formatMessage(experienceJustificationLabels.work, {
         skillName,
         organization: experience.organization,

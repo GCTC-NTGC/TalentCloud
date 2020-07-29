@@ -225,7 +225,7 @@ const newPersonalExperience = (
   is_education_requirement: false,
   experienceable_id: experienceableId,
   experienceable_type: experienceableType,
-  type: "personal",
+  type: "experience_personal",
 });
 /* eslint-enable @typescript-eslint/camelcase */
 

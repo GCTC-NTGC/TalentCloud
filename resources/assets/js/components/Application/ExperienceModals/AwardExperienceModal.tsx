@@ -212,7 +212,7 @@ const newExperienceAward = (
   is_education_requirement: false,
   experienceable_id: experienceableId,
   experienceable_type: experienceableType,
-  type: "award",
+  type: "experience_award",
 });
 /* eslint-enable @typescript-eslint/camelcase */
 

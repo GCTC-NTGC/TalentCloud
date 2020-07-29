@@ -4,6 +4,7 @@ import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
 import Skills from "../../components/Application/Skills/Skills";
 import { fakeCriteria } from "../../fakeData/fakeCriteria";
+import fakeExperiences from "../../fakeData/fakeExperience";
 import fakeExperienceSkills from "../../fakeData/fakeExperienceSkills";
 import { fakeSkills } from "../../fakeData/fakeSkills";
 import { ExperienceSkill } from "../../models/types";
@@ -29,7 +30,8 @@ stories.add(
   (): React.ReactElement => (
     <Skills
       criteria={fakeCriteria()}
-      experiences={fakeExperienceSkills()}
+      experiences={fakeExperiences()}
+      experienceSkills={fakeExperienceSkills()}
       skills={fakeSkills()}
       handleUpdateExperienceJustification={handleUpdateExperienceJustification}
       handleRemoveExperienceJustification={handleRemoveExperienceJustification}

@@ -136,6 +136,7 @@
   "application.skills.instructionListEnd": "If a skill is only loosely connected to an experience, consider removing it. This can help the manager focus on your best examples.",
   "application.skills.instructionListStart": "Try answering one or two of the following questions:",
   "application.skills.justificationMissing": "Missing Information",
+  "application.skills.missingExperience": "Looks like something went wrong on our end and your experience can't be displayed. Please try again later.",
   "application.skills.modal.confirmButton": "Okay",
   "application.skills.modalConfirmBody": "You're about to remove the link between this experience and the chosen skill. Any text you've provided for this skill will disappear from this experience everywhere on the site. Are you sure you want to remove this link?",
   "application.skills.modalConfirmHeading": "Are you sure?",

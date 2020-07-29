@@ -1126,6 +1126,11 @@
         "id": "application.skills.noLinkedExperiences"
       },
       {
+        "defaultMessage": "Looks like something went wrong on our end and your experience can't be displayed. Please try again later.",
+        "description": "Text displayed under a skill section with a missing linked experience.",
+        "id": "application.skills.missingExperience"
+      },
+      {
         "defaultMessage": "Okay",
         "id": "application.skills.modal.confirmButton"
       }

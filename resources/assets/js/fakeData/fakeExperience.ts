@@ -6,6 +6,7 @@ import {
   ExperienceCommunity,
   ExperienceAward,
   ExperiencePersonal,
+  Experience,
 } from "../models/types";
 
 export const fakeExperienceWork = (): ExperienceWork => ({
@@ -19,7 +20,7 @@ export const fakeExperienceWork = (): ExperienceWork => ({
   experienceable_id: 1,
   experienceable_type: "applicant",
   is_education_requirement: false,
-  type: "work",
+  type: "experience_work",
 });
 
 export const fakeExperienceEducation = (): ExperienceEducation => ({
@@ -36,7 +37,7 @@ export const fakeExperienceEducation = (): ExperienceEducation => ({
   experienceable_id: 1,
   experienceable_type: "applicant",
   is_education_requirement: false,
-  type: "education",
+  type: "experience_education",
 });
 
 export const fakeExperienceCommunity = (): ExperienceCommunity => ({
@@ -50,7 +51,7 @@ export const fakeExperienceCommunity = (): ExperienceCommunity => ({
   experienceable_id: 1,
   experienceable_type: "applicant",
   is_education_requirement: false,
-  type: "community",
+  type: "experience_community",
 });
 
 export const fakeExperienceAward = (): ExperienceAward => ({
@@ -63,7 +64,7 @@ export const fakeExperienceAward = (): ExperienceAward => ({
   experienceable_id: 1,
   experienceable_type: "applicant",
   is_education_requirement: false,
-  type: "award",
+  type: "experience_award",
 });
 
 export const fakeExperiencePersonal = (): ExperiencePersonal => ({
@@ -78,5 +79,15 @@ export const fakeExperiencePersonal = (): ExperiencePersonal => ({
   experienceable_id: 1,
   experienceable_type: "applicant",
   is_education_requirement: false,
-  type: "personal",
+  type: "experience_personal",
 });
+
+const fakeExperiences = (): Experience[] => [
+  fakeExperienceWork(),
+  fakeExperienceEducation(),
+  fakeExperienceCommunity(),
+  fakeExperienceAward(),
+  fakeExperiencePersonal(),
+];
+
+export default fakeExperiences;
