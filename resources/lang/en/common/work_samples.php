@@ -24,7 +24,6 @@ return [
     ],
     'link_label' => 'Hyperlink to Your Work',
     'description_label' => 'The Story Behind the Work',
-    'date_created_label' => 'When You Created the Work',
     'linked_skills_label' => 'Linked Skills',
     'search_label' => 'Search Through My Skills',
     'skill_label' => 'Select a Skill',

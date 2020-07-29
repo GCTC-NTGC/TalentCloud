@@ -24,7 +24,6 @@ return [
     ],
     'link_label' => 'Hyperlien à votre travail',
     'description_label' => 'L\'histoire de ce travail',
-    'date_created_label' => 'When You Created the Work',
     'linked_skills_label' => 'Compétences liées',
     'search_label' => 'Rechercher dans mes compétences',
     'skill_label' => 'Sélectionner une compétence',
