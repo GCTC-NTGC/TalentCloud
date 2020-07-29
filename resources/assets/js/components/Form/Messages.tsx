@@ -49,7 +49,7 @@ export const validationMessages = defineMessages({
   },
   overMaxWords: {
     id: "formValidation.overMaxWords",
-    defaultMessage: "Must be under 250 words",
+    defaultMessage: "Must be under {numberOfWords} words",
     description:
       "Error message displayed when surpassing the maximum words allowed.",
   },
