@@ -6,7 +6,7 @@ import { Formik, Form, FastField } from "formik";
 import * as Yup from "yup";
 import Swal, { SweetAlertResult } from "sweetalert2";
 import { ExperienceSkill, Skill, Criteria } from "../../../models/types";
-import { slugify } from "../../../helpers/routes";
+import { slugify, applicantFaq } from "../../../helpers/routes";
 import { getLocale, localizeFieldNonNull } from "../../../helpers/localize";
 import { validationMessages } from "../../Form/Messages";
 import {
@@ -504,7 +504,7 @@ const Skills: React.FC<SkillsProps> = ({
                     <a
                       data-c-font-size="normal"
                       data-c-font-weight="bold"
-                      href="/faq#levels"
+                      href={applicantFaq(locale, "levels")}
                     >
                       {intl.formatMessage(getSkillLevelName(criterion, skill))}
                     </a>

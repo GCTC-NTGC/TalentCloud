@@ -6,6 +6,7 @@ function stripTrailingSlash(str: string): string {
 function isValidUrl(str: string): boolean {
   if (str.startsWith("http://") || str.startsWith("https://")) {
     try {
+      // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
       const url = new URL(str);
     } catch (_) {
       return false;
@@ -156,7 +157,15 @@ export function jobBuilderReview(locale: string, jobId: number): string {
   return `${baseUrl()}/${locale}/manager/jobs/${jobId}/builder/review`;
 }
 
-type FaqSection = "manager-who";
+type FaqSection = "manager-who" | "levels";
+
+export function applicantFaq(locale: string, faqSection?: FaqSection): string {
+  const base = `${baseUrl()}/${locale}/faq`;
+  if (faqSection) {
+    return `${base}#${faqSection}`;
+  }
+  return base;
+}
 
 export function managerFaq(locale: string, faqSection?: FaqSection): string {
   const base = `${baseUrl()}/${locale}/manager/faq`;
