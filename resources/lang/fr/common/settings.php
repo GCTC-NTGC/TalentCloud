@@ -74,6 +74,8 @@ return [
     'forget_remembered_devices' => 'Oubliez tous les appareils de confiance.',
     'success_title' => 'Tout va bien.',
     'danger_zone' => ' Zone de danger!',
+    'delete_copy_1' => 'Veuillez noter que votre compte du Nuage de talents ainsi que l’ensemble des renseignements de votre profil seront supprimés de façon permanente. Si vous souhaitez poser votre candidature dans le futur, vous devrez vous inscrire à nouveau.',
+    'delete_copy_2' => 'Si vous avez déjà postulé à un emploi, nous sommes dans l’obligation de conserver une copie de votre demande pendant 5 ans, après quoi ces renseignements seront supprimés.',
     'delete_alert_prefix' => 'Entrez votre adresse de courriel',
     'delete_alert_suffix' => 'ci dessous pour confirmer que vous souhaitez supprimer définitivement votre compte du Nuage de talents.',
     'confirm_delete_label' => 'Confirmez la suppression du compte',
