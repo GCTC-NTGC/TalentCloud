@@ -3,7 +3,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
-import { select, text, boolean } from "@storybook/addon-knobs";
+import { select, boolean } from "@storybook/addon-knobs";
 import JobImpact from "../../components/JobBuilder/Impact/JobImpact";
 import fakeDepartments from "../../fakeData/fakeDepartments";
 import fakeJob from "../../fakeData/fakeJob";

@@ -22,23 +22,20 @@
         {# Application Progress Bar #}
         {% include "applicant/application/progress-bar" with {"step": 9} %}
         {# Step Content #}
-        <div data-c-border="bottom(thin, solid, gray)">
-            <div data-c-container="medium">
-                <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">Final Submission</h2>
-                <p data-c-margin="bottom(1)">You've made it! By signing your name below, you're confirming that:</p>
-                <ul data-c-margin="bottom(2)">
-                    <li>I've reviewed everything written in my application.</li>
-                    <li>I understand that I am a part of a community of people who trust each other.</li>
-                    <li>I promise that the information I've provided is true.</li>
-                </ul>
-                <form data-c-grid="gutter(all, 1)" class="application-signature">
-                    <div data-c-input="text" data-c-grid-item="tl(2of3)">
-                        <label for="TI2">Sign (Type) Your Full Name</label>
-                        <span>Required</span>
-                        <div>
-                            <input id="TI2" placeholder="e.g. First Last" required data-c-font="script" type="text" />
-                        </div>
-                        <span>This input has an error.</span>
+        <div data-c-container="medium">
+            <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">Final Submission</h2>
+            <p data-c-margin="bottom(1)">You've made it! By signing your name below, you're confirming that:</p>
+            <ul data-c-margin="bottom(2)">
+                <li>I've reviewed everything written in my application.</li>
+                <li>I understand that I am a part of a community of people who trust each other.</li>
+                <li>I promise that the information I've provided is true.</li>
+            </ul>
+            <form data-c-grid="gutter(all, 1)">
+                <div data-c-input="text" data-c-grid-item="tl(2of3)">
+                    <label for="TI2">Sign (Type) Your Full Name</label>
+                    <span>Required</span>
+                    <div>
+                        <input id="TI2" placeholder="e.g. First Last" required data-c-font="serif" type="text" />
                     </div>
                     <div data-c-input="date" data-c-grid-item="tl(1of3)">
                         <label for="DAT2">Today's Date</label>
