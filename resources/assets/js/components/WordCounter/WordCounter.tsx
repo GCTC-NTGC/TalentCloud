@@ -57,6 +57,7 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
       aria-valuenow={numOfWords}
       aria-valuemin={minWords}
       aria-valuemax={maxWords}
+      {...dataAttributes}
     >
       {beforeText && <span>{beforeText} </span>}
       <span data-c-color={`${numOfWords <= maxWords ? "go" : "stop"}`}>
