@@ -22,7 +22,7 @@ $factory->define(ExperienceWork::class, function (Faker $faker) {
         'end_date' => $faker->dateTimeBetween('-1 years', '-1 day'),
         'is_education_requirement' => $faker->boolean(),
         'experienceable_id' => function () {
-            return Applicant::inRandomOrder()->first()->id;
+            return factory(Applicant::class)->create()->id;
         },
         'experienceable_type' => 'applicant',
     ];
@@ -38,7 +38,7 @@ $factory->define(ExperiencePersonal::class, function (Faker $faker) {
         'end_date' => $faker->dateTimeBetween('-1 years', '-1 day'),
         'is_education_requirement' => $faker->boolean(),
         'experienceable_id' => function () {
-            return Applicant::inRandomOrder()->first()->id;
+            return factory(Applicant::class)->create()->id;
         },
         'experienceable_type' => 'applicant'
     ];
@@ -55,7 +55,7 @@ $factory->define(ExperienceEducation::class, function (Faker $faker) {
         'end_date' => $faker->dateTimeBetween('-1 years', '-1 day'),
         'is_education_requirement' => $faker->boolean(),
         'experienceable_id' => function () {
-            return Applicant::inRandomOrder()->first()->id;
+            return factory(Applicant::class)->create()->id;
         },
         'experienceable_type' => 'applicant',
         'thesis_title' => $faker->sentence(),
@@ -72,7 +72,7 @@ $factory->define(ExperienceAward::class, function (Faker $faker) {
         'awarded_date' => $faker->dateTimeBetween('-3 years', '-1 years'),
         'is_education_requirement' => $faker->boolean(),
         'experienceable_id' => function () {
-            return Applicant::inRandomOrder()->first()->id;
+            return factory(Applicant::class)->create()->id;
         },
         'experienceable_type' => 'applicant',
     ];
@@ -88,7 +88,7 @@ $factory->define(ExperienceCommunity::class, function (Faker $faker) {
         'end_date' => $faker->dateTimeBetween('-1 years', '-1 day'),
         'is_education_requirement' => $faker->boolean(),
         'experienceable_id' => function () {
-            return Applicant::inRandomOrder()->first()->id;
+            return factory(Applicant::class)->create()->id;
         },
         'experienceable_type' => 'applicant',
     ];

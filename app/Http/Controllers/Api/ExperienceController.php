@@ -107,4 +107,11 @@ class ExperienceController extends Controller
         return new ExperienceResource($community->fresh());
     }
 
+    public function updateWork(Request $request, ExperienceWork $work)
+    {
+        $data = $request->input();
+        $work->fill($data);
+        $work->save();
+        return new ExperienceResource($work->fresh());
+    }
 }

@@ -950,6 +950,11 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->where('applicant', '[0-9]+')
         ->middleware('can:update,applicant')
         ->name('applicant.experience-community.store');
+
+    Route::put('experience-work/{work}', 'Api\ExperienceController@updateWork')
+        ->where('work', '[0-9]+')
+        // ->middleware('can:update,work') TODO: add gate
+        ->name('experience-work.update');
 });
 Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
     Route::get('applications/{application}', 'Api\ApplicationController@show')

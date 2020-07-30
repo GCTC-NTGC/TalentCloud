@@ -316,7 +316,7 @@ class ExperienceControllerTest extends TestCase
     {
         $work = factory(ExperienceWork::class)->create();
         $updateData = $this->makeWorkData();
-        $response = $this->actingAs($work->experience->user)->json(
+        $response = $this->actingAs($work->experienceable->user)->json(
             'put',
             route('api.v1.experience-work.update', $work->id),
             $updateData
@@ -336,7 +336,7 @@ class ExperienceControllerTest extends TestCase
     {
         $personal = factory(ExperiencePersonal::class)->create();
         $updateData = $this->makePersonalData();
-        $response = $this->actingAs($personal->experience->user)->json(
+        $response = $this->actingAs($personal->experienceable->user)->json(
             'put',
             route('api.v1.experience-personal.update', $personal->id),
             $updateData
@@ -356,7 +356,7 @@ class ExperienceControllerTest extends TestCase
     {
         $education = factory(ExperienceEducation::class)->create();
         $updateData = $this->makePersonalData();
-        $response = $this->actingAs($education->experience->user)->json(
+        $response = $this->actingAs($education->experienceable->user)->json(
             'put',
             route('api.v1.experience-education.update', $education->id),
             $updateData
@@ -376,7 +376,7 @@ class ExperienceControllerTest extends TestCase
     {
         $award = factory(ExperienceAward::class)->create();
         $updateData = $this->makePersonalData();
-        $response = $this->actingAs($award->experience->user)->json(
+        $response = $this->actingAs($award->experienceable->user)->json(
             'put',
             route('api.v1.experience-award.update', $award->id),
             $updateData
@@ -396,7 +396,7 @@ class ExperienceControllerTest extends TestCase
     {
         $community = factory(ExperienceCommunity::class)->create();
         $updateData = $this->makePersonalData();
-        $response = $this->actingAs($community->experience->user)->json(
+        $response = $this->actingAs($community->experienceable->user)->json(
             'put',
             route('api.v1.experience-community.update', $community->id),
             $updateData
@@ -415,7 +415,7 @@ class ExperienceControllerTest extends TestCase
     public function testDeleteWork()
     {
         $work = factory(ExperienceWork::class)->create();
-        $response = $this->actingAs($work->experience->user)->json(
+        $response = $this->actingAs($work->experienceable->user)->json(
             'delete',
             route('api.v1.experience-work.delete', $work->id)
         );
@@ -425,7 +425,7 @@ class ExperienceControllerTest extends TestCase
     public function testDeletePersonal()
     {
         $personal = factory(ExperiencePersonal::class)->create();
-        $response = $this->actingAs($personal->experience->user)->json(
+        $response = $this->actingAs($personal->experienceable->user)->json(
             'delete',
             route('api.v1.experience-personal.delete', $personal->id)
         );
@@ -435,7 +435,7 @@ class ExperienceControllerTest extends TestCase
     public function testDeleteEducation()
     {
         $education = factory(ExperienceEducation::class)->create();
-        $response = $this->actingAs($education->experience->user)->json(
+        $response = $this->actingAs($education->experienceable->user)->json(
             'delete',
             route('api.v1.experience-education.delete', $education->id)
         );
@@ -445,7 +445,7 @@ class ExperienceControllerTest extends TestCase
     public function testDeleteAward()
     {
         $award = factory(ExperienceAward::class)->create();
-        $response = $this->actingAs($award->experience->user)->json(
+        $response = $this->actingAs($award->experienceable->user)->json(
             'delete',
             route('api.v1.experience-award.delete', $award->id)
         );
@@ -455,7 +455,7 @@ class ExperienceControllerTest extends TestCase
     public function testDeleteCommunity()
     {
         $community = factory(ExperienceCommunity::class)->create();
-        $response = $this->actingAs($community->experience->user)->json(
+        $response = $this->actingAs($community->experienceable->user)->json(
             'delete',
             route('api.v1.experience-community.delete', $community->id)
         );
