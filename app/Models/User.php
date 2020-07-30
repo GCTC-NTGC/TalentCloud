@@ -7,18 +7,18 @@
 
 namespace App\Models;
 
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Illuminate\Notifications\Notifiable;
 use App\Events\UserCreated;
 use App\Events\UserUpdated;
 use App\Notifications\ResetPasswordNotification;
-use App\Traits\TalentCloudCrudTrait as CrudTrait;
 use App\Traits\RememberDeviceTrait;
+use App\Traits\TalentCloudCrudTrait as CrudTrait;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class User
@@ -55,8 +55,6 @@ class User extends BaseModel implements
     CanResetPasswordContract,
     // Contract for use with Gates and Policies.
     AuthorizableContract
-    // Custom contract for use with openid login.
-    // \App\Services\Auth\Contracts\OidcAuthenticatable.
 {
 
     // Traits for Laravel basic authentication.
@@ -279,10 +277,10 @@ class User extends BaseModel implements
     }
 
     /**
-    * Check if the user has the specified role.
-    * @param string $role This may be either 'applicant', 'manager', 'hr_advisor' or 'admin'.
-    * @return boolean
-    */
+     * Check if the user has the specified role.
+     * @param string $role This may be either 'applicant', 'manager', 'hr_advisor' or 'admin'.
+     * @return boolean
+     */
     public function hasRole($role)
     {
         switch ($role) {
@@ -303,8 +301,8 @@ class User extends BaseModel implements
      * Set this user to the specified role.
      *
      * @param string $role Must be either 'applicant', 'manager', 'hr_advisor' or 'admin'.
-    * @return void
-    */
+     * @return void
+     */
     public function setRole(string $role): void
     {
         $this->user_role()->associate(UserRole::where('key', $role)->firstOrFail());

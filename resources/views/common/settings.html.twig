@@ -6,14 +6,14 @@
 ============================================================================= #}
 {% extends "layouts/base" %}
 {% block title %}
-	{{ settings.title }}
+    {{ settings.title }}
 {% endblock %}
 {% block body %}
-	{# FIP Banner #}
-	{% include "common/goc" %}
-	{# BETA Alert Banner #}
-	{% include "common/alert" %}
-	{# Page Header #}
+    {# FIP Banner #}
+    {% include "common/goc" %}
+    {# BETA Alert Banner #}
+    {% include "common/alert" %}
+    {# Page Header #}
     {% include "common/header" with {"header": settings} %}
 	<div data-clone>
         <div data-c-border="bottom(thin, solid, gray)">
@@ -64,6 +64,11 @@
                                     <li>
                                         <a href="#auth" title="">{{ settings.heading.two_factor }}</a>
                                     </li>
+                                    {% if user.user_role_id == 1 %}
+                                        <li>
+                                            <a href="#delete" title="">{{ settings.heading.delete }}</a>
+                                        </li>
+                                    {% endif %}
                                 </ul>
                             </nav>
                         </div>
@@ -316,11 +321,51 @@
                                         </form>
                                     </div>
                                 {% endif %}
+                                {# Account Deletion #}
+                                {% if user.user_role_id == 1 %}
+                                    <form action="{{ submit_delete }}" method="POST">
+                                        {{ csrf_field() }}
+                                        <hr data-c-margin="top(triple)">
+                                        <h2 data-c-margin="bottom(normal)" data-c-padding="top(triple)" data-c-font-size="h2" id="delete">
+                                            {{ settings.heading.delete }}</h2>
+                                        <div data-c-grid-item="base(1of1)">
+                                            <div data-c-alert="error" data-c-radius="rounded" role="alert" data-c-margin="bottom(normal)">
+                                                <div data-c-padding="half">
+                                                    <p data-c-margin="bottom(half)" data-c-heading="h6" data-c-font-weight="bold">
+                                                        <i class="fas fa-exclamation-circle"></i>
+                                                        {{ settings.danger_zone }}
+                                                    </p>
+                                                    <p data-c-margin="bottom(half)">{{ settings.delete_copy_1 }}</p>
+                                                    <p data-c-margin="bottom(half)">{{ settings.delete_copy_2 }}</p>
+                                                    <p data-c-margin="bottom(half)">{{ settings.delete_alert_prefix }}
+                                                        (<span data-c-font-weight="bold">{{ user.email }}</span>)
+                                                        {{ settings.delete_alert_suffix }}</p>
+                                                </div>
+                                            </div>
+                                            <div data-c-grid-item="base(1of)" data-c-input="email">
+                                                <label for="confirm_delete">{{ settings.confirm_delete_label }}</label>
+                                                <span>{{ settings.required }}</span>
+                                                <div>
+                                                    <input id="confirm_delete" name="confirm_delete" placeholder="{{ settings.delete_placeholder }}" required type="text" value="{{ confirm_delete.value }}" autocomplete="off"/>
+                                                </div>
+                                                <span>{{ settings.error }}</span>
+                                            </div>
+                                            <div data-c-grid-item="base(1of1)" data-c-align="base(center) tp(right)">
+                                                <button id="delete_account" name="delete_account" data-c-button="outline(stop)" data-c-radius="rounded" type="submit" disabled>
+                                                    {{ settings.delete_button }}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-	</div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script async defer src="{{ mix('/js/typeToDelete.js') }}"></script>
 {% endblock %}

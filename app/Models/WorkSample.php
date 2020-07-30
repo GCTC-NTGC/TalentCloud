@@ -43,17 +43,17 @@ class WorkSample extends BaseModel
         'description'
     ];
 
-    public function file_type()
+    public function file_type() // phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\FileType::class);
     }
 
-    public function skill_declarations()
+    public function skill_declarations() // phpcs:ignore
     {
         return $this->belongsToMany(\App\Models\SkillDeclaration::class);
     }
 
-    public function work_sampleable()
+    public function work_sampleable() // phpcs:ignore
     {
         return $this->morphTo();
     }
