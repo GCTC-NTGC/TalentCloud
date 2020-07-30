@@ -1397,12 +1397,22 @@
       {
         "defaultMessage": "Applications for: {jobTitle} {jobClassification}",
         "description": "Welcome header on Job Applications index page",
-        "id": "review.applications.indexPageTitle"
+        "id": "review.applications.applicationsAfterClosed"
       },
       {
-        "defaultMessage": "{dayCount, plural,\n              =0 {No Days}\n            one {# Day}\n          other {# Days}\n        } Since Close",
-        "description": "Welcome header on app main page",
-        "id": "job.daysSinceClosed"
+        "defaultMessage": "Applications to date: {jobTitle} {jobClassification}",
+        "description": "Welcome header on Job Applications index page",
+        "id": "review.applications.applicationsBeforeClosed"
+      },
+      {
+        "defaultMessage": "{dayCount, plural,\r\n              =0 {Closes Today}\r\n            one {# Day Since Close}\r\n          other {# Days Since Close}\r\n        }",
+        "description": "Shows the number of days after the job closed.",
+        "id": "job.daysAfterClosed"
+      },
+      {
+        "defaultMessage": "{dayCount, plural,\r\n            one {# Day}\r\n          other {# Days}\r\n        } Until Close",
+        "description": "Shows the number of days before the job closes.",
+        "id": "job.daysBeforeClosed"
       }
     ],
     "path": "resources/assets/js/components/ApplicationReview/ReviewApplications.json"
