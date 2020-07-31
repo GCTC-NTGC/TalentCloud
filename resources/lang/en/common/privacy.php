@@ -11,11 +11,14 @@ return [
      */
     'title' => 'Privacy Notice',
     'privacy_title' => 'Talent Cloud | Privacy Notice',
+    'sidebarLabel' => 'On this page:',
     'categories' => [
         '00' => [
+            'id' => 'intro',
             'title' => 'Privacy Notice',
             'sections' => [
                 '00' => [
+                    'id' => 'intro00',
                     'copy' => [
                         '00' => 'GC Talent Cloud is committed to protecting the privacy rights of individuals, including safeguarding the personal information you provide voluntarily through the use of this online form and through email and other correspondence with GC Talent Cloud. GC Talent Cloud is a team within the <a href="https://www.canada.ca/en/treasury-board-secretariat.html" target="_blank">Treasury Board of Canada Secretariat</a> (TBS).',
                         '01' => 'This online platform is used to let potential job applicants to create a profile that can be used to apply for externally advertised term positions with select federal departments. Candidates who applied to a job and selected for further rounds of assessment will be contacted via email. Please do not include additional identifying information (date of birth, Social Insurance Number, medical information etc.) in any of the open text box. For general inquiries about the Talent Cloud staffing process, please contact us via <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca">email</a> or <a href="https://twitter.com/GC_Talent" target="_blank" rel="noopener noreferrer">social media</a>. The information you provide via this online platform will not be shared with recruitment or outreach programs outside of federal department for which you have apply for a job without your consent.',
@@ -27,15 +30,18 @@ return [
             ]
         ],
         '01' => [
+            'id' => 'privacy',
             'title' => 'Privacy',
             'sections' => [
                 '00' => [
+                    'id' => 'privacy00',
                     'copy' => [
                         '00' => 'The Government of Canada is committed to protect the privacy of its visitors on its websites. This Privacy Notice summarizes the privacy policy and practices on the GC Talent Cloud website, a website under the responsibility of the <a href="https://www.canada.ca/en/treasury-board-secretariat.html" target="_blank">Treasury Board Secretariat</a> (TBS).',
                         '01' => 'All personal information collected by this institution is governed by the <a href="http://laws-lois.justice.gc.ca/eng/acts/P-21/index.html" target="_blank" rel="noopener noreferrer">Privacy Act</a>. This means that you will be informed of the purpose for which your personal information is being collected and how to exercise your right of access to that information.'
                     ]
                 ],
                 '01' => [
+                    'id' => 'privacy01',
                     'title' => 'Your Privacy and the Internet',
                     'copy' => [
                         '00' => 'Specific personal information, such as your name, phone number or email address, is not automatically gathered. TBS would only obtain this type of information if you supply it by email or by registering in a secure portion of the site for a program or service (e.g. personal information provided voluntarily when you complete an online form or request for service).',
@@ -46,6 +52,7 @@ return [
                     ]
                 ],
                 '02' => [
+                    'id' => 'privacy02',
                     'title' => 'Communicating with the GC Talent Cloud',
                     'copy' => [
                         '00' => 'If you choose to send an email to GC Talent Cloud, your personal information may be used in order to respond to your inquiry. The information you provide will only be shared with another government institution if your inquiry relates to that institution. TBS does not use the information to create individual profiles nor does it disclose the information to anyone other than to those in the federal government who need to provide you with a response. Any disclosure of your personal information is in accordance with the Privacy Act.',
@@ -54,6 +61,7 @@ return [
                     ]
                 ],
                 '03' => [
+                    'id' => 'privacy03',
                     'title' => 'Third-Party Social Media',
                     'copy' => [
                         '00' => "The Government of Canada's use of social media serves as an extension of its presence on the Web. Social media account(s) are public and are not hosted on Government of Canada servers. Users who choose to interact with the Government of Canada, including GC Talent Cloud, via social media should read the terms of service and privacy policies of these third-party service providers and those of any applications used to access them."
@@ -62,15 +70,18 @@ return [
             ]
         ],
         '02' => [
+            'id' => 'experience',
             'title' => 'Improving your Experience on the GC Talent Cloud Website',
             'sections' => [
                 '00' => [
+                    'id' => 'experience00',
                     'title' => 'Developing the Platform',
                     'copy' => [
                         '00' => 'Talent Cloud is a program and platform under active development. As the activities and scope of the program change this privacy notice will be updated to reflect any changes to the collection or use of personal information. All such changes will be done in accordance with the Privacy Act.'
                     ]
                 ],
                 '01' => [
+                    'id' => 'experience01',
                     'title' => 'Digital Markers (including cookies)',
                     'copy' => [
                         '00' => "A digital marker is a resource created by the visitors' browser in order to remember certain pieces of information for the Web server to reference during the same or subsequent visit to the website. Examples of digital markers are \"cookies\" or HTML5 web storage. Some examples of what digital markers do are as follows:",
@@ -86,6 +97,7 @@ return [
                     ]
                 ],
                 '02' => [
+                    'id' => 'experience02',
                     'title' => 'Web Analytics',
                     'copy' => [
                         '00' => 'Web analytics is the collection, analysis, measurement, and reporting of data about Web traffic and visits for purposes of understanding and optimizing Web usage. Information in digital markers may be used in conjunction with computer request data to identify and track your online interactions with the GC Talent Cloud website.',
@@ -108,6 +120,7 @@ return [
                     ]
                 ],
                 '03' => [
+                    'id' => 'experience03',
                     'title' => 'Protecting the Security of Government of Canada Websites',
                     'copy' => [
                         '00' => 'Software programs are used to monitor network traffic and to identify unauthorized attempts to upload or change information, or otherwise cause damage. When you visit the GC Talent Cloud website, these software programs automatically receive and temporarily store information supplied by your browser (for example, Internet explorer, Mozilla Firefox) in our Web server logs. Some of the information automatically collected by our server when you browse our website includes:',
@@ -128,6 +141,7 @@ return [
                     ]
                 ],
                 '04' => [
+                    'id' => 'experience04',
                     'title' => 'Inquiring about these Practices',
                     'copy' => [
                         '00' => 'Any questions, comments, concerns or complaints you may have regarding this Statement, your privacy rights and the Privacy Act may be directed to the TBS Access to Information and Privacy Coordinator by email at ATIP.AIPRP@TBS-SCT.gc.ca or by telephone at 1-866-312-1511. You may also wish to contact the Office of the Privacy Commissioner of Canada by email at info@priv.gc.ca or by telephone at 1-800-282-1376. You have the right to complain to the Office of the Privacy Commissioner of Canada about the handling of your personal information by TBS.'

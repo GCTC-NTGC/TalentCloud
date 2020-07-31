@@ -5,70 +5,85 @@
 
 ============================================================================= #}
 {% extends "layouts/base" %}
-
-{% block title %}
-
-    {{ tos.tos_title }}
-    
-{% endblock %}
-
+{% block title %}{{ tos.tos_title }}{% endblock %}
 {% block body %}
 
     {% include "common/goc" %}
-{% include "common/alert" %}
+    {% include "common/alert" %}
+    {% include "common/header" with {'header':tos} %}
 
-    {# Page Header #}
-
-        {% include "common/header" with {'header':tos} %}
-
-    {# Privacy Policy #}
-
-        <section
-            class="faq__content">
-
-            <div
-                class="container--copy">
-
-                {% for category in tos.categories %}
-
-                    <h3>{{ category.title }}</h3>
-
-                    {% for section in category.sections %}
-
-                        {% if section.title %}
-
-                            <h4>{{ section.title }}</h4>
-
-                        {% endif %}
-
-                        {% for item in section.copy %}
-
-                            {% if item is iterable %}
-                                {% if item.type == "ol" %}
-                                    <ol>
-                                        {% for list_item in item.items %}
-                                            <li>{{ list_item|raw }}</li>
-                                        {% endfor %}
-                                    </ol>
-                                {% elseif item.type == "ul" %}
-                                    <ul>
-                                        {% for list_item in item.items %}
-                                            <li>{{ list_item|raw }}</li>
-                                        {% endfor %}
-                                    </ul>
-                                {% endif %}
-                            {% else %}
-                                <p>{{ item|raw }}</p>
-                            {% endif %}
-
-                        {% endfor %}
-
-                    {% endfor %}
-
-                {% endfor %}
-
+    {# Terms of Service #}
+    <div data-clone>
+        <div
+            data-c-border="bottom(thin, solid, gray)"
+            data-c-padding="bottom(3)">
+            <div data-c-container="large">
+                <div data-c-grid="gutter(all, 3)">
+                    <div data-c-grid-item="tl(1of4) equal-col">
+                        <div class="sidebar-wrapper">
+                            <nav class="sidebar">
+                                <p
+                                    data-c-font-weight="bold"
+                                    data-c-margin="bottom(1)">{{ tos.sidebarLabel }}</p>
+                                <ul>
+                                    {% for category in tos.categories %}
+                                        <li>
+                                            <a href="#{{ category.id }}" title="{{ category.title }}">{{ category.title }}</a>
+                                        </li>
+                                        <ul data-c-margin="bottom(.5) left(1)">
+                                            {% for section in category.sections %}
+                                                <li>
+                                                    <a href="#{{ section.id }}" title="{{ section.title }}">{{ section.title }}</a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endfor %}
+                                    <div data-c-padding="bottom(3)"></div>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div data-c-grid-item="tl(3of4)">
+                        <div data-c-container="base(small, left)">
+                            {% for category in tos.categories %}
+                                <h3
+                                    data-c-heading="h3"
+                                    data-c-padding="top(3) bottom(1)"
+                                    id="{{ category.id }}">{{ category.title }}</h3>
+                                {% for section in category.sections %}
+                                    {% if section.title %}
+                                        <h4
+                                            data-c-heading="h4"
+                                            data-c-margin="bottom(1)"
+                                            data-c-padding="top(3)"
+                                            id="{{ section.id }}">{{ section.title }}</h4>
+                                    {% endif %}
+                                    {% for item in section.copy %}
+                                        {% if item is iterable %}
+                                            {% if item.type == "ol" %}
+                                                <ol data-c-margin="top(1)">
+                                                    {% for list_item in item.items %}
+                                                        <li>{{ list_item|raw }}</li>
+                                                    {% endfor %}
+                                                </ol>
+                                            {% elseif item.type == "ul" %}
+                                                <ul data-c-margin="top(1)">
+                                                    {% for list_item in item.items %}
+                                                        <li>{{ list_item|raw }}</li>
+                                                    {% endfor %}
+                                                </ul>
+                                            {% endif %}
+                                        {% else %}
+                                            <p data-c-margin="top(1)">{{ item|raw }}</p>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
             </div>
-
-        </section>
+        </div>
+    </div>
 
 {% endblock %}

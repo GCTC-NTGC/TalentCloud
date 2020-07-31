@@ -11,11 +11,14 @@ return [
      */
     'title' => 'Énoncé de confidentialité',
     'privacy_title' => 'Nuage de talents | Énoncé de confidentialité',
+    'sidebarLabel' => 'Sur cette page :',
     'categories' => [
         '00' => [
+            'id' => 'intro',
             'title' => 'Énoncé de confidentialité',
             'sections' => [
                 '00' => [
+                    'id' => 'intro00',
                     'copy' => [
                         '00' => 'Le Nuage de talents du gouvernement du Canada (Nuage de talents du GC) s’est engagé à protéger les droits relatifs à la vie privée des particuliers, y compris à protéger les renseignements personnels fournis au Nuage de talents du GC de manière volontaire au moyen de cette plateforme en ligne et par courriel, ainsi que d’autres formes de correspondance. Le Nuage de talents du GC fait partie du <a href="https://www.canada.ca/fr/secretariat-conseil-tresor.html" target="_blank">Secrétariat du Conseil du Trésor du Canada</a> (SCT).',
                         '01' => "Cette plateforme en ligne est utilisée pour permettre aux candidats à un emploi de créer un profil pouvant être utilisé pour postuler à des postes de durée déterminée annoncés de l'extérieur avec certains ministères fédéraux. Les candidats qui ont postulé à un emploi et sélectionnés pour les rondes d’évaluation subséquentes seront joints par courriel. N’incluez aucun renseignement supplémentaire pouvant vous identifier (date de naissance, numéro d’assurance sociale, information médicale, etc.) dans l'encadré ouvert. Si vous avez des questions d’ordre général au sujet du processus de recrutement du Nuage de talents du GC, veuillez communiquer avec nous par <a href=\"mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca\">courriel</a> ou sur les <a href=\"https://twitter.com/GC_Talent\" target=\"_blank\" rel=\"noopener noreferrer\">médias sociaux</a>. Les renseignements fournis au moyen de cette plateforme en ligne ne seront pas divulgués aux programmes de recrutement ou de rayonnement autres que ceux du Nuage de talents du GC sans votre consentement.",
@@ -27,15 +30,18 @@ return [
             ]
         ],
         '01' => [
+            'id' => 'privacy',
             'title' => 'Confidentialité',
             'sections' => [
                 '00' => [
+                    'id' => 'privacy00',
                     'copy' => [
                         '00' => "Le gouvernement du Canada s'engage à protéger les renseignements personnels des visiteurs de ses sites Web. Le présent énoncé de confidentialité résume la politique et les pratiques de confidentialité associées au site Web du Nuage de talents du GC, un site Web sous la responsabilité du <a href=\"https://www.canada.ca/fr/secretariat-conseil-tresor.html\" target=\"_blank\">Secrétariat du Conseil du Trésor</a> (SCT).",
                         '01' => 'Tous les renseignements personnels recueillis par cette institution sont régis par la <a href="http://lois-laws.justice.gc.ca/fra/lois/P-21/index.html" target="_blank" rel="noopener noreferrer">Loi sur la protection des renseignements personnels</a>. Cela signifie que vous serez avisé de la raison pour laquelle vos renseignements personnels sont recueillis et de la façon d’exercer vos droits d’accès à l’information'
                     ]
                 ],
                 '01' => [
+                    'id' => 'privacy01',
                     'title' => "La protection de vos renseignements personnels et l'Internet",
                     'copy' => [
                         '00' => "Des renseignements personnels particuliers, tels que votre nom, votre numéro de téléphone ou votre adresse courriel, ne sont pas automatiquement saisis. Le SCT n'obtiendrait ce type de renseignements que si vous les fournissez par courriel ou lorsque vous vous enregistrez dans une portion protégée du site pour un programme ou un service (p. ex., renseignements personnels fournis de plein gré lorsque vous remplissez un formulaire ou une demande de service en ligne).",
@@ -46,6 +52,7 @@ return [
                     ]
                 ],
                 '02' => [
+                    'id' => 'privacy02',
                     'title' => 'Communication avec le Nuage de talents du GC',
                     'copy' => [
                         '00' => "Si vous choisissez de transmettre un courriel au Nuage de talents du GC, vos renseignements personnels peuvent être utilisés pour répondre à votre demande de renseignements. Les renseignements personnels que vous fournissez ne seront partagés avec une autre institution gouvernementale que si votre demande porte sur cette institution. Le SCT n'utilise pas ces renseignements pour créer des profils individuels. Toute divulgation de vos renseignements personnels s'effectue conformément à la Loi sur la protection des renseignements personnels.",
@@ -54,6 +61,7 @@ return [
                     ]
                 ],
                 '03' => [
+                    'id' => 'privacy03',
                     'title' => 'Médias sociaux de tiers',
                     'copy' => [
                         '00' => "L'utilisation des médias sociaux par le gouvernement du Canada constitue le prolongement de sa présence sur le Web. Les comptes des médias sociaux sont publics et ne sont pas hébergés sur les serveurs du gouvernement du Canada. Les utilisateurs qui choisissent d'interagir avec le gouvernement du Canada, notamment le Nuage de talents du GC, par le truchement des médias sociaux devraient lire les conditions de service et les politiques de confidentialité de ces tiers fournisseurs de services et celles liées aux applications utilisées pour y accéder."
@@ -62,15 +70,18 @@ return [
             ]
         ],
         '02' => [
+            'id' => 'experience',
             'title' => 'Améliorer votre expérience sur le site Web du Nuage de talents du GC',
             'sections' => [
                 '00' => [
+                    'id' => 'experience00',
                     'title' => 'Développer la plateforme',
                     'copy' => [
                         '00' => "Le Nuage de talents est un programme et une plateforme en développement actif. À mesure que les activités et la portée du programme changent, cet avis de confidentialité sera mis à jour pour refléter tout changement apporté à la collecte ou à l'utilisation d'informations personnelles. Tous ces changements seront effectués conformément à la Loi sur la protection des renseignements personnels."
                     ]
                 ],
                 '01' => [
+                    'id' => 'experience01',
                     'title' => 'Marqueurs numériques (y compris les témoins)',
                     'copy' => [
                         '00' => 'Un marqueur numérique est une ressource créée par le navigateur des visiteurs afin de retenir certains renseignements auxquels peut faire référence le serveur dans le cadre de la même visite ou de visites subséquentes. Les témoins et les spécifications de stockage Web HTML5 sont des exemples de marqueurs numériques. Voici certains exemples de ce que font les marqueurs numériques.',
@@ -86,6 +97,7 @@ return [
                     ]
                 ],
                 '02' => [
+                    'id' => 'experience02',
                     'title' => 'Web analytique',
                     'copy' => [
                         '00' => "Par Web analytique, on entend la collecte, l'analyse, la mesure et la présentation de données sur le trafic d'un site Internet et sur les visites effectuées dans le but de comprendre et d'optimiser l'utilisation du Web. Les données des marqueurs numériques peuvent être utilisées de concert avec les demandes de données informatiques pour déterminer et repérer vos interactions en ligne avec le site Web du Nuage de talents du GC.",
@@ -108,6 +120,7 @@ return [
                     ]
                 ],
                 '03' => [
+                    'id' => 'experience03',
                     'title' => 'Assurer la sécurité des sites Web du gouvernement du Canada',
                     'copy' => [
                         '00' => 'Des programmes logiciels sont utilisés pour surveiller la transmission de données sur le réseau et détecter toute tentative non autorisée de télécharger ou de modifier des renseignements, ou encore de causer des torts. Lorsque vous visitez le site Web du Nuage de talents du GC, ces programmes logiciels reçoivent automatiquement et stockent temporairement les renseignements fournis par votre navigateur (par exemple, Internet Explorer, Mozilla Firefox) dans nos journaux de serveurs Web. Voici certains des renseignements recueillis automatiquement par notre serveur lorsque vous naviguez dans notre site Web :',
@@ -128,6 +141,7 @@ return [
                     ]
                 ],
                 '04' => [
+                    'id' => 'experience04',
                     'title' => 'Pour en apprendre davantage sur ces pratiques',
                     'copy' => [
                         '00' => 'Pour transmettre vos questions, commentaires ou préoccupations concernant le présent avis, vos droits en matière de protection des renseignements personnels ou la Loi sur la protection des renseignements personnels, communiquez avec le coordonnateur de l’accès à l’information et de la protection des renseignements personnels du SCT, à atip.aiprp@tbs-sct.gc.ca, ou en composant le 1-866-312-1511. Vous pouvez aussi communiquer avec le Commissariat à la protection de la vie privée du Canada par courriel, à info@priv.gc.ca, ou par téléphone, au 1-800-282-1376. Vous avez également la possibilité de déposer une plainte auprès du Commissariat à la protection de la vie privée du Canada quant à la façon dont le SCT traite vos renseignements personnels.'
