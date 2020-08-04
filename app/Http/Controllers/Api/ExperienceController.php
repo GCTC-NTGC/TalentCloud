@@ -2,6 +2,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateExperienceAward;
+use App\Http\Requests\UpdateExperienceCommunity;
+use App\Http\Requests\UpdateExperienceEducation;
+use App\Http\Requests\UpdateExperiencePersonal;
+use App\Http\Requests\UpdateExperienceWork;
 use App\Http\Resources\Experience as ExperienceResource;
 use App\Models\Applicant;
 use App\Models\ExperienceAward;
@@ -67,49 +72,49 @@ class ExperienceController extends Controller
         return $experiences;
     }
 
-    public function storeWork(Request $request, Applicant $applicant)
+    public function storeWork(UpdateExperienceWork $request, Applicant $applicant)
     {
-        $data = $request->input();
+        $data = $request->validated();
         $work = new ExperienceWork($data);
         $applicant->experiences_work()->save($work);
         return new ExperienceResource($work->fresh());
     }
 
-    public function storePersonal(Request $request, Applicant $applicant)
+    public function storePersonal(UpdateExperiencePersonal $request, Applicant $applicant)
     {
-        $data = $request->input();
+        $data = $request->validated();
         $personal = new ExperiencePersonal($data);
         $applicant->experiences_personal()->save($personal);
         return new ExperienceResource($personal->fresh());
     }
 
-    public function storeEducation(Request $request, Applicant $applicant)
+    public function storeEducation(UpdateExperienceEducation $request, Applicant $applicant)
     {
-        $data = $request->input();
+        $data = $request->validated();
         $education = new ExperienceEducation($data);
         $applicant->experiences_education()->save($education);
         return new ExperienceResource($education->fresh());
     }
 
-    public function storeAward(Request $request, Applicant $applicant)
+    public function storeAward(UpdateExperienceAward $request, Applicant $applicant)
     {
-        $data = $request->input();
+        $data = $request->validated();
         $award = new ExperienceAward($data);
         $applicant->experiences_award()->save($award);
         return new ExperienceResource($award->fresh());
     }
 
-    public function storeCommunity(Request $request, Applicant $applicant)
+    public function storeCommunity(UpdateExperienceCommunity $request, Applicant $applicant)
     {
-        $data = $request->input();
+        $data = $request->validated();
         $community = new ExperienceCommunity($data);
         $applicant->experiences_community()->save($community);
         return new ExperienceResource($community->fresh());
     }
 
-    public function updateWork(Request $request, ExperienceWork $work)
+    public function updateWork(UpdateExperienceWork $request, ExperienceWork $work)
     {
-        $data = $request->input();
+        $data = $request->validated();
         $work->fill($data);
         $work->save();
         return new ExperienceResource($work->fresh());

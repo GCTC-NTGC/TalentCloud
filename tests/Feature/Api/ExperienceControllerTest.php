@@ -221,7 +221,8 @@ class ExperienceControllerTest extends TestCase
                 'experienceable_type' => 'applicant',
             ])->all();
         $response->assertJsonFragment($expectData);
-        $this->assertTrue($response->decodeResponseJson('id') !== 0);
+        $id = $response->decodeResponseJson('id');
+        $this->assertNotNull(ExperienceWork::find($id));
     }
 
     public function testStorePersonal()
@@ -243,7 +244,8 @@ class ExperienceControllerTest extends TestCase
                 'experienceable_type' => 'applicant',
             ])->all();
         $response->assertJsonFragment($expectData);
-        $this->assertTrue($response->decodeResponseJson('id') !== 0);
+        $id = $response->decodeResponseJson('id');
+        $this->assertNotNull(ExperiencePersonal::find($id));
     }
 
     public function testStoreEducation()
@@ -265,7 +267,8 @@ class ExperienceControllerTest extends TestCase
                 'experienceable_type' => 'applicant',
             ])->all();
         $response->assertJsonFragment($expectData);
-        $this->assertTrue($response->decodeResponseJson('id') !== 0);
+        $id = $response->decodeResponseJson('id');
+        $this->assertNotNull(ExperienceEducation::find($id));
     }
 
     public function testStoreAward()
@@ -287,7 +290,8 @@ class ExperienceControllerTest extends TestCase
                 'experienceable_type' => 'applicant',
             ])->all();
         $response->assertJsonFragment($expectData);
-        $this->assertTrue($response->decodeResponseJson('id') !== 0);
+        $id = $response->decodeResponseJson('id');
+        $this->assertNotNull(ExperienceAward::find($id));
     }
 
     public function testStoreCommunity()
@@ -309,7 +313,8 @@ class ExperienceControllerTest extends TestCase
                 'experienceable_type' => 'applicant',
             ])->all();
         $response->assertJsonFragment($expectData);
-        $this->assertTrue($response->decodeResponseJson('id') !== 0);
+        $id = $response->decodeResponseJson('id');
+        $this->assertNotNull(ExperienceCommunity::find($id));
     }
 
     public function testUpdateWork()
@@ -329,7 +334,7 @@ class ExperienceControllerTest extends TestCase
             ])->all();
         $response->assertOk();
         $response->assertJsonFragment($expectData);
-        $this->assertEquals($expectData, (new ExperienceResource($work))->resolve());
+        $this->assertDatabaseHas('experiences_work', $expectData);
     }
 
     public function testUpdatePersonal()
@@ -349,7 +354,7 @@ class ExperienceControllerTest extends TestCase
             ])->all();
         $response->assertOk();
         $response->assertJsonFragment($expectData);
-        $this->assertEquals($expectData, (new ExperienceResource($personal))->resolve());
+        $this->assertDatabaseHas('experiences_personal', $expectData);
     }
 
     public function testUpdateEducation()
@@ -369,7 +374,7 @@ class ExperienceControllerTest extends TestCase
             ])->all();
         $response->assertOk();
         $response->assertJsonFragment($expectData);
-        $this->assertEquals($expectData, (new ExperienceResource($education))->resolve());
+        $this->assertDatabaseHas('experiences_education', $expectData);
     }
 
     public function testUpdateAward()
@@ -389,7 +394,7 @@ class ExperienceControllerTest extends TestCase
             ])->all();
         $response->assertOk();
         $response->assertJsonFragment($expectData);
-        $this->assertEquals($expectData, (new ExperienceResource($award))->resolve());
+        $this->assertDatabaseHas('experiences_award', $expectData);
     }
 
     public function testUpdateCommunity()
@@ -409,7 +414,7 @@ class ExperienceControllerTest extends TestCase
             ])->all();
         $response->assertOk();
         $response->assertJsonFragment($expectData);
-        $this->assertEquals($expectData, (new ExperienceResource($community))->resolve());
+        $this->assertDatabaseHas('experiences_community', $expectData);
     }
 
     public function testDeleteWork()
