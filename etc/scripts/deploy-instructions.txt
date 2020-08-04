@@ -5,8 +5,17 @@ composer i --no-dev --optimize-autoloader && npm run prod && npm ci --production
 
 3. Zip the TalentCloud folder, copy to server on TBS device.
 
-4. WinSCP deploy.sh and TalentCloud.zip to your home directory.
+4. WinSCP deploy.sh and deploy_talentcloud.sh and TalentCloud.zip to your home directory.
 
 5. Set permissions and execute:
 sudo chmod 775 deploy.sh
-sudo ./deploy.sh
+sudo chmod 775 deploy_talentcloud.sh
+sudo ./deploy_talentcloud.sh
+
+
+
+To deploy the Reserve app instead:
+Same as above, except the zipped folder should be named TalentReserve.zip, and run ./deploy_reserve.sh instead.
+
+To deploy to the dev server:
+Same as above, except use deploy_dev_reserve.sh and deploy_dev_talentcloud.sh scripts.
