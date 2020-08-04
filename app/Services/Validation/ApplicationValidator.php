@@ -100,7 +100,9 @@ class ApplicationValidator
             'language_requirement_confirmed' => ['required', 'boolean'],
             'citizenship_declaration_id' => ['required', 'exists:citizenship_declarations,id'],
             'veteran_status_id' => ['required', 'exists:veteran_statuses,id'],
-            'preferred_language_id' => ['required', 'exists:preferred_languages,id']
+            'preferred_language_id' => ['required', 'exists:preferred_languages,id'],
+            'language_test_confirmed' => ['required', 'boolean'],
+            'education_requirement_confirmed' => ['required', 'boolean']
         ];
     }
 
@@ -124,22 +126,29 @@ class ApplicationValidator
         return $rules;
     }
 
-    public function basicRules(JobApplication $application)
-    {
-        return array_merge($this->basicInfoSimpleRules(), $this->questionAnswerRules($application));
-    }
-
     public function basicsValidator(JobApplication $application)
     {
-        // Load application answers so they are included in application->toArray().
-        $application->load('job_application_answers');
-        $validator = Validator::make($application->toArray(), $this->basicRules($application));
+        $validator = Validator::make($application->toArray(), $this->basicInfoSimpleRules($application));
         return $validator;
     }
 
     public function basicsComplete(JobApplication $application)
     {
         $validator = $this->basicsValidator($application);
+        return $validator->passes();
+    }
+
+    public function questionAnswerValidator(JobApplication $application)
+    {
+        // Load application answers so they are included in application->toArray().
+        $application->load('job_application_answers');
+        $validator = Validator::make($application->toArray(), $this->questionAnswerRules($application));
+        return $validator;
+    }
+
+    public function questionAnswerComplete(JobApplication $application)
+    {
+        $validator = $this->questionAnswerValidator($application);
         return $validator->passes();
     }
 
