@@ -28,6 +28,7 @@ class UpdateExperienceAward extends FormRequest
             'award_recipient_type_id' => 'required|exists:award_recipient_types,id',
             'award_recognition_type_id' => 'required|exists:award_recognition_types,id',
             'issued_by' => 'required|string',
+            'is_education_requirement' => 'required|boolean',
             'awarded_date' => 'required|date',
         ];
     }

@@ -27,6 +27,7 @@ class UpdateExperienceWork extends FormRequest
             'title' => 'required|string',
             'organization' => 'required|string',
             'group' => 'required|string',
+            'is_education_requirement' => 'required|boolean',
             'is_active' => 'required|boolean',
             'start_date' => 'required|date',
             'end_date' => 'nullable|date',

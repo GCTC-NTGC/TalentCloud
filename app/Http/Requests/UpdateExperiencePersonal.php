@@ -27,7 +27,7 @@ class UpdateExperiencePersonal extends FormRequest
             'title' => 'required|string',
             'description' => 'required|string',
             'is_shareable' => 'required|boolean',
-            'issued_by' => 'required|string',
+            'is_education_requirement' => 'required|boolean',
             'is_active' => 'required|boolean',
             'start_date' => 'required|date',
             'end_date' => 'nullable|date',

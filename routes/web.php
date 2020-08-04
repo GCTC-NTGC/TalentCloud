@@ -955,6 +955,22 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->where('work', '[0-9]+')
         // ->middleware('can:update,work') TODO: add gate
         ->name('experience-work.update');
+    Route::put('experience-personal/{personal}', 'Api\ExperienceController@updatePersonal')
+        ->where('personal', '[0-9]+')
+        // ->middleware('can:update,personal') TODO: add gate
+        ->name('experience-personal.update');
+    Route::put('experience-education/{education}', 'Api\ExperienceController@updateEducation')
+        ->where('education', '[0-9]+')
+        // ->middleware('can:update,education') TODO: add gate
+        ->name('experience-education.update');
+    Route::put('experience-award/{award}', 'Api\ExperienceController@updateAward')
+        ->where('award', '[0-9]+')
+        // ->middleware('can:update,award') TODO: add gate
+        ->name('experience-award.update');
+    Route::put('experience-community/{community}', 'Api\ExperienceController@updateCommunity')
+        ->where('community', '[0-9]+')
+        // ->middleware('can:update,community') TODO: add gate
+        ->name('experience-community.update');
 });
 Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
     Route::get('applications/{application}', 'Api\ApplicationController@show')

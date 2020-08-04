@@ -119,4 +119,36 @@ class ExperienceController extends Controller
         $work->save();
         return new ExperienceResource($work->fresh());
     }
+
+    public function updatePersonal(UpdateExperiencePersonal $request, ExperiencePersonal $personal)
+    {
+        $data = $request->validated();
+        $personal->fill($data);
+        $personal->save();
+        return new ExperienceResource($personal->fresh());
+    }
+
+    public function updateEducation(UpdateExperienceEducation $request, ExperienceEducation $education)
+    {
+        $data = $request->validated();
+        $education->fill($data);
+        $education->save();
+        return new ExperienceResource($education->fresh());
+    }
+
+    public function updateAward(UpdateExperienceAward $request, ExperienceAward $award)
+    {
+        $data = $request->validated();
+        $award->fill($data);
+        $award->save();
+        return new ExperienceResource($award->fresh());
+    }
+
+    public function updateCommunity(UpdateExperienceCommunity $request, ExperienceCommunity $community)
+    {
+        $data = $request->validated();
+        $community->fill($data);
+        $community->save();
+        return new ExperienceResource($community->fresh());
+    }
 }

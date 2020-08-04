@@ -93,6 +93,7 @@ class ExperienceControllerTest extends TestCase
             'area_of_study' => $faker->words(3, true),
             'institution' => $faker->company(),
             'education_status_id' => EducationStatus::inRandomOrder()->first()->id,
+            'has_blockcert' => $faker->boolean(),
             'is_active' => $faker->boolean(),
             'start_date' => $faker->dateTimeBetween('-3 years', '-1 years')
                 ->setTime(0, 0, 0, 0)->format($this->DATE_FORMAT),
@@ -360,7 +361,7 @@ class ExperienceControllerTest extends TestCase
     public function testUpdateEducation()
     {
         $education = factory(ExperienceEducation::class)->create();
-        $updateData = $this->makePersonalData();
+        $updateData = $this->makeEducationData();
         $response = $this->actingAs($education->experienceable->user)->json(
             'put',
             route('api.v1.experience-education.update', $education->id),
@@ -380,7 +381,7 @@ class ExperienceControllerTest extends TestCase
     public function testUpdateAward()
     {
         $award = factory(ExperienceAward::class)->create();
-        $updateData = $this->makePersonalData();
+        $updateData = $this->makeAwardData();
         $response = $this->actingAs($award->experienceable->user)->json(
             'put',
             route('api.v1.experience-award.update', $award->id),
@@ -400,7 +401,7 @@ class ExperienceControllerTest extends TestCase
     public function testUpdateCommunity()
     {
         $community = factory(ExperienceCommunity::class)->create();
-        $updateData = $this->makePersonalData();
+        $updateData = $this->makeCommunityData();
         $response = $this->actingAs($community->experienceable->user)->json(
             'put',
             route('api.v1.experience-community.update', $community->id),

@@ -30,6 +30,7 @@ class UpdateExperienceEducation extends FormRequest
             'education_status_id' => 'required|exists:education_statuses,id',
             'thesis_title' => 'nullable|string',
             'has_blockcert' => 'required|boolean',
+            'is_education_requirement' => 'required|boolean',
             'is_active' => 'required|boolean',
             'start_date' => 'required|date',
             'end_date' => 'nullable|date',

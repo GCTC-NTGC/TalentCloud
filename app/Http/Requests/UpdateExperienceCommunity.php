@@ -27,6 +27,7 @@ class UpdateExperienceCommunity extends FormRequest
             'title' => 'required|string',
             'group' => 'required|string',
             'project' => 'required|string',
+            'is_education_requirement' => 'required|boolean',
             'is_active' => 'required|boolean',
             'start_date' => 'required|date',
             'end_date' => 'nullable|date',
