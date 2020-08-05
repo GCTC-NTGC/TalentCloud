@@ -157,6 +157,53 @@ class SettingsControllerTest extends TestCase
     }
 
     /**
+     * Ensure update contact preferences succeeds with valid data.
+     *
+     * @return void
+     */
+    public function testUpdateContactPreferencesWithValidData(): void
+    {
+        $response = $this->actingAs($this->applicant->user)->get(route('settings.edit'));
+        $response->assertOk();
+        $data = [
+            'contact_language' => 'fr',
+            'job_alerts' => true,
+        ];
+        $response = $this->followingRedirects()
+            ->actingAs($this->applicant->user)
+            ->post(route('settings.contact_preferences.update', $this->applicant->user), $data);
+        $response->assertOk();
+        // Success notification visible.
+        $response->assertSee(e(Lang::get('success.update_contact_preferences')));
+        // Data was updated.
+        $this->assertDatabaseHas('users', $data);
+    }
+
+    /**
+     * Ensure missing contact language is invalid.
+     *
+     * @return void
+     */
+    public function testContactPreferencesNotValidWhenContactLanguageIsEmpty() : void
+    {
+        $response = $this->actingAs($this->applicant->user)
+            ->get(route('settings.edit'));
+        $response->assertOk();
+        $data = [
+            'contact_language' => '',
+            'job_alerts' => true,
+        ];
+        $response = $this->followingRedirects()
+            ->actingAs($this->applicant->user)
+            ->post(route('settings.contact_preferences.update', $this->applicant->user), $data);
+        $response->assertOk();
+        // Error message visible.
+        $response->assertSee(e(Lang::get('forms.alert')));
+        // Data was not updated.
+        $this->assertDatabaseMissing('users', $data);
+    }
+
+    /**
      * Ensure update password succeeds with valid data.
      *
      * @return void

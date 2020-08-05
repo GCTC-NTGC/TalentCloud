@@ -36,6 +36,8 @@ use Illuminate\Notifications\Notifiable;
  * @property string $google2fa_secret
  * @property array $recovery_codes
  * @property int $department_id
+ * @property string $contact_language
+ * @property boolean $job_alerts
  * @property \Jenssegers\Date\Date $recovery_codes_generation_date
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
@@ -74,7 +76,9 @@ class User extends BaseModel implements
         'email' => 'string',
         'gov_email' => 'string',
         'not_in_gov' => 'boolean',
-        'department_id' => 'int'
+        'department_id' => 'int',
+        'contact_language' => 'string',
+        'job_alerts' => 'boolean',
     ];
 
     /**
@@ -93,7 +97,9 @@ class User extends BaseModel implements
         'gov_email',
         'not_in_gov',
         'google2fa_secret',
-        'department_id'
+        'department_id',
+        'contact_language',
+        'job_alerts',
     ];
 
     protected $with = ['user_role'];

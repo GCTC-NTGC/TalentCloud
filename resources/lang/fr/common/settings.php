@@ -37,6 +37,17 @@ return [
     ],
     'gov_email_label' => 'Courriel gouvernemental',
     'government_save' => 'Sauvegarder l\'information du gouvernement',
+    'contact_preferences' => 'Préférences pour les communications',
+    'contact_preferences_copy' => 'Vous trouverez plus bas quelques préférences sur la façon dont le Nuage de talents communique avec vous:',
+    'contact_language_label' => 'Dans quelle langue désirez-vous communiquer?',
+    'contact_language_null_selection' => 'Choisissez une langue...',
+    'contact_languages' => [
+        'en' => 'Anglais',
+        'fr' => 'Français',
+     ],
+    'job_alerts_copy' => 'Par défaut, le Nuage de talents communiquera avec vous à l’occasion concernant des occasions semblables à celles pour lesquelles vous avez postulé. Si vous ne désirez pas recevoir ces courriels, veuillez cocher la boîte plus bas.',
+    'job_alerts_label' => 'Je ne veux pas que le Nuage de talents communique avec moi concernant des emplois liés à ceux pourlesquels je postule.',
+    'save_contact_preferences' => 'Enregistrer les préférences pour les communications.',
     'password_copy' => [
         'one' => 'Vous pouvez utiliser cette section pour modifier votre mot de passe. Les mots de passe doivent contenir un caractère tiré de chacun des critères suivants :',
         'two' => 'Lettres minuscules (a-z)',

@@ -276,6 +276,14 @@ Route::group(
                         ->name('settings.government.update');
 
                     Route::post(
+                        'settings/{user}/contact-preferences/update',
+                        'SettingsController@updateContactPreferences'
+                    )
+                        ->middleware('can:view,user')
+                        ->middleware('can:update,user')
+                        ->name('settings.contact_preferences.update');
+
+                    Route::post(
                         'settings/{user}/account/delete',
                         'SettingsController@deleteAccount'
                     )
@@ -503,6 +511,14 @@ Route::group(
                             ->middleware('can:view,user')
                             ->middleware('can:update,user')
                             ->name('manager.settings.government.update');
+
+                        Route::post(
+                            'settings/{user}/contact-preferences/update',
+                            'SettingsController@updateContactPreferences'
+                        )
+                            ->middleware('can:view,user')
+                            ->middleware('can:update,user')
+                            ->name('manager.settings.contact_preferences.update');
 
                         Route::post(
                             'settings/{user}/account/delete',
@@ -743,6 +759,14 @@ Route::group(
                             ->middleware('can:view,user')
                             ->middleware('can:update,user')
                             ->name('hr_advisor.settings.government.update');
+
+                        Route::post(
+                            'settings/{user}/contact-preferences/update',
+                            'SettingsController@updateContactPreferences'
+                        )
+                            ->middleware('can:view,user')
+                            ->middleware('can:update,user')
+                            ->name('hr_advisor.settings.contact_preferences.update');
 
                         Route::get('resources', 'ResourcesController@show')
                             ->middleware('can:view-resources')
