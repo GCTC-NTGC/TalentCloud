@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useIntl, FormattedMessage } from "react-intl";
+import { useIntl } from "react-intl";
 import { Formik, Form, FastField } from "formik";
 import * as Yup from "yup";
 import messages, {
@@ -7,7 +7,8 @@ import messages, {
   veteranStatus,
   languageRequirementDescription,
   languageRequirementLabel,
-} from "./BasicInfoMessages";
+} from "./basicInfoMessages";
+import { basicInfoMessages, navigationMessages } from "../applicationMessages";
 import SelectInput from "../../Form/SelectInput";
 import {
   CitizenshipId,
@@ -82,12 +83,12 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
   return (
     <div data-c-container="medium">
       <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">
-        {intl.formatMessage(messages.header)}
+        {intl.formatMessage(basicInfoMessages.header)}
       </h2>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={(values, actions): void => {
+        onSubmit={(values): void => {
           // Save data to application object, then navigate to the next step
           const basicInfoFormValues: BasicInfoFormValues = {
             ...values,
@@ -96,7 +97,7 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
           handleContinue(basicInfoFormValues);
         }}
       >
-        {({ errors, touched, isSubmitting, values }): React.ReactElement => (
+        {({ isSubmitting }): React.ReactElement => (
           <Form>
             <div data-c-grid="gutter(all, 1)">
               {/* Citizenship Declaration */}
@@ -105,7 +106,7 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
                 name="citizenship"
                 component={SelectInput}
                 required
-                label={intl.formatMessage(messages.citizenshipLabel)}
+                label={intl.formatMessage(basicInfoMessages.citizenshipLabel)}
                 grid="base(1of1)"
                 nullSelection={intl.formatMessage(messages.nullSelectOption)}
                 options={Object.values(CitizenshipId).map((id: number): {
@@ -122,7 +123,7 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
                 name="veteranStatus"
                 component={SelectInput}
                 required
-                label={intl.formatMessage(messages.veteranStatusLabel)}
+                label={intl.formatMessage(basicInfoMessages.veteranStatusLabel)}
                 grid="base(1of1)"
                 nullSelection={intl.formatMessage(messages.nullSelectOption)}
                 options={Object.values(VeteranId).map((id: number): {
@@ -140,7 +141,7 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
               data-c-margin="top(2) bottom(1)"
               data-c-padding="bottom(1)"
             >
-              {intl.formatMessage(messages.languageRequirementsHeader)}
+              {intl.formatMessage(basicInfoMessages.languageRequirementsHeader)}
             </h3>
             <p>
               {job.language_requirement_id &&
@@ -230,11 +231,7 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
                     handleReturn();
                   }}
                 >
-                  <FormattedMessage
-                    id="applicantTimeline.returnButtonLabel"
-                    defaultMessage="Save & Return to Previous Step"
-                    description="The text displayed on the Save & Return button of the Applicant Timeline form."
-                  />
+                  {intl.formatMessage(navigationMessages.return)}
                 </button>
               </div>
               <div
@@ -252,11 +249,7 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
                     handleQuit();
                   }}
                 >
-                  <FormattedMessage
-                    id="applicantTimeline.quitButtonLabel"
-                    defaultMessage="Save & Quit"
-                    description="The text displayed on the Save & Return button of the Applicant Timeline form."
-                  />
+                  {intl.formatMessage(navigationMessages.quit)}
                 </button>
                 <button
                   data-c-button="solid(c1)"
@@ -265,11 +258,7 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  <FormattedMessage
-                    id="applicantTimeline.submitButtonLabel"
-                    defaultMessage="Save & Continue"
-                    description="The text displayed on the submit button for the Job Details form."
-                  />
+                  {intl.formatMessage(navigationMessages.continue)}
                 </button>
               </div>
             </div>

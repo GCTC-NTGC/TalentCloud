@@ -11,12 +11,12 @@ import TextAreaInput from "../../Form/TextAreaInput";
 
 const saveButtonMessages = defineMessages({
   save: {
-    id: "application.myfit.saveAnswerButton.default",
+    id: "application.fit.saveAnswerButton.default",
     defaultMessage: "Save Answer",
     description: "Default message displayed on save answer button.",
   },
   saved: {
-    id: "application.myfit.saveAnswerButton.saved",
+    id: "application.fit.saveAnswerButton.saved",
     defaultMessage: "Saved",
     description: "Message displayed on button when data is saved.",
   },
@@ -99,7 +99,7 @@ const Question: React.FunctionComponent<QuestionProps> = ({
               data-c-color="c2"
             >
               <FormattedMessage
-                id="application.myfit.question"
+                id="application.fit.question"
                 defaultMessage="Question {index}:"
                 description="Label for the question on the My Fit step."
                 values={{
@@ -115,7 +115,7 @@ const Question: React.FunctionComponent<QuestionProps> = ({
               required
               label={
                 <FormattedMessage
-                  id="application.myfit.questionLabel"
+                  id="application.fit.questionLabel"
                   defaultMessage="My Answer to Question {index}"
                   description="Label before the users answer on the My Fit step."
                   values={{
