@@ -14,9 +14,6 @@ export function localizeField<T>(
   field: TranslatableKeys<T>,
 ): string | null {
   if (model[field] !== null) {
-    if (model[field][locale] === ("" || null || undefined)) {
-      return locale === "en" ? "TRANSLATION MISSING" : "TRADUCTION MANQUANTE";
-    }
     return model[field][locale];
   }
   return null;

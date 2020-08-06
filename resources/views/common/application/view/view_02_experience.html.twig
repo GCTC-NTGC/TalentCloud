@@ -52,4 +52,18 @@
             <p>{{ application_template.preview.experience.null_work_copy }}</p>
         </div>
     {% endif %}
+    {# Work Samples #}
+    <h4 data-c-heading="h4" data-c-margin="top(2) bottom(1)">{{ application_template.preview.experience.sample_label }}</h4>
+    <div data-c-accordion-group>
+        {% set sampleCounter = 0 %}
+        {% for sample in work_samples %}
+            {% set sampleCounter = sampleCounter + 1 %}
+            {% include "common/sample" %}
+        {% endfor %}
+    </div>
+    {% if sampleCounter == 0 %}
+        <div data-c-background="gray(20)" data-c-radius="rounded" data-c-padding="all(1)" data-c-border="all(thin, solid, gray)" data-c-color="gray">
+            <p>{{ application_template.preview.experience.null_sample_copy }}</p>
+        </div>
+    {% endif %}
 </section>

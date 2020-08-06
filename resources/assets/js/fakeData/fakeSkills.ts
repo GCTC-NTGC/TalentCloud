@@ -83,9 +83,49 @@ export const fakeSkill4 = (overrides: Partial<Skill> = {}): Skill => ({
   ...overrides,
 });
 
+export const fakeSkill5 = (): Skill => ({
+  id: 13,
+  skill_type_id: SkillTypeId.Hard,
+  name: { en: "HTML", fr: "HTML" },
+  description: {
+    en:
+      "Defined as: A markup language to build the framework and essential blocks of a webpage.",
+    fr:
+      "Signifie Hyper-Text-Mark Up-Language, qui implique de travailler avec un langage de balisage pour construire le cadre et les blocs essentiels d'une page Web.",
+  },
+  is_future_skill: false,
+  is_culture_skill: true,
+  classifications: [
+    {
+      key: "CS",
+    },
+  ],
+});
+
+export const fakeSkill6 = (): Skill => ({
+  id: 25,
+  skill_type_id: SkillTypeId.Soft,
+  name: { en: "Flexibility", fr: "Flexibilité" },
+  description: {
+    en:
+      "Defined as: Being open to multiple perspectives when working interpersonally; demonstrating willingness to use a variety of approaches to advance initiatives and deliver work.",
+    fr:
+      "Se d'finit comme suit : tre ouvert de multiples points de vue lorsque vous travaillez de manire interpersonnelle; d'montrer une volont' d'avoir recours diverses approches pour faire avancer les initiatives et livrer son travail.",
+  },
+  is_future_skill: false,
+  is_culture_skill: true,
+  classifications: [
+    {
+      key: "EX",
+    },
+  ],
+});
+
 export const fakeSkills = (): Skill[] => [
   fakeSkill(),
   fakeSkill2(),
   fakeSkill3(),
   fakeSkill4(),
+  fakeSkill5(),
+  fakeSkill6(),
 ];
