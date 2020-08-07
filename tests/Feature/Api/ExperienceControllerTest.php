@@ -423,7 +423,7 @@ class ExperienceControllerTest extends TestCase
         $work = factory(ExperienceWork::class)->create();
         $response = $this->actingAs($work->experienceable->user)->json(
             'delete',
-            route('api.v1.experience-work.delete', $work->id)
+            route('api.v1.experience-work.destroy', $work->id)
         );
         $response->assertOk();
         $this->assertNull(ExperienceWork::find($work->id));
@@ -433,7 +433,7 @@ class ExperienceControllerTest extends TestCase
         $personal = factory(ExperiencePersonal::class)->create();
         $response = $this->actingAs($personal->experienceable->user)->json(
             'delete',
-            route('api.v1.experience-personal.delete', $personal->id)
+            route('api.v1.experience-personal.destroy', $personal->id)
         );
         $response->assertOk();
         $this->assertNull(ExperiencePersonal::find($personal->id));
@@ -443,7 +443,7 @@ class ExperienceControllerTest extends TestCase
         $education = factory(ExperienceEducation::class)->create();
         $response = $this->actingAs($education->experienceable->user)->json(
             'delete',
-            route('api.v1.experience-education.delete', $education->id)
+            route('api.v1.experience-education.destroy', $education->id)
         );
         $response->assertOk();
         $this->assertNull(ExperienceEducation::find($education->id));
@@ -453,7 +453,7 @@ class ExperienceControllerTest extends TestCase
         $award = factory(ExperienceAward::class)->create();
         $response = $this->actingAs($award->experienceable->user)->json(
             'delete',
-            route('api.v1.experience-award.delete', $award->id)
+            route('api.v1.experience-award.destroy', $award->id)
         );
         $response->assertOk();
         $this->assertNull(ExperienceAward::find($award->id));
@@ -463,7 +463,7 @@ class ExperienceControllerTest extends TestCase
         $community = factory(ExperienceCommunity::class)->create();
         $response = $this->actingAs($community->experienceable->user)->json(
             'delete',
-            route('api.v1.experience-community.delete', $community->id)
+            route('api.v1.experience-community.destroy', $community->id)
         );
         $response->assertOk();
         $this->assertNull(ExperienceCommunity::find($community->id));

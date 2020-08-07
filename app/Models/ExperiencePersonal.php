@@ -50,6 +50,18 @@ class ExperiencePersonal extends BaseModel
 
     protected $table = 'experiences_personal';
 
+    public static function boot()
+    {
+        parent::boot();
+
+        // Delete associated ExperienceSkills when this is deleted.
+        static::deleting(function ($personal): void {
+            foreach ($personal->experience_skills as $es) {
+                $es->delete();
+            }
+        });
+    }
+
     public function experienceable() //phpcs:ignore
     {
         return $this->morphTo();

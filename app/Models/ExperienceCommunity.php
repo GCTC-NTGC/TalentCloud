@@ -50,6 +50,18 @@ class ExperienceCommunity extends BaseModel
 
     protected $table = 'experiences_community';
 
+    public static function boot()
+    {
+        parent::boot();
+
+        // Delete associated ExperienceSkills when this is deleted.
+        static::deleting(function ($community): void {
+            foreach ($community->experience_skills as $es) {
+                $es->delete();
+            }
+        });
+    }
+
     public function experienceable() //phpcs:ignore
     {
         return $this->morphTo();

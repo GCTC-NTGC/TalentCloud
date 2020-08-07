@@ -61,6 +61,18 @@ class ExperienceEducation extends BaseModel
 
     protected $table = 'experiences_education';
 
+    public static function boot()
+    {
+        parent::boot();
+
+        // Delete associated ExperienceSkills when this is deleted.
+        static::deleting(function ($education): void {
+            foreach ($education->experience_skills as $es) {
+                $es->delete();
+            }
+        });
+    }
+
     public function education_type() //phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\EducationType::class);

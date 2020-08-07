@@ -151,4 +151,25 @@ class ExperienceController extends Controller
         $community->save();
         return new ExperienceResource($community->fresh());
     }
+
+    public function destroyWork(ExperienceWork $work)
+    {
+        $work->delete();
+    }
+    public function destroyPersonal(ExperiencePersonal $personal)
+    {
+        $personal->delete();
+    }
+    public function destroyEducation(ExperienceEducation $education)
+    {
+        $education->delete();
+    }
+    public function destroyAward(ExperienceAward $award)
+    {
+        $award->delete();
+    }
+    public function destroyCommunity(ExperienceCommunity $community)
+    {
+        $community->delete();
+    }
 }

@@ -971,6 +971,27 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->where('community', '[0-9]+')
         // ->middleware('can:update,community') TODO: add gate
         ->name('experience-community.update');
+
+    Route::delete('experience-work/{work}', 'Api\ExperienceController@destroyWork')
+        ->where('work', '[0-9]+')
+        // ->middleware('can:delete,work') TODO: add gate
+        ->name('experience-work.destroy');
+    Route::delete('experience-personal/{personal}', 'Api\ExperienceController@destroyPersonal')
+        ->where('personal', '[0-9]+')
+        // ->middleware('can:delete,personal') TODO: add gate
+        ->name('experience-personal.destroy');
+    Route::delete('experience-education/{education}', 'Api\ExperienceController@destroyEducation')
+        ->where('education', '[0-9]+')
+        // ->middleware('can:delete,education') TODO: add gate
+        ->name('experience-education.destroy');
+    Route::delete('experience-award/{award}', 'Api\ExperienceController@destroyAward')
+        ->where('award', '[0-9]+')
+        // ->middleware('can:delete,award') TODO: add gate
+        ->name('experience-award.destroy');
+    Route::delete('experience-community/{community}', 'Api\ExperienceController@destroyCommunity')
+        ->where('community', '[0-9]+')
+        // ->middleware('can:delete,community') TODO: add gate
+        ->name('experience-community.destroy');
 });
 Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
     Route::get('applications/{application}', 'Api\ApplicationController@show')

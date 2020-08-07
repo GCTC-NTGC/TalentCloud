@@ -47,6 +47,18 @@ class ExperienceAward extends BaseModel
 
     protected $table = 'experiences_award';
 
+    public static function boot()
+    {
+        parent::boot();
+
+        // Delete associated ExperienceSkills when this is deleted.
+        static::deleting(function ($award): void {
+            foreach ($award->experience_skills as $es) {
+                $es->delete();
+            }
+        });
+    }
+
     public function award_recipient_type() //phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\AwardRecipientType::class);
