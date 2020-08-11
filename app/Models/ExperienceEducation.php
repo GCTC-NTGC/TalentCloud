@@ -100,10 +100,10 @@ class ExperienceEducation extends BaseModel
 
     /**
      * Returns the name of this experience type. Used to distinguish from other Experience models.
-     * @return string Returns the string 'education'.
+     * @return string Returns the string 'experience_education'.
      */
     public function experienceTypeName(): string
     {
-        return 'education';
+        return 'experience_education';
     }
 }

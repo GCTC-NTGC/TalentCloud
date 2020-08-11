@@ -79,10 +79,10 @@ class ExperienceCommunity extends BaseModel
 
     /**
      * Returns the name of this experience type. Used to distinguish from other Experience models.
-     * @return string Returns the string 'community'.
+     * @return string Returns the string 'experience_community'.
      */
     public function experienceTypeName(): string
     {
-        return 'community';
+        return 'experience_community';
     }
 }
