@@ -32,7 +32,7 @@
         "@babel/preset-typescript": "^7.10.4",
         "@fortawesome/fontawesome-free": "^5.14.0",
         "@storybook/addon-actions": "^5.3.19",
-        "@storybook/addon-knobs": "^5.3.19",
+        "@storybook/addon-knobs": "^6.0.2",
         "@storybook/addons": "^5.3.19",
         "@storybook/react": "^5.3.19",
         "@storybook/theming": "^5.3.19",
