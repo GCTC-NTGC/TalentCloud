@@ -1,0 +1,1 @@
+[{"id":"textArea.wordsUnderLimit","description":"Message displayed on word counter when user is under/matching the limit.","defaultMessage":"words left"},{"id":"textArea.wordsOverLimit","description":"Message displayed on word counter when user passes the limit.","defaultMessage":"words over limit"}]

@@ -60,6 +60,40 @@
 										</div>
 										<span>{{ trans('forms.error') }}</span>
 									</div>
+									{# Contact Language #}
+									<div data-c-input="select" data-c-grid-item="base(1of1)">
+											<label for="contact_language">{{ register.contact_language_label }}</label>
+											<span>{{ trans('forms.required') }}</span>
+											<div>
+													<i class="fas fa-caret-down"></i>
+													<select id="contact_language" name="contact_language" required>
+															<option disabled {% if user.contact_language == null %} selected {% endif %}>{{ register.contact_language_null_selection }}</option>
+															{% for key, lang in register.contact_languages %}
+																	{% if user.contact_language == key or old('contact_language') == key %}
+																			<option selected value="{{ key }}">{{ lang }}</option>
+																	{% else %}
+																			<option value="{{ key }}">{{ lang }}</option>
+																	{% endif %}
+															{% endfor %}
+													</select>
+											</div>
+											<span>{{ trans('forms.error') }}</span>
+									</div>
+									{# Contact Preference #}
+									<div data-c-grid-item="base(1of1)">
+											<p>{{ register.job_alerts_copy }} <span data-c-color="gray">{{ register.job_alerts_change_later }}</span></p>
+											<div data-c-input="checkbox(single)" data-c-margin="left(2)">
+													<span>{{ trans('forms.required') }}</span>
+													<div>
+															<label for="job_alerts">
+																	<input name="job_alerts" type="hidden" value="1" />
+																	<input id="job_alerts" name="job_alerts" type="checkbox" value="0" />
+																	<span>{{ register.job_alerts_label }}</span>
+															</label>
+													</div>
+													<span>{{ trans('forms.error') }}</span>
+											</div>
+									</div>
 									{# A block that other registration layouts can extend to add extra fields #}
 									{% block extra_fields %}{% endblock %}
 									{# Password Requirements #}

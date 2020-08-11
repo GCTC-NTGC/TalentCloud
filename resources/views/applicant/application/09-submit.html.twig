@@ -37,19 +37,18 @@
                     <div>
                         <input id="TI2" placeholder="e.g. First Last" required data-c-font="serif" type="text" />
                     </div>
-                    <span>This input has an error.</span>
-                </div>
-                <div data-c-input="date" data-c-grid-item="tl(1of3)">
-                    <label for="DAT2">Today's Date</label>
-                    <span>Required</span>
-                    <div>
-                        <input id="DAT2" type="date" required placeholder="yyyy-mm-dd"/>
+                    <div data-c-input="date" data-c-grid-item="tl(1of3)">
+                        <label for="DAT2">Today's Date</label>
+                        <span>Required</span>
+                        <div>
+                            <input id="DAT2" type="date" required placeholder="yyyy-mm-dd"/>
+                        </div>
+                        <span>This input has an error.</span>
                     </div>
-                    <span>This input has an error.</span>
-                </div>
-            </form>
+                </form>
+            </div>
+            {# Application Action Buttons #}
+            {% include "applicant/application/action-buttons" with {"step": 9} %}
         </div>
-        {# Application Action Buttons #}
-        {% include "applicant/application/action-buttons" with {"step": 9} %}
     </div>
 {% endblock %}

@@ -210,5 +210,6 @@ return [
     'team_button_twitter_label' => 'Twitter',
     'team_button_email_link' => 'talent.cloud-nuage.de.talents@tbs-sct.gc.ca',
     'team_button_email_title' => 'Contactez-nous par courriel.',
-    'team_button_email_label' => 'Courriel'
+    'team_button_email_label' => 'Courriel',
+    'success_title' => 'Tout va bien.'
 ];

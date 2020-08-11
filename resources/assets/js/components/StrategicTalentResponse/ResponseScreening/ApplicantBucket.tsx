@@ -1,10 +1,12 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { defineMessages, useIntl, FormattedMessage } from "react-intl";
-import { FastField, Formik, Form, useFormikContext } from "formik";
+import { FastField, Formik, Form } from "formik";
 import Swal, { SweetAlertResult } from "sweetalert2";
 import ReactMarkdown from "react-markdown";
+import StatusIcon, { IconStatus } from "../../StatusIcon";
 import SelectInput from "../../Form/SelectInput";
+import AlertWhenUnsaved from "../../Form/AlertWhenUnsaved";
 import {
   Application,
   Department,
@@ -126,56 +128,6 @@ const displayMessages = defineMessages({
   },
 });
 
-enum IconStatus {
-  ASSESSMENT = "question",
-  READY = "check",
-  RECEIVED = "exclamation",
-}
-
-interface StatusIconProps {
-  status: IconStatus;
-  color: string;
-  small: boolean;
-}
-
-const StatusIcon: React.FC<StatusIconProps> = ({
-  status,
-  color,
-  small,
-}): React.ReactElement => {
-  return (
-    <i
-      className={`fas fa-${status}-circle`}
-      data-c-color={color}
-      data-c-font-size={small ? "small" : ""}
-    />
-  );
-};
-
-// Kinda weird "empty" component that hooks into Formik's
-// context, listens to the 'dirty' prop, and registers
-// a beforeunload listener to fire if a user attempts to
-// leave with unsaved work.
-// https://github.com/jaredpalmer/formik/issues/1657#issuecomment-509388871
-const AlertWhenUnsaved = (): React.ReactElement => {
-  const { dirty } = useFormikContext();
-  const handleUnload = (event: BeforeUnloadEvent): void => {
-    event.preventDefault();
-    event.returnValue = "Are you sure you want to leave with unsaved changes?";
-  };
-
-  useEffect(() => {
-    if (dirty) {
-      window.addEventListener("beforeunload", handleUnload);
-    }
-    return (): void => {
-      window.removeEventListener("beforeunload", handleUnload);
-    };
-  }, [dirty]);
-
-  return <></>;
-};
-
 interface ReferenceEmailModalProps {
   id: string;
   parent: Element | null;
@@ -197,7 +149,7 @@ const ReferenceEmailModal: React.FC<ReferenceEmailModalProps> = ({
     `${adr.name} <${adr.address}>`;
   const renderAddresses = (adrs: EmailAddress[]): string =>
     adrs.map(renderAddress).join(", ");
-  const noDeliveryAdr = email == null || email.to.length == 0;
+  const noDeliveryAdr = email == null || email.to.length === 0;
   return (
     <>
       <div data-c-dialog-overlay={visible ? "active" : ""} />
@@ -418,19 +370,13 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
     case 4:
     case 5:
     case 7:
-      rowIcon = (
-        <StatusIcon status={IconStatus.READY} color="go" small={false} />
-      );
+      rowIcon = <StatusIcon status={IconStatus.READY} size="" />;
       break;
     case 6:
-      rowIcon = (
-        <StatusIcon status={IconStatus.ASSESSMENT} color="slow" small={false} />
-      );
+      rowIcon = <StatusIcon status={IconStatus.ASSESSMENT} size="" />;
       break;
     default:
-      rowIcon = (
-        <StatusIcon status={IconStatus.RECEIVED} color="c1" small={false} />
-      );
+      rowIcon = <StatusIcon status={IconStatus.RECEIVED} size="" />;
   }
 
   const emptyReview: ApplicationReview = {
@@ -973,21 +919,13 @@ const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
                   ResponseScreeningBuckets.consideration.description,
                   {
                     iconAssessment: (
-                      <StatusIcon
-                        status={IconStatus.ASSESSMENT}
-                        color="slow"
-                        small
-                      />
+                      <StatusIcon status={IconStatus.ASSESSMENT} size="small" />
                     ),
                     iconReady: (
-                      <StatusIcon status={IconStatus.READY} color="go" small />
+                      <StatusIcon status={IconStatus.READY} size="small" />
                     ),
                     iconReceived: (
-                      <StatusIcon
-                        status={IconStatus.RECEIVED}
-                        color="c1"
-                        small
-                      />
+                      <StatusIcon status={IconStatus.RECEIVED} size="small" />
                     ),
                   },
                 )

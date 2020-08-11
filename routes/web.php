@@ -275,6 +275,22 @@ Route::group(
                         ->middleware('can:update,user')
                         ->name('settings.government.update');
 
+                    Route::post(
+                        'settings/{user}/contact-preferences/update',
+                        'SettingsController@updateContactPreferences'
+                    )
+                        ->middleware('can:view,user')
+                        ->middleware('can:update,user')
+                        ->name('settings.contact_preferences.update');
+
+                    Route::post(
+                        'settings/{user}/account/delete',
+                        'SettingsController@deleteAccount'
+                    )
+                        ->middleware('can:view,user')
+                        ->middleware('can:update,user')
+                        ->name('settings.account.delete');
+
                     /* 2FA Settings */
                     Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('two_factor.activate');
                     Route::post('two-factor/deactivate', 'Auth\TwoFactorController@deactivate')->name('two_factor.deactivate');
@@ -495,6 +511,22 @@ Route::group(
                             ->middleware('can:view,user')
                             ->middleware('can:update,user')
                             ->name('manager.settings.government.update');
+
+                        Route::post(
+                            'settings/{user}/contact-preferences/update',
+                            'SettingsController@updateContactPreferences'
+                        )
+                            ->middleware('can:view,user')
+                            ->middleware('can:update,user')
+                            ->name('manager.settings.contact_preferences.update');
+
+                        Route::post(
+                            'settings/{user}/account/delete',
+                            'SettingsController@deleteAccount'
+                        )
+                            ->middleware('can:view,user')
+                            ->middleware('can:update,user')
+                            ->name('manager.settings.account.delete');
 
                         Route::get('resources', 'ResourcesController@show')
                             ->middleware('can:view-resources')
@@ -727,6 +759,14 @@ Route::group(
                             ->middleware('can:view,user')
                             ->middleware('can:update,user')
                             ->name('hr_advisor.settings.government.update');
+
+                        Route::post(
+                            'settings/{user}/contact-preferences/update',
+                            'SettingsController@updateContactPreferences'
+                        )
+                            ->middleware('can:view,user')
+                            ->middleware('can:update,user')
+                            ->name('hr_advisor.settings.contact_preferences.update');
 
                         Route::get('resources', 'ResourcesController@show')
                             ->middleware('can:view-resources')
