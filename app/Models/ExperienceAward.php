@@ -86,10 +86,10 @@ class ExperienceAward extends BaseModel
 
     /**
      * Returns the name of this experience type. Used to distinguish from other Experience models.
-     * @return string Returns the string 'award'.
+     * @return string Returns the string 'experience_award'.
      */
     public function experienceTypeName(): string
     {
-        return 'award';
+        return 'experience_award';
     }
 }

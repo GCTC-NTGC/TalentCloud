@@ -79,10 +79,10 @@ class ExperienceWork extends BaseModel
 
     /**
      * Returns the name of this experience type. Used to distinguish from other Experience models.
-     * @return string Returns the string 'work'.
+     * @return string Returns the string 'experience_work'.
      */
     public function experienceTypeName(): string
     {
-        return 'work';
+        return 'experience_work';
     }
 }
