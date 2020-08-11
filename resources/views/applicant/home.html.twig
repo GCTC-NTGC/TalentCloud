@@ -39,6 +39,26 @@
 					</p>
 				</div>
 			</div>
+			{# Error alert #}
+			{% if session_has('errors') %}
+				<div data-c-container="medium" data-c-margin="top(1)">
+					{% include "errors/form_errors" %}
+				</div>
+			{% endif %}
+			{# Success alert #}
+			{% if session_has('success') %}
+				<div data-c-alert="information" data-c-container="medium" data-c-radius="rounded" role="alert" data-c-margin="top(1)">
+					<div data-c-padding="half">
+						<p data-c-font-weight="bold" data-c-heading="h6">
+							<i aria-hidden="true" class="fa fa-check-circle"></i>
+							{{ home.success_title }}
+						</p>
+						<p data-c-margin="top(quarter)">
+							{{ session_get('success') }}
+						</p>
+					</div>
+				</div>
+			{% endif %}
 			{# Browse Jobs ================================================== #}
 			<section class="home-browse" data-c-background="white(100)" data-c-padding="tb(3)" data-c-border="bottom(thin, solid, grey)">
 				{% if christmas_time %}

@@ -7,18 +7,18 @@
 
 namespace App\Models;
 
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Illuminate\Notifications\Notifiable;
 use App\Events\UserCreated;
 use App\Events\UserUpdated;
 use App\Notifications\ResetPasswordNotification;
-use App\Traits\TalentCloudCrudTrait as CrudTrait;
 use App\Traits\RememberDeviceTrait;
+use App\Traits\TalentCloudCrudTrait as CrudTrait;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class User
@@ -36,6 +36,8 @@ use App\Traits\RememberDeviceTrait;
  * @property string $google2fa_secret
  * @property array $recovery_codes
  * @property int $department_id
+ * @property string $contact_language
+ * @property boolean $job_alerts
  * @property \Jenssegers\Date\Date $recovery_codes_generation_date
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
@@ -53,8 +55,6 @@ class User extends BaseModel implements
     CanResetPasswordContract,
     // Contract for use with Gates and Policies.
     AuthorizableContract
-    // Custom contract for use with openid login.
-    // \App\Services\Auth\Contracts\OidcAuthenticatable.
 {
 
     // Traits for Laravel basic authentication.
@@ -76,7 +76,9 @@ class User extends BaseModel implements
         'email' => 'string',
         'gov_email' => 'string',
         'not_in_gov' => 'boolean',
-        'department_id' => 'int'
+        'department_id' => 'int',
+        'contact_language' => 'string',
+        'job_alerts' => 'boolean',
     ];
 
     /**
@@ -95,7 +97,9 @@ class User extends BaseModel implements
         'gov_email',
         'not_in_gov',
         'google2fa_secret',
-        'department_id'
+        'department_id',
+        'contact_language',
+        'job_alerts',
     ];
 
     protected $with = ['user_role'];
@@ -273,10 +277,10 @@ class User extends BaseModel implements
     }
 
     /**
-    * Check if the user has the specified role.
-    * @param string $role This may be either 'applicant', 'manager', 'hr_advisor' or 'admin'.
-    * @return boolean
-    */
+     * Check if the user has the specified role.
+     * @param string $role This may be either 'applicant', 'manager', 'hr_advisor' or 'admin'.
+     * @return boolean
+     */
     public function hasRole($role)
     {
         switch ($role) {
@@ -297,8 +301,8 @@ class User extends BaseModel implements
      * Set this user to the specified role.
      *
      * @param string $role Must be either 'applicant', 'manager', 'hr_advisor' or 'admin'.
-    * @return void
-    */
+     * @return void
+     */
     public function setRole(string $role): void
     {
         $this->user_role()->associate(UserRole::where('key', $role)->firstOrFail());
