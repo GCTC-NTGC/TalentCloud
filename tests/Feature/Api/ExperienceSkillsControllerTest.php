@@ -59,7 +59,7 @@ class ExperienceSkillsControllerTest extends TestCase
 
         $awardSkillData = $this->makeExpSkillData($award->id, 'experience_award');
         $response = $this->actingAs($otherApplicant->user)->json('post', route('api.v1.experience-skill.store'), $awardSkillData);
-        $response->assertUnauthorized();
+        $response->assertForbidden();
 
         $response = $this->actingAs($applicant->user)->json('post', route('api.v1.experience-skill.store'), $awardSkillData);
         $response->assertOk();
@@ -71,12 +71,11 @@ class ExperienceSkillsControllerTest extends TestCase
         $updateData = $this->makeExpSkillData(0, '');
         $response = $this->actingAs($experienceSkill->experience->experienceable->user)
             ->json('put', route('api.v1.experience-skill.update', $experienceSkill->id), $updateData);
-        $response->dump();
         $response->assertOk();
         // Note: when updating, only the justification should be modifiable. The other fields will be ignored.
         $expectData = array_merge(
-            ['justification' => $updateData['justification']],
-            $experienceSkill->attributesToArray()
+            collect($experienceSkill->attributesToArray())->forget('justification')->all(),
+            ['justification' => $updateData['justification']]
         );
         $response->assertJsonFragment($expectData);
         $this->assertDatabaseHas('experience_skills', $expectData);
@@ -86,7 +85,7 @@ class ExperienceSkillsControllerTest extends TestCase
     {
         $experienceSkill = factory(ExperienceSkill::class)->create();
         $response = $this->actingAs($experienceSkill->experience->experienceable->user)
-            ->json('delete', route('api.v1.experience-skill.delete', $experienceSkill->id));
+            ->json('delete', route('api.v1.experience-skill.destroy', $experienceSkill->id));
         $response->assertOk();
         // Note: when updating, only the justification should be modifiable. The other fields will be ignored.
         $this->assertDatabaseMissing(
