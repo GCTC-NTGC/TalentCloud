@@ -12,7 +12,6 @@ use App\Models\ExperienceAward;
 use App\Models\ExperienceCommunity;
 use App\Policies\BasePolicy;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Support\Facades\Log;
 
 class ExperiencePolicy extends BasePolicy
 {

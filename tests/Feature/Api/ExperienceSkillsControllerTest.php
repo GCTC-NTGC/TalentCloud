@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Api;
 
+use App\Models\Applicant;
 use App\Models\ExperienceAward;
 use App\Models\ExperiencePersonal;
 use App\Models\ExperienceSkill;
@@ -30,7 +31,7 @@ class ExperienceSkillsControllerTest extends TestCase
         $work = factory(ExperienceWork::class)->create();
         $workSkillData = $this->makeExpSkillData($work->id, 'experience_work');
         $response = $this->actingAs($work->experienceable->user)
-            ->json('post', route('experience-skill.store'), $workSkillData);
+            ->json('post', route('api.v1.experience-skill.store'), $workSkillData);
         $response->assertOk();
         $response->assertJsonFragment($workSkillData);
         $id = $response->decodeResponseJson('id');
@@ -57,10 +58,10 @@ class ExperienceSkillsControllerTest extends TestCase
         ]);
 
         $awardSkillData = $this->makeExpSkillData($award->id, 'experience_award');
-        $response = $this->actingAs($otherApplicant->user)->json('post', route('experience-skill.store'), $awardSkillData);
+        $response = $this->actingAs($otherApplicant->user)->json('post', route('api.v1.experience-skill.store'), $awardSkillData);
         $response->assertUnauthorized();
 
-        $response = $this->actingAs($applicant->user)->json('post', route('experience-skill.store'), $awardSkillData);
+        $response = $this->actingAs($applicant->user)->json('post', route('api.v1.experience-skill.store'), $awardSkillData);
         $response->assertOk();
     }
 
@@ -69,7 +70,8 @@ class ExperienceSkillsControllerTest extends TestCase
         $experienceSkill = factory(ExperienceSkill::class)->create();
         $updateData = $this->makeExpSkillData(0, '');
         $response = $this->actingAs($experienceSkill->experience->experienceable->user)
-            ->json('put', route('experience-skill.update', $experienceSkill->id), $updateData);
+            ->json('put', route('api.v1.experience-skill.update', $experienceSkill->id), $updateData);
+        $response->dump();
         $response->assertOk();
         // Note: when updating, only the justification should be modifiable. The other fields will be ignored.
         $expectData = array_merge(
@@ -84,7 +86,7 @@ class ExperienceSkillsControllerTest extends TestCase
     {
         $experienceSkill = factory(ExperienceSkill::class)->create();
         $response = $this->actingAs($experienceSkill->experience->experienceable->user)
-            ->json('delete', route('experience-skill.delete', $experienceSkill->id));
+            ->json('delete', route('api.v1.experience-skill.delete', $experienceSkill->id));
         $response->assertOk();
         // Note: when updating, only the justification should be modifiable. The other fields will be ignored.
         $this->assertDatabaseMissing(
