@@ -83,7 +83,7 @@
         "sass-loader": "^8.0.2",
         "snyk": "^1.373.0",
         "storybook-addon-intl": "^2.4.1",
-        "testcafe": "^1.9.0",
+        "testcafe": "^1.9.1",
         "ts-jest": "^25.5.1",
         "ts-loader": "^8.0.2",
         "typescript": "^3.9.7",
