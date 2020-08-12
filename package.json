@@ -34,7 +34,7 @@
         "@storybook/addon-actions": "^5.3.19",
         "@storybook/addon-knobs": "^5.3.19",
         "@storybook/addons": "^5.3.19",
-        "@storybook/react": "^5.3.19",
+        "@storybook/react": "^6.0.4",
         "@storybook/theming": "^5.3.19",
         "@testing-library/jest-dom": "^5.11.3",
         "@types/classnames": "^2.2.10",
