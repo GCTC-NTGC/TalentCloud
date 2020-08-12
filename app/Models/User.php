@@ -19,6 +19,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\App;
 
 /**
  * Class User
@@ -318,7 +319,9 @@ class User extends BaseModel implements
      */
     public function sendPasswordResetNotification($token): void
     {
-        $this->notify(new ResetPasswordNotification($token));
+        $locale = App::getLocale();
+        $notification = new ResetPasswordNotification($token);
+        $this->notify($notification->locale($locale));
     }
 
     /**
