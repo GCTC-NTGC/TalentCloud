@@ -125,15 +125,15 @@ export const createExperience = (
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export const createWorkExperience = (experience: ExperienceWork) =>
-  createExperience({ ...experience, type: "work" });
+  createExperience(experience);
 export const createEducationExperience = (experience: ExperienceEducation) =>
-  createExperience({ ...experience, type: "education" });
+  createExperience(experience);
 export const createCommunityExperience = (experience: ExperienceCommunity) =>
-  createExperience({ ...experience, type: "community" });
+  createExperience(experience);
 export const createAwardExperience = (experience: ExperienceAward) =>
-  createExperience({ ...experience, type: "award" });
+  createExperience(experience);
 export const createPersonalExperience = (experience: ExperiencePersonal) =>
-  createExperience({ ...experience, type: "personal" });
+  createExperience(experience);
 /* eslint-enable @typescript-eslint/explicit-function-return-type */
 
 export const UPDATE_EXPERIENCE_STARTED = "EXPERIENCE: UPDATE STARTED";
@@ -173,15 +173,15 @@ export const updateExperience = (
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export const updateWorkExperience = (experience: ExperienceWork) =>
-  updateExperience({ ...experience, type: "work" });
+  updateExperience(experience);
 export const updateEducationExperience = (experience: ExperienceEducation) =>
-  updateExperience({ ...experience, type: "education" });
+  updateExperience(experience);
 export const updateCommunityExperience = (experience: ExperienceCommunity) =>
-  updateExperience({ ...experience, type: "community" });
+  updateExperience(experience);
 export const updateAwardExperience = (experience: ExperienceAward) =>
-  updateExperience({ ...experience, type: "award" });
+  updateExperience(experience);
 export const updatePersonalExperience = (experience: ExperiencePersonal) =>
-  updateExperience({ ...experience, type: "personal" });
+  updateExperience(experience);
 /* eslint-enable @typescript-eslint/explicit-function-return-type */
 
 export const DELETE_EXPERIENCE_STARTED = "EXPERIENCE: DELETE STARTED";

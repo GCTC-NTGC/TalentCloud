@@ -127,30 +127,24 @@ export const initExperienceState = (): ExperienceState => ({
   ui: initUi(),
 });
 
-function isWork(
-  experience: Experience,
-): experience is ExperienceWork & { type: "work" } {
-  return experience.type === "work";
+function isWork(experience: Experience): experience is ExperienceWork {
+  return experience.type === "experience_work";
 }
 function isEducation(
   experience: Experience,
-): experience is ExperienceEducation & { type: "education" } {
-  return experience.type === "education";
+): experience is ExperienceEducation {
+  return experience.type === "experience_education";
 }
 function isCommunity(
   experience: Experience,
-): experience is ExperienceCommunity & { type: "community" } {
-  return experience.type === "community";
+): experience is ExperienceCommunity {
+  return experience.type === "experience_community";
 }
-function isAward(
-  experience: Experience,
-): experience is ExperienceAward & { type: "award" } {
-  return experience.type === "award";
+function isAward(experience: Experience): experience is ExperienceAward {
+  return experience.type === "experience_award";
 }
-function isPersonal(
-  experience: Experience,
-): experience is ExperiencePersonal & { type: "personal" } {
-  return experience.type === "personal";
+function isPersonal(experience: Experience): experience is ExperiencePersonal {
+  return experience.type === "experience_personal";
 }
 
 const experienceTypeGuards = {
@@ -160,6 +154,19 @@ const experienceTypeGuards = {
   award: isAward,
   personal: isPersonal,
 };
+
+function massageType(experienceType: Experience["type"]): keyof EntityState {
+  /* eslint-disable @typescript-eslint/camelcase */
+  const mapping: { [key in Experience["type"]]: keyof EntityState } = {
+    experience_work: "work",
+    experience_education: "education",
+    experience_community: "community",
+    experience_award: "award",
+    experience_personal: "personal",
+  };
+  /* eslint-enable @typescript-eslint/camelcase */
+  return mapping[experienceType];
+}
 
 function fetchExperienceByApplication<T extends keyof EntityState>(
   state: EntityState,
@@ -217,7 +224,7 @@ function setExperience<T extends keyof EntityState>(
   if (
     (action.type !== CREATE_EXPERIENCE_SUCCEEDED &&
       action.type !== UPDATE_EXPERIENCE_SUCCEEDED) ||
-    action.meta.type !== type
+    massageType(action.meta.type) !== type
   ) {
     return subState;
   }
@@ -263,7 +270,7 @@ function deleteExperience<T extends keyof EntityState>(
   const subState = state[type];
   if (
     action.type !== DELETE_EXPERIENCE_SUCCEEDED ||
-    action.meta.type !== type
+    massageType(action.meta.type) !== type
   ) {
     return subState;
   }
@@ -304,12 +311,20 @@ export const entitiesReducer = (
     case UPDATE_EXPERIENCE_SUCCEEDED:
       return {
         ...state,
-        [action.meta.type]: setExperience(state, action, action.meta.type),
+        [massageType(action.meta.type)]: setExperience(
+          state,
+          action,
+          massageType(action.meta.type),
+        ),
       };
     case DELETE_EXPERIENCE_SUCCEEDED:
       return {
         ...state,
-        [action.meta.type]: deleteExperience(state, action, action.meta.type),
+        [massageType(action.meta.type)]: deleteExperience(
+          state,
+          action,
+          massageType(action.meta.type),
+        ),
       };
     default:
       return state;
@@ -361,8 +376,8 @@ export const uiReducer = (
         ...state,
         updatingByTypeAndId: {
           ...state.updatingByTypeAndId,
-          [action.meta.type]: {
-            ...state.updatingByTypeAndId[action.meta.type],
+          [massageType(action.meta.type)]: {
+            ...state.updatingByTypeAndId[massageType(action.meta.type)],
             [action.meta.id]: true,
           },
         },
@@ -375,8 +390,8 @@ export const uiReducer = (
         ...state,
         updatingByTypeAndId: {
           ...state.updatingByTypeAndId,
-          [action.meta.type]: {
-            ...state.updatingByTypeAndId[action.meta.type],
+          [massageType(action.meta.type)]: {
+            ...state.updatingByTypeAndId[massageType(action.meta.type)],
             [action.meta.id]: false,
           },
         },

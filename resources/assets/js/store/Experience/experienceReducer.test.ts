@@ -383,7 +383,7 @@ describe("Experience Reducer tests", (): void => {
     const action: ExperienceAction = {
       type: DELETE_EXPERIENCE_SUCCEEDED,
       payload: {},
-      meta: { id: 10, type: "work" },
+      meta: { id: 10, type: "experience_work" },
     };
     const expectState = initialState;
     const newState = entitiesReducer(initialState, action);
