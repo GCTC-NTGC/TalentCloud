@@ -80,6 +80,8 @@ class JobSummaryController extends Controller
         $transitionToButton = function (JobPosterStatusTransition $transition) use ($user, $jobPoster, $transitionManager) {
             return [
                 'text' => $transition->name,
+                'from_status' => $transition->from->name,
+                'to_status' => $transition->to->name,
                 'url' => route(WhichPortal::prefixRoute('jobs.setJobStatus'), [
                     'jobPoster' => $jobPoster,
                     'status' => $transition->to->key

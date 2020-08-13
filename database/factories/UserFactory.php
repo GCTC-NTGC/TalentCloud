@@ -37,6 +37,8 @@ $factory->define(User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
         'is_priority' => $faker->boolean(10), // 10% chance of true
         'department_id' => Department::inRandomOrder()->first()->id,
+        'contact_language' => $faker->randomElement(['en', 'fr']),
+        'job_alerts' => true,
     ];
 });
 

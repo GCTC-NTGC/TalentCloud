@@ -128,6 +128,7 @@ export const ClassificationId = {
   PM: 12,
   AD: 13,
   "EN-ENG": 14,
+  FI: 15,
 };
 
 export const CommentTypeId = {

@@ -13,7 +13,6 @@ interface CheckboxInputProps
 const CheckboxInput: React.FunctionComponent<CheckboxInputProps> = ({
   id,
   label,
-  checked,
   grid,
   required,
   field: { name, value, onChange, onBlur },
@@ -25,7 +24,6 @@ const CheckboxInput: React.FunctionComponent<CheckboxInputProps> = ({
   const invalid = touched[name] && errors[name] ? true : null;
   // Workaround for new TS error https://github.com/microsoft/TypeScript/issues/37559
   const { name: passedName, onChange: passedChange, ...otherProps } = props;
-
   return (
     <Checkbox
       id={id}
@@ -33,7 +31,7 @@ const CheckboxInput: React.FunctionComponent<CheckboxInputProps> = ({
       label={label}
       value={value}
       grid={grid}
-      checked={checked}
+      checked={value}
       required={required}
       errorText={errorText}
       invalid={invalid}

@@ -6,6 +6,7 @@ use App\Models\Applicant;
 use App\Models\Manager;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
 use Tests\TestCase;
@@ -19,7 +20,7 @@ class SettingsControllerTest extends TestCase
      *
      * @return void
      */
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -46,7 +47,7 @@ class SettingsControllerTest extends TestCase
      *
      * @return void
      */
-    public function testGuestCannotView() : void
+    public function testGuestCannotView(): void
     {
         // Redirects to login screen of current portal.
         $response = $this->get(route('settings.edit'));
@@ -60,7 +61,7 @@ class SettingsControllerTest extends TestCase
      *
      * @return void
      */
-    public function testUpdatePersonalInfoWithValidData() : void
+    public function testUpdatePersonalInfoWithValidData(): void
     {
         $response = $this->actingAs($this->applicant->user)
             ->get(route('settings.edit'));
@@ -85,7 +86,7 @@ class SettingsControllerTest extends TestCase
      *
      * @return void
      */
-    public function testPersonalInfoNotValidWhenNameIsEmpty() : void
+    public function testPersonalInfoNotValidWhenNameIsEmpty(): void
     {
         $response = $this->actingAs($this->applicant->user)
             ->get(route('settings.edit'));
@@ -110,7 +111,7 @@ class SettingsControllerTest extends TestCase
      *
      * @return void
      */
-    public function testPersonalInfoNotValidWhenEmailIsEmpty() : void
+    public function testPersonalInfoNotValidWhenEmailIsEmpty(): void
     {
         $response = $this->actingAs($this->applicant->user)
             ->get(route('settings.edit'));
@@ -135,7 +136,7 @@ class SettingsControllerTest extends TestCase
      *
      * @return void
      */
-    public function testPersonalInfoNotValidWhenEmailSameAsAnotherUser() : void
+    public function testPersonalInfoNotValidWhenEmailSameAsAnotherUser(): void
     {
         $response = $this->actingAs($this->applicant->user)
             ->get(route('settings.edit'));
@@ -156,11 +157,58 @@ class SettingsControllerTest extends TestCase
     }
 
     /**
+     * Ensure update contact preferences succeeds with valid data.
+     *
+     * @return void
+     */
+    public function testUpdateContactPreferencesWithValidData(): void
+    {
+        $response = $this->actingAs($this->applicant->user)->get(route('settings.edit'));
+        $response->assertOk();
+        $data = [
+            'contact_language' => 'fr',
+            'job_alerts' => true,
+        ];
+        $response = $this->followingRedirects()
+            ->actingAs($this->applicant->user)
+            ->post(route('settings.contact_preferences.update', $this->applicant->user), $data);
+        $response->assertOk();
+        // Success notification visible.
+        $response->assertSee(e(Lang::get('success.update_contact_preferences')));
+        // Data was updated.
+        $this->assertDatabaseHas('users', $data);
+    }
+
+    /**
+     * Ensure missing contact language is invalid.
+     *
+     * @return void
+     */
+    public function testContactPreferencesNotValidWhenContactLanguageIsEmpty() : void
+    {
+        $response = $this->actingAs($this->applicant->user)
+            ->get(route('settings.edit'));
+        $response->assertOk();
+        $data = [
+            'contact_language' => '',
+            'job_alerts' => true,
+        ];
+        $response = $this->followingRedirects()
+            ->actingAs($this->applicant->user)
+            ->post(route('settings.contact_preferences.update', $this->applicant->user), $data);
+        $response->assertOk();
+        // Error message visible.
+        $response->assertSee(e(Lang::get('forms.alert')));
+        // Data was not updated.
+        $this->assertDatabaseMissing('users', $data);
+    }
+
+    /**
      * Ensure update password succeeds with valid data.
      *
      * @return void
      */
-    public function testUpdatePasswordWithValidData() : void
+    public function testUpdatePasswordWithValidData(): void
     {
         $response = $this->actingAs($this->applicant->user)
             ->get(route('settings.edit'));
@@ -186,7 +234,7 @@ class SettingsControllerTest extends TestCase
      *
      * @return void
      */
-    public function testUpdatePasswordFailsWithoutConfirm() : void
+    public function testUpdatePasswordFailsWithoutConfirm(): void
     {
         $response = $this->actingAs($this->applicant->user)
             ->get(route('settings.edit'));
@@ -212,7 +260,7 @@ class SettingsControllerTest extends TestCase
      *
      * @return void
      */
-    public function testUpdatePasswordFailsWithBadConfirm() : void
+    public function testUpdatePasswordFailsWithBadConfirm(): void
     {
         $response = $this->actingAs($this->applicant->user)
             ->get(route('settings.edit'));
@@ -238,7 +286,7 @@ class SettingsControllerTest extends TestCase
      *
      * @return void
      */
-    public function testUpdatePasswordFailsWithIllegalPassword() : void
+    public function testUpdatePasswordFailsWithIllegalPassword(): void
     {
         $response = $this->actingAs($this->applicant->user)
             ->get(route('settings.edit'));
@@ -264,7 +312,7 @@ class SettingsControllerTest extends TestCase
      *
      * @return void
      */
-    public function testUpdatePasswordFailsWithBadOldPassword() : void
+    public function testUpdatePasswordFailsWithBadOldPassword(): void
     {
         $response = $this->actingAs($this->applicant->user)
             ->get(route('settings.edit'));
@@ -290,7 +338,7 @@ class SettingsControllerTest extends TestCase
      *
      * @return void
      */
-    public function testViewGovernmentInfo() : void
+    public function testViewGovernmentInfo(): void
     {
         // Applicant, not visible (without gov_email).
         $response = $this->actingAs($this->applicant->user)
@@ -313,7 +361,7 @@ class SettingsControllerTest extends TestCase
      *
      * @return void
      */
-    public function testUpdateGovernmentInfoWithValidData() : void
+    public function testUpdateGovernmentInfoWithValidData(): void
     {
         $this->applicant->user->gov_email = 'applicant@test.com';
         $response = $this->actingAs($this->applicant->user)
@@ -337,7 +385,7 @@ class SettingsControllerTest extends TestCase
      *
      * @return void
      */
-    public function testGovernmentInfoNotValidWhenEmpty() : void
+    public function testGovernmentInfoNotValidWhenEmpty(): void
     {
         $response = $this->actingAs($this->applicant->user)
             ->get(route('settings.edit'));
@@ -360,7 +408,7 @@ class SettingsControllerTest extends TestCase
      *
      * @return void
      */
-    public function testManagerUpdatePersonalInfoWithValidData() : void
+    public function testManagerUpdatePersonalInfoWithValidData(): void
     {
         $response = $this->actingAs($this->manager->user)->get(route('manager.settings.edit', $this->manager->user));
         $response->assertOk();
@@ -384,7 +432,7 @@ class SettingsControllerTest extends TestCase
      *
      * @return void
      */
-    public function testManagerUpdatePasswordWithValidData() : void
+    public function testManagerUpdatePasswordWithValidData(): void
     {
         $response = $this->actingAs($this->manager->user)
             ->get(route('manager.settings.edit', $this->manager->user));
@@ -410,7 +458,7 @@ class SettingsControllerTest extends TestCase
      *
      * @return void
      */
-    public function testManagerUpdateGovernmentInfoWithValidData() : void
+    public function testManagerUpdateGovernmentInfoWithValidData(): void
     {
         // Applicant, not visible (without gov_email).
         $response = $this->actingAs($this->manager->user)
@@ -427,5 +475,33 @@ class SettingsControllerTest extends TestCase
         $response->assertSee(e(Lang::get('success.update_government')));
         // Government info was updated.
         $this->assertDatabaseHas('users', $data);
+    }
+
+    /**
+     * Ensure update personal information succeeds with valid data.
+     *
+     * @return void
+     */
+    public function testSoftDeleteApplicant(): void
+    {
+        $response = $this->actingAs($this->applicant->user)
+            ->get(route('settings.edit'));
+        $response->assertOk();
+
+        $data = ['confirm_delete' => $this->applicant->user->email];
+        $userData = [
+            'id' => $this->applicant->user->id,
+            'first_name' => $this->applicant->user->first_name,
+            'last_name' => $this->applicant->user->last_name,
+            'email' => $this->applicant->user->email,
+        ];
+        $response = $this->followingRedirects()
+            ->actingAs($this->applicant->user)
+            ->post(route('settings.account.delete', $this->applicant->user), $data);
+        $response->assertOk();
+        // Success notification visible.
+        $response->assertSee(e(Lang::get('success.delete_account')));
+        // Data was scrambled.
+        $this->assertDatabaseMissing('users', $userData);
     }
 }

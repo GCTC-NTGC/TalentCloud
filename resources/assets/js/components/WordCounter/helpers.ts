@@ -1,5 +1,5 @@
 export const countNumberOfWords = (innerText: string): number => {
-  if (innerText.trim()) {
+  if (innerText && innerText.trim()) {
     return innerText.replace(/\s+/g, " ").trim().split(" ").length;
   }
   return 0;
