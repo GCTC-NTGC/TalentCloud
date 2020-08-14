@@ -30,6 +30,8 @@ import {
   uniq,
   deleteProperty,
   mapObjectValues,
+  mapToObjectTrans,
+  hasKey,
 } from "../../helpers/queries";
 
 export interface ExperienceSection<T> {
@@ -311,6 +313,88 @@ function deleteExperience<T extends EntityType>(
   };
 }
 
+function setExperienceSkills(
+  state: EntityState,
+  experienceSkills: ExperienceSkill[],
+): EntityState["experienceSkills"] {
+  const newExpSkills = mapToObject(experienceSkills, getId);
+  const workSkills = experienceSkills.filter(
+    (expSkill) => expSkill.experience_type === "experience_work",
+  );
+  const educationSkills = experienceSkills.filter(
+    (expSkill) => expSkill.experience_type === "experience_education",
+  );
+  const communitySkills = experienceSkills.filter(
+    (expSkill) => expSkill.experience_type === "experience_community",
+  );
+  const awardSkills = experienceSkills.filter(
+    (expSkill) => expSkill.experience_type === "experience_award",
+  );
+  const personalSkills = experienceSkills.filter(
+    (expSkill) => expSkill.experience_type === "experience_personal",
+  );
+
+  interface ExpToSkillIds {
+    [expId: number]: number[];
+  }
+  const reducer = (
+    acc: ExpToSkillIds,
+    expSkill: ExperienceSkill,
+  ): ExpToSkillIds => {
+    const prevIds = acc[expSkill.experience_id] ?? [];
+    return {
+      ...acc,
+      [expSkill.experience_id]: [expSkill.id, ...prevIds],
+    };
+  };
+  return {
+    byId: { ...state.experienceSkills, ...newExpSkills },
+    idsByWork: workSkills.reduce(reducer, state.experienceSkills.idsByWork),
+    idsByEducation: educationSkills.reduce(
+      reducer,
+      state.experienceSkills.idsByEducation,
+    ),
+    idsByCommunity: communitySkills.reduce(
+      reducer,
+      state.experienceSkills.idsByCommunity,
+    ),
+    idsByAward: awardSkills.reduce(reducer, state.experienceSkills.idsByAward),
+    idsByPersonal: personalSkills.reduce(
+      reducer,
+      state.experienceSkills.idsByPersonal,
+    ),
+  };
+}
+
+function deleteExpSkillsForExperience(
+  state: EntityState,
+  experienceId: number,
+  experienceType: Experience["type"],
+): EntityState["experienceSkills"] {
+  /* eslint-disable @typescript-eslint/camelcase */
+  const experienceKey = {
+    experience_work: "idsByWork",
+    experience_education: "idsByEducation",
+    experience_community: "idsByCommunity",
+    experience_award: "idsByAward",
+    experience_personal: "idsByPersonal",
+  }[experienceType];
+  /* eslint-enable @typescript-eslint/camelcase */
+  const expSkillIds: number[] =
+    state.experienceSkills[experienceKey][experienceId] ?? [];
+  return {
+    ...state.experienceSkills,
+    [experienceKey]: deleteProperty(
+      state.experienceSkills[experienceKey],
+      experienceId,
+    ),
+    byId: expSkillIds.reduce(
+      (byId, deleteId) => deleteProperty(byId, deleteId),
+      state.experienceSkills.byId,
+    ),
+  };
+}
+
 export const entitiesReducer = (
   state = initEntities(),
   action: ExperienceAction,
@@ -324,6 +408,10 @@ export const entitiesReducer = (
         community: fetchExperienceByApplicant(state, action, "community"),
         award: fetchExperienceByApplicant(state, action, "award"),
         personal: fetchExperienceByApplicant(state, action, "personal"),
+        experienceSkills: setExperienceSkills(
+          state,
+          action.payload.map((response) => response.experienceSkills).flat(),
+        ),
       };
     case FETCH_EXPERIENCE_BY_APPLICATION_SUCCEEDED:
       return {
@@ -333,6 +421,10 @@ export const entitiesReducer = (
         community: fetchExperienceByApplication(state, action, "community"),
         award: fetchExperienceByApplication(state, action, "award"),
         personal: fetchExperienceByApplication(state, action, "personal"),
+        experienceSkills: setExperienceSkills(
+          state,
+          action.payload.map((response) => response.experienceSkills).flat(),
+        ),
       };
     case CREATE_EXPERIENCE_SUCCEEDED:
     case UPDATE_EXPERIENCE_SUCCEEDED:
@@ -351,6 +443,11 @@ export const entitiesReducer = (
           state,
           action,
           massageType(action.meta.type),
+        ),
+        experienceSkills: deleteExpSkillsForExperience(
+          state,
+          action.meta.id,
+          action.meta.type,
         ),
       };
     default:

@@ -359,6 +359,7 @@ export type Experience =
   | ExperiencePersonal;
 
 export interface ExperienceSkill {
+  id: number;
   skill_id: number;
   experience_id: number;
   experience_type: string;
