@@ -23,6 +23,13 @@ import {
   DELETE_EXPERIENCE_STARTED,
   DELETE_EXPERIENCE_SUCCEEDED,
   DELETE_EXPERIENCE_FAILED,
+  CREATE_EXPERIENCE_SKILL_SUCCEEDED,
+  UPDATE_EXPERIENCE_SKILL_SUCCEEDED,
+  DELETE_EXPERIENCE_SKILL_SUCCEEDED,
+  UPDATE_EXPERIENCE_SKILL_STARTED,
+  DELETE_EXPERIENCE_SKILL_STARTED,
+  UPDATE_EXPERIENCE_SKILL_FAILED,
+  DELETE_EXPERIENCE_SKILL_FAILED,
 } from "./experienceActions";
 import {
   mapToObject,
@@ -366,20 +373,22 @@ function setExperienceSkills(
   };
 }
 
+/* eslint-disable @typescript-eslint/camelcase */
+const experienceSkillKeys = {
+  experience_work: "idsByWork",
+  experience_education: "idsByEducation",
+  experience_community: "idsByCommunity",
+  experience_award: "idsByAward",
+  experience_personal: "idsByPersonal",
+};
+/* eslint-enable @typescript-eslint/camelcase */
+
 function deleteExpSkillsForExperience(
   state: EntityState,
   experienceId: number,
   experienceType: Experience["type"],
 ): EntityState["experienceSkills"] {
-  /* eslint-disable @typescript-eslint/camelcase */
-  const experienceKey = {
-    experience_work: "idsByWork",
-    experience_education: "idsByEducation",
-    experience_community: "idsByCommunity",
-    experience_award: "idsByAward",
-    experience_personal: "idsByPersonal",
-  }[experienceType];
-  /* eslint-enable @typescript-eslint/camelcase */
+  const experienceKey = experienceSkillKeys[experienceType];
   const expSkillIds: number[] =
     state.experienceSkills[experienceKey][experienceId] ?? [];
   return {
@@ -392,6 +401,25 @@ function deleteExpSkillsForExperience(
       (byId, deleteId) => deleteProperty(byId, deleteId),
       state.experienceSkills.byId,
     ),
+  };
+}
+
+function deleteExperienceSkill(
+  state: EntityState,
+  experienceSkillId: number,
+  experienceId: number,
+  experienceType: ExperienceSkill["experience_type"],
+) {
+  const experienceKey = experienceSkillKeys[experienceType];
+  return {
+    ...state.experienceSkills,
+    [experienceKey]: {
+      ...state.experienceSkills[experienceKey],
+      [experienceId]: state.experienceSkills[experienceKey][
+        experienceId
+      ].filter((id) => id !== experienceSkillId),
+    },
+    byId: deleteProperty(state.experienceSkills.byId, experienceSkillId),
   };
 }
 
@@ -448,6 +476,22 @@ export const entitiesReducer = (
           state,
           action.meta.id,
           action.meta.type,
+        ),
+      };
+    case CREATE_EXPERIENCE_SKILL_SUCCEEDED:
+    case UPDATE_EXPERIENCE_SKILL_SUCCEEDED:
+      return {
+        ...state,
+        experienceSkills: setExperienceSkills(state, [action.payload]),
+      };
+    case DELETE_EXPERIENCE_SKILL_SUCCEEDED:
+      return {
+        ...state,
+        experienceSkills: deleteExperienceSkill(
+          state,
+          action.meta.id,
+          action.meta.experienceId,
+          action.meta.experienceType,
         ),
       };
     default:
@@ -518,6 +562,26 @@ export const uiReducer = (
             ...state.updatingByTypeAndId[massageType(action.meta.type)],
             [action.meta.id]: false,
           },
+        },
+      };
+    case UPDATE_EXPERIENCE_SKILL_STARTED:
+    case DELETE_EXPERIENCE_SKILL_STARTED:
+      return {
+        ...state,
+        updatingExperienceSkill: {
+          ...state.updatingExperienceSkill,
+          [action.meta.id]: true,
+        },
+      };
+    case UPDATE_EXPERIENCE_SKILL_SUCCEEDED:
+    case UPDATE_EXPERIENCE_SKILL_FAILED:
+    case DELETE_EXPERIENCE_SKILL_SUCCEEDED:
+    case DELETE_EXPERIENCE_SKILL_FAILED:
+      return {
+        ...state,
+        updatingExperienceSkill: {
+          ...state.updatingExperienceSkill,
+          [action.meta.id]: false,
         },
       };
     default:

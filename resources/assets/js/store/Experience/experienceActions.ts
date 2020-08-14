@@ -13,6 +13,7 @@ import {
   ExperienceCommunity,
   ExperiencePersonal,
   ExperienceAward,
+  ExperienceSkill,
 } from "../../models/types";
 import {
   ExperienceResponse,
@@ -21,6 +22,8 @@ import {
   getApplicationExperienceEndpoint,
   parseSingleExperience,
   getExperienceEndpoint,
+  getExperienceSkillEndpoint,
+  parseExperienceSkill,
 } from "../../api/experience";
 
 export const FETCH_EXPERIENCE_BY_APPLICANT_STARTED =
@@ -208,9 +211,120 @@ export const deleteExperience = (
     { id, type },
   );
 
+export const CREATE_EXPERIENCE_SKILL_STARTED =
+  "EXPERIENCE SKILL: CREATE STARTED";
+export const CREATE_EXPERIENCE_SKILL_SUCCEEDED =
+  "EXPERIENCE SKILL: CREATE SUCCEEDED";
+export const CREATE_EXPERIENCE_SKILL_FAILED = "EXPERIENCE SKILL: CREATE FAILED";
+
+export type CreateExperienceSkillAction = AsyncFsaActions<
+  typeof CREATE_EXPERIENCE_SKILL_STARTED,
+  typeof CREATE_EXPERIENCE_SKILL_SUCCEEDED,
+  typeof CREATE_EXPERIENCE_SKILL_FAILED,
+  ExperienceSkill,
+  {}
+>;
+
+export const createExperienceSkill = (
+  experienceSkill: ExperienceSkill,
+): RSAActionTemplate<
+  typeof CREATE_EXPERIENCE_SKILL_STARTED,
+  typeof CREATE_EXPERIENCE_SKILL_SUCCEEDED,
+  typeof CREATE_EXPERIENCE_SKILL_FAILED,
+  ExperienceSkill,
+  {}
+> =>
+  asyncPost(
+    getExperienceSkillEndpoint(),
+    experienceSkill,
+    CREATE_EXPERIENCE_SKILL_STARTED,
+    CREATE_EXPERIENCE_SKILL_SUCCEEDED,
+    CREATE_EXPERIENCE_SKILL_FAILED,
+    parseExperienceSkill,
+    {},
+  );
+
+export const UPDATE_EXPERIENCE_SKILL_STARTED =
+  "EXPERIENCE SKILL: UPDATE STARTED";
+export const UPDATE_EXPERIENCE_SKILL_SUCCEEDED =
+  "EXPERIENCE SKILL: UPDATE SUCCEEDED";
+export const UPDATE_EXPERIENCE_SKILL_FAILED = "EXPERIENCE SKILL: UPDATE FAILED";
+
+export type UpdateExperienceSkillAction = AsyncFsaActions<
+  typeof UPDATE_EXPERIENCE_SKILL_STARTED,
+  typeof UPDATE_EXPERIENCE_SKILL_SUCCEEDED,
+  typeof UPDATE_EXPERIENCE_SKILL_FAILED,
+  ExperienceSkill,
+  { id: number }
+>;
+
+export const updateExperienceSkill = (
+  experienceSkill: ExperienceSkill,
+): RSAActionTemplate<
+  typeof UPDATE_EXPERIENCE_SKILL_STARTED,
+  typeof UPDATE_EXPERIENCE_SKILL_SUCCEEDED,
+  typeof UPDATE_EXPERIENCE_SKILL_FAILED,
+  ExperienceSkill,
+  { id: number }
+> =>
+  asyncPut(
+    getExperienceSkillEndpoint(experienceSkill.id),
+    experienceSkill,
+    UPDATE_EXPERIENCE_SKILL_STARTED,
+    UPDATE_EXPERIENCE_SKILL_SUCCEEDED,
+    UPDATE_EXPERIENCE_SKILL_FAILED,
+    parseExperienceSkill,
+    { id: experienceSkill.id },
+  );
+
+export const DELETE_EXPERIENCE_SKILL_STARTED =
+  "EXPERIENCE SKILL: DELETE STARTED";
+export const DELETE_EXPERIENCE_SKILL_SUCCEEDED =
+  "EXPERIENCE SKILL: DELETE SUCCEEDED";
+export const DELETE_EXPERIENCE_SKILL_FAILED = "EXPERIENCE SKILL: DELETE FAILED";
+
+export type DeleteExperienceSkillAction = AsyncFsaActions<
+  typeof DELETE_EXPERIENCE_SKILL_STARTED,
+  typeof DELETE_EXPERIENCE_SKILL_SUCCEEDED,
+  typeof DELETE_EXPERIENCE_SKILL_FAILED,
+  {},
+  {
+    id: number;
+    experienceId: number;
+    experienceType: ExperienceSkill["experience_type"];
+  }
+>;
+
+export const deleteExperienceSkill = (
+  id: number,
+  experienceId: number,
+  experienceType: ExperienceSkill["experience_type"],
+): RSAActionTemplate<
+  typeof DELETE_EXPERIENCE_SKILL_STARTED,
+  typeof DELETE_EXPERIENCE_SKILL_SUCCEEDED,
+  typeof DELETE_EXPERIENCE_SKILL_FAILED,
+  {},
+  {
+    id: number;
+    experienceId: number;
+    experienceType: ExperienceSkill["experience_type"];
+  }
+> =>
+  asyncDelete(
+    getExperienceSkillEndpoint(id),
+    DELETE_EXPERIENCE_SKILL_STARTED,
+    DELETE_EXPERIENCE_SKILL_SUCCEEDED,
+    DELETE_EXPERIENCE_SKILL_FAILED,
+    () => ({}),
+    { id, experienceId, experienceType },
+  );
+
 export type ExperienceAction =
   | FetchExperienceByApplicantAction
   | FetchExperienceByApplicationAction
   | CreateExperienceAction
   | UpdateExperienceAction
-  | DeleteExperienceAction;
+  | DeleteExperienceAction
+  | CreateExperienceSkillAction
+  | UpdateExperienceSkillAction
+  | DeleteExperienceSkillAction;

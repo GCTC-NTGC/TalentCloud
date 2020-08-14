@@ -28,6 +28,14 @@ export const parseSingleExperience = (data: any): ExperienceResponse => {
 export const parseExperience = (data: any): ExperienceResponse[] =>
   data.map(parseSingleExperience);
 
+export const parseExperienceSkill = (data: any): ExperienceSkill => {
+  return {
+    ...data,
+    created_at: parseDate(data.created_at),
+    updated_at: parseDate(data.updated_at),
+  };
+};
+
 export const getApplicantExperienceEndpoint = (applicantId: number): string =>
   `${baseUrl()}/applicants/${applicantId}/experience`; // FIXME: this url doesn't exist yet.
 
@@ -39,3 +47,6 @@ export const getExperienceEndpoint = (
   id: number | null,
   type: Experience["type"],
 ): string => `${baseUrl()}/experience/${type}/${id ?? ""}`; // FIXME: this url doesn't exist yet.
+
+export const getExperienceSkillEndpoint = (id: number | null = null): string =>
+  `${baseUrl()}/experience-skills/${id ?? ""}`;
