@@ -6,6 +6,7 @@ import {
   ExperienceAward,
   ExperiencePersonal,
   Experience,
+  ExperienceSkill,
 } from "../../models/types";
 import {
   ExperienceAction,
@@ -49,6 +50,14 @@ export interface EntityState {
   community: ExperienceSection<ExperienceCommunity>;
   award: ExperienceSection<ExperienceAward>;
   personal: ExperienceSection<ExperiencePersonal>;
+  experienceSkills: {
+    byId: { [id: number]: ExperienceSkill };
+    idsByWork: { [workId: number]: number[] };
+    idsByEducation: { [educationId: number]: number[] };
+    idsByCommunity: { [communityId: number]: number[] };
+    idsByAward: { [awardId: number]: number[] };
+    idsByPersonal: { [personalId: number]: number[] };
+  };
 }
 
 export interface UiState {
@@ -74,6 +83,9 @@ export interface UiState {
     personal: {
       [id: number]: boolean;
     };
+  };
+  updatingExperienceSkill: {
+    [id: number]: boolean;
   };
 }
 
@@ -108,6 +120,14 @@ export const initEntities = (): EntityState => ({
     idsByApplicant: {},
     idsByApplication: {},
   },
+  experienceSkills: {
+    byId: {},
+    idsByWork: {},
+    idsByEducation: {},
+    idsByCommunity: {},
+    idsByAward: {},
+    idsByPersonal: {},
+  },
 });
 
 export const initUi = (): UiState => ({
@@ -120,6 +140,7 @@ export const initUi = (): UiState => ({
     award: {},
     personal: {},
   },
+  updatingExperienceSkill: {},
 });
 
 export const initExperienceState = (): ExperienceState => ({
@@ -147,6 +168,8 @@ function isPersonal(experience: Experience): experience is ExperiencePersonal {
   return experience.type === "experience_personal";
 }
 
+type EntityType = "work" | "education" | "community" | "award" | "personal";
+
 const experienceTypeGuards = {
   work: isWork,
   education: isEducation,
@@ -155,9 +178,9 @@ const experienceTypeGuards = {
   personal: isPersonal,
 };
 
-function massageType(experienceType: Experience["type"]): keyof EntityState {
+function massageType(experienceType: Experience["type"]): EntityType {
   /* eslint-disable @typescript-eslint/camelcase */
-  const mapping: { [key in Experience["type"]]: keyof EntityState } = {
+  const mapping: { [key in Experience["type"]]: EntityType } = {
     experience_work: "work",
     experience_education: "education",
     experience_community: "community",
@@ -168,7 +191,7 @@ function massageType(experienceType: Experience["type"]): keyof EntityState {
   return mapping[experienceType];
 }
 
-function fetchExperienceByApplication<T extends keyof EntityState>(
+function fetchExperienceByApplication<T extends EntityType>(
   state: EntityState,
   action: ExperienceAction,
   type: T,
@@ -178,7 +201,9 @@ function fetchExperienceByApplication<T extends keyof EntityState>(
     return subState;
   }
   const typeFilter = experienceTypeGuards[type];
-  const experiences = action.payload.filter(typeFilter);
+  const experiences = action.payload
+    .map((response) => response.experience)
+    .filter(typeFilter);
   return {
     ...subState,
     byId: {
@@ -191,7 +216,7 @@ function fetchExperienceByApplication<T extends keyof EntityState>(
     },
   };
 }
-function fetchExperienceByApplicant<T extends keyof EntityState>(
+function fetchExperienceByApplicant<T extends EntityType>(
   state: EntityState,
   action: ExperienceAction,
   type: T,
@@ -201,7 +226,9 @@ function fetchExperienceByApplicant<T extends keyof EntityState>(
     return subState;
   }
   const typeFilter = experienceTypeGuards[type];
-  const experiences = action.payload.filter(typeFilter);
+  const experiences = action.payload
+    .map((response) => response.experience)
+    .filter(typeFilter);
   return {
     ...subState,
     byId: {
@@ -215,7 +242,7 @@ function fetchExperienceByApplicant<T extends keyof EntityState>(
   };
 }
 
-function setExperience<T extends keyof EntityState>(
+function setExperience<T extends EntityType>(
   state: EntityState,
   action: ExperienceAction,
   type: T,
@@ -228,7 +255,7 @@ function setExperience<T extends keyof EntityState>(
   ) {
     return subState;
   }
-  const experience = action.payload;
+  const { experience } = action.payload;
   const ownerId = experience.experienceable_id;
   const idsByApplicant =
     experience.experienceable_type === "applicant"
@@ -255,14 +282,14 @@ function setExperience<T extends keyof EntityState>(
     ...subState,
     byId: {
       ...subState.byId,
-      [action.payload.id]: action.payload,
+      [action.payload.experience.id]: action.payload,
     },
     idsByApplicant,
     idsByApplication,
   };
 }
 
-function deleteExperience<T extends keyof EntityState>(
+function deleteExperience<T extends EntityType>(
   state: EntityState,
   action: ExperienceAction,
   type: T,

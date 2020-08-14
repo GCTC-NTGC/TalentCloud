@@ -15,6 +15,7 @@ import {
   ExperienceAward,
 } from "../../models/types";
 import {
+  ExperienceResponse,
   parseExperience,
   getApplicantExperienceEndpoint,
   getApplicationExperienceEndpoint,
@@ -33,7 +34,7 @@ export type FetchExperienceByApplicantAction = AsyncFsaActions<
   typeof FETCH_EXPERIENCE_BY_APPLICANT_STARTED,
   typeof FETCH_EXPERIENCE_BY_APPLICANT_SUCCEEDED,
   typeof FETCH_EXPERIENCE_BY_APPLICANT_FAILED,
-  Experience[],
+  ExperienceResponse[],
   { applicantId: number }
 >;
 
@@ -43,7 +44,7 @@ export const fetchExperienceByApplicant = (
   typeof FETCH_EXPERIENCE_BY_APPLICANT_STARTED,
   typeof FETCH_EXPERIENCE_BY_APPLICANT_SUCCEEDED,
   typeof FETCH_EXPERIENCE_BY_APPLICANT_FAILED,
-  Experience[],
+  ExperienceResponse[],
   { applicantId: number }
 > =>
   asyncGet(
@@ -66,7 +67,7 @@ export type FetchExperienceByApplicationAction = AsyncFsaActions<
   typeof FETCH_EXPERIENCE_BY_APPLICATION_STARTED,
   typeof FETCH_EXPERIENCE_BY_APPLICATION_SUCCEEDED,
   typeof FETCH_EXPERIENCE_BY_APPLICATION_FAILED,
-  Experience[],
+  ExperienceResponse[],
   { applicationId: number }
 >;
 
@@ -76,7 +77,7 @@ export const fetchExperienceByApplication = (
   typeof FETCH_EXPERIENCE_BY_APPLICATION_STARTED,
   typeof FETCH_EXPERIENCE_BY_APPLICATION_SUCCEEDED,
   typeof FETCH_EXPERIENCE_BY_APPLICATION_FAILED,
-  Experience[],
+  ExperienceResponse[],
   { applicationId: number }
 > =>
   asyncGet(
@@ -96,7 +97,7 @@ export type CreateExperienceAction = AsyncFsaActions<
   typeof CREATE_EXPERIENCE_STARTED,
   typeof CREATE_EXPERIENCE_SUCCEEDED,
   typeof CREATE_EXPERIENCE_FAILED,
-  Experience,
+  ExperienceResponse,
   { type: Experience["type"] }
 >;
 
@@ -106,7 +107,7 @@ export const createExperience = (
   typeof CREATE_EXPERIENCE_STARTED,
   typeof CREATE_EXPERIENCE_SUCCEEDED,
   typeof CREATE_EXPERIENCE_FAILED,
-  Experience,
+  ExperienceResponse,
   { type: Experience["type"] }
 > =>
   asyncPost(
@@ -115,11 +116,7 @@ export const createExperience = (
     CREATE_EXPERIENCE_STARTED,
     CREATE_EXPERIENCE_SUCCEEDED,
     CREATE_EXPERIENCE_FAILED,
-    (data) =>
-      ({
-        ...parseSingleExperience(data),
-        type: experience.type, // Manually set the type, since this may not be returned from the API.
-      } as Experience),
+    parseSingleExperience,
     { type: experience.type },
   );
 
@@ -144,7 +141,7 @@ export type UpdateExperienceAction = AsyncFsaActions<
   typeof UPDATE_EXPERIENCE_STARTED,
   typeof UPDATE_EXPERIENCE_SUCCEEDED,
   typeof UPDATE_EXPERIENCE_FAILED,
-  Experience,
+  ExperienceResponse,
   { id: number; type: Experience["type"] }
 >;
 
@@ -154,7 +151,7 @@ export const updateExperience = (
   typeof UPDATE_EXPERIENCE_STARTED,
   typeof UPDATE_EXPERIENCE_SUCCEEDED,
   typeof UPDATE_EXPERIENCE_FAILED,
-  Experience,
+  ExperienceResponse,
   { id: number; type: Experience["type"] }
 > =>
   asyncPut(
@@ -163,11 +160,7 @@ export const updateExperience = (
     UPDATE_EXPERIENCE_STARTED,
     UPDATE_EXPERIENCE_SUCCEEDED,
     UPDATE_EXPERIENCE_FAILED,
-    (data) =>
-      ({
-        ...parseSingleExperience(data),
-        type: experience.type, // Manually set the type, since this may not be returned from the API.
-      } as Experience),
+    parseSingleExperience,
     { id: experience.id, type: experience.type },
   );
 
