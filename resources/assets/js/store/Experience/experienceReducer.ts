@@ -37,8 +37,6 @@ import {
   uniq,
   deleteProperty,
   mapObjectValues,
-  mapToObjectTrans,
-  hasKey,
 } from "../../helpers/queries";
 
 export interface ExperienceSection<T> {
