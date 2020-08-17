@@ -964,6 +964,74 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->middleware('can:update,hrAdvisor')
         ->where('hrAdvisor', '[0-9]+')
         ->where('job', '[0-9]+');
+
+    Route::get('applicants/{applicant}/experience', 'Api\ExperienceController@indexForApplicant')
+        ->where('applicant', '[0-9]+')
+        ->middleware('can:view,applicant')
+        ->name('applicant.experience.index');
+
+    Route::post('applicants/{applicant}/experience-work', 'Api\ExperienceController@storeWork')
+        ->where('applicant', '[0-9]+')
+        ->middleware('can:update,applicant')
+        ->name('applicant.experience-work.store');
+    Route::post('applicants/{applicant}/experience-personal', 'Api\ExperienceController@storePersonal')
+        ->where('applicant', '[0-9]+')
+        ->middleware('can:update,applicant')
+        ->name('applicant.experience-personal.store');
+    Route::post('applicants/{applicant}/experience-education', 'Api\ExperienceController@storeEducation')
+        ->where('applicant', '[0-9]+')
+        ->middleware('can:update,applicant')
+        ->name('applicant.experience-education.store');
+    Route::post('applicants/{applicant}/experience-award', 'Api\ExperienceController@storeAward')
+        ->where('applicant', '[0-9]+')
+        ->middleware('can:update,applicant')
+        ->name('applicant.experience-award.store');
+    Route::post('applicants/{applicant}/experience-community', 'Api\ExperienceController@storeCommunity')
+        ->where('applicant', '[0-9]+')
+        ->middleware('can:update,applicant')
+        ->name('applicant.experience-community.store');
+
+    Route::put('experience-work/{work}', 'Api\ExperienceController@updateWork')
+        ->where('work', '[0-9]+')
+        ->middleware('can:update,work')
+        ->name('experience-work.update');
+    Route::put('experience-personal/{personal}', 'Api\ExperienceController@updatePersonal')
+        ->where('personal', '[0-9]+')
+        ->middleware('can:update,personal')
+        ->name('experience-personal.update');
+    Route::put('experience-education/{education}', 'Api\ExperienceController@updateEducation')
+        ->where('education', '[0-9]+')
+        ->middleware('can:update,education')
+        ->name('experience-education.update');
+    Route::put('experience-award/{award}', 'Api\ExperienceController@updateAward')
+        ->where('award', '[0-9]+')
+        ->middleware('can:update,award')
+        ->name('experience-award.update');
+    Route::put('experience-community/{community}', 'Api\ExperienceController@updateCommunity')
+        ->where('community', '[0-9]+')
+        ->middleware('can:update,community')
+        ->name('experience-community.update');
+
+    Route::delete('experience-work/{work}', 'Api\ExperienceController@destroyWork')
+        ->where('work', '[0-9]+')
+        ->middleware('can:delete,work')
+        ->name('experience-work.destroy');
+    Route::delete('experience-personal/{personal}', 'Api\ExperienceController@destroyPersonal')
+        ->where('personal', '[0-9]+')
+        ->middleware('can:delete,personal')
+        ->name('experience-personal.destroy');
+    Route::delete('experience-education/{education}', 'Api\ExperienceController@destroyEducation')
+        ->where('education', '[0-9]+')
+        ->middleware('can:delete,education')
+        ->name('experience-education.destroy');
+    Route::delete('experience-award/{award}', 'Api\ExperienceController@destroyAward')
+        ->where('award', '[0-9]+')
+        ->middleware('can:delete,award')
+        ->name('experience-award.destroy');
+    Route::delete('experience-community/{community}', 'Api\ExperienceController@destroyCommunity')
+        ->where('community', '[0-9]+')
+        ->middleware('can:delete,community')
+        ->name('experience-community.destroy');
 });
 Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
     Route::get('applications/{application}', 'Api\ApplicationController@show')
@@ -986,4 +1054,9 @@ Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
         ->where('application', '[0-9]+')
         ->middleware('can:review,application')
         ->name('application.review.update');
+
+    Route::get('applications/{application}/experience', 'Api\ExperienceController@indexForApplication')
+        ->where('application', '[0-9]+')
+        ->middleware('can:view,application')
+        ->name('application.experience.index');
 });
