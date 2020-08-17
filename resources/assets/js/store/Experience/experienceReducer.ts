@@ -37,6 +37,7 @@ import {
   uniq,
   deleteProperty,
   mapObjectValues,
+  flatten,
 } from "../../helpers/queries";
 
 export interface ExperienceSection<T> {
@@ -436,7 +437,7 @@ export const entitiesReducer = (
         personal: fetchExperienceByApplicant(state, action, "personal"),
         experienceSkills: setExperienceSkills(
           state,
-          action.payload.map((response) => response.experienceSkills).flat(),
+          flatten(action.payload.map((response) => response.experienceSkills)),
         ),
       };
     case FETCH_EXPERIENCE_BY_APPLICATION_SUCCEEDED:
@@ -449,7 +450,7 @@ export const entitiesReducer = (
         personal: fetchExperienceByApplication(state, action, "personal"),
         experienceSkills: setExperienceSkills(
           state,
-          action.payload.map((response) => response.experienceSkills).flat(),
+          flatten(action.payload.map((response) => response.experienceSkills)),
         ),
       };
     case CREATE_EXPERIENCE_SUCCEEDED:
