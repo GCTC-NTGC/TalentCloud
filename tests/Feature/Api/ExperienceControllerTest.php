@@ -160,10 +160,10 @@ class ExperienceControllerTest extends TestCase
         $response->assertJsonCount(5);
 
         // Sanity check to ensure our ExperienceResource class does a reasonable transformation,
-        // in particular checking that it adds the 'type'=>'work' field.
+        // in particular checking that it adds the 'type'=>'experience_work' field.
         $response->assertJsonFragment([
             'id'=>$work->id,
-            'type' => 'work',
+            'type' => 'experience_work',
             'title' => $work->title,
             'organization' => $work->organization,
             ]);
