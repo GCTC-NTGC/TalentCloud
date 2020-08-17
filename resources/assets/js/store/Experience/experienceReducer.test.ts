@@ -19,6 +19,12 @@ import {
   UPDATE_EXPERIENCE_SUCCEEDED,
   DELETE_EXPERIENCE_SUCCEEDED,
 } from "./experienceActions";
+import { Experience } from "../../models/types";
+
+const wrapExp = (experience: Experience) => ({
+  experience,
+  experienceSkills: [],
+});
 
 describe("Experience Reducer tests", (): void => {
   describe("EntityReducer", (): void => {
@@ -62,7 +68,7 @@ describe("Experience Reducer tests", (): void => {
       };
       const action: ExperienceAction = {
         type: FETCH_EXPERIENCE_BY_APPLICANT_SUCCEEDED,
-        payload: [work, education, community, award, personal],
+        payload: [work, education, community, award, personal].map(wrapExp),
         meta: { applicantId },
       };
       const newState = entitiesReducer(initialState, action);
@@ -108,7 +114,7 @@ describe("Experience Reducer tests", (): void => {
       };
       const action: ExperienceAction = {
         type: FETCH_EXPERIENCE_BY_APPLICATION_SUCCEEDED,
-        payload: [work, education, community, award, personal],
+        payload: [work, education, community, award, personal].map(wrapExp),
         meta: { applicationId },
       };
       const newState = entitiesReducer(initialState, action);
@@ -151,7 +157,7 @@ describe("Experience Reducer tests", (): void => {
       };
       const action: ExperienceAction = {
         type: FETCH_EXPERIENCE_BY_APPLICATION_SUCCEEDED,
-        payload: [education1, education2],
+        payload: [education1, education2].map(wrapExp),
         meta: { applicationId },
       };
       const newState = entitiesReducer(initialState, action);
@@ -196,7 +202,7 @@ describe("Experience Reducer tests", (): void => {
       };
       const action: ExperienceAction = {
         type: FETCH_EXPERIENCE_BY_APPLICATION_SUCCEEDED,
-        payload: [education1, education2, community],
+        payload: [education1, education2, community].map(wrapExp),
         meta: { applicationId },
       };
       const newState = entitiesReducer(initialState, action);
@@ -223,7 +229,7 @@ describe("Experience Reducer tests", (): void => {
       };
       const action: ExperienceAction = {
         type: CREATE_EXPERIENCE_SUCCEEDED,
-        payload: award,
+        payload: wrapExp(award),
         meta: { type: award.type },
       };
       const newState = entitiesReducer(initialState, action);
@@ -264,7 +270,7 @@ describe("Experience Reducer tests", (): void => {
       };
       const action: ExperienceAction = {
         type: UPDATE_EXPERIENCE_SUCCEEDED,
-        payload: work,
+        payload: wrapExp(work),
         meta: { id, type: work.type },
       };
       const newState = entitiesReducer(initialState, action);
@@ -289,7 +295,7 @@ describe("Experience Reducer tests", (): void => {
       };
       const action: ExperienceAction = {
         type: UPDATE_EXPERIENCE_SUCCEEDED,
-        payload: work,
+        payload: wrapExp(work),
         meta: { id, type: work.type },
       };
       const newState = entitiesReducer(initialState, action);

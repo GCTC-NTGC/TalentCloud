@@ -289,7 +289,7 @@ function setExperience<T extends EntityType>(
     ...subState,
     byId: {
       ...subState.byId,
-      [action.payload.experience.id]: action.payload,
+      [experience.id]: experience,
     },
     idsByApplicant,
     idsByApplication,
@@ -353,7 +353,7 @@ function setExperienceSkills(
     };
   };
   return {
-    byId: { ...state.experienceSkills, ...newExpSkills },
+    byId: { ...state.experienceSkills.byId, ...newExpSkills },
     idsByWork: workSkills.reduce(reducer, state.experienceSkills.idsByWork),
     idsByEducation: educationSkills.reduce(
       reducer,
