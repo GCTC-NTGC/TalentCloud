@@ -5,7 +5,7 @@ import { getLocale } from "../../../helpers/localize";
 import { navigate } from "../../../helpers/router";
 import { readableTimeFromNow } from "../../../helpers/dates";
 
-const stepNames = defineMessages({
+export const stepNames = defineMessages({
   welcome: {
     id: "applicationTimeline.progressBar.welcome",
     defaultMessage: "Welcome",
@@ -130,7 +130,7 @@ export type ProgressBarStepStatus =
   | "error"
   | "current";
 
-interface ProgressBarProps {
+export interface ProgressBarProps {
   /** The closing date of the job poster. */
   closeDateTime: Date;
   /** The current step number. This is required for the informational steps, since they do not use a list item. */
@@ -139,7 +139,7 @@ interface ProgressBarProps {
   steps: { link: Link; status: ProgressBarStepStatus }[];
 }
 
-const ProgressBar: React.FunctionComponent<ProgressBarProps> = ({
+export const ProgressBar: React.FunctionComponent<ProgressBarProps> = ({
   steps,
   closeDateTime,
   currentTitle,
