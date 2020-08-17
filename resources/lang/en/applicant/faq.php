@@ -589,7 +589,7 @@ return [
                 ],
                 'links' => [
                     '0' => "<a href=\"#partners\" title=\"See Talent Cloud's partner departments.\">check out the FAQ section of the Talent Cloud website</a>",
-                    '1' => "<a href=\"manager\" title=\"Visit Talent Cloud's manager portal.\">Talent Cloud's manager portal</a>",
+                    '1' => "<a href=\"".route('manager.home')."\" title=\"Visit Talent Cloud's manager portal.\">Talent Cloud's manager portal</a>",
                     '2' => '<a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Send an email to Talent Cloud.">talent.cloud-nuage.de.talents@tbs-sct.gc.ca</a>'
                 ]
             ],

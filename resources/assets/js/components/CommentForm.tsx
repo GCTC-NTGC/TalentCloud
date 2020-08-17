@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase, camelcase */
 import * as React from "react";
 import { connect } from "react-redux";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, FastField } from "formik";
 import * as Yup from "yup";
 import { useIntl, defineMessages, FormattedMessage } from "react-intl";
 import { validationMessages } from "./Form/Messages";
@@ -83,7 +83,7 @@ interface CommentFormValues {
   commentLocation?: string | "";
 }
 
-const CommentForm: React.FunctionComponent<CommentFormProps> = ({
+export const CommentForm: React.FunctionComponent<CommentFormProps> = ({
   isHrAdvisor,
   handleCreateComment,
   jobId,
@@ -142,9 +142,10 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
               setSubmitting(false);
             });
         }}
-        render={({ isSubmitting }): React.ReactElement => (
+      >
+        {({ isSubmitting }): React.ReactElement => (
           <Form data-c-grid="gutter(all, 1) middle">
-            <Field
+            <FastField
               id="comment_form_input"
               type="text"
               name="comment"
@@ -155,7 +156,7 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
               placeholder={intl.formatMessage(formMessages.commentPlaceholder)}
             />
             {locationOptions && (
-              <Field
+              <FastField
                 name="commentLocation"
                 id="comment_form_location"
                 label={intl.formatMessage(formMessages.commentLocationLabel)}
@@ -172,7 +173,7 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
               />
             )}
             {isHrAdvisor && (
-              <Field
+              <FastField
                 id="comment_form_type"
                 name="commentType"
                 component={SelectInput}
@@ -204,7 +205,9 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
             )}
             <div
               data-c-grid-item={
-                locationOptions && isHrAdvisor ? "tl(1of1)" : "tl(1of3)"
+                (locationOptions && isHrAdvisor) || !isHrAdvisor
+                  ? "tl(1of1)"
+                  : "tl(1of3)"
               }
               data-c-align="base(center) tl(right)"
             >
@@ -223,7 +226,7 @@ const CommentForm: React.FunctionComponent<CommentFormProps> = ({
             </div>
           </Form>
         )}
-      />
+      </Formik>
     </section>
   );
 };

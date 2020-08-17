@@ -6,13 +6,13 @@ import {
   Criteria,
   Skill,
   Comment,
+  JobPosterStatus,
 } from "./types";
 import {
   CriteriaTypeId,
   getKeyByValue,
   ClassificationId,
   JobStatus,
-  enumToIds,
   LocationId,
 } from "./lookupConstants";
 import { assetSkillName, skillLevelName } from "./localizedConstants";
@@ -25,12 +25,13 @@ import {
   hrJobReview,
   hrScreeningPlan,
   managerScreeningPlan,
-  hrJobIndex,
   hrJobSummary,
   hrJobPreview,
   jobBuilderTasks,
-  managerJobIndex,
-  managerJobShow,
+  managerJobPreview,
+  hrJobApplications,
+  managerJobApplications,
+  managerJobSummary,
 } from "../helpers/routes";
 import { hasKey } from "../helpers/queries";
 
@@ -57,7 +58,7 @@ export const emptyJob = (): Job => {
     close_date_time: null,
     start_date_time: null,
     department_id: null,
-    job_status_id: JobStatus.Draft,
+    job_poster_status_id: 1,
     province_id: null,
     salary_min: null,
     salary_max: null,
@@ -67,8 +68,6 @@ export const emptyJob = (): Job => {
     security_clearance_id: null,
     language_requirement_id: null,
     remote_work_allowed: true,
-    published_at: null,
-    review_requested_at: null,
     team_size: null,
     work_env_features: null,
     fast_vs_steady: null,
@@ -154,13 +153,16 @@ export const emptyComment = (): Comment => ({
   type_id: null,
   created_at: new Date(),
 });
-// TODO: allow for Complete status.
-export const jobStatus = (job: Job): JobStatus => {
-  if (enumToIds(JobStatus).includes(job.job_status_id)) {
-    return job.job_status_id;
-  }
-  return JobStatus.Draft;
-};
+
+export const emptyJobPosterStatus = (): JobPosterStatus => ({
+  id: 1,
+  key: JobStatus.Draft,
+  name: { en: "Draft", fr: "Provisoire" },
+  description: {
+    en: "This is a draft.",
+    fr: "Il s'agit d'un premier projet.",
+  },
+});
 
 export const activityLocationUrl = (
   isHrAdvisor: boolean,
@@ -169,7 +171,8 @@ export const activityLocationUrl = (
   locale: string,
 ): string => {
   const hrAdvisorUrls = {
-    [LocationId.generic]: hrJobReview(locale, jobId),
+    /* Job Poster Review Page */
+    [LocationId.jobGeneric]: hrJobReview(locale, jobId),
     [LocationId.heading]: hrJobReview(locale, jobId),
     [LocationId.basicInfo]: hrJobReview(locale, jobId),
     [LocationId.impact]: hrJobReview(locale, jobId),
@@ -177,12 +180,25 @@ export const activityLocationUrl = (
     [LocationId.skills]: hrJobReview(locale, jobId),
     [LocationId.langRequirements]: hrJobReview(locale, jobId),
     [LocationId.environment]: hrJobReview(locale, jobId),
+
+    /* Applicant Review Page */
+    [LocationId.applicantsGeneric]: hrJobApplications(locale, jobId),
+    [LocationId.underConsideration]: hrJobApplications(locale, jobId),
+    [LocationId.optionalConsideration]: hrJobApplications(locale, jobId),
+    [LocationId.notUnderConsideration]: hrJobApplications(locale, jobId),
+
+    /* Screening Plan Builder */
     [LocationId.screeningPlan]: hrScreeningPlan(locale, jobId),
+    [LocationId.screeningPlanBuilder]: hrScreeningPlan(locale, jobId),
+    [LocationId.screeningPlanSummary]: hrScreeningPlan(locale, jobId),
+    [LocationId.screeningPlanRatings]: hrScreeningPlan(locale, jobId),
+
     [LocationId.summary]: hrJobSummary(locale, jobId),
     [LocationId.preview]: hrJobPreview(locale, jobId),
   };
   const managerUrls = {
-    [LocationId.generic]: jobBuilderReview(locale, jobId),
+    /* Job Poster Review Page */
+    [LocationId.jobGeneric]: jobBuilderReview(locale, jobId),
     [LocationId.heading]: jobBuilderDetails(locale, jobId),
     [LocationId.basicInfo]: jobBuilderDetails(locale, jobId),
     [LocationId.impact]: jobBuilderImpact(locale, jobId),
@@ -190,9 +206,21 @@ export const activityLocationUrl = (
     [LocationId.skills]: jobBuilderSkills(locale, jobId),
     [LocationId.langRequirements]: jobBuilderDetails(locale, jobId),
     [LocationId.environment]: jobBuilderEnv(locale, jobId),
+
+    /* Applicant Review Page */
+    [LocationId.applicantsGeneric]: managerJobApplications(locale, jobId),
+    [LocationId.underConsideration]: managerJobApplications(locale, jobId),
+    [LocationId.optionalConsideration]: managerJobApplications(locale, jobId),
+    [LocationId.notUnderConsideration]: managerJobApplications(locale, jobId),
+
+    /* Screening Plan Builder */
     [LocationId.screeningPlan]: managerScreeningPlan(locale, jobId),
-    [LocationId.summary]: jobBuilderReview(locale, jobId), // TODO: change to summary page, once managers have it
-    [LocationId.preview]: managerJobShow(locale, jobId),
+    [LocationId.screeningPlanBuilder]: managerScreeningPlan(locale, jobId),
+    [LocationId.screeningPlanSummary]: managerScreeningPlan(locale, jobId),
+    [LocationId.screeningPlanRatings]: managerScreeningPlan(locale, jobId),
+
+    [LocationId.summary]: managerJobSummary(locale, jobId),
+    [LocationId.preview]: managerJobPreview(locale, jobId),
   };
   const urlMap = isHrAdvisor ? hrAdvisorUrls : managerUrls;
   const backupUrl = "/";

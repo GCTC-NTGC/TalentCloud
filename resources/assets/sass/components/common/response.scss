@@ -1,0 +1,115 @@
+.response-list-item {
+    position: relative;
+    i {
+        position: absolute;
+        top: .25rem;
+    }
+    img {
+        position: absolute;
+        top: .3rem;
+        width: 3rem;
+        &+p {
+            margin-left: 4rem;
+        }
+    }
+    p {
+        margin-left: 2rem;
+    }
+}
+
+a.response-job-listing {
+    text-decoration: none;
+    transform: scale(1);
+    transition: transform .2s ease;
+    &:hover {
+        transform: scale(1.025);
+        transition: transform .2s ease;
+    }
+    p {
+        text-decoration: none;
+    }
+}
+
+.response-copy-container {
+    max-width: 65rem;
+}
+
+.response-accordion-group {
+    [data-c-accordion] {
+        border-left: .5rem solid $clone-c1 !important;
+        &.active {
+            border-left: .5rem solid $clone-c3 !important;
+        }
+        [data-c-accordion-content] {
+            .applicant {
+                &:not(:first-child) {
+                    border-top: 1px solid rgba(200, 200, 200, 1);
+                    padding-top: 2rem;
+                    margin-top: 2rem;
+                }
+
+                .applicant-info-wrapper {
+                    @media #{$clone-tablet-portrait} {
+                        margin: auto;
+                        width: 50%;
+                    }
+
+                    @media #{$clone-tablet-landscape} {
+                        margin: initial;
+                        width: 100%;
+                    }
+
+                    margin: auto;
+                    width: 100%;
+
+                    .applicant-info-email {
+                        word-break: break-all;
+                    }
+                }
+
+                .row-icon-wrapper {
+                    position: relative;
+                    i {
+                        position: absolute;
+                        top: .3rem;
+                        left: -2rem;
+                    }
+                }
+
+                .review-status-wrapper {
+                    margin: auto;
+                    @media #{$clone-tablet-landscape} {
+                        margin: initial;
+                    }
+                }
+
+                .email-reference-button {
+                    position: relative;
+                    i {
+                        position: absolute;
+                        top: 20%;
+                        left: -20%;
+                    }
+                }
+
+                .applicant-buttons-wrapper {
+                    @media screen and (max-width: 82.5em) {
+                        button:first-child {
+                            margin-bottom: .5rem;
+                        }
+                    }
+                }
+
+                label {
+                    padding-right: 0;
+                }
+            }
+        }
+    }
+}
+
+.response-apply-button {
+    &:hover {
+        background: darken($clone-c1, 5) !important;
+    }
+}

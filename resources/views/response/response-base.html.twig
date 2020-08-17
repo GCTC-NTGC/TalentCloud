@@ -1,0 +1,36 @@
+{# =============================================================================
+    Talent Cloud / Response Layout
+============================================================================= #}
+<!DOCTYPE html>
+<html
+    lang="{{ appLocale }}">
+    {# Note that the </head> and <body> tags are located inside the common/head
+        file due to Google Tag Manager being required on all pages. #}
+    <head>
+        <title>
+            {% block title %}{% endblock %}
+        </title>
+        {% block socialMeta %}{% endblock %}
+        {# Head #}
+        {% include "common/head" %}
+        {# Page Body #}
+        {% include "common/goc" %}
+            <div data-clone> {% include "response/beta-banner" %}
+            {% include "response/menu" %}
+            {% block header %}
+                {% if application_template %}
+                    {% include "applicant/strategic_response_application/common/header" %}
+                {% else %}
+                    {% include "response/header" %}
+                {% endif %}
+            {% endblock %}
+            <a id="skipLink"></a>
+            {% block body %}{% endblock %}
+        </div>
+        {# Footer #}
+        {% include "common/footer" %}
+        {# Scripts #}
+        {% include "common/scripts" %}
+        {% block scripts %}{% endblock %}
+    </head>
+</html></body></html>

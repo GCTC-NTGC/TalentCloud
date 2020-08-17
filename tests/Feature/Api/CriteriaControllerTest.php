@@ -12,11 +12,18 @@ class CriteriaControllerTest extends TestCase
     use RefreshDatabase;
 
     /**
-    *  Converts a Criteria to shape sent and received through the api.
-    *
-    * @var callable
-    */
+     * Converts a Criteria to shape sent and received through the api.
+     *
+     * @var callable
+     */
     protected $toApiArray;
+
+    /**
+     * Base route for the API calls.
+     *
+     * @var string
+     */
+    protected $baseUrl;
 
     /**
      * Run parent setup and create helper function.
@@ -27,6 +34,8 @@ class CriteriaControllerTest extends TestCase
     {
         parent::setUp();
 
+        $this->baseUrl = 'api/v1';
+
         $this->toApiArray = function ($model) {
             return array_merge($model->toArray(), $model->getTranslations());
         };
@@ -34,12 +43,12 @@ class CriteriaControllerTest extends TestCase
 
     public function testIndexByJob()
     {
-        $job = factory(JobPoster::class)->state('published')->create();
+        $job = factory(JobPoster::class)->state('live')->create();
         // Ensure the factory added criteria, so we're not just checking an empty array
         $this->assertNotEmpty($job->criteria);
 
         $expected = collect($job->criteria)->toArray();
-        $response = $this->json('get', "api/jobs/$job->id/criteria");
+        $response = $this->json('get', "$this->baseUrl/jobs/$job->id/criteria");
         $response->assertOk();
         $response->assertJson($expected);
     }
@@ -52,7 +61,7 @@ class CriteriaControllerTest extends TestCase
         $newCriteria = factory(Criteria::class, 3)->make(['job_poster_id' => $job->id]);
         $newCriteriaArray = collect($newCriteria)->map($this->toApiArray);
         $response = $this->actingAs($job->manager->user)
-            ->json('put', "api/jobs/$job->id/criteria", $newCriteriaArray->toArray());
+            ->json('put', "$this->baseUrl/jobs/$job->id/criteria", $newCriteriaArray->toArray());
         $response->assertOk();
 
         foreach ($newCriteriaArray as $criteria) {
@@ -85,7 +94,7 @@ class CriteriaControllerTest extends TestCase
 
         $newCriteriaArray = collect([$criteria1, $criteria2])->map($this->toApiArray); // The updated criteria don't include criteria0
         $response = $this->actingAs($job->manager->user)
-            ->json('put', "api/jobs/$job->id/criteria", $newCriteriaArray->toArray());
+            ->json('put', "$this->baseUrl/jobs/$job->id/criteria", $newCriteriaArray->toArray());
         $response->assertOk();
 
         // criteria1 should be present, unchanged
@@ -135,7 +144,7 @@ class CriteriaControllerTest extends TestCase
             $newData,
         ];
         $response = $this->actingAs($job->manager->user)
-            ->json('put', "api/jobs/$job->id/criteria", $newCriteriaArray);
+            ->json('put', "$this->baseUrl/jobs/$job->id/criteria", $newCriteriaArray);
         $response->assertOk();
 
         // criteria0 should be present, but with updated description
@@ -194,7 +203,7 @@ class CriteriaControllerTest extends TestCase
 
         $newCriteriaArray = [$criteria0, $criteria1];
         $response = $this->actingAs($job->manager->user)
-            ->json('put', "api/jobs/$job->id/criteria", $newCriteriaArray);
+            ->json('put', "$this->baseUrl/jobs/$job->id/criteria", $newCriteriaArray);
         $response->assertOk();
 
         // criteria0 and criteria1 should both be added
@@ -268,7 +277,7 @@ class CriteriaControllerTest extends TestCase
             $newData
         ];
         $response = $this->actingAs($job->manager->user)
-            ->json('put', "api/jobs/$job->id/criteria", $newCriteriaArray);
+            ->json('put', "$this->baseUrl/jobs/$job->id/criteria", $newCriteriaArray);
         $response->assertOk();
 
         // criteria1 should have created an update notification

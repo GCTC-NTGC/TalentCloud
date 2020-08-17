@@ -38,6 +38,14 @@ export const getAllJobs = createSelector(getJobState, (jobState): Job[] =>
   Object.values(jobState),
 );
 
+export const getAllJobsInDept = createCachedSelector(
+  getAllJobs,
+  (state: RootState, ownProps: { departmentId: number }): number =>
+    ownProps.departmentId,
+  (jobs, departmentId): Job[] =>
+    jobs.filter(job => job.department_id === departmentId),
+)((state, ownProps): number => ownProps.departmentId);
+
 export const getJob = createCachedSelector(
   getJobState,
   (state: RootState, ownProps: { jobId: number }): number => ownProps.jobId,
@@ -156,3 +164,24 @@ export const sortComments = (comments: Comment[]): Comment[] => {
   };
   return comments.sort(comparator);
 };
+
+export const getSortedComments = createSelector(getComments, sortComments);
+
+export const getSortedFilteredComments = createCachedSelector(
+  getSortedComments,
+  (
+    state: RootState,
+    ownProps: {
+      filterComments?: (comment: Comment) => boolean;
+      generalLocation: string;
+    },
+  ) => ownProps.filterComments,
+  (comments, filterComments): Comment[] => {
+    return filterComments !== undefined
+      ? comments.filter(filterComments)
+      : comments;
+  },
+)((state, ownProps) => ownProps.generalLocation);
+
+export const fetchingComments = (state: RootState): boolean =>
+  ui(state).fetchingComments;

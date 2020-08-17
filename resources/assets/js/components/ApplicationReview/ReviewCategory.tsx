@@ -1,12 +1,6 @@
 import React, { useState } from "react";
-import {
-  injectIntl,
-  WrappedComponentProps,
-  FormattedMessage,
-  defineMessages,
-  MessageDescriptor,
-} from "react-intl";
-import Swal from "sweetalert2";
+import { FormattedMessage, defineMessages, useIntl } from "react-intl";
+import Swal, { SweetAlertResult } from "sweetalert2";
 import { Application } from "../../models/types";
 import { SelectOption } from "../Select";
 import { applicationBucket } from "./helpers";
@@ -16,8 +10,8 @@ import { copyToClipboard } from "../../helpers/clipboard";
 import { Portal } from "../../models/app";
 
 interface ReviewCategoryProps {
-  title: MessageDescriptor;
-  description: MessageDescriptor;
+  title: string;
+  description: string;
   showScreenOutAll: boolean;
   applications: Application[];
   reviewStatusOptions: SelectOption[];
@@ -32,14 +26,57 @@ interface ReviewCategoryProps {
   portal: Portal;
 }
 
-const localizations = defineMessages({
+const messages = defineMessages({
+  priorityApplicantsTitle: {
+    id: "review.applications.priorityApplicants.title",
+    defaultMessage: "Priority Applicants",
+    description: "title of list of priority applicants",
+  },
+  priorityApplicantsDescription: {
+    id: "review.applications.priorityApplicants.description",
+    defaultMessage:
+      "These are priority applicants for this position. They must be reviewed and considered first.",
+    description: "description of list of priority applicants",
+  },
+  veteransAndCitizensTitle: {
+    id: "review.applications.veteransAndCitizens.title",
+    defaultMessage: "Veterans and Canadian Citizens",
+    description: "title of list of Veterans and Canadian citizens",
+  },
+  veteransAndCitizensDescriptions: {
+    id: "review.applications.veteransAndCitizens.description",
+    defaultMessage: " ",
+    description: "description of list of Veterans and Canadian citizens",
+  },
+  nonCitizensTitle: {
+    id: "review.applications.nonCitizens.title",
+    defaultMessage: "Non-Canadian Citizens",
+    description: "title of list of non-citizen applicants",
+  },
+  nonCitizensDescription: {
+    id: "review.applications.nonCitizens.description",
+    defaultMessage: " ",
+    description: "description of list of non-citizen applicants",
+  },
+  unqualifiedTitle: {
+    id: "review.applications.unqualified.title",
+    defaultMessage: "Don't Meet Essential Criteria",
+    description:
+      "title of list of applicants who do not meet the essential criteria",
+  },
+  unqualifiedDescription: {
+    id: "review.applications.unqualified.description",
+    defaultMessage: " ",
+    description:
+      "description of list of applicants who do not meet the essential criteria",
+  },
   confirmButton: {
-    id: "button.confirm",
+    id: "review.applications.button.confirm",
     defaultMessage: "Confirm",
     description: "Confirm button for modal dialogue boxes",
   },
   screenOutAllConfirm: {
-    id: "apl.screenOutAll.confirm",
+    id: "review.applications.screenOutAll.confirm",
     defaultMessage:
       "Are you sure you want to screen out all Optional candidates?",
     description:
@@ -47,8 +84,7 @@ const localizations = defineMessages({
   },
 });
 
-const ReviewCategory: React.StatelessComponent<ReviewCategoryProps &
-  WrappedComponentProps> = ({
+const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = ({
   title,
   description,
   showScreenOutAll,
@@ -60,27 +96,27 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps &
   savingStatuses,
   prioritizeVeterans,
   portal,
-  intl,
-}: ReviewCategoryProps & WrappedComponentProps): React.ReactElement | null => {
+}: ReviewCategoryProps): React.ReactElement | null => {
+  const intl = useIntl();
   const [justCopied, setJustCopied] = useState(false);
   if (applications.length === 0) {
     return null;
   }
 
   const screenOutAll = (): void => {
-    const applicationIds = applications.map(application => application.id);
+    const applicationIds = applications.map((application) => application.id);
     onBulkStatusChange(applicationIds, ReviewStatusId.ScreenedOut);
   };
 
   const handleScreenOutAllClick = (): void => {
     Swal.fire({
-      title: intl.formatMessage(localizations.screenOutAllConfirm),
+      title: intl.formatMessage(messages.screenOutAllConfirm),
       icon: "question",
       showCancelButton: true,
       confirmButtonColor: "#0A6CBC",
       cancelButtonColor: "#F94D4D",
-      confirmButtonText: intl.formatMessage(localizations.confirmButton),
-    }).then(result => {
+      confirmButtonText: intl.formatMessage(messages.confirmButton),
+    }).then((result: SweetAlertResult) => {
       if (result.value) {
         screenOutAll();
       }
@@ -89,72 +125,41 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps &
 
   const buckets = [
     {
-      title: {
-        id: "apl.priorityApplicants.title",
-        defaultMessage: "Priority Applicants",
-        description: "title of list of priority applicants",
-      },
-      description: {
-        id: "apl.priorityApplicants.description",
-        defaultMessage:
-          "These are priority applicants for this position. They must be reviewed and considered first.",
-        description: "description of list of priority applicants",
-      },
+      id: messages.priorityApplicantsTitle.id,
+      title: intl.formatMessage(messages.priorityApplicantsTitle),
+      description: intl.formatMessage(messages.priorityApplicantsDescription),
       applications: applications.filter(
-        application => applicationBucket(application) === "priority",
+        (application) => applicationBucket(application) === "priority",
       ),
     },
     {
-      title: {
-        id: "apl.veteransAndCitizens.title",
-        defaultMessage: "Veterans and Canadian Citizens",
-        description: "title of list of Veterans and Canadian citizens",
-      },
-      description: {
-        id: "apl.veteransAndCitizens.description",
-        defaultMessage: " ",
-        description: "description of list of Veterans and Canadian citizens",
-      },
+      id: messages.veteransAndCitizensTitle.id,
+      title: intl.formatMessage(messages.veteransAndCitizensTitle),
+      description: intl.formatMessage(messages.veteransAndCitizensDescriptions),
       applications: applications.filter(
-        application => applicationBucket(application) === "citizen",
+        (application) => applicationBucket(application) === "citizen",
       ),
     },
     {
-      title: {
-        id: "apl.nonCitizens.title",
-        defaultMessage: "Non-Canadian Citizens",
-        description: "title of list of non-citizen applicants",
-      },
-      description: {
-        id: "apl.nonCitizens.description",
-        defaultMessage: " ",
-        description: "description of list of non-citizen applicants",
-      },
+      id: messages.nonCitizensTitle.id,
+      title: intl.formatMessage(messages.nonCitizensTitle),
+      description: intl.formatMessage(messages.nonCitizensDescription),
       applications: applications.filter(
-        application => applicationBucket(application) === "non-citizen",
+        (application) => applicationBucket(application) === "non-citizen",
       ),
     },
     {
-      title: {
-        id: "apl.unqualified.title",
-        defaultMessage: "Don't Meet Essential Criteria",
-        description:
-          "title of list of applicants who do not meet the essential criteria",
-      },
-      description: {
-        id: "apl.unqualified.description",
-        defaultMessage: " ",
-        description:
-          "description of list of applicants who do not meet the essential criteria",
-      },
+      id: messages.unqualifiedTitle.id,
+      title: intl.formatMessage(messages.unqualifiedTitle),
+      description: intl.formatMessage(messages.unqualifiedDescription),
       applications: applications.filter(
-        application => applicationBucket(application) === "unqualified",
+        (application) => applicationBucket(application) === "unqualified",
       ),
     },
   ];
 
   /* Code related to copying emails to clipboard */
-  const nameEmails = applications.map(application => {
+  const nameEmails = applications.map((application) => {
     const { first_name, last_name, email } = application.applicant.user; // eslint-disable-line
     return `${first_name} ${last_name} <${email}>`; // eslint-disable-line
   });
@@ -168,9 +173,9 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps &
 
   return (
     <div className="applicant-category">
-      <h2 className="heading--03">{intl.formatMessage(title)}</h2>
+      <h2 className="heading--03">{title}</h2>
 
-      <p>{intl.formatMessage(description)}</p>
+      <p>{description}</p>
 
       <div className="flex-grid middle category-actions">
         <div className="box med-1of2">
@@ -204,7 +209,7 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps &
               <i className="fas fa-ban" />
               &nbsp;
               <FormattedMessage
-                id="apl.screenOutAll"
+                id="review.applications.screenOutAll"
                 defaultMessage="Screen All Optional Candidates Out"
                 description="Button to screen out all optional candidates from competition with one click"
               />
@@ -213,9 +218,9 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps &
         </div>
       </div>
 
-      {buckets.map(bucket => (
+      {buckets.map((bucket) => (
         <ApplicantBucket
-          key={bucket.title.id}
+          key={bucket.id}
           {...bucket}
           reviewStatusOptions={reviewStatusOptions}
           onStatusChange={onStatusChange}
@@ -229,4 +234,4 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps &
   );
 };
 
-export default injectIntl(ReviewCategory);
+export default ReviewCategory;

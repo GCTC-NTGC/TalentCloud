@@ -2,17 +2,25 @@
 
 namespace App\Services\Validation;
 
-use Illuminate\Support\Facades\Validator;
 use App\Services\Validation\Rules\PasswordFormatRule;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class RegistrationValidator
 {
     public static function basicRules()
     {
         return [
+            'website' => 'size:0', // Honeypot, hidden field needs to be empty.
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
+            'contact_language' => [
+                'required',
+                'string',
+                Rule::in(['en', 'fr']),
+            ],
+            'job_alerts' => 'boolean|in:0,1',
             'password' => [
                 'required',
                 'min:8',
@@ -26,7 +34,8 @@ class RegistrationValidator
     {
         return [
             'department' => 'required|integer',
-            'gov_email' => 'nullable|required_unless:department,0|string|email|unique:users', // gov_email is required unless department is set to 0 (Not in Goverment)
+            'gov_email' => 'nullable|required_unless:department,0|string|email|max:255|unique:users',
+            // gov_email is required unless department is set to 0 (Not in Government)
         ];
     }
 

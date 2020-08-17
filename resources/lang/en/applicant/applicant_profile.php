@@ -9,6 +9,11 @@
 */
 return [
     'title' => 'About Me',
+    'profile_sidebar_label' => 'On your profile:',
+    'account_settings_title' => 'Edit your account settings.',
+    'account_settings_label' => 'Account Settings',
+    'required_label' => 'Required',
+    'input_error' => 'This input has an error.',
     'about_section' => [
         'about_title' => 'My Information',
         'profile_title' => 'Talent Cloud | Applicant: Profile - About Me',

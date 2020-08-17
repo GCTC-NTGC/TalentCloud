@@ -6,6 +6,32 @@ export enum ReviewStatusId {
 
 export type ReviewStatusName = "screened_out" | "still_thinking" | "still_in";
 
+export enum ResponseReviewStatusId {
+  ScreenedOut = 1,
+  ReadyForReference = 4,
+  ReadyToAllocate = 5,
+  AssessmentRequired = 6,
+  Allocated = 7,
+  NotAvailable = 8,
+}
+
+export type ResponseReviewStatusName =
+  | "screened_out"
+  | "ready_for_reference"
+  | "ready_to_allocate"
+  | "assessment_required"
+  | "allocated"
+  | "not_available";
+
+export type ResponseReviewStatus = {
+  id: ResponseReviewStatusId;
+  name: ResponseReviewStatusName;
+};
+
+export enum ExcludedDepartments {
+  StrategicTalentResponse = 18,
+}
+
 export enum CriteriaTypeId {
   Essential = 1,
   Asset = 2,
@@ -101,6 +127,8 @@ export const ClassificationId = {
   PE: 11,
   PM: 12,
   AD: 13,
+  "EN-ENG": 14,
+  FI: 15,
 };
 
 export const CommentTypeId = {
@@ -110,7 +138,7 @@ export const CommentTypeId = {
 };
 
 export const LocationId = {
-  generic: "job/generic",
+  jobGeneric: "job/generic",
   heading: "job/heading",
   basicInfo: "job/basicInfo",
   impact: "job/impact",
@@ -118,31 +146,66 @@ export const LocationId = {
   skills: "job/skills",
   langRequirements: "job/langRequirements",
   environment: "job/environment",
-  summary: "summary",
+  summary: "hr/summary",
   preview: "hr/preview",
-  screeningPlan: "screeningPlan",
+  screeningPlan: "screeningPlan/generic",
+  screeningPlanBuilder: "screeningPlan/builder",
+  screeningPlanSummary: "screeningPlan/summary",
+  screeningPlanRatings: "screeningPlan/ratings",
+  applicantsGeneric: "applicants/generic",
+  underConsideration: "applicants/underConsideration",
+  optionalConsideration: "applicants/optionalConsideration",
+  notUnderConsideration: "applicants/notUnderConsideration",
 } as const;
 
 export enum JobStatus {
-  Draft = 1,
-  Review = 2,
-  Approved = 3,
-  Open = 4,
-  Closed = 5,
-  Complete = 6,
+  Draft = "draft",
+  ReviewManager = "review_manager",
+  ReviewHr = "review_hr",
+  Translation = "translation",
+  FinalReviewManager = "final_review_manager",
+  FinalReviewHr = "final_review_hr",
+  PendingApproval = "pending_approval",
+  Approved = "approved",
+  Ready = "ready",
+  Live = "live",
+  Assessment = "assessment",
+  Completed = "completed",
 }
+
+export enum ResponseScreeningBuckets {
+  Consideration = "consideration",
+  ReadyToAllocate = "ready_to_allocate",
+  Allocated = "allocated",
+  Unavailable = "unavailable",
+  DoesNotQualify = "does_not_qualify",
+}
+
+export const CitizenshipId = {
+  citizen: 1,
+  permanentResident: 2,
+  workPermitOpen: 3,
+  workPermitClosed: 4,
+  notEntitled: 5,
+};
+
+export const VeteranId = {
+  none: 1,
+  current: 2,
+  past: 3,
+};
 
 export function getKeyByValue(object, value): string {
   return (
-    Object.keys(object).find(key => object[key] === parseInt(value, 10)) || ""
+    Object.keys(object).find((key) => object[key] === parseInt(value, 10)) || ""
   );
 }
 
 export function enumToIds(enumType: object): number[] {
   const enumVals = Object.values(enumType);
   // Note: this first array includes the list of ids as strings, followed by the list of names as strings
-  const enumIds = enumVals.filter(item => !Number.isNaN(Number(item)));
-  return enumIds.map(id => Number(id));
+  const enumIds = enumVals.filter((item) => !Number.isNaN(Number(item)));
+  return enumIds.map((id) => Number(id));
 }
 
 export const SkillLevelIdValues = enumToIds(SkillLevelId);

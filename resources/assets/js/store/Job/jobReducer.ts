@@ -34,6 +34,8 @@ import {
   FETCH_JOB_INDEX_SUCCEEDED,
   FETCH_JOB_INDEX_STARTED,
   FETCH_JOB_INDEX_FAILED,
+  FETCH_COMMENTS_STARTED,
+  FETCH_COMMENTS_FAILED,
 } from "./jobActions";
 import {
   mapToObject,
@@ -84,6 +86,7 @@ export interface UiState {
   };
   creatingJob: boolean;
   selectedJobId: number | null;
+  fetchingComments: boolean;
 }
 
 export interface JobState {
@@ -107,6 +110,7 @@ export const initUi = (): UiState => ({
   tasksUpdatingByJob: {},
   creatingJob: false,
   selectedJobId: null,
+  fetchingComments: false,
 });
 
 export const initState = (): JobState => ({
@@ -180,7 +184,7 @@ export const entitiesReducer = (
     case CLEAR_JOB_EDIT:
       return {
         ...state,
-        jobEdits: deleteProperty<Job>(state.jobEdits, action.payload),
+        jobEdits: deleteProperty(state.jobEdits, action.payload),
       };
     case FETCH_JOB_TASKS_SUCCEEDED:
     case BATCH_UPDATE_JOB_TASKS_SUCCEEDED:
@@ -328,6 +332,17 @@ export const uiReducer = (state = initUi(), action: JobAction): UiState => {
           ...state.criteriaUpdatingByJob,
           [action.meta.jobId]: false,
         },
+      };
+    case FETCH_COMMENTS_STARTED:
+      return {
+        ...state,
+        fetchingComments: true,
+      };
+    case FETCH_COMMENTS_SUCCEEDED:
+    case FETCH_COMMENTS_FAILED:
+      return {
+        ...state,
+        fetchingComments: false,
       };
     default:
       return state;

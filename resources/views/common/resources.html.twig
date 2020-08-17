@@ -1,0 +1,58 @@
+{% extends "layouts/base" %}
+{% block title %}
+    {{ portal == 'manager' ? resources_template.manager_title : resources_template.hr_title }}
+{% endblock %}
+{% block body %}
+    {% include "common/goc" %}
+    {% include "common/alert" %}
+    <div data-clone>
+        {# Header #}
+        <div data-c-overlay="black(80)" style="background-image: url('{{ asset("/images/bg_crowd.jpg") }}');">
+            {% include "common/menu" %}
+            <div data-c-container="large" data-c-padding="tb(triple)">
+                <h1 class="logotype" data-c-font-size="h1" data-c-font-weight="600" data-c-color="white" data-c-margin="bottom(double)">
+					{{ resources_template.resources }}
+				</h1>
+                {% include "common/breadcrumbs" %}
+            </div>
+        </div>
+        {# Sidebar Layout #}
+        <section class="faq">
+            <div data-c-background="white(100)">
+                <div data-c-container="large">
+                    <div data-c-grid="gutter(all, 1)">
+                        {# Include Sidebar #}
+                        <div data-c-grid-item="tl(1of4)">
+                            <nav class="clone-sidebar" data-c-padding="tb(3)">
+                                <p data-c-font-size="h4" data-c-font-weight="bold" data-c-margin="bottom(1)">{{ resources_template.resources }}</p>
+                                <ul>
+                                    <li>
+                                        <a href="#emailTemplates" title="{{ resources_template.email_templates_title }}">{{ resources_template.email_templates_text }}</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        {# Content #}
+                        <div data-c-grid-item="tl(3of4)">
+                            <div data-c-padding="tb(3)" data-c-container="small" data-c-margin="left(.25)">
+                                <h2 data-c-heading="h2" data-c-margin="bottom(1)">{{ resources_template.resources }}</h2>
+                                <p>{{ resources_template.resources_text }}</p>
+                                <h3 id="emailTemplates" data-c-heading="h3" data-c-margin="bottom(1)" data-c-padding="top(3) bottom(1)">{{ resources_template.email_templates }}</h3>
+                                {# Resources can be found in the Github issue. These should be click to download, and will be .doc or text files of some sort. Eventually this are will expand to include various resource types. #}
+                                {% if resources %}
+                                    <ul>
+                                        {% for resource in resources %}
+                                            <li><a href="{{ resource.link }}" title="" download>{{ resource.text }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    <p>{{ resources_template.empty_list }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

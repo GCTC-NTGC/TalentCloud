@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Gate;
-use App\Models\JobPoster;
-use App\Models\Criteria;
 use App\Models\Assessment;
-use App\Models\RatingGuideQuestion;
-use App\Models\RatingGuideAnswer;
+use App\Models\Criteria;
+use App\Models\JobPoster;
 use App\Models\Lookup\AssessmentType;
+use App\Models\RatingGuideAnswer;
+use App\Models\RatingGuideQuestion;
+use Facades\App\Services\WhichPortal;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Lang;
 
 class AssessmentPlanController extends Controller
@@ -60,16 +61,17 @@ class AssessmentPlanController extends Controller
     {
         // Show demo notification if the user is a demoManager and is not an hr-advisor that has claimed the job.
         $display_demo_notification = Auth::user() !== null &&
-                                  Auth::user()->isDemoManager() &&
-                                  (!$jobPoster->hr_advisors->contains('user_id', Auth::user()->id) &&
-                                  Auth::user()->isHrAdvisor());
+            Auth::user()->isDemoManager() &&
+            (!$jobPoster->hr_advisors->contains('user_id', Auth::user()->id) &&
+                Auth::user()->isHrAdvisor());
+
+        $portal = WhichPortal::isHrPortal() ? 'hr' : 'manager';
 
         return view('manager/assessment_plan', [
-            'title' => Lang::get('manager/assessment_plan.title'),
+            'assessment_plan' => Lang::get('manager/assessment_plan'),
             'job_id' => $jobPoster->id,
             'display_demo_notification' => $display_demo_notification,
+            'portal' => $portal,
         ]);
     }
 }
-
-

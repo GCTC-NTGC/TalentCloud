@@ -1,5 +1,5 @@
 import * as React from "react";
-import { FormikActions } from "formik";
+import { FormikHelpers } from "formik";
 import { FormattedMessage } from "react-intl";
 import { inputMessages } from "./Messages";
 
@@ -13,15 +13,15 @@ interface CheckboxGroupProps {
   /** If this input is required for submission. */
   required?: boolean;
   /** Error to display. */
-  error: (string | undefined)[] | undefined;
+  error: string | string[] | undefined;
   /** If this group has been affected by user input or a submission. */
-  touched: (boolean | undefined)[] | undefined;
+  touched: boolean | undefined;
   /** Array of all selected values */
   value: (string | number)[];
   /** Function which takes an id and value as arguments, and sets the field (id) to the value */
-  onChange: FormikActions<any>["setFieldValue"];
+  onChange: FormikHelpers<any>["setFieldValue"];
   /** Function which takes an id and boolean value as arguments, and sets the field (id) to the boolean value */
-  onBlur: FormikActions<any>["setFieldTouched"];
+  onBlur: FormikHelpers<any>["setFieldTouched"];
 }
 
 const CheckboxGroup: React.FunctionComponent<CheckboxGroupProps> = ({
@@ -58,7 +58,7 @@ const CheckboxGroup: React.FunctionComponent<CheckboxGroupProps> = ({
   return (
     <div
       data-c-grid-item={grid}
-      data-c-input="checkbox"
+      data-c-input="checkbox(group)"
       data-c-required={required || null}
       data-c-invalid={touched && error ? true : null}
     >
@@ -77,6 +77,7 @@ const CheckboxGroup: React.FunctionComponent<CheckboxGroupProps> = ({
                 onBlur: handleBlur,
               },
               checked: value.includes(child.props.id),
+              checkboxGroup: true,
             });
           },
         )}

@@ -12,7 +12,7 @@ class DepartmentControllerTest extends TestCase
 
     public function testIndex()
     {
-        $response = $this->json('get', 'api/departments');
+        $response = $this->json('get', 'api/v1/departments');
         $response->assertOk();
         // This is one of the departments added by migrations. Should always be present after refreshing database
         $exampleDept = [

@@ -8,6 +8,7 @@ return [
     * Controller: Controllers\JobController.php
     * View: views/manager/job_index.html.twig
     */
+    'job_index_title' => "Nuage de talents | Gestionnaire : Mes affiches d'emploi",
     'title' => 'Mes affiches d\'emploi',
     'legend' => 'Légende:',
     'draft_poster' => 'Ébauche de l’affiche',
@@ -17,7 +18,6 @@ return [
     'create_job_poster' => 'Créer une nouvelle affiche d\'emploi',
     'active_posters' => 'Mes affiches actives',
     'no_active_posters' => "Vous n'avez actuellement aucune affiche active! Créez-en un nouveau en utilisant le bouton ci-dessus.",
-    'preview' => '(Aperçu)',
     'empty_title' => 'Titre manquant',
     'trans_title_placeholder' => 'Traduction requise',
     'created_on' => 'Créée :',
@@ -33,6 +33,8 @@ return [
     'edit_screening_plans' => 'Modifier le plan d\'évaluation',
     'send_for_review' => 'Envoyer à des fins de révision',
     'send_this_review' => 'Envoyez cette affiche pour révision.',
+    'view_job_summary' => 'Voir l\'emploi et les outils',
+    'view_summary_title' => 'Voir le sommaire de cette affiche d\'emploi.',
     'review_applicants' => 'Réviser les candidats',
     'review_this_applicants' => 'Révisez les candidats qui ont postulé à cet emploi.',
     'delete_this_poster' => 'Supprimer cet affiche ébauche',

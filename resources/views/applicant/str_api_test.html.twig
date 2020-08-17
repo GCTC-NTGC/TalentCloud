@@ -1,0 +1,20 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Job Post
+
+============================================================================= #}
+{% extends "layouts/base" %}
+{% block title %}
+    API Test
+{% endblock %}
+
+{% block body %}
+    {% include "common/goc" %}
+    <div data-clone>
+		<div id="str-api-test" data-str-dept-id="18"></div>
+	</div>
+{% endblock %}
+{% block scripts %}
+    <script async defer src="{{ asset(mix('/js/StrApiTestPage.js')) }}"></script>
+{% endblock %}

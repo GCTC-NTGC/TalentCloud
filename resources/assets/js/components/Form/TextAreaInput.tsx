@@ -17,6 +17,10 @@ const TextAreaInput: React.FunctionComponent<TextAreaInputProps> = ({
   grid,
   required,
   placeholder,
+  minLength,
+  maxLength,
+  wordLimit,
+  rightMessage,
   field: { name, value, onChange, onBlur },
   form: { errors, touched },
   ...props
@@ -24,6 +28,8 @@ const TextAreaInput: React.FunctionComponent<TextAreaInputProps> = ({
   const specificError = errors ? getIn(errors, name) : null;
   const errorText = specificError ? specificError.toString() : undefined;
   const invalid = getIn(touched, name) && specificError ? true : null;
+  // Workaround for new TS error https://github.com/microsoft/TypeScript/issues/37559
+  const { name: passedName, onChange: passedChange, ...otherProps } = props;
 
   return (
     <TextArea
@@ -39,7 +45,11 @@ const TextAreaInput: React.FunctionComponent<TextAreaInputProps> = ({
       invalid={invalid}
       onChange={onChange}
       onBlur={onBlur}
-      {...props}
+      minLength={minLength}
+      maxLength={maxLength}
+      wordLimit={wordLimit}
+      rightMessage={rightMessage}
+      {...otherProps}
     />
   );
 };

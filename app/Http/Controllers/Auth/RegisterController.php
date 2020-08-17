@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
 use App\Http\Controllers\Auth\AuthController;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
 use App\Models\Applicant;
-use App\Models\Manager;
 use App\Models\HrAdvisor;
 use App\Models\Lookup\Department;
+use App\Models\Manager;
+use App\Models\User;
 use App\Services\Validation\RegistrationValidator;
 use Facades\App\Services\WhichPortal;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Lang;
 
 class RegisterController extends AuthController
 {
@@ -45,6 +45,7 @@ class RegisterController extends AuthController
         } else {
             $redirectTo = route('home');
         }
+
         return $redirectTo;
     }
 
@@ -98,7 +99,6 @@ class RegisterController extends AuthController
         return view('auth.register_manager', [
             'routes' => $this->auth_routes(),
             'register' => Lang::get('common/auth/register'),
-            'not_in_gov_option' => ['value' => 0, 'name' => Lang::get('common/auth/register.not_in_gov')],
             'departments' => Department::all(),
             'home_url' => route('hr_advisor.home'),
         ]);
@@ -150,6 +150,8 @@ class RegisterController extends AuthController
         $user->first_name = $data['first_name'];
         $user->last_name = $data['last_name'];
         $user->email = $data['email'];
+        $user->contact_language = $data['contact_language'];
+        $user->job_alerts = $data['job_alerts'];
         $user->password = Hash::make($data['password']);
 
         // Default to basic user.
@@ -189,8 +191,8 @@ class RegisterController extends AuthController
             $user->applicant()->save(new Manager());
             $user->refresh();
         }
-        $user->manager->department_id = $department_id;
-        $user->manager->save();
+        $user->department_id = $department_id;
+        $user->save();
 
         return $user->fresh();
     }
@@ -211,7 +213,7 @@ class RegisterController extends AuthController
         $inGovernment = ($hrDepartment !== null);
         $user->not_in_gov = !$inGovernment;
         $user->gov_email = $inGovernment ? $data['gov_email'] : null;
-        $user->setRole('hr_advisor');
+        $user->setRole('basic');
 
         $user->save();
         $user->refresh();
@@ -221,7 +223,8 @@ class RegisterController extends AuthController
             $user->hr_advisor()->save(new HrAdvisor());
             $user->refresh();
         }
-        $user->hr_advisor->department_id = $department_id;
+        $user->department_id = $department_id;
+        $user->save();
         $user->hr_advisor->user_id === $user->id;
         $user->hr_advisor->save();
 

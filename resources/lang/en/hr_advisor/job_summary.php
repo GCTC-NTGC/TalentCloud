@@ -13,14 +13,14 @@ return [
     'tools_title' => 'Poster & Screening Tools',
     'activity_title' => 'Activity',
     'status_label' => 'Current Status:',
-    'under_review' => 'This job action is currently in the review process. This means that the poster is being edited and discussed by the manager and HR advisors to get it to a point where it can be published. When it\'s ready, the next step is translation.',
     'manager_label' => 'Hiring Manager:',
     'applicants_label' => 'Applicants',
     'not_applicable' => 'N/A',
+    'no_hr_advisors' => 'No HR Advisors have claimed this job yet.',
     'other_title' => 'Other Details',
     'other_text' => 'View information like Priority Clearance #, HR Advisors, etc.',
     'expand_hidden' => 'Click to view.',
-    'managers_label' => 'HR Managers:',
+    'hr_advisors_label' => 'HR Advisors:',
     'process_label' => 'PSC Process #:',
     'priority_label' => 'Priority Clearance #:',
     'created_label' => 'Date Created:',
@@ -38,5 +38,12 @@ return [
     'view_poster_icon' => 'An icon depicting a completed document, representing viewing a completed job poster.',
     'screening_plan_icon' => 'An icon depicting a hand making a selection from four different options, representing a manager screening through applicants.',
     'view_applicants_icon' => 'An icon depicting four users placed in a pie chart, representing the ability to view the applicants who have applied to this job process.',
-    'flat_icons' => 'Icon supplied by Flat Icons.'
+    'flat_icons' => 'Icon supplied by Flat Icons.',
+    'confirmation_modal' => [
+        'change_job_status' => 'This will change the job poster from:',
+        'to' => 'to',
+        'confirm' => 'Confirm',
+        'cancel' => 'Cancel'
+    ],
 ];
+

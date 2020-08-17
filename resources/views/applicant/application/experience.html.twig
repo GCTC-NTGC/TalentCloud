@@ -1,0 +1,599 @@
+{# =============================================================================
+
+    Talent Cloud / Application Experience Accordion
+
+    The purpose of this UI is to showcase 5 different types of experience
+    available to the applicant. Each experience has a few different properties
+    (outlined below) as well as a unique icon. The layout of this element
+    changes depending on the place it is included (also outlined below).
+
+============================================================================= #}
+{# Experience Mock Data #}
+{#
+    experienceType: options
+    educationReq: boolean
+    skillDisplay: boolean
+    IF experienceType == education
+        experienceEducationType: string
+        experienceAreaOfStudy: string
+        experienceInstitution: string
+        experienceStatus: options
+        experienceStartDate: date
+        experienceEndDate: date
+        experienceCurrent: boolean
+        experienceThesisTitle: string
+        experienceBlockcertLink: link
+    ELSE IF experienceType == work
+        experienceRole: string
+        experienceCompany: string
+        experienceTeam: string
+        experienceStartDate: date
+        experienceEndDate: date
+        experienceCurrent: boolean
+    ELSE IF experienceType == community
+        experienceRole: string
+        experienceGroup: string
+        experienceProject: string
+        experienceStartDate: date
+        experienceEndDate: date
+        experienceCurrent: boolean
+    ELSE IF experienceType == personal
+        experienceTitle: string
+        experienceDescription: string
+        experienceConsent: boolean
+        experienceStartDate: date
+        experienceEndDate: date
+        experienceCurrent: boolean
+    ELSE IF experienceType == award
+        experienceTitle: string
+        experienceRecipient: options
+        experienceInstitution: string
+        experienceScope: options
+        experienceAwardDate: date
+        experienceAwardLink: link
+    relatedSkills: object
+        skill.name: string
+        skill.relevant: boolean
+        skill.claim: string
+    actionDisplay: boolean
+#}
+{# Experience Accordion #}
+<div
+    data-c-accordion
+    data-c-background="white(100)"
+    data-c-card
+    data-c-margin="bottom(.5)">
+    <button
+        aria-expanded="false"
+        data-c-accordion-trigger
+        tabindex="0"
+        type="button">
+        <div data-c-grid="">
+            <div data-c-grid-item="base(1of4) tl(1of6) equal-col">
+                <div class="experience-type-indicator" >
+                    {# I'm using the type of experience to dictate the icon
+                    here. This happens a few times in this file. #}
+                    {% if experienceType == "education" %}
+                        <i class="fas fa-book" data-c-color="c1" data-c-font-size="h4"></i>
+                    {% elseif experienceType == "work" %}
+                        <i class="fas fa-briefcase" data-c-color="c1" data-c-font-size="h4"></i>
+                    {% elseif experienceType == "community" %}
+                        <i class="fas fa-people-carry" data-c-color="c1" data-c-font-size="h4"></i>
+                    {% elseif experienceType == "personal" %}
+                        <i class="fas fa-mountain" data-c-color="c1" data-c-font-size="h4"></i>
+                    {% elseif experienceType == "award" %}
+                        <i class="fas fa-trophy" data-c-color="c1" data-c-font-size="h4"></i>
+                    {% endif %}
+                </div>
+            </div>
+            <div data-c-grid-item="base(3of4) tl(5of6)">
+                <div data-c-padding="all(1)">
+                    <div data-c-grid="middle">
+                        <div data-c-grid-item="tl(3of4)">
+                            {# This is the experience's title area - the
+                            information displayed here changes depending on the
+                            type because not all types have a title or role. #}
+                            {% if experienceType == "education" %}
+                                <p><span data-c-font-weight="bold">{{ experienceEducationType }} in {{ experienceAreaOfStudy }}</span> - {{ experienceInstitution }}</p>
+                            {% elseif experienceType == "work" %}
+                                <p><span data-c-font-weight="bold">{{ experienceRole }}</span> - {{ experienceCompany }}</p>
+                            {% elseif experienceType == "community" %}
+                                <p><span data-c-font-weight="bold">{{ experienceRole }}</span> - {{ experienceGroup }}</p>
+                            {% elseif experienceType == "personal" %}
+                                <p><span data-c-font-weight="bold">{{ experienceTitle }}</span></p>
+                            {% elseif experienceType == "award" %}
+                                <p><span data-c-font-weight="bold">{{ experienceTitle }}</span> - {{ experienceInstitution }}</p>
+                            {% endif %}
+                            {% if experienceType == "award" %}
+                                <p data-c-margin="top(quarter)" data-c-colour="c1" data-c-font-size="small">
+                                    Awarded on: {{ experienceAwardDate }}
+                                </p>
+                            {% else %}
+                                <p data-c-margin="top(quarter)" data-c-colour="c1" data-c-font-size="small">
+                                    {{ experienceStartDate }} - {% if experienceCurrent == true %}Current{% else %}{{ experienceEndDate }}{% endif %}
+                                </p>
+                            {% endif %}
+                        </div>
+                        {# This logic tells the user how many of the job
+                        specific skills they've linked to this experience, as
+                        well as whether they've selected it as part of their
+                        education requirement. The counter I've built below is
+                        also used to determine states down in the skill section
+                        of the accordion's content area. #}
+                        {% set relevantSkillCount = 0 %}
+                        {% set irrelevantSkillCount = 0 %}
+                        {% for skill in relatedSkills %}
+                            {% if skill.relevant == true %}
+                                {% set relevantSkillCount = relevantSkillCount + 1 %}
+                            {% else %}
+                                {% set irrelevantSkillCount = irrelevantSkillCount + 1 %}
+                            {% endif %}
+                        {% endfor %}
+                        <div data-c-grid-item="tl(1of4)" data-c-align="base(left) tl(right)">
+                            <span>
+                                {% if relevantSkillCount == 1 %}
+                                    1 Related Skill
+                                {% elseif relevantSkillCount > 1 %}
+                                    {{ relevantSkillCount }} Skills
+                                {% endif %}
+                                {% if educationReq == true %}
+                                    {% if relevantSkillCount > 0 %}/ {% endif %}Edu. Req.
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <span data-c-visibility="invisible">
+            Click to view...
+        </span>
+        <i
+            aria-hidden="true"
+            class="fas fa-angle-down"
+            data-c-accordion-add
+            data-c-colour="black"></i>
+        <i
+            aria-hidden="true"
+            class="fas fa-angle-up"
+            data-c-accordion-remove
+            data-c-colour="black"></i>
+    </button>
+    <div
+        aria-hidden="true"
+        data-c-accordion-content
+        data-c-background="gray(20)"
+        data-c-padding="bottom(2)">
+        <hr data-c-hr="thin(gray)" data-c-margin="bottom(2)">
+        <div data-c-padding="lr(2)">
+            <div data-c-grid="gutter(all, 1)">
+                {# Experience Details - these details change depending on which
+                type the experience is. I've tried to reuse variables where I
+                can here to simplify the data outlined above. Generally the
+                layout is the same for each type, however Personal experiences
+                have a slightly different grid, because those are the only ones
+                with a paragraph written by the applicant. #}
+                <div data-c-grid-item="base(1of1)">
+                    <div data-c-grid="gutter(all, 1)">
+                        <div data-c-grid-item="base(1of1)">
+                            <h4 data-c-color="c2" data-c-font-weight="bold" data-c-font-weight="normal">Details of this Experience</h4>
+                        </div>
+                        {# This logic displays the correct details depending on
+                        the experiece's type. #}
+                        {% if experienceType == "education" %}
+                            {# Experience Type #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">Type of Experience:</p>
+                                <p><i class="fas fa-book" data-c-color="c1" data-c-margin="right(.25)"></i>{{ experienceType|title }} Experience</p>
+                            </div>
+                            {# Type of Education #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">Type of Education:</p>
+                                {% if experienceEducationType == null %}
+                                    <p data-c-color="gray">N/A</p>
+                                {% else %}
+                                    <p>{{ experienceEducationType }}</p>
+                                {% endif %}
+                            </div>
+                            {# Area of Study #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">Area of Study:</p>
+                                {% if experienceAreaOfStudy == null %}
+                                    <p data-c-color="gray">N/A</p>
+                                {% else %}
+                                    <p>{{ experienceAreaOfStudy }}</p>
+                                {% endif %}
+                            </div>
+                            {# Institution #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">Institution:</p>
+                                {% if experienceInstitution == null %}
+                                    <p data-c-color="gray">N/A</p>
+                                {% else %}
+                                    <p>{{ experienceInstitution }}</p>
+                                {% endif %}
+                            </div>
+                            {# Status #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">Status:</p>
+                                {% if experienceStatus == null %}
+                                    <p data-c-color="gray">N/A</p>
+                                {% else %}
+                                    <p>{{ experienceStatus }}</p>
+                                {% endif %}
+                            </div>
+                            {# Start Date #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">Start Date:</p>
+                                {% if experienceStartDate == null %}
+                                    <p data-c-color="gray">N/A</p>
+                                {% else %}
+                                    <p>{{ experienceStartDate }}</p>
+                                {% endif %}
+                            </div>
+                            {# End Date #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">End Date:</p>
+                                {% if experienceCurrent == true %}
+                                    <p>Ongoing</p>
+                                {% else %}
+                                    {% if experienceEndDate == null %}
+                                        <p data-c-color="gray">N/A</p>
+                                    {% else %}
+                                        <p>{{ experienceEndDate }}</p>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            {# Thesis Title #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">Thesis Title:</p>
+                                {% if experienceThesisTitle == null %}
+                                    <p data-c-color="gray">N/A</p>
+                                {% else %}
+                                    <p>{{ experienceThesisTitle }}</p>
+                                {% endif %}
+                            </div>
+                            {# Blockcert Link #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">Blockcert Link:</p>
+                                {% if experienceBlockcertLink == null %}
+                                    <p data-c-color="gray">N/A</p>
+                                {% else %}
+                                    <p><a href="{{ experienceBlockcertLink }}" title="View this blockcert." target="_blank">My Blockcert</a></p>
+                                {% endif %}
+                            </div>
+                        {% elseif experienceType == "work" %}
+                            {# Experience Type #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">Type of Experience:</p>
+                                <p><i class="fas fa-briefcase" data-c-color="c1" data-c-margin="right(.25)"></i>{{ experienceType|title }} Experience</p>
+                            </div>
+                            {# Role/Job Title #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">Role / Job Title:</p>
+                                {% if experienceRole == null %}
+                                    <p data-c-color="gray">N/A</p>
+                                {% else %}
+                                    <p>{{ experienceRole }}</p>
+                                {% endif %}
+                            </div>
+                            {# Company #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">Organization / Company:</p>
+                                {% if experienceCompany == null %}
+                                    <p data-c-color="gray">N/A</p>
+                                {% else %}
+                                    <p>{{ experienceCompany }}</p>
+                                {% endif %}
+                            </div>
+                            {# Team #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">Team / Group:</p>
+                                {% if experienceTeam == null %}
+                                    <p data-c-color="gray">N/A</p>
+                                {% else %}
+                                    <p>{{ experienceTeam }}</p>
+                                {% endif %}
+                            </div>
+                            {# Start Date #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">Start Date:</p>
+                                {% if experienceStartDate == null %}
+                                    <p data-c-color="gray">N/A</p>
+                                {% else %}
+                                    <p>{{ experienceStartDate }}</p>
+                                {% endif %}
+                            </div>
+                            {# End Date #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">End Date:</p>
+                                {% if experienceCurrent == true %}
+                                    <p>Ongoing</p>
+                                {% else %}
+                                    {% if experienceEndDate == null %}
+                                        <p data-c-color="gray">N/A</p>
+                                    {% else %}
+                                        <p>{{ experienceEndDate }}</p>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        {% elseif experienceType == "community" %}
+                            {# Experience Type #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">Type of Experience:</p>
+                                <p><i class="fas fa-people-carry" data-c-color="c1" data-c-margin="right(.25)"></i>{{ experienceType|title }} Experience</p>
+                            </div>
+                            {# Role/Job Title #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">Role / Job Title:</p>
+                                {% if experienceRole == null %}
+                                    <p data-c-color="gray">N/A</p>
+                                {% else %}
+                                    <p>{{ experienceRole }}</p>
+                                {% endif %}
+                            </div>
+                            {# Group/Organization/Community #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">Group / Organization / Community:</p>
+                                {% if experienceGroup == null %}
+                                    <p data-c-color="gray">N/A</p>
+                                {% else %}
+                                    <p>{{ experienceGroup }}</p>
+                                {% endif %}
+                            </div>
+                            {# Project/Product #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">Project / Product:</p>
+                                {% if experienceProject == null %}
+                                    <p data-c-color="gray">N/A</p>
+                                {% else %}
+                                    <p>{{ experienceProject }}</p>
+                                {% endif %}
+                            </div>
+                            {# Start Date #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">Start Date:</p>
+                                {% if experienceStartDate == null %}
+                                    <p data-c-color="gray">N/A</p>
+                                {% else %}
+                                    <p>{{ experienceStartDate }}</p>
+                                {% endif %}
+                            </div>
+                            {# End Date #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">End Date:</p>
+                                {% if experienceCurrent == true %}
+                                    <p>Ongoing</p>
+                                {% else %}
+                                    {% if experienceEndDate == null %}
+                                        <p data-c-color="gray">N/A</p>
+                                    {% else %}
+                                        <p>{{ experienceEndDate }}</p>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        {% elseif experienceType == "personal" %}
+                            {# Experience Type #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">Type of Experience:</p>
+                                <p><i class="fas fa-mountain" data-c-color="c1" data-c-margin="right(.25)"></i>{{ experienceType|title }} Experience</p>
+                            </div>
+                            {# Title of Experience #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">Title of Experience:</p>
+                                {% if experienceTitle == null %}
+                                    <p data-c-color="gray">N/A</p>
+                                {% else %}
+                                    <p>{{ experienceTitle }}</p>
+                                {% endif %}
+                            </div>
+                            {# Description #}
+                            <div data-c-grid-item="base(1of1)">
+                                <p data-c-font-weight="bold">Description:</p>
+                                {% if experienceDescription == null %}
+                                    <p data-c-color="gray">N/A</p>
+                                {% else %}
+                                    <p>{{ experienceDescription }}</p>
+                                {% endif %}
+                            </div>
+                            {# Consent to Share #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">Consent to Share:</p>
+                                {% if experienceConsent == true %}
+                                    <p><i class="fas fa-check-circle" data-c-color="go" data-c-margin="right(.25)"></i>Sharing Approved</p>
+                                {% else %}
+                                    <p><i class="fas fa-times-circle" data-c-color="stop" data-c-margin="right(.25)"></i>Sharing Restricted</p>
+                                {% endif %}
+                            </div>
+                            {# Start Date #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">Start Date:</p>
+                                {% if experienceStartDate == null %}
+                                    <p data-c-color="gray">N/A</p>
+                                {% else %}
+                                    <p>{{ experienceStartDate }}</p>
+                                {% endif %}
+                            </div>
+                            {# End Date #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">End Date:</p>
+                                {% if experienceCurrent == true %}
+                                    <p>Ongoing</p>
+                                {% else %}
+                                    {% if experienceEndDate == null %}
+                                        <p data-c-color="gray">N/A</p>
+                                    {% else %}
+                                        <p>{{ experienceEndDate }}</p>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        {% elseif experienceType == "award" %}
+                            {# Experience Type #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">Type of Experience:</p>
+                                <p><i class="fas fa-trophy" data-c-color="c1" data-c-margin="right(.25)"></i>{{ experienceType|title }} Experience</p>
+                            </div>
+                            {# Award Title #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">Award Title:</p>
+                                {% if experienceTitle == null %}
+                                    <p data-c-color="gray">N/A</p>
+                                {% else %}
+                                    <p>{{ experienceTitle }}</p>
+                                {% endif %}
+                            </div>
+                            {# Awarded to #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">Awarded to:</p>
+                                {% if experienceRecipient == null %}
+                                    <p data-c-color="gray">N/A</p>
+                                {% else %}
+                                    <p>{{ experienceRecipient }}</p>
+                                {% endif %}
+                            </div>
+                            {# Issuing Organization/Institution #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">Issuing Organization / Institution:</p>
+                                {% if experienceInstitution == null %}
+                                    <p data-c-color="gray">N/A</p>
+                                {% else %}
+                                    <p>{{ experienceInstitution }}</p>
+                                {% endif %}
+                            </div>
+                            {# Award Eligibility/Scope #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">Award Eligibility / Scope:</p>
+                                {% if experienceScope == null %}
+                                    <p data-c-color="gray">N/A</p>
+                                {% else %}
+                                    <p>{{ experienceScope }}</p>
+                                {% endif %}
+                            </div>
+                            {# Date Awarded #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">Date Awarded:</p>
+                                {% if experienceAwardDate == null %}
+                                    <p data-c-color="gray">N/A</p>
+                                {% else %}
+                                    <p>{{ experienceAwardDate }}</p>
+                                {% endif %}
+                            </div>
+                            {# Link to Award #}
+                            <div data-c-grid-item="base(1of2) tl(1of3)">
+                                <p data-c-font-weight="bold">Link to Award:</p>
+                                {% if experienceAwardLink == null %}
+                                    <p data-c-color="gray">N/A</p>
+                                {% else %}
+                                    <p><a href="{{ experienceAwardLink }}" title="View this award." target="_blank">My Award</a></p>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div data-c-grid-item="base(1of1)">
+                    <h4 data-c-color="c2" data-c-font-weight="bold" data-c-margin="top(1) bottom(.5)">Skills for this Job</h4>
+                    <div data-c-grid="gutter(all, 1)">
+                        {# Skill Display - there are two versions here,
+                        determined by the skillDisplay variable. The false
+                        version only displays the skills in an inline list,
+                        whereas true displays them as blocks, with their skill
+                        claim paragraph. The false version appears during the
+                        experience step of the application, while the true
+                        version appears during the review step of the
+                        application, as well as on the profile. #}
+                        {% if skillDisplay == false %}
+                            <div data-c-grid-item="base(1of1)">
+                                {% for skill in relatedSkills %}
+                                    {% if skill.relevant == true %}
+                                        <span data-c-tag="c1" data-c-radius="pill" data-c-font-size="small">{{ skill.name|title }}</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {% for skill in relatedSkills %}
+                                {% if skill.relevant == true %}
+                                    <div data-c-grid-item="base(1of1)">
+                                        <p><span data-c-tag="c1" data-c-radius="pill" data-c-font-size="small">{{ skill.name|title }}</span></p>
+                                        <p data-c-font-style="italic" data-c-margin="top(.5)">"{{ skill.claim }}"</p>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        {# Other Skills Message - this section shouldn't be
+                        displayed on the profile, because when viewing this on
+                        the profile, all skills should be considered relevant so
+                        that the applicant can view and edit them. On the
+                        application, this message indicates that your experience
+                        has been linked to other skills that have nothing to do
+                        with the current job you're applying to. #}
+                        {% if irrelevantSkillCount == 1 %}
+                            <div data-c-grid-item="base(1of1)">
+                                <p data-c-font-size="small" data-c-color="gray" data-c-margin="bottom(1)">There is <span data-c-font-weight="bold">1</span> other unrelated skill attached to this experience. You can see it on your profile.</p>
+                            </div>
+                        {% elseif irrelevantSkillCount > 1 %}
+                            <div data-c-grid-item="base(1of1)">
+                                <p data-c-font-size="small" data-c-color="gray" data-c-margin="bottom(1)">There are <span data-c-font-weight="bold">{{ irrelevantSkillCount }}</span> other unrelated skills attached to this experience. You can see them on your profile.</p>
+                            </div>
+                        {% elseif irrelevantSkillCount == 0 and relevantSkillCount > 0 %}
+                            <div data-c-grid-item="base(1of1)">
+
+                            </div>
+                        {% endif %}
+                        {# No Skills At All - not sure when this might appear
+                        (perhaps creating an experience on the profile and never
+                        selecting a skill?) but the intent is to let the
+                        applicant no that there are in fact no skills linked to
+                        this experience. #}
+                        {% if relevantSkillCount == 0 and irrelevantSkillCount == 0 %}
+                            <div data-c-grid-item="base(1of1)">
+                                <p data-c-color="gray" data-c-margin="bottom(1)">You don't have any skills attached to this experience.</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {# Education Requirement - this only shows up per application,
+                and it tells the user that they have selected this experience to
+                help them meet the education/equivalent experience requirements
+                for the job they are currently applying to. #}
+                {% if educationReq == true %}
+                    <div data-c-grid-item="base(1of1)">
+                        <h4 data-c-color="c2" data-c-font-weight="bold" data-c-margin="bottom(.5)"><i class="fas fa-check-circle" data-c-margin="right(.25)" data-c-color="go"></i>Education Requirement</h4>
+                        <p data-c-margin="bottom(1)">You've selected this experience as an indicator of how you meet the education requirements for this job.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        {# Buttons - pretty sure we're including a "hide this experience from
+        this application" button down the road, so there might be a third here
+        eventually. I'm using the actionDisplay variable to hide/show these.
+        They should appear on the experience step of the application, as well as
+        on the profile, but they shouldn't appear on the review step of the
+        application. #}
+        {% if actionDisplay == true %}
+            <div data-c-padding="top(1) lr(2)">
+                <div data-c-grid="gutter(all, 1) middle">
+                    <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">
+                        <button
+                            data-c-button="outline(c1)"
+                            data-c-radius="rounded"
+                            type="button">
+                            <span>
+                                Delete Experience
+                            </span>
+                        </button>
+                    </div>
+                    <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(right)">
+                        <button
+                            data-c-button="solid(c1)"
+                            data-c-radius="rounded"
+                            type="button">
+                            <span>
+                                Edit Experience
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>

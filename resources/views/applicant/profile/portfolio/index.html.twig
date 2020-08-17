@@ -1,75 +1,33 @@
 {# =============================================================================
 
     Talent Cloud
-    Applicant: Profile - Portfolio Index
+    Applicant: Profile - Work Sample Index
 
 ============================================================================= #}
-<section
-    class="applicant-profile__portfolio">
-
-    <div
-        class="container--layout">
-
-        {# Profile List #}
-
-        <div
-            class="profile-list">
-
-            {# Profile List Header #}
-
-                <div
-                    class="profile-list__header flex-grid middle">
-
-                    <div
-                        class="box med-1of2">
-
-                        <h2>{{ profile.sample_section.section_title }}</h2>
-
-                    </div>
-
-                    <div
-                        class="box med-1of2">
-
-                        <button
-                            class="profile-list__add-element-trigger"
-                            type="button">
-                            {{ profile.sample_section.add_button_label }}
-                        </button>
-
-                    </div>
-
-                </div>
-
-            {# Set Locale #}
-
-                {% set locale = "profile" %}
-
-            {# Profile Element Template (Sample) #}
-
-                {% include "common/sample" with {"template": true} %}
-
-            {# Profile Element List #}
-
-                <div
-                    class="profile-element-list">
-
-                    <div
-                        class="profile-null {% if applicant.work_samples|length == 0 %}active{% endif %}">
-
-                        <p>{{ profile.sample_section.null_copy }}</p>
-
-                    </div>
-
-                    {% for sample in applicant.work_samples %}
-
-                        {% include "common/sample" %}
-
-                    {% endfor %}
-
-                </div>
-
+<div class="profile-list">
+    <div data-c-grid="gutter(all, 1)" class="profile-list">
+        <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(left)">
+            <h2 data-c-heading="h2">{{ profile.sample_section.section_title }}</h2>
         </div>
-
+        <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(right)">
+            <button data-c-button="outline(c1)" data-c-radius="rounded" class="profile-list__add-element-trigger" type="button">
+                {{ profile.sample_section.add_button_label }}
+            </button>
+        </div>
+        <div data-c-grid-item="base(1of1)">
+            {# Set Locale #}
+            {% set locale = "profile" %}
+            {# Profile Element Template (Sample) #}
+            {% include "common/sample" with {"template": true} %}
+            {# Profile Element List #}
+            <div class="profile-element-list" data-c-accordion-group>
+                <div class="profile-null {% if applicant.work_samples|length == 0 %}active{% endif %}" data-c-border="all(thin, solid, gray)" data-c-background="gray(20)" data-c-padding="all(1)" data-c-align="base(center)" data-c-color="gray" data-c-radius="rounded">
+                    <p>{{ profile.sample_section.null_copy }}</p>
+                </div>
+                {% for sample in applicant.work_samples %}
+                    {% include "common/sample" %}
+                {% endfor %}
+            </div>
+        </div>
     </div>
-
-</section>
+</div>

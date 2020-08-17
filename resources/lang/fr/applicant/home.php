@@ -13,7 +13,7 @@ return [
     'hero' => [
         'title' => 'Nuage de talents',
         'tagline' => 'Il est désormais plus facile de postuler un emploi au gouvernement.',
-        'pilot' => 'BETA'
+        'pilot' => 'BETA / Projet pilote'
     ],
     'slogan' => [
         'copy' => 'Pas de lettre de présentation. Aucun curriculum vitae. Créez un profil de vos compétences et de votre expérience tout en gagnant du temps pour postuler des emplois gouvernementaux qui vous inspirent.',
@@ -36,6 +36,12 @@ return [
         'main_message' => 'Nous n’afficherons aucun poste au cours de la période des fêtes, mais nous sommes impatients de lier des personnes talentueuses avec des postes super qui feront un impact lors de la nouvelle année. D’ici là, restez au chaud et amusez-vous!',
         'sign_off' => 'Au plaisir de vous voir en 2020!',
         'signature' => 'L’équipe du Nuage de talents'
+    ],
+    'response' => [
+        'title' => 'Nous améliorons la plate-forme.',
+        'main_message' => 'En raison de l\'évolution de la situation autour de COVID-19, nous allons faire une pause sur la publication de nouvelles opportunités sur ce site.',
+        'sign_off' => 'Pour plus d\'opportunités, visitez le site',
+        'link' => '<a href="https://psjobs-emploisfp.psc-cfp.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=fr" title="" target="_blank">Emplois GC</a>'
     ],
     'hiw' => [
         'title' => 'Comment fonctionne le Nuage de talents',
@@ -90,7 +96,7 @@ return [
                 'copy' => 'Le Nuage de talents du gouvernement du Canada est une initiative expérimentale qui repose uniquement sur l’aide financière des ministères fédéraux participants qui s’engagent à créer une solution de rechange au modèle traditionnel des RH.',
                 'links' => [
                     '1' => [
-                        'link' => '/faq#partners',
+                        'link' => route('faq') . '#partners',
                         'title' => 'Apprenez-en davantage sur le financement du Nuage de talents.',
                         'label' => 'Pour en savoir davantage'
                     ]
@@ -186,7 +192,7 @@ return [
     'how_step03_copy' => "Trouvez un travail significatif qui aura un impact sur la vie des Canadiens et faites partie intégrante de l'effort de conception d'une nouvelle plateforme pour le travail par projet au gouvernement.",
     'how_step04_title' => 'FR Credentialing TBD',
     'how_step04_copy' => 'FR Credentialing Copy TBD',
-    'how_step04_link' => '/fr/credentialing',
+    // 'how_step04_link' => '/fr/credentialing',
     'how_step04_link_title' => 'FR Learn more about credentialing on Talent Cloud.',
     'how_step04_link_label' => 'FR Learn More',
     'how_copy' => "Nous désirons que le Nuage de talent permette à un plus grand nombre de Canadiens d'avoir la chance de travailler au gouvernement. Nous souhaitons que la diversité des talents apporte de nouvelles idées qui façonneront les programmes et les services partout au Canada.",
@@ -204,5 +210,6 @@ return [
     'team_button_twitter_label' => 'Twitter',
     'team_button_email_link' => 'talent.cloud-nuage.de.talents@tbs-sct.gc.ca',
     'team_button_email_title' => 'Contactez-nous par courriel.',
-    'team_button_email_label' => 'Courriel'
+    'team_button_email_label' => 'Courriel',
+    'success_title' => 'Tout va bien.'
 ];

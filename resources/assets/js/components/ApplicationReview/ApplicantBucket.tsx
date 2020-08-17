@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  injectIntl,
-  WrappedComponentProps,
-  FormattedMessage,
-  MessageDescriptor,
-} from "react-intl";
+import { FormattedMessage } from "react-intl";
 import { Application } from "../../models/types";
 import { SelectOption } from "../Select";
 import ApplicationReview from "./ApplicationReview";
@@ -16,8 +11,8 @@ import {
 import { Portal } from "../../models/app";
 
 interface ApplicantBucketProps {
-  title: MessageDescriptor;
-  description: MessageDescriptor;
+  title: string;
+  description: string;
   applications: Application[];
   reviewStatusOptions: SelectOption[];
   onStatusChange: (applicationId: number, statusId: number | null) => void;
@@ -27,8 +22,7 @@ interface ApplicantBucketProps {
   portal: Portal;
 }
 
-const ApplicantBucket: React.StatelessComponent<ApplicantBucketProps &
-  WrappedComponentProps> = ({
+const ApplicantBucket: React.StatelessComponent<ApplicantBucketProps> = ({
   title,
   description,
   applications,
@@ -38,8 +32,7 @@ const ApplicantBucket: React.StatelessComponent<ApplicantBucketProps &
   savingStatuses,
   prioritizeVeterans,
   portal,
-  intl,
-}: ApplicantBucketProps & WrappedComponentProps): React.ReactElement | null => {
+}: ApplicantBucketProps): React.ReactElement | null => {
   if (applications.length === 0) {
     return null;
   }
@@ -57,7 +50,7 @@ const ApplicantBucket: React.StatelessComponent<ApplicantBucketProps &
         type="button"
       >
         <span className="bucket-title">
-          {intl.formatMessage(title)} ({applications.length})
+          {title} ({applications.length})
         </span>
 
         <span className="invisible">
@@ -73,7 +66,7 @@ const ApplicantBucket: React.StatelessComponent<ApplicantBucketProps &
 
       {/* Accordion Content */}
       <div aria-hidden="true" className="accordion-content">
-        <p>{intl.formatMessage(description)}</p>
+        <p>{description}</p>
 
         {sortedApplications.map(
           (application: Application): React.ReactElement => (
@@ -96,4 +89,4 @@ const ApplicantBucket: React.StatelessComponent<ApplicantBucketProps &
   );
 };
 
-export default injectIntl(ApplicantBucket);
+export default ApplicantBucket;

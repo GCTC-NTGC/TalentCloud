@@ -24,14 +24,16 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\LogUserUpdated',
         ],
         'App\Events\JobSaved' => [
-            'App\Listeners\JobPublished',
+            'App\Listeners\SendScreenCandidatesEmail',
+            'App\Listeners\RecordJobStatusTransition',
+            'App\Listeners\JobPosterQuestionInitializer',
         ],
         'App\Events\ApplicationRetrieved' => [
-                'App\Listeners\LogApplicationRetrieved',
+            'App\Listeners\LogApplicationRetrieved',
         ],
         'App\Events\ApplicationSaved' => [
             'App\Listeners\ApplicationStatusChanged',
-        ]
+        ],
     ];
 
     /**

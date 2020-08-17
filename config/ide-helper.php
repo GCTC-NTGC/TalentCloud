@@ -11,10 +11,10 @@ return array(
     |
     */
 
-    'filename'  => '_ide_helper',
+    'filename'  => 'etc/php/ide_helper',
     'format'    => 'php',
 
-    'meta_filename' => '.phpstorm.meta.php',
+    'meta_filename' => 'etc/php/.ide_helper.meta.php',
 
     /*
     |--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return array(
     'include_helpers' => true,
 
     'helper_files' => array(
-        base_path().'/vendor/laravel/framework/src/Illuminate/Support/helpers.php',
+        base_path() . '/vendor/laravel/framework/src/Illuminate/Support/helpers.php',
     ),
 
     /*
@@ -122,9 +122,7 @@ return array(
     |
     */
 
-    'interfaces' => array(
-
-    ),
+    'interfaces' => array(),
 
     /*
     |--------------------------------------------------------------------------

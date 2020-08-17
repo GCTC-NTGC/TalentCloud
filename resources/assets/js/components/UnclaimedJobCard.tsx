@@ -1,14 +1,15 @@
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-import { JobStatus } from "../models/lookupConstants";
-import { jobStatus } from "../models/localizedConstants";
 import { Link } from "../models/app";
+import { readableDateTime } from "../helpers/dates";
+import { getLocale, localizeFieldNonNull } from "../helpers/localize";
+import { JobPosterStatus } from "../models/types";
 
 export interface UnclaimedJobCardProps {
   id: number;
   jobLink: Link;
-  createdAt: string;
-  status: JobStatus;
+  reviewRequested?: Date;
+  status: JobPosterStatus;
   hiringManager: string;
   hrAdvisors: string[];
   handleClaimJob: () => void;
@@ -16,13 +17,14 @@ export interface UnclaimedJobCardProps {
 
 const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
   jobLink,
-  createdAt,
+  reviewRequested,
   status,
   hiringManager,
   hrAdvisors,
   handleClaimJob,
 }) => {
   const intl = useIntl();
+  const locale = getLocale(intl.locale);
   return (
     <div
       data-c-grid-item="tp(1of2) tl(1of3) equal-col"
@@ -38,7 +40,7 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
             <div data-c-grid="gutter middle">
               <div data-c-grid-item="base(1of1)">
                 <p
-                  data-c-font-size="h4"
+                  data-c-font-size="h3"
                   data-c-colour="white"
                   data-c-font-style="underline"
                 >
@@ -48,11 +50,19 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
               <div data-c-grid-item="base(1of2)">
                 <p data-c-colour="white" data-c-font-size="small">
                   <FormattedMessage
-                    id="openJobCard.createdAt"
+                    id="openJobCard.reviewRequested"
                     description="Header for when Job Poster was created."
-                    defaultMessage="Created: "
+                    defaultMessage="Received: "
                   />
-                  {createdAt}
+                  {reviewRequested ? (
+                    readableDateTime(locale, reviewRequested)
+                  ) : (
+                    <FormattedMessage
+                      id="openJobCard.error"
+                      description="Error getting time review was requested."
+                      defaultMessage="Date Unavailable."
+                    />
+                  )}
                 </p>
               </div>
               <div data-c-grid-item="base(1of2)" data-c-align="base(right)">
@@ -63,7 +73,7 @@ const UnclaimedJobCard: React.FunctionComponent<UnclaimedJobCardProps> = ({
                   data-c-font-size="small"
                   data-c-radius="pill"
                 >
-                  {intl.formatMessage(jobStatus(status))}
+                  {localizeFieldNonNull(locale, status, "name")}
                 </span>
               </div>
             </div>

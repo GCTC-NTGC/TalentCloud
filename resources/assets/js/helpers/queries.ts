@@ -11,7 +11,7 @@ export function identity<T>(value: T): T {
 }
 
 /**
- * Returns true as long as the value passed to it is not null or undefined.
+ * Returns true if value is not null or undefined.
  * Can be used to filter nulls and undefined values out of an array.
  * @param item
  */
@@ -24,6 +24,16 @@ export function stringNotEmpty(value: string | null): value is string {
 }
 
 /**
+ * Returns true if value id null OR undefined.
+ * @param item
+ */
+export function empty<T>(
+  value: T | null | undefined,
+): value is null | undefined {
+  return value === null || value === undefined;
+}
+
+/**
  * From an array of objects, return the first object with a specific id value.
  * @param objs
  * @param id
@@ -32,7 +42,7 @@ export function find<T extends { id: number }>(
   objs: T[],
   id: number,
 ): T | null {
-  const found = objs.filter(item => item.id === id);
+  const found = objs.filter((item) => item.id === id);
   return found.length > 0 ? found[0] : null;
 }
 
@@ -47,7 +57,7 @@ export function where<T, K extends keyof T>(
   prop: K,
   value: any,
 ): T[] {
-  return objs.filter(obj => prop in obj && obj[prop] === value);
+  return objs.filter((obj) => prop in obj && obj[prop] === value);
 }
 
 /**
@@ -79,6 +89,25 @@ export function objectMap<A, B>(
     result.push(mapFn(key, object[key]));
     return result;
   }, []);
+}
+
+/**
+ * Return a copy of an object, with each value being passed through a map function.
+ * Each value's key is unaffected.
+ * @param object
+ * @param mapFn
+ */
+export function mapObjectValues<A, B>(
+  object: IndexedObject<A>,
+  mapFn: (value: A) => B,
+): IndexedObject<B> {
+  return Object.entries(object).reduce(
+    (result: IndexedObject<B>, [key, value]) => {
+      result[key] = mapFn(value);
+      return result;
+    },
+    {},
+  );
 }
 
 interface IndexedObject<T> {
@@ -124,7 +153,7 @@ export function hasKey<T>(
   object: { [key: string]: T },
   key: string | number,
 ): boolean {
-  return Object.prototype.hasOwnProperty.call(object, key);
+  return object[key] !== undefined;
 }
 
 /**
@@ -145,10 +174,10 @@ export function getOrThrowError<T>(
 }
 
 /** Return a copy of the object with specific property removed */
-export function deleteProperty<T>(
-  obj: IndexedObject<T>,
-  key: string | number,
-): IndexedObject<T> {
+export function deleteProperty<T, K extends keyof T>(
+  obj: T,
+  key: K,
+): Omit<T, K> {
   const { [key]: _, ...newObj } = obj;
   return newObj;
 }

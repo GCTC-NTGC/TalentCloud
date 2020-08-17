@@ -17,6 +17,7 @@ import ApplicationReviewWithNav from "./ApplicationReviewWithNav";
 import { axios } from "../../api/base";
 import IntlContainer from "../../IntlContainer";
 import { Portal } from "../../models/app";
+import { ReviewStatusId } from "../../models/lookupConstants";
 
 interface ApplicationReviewRootProps {
   initApplication: Application;
@@ -36,12 +37,12 @@ interface ReviewSubmitForm {
 
 const localizations = defineMessages({
   oops: {
-    id: "alert.oops",
+    id: "application.review.alert.oops",
     defaultMessage: "Oops...",
     description: "Modal notification text indicating something went wrong.",
   },
   somethingWrong: {
-    id: "apl.reviewSaveFailed",
+    id: "application.review.reviewSaveFailed",
     defaultMessage:
       "Something went wrong while saving a review. Try again later.",
     description: "Error message for error while saving an application review.",
@@ -130,10 +131,12 @@ class ApplicationReviewRoot extends React.Component<
   public render(): React.ReactElement {
     const { reviewStatuses, portal } = this.props;
     const { application, isSaving } = this.state;
-    const reviewStatusOptions = reviewStatuses.map(status => ({
-      value: status.id,
-      label: camelCase(status.name),
-    }));
+    const reviewStatusOptions = reviewStatuses
+      .filter(status => status.id in ReviewStatusId)
+      .map(status => ({
+        value: status.id,
+        label: camelCase(status.name),
+      }));
     return (
       <div className="applicant-review container--layout-xl">
         <ApplicationReviewWithNav
@@ -179,7 +182,9 @@ const renderApplicationReviewRoot = (
   }
 };
 
-const managerContainer = document.getElementById("application-review-container");
+const managerContainer = document.getElementById(
+  "application-review-container",
+);
 if (managerContainer !== null) {
   renderApplicationReviewRoot(managerContainer, "manager");
 }

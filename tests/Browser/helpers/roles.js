@@ -1,14 +1,15 @@
 import { Selector, Role } from "testcafe";
+import { HOMEPAGE, LOGIN, MANAGER_LOGIN, HR_LOGIN, ADMIN_LOGIN } from "./constants";
 
 // Logins for each user role, allows quick switching / authentication.
-export const applicantUser = Role("https://talent.test/login", async t => {
+export const applicantUser = Role(HOMEPAGE, async t => {
   await t
     .typeText(Selector("#email"), "applicant@test.com")
     .typeText(Selector("#password"), "password")
     .click(Selector("button").withText("Login"));
 });
 
-export const emptyApplicantUser = Role("https://talent.test/login", async t => {
+export const emptyApplicantUser = Role(LOGIN, async t => {
   await t
     .typeText(Selector("#email"), "newApplicant@test.com")
     .typeText(Selector("#password"), "password")
@@ -16,7 +17,7 @@ export const emptyApplicantUser = Role("https://talent.test/login", async t => {
 });
 
 export const managerUser = Role(
-  "https://talent.test/manager/login",
+  MANAGER_LOGIN,
   async t => {
     await t
       .typeText(Selector("#email"), "manager@test.com")
@@ -25,7 +26,14 @@ export const managerUser = Role(
   },
 );
 
-export const adminUser = Role("https://talent.test/admin/login", async t => {
+export const hrUser = Role(HR_LOGIN, async t => {
+  await t
+    .typeText(Selector("#email"), "hr_advisor@test.com")
+    .typeText(Selector("#password"), "password")
+    .click(Selector("button").withText("Login"));
+});
+
+export const adminUser = Role(ADMIN_LOGIN, async t => {
   await t
     .typeText(
       Selector(".form-control").withAttribute("name", "email"),
@@ -38,6 +46,7 @@ export const adminUser = Role("https://talent.test/admin/login", async t => {
     .pressKey("enter");
 });
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const assertIsLoggedIn = async t => {
   return t.expect(Selector("a").withText("Logout").visible).ok();
 };

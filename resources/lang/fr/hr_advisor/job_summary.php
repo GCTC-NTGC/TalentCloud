@@ -13,14 +13,14 @@ return [
     'tools_title' => 'Avis d\'offre d\'emploi et outils de présélection ',
     'activity_title' => 'Activité ',
     'status_label' => 'Statut actuel :',
-    'under_review' => 'La présente mesure d\'emploi en est au stade du processus d\'examen. L\'avis d\'emploi est donc en cours de révision et fait l\'objet de discussions entre le gestionnaire et les conseillers en RH pour faire en sorte que l\'avis puisse être publié. Une fois prêt, l\'avis passe à l\'étape suivante, soit la traduction.',
     'manager_label' => 'Gestionnaire d\'embauche :',
     'applicants_label' => 'Candidats',
     'not_applicable' => 'S.O.',
+    'no_hr_advisors' => "Aucun conseiller en ressources humaines n'a encore réclamé ce poste.",
     'other_title' => 'Autres détails',
     'other_text' => 'Afficher les autres renseignements comme le numéro d\'autorisation en matière de priorité, les conseillers en RH et autres.',
     'expand_hidden' => 'Cliquez pour afficher.',
-    'managers_label' => 'Gestionnaires des RH :',
+    'hr_advisors_label' => 'Conseillers des RH :',
     'process_label' => 'Numéro du processus de la CFP :',
     'priority_label' => 'Numéro d\'autorisation en matière de priorité :',
     'created_label' => 'Date de création :',
@@ -38,5 +38,11 @@ return [
     'view_poster_icon' => 'Une icône représentant un document terminé indique que l\'affichage d\'un avis d\'emploi achevé est en cours.',
     'screening_plan_icon' => 'Une icône représentant une main en train de faire un choix parmi quatre options indique que la présélection des candidats par un gestionnaire est en cours.',
     'view_applicants_icon' => 'Une icône représentant quatre utilisateurs dans un diagramme circulaire indique la capacité d\'afficher les candidats qui participent au processus d\'emploi.',
-    'flat_icons' => 'Icône fournie par Flat Icons'
+    'flat_icons' => 'Icône fournie par Flat Icons',
+    'confirmation_modal' => [
+        'change_job_status' => "L'offre d'emploi passera ainsi de :",
+        'to' => 'à',
+        'confirm' => 'Confirmer',
+        'cancel' => 'Annuler'
+    ],
 ];

@@ -3,30 +3,31 @@
 namespace App\Services\Validation;
 
 use App\Models\JobApplication;
-use Illuminate\Support\Facades\Validator;
 use App\Models\Lookup\CriteriaType;
-use App\Services\Validation\Rules\ContainsObjectWithAttributeRule;
 use App\Services\Validation\JobApplicationAnswerValidator;
+use App\Services\Validation\Rules\ContainsObjectWithAttributeRule;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class ApplicationValidator
 {
 
+    public $backendRules =  [
+        'job_poster_id' => 'required',
+        'application_status_id' => 'required',
+        'applicant_id' => 'required',
+    ];
     public function validator(JobApplication $application)
     {
-        $backendRules = [
-            'job_poster_id' => 'required',
-            'application_status_id' => 'required',
-            'applicant_id' => 'required',
-        ];
         $data = $application->toArray();
 
         $rules = array_merge(
-            $backendRules,
+            $this->backendRules,
             $this->experienceRules,
             $this->affirmationRules
         );
 
-        // Combining and simplifiying error messages
+        // Combining and simplifying error messages
         $rules = array_merge(
             $rules,
             ['application_step_1' => 'required|boolean|accepted'],
@@ -47,9 +48,20 @@ class ApplicationValidator
         $this->validator($application)->validate();
     }
 
-    public function validateComplete(JobApplication $application): bool
+    public function validateComplete(JobApplication $application)
     {
         return $this->validator($application)->passes();
+    }
+
+    public function detailedValidatorErrors(JobApplication $application)
+    {
+        return array_merge(
+            Validator::make($application->toArray(), $this->backendRules)->errors()->all(),
+            $this->basicsValidator($application)->errors()->all(),
+            $this->experienceValidator($application)->errors()->all(),
+            $this->essentialSkillsValidator($application)->errors()->all(),
+            $this->affirmationValidator($application)->errors()->all()
+        );
     }
 
     /**
@@ -82,22 +94,24 @@ class ApplicationValidator
         return $rules;
     }
 
-    public function basicRules(JobApplication $application)
+    protected function basicInfoSimpleRules()
     {
-        // Validate the fields common to every application
-        $rules = [
+        return [
             'language_requirement_confirmed' => ['required', 'boolean'],
             'citizenship_declaration_id' => ['required', 'exists:citizenship_declarations,id'],
             'veteran_status_id' => ['required', 'exists:veteran_statuses,id'],
-            'preferred_language_id' => ['required', 'exists:preferred_languages,id'],
+            'preferred_language_id' => ['required', 'exists:preferred_languages,id']
         ];
+    }
 
-        // Merge with Answer rules, that ensure each answer is complete
+    protected function questionAnswerRules(JobApplication $application)
+    {
+        // Start with Answer rules, that ensure each answer is complete
         $answerValidator = new JobApplicationAnswerValidator($application);
         $rules = $this->addNestedValidatorRules(
             'job_application_answers.*',
             $answerValidator->rules(),
-            $rules
+            []
         );
 
         // Validate that each question has been answered
@@ -109,6 +123,12 @@ class ApplicationValidator
 
         return $rules;
     }
+
+    public function basicRules(JobApplication $application)
+    {
+        return array_merge($this->basicInfoSimpleRules(), $this->questionAnswerRules($application));
+    }
+
     public function basicsValidator(JobApplication $application)
     {
         // Load application answers so they are included in application->toArray().
@@ -147,15 +167,21 @@ class ApplicationValidator
 
         $skillDeclarationRules = [];
         $criteriaTypeId = CriteriaType::where('name', $criteria_type)->firstOrFail()->id;
-        foreach ($application->job_poster->criteria->where('criteria_type_id', $criteriaTypeId) as $criteria) {
-            // Validate that every essential skill has a corresponding declaration
-            $skillDeclarationRules[] = new ContainsObjectWithAttributeRule('skill_id', $criteria->skill_id);
+        $criteria = $application->job_poster->criteria
+            ->where('criteria_type_id', $criteriaTypeId)
+            ->filter(function ($value, $key) {
+                // Only hard skills need to be part of the application.
+                return $value->skill->skill_type->name == 'hard';
+            });
+        foreach ($criteria as $criterion) {
+            // Validate that every essential skill has a corresponding declaration.
+            $skillDeclarationRules[] = new ContainsObjectWithAttributeRule('skill_id', $criterion->skill_id);
         }
         $rules[$skillDeclarationsAttribute] = $skillDeclarationRules;
 
         // Validate that those declarations are complete
         $skillDeclarationValidatorFactory = new SkillDeclarationValidator();
-        $relevantSkillIds = $application->job_poster->criteria->where('criteria_type_id', $criteriaTypeId)->pluck('skill_id');
+        $relevantSkillIds = $criteria->pluck('skill_id');
         foreach ($skillDeclarations as $key => $declaration) {
             if ($relevantSkillIds->contains($declaration->skill_id)) {
                 $attribute = implode('.', [$skillDeclarationsAttribute, $key]);

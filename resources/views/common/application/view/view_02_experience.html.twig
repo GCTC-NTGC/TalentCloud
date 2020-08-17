@@ -1,117 +1,69 @@
 {# =============================================================================
 
     Talent Cloud
-    Application View - Step 02
+    Recurring Elements: Review an Application - Education and Experience
 
 ============================================================================= #}
-<a
-    aria-hidden="true"
-    class="application__view-anchor"
-    id="applicationView02">
-</a>
-
-<section
-    class="application-preview__section-02">
-
-    <h4>
-        {{ application_template.preview.section_02_title }}
-    </h4>
-
-    <p
-        class="application-preview__context">{{ application_template.preview.experience.requirement_label }} {{ job.education|nl2br }}</p>
-
-    {# Set Locale #}
-
-        {% set locale = "application-view" %}
-
-    <div>
-
-        <h5>{{ application_template.preview.experience.degree_label }}</h5>
-
-        {# Profile Element List #}
-
-            <div
-                class="profile-element-list">
-
-                {% set degreeCounter = 0 %}
-
-                {% for degree in degrees %}
-
-                    {% set degreeCounter = degreeCounter + 1 %}
-
-                    {% include "common/degree" %}
-
-                {% endfor %}
-
-                <div
-                    class="profile-null {% if degreeCounter == 0 %}active{% endif %}">
-
-                    <p>{{ application_template.preview.experience.null_degree_copy }}</p>
-
-                </div>
-
-            </div>
-
+<section id="applicationView02" data-c-padding="top(3)">
+    <h3 data-c-heading="h3" data-c-padding="bottom(1)" data-c-margin="bottom(1)">{{ application_template.preview.section_02_title }}</h3>
+    <div data-c-background="gray(20)" data-c-radius="rounded" data-c-padding="all(1)" data-c-border="all(thin, solid, gray)">
+        <p>{{ application_template.preview.experience.requirement_label }} {{ job.education|nl2br }}</p>
     </div>
-
-    <div>
-
-        <h5>{{ application_template.preview.experience.course_label }}</h5>
-
-        {# Profile Element List #}
-
-            <div
-                class="profile-element-list">
-
-                {% set courseCounter = 0 %}
-
-                {% for course in courses %}
-
-                    {% set courseCounter = courseCounter + 1 %}
-
-                    {% include "common/course" %}
-
-                {% endfor %}
-
-                <div
-                    class="profile-null {% if courseCounter == 0 %}active{% endif %}">
-
-                    <p>{{ application_template.preview.experience.null_course_copy }}</p>
-
-                </div>
-
-            </div>
-
+    {% set locale = "application-view" %}
+    {# Degrees #}
+    <h4 data-c-heading="h4" data-c-margin="top(2) bottom(1)">{{ application_template.preview.experience.degree_label }}</h4>
+    <div data-c-accordion-group>
+        {% set degreeCounter = 0 %}
+        {% for degree in degrees %}
+            {% set degreeCounter = degreeCounter + 1 %}
+            {% include "common/degree" %}
+        {% endfor %}
     </div>
-
-    <div>
-
-        <h5>{{ application_template.preview.experience.work_label }}</h5>
-
-        {# Profile Element List #}
-
-            <div
-                class="profile-element-list">
-
-                {% set workCounter = 0 %}
-
-                {% for work in work_experiences %}
-
-                    {% set workCounter = workCounter + 1 %}
-
-                    {% include "common/work" %}
-
-                {% endfor %}
-
-                <div
-                    class="profile-null {% if workCounter == 0 %}active{% endif %}">
-
-                    <p>{{ application_template.preview.experience.null_work_copy }}</p>
-
-                </div>
-
-            </div>
-
+    {% if degreeCounter == 0 %}
+        <div data-c-background="gray(20)" data-c-radius="rounded" data-c-padding="all(1)" data-c-border="all(thin, solid, gray)" data-c-color="gray">
+            <p>{{ application_template.preview.experience.null_degree_copy }}</p>
+        </div>
+    {% endif %}
+    {# Courses #}
+    <h4 data-c-heading="h4" data-c-margin="top(2) bottom(1)">{{ application_template.preview.experience.course_label }}</h4>
+    <div data-c-accordion-group>
+        {% set courseCounter = 0 %}
+        {% for course in courses %}
+            {% set courseCounter = courseCounter + 1 %}
+            {% include "common/course" %}
+        {% endfor %}
     </div>
-
+    {% if courseCounter == 0 %}
+        <div data-c-background="gray(20)" data-c-radius="rounded" data-c-padding="all(1)" data-c-border="all(thin, solid, gray)" data-c-color="gray">
+            <p>{{ application_template.preview.experience.null_course_copy }}</p>
+        </div>
+    {% endif %}
+    {# Work Experience #}
+    <h4 data-c-heading="h4" data-c-margin="top(2) bottom(1)">{{ application_template.preview.experience.work_label }}</h4>
+    <div data-c-accordion-group>
+        {% set workCounter = 0 %}
+        {% for work in work_experiences %}
+            {% set workCounter = workCounter + 1 %}
+            {% include "common/work" %}
+        {% endfor %}
+    </div>
+    {% if workCounter == 0 %}
+        <div data-c-background="gray(20)" data-c-radius="rounded" data-c-padding="all(1)" data-c-border="all(thin, solid, gray)" data-c-color="gray">
+            <p>{{ application_template.preview.experience.null_work_copy }}</p>
+        </div>
+    {% endif %}
+    {# Work Samples #}
+    <h4 data-c-heading="h4" data-c-margin="top(2) bottom(1)">{{ application_template.preview.experience.sample_label }}</h4>
+    <div data-c-accordion-group>
+        {% set sampleCounter = 0 %}
+        {% for sample in work_samples %}
+            {% set sampleCounter = sampleCounter + 1 %}
+            {% include "common/sample" %}
+        {% endfor %}
+    </div>
+    {% if sampleCounter == 0 %}
+        <div data-c-background="gray(20)" data-c-radius="rounded" data-c-padding="all(1)" data-c-border="all(thin, solid, gray)" data-c-color="gray">
+            <p>{{ application_template.preview.experience.null_sample_copy }}</p>
+        </div>
+    {% endif %}
 </section>

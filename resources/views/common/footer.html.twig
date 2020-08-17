@@ -4,7 +4,7 @@
 ============================================================================= #}
 <div data-clone>
     <footer data-c-alignment="base(centre)" data-c-background="grey(10)" data-c-padding="top(double) bottom(double)">
-        <div data-c-container="full">
+        <div data-c-container="large">
             <div data-c-grid="gutter middle">
                 <div data-c-alignment="tp(left)" data-c-grid-item="tp(5of7)">
                     <nav class="footer-nav">
@@ -18,14 +18,14 @@
                             </li>
                             <li>
                                 <a
-                                    href="{{ footer.terms.link }}"
+                                    href="{{ route('tos') }}"
                                     title="{{ footer.terms.title }}">
                                     {{ footer.terms.label }}
                                 </a>
                             </li>
                             <li>
                                 <a
-                                    href="{{ footer.privacy.link }}"
+                                    href="{{ route('privacy') }}"
                                     title="{{ footer.privacy.title }}">
                                     {{ footer.privacy.label }}
                                 </a>
@@ -43,7 +43,7 @@
                 </div>
                 <div data-c-alignment="tp(right)" data-c-grid-item="tp(2of7)">
                     <a class="footer-logo" href="{{ footer.logo_link }}" target="_blank" title="{{ footer.logo_link_title }}" rel="noopener noreferrer">
-                        <img alt="{{ footer.logo_alt }}" class="" src="{{ footer.logo_url }}">
+                        <img alt="{{ footer.logo_alt }}" class="" src="{{ asset('/images/logo_canada_colour.png') }}">
                     </a>
                 </div>
             </div>

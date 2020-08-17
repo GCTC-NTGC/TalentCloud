@@ -17,6 +17,15 @@ return [
     'last_name' => 'Nom',
     'email' => 'Courriel',
     'email_placeholder' => 'p. ex., courriel@siteweb.com',
+    'contact_language_label' => 'Dans quelle langue désirez-vous communiquer?',
+    'contact_language_null_selection' => 'Choisissez une langue...',
+    'contact_languages' => [
+        'en' => 'Anglais',
+        'fr' => 'Français',
+    ],
+    'job_alerts_copy' => 'Par défaut, le Nuage de talents communiquera avec vous à l’occasion concernant des occasions semblables à celles pour lesquelles vous avez postulé. Si vous ne désirez pas recevoir ces courriels, veuillez cocher la boîte plus bas.',
+    'job_alerts_change_later' => '(Cela peut être changé plus tard dans les paramètres de votre compte.)',
+    'job_alerts_label' => 'Je ne veux pas que le Nuage de talents communique avec moi concernant des emplois liés à ceux pourlesquels je postule.',
     'password_copy' => 'Créez un mot de passe contenant au moins un caractère de chacune des catégories suivantes: caractères minuscules (az), majuscules (AZ), chiffres (0-9) et symboles non alphanumériques (%, $,!!). , etc.).',
     'password' => 'Mot de passe',
     'confirm_password' => 'Confirmez votre mot de passe',
@@ -25,6 +34,5 @@ return [
     'not_in_gov' => 'Non-fonctionnaire',
     'gov_email' => 'Votre courriel gouvernemental',
     'register' => 'S\'inscrire',
-    'auth_logo' => '/images/logo_tc_colour_fr.png',
     'already_have_account' => 'Vous avez déjà un compte?',
 ];

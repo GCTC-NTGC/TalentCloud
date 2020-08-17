@@ -1,0 +1,480 @@
+{# =============================================================================
+
+    Talent Cloud / Application Skill Instructions
+
+    The purpose of this UI is to have the applicant describe how they used each
+    of the skills required for this job in each of their defined experiences.
+
+============================================================================= #}
+{# Default Page Layout #}
+{% extends "layouts/base-test" %}
+{# HTML Page Title #}
+{% block title %}
+	Apply Now: My Skills
+{% endblock %}
+{# Page Header #}
+{% block header %}
+    {% include "applicant/application/application-header" with {"step": 6} %}
+{% endblock %}
+{# Page Contents #}
+{% block body %}
+	<div data-clone>
+        {# Application Progress Bar #}
+        {% include "applicant/application/progress-bar" with {"step": 6} %}
+        <div data-c-border="bottom(thin, solid, gray)">
+            <div data-c-container="large">
+                <div data-c-grid="gutter(all, 1)">
+                    <div data-c-grid-item="tl(1of4)">
+                        <div data-c-padding="top(3)" class="application-skill-navigation">
+                            <p data-c-font-size="h3" data-c-font-weight="bold" data-c-margin="bottom(1)">On this page:</p>
+                            {# These sidebar nav items have icon indicators that should tell the user how an entire skill's experiences are filled out.
+                            - if all experiences in a skill are complete, the sidebar item should be "complete"
+                            - if one or more of the experiences in a skill are erroring, the sidebar item should be "error"
+                            - if one or more, but not all of the experiences are complete, and there are no errors, the sidebar item should be "default"
+                            This can be controlled using the data-status attribute on the li elements. The anchor inside the li elements should link to the corresponding skill on the page (the h3 element). #}
+                            <ul>
+                                <li data-status="default">
+                                    <i class="fas fa-check-circle" data-c-color="go"></i>
+                                    <i class="far fa-circle" data-c-color="c1"></i>
+                                    <i class="fas fa-exclamation-circle" data-c-color="stop"></i>
+                                    <a href="#SKILLNAME" title="Go to this skill.">[SKILL NAME]</a>
+                                </li>
+                                <li data-status="error">
+                                    <i class="fas fa-check-circle" data-c-color="go"></i>
+                                    <i class="far fa-circle" data-c-color="c1"></i>
+                                    <i class="fas fa-exclamation-circle" data-c-color="stop"></i>
+                                    <a href="#userExperienceDesign" title="Go to this skill.">User Experience Design</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div data-c-grid-item="tl(3of4)">
+                        <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">How You Used Each Skill</h2>
+                        <p data-c-margin="bottom(1)"><span data-c-font-weight="bold">This is the most important part of your application.</span> Each box only needs a couple of sentences, but make them good ones!</p>
+                        <p data-c-margin="bottom(.5)">Try answering one or two of the following questions:</p>
+                        <ul data-c-margin="bottom(1)">
+                            <li>What did you accomplish, create, or deliver using this skill?</li>
+                            <li>What tasks or activities did you do that relate to this skill?</li>
+                            <li>Were there any special techniques or approaches that you used?</li>
+                            <li>How much responsibility did you have in this role?</li>
+                        </ul>
+                        <p>If a skill is only loosely connected to an experience, consider removing it. This can help the manager focus on your best examples.</p>
+                        {# The list of skills & their associated experiences. #}
+                        <div class="skills-list">
+                            {# This is a generic template of the accordion with the name of the data required. Below you can find a version of these accordions with fake data entered so that you can see what it should look like in practice. These accordions can have three states (controlled by the data-status attribute): complete, error, default. Also note that the headings require an id that matches the anchor in the sidebar navigation. The buttons inside of these headings open two individual modals - the skill name opens a modal with the skill's definition in it (including the manager's additions if applicable), and the level button opens a modal with the level's description in it. If possible it would be awesome to have the first accordion on the page always be open by default to help indicate to the user that these are expandable. #}
+                            <h3 class="application-skill-title" data-c-heading="h3" data-c-padding="top(3) bottom(1)" data-c-margin="bottom(1)" id="SKILLNAME"><button data-c-font-size="h3" data-c-dialog-id="skill-description" type="button" data-c-dialog-action="open">[SKILL NAME]</button><br><button data-c-font-size="normal"data-c-font-weight="bold" data-c-dialog-id="level-description" type="button" data-c-dialog-action="open">[LEVEL REQUIRED BY MANAGER]</button></h3>
+                            {# This is the null state for when a skill has no experiences associated to it. Theoretically this should only happen if a user removes the relationships one by one on this UI. #}
+                            <div data-c-background="gray(10)" data-c-radius="rounded" data-c-border="all(thin, solid, gray)" data-c-padding="all(1)">
+                                <div data-c-align="base(center)">
+                                    <p data-c-color="gray">Looks like you don't have any experiences linked to this skill. You can link experiences to skills in the previous step.</p>
+                                </div>
+                            </div>
+                            {# List of experiences for this skill. #}
+                            <div data-c-accordion-group>
+                                <div
+                                    data-c-accordion
+                                    data-c-background="white(100)"
+                                    data-c-card
+                                    data-c-margin="bottom(.5)"
+                                    class="application-skill-explanation"
+                                    data-status="default">
+                                    <button
+                                        aria-expanded="false"
+                                        data-c-accordion-trigger
+                                        tabindex="0"
+                                        type="button">
+                                        <div data-c-grid="">
+                                            <div data-c-grid-item="base(1of4) tl(1of6) equal-col">
+                                                <div class="skill-status-indicator" >
+                                                    <i class="fas fa-check-circle" data-c-color="go" data-c-font-size="h4"></i>
+                                                    <i class="far fa-circle" data-c-color="c1" data-c-font-size="h4"></i>
+                                                    <i class="fas fa-exclamation-circle" data-c-color="stop" data-c-font-size="h4"></i>
+                                                </div>
+                                            </div>
+                                            <div data-c-grid-item="base(3of4) tl(5of6)">
+                                                <div data-c-padding="all(1)">
+                                                    <div data-c-grid="middle">
+                                                        <div data-c-grid-item="tl(3of4)">
+                                                            <p>[EXPERIENCE ROLE] at [EXPERIENCE LOCATION]
+                                                            </p>
+                                                            <p data-c-margin="top(quarter)" data-c-colour="c1" data-c-font-size="small">
+                                                                [EXPERIENCE START DATE] - [EXPERIENCE END DATE]/[CURRENT]
+                                                            </p>
+                                                        </div>
+                                                        <div data-c-grid-item="tl(1of4)" data-c-align="base(left) tl(center)">
+                                                            <span data-c-color="stop" class="missing-info">Missing Information</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <span data-c-visibility="invisible">
+                                            Click to view...
+                                        </span>
+                                        <i
+                                            aria-hidden="true"
+                                            class="fas fa-angle-down"
+                                            data-c-accordion-add
+                                            data-c-colour="black"></i>
+                                        <i
+                                            aria-hidden="true"
+                                            class="fas fa-angle-up"
+                                            data-c-accordion-remove
+                                            data-c-colour="black"></i>
+                                    </button>
+                                    <div
+                                        aria-hidden="true"
+                                        data-c-accordion-content
+                                        data-c-background="gray(10)">
+                                        <hr data-c-hr="thin(gray)" data-c-margin="bottom(1)">
+                                        <div data-c-padding="lr(1)">
+                                            <form>
+                                                <div data-c-input="textarea">
+                                                    <label for="TA2">How I used <span data-c-font-weight="bold">[SKILL NAME]</span> at <span data-c-font-weight="bold">[EXPERIENCE LOCATION]</span></label>
+                                                    <span>Required</span>
+                                                    <div>
+                                                        <textarea id="TA2" required placeholder="Start writing here..."></textarea>
+                                                    </div>
+                                                    <span>This input has an error.</span>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div data-c-padding="all(1)">
+                                            <div data-c-grid="gutter(all, 1) middle">
+                                                <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">
+                                                    {# This button triggers a confirmation dialog to ensure that the user understands that they are deleting their work everywhere. #}
+                                                    <button
+                                                        data-c-button="outline(c1)"
+                                                        data-c-radius="rounded"
+                                                        data-c-dialog-id="confirm-deletion" type="button" data-c-dialog-action="open">
+                                                        <span>
+                                                            Remove Experience From Skill
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(right)">
+                                                    {# This is a simplified word counter we'd like to start using. It will simply count down from the specified maximum we set, as opposed to a whole fancy UI (Sorry Yoni!). Please note that the "s" should disappear from "words" when there is 1 word left. This probably also applies in french. #}
+                                                    <span data-c-margin="right(1)">100 words left.</span>
+                                                    <button
+                                                        data-c-button="solid(c1)"
+                                                        data-c-radius="rounded"
+                                                        type="button">
+                                                        <span>
+                                                            Save Explanation
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {# Here you'll find all three states of the accordion, with fake data. #}
+                            <h3 class="application-skill-title" data-c-heading="h3" data-c-padding="top(3) bottom(1)" data-c-margin="bottom(1)" id="userExperienceDesign"><button data-c-font-size="h3" data-c-dialog-id="skill-description" type="button" data-c-dialog-action="open">User Experience Design</button><br><button data-c-font-size="normal"data-c-font-weight="bold" data-c-dialog-id="level-description" type="button" data-c-dialog-action="open">Intermediate Level</button></h3>
+                            <div data-c-accordion-group>
+                                {# When the experience is correctly filled out #}
+                                <div
+                                    data-c-accordion
+                                    data-c-background="white(100)"
+                                    data-c-card
+                                    data-c-margin="bottom(.5)"
+                                    class="application-skill-explanation"
+                                    data-status="complete">
+                                    <button
+                                        aria-expanded="false"
+                                        data-c-accordion-trigger
+                                        tabindex="0"
+                                        type="button">
+                                        <div data-c-grid="">
+                                            <div data-c-grid-item="base(1of4) tl(1of6) equal-col">
+                                                <div class="skill-status-indicator" >
+                                                    <i class="fas fa-check-circle" data-c-color="go" data-c-font-size="h4"></i>
+                                                    <i class="far fa-circle" data-c-color="c1" data-c-font-size="h4"></i>
+                                                    <i class="fas fa-exclamation-circle" data-c-color="stop" data-c-font-size="h4"></i>
+                                                </div>
+                                            </div>
+                                            <div data-c-grid-item="base(3of4) tl(5of6)">
+                                                <div data-c-padding="all(1)">
+                                                    <div data-c-grid="middle">
+                                                        <div data-c-grid-item="tl(3of4)">
+                                                            <p>UX Designer at Talent Cloud
+                                                            </p>
+                                                            <p data-c-margin="top(quarter)" data-c-colour="c1" data-c-font-size="small">
+                                                                JAN 2015 - FEB 2018
+                                                            </p>
+                                                        </div>
+                                                        <div data-c-grid-item="tl(1of4)" data-c-align="base(left) tl(center)">
+                                                            <span data-c-color="stop" class="missing-info">Missing Information</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <span data-c-visibility="invisible">
+                                            Click to view...
+                                        </span>
+                                        <i
+                                            aria-hidden="true"
+                                            class="fas fa-angle-down"
+                                            data-c-accordion-add
+                                            data-c-colour="black"></i>
+                                        <i
+                                            aria-hidden="true"
+                                            class="fas fa-angle-up"
+                                            data-c-accordion-remove
+                                            data-c-colour="black"></i>
+                                    </button>
+                                    <div
+                                        aria-hidden="true"
+                                        data-c-accordion-content
+                                        data-c-background="gray(10)">
+                                        <hr data-c-hr="thin(gray)" data-c-margin="bottom(1)">
+                                        <div data-c-padding="lr(1)">
+                                            <form>
+                                                <div data-c-input="textarea">
+                                                    <label for="TA2">How I used <span data-c-font-weight="bold">User Experience Design</span> at <span data-c-font-weight="bold">Talent Cloud</span></label>
+                                                    <span>Required</span>
+                                                    <div>
+                                                        <textarea id="TA2" required placeholder="Start writing here..."></textarea>
+                                                    </div>
+                                                    <span>This input has an error.</span>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div data-c-padding="all(1)">
+                                            <div data-c-grid="gutter(all, 1) middle">
+                                                <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">
+                                                    <button
+                                                        data-c-button="outline(c1)"
+                                                        data-c-radius="rounded"
+                                                        type="button">
+                                                        <span>
+                                                            Remove Experience From Skill
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(right)">
+                                                    <span data-c-margin="right(1)">100 words left.</span>
+                                                    <button
+                                                        data-c-button="solid(c1)"
+                                                        data-c-radius="rounded"
+                                                        type="button">
+                                                        <span>
+                                                            Save Explanation
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {# When the experience has an error of some sort #}
+                                <div
+                                    data-c-accordion
+                                    data-c-background="white(100)"
+                                    data-c-card
+                                    data-c-margin="bottom(.5)"
+                                    class="application-skill-explanation"
+                                    data-status="error">
+                                    <button
+                                        aria-expanded="false"
+                                        data-c-accordion-trigger
+                                        tabindex="0"
+                                        type="button">
+                                        <div data-c-grid="">
+                                            <div data-c-grid-item="base(1of4) tl(1of6) equal-col">
+                                                <div class="skill-status-indicator" >
+                                                    <i class="fas fa-check-circle" data-c-color="go" data-c-font-size="h4"></i>
+                                                    <i class="far fa-circle" data-c-color="c1" data-c-font-size="h4"></i>
+                                                    <i class="fas fa-exclamation-circle" data-c-color="stop" data-c-font-size="h4"></i>
+                                                </div>
+                                            </div>
+                                            <div data-c-grid-item="base(3of4) tl(5of6)">
+                                                <div data-c-padding="all(1)">
+                                                    <div data-c-grid="middle">
+                                                        <div data-c-grid-item="tl(3of4)">
+                                                            <p>UX Designer at Talent Cloud
+                                                            </p>
+                                                            <p data-c-margin="top(quarter)" data-c-colour="c1" data-c-font-size="small">
+                                                                JAN 2015 - FEB 2018
+                                                            </p>
+                                                        </div>
+                                                        <div data-c-grid-item="tl(1of4)" data-c-align="base(left) tl(center)">
+                                                            <span data-c-color="stop" class="missing-info">Missing Information</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <span data-c-visibility="invisible">
+                                            Click to view...
+                                        </span>
+                                        <i
+                                            aria-hidden="true"
+                                            class="fas fa-angle-down"
+                                            data-c-accordion-add
+                                            data-c-colour="black"></i>
+                                        <i
+                                            aria-hidden="true"
+                                            class="fas fa-angle-up"
+                                            data-c-accordion-remove
+                                            data-c-colour="black"></i>
+                                    </button>
+                                    <div
+                                        aria-hidden="true"
+                                        data-c-accordion-content
+                                        data-c-background="gray(10)">
+                                        <hr data-c-hr="thin(gray)" data-c-margin="bottom(1)">
+                                        <div data-c-padding="lr(1)">
+                                            <form>
+                                                <div data-c-input="textarea">
+                                                    <label for="TA2">How I used <span data-c-font-weight="bold">User Experience Design</span> at <span data-c-font-weight="bold">Talent Cloud</span></label>
+                                                    <span>Required</span>
+                                                    <div>
+                                                        <textarea id="TA2" required placeholder="Start writing here..."></textarea>
+                                                    </div>
+                                                    <span>This input has an error.</span>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div data-c-padding="all(1)">
+                                            <div data-c-grid="gutter(all, 1) middle">
+                                                <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">
+                                                    <button
+                                                        data-c-button="outline(c1)"
+                                                        data-c-radius="rounded"
+                                                        type="button">
+                                                        <span>
+                                                            Remove Experience From Skill
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(right)">
+                                                    <span data-c-margin="right(1)">100 words left.</span>
+                                                    <button
+                                                        data-c-button="solid(c1)"
+                                                        data-c-radius="rounded"
+                                                        type="button">
+                                                        <span>
+                                                            Save Explanation
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {# When the experience hasn't been touched yet #}
+                                <div
+                                    data-c-accordion
+                                    data-c-background="white(100)"
+                                    data-c-card
+                                    data-c-margin="bottom(.5)"
+                                    class="application-skill-explanation"
+                                    data-status="default">
+                                    <button
+                                        aria-expanded="false"
+                                        data-c-accordion-trigger
+                                        tabindex="0"
+                                        type="button">
+                                        <div data-c-grid="">
+                                            <div data-c-grid-item="base(1of4) tl(1of6) equal-col">
+                                                <div class="skill-status-indicator" >
+                                                    <i class="fas fa-check-circle" data-c-color="go" data-c-font-size="h4"></i>
+                                                    <i class="far fa-circle" data-c-color="c1" data-c-font-size="h4"></i>
+                                                    <i class="fas fa-exclamation-circle" data-c-color="stop" data-c-font-size="h4"></i>
+                                                </div>
+                                            </div>
+                                            <div data-c-grid-item="base(3of4) tl(5of6)">
+                                                <div data-c-padding="all(1)">
+                                                    <div data-c-grid="middle">
+                                                        <div data-c-grid-item="tl(3of4)">
+                                                            <p>UX Designer at Talent Cloud
+                                                            </p>
+                                                            <p data-c-margin="top(quarter)" data-c-colour="c1" data-c-font-size="small">
+                                                                JAN 2015 - FEB 2018
+                                                            </p>
+                                                        </div>
+                                                        <div data-c-grid-item="tl(1of4)" data-c-align="base(left) tl(center)">
+                                                            <span data-c-color="stop" class="missing-info">Missing Information</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <span data-c-visibility="invisible">
+                                            Click to view...
+                                        </span>
+                                        <i
+                                            aria-hidden="true"
+                                            class="fas fa-angle-down"
+                                            data-c-accordion-add
+                                            data-c-colour="black"></i>
+                                        <i
+                                            aria-hidden="true"
+                                            class="fas fa-angle-up"
+                                            data-c-accordion-remove
+                                            data-c-colour="black"></i>
+                                    </button>
+                                    <div
+                                        aria-hidden="true"
+                                        data-c-accordion-content
+                                        data-c-background="gray(10)">
+                                        <hr data-c-hr="thin(gray)" data-c-margin="bottom(1)">
+                                        <div data-c-padding="lr(1)">
+                                            <form>
+                                                <div data-c-input="textarea">
+                                                    <label for="TA2">How I used <span data-c-font-weight="bold">User Experience Design</span> at <span data-c-font-weight="bold">Talent Cloud</span></label>
+                                                    <span>Required</span>
+                                                    <div>
+                                                        <textarea id="TA2" required placeholder="Start writing here..."></textarea>
+                                                    </div>
+                                                    <span>This input has an error.</span>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div data-c-padding="all(1)">
+                                            <div data-c-grid="gutter(all, 1) middle">
+                                                <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(left)">
+                                                    <button
+                                                        data-c-button="outline(c1)"
+                                                        data-c-radius="rounded"
+                                                        type="button">
+                                                        <span>
+                                                            Remove Experience From Skill
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(right)">
+                                                    <span data-c-margin="right(1)">100 words left.</span>
+                                                    <button
+                                                        data-c-button="solid(c1)"
+                                                        data-c-radius="rounded"
+                                                        type="button">
+                                                        <span>
+                                                            Save Explanation
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {# Application Action Buttons #}
+            {% include "applicant/application/action-buttons" with {"step": 6} %}
+        </div>
+        {# Dialog Overlay #}
+        <div data-c-dialog-overlay></div>
+        {# Skill Description Modal #}
+        {% include "applicant/application/dialogs/skill-description" %}
+        {# Level Description Modal #}
+        {% include "applicant/application/dialogs/skill-level-description" %}
+        {# Deletion Confirmation Modal #}
+        {% include "applicant/application/dialogs/confirm" %}
+    </div>
+{% endblock %}

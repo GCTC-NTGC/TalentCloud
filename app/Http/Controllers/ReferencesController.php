@@ -35,6 +35,11 @@ class ReferencesController extends Controller
      */
     public function edit(Request $request, Applicant $applicant)
     {
+        $custom_breadcrumbs = [
+            'home' => route('home'),
+            'profile' => '',
+        ];
+
         $applicant->load([
             'references.projects',
             'skill_declarations.skill',
@@ -43,6 +48,7 @@ class ReferencesController extends Controller
         return view('applicant/profile_04_references', [
             'applicant' => $applicant,
             'profile' => Lang::get('applicant/profile_references'),
+            'custom_breadcrumbs' => $custom_breadcrumbs,
         ]);
     }
 

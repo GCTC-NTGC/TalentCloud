@@ -15,7 +15,7 @@
 
     <section
         class="application__view-layout submitted">
-
+        {% if show_review %}
         <div id="{{ is_hr_portal
                 ? "application-review-container-hr"
                 : "application-review-container" }}"
@@ -24,13 +24,13 @@
             data-locale="{{App.getLocale()}}"
         >
         </div>
+        {% endif %}
 
-
-        {% include "common/application/view/view_layout" %}
+        {% include application_view_template %}
 
     </section>
 
 {% endblock %}
 {% block scripts %}
-	<script async defer src="{{ mix('/js/ApplicationReviewRoot.js') }}"></script>
+	<script async defer src="{{ asset(mix('/js/ApplicationReviewRoot.js')) }}"></script>
 {% endblock %}

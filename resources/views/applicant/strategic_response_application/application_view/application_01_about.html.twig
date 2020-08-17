@@ -1,0 +1,111 @@
+{# =============================================================================
+
+    Talent Cloud
+    Recurring Elements: Review an Application - Basic Information
+
+============================================================================= #}
+<section id="applicationView01" data-c-padding="top(3)">
+    <h3 data-c-heading="h3" data-c-padding="bottom(1)" data-c-margin="bottom(1)">{{ application_template.preview.section_01_title }}</h3>
+    {# Manager-specific Information ab/ the Applicant #}
+    {% if is_manager_view %}
+        <p data-c-margin="bottom(1)">{{ application_template.preview.applicant_label }} <span data-c-font-weight="bold">{{ applicant.user.first_name }} {{ applicant.user.last_name }}</a></p>
+    {% endif %}
+
+    {# Language Confirmation Status #}
+    {% if job.language_requirement.id == 1 %}
+        {# English Essential #}
+        {% set language_requirement = application_template.english_essential %}
+    {% elseif job.language_requirement.id == 2 %}
+        {# French Essential #}
+        {% set language_requirement = application_template.french_essential %}
+    {% elseif job.language_requirement.id == 3 %}
+        {# Bilingual Intermediate #}
+        {% set language_requirement = application_template.bilingual_intermediate %}
+    {% elseif job.language_requirement.id == 4 %}
+        {# Bilingual Advanced #}
+        {% set language_requirement = application_template.bilingual_advanced %}
+    {% elseif job.language_requirement.id == 5 %}
+        {# English or French #}
+        {% set language_requirement = application_template.english_or_french %}
+    {% else %}
+        {# nothing #}
+    {% endif %}
+    <p data-c-margin="bottom(.25)"><i class="fas fa-{{ job_application.preferred_language_id ? 'check' : 'times' }}" data-c-color="{{ job_application.preferred_language_id ? 'go' : 'stop' }}" data-c-margin="right(.5)"></i>{{ language_requirement }}</p>
+    {# Language Choice #}
+    {% if job_application.preferred_language_id == 1 %}
+        {# English #}
+        {% set language_choice = application_template.preview.english_choice %}
+    {% elseif job_application.preferred_language_id == 2 %}
+        {# French #}
+        {% set language_choice = application_template.preview.french_choice %}
+    {% else %}
+        {% set language_choice = application_template.preview.language_null_copy %}
+    {% endif %}
+    <p data-c-margin="bottom(.25)"><i class="fas fa-{{ job_application.preferred_language_id ? 'check' : 'times' }}" data-c-color="{{ job_application.preferred_language_id ? 'go' : 'stop' }}" data-c-margin="right(.5)"></i>{{ language_choice|raw|nl2br }}</p>
+
+    {# Government Email #}
+    <p data-c-margin="bottom(.25)">
+        <i class="fas fa-{{ job_application.gov_email ? 'check' : 'times' }}" data-c-color="{{ job_application.gov_email ? 'go' : 'stop' }}" data-c-margin="right(.5)"></i>{{ application_template.strategic_response.gov_email_label }}: <strong>{{ job_application.gov_email ?: application_template.strategic_response.no_info }}</strong>
+    </p>
+
+    {# Security Clearence #}
+    <p data-c-margin="bottom(.25)">
+        <i class="fas fa-{{ job_application.security_clearance_id ? 'check' : 'times' }}" data-c-color="{{ job_application.security_clearance_id ? 'go' : 'stop' }}" data-c-margin="right(.5)"></i>{{ application_template.strategic_response.preview_security_clearance_label }}: <strong>{{ job_application.security_clearance.id ? job_application.security_clearance.value : application_template.strategic_response.no_info }}</strong>
+    </p>
+
+    {# Willing to work in physical office #}
+    <p data-c-margin="bottom(.25)">
+        <i class="fas fa-check" data-c-color="go" data-c-margin="right(.5)"></i>
+        {{ job_application.physical_office_willing ?
+            application_template.strategic_response.preview_physical_office_yes|raw :
+            application_template.strategic_response.preview_physical_office_no|raw
+        }}
+    </p>
+    {# Director Info #}
+    <p data-c-margin="bottom(.25)">
+        <i class="fas fa-{{ job_application.director_name ? 'check' : 'times' }}" data-c-color="{{ job_application.director_name ? 'go' : 'stop' }}" data-c-margin="right(.5)"></i>{{ application_template.strategic_response.director_name_label }}: <strong>{{ job_application.director_name ?: application_template.strategic_response.no_info }}</strong>
+    </p>
+    <p data-c-margin="bottom(.25)">
+        <i class="fas fa-{{ job_application.director_title ? 'check' : 'times' }}" data-c-color="{{ job_application.director_title ? 'go' : 'stop' }}" data-c-margin="right(.5)"></i>{{ application_template.strategic_response.director_title_label }}: <strong>{{ job_application.director_title ?: application_template.strategic_response.no_info }}</strong>
+    </p>
+    <p data-c-margin="bottom(.25)">
+        <i class="fas fa-{{ job_application.director_email ? 'check' : 'times' }}" data-c-color="{{ job_application.director_email ? 'go' : 'stop' }}" data-c-margin="right(.5)"></i>{{ application_template.strategic_response.director_email_label }}: <strong>{{ job_application.director_email ?: application_template.strategic_response.no_info }}</strong>
+    </p>
+
+    {# Reference Info #}
+    <p data-c-margin="bottom(.25)">
+        <i class="fas fa-{{ job_application.reference_name ? 'check' : 'times' }}" data-c-color="{{ job_application.reference_name ? 'go' : 'stop' }}" data-c-margin="right(.5)"></i>{{ application_template.strategic_response.reference_name_label }}: <strong>{{ job_application.reference_name ?: application_template.strategic_response.no_info }}</strong>
+    </p>
+    <p data-c-margin="bottom(.25)">
+        <i class="fas fa-{{ job_application.reference_title ? 'check' : 'times' }}" data-c-color="{{ job_application.reference_title ? 'go' : 'stop' }}" data-c-margin="right(.5)"></i>{{ application_template.strategic_response.reference_title_label }}: <strong>{{ job_application.reference_title ?: application_template.strategic_response.no_info }}</strong>
+    </p>
+    <p data-c-margin="bottom(.25)">
+        <i class="fas fa-{{ job_application.reference_email ? 'check' : 'times' }}" data-c-color="{{ job_application.reference_email ? 'go' : 'stop' }}" data-c-margin="right(.5)"></i>{{ application_template.strategic_response.reference_email_label }}: <strong>{{ job_application.reference_email ?: application_template.strategic_response.no_info }}</strong>
+    </p>
+
+
+    {# Long Form Questions #}
+    <h4 data-c-heading="h4" data-c-margin="top(2) bottom(1)">{{ application_template.question_title }}</h4>
+    {% for question in job.job_poster_questions %}
+        <p data-c-margin="top(1) bottom(.5)" data-c-font-weight="bold">{{ question.question }}</p>
+        <p>
+            {% set questionCounter = 0 %}
+            {% for applicantQuestion in application_template.application.questions %}
+                {% if applicantQuestion.id == question.id %}
+                    {% set questionCounter = questionCounter + 1 %}
+                    {{ applicantQuestion.answer }}
+                {% endif %}
+            {% endfor %}
+            {% for userAnswer in job_application.job_application_answers %}
+                {% if userAnswer.job_poster_question.id == question.id %}
+                    {% set questionCounter = questionCounter + 1 %}
+                    {{ userAnswer.answer|nl2br }}
+                {% endif %}
+            {% endfor %}
+            {% if questionCounter == 0 %}
+                {{ application_template.preview.long_question_null }}
+            {% endif %}
+        </p>
+    {% endfor %}
+</section>
+

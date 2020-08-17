@@ -1,11 +1,6 @@
-import { WordCounterMessage } from "./WordCounterWrapper";
-
 export const countNumberOfWords = (innerText: string): number => {
-  if (innerText.trim()) {
-    return innerText
-      .replace(/\s+/g, " ")
-      .trim()
-      .split(" ").length;
+  if (innerText && innerText.trim()) {
+    return innerText.replace(/\s+/g, " ").trim().split(" ").length;
   }
   return 0;
 };
@@ -31,13 +26,4 @@ export const truncateWords = (value: string, wordLimit: number): string => {
     }
   }
   return value;
-};
-
-/** Sorts messages in decending order */
-export const sortMessages = (
-  messages: WordCounterMessage[],
-): WordCounterMessage[] => {
-  const sortedMessages = messages.sort((a, b): number => b.count - a.count);
-
-  return sortedMessages;
 };

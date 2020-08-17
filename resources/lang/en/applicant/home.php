@@ -13,7 +13,7 @@ return [
     'hero' => [
         'title' => 'Talent Cloud',
         'tagline' => 'Applying to government jobs just got easier.',
-        'pilot' => 'BETA'
+        'pilot' => 'BETA / Pilot Project'
     ],
     'slogan' => [
         'copy' => 'No cover letter. No resume. Build a profile of your skills and experience while saving time applying to government jobs that inspire you. ',
@@ -36,6 +36,12 @@ return [
         'main_message' => 'We aren’t posting jobs over the holidays but we’re looking forward to connecting talented people with awesome and impactful jobs in the New Year! Until then stay warm and have some fun!',
         'sign_off' => 'See you in 2020!',
         'signature' => 'The Talent Cloud Team'
+    ],
+    'response' => [
+        'title' => 'We\'re improving the platform.',
+        'main_message' => 'Due to the evolving situation surrounding COVID-19, we\'ll put a pause on posting new opportunities on this site.',
+        'sign_off' => 'For more opportunities, visit',
+        'link' => '<a href="https://psjobs-emploisfp.psc-cfp.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=en" title="" target="_blank">GC Jobs</a>'
     ],
     'hiw' => [
         'title' => 'How Talent Cloud Works',
@@ -96,7 +102,7 @@ return [
                 'copy' => 'GC Talent Cloud is an experimental initiative that relies solely on financial support from participating federal departments who are committed to helping build an alternative to the traditional HR model.',
                 'links' => [
                     '1' => [
-                        'link' => '/faq#partners',
+                        'link' => route('faq') . '#partners',
                         'title' => 'Learn more about how Talent Cloud is funded.',
                         'label' => 'Learn More'
                     ]
@@ -192,7 +198,7 @@ return [
     'how_step03_copy' => 'Find meaningful work that has an impact on Canadians... and be part of the effort to design a new platform for project-based work in Government.',
     'how_step04_title' => 'Credentialing TBD',
     'how_step04_copy' => 'Credentialing Copy TBD',
-    'how_step04_link' => '/en/credentialing',
+    // 'how_step04_link' => '/en/credentialing',
     'how_step04_link_title' => 'Learn more about credentialing on Talent Cloud.',
     'how_step04_link_label' => 'Learn More',
     'how_copy' => 'We want GC Talent Cloud to be a drive engine that allows more Canadians to have a chance to work in Government. We want diverse talent to bring new ideas that will shape programs and services across Canada.',
@@ -210,5 +216,6 @@ return [
     'team_button_twitter_label' => 'Twitter',
     'team_button_email_link' => 'talent.cloud-nuage.de.talents@tbs-sct.gc.ca',
     'team_button_email_title' => 'Get in touch with GC Talent Cloud via email.',
-    'team_button_email_label' => 'Email'
+    'team_button_email_label' => 'Email',
+    'success_title' => 'All good in the hood.'
 ];

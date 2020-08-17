@@ -18,8 +18,9 @@ import { find } from "../../helpers/queries";
 import * as routes from "../../helpers/routes";
 import { classificationString } from "../../models/jobUtil";
 import { axios } from "../../api/base";
-import IntlContainer from "../../IntlContainer";
+import RootContainer from "../RootContainer";
 import { Portal } from "../../models/app";
+import { ReviewStatusId } from "../../models/lookupConstants";
 
 interface ReviewApplicationsProps {
   job: Job;
@@ -40,12 +41,12 @@ interface ReviewSubmitForm {
 
 const localizations = defineMessages({
   oops: {
-    id: "alert.oops",
+    id: "review.applications.alert.oops",
     defaultMessage: "Save",
     description: "Dynamic Save button label",
   },
   somethingWrong: {
-    id: "apl.reviewSaveFailed",
+    id: "review.applications.reviewSaveFailed",
     defaultMessage:
       "Something went wrong while saving a review. Try again later.",
     description: "Dynamic Save button label",
@@ -206,13 +207,16 @@ class ReviewApplicationsRoot extends React.Component<
     const { applications, savingStatuses } = this.state;
     const { reviewStatuses, job, portal, intl } = this.props;
 
-    const reviewStatusOptions = reviewStatuses.map(status => ({
-      value: status.id,
-      label: camelCase(status.name),
-    }));
+    const reviewStatusOptions = reviewStatuses
+      .filter(status => status.id in ReviewStatusId)
+      .map(status => ({
+        value: status.id,
+        label: camelCase(status.name),
+      }));
 
     return (
       <ReviewApplications
+        jobId={job.id}
         title={job.title[intl.locale]}
         classification={classificationString(job)}
         closeDateTime={job.close_date_time}
@@ -245,17 +249,16 @@ const renderReviewApplications = (
     const reviewStatuses = JSON.parse(
       container.getAttribute("data-review-statuses") as string,
     );
-    const language = container.getAttribute("data-locale") as string;
     const IntlReviewApplicationsRoot = injectIntl(ReviewApplicationsRoot);
     ReactDOM.render(
-      <IntlContainer locale={language}>
+      <RootContainer>
         <IntlReviewApplicationsRoot
           job={job}
           initApplications={applications}
           reviewStatuses={reviewStatuses}
           portal={portal}
         />
-      </IntlContainer>,
+      </RootContainer>,
       container,
     );
   }

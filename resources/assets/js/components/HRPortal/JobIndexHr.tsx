@@ -104,15 +104,25 @@ const JobIndexHr: React.FunctionComponent<JobIndexHrProps> = ({
 }) => {
   const notCompletedJobActions: JobCardProps[] = useMemo(
     () =>
-      jobActions.filter(jobAction => jobAction.status !== JobStatus.Complete),
+      jobActions.filter(jobAction => jobAction.status.key !== JobStatus.Completed),
     [jobActions],
   );
 
   const completedJobActions: JobCardProps[] = useMemo(
     () =>
-      jobActions.filter(jobAction => jobAction.status === JobStatus.Complete),
+      jobActions.filter(jobAction => jobAction.status.key === JobStatus.Completed),
     [jobActions],
   );
+
+  const sortByCurrentDate = (
+    a: UnclaimedJobCardProps,
+    b: UnclaimedJobCardProps,
+  ): number => {
+    if (b.reviewRequested && a.reviewRequested) {
+      return b.reviewRequested.getTime() - a.reviewRequested.getTime();
+    }
+    return 0;
+  };
 
   return (
     <section>
@@ -185,7 +195,7 @@ const JobIndexHr: React.FunctionComponent<JobIndexHrProps> = ({
           {/* Unclaimed Jobs List */}
           <section data-c-grid="gutter">
             {unclaimedJobs.length !== 0 &&
-              unclaimedJobs.map(
+              unclaimedJobs.sort(sortByCurrentDate).map(
                 (unclaimedJob): React.ReactElement => {
                   return (
                     <UnclaimedJobCard key={unclaimedJob.id} {...unclaimedJob} />

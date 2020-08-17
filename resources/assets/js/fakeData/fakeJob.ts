@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { Job, Criteria, JobPosterKeyTask } from "../models/types";
-import { JobStatus } from "../models/lookupConstants";
+import {
+  Job,
+  Criteria,
+  JobPosterKeyTask,
+  JobPosterQuestion,
+  JobApplicationAnswer,
+} from "../models/types";
 
 export const fakeJob = (id = 1): Job => ({
   id,
@@ -11,7 +16,7 @@ export const fakeJob = (id = 1): Job => ({
   close_date_time: new Date("2019-05-30T06:59:59"),
   start_date_time: new Date("2019-07-01T07:00:00"),
   created_at: new Date("2019-04-20T07:00:00"),
-  job_status_id: JobStatus.Approved,
+  job_poster_status_id: 1,
   department_id: 1,
   province_id: 4,
   salary_min: 85000,
@@ -22,8 +27,6 @@ export const fakeJob = (id = 1): Job => ({
   security_clearance_id: 1,
   language_requirement_id: 1,
   remote_work_allowed: true,
-  published_at: null,
-  review_requested_at: null,
   team_size: 15,
   work_env_features: {
     openConcept: true,
@@ -119,7 +122,7 @@ export const fakeJob2 = (id = 1): Job => ({
   start_date_time: new Date("2019-08-01T07:00:00"),
   created_at: new Date("2019-04-25T07:00:00"),
   department_id: 2,
-  job_status_id: JobStatus.Review,
+  job_poster_status_id: 2,
   province_id: 1,
   salary_min: 95000,
   salary_max: 110000,
@@ -129,8 +132,6 @@ export const fakeJob2 = (id = 1): Job => ({
   security_clearance_id: 1,
   language_requirement_id: 1,
   remote_work_allowed: true,
-  published_at: null,
-  review_requested_at: null,
   team_size: 40,
   work_env_features: {
     env_open_concept: false,
@@ -290,6 +291,72 @@ export const fakeJobTasks = (jobId = 1): JobPosterKeyTask[] => [
       en: "This is an example of a task that has exceeded the limit.",
       fr: "Voici un exemple de tâche ayant dépassé la limite.",
     },
+  },
+];
+
+export const fakeJobQuestions = (jobId = 1): JobPosterQuestion[] => [
+  {
+    id: 1,
+    job_poster_id: jobId,
+    description: {
+      en: "Describe why you are interested in this job.",
+      fr: "Décrivez pourquoi vous êtes intéressé par cet emploi.",
+    },
+    question: {
+      en: "Why are you interested in this job?",
+      fr: "Pourquoi êtes-vous intéressé par cet emploi ?",
+    },
+  },
+  {
+    id: 2,
+    job_poster_id: jobId,
+    description: {
+      en: "e.g. I have a few other skills...",
+      fr: "e.g. j'ai quelques autres compétences...",
+    },
+    question: {
+      en:
+        "Are there any other skills that you bring to the job that you want to highlight to the manager?",
+      fr:
+        "Y a-t-il d'autres compétences que vous apportez à l'emploi et que vous souhaitez mettre en valeur auprès du responsable ?",
+    },
+  },
+  {
+    id: 3,
+    job_poster_id: jobId,
+    description: {
+      en: "e.g. I have a few other skills...",
+      fr: "e.g. j'ai quelques autres compétences...",
+    },
+    question: {
+      en:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi exercitationem ipsa distinctio dolore in iure? Nisi ratione architecto velit quos.?",
+      fr:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi exercitationem ipsa distinctio dolore in iure? Nisi ratione architecto velit quos. ?",
+    },
+  },
+];
+
+export const fakeJobApplicationAnswers = (
+  jobApplicationId = 1,
+): JobApplicationAnswer[] => [
+  {
+    id: 1,
+    job_application_id: jobApplicationId,
+    job_poster_questions_id: 1,
+    answer: "Here is my answer.",
+  },
+  {
+    id: 2,
+    job_application_id: jobApplicationId,
+    job_poster_questions_id: 2,
+    answer: "Please read my answers and see that I am an excellent candidate.",
+  },
+  {
+    id: 3,
+    job_application_id: jobApplicationId,
+    job_poster_questions_id: 3,
+    answer: "Je pourrais ecrire ce reponse en francais si je vourrais.",
   },
 ];
 

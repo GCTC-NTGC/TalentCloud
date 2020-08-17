@@ -12,12 +12,15 @@ use App\Models\Lookup\ApplicationStatus;
 use App\Models\Lookup\CitizenshipDeclaration;
 use App\Models\Lookup\PreferredLanguage;
 use App\Models\Lookup\ReviewStatus;
+use App\Models\Lookup\SecurityClearance;
 use App\Models\Lookup\SkillStatus;
 use App\Models\Lookup\VeteranStatus;
 use App\Models\Skill;
 use App\Models\SkillDeclaration;
 use App\Models\WorkExperience;
 use App\Services\Validation\ApplicationValidator;
+use App\Services\Validation\Rules\GovernmentEmailRule;
+use App\Services\Validation\StrategicResponseApplicationValidator;
 use Facades\App\Services\WhichPortal;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -35,24 +38,48 @@ class ApplicationByJobController extends Controller
      */
     public function index(JobPoster $jobPoster)
     {
+        $jobPoster->loadMissing(['criteria', 'talent_stream_category', 'job_skill_level']);
+
+        $view = 'manager/review_applications';
+        $jobTitle = $jobPoster->title;
+        $disableCloneJs = false;
+        if ($jobPoster->department_id === config('app.strategic_response_department_id')) {
+            $view = 'response/screening/index';
+            // Hacky workaround for Accordion JS firing on the screening page.
+            $disableCloneJs = true;
+            if ($jobPoster->talent_stream_category && $jobPoster->job_skill_level) {
+                $jobTitle = $jobPoster->talent_stream_category->name . ' - ' . $jobPoster->job_skill_level->name;
+            }
+        }
         $applications = $jobPoster->submitted_applications()
             ->with([
                 'veteran_status',
                 'citizenship_declaration',
                 'application_review',
                 'applicant.user',
-                'job_poster.criteria',
             ])
             ->get();
-        return view('manager/review_applications', [
+
+        $viewData = [
             // Localization Strings.
             'jobs_l10n' => Lang::get('manager/job_index'),
+            'response' => Lang::get('response/screening'),
             // Data.
             'job' => new JsonResource($jobPoster),
+            'response_job_title' => $jobTitle,
+            'job_id' => $jobPoster->id,
             'is_hr_portal' => WhichPortal::isHrPortal(),
+            'portal' => WhichPortal::isHrPortal() ? 'hr' : 'manager',
             'applications' => $applications,
-            'review_statuses' => ReviewStatus::all()
-        ]);
+            'review_statuses' => ReviewStatus::all(),
+            'isHrAdvisor' => Auth::user()->isHrAdvisor(),
+        ];
+
+        if ($disableCloneJs) {
+            $viewData['disable_clone_js'] = true;
+        }
+
+        return view($view, $viewData);
     }
 
     /**
@@ -90,8 +117,17 @@ class ApplicationByJobController extends Controller
         $this->authorize('view', $application);
         $this->authorize('update', $application);
 
+        $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
+            ? 'applicant/strategic_response_application/application_post_01'
+            : 'applicant/application_post_01';
+
+        $jobTitle = $jobPoster->isInStrategicResponseDepartment()
+            ? "{$jobPoster->talent_stream_category->name} - {$jobPoster->job_skill_level->name}"
+            : $jobPoster->title;
+        $headerTitle = Lang::get('applicant/application_template')['title'] . ": {$jobTitle}";
+
         return view(
-            'applicant/application_post_01',
+            $viewTemplate,
             [
                 // Application Template Data.
                 'application_step' => 1,
@@ -99,16 +135,22 @@ class ApplicationByJobController extends Controller
                 'language_options' => PreferredLanguage::all(),
                 'citizenship_options' => CitizenshipDeclaration::all(),
                 'veteran_options' => VeteranStatus::all(),
+                'security_clearance_options' => SecurityClearance::all(),
                 'preferred_language_template' => Lang::get('common/preferred_language'),
                 'citizenship_declaration_template' => Lang::get('common/citizenship_declaration'),
                 'veteran_status_template' => Lang::get('common/veteran_status'),
+                'header' => [
+                    'title' => $headerTitle,
+                ],
+                'custom_breadcrumbs' => $this->customBreadcrumbs($jobPoster, 1),
                 // Job Data.
                 'job' => $jobPoster,
                 // Applicant Data.
                 'applicant' => $applicant,
                 'job_application' => $application,
                 // Submission.
-                'form_submit_action' => route('job.application.update.1', $jobPoster)
+                'form_submit_action' => route('job.application.update.1', $jobPoster),
+                'gov_email_pattern' => GovernmentEmailRule::PATTERN
             ]
         );
     }
@@ -128,12 +170,25 @@ class ApplicationByJobController extends Controller
         $this->authorize('view', $application);
         $this->authorize('update', $application);
 
+        $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
+            ? 'applicant/strategic_response_application/application_post_02'
+            : 'applicant/application_post_02';
+
+        $jobTitle = $jobPoster->isInStrategicResponseDepartment()
+            ? "{$jobPoster->talent_stream_category->name} - {$jobPoster->job_skill_level->name}"
+            : $jobPoster->title;
+        $headerTitle = Lang::get('applicant/application_template')['title'] . ": {$jobTitle}";
+
         return view(
-            'applicant/application_post_02',
+            $viewTemplate,
             [
                 // Application Template Data.
                 'application_step' => 2,
                 'application_template' => Lang::get('applicant/application_template'),
+                'header' => [
+                    'title' => $headerTitle,
+                ],
+                'custom_breadcrumbs' => $this->customBreadcrumbs($jobPoster, 2),
                 // Job Data.
                 'job' => $jobPoster,
                 // Applicant Data.
@@ -160,21 +215,30 @@ class ApplicationByJobController extends Controller
         $this->authorize('view', $application);
         $this->authorize('update', $application);
 
-        $criteria = [
-            'essential' => $jobPoster->criteria->filter(function ($value, $key) {
-                return $value->criteria_type->name == 'essential';
-            }),
-            'asset' => $jobPoster->criteria->filter(function ($value, $key) {
-                return $value->criteria_type->name == 'asset';
-            }),
-        ];
+        $criteria = $jobPoster->criteria->filter(function ($value, $key) {
+            return $value->criteria_type->name == 'essential'
+                && $value->skill->skill_type->name == 'hard';
+        });
+
+        $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
+            ? 'applicant/strategic_response_application/application_post_03'
+            : 'applicant/application_post_03';
+
+        $jobTitle = $jobPoster->isInStrategicResponseDepartment()
+            ? "{$jobPoster->talent_stream_category->name} - {$jobPoster->job_skill_level->name}"
+            : $jobPoster->title;
+        $headerTitle = Lang::get('applicant/application_template')['title'] . ": {$jobTitle}";
 
         return view(
-            'applicant/application_post_03',
+            $viewTemplate,
             [
                 // Application Template Data.
                 'application_step' => 3,
                 'application_template' => Lang::get('applicant/application_template'),
+                'header' => [
+                    'title' => $headerTitle,
+                ],
+                'custom_breadcrumbs' => $this->customBreadcrumbs($jobPoster, 3),
                 // Job Data.
                 'job' => $jobPoster,
                 // Skills Data.
@@ -205,21 +269,31 @@ class ApplicationByJobController extends Controller
         $this->authorize('view', $application);
         $this->authorize('update', $application);
 
-        $criteria = [
-            'essential' => $jobPoster->criteria->filter(function ($value, $key) {
-                return $value->criteria_type->name == 'essential';
-            }),
-            'asset' => $jobPoster->criteria->filter(function ($value, $key) {
-                return $value->criteria_type->name == 'asset';
-            }),
-        ];
+        $criteria = $jobPoster->criteria->filter(function ($value, $key) {
+            return $value->criteria_type->name == 'asset'
+                && $value->skill->skill_type->name == 'hard';
+        });
+
+
+        $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
+            ? 'applicant/strategic_response_application/application_post_04'
+            : 'applicant/application_post_04';
+
+        $jobTitle = $jobPoster->isInStrategicResponseDepartment()
+            ? "{$jobPoster->talent_stream_category->name} - {$jobPoster->job_skill_level->name}"
+            : $jobPoster->title;
+        $headerTitle = Lang::get('applicant/application_template')['title'] . ": {$jobTitle}";
 
         return view(
-            'applicant/application_post_04',
+            $viewTemplate,
             [
                 // Application Template Data.
                 'application_step' => 4,
                 'application_template' => Lang::get('applicant/application_template'),
+                'header' => [
+                    'title' => $headerTitle,
+                ],
+                'custom_breadcrumbs' => $this->customBreadcrumbs($jobPoster, 4),
                 // Job Data.
                 'job' => $jobPoster,
                 // Skills Data.
@@ -247,14 +321,16 @@ class ApplicationByJobController extends Controller
         $application = $this->getApplicationFromJob($jobPoster);
 
         $this->authorize('view', $application);
-        $criteria = [
-            'essential' => $jobPoster->criteria->filter(function ($value, $key) {
-                return $value->criteria_type->name == 'essential';
-            }),
-            'asset' => $jobPoster->criteria->filter(function ($value, $key) {
-                return $value->criteria_type->name == 'asset';
-            }),
-        ];
+
+        $essential_criteria = $jobPoster->criteria->filter(function ($value, $key) {
+            return $value->criteria_type->name == 'essential'
+                && $value->skill->skill_type->name == 'hard';
+        });
+        $asset_criteria = $jobPoster->criteria->filter(function ($value, $key) {
+            return $value->criteria_type->name == 'asset'
+                && $value->skill->skill_type->name == 'hard';
+        });
+
         $skillDeclarations = $application->isDraft()
             ? $applicant->skill_declarations
             : $application->skill_declarations;
@@ -267,9 +343,20 @@ class ApplicationByJobController extends Controller
         $work_experiences = $application->isDraft()
             ? $applicant->work_experiences
             : $application->work_experiences;
+        $work_samples = $application->isDraft()
+            ? $applicant->work_samples
+            : $application->work_samples;
+
+        $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
+            ? 'applicant/strategic_response_application/application_post_05'
+            : 'applicant/application_post_05';
+        $jobTitle = $jobPoster->isInStrategicResponseDepartment()
+            ? "{$jobPoster->talent_stream_category->name} - {$jobPoster->job_skill_level->name}"
+            : $jobPoster->title;
+        $headerTitle = Lang::get('applicant/application_template')['title'] . ": {$jobTitle}";
 
         return view(
-            'applicant/application_post_05',
+            $viewTemplate,
             [
                 // Application Template Data.
                 'application_step' => 5,
@@ -277,12 +364,17 @@ class ApplicationByJobController extends Controller
                 'preferred_language_template' => Lang::get('common/preferred_language'),
                 'citizenship_declaration_template' => Lang::get('common/citizenship_declaration'),
                 'veteran_status_template' => Lang::get('common/veteran_status'),
+                'header' => [
+                    'title' => $headerTitle,
+                ],
+                'custom_breadcrumbs' => $this->customBreadcrumbs($jobPoster, 5),
                 // Job Data.
                 'job' => $jobPoster,
                 // Skills Data.
                 'skills' => Skill::all(),
                 'skill_template' => Lang::get('common/skills'),
-                'criteria' => $criteria,
+                'essential_criteria' => $essential_criteria,
+                'asset_criteria' => $asset_criteria,
                 // Applicant Data.
                 'applicant' => $applicant,
                 'job_application' => $application,
@@ -290,6 +382,7 @@ class ApplicationByJobController extends Controller
                 'degrees' => $degrees,
                 'courses' => $courses,
                 'work_experiences' => $work_experiences,
+                'work_samples' => $work_samples,
                 'is_manager_view' => WhichPortal::isManagerPortal(),
                 'is_draft' => $application->application_status->name == 'draft',
             ]
@@ -309,12 +402,24 @@ class ApplicationByJobController extends Controller
 
         $this->authorize('update', $application);
 
+        $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
+            ? 'applicant/strategic_response_application/application_post_06'
+            : 'applicant/application_post_06';
+        $jobTitle = $jobPoster->isInStrategicResponseDepartment()
+            ? "{$jobPoster->talent_stream_category->name} - {$jobPoster->job_skill_level->name}"
+            : $jobPoster->title;
+        $headerTitle = Lang::get('applicant/application_template')['title'] . ": {$jobTitle}";
+
         return view(
-            'applicant/application_post_06',
+            $viewTemplate,
             [
                 // Application Template Data.
                 'application_step' => 6,
                 'application_template' => Lang::get('applicant/application_template'),
+                'header' => [
+                    'title' => $headerTitle,
+                ],
+                'custom_breadcrumbs' => $this->customBreadcrumbs($jobPoster, 6),
                 // Used by tracker partial.
                 'job' => $jobPoster,
                 'job_application' => $application,
@@ -340,12 +445,23 @@ class ApplicationByJobController extends Controller
         // Ensure user has permissions to view application.
         $this->authorize('view', $application);
 
-        // Return the Completion View.
+        $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
+            ? 'applicant/strategic_response_application/application_post_complete'
+            : 'applicant/application_post_complete';
+
+        $jobTitle = $jobPoster->isInStrategicResponseDepartment()
+            ? "{$jobPoster->talent_stream_category->name} - {$jobPoster->job_skill_level->name}"
+            : $jobPoster->title;
+        $headerTitle = Lang::get('applicant/application_template')['title'] . ": {$jobTitle}";
+
         return view(
-            'applicant/application_post_complete',
+            $viewTemplate,
             [
                 // Application Template Data.
                 'application_template' => Lang::get('applicant/application_template'),
+                'header' => [
+                    'title' => $headerTitle,
+                ],
                 // Job Data.
                 'job' => $jobPoster,
                 // Applicant Data.
@@ -374,7 +490,18 @@ class ApplicationByJobController extends Controller
             'citizenship_declaration_id' => $request->input('citizenship_declaration_id'),
             'veteran_status_id' => $request->input('veteran_status_id'),
             'preferred_language_id' => $request->input('preferred_language_id'),
-            'language_requirement_confirmed' => $request->input('language_requirement_confirmed')
+            'language_requirement_confirmed' => $request->input('language_requirement_confirmed', false),
+
+            // The following fields are exclusive Strategic Talent Response applications.
+            'director_name' => $request->input('director_name'),
+            'director_title' => $request->input('director_title'),
+            'director_email' => $request->input('director_email'),
+            'reference_name' => $request->input('reference_name'),
+            'reference_title' => $request->input('reference_title'),
+            'reference_email' => $request->input('reference_email'),
+            'gov_email' => $request->input('gov_email'),
+            'physical_office_willing' => $request->input('physical_office_willing', false),
+            'security_clearance_id' => $request->input('security_clearance_id'),
         ]);
         $application->save();
 
@@ -386,7 +513,7 @@ class ApplicationByJobController extends Controller
                 $answer = $questionsInput[$question->id];
             }
             $answerObj = $application->job_application_answers
-            ->firstWhere('job_poster_question_id', $question->id);
+                ->firstWhere('job_poster_question_id', $question->id);
             if ($answerObj == null) {
                 $answerObj = new JobApplicationAnswer();
                 $answerObj->job_poster_question_id = $question->id;
@@ -399,12 +526,13 @@ class ApplicationByJobController extends Controller
         // Redirect to correct page.
         switch ($request->input('submit')) {
             case 'save_and_quit':
-            case 'previous':
+            case 'save_and_return':
                 return redirect()->route('applications.index');
                 break;
             case 'save_and_continue':
             case 'next':
-                return redirect()->route('job.application.edit.2', $jobPoster);
+                $next_step = $jobPoster->isInStrategicResponseDepartment() ? 3 : 2;
+                return redirect()->route("job.application.edit.${next_step}", $jobPoster);
                 break;
             default:
                 return redirect()->back()->withInput();
@@ -580,7 +708,7 @@ class ApplicationByJobController extends Controller
             case 'next':
                 return redirect()->route('job.application.edit.3', $jobPoster);
                 break;
-            case 'previous':
+            case 'save_and_return':
                 return redirect()->route('job.application.edit.1', $jobPoster);
                 break;
             default:
@@ -663,7 +791,7 @@ class ApplicationByJobController extends Controller
             case 'next':
                 return redirect()->route('job.application.edit.4', $jobPoster);
                 break;
-            case 'previous':
+            case 'save_and_return':
                 return redirect()->route('job.application.edit.2', $jobPoster);
                 break;
             default:
@@ -746,7 +874,7 @@ class ApplicationByJobController extends Controller
             case 'next':
                 return redirect()->route('job.application.edit.5', $jobPoster);
                 break;
-            case 'previous':
+            case 'save_and_return':
                 return redirect()->route('job.application.edit.3', $jobPoster);
                 break;
             default:
@@ -789,7 +917,17 @@ class ApplicationByJobController extends Controller
             ]);
 
             // Error out of this process now if application is not complete.
-            $validator = new ApplicationValidator();
+            $validator = $jobPoster->isInStrategicResponseDepartment()
+                ? new StrategicResponseApplicationValidator()
+                : new ApplicationValidator();
+
+            $validatorInstance = $validator->validator($application);
+            if (!$validatorInstance->passes()) {
+                $userId = $application->applicant->user_id;
+                $msg = "Application $application->id for user $userId is invalid for submission: " .
+                    implode('; ', $validator->detailedValidatorErrors($application));
+                Log::info($msg);
+            }
             $validator->validate($application);
 
             // Change status to 'submitted'.
@@ -807,11 +945,29 @@ class ApplicationByJobController extends Controller
             case 'submit':
                 return redirect()->route('job.application.complete', $jobPoster);
                 break;
-            case 'previous':
+            case 'save_and_return':
                 return redirect()->route('job.application.edit.4', $jobPoster);
                 break;
             default:
                 return redirect()->back()->withInput();
         }
+    }
+
+    /**
+     * Custom breadcrumbs for application process.
+     *
+     * @param  \App\Models\JobPoster $jobPoster        Incoming Job Poster object.
+     * @param  string                $application_step Current step in application.
+     * @return array
+    */
+    public function customBreadcrumbs(JobPoster $jobPoster, string $application_step)
+    {
+        $step_lang = Lang::get('applicant/application_template.tracker_label');
+        return [
+            'home' => route('home'),
+            'jobs' => route('jobs.index'),
+            $jobPoster->title => route('jobs.summary', $jobPoster),
+            $step_lang . ' ' . $application_step => ''
+        ];
     }
 }

@@ -15,14 +15,8 @@ const Icon: React.FunctionComponent<IconProps> = ({
     <>
       {sematicIcon ? (
         <>
-          <i
-            aria-hidden="true"
-            className={icon}
-            title={accessibleText}
-          />
-          <span data-c-visibility="invisible">
-            {accessibleText}
-          </span>
+          <i aria-hidden="true" className={icon} title={accessibleText} />
+          <span data-c-visibility="invisible">{accessibleText}</span>
         </>
       ) : (
         <i className={icon} />

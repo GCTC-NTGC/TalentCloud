@@ -1,24 +1,17 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { text, select, array } from "@storybook/addon-knobs";
+import { text, array } from "@storybook/addon-knobs";
 import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
 import UnclaimedJobCard from "../components/UnclaimedJobCard";
-import { JobStatus } from "../models/lookupConstants";
-import { unclaimedJobs } from "../components/HRPortal/fixtures";
+import {
+  unclaimedJobs,
+  jobPosterStatuses,
+} from "../components/HRPortal/fixtures";
 
 const stories = storiesOf("Components|Unclaimed Job Card", module).addDecorator(
   withIntl,
 );
-
-const statusOptions = {
-  Approved: JobStatus.Approved,
-  Closed: JobStatus.Closed,
-  Complete: JobStatus.Complete,
-  Draft: JobStatus.Draft,
-  Open: JobStatus.Open,
-  Review: JobStatus.Review,
-};
 
 stories
   .add(
@@ -32,8 +25,8 @@ stories
             title: "",
             text: text("Title", "CS01 - Front-end Developer", "Props"),
           }}
-          createdAt={text("Created At", "Created: 2019-MAY-02", "Props")}
-          status={select("Status", statusOptions, JobStatus.Draft, "Props")}
+          reviewRequested={new Date()}
+          status={jobPosterStatuses.Live}
           hiringManager={text("Hiring Manager", "Rebecca Appleby")}
           hrAdvisors={[]}
           handleClaimJob={action("Claim Job")}
@@ -52,8 +45,8 @@ stories
             title: "",
             text: text("Title", "AS02 - Executive Assisstant", "Props"),
           }}
-          createdAt={text("Created At", "Created: 2019-MAY-02", "Props")}
-          status={select("Status", statusOptions, JobStatus.Draft, "Props")}
+          reviewRequested={new Date()}
+          status={jobPosterStatuses.Live}
           hiringManager={text("Hiring Managers", "Rebecca Appleby")}
           hrAdvisors={array(
             "HR Managers",
@@ -75,7 +68,7 @@ stories
             ({
               id,
               jobLink,
-              createdAt,
+              reviewRequested,
               status,
               hiringManager,
               hrAdvisors,
@@ -85,7 +78,7 @@ stories
                   id={id}
                   key={jobLink.text}
                   jobLink={jobLink}
-                  createdAt={createdAt}
+                  reviewRequested={reviewRequested}
                   status={status}
                   hiringManager={hiringManager}
                   hrAdvisors={hrAdvisors}

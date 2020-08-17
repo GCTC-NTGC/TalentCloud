@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import {
   injectIntl,
   WrappedComponentProps,
@@ -13,6 +13,8 @@ import {
   Skill,
   Department,
   Manager,
+  User,
+  Comment,
 } from "../../../models/types";
 import {
   jobBuilderDetails,
@@ -21,6 +23,7 @@ import {
   jobBuilderSkills,
   managerEditProfile,
   jobBuilderEnv,
+  imageUrl,
 } from "../../../helpers/routes";
 import {
   find,
@@ -35,13 +38,15 @@ import {
   languageRequirement,
   languageRequirementDescription,
   languageRequirementContext,
+  jobReviewLocations,
 } from "../../../models/localizedConstants";
 import {
   CriteriaTypeId,
   LanguageRequirementId,
+  LocationId,
 } from "../../../models/lookupConstants";
 import Criterion from "../Criterion";
-import JobWorkEnv from "../WorkEnv/JobWorkEnv";
+import JobWorkEnv from "../WorkEnv/WorkEnvFeatures";
 import JobWorkCulture from "../JobWorkCulture";
 import Modal from "../../Modal";
 import { textToParagraphs } from "../../../helpers/textToParagraphs";
@@ -49,7 +54,7 @@ import { useUrlHash, Link } from "../../../helpers/router";
 import { classificationString } from "../../../models/jobUtil";
 import DemoSubmitJobModal from "./DemoSubmitJobModal";
 import ManagerSurveyModal from "./ManagerSurveyModal";
-import JobReviewActivityFeed from "./JobReviewActivityFeed";
+import ActivityFeed from "../../ActivityFeed";
 import { localizeFieldNonNull, localizeField } from "../../../helpers/localize";
 
 interface JobReviewSectionProps {
@@ -251,8 +256,8 @@ const sectionTitle = (title: string): React.ReactElement => {
 const languageRequirementIcons = (
   languageRequirementId: number,
 ): React.ReactElement => {
-  const enIcon = <img src="/images/icon_english_requirement.svg" alt="" />;
-  const frIcon = <img src="/images/icon_french_requirement.svg" alt="" />;
+  const enIcon = <img src={imageUrl("icon_english_requirement.svg")} alt="" />;
+  const frIcon = <img src={imageUrl("icon_french_requirement.svg")} alt="" />;
   switch (languageRequirementId) {
     case LanguageRequirementId.bilingualIntermediate:
     case LanguageRequirementId.bilingualAdvanced:
@@ -301,13 +306,14 @@ const renderManagerSection = (
       </p>
     );
   }
-  const aboutMe = localizeField(locale, manager, "about_me");
+  const leadershipStyle = localizeField(locale, manager, "leadership_style");
   const position = localizeField(locale, manager, "position");
-  if (aboutMe !== null && position !== null) {
+
+  if (leadershipStyle !== null && position !== null) {
     return (
       <>
         <p data-c-margin="bottom(normal)">{manager.full_name}</p>
-        <p data-c-margin={`${aboutMe && "{bottom(normal)"}`}>
+        <p data-c-margin={`${leadershipStyle && "{bottom(normal)"}`}>
           <FormattedMessage
             id="jobBuilder.review.managerPosition"
             defaultMessage="{position} at {department}"
@@ -318,7 +324,7 @@ const renderManagerSection = (
             }}
           />
         </p>
-        {aboutMe && <p>{aboutMe}</p>}
+        {leadershipStyle && <p>{leadershipStyle}</p>}
       </>
     );
   }
@@ -342,6 +348,7 @@ interface JobReviewDisplayProps {
   skills: Skill[];
   // List of all possible departments.
   departments: Department[];
+  user: User | null;
   hideBuilderLinks: boolean;
 }
 export const JobReviewDisplay: React.FC<JobReviewDisplayProps> = ({
@@ -351,6 +358,7 @@ export const JobReviewDisplay: React.FC<JobReviewDisplayProps> = ({
   criteria,
   skills,
   departments,
+  user,
   hideBuilderLinks = false,
 }): React.ReactElement => {
   // Scroll to element specified in the url hash, if possible
@@ -369,7 +377,7 @@ export const JobReviewDisplay: React.FC<JobReviewDisplayProps> = ({
       : "MISSING DEPARTMENT";
   };
   const departmentName = getDeptName(job.department_id);
-  const managerDeptName = manager ? getDeptName(manager.department_id) : "";
+  const userDeptName = user ? getDeptName(user.department_id) : "";
 
   // Map the skills into a dictionary for quicker access
   const skillsById = mapToObject(skills, getId);
@@ -683,7 +691,7 @@ export const JobReviewDisplay: React.FC<JobReviewDisplayProps> = ({
         link={managerEditProfile(locale)}
         hideLink={hideBuilderLinks}
       >
-        {renderManagerSection(manager, managerDeptName, locale)}
+        {renderManagerSection(manager, userDeptName, locale)}
       </JobReviewSection>
       <JobReviewSection
         title={intl.formatMessage(messages.workCultureHeading)}
@@ -737,6 +745,7 @@ interface JobReviewProps {
   skills: Skill[];
   // List of all possible departments.
   departments: Department[];
+  user: User | null;
   validForSubmission?: boolean;
   handleSubmit: (job: Job) => Promise<void>;
   handleContinue: () => void;
@@ -751,6 +760,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
   criteria,
   skills,
   departments,
+  user,
   validForSubmission = false,
   handleSubmit,
   handleReturn,
@@ -765,6 +775,11 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
   const modalId = "job-review-modal";
   const modalParentRef = useRef<HTMLDivElement>(null);
 
+  const filterComments = useCallback(
+    (comment: Comment): boolean => hasKey(jobReviewLocations, comment.location),
+    [],
+  );
+
   return (
     <>
       <div
@@ -775,7 +790,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
         <h3
           data-c-font-size="h3"
           data-c-font-weight="bold"
-          data-c-margin="bottom(double)"
+          data-c-margin="bottom(normal)"
         >
           <FormattedMessage
             id="jobBuilder.review.reviewYourPoster"
@@ -784,7 +799,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
           />{" "}
           <span data-c-colour="c2">{localizeField(locale, job, "title")}</span>
         </h3>
-        <p>
+        <p data-c-margin="bottom(double)">
           <FormattedMessage
             id="jobBuilder.review.headsUp"
             defaultMessage="Just a heads up! We've rearranged some of your information to help you
@@ -792,7 +807,13 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
             description="Description under primary title of review section"
           />
         </p>
-        <JobReviewActivityFeed jobId={job.id} isHrAdvisor={false} />
+        <ActivityFeed
+          jobId={job.id}
+          isHrAdvisor={false}
+          generalLocation={LocationId.jobGeneric}
+          locationMessages={jobReviewLocations}
+          filterComments={filterComments}
+        />
         <JobReviewDisplay
           job={job}
           manager={manager}
@@ -800,6 +821,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
           criteria={criteria}
           skills={skills}
           departments={departments}
+          user={user}
           hideBuilderLinks={false}
         />
         <div data-c-grid="gutter">
@@ -895,7 +917,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
             <div data-c-padding="normal">
               <p data-c-margin="bottom(normal)">
                 <FormattedMessage
-                  id="jobBuilder.review.readyTosubmit"
+                  id="jobBuilder.review.readyToSubmit"
                   defaultMessage="If you're ready to submit your poster, click the Submit button below."
                   description="Instructions on how to submit"
                 />

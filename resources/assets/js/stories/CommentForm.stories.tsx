@@ -2,7 +2,28 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { text } from "@storybook/addon-knobs";
 import { withIntl } from "storybook-addon-intl";
-import CommentForm from "../components/CommentForm";
+import { CommentForm } from "../components/CommentForm";
+import { Comment } from "../models/types";
+
+const locationOptions = [
+  {
+    value: "job/generic",
+    label: "General",
+  },
+  {
+    value: "job/tasks",
+    label: "Tasks",
+  },
+  {
+    value: "job/skills",
+    label: "Skills",
+  },
+];
+
+const handleCreateComment = (
+  jobId: number,
+  newComment: Comment,
+): Promise<Comment> => Promise.resolve(newComment);
 
 const stories = storiesOf("Components|Comment Form", module).addDecorator(
   withIntl,
@@ -15,8 +36,10 @@ stories
       <section data-c-padding="all(3)">
         <CommentForm
           jobId={1}
-          location={text("Location", "Job Poster Builder > Step 3: Tasks")}
+          location={text("Location", "job/generic")}
           isHrAdvisor={false}
+          locationOptions={locationOptions}
+          handleCreateComment={handleCreateComment}
         />
       </section>
     ),
@@ -27,8 +50,10 @@ stories
       <section data-c-padding="all(3)">
         <CommentForm
           jobId={1}
-          location={text("Location", "Job Poster Builder > Step 2: Details")}
+          location={text("Location", "job/generic")}
           isHrAdvisor
+          locationOptions={locationOptions}
+          handleCreateComment={handleCreateComment}
         />
       </section>
     ),

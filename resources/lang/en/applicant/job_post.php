@@ -12,6 +12,7 @@ return [
     'title' => 'Browse Jobs',
     'job_post_title' => 'Talent Cloud | Applicant: Job Poster - :title (Reference number: :id)',
     'header' => [
+        'empty_title' => 'Title Missing',
         'time_remaining' => ':time until close',
         'job_closed' => 'Job has closed',
         'days_remaining' => ':count day until close|:count days until close',
@@ -25,6 +26,7 @@ return [
             false => 'Remote Work Not Allowed',
         ],
         'sidebar_label' => 'About this job:',
+        "pilot" => "BETA / Pilot Project"
     ],
     'basics' => [
         'sidebar_title' => 'View this job\'s basic information.',
@@ -152,5 +154,13 @@ return [
         'view_link_title'  => 'View your application.',
         'view_link_label'  => 'View Application',
     ],
-    'no_info' => 'No information provided.'
+    'no_info' => 'No information provided.',
+
+    'strategic_response' => [
+        'various_departments' => 'GC - Various Departments',
+        'various' => 'Various',
+        'current_employee_alert' => 'You must be a current employee of the Government of Canada, with a valid security clearance.',
+        'management_approval_alert' => 'Your home department\'s management team will need to approve your temporary placement with another department or team.',
+        'heads_up' => 'Just a heads up!'
+    ]
 ];

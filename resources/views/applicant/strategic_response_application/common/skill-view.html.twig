@@ -1,0 +1,111 @@
+{# =============================================================================
+
+    Talent Cloud
+    Skill
+
+============================================================================= #}
+{% if prefix %}
+    {% set name_prefix = prefix ~ "[skill_declarations][:template][:skill_type][:id]"|replace({":skill_type": skillType ? skillType:"all_types"}) %}
+    {% set id_prefix = name_prefix %}
+{% else %}
+    {% set name_prefix = "skill_declarations[:template][:skill_type][:id]"|replace({":skill_type": skillType ? skillType:"all_types"}) %}
+    {% set id_prefix = name_prefix %}
+{% endif %}
+
+{# on non-application, if skill_declaration isn't set this is a template #}
+{% if skill_declaration %}
+    {% set name_prefix = name_prefix|replace({":template":"old", ":id":skill_declaration.id}) %}
+    {% set id_prefix = id_prefix|replace({":template":"old", ":id":skill_declaration.id}) %}
+{% endif %}
+
+<div
+    class="profile-element accordion skill ajax-form
+        {% if skill_declaration %}complete{% endif %}
+        modal-target-object"
+
+    data-item-saved="{{ skill_declaration ? "true" : "" }}"
+    data-item-url="{{ route("skill_declarations.destroy", ":id") }}"
+    data-item-id="{{ skill_declaration ? skill_declaration.id : 0 }}"
+    >
+
+    {# Accordion Trigger #}
+
+        <button
+            {% if skill_declaration == false %}
+                aria-expanded="true"
+            {% else %}
+                aria-expanded="false"
+            {% endif %}
+            class="accordion-trigger"
+            tabindex="0"
+            type="button">
+
+            <span
+                class="accordion-status">
+
+                <i class="fas fa-check"></i>
+
+                <i class="fas fa-exclamation-circle"></i>
+
+            </span>
+
+            <span
+                class="accordion-title">
+                    {{ criterion.skill.name }}
+            </span>
+
+            <span class="invisible">{{ skill_template.accordion_sr_helper }}</span>
+
+            <i class="fas fa-chevron-up"></i>
+
+        </button>
+
+    {# Accordion Content #}
+
+        <div
+            {% if skill_declaration == false %}
+                aria-hidden="false"
+            {% else %}
+                aria-hidden="true"
+            {% endif %}
+            class="accordion-content">
+
+                    <div
+                        class="profile-element__preview flex-grid">
+
+                        <div
+                            class="box full">
+
+                            <p>
+                                {% if criterion.description == false %}
+                                    {{ criterion.skill.description|nl2br }}
+                                {% else %}
+                                    {{ criterion.description|nl2br }}
+                                {% endif %}
+                            </p>
+
+                        </div>
+
+                        <div
+                            class="box full">
+
+                            <span>
+                                {{ application_template.strategic_response.skill_prompt }}
+                            </span>
+
+                            <p>
+                                {% if skill_declaration == false %}
+                                    {{ skill_template.skill_description_null }}
+                                {% else %}
+                                    {{ skill_declaration.description|nl2br }}
+                                {% endif %}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+        </div>
+
+</div>
+

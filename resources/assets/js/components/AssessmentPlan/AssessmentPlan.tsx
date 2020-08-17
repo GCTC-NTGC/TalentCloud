@@ -1,30 +1,42 @@
-import React from "react";
+import React, { useCallback } from "react";
 import {
   injectIntl,
   WrappedComponentProps,
   FormattedMessage,
 } from "react-intl";
-import { Job, AssessmentPlanNotification } from "../../models/types";
+import { Job, AssessmentPlanNotification, Comment } from "../../models/types";
 import AssessmentPlanTable from "./AssessmentPlanTable";
 import RatingGuideBuilder from "./RatingGuideBuilder";
 import AssessmentPlanAlert from "./AssessmentPlanAlert";
 import AssessmentPlanBuilder from "./AssessmentPlanBuilder";
+import ActivityFeed from "../ActivityFeed";
+import { screeningPlanLocations } from "../../models/localizedConstants";
+import { LocationId } from "../../models/lookupConstants";
+import { Portal } from "../../models/app";
+import { hasKey } from "../../helpers/queries";
 
 interface AssessmentPlanProps {
   job: Job | null;
   notifications: AssessmentPlanNotification[];
+  portal: Portal;
 }
 
 const AssessmentPlan: React.FunctionComponent<AssessmentPlanProps &
   WrappedComponentProps> = ({
   job,
   notifications,
+  portal,
   intl,
 }): React.ReactElement => {
   const jobTitle = (
     <span data-c-colour="c5" data-c-font-size="h3">
       {job && ` ${job.title[intl.locale]}`}
     </span>
+  );
+  const filterComments = useCallback(
+    (comment: Comment): boolean =>
+      hasKey(screeningPlanLocations, comment.location),
+    [],
   );
   return (
     <section data-clone>
@@ -96,7 +108,7 @@ const AssessmentPlan: React.FunctionComponent<AssessmentPlanProps &
             />
           </li>
         </ol>
-        <p>
+        <p data-c-margin="bottom(normal)">
           <FormattedMessage
             id="assessmentPlan.instructions.narrativeNote"
             defaultMessage="Please note that all assessment plans will include a review of the narrative evidence provided by the applicant."
@@ -106,6 +118,13 @@ const AssessmentPlan: React.FunctionComponent<AssessmentPlanProps &
         <AssessmentPlanAlert notifications={notifications} />
         {job !== null && (
           <>
+            <ActivityFeed
+              jobId={job.id}
+              isHrAdvisor={portal === "hr"}
+              locationMessages={screeningPlanLocations}
+              generalLocation={LocationId.screeningPlan}
+              filterComments={filterComments}
+            />
             <AssessmentPlanBuilder jobId={job.id} />
             <AssessmentPlanTable jobId={job.id} />
             <RatingGuideBuilder jobId={job.id} />
