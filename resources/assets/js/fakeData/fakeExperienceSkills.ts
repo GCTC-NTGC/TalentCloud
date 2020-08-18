@@ -1,6 +1,6 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
 import dayjs from "dayjs";
-import { ExperienceSkill } from "../models/types";
+import { ExperienceSkill, Skill, Experience } from "../models/types";
 import {
   fakeExperienceAward,
   fakeExperienceCommunity,
@@ -55,7 +55,19 @@ export const fakeExperienceSkill5 = (): ExperienceSkill => ({
   updated_at: dayjs("01/07/2016").toDate(),
 });
 
-const fakeExperienceSkills = (): ExperienceSkill[] => [
+export const createFakeExperienceSkill = (
+  experience: Experience,
+  skill: Skill,
+): ExperienceSkill => ({
+  skill_id: skill.id,
+  experience_id: experience.id,
+  experience_type: experience.type,
+  justification: "",
+  created_at: dayjs().toDate(),
+  updated_at: dayjs().toDate(),
+});
+
+export const fakeExperienceSkills = (): ExperienceSkill[] => [
   fakeExperienceSkill1(),
   fakeExperienceSkill2(),
   fakeExperienceSkill3(),

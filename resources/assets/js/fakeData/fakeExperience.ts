@@ -19,7 +19,7 @@ export const fakeExperienceWork = (): ExperienceWork => ({
   end_date: dayjs("12/13/2019").toDate(),
   experienceable_id: 1,
   experienceable_type: "applicant",
-  is_education_requirement: false,
+  is_education_requirement: true,
   type: "experience_work",
 });
 
