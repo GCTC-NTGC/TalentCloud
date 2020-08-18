@@ -3,11 +3,11 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
-import { BasicInfo } from "../../components/ApplicantTimeline/BasicInfo/BasicInfo";
+import { BasicInfo } from "../../components/Application/BasicInfo/BasicInfo";
 import fakeJob from "../../fakeData/fakeJob";
 import { Job } from "../../models/types";
 
-const stories = storiesOf("Applicant Timeline|Basic Info", module).addDecorator(
+const stories = storiesOf("Application|Basic Info", module).addDecorator(
   withIntl,
 );
 
