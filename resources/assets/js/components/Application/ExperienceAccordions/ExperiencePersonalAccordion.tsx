@@ -78,8 +78,8 @@ const experiencePersonalDetails = ({
             id="experiencePersonalAccordion.titleLabel"
             defaultMessage="Title of Experience:"
           />
-          {title ? <p>{title}</p> : notApplicable}
         </p>
+        {title ? <p>{title}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of1)">
         <p data-c-font-weight="bold">
@@ -173,7 +173,7 @@ export const ExperiencePersonalAccordion: React.FC<ExperiencePersonalAccordionPr
   return (
     <BaseExperienceAccordion
       title={accordionTitle}
-      iconClass="fa-trophy"
+      iconClass="fa-mountain"
       relevantSkills={relevantSkills}
       irrelevantSkillCount={irrelevantSkillCount}
       isEducationJustification={isEducationJustification}
