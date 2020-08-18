@@ -81,8 +81,6 @@ const getDisconnectedRequiredSkills = (
         essentialSkills,
       ).filter((skill) => !skills.includes(skill));
 
-      console.log(requiredSkills);
-
       return [...skills, ...requiredSkills];
     },
     [],
