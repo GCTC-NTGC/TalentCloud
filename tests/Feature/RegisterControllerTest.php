@@ -38,6 +38,8 @@ class RegisterControllerTest extends TestCase
             'first_name' => $user->first_name,
             'last_name' => $user->last_name,
             'email' => $user->email,
+            'contact_language' => 'en',
+            'job_alerts' => true,
             'password' => 'Test123!',
             'password_confirmation' => 'Test123!'
         ];
@@ -59,6 +61,8 @@ class RegisterControllerTest extends TestCase
             'first_name' => $user->first_name,
             'last_name' => $user->last_name,
             'email' => $user->email,
+            'contact_language' => 'en',
+            'job_alerts' => true,
             'password' => 'Test123!',
             'password_confirmation' => 'Test123!'
         ];
@@ -89,6 +93,8 @@ class RegisterControllerTest extends TestCase
             'first_name' => $user->first_name,
             'last_name' => $user->last_name,
             'email' => $user->email,
+            'contact_language' => 'en',
+            'job_alerts' => true,
             'password' => 'Test123!',
             'password_confirmation' => 'Test123!'
         ];
@@ -117,6 +123,8 @@ class RegisterControllerTest extends TestCase
             'website' => 'Random bot nonsense',
             'first_name' => $user->first_name,
             'last_name' => $user->last_name,
+            'contact_language' => 'en',
+            'job_alerts' => true,
             'email' => $user->email,
             'password' => 'Test123!',
             'password_confirmation' => 'Test123!'

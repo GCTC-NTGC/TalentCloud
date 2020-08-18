@@ -9,7 +9,9 @@ import {
   Experience,
 } from "../models/types";
 
-export const fakeExperienceWork = (): ExperienceWork => ({
+export const fakeExperienceWork = (
+  overrides: Partial<ExperienceWork> = {},
+): ExperienceWork => ({
   id: 1,
   title: "Applied Researched",
   organization: "ACME Labs.",
@@ -21,9 +23,12 @@ export const fakeExperienceWork = (): ExperienceWork => ({
   experienceable_type: "applicant",
   is_education_requirement: true,
   type: "experience_work",
+  ...overrides,
 });
 
-export const fakeExperienceEducation = (): ExperienceEducation => ({
+export const fakeExperienceEducation = (
+  overrides: Partial<ExperienceEducation> = {},
+): ExperienceEducation => ({
   id: 1,
   education_type_id: 1,
   area_of_study: "Engineering",
@@ -38,9 +43,12 @@ export const fakeExperienceEducation = (): ExperienceEducation => ({
   experienceable_type: "applicant",
   is_education_requirement: false,
   type: "experience_education",
+  ...overrides,
 });
 
-export const fakeExperienceCommunity = (): ExperienceCommunity => ({
+export const fakeExperienceCommunity = (
+  overrides: Partial<ExperienceCommunity> = {},
+): ExperienceCommunity => ({
   id: 1,
   title: "Volunteer",
   group: "SPCA Ottawa",
@@ -52,9 +60,12 @@ export const fakeExperienceCommunity = (): ExperienceCommunity => ({
   experienceable_type: "applicant",
   is_education_requirement: false,
   type: "experience_community",
+  ...overrides,
 });
 
-export const fakeExperienceAward = (): ExperienceAward => ({
+export const fakeExperienceAward = (
+  overrides: Partial<ExperienceAward> = {},
+): ExperienceAward => ({
   id: 1,
   title: "Governor General's Award (Gold)",
   award_recipient_type_id: 1,
@@ -65,9 +76,12 @@ export const fakeExperienceAward = (): ExperienceAward => ({
   experienceable_type: "applicant",
   is_education_requirement: false,
   type: "experience_award",
+  ...overrides,
 });
 
-export const fakeExperiencePersonal = (): ExperiencePersonal => ({
+export const fakeExperiencePersonal = (
+  overrides: Partial<ExperiencePersonal> = {},
+): ExperiencePersonal => ({
   id: 1,
   title: "Parenting",
   description:
@@ -80,6 +94,7 @@ export const fakeExperiencePersonal = (): ExperiencePersonal => ({
   experienceable_type: "applicant",
   is_education_requirement: false,
   type: "experience_personal",
+  ...overrides,
 });
 
 const fakeExperiences = (): Experience[] => [

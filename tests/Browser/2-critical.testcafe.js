@@ -6,7 +6,17 @@ import {
   assertIsLoggedIn,
   hrUser,
 } from "./helpers/roles";
-import { HOMEPAGE, PROFILE_EXPERIENCE, PROFILE_REFERENCES, PROFILE_PORTFOLIO, PROFILE_SKILLS, MANAGER_REGISTER, HR_REGISTER, MANAGER_FIRST_VISIT, HR_FIRST_VISIT } from "./helpers/constants";
+import {
+  HOMEPAGE,
+  PROFILE_EXPERIENCE,
+  PROFILE_REFERENCES,
+  PROFILE_PORTFOLIO,
+  PROFILE_SKILLS,
+  MANAGER_REGISTER,
+  HR_REGISTER,
+  MANAGER_FIRST_VISIT,
+  HR_FIRST_VISIT,
+} from "./helpers/constants";
 
 fixture(`Critical - Applicant Profile`).page(HOMEPAGE).meta("travis", "run");
 
@@ -258,6 +268,9 @@ test("Registration - Applicant", async (t) => {
     .typeText(Selector("#first_name"), "Test")
     .typeText(Selector("#last_name"), "Cafe")
     .typeText(Selector("#email"), randomEmail())
+    .click(Selector("#contact_language"))
+    .click(Selector("#contact_language").find("option").withText("English"))
+    .click(Selector("#job_alerts"))
     .typeText(Selector("#password"), "Password123!@#")
     .typeText(Selector("#password-confirm"), "Password123!@#")
     .click(Selector("button").withText("Register"));
@@ -271,6 +284,9 @@ test("Registration - Manager", async (t) => {
     .typeText(Selector("#first_name"), "Test")
     .typeText(Selector("#last_name"), "Cafe")
     .typeText(Selector("#email"), randomEmail())
+    .click(Selector("#contact_language"))
+    .click(Selector("#contact_language").find("option").withText("English"))
+    .click(Selector("#job_alerts"))
     .click(Selector("#department"))
     .click(
       Selector("#department")
@@ -293,6 +309,9 @@ test("Registration - HR Advisor", async (t) => {
     .typeText(Selector("#first_name"), "Test")
     .typeText(Selector("#last_name"), "Cafe")
     .typeText(Selector("#email"), randomEmail())
+    .click(Selector("#contact_language"))
+    .click(Selector("#contact_language").find("option").withText("English"))
+    .click(Selector("#job_alerts"))
     .click(Selector("#department"))
     .click(
       Selector("#department")
@@ -320,6 +339,9 @@ test("First Visit - Manager", async (t) => {
     .typeText(Selector("#first_name"), "Test")
     .typeText(Selector("#last_name"), "Cafe")
     .typeText(Selector("#email"), randomEmail())
+    .click(Selector("#contact_language"))
+    .click(Selector("#contact_language").find("option").withText("English"))
+    .click(Selector("#job_alerts"))
     .typeText(Selector("#password"), "Password123!@#")
     .typeText(Selector("#password-confirm"), "Password123!@#")
     .click(Selector("button").withText("Register"));
