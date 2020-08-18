@@ -14,7 +14,7 @@ interface ExperienceCommunityAccordionProps {
   group: string;
   project: string;
   startDate: Date;
-  endDate: Date;
+  endDate: Date | null;
   isActive: boolean;
   relevantSkills: ExperienceSkill[];
   irrelevantSkillCount: number;
@@ -41,7 +41,7 @@ const experienceCommunityDetails = ({
   group: string;
   project: string;
   startDate: Date;
-  endDate: Date;
+  endDate: Date | null;
   isActive: boolean;
 }): React.ReactElement => {
   const notApplicable = (
