@@ -66,7 +66,7 @@ const Question: React.FunctionComponent<QuestionProps> = ({
         intl.formatMessage(validationMessages.overMaxWords, {
           numberOfWords: ANSWER_WORD_LIMIT,
         }),
-        (value) => countNumberOfWords(value) <= ANSWER_WORD_LIMIT,
+        (value: string) => countNumberOfWords(value) <= ANSWER_WORD_LIMIT,
       )
       .required(intl.formatMessage(validationMessages.required)),
   });
