@@ -73,7 +73,7 @@
         "fetch-mock": "^9.10.7",
         "jest": "^25.5.4",
         "jest-junit": "^11.1.0",
-        "laravel-mix": "^5.0.4",
+        "laravel-mix": "^5.0.5",
         "node-sass": "^4.14.1",
         "prettier": "^2.0.5",
         "react-docgen-typescript-loader": "^3.7.2",
