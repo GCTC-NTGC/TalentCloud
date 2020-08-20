@@ -10,7 +10,7 @@ const stories = storiesOf("Application|Final Submit", module).addDecorator(
 );
 
 stories.add(
-  "Intro Page",
+  "Final Submit",
   (): React.ReactElement => (
     <FinalSubmit
       application={fakeApplication()}
