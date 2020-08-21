@@ -14,11 +14,9 @@
 
     {# Privacy Policy #}
     <div data-clone>
-        <div
-            data-c-border="bottom(thin, solid, gray)"
-            data-c-padding="bottom(3)">
+        <div data-c-border="bottom(thin, solid, gray)">
             <div data-c-container="large">
-                <div data-c-grid="gutter(all, 3)">
+                <div data-c-grid="gutter(all)">
                     <div data-c-grid-item="tl(1of4) equal-col">
                         <div class="sidebar-wrapper">
                             <nav class="sidebar">
@@ -44,7 +42,7 @@
                         </div>
                     </div>
                     <div data-c-grid-item="tl(3of4)">
-                        <div data-c-container="base(small, left)">
+                        <div data-c-container="base(small, center) ds(small, left)" data-c-padding="bottom(3)">
                             {% for category in privacy.categories %}
                                 <h3
                                     data-c-heading="h3"
