@@ -23,7 +23,7 @@ export const fakeExperienceSkill2 = (): ExperienceSkill => ({
   skill_id: fakeSkills()[0].id,
   experience_id: fakeExperienceWork().id,
   experience_type: "experience_work",
-  justification: "",
+  justification: "I used Front End development at my last job.",
   created_at: dayjs("01/07/2015").toDate(),
   updated_at: dayjs("01/07/2016").toDate(),
 });
