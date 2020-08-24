@@ -12,6 +12,12 @@ import {
   fakeExperienceAward,
   fakeExperiencePersonal,
 } from "../../fakeData/fakeExperience";
+import {
+  fakeExperienceSkill1,
+  fakeExperienceSkill3,
+  fakeExperienceSkill5,
+} from "../../fakeData/fakeExperienceSkills";
+import { fakeSkills } from "../../fakeData/fakeSkills";
 import ExperienceEducationAccordion from "../../components/Application/Experience/ExperienceEducationAccordion";
 import ExperienceCommunityAccordion from "../../components/Application/Experience/ExperienceCommunityAccordion";
 import ExperienceAwardAccordion from "../../components/Application/Experience/ExperienceAwardAccordion";
@@ -90,27 +96,6 @@ const detailsSections = {
   work: "WORK",
 };
 
-const skillClaims = [
-  {
-    id: 2,
-    name: "Web Programming",
-    claim:
-      "I did lots of web programming as part of this experience. I built my own website and maintained it for a long time.",
-  },
-  {
-    id: 15,
-    name: "Open Source Development",
-    claim:
-      "Most of my work is available on github. The work I did as part of this experience has been used by several organisations now.",
-  },
-  {
-    id: 20,
-    name: "Integrity",
-    claim:
-      "I had many opportunities to sabotage my teams work at that experience, and I chose not to.",
-  },
-];
-
 const groupIds = {
   type: "Experience Type",
   details: "Details",
@@ -142,7 +127,8 @@ stories.add(
               "education",
               groupIds.type,
             )}
-            relevantSkills={skillClaims}
+            relevantSkills={[fakeExperienceSkill1(), fakeExperienceSkill3()]}
+            skills={fakeSkills()}
             irrelevantSkillCount={number(
               "Irrelevant Skill count",
               0,
@@ -202,7 +188,8 @@ stories.add(
               education.thesis_title || "",
               groupIds.details,
             )}
-            relevantSkills={skillClaims}
+            relevantSkills={[fakeExperienceSkill1()]}
+            skills={fakeSkills()}
             irrelevantSkillCount={number(
               "Irrelevant Skill count",
               0,
@@ -251,7 +238,8 @@ stories.add(
             )}
             endDate={myDateKnob("End Date", work.end_date, groupIds.details)}
             isActive={boolean("Is Active", work.is_active, groupIds.details)}
-            relevantSkills={skillClaims}
+            relevantSkills={[fakeExperienceSkill3(), fakeExperienceSkill5()]}
+            skills={fakeSkills()}
             irrelevantSkillCount={number(
               "Irrelevant Skill count",
               0,
@@ -304,7 +292,8 @@ stories.add(
               community.is_active,
               groupIds.details,
             )}
-            relevantSkills={skillClaims}
+            relevantSkills={[fakeExperienceSkill5()]}
+            skills={fakeSkills()}
             irrelevantSkillCount={number(
               "Irrelevant Skill count",
               0,
@@ -348,12 +337,8 @@ stories.add(
               experience.awarded_date,
               groupIds.details,
             )}
-            awardLink={{
-              text: "My Award",
-              title: "View this award.",
-              url: text("Award Url", "", groupIds.details),
-            }}
-            relevantSkills={skillClaims}
+            relevantSkills={[fakeExperienceSkill1(), fakeExperienceSkill5()]}
+            skills={fakeSkills()}
             irrelevantSkillCount={number(
               "Irrelevant Skill count",
               0,
@@ -414,7 +399,12 @@ stories.add(
               experience.is_active,
               groupIds.details,
             )}
-            relevantSkills={skillClaims}
+            relevantSkills={[
+              fakeExperienceSkill1(),
+              fakeExperienceSkill3(),
+              fakeExperienceSkill5(),
+            ]}
+            skills={fakeSkills()}
             irrelevantSkillCount={number(
               "Irrelevant Skill count",
               0,

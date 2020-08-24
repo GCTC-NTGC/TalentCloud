@@ -29,7 +29,7 @@ const typesOfExperience = defineMessages({
   awards: {
     id: "application.experience.intro.awards",
     defaultMessage: "Awards",
-    description: "Type of experience: Personal Experience.",
+    description: "Type of experience: Award Experience.",
   },
 });
 

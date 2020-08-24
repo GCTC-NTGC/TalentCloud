@@ -1,13 +1,13 @@
 import React from "react";
-import { FormattedMessage, useIntl, IntlShape } from "react-intl";
+import { useIntl, IntlShape } from "react-intl";
 import {
-  ExperienceSkill,
   BaseExperienceAccordion,
   titleBarDateRange,
-  baseExperienceMessages,
 } from "./BaseExperienceAccordion";
+import { accordionMessages } from "../applicationMessages";
 import { Locales, getLocale } from "../../../helpers/localize";
 import { readableDate } from "../../../helpers/dates";
+import { ExperienceSkill, Skill } from "../../../models/types";
 
 interface ExperienceEducationAccordionProps {
   educationType: string;
@@ -19,6 +19,7 @@ interface ExperienceEducationAccordionProps {
   isActive: boolean;
   thesisTitle: string | null;
   relevantSkills: ExperienceSkill[];
+  skills: Skill[];
   irrelevantSkillCount: number;
   isEducationJustification: boolean;
   showSkillDetails: boolean;
@@ -52,7 +53,7 @@ const experienceEducationDetails = ({
 }): React.ReactElement => {
   const notApplicable = (
     <p data-c-color="gray">
-      {intl.formatMessage(baseExperienceMessages.notApplicable)}
+      {intl.formatMessage(accordionMessages.notApplicable)}
     </p>
   );
   const endDateOrNa = endDate ? (
@@ -64,7 +65,7 @@ const experienceEducationDetails = ({
     <>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          {intl.formatMessage(baseExperienceMessages.experienceTypeLabel)}
+          {intl.formatMessage(accordionMessages.experienceTypeLabel)}
         </p>
         <p>
           <i
@@ -72,54 +73,36 @@ const experienceEducationDetails = ({
             data-c-color="c1"
             data-c-margin="right(.25)"
           />
-          <FormattedMessage
-            id="experienceEducationAccordion.experienceTypeTitle"
-            defaultMessage="Education Experience"
-          />
+          {intl.formatMessage(accordionMessages.educationType)}
         </p>
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experienceEducationAccordion.educationTypeLabel"
-            defaultMessage="Type of Education:"
-          />
+          {intl.formatMessage(accordionMessages.educationTypeLabel)}
         </p>
         {educationType ? <p>{educationType}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experienceEducationAccordion.areaOfStudyLabel"
-            defaultMessage="Area of Study:"
-          />
+          {intl.formatMessage(accordionMessages.educationAreaOfStudyLabel)}
         </p>
         {areaOfStudy ? <p>{areaOfStudy}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experienceEducationAccordion.institutionLabel"
-            defaultMessage="Institution:"
-          />
+          {intl.formatMessage(accordionMessages.educationInstitutionLabel)}
         </p>
         {institution ? <p>{institution}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experienceEducationAccordion.statusLabel"
-            defaultMessage="Status:"
-          />
+          {intl.formatMessage(accordionMessages.educationStatusLabel)}
         </p>
         {status ? <p>{status}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experienceEducationAccordion.startDate"
-            defaultMessage="Start Date:"
-          />
+          {intl.formatMessage(accordionMessages.startDateLabel)}
         </p>
         {startDate ? (
           <p>{readableDate(locale, startDate)}</p>
@@ -129,23 +112,17 @@ const experienceEducationDetails = ({
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experienceEducationAccordion.endDate"
-            defaultMessage="End Date:"
-          />
+          {intl.formatMessage(accordionMessages.endDateLabel)}
         </p>
         {isActive ? (
-          <p>{intl.formatMessage(baseExperienceMessages.ongoing)}</p>
+          <p>{intl.formatMessage(accordionMessages.ongoing)}</p>
         ) : (
           endDateOrNa
         )}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experienceEducationAccordion.thesisLabel"
-            defaultMessage="Thesis Title:"
-          />
+          {intl.formatMessage(accordionMessages.educationThesisLabel)}
         </p>
         {thesisTitle ? <p>{thesisTitle}</p> : notApplicable}
       </div>
@@ -163,6 +140,7 @@ export const ExperienceEducationAccordion: React.FC<ExperienceEducationAccordion
   isActive,
   thesisTitle,
   relevantSkills,
+  skills,
   irrelevantSkillCount,
   isEducationJustification,
   showSkillDetails,
@@ -175,19 +153,14 @@ export const ExperienceEducationAccordion: React.FC<ExperienceEducationAccordion
   const accordionTitle = (
     <>
       <p>
-        <FormattedMessage
-          id="experienceEducationAccordion.title"
-          defaultMessage="<b>{educationType} in {areaOfStudy}</b> - {institution}"
-          description="Title of education accordion (this is the visible text when accordion is closed)."
-          values={{
-            educationType,
-            areaOfStudy,
-            institution,
-            b: (value) => <span data-c-font-weight="bold">{value}</span>,
-          }}
-        />
+        {intl.formatMessage(accordionMessages.educationHeading, {
+          educationType,
+          areaOfStudy,
+          institution,
+          b: (value) => <span data-c-font-weight="bold">{value}</span>,
+        })}
       </p>
-      {titleBarDateRange(startDate, endDate, isActive, locale)}
+      {titleBarDateRange(startDate, endDate, isActive, intl, locale)}
     </>
   );
   return (
@@ -195,6 +168,7 @@ export const ExperienceEducationAccordion: React.FC<ExperienceEducationAccordion
       title={accordionTitle}
       iconClass="fa-book"
       relevantSkills={relevantSkills}
+      skills={skills}
       irrelevantSkillCount={irrelevantSkillCount}
       isEducationJustification={isEducationJustification}
       details={experienceEducationDetails({

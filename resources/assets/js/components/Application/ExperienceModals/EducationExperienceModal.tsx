@@ -268,9 +268,11 @@ const newExperienceEducation = (
 ): ExperienceEducation => ({
   id: 0,
   education_type_id: 0,
+  education_type: { en: "", fr: "" },
   area_of_study: "",
   institution: "",
   education_status_id: 0,
+  education_status: { en: "", fr: "" },
   thesis_title: "",
   has_blockcert: false,
   is_active: false,

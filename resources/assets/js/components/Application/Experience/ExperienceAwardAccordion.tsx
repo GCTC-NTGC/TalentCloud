@@ -1,13 +1,10 @@
 import React from "react";
-import { FormattedMessage, useIntl, IntlShape } from "react-intl";
-import {
-  ExperienceSkill,
-  BaseExperienceAccordion,
-  baseExperienceMessages,
-} from "./BaseExperienceAccordion";
+import { useIntl, IntlShape } from "react-intl";
+import { BaseExperienceAccordion } from "./BaseExperienceAccordion";
+import { accordionMessages } from "../applicationMessages";
 import { Locales, getLocale } from "../../../helpers/localize";
 import { readableDate } from "../../../helpers/dates";
-import { Link } from "../../../models/app";
+import { ExperienceSkill, Skill } from "../../../models/types";
 
 interface ExperienceAwardAccordionProps {
   title: string;
@@ -15,8 +12,8 @@ interface ExperienceAwardAccordionProps {
   issuer: string;
   scope: string;
   awardedDate: Date;
-  awardLink: Link;
   relevantSkills: ExperienceSkill[];
+  skills: Skill[];
   irrelevantSkillCount: number;
   isEducationJustification: boolean;
   showSkillDetails: boolean;
@@ -33,7 +30,6 @@ const experienceAwardDetails = ({
   issuer,
   scope,
   awardedDate,
-  awardLink,
 }: {
   locale: Locales;
   intl: IntlShape;
@@ -42,18 +38,17 @@ const experienceAwardDetails = ({
   issuer: string;
   scope: string;
   awardedDate: Date;
-  awardLink: Link;
 }): React.ReactElement => {
   const notApplicable = (
     <p data-c-color="gray">
-      {intl.formatMessage(baseExperienceMessages.notApplicable)}
+      {intl.formatMessage(accordionMessages.notApplicable)}
     </p>
   );
   return (
     <>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          {intl.formatMessage(baseExperienceMessages.experienceTypeLabel)}
+          {intl.formatMessage(accordionMessages.experienceTypeLabel)}
         </p>
         <p>
           <i
@@ -61,79 +56,39 @@ const experienceAwardDetails = ({
             data-c-color="c1"
             data-c-margin="right(.25)"
           />
-          <FormattedMessage
-            id="experienceAwardAccordion.experienceTypeTitle"
-            defaultMessage="Award Experience"
-          />
+          {intl.formatMessage(accordionMessages.awardType)}
         </p>
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experienceAwardAccordion.awardTitleLabel"
-            defaultMessage="Award Title:"
-          />
-          {title ? <p>{title}</p> : notApplicable}
+          {intl.formatMessage(accordionMessages.awardTitleLabel)}
         </p>
+        {title ? <p>{title}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experienceAwardAccordion.recipientLabel"
-            defaultMessage="Awarded to:"
-          />
+          {intl.formatMessage(accordionMessages.awardRecipientLabel)}
         </p>
         {recipient ? <p>{recipient}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experienceAwardAccordion.issuerLabel"
-            defaultMessage="Issuing Organization / Institution:"
-          />
+          {intl.formatMessage(accordionMessages.awardIssuerLabel)}
         </p>
         {issuer ? <p>{issuer}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experienceAwardAccordion.scopeLabel"
-            defaultMessage="Award Eligibility / Scope:"
-          />
+          {intl.formatMessage(accordionMessages.awardScopeLabel)}
         </p>
         {scope ? <p>{scope}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experienceAwardAccordion.awardedDateLabel"
-            defaultMessage="Date Awarded:"
-          />
+          {intl.formatMessage(accordionMessages.awardDateLabel)}
         </p>
         {awardedDate ? (
           <p>{readableDate(locale, awardedDate)}</p>
-        ) : (
-          notApplicable
-        )}
-      </div>
-      <div data-c-grid-item="base(1of2) tl(1of3)">
-        <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experienceAwardAccordion.linkLabel"
-            defaultMessage="Link to award Date:"
-          />
-        </p>
-        {awardLink && awardLink.url ? (
-          <p>
-            <a
-              href={awardLink.url}
-              title={awardLink.title}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {awardLink.text}
-            </a>
-          </p>
         ) : (
           notApplicable
         )}
@@ -148,8 +103,8 @@ export const ExperienceAwardAccordion: React.FC<ExperienceAwardAccordionProps> =
   issuer,
   scope,
   awardedDate,
-  awardLink,
   relevantSkills,
+  skills,
   irrelevantSkillCount,
   isEducationJustification,
   showSkillDetails,
@@ -162,30 +117,20 @@ export const ExperienceAwardAccordion: React.FC<ExperienceAwardAccordionProps> =
   const accordionTitle = (
     <>
       <p>
-        <FormattedMessage
-          id="experienceAwardAccordion.title"
-          defaultMessage="<b>{title}</b> - {institution}"
-          description="Title of Award Experience accordion (this is the visible text when accordion is closed)."
-          values={{
-            title,
-            institution: issuer,
-            b: (value) => <span data-c-font-weight="bold">{value}</span>,
-          }}
-        />
+        {intl.formatMessage(accordionMessages.awardHeading, {
+          title,
+          institution: issuer,
+          b: (value) => <span data-c-font-weight="bold">{value}</span>,
+        })}
       </p>
       <p
         data-c-margin="top(quarter)"
         data-c-colour="c1"
         data-c-font-size="small"
       >
-        <FormattedMessage
-          id="experienceAwardAccordion.titleDate"
-          defaultMessage="Awarded on: {date}"
-          description="Shows the awarded date in the accordion title bar."
-          values={{
-            date: readableDate(locale, awardedDate),
-          }}
-        />
+        {intl.formatMessage(accordionMessages.awardSubheading, {
+          date: readableDate(locale, awardedDate),
+        })}
       </p>
     </>
   );
@@ -194,6 +139,7 @@ export const ExperienceAwardAccordion: React.FC<ExperienceAwardAccordionProps> =
       title={accordionTitle}
       iconClass="fa-trophy"
       relevantSkills={relevantSkills}
+      skills={skills}
       irrelevantSkillCount={irrelevantSkillCount}
       isEducationJustification={isEducationJustification}
       details={experienceAwardDetails({
@@ -204,7 +150,6 @@ export const ExperienceAwardAccordion: React.FC<ExperienceAwardAccordionProps> =
         issuer,
         scope,
         awardedDate,
-        awardLink,
       })}
       showSkillDetails={showSkillDetails}
       showButtons={showButtons}

@@ -1,13 +1,13 @@
 import React from "react";
-import { FormattedMessage, useIntl, IntlShape } from "react-intl";
+import { useIntl, IntlShape } from "react-intl";
 import {
-  ExperienceSkill,
   BaseExperienceAccordion,
   titleBarDateRange,
-  baseExperienceMessages,
 } from "./BaseExperienceAccordion";
+import { accordionMessages } from "../applicationMessages";
 import { Locales, getLocale } from "../../../helpers/localize";
 import { readableDate } from "../../../helpers/dates";
+import { ExperienceSkill, Skill } from "../../../models/types";
 
 interface ExperiencePersonalAccordionProps {
   title: string;
@@ -17,6 +17,7 @@ interface ExperiencePersonalAccordionProps {
   endDate: Date | null;
   isActive: boolean;
   relevantSkills: ExperienceSkill[];
+  skills: Skill[];
   irrelevantSkillCount: number;
   isEducationJustification: boolean;
   showSkillDetails: boolean;
@@ -46,7 +47,7 @@ const experiencePersonalDetails = ({
 }): React.ReactElement => {
   const notApplicable = (
     <p data-c-color="gray">
-      {intl.formatMessage(baseExperienceMessages.notApplicable)}
+      {intl.formatMessage(accordionMessages.notApplicable)}
     </p>
   );
   const endDateOrNa = endDate ? (
@@ -58,7 +59,7 @@ const experiencePersonalDetails = ({
     <>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          {intl.formatMessage(baseExperienceMessages.experienceTypeLabel)}
+          {intl.formatMessage(accordionMessages.experienceTypeLabel)}
         </p>
         <p>
           <i
@@ -66,36 +67,24 @@ const experiencePersonalDetails = ({
             data-c-color="c1"
             data-c-margin="right(.25)"
           />
-          <FormattedMessage
-            id="experiencePersonalAccordion.experienceTypeTitle"
-            defaultMessage="Personal Experience"
-          />
+          {intl.formatMessage(accordionMessages.personalType)}
         </p>
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experiencePersonalAccordion.titleLabel"
-            defaultMessage="Title of Experience:"
-          />
-          {title ? <p>{title}</p> : notApplicable}
+          {intl.formatMessage(accordionMessages.personalTitleLabel)}
         </p>
+        {title ? <p>{title}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of1)">
         <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experiencePersonalAccordion.descriptionLabel"
-            defaultMessage="Description:"
-          />
+          {intl.formatMessage(accordionMessages.personalDescriptionLabel)}
         </p>
         {description ? <p>{description}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experiencePersonalAccordion.shareableLabel"
-            defaultMessage="Consent to Share:"
-          />
+          {intl.formatMessage(accordionMessages.personalShareLabel)}
         </p>
         {isShareable ? (
           <p>
@@ -104,11 +93,7 @@ const experiencePersonalDetails = ({
               data-c-color="go"
               data-c-margin="right(.25)"
             />
-            <FormattedMessage
-              id="experiencePersonalAccordion.isShareable"
-              defaultMessage="Sharing Approved"
-              description="Text shown when user has consented to share this experience."
-            />
+            {intl.formatMessage(accordionMessages.personalShareAllowed)}
           </p>
         ) : (
           <p>
@@ -117,26 +102,22 @@ const experiencePersonalDetails = ({
               data-c-color="stop"
               data-c-margin="right(.25)"
             />
-            <FormattedMessage
-              id="experiencePersonalAccordion.isNotShareable"
-              defaultMessage="Sharing Restricted"
-              description="Text shown when user has NOT consented to share this experience."
-            />
+            {intl.formatMessage(accordionMessages.personalShareDenied)}
           </p>
         )}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          {intl.formatMessage(baseExperienceMessages.startDateLabel)}
+          {intl.formatMessage(accordionMessages.startDateLabel)}
         </p>
         {startDate ? <p>{readableDate(locale, startDate)}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          {intl.formatMessage(baseExperienceMessages.endDateLabel)}
+          {intl.formatMessage(accordionMessages.endDateLabel)}
         </p>
         {isActive ? (
-          <p>{intl.formatMessage(baseExperienceMessages.ongoing)}</p>
+          <p>{intl.formatMessage(accordionMessages.ongoing)}</p>
         ) : (
           endDateOrNa
         )}
@@ -153,6 +134,7 @@ export const ExperiencePersonalAccordion: React.FC<ExperiencePersonalAccordionPr
   endDate,
   isActive,
   relevantSkills,
+  skills,
   irrelevantSkillCount,
   isEducationJustification,
   showSkillDetails,
@@ -167,14 +149,15 @@ export const ExperiencePersonalAccordion: React.FC<ExperiencePersonalAccordionPr
       <p>
         <span data-c-font-weight="bold">{title}</span>
       </p>
-      {titleBarDateRange(startDate, endDate, isActive, locale)}
+      {titleBarDateRange(startDate, endDate, isActive, intl, locale)}
     </>
   );
   return (
     <BaseExperienceAccordion
       title={accordionTitle}
-      iconClass="fa-trophy"
+      iconClass="fa-mountain"
       relevantSkills={relevantSkills}
+      skills={skills}
       irrelevantSkillCount={irrelevantSkillCount}
       isEducationJustification={isEducationJustification}
       details={experiencePersonalDetails({
