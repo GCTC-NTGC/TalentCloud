@@ -180,10 +180,10 @@ export const accordionMessages = defineMessages({
 });
 
 export const basicInfoMessages = defineMessages({
-  header: {
-    id: "application.basicInfo.header",
+  heading: {
+    id: "application.basicInfo.heading",
     defaultMessage: "My Basic Information",
-    description: "Header for the Basic Info section of the Application.",
+    description: "Heading for the Basic Info section of the Application.",
   },
   citizenshipLabel: {
     id: "application.basicInfo.citizenshipLabel",
@@ -196,27 +196,32 @@ export const basicInfoMessages = defineMessages({
       "Are you a veteran or a member of the Canadian Armed Forces?",
     description: "Label for the veteran status select box.",
   },
-  languageRequirementsHeader: {
-    id: "application.basicInfo.languageRequirementsHeader",
+  languageRequirementsHeading: {
+    id: "application.basicInfo.languageRequirementsHeading",
     defaultMessage: "Language Requirements",
     description:
-      "Header for language requirements section in Application form.",
+      "Heading for language requirements section in Application form.",
   },
 });
 
 export const experienceMessages = defineMessages({
-  header: {
-    id: "application.experience.header",
+  heading: {
+    id: "application.experience.heading",
     defaultMessage: "My Experience",
-    description: "Header for the Experience section of the Application.",
+    description: "Heading for the Experience section of the Application.",
   },
 });
 
 export const fitMessages = defineMessages({
-  header: {
+  heading: {
     id: "application.fit.heading",
     defaultMessage: "My Fit",
     description: "Heading for the Fit step in the Application form.",
+  },
+  questionLabel: {
+    id: "application.fit.questionLabel",
+    defaultMessage: "Question {index}:",
+    description: "Label for the question on the My Fit step.",
   },
 });
 

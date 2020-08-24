@@ -7,7 +7,7 @@ import { BasicInfo } from "../../components/Application/BasicInfo/BasicInfo";
 import fakeJob from "../../fakeData/fakeJob";
 import { Job } from "../../models/types";
 
-const stories = storiesOf("Applicant Timeline|Basic Info", module).addDecorator(
+const stories = storiesOf("Application|Basic Info", module).addDecorator(
   withIntl,
 );
 

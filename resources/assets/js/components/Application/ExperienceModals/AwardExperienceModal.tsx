@@ -64,53 +64,53 @@ interface AwardExperienceModalProps {
 
 const messages = defineMessages({
   modalTitle: {
-    id: "awardExperienceModal.modalTitle",
+    id: "application.awardExperienceModal.modalTitle",
     defaultMessage: "Add an Award",
   },
   modalDescription: {
-    id: "awardExperienceModal.modalDescription",
+    id: "application.awardExperienceModal.modalDescription",
     defaultMessage:
       "Did you get recognized for going above and beyond? There are many ways to get recognized, awards are just one of them. (Here’s an opportunity to share how you’ve been recognized.)",
   },
   titleLabel: {
-    id: "awardExperienceModal.titleLabel",
+    id: "application.awardExperienceModal.titleLabel",
     defaultMessage: "Award Title",
   },
   titlePlaceholder: {
-    id: "awardExperienceModal.titlePlaceholder",
+    id: "application.awardExperienceModal.titlePlaceholder",
     defaultMessage: "e.g. My Award",
   },
   recipientTypeLabel: {
-    id: "awardExperienceModal.recipientTypeLabel",
+    id: "application.awardExperienceModal.recipientTypeLabel",
     defaultMessage: "Awarded to...",
   },
   recipientTypePlaceholder: {
-    id: "awardExperienceModal.recipientTypePlaceholder",
+    id: "application.awardExperienceModal.recipientTypePlaceholder",
     defaultMessage: "Select an option...",
     description: "Default selection in the Recipient Type dropdown menu.",
   },
   issuerLabel: {
-    id: "awardExperienceModal.issuerLabel",
+    id: "application.awardExperienceModal.issuerLabel",
     defaultMessage: "Issuing Organization or Institution",
   },
   issuerPlaceholder: {
-    id: "awardExperienceModal.issuerPlaceholder",
+    id: "application.awardExperienceModal.issuerPlaceholder",
     defaultMessage: "e.g. Government of Canada",
   },
   recognitionTypeLabel: {
-    id: "awardExperienceModal.recognitionTypeLabel",
+    id: "application.awardExperienceModal.recognitionTypeLabel",
     defaultMessage: "Scope of the Award",
   },
   recognitionTypePlaceholder: {
-    id: "awardExperienceModal.recognitionTypePlaceholder",
+    id: "application.awardExperienceModal.recognitionTypePlaceholder",
     defaultMessage: "Select a scope...",
   },
   awardedDateLabel: {
-    id: "awardExperienceModal.awardedDateLabel",
+    id: "application.awardExperienceModal.awardedDateLabel",
     defaultMessage: "Date Awarded",
   },
   datePlaceholder: {
-    id: "awardExperienceModal.datePlaceholder",
+    id: "application.awardExperienceModal.datePlaceholder",
     defaultMessage: "yyyy-mm-dd",
   },
 });

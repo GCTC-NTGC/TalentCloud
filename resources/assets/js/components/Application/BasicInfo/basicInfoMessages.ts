@@ -42,31 +42,31 @@ export default defineMessages({
 
 export const citizenshipDeclarations = defineMessages({
   [CitizenshipId.citizen]: {
-    id: "application.citizenshipDeclaration.citizen",
+    id: "application.basicInfo.citizenshipDeclaration.citizen",
     defaultMessage: "Canadian Citizen",
     description: "Select option text for the 'Citizen' citizen declarations.",
   },
   [CitizenshipId.permanentResident]: {
-    id: "application.citizenshipDeclaration.permanentResident",
+    id: "application.basicInfo.citizenshipDeclaration.permanentResident",
     defaultMessage: "Permanent Resident of Canada",
     description:
       "Select option text for the 'Permanent Resident of Canada' citizen declarations.",
   },
   [CitizenshipId.workPermitOpen]: {
-    id: "application.citizenshipDeclaration.workPermitOpen",
+    id: "application.basicInfo.citizenshipDeclaration.workPermitOpen",
     defaultMessage: "I have a permit that allows me to work anywhere in Canada",
     description:
       "Select option text for the 'Work Permit Open' citizen declarations.",
   },
   [CitizenshipId.workPermitClosed]: {
-    id: "application.citizenshipDeclaration.workPermitClosed",
+    id: "application.basicInfo.citizenshipDeclaration.workPermitClosed",
     defaultMessage:
       "I have a permit that only allows me to work for a specific organization",
     description:
       "Select option text for the 'Work Permit Closed' citizen declarations.",
   },
   [CitizenshipId.notEntitled]: {
-    id: "application.citizenshipDeclaration.notEntitled",
+    id: "application.basicInfo.citizenshipDeclaration.notEntitled",
     defaultMessage: "I am currently not entitled to work in Canada",
     description:
       "Select option text for the 'Not Entitled' citizen declarations.",
@@ -84,19 +84,19 @@ export const citizenshipDeclaration = (
 
 export const veteranStatuses = defineMessages({
   [VeteranId.none]: {
-    id: "application.veteranStatus.none",
+    id: "application.basicInfo.veteranStatus.none",
     defaultMessage:
       "No - I am not a veteran or a member of the Canadian Armed Forces.",
     description: "Select option text for the 'None' veteran status.",
   },
   [VeteranId.current]: {
-    id: "application.veteranStatus.current",
+    id: "application.basicInfo.veteranStatus.current",
     defaultMessage:
       "Yes - I am currently a member of the Canadian Armed Forces.",
     description: "Select option text for the 'Current' veteran status.",
   },
   [VeteranId.past]: {
-    id: "application.veteranStatus.past",
+    id: "application.basicInfo.veteranStatus.past",
     defaultMessage: "Yes - I am a veteran.",
     description: "Select option text for the 'Past' veteran status.",
   },
@@ -107,33 +107,33 @@ export const veteranStatus = (veteranStatusId: number): MessageDescriptor =>
 
 const languageRequirementDescriptions = defineMessages({
   [LanguageRequirementId.english]: {
-    id: "application.languageRequirement.english",
+    id: "application.basicInfo.languageRequirement.english",
     defaultMessage: "This position requires advanced knowledge of English.",
     description:
       "Description for the 'English' language requirement on the applicant timeline form.",
   },
   [LanguageRequirementId.french]: {
-    id: "application.languageRequirement.french",
+    id: "application.basicInfo.languageRequirement.french",
     defaultMessage: "This position requires advanced knowledge of French.",
     description:
       "Description for the 'French' language requirement on the applicant timeline form.",
   },
   [LanguageRequirementId.bilingualIntermediate]: {
-    id: "application.languageRequirement.bilingualIntermediate",
+    id: "application.basicInfo.languageRequirement.bilingualIntermediate",
     defaultMessage:
       "This position requires advanced knowledge of either French or English.",
     description:
       "Description for the 'Bilingual Intermediate' language requirement on the applicant timeline form.",
   },
   [LanguageRequirementId.bilingualAdvanced]: {
-    id: "application.languageRequirement.bilingualAdvanced",
+    id: "application.basicInfo.languageRequirement.bilingualAdvanced",
     defaultMessage:
       "This position requires working knowledge of both French and English. As part of this process, your language abilities will be tested by the Public Service Commission of Canada (the proficiency requirement for this position is BBB).",
     description:
       "Description for the 'Bilingual Advanced' language requirement on the applicant timeline form.",
   },
   [LanguageRequirementId.englishOrFrench]: {
-    id: "application.languageRequirement.englishOrFrench",
+    id: "application.basicInfo.languageRequirement.englishOrFrench",
     defaultMessage:
       "This position requires advanced knowledge of both French and English. As part of this process, your language abilities will be tested by the Public Service Commission of Canada (the proficiency requirement for this position is CBC).",
     description:
@@ -152,35 +152,35 @@ export const languageRequirementDescription = (
 
 const languageRequirementLabels = defineMessages({
   [LanguageRequirementId.english]: {
-    id: "application.languageRequirement.label.english",
+    id: "application.basicInfo.languageRequirement.label.english",
     defaultMessage:
       "I have strong reading, writing and verbal communication skills in English.",
     description:
       "Label for 'English' language requirement on the applicant timeline form.",
   },
   [LanguageRequirementId.french]: {
-    id: "application.languageRequirement.label.french",
+    id: "application.basicInfo.languageRequirement.label.french",
     defaultMessage:
       "I have strong reading, writing and verbal communication skills in French.",
     description:
       "Text for 'French' language requirement on the applicant timeline form.",
   },
   [LanguageRequirementId.bilingualIntermediate]: {
-    id: "application.languageRequirement.label.bilingualIntermediate",
+    id: "application.basicInfo.languageRequirement.label.bilingualIntermediate",
     defaultMessage:
       "I have intermediate or better reading, writing and verbal communication skills in English and French.",
     description:
       "Text for 'Bilingual Intermediate' language requirement on the applicant timeline form.",
   },
   [LanguageRequirementId.bilingualAdvanced]: {
-    id: "application.languageRequirement.label.bilingualAdvanced",
+    id: "application.basicInfo.languageRequirement.label.bilingualAdvanced",
     defaultMessage:
       "I have intermediate or better reading, writing and verbal communication skills in English and French.",
     description:
       "Text for 'Bilingual Advanced' language requirement on the applicant timeline form.",
   },
   [LanguageRequirementId.englishOrFrench]: {
-    id: "application.languageRequirement.label.englishOrFrench",
+    id: "application.basicInfo.languageRequirement.label.englishOrFrench",
     defaultMessage:
       "I have strong reading, writing and verbal communication skills in English OR French.",
     description:

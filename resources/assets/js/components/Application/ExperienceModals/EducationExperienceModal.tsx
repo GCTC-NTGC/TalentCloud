@@ -65,79 +65,79 @@ interface EducationExperienceModalProps {
 
 const messages = defineMessages({
   modalTitle: {
-    id: "educationExperienceModal.modalTitle",
+    id: "application.educationExperienceModal.modalTitle",
     defaultMessage: "Add Edcuation Experience",
   },
   modalDescription: {
-    id: "educationExperienceModal.modalDescription",
+    id: "application.educationExperienceModal.modalDescription",
     defaultMessage:
       'Got creds? Share your degree, certificates, online courses, a trade apprenticeship, licences or alternative credentials. If you’ve learned something from a recognized educational provider, include your experiences here.  (Learned something from your community or on your own? Share this as a "Community Experience" or "Personal Experience".)',
   },
   educationTypeLabel: {
-    id: "educationExperienceModal.educationTypeLabel",
+    id: "application.educationExperienceModal.educationTypeLabel",
     defaultMessage: "Type of Education",
   },
   educationTypeDefault: {
-    id: "educationExperienceModal.educationTypeDefault",
+    id: "application.educationExperienceModal.educationTypeDefault",
     defaultMessage: "Select an education type...",
     description: "Default selection in the Education Type dropdown menu.",
   },
   areaStudyLabel: {
-    id: "educationExperienceModal.areaStudyLabel",
+    id: "application.educationExperienceModal.areaStudyLabel",
     defaultMessage: "Area of Study",
   },
   areaStudyPlaceholder: {
-    id: "educationExperienceModal.areaStudyPlaceholder",
+    id: "application.educationExperienceModal.areaStudyPlaceholder",
     defaultMessage: "e.g. Organic Chemistry",
   },
   institutionLabel: {
-    id: "educationExperienceModal.institutionLabel",
+    id: "application.educationExperienceModal.institutionLabel",
     defaultMessage: "Institution",
   },
   institutionPlaceholder: {
-    id: "educationExperienceModal.institutionPlaceholder",
+    id: "application.educationExperienceModal.institutionPlaceholder",
     defaultMessage: "e.g. Bishop's University",
   },
   completionLabel: {
-    id: "educationExperienceModal.completionLabel",
+    id: "application.educationExperienceModal.completionLabel",
     defaultMessage: "Completion Status",
   },
   completionDefault: {
-    id: "educationExperienceModal.completionDefault",
+    id: "application.educationExperienceModal.completionDefault",
     defaultMessage: "Select a completion status...",
   },
   thesisLabel: {
-    id: "educationExperienceModal.thesisLabel",
+    id: "application.educationExperienceModal.thesisLabel",
     defaultMessage: "Thesis Title (Optional)",
   },
   thesisPlaceholder: {
-    id: "educationExperienceModal.thesisPlaceholder",
+    id: "application.educationExperienceModal.thesisPlaceholder",
     defaultMessage: "e.g. How bats navigate between each other during flight",
   },
   blockcertLabel: {
-    id: "educationExperienceModal.blockcertLabel",
+    id: "application.educationExperienceModal.blockcertLabel",
     defaultMessage: "Blockcert Link (Optional)",
   },
   blockcertInlineLabel: {
-    id: "educationExperienceModal.blockcertInlineLabel",
+    id: "application.educationExperienceModal.blockcertInlineLabel",
     defaultMessage:
       "I have a Blockcert and can provide it on request. (Optional)",
   },
   startDateLabel: {
-    id: "educationExperienceModal.startDateLabel",
+    id: "application.educationExperienceModal.startDateLabel",
     defaultMessage: "Select a Start Date",
   },
   datePlaceholder: {
-    id: "educationExperienceModal.datePlaceholder",
+    id: "application.educationExperienceModal.datePlaceholder",
     defaultMessage: "yyyy-mm-dd",
   },
   isActiveLabel: {
-    id: "educationExperienceModal.isActiveLabel",
+    id: "application.educationExperienceModal.isActiveLabel",
     defaultMessage: "This experience is still ongoing, or...",
     description: "Label for checkbox that indicates work is still ongoing.",
   },
   endDateLabel: {
-    id: "educationExperienceModal.endDateLabel",
+    id: "application.educationExperienceModal.endDateLabel",
     defaultMessage: "Select an End Date",
   },
 });

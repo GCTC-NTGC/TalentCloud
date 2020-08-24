@@ -104,7 +104,7 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
                 <div data-c-grid-item="tl(3of4)">{title}</div>
                 <div data-c-grid-item="tl(1of4)" data-c-align="base(left)">
                   <FormattedMessage
-                    id="baseExperienceAccordion.skillCount"
+                    id="application.experienceAccordion.skillCount"
                     defaultMessage="{skillCount, plural, =0 {No related skills} one {# related skill} other {# related skills}} {isEducationJustification, select, true {/ Education Requirement} false {}}"
                     description="Displays the number of required skills this relates to, and whether it's used to meed education requirements."
                     values={{
@@ -147,7 +147,7 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
                 <div data-c-grid-item="base(1of1)">
                   <h4 data-c-color="c2" data-c-font-weight="bold">
                     <FormattedMessage
-                      id="baseExperienceAccordion.detailsTitle"
+                      id="application.experienceAccordion.detailsTitle"
                       defaultMessage="Details of this Experience"
                       description="Subtitle of the details section."
                     />
@@ -163,7 +163,7 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
                 data-c-margin="top(1) bottom(.5)"
               >
                 <FormattedMessage
-                  id="baseExperienceAccordion.skillsTitle"
+                  id="application.experienceAccordion.skillsTitle"
                   defaultMessage="Skills for this Job"
                   description="Subtitle of the skills section."
                 />
@@ -225,7 +225,7 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
                       data-c-margin="bottom(1)"
                     >
                       <FormattedMessage
-                        id="baseExperienceAccordion.irrelevantSkillCount"
+                        id="application.experienceAccordion.irrelevantSkillCount"
                         defaultMessage="There {skillCount, plural, one {is <b>#</b> other unrelated skill} other {are <b>#</b> other unrelated skills}} attached to this experience. You can see {skillCount, plural, one {it} other {them}} on your profile."
                         description="Say how many skills unrelated to this job are associated with this experience."
                         values={{
@@ -242,7 +242,7 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
                   <div data-c-grid-item="base(1of1)">
                     <p data-c-color="gray" data-c-margin="bottom(1)">
                       <FormattedMessage
-                        id="baseExperienceAccordion.noSkills"
+                        id="application.experienceAccordion.noSkills"
                         defaultMessage="You don't have any skills attached to this experience."
                         description="Message to show if experience has no associated skills at all."
                       />
@@ -264,13 +264,13 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
                     data-c-color="go"
                   />
                   <FormattedMessage
-                    id="baseExperienceAccordion.educationRequirement"
+                    id="application.experienceAccordion.educationRequirement"
                     defaultMessage="Education Requirement"
                   />
                 </h4>
                 <p data-c-margin="bottom(1)">
                   <FormattedMessage
-                    id="baseExperienceAccordion.educationRequirmentDescription"
+                    id="application.experienceAccordion.educationRequirmentDescription"
                     defaultMessage="You've selected this experience as an indicator of how you meet the education requirements for this job."
                     description="Explanation of what it means that this experience meets an education requirement."
                   />
@@ -293,7 +293,7 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
                   onClick={handleDelete}
                 >
                   <FormattedMessage
-                    id="baseExperienceAccordion.deleteButton"
+                    id="application.experienceAccordion.deleteButton"
                     defaultMessage="Delete Experience"
                   />
                 </button>
@@ -309,7 +309,7 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
                   onClick={handleEdit}
                 >
                   <FormattedMessage
-                    id="baseExperienceAccordion.editButton"
+                    id="application.experienceAccordion.editButton"
                     defaultMessage="Edit Experience"
                   />
                 </button>

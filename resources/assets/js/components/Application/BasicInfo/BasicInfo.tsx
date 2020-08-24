@@ -83,7 +83,7 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
   return (
     <div data-c-container="medium">
       <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">
-        {intl.formatMessage(basicInfoMessages.header)}
+        {intl.formatMessage(basicInfoMessages.heading)}
       </h2>
       <Formik
         initialValues={initialValues}
@@ -141,7 +141,9 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
               data-c-margin="top(2) bottom(1)"
               data-c-padding="bottom(1)"
             >
-              {intl.formatMessage(basicInfoMessages.languageRequirementsHeader)}
+              {intl.formatMessage(
+                basicInfoMessages.languageRequirementsHeading,
+              )}
             </h3>
             <p>
               {job.language_requirement_id &&

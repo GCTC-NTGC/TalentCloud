@@ -73,7 +73,7 @@ export const Fit: React.FunctionComponent<FitProps> = ({
   return (
     <section data-c-container="medium">
       <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">
-        {intl.formatMessage(fitMessages.header)}
+        {intl.formatMessage(fitMessages.heading)}
       </h2>
       <p>
         <FormattedMessage

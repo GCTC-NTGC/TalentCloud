@@ -6,6 +6,7 @@ import { useIntl, FormattedMessage, defineMessages } from "react-intl";
 import { JobPosterQuestion, JobApplicationAnswer } from "../../../models/types";
 import { getLocale, localizeField } from "../../../helpers/localize";
 import { validationMessages } from "../../Form/Messages";
+import { fitMessages } from "../applicationMessages";
 import { countNumberOfWords } from "../../WordCounter/helpers";
 import TextAreaInput from "../../Form/TextAreaInput";
 
@@ -100,14 +101,9 @@ const Question: React.FunctionComponent<QuestionProps> = ({
               data-c-font-weight="bold"
               data-c-color="c2"
             >
-              <FormattedMessage
-                id="application.fit.question"
-                defaultMessage="Question {index}:"
-                description="Label for the question on the My Fit step."
-                values={{
-                  index: index + 1,
-                }}
-              />{" "}
+              {intl.formatMessage(fitMessages.questionLabel, {
+                index: index + 1,
+              })}{" "}
               {localizeField(locale, question, "question")}
             </p>
             <FastField
@@ -117,7 +113,7 @@ const Question: React.FunctionComponent<QuestionProps> = ({
               required
               label={
                 <FormattedMessage
-                  id="application.fit.questionLabel"
+                  id="application.fit.answerLabel"
                   defaultMessage="My Answer to Question {index}"
                   description="Label before the users answer on the My Fit step."
                   values={{

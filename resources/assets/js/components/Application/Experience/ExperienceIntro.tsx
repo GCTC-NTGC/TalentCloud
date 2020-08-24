@@ -86,7 +86,7 @@ const ExperienceIntro: React.FunctionComponent<ExperienceIntroProps> = ({
             >
               <span>
                 <FormattedMessage
-                  id="application.intro.letsGo"
+                  id="application.experience.intro.letsGo"
                   defaultMessage="Let's Go"
                   description="Button text for continuing to next step in Application Form."
                 />
