@@ -16,6 +16,7 @@ class ExperienceSkillsController extends Controller
         $experienceSkill->skill_id = $data['skill_id'];
         $experienceSkill->experience_id = $data['experience_id'];
         $experienceSkill->experience_type = $data['experience_type'];
+        $experienceSkill->justification = $data['justification'];
         $experienceSkill->save();
         return new JsonResource($experienceSkill->fresh());
     }
