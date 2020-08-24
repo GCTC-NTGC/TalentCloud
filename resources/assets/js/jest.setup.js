@@ -5,6 +5,3 @@ const Adapter = require("enzyme-adapter-react-16");
 
 Enzyme.configure({ adapter: new Adapter() });
 
-var dayjs = require('dayjs');
-var utc = require('dayjs/plugin/utc');
-dayjs.extend(utc);
