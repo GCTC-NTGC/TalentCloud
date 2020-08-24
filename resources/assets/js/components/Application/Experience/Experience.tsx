@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 /* eslint-disable @typescript-eslint/camelcase */
 import * as React from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage, useIntl, defineMessages } from "react-intl";
 import {
   Skill,
   ExperienceEducation,
@@ -414,7 +414,21 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
           />
         );
       default:
-        return <p>Error</p>;
+        return (
+          <div
+            data-c-background="gray(10)"
+            data-c-radius="rounded"
+            data-c-border="all(thin, solid, gray)"
+            data-c-margin="top(1)"
+            data-c-padding="all(1)"
+          >
+            <div data-c-align="base(center)">
+              <p data-c-color="stop">
+                {intl.formatMessage(messages.errorRenderingExperience)}
+              </p>
+            </div>
+          </div>
+        );
     }
   };
 
