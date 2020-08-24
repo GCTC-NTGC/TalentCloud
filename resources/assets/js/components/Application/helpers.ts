@@ -72,7 +72,8 @@ export const getJustificationOfExperience = (
   const filteredExperienceSkills = experienceSkills.filter(
     (experienceSkill) =>
       experienceSkill.skill_id === skill.id &&
-      experienceSkill.experience_id === experience.id,
+      experienceSkill.experience_id === experience.id &&
+      experienceSkill.experience_type === experience.type,
   );
   if (
     filteredExperienceSkills.length === 1 &&
