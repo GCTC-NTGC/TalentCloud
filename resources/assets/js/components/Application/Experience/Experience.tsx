@@ -48,6 +48,35 @@ import ExperienceAwardAccordion from "../ExperienceAccordions/ExperienceAwardAcc
 import { mapToObject, hasKey } from "../../../helpers/queries";
 import { ExperienceSkill as RelevantSkill } from "../ExperienceAccordions/BaseExperienceAccordion";
 
+const messages = defineMessages({
+  educationTypeMissing: {
+    id: "application.experience.educationTypeMissing",
+    defaultMessage: "Education type not found",
+    description: "Error message for when the education type cannot be found.",
+  },
+  educationStatusMissing: {
+    id: "application.experience.educationStatusMissing",
+    defaultMessage: "Education status not found",
+    description: "Error message for when the education status cannot be found.",
+  },
+  awardRecipientMissing: {
+    id: "application.experience.awardRecipientMissing",
+    defaultMessage: "Award recipient not found",
+    description: "Error message for when the award recipient cannot be found.",
+  },
+  awardRecognitionMissing: {
+    id: "application.experience.awardRecognitionMissing",
+    defaultMessage: "Award recognition not found",
+    description:
+      "Error message for when the award recognition cannot be found.",
+  },
+  errorRenderingExperience: {
+    id: "application.experience.errorRenderingExperience",
+    defaultMessage: "Experience failed to render (experience type missing).",
+    description: "Error message displayed when experience fails to render.",
+  },
+});
+
 // TODO: Move method to Experience selectors file or utility file.
 export const getSkillsOfExperience = (
   experienceSkills: ExperienceSkill[],
@@ -270,20 +299,20 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
     const educationType =
       educationTypes.find(({ id }) => education.education_type_id === id)?.name[
         locale
-      ] || "Education type not found";
+      ] || intl.formatMessage(messages.educationTypeMissing);
     const educationStatus =
       educationStatuses.find(({ id }) => education.education_status_id === id)
-        ?.name[locale] || "Education status not found";
+        ?.name[locale] || intl.formatMessage(messages.educationStatusMissing);
     const work = experience as ExperienceWork;
     const community = experience as ExperienceCommunity;
     const personal = experience as ExperiencePersonal;
     const award = experience as ExperienceAward;
     const recipient =
       recipientTypes.find(({ id }) => award.award_recipient_type_id === id)
-        ?.name[locale] || "Award recipient not found";
+        ?.name[locale] || intl.formatMessage(messages.awardRecipientMissing);
     const scope =
       recognitionTypes.find(({ id }) => award.award_recognition_type_id === id)
-        ?.name[locale] || "Award recognition not found";
+        ?.name[locale] || intl.formatMessage(messages.awardRecognitionMissing);
 
     switch (experienceType) {
       case "experience_education":
