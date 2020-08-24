@@ -28,6 +28,8 @@ use App\Models\BaseModel;
  * @property \App\Models\Applicant|\App\Models\JobApplication $experienceable
  * @property \Illuminate\Database\Eloquent\Collection $skills
  * @property \Illuminate\Database\Eloquent\Collection $experience_skills
+ *
+ * @method string experienceTypeName
  */
 class ExperienceEducation extends BaseModel
 {
@@ -59,6 +61,18 @@ class ExperienceEducation extends BaseModel
 
     protected $table = 'experiences_education';
 
+    public static function boot()
+    {
+        parent::boot();
+
+        // Delete associated ExperienceSkills when this is deleted.
+        static::deleting(function ($education): void {
+            foreach ($education->experience_skills as $es) {
+                $es->delete();
+            }
+        });
+    }
+
     public function education_type() //phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\EducationType::class);
@@ -82,5 +96,14 @@ class ExperienceEducation extends BaseModel
     public function experience_skills() //phpcs:ignore
     {
         return $this->morphMany(\App\Models\ExperienceSkill::class, 'experience');
+    }
+
+    /**
+     * Returns the name of this experience type. Used to distinguish from other Experience models.
+     * @return string Returns the string 'experience_education'.
+     */
+    public function experienceTypeName(): string
+    {
+        return 'experience_education';
     }
 }

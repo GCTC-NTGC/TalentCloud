@@ -133,7 +133,8 @@ const ExperienceSkillAccordion: React.FC<ExperienceSkillAccordionProps> = ({
         intl.formatMessage(validationMessages.overMaxWords, {
           numberOfWords: JUSTIFICATION_WORD_LIMIT,
         }),
-        (value) => countNumberOfWords(value) <= JUSTIFICATION_WORD_LIMIT,
+        (value: string) =>
+          countNumberOfWords(value) <= JUSTIFICATION_WORD_LIMIT,
       )
       .required(intl.formatMessage(validationMessages.required)),
   });

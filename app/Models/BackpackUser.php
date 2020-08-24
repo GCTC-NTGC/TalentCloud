@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\User;
 use Backpack\CRUD\app\Notifications\ResetPasswordNotification as ResetPasswordNotification;
+use Illuminate\Support\Facades\App;
 
 class BackpackUser extends User
 {
@@ -20,7 +21,9 @@ class BackpackUser extends User
      */
     public function sendPasswordResetNotification($token) : void
     {
-        $this->notify(new ResetPasswordNotification($token));
+        $locale = App::getLocale();
+        $notification = new ResetPasswordNotification($token);
+        $this->notify($notification->locale($locale));
     }
 
     /**

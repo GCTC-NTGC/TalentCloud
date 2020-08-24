@@ -91,6 +91,25 @@ export function objectMap<A, B>(
   }, []);
 }
 
+/**
+ * Return a copy of an object, with each value being passed through a map function.
+ * Each value's key is unaffected.
+ * @param object
+ * @param mapFn
+ */
+export function mapObjectValues<A, B>(
+  object: IndexedObject<A>,
+  mapFn: (value: A) => B,
+): IndexedObject<B> {
+  return Object.entries(object).reduce(
+    (result: IndexedObject<B>, [key, value]) => {
+      result[key] = mapFn(value);
+      return result;
+    },
+    {},
+  );
+}
+
 interface IndexedObject<T> {
   [key: string]: T;
 }
@@ -185,4 +204,9 @@ export function filterObjectProps<T>(
 /** Return a copy of the list with duplicate elements removed */
 export function uniq<T>(x: T[]): T[] {
   return Array.from(new Set(x));
+}
+
+export function flatten<T>(x: T[][]): T[] {
+  const concat = (ls: T[], xs: T[]): T[] => ls.concat(xs);
+  return x.reduce(concat, []);
 }
