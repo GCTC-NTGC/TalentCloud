@@ -18,6 +18,11 @@ import {
   experienceMessages,
   fitMessages,
 } from "../applicationMessages";
+import defaultBasicMessages, {
+  citizenshipDeclaration,
+  languageRequirementLabel,
+  veteranStatus,
+} from "../BasicInfo/basicInfoMessages";
 import ExperienceAwardAccordion from "../Experience/ExperienceAwardAccordion";
 import ExperienceCommunityAccordion from "../Experience/ExperienceCommunityAccordion";
 import ExperienceEducationAccordion from "../Experience/ExperienceEducationAccordion";
@@ -43,6 +48,25 @@ const messages = defineMessages({
     id: "application.review.editTitle",
     defaultMessage: "Edit this section.",
     description: "Link title for editing a section.",
+  },
+  communicationEn: {
+    id: "application.review.communication.english",
+    defaultMessage: "I prefer to communicate in English.",
+    description:
+      "Text displayed when a user selects 'en' in their profile for communication preference.",
+  },
+  communicationFr: {
+    id: "application.review.communication.french",
+    defaultMessage: "I prefer to communicate in French.",
+    description:
+      "Text displayed when a user selects 'fr' in their profile for communication preference.",
+  },
+  communicationNotSet: {
+    id: "application.review.communication.notSet",
+    defaultMessage:
+      "You haven't set a communication language preference in your profile yet.",
+    description:
+      "Text displayed if a user has not yet selected a communication preference in their profile.",
   },
 });
 
@@ -273,7 +297,11 @@ const Review: React.FC<ReviewProps> = ({
       >
         {intl.formatMessage(basicInfoMessages.citizenshipLabel)}
       </p>
-      <p>{application.citizenship_declaration_id}</p>
+      <p>
+        {intl.formatMessage(
+          citizenshipDeclaration(application.citizenship_declaration_id),
+        )}
+      </p>
       <p
         data-c-font-weight="bold"
         data-c-color="c2"
@@ -281,7 +309,7 @@ const Review: React.FC<ReviewProps> = ({
       >
         {intl.formatMessage(basicInfoMessages.veteranStatusLabel)}
       </p>
-      <p>{application.veteran_status_id}</p>
+      <p>{intl.formatMessage(veteranStatus(application.veteran_status_id))}</p>
       <p
         data-c-font-weight="bold"
         data-c-color="c2"
@@ -303,7 +331,9 @@ const Review: React.FC<ReviewProps> = ({
               data-c-color="go"
               data-c-margin="right(.25)"
             />
-            {job.language_requirement_id}
+            {intl.formatMessage(
+              languageRequirementLabel(job.language_requirement_id),
+            )}
           </p>
         )}
       {(job.language_requirement_id ===
@@ -317,8 +347,7 @@ const Review: React.FC<ReviewProps> = ({
               data-c-color="go"
               data-c-margin="right(.25)"
             />
-            I understand that my second language proficiency will be tested as
-            part of this process.
+            {intl.formatMessage(defaultBasicMessages.languageTestLabel)}
           </p>
         )}
       <div data-c-grid="gutter(all, 1) middle" data-c-padding="top(3)">
@@ -611,18 +640,40 @@ const Review: React.FC<ReviewProps> = ({
           defaultMessage="Contact & Communication"
         />
       </p>
+      {user.contact_language === "en" && (
+        <p data-c-margin="bottom(.5)">
+          <i
+            className="fas fa-check"
+            data-c-color="go"
+            data-c-margin="right(.25)"
+          />
+          {intl.formatMessage(messages.communicationEn)}
+        </p>
+      )}
+      {user.contact_language === "fr" && (
+        <p data-c-margin="bottom(.5)">
+          <i
+            className="fas fa-check"
+            data-c-color="go"
+            data-c-margin="right(.25)"
+          />
+          {intl.formatMessage(messages.communicationFr)}
+        </p>
+      )}
+      {user.contact_language !== "en" && user.contact_language !== "fr" && (
+        <p data-c-margin="bottom(.5)">
+          <i
+            className="fas fa-times"
+            data-c-color="stop"
+            data-c-margin="right(.25)"
+          />
+          {intl.formatMessage(messages.communicationNotSet)}
+        </p>
+      )}
       <p data-c-margin="bottom(.5)">
         <i
-          className="fas fa-check"
-          data-c-color="go"
-          data-c-margin="right(.25)"
-        />
-        {application.preferred_language_id}
-      </p>
-      <p data-c-margin="bottom(.5)">
-        <i
-          className="fas fa-check"
-          data-c-color="go"
+          className={`fas fa-${user.job_alerts ? "check" : "times"}`}
+          data-c-color={user.job_alerts ? "go" : "stop"}
           data-c-margin="right(.25)"
         />
         <FormattedMessage

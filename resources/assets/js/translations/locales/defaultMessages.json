@@ -1430,6 +1430,21 @@
         "id": "application.review.editTitle"
       },
       {
+        "defaultMessage": "I prefer to communicate in English.",
+        "description": "Text displayed when a user selects 'en' in their profile for communication preference.",
+        "id": "application.review.communication.english"
+      },
+      {
+        "defaultMessage": "I prefer to communicate in French.",
+        "description": "Text displayed when a user selects 'fr' in their profile for communication preference.",
+        "id": "application.review.communication.french"
+      },
+      {
+        "defaultMessage": "You haven't set a communication language preference in your profile yet.",
+        "description": "Text displayed if a user has not yet selected a communication preference in their profile.",
+        "id": "application.review.communication.notSet"
+      },
+      {
         "defaultMessage": "Review Your Application",
         "description": "Main page heading for the Review page.",
         "id": "application.review.heading"
