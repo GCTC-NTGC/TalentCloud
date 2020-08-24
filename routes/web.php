@@ -305,11 +305,38 @@ Route::group(
                 Route::get('faq', 'FaqController')->name('faq');
 
                 /* Static - Privacy Policy */
-                Route::view('privacy', 'common/static_privacy', ['privacy' => Lang::get('common/privacy')])
-                    ->name('privacy');
+                Route::get(
+                    'privacy',
+                    function () {
+                        return view(
+                            'common/static_privacy',
+                            [
+                                'privacy' => Lang::get('common/privacy'),
+                                'custom_breadcrumbs' => [
+                                    'home' => route('home'),
+                                    Lang::get('common/privacy.title') => '',
+                                ],
+                            ]
+                        );
+                    }
+                )->name('privacy');
 
                 /* Static - Terms of Service */
-                Route::view('tos', 'common/static_tos', ['tos' => Lang::get('common/tos')])->name('tos');
+                Route::get(
+                    'tos',
+                    function () {
+                        return view(
+                            'common/static_tos',
+                            [
+                                'tos' => Lang::get('common/tos'),
+                                'custom_breadcrumbs' => [
+                                    'home' => route('home'),
+                                    Lang::get('common/tos.title') => '',
+                                ],
+                            ]
+                        );
+                    }
+                )->name('tos');
 
                 /* Static - ITP */
                 Route::view('indigenous', 'common/static-itp', ['itp' => Lang::get('common/itp')])->name('itp');
