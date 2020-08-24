@@ -242,6 +242,28 @@ return [
         'return_label' => "Retour à la page d'accueil",
         'faq_title' => 'Accéder à la foire aux questions du Talent Cloud.',
         'faq_label' => 'Voir la foire aux questions',
+
+        // Application Timeline - Complete page copy
+        'complete_step_title' => 'Apply Now: Congratulations!',
+        'speed_up_process' => "While you're waiting to hear about your application, there are a couple of things you can proactively do to help speed up the process. The position you just applied to requires a :security_clearance level security clearance. This means you'll need to complete and hold onto the following form(s):",
+        'security_clearance_link' => [
+            'text' => 'Secret Clearance Form',
+            'title' => 'Learn more about obtaining security clearance.'
+        ],
+        'reliability_clearance_link' => [
+            'text' => 'Reliability Clearance Form',
+            'title' => 'Learn more about obtaining reliability clearance.'
+        ],
+        'lived_outside_canada' => 'Have you lived outside of Canada for longer than 6 months?',
+        'prepare_for_application' => [
+            'text' => 'Find out more about what else you can do to prepare for this job application.',
+            'title' => 'Learn more about international securite checks on the FAQ.',
+        ],
+        'useful_links_copy' => "Don't forget! All the work you've done is saved in your profile for future applications. Here are a few useful links:",
+        'update_profile_link' => [
+            'text' => 'Keep your profile up-to-date',
+            'title' => 'Open your profile',
+        ],
     ],
 
     'strategic_response' => [
