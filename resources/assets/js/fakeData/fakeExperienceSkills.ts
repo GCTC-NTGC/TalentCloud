@@ -1,5 +1,6 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
 import dayjs from "dayjs";
+import { v4 as uuidv4 } from "uuid";
 import { ExperienceSkill, Skill, Experience } from "../models/types";
 import {
   fakeExperienceAward,
@@ -79,6 +80,7 @@ export const createFakeExperienceSkill = (
   experience: Experience,
   skill: Skill,
 ): ExperienceSkill => ({
+  id: uuidv4(),
   skill_id: skill.id,
   experience_id: experience.id,
   experience_type: experience.type,
