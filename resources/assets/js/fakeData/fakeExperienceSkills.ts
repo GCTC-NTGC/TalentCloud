@@ -19,8 +19,8 @@ export const fakeExperienceSkill1 = (
   experience_id: fakeExperienceEducation().id,
   experience_type: "experience_education",
   justification: "This is a sample education justification.",
-  created_at: dayjs("01/07/2015").toDate(),
-  updated_at: dayjs("01/07/2016").toDate(),
+  created_at: dayjs("01/07/2015 09:00:00").toDate(),
+  updated_at: dayjs("01/07/2016 09:00:00").toDate(),
   ...overrides,
 });
 
@@ -32,8 +32,8 @@ export const fakeExperienceSkill2 = (
   experience_id: fakeExperienceWork().id,
   experience_type: "experience_work",
   justification: "",
-  created_at: dayjs("01/07/2015").toDate(),
-  updated_at: dayjs("01/07/2016").toDate(),
+  created_at: dayjs("01/07/2015 09:00:00").toDate(),
+  updated_at: dayjs("01/07/2016 09:00:00").toDate(),
   ...overrides,
 });
 
@@ -45,8 +45,8 @@ export const fakeExperienceSkill3 = (
   experience_id: fakeExperiencePersonal().id,
   experience_type: "experience_personal",
   justification: "",
-  created_at: dayjs("01/07/2015").toDate(),
-  updated_at: dayjs("01/07/2016").toDate(),
+  created_at: dayjs("01/07/2015 09:00:00").toDate(),
+  updated_at: dayjs("01/07/2016 09:00:00").toDate(),
   ...overrides,
 });
 
@@ -58,8 +58,8 @@ export const fakeExperienceSkill4 = (
   experience_id: fakeExperienceCommunity().id,
   experience_type: "experience_community",
   justification: "",
-  created_at: dayjs("01/07/2015").toDate(),
-  updated_at: dayjs("01/07/2016").toDate(),
+  created_at: dayjs("01/07/2015 09:00:00").toDate(),
+  updated_at: dayjs("01/07/2016 09:00:00").toDate(),
   ...overrides,
 });
 
@@ -71,8 +71,8 @@ export const fakeExperienceSkill5 = (
   experience_id: fakeExperienceAward().id,
   experience_type: "experience_award",
   justification: "",
-  created_at: dayjs("01/07/2015").toDate(),
-  updated_at: dayjs("01/07/2016").toDate(),
+  created_at: dayjs("01/07/2015 09:00:00").toDate(),
+  updated_at: dayjs("01/07/2016 09:00:00").toDate(),
   ...overrides,
 });
 
