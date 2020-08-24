@@ -73,6 +73,8 @@ export const fakeApplicationNormalized = (
       not_in_gov: false,
       gov_email: "frankie.lambda@canada.ca",
       department_id: 1,
+      contact_language: "en",
+      job_alerts: true,
       user_role: {
         id: 1,
         key: "basic",

@@ -266,6 +266,8 @@ export interface User {
   not_in_gov: boolean;
   gov_email: string;
   department_id: number | null;
+  contact_language: string | null;
+  job_alerts: boolean;
   user_role: {
     id: number;
     key: string;
