@@ -270,7 +270,7 @@ exports[`Application Timeline - My Experience should render MyExperience with it
     experiences={
       Array [
         Object {
-          "end_date": 2019-12-13T05:00:00.000Z,
+          "end_date": 2015-04-30T14:47:29.000Z,
           "experienceable_id": 1,
           "experienceable_type": "applicant",
           "group": "Research Division",
@@ -278,7 +278,7 @@ exports[`Application Timeline - My Experience should render MyExperience with it
           "is_active": false,
           "is_education_requirement": true,
           "organization": "ACME Labs.",
-          "start_date": 2015-01-07T05:00:00.000Z,
+          "start_date": 2010-09-01T14:47:29.000Z,
           "title": "Applied Researched",
           "type": "experience_work",
         },
@@ -332,7 +332,7 @@ exports[`Application Timeline - My Experience should render MyExperience with it
           "is_active": true,
           "is_education_requirement": false,
           "is_shareable": true,
-          "start_date": 2013-04-01T04:00:00.000Z,
+          "start_date": 2015-04-30T14:47:29.000Z,
           "title": "Parenting",
           "type": "experience_personal",
         },
