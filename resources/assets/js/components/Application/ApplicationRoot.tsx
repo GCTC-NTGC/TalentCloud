@@ -2,14 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Routes } from "universal-router";
 import { useIntl, defineMessages } from "react-intl";
-import { useEffect } from "@storybook/addons";
 import RootContainer from "../RootContainer";
-import { RouterResult, useRouter, redirect } from "../../helpers/router";
+import { RouterResult, useRouter, Link } from "../../helpers/router";
 import IntroPage from "./Intro/IntroPage";
 import ScrollToTop from "../ScrollToTop";
 import BasicInfoPage from "./BasicInfo/BasicInfoPage";
-import { applicationWelcome } from "../../helpers/routes";
+import {
+  applicationWelcome,
+  applicationSkillsIntro,
+} from "../../helpers/routes";
 import { Locales } from "../../helpers/localize";
+import ExperienceIntroPage from "./Experience/ExperienceIntroPage";
 
 const pageTitles = defineMessages({
   welcomeTitle: {
@@ -25,6 +28,11 @@ const pageTitles = defineMessages({
   experienceIntroTitle: {
     id: "application.experienceIntro.documentTitle",
     defaultMessage: "Apply: Defining Your Experience", // TODO: Get page title from designs.
+    description: "The document's title shown in browser's title bar or tab.",
+  },
+  experienceTitle: {
+    id: "application.experience.documentTitle",
+    defaultMessage: "Apply: Experience",
     description: "The document's title shown in browser's title bar or tab.",
   },
 });
@@ -45,6 +53,33 @@ const routes: Routes<{}, RouterResult> = [
         action: ({ params }) => ({
           title: pageTitles.basicTitle,
           component: <BasicInfoPage applicationId={Number(params.id)} />,
+        }),
+      },
+      {
+        path: "/experience-intro",
+        action: ({ params }) => ({
+          title: pageTitles.experienceIntroTitle,
+          component: <ExperienceIntroPage applicationId={Number(params.id)} />,
+        }),
+      },
+      {
+        path: "/experience",
+        action: ({ params }) => ({
+          title: pageTitles.experienceTitle,
+          component: (
+            <>
+              <p>PLACEHOLDER FOR EXPERIENCE STEP</p>
+              <Link
+                href={applicationSkillsIntro(
+                  params.locale as Locales,
+                  Number(params.id),
+                )}
+                title=""
+              >
+                Continue
+              </Link>
+            </>
+          ),
         }),
       },
       {
