@@ -23,11 +23,11 @@ import defaultBasicMessages, {
   languageRequirementLabel,
   veteranStatus,
 } from "../BasicInfo/basicInfoMessages";
-import ExperienceAwardAccordion from "../Experience/ExperienceAwardAccordion";
-import ExperienceCommunityAccordion from "../Experience/ExperienceCommunityAccordion";
-import ExperienceEducationAccordion from "../Experience/ExperienceEducationAccordion";
-import ExperiencePersonalAccordion from "../Experience/ExperiencePersonalAccordion";
-import ExperienceWorkAccordion from "../Experience/ExperienceWorkAccordion";
+import ExperienceAwardAccordion from "../ExperienceAccordions/ExperienceAwardAccordion";
+import ExperienceCommunityAccordion from "../ExperienceAccordions/ExperienceCommunityAccordion";
+import ExperienceEducationAccordion from "../ExperienceAccordions/ExperienceEducationAccordion";
+import ExperiencePersonalAccordion from "../ExperienceAccordions/ExperiencePersonalAccordion";
+import ExperienceWorkAccordion from "../ExperienceAccordions/ExperienceWorkAccordion";
 import SkillAccordion from "./SkillAccordion";
 import {
   Locales,
