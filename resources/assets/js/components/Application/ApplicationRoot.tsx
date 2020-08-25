@@ -2,14 +2,29 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Routes } from "universal-router";
 import { useIntl, defineMessages } from "react-intl";
+import { useEffect } from "@storybook/addons";
 import RootContainer from "../RootContainer";
-import { RouterResult, useRouter } from "../../helpers/router";
+import { RouterResult, useRouter, redirect } from "../../helpers/router";
 import IntroPage from "./Intro/IntroPage";
+import ScrollToTop from "../ScrollToTop";
+import BasicInfoPage from "./BasicInfo/BasicInfoPage";
+import { applicationWelcome } from "../../helpers/routes";
+import { Locales } from "../../helpers/localize";
 
 const pageTitles = defineMessages({
   welcomeTitle: {
     id: "application.welcome.documentTitle",
-    defaultMessage: "Application: Welcome", // TODO: Get page title from designs.
+    defaultMessage: "Apply: Welcome", // TODO: Get page title from designs.
+    description: "The document's title shown in browser's title bar or tab.",
+  },
+  basicTitle: {
+    id: "application.basic.documentTitle",
+    defaultMessage: "Apply: My Basic Information", // TODO: Get page title from designs.
+    description: "The document's title shown in browser's title bar or tab.",
+  },
+  experienceIntroTitle: {
+    id: "application.experienceIntro.documentTitle",
+    defaultMessage: "Apply: Defining Your Experience", // TODO: Get page title from designs.
     description: "The document's title shown in browser's title bar or tab.",
   },
 });
@@ -25,6 +40,25 @@ const routes: Routes<{}, RouterResult> = [
           component: <IntroPage applicationId={Number(params.id)} />,
         }),
       },
+      {
+        path: "/basic",
+        action: ({ params }) => ({
+          title: pageTitles.basicTitle,
+          component: <BasicInfoPage applicationId={Number(params.id)} />,
+        }),
+      },
+      {
+        // Redirect any unmatched url to Welcome step.
+        path: "(.*)",
+        action: ({ params }) => ({
+          title: pageTitles.welcomeTitle,
+          component: <div />,
+          redirect: applicationWelcome(
+            params.locale as Locales,
+            Number(params.id),
+          ),
+        }),
+      },
     ],
   },
 ];
@@ -32,19 +66,16 @@ const routes: Routes<{}, RouterResult> = [
 const ApplicationRoot: React.FunctionComponent = () => {
   const intl = useIntl();
   const match = useRouter(routes, intl);
-  // const tracker: HTMLElement | null = document.getElementById(
-  //   "job-builder-root",
-  // );
+  const tracker: HTMLElement | null = document.getElementById(
+    "application-root",
+  );
+  const trackerOffsetTop: number = tracker ? tracker.offsetTop : 0;
 
-  // const trackerOffsetTop: number = tracker ? tracker.offsetTop : 0;
-
-  // return (
-  //   <ScrollToTop offsetTop={trackerOffsetTop} scrollBehaviorAuto>
-  //     {match}
-  //   </ScrollToTop>
-  // );
-
-  return match;
+  return (
+    <ScrollToTop offsetTop={trackerOffsetTop} scrollBehaviorAuto>
+      {match}
+    </ScrollToTop>
+  );
 };
 
 if (document.getElementById("application-root")) {
