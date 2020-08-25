@@ -1059,6 +1059,18 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->where('community', '[0-9]+')
         ->middleware('can:delete,community')
         ->name('experience-community.destroy');
+
+    Route::post('experience-skills', 'Api\ExperienceSkillsController@store')
+        ->middleware('can:create,App\Models\ExperienceSkill')
+        ->name('experience-skill.store');
+    Route::put('experience-skills/{experienceSkill}', 'Api\ExperienceSkillsController@update')
+        ->where('experienceSkill', '[0-9]+')
+        ->middleware('can:update,experienceSkill')
+        ->name('experience-skill.update');
+    Route::delete('experience-skills/{experienceSkill}', 'Api\ExperienceSkillsController@destroy')
+        ->where('experienceSkill', '[0-9]+')
+        ->middleware('can:delete,experienceSkill')
+        ->name('experience-skill.destroy');
 });
 Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
     Route::get('applications/{application}', 'Api\ApplicationController@show')

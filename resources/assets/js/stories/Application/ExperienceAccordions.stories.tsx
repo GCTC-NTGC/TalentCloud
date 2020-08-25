@@ -3,8 +3,8 @@ import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
 import { select, text, number, boolean, date } from "@storybook/addon-knobs";
-import { BaseExperienceAccordion } from "../../components/Application/Experience/BaseExperienceAccordion";
-import { ExperienceWorkAccordion } from "../../components/Application/Experience/ExperienceWorkAccordion";
+import { BaseExperienceAccordion } from "../../components/Application/ExperienceAccordions/BaseExperienceAccordion";
+import { ExperienceWorkAccordion } from "../../components/Application/ExperienceAccordions/ExperienceWorkAccordion";
 import {
   fakeExperienceWork,
   fakeExperienceEducation,
@@ -18,10 +18,10 @@ import {
   fakeExperienceSkill5,
 } from "../../fakeData/fakeExperienceSkills";
 import { fakeSkills } from "../../fakeData/fakeSkills";
-import ExperienceEducationAccordion from "../../components/Application/Experience/ExperienceEducationAccordion";
-import ExperienceCommunityAccordion from "../../components/Application/Experience/ExperienceCommunityAccordion";
-import ExperienceAwardAccordion from "../../components/Application/Experience/ExperienceAwardAccordion";
-import ExperiencePersonalAccordion from "../../components/Application/Experience/ExperiencePersonalAccordion";
+import ExperienceEducationAccordion from "../../components/Application/ExperienceAccordions/ExperienceEducationAccordion";
+import ExperienceCommunityAccordion from "../../components/Application/ExperienceAccordions/ExperienceCommunityAccordion";
+import ExperienceAwardAccordion from "../../components/Application/ExperienceAccordions/ExperienceAwardAccordion";
+import ExperiencePersonalAccordion from "../../components/Application/ExperienceAccordions/ExperiencePersonalAccordion";
 
 const stories = storiesOf("Application|Experience Accordions", module)
   .addDecorator(withIntl)

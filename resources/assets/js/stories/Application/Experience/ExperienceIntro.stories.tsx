@@ -4,7 +4,7 @@ import { action } from "@storybook/addon-actions";
 import { withIntl } from "storybook-addon-intl";
 import ExperienceIntro from "../../../components/Application/Experience/ExperienceIntro";
 
-const stories = storiesOf("Application|Experience", module).addDecorator(
+const stories = storiesOf("Application|Experience Intro", module).addDecorator(
   withIntl,
 );
 

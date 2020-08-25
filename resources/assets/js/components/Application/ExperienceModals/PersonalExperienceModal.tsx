@@ -51,7 +51,7 @@ interface PersonalExperienceModalProps {
   onModalConfirm: (data: PersonalExperienceSubmitData) => Promise<void>;
 }
 
-const messages = defineMessages({
+export const messages = defineMessages({
   modalTitle: {
     id: "application.personalExperienceModal.modalTitle",
     defaultMessage: "Add Personal Experience",
@@ -117,7 +117,7 @@ export interface PersonalDetailsFormValues {
 type PersonalExperienceFormValues = SkillFormValues &
   EducationFormValues &
   PersonalDetailsFormValues;
-interface PersonalExperienceSubmitData {
+export interface PersonalExperienceSubmitData {
   experiencePersonal: ExperiencePersonal;
   savedRequiredSkills: Skill[];
   savedOptionalSkills: Skill[];
@@ -302,6 +302,7 @@ export const PersonalExperienceModal: React.FC<PersonalExperienceModalProps> = (
             component={CheckboxInput}
             grid="base(1of1)"
             label={intl.formatMessage(messages.isShareableInlineLabel)}
+            checkboxGroup
           />
         </div>
         <FastField

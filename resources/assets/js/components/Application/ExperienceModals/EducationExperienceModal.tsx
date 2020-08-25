@@ -34,12 +34,12 @@ import { notEmpty } from "../../../helpers/queries";
 import { localizedFieldNonNull } from "../../../models/app";
 import SelectInput from "../../Form/SelectInput";
 
-interface EducationType {
+export interface EducationType {
   id: number;
   name: localizedFieldNonNull;
 }
 
-interface EducationStatus {
+export interface EducationStatus {
   id: number;
   name: localizedFieldNonNull;
 }
@@ -63,10 +63,10 @@ interface EducationExperienceModalProps {
   onModalConfirm: (data: EducationExperienceSubmitData) => Promise<void>;
 }
 
-const messages = defineMessages({
+export const messages = defineMessages({
   modalTitle: {
     id: "application.educationExperienceModal.modalTitle",
-    defaultMessage: "Add Edcuation Experience",
+    defaultMessage: "Add Education Experience",
   },
   modalDescription: {
     id: "application.educationExperienceModal.modalDescription",
@@ -157,7 +157,7 @@ export interface EducationDetailsFormValues {
 type EducationExperienceFormValues = SkillFormValues &
   EducationFormValues &
   EducationDetailsFormValues;
-interface EducationExperienceSubmitData {
+export interface EducationExperienceSubmitData {
   experienceEducation: ExperienceEducation;
   savedRequiredSkills: Skill[];
   savedOptionalSkills: Skill[];
@@ -419,6 +419,7 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
             component={CheckboxInput}
             grid="base(1of1)"
             label={intl.formatMessage(messages.blockcertInlineLabel)}
+            checkboxGroup
           />
         </div>
       </div>

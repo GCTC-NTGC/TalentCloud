@@ -1,6 +1,7 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
 import dayjs from "dayjs";
-import { ExperienceSkill } from "../models/types";
+import { v4 as uuidv4 } from "uuid";
+import { ExperienceSkill, Skill, Experience } from "../models/types";
 import {
   fakeExperienceAward,
   fakeExperienceCommunity,
@@ -18,8 +19,8 @@ export const fakeExperienceSkill1 = (
   experience_id: fakeExperienceEducation().id,
   experience_type: "experience_education",
   justification: "This is a sample education justification.",
-  created_at: dayjs("01/07/2015").toDate(),
-  updated_at: dayjs("01/07/2016").toDate(),
+  created_at: dayjs("2015-04-30T14:47:29+00:00").toDate(),
+  updated_at: dayjs("2016-04-30T14:47:29+00:00").toDate(),
   ...overrides,
 });
 
@@ -31,8 +32,8 @@ export const fakeExperienceSkill2 = (
   experience_id: fakeExperienceWork().id,
   experience_type: "experience_work",
   justification: "I used Front End development at my last job.",
-  created_at: dayjs("01/07/2015").toDate(),
-  updated_at: dayjs("01/07/2016").toDate(),
+  created_at: dayjs("2015-04-30T14:47:29+00:00").toDate(),
+  updated_at: dayjs("2016-04-30T14:47:29+00:00").toDate(),
   ...overrides,
 });
 
@@ -44,8 +45,8 @@ export const fakeExperienceSkill3 = (
   experience_id: fakeExperiencePersonal().id,
   experience_type: "experience_personal",
   justification: "",
-  created_at: dayjs("01/07/2015").toDate(),
-  updated_at: dayjs("01/07/2016").toDate(),
+  created_at: dayjs("2015-04-30T14:47:29+00:00").toDate(),
+  updated_at: dayjs("2016-04-30T14:47:29+00:00").toDate(),
   ...overrides,
 });
 
@@ -57,8 +58,8 @@ export const fakeExperienceSkill4 = (
   experience_id: fakeExperienceCommunity().id,
   experience_type: "experience_community",
   justification: "",
-  created_at: dayjs("01/07/2015").toDate(),
-  updated_at: dayjs("01/07/2016").toDate(),
+  created_at: dayjs("2015-04-30T14:47:29+00:00").toDate(),
+  updated_at: dayjs("2016-04-30T14:47:29+00:00").toDate(),
   ...overrides,
 });
 
@@ -70,12 +71,25 @@ export const fakeExperienceSkill5 = (
   experience_id: fakeExperienceAward().id,
   experience_type: "experience_award",
   justification: "",
-  created_at: dayjs("01/07/2015").toDate(),
-  updated_at: dayjs("01/07/2016").toDate(),
+  created_at: dayjs("2015-04-30T14:47:29+00:00").toDate(),
+  updated_at: dayjs("2016-04-30T14:47:29+00:00").toDate(),
   ...overrides,
 });
 
-const fakeExperienceSkills = (): ExperienceSkill[] => [
+export const createFakeExperienceSkill = (
+  experience: Experience,
+  skill: Skill,
+): ExperienceSkill => ({
+  id: uuidv4(),
+  skill_id: skill.id,
+  experience_id: experience.id,
+  experience_type: experience.type,
+  justification: "",
+  created_at: dayjs().toDate(),
+  updated_at: dayjs().toDate(),
+});
+
+export const fakeExperienceSkills = (): ExperienceSkill[] => [
   fakeExperienceSkill1(),
   fakeExperienceSkill2(),
   fakeExperienceSkill3(),
