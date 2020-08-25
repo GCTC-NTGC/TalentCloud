@@ -1,3 +1,5 @@
+import { Locales } from "./localize";
+
 /* eslint-disable no-useless-escape */
 function stripTrailingSlash(str: string): string {
   return str.endsWith("/") ? str.slice(0, -1) : str;
@@ -206,6 +208,66 @@ export const hrApplicantShow = (
 
 export function accountSettings(locale: string): string {
   return `${baseUrl()}/${locale}/settings`;
+}
+
+export function applicationIndex(locale: Locales): string {
+  return `${baseUrl()}/${locale}/applications`;
+}
+
+function baseApplicationUrl(locale: Locales, applicationId) {
+  // TODO: remove "demo" from url.
+  return `${baseUrl()}/${locale}/demo/applications/${applicationId}`;
+}
+export function applicationWelcome(
+  locale: Locales,
+  applicationId: number,
+): string {
+  return `${baseApplicationUrl(locale, applicationId)}/welcome`;
+}
+export function applicationBasic(
+  locale: Locales,
+  applicationId: number,
+): string {
+  return `${baseApplicationUrl(locale, applicationId)}/basic`;
+}
+export function applicationExperienceIntro(
+  locale: Locales,
+  applicationId: number,
+): string {
+  return `${baseApplicationUrl(locale, applicationId)}/experience-intro`;
+}
+export function applicationExperience(
+  locale: Locales,
+  applicationId: number,
+): string {
+  return `${baseApplicationUrl(locale, applicationId)}/experience`;
+}
+export function applicationSkillsIntro(
+  locale: Locales,
+  applicationId: number,
+): string {
+  return `${baseApplicationUrl(locale, applicationId)}/skills-intro`;
+}
+export function applicationSkills(
+  locale: Locales,
+  applicationId: number,
+): string {
+  return `${baseApplicationUrl(locale, applicationId)}/skills`;
+}
+export function applicationFit(locale: Locales, applicationId: number): string {
+  return `${baseApplicationUrl(locale, applicationId)}/fit`;
+}
+export function applicationReview(
+  locale: Locales,
+  applicationId: number,
+): string {
+  return `${baseApplicationUrl(locale, applicationId)}/review`;
+}
+export function applicationSubmission(
+  locale: Locales,
+  applicationId: number,
+): string {
+  return `${baseApplicationUrl(locale, applicationId)}/submission`;
 }
 
 /**

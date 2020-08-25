@@ -5,6 +5,15 @@ import {
   stepNames,
   ProgressBarStepStatus,
 } from "./ProgressBar";
+import {
+  applicationBasic,
+  applicationExperienceIntro,
+  applicationSkills,
+  applicationFit,
+  applicationReview,
+  applicationSubmission,
+} from "../../../helpers/routes";
+import { getLocale } from "../../../helpers/localize";
 
 function basicInfoStatus(application: Application): ProgressBarStepStatus {
   // TODO: implement.
@@ -34,55 +43,72 @@ function submissionStatus(application: Application): ProgressBarStepStatus {
 export function makeProgressBarSteps(
   application: Application,
   intl: IntlShape,
+  currentStep:
+    | "welcome"
+    | "basic"
+    | "experience"
+    | "skills"
+    | "fit"
+    | "review"
+    | "submission"
+    | "other",
 ): ProgressBarProps["steps"] {
+  const locale = getLocale(intl.locale);
   return [
     {
       link: {
-        url: "/",
+        url: applicationBasic(locale, application.id),
         text: intl.formatMessage(stepNames.step01),
         title: intl.formatMessage(stepNames.step01),
       },
-      status: basicInfoStatus(application),
+      status:
+        currentStep === "basic" ? "current" : basicInfoStatus(application),
     },
     {
       link: {
-        url: "/",
+        url: applicationExperienceIntro(locale, application.id),
         text: intl.formatMessage(stepNames.step02),
         title: intl.formatMessage(stepNames.step02),
       },
-      status: experienceStatus(application),
+      status:
+        currentStep === "experience"
+          ? "current"
+          : experienceStatus(application),
     },
     {
       link: {
-        url: "/",
+        url: applicationSkills(locale, application.id),
         text: intl.formatMessage(stepNames.step03),
         title: intl.formatMessage(stepNames.step03),
       },
-      status: skillsStatus(application),
+      status: currentStep === "skills" ? "current" : skillsStatus(application),
     },
     {
       link: {
-        url: "/",
+        url: applicationFit(locale, application.id),
         text: intl.formatMessage(stepNames.step04),
         title: intl.formatMessage(stepNames.step04),
       },
-      status: myFitStatus(application),
+      status: currentStep === "fit" ? "current" : myFitStatus(application),
     },
     {
       link: {
-        url: "/",
+        url: applicationReview(locale, application.id),
         text: intl.formatMessage(stepNames.step05),
         title: intl.formatMessage(stepNames.step05),
       },
-      status: reviewStatus(application),
+      status: currentStep === "review" ? "current" : reviewStatus(application),
     },
     {
       link: {
-        url: "/",
+        url: applicationSubmission(locale, application.id),
         text: intl.formatMessage(stepNames.step06),
         title: intl.formatMessage(stepNames.step06),
       },
-      status: submissionStatus(application),
+      status:
+        currentStep === "submission"
+          ? "current"
+          : submissionStatus(application),
     },
   ];
 }
