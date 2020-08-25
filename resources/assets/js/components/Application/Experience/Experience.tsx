@@ -11,9 +11,10 @@ import {
   ExperiencePersonal,
   ExperienceAward,
   ExperienceSkill,
+  Criteria,
 } from "../../../models/types";
 import { localizeFieldNonNull, getLocale } from "../../../helpers/localize";
-import { SkillTypeId } from "../../../models/lookupConstants";
+import { SkillTypeId, CriteriaTypeId } from "../../../models/lookupConstants";
 import EducationExperienceModal, {
   messages as educationMessages,
   EducationType,
@@ -46,7 +47,7 @@ import ExperienceCommunityAccordion from "../ExperienceAccordions/ExperienceComm
 import ExperiencePersonalAccordion from "../ExperienceAccordions/ExperiencePersonalAccordion";
 import ExperienceAwardAccordion from "../ExperienceAccordions/ExperienceAwardAccordion";
 import { mapToObject, hasKey } from "../../../helpers/queries";
-import { ExperienceSkill as RelevantSkill } from "../ExperienceAccordions/BaseExperienceAccordion";
+import { getSkillOfCriteria } from "../helpers";
 
 const messages = defineMessages({
   educationTypeMissing: {
@@ -129,11 +130,11 @@ export type ExperienceSubmitData =
 
 interface ExperienceProps {
   experiences: Experience[];
-  assetSkills: Skill[];
   educationStatuses: EducationStatus[];
   educationTypes: EducationType[];
-  essentialSkills: Skill[];
   experienceSkills: ExperienceSkill[];
+  criteria: Criteria[];
+  skills: Skill[];
   experienceRequirements: EducationSubformProps;
   jobId: number;
   recipientTypes: AwardRecipientType[];
@@ -150,11 +151,11 @@ interface ExperienceProps {
 
 const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   experiences,
-  assetSkills,
   educationStatuses,
   educationTypes,
-  essentialSkills,
   experienceSkills,
+  criteria,
+  skills,
   experienceRequirements,
   handleSubmitExperience,
   handleDeleteExperience,
@@ -180,6 +181,25 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
     id: "",
     visible: false,
   });
+
+  const filteredSkills = criteria.reduce(
+    (result, criterion): { essential: Skill[]; asset: Skill[] } => {
+      const skillOfCriterion = getSkillOfCriteria(criterion, skills);
+      if (skillOfCriterion) {
+        if (criterion.criteria_type_id === CriteriaTypeId.Essential) {
+          result.essential.push(skillOfCriterion);
+        }
+        if (criterion.criteria_type_id === CriteriaTypeId.Asset) {
+          result.asset.push(skillOfCriterion);
+        }
+      }
+      return result;
+    },
+    { essential: [], asset: [] } as { essential: Skill[]; asset: Skill[] },
+  );
+
+  const essentialSkills = filteredSkills.essential;
+  const assetSkills = filteredSkills.asset;
 
   getDisconnectedRequiredSkills(experiences, experienceSkills, essentialSkills);
 
@@ -291,7 +311,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
     experienceType: string,
     experience: Experience,
     irrelevantSkillCount: number,
-    relevantSkills: RelevantSkill[],
+    relevantSkills: ExperienceSkill[],
     handleEdit: () => void,
     handleDelete: () => void,
   ): React.ReactElement => {
@@ -329,6 +349,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
             isActive={education.is_active}
             isEducationJustification={education.is_education_requirement}
             relevantSkills={relevantSkills}
+            skills={skills}
             showButtons
             showSkillDetails
             startDate={education.start_date}
@@ -349,6 +370,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
             isEducationJustification={work.is_education_requirement}
             organization={work.organization}
             relevantSkills={relevantSkills}
+            skills={skills}
             showButtons
             showSkillDetails
             startDate={work.start_date}
@@ -368,6 +390,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
             isEducationJustification={community.is_education_requirement}
             project={community.project}
             relevantSkills={relevantSkills}
+            skills={skills}
             showButtons
             showSkillDetails
             startDate={community.start_date}
@@ -387,6 +410,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
             isEducationJustification={personal.is_education_requirement}
             isShareable={personal.is_shareable}
             relevantSkills={relevantSkills}
+            skills={skills}
             showButtons
             showSkillDetails
             startDate={personal.start_date}
@@ -397,8 +421,6 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
         return (
           <ExperienceAwardAccordion
             key={`${award.id}-${award.type}`}
-            // TODO: Add awardLink field to Award Modal Form?
-            awardLink={{ text: "My Award", title: "my award", url: "/" }}
             awardedDate={award.awarded_date}
             handleDelete={handleDelete}
             handleEdit={handleEdit}
@@ -407,6 +429,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
             issuer={award.issued_by}
             recipient={recipient}
             relevantSkills={relevantSkills}
+            skills={skills}
             scope={scope}
             showButtons
             showSkillDetails
@@ -450,47 +473,49 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
           />
         </p>
         <div data-c-grid="gutter(all, 1)">
-          <div data-c-grid-item="tl(1of2)">
-            <p data-c-margin="bottom(.5)">
-              <FormattedMessage
-                id="application.experience.essentialSkillsListIntro"
-                description="Text before the list of essential skills on the experience step of the Application Timeline."
-                defaultMessage="This job <span>requires</span> the following skills:"
-                values={{
-                  span: (chunks): React.ReactElement => (
-                    <span data-c-font-weight="bold" data-c-color="c2">
-                      {chunks}
-                    </span>
-                  ),
-                }}
-              />
-            </p>
-            <ul data-c-margin="bottom(1)">
-              {essentialSkills &&
-                essentialSkills.map((skill) => (
+          {essentialSkills.length > 0 && (
+            <div data-c-grid-item="tl(1of2)">
+              <p data-c-margin="bottom(.5)">
+                <FormattedMessage
+                  id="application.experience.essentialSkillsListIntro"
+                  description="Text before the list of essential skills on the experience step of the Application Timeline."
+                  defaultMessage="This job <span>requires</span> the following skills:"
+                  values={{
+                    span: (chunks): React.ReactElement => (
+                      <span data-c-font-weight="bold" data-c-color="c2">
+                        {chunks}
+                      </span>
+                    ),
+                  }}
+                />
+              </p>
+              <ul data-c-margin="bottom(1)">
+                {essentialSkills.map((skill) => (
                   <li key={skill.id}>
                     {localizeFieldNonNull(locale, skill, "name")}
                   </li>
                 ))}
-            </ul>
-          </div>
-          <div data-c-grid-item="tl(1of2)">
-            <p data-c-margin="bottom(.5)">
-              <FormattedMessage
-                id="application.experience.assetSkillsListIntro"
-                defaultMessage="These skills are beneficial, but not required:"
-                description="Text before the list of asset skills on the experience step of the Application Timeline."
-              />
-            </p>
-            <ul data-c-margin="bottom(1)">
-              {assetSkills &&
-                assetSkills.map((skill) => (
+              </ul>
+            </div>
+          )}
+          {assetSkills.length > 0 && (
+            <div data-c-grid-item="tl(1of2)">
+              <p data-c-margin="bottom(.5)">
+                <FormattedMessage
+                  id="application.experience.assetSkillsListIntro"
+                  defaultMessage="These skills are beneficial, but not required:"
+                  description="Text before the list of asset skills on the experience step of the Application Timeline."
+                />
+              </p>
+              <ul data-c-margin="bottom(1)">
+                {assetSkills.map((skill) => (
                   <li key={skill.id}>
                     {localizeFieldNonNull(locale, skill, "name")}
                   </li>
                 ))}
-            </ul>
-          </div>
+              </ul>
+            </div>
+          )}
         </div>
         <p data-c-color="gray" data-c-margin="bottom(2)">
           <FormattedMessage
@@ -509,7 +534,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
                         <span key={skill.id} data-c-font-weight="bold">
                           {localizeFieldNonNull(locale, skill, "name")}
                         </span>
-                        {!lastElement && ", "}
+                        {!lastElement && softSkills.length > 2 && ", "}
                       </>
                     );
                   })}
@@ -537,17 +562,22 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
                   experience,
                   essentialSkills,
                 );
-                const relevantSkills: RelevantSkill[] =
+                const relevantSkills: ExperienceSkill[] =
                   savedRequiredSkills.map((skill) => {
                     const experienceSkill = experienceSkills.find(
-                      ({ experience_id, experience_type }) =>
+                      ({ experience_id, experience_type, skill_id }) =>
                         experience_id === experience.experienceable_id &&
+                        skill_id === skill.id &&
                         experience_type === experience.type,
                     );
                     return {
-                      id: experienceSkill?.experience_id ?? 0,
-                      name: localizeFieldNonNull(locale, skill, "name"),
-                      claim: experienceSkill?.justification ?? "",
+                      id: experienceSkill?.id ?? 0,
+                      skill_id: experienceSkill?.skill_id ?? 0,
+                      experience_id: experienceSkill?.experience_id ?? 0,
+                      experience_type: experienceSkill?.experience_type ?? "",
+                      justification: experienceSkill?.justification ?? "",
+                      created_at: experienceSkill?.created_at ?? new Date(),
+                      updated_at: experienceSkill?.updated_at ?? new Date(),
                     };
                   }) ?? [];
 
