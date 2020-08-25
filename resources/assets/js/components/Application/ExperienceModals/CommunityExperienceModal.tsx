@@ -49,7 +49,7 @@ interface CommunityExperienceModalProps {
   onModalConfirm: (data: CommunityExperienceSubmitData) => Promise<void>;
 }
 
-const messages = defineMessages({
+export const messages = defineMessages({
   modalTitle: {
     id: "communityExperienceModal.modalTitle",
     defaultMessage: "Add Community Experience",
@@ -114,7 +114,7 @@ export interface CommunityDetailsFormValues {
 type CommunityExperienceFormValues = SkillFormValues &
   EducationFormValues &
   CommunityDetailsFormValues;
-interface CommunityExperienceSubmitData {
+export interface CommunityExperienceSubmitData {
   experienceCommunity: ExperienceCommunity;
   savedRequiredSkills: Skill[];
   savedOptionalSkills: Skill[];

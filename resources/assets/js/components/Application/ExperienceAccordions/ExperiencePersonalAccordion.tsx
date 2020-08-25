@@ -9,12 +9,12 @@ import {
 import { Locales, getLocale } from "../../../helpers/localize";
 import { readableDate } from "../../../helpers/dates";
 
-interface ExperienceCommunityAccordionProps {
+interface ExperiencePersonalAccordionProps {
   title: string;
-  group: string;
-  project: string;
+  description: string;
+  isShareable: boolean;
   startDate: Date;
-  endDate: Date;
+  endDate: Date | null;
   isActive: boolean;
   relevantSkills: ExperienceSkill[];
   irrelevantSkillCount: number;
@@ -25,12 +25,12 @@ interface ExperienceCommunityAccordionProps {
   handleEdit: () => void;
 }
 
-const experienceCommunityDetails = ({
+const experiencePersonalDetails = ({
   locale,
   intl,
   title,
-  group,
-  project,
+  description,
+  isShareable,
   startDate,
   endDate,
   isActive,
@@ -38,10 +38,10 @@ const experienceCommunityDetails = ({
   locale: Locales;
   intl: IntlShape;
   title: string;
-  group: string;
-  project: string;
+  description: string;
+  isShareable: boolean;
   startDate: Date;
-  endDate: Date;
+  endDate: Date | null;
   isActive: boolean;
 }): React.ReactElement => {
   const notApplicable = (
@@ -62,42 +62,68 @@ const experienceCommunityDetails = ({
         </p>
         <p>
           <i
-            className="fas fa-people-carry"
+            className="fas fa-trophy"
             data-c-color="c1"
             data-c-margin="right(.25)"
           />
           <FormattedMessage
-            id="experienceCommunityAccordion.experienceTypeTitle"
-            defaultMessage="Community Experience"
+            id="experiencePersonalAccordion.experienceTypeTitle"
+            defaultMessage="Personal Experience"
           />
         </p>
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
           <FormattedMessage
-            id="experienceCommunityAccordion.roleLabel"
-            defaultMessage="Role / Job Title:"
+            id="experiencePersonalAccordion.titleLabel"
+            defaultMessage="Title of Experience:"
           />
-          {title ? <p>{title}</p> : notApplicable}
         </p>
+        {title ? <p>{title}</p> : notApplicable}
+      </div>
+      <div data-c-grid-item="base(1of1)">
+        <p data-c-font-weight="bold">
+          <FormattedMessage
+            id="experiencePersonalAccordion.descriptionLabel"
+            defaultMessage="Description:"
+          />
+        </p>
+        {description ? <p>{description}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
           <FormattedMessage
-            id="experienceCommunityAccordion.organizationLabel"
-            defaultMessage="Group / Organization / Community:"
+            id="experiencePersonalAccordion.shareableLabel"
+            defaultMessage="Consent to Share:"
           />
         </p>
-        {group ? <p>{group}</p> : notApplicable}
-      </div>
-      <div data-c-grid-item="base(1of2) tl(1of3)">
-        <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experienceCommunityAccordion.projectLabel"
-            defaultMessage="Project / Product:"
-          />
-        </p>
-        {project ? <p>{project}</p> : notApplicable}
+        {isShareable ? (
+          <p>
+            <i
+              className="fas fa-check-circle"
+              data-c-color="go"
+              data-c-margin="right(.25)"
+            />
+            <FormattedMessage
+              id="experiencePersonalAccordion.isShareable"
+              defaultMessage="Sharing Approved"
+              description="Text shown when user has consented to share this experience."
+            />
+          </p>
+        ) : (
+          <p>
+            <i
+              className="fas fa-check-circle"
+              data-c-color="stop"
+              data-c-margin="right(.25)"
+            />
+            <FormattedMessage
+              id="experiencePersonalAccordion.isNotShareable"
+              defaultMessage="Sharing Restricted"
+              description="Text shown when user has NOT consented to share this experience."
+            />
+          </p>
+        )}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
@@ -119,10 +145,10 @@ const experienceCommunityDetails = ({
   );
 };
 
-export const ExperienceCommunityAccordion: React.FC<ExperienceCommunityAccordionProps> = ({
+export const ExperiencePersonalAccordion: React.FC<ExperiencePersonalAccordionProps> = ({
   title,
-  group,
-  project,
+  description,
+  isShareable,
   startDate,
   endDate,
   isActive,
@@ -139,16 +165,7 @@ export const ExperienceCommunityAccordion: React.FC<ExperienceCommunityAccordion
   const accordionTitle = (
     <>
       <p>
-        <FormattedMessage
-          id="experienceCommunityAccordion.title"
-          defaultMessage="<b>{title}</b> - {group}"
-          description="Title of Community Experience accordion (this is the visible text when accordion is closed)."
-          values={{
-            title,
-            group,
-            b: (value) => <span data-c-font-weight="bold">{value}</span>,
-          }}
-        />
+        <span data-c-font-weight="bold">{title}</span>
       </p>
       {titleBarDateRange(startDate, endDate, isActive, locale)}
     </>
@@ -156,16 +173,16 @@ export const ExperienceCommunityAccordion: React.FC<ExperienceCommunityAccordion
   return (
     <BaseExperienceAccordion
       title={accordionTitle}
-      iconClass="fa-people-carry"
+      iconClass="fa-mountain"
       relevantSkills={relevantSkills}
       irrelevantSkillCount={irrelevantSkillCount}
       isEducationJustification={isEducationJustification}
-      details={experienceCommunityDetails({
+      details={experiencePersonalDetails({
         locale,
         intl,
         title,
-        group,
-        project,
+        description,
+        isShareable,
         startDate,
         endDate,
         isActive,
@@ -178,4 +195,4 @@ export const ExperienceCommunityAccordion: React.FC<ExperienceCommunityAccordion
   );
 };
 
-export default ExperienceCommunityAccordion;
+export default ExperiencePersonalAccordion;

@@ -33,12 +33,12 @@ import { notEmpty } from "../../../helpers/queries";
 import { localizedFieldNonNull } from "../../../models/app";
 import SelectInput from "../../Form/SelectInput";
 
-interface AwardRecipientType {
+export interface AwardRecipientType {
   id: number;
   name: localizedFieldNonNull;
 }
 
-interface AwardRecognitionType {
+export interface AwardRecognitionType {
   id: number;
   name: localizedFieldNonNull;
 }
@@ -62,7 +62,7 @@ interface AwardExperienceModalProps {
   onModalConfirm: (data: AwardExperienceSubmitData) => Promise<void>;
 }
 
-const messages = defineMessages({
+export const messages = defineMessages({
   modalTitle: {
     id: "awardExperienceModal.modalTitle",
     defaultMessage: "Add an Award",
@@ -126,7 +126,7 @@ export interface AwardDetailsFormValues {
 type AwardExperienceFormValues = SkillFormValues &
   EducationFormValues &
   AwardDetailsFormValues;
-interface AwardExperienceSubmitData {
+export interface AwardExperienceSubmitData {
   experienceAward: ExperienceAward;
   savedRequiredSkills: Skill[];
   savedOptionalSkills: Skill[];
