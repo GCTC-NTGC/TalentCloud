@@ -177,7 +177,10 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
     | null
   >(null);
 
-  const [isModalVisible, setIsModalVisible] = React.useState({
+  const [isModalVisible, setIsModalVisible] = React.useState<{
+    id: Experience["type"] | "";
+    visible: boolean;
+  }>({
     id: "",
     visible: false,
   });
@@ -214,7 +217,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
     ),
   );
 
-  const openModal = (id: string): void => {
+  const openModal = (id: Experience["type"]): void => {
     setIsModalVisible({ id, visible: true });
   };
 
@@ -234,7 +237,6 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
     handleSubmitExperience(data).then(closeModal);
 
   const editExperience = (
-    id: string,
     experience: Experience,
     savedOptionalSkills: Skill[],
     savedRequiredSkills: Skill[],
@@ -244,19 +246,19 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
       savedOptionalSkills,
       savedRequiredSkills,
     });
-    setIsModalVisible({ id, visible: true });
+    setIsModalVisible({ id: experience.type, visible: true });
   };
 
-  const deleteExperience = (
-    id: number,
-    type: Experience["type"],
-  ): Promise<void> => handleDeleteExperience(id, type).then(closeModal);
+  const deleteExperience = (experience: Experience): Promise<void> =>
+    handleDeleteExperience(experience.id, experience.type).then(closeModal);
 
   const softSkills = [...assetSkills, ...essentialSkills].filter(
     (skill) => skill.skill_type_id === SkillTypeId.Soft,
   );
 
-  const modalButtons = {
+  const modalButtons: {
+    [key: string]: { id: Experience["type"]; title: string; icon: string };
+  } = {
     education: {
       id: "experience_education",
       title: intl.formatMessage(educationMessages.modalTitle),
@@ -308,132 +310,128 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   const modalRoot = document.getElementById("modal-root");
 
   const experienceAccordion = (
-    experienceType: string,
     experience: Experience,
     irrelevantSkillCount: number,
     relevantSkills: ExperienceSkill[],
     handleEdit: () => void,
     handleDelete: () => void,
   ): React.ReactElement => {
-    const education = experience as ExperienceEducation;
-    const educationType =
-      educationTypes.find(({ id }) => education.education_type_id === id)?.name[
-        locale
-      ] || intl.formatMessage(messages.educationTypeMissing);
-    const educationStatus =
-      educationStatuses.find(({ id }) => education.education_status_id === id)
-        ?.name[locale] || intl.formatMessage(messages.educationStatusMissing);
-    const work = experience as ExperienceWork;
-    const community = experience as ExperienceCommunity;
-    const personal = experience as ExperiencePersonal;
-    const award = experience as ExperienceAward;
-    const recipient =
-      recipientTypes.find(({ id }) => award.award_recipient_type_id === id)
-        ?.name[locale] || intl.formatMessage(messages.awardRecipientMissing);
-    const scope =
-      recognitionTypes.find(({ id }) => award.award_recognition_type_id === id)
-        ?.name[locale] || intl.formatMessage(messages.awardRecognitionMissing);
-
-    switch (experienceType) {
+    switch (experience.type) {
       case "experience_education":
         return (
           <ExperienceEducationAccordion
-            key={`${education.id}-${education.type}`}
-            areaOfStudy={education.area_of_study}
-            educationType={educationType}
-            endDate={education.end_date}
+            key={`${experience.id}-${experience.type}`}
+            areaOfStudy={experience.area_of_study}
+            educationType={localizeFieldNonNull(
+              locale,
+              experience,
+              "education_type",
+            )}
+            endDate={experience.end_date}
             handleDelete={handleDelete}
             handleEdit={handleEdit}
-            institution={education.institution}
+            institution={experience.institution}
             irrelevantSkillCount={irrelevantSkillCount}
-            isActive={education.is_active}
-            isEducationJustification={education.is_education_requirement}
+            isActive={experience.is_active}
+            isEducationJustification={experience.is_education_requirement}
             relevantSkills={relevantSkills}
             skills={skills}
             showButtons
             showSkillDetails
-            startDate={education.start_date}
-            status={educationStatus}
-            thesisTitle={education.thesis_title}
+            startDate={experience.start_date}
+            status={localizeFieldNonNull(
+              locale,
+              experience,
+              "education_status",
+            )}
+            thesisTitle={experience.thesis_title}
           />
         );
       case "experience_work":
         return (
           <ExperienceWorkAccordion
-            key={`${work.id}-${work.type}`}
-            endDate={work.end_date}
-            group={work.group}
+            key={`${experience.id}-${experience.type}`}
+            endDate={experience.end_date}
+            group={experience.group}
             handleDelete={handleDelete}
             handleEdit={handleEdit}
             irrelevantSkillCount={irrelevantSkillCount}
-            isActive={work.is_active}
-            isEducationJustification={work.is_education_requirement}
-            organization={work.organization}
+            isActive={experience.is_active}
+            isEducationJustification={experience.is_education_requirement}
+            organization={experience.organization}
             relevantSkills={relevantSkills}
             skills={skills}
             showButtons
             showSkillDetails
-            startDate={work.start_date}
-            title={work.title}
+            startDate={experience.start_date}
+            title={experience.title}
           />
         );
       case "experience_community":
         return (
           <ExperienceCommunityAccordion
-            key={`${community.id}-${community.type}`}
-            endDate={community.end_date}
-            group={community.group}
+            key={`${experience.id}-${experience.type}`}
+            endDate={experience.end_date}
+            group={experience.group}
             handleDelete={handleDelete}
             handleEdit={handleEdit}
             irrelevantSkillCount={irrelevantSkillCount}
-            isActive={community.is_active}
-            isEducationJustification={community.is_education_requirement}
-            project={community.project}
+            isActive={experience.is_active}
+            isEducationJustification={experience.is_education_requirement}
+            project={experience.project}
             relevantSkills={relevantSkills}
             skills={skills}
             showButtons
             showSkillDetails
-            startDate={community.start_date}
-            title={community.title}
+            startDate={experience.start_date}
+            title={experience.title}
           />
         );
       case "experience_personal":
         return (
           <ExperiencePersonalAccordion
-            key={`${personal.id}-${personal.type}`}
-            description={personal.description}
-            endDate={personal.end_date}
+            key={`${experience.id}-${experience.type}`}
+            description={experience.description}
+            endDate={experience.end_date}
             handleDelete={handleDelete}
             handleEdit={handleEdit}
             irrelevantSkillCount={irrelevantSkillCount}
-            isActive={personal.is_active}
-            isEducationJustification={personal.is_education_requirement}
-            isShareable={personal.is_shareable}
+            isActive={experience.is_active}
+            isEducationJustification={experience.is_education_requirement}
+            isShareable={experience.is_shareable}
             relevantSkills={relevantSkills}
             skills={skills}
             showButtons
             showSkillDetails
-            startDate={personal.start_date}
-            title={personal.title}
+            startDate={experience.start_date}
+            title={experience.title}
           />
         );
       case "experience_award":
         return (
           <ExperienceAwardAccordion
-            key={`${award.id}-${award.type}`}
-            awardedDate={award.awarded_date}
+            key={`${experience.id}-${experience.type}`}
+            awardedDate={experience.awarded_date}
             handleDelete={handleDelete}
             handleEdit={handleEdit}
             irrelevantSkillCount={irrelevantSkillCount}
-            isEducationJustification={award.is_education_requirement}
-            issuer={award.issued_by}
-            recipient={recipient}
+            isEducationJustification={experience.is_education_requirement}
+            issuer={experience.issued_by}
+            recipient={localizeFieldNonNull(
+              locale,
+              experience,
+              "award_recipient_type",
+            )}
             relevantSkills={relevantSkills}
             skills={skills}
-            scope={scope}
+            scope={localizeFieldNonNull(
+              locale,
+              experience,
+              "award_recognition_type",
+            )}
             showButtons
             showSkillDetails
-            title={award.title}
+            title={experience.title}
           />
         );
       default:
@@ -591,18 +589,16 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
                   (savedOptionalSkills.length + savedRequiredSkills.length);
 
                 return experienceAccordion(
-                  experience.type,
                   experience,
                   irrelevantSkillCount,
                   relevantSkills,
                   () =>
                     editExperience(
-                      experience.type,
                       experience,
                       savedOptionalSkills,
                       savedRequiredSkills,
                     ),
-                  () => deleteExperience(experience.id, experience.type),
+                  () => deleteExperience(experience),
                 );
               })}
             </div>
