@@ -13,7 +13,6 @@
         "jenssegers/date": "^4.0",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^2.0",
-        "matthewbdaly/laravel-azure-storage": "^1.3",
         "mcamara/laravel-localization": "^1.3",
         "pragmarx/google2fa-laravel": "^1.2",
         "pragmarx/recovery": "^0.1.0",
