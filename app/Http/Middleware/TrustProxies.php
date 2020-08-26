@@ -13,7 +13,18 @@ class TrustProxies extends Middleware
      * @var array
      */
     protected $proxies = [
-        'dev-talentcloud.tbs-sct.gc.ca',
+        // For the AppSvc in the Azure environment.
+        '13.71.170.130',
+        '13.88.230.232',
+        '13.88.229.172',
+        '52.228.39.78',
+        '13.71.191.27'
+        // Additional addresses. May not be necessary.
+        // '40.85.254.37',
+        // '40.85.219.45',
+        // '40.85.223.56',
+        // '52.228.42.60',
+        // '52.228.42.28'
     ];
 
     /**
