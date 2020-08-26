@@ -92,7 +92,7 @@
         "webpack": "^4.44.1"
     },
     "dependencies": {
-        "@formatjs/intl-getcanonicallocales": "^1.4.2",
+        "@formatjs/intl-getcanonicallocales": "^1.4.3",
         "@formatjs/intl-pluralrules": "^3.4.4",
         "@formatjs/intl-relativetimeformat": "^7.2.4",
         "axios": "^0.20.0",
