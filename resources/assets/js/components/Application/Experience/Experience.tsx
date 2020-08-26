@@ -272,7 +272,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
     community: {
       id: "experience_community",
       title: intl.formatMessage(communityMessages.modalTitle),
-      icon: "fas fa-carry",
+      icon: "fas fa-people-carry",
     },
     personal: {
       id: "experience_personal",
