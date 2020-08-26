@@ -46,12 +46,13 @@ test("Hello World - Language Toggle", async (t) => {
     .expect(
       Selector("p").withText(
         "Il est désormais plus facile de postuler un emploi au gouvernement.",
-      ),
+      ).exists,
     )
     .ok()
     .click(englishLink)
     .expect(
-      Selector("p").withText("Applying to government jobs just got easier."),
+      Selector("p").withText("Applying to government jobs just got easier.")
+        .exists,
     )
     .ok();
 });

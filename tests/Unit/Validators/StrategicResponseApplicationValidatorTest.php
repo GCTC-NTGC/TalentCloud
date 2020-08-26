@@ -8,6 +8,8 @@ use App\Models\JobApplication;
 use App\Models\Applicant;
 use App\Models\JobApplicationAnswer;
 use App\Models\JobPoster;
+use App\Models\SkillDeclaration;
+use App\Services\Validation\SkillDeclarationValidator;
 use App\Services\Validation\StrategicResponseApplicationValidator;
 use Illuminate\Foundation\Testing\WithFaker;
 
@@ -66,12 +68,70 @@ class StrategicResponseApplicationValidatorTest extends TestCase
         $this->assertTrue($validator->experienceComplete($completeApp));
     }
 
+    public function testSkillDeclarationValidator(): void
+    {
+        $validator = new StrategicResponseApplicationValidator();
+        $skillValidator = new SkillDeclarationValidator();
+
+        $skillDeclarations = factory(SkillDeclaration::class, 10)->create();
+        foreach($skillDeclarations as $skill) {
+            $this->assertTrue($skillValidator->validator($skill)->passes());
+        }
+    }
+
+    public function testSkillsCompleteWithDetails(): void
+    {
+        $validator = new StrategicResponseApplicationValidator();
+
+        $applicant = factory(Applicant::class)->create();
+
+        // Factory should create declarations for all criteria, saving them to applicant.
+        $completeApplication = factory(JobApplication::class)->states(['submitted', 'strategic_response'])->create([
+            'applicant_id' => $applicant->id
+        ]);
+        $applicant->job_applications()->save($completeApplication);
+        $this->assertEquals([], $validator->essentialSkillsValidator($completeApplication)->errors()->all());
+        $this->assertEquals([], $validator->assetSkillsValidator($completeApplication)->errors()->all());
+
+        // Ensure validation also works correctly for drafts
+        // (because in drafts, application, instead of applicANT, skills are validated).
+        $completeDraft = factory(JobApplication::class)->states(['draft', 'strategic_response'])->create([
+            'applicant_id' => $applicant->id
+        ]);
+        $applicant->job_applications()->save($completeDraft);
+        $this->assertEquals([], $validator->essentialSkillsValidator($completeDraft)->errors()->all());
+        $this->assertEquals([], $validator->assetSkillsValidator($completeDraft)->errors()->all());
+
+        // Missing skills should make it invalid.
+        $missingSkills = factory(JobApplication::class)->states(['draft', 'strategic_response'])->create([
+            'applicant_id' => $applicant->id
+        ]);
+        $applicant->job_applications()->save($missingSkills);
+        $applicant->skill_declarations()->delete();
+        $this->assertNotEquals([], $validator->essentialSkillsValidator($missingSkills)->errors()->all());
+        $this->assertNotEquals([], $validator->assetSkillsValidator($missingSkills)->errors()->all());
+
+        // An incomplete skill declaration should make it invalid.
+        $incompleteSkills = factory(JobApplication::class)->states(['draft', 'strategic_response'])->create([
+            'applicant_id' => $applicant->id
+        ]);
+        $essentialCriteria = $incompleteSkills->job_poster->criteria->where('criteria_type.name', 'essential')->first();
+        $assetCriteria = $incompleteSkills->job_poster->criteria->where('criteria_type.name', 'asset')->first();
+        $essentialDec = $applicant->skill_declarations->where('skill_id', $essentialCriteria->skill_id)->first();
+        $assetDec = $applicant->skill_declarations->where('skill_id', $assetCriteria->skill_id)->first();
+        $essentialDec->description = null;
+        $assetDec->description = '';
+        $essentialDec->save();
+        $assetDec->save();
+        $this->assertNotEquals([], $validator->essentialSkillsValidator($incompleteSkills->fresh())->errors()->all());
+        $this->assertNotEquals([], $validator->assetSkillsValidator($incompleteSkills->fresh())->errors()->all());
+    }
+
     public function testSkillsComplete(): void
     {
         $validator = new StrategicResponseApplicationValidator();
 
         $applicant = factory(Applicant::class)->create();
-        $validator = new StrategicResponseApplicationValidator();
 
         // Factory should create declarations for all criteria, saving them to applicant.
         $completeApplication = factory(JobApplication::class)->states(['submitted', 'strategic_response'])->create([

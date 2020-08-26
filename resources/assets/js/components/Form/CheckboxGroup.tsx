@@ -58,7 +58,7 @@ const CheckboxGroup: React.FunctionComponent<CheckboxGroupProps> = ({
   return (
     <div
       data-c-grid-item={grid}
-      data-c-input="checkbox"
+      data-c-input="checkbox(group)"
       data-c-required={required || null}
       data-c-invalid={touched && error ? true : null}
     >
@@ -77,6 +77,7 @@ const CheckboxGroup: React.FunctionComponent<CheckboxGroupProps> = ({
                 onBlur: handleBlur,
               },
               checked: value.includes(child.props.id),
+              checkboxGroup: true,
             });
           },
         )}

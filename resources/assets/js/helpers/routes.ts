@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 function stripTrailingSlash(str: string): string {
   return str.endsWith("/") ? str.slice(0, -1) : str;
 }
@@ -5,6 +6,7 @@ function stripTrailingSlash(str: string): string {
 function isValidUrl(str: string): boolean {
   if (str.startsWith("http://") || str.startsWith("https://")) {
     try {
+      // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
       const url = new URL(str);
     } catch (_) {
       return false;
@@ -53,6 +55,10 @@ export function removeBaseUrl(url: string): string {
     return url.substr(basePath.length);
   }
   return url;
+}
+
+export function jobShow(locale: string, jobId: number): string {
+  return `${baseUrl()}/${locale}/jobs/${jobId}`;
 }
 
 function applicationShow(
@@ -151,7 +157,15 @@ export function jobBuilderReview(locale: string, jobId: number): string {
   return `${baseUrl()}/${locale}/manager/jobs/${jobId}/builder/review`;
 }
 
-type FaqSection = "manager-who";
+type FaqSection = "manager-who" | "levels";
+
+export function applicantFaq(locale: string, faqSection?: FaqSection): string {
+  const base = `${baseUrl()}/${locale}/faq`;
+  if (faqSection) {
+    return `${base}#${faqSection}`;
+  }
+  return base;
+}
 
 export function managerFaq(locale: string, faqSection?: FaqSection): string {
   const base = `${baseUrl()}/${locale}/manager/faq`;
@@ -192,4 +206,28 @@ export const hrApplicantShow = (
 
 export function accountSettings(locale: string): string {
   return `${baseUrl()}/${locale}/settings`;
+}
+
+/**
+ * Converts a string to a url safe equivalent.
+ * @param string Any input text.
+ * @returns url safe string.
+ */
+export function slugify(string: string): string {
+  const a =
+    "àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;";
+  const b =
+    "aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------";
+  const p = new RegExp(a.split("").join("|"), "g");
+
+  return string
+    .toString()
+    .toLowerCase()
+    .replace(/\s+/g, "-") // Replace spaces with -
+    .replace(p, (c) => b.charAt(a.indexOf(c))) // Replace special characters
+    .replace(/&/g, "-and-") // Replace & with 'and'
+    .replace(/[^\w\-]+/g, "") // Remove all non-word characters
+    .replace(/\-\-+/g, "-") // Replace multiple - with single -
+    .replace(/^-+/, "") // Trim - from start of text
+    .replace(/-+$/, ""); // Trim - from end of text
 }

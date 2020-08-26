@@ -8,6 +8,7 @@ use App\Services\Validation\Rules\PasswordCorrectRule;
 use App\Services\Validation\Rules\PasswordFormatRule;
 use Facades\App\Services\WhichPortal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\Rule;
@@ -48,6 +49,7 @@ class SettingsController extends Controller
             'submit_personal' => route(WhichPortal::prefixRoute('settings.personal.update'), $user),
             'submit_password' => route(WhichPortal::prefixRoute('settings.password.update'), $user),
             'submit_government' => route(WhichPortal::prefixRoute('settings.government.update'), $user),
+            'submit_delete' => route('settings.account.delete', $user),
             'activate_two_factor' => route(WhichPortal::prefixRoute('two_factor.activate')),
             'deactivate_two_factor' => route(WhichPortal::prefixRoute('two_factor.deactivate')),
             'forget_remembered_devices' => route(WhichPortal::prefixRoute('two_factor.forget')),
@@ -133,5 +135,33 @@ class SettingsController extends Controller
         }
 
         return redirect()->route(WhichPortal::prefixRoute('settings.edit'))->withSuccess(Lang::get('success.update_government'));
+    }
+
+    /**
+     * Delete (soft) applicant account.
+     *
+     * @param  \Illuminate\Http\Request $request   Incoming request.
+     * @param  \App\Models\User    $user Incoming User.
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteAccount(Request $request, User $user)
+    {
+        $user = Auth::user();
+
+        $validData = $request->validate([
+            'confirm_delete' => ['required']
+        ]);
+
+        if ($validData) {
+            Auth::logout();
+
+            User::where('id', $user->id)->update([
+                'first_name' => 'DELETED',
+                'last_name' => 'DELETED',
+                'email' => 'DELETED' . rand(7777777, 88888888),
+            ]);
+        }
+
+        return redirect()->route('home')->withSuccess(Lang::get('success.delete_account'));
     }
 }

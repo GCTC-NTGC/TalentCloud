@@ -128,6 +128,7 @@ export const ClassificationId = {
   PM: 12,
   AD: 13,
   "EN-ENG": 14,
+  FI: 15,
 };
 
 export const CommentTypeId = {
@@ -179,6 +180,20 @@ export enum ResponseScreeningBuckets {
   Unavailable = "unavailable",
   DoesNotQualify = "does_not_qualify",
 }
+
+export const CitizenshipId = {
+  citizen: 1,
+  permanentResident: 2,
+  workPermitOpen: 3,
+  workPermitClosed: 4,
+  notEntitled: 5,
+};
+
+export const VeteranId = {
+  none: 1,
+  current: 2,
+  past: 3,
+};
 
 export function getKeyByValue(object, value): string {
   return (

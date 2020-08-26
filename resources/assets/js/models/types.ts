@@ -31,6 +31,9 @@ export type Application = {
   submission_signature: string;
   submission_date: string;
   experience_saved: boolean;
+  language_requirement_confirmed: boolean;
+  language_test_confirmed: boolean;
+  education_requirement_confirmed: boolean;
   created_at: Date;
   updated_at: Date;
   veteran_status: VeteranStatus;
@@ -169,10 +172,24 @@ export interface Job {
   culture_special: localizedField;
 }
 
+export interface JobApplicationAnswer {
+  id: number;
+  job_poster_questions_id: number;
+  job_application_id: number;
+  answer: string | null;
+}
+
 export interface JobPosterKeyTask {
   id: number;
   job_poster_id: number;
   description: localizedFieldNonNull;
+}
+
+export interface JobPosterQuestion {
+  id: number;
+  job_poster_id: number;
+  question: localizedField;
+  description: localizedField;
 }
 
 export interface Manager {
@@ -271,7 +288,13 @@ export interface JobPosterStatus {
   description: localizedFieldNonNull;
 }
 
-export interface ExperienceWork {
+interface ExperienceBase {
+  experienceable_id: number;
+  experienceable_type: "applicant" | "application";
+  is_education_requirement: boolean;
+}
+
+export interface ExperienceWork extends ExperienceBase {
   id: number;
   title: string;
   organization: string;
@@ -279,22 +302,24 @@ export interface ExperienceWork {
   is_active: boolean;
   start_date: Date;
   end_date: Date | null;
+  type: "experience_work";
 }
 
-export interface ExperienceEducation {
+export interface ExperienceEducation extends ExperienceBase {
   id: number;
   education_type_id: number;
   area_of_study: string;
   institution: string;
   education_status_id: number;
   is_active: boolean;
+  thesis_title: string;
+  has_blockcert: boolean;
   start_date: Date;
   end_date: Date | null;
-  thesis_title: string | null;
-  has_blockcert: boolean;
+  type: "experience_education";
 }
 
-export interface ExperienceCommunity {
+export interface ExperienceCommunity extends ExperienceBase {
   id: number;
   title: string;
   group: string;
@@ -302,18 +327,20 @@ export interface ExperienceCommunity {
   is_active: boolean;
   start_date: Date;
   end_date: Date | null;
+  type: "experience_community";
 }
 
-export interface ExperienceAward {
+export interface ExperienceAward extends ExperienceBase {
   id: number;
   title: string;
   award_recipient_type_id: number;
   issued_by: string;
   award_recognition_type_id: number;
   awarded_date: Date;
+  type: "experience_award";
 }
 
-export interface ExperiencePersonal {
+export interface ExperiencePersonal extends ExperienceBase {
   id: number;
   title: string;
   description: string;
@@ -321,6 +348,23 @@ export interface ExperiencePersonal {
   is_active: boolean;
   start_date: Date;
   end_date: Date | null;
+  type: "experience_personal";
+}
+
+export type Experience =
+  | ExperienceWork
+  | ExperienceEducation
+  | ExperienceCommunity
+  | ExperienceAward
+  | ExperiencePersonal;
+
+export interface ExperienceSkill {
+  skill_id: number;
+  experience_id: number;
+  experience_type: string;
+  justification: string;
+  created_at: Date;
+  updated_at: Date;
 }
 
 export interface EmailAddress {
