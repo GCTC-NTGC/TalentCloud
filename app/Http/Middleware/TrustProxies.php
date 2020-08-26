@@ -13,9 +13,10 @@ class TrustProxies extends Middleware
      * @var array
      */
     // Trust all proxies:
-    // protected $proxies = ['*'];
+    protected $proxies = ['*'];
+
+    /* For the AppSvc in the Azure environment.
     protected $proxies = [
-        // For the AppSvc in the Azure environment.
         '13.71.170.130',
         '13.88.230.232',
         '13.88.229.172',
@@ -26,7 +27,7 @@ class TrustProxies extends Middleware
         '40.85.223.56',
         '52.228.42.60',
         '52.228.42.28',
-    ];
+    ]; */
 
 
     /**
