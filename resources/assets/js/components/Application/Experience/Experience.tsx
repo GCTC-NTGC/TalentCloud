@@ -47,7 +47,11 @@ import ExperienceCommunityAccordion from "../ExperienceAccordions/ExperienceComm
 import ExperiencePersonalAccordion from "../ExperienceAccordions/ExperiencePersonalAccordion";
 import ExperienceAwardAccordion from "../ExperienceAccordions/ExperienceAwardAccordion";
 import { mapToObject, hasKey } from "../../../helpers/queries";
-import { getSkillOfCriteria } from "../helpers";
+import {
+  getSkillOfCriteria,
+  getSkillsOfExperience,
+  getDisconnectedRequiredSkills,
+} from "../helpers";
 
 const messages = defineMessages({
   educationTypeMissing: {
@@ -77,49 +81,6 @@ const messages = defineMessages({
     description: "Error message displayed when experience fails to render.",
   },
 });
-
-// TODO: Move method to Experience selectors file or utility file.
-export const getSkillsOfExperience = (
-  experienceSkills: ExperienceSkill[],
-  experience: Experience,
-  skills: Skill[],
-): Skill[] => {
-  const experienceSkillsByType = experienceSkills.filter(
-    (experienceSkill) =>
-      experience.type === experienceSkill.experience_type &&
-      experience.id === experienceSkill.experience_id,
-  );
-
-  const experiencesBySkillId = mapToObject(
-    experienceSkillsByType,
-    (item) => item.skill_id,
-  );
-  return skills.filter((skill) => hasKey(experiencesBySkillId, skill.id));
-};
-
-// Gets a list of all required skills that haven't been connected to a experience yet.
-const getDisconnectedRequiredSkills = (
-  experiences: Experience[],
-  experienceSkills: ExperienceSkill[],
-  essentialSkills: Skill[],
-): Skill[] => {
-  const connectedRequiredSkills = experiences.reduce(
-    (skills: Skill[], experience: Experience) => {
-      const requiredSkills = getSkillsOfExperience(
-        experienceSkills,
-        experience,
-        essentialSkills,
-      ).filter((skill) => !skills.includes(skill));
-
-      return [...skills, ...requiredSkills];
-    },
-    [],
-  );
-
-  return essentialSkills.filter(
-    (skill) => !connectedRequiredSkills.includes(skill),
-  );
-};
 
 export type ExperienceSubmitData =
   | EducationExperienceSubmitData
