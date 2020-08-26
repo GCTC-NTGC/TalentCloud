@@ -8,7 +8,7 @@ import {
   ExperienceCommunity,
   ExperienceAward,
   ExperiencePersonal,
-  Experience,
+  ExperienceSkill,
 } from "../../models/types";
 import { notEmpty, hasKey } from "../../helpers/queries";
 
@@ -197,4 +197,104 @@ export const getUpdatingByTypeAndId = (
   { id, type }: { id: number; type: keyof UiState["updatingByTypeAndId"] },
 ): boolean => {
   return ui(state).updatingByTypeAndId[type][id] ?? false;
+};
+
+export const getExperienceSkillById = (
+  state: RootState,
+  id: number,
+): ExperienceSkill | null => {
+  const expSkills = entities(state).experienceSkills.byId;
+  return hasKey(expSkills, id) ? expSkills[id] : null;
+};
+
+const getExperienceSkillByIdState = (state: RootState) =>
+  entities(state).experienceSkills.byId;
+
+const getExperienceSkillByWorkState = (state: RootState) =>
+  entities(state).experienceSkills.idsByWork;
+const getExperienceSkillByEducationState = (state: RootState) =>
+  entities(state).experienceSkills.idsByEducation;
+const getExperienceSkillByCommunityState = (state: RootState) =>
+  entities(state).experienceSkills.idsByCommunity;
+const getExperienceSkillByAwardState = (state: RootState) =>
+  entities(state).experienceSkills.idsByAward;
+const getExperienceSkillByPersonalState = (state: RootState) =>
+  entities(state).experienceSkills.idsByPersonal;
+
+export const getExperienceSkillsByWork = createCachedSelector(
+  getExperienceSkillByIdState,
+  getExperienceSkillByWorkState,
+  (state: RootState, { workId }: { workId: number }) => workId,
+  (expSkillById, idsByWork, workId): ExperienceSkill[] => {
+    const expSkillIds = idsByWork[workId] ?? [];
+    return expSkillIds.map((id) => expSkillById[id]).filter(notEmpty);
+  },
+)((state, { workId }) => workId);
+
+export const getExperienceSkillsByEducation = createCachedSelector(
+  getExperienceSkillByIdState,
+  getExperienceSkillByEducationState,
+  (state: RootState, { educationId }: { educationId: number }) => educationId,
+  (expSkillById, idsByWork, educationId): ExperienceSkill[] => {
+    const expSkillIds = idsByWork[educationId] ?? [];
+    return expSkillIds.map((id) => expSkillById[id]).filter(notEmpty);
+  },
+)((state, { educationId }) => educationId);
+
+export const getExperienceSkillsByCommunity = createCachedSelector(
+  getExperienceSkillByIdState,
+  getExperienceSkillByCommunityState,
+  (state: RootState, { communityId }: { communityId: number }) => communityId,
+  (expSkillById, idsByWork, communityId): ExperienceSkill[] => {
+    const expSkillIds = idsByWork[communityId] ?? [];
+    return expSkillIds.map((id) => expSkillById[id]).filter(notEmpty);
+  },
+)((state, { communityId }) => communityId);
+
+export const getExperienceSkillsByAward = createCachedSelector(
+  getExperienceSkillByIdState,
+  getExperienceSkillByAwardState,
+  (state: RootState, { awardId }: { awardId: number }) => awardId,
+  (expSkillById, idsByWork, awardId): ExperienceSkill[] => {
+    const expSkillIds = idsByWork[awardId] ?? [];
+    return expSkillIds.map((id) => expSkillById[id]).filter(notEmpty);
+  },
+)((state, { awardId }) => awardId);
+
+export const getExperienceSkillsByPersonal = createCachedSelector(
+  getExperienceSkillByIdState,
+  getExperienceSkillByPersonalState,
+  (state: RootState, { personalId }: { personalId: number }) => personalId,
+  (expSkillById, idsByWork, personalId): ExperienceSkill[] => {
+    const expSkillIds = idsByWork[personalId] ?? [];
+    return expSkillIds.map((id) => expSkillById[id]).filter(notEmpty);
+  },
+)((state, { personalId }) => personalId);
+
+export const getExperienceSkillIdsByWork = (
+  state: RootState,
+  id: number,
+): number[] => entities(state).experienceSkills.idsByWork[id] ?? [];
+export const getExperienceSkillIdsByEducation = (
+  state: RootState,
+  id: number,
+): number[] => entities(state).experienceSkills.idsByEducation[id] ?? [];
+export const getExperienceSkillIdsByCommunity = (
+  state: RootState,
+  id: number,
+): number[] => entities(state).experienceSkills.idsByCommunity[id] ?? [];
+export const getExperienceSkillIdsByAward = (
+  state: RootState,
+  id: number,
+): number[] => entities(state).experienceSkills.idsByAward[id] ?? [];
+export const getExperienceSkillIdsByPersonal = (
+  state: RootState,
+  id: number,
+): number[] => entities(state).experienceSkills.idsByPersonal[id] ?? [];
+
+export const getExperienceSkillUpdating = (
+  state: RootState,
+  id: number,
+): boolean => {
+  return ui(state).updatingExperienceSkill[id] ?? false;
 };

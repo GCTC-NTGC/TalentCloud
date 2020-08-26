@@ -49,7 +49,7 @@ interface WorkExperienceModalProps {
   onModalConfirm: (data: WorkExperienceSubmitData) => Promise<void>;
 }
 
-const messages = defineMessages({
+export const messages = defineMessages({
   modalTitle: {
     id: "workExperienceModal.modalTitle",
     defaultMessage: "Add Work Experience",
@@ -114,7 +114,7 @@ export interface WorkDetailsFormValues {
 type WorkExperienceFormValues = SkillFormValues &
   EducationFormValues &
   WorkDetailsFormValues;
-interface WorkExperienceSubmitData {
+export interface WorkExperienceSubmitData {
   experienceWork: ExperienceWork;
   savedRequiredSkills: Skill[];
   savedOptionalSkills: Skill[];
