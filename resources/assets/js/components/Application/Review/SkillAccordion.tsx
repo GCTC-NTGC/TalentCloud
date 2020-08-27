@@ -715,7 +715,7 @@ const SkillAccordion: React.FC<SkillAccordionProps> = ({
         <div data-c-padding="lr(2)">
           {experiences.length === 0 && (
             <p
-              data-c-margin="bottom(1) top(1)"
+              data-c-margin="top(2)"
               data-c-border="all(thin, solid, stop)"
               data-c-padding="all(.5)"
               data-c-radius="rounded"
@@ -730,22 +730,23 @@ const SkillAccordion: React.FC<SkillAccordionProps> = ({
               {intl.formatMessage(skillAccordionMessages.experiencesMissing)}
             </p>
           )}
-          {experiences.map((experience) => {
-            const justification = getJustificationOfExperience(
-              skill,
-              experience,
-              experienceSkills,
-            );
-            return (
-              <ExperienceContent
-                key={`${experience.type}=${experience.id}-skill`}
-                intl={intl}
-                locale={locale}
-                experience={experience}
-                justification={justification}
-              />
-            );
-          })}
+          {experiences.length > 0 &&
+            experiences.map((experience) => {
+              const justification = getJustificationOfExperience(
+                skill,
+                experience,
+                experienceSkills,
+              );
+              return (
+                <ExperienceContent
+                  key={`${experience.type}=${experience.id}-skill`}
+                  intl={intl}
+                  locale={locale}
+                  experience={experience}
+                  justification={justification}
+                />
+              );
+            })}
         </div>
       </div>
     </div>
