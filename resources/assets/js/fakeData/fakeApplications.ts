@@ -42,6 +42,7 @@ export const fakeApplicationNormalized = (
   experience_saved: true,
   created_at: new Date("2020-01-01"),
   updated_at: new Date("2020-01-01"),
+  share_with_managers: false,
   veteran_status: {
     id: 1,
     name: "none",
