@@ -738,7 +738,7 @@ const Review: React.FC<ReviewProps> = ({
                   />
                 </p>
               </div>
-              <div data-c-grid-item="base(1of1)">
+              <div data-c-grid-item="base(1of1)" data-c-margin="left(2)">
                 <FastField
                   id="shareWithManagers"
                   name="shareWithManagers"
@@ -746,50 +746,53 @@ const Review: React.FC<ReviewProps> = ({
                   label={intl.formatMessage(messages.shareCheckboxLabel)}
                 />
               </div>
-              <div
-                data-c-alignment="base(centre) tp(left)"
-                data-c-grid-item="tp(1of2)"
-              >
-                <button
-                  data-c-button="outline(c2)"
-                  data-c-radius="rounded"
-                  type="button"
-                  disabled={isSubmitting}
-                  onClick={(): void => {
-                    // Add saveAndReturn Method here.
-                    // Method should save the current data and return user to the previous step.
-                    handleReturn();
-                  }}
+              <hr data-c-hr="thin(c1)" data-c-margin="bottom(2)" />
+              <div data-c-grid="gutter">
+                <div
+                  data-c-alignment="base(centre) tp(left)"
+                  data-c-grid-item="tp(1of2)"
                 >
-                  {intl.formatMessage(navigationMessages.return)}
-                </button>
-              </div>
-              <div
-                data-c-alignment="base(centre) tp(right)"
-                data-c-grid-item="tp(1of2)"
-              >
-                <button
-                  data-c-button="outline(c2)"
-                  data-c-radius="rounded"
-                  type="button"
-                  disabled={isSubmitting}
-                  onClick={(): void => {
-                    // Add saveAndQuit Method here.
-                    // Method should save the current data and return user to My Applications page.
-                    handleQuit();
-                  }}
+                  <button
+                    data-c-button="outline(c2)"
+                    data-c-radius="rounded"
+                    type="button"
+                    disabled={isSubmitting}
+                    onClick={(): void => {
+                      // Add saveAndReturn Method here.
+                      // Method should save the current data and return user to the previous step.
+                      handleReturn();
+                    }}
+                  >
+                    {intl.formatMessage(navigationMessages.return)}
+                  </button>
+                </div>
+                <div
+                  data-c-alignment="base(centre) tp(right)"
+                  data-c-grid-item="tp(1of2)"
                 >
-                  {intl.formatMessage(navigationMessages.quit)}
-                </button>
-                <button
-                  data-c-button="solid(c1)"
-                  data-c-radius="rounded"
-                  data-c-margin="left(1)"
-                  type="submit"
-                  disabled={isSubmitting}
-                >
-                  {intl.formatMessage(navigationMessages.continue)}
-                </button>
+                  <button
+                    data-c-button="outline(c2)"
+                    data-c-radius="rounded"
+                    type="button"
+                    disabled={isSubmitting}
+                    onClick={(): void => {
+                      // Add saveAndQuit Method here.
+                      // Method should save the current data and return user to My Applications page.
+                      handleQuit();
+                    }}
+                  >
+                    {intl.formatMessage(navigationMessages.quit)}
+                  </button>
+                  <button
+                    data-c-button="solid(c1)"
+                    data-c-radius="rounded"
+                    data-c-margin="left(1)"
+                    type="submit"
+                    disabled={isSubmitting}
+                  >
+                    {intl.formatMessage(navigationMessages.continue)}
+                  </button>
+                </div>
               </div>
             </Form>
           )}
