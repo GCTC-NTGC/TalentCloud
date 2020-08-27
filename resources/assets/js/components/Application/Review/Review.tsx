@@ -676,13 +676,23 @@ const Review: React.FC<ReviewProps> = ({
           data-c-color={user.job_alerts ? "go" : "stop"}
           data-c-margin="right(.25)"
         />
-        <FormattedMessage
-          id="application.review.userContact"
-          defaultMessage="I would like Talent Cloud to contact me at {email} about related jobs."
-          values={{
-            email: user.email,
-          }}
-        />
+        {user.job_alerts ? (
+          <FormattedMessage
+            id="application.review.userContact"
+            defaultMessage="I would like Talent Cloud to contact me at {email} about related jobs."
+            values={{
+              email: user.email,
+            }}
+          />
+        ) : (
+          <FormattedMessage
+            id="application.review.userNoContact"
+            defaultMessage="I do not want Talent Cloud to contact me at {email} about related jobs."
+            values={{
+              email: user.email,
+            }}
+          />
+        )}
       </p>
       <p>
         <i

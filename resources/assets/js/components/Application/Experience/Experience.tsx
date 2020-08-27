@@ -46,12 +46,12 @@ import ExperienceWorkAccordion from "../ExperienceAccordions/ExperienceWorkAccor
 import ExperienceCommunityAccordion from "../ExperienceAccordions/ExperienceCommunityAccordion";
 import ExperiencePersonalAccordion from "../ExperienceAccordions/ExperiencePersonalAccordion";
 import ExperienceAwardAccordion from "../ExperienceAccordions/ExperienceAwardAccordion";
-import { mapToObject, hasKey } from "../../../helpers/queries";
 import {
   getSkillOfCriteria,
   getSkillsOfExperience,
   getDisconnectedRequiredSkills,
 } from "../helpers";
+import { navigationMessages, experienceMessages } from "../applicationMessages";
 
 const messages = defineMessages({
   educationTypeMissing: {
@@ -418,11 +418,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
     <>
       <div data-c-container="medium">
         <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">
-          <FormattedMessage
-            id="application.experience.header"
-            defaultMessage="My Experience"
-            description="Heading text on the experience step of the Application Timeline."
-          />
+          {intl.formatMessage(experienceMessages.heading)}
         </h2>
         <p data-c-margin="bottom(1)">
           <FormattedMessage
@@ -617,11 +613,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
               type="button"
               onClick={(): void => handleReturn()}
             >
-              <FormattedMessage
-                id="application.experience.returnButtonLabel"
-                defaultMessage="Save & Return to Previous Step"
-                description="The text displayed on the Save & Return button of the Applicant Timeline form."
-              />
+              {intl.formatMessage(navigationMessages.return)}
             </button>
           </div>
           <div
@@ -634,11 +626,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
               type="button"
               onClick={(): void => handleQuit()}
             >
-              <FormattedMessage
-                id="application.experience.quitButtonLabel"
-                defaultMessage="Save & Quit"
-                description="The text displayed on the Save & Return button of the Applicant Timeline form."
-              />
+              {intl.formatMessage(navigationMessages.quit)}
             </button>
             <button
               data-c-button="solid(c1)"
@@ -647,11 +635,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
               type="button"
               onClick={(): void => handleContinue()}
             >
-              <FormattedMessage
-                id="application.experience.submitButtonLabel"
-                defaultMessage="Save & Continue"
-                description="The text displayed on the submit button for the Job Details form."
-              />
+              {intl.formatMessage(navigationMessages.continue)}
             </button>
           </div>
         </div>

@@ -87,166 +87,6 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Save & Return to Previous Step",
-        "description": "The text displayed on the Save & Return button of the Applicant Timeline form.",
-        "id": "applicantTimeline.returnButtonLabel"
-      },
-      {
-        "defaultMessage": "Save & Quit",
-        "description": "The text displayed on the Save & Return button of the Applicant Timeline form.",
-        "id": "applicantTimeline.quitButtonLabel"
-      },
-      {
-        "defaultMessage": "Save & Continue",
-        "description": "The text displayed on the submit button for the Job Details form.",
-        "id": "applicantTimeline.submitButtonLabel"
-      }
-    ],
-    "path": "resources/assets/js/components/ApplicantTimeline/BasicInfo/BasicInfo.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "My Basic Information",
-        "description": "Header for the Applicant Timeline form.",
-        "id": "applicantTimeline.basicInfo.header"
-      },
-      {
-        "defaultMessage": "Which citizenship status applies to you?",
-        "description": "Label for the citizenship status select box.",
-        "id": "applicantTimeline.basicInfo.citizenshipLabel"
-      },
-      {
-        "defaultMessage": "Are you a veteran or a member of the Canadian Armed Forces?",
-        "description": "Label for the veteran status select box.",
-        "id": "applicantTimeline.basicInfo.veteranStatusLabel"
-      },
-      {
-        "defaultMessage": "Language Requirements",
-        "description": "Header for language requirements section in applicant timeline form.",
-        "id": "applicantTimeline.basicInfo.languageRequirementsHeader"
-      },
-      {
-        "defaultMessage": "I understand that my second language proficiency will be tested as part of this process.",
-        "description": "Label for language test checkbox in applicant timeline form.",
-        "id": "applicantTimeline.basicInfo.languageTestLabel"
-      },
-      {
-        "defaultMessage": "Education Requirements",
-        "description": "Header for education requirement section in applicant timeline form.",
-        "id": "applicantTimeline.basicInfo.educationRequirementHeader"
-      },
-      {
-        "defaultMessage": "Based on the information outlined below, do you meet the minimum experience or education requirements for this position?",
-        "description": "Text for education requirement section in applicant timeline form.",
-        "id": "applicantTimeline.basicInfo.meetEducationRequirement"
-      },
-      {
-        "defaultMessage": "I meet this requirement and will provide details in the application.",
-        "description": "Label for education requirement section in applicant timeline form.",
-        "id": "applicantTimeline.basicInfo.educationRequirementLabel"
-      },
-      {
-        "defaultMessage": "Select from the following...",
-        "description": "The default selection option displayed on select box.",
-        "id": "applicantTimeline.basicInfo.nullSelectOption"
-      },
-      {
-        "defaultMessage": "Canadian Citizen",
-        "description": "Select option text for the 'Citizen' citizen declarations.",
-        "id": "applicantTimeline.citizenshipDeclaration.citizen"
-      },
-      {
-        "defaultMessage": "Permanent Resident of Canada",
-        "description": "Select option text for the 'Permanent Resident of Canada' citizen declarations.",
-        "id": "applicantTimeline.citizenshipDeclaration.permanentResident"
-      },
-      {
-        "defaultMessage": "I have a permit that allows me to work anywhere in Canada",
-        "description": "Select option text for the 'Work Permit Open' citizen declarations.",
-        "id": "applicantTimeline.citizenshipDeclaration.workPermitOpen"
-      },
-      {
-        "defaultMessage": "I have a permit that only allows me to work for a specific organization",
-        "description": "Select option text for the 'Work Permit Closed' citizen declarations.",
-        "id": "applicantTimeline.citizenshipDeclaration.workPermitClosed"
-      },
-      {
-        "defaultMessage": "I am currently not entitled to work in Canada",
-        "description": "Select option text for the 'Not Entitled' citizen declarations.",
-        "id": "applicantTimeline.citizenshipDeclaration.notEntitled"
-      },
-      {
-        "defaultMessage": "No - I am not a veteran or a member of the Canadian Armed Forces.",
-        "description": "Select option text for the 'None' veteran status.",
-        "id": "applicantTimeline.veteranStatus.none"
-      },
-      {
-        "defaultMessage": "Yes - I am currently a member of the Canadian Armed Forces.",
-        "description": "Select option text for the 'Current' veteran status.",
-        "id": "applicantTimeline.veteranStatus.current"
-      },
-      {
-        "defaultMessage": "Yes - I am a veteran.",
-        "description": "Select option text for the 'Past' veteran status.",
-        "id": "applicantTimeline.veteranStatus.past"
-      },
-      {
-        "defaultMessage": "This position requires advanced knowledge of English.",
-        "description": "Description for the 'English' language requirement on the applicant timeline form.",
-        "id": "applicantTimeline.languageRequirement.english"
-      },
-      {
-        "defaultMessage": "This position requires advanced knowledge of French.",
-        "description": "Description for the 'French' language requirement on the applicant timeline form.",
-        "id": "applicantTimeline.languageRequirement.french"
-      },
-      {
-        "defaultMessage": "This position requires advanced knowledge of either French or English.",
-        "description": "Description for the 'Bilingual Intermediate' language requirement on the applicant timeline form.",
-        "id": "applicantTimeline.languageRequirement.bilingualIntermediate"
-      },
-      {
-        "defaultMessage": "This position requires working knowledge of both French and English. As part of this process, your language abilities will be tested by the Public Service Commission of Canada (the proficiency requirement for this position is BBB).",
-        "description": "Description for the 'Bilingual Advanced' language requirement on the applicant timeline form.",
-        "id": "applicantTimeline.languageRequirement.bilingualAdvanced"
-      },
-      {
-        "defaultMessage": "This position requires advanced knowledge of both French and English. As part of this process, your language abilities will be tested by the Public Service Commission of Canada (the proficiency requirement for this position is CBC).",
-        "description": "Description for the 'English or French' language requirement on the applicant timeline form.",
-        "id": "applicantTimeline.languageRequirement.englishOrFrench"
-      },
-      {
-        "defaultMessage": "I have strong reading, writing and verbal communication skills in English.",
-        "description": "Label for 'English' language requirement on the applicant timeline form.",
-        "id": "applicantTimeline.languageRequirement.label.english"
-      },
-      {
-        "defaultMessage": "I have strong reading, writing and verbal communication skills in French.",
-        "description": "Text for 'French' language requirement on the applicant timeline form.",
-        "id": "applicantTimeline.languageRequirement.label.french"
-      },
-      {
-        "defaultMessage": "I have intermediate or better reading, writing and verbal communication skills in English and French.",
-        "description": "Text for 'Bilingual Intermediate' language requirement on the applicant timeline form.",
-        "id": "applicantTimeline.languageRequirement.label.bilingualIntermediate"
-      },
-      {
-        "defaultMessage": "I have intermediate or better reading, writing and verbal communication skills in English and French.",
-        "description": "Text for 'Bilingual Advanced' language requirement on the applicant timeline form.",
-        "id": "applicantTimeline.languageRequirement.label.bilingualAdvanced"
-      },
-      {
-        "defaultMessage": "I have strong reading, writing and verbal communication skills in English OR French.",
-        "description": "Text for 'English or French' language requirement on the applicant timeline form.",
-        "id": "applicantTimeline.languageRequirement.label.englishOrFrench"
-      }
-    ],
-    "path": "resources/assets/js/components/ApplicantTimeline/BasicInfo/BasicInfoMessages.json"
-  },
-  {
-    "descriptors": [
-      {
         "defaultMessage": "Click to view...",
         "description": "Accessible text for expanding an accordion.",
         "id": "application.accordion.expand"
@@ -592,160 +432,62 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "{skillCount, plural, =0 {No related skills} one {# related skill} other {# related skills}} {isEducationJustification, select, true {/ Education Requirement} false {}}",
-        "description": "Displays the number of required skills this relates to, and whether it's used to meed education requirements.",
-        "id": "application.experienceAccordion.skillCount"
+        "defaultMessage": "Education type not found",
+        "description": "Error message for when the education type cannot be found.",
+        "id": "application.experience.educationTypeMissing"
       },
       {
-        "defaultMessage": "Details of this Experience",
-        "description": "Subtitle of the details section.",
-        "id": "application.experienceAccordion.detailsTitle"
+        "defaultMessage": "Education status not found",
+        "description": "Error message for when the education status cannot be found.",
+        "id": "application.experience.educationStatusMissing"
       },
       {
-        "defaultMessage": "Skills for this Job",
-        "description": "Subtitle of the skills section.",
-        "id": "application.experienceAccordion.skillsTitle"
+        "defaultMessage": "Award recipient not found",
+        "description": "Error message for when the award recipient cannot be found.",
+        "id": "application.experience.awardRecipientMissing"
       },
       {
-        "defaultMessage": "There {skillCount, plural, one {is <b>#</b> other unrelated skill} other {are <b>#</b> other unrelated skills}} attached to this experience. You can see {skillCount, plural, one {it} other {them}} on your profile.",
-        "description": "Say how many skills unrelated to this job are associated with this experience.",
-        "id": "application.experienceAccordion.irrelevantSkillCount"
+        "defaultMessage": "Award recognition not found",
+        "description": "Error message for when the award recognition cannot be found.",
+        "id": "application.experience.awardRecognitionMissing"
       },
       {
-        "defaultMessage": "You don't have any skills attached to this experience.",
-        "description": "Message to show if experience has no associated skills at all.",
-        "id": "application.experienceAccordion.noSkills"
+        "defaultMessage": "Experience failed to render (experience type missing).",
+        "description": "Error message displayed when experience fails to render.",
+        "id": "application.experience.errorRenderingExperience"
       },
       {
-        "defaultMessage": "Education Requirement",
-        "id": "application.experienceAccordion.educationRequirement"
+        "defaultMessage": "Use the buttons below to add experiences you want to share with the manager. Experiences you have added in the past also appear below, and you can edit them to link them to skills required for this job when necessary.",
+        "description": "First section of text on the experience step of the Application Timeline.",
+        "id": "application.experience.preamble"
       },
       {
-        "defaultMessage": "You've selected this experience as an indicator of how you meet the education requirements for this job.",
-        "description": "Explanation of what it means that this experience meets an education requirement.",
-        "id": "application.experienceAccordion.educationRequirmentDescription"
+        "defaultMessage": "This job <span>requires</span> the following skills:",
+        "description": "Text before the list of essential skills on the experience step of the Application Timeline.",
+        "id": "application.experience.essentialSkillsListIntro"
       },
       {
-        "defaultMessage": "Delete Experience",
-        "id": "application.experienceAccordion.deleteButton"
+        "defaultMessage": "These skills are beneficial, but not required:",
+        "description": "Text before the list of asset skills on the experience step of the Application Timeline.",
+        "id": "application.experience.assetSkillsListIntro"
       },
       {
-        "defaultMessage": "Edit Experience",
-        "id": "application.experienceAccordion.editButton"
+        "defaultMessage": "Don't forget, {skill} will be evaluated later in the hiring process.",
+        "description": "List of soft skills that will be evaluated later.",
+        "id": "application.experience.softSkillsList"
+      },
+      {
+        "defaultMessage": "Looks like you don't have any experience added yet. Use the buttons above to add experience. Don't forget that experience will always be saved to your profile so that you can use it on future applications!",
+        "description": "Message displayed when application has no experiences.",
+        "id": "application.experience.noExperiences"
+      },
+      {
+        "defaultMessage": "The following required skill(s) are not connected to your experience:",
+        "description": "Message showing list of required skills that are not connected to a experience.",
+        "id": "application.experience.unconnectedSkills"
       }
     ],
-    "path": "resources/assets/js/components/Application/Experience/BaseExperienceAccordion.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "Award Experience",
-        "id": "experienceAwardAccordion.experienceTypeTitle"
-      },
-      {
-        "defaultMessage": "Award Title:",
-        "id": "experienceAwardAccordion.awardTitleLabel"
-      },
-      {
-        "defaultMessage": "Awarded to:",
-        "id": "experienceAwardAccordion.recipientLabel"
-      },
-      {
-        "defaultMessage": "Issuing Organization / Institution:",
-        "id": "experienceAwardAccordion.issuerLabel"
-      },
-      {
-        "defaultMessage": "Award Eligibility / Scope:",
-        "id": "experienceAwardAccordion.scopeLabel"
-      },
-      {
-        "defaultMessage": "Date Awarded:",
-        "id": "experienceAwardAccordion.awardedDateLabel"
-      },
-      {
-        "defaultMessage": "Link to award Date:",
-        "id": "experienceAwardAccordion.linkLabel"
-      },
-      {
-        "defaultMessage": "<b>{title}</b> - {institution}",
-        "description": "Title of Award Experience accordion (this is the visible text when accordion is closed).",
-        "id": "experienceAwardAccordion.title"
-      },
-      {
-        "defaultMessage": "Awarded on: {date}",
-        "description": "Shows the awarded date in the accordion title bar.",
-        "id": "experienceAwardAccordion.titleDate"
-      }
-    ],
-    "path": "resources/assets/js/components/Application/Experience/ExperienceAwardAccordion.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "Community Experience",
-        "id": "experienceCommunityAccordion.experienceTypeTitle"
-      },
-      {
-        "defaultMessage": "Role / Job Title:",
-        "id": "experienceCommunityAccordion.roleLabel"
-      },
-      {
-        "defaultMessage": "Group / Organization / Community:",
-        "id": "experienceCommunityAccordion.organizationLabel"
-      },
-      {
-        "defaultMessage": "Project / Product:",
-        "id": "experienceCommunityAccordion.projectLabel"
-      },
-      {
-        "defaultMessage": "<b>{title}</b> - {group}",
-        "description": "Title of Community Experience accordion (this is the visible text when accordion is closed).",
-        "id": "experienceCommunityAccordion.title"
-      }
-    ],
-    "path": "resources/assets/js/components/Application/Experience/ExperienceCommunityAccordion.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "Education Experience",
-        "id": "experienceEducationAccordion.experienceTypeTitle"
-      },
-      {
-        "defaultMessage": "Type of Education:",
-        "id": "experienceEducationAccordion.educationTypeLabel"
-      },
-      {
-        "defaultMessage": "Area of Study:",
-        "id": "experienceEducationAccordion.areaOfStudyLabel"
-      },
-      {
-        "defaultMessage": "Institution:",
-        "id": "experienceEducationAccordion.institutionLabel"
-      },
-      {
-        "defaultMessage": "Status:",
-        "id": "experienceEducationAccordion.statusLabel"
-      },
-      {
-        "defaultMessage": "Start Date:",
-        "id": "experienceEducationAccordion.startDate"
-      },
-      {
-        "defaultMessage": "End Date:",
-        "id": "experienceEducationAccordion.endDate"
-      },
-      {
-        "defaultMessage": "Thesis Title:",
-        "id": "experienceEducationAccordion.thesisLabel"
-      },
-      {
-        "defaultMessage": "<b>{educationType} in {areaOfStudy}</b> - {institution}",
-        "description": "Title of education accordion (this is the visible text when accordion is closed).",
-        "id": "experienceEducationAccordion.title"
-      }
-    ],
-    "path": "resources/assets/js/components/Application/Experience/ExperienceEducationAccordion.json"
+    "path": "resources/assets/js/components/Application/Experience/Experience.json"
   },
   {
     "descriptors": [
@@ -805,54 +547,49 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Personal Experience",
-        "id": "experiencePersonalAccordion.experienceTypeTitle"
+        "defaultMessage": "{skillCount, plural, =0 {No related skills} one {# related skill} other {# related skills}} {isEducationJustification, select, true {/ Education Requirement} false {}}",
+        "description": "Displays the number of required skills this relates to, and whether it's used to meed education requirements.",
+        "id": "application.experienceAccordion.skillCount"
       },
       {
-        "defaultMessage": "Title of Experience:",
-        "id": "experiencePersonalAccordion.titleLabel"
+        "defaultMessage": "Details of this Experience",
+        "description": "Subtitle of the details section.",
+        "id": "application.experienceAccordion.detailsTitle"
       },
       {
-        "defaultMessage": "Description:",
-        "id": "experiencePersonalAccordion.descriptionLabel"
+        "defaultMessage": "Skills for this Job",
+        "description": "Subtitle of the skills section.",
+        "id": "application.experienceAccordion.skillsTitle"
       },
       {
-        "defaultMessage": "Consent to Share:",
-        "id": "experiencePersonalAccordion.shareableLabel"
+        "defaultMessage": "There {skillCount, plural, one {is <b>#</b> other unrelated skill} other {are <b>#</b> other unrelated skills}} attached to this experience. You can see {skillCount, plural, one {it} other {them}} on your profile.",
+        "description": "Say how many skills unrelated to this job are associated with this experience.",
+        "id": "application.experienceAccordion.irrelevantSkillCount"
       },
       {
-        "defaultMessage": "Sharing Approved",
-        "description": "Text shown when user has consented to share this experience.",
-        "id": "experiencePersonalAccordion.isShareable"
+        "defaultMessage": "You don't have any skills attached to this experience.",
+        "description": "Message to show if experience has no associated skills at all.",
+        "id": "application.experienceAccordion.noSkills"
       },
       {
-        "defaultMessage": "Sharing Restricted",
-        "description": "Text shown when user has NOT consented to share this experience.",
-        "id": "experiencePersonalAccordion.isNotShareable"
+        "defaultMessage": "Education Requirement",
+        "id": "application.experienceAccordion.educationRequirement"
+      },
+      {
+        "defaultMessage": "You've selected this experience as an indicator of how you meet the education requirements for this job.",
+        "description": "Explanation of what it means that this experience meets an education requirement.",
+        "id": "application.experienceAccordion.educationRequirmentDescription"
+      },
+      {
+        "defaultMessage": "Delete Experience",
+        "id": "application.experienceAccordion.deleteButton"
+      },
+      {
+        "defaultMessage": "Edit Experience",
+        "id": "application.experienceAccordion.editButton"
       }
     ],
-    "path": "resources/assets/js/components/Application/Experience/ExperiencePersonalAccordion.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "Work Experience",
-        "id": "experienceWorkAccordion.experienceTypeTitle"
-      },
-      {
-        "defaultMessage": "Role / Job Title:",
-        "id": "experienceWorkAccordion.roleLabel"
-      },
-      {
-        "defaultMessage": "Organization / Company:",
-        "id": "experienceWorkAccordion.organizationLabel"
-      },
-      {
-        "defaultMessage": "Team / Group:",
-        "id": "experienceWorkAccordion.teamLabel"
-      }
-    ],
-    "path": "resources/assets/js/components/Application/Experience/ExperienceWorkAccordion.json"
+    "path": "resources/assets/js/components/Application/ExperienceAccordions/BaseExperienceAccordion.json"
   },
   {
     "descriptors": [
@@ -965,7 +702,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Add Edcuation Experience",
+        "defaultMessage": "Add Education Experience",
         "id": "application.educationExperienceModal.modalTitle"
       },
       {
@@ -1237,6 +974,61 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Today's Date",
+        "description": "Label for the submission date input field.",
+        "id": "application.finalSubmit.submissionDateLabel"
+      },
+      {
+        "defaultMessage": "yyyy-mm-dd",
+        "description": "Placeholder for the submission signature input field.",
+        "id": "application.finalSubmit.submissionDatePlaceholder"
+      },
+      {
+        "defaultMessage": "Sign (Type) Your Full Name",
+        "description": "Label for the submission signature input field.",
+        "id": "application.finalSubmit.submissionSignatureLabel"
+      },
+      {
+        "defaultMessage": "e.g. First Last",
+        "description": "Placeholder for the submission signature input field.",
+        "id": "application.finalSubmit.submissionSignaturePlaceholder"
+      },
+      {
+        "defaultMessage": "I've reviewed everything written in my application.",
+        "description": "Bullet point about the criteria before final submission.",
+        "id": "application.finalSubmit.confirmCriteria.firstBullet"
+      },
+      {
+        "defaultMessage": "I understand that I am a part of a community of people who trust each other.",
+        "description": "Bullet point about the criteria before final submission.",
+        "id": "application.finalSubmit.confirmCriteria.secondBullet"
+      },
+      {
+        "defaultMessage": "I promise that the information I've provided is true.",
+        "description": "Bullet point about the criteria before final submission.",
+        "id": "application.finalSubmit.confirmCriteria.thirdBullet"
+      },
+      {
+        "defaultMessage": "Final Submission",
+        "description": "Heading text on the final submit step of the Application Timeline.",
+        "id": "application.finalSubmit."
+      },
+      {
+        "defaultMessage": "You've made it! By signing your name below, you're confirming that:",
+        "description": "Heading text before confirmation criteria list.",
+        "id": "application.finalSubmit.confirmCriteriaHeading"
+      },
+      {
+        "defaultMessage": "Submit Application",
+        "description": "The text displayed on the submit button for the Job Details form.",
+        "id": "application.submitApplicationButtonLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/FinalSubmit/FinalSubmit.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "The manager has included a few further questions that they'd like you to answer in order to be considered for this position. Questions that require an answer are marked, while all others are optional.",
         "description": "Paragraph for the Fit step in the Application form.",
         "id": "application.fit.firstParagraph"
@@ -1308,61 +1100,6 @@
       }
     ],
     "path": "resources/assets/js/components/Application/Intro/Intro.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "My Fit",
-        "description": "Heading for the My Fit step in the Application Timeline",
-        "id": "application.myfit.heading"
-      },
-      {
-        "defaultMessage": "The manager has included a few further questions that they'd like you to answer in order to be considered for this position. Questions that require an answer are marked, while all others are optional.",
-        "description": "Paragraph for the My Fit step in the Application Timeline",
-        "id": "application.myfit.firstParagraph"
-      },
-      {
-        "defaultMessage": "Save & Return to Previous Step",
-        "description": "The text displayed on the Save & Return button of the Applicant Timeline form.",
-        "id": "application.returnButtonLabel"
-      },
-      {
-        "defaultMessage": "Save & Quit",
-        "description": "The text displayed on the Save & Return button of the Applicant Timeline form.",
-        "id": "application.quitButtonLabel"
-      },
-      {
-        "defaultMessage": "Save & Continue",
-        "description": "The text displayed on the submit button for the Job Details form.",
-        "id": "application.submitButtonLabel"
-      }
-    ],
-    "path": "resources/assets/js/components/Application/MyFit/MyFit.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "Save Answer",
-        "description": "Default message displayed on save answer button.",
-        "id": "application.myfit.saveAnswerButton.default"
-      },
-      {
-        "defaultMessage": "Saved",
-        "description": "Message displayed on button when data is saved.",
-        "id": "application.myfit.saveAnswerButton.saved"
-      },
-      {
-        "defaultMessage": "Question {index}:",
-        "description": "Label for the question on the My Fit step.",
-        "id": "application.myfit.question"
-      },
-      {
-        "defaultMessage": "My Answer to Question {index}",
-        "description": "Label before the users answer on the My Fit step.",
-        "id": "application.myfit.questionLabel"
-      }
-    ],
-    "path": "resources/assets/js/components/Application/MyFit/Question.json"
   },
   {
     "descriptors": [
@@ -1517,6 +1254,10 @@
         "id": "application.review.userContact"
       },
       {
+        "defaultMessage": "I do not want Talent Cloud to contact me at {email} about related jobs.",
+        "id": "application.review.userNoContact"
+      },
+      {
         "defaultMessage": "I would like Talent Cloud to share my application with other Government of Canada managers looking for similar sets of skills.",
         "id": "application.review.userShare"
       }
@@ -1529,6 +1270,11 @@
         "defaultMessage": "You haven't written an explanation of how you used this skill during this experience.",
         "description": "Alert displayed when no justification has been added to an Experience.",
         "id": "application.skillAccordion.justificationMissing"
+      },
+      {
+        "defaultMessage": "You haven't attached any experiences to this skill.",
+        "description": "Alert displayed when no Experiences have been added to a particular Skill.",
+        "id": "application.skillAccordion.experiencesMissing"
       }
     ],
     "path": "resources/assets/js/components/Application/Review/SkillAccordion.json"
@@ -1645,7 +1391,7 @@
         "id": "application.skills.confirmButtonText"
       }
     ],
-    "path": "resources/assets/js/components/Application/Skills/SkillsMessages.json"
+    "path": "resources/assets/js/components/Application/Skills/skillsMessages.json"
   },
   {
     "descriptors": [
