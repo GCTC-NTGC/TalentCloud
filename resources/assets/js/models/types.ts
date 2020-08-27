@@ -41,6 +41,7 @@ export type Application = {
   applicant: Applicant;
   application_review: ApplicationReview | undefined;
   meets_essential_criteria: boolean;
+  share_with_managers: boolean;
 };
 
 export type ApplicationNormalized = Omit<Application, "application_review">;
@@ -266,6 +267,8 @@ export interface User {
   not_in_gov: boolean;
   gov_email: string;
   department_id: number | null;
+  contact_language: string | null;
+  job_alerts: boolean;
   user_role: {
     id: number;
     key: string;
@@ -308,9 +311,11 @@ export interface ExperienceWork extends ExperienceBase {
 export interface ExperienceEducation extends ExperienceBase {
   id: number;
   education_type_id: number;
+  education_type: localizedFieldNonNull;
   area_of_study: string;
   institution: string;
   education_status_id: number;
+  education_status: localizedFieldNonNull;
   is_active: boolean;
   thesis_title: string;
   has_blockcert: boolean;
@@ -334,8 +339,10 @@ export interface ExperienceAward extends ExperienceBase {
   id: number;
   title: string;
   award_recipient_type_id: number;
+  award_recipient_type: localizedFieldNonNull;
   issued_by: string;
   award_recognition_type_id: number;
+  award_recognition_type: localizedFieldNonNull;
   awarded_date: Date;
   type: "experience_award";
 }

@@ -25,7 +25,8 @@ export interface EducationSubformProps {
 
 const messages = defineMessages({
   educationJustificationLabel: {
-    id: "experienceModal.educationSubform.educationJustificationLabel",
+    id:
+      "application.experienceModal.educationSubform.educationJustificationLabel",
     defaultMessage:
       "Yes, this experience helps me meet the education requirements outlined below.",
     description:
@@ -50,14 +51,14 @@ export function EducationSubform({
           data-c-color="c3"
         >
           <FormattedMessage
-            id="experienceModal.educationSubtitle"
+            id="application.experienceModal.educationSubtitle"
             defaultMessage="Use This Experience as an Education Requirement"
             description="Subtitle for the use-as-Education-Requirement section."
           />
         </p>
         <p data-c-margin="bottom(1)">
           <FormattedMessage
-            id="experienceModal.educationDescription"
+            id="application.experienceModal.educationDescription"
             defaultMessage="You can select the option below if you feel that this experience helps you meet some or all of the specific education requirements for this job. We've included the requirements below to help refresh your memory."
             description="Explanation for the use-as-Education-Requirement section."
           />
@@ -73,6 +74,7 @@ export function EducationSubform({
                 name={checkboxKey}
                 label={intl.formatMessage(messages.educationJustificationLabel)}
                 component={CheckboxInput}
+                checkboxBorder
               />
             </div>
           </div>
@@ -86,7 +88,7 @@ export function EducationSubform({
             <p>{educationRequirement.description}</p>
             <p data-c-margin="tb(1)">
               <FormattedMessage
-                id="experienceModal.educationSubform.or"
+                id="application.experienceModal.educationSubform.or"
                 defaultMessage="OR"
                 description="Conjunction used to join alternative experience requirements (ie Experience OR Equivalent Experience)."
               />

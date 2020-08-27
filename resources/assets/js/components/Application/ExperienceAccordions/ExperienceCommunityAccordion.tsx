@@ -1,13 +1,13 @@
 import React from "react";
-import { FormattedMessage, useIntl, IntlShape } from "react-intl";
+import { useIntl, IntlShape } from "react-intl";
 import {
-  ExperienceSkill,
   BaseExperienceAccordion,
   titleBarDateRange,
-  baseExperienceMessages,
 } from "./BaseExperienceAccordion";
+import { accordionMessages } from "../applicationMessages";
 import { Locales, getLocale } from "../../../helpers/localize";
 import { readableDate } from "../../../helpers/dates";
+import { ExperienceSkill, Skill } from "../../../models/types";
 
 interface ExperienceCommunityAccordionProps {
   title: string;
@@ -17,6 +17,7 @@ interface ExperienceCommunityAccordionProps {
   endDate: Date | null;
   isActive: boolean;
   relevantSkills: ExperienceSkill[];
+  skills: Skill[];
   irrelevantSkillCount: number;
   isEducationJustification: boolean;
   showSkillDetails: boolean;
@@ -46,7 +47,7 @@ const experienceCommunityDetails = ({
 }): React.ReactElement => {
   const notApplicable = (
     <p data-c-color="gray">
-      {intl.formatMessage(baseExperienceMessages.notApplicable)}
+      {intl.formatMessage(accordionMessages.notApplicable)}
     </p>
   );
   const endDateOrNa = endDate ? (
@@ -58,7 +59,7 @@ const experienceCommunityDetails = ({
     <>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          {intl.formatMessage(baseExperienceMessages.experienceTypeLabel)}
+          {intl.formatMessage(accordionMessages.experienceTypeLabel)}
         </p>
         <p>
           <i
@@ -66,51 +67,39 @@ const experienceCommunityDetails = ({
             data-c-color="c1"
             data-c-margin="right(.25)"
           />
-          <FormattedMessage
-            id="experienceCommunityAccordion.experienceTypeTitle"
-            defaultMessage="Community Experience"
-          />
+          {intl.formatMessage(accordionMessages.communityType)}
         </p>
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experienceCommunityAccordion.roleLabel"
-            defaultMessage="Role / Job Title:"
-          />
-          {title ? <p>{title}</p> : notApplicable}
+          {intl.formatMessage(accordionMessages.communityRoleLabel)}
         </p>
+        {title ? <p>{title}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experienceCommunityAccordion.organizationLabel"
-            defaultMessage="Group / Organization / Community:"
-          />
+          {intl.formatMessage(accordionMessages.communityOrganizationLabel)}
         </p>
         {group ? <p>{group}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experienceCommunityAccordion.projectLabel"
-            defaultMessage="Project / Product:"
-          />
+          {intl.formatMessage(accordionMessages.communityProjectLabel)}
         </p>
         {project ? <p>{project}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          {intl.formatMessage(baseExperienceMessages.startDateLabel)}
+          {intl.formatMessage(accordionMessages.startDateLabel)}
         </p>
         {startDate ? <p>{readableDate(locale, startDate)}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          {intl.formatMessage(baseExperienceMessages.endDateLabel)}
+          {intl.formatMessage(accordionMessages.endDateLabel)}
         </p>
         {isActive ? (
-          <p>{intl.formatMessage(baseExperienceMessages.ongoing)}</p>
+          <p>{intl.formatMessage(accordionMessages.ongoing)}</p>
         ) : (
           endDateOrNa
         )}
@@ -127,6 +116,7 @@ export const ExperienceCommunityAccordion: React.FC<ExperienceCommunityAccordion
   endDate,
   isActive,
   relevantSkills,
+  skills,
   irrelevantSkillCount,
   isEducationJustification,
   showSkillDetails,
@@ -139,18 +129,13 @@ export const ExperienceCommunityAccordion: React.FC<ExperienceCommunityAccordion
   const accordionTitle = (
     <>
       <p>
-        <FormattedMessage
-          id="experienceCommunityAccordion.title"
-          defaultMessage="<b>{title}</b> - {group}"
-          description="Title of Community Experience accordion (this is the visible text when accordion is closed)."
-          values={{
-            title,
-            group,
-            b: (value) => <span data-c-font-weight="bold">{value}</span>,
-          }}
-        />
+        {intl.formatMessage(accordionMessages.communityHeading, {
+          title,
+          group,
+          b: (value) => <span data-c-font-weight="bold">{value}</span>,
+        })}
       </p>
-      {titleBarDateRange(startDate, endDate, isActive, locale)}
+      {titleBarDateRange(startDate, endDate, isActive, intl, locale)}
     </>
   );
   return (
@@ -158,6 +143,7 @@ export const ExperienceCommunityAccordion: React.FC<ExperienceCommunityAccordion
       title={accordionTitle}
       iconClass="fa-people-carry"
       relevantSkills={relevantSkills}
+      skills={skills}
       irrelevantSkillCount={irrelevantSkillCount}
       isEducationJustification={isEducationJustification}
       details={experienceCommunityDetails({

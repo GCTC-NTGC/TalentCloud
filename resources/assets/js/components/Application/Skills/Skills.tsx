@@ -25,16 +25,18 @@ import AlertWhenUnsaved from "../../Form/AlertWhenUnsaved";
 import TextAreaInput from "../../Form/TextAreaInput";
 import WordCounter from "../../WordCounter/WordCounter";
 import { countNumberOfWords } from "../../WordCounter/helpers";
-import displayMessages from "./SkillsMessages";
+import displayMessages from "./skillsMessages";
 import {
   getSkillOfCriteria,
   getExperiencesOfSkill,
+  getExperienceOfExperienceSkills,
+} from "../helpers";
+import {
   statusReducer,
   initialStatus,
   computeParentStatus,
   SkillStatus,
-  getExperienceOfExperienceSkills,
-} from "./SkillsHelpers";
+} from "./skillsHelpers";
 import Modal from "../../Modal";
 
 const JUSTIFICATION_WORD_LIMIT = 100;

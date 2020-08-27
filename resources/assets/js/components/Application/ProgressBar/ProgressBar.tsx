@@ -7,31 +7,31 @@ import { readableTimeFromNow } from "../../../helpers/dates";
 
 const stepNames = defineMessages({
   welcome: {
-    id: "applicationTimeline.progressBar.welcome",
+    id: "application.progressBar.welcome",
     defaultMessage: "Welcome",
   },
   step01: {
-    id: "applicationTimeline.progressBar.step01",
+    id: "application.progressBar.step01",
     defaultMessage: "Step 1/6",
   },
   step02: {
-    id: "applicationTimeline.progressBar.step02",
+    id: "application.progressBar.step02",
     defaultMessage: "Step 2/6",
   },
   step03: {
-    id: "applicationTimeline.progressBar.step03",
+    id: "application.progressBar.step03",
     defaultMessage: "Step 3/6",
   },
   step04: {
-    id: "applicationTimeline.progressBar.step04",
+    id: "application.progressBar.step04",
     defaultMessage: "Step 4/6",
   },
   step05: {
-    id: "applicationTimeline.progressBar.step05",
+    id: "application.progressBar.step05",
     defaultMessage: "Step 5/6",
   },
   step06: {
-    id: "applicationTimeline.progressBar.step06",
+    id: "application.progressBar.step06",
     defaultMessage: "Step 6/6",
   },
 });
@@ -65,7 +65,7 @@ const createStep = (
       <li key={link.title}>
         <span data-c-visibility="invisible">
           <FormattedMessage
-            id="applicationTimeline.progressbar.completedStepLabel"
+            id="application.progressbar.completedStepLabel"
             defaultMessage="Completed: "
             description="Visually hidden text used to indicate the completed steps."
           />
@@ -92,7 +92,7 @@ const createStep = (
       <li key={link.title} title={link.title}>
         <span data-c-visibility="invisible">
           <FormattedMessage
-            id="applicationTimeline.progressbar.currentStepLabel"
+            id="application.progressbar.currentStepLabel"
             defaultMessage="Current: "
             description="Visually hidden text used to indicate the current steps."
           />
@@ -110,7 +110,7 @@ const createStep = (
       <li key={link.title}>
         <span data-c-visibility="invisible">
           <FormattedMessage
-            id="applicationTimeline.progressbar.errorStepLabel"
+            id="application.progressbar.errorStepLabel"
             defaultMessage="Error: "
             description="Visually hidden text used to indicate the steps with errors."
           />
@@ -214,7 +214,7 @@ const ProgressBar: React.FunctionComponent<ProgressBarProps> = ({
           >
             <span data-c-color="white">
               <FormattedMessage
-                id="applicationTimeline.progressbar.applicationDeadline"
+                id="application.progressbar.applicationDeadline"
                 defaultMessage="Application Deadline: {timeLeft}"
                 description="Label for the application deadline"
                 values={{

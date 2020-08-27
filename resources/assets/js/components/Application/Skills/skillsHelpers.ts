@@ -1,41 +1,5 @@
-import {
-  Criteria,
-  ExperienceSkill,
-  Skill,
-  Experience,
-} from "../../../models/types";
-import { mapToObject, getId, hasKey } from "../../../helpers/queries";
+import { ExperienceSkill } from "../../../models/types";
 import { IconStatus } from "../../StatusIcon";
-
-/**
- * Retrieves Skill associated to Criterion by ID.
- *
- * @param criterion Criteria object.
- * @param skills Array of Skill objects.
- * @returns null if not found or Skill object.
- */
-export const getSkillOfCriteria = (
-  criterion: Criteria,
-  skills: Skill[],
-): Skill | null => {
-  const skillsById = mapToObject(skills, getId);
-  return hasKey(skillsById, criterion.skill_id)
-    ? skillsById[criterion.skill_id]
-    : null;
-};
-
-/**
- * Retrieves array of ExperienceSkill objects associated to
- * Skill by ID.
- * @param skill Skill object.
- * @param experiences Array of ExperienceSkill objects.
- * @returns Array of ExperienceSkill objects.
- */
-export const getExperiencesOfSkill = (
-  skill: Skill,
-  experiences: ExperienceSkill[],
-): ExperienceSkill[] =>
-  experiences.filter((experience) => experience.skill_id === skill.id);
 
 export interface SkillStatus {
   [skillId: string]: {
@@ -44,26 +8,6 @@ export interface SkillStatus {
     };
   };
 }
-
-/**
- * Retrieves Experience associated to ExperienceSkill by Type and ID.
- *
- * @param experienceSkill ExperienceSkill object.
- * @param experiences Array of ExperienceSkill objects.
- * @returns null if not found or Experience object.
- */
-export const getExperienceOfExperienceSkills = (
-  experienceSkill: ExperienceSkill,
-  experiences: Experience[],
-): Experience | null => {
-  const experiencesByType = experiences.filter(
-    (experience) => experience.type === experienceSkill.experience_type,
-  );
-  const experiencesById = mapToObject(experiencesByType, getId);
-  return hasKey(experiencesById, experienceSkill.experience_id)
-    ? experiencesById[experienceSkill.experience_id]
-    : null;
-};
 
 /**
  * Constructs an initial state object to pass to the statusReducer function.

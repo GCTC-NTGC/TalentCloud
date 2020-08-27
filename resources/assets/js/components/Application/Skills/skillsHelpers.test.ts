@@ -4,7 +4,7 @@ import {
   initialStatus,
   computeParentStatus,
   statusReducer,
-} from "./SkillsHelpers";
+} from "./skillsHelpers";
 import fakeExperiences from "../../../fakeData/fakeExperienceSkills";
 import { fakeSkills } from "../../../fakeData/fakeSkills";
 import { IconStatus } from "../../StatusIcon";

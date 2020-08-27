@@ -29,7 +29,7 @@ const typesOfExperience = defineMessages({
   awards: {
     id: "application.experience.intro.awards",
     defaultMessage: "Awards",
-    description: "Type of experience: Personal Experience.",
+    description: "Type of experience: Award Experience.",
   },
 });
 
@@ -86,7 +86,7 @@ const ExperienceIntro: React.FunctionComponent<ExperienceIntroProps> = ({
             >
               <span>
                 <FormattedMessage
-                  id="application.intro.letsGo"
+                  id="application.experience.intro.letsGo"
                   defaultMessage="Let's Go"
                   description="Button text for continuing to next step in Application Form."
                 />

@@ -51,53 +51,53 @@ interface WorkExperienceModalProps {
 
 export const messages = defineMessages({
   modalTitle: {
-    id: "workExperienceModal.modalTitle",
+    id: "application.workExperienceModal.modalTitle",
     defaultMessage: "Add Work Experience",
   },
   modalDescription: {
-    id: "workExperienceModal.modalDescription",
+    id: "application.workExperienceModal.modalDescription",
     defaultMessage:
       'Did work? Share your experiences gained from full-time positions, part-time positions, self-employment, fellowships or internships.  (Did some volunteering? Share this as a "Community Experience".)',
   },
   jobTitleLabel: {
-    id: "workExperienceModal.jobTitleLabel",
+    id: "application.workExperienceModal.jobTitleLabel",
     defaultMessage: "My Role/Job Title",
   },
   jobTitlePlaceholder: {
-    id: "workExperienceModal.jobTitlePlaceholder",
+    id: "application.workExperienceModal.jobTitlePlaceholder",
     defaultMessage: "e.g. Front-end Development",
   },
   orgNameLabel: {
-    id: "workExperienceModal.orgNameLabel",
+    id: "application.workExperienceModal.orgNameLabel",
     defaultMessage: "Organization/Company",
   },
   orgNamePlaceholder: {
-    id: "workExperienceModal.orgNamePlaceholder",
+    id: "application.workExperienceModal.orgNamePlaceholder",
     defaultMessage: "e.g. Government of Canada",
   },
   groupLabel: {
-    id: "workExperienceModal.groupLabel",
+    id: "application.workExperienceModal.groupLabel",
     defaultMessage: "Team, Group, or Division",
   },
   groupPlaceholder: {
-    id: "workExperienceModal.groupPlaceholder",
+    id: "application.workExperienceModal.groupPlaceholder",
     defaultMessage: "e.g. Talent Cloud",
   },
   startDateLabel: {
-    id: "workExperienceModal.startDateLabel",
+    id: "application.workExperienceModal.startDateLabel",
     defaultMessage: "Select a Start Date",
   },
   datePlaceholder: {
-    id: "workExperienceModal.datePlaceholder",
+    id: "application.workExperienceModal.datePlaceholder",
     defaultMessage: "yyyy-mm-dd",
   },
   isActiveLabel: {
-    id: "workExperienceModal.isActiveLabel",
+    id: "application.workExperienceModal.isActiveLabel",
     defaultMessage: "This experience is still ongoing, or...",
     description: "Label for checkbox that indicates work is still ongoing.",
   },
   endDateLabel: {
-    id: "workExperienceModal.endDateLabel",
+    id: "application.workExperienceModal.endDateLabel",
     defaultMessage: "Select an End Date",
   },
 });

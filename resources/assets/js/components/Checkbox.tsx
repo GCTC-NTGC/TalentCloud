@@ -23,6 +23,10 @@ export interface CheckboxProps {
   invalid?: boolean | null;
   /** If true, returns component meant for checkbox group */
   checkboxGroup?: boolean;
+  /** Creates a single checkbox with border */
+  checkboxBorder?: boolean;
+  /** Label for the single checkbox with a border */
+  borderLabel?: string;
   /** Event listener which fires when a change event occurs (varies on input type) */
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   /** Event listener which fires when an input loses focus */
@@ -40,6 +44,8 @@ const Checkbox: React.FunctionComponent<CheckboxProps> = ({
   errorText,
   invalid,
   checkboxGroup,
+  checkboxBorder,
+  borderLabel,
   onBlur,
   onChange,
 }): React.ReactElement => {
@@ -63,11 +69,12 @@ const Checkbox: React.FunctionComponent<CheckboxProps> = ({
         </div>
       ) : (
         <div
-          data-c-input="checkbox"
+          data-c-input={checkboxBorder ? "checkbox(group)" : "checkbox(single)"}
           data-c-grid-item={grid}
           data-c-required={required || null}
           data-c-invalid={invalid || null}
         >
+          {checkboxBorder && <label>{borderLabel}</label>}
           <span>
             <FormattedMessage {...inputMessages.required} />
           </span>
