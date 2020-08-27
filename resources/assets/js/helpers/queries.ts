@@ -205,3 +205,8 @@ export function filterObjectProps<T>(
 export function uniq<T>(x: T[]): T[] {
   return Array.from(new Set(x));
 }
+
+export function flatten<T>(x: T[][]): T[] {
+  const concat = (ls: T[], xs: T[]): T[] => ls.concat(xs);
+  return x.reduce(concat, []);
+}

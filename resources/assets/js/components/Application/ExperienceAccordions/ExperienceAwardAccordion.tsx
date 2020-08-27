@@ -73,8 +73,8 @@ const experienceAwardDetails = ({
             id="experienceAwardAccordion.awardTitleLabel"
             defaultMessage="Award Title:"
           />
-          {title ? <p>{title}</p> : notApplicable}
         </p>
+        {title ? <p>{title}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">

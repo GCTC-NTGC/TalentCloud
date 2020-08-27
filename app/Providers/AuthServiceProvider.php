@@ -19,6 +19,12 @@ use App\Models\Assessment;
 use App\Models\RatingGuideQuestion;
 use App\Models\RatingGuideAnswer;
 use App\Models\AssessmentPlanNotification;
+use App\Models\ExperienceAward;
+use App\Models\ExperienceCommunity;
+use App\Models\ExperienceEducation;
+use App\Models\ExperiencePersonal;
+use App\Models\ExperienceSkill;
+use App\Models\ExperienceWork;
 use App\Models\HrAdvisor;
 use App\Models\User;
 use App\Policies\UserPolicy;
@@ -36,6 +42,8 @@ use App\Policies\AssessmentPolicy;
 use App\Policies\RatingGuideQuestionPolicy;
 use App\Policies\RatingGuideAnswerPolicy;
 use App\Policies\AssessmentPlanNotificationPolicy;
+use App\Policies\ExperiencePolicy;
+use App\Policies\ExperienceSkillPolicy;
 use App\Policies\HrAdvisorPolicy;
 
 class AuthServiceProvider extends ServiceProvider
@@ -62,6 +70,12 @@ class AuthServiceProvider extends ServiceProvider
         RatingGuideAnswer::class => RatingGuideAnswerPolicy::class,
         AssessmentPlanNotification::class =>  AssessmentPlanNotificationPolicy::class,
         HrAdvisor::class => HrAdvisorPolicy::class,
+        ExperienceWork::class => ExperiencePolicy::class,
+        ExperienceAward::class => ExperiencePolicy::class,
+        ExperiencePersonal::class => ExperiencePolicy::class,
+        ExperienceCommunity::class => ExperiencePolicy::class,
+        ExperienceEducation::class => ExperiencePolicy::class,
+        ExperienceSkill::class => ExperienceSkillPolicy::class
     ];
 
     /**

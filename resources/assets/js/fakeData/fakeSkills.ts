@@ -129,3 +129,11 @@ export const fakeSkills = (): Skill[] => [
   fakeSkill5(),
   fakeSkill6(),
 ];
+
+export const fakeEssentialSkills = (): Skill[] => [fakeSkill(), fakeSkill2()];
+export const fakeAssetSkills = (): Skill[] => [fakeSkill3(), fakeSkill4()];
+
+export const fakeHardSkills = (): Skill[] =>
+  fakeSkills().filter((skill) => skill.skill_type_id === SkillTypeId.Hard);
+export const fakeSoftSkills = (): Skill[] =>
+  fakeSkills().filter((skill) => skill.skill_type_id === SkillTypeId.Soft);
