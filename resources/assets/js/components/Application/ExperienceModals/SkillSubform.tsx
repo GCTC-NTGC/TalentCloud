@@ -9,13 +9,13 @@ import CheckboxInput from "../../Form/CheckboxInput";
 
 const messages = defineMessages({
   linkToJobTitle: {
-    id: "experienceModal.linkToJob.title",
+    id: "application.experienceModal.skillSubform.linkToJob.title",
     defaultMessage:
       "Open the job poster in a new tab or window to review the definition of skills.",
     description: "Title attribute for the link back to the job.",
   },
   skillCheckboxGroupLabel: {
-    id: "experienceModal.skillCheckboxGroupLabel",
+    id: "application.experienceModal.skillSubform.skillCheckboxGroupLabel",
     defaultMessage: "Select all that apply:",
     description: "Label for the Skills checkbox groups.",
   },
@@ -70,14 +70,14 @@ export function SkillSubform({
           data-c-color="c3"
         >
           <FormattedMessage
-            id="experienceModal.connectSubtitle"
+            id="application.experienceModal.skillSubform.connectSubtitle"
             defaultMessage="Connect This Experience to the Job"
             description="Subtitle of Connect-to-skills section."
           />
         </p>
         <p data-c-margin="bottom(1)">
           <FormattedMessage
-            id="experienceModal.connectDescription"
+            id="application.experienceModal.skillSubform.connectDescription"
             defaultMessage="Below you can select which of the job skills you used during this experience. Later on, you’ll be asked to provide a few sentences to help managers understand how you used this skill. You can <a>review the definitions</a> of the skills on the job poster."
             description="Explanation for Connect-to-skills section."
             values={{
@@ -87,7 +87,7 @@ export function SkillSubform({
         </p>
         <p data-c-margin="bottom(1)">
           <FormattedMessage
-            id="experienceModal.connectDescription.noSkillsOkay"
+            id="application.experienceModal.skillSubform.connectDescription.noSkillsOkay"
             defaultMessage="If none of the skills apply to this experience, feel free to save it without any skills selected."
             description="Explanation that you can save an experience without connecting it to skills yet."
           />
@@ -98,7 +98,7 @@ export function SkillSubform({
           <div data-c-grid-item="base(1of1)">
             <p data-c-font-weight="bold">
               <FormattedMessage
-                id="experienceModal.requiredSkillsSubtitle"
+                id="application.experienceModal.skillSubform.requiredSkillsSubtitle"
                 defaultMessage="Please indicate which of the following <a>required skills</a> (if any) you used in this experience."
                 description="Title for the Required Skills checkbox."
                 values={{
@@ -136,7 +136,7 @@ export function SkillSubform({
           <div data-c-grid-item="base(1of1)">
             <p data-c-font-weight="bold">
               <FormattedMessage
-                id="experienceModal.optionalSkillsSubtitle"
+                id="application.experienceModal.skillSubform.optionalSkillsSubtitle"
                 defaultMessage="Please indicate which of the following <a>optional skills</a> (if any) you used in this experience."
                 description="Title for the Optional Skills checkbox."
                 values={{

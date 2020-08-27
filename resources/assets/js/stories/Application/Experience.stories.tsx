@@ -6,10 +6,7 @@ import { action } from "@storybook/addon-actions";
 import MyExperience, {
   ExperienceSubmitData,
 } from "../../components/Application/Experience/Experience";
-import {
-  fakeAssetSkills,
-  fakeEssentialSkills,
-} from "../../fakeData/fakeSkills";
+import { fakeSkills } from "../../fakeData/fakeSkills";
 import {
   educationStatuses,
   educationTypes,
@@ -23,17 +20,14 @@ import fakeExperienceSkills, {
   createFakeExperienceSkill,
 } from "../../fakeData/fakeExperienceSkills";
 import { Experience, Skill } from "../../models/types";
-import { WorkExperienceSubmitData } from "../../components/Application/ExperienceModals/WorkExperienceModal";
-import { CommunityExperienceSubmitData } from "../../components/Application/ExperienceModals/CommunityExperienceModal";
-import { PersonalExperienceSubmitData } from "../../components/Application/ExperienceModals/PersonalExperienceModal";
-import { AwardExperienceSubmitData } from "../../components/Application/ExperienceModals/AwardExperienceModal";
+import { fakeCriteria } from "../../fakeData/fakeCriteria";
 
 const stories = storiesOf("Application|My Experience", module).addDecorator(
   withIntl,
 );
 
-const experiences = [...fakeExperiences()];
-const experienceSkills = [...fakeExperienceSkills()];
+const experiences = fakeExperiences();
+const experienceSkills = fakeExperienceSkills();
 
 const submitExperience = (
   experienceSubmitData: Experience,
@@ -54,7 +48,7 @@ const submitExperience = (
     experiences[index] = experienceSubmitData;
   } else {
     experiences.push(experienceSubmitData);
-    skills.map((skill) => {
+    skills.forEach((skill) => {
       experienceSkills.push(
         createFakeExperienceSkill(experienceSubmitData, skill),
       );
@@ -95,10 +89,10 @@ stories.add(
     <MyExperience
       experiences={experiences}
       experienceSkills={experienceSkills}
-      assetSkills={fakeAssetSkills()}
+      criteria={fakeCriteria()}
+      skills={fakeSkills()}
       educationStatuses={educationStatuses}
       educationTypes={educationTypes}
-      essentialSkills={fakeEssentialSkills()}
       experienceRequirements={experienceRequirements}
       handleSubmitExperience={async (data) => {
         handleSubmitExperience(data);

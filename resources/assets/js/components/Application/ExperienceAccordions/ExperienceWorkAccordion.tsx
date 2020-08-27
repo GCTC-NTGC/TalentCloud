@@ -1,13 +1,13 @@
 import React from "react";
-import { FormattedMessage, useIntl, IntlShape } from "react-intl";
+import { useIntl, IntlShape } from "react-intl";
 import {
-  ExperienceSkill,
   BaseExperienceAccordion,
   titleBarDateRange,
-  baseExperienceMessages,
 } from "./BaseExperienceAccordion";
+import { accordionMessages } from "../applicationMessages";
 import { Locales, getLocale } from "../../../helpers/localize";
 import { readableDate } from "../../../helpers/dates";
+import { ExperienceSkill, Skill } from "../../../models/types";
 
 interface ExperienceWorkAccordionProps {
   title: string;
@@ -17,6 +17,7 @@ interface ExperienceWorkAccordionProps {
   endDate: Date | null;
   isActive: boolean;
   relevantSkills: ExperienceSkill[];
+  skills: Skill[];
   irrelevantSkillCount: number;
   isEducationJustification: boolean;
   showSkillDetails: boolean;
@@ -46,14 +47,14 @@ const experienceWorkDetails = ({
 }): React.ReactElement => {
   const notApplicable = (
     <p data-c-color="gray">
-      {intl.formatMessage(baseExperienceMessages.notApplicable)}
+      {intl.formatMessage(accordionMessages.notApplicable)}
     </p>
   );
   return (
     <>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          {intl.formatMessage(baseExperienceMessages.experienceTypeLabel)}
+          {intl.formatMessage(accordionMessages.experienceTypeLabel)}
         </p>
         <p>
           <i
@@ -61,52 +62,38 @@ const experienceWorkDetails = ({
             data-c-color="c1"
             data-c-margin="right(.25)"
           />
-          <FormattedMessage
-            id="experienceWorkAccordion.experienceTypeTitle"
-            defaultMessage="Work Experience"
-          />
+          {intl.formatMessage(accordionMessages.workType)}
         </p>
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experienceWorkAccordion.roleLabel"
-            defaultMessage="Role / Job Title:"
-          />
+          {intl.formatMessage(accordionMessages.workRoleLabel)}
         </p>
         {title ? <p>{title}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experienceWorkAccordion.organizationLabel"
-            defaultMessage="Organization / Company:"
-          />
+          {intl.formatMessage(accordionMessages.workOrganizationLabel)}
         </p>
         {organization ? <p>{organization}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          <FormattedMessage
-            id="experienceWorkAccordion.teamLabel"
-            defaultMessage="Team / Group:"
-          />
+          {intl.formatMessage(accordionMessages.workTeamLabel)}
         </p>
         {group ? <p>{group}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          {intl.formatMessage(baseExperienceMessages.startDateLabel)}
+          {intl.formatMessage(accordionMessages.startDateLabel)}
         </p>
         {startDate ? <p>{readableDate(locale, startDate)}</p> : notApplicable}
       </div>
       <div data-c-grid-item="base(1of2) tl(1of3)">
         <p data-c-font-weight="bold">
-          {intl.formatMessage(baseExperienceMessages.endDateLabel)}
+          {intl.formatMessage(accordionMessages.endDateLabel)}
         </p>
-        {isActive && (
-          <p>{intl.formatMessage(baseExperienceMessages.ongoing)}</p>
-        )}
+        {isActive && <p>{intl.formatMessage(accordionMessages.ongoing)}</p>}
         {!isActive && endDate ? (
           <p>{readableDate(locale, endDate)}</p>
         ) : (
@@ -125,6 +112,7 @@ export const ExperienceWorkAccordion: React.FC<ExperienceWorkAccordionProps> = (
   endDate,
   isActive,
   relevantSkills,
+  skills,
   irrelevantSkillCount,
   isEducationJustification,
   showSkillDetails,
@@ -139,7 +127,7 @@ export const ExperienceWorkAccordion: React.FC<ExperienceWorkAccordionProps> = (
       <p>
         <span data-c-font-weight="bold">{title}</span> - {organization}
       </p>
-      {titleBarDateRange(startDate, endDate, isActive, locale)}
+      {titleBarDateRange(startDate, endDate, isActive, intl, locale)}
     </>
   );
   return (
@@ -147,6 +135,7 @@ export const ExperienceWorkAccordion: React.FC<ExperienceWorkAccordionProps> = (
       title={accordionTitle}
       iconClass="fa-briefcase"
       relevantSkills={relevantSkills}
+      skills={skills}
       irrelevantSkillCount={irrelevantSkillCount}
       isEducationJustification={isEducationJustification}
       details={experienceWorkDetails({

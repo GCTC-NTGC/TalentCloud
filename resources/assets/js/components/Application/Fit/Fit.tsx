@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { createRef, useState, MutableRefObject } from "react";
-import { FormattedMessage } from "react-intl";
+import { useIntl, FormattedMessage } from "react-intl";
 import { FormikProps } from "formik";
 import { JobPosterQuestion, JobApplicationAnswer } from "../../../models/types";
 import Question, { QuestionValues } from "./Question";
@@ -9,8 +9,9 @@ import {
   submitAllForms,
   focusOnElement,
 } from "../../../helpers/forms";
+import { fitMessages, navigationMessages } from "../applicationMessages";
 
-interface MyFitProps {
+interface FitProps {
   /** List of job poster questions. */
   jobQuestions: JobPosterQuestion[];
   jobApplicationAnswers: JobApplicationAnswer[];
@@ -20,7 +21,7 @@ interface MyFitProps {
   handleReturn: () => void;
 }
 
-export const MyFit: React.FunctionComponent<MyFitProps> = ({
+export const Fit: React.FunctionComponent<FitProps> = ({
   jobQuestions,
   jobApplicationAnswers,
   handleSubmit,
@@ -28,6 +29,7 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
   handleQuit,
   handleReturn,
 }) => {
+  const intl = useIntl();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   /**
@@ -71,17 +73,13 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
   return (
     <section data-c-container="medium">
       <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">
-        <FormattedMessage
-          id="application.myfit.heading"
-          defaultMessage="My Fit"
-          description="Heading for the My Fit step in the Application Timeline"
-        />
+        {intl.formatMessage(fitMessages.heading)}
       </h2>
       <p>
         <FormattedMessage
-          id="application.myfit.firstParagraph"
+          id="application.fit.firstParagraph"
           defaultMessage="The manager has included a few further questions that they'd like you to answer in order to be considered for this position. Questions that require an answer are marked, while all others are optional."
-          description="Paragraph for the My Fit step in the Application Timeline"
+          description="Paragraph for the Fit step in the Application form."
         />
       </p>
       {jobQuestions.map((question, index) => {
@@ -129,11 +127,7 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
                 validateAndSubmit(formRefs.current).then(handleReturn)
               }
             >
-              <FormattedMessage
-                id="application.returnButtonLabel"
-                defaultMessage="Save & Return to Previous Step"
-                description="The text displayed on the Save & Return button of the Applicant Timeline form."
-              />
+              {intl.formatMessage(navigationMessages.return)}
             </button>
           </div>
           <div
@@ -149,11 +143,7 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
                 validateAndSubmit(formRefs.current).then(handleQuit)
               }
             >
-              <FormattedMessage
-                id="application.quitButtonLabel"
-                defaultMessage="Save & Quit"
-                description="The text displayed on the Save & Return button of the Applicant Timeline form."
-              />
+              {intl.formatMessage(navigationMessages.quit)}
             </button>
             <button
               data-c-button="solid(c1)"
@@ -165,11 +155,7 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
                 validateAndSubmit(formRefs.current).then(handleContinue)
               }
             >
-              <FormattedMessage
-                id="application.submitButtonLabel"
-                defaultMessage="Save & Continue"
-                description="The text displayed on the submit button for the Job Details form."
-              />
+              {intl.formatMessage(navigationMessages.continue)}
             </button>
           </div>
         </div>
@@ -178,4 +164,4 @@ export const MyFit: React.FunctionComponent<MyFitProps> = ({
   );
 };
 
-export default MyFit;
+export default Fit;

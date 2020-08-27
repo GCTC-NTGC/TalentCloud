@@ -1,72 +1,47 @@
 import React, { ReactElement, useState } from "react";
-import { FormattedMessage, defineMessages } from "react-intl";
-import { Locales } from "../../../helpers/localize";
+import { FormattedMessage, useIntl, IntlShape } from "react-intl";
+import { accordionMessages } from "../applicationMessages";
+import {
+  Locales,
+  getLocale,
+  localizeFieldNonNull,
+} from "../../../helpers/localize";
 import { readableDate } from "../../../helpers/dates";
-
-export interface ExperienceSkill {
-  id: number;
-  name: string;
-  claim: string;
-}
+import { ExperienceSkill, Skill } from "../../../models/types";
+import { getId, mapToObject, hasKey } from "../../../helpers/queries";
 
 export const titleBarDateRange = (
   startDate: Date,
   endDate: Date | null,
   isActive: boolean,
+  intl: IntlShape,
   locale: Locales,
-): React.ReactElement => (
-  <p data-c-margin="top(quarter)" data-c-colour="c1" data-c-font-size="small">
-    {isActive || endDate === null ? (
-      <FormattedMessage
-        id="experiencePersonalAccordion.startDateToCurrent"
-        defaultMessage="{startDate} - Current"
-        description="Shows the date range for the title bar (assuming activity is ongoing)."
-        values={{
-          startDate: readableDate(locale, startDate),
-        }}
-      />
-    ) : (
-      <FormattedMessage
-        id="experiencePersonalAccordion.startDateToEndDate"
-        defaultMessage="{startDate} - {endDate}"
-        description="Shows the date range for the title bar (assuming activity has an end date)."
-        values={{
-          startDate: readableDate(locale, startDate),
-          endDate: readableDate(locale, endDate),
-        }}
-      />
-    )}
-  </p>
-);
+): React.ReactElement => {
+  let dateRange;
 
-export const baseExperienceMessages = defineMessages({
-  notApplicable: {
-    id: "baseExperienceAccordion.notApplicable",
-    defaultMessage: "N/A",
-    description: "Used for any un-set fields in experience accordions.",
-  },
-  experienceTypeLabel: {
-    id: "baseExperienceAccordion.experienceTypeLabel",
-    defaultMessage: "Type of Experience:",
-  },
-  startDateLabel: {
-    id: "baseExperienceAccordion.startDateLabel",
-    defaultMessage: "Start Date:",
-  },
-  endDateLabel: {
-    id: "baseExperienceAccordion.endDateLabel",
-    defaultMessage: "End Date:",
-  },
-  ongoing: {
-    id: "baseExperienceAccordion.ongoing",
-    defaultMessage: "Ongoing",
-  },
-});
+  if (isActive || endDate === null) {
+    dateRange = intl.formatMessage(accordionMessages.dateRangeCurrent, {
+      startDate: readableDate(locale, startDate),
+    });
+  } else {
+    dateRange = intl.formatMessage(accordionMessages.dateRange, {
+      startDate: readableDate(locale, startDate),
+      endDate: readableDate(locale, endDate),
+    });
+  }
+
+  return (
+    <p data-c-margin="top(quarter)" data-c-colour="c1" data-c-font-size="small">
+      {dateRange}
+    </p>
+  );
+};
 
 interface BaseExperienceAccordionProps {
   iconClass: string;
   title: ReactElement | string;
   relevantSkills: ExperienceSkill[];
+  skills: Skill[];
   irrelevantSkillCount: number;
   isEducationJustification: boolean;
   details: ReactElement;
@@ -80,6 +55,7 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
   iconClass,
   title,
   relevantSkills,
+  skills,
   irrelevantSkillCount,
   isEducationJustification,
   details,
@@ -88,9 +64,13 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
   handleDelete,
   handleEdit,
 }) => {
+  const intl = useIntl();
+  const locale = getLocale(intl.locale);
   const [isExpanded, setIsExpanded] = useState(false);
 
   const relevantSkillCount = relevantSkills.length;
+  const skillsById = mapToObject(skills, getId);
+
   return (
     <div
       data-c-accordion=""
@@ -124,7 +104,7 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
                 <div data-c-grid-item="tl(3of4)">{title}</div>
                 <div data-c-grid-item="tl(1of4)" data-c-align="base(left)">
                   <FormattedMessage
-                    id="baseExperienceAccordion.skillCount"
+                    id="application.experienceAccordion.skillCount"
                     defaultMessage="{skillCount, plural, =0 {No related skills} one {# related skill} other {# related skills}} {isEducationJustification, select, true {/ Education Requirement} false {}}"
                     description="Displays the number of required skills this relates to, and whether it's used to meed education requirements."
                     values={{
@@ -138,11 +118,7 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
           </div>
         </div>
         <span data-c-visibility="invisible">
-          <FormattedMessage
-            id="baseExperienceAccordion.clickToView"
-            defaultMessage="Click to view."
-            description="Instructions for interacting with accordion, for accessibility devices."
-          />
+          {intl.formatMessage(accordionMessages.expand)}
         </span>
         <i
           aria-hidden="true"
@@ -171,7 +147,7 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
                 <div data-c-grid-item="base(1of1)">
                   <h4 data-c-color="c2" data-c-font-weight="bold">
                     <FormattedMessage
-                      id="baseExperienceAccordion.detailsTitle"
+                      id="application.experienceAccordion.detailsTitle"
                       defaultMessage="Details of this Experience"
                       description="Subtitle of the details section."
                     />
@@ -187,41 +163,58 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
                 data-c-margin="top(1) bottom(.5)"
               >
                 <FormattedMessage
-                  id="baseExperienceAccordion.skillsTitle"
+                  id="application.experienceAccordion.skillsTitle"
                   defaultMessage="Skills for this Job"
                   description="Subtitle of the skills section."
                 />
               </h4>
               <div data-c-grid="gutter(all, 1)">
                 {showSkillDetails ? (
-                  relevantSkills.map((skill) => (
-                    <div key={skill.id} data-c-grid-item="base(1of1)">
-                      <p>
+                  relevantSkills.map((experienceSkill) => {
+                    const skill = hasKey(skillsById, experienceSkill.skill_id)
+                      ? skillsById[experienceSkill.skill_id]
+                      : null;
+                    if (skill === null) {
+                      return null;
+                    }
+
+                    return (
+                      <div key={skill.id} data-c-grid-item="base(1of1)">
+                        <p>
+                          <span
+                            data-c-tag="c1"
+                            data-c-radius="pill"
+                            data-c-font-size="small"
+                          >
+                            {localizeFieldNonNull(locale, skill, "name")}
+                          </span>
+                        </p>
+                        <p data-c-font-style="italic" data-c-margin="top(.5)">
+                          {experienceSkill.justification}
+                        </p>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <div data-c-grid-item="base(1of1)">
+                    {relevantSkills.map((experienceSkill) => {
+                      const skill = hasKey(skillsById, experienceSkill.skill_id)
+                        ? skillsById[experienceSkill.skill_id]
+                        : null;
+                      if (skill === null) {
+                        return null;
+                      }
+                      return (
                         <span
+                          key={skill.id}
                           data-c-tag="c1"
                           data-c-radius="pill"
                           data-c-font-size="small"
                         >
-                          {skill.name}
+                          {localizeFieldNonNull(locale, skill, "name")}
                         </span>
-                      </p>
-                      <p data-c-font-style="italic" data-c-margin="top(.5)">
-                        {skill.claim}
-                      </p>
-                    </div>
-                  ))
-                ) : (
-                  <div data-c-grid-item="base(1of1)">
-                    {relevantSkills.map((skill) => (
-                      <span
-                        key={skill.id}
-                        data-c-tag="c1"
-                        data-c-radius="pill"
-                        data-c-font-size="small"
-                      >
-                        {skill.name}
-                      </span>
-                    ))}
+                      );
+                    })}
                   </div>
                 )}
                 {irrelevantSkillCount > 0 && (
@@ -232,7 +225,7 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
                       data-c-margin="bottom(1)"
                     >
                       <FormattedMessage
-                        id="baseExperienceAccordion.irrelevantSkillCount"
+                        id="application.experienceAccordion.irrelevantSkillCount"
                         defaultMessage="There {skillCount, plural, one {is <b>#</b> other unrelated skill} other {are <b>#</b> other unrelated skills}} attached to this experience. You can see {skillCount, plural, one {it} other {them}} on your profile."
                         description="Say how many skills unrelated to this job are associated with this experience."
                         values={{
@@ -249,7 +242,7 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
                   <div data-c-grid-item="base(1of1)">
                     <p data-c-color="gray" data-c-margin="bottom(1)">
                       <FormattedMessage
-                        id="baseExperienceAccordion.noSkills"
+                        id="application.experienceAccordion.noSkills"
                         defaultMessage="You don't have any skills attached to this experience."
                         description="Message to show if experience has no associated skills at all."
                       />
@@ -271,13 +264,13 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
                     data-c-color="go"
                   />
                   <FormattedMessage
-                    id="baseExperienceAccordion.educationRequirement"
+                    id="application.experienceAccordion.educationRequirement"
                     defaultMessage="Education Requirement"
                   />
                 </h4>
                 <p data-c-margin="bottom(1)">
                   <FormattedMessage
-                    id="baseExperienceAccordion.educationRequirmentDescription"
+                    id="application.experienceAccordion.educationRequirmentDescription"
                     defaultMessage="You've selected this experience as an indicator of how you meet the education requirements for this job."
                     description="Explanation of what it means that this experience meets an education requirement."
                   />
@@ -300,7 +293,7 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
                   onClick={handleDelete}
                 >
                   <FormattedMessage
-                    id="baseExperienceAccordion.deleteButton"
+                    id="application.experienceAccordion.deleteButton"
                     defaultMessage="Delete Experience"
                   />
                 </button>
@@ -316,7 +309,7 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
                   onClick={handleEdit}
                 >
                   <FormattedMessage
-                    id="baseExperienceAccordion.editButton"
+                    id="application.experienceAccordion.editButton"
                     defaultMessage="Edit Experience"
                   />
                 </button>

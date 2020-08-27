@@ -30,10 +30,15 @@ export const fakeExperienceEducation = (
   overrides: Partial<ExperienceEducation> = {},
 ): ExperienceEducation => ({
   id: 1,
-  education_type_id: 1,
+  education_type_id: 4,
+  education_type: { en: "PhD", fr: "Doctorat" },
   area_of_study: "Engineering",
   institution: "University of Toronto",
   education_status_id: 1,
+  education_status: {
+    en: "Complete (credential awarded)",
+    fr: "Terminé (titre de compétences décern)",
+  },
   is_active: false,
   start_date: dayjs("2010-09-01T14:47:29+00:00").toDate(),
   end_date: dayjs("2015-04-30T14:47:29+00:00").toDate(),
@@ -41,7 +46,7 @@ export const fakeExperienceEducation = (
   has_blockcert: true,
   experienceable_id: 1,
   experienceable_type: "applicant",
-  is_education_requirement: false,
+  is_education_requirement: true,
   type: "experience_education",
   ...overrides,
 });
@@ -68,9 +73,11 @@ export const fakeExperienceAward = (
 ): ExperienceAward => ({
   id: 1,
   title: "Governor General's Award (Gold)",
-  award_recipient_type_id: 1,
+  award_recipient_type_id: 2,
+  award_recipient_type: { en: "My Project", fr: "Mon projet" },
   issued_by: "McGill University",
   award_recognition_type_id: 1,
+  award_recognition_type: { en: "International", fr: "Internationale" },
   awarded_date: dayjs("2015-04-30T14:47:29+00:00").toDate(),
   experienceable_id: 1,
   experienceable_type: "applicant",
