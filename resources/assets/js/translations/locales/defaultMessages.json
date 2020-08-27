@@ -1182,6 +1182,10 @@
         "id": "application.review.communication.notSet"
       },
       {
+        "defaultMessage": "I would like Talent Cloud to share my application with other Government of Canada managers looking for similar sets of skills.",
+        "id": "application.review.shareCheckboxLabel"
+      },
+      {
         "defaultMessage": "Review Your Application",
         "description": "Main page heading for the Review page.",
         "id": "application.review.heading"
@@ -1258,8 +1262,8 @@
         "id": "application.review.userNoContact"
       },
       {
-        "defaultMessage": "I would like Talent Cloud to share my application with other Government of Canada managers looking for similar sets of skills.",
-        "id": "application.review.userShare"
+        "defaultMessage": "Do you give Talent Cloud permission to share your application with other Government of Canada managers who may be looking for a similar set of skills?",
+        "id": "application.review.shareQuestion"
       }
     ],
     "path": "resources/assets/js/components/Application/Review/Review.json"

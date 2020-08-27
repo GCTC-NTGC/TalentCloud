@@ -63,7 +63,7 @@ const Checkbox: React.FunctionComponent<CheckboxProps> = ({
         </div>
       ) : (
         <div
-          data-c-input="checkbox"
+          data-c-input="checkbox(single)"
           data-c-grid-item={grid}
           data-c-required={required || null}
           data-c-invalid={invalid || null}
