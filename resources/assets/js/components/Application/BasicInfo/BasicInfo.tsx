@@ -97,7 +97,7 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
           handleContinue(basicInfoFormValues);
         }}
       >
-        {({ isSubmitting }): React.ReactElement => (
+        {({ isSubmitting, values }): React.ReactElement => (
           <Form>
             <div data-c-grid="gutter(all, 1)">
               {/* Citizenship Declaration */}
