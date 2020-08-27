@@ -74,6 +74,7 @@ export function EducationSubform({
                 name={checkboxKey}
                 label={intl.formatMessage(messages.educationJustificationLabel)}
                 component={CheckboxInput}
+                checkboxBorder
               />
             </div>
           </div>

@@ -411,15 +411,15 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
           label={intl.formatMessage(messages.thesisLabel)}
           placeholder={intl.formatMessage(messages.thesisPlaceholder)}
         />
-        <div data-c-input="checkbox(group)" data-c-grid-item="base(1of1)">
-          <label>{intl.formatMessage(messages.blockcertLabel)}</label>
+        <div data-c-grid-item="base(1of1)">
           <FastField
             id="hasBlockcert"
             name="hasBlockcert"
             component={CheckboxInput}
             grid="base(1of1)"
             label={intl.formatMessage(messages.blockcertInlineLabel)}
-            checkboxGroup
+            checkboxBorder
+            borderLabel={intl.formatMessage(messages.blockcertLabel)}
           />
         </div>
       </div>
