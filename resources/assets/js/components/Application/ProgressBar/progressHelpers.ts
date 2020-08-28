@@ -17,27 +17,27 @@ import { getLocale } from "../../../helpers/localize";
 
 function basicInfoStatus(application: Application): ProgressBarStepStatus {
   // TODO: implement.
-  return "default";
+  return "complete";
 }
 function experienceStatus(application: Application): ProgressBarStepStatus {
   // TODO: implement.
-  return "default";
+  return "complete";
 }
 function skillsStatus(application: Application): ProgressBarStepStatus {
   // TODO: implement.
-  return "default";
+  return "complete";
 }
 function myFitStatus(application: Application): ProgressBarStepStatus {
   // TODO: implement.
-  return "default";
+  return "complete";
 }
 function reviewStatus(application: Application): ProgressBarStepStatus {
   // TODO: implement.
-  return "default";
+  return "complete";
 }
 function submissionStatus(application: Application): ProgressBarStepStatus {
   // TODO: implement.
-  return "default";
+  return "complete";
 }
 
 export function makeProgressBarSteps(
