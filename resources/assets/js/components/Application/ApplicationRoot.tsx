@@ -7,7 +7,7 @@ import { RouterResult, useRouter, Link } from "../../helpers/router";
 import IntroPage from "./Intro/IntroPage";
 import ScrollToTop from "../ScrollToTop";
 import BasicInfoPage from "./BasicInfo/BasicInfoPage";
-import { applicationWelcome } from "../../helpers/routes";
+import { applicationWelcome, applicationSkills } from "../../helpers/routes";
 import { Locales } from "../../helpers/localize";
 import ExperienceIntroPage from "./Experience/ExperienceIntroPage";
 import ExperiencePage from "./Experience/ExperiencePage";
@@ -35,6 +35,11 @@ const pageTitles = defineMessages({
   experienceTitle: {
     id: "application.experience.documentTitle",
     defaultMessage: "Apply: Experience",
+    description: "The document's title shown in browser's title bar or tab.",
+  },
+  skillsIntroTitle: {
+    id: "application.skillsIntro.documentTitle",
+    defaultMessage: "Apply: Understanding Skills",
     description: "The document's title shown in browser's title bar or tab.",
   },
   skillsTitle: {
@@ -89,6 +94,26 @@ const routes: Routes<{}, RouterResult> = [
         action: ({ params }) => ({
           title: pageTitles.experienceTitle,
           component: <ExperiencePage applicationId={Number(params.id)} />,
+        }),
+      },
+      {
+        path: "/skills-intro",
+        action: ({ params }) => ({
+          title: pageTitles.skillsIntroTitle,
+          component: (
+            <>
+              <p>PLACEHOLDER FOR SKILLS INTRO STEP</p>
+              <Link
+                href={applicationSkills(
+                  params.locale as Locales,
+                  Number(params.id),
+                )}
+                title=""
+              >
+                Continue
+              </Link>
+            </>
+          ),
         }),
       },
       {
