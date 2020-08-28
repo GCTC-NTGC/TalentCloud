@@ -14,7 +14,12 @@ import {
   Criteria,
 } from "../../../models/types";
 import { localizeFieldNonNull, getLocale } from "../../../helpers/localize";
-import { SkillTypeId, CriteriaTypeId } from "../../../models/lookupConstants";
+import {
+  SkillTypeId,
+  CriteriaTypeId,
+  getKeyByValue,
+  ClassificationId,
+} from "../../../models/lookupConstants";
 import EducationExperienceModal, {
   messages as educationMessages,
   EducationType,
@@ -22,7 +27,6 @@ import EducationExperienceModal, {
   EducationExperienceSubmitData,
 } from "../ExperienceModals/EducationExperienceModal";
 
-import { EducationSubformProps } from "../ExperienceModals/EducationSubform";
 import WorkExperienceModal, {
   messages as workMessages,
   WorkExperienceSubmitData,
@@ -135,8 +139,8 @@ interface ExperienceProps {
   experienceSkills: ExperienceSkill[];
   criteria: Criteria[];
   skills: Skill[];
-  experienceRequirements: EducationSubformProps;
   jobId: number;
+  jobClassificationId: number;
   recipientTypes: AwardRecipientType[];
   recognitionTypes: AwardRecognitionType[];
   handleSubmitExperience: (data: ExperienceSubmitData) => Promise<void>;
@@ -156,10 +160,10 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   experienceSkills,
   criteria,
   skills,
-  experienceRequirements,
   handleSubmitExperience,
   handleDeleteExperience,
   jobId,
+  jobClassificationId,
   recipientTypes,
   recognitionTypes,
   handleContinue,
@@ -168,6 +172,11 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
+
+  const jobClassification = getKeyByValue(
+    ClassificationId,
+    jobClassificationId,
+  );
 
   const [experienceData, setExperienceData] = React.useState<
     | (Experience & {
@@ -705,12 +714,12 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
         educationStatuses={educationStatuses}
         educationTypes={educationTypes}
         experienceEducation={experienceData as ExperienceEducation}
-        experienceRequirments={experienceRequirements}
         experienceableId={experienceData?.experienceable_id ?? 0}
         experienceableType={
           experienceData?.experienceable_type ?? "application"
         }
         jobId={jobId}
+        jobClassification={jobClassification}
         modalId={modalButtons.education.id}
         onModalCancel={closeModal}
         onModalConfirm={submitExperience}
@@ -725,13 +734,13 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
         }
       />
       <WorkExperienceModal
-        experienceRequirments={experienceRequirements}
         experienceWork={experienceData as ExperienceWork}
         experienceableId={experienceData?.experienceable_id ?? 0}
         experienceableType={
           experienceData?.experienceable_type ?? "application"
         }
         jobId={jobId}
+        jobClassification={jobClassification}
         modalId={modalButtons.work.id}
         onModalCancel={closeModal}
         onModalConfirm={submitExperience}
@@ -746,12 +755,12 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
       />
       <CommunityExperienceModal
         experienceCommunity={experienceData as ExperienceCommunity}
-        experienceRequirments={experienceRequirements}
         experienceableId={experienceData?.experienceable_id ?? 0}
         experienceableType={
           experienceData?.experienceable_type ?? "application"
         }
         jobId={jobId}
+        jobClassification={jobClassification}
         modalId={modalButtons.community.id}
         onModalCancel={closeModal}
         onModalConfirm={submitExperience}
@@ -767,12 +776,12 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
       />
       <PersonalExperienceModal
         experiencePersonal={experienceData as ExperiencePersonal}
-        experienceRequirments={experienceRequirements}
         experienceableId={experienceData?.experienceable_id ?? 0}
         experienceableType={
           experienceData?.experienceable_type ?? "application"
         }
         jobId={jobId}
+        jobClassification={jobClassification}
         modalId={modalButtons.personal.id}
         onModalCancel={closeModal}
         onModalConfirm={submitExperience}
@@ -788,12 +797,12 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
       />
       <AwardExperienceModal
         experienceAward={experienceData as ExperienceAward}
-        experienceRequirments={experienceRequirements}
         experienceableId={experienceData?.experienceable_id ?? 0}
         experienceableType={
           experienceData?.experienceable_type ?? "application"
         }
         jobId={jobId}
+        jobClassification={jobClassification}
         modalId={modalButtons.award.id}
         onModalCancel={closeModal}
         onModalConfirm={submitExperience}

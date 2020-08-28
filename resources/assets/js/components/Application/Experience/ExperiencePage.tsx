@@ -70,22 +70,6 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
   const recipientTypes = [];
   const recognitionTypes = [];
 
-  // TODO: Construct this like the BasicInfo step does
-  const experienceRequirements: EducationSubformProps = {
-    educationRequirement: {
-      title: intl.formatMessage(educationMessages.educationReqTitle),
-      description: intl.formatMessage(
-        educationMessages.educationReqDescription,
-      ),
-    },
-    equivalentRequirment: {
-      title: intl.formatMessage(educationMessages.equivalentReqTitle),
-      description: intl.formatMessage(
-        educationMessages.equivalentReqDescription,
-      ),
-    },
-  };
-
   const handleSubmit = async (data: ExperienceSubmitData): Promise<void> => {
     console.log(data); // TODO: Save the data.
   };
@@ -121,8 +105,8 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
         experienceSkills={experienceSkills}
         criteria={criteria}
         skills={skills}
-        experienceRequirements={experienceRequirements}
         jobId={job.id}
+        jobClassificationId={job.classification_id ?? 1}
         recipientTypes={recipientTypes}
         recognitionTypes={recognitionTypes}
         handleSubmitExperience={handleSubmit}
