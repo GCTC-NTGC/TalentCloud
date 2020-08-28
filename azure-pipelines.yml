@@ -41,15 +41,18 @@ steps:
 
 - script: php artisan migrate:fresh
   displayName: 'Run database migrations'
+  continueOnError: 'true'
 
 - script: php artisan db:seed
   displayName: 'Run database seeds'
+  continueOnError: 'true'
 
 - script: mkdir -p report/
   displayName: 'Create test report directory'
 
 - script: npm run test-azure
   displayName: 'Run jest tests'
+  continueOnError: 'true'
 
 - script: ./vendor/bin/phpunit --log-junit report/phpunit
   displayName: 'Run phpunit tests'
