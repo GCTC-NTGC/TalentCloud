@@ -54,7 +54,7 @@ steps:
   displayName: 'Run jest tests'
   continueOnError: 'true'
 
-- script: ./vendor/bin/phpunit --log-junit report/phpunit
+- script: phpdbg -qrr ./vendor/bin/phpunit -dmemory_limit=4G --log-junit
   displayName: 'Run phpunit tests'
   continueOnError: 'true'
 
