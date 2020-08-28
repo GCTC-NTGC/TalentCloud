@@ -1,7 +1,12 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/php
 
 trigger:
-- feature/azure-webapp-pipeline-cometh
+  branches:
+    include:
+      # master
+      # dev
+      # - release*
+      - feature/azure-webapp-pipeline-cometh
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -19,32 +24,24 @@ steps:
     php -version
   displayName: 'Use PHP version $(phpVersion)'
 
-- script: cp .env.azure .env
+- script: |
+    cp .env.azure .env
+    echo DB_HOST=$(DB_HOST) >> .env
+    echo DB_DATABASE=$(DB_DATABASE) >> .env
+    echo DB_USERNAME=$(DB_USERNAME) >> .env
+    echo DB_PASSWORD=$(DB_PASSWORD) >> .env
   displayName: 'Copy environment variables'
 
-- task: CmdLine@2
-  inputs:
-    script: |
-      echo DB_HOST=$(DB_HOST) >> .env
-      echo DB_DATABASE=$(DB_DATABASE) >> .env
-      echo DB_USERNAME=$(DB_USERNAME) >> .env
-      echo DB_PASSWORD=$(DB_PASSWORD) >> .env
-
-- script: composer install --no-interaction --prefer-dist
-  displayName: 'Install PHP dependencies'
-
-- script: npm install
-  displayName: 'Install NPM dependencies'
+- script: |
+    composer install --no-interaction --prefer-dist
+    npm install
+  displayName: 'Install dependencies'
 
 - script: npm run dev
-  displayName: 'Run compile assets'
+  displayName: 'Compile assets'
 
-- script: php artisan migrate:fresh
+- script: php artisan migrate:fresh --seed
   displayName: 'Run database migrations'
-  continueOnError: 'true'
-
-- script: php artisan db:seed
-  displayName: 'Run database seeds'
   continueOnError: 'true'
 
 - script: mkdir -p report/
@@ -54,7 +51,7 @@ steps:
   displayName: 'Run jest tests'
   continueOnError: 'true'
 
-- script: phpdbg -qrr ./vendor/bin/phpunit -dmemory_limit=4G --log-junit
+- script: phpdbg -qrr ./vendor/bin/phpunit -dmemory_limit=4G --log-junit report/phpunit
   displayName: 'Run phpunit tests'
   continueOnError: 'true'
 
