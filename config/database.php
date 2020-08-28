@@ -60,13 +60,12 @@ return [
                 'host' => [
                     env('DB_HOST'),
                     env('DB_HYBRID1'),
-                    env('DB_HYBRID2'),
+
                 ],
             ],
             'write' => [
                 'host' => [
                     env('DB_HOST'),
-                    env('DB_HYBRID1'),
                     env('DB_HYBRID2'),
                 ],
             ],
