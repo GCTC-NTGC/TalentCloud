@@ -4,7 +4,6 @@ trigger:
 - feature/azure-webapp-pipeline-cometh
 
 pool:
-  #vm|Image: 'windows'
   vmImage: 'ubuntu-latest'
 
 variables:
@@ -20,25 +19,54 @@ steps:
     php -version
   displayName: 'Use PHP version $(phpVersion)'
 
+- script: cp .env.azure .env
+  displayName: 'Copy environment variables'
+
 - task: CmdLine@2
   inputs:
     script: |
+      echo DB_HOST=$(DB_HOST) >> .env
       echo DB_DATABASE=$(DB_DATABASE) >> .env
       echo DB_USERNAME=$(DB_USERNAME) >> .env
       echo DB_PASSWORD=$(DB_PASSWORD) >> .env
 
-- script: composer install --no-interaction --prefer-dist # --no-dev
+- script: composer install --no-interaction --prefer-dist
   displayName: 'Install PHP dependencies'
 
 - script: npm install
-  displayName: "Install NPM dependencies"
+  displayName: 'Install NPM dependencies'
 
 - script: npm run dev
-  displayName: "Compile assets"
+  displayName: 'Run compile assets'
 
-#- script: php artisan migrate:fresh
-#  displayName: "Database migrations"
+- script: php artisan migrate:fresh
+  displayName: 'Run database migrations'
 
-#- script: php artisan db:seed
-#  displayName: "Seed database"
-#  displayName: "Seed database"
+- script: php artisan db:seed
+  displayName: 'Run database seeds'
+
+- script: mkdir -p report/
+  displayName: 'Create test report directory'
+
+- script: npm run test-azure
+  displayName: 'Run jest tests'
+
+- script: ./vendor/bin/phpunit --log-junit report/phpunit
+  displayName: 'Run phpunit tests'
+  continueOnError: 'true'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: JUnit
+    testResultsFiles: '**/junit.*.xml'
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: './report/jest/cobertura-coverage.xml'
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(system.defaultWorkingDirectory)'
+    includeRootFolder: false
+- task: PublishBuildArtifacts@1
