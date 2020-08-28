@@ -29,7 +29,7 @@ steps:
 - script: npm run dev
   displayName: "npm run dev"
 
-- script: ./phpunit
+- script: ./vendor/bin/phpunit
   displayName: 'Run tests with phpunit'
 
 - script: npm run test
