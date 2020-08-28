@@ -1,5 +1,5 @@
 import React from "react";
-import { useIntl } from "react-intl";
+import { useIntl, FormattedMessage } from "react-intl";
 import makeProgressBarSteps from "../ProgressBar/progressHelpers";
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
 import { fakeApplication } from "../../../fakeData/fakeApplications";
@@ -9,6 +9,13 @@ import { fakeCriteria } from "../../../fakeData/fakeCriteria";
 import fakeExperiences from "../../../fakeData/fakeExperience";
 import fakeExperienceSkills from "../../../fakeData/fakeExperienceSkills";
 import { fakeSkills } from "../../../fakeData/fakeSkills";
+import { navigate } from "../../../helpers/router";
+import {
+  applicationFit,
+  applicationIndex,
+  applicationExperience,
+} from "../../../helpers/routes";
+import { getLocale } from "../../../helpers/localize";
 
 interface SkillsPageProps {
   applicationId: number;
@@ -18,6 +25,7 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
   applicationId,
 }) => {
   const intl = useIntl();
+  const locale = getLocale(intl.locale);
 
   const application = fakeApplication(); // TODO: get real application.
   const criteria = fakeCriteria(); // TODO: Get criteria associated with job.
@@ -40,6 +48,17 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
     return experience;
   };
   const closeDate = new Date(); // TODO: get from application.
+
+  const handleReturn = (): void => {
+    navigate(applicationExperience(locale, applicationId));
+  };
+  const handleQuit = (): void => {
+    // Because the Applications Index is outside of the Application SPA, we navigate to it differently.
+    window.location.href = applicationIndex(locale);
+  };
+  const handleContinue = (): void => {
+    navigate(applicationFit(locale, applicationId));
+  };
   return (
     <>
       <ProgressBar
@@ -54,6 +73,9 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
         skills={skills}
         handleUpdateExperienceJustification={handleUpdateExpSkill}
         handleRemoveExperienceJustification={handleDeleteExpSkill}
+        handleContinue={handleContinue}
+        handleReturn={handleReturn}
+        handleQuit={handleQuit}
       />
     </>
   );

@@ -211,6 +211,9 @@ interface ReviewProps {
   jobApplicationAnswers: JobApplicationAnswer[];
   skills: Skill[];
   user: User;
+  handleContinue: () => void;
+  handleQuit: () => void;
+  handleReturn: () => void;
 }
 
 const Review: React.FC<ReviewProps> = ({
@@ -223,6 +226,9 @@ const Review: React.FC<ReviewProps> = ({
   jobApplicationAnswers,
   skills,
   user,
+  handleContinue,
+  handleQuit,
+  handleReturn,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -695,6 +701,58 @@ const Review: React.FC<ReviewProps> = ({
           defaultMessage="I would like Talent Cloud to share my application with other Government of Canada managers looking for similar sets of skills."
         />
       </p>
+      <div data-c-container="medium" data-c-padding="tb(2)">
+        <hr data-c-hr="thin(c1)" data-c-margin="bottom(2)" />
+        <div data-c-grid="gutter">
+          <div
+            data-c-alignment="base(centre) tp(left)"
+            data-c-grid-item="tp(1of2)"
+          >
+            <button
+              data-c-button="outline(c2)"
+              data-c-radius="rounded"
+              type="button"
+              onClick={(): void => handleReturn()}
+            >
+              <FormattedMessage
+                id="application.review.returnButtonLabel"
+                defaultMessage="Return to Previous Step"
+                description="The text displayed on the Return button of the Applicant Timeline form."
+              />
+            </button>
+          </div>
+          <div
+            data-c-alignment="base(centre) tp(right)"
+            data-c-grid-item="tp(1of2)"
+          >
+            <button
+              data-c-button="outline(c2)"
+              data-c-radius="rounded"
+              type="button"
+              onClick={(): void => handleQuit()}
+            >
+              <FormattedMessage
+                id="application.review.quitButtonLabel"
+                defaultMessage="Quit"
+                description="The text displayed on the Quit button of the Applicant Timeline form."
+              />
+            </button>
+            <button
+              data-c-button="solid(c1)"
+              data-c-radius="rounded"
+              data-c-margin="left(1)"
+              type="button"
+              onClick={(): void => handleContinue()}
+            >
+              <FormattedMessage
+                id="application.review.submitButtonLabel"
+                defaultMessage="Continue"
+                description="The text displayed on the Continue button for the Job Details form."
+              />
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
