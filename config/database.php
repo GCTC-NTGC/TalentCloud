@@ -56,7 +56,20 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'host' => env('DB_HOST'),
+            'read' => [
+                'host' => [
+                    env('DB_HOST'),
+                    env('DB_HYBRID1'),
+                    env('DB_HYBRID2'),
+                ],
+            ],
+            'write' => [
+                'host' => [
+                    env('DB_HOST'),
+                    env('DB_HYBRID1'),
+                    env('DB_HYBRID2'),
+                ],
+            ],
             'port' => env('DB_PORT'),
             'database' => env('DB_DATABASE'),
             'username' => env('DB_USERNAME'),
