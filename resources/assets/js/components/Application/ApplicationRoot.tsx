@@ -7,15 +7,14 @@ import { RouterResult, useRouter, Link } from "../../helpers/router";
 import IntroPage from "./Intro/IntroPage";
 import ScrollToTop from "../ScrollToTop";
 import BasicInfoPage from "./BasicInfo/BasicInfoPage";
-import {
-  applicationWelcome,
-  applicationSkillsIntro,
-} from "../../helpers/routes";
+import { applicationWelcome } from "../../helpers/routes";
 import { Locales } from "../../helpers/localize";
 import ExperienceIntroPage from "./Experience/ExperienceIntroPage";
 import ExperiencePage from "./Experience/ExperiencePage";
 import SkillsPage from "./Skills/SkillsPage";
 import FitPage from "./Fit/FitPage";
+import ReviewPage from "./Review/ReviewPage";
+import FinalSubmitPage from "./FinalSubmit/FinalSubmitPage";
 
 const pageTitles = defineMessages({
   welcomeTitle: {
@@ -46,6 +45,16 @@ const pageTitles = defineMessages({
   fitTitle: {
     id: "application.fit.documentTitle",
     defaultMessage: "Apply: Application Questions",
+    description: "The document's title shown in browser's title bar or tab.",
+  },
+  reviewTitle: {
+    id: "application.review.documentTitle",
+    defaultMessage: "Apply: Review Your Application",
+    description: "The document's title shown in browser's title bar or tab.",
+  },
+  submissionTitle: {
+    id: "application.submission.documentTitle",
+    defaultMessage: "Apply: Submit",
     description: "The document's title shown in browser's title bar or tab.",
   },
 });
@@ -94,6 +103,20 @@ const routes: Routes<{}, RouterResult> = [
         action: ({ params }) => ({
           title: pageTitles.fitTitle,
           component: <FitPage applicationId={Number(params.id)} />,
+        }),
+      },
+      {
+        path: "/review",
+        action: ({ params }) => ({
+          title: pageTitles.reviewTitle,
+          component: <ReviewPage applicationId={Number(params.id)} />,
+        }),
+      },
+      {
+        path: "/submission",
+        action: ({ params }) => ({
+          title: pageTitles.submissionTitle,
+          component: <FinalSubmitPage applicationId={Number(params.id)} />,
         }),
       },
       {

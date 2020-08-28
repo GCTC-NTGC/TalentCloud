@@ -269,6 +269,13 @@ export function applicationSubmission(
 ): string {
   return `${baseApplicationUrl(locale, applicationId)}/submission`;
 }
+export function applicationNextSteps(
+  locale: Locales,
+  applicationId: number,
+): string {
+  // TODO: Link to a non-demo Next Steps page.
+  return `${baseUrl()}/${locale}/demo/application-10`;
+}
 
 /**
  * Converts a string to a url safe equivalent.
