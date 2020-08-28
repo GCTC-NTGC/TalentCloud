@@ -20,25 +20,29 @@ steps:
     php -version
   displayName: 'Use PHP version $(phpVersion)'
 
-- task: CmdLine@2
-  inputs:
-    script: |
-      echo DB_DATABASE=$(DB_DATABASE) >> .env
-      echo DB_USERNAME=$(DB_USERNAME) >> .env
-      echo DB_PASSWORD=$(DB_PASSWORD) >> .env
-
-- script: composer install --no-interaction --prefer-dist # --no-dev
-  displayName: 'Install PHP dependencies'
+- script: composer install --no-interaction --prefer-dist
+  displayName: 'composer install'
 
 - script: npm install
-  displayName: "Install NPM dependencies"
+  displayName: "npm install"
 
 - script: npm run dev
-  displayName: "Compile assets"
+  displayName: "npm run dev"
+
+- script: ./phpunit
+  displayName: 'Run tests with phpunit'
+
+- script: npm run test
+  displayName: "Run tests with jest"
 
 #- script: php artisan migrate:fresh
 #  displayName: "Database migrations"
 
 #- script: php artisan db:seed
 #  displayName: "Seed database"
-#  displayName: "Seed database"
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(system.defaultWorkingDirectory)'
+    includeRootFolder: false
+- task: PublishBuildArtifacts@1
