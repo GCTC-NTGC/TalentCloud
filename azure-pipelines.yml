@@ -29,17 +29,17 @@ steps:
 - script: npm run dev
   displayName: "npm run dev"
 
+- script: php artisan migrate -n --force
+  displayName: "Run database migrations"
+
+- script: php artisan db:seed
+  displayName: "Run database seeds"
+
 - script: ./vendor/bin/phpunit
   displayName: 'Run tests with phpunit'
 
 - script: npm run test
   displayName: "Run tests with jest"
-
-#- script: php artisan migrate:fresh
-#  displayName: "Database migrations"
-
-#- script: php artisan db:seed
-#  displayName: "Seed database"
 
 - task: ArchiveFiles@2
   inputs:
