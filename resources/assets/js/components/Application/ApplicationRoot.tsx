@@ -15,6 +15,7 @@ import { Locales } from "../../helpers/localize";
 import ExperienceIntroPage from "./Experience/ExperienceIntroPage";
 import ExperiencePage from "./Experience/ExperiencePage";
 import SkillsPage from "./Skills/SkillsPage";
+import FitPage from "./Fit/FitPage";
 
 const pageTitles = defineMessages({
   welcomeTitle: {
@@ -40,6 +41,11 @@ const pageTitles = defineMessages({
   skillsTitle: {
     id: "application.skills.documentTitle",
     defaultMessage: "Apply: Skills",
+    description: "The document's title shown in browser's title bar or tab.",
+  },
+  fitTitle: {
+    id: "application.fit.documentTitle",
+    defaultMessage: "Apply: Application Questions",
     description: "The document's title shown in browser's title bar or tab.",
   },
 });
@@ -81,6 +87,13 @@ const routes: Routes<{}, RouterResult> = [
         action: ({ params }) => ({
           title: pageTitles.skillsTitle,
           component: <SkillsPage applicationId={Number(params.id)} />,
+        }),
+      },
+      {
+        path: "/fit",
+        action: ({ params }) => ({
+          title: pageTitles.fitTitle,
+          component: <FitPage applicationId={Number(params.id)} />,
         }),
       },
       {

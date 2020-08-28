@@ -16,6 +16,7 @@ import { ExperienceSkill, Experience } from "../../../models/types";
 import { fakeCriteria } from "../../../fakeData/fakeCriteria";
 import fakeExperiences from "../../../fakeData/fakeExperience";
 import fakeExperienceSkills from "../../../fakeData/fakeExperienceSkills";
+import { fakeSkills } from "../../../fakeData/fakeSkills";
 
 interface SkillsPageProps {
   applicationId: number;
@@ -32,7 +33,7 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
   const experienceSkills = fakeExperienceSkills(); // TODO: Get experienceSkills associated with experiences.
 
   // TODO: load constants from backend.
-  const skills = [];
+  const skills = fakeSkills();
 
   const handleUpdateExpSkill = async (
     experience: ExperienceSkill,
