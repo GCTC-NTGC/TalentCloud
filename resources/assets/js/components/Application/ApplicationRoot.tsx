@@ -13,6 +13,7 @@ import {
 } from "../../helpers/routes";
 import { Locales } from "../../helpers/localize";
 import ExperienceIntroPage from "./Experience/ExperienceIntroPage";
+import ExperiencePage from "./Experience/ExperiencePage";
 
 const pageTitles = defineMessages({
   welcomeTitle: {
@@ -66,20 +67,7 @@ const routes: Routes<{}, RouterResult> = [
         path: "/experience",
         action: ({ params }) => ({
           title: pageTitles.experienceTitle,
-          component: (
-            <>
-              <p>PLACEHOLDER FOR EXPERIENCE STEP</p>
-              <Link
-                href={applicationSkillsIntro(
-                  params.locale as Locales,
-                  Number(params.id),
-                )}
-                title=""
-              >
-                Continue
-              </Link>
-            </>
-          ),
+          component: <ExperiencePage applicationId={Number(params.id)} />,
         }),
       },
       {
