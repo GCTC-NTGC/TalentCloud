@@ -45,7 +45,7 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
       <ProgressBar
         closeDateTime={closeDate}
         currentTitle={intl.formatMessage(stepNames.step01)}
-        steps={makeProgressBarSteps(application, intl, "basic")}
+        steps={makeProgressBarSteps(application, intl, "skills")}
       />
       <Skills
         criteria={criteria}

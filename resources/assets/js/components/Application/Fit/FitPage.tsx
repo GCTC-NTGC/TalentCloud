@@ -6,6 +6,8 @@ import {
   applicationIndex,
   applicationExperienceIntro,
   applicationWelcome,
+  applicationReview,
+  applicationSkills,
 } from "../../../helpers/routes";
 import makeProgressBarSteps from "../ProgressBar/progressHelpers";
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
@@ -37,10 +39,10 @@ export const FitPage: React.FunctionComponent<FitPageProps> = ({
   };
 
   const handleContinue = (): void => {
-    navigate(applicationExperienceIntro(locale, applicationId));
+    navigate(applicationReview(locale, applicationId));
   };
   const handleReturn = (): void => {
-    navigate(applicationWelcome(locale, applicationId));
+    navigate(applicationSkills(locale, applicationId));
   };
   const handleQuit = (): void => {
     // Because the Applications Index is outside of the Application SPA, we navigate to it differently.
@@ -52,7 +54,7 @@ export const FitPage: React.FunctionComponent<FitPageProps> = ({
       <ProgressBar
         closeDateTime={closeDate}
         currentTitle={intl.formatMessage(stepNames.step01)}
-        steps={makeProgressBarSteps(application, intl, "basic")}
+        steps={makeProgressBarSteps(application, intl, "fit")}
       />
       <Fit
         jobQuestions={questions}
