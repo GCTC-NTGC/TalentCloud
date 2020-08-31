@@ -3,6 +3,8 @@ import { FormattedMessage, useIntl, defineMessages } from "react-intl";
 import { FastField } from "formik";
 import * as Yup from "yup";
 import CheckboxInput from "../../Form/CheckboxInput";
+import textToParagraphs from "../../../helpers/textToParagraphs";
+import { educationMessages } from "../../JobBuilder/Details/JobDetailsMessages";
 
 export interface EducationFormValues {
   useAsEducationRequirement: boolean;
@@ -13,14 +15,7 @@ export const validationShape = {
 };
 
 export interface EducationSubformProps {
-  educationRequirement: {
-    title: string;
-    description: string;
-  };
-  equivalentRequirment: {
-    title: string;
-    description: string;
-  };
+  jobClassification: string;
 }
 
 const messages = defineMessages({
@@ -35,8 +30,7 @@ const messages = defineMessages({
 });
 
 export function EducationSubform({
-  educationRequirement,
-  equivalentRequirment,
+  jobClassification,
 }: EducationSubformProps): React.ReactElement {
   const intl = useIntl();
 
@@ -84,17 +78,14 @@ export function EducationSubform({
             data-c-padding="all(1)"
             data-c-margin="bottom(1)"
           >
-            <p data-c-font-weight="bold">{educationRequirement.title}</p>
-            <p>{educationRequirement.description}</p>
-            <p data-c-margin="tb(1)">
-              <FormattedMessage
-                id="application.experienceModal.educationSubform.or"
-                defaultMessage="OR"
-                description="Conjunction used to join alternative experience requirements (ie Experience OR Equivalent Experience)."
-              />
-            </p>
-            <p data-c-font-weight="bold">{equivalentRequirment.title}</p>
-            <p>{equivalentRequirment.description}</p>
+            {textToParagraphs(
+              intl.formatMessage(educationMessages[jobClassification]),
+              {},
+              {
+                0: { "data-c-font-weight": "bold" },
+                5: { "data-c-font-weight": "bold" },
+              },
+            )}
           </div>
         </div>
       </div>

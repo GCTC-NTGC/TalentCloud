@@ -5,7 +5,7 @@ import { getLocale } from "../../../helpers/localize";
 import { navigate } from "../../../helpers/router";
 import { readableTimeFromNow } from "../../../helpers/dates";
 
-const stepNames = defineMessages({
+export const stepNames = defineMessages({
   welcome: {
     id: "application.progressBar.welcome",
     defaultMessage: "Welcome",
@@ -35,18 +35,6 @@ const stepNames = defineMessages({
     defaultMessage: "Step 6/6",
   },
 });
-
-export const ProgressBarStepId = {
-  welcome: 1,
-  basicInfo: 2,
-  experienceTutorial: 3,
-  experience: 4,
-  skillsTutorial: 5,
-  skills: 6,
-  myFit: 7,
-  review: 8,
-  finalSubmission: 9,
-};
 
 // Returns the list item element that corresponds to the steps status.
 const createStep = (
@@ -142,37 +130,22 @@ export type ProgressBarStepStatus =
   | "error"
   | "current";
 
-interface ProgressBarProps {
+export interface ProgressBarProps {
   /** The closing date of the job poster. */
   closeDateTime: Date;
   /** The current step number. This is required for the informational steps, since they do not use a list item. */
-  stepNumber: number;
+  currentTitle: string;
   /** List of the steps. */
   steps: { link: Link; status: ProgressBarStepStatus }[];
 }
 
-const ProgressBar: React.FunctionComponent<ProgressBarProps> = ({
+export const ProgressBar: React.FunctionComponent<ProgressBarProps> = ({
   steps,
   closeDateTime,
-  stepNumber,
+  currentTitle,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
-
-  // There are nine steps throughout the timeline, some steps using the same title (informational steps). This maps the step number to its corresponding title.
-  const getStepName = {
-    [ProgressBarStepId.welcome]: intl.formatMessage(stepNames.welcome),
-    [ProgressBarStepId.basicInfo]: intl.formatMessage(stepNames.step01),
-    [ProgressBarStepId.experienceTutorial]: intl.formatMessage(
-      stepNames.step02,
-    ),
-    [ProgressBarStepId.experience]: intl.formatMessage(stepNames.step02),
-    [ProgressBarStepId.skillsTutorial]: intl.formatMessage(stepNames.step03),
-    [ProgressBarStepId.skills]: intl.formatMessage(stepNames.step03),
-    [ProgressBarStepId.myFit]: intl.formatMessage(stepNames.step04),
-    [ProgressBarStepId.review]: intl.formatMessage(stepNames.step05),
-    [ProgressBarStepId.finalSubmission]: intl.formatMessage(stepNames.step06),
-  };
 
   const icons: {
     [key in ProgressBarStepStatus]: { className: string; color: string };
@@ -200,7 +173,7 @@ const ProgressBar: React.FunctionComponent<ProgressBarProps> = ({
       <div data-c-container="large">
         <div data-c-grid="gutter(all, 1)">
           <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(left)">
-            <span data-c-color="white">{getStepName[stepNumber]}</span>
+            <span data-c-color="white">{currentTitle}</span>
             <ol className="applicant-application-progress-bar">
               {steps.map(
                 ({ link, status }): React.ReactElement =>

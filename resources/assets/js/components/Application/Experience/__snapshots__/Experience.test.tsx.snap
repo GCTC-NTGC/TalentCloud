@@ -213,18 +213,6 @@ exports[`Application Timeline - My Experience should render MyExperience with it
         },
       ]
     }
-    experienceRequirements={
-      Object {
-        "educationRequirement": Object {
-          "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, officiis delectus excepturi voluptate laudantium omnis nesciunt consectetur eum sapiente aliquid ipsam obcaecati expedita odio id eligendi voluptatum. Consequuntur, quibusdam voluptates.",
-          "title": "2 Years Post-secondary",
-        },
-        "equivalentRequirment": Object {
-          "description": "ELorem ipsum dolor sit amet consectetur adipisicing elit. Saepe accusamus animi consequatur dolorem voluptatum earum iure doloremque, facere est asperiores, dignissimos quae architecto vero unde vitae quis excepturi! Totam, libero.",
-          "title": "Equivalent Experience",
-        },
-      }
-    }
     experienceSkills={
       Array [
         Object {
@@ -366,6 +354,7 @@ exports[`Application Timeline - My Experience should render MyExperience with it
     handleQuit={[Function]}
     handleReturn={[Function]}
     handleSubmitExperience={[Function]}
+    jobClassificationId={1}
     jobId={1}
     recipientTypes={
       Array [
@@ -775,18 +764,6 @@ exports[`Application Timeline - My Experience should render MyExperience without
         },
       ]
     }
-    experienceRequirements={
-      Object {
-        "educationRequirement": Object {
-          "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, officiis delectus excepturi voluptate laudantium omnis nesciunt consectetur eum sapiente aliquid ipsam obcaecati expedita odio id eligendi voluptatum. Consequuntur, quibusdam voluptates.",
-          "title": "2 Years Post-secondary",
-        },
-        "equivalentRequirment": Object {
-          "description": "ELorem ipsum dolor sit amet consectetur adipisicing elit. Saepe accusamus animi consequatur dolorem voluptatum earum iure doloremque, facere est asperiores, dignissimos quae architecto vero unde vitae quis excepturi! Totam, libero.",
-          "title": "Equivalent Experience",
-        },
-      }
-    }
     experienceSkills={Array []}
     experiences={Array []}
     handleContinue={[Function]}
@@ -794,6 +771,7 @@ exports[`Application Timeline - My Experience should render MyExperience without
     handleQuit={[Function]}
     handleReturn={[Function]}
     handleSubmitExperience={[Function]}
+    jobClassificationId={1}
     jobId={1}
     recipientTypes={
       Array [

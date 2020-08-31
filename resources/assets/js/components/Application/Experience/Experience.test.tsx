@@ -5,7 +5,6 @@ import { fakeSkills } from "../../../fakeData/fakeSkills";
 import {
   educationStatuses,
   educationTypes,
-  experienceRequirements,
   recipientTypes,
   recogntitionTypes,
 } from "../../../stories/Application/ExperienceModals.stories";
@@ -23,7 +22,6 @@ describe("Application Timeline - My Experience", (): void => {
           criteria={fakeCriteria()}
           educationStatuses={educationStatuses}
           educationTypes={educationTypes}
-          experienceRequirements={experienceRequirements}
           experienceSkills={fakeExperienceSkills()}
           experiences={fakeExperiences()}
           handleContinue={() => {}}
@@ -32,6 +30,7 @@ describe("Application Timeline - My Experience", (): void => {
           handleReturn={() => {}}
           handleSubmitExperience={async () => {}}
           jobId={1}
+          jobClassificationId={1}
           recipientTypes={recipientTypes}
           recognitionTypes={recogntitionTypes}
           skills={fakeSkills()}
@@ -49,7 +48,6 @@ describe("Application Timeline - My Experience", (): void => {
           criteria={fakeCriteria()}
           educationStatuses={educationStatuses}
           educationTypes={educationTypes}
-          experienceRequirements={experienceRequirements}
           experienceSkills={[]}
           experiences={[]}
           handleContinue={() => {}}
@@ -58,6 +56,7 @@ describe("Application Timeline - My Experience", (): void => {
           handleReturn={() => {}}
           handleSubmitExperience={async () => {}}
           jobId={1}
+          jobClassificationId={1}
           recipientTypes={recipientTypes}
           recognitionTypes={recogntitionTypes}
           skills={fakeSkills()}

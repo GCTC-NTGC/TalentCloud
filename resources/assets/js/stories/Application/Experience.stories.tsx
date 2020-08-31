@@ -10,7 +10,6 @@ import { fakeSkills } from "../../fakeData/fakeSkills";
 import {
   educationStatuses,
   educationTypes,
-  experienceRequirements,
   recipientTypes,
   recogntitionTypes,
 } from "./ExperienceModals.stories";
@@ -93,7 +92,6 @@ stories.add(
       skills={fakeSkills()}
       educationStatuses={educationStatuses}
       educationTypes={educationTypes}
-      experienceRequirements={experienceRequirements}
       handleSubmitExperience={async (data) => {
         handleSubmitExperience(data);
         action("Confirmed")(data);
@@ -103,6 +101,7 @@ stories.add(
         action("Experience Deleted")(id);
       }}
       jobId={1}
+      jobClassificationId={1}
       recipientTypes={recipientTypes}
       recognitionTypes={recogntitionTypes}
       handleContinue={action("Save and Continue")}
