@@ -312,6 +312,56 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Apply: Welcome",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "application.welcome.documentTitle"
+      },
+      {
+        "defaultMessage": "Apply: My Basic Information",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "application.basic.documentTitle"
+      },
+      {
+        "defaultMessage": "Apply: Defining Your Experience",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "application.experienceIntro.documentTitle"
+      },
+      {
+        "defaultMessage": "Apply: Experience",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "application.experience.documentTitle"
+      },
+      {
+        "defaultMessage": "Apply: Understanding Skills",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "application.skillsIntro.documentTitle"
+      },
+      {
+        "defaultMessage": "Apply: Skills",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "application.skills.documentTitle"
+      },
+      {
+        "defaultMessage": "Apply: Application Questions",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "application.fit.documentTitle"
+      },
+      {
+        "defaultMessage": "Apply: Review Your Application",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "application.review.documentTitle"
+      },
+      {
+        "defaultMessage": "Apply: Submit",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "application.submission.documentTitle"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/ApplicationRoot.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "I understand that my second language proficiency will be tested as part of this process.",
         "description": "Label for language test checkbox in applicant timeline form.",
         "id": "application.basicInfo.languageTestLabel"
@@ -794,11 +844,6 @@
         "defaultMessage": "You can select the option below if you feel that this experience helps you meet some or all of the specific education requirements for this job. We've included the requirements below to help refresh your memory.",
         "description": "Explanation for the use-as-Education-Requirement section.",
         "id": "application.experienceModal.educationDescription"
-      },
-      {
-        "defaultMessage": "OR",
-        "description": "Conjunction used to join alternative experience requirements (ie Experience OR Equivalent Experience).",
-        "id": "application.experienceModal.educationSubform.or"
       }
     ],
     "path": "resources/assets/js/components/Application/ExperienceModals/EducationSubform.json"

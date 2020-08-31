@@ -26,8 +26,8 @@ import textToParagraphs from "../../../helpers/textToParagraphs";
 interface BasicInfoProps {
   job: Job;
   handleContinue: (values: BasicInfoFormValues) => void;
-  handleReturn: () => void;
-  handleQuit: () => void;
+  handleReturn: (values: BasicInfoFormValues) => void;
+  handleQuit: (values: BasicInfoFormValues) => void;
 }
 
 interface BasicInfoFormValues {
@@ -97,7 +97,7 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
           handleContinue(basicInfoFormValues);
         }}
       >
-        {({ isSubmitting }): React.ReactElement => (
+        {({ isSubmitting, values }): React.ReactElement => (
           <Form>
             <div data-c-grid="gutter(all, 1)">
               {/* Citizenship Declaration */}
@@ -228,9 +228,11 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
                   type="button"
                   disabled={isSubmitting}
                   onClick={(): void => {
-                    // Add saveAndReturn Method here
+                    const basicInfoFormValues: BasicInfoFormValues = {
+                      ...values,
+                    };
                     // Method should save the current data and return user to the previous step
-                    handleReturn();
+                    handleReturn(basicInfoFormValues);
                   }}
                 >
                   {intl.formatMessage(navigationMessages.return)}
@@ -246,9 +248,11 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
                   type="button"
                   disabled={isSubmitting}
                   onClick={(): void => {
-                    // Add saveAndQuit Method here
+                    const basicInfoFormValues: BasicInfoFormValues = {
+                      ...values,
+                    };
                     // Method should save the current data and return user to My Applications page
-                    handleQuit();
+                    handleQuit(basicInfoFormValues);
                   }}
                 >
                   {intl.formatMessage(navigationMessages.quit)}

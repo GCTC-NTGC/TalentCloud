@@ -1,7 +1,7 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
-import { text, number, boolean } from "@storybook/addon-knobs";
+import { number, boolean, select } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import WorkExperienceModal from "../../components/Application/ExperienceModals/WorkExperienceModal";
 import {
@@ -21,6 +21,8 @@ import EducationExperienceModal from "../../components/Application/ExperienceMod
 import CommunityExperienceModal from "../../components/Application/ExperienceModals/CommunityExperienceModal";
 import PersonalExperienceModal from "../../components/Application/ExperienceModals/PersonalExperienceModal";
 import AwardExperienceModal from "../../components/Application/ExperienceModals/AwardExperienceModal";
+import { ClassificationId } from "../../models/lookupConstants";
+import { mapToObject } from "../../helpers/queries";
 
 const stories = storiesOf("Application|Experience Modals", module).addDecorator(
   withIntl,
@@ -141,32 +143,10 @@ export const recogntitionTypes = [
   },
 ];
 
-export const experienceRequirements = {
-  educationRequirement: {
-    title: text(
-      "Education Requirment Title",
-      "2 Years Post-secondary",
-      groupIds.details,
-    ),
-    description: text(
-      "Education Requirment Description",
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, officiis delectus excepturi voluptate laudantium omnis nesciunt consectetur eum sapiente aliquid ipsam obcaecati expedita odio id eligendi voluptatum. Consequuntur, quibusdam voluptates.",
-      groupIds.details,
-    ),
-  },
-  equivalentRequirment: {
-    title: text(
-      "Equivalent Experience requirment Title",
-      "Equivalent Experience",
-      groupIds.details,
-    ),
-    description: text(
-      "Equivalent Experience requirment Description",
-      "ELorem ipsum dolor sit amet consectetur adipisicing elit. Saepe accusamus animi consequatur dolorem voluptatum earum iure doloremque, facere est asperiores, dignissimos quae architecto vero unde vitae quis excepturi! Totam, libero.",
-      groupIds.details,
-    ),
-  },
-};
+const classificationOptions = mapToObject(
+  Object.keys(ClassificationId),
+  (x) => x,
+);
 
 stories.add(
   "Work Experience Modal",
@@ -189,32 +169,12 @@ stories.add(
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
             optionalSkills={optionalSkills}
             savedOptionalSkills={[optionalSkills[0]]}
-            experienceRequirments={{
-              educationRequirement: {
-                title: text(
-                  "Education Requirment Title",
-                  "2 Years Post-secondary",
-                  groupIds.details,
-                ),
-                description: text(
-                  "Education Requirment Description",
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, officiis delectus excepturi voluptate laudantium omnis nesciunt consectetur eum sapiente aliquid ipsam obcaecati expedita odio id eligendi voluptatum. Consequuntur, quibusdam voluptates.",
-                  groupIds.details,
-                ),
-              },
-              equivalentRequirment: {
-                title: text(
-                  "Equivalent Experience requirment Title",
-                  "Equivalent Experience",
-                  groupIds.details,
-                ),
-                description: text(
-                  "Equivalent Experience requirment Description",
-                  "ELorem ipsum dolor sit amet consectetur adipisicing elit. Saepe accusamus animi consequatur dolorem voluptatum earum iure doloremque, facere est asperiores, dignissimos quae architecto vero unde vitae quis excepturi! Totam, libero.",
-                  groupIds.details,
-                ),
-              },
-            }}
+            jobClassification={select(
+              "Job Classification",
+              classificationOptions,
+              "CS",
+              groupIds.details,
+            )}
             experienceableId={1}
             experienceableType="application"
             parentElement={modalParent}
@@ -253,32 +213,12 @@ stories.add(
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
             optionalSkills={optionalSkills}
             savedOptionalSkills={[optionalSkills[0]]}
-            experienceRequirments={{
-              educationRequirement: {
-                title: text(
-                  "Education Requirment Title",
-                  "2 Years Post-secondary",
-                  groupIds.details,
-                ),
-                description: text(
-                  "Education Requirment Description",
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, officiis delectus excepturi voluptate laudantium omnis nesciunt consectetur eum sapiente aliquid ipsam obcaecati expedita odio id eligendi voluptatum. Consequuntur, quibusdam voluptates.",
-                  groupIds.details,
-                ),
-              },
-              equivalentRequirment: {
-                title: text(
-                  "Equivalent Experience requirment Title",
-                  "Equivalent Experience",
-                  groupIds.details,
-                ),
-                description: text(
-                  "Equivalent Experience requirment Description",
-                  "ELorem ipsum dolor sit amet consectetur adipisicing elit. Saepe accusamus animi consequatur dolorem voluptatum earum iure doloremque, facere est asperiores, dignissimos quae architecto vero unde vitae quis excepturi! Totam, libero.",
-                  groupIds.details,
-                ),
-              },
-            }}
+            jobClassification={select(
+              "Job Classification",
+              classificationOptions,
+              "CS",
+              groupIds.details,
+            )}
             experienceableId={1}
             experienceableType="application"
             parentElement={modalParent}
@@ -317,32 +257,12 @@ stories.add(
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
             optionalSkills={optionalSkills}
             savedOptionalSkills={[optionalSkills[0]]}
-            experienceRequirments={{
-              educationRequirement: {
-                title: text(
-                  "Education Requirment Title",
-                  "2 Years Post-secondary",
-                  groupIds.details,
-                ),
-                description: text(
-                  "Education Requirment Description",
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, officiis delectus excepturi voluptate laudantium omnis nesciunt consectetur eum sapiente aliquid ipsam obcaecati expedita odio id eligendi voluptatum. Consequuntur, quibusdam voluptates.",
-                  groupIds.details,
-                ),
-              },
-              equivalentRequirment: {
-                title: text(
-                  "Equivalent Experience requirment Title",
-                  "Equivalent Experience",
-                  groupIds.details,
-                ),
-                description: text(
-                  "Equivalent Experience requirment Description",
-                  "ELorem ipsum dolor sit amet consectetur adipisicing elit. Saepe accusamus animi consequatur dolorem voluptatum earum iure doloremque, facere est asperiores, dignissimos quae architecto vero unde vitae quis excepturi! Totam, libero.",
-                  groupIds.details,
-                ),
-              },
-            }}
+            jobClassification={select(
+              "Job Classification",
+              classificationOptions,
+              "CS",
+              groupIds.details,
+            )}
             experienceableId={1}
             experienceableType="application"
             parentElement={modalParent}
@@ -379,32 +299,12 @@ stories.add(
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
             optionalSkills={optionalSkills}
             savedOptionalSkills={[optionalSkills[0]]}
-            experienceRequirments={{
-              educationRequirement: {
-                title: text(
-                  "Education Requirment Title",
-                  "2 Years Post-secondary",
-                  groupIds.details,
-                ),
-                description: text(
-                  "Education Requirment Description",
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, officiis delectus excepturi voluptate laudantium omnis nesciunt consectetur eum sapiente aliquid ipsam obcaecati expedita odio id eligendi voluptatum. Consequuntur, quibusdam voluptates.",
-                  groupIds.details,
-                ),
-              },
-              equivalentRequirment: {
-                title: text(
-                  "Equivalent Experience requirment Title",
-                  "Equivalent Experience",
-                  groupIds.details,
-                ),
-                description: text(
-                  "Equivalent Experience requirment Description",
-                  "ELorem ipsum dolor sit amet consectetur adipisicing elit. Saepe accusamus animi consequatur dolorem voluptatum earum iure doloremque, facere est asperiores, dignissimos quae architecto vero unde vitae quis excepturi! Totam, libero.",
-                  groupIds.details,
-                ),
-              },
-            }}
+            jobClassification={select(
+              "Job Classification",
+              classificationOptions,
+              "CS",
+              groupIds.details,
+            )}
             experienceableId={1}
             experienceableType="application"
             parentElement={modalParent}
@@ -441,32 +341,12 @@ stories.add(
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
             optionalSkills={optionalSkills}
             savedOptionalSkills={[optionalSkills[0]]}
-            experienceRequirments={{
-              educationRequirement: {
-                title: text(
-                  "Education Requirment Title",
-                  "2 Years Post-secondary",
-                  groupIds.details,
-                ),
-                description: text(
-                  "Education Requirment Description",
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, officiis delectus excepturi voluptate laudantium omnis nesciunt consectetur eum sapiente aliquid ipsam obcaecati expedita odio id eligendi voluptatum. Consequuntur, quibusdam voluptates.",
-                  groupIds.details,
-                ),
-              },
-              equivalentRequirment: {
-                title: text(
-                  "Equivalent Experience requirment Title",
-                  "Equivalent Experience",
-                  groupIds.details,
-                ),
-                description: text(
-                  "Equivalent Experience requirment Description",
-                  "ELorem ipsum dolor sit amet consectetur adipisicing elit. Saepe accusamus animi consequatur dolorem voluptatum earum iure doloremque, facere est asperiores, dignissimos quae architecto vero unde vitae quis excepturi! Totam, libero.",
-                  groupIds.details,
-                ),
-              },
-            }}
+            jobClassification={select(
+              "Job Classification",
+              classificationOptions,
+              "CS",
+              groupIds.details,
+            )}
             experienceableId={1}
             experienceableType="application"
             parentElement={modalParent}
@@ -505,32 +385,12 @@ stories.add(
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
             optionalSkills={optionalSkills}
             savedOptionalSkills={[optionalSkills[0]]}
-            experienceRequirments={{
-              educationRequirement: {
-                title: text(
-                  "Education Requirment Title",
-                  "2 Years Post-secondary",
-                  groupIds.details,
-                ),
-                description: text(
-                  "Education Requirment Description",
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, officiis delectus excepturi voluptate laudantium omnis nesciunt consectetur eum sapiente aliquid ipsam obcaecati expedita odio id eligendi voluptatum. Consequuntur, quibusdam voluptates.",
-                  groupIds.details,
-                ),
-              },
-              equivalentRequirment: {
-                title: text(
-                  "Equivalent Experience requirment Title",
-                  "Equivalent Experience",
-                  groupIds.details,
-                ),
-                description: text(
-                  "Equivalent Experience requirment Description",
-                  "ELorem ipsum dolor sit amet consectetur adipisicing elit. Saepe accusamus animi consequatur dolorem voluptatum earum iure doloremque, facere est asperiores, dignissimos quae architecto vero unde vitae quis excepturi! Totam, libero.",
-                  groupIds.details,
-                ),
-              },
-            }}
+            jobClassification={select(
+              "Job Classification",
+              classificationOptions,
+              "CS",
+              groupIds.details,
+            )}
             experienceableId={1}
             experienceableType="application"
             parentElement={modalParent}
@@ -568,32 +428,12 @@ stories.add(
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
             optionalSkills={optionalSkills}
             savedOptionalSkills={[optionalSkills[0]]}
-            experienceRequirments={{
-              educationRequirement: {
-                title: text(
-                  "Education Requirment Title",
-                  "2 Years Post-secondary",
-                  groupIds.details,
-                ),
-                description: text(
-                  "Education Requirment Description",
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, officiis delectus excepturi voluptate laudantium omnis nesciunt consectetur eum sapiente aliquid ipsam obcaecati expedita odio id eligendi voluptatum. Consequuntur, quibusdam voluptates.",
-                  groupIds.details,
-                ),
-              },
-              equivalentRequirment: {
-                title: text(
-                  "Equivalent Experience requirment Title",
-                  "Equivalent Experience",
-                  groupIds.details,
-                ),
-                description: text(
-                  "Equivalent Experience requirment Description",
-                  "ELorem ipsum dolor sit amet consectetur adipisicing elit. Saepe accusamus animi consequatur dolorem voluptatum earum iure doloremque, facere est asperiores, dignissimos quae architecto vero unde vitae quis excepturi! Totam, libero.",
-                  groupIds.details,
-                ),
-              },
-            }}
+            jobClassification={select(
+              "Job Classification",
+              classificationOptions,
+              "CS",
+              groupIds.details,
+            )}
             experienceableId={1}
             experienceableType="application"
             parentElement={modalParent}

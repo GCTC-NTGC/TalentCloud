@@ -3,7 +3,6 @@ import { FastField, Formik, Form } from "formik";
 import { defineMessages, useIntl, IntlShape } from "react-intl";
 import * as Yup from "yup";
 import {
-  EducationSubformProps,
   EducationFormValues,
   EducationSubform,
   validationShape as educationValidationShape,
@@ -49,11 +48,11 @@ interface AwardExperienceModalProps {
   recipientTypes: AwardRecipientType[];
   recognitionTypes: AwardRecognitionType[];
   jobId: number;
+  jobClassification: string;
   requiredSkills: Skill[];
   savedRequiredSkills: Skill[];
   optionalSkills: Skill[];
   savedOptionalSkills: Skill[];
-  experienceRequirments: EducationSubformProps;
   experienceableId: number;
   experienceableType: ExperienceAward["experienceable_type"];
   parentElement: Element | null;
@@ -224,11 +223,11 @@ export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
   recipientTypes,
   recognitionTypes,
   jobId,
+  jobClassification,
   requiredSkills,
   savedRequiredSkills,
   optionalSkills,
   savedOptionalSkills,
-  experienceRequirments,
   experienceableId,
   experienceableType,
   parentElement,
@@ -364,7 +363,7 @@ export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
                 jobRequiredSkills={requiredSkills.map(skillToName)}
                 jobOptionalSkills={optionalSkills.map(skillToName)}
               />
-              <EducationSubform {...experienceRequirments} />
+              <EducationSubform jobClassification={jobClassification} />
             </Modal.Body>
             <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
           </Form>
