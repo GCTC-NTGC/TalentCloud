@@ -23,12 +23,13 @@ branches:
 
 jobs: # run test suites simultaneously
   include:
-    - php: '7.2'
-      env: TEST_SUITE=jest
-    - php: '7.2'
-      env: TEST_SUITE=phpunit
-    - php: '7.2'
-      env: TEST_SUITE=browser
+    - env: TEST_SUITE=jest
+      language: node_js
+      node_js: '12'
+      script:
+        - npm i -g npm && npm ci
+    - env: TEST_SUITE=phpunit
+    - env: TEST_SUITE=browser
 
 env: # allow parallel makefile tasks
   global:
