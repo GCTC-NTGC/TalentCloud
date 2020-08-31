@@ -25,6 +25,7 @@ import AlertWhenUnsaved from "../../Form/AlertWhenUnsaved";
 import TextAreaInput from "../../Form/TextAreaInput";
 import WordCounter from "../../WordCounter/WordCounter";
 import { countNumberOfWords } from "../../WordCounter/helpers";
+import { navigationMessages } from "../applicationMessages";
 import displayMessages from "./skillsMessages";
 import {
   getSkillOfCriteria,
@@ -614,11 +615,7 @@ const Skills: React.FC<SkillsProps> = ({
                   type="button"
                   onClick={(): void => handleReturn()}
                 >
-                  <FormattedMessage
-                    id="application.skills.returnButtonLabel"
-                    defaultMessage="Return to Previous Step"
-                    description="The text displayed on the Return button of the Applicant Timeline form."
-                  />
+                  {intl.formatMessage(navigationMessages.return)}
                 </button>
               </div>
               <div
@@ -631,11 +628,7 @@ const Skills: React.FC<SkillsProps> = ({
                   type="button"
                   onClick={(): void => handleQuit()}
                 >
-                  <FormattedMessage
-                    id="application.skills.quitButtonLabel"
-                    defaultMessage="Quit"
-                    description="The text displayed on the Quit button of the Applicant Timeline form."
-                  />
+                  {intl.formatMessage(navigationMessages.quit)}
                 </button>
                 <button
                   data-c-button="solid(c1)"
@@ -644,11 +637,7 @@ const Skills: React.FC<SkillsProps> = ({
                   type="button"
                   onClick={(): void => handleContinue()}
                 >
-                  <FormattedMessage
-                    id="application.skills.submitButtonLabel"
-                    defaultMessage="Continue"
-                    description="The text displayed on the Continue button for the Job Details form."
-                  />
+                  {intl.formatMessage(navigationMessages.continue)}
                 </button>
               </div>
             </div>
