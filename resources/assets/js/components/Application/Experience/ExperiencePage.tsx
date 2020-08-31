@@ -1,7 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "@storybook/addons";
 import { getLocale } from "../../../helpers/localize";
-import { fakeApplication } from "../../../fakeData/fakeApplications";
 import fakeJob from "../../../fakeData/fakeJob";
 import { navigate } from "../../../helpers/router";
 import {
@@ -16,48 +17,30 @@ import { fakeCriteria } from "../../../fakeData/fakeCriteria";
 import fakeExperienceSkills from "../../../fakeData/fakeExperienceSkills";
 import fakeExperiences from "../../../fakeData/fakeExperience";
 import { Experience as ExperienceType } from "../../../models/types";
-import { EducationSubformProps } from "../ExperienceModals/EducationSubform";
+import { getApplicationById } from "../../../store/Application/applicationSelector";
+import { RootState } from "../../../store/store";
+import { fetchApplication } from "../../../store/Application/applicationActions";
 
 interface ExperiencePageProps {
   applicationId: number;
 }
-
-const educationMessages = {
-  educationReqTitle: {
-    id: "application.experience.education.requirementTitle",
-    defaultMessage: "2 year post secondary degree",
-    description:
-      "Short description of the default education requirement for this job.",
-  },
-  educationReqDescription: {
-    id: "application.experience.education.requirmentDescription",
-    defaultMessage:
-      "Successful completion of 2 years post secondary degree in a relevant field.",
-    description:
-      "Longer description of the default education requirement for this job.",
-  },
-  equivalentReqTitle: {
-    id: "application.experience.education.equivalentRequirementTitle",
-    defaultMessage: "Combination Experience",
-    description:
-      "Short description of an equivalent for the education requirement for this job.",
-  },
-  equivalentReqDescription: {
-    id: "application.experience.education.equivalentRequirmentDescription",
-    defaultMessage:
-      "If you believe your training, education, and/or experiences are equivalent to a 2-year post-secondary requirment, put it forward for consideration.\nThe hiring manager may accept these an alternative to the minimum education requirment.",
-    description:
-      "Longer description of an equivalent for the default education requirement for this job.",
-  },
-};
 
 export const ExperiencePage: React.FC<ExperiencePageProps> = ({
   applicationId,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
+  const dispatch = useDispatch();
 
-  const application = fakeApplication(); // TODO: get real application.
+  const application = useSelector((state: RootState) =>
+    getApplicationById(state, { id: applicationId }),
+  );
+  useEffect(() => {
+    if (application === null || application.id !== applicationId) {
+      dispatch(fetchApplication(applicationId));
+    }
+  }, [application, applicationId, dispatch]);
+
   const job = fakeJob(); // TODO: Get real job associated with application.
   const criteria = fakeCriteria(); // TODO: Get criteria associated with job.
   const experiences = fakeExperiences(); // TODO: get experienciences associated with application.
@@ -96,7 +79,12 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
       <ProgressBar
         closeDateTime={closeDate}
         currentTitle={intl.formatMessage(stepNames.step01)}
-        steps={makeProgressBarSteps(application, intl, "experience")}
+        steps={makeProgressBarSteps(
+          applicationId,
+          application,
+          intl,
+          "experience",
+        )}
       />
       <Experience
         experiences={experiences}

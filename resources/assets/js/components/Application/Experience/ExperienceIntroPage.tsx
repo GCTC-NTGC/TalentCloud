@@ -28,7 +28,12 @@ export const ExperienceIntroPage: React.FunctionComponent<ExperienceIntroPagePro
       <ProgressBar
         closeDateTime={closeDate}
         currentTitle={intl.formatMessage(stepNames.step02)}
-        steps={makeProgressBarSteps(application, intl, "experience")}
+        steps={makeProgressBarSteps(
+          applicationId,
+          application,
+          intl,
+          "experience",
+        )}
       />
       <ExperienceIntro handleStart={handleStart} />
     </>
