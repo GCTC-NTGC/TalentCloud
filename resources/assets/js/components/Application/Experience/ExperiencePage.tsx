@@ -1,9 +1,8 @@
-import React from "react";
+/* eslint-disable camelcase */
+import React, { useEffect, useCallback } from "react";
 import { useIntl } from "react-intl";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "@storybook/addons";
 import { getLocale } from "../../../helpers/localize";
-import fakeJob from "../../../fakeData/fakeJob";
 import { navigate } from "../../../helpers/router";
 import {
   applicationSkillsIntro,
@@ -13,13 +12,21 @@ import {
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
 import makeProgressBarSteps from "../ProgressBar/progressHelpers";
 import Experience, { ExperienceSubmitData } from "./Experience";
-import { fakeCriteria } from "../../../fakeData/fakeCriteria";
-import fakeExperienceSkills from "../../../fakeData/fakeExperienceSkills";
-import fakeExperiences from "../../../fakeData/fakeExperience";
 import { Experience as ExperienceType } from "../../../models/types";
 import { getApplicationById } from "../../../store/Application/applicationSelector";
 import { RootState } from "../../../store/store";
 import { fetchApplication } from "../../../store/Application/applicationActions";
+import {
+  getJob,
+  getJobIsUpdating,
+  getCriteriaByJob,
+} from "../../../store/Job/jobSelector";
+import { fetchJob } from "../../../store/Job/jobActions";
+import {
+  getExperienceByApplication,
+  getExperienceSkillsByApplication,
+} from "../../../store/Experience/experienceSelector";
+import { fetchExperienceByApplication } from "../../../store/Experience/experienceActions";
 
 interface ExperiencePageProps {
   applicationId: number;
@@ -32,19 +39,53 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
   const locale = getLocale(intl.locale);
   const dispatch = useDispatch();
 
-  const application = useSelector((state: RootState) =>
-    getApplicationById(state, { id: applicationId }),
-  );
+  const applicationSelector = (state: RootState) =>
+    getApplicationById(state, { id: applicationId });
+  const application = useSelector(applicationSelector);
   useEffect(() => {
-    if (application === null || application.id !== applicationId) {
+    if (application === null) {
       dispatch(fetchApplication(applicationId));
     }
   }, [application, applicationId, dispatch]);
 
-  const job = fakeJob(); // TODO: Get real job associated with application.
-  const criteria = fakeCriteria(); // TODO: Get criteria associated with job.
-  const experiences = fakeExperiences(); // TODO: get experienciences associated with application.
-  const experienceSkills = fakeExperienceSkills(); // TODO: Get experienceSkills associated with experiences.
+  const jobId = application?.job_poster_id;
+  const jobSelector = (state: RootState) =>
+    jobId ? getJob(state, { jobId }) : null;
+  const job = useSelector(jobSelector);
+  const jobUpdatingSelector = (state: RootState) =>
+    jobId ? getJobIsUpdating(state, jobId) : false;
+  const jobIsUpdating = useSelector(jobUpdatingSelector);
+  useEffect(() => {
+    // If job is null and not already updating, fetch it.
+    if (jobId && job === null && !jobIsUpdating) {
+      dispatch(fetchJob(jobId));
+    }
+  }, [jobId, job, jobIsUpdating, dispatch]);
+
+  const criteriaSelector = (state: RootState) =>
+    jobId ? getCriteriaByJob(state, { jobId }) : [];
+  const criteria = useSelector(criteriaSelector);
+
+  // This selector must be memoized because getExperienceByApplication uses reselect, and not re-reselect.
+  const experienceSelector = useCallback(
+    (state: RootState) => getExperienceByApplication(state, { applicationId }),
+    [applicationId],
+  );
+  const experiencesByType = useSelector(experienceSelector);
+  useEffect(() => {
+    fetchExperienceByApplication(applicationId);
+  }, [applicationId]);
+  const experiences: ExperienceType[] = [
+    ...experiencesByType.award,
+    ...experiencesByType.community,
+    ...experiencesByType.education,
+    ...experiencesByType.personal,
+    ...experiencesByType.work,
+  ];
+
+  const expSkillSelector = (state: RootState) =>
+    getExperienceSkillsByApplication(state, { applicationId });
+  const experienceSkills = useSelector(expSkillSelector);
 
   // TODO: load constants from backend.
   const educationStatuses = [];
@@ -93,8 +134,8 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
         experienceSkills={experienceSkills}
         criteria={criteria}
         skills={skills}
-        jobId={job.id}
-        jobClassificationId={job.classification_id ?? 1}
+        jobId={job?.id ?? 1}
+        jobClassificationId={job?.classification_id ?? 1}
         recipientTypes={recipientTypes}
         recognitionTypes={recognitionTypes}
         handleSubmitExperience={handleSubmit}

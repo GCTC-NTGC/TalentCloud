@@ -9,6 +9,7 @@ import {
   ExperienceAward,
   ExperiencePersonal,
   ExperienceSkill,
+  Experience,
 } from "../../models/types";
 import { notEmpty, hasKey } from "../../helpers/queries";
 
@@ -298,3 +299,65 @@ export const getExperienceSkillUpdating = (
 ): boolean => {
   return ui(state).updatingExperienceSkill[id] ?? false;
 };
+
+export const getExperienceSkillsByApplication = createCachedSelector(
+  getExperienceByApplication,
+  getExperienceSkillByIdState,
+  getExperienceSkillByAwardState,
+  getExperienceSkillByCommunityState,
+  getExperienceSkillByEducationState,
+  getExperienceSkillByPersonalState,
+  getExperienceSkillByWorkState,
+  (
+    experiences,
+    expSkills,
+    idsByAward,
+    idsByCommunity,
+    idsByEducation,
+    idsByPersonal,
+    idsByWork,
+  ): ExperienceSkill[] => {
+    const experienceToSkillsFactory = (expIdToSkillId: {
+      [expId: number]: number[];
+    }) => (
+      experienceSkills: ExperienceSkill[],
+      experience: Experience,
+    ): ExperienceSkill[] => {
+      const expSkillIds = hasKey(expIdToSkillId, experience.id)
+        ? expIdToSkillId[experience.id]
+        : [];
+      const newExpSkills = expSkillIds
+        .map((id) => expSkills[id])
+        .filter(notEmpty);
+      return [...newExpSkills, ...experienceSkills];
+    };
+
+    const awardSkills = experiences.award.reduce(
+      experienceToSkillsFactory(idsByAward),
+      [],
+    );
+    const communitySkills = experiences.community.reduce(
+      experienceToSkillsFactory(idsByCommunity),
+      [],
+    );
+    const educationSkills = experiences.education.reduce(
+      experienceToSkillsFactory(idsByEducation),
+      [],
+    );
+    const personalSkills = experiences.personal.reduce(
+      experienceToSkillsFactory(idsByPersonal),
+      [],
+    );
+    const workSkills = experiences.work.reduce(
+      experienceToSkillsFactory(idsByWork),
+      [],
+    );
+    return [
+      ...awardSkills,
+      ...communitySkills,
+      ...educationSkills,
+      ...personalSkills,
+      ...workSkills,
+    ];
+  },
+)((state, { applicationId }) => applicationId);
