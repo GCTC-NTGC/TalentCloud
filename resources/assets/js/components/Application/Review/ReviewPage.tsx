@@ -10,11 +10,10 @@ import makeProgressBarSteps from "../ProgressBar/progressHelpers";
 import { fakeCriteria } from "../../../fakeData/fakeCriteria";
 import fakeExperienceSkills from "../../../fakeData/fakeExperienceSkills";
 import fakeExperiences from "../../../fakeData/fakeExperience";
-import Review from "./Review";
+import Review, { ReviewFormValues } from "./Review";
 import { fakeUser } from "../../../fakeData/fakeUsers";
 import { fakeSkills } from "../../../fakeData/fakeSkills";
 import {
-  applicationExperience,
   applicationIndex,
   applicationFit,
   applicationSubmission,
@@ -49,7 +48,8 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ applicationId }) => {
     // Because the Applications Index is outside of the Application SPA, we navigate to it differently.
     window.location.href = applicationIndex(locale);
   };
-  const handleContinue = (): void => {
+  const handleContinue = (values: ReviewFormValues): void => {
+    // TODO: Save ReviewFormValues.
     navigate(applicationSubmission(locale, applicationId));
   };
 
