@@ -7,6 +7,7 @@ import TextInput from "../../Form/TextInput";
 import DateInput from "../../Form/DateInput";
 import { validationMessages } from "../../Form/Messages";
 import { Application } from "../../../models/types";
+import { navigationMessages } from "../applicationMessages";
 
 const messages = defineMessages({
   submissionDateLabel: {
@@ -163,11 +164,7 @@ const FinalSubmit: React.FunctionComponent<FinalSubmitProps> = ({
                     disabled={isSubmitting}
                     onClick={handleReturn}
                   >
-                    <FormattedMessage
-                      id="application.returnButtonLabel"
-                      defaultMessage="Save & Return to Previous Step"
-                      description="The text displayed on the Save & Return button of the Applicant Timeline form."
-                    />
+                    {intl.formatMessage(navigationMessages.return)}
                   </button>
                 </div>
                 <div
@@ -181,11 +178,7 @@ const FinalSubmit: React.FunctionComponent<FinalSubmitProps> = ({
                     disabled={isSubmitting}
                     onClick={handleQuit}
                   >
-                    <FormattedMessage
-                      id="application.quitButtonLabel"
-                      defaultMessage="Save & Quit"
-                      description="The text displayed on the Save & Return button of the Applicant Timeline form."
-                    />
+                    {intl.formatMessage(navigationMessages.quit)}
                   </button>
                   <button
                     data-c-button="solid(c1)"

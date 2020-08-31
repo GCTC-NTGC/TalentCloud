@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useIntl, FormattedMessage, defineMessages } from "react-intl";
+import { Formik, Form, FastField } from "formik";
 import {
   Application,
   User,
@@ -17,12 +18,14 @@ import {
   basicInfoMessages,
   experienceMessages,
   fitMessages,
+  navigationMessages,
 } from "../applicationMessages";
 import defaultBasicMessages, {
   citizenshipDeclaration,
   languageRequirementLabel,
   veteranStatus,
 } from "../BasicInfo/basicInfoMessages";
+import CheckboxInput from "../../Form/CheckboxInput";
 import ExperienceAwardAccordion from "../ExperienceAccordions/ExperienceAwardAccordion";
 import ExperienceCommunityAccordion from "../ExperienceAccordions/ExperienceCommunityAccordion";
 import ExperienceEducationAccordion from "../ExperienceAccordions/ExperienceEducationAccordion";
@@ -67,6 +70,11 @@ const messages = defineMessages({
       "You haven't set a communication language preference in your profile yet.",
     description:
       "Text displayed if a user has not yet selected a communication preference in their profile.",
+  },
+  shareCheckboxLabel: {
+    id: "application.review.shareCheckboxLabel",
+    defaultMessage:
+      "I would like Talent Cloud to share my application with other Government of Canada managers looking for similar sets of skills.",
   },
 });
 
@@ -201,6 +209,10 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
 
 type ExperienceView = "experience" | "skills" | "education";
 
+interface ReviewFormValues {
+  shareWithManagers: boolean;
+}
+
 interface ReviewProps {
   application: Application;
   criteria: Criteria[];
@@ -211,11 +223,12 @@ interface ReviewProps {
   jobApplicationAnswers: JobApplicationAnswer[];
   skills: Skill[];
   user: User;
-  handleContinue: () => void;
-  handleQuit: () => void;
+  handleContinue: (values: ReviewFormValues) => void;
   handleReturn: () => void;
+  handleQuit: () => void;
 }
 
+// TODO: Replace all of the Edit href's with proper step links.
 const Review: React.FC<ReviewProps> = ({
   application,
   criteria,
@@ -227,8 +240,8 @@ const Review: React.FC<ReviewProps> = ({
   skills,
   user,
   handleContinue,
-  handleQuit,
   handleReturn,
+  handleQuit,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -680,78 +693,110 @@ const Review: React.FC<ReviewProps> = ({
         <i
           className={`fas fa-${user.job_alerts ? "check" : "times"}`}
           data-c-color={user.job_alerts ? "go" : "stop"}
-          data-c-margin="right(.25)"
+          data-c-margin={`right(.${user.job_alerts ? "25" : "5"})`}
         />
-        <FormattedMessage
-          id="application.review.userContact"
-          defaultMessage="I would like Talent Cloud to contact me at {email} about related jobs."
-          values={{
-            email: user.email,
+        {user.job_alerts ? (
+          <FormattedMessage
+            id="application.review.userContact"
+            defaultMessage="I would like Talent Cloud to contact me at {email} about related jobs."
+            values={{
+              email: user.email,
+            }}
+          />
+        ) : (
+          <FormattedMessage
+            id="application.review.userNoContact"
+            defaultMessage="I do not want Talent Cloud to contact me at {email} about related jobs."
+            values={{
+              email: user.email,
+            }}
+          />
+        )}
+      </p>
+      <hr data-c-hr="thin(c1)" data-c-margin="tb(2)" />
+      <div data-c-grid="gutter(all, 1)">
+        <Formik
+          initialValues={{ shareWithManagers: false }}
+          onSubmit={(values): void => {
+            // Save data to application object, then navigate to the next step.
+            // TODO: This step needs to check overall Application validation status,
+            // and only proceed if the entire Application is 'valid'.
+            const reviewFormValues: ReviewFormValues = {
+              ...values,
+            };
+
+            handleContinue(reviewFormValues);
           }}
-        />
-      </p>
-      <p>
-        <i
-          className="fas fa-check"
-          data-c-color="go"
-          data-c-margin="right(.25)"
-        />
-        <FormattedMessage
-          id="application.review.userShare"
-          defaultMessage="I would like Talent Cloud to share my application with other Government of Canada managers looking for similar sets of skills."
-        />
-      </p>
-      <div data-c-container="medium" data-c-padding="tb(2)">
-        <hr data-c-hr="thin(c1)" data-c-margin="bottom(2)" />
-        <div data-c-grid="gutter">
-          <div
-            data-c-alignment="base(centre) tp(left)"
-            data-c-grid-item="tp(1of2)"
-          >
-            <button
-              data-c-button="outline(c2)"
-              data-c-radius="rounded"
-              type="button"
-              onClick={(): void => handleReturn()}
-            >
-              <FormattedMessage
-                id="application.review.returnButtonLabel"
-                defaultMessage="Return to Previous Step"
-                description="The text displayed on the Return button of the Applicant Timeline form."
-              />
-            </button>
-          </div>
-          <div
-            data-c-alignment="base(centre) tp(right)"
-            data-c-grid-item="tp(1of2)"
-          >
-            <button
-              data-c-button="outline(c2)"
-              data-c-radius="rounded"
-              type="button"
-              onClick={(): void => handleQuit()}
-            >
-              <FormattedMessage
-                id="application.review.quitButtonLabel"
-                defaultMessage="Quit"
-                description="The text displayed on the Quit button of the Applicant Timeline form."
-              />
-            </button>
-            <button
-              data-c-button="solid(c1)"
-              data-c-radius="rounded"
-              data-c-margin="left(1)"
-              type="button"
-              onClick={(): void => handleContinue()}
-            >
-              <FormattedMessage
-                id="application.review.submitButtonLabel"
-                defaultMessage="Continue"
-                description="The text displayed on the Continue button for the Job Details form."
-              />
-            </button>
-          </div>
-        </div>
+        >
+          {({ isSubmitting }): React.ReactElement => (
+            <Form>
+              <div data-c-grid-item="base(1of1)">
+                <p>
+                  <FormattedMessage
+                    id="application.review.shareQuestion"
+                    defaultMessage="Do you give Talent Cloud permission to share your application with other Government of Canada managers who may be looking for a similar set of skills?"
+                  />
+                </p>
+              </div>
+              <div data-c-grid-item="base(1of1)" data-c-margin="left(2)">
+                <FastField
+                  id="shareWithManagers"
+                  name="shareWithManagers"
+                  component={CheckboxInput}
+                  label={intl.formatMessage(messages.shareCheckboxLabel)}
+                />
+              </div>
+              <hr data-c-hr="thin(c1)" data-c-margin="bottom(2)" />
+              <div data-c-grid="gutter">
+                <div
+                  data-c-alignment="base(centre) tp(left)"
+                  data-c-grid-item="tp(1of2)"
+                >
+                  <button
+                    data-c-button="outline(c2)"
+                    data-c-radius="rounded"
+                    type="button"
+                    disabled={isSubmitting}
+                    onClick={(): void => {
+                      // Add saveAndReturn Method here.
+                      // Method should save the current data and return user to the previous step.
+                      handleReturn();
+                    }}
+                  >
+                    {intl.formatMessage(navigationMessages.return)}
+                  </button>
+                </div>
+                <div
+                  data-c-alignment="base(centre) tp(right)"
+                  data-c-grid-item="tp(1of2)"
+                >
+                  <button
+                    data-c-button="outline(c2)"
+                    data-c-radius="rounded"
+                    type="button"
+                    disabled={isSubmitting}
+                    onClick={(): void => {
+                      // Add saveAndQuit Method here.
+                      // Method should save the current data and return user to My Applications page.
+                      handleQuit();
+                    }}
+                  >
+                    {intl.formatMessage(navigationMessages.quit)}
+                  </button>
+                  <button
+                    data-c-button="solid(c1)"
+                    data-c-radius="rounded"
+                    data-c-margin="left(1)"
+                    type="submit"
+                    disabled={isSubmitting}
+                  >
+                    {intl.formatMessage(navigationMessages.continue)}
+                  </button>
+                </div>
+              </div>
+            </Form>
+          )}
+        </Formik>
       </div>
     </div>
   );

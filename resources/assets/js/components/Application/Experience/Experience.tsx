@@ -50,8 +50,12 @@ import ExperienceWorkAccordion from "../ExperienceAccordions/ExperienceWorkAccor
 import ExperienceCommunityAccordion from "../ExperienceAccordions/ExperienceCommunityAccordion";
 import ExperiencePersonalAccordion from "../ExperienceAccordions/ExperiencePersonalAccordion";
 import ExperienceAwardAccordion from "../ExperienceAccordions/ExperienceAwardAccordion";
-import { mapToObject, hasKey } from "../../../helpers/queries";
-import { getSkillOfCriteria } from "../helpers";
+import {
+  getSkillOfCriteria,
+  getSkillsOfExperience,
+  getDisconnectedRequiredSkills,
+} from "../helpers";
+import { navigationMessages, experienceMessages } from "../applicationMessages";
 
 const messages = defineMessages({
   educationTypeMissing: {
@@ -81,49 +85,6 @@ const messages = defineMessages({
     description: "Error message displayed when experience fails to render.",
   },
 });
-
-// TODO: Move method to Experience selectors file or utility file.
-export const getSkillsOfExperience = (
-  experienceSkills: ExperienceSkill[],
-  experience: Experience,
-  skills: Skill[],
-): Skill[] => {
-  const experienceSkillsByType = experienceSkills.filter(
-    (experienceSkill) =>
-      experience.type === experienceSkill.experience_type &&
-      experience.id === experienceSkill.experience_id,
-  );
-
-  const experiencesBySkillId = mapToObject(
-    experienceSkillsByType,
-    (item) => item.skill_id,
-  );
-  return skills.filter((skill) => hasKey(experiencesBySkillId, skill.id));
-};
-
-// Gets a list of all required skills that haven't been connected to a experience yet.
-const getDisconnectedRequiredSkills = (
-  experiences: Experience[],
-  experienceSkills: ExperienceSkill[],
-  essentialSkills: Skill[],
-): Skill[] => {
-  const connectedRequiredSkills = experiences.reduce(
-    (skills: Skill[], experience: Experience) => {
-      const requiredSkills = getSkillsOfExperience(
-        experienceSkills,
-        experience,
-        essentialSkills,
-      ).filter((skill) => !skills.includes(skill));
-
-      return [...skills, ...requiredSkills];
-    },
-    [],
-  );
-
-  return essentialSkills.filter(
-    (skill) => !connectedRequiredSkills.includes(skill),
-  );
-};
 
 export type ExperienceSubmitData =
   | EducationExperienceSubmitData
@@ -186,7 +147,10 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
     | null
   >(null);
 
-  const [isModalVisible, setIsModalVisible] = React.useState({
+  const [isModalVisible, setIsModalVisible] = React.useState<{
+    id: Experience["type"] | "";
+    visible: boolean;
+  }>({
     id: "",
     visible: false,
   });
@@ -223,7 +187,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
     ),
   );
 
-  const openModal = (id: string): void => {
+  const openModal = (id: Experience["type"]): void => {
     setIsModalVisible({ id, visible: true });
   };
 
@@ -243,7 +207,6 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
     handleSubmitExperience(data).then(closeModal);
 
   const editExperience = (
-    id: string,
     experience: Experience,
     savedOptionalSkills: Skill[],
     savedRequiredSkills: Skill[],
@@ -253,19 +216,19 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
       savedOptionalSkills,
       savedRequiredSkills,
     });
-    setIsModalVisible({ id, visible: true });
+    setIsModalVisible({ id: experience.type, visible: true });
   };
 
-  const deleteExperience = (
-    id: number,
-    type: Experience["type"],
-  ): Promise<void> => handleDeleteExperience(id, type).then(closeModal);
+  const deleteExperience = (experience: Experience): Promise<void> =>
+    handleDeleteExperience(experience.id, experience.type).then(closeModal);
 
   const softSkills = [...assetSkills, ...essentialSkills].filter(
     (skill) => skill.skill_type_id === SkillTypeId.Soft,
   );
 
-  const modalButtons = {
+  const modalButtons: {
+    [key: string]: { id: Experience["type"]; title: string; icon: string };
+  } = {
     education: {
       id: "experience_education",
       title: intl.formatMessage(educationMessages.modalTitle),
@@ -279,7 +242,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
     community: {
       id: "experience_community",
       title: intl.formatMessage(communityMessages.modalTitle),
-      icon: "fas fa-carry",
+      icon: "fas fa-people-carry",
     },
     personal: {
       id: "experience_personal",
@@ -317,132 +280,128 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   const modalRoot = document.getElementById("modal-root");
 
   const experienceAccordion = (
-    experienceType: string,
     experience: Experience,
     irrelevantSkillCount: number,
     relevantSkills: ExperienceSkill[],
     handleEdit: () => void,
     handleDelete: () => void,
   ): React.ReactElement => {
-    const education = experience as ExperienceEducation;
-    const educationType =
-      educationTypes.find(({ id }) => education.education_type_id === id)?.name[
-        locale
-      ] || intl.formatMessage(messages.educationTypeMissing);
-    const educationStatus =
-      educationStatuses.find(({ id }) => education.education_status_id === id)
-        ?.name[locale] || intl.formatMessage(messages.educationStatusMissing);
-    const work = experience as ExperienceWork;
-    const community = experience as ExperienceCommunity;
-    const personal = experience as ExperiencePersonal;
-    const award = experience as ExperienceAward;
-    const recipient =
-      recipientTypes.find(({ id }) => award.award_recipient_type_id === id)
-        ?.name[locale] || intl.formatMessage(messages.awardRecipientMissing);
-    const scope =
-      recognitionTypes.find(({ id }) => award.award_recognition_type_id === id)
-        ?.name[locale] || intl.formatMessage(messages.awardRecognitionMissing);
-
-    switch (experienceType) {
+    switch (experience.type) {
       case "experience_education":
         return (
           <ExperienceEducationAccordion
-            key={`${education.id}-${education.type}`}
-            areaOfStudy={education.area_of_study}
-            educationType={educationType}
-            endDate={education.end_date}
+            key={`${experience.id}-${experience.type}`}
+            areaOfStudy={experience.area_of_study}
+            educationType={localizeFieldNonNull(
+              locale,
+              experience,
+              "education_type",
+            )}
+            endDate={experience.end_date}
             handleDelete={handleDelete}
             handleEdit={handleEdit}
-            institution={education.institution}
+            institution={experience.institution}
             irrelevantSkillCount={irrelevantSkillCount}
-            isActive={education.is_active}
-            isEducationJustification={education.is_education_requirement}
+            isActive={experience.is_active}
+            isEducationJustification={experience.is_education_requirement}
             relevantSkills={relevantSkills}
             skills={skills}
             showButtons
             showSkillDetails
-            startDate={education.start_date}
-            status={educationStatus}
-            thesisTitle={education.thesis_title}
+            startDate={experience.start_date}
+            status={localizeFieldNonNull(
+              locale,
+              experience,
+              "education_status",
+            )}
+            thesisTitle={experience.thesis_title}
           />
         );
       case "experience_work":
         return (
           <ExperienceWorkAccordion
-            key={`${work.id}-${work.type}`}
-            endDate={work.end_date}
-            group={work.group}
+            key={`${experience.id}-${experience.type}`}
+            endDate={experience.end_date}
+            group={experience.group}
             handleDelete={handleDelete}
             handleEdit={handleEdit}
             irrelevantSkillCount={irrelevantSkillCount}
-            isActive={work.is_active}
-            isEducationJustification={work.is_education_requirement}
-            organization={work.organization}
+            isActive={experience.is_active}
+            isEducationJustification={experience.is_education_requirement}
+            organization={experience.organization}
             relevantSkills={relevantSkills}
             skills={skills}
             showButtons
             showSkillDetails
-            startDate={work.start_date}
-            title={work.title}
+            startDate={experience.start_date}
+            title={experience.title}
           />
         );
       case "experience_community":
         return (
           <ExperienceCommunityAccordion
-            key={`${community.id}-${community.type}`}
-            endDate={community.end_date}
-            group={community.group}
+            key={`${experience.id}-${experience.type}`}
+            endDate={experience.end_date}
+            group={experience.group}
             handleDelete={handleDelete}
             handleEdit={handleEdit}
             irrelevantSkillCount={irrelevantSkillCount}
-            isActive={community.is_active}
-            isEducationJustification={community.is_education_requirement}
-            project={community.project}
+            isActive={experience.is_active}
+            isEducationJustification={experience.is_education_requirement}
+            project={experience.project}
             relevantSkills={relevantSkills}
             skills={skills}
             showButtons
             showSkillDetails
-            startDate={community.start_date}
-            title={community.title}
+            startDate={experience.start_date}
+            title={experience.title}
           />
         );
       case "experience_personal":
         return (
           <ExperiencePersonalAccordion
-            key={`${personal.id}-${personal.type}`}
-            description={personal.description}
-            endDate={personal.end_date}
+            key={`${experience.id}-${experience.type}`}
+            description={experience.description}
+            endDate={experience.end_date}
             handleDelete={handleDelete}
             handleEdit={handleEdit}
             irrelevantSkillCount={irrelevantSkillCount}
-            isActive={personal.is_active}
-            isEducationJustification={personal.is_education_requirement}
-            isShareable={personal.is_shareable}
+            isActive={experience.is_active}
+            isEducationJustification={experience.is_education_requirement}
+            isShareable={experience.is_shareable}
             relevantSkills={relevantSkills}
             skills={skills}
             showButtons
             showSkillDetails
-            startDate={personal.start_date}
-            title={personal.title}
+            startDate={experience.start_date}
+            title={experience.title}
           />
         );
       case "experience_award":
         return (
           <ExperienceAwardAccordion
-            key={`${award.id}-${award.type}`}
-            awardedDate={award.awarded_date}
+            key={`${experience.id}-${experience.type}`}
+            awardedDate={experience.awarded_date}
             handleDelete={handleDelete}
             handleEdit={handleEdit}
             irrelevantSkillCount={irrelevantSkillCount}
-            isEducationJustification={award.is_education_requirement}
-            issuer={award.issued_by}
-            recipient={recipient}
+            isEducationJustification={experience.is_education_requirement}
+            issuer={experience.issued_by}
+            recipient={localizeFieldNonNull(
+              locale,
+              experience,
+              "award_recipient_type",
+            )}
             relevantSkills={relevantSkills}
             skills={skills}
-            scope={scope}
+            scope={localizeFieldNonNull(
+              locale,
+              experience,
+              "award_recognition_type",
+            )}
             showButtons
             showSkillDetails
-            title={award.title}
+            title={experience.title}
           />
         );
       default:
@@ -468,11 +427,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
     <>
       <div data-c-container="medium">
         <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">
-          <FormattedMessage
-            id="application.experience.header"
-            defaultMessage="My Experience"
-            description="Heading text on the experience step of the Application Timeline."
-          />
+          {intl.formatMessage(experienceMessages.heading)}
         </h2>
         <p data-c-margin="bottom(1)">
           <FormattedMessage
@@ -600,18 +555,16 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
                   (savedOptionalSkills.length + savedRequiredSkills.length);
 
                 return experienceAccordion(
-                  experience.type,
                   experience,
                   irrelevantSkillCount,
                   relevantSkills,
                   () =>
                     editExperience(
-                      experience.type,
                       experience,
                       savedOptionalSkills,
                       savedRequiredSkills,
                     ),
-                  () => deleteExperience(experience.id, experience.type),
+                  () => deleteExperience(experience),
                 );
               })}
             </div>
@@ -669,11 +622,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
               type="button"
               onClick={(): void => handleReturn()}
             >
-              <FormattedMessage
-                id="application.experience.returnButtonLabel"
-                defaultMessage="Save & Return to Previous Step"
-                description="The text displayed on the Save & Return button of the Applicant Timeline form."
-              />
+              {intl.formatMessage(navigationMessages.return)}
             </button>
           </div>
           <div
@@ -686,11 +635,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
               type="button"
               onClick={(): void => handleQuit()}
             >
-              <FormattedMessage
-                id="application.experience.quitButtonLabel"
-                defaultMessage="Save & Quit"
-                description="The text displayed on the Save & Return button of the Applicant Timeline form."
-              />
+              {intl.formatMessage(navigationMessages.quit)}
             </button>
             <button
               data-c-button="solid(c1)"
@@ -699,11 +644,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
               type="button"
               onClick={(): void => handleContinue()}
             >
-              <FormattedMessage
-                id="application.experience.submitButtonLabel"
-                defaultMessage="Save & Continue"
-                description="The text displayed on the submit button for the Job Details form."
-              />
+              {intl.formatMessage(navigationMessages.continue)}
             </button>
           </div>
         </div>

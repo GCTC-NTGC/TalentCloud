@@ -102,3 +102,60 @@ export const getIrrelevantSkillCount = (
   );
   return irrelevantSkills.length;
 };
+
+/**
+ * Returns list of Skills attached to an Experience.
+ *
+ * @param experienceSkills Array of ExperienceSkill objects.
+ * @param experience Experience object.
+ * @param skill Skill object.
+ * @returns An Array of Skill objects
+ */
+export const getSkillsOfExperience = (
+  experienceSkills: ExperienceSkill[],
+  experience: Experience,
+  skills: Skill[],
+): Skill[] => {
+  const experienceSkillsByType = experienceSkills.filter(
+    (experienceSkill) =>
+      experience.type === experienceSkill.experience_type &&
+      experience.id === experienceSkill.experience_id,
+  );
+
+  const experiencesBySkillId = mapToObject(
+    experienceSkillsByType,
+    (item) => item.skill_id,
+  );
+  return skills.filter((skill) => hasKey(experiencesBySkillId, skill.id));
+};
+
+/**
+ * Returns a list of all essential skills that haven't been connected to a experience yet.
+ *
+ * @param experienceSkills Array of ExperienceSkill objects.
+ * @param experiences Array of Experience objects.
+ * @param essentialSkills Array of Skill objects (essential skills).
+ * @returns An Array of Skill objects
+ */
+export const getDisconnectedRequiredSkills = (
+  experiences: Experience[],
+  experienceSkills: ExperienceSkill[],
+  essentialSkills: Skill[],
+): Skill[] => {
+  const connectedRequiredSkills = experiences.reduce(
+    (skills: Skill[], experience: Experience) => {
+      const requiredSkills = getSkillsOfExperience(
+        experienceSkills,
+        experience,
+        essentialSkills,
+      ).filter((skill) => !skills.includes(skill));
+
+      return [...skills, ...requiredSkills];
+    },
+    [],
+  );
+
+  return essentialSkills.filter(
+    (skill) => !connectedRequiredSkills.includes(skill),
+  );
+};

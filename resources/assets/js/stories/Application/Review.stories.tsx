@@ -40,9 +40,9 @@ stories.add(
       ]}
       skills={fakeSkills()}
       user={fakeUsers()[1]}
-      handleContinue={action("Continue")}
-      handleQuit={action("Quit")}
-      handleReturn={action("Return")}
+      handleContinue={action("Save and Continue")}
+      handleReturn={action("Save and Return to Previous Step")}
+      handleQuit={action("Save and Quit")}
     />
   ),
 );

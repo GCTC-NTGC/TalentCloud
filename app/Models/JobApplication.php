@@ -45,6 +45,7 @@ use App\Traits\TalentCloudCrudTrait as CrudTrait;
  * @property string $gov_email
  * @property boolean $physical_office_willing
  * @property int $security_clearance_id
+ * @property boolean $share_with_maangers
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -110,6 +111,7 @@ class JobApplication extends BaseModel
         'gov_email' => 'string',
         'physical_office_willing' => 'boolean',
         'security_clearance_id' => 'int',
+        'share_with_managers' => 'boolean',
     ];
     protected $fillable = [
         'citizenship_declaration_id',
@@ -132,6 +134,7 @@ class JobApplication extends BaseModel
         'gov_email',
         'physical_office_willing',
         'security_clearance_id',
+        'share_with_managers',
     ];
 
     /**

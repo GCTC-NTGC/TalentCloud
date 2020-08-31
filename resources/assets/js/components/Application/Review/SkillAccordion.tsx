@@ -19,6 +19,12 @@ const skillAccordionMessages = defineMessages({
     description:
       "Alert displayed when no justification has been added to an Experience.",
   },
+  experiencesMissing: {
+    id: "application.skillAccordion.experiencesMissing",
+    defaultMessage: "You haven't attached any experiences to this skill.",
+    description:
+      "Alert displayed when no Experiences have been added to a particular Skill.",
+  },
 });
 
 interface ExperienceContentProps {
@@ -707,22 +713,40 @@ const SkillAccordion: React.FC<SkillAccordionProps> = ({
       >
         <hr data-c-hr="thin(gray)" />
         <div data-c-padding="lr(2)">
-          {experiences.map((experience) => {
-            const justification = getJustificationOfExperience(
-              skill,
-              experience,
-              experienceSkills,
-            );
-            return (
-              <ExperienceContent
-                key={`${experience.type}=${experience.id}-skill`}
-                intl={intl}
-                locale={locale}
-                experience={experience}
-                justification={justification}
+          {experiences.length === 0 && (
+            <p
+              data-c-margin="top(2)"
+              data-c-border="all(thin, solid, stop)"
+              data-c-padding="all(.5)"
+              data-c-radius="rounded"
+              data-c-background="stop(10)"
+              data-c-color="stop"
+            >
+              <i
+                className="fas fa-exclamation-circle"
+                data-c-color="stop"
+                data-c-margin="right(.25)"
               />
-            );
-          })}
+              {intl.formatMessage(skillAccordionMessages.experiencesMissing)}
+            </p>
+          )}
+          {experiences.length > 0 &&
+            experiences.map((experience) => {
+              const justification = getJustificationOfExperience(
+                skill,
+                experience,
+                experienceSkills,
+              );
+              return (
+                <ExperienceContent
+                  key={`${experience.type}=${experience.id}-skill`}
+                  intl={intl}
+                  locale={locale}
+                  experience={experience}
+                  justification={justification}
+                />
+              );
+            })}
         </div>
       </div>
     </div>
