@@ -33,6 +33,7 @@ jobs: # run test suites simultaneously
 env: # allow parallel makefile tasks
   global:
     - MAKEFLAGS="-j 2"
+    - TRAVIS_NODE_VERSION=12
 
 addons: # for browser tests
   chrome: stable
@@ -48,7 +49,7 @@ before_install:
   - phpenv config-rm xdebug.ini # remove xdebug
   - sudo service postgresql stop # free port 5432
   - travis_retry composer self-update # latest version of composer
-  - travis_retry npm i -g npm@12 # latest version of npm
+  - travis_retry npm i -g npm # latest version of npm
 
 install:
   - cp .env.travis .env # environment variables
