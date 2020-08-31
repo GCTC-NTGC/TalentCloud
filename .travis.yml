@@ -23,17 +23,14 @@ branches:
 
 jobs: # run test suites simultaneously
   include:
+    - env: TEST_SUITE=jest
     - env: TEST_SUITE=phpunit
     - env: TEST_SUITE=browser
-    - language: node_js
-      node_js: '12'
-      php: '7.2'
-      env: TEST_SUITE=jest
 
 env: # allow parallel makefile tasks
   global:
     - MAKEFLAGS="-j 2"
-    - TRAVIS_NODE_VERSION=12
+    - TRAVIS_NODE_VERSION="12"
 
 addons: # for browser tests
   chrome: stable
@@ -46,16 +43,16 @@ cache:
     # npm cached by default
 
 before_install:
-  - cp .env.travis .env # environment variables
   - phpenv config-rm xdebug.ini # remove xdebug
   - sudo service postgresql stop # free port 5432
   - travis_retry composer self-update # latest version of composer
+  - travis_retry nvm install 6.10 # update container node version
   - travis_retry npm i -g npm # latest version of npm
-  - travis_retry composer install --no-interaction --prefer-dist --no-suggest
-  - travis_retry npm install # install dependencies
 
 install:
-
+  - cp .env.travis .env # environment variables
+  - travis_retry composer install --no-interaction --prefer-dist --no-suggest
+  - travis_retry npm install # install dependencies
   - travis_retry make docker-start # initialize containers
   - travis_retry make gen-certs # ssl certificates
   - travis_retry make create-symlink # create symlink
