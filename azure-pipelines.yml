@@ -69,4 +69,5 @@ steps:
   inputs:
     rootFolderOrFile: '$(system.defaultWorkingDirectory)'
     includeRootFolder: false
+
 - task: PublishBuildArtifacts@1
