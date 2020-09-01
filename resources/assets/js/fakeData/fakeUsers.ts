@@ -58,6 +58,8 @@ export const fakeUser = (
   not_in_gov: false,
   gov_email: "gov_email@canada.ca",
   user_role: find(userRoles, user_role_id)!,
+  contact_language: "en",
+  job_alerts: false,
 });
 
 export const fakeUsers = (): User[] => [

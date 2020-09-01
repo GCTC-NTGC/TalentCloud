@@ -3,7 +3,6 @@ import { FastField, Field, Formik, Form } from "formik";
 import { defineMessages, useIntl, IntlShape } from "react-intl";
 import * as Yup from "yup";
 import {
-  EducationSubformProps,
   EducationFormValues,
   EducationSubform,
   validationShape as educationValidationShape,
@@ -38,11 +37,11 @@ interface PersonalExperienceModalProps {
   modalId: string;
   experiencePersonal: ExperiencePersonal | null;
   jobId: number;
+  jobClassification: string;
   requiredSkills: Skill[];
   savedRequiredSkills: Skill[];
   optionalSkills: Skill[];
   savedOptionalSkills: Skill[];
-  experienceRequirments: EducationSubformProps;
   experienceableId: number;
   experienceableType: ExperiencePersonal["experienceable_type"];
   parentElement: Element | null;
@@ -53,54 +52,54 @@ interface PersonalExperienceModalProps {
 
 export const messages = defineMessages({
   modalTitle: {
-    id: "personalExperienceModal.modalTitle",
+    id: "application.personalExperienceModal.modalTitle",
     defaultMessage: "Add Personal Experience",
   },
   modalDescription: {
-    id: "personalExperienceModal.modalDescription",
+    id: "application.personalExperienceModal.modalDescription",
     defaultMessage:
       "People are more than just education and work experiences. We want to make space for you to share your learning from other experiences. To protect your privacy, please don't share sensitive information about yourself or others. A good measure would be if you are comfortable with all your colleagues knowing it. (Hint: Focus on the skills for the job when you decide on what examples to share.)",
   },
   titleLabel: {
-    id: "personalExperienceModal.titleLabel",
+    id: "application.personalExperienceModal.titleLabel",
     defaultMessage: "Give this experience a title:",
   },
   titlePlaceholder: {
-    id: "personalExperienceModal.titlePlaceholder",
+    id: "application.personalExperienceModal.titlePlaceholder",
     defaultMessage: "e.g. My Parenting Experience",
   },
   descriptionLabel: {
-    id: "personalExperienceModal.descriptionLabel",
+    id: "application.personalExperienceModal.descriptionLabel",
     defaultMessage: "Describe the project or activity:",
   },
   descriptionPlaceholder: {
-    id: "personalExperienceModal.descriptionPlaceholder",
+    id: "application.personalExperienceModal.descriptionPlaceholder",
     defaultMessage: "e.g. I have extensive experience in...",
   },
   isShareableLabel: {
-    id: "personalExperienceModal.isShareableLabel",
+    id: "application.personalExperienceModal.isShareableLabel",
     defaultMessage: "Sharing Consent",
   },
   isShareableInlineLabel: {
-    id: "personalExperienceModal.isShareableInlineLabel",
+    id: "application.personalExperienceModal.isShareableInlineLabel",
     defaultMessage:
       "This information is not sensitive in nature and I am comfortable sharing it with the staff managing this job application.",
   },
   startDateLabel: {
-    id: "personalExperienceModal.startDateLabel",
+    id: "application.personalExperienceModal.startDateLabel",
     defaultMessage: "Select a Start Date",
   },
   datePlaceholder: {
-    id: "personalExperienceModal.datePlaceholder",
+    id: "application.personalExperienceModal.datePlaceholder",
     defaultMessage: "yyyy-mm-dd",
   },
   isActiveLabel: {
-    id: "personalExperienceModal.isActiveLabel",
+    id: "application.personalExperienceModal.isActiveLabel",
     defaultMessage: "This experience is still ongoing, or...",
     description: "Label for checkbox that indicates work is still ongoing.",
   },
   endDateLabel: {
-    id: "personalExperienceModal.endDateLabel",
+    id: "application.personalExperienceModal.endDateLabel",
     defaultMessage: "Select an End Date",
   },
 });
@@ -233,11 +232,11 @@ export const PersonalExperienceModal: React.FC<PersonalExperienceModalProps> = (
   modalId,
   experiencePersonal,
   jobId,
+  jobClassification,
   requiredSkills,
   savedRequiredSkills,
   optionalSkills,
   savedOptionalSkills,
-  experienceRequirments,
   experienceableId,
   experienceableType,
   parentElement,
@@ -372,7 +371,7 @@ export const PersonalExperienceModal: React.FC<PersonalExperienceModalProps> = (
                 jobRequiredSkills={requiredSkills.map(skillToName)}
                 jobOptionalSkills={optionalSkills.map(skillToName)}
               />
-              <EducationSubform {...experienceRequirments} />
+              <EducationSubform jobClassification={jobClassification} />
             </Modal.Body>
             <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
           </Form>

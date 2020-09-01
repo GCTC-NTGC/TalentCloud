@@ -25,16 +25,19 @@ import AlertWhenUnsaved from "../../Form/AlertWhenUnsaved";
 import TextAreaInput from "../../Form/TextAreaInput";
 import WordCounter from "../../WordCounter/WordCounter";
 import { countNumberOfWords } from "../../WordCounter/helpers";
-import displayMessages from "./SkillsMessages";
+import { navigationMessages } from "../applicationMessages";
+import displayMessages from "./skillsMessages";
 import {
   getSkillOfCriteria,
   getExperiencesOfSkill,
+  getExperienceOfExperienceSkills,
+} from "../helpers";
+import {
   statusReducer,
   initialStatus,
   computeParentStatus,
   SkillStatus,
-  getExperienceOfExperienceSkills,
-} from "./SkillsHelpers";
+} from "./skillsHelpers";
 import Modal from "../../Modal";
 
 const JUSTIFICATION_WORD_LIMIT = 100;
@@ -384,6 +387,9 @@ interface SkillsProps {
   handleRemoveExperienceJustification: (
     experience: ExperienceSkill,
   ) => Promise<ExperienceSkill>;
+  handleContinue: () => void;
+  handleQuit: () => void;
+  handleReturn: () => void;
 }
 
 const Skills: React.FC<SkillsProps> = ({
@@ -393,6 +399,9 @@ const Skills: React.FC<SkillsProps> = ({
   skills,
   handleUpdateExperienceJustification,
   handleRemoveExperienceJustification,
+  handleContinue,
+  handleQuit,
+  handleReturn,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -592,6 +601,46 @@ const Skills: React.FC<SkillsProps> = ({
                 </div>
               );
             })}
+          </div>
+          <div data-c-container="medium" data-c-padding="tb(2)">
+            <hr data-c-hr="thin(c1)" data-c-margin="bottom(2)" />
+            <div data-c-grid="gutter">
+              <div
+                data-c-alignment="base(centre) tp(left)"
+                data-c-grid-item="tp(1of2)"
+              >
+                <button
+                  data-c-button="outline(c2)"
+                  data-c-radius="rounded"
+                  type="button"
+                  onClick={(): void => handleReturn()}
+                >
+                  {intl.formatMessage(navigationMessages.return)}
+                </button>
+              </div>
+              <div
+                data-c-alignment="base(centre) tp(right)"
+                data-c-grid-item="tp(1of2)"
+              >
+                <button
+                  data-c-button="outline(c2)"
+                  data-c-radius="rounded"
+                  type="button"
+                  onClick={(): void => handleQuit()}
+                >
+                  {intl.formatMessage(navigationMessages.quit)}
+                </button>
+                <button
+                  data-c-button="solid(c1)"
+                  data-c-radius="rounded"
+                  data-c-margin="left(1)"
+                  type="button"
+                  onClick={(): void => handleContinue()}
+                >
+                  {intl.formatMessage(navigationMessages.continue)}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

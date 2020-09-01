@@ -27,48 +27,97 @@ exports[`Application Timeline - My Experience should render MyExperience with it
   textComponent={Symbol(react.fragment)}
 >
   <MyExperience
-    assetSkills={
+    criteria={
       Array [
         Object {
-          "classifications": Array [
-            Object {
-              "key": "CS",
-            },
-            Object {
-              "key": "EX",
-            },
-          ],
+          "criteria_type_id": 1,
+          "description": Object {
+            "en": "Defined as: Developing web applications using HTML5, CSS3, Javascript",
+            "fr": "Se définissant comme suit : Développement d'applications Web à l'aide de HTML5, CSS3 et JavaScript.",
+          },
+          "id": 1,
+          "job_poster_id": 1,
+          "skill_id": 1,
+          "skill_level_id": 3,
+          "specificity": Object {
+            "en": "",
+            "fr": "",
+          },
+        },
+        Object {
+          "criteria_type_id": 1,
+          "description": Object {
+            "en": "Defined as: Developing web applications using Javascript and a server side language such as PHP, Python or other",
+            "fr": "Se définissant comme suit : Développement d'applications Web à l'aide de JavaScript et un langage finaux comme PHP, Python ou autre.",
+          },
+          "id": 2,
+          "job_poster_id": 1,
+          "skill_id": 2,
+          "skill_level_id": 3,
+          "specificity": Object {
+            "en": "",
+            "fr": "",
+          },
+        },
+        Object {
+          "criteria_type_id": 1,
           "description": Object {
             "en": "Defined as: Developing applications using open source tools and languages.",
             "fr": "Se définissant comme suit : Développement d'applications à l'aide d'outils et de langages à source ouverte.",
           },
-          "id": 15,
-          "is_culture_skill": false,
-          "is_future_skill": true,
-          "name": Object {
-            "en": "Open Source Development",
-            "fr": "Développement de sources ouvertes",
+          "id": 3,
+          "job_poster_id": 1,
+          "skill_id": 15,
+          "skill_level_id": 3,
+          "specificity": Object {
+            "en": "",
+            "fr": "",
           },
-          "skill_type_id": 2,
         },
         Object {
-          "classifications": Array [
-            Object {
-              "key": "EX",
-            },
-          ],
+          "criteria_type_id": 1,
+          "description": Object {
+            "en": "Defined as: A markup language to build the framework and essential blocks of a webpage.",
+            "fr": "Signifie Hyper-Text-Mark Up-Language, qui implique de travailler avec un langage de balisage pour construire le cadre et les blocs essentiels d'une page Web.",
+          },
+          "id": 4,
+          "job_poster_id": 1,
+          "skill_id": 13,
+          "skill_level_id": 3,
+          "specificity": Object {
+            "en": "",
+            "fr": "",
+          },
+        },
+        Object {
+          "criteria_type_id": 1,
           "description": Object {
             "en": "Defined as: Treating all those in the work environment with fairness, courtesy and respect for differences; performing the job in a manner that upholds the public trust and values co-workers.",
             "fr": "Se définissant comme suit : Capacité de traiter le personnel du milieu de travail avec équité, courtoisie et respect des différences et d'effectuer le travail de manière à maintenir la confiance du public et à respecter les valeurs de ses collègues.",
           },
-          "id": 20,
-          "is_culture_skill": true,
-          "is_future_skill": false,
-          "name": Object {
-            "en": "Integrity",
-            "fr": "Intégrité",
+          "id": 5,
+          "job_poster_id": 1,
+          "skill_id": 20,
+          "skill_level_id": 3,
+          "specificity": Object {
+            "en": "",
+            "fr": "",
           },
-          "skill_type_id": 1,
+        },
+        Object {
+          "criteria_type_id": 1,
+          "description": Object {
+            "en": "Defined as: Being open to multiple perspectives when working interpersonally; demonstrating willingness to use a variety of approaches to advance initiatives and deliver work.",
+            "fr": "Se d'finit comme suit : tre ouvert de multiples points de vue lorsque vous travaillez de manire interpersonnelle; d'montrer une volont' d'avoir recours diverses approches pour faire avancer les initiatives et livrer son travail.",
+          },
+          "id": 6,
+          "job_poster_id": 1,
+          "skill_id": 25,
+          "skill_level_id": 3,
+          "specificity": Object {
+            "en": "",
+            "fr": "",
+          },
         },
       ]
     }
@@ -164,60 +213,6 @@ exports[`Application Timeline - My Experience should render MyExperience with it
         },
       ]
     }
-    essentialSkills={
-      Array [
-        Object {
-          "classifications": Array [
-            Object {
-              "key": "CS",
-            },
-          ],
-          "description": Object {
-            "en": "Defined as: Developing web applications using HTML5, CSS3, Javascript",
-            "fr": "Se définissant comme suit : Développement d'applications Web à l'aide de HTML5, CSS3 et JavaScript.",
-          },
-          "id": 1,
-          "is_culture_skill": false,
-          "is_future_skill": false,
-          "name": Object {
-            "en": "Front-end development",
-            "fr": "Développement frontal",
-          },
-          "skill_type_id": 2,
-        },
-        Object {
-          "classifications": Array [
-            Object {
-              "key": "CS",
-            },
-          ],
-          "description": Object {
-            "en": "Defined as: Developing web applications using Javascript and a server side language such as PHP, Python or other",
-            "fr": "Se définissant comme suit : Développement d'applications Web à l'aide de JavaScript et un langage finaux comme PHP, Python ou autre",
-          },
-          "id": 2,
-          "is_culture_skill": false,
-          "is_future_skill": false,
-          "name": Object {
-            "en": "Web Programming",
-            "fr": "Programmation Web",
-          },
-          "skill_type_id": 2,
-        },
-      ]
-    }
-    experienceRequirements={
-      Object {
-        "educationRequirement": Object {
-          "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, officiis delectus excepturi voluptate laudantium omnis nesciunt consectetur eum sapiente aliquid ipsam obcaecati expedita odio id eligendi voluptatum. Consequuntur, quibusdam voluptates.",
-          "title": "2 Years Post-secondary",
-        },
-        "equivalentRequirment": Object {
-          "description": "ELorem ipsum dolor sit amet consectetur adipisicing elit. Saepe accusamus animi consequatur dolorem voluptatum earum iure doloremque, facere est asperiores, dignissimos quae architecto vero unde vitae quis excepturi! Totam, libero.",
-          "title": "Equivalent Experience",
-        },
-      }
-    }
     experienceSkills={
       Array [
         Object {
@@ -234,7 +229,7 @@ exports[`Application Timeline - My Experience should render MyExperience with it
           "experience_id": 1,
           "experience_type": "experience_work",
           "id": 2,
-          "justification": "",
+          "justification": "I used Front End development at my last job.",
           "skill_id": 1,
           "updated_at": 2016-04-30T14:47:29.000Z,
         },
@@ -284,8 +279,16 @@ exports[`Application Timeline - My Experience should render MyExperience with it
         },
         Object {
           "area_of_study": "Engineering",
+          "education_status": Object {
+            "en": "Complete (credential awarded)",
+            "fr": "Terminé (titre de compétences décern)",
+          },
           "education_status_id": 1,
-          "education_type_id": 1,
+          "education_type": Object {
+            "en": "PhD",
+            "fr": "Doctorat",
+          },
+          "education_type_id": 4,
           "end_date": 2015-04-30T14:47:29.000Z,
           "experienceable_id": 1,
           "experienceable_type": "applicant",
@@ -293,7 +296,7 @@ exports[`Application Timeline - My Experience should render MyExperience with it
           "id": 1,
           "institution": "University of Toronto",
           "is_active": false,
-          "is_education_requirement": false,
+          "is_education_requirement": true,
           "start_date": 2010-09-01T14:47:29.000Z,
           "thesis_title": "How do concrete structures withstand hurricane wind stress?",
           "type": "experience_education",
@@ -312,7 +315,15 @@ exports[`Application Timeline - My Experience should render MyExperience with it
           "type": "experience_community",
         },
         Object {
-          "award_recipient_type_id": 1,
+          "award_recipient_type": Object {
+            "en": "My Project",
+            "fr": "Mon projet",
+          },
+          "award_recipient_type_id": 2,
+          "award_recognition_type": Object {
+            "en": "International",
+            "fr": "Internationale",
+          },
           "award_recognition_type_id": 1,
           "awarded_date": 2015-04-30T14:47:29.000Z,
           "experienceable_id": 1,
@@ -343,6 +354,7 @@ exports[`Application Timeline - My Experience should render MyExperience with it
     handleQuit={[Function]}
     handleReturn={[Function]}
     handleSubmitExperience={[Function]}
+    jobClassificationId={1}
     jobId={1}
     recipientTypes={
       Array [
@@ -429,24 +441,46 @@ exports[`Application Timeline - My Experience should render MyExperience with it
         },
       ]
     }
-  />
-  ,
-</IntlProvider>
-`;
-
-exports[`Application Timeline - My Experience should render MyExperience without any experiences 1`] = `
-<IntlProvider
-  defaultFormats={Object {}}
-  defaultLocale="en"
-  formats={Object {}}
-  locale="en"
-  messages={null}
-  onError={[Function]}
-  textComponent={Symbol(react.fragment)}
->
-  <MyExperience
-    assetSkills={
+    skills={
       Array [
+        Object {
+          "classifications": Array [
+            Object {
+              "key": "CS",
+            },
+          ],
+          "description": Object {
+            "en": "Defined as: Developing web applications using HTML5, CSS3, Javascript",
+            "fr": "Se définissant comme suit : Développement d'applications Web à l'aide de HTML5, CSS3 et JavaScript.",
+          },
+          "id": 1,
+          "is_culture_skill": false,
+          "is_future_skill": false,
+          "name": Object {
+            "en": "Front-end development",
+            "fr": "Développement frontal",
+          },
+          "skill_type_id": 2,
+        },
+        Object {
+          "classifications": Array [
+            Object {
+              "key": "CS",
+            },
+          ],
+          "description": Object {
+            "en": "Defined as: Developing web applications using Javascript and a server side language such as PHP, Python or other",
+            "fr": "Se définissant comme suit : Développement d'applications Web à l'aide de JavaScript et un langage finaux comme PHP, Python ou autre",
+          },
+          "id": 2,
+          "is_culture_skill": false,
+          "is_future_skill": false,
+          "name": Object {
+            "en": "Web Programming",
+            "fr": "Programmation Web",
+          },
+          "skill_type_id": 2,
+        },
         Object {
           "classifications": Array [
             Object {
@@ -487,6 +521,154 @@ exports[`Application Timeline - My Experience should render MyExperience without
             "fr": "Intégrité",
           },
           "skill_type_id": 1,
+        },
+        Object {
+          "classifications": Array [
+            Object {
+              "key": "CS",
+            },
+          ],
+          "description": Object {
+            "en": "Defined as: A markup language to build the framework and essential blocks of a webpage.",
+            "fr": "Signifie Hyper-Text-Mark Up-Language, qui implique de travailler avec un langage de balisage pour construire le cadre et les blocs essentiels d'une page Web.",
+          },
+          "id": 13,
+          "is_culture_skill": true,
+          "is_future_skill": false,
+          "name": Object {
+            "en": "HTML",
+            "fr": "HTML",
+          },
+          "skill_type_id": 2,
+        },
+        Object {
+          "classifications": Array [
+            Object {
+              "key": "EX",
+            },
+          ],
+          "description": Object {
+            "en": "Defined as: Being open to multiple perspectives when working interpersonally; demonstrating willingness to use a variety of approaches to advance initiatives and deliver work.",
+            "fr": "Se d'finit comme suit : tre ouvert de multiples points de vue lorsque vous travaillez de manire interpersonnelle; d'montrer une volont' d'avoir recours diverses approches pour faire avancer les initiatives et livrer son travail.",
+          },
+          "id": 25,
+          "is_culture_skill": true,
+          "is_future_skill": false,
+          "name": Object {
+            "en": "Flexibility",
+            "fr": "Flexibilité",
+          },
+          "skill_type_id": 1,
+        },
+      ]
+    }
+  />
+  ,
+</IntlProvider>
+`;
+
+exports[`Application Timeline - My Experience should render MyExperience without any experiences 1`] = `
+<IntlProvider
+  defaultFormats={Object {}}
+  defaultLocale="en"
+  formats={Object {}}
+  locale="en"
+  messages={null}
+  onError={[Function]}
+  textComponent={Symbol(react.fragment)}
+>
+  <MyExperience
+    criteria={
+      Array [
+        Object {
+          "criteria_type_id": 1,
+          "description": Object {
+            "en": "Defined as: Developing web applications using HTML5, CSS3, Javascript",
+            "fr": "Se définissant comme suit : Développement d'applications Web à l'aide de HTML5, CSS3 et JavaScript.",
+          },
+          "id": 1,
+          "job_poster_id": 1,
+          "skill_id": 1,
+          "skill_level_id": 3,
+          "specificity": Object {
+            "en": "",
+            "fr": "",
+          },
+        },
+        Object {
+          "criteria_type_id": 1,
+          "description": Object {
+            "en": "Defined as: Developing web applications using Javascript and a server side language such as PHP, Python or other",
+            "fr": "Se définissant comme suit : Développement d'applications Web à l'aide de JavaScript et un langage finaux comme PHP, Python ou autre.",
+          },
+          "id": 2,
+          "job_poster_id": 1,
+          "skill_id": 2,
+          "skill_level_id": 3,
+          "specificity": Object {
+            "en": "",
+            "fr": "",
+          },
+        },
+        Object {
+          "criteria_type_id": 1,
+          "description": Object {
+            "en": "Defined as: Developing applications using open source tools and languages.",
+            "fr": "Se définissant comme suit : Développement d'applications à l'aide d'outils et de langages à source ouverte.",
+          },
+          "id": 3,
+          "job_poster_id": 1,
+          "skill_id": 15,
+          "skill_level_id": 3,
+          "specificity": Object {
+            "en": "",
+            "fr": "",
+          },
+        },
+        Object {
+          "criteria_type_id": 1,
+          "description": Object {
+            "en": "Defined as: A markup language to build the framework and essential blocks of a webpage.",
+            "fr": "Signifie Hyper-Text-Mark Up-Language, qui implique de travailler avec un langage de balisage pour construire le cadre et les blocs essentiels d'une page Web.",
+          },
+          "id": 4,
+          "job_poster_id": 1,
+          "skill_id": 13,
+          "skill_level_id": 3,
+          "specificity": Object {
+            "en": "",
+            "fr": "",
+          },
+        },
+        Object {
+          "criteria_type_id": 1,
+          "description": Object {
+            "en": "Defined as: Treating all those in the work environment with fairness, courtesy and respect for differences; performing the job in a manner that upholds the public trust and values co-workers.",
+            "fr": "Se définissant comme suit : Capacité de traiter le personnel du milieu de travail avec équité, courtoisie et respect des différences et d'effectuer le travail de manière à maintenir la confiance du public et à respecter les valeurs de ses collègues.",
+          },
+          "id": 5,
+          "job_poster_id": 1,
+          "skill_id": 20,
+          "skill_level_id": 3,
+          "specificity": Object {
+            "en": "",
+            "fr": "",
+          },
+        },
+        Object {
+          "criteria_type_id": 1,
+          "description": Object {
+            "en": "Defined as: Being open to multiple perspectives when working interpersonally; demonstrating willingness to use a variety of approaches to advance initiatives and deliver work.",
+            "fr": "Se d'finit comme suit : tre ouvert de multiples points de vue lorsque vous travaillez de manire interpersonnelle; d'montrer une volont' d'avoir recours diverses approches pour faire avancer les initiatives et livrer son travail.",
+          },
+          "id": 6,
+          "job_poster_id": 1,
+          "skill_id": 25,
+          "skill_level_id": 3,
+          "specificity": Object {
+            "en": "",
+            "fr": "",
+          },
         },
       ]
     }
@@ -582,60 +764,6 @@ exports[`Application Timeline - My Experience should render MyExperience without
         },
       ]
     }
-    essentialSkills={
-      Array [
-        Object {
-          "classifications": Array [
-            Object {
-              "key": "CS",
-            },
-          ],
-          "description": Object {
-            "en": "Defined as: Developing web applications using HTML5, CSS3, Javascript",
-            "fr": "Se définissant comme suit : Développement d'applications Web à l'aide de HTML5, CSS3 et JavaScript.",
-          },
-          "id": 1,
-          "is_culture_skill": false,
-          "is_future_skill": false,
-          "name": Object {
-            "en": "Front-end development",
-            "fr": "Développement frontal",
-          },
-          "skill_type_id": 2,
-        },
-        Object {
-          "classifications": Array [
-            Object {
-              "key": "CS",
-            },
-          ],
-          "description": Object {
-            "en": "Defined as: Developing web applications using Javascript and a server side language such as PHP, Python or other",
-            "fr": "Se définissant comme suit : Développement d'applications Web à l'aide de JavaScript et un langage finaux comme PHP, Python ou autre",
-          },
-          "id": 2,
-          "is_culture_skill": false,
-          "is_future_skill": false,
-          "name": Object {
-            "en": "Web Programming",
-            "fr": "Programmation Web",
-          },
-          "skill_type_id": 2,
-        },
-      ]
-    }
-    experienceRequirements={
-      Object {
-        "educationRequirement": Object {
-          "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, officiis delectus excepturi voluptate laudantium omnis nesciunt consectetur eum sapiente aliquid ipsam obcaecati expedita odio id eligendi voluptatum. Consequuntur, quibusdam voluptates.",
-          "title": "2 Years Post-secondary",
-        },
-        "equivalentRequirment": Object {
-          "description": "ELorem ipsum dolor sit amet consectetur adipisicing elit. Saepe accusamus animi consequatur dolorem voluptatum earum iure doloremque, facere est asperiores, dignissimos quae architecto vero unde vitae quis excepturi! Totam, libero.",
-          "title": "Equivalent Experience",
-        },
-      }
-    }
     experienceSkills={Array []}
     experiences={Array []}
     handleContinue={[Function]}
@@ -643,6 +771,7 @@ exports[`Application Timeline - My Experience should render MyExperience without
     handleQuit={[Function]}
     handleReturn={[Function]}
     handleSubmitExperience={[Function]}
+    jobClassificationId={1}
     jobId={1}
     recipientTypes={
       Array [
@@ -726,6 +855,127 @@ exports[`Application Timeline - My Experience should render MyExperience without
             "en": "Sub-Organizational (Branch)",
             "fr": "Sous-Organisation (Branche)",
           },
+        },
+      ]
+    }
+    skills={
+      Array [
+        Object {
+          "classifications": Array [
+            Object {
+              "key": "CS",
+            },
+          ],
+          "description": Object {
+            "en": "Defined as: Developing web applications using HTML5, CSS3, Javascript",
+            "fr": "Se définissant comme suit : Développement d'applications Web à l'aide de HTML5, CSS3 et JavaScript.",
+          },
+          "id": 1,
+          "is_culture_skill": false,
+          "is_future_skill": false,
+          "name": Object {
+            "en": "Front-end development",
+            "fr": "Développement frontal",
+          },
+          "skill_type_id": 2,
+        },
+        Object {
+          "classifications": Array [
+            Object {
+              "key": "CS",
+            },
+          ],
+          "description": Object {
+            "en": "Defined as: Developing web applications using Javascript and a server side language such as PHP, Python or other",
+            "fr": "Se définissant comme suit : Développement d'applications Web à l'aide de JavaScript et un langage finaux comme PHP, Python ou autre",
+          },
+          "id": 2,
+          "is_culture_skill": false,
+          "is_future_skill": false,
+          "name": Object {
+            "en": "Web Programming",
+            "fr": "Programmation Web",
+          },
+          "skill_type_id": 2,
+        },
+        Object {
+          "classifications": Array [
+            Object {
+              "key": "CS",
+            },
+            Object {
+              "key": "EX",
+            },
+          ],
+          "description": Object {
+            "en": "Defined as: Developing applications using open source tools and languages.",
+            "fr": "Se définissant comme suit : Développement d'applications à l'aide d'outils et de langages à source ouverte.",
+          },
+          "id": 15,
+          "is_culture_skill": false,
+          "is_future_skill": true,
+          "name": Object {
+            "en": "Open Source Development",
+            "fr": "Développement de sources ouvertes",
+          },
+          "skill_type_id": 2,
+        },
+        Object {
+          "classifications": Array [
+            Object {
+              "key": "EX",
+            },
+          ],
+          "description": Object {
+            "en": "Defined as: Treating all those in the work environment with fairness, courtesy and respect for differences; performing the job in a manner that upholds the public trust and values co-workers.",
+            "fr": "Se définissant comme suit : Capacité de traiter le personnel du milieu de travail avec équité, courtoisie et respect des différences et d'effectuer le travail de manière à maintenir la confiance du public et à respecter les valeurs de ses collègues.",
+          },
+          "id": 20,
+          "is_culture_skill": true,
+          "is_future_skill": false,
+          "name": Object {
+            "en": "Integrity",
+            "fr": "Intégrité",
+          },
+          "skill_type_id": 1,
+        },
+        Object {
+          "classifications": Array [
+            Object {
+              "key": "CS",
+            },
+          ],
+          "description": Object {
+            "en": "Defined as: A markup language to build the framework and essential blocks of a webpage.",
+            "fr": "Signifie Hyper-Text-Mark Up-Language, qui implique de travailler avec un langage de balisage pour construire le cadre et les blocs essentiels d'une page Web.",
+          },
+          "id": 13,
+          "is_culture_skill": true,
+          "is_future_skill": false,
+          "name": Object {
+            "en": "HTML",
+            "fr": "HTML",
+          },
+          "skill_type_id": 2,
+        },
+        Object {
+          "classifications": Array [
+            Object {
+              "key": "EX",
+            },
+          ],
+          "description": Object {
+            "en": "Defined as: Being open to multiple perspectives when working interpersonally; demonstrating willingness to use a variety of approaches to advance initiatives and deliver work.",
+            "fr": "Se d'finit comme suit : tre ouvert de multiples points de vue lorsque vous travaillez de manire interpersonnelle; d'montrer une volont' d'avoir recours diverses approches pour faire avancer les initiatives et livrer son travail.",
+          },
+          "id": 25,
+          "is_culture_skill": true,
+          "is_future_skill": false,
+          "name": Object {
+            "en": "Flexibility",
+            "fr": "Flexibilité",
+          },
+          "skill_type_id": 1,
         },
       ]
     }

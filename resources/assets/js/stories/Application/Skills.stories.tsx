@@ -35,6 +35,9 @@ stories.add(
       skills={fakeSkills()}
       handleUpdateExperienceJustification={handleUpdateExperienceJustification}
       handleRemoveExperienceJustification={handleRemoveExperienceJustification}
+      handleContinue={action("Continue")}
+      handleQuit={action("Quit")}
+      handleReturn={action("Return")}
     />
   ),
 );
