@@ -18,7 +18,10 @@ import {
   ExperienceSkill,
   Skill,
 } from "../../../models/types";
-import { getApplicationById } from "../../../store/Application/applicationSelector";
+import {
+  getApplicationById,
+  getApplicationIsUpdating,
+} from "../../../store/Application/applicationSelector";
 import { RootState } from "../../../store/store";
 import { fetchApplication } from "../../../store/Application/applicationActions";
 import {
@@ -62,7 +65,7 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
     getApplicationById(state, { id: applicationId });
   const application = useSelector(applicationSelector);
   const applicationIsUpdating = useSelector((state: RootState) =>
-    applicationIsUpdating(state, { applicationId }),
+    getApplicationIsUpdating(state, { applicationId }),
   );
   useEffect(() => {
     if (application === null && !applicationIsUpdating) {

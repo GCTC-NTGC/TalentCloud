@@ -99,7 +99,7 @@ export const allIsSendingReferenceEmailByApplication = (
   return ui(state).sendingReferenceEmailForApplication;
 };
 
-export const applicationIsUpdating = (
+export const getApplicationIsUpdating = (
   state: RootState,
   props: { applicationId: number },
 ): boolean =>
