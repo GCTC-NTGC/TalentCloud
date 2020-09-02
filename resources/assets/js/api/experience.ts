@@ -41,7 +41,7 @@ export const getApplicantExperienceEndpoint = (applicantId: number): string =>
 
 export const getApplicationExperienceEndpoint = (
   applicationId: number,
-): string => `${baseUrl()}/applications/${applicationId}/experience`; // FIXME: this url doesn't exist yet.
+): string => `${baseUrl(2)}/applications/${applicationId}/experience`; // FIXME: this url doesn't exist yet.
 
 export const getExperienceEndpoint = (
   id: number | null,
