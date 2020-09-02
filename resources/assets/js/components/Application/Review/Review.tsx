@@ -209,7 +209,7 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
 
 type ExperienceView = "experience" | "skills" | "education";
 
-interface ReviewFormValues {
+export interface ReviewFormValues {
   shareWithManagers: boolean;
 }
 

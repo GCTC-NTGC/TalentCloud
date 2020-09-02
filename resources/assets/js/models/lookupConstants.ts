@@ -195,6 +195,14 @@ export const VeteranId = {
   past: 3,
 };
 
+export const ApplicationStatusId = {
+  draft: 1,
+  submitted: 2,
+  requiresAction: 3,
+  underReview: 4,
+  rejected: 5,
+};
+
 export function getKeyByValue(object, value): string {
   return Object.keys(object).find((key) => object[key] === value) || "";
 }
