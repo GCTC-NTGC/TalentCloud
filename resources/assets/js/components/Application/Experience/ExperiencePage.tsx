@@ -331,6 +331,7 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
         handleReturn={handleReturn}
         handleQuit={handleQuit}
       />
+      <div id="modal-root" data-clone />
     </>
   );
 };
