@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable camelcase */
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import { useIntl } from "react-intl";
 import { useSelector, useDispatch } from "react-redux";
 import { getLocale } from "../../../helpers/localize";
@@ -95,6 +95,7 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
 
   // When an Application is still a draft, use Experiences associated with the applicant profile.
   // When an Application has been submitted and is no longer a draft, display Experience associated with the Application directly.
+  const applicationLoaded = application !== null;
   const useProfileExperience =
     application === null ||
     application.application_status_id === ApplicationStatusId.draft;
@@ -120,25 +121,37 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
       ? getUpdatingByApplicant(state, { applicantId })
       : getUpdatingByApplication(state, { applicationId }),
   );
+  const [experiencesFetched, setExperiencesFetched] = useState(false);
   useEffect(() => {
-    if (experiences.length === 0 && !experiencesUpdating) {
+    // Only load experiences if they have never been fetched by this component (!experiencesFetched),
+    //  have never been fetched by another component (length === 0),
+    //  and are not currently being fetched (!experiencesUpdating).
+    // Also, wait until application has been loaded so the correct source can be determined.
+    if (
+      applicationLoaded &&
+      !experiencesFetched &&
+      !experiencesUpdating &&
+      experiences.length === 0
+    ) {
       if (useProfileExperience) {
-        if (applicantId !== 0) {
-          dispatch(fetchExperienceByApplicant(applicantId));
-        }
+        dispatch(fetchExperienceByApplicant(applicantId));
       } else {
         dispatch(fetchExperienceByApplication(applicationId));
       }
+      setExperiencesFetched(true);
     }
   }, [
-    experiences.length,
     applicantId,
     applicationId,
+    applicationLoaded,
+    dispatch,
+    experiences.length,
+    experiencesFetched,
     experiencesUpdating,
     useProfileExperience,
-    dispatch,
   ]);
 
+  // ExperienceSkills don't need to be fetched because they are returned inthe Experiences API calls.
   const expSkillSelector = (state: RootState) =>
     useProfileExperience
       ? getExperienceSkillsByApplicant(state, { applicantId })
