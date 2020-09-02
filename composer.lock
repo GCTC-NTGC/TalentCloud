@@ -1352,16 +1352,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v6.18.37",
+            "version": "v6.18.38",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "cd1ab410f7dda21de360dabd7fe25ffd2402d2bc"
+                "reference": "94a29cadcc0d48b89b4aa820f414fb7721ba0e22"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/cd1ab410f7dda21de360dabd7fe25ffd2402d2bc",
-                "reference": "cd1ab410f7dda21de360dabd7fe25ffd2402d2bc",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/94a29cadcc0d48b89b4aa820f414fb7721ba0e22",
+                "reference": "94a29cadcc0d48b89b4aa820f414fb7721ba0e22",
                 "shasum": ""
             },
             "require": {
@@ -1497,7 +1497,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2020-08-27T14:18:50+00:00"
+            "time": "2020-09-01T13:40:51+00:00"
         },
         {
             "name": "laravel/helpers",
@@ -3365,16 +3365,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v4.4.11",
+            "version": "v4.4.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "55d07021da933dd0d633ffdab6f45d5b230c7e02"
+                "reference": "b39fd99b9297b67fb7633b7d8083957a97e1e727"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/55d07021da933dd0d633ffdab6f45d5b230c7e02",
-                "reference": "55d07021da933dd0d633ffdab6f45d5b230c7e02",
+                "url": "https://api.github.com/repos/symfony/console/zipball/b39fd99b9297b67fb7633b7d8083957a97e1e727",
+                "reference": "b39fd99b9297b67fb7633b7d8083957a97e1e727",
                 "shasum": ""
             },
             "require": {
@@ -3452,11 +3452,11 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-07-06T13:18:39+00:00"
+            "time": "2020-09-02T07:07:21+00:00"
         },
         {
             "name": "symfony/css-selector",
-            "version": "v4.4.11",
+            "version": "v4.4.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
@@ -3825,16 +3825,16 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v4.4.11",
+            "version": "v4.4.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "2727aa35fddfada1dd37599948528e9b152eb742"
+                "reference": "2a78590b2c7e3de5c429628457c47541c58db9c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/2727aa35fddfada1dd37599948528e9b152eb742",
-                "reference": "2727aa35fddfada1dd37599948528e9b152eb742",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/2a78590b2c7e3de5c429628457c47541c58db9c7",
+                "reference": "2a78590b2c7e3de5c429628457c47541c58db9c7",
                 "shasum": ""
             },
             "require": {
@@ -3884,7 +3884,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-07-05T09:39:30+00:00"
+            "time": "2020-08-17T09:56:45+00:00"
         },
         {
             "name": "symfony/http-foundation",
@@ -4673,7 +4673,7 @@
         },
         {
             "name": "symfony/process",
-            "version": "v4.4.11",
+            "version": "v4.4.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
@@ -4736,16 +4736,16 @@
         },
         {
             "name": "symfony/routing",
-            "version": "v4.4.11",
+            "version": "v4.4.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/routing.git",
-                "reference": "e103381a4c2f0731c14589041852bf979e97c7af"
+                "reference": "e3387963565da9bae51d1d3ab8041646cc93bd04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/routing/zipball/e103381a4c2f0731c14589041852bf979e97c7af",
-                "reference": "e103381a4c2f0731c14589041852bf979e97c7af",
+                "url": "https://api.github.com/repos/symfony/routing/zipball/e3387963565da9bae51d1d3ab8041646cc93bd04",
+                "reference": "e3387963565da9bae51d1d3ab8041646cc93bd04",
                 "shasum": ""
             },
             "require": {
@@ -4822,7 +4822,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-07-05T09:39:30+00:00"
+            "time": "2020-08-10T07:27:51+00:00"
         },
         {
             "name": "symfony/service-contracts",
@@ -4902,16 +4902,16 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v4.4.11",
+            "version": "v4.4.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "a8ea9d97353294eb6783f2894ef8cee99a045822"
+                "reference": "700e6e50174b0cdcf0fa232773bec5c314680575"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/a8ea9d97353294eb6783f2894ef8cee99a045822",
-                "reference": "a8ea9d97353294eb6783f2894ef8cee99a045822",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/700e6e50174b0cdcf0fa232773bec5c314680575",
+                "reference": "700e6e50174b0cdcf0fa232773bec5c314680575",
                 "shasum": ""
             },
             "require": {
@@ -4988,7 +4988,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-07-23T08:31:43+00:00"
+            "time": "2020-08-17T09:56:45+00:00"
         },
         {
             "name": "symfony/translation-contracts",
