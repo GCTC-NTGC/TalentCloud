@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable camelcase */
 import React, { useEffect, useCallback } from "react";
 import { useIntl } from "react-intl";
@@ -12,7 +13,11 @@ import {
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
 import makeProgressBarSteps from "../ProgressBar/progressHelpers";
 import Experience, { ExperienceSubmitData } from "./Experience";
-import { Experience as ExperienceType } from "../../../models/types";
+import {
+  Experience as ExperienceType,
+  ExperienceSkill,
+  Skill,
+} from "../../../models/types";
 import { getApplicationById } from "../../../store/Application/applicationSelector";
 import { RootState } from "../../../store/store";
 import { fetchApplication } from "../../../store/Application/applicationActions";
@@ -32,8 +37,15 @@ import {
 import {
   fetchExperienceByApplication,
   fetchExperienceByApplicant,
+  createExperience,
+  createExperienceSkill,
+  updateExperience,
+  deleteExperienceSkill,
+  deleteExperience,
 } from "../../../store/Experience/experienceActions";
 import { ApplicationStatusId } from "../../../models/lookupConstants";
+import { hasKey, getId } from "../../../helpers/queries";
+import { DispatchType } from "../../../configureStore";
 
 interface ExperiencePageProps {
   applicationId: number;
@@ -44,7 +56,7 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<DispatchType>();
 
   const applicationSelector = (state: RootState) =>
     getApplicationById(state, { id: applicationId });
@@ -136,14 +148,99 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
   const recognitionTypes = [];
 
   const handleSubmit = async (data: ExperienceSubmitData): Promise<void> => {
-    console.log(data); // TODO: Save the data.
+    // extract the Experience object from the data.
+    let experience: ExperienceType | null = null;
+    if ("experienceWork" in data) {
+      experience = data.experienceWork;
+    } else if ("experienceAward" in data) {
+      experience = data.experienceAward;
+    } else if ("experienceCommunity" in data) {
+      experience = data.experienceCommunity;
+    } else if ("experienceEducation" in data) {
+      experience = data.experienceEducation;
+    } else if ("experiencePersonal" in data) {
+      experience = data.experiencePersonal;
+    }
+    if (experience === null) {
+      return;
+    }
+
+    const newLinkedSkills = [
+      ...data.savedRequiredSkills,
+      ...data.savedOptionalSkills,
+    ];
+
+    const newExpSkill = (
+      skillId: number,
+      exp: ExperienceType,
+    ): ExperienceSkill => ({
+      id: 0,
+      skill_id: skillId,
+      experience_id: exp.id,
+      experience_type: exp.type,
+      justification: "",
+      created_at: new Date(),
+      updated_at: new Date(),
+    });
+
+    if (experience.id === 0) {
+      // If the experience is brand new, it (and related experience skills) must be created on server.
+      const result = await dispatch(createExperience(experience));
+      if (!result.error) {
+        const newExperience = (await result.payload).experience;
+        const saveRequests = newLinkedSkills.map((skill) => {
+          const expSkill = newExpSkill(skill.id, newExperience);
+          return dispatch(createExperienceSkill(expSkill));
+        });
+        await Promise.allSettled(saveRequests);
+      }
+    } else {
+      // If the experience already exists it can simply be updated.
+      const updateExpRequest = dispatch(updateExperience(experience));
+      // Determine which skills were already linked to the experience
+      const prevExpSkills = experienceSkills.filter(
+        (expSkill) =>
+          expSkill.experience_id === experience?.id &&
+          expSkill.experience_type === experience?.type,
+      );
+      const prevSkillIds = prevExpSkills.map((expSkill) => expSkill.skill_id);
+      const newSkillIds = newLinkedSkills.map(getId);
+
+      // Delete skills that were removed.
+      const deleteRequests = prevExpSkills
+        .filter((expSkill) => !newSkillIds.includes(expSkill.skill_id))
+        .map((expSkill) =>
+          dispatch(
+            deleteExperienceSkill(
+              expSkill.id,
+              expSkill.experience_id,
+              expSkill.experience_type,
+            ),
+          ),
+        );
+      // Created new Experience Skills for skills which don't exist yet.
+      const createRequests = newSkillIds
+        .filter((newSkillId) => !prevSkillIds.includes(newSkillId))
+        .map((newSkillId) =>
+          experience
+            ? dispatch(
+                createExperienceSkill(newExpSkill(newSkillId, experience)),
+              )
+            : Promise.reject(),
+        );
+      await Promise.allSettled([
+        updateExpRequest,
+        ...deleteRequests,
+        ...createRequests,
+      ]);
+    }
   };
   const handleDelete = async (
     id: number,
     type: ExperienceType["type"],
   ): Promise<void> => {
-    // TODO: Delete the experience.
-    console.log(`Delete experience id: ${id}, type: ${type}`);
+    // Deleting an Experience automatically handles deleting associated ExperienceSkills.
+    await dispatch(deleteExperience(id, type));
   };
 
   const handleContinue = (): void => {
