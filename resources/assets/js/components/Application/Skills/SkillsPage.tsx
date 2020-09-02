@@ -37,6 +37,8 @@ import {
 import {
   fetchExperienceByApplicant,
   fetchExperienceByApplication,
+  updateExperienceSkill,
+  deleteExperienceSkill,
 } from "../../../store/Experience/experienceActions";
 import { ApplicationStatusId } from "../../../models/lookupConstants";
 import Skills from "./Skills";
@@ -150,16 +152,28 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
   }, [skills.length, skillsUpdating, dispatch]);
 
   const handleUpdateExpSkill = async (
-    experience: ExperienceSkill,
+    expSkill: ExperienceSkill,
   ): Promise<ExperienceSkill> => {
-    // TODO: Save experience skill to server.
-    return experience;
+    const result = await dispatch(updateExperienceSkill(expSkill));
+    if (!result.error) {
+      return result.payload;
+    }
+    return Promise.reject(result.error);
   };
   const handleDeleteExpSkill = async (
-    experience: ExperienceSkill,
-  ): Promise<ExperienceSkill> => {
-    // TODO: Delete experience skill
-    return experience;
+    expSkill: ExperienceSkill,
+  ): Promise<void> => {
+    const result = await dispatch(
+      deleteExperienceSkill(
+        expSkill.id,
+        expSkill.experience_id,
+        expSkill.experience_type,
+      ),
+    );
+    if (!result.error) {
+      return Promise.resolve();
+    }
+    return Promise.reject(result.error);
   };
   const closeDate = new Date(); // TODO: get from application.
 

@@ -99,9 +99,7 @@ interface ExperienceSkillAccordionProps {
       status: IconStatus;
     };
   }) => void;
-  handleRemoveExperience: (
-    experience: ExperienceSkill,
-  ) => Promise<ExperienceSkill>;
+  handleRemoveExperience: (experience: ExperienceSkill) => Promise<void>;
 }
 
 interface ExperienceSkillFormValues {
@@ -386,7 +384,7 @@ interface SkillsProps {
   ) => Promise<ExperienceSkill>;
   handleRemoveExperienceJustification: (
     experience: ExperienceSkill,
-  ) => Promise<ExperienceSkill>;
+  ) => Promise<void>;
   handleContinue: () => void;
   handleQuit: () => void;
   handleReturn: () => void;
