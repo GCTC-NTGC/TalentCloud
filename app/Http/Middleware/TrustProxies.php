@@ -35,6 +35,6 @@ class TrustProxies extends Middleware
      *
      * @var string
      */
-    protected $headers = Request::HEADER_FORWARDED;
-    // Request::HEADER_X_FORWARDED_ALL
+    protected $headers = Request::HEADER_X_FORWARDED_ALL;
+    // Request::HEADER_FORWARDED
 }
