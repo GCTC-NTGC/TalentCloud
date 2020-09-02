@@ -39,7 +39,7 @@
         "@testing-library/jest-dom": "^5.11.4",
         "@types/classnames": "^2.2.10",
         "@types/enzyme": "^3.10.5",
-        "@types/fetch-mock": "^7.3.2",
+        "@types/fetch-mock": "^7.3.3",
         "@types/intl": "^1.2.0",
         "@types/jest": "^26.0.12",
         "@types/lodash": "^4.14.161",
