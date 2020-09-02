@@ -49,6 +49,11 @@ import {
 import { ApplicationStatusId } from "../../../models/lookupConstants";
 import { hasKey, getId } from "../../../helpers/queries";
 import { DispatchType } from "../../../configureStore";
+import {
+  getSkills,
+  getSkillsUpdating,
+} from "../../../store/Skill/skillSelector";
+import { fetchSkills } from "../../../store/Skill/skillActions";
 
 interface ExperiencePageProps {
   applicationId: number;
@@ -158,12 +163,38 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
       : getExperienceSkillsByApplication(state, { applicationId });
   const experienceSkills = useSelector(expSkillSelector);
 
+  const skills = useSelector(getSkills);
+  const skillsUpdating = useSelector(getSkillsUpdating);
+  useEffect(() => {
+    if (skills.length === 0 && !skillsUpdating) {
+      dispatch(fetchSkills());
+    }
+  }, [skills.length, skillsUpdating, dispatch]);
   // TODO: load constants from backend.
-  const educationStatuses = [];
-  const educationTypes = [];
-  const skills = [];
-  const recipientTypes = [];
-  const recognitionTypes = [];
+  const educationStatuses = [
+    // TODO: Use real constants instead of dummy constants for testing.
+    { id: 1, name: { en: "Status 1", fr: "Status 1 FR" } },
+    { id: 2, name: { en: "Status 2", fr: "Status 2 FR" } },
+    { id: 3, name: { en: "Status 3", fr: "Status 3 FR" } },
+  ];
+  const educationTypes = [
+    // TODO: Use real constants instead of dummy constants for testing.
+    { id: 1, name: { en: "Education Type 1", fr: "Education Type 1 FR" } },
+    { id: 2, name: { en: "Education Type 2", fr: "Education Type 2 FR" } },
+    { id: 3, name: { en: "Education Type 3", fr: "Education Type 3 FR" } },
+  ];
+  const recipientTypes = [
+    // TODO: Use real constants instead of dummy constants for testing.
+    { id: 1, name: { en: "RECIPIENT TYPE 1", fr: "RECIPIENT TYPE 1 FR" } },
+    { id: 2, name: { en: "RECIPIENT TYPE 2", fr: "RECIPIENT TYPE 2 FR" } },
+    { id: 3, name: { en: "RECIPIENT TYPE 3", fr: "RECIPIENT TYPE 3 FR" } },
+  ];
+  const recognitionTypes = [
+    // TODO: Use real constants instead of dummy constants for testing.
+    { id: 1, name: { en: "RECOGNITION TYPE 1", fr: "RECOGNITION TYPE 1 FR" } },
+    { id: 2, name: { en: "RECOGNITION TYPE 2", fr: "RECOGNITION TYPE 2 FR" } },
+    { id: 3, name: { en: "RECOGNITION TYPE 3", fr: "RECOGNITION TYPE 3 FR" } },
+  ];
 
   const handleSubmit = async (data: ExperienceSubmitData): Promise<void> => {
     // extract the Experience object from the data.
