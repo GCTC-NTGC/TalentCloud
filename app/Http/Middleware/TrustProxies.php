@@ -18,7 +18,7 @@ class TrustProxies extends Middleware
 
     // For the AppSvc in the Azure environment.
     protected $proxies = [
-        '13.71.170.130',
+        //'13.71.170.130',
         '13.88.230.232',
         '13.88.229.172',
         '52.228.39.78',
@@ -35,6 +35,6 @@ class TrustProxies extends Middleware
      *
      * @var string
      */
-    protected $headers = Request::HEADER_X_FORWARDED_ALL;
-    // Request::HEADER_FORWARDED
+    protected $headers = Request::HEADER_FORWARDED;
+    // Request::HEADER_X_FORWARDED_ALL
 }
