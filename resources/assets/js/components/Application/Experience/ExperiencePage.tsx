@@ -16,7 +16,6 @@ import Experience, { ExperienceSubmitData } from "./Experience";
 import {
   Experience as ExperienceType,
   ExperienceSkill,
-  Skill,
 } from "../../../models/types";
 import {
   getApplicationById,
@@ -36,6 +35,7 @@ import {
   getExperienceByApplicant,
   getUpdatingByApplicant,
   getUpdatingByApplication,
+  getExperienceSkillsByApplicant,
 } from "../../../store/Experience/experienceSelector";
 import {
   fetchExperienceByApplication,
@@ -140,7 +140,9 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
   ]);
 
   const expSkillSelector = (state: RootState) =>
-    getExperienceSkillsByApplication(state, { applicationId });
+    useProfileExperience
+      ? getExperienceSkillsByApplicant(state, { applicantId })
+      : getExperienceSkillsByApplication(state, { applicationId });
   const experienceSkills = useSelector(expSkillSelector);
 
   // TODO: load constants from backend.
