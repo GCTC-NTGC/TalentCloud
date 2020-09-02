@@ -1,11 +1,10 @@
 /* eslint-disable camelcase */
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import { useIntl } from "react-intl";
 import { useDispatch, useSelector } from "react-redux";
 import makeProgressBarSteps from "../ProgressBar/progressHelpers";
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
 import { ExperienceSkill, Experience } from "../../../models/types";
-import { fakeSkills } from "../../../fakeData/fakeSkills";
 import { navigate } from "../../../helpers/router";
 import {
   applicationFit,
@@ -93,6 +92,7 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
 
   // When an Application is still a draft, use Experiences associated with the applicant profile.
   // When an Application has been submitted and is no longer a draft, display Experience associated with the Application directly.
+  const applicationLoaded = application !== null;
   const useProfileExperience =
     application === null ||
     application.application_status_id === ApplicationStatusId.draft;
@@ -118,23 +118,34 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
       ? getUpdatingByApplicant(state, { applicantId })
       : getUpdatingByApplication(state, { applicationId }),
   );
+  const [experiencesFetched, setExperiencesFetched] = useState(false);
   useEffect(() => {
-    if (experiences.length === 0 && !experiencesUpdating) {
+    // Only load experiences if they have never been fetched by this component (!experiencesFetched),
+    //  have never been fetched by another component (length === 0),
+    //  and are not currently being fetched (!experiencesUpdating).
+    // Also, wait until application has been loaded so the correct source can be determined.
+    if (
+      applicationLoaded &&
+      !experiencesFetched &&
+      !experiencesUpdating &&
+      experiences.length === 0
+    ) {
       if (useProfileExperience) {
-        if (applicantId !== 0) {
-          dispatch(fetchExperienceByApplicant(applicantId));
-        }
+        dispatch(fetchExperienceByApplicant(applicantId));
       } else {
         dispatch(fetchExperienceByApplication(applicationId));
       }
+      setExperiencesFetched(true);
     }
   }, [
-    experiences.length,
     applicantId,
     applicationId,
+    applicationLoaded,
+    dispatch,
+    experiences.length,
+    experiencesFetched,
     experiencesUpdating,
     useProfileExperience,
-    dispatch,
   ]);
 
   const expSkillSelector = (state: RootState) =>
