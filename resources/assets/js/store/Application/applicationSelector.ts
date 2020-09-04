@@ -2,7 +2,7 @@
 import createCachedSelector from "re-reselect";
 import { RootState } from "../store";
 import { EntityState, UiState } from "./applicationReducer";
-import { Application, Email } from "../../models/types";
+import { Application, Email, ApplicationNormalized } from "../../models/types";
 import { PropType } from "../../models/app";
 import { hasKey, getId, notEmpty } from "../../helpers/queries";
 
@@ -39,6 +39,16 @@ const constructNonNormalizedApplication = (
   };
 };
 
+export const getApplication = createCachedSelector(
+  getApplicationState,
+  (state: RootState, ownProps: { applicationId: number }): number =>
+    ownProps.applicationId,
+  (applicationState, applicationId): ApplicationNormalized | null =>
+    hasKey(applicationState, applicationId)
+      ? applicationState[applicationId]
+      : null,
+)((state, ownProps): number => ownProps.applicationId);
+
 export const getApplicationById = createCachedSelector(
   getApplicationState,
   getApplicationReviewState,
@@ -54,7 +64,6 @@ export const getApplicationsByJob = createCachedSelector(
     const applicationIds = Object.values(applications)
       .filter((application) => application.job_poster_id === jobId)
       .map(getId);
-    console.log(applicationIds);
     return applicationIds
       .map((id) =>
         constructNonNormalizedApplication(applications, applicationReviews, id),

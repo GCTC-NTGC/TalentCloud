@@ -5,7 +5,12 @@ import {
   asyncPut,
   asyncPost,
 } from "../asyncAction";
-import { Application, ApplicationReview, Email } from "../../models/types";
+import {
+  Application,
+  ApplicationReview,
+  Email,
+  ApplicationNormalized,
+} from "../../models/types";
 import {
   getApplicationEndpoint,
   parseApplication,
@@ -48,6 +53,70 @@ export const fetchApplication = (
     FETCH_APPLICATION_FAILED,
     parseApplication,
     { id },
+  );
+
+export const FETCH_APPLICATION_NORMALIZED_STARTED =
+  "APPLICATION NORMALIZED: GET STARTED";
+export const FETCH_APPLICATION_NORMALIZED_SUCCEEDED =
+  "APPLICATION NORMALIZED: GET SUCCEEDED";
+export const FETCH_APPLICATION_NORMALIZED_FAILED =
+  "APPLICATION NORMALIZED: GET FAILED";
+
+export type FetchApplicationNormalizedAction = AsyncFsaActions<
+  typeof FETCH_APPLICATION_NORMALIZED_STARTED,
+  typeof FETCH_APPLICATION_NORMALIZED_SUCCEEDED,
+  typeof FETCH_APPLICATION_NORMALIZED_FAILED,
+  ApplicationNormalized,
+  { id: number }
+>;
+
+export const fetchApplicationNormalized = (
+  id: number,
+): RSAActionTemplate<
+  typeof FETCH_APPLICATION_NORMALIZED_STARTED,
+  typeof FETCH_APPLICATION_NORMALIZED_SUCCEEDED,
+  typeof FETCH_APPLICATION_NORMALIZED_FAILED,
+  ApplicationNormalized,
+  { id: number }
+> =>
+  asyncGet(
+    getApplicationEndpoint(id),
+    FETCH_APPLICATION_NORMALIZED_STARTED,
+    FETCH_APPLICATION_NORMALIZED_SUCCEEDED,
+    FETCH_APPLICATION_NORMALIZED_FAILED,
+    parseApplication,
+    { id },
+  );
+
+export const UPDATE_APPLICATION_STARTED = "APPLICATION: UPDATE STARTED";
+export const UPDATE_APPLICATION_SUCCEEDED = "APPLICATION: UPDATE SUCCEEDED";
+export const UPDATE_APPLICATION_FAILED = "APPLICATION: UPDATE FAILED";
+
+export type UpdateApplicationAction = AsyncFsaActions<
+  typeof UPDATE_APPLICATION_STARTED,
+  typeof UPDATE_APPLICATION_SUCCEEDED,
+  typeof UPDATE_APPLICATION_FAILED,
+  ApplicationNormalized,
+  { id: number }
+>;
+
+export const updateApplication = (
+  application: ApplicationNormalized,
+): RSAActionTemplate<
+  typeof UPDATE_APPLICATION_STARTED,
+  typeof UPDATE_APPLICATION_SUCCEEDED,
+  typeof UPDATE_APPLICATION_FAILED,
+  ApplicationNormalized,
+  { id: number }
+> =>
+  asyncPut(
+    getApplicationEndpoint(application.id),
+    application,
+    UPDATE_APPLICATION_STARTED,
+    UPDATE_APPLICATION_SUCCEEDED,
+    UPDATE_APPLICATION_FAILED,
+    parseApplication,
+    { id: application.id },
   );
 
 export const FETCH_APPLICATIONS_FOR_JOB_STARTED =
