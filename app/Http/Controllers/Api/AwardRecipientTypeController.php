@@ -9,7 +9,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class AwardRecipientTypeController extends Controller
 {
     /**
-     * Return all departments as an array
+     * Return all award recipient types as an array
      *
      * @return mixed
      */

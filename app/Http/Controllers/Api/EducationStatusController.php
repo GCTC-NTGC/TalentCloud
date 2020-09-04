@@ -9,7 +9,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class EducationStatusController extends Controller
 {
     /**
-     * Return all departments as an array
+     * Return all education statuses as an array
      *
      * @return mixed
      */
