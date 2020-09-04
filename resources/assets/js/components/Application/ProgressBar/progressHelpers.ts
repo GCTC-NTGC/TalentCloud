@@ -1,5 +1,5 @@
 import { IntlShape } from "react-intl";
-import { Application } from "../../../models/types";
+import { ApplicationNormalized } from "../../../models/types";
 import {
   ProgressBarProps,
   stepNames,
@@ -15,33 +15,45 @@ import {
 } from "../../../helpers/routes";
 import { getLocale } from "../../../helpers/localize";
 
-function basicInfoStatus(application: Application): ProgressBarStepStatus {
+function basicInfoStatus(
+  application: ApplicationNormalized,
+): ProgressBarStepStatus {
   // TODO: implement.
   return "complete";
 }
-function experienceStatus(application: Application): ProgressBarStepStatus {
+function experienceStatus(
+  application: ApplicationNormalized,
+): ProgressBarStepStatus {
   // TODO: implement.
   return "complete";
 }
-function skillsStatus(application: Application): ProgressBarStepStatus {
+function skillsStatus(
+  application: ApplicationNormalized,
+): ProgressBarStepStatus {
   // TODO: implement.
   return "complete";
 }
-function myFitStatus(application: Application): ProgressBarStepStatus {
+function myFitStatus(
+  application: ApplicationNormalized,
+): ProgressBarStepStatus {
   // TODO: implement.
   return "complete";
 }
-function reviewStatus(application: Application): ProgressBarStepStatus {
+function reviewStatus(
+  application: ApplicationNormalized,
+): ProgressBarStepStatus {
   // TODO: implement.
   return "complete";
 }
-function submissionStatus(application: Application): ProgressBarStepStatus {
+function submissionStatus(
+  application: ApplicationNormalized,
+): ProgressBarStepStatus {
   // TODO: implement.
   return "complete";
 }
 
 export function makeProgressBarSteps(
-  application: Application,
+  application: ApplicationNormalized,
   intl: IntlShape,
   currentStep:
     | "welcome"
