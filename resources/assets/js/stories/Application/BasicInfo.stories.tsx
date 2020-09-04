@@ -4,6 +4,7 @@ import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
 import { BasicInfo } from "../../components/Application/BasicInfo/BasicInfo";
+import { fakeApplicationNormalized } from "../../fakeData/fakeApplications";
 import fakeJob from "../../fakeData/fakeJob";
 import { Job } from "../../models/types";
 
@@ -21,6 +22,7 @@ stories
     "New Application",
     (): React.ReactElement => (
       <BasicInfo
+        application={fakeApplicationNormalized()}
         job={fakeJob()}
         handleContinue={action("Save and Continue")}
         handleReturn={action("Save and Return to Previous Step")}
@@ -32,6 +34,7 @@ stories
     "Bilingual Language Requirement",
     (): React.ReactElement => (
       <BasicInfo
+        application={fakeApplicationNormalized()}
         job={bilingualRequirementJob}
         handleContinue={action("Save and Continue")}
         handleReturn={action("Save and Return to Previous Step")}

@@ -1,5 +1,11 @@
-import React from "react";
+/* eslint-disable camelcase */
+import React, { useEffect } from "react";
 import { useIntl } from "react-intl";
+import { useDispatch, useSelector } from "react-redux";
+import ReactDOM from "react-dom";
+import BasicInfo from "./BasicInfo";
+import makeProgressBarSteps from "../ProgressBar/progressHelpers";
+import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
 import { getLocale } from "../../../helpers/localize";
 import { navigate } from "../../../helpers/router";
 import {
@@ -7,54 +13,116 @@ import {
   applicationExperienceIntro,
   applicationWelcome,
 } from "../../../helpers/routes";
-import makeProgressBarSteps from "../ProgressBar/progressHelpers";
-import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
-import { fakeApplication } from "../../../fakeData/fakeApplications";
-import BasicInfo from "./BasicInfo";
-import fakeJob from "../../../fakeData/fakeJob";
+import { Job, ApplicationNormalized } from "../../../models/types";
+import RootContainer from "../../RootContainer";
+import { RootState } from "../../../store/store";
+import { getApplication } from "../../../store/Application/applicationSelector";
+import {
+  updateApplication as updateApplicationAction,
+  fetchApplicationNormalized,
+} from "../../../store/Application/applicationActions";
+import { fetchJob } from "../../../store/Job/jobActions";
+import { getJob, getJobIsUpdating } from "../../../store/Job/jobSelector";
 
 interface BasicInfoPageProps {
   applicationId: number;
 }
 
-export const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
+const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
   applicationId,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
+  const dispatch = useDispatch();
 
-  const application = fakeApplication(); // TODO: get real application.
-  const job = fakeJob(); // TODO: Get real job associated with application.
+  // Load Application.
+  useEffect(() => {
+    dispatch(fetchApplicationNormalized(applicationId));
+  }, [dispatch, applicationId]);
 
-  const handleContinue = (values): void => {
-    // TODO: Save basic info form values.
+  const application = useSelector((state: RootState) =>
+    getApplication(state, { applicationId }),
+  );
+
+  // Load Job.
+  const jobId = application?.job_poster_id;
+  const jobSelector = (state: RootState): Job | null =>
+    jobId ? getJob(state, { jobId }) : null;
+  const job = useSelector(jobSelector);
+  const jobUpdatingSelector = (state: RootState): boolean =>
+    jobId ? getJobIsUpdating(state, jobId) : false;
+  const jobIsUpdating = useSelector(jobUpdatingSelector);
+
+  useEffect(() => {
+    // If job is null and not already updating, fetch it.
+    if (jobId && job === null && !jobIsUpdating) {
+      dispatch(fetchJob(jobId));
+    }
+  }, [jobId, job, jobIsUpdating, dispatch]);
+
+  if (application === null || job === null) {
+    return null;
+  }
+
+  const updateApplication = async (
+    editedApplication: ApplicationNormalized,
+  ): Promise<ApplicationNormalized> => {
+    const result = await dispatch(updateApplicationAction(editedApplication));
+    if (!result.error) {
+      const payload = await result.payload;
+      return payload;
+    }
+    return Promise.reject(result.payload);
+  };
+
+  const handleContinue = (values: ApplicationNormalized): void => {
+    updateApplication(values);
     navigate(applicationExperienceIntro(locale, applicationId));
   };
-  const handleReturn = (values): void => {
-    // TODO: Save basic info form values.
+  const handleReturn = (values: ApplicationNormalized): void => {
+    updateApplication(values);
     navigate(applicationWelcome(locale, applicationId));
   };
-  const handleQuit = (values): void => {
-    // TODO: Save basic info form values.
+  const handleQuit = (values: ApplicationNormalized): void => {
+    updateApplication(values);
     // Because the Applications Index is outside of the Application SPA, we navigate to it differently.
     window.location.href = applicationIndex(locale);
   };
-  const closeDate = new Date(); // TODO: get from application.
+
+  const closeDate = job?.close_date_time;
+
   return (
-    <>
-      <ProgressBar
-        closeDateTime={closeDate}
-        currentTitle={intl.formatMessage(stepNames.step01)}
-        steps={makeProgressBarSteps(application, intl, "basic")}
-      />
-      <BasicInfo
-        job={job}
-        handleContinue={handleContinue}
-        handleReturn={handleReturn}
-        handleQuit={handleQuit}
-      />
-    </>
+    closeDate && (
+      <>
+        <ProgressBar
+          closeDateTime={closeDate}
+          currentTitle={intl.formatMessage(stepNames.step01)}
+          steps={makeProgressBarSteps(application, intl, "basic")}
+        />
+        <BasicInfo
+          application={application}
+          job={job}
+          handleContinue={handleContinue}
+          handleReturn={handleReturn}
+          handleQuit={handleQuit}
+        />
+      </>
+    )
   );
 };
 
 export default BasicInfoPage;
+
+if (document.getElementById("application-basic")) {
+  const container = document.getElementById("application-basic") as HTMLElement;
+  const applicationIdAttr = container.getAttribute("data-application-id");
+  const applicationId = applicationIdAttr ? Number(applicationIdAttr) : null;
+  if (applicationId) {
+    ReactDOM.render(
+      <RootContainer>
+        <BasicInfoPage applicationId={applicationId} />
+      </RootContainer>,
+      container,
+    );
+  }
+}
