@@ -15,6 +15,7 @@ use App\Services\Validation\ApplicationValidator;
 use App\Services\Validation\StrategicResponseApplicationValidator;
 use Illuminate\Notifications\Notifiable;
 use App\Traits\TalentCloudCrudTrait as CrudTrait;
+use Illuminate\Support\Collection;
 
 /**
  * Class JobApplication
@@ -468,5 +469,51 @@ class JobApplication extends BaseModel
             $newSkillDecs = $old->skill_declarations->map($findNewSkillDeclarationFromOld);
             $newSample->skill_declarations()->sync($newSkillDecs);
         }
+    }
+
+    /**
+     * Replicate and save experience and update its relationships.
+     *
+     * @return void
+     */
+    public function replicateAndSaveExperience(Collection $experiences, String $experience_type)
+    {
+        // Iterate through applicant experiences, replicate the experience, and save to the application.
+        foreach ($experiences as $experience) {
+            $experienceCopy = $experience->replicate();
+            $this->{$experience_type}()->save($experienceCopy);
+            // Iterate through original exercises exerciseSkills list, replicate it, and save to the new copy.
+            foreach ($experience->experience_skills as $experienceSkill) {
+                $experienceSkillCopy = $experienceSkill->replicate();
+                $experienceCopy->experience_skills()->save($experienceSkillCopy);
+            }
+        }
+    }
+
+    /**
+     * Save copies of Experiences and its linked skills (ExperienceSkills) to this application.
+     *
+     * @return void
+     */
+    public function saveProfileSnapshotTimeline(): void
+    {
+        $applicant = $this->applicant->fresh();
+
+        $this->user_name = $applicant->user->full_name;
+        $this->user_email = $applicant->user->email;
+        $this->save();
+
+        // Delete previous snapshot.
+        $this->experiences_award()->delete();
+        $this->experiences_community()->delete();
+        $this->experiences_education()->delete();
+        $this->experiences_personal()->delete();
+        $this->experiences_work()->delete();
+
+        $this->replicateAndSaveExperience($applicant->experiences_award, 'experiences_award');
+        $this->replicateAndSaveExperience($applicant->experiences_community, 'experiences_community');
+        $this->replicateAndSaveExperience($applicant->experiences_education, 'experiences_education');
+        $this->replicateAndSaveExperience($applicant->experiences_personal, 'experiences_personal');
+        $this->replicateAndSaveExperience($applicant->experiences_work, 'experiences_work');
     }
 }
