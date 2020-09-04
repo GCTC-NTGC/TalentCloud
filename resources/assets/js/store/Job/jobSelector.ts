@@ -43,7 +43,7 @@ export const getAllJobsInDept = createCachedSelector(
   (state: RootState, ownProps: { departmentId: number }): number =>
     ownProps.departmentId,
   (jobs, departmentId): Job[] =>
-    jobs.filter(job => job.department_id === departmentId),
+    jobs.filter((job) => job.department_id === departmentId),
 )((state, ownProps): number => ownProps.departmentId);
 
 export const getJob = createCachedSelector(
