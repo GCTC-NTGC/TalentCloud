@@ -65,6 +65,10 @@ import awardRecipientTypeReducer, {
   initAwardRecipientTypeState,
   AwardRecipientTypeState,
 } from "./AwardRecipientType/awardRecipientTypeReducer";
+import awardRecognitionTypeReducer, {
+  AwardRecognitionTypeState,
+  initAwardRecognitionTypeState,
+} from "./AwardRecognitionType/awardRecognitionTypeReducer";
 
 export type AppAction =
   | JobAction
@@ -83,6 +87,7 @@ export interface RootState {
   jobs: JobState;
   assessment: AssessmentState;
   awardRecipientType: AwardRecipientTypeState;
+  awardRecognitionType: AwardRecognitionTypeState;
   ratingGuideQuestion: RatingGuideQuestionState;
   ratingGuideAnswer: RatingGuideAnswerState;
   skill: SkillState;
@@ -101,6 +106,7 @@ export const initState = (): RootState => ({
   jobs: initJobs(),
   assessment: initAssessment(),
   awardRecipientType: initAwardRecipientTypeState(),
+  awardRecognitionType: initAwardRecognitionTypeState(),
   ratingGuideQuestion: initRatingGuideQuestion(),
   ratingGuideAnswer: initRatingGuideAnswer(),
   skill: initSkill(),
@@ -120,6 +126,7 @@ export const rootReducer = (): Reducer<RootState> =>
     jobs: jobsReducer,
     assessment: assessmentReducer,
     awardRecipientType: awardRecipientTypeReducer,
+    awardRecognitionType: awardRecognitionTypeReducer,
     ratingGuideQuestion: ratingGuideQuestionReducer,
     ratingGuideAnswer: ratingGuideAnswerReducer,
     skill: skillReducer,
