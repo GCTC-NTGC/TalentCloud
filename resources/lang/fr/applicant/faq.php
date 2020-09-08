@@ -589,7 +589,7 @@ return [
                 ],
                 'links' => [
                     '0' => '<a href="#partners" title="Voir les ministères partenaires du Nuage des talents.">veuillez consulter la foire aux questions du site Web du Nuage de talents</a>',
-                    '1' => '<a href="manager" title="Visitez le portail des gestionnaires du Nuage des talents.">portail des gestionnaires de Nuages de talents</a>',
+                    '1' => '<a href="' . route('manager.home') . '" title="Visitez le portail des gestionnaires du Nuage des talents.">portail des gestionnaires de Nuages de talents</a>',
                     '2' => '<a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Envoyer un courriel au Nuage de talents.">talent.cloud-nuage.de.talents@tbs-sct.gc.ca</a>'
                 ]
             ],
@@ -614,14 +614,12 @@ return [
                             '2' => 'Affaires mondiales Canada',
                             '3' => 'Ressources naturelles Canada',
                             '4' => 'Agence des services frontaliers du Canada',
-                            '5' => 'Ministère de la Défense nationale',
-                            '6' => 'Services partagés Canada',
-                            '7' => 'Santé Canada',
-                            '8' => 'Conseil national de recherches Canada',
-                            '9' => 'Emploi et Développement social Canada',
-                            '10' => 'Gendarmerie royale du Canada',
-                            '11' => 'Services publics et Approvisionnement Canada',
-                            '12' => 'Ministère de la Justice'
+                            '5' => 'Services partagés Canada',
+                            '6' => 'Conseil national de recherches Canada',
+                            '7' => 'Emploi et Développement social Canada',
+                            '8' => 'Gendarmerie royale du Canada',
+                            '9' => 'Services publics et Approvisionnement Canada',
+                            '10' => 'Ministère de la Justice'
                         ]
                     ]
                 ]

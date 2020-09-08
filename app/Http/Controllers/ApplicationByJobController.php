@@ -343,6 +343,9 @@ class ApplicationByJobController extends Controller
         $work_experiences = $application->isDraft()
             ? $applicant->work_experiences
             : $application->work_experiences;
+        $work_samples = $application->isDraft()
+            ? $applicant->work_samples
+            : $application->work_samples;
 
         $viewTemplate = $jobPoster->isInStrategicResponseDepartment()
             ? 'applicant/strategic_response_application/application_post_05'
@@ -379,6 +382,7 @@ class ApplicationByJobController extends Controller
                 'degrees' => $degrees,
                 'courses' => $courses,
                 'work_experiences' => $work_experiences,
+                'work_samples' => $work_samples,
                 'is_manager_view' => WhichPortal::isManagerPortal(),
                 'is_draft' => $application->application_status->name == 'draft',
             ]

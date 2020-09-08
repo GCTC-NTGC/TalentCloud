@@ -22,6 +22,7 @@ mix
   .js("resources/assets/js/modernizr.js", "public/js")
   .js("resources/assets/js/alerts.js", "public/js")
   .js("resources/assets/js/getpdf.js", "public/js")
+  .js("resources/assets/js/typeToDelete.js", "public/js")
   .ts("resources/assets/js/managerRegistration.ts", "public/js")
   .ts(
     "resources/assets/js/components/AssessmentPlan/AssessmentPlanRoot.tsx",
@@ -59,6 +60,10 @@ mix
   )
   .ts(
     "resources/assets/js/components/StrategicTalentResponse/ResponseScreening/ResponseScreeningPage.tsx",
+    "public/js",
+  )
+  .ts(
+    "resources/assets/js/components/Application/ApplicationRoot.tsx",
     "public/js",
   )
   .sass("resources/assets/sass/app.scss", "public/css", {

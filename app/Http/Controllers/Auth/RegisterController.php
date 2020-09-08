@@ -46,12 +46,6 @@ class RegisterController extends AuthController
             $redirectTo = route('home');
         }
 
-        // Redirect to Response landing page if user registered from that page.
-        $response_url = session()->get('response.index');
-        if ($response_url == route('response.index')) {
-            $redirectTo = route('response.index');
-        }
-
         return $redirectTo;
     }
 
@@ -72,19 +66,6 @@ class RegisterController extends AuthController
      */
     public function showRegistrationForm()
     {
-        // If user came from response landing page then save url to session.
-        // Set the "Return home" link back to Response page.
-        $previous_url = session()->get('_previous')['url'];
-        if ($previous_url == route('response.index')) {
-            session()->put('response.index', route('response.index'));
-
-            return view('auth.register', [
-                'routes' => $this->auth_routes(),
-                'register' => Lang::get('common/auth/register'),
-                'home_url' => route('response.index'),
-            ]);
-        }
-
         return view('auth.register', [
             'routes' => $this->auth_routes(),
             'register' => Lang::get('common/auth/register'),
@@ -169,6 +150,8 @@ class RegisterController extends AuthController
         $user->first_name = $data['first_name'];
         $user->last_name = $data['last_name'];
         $user->email = $data['email'];
+        $user->contact_language = $data['contact_language'];
+        $user->job_alerts = $data['job_alerts'];
         $user->password = Hash::make($data['password']);
 
         // Default to basic user.

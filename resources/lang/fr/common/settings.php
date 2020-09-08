@@ -15,7 +15,8 @@ return [
         'personal' => 'Renseignements personnels',
         'government' => 'Information du gouvernement du Canada',
         'password' => 'Mot de passe',
-        'two_factor' => 'Authentification à deux facteurs'
+        'two_factor' => 'Authentification à deux facteurs',
+        'delete' => 'Supprimez le compte'
     ],
     'personal_copy' => 'Cette information sert à vous identifier sur la plateforme.',
     'required' => 'Champs obligatoires',
@@ -36,6 +37,17 @@ return [
     ],
     'gov_email_label' => 'Courriel gouvernemental',
     'government_save' => 'Sauvegarder l\'information du gouvernement',
+    'contact_preferences' => 'Préférences pour les communications',
+    'contact_preferences_copy' => 'Vous trouverez plus bas quelques préférences sur la façon dont le Nuage de talents communique avec vous:',
+    'contact_language_label' => 'Dans quelle langue désirez-vous communiquer?',
+    'contact_language_null_selection' => 'Choisissez une langue...',
+    'contact_languages' => [
+        'en' => 'Anglais',
+        'fr' => 'Français',
+     ],
+    'job_alerts_copy' => 'Par défaut, le Nuage de talents communiquera avec vous à l’occasion concernant des occasions semblables à celles pour lesquelles vous avez postulé. Si vous ne désirez pas recevoir ces courriels, veuillez cocher la boîte plus bas.',
+    'job_alerts_label' => 'Je ne veux pas que le Nuage de talents communique avec moi concernant des emplois liés à ceux pourlesquels je postule.',
+    'save_contact_preferences' => 'Enregistrer les préférences pour les communications.',
     'password_copy' => [
         'one' => 'Vous pouvez utiliser cette section pour modifier votre mot de passe. Les mots de passe doivent contenir un caractère tiré de chacun des critères suivants :',
         'two' => 'Lettres minuscules (a-z)',
@@ -64,12 +76,20 @@ return [
         'nine' => 'LastPass Authenticator pour iOS, Android, OS X',
         'ten' => 'Microsoft Authenticator de Windows pour Windows Phone',
         'eleven' => 'Pour activer l\'A2F, vous devez lier votre téléphone (ou un autre appareil) à votre compte de Nuage de talents en balayant un code QR. Ainsi, vous serez en mesure de générer un mot de passe à usage unique sur demande lorsque vous ouvrez une session. Une fois que vous utilisez l\'A2F, vous n\'aurez plus à l\'utiliser pendant 30 jours sur cet appareil. (Vous devrez quand même entrer votre nom d\'utilisateur et votre mot de passe.)'
-     ],
+    ],
     'two_factor_active' => 'Vous recevez actuellement des codes de vérification au moyen d\'une application d\'authentification sur votre téléphone intelligent.',
     'two_factor_deactivate' => 'Désactivez l\'authentification à deux facteurs',
     'two_factor_status' => 'Statut :',
     'two_factor_on' => 'Activée',
     'two_factor_off' => 'Désactivées',
     'forget_remembered_devices' => 'Oubliez tous les appareils de confiance.',
-    'success_title' => 'Tout va bien.'
+    'success_title' => 'Tout va bien.',
+    'danger_zone' => ' Zone de danger!',
+    'delete_copy_1' => 'Veuillez noter que votre compte du Nuage de talents ainsi que l’ensemble des renseignements de votre profil seront supprimés de façon permanente. Si vous souhaitez poser votre candidature dans le futur, vous devrez vous inscrire à nouveau.',
+    'delete_copy_2' => 'Si vous avez déjà postulé à un emploi, nous sommes dans l’obligation de conserver une copie de votre demande pendant 5 ans, après quoi ces renseignements seront supprimés.',
+    'delete_alert_prefix' => 'Entrez votre adresse de courriel',
+    'delete_alert_suffix' => 'ci dessous pour confirmer que vous souhaitez supprimer définitivement votre compte du Nuage de talents.',
+    'confirm_delete_label' => 'Confirmez la suppression du compte',
+    'delete_placeholder' => 'Saisissez votre adresse de courriel pour activer le bouton Supprimer.',
+    'delete_button' => 'Supprimez le compte',
 ];

@@ -61,11 +61,25 @@ class UserCrudController extends CrudController
             'type' => 'check',
             'label' => 'In Government'
         ]);
+
         $this->crud->addColumn([
             'name' => 'is_priority',
             'type' => 'check',
             'label' => 'Priority'
         ]);
+
+        $this->crud->addColumn([
+            'name' => 'contact_language',
+            'type' => 'text',
+            'label' => 'Contact Language'
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'job_alerts',
+            'type' => 'check',
+            'label' => 'Job Alerts'
+        ]);
+
         $this->crud->addFilter([
             'name' => 'user_role',
             'type' => 'select2',

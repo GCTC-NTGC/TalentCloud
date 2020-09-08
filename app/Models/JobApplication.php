@@ -31,6 +31,8 @@ use App\Traits\TalentCloudCrudTrait as CrudTrait;
  * @property string $submission_date
  * @property boolean $experience_saved
  * @property boolean $language_requirement_confirmed
+ * @property boolean $language_test_confirmed
+ * @property boolean $education_requirement_confirmed
  * @property string $user_name
  * @property string $user_email
  * @property int $version_id
@@ -43,6 +45,7 @@ use App\Traits\TalentCloudCrudTrait as CrudTrait;
  * @property string $gov_email
  * @property boolean $physical_office_willing
  * @property int $security_clearance_id
+ * @property boolean $share_with_maangers
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -96,6 +99,8 @@ class JobApplication extends BaseModel
         'submission_date' => 'string',
         'experience_saved' => 'boolean',
         'language_requirement_confirmed' => 'boolean',
+        'language_test_confirmed' => 'boolean',
+        'education_requirement_confirmed' => 'boolean',
         'version_id' => 'int',
         'director_name' => 'string',
         'director_title' => 'string',
@@ -106,10 +111,15 @@ class JobApplication extends BaseModel
         'gov_email' => 'string',
         'physical_office_willing' => 'boolean',
         'security_clearance_id' => 'int',
+        'share_with_managers' => 'boolean',
     ];
     protected $fillable = [
         'citizenship_declaration_id',
+        'veteran_status_id',
+        'preferred_language_id',
         'language_requirement_confirmed',
+        'language_test_confirmed',
+        'education_requirement_confirmed',
         'veteran_status_id',
         'preferred_language_id',
         'submission_signature',
@@ -124,6 +134,7 @@ class JobApplication extends BaseModel
         'gov_email',
         'physical_office_willing',
         'security_clearance_id',
+        'share_with_managers',
     ];
 
     /**
@@ -303,8 +314,7 @@ class JobApplication extends BaseModel
                 }
                 break;
             case 'preview':
-                if (
-                    $validator->basicsComplete($this) &&
+                if ($validator->basicsComplete($this) &&
                     $validator->experienceComplete($this) &&
                     $validator->essentialSkillsComplete($this) &&
                     $validator->assetSkillsComplete($this)
@@ -354,8 +364,7 @@ class JobApplication extends BaseModel
         $source = $this->isDraft() ? $this->applicant : $this;
         foreach ($essentialCriteria as $criterion) {
             $skillDeclaration = $source->skill_declarations->where('skill_id', $criterion->skill_id)->first();
-            if (
-                $skillDeclaration === null ||
+            if ($skillDeclaration === null ||
                 $skillDeclaration->skill_level_id < $criterion->skill_level_id
             ) {
                 return false;

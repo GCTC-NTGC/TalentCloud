@@ -127,6 +127,8 @@ export const ClassificationId = {
   PE: 11,
   PM: 12,
   AD: 13,
+  "EN-ENG": 14,
+  FI: 15,
 };
 
 export const CommentTypeId = {
@@ -179,10 +181,22 @@ export enum ResponseScreeningBuckets {
   DoesNotQualify = "does_not_qualify",
 }
 
+export const CitizenshipId = {
+  citizen: 1,
+  permanentResident: 2,
+  workPermitOpen: 3,
+  workPermitClosed: 4,
+  notEntitled: 5,
+};
+
+export const VeteranId = {
+  none: 1,
+  current: 2,
+  past: 3,
+};
+
 export function getKeyByValue(object, value): string {
-  return (
-    Object.keys(object).find((key) => object[key] === parseInt(value, 10)) || ""
-  );
+  return Object.keys(object).find((key) => object[key] === value) || "";
 }
 
 export function enumToIds(enumType: object): number[] {

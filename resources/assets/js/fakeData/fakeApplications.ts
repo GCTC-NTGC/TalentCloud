@@ -42,6 +42,7 @@ export const fakeApplicationNormalized = (
   experience_saved: true,
   created_at: new Date("2020-01-01"),
   updated_at: new Date("2020-01-01"),
+  share_with_managers: false,
   veteran_status: {
     id: 1,
     name: "none",
@@ -73,6 +74,8 @@ export const fakeApplicationNormalized = (
       not_in_gov: false,
       gov_email: "frankie.lambda@canada.ca",
       department_id: 1,
+      contact_language: "en",
+      job_alerts: true,
       user_role: {
         id: 1,
         key: "basic",
@@ -86,6 +89,9 @@ export const fakeApplicationNormalized = (
     },
   },
   meets_essential_criteria: true,
+  language_requirement_confirmed: true,
+  language_test_confirmed: true,
+  education_requirement_confirmed: true,
   ...overrides,
 });
 

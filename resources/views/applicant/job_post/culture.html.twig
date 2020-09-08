@@ -26,11 +26,11 @@
 				<span>{{ manager.user.department.name }}</span>
 			</div>
 			{% if auth_guest() %}
-				<a class="job-post__culture-manager-profile-link gtag-applicant-job-poster-to-manager-profile" href="{{ route('managers.show', job_post) }}" title="{{ job_post.manager.link_title|replace({":name": manager.user.first_name}) }}">
+				<a class="job-post__culture-manager-profile-link gtag-applicant-job-poster-to-manager-profile" href="{{ route('managers.show', job) }}" title="{{ job_post.manager.link_title|replace({":name": manager.user.first_name}) }}">
 					{{ job_post.culture.guest_manager_link_label|replace({":name": manager.user.first_name}) }}
 				</a>
 			{% else %}
-				<a class="job-post__culture-manager-profile-link gtag-applicant-job-poster-to-manager-profile" href="{{ route('managers.show', job_post) }}" title="{{ job_post.manager.link_title|replace({":name": manager.user.first_name}) }}">
+				<a class="job-post__culture-manager-profile-link gtag-applicant-job-poster-to-manager-profile" href="{{ route('managers.show', job) }}" title="{{ job_post.manager.link_title|replace({":name": manager.user.first_name}) }}">
 					{{ job_post.culture.manager_link_label|replace({":name": manager.user.first_name}) }}
 				</a>
 			{% endif %}

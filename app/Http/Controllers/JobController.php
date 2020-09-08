@@ -76,19 +76,15 @@ class JobController extends Controller
             ->get();
 
         foreach ($jobs as &$job) {
-            $chosen_lang = $job->chosen_lang;
+            // If the chosen language is null then set to english.
+            $chosen_lang = $job->chosen_lang ?: 'en';
 
             // Show chosen lang title if current title is empty.
             if (empty($job->title)) {
                 $job->title = $job->getTranslation('title', $chosen_lang);
                 $job->trans_required = true;
             }
-
-            // Always preview and edit in the chosen language.
-            $job->preview_link = LaravelLocalization::getLocalizedURL($chosen_lang, route('manager.jobs.preview', $job));
-            $job->edit_link = LaravelLocalization::getLocalizedURL($chosen_lang, route('manager.jobs.edit', $job));
         }
-
 
         return view('manager/job_index', [
             // Localization Strings.
@@ -227,6 +223,13 @@ class JobController extends Controller
         $jpb_release_date = strtotime('2019-08-21 16:18:17');
         $job_created_at = strtotime($jobPoster->created_at);
 
+        $custom_breadcrumbs = [
+            'home' => route('home'),
+            'jobs' => route(WhichPortal::prefixRoute('jobs.index')),
+            $jobPoster->title ?: 'job-title-missing' => route(WhichPortal::prefixRoute('jobs.summary'), $jobPoster),
+            'preview' => '',
+        ];
+
         // If the poster is part of the Strategic Talent Response dept, use the talent stream template.
         // Else, If the job poster is created after the release of the JPB.
         // Then, render with updated poster template.
@@ -242,6 +245,7 @@ class JobController extends Controller
                     'manager' => $jobPoster->manager,
                     'criteria' => $criteria,
                     'apply_button' => $applyButton,
+                    'custom_breadcrumbs' => $custom_breadcrumbs,
                 ]
             );
         } elseif ($job_created_at > $jpb_release_date) {
@@ -256,6 +260,7 @@ class JobController extends Controller
                     'manager' => $jobPoster->manager,
                     'criteria' => $criteria,
                     'apply_button' => $applyButton,
+                    'custom_breadcrumbs' => $custom_breadcrumbs,
                 ]
             );
         } else {
@@ -274,6 +279,7 @@ class JobController extends Controller
                     'criteria' => $criteria,
                     'apply_button' => $applyButton,
                     'skill_template' => Lang::get('common/skills'),
+                    'custom_breadcrumbs' => $custom_breadcrumbs,
                 ]
             );
         }

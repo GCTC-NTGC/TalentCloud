@@ -14,7 +14,7 @@ use App\Models\BaseModel;
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
- * @property \Illuminate\Database\Eloquent\Collection $skills
+ * @property \App\Models\Skill $skill
  * @property \App\Models\ExperienceAward|\App\Models\ExperienceCommunity|\App\Models\ExperienceEducation|\App\Models\ExperiencePersonal|\App\Models\ExperienceWork $experience
  */
 class ExperienceSkill extends BaseModel
@@ -30,7 +30,7 @@ class ExperienceSkill extends BaseModel
         'justification'
     ];
 
-    public function skills()
+    public function skill()
     {
         return $this->belongsTo(\App\Models\Skill::class);
     }
