@@ -73,6 +73,10 @@ import educationStatusReducer, {
   EducationStatusState,
   initEducationStatusState,
 } from "./EducationStatus/educationStatusReducer";
+import educationTypeReducer, {
+  EducationTypeState,
+  initEducationTypeState,
+} from "./EducationType/educationTypeReducer";
 
 export type AppAction =
   | JobAction
@@ -97,6 +101,7 @@ export interface RootState {
   skill: SkillState;
   assessmentPlanNotification: AssessmentPlanNotificationState;
   educationStatus: EducationStatusState;
+  educationType: EducationTypeState;
   error: ErrorState;
   department: DeptState;
   manager: ManagerState;
@@ -117,6 +122,7 @@ export const initState = (): RootState => ({
   skill: initSkill(),
   assessmentPlanNotification: initAssessmentPlanNotification(),
   educationStatus: initEducationStatusState(),
+  educationType: initEducationTypeState(),
   error: initErrors(),
   department: initDeptState(),
   manager: initManagerState(),
@@ -138,6 +144,7 @@ export const rootReducer = (): Reducer<RootState> =>
     skill: skillReducer,
     assessmentPlanNotification: assessmentPlanNotificationReducer,
     educationStatus: educationStatusReducer,
+    educationType: educationTypeReducer,
     error: errorReducer,
     department: deptReducer,
     manager: managerReducer,
